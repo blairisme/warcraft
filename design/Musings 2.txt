@@ -1,0 +1,134 @@
+Unit
+- id
+- type
+- owner
+
+- selected
+- enabled
+- size
+- position
+- properties (id: object)
+
+
+Sequential Execution Action - Actions run one by one. Complete when all complete.
+- A0...An actions
+
+Parallel Execution Action - Actions run in parallel. Complete when all complete.
+- A0...An actions
+
+Repetitious Execution Action - Runs until predicate returns
+- Action
+- Action Predicate
+
+Prerequisite Action - Runs prerequisite if predicate unfulfilled
+- Prerequisite Action
+- Prerequisite Predicate
+- Action
+
+Action Predicate
+- Target (actor)
+- Property (property reference)
+- Value
+-
+
+Create Action
+- Position (vector)
+- Type (actor type)
+
+Remove Action
+- Target (actor)
+
+Placeholder (sleep) Action
+- Duration
+
+
+
+Modify Action
+- Target (actor + hit location)
+- Property (Property Id)
+- Value (vector|float|boolean|property reference)
+- Duration (float|instant|infinite)
+- Animation before (id)
+- Animation after (id)
+
+Select
+- Target (actor)
+- Property (selected)
+- Value (true)
+- Duration (instant)
+- Animation before (none)
+- Animation after (none)
+
+Unselect
+- Target (actor)
+- Property (selected)
+- Value (false)
+- Duration (instant)
+- Animation before (none)
+- Animation after (none)
+
+Move
+- Target (map position / actor + hit point)
+- Property (position)
+- Value/Delta (destination vector)
+- Duration (until reached)   <---- !!!
+- Animation before (id)
+- Animation after (id)
+
+Attack
+- Target (actor)
+- Property (health)
+- Value/Delta (damage per second)
+- Duration (infinite)
+- Animation before (id)
+- Animation after (id)
+
+
+
+Buff/Debuff X by Y
+- Target (actor)
+- Property (X)
+- Value/Delta (Y)
+- Duration (instant)
+- Animation before (id)
+- Animation after (id)
+
+Gather (take) X by Y for Z
+- Target (actor)
+- Property (X)
+- Value/Delta (Y)
+- Duration (Z)
+- Animation before (id)
+- Animation after (id)
+
+Gather (receive) X by Y
+- Target (actor - player)
+- Property (X)
+- Value/Delta (Y)
+- Duration (instant)
+- Animation before (none)
+- Animation after (none)
+
+Construct
+- Target (actor)
+- Property (complete)
+- Value/Delta (property reference)
+- Duration (until complete)
+- Animation before (id)
+- Animation after (id)
+
+Repair/Heal
+- Target (actor)
+- Property (health)
+- Value/Delta (heal per second)
+- Duration (until healed)
+- Animation before (id)
+- Animation after (id)
+
+Upgrade X by Y
+- Target (actor)
+- Property (X)
+- Value/Delta (Y)
+- Duration (instant)
+- Animation before (none)
+- Animation after (none)

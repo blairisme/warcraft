@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<units>
+	<unit>
+		<id>u1</id>
+		
+		<!-- Unit Details -->
+		
+		<name>Footman</name>
+		<movement_speed></movement_speed>
+		<attack_speed></attack_speed>
+		<power></attack>
+		<armour></armour>
+		
+		<!-- Texture Information -->
+		
+		<texture_packs>
+			<texture_pack>
+				<id></id>
+				<file_path></file_path>
+			</texture_pack>
+		<texture_packs>
+		
+		<textures>
+			<texture>
+				<id></id>
+				<coords></coords>
+			</texture>
+		</textures>
+			
+		</textures>
+		
+		<!-- Movement Sequences -->
+		
+		<move_north></move_north>
+		
+		<move_north_east></move_north_east>
+		
+		<move_east></move_east>
+	
+		<move_south_east></move_south_east>
+		
+		<move_south></move_south>
+
+		<move_south_west></move_south_west>
+		
+		<move_west></move_west>
+		
+		<move_north_west></move_north_west>
+		
+		<!-- Attack Sequences -->
+		
+		<attack_north></attack_north>
+		
+		<attack_north_east></attack_north_east>
+		
+		<attack_east></attack_east>
+	
+		<attack_south_east></attack_south_east>
+		
+		<attack_south></attack_south>
+
+		<attack_south_west></attack_south_west>
+		
+		<attack_west></attack_west>
+		
+		<attack_north_west></attack_north_west>
+		
+		<!-- Death Sequence -->
+		
+		<death_north></death_north>
+		
+		<death_north_east></death_north_east>
+		
+		<death_east></death_east>
+	
+		<death_south_east></death_south_east>
+		
+		<death_south></death_south>
+
+		<death_south_west></death_south_west>
+		
+		<death_west></death_west>
+		
+		<death_north_west></death_north_west>
+	</unit>
+</units>

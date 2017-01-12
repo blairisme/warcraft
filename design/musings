@@ -1,0 +1,48 @@
+move -> selected to target
+ - position
+ -
+
+attack -> selected to target
+ - health
+
+build -> selected to
+
+gather
+buff
+
+select <- diff?
+pan <- diff?
+stop action
+unselect
+
+
+Move - special logic
+Attack - special logic
+
+
+
+Unit
+- id
+- type
+- owner
+
+- selected
+- selection enabled
+
+- position
+- move enabled
+- move speed
+- move capability
+
+- health
+- attack enabled
+- attack speed
+- attack power
+- attack distance
+
+- build enabled
+- build speed
+
+- resource
+- resource enabled
+- resource type

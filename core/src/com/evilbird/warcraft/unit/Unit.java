@@ -1,0 +1,125 @@
+package com.evilbird.warcraft.unit;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
+import com.evilbird.warcraft.graphics.DirectionalAnimation;
+import com.evilbird.warcraft.item.Item;
+import com.evilbird.warcraft.utility.Identifier;
+
+import java.util.Map;
+import java.util.Objects;
+
+public class Unit extends Item
+{
+    private static final Identifier ANIMATION_PROPERTY = new Identifier("Animation");
+
+    private Identifier animationId;
+    private DirectionalAnimation animation;
+    private Map<Identifier, DirectionalAnimation> animations;
+
+    private float time;
+    private float direction;
+
+    public Unit(Map<Identifier, Object> properties, Map<Identifier, DirectionalAnimation> animations)
+    {
+        super(properties);
+        this.animations = animations;
+
+        setAnimation(new Identifier("Idle")); // TODO: Read from properties
+    }
+
+    @Override
+    public void act(float delta)
+    {
+        super.act(delta);
+        time += delta;
+    }
+
+    @Override
+    public void draw(Batch batch, float alpha)
+    {
+        TextureRegion region = animation.getKeyFrame(time);
+        batch.draw(region, getX(), getY(), getOriginX(), getOriginY(),
+                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+
+        if (getSelected())
+        {
+            batch.end();
+            ShapeRenderer shapeRenderer = new ShapeRenderer();
+            shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+            shapeRenderer.begin(ShapeType.Line);
+            shapeRenderer.setColor(Color.RED);
+            shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
+            shapeRenderer.end();
+            shapeRenderer.dispose();
+            batch.begin();
+        }
+    }
+
+    public Identifier getAnimation()
+    {
+        return animationId;
+    }
+
+    public void setAnimation(Identifier animationId)
+    {
+        this.animationId = animationId;
+        this.animation = animations.get(animationId);
+        this.animation.setDirection(direction);
+    }
+
+    @Override
+    public Object getProperty(Identifier property)
+    {
+        if (Objects.equals(property, ANIMATION_PROPERTY))
+        {
+            return getAnimation();
+        }
+        return super.getProperty(property);
+    }
+
+    @Override
+    public void setProperty(Identifier property, Object value)
+    {
+        if (Objects.equals(property, ANIMATION_PROPERTY))
+        {
+            setAnimation((Identifier) value);
+        }
+        super.setProperty(property, value);
+    }
+
+    @Override
+    public void setPosition(float newX, float newY)
+    {
+        float previousX = getX();
+        float previousY = getY();
+
+        super.setPosition(newX, newY);
+        this.setDirection(previousX, previousY, newX, newY);
+    }
+
+    @Override
+    public void setPosition(float newX, float newY, int alignment)
+    {
+        float previousX = getX(alignment);
+        float previousY = getY(alignment);
+
+        super.setPosition(newX, newY, alignment);
+        this.setDirection(previousX, previousY, newX, newY);
+    }
+
+    private void setDirection(float previousX, float previousY, float newX, float newY)
+    {
+        Vector2 destination = new Vector2(newX, newY);
+        Vector2 position = new Vector2(previousX, previousY);
+        Vector2 directionVector = destination.sub(position);
+        Vector2 normalizedDirection = directionVector.nor();
+
+        direction = normalizedDirection.angle();
+        animation.setDirection(direction);
+    }
+}
