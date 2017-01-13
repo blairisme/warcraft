@@ -1,5 +1,6 @@
 package com.evilbird.warcraft.unit;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,6 +17,8 @@ import java.util.Objects;
 public class Unit extends Item
 {
     private static final Identifier ANIMATION_PROPERTY = new Identifier("Animation");
+    private static final Identifier SOUND_PROPERTY = new Identifier("Sound");
+    private static final Identifier SOUNDS_PROPERTY = new Identifier("Sounds");
 
     private Identifier animationId;
     private DirectionalAnimation animation;
@@ -37,6 +40,24 @@ public class Unit extends Item
     {
         super.act(delta);
         time += delta;
+        play();
+    }
+
+    //TODO: Log if sound is missing
+    public void play()
+    {
+        Identifier sound = (Identifier)getProperty(SOUND_PROPERTY);
+        if (sound != null)
+        {
+            Map<Identifier, Sound> sounds = (Map<Identifier, Sound>)getProperty(SOUNDS_PROPERTY);
+            Sound audio = sounds != null ? sounds.get(sound) : null;
+
+            if (audio != null)
+            {
+                audio.play(1f);
+                setProperty(SOUND_PROPERTY, null);
+            }
+        }
     }
 
     @Override

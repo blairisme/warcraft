@@ -1,6 +1,7 @@
 package com.evilbird.warcraft.unit;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -67,6 +68,17 @@ public class UnitFactory
 
     private Unit newPeasant()
     {
+        Sound selected = assets.get("data/sounds/human/unit/peasant/selected_1.mp3", Sound.class);
+        Sound complete = assets.get("data/sounds/human/unit/peasant/complete.mp3", Sound.class);
+        Sound acknowledge = assets.get("data/sounds/human/unit/peasant/acknowledge_1.mp3", Sound.class);
+        Sound construct = assets.get("data/sounds/human/unit/peasant/construct.mp3", Sound.class);
+
+        Map<Identifier, Sound> sounds = new HashMap<Identifier, Sound>();
+        sounds.put(new Identifier("Selected"), selected);
+        sounds.put(new Identifier("Complete"), complete);
+        sounds.put(new Identifier("Acknowledge"), acknowledge);
+        sounds.put(new Identifier("Construct"), construct);
+
         Texture texture = assets.get("data/textures/human/perennial/peasant.png", Texture.class);
         Map<Identifier, DirectionalAnimation> animations = getAnimationSet(texture);
         animations.put(new Identifier("GatherGold"), animations.get(new Identifier("Hidden")));
@@ -81,6 +93,7 @@ public class UnitFactory
         properties.put(new Identifier("Selected"), false);
         properties.put(new Identifier("Gold"), 0f);
         properties.put(new Identifier("Wood"), 0f);
+        properties.put(new Identifier("Sounds"), sounds);
 
         return new Unit(properties, animations);
     }
@@ -130,6 +143,7 @@ public class UnitFactory
         properties.put(new Identifier("Type"), new Identifier("Wood"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
         properties.put(new Identifier("Selected"), false);
+        properties.put(new Identifier("Enabled"), true);
         properties.put(new Identifier("Wood"), 100f);
 
         return new Unit(properties, animations);

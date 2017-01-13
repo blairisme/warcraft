@@ -3,6 +3,7 @@ package com.evilbird.warcraft.level;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -67,12 +68,17 @@ public class LevelScreen extends GameScene
     @Override
     public void create()
     {
+        //TODO: Needs urgent refactor
         AssetManager assets = getDevice().getAssetStorage().getAssets();
         assets.load("data/levels/human/level1.tmx", TiledMap.class);
         assets.load("data/textures/human/perennial/footman.png", Texture.class);
         assets.load("data/textures/human/hud/resource.png", Texture.class);
         assets.load("data/textures/neutral/hud/resource-icon.png", Texture.class);
         assets.load("data/textures/neutral/perennial/construction.png", Texture.class);
+        assets.load("data/sounds/human/unit/peasant/selected_1.mp3", Sound.class);
+        assets.load("data/sounds/human/unit/peasant/acknowledge_1.mp3", Sound.class);
+        assets.load("data/sounds/human/unit/peasant/complete.mp3", Sound.class);
+        assets.load("data/sounds/human/unit/peasant/construct.mp3", Sound.class);
         assets.finishLoading();
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -208,7 +214,6 @@ public class LevelScreen extends GameScene
 
         stage.act(delta);
         stage.draw();
-
 
         hud.act(delta);
         hud.draw();

@@ -32,6 +32,7 @@ public class ActionFactory
     private static final Identifier GATHER_GOLD_ACTION = new Identifier("GatherGold");
     private static final Identifier GATHER_WOOD_ACTION = new Identifier("GatherWood");
     private static final Identifier BUILD_FARM = new Identifier("BuildFarm");
+    private static final Identifier BUILD_BARRACKS = new Identifier("BuildBarracks");
 
     private UnitFactory unitFactory;
 
@@ -42,23 +43,18 @@ public class ActionFactory
 
     public Action newAction(Identifier action, Actor actor, Object value)
     {
-        if (Objects.equals(action, SELECT_ACTION)) return select(actor, value);
+        if (Objects.equals(action, SELECT_ACTION)) return select(actor, (Boolean)value);
         if (Objects.equals(action, MOVE_ACTION)) return move(actor, (Vector2)value);
         if (Objects.equals(action, PAN_ACTION)) return pan(actor, value);
         if (Objects.equals(action, ZOOM_ACTION)) return zoom(actor, value);
         if (Objects.equals(action, GATHER_GOLD_ACTION)) return gatherGold(actor, (Actor)value);
         if (Objects.equals(action, GATHER_WOOD_ACTION)) return gatherWood(actor, (Actor)value);
         if (Objects.equals(action, BUILD_FARM)) return buildFarm(actor, (Vector2)value);
+        if (Objects.equals(action, BUILD_BARRACKS)) return buildBarracks(actor, (Vector2)value);
         throw new IllegalArgumentException();
     }
 
-    private Action select(Actor actor, Object selected)
-    {
-        Identifier property = new Identifier("Selected");
-        ActionModifier modifier = new ConstantModifier(selected);
-        ActionDuration duration = new InstantDuration();
-        return new ModifyAction(actor, property, modifier, duration);
-    }
+
 
     private Action animateAction(Actor actor, Object animation)
     {
@@ -113,12 +109,29 @@ public class ActionFactory
         return new ModifyAction(actor, property, modifier, duration);
     }
 
-
+    private Action select(Actor actor, boolean selected)
+    {
+        Action result = setSelected(actor, selected);
+        if (selected)
+        {
+            Action sound = playSound(actor, new Identifier("Selected"));
+            result = new ParallelAction(result, sound);
+        }
+        return result;
+    }
 
     private Action setSelected(Actor actor, boolean selected)
     {
         Identifier property = new Identifier("Selected");
         ActionModifier modifier = new ConstantModifier(selected);
+        ActionDuration duration = new InstantDuration();
+        return new ModifyAction(actor, property, modifier, duration);
+    }
+
+    private Action playSound(Actor actor, Identifier sound)
+    {
+        Identifier property = new Identifier("Sound");
+        ActionModifier modifier = new ConstantModifier(sound);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(actor, property, modifier, duration);
     }
@@ -189,11 +202,6 @@ public class ActionFactory
         return gather(actor, resource, depot, property, gatherAnimation, depositAnimation);
     }
 
-
-
-
-
-
     private Action create(Stage stage, Identifier type, Identifier id, Vector2 position)
     {
         return new CreateAction(stage, type, unitFactory, id, position);
@@ -209,35 +217,50 @@ public class ActionFactory
 
     private Action build(Actor builder, Identifier building, Stage stage)
     {
+        Action soundBefore = playSound(builder, new Identifier("Construct"));
         Action animateBuilderBefore = animateAction(builder, new Identifier("Build"));
         Action animateBuildingBefore = animateAction(stage, building, new Identifier("Construct"));
-        Action animateBefore = new ParallelAction(animateBuilderBefore, animateBuildingBefore);
+        Action before = new ParallelAction(animateBuilderBefore, animateBuildingBefore, soundBefore);
 
         ActionValue value = new ItemReferenceValue(stage, building, new Identifier("Completion"));
         ActionModifier modifier = new DeltaModifier(100f, DeltaType.PerSecond);
         ActionDuration duration = new TimeDuration(10f);
         Action build = new ModifyAction(value, modifier, duration);
 
+        Action soundAfter = playSound(builder, new Identifier("Complete"));
         Action animateBuilderAfter = animateAction(builder, new Identifier("Idle"));
         Action animateBuildingAfter = animateAction(stage, building, new Identifier("Idle"));
-        Action animateAfter = new ParallelAction(animateBuilderAfter, animateBuildingAfter);
+        Action after = new ParallelAction(animateBuilderAfter, animateBuildingAfter, soundAfter);
 
-        return new SequenceAction(animateBefore, build, animateAfter);
+        return new SequenceAction(before, build, after);
     }
 
-    private Action buildFarm(Actor builder, Vector2 location)
+    private Action build(Actor builder, Identifier type, Vector2 location)
     {
         Stage stage = builder.getStage();
         Identifier building = new Identifier();
 
+        Action acknowledge = playSound(builder, new Identifier("Acknowledge"));
         Action moveToSite = move(builder, location);
         Action deselectBuilder = setSelected(builder, false);
-        Action createFarm = create(stage, new Identifier("Farm"), building, location);
+        Action createFarm = create(stage, type, building, location);
         Action disableFarm = setEnabled(stage, building, false);
         Action buildFarm = build(builder, building, stage);
         Action enableFarm = setEnabled(stage, building, true);
         Action selectBuilder = setSelected(builder, true);
 
-        return new SequenceAction(moveToSite, deselectBuilder, createFarm, disableFarm, buildFarm, enableFarm, selectBuilder);
+        return new SequenceAction(acknowledge, moveToSite, deselectBuilder, createFarm, disableFarm, buildFarm, enableFarm, selectBuilder);
     }
+
+    private Action buildFarm(Actor builder, Vector2 location)
+    {
+        return build(builder, new Identifier("Farm"), location);
+    }
+
+    private Action buildBarracks(Actor builder, Vector2 location)
+    {
+        return build(builder, new Identifier("Barracks"), location);
+    }
+
+
 }
