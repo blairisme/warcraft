@@ -10,6 +10,7 @@ import com.evilbird.warcraft.utility.Identifier;
 
 import org.apache.commons.lang3.Range;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -32,22 +33,22 @@ public class UnitFactory
         this.assets = assets;
     }
 
-    public Unit newUnit(Identifier identifier)
+    public Unit newUnit(Identifier type, Identifier id)
     {
-        if (Objects.equals(identifier, FOOTMAN_ID)) return newFootman();
-        if (Objects.equals(identifier, PEASANT_ID)) return newPeasant();
-        if (Objects.equals(identifier, GRUNT_ID)) return newGrunt();
-        if (Objects.equals(identifier, GOLD_MINE_ID)) return newGoldMine();
-        if (Objects.equals(identifier, TOWN_HALL_ID)) return newTownHall();
-        if (Objects.equals(identifier, BARRACKS_ID)) return newBarracks();
-        if (Objects.equals(identifier, FARM_ID)) return newFarm();
-        throw new IllegalArgumentException();
+        return newUnit(type, id, Collections.<Identifier, DirectionalAnimation>emptyMap());
     }
 
-    //TODO: Combine with other newUnit method
-    public Unit newUnit(Identifier identifier, Map<Identifier, DirectionalAnimation> additionalAnimations)
+    //TODO: Apply id and additionl animations to all units.
+    public Unit newUnit(Identifier type, Identifier id, Map<Identifier, DirectionalAnimation> additionalAnimations)
     {
-        if (Objects.equals(identifier, WOOD_ID)) return newWood(additionalAnimations);
+        if (Objects.equals(type, FOOTMAN_ID)) return newFootman();
+        if (Objects.equals(type, PEASANT_ID)) return newPeasant();
+        if (Objects.equals(type, GRUNT_ID)) return newGrunt();
+        if (Objects.equals(type, GOLD_MINE_ID)) return newGoldMine();
+        if (Objects.equals(type, TOWN_HALL_ID)) return newTownHall();
+        if (Objects.equals(type, BARRACKS_ID)) return newBarracks();
+        if (Objects.equals(type, FARM_ID)) return newFarm(id);
+        if (Objects.equals(type, WOOD_ID)) return newWood(additionalAnimations);
         throw new IllegalArgumentException();
     }
 
@@ -72,6 +73,7 @@ public class UnitFactory
         animations.put(new Identifier("GatherWood"), animations.get(new Identifier("Attack")));
         animations.put(new Identifier("DepositGold"), animations.get(new Identifier("Hidden")));
         animations.put(new Identifier("DepositWood"), animations.get(new Identifier("Hidden")));
+        animations.put(new Identifier("Build"), animations.get(new Identifier("Hidden")));
 
         Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
         properties.put(new Identifier("Type"), new Identifier("Peasant"));
@@ -163,7 +165,7 @@ public class UnitFactory
         return new Unit(properties, animations);
     }
 
-    private Unit newFarm()
+    private Unit newFarm(Identifier id)
     {
         Texture texture = assets.get("data/textures/human/winter/farm.png", Texture.class);
         Map<Identifier, DirectionalAnimation> animations = getBuildingAnimationSet(texture, 64);
@@ -172,6 +174,9 @@ public class UnitFactory
         properties.put(new Identifier("Type"), new Identifier("Farm"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
         properties.put(new Identifier("Selected"), false);
+        properties.put(new Identifier("Enabled"), false);
+        properties.put(new Identifier("Completion"), 0f);
+        properties.put(new Identifier("Id"), id);
 
         return new Unit(properties, animations);
     }
@@ -258,21 +263,27 @@ public class UnitFactory
 
     private Map<Identifier, DirectionalAnimation> getBuildingAnimationSet(Texture texture, int size)
     {
+        Texture constructionTexture = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
+
+        TextureRegion constructionRegion1 = new TextureRegion(constructionTexture, 0, 0, 64, 64);
+        TextureRegion constructionRegion2 = new TextureRegion(constructionTexture, 0, 64, 64, 64);
+        TextureRegion constructionRegion3 = new TextureRegion(texture, 0, size, size, size);
+
         Array<TextureRegion> idle = getIdleAnimation(texture, 0, 0, size);
-        Array<TextureRegion> busy = getIdleAnimation(texture, 0, size, size);
+        Array<TextureRegion> construction = Array.with(constructionRegion1, constructionRegion2, constructionRegion3);
 
         Map<Range<Float>, Array<TextureRegion>> idleFrames = new HashMap<Range<Float>, Array<TextureRegion>>(1);
         idleFrames.put(Range.between(0.0f, 360.0f), idle);
 
-        Map<Range<Float>, Array<TextureRegion>> busyFrames = new HashMap<Range<Float>, Array<TextureRegion>>(1);
-        busyFrames.put(Range.between(0.0f, 360.0f), busy);
+        Map<Range<Float>, Array<TextureRegion>> constructionFrames = new HashMap<Range<Float>, Array<TextureRegion>>(1);
+        constructionFrames.put(Range.between(0.0f, 360.0f), construction);
 
         DirectionalAnimation idleAnimation = new DirectionalAnimation(0f, 0.15f, idleFrames, PlayMode.LOOP);
-        DirectionalAnimation busyAnimation = new DirectionalAnimation(0f, 0.15f, busyFrames, PlayMode.LOOP);
+        DirectionalAnimation constructionAnimation = new DirectionalAnimation(0f, 3f, constructionFrames, PlayMode.NORMAL);
 
         Map<Identifier, DirectionalAnimation> animations = new HashMap<Identifier, DirectionalAnimation>();
         animations.put(new Identifier("Idle"), idleAnimation);
-        animations.put(new Identifier("Busy"), busyAnimation);
+        animations.put(new Identifier("Construct"), constructionAnimation);
 
         return animations;
     }

@@ -21,7 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -30,6 +29,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.warcraft.GameScene;
 import com.evilbird.warcraft.GameView;
+import com.evilbird.warcraft.action.ActionFactory;
 import com.evilbird.warcraft.device.Device;
 import com.evilbird.warcraft.device.UserInput;
 import com.evilbird.warcraft.graphics.DirectionalAnimation;
@@ -53,6 +53,10 @@ public class LevelScreen extends GameScene
     private Viewport viewport;
     private OrthographicCamera camera;
 
+
+
+    private UnitFactory unitFactory;
+    private ActionFactory actionFactory;
     private InteractionAnalyzer interactionService;
 
     public LevelScreen(GameView view, Device device)
@@ -68,6 +72,7 @@ public class LevelScreen extends GameScene
         assets.load("data/textures/human/perennial/footman.png", Texture.class);
         assets.load("data/textures/human/hud/resource.png", Texture.class);
         assets.load("data/textures/neutral/hud/resource-icon.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/construction.png", Texture.class);
         assets.finishLoading();
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -85,7 +90,9 @@ public class LevelScreen extends GameScene
         map.setScale(1f);
         stage.addActor(map);
 
-        UnitFactory unitFactory = new UnitFactory(assets);
+        unitFactory = new UnitFactory(assets);
+        actionFactory = new ActionFactory(unitFactory);
+        interactionService = new InteractionAnalyzer(actionFactory);
 
         TiledMap mapData = assets.get("data/levels/human/level1.tmx", TiledMap.class);
         for (MapLayer layer: mapData.getLayers())
@@ -118,7 +125,7 @@ public class LevelScreen extends GameScene
                             Float worldX = x * width;
                             Float worldY = y * height;
 
-                            Unit unit = unitFactory.newUnit(new Identifier("Wood"), additionalAnimations);
+                            Unit unit = unitFactory.newUnit(new Identifier("Wood"), new Identifier(), additionalAnimations);
                             unit.setSize(width, height);
                             unit.setZIndex(5);
                             unit.setPosition(worldX, worldY);
@@ -140,7 +147,7 @@ public class LevelScreen extends GameScene
                 Float width = (Float)properties.get("width");
                 Float height = (Float)properties.get("height");
 
-                Unit unit = unitFactory.newUnit(new Identifier(type));
+                Unit unit = unitFactory.newUnit(new Identifier(type), new Identifier());
                 unit.setSize(width, height);
                 unit.setZIndex(10);
                 unit.setPosition(x, y);
@@ -149,10 +156,6 @@ public class LevelScreen extends GameScene
             }
         }
 
-
-        interactionService = new InteractionAnalyzer();
-        //userInputService = new UserInputService();
-        //userInputService.install();
 
         getDevice().getDeviceInput().install();
 

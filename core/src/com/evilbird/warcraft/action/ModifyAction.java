@@ -4,20 +4,26 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.evilbird.warcraft.action.duration.ActionDuration;
 import com.evilbird.warcraft.action.modifier.ActionModifier;
+import com.evilbird.warcraft.action.value.ActionValue;
+import com.evilbird.warcraft.action.value.ItemValue;
 import com.evilbird.warcraft.item.Item;
 import com.evilbird.warcraft.utility.Identifier;
 
 public class ModifyAction extends Action
 {
-    private Identifier property;
+    private ActionValue value;
     private ActionModifier modifier;
     private ActionDuration duration;
 
+    //TODO remove
     public ModifyAction(Actor target, Identifier property, ActionModifier modifier, ActionDuration duration)
     {
-        this.actor = target;
-        this.target = target;
-        this.property = property;
+        this(new ItemValue((Item)target, property), modifier, duration);
+    }
+
+    public ModifyAction(ActionValue value, ActionModifier modifier, ActionDuration duration)
+    {
+        this.value = value;
         this.modifier = modifier;
         this.duration = duration;
     }
@@ -25,16 +31,10 @@ public class ModifyAction extends Action
     @Override
     public boolean act(float time)
     {
-        Actor target = getTarget();
-        if (target instanceof Item)
-        {
-            Item item = (Item)target;
-            Object oldValue = item.getProperty(property);
-            Object newValue = modifier.modify(oldValue, time);
-            item.setProperty(property, newValue);
-            return duration.isComplete(time);
-        }
-        return false;
+        Object oldValue = value.get();
+        Object newValue = modifier.modify(oldValue, time);
+        value.set(newValue);
+        return duration.isComplete(time);
     }
 
     @Override

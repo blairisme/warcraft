@@ -9,5 +9,8 @@ public enum ActionType
     Zoom,
 
     GatherGold,
-    GatherWood
+    GatherWood,
+
+    BuildFarm,
+    BuildBarracks
 }

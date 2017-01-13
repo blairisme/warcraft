@@ -1,16 +1,20 @@
 package com.evilbird.warcraft;
 
-import org.robovm.apple.foundation.NSAutoreleasePool;
-import org.robovm.apple.uikit.UIApplication;
-
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
+import com.evilbird.warcraft.device.Device;
+
+import org.robovm.apple.foundation.NSAutoreleasePool;
+import org.robovm.apple.uikit.UIApplication;
 
 public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
-        IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(new GameEngine(), config);
+        Device device = new IOSDevice();
+        ApplicationListener delegate = new GameEngine(device);
+        IOSApplicationConfiguration configuration = new IOSApplicationConfiguration();
+        return new IOSApplication(delegate, configuration);
     }
 
     public static void main(String[] argv) {

@@ -13,11 +13,15 @@ import com.evilbird.warcraft.action.modifier.ConstantModifier;
 import com.evilbird.warcraft.action.modifier.DeltaModifier;
 import com.evilbird.warcraft.action.modifier.DeltaType;
 import com.evilbird.warcraft.action.modifier.MoveModifier;
-import com.evilbird.warcraft.item.Item;
+import com.evilbird.warcraft.action.value.ActionValue;
+import com.evilbird.warcraft.action.value.ItemReferenceValue;
+import com.evilbird.warcraft.unit.UnitFactory;
 import com.evilbird.warcraft.utility.Identifier;
 
 import java.util.Arrays;
 import java.util.Objects;
+
+import static com.evilbird.warcraft.item.ItemUtils.findByType;
 
 public class ActionFactory
 {
@@ -27,6 +31,14 @@ public class ActionFactory
     private static final Identifier ZOOM_ACTION = new Identifier("Zoom");
     private static final Identifier GATHER_GOLD_ACTION = new Identifier("GatherGold");
     private static final Identifier GATHER_WOOD_ACTION = new Identifier("GatherWood");
+    private static final Identifier BUILD_FARM = new Identifier("BuildFarm");
+
+    private UnitFactory unitFactory;
+
+    public ActionFactory(UnitFactory unitFactory)
+    {
+        this.unitFactory = unitFactory;
+    }
 
     public Action newAction(Identifier action, Actor actor, Object value)
     {
@@ -36,6 +48,7 @@ public class ActionFactory
         if (Objects.equals(action, ZOOM_ACTION)) return zoom(actor, value);
         if (Objects.equals(action, GATHER_GOLD_ACTION)) return gatherGold(actor, (Actor)value);
         if (Objects.equals(action, GATHER_WOOD_ACTION)) return gatherWood(actor, (Actor)value);
+        if (Objects.equals(action, BUILD_FARM)) return buildFarm(actor, (Vector2)value);
         throw new IllegalArgumentException();
     }
 
@@ -53,6 +66,14 @@ public class ActionFactory
         ActionModifier modifier = new ConstantModifier(animation);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(actor, property, modifier, duration);
+    }
+
+    private Action animateAction(Stage stage, Identifier item, Identifier animation)
+    {
+        ActionValue value = new ItemReferenceValue(stage, item, new Identifier("Animation"));
+        ActionModifier modifier = new ConstantModifier(animation);
+        ActionDuration duration = new InstantDuration();
+        return new ModifyAction(value, modifier, duration);
     }
 
     private Action moveAction(Actor actor, Vector2 destination)
@@ -94,10 +115,10 @@ public class ActionFactory
 
 
 
-    private Action deselect(Actor actor)
+    private Action setSelected(Actor actor, boolean selected)
     {
         Identifier property = new Identifier("Selected");
-        ActionModifier modifier = new ConstantModifier(false);
+        ActionModifier modifier = new ConstantModifier(selected);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(actor, property, modifier, duration);
     }
@@ -134,7 +155,7 @@ public class ActionFactory
 
     private Action resourceTransfer(Actor source, Actor destination, Identifier resource, Identifier takeAnimation, Identifier receiveAnimation)
     {
-        Action deselect = deselect(source);
+        Action deselect = setSelected(source, false);
         Action resourceTake = resourceTakeAnimated(source, resource, takeAnimation);
         Action resourceReceive = resourceReceiveAnimated(destination, resource, receiveAnimation);
         return new ParallelAction(deselect, resourceTake, resourceReceive);
@@ -152,7 +173,7 @@ public class ActionFactory
 
     private Action gatherGold(Actor actor, Actor resource)
     {
-        Actor depot = find(actor.getStage(), new Identifier("Type"), new Identifier("TownHall"));
+        Actor depot = findByType(actor.getStage(), new Identifier("TownHall"));
         Identifier property = new Identifier("Gold");
         Identifier gatherAnimation = new Identifier("GatherGold");
         Identifier depositAnimation = new Identifier("DepositGold");
@@ -161,27 +182,62 @@ public class ActionFactory
 
     private Action gatherWood(Actor actor, Actor resource)
     {
-        Actor depot = find(actor.getStage(), new Identifier("Type"), new Identifier("TownHall"));
+        Actor depot = findByType(actor.getStage(), new Identifier("TownHall"));
         Identifier property = new Identifier("Wood");
         Identifier gatherAnimation = new Identifier("GatherWood");
         Identifier depositAnimation = new Identifier("DepositWood");
         return gather(actor, resource, depot, property, gatherAnimation, depositAnimation);
     }
 
-    private Actor find(Stage stage, Identifier property, Object value)
-    {
-        for (Actor actor: stage.getActors())
-        {
-            if (actor instanceof Item)
-            {
-                Item item = (Item)actor;
 
-                if (Objects.equals(item.getProperty(property), value))
-                {
-                    return actor;
-                }
-            }
-        }
-        throw new IllegalStateException();
+
+
+
+
+    private Action create(Stage stage, Identifier type, Identifier id, Vector2 position)
+    {
+        return new CreateAction(stage, type, unitFactory, id, position);
+    }
+
+    private Action setEnabled(Stage stage, Identifier actor, boolean enabled)
+    {
+        ActionValue value = new ItemReferenceValue(stage, actor, new Identifier("Enabled"));
+        ActionModifier modifier = new ConstantModifier(enabled);
+        ActionDuration duration = new InstantDuration();
+        return new ModifyAction(value, modifier, duration);
+    }
+
+    private Action build(Actor builder, Identifier building, Stage stage)
+    {
+        Action animateBuilderBefore = animateAction(builder, new Identifier("Build"));
+        Action animateBuildingBefore = animateAction(stage, building, new Identifier("Construct"));
+        Action animateBefore = new ParallelAction(animateBuilderBefore, animateBuildingBefore);
+
+        ActionValue value = new ItemReferenceValue(stage, building, new Identifier("Completion"));
+        ActionModifier modifier = new DeltaModifier(100f, DeltaType.PerSecond);
+        ActionDuration duration = new TimeDuration(10f);
+        Action build = new ModifyAction(value, modifier, duration);
+
+        Action animateBuilderAfter = animateAction(builder, new Identifier("Idle"));
+        Action animateBuildingAfter = animateAction(stage, building, new Identifier("Idle"));
+        Action animateAfter = new ParallelAction(animateBuilderAfter, animateBuildingAfter);
+
+        return new SequenceAction(animateBefore, build, animateAfter);
+    }
+
+    private Action buildFarm(Actor builder, Vector2 location)
+    {
+        Stage stage = builder.getStage();
+        Identifier building = new Identifier();
+
+        Action moveToSite = move(builder, location);
+        Action deselectBuilder = setSelected(builder, false);
+        Action createFarm = create(stage, new Identifier("Farm"), building, location);
+        Action disableFarm = setEnabled(stage, building, false);
+        Action buildFarm = build(builder, building, stage);
+        Action enableFarm = setEnabled(stage, building, true);
+        Action selectBuilder = setSelected(builder, true);
+
+        return new SequenceAction(moveToSite, deselectBuilder, createFarm, disableFarm, buildFarm, enableFarm, selectBuilder);
     }
 }

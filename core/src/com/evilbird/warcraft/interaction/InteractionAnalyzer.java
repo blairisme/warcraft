@@ -21,10 +21,12 @@ import java.util.Objects;
 
 public class InteractionAnalyzer
 {
+    private ActionFactory actionFactory;
     private List<Interaction> interactions;
 
-    public InteractionAnalyzer()
+    public InteractionAnalyzer(ActionFactory actionFactory)
     {
+        this.actionFactory = actionFactory;
         this.interactions = new ArrayList<Interaction>();
 
         this.interactions.add(new Interaction(UserInputType.Zoom, "Camera", null, ActionType.Zoom));
@@ -40,11 +42,14 @@ public class InteractionAnalyzer
         this.interactions.add(new Interaction(UserInputType.Action, "Wood", null, ActionType.Select));
 
         this.interactions.add(new Interaction(UserInputType.Action, "Map", "Footman", ActionType.Move));
-        this.interactions.add(new Interaction(UserInputType.Action, "Map", "Peasant", ActionType.Move));
+        //this.interactions.add(new Interaction(UserInputType.Action, "Map", "Peasant", ActionType.Move));
         this.interactions.add(new Interaction(UserInputType.Action, "Map", "Grunt", ActionType.Move));
 
         this.interactions.add(new Interaction(UserInputType.Action, "GoldMine", "Peasant", ActionType.GatherGold));
         this.interactions.add(new Interaction(UserInputType.Action, "Wood", "Peasant", ActionType.GatherWood));
+
+
+        this.interactions.add(new Interaction(UserInputType.Action, "Map", "Peasant", ActionType.BuildFarm));
     }
 
     public void update(Stage stage, List<UserInput> inputs)
@@ -91,8 +96,6 @@ public class InteractionAnalyzer
     //TODO - Messy/incomplete
     private void addAction(Interaction interaction, UserInput input, Actor target, Actor selected)
     {
-        ActionFactory actionFactory = new ActionFactory();
-
         if (interaction.getCommandType() == ActionType.Move)
         {
             //Vector2 meh = selected.getStage().screenToStageCoordinates(input.getPosition());
@@ -131,6 +134,13 @@ public class InteractionAnalyzer
         else if (interaction.getCommandType() == ActionType.GatherWood)
         {
             Action action = actionFactory.newAction(new Identifier("GatherWood"), selected, target);
+            selected.addAction(action);
+        }
+
+
+        else if (interaction.getCommandType() == ActionType.BuildFarm)
+        {
+            Action action = actionFactory.newAction(new Identifier("BuildFarm"), selected, input.getPosition());
             selected.addAction(action);
         }
     }
