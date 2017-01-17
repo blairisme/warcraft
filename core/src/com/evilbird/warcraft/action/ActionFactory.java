@@ -13,8 +13,12 @@ import com.evilbird.warcraft.action.modifier.ConstantModifier;
 import com.evilbird.warcraft.action.modifier.DeltaModifier;
 import com.evilbird.warcraft.action.modifier.DeltaType;
 import com.evilbird.warcraft.action.modifier.MoveModifier;
+import com.evilbird.warcraft.action.modifier.PassiveModifier;
 import com.evilbird.warcraft.action.value.ActionValue;
 import com.evilbird.warcraft.action.value.ItemReferenceValue;
+import com.evilbird.warcraft.action.value.ItemValue;
+import com.evilbird.warcraft.action.value.TransientValue;
+import com.evilbird.warcraft.item.Item;
 import com.evilbird.warcraft.unit.UnitFactory;
 import com.evilbird.warcraft.utility.Identifier;
 
@@ -31,8 +35,9 @@ public class ActionFactory
     private static final Identifier ZOOM_ACTION = new Identifier("Zoom");
     private static final Identifier GATHER_GOLD_ACTION = new Identifier("GatherGold");
     private static final Identifier GATHER_WOOD_ACTION = new Identifier("GatherWood");
-    private static final Identifier BUILD_FARM = new Identifier("BuildFarm");
-    private static final Identifier BUILD_BARRACKS = new Identifier("BuildBarracks");
+    private static final Identifier BUILD_FARM_ACTION = new Identifier("BuildFarm");
+    private static final Identifier BUILD_BARRACKS_ACTION = new Identifier("BuildBarracks");
+    private static final Identifier ATTACK_ACTION = new Identifier("Attack");
 
     private UnitFactory unitFactory;
 
@@ -46,17 +51,16 @@ public class ActionFactory
         if (Objects.equals(action, SELECT_ACTION)) return select(actor, (Boolean)value);
         if (Objects.equals(action, MOVE_ACTION)) return move(actor, (Vector2)value);
         if (Objects.equals(action, PAN_ACTION)) return pan(actor, value);
-        if (Objects.equals(action, ZOOM_ACTION)) return zoom(actor, value);
+        if (Objects.equals(action, ZOOM_ACTION)) return zoom(actor, (Vector2)value);
         if (Objects.equals(action, GATHER_GOLD_ACTION)) return gatherGold(actor, (Actor)value);
         if (Objects.equals(action, GATHER_WOOD_ACTION)) return gatherWood(actor, (Actor)value);
-        if (Objects.equals(action, BUILD_FARM)) return buildFarm(actor, (Vector2)value);
-        if (Objects.equals(action, BUILD_BARRACKS)) return buildBarracks(actor, (Vector2)value);
+        if (Objects.equals(action, BUILD_FARM_ACTION)) return buildFarm(actor, (Vector2)value);
+        if (Objects.equals(action, BUILD_BARRACKS_ACTION)) return buildBarracks(actor, (Vector2)value);
+        if (Objects.equals(action, ATTACK_ACTION)) return attack(actor, (Actor)value);
         throw new IllegalArgumentException();
     }
 
-
-
-    private Action animateAction(Actor actor, Object animation)
+    private Action setAnimation(Actor actor, Identifier animation)
     {
         Identifier property = new Identifier("Animation");
         ActionModifier modifier = new ConstantModifier(animation);
@@ -64,7 +68,7 @@ public class ActionFactory
         return new ModifyAction(actor, property, modifier, duration);
     }
 
-    private Action animateAction(Stage stage, Identifier item, Identifier animation)
+    private Action setAnimation(Stage stage, Identifier item, Identifier animation)
     {
         ActionValue value = new ItemReferenceValue(stage, item, new Identifier("Animation"));
         ActionModifier modifier = new ConstantModifier(animation);
@@ -72,19 +76,34 @@ public class ActionFactory
         return new ModifyAction(value, modifier, duration);
     }
 
+    private Action setAnimation(Actor actor, Identifier animation, float time)
+    {
+        Action animate = setAnimation(actor, animation);
+        Action wait = wait(time);
+        return new ParallelAction(animate, wait);
+    }
+
+    private Action wait(float time)
+    {
+        ActionValue value = new TransientValue();
+        ActionModifier modifier = new PassiveModifier();
+        ActionDuration duration = new TimeDuration(time);
+        return new ModifyAction(value, modifier, duration);
+    }
+
     private Action moveAction(Actor actor, Vector2 destination)
     {
-        Identifier property = new Identifier("Position");
+        Identifier position = new Identifier("Position");
         ActionModifier modifier = new MoveModifier(destination, 64f);
-        ActionDuration duration = new PredicateDuration(actor, property, destination);
-        return new ModifyAction(actor, property, modifier, duration);
+        ActionDuration duration = new PredicateDuration(actor, position, destination);
+        return new ModifyAction(actor, position, modifier, duration);
     }
 
     private Action move(Actor actor, Vector2 destination)
     {
-        Action animateMove = animateAction(actor, new Identifier("Move"));
+        Action animateMove = setAnimation(actor, new Identifier("Move"));
         Action move = moveAction(actor, destination);
-        Action animateIdle = animateAction(actor, new Identifier("Idle"));
+        Action animateIdle = setAnimation(actor, new Identifier("Idle"));
         return new SequenceAction(Arrays.asList(animateMove, move, animateIdle));
     }
 
@@ -101,10 +120,10 @@ public class ActionFactory
         return new ModifyAction(actor, property, modifier, duration);
     }
 
-    private Action zoom(Actor actor, Object delta)
+    private Action zoom(Actor actor, Vector2 delta)
     {
         Identifier property = new Identifier("Zoom");
-        ActionModifier modifier = new DeltaModifier(delta, DeltaType.PerUpdate);
+        ActionModifier modifier = new DeltaModifier(delta.x, DeltaType.PerUpdate);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(actor, property, modifier, duration);
     }
@@ -145,9 +164,9 @@ public class ActionFactory
 
     private Action resourceReceiveAnimated(Actor actor, Identifier resource, Identifier animation)
     {
-        Action animateBefore = animateAction(actor, animation);
+        Action animateBefore = setAnimation(actor, animation);
         Action gather = resourceReceive(actor, resource);
-        Action animateAfter = animateAction(actor, new Identifier("Idle"));
+        Action animateAfter = setAnimation(actor, new Identifier("Idle"));
         return new SequenceAction(animateBefore, gather, animateAfter);
     }
 
@@ -160,9 +179,9 @@ public class ActionFactory
 
     private Action resourceTakeAnimated(Actor actor, Identifier resource, Identifier animation)
     {
-        Action animateBefore = animateAction(actor, animation);
+        Action animateBefore = setAnimation(actor, animation);
         Action gather = resourceTake(actor, resource);
-        Action animateAfter = animateAction(actor, new Identifier("Idle"));
+        Action animateAfter = setAnimation(actor, new Identifier("Idle"));
         return new SequenceAction(animateBefore, gather, animateAfter);
     }
 
@@ -215,11 +234,19 @@ public class ActionFactory
         return new ModifyAction(value, modifier, duration);
     }
 
+    private Action setEnabled(Actor actor, boolean enabled)
+    {
+        ActionValue value = new ItemValue((Item)actor, new Identifier("Enabled"));
+        ActionModifier modifier = new ConstantModifier(enabled);
+        ActionDuration duration = new InstantDuration();
+        return new ModifyAction(value, modifier, duration);
+    }
+
     private Action build(Actor builder, Identifier building, Stage stage)
     {
         Action soundBefore = playSound(builder, new Identifier("Construct"));
-        Action animateBuilderBefore = animateAction(builder, new Identifier("Build"));
-        Action animateBuildingBefore = animateAction(stage, building, new Identifier("Construct"));
+        Action animateBuilderBefore = setAnimation(builder, new Identifier("Build"));
+        Action animateBuildingBefore = setAnimation(stage, building, new Identifier("Construct"));
         Action before = new ParallelAction(animateBuilderBefore, animateBuildingBefore, soundBefore);
 
         ActionValue value = new ItemReferenceValue(stage, building, new Identifier("Completion"));
@@ -228,8 +255,8 @@ public class ActionFactory
         Action build = new ModifyAction(value, modifier, duration);
 
         Action soundAfter = playSound(builder, new Identifier("Complete"));
-        Action animateBuilderAfter = animateAction(builder, new Identifier("Idle"));
-        Action animateBuildingAfter = animateAction(stage, building, new Identifier("Idle"));
+        Action animateBuilderAfter = setAnimation(builder, new Identifier("Idle"));
+        Action animateBuildingAfter = setAnimation(stage, building, new Identifier("Idle"));
         Action after = new ParallelAction(animateBuilderAfter, animateBuildingAfter, soundAfter);
 
         return new SequenceAction(before, build, after);
@@ -262,5 +289,33 @@ public class ActionFactory
         return build(builder, new Identifier("Barracks"), location);
     }
 
+    private Action reduceHealth(Actor target)
+    {
+        Identifier health = new Identifier("Health");
+        ActionValue value = new ItemValue((Item)target, health);
+        ActionModifier modifier = new DeltaModifier(-10f, DeltaType.PerSecond, 0f, 100f);
+        ActionDuration duration = new PredicateDuration(target, health, 0f);
+        return new ModifyAction(value, modifier, duration);
+    }
 
+    private Action attack(Actor attacker, Actor target)
+    {
+        Action move = move(attacker, target);
+
+        Action attackAnimation = setAnimation(attacker, new Identifier("Attack"));
+        Action reduceHealth = reduceHealth(target);
+        Action attack = new ParallelAction(attackAnimation, reduceHealth);
+
+        Action deadAnimation = setAnimation(target, new Identifier("Die"), 0.5f);
+        Action deselect = setSelected(target, false);
+        Action disable = setEnabled(target, false);
+        Action idleAnimation = setAnimation(attacker, new Identifier("Idle"));
+        Action die = new ParallelAction(deadAnimation, deselect, disable, idleAnimation);
+
+        Action decompose = setAnimation(target, new Identifier("Decompose"), 10f);
+        Action remove = new RemoveAction(target.getStage(), target);
+        Action clean = new SequenceAction(decompose, remove);
+
+        return new SequenceAction(move, attack, die, clean);
+    }
 }

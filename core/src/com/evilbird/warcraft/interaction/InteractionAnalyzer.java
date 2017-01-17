@@ -42,14 +42,16 @@ public class InteractionAnalyzer
         this.interactions.add(new Interaction(UserInputType.Action, "Wood", null, ActionType.Select));
 
         this.interactions.add(new Interaction(UserInputType.Action, "Map", "Footman", ActionType.Move));
-        //this.interactions.add(new Interaction(UserInputType.Action, "Map", "Peasant", ActionType.Move));
+        this.interactions.add(new Interaction(UserInputType.Action, "Map", "Peasant", ActionType.Move));
         this.interactions.add(new Interaction(UserInputType.Action, "Map", "Grunt", ActionType.Move));
+
+        //this.interactions.add(new Interaction(UserInputType.Action, "Map", "Peasant", ActionType.BuildFarm));
+        //this.interactions.add(new Interaction(UserInputType.Action, "Map", "Peasant", ActionType.BuildBarracks));
 
         this.interactions.add(new Interaction(UserInputType.Action, "GoldMine", "Peasant", ActionType.GatherGold));
         this.interactions.add(new Interaction(UserInputType.Action, "Wood", "Peasant", ActionType.GatherWood));
 
-
-        this.interactions.add(new Interaction(UserInputType.Action, "Map", "Peasant", ActionType.BuildFarm));
+        this.interactions.add(new Interaction(UserInputType.Action, "Grunt", "Footman", ActionType.Attack));
     }
 
     public void update(Stage stage, List<UserInput> inputs)
@@ -109,23 +111,20 @@ public class InteractionAnalyzer
         {
             Unit unit = (Unit)target;
             Action action = actionFactory.newAction(new Identifier("Select"), target, !unit.getSelected());
-
-           // target.clearActions();
             target.addAction(action);
         }
         else if (interaction.getCommandType() == ActionType.Zoom)
         {
             Action action = actionFactory.newAction(new Identifier("Zoom"), target, input.getDelta());
-            target.addAction(action);
+            //target.addAction(action);
+            action.act(0f);
         }
         else if (interaction.getCommandType() == ActionType.Pan)
         {
             Action action = actionFactory.newAction(new Identifier("Pan"), target, input.getDelta());
-            target.addAction(action);
+            //target.addAction(action);
             action.act(0f); //TODO - WTF do I need to acll this manually - Not part of tree possibly?
         }
-
-
         else if (interaction.getCommandType() == ActionType.GatherGold)
         {
             Action action = actionFactory.newAction(new Identifier("GatherGold"), selected, target);
@@ -136,11 +135,19 @@ public class InteractionAnalyzer
             Action action = actionFactory.newAction(new Identifier("GatherWood"), selected, target);
             selected.addAction(action);
         }
-
-
         else if (interaction.getCommandType() == ActionType.BuildFarm)
         {
             Action action = actionFactory.newAction(new Identifier("BuildFarm"), selected, input.getPosition());
+            selected.addAction(action);
+        }
+        else if (interaction.getCommandType() == ActionType.BuildBarracks)
+        {
+            Action action = actionFactory.newAction(new Identifier("BuildBarracks"), selected, input.getPosition());
+            selected.addAction(action);
+        }
+        else if (interaction.getCommandType() == ActionType.Attack)
+        {
+            Action action = actionFactory.newAction(new Identifier("Attack"), selected, target);
             selected.addAction(action);
         }
     }

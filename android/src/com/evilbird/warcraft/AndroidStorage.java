@@ -1,6 +1,9 @@
 package com.evilbird.warcraft;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.evilbird.warcraft.device.DeviceStorage;
 
 import java.io.IOException;
@@ -8,39 +11,46 @@ import java.util.Collection;
 
 public class AndroidStorage implements DeviceStorage
 {
-    @Override
-    public boolean delete(String path) throws IOException
+    private AssetManager assetManager;
+
+    public AndroidStorage()
     {
-        return false;
+        this.assetManager = new AssetManager();
+        this.assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
     }
 
-    @Override
-    public boolean exists(String path) throws IOException
+    public AssetManager getAssets()
     {
-        return false;
-    }
-
-    @Override
-    public Collection<String> list() throws IOException
-    {
-        return null;
+        return assetManager;
     }
 
     @Override
     public <T> T read(String path) throws IOException
     {
-        return null;
+        return assetManager.get(path);
+    }
+
+    @Override
+    public boolean delete(String path) throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean exists(String path) throws IOException
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Collection<String> list() throws IOException
+    {
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public <T> void write(T object, String path) throws IOException
     {
-
-    }
-
-    @Override
-    public AssetManager getAssets()
-    {
-        return null;
+        throw new UnsupportedOperationException();
     }
 }

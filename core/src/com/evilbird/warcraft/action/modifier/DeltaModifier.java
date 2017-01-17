@@ -2,15 +2,25 @@ package com.evilbird.warcraft.action.modifier;
 
 import com.badlogic.gdx.math.Vector2;
 
+//TODO - Refactor specialized implementations into separate classes
 public class DeltaModifier implements ActionModifier
 {
     private Object delta;
     private DeltaType type;
+    private Object lowerBound;
+    private Object upperBound;
 
     public DeltaModifier(Object delta, DeltaType type)
     {
+        this(delta, type, null, null);
+    }
+
+    public DeltaModifier(Object delta, DeltaType type, Object lowerBound, Object upperBound)
+    {
         this.delta = delta;
         this.type = type;
+        this.lowerBound = lowerBound;
+        this.upperBound = upperBound;
     }
 
     @Override
@@ -27,13 +37,29 @@ public class DeltaModifier implements ActionModifier
         {
             Float valueFloat = value != null ? (Float)value : 0;
             Float deltaFloat = (Float)delta;
-            return valueFloat + deltaFloat;
+            Float result =  valueFloat + deltaFloat;
+
+            if (lowerBound != null && result <= (Float)lowerBound){
+                result = (Float)lowerBound;
+            }
+            if (upperBound != null && result >= (Float)upperBound){
+                result = (Float)upperBound;
+            }
+            return result;
         }
         else if (value instanceof Integer)
         {
             Integer valueInteger = (Integer)value;
             Integer deltaInteger = (Integer)delta;
-            return valueInteger + deltaInteger;
+            Integer result = valueInteger + deltaInteger;
+
+            if (lowerBound != null && result <= (Integer)lowerBound){
+                result = (Integer)lowerBound;
+            }
+            if (upperBound != null && result >= (Integer)upperBound){
+                result = (Integer)upperBound;
+            }
+            return result;
         }
         throw new UnsupportedOperationException();
     }

@@ -47,7 +47,7 @@ public class UnitFactory
         if (Objects.equals(type, GRUNT_ID)) return newGrunt();
         if (Objects.equals(type, GOLD_MINE_ID)) return newGoldMine();
         if (Objects.equals(type, TOWN_HALL_ID)) return newTownHall();
-        if (Objects.equals(type, BARRACKS_ID)) return newBarracks();
+        if (Objects.equals(type, BARRACKS_ID)) return newBarracks(id);
         if (Objects.equals(type, FARM_ID)) return newFarm(id);
         if (Objects.equals(type, WOOD_ID)) return newWood(additionalAnimations);
         throw new IllegalArgumentException();
@@ -62,6 +62,8 @@ public class UnitFactory
         properties.put(new Identifier("Type"), new Identifier("Footman"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
         properties.put(new Identifier("Selected"), false);
+        properties.put(new Identifier("Enabled"), true);
+        properties.put(new Identifier("Health"), 100f);
 
         return new Unit(properties, animations);
     }
@@ -91,6 +93,8 @@ public class UnitFactory
         properties.put(new Identifier("Type"), new Identifier("Peasant"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
         properties.put(new Identifier("Selected"), false);
+        properties.put(new Identifier("Enabled"), true);
+        properties.put(new Identifier("Health"), 100f);
         properties.put(new Identifier("Gold"), 0f);
         properties.put(new Identifier("Wood"), 0f);
         properties.put(new Identifier("Sounds"), sounds);
@@ -107,6 +111,8 @@ public class UnitFactory
         properties.put(new Identifier("Type"), new Identifier("Grunt"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
         properties.put(new Identifier("Selected"), false);
+        properties.put(new Identifier("Enabled"), true);
+        properties.put(new Identifier("Health"), 100f);
 
         return new Unit(properties, animations);
     }
@@ -115,7 +121,8 @@ public class UnitFactory
     {
         Texture texture = assets.get("data/textures/neutral/winter/gold_mine.png", Texture.class);
         Map<Identifier, DirectionalAnimation> animations = getBuildingAnimationSet(texture, 96);
-        animations.put(new Identifier("GatherGold"), animations.get(new Identifier("Busy")));
+        animations.put(new Identifier("GatherGold"), animations.get(new Identifier("Construct")));
+        animations.remove(new Identifier("Construct"));
 
         Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
         properties.put(new Identifier("Type"), new Identifier("GoldMine"));
@@ -166,7 +173,7 @@ public class UnitFactory
         return new Unit(properties, animations);
     }
 
-    private Unit newBarracks()
+    private Unit newBarracks(Identifier id)
     {
         Texture texture = assets.get("data/textures/human/winter/barracks.png", Texture.class);
         Map<Identifier, DirectionalAnimation> animations = getBuildingAnimationSet(texture, 96);
@@ -175,6 +182,9 @@ public class UnitFactory
         properties.put(new Identifier("Type"), new Identifier("Barracks"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
         properties.put(new Identifier("Selected"), false);
+        properties.put(new Identifier("Enabled"), false);
+        properties.put(new Identifier("Completion"), 0f);
+        properties.put(new Identifier("Id"), id);
 
         return new Unit(properties, animations);
     }
@@ -237,6 +247,26 @@ public class UnitFactory
         attackFrames.put(Range.between(202.5f, 157.5f), attackWest);
         attackFrames.put(Range.between(157.5f, 112.5f), attackNorthWest);
 
+        Array<TextureRegion> deadNorth = getDeadAnimation(texture, 0);
+        Array<TextureRegion> deadNorthEast = getDeadAnimation(texture, 72);
+        Array<TextureRegion> deadEast = getDeadAnimation(texture, 144);
+        Array<TextureRegion> deadSouthEast = getDeadAnimation(texture, 216);
+        Array<TextureRegion> deadSouth = getDeadAnimation(texture, 288);
+        Array<TextureRegion> deadSouthWest = getDeadAnimation(texture, 360);
+        Array<TextureRegion> deadWest = getDeadAnimation(texture, 432);
+        Array<TextureRegion> deadNorthWest = getDeadAnimation(texture, 504);
+
+        Map<Range<Float>, Array<TextureRegion>> dieFrames = new HashMap<Range<Float>, Array<TextureRegion>>(9);
+        dieFrames.put(Range.between(112.5f, 67.5f), deadNorth);
+        dieFrames.put(Range.between(67.5f, 22.5f), deadNorthEast);
+        dieFrames.put(Range.between(22.5f, 0.0f), deadEast);
+        dieFrames.put(Range.between(360.0f, 337.5f), deadEast);
+        dieFrames.put(Range.between(337.5f, 292.5f), deadSouthEast);
+        dieFrames.put(Range.between(292.5f, 247.5f), deadSouth);
+        dieFrames.put(Range.between(247.5f, 202.5f), deadSouthWest);
+        dieFrames.put(Range.between(202.5f, 157.5f), deadWest);
+        dieFrames.put(Range.between(157.5f, 112.5f), deadNorthWest);
+
         Array<TextureRegion> idleNorth = getIdleAnimation(texture, 0, 72);
         Array<TextureRegion> idleNorthEast = getIdleAnimation(texture, 72, 72);
         Array<TextureRegion> idleEast = getIdleAnimation(texture, 144, 72);
@@ -261,16 +291,24 @@ public class UnitFactory
         Map<Range<Float>, Array<TextureRegion>> hiddenFrames = new HashMap<Range<Float>, Array<TextureRegion>>(9);
         hiddenFrames.put(Range.between(0f, 360f), hiddenFrame);
 
+        Array<TextureRegion> decomposeTextures = getDecomposeAnimation();
+        Map<Range<Float>, Array<TextureRegion>> decomposeFrames = new HashMap<Range<Float>, Array<TextureRegion>>(9);
+        decomposeFrames.put(Range.between(0f, 360f), decomposeTextures);
+
         DirectionalAnimation idleAnimation = new DirectionalAnimation(0f, 0.15f, idleFrames, PlayMode.LOOP);
         DirectionalAnimation moveAnimation = new DirectionalAnimation(0f, 0.15f, moveFrames, PlayMode.LOOP);
         DirectionalAnimation attackAnimation = new DirectionalAnimation(0f, 0.15f, attackFrames, PlayMode.LOOP);
         DirectionalAnimation hiddenAnimation = new DirectionalAnimation(0f, 0.15f, hiddenFrames, PlayMode.LOOP);
+        DirectionalAnimation dieAnimation = new DirectionalAnimation(0f, 0.15f, dieFrames, PlayMode.NORMAL);
+        DirectionalAnimation decomposeAnimation = new DirectionalAnimation(0f, 2f, decomposeFrames, PlayMode.NORMAL);
 
         Map<Identifier, DirectionalAnimation> animations = new HashMap<Identifier, DirectionalAnimation>();
         animations.put(new Identifier("Idle"), idleAnimation);
         animations.put(new Identifier("Move"), moveAnimation);
         animations.put(new Identifier("Attack"), attackAnimation);
         animations.put(new Identifier("Hidden"), hiddenAnimation);
+        animations.put(new Identifier("Die"), dieAnimation);
+        animations.put(new Identifier("Decompose"), decomposeAnimation);
 
         return animations;
     }
@@ -318,8 +356,28 @@ public class UnitFactory
         TextureRegion region2 = new TextureRegion(texture, x, 432, 72, 72);
         TextureRegion region3 = new TextureRegion(texture, x, 504, 72, 72);
         TextureRegion region4 = new TextureRegion(texture, x, 576, 72, 72);
-        TextureRegion region5 = new TextureRegion(texture, x, 648, 72, 72);
-        return Array.with(region1, region2, region3, region4, region5);
+        return Array.with(region1, region2, region3, region4);
+    }
+
+    private Array<TextureRegion> getDeadAnimation(Texture texture, int x)
+    {
+        TextureRegion region1 = new TextureRegion(texture, x, 648, 72, 72);
+        TextureRegion region2 = new TextureRegion(texture, x, 720, 72, 72);
+        TextureRegion region3 = new TextureRegion(texture, x, 792, 72, 72);
+        TextureRegion region4 = new TextureRegion(texture, 0, 0, 1, 1);
+        return Array.with(region1, region2, region3, region4);
+    }
+
+    private Array<TextureRegion> getDecomposeAnimation()
+    {
+        Texture corpseTexture = assets.get("data/textures/neutral/perennial/decompose.png", Texture.class);
+        TextureRegion region1 = new TextureRegion(corpseTexture, 0, 0, 72, 72);
+        TextureRegion region2 = new TextureRegion(corpseTexture, 0, 72, 72, 72);
+        TextureRegion region3 = new TextureRegion(corpseTexture, 0, 144, 72, 72);
+        TextureRegion region4 = new TextureRegion(corpseTexture, 0, 216, 72, 72);
+        TextureRegion region5 = new TextureRegion(corpseTexture, 0, 288, 72, 72);
+        TextureRegion region6 = new TextureRegion(corpseTexture, 0, 360, 72, 72);
+        return Array.with(region1, region2, region3, region4, region5, region6);
     }
 
     private Array<TextureRegion> getIdleAnimation(Texture texture, int x, int size)

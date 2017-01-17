@@ -1,7 +1,6 @@
 package com.evilbird.warcraft.level;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -17,7 +16,6 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -75,6 +73,7 @@ public class LevelScreen extends GameScene
         assets.load("data/textures/human/hud/resource.png", Texture.class);
         assets.load("data/textures/neutral/hud/resource-icon.png", Texture.class);
         assets.load("data/textures/neutral/perennial/construction.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/decompose.png", Texture.class);
         assets.load("data/sounds/human/unit/peasant/selected_1.mp3", Sound.class);
         assets.load("data/sounds/human/unit/peasant/acknowledge_1.mp3", Sound.class);
         assets.load("data/sounds/human/unit/peasant/complete.mp3", Sound.class);
@@ -227,13 +226,13 @@ public class LevelScreen extends GameScene
 
     private void handleInput()
     {
+        /*
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             camera.zoom += 0.02;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             camera.zoom -= 0.02;
         }
-        /*
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             camera.translate(-10, 0, 0);
         }
@@ -248,7 +247,7 @@ public class LevelScreen extends GameScene
         }
         */
 
-        camera.zoom = MathUtils.clamp(camera.zoom, 0.50f, 1.5f);
+        //camera.zoom = MathUtils.clamp(camera.zoom, 0.50f, 1.5f);
 
         /*
         float mapWidth = 1024f;

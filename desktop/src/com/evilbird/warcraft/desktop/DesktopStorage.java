@@ -24,10 +24,11 @@ public class DesktopStorage implements DeviceStorage
         return assetManager;
     }
 
-
-
-
-
+    @Override
+    public <T> T read(String path) throws IOException
+    {
+        return assetManager.get(path);
+    }
 
     @Override
     public boolean delete(String path) throws IOException
@@ -45,12 +46,6 @@ public class DesktopStorage implements DeviceStorage
     public Collection<String> list() throws IOException
     {
         throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> T read(String path) throws IOException
-    {
-        return assetManager.get(path);
     }
 
     @Override

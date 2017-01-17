@@ -29,13 +29,14 @@ public class ParallelAction extends Action
     public boolean act(float delta)
     {
         boolean result = true;
-
-        for (Entry<Action, Boolean> entry: actionCompletion.entrySet()){
+        for (Entry<Action, Boolean> entry: actionCompletion.entrySet())
+        {
             boolean complete = entry.getValue();
-
-            if (! complete){
+            if (! complete)
+            {
                 Action action = entry.getKey();
                 complete = action.act(delta);
+                entry.setValue(complete);
             }
             result &= complete;
         }

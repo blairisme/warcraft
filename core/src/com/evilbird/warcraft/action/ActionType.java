@@ -12,5 +12,7 @@ public enum ActionType
     GatherWood,
 
     BuildFarm,
-    BuildBarracks
+    BuildBarracks,
+
+    Attack
 }

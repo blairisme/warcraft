@@ -24,7 +24,7 @@ public class DirectionalAnimation
         this.duration = duration;
         this.mode = mode;
         this.frames = frames;
-        this.delegate = new Animation(duration, getFrames(direction), mode);
+        reset();
     }
 
     public TextureRegion getKeyFrame(float stateTime)
@@ -40,6 +40,11 @@ public class DirectionalAnimation
     public void setDirection(float direction)
     {
         this.direction = direction;
+        reset();
+    }
+
+    public void reset()
+    {
         this.delegate = new Animation(duration, getFrames(direction), mode);
     }
 

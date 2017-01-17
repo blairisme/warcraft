@@ -24,7 +24,7 @@ public class Unit extends Item
     private DirectionalAnimation animation;
     private Map<Identifier, DirectionalAnimation> animations;
 
-    private float time;
+    private float animationTime;
     private float direction;
 
     public Unit(Map<Identifier, Object> properties, Map<Identifier, DirectionalAnimation> animations)
@@ -39,7 +39,7 @@ public class Unit extends Item
     public void act(float delta)
     {
         super.act(delta);
-        time += delta;
+        animationTime += delta;
         play();
     }
 
@@ -63,7 +63,7 @@ public class Unit extends Item
     @Override
     public void draw(Batch batch, float alpha)
     {
-        TextureRegion region = animation.getKeyFrame(time);
+        TextureRegion region = animation.getKeyFrame(animationTime);
         batch.draw(region, getX(), getY(), getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 
@@ -88,6 +88,7 @@ public class Unit extends Item
 
     public void setAnimation(Identifier animationId)
     {
+        this.animationTime = 0;
         this.animationId = animationId;
         this.animation = animations.get(animationId);
         this.animation.setDirection(direction);
