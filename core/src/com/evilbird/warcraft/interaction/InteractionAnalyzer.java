@@ -10,6 +10,7 @@ import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.device.UserInput;
 import com.evilbird.warcraft.device.UserInputType;
 import com.evilbird.warcraft.map.Map;
+import com.evilbird.warcraft.unit.CameraActor;
 import com.evilbird.warcraft.unit.Unit;
 import com.evilbird.warcraft.utility.Identifier;
 
@@ -214,7 +215,7 @@ public class InteractionAnalyzer
             Identifier type = (Identifier)unit.getProperty(new Identifier("Type"));
             return type.toString();
         }
-        if (actor instanceof CameraActor)
+        if (actor instanceof com.evilbird.warcraft.unit.CameraActor)
         {
             return "Camera"; //TODO
         }

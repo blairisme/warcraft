@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+//TODO: Apply id and additionl animations to all units.
+//TODO: Refactor unit methods into separate classes
 public class UnitFactory
 {
     private static final Identifier FOOTMAN_ID = new Identifier("Footman");
@@ -34,12 +36,23 @@ public class UnitFactory
         this.assets = assets;
     }
 
+    public void loadAssets()
+    {
+        this.assets.load("data/textures/human/perennial/footman.png", Texture.class);
+        this.assets.load("data/textures/human/perennial/peasant.png", Texture.class);
+        this.assets.load("data/textures/neutral/perennial/construction.png", Texture.class);
+        this.assets.load("data/textures/neutral/perennial/decompose.png", Texture.class);
+        this.assets.load("data/sounds/human/unit/peasant/selected_1.mp3", Sound.class);
+        this.assets.load("data/sounds/human/unit/peasant/acknowledge_1.mp3", Sound.class);
+        this.assets.load("data/sounds/human/unit/peasant/complete.mp3", Sound.class);
+        this.assets.load("data/sounds/human/unit/peasant/construct.mp3", Sound.class);
+    }
+
     public Unit newUnit(Identifier type, Identifier id)
     {
         return newUnit(type, id, Collections.<Identifier, DirectionalAnimation>emptyMap());
     }
 
-    //TODO: Apply id and additionl animations to all units.
     public Unit newUnit(Identifier type, Identifier id, Map<Identifier, DirectionalAnimation> additionalAnimations)
     {
         if (Objects.equals(type, FOOTMAN_ID)) return newFootman();
@@ -50,7 +63,7 @@ public class UnitFactory
         if (Objects.equals(type, BARRACKS_ID)) return newBarracks(id);
         if (Objects.equals(type, FARM_ID)) return newFarm(id);
         if (Objects.equals(type, WOOD_ID)) return newWood(additionalAnimations);
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException(type.toString());
     }
 
     private Unit newFootman()

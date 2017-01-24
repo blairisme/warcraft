@@ -1,31 +1,16 @@
 package com.evilbird.warcraft.menu;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.warcraft.GameScene;
-import com.evilbird.warcraft.GameView;
-import com.evilbird.warcraft.device.Device;
-import com.evilbird.warcraft.level.LevelScreen;
 
 public class MenuScreen extends GameScene
 {
+    /*
     private Stage stage;
 
     public MenuScreen(GameView view, Device device)
     {
         super(view, device);
+        create();
     }
 
     //TODO - Move logic into factory
@@ -34,7 +19,7 @@ public class MenuScreen extends GameScene
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-        AssetManager assetManager = getDevice().getAssetStorage().getAssets();
+        final AssetManager assetManager = getDevice().getAssetStorage().getAssets();
         assetManager.load("data/textures/menu/button.png", Texture.class);
         assetManager.load("data/textures/menu/menu.png", Texture.class);
         assetManager.finishLoading();
@@ -94,8 +79,12 @@ public class MenuScreen extends GameScene
         {
             public void changed (ChangeEvent event, Actor actor)
             {
-                GameView view = getView();
-                view.setScreen(new LevelScreen(getView(), getDevice()));
+                LevelFactory levelFactory = new LevelFactory(assetManager);
+                Level level = levelFactory.newLevel(new Identifier("Level1"));
+                setScreen(level);
+
+
+                //setScreen(new LevelScreen(getView(), getDevice()));
             }
         });
     }
@@ -120,4 +109,5 @@ public class MenuScreen extends GameScene
     {
         stage.dispose();
     }
+    */
 }

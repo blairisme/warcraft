@@ -1,7 +1,5 @@
 package com.evilbird.warcraft.map;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -11,27 +9,28 @@ import com.evilbird.warcraft.item.Item;
 
 public class Map extends Item
 {
-    private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
+    private int[] renderedLayers;
 
-    public Map(AssetManager assets)
+    public Map(TiledMap map)
     {
-        map = assets.get("data/levels/human/level1.tmx", TiledMap.class);
         renderer = new OrthogonalTiledMapRenderer(map);
+        renderedLayers = new int[1];
+        renderedLayers[0] = 0;
     }
 
     @Override
     public void draw(Batch batch, float alpha)
     {
-        Stage stage = getStage();
-        Camera camera = stage.getCamera();
-
-        int[] layers = new int[1];
-        layers[0] = 0;
-
         batch.end();
-        renderer.setView((OrthographicCamera)camera);
-        renderer.render(layers);
+        renderer.setView(getCamera());
+        renderer.render(renderedLayers);
         batch.begin();
+    }
+
+    private OrthographicCamera getCamera()
+    {
+        Stage stage = getStage();
+        return (OrthographicCamera)stage.getCamera();
     }
 }

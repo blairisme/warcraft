@@ -3,6 +3,7 @@ package com.evilbird.warcraft.interaction;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.device.UserInputType;
 
+//TODO: Replace with more generalized behaviour, introgating all game state;
 public class Interaction
 {
     private UserInputType inputType;

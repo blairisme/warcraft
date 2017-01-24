@@ -46,6 +46,10 @@ public class ActionFactory
         this.unitFactory = unitFactory;
     }
 
+    public void loadAssets()
+    {
+    }
+
     public Action newAction(Identifier action, Actor actor, Object value)
     {
         if (Objects.equals(action, SELECT_ACTION)) return select(actor, (Boolean)value);

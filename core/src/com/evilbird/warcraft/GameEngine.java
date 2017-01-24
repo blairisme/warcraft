@@ -2,9 +2,9 @@ package com.evilbird.warcraft;
 
 import com.badlogic.gdx.Game;
 import com.evilbird.warcraft.device.Device;
-import com.evilbird.warcraft.menu.MenuScreen;
+import com.evilbird.warcraft.loader.GameLoader;
 
-public class GameEngine extends Game implements GameView
+public class GameEngine extends Game
 {
     private Device device;
 
@@ -16,6 +16,7 @@ public class GameEngine extends Game implements GameView
     @Override
     public void create()
     {
-        setScreen(new MenuScreen(this, device));
+        GameLoader gameLoader = new GameLoader(device, this);
+        setScreen(gameLoader);
     }
 }
