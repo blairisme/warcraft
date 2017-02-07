@@ -1,5 +1,6 @@
 package com.evilbird.warcraft.action;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -14,10 +15,12 @@ import com.evilbird.warcraft.action.modifier.DeltaModifier;
 import com.evilbird.warcraft.action.modifier.DeltaType;
 import com.evilbird.warcraft.action.modifier.MoveModifier;
 import com.evilbird.warcraft.action.modifier.PassiveModifier;
+import com.evilbird.warcraft.action.modifier.ScaleModifier;
 import com.evilbird.warcraft.action.value.ActionValue;
 import com.evilbird.warcraft.action.value.ItemReferenceValue;
 import com.evilbird.warcraft.action.value.ItemValue;
 import com.evilbird.warcraft.action.value.TransientValue;
+import com.evilbird.warcraft.device.UserInput;
 import com.evilbird.warcraft.item.Item;
 import com.evilbird.warcraft.unit.UnitFactory;
 import com.evilbird.warcraft.utility.Identifier;
@@ -54,8 +57,8 @@ public class ActionFactory
     {
         if (Objects.equals(action, SELECT_ACTION)) return select(actor, (Boolean)value);
         if (Objects.equals(action, MOVE_ACTION)) return move(actor, (Vector2)value);
-        if (Objects.equals(action, PAN_ACTION)) return pan(actor, value);
-        if (Objects.equals(action, ZOOM_ACTION)) return zoom(actor, (Vector2)value);
+        if (Objects.equals(action, PAN_ACTION)) return pan(actor, (Vector2)value);
+        if (Objects.equals(action, ZOOM_ACTION)) return zoom(actor, (UserInput)value);
         if (Objects.equals(action, GATHER_GOLD_ACTION)) return gatherGold(actor, (Actor)value);
         if (Objects.equals(action, GATHER_WOOD_ACTION)) return gatherWood(actor, (Actor)value);
         if (Objects.equals(action, BUILD_FARM_ACTION)) return buildFarm(actor, (Vector2)value);
@@ -116,20 +119,78 @@ public class ActionFactory
         return move(actor, new Vector2(destination.getX(), destination.getY()));
     }
 
-    private Action pan(Actor actor, Object delta)
+
+
+    private Action pan(Actor actor, Vector2 delta)
     {
         Identifier property = new Identifier("Position");
-        ActionModifier modifier = new DeltaModifier(delta, DeltaType.PerUpdate);
+        ActionModifier modifier = getPanModifier(actor, delta);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(actor, property, modifier, duration);
     }
 
-    private Action zoom(Actor actor, Vector2 delta)
+    private ActionModifier getPanModifier(Actor actor, Vector2 delta)
     {
-        Identifier property = new Identifier("Zoom");
-        ActionModifier modifier = new DeltaModifier(delta.x, DeltaType.PerUpdate);
+        OrthographicCamera camera = (OrthographicCamera)actor.getStage().getCamera();
+
+        float mapWidth = 1024; //TODO
+        float mapHeight = 1024; //TODO
+
+        float viewportWidth = camera.viewportWidth * camera.zoom;
+        float viewportHeight = camera.viewportHeight * camera.zoom;
+
+        Vector2 lowerBound = null;
+        Vector2 upperBound = null;
+
+        if (mapWidth >= viewportWidth && mapHeight >= viewportHeight)
+        {
+            float viewportHalfWidth = viewportWidth * .5f;
+            float viewportHalfHeight = viewportHeight * .5f;
+
+            lowerBound = new Vector2(viewportHalfWidth, viewportHalfHeight);
+            upperBound = new Vector2(mapWidth - viewportHalfWidth, mapHeight - viewportHalfHeight);
+        }
+        return new DeltaModifier(delta, DeltaType.PerUpdate, lowerBound, upperBound);
+    }
+
+    private Action zoom(Actor actor, UserInput input)
+    {
+        if (input.getCount() == 1)
+        {
+            Action storeZoom = storeZoom(actor);
+            Action updateZoom = updateZoom(actor, input);
+            return new CompositeAction(storeZoom, updateZoom);
+        }
+        else
+        {
+            Action resetZoom = resetZoom(actor);
+            Action updateZoom = updateZoom(actor, input);
+            return new CompositeAction(resetZoom, updateZoom);
+        }
+    }
+
+    private Action storeZoom(Actor actor)
+    {
+        ActionValue value = new ItemValue((Item)actor, new Identifier("OriginalZoom"));
+        ActionModifier modifier = new ConstantModifier(new ItemValue((Item)actor, new Identifier("Zoom")));
         ActionDuration duration = new InstantDuration();
-        return new ModifyAction(actor, property, modifier, duration);
+        return new ModifyAction(value, modifier, duration);
+    }
+
+    private Action resetZoom(Actor actor)
+    {
+        ActionValue value = new ItemValue((Item)actor, new Identifier("Zoom"));
+        ActionModifier modifier = new ConstantModifier(new ItemValue((Item)actor, new Identifier("OriginalZoom")));
+        ActionDuration duration = new InstantDuration();
+        return new ModifyAction(value, modifier, duration);
+    }
+
+    private Action updateZoom(Actor actor, UserInput input)
+    {
+        ActionValue zoom = new ItemValue((Item)actor, new Identifier("Zoom"));
+        ActionModifier modifier = new ScaleModifier(input.getDelta().x, 0.25f, 1.5f);
+        ActionDuration duration = new InstantDuration();
+        return new ModifyAction(zoom, modifier, duration);
     }
 
     private Action select(Actor actor, boolean selected)

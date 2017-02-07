@@ -16,7 +16,7 @@ public class Menu extends GameScene
 
     public void render (float delta)
     {
-        Gdx.gl.glClearColor(0, 0, 1, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(delta);
@@ -26,7 +26,7 @@ public class Menu extends GameScene
     @Override
     public void resize (int width, int height)
     {
-        stage.getViewport().update(width, height, false);
+        stage.getViewport().update(width, height, true);
     }
 
     @Override

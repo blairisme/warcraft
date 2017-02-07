@@ -48,7 +48,7 @@ public class DesktopInput implements DeviceInput, GestureDetector.GestureListene
     @Override
     public boolean tap(float x, float y, int count, int button)
     {
-        UserInput input = new UserInput(UserInputType.Action, new Vector2(x, y));
+        UserInput input = new UserInput(UserInputType.Action, new Vector2(x, y), 1);
         pushInput(input);
         return true;
     }
@@ -68,7 +68,7 @@ public class DesktopInput implements DeviceInput, GestureDetector.GestureListene
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY)
     {
-        UserInput input = new UserInput(UserInputType.Pan, new Vector2(x, y), new Vector2(deltaX * -1, deltaY));
+        UserInput input = new UserInput(UserInputType.Pan, new Vector2(x, y), new Vector2(deltaX * -1, deltaY), 1);
         pushInput(input);
         return true;
     }
@@ -83,7 +83,7 @@ public class DesktopInput implements DeviceInput, GestureDetector.GestureListene
     public boolean zoom(float initialDistance, float distance)
     {
         float scale = distance / initialDistance;
-        UserInput input = new UserInput(UserInputType.Zoom, new Vector2(0, 0), new Vector2(scale, scale));
+        UserInput input = new UserInput(UserInputType.Zoom, new Vector2(0, 0), new Vector2(scale, scale), 1);
         pushInput(input);
         return true;
     }

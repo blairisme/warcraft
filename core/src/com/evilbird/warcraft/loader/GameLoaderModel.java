@@ -52,7 +52,7 @@ class GameLoaderModel
     public void update(float delta)
     {
         loadingTime += delta;
-        if (loadingTime >= 5 && assets.update())
+        if (loadingTime >= 2 && assets.update())
         {
             presenter.setGameService(service);
         }

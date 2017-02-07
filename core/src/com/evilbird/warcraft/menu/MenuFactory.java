@@ -7,11 +7,14 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.warcraft.level.Level;
 import com.evilbird.warcraft.level.LevelFactory;
 import com.evilbird.warcraft.utility.Identifier;
@@ -35,7 +38,8 @@ public class MenuFactory
 
     public Menu newMenu(Identifier id)
     {
-        Stage stage = new Stage();
+
+        Stage stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
         Texture menuTexture = assetManager.get("data/textures/menu/menu.png");
@@ -76,16 +80,11 @@ public class MenuFactory
         table.padTop(150f);
         table.setBackground(menuDrawable);
 
-        table.add(button1).width(224).padBottom(5f);
-        table.row();
-        table.add(button2).width(224).padBottom(5f);
-        table.row();
-        table.add(button3).width(224).padBottom(5f);
-        table.row();
-        table.add(button4).width(224).padBottom(5f);
-        table.row();
-        table.add(button5).width(224).padBottom(5f);
-        table.row();
+        addButton(table, button1);
+        addButton(table, button2);
+        addButton(table, button3);
+        addButton(table, button4);
+        addButton(table, button5);
 
         stage.addActor(table);
 
@@ -103,5 +102,15 @@ public class MenuFactory
             }
         });
         return menu;
+    }
+
+    private void addButton(Table table, TextButton button)
+    {
+        Cell cell = table.add(button);
+        cell.width(Value.percentWidth(0.3f, table));
+        cell.height(Value.percentHeight(0.04f, table));
+        cell.padBottom(Value.percentHeight(0.01f, table));
+        cell.fill();
+        table.row();
     }
 }

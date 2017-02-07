@@ -23,6 +23,12 @@ public class HudFactory
         this.assets = assets;
     }
 
+    public void loadAssets()
+    {
+        assets.load("data/textures/neutral/hud/resource-icon.png", Texture.class);
+        assets.load("data/textures/human/hud/resource.png", Texture.class);
+    }
+
     public Hud newHud(Identifier identifier)
     {
         BitmapFont labelFont = new BitmapFont();

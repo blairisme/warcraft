@@ -38,7 +38,7 @@ public class Level extends GameScene
         List<UserInput> inputs = getDevice().getDeviceInput().readInput();
         interactionAnalyzer.update(world, inputs);
 
-        Gdx.gl.glClearColor(0, 0, 1, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         world.act(delta);

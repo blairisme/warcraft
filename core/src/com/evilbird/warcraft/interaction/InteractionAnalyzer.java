@@ -1,6 +1,5 @@
 package com.evilbird.warcraft.interaction;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -9,8 +8,8 @@ import com.evilbird.warcraft.action.ActionFactory;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.device.UserInput;
 import com.evilbird.warcraft.device.UserInputType;
+import com.evilbird.warcraft.item.ItemUtils;
 import com.evilbird.warcraft.map.Map;
-import com.evilbird.warcraft.unit.CameraActor;
 import com.evilbird.warcraft.unit.Unit;
 import com.evilbird.warcraft.utility.Identifier;
 
@@ -116,15 +115,13 @@ public class InteractionAnalyzer
         }
         else if (interaction.getCommandType() == ActionType.Zoom)
         {
-            Action action = actionFactory.newAction(new Identifier("Zoom"), target, input.getDelta());
-            //target.addAction(action);
-            action.act(0f);
+            Action action = actionFactory.newAction(new Identifier("Zoom"), target, input);
+            target.addAction(action);
         }
         else if (interaction.getCommandType() == ActionType.Pan)
         {
             Action action = actionFactory.newAction(new Identifier("Pan"), target, input.getDelta());
-            //target.addAction(action);
-            action.act(0f); //TODO - WTF do I need to acll this manually - Not part of tree possibly?
+            target.addAction(action);
         }
         else if (interaction.getCommandType() == ActionType.GatherGold)
         {
@@ -175,7 +172,7 @@ public class InteractionAnalyzer
 
         Actor target = stage.hit(worldPosition.x, worldPosition.y, false);
 
-        Actor camera = new CameraActor((OrthographicCamera)stage.getCamera()); //TODO - Add to stage?
+        Actor camera = ItemUtils.findByType(stage, new Identifier("Camera"));
 
         return Arrays.asList(target, camera);
     }

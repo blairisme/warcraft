@@ -13,6 +13,8 @@ public class DesktopLauncher
 		Device device = new DesktopDevice();
 		ApplicationListener delegate = new GameEngine(device);
 		LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
+		configuration.height = 768;
+		configuration.width = 1024;
 		new LwjglApplication(delegate, configuration);
 	}
 }

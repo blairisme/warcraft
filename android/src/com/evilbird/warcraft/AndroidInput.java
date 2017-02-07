@@ -48,7 +48,7 @@ public class AndroidInput implements DeviceInput, GestureDetector.GestureListene
     @Override
     public boolean tap(float x, float y, int count, int button)
     {
-        UserInput input = new UserInput(UserInputType.Action, new Vector2(x, y));
+        UserInput input = new UserInput(UserInputType.Action, new Vector2(x, y), 1);
         pushInput(input);
         return true;
     }
@@ -68,7 +68,7 @@ public class AndroidInput implements DeviceInput, GestureDetector.GestureListene
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY)
     {
-        UserInput input = new UserInput(UserInputType.Pan, new Vector2(x, y), new Vector2(deltaX * -1, deltaY));
+        UserInput input = new UserInput(UserInputType.Pan, new Vector2(x, y), new Vector2(deltaX * -1, deltaY), 1);
         pushInput(input);
         return true;
     }
@@ -82,20 +82,43 @@ public class AndroidInput implements DeviceInput, GestureDetector.GestureListene
     @Override
     public boolean zoom(float initialDistance, float distance)
     {
-        float scale = distance / initialDistance;
-        UserInput input = new UserInput(UserInputType.Zoom, new Vector2(0, 0), new Vector2(scale, scale));
+        float scale = initialDistance / distance;
+        Vector2 delta = new Vector2(scale, scale);
+
+        UserInput input = new UserInput(UserInputType.Zoom, Vector2.Zero, delta, count++);
         pushInput(input);
+
         return true;
     }
+
+    private boolean pinching = false;
+    private int count = 1;
 
     @Override
     public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2)
     {
+        if (! pinching)
+        {
+            pinching = true;
+            count = 1;
+            /*
+            float pointerCenterX = (pointer1.x + pointer2.x)/2;
+            float pointerCenterY = (pointer1.y+ pointer2.y)/2;
+            float screenCenterX = graphics.getWidth()/2;
+            float screenCenterY = graphics.getHeight();
+            float panX = screenCenterX - pointerCenterX;
+            float panY = screenCenterY - pointerCenterY-1;
+            Vector2 delta = new Vector2(panX, panY);
+            UserInput input = new UserInput(UserInputType.Pan, Vector2.Zero, delta, 1);
+            pushInput(input);
+            */
+        }
         return false;
     }
 
     @Override
     public void pinchStop()
     {
+        pinching = false;
     }
 }

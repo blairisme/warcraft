@@ -11,12 +11,14 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.warcraft.action.ActionFactory;
 import com.evilbird.warcraft.graphics.DirectionalAnimation;
 import com.evilbird.warcraft.interaction.InteractionAnalyzer;
 import com.evilbird.warcraft.map.Map;
+import com.evilbird.warcraft.unit.CameraActor;
 import com.evilbird.warcraft.unit.Unit;
 import com.evilbird.warcraft.unit.UnitFactory;
 import com.evilbird.warcraft.utility.Identifier;
@@ -59,11 +61,25 @@ public class LevelFactory
         camera.setToOrtho(false, 30, 20);
         camera.position.x = 50;
         camera.position.y = 50;
+        camera.zoom = 0.5f;
+
+
 
         Stage world = new Stage(new ScreenViewport(camera));
         Stage hud = new Stage(new ScreenViewport());
 
         addItems(unitFactory, world, map);
+
+
+
+        CameraActor cameraActor = new CameraActor(camera);
+        cameraActor.setTouchable(Touchable.disabled);
+        cameraActor.setVisible(false);
+        cameraActor.setProperty(new Identifier("Id"), new Identifier("Camera"));
+        cameraActor.setProperty(new Identifier("Type"), new Identifier("Camera"));
+        cameraActor.setProperty(new Identifier("OriginalZoom"), 0f); //TODO add default value if missing automatically
+        world.addActor(cameraActor);
+
 
         return new Level(world, hud, interactionAnalyzer);
     }

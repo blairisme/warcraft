@@ -1,10 +1,18 @@
 package com.evilbird.warcraft.action.modifier;
 
+import com.evilbird.warcraft.action.value.ActionValue;
+import com.evilbird.warcraft.action.value.ObjectValue;
+
 public class ConstantModifier implements ActionModifier
 {
-    private Object newValue;
+    private ActionValue newValue;
 
     public ConstantModifier(Object newValue)
+    {
+        this(new ObjectValue(newValue));
+    }
+
+    public ConstantModifier(ActionValue newValue)
     {
         this.newValue = newValue;
     }
@@ -12,7 +20,7 @@ public class ConstantModifier implements ActionModifier
     @Override
     public Object modify(Object value, float time)
     {
-        return newValue;
+        return newValue.get();
     }
 
     @Override
