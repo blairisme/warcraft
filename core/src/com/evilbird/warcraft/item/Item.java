@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+//TODO store all in properties
 public class Item extends Actor
 {
     private static final Identifier SELECTED_PROPERTY = new Identifier("Selected");

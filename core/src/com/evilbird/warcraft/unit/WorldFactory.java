@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.level;
+package com.evilbird.warcraft.unit;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,13 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.evilbird.warcraft.action.ActionFactory;
 import com.evilbird.warcraft.graphics.DirectionalAnimation;
-import com.evilbird.warcraft.interaction.InteractionAnalyzer;
-import com.evilbird.warcraft.map.Map;
-import com.evilbird.warcraft.unit.CameraActor;
-import com.evilbird.warcraft.unit.Unit;
-import com.evilbird.warcraft.unit.UnitFactory;
+import com.evilbird.warcraft.item.Item;
 import com.evilbird.warcraft.utility.Identifier;
 
 import org.apache.commons.lang3.Range;
@@ -30,61 +25,32 @@ import java.util.Objects;
 
 import static com.badlogic.gdx.Gdx.graphics;
 
-public class LevelFactory
+public class WorldFactory
 {
     private AssetManager assets;
     private UnitFactory unitFactory;
-    private ActionFactory actionFactory;
 
-    public LevelFactory(AssetManager assets, UnitFactory unitFactory, ActionFactory actionFactory)
+    public WorldFactory(AssetManager assets, UnitFactory unitFactory)
     {
         this.assets = assets;
         this.unitFactory = unitFactory;
-        this.actionFactory = actionFactory;
     }
 
     public void loadAssets()
     {
     }
 
-    public Level newLevel(Identifier identifier)
+    public World newWorld(Identifier identifier)
     {
-        InteractionAnalyzer interactionAnalyzer = new InteractionAnalyzer(actionFactory);
-
         assets.load("data/levels/human/level1.tmx", TiledMap.class);
         assets.finishLoading();
-
-
         TiledMap map = assets.get("data/levels/human/level1.tmx", TiledMap.class);
 
-        OrthographicCamera camera = new OrthographicCamera(graphics.getWidth(), graphics.getHeight());
-        camera.setToOrtho(false, 30, 20);
-        camera.position.x = 50;
-        camera.position.y = 50;
-        camera.zoom = 0.5f;
-
-
-
-        Stage world = new Stage(new ScreenViewport(camera));
-        Stage hud = new Stage(new ScreenViewport());
-
+        World world = new World();
         addItems(unitFactory, world, map);
 
-
-
-        CameraActor cameraActor = new CameraActor(camera);
-        cameraActor.setTouchable(Touchable.disabled);
-        cameraActor.setVisible(false);
-        cameraActor.setProperty(new Identifier("Id"), new Identifier("Camera"));
-        cameraActor.setProperty(new Identifier("Type"), new Identifier("Camera"));
-        cameraActor.setProperty(new Identifier("OriginalZoom"), 0f); //TODO add default value if missing automatically
-        world.addActor(cameraActor);
-
-
-        return new Level(world, hud, interactionAnalyzer);
+        return world;
     }
-
-
 
     private void addItems(UnitFactory unitFactory, Stage stage, TiledMap map)
     {
@@ -103,12 +69,14 @@ public class LevelFactory
         map.setSize(1024, 1024);
         map.setPosition(0, 0);
         map.setScale(1f);
+        map.setProperty(new Identifier("Id"), new Identifier("Map"));
+        map.setProperty(new Identifier("Type"), new Identifier("Map"));
         stage.addActor(map);
     }
 
     private void addAggregateItems(UnitFactory unitFactory, Stage stage, MapLayer layer)
     {
-        if (Objects.equals(layer.getName(), "Wood")) // swap for property aggregated=true
+        if (Objects.equals(layer.getName(), "Wood")) // TODO: swap for property aggregated=true
         {
             TiledMapTileLayer tileLayer = (TiledMapTileLayer)layer;
 
@@ -155,12 +123,49 @@ public class LevelFactory
             MapProperties properties = object.getProperties();
             String type = (String) properties.get("type");
 
-            if (!Objects.equals(type, "Camera")) // TODO
+            if (Objects.equals(type, "Camera")) // TODO
+            {
+                Float x = (Float)properties.get("x");
+                Float y = (Float)properties.get("y");
+
+                OrthographicCamera orthographicCamera = new OrthographicCamera(graphics.getWidth(), graphics.getHeight());
+                orthographicCamera.setToOrtho(false, 30, 20);
+                orthographicCamera.position.x = x;
+                orthographicCamera.position.y = y;
+                orthographicCamera.zoom = 0.5f;
+
+                Camera cameraActor = new Camera(orthographicCamera);
+                cameraActor.setTouchable(Touchable.disabled);
+                cameraActor.setVisible(false);
+                cameraActor.setProperty(new Identifier("Id"), new Identifier("Camera"));
+                cameraActor.setProperty(new Identifier("Type"), new Identifier("Camera"));
+                cameraActor.setProperty(new Identifier("OriginalZoom"), 0f); //TODO add default value if missing automatically
+
+                stage.addActor(cameraActor);
+                stage.setViewport(new ScreenViewport(orthographicCamera));
+            }
+            else if (Objects.equals(type, "Player")) // TODO
+            {
+                Float gold = (Float)properties.get("Gold");
+                Float wood = (Float)properties.get("Wood");
+                String id = (String)properties.get("Id");
+
+                Item player = new Item();
+                player.setTouchable(Touchable.disabled);
+                player.setVisible(false);
+                player.setProperty(new Identifier("Id"), new Identifier(id));
+                player.setProperty(new Identifier("Type"), new Identifier("Player"));
+                player.setProperty(new Identifier("Gold"), gold);
+                player.setProperty(new Identifier("Wood"), wood);
+
+                stage.addActor(player);
+            }
+            else
             {
                 Float x = (Float) properties.get("x");
                 Float y = (Float) properties.get("y");
-                Float width = (Float) properties.get("width");
-                Float height = (Float) properties.get("height");
+                Float width = (Float)properties.get("width");
+                Float height = (Float)properties.get("height");
 
                 Unit unit = unitFactory.newUnit(new Identifier(type), new Identifier());
                 unit.setSize(width, height);

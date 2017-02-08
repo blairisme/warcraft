@@ -16,17 +16,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.warcraft.level.Level;
-import com.evilbird.warcraft.level.LevelFactory;
 import com.evilbird.warcraft.utility.Identifier;
 
 public class MenuFactory
 {
     private AssetManager assetManager;
-    private LevelFactory levelFactory;
 
-    public MenuFactory(AssetManager assetManager, LevelFactory levelFactory)
+    public MenuFactory(AssetManager assetManager)
     {
-        this.levelFactory = levelFactory;
         this.assetManager = assetManager;
     }
 
@@ -94,11 +91,8 @@ public class MenuFactory
         {
             public void changed (ChangeEvent event, Actor actor)
             {
-                Level level = levelFactory.newLevel(new Identifier("Level1"));
+                Level level = new Level(menu.getDevice(), menu.getService());
                 menu.setScreen(level);
-
-
-                //setScreen(new LevelScreen(getView(), getDevice()));
             }
         });
         return menu;

@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.map;
+package com.evilbird.warcraft.unit;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;

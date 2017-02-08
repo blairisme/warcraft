@@ -8,9 +8,11 @@ import com.evilbird.warcraft.action.ActionFactory;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.device.UserInput;
 import com.evilbird.warcraft.device.UserInputType;
+import com.evilbird.warcraft.hud.Hud;
+import com.evilbird.warcraft.item.Item;
 import com.evilbird.warcraft.item.ItemUtils;
-import com.evilbird.warcraft.map.Map;
 import com.evilbird.warcraft.unit.Unit;
+import com.evilbird.warcraft.unit.World;
 import com.evilbird.warcraft.utility.Identifier;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-public class InteractionAnalyzer
+public class InteractionAnalyzer implements Behaviour
 {
     private ActionFactory actionFactory;
     private List<Interaction> interactions;
@@ -52,6 +54,12 @@ public class InteractionAnalyzer
         this.interactions.add(new Interaction(UserInputType.Action, "Wood", "Peasant", ActionType.GatherWood));
 
         this.interactions.add(new Interaction(UserInputType.Action, "Grunt", "Footman", ActionType.Attack));
+    }
+
+    @Override
+    public void update(World world, Hud hud, List<UserInput> input)
+    {
+        update(world, input); //TODO
     }
 
     public void update(Stage stage, List<UserInput> inputs)
@@ -199,22 +207,14 @@ public class InteractionAnalyzer
         return true;
     }
 
-    //TODO: Obtain from Actor
+    //TODO: Use Items not Actors
     private String getType(Actor actor)
     {
-        if (actor instanceof Map)
+        if (actor instanceof Item)
         {
-            return "Map";
-        }
-        if (actor instanceof Unit)
-        {
-            Unit unit = (Unit)actor;
-            Identifier type = (Identifier)unit.getProperty(new Identifier("Type"));
+            Item item = (Item)actor;
+            Identifier type = (Identifier)item.getProperty(new Identifier("Type"));
             return type.toString();
-        }
-        if (actor instanceof com.evilbird.warcraft.unit.CameraActor)
-        {
-            return "Camera"; //TODO
         }
         return null;
     }

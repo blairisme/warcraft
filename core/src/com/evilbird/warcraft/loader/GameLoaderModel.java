@@ -5,9 +5,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.warcraft.GameService;
 import com.evilbird.warcraft.action.ActionFactory;
 import com.evilbird.warcraft.device.Device;
-import com.evilbird.warcraft.level.LevelFactory;
+import com.evilbird.warcraft.hud.HudFactory;
+import com.evilbird.warcraft.interaction.BehaviourFactory;
 import com.evilbird.warcraft.menu.MenuFactory;
 import com.evilbird.warcraft.unit.UnitFactory;
+import com.evilbird.warcraft.unit.WorldFactory;
 
 class GameLoaderModel
 {
@@ -40,13 +42,19 @@ class GameLoaderModel
         ActionFactory actionFactory = new ActionFactory(unitFactory);
         actionFactory.loadAssets();
 
-        LevelFactory levelFactory = new LevelFactory(assets, unitFactory, actionFactory);
-        levelFactory.loadAssets();
-
-        MenuFactory menuFactory = new MenuFactory(assets, levelFactory);
+        MenuFactory menuFactory = new MenuFactory(assets);
         menuFactory.loadAssets();
 
-        service = new GameService(actionFactory, levelFactory, menuFactory, unitFactory);
+        WorldFactory worldFactory = new WorldFactory(assets, unitFactory);
+        worldFactory.loadAssets();
+
+        HudFactory hudFactory = new HudFactory(assets);
+        hudFactory.loadAssets();
+
+        BehaviourFactory behaviourFactory = new BehaviourFactory(actionFactory);
+        behaviourFactory.loadAssets();
+
+        service = new GameService(actionFactory, menuFactory, unitFactory, worldFactory, hudFactory, behaviourFactory);
     }
 
     public void update(float delta)

@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.hud;
+package com.evilbird.warcraft.unit;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -10,11 +10,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Hud extends Stage
+public class World extends Stage
 {
     private Map<Identifier, Item> items;
 
-    public Hud()
+    public World()
     {
         this.items = new HashMap<Identifier, Item>();
     }

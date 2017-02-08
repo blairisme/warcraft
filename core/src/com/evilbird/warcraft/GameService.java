@@ -1,27 +1,35 @@
 package com.evilbird.warcraft;
 
 import com.evilbird.warcraft.action.ActionFactory;
-import com.evilbird.warcraft.level.LevelFactory;
+import com.evilbird.warcraft.hud.HudFactory;
+import com.evilbird.warcraft.interaction.BehaviourFactory;
 import com.evilbird.warcraft.menu.MenuFactory;
 import com.evilbird.warcraft.unit.UnitFactory;
+import com.evilbird.warcraft.unit.WorldFactory;
 
 public class GameService
 {
     private ActionFactory actionFactory;
-    private LevelFactory levelFactory;
     private MenuFactory menuFactory;
     private UnitFactory unitFactory;
+    private WorldFactory worldFactory;
+    private HudFactory hudFactory;
+    private BehaviourFactory behaviourFactory;
 
     public GameService(
             ActionFactory actionFactory,
-            LevelFactory levelFactory,
             MenuFactory menuFactory,
-            UnitFactory unitFactory)
+            UnitFactory unitFactory,
+            WorldFactory worldFactory,
+            HudFactory hudFactory,
+            BehaviourFactory behaviourFactory)
     {
         this.actionFactory = actionFactory;
-        this.levelFactory = levelFactory;
         this.menuFactory = menuFactory;
         this.unitFactory = unitFactory;
+        this.worldFactory = worldFactory;
+        this.hudFactory = hudFactory;
+        this.behaviourFactory = behaviourFactory;
     }
 
     public ActionFactory getActionFactory()
@@ -34,13 +42,23 @@ public class GameService
         return menuFactory;
     }
 
-    public LevelFactory getLevelFactory()
-    {
-        return levelFactory;
-    }
-
     public UnitFactory getUnitFactory()
     {
         return unitFactory;
+    }
+
+    public WorldFactory getWorldFactory()
+    {
+        return worldFactory;
+    }
+
+    public HudFactory getHudFactory()
+    {
+        return hudFactory;
+    }
+
+    public BehaviourFactory getBehaviourFactory()
+    {
+        return behaviourFactory;
     }
 }

@@ -7,14 +7,14 @@ import com.evilbird.warcraft.utility.Identifier;
 
 import java.util.Objects;
 
-public class CameraActor extends Item
+public class Camera extends Item
 {
     private static final Identifier POSITION_PROPERTY = new Identifier("Position");
     private static final Identifier ZOOM_PROPERTY = new Identifier("Zoom");
 
     private OrthographicCamera camera;
 
-    public CameraActor(OrthographicCamera camera)
+    public Camera(OrthographicCamera camera)
     {
         this.camera = camera;
     }

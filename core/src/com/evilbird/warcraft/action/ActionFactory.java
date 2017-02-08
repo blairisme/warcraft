@@ -28,6 +28,7 @@ import com.evilbird.warcraft.utility.Identifier;
 import java.util.Arrays;
 import java.util.Objects;
 
+import static com.evilbird.warcraft.item.ItemUtils.findById;
 import static com.evilbird.warcraft.item.ItemUtils.findByType;
 
 public class ActionFactory
@@ -258,12 +259,12 @@ public class ActionFactory
         return new ParallelAction(deselect, resourceTake, resourceReceive);
     }
 
-    private Action gather(Actor gatherer, Actor resource, Actor depot, Identifier property, Identifier gatherAnimation, Identifier depositAnimation)
+    private Action gather(Actor gatherer, Actor resource, Actor player, Actor depot, Identifier property, Identifier gatherAnimation, Identifier depositAnimation)
     {
         Action moveToResource = move(gatherer, resource);
-        Action transfer = resourceTransfer(gatherer, resource, property, gatherAnimation, gatherAnimation);
+        Action transfer = resourceTransfer(resource, gatherer, property, gatherAnimation, gatherAnimation);
         Action moveToDepot = move(gatherer, depot);
-        Action deposit = resourceTransfer(depot, gatherer, property, depositAnimation, depositAnimation);
+        Action deposit = resourceTransfer(gatherer, player, property, depositAnimation, depositAnimation);
         Action gather = new SequenceAction(moveToResource, transfer, moveToDepot, deposit);
         return new RepeatedAction(gather);
     }
@@ -271,19 +272,21 @@ public class ActionFactory
     private Action gatherGold(Actor actor, Actor resource)
     {
         Actor depot = findByType(actor.getStage(), new Identifier("TownHall"));
+        Actor player = findById(actor.getStage(), new Identifier("Player1")); //TODO
         Identifier property = new Identifier("Gold");
         Identifier gatherAnimation = new Identifier("GatherGold");
         Identifier depositAnimation = new Identifier("DepositGold");
-        return gather(actor, resource, depot, property, gatherAnimation, depositAnimation);
+        return gather(actor, resource, player, depot, property, gatherAnimation, depositAnimation);
     }
 
     private Action gatherWood(Actor actor, Actor resource)
     {
         Actor depot = findByType(actor.getStage(), new Identifier("TownHall"));
+        Actor player = findById(actor.getStage(), new Identifier("Player1")); //TODO
         Identifier property = new Identifier("Wood");
         Identifier gatherAnimation = new Identifier("GatherWood");
         Identifier depositAnimation = new Identifier("DepositWood");
-        return gather(actor, resource, depot, property, gatherAnimation, depositAnimation);
+        return gather(actor, resource, player, depot, property, gatherAnimation, depositAnimation);
     }
 
     private Action create(Stage stage, Identifier type, Identifier id, Vector2 position)

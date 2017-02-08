@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="22">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="26">
  <tileset firstgid="1" name="terrain" tilewidth="32" tileheight="32" tilecount="384" columns="16">
   <image source="../../textures/neutral/winter/terrain.png" width="512" height="768"/>
  </tileset>
@@ -27,6 +27,9 @@
  <tileset firstgid="689" name="Camera" tilewidth="64" tileheight="64" tilecount="1" columns="1">
   <image source="../../textures/neutral/perennial/camera.png" width="64" height="64"/>
  </tileset>
+ <tileset firstgid="690" name="Misc" tilewidth="32" tileheight="32" tilecount="1" columns="1">
+  <image source="../../textures/neutral/perennial/x_startpoint.png" width="32" height="32"/>
+ </tileset>
  <layer name="Ground" width="32" height="32">
   <properties>
    <property name="Aggregate" type="bool" value="false"/>
@@ -47,26 +50,76 @@
   <object id="19" name="Camera1" type="Camera" gid="689" x="432" y="365" width="64" height="64"/>
  </objectgroup>
  <objectgroup name="Footman">
-  <object id="8" name="Footman1" type="Footman" gid="385" x="400" y="250" width="72" height="72"/>
-  <object id="17" name="Footman2" type="Footman" gid="385" x="301" y="597" width="72" height="72"/>
+  <object id="8" name="Footman1" type="Footman" gid="385" x="400" y="250" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Player1"/>
+   </properties>
+  </object>
+  <object id="17" name="Footman2" type="Footman" gid="385" x="301" y="597" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Player1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="TownHall">
-  <object id="10" name="TownHall1" type="TownHall" gid="681" x="384" y="512" width="128" height="128"/>
+  <object id="10" name="TownHall1" type="TownHall" gid="681" x="384" y="512" width="128" height="128">
+   <properties>
+    <property name="Owner" value="Player1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Peasant">
-  <object id="12" name="Peasant1" type="Peasant" gid="481" x="365.333" y="373.333" width="72" height="72"/>
+  <object id="12" name="Peasant1" type="Peasant" gid="481" x="365.333" y="373.333" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Player1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Farm">
-  <object id="11" name="Farm1" type="Farm" gid="683" x="576" y="349.333" width="64" height="64"/>
+  <object id="11" name="Farm1" type="Farm" gid="683" x="576" y="349.333" width="64" height="64">
+   <properties>
+    <property name="Owner" value="Player1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Barracks">
-  <object id="13" name="Barracks1" type="Barracks" gid="685" x="221.333" y="382.667" width="96" height="96"/>
+  <object id="13" name="Barracks1" type="Barracks" gid="685" x="221.333" y="382.667" width="96" height="96">
+   <properties>
+    <property name="Owner" value="Player1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="GoldMine">
   <object id="14" name="GoldMine1" type="GoldMine" gid="687" x="929.333" y="1024" width="96" height="96"/>
  </objectgroup>
  <objectgroup name="Grunt">
-  <object id="15" name="Grunt1" type="Grunt" gid="585" x="858.667" y="906.667" width="72" height="72"/>
-  <object id="16" name="Grunt2" type="Grunt" gid="585" x="764" y="969.333" width="72" height="72"/>
+  <object id="15" name="Grunt1" type="Grunt" gid="585" x="858.667" y="906.667" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Player2"/>
+   </properties>
+  </object>
+  <object id="16" name="Grunt2" type="Grunt" gid="585" x="764" y="969.333" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Player2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Player">
+  <object id="23" name="Player1" type="Player" gid="690" x="30" y="80" width="32" height="32">
+   <properties>
+    <property name="AI" type="bool" value="false"/>
+    <property name="Gold" type="float" value="100"/>
+    <property name="Id" value="Player1"/>
+    <property name="Wood" type="float" value="200"/>
+   </properties>
+  </object>
+  <object id="25" name="Player2" type="Player" gid="690" x="100" y="80" width="32" height="32">
+   <properties>
+    <property name="AI" type="bool" value="true"/>
+    <property name="Gold" type="float" value="0"/>
+    <property name="Id" value="Player2"/>
+    <property name="Wood" type="float" value="0"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
