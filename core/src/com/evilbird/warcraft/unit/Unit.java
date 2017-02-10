@@ -7,9 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.warcraft.graphics.DirectionalAnimation;
-import com.evilbird.warcraft.item.Item;
-import com.evilbird.warcraft.utility.Identifier;
+import com.evilbird.engine.graphics.DirectionalAnimation;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.utility.Identifier;
 
 import java.util.Map;
 import java.util.Objects;

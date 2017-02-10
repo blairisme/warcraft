@@ -3,8 +3,8 @@ package com.evilbird.warcraft.desktop;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.evilbird.warcraft.GameEngine;
-import com.evilbird.warcraft.device.Device;
+import com.evilbird.engine.GameEngine;
+import com.evilbird.engine.device.Device;
 
 public class DesktopLauncher
 {
@@ -15,6 +15,7 @@ public class DesktopLauncher
 		LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
 		configuration.height = 768;
 		configuration.width = 1024;
+		configuration.vSyncEnabled = true;
 		new LwjglApplication(delegate, configuration);
 	}
 }

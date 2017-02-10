@@ -15,8 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.evilbird.warcraft.level.Level;
-import com.evilbird.warcraft.utility.Identifier;
+import com.evilbird.engine.level.Level;
+import com.evilbird.engine.utility.Identifier;
 
 public class MenuFactory
 {
@@ -33,7 +33,7 @@ public class MenuFactory
         assetManager.load("data/textures/menu/menu.png", Texture.class);
     }
 
-    public Menu newMenu(Identifier id)
+    public com.evilbird.engine.menu.Menu newMenu(Identifier id)
     {
 
         Stage stage = new Stage(new ScreenViewport());
@@ -85,7 +85,7 @@ public class MenuFactory
 
         stage.addActor(table);
 
-        final Menu menu = new Menu(stage);
+        final com.evilbird.engine.menu.Menu menu = new com.evilbird.engine.menu.Menu(stage);
 
         button1.addListener(new ChangeListener()
         {

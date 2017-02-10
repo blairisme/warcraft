@@ -3,9 +3,9 @@ package com.evilbird.warcraft;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.warcraft.device.DeviceInput;
-import com.evilbird.warcraft.device.UserInput;
-import com.evilbird.warcraft.device.UserInputType;
+import com.evilbird.engine.device.DeviceInput;
+import com.evilbird.engine.device.UserInput;
+import com.evilbird.engine.device.UserInputType;
 
 import java.util.ArrayList;
 import java.util.List;

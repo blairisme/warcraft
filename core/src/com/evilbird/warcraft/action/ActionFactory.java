@@ -5,31 +5,37 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.evilbird.warcraft.action.duration.ActionDuration;
-import com.evilbird.warcraft.action.duration.InstantDuration;
-import com.evilbird.warcraft.action.duration.PredicateDuration;
-import com.evilbird.warcraft.action.duration.TimeDuration;
-import com.evilbird.warcraft.action.modifier.ActionModifier;
-import com.evilbird.warcraft.action.modifier.ConstantModifier;
-import com.evilbird.warcraft.action.modifier.DeltaModifier;
-import com.evilbird.warcraft.action.modifier.DeltaType;
-import com.evilbird.warcraft.action.modifier.MoveModifier;
-import com.evilbird.warcraft.action.modifier.PassiveModifier;
-import com.evilbird.warcraft.action.modifier.ScaleModifier;
-import com.evilbird.warcraft.action.value.ActionValue;
-import com.evilbird.warcraft.action.value.ItemReferenceValue;
-import com.evilbird.warcraft.action.value.ItemValue;
-import com.evilbird.warcraft.action.value.TransientValue;
-import com.evilbird.warcraft.device.UserInput;
-import com.evilbird.warcraft.item.Item;
+import com.evilbird.engine.action.CreateAction;
+import com.evilbird.engine.action.ModifyAction;
+import com.evilbird.engine.action.ParallelAction;
+import com.evilbird.engine.action.RemoveAction;
+import com.evilbird.engine.action.RepeatedAction;
+import com.evilbird.engine.action.SequenceAction;
+import com.evilbird.engine.action.duration.ActionDuration;
+import com.evilbird.engine.action.duration.InstantDuration;
+import com.evilbird.engine.action.duration.PredicateDuration;
+import com.evilbird.engine.action.duration.TimeDuration;
+import com.evilbird.engine.action.modifier.ActionModifier;
+import com.evilbird.engine.action.modifier.ConstantModifier;
+import com.evilbird.engine.action.modifier.DeltaModifier;
+import com.evilbird.engine.action.modifier.DeltaType;
+import com.evilbird.engine.action.modifier.MoveModifier;
+import com.evilbird.engine.action.modifier.PassiveModifier;
+import com.evilbird.engine.action.modifier.ScaleModifier;
+import com.evilbird.engine.action.value.ActionValue;
+import com.evilbird.engine.action.value.ItemReferenceValue;
+import com.evilbird.engine.action.value.ItemValue;
+import com.evilbird.engine.action.value.TransientValue;
+import com.evilbird.engine.device.UserInput;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.utility.Identifier;
 import com.evilbird.warcraft.unit.UnitFactory;
-import com.evilbird.warcraft.utility.Identifier;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-import static com.evilbird.warcraft.item.ItemUtils.findById;
-import static com.evilbird.warcraft.item.ItemUtils.findByType;
+import static com.evilbird.engine.item.ItemUtils.findById;
+import static com.evilbird.engine.item.ItemUtils.findByType;
 
 public class ActionFactory
 {
@@ -73,7 +79,7 @@ public class ActionFactory
         Identifier property = new Identifier("Animation");
         ActionModifier modifier = new ConstantModifier(animation);
         ActionDuration duration = new InstantDuration();
-        return new ModifyAction(actor, property, modifier, duration);
+        return new com.evilbird.engine.action.ModifyAction(actor, property, modifier, duration);
     }
 
     private Action setAnimation(Stage stage, Identifier item, Identifier animation)
@@ -81,14 +87,14 @@ public class ActionFactory
         ActionValue value = new ItemReferenceValue(stage, item, new Identifier("Animation"));
         ActionModifier modifier = new ConstantModifier(animation);
         ActionDuration duration = new InstantDuration();
-        return new ModifyAction(value, modifier, duration);
+        return new com.evilbird.engine.action.ModifyAction(value, modifier, duration);
     }
 
     private Action setAnimation(Actor actor, Identifier animation, float time)
     {
         Action animate = setAnimation(actor, animation);
         Action wait = wait(time);
-        return new ParallelAction(animate, wait);
+        return new com.evilbird.engine.action.ParallelAction(animate, wait);
     }
 
     private Action wait(float time)
@@ -96,7 +102,7 @@ public class ActionFactory
         ActionValue value = new TransientValue();
         ActionModifier modifier = new PassiveModifier();
         ActionDuration duration = new TimeDuration(time);
-        return new ModifyAction(value, modifier, duration);
+        return new com.evilbird.engine.action.ModifyAction(value, modifier, duration);
     }
 
     private Action moveAction(Actor actor, Vector2 destination)
@@ -104,7 +110,7 @@ public class ActionFactory
         Identifier position = new Identifier("Position");
         ActionModifier modifier = new MoveModifier(destination, 64f);
         ActionDuration duration = new PredicateDuration(actor, position, destination);
-        return new ModifyAction(actor, position, modifier, duration);
+        return new com.evilbird.engine.action.ModifyAction(actor, position, modifier, duration);
     }
 
     private Action move(Actor actor, Vector2 destination)
@@ -112,7 +118,7 @@ public class ActionFactory
         Action animateMove = setAnimation(actor, new Identifier("Move"));
         Action move = moveAction(actor, destination);
         Action animateIdle = setAnimation(actor, new Identifier("Idle"));
-        return new SequenceAction(Arrays.asList(animateMove, move, animateIdle));
+        return new com.evilbird.engine.action.SequenceAction(Arrays.asList(animateMove, move, animateIdle));
     }
 
     private Action move(Actor actor, Actor destination)
@@ -127,7 +133,7 @@ public class ActionFactory
         Identifier property = new Identifier("Position");
         ActionModifier modifier = getPanModifier(actor, delta);
         ActionDuration duration = new InstantDuration();
-        return new ModifyAction(actor, property, modifier, duration);
+        return new com.evilbird.engine.action.ModifyAction(actor, property, modifier, duration);
     }
 
     private ActionModifier getPanModifier(Actor actor, Vector2 delta)
@@ -160,13 +166,13 @@ public class ActionFactory
         {
             Action storeZoom = storeZoom(actor);
             Action updateZoom = updateZoom(actor, input);
-            return new CompositeAction(storeZoom, updateZoom);
+            return new com.evilbird.engine.action.CompositeAction(storeZoom, updateZoom);
         }
         else
         {
             Action resetZoom = resetZoom(actor);
             Action updateZoom = updateZoom(actor, input);
-            return new CompositeAction(resetZoom, updateZoom);
+            return new com.evilbird.engine.action.CompositeAction(resetZoom, updateZoom);
         }
     }
 
@@ -175,7 +181,7 @@ public class ActionFactory
         ActionValue value = new ItemValue((Item)actor, new Identifier("OriginalZoom"));
         ActionModifier modifier = new ConstantModifier(new ItemValue((Item)actor, new Identifier("Zoom")));
         ActionDuration duration = new InstantDuration();
-        return new ModifyAction(value, modifier, duration);
+        return new com.evilbird.engine.action.ModifyAction(value, modifier, duration);
     }
 
     private Action resetZoom(Actor actor)
@@ -183,7 +189,7 @@ public class ActionFactory
         ActionValue value = new ItemValue((Item)actor, new Identifier("Zoom"));
         ActionModifier modifier = new ConstantModifier(new ItemValue((Item)actor, new Identifier("OriginalZoom")));
         ActionDuration duration = new InstantDuration();
-        return new ModifyAction(value, modifier, duration);
+        return new com.evilbird.engine.action.ModifyAction(value, modifier, duration);
     }
 
     private Action updateZoom(Actor actor, UserInput input)
@@ -191,7 +197,7 @@ public class ActionFactory
         ActionValue zoom = new ItemValue((Item)actor, new Identifier("Zoom"));
         ActionModifier modifier = new ScaleModifier(input.getDelta().x, 0.25f, 1.5f);
         ActionDuration duration = new InstantDuration();
-        return new ModifyAction(zoom, modifier, duration);
+        return new com.evilbird.engine.action.ModifyAction(zoom, modifier, duration);
     }
 
     private Action select(Actor actor, boolean selected)
@@ -200,7 +206,7 @@ public class ActionFactory
         if (selected)
         {
             Action sound = playSound(actor, new Identifier("Selected"));
-            result = new ParallelAction(result, sound);
+            result = new com.evilbird.engine.action.ParallelAction(result, sound);
         }
         return result;
     }
@@ -210,7 +216,7 @@ public class ActionFactory
         Identifier property = new Identifier("Selected");
         ActionModifier modifier = new ConstantModifier(selected);
         ActionDuration duration = new InstantDuration();
-        return new ModifyAction(actor, property, modifier, duration);
+        return new com.evilbird.engine.action.ModifyAction(actor, property, modifier, duration);
     }
 
     private Action playSound(Actor actor, Identifier sound)
@@ -218,14 +224,14 @@ public class ActionFactory
         Identifier property = new Identifier("Sound");
         ActionModifier modifier = new ConstantModifier(sound);
         ActionDuration duration = new InstantDuration();
-        return new ModifyAction(actor, property, modifier, duration);
+        return new com.evilbird.engine.action.ModifyAction(actor, property, modifier, duration);
     }
 
     private Action resourceReceive(Actor actor, Identifier resource)
     {
         ActionModifier modifier = new DeltaModifier(1f, DeltaType.PerSecond);
         ActionDuration duration = new TimeDuration(10f);
-        return new ModifyAction(actor, resource, modifier, duration);
+        return new com.evilbird.engine.action.ModifyAction(actor, resource, modifier, duration);
     }
 
     private Action resourceReceiveAnimated(Actor actor, Identifier resource, Identifier animation)
@@ -233,14 +239,14 @@ public class ActionFactory
         Action animateBefore = setAnimation(actor, animation);
         Action gather = resourceReceive(actor, resource);
         Action animateAfter = setAnimation(actor, new Identifier("Idle"));
-        return new SequenceAction(animateBefore, gather, animateAfter);
+        return new com.evilbird.engine.action.SequenceAction(animateBefore, gather, animateAfter);
     }
 
     private Action resourceTake(Actor actor, Identifier resource)
     {
         ActionModifier modifier = new DeltaModifier(-10f, DeltaType.PerSecond);
         ActionDuration duration = new TimeDuration(10f);
-        return new ModifyAction(actor, resource, modifier, duration);
+        return new com.evilbird.engine.action.ModifyAction(actor, resource, modifier, duration);
     }
 
     private Action resourceTakeAnimated(Actor actor, Identifier resource, Identifier animation)
@@ -248,7 +254,7 @@ public class ActionFactory
         Action animateBefore = setAnimation(actor, animation);
         Action gather = resourceTake(actor, resource);
         Action animateAfter = setAnimation(actor, new Identifier("Idle"));
-        return new SequenceAction(animateBefore, gather, animateAfter);
+        return new com.evilbird.engine.action.SequenceAction(animateBefore, gather, animateAfter);
     }
 
     private Action resourceTransfer(Actor source, Actor destination, Identifier resource, Identifier takeAnimation, Identifier receiveAnimation)
@@ -256,7 +262,7 @@ public class ActionFactory
         Action deselect = setSelected(source, false);
         Action resourceTake = resourceTakeAnimated(source, resource, takeAnimation);
         Action resourceReceive = resourceReceiveAnimated(destination, resource, receiveAnimation);
-        return new ParallelAction(deselect, resourceTake, resourceReceive);
+        return new com.evilbird.engine.action.ParallelAction(deselect, resourceTake, resourceReceive);
     }
 
     private Action gather(Actor gatherer, Actor resource, Actor player, Actor depot, Identifier property, Identifier gatherAnimation, Identifier depositAnimation)
@@ -265,7 +271,7 @@ public class ActionFactory
         Action transfer = resourceTransfer(resource, gatherer, property, gatherAnimation, gatherAnimation);
         Action moveToDepot = move(gatherer, depot);
         Action deposit = resourceTransfer(gatherer, player, property, depositAnimation, depositAnimation);
-        Action gather = new SequenceAction(moveToResource, transfer, moveToDepot, deposit);
+        Action gather = new com.evilbird.engine.action.SequenceAction(moveToResource, transfer, moveToDepot, deposit);
         return new RepeatedAction(gather);
     }
 
@@ -299,7 +305,7 @@ public class ActionFactory
         ActionValue value = new ItemReferenceValue(stage, actor, new Identifier("Enabled"));
         ActionModifier modifier = new ConstantModifier(enabled);
         ActionDuration duration = new InstantDuration();
-        return new ModifyAction(value, modifier, duration);
+        return new com.evilbird.engine.action.ModifyAction(value, modifier, duration);
     }
 
     private Action setEnabled(Actor actor, boolean enabled)
@@ -307,7 +313,7 @@ public class ActionFactory
         ActionValue value = new ItemValue((Item)actor, new Identifier("Enabled"));
         ActionModifier modifier = new ConstantModifier(enabled);
         ActionDuration duration = new InstantDuration();
-        return new ModifyAction(value, modifier, duration);
+        return new com.evilbird.engine.action.ModifyAction(value, modifier, duration);
     }
 
     private Action build(Actor builder, Identifier building, Stage stage)
@@ -315,19 +321,19 @@ public class ActionFactory
         Action soundBefore = playSound(builder, new Identifier("Construct"));
         Action animateBuilderBefore = setAnimation(builder, new Identifier("Build"));
         Action animateBuildingBefore = setAnimation(stage, building, new Identifier("Construct"));
-        Action before = new ParallelAction(animateBuilderBefore, animateBuildingBefore, soundBefore);
+        Action before = new com.evilbird.engine.action.ParallelAction(animateBuilderBefore, animateBuildingBefore, soundBefore);
 
         ActionValue value = new ItemReferenceValue(stage, building, new Identifier("Completion"));
         ActionModifier modifier = new DeltaModifier(100f, DeltaType.PerSecond);
         ActionDuration duration = new TimeDuration(10f);
-        Action build = new ModifyAction(value, modifier, duration);
+        Action build = new com.evilbird.engine.action.ModifyAction(value, modifier, duration);
 
         Action soundAfter = playSound(builder, new Identifier("Complete"));
         Action animateBuilderAfter = setAnimation(builder, new Identifier("Idle"));
         Action animateBuildingAfter = setAnimation(stage, building, new Identifier("Idle"));
-        Action after = new ParallelAction(animateBuilderAfter, animateBuildingAfter, soundAfter);
+        Action after = new com.evilbird.engine.action.ParallelAction(animateBuilderAfter, animateBuildingAfter, soundAfter);
 
-        return new SequenceAction(before, build, after);
+        return new com.evilbird.engine.action.SequenceAction(before, build, after);
     }
 
     private Action build(Actor builder, Identifier type, Vector2 location)
@@ -344,7 +350,7 @@ public class ActionFactory
         Action enableFarm = setEnabled(stage, building, true);
         Action selectBuilder = setSelected(builder, true);
 
-        return new SequenceAction(acknowledge, moveToSite, deselectBuilder, createFarm, disableFarm, buildFarm, enableFarm, selectBuilder);
+        return new com.evilbird.engine.action.SequenceAction(acknowledge, moveToSite, deselectBuilder, createFarm, disableFarm, buildFarm, enableFarm, selectBuilder);
     }
 
     private Action buildFarm(Actor builder, Vector2 location)
@@ -372,7 +378,7 @@ public class ActionFactory
 
         Action attackAnimation = setAnimation(attacker, new Identifier("Attack"));
         Action reduceHealth = reduceHealth(target);
-        Action attack = new ParallelAction(attackAnimation, reduceHealth);
+        Action attack = new com.evilbird.engine.action.ParallelAction(attackAnimation, reduceHealth);
 
         Action deadAnimation = setAnimation(target, new Identifier("Die"), 0.5f);
         Action deselect = setSelected(target, false);
@@ -382,7 +388,7 @@ public class ActionFactory
 
         Action decompose = setAnimation(target, new Identifier("Decompose"), 10f);
         Action remove = new RemoveAction(target.getStage(), target);
-        Action clean = new SequenceAction(decompose, remove);
+        Action clean = new com.evilbird.engine.action.SequenceAction(decompose, remove);
 
         return new SequenceAction(move, attack, die, clean);
     }

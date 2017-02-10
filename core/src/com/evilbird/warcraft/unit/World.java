@@ -2,8 +2,8 @@ package com.evilbird.warcraft.unit;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.evilbird.warcraft.item.Item;
-import com.evilbird.warcraft.utility.Identifier;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.utility.Identifier;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -47,5 +47,10 @@ public class World extends Stage
     public Collection<Item> getItems()
     {
         return Collections.unmodifiableCollection(items.values());
+    }
+
+    public Identifier getPlayer()
+    {
+        return new Identifier("Player1"); //TODO
     }
 }

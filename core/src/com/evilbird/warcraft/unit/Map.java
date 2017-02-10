@@ -2,30 +2,26 @@ package com.evilbird.warcraft.unit;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.evilbird.warcraft.item.Item;
+import com.evilbird.engine.item.Item;
 
 public class Map extends Item
 {
-    private OrthogonalTiledMapRenderer renderer;
-    private int[] renderedLayers;
+    protected TiledMapTileLayer layer;
 
-    public Map(TiledMap map)
+    public Map(TiledMapTileLayer layer)
     {
-        renderer = new OrthogonalTiledMapRenderer(map);
-        renderedLayers = new int[1];
-        renderedLayers[0] = 0;
+        this.layer = layer;
     }
 
     @Override
     public void draw(Batch batch, float alpha)
     {
-        batch.end();
+        OrthogonalTiledMapRenderer renderer = new OrthogonalTiledMapRenderer(null, batch);
         renderer.setView(getCamera());
-        renderer.render(renderedLayers);
-        batch.begin();
+        renderer.renderTileLayer(layer);
     }
 
     private OrthographicCamera getCamera()

@@ -1,8 +1,8 @@
 package com.evilbird.warcraft;
 
-import com.evilbird.warcraft.device.Device;
-import com.evilbird.warcraft.device.DeviceInput;
-import com.evilbird.warcraft.device.DeviceStorage;
+import com.evilbird.engine.device.Device;
+import com.evilbird.engine.device.DeviceInput;
+import com.evilbird.engine.device.DeviceStorage;
 
 public class IOSDevice implements Device
 {

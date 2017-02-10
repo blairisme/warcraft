@@ -4,7 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.evilbird.warcraft.device.DeviceStorage;
+import com.evilbird.engine.device.DeviceStorage;
 
 import java.io.IOException;
 import java.util.Collection;

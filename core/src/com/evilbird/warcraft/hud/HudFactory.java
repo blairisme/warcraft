@@ -2,7 +2,7 @@ package com.evilbird.warcraft.hud;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.evilbird.warcraft.utility.Identifier;
+import com.evilbird.engine.utility.Identifier;
 
 public class HudFactory
 {
@@ -19,9 +19,9 @@ public class HudFactory
         assets.load("data/textures/human/hud/resource.png", Texture.class);
     }
 
-    public Hud newHud(Identifier identifier)
+    public com.evilbird.engine.hud.Hud newHud(Identifier identifier)
     {
-        Hud hud = new Hud();
+        com.evilbird.engine.hud.Hud hud = new com.evilbird.engine.hud.Hud();
         hud.addActor(new HudResources(assets));
         return hud;
     }

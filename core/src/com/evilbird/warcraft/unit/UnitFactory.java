@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-import com.evilbird.warcraft.graphics.DirectionalAnimation;
-import com.evilbird.warcraft.utility.Identifier;
+import com.evilbird.engine.graphics.DirectionalAnimation;
+import com.evilbird.engine.utility.Identifier;
 
 import org.apache.commons.lang3.Range;
 
@@ -55,18 +55,18 @@ public class UnitFactory
 
     public Unit newUnit(Identifier type, Identifier id, Map<Identifier, DirectionalAnimation> additionalAnimations)
     {
-        if (Objects.equals(type, FOOTMAN_ID)) return newFootman();
-        if (Objects.equals(type, PEASANT_ID)) return newPeasant();
-        if (Objects.equals(type, GRUNT_ID)) return newGrunt();
-        if (Objects.equals(type, GOLD_MINE_ID)) return newGoldMine();
-        if (Objects.equals(type, TOWN_HALL_ID)) return newTownHall();
+        if (Objects.equals(type, FOOTMAN_ID)) return newFootman(id);
+        if (Objects.equals(type, PEASANT_ID)) return newPeasant(id);
+        if (Objects.equals(type, GRUNT_ID)) return newGrunt(id);
+        if (Objects.equals(type, GOLD_MINE_ID)) return newGoldMine(id);
+        if (Objects.equals(type, TOWN_HALL_ID)) return newTownHall(id);
         if (Objects.equals(type, BARRACKS_ID)) return newBarracks(id);
         if (Objects.equals(type, FARM_ID)) return newFarm(id);
-        if (Objects.equals(type, WOOD_ID)) return newWood(additionalAnimations);
+        if (Objects.equals(type, WOOD_ID)) return newWood(additionalAnimations, id);
         throw new IllegalArgumentException(type.toString());
     }
 
-    private Unit newFootman()
+    private Unit newFootman(Identifier id)
     {
         Texture texture = assets.get("data/textures/human/perennial/footman.png", Texture.class);
         Map<Identifier, DirectionalAnimation> animations = getAnimationSet(texture);
@@ -77,11 +77,12 @@ public class UnitFactory
         properties.put(new Identifier("Selected"), false);
         properties.put(new Identifier("Enabled"), true);
         properties.put(new Identifier("Health"), 100f);
+        properties.put(new Identifier("Id"), id);
 
         return new Unit(properties, animations);
     }
 
-    private Unit newPeasant()
+    private Unit newPeasant(Identifier id)
     {
         Sound selected = assets.get("data/sounds/human/unit/peasant/selected_1.mp3", Sound.class);
         Sound complete = assets.get("data/sounds/human/unit/peasant/complete.mp3", Sound.class);
@@ -111,11 +112,12 @@ public class UnitFactory
         properties.put(new Identifier("Gold"), 0f);
         properties.put(new Identifier("Wood"), 0f);
         properties.put(new Identifier("Sounds"), sounds);
+        properties.put(new Identifier("Id"), id);
 
         return new Unit(properties, animations);
     }
 
-    private Unit newGrunt()
+    private Unit newGrunt(Identifier id)
     {
         Texture texture = assets.get("data/textures/orc/perennial/grunt.png", Texture.class);
         Map<Identifier, DirectionalAnimation> animations = getAnimationSet(texture);
@@ -126,11 +128,12 @@ public class UnitFactory
         properties.put(new Identifier("Selected"), false);
         properties.put(new Identifier("Enabled"), true);
         properties.put(new Identifier("Health"), 100f);
+        properties.put(new Identifier("Id"), id);
 
         return new Unit(properties, animations);
     }
 
-    private Unit newGoldMine()
+    private Unit newGoldMine(Identifier id)
     {
         Texture texture = assets.get("data/textures/neutral/winter/gold_mine.png", Texture.class);
         Map<Identifier, DirectionalAnimation> animations = getBuildingAnimationSet(texture, 96);
@@ -142,11 +145,12 @@ public class UnitFactory
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
         properties.put(new Identifier("Selected"), false);
         properties.put(new Identifier("Gold"), 1000f);
+        properties.put(new Identifier("Id"), id);
 
         return new Unit(properties, animations);
     }
 
-    private Unit newWood(Map<Identifier, DirectionalAnimation> additionalAnimations)
+    private Unit newWood(Map<Identifier, DirectionalAnimation> additionalAnimations, Identifier id)
     {
         Texture texture = assets.get("data/textures/neutral/winter/terrain.png", Texture.class);
         Array<TextureRegion> deathTextures = getIdleAnimation(texture, 15 * 32, 7 * 32, 32);
@@ -165,11 +169,12 @@ public class UnitFactory
         properties.put(new Identifier("Selected"), false);
         properties.put(new Identifier("Enabled"), true);
         properties.put(new Identifier("Wood"), 100f);
+        properties.put(new Identifier("Id"), id);
 
         return new Unit(properties, animations);
     }
 
-    private Unit newTownHall()
+    private Unit newTownHall(Identifier id)
     {
         Texture texture = assets.get("data/textures/human/winter/town_hall.png", Texture.class);
         Map<Identifier, DirectionalAnimation> animations = getBuildingAnimationSet(texture, 128);
@@ -182,6 +187,7 @@ public class UnitFactory
         properties.put(new Identifier("Selected"), false);
         properties.put(new Identifier("Gold"), 0f);
         properties.put(new Identifier("Wood"), 0f);
+        properties.put(new Identifier("Id"), id);
 
         return new Unit(properties, animations);
     }

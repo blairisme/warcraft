@@ -1,7 +1,7 @@
 package com.evilbird.warcraft;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.warcraft.device.DeviceStorage;
+import com.evilbird.engine.device.DeviceStorage;
 
 import java.io.IOException;
 import java.util.Collection;

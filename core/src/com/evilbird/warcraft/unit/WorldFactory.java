@@ -2,6 +2,7 @@ package com.evilbird.warcraft.unit;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
@@ -10,13 +11,14 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.evilbird.warcraft.graphics.DirectionalAnimation;
-import com.evilbird.warcraft.item.Item;
-import com.evilbird.warcraft.utility.Identifier;
+import com.evilbird.engine.graphics.DirectionalAnimation;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.utility.Identifier;
 
 import org.apache.commons.lang3.Range;
 
@@ -42,7 +44,11 @@ public class WorldFactory
 
     public World newWorld(Identifier identifier)
     {
-        assets.load("data/levels/human/level1.tmx", TiledMap.class);
+        TmxMapLoader.Parameters parameters = new TmxMapLoader.Parameters();
+        parameters.textureMinFilter = Texture.TextureFilter.Linear;
+        parameters.textureMagFilter = Texture.TextureFilter.Nearest;
+
+        assets.load("data/levels/human/level1.tmx", TiledMap.class, parameters);
         assets.finishLoading();
         TiledMap map = assets.get("data/levels/human/level1.tmx", TiledMap.class);
 
@@ -60,18 +66,24 @@ public class WorldFactory
             addAggregateItems(unitFactory, stage, layer);
             addObjectItems(unitFactory, stage, layer);
         }
+        addFog(stage, map);
     }
 
     private void addMapItem(Stage stage, TiledMap tiledMap)
     {
-        Map map = new Map(tiledMap);
-        map.setZIndex(0);
-        map.setSize(1024, 1024);
+        Map map = new Map((TiledMapTileLayer)tiledMap.getLayers().get(0)); //TODO Get by name
+        map.setSize(1024, 1024); //TODO get dimensions from map data
         map.setPosition(0, 0);
         map.setScale(1f);
         map.setProperty(new Identifier("Id"), new Identifier("Map"));
         map.setProperty(new Identifier("Type"), new Identifier("Map"));
         stage.addActor(map);
+    }
+
+    private void addFog(Stage stage, TiledMap tiledMap)
+    {
+        Fog fog = new Fog(assets, 32, 32, 32, 32); //TODO get dimensions from map data
+        stage.addActor(fog);
     }
 
     private void addAggregateItems(UnitFactory unitFactory, Stage stage, MapLayer layer)
@@ -106,7 +118,7 @@ public class WorldFactory
 
                         Unit unit = unitFactory.newUnit(new Identifier("Wood"), new Identifier(), additionalAnimations);
                         unit.setSize(width, height);
-                        unit.setZIndex(5);
+                        //unit.setZIndex(5);
                         unit.setPosition(worldX, worldY);
 
                         stage.addActor(unit);
@@ -132,7 +144,7 @@ public class WorldFactory
                 orthographicCamera.setToOrtho(false, 30, 20);
                 orthographicCamera.position.x = x;
                 orthographicCamera.position.y = y;
-                orthographicCamera.zoom = 0.5f;
+                orthographicCamera.zoom = 1f;
 
                 Camera cameraActor = new Camera(orthographicCamera);
                 cameraActor.setTouchable(Touchable.disabled);
@@ -166,12 +178,18 @@ public class WorldFactory
                 Float y = (Float) properties.get("y");
                 Float width = (Float)properties.get("width");
                 Float height = (Float)properties.get("height");
+                String owner = (String)properties.get("Owner");
+                String id = (String)properties.get("Name");
 
                 Unit unit = unitFactory.newUnit(new Identifier(type), new Identifier());
                 unit.setSize(width, height);
-                unit.setZIndex(10);
+                //unit.setZIndex(10);
                 unit.setPosition(x, y);
 
+                if (owner != null)
+                {
+                    unit.setProperty(new Identifier("Owner"), new Identifier(owner));
+                }
                 stage.addActor(unit);
             }
         }

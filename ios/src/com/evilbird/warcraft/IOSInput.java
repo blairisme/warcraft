@@ -1,7 +1,7 @@
 package com.evilbird.warcraft;
 
-import com.evilbird.warcraft.device.DeviceInput;
-import com.evilbird.warcraft.device.UserInput;
+import com.evilbird.engine.device.DeviceInput;
+import com.evilbird.engine.device.UserInput;
 
 import java.util.Collections;
 import java.util.List;
