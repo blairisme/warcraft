@@ -4,16 +4,17 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.hud.Hud;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemUtils;
 import com.evilbird.engine.utility.Identifier;
-import com.evilbird.warcraft.action.ActionFactory;
+import com.evilbird.engine.world.World;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.unit.Unit;
-import com.evilbird.warcraft.unit.World;
+import com.evilbird.warcraft.item.Unit;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +22,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-public class InteractionAnalyzer implements com.evilbird.engine.behaviour.Behaviour
+public class InteractionAnalyzer implements Behaviour
 {
     private ActionFactory actionFactory;
     private List<Interaction> interactions;

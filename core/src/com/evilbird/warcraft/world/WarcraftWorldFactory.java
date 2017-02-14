@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.unit;
+package com.evilbird.warcraft.world;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -18,28 +18,37 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.graphics.DirectionalAnimation;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.utility.Identifier;
+import com.evilbird.engine.world.World;
+import com.evilbird.engine.world.WorldFactory;
+import com.evilbird.warcraft.item.Camera;
+import com.evilbird.warcraft.item.Fog;
+import com.evilbird.warcraft.item.Map;
 
 import org.apache.commons.lang3.Range;
 
 import java.util.HashMap;
 import java.util.Objects;
 
+import javax.inject.Inject;
+
 import static com.badlogic.gdx.Gdx.graphics;
 
-public class WorldFactory
+public class WarcraftWorldFactory implements WorldFactory
 {
     private AssetManager assets;
-    private UnitFactory unitFactory;
+    private ItemFactory itemFactory;
 
-    public WorldFactory(AssetManager assets, UnitFactory unitFactory)
+    @Inject
+    public WarcraftWorldFactory(ItemFactory itemFactory)
     {
-        this.assets = assets;
-        this.unitFactory = unitFactory;
+        this.itemFactory = itemFactory;
     }
 
-    public void loadAssets()
+    public void load(AssetManager assets)
     {
+        this.assets = assets;
     }
 
     public World newWorld(Identifier identifier)
@@ -53,18 +62,18 @@ public class WorldFactory
         TiledMap map = assets.get("data/levels/human/level1.tmx", TiledMap.class);
 
         World world = new World();
-        addItems(unitFactory, world, map);
+        addItems(itemFactory, world, map);
 
         return world;
     }
 
-    private void addItems(UnitFactory unitFactory, Stage stage, TiledMap map)
+    private void addItems(ItemFactory itemFactory, Stage stage, TiledMap map)
     {
         addMapItem(stage, map);
         for (MapLayer layer: map.getLayers())
         {
-            addAggregateItems(unitFactory, stage, layer);
-            addObjectItems(unitFactory, stage, layer);
+            addAggregateItems(itemFactory, stage, layer);
+            addObjectItems(itemFactory, stage, layer);
         }
         addFog(stage, map);
     }
@@ -86,7 +95,7 @@ public class WorldFactory
         stage.addActor(fog);
     }
 
-    private void addAggregateItems(UnitFactory unitFactory, Stage stage, MapLayer layer)
+    private void addAggregateItems(ItemFactory itemFactory, Stage stage, MapLayer layer)
     {
         if (Objects.equals(layer.getName(), "Wood")) // TODO: swap for property aggregated=true
         {
@@ -116,7 +125,7 @@ public class WorldFactory
                         Float worldX = x * width;
                         Float worldY = y * height;
 
-                        Unit unit = unitFactory.newUnit(new Identifier("Wood"), new Identifier(), additionalAnimations);
+                        Item unit = itemFactory.newItem(new Identifier("Wood"), new Identifier(), additionalAnimations);
                         unit.setSize(width, height);
                         //unit.setZIndex(5);
                         unit.setPosition(worldX, worldY);
@@ -128,7 +137,7 @@ public class WorldFactory
         }
     }
 
-    private void addObjectItems(UnitFactory unitFactory, Stage stage, MapLayer layer)
+    private void addObjectItems(ItemFactory itemFactory, Stage stage, MapLayer layer)
     {
         for (MapObject object : layer.getObjects())
         {
@@ -181,7 +190,7 @@ public class WorldFactory
                 String owner = (String)properties.get("Owner");
                 String id = (String)properties.get("Name");
 
-                Unit unit = unitFactory.newUnit(new Identifier(type), new Identifier());
+                Item unit = itemFactory.newItem(new Identifier(type), new Identifier());
                 unit.setSize(width, height);
                 //unit.setZIndex(10);
                 unit.setPosition(x, y);

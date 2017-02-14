@@ -4,11 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+import javax.inject.Inject;
+
 public class LevelView
 {
     private Stage hud;
     private Stage world;
 
+    @Inject
     public LevelView()
     {
     }

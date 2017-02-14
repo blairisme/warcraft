@@ -2,7 +2,7 @@ package com.evilbird.engine.action.duration;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.evilbird.engine.utility.Identifier;
-import com.evilbird.warcraft.unit.Unit;
+import com.evilbird.warcraft.item.Unit;
 
 import java.util.Objects;
 

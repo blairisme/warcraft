@@ -2,7 +2,7 @@ package com.evilbird.engine.behaviour;
 
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.hud.Hud;
-import com.evilbird.warcraft.unit.World;
+import com.evilbird.engine.world.World;
 
 import java.util.List;
 

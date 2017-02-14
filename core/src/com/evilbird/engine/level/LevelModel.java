@@ -5,9 +5,11 @@ import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.hud.Hud;
-import com.evilbird.warcraft.unit.World;
+import com.evilbird.engine.world.World;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class LevelModel
 {
@@ -19,11 +21,16 @@ public class LevelModel
     private World world;
     private Behaviour behaviour;
 
-    public LevelModel(Level presenter, Device device, GameService service)
+    @Inject
+    public LevelModel(Device device, GameService service)
     {
         this.device = device;
-        this.presenter = presenter;
         this.service = service;
+    }
+
+    public void setPresenter(Level presenter)
+    {
+        this.presenter = presenter;
     }
 
     public void load()

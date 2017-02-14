@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.unit;
+package com.evilbird.warcraft.item;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.utility.Identifier;
+import com.evilbird.engine.world.World;
 
 import org.apache.commons.lang3.tuple.Pair;
 

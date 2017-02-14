@@ -4,7 +4,7 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.hud.Hud;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.utility.Identifier;
-import com.evilbird.warcraft.unit.World;
+import com.evilbird.engine.world.World;
 
 import java.util.List;
 

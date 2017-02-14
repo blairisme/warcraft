@@ -16,26 +16,33 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.level.Level;
+import com.evilbird.engine.menu.Menu;
+import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.utility.Identifier;
 
-public class MenuFactory
+import javax.inject.Inject;
+import javax.inject.Provider;
+
+public class WarcraftMenuFactory implements MenuFactory
 {
     private AssetManager assetManager;
+    private Provider<Level> levelProvider;
 
-    public MenuFactory(AssetManager assetManager)
+    @Inject
+    public WarcraftMenuFactory(Provider<Level> levelProvider)
+    {
+        this.levelProvider = levelProvider;
+    }
+
+    public void load(AssetManager assetManager)
     {
         this.assetManager = assetManager;
+        this.assetManager.load("data/textures/menu/button.png", Texture.class);
+        this.assetManager.load("data/textures/menu/menu.png", Texture.class);
     }
 
-    public void loadAssets()
+    public Menu newMenu(Identifier id)
     {
-        assetManager.load("data/textures/menu/button.png", Texture.class);
-        assetManager.load("data/textures/menu/menu.png", Texture.class);
-    }
-
-    public com.evilbird.engine.menu.Menu newMenu(Identifier id)
-    {
-
         Stage stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
@@ -85,14 +92,17 @@ public class MenuFactory
 
         stage.addActor(table);
 
-        final com.evilbird.engine.menu.Menu menu = new com.evilbird.engine.menu.Menu(stage);
+        final Menu menu = new Menu(stage);
 
         button1.addListener(new ChangeListener()
         {
             public void changed (ChangeEvent event, Actor actor)
             {
-                Level level = new Level(menu.getDevice(), menu.getService());
+                Level level = levelProvider.get();
                 menu.setScreen(level);
+
+                //Level level = new Level(menu.getDevice(), menu.getService());
+                //menu.setScreen(level);
             }
         });
         return menu;

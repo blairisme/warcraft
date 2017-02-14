@@ -1,10 +1,12 @@
 package com.evilbird.warcraft.action;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.CreateAction;
 import com.evilbird.engine.action.ModifyAction;
 import com.evilbird.engine.action.ParallelAction;
@@ -28,16 +30,18 @@ import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.action.value.TransientValue;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.utility.Identifier;
-import com.evilbird.warcraft.unit.UnitFactory;
 
 import java.util.Arrays;
 import java.util.Objects;
 
+import javax.inject.Inject;
+
 import static com.evilbird.engine.item.ItemUtils.findById;
 import static com.evilbird.engine.item.ItemUtils.findByType;
 
-public class ActionFactory
+public class WarcraftActionFactory implements ActionFactory
 {
     private static final Identifier SELECT_ACTION = new Identifier("Select");
     private static final Identifier MOVE_ACTION = new Identifier("Move");
@@ -49,14 +53,15 @@ public class ActionFactory
     private static final Identifier BUILD_BARRACKS_ACTION = new Identifier("BuildBarracks");
     private static final Identifier ATTACK_ACTION = new Identifier("Attack");
 
-    private UnitFactory unitFactory;
+    private ItemFactory itemFactory;
 
-    public ActionFactory(UnitFactory unitFactory)
+    @Inject
+    public WarcraftActionFactory(ItemFactory itemFactory)
     {
-        this.unitFactory = unitFactory;
+        this.itemFactory = itemFactory;
     }
 
-    public void loadAssets()
+    public void load(AssetManager assetManager)
     {
     }
 
@@ -297,7 +302,7 @@ public class ActionFactory
 
     private Action create(Stage stage, Identifier type, Identifier id, Vector2 position)
     {
-        return new CreateAction(stage, type, unitFactory, id, position);
+        return new CreateAction(stage, type, itemFactory, id, position);
     }
 
     private Action setEnabled(Stage stage, Identifier actor, boolean enabled)

@@ -3,26 +3,34 @@ package com.evilbird.engine.loader;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.GameService;
+import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.action.ActionFactory;
-import com.evilbird.warcraft.behaviour.BehaviourFactory;
-import com.evilbird.warcraft.hud.HudFactory;
-import com.evilbird.warcraft.menu.MenuFactory;
-import com.evilbird.warcraft.unit.UnitFactory;
-import com.evilbird.warcraft.unit.WorldFactory;
+import com.evilbird.engine.hud.HudFactory;
+import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.menu.MenuFactory;
+import com.evilbird.engine.world.WorldFactory;
 
-class GameLoaderModel
+import javax.inject.Inject;
+
+public class GameLoaderModel
 {
-    private GameLoader presenter;
+    private GameLoaderPresenter presenter;
     private AssetManager assets;
     private GameService service;
     private float loadingTime;
 
-    public GameLoaderModel(GameLoader presenter, Device device)
+    @Inject
+    public GameLoaderModel(Device device, GameService service)
+    {
+        this.assets = device.getAssetStorage().getAssets();
+        this.service = service;
+        this.loadingTime = 0;
+    }
+
+    public void setPresenter(GameLoaderPresenter presenter)
     {
         this.presenter = presenter;
-        this.assets = device.getAssetStorage().getAssets();
-        this.loadingTime = 0;
     }
 
     public void loadBackground()
@@ -36,25 +44,23 @@ class GameLoaderModel
 
     public void loadAssets()
     {
-        UnitFactory unitFactory = new UnitFactory(assets);
-        unitFactory.loadAssets();
+        ActionFactory actionFactory = service.getActionFactory();
+        actionFactory.load(assets);
 
-        ActionFactory actionFactory = new ActionFactory(unitFactory);
-        actionFactory.loadAssets();
+        MenuFactory menuFactory = service.getMenuFactory();
+        menuFactory.load(assets);
 
-        MenuFactory menuFactory = new MenuFactory(assets);
-        menuFactory.loadAssets();
+        ItemFactory itemFactory = service.getItemFactory();
+        itemFactory.load(assets);
 
-        WorldFactory worldFactory = new WorldFactory(assets, unitFactory);
-        worldFactory.loadAssets();
+        WorldFactory worldFactory = service.getWorldFactory();
+        worldFactory.load(assets);
 
-        HudFactory hudFactory = new HudFactory(assets);
-        hudFactory.loadAssets();
+        HudFactory hudFactory = service.getHudFactory();
+        hudFactory.load(assets);
 
-        BehaviourFactory behaviourFactory = new BehaviourFactory(actionFactory);
-        behaviourFactory.loadAssets();
-
-        service = new GameService(actionFactory, menuFactory, unitFactory, worldFactory, hudFactory, behaviourFactory);
+        BehaviourFactory behaviourFactory = service.getBehaviourFactory();
+        behaviourFactory.load(assets);
     }
 
     public void update(float delta)

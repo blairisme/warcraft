@@ -10,11 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-class GameLoaderView extends ScreenAdapter
+import javax.inject.Inject;
+
+public class GameLoaderView extends ScreenAdapter
 {
     private Stage stage;
     private Table container;
 
+    @Inject
     public GameLoaderView()
     {
         container = new Table();

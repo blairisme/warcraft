@@ -18,12 +18,12 @@ import com.evilbird.engine.utility.Identifier;
 
 import java.util.Objects;
 
-public class HudResources extends Item
+public class ResourceBar extends Item
 {
     private Table table;
     private Label label;
 
-    public HudResources(AssetManager assets)
+    public ResourceBar(AssetManager assets)
     {
         BitmapFont labelFont = new BitmapFont();
         Color labelColor = Color.WHITE;

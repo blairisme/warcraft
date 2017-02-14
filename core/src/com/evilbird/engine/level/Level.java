@@ -1,19 +1,21 @@
 package com.evilbird.engine.level;
 
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.evilbird.engine.GameScene;
-import com.evilbird.engine.GameService;
-import com.evilbird.engine.device.Device;
 
-public class Level extends GameScene
+import javax.inject.Inject;
+
+public class Level extends ScreenAdapter
 {
     private LevelView view;
     private LevelModel model;
 
-    public Level(Device device, GameService service)
+    @Inject
+    public Level(LevelModel model, LevelView view)
     {
-        this.view = new LevelView();
-        this.model = new LevelModel(this, device, service);
+        this.view = view;
+        this.model = model;
+        this.model.setPresenter(this);
         this.model.load();
     }
 

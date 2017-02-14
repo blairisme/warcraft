@@ -3,19 +3,19 @@ package com.evilbird.engine.action;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.utility.Identifier;
-import com.evilbird.warcraft.unit.Unit;
-import com.evilbird.warcraft.unit.UnitFactory;
 
 public class CreateAction extends Action
 {
     private Stage stage;
     private Identifier id;
     private Identifier type;
-    private UnitFactory factory;
+    private ItemFactory factory;
     private Vector2 position;
 
-    public CreateAction(Stage stage, Identifier type, UnitFactory factory, Identifier id, Vector2 position)
+    public CreateAction(Stage stage, Identifier type, ItemFactory factory, Identifier id, Vector2 position)
     {
         this.stage = stage;
         this.id = id;
@@ -27,7 +27,7 @@ public class CreateAction extends Action
     @Override
     public boolean act(float delta)
     {
-        Unit unit = factory.newUnit(type, id);
+        Item unit = factory.newItem(type, id);
 
         unit.setSize(72, 72);
         unit.setZIndex(10);

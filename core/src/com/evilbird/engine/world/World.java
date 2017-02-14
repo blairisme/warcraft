@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.unit;
+package com.evilbird.engine.world;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
