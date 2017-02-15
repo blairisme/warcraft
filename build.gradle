@@ -88,7 +88,6 @@ project(":ios") {
     apply plugin: "java"
     apply plugin: "robovm"
 
-
     dependencies {
         compile project(":core")
         compile 'org.apache.commons:commons-lang3:3.5'

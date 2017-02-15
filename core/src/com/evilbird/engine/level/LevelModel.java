@@ -1,11 +1,13 @@
 package com.evilbird.engine.level;
 
-import com.evilbird.engine.GameService;
 import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.hud.Hud;
+import com.evilbird.engine.hud.HudFactory;
 import com.evilbird.engine.world.World;
+import com.evilbird.engine.world.WorldFactory;
 
 import java.util.List;
 
@@ -15,17 +17,26 @@ public class LevelModel
 {
     private Level presenter;
     private Device device;
-    private GameService service;
+
+    private HudFactory hudFactory;
+    private WorldFactory worldFactory;
+    private BehaviourFactory behaviourFactory;
 
     private Hud hud;
     private World world;
     private Behaviour behaviour;
 
     @Inject
-    public LevelModel(Device device, GameService service)
+    public LevelModel(
+        Device device,
+        HudFactory hudFactory,
+        WorldFactory worldFactory,
+        BehaviourFactory behaviourFactory)
     {
         this.device = device;
-        this.service = service;
+        this.hudFactory = hudFactory;
+        this.worldFactory = worldFactory;
+        this.behaviourFactory = behaviourFactory;
     }
 
     public void setPresenter(Level presenter)
@@ -35,9 +46,9 @@ public class LevelModel
 
     public void load()
     {
-        world = service.getWorldFactory().newWorld(null); //TODO
-        hud = service.getHudFactory().newHud(null); //TODO
-        behaviour = service.getBehaviourFactory().newBehaviour(null); //TODO
+        world = worldFactory.newWorld(null); //TODO
+        hud = hudFactory.newHud(null); //TODO
+        behaviour = behaviourFactory.newBehaviour(null); //TODO
 
         presenter.setHud(hud);
         presenter.setWorld(world);

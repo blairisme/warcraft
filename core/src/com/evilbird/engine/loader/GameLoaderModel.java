@@ -2,33 +2,51 @@ package com.evilbird.engine.loader;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.evilbird.engine.GameService;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.hud.HudFactory;
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuFactory;
+import com.evilbird.engine.utility.Identifier;
 import com.evilbird.engine.world.WorldFactory;
 
 import javax.inject.Inject;
 
 public class GameLoaderModel
 {
-    private GameLoaderPresenter presenter;
+    private GameLoader presenter;
     private AssetManager assets;
-    private GameService service;
+    private ActionFactory actionFactory;
+    private BehaviourFactory behaviourFactory;
+    private HudFactory hudFactory;
+    private ItemFactory itemFactory;
+    private MenuFactory menuFactory;
+    private WorldFactory worldFactory;
     private float loadingTime;
 
     @Inject
-    public GameLoaderModel(Device device, GameService service)
+    public GameLoaderModel(
+        Device device,
+        ActionFactory actionFactory,
+        BehaviourFactory behaviourFactory,
+        HudFactory hudFactory,
+        ItemFactory itemFactory,
+        MenuFactory menuFactory,
+        WorldFactory worldFactory)
     {
-        this.assets = device.getAssetStorage().getAssets();
-        this.service = service;
         this.loadingTime = 0;
+        this.assets = device.getAssetStorage().getAssets();
+        this.actionFactory = actionFactory;
+        this.behaviourFactory = behaviourFactory;
+        this.hudFactory = hudFactory;
+        this.itemFactory = itemFactory;
+        this.menuFactory = menuFactory;
+        this.worldFactory = worldFactory;
     }
 
-    public void setPresenter(GameLoaderPresenter presenter)
+    public void setPresenter(GameLoader presenter)
     {
         this.presenter = presenter;
     }
@@ -44,22 +62,11 @@ public class GameLoaderModel
 
     public void loadAssets()
     {
-        ActionFactory actionFactory = service.getActionFactory();
         actionFactory.load(assets);
-
-        MenuFactory menuFactory = service.getMenuFactory();
         menuFactory.load(assets);
-
-        ItemFactory itemFactory = service.getItemFactory();
         itemFactory.load(assets);
-
-        WorldFactory worldFactory = service.getWorldFactory();
         worldFactory.load(assets);
-
-        HudFactory hudFactory = service.getHudFactory();
         hudFactory.load(assets);
-
-        BehaviourFactory behaviourFactory = service.getBehaviourFactory();
         behaviourFactory.load(assets);
     }
 
@@ -68,7 +75,8 @@ public class GameLoaderModel
         loadingTime += delta;
         if (loadingTime >= 2 && assets.update())
         {
-            presenter.setGameService(service);
+            Menu menu = menuFactory.newMenu(new Identifier("Root"));
+            presenter.setMenuScreen(menu);
         }
     }
 }

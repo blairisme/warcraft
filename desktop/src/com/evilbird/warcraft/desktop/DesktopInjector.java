@@ -1,12 +1,12 @@
 package com.evilbird.warcraft.desktop;
 
-import com.evilbird.engine.GameEngine;
+import com.evilbird.engine.game.GameEngine;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
 
-@Component(modules = {DesktopModule.class, GameModule.class, WarcraftModule.class})
+@Component(modules = {DesktopModule.class, WarcraftModule.class})
 @Singleton
 public interface DesktopInjector
 {
