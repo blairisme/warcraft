@@ -13,8 +13,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.utility.Identifier;
-import com.evilbird.engine.world.World;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -94,7 +94,7 @@ public class Fog extends Item
     public void act(float delta)
     {
         super.act(delta);
-        World world = (World)getStage();
+        ItemGroup world = (ItemGroup)getStage();
         Collection<Item> actionItems = getActionItems(world.getItems());
         Collection<Item> playerItems = getPlayerItems(actionItems, world.getPlayer());
         revealItems(playerItems);
@@ -104,7 +104,7 @@ public class Fog extends Item
     protected void setStage(Stage stage)
     {
         super.setStage(stage);
-        World world = (World)getStage();
+        ItemGroup world = (ItemGroup)getStage();
         Collection<Item> playerItems = getPlayerItems(world.getItems(), world.getPlayer());
         revealItems(playerItems);
     }

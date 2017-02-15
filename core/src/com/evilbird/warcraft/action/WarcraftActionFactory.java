@@ -1,6 +1,5 @@
 package com.evilbird.warcraft.action;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -61,7 +60,7 @@ public class WarcraftActionFactory implements ActionFactory
         this.itemFactory = itemFactory;
     }
 
-    public void load(AssetManager assetManager)
+    public void load()
     {
     }
 

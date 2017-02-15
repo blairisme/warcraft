@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.evilbird.engine.device.Device;
 import com.evilbird.engine.level.Level;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuFactory;
@@ -29,14 +30,14 @@ public class WarcraftMenuFactory implements MenuFactory
     private Provider<Level> levelProvider;
 
     @Inject
-    public WarcraftMenuFactory(Provider<Level> levelProvider)
+    public WarcraftMenuFactory(Device device, Provider<Level> levelProvider)
     {
+        this.assetManager = device.getAssetStorage().getAssets();
         this.levelProvider = levelProvider;
     }
 
-    public void load(AssetManager assetManager)
+    public void load()
     {
-        this.assetManager = assetManager;
         this.assetManager.load("data/textures/menu/button.png", Texture.class);
         this.assetManager.load("data/textures/menu/menu.png", Texture.class);
     }

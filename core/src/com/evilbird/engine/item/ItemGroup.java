@@ -1,8 +1,7 @@
-package com.evilbird.engine.hud;
+package com.evilbird.engine.item;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.evilbird.engine.item.Item;
 import com.evilbird.engine.utility.Identifier;
 
 import java.util.Collection;
@@ -10,11 +9,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Hud extends Stage
+public class ItemGroup extends Stage
 {
     private Map<Identifier, Item> items;
 
-    public Hud()
+    public ItemGroup()
     {
         this.items = new HashMap<Identifier, Item>();
     }
@@ -47,5 +46,11 @@ public class Hud extends Stage
     public Collection<Item> getItems()
     {
         return Collections.unmodifiableCollection(items.values());
+    }
+
+    //TODO: Remove
+    public Identifier getPlayer()
+    {
+        return new Identifier("Player1");
     }
 }

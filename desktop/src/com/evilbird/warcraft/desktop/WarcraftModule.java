@@ -2,17 +2,14 @@ package com.evilbird.warcraft.desktop;
 
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.BehaviourFactory;
-import com.evilbird.engine.hud.HudFactory;
+import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.level.Level;
 import com.evilbird.engine.menu.MenuFactory;
-import com.evilbird.engine.world.WorldFactory;
 import com.evilbird.warcraft.action.WarcraftActionFactory;
 import com.evilbird.warcraft.behaviour.WarcraftBehaviourFactory;
-import com.evilbird.warcraft.hud.WarcraftHudFactory;
 import com.evilbird.warcraft.item.WarcraftItemFactory;
 import com.evilbird.warcraft.menu.WarcraftMenuFactory;
-import com.evilbird.warcraft.world.WarcraftWorldFactory;
 
 import javax.inject.Provider;
 import javax.inject.Singleton;
@@ -39,29 +36,15 @@ public class WarcraftModule
 
     @Provides
     @Singleton
-    public static MenuFactory provideMenuFactory(Provider<Level> levelProvider)
+    public static MenuFactory provideMenuFactory(Device device, Provider<Level> levelProvider)
     {
-        return new WarcraftMenuFactory(levelProvider);
+        return new WarcraftMenuFactory(device, levelProvider);
     }
 
     @Provides
     @Singleton
-    public static HudFactory provideHudFactory()
+    public static ItemFactory provideItemFactory(Device device)
     {
-        return new WarcraftHudFactory();
-    }
-
-    @Provides
-    @Singleton
-    public static ItemFactory provideItemFactory()
-    {
-        return new WarcraftItemFactory();
-    }
-
-    @Provides
-    @Singleton
-    public static WorldFactory provideWorldFactory(ItemFactory itemFactory)
-    {
-        return new WarcraftWorldFactory(itemFactory);
+        return new WarcraftItemFactory(device);
     }
 }

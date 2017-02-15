@@ -4,10 +4,9 @@ import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.hud.Hud;
-import com.evilbird.engine.hud.HudFactory;
-import com.evilbird.engine.world.World;
-import com.evilbird.engine.world.WorldFactory;
+import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.utility.Identifier;
 
 import java.util.List;
 
@@ -18,24 +17,21 @@ public class LevelModel
     private Level presenter;
     private Device device;
 
-    private HudFactory hudFactory;
-    private WorldFactory worldFactory;
+    private ItemFactory itemFactory;
     private BehaviourFactory behaviourFactory;
 
-    private Hud hud;
-    private World world;
+    private ItemGroup hud;
+    private ItemGroup world;
     private Behaviour behaviour;
 
     @Inject
     public LevelModel(
         Device device,
-        HudFactory hudFactory,
-        WorldFactory worldFactory,
+        ItemFactory itemFactory,
         BehaviourFactory behaviourFactory)
     {
         this.device = device;
-        this.hudFactory = hudFactory;
-        this.worldFactory = worldFactory;
+        this.itemFactory = itemFactory;
         this.behaviourFactory = behaviourFactory;
     }
 
@@ -46,8 +42,8 @@ public class LevelModel
 
     public void load()
     {
-        world = worldFactory.newWorld(null); //TODO
-        hud = hudFactory.newHud(null); //TODO
+        world = itemFactory.newItemGroup(new Identifier("Level1"));
+        hud = itemFactory.newItemGroup(new Identifier("HumanHud"));
         behaviour = behaviourFactory.newBehaviour(null); //TODO
 
         presenter.setHud(hud);

@@ -1,6 +1,5 @@
 package com.evilbird.warcraft.behaviour;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
@@ -21,7 +20,7 @@ public class WarcraftBehaviourFactory implements BehaviourFactory
         this.actionFactory = actionFactory;
     }
 
-    public void load(AssetManager assetManager)
+    public void load()
     {
     }
 

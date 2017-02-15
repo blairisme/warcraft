@@ -1,8 +1,7 @@
 package com.evilbird.engine.behaviour;
 
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.hud.Hud;
-import com.evilbird.engine.world.World;
+import com.evilbird.engine.item.ItemGroup;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class CompositeBehaviour implements Behaviour
     }
 
     @Override
-    public void update(World world, Hud hud, List<UserInput> input)
+    public void update(ItemGroup world, ItemGroup hud, List<UserInput> input)
     {
         for (Behaviour behaviour: behaviours)
         {

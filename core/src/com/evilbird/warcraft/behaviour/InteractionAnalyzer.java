@@ -8,11 +8,10 @@ import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
-import com.evilbird.engine.hud.Hud;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemUtils;
 import com.evilbird.engine.utility.Identifier;
-import com.evilbird.engine.world.World;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.item.Unit;
 
@@ -58,7 +57,7 @@ public class InteractionAnalyzer implements Behaviour
     }
 
     @Override
-    public void update(World world, Hud hud, List<UserInput> input)
+    public void update(ItemGroup world, ItemGroup hud, List<UserInput> input)
     {
         update(world, input); //TODO
     }

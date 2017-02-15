@@ -18,11 +18,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.evilbird.engine.device.Device;
 import com.evilbird.engine.graphics.DirectionalAnimation;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.utility.Identifier;
-import com.evilbird.engine.world.World;
 
 import org.apache.commons.lang3.Range;
 
@@ -45,17 +46,20 @@ public class WarcraftItemFactory implements ItemFactory
     private static final Identifier BARRACKS_ID = new Identifier("Barracks");
     private static final Identifier FARM_ID = new Identifier("Farm");
     private static final Identifier WOOD_ID = new Identifier("Wood");
+    private static final Identifier LEVEL_1_ID = new Identifier("Level1");
+    private static final Identifier HUMAN_HUD_ID = new Identifier("HumanHud");
 
     private AssetManager assets;
 
-    public WarcraftItemFactory()
+    public WarcraftItemFactory(Device device)
     {
+        this.assets = device.getAssetStorage().getAssets();
     }
 
     @Override
-    public void load(AssetManager assets)
+    public void load()
     {
-        this.assets = assets;
+
         this.assets.load("data/textures/human/perennial/footman.png", Texture.class);
         this.assets.load("data/textures/human/perennial/peasant.png", Texture.class);
         this.assets.load("data/textures/neutral/perennial/construction.png", Texture.class);
@@ -64,6 +68,8 @@ public class WarcraftItemFactory implements ItemFactory
         this.assets.load("data/sounds/human/unit/peasant/acknowledge_1.mp3", Sound.class);
         this.assets.load("data/sounds/human/unit/peasant/complete.mp3", Sound.class);
         this.assets.load("data/sounds/human/unit/peasant/construct.mp3", Sound.class);
+        this.assets.load("data/textures/neutral/hud/resource-icon.png", Texture.class);
+        this.assets.load("data/textures/human/hud/resource.png", Texture.class);
     }
 
     @Override
@@ -82,13 +88,10 @@ public class WarcraftItemFactory implements ItemFactory
         if (Objects.equals(type, BARRACKS_ID)) return newBarracks(id);
         if (Objects.equals(type, FARM_ID)) return newFarm(id);
         if (Objects.equals(type, WOOD_ID)) return newWood(additionalAnimations, id);
-
-
-
-
-
         throw new IllegalArgumentException(type.toString());
     }
+
+
 
     private Unit newFootman(Identifier id)
     {
@@ -438,7 +441,23 @@ public class WarcraftItemFactory implements ItemFactory
 
 
 
-    public World newWorld(Identifier identifier)
+
+    @Override
+    public ItemGroup newItemGroup(Identifier id)
+    {
+        if (Objects.equals(id, HUMAN_HUD_ID)) return newHumanHud();
+        if (Objects.equals(id, LEVEL_1_ID)) return newLevel1();
+        throw new IllegalArgumentException(id.toString());
+    }
+
+    public ItemGroup newHumanHud()
+    {
+        ItemGroup hud = new ItemGroup();
+        hud.addActor(new ResourceBar(assets));
+        return hud;
+    }
+
+    private ItemGroup newLevel1()
     {
         TmxMapLoader.Parameters parameters = new TmxMapLoader.Parameters();
         parameters.textureMinFilter = Texture.TextureFilter.Linear;
@@ -448,7 +467,7 @@ public class WarcraftItemFactory implements ItemFactory
         assets.finishLoading();
         TiledMap map = assets.get("data/levels/human/level1.tmx", TiledMap.class);
 
-        World world = new World();
+        ItemGroup world = new ItemGroup();
         addItems(world, map);
 
         return world;
