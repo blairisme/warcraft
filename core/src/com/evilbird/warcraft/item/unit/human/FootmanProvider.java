@@ -2,6 +2,8 @@ package com.evilbird.warcraft.item.unit.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.graphics.DirectionalAnimation;
 import com.evilbird.engine.item.Item;
@@ -30,6 +32,7 @@ public class FootmanProvider implements AssetObjectProvider<Item>
     {
         assets.load("data/textures/human/perennial/footman.png", Texture.class);
         assets.load("data/textures/neutral/perennial/decompose.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/icons.png", Texture.class);
     }
 
     @Override
@@ -39,6 +42,10 @@ public class FootmanProvider implements AssetObjectProvider<Item>
         Texture decomposeTexture = assets.get("data/textures/neutral/perennial/decompose.png", Texture.class);
         Map<Identifier, DirectionalAnimation> animations = AnimationBuilder.getAnimationSet(texture, decomposeTexture);
 
+        Texture iconTexture = assets.get("data/textures/neutral/perennial/icons.png", Texture.class);
+        TextureRegion iconRegion = new TextureRegion(iconTexture, 92, 0, 46, 38);
+        TextureRegionDrawable icon = new TextureRegionDrawable(iconRegion);
+
         Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
         properties.put(new Identifier("Type"), new Identifier("Footman"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
@@ -46,6 +53,7 @@ public class FootmanProvider implements AssetObjectProvider<Item>
         properties.put(new Identifier("Enabled"), true);
         properties.put(new Identifier("Health"), 100f);
         properties.put(new Identifier("Id"), new Identifier());
+        properties.put(new Identifier("Icon"), icon);
 
         return new AnimatedItem(properties, animations);
     }

@@ -2,8 +2,6 @@ package com.evilbird.warcraft.behaviour;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.UserInput;
@@ -62,37 +60,37 @@ public class InteractionAnalyzer implements Behaviour
         update(world, input); //TODO
     }
 
-    public void update(Stage stage, List<UserInput> inputs)
+    public void update(ItemGroup world, List<UserInput> inputs)
     {
         if (! inputs.isEmpty())
         {
-            Collection<Actor> selection = getSelection(stage);
+            Collection<Item> selection = ItemUtils.findAll(world.getItems(), new Identifier("Selected"), true);
 
             for (UserInput input : inputs)
             {
-                Collection<Actor> targets = getTargets(stage, input);
+                Collection<Item> targets = getTargets(world, input);
 
                 updateActions(input, targets, selection);
             }
         }
     }
 
-    private void updateActions(UserInput input, Collection<Actor> targets, Collection<Actor> selection)
+    private void updateActions(UserInput input, Collection<Item> targets, Collection<Item> selection)
     {
-        for (Actor target: targets)
+        for (Item target: targets)
         {
             if (selection.isEmpty())
             {
                 updateActions(input, target, null);
             }
-            for (Actor selected: selection)
+            for (Item selected: selection)
             {
                 updateActions(input, target, selected);
             }
         }
     }
 
-    private void updateActions(UserInput input, Actor target, Actor selected)
+    private void updateActions(UserInput input, Item target, Item selected)
     {
         for (Interaction interaction: interactions)
         {
@@ -104,7 +102,7 @@ public class InteractionAnalyzer implements Behaviour
     }
 
     //TODO - Messy/incomplete
-    private void addAction(Interaction interaction, UserInput input, Actor target, Actor selected)
+    private void addAction(Interaction interaction, UserInput input, Item target, Item selected)
     {
         if (interaction.getCommandType() == ActionType.Move)
         {
@@ -118,7 +116,8 @@ public class InteractionAnalyzer implements Behaviour
         else if (interaction.getCommandType() == ActionType.Select)
         {
             AnimatedItem animatedItem = (AnimatedItem)target;
-            Action action = actionFactory.newAction(new Identifier("Select"), target, !animatedItem.getSelected());
+            boolean itemSelected = (Boolean)animatedItem.getProperty(new Identifier("Selected"));
+            Action action = actionFactory.newAction(new Identifier("Select"), target, !itemSelected);
             target.addAction(action);
         }
         else if (interaction.getCommandType() == ActionType.Zoom)
@@ -158,34 +157,20 @@ public class InteractionAnalyzer implements Behaviour
         }
     }
 
-    private Collection<Actor> getSelection(Stage stage)
-    {
-        Collection<Actor> result = new ArrayList<Actor>();
-
-        for (Actor actor: stage.getActors())
-        {
-            if (getSelected(actor))
-            {
-                result.add(actor);
-            }
-        }
-        return result;
-    }
-
-    private Collection<Actor> getTargets(Stage stage, UserInput userInput)
+    private Collection<Item> getTargets(ItemGroup stage, UserInput userInput)
     {
         Vector2 inputPosition = userInput.getPosition();
 
         Vector2 worldPosition = stage.screenToStageCoordinates(inputPosition);
 
-        Actor target = stage.hit(worldPosition.x, worldPosition.y, false);
+        Item target = (Item)stage.hit(worldPosition.x, worldPosition.y, false);
 
-        Actor camera = ItemUtils.findByType(stage, new Identifier("Camera"));
+        Item camera = ItemUtils.findByType(stage, new Identifier("Camera"));
 
         return Arrays.asList(target, camera);
     }
 
-    private boolean interactionApplicable(Interaction interaction, UserInput input, Actor target, Actor selected)
+    private boolean interactionApplicable(Interaction interaction, UserInput input, Item target, Item selected)
     {
         if (!Objects.equals(interaction.getInputType(), input.getType()))
         {
@@ -207,26 +192,11 @@ public class InteractionAnalyzer implements Behaviour
         return true;
     }
 
-    //TODO: Use Items not Actors
-    private String getType(Actor actor)
+    //TODO: Investigate why type is missing
+    private String getType(Item item)
     {
-        if (actor instanceof Item)
-        {
-            Item item = (Item)actor;
-            Identifier type = (Identifier)item.getProperty(new Identifier("Type"));
-            return type.toString();
-        }
-        return null;
-    }
-
-    //TODO: Do better
-    private boolean getSelected(Actor actor)
-    {
-        if (actor instanceof AnimatedItem)
-        {
-            AnimatedItem animatedItem = (AnimatedItem)actor;
-            return animatedItem.getSelected();
-        }
-        return false;
+        if (item == null) return "Unknown";
+        Identifier type = (Identifier)item.getProperty(new Identifier("Type"));
+        return type != null ? type.toString() : "Unknown";
     }
 }

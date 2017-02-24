@@ -30,4 +30,6 @@ public class WarcraftBehaviourFactory implements BehaviourFactory
         Behaviour userBehaviour = new InteractionAnalyzer(actionFactory);
         return new CompositeBehaviour(Arrays.asList(hudBehaviour, userBehaviour));
     }
+
+
 }

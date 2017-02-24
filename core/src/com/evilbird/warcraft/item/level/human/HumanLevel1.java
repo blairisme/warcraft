@@ -26,7 +26,7 @@ import com.evilbird.engine.utility.Identifier;
 import com.evilbird.warcraft.item.camera.Camera;
 import com.evilbird.warcraft.item.layer.Fog;
 import com.evilbird.warcraft.item.layer.Map;
-import com.evilbird.warcraft.item.unit.Units;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.common.AnimatedItem;
 
 import org.apache.commons.lang3.Range;
@@ -131,7 +131,7 @@ public class HumanLevel1 implements AssetObjectProvider<ItemGroup>
                         Float worldX = x * width;
                         Float worldY = y * height;
 
-                        AnimatedItem unit = (AnimatedItem)itemFactory.newItem(Units.Tree);
+                        AnimatedItem unit = (AnimatedItem)itemFactory.newItem(UnitType.Tree);
                         unit.setSize(width, height);
                         unit.setAnimationDefinition(new Identifier("Idle"), animation);
                         unit.setAnimationDefinition(new Identifier("GatherWood"), animation);
@@ -201,7 +201,7 @@ public class HumanLevel1 implements AssetObjectProvider<ItemGroup>
                 String owner = (String)properties.get("Owner");
                 String id = (String)properties.get("Name");
 
-                Item unit = itemFactory.newItem(Units.valueOf(type));
+                Item unit = itemFactory.newItem(UnitType.valueOf(type));
                 unit.setSize(width, height);
                 //unit.setZIndex(10);
                 unit.setPosition(x, y);

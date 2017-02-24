@@ -27,10 +27,13 @@ public class AnimatedItem extends Item
     private float animationTime;
     private float direction;
 
+    private ShapeRenderer shapeRenderer;
+
     public AnimatedItem(Map<Identifier, Object> properties, Map<Identifier, DirectionalAnimation> animations)
     {
         super(properties);
         this.animations = animations;
+        this.shapeRenderer = new ShapeRenderer();
 
         setAnimation(new Identifier("Idle")); // TODO: Read from properties
     }
@@ -43,7 +46,9 @@ public class AnimatedItem extends Item
         play();
     }
 
+    //TODO: Does this belong here? Feels like it should be in some audio manager class.
     //TODO: Log if sound is missing
+    //TODO: Need to stop if item disappears
     public void play()
     {
         Identifier sound = (Identifier)getProperty(SOUND_PROPERTY);
@@ -67,16 +72,17 @@ public class AnimatedItem extends Item
         batch.draw(region, getX(), getY(), getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 
-        if (getSelected())
+        Boolean selected = (Boolean)getProperty(new Identifier("Selected"));
+        if (Boolean.TRUE == selected)
         {
             batch.end();
-            ShapeRenderer shapeRenderer = new ShapeRenderer();
+
             shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
             shapeRenderer.begin(ShapeType.Line);
-            shapeRenderer.setColor(Color.RED);
+            shapeRenderer.setColor(Color.LIME); //TODO: r70 g200 b60
             shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
             shapeRenderer.end();
-            shapeRenderer.dispose();
+
             batch.begin();
         }
     }

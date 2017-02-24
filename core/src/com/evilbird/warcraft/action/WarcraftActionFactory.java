@@ -32,7 +32,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemIdentifier;
 import com.evilbird.engine.utility.Identifier;
-import com.evilbird.warcraft.item.unit.Units;
+import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -154,7 +154,7 @@ public class WarcraftActionFactory implements ActionFactory
 
         Vector2 lowerBound = null;
         Vector2 upperBound = null;
-
+/*
         if (mapWidth >= viewportWidth && mapHeight >= viewportHeight)
         {
             float viewportHalfWidth = viewportWidth * .5f;
@@ -163,6 +163,7 @@ public class WarcraftActionFactory implements ActionFactory
             lowerBound = new Vector2(viewportHalfWidth, viewportHalfHeight);
             upperBound = new Vector2(mapWidth - viewportHalfWidth, mapHeight - viewportHalfHeight);
         }
+*/
         return new DeltaModifier(delta, DeltaType.PerUpdate, lowerBound, upperBound);
     }
 
@@ -361,12 +362,12 @@ public class WarcraftActionFactory implements ActionFactory
 
     private Action buildFarm(Actor builder, Vector2 location)
     {
-        return build(builder, Units.Farm, location);
+        return build(builder, UnitType.Farm, location);
     }
 
     private Action buildBarracks(Actor builder, Vector2 location)
     {
-        return build(builder, Units.Barracks, location);
+        return build(builder, UnitType.Barracks, location);
     }
 
     private Action reduceHealth(Actor target)

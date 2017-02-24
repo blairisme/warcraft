@@ -7,8 +7,7 @@ import com.evilbird.engine.item.ItemIdentifier;
  *
  * @author Blair Butterworth
  */
-
-public enum Units implements ItemIdentifier
+public enum UnitType implements ItemIdentifier
 {
     /* Human Units */
     Footman,

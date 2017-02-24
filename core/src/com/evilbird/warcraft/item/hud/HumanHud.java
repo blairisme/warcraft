@@ -1,8 +1,5 @@
 package com.evilbird.warcraft.item.hud;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
-import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.utility.AssetObjectProvider;
 
@@ -10,26 +7,36 @@ import javax.inject.Inject;
 
 public class HumanHud implements AssetObjectProvider<ItemGroup>
 {
-    private AssetManager assets;
+    private ActionPanelProvider actionPanelProvider;
+    private ResourcePanelProvider resourcePanelProvider;
+    private SelectionPanelProvider selectionPanelProvider;
 
     @Inject
-    public HumanHud(Device device)
+    public HumanHud(
+        ActionPanelProvider actionPanelProvider,
+        ResourcePanelProvider resourceBarProvider,
+        SelectionPanelProvider selectionPanelProvider)
     {
-        this.assets = device.getAssetStorage().getAssets();
+        this.actionPanelProvider = actionPanelProvider;
+        this.resourcePanelProvider = resourceBarProvider;
+        this.selectionPanelProvider = selectionPanelProvider;
     }
 
     @Override
     public void load()
     {
-        this.assets.load("data/textures/neutral/hud/resource-icon.png", Texture.class);
-        this.assets.load("data/textures/human/hud/resource.png", Texture.class);
+        actionPanelProvider.load();
+        resourcePanelProvider.load();
+        selectionPanelProvider.load();
     }
 
     @Override
     public ItemGroup get()
     {
         ItemGroup hud = new ItemGroup();
-        hud.addActor(new ResourceBar(assets));
+        hud.addActor(actionPanelProvider.get());
+        hud.addActor(resourcePanelProvider.get());
+        hud.addActor(selectionPanelProvider.get());
         return hud;
     }
 }

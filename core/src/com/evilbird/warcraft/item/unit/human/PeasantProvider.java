@@ -3,6 +3,8 @@ package com.evilbird.warcraft.item.unit.human;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.graphics.DirectionalAnimation;
 import com.evilbird.engine.item.Item;
@@ -36,6 +38,7 @@ public class PeasantProvider implements AssetObjectProvider<Item>
 
         assets.load("data/textures/human/perennial/peasant.png", Texture.class);
         assets.load("data/textures/neutral/perennial/decompose.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/icons.png", Texture.class);
     }
 
     @Override
@@ -61,6 +64,10 @@ public class PeasantProvider implements AssetObjectProvider<Item>
         animations.put(new Identifier("DepositWood"), animations.get(new Identifier("Hidden")));
         animations.put(new Identifier("Build"), animations.get(new Identifier("Hidden")));
 
+        Texture iconTexture = assets.get("data/textures/neutral/perennial/icons.png", Texture.class);
+        TextureRegion iconRegion = new TextureRegion(iconTexture, 0, 0, 46, 38);
+        TextureRegionDrawable icon = new TextureRegionDrawable(iconRegion);
+
         Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
         properties.put(new Identifier("Type"), new Identifier("Peasant"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
@@ -71,6 +78,7 @@ public class PeasantProvider implements AssetObjectProvider<Item>
         properties.put(new Identifier("Wood"), 0f);
         properties.put(new Identifier("Sounds"), sounds);
         properties.put(new Identifier("Id"), new Identifier());
+        properties.put(new Identifier("Icon"), icon);
 
         return new AnimatedItem(properties, animations);
     }

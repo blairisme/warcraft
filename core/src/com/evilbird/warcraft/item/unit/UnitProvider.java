@@ -27,13 +27,13 @@ public class UnitProvider extends AssetObjectProviderSet<Item>
         GruntProvider gruntProvider)
     {
         super();
-        addProvider(Units.Barracks, barracksProvider);
-        addProvider(Units.Farm, farmProvider);
-        addProvider(Units.Footman, footmanProvider);
-        addProvider(Units.Peasant, peasantProvider);
-        addProvider(Units.TownHall, townHallProvider);
-        addProvider(Units.GoldMine, goldMineProvider);
-        addProvider(Units.Tree, treeProvider);
-        addProvider(Units.Grunt, gruntProvider);
+        addProvider(UnitType.Barracks, barracksProvider);
+        addProvider(UnitType.Farm, farmProvider);
+        addProvider(UnitType.Footman, footmanProvider);
+        addProvider(UnitType.Peasant, peasantProvider);
+        addProvider(UnitType.TownHall, townHallProvider);
+        addProvider(UnitType.GoldMine, goldMineProvider);
+        addProvider(UnitType.Tree, treeProvider);
+        addProvider(UnitType.Grunt, gruntProvider);
     }
 }

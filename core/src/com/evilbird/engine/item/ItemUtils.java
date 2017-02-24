@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.evilbird.engine.utility.Identifier;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -60,5 +61,19 @@ public class ItemUtils
             }
         }
         throw new IllegalStateException();
+    }
+
+    public static Collection<Item> findAll(Collection<Item> items, Identifier property, Object value)
+    {
+        Collection<Item> result = new ArrayList<Item>();
+
+        for (Item item: items)
+        {
+            if (Objects.equals(item.getProperty(property), value))
+            {
+                result.add(item);
+            }
+        }
+        return result;
     }
 }

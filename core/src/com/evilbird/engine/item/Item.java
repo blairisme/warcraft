@@ -12,7 +12,6 @@ import java.util.Objects;
 //TODO store all in properties
 public class Item extends Actor
 {
-    private static final Identifier SELECTED_PROPERTY = new Identifier("Selected");
     private static final Identifier POSITION_PROPERTY = new Identifier("Position");
     private Map<Identifier, Object> properties;
 
@@ -36,22 +35,8 @@ public class Item extends Actor
         setPosition(position.x, position.y, alignment);
     }
 
-    public boolean getSelected()
-    {
-        return (Boolean)properties.get(SELECTED_PROPERTY);
-    }
-
-    public void setSelected(boolean selected)
-    {
-        properties.put(SELECTED_PROPERTY, selected);
-    }
-
     public Object getProperty(Identifier property)
     {
-        if (Objects.equals(property, SELECTED_PROPERTY))
-        {
-            return getSelected();
-        }
         if (Objects.equals(property, POSITION_PROPERTY))
         {
             return getPosition(Align.center);
@@ -61,10 +46,6 @@ public class Item extends Actor
 
     public void setProperty(Identifier property, Object value)
     {
-        if (Objects.equals(property, SELECTED_PROPERTY))
-        {
-            setSelected((Boolean) value);
-        }
         if (Objects.equals(property, POSITION_PROPERTY))
         {
             setPosition((Vector2)value, Align.center);
