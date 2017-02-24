@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.unit;
+package com.evilbird.warcraft.item.unit.common;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;

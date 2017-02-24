@@ -5,17 +5,18 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.item.ItemIdentifier;
 import com.evilbird.engine.utility.Identifier;
 
 public class CreateAction extends Action
 {
     private Stage stage;
     private Identifier id;
-    private Identifier type;
+    private ItemIdentifier type;
     private ItemFactory factory;
     private Vector2 position;
 
-    public CreateAction(Stage stage, Identifier type, ItemFactory factory, Identifier id, Vector2 position)
+    public CreateAction(Stage stage, ItemIdentifier type, ItemFactory factory, Identifier id, Vector2 position)
     {
         this.stage = stage;
         this.id = id;

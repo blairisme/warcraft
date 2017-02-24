@@ -8,20 +8,20 @@ import com.evilbird.engine.graphics.DirectionalAnimation;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.utility.AssetObjectProvider;
 import com.evilbird.engine.utility.Identifier;
-import com.evilbird.warcraft.item.unit.AnimatedItem;
-import com.evilbird.warcraft.item.unit.AnimationBuilder;
+import com.evilbird.warcraft.item.unit.common.AnimatedItem;
+import com.evilbird.warcraft.item.unit.common.AnimationBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
 
-public class Peasant implements AssetObjectProvider<Item>
+public class PeasantProvider implements AssetObjectProvider<Item>
 {
     private AssetManager assets;
 
     @Inject
-    public Peasant(Device device)
+    public PeasantProvider(Device device)
     {
         this.assets = device.getAssetStorage().getAssets();
     }

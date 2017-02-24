@@ -1,5 +1,7 @@
 package com.evilbird.engine.item;
 
-public interface ItemIdentifier
+import com.evilbird.engine.utility.IdentifierNew;
+
+public interface ItemIdentifier extends IdentifierNew
 {
 }

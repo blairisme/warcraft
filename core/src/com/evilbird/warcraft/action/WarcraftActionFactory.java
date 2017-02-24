@@ -30,7 +30,9 @@ import com.evilbird.engine.action.value.TransientValue;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.item.ItemIdentifier;
 import com.evilbird.engine.utility.Identifier;
+import com.evilbird.warcraft.item.unit.Units;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -299,7 +301,7 @@ public class WarcraftActionFactory implements ActionFactory
         return gather(actor, resource, player, depot, property, gatherAnimation, depositAnimation);
     }
 
-    private Action create(Stage stage, Identifier type, Identifier id, Vector2 position)
+    private Action create(Stage stage, ItemIdentifier type, Identifier id, Vector2 position)
     {
         return new CreateAction(stage, type, itemFactory, id, position);
     }
@@ -340,7 +342,7 @@ public class WarcraftActionFactory implements ActionFactory
         return new com.evilbird.engine.action.SequenceAction(before, build, after);
     }
 
-    private Action build(Actor builder, Identifier type, Vector2 location)
+    private Action build(Actor builder, ItemIdentifier type, Vector2 location)
     {
         Stage stage = builder.getStage();
         Identifier building = new Identifier();
@@ -359,12 +361,12 @@ public class WarcraftActionFactory implements ActionFactory
 
     private Action buildFarm(Actor builder, Vector2 location)
     {
-        return build(builder, new Identifier("Farm"), location);
+        return build(builder, Units.Farm, location);
     }
 
     private Action buildBarracks(Actor builder, Vector2 location)
     {
-        return build(builder, new Identifier("Barracks"), location);
+        return build(builder, Units.Barracks, location);
     }
 
     private Action reduceHealth(Actor target)

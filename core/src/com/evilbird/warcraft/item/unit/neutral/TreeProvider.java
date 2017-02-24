@@ -10,8 +10,8 @@ import com.evilbird.engine.graphics.DirectionalAnimation;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.utility.AssetObjectProvider;
 import com.evilbird.engine.utility.Identifier;
-import com.evilbird.warcraft.item.unit.AnimatedItem;
-import com.evilbird.warcraft.item.unit.AnimationBuilder;
+import com.evilbird.warcraft.item.unit.common.AnimatedItem;
+import com.evilbird.warcraft.item.unit.common.AnimationBuilder;
 
 import org.apache.commons.lang3.Range;
 
@@ -21,12 +21,12 @@ import java.util.Map;
 import javax.inject.Inject;
 
 //TODO: Add default animation
-public class Tree implements AssetObjectProvider<Item>
+public class TreeProvider implements AssetObjectProvider<Item>
 {
     private AssetManager assets;
 
     @Inject
-    public Tree(Device device)
+    public TreeProvider(Device device)
     {
         this.assets = device.getAssetStorage().getAssets();
     }

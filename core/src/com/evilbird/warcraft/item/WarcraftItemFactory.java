@@ -3,6 +3,7 @@ package com.evilbird.warcraft.item;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.item.ItemIdentifier;
 import com.evilbird.engine.utility.AssetObjectProvider;
 import com.evilbird.engine.utility.AssetObjectProviderSet;
 import com.evilbird.engine.utility.Identifier;
@@ -54,7 +55,7 @@ public class WarcraftItemFactory implements ItemFactory
     }
 
     @Override
-    public Item newItem(Identifier type)
+    public Item newItem(ItemIdentifier type)
     {
         for (AssetObjectProviderSet<Item> itemProvider: itemProviders){
             if (itemProvider.contains(type)){

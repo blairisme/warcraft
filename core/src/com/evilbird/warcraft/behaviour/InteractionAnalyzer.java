@@ -13,7 +13,7 @@ import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemUtils;
 import com.evilbird.engine.utility.Identifier;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.item.unit.AnimatedItem;
+import com.evilbird.warcraft.item.unit.common.AnimatedItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;

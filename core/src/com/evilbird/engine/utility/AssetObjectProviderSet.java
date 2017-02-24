@@ -5,14 +5,14 @@ import java.util.Map;
 
 public class AssetObjectProviderSet<T>
 {
-    private Map<Identifier, AssetObjectProvider<T>> delegates;
+    private Map<IdentifierNew, AssetObjectProvider<T>> delegates;
 
     public AssetObjectProviderSet()
     {
-        delegates = new HashMap<Identifier, AssetObjectProvider<T>>();
+        delegates = new HashMap<IdentifierNew, AssetObjectProvider<T>>();
     }
 
-    public void addProvider(Identifier identifier, AssetObjectProvider<T> provider)
+    public void addProvider(IdentifierNew identifier, AssetObjectProvider<T> provider)
     {
         delegates.put(identifier, provider);
     }
@@ -24,12 +24,12 @@ public class AssetObjectProviderSet<T>
         }
     }
 
-    public boolean contains(Identifier id)
+    public boolean contains(IdentifierNew id)
     {
         return delegates.containsKey(id);
     }
 
-    public T get(Identifier id)
+    public T get(IdentifierNew id)
     {
         AssetObjectProvider<T> delegate = delegates.get(id);
         return delegate.get();
