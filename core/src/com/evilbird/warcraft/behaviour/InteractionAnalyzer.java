@@ -13,7 +13,7 @@ import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemUtils;
 import com.evilbird.engine.utility.Identifier;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.item.Unit;
+import com.evilbird.warcraft.item.unit.AnimatedItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -117,8 +117,8 @@ public class InteractionAnalyzer implements Behaviour
         }
         else if (interaction.getCommandType() == ActionType.Select)
         {
-            Unit unit = (Unit)target;
-            Action action = actionFactory.newAction(new Identifier("Select"), target, !unit.getSelected());
+            AnimatedItem animatedItem = (AnimatedItem)target;
+            Action action = actionFactory.newAction(new Identifier("Select"), target, !animatedItem.getSelected());
             target.addAction(action);
         }
         else if (interaction.getCommandType() == ActionType.Zoom)
@@ -222,10 +222,10 @@ public class InteractionAnalyzer implements Behaviour
     //TODO: Do better
     private boolean getSelected(Actor actor)
     {
-        if (actor instanceof Unit)
+        if (actor instanceof AnimatedItem)
         {
-            Unit unit = (Unit)actor;
-            return unit.getSelected();
+            AnimatedItem animatedItem = (AnimatedItem)actor;
+            return animatedItem.getSelected();
         }
         return false;
     }

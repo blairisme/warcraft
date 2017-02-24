@@ -2,7 +2,7 @@ package com.evilbird.engine.action.duration;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.evilbird.engine.utility.Identifier;
-import com.evilbird.warcraft.item.Unit;
+import com.evilbird.warcraft.item.unit.AnimatedItem;
 
 import java.util.Objects;
 
@@ -22,10 +22,10 @@ public class PredicateDuration implements ActionDuration
     @Override
     public boolean isComplete(float time)
     {
-        if (actor instanceof Unit)
+        if (actor instanceof AnimatedItem)
         {
-            Unit unit = (Unit)actor;
-            Object actorValue = unit.getProperty(property);
+            AnimatedItem animatedItem = (AnimatedItem)actor;
+            Object actorValue = animatedItem.getProperty(property);
             return Objects.equals(actorValue, value);
         }
         return true;

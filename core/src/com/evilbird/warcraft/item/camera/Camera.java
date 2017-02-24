@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item;
+package com.evilbird.warcraft.item.camera;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;

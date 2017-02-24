@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item;
+package com.evilbird.warcraft.item.layer;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;

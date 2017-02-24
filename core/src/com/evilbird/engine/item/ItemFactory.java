@@ -6,7 +6,7 @@ public interface ItemFactory
 {
     public void load();
 
-    public Item newItem(Identifier type, Identifier id);
+    public Item newItem(Identifier type);
 
-    public ItemGroup newItemGroup(Identifier id);
+    public ItemGroup newItemGroup(Identifier type);
 }

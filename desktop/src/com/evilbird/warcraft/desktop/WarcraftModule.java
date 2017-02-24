@@ -14,11 +14,12 @@ import com.evilbird.warcraft.menu.WarcraftMenuFactory;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class WarcraftModule
+public abstract class WarcraftModule
 {
     @Provides
     @Singleton
@@ -41,10 +42,7 @@ public class WarcraftModule
         return new WarcraftMenuFactory(device, levelProvider);
     }
 
-    @Provides
+    @Binds
     @Singleton
-    public static ItemFactory provideItemFactory(Device device)
-    {
-        return new WarcraftItemFactory(device);
-    }
+    public abstract ItemFactory bindItemFactory(WarcraftItemFactory warcraftItemFactory);
 }

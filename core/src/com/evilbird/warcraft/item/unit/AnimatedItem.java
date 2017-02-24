@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item;
+package com.evilbird.warcraft.item.unit;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -14,7 +14,7 @@ import com.evilbird.engine.utility.Identifier;
 import java.util.Map;
 import java.util.Objects;
 
-public class Unit extends Item
+public class AnimatedItem extends Item
 {
     private static final Identifier ANIMATION_PROPERTY = new Identifier("Animation");
     private static final Identifier SOUND_PROPERTY = new Identifier("Sound");
@@ -27,7 +27,7 @@ public class Unit extends Item
     private float animationTime;
     private float direction;
 
-    public Unit(Map<Identifier, Object> properties, Map<Identifier, DirectionalAnimation> animations)
+    public AnimatedItem(Map<Identifier, Object> properties, Map<Identifier, DirectionalAnimation> animations)
     {
         super(properties);
         this.animations = animations;
@@ -143,5 +143,14 @@ public class Unit extends Item
 
         direction = normalizedDirection.angle();
         animation.setDirection(direction);
+    }
+
+
+
+
+
+    public void setAnimationDefinition(Identifier id, DirectionalAnimation animation)
+    {
+        this.animations.put(id, animation);
     }
 }

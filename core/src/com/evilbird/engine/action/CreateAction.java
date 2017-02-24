@@ -27,11 +27,12 @@ public class CreateAction extends Action
     @Override
     public boolean act(float delta)
     {
-        Item unit = factory.newItem(type, id);
+        Item unit = factory.newItem(type);
 
         unit.setSize(72, 72);
         unit.setZIndex(10);
         unit.setPosition(position.x, position.y);
+        unit.setProperty(new Identifier("Id"), id);
 
         stage.addActor(unit);
         return true;

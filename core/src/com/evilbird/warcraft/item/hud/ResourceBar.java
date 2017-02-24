@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item;
+package com.evilbird.warcraft.item.hud;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
