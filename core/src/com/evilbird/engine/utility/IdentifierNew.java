@@ -5,6 +5,7 @@ package com.evilbird.engine.utility;
  *
  * @author Blair Butterworth
  */
+//TODO: Rename to Identifier when existing class removed
 public interface IdentifierNew
 {
 }

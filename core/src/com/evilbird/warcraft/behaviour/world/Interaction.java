@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.behaviour;
+package com.evilbird.warcraft.behaviour.world;
 
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.warcraft.action.ActionType;

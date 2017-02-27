@@ -10,16 +10,22 @@ public class HumanHud implements AssetObjectProvider<ItemGroup>
     private ActionPanelProvider actionPanelProvider;
     private ResourcePanelProvider resourcePanelProvider;
     private SelectionPanelProvider selectionPanelProvider;
+    private SelectionTileProvider selectionTileProvider;
+    private HealthBarProvider healthBarProvider;
 
     @Inject
     public HumanHud(
         ActionPanelProvider actionPanelProvider,
         ResourcePanelProvider resourceBarProvider,
-        SelectionPanelProvider selectionPanelProvider)
+        SelectionPanelProvider selectionPanelProvider,
+        SelectionTileProvider selectionTileProvider,
+        HealthBarProvider healthBarProvider)
     {
         this.actionPanelProvider = actionPanelProvider;
         this.resourcePanelProvider = resourceBarProvider;
         this.selectionPanelProvider = selectionPanelProvider;
+        this.selectionTileProvider = selectionTileProvider;
+        this.healthBarProvider = healthBarProvider;
     }
 
     @Override
@@ -28,6 +34,8 @@ public class HumanHud implements AssetObjectProvider<ItemGroup>
         actionPanelProvider.load();
         resourcePanelProvider.load();
         selectionPanelProvider.load();
+        selectionTileProvider.load();
+        healthBarProvider.load();
     }
 
     @Override

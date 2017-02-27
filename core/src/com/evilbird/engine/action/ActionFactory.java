@@ -8,5 +8,8 @@ public interface ActionFactory
 {
     public void load();
 
+    @Deprecated
     public Action newAction(Identifier action, Actor actor, Object value);
+
+    public Action newAction(ActionContext context);
 }

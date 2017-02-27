@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.CreateAction;
 import com.evilbird.engine.action.ModifyAction;
@@ -62,10 +63,18 @@ public class WarcraftActionFactory implements ActionFactory
         this.itemFactory = itemFactory;
     }
 
+    @Override
     public void load()
     {
     }
 
+    @Override
+    public Action newAction(ActionContext context)
+    {
+        return newAction(context.getAction(), context.getTarget(), context.getData());
+    }
+
+    @Override
     public Action newAction(Identifier action, Actor actor, Object value)
     {
         if (Objects.equals(action, SELECT_ACTION)) return select(actor, (Boolean)value);

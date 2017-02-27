@@ -6,9 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
 import com.evilbird.engine.utility.AssetObjectProvider;
-import com.evilbird.engine.utility.Identifier;
 
 import javax.inject.Inject;
 
@@ -17,32 +15,31 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class SelectionPanelProvider implements AssetObjectProvider<Item>
+public class HealthBarProvider implements AssetObjectProvider<HealthBar>
 {
     private AssetManager assets;
-    private SelectionTileProvider tileProvider;
 
     @Inject
-    public SelectionPanelProvider(
-        Device device,
-        SelectionTileProvider tileProvider)
+    public HealthBarProvider(Device device)
     {
         this.assets = device.getAssetStorage().getAssets();
-        this.tileProvider = tileProvider;
     }
 
     @Override
     public void load()
     {
-        assets.load("data/textures/human/hud/selection_panel.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/health_bar_high.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/health_bar_medium.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/health_bar_low.png", Texture.class);
     }
 
     @Override
-    public Item get()
+    public HealthBar get()
     {
-        SelectionPanel result = new SelectionPanel(tileProvider);
-        result.setBackground(getTexture("data/textures/human/hud/selection_panel.png"));
-        result.setProperty(new Identifier("Id"), new Identifier("SelectionPanel"));
+        HealthBar result = new HealthBar();
+        result.setHighHealthTexture(getTexture("data/textures/neutral/perennial/health_bar_high.png"));
+        result.setMediumHealthTexture(getTexture("data/textures/neutral/perennial/health_bar_medium.png"));
+        result.setLowHealthTexture(getTexture("data/textures/neutral/perennial/health_bar_low.png"));
         return result;
     }
 

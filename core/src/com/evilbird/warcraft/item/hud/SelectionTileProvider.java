@@ -6,9 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
 import com.evilbird.engine.utility.AssetObjectProvider;
-import com.evilbird.engine.utility.Identifier;
 
 import javax.inject.Inject;
 
@@ -17,32 +15,31 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class SelectionPanelProvider implements AssetObjectProvider<Item>
+public class SelectionTileProvider implements AssetObjectProvider<SelectionTile>
 {
     private AssetManager assets;
-    private SelectionTileProvider tileProvider;
+    private HealthBarProvider healthBarProvider;
 
     @Inject
-    public SelectionPanelProvider(
+    public SelectionTileProvider(
         Device device,
-        SelectionTileProvider tileProvider)
+        HealthBarProvider healthBarProvider)
     {
         this.assets = device.getAssetStorage().getAssets();
-        this.tileProvider = tileProvider;
+        this.healthBarProvider = healthBarProvider;
     }
 
     @Override
     public void load()
     {
-        assets.load("data/textures/human/hud/selection_panel.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/selection.png", Texture.class);
     }
 
     @Override
-    public Item get()
+    public SelectionTile get()
     {
-        SelectionPanel result = new SelectionPanel(tileProvider);
-        result.setBackground(getTexture("data/textures/human/hud/selection_panel.png"));
-        result.setProperty(new Identifier("Id"), new Identifier("SelectionPanel"));
+        SelectionTile result = new SelectionTile(healthBarProvider);
+        result.setBackground(getTexture("data/textures/neutral/perennial/selection.png"));
         return result;
     }
 

@@ -1,22 +1,15 @@
 package com.evilbird.warcraft.item.hud;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Cell;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.utility.Identifier;
+import com.evilbird.warcraft.item.hud.control.Table;
 
 import java.util.Collection;
 import java.util.Objects;
+
+import javax.inject.Provider;
 
 /**
  * Instances of this class TODO:Finish
@@ -25,97 +18,75 @@ import java.util.Objects;
  */
 public class SelectionPanel extends Item
 {
-    private Table table;
-    private ActionFactory actionFactory;
+    private Table container;
+    private Provider<SelectionTile> tileProvider;
 
-    public SelectionPanel()
+    public SelectionPanel(Provider<SelectionTile> tileProvider)
     {
-        table = new Table();
-        table.setBounds(0, 476, 176, 176); //TODO
-        table.align(Align.topLeft);
+        this.tileProvider = tileProvider;
+        this.container = new Table(3, 3);
+        this.container.setBounds(0, 476, 176, 176); //TODO
+        this.container.setCellPadding(3);
+        this.container.setCellWidthMinimum(54);
+        this.container.setCellHeightMinimum(53);
     }
 
-    public void setActionFactory(ActionFactory actionFactory)
+    public void setBackground(Drawable background)
     {
-        this.actionFactory = actionFactory;
-    }
-
-    public void setBackground(TextureRegion texture)
-    {
-        Drawable drawable = new TextureRegionDrawable(texture);
-        table.setBackground(drawable);
+        container.setBackground(background);
     }
 
     @Override
     public void draw(Batch batch, float alpha)
     {
-        table.draw(batch, alpha);
+        container.draw(batch, alpha);
     }
 
     @Override
     public void act(float delta)
     {
-        table.act(delta);
+        container.act(delta);
     }
 
     @Override
     public void setProperty(Identifier property, Object value)
     {
-        super.setProperty(property, value);
-
         if (Objects.equals(property, new Identifier("Selection"))){
-            setSelection((Collection<Item>)value);
+            Object currentSelection = getProperty(property);
+            if (! Objects.equals(value, currentSelection)){
+                setSelection((Collection<Item>) value);
+            }
         }
+        super.setProperty(property, value);
     }
 
     private void setSelection(Collection<Item> selection)
     {
-        table.clear();
-        int count = 0;
+        int x = 0;
+        int y = 0;
 
+        container.clear();
         for (Item selected: selection)
         {
-            Drawable icon = (Drawable)selected.getProperty(new Identifier("Icon"));
-            if (icon != null)
+            Drawable image = (Drawable)selected.getProperty(new Identifier("Icon"));
+            if (image != null)
             {
-                Button button = getButton(icon);
-                button.addListener(new ButtonHandler(selected));
+                Item selectionTile = newSelectionTile(image);
+                container.setCell(selectionTile, x, y);
 
-                Cell<Button> cell = table.add(button);
-                cell.padLeft(10);
-                cell.padTop(10);
-
-                if (++count % 3 == 0){
-                    table.row();
-                }
+                y = x != 2 ? y : y + 1;
+                x = x == 2 ? 0 : x + 1;
             }
         }
     }
 
-    //TODO: Add outline
-    private Button getButton(Drawable icon)
+    //TODO: Change to set item. Have selection tile update health from item.
+    private SelectionTile newSelectionTile(Drawable icon)
     {
-        ImageButton.ImageButtonStyle buttonStyle = new ImageButton.ImageButtonStyle();
-        buttonStyle.up = icon;
-        buttonStyle.down = icon;
-        buttonStyle.over = icon;
-        return new ImageButton(buttonStyle);
-    }
-
-    private class ButtonHandler extends ChangeListener
-    {
-        private Item target;
-
-        public ButtonHandler(Item target)
-        {
-            this.target = target;
-        }
-
-        @Override
-        public void changed(ChangeEvent event, Actor actor)
-        {
-            //Action action = actionFactory.newAction(new Identifier("Select"), target, false);
-            //target.addAction(action);
-        }
+        SelectionTile result = tileProvider.get();
+        result.setImage(icon);
+        result.setHealth(0.2f);
+        result.setSize(54, 53);
+        return result;
     }
 }
