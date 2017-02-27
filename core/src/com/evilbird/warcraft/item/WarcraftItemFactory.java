@@ -7,7 +7,7 @@ import com.evilbird.engine.item.ItemIdentifier;
 import com.evilbird.engine.utility.AssetObjectProvider;
 import com.evilbird.engine.utility.AssetObjectProviderSet;
 import com.evilbird.engine.utility.Identifier;
-import com.evilbird.warcraft.item.hud.HumanHud;
+import com.evilbird.warcraft.item.hud.HumanHudProvider;
 import com.evilbird.warcraft.item.level.human.HumanLevel1;
 import com.evilbird.warcraft.item.unit.UnitProvider;
 
@@ -29,9 +29,9 @@ public class WarcraftItemFactory implements ItemFactory
 
     @Inject
     public WarcraftItemFactory(
-            UnitProvider unitProvider,
-            HumanLevel1 humanLevel1Provider,
-            HumanHud humanHudProvider)
+        UnitProvider unitProvider,
+        HumanLevel1 humanLevel1Provider,
+        HumanHudProvider humanHudProvider)
     {
         itemProviders = new ArrayList<AssetObjectProviderSet<Item>>();
         itemProviders.add(unitProvider);

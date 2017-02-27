@@ -1,4 +1,4 @@
-package com.evilbird.engine.action;
+package com.evilbird.engine.item;
 
 import com.evilbird.engine.utility.IdentifierNew;
 
@@ -7,6 +7,6 @@ import com.evilbird.engine.utility.IdentifierNew;
  *
  * @author Blair Butterworth
  */
-public interface ActionIdentifier extends IdentifierNew
+public interface ItemProperty extends IdentifierNew
 {
 }

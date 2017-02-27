@@ -1,7 +1,7 @@
 package com.evilbird.warcraft.behaviour.world;
 
 import com.evilbird.engine.device.UserInputType;
-import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.action.Actions;
 
 //TODO: Replace with more generalized behaviour, introgating all game state;
 public class Interaction
@@ -9,7 +9,7 @@ public class Interaction
     private UserInputType inputType;
     private String targetType;
     private String selectedType;
-    private ActionType commandType;
+    private Actions commandType;
 
     public Interaction(Interaction action)
     {
@@ -19,7 +19,7 @@ public class Interaction
         this.commandType = action.commandType;
     }
 
-    public Interaction(UserInputType inputType, String targetType, String selectedType, ActionType commandType)
+    public Interaction(UserInputType inputType, String targetType, String selectedType, Actions commandType)
     {
         this.inputType = inputType;
         this.targetType = targetType;
@@ -42,7 +42,7 @@ public class Interaction
         return selectedType;
     }
 
-    public ActionType getCommandType()
+    public Actions getCommandType()
     {
         return commandType;
     }

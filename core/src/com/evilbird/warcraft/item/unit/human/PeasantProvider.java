@@ -10,9 +10,11 @@ import com.evilbird.engine.graphics.DirectionalAnimation;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.utility.AssetObjectProvider;
 import com.evilbird.engine.utility.Identifier;
+import com.evilbird.warcraft.action.Actions;
 import com.evilbird.warcraft.item.unit.common.AnimatedItem;
 import com.evilbird.warcraft.item.unit.common.AnimationBuilder;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,6 +70,12 @@ public class PeasantProvider implements AssetObjectProvider<Item>
         TextureRegion iconRegion = new TextureRegion(iconTexture, 0, 0, 46, 38);
         TextureRegionDrawable icon = new TextureRegionDrawable(iconRegion);
 
+        EnumSet<Actions> actions = EnumSet.noneOf(Actions.class);
+        actions.add(Actions.Move);
+        actions.add(Actions.Attack);
+        actions.add(Actions.BuildBarracks);
+        actions.add(Actions.BuildFarm);
+
         Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
         properties.put(new Identifier("Type"), new Identifier("Peasant"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
@@ -79,6 +87,7 @@ public class PeasantProvider implements AssetObjectProvider<Item>
         properties.put(new Identifier("Sounds"), sounds);
         properties.put(new Identifier("Id"), new Identifier());
         properties.put(new Identifier("Icon"), icon);
+        properties.put(new Identifier("Actions"), actions);
 
         return new AnimatedItem(properties, animations);
     }

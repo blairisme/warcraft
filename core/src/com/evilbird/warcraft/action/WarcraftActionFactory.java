@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.CreateAction;
 import com.evilbird.engine.action.ModifyAction;
 import com.evilbird.engine.action.ParallelAction;
@@ -45,16 +46,6 @@ import static com.evilbird.engine.item.ItemUtils.findByType;
 
 public class WarcraftActionFactory implements ActionFactory
 {
-    private static final Identifier SELECT_ACTION = new Identifier("Select");
-    private static final Identifier MOVE_ACTION = new Identifier("Move");
-    private static final Identifier PAN_ACTION = new Identifier("Pan");
-    private static final Identifier ZOOM_ACTION = new Identifier("Zoom");
-    private static final Identifier GATHER_GOLD_ACTION = new Identifier("GatherGold");
-    private static final Identifier GATHER_WOOD_ACTION = new Identifier("GatherWood");
-    private static final Identifier BUILD_FARM_ACTION = new Identifier("BuildFarm");
-    private static final Identifier BUILD_BARRACKS_ACTION = new Identifier("BuildBarracks");
-    private static final Identifier ATTACK_ACTION = new Identifier("Attack");
-
     private ItemFactory itemFactory;
 
     @Inject
@@ -75,17 +66,17 @@ public class WarcraftActionFactory implements ActionFactory
     }
 
     @Override
-    public Action newAction(Identifier action, Actor actor, Object value)
+    public Action newAction(ActionIdentifier action, Actor actor, Object value)
     {
-        if (Objects.equals(action, SELECT_ACTION)) return select(actor, (Boolean)value);
-        if (Objects.equals(action, MOVE_ACTION)) return move(actor, (Vector2)value);
-        if (Objects.equals(action, PAN_ACTION)) return pan(actor, (Vector2)value);
-        if (Objects.equals(action, ZOOM_ACTION)) return zoom(actor, (UserInput)value);
-        if (Objects.equals(action, GATHER_GOLD_ACTION)) return gatherGold(actor, (Actor)value);
-        if (Objects.equals(action, GATHER_WOOD_ACTION)) return gatherWood(actor, (Actor)value);
-        if (Objects.equals(action, BUILD_FARM_ACTION)) return buildFarm(actor, (Vector2)value);
-        if (Objects.equals(action, BUILD_BARRACKS_ACTION)) return buildBarracks(actor, (Vector2)value);
-        if (Objects.equals(action, ATTACK_ACTION)) return attack(actor, (Actor)value);
+        if (Objects.equals(action, Actions.Select)) return select(actor, (Boolean)value);
+        if (Objects.equals(action, Actions.Move)) return move(actor, (Vector2)value);
+        if (Objects.equals(action, Actions.Pan)) return pan(actor, (Vector2)value);
+        if (Objects.equals(action, Actions.Zoom)) return zoom(actor, (UserInput)value);
+        if (Objects.equals(action, Actions.GatherGold)) return gatherGold(actor, (Actor)value);
+        if (Objects.equals(action, Actions.GatherWood)) return gatherWood(actor, (Actor)value);
+        if (Objects.equals(action, Actions.BuildFarm)) return buildFarm(actor, (Vector2)value);
+        if (Objects.equals(action, Actions.BuildBarracks)) return buildBarracks(actor, (Vector2)value);
+        if (Objects.equals(action, Actions.Attack)) return attack(actor, (Actor)value);
         throw new IllegalArgumentException();
     }
 

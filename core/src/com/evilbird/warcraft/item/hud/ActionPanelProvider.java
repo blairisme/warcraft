@@ -18,11 +18,15 @@ import javax.inject.Inject;
 public class ActionPanelProvider implements AssetObjectProvider<Item>
 {
     private AssetManager assets;
+    private ActionTileProvider actionTileProvider;
 
     @Inject
-    public ActionPanelProvider(Device device)
+    public ActionPanelProvider(
+        Device device,
+        ActionTileProvider actionTileProvider)
     {
         this.assets = device.getAssetStorage().getAssets();
+        this.actionTileProvider = actionTileProvider;
     }
 
     @Override
@@ -34,7 +38,7 @@ public class ActionPanelProvider implements AssetObjectProvider<Item>
     @Override
     public Item get()
     {
-        ActionPanel result = new ActionPanel();
+        ActionPanel result = new ActionPanel(actionTileProvider);
         result.setBackground(getBackground());
         result.setProperty(new Identifier("Id"), new Identifier("ActionPanel"));
         return result;

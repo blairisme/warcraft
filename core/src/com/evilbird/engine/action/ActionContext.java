@@ -1,7 +1,6 @@
 package com.evilbird.engine.action;
 
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.utility.Identifier;
 
 /**
  * Instances of this class TODO:Finish
@@ -10,18 +9,18 @@ import com.evilbird.engine.utility.Identifier;
  */
 public class ActionContext
 {
-    private Identifier action;
+    private ActionIdentifier action;
     private Item target;
     private Object data;
 
-    public ActionContext(Identifier action, Item target, Object data)
+    public ActionContext(ActionIdentifier action, Item target, Object data)
     {
         this.action = action;
         this.target = target;
         this.data = data;
     }
 
-    public Identifier getAction()
+    public ActionIdentifier getAction()
     {
         return action;
     }

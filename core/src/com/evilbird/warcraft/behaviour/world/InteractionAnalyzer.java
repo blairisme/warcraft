@@ -10,7 +10,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemUtils;
 import com.evilbird.engine.utility.Identifier;
-import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.action.Actions;
 import com.evilbird.warcraft.item.unit.common.AnimatedItem;
 
 import java.util.ArrayList;
@@ -29,29 +29,29 @@ public class InteractionAnalyzer implements Behaviour
         this.actionFactory = actionFactory;
         this.interactions = new ArrayList<Interaction>();
 
-        this.interactions.add(new Interaction(UserInputType.Zoom, "Camera", null, ActionType.Zoom));
-        this.interactions.add(new Interaction(UserInputType.Pan, "Camera", null, ActionType.Pan));
+        this.interactions.add(new Interaction(UserInputType.Zoom, "Camera", null, Actions.Zoom));
+        this.interactions.add(new Interaction(UserInputType.Pan, "Camera", null, Actions.Pan));
 
-        this.interactions.add(new Interaction(UserInputType.Action, "Footman", null, ActionType.Select));
-        this.interactions.add(new Interaction(UserInputType.Action, "Peasant", null, ActionType.Select));
-        this.interactions.add(new Interaction(UserInputType.Action, "Grunt", null, ActionType.Select));
-        this.interactions.add(new Interaction(UserInputType.Action, "GoldMine", null, ActionType.Select));
-        this.interactions.add(new Interaction(UserInputType.Action, "TownHall", null, ActionType.Select));
-        this.interactions.add(new Interaction(UserInputType.Action, "Barracks", null, ActionType.Select));
-        this.interactions.add(new Interaction(UserInputType.Action, "Farm", null, ActionType.Select));
-        this.interactions.add(new Interaction(UserInputType.Action, "Wood", null, ActionType.Select));
+        this.interactions.add(new Interaction(UserInputType.Action, "Footman", null, Actions.Select));
+        this.interactions.add(new Interaction(UserInputType.Action, "Peasant", null, Actions.Select));
+        this.interactions.add(new Interaction(UserInputType.Action, "Grunt", null, Actions.Select));
+        this.interactions.add(new Interaction(UserInputType.Action, "GoldMine", null, Actions.Select));
+        this.interactions.add(new Interaction(UserInputType.Action, "TownHall", null, Actions.Select));
+        this.interactions.add(new Interaction(UserInputType.Action, "Barracks", null, Actions.Select));
+        this.interactions.add(new Interaction(UserInputType.Action, "Farm", null, Actions.Select));
+        this.interactions.add(new Interaction(UserInputType.Action, "Wood", null, Actions.Select));
 
-        this.interactions.add(new Interaction(UserInputType.Action, "Map", "Footman", ActionType.Move));
-        this.interactions.add(new Interaction(UserInputType.Action, "Map", "Peasant", ActionType.Move));
-        this.interactions.add(new Interaction(UserInputType.Action, "Map", "Grunt", ActionType.Move));
+        this.interactions.add(new Interaction(UserInputType.Action, "Map", "Footman", Actions.Move));
+        this.interactions.add(new Interaction(UserInputType.Action, "Map", "Peasant", Actions.Move));
+        this.interactions.add(new Interaction(UserInputType.Action, "Map", "Grunt", Actions.Move));
 
         //this.interactions.add(new Interaction(UserInputType.Action, "Map", "Peasant", ActionType.BuildFarm));
         //this.interactions.add(new Interaction(UserInputType.Action, "Map", "Peasant", ActionType.BuildBarracks));
 
-        this.interactions.add(new Interaction(UserInputType.Action, "GoldMine", "Peasant", ActionType.GatherGold));
-        this.interactions.add(new Interaction(UserInputType.Action, "Wood", "Peasant", ActionType.GatherWood));
+        this.interactions.add(new Interaction(UserInputType.Action, "GoldMine", "Peasant", Actions.GatherGold));
+        this.interactions.add(new Interaction(UserInputType.Action, "Wood", "Peasant", Actions.GatherWood));
 
-        this.interactions.add(new Interaction(UserInputType.Action, "Grunt", "Footman", ActionType.Attack));
+        this.interactions.add(new Interaction(UserInputType.Action, "Grunt", "Footman", Actions.Attack));
     }
 
     @Override
@@ -101,58 +101,58 @@ public class InteractionAnalyzer implements Behaviour
         }
     }
 
-    //TODO - Messy/incomplete
+    //TODO: Refactor into common action creation
     private void addAction(Interaction interaction, UserInput input, Item target, Item selected)
     {
-        if (interaction.getCommandType() == ActionType.Move)
+        if (interaction.getCommandType() == Actions.Move)
         {
             //Vector2 meh = selected.getStage().screenToStageCoordinates(input.getPosition());
             Vector2 position = input.getPosition(); //screenToStageCoordinates in getTargets modified input position
-            Action action = actionFactory.newAction(new Identifier("Move"), selected, position);
+            Action action = actionFactory.newAction(interaction.getCommandType(), selected, position);
 
             selected.clearActions();
             selected.addAction(action);
         }
-        else if (interaction.getCommandType() == ActionType.Select)
+        else if (interaction.getCommandType() == Actions.Select)
         {
             AnimatedItem animatedItem = (AnimatedItem)target;
             boolean itemSelected = (Boolean)animatedItem.getProperty(new Identifier("Selected"));
-            Action action = actionFactory.newAction(new Identifier("Select"), target, !itemSelected);
+            Action action = actionFactory.newAction(interaction.getCommandType(), target, !itemSelected);
             target.addAction(action);
         }
-        else if (interaction.getCommandType() == ActionType.Zoom)
+        else if (interaction.getCommandType() == Actions.Zoom)
         {
-            Action action = actionFactory.newAction(new Identifier("Zoom"), target, input);
+            Action action = actionFactory.newAction(interaction.getCommandType(), target, input);
             target.addAction(action);
         }
-        else if (interaction.getCommandType() == ActionType.Pan)
+        else if (interaction.getCommandType() == Actions.Pan)
         {
-            Action action = actionFactory.newAction(new Identifier("Pan"), target, input.getDelta());
+            Action action = actionFactory.newAction(interaction.getCommandType(), target, input.getDelta());
             target.addAction(action);
         }
-        else if (interaction.getCommandType() == ActionType.GatherGold)
+        else if (interaction.getCommandType() == Actions.GatherGold)
         {
-            Action action = actionFactory.newAction(new Identifier("GatherGold"), selected, target);
+            Action action = actionFactory.newAction(interaction.getCommandType(), selected, target);
             selected.addAction(action);
         }
-        else if (interaction.getCommandType() == ActionType.GatherWood)
+        else if (interaction.getCommandType() == Actions.GatherWood)
         {
-            Action action = actionFactory.newAction(new Identifier("GatherWood"), selected, target);
+            Action action = actionFactory.newAction(interaction.getCommandType(), selected, target);
             selected.addAction(action);
         }
-        else if (interaction.getCommandType() == ActionType.BuildFarm)
+        else if (interaction.getCommandType() == Actions.BuildFarm)
         {
-            Action action = actionFactory.newAction(new Identifier("BuildFarm"), selected, input.getPosition());
+            Action action = actionFactory.newAction(interaction.getCommandType(), selected, input.getPosition());
             selected.addAction(action);
         }
-        else if (interaction.getCommandType() == ActionType.BuildBarracks)
+        else if (interaction.getCommandType() == Actions.BuildBarracks)
         {
-            Action action = actionFactory.newAction(new Identifier("BuildBarracks"), selected, input.getPosition());
+            Action action = actionFactory.newAction(interaction.getCommandType(), selected, input.getPosition());
             selected.addAction(action);
         }
-        else if (interaction.getCommandType() == ActionType.Attack)
+        else if (interaction.getCommandType() == Actions.Attack)
         {
-            Action action = actionFactory.newAction(new Identifier("Attack"), selected, target);
+            Action action = actionFactory.newAction(interaction.getCommandType(), selected, target);
             selected.addAction(action);
         }
     }

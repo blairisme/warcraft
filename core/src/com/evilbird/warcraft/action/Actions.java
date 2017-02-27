@@ -1,6 +1,8 @@
 package com.evilbird.warcraft.action;
 
-public enum ActionType
+import com.evilbird.engine.action.ActionIdentifier;
+
+public enum Actions implements ActionIdentifier
 {
     Select,
     Move,
@@ -14,5 +16,6 @@ public enum ActionType
     BuildFarm,
     BuildBarracks,
 
-    Attack
+    Attack,
+    Stop
 }

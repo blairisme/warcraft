@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.item.Item;
 
+import java.util.Collection;
+
 /**
  * Instances of this class TODO:Finish
  *
@@ -65,7 +67,18 @@ public class Table extends Item
         for (int column = 0; column < columnCount; column++){
             cellWidths[column] = Math.max(cellWidths[column], cellWidthMinimum);
         }
+    }
 
+    public void setCells(Collection<Item> addCells)
+    {
+        int x = 0, y = 0;
+        for (Item addCell: addCells){
+            if (y < rowCount){
+                setCell(addCell, x, y);
+                y = x != columnCount - 1 ? y : y + 1;
+                x = x == columnCount - 1 ? 0 : x + 1;
+            }
+        }
     }
 
     public void setCell(Item cell, int column, int row)

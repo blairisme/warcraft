@@ -9,9 +9,11 @@ import com.evilbird.engine.graphics.DirectionalAnimation;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.utility.AssetObjectProvider;
 import com.evilbird.engine.utility.Identifier;
+import com.evilbird.warcraft.action.Actions;
 import com.evilbird.warcraft.item.unit.common.AnimatedItem;
 import com.evilbird.warcraft.item.unit.common.AnimationBuilder;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,6 +48,10 @@ public class FootmanProvider implements AssetObjectProvider<Item>
         TextureRegion iconRegion = new TextureRegion(iconTexture, 92, 0, 46, 38);
         TextureRegionDrawable icon = new TextureRegionDrawable(iconRegion);
 
+        EnumSet<Actions> actions = EnumSet.noneOf(Actions.class);
+        actions.add(Actions.Move);
+        actions.add(Actions.Attack);
+
         Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
         properties.put(new Identifier("Type"), new Identifier("Footman"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
@@ -54,6 +60,7 @@ public class FootmanProvider implements AssetObjectProvider<Item>
         properties.put(new Identifier("Health"), 100f);
         properties.put(new Identifier("Id"), new Identifier());
         properties.put(new Identifier("Icon"), icon);
+        properties.put(new Identifier("Actions"), actions);
 
         return new AnimatedItem(properties, animations);
     }
