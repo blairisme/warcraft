@@ -1,34 +1,35 @@
 package com.evilbird.engine.action.duration;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.evilbird.engine.action.value.ActionValue;
+import com.evilbird.engine.action.value.ItemValue;
+import com.evilbird.engine.action.value.ObjectValue;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.utility.Identifier;
-import com.evilbird.warcraft.item.unit.common.AnimatedItem;
 
 import java.util.Objects;
 
 public class PredicateDuration implements ActionDuration
 {
-    private Actor actor;
-    private Identifier property;
-    private Object value;
+    private ActionValue left;
+    private ActionValue right;
 
-    public PredicateDuration(Actor actor, Identifier property, Object value)
+    public PredicateDuration(Item item, Identifier property, Object value)
     {
-        this.actor = actor;
-        this.property = property;
-        this.value = value;
+        this(new ItemValue(item, property), new ObjectValue(value));
+    }
+
+    public PredicateDuration(ActionValue left, ActionValue right)
+    {
+        this.left = left;
+        this.right = right;
     }
 
     @Override
     public boolean isComplete(float time)
     {
-        if (actor instanceof AnimatedItem)
-        {
-            AnimatedItem animatedItem = (AnimatedItem)actor;
-            Object actorValue = animatedItem.getProperty(property);
-            return Objects.equals(actorValue, value);
-        }
-        return true;
+        Object leftValue = left.get();
+        Object rightValue = right.get();
+        return Objects.equals(leftValue, rightValue);
     }
 
     @Override

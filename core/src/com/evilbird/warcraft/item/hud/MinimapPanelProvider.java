@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.utility.AssetObjectProvider;
-import com.evilbird.engine.utility.Identifier;
 
 import javax.inject.Inject;
 
@@ -16,32 +15,27 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class SelectionPanelProvider implements AssetObjectProvider<SelectionPanel>
+public class MinimapPanelProvider implements AssetObjectProvider<MinimapPanel>
 {
     private AssetManager assets;
-    private SelectionTileProvider tileProvider;
 
     @Inject
-    public SelectionPanelProvider(
-        Device device,
-        SelectionTileProvider tileProvider)
+    public MinimapPanelProvider(Device device)
     {
         this.assets = device.getAssetStorage().getAssets();
-        this.tileProvider = tileProvider;
     }
 
     @Override
     public void load()
     {
-        assets.load("data/textures/human/hud/selection_panel.png", Texture.class);
+        assets.load("data/textures/human/hud/minimap_panel.png", Texture.class);
     }
 
     @Override
-    public SelectionPanel get()
+    public MinimapPanel get()
     {
-        SelectionPanel result = new SelectionPanel(tileProvider);
-        result.setBackground(getTexture("data/textures/human/hud/selection_panel.png"));
-        result.setProperty(new Identifier("Id"), new Identifier("SelectionPanel"));
+        MinimapPanel result = new MinimapPanel();
+        result.setBackground(getTexture("data/textures/human/hud/minimap_panel.png"));
         return result;
     }
 

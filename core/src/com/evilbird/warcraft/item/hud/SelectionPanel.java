@@ -25,7 +25,7 @@ public class SelectionPanel extends Item
     {
         this.tileProvider = tileProvider;
         this.container = new Table(3, 3);
-        this.container.setBounds(0, 476, 176, 176); //TODO
+        this.container.setSize(176, 176); //TODO
         this.container.setCellPadding(3);
         this.container.setCellWidthMinimum(54);
         this.container.setCellHeightMinimum(53);
@@ -88,5 +88,18 @@ public class SelectionPanel extends Item
         result.setHealth(0.2f);
         result.setSize(54, 53);
         return result;
+    }
+
+
+    @Override //TODO: Investigate better implementation
+    protected void positionChanged()
+    {
+        container.setPosition(getX(), getY());
+    }
+
+    @Override //TODO: Investigate better implementation
+    protected void sizeChanged()
+    {
+        container.setSize(getWidth(), getHeight());
     }
 }

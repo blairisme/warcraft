@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Objects;
 
+import javax.inject.Inject;
 import javax.inject.Provider;
 
 /**
@@ -27,11 +28,12 @@ public class ActionPanel extends Item
     private Table table;
     private Provider<ActionTile> tileProvider;
 
+    @Inject
     public ActionPanel(Provider<ActionTile> tileProvider)
     {
         this.tileProvider = tileProvider;
         this.table = new Table(3, 3);
-        this.table.setBounds(0, 300, 176, 176); //TODO
+        this.table.setSize(176, 176);
         this.table.setCellPadding(3);
         this.table.setCellWidthMinimum(54);
         this.table.setCellHeightMinimum(46);
@@ -107,5 +109,17 @@ public class ActionPanel extends Item
         result.setAction(action);
         result.setSize(54, 46);
         return result;
+    }
+
+    @Override //TODO: Investigate better implementation
+    protected void positionChanged()
+    {
+        table.setPosition(getX(), getY());
+    }
+
+    @Override //TODO: Investigate better implementation
+    protected void sizeChanged()
+    {
+        table.setSize(getWidth(), getHeight());
     }
 }

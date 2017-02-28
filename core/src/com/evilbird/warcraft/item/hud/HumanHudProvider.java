@@ -4,7 +4,9 @@ import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.utility.AssetObjectProvider;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 
+//TODO:
 public class HumanHudProvider implements AssetObjectProvider<ItemGroup>
 {
     private ActionPanelProvider actionPanelProvider;
@@ -13,6 +15,8 @@ public class HumanHudProvider implements AssetObjectProvider<ItemGroup>
     private SelectionPanelProvider selectionPanelProvider;
     private SelectionTileProvider selectionTileProvider;
     private HealthBarProvider healthBarProvider;
+    private MinimapPanelProvider minimapPanelProvider;
+    private Provider<ControlPanel> controlPanelProvider;
 
     @Inject
     public HumanHudProvider(
@@ -21,7 +25,9 @@ public class HumanHudProvider implements AssetObjectProvider<ItemGroup>
         ResourcePanelProvider resourceBarProvider,
         SelectionPanelProvider selectionPanelProvider,
         SelectionTileProvider selectionTileProvider,
-        HealthBarProvider healthBarProvider)
+        HealthBarProvider healthBarProvider,
+        MinimapPanelProvider minimapPanelProvider,
+        Provider<ControlPanel> controlPanelProvider)
     {
         this.actionPanelProvider = actionPanelProvider;
         this.actionTileProvider = actionTileProvider;
@@ -29,6 +35,8 @@ public class HumanHudProvider implements AssetObjectProvider<ItemGroup>
         this.selectionPanelProvider = selectionPanelProvider;
         this.selectionTileProvider = selectionTileProvider;
         this.healthBarProvider = healthBarProvider;
+        this.minimapPanelProvider = minimapPanelProvider;
+        this.controlPanelProvider = controlPanelProvider;
     }
 
     @Override
@@ -40,15 +48,15 @@ public class HumanHudProvider implements AssetObjectProvider<ItemGroup>
         selectionPanelProvider.load();
         selectionTileProvider.load();
         healthBarProvider.load();
+        minimapPanelProvider.load();
     }
 
     @Override
     public ItemGroup get()
     {
         ItemGroup hud = new ItemGroup();
-        hud.addActor(actionPanelProvider.get());
         hud.addActor(resourcePanelProvider.get());
-        hud.addActor(selectionPanelProvider.get());
+        hud.addActor(controlPanelProvider.get());
         return hud;
     }
 }

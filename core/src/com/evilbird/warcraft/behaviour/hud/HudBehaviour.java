@@ -42,10 +42,10 @@ public class HudBehaviour implements Behaviour
         Collection<Item> selection = ItemUtils.findAll(world.getItems(), new Identifier("Selected"), true); //TODO: Frequency too high. Only when changed.
 
         Item actionPanel = hud.getItem(new Identifier("ActionPanel")); //TODO: Cache
-        actionPanel.setProperty(new Identifier("Selection"), selection); //TODO: Frequency too high. Only when changed.
+//        actionPanel.setProperty(new Identifier("Selection"), selection); //TODO: Frequency too high. Only when changed.
 
         Item selectionPanel = hud.getItem(new Identifier("SelectionPanel")); //TODO: Cache
-        selectionPanel.setProperty(new Identifier("Selection"), selection); //TODO: Frequency too high. Only when changed.
+  //      selectionPanel.setProperty(new Identifier("Selection"), selection); //TODO: Frequency too high. Only when changed.
 
 
 

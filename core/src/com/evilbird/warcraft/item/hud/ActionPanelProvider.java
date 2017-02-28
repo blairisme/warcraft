@@ -4,7 +4,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
 import com.evilbird.engine.utility.AssetObjectProvider;
 import com.evilbird.engine.utility.Identifier;
 
@@ -15,7 +14,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class ActionPanelProvider implements AssetObjectProvider<Item>
+public class ActionPanelProvider implements AssetObjectProvider<ActionPanel>
 {
     private AssetManager assets;
     private ActionTileProvider actionTileProvider;
@@ -36,7 +35,7 @@ public class ActionPanelProvider implements AssetObjectProvider<Item>
     }
 
     @Override
-    public Item get()
+    public ActionPanel get()
     {
         ActionPanel result = new ActionPanel(actionTileProvider);
         result.setBackground(getBackground());

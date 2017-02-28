@@ -115,7 +115,7 @@ public class WarcraftActionFactory implements ActionFactory
     {
         Identifier position = new Identifier("Position");
         ActionModifier modifier = new MoveModifier(destination, 64f);
-        ActionDuration duration = new PredicateDuration(actor, position, destination);
+        ActionDuration duration = new PredicateDuration((Item)actor, position, destination);
         return new com.evilbird.engine.action.ModifyAction(actor, position, modifier, duration);
     }
 
@@ -375,7 +375,7 @@ public class WarcraftActionFactory implements ActionFactory
         Identifier health = new Identifier("Health");
         ActionValue value = new ItemValue((Item)target, health);
         ActionModifier modifier = new DeltaModifier(-10f, DeltaType.PerSecond, 0f, 100f);
-        ActionDuration duration = new PredicateDuration(target, health, 0f);
+        ActionDuration duration = new PredicateDuration((Item)target, health, 0f);
         return new ModifyAction(value, modifier, duration);
     }
 
