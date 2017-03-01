@@ -1,18 +1,17 @@
-package com.evilbird.engine.item;
+package com.evilbird.engine.item.framework;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Group;
 
 /**
  * Instances of this class TODO:Finish
  *
  * @author Blair Butterworth
  */
-public class GroupExtension extends Group
+public class ActorExtension extends com.badlogic.gdx.scenes.scene2d.Actor
 {
-    private GroupObserver observer;
+    private ActorObserver observer;
 
-    public GroupExtension(GroupObserver observer)
+    public ActorExtension(ActorObserver observer)
     {
         this.observer = observer;
     }

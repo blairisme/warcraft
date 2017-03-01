@@ -1,10 +1,9 @@
 package com.evilbird.warcraft.item.hud;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.utility.Identifier;
-import com.evilbird.warcraft.item.hud.control.Table;
+import com.evilbird.engine.item.control.GridPanel;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -16,36 +15,19 @@ import javax.inject.Provider;
  *
  * @author Blair Butterworth
  */
-public class SelectionPanel extends Item
+public class SelectionPanel extends GridPanel
 {
-    private Table container;
     private Provider<SelectionTile> tileProvider;
 
     public SelectionPanel(Provider<SelectionTile> tileProvider)
     {
+        super(3, 3);
         this.tileProvider = tileProvider;
-        this.container = new Table(3, 3);
-        this.container.setSize(176, 176); //TODO
-        this.container.setCellPadding(3);
-        this.container.setCellWidthMinimum(54);
-        this.container.setCellHeightMinimum(53);
-    }
-
-    public void setBackground(Drawable background)
-    {
-        container.setBackground(background);
-    }
-
-    @Override
-    public void draw(Batch batch, float alpha)
-    {
-        container.draw(batch, alpha);
-    }
-
-    @Override
-    public void update(float delta)
-    {
-        container.update(delta);
+        setSize(176, 176); //TODO
+        setCellPadding(3);
+        setCellWidthMinimum(54);
+        setCellHeightMinimum(53);
+        setId(new Identifier("SelectionPanel"));
     }
 
     @Override
@@ -65,14 +47,14 @@ public class SelectionPanel extends Item
         int x = 0;
         int y = 0;
 
-        container.clear();
+        clear();
         for (Item selected: selection)
         {
             Drawable image = (Drawable)selected.getProperty(new Identifier("Icon"));
             if (image != null)
             {
                 Item selectionTile = newSelectionTile(image);
-                container.setCell(selectionTile, x, y);
+                setCell(selectionTile, x, y);
 
                 y = x != 2 ? y : y + 1;
                 x = x == 2 ? 0 : x + 1;
@@ -88,18 +70,5 @@ public class SelectionPanel extends Item
         result.setHealth(0.2f);
         result.setSize(54, 53);
         return result;
-    }
-
-
-    @Override //TODO: Investigate better implementation
-    public void positionChanged()
-    {
-        container.setPosition(getX(), getY());
-    }
-
-    @Override //TODO: Investigate better implementation
-    public void sizeChanged()
-    {
-        container.setSize(getWidth(), getHeight());
     }
 }

@@ -1,7 +1,7 @@
 package com.evilbird.warcraft.item.camera;
 
+import com.evilbird.engine.common.inject.AssetObjectProvider;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.utility.AssetObjectProvider;
 
 public class CameraProvider implements AssetObjectProvider<Item>
 {

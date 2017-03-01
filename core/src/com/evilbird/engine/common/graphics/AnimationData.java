@@ -1,4 +1,4 @@
-package com.evilbird.engine.graphics;
+package com.evilbird.engine.common.graphics;
 
 import java.util.List;
 

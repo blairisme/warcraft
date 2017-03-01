@@ -4,7 +4,7 @@ import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.behaviour.CompositeBehaviour;
-import com.evilbird.engine.utility.Identifier;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.behaviour.hud.HudBehaviour;
 import com.evilbird.warcraft.behaviour.world.InteractionAnalyzer;
 

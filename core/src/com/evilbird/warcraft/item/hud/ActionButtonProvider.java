@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.action.ActionIdentifier;
+import com.evilbird.engine.common.inject.AssetObjectProvider;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.utility.AssetObjectProvider;
 import com.evilbird.warcraft.action.Actions;
 
 import java.util.HashMap;
@@ -20,12 +20,12 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class ActionTileProvider implements AssetObjectProvider<ActionTile>
+public class ActionButtonProvider implements AssetObjectProvider<ActionButton>
 {
     private AssetManager assets;
 
     @Inject
-    public ActionTileProvider(Device device)
+    public ActionButtonProvider(Device device)
     {
         this.assets = device.getAssetStorage().getAssets();
     }
@@ -38,9 +38,9 @@ public class ActionTileProvider implements AssetObjectProvider<ActionTile>
     }
 
     @Override
-    public ActionTile get()
+    public ActionButton get()
     {
-        ActionTile result = new ActionTile();
+        ActionButton result = new ActionButton();
         result.setBackground(getBackground());
         result.setActionIcons(getActionIcons());
         return result;

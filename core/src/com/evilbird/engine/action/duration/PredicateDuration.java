@@ -3,8 +3,8 @@ package com.evilbird.engine.action.duration;
 import com.evilbird.engine.action.value.ActionValue;
 import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.action.value.ObjectValue;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.utility.Identifier;
 
 import java.util.Objects;
 

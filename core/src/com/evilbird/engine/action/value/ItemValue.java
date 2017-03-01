@@ -1,7 +1,7 @@
 package com.evilbird.engine.action.value;
 
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.utility.Identifier;
 
 public class ItemValue implements ActionValue
 {

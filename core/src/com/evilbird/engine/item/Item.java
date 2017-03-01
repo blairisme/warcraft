@@ -5,8 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.utility.Identifier;
-import com.evilbird.engine.utility.PropertySet;
+import com.evilbird.engine.common.collection.PropertySet;
+import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.item.framework.ActorExtension;
+import com.evilbird.engine.item.framework.ActorObserver;
 
 import java.util.HashMap;
 import java.util.Map;

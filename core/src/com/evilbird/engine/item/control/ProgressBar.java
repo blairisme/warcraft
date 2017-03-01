@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.hud.control;
+package com.evilbird.engine.item.control;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -37,10 +37,9 @@ public class ProgressBar extends Item
     }
 
     @Override
-    public void setSize(float width, float height)
+    public void sizeChanged()
     {
-        super.setSize(width, height);
-        this.textureWidth = width * progress;
+        this.textureWidth = getWidth() * progress;
     }
 
     @Override

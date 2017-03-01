@@ -9,5 +9,5 @@ public interface ActionFactory
 
     public Action newAction(ActionIdentifier action, Item actor, Object value);
 
-    public Action newAction(ActionContext context);
+    //public void assignAction(ActionIdentifier action, Item actor, Object value);
 }

@@ -1,16 +1,15 @@
 package com.evilbird.warcraft.item.hud;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.hud.control.Image;
+import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.item.control.Image;
 
 /**
  * Instances of this class TODO:Finish
  *
  * @author Blair Butterworth
  */
-public class MinimapPanel extends Item
+public class MinimapPanel extends ItemGroup
 {
     private Image image;
 
@@ -18,6 +17,8 @@ public class MinimapPanel extends Item
     {
         this.image = new Image();
         this.image.setSize(176, 136);
+        setSize(176, 136);
+        addItem(image);
     }
 
     public void setBackground(Drawable drawable)
@@ -25,21 +26,4 @@ public class MinimapPanel extends Item
         this.image.setBackground(drawable);
     }
 
-    @Override
-    public void draw(Batch batch, float parentAlpha)
-    {
-        image.draw(batch, parentAlpha);
-    }
-
-    @Override //TODO: Investigate better implementation
-    public void positionChanged()
-    {
-        image.setPosition(getX(), getY());
-    }
-
-    @Override //TODO: Investigate better implementation
-    public void sizeChanged()
-    {
-        image.setSize(getWidth(), getHeight());
-    }
 }

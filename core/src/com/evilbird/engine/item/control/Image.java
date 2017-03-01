@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.hud.control;
+package com.evilbird.engine.item.control;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;

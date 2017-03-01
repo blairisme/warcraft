@@ -3,9 +3,11 @@ package com.evilbird.warcraft.item.hud;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.evilbird.engine.common.inject.AssetObjectProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.utility.AssetObjectProvider;
-import com.evilbird.engine.utility.Identifier;
 
 import javax.inject.Inject;
 
@@ -17,15 +19,15 @@ import javax.inject.Inject;
 public class ActionPanelProvider implements AssetObjectProvider<ActionPanel>
 {
     private AssetManager assets;
-    private ActionTileProvider actionTileProvider;
+    private ActionButtonProvider actionButtonProvider;
 
     @Inject
     public ActionPanelProvider(
         Device device,
-        ActionTileProvider actionTileProvider)
+        ActionButtonProvider actionButtonProvider)
     {
         this.assets = device.getAssetStorage().getAssets();
-        this.actionTileProvider = actionTileProvider;
+        this.actionButtonProvider = actionButtonProvider;
     }
 
     @Override
@@ -37,16 +39,17 @@ public class ActionPanelProvider implements AssetObjectProvider<ActionPanel>
     @Override
     public ActionPanel get()
     {
-        ActionPanel result = new ActionPanel(actionTileProvider);
+        ActionPanel result = new ActionPanel(actionButtonProvider);
         result.setBackground(getBackground());
         result.setProperty(new Identifier("Id"), new Identifier("ActionPanel"));
         return result;
     }
 
-    private TextureRegion getBackground()
+    private Drawable getBackground()
     {
         Texture texture = assets.get("data/textures/human/hud/action_panel.png");
         TextureRegion region = new TextureRegion(texture);
-        return region;
+        Drawable drawable = new TextureRegionDrawable(region);
+        return drawable;
     }
 }

@@ -1,13 +1,9 @@
 package com.evilbird.warcraft.item.hud;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.utility.Identifier;
+import com.evilbird.engine.item.control.GridPanel;
 import com.evilbird.warcraft.action.Actions;
-import com.evilbird.warcraft.item.hud.control.Table;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,38 +19,20 @@ import javax.inject.Provider;
  *
  * @author Blair Butterworth
  */
-public class ActionPanel extends Item
+public class ActionPanel extends GridPanel
 {
-    private Table table;
-    private Provider<ActionTile> tileProvider;
+    private Provider<ActionButton> buttonProvider;
 
     @Inject
-    public ActionPanel(Provider<ActionTile> tileProvider)
+    public ActionPanel(Provider<ActionButton> buttonProvider)
     {
-        this.tileProvider = tileProvider;
-        this.table = new Table(3, 3);
-        this.table.setSize(176, 176);
-        this.table.setCellPadding(3);
-        this.table.setCellWidthMinimum(54);
-        this.table.setCellHeightMinimum(46);
-    }
-
-    public void setBackground(TextureRegion texture)
-    {
-        Drawable drawable = new TextureRegionDrawable(texture);
-        table.setBackground(drawable);
-    }
-
-    @Override
-    public void draw(Batch batch, float alpha)
-    {
-        table.draw(batch, alpha);
-    }
-
-    @Override
-    public void update(float delta)
-    {
-        table.update(delta);
+        super(3, 3);
+        this.buttonProvider = buttonProvider;
+        setSize(176, 176);
+        setCellPadding(3);
+        setCellWidthMinimum(54);
+        setCellHeightMinimum(46);
+        setId(new Identifier("ActionPanel"));
     }
 
     @Override
@@ -70,10 +48,10 @@ public class ActionPanel extends Item
     private void setSelection(Collection<Item> selection)
     {
         Collection<Actions> actions = getActions(selection);
-        Collection<Item> tiles = getTiles(actions);
+        Collection<Item> tiles = getTiles(actions, selection);
 
-        table.clear();
-        table.setCells(tiles);
+        clear();
+        setCells(tiles);
     }
 
     private Collection<Actions> getActions(Collection<Item> selection)
@@ -94,32 +72,21 @@ public class ActionPanel extends Item
         return Collections.emptyList();
     }
 
-    private Collection<Item> getTiles(Collection<Actions> actions)
+    private Collection<Item> getTiles(Collection<Actions> actions, Collection<Item> items)
     {
         Collection<Item> result = new ArrayList<Item>(actions.size());
         for (Actions action: actions){
-            result.add(getTile(action));
+            result.add(getButton(action, items));
         }
         return result;
     }
 
-    private Item getTile(Actions action)
+    private ActionButton getButton(Actions action, Collection<Item> items)
     {
-        ActionTile result = tileProvider.get();
+        ActionButton result = buttonProvider.get();
         result.setAction(action);
+        result.setItems(items);
         result.setSize(54, 46);
         return result;
-    }
-
-    @Override //TODO: Investigate better implementation
-    public void positionChanged()
-    {
-        table.setPosition(getX(), getY());
-    }
-
-    @Override //TODO: Investigate better implementation
-    public void sizeChanged()
-    {
-        table.setSize(getWidth(), getHeight());
     }
 }

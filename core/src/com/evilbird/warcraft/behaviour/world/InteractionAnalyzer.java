@@ -4,11 +4,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.utility.Identifier;
 import com.evilbird.warcraft.action.Actions;
 import com.evilbird.warcraft.item.unit.common.AnimatedItem;
 
@@ -108,8 +108,8 @@ public class InteractionAnalyzer implements Behaviour
     {
         if (interaction.getCommandType() == Actions.Move)
         {
-            //Vector2 meh = selected.getStage().screenToStageCoordinates(input.getPosition());
-            Vector2 position = input.getPosition(); //screenToStageCoordinates in getTargets modified input position
+            ItemRoot root = selected.getRoot();
+            Vector2 position = root.unproject(input.getPosition());
             Action action = actionFactory.newAction(interaction.getCommandType(), selected, position);
 
             selected.clearActions();
@@ -144,12 +144,16 @@ public class InteractionAnalyzer implements Behaviour
         }
         else if (interaction.getCommandType() == Actions.BuildFarm)
         {
-            Action action = actionFactory.newAction(interaction.getCommandType(), selected, input.getPosition());
+            ItemRoot root = selected.getRoot();
+            Vector2 position = root.unproject(input.getPosition());
+            Action action = actionFactory.newAction(interaction.getCommandType(), selected, position);
             selected.addAction(action);
         }
         else if (interaction.getCommandType() == Actions.BuildBarracks)
         {
-            Action action = actionFactory.newAction(interaction.getCommandType(), selected, input.getPosition());
+            ItemRoot root = selected.getRoot();
+            Vector2 position = root.unproject(input.getPosition());
+            Action action = actionFactory.newAction(interaction.getCommandType(), selected, position);
             selected.addAction(action);
         }
         else if (interaction.getCommandType() == Actions.Attack)
@@ -162,13 +166,9 @@ public class InteractionAnalyzer implements Behaviour
     private Collection<Item> getTargets(ItemRoot root, UserInput userInput)
     {
         Vector2 inputPosition = userInput.getPosition();
-
         Vector2 worldPosition = root.unproject(inputPosition);
-
         Item target = root.hit(worldPosition, false);
-
         Item camera = root.find(itemWithId(new Identifier("Camera")));
-
         return Arrays.asList(target, camera);
     }
 

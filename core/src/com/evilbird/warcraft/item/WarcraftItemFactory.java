@@ -1,12 +1,12 @@
 package com.evilbird.warcraft.item;
 
+import com.evilbird.engine.common.inject.AssetObjectProvider;
+import com.evilbird.engine.common.inject.AssetObjectProviderSet;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemIdentifier;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.utility.AssetObjectProvider;
-import com.evilbird.engine.utility.AssetObjectProviderSet;
-import com.evilbird.engine.utility.Identifier;
 import com.evilbird.warcraft.item.hud.HumanHudProvider;
 import com.evilbird.warcraft.item.level.human.HumanLevel1;
 import com.evilbird.warcraft.item.unit.UnitProvider;

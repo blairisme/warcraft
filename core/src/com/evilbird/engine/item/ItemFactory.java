@@ -1,6 +1,6 @@
 package com.evilbird.engine.item;
 
-import com.evilbird.engine.utility.Identifier;
+import com.evilbird.engine.common.lang.Identifier;
 
 /**
  * Instances of this class TODO:Finish

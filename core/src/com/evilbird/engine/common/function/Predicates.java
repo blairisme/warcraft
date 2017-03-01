@@ -1,4 +1,4 @@
-package com.evilbird.engine.utility;
+package com.evilbird.engine.common.function;
 
 /**
  * Instances of this class TODO:Finish

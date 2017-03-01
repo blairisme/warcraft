@@ -1,8 +1,8 @@
 package com.evilbird.engine.action.value;
 
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.utility.Identifier;
 
 import static com.evilbird.engine.item.ItemPredicates.itemWithId;
 

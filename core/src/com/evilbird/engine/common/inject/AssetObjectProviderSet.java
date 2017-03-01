@@ -1,4 +1,6 @@
-package com.evilbird.engine.utility;
+package com.evilbird.engine.common.inject;
+
+import com.evilbird.engine.common.lang.IdentifierNew;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,18 +1,18 @@
-package com.evilbird.engine.item;
+package com.evilbird.engine.item.framework;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 
 /**
  * Instances of this class TODO:Finish
  *
  * @author Blair Butterworth
  */
-public class ActorExtension extends Actor
+public class GroupExtension extends Group
 {
-    private ActorObserver observer;
+    private GroupObserver observer;
 
-    public ActorExtension(ActorObserver observer)
+    public GroupExtension(GroupObserver observer)
     {
         this.observer = observer;
     }
@@ -27,8 +27,9 @@ public class ActorExtension extends Actor
     @Override
     public void draw(Batch batch, float alpha)
     {
-        super.draw(batch, alpha);
         observer.draw(batch, alpha);
+        super.draw(batch, alpha);
+
     }
 
     @Override

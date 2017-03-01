@@ -1,4 +1,4 @@
-package com.evilbird.engine.utility;
+package com.evilbird.engine.common.collection;
 
 /**
  * Implementors of this TODO:Finish

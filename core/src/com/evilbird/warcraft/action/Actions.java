@@ -17,5 +17,7 @@ public enum Actions implements ActionIdentifier
     BuildBarracks,
 
     Attack,
-    Stop
+    Stop,
+
+    Unknown
 }

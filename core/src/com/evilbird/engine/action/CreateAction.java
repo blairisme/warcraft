@@ -2,11 +2,11 @@ package com.evilbird.engine.action;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemIdentifier;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.utility.Identifier;
 
 public class CreateAction extends Action
 {

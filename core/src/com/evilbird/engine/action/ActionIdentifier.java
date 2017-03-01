@@ -1,6 +1,6 @@
 package com.evilbird.engine.action;
 
-import com.evilbird.engine.utility.IdentifierNew;
+import com.evilbird.engine.common.lang.IdentifierNew;
 
 /**
  * Implementors of this TODO:Finish

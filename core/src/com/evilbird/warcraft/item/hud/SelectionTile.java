@@ -1,10 +1,8 @@
 package com.evilbird.warcraft.item.hud;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.hud.control.Image;
-import com.evilbird.warcraft.item.hud.control.Table;
+import com.evilbird.engine.item.control.GridPanel;
+import com.evilbird.engine.item.control.Image;
 
 import javax.inject.Provider;
 
@@ -13,14 +11,15 @@ import javax.inject.Provider;
  *
  * @author Blair Butterworth
  */
-public class SelectionTile extends Item
+public class SelectionTile extends GridPanel//ItemGroup
 {
-    private Table container;
     private Image icon;
     private HealthBar healthBar;
 
     public SelectionTile(Provider<HealthBar> healthBarProvider)
     {
+        super(1,2);
+
         icon = new Image();
         icon.setSize(50, 42);
         icon.setPadding(2);
@@ -29,17 +28,11 @@ public class SelectionTile extends Item
         healthBar.setProgress(1);
         healthBar.setSize(46, 5);
 
-        container = new Table(1, 2);
-        container.setSize(54, 46);
-        container.setCellPadding(2);
-        container.setCellSpacing(2);
-        container.setCell(icon, 0, 0);
-        container.setCell(healthBar, 0, 1);
-    }
-
-    public void setBackground(Drawable background)
-    {
-        container.setBackground(background);
+        setSize(54, 46);
+        setCellPadding(2);
+        setCellSpacing(2);
+        setCell(icon, 0, 0);
+        setCell(healthBar, 0, 1);
     }
 
     public void setImage(Drawable drawable)
@@ -50,23 +43,5 @@ public class SelectionTile extends Item
     public void setHealth(float health)
     {
         healthBar.setProgress(health);
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha)
-    {
-        container.draw(batch, parentAlpha);
-    }
-
-    @Override //TODO: Investigate better implementation
-    public void positionChanged()
-    {
-        container.setPosition(getX(), getY());
-    }
-
-    @Override //TODO: Investigate better implementation
-    public void sizeChanged()
-    {
-        container.setSize(getWidth(), getHeight());
     }
 }

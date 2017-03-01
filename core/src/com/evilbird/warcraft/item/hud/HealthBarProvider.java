@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.evilbird.engine.common.inject.AssetObjectProvider;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.utility.AssetObjectProvider;
 
 import javax.inject.Inject;
 

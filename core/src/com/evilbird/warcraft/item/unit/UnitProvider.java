@@ -1,7 +1,7 @@
 package com.evilbird.warcraft.item.unit;
 
+import com.evilbird.engine.common.inject.AssetObjectProviderSet;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.utility.AssetObjectProviderSet;
 import com.evilbird.warcraft.item.unit.human.BarracksProvider;
 import com.evilbird.warcraft.item.unit.human.FarmProvider;
 import com.evilbird.warcraft.item.unit.human.FootmanProvider;

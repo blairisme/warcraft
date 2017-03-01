@@ -13,19 +13,19 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.evilbird.engine.common.function.Predicate;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.utility.Identifier;
-import com.evilbird.engine.utility.Predicate;
 
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.item.ItemPredicates.itemWithAction;
 import static com.evilbird.engine.item.ItemPredicates.itemWithProperty;
-import static com.evilbird.engine.utility.Predicates.both;
 
 //TODO: Use map object or common utility class to draw
 //TODO: Move asset loading into factory.
@@ -91,6 +91,21 @@ public class Fog extends Item
         Cell cell = new Cell();
         cell.setTile(tile);
         return cell;
+    }
+
+    @Override
+    public void draw(Batch batch, float alpha)
+    {
+        OrthogonalTiledMapRenderer renderer = new OrthogonalTiledMapRenderer(null, batch);
+        renderer.setView(getCamera());
+        renderer.renderTileLayer(layer);
+    }
+
+    private OrthographicCamera getCamera()
+    {
+        ItemRoot root = getRoot();
+        Viewport viewport = root.getViewport();
+        return (OrthographicCamera)viewport.getCamera();
     }
 
     @Override
@@ -227,20 +242,5 @@ public class Fog extends Item
             return cell == null || cell != full;
         }
         return false;
-    }
-
-    @Override
-    public void draw(Batch batch, float alpha)
-    {
-        OrthogonalTiledMapRenderer renderer = new OrthogonalTiledMapRenderer(null, batch);
-        renderer.setView(getCamera());
-        renderer.renderTileLayer(layer);
-    }
-
-    private OrthographicCamera getCamera()
-    {
-        ItemRoot root = getRoot();
-        Viewport viewport = root.getViewport();
-        return (OrthographicCamera)viewport.getCamera();
     }
 }

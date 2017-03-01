@@ -1,6 +1,6 @@
 package com.evilbird.engine.behaviour;
 
-import com.evilbird.engine.utility.Identifier;
+import com.evilbird.engine.common.lang.Identifier;
 
 public interface BehaviourFactory
 {

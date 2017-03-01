@@ -3,10 +3,10 @@ package com.evilbird.warcraft.item.hud;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.evilbird.engine.common.inject.AssetObjectProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.utility.AssetObjectProvider;
-import com.evilbird.engine.utility.Identifier;
 
 import javax.inject.Inject;
 

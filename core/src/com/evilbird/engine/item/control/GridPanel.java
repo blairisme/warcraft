@@ -1,8 +1,9 @@
-package com.evilbird.warcraft.item.hud.control;
+package com.evilbird.engine.item.control;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemGroup;
 
 import java.util.Collection;
 
@@ -11,7 +12,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-public class Table extends Item
+public class GridPanel extends ItemGroup
 {
     private Drawable background;
     private Item[][] cells;
@@ -24,7 +25,7 @@ public class Table extends Item
     private int columnCount;
     private int rowCount;
 
-    public Table(int columnCount, int rowCount)
+    public GridPanel(int columnCount, int rowCount)
     {
         this.rowCount = rowCount;
         this.columnCount = columnCount;
@@ -72,9 +73,9 @@ public class Table extends Item
     public void setCells(Collection<Item> addCells)
     {
         int x = 0, y = 0;
-        for (Item addCell: addCells){
+        for (Item cell: addCells){
             if (y < rowCount){
-                setCell(addCell, x, y);
+                setCell(cell, x, y);
                 y = x != columnCount - 1 ? y : y + 1;
                 x = x == columnCount - 1 ? 0 : x + 1;
             }
@@ -83,7 +84,8 @@ public class Table extends Item
 
     public void setCell(Item cell, int column, int row)
     {
-        this.cells[column][row] = cell;
+        addItem(cell);
+        cells[column][row] = cell;
         updateCellWidths(column);
         updateCellHeights(row);
         updateCellPositions();
@@ -111,8 +113,8 @@ public class Table extends Item
 
     private void updateCellPositions()
     {
-        int cumulativeX = (int)getX() + cellPadding;
-        int cumulativeY = (int)getY() + cellPadding;
+        int cumulativeX = cellPadding;
+        int cumulativeY = cellPadding;
         for (int row = rowCount - 1; row >= 0; row--){
             for (int column = 0; column < columnCount; column++) {
                 Item cell = cells[column][row];
@@ -121,7 +123,7 @@ public class Table extends Item
                 }
                 cumulativeX += cellWidths[column] + cellSpacing;
             }
-            cumulativeX = (int)getX() + cellPadding;
+            cumulativeX = cellPadding;
             cumulativeY += cellHeights[row] + cellSpacing;
         }
     }
@@ -130,7 +132,11 @@ public class Table extends Item
     {
         for (int row = 0; row < rowCount; row++){
             for (int column = 0; column < columnCount; column++){
-                cells[column][row] = null;
+                Item cell = cells[column][row];
+                if (cell != null){
+                    removeItem(cell);
+                    cells[column][row] = null;
+                }
             }
         }
     }
@@ -139,7 +145,6 @@ public class Table extends Item
     public void draw(Batch batch, float alpha)
     {
         drawBackground(batch, alpha);
-        drawCells(batch, alpha);
     }
 
     private void drawBackground(Batch batch, float alpha)
@@ -147,23 +152,5 @@ public class Table extends Item
         if (background != null){
             background.draw(batch, getX(), getY(), getWidth(), getHeight());
         }
-    }
-
-    private void drawCells(Batch batch, float alpha)
-    {
-        for (int row = 0; row < rowCount; row++){
-            for (int column = 0; column < columnCount; column++) {
-                Item cell = cells[column][row];
-                if (cell != null){
-                    cell.draw(batch, alpha);
-                }
-            }
-        }
-    }
-
-    @Override //TODO: Investigate better implementation
-    public void positionChanged()
-    {
-        updateCellPositions();
     }
 }

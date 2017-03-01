@@ -1,7 +1,7 @@
 package com.evilbird.warcraft.item.hud;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.warcraft.item.hud.control.ProgressBar;
+import com.evilbird.engine.item.control.ProgressBar;
 
 /**
  * Instances of this class TODO:Finish

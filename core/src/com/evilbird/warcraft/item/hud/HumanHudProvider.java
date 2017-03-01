@@ -1,7 +1,7 @@
 package com.evilbird.warcraft.item.hud;
 
+import com.evilbird.engine.common.inject.AssetObjectProvider;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.utility.AssetObjectProvider;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -10,7 +10,7 @@ import javax.inject.Provider;
 public class HumanHudProvider implements AssetObjectProvider<ItemRoot>
 {
     private ActionPanelProvider actionPanelProvider;
-    private ActionTileProvider actionTileProvider;
+    private ActionButtonProvider actionButtonProvider;
     private ResourcePanelProvider resourcePanelProvider;
     private SelectionPanelProvider selectionPanelProvider;
     private SelectionTileProvider selectionTileProvider;
@@ -21,7 +21,7 @@ public class HumanHudProvider implements AssetObjectProvider<ItemRoot>
     @Inject
     public HumanHudProvider(
         ActionPanelProvider actionPanelProvider,
-        ActionTileProvider actionTileProvider,
+        ActionButtonProvider actionButtonProvider,
         ResourcePanelProvider resourceBarProvider,
         SelectionPanelProvider selectionPanelProvider,
         SelectionTileProvider selectionTileProvider,
@@ -30,7 +30,7 @@ public class HumanHudProvider implements AssetObjectProvider<ItemRoot>
         Provider<ControlPanel> controlPanelProvider)
     {
         this.actionPanelProvider = actionPanelProvider;
-        this.actionTileProvider = actionTileProvider;
+        this.actionButtonProvider = actionButtonProvider;
         this.resourcePanelProvider = resourceBarProvider;
         this.selectionPanelProvider = selectionPanelProvider;
         this.selectionTileProvider = selectionTileProvider;
@@ -43,7 +43,7 @@ public class HumanHudProvider implements AssetObjectProvider<ItemRoot>
     public void load()
     {
         actionPanelProvider.load();
-        actionTileProvider.load();
+        actionButtonProvider.load();
         resourcePanelProvider.load();
         selectionPanelProvider.load();
         selectionTileProvider.load();

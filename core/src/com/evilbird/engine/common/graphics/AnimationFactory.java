@@ -1,4 +1,4 @@
-package com.evilbird.engine.graphics;
+package com.evilbird.engine.common.graphics;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;

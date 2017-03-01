@@ -2,7 +2,6 @@ package com.evilbird.warcraft.action;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.CreateAction;
@@ -26,12 +25,12 @@ import com.evilbird.engine.action.value.ActionValue;
 import com.evilbird.engine.action.value.ItemReferenceValue;
 import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.action.value.TransientValue;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemIdentifier;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.utility.Identifier;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.Arrays;
@@ -54,12 +53,6 @@ public class WarcraftActionFactory implements ActionFactory
     @Override
     public void load()
     {
-    }
-
-    @Override
-    public Action newAction(ActionContext context)
-    {
-        return newAction(context.getAction(), context.getTarget(), context.getData());
     }
 
     @Override
