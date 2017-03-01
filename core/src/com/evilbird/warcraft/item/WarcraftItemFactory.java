@@ -2,8 +2,8 @@ package com.evilbird.warcraft.item;
 
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemIdentifier;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.utility.AssetObjectProvider;
 import com.evilbird.engine.utility.AssetObjectProviderSet;
 import com.evilbird.engine.utility.Identifier;
@@ -25,7 +25,7 @@ public class WarcraftItemFactory implements ItemFactory
     private static final Identifier HUMAN_HUD_ID = new Identifier("HumanHud");
 
     private Collection<AssetObjectProviderSet<Item>> itemProviders;
-    private Map<Identifier, AssetObjectProvider<ItemGroup>> groupProviders;
+    private Map<Identifier, AssetObjectProvider<ItemRoot>> groupProviders;
 
     @Inject
     public WarcraftItemFactory(
@@ -36,7 +36,7 @@ public class WarcraftItemFactory implements ItemFactory
         itemProviders = new ArrayList<AssetObjectProviderSet<Item>>();
         itemProviders.add(unitProvider);
 
-        groupProviders = new HashMap<Identifier, AssetObjectProvider<ItemGroup>>();
+        groupProviders = new HashMap<Identifier, AssetObjectProvider<ItemRoot>>();
         groupProviders.put(LEVEL_1_ID, humanLevel1Provider);
         groupProviders.put(HUMAN_HUD_ID, humanHudProvider);
 
@@ -49,7 +49,7 @@ public class WarcraftItemFactory implements ItemFactory
         for (AssetObjectProviderSet<Item> itemProvider: itemProviders){
             itemProvider.load();
         }
-        for (AssetObjectProvider<ItemGroup> groupProvider: groupProviders.values()) {
+        for (AssetObjectProvider<ItemRoot> groupProvider: groupProviders.values()) {
             groupProvider.load();
         }
     }
@@ -66,9 +66,9 @@ public class WarcraftItemFactory implements ItemFactory
     }
 
     @Override
-    public ItemGroup newItemGroup(Identifier type)
+    public ItemRoot newItemGroup(Identifier type)
     {
-        AssetObjectProvider<ItemGroup> groupProvider = groupProviders.get(type);
+        AssetObjectProvider<ItemRoot> groupProvider = groupProviders.get(type);
         return groupProvider.get();
     }
 }

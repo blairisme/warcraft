@@ -1,7 +1,6 @@
 package com.evilbird.engine.action;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.evilbird.engine.action.duration.ActionDuration;
 import com.evilbird.engine.action.modifier.ActionModifier;
 import com.evilbird.engine.action.value.ActionValue;
@@ -16,9 +15,9 @@ public class ModifyAction extends Action
     private ActionDuration duration;
 
     //TODO remove
-    public ModifyAction(Actor target, Identifier property, ActionModifier modifier, ActionDuration duration)
+    public ModifyAction(Item target, Identifier property, ActionModifier modifier, ActionDuration duration)
     {
-        this(new ItemValue((Item)target, property), modifier, duration);
+        this(new ItemValue(target, property), modifier, duration);
     }
 
     public ModifyAction(ActionValue value, ActionModifier modifier, ActionDuration duration)

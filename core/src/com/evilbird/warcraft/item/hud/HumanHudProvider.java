@@ -1,13 +1,13 @@
 package com.evilbird.warcraft.item.hud;
 
-import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.utility.AssetObjectProvider;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 
 //TODO:
-public class HumanHudProvider implements AssetObjectProvider<ItemGroup>
+public class HumanHudProvider implements AssetObjectProvider<ItemRoot>
 {
     private ActionPanelProvider actionPanelProvider;
     private ActionTileProvider actionTileProvider;
@@ -52,11 +52,11 @@ public class HumanHudProvider implements AssetObjectProvider<ItemGroup>
     }
 
     @Override
-    public ItemGroup get()
+    public ItemRoot get()
     {
-        ItemGroup hud = new ItemGroup();
-        hud.addActor(resourcePanelProvider.get());
-        hud.addActor(controlPanelProvider.get());
+        ItemRoot hud = new ItemRoot();
+        hud.addItem(resourcePanelProvider.get());
+        hud.addItem(controlPanelProvider.get());
         return hud;
     }
 }

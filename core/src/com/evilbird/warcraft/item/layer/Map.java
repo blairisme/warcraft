@@ -4,8 +4,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemRoot;
 
 public class Map extends Item
 {
@@ -26,7 +27,8 @@ public class Map extends Item
 
     private OrthographicCamera getCamera()
     {
-        Stage stage = getStage();
-        return (OrthographicCamera)stage.getCamera();
+        ItemRoot root = getRoot();
+        Viewport viewport = root.getViewport();
+        return (OrthographicCamera)viewport.getCamera();
     }
 }

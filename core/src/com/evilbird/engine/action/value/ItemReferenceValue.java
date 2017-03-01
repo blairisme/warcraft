@@ -1,19 +1,20 @@
 package com.evilbird.engine.action.value;
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemUtils;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.utility.Identifier;
+
+import static com.evilbird.engine.item.ItemPredicates.itemWithId;
 
 public class ItemReferenceValue implements ActionValue
 {
-    private Stage stage;
+    private ItemRoot root;
     private Identifier identifier;
     private Identifier property;
 
-    public ItemReferenceValue(Stage stage, Identifier identifier, Identifier property)
+    public ItemReferenceValue(ItemRoot root, Identifier identifier, Identifier property)
     {
-        this.stage = stage;
+        this.root = root;
         this.identifier = identifier;
         this.property = property;
     }
@@ -21,14 +22,14 @@ public class ItemReferenceValue implements ActionValue
     @Override
     public Object get()
     {
-        Item item = ItemUtils.findById(stage, identifier);
+        Item item = root.find(itemWithId(identifier));
         return item.getProperty(property);
     }
 
     @Override
     public void set(Object value)
     {
-        Item item = ItemUtils.findById(stage, identifier);
+        Item item = root.find(itemWithId(identifier));
         item.setProperty(property, value);
     }
 }

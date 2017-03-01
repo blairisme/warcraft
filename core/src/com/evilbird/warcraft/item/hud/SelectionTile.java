@@ -22,18 +22,15 @@ public class SelectionTile extends Item
     public SelectionTile(Provider<HealthBar> healthBarProvider)
     {
         icon = new Image();
-        icon.setWidth(50);
-        icon.setHeight(42);
+        icon.setSize(50, 42);
         icon.setPadding(2);
 
         healthBar = healthBarProvider.get();
         healthBar.setProgress(1);
-        healthBar.setWidth(46);
-        healthBar.setHeight(5);
+        healthBar.setSize(46, 5);
 
         container = new Table(1, 2);
-        container.setWidth(54);
-        container.setHeight(46);
+        container.setSize(54, 46);
         container.setCellPadding(2);
         container.setCellSpacing(2);
         container.setCell(icon, 0, 0);
@@ -62,13 +59,13 @@ public class SelectionTile extends Item
     }
 
     @Override //TODO: Investigate better implementation
-    protected void positionChanged()
+    public void positionChanged()
     {
         container.setPosition(getX(), getY());
     }
 
     @Override //TODO: Investigate better implementation
-    protected void sizeChanged()
+    public void sizeChanged()
     {
         container.setSize(getWidth(), getHeight());
     }

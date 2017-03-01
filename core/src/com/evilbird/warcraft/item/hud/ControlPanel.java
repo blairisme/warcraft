@@ -47,13 +47,13 @@ public class ControlPanel extends Item
     }
 
     @Override //TODO: Investigate better implementation
-    protected void positionChanged()
+    public void positionChanged()
     {
         container.setPosition(getX(), getY());
     }
 
     @Override //TODO: Investigate better implementation
-    protected void sizeChanged()
+    public void sizeChanged()
     {
         container.setSize(getWidth(), getHeight());
     }

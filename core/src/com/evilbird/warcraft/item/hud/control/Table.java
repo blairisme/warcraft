@@ -117,8 +117,7 @@ public class Table extends Item
             for (int column = 0; column < columnCount; column++) {
                 Item cell = cells[column][row];
                 if (cell != null){
-                    cell.setX(cumulativeX);
-                    cell.setY(cumulativeY);
+                    cell.setPosition(cumulativeX, cumulativeY);
                 }
                 cumulativeX += cellWidths[column] + cellSpacing;
             }
@@ -163,7 +162,7 @@ public class Table extends Item
     }
 
     @Override //TODO: Investigate better implementation
-    protected void positionChanged()
+    public void positionChanged()
     {
         updateCellPositions();
     }

@@ -52,9 +52,9 @@ public class ActionPanel extends Item
     }
 
     @Override
-    public void act(float delta)
+    public void update(float delta)
     {
-        table.act(delta);
+        table.update(delta);
     }
 
     @Override
@@ -112,13 +112,13 @@ public class ActionPanel extends Item
     }
 
     @Override //TODO: Investigate better implementation
-    protected void positionChanged()
+    public void positionChanged()
     {
         table.setPosition(getX(), getY());
     }
 
     @Override //TODO: Investigate better implementation
-    protected void sizeChanged()
+    public void sizeChanged()
     {
         table.setSize(getWidth(), getHeight());
     }

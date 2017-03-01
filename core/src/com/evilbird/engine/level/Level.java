@@ -1,7 +1,7 @@
 package com.evilbird.engine.level;
 
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.evilbird.engine.item.ItemRoot;
 
 import javax.inject.Inject;
 
@@ -38,12 +38,12 @@ public class Level extends ScreenAdapter
         view.dispose();
     }
 
-    void setWorld(Stage world)
+    void setWorld(ItemRoot world)
     {
         view.setWorld(world);
     }
 
-    void setHud(Stage hud)
+    void setHud(ItemRoot hud)
     {
         view.setHud(hud);
     }

@@ -1,10 +1,7 @@
 package com.evilbird.warcraft.action;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
@@ -33,6 +30,7 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemIdentifier;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.utility.Identifier;
 import com.evilbird.warcraft.item.unit.UnitType;
 
@@ -41,8 +39,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.item.ItemUtils.findById;
-import static com.evilbird.engine.item.ItemUtils.findByType;
+import static com.evilbird.engine.item.ItemPredicates.itemWithId;
 
 public class WarcraftActionFactory implements ActionFactory
 {
@@ -66,41 +63,41 @@ public class WarcraftActionFactory implements ActionFactory
     }
 
     @Override
-    public Action newAction(ActionIdentifier action, Actor actor, Object value)
+    public Action newAction(ActionIdentifier action, Item item, Object value)
     {
-        if (Objects.equals(action, Actions.Select)) return select(actor, (Boolean)value);
-        if (Objects.equals(action, Actions.Move)) return move(actor, (Vector2)value);
-        if (Objects.equals(action, Actions.Pan)) return pan(actor, (Vector2)value);
-        if (Objects.equals(action, Actions.Zoom)) return zoom(actor, (UserInput)value);
-        if (Objects.equals(action, Actions.GatherGold)) return gatherGold(actor, (Actor)value);
-        if (Objects.equals(action, Actions.GatherWood)) return gatherWood(actor, (Actor)value);
-        if (Objects.equals(action, Actions.BuildFarm)) return buildFarm(actor, (Vector2)value);
-        if (Objects.equals(action, Actions.BuildBarracks)) return buildBarracks(actor, (Vector2)value);
-        if (Objects.equals(action, Actions.Attack)) return attack(actor, (Actor)value);
+        if (Objects.equals(action, Actions.Select)) return select(item, (Boolean)value);
+        if (Objects.equals(action, Actions.Move)) return move(item, (Vector2)value);
+        if (Objects.equals(action, Actions.Pan)) return pan(item, (Vector2)value);
+        if (Objects.equals(action, Actions.Zoom)) return zoom(item, (UserInput)value);
+        if (Objects.equals(action, Actions.GatherGold)) return gatherGold(item, (Item)value);
+        if (Objects.equals(action, Actions.GatherWood)) return gatherWood(item, (Item)value);
+        if (Objects.equals(action, Actions.BuildFarm)) return buildFarm(item, (Vector2)value);
+        if (Objects.equals(action, Actions.BuildBarracks)) return buildBarracks(item, (Vector2)value);
+        if (Objects.equals(action, Actions.Attack)) return attack(item, (Item)value);
         throw new IllegalArgumentException();
     }
 
-    private Action setAnimation(Actor actor, Identifier animation)
+    private Action setAnimation(Item item, Identifier animation)
     {
         Identifier property = new Identifier("Animation");
         ActionModifier modifier = new ConstantModifier(animation);
         ActionDuration duration = new InstantDuration();
-        return new com.evilbird.engine.action.ModifyAction(actor, property, modifier, duration);
+        return new ModifyAction(item, property, modifier, duration);
     }
 
-    private Action setAnimation(Stage stage, Identifier item, Identifier animation)
+    private Action setAnimation(ItemRoot stage, Identifier item, Identifier animation)
     {
         ActionValue value = new ItemReferenceValue(stage, item, new Identifier("Animation"));
         ActionModifier modifier = new ConstantModifier(animation);
         ActionDuration duration = new InstantDuration();
-        return new com.evilbird.engine.action.ModifyAction(value, modifier, duration);
+        return new ModifyAction(value, modifier, duration);
     }
 
-    private Action setAnimation(Actor actor, Identifier animation, float time)
+    private Action setAnimation(Item item, Identifier animation, float time)
     {
-        Action animate = setAnimation(actor, animation);
+        Action animate = setAnimation(item, animation);
         Action wait = wait(time);
-        return new com.evilbird.engine.action.ParallelAction(animate, wait);
+        return new ParallelAction(animate, wait);
     }
 
     private Action wait(float time)
@@ -108,49 +105,49 @@ public class WarcraftActionFactory implements ActionFactory
         ActionValue value = new TransientValue();
         ActionModifier modifier = new PassiveModifier();
         ActionDuration duration = new TimeDuration(time);
-        return new com.evilbird.engine.action.ModifyAction(value, modifier, duration);
+        return new ModifyAction(value, modifier, duration);
     }
 
-    private Action moveAction(Actor actor, Vector2 destination)
+    private Action moveAction(Item item, Vector2 destination)
     {
         Identifier position = new Identifier("Position");
         ActionModifier modifier = new MoveModifier(destination, 64f);
-        ActionDuration duration = new PredicateDuration((Item)actor, position, destination);
-        return new com.evilbird.engine.action.ModifyAction(actor, position, modifier, duration);
+        ActionDuration duration = new PredicateDuration((Item)item, position, destination);
+        return new ModifyAction(item, position, modifier, duration);
     }
 
-    private Action move(Actor actor, Vector2 destination)
+    private Action move(Item item, Vector2 destination)
     {
-        Action animateMove = setAnimation(actor, new Identifier("Move"));
-        Action move = moveAction(actor, destination);
-        Action animateIdle = setAnimation(actor, new Identifier("Idle"));
+        Action animateMove = setAnimation(item, new Identifier("Move"));
+        Action move = moveAction(item, destination);
+        Action animateIdle = setAnimation(item, new Identifier("Idle"));
         return new com.evilbird.engine.action.SequenceAction(Arrays.asList(animateMove, move, animateIdle));
     }
 
-    private Action move(Actor actor, Actor destination)
+    private Action move(Item item, Item destination)
     {
-        return move(actor, new Vector2(destination.getX(), destination.getY()));
+        return move(item, destination.getPosition());
     }
 
 
 
-    private Action pan(Actor actor, Vector2 delta)
+    private Action pan(Item item, Vector2 delta)
     {
         Identifier property = new Identifier("Position");
-        ActionModifier modifier = getPanModifier(actor, delta);
+        ActionModifier modifier = getPanModifier(item, delta);
         ActionDuration duration = new InstantDuration();
-        return new com.evilbird.engine.action.ModifyAction(actor, property, modifier, duration);
+        return new ModifyAction(item, property, modifier, duration);
     }
 
-    private ActionModifier getPanModifier(Actor actor, Vector2 delta)
+    private ActionModifier getPanModifier(Item item, Vector2 delta)
     {
-        OrthographicCamera camera = (OrthographicCamera)actor.getStage().getCamera();
+        //OrthographicCamera camera = (OrthographicCamera)item.getStage().getCamera();
 
-        float mapWidth = 1024; //TODO
-        float mapHeight = 1024; //TODO
+        //float mapWidth = 1024; //TODO
+        //float mapHeight = 1024; //TODO
 
-        float viewportWidth = camera.viewportWidth * camera.zoom;
-        float viewportHeight = camera.viewportHeight * camera.zoom;
+        //float viewportWidth = camera.viewportWidth * camera.zoom;
+        //float viewportHeight = camera.viewportHeight * camera.zoom;
 
         Vector2 lowerBound = null;
         Vector2 upperBound = null;
@@ -167,104 +164,104 @@ public class WarcraftActionFactory implements ActionFactory
         return new DeltaModifier(delta, DeltaType.PerUpdate, lowerBound, upperBound);
     }
 
-    private Action zoom(Actor actor, UserInput input)
+    private Action zoom(Item item, UserInput input)
     {
         if (input.getCount() == 1)
         {
-            Action storeZoom = storeZoom(actor);
-            Action updateZoom = updateZoom(actor, input);
+            Action storeZoom = storeZoom(item);
+            Action updateZoom = updateZoom(item, input);
             return new com.evilbird.engine.action.CompositeAction(storeZoom, updateZoom);
         }
         else
         {
-            Action resetZoom = resetZoom(actor);
-            Action updateZoom = updateZoom(actor, input);
+            Action resetZoom = resetZoom(item);
+            Action updateZoom = updateZoom(item, input);
             return new com.evilbird.engine.action.CompositeAction(resetZoom, updateZoom);
         }
     }
 
-    private Action storeZoom(Actor actor)
+    private Action storeZoom(Item item)
     {
-        ActionValue value = new ItemValue((Item)actor, new Identifier("OriginalZoom"));
-        ActionModifier modifier = new ConstantModifier(new ItemValue((Item)actor, new Identifier("Zoom")));
+        ActionValue value = new ItemValue((Item)item, new Identifier("OriginalZoom"));
+        ActionModifier modifier = new ConstantModifier(new ItemValue((Item)item, new Identifier("Zoom")));
         ActionDuration duration = new InstantDuration();
-        return new com.evilbird.engine.action.ModifyAction(value, modifier, duration);
+        return new ModifyAction(value, modifier, duration);
     }
 
-    private Action resetZoom(Actor actor)
+    private Action resetZoom(Item item)
     {
-        ActionValue value = new ItemValue((Item)actor, new Identifier("Zoom"));
-        ActionModifier modifier = new ConstantModifier(new ItemValue((Item)actor, new Identifier("OriginalZoom")));
+        ActionValue value = new ItemValue((Item)item, new Identifier("Zoom"));
+        ActionModifier modifier = new ConstantModifier(new ItemValue((Item)item, new Identifier("OriginalZoom")));
         ActionDuration duration = new InstantDuration();
-        return new com.evilbird.engine.action.ModifyAction(value, modifier, duration);
+        return new ModifyAction(value, modifier, duration);
     }
 
-    private Action updateZoom(Actor actor, UserInput input)
+    private Action updateZoom(Item item, UserInput input)
     {
-        ActionValue zoom = new ItemValue((Item)actor, new Identifier("Zoom"));
+        ActionValue zoom = new ItemValue((Item)item, new Identifier("Zoom"));
         ActionModifier modifier = new ScaleModifier(input.getDelta().x, 0.25f, 1.5f);
         ActionDuration duration = new InstantDuration();
-        return new com.evilbird.engine.action.ModifyAction(zoom, modifier, duration);
+        return new ModifyAction(zoom, modifier, duration);
     }
 
-    private Action select(Actor actor, boolean selected)
+    private Action select(Item item, boolean selected)
     {
-        Action result = setSelected(actor, selected);
+        Action result = setSelected(item, selected);
         if (selected)
         {
-            Action sound = playSound(actor, new Identifier("Selected"));
+            Action sound = playSound(item, new Identifier("Selected"));
             result = new com.evilbird.engine.action.ParallelAction(result, sound);
         }
         return result;
     }
 
-    private Action setSelected(Actor actor, boolean selected)
+    private Action setSelected(Item item, boolean selected)
     {
         Identifier property = new Identifier("Selected");
         ActionModifier modifier = new ConstantModifier(selected);
         ActionDuration duration = new InstantDuration();
-        return new com.evilbird.engine.action.ModifyAction(actor, property, modifier, duration);
+        return new ModifyAction(item, property, modifier, duration);
     }
 
-    private Action playSound(Actor actor, Identifier sound)
+    private Action playSound(Item item, Identifier sound)
     {
         Identifier property = new Identifier("Sound");
         ActionModifier modifier = new ConstantModifier(sound);
         ActionDuration duration = new InstantDuration();
-        return new com.evilbird.engine.action.ModifyAction(actor, property, modifier, duration);
+        return new ModifyAction(item, property, modifier, duration);
     }
 
-    private Action resourceReceive(Actor actor, Identifier resource)
+    private Action resourceReceive(Item item, Identifier resource)
     {
         ActionModifier modifier = new DeltaModifier(1f, DeltaType.PerSecond);
         ActionDuration duration = new TimeDuration(10f);
-        return new com.evilbird.engine.action.ModifyAction(actor, resource, modifier, duration);
+        return new ModifyAction(item, resource, modifier, duration);
     }
 
-    private Action resourceReceiveAnimated(Actor actor, Identifier resource, Identifier animation)
+    private Action resourceReceiveAnimated(Item item, Identifier resource, Identifier animation)
     {
-        Action animateBefore = setAnimation(actor, animation);
-        Action gather = resourceReceive(actor, resource);
-        Action animateAfter = setAnimation(actor, new Identifier("Idle"));
+        Action animateBefore = setAnimation(item, animation);
+        Action gather = resourceReceive(item, resource);
+        Action animateAfter = setAnimation(item, new Identifier("Idle"));
         return new com.evilbird.engine.action.SequenceAction(animateBefore, gather, animateAfter);
     }
 
-    private Action resourceTake(Actor actor, Identifier resource)
+    private Action resourceTake(Item item, Identifier resource)
     {
         ActionModifier modifier = new DeltaModifier(-10f, DeltaType.PerSecond);
         ActionDuration duration = new TimeDuration(10f);
-        return new com.evilbird.engine.action.ModifyAction(actor, resource, modifier, duration);
+        return new ModifyAction(item, resource, modifier, duration);
     }
 
-    private Action resourceTakeAnimated(Actor actor, Identifier resource, Identifier animation)
+    private Action resourceTakeAnimated(Item item, Identifier resource, Identifier animation)
     {
-        Action animateBefore = setAnimation(actor, animation);
-        Action gather = resourceTake(actor, resource);
-        Action animateAfter = setAnimation(actor, new Identifier("Idle"));
+        Action animateBefore = setAnimation(item, animation);
+        Action gather = resourceTake(item, resource);
+        Action animateAfter = setAnimation(item, new Identifier("Idle"));
         return new com.evilbird.engine.action.SequenceAction(animateBefore, gather, animateAfter);
     }
 
-    private Action resourceTransfer(Actor source, Actor destination, Identifier resource, Identifier takeAnimation, Identifier receiveAnimation)
+    private Action resourceTransfer(Item source, Item destination, Identifier resource, Identifier takeAnimation, Identifier receiveAnimation)
     {
         Action deselect = setSelected(source, false);
         Action resourceTake = resourceTakeAnimated(source, resource, takeAnimation);
@@ -272,7 +269,7 @@ public class WarcraftActionFactory implements ActionFactory
         return new com.evilbird.engine.action.ParallelAction(deselect, resourceTake, resourceReceive);
     }
 
-    private Action gather(Actor gatherer, Actor resource, Actor player, Actor depot, Identifier property, Identifier gatherAnimation, Identifier depositAnimation)
+    private Action gather(Item gatherer, Item resource, Item player, Item depot, Identifier property, Identifier gatherAnimation, Identifier depositAnimation)
     {
         Action moveToResource = move(gatherer, resource);
         Action transfer = resourceTransfer(resource, gatherer, property, gatherAnimation, gatherAnimation);
@@ -282,110 +279,112 @@ public class WarcraftActionFactory implements ActionFactory
         return new RepeatedAction(gather);
     }
 
-    private Action gatherGold(Actor actor, Actor resource)
+    private Action gatherGold(Item item, Item resource)
     {
-        Actor depot = findByType(actor.getStage(), new Identifier("TownHall"));
-        Actor player = findById(actor.getStage(), new Identifier("Player1")); //TODO
+        ItemRoot root = item.getRoot();
+        Item depot = root.find(itemWithId(new Identifier("TownHall1"))); //TODO
+        Item player = root.find(itemWithId(new Identifier("Player1"))); //TODO
         Identifier property = new Identifier("Gold");
         Identifier gatherAnimation = new Identifier("GatherGold");
         Identifier depositAnimation = new Identifier("DepositGold");
-        return gather(actor, resource, player, depot, property, gatherAnimation, depositAnimation);
+        return gather(item, resource, player, depot, property, gatherAnimation, depositAnimation);
     }
 
-    private Action gatherWood(Actor actor, Actor resource)
+    private Action gatherWood(Item item, Item resource)
     {
-        Actor depot = findByType(actor.getStage(), new Identifier("TownHall"));
-        Actor player = findById(actor.getStage(), new Identifier("Player1")); //TODO
+        ItemRoot root = item.getRoot();
+        Item depot = root.find(itemWithId(new Identifier("TownHall1"))); //TODO
+        Item player = root.find(itemWithId(new Identifier("Player1"))); //TODO
         Identifier property = new Identifier("Wood");
         Identifier gatherAnimation = new Identifier("GatherWood");
         Identifier depositAnimation = new Identifier("DepositWood");
-        return gather(actor, resource, player, depot, property, gatherAnimation, depositAnimation);
+        return gather(item, resource, player, depot, property, gatherAnimation, depositAnimation);
     }
 
-    private Action create(Stage stage, ItemIdentifier type, Identifier id, Vector2 position)
+    private Action create(ItemRoot stage, ItemIdentifier type, Identifier id, Vector2 position)
     {
         return new CreateAction(stage, type, itemFactory, id, position);
     }
 
-    private Action setEnabled(Stage stage, Identifier actor, boolean enabled)
+    private Action setEnabled(ItemRoot stage, Identifier item, boolean enabled)
     {
-        ActionValue value = new ItemReferenceValue(stage, actor, new Identifier("Enabled"));
+        ActionValue value = new ItemReferenceValue(stage, item, new Identifier("Enabled"));
         ActionModifier modifier = new ConstantModifier(enabled);
         ActionDuration duration = new InstantDuration();
-        return new com.evilbird.engine.action.ModifyAction(value, modifier, duration);
+        return new ModifyAction(value, modifier, duration);
     }
 
-    private Action setEnabled(Actor actor, boolean enabled)
+    private Action setEnabled(Item item, boolean enabled)
     {
-        ActionValue value = new ItemValue((Item)actor, new Identifier("Enabled"));
+        ActionValue value = new ItemValue(item, new Identifier("Enabled"));
         ActionModifier modifier = new ConstantModifier(enabled);
         ActionDuration duration = new InstantDuration();
-        return new com.evilbird.engine.action.ModifyAction(value, modifier, duration);
+        return new ModifyAction(value, modifier, duration);
     }
 
-    private Action build(Actor builder, Identifier building, Stage stage)
+    private Action build(Item builder, Identifier building, ItemRoot stage)
     {
         Action soundBefore = playSound(builder, new Identifier("Construct"));
         Action animateBuilderBefore = setAnimation(builder, new Identifier("Build"));
         Action animateBuildingBefore = setAnimation(stage, building, new Identifier("Construct"));
-        Action before = new com.evilbird.engine.action.ParallelAction(animateBuilderBefore, animateBuildingBefore, soundBefore);
+        Action before = new ParallelAction(animateBuilderBefore, animateBuildingBefore, soundBefore);
 
         ActionValue value = new ItemReferenceValue(stage, building, new Identifier("Completion"));
         ActionModifier modifier = new DeltaModifier(100f, DeltaType.PerSecond);
         ActionDuration duration = new TimeDuration(10f);
-        Action build = new com.evilbird.engine.action.ModifyAction(value, modifier, duration);
+        Action build = new ModifyAction(value, modifier, duration);
 
         Action soundAfter = playSound(builder, new Identifier("Complete"));
         Action animateBuilderAfter = setAnimation(builder, new Identifier("Idle"));
         Action animateBuildingAfter = setAnimation(stage, building, new Identifier("Idle"));
-        Action after = new com.evilbird.engine.action.ParallelAction(animateBuilderAfter, animateBuildingAfter, soundAfter);
+        Action after = new ParallelAction(animateBuilderAfter, animateBuildingAfter, soundAfter);
 
-        return new com.evilbird.engine.action.SequenceAction(before, build, after);
+        return new SequenceAction(before, build, after);
     }
 
-    private Action build(Actor builder, ItemIdentifier type, Vector2 location)
+    private Action build(Item builder, ItemIdentifier type, Vector2 location)
     {
-        Stage stage = builder.getStage();
+        ItemRoot itemRoot = builder.getRoot();
         Identifier building = new Identifier();
 
         Action acknowledge = playSound(builder, new Identifier("Acknowledge"));
         Action moveToSite = move(builder, location);
         Action deselectBuilder = setSelected(builder, false);
-        Action createFarm = create(stage, type, building, location);
-        Action disableFarm = setEnabled(stage, building, false);
-        Action buildFarm = build(builder, building, stage);
-        Action enableFarm = setEnabled(stage, building, true);
+        Action createFarm = create(itemRoot, type, building, location);
+        Action disableFarm = setEnabled(itemRoot, building, false);
+        Action buildFarm = build(builder, building, itemRoot);
+        Action enableFarm = setEnabled(itemRoot, building, true);
         Action selectBuilder = setSelected(builder, true);
 
-        return new com.evilbird.engine.action.SequenceAction(acknowledge, moveToSite, deselectBuilder, createFarm, disableFarm, buildFarm, enableFarm, selectBuilder);
+        return new SequenceAction(acknowledge, moveToSite, deselectBuilder, createFarm, disableFarm, buildFarm, enableFarm, selectBuilder);
     }
 
-    private Action buildFarm(Actor builder, Vector2 location)
+    private Action buildFarm(Item builder, Vector2 location)
     {
         return build(builder, UnitType.Farm, location);
     }
 
-    private Action buildBarracks(Actor builder, Vector2 location)
+    private Action buildBarracks(Item builder, Vector2 location)
     {
         return build(builder, UnitType.Barracks, location);
     }
 
-    private Action reduceHealth(Actor target)
+    private Action reduceHealth(Item target)
     {
         Identifier health = new Identifier("Health");
-        ActionValue value = new ItemValue((Item)target, health);
+        ActionValue value = new ItemValue(target, health);
         ActionModifier modifier = new DeltaModifier(-10f, DeltaType.PerSecond, 0f, 100f);
-        ActionDuration duration = new PredicateDuration((Item)target, health, 0f);
+        ActionDuration duration = new PredicateDuration(target, health, 0f);
         return new ModifyAction(value, modifier, duration);
     }
 
-    private Action attack(Actor attacker, Actor target)
+    private Action attack(Item attacker, Item target)
     {
         Action move = move(attacker, target);
 
         Action attackAnimation = setAnimation(attacker, new Identifier("Attack"));
         Action reduceHealth = reduceHealth(target);
-        Action attack = new com.evilbird.engine.action.ParallelAction(attackAnimation, reduceHealth);
+        Action attack = new ParallelAction(attackAnimation, reduceHealth);
 
         Action deadAnimation = setAnimation(target, new Identifier("Die"), 0.5f);
         Action deselect = setSelected(target, false);
@@ -394,8 +393,8 @@ public class WarcraftActionFactory implements ActionFactory
         Action die = new ParallelAction(deadAnimation, deselect, disable, idleAnimation);
 
         Action decompose = setAnimation(target, new Identifier("Decompose"), 10f);
-        Action remove = new RemoveAction(target.getStage(), target);
-        Action clean = new com.evilbird.engine.action.SequenceAction(decompose, remove);
+        Action remove = new RemoveAction(target.getRoot(), target);
+        Action clean = new SequenceAction(decompose, remove);
 
         return new SequenceAction(move, attack, die, clean);
     }

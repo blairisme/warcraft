@@ -12,7 +12,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -20,7 +19,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.graphics.DirectionalAnimation;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.utility.AssetObjectProvider;
 import com.evilbird.engine.utility.Identifier;
 import com.evilbird.warcraft.item.camera.Camera;
@@ -38,7 +37,7 @@ import javax.inject.Inject;
 
 import static com.badlogic.gdx.Gdx.graphics;
 
-public class HumanLevel1 implements AssetObjectProvider<ItemGroup>
+public class HumanLevel1 implements AssetObjectProvider<ItemRoot>
 {
     private AssetManager assets;
     private ItemFactory itemFactory;
@@ -60,7 +59,7 @@ public class HumanLevel1 implements AssetObjectProvider<ItemGroup>
     }
 
     @Override
-    public ItemGroup get()
+    public ItemRoot get()
     {
         TmxMapLoader.Parameters parameters = new TmxMapLoader.Parameters();
         parameters.textureMinFilter = Texture.TextureFilter.Linear;
@@ -70,41 +69,41 @@ public class HumanLevel1 implements AssetObjectProvider<ItemGroup>
         assets.finishLoading();
         TiledMap map = assets.get("data/levels/human/level1.tmx", TiledMap.class);
 
-        ItemGroup world = new ItemGroup();
+        ItemRoot world = new ItemRoot();
         addItems(world, map);
 
         return world;
     }
 
-    private void addItems(Stage stage, TiledMap map)
+    private void addItems(ItemRoot world, TiledMap map)
     {
-        addMapItem(stage, map);
+        addMapItem(world, map);
         for (MapLayer layer: map.getLayers())
         {
-            addAggregateItems(stage, layer);
-            addObjectItems(stage, layer);
+            addAggregateItems(world, layer);
+            addObjectItems(world, layer);
         }
-        addFog(stage, map);
+        addFog(world, map);
     }
 
-    private void addMapItem(Stage stage, TiledMap tiledMap)
+    private void addMapItem(ItemRoot world, TiledMap tiledMap)
     {
         Map map = new Map((TiledMapTileLayer)tiledMap.getLayers().get(0)); //TODO Get by name
         map.setSize(1024, 1024); //TODO get dimensions from map data
         map.setPosition(0, 0);
-        map.setScale(1f);
+       //map.setScale(1f);
         map.setProperty(new Identifier("Id"), new Identifier("Map"));
         map.setProperty(new Identifier("Type"), new Identifier("Map"));
-        stage.addActor(map);
+        world.addItem(map);
     }
 
-    private void addFog(Stage stage, TiledMap tiledMap)
+    private void addFog(ItemRoot world, TiledMap tiledMap)
     {
         Fog fog = new Fog(assets, 32, 32, 32, 32); //TODO get dimensions from map data
-        stage.addActor(fog);
+        world.addItem(fog);
     }
 
-    private void addAggregateItems(Stage stage, MapLayer layer)
+    private void addAggregateItems(ItemRoot world, MapLayer layer)
     {
         if (Objects.equals(layer.getName(), "Wood")) // TODO: swap for property aggregated=true
         {
@@ -141,14 +140,14 @@ public class HumanLevel1 implements AssetObjectProvider<ItemGroup>
                         //unit.setZIndex(5);
                         unit.setPosition(worldX, worldY);
 
-                        stage.addActor(unit);
+                        world.addItem(unit);
                     }
                 }
             }
         }
     }
 
-    private void addObjectItems(Stage stage, MapLayer layer)
+    private void addObjectItems(ItemRoot world, MapLayer layer)
     {
         for (MapObject object : layer.getObjects())
         {
@@ -173,8 +172,8 @@ public class HumanLevel1 implements AssetObjectProvider<ItemGroup>
                 cameraActor.setProperty(new Identifier("Type"), new Identifier("Camera"));
                 cameraActor.setProperty(new Identifier("OriginalZoom"), 0f); //TODO add default value if missing automatically
 
-                stage.addActor(cameraActor);
-                stage.setViewport(new ScreenViewport(orthographicCamera));
+                world.addItem(cameraActor);
+                world.setViewport(new ScreenViewport(orthographicCamera));
             }
             else if (Objects.equals(type, "Player")) // TODO
             {
@@ -190,7 +189,7 @@ public class HumanLevel1 implements AssetObjectProvider<ItemGroup>
                 player.setProperty(new Identifier("Gold"), gold);
                 player.setProperty(new Identifier("Wood"), wood);
 
-                stage.addActor(player);
+                world.addItem(player);
             }
             else
             {
@@ -199,19 +198,21 @@ public class HumanLevel1 implements AssetObjectProvider<ItemGroup>
                 Float width = (Float)properties.get("width");
                 Float height = (Float)properties.get("height");
                 String owner = (String)properties.get("Owner");
-                String id = (String)properties.get("Name");
+                String name = object.getName();
+
+
 
                 Item unit = itemFactory.newItem(UnitType.valueOf(type));
                 unit.setSize(width, height);
                 //unit.setZIndex(10);
                 unit.setPosition(x, y);
-                unit.setProperty(new Identifier("Id"), new Identifier());
+                unit.setProperty(new Identifier("Id"), new Identifier(name));
 
                 if (owner != null)
                 {
                     unit.setProperty(new Identifier("Owner"), new Identifier(owner));
                 }
-                stage.addActor(unit);
+                world.addItem(unit);
             }
         }
     }

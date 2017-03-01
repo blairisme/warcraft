@@ -47,13 +47,13 @@ public class ActionTile extends Item
     }
 
     @Override //TODO: Investigate better implementation
-    protected void positionChanged()
+    public void positionChanged()
     {
         tile.setPosition(getX(), getY());
     }
 
     @Override //TODO: Investigate better implementation
-    protected void sizeChanged()
+    public void sizeChanged()
     {
         tile.setSize(getWidth(), getHeight());
     }

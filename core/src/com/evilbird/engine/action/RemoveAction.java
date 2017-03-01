@@ -1,33 +1,32 @@
 package com.evilbird.engine.action;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.evilbird.engine.item.ItemUtils;
-import com.evilbird.engine.utility.Identifier;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemRoot;
 
 public class RemoveAction extends Action
 {
-    private Stage stage;
-    private Actor actor;
+    private ItemRoot root;
+    private Item item;
 
-    public RemoveAction(Stage stage, Actor actor)
+    public RemoveAction(ItemRoot root, Item item)
     {
-        this.stage = stage;
-        this.actor = actor;
+        this.root = root;
+        this.item = item;
     }
-
+/*
     public RemoveAction(Stage stage, Identifier unitIdentifier)
     {
         this.stage = stage;
         this.actor = ItemUtils.findById(stage, unitIdentifier);
     }
-
+*/
     @Override
     public boolean act(float delta)
     {
-        actor.clearActions();
+        item.clearActions();
         actor.remove();
+        root.removeItem(item);
         return true;
     }
 }

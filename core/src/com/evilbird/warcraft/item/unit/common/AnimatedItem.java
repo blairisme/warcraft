@@ -31,7 +31,9 @@ public class AnimatedItem extends Item
 
     public AnimatedItem(Map<Identifier, Object> properties, Map<Identifier, DirectionalAnimation> animations)
     {
-        super(properties);
+        //super(properties);
+
+        this.properties = properties;  //TODO: Remove
         this.animations = animations;
         this.shapeRenderer = new ShapeRenderer();
 
@@ -39,9 +41,9 @@ public class AnimatedItem extends Item
     }
 
     @Override
-    public void act(float delta)
+    public void update(float delta)
     {
-        super.act(delta);
+        super.update(delta);
         animationTime += delta;
         play();
     }
@@ -69,8 +71,12 @@ public class AnimatedItem extends Item
     public void draw(Batch batch, float alpha)
     {
         TextureRegion region = animation.getKeyFrame(animationTime);
-        batch.draw(region, getX(), getY(), getOriginX(), getOriginY(),
-                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+        //batch.draw(region, getX(), getY(), getOriginX(), getOriginY(),
+        //        getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+
+
+
+        batch.draw(region, getX(), getY(), getWidth(), getHeight());
 
         Boolean selected = (Boolean)getProperty(new Identifier("Selected"));
         if (Boolean.TRUE == selected)
@@ -125,19 +131,16 @@ public class AnimatedItem extends Item
     {
         float previousX = getX();
         float previousY = getY();
-
         super.setPosition(newX, newY);
         this.setDirection(previousX, previousY, newX, newY);
     }
 
     @Override
-    public void setPosition(float newX, float newY, int alignment)
+    public void setPosition(Vector2 position)
     {
-        float previousX = getX(alignment);
-        float previousY = getY(alignment);
-
-        super.setPosition(newX, newY, alignment);
-        this.setDirection(previousX, previousY, newX, newY);
+        Vector2 previous = getPosition();
+        super.setPosition(position);
+        this.setDirection(previous.x, previous.y, position.x, position.y);
     }
 
     private void setDirection(float previousX, float previousY, float newX, float newY)

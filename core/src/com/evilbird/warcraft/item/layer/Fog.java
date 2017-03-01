@@ -11,22 +11,28 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.utility.Identifier;
+import com.evilbird.engine.utility.Predicate;
 
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Objects;
+
+import static com.evilbird.engine.item.ItemPredicates.itemWithAction;
+import static com.evilbird.engine.item.ItemPredicates.itemWithProperty;
+import static com.evilbird.engine.utility.Predicates.both;
 
 //TODO: Use map object or common utility class to draw
 //TODO: Move asset loading into factory.
 //TODO: Move Texture/Cell types into separate class - I.E., TextureMap
 public class Fog extends Item
 {
+    private boolean populated;
     private TiledMapTileLayer layer;
     private OrthogonalTiledMapRenderer renderer;
 
@@ -48,7 +54,7 @@ public class Fog extends Item
     {
         renderer = new OrthogonalTiledMapRenderer(null);
         layer = new TiledMapTileLayer(width, height, tileWidth, tileHeight);
-
+        populated = false;
 
         assets.load("data/textures/neutral/winter/terrain.png", Texture.class);
         assets.finishLoadingAsset("data/textures/neutral/winter/terrain.png");
@@ -87,49 +93,36 @@ public class Fog extends Item
         return cell;
     }
 
-
-
-
     @Override
-    public void act(float delta)
+    public void update(float delta)
     {
-        super.act(delta);
-        ItemGroup world = (ItemGroup)getStage();
-        Collection<Item> actionItems = getActionItems(world.getItems());
-        Collection<Item> playerItems = getPlayerItems(actionItems, world.getPlayer());
-        revealItems(playerItems);
-    }
-
-    @Override
-    protected void setStage(Stage stage)
-    {
-        super.setStage(stage);
-        ItemGroup world = (ItemGroup)getStage();
-        Collection<Item> playerItems = getPlayerItems(world.getItems(), world.getPlayer());
-        revealItems(playerItems);
-    }
-
-    private Collection<Item> getActionItems(Collection<Item> items)
-    {
-        Collection<Item> result = new ArrayList<Item>();
-        for(Item item: items){
-            if (item.hasActions()){
-                result.add(item);
-            }
+        super.update(delta);
+        if (!populated){
+            populated = true;
+            initialize();
         }
-        return result;
+        else {
+            update();
+        }
     }
 
-    private Collection<Item> getPlayerItems(Collection<Item> items, Identifier player)
+    private void initialize()
     {
-        Collection<Item> result = new ArrayList<Item>();
-        for(Item item: items){
-            Identifier owner = (Identifier)item.getProperty(new Identifier("Owner"));
-            if (Objects.equals(owner, player)){
-                result.add(item);
-            }
-        }
-        return result;
+        ItemRoot world = getRoot();
+        Collection<Item> revealedItems = world.findAll(itemOwnedByPlayer());
+        revealItems(revealedItems);
+    }
+
+    private void update()
+    {
+        ItemRoot world = getRoot();
+        Collection<Item> revealedItems = world.findAll(both(itemWithAction(), itemOwnedByPlayer()));
+        revealItems(revealedItems);
+    }
+
+    private Predicate<Item> itemOwnedByPlayer()
+    {
+        return itemWithProperty(new Identifier("Owner"), new Identifier("Player1"));
     }
 
     private void conceal(){
@@ -161,8 +154,9 @@ public class Fog extends Item
     {
         Collection<Pair<Integer, Integer>> result = new ArrayList<Pair<Integer, Integer>>();
 
-        int itemX = (int)(item.getX() / 32);
-        int itemY = (int)(item.getY() / 32);
+        Vector2 position = item.getPosition();
+        int itemX = (int)(position.x / 32);
+        int itemY = (int)(position.y / 32);
         int width = layer.getWidth();
         int height = layer.getHeight();
         int radius = 5;
@@ -245,7 +239,8 @@ public class Fog extends Item
 
     private OrthographicCamera getCamera()
     {
-        Stage stage = getStage();
-        return (OrthographicCamera)stage.getCamera();
+        ItemRoot root = getRoot();
+        Viewport viewport = root.getViewport();
+        return (OrthographicCamera)viewport.getCamera();
     }
 }

@@ -37,23 +37,9 @@ public class ProgressBar extends Item
     }
 
     @Override
-    public void setWidth(float width)
-    {
-        super.setWidth(width);
-        this.textureWidth = getWidth() * progress;
-    }
-
-    @Override
     public void setSize(float width, float height)
     {
         super.setSize(width, height);
-        this.textureWidth = width * progress;
-    }
-
-    @Override
-    public void setBounds(float x, float y, float width, float height)
-    {
-        super.setBounds(x, y, width, height);
         this.textureWidth = width * progress;
     }
 

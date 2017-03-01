@@ -1,17 +1,16 @@
 package com.evilbird.warcraft.behaviour.hud;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.ItemUtils;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.utility.Identifier;
 
-import java.util.Collection;
 import java.util.List;
+
+import static com.evilbird.engine.item.ItemPredicates.itemWithId;
 
 public class HudBehaviour implements Behaviour
 {
@@ -24,34 +23,30 @@ public class HudBehaviour implements Behaviour
     }
 
     @Override
-    public void update(ItemGroup world, ItemGroup hud, List<UserInput> inputs)
+    public void update(ItemRoot world, ItemRoot hud, List<UserInput> inputs)
     {
         updateResourceBar(world, hud, inputs);
     }
 
-    private void updateResourceBar(ItemGroup world, ItemGroup hud, List<UserInput> inputs)
+    private void updateResourceBar(ItemRoot world, ItemRoot hud, List<UserInput> inputs)
     {
-        Item player = world.getItem(new Identifier("Player1")); //TODO: Obtain Id + Cache
+        Item player = world.find(itemWithId(new Identifier("Player1"))); //TODO: Obtain Id + Cache
         Float gold = (Float)player.getProperty(new Identifier("Gold"));
         Float wood = (Float)player.getProperty(new Identifier("Wood"));
 
-        Item resourceBar = hud.getItem(new Identifier("ResourcePanel")); //TODO: Cache
+        Item resourceBar = hud.find(itemWithId(new Identifier("ResourcePanel"))); //TODO: Cache
         resourceBar.setProperty(new Identifier("Gold"), gold); //TODO: Frequency too high. Only when changed.
         resourceBar.setProperty(new Identifier("Wood"), wood); //TODO: Frequency too high. Only when changed.
 
-        Collection<Item> selection = ItemUtils.findAll(world.getItems(), new Identifier("Selected"), true); //TODO: Frequency too high. Only when changed.
+        //Collection<Item> selection = ItemUtils.findAll(world.getItems(), new Identifier("Selected"), true); //TODO: Frequency too high. Only when changed.
 
-        Item actionPanel = hud.getItem(new Identifier("ActionPanel")); //TODO: Cache
+//        Item actionPanel = hud.getItem(new Identifier("ActionPanel")); //TODO: Cache
 //        actionPanel.setProperty(new Identifier("Selection"), selection); //TODO: Frequency too high. Only when changed.
 
-        Item selectionPanel = hud.getItem(new Identifier("SelectionPanel")); //TODO: Cache
+ //       Item selectionPanel = hud.getItem(new Identifier("SelectionPanel")); //TODO: Cache
   //      selectionPanel.setProperty(new Identifier("Selection"), selection); //TODO: Frequency too high. Only when changed.
 
-
-
 /*
-
-
         for (UserInput input: inputs)
         {
             if (input.getType() == UserInputType.Action)
@@ -72,11 +67,11 @@ public class HudBehaviour implements Behaviour
         */
     }
 
-    private Actor getTarget(ItemGroup stage, UserInput userInput)
+    private Item getTarget(ItemRoot root, UserInput userInput)
     {
         Vector2 inputPosition = userInput.getPosition();
-        Vector2 worldPosition = stage.screenToStageCoordinates(inputPosition);
-        return  stage.hit(worldPosition.x, worldPosition.y, false);
+        Vector2 worldPosition = root.unproject(inputPosition);
+        return root.hit(worldPosition, false);
 
     }
 }

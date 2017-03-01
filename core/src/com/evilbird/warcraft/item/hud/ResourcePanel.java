@@ -105,7 +105,7 @@ public class ResourcePanel extends Item
     }
 
     @Override
-    public void act(float delta)
+    public void update(float delta)
     {
         table.act(delta);
     }

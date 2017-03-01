@@ -43,9 +43,9 @@ public class SelectionPanel extends Item
     }
 
     @Override
-    public void act(float delta)
+    public void update(float delta)
     {
-        container.act(delta);
+        container.update(delta);
     }
 
     @Override
@@ -92,13 +92,13 @@ public class SelectionPanel extends Item
 
 
     @Override //TODO: Investigate better implementation
-    protected void positionChanged()
+    public void positionChanged()
     {
         container.setPosition(getX(), getY());
     }
 
     @Override //TODO: Investigate better implementation
-    protected void sizeChanged()
+    public void sizeChanged()
     {
         container.setSize(getWidth(), getHeight());
     }

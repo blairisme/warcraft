@@ -7,8 +7,7 @@ import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.ItemUtils;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.utility.Identifier;
 import com.evilbird.warcraft.action.Actions;
 import com.evilbird.warcraft.item.unit.common.AnimatedItem;
@@ -18,6 +17,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+
+import static com.evilbird.engine.item.ItemPredicates.itemWithId;
+import static com.evilbird.engine.item.ItemPredicates.itemWithProperty;
 
 public class InteractionAnalyzer implements Behaviour
 {
@@ -55,16 +57,16 @@ public class InteractionAnalyzer implements Behaviour
     }
 
     @Override
-    public void update(ItemGroup world, ItemGroup hud, List<UserInput> input)
+    public void update(ItemRoot world, ItemRoot hud, List<UserInput> input)
     {
         update(world, input); //TODO
     }
 
-    public void update(ItemGroup world, List<UserInput> inputs)
+    public void update(ItemRoot world, List<UserInput> inputs)
     {
         if (! inputs.isEmpty())
         {
-            Collection<Item> selection = ItemUtils.findAll(world.getItems(), new Identifier("Selected"), true);
+            Collection<Item> selection = world.findAll(itemWithProperty(new Identifier("Selected"), true));
 
             for (UserInput input : inputs)
             {
@@ -157,15 +159,15 @@ public class InteractionAnalyzer implements Behaviour
         }
     }
 
-    private Collection<Item> getTargets(ItemGroup stage, UserInput userInput)
+    private Collection<Item> getTargets(ItemRoot root, UserInput userInput)
     {
         Vector2 inputPosition = userInput.getPosition();
 
-        Vector2 worldPosition = stage.screenToStageCoordinates(inputPosition);
+        Vector2 worldPosition = root.unproject(inputPosition);
 
-        Item target = (Item)stage.hit(worldPosition.x, worldPosition.y, false);
+        Item target = root.hit(worldPosition, false);
 
-        Item camera = ItemUtils.findByType(stage, new Identifier("Camera"));
+        Item camera = root.find(itemWithId(new Identifier("Camera")));
 
         return Arrays.asList(target, camera);
     }

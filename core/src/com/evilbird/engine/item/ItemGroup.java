@@ -1,56 +1,105 @@
 package com.evilbird.engine.item;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.evilbird.engine.utility.Identifier;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.evilbird.engine.utility.Predicate;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
-public class ItemGroup extends Stage
+/**
+ * Instances of this class TODO:Finish
+ *
+ * @author Blair Butterworth
+ */
+public class ItemGroup extends Item implements GroupObserver
 {
-    private Map<Identifier, Item> items;
+    private Collection<Item> items;
 
     public ItemGroup()
     {
-        this.items = new HashMap<Identifier, Item>();
+        this.items = new ArrayList<Item>();
     }
 
-    @Override
-    public void addActor(Actor actor)
+    protected Actor initializeDelegate()
     {
-        addItem((Item)actor);
+        return new GroupExtension(this);
     }
 
     public void addItem(Item item)
     {
-        Identifier id = (Identifier)item.getProperty(new Identifier("Id"));
-        items.put(id, item);
-        super.addActor(item);
+        Group group = (Group)delegate;
+        group.addActor(item.delegate);
+        item.setParent(this);
+        item.setRoot(getRoot());
+        items.add(item);
     }
 
     public void removeItem(Item item)
     {
-        Identifier id = (Identifier)item.getProperty(new Identifier("Id"));
-        items.remove(id);
-        item.remove();
+        Group group = (Group)delegate;
+        group.removeActor(item.delegate);
+        items.remove(item);
     }
 
-    public Item getItem(Identifier id)
+    /**
+     * Returns the {@link Item} at the specified location in world coordinates. Hit testing is
+     * performed in the order the item were inserted into the group, last inserted actors being
+     * tested first.
+     *
+     * @param coordinates   the world coordinates to test.
+     * @param touchable     specifies if hit detection will respect the items touchability.
+     * @return              the item at the specified location or null if no item is located there.
+     */
+
+    public Item hit(Vector2 coordinates, boolean touchable)
     {
-        return items.get(id);
+        Actor actor = delegate.hit(coordinates.x, coordinates.y, touchable);
+        if (actor != null){
+            Item item = (Item) actor.getUserObject();
+            return item;
+        }
+        return null;
     }
 
-    public Collection<Item> getItems()
+    public Item find(Predicate<Item> predicate)
     {
-        return Collections.unmodifiableCollection(items.values());
+        return find(this, predicate);
     }
 
-    //TODO: Remove
-    public Identifier getPlayer()
+    public Collection<Item> findAll(Predicate<Item> predicate)
     {
-        return new Identifier("Player1");
+        return findAll(this, predicate);
+    }
+
+    private Item find(ItemGroup group, Predicate<Item> predicate)
+    {
+        for (Item item: group.items){
+            if (predicate.test(item)){
+                return item;
+            }
+            if (item instanceof ItemGroup){
+                Item result = find((ItemGroup)item, predicate);
+                if (result != null){
+                    return result;
+                }
+            }
+        }
+        return null;
+    }
+
+    private Collection<Item> findAll(ItemGroup group, Predicate<Item> predicate)
+    {
+        Collection<Item> result = new ArrayList<Item>();
+        for (Item item: group.items){
+            if (predicate.test(item)){
+                result.add(item);
+            }
+            if (item instanceof ItemGroup){
+                result.addAll(findAll((ItemGroup)item, predicate));
+            }
+        }
+        return result;
     }
 }

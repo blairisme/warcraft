@@ -1,58 +1,191 @@
 package com.evilbird.engine.item;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.utility.Identifier;
+import com.evilbird.engine.utility.PropertySet;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-//TODO store all in properties
-public class Item extends Actor
+/**
+ * Instances of this class TODO:Finish
+ *
+ * @author Blair Butterworth
+ */
+public class Item implements PropertySet<Identifier,Object>, ActorObserver
 {
-    private static final Identifier POSITION_PROPERTY = new Identifier("Position");
-    private Map<Identifier, Object> properties;
+    Actor delegate;
+    private ItemRoot root;
+    private ItemGroup parent;
+    private Identifier id;
+    protected Map<Identifier, Object> properties; //TODO: Remove
 
     public Item()
     {
+        this.delegate = initializeDelegate();
+        this.delegate.setUserObject(this);
         this.properties = new HashMap<Identifier, Object>();
     }
 
-    public Item(Map<Identifier, Object> properties)
+    protected Actor initializeDelegate()
     {
-        this.properties = properties;
+        return new ActorExtension(this);
     }
 
-    public Vector2 getPosition(int alignment)
+    public Identifier getId()
     {
-        return new Vector2(getX(alignment), getY(alignment));
+        return id;
     }
 
-    public void setPosition(Vector2 position, int alignment)
+    public Vector2 getSize()
     {
-        setPosition(position.x, position.y, alignment);
+        return new Vector2(delegate.getWidth(), delegate.getHeight());
     }
 
-    public Object getProperty(Identifier property)
+    public float getWidth()
     {
-        if (Objects.equals(property, POSITION_PROPERTY))
-        {
-            return getPosition(Align.center);
+        return delegate.getWidth();
+    }
+
+    public float getHeight()
+    {
+        return delegate.getHeight();
+    }
+
+    public Vector2 getPosition()
+    {
+        return new Vector2(delegate.getX(), delegate.getY());
+    }
+
+    public float getX()
+    {
+        return delegate.getX();
+    }
+
+    public float getY()
+    {
+        return delegate.getY();
+    }
+
+    public ItemGroup getParent()
+    {
+        return parent;
+    }
+
+    public ItemRoot getRoot()
+    {
+        return root;
+    }
+
+    public void setId(Identifier id)
+    {
+        this.id = id;
+    }
+
+    public void setSize(float width, float height)
+    {
+        delegate.setSize(width, height);
+    }
+
+    public void setSize(Vector2 size)
+    {
+        delegate.setSize(size.x, size.y);
+    }
+
+    public void setPosition(float x, float y)
+    {
+        delegate.setPosition(x, y);
+    }
+
+    public void setPosition(Vector2 position)
+    {
+        delegate.setPosition(position.x, position.y);
+    }
+
+    public void setParent(ItemGroup parent)
+    {
+        this.parent = parent;
+    }
+
+    public void setRoot(ItemRoot root)
+    {
+        this.root = root;
+    }
+
+    public void setTouchable(Touchable touchable)
+    {
+        delegate.setTouchable(touchable);
+    }
+
+    public void setVisible(boolean visible)
+    {
+        delegate.setVisible(visible);
+    }
+
+    public void draw(Batch batch, float alpha)
+    {
+    }
+
+    public void update(float delta)
+    {
+    }
+
+    public void addAction(Action action)
+    {
+        delegate.addAction(action);
+    }
+
+    public boolean hasActions()
+    {
+        return delegate.hasActions();
+    }
+
+    public void clearActions()
+    {
+        delegate.clearActions();
+    }
+
+    public void positionChanged()
+    {
+    }
+
+    public void sizeChanged()
+    {
+    }
+
+    @Override
+    public Object getProperty(Identifier key)
+    {
+        if (ItemProperties.Id.equals(key)){
+            return getId();
         }
-        return properties.get(property);
+        else if (ItemProperties.Position.equals(key)){
+            return getPosition();
+        }
+        else if (ItemProperties.Size.equals(key)){
+            return getSize();
+        }
+        return properties.get(key);
+        //throw new IllegalArgumentException();
     }
 
-    public void setProperty(Identifier property, Object value)
+    @Override
+    public void setProperty(Identifier key, Object value)
     {
-        if (Objects.equals(property, POSITION_PROPERTY))
-        {
-            setPosition((Vector2)value, Align.center);
+        if (ItemProperties.Id.equals(key)){
+            setId((Identifier)value);
         }
-        else
-        {
-            properties.put(property, value);
+        else if (ItemProperties.Position.equals(key)){
+            setPosition((Vector2)value);
         }
+        else if (ItemProperties.Size.equals(key)){
+            setSize((Vector2)value);
+        }
+        properties.put(key, value);
+        //throw new IllegalArgumentException();
     }
 }

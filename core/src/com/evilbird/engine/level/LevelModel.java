@@ -5,7 +5,7 @@ import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.utility.Identifier;
 
 import java.util.List;
@@ -20,8 +20,8 @@ public class LevelModel
     private ItemFactory itemFactory;
     private BehaviourFactory behaviourFactory;
 
-    private ItemGroup hud;
-    private ItemGroup world;
+    private ItemRoot hud;
+    private ItemRoot world;
     private Behaviour behaviour;
 
     @Inject
@@ -56,11 +56,7 @@ public class LevelModel
     {
         List<UserInput> inputs = device.getDeviceInput().readInput();
         behaviour.update(world, hud, inputs);
-
-        world.getCamera().update();
-        world.act(delta);
-
-        hud.getCamera().update();
-        hud.act(delta);
+        world.update(delta);
+        hud.update(delta);
     }
 }

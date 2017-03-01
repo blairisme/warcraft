@@ -2,26 +2,26 @@ package com.evilbird.engine.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.evilbird.engine.item.ItemRoot;
 
 import javax.inject.Inject;
 
 public class LevelView
 {
-    private Stage hud;
-    private Stage world;
+    private ItemRoot hud;
+    private ItemRoot world;
 
     @Inject
     public LevelView()
     {
     }
 
-    public void setWorld(Stage world)
+    public void setWorld(ItemRoot world)
     {
         this.world = world;
     }
 
-    public void setHud(Stage hud)
+    public void setHud(ItemRoot hud)
     {
         this.hud = hud;
     }
@@ -37,8 +37,8 @@ public class LevelView
 
     public void resize(int width, int height)
     {
-        world.getViewport().update(width, height);
-        hud.getViewport().update(width, height);
+        world.resize(width, height);
+        hud.resize(width, height);
     }
 
     public void dispose()
