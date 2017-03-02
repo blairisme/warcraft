@@ -1,6 +1,7 @@
 package com.evilbird.warcraft.desktop;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.evilbird.warcraft.desktop.DaggerDesktopInjector.Builder;
@@ -16,7 +17,6 @@ public class DesktopLauncher
     private static DesktopInjector getInjector()
     {
         Builder builder = DaggerDesktopInjector.builder();
-        //builder.desktopModule(new DesktopModule());
         return builder.build();
     }
 
@@ -32,6 +32,7 @@ public class DesktopLauncher
         configuration.height = 768;
         configuration.width = 1024;
         configuration.vSyncEnabled = true;
+        configuration.addIcon("data/icons/WarcraftIcon.png", Files.FileType.Internal);
         return configuration;
     }
 }

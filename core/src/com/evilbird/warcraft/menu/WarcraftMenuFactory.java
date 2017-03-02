@@ -50,7 +50,7 @@ public class WarcraftMenuFactory implements MenuFactory
         Texture menuTexture = assetManager.get("data/textures/menu/menu.png");
         TextureRegion menuTextureRegion = new TextureRegion(menuTexture);
         Drawable menuDrawable = new TextureRegionDrawable(menuTextureRegion);
-
+        
         Texture buttonTexture = assetManager.get("data/textures/menu/button.png");
         TextureRegion enabledTexture = new TextureRegion(buttonTexture, 0, 0, 224, 28);
         TextureRegion selectedTexture = new TextureRegion(buttonTexture, 0, 28, 224, 28);
