@@ -4,7 +4,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.evilbird.engine.common.inject.AssetObjectProvider;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 
@@ -43,7 +42,6 @@ public class ResourcePanelProvider implements AssetObjectProvider<Item>
         result.setOilText("0");
         result.setWoodIcon(getWoodIcon());
         result.setWoodText("0");
-        result.setProperty(new Identifier("Id"), new Identifier("ResourcePanel"));
         return result;
     }
 

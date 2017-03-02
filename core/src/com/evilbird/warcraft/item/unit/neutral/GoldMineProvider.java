@@ -2,6 +2,8 @@ package com.evilbird.warcraft.item.unit.neutral;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetObjectProvider;
 import com.evilbird.engine.common.lang.Identifier;
@@ -41,12 +43,19 @@ public class GoldMineProvider implements AssetObjectProvider<Item>
         animations.put(new Identifier("GatherGold"), animations.get(new Identifier("Construct")));
         animations.remove(new Identifier("Construct"));
 
+        Texture iconTexture = assets.get("data/textures/neutral/perennial/icons.png", Texture.class);
+        TextureRegion iconRegion = new TextureRegion(iconTexture, 184, 532, 46, 38);
+        TextureRegionDrawable icon = new TextureRegionDrawable(iconRegion);
+
         Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
         properties.put(new Identifier("Type"), new Identifier("GoldMine"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
         properties.put(new Identifier("Selected"), false);
         properties.put(new Identifier("Gold"), 1000f);
         properties.put(new Identifier("Id"), new Identifier());
+        properties.put(new Identifier("Icon"), icon);
+        properties.put(new Identifier("Health"), 2500.0f);
+        properties.put(new Identifier("HealthMaximum"), 2500.0f);
 
         return new AnimatedItem(properties, animations);
     }

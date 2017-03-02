@@ -40,6 +40,15 @@ public class FootmanProvider implements AssetObjectProvider<Item>
     @Override
     public Item get()
     {
+        /*
+        Health: 60
+        Armour: 2
+        Damage: 2-9
+        Range: 1
+        Sight 4
+        Speed: 10
+        */
+
         Texture texture = assets.get("data/textures/human/perennial/footman.png", Texture.class);
         Texture decomposeTexture = assets.get("data/textures/neutral/perennial/decompose.png", Texture.class);
         Map<Identifier, DirectionalAnimation> animations = AnimationBuilder.getAnimationSet(texture, decomposeTexture);
@@ -50,6 +59,7 @@ public class FootmanProvider implements AssetObjectProvider<Item>
 
         EnumSet<Actions> actions = EnumSet.noneOf(Actions.class);
         actions.add(Actions.Move);
+        actions.add(Actions.Stop);
         actions.add(Actions.Attack);
 
         Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
@@ -60,6 +70,8 @@ public class FootmanProvider implements AssetObjectProvider<Item>
         properties.put(new Identifier("Health"), 100f);
         properties.put(new Identifier("Id"), new Identifier());
         properties.put(new Identifier("Icon"), icon);
+        properties.put(new Identifier("Health"), 60.0f);
+        properties.put(new Identifier("HealthMaximum"), 60.0f);
         properties.put(new Identifier("Actions"), actions);
 
         return new AnimatedItem(properties, animations);

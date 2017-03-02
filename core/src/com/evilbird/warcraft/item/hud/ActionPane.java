@@ -2,7 +2,7 @@ package com.evilbird.warcraft.item.hud;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.control.GridPanel;
+import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.warcraft.action.Actions;
 
 import java.util.ArrayList;
@@ -19,12 +19,12 @@ import javax.inject.Provider;
  *
  * @author Blair Butterworth
  */
-public class ActionPanel extends GridPanel
+public class ActionPane extends GridPane
 {
     private Provider<ActionButton> buttonProvider;
 
     @Inject
-    public ActionPanel(Provider<ActionButton> buttonProvider)
+    public ActionPane(Provider<ActionButton> buttonProvider)
     {
         super(3, 3);
         this.buttonProvider = buttonProvider;
@@ -32,7 +32,7 @@ public class ActionPanel extends GridPanel
         setCellPadding(3);
         setCellWidthMinimum(54);
         setCellHeightMinimum(46);
-        setId(new Identifier("ActionPanel"));
+        setId(new Identifier("ActionPane"));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ActionPanel extends GridPanel
         Collection<Actions> actions = getActions(selection);
         Collection<Item> tiles = getTiles(actions, selection);
 
-        clear();
+        clearCells();
         setCells(tiles);
     }
 

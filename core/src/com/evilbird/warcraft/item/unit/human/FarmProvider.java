@@ -38,6 +38,12 @@ public class FarmProvider implements AssetObjectProvider<Item>
     @Override
     public Item get()
     {
+        /*
+        Health: 400
+        Food Usage:
+            Grown: 5
+            Used: 4
+         */
         Texture texture = assets.get("data/textures/human/winter/farm.png", Texture.class);
         Texture constructionTexture = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
         Map<Identifier, DirectionalAnimation> animations = AnimationBuilder.getBuildingAnimationSet(texture, constructionTexture, 64);
@@ -54,6 +60,8 @@ public class FarmProvider implements AssetObjectProvider<Item>
         properties.put(new Identifier("Completion"), 0f);
         properties.put(new Identifier("Id"), new Identifier());
         properties.put(new Identifier("Icon"), icon);
+        properties.put(new Identifier("Health"), 400.0f);
+        properties.put(new Identifier("HealthMaximum"), 400.0f);
 
         return new AnimatedItem(properties, animations);
     }

@@ -9,9 +9,11 @@ import com.evilbird.engine.common.inject.AssetObjectProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.Actions;
 import com.evilbird.warcraft.item.unit.common.AnimatedItem;
 import com.evilbird.warcraft.item.unit.common.AnimationBuilder;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +40,14 @@ public class TownHallProvider implements AssetObjectProvider<Item>
     @Override
     public Item get()
     {
+    /*
+    Health: 1200
+        Production:
+            Gold: 100
+            Lumber: 100
+            Oil: 100
+         */
+
         Texture texture = assets.get("data/textures/human/winter/town_hall.png", Texture.class);
         Texture constructionTexture = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
         Map<Identifier, DirectionalAnimation> animations = AnimationBuilder.getBuildingAnimationSet(texture, constructionTexture, 128);
@@ -48,6 +58,9 @@ public class TownHallProvider implements AssetObjectProvider<Item>
         TextureRegion iconRegion = new TextureRegion(iconTexture, 0, 304, 46, 38);
         TextureRegionDrawable icon = new TextureRegionDrawable(iconRegion);
 
+        EnumSet<Actions> actions = EnumSet.noneOf(Actions.class);
+        //actions.add(Actions.BuildPeasant);
+
         Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
         properties.put(new Identifier("Type"), new Identifier("TownHall"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
@@ -56,6 +69,9 @@ public class TownHallProvider implements AssetObjectProvider<Item>
         properties.put(new Identifier("Wood"), 0f);
         properties.put(new Identifier("Id"), new Identifier());
         properties.put(new Identifier("Icon"), icon);
+        properties.put(new Identifier("Health"), 1200.0f);
+        properties.put(new Identifier("HealthMaximum"), 1200.0f);
+        properties.put(new Identifier("Actions"), actions);
 
         return new AnimatedItem(properties, animations);
     }

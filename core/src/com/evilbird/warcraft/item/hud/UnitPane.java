@@ -1,7 +1,9 @@
 package com.evilbird.warcraft.item.hud;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.item.control.GridPanel;
+import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.Image;
 
 import javax.inject.Provider;
@@ -11,12 +13,12 @@ import javax.inject.Provider;
  *
  * @author Blair Butterworth
  */
-public class SelectionTile extends GridPanel//ItemGroup
+public class UnitPane extends GridPane
 {
     private Image icon;
     private HealthBar healthBar;
 
-    public SelectionTile(Provider<HealthBar> healthBarProvider)
+    public UnitPane(Provider<HealthBar> healthBarProvider)
     {
         super(1,2);
 
@@ -28,11 +30,21 @@ public class SelectionTile extends GridPanel//ItemGroup
         healthBar.setProgress(1);
         healthBar.setSize(46, 5);
 
-        setSize(54, 46);
+        setSize(54, 53);
         setCellPadding(2);
         setCellSpacing(2);
         setCell(icon, 0, 0);
         setCell(healthBar, 0, 1);
+    }
+
+    public void setItem(Item item)
+    {
+        Drawable icon = (Drawable)item.getProperty(new Identifier("Icon")); //TODO
+        //float health = item.getProperty(new Identifier("Health")); //TODO
+        //float healthMaximum = item.getProperty(new Identifier("HealthMaximum")); //TODO
+
+        setImage(icon);
+        setHealth(0.5f);
     }
 
     public void setImage(Drawable drawable)

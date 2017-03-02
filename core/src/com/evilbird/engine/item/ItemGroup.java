@@ -59,6 +59,16 @@ public class ItemGroup extends Item implements GroupObserver
     }
 
     /**
+     * Removes all {@link Item}s from this group.
+     */
+    public void clearItems()
+    {
+        Group group = (Group)delegate;
+        group.clearChildren();
+        items.clear();
+    }
+
+    /**
      * Returns the {@link Item} at the specified location in world coordinates. Hit testing is
      * performed in the order the item were inserted into the group, last inserted actors being
      * tested first.

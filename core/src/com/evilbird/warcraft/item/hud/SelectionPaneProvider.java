@@ -15,31 +15,31 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class SelectionTileProvider implements AssetObjectProvider<SelectionTile>
+public class SelectionPaneProvider implements AssetObjectProvider<SelectionPane>
 {
     private AssetManager assets;
-    private HealthBarProvider healthBarProvider;
+    private UnitPaneProvider tileProvider;
 
     @Inject
-    public SelectionTileProvider(
+    public SelectionPaneProvider(
         Device device,
-        HealthBarProvider healthBarProvider)
+        UnitPaneProvider tileProvider)
     {
         this.assets = device.getAssetStorage().getAssets();
-        this.healthBarProvider = healthBarProvider;
+        this.tileProvider = tileProvider;
     }
 
     @Override
     public void load()
     {
-        assets.load("data/textures/neutral/perennial/selection.png", Texture.class);
+        assets.load("data/textures/human/hud/selection_panel.png", Texture.class);
     }
 
     @Override
-    public SelectionTile get()
+    public SelectionPane get()
     {
-        SelectionTile result = new SelectionTile(healthBarProvider);
-        result.setBackground(getTexture("data/textures/neutral/perennial/selection.png"));
+        SelectionPane result = new SelectionPane(tileProvider);
+        result.setBackground(getTexture("data/textures/human/hud/selection_panel.png"));
         return result;
     }
 

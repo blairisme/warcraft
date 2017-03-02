@@ -14,6 +14,9 @@ import com.evilbird.engine.item.Item;
 import java.util.Map;
 import java.util.Objects;
 
+//TODO: Rename to anmiation
+//TODO: Move to common controls
+//TODO: Replace constructor with zero argument version
 public class AnimatedItem extends Item
 {
     private static final Identifier ANIMATION_PROPERTY = new Identifier("Animation");

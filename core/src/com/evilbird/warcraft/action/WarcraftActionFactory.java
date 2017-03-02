@@ -67,6 +67,7 @@ public class WarcraftActionFactory implements ActionFactory
         if (Objects.equals(action, Actions.BuildFarm)) return buildFarm(item, (Vector2)value);
         if (Objects.equals(action, Actions.BuildBarracks)) return buildBarracks(item, (Vector2)value);
         if (Objects.equals(action, Actions.Attack)) return attack(item, (Item)value);
+        if (Objects.equals(action, Actions.Stop)) return stop(item);
         throw new IllegalArgumentException();
     }
 
@@ -390,5 +391,18 @@ public class WarcraftActionFactory implements ActionFactory
         Action clean = new SequenceAction(decompose, remove);
 
         return new SequenceAction(move, attack, die, clean);
+    }
+
+    public Action stop(final Item item)
+    {
+        return new Action()
+        {
+            @Override
+            public boolean act(float delta)
+            {
+                item.clearActions();
+                return true;
+            }
+        };
     }
 }

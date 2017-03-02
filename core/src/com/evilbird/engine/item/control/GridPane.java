@@ -12,7 +12,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-public class GridPanel extends ItemGroup
+public class GridPane extends ItemGroup
 {
     private Drawable background;
     private Item[][] cells;
@@ -25,7 +25,7 @@ public class GridPanel extends ItemGroup
     private int columnCount;
     private int rowCount;
 
-    public GridPanel(int columnCount, int rowCount)
+    public GridPane(int columnCount, int rowCount)
     {
         this.rowCount = rowCount;
         this.columnCount = columnCount;
@@ -113,9 +113,11 @@ public class GridPanel extends ItemGroup
 
     private void updateCellPositions()
     {
-        int cumulativeX = cellPadding;
-        int cumulativeY = cellPadding;
-        for (int row = rowCount - 1; row >= 0; row--){
+        int cumulativeX;
+        int cumulativeY = (int)getHeight() - cellPadding;
+        for (int row = 0; row < rowCount; row++){
+            cumulativeX = cellPadding;
+            cumulativeY -= cellHeights[row];
             for (int column = 0; column < columnCount; column++) {
                 Item cell = cells[column][row];
                 if (cell != null){
@@ -123,12 +125,11 @@ public class GridPanel extends ItemGroup
                 }
                 cumulativeX += cellWidths[column] + cellSpacing;
             }
-            cumulativeX = cellPadding;
-            cumulativeY += cellHeights[row] + cellSpacing;
+            cumulativeY -= cellSpacing;
         }
     }
 
-    public void clear()
+    public void clearCells()
     {
         for (int row = 0; row < rowCount; row++){
             for (int column = 0; column < columnCount; column++){

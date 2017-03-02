@@ -36,6 +36,7 @@ public class ResourcePanel extends Item
         oilImage = new Image();
         woodImage = new Image();
         table = createTable();
+        setId(new Identifier("ResourcePane"));
     }
 
     private Label createLabel()

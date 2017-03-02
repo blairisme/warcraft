@@ -46,6 +46,15 @@ public class PeasantProvider implements AssetObjectProvider<Item>
     @Override
     public Item get()
     {
+        /*
+        Health: 30
+        Armour: 0
+        Damage: 1-5
+        Range: 1
+        Sight 4
+        Speed: 10
+        */
+
         Sound selected = assets.get("data/sounds/human/unit/peasant/selected_1.mp3", Sound.class);
         Sound complete = assets.get("data/sounds/human/unit/peasant/complete.mp3", Sound.class);
         Sound acknowledge = assets.get("data/sounds/human/unit/peasant/acknowledge_1.mp3", Sound.class);
@@ -72,9 +81,13 @@ public class PeasantProvider implements AssetObjectProvider<Item>
 
         EnumSet<Actions> actions = EnumSet.noneOf(Actions.class);
         actions.add(Actions.Move);
+        actions.add(Actions.Stop);
         actions.add(Actions.Attack);
-        actions.add(Actions.BuildBarracks);
+        //actions.add(Actions.Repair);
+        //actions.add(Actions.Harvest);
         actions.add(Actions.BuildFarm);
+        actions.add(Actions.BuildBarracks);
+        //actions.add(Actions.BuildTownhall);
 
         Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
         properties.put(new Identifier("Type"), new Identifier("Peasant"));
@@ -87,6 +100,8 @@ public class PeasantProvider implements AssetObjectProvider<Item>
         properties.put(new Identifier("Sounds"), sounds);
         properties.put(new Identifier("Id"), new Identifier());
         properties.put(new Identifier("Icon"), icon);
+        properties.put(new Identifier("Health"), 30.0f);
+        properties.put(new Identifier("HealthMaximum"), 30.0f);
         properties.put(new Identifier("Actions"), actions);
 
         return new AnimatedItem(properties, animations);

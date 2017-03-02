@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.inject.AssetObjectProvider;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 
 import javax.inject.Inject;
@@ -16,13 +15,13 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class ActionPanelProvider implements AssetObjectProvider<ActionPanel>
+public class ActionPaneProvider implements AssetObjectProvider<ActionPane>
 {
     private AssetManager assets;
     private ActionButtonProvider actionButtonProvider;
 
     @Inject
-    public ActionPanelProvider(
+    public ActionPaneProvider(
         Device device,
         ActionButtonProvider actionButtonProvider)
     {
@@ -37,11 +36,10 @@ public class ActionPanelProvider implements AssetObjectProvider<ActionPanel>
     }
 
     @Override
-    public ActionPanel get()
+    public ActionPane get()
     {
-        ActionPanel result = new ActionPanel(actionButtonProvider);
+        ActionPane result = new ActionPane(actionButtonProvider);
         result.setBackground(getBackground());
-        result.setProperty(new Identifier("Id"), new Identifier("ActionPanel"));
         return result;
     }
 

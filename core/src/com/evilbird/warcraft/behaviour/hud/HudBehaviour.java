@@ -39,16 +39,16 @@ public class HudBehaviour implements Behaviour
         Float gold = (Float)player.getProperty(new Identifier("Gold"));
         Float wood = (Float)player.getProperty(new Identifier("Wood"));
 
-        Item resourceBar = hud.find(itemWithId(new Identifier("ResourcePanel"))); //TODO: Cache
+        Item resourceBar = hud.find(itemWithId(new Identifier("ResourcePane"))); //TODO: Cache
         resourceBar.setProperty(new Identifier("Gold"), gold); //TODO: Frequency too high. Only when changed.
         resourceBar.setProperty(new Identifier("Wood"), wood); //TODO: Frequency too high. Only when changed.
 
         Collection<Item> selection = world.findAll(selectedItems()); //TODO: Frequency too high. Only when changed.
 
-        Item actionPanel = hud.find(itemWithId(new Identifier("ActionPanel"))); //TODO: Cache
+        Item actionPanel = hud.find(itemWithId(new Identifier("ActionPane"))); //TODO: Cache
         actionPanel.setProperty(new Identifier("Selection"), selection); //TODO: Frequency too high. Only when changed.
 
-        Item selectionPanel = hud.find(itemWithId(new Identifier("SelectionPanel"))); //TODO: Cache
+        Item selectionPanel = hud.find(itemWithId(new Identifier("StatePane"))); //TODO: Cache
         selectionPanel.setProperty(new Identifier("Selection"), selection); //TODO: Frequency too high. Only when changed.
 
 

@@ -54,6 +54,8 @@ public class BarracksProvider implements AssetObjectProvider<Item>
         properties.put(new Identifier("Completion"), 0f);
         properties.put(new Identifier("Id"), new Identifier());
         properties.put(new Identifier("Icon"), icon);
+        properties.put(new Identifier("Health"), 800.0f);
+        properties.put(new Identifier("HealthMaximum"), 800.0f);
 
         return new AnimatedItem(properties, animations);
     }

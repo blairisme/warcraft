@@ -9,11 +9,11 @@ import com.evilbird.engine.item.control.Image;
  *
  * @author Blair Butterworth
  */
-public class MinimapPanel extends ItemGroup
+public class MinimapPane extends ItemGroup
 {
     private Image image;
 
-    public MinimapPanel()
+    public MinimapPane()
     {
         this.image = new Image();
         this.image.setSize(176, 136);

@@ -15,27 +15,31 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class MinimapPanelProvider implements AssetObjectProvider<MinimapPanel>
+public class UnitPaneProvider implements AssetObjectProvider<UnitPane>
 {
     private AssetManager assets;
+    private HealthBarProvider healthBarProvider;
 
     @Inject
-    public MinimapPanelProvider(Device device)
+    public UnitPaneProvider(
+        Device device,
+        HealthBarProvider healthBarProvider)
     {
         this.assets = device.getAssetStorage().getAssets();
+        this.healthBarProvider = healthBarProvider;
     }
 
     @Override
     public void load()
     {
-        assets.load("data/textures/human/hud/minimap_panel.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/selection.png", Texture.class);
     }
 
     @Override
-    public MinimapPanel get()
+    public UnitPane get()
     {
-        MinimapPanel result = new MinimapPanel();
-        result.setBackground(getTexture("data/textures/human/hud/minimap_panel.png"));
+        UnitPane result = new UnitPane(healthBarProvider);
+        result.setBackground(getTexture("data/textures/neutral/perennial/selection.png"));
         return result;
     }
 

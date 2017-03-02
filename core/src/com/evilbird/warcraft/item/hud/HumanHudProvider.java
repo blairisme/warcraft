@@ -9,46 +9,50 @@ import javax.inject.Provider;
 //TODO:
 public class HumanHudProvider implements AssetObjectProvider<ItemRoot>
 {
-    private ActionPanelProvider actionPanelProvider;
+    private ActionPaneProvider actionPaneProvider;
     private ActionButtonProvider actionButtonProvider;
     private ResourcePanelProvider resourcePanelProvider;
-    private SelectionPanelProvider selectionPanelProvider;
-    private SelectionTileProvider selectionTileProvider;
+    private SelectionPaneProvider selectionPaneProvider;
+    private UnitPaneProvider unitPaneProvider;
     private HealthBarProvider healthBarProvider;
-    private MinimapPanelProvider minimapPanelProvider;
-    private Provider<ControlPanel> controlPanelProvider;
-
+    private MinimapPaneProvider minimapPaneProvider;
+    private DetailsPaneProvider detailsPaneProvider;
+    private Provider<ControlPane> controlPanelProvider;
+    private Provider<StatePane> statePanelProvider;
     @Inject
     public HumanHudProvider(
-        ActionPanelProvider actionPanelProvider,
+        ActionPaneProvider actionPaneProvider,
         ActionButtonProvider actionButtonProvider,
         ResourcePanelProvider resourceBarProvider,
-        SelectionPanelProvider selectionPanelProvider,
-        SelectionTileProvider selectionTileProvider,
+        SelectionPaneProvider selectionPaneProvider,
+        UnitPaneProvider unitPaneProvider,
         HealthBarProvider healthBarProvider,
-        MinimapPanelProvider minimapPanelProvider,
-        Provider<ControlPanel> controlPanelProvider)
+        MinimapPaneProvider minimapPaneProvider,
+        DetailsPaneProvider detailsPaneProvider,
+        Provider<ControlPane> controlPanelProvider)
     {
-        this.actionPanelProvider = actionPanelProvider;
+        this.actionPaneProvider = actionPaneProvider;
         this.actionButtonProvider = actionButtonProvider;
         this.resourcePanelProvider = resourceBarProvider;
-        this.selectionPanelProvider = selectionPanelProvider;
-        this.selectionTileProvider = selectionTileProvider;
+        this.selectionPaneProvider = selectionPaneProvider;
+        this.unitPaneProvider = unitPaneProvider;
         this.healthBarProvider = healthBarProvider;
-        this.minimapPanelProvider = minimapPanelProvider;
+        this.minimapPaneProvider = minimapPaneProvider;
+        this.detailsPaneProvider = detailsPaneProvider;
         this.controlPanelProvider = controlPanelProvider;
     }
 
     @Override
     public void load()
     {
-        actionPanelProvider.load();
+        actionPaneProvider.load();
         actionButtonProvider.load();
         resourcePanelProvider.load();
-        selectionPanelProvider.load();
-        selectionTileProvider.load();
+        selectionPaneProvider.load();
+        unitPaneProvider.load();
         healthBarProvider.load();
-        minimapPanelProvider.load();
+        minimapPaneProvider.load();
+        detailsPaneProvider.load();
     }
 
     @Override

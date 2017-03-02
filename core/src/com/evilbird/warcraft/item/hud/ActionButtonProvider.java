@@ -58,6 +58,7 @@ public class ActionButtonProvider implements AssetObjectProvider<ActionButton>
     {
         Map<ActionIdentifier, Drawable> result = new HashMap<ActionIdentifier, Drawable>();
         result.put(Actions.Move, getTexture("data/textures/neutral/perennial/icons.png", 138, 608, 46, 38));
+        result.put(Actions.Stop, getTexture("data/textures/neutral/perennial/icons.png", 46, 1254, 46, 38));
         result.put(Actions.Attack, getTexture("data/textures/neutral/perennial/icons.png", 46, 874, 46, 38));
         result.put(Actions.BuildBarracks, getTexture("data/textures/neutral/perennial/icons.png", 92, 646, 46, 38));
         result.put(Actions.BuildFarm, getTexture("data/textures/neutral/perennial/icons.png", 138, 646, 46, 38));

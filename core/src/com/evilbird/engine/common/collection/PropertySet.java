@@ -12,7 +12,7 @@ public interface PropertySet<K,V>
     void setProperty(K key, V value);
 
     /*
-    void	clear()
+    void	clearCells()
     Removes all of the mappings from this map (optional operation).
     boolean	containsKey(Object key)
     Returns true if this map contains a mapping for the specified key.
