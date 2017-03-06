@@ -2,9 +2,11 @@ package com.evilbird.warcraft.item.hud;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.TextLabel;
+import com.evilbird.warcraft.item.unit.Unit;
 
 import javax.inject.Provider;
 
@@ -49,8 +51,8 @@ public class DetailsPane extends GridPane
         unitPane.setItem(item);
         unitPane.setSize(54, 53);
 
-        TextLabel name = createLabel("Footman", 100, 15);
-        TextLabel level = createLabel("Level 1", 100, 15);
+        TextLabel name = createLabel(getName(item), 100, 15);
+        TextLabel level = createLabel(getLevel(item), 100, 15);
 
         GridPane nameContainer = new GridPane(1, 2);
         nameContainer.setSize(110, 50);
@@ -68,46 +70,97 @@ public class DetailsPane extends GridPane
         setCell(titleContainer, 0, 0);
     }
 
+    private String getName(Item item)
+    {
+        return item.getType().toString(); //TODO: Replace with item.getName()
+    }
+
+    private String getLevel(Item item)
+    {
+        if (item instanceof Unit)
+        {
+            Unit unit = (Unit)item;
+            return "Level " + String.valueOf(unit.getLevel()); //TODO: Localize
+        }
+        return "";
+    }
+
     private void setDetails(Item item)
     {
-        /*
-        --- Farm ---
-        Food Usage:
-            Grown: 5
-            Used: 4
-         */
+        if (Objects.equals(new Identifier("Farm"), item.getType())){
+            setFarmDetails(item);
+        }
+        else if (Objects.equals(new Identifier("TownHall"), item.getType())){
+            setTownHallDetails(item);
+        }
+        else if (Objects.equals(new Identifier("GoldMine"), item.getType())){
+            setGoldMineDetails(item);
+        }
+        else if (Objects.equals(new Identifier("Footman"), item.getType()) ||
+                Objects.equals(new Identifier("Peasant"), item.getType())){
+            setUnitDetails((Unit)item);
+        }
+    }
 
-        /*
-        --- Townhall ---
-        Production:
-            Gold: 100
-            Lumber: 100
-            Oil: 100
-         */
+    private void setFarmDetails(Item item)
+    {
+        TextLabel title = createLabel("Food Usage:", 160, 12);
+        TextLabel grown = createLabel("    Grown: XXX", 160, 12);
+        TextLabel used = createLabel("    Used: XXX", 160, 12);
 
-        /*
-        --- Footman ---
-            Armour: 2
-            Damage: 2-9
-            Range: 1
-            Sight 4
-            Speed: 10
-        */
+        GridPane detailsContainer = new GridPane(1, 3);
+        detailsContainer.setSize(160, 100);
+        detailsContainer.setCellSpacing(4);
+        detailsContainer.setCell(title, 0, 0);
+        detailsContainer.setCell(grown, 0, 1);
+        detailsContainer.setCell(used, 0, 2);
+        detailsContainer.setCellWidthMinimum(160);
+        detailsContainer.setCellHeightMinimum(12);
 
-        /*
-        --- Barracks ---
-         */
+        setCell(detailsContainer, 0, 1);
+    }
 
-        /*
-        --- Gold Mine ---
-            Gold left 123
-         */
+    private void setTownHallDetails(Item item)
+    {
+        TextLabel production = createLabel("Production:", 160, 12);
+        TextLabel gold = createLabel("    Gold: XXX", 160, 12);
+        TextLabel lumber = createLabel("    Lumber: XXX", 160, 12);
+        TextLabel oil = createLabel("    Oil: XXX", 160, 12);
 
-        TextLabel armour = createLabel("Armour: 2", 160, 12);
-        TextLabel damage = createLabel("Damage: 2-9", 160, 12);
-        TextLabel range = createLabel("Range: 1", 160, 12);
-        TextLabel sight = createLabel("Sight: 4", 160, 12);
-        TextLabel speed = createLabel("Speed: 10", 160, 12);
+        GridPane detailsContainer = new GridPane(1, 4);
+        detailsContainer.setSize(160, 100);
+        detailsContainer.setCellSpacing(4);
+        detailsContainer.setCell(production, 0, 0);
+        detailsContainer.setCell(gold, 0, 1);
+        detailsContainer.setCell(lumber, 0, 2);
+        detailsContainer.setCell(oil, 0, 3);
+        detailsContainer.setCellWidthMinimum(160);
+        detailsContainer.setCellHeightMinimum(12);
+
+        setCell(detailsContainer, 0, 1);
+    }
+
+    private void setGoldMineDetails(Item item)
+    {
+        TextLabel title = createLabel("Gold Left: XXX", 160, 12);
+
+        GridPane detailsContainer = new GridPane(1, 1);
+        detailsContainer.setSize(160, 100);
+        detailsContainer.setCellSpacing(4);
+        detailsContainer.setCell(title, 0, 0);
+        detailsContainer.setCellWidthMinimum(160);
+        detailsContainer.setCellHeightMinimum(12);
+
+        setCell(detailsContainer, 0, 1);
+    }
+
+    private void setUnitDetails(Unit unit)
+    {
+        TextLabel armour = createDetailsLabel("Armour", unit.getArmour());
+        TextLabel damage = createDetailsLabel("Damage", unit.getDamageMinimum(), unit.getDamageMaximum());
+        TextLabel range = createDetailsLabel("Range", unit.getRange());
+        TextLabel sight = createDetailsLabel("Sight", unit.getSight());
+        TextLabel speed = createDetailsLabel("Speed", unit.getSpeed());
 
         GridPane detailsContainer = new GridPane(1, 5);
         detailsContainer.setSize(160, 100);
@@ -121,6 +174,28 @@ public class DetailsPane extends GridPane
         detailsContainer.setCellHeightMinimum(12);
 
         setCell(detailsContainer, 0, 1);
+    }
+
+    //TODO: Localize
+    private TextLabel createDetailsLabel(String prefix, float suffix)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(prefix);
+        stringBuilder.append(": ");
+        stringBuilder.append(Math.round(suffix));
+        return createLabel(stringBuilder.toString(), 160, 12);
+    }
+
+    //TODO: Localize
+    private TextLabel createDetailsLabel(String prefix, float suffixMin, float suffixMax)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(prefix);
+        stringBuilder.append(": ");
+        stringBuilder.append(Math.round(suffixMin));
+        stringBuilder.append("-");
+        stringBuilder.append(Math.round(suffixMax));
+        return createLabel(stringBuilder.toString(), 160, 12);
     }
 
     private TextLabel createLabel(String text, float width, float height)
