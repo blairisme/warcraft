@@ -9,7 +9,7 @@ import com.evilbird.engine.common.inject.AssetObjectProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.Actions;
+import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.item.unit.common.AnimatedItem;
 import com.evilbird.warcraft.item.unit.common.AnimationBuilder;
 
@@ -58,11 +58,10 @@ public class TownHallProvider implements AssetObjectProvider<Item>
         TextureRegion iconRegion = new TextureRegion(iconTexture, 0, 304, 46, 38);
         TextureRegionDrawable icon = new TextureRegionDrawable(iconRegion);
 
-        EnumSet<Actions> actions = EnumSet.noneOf(Actions.class);
+        EnumSet<ActionType> actions = EnumSet.noneOf(ActionType.class);
         //actions.add(Actions.BuildPeasant);
 
         Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
-        properties.put(new Identifier("Type"), new Identifier("TownHall"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
         properties.put(new Identifier("Selected"), false);
         properties.put(new Identifier("Gold"), 0f);
@@ -73,6 +72,9 @@ public class TownHallProvider implements AssetObjectProvider<Item>
         properties.put(new Identifier("HealthMaximum"), 1200.0f);
         properties.put(new Identifier("Actions"), actions);
 
-        return new AnimatedItem(properties, animations);
+        AnimatedItem result = new AnimatedItem(properties, animations);
+        result.setType(new Identifier("TownHall"));
+
+        return result;
     }
 }

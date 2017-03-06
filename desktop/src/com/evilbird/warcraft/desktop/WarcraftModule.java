@@ -21,19 +21,13 @@ import dagger.Provides;
 @Module
 public abstract class WarcraftModule
 {
-    @Provides
+    @Binds
     @Singleton
-    public static ActionFactory provideActionFactory(ItemFactory itemFactory)
-    {
-        return new WarcraftActionFactory(itemFactory);
-    }
+    public abstract ActionFactory bindActionFactory(WarcraftActionFactory warcraftActionFactory);
 
-    @Provides
+    @Binds
     @Singleton
-    public static BehaviourFactory provideBehaviourFactory(ActionFactory actionFactory)
-    {
-        return new WarcraftBehaviourFactory(actionFactory);
-    }
+    public abstract BehaviourFactory bindBehaviourFactory(WarcraftBehaviourFactory warcraftBehaviourFactory);
 
     @Provides
     @Singleton

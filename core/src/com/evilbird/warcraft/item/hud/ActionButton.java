@@ -1,13 +1,12 @@
 package com.evilbird.warcraft.item.hud;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.ImageButton;
 import com.evilbird.engine.item.control.Invokable;
-import com.evilbird.warcraft.action.Actions;
+import com.evilbird.warcraft.action.ActionType;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -30,7 +29,7 @@ public class ActionButton extends ImageButton implements Invokable
         setSize(54, 46);
         icons = Collections.emptyMap();
         items = Collections.emptyList();
-        actionId = Actions.Unknown;
+        actionId = ActionType.Unknown;
     }
 
     public void setAction(ActionIdentifier action)
@@ -51,10 +50,12 @@ public class ActionButton extends ImageButton implements Invokable
 
     public void invoke(ActionFactory actionFactory)
     {
+        /*
         for (Item item: items){
             Action action = actionFactory.newAction(actionId, item, null);
             item.addAction(action);
         }
+        */
     }
 }
 

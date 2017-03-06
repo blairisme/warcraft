@@ -25,7 +25,6 @@ public class RemoveAction extends Action
     public boolean act(float delta)
     {
         item.clearActions();
-        actor.remove();
         root.removeItem(item);
         return true;
     }

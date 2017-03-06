@@ -58,13 +58,15 @@ public class TreeProvider implements AssetObjectProvider<Item>
         animations.put(new Identifier("GatherWood"), idleAnimation);
 
         Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
-        properties.put(new Identifier("Type"), new Identifier("Wood"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
         properties.put(new Identifier("Selected"), false);
         properties.put(new Identifier("Enabled"), true);
         properties.put(new Identifier("Wood"), 100f);
         properties.put(new Identifier("Id"), new Identifier());
 
-        return new AnimatedItem(properties, animations);
+        AnimatedItem result = new AnimatedItem(properties, animations);
+        result.setType(new Identifier("Wood"));
+
+        return result;
     }
 }

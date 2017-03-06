@@ -6,13 +6,13 @@ import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.control.Invokable;
 
 import java.util.Collection;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import static com.evilbird.engine.item.ItemPredicates.itemWithId;
 import static com.evilbird.engine.item.ItemPredicates.itemWithProperty;
@@ -21,7 +21,7 @@ public class HudBehaviour implements Behaviour
 {
     private ActionFactory actionFactory;
 
-   // @Inject
+    @Inject
     public HudBehaviour(ActionFactory actionFactory)
     {
         this.actionFactory = actionFactory;
@@ -51,7 +51,7 @@ public class HudBehaviour implements Behaviour
         Item selectionPanel = hud.find(itemWithId(new Identifier("StatePane"))); //TODO: Cache
         selectionPanel.setProperty(new Identifier("Selection"), selection); //TODO: Frequency too high. Only when changed.
 
-
+/*
         for (UserInput input: inputs)
         {
             if (input.getType() == UserInputType.Action)
@@ -64,7 +64,7 @@ public class HudBehaviour implements Behaviour
                 }
             }
         }
-
+*/
     }
 
     private Predicate<Item> selectedItems()

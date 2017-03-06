@@ -26,6 +26,7 @@ import com.evilbird.engine.action.value.ItemReferenceValue;
 import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.action.value.TransientValue;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
@@ -34,12 +35,12 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.item.ItemPredicates.itemWithId;
 
+//TODO: Split actions into separate classes
 public class WarcraftActionFactory implements ActionFactory
 {
     private ItemFactory itemFactory;
@@ -56,19 +57,20 @@ public class WarcraftActionFactory implements ActionFactory
     }
 
     @Override
-    public Action newAction(ActionIdentifier action, Item item, Object value)
+    //public Action newAction(ActionIdentifier action, Item item, Object value)
+    public Action newAction(ActionIdentifier action, Item item, Item target, UserInput input)
     {
-        if (Objects.equals(action, Actions.Select)) return select(item, (Boolean)value);
-        if (Objects.equals(action, Actions.Move)) return move(item, (Vector2)value);
-        if (Objects.equals(action, Actions.Pan)) return pan(item, (Vector2)value);
-        if (Objects.equals(action, Actions.Zoom)) return zoom(item, (UserInput)value);
-        if (Objects.equals(action, Actions.GatherGold)) return gatherGold(item, (Item)value);
-        if (Objects.equals(action, Actions.GatherWood)) return gatherWood(item, (Item)value);
-        if (Objects.equals(action, Actions.BuildFarm)) return buildFarm(item, (Vector2)value);
-        if (Objects.equals(action, Actions.BuildBarracks)) return buildBarracks(item, (Vector2)value);
-        if (Objects.equals(action, Actions.Attack)) return attack(item, (Item)value);
-        if (Objects.equals(action, Actions.Stop)) return stop(item);
-        throw new IllegalArgumentException();
+        if (Objects.equals(action, ActionType.Select)) return toggleSelection(item);
+        if (Objects.equals(action, ActionType.Move)) return move(item, input);
+        if (Objects.equals(action, ActionType.Pan)) return pan(item, input);
+        if (Objects.equals(action, ActionType.Zoom)) return zoom(item, input);
+        if (Objects.equals(action, ActionType.GatherGold)) return gatherGold(item, target);
+        if (Objects.equals(action, ActionType.GatherWood)) return gatherWood(item, target);
+        //if (Objects.equals(action, ActionType.BuildFarm)) return buildFarm(item, (Vector2)value);
+        //if (Objects.equals(action, ActionType.BuildBarracks)) return buildBarracks(item, (Vector2)value);
+        if (Objects.equals(action, ActionType.Attack)) return attack(item, target);
+        if (Objects.equals(action, ActionType.Stop)) return stop(item);
+        throw new IllegalArgumentException(action.toString());
     }
 
     private Action setAnimation(Item item, Identifier animation)
@@ -123,12 +125,18 @@ public class WarcraftActionFactory implements ActionFactory
         return move(item, destination.getPosition());
     }
 
+    private Action move(Item item, UserInput input)
+    {
+        ItemRoot root = item.getRoot();
+        Vector2 position = root.unproject(input.getPosition());
+        return move(item, position);
+    }
 
 
-    private Action pan(Item item, Vector2 delta)
+    private Action pan(Item item, UserInput input)
     {
         Identifier property = new Identifier("Position");
-        ActionModifier modifier = getPanModifier(item, delta);
+        ActionModifier modifier = getPanModifier(item, input.getDelta());
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(item, property, modifier, duration);
     }
@@ -198,13 +206,18 @@ public class WarcraftActionFactory implements ActionFactory
         return new ModifyAction(zoom, modifier, duration);
     }
 
+    private Action toggleSelection(Item item)
+    {
+        return select(item, !item.getSelected());
+    }
+
     private Action select(Item item, boolean selected)
     {
         Action result = setSelected(item, selected);
         if (selected)
         {
             Action sound = playSound(item, new Identifier("Selected"));
-            result = new com.evilbird.engine.action.ParallelAction(result, sound);
+            result = new ParallelAction(result, sound);
         }
         return result;
     }

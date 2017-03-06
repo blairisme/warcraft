@@ -3,7 +3,7 @@ package com.evilbird.warcraft.item.hud;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
-import com.evilbird.warcraft.action.Actions;
+import com.evilbird.warcraft.action.ActionType;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,41 +47,41 @@ public class ActionPane extends GridPane
 
     private void setSelection(Collection<Item> selection)
     {
-        Collection<Actions> actions = getActions(selection);
+        Collection<ActionType> actions = getActions(selection);
         Collection<Item> tiles = getTiles(actions, selection);
 
         clearCells();
         setCells(tiles);
     }
 
-    private Collection<Actions> getActions(Collection<Item> selection)
+    private Collection<ActionType> getActions(Collection<Item> selection)
     {
-        Collection<Actions> result = selection.isEmpty() ? EnumSet.noneOf(Actions.class) : EnumSet.allOf(Actions.class);
+        Collection<ActionType> result = selection.isEmpty() ? EnumSet.noneOf(ActionType.class) : EnumSet.allOf(ActionType.class);
         for (Item item: selection){
-            Collection<Actions> actions = getActions(item);
+            Collection<ActionType> actions = getActions(item);
             result.retainAll(actions);
         }
         return result;
     }
 
-    private Collection<Actions> getActions(Item item){
-        Collection<Actions> actions = (Collection<Actions>)item.getProperty(new Identifier("Actions"));
+    private Collection<ActionType> getActions(Item item){
+        Collection<ActionType> actions = (Collection<ActionType>)item.getProperty(new Identifier("Actions"));
         if (actions != null){
            return actions;
         }
         return Collections.emptyList();
     }
 
-    private Collection<Item> getTiles(Collection<Actions> actions, Collection<Item> items)
+    private Collection<Item> getTiles(Collection<ActionType> actions, Collection<Item> items)
     {
         Collection<Item> result = new ArrayList<Item>(actions.size());
-        for (Actions action: actions){
+        for (ActionType action: actions){
             result.add(getButton(action, items));
         }
         return result;
     }
 
-    private ActionButton getButton(Actions action, Collection<Item> items)
+    private ActionButton getButton(ActionType action, Collection<Item> items)
     {
         ActionButton result = buttonProvider.get();
         result.setAction(action);

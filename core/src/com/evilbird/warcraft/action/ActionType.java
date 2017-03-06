@@ -2,7 +2,7 @@ package com.evilbird.warcraft.action;
 
 import com.evilbird.engine.action.ActionIdentifier;
 
-public enum Actions implements ActionIdentifier
+public enum ActionType implements ActionIdentifier
 {
     Select,
     Move,
@@ -13,8 +13,11 @@ public enum Actions implements ActionIdentifier
     GatherGold,
     GatherWood,
 
-    BuildFarm,
-    BuildBarracks,
+    CreateBarracks,
+    CreateBarracksPrototype,
+
+    CreateFarm,
+    CreateFarmPrototype,
 
     Attack,
     Stop,

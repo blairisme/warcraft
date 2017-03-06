@@ -10,7 +10,7 @@ import com.evilbird.engine.common.inject.AssetObjectProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.Actions;
+import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.item.unit.common.AnimatedItem;
 import com.evilbird.warcraft.item.unit.common.AnimationBuilder;
 
@@ -79,18 +79,17 @@ public class PeasantProvider implements AssetObjectProvider<Item>
         TextureRegion iconRegion = new TextureRegion(iconTexture, 0, 0, 46, 38);
         TextureRegionDrawable icon = new TextureRegionDrawable(iconRegion);
 
-        EnumSet<Actions> actions = EnumSet.noneOf(Actions.class);
-        actions.add(Actions.Move);
-        actions.add(Actions.Stop);
-        actions.add(Actions.Attack);
+        EnumSet<ActionType> actions = EnumSet.noneOf(ActionType.class);
+        actions.add(ActionType.Move);
+        actions.add(ActionType.Stop);
+        actions.add(ActionType.Attack);
         //actions.add(Actions.Repair);
         //actions.add(Actions.Harvest);
-        actions.add(Actions.BuildFarm);
-        actions.add(Actions.BuildBarracks);
+        actions.add(ActionType.CreateFarm);
+        actions.add(ActionType.CreateBarracks);
         //actions.add(Actions.BuildTownhall);
 
         Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
-        properties.put(new Identifier("Type"), new Identifier("Peasant"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
         properties.put(new Identifier("Selected"), false);
         properties.put(new Identifier("Enabled"), true);
@@ -104,6 +103,9 @@ public class PeasantProvider implements AssetObjectProvider<Item>
         properties.put(new Identifier("HealthMaximum"), 30.0f);
         properties.put(new Identifier("Actions"), actions);
 
-        return new AnimatedItem(properties, animations);
+        AnimatedItem result = new AnimatedItem(properties, animations);
+        result.setType(new Identifier("Peasant"));
+
+        return result;
     }
 }

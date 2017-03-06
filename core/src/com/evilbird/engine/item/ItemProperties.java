@@ -10,6 +10,9 @@ import com.evilbird.engine.common.lang.Identifier;
 public class ItemProperties
 {
     public static final Identifier Id = new Identifier("Id");
+    public static final Identifier Type = new Identifier("Type");
+    public static final Identifier Selected = new Identifier("Selected");
     public static final Identifier Position = new Identifier("Position");
     public static final Identifier Size = new Identifier("Size");
+
 }

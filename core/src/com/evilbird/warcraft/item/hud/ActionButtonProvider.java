@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.inject.AssetObjectProvider;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.action.Actions;
+import com.evilbird.warcraft.action.ActionType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,11 +57,11 @@ public class ActionButtonProvider implements AssetObjectProvider<ActionButton>
     private Map<ActionIdentifier, Drawable> getActionIcons()
     {
         Map<ActionIdentifier, Drawable> result = new HashMap<ActionIdentifier, Drawable>();
-        result.put(Actions.Move, getTexture("data/textures/neutral/perennial/icons.png", 138, 608, 46, 38));
-        result.put(Actions.Stop, getTexture("data/textures/neutral/perennial/icons.png", 46, 1254, 46, 38));
-        result.put(Actions.Attack, getTexture("data/textures/neutral/perennial/icons.png", 46, 874, 46, 38));
-        result.put(Actions.BuildBarracks, getTexture("data/textures/neutral/perennial/icons.png", 92, 646, 46, 38));
-        result.put(Actions.BuildFarm, getTexture("data/textures/neutral/perennial/icons.png", 138, 646, 46, 38));
+        result.put(ActionType.Move, getTexture("data/textures/neutral/perennial/icons.png", 138, 608, 46, 38));
+        result.put(ActionType.Stop, getTexture("data/textures/neutral/perennial/icons.png", 46, 1254, 46, 38));
+        result.put(ActionType.Attack, getTexture("data/textures/neutral/perennial/icons.png", 46, 874, 46, 38));
+        result.put(ActionType.CreateBarracks, getTexture("data/textures/neutral/perennial/icons.png", 92, 646, 46, 38));
+        result.put(ActionType.CreateFarm, getTexture("data/textures/neutral/perennial/icons.png", 138, 646, 46, 38));
         return result;
     }
 

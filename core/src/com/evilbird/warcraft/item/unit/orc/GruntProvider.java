@@ -46,7 +46,6 @@ public class GruntProvider implements AssetObjectProvider<Item>
         TextureRegionDrawable icon = new TextureRegionDrawable(iconRegion);
 
         Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
-        properties.put(new Identifier("Type"), new Identifier("Grunt"));
         properties.put(new Identifier("Animation"), new Identifier("Idle"));
         properties.put(new Identifier("Selected"), false);
         properties.put(new Identifier("Enabled"), true);
@@ -55,6 +54,9 @@ public class GruntProvider implements AssetObjectProvider<Item>
         properties.put(new Identifier("Health"), 60.0f);
         properties.put(new Identifier("HealthMaximum"), 60.0f);
 
-        return new AnimatedItem(properties, animations);
+        AnimatedItem result = new AnimatedItem(properties, animations);
+        result.setType(new Identifier("Grunt"));
+
+        return result;
     }
 }

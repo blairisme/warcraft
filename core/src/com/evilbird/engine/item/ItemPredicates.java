@@ -2,8 +2,7 @@ package com.evilbird.engine.item;
 
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
-
-import java.util.Objects;
+import com.evilbird.engine.common.lang.Objects;
 
 /**
  * Instances of this class TODO:Finish
@@ -59,7 +58,7 @@ public class ItemPredicates
 
     public static Predicate<Item> itemWithAction()
     {
-        return new ItemWithAction();
+        return new ItemWithAction(); //TODO singleton?
     }
 
     public static class ItemWithAction implements Predicate<Item>
@@ -68,6 +67,20 @@ public class ItemPredicates
         public boolean test(Item item)
         {
             return item.hasActions();
+        }
+    }
+
+    public static Predicate<Item> selectedItem()
+    {
+        return new SelectedItem(); //TODO singleton?
+    }
+
+    public static class SelectedItem implements Predicate<Item>
+    {
+        @Override
+        public boolean test(Item item)
+        {
+            return item.getSelected();
         }
     }
 

@@ -32,6 +32,7 @@ public class DesktopLauncher
         configuration.height = 768;
         configuration.width = 1024;
         configuration.vSyncEnabled = true;
+        configuration.title = "Warcraft II";
         configuration.addIcon("data/icons/WarcraftIcon.png", Files.FileType.Internal);
         return configuration;
     }
