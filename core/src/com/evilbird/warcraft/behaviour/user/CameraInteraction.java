@@ -24,12 +24,12 @@ public class CameraInteraction implements Interaction
     {
         interactions = new CompositeInteraction();
         interactions.add(targetFactory.get(UserInputType.Zoom, "Camera", null, null, ActionType.Zoom));
-        interactions.add(targetFactory.get(UserInputType.Pan, "Camera", null, null, ActionType.Pan));
+        interactions.add(targetFactory.get(UserInputType.Drag, "Camera", null, null, ActionType.Pan));
     }
 
     @Override
-    public void update(UserInput input, Item target, Item worldSelection, Item hudSelection)
+    public boolean update(UserInput input, Item target, Item worldSelection, Item hudSelection)
     {
-        interactions.update(input, target, worldSelection, hudSelection);
+        return interactions.update(input, target, worldSelection, hudSelection);
     }
 }

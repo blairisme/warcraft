@@ -75,6 +75,7 @@ public class WarcraftActionFactory implements ActionFactory
         if (Objects.equals(action, ActionType.CreateBarracks)) return createBarracks(target, item);
         if (Objects.equals(action, ActionType.CreateBarracksPrototype)) return createBarracksPrototype(item);
 
+        if (Objects.equals(action, ActionType.Drag)) return drag(item, input);
 
         throw new IllegalArgumentException(action.toString());
     }
@@ -433,5 +434,16 @@ public class WarcraftActionFactory implements ActionFactory
         Action clearAction = new ClearAction(item);
         Action idleAnimation = setAnimation(item, new Identifier("Idle"));
         return new SequenceAction(clearAction, idleAnimation);
+    }
+
+    public Action drag(Item item, UserInput input)
+    {
+        Vector2 inputDelta = input.getDelta();
+        Vector2 dragDelta = new Vector2(inputDelta.x * -1, inputDelta.y * -1);
+
+        Identifier property = new Identifier("Position");
+        ActionModifier modifier = new DeltaModifier(dragDelta, DeltaType.PerUpdate);
+        ActionDuration duration = new InstantDuration();
+        return new ModifyAction(item, property, modifier, duration);
     }
 }

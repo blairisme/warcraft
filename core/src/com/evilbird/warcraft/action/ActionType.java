@@ -22,5 +22,7 @@ public enum ActionType implements ActionIdentifier
     Attack,
     Stop,
 
+    Drag,
+
     Unknown
 }

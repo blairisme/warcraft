@@ -68,7 +68,7 @@ public class AndroidInput implements DeviceInput, GestureDetector.GestureListene
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY)
     {
-        UserInput input = new UserInput(UserInputType.Pan, new Vector2(x, y), new Vector2(deltaX * -1, deltaY), 1);
+        UserInput input = new UserInput(UserInputType.Drag, new Vector2(x, y), new Vector2(deltaX * -1, deltaY), 1);
         pushInput(input);
         return true;
     }
@@ -109,7 +109,7 @@ public class AndroidInput implements DeviceInput, GestureDetector.GestureListene
             float panX = screenCenterX - pointerCenterX;
             float panY = screenCenterY - pointerCenterY-1;
             Vector2 delta = new Vector2(panX, panY);
-            UserInput input = new UserInput(UserInputType.Pan, Vector2.Zero, delta, 1);
+            UserInput input = new UserInput(UserInputType.Drag, Vector2.Zero, delta, 1);
             pushInput(input);
             */
         }

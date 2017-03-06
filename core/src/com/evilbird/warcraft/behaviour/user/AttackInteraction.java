@@ -27,8 +27,8 @@ public class AttackInteraction implements Interaction
     }
 
     @Override
-    public void update(UserInput input, Item target, Item worldSelection, Item hudSelection)
+    public boolean update(UserInput input, Item target, Item worldSelection, Item hudSelection)
     {
-        interactions.update(input, target, worldSelection, hudSelection);
+        return interactions.update(input, target, worldSelection, hudSelection);
     }
 }

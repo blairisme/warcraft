@@ -10,5 +10,5 @@ import com.evilbird.engine.item.Item;
  */
 public interface Interaction
 {
-    void update(UserInput input, Item target, Item worldSelection, Item hudSelection);
+    boolean update(UserInput input, Item target, Item worldSelection, Item hudSelection);
 }

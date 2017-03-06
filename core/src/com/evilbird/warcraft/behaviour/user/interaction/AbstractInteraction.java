@@ -47,12 +47,14 @@ public abstract class AbstractInteraction implements Interaction
     }
 
     @Override
-    public void update(UserInput input, Item target, Item worldSelection, Item hudSelection)
+    public boolean update(UserInput input, Item target, Item worldSelection, Item hudSelection)
     {
         if (applies(input, target, worldSelection, hudSelection))
         {
             apply(input, target, worldSelection);
+            return true;
         }
+        return false;
     }
 
     protected boolean applies(UserInput input, Item target, Item worldSelection, Item hudSelection)

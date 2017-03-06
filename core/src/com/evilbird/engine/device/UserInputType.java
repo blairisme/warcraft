@@ -5,5 +5,5 @@ public enum UserInputType
     Unknown,
     Action,
     Zoom,
-    Pan,
+    Drag,
 }

@@ -26,11 +26,15 @@ public class CompositeInteraction implements Interaction
     }
 
     @Override
-    public void update(UserInput input, Item target, Item worldSelection, Item hudSelection)
+    public boolean update(UserInput input, Item target, Item worldSelection, Item hudSelection)
     {
         for (Interaction child: children)
         {
-            child.update(input, target, worldSelection, hudSelection);
+            if (child.update(input, target, worldSelection, hudSelection))
+            {
+                return true;
+            }
         }
+        return false;
     }
 }

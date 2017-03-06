@@ -7,6 +7,7 @@ import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.behaviour.user.interaction.CompositeInteraction;
 import com.evilbird.warcraft.behaviour.user.interaction.Interaction;
 import com.evilbird.warcraft.behaviour.user.interaction.SelectionInteractionFactory;
+import com.evilbird.warcraft.behaviour.user.interaction.TargetInteractionFactory;
 
 import javax.inject.Inject;
 
@@ -20,19 +21,21 @@ public class HudInteraction implements Interaction
     private CompositeInteraction interactions;
 
     @Inject
-    public HudInteraction(SelectionInteractionFactory interactionFactory)
+    public HudInteraction(SelectionInteractionFactory selectionFactory, TargetInteractionFactory targetFactory)
     {
         interactions = new CompositeInteraction();
-        interactions.add(interactionFactory.get(UserInputType.Action, "StopButton", "Footman", null, ActionType.Stop));
-        interactions.add(interactionFactory.get(UserInputType.Action, "StopButton", "Peasant", null, ActionType.Stop));
+        interactions.add(selectionFactory.get(UserInputType.Action, "StopButton", "Footman", null, ActionType.Stop));
+        interactions.add(selectionFactory.get(UserInputType.Action, "StopButton", "Peasant", null, ActionType.Stop));
 
-        interactions.add(interactionFactory.get(UserInputType.Action, "CreateBarracksButton", "Peasant", null, ActionType.CreateBarracksPrototype));
-        interactions.add(interactionFactory.get(UserInputType.Action, "BarracksPrototype", "Peasant", null, ActionType.CreateBarracks));
+        interactions.add(selectionFactory.get(UserInputType.Action, "CreateBarracksButton", "Peasant", null, ActionType.CreateBarracksPrototype));
+        interactions.add(selectionFactory.get(UserInputType.Action, "BarracksPrototype", "Peasant", null, ActionType.CreateBarracks));
+
+        interactions.add(targetFactory.get(UserInputType.Drag, "BarracksPrototype", null, null, ActionType.Drag));
     }
 
     @Override
-    public void update(UserInput input, Item target, Item worldSelection, Item hudSelection)
+    public boolean update(UserInput input, Item target, Item worldSelection, Item hudSelection)
     {
-        interactions.update(input, target, worldSelection, hudSelection);
+        return interactions.update(input, target, worldSelection, hudSelection);
     }
 }

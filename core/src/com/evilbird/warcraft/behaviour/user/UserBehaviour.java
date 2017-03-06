@@ -57,15 +57,7 @@ public class UserBehaviour implements Behaviour
         }
     }
 
-    private void update(UserInput input, Collection<Item> targets, Collection<Item> world, Collection<Item> hud)
-    {
-        for (Item target: targets)
-        {
-            update(input, target, world, hud);
-        }
-    }
-
-    private void update(UserInput input, Item target, Collection<Item> world, Collection<Item> hud)
+    private void update(UserInput input, Collection<Item> target, Collection<Item> world, Collection<Item> hud)
     {
         if (world.isEmpty())
         {
@@ -77,7 +69,7 @@ public class UserBehaviour implements Behaviour
         }
     }
 
-    private void update(UserInput input, Item target, Item world, Collection<Item> hud)
+    private void update(UserInput input, Collection<Item> target, Item world, Collection<Item> hud)
     {
         if (hud.isEmpty())
         {
@@ -89,11 +81,22 @@ public class UserBehaviour implements Behaviour
         }
     }
 
-    private void update(UserInput input, Item target, Item world, Item hud)
+    private void update(UserInput input, Collection<Item> targets, Item world, Item hud)
+    {
+        for (Item target: targets)
+        {
+            if (update(input, target, world, hud))
+            {
+                return;
+            }
+        }
+    }
+
+    private boolean update(UserInput input, Item target, Item world, Item hud)
     {
         logUpdate(input, target, world, hud);
 
-        interactions.update(input, target, world, hud);
+        return interactions.update(input, target, world, hud);
     }
 
     private void logUpdate(UserInput input, Item target, Item world, Item hud)
@@ -139,17 +142,17 @@ public class UserBehaviour implements Behaviour
     {
         Collection<Item> result = new ArrayList<Item>();
 
-        Item cameraTarget = getCameraTarget(world);
-
-        if (cameraTarget != null)
-        {
-            result.add(cameraTarget);
-        }
         Item worldTarget = getWorldTarget(world, userInput);
 
         if (worldTarget != null)
         {
             result.add(worldTarget);
+        }
+        Item cameraTarget = getCameraTarget(world);
+
+        if (cameraTarget != null)
+        {
+            result.add(cameraTarget);
         }
         return result;
     }
