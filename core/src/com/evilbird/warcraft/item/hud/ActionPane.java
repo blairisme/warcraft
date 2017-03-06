@@ -51,7 +51,7 @@ public class ActionPane extends GridPane
     private void setSelection(Collection<Item> selection)
     {
         Collection<ActionType> actions = getActions(selection);
-        Collection<Item> tiles = getTiles(actions, selection);
+        Collection<Item> tiles = getTiles(actions);
 
         clearCells();
         setCells(tiles);
@@ -75,20 +75,19 @@ public class ActionPane extends GridPane
         return Collections.emptyList();
     }
 
-    private Collection<Item> getTiles(Collection<ActionType> actions, Collection<Item> items)
+    private Collection<Item> getTiles(Collection<ActionType> actions)
     {
         Collection<Item> result = new ArrayList<Item>(actions.size());
         for (ActionType action: actions){
-            result.add(getButton(action, items));
+            result.add(getButton(action));
         }
         return result;
     }
 
-    private ActionButton getButton(ActionType action, Collection<Item> items)
+    private ActionButton getButton(ActionType action)
     {
         ActionButton result = buttonProvider.get();
         result.setAction(action);
-        result.setItems(items);
         result.setSize(54, 46);
         return result;
     }

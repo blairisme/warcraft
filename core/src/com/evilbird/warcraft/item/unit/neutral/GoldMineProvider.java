@@ -1,17 +1,22 @@
 package com.evilbird.warcraft.item.unit.neutral;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetObjectProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.unit.common.AnimatedItem;
+import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.common.AnimationBuilder;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,28 +42,58 @@ public class GoldMineProvider implements AssetObjectProvider<Item>
     @Override
     public Item get()
     {
+        Unit result = new Unit();
+        result.setActions(getActions());
+        result.setAvailableAnimations(getAnimations());
+        result.setAnimation(new Identifier("Idle"));
+        result.setAvailableSounds(getSounds());
+        result.setArmour(0f);
+        result.setDamageMinimum(0f);
+        result.setDamageMaximum(0f);
+        result.setHealth(2500.0f);
+        result.setHealthMaximum(2500.0f);
+        result.setIcon(getIcon());
+        result.setLevel(1);
+        result.setName("Gold Mine");
+        result.setRange(0f);
+        result.setSelected(false);
+        result.setSelectable(true);
+        result.setTouchable(Touchable.enabled);
+        result.setSpeed(0f);
+        result.setSight(4f);
+        result.setType(new Identifier("GoldMine"));
+        result.setGold(2500f);
+        result.setOil(0f);
+        result.setWood(0f);
+        return result;
+    }
+
+    private EnumSet<ActionType> getActions()
+    {
+        EnumSet<ActionType> actions = EnumSet.noneOf(ActionType.class);
+        return actions;
+    }
+
+    private Map<Identifier, DirectionalAnimation> getAnimations()
+    {
         Texture texture = assets.get("data/textures/neutral/winter/gold_mine.png", Texture.class);
         Texture constructionTexture = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
         Map<Identifier, DirectionalAnimation> animations = AnimationBuilder.getBuildingAnimationSet(texture, constructionTexture, 96);
         animations.put(new Identifier("GatherGold"), animations.get(new Identifier("Construct")));
         animations.remove(new Identifier("Construct"));
+        return animations;
+    }
 
+    private Drawable getIcon()
+    {
         Texture iconTexture = assets.get("data/textures/neutral/perennial/icons.png", Texture.class);
         TextureRegion iconRegion = new TextureRegion(iconTexture, 184, 532, 46, 38);
-        TextureRegionDrawable icon = new TextureRegionDrawable(iconRegion);
+        return new TextureRegionDrawable(iconRegion);
+    }
 
-        Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
-        properties.put(new Identifier("Animation"), new Identifier("Idle"));
-        properties.put(new Identifier("Selected"), false);
-        properties.put(new Identifier("Gold"), 1000f);
-        properties.put(new Identifier("Id"), new Identifier());
-        properties.put(new Identifier("Icon"), icon);
-        properties.put(new Identifier("Health"), 2500.0f);
-        properties.put(new Identifier("HealthMaximum"), 2500.0f);
-
-        AnimatedItem result = new AnimatedItem(properties, animations);
-        result.setType(new Identifier("GoldMine"));
-
-        return result;
+    private Map<Identifier, Sound> getSounds()
+    {
+        Map<Identifier, Sound> sounds = new HashMap<Identifier, Sound>();
+        return sounds;
     }
 }

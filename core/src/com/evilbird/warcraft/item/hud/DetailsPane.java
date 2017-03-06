@@ -70,6 +70,30 @@ public class DetailsPane extends GridPane
 
     private void setDetails(Item item)
     {
+        /*
+        --- Farm ---
+        Food Usage:
+            Grown: 5
+            Used: 4
+         */
+
+        /*
+        --- Townhall ---
+        Production:
+            Gold: 100
+            Lumber: 100
+            Oil: 100
+         */
+
+        /*
+        --- Footman ---
+            Armour: 2
+            Damage: 2-9
+            Range: 1
+            Sight 4
+            Speed: 10
+        */
+
         TextLabel armour = createLabel("Armour: 2", 160, 12);
         TextLabel damage = createLabel("Damage: 2-9", 160, 12);
         TextLabel range = createLabel("Range: 1", 160, 12);

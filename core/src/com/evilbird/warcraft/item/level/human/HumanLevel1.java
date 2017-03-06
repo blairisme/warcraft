@@ -22,11 +22,11 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.control.AnimatedItem;
 import com.evilbird.warcraft.item.camera.Camera;
 import com.evilbird.warcraft.item.layer.Fog;
 import com.evilbird.warcraft.item.layer.Map;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.common.AnimatedItem;
 
 import org.apache.commons.lang3.Range;
 
@@ -132,8 +132,8 @@ public class HumanLevel1 implements AssetObjectProvider<ItemRoot>
 
                         AnimatedItem unit = (AnimatedItem)itemFactory.newItem(UnitType.Tree);
                         unit.setSize(width, height);
-                        unit.setAnimationDefinition(new Identifier("Idle"), animation);
-                        unit.setAnimationDefinition(new Identifier("GatherWood"), animation);
+                        unit.setAvailableAnimation(new Identifier("Idle"), animation);
+                        unit.setAvailableAnimation(new Identifier("GatherWood"), animation);
                         unit.setAnimation(new Identifier("Idle"));
                         unit.setProperty(new Identifier("Id"), new Identifier());
 

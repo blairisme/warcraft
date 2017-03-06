@@ -1,20 +1,26 @@
 package com.evilbird.warcraft.item.unit.neutral;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetObjectProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.unit.common.AnimatedItem;
+import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.common.AnimationBuilder;
 
 import org.apache.commons.lang3.Range;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +46,40 @@ public class TreeProvider implements AssetObjectProvider<Item>
     @Override
     public Item get()
     {
+        Unit result = new Unit();
+        result.setActions(getActions());
+        result.setAvailableAnimations(getAnimations());
+        result.setAnimation(new Identifier("Idle"));
+        result.setAvailableSounds(getSounds());
+        result.setArmour(0f);
+        result.setDamageMinimum(0f);
+        result.setDamageMaximum(0f);
+        result.setHealth(1200.0f);
+        result.setHealthMaximum(1200.0f);
+        result.setIcon(getIcon());
+        result.setLevel(1);
+        result.setName("Tree");
+        result.setRange(0f);
+        result.setSelected(false);
+        result.setSelectable(true);
+        result.setTouchable(Touchable.enabled);
+        result.setSpeed(0f);
+        result.setSight(4f);
+        result.setType(new Identifier("Wood"));
+        result.setGold(0f);
+        result.setOil(0f);
+        result.setWood(100f);
+        return result;
+    }
+
+    private EnumSet<ActionType> getActions()
+    {
+        EnumSet<ActionType> actions = EnumSet.noneOf(ActionType.class);
+        return actions;
+    }
+
+    private Map<Identifier, DirectionalAnimation> getAnimations()
+    {
         Texture texture = assets.get("data/textures/neutral/winter/terrain.png", Texture.class);
 
         Array<TextureRegion> deathTextures = AnimationBuilder.getAnimation(texture, 15 * 32, 7 * 32, 32);
@@ -57,16 +97,19 @@ public class TreeProvider implements AssetObjectProvider<Item>
         animations.put(new Identifier("Dead"), deathAnimation);
         animations.put(new Identifier("GatherWood"), idleAnimation);
 
-        Map<Identifier, Object> properties = new HashMap<Identifier, Object>();
-        properties.put(new Identifier("Animation"), new Identifier("Idle"));
-        properties.put(new Identifier("Selected"), false);
-        properties.put(new Identifier("Enabled"), true);
-        properties.put(new Identifier("Wood"), 100f);
-        properties.put(new Identifier("Id"), new Identifier());
+        return animations;
+    }
 
-        AnimatedItem result = new AnimatedItem(properties, animations);
-        result.setType(new Identifier("Wood"));
+    private Drawable getIcon()
+    {
+        Texture iconTexture = assets.get("data/textures/neutral/perennial/icons.png", Texture.class);
+        TextureRegion iconRegion = new TextureRegion(iconTexture, 46, 684, 46, 38);
+        return new TextureRegionDrawable(iconRegion);
+    }
 
-        return result;
+    private Map<Identifier, Sound> getSounds()
+    {
+        Map<Identifier, Sound> sounds = new HashMap<Identifier, Sound>();
+        return sounds;
     }
 }

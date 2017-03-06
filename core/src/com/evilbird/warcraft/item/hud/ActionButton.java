@@ -4,11 +4,9 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.ImageButton;
 import com.evilbird.warcraft.action.ActionType;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
@@ -20,13 +18,11 @@ import java.util.Map;
 public class ActionButton extends ImageButton
 {
     private ActionIdentifier actionId;
-    private Collection<Item> items;
     private Map<ActionIdentifier, Drawable> icons;
 
     public ActionButton()
     {
         icons = Collections.emptyMap();
-        items = Collections.emptyList();
         actionId = ActionType.Unknown;
         setPadding(4);
         setSize(54, 46);
@@ -45,11 +41,6 @@ public class ActionButton extends ImageButton
     public void setActionIcons(Map<ActionIdentifier, Drawable> icons)
     {
         this.icons = icons;
-    }
-
-    public void setItems(Collection<Item> items)
-    {
-        this.items = items;
     }
 }
 
