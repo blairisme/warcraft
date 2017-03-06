@@ -1,5 +1,7 @@
 package com.evilbird.warcraft.item.hud;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.control.GridPane;
 
 import javax.inject.Inject;
@@ -26,5 +28,7 @@ public class ControlPane extends GridPane
         setCell(minimapPaneProvider.get(), 0, 0);
         setCell(statePaneProvider.get(), 0, 1);
         setCell(actionPaneProvider.get(), 0, 2);
+        setType(new Identifier("ControlPane"));
+        setTouchable(Touchable.enabled);
     }
 }

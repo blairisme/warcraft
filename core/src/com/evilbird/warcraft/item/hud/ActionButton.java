@@ -1,11 +1,11 @@
 package com.evilbird.warcraft.item.hud;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.ImageButton;
-import com.evilbird.engine.item.control.Invokable;
 import com.evilbird.warcraft.action.ActionType;
 
 import java.util.Collection;
@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-public class ActionButton extends ImageButton implements Invokable
+public class ActionButton extends ImageButton
 {
     private ActionIdentifier actionId;
     private Collection<Item> items;
@@ -25,17 +25,21 @@ public class ActionButton extends ImageButton implements Invokable
 
     public ActionButton()
     {
-        setPadding(4);
-        setSize(54, 46);
         icons = Collections.emptyMap();
         items = Collections.emptyList();
         actionId = ActionType.Unknown;
+        setPadding(4);
+        setSize(54, 46);
+        setType(new Identifier("ActionButton"));
+        setTouchable(Touchable.enabled);
     }
 
     public void setAction(ActionIdentifier action)
     {
         actionId = action;
         setImage(icons.get(actionId));
+
+        setType(new Identifier(action.toString() + "Button"));
     }
 
     public void setActionIcons(Map<ActionIdentifier, Drawable> icons)
@@ -46,16 +50,6 @@ public class ActionButton extends ImageButton implements Invokable
     public void setItems(Collection<Item> items)
     {
         this.items = items;
-    }
-
-    public void invoke(ActionFactory actionFactory)
-    {
-        /*
-        for (Item item: items){
-            Action action = actionFactory.newAction(actionId, item, null);
-            item.addAction(action);
-        }
-        */
     }
 }
 

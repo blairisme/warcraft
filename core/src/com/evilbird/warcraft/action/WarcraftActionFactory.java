@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
+import com.evilbird.engine.action.ClearAction;
 import com.evilbird.engine.action.CreateAction;
 import com.evilbird.engine.action.ModifyAction;
 import com.evilbird.engine.action.ParallelAction;
@@ -406,16 +407,10 @@ public class WarcraftActionFactory implements ActionFactory
         return new SequenceAction(move, attack, die, clean);
     }
 
-    public Action stop(final Item item)
+    public Action stop(Item item)
     {
-        return new Action()
-        {
-            @Override
-            public boolean act(float delta)
-            {
-                item.clearActions();
-                return true;
-            }
-        };
+        Action clearAction = new ClearAction(item);
+        Action idleAnimation = setAnimation(item, new Identifier("Idle"));
+        return new SequenceAction(clearAction, idleAnimation);
     }
 }

@@ -29,4 +29,20 @@ public class Unit extends AnimatedItem
     {
         this.health = health;
     }
+
+    //HealthMax
+
+    //Icon
+
+    //Name
+
+    //Level
+
+    //Speed
+
+    //Sight
+
+    //Damage
+
+    //Armour
 }

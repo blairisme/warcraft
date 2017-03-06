@@ -60,13 +60,13 @@ public abstract class AbstractInteraction implements Interaction
         if (inputType != null && !Objects.equals(inputType, input.getType())){
             return false;
         }
-        if (targetType != null && !Objects.equals(targetType, target.getType())){
+        if (targetType != null && !Objects.equals(targetType, getType(target))){
             return false;
         }
-        if (selectedType != null && !Objects.equals(selectedType, worldSelection.getType())){
+        if (selectedType != null && !Objects.equals(selectedType, getType(worldSelection))){
             return false;
         }
-        if (hudType != null && !Objects.equals(hudType, hudSelection.getType())){
+        if (hudType != null && !Objects.equals(hudType, getType(hudSelection))){
             return false;
         }
         return true;
@@ -74,5 +74,10 @@ public abstract class AbstractInteraction implements Interaction
 
     protected void apply(UserInput input, Item target, Item selected)
     {
+    }
+
+    private Identifier getType(Item item)
+    {
+        return item != null ? item.getType() : null;
     }
 }

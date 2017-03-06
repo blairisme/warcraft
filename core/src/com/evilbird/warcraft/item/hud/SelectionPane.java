@@ -1,5 +1,6 @@
 package com.evilbird.warcraft.item.hud;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
@@ -27,6 +28,8 @@ public class SelectionPane extends GridPane
         setCellWidthMinimum(54);
         setCellHeightMinimum(53);
         setId(new Identifier("SelectionPane"));
+        setType(new Identifier("SelectionPane"));
+        setTouchable(Touchable.childrenOnly);
     }
 
     public void setItems(Collection<Item> selection)

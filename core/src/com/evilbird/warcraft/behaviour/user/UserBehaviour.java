@@ -28,6 +28,7 @@ public class UserBehaviour implements Behaviour
         AttackInteraction attackInteraction,
         CameraInteraction cameraInteraction,
         GatherInteraction gatherInteraction,
+        HudInteraction hudInteraction,
         MoveInteraction moveInteraction,
         SelectInteraction selectInteraction)
     {
@@ -35,6 +36,7 @@ public class UserBehaviour implements Behaviour
         interactions.add(attackInteraction);
         interactions.add(cameraInteraction);
         interactions.add(gatherInteraction);
+        interactions.add(hudInteraction);
         interactions.add(moveInteraction);
         interactions.add(selectInteraction);
     }
@@ -89,7 +91,22 @@ public class UserBehaviour implements Behaviour
 
     private void update(UserInput input, Item target, Item world, Item hud)
     {
+        logUpdate(input, target, world, hud);
+
         interactions.update(input, target, world, hud);
+    }
+
+    private void logUpdate(UserInput input, Item target, Item world, Item hud)
+    {
+        String inputType = input.getType().toString();
+
+        String targetType = target != null ? target.getType().toString() : "<none>";
+
+        String worldType = world != null ? world.getType().toString() : "<none>";
+
+        String hudType = hud != null ? hud.getType().toString() : "<none>";
+
+        System.out.println("Input: " + inputType + ", target: " + targetType + ", world: " + worldType + ", hud: " + hudType);
     }
 
     private Collection<Item> getTargets(ItemRoot world, ItemRoot hud, UserInput input)
@@ -107,7 +124,9 @@ public class UserBehaviour implements Behaviour
     {
         Vector2 position = userInput.getPosition();
 
-        Item hudElement = hud.hit(position, false);
+        Vector2 hudPosition = hud.unproject(position);
+
+        Item hudElement = hud.hit(hudPosition, true);
 
         if (hudElement != null)
         {
@@ -146,6 +165,6 @@ public class UserBehaviour implements Behaviour
 
         Vector2 worldPosition = world.unproject(position);
 
-        return world.hit(worldPosition, false);
+        return world.hit(worldPosition, true);
     }
 }

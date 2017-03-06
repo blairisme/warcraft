@@ -19,6 +19,7 @@ public class HumanHudProvider implements AssetObjectProvider<ItemRoot>
     private DetailsPaneProvider detailsPaneProvider;
     private Provider<ControlPane> controlPanelProvider;
     private Provider<StatePane> statePanelProvider;
+
     @Inject
     public HumanHudProvider(
         ActionPaneProvider actionPaneProvider,

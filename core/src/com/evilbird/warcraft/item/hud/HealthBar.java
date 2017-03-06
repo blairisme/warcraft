@@ -1,6 +1,8 @@
 package com.evilbird.warcraft.item.hud;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.control.ProgressBar;
 
 /**
@@ -13,6 +15,12 @@ public class HealthBar extends ProgressBar
     private Drawable highHealthTexture;
     private Drawable mediumHealthTexture;
     private Drawable lowHealthTexture;
+
+    public HealthBar()
+    {
+        setType(new Identifier("HealthBar"));
+        setTouchable(Touchable.disabled);
+    }
 
     public void setHighHealthTexture(Drawable texture)
     {

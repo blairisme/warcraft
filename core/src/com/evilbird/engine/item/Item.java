@@ -26,6 +26,7 @@ public class Item implements PropertySet<Identifier,Object>, ActorObserver
     private Identifier id; //TODO Change type to string
     private Identifier type;
     private boolean selected;
+    private boolean selectable;
 
     protected Map<Identifier, Object> properties; //TODO: Remove. Replace with methods
 
@@ -72,6 +73,11 @@ public class Item implements PropertySet<Identifier,Object>, ActorObserver
     }
 
     public boolean getSelectable()
+    {
+        return selectable;
+    }
+
+    public boolean getTouchable()
     {
         return delegate.isTouchable();
     }
@@ -123,7 +129,17 @@ public class Item implements PropertySet<Identifier,Object>, ActorObserver
 
     public void setSelectable(boolean selectable)
     {
-        delegate.setTouchable(selectable ? Touchable.enabled : Touchable.disabled);
+        this.selectable = selectable;
+    }
+
+    public void setTouchable(Touchable touchable)
+    {
+        delegate.setTouchable(touchable);
+    }
+
+    public void setVisible(boolean visible)
+    {
+        delegate.setVisible(visible);
     }
 
     public void setSize(float width, float height)
@@ -154,16 +170,6 @@ public class Item implements PropertySet<Identifier,Object>, ActorObserver
     public void setRoot(ItemRoot root)
     {
         this.root = root;
-    }
-
-    public void setTouchable(Touchable touchable)
-    {
-        delegate.setTouchable(touchable);
-    }
-
-    public void setVisible(boolean visible)
-    {
-        delegate.setVisible(visible);
     }
 
     public void draw(Batch batch, float alpha)

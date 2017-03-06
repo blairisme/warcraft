@@ -1,5 +1,6 @@
 package com.evilbird.warcraft.item.hud;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
@@ -9,7 +10,7 @@ import com.evilbird.engine.item.control.Image;
 import javax.inject.Provider;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this class TODO
  *
  * @author Blair Butterworth
  */
@@ -35,6 +36,8 @@ public class UnitPane extends GridPane
         setCellSpacing(2);
         setCell(icon, 0, 0);
         setCell(healthBar, 0, 1);
+        setType(new Identifier("UnitPane"));
+        setTouchable(Touchable.enabled);
     }
 
     public void setItem(Item item)
