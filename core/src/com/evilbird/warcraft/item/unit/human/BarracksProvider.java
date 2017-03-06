@@ -63,6 +63,7 @@ public class BarracksProvider implements AssetObjectProvider<Item>
         result.setSpeed(0f);
         result.setSight(4f);
         result.setType(new Identifier("Barracks"));
+        result.setSize(96, 96);
         return result;
     }
 

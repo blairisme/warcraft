@@ -71,6 +71,7 @@ public class PeasantProvider implements AssetObjectProvider<Item>
         result.setGold(0f);
         result.setOil(0f);
         result.setWood(0f);
+        result.setSize(72, 72);
         return result;
     }
 
@@ -85,6 +86,7 @@ public class PeasantProvider implements AssetObjectProvider<Item>
         actions.add(ActionType.CreateFarm);
         actions.add(ActionType.CreateBarracks);
         //actions.add(Actions.BuildTownhall);
+        //return with goods
         return actions;
     }
 

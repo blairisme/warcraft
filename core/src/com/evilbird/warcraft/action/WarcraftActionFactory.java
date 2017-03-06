@@ -71,6 +71,11 @@ public class WarcraftActionFactory implements ActionFactory
         //if (Objects.equals(action, ActionType.BuildBarracks)) return buildBarracks(item, (Vector2)value);
         if (Objects.equals(action, ActionType.Attack)) return attack(item, target);
         if (Objects.equals(action, ActionType.Stop)) return stop(item);
+
+        if (Objects.equals(action, ActionType.CreateBarracks)) return createBarracks(target, item);
+        if (Objects.equals(action, ActionType.CreateBarracksPrototype)) return createBarracksPrototype(item);
+
+
         throw new IllegalArgumentException(action.toString());
     }
 
@@ -337,7 +342,7 @@ public class WarcraftActionFactory implements ActionFactory
         Action animateBuildingBefore = setAnimation(stage, building, new Identifier("Construct"));
         Action before = new ParallelAction(animateBuilderBefore, animateBuildingBefore, soundBefore);
 
-        ActionValue value = new ItemReferenceValue(stage, building, new Identifier("Completion"));
+        ActionValue value = new ItemReferenceValue(stage, building, new Identifier("Health"));
         ActionModifier modifier = new DeltaModifier(100f, DeltaType.PerSecond);
         ActionDuration duration = new TimeDuration(10f);
         Action build = new ModifyAction(value, modifier, duration);
@@ -372,10 +377,26 @@ public class WarcraftActionFactory implements ActionFactory
         return build(builder, UnitType.Farm, location);
     }
 
-    private Action buildBarracks(Item builder, Vector2 location)
+
+
+
+    private Action createBarracks(Item prototype, Item peasant)
     {
-        return build(builder, UnitType.Barracks, location);
+        Action remove =  new RemoveAction(prototype);
+        Action build = build(peasant, UnitType.Barracks, prototype.getPosition());
+        return new SequenceAction(remove, build);
     }
+
+    private Action createBarracksPrototype(Item item)
+    {
+        ItemRoot itemRoot = item.getRoot();
+        Vector2 screenCenter = new Vector2(512, 384);
+        Vector2 location = itemRoot.unproject(screenCenter);
+        Action createPrototype = create(itemRoot, UnitType.BarracksPrototype, new Identifier("BarracksPrototype"), location);
+        return createPrototype;
+    }
+
+
 
     private Action reduceHealth(Item target)
     {

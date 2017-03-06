@@ -25,6 +25,9 @@ public class HudInteraction implements Interaction
         interactions = new CompositeInteraction();
         interactions.add(interactionFactory.get(UserInputType.Action, "StopButton", "Footman", null, ActionType.Stop));
         interactions.add(interactionFactory.get(UserInputType.Action, "StopButton", "Peasant", null, ActionType.Stop));
+
+        interactions.add(interactionFactory.get(UserInputType.Action, "CreateBarracksButton", "Peasant", null, ActionType.CreateBarracksPrototype));
+        interactions.add(interactionFactory.get(UserInputType.Action, "BarracksPrototype", "Peasant", null, ActionType.CreateBarracks));
     }
 
     @Override

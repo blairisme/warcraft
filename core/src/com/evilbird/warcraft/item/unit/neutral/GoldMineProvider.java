@@ -65,6 +65,7 @@ public class GoldMineProvider implements AssetObjectProvider<Item>
         result.setGold(2500f);
         result.setOil(0f);
         result.setWood(0f);
+        result.setSize(96, 96);
         return result;
     }
 

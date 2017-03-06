@@ -69,6 +69,7 @@ public class TreeProvider implements AssetObjectProvider<Item>
         result.setGold(0f);
         result.setOil(0f);
         result.setWood(100f);
+        result.setSize(32, 32);
         return result;
     }
 

@@ -17,6 +17,7 @@ public enum UnitType implements ItemIdentifier
     TownHall,
     Farm,
     Barracks,
+    BarracksPrototype,
 
     /* Orc Units */
     Grunt,

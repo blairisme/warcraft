@@ -66,6 +66,7 @@ public class TownHallProvider implements AssetObjectProvider<Item>
         result.setGold(1000f);
         result.setOil(0f);
         result.setWood(1000f);
+        result.setSize(128, 128);
         return result;
     }
 

@@ -13,7 +13,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.unit.UnitPrototype;
 import com.evilbird.warcraft.item.unit.common.AnimationBuilder;
 
 import java.util.EnumSet;
@@ -22,12 +22,17 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-public class FarmProvider implements AssetObjectProvider<Item>
+/**
+ * Instances of this class TODO:Finish
+ *
+ * @author Blair Butterworth
+ */
+public class BarracksPrototypeProvider implements AssetObjectProvider<Item>
 {
     private AssetManager assets;
 
     @Inject
-    public FarmProvider(Device device)
+    public BarracksPrototypeProvider(Device device)
     {
         this.assets = device.getAssetStorage().getAssets();
     }
@@ -35,7 +40,7 @@ public class FarmProvider implements AssetObjectProvider<Item>
     @Override
     public void load()
     {
-        assets.load("data/textures/human/winter/farm.png", Texture.class);
+        assets.load("data/textures/human/winter/barracks.png", Texture.class);
         assets.load("data/textures/neutral/perennial/construction.png", Texture.class);
         assets.load("data/textures/neutral/perennial/icons.png", Texture.class);
     }
@@ -43,7 +48,7 @@ public class FarmProvider implements AssetObjectProvider<Item>
     @Override
     public Item get()
     {
-        Unit result = new Unit();
+        UnitPrototype result = new UnitPrototype();
         result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(new Identifier("Idle"));
@@ -51,19 +56,23 @@ public class FarmProvider implements AssetObjectProvider<Item>
         result.setArmour(0f);
         result.setDamageMinimum(0f);
         result.setDamageMaximum(0f);
-        result.setHealth(400.0f);
-        result.setHealthMaximum(400.0f);
+        result.setHealth(800.0f);
+        result.setHealthMaximum(800.0f);
         result.setIcon(getIcon());
         result.setLevel(1);
-        result.setName("Farm");
+        result.setName("Barracks");
         result.setRange(0f);
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
         result.setSpeed(0f);
         result.setSight(4f);
-        result.setType(new Identifier("Farm"));
-        result.setSize(64, 64);
+        result.setType(new Identifier("BarracksPrototype"));
+        result.setSize(96, 96);
+
+
+        result.update(0);
+
         return result;
     }
 
@@ -75,15 +84,15 @@ public class FarmProvider implements AssetObjectProvider<Item>
 
     private Map<Identifier, DirectionalAnimation> getAnimations()
     {
-        Texture texture = assets.get("data/textures/human/winter/farm.png", Texture.class);
+        Texture texture = assets.get("data/textures/human/winter/barracks.png", Texture.class);
         Texture constructionTexture = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
-        return AnimationBuilder.getBuildingAnimationSet(texture, constructionTexture, 64);
+        return AnimationBuilder.getBuildingAnimationSet(texture, constructionTexture, 96);
     }
 
     private Drawable getIcon()
     {
         Texture iconTexture = assets.get("data/textures/neutral/perennial/icons.png", Texture.class);
-        TextureRegion iconRegion = new TextureRegion(iconTexture, 138, 266, 46, 38);
+        TextureRegion iconRegion = new TextureRegion(iconTexture, 46, 684, 46, 38);
         return new TextureRegionDrawable(iconRegion);
     }
 

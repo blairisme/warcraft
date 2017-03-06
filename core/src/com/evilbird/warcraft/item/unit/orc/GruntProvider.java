@@ -62,6 +62,7 @@ public class GruntProvider implements AssetObjectProvider<Item>
         result.setSpeed(10f);
         result.setSight(4f);
         result.setType(new Identifier("Grunt"));
+        result.setSize(72, 72);
         return result;
     }
 

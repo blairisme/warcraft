@@ -94,6 +94,15 @@ public class DetailsPane extends GridPane
             Speed: 10
         */
 
+        /*
+        --- Barracks ---
+         */
+
+        /*
+        --- Gold Mine ---
+            Gold left 123
+         */
+
         TextLabel armour = createLabel("Armour: 2", 160, 12);
         TextLabel damage = createLabel("Damage: 2-9", 160, 12);
         TextLabel range = createLabel("Range: 1", 160, 12);

@@ -30,7 +30,6 @@ public class SelectInteraction implements Interaction
         interactions.add(targetFactory.get(UserInputType.Action, "TownHall", null, null, ActionType.Select));
         interactions.add(targetFactory.get(UserInputType.Action, "Barracks", null, null, ActionType.Select));
         interactions.add(targetFactory.get(UserInputType.Action, "Farm", null, null, ActionType.Select));
-        interactions.add(targetFactory.get(UserInputType.Action, "Wood", null, null, ActionType.Select));
     }
 
     @Override

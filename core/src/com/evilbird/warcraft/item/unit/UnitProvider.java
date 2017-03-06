@@ -2,6 +2,7 @@ package com.evilbird.warcraft.item.unit;
 
 import com.evilbird.engine.common.inject.AssetObjectProviderSet;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.unit.human.BarracksPrototypeProvider;
 import com.evilbird.warcraft.item.unit.human.BarracksProvider;
 import com.evilbird.warcraft.item.unit.human.FarmProvider;
 import com.evilbird.warcraft.item.unit.human.FootmanProvider;
@@ -18,6 +19,7 @@ public class UnitProvider extends AssetObjectProviderSet<Item>
     @Inject
     public UnitProvider(
         BarracksProvider barracksProvider,
+        BarracksPrototypeProvider barracksPrototypeProvider,
         FarmProvider farmProvider,
         FootmanProvider footmanProvider,
         PeasantProvider peasantProvider,
@@ -28,6 +30,7 @@ public class UnitProvider extends AssetObjectProviderSet<Item>
     {
         super();
         addProvider(UnitType.Barracks, barracksProvider);
+        addProvider(UnitType.BarracksPrototype, barracksPrototypeProvider);
         addProvider(UnitType.Farm, farmProvider);
         addProvider(UnitType.Footman, footmanProvider);
         addProvider(UnitType.Peasant, peasantProvider);

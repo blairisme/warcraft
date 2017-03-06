@@ -133,14 +133,26 @@ public class AnimatedItem extends Item
     @Override
     public void draw(Batch batch, float alpha)
     {
+        updateAnimation();
         drawAnimation(batch);
         drawSelection(batch);
     }
 
+    private void updateAnimation()
+    {
+        if (updateAnimation){
+            updateAnimation = false;
+            currentAnimation = animations.get(currentAnimationId);
+            currentAnimation.setDirection(direction);
+        }
+    }
+
     private void drawAnimation(Batch batch)
     {
-        TextureRegion region = currentAnimation.getKeyFrame(animationTime);
-        batch.draw(region, getX(), getY(), getWidth(), getHeight());
+        //if (currentAnimation != null){
+            TextureRegion region = currentAnimation.getKeyFrame(animationTime);
+            batch.draw(region, getX(), getY(), getWidth(), getHeight());
+       // }
     }
 
     private void drawSelection(Batch batch)
@@ -167,11 +179,6 @@ public class AnimatedItem extends Item
     private void updateVisual(float delta)
     {
         animationTime += delta;
-        if (updateAnimation){
-            updateAnimation = false;
-            currentAnimation = animations.get(currentAnimationId);
-            currentAnimation.setDirection(direction);
-        }
     }
 
     private void updateAudio()
