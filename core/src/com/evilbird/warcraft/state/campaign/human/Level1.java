@@ -12,26 +12,28 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.control.AnimatedItem;
-import com.evilbird.warcraft.item.layer.Camera;
+import com.evilbird.warcraft.item.data.Camera;
 import com.evilbird.warcraft.item.layer.Fog;
+import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.layer.Map;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import org.apache.commons.lang3.Range;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -82,21 +84,32 @@ public class Level1 implements AssetProvider<ItemRoot>
         addFog(world, map);
     }
 
+    //TODO: Move into loop. Obtain layer from loop
     private void addMapItem(ItemRoot world, TiledMap tiledMap)
     {
-        Map map = new Map((TiledMapTileLayer)tiledMap.getLayers().get(0)); //TODO Get by name
-        map.setSize(1024, 1024); //TODO get dimensions from map data
-        map.setPosition(0, 0);
-       //map.setScale(1f);
-        map.setProperty(new Identifier("Id"), new Identifier("Map"));
-        map.setProperty(new Identifier("Type"), new Identifier("Map"));
+        TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
+
+        Map map = (Map)itemFactory.newItem(LayerType.Map);
+        map.setLayer(layer);
+        map.setSize(getSize(layer));
         world.addItem(map);
     }
 
+    //TODO: Move into loop. Obtain layer from loop
     private void addFog(ItemRoot world, TiledMap tiledMap)
     {
-        Fog fog = new Fog(assets, 32, 32, 32, 32); //TODO get dimensions from map data
+        TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
+
+        Fog fog = (Fog)itemFactory.newItem(LayerType.OpaqueFog);
+        fog.setSize(getSize(layer));
         world.addItem(fog);
+    }
+
+    private Vector2 getSize(TiledMapTileLayer layer)
+    {
+        float width = layer.getWidth() * layer.getTileWidth();
+        float height = layer.getHeight() * layer.getTileHeight();
+        return new Vector2(width, height);
     }
 
     private void addAggregateItems(ItemRoot world, MapLayer layer)
@@ -200,7 +213,6 @@ public class Level1 implements AssetProvider<ItemRoot>
 
                 Item unit = itemFactory.newItem(UnitType.valueOf(type));
                 unit.setSize(width, height);
-                //unit.setZIndex(10);
                 unit.setPosition(x, y);
                 unit.setProperty(new Identifier("Id"), new Identifier(name));
 

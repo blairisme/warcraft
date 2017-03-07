@@ -1,11 +1,10 @@
-package com.evilbird.warcraft.item.layer;
+package com.evilbird.warcraft.item.data;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
-
-import java.util.Objects;
 
 public class Camera extends Item
 {
@@ -19,15 +18,14 @@ public class Camera extends Item
         this.camera = camera;
     }
 
+
     @Override
     public Object getProperty(Identifier property)
     {
-        if (Objects.equals(property, POSITION_PROPERTY))
-        {
+        if (Objects.equals(property, POSITION_PROPERTY)){
             return new Vector2(camera.position.x, camera.position.y);
         }
-        else if (Objects.equals(property, ZOOM_PROPERTY))
-        {
+        else if (Objects.equals(property, ZOOM_PROPERTY)){
             return camera.zoom;
         }
         else
