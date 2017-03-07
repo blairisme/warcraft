@@ -2,8 +2,8 @@ package com.evilbird.warcraft.behaviour;
 
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
+import com.evilbird.engine.behaviour.BehaviourType;
 import com.evilbird.engine.behaviour.CompositeBehaviour;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.behaviour.hud.HudBehaviour;
 import com.evilbird.warcraft.behaviour.user.UserBehaviour;
 
@@ -32,7 +32,7 @@ public class WarcraftBehaviourFactory implements BehaviourFactory
     }
 
     @Override
-    public Behaviour newBehaviour(Identifier id)
+    public Behaviour newBehaviour(BehaviourType type)
     {
         Behaviour hudBehaviour = hudBehaviourProvider.get();
         Behaviour userBehaviour = userBehaviourProvider.get();

@@ -9,6 +9,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuFactory;
+import com.evilbird.engine.state.StateFactory;
 
 import javax.inject.Inject;
 
@@ -20,6 +21,7 @@ public class GameLoaderModel
     private BehaviourFactory behaviourFactory;
     private ItemFactory itemFactory;
     private MenuFactory menuFactory;
+    private StateFactory stateFactory;
     private float loadingTime;
 
     @Inject
@@ -28,7 +30,8 @@ public class GameLoaderModel
         ActionFactory actionFactory,
         BehaviourFactory behaviourFactory,
         ItemFactory itemFactory,
-        MenuFactory menuFactory)
+        MenuFactory menuFactory,
+        StateFactory stateFactory)
     {
         this.loadingTime = 0;
         this.assets = device.getAssetStorage().getAssets();
@@ -36,6 +39,7 @@ public class GameLoaderModel
         this.behaviourFactory = behaviourFactory;
         this.itemFactory = itemFactory;
         this.menuFactory = menuFactory;
+        this.stateFactory = stateFactory;
     }
 
     public void setPresenter(GameLoader presenter)
@@ -58,6 +62,7 @@ public class GameLoaderModel
         menuFactory.load();
         itemFactory.load();
         behaviourFactory.load();
+        stateFactory.load();
     }
 
     public void update(float delta)

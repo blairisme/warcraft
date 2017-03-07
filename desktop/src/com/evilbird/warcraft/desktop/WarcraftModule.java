@@ -6,10 +6,12 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.level.Level;
 import com.evilbird.engine.menu.MenuFactory;
+import com.evilbird.engine.state.StateFactory;
 import com.evilbird.warcraft.action.WarcraftActionFactory;
 import com.evilbird.warcraft.behaviour.WarcraftBehaviourFactory;
 import com.evilbird.warcraft.item.WarcraftItemFactory;
 import com.evilbird.warcraft.menu.WarcraftMenuFactory;
+import com.evilbird.warcraft.state.WarcraftStateFactory;
 
 import javax.inject.Provider;
 import javax.inject.Singleton;
@@ -39,4 +41,8 @@ public abstract class WarcraftModule
     @Binds
     @Singleton
     public abstract ItemFactory bindItemFactory(WarcraftItemFactory warcraftItemFactory);
+
+    @Binds
+    @Singleton
+    public abstract StateFactory bindStateFactory(WarcraftStateFactory warcraftStateFactory);
 }

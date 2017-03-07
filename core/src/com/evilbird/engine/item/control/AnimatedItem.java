@@ -142,8 +142,13 @@ public class AnimatedItem extends Item
     {
         if (updateAnimation){
             updateAnimation = false;
-            currentAnimation = animations.get(currentAnimationId);
-            currentAnimation.setDirection(direction);
+            if (animations.containsKey(currentAnimationId)){
+                currentAnimation = animations.get(currentAnimationId);
+                currentAnimation.setDirection(direction);
+            }
+            else {
+                System.out.println("Missing animation: " + currentAnimationId.toString()); //TODO: Use real logging
+            }
         }
     }
 

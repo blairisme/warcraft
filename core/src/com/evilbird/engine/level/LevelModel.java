@@ -2,11 +2,12 @@ package com.evilbird.engine.level;
 
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.state.StateFactory;
+import com.evilbird.warcraft.state.campaign.human.HumanCampaign;
+import com.evilbird.warcraft.state.hud.HudType;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class LevelModel
     private Level presenter;
     private Device device;
 
-    private ItemFactory itemFactory;
+    private StateFactory stateFactory;
     private BehaviourFactory behaviourFactory;
 
     private ItemRoot hud;
@@ -27,11 +28,11 @@ public class LevelModel
     @Inject
     public LevelModel(
         Device device,
-        ItemFactory itemFactory,
+        StateFactory stateFactory,
         BehaviourFactory behaviourFactory)
     {
         this.device = device;
-        this.itemFactory = itemFactory;
+        this.stateFactory = stateFactory;
         this.behaviourFactory = behaviourFactory;
     }
 
@@ -42,8 +43,8 @@ public class LevelModel
 
     public void load()
     {
-        world = itemFactory.newItemGroup(new Identifier("Level1"));
-        hud = itemFactory.newItemGroup(new Identifier("HumanHud"));
+        world = stateFactory.get(HumanCampaign.Level1);
+        hud = stateFactory.get(HudType.Human);
         behaviour = behaviourFactory.newBehaviour(null); //TODO Provide meaningful id
 
         presenter.setHud(hud);

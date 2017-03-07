@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
-import com.evilbird.engine.common.inject.AssetObjectProvider;
+import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
@@ -27,7 +27,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 //TODO: Add default animation
-public class TreeProvider implements AssetObjectProvider<Item>
+public class TreeProvider implements AssetProvider<Item>
 {
     private AssetManager assets;
 

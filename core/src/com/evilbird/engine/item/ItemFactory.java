@@ -1,7 +1,5 @@
 package com.evilbird.engine.item;
 
-import com.evilbird.engine.common.lang.Identifier;
-
 /**
  * Instances of this class TODO:Finish
  *
@@ -9,9 +7,7 @@ import com.evilbird.engine.common.lang.Identifier;
  */
 public interface ItemFactory
 {
-    public void load();
+    void load();
 
-    public Item newItem(ItemIdentifier type);
-
-    public ItemRoot newItemGroup(Identifier type);
+    Item newItem(ItemIdentifier type);
 }

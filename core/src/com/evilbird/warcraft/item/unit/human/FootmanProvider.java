@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
-import com.evilbird.engine.common.inject.AssetObjectProvider;
+import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
@@ -22,7 +22,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-public class FootmanProvider implements AssetObjectProvider<Item>
+public class FootmanProvider implements AssetProvider<Item>
 {
     private AssetManager assets;
 

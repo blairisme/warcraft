@@ -1,6 +1,6 @@
 package com.evilbird.warcraft.item.unit;
 
-import com.evilbird.engine.common.inject.AssetObjectProviderSet;
+import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.human.BarracksPrototypeProvider;
 import com.evilbird.warcraft.item.unit.human.BarracksProvider;
@@ -14,7 +14,7 @@ import com.evilbird.warcraft.item.unit.orc.GruntProvider;
 
 import javax.inject.Inject;
 
-public class UnitProvider extends AssetObjectProviderSet<Item>
+public class UnitProvider extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
     public UnitProvider(
