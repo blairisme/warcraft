@@ -6,7 +6,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.behaviour.user.interaction.CompositeInteraction;
 import com.evilbird.warcraft.behaviour.user.interaction.Interaction;
-import com.evilbird.warcraft.behaviour.user.interaction.TargetInteractionFactory;
+import com.evilbird.warcraft.behaviour.user.interaction.SelectionInteractionFactory;
 
 import javax.inject.Inject;
 
@@ -20,7 +20,7 @@ public class GatherInteraction implements Interaction
     private CompositeInteraction interactions;
 
     @Inject
-    public GatherInteraction(TargetInteractionFactory interactionFactory)
+    public GatherInteraction(SelectionInteractionFactory interactionFactory)
     {
         interactions = new CompositeInteraction();
         interactions.add(interactionFactory.get(UserInputType.Action, "GoldMine", "Peasant", null, ActionType.GatherGold));

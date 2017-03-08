@@ -3,8 +3,8 @@ package com.evilbird.warcraft.item.data;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemProperty;
 
 public class Camera extends Item
 {
@@ -54,24 +54,24 @@ public class Camera extends Item
     }
 
     @Override
-    public Object getProperty(Identifier property)
+    public Object getProperty(ItemProperty property)
     {
-        if (Objects.equals(property, ZOOM_PROPERTY)){
+        if (CameraProperties.Zoom.equals(property)){
             return getZoom();
         }
-        else if (Objects.equals(property, ORIGINAL_ZOOM_PROPERTY)){
+        else if (CameraProperties.OriginalZoom.equals(property)){
             return getOriginalZoom();
         }
         return super.getProperty(property);
     }
 
     @Override
-    public void setProperty(Identifier property, Object value)
+    public void setProperty(ItemProperty property, Object value)
     {
-        if (Objects.equals(property, ZOOM_PROPERTY)){
+        if (CameraProperties.Zoom.equals(property)){
             setZoom((Float) value);
         }
-        else if (Objects.equals(property, ORIGINAL_ZOOM_PROPERTY)){
+        else if (CameraProperties.OriginalZoom.equals(property)){
             setOriginalZoom((Float) value);
         }
         else{

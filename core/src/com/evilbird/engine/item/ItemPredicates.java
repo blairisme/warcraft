@@ -32,17 +32,17 @@ public class ItemPredicates
         }
     }
 
-    public static Predicate<Item> itemWithProperty(Identifier key, Object value)
+    public static Predicate<Item> itemWithProperty(ItemProperty key, Object value)
     {
         return new ItemWithProperty(key, value);
     }
 
     public static class ItemWithProperty implements Predicate<Item>
     {
-        private Identifier key;
+        private ItemProperty key;
         private Object value;
 
-        public ItemWithProperty(Identifier key, Object value)
+        public ItemWithProperty(ItemProperty key, Object value)
         {
             this.key = key;
             this.value = value;
@@ -83,28 +83,4 @@ public class ItemPredicates
             return item.getSelected();
         }
     }
-
-    /*
-    public static Predicate<Item> itemWithPosition(Vector2 position)
-    {
-        return new ItemWithPosition(position);
-    }
-
-    public static class ItemWithPosition implements Predicate<Item>
-    {
-        private Vector2 position;
-
-        public ItemWithPosition(Vector2 position)
-        {
-            this.position = position;
-        }
-
-        @Override
-        public boolean test(Item item)
-        {
-            //x >= 0 && x < width && y >= 0 && y < height
-            return false;
-        }
-    }
-    */
 }

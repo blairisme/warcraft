@@ -3,17 +3,16 @@ package com.evilbird.engine.action.duration;
 import com.evilbird.engine.action.value.ActionValue;
 import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.action.value.ObjectValue;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
-
-import java.util.Objects;
+import com.evilbird.engine.item.ItemProperty;
 
 public class PredicateDuration implements ActionDuration
 {
     private ActionValue left;
     private ActionValue right;
 
-    public PredicateDuration(Item item, Identifier property, Object value)
+    public PredicateDuration(Item item, ItemProperty property, Object value)
     {
         this(new ItemValue(item, property), new ObjectValue(value));
     }

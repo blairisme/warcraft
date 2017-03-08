@@ -5,8 +5,8 @@ import com.evilbird.engine.action.duration.ActionDuration;
 import com.evilbird.engine.action.modifier.ActionModifier;
 import com.evilbird.engine.action.value.ActionValue;
 import com.evilbird.engine.action.value.ItemValue;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemProperty;
 
 public class ModifyAction extends Action
 {
@@ -15,7 +15,7 @@ public class ModifyAction extends Action
     private ActionDuration duration;
 
     //TODO remove
-    public ModifyAction(Item target, Identifier property, ActionModifier modifier, ActionDuration duration)
+    public ModifyAction(Item target, ItemProperty property, ActionModifier modifier, ActionDuration duration)
     {
         this(new ItemValue(target, property), modifier, duration);
     }

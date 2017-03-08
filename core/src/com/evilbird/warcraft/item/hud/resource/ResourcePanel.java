@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 
 //TODO: Use item table
@@ -69,6 +68,11 @@ public class ResourcePanel extends Item
         table.setBackground(drawable);
     }
 
+    public void setGold(float gold)
+    {
+        setGoldText(String.valueOf(Math.round(gold)));
+    }
+
     public void setGoldText(String text)
     {
         goldText.setText(text);
@@ -80,6 +84,11 @@ public class ResourcePanel extends Item
         goldImage.setDrawable(drawable);
     }
 
+    public void setOil(float oil)
+    {
+        setOilText(String.valueOf(Math.round(oil)));
+    }
+
     public void setOilText(String text)
     {
         oilText.setText(text);
@@ -89,6 +98,11 @@ public class ResourcePanel extends Item
     {
         Drawable drawable = new TextureRegionDrawable(texture);
         oilImage.setDrawable(drawable);
+    }
+
+    public void setWood(float wood)
+    {
+        setWoodText(String.valueOf(Math.round(wood)));
     }
 
     public void setWoodText(String text)
@@ -114,6 +128,7 @@ public class ResourcePanel extends Item
         table.act(delta);
     }
 
+    /*
     @Override
     public void setProperty(Identifier property, Object value)
     {
@@ -130,4 +145,5 @@ public class ResourcePanel extends Item
             super.setProperty(property, value);
         }
     }
+    */
 }

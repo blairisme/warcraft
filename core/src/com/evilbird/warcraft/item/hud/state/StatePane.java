@@ -17,8 +17,6 @@ import javax.inject.Inject;
  */
 public class StatePane extends ItemGroup
 {
-    private static final Identifier SELECTION_PROPERTY = new Identifier("Selection");
-
     private DetailsPane detailsPane;
     private SelectionPane selectionPane;
     private Collection<Item> selection;
@@ -62,6 +60,9 @@ public class StatePane extends ItemGroup
         }
     }
 
+    /*
+    private static final Identifier SELECTION_PROPERTY = new Identifier("Selection");
+
     @Override
     public Object getProperty(Identifier property)
     {
@@ -81,4 +82,5 @@ public class StatePane extends ItemGroup
             super.setProperty(property, value);
         }
     }
+    */
 }

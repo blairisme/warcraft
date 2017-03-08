@@ -1,14 +1,14 @@
 package com.evilbird.engine.action.value;
 
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemProperty;
 
 public class ItemValue implements ActionValue
 {
     private Item item;
-    private Identifier property;
+    private ItemProperty property;
 
-    public ItemValue(Item item, Identifier property)
+    public ItemValue(Item item, ItemProperty property)
     {
         this.item = item;
         this.property = property;

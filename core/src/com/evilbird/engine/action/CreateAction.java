@@ -6,6 +6,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemIdentifier;
+import com.evilbird.engine.item.ItemProperties;
 import com.evilbird.engine.item.ItemRoot;
 
 public class CreateAction extends Action
@@ -32,7 +33,7 @@ public class CreateAction extends Action
         //unit.setSize(72, 72);
        // unit.setZIndex(10);
         item.setPosition(position);
-        item.setProperty(new Identifier("Id"), id);
+        item.setProperty(ItemProperties.Id, id);
         root.addItem(item);
         return true;
     }

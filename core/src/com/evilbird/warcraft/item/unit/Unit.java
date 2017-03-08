@@ -2,7 +2,7 @@ package com.evilbird.warcraft.item.unit;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Objects;
+import com.evilbird.engine.item.ItemProperty;
 import com.evilbird.engine.item.control.AnimatedItem;
 import com.evilbird.warcraft.action.ActionType;
 
@@ -207,48 +207,48 @@ public class Unit extends AnimatedItem
     }
 
     @Override
-    public Object getProperty(Identifier property)
+    public Object getProperty(ItemProperty property)
     {
-        if (Objects.equals(property, ACTIONS_PROPERTY)){
+        if (UnitProperties.Actions.equals(property)){
             return getActions();
         }
-        else if (Objects.equals(property, HEALTH_PROPERTY)){
+        else if (UnitProperties.Health.equals(property)){
             return getHealth();
         }
-        else if (Objects.equals(property, ICON_PROPERTY)){
+        else if (UnitProperties.Icon.equals(property)){
             return getIcon();
         }
-        else if (Objects.equals(property, GOLD_PROPERTY)){
+        else if (UnitProperties.Gold.equals(property)){
             return getGold();
         }
-        else if (Objects.equals(property, WOOD_PROPERTY)){
+        else if (UnitProperties.Wood.equals(property)){
             return getWood();
         }
-        else if (Objects.equals(property, OWNER_PROPERTY)){
+        else if (UnitProperties.Owner.equals(property)){
             return getOwner();
         }
         return super.getProperty(property);
     }
 
     @Override
-    public void setProperty(Identifier property, Object value)
+    public void setProperty(ItemProperty property, Object value)
     {
-        if (Objects.equals(property, ACTIONS_PROPERTY)){
+        if (UnitProperties.Actions.equals(property)){
             setActions((EnumSet<ActionType>)value);
         }
-        else if (Objects.equals(property, HEALTH_PROPERTY)){
+        else if (UnitProperties.Health.equals(property)){
             setHealth((Float)value);
         }
-        else if (Objects.equals(property, ICON_PROPERTY)){
+        else if (UnitProperties.Icon.equals(property)){
             setIcon((Drawable)value);
         }
-        else if (Objects.equals(property, GOLD_PROPERTY)){
+        else if (UnitProperties.Gold.equals(property)){
             setGold((Float)value);
         }
-        else if (Objects.equals(property, WOOD_PROPERTY)){
+        else if (UnitProperties.Wood.equals(property)){
             setWood((Float)value);
         }
-        else if (Objects.equals(property, OWNER_PROPERTY)){
+        else if (UnitProperties.Owner.equals(property)){
             setOwner((Identifier)value);
         }
         else{

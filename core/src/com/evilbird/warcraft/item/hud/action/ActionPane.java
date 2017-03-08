@@ -22,8 +22,6 @@ import javax.inject.Inject;
  */
 public class ActionPane extends GridPane
 {
-    private static final Identifier SELECTION_PROPERTY = new Identifier("Selection");
-
     private ActionButtonProvider buttonProvider;
     private Collection<Item> selection;
 
@@ -96,6 +94,10 @@ public class ActionPane extends GridPane
         return result;
     }
 
+    /*
+
+    private static final Identifier SELECTION_PROPERTY = new Identifier("Selection");
+
     @Override
     public Object getProperty(Identifier property)
     {
@@ -115,4 +117,5 @@ public class ActionPane extends GridPane
             super.setProperty(property, value);
         }
     }
+    */
 }

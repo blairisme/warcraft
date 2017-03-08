@@ -6,6 +6,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.Image;
+import com.evilbird.warcraft.item.unit.Unit;
 
 /**
  * Instances of this class TODO
@@ -40,12 +41,18 @@ public class UnitPane extends GridPane
 
     public void setItem(Item item)
     {
-        Drawable icon = (Drawable)item.getProperty(new Identifier("Icon")); //TODO
-        //float health = item.getProperty(new Identifier("Health")); //TODO
-        //float healthMaximum = item.getProperty(new Identifier("HealthMaximum")); //TODO
+        if (item instanceof Unit) //TODO: Pass in unit?
+        {
+            Unit unit = (Unit)item;
+            Drawable icon = unit.getIcon();
 
-        setImage(icon);
-        setHealth(0.5f);
+            float health = unit.getHealth();
+            float healthMaximum = unit.getHealthMaximum();
+            float healthPercent = health != 0 && healthMaximum != 0 ? health / healthMaximum : 0f;
+
+            setImage(icon);
+            setHealth(healthPercent);
+        }
     }
 
     public void setImage(Drawable drawable)

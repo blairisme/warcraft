@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemProperty;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -211,24 +211,24 @@ public class AnimatedItem extends Item
     }
 
     @Override
-    public Object getProperty(Identifier property)
+    public Object getProperty(ItemProperty property)
     {
-        if (Objects.equals(property, ANIMATION_PROPERTY)){
+        if (AnimationProperties.Animation.equals(property)){
             return getAnimation();
         }
-        else if (Objects.equals(property, SOUND_PROPERTY)){
+        else if (AnimationProperties.Sound.equals(property)){
             return getSound();
         }
         return super.getProperty(property);
     }
 
     @Override
-    public void setProperty(Identifier property, Object value)
+    public void setProperty(ItemProperty property, Object value)
     {
-        if (Objects.equals(property, ANIMATION_PROPERTY)){
+        if (AnimationProperties.Animation.equals(property)){
             setAnimation((Identifier) value);
         }
-        else if (Objects.equals(property, SOUND_PROPERTY)){
+        else if (AnimationProperties.Sound.equals(property)){
             setSound((Identifier)value);
         }
         else{

@@ -1,18 +1,16 @@
 package com.evilbird.engine.item;
 
-import com.evilbird.engine.common.lang.Identifier;
-
 /**
  * Instances of this class TODO:Finish
  *
  * @author Blair Butterworth
  */
-public class ItemProperties
+public enum ItemProperties implements ItemProperty
 {
-    public static final Identifier Id = new Identifier("Id");
-    public static final Identifier Type = new Identifier("Type");
-    public static final Identifier Selected = new Identifier("Selected");
-    public static final Identifier Position = new Identifier("Position");
-    public static final Identifier Size = new Identifier("Size");
-    public static final Identifier Touchable = new Identifier("Touchable");
+    Id,
+    Type,
+    Selected,
+    Touchable,
+    Position,
+    Size
 }

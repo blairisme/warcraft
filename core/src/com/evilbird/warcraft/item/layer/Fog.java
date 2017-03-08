@@ -8,6 +8,7 @@ import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.item.unit.UnitProperties;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -84,7 +85,7 @@ public class Fog extends Item
 
     private Predicate<Item> itemOwnedByPlayer()
     {
-        return itemWithProperty(new Identifier("Owner"), new Identifier("Player1"));
+        return itemWithProperty(UnitProperties.Owner, new Identifier("Player1"));
     }
 
     private void conceal(){

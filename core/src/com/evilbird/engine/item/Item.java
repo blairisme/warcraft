@@ -15,7 +15,7 @@ import com.evilbird.engine.item.framework.ActorObserver;
  *
  * @author Blair Butterworth
  */
-public class Item implements PropertySet<Identifier, Object>, ActorObserver
+public class Item implements PropertySet<ItemProperty, Object>, ActorObserver
 {
     Actor delegate;
     private ItemRoot root;
@@ -198,7 +198,7 @@ public class Item implements PropertySet<Identifier, Object>, ActorObserver
     }
 
     @Override
-    public Object getProperty(Identifier key)
+    public Object getProperty(ItemProperty key)
     {
         if (ItemProperties.Id.equals(key)){
             return getId();
@@ -224,7 +224,7 @@ public class Item implements PropertySet<Identifier, Object>, ActorObserver
     }
 
     @Override
-    public void setProperty(Identifier key, Object value)
+    public void setProperty(ItemProperty key, Object value)
     {
         if (ItemProperties.Id.equals(key)){
             setId((Identifier)value);

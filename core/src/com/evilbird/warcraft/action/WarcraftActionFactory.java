@@ -33,7 +33,12 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemIdentifier;
+import com.evilbird.engine.item.ItemProperties;
+import com.evilbird.engine.item.ItemProperty;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.control.AnimationProperties;
+import com.evilbird.warcraft.item.data.CameraProperties;
+import com.evilbird.warcraft.item.unit.UnitProperties;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.Arrays;
@@ -83,7 +88,7 @@ public class WarcraftActionFactory implements ActionFactory
 
     private Action setAnimation(Item item, Identifier animation)
     {
-        Identifier property = new Identifier("Animation");
+        ItemProperty property = AnimationProperties.Animation;
         ActionModifier modifier = new ConstantModifier(animation);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(item, property, modifier, duration);
@@ -91,7 +96,7 @@ public class WarcraftActionFactory implements ActionFactory
 
     private Action setAnimation(ItemRoot stage, Identifier item, Identifier animation)
     {
-        ActionValue value = new ItemReferenceValue(stage, item, new Identifier("Animation"));
+        ActionValue value = new ItemReferenceValue(stage, item, AnimationProperties.Animation);
         ActionModifier modifier = new ConstantModifier(animation);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(value, modifier, duration);
@@ -114,9 +119,9 @@ public class WarcraftActionFactory implements ActionFactory
 
     private Action moveAction(Item item, Vector2 destination)
     {
-        Identifier position = new Identifier("Position");
+        ItemProperty position = ItemProperties.Position;
         ActionModifier modifier = new MoveModifier(destination, 64f);
-        ActionDuration duration = new PredicateDuration((Item)item, position, destination);
+        ActionDuration duration = new PredicateDuration(item, position, destination);
         return new ModifyAction(item, position, modifier, duration);
     }
 
@@ -143,10 +148,10 @@ public class WarcraftActionFactory implements ActionFactory
 
     private Action pan(Item item, UserInput input)
     {
-        Identifier property = new Identifier("Position");
+        ItemProperty position = ItemProperties.Position;
         ActionModifier modifier = getPanModifier(item, input.getDelta());
         ActionDuration duration = new InstantDuration();
-        return new ModifyAction(item, property, modifier, duration);
+        return new ModifyAction(item, position, modifier, duration);
     }
 
     private ActionModifier getPanModifier(Item item, Vector2 delta)
@@ -192,23 +197,23 @@ public class WarcraftActionFactory implements ActionFactory
 
     private Action storeZoom(Item item)
     {
-        ActionValue value = new ItemValue((Item)item, new Identifier("OriginalZoom"));
-        ActionModifier modifier = new ConstantModifier(new ItemValue((Item)item, new Identifier("Zoom")));
+        ActionValue value = new ItemValue(item, CameraProperties.OriginalZoom);
+        ActionModifier modifier = new ConstantModifier(new ItemValue(item, CameraProperties.Zoom));
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(value, modifier, duration);
     }
 
     private Action resetZoom(Item item)
     {
-        ActionValue value = new ItemValue((Item)item, new Identifier("Zoom"));
-        ActionModifier modifier = new ConstantModifier(new ItemValue((Item)item, new Identifier("OriginalZoom")));
+        ActionValue value = new ItemValue(item, CameraProperties.Zoom);
+        ActionModifier modifier = new ConstantModifier(new ItemValue(item, CameraProperties.OriginalZoom));
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(value, modifier, duration);
     }
 
     private Action updateZoom(Item item, UserInput input)
     {
-        ActionValue zoom = new ItemValue((Item)item, new Identifier("Zoom"));
+        ActionValue zoom = new ItemValue(item, CameraProperties.Zoom);
         ActionModifier modifier = new ScaleModifier(input.getDelta().x, 0.25f, 1.5f);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(zoom, modifier, duration);
@@ -232,7 +237,7 @@ public class WarcraftActionFactory implements ActionFactory
 
     private Action setSelected(Item item, boolean selected)
     {
-        Identifier property = new Identifier("Selected");
+        ItemProperty property = ItemProperties.Selected;
         ActionModifier modifier = new ConstantModifier(selected);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(item, property, modifier, duration);
@@ -240,43 +245,43 @@ public class WarcraftActionFactory implements ActionFactory
 
     private Action playSound(Item item, Identifier sound)
     {
-        Identifier property = new Identifier("Sound");
+        ItemProperty property = AnimationProperties.Sound;
         ActionModifier modifier = new ConstantModifier(sound);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(item, property, modifier, duration);
     }
 
-    private Action resourceReceive(Item item, Identifier resource)
+    private Action resourceReceive(Item item, ItemProperty resourceProperty)
     {
         ActionModifier modifier = new DeltaModifier(1f, DeltaType.PerSecond);
         ActionDuration duration = new TimeDuration(10f);
-        return new ModifyAction(item, resource, modifier, duration);
+        return new ModifyAction(item, resourceProperty, modifier, duration);
     }
 
-    private Action resourceReceiveAnimated(Item item, Identifier resource, Identifier animation)
+    private Action resourceReceiveAnimated(Item item, ItemProperty resourceProperty, Identifier animation)
     {
         Action animateBefore = setAnimation(item, animation);
-        Action gather = resourceReceive(item, resource);
+        Action gather = resourceReceive(item, resourceProperty);
         Action animateAfter = setAnimation(item, new Identifier("Idle"));
         return new com.evilbird.engine.action.SequenceAction(animateBefore, gather, animateAfter);
     }
 
-    private Action resourceTake(Item item, Identifier resource)
+    private Action resourceTake(Item item, ItemProperty resourceProperty)
     {
         ActionModifier modifier = new DeltaModifier(-10f, DeltaType.PerSecond);
         ActionDuration duration = new TimeDuration(10f);
-        return new ModifyAction(item, resource, modifier, duration);
+        return new ModifyAction(item, resourceProperty, modifier, duration);
     }
 
-    private Action resourceTakeAnimated(Item item, Identifier resource, Identifier animation)
+    private Action resourceTakeAnimated(Item item, ItemProperty resourceProperty, Identifier animation)
     {
         Action animateBefore = setAnimation(item, animation);
-        Action gather = resourceTake(item, resource);
+        Action gather = resourceTake(item, resourceProperty);
         Action animateAfter = setAnimation(item, new Identifier("Idle"));
         return new com.evilbird.engine.action.SequenceAction(animateBefore, gather, animateAfter);
     }
 
-    private Action resourceTransfer(Item source, Item destination, Identifier resource, Identifier takeAnimation, Identifier receiveAnimation)
+    private Action resourceTransfer(Item source, Item destination, ItemProperty resource, Identifier takeAnimation, Identifier receiveAnimation)
     {
         Action deselect = setSelected(source, false);
         Action resourceTake = resourceTakeAnimated(source, resource, takeAnimation);
@@ -284,7 +289,7 @@ public class WarcraftActionFactory implements ActionFactory
         return new com.evilbird.engine.action.ParallelAction(deselect, resourceTake, resourceReceive);
     }
 
-    private Action gather(Item gatherer, Item resource, Item player, Item depot, Identifier property, Identifier gatherAnimation, Identifier depositAnimation)
+    private Action gather(Item gatherer, Item resource, Item player, Item depot, ItemProperty property, Identifier gatherAnimation, Identifier depositAnimation)
     {
         Action moveToResource = move(gatherer, resource);
         Action transfer = resourceTransfer(resource, gatherer, property, gatherAnimation, gatherAnimation);
@@ -299,7 +304,7 @@ public class WarcraftActionFactory implements ActionFactory
         ItemRoot root = item.getRoot();
         Item depot = root.find(itemWithId(new Identifier("TownHall1"))); //TODO
         Item player = root.find(itemWithId(new Identifier("Player1"))); //TODO
-        Identifier property = new Identifier("Gold");
+        ItemProperty property = UnitProperties.Gold;
         Identifier gatherAnimation = new Identifier("GatherGold");
         Identifier depositAnimation = new Identifier("DepositGold");
         return gather(item, resource, player, depot, property, gatherAnimation, depositAnimation);
@@ -310,7 +315,7 @@ public class WarcraftActionFactory implements ActionFactory
         ItemRoot root = item.getRoot();
         Item depot = root.find(itemWithId(new Identifier("TownHall1"))); //TODO
         Item player = root.find(itemWithId(new Identifier("Player1"))); //TODO
-        Identifier property = new Identifier("Wood");
+        ItemProperty property = UnitProperties.Wood;
         Identifier gatherAnimation = new Identifier("GatherWood");
         Identifier depositAnimation = new Identifier("DepositWood");
         return gather(item, resource, player, depot, property, gatherAnimation, depositAnimation);
@@ -332,7 +337,7 @@ public class WarcraftActionFactory implements ActionFactory
 */
     private Action setTouchable(Item item, boolean touchable)
     {
-        ActionValue value = new ItemValue(item, new Identifier("Touchable"));
+        ActionValue value = new ItemValue(item, ItemProperties.Touchable);
         ActionModifier modifier = new ConstantModifier(touchable ? Touchable.enabled : Touchable.disabled);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(value, modifier, duration);
@@ -346,7 +351,7 @@ public class WarcraftActionFactory implements ActionFactory
         Action animateBuildingBefore = setAnimation(stage, building, new Identifier("Construct"));
         Action before = new ParallelAction(animateBuilderBefore, animateBuildingBefore, soundBefore);
 
-        ActionValue value = new ItemReferenceValue(stage, building, new Identifier("Health"));
+        ActionValue value = new ItemReferenceValue(stage, building, UnitProperties.Health);
         ActionModifier modifier = new DeltaModifier(100f, DeltaType.PerSecond);
         ActionDuration duration = new TimeDuration(10f);
         Action build = new ModifyAction(value, modifier, duration);
@@ -405,7 +410,7 @@ public class WarcraftActionFactory implements ActionFactory
 
     private Action reduceHealth(Item target)
     {
-        Identifier health = new Identifier("Health");
+        ItemProperty health = UnitProperties.Health;
         ActionValue value = new ItemValue(target, health);
         ActionModifier modifier = new DeltaModifier(-10f, DeltaType.PerSecond, 0f, 100f);
         ActionDuration duration = new PredicateDuration(target, health, 0f);
@@ -445,7 +450,7 @@ public class WarcraftActionFactory implements ActionFactory
         Vector2 inputDelta = input.getDelta();
         Vector2 dragDelta = new Vector2(inputDelta.x * -1, inputDelta.y * -1);
 
-        Identifier property = new Identifier("Position");
+        ItemProperty property = ItemProperties.Position;
         ActionModifier modifier = new DeltaModifier(dragDelta, DeltaType.PerUpdate);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(item, property, modifier, duration);
