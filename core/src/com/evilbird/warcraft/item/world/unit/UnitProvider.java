@@ -1,16 +1,16 @@
-package com.evilbird.warcraft.item.unit;
+package com.evilbird.warcraft.item.world.unit;
 
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.unit.human.BarracksPrototypeProvider;
-import com.evilbird.warcraft.item.unit.human.BarracksProvider;
-import com.evilbird.warcraft.item.unit.human.FarmProvider;
-import com.evilbird.warcraft.item.unit.human.FootmanProvider;
-import com.evilbird.warcraft.item.unit.human.PeasantProvider;
-import com.evilbird.warcraft.item.unit.human.TownHallProvider;
-import com.evilbird.warcraft.item.unit.neutral.GoldMineProvider;
-import com.evilbird.warcraft.item.unit.neutral.TreeProvider;
-import com.evilbird.warcraft.item.unit.orc.GruntProvider;
+import com.evilbird.warcraft.item.world.building.human.BarracksPrototypeProvider;
+import com.evilbird.warcraft.item.world.building.human.BarracksProvider;
+import com.evilbird.warcraft.item.world.building.human.FarmProvider;
+import com.evilbird.warcraft.item.world.building.human.TownHallProvider;
+import com.evilbird.warcraft.item.world.resource.GoldMineProvider;
+import com.evilbird.warcraft.item.world.resource.TreeProvider;
+import com.evilbird.warcraft.item.world.unit.human.FootmanProvider;
+import com.evilbird.warcraft.item.world.unit.human.PeasantProvider;
+import com.evilbird.warcraft.item.world.unit.orc.GruntProvider;
 
 import javax.inject.Inject;
 

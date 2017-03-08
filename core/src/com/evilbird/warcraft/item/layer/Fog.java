@@ -8,7 +8,7 @@ import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.item.unit.UnitProperties;
+import com.evilbird.warcraft.item.world.unit.UnitProperties;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -114,13 +114,14 @@ public class Fog extends Item
     }
 
     @SuppressWarnings("SuspiciousNameCombination")
+    //TODO: Dont include corners as in original game
     private Collection<Pair<Integer, Integer>> getRevealedCells(Item item)
     {
         Collection<Pair<Integer, Integer>> result = new ArrayList<Pair<Integer, Integer>>();
 
         Vector2 position = item.getPosition();
-        int itemX = (int)(position.x / 32);
-        int itemY = (int)(position.y / 32);
+        int itemX = position.x != 0 ? Math.round(position.x / 32) : 0;
+        int itemY = position.y != 0 ? Math.round(position.y / 32) : 0;
         int width = layer.getWidth();
         int height = layer.getHeight();
         int radius = 5;

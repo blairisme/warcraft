@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.data;
+package com.evilbird.warcraft.item.data.camera;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -6,24 +6,33 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperty;
 
+import javax.inject.Inject;
+
+import static com.badlogic.gdx.Gdx.graphics;
+
 public class Camera extends Item
 {
-    private static final Identifier ZOOM_PROPERTY = new Identifier("Zoom");
-    private static final Identifier ORIGINAL_ZOOM_PROPERTY = new Identifier("Zoom");
-
     private float originalZoom;
     private OrthographicCamera camera;
 
-    public Camera(OrthographicCamera camera)
+    @Inject
+    public Camera()
     {
-        this.camera = camera;
-        this.originalZoom = 0f; //TODO: 1.0f?
+        camera = new OrthographicCamera(graphics.getWidth(), graphics.getHeight());
+        camera.setToOrtho(false, 30, 20);
+        camera.zoom = 1f;
+        originalZoom = 1f;
 
         setId(new Identifier("Camera"));
         setType(new Identifier("Camera"));
         setPosition(camera.position.x, camera.position.y);
         setTouchable(Touchable.disabled);
         setVisible(false);
+    }
+
+    public OrthographicCamera asOrthographicCamera()
+    {
+        return camera;
     }
 
     public float getZoom()

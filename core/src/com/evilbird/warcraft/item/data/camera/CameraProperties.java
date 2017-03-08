@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.data;
+package com.evilbird.warcraft.item.data.camera;
 
 import com.evilbird.engine.item.ItemProperty;
 

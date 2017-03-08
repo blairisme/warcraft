@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.unit.orc;
+package com.evilbird.warcraft.item.world.resource;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
@@ -13,8 +13,8 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.item.unit.Unit;
-import com.evilbird.warcraft.item.unit.common.AnimationBuilder;
+import com.evilbird.warcraft.item.world.unit.Unit;
+import com.evilbird.warcraft.item.world.unit.common.AnimationBuilder;
 
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -22,12 +22,12 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-public class GruntProvider implements AssetProvider<Item>
+public class GoldMineProvider implements AssetProvider<Item>
 {
     private AssetManager assets;
 
     @Inject
-    public GruntProvider(Device device)
+    public GoldMineProvider(Device device)
     {
         this.assets = device.getAssetStorage().getAssets();
     }
@@ -35,8 +35,8 @@ public class GruntProvider implements AssetProvider<Item>
     @Override
     public void load()
     {
-        assets.load("data/textures/orc/perennial/grunt.png", Texture.class);
-        assets.load("data/textures/neutral/perennial/decompose.png", Texture.class);
+        assets.load("data/textures/neutral/winter/gold_mine.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/construction.png", Texture.class);
     }
 
     @Override
@@ -47,45 +47,48 @@ public class GruntProvider implements AssetProvider<Item>
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(new Identifier("Idle"));
         result.setAvailableSounds(getSounds());
-        result.setArmour(1f);
-        result.setDamageMinimum(2f);
-        result.setDamageMaximum(9f);
-        result.setHealth(100f);
-        result.setHealthMaximum(100f);
+        result.setArmour(0f);
+        result.setDamageMinimum(0f);
+        result.setDamageMaximum(0f);
+        result.setHealth(2500.0f);
+        result.setHealthMaximum(2500.0f);
         result.setIcon(getIcon());
         result.setLevel(1);
-        result.setName("Grunt");
-        result.setRange(1f);
+        result.setName("Gold Mine");
+        result.setRange(0f);
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
-        result.setSpeed(10f);
+        result.setSpeed(0f);
         result.setSight(4f);
-        result.setType(new Identifier("Grunt"));
-        result.setSize(72, 72);
+        result.setType(new Identifier("GoldMine"));
+        result.setGold(2500f);
+        result.setOil(0f);
+        result.setWood(0f);
+        result.setSize(96, 96);
         return result;
     }
 
     private EnumSet<ActionType> getActions()
     {
         EnumSet<ActionType> actions = EnumSet.noneOf(ActionType.class);
-        actions.add(ActionType.Move);
-        actions.add(ActionType.Stop);
-        actions.add(ActionType.Attack);
         return actions;
     }
 
     private Map<Identifier, DirectionalAnimation> getAnimations()
     {
-        Texture texture = assets.get("data/textures/orc/perennial/grunt.png", Texture.class);
-        Texture decomposeTexture = assets.get("data/textures/neutral/perennial/decompose.png", Texture.class);
-        return AnimationBuilder.getAnimationSet(texture, decomposeTexture);
+        Texture texture = assets.get("data/textures/neutral/winter/gold_mine.png", Texture.class);
+        Texture constructionTexture = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
+        Map<Identifier, DirectionalAnimation> animations = AnimationBuilder.getBuildingAnimationSet(texture, constructionTexture, 96);
+        animations.put(new Identifier("GatherGold"), animations.get(new Identifier("Construct")));
+        animations.remove(new Identifier("Construct"));
+        return animations;
     }
 
     private Drawable getIcon()
     {
         Texture iconTexture = assets.get("data/textures/neutral/perennial/icons.png", Texture.class);
-        TextureRegion iconRegion = new TextureRegion(iconTexture, 138, 0, 46, 38);
+        TextureRegion iconRegion = new TextureRegion(iconTexture, 184, 532, 46, 38);
         return new TextureRegionDrawable(iconRegion);
     }
 

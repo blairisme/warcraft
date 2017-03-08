@@ -6,7 +6,7 @@ import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.world.unit.Unit;
 
 import java.util.ArrayList;
 import java.util.Collection;

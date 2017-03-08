@@ -1,6 +1,8 @@
-package com.evilbird.warcraft.item.data;
+package com.evilbird.warcraft.item.data.player;
 
-import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.world.unit.Unit;
+
+import javax.inject.Inject;
 
 /**
  * Instances of this class TODO:Finish
@@ -12,6 +14,11 @@ public class Player extends Unit
     private float gold;
     private float oil;
     private float wood;
+
+    @Inject
+    public Player()
+    {
+    }
 
     @Override
     public float getGold()

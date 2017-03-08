@@ -1,7 +1,6 @@
 package com.evilbird.warcraft.state.campaign.human;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,20 +22,19 @@ import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.item.data.Camera;
+import com.evilbird.warcraft.item.data.DataType;
+import com.evilbird.warcraft.item.data.camera.Camera;
 import com.evilbird.warcraft.item.layer.Fog;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.layer.Map;
-import com.evilbird.warcraft.item.unit.Unit;
-import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.world.unit.Unit;
+import com.evilbird.warcraft.item.world.unit.UnitType;
 
 import org.apache.commons.lang3.Range;
 
 import java.util.HashMap;
 
 import javax.inject.Inject;
-
-import static com.badlogic.gdx.Gdx.graphics;
 
 public class Level1 implements AssetProvider<ItemRoot>
 {
@@ -166,15 +164,11 @@ public class Level1 implements AssetProvider<ItemRoot>
                 Float x = (Float)properties.get("x");
                 Float y = (Float)properties.get("y");
 
-                OrthographicCamera orthographicCamera = new OrthographicCamera(graphics.getWidth(), graphics.getHeight());
-                orthographicCamera.setToOrtho(false, 30, 20);
-                orthographicCamera.position.x = x;
-                orthographicCamera.position.y = y;
-                orthographicCamera.zoom = 1f;
+                Camera camera = (Camera)itemFactory.newItem(DataType.Camera);
+                camera.setPosition(x, y);
 
-                Camera cameraActor = new Camera(orthographicCamera);
-                world.addItem(cameraActor);
-                world.setViewport(new ScreenViewport(orthographicCamera));
+                world.addItem(camera);
+                world.setViewport(new ScreenViewport(camera.asOrthographicCamera()));
             }
             else if (Objects.equals(type, "Player")) // TODO
             {

@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.unit.human;
+package com.evilbird.warcraft.item.world.building.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
@@ -13,8 +13,8 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.item.unit.UnitPrototype;
-import com.evilbird.warcraft.item.unit.common.AnimationBuilder;
+import com.evilbird.warcraft.item.world.unit.Unit;
+import com.evilbird.warcraft.item.world.unit.common.AnimationBuilder;
 
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -22,17 +22,12 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-/**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
- */
-public class BarracksPrototypeProvider implements AssetProvider<Item>
+public class BarracksProvider implements AssetProvider<Item>
 {
     private AssetManager assets;
 
     @Inject
-    public BarracksPrototypeProvider(Device device)
+    public BarracksProvider(Device device)
     {
         this.assets = device.getAssetStorage().getAssets();
     }
@@ -48,7 +43,7 @@ public class BarracksPrototypeProvider implements AssetProvider<Item>
     @Override
     public Item get()
     {
-        UnitPrototype result = new UnitPrototype();
+        Unit result = new Unit();
         result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(new Identifier("Idle"));
@@ -67,12 +62,8 @@ public class BarracksPrototypeProvider implements AssetProvider<Item>
         result.setTouchable(Touchable.enabled);
         result.setSpeed(0f);
         result.setSight(4f);
-        result.setType(new Identifier("BarracksPrototype"));
+        result.setType(new Identifier("Barracks"));
         result.setSize(96, 96);
-
-
-        result.update(0);
-
         return result;
     }
 
@@ -92,7 +83,7 @@ public class BarracksPrototypeProvider implements AssetProvider<Item>
     private Drawable getIcon()
     {
         Texture iconTexture = assets.get("data/textures/neutral/perennial/icons.png", Texture.class);
-        TextureRegion iconRegion = new TextureRegion(iconTexture, 46, 684, 46, 38);
+        TextureRegion iconRegion = new TextureRegion(iconTexture, 92, 304, 46, 38);
         return new TextureRegionDrawable(iconRegion);
     }
 

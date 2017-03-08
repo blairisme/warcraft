@@ -1,24 +1,20 @@
-package com.evilbird.warcraft.item.unit.neutral;
+package com.evilbird.warcraft.item.world.building.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.item.unit.Unit;
-import com.evilbird.warcraft.item.unit.common.AnimationBuilder;
-
-import org.apache.commons.lang3.Range;
+import com.evilbird.warcraft.item.world.unit.UnitPrototype;
+import com.evilbird.warcraft.item.world.unit.common.AnimationBuilder;
 
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -26,13 +22,17 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-//TODO: Add default animation
-public class TreeProvider implements AssetProvider<Item>
+/**
+ * Instances of this class TODO:Finish
+ *
+ * @author Blair Butterworth
+ */
+public class BarracksPrototypeProvider implements AssetProvider<Item>
 {
     private AssetManager assets;
 
     @Inject
-    public TreeProvider(Device device)
+    public BarracksPrototypeProvider(Device device)
     {
         this.assets = device.getAssetStorage().getAssets();
     }
@@ -40,13 +40,15 @@ public class TreeProvider implements AssetProvider<Item>
     @Override
     public void load()
     {
-        assets.load("data/textures/neutral/winter/terrain.png", Texture.class);
+        assets.load("data/textures/human/winter/barracks.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/construction.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/icons.png", Texture.class);
     }
 
     @Override
     public Item get()
     {
-        Unit result = new Unit();
+        UnitPrototype result = new UnitPrototype();
         result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(new Identifier("Idle"));
@@ -54,22 +56,23 @@ public class TreeProvider implements AssetProvider<Item>
         result.setArmour(0f);
         result.setDamageMinimum(0f);
         result.setDamageMaximum(0f);
-        result.setHealth(1200.0f);
-        result.setHealthMaximum(1200.0f);
+        result.setHealth(800.0f);
+        result.setHealthMaximum(800.0f);
         result.setIcon(getIcon());
         result.setLevel(1);
-        result.setName("Tree");
+        result.setName("Barracks");
         result.setRange(0f);
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
         result.setSpeed(0f);
         result.setSight(4f);
-        result.setType(new Identifier("Wood"));
-        result.setGold(0f);
-        result.setOil(0f);
-        result.setWood(100f);
-        result.setSize(32, 32);
+        result.setType(new Identifier("BarracksPrototype"));
+        result.setSize(96, 96);
+
+
+        result.update(0);
+
         return result;
     }
 
@@ -81,24 +84,9 @@ public class TreeProvider implements AssetProvider<Item>
 
     private Map<Identifier, DirectionalAnimation> getAnimations()
     {
-        Texture texture = assets.get("data/textures/neutral/winter/terrain.png", Texture.class);
-
-        Array<TextureRegion> deathTextures = AnimationBuilder.getAnimation(texture, 15 * 32, 7 * 32, 32);
-        Map<Range<Float>, Array<TextureRegion>> deathFrames = new HashMap<Range<Float>, Array<TextureRegion>>(1);
-        deathFrames.put(Range.between(0.0f, 360.0f), deathTextures);
-        DirectionalAnimation deathAnimation = new DirectionalAnimation(0f, 0.15f, deathFrames, Animation.PlayMode.LOOP);
-
-        Array<TextureRegion> idleTextures = AnimationBuilder.getAnimation(texture, 7 * 32, 0, 32);
-        Map<Range<Float>, Array<TextureRegion>> idleFrames = new HashMap<Range<Float>, Array<TextureRegion>>(1);
-        idleFrames.put(Range.between(0.0f, 360.0f), idleTextures);
-        DirectionalAnimation idleAnimation = new DirectionalAnimation(0f, 0.15f, idleFrames, Animation.PlayMode.LOOP);
-
-        Map<Identifier, DirectionalAnimation> animations = new HashMap<Identifier, DirectionalAnimation>();
-        animations.put(new Identifier("Idle"), idleAnimation);
-        animations.put(new Identifier("Dead"), deathAnimation);
-        animations.put(new Identifier("GatherWood"), idleAnimation);
-
-        return animations;
+        Texture texture = assets.get("data/textures/human/winter/barracks.png", Texture.class);
+        Texture constructionTexture = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
+        return AnimationBuilder.getBuildingAnimationSet(texture, constructionTexture, 96);
     }
 
     private Drawable getIcon()

@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.unit.human;
+package com.evilbird.warcraft.item.world.building.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
@@ -13,8 +13,8 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.item.unit.Unit;
-import com.evilbird.warcraft.item.unit.common.AnimationBuilder;
+import com.evilbird.warcraft.item.world.unit.Unit;
+import com.evilbird.warcraft.item.world.unit.common.AnimationBuilder;
 
 import java.util.EnumSet;
 import java.util.HashMap;

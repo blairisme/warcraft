@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.unit;
+package com.evilbird.warcraft.item.world.unit;
 
 import com.evilbird.engine.item.ItemProperty;
 

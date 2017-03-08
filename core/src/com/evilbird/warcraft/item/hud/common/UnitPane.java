@@ -6,7 +6,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.Image;
-import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.world.unit.Unit;
 
 /**
  * Instances of this class TODO

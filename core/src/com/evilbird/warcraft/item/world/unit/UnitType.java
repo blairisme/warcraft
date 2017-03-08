@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.unit;
+package com.evilbird.warcraft.item.world.unit;
 
 import com.evilbird.engine.item.ItemIdentifier;
 
@@ -9,9 +9,9 @@ import com.evilbird.engine.item.ItemIdentifier;
  */
 public enum UnitType implements ItemIdentifier
 {
-    /* Human Units */
     Footman,
     Peasant,
+    Grunt,
 
     /* Human Buildings */
     TownHall,
@@ -20,7 +20,7 @@ public enum UnitType implements ItemIdentifier
     BarracksPrototype,
 
     /* Orc Units */
-    Grunt,
+
 
     /* Neutral Buildings */
     GoldMine,

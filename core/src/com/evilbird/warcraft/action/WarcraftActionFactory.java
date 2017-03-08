@@ -37,9 +37,9 @@ import com.evilbird.engine.item.ItemProperties;
 import com.evilbird.engine.item.ItemProperty;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.control.AnimationProperties;
-import com.evilbird.warcraft.item.data.CameraProperties;
-import com.evilbird.warcraft.item.unit.UnitProperties;
-import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.data.camera.CameraProperties;
+import com.evilbird.warcraft.item.world.unit.UnitProperties;
+import com.evilbird.warcraft.item.world.unit.UnitType;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.unit.human;
+package com.evilbird.warcraft.item.world.unit.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
@@ -13,8 +13,6 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.item.unit.Unit;
-import com.evilbird.warcraft.item.unit.common.AnimationBuilder;
 
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -48,7 +46,7 @@ public class PeasantProvider implements AssetProvider<Item>
     @Override
     public Item get()
     {
-        Unit result = new Unit();
+        com.evilbird.warcraft.item.world.unit.Unit result = new com.evilbird.warcraft.item.world.unit.Unit();
         result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(new Identifier("Idle"));
@@ -94,7 +92,7 @@ public class PeasantProvider implements AssetProvider<Item>
     {
         Texture texture = assets.get("data/textures/human/perennial/peasant.png", Texture.class);
         Texture decomposeTexture = assets.get("data/textures/neutral/perennial/decompose.png", Texture.class);
-        Map<Identifier, DirectionalAnimation> animations = AnimationBuilder.getAnimationSet(texture, decomposeTexture);
+        Map<Identifier, DirectionalAnimation> animations = com.evilbird.warcraft.item.world.unit.common.AnimationBuilder.getAnimationSet(texture, decomposeTexture);
         animations.put(new Identifier("GatherGold"), animations.get(new Identifier("Hidden")));
         animations.put(new Identifier("GatherWood"), animations.get(new Identifier("Attack")));
         animations.put(new Identifier("DepositGold"), animations.get(new Identifier("Hidden")));

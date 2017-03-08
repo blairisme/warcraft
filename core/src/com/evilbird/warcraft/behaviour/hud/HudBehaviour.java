@@ -9,7 +9,7 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.hud.action.ActionPane;
 import com.evilbird.warcraft.item.hud.resource.ResourcePanel;
 import com.evilbird.warcraft.item.hud.state.StatePane;
-import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.world.unit.Unit;
 
 import java.util.Collection;
 import java.util.List;
