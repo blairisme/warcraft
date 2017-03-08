@@ -2,6 +2,7 @@ package com.evilbird.warcraft.action;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.ClearAction;
@@ -320,21 +321,23 @@ public class WarcraftActionFactory implements ActionFactory
         return new CreateAction(stage, type, itemFactory, id, position);
     }
 
-    private Action setEnabled(ItemRoot stage, Identifier item, boolean enabled)
+    /*
+    private Action setTouchable(ItemRoot stage, Identifier item, Touchable touchable)
     {
         ActionValue value = new ItemReferenceValue(stage, item, new Identifier("Enabled"));
         ActionModifier modifier = new ConstantModifier(enabled);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(value, modifier, duration);
     }
-
-    private Action setEnabled(Item item, boolean enabled)
+*/
+    private Action setTouchable(Item item, boolean touchable)
     {
-        ActionValue value = new ItemValue(item, new Identifier("Enabled"));
-        ActionModifier modifier = new ConstantModifier(enabled);
+        ActionValue value = new ItemValue(item, new Identifier("Touchable"));
+        ActionModifier modifier = new ConstantModifier(touchable ? Touchable.enabled : Touchable.disabled);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(value, modifier, duration);
     }
+
 
     private Action build(Item builder, Identifier building, ItemRoot stage)
     {
@@ -365,12 +368,13 @@ public class WarcraftActionFactory implements ActionFactory
         Action moveToSite = move(builder, location);
         Action deselectBuilder = setSelected(builder, false);
         Action createFarm = create(itemRoot, type, building, location);
-        Action disableFarm = setEnabled(itemRoot, building, false);
+       // Action disableFarm = setEnabled(itemRoot, building, false);
         Action buildFarm = build(builder, building, itemRoot);
-        Action enableFarm = setEnabled(itemRoot, building, true);
+       // Action enableFarm = setEnabled(itemRoot, building, true);
         Action selectBuilder = setSelected(builder, true);
 
-        return new SequenceAction(acknowledge, moveToSite, deselectBuilder, createFarm, disableFarm, buildFarm, enableFarm, selectBuilder);
+        return new SequenceAction(acknowledge, moveToSite, deselectBuilder, createFarm, buildFarm, selectBuilder);
+        //return new SequenceAction(acknowledge, moveToSite, deselectBuilder, createFarm, disableFarm, buildFarm, enableFarm, selectBuilder);
     }
 
     private Action buildFarm(Item builder, Vector2 location)
@@ -418,7 +422,7 @@ public class WarcraftActionFactory implements ActionFactory
 
         Action deadAnimation = setAnimation(target, new Identifier("Die"), 0.5f);
         Action deselect = setSelected(target, false);
-        Action disable = setEnabled(target, false);
+        Action disable = setTouchable(target, false);
         Action idleAnimation = setAnimation(attacker, new Identifier("Idle"));
         Action die = new ParallelAction(deadAnimation, deselect, disable, idleAnimation);
 

@@ -17,8 +17,11 @@ import javax.inject.Inject;
  */
 public class StatePane extends ItemGroup
 {
+    private static final Identifier SELECTION_PROPERTY = new Identifier("Selection");
+
     private DetailsPane detailsPane;
     private SelectionPane selectionPane;
+    private Collection<Item> selection;
 
     @Inject
     public StatePane(
@@ -34,27 +37,48 @@ public class StatePane extends ItemGroup
         setTouchable(Touchable.childrenOnly);
     }
 
+    public Collection<Item> getSelection()
+    {
+        return selection;
+    }
+
+    public void setSelection(Collection<Item> newSelection)
+    {
+        if (! Objects.equals(selection, newSelection))
+        {
+            selection = newSelection;
+            clearItems();
+
+            if (selection.size() == 1)
+            {
+                detailsPane.setItem(selection.iterator().next());
+                addItem(detailsPane);
+            }
+            else
+            {
+                selectionPane.setItems(selection);
+                addItem(selectionPane);
+            }
+        }
+    }
+
+    @Override
+    public Object getProperty(Identifier property)
+    {
+        if (Objects.equals(property, SELECTION_PROPERTY)){
+            return getSelection();
+        }
+        return super.getProperty(property);
+    }
+
     @Override
     public void setProperty(Identifier property, Object value)
     {
-        if (Objects.equals(property, new Identifier("Selection"))){
-            Object currentSelection = getProperty(property);
-            if (! Objects.equals(value, currentSelection)){
-                setSelection((Collection<Item>) value);
-            }
+        if (Objects.equals(property, SELECTION_PROPERTY)){
+            setSelection((Collection<Item>)value);
         }
-        super.setProperty(property, value);
-    }
-
-    private void setSelection(Collection<Item> selection)
-    {
-        clearItems();
-        if (selection.size() == 1){
-            detailsPane.setItem(selection.iterator().next());
-            addItem(detailsPane);
-        }else {
-            selectionPane.setItems(selection);
-            addItem(selectionPane);
+        else{
+            super.setProperty(property, value);
         }
     }
 }

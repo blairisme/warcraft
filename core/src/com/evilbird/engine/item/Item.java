@@ -10,15 +10,12 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.framework.ActorExtension;
 import com.evilbird.engine.item.framework.ActorObserver;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Instances of this class TODO:Finish
  *
  * @author Blair Butterworth
  */
-public class Item implements PropertySet<Identifier,Object>, ActorObserver
+public class Item implements PropertySet<Identifier, Object>, ActorObserver
 {
     Actor delegate;
     private ItemRoot root;
@@ -28,13 +25,10 @@ public class Item implements PropertySet<Identifier,Object>, ActorObserver
     private boolean selected;
     private boolean selectable;
 
-    protected Map<Identifier, Object> properties; //TODO: Remove. Replace with methods
-
     public Item()
     {
         this.delegate = initializeDelegate();
         this.delegate.setUserObject(this);
-        this.properties = new HashMap<Identifier, Object>();
 
         setId(new Identifier("Unknown" + hashCode()));
         setType(new Identifier("Unknown"));
@@ -221,8 +215,12 @@ public class Item implements PropertySet<Identifier,Object>, ActorObserver
         else if (ItemProperties.Size.equals(key)){
             return getSize();
         }
-        return properties.get(key);
-        //throw new IllegalArgumentException();
+        else if (ItemProperties.Touchable.equals(key)){
+            return getTouchable();
+        }
+        //throw new IllegalArgumentException(key.toString());
+        System.out.println("Missing property: " + key.toString());
+        return null; //TODO
     }
 
     @Override
@@ -240,10 +238,11 @@ public class Item implements PropertySet<Identifier,Object>, ActorObserver
         else if (ItemProperties.Position.equals(key)){
             setPosition((Vector2)value);
         }
-        else if (ItemProperties.Size.equals(key)){
-            setSize((Vector2)value);
+        else if (ItemProperties.Touchable.equals(key)){
+            setTouchable((Touchable)value);
         }
-        properties.put(key, value);
-        //throw new IllegalArgumentException();
+        else{
+            throw new IllegalArgumentException(key.toString());
+        }
     }
 }

@@ -117,16 +117,17 @@ public class ResourcePanel extends Item
     @Override
     public void setProperty(Identifier property, Object value)
     {
-        super.setProperty(property, value);
-
         if (Objects.equals(property, new Identifier("Gold"))){
             setGoldText(value.toString());
         }
-        if (Objects.equals(property, new Identifier("Oil"))){
+        else if (Objects.equals(property, new Identifier("Oil"))){
             setOilText(value.toString());
         }
-        if (Objects.equals(property, new Identifier("Wood"))){
+        else if (Objects.equals(property, new Identifier("Wood"))){
             setWoodText(value.toString());
+        }
+        else{
+            super.setProperty(property, value);
         }
     }
 }

@@ -6,6 +6,7 @@ import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.item.unit.Unit;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,13 +22,18 @@ import javax.inject.Inject;
  */
 public class ActionPane extends GridPane
 {
+    private static final Identifier SELECTION_PROPERTY = new Identifier("Selection");
+
     private ActionButtonProvider buttonProvider;
+    private Collection<Item> selection;
 
     @Inject
     public ActionPane(ActionButtonProvider buttonProvider)
     {
         super(3, 3);
         this.buttonProvider = buttonProvider;
+        this.selection = Collections.emptyList();
+
         setSize(176, 176);
         setCellPadding(3);
         setCellWidthMinimum(54);
@@ -37,23 +43,22 @@ public class ActionPane extends GridPane
         setTouchable(Touchable.childrenOnly);
     }
 
-    @Override
-    public void setProperty(Identifier property, Object value)
+    public Collection<Item> getSelection()
     {
-        super.setProperty(property, value);
-
-        if (Objects.equals(property, new Identifier("Selection"))){
-            setSelection((Collection<Item>)value);
-        }
+        return selection;
     }
 
-    private void setSelection(Collection<Item> selection)
+    public void setSelection(Collection<Item> newSelection)
     {
-        Collection<ActionType> actions = getActions(selection);
-        Collection<Item> tiles = getTiles(actions);
+        if (! Objects.equals(selection, newSelection)){
+            selection = newSelection;
 
-        clearCells();
-        setCells(tiles);
+            Collection<ActionType> actions = getActions(selection);
+            Collection<Item> tiles = getTiles(actions);
+
+            clearCells();
+            setCells(tiles);
+        }
     }
 
     private Collection<ActionType> getActions(Collection<Item> selection)
@@ -67,9 +72,9 @@ public class ActionPane extends GridPane
     }
 
     private Collection<ActionType> getActions(Item item){
-        Collection<ActionType> actions = (Collection<ActionType>)item.getProperty(new Identifier("Actions"));
-        if (actions != null){
-           return actions;
+        if (item instanceof Unit){
+            Unit unit = (Unit)item;
+            return unit.getActions();
         }
         return Collections.emptyList();
     }
@@ -89,5 +94,25 @@ public class ActionPane extends GridPane
         result.setAction(action);
         result.setSize(54, 46);
         return result;
+    }
+
+    @Override
+    public Object getProperty(Identifier property)
+    {
+        if (Objects.equals(property, SELECTION_PROPERTY)){
+            return getSelection();
+        }
+        return super.getProperty(property);
+    }
+
+    @Override
+    public void setProperty(Identifier property, Object value)
+    {
+        if (Objects.equals(property, SELECTION_PROPERTY)){
+            setSelection((Collection<Item>)value);
+        }
+        else{
+            super.setProperty(property, value);
+        }
     }
 }

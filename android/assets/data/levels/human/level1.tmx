@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="31">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="32">
  <tileset firstgid="1" name="terrain" tilewidth="32" tileheight="32" tilecount="384" columns="16">
   <image source="../../textures/neutral/winter/terrain.png" width="512" height="768"/>
  </tileset>
@@ -47,7 +47,11 @@
   </data>
  </layer>
  <objectgroup name="Camera">
-  <object id="19" name="Camera1" type="Camera" gid="689" x="432" y="365" width="64" height="64"/>
+  <object id="19" name="Camera1" type="Camera" gid="689" x="432" y="365" width="64" height="64" visible="0">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Footman">
   <object id="8" name="Footman1" type="Footman" gid="385" x="511" y="274" width="72" height="72">
@@ -95,10 +99,16 @@
   </object>
  </objectgroup>
  <objectgroup name="GoldMine">
-  <object id="14" name="GoldMine1" type="GoldMine" gid="687" x="929.333" y="1024" width="96" height="96"/>
+  <object id="14" name="GoldMine1" type="GoldMine" gid="687" x="929.333" y="1024" width="96" height="96">
+   <properties>
+    <property name="Gold" type="float" value="5000"/>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
   <object id="28" name="GoldMine2" type="GoldMine" gid="687" x="417" y="161" width="96" height="96">
    <properties>
     <property name="Gold" type="float" value="2500"/>
+    <property name="Owner" value="Neutral"/>
    </properties>
   </object>
  </objectgroup>
@@ -115,7 +125,7 @@
   </object>
   <object id="29" name="Grunt3" type="Grunt" gid="585" x="908" y="497" width="72" height="72">
    <properties>
-    <property name="Owner" value="Player"/>
+    <property name="Owner" value="Player2"/>
    </properties>
   </object>
   <object id="30" name="Grunt4" type="Grunt" gid="585" x="78" y="907" width="72" height="72">
@@ -125,20 +135,27 @@
   </object>
  </objectgroup>
  <objectgroup name="Player">
-  <object id="23" name="Player1" type="Player" gid="690" x="30" y="80" width="32" height="32">
+  <object id="23" name="Player1" type="Player" gid="690" x="30" y="80" width="32" height="32" visible="0">
    <properties>
     <property name="AI" type="bool" value="false"/>
     <property name="Gold" type="float" value="1000"/>
-    <property name="Id" value="Player1"/>
     <property name="Oil" type="float" value="0"/>
     <property name="Wood" type="float" value="1000"/>
    </properties>
   </object>
-  <object id="25" name="Player2" type="Player" gid="690" x="100" y="80" width="32" height="32">
+  <object id="25" name="Player2" type="Player" gid="690" x="100" y="80" width="32" height="32" visible="0">
    <properties>
     <property name="AI" type="bool" value="true"/>
     <property name="Gold" type="float" value="0"/>
-    <property name="Id" value="Player2"/>
+    <property name="Oil" type="float" value="0"/>
+    <property name="Wood" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="31" name="Neutral" type="Player" gid="690" x="170" y="80" width="32" height="32" visible="0">
+   <properties>
+    <property name="AI" type="bool" value="true"/>
+    <property name="Gold" type="float" value="0"/>
+    <property name="Oil" type="float" value="0"/>
     <property name="Wood" type="float" value="0"/>
    </properties>
   </object>

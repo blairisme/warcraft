@@ -21,14 +21,13 @@ import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.control.AnimatedItem;
 import com.evilbird.warcraft.item.data.Camera;
 import com.evilbird.warcraft.item.layer.Fog;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.layer.Map;
+import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import org.apache.commons.lang3.Range;
@@ -139,15 +138,14 @@ public class Level1 implements AssetProvider<ItemRoot>
                         Float worldX = x * width;
                         Float worldY = y * height;
 
-                        AnimatedItem unit = (AnimatedItem)itemFactory.newItem(UnitType.Tree);
+                        Unit unit = (Unit)itemFactory.newItem(UnitType.Tree);
                         unit.setSize(width, height);
                         unit.setAvailableAnimation(new Identifier("Idle"), animation);
                         unit.setAvailableAnimation(new Identifier("GatherWood"), animation);
                         unit.setAnimation(new Identifier("Idle"));
-                        unit.setProperty(new Identifier("Id"), new Identifier());
-
-                        //unit.setZIndex(5);
+                        unit.setId(new Identifier());
                         unit.setPosition(worldX, worldY);
+                        unit.setOwner(new Identifier("Neutral"));
 
                         world.addItem(unit);
                     }
@@ -175,12 +173,6 @@ public class Level1 implements AssetProvider<ItemRoot>
                 orthographicCamera.zoom = 1f;
 
                 Camera cameraActor = new Camera(orthographicCamera);
-                cameraActor.setTouchable(Touchable.disabled);
-                cameraActor.setVisible(false);
-                cameraActor.setProperty(new Identifier("Id"), new Identifier("Camera"));
-                cameraActor.setProperty(new Identifier("Type"), new Identifier("Camera"));
-                cameraActor.setProperty(new Identifier("OriginalZoom"), 0f); //TODO add default value if missing automatically
-
                 world.addItem(cameraActor);
                 world.setViewport(new ScreenViewport(orthographicCamera));
             }
@@ -188,15 +180,15 @@ public class Level1 implements AssetProvider<ItemRoot>
             {
                 Float gold = (Float)properties.get("Gold");
                 Float wood = (Float)properties.get("Wood");
-                String id = (String)properties.get("Id");
+                String name = object.getName();
 
-                Item player = new Item();
+                Unit player = new Unit();
                 player.setTouchable(Touchable.disabled);
                 player.setVisible(false);
-                player.setProperty(new Identifier("Id"), new Identifier(id));
-                player.setProperty(new Identifier("Type"), new Identifier("Player"));
-                player.setProperty(new Identifier("Gold"), gold);
-                player.setProperty(new Identifier("Wood"), wood);
+                player.setId(new Identifier(name));
+                player.setType(new Identifier("Player"));
+                player.setWood(wood);
+                player.setGold(gold);
 
                 world.addItem(player);
             }
@@ -209,17 +201,12 @@ public class Level1 implements AssetProvider<ItemRoot>
                 String owner = (String)properties.get("Owner");
                 String name = object.getName();
 
-
-
-                Item unit = itemFactory.newItem(UnitType.valueOf(type));
+                Unit unit = (Unit)itemFactory.newItem(UnitType.valueOf(type));
                 unit.setSize(width, height);
                 unit.setPosition(x, y);
-                unit.setProperty(new Identifier("Id"), new Identifier(name));
+                unit.setId(new Identifier(name));
+                unit.setOwner(new Identifier(owner));
 
-                if (owner != null)
-                {
-                    unit.setProperty(new Identifier("Owner"), new Identifier(owner));
-                }
                 world.addItem(unit);
             }
         }

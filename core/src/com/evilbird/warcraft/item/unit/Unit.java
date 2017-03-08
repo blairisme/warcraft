@@ -13,6 +13,7 @@ import java.util.EnumSet;
  *
  * @author Blair Butterworth
  */
+//TODO: Split into specialized classes
 public class Unit extends AnimatedItem
 {
     private static final Identifier HEALTH_PROPERTY = new Identifier("Health");
@@ -20,7 +21,9 @@ public class Unit extends AnimatedItem
     private static final Identifier ICON_PROPERTY = new Identifier("Icon");
     private static final Identifier GOLD_PROPERTY = new Identifier("Gold");
     private static final Identifier WOOD_PROPERTY = new Identifier("Wood");
+    private static final Identifier OWNER_PROPERTY = new Identifier("Owner");
 
+    private Identifier owner;
     private String name;
     private Drawable icon;
     private EnumSet<ActionType> actions;
@@ -193,6 +196,16 @@ public class Unit extends AnimatedItem
         this.wood = wood;
     }
 
+    public Identifier getOwner()
+    {
+        return owner;
+    }
+
+    public void setOwner(Identifier owner)
+    {
+        this.owner = owner;
+    }
+
     @Override
     public Object getProperty(Identifier property)
     {
@@ -210,6 +223,9 @@ public class Unit extends AnimatedItem
         }
         else if (Objects.equals(property, WOOD_PROPERTY)){
             return getWood();
+        }
+        else if (Objects.equals(property, OWNER_PROPERTY)){
+            return getOwner();
         }
         return super.getProperty(property);
     }
@@ -232,7 +248,12 @@ public class Unit extends AnimatedItem
         else if (Objects.equals(property, WOOD_PROPERTY)){
             setWood((Float)value);
         }
-        super.setProperty(property, value);
+        else if (Objects.equals(property, OWNER_PROPERTY)){
+            setOwner((Identifier)value);
+        }
+        else{
+            super.setProperty(property, value);
+        }
     }
 }
 

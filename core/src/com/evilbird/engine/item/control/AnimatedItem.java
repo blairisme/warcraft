@@ -231,6 +231,8 @@ public class AnimatedItem extends Item
         else if (Objects.equals(property, SOUND_PROPERTY)){
             setSound((Identifier)value);
         }
-        super.setProperty(property, value);
+        else{
+            super.setProperty(property, value);
+        }
     }
 }
