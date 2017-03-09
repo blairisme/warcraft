@@ -13,7 +13,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.item.world.unit.UnitPrototype;
+import com.evilbird.warcraft.item.world.building.UnitPrototype;
 import com.evilbird.warcraft.item.world.unit.common.AnimationBuilder;
 
 import java.util.EnumSet;

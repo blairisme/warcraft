@@ -1,18 +1,19 @@
-package com.evilbird.warcraft.item.world.unit;
+package com.evilbird.warcraft.item.world.building;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.evilbird.warcraft.item.world.unit.Unit;
 
 /**
  * Instances of this class TODO:Finish
  *
  * @author Blair Butterworth
  */
-public class UnitPrototype extends Unit
+public class BuildingPrototype extends Unit
 {
     private Color tint;
 
-    public UnitPrototype()
+    public BuildingPrototype()
     {
         tint = new Color(0x00ff0080);
     }

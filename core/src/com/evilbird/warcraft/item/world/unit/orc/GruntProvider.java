@@ -13,6 +13,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.item.world.unit.Unit;
 import com.evilbird.warcraft.item.world.unit.common.AnimationBuilder;
 
 import java.util.EnumSet;
@@ -41,12 +42,12 @@ public class GruntProvider implements AssetProvider<Item>
     @Override
     public Item get()
     {
-        com.evilbird.warcraft.item.world.unit.Unit result = new com.evilbird.warcraft.item.world.unit.Unit();
+        Unit result = new Unit();
         result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(new Identifier("Idle"));
         result.setAvailableSounds(getSounds());
-        result.setArmour(1f);
+        result.setArmour(2f);
         result.setDamageMinimum(2f);
         result.setDamageMaximum(9f);
         result.setHealth(100f);

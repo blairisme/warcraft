@@ -6,6 +6,8 @@ import com.evilbird.warcraft.action.ActionType;
 
 import java.util.EnumSet;
 
+import javax.inject.Inject;
+
 /**
  * Instances of this class TODO:Finish
  *
@@ -17,6 +19,17 @@ public class WorldItem extends AnimatedItem
     private String name;
     private Drawable icon;
     private EnumSet<ActionType> actions;
+    private float health;
+    private float healthMaximum;
+    private float gold;
+    private float oil;
+    private float wood;
+
+    @Inject
+    public WorldItem()
+    {
+        actions = EnumSet.noneOf(ActionType.class);
+    }
 
     public EnumSet<ActionType> getActions()
     {
