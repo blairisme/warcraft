@@ -18,18 +18,26 @@ public class WarcraftActionFactory implements ActionFactory
     @Inject
     public WarcraftActionFactory(
         AttackActionProvider attackActionProvider,
+        BuildActionProvider buildActionProvider,
         DragActionProvider dragActionProvider,
+        GatherActionProvider gatherActionProvider,
         MoveActionProvider moveActionProvider,
         PanActionProvider panActionProvider,
+        PrototypeActionProvider prototypeActionProvider,
         SelectionActionProvider selectionActionProvider,
+        StopActionProvider stopActionProvider,
         ZoomActionProvider zoomActionProvider)
     {
         actions = new HashMap<ActionIdentifier, ActionProvider>();
         actions.put(ActionType.Attack, attackActionProvider);
+        actions.put(ActionType.Build, buildActionProvider);
         actions.put(ActionType.Drag, dragActionProvider);
+        actions.put(ActionType.Gather, gatherActionProvider);
         actions.put(ActionType.Move, moveActionProvider);
         actions.put(ActionType.Pan, panActionProvider);
+        actions.put(ActionType.Prototype, prototypeActionProvider);
         actions.put(ActionType.Select, selectionActionProvider);
+        actions.put(ActionType.Stop, stopActionProvider);
         actions.put(ActionType.Zoom, zoomActionProvider);
     }
 

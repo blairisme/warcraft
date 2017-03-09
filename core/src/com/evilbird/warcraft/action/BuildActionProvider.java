@@ -63,7 +63,7 @@ public class BuildActionProvider implements ActionProvider
     public Action get(Item prototype, Item builder)
     {
         if (Objects.equals(prototype.getType(), new Identifier("BarracksPrototype"))){ //TODO: Obtain mapping from prototype
-            build(prototype, builder, BuildingType.Barracks);
+            return build(prototype, builder, BuildingType.Barracks);
         }
         throw new UnsupportedOperationException();
     }

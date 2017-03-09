@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ClearAction;
 import com.evilbird.engine.action.SequenceAction;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 
 import javax.inject.Inject;
@@ -13,7 +14,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class StopActionProvider
+public class StopActionProvider implements ActionProvider
 {
     private AnimateActionProvider animateActionProvider;
 
@@ -23,7 +24,8 @@ public class StopActionProvider
         this.animateActionProvider = animateActionProvider;
     }
 
-    public Action get(Item item)
+    @Override
+    public Action get(Item item, Item target, UserInput input)
     {
         Action clearAction = new ClearAction(item);
         Action idleAnimation = animateActionProvider.get(item, new Identifier("Idle"));

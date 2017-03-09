@@ -10,8 +10,9 @@ public enum ActionType implements ActionIdentifier
     Pan,
     Zoom,
 
-    GatherGold,
-    GatherWood,
+    Gather,
+    Build,
+    Prototype,
 
     CreateBarracks,
     CreateBarracksPrototype,

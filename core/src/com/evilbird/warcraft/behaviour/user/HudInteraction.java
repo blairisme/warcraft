@@ -27,8 +27,8 @@ public class HudInteraction implements Interaction
         interactions.add(selectionFactory.get(UserInputType.Action, "StopButton", "Footman", null, ActionType.Stop));
         interactions.add(selectionFactory.get(UserInputType.Action, "StopButton", "Peasant", null, ActionType.Stop));
 
-        interactions.add(selectionFactory.get(UserInputType.Action, "CreateBarracksButton", "Peasant", null, ActionType.CreateBarracksPrototype));
-        interactions.add(selectionFactory.get(UserInputType.Action, "BarracksPrototype", "Peasant", null, ActionType.CreateBarracks));
+        interactions.add(selectionFactory.get(UserInputType.Action, "CreateBarracksButton", "Peasant", null, ActionType.Prototype));
+        interactions.add(selectionFactory.get(UserInputType.Action, "BarracksPrototype", "Peasant", null, ActionType.Build));
 
         interactions.add(targetFactory.get(UserInputType.Drag, "BarracksPrototype", null, null, ActionType.Drag));
     }

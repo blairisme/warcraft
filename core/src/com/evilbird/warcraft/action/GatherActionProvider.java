@@ -12,6 +12,7 @@ import com.evilbird.engine.action.modifier.DeltaModifier;
 import com.evilbird.engine.action.modifier.DeltaType;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Objects;
+import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperty;
 import com.evilbird.engine.item.ItemRoot;
@@ -26,7 +27,7 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithId;
  *
  * @author Blair Butterworth
  */
-public class GatherActionProvider
+public class GatherActionProvider implements ActionProvider
 {
     private MoveActionProvider moveActionProvider;
     private AnimateActionProvider animateActionProvider;
@@ -43,7 +44,8 @@ public class GatherActionProvider
         this.selectionActionProvider = selectionActionProvider;
     }
 
-    public Action get(Item item, Item resource)
+    @Override
+    public Action get(Item item, Item resource, UserInput input)
     {
         ItemRoot root = item.getRoot();
         Item depot = root.find(itemWithId(new Identifier("TownHall1"))); //TODO
