@@ -30,8 +30,6 @@ public class CreateAction extends Action
     public boolean act(float delta)
     {
         Item item = factory.newItem(type);
-        //unit.setSize(72, 72);
-       // unit.setZIndex(10);
         item.setPosition(position);
         item.setProperty(ItemProperties.Id, id);
         root.addItem(item);

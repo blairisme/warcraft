@@ -1,55 +1,55 @@
 package com.evilbird.warcraft.action;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.action.ClearAction;
-import com.evilbird.engine.action.CreateAction;
-import com.evilbird.engine.action.ModifyAction;
-import com.evilbird.engine.action.ParallelAction;
-import com.evilbird.engine.action.RemoveAction;
-import com.evilbird.engine.action.RepeatedAction;
-import com.evilbird.engine.action.SequenceAction;
-import com.evilbird.engine.action.duration.ActionDuration;
-import com.evilbird.engine.action.duration.InstantDuration;
-import com.evilbird.engine.action.duration.PredicateDuration;
-import com.evilbird.engine.action.duration.TimeDuration;
-import com.evilbird.engine.action.modifier.ActionModifier;
-import com.evilbird.engine.action.modifier.ConstantModifier;
-import com.evilbird.engine.action.modifier.DeltaModifier;
-import com.evilbird.engine.action.modifier.DeltaType;
-import com.evilbird.engine.action.modifier.MoveModifier;
-import com.evilbird.engine.action.modifier.PassiveModifier;
-import com.evilbird.engine.action.modifier.ScaleModifier;
-import com.evilbird.engine.action.value.ActionValue;
-import com.evilbird.engine.action.value.ItemReferenceValue;
-import com.evilbird.engine.action.value.ItemValue;
-import com.evilbird.engine.action.value.TransientValue;
-import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemIdentifier;
-import com.evilbird.engine.item.ItemProperties;
-import com.evilbird.engine.item.ItemProperty;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.control.AnimationProperties;
-import com.evilbird.warcraft.item.data.camera.CameraProperties;
-import com.evilbird.warcraft.item.world.unit.UnitProperties;
-import com.evilbird.warcraft.item.world.unit.UnitType;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.item.ItemPredicates.itemWithId;
-
-//TODO: Split actions into separate classes
 public class WarcraftActionFactory implements ActionFactory
 {
+    private Map<ActionIdentifier, ActionProvider> actions;
+
+    @Inject
+    public WarcraftActionFactory(
+        AttackActionProvider attackActionProvider,
+        DragActionProvider dragActionProvider,
+        MoveActionProvider moveActionProvider,
+        PanActionProvider panActionProvider,
+        SelectionActionProvider selectionActionProvider,
+        ZoomActionProvider zoomActionProvider)
+    {
+        actions = new HashMap<ActionIdentifier, ActionProvider>();
+        actions.put(ActionType.Attack, attackActionProvider);
+        actions.put(ActionType.Drag, dragActionProvider);
+        actions.put(ActionType.Move, moveActionProvider);
+        actions.put(ActionType.Pan, panActionProvider);
+        actions.put(ActionType.Select, selectionActionProvider);
+        actions.put(ActionType.Zoom, zoomActionProvider);
+    }
+
+    @Override
+    public void load()
+    {
+    }
+
+    @Override
+    public Action newAction(ActionIdentifier type, Item item, Item target, UserInput input)
+    {
+        ActionProvider provider = actions.get(type);
+        Action action = provider.get(item, target, input);
+        if (action != null){
+            return action;
+        }
+        throw new UnsupportedOperationException();
+    }
+
+    /*
     private ItemFactory itemFactory;
 
     @Inject
@@ -64,7 +64,6 @@ public class WarcraftActionFactory implements ActionFactory
     }
 
     @Override
-    //public Action newAction(ActionIdentifier action, Item item, Object value)
     public Action newAction(ActionIdentifier action, Item item, Item target, UserInput input)
     {
         if (Objects.equals(action, ActionType.Select)) return toggleSelection(item);
@@ -166,7 +165,7 @@ public class WarcraftActionFactory implements ActionFactory
 
         Vector2 lowerBound = null;
         Vector2 upperBound = null;
-/*
+
         if (mapWidth >= viewportWidth && mapHeight >= viewportHeight)
         {
             float viewportHalfWidth = viewportWidth * .5f;
@@ -175,7 +174,7 @@ public class WarcraftActionFactory implements ActionFactory
             lowerBound = new Vector2(viewportHalfWidth, viewportHalfHeight);
             upperBound = new Vector2(mapWidth - viewportHalfWidth, mapHeight - viewportHalfHeight);
         }
-*/
+
         return new DeltaModifier(delta, DeltaType.PerUpdate, lowerBound, upperBound);
     }
 
@@ -299,6 +298,9 @@ public class WarcraftActionFactory implements ActionFactory
         return new RepeatedAction(gather);
     }
 
+
+
+
     private Action gatherGold(Item item, Item resource)
     {
         ItemRoot root = item.getRoot();
@@ -326,7 +328,6 @@ public class WarcraftActionFactory implements ActionFactory
         return new CreateAction(stage, type, itemFactory, id, position);
     }
 
-    /*
     private Action setTouchable(ItemRoot stage, Identifier item, Touchable touchable)
     {
         ActionValue value = new ItemReferenceValue(stage, item, new Identifier("Enabled"));
@@ -334,7 +335,7 @@ public class WarcraftActionFactory implements ActionFactory
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(value, modifier, duration);
     }
-*/
+
     private Action setTouchable(Item item, boolean touchable)
     {
         ActionValue value = new ItemValue(item, ItemProperties.Touchable);
@@ -455,4 +456,5 @@ public class WarcraftActionFactory implements ActionFactory
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(item, property, modifier, duration);
     }
+    */
 }

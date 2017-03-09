@@ -2,6 +2,8 @@ package com.evilbird.engine.action.modifier;
 
 import com.badlogic.gdx.math.Vector2;
 
+//TODO: Implement moving around other items.
+//TODO: Implement movement restricted to certain terrains. E.g., land, water, air.
 public class MoveModifier implements ActionModifier
 {
     private float speed;

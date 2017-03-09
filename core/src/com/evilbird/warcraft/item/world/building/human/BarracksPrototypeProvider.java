@@ -13,7 +13,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.item.world.building.UnitPrototype;
+import com.evilbird.warcraft.item.world.building.BuildingPrototype;
 import com.evilbird.warcraft.item.world.unit.common.AnimationBuilder;
 
 import java.util.EnumSet;
@@ -48,7 +48,7 @@ public class BarracksPrototypeProvider implements AssetProvider<Item>
     @Override
     public Item get()
     {
-        UnitPrototype result = new UnitPrototype();
+        BuildingPrototype result = new BuildingPrototype();
         result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(new Identifier("Idle"));
