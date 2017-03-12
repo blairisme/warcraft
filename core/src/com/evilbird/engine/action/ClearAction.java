@@ -23,4 +23,9 @@ public class ClearAction extends Action
         item.clearActions();
         return true;
     }
+
+    @Override
+    public void restart()
+    {
+    }
 }

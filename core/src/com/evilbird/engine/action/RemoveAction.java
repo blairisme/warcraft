@@ -27,4 +27,9 @@ public class RemoveAction extends Action
         root.removeItem(item);
         return true;
     }
+
+    @Override
+    public void restart()
+    {
+    }
 }

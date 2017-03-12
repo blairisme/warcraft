@@ -35,4 +35,9 @@ public class CreateAction extends Action
         root.addItem(item);
         return true;
     }
+
+    @Override
+    public void restart()
+    {
+    }
 }

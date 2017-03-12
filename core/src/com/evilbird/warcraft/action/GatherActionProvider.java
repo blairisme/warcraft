@@ -79,24 +79,23 @@ public class GatherActionProvider implements ActionProvider
     private Action resourceTransfer(Item source, Item destination, ItemProperty resource, Identifier animation, Identifier sound)
     {
         Action deselect = selectionActionProvider.get(source, false);
-        Action resourceTake = resourceTakeAnimated(source, resource, animation, sound);
-        Action resourceReceive = resourceReceiveAnimated(destination, resource, animation);
+        Action resourceTake = resourceTakeAnimated(source, resource, animation);
+        Action resourceReceive = resourceReceiveAnimated(destination, resource, animation, sound);
         return new ParallelAction(deselect, resourceTake, resourceReceive);
     }
 
-    private Action resourceTakeAnimated(Item item, ItemProperty resourceProperty, Identifier animation, Identifier sound)
+    private Action resourceTakeAnimated(Item item, ItemProperty resourceProperty, Identifier animation)
     {
         Action animateBefore = animateActionProvider.get(item, animation);
-        Action soundBefore = audioActionProvider.get(item, sound);
         Action gather = resourceTake(item, resourceProperty);
         Action animateAfter = animateActionProvider.get(item, new Identifier("Idle"));
-        return new SequenceAction(animateBefore, soundBefore, gather, animateAfter);
+        return new SequenceAction(animateBefore, gather, animateAfter);
     }
 
-    private Action resourceReceiveAnimated(Item item, ItemProperty resourceProperty, Identifier animation)
+    private Action resourceReceiveAnimated(Item item, ItemProperty resource, Identifier animation, Identifier sound)
     {
         Action animateBefore = animateActionProvider.get(item, animation);
-        Action gather = resourceReceive(item, resourceProperty);
+        Action gather = resourceReceive(item, resource, sound);
         Action animateAfter = animateActionProvider.get(item, new Identifier("Idle"));
         return new SequenceAction(animateBefore, gather, animateAfter);
     }
@@ -108,11 +107,14 @@ public class GatherActionProvider implements ActionProvider
         return new ModifyAction(item, resourceProperty, modifier, duration);
     }
 
-    private Action resourceReceive(Item item, ItemProperty resourceProperty)
+    private Action resourceReceive(Item item, ItemProperty resource, Identifier sound)
     {
         ActionModifier modifier = new DeltaModifier(1f, DeltaType.PerSecond);
-        ActionDuration duration = new TimeDuration(10f);
-        return new ModifyAction(item, resourceProperty, modifier, duration);
+        ActionDuration duration = new TimeDuration(1f);
+        Action gatherResource = new ModifyAction(item, resource, modifier, duration);
+        Action gatherSound = audioActionProvider.get(item, sound);
+        Action gather = new ParallelAction(gatherResource, gatherSound);
+        return new RepeatedAction(gather, 10);
     }
 
     private Item findDepot(Item item)

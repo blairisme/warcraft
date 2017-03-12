@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.audio.BasicSoundEffect;
 import com.evilbird.engine.common.audio.SoundEffect;
+import com.evilbird.engine.common.audio.SoundEffectSet;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
@@ -16,6 +17,8 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +42,11 @@ public class PeasantProvider implements AssetProvider<Item>
         assets.load("data/sounds/human/unit/peasant/complete.mp3", Sound.class);
         assets.load("data/sounds/human/unit/peasant/acknowledge_1.mp3", Sound.class);
         assets.load("data/sounds/human/unit/peasant/construct.mp3", Sound.class);
+
+        assets.load("data/sounds/neutral/chopping/1.wav", Sound.class);
+        assets.load("data/sounds/neutral/chopping/2.wav", Sound.class);
+        assets.load("data/sounds/neutral/chopping/3.wav", Sound.class);
+        assets.load("data/sounds/neutral/chopping/4.wav", Sound.class);
 
         assets.load("data/textures/human/perennial/peasant.png", Texture.class);
         assets.load("data/textures/neutral/perennial/decompose.png", Texture.class);
@@ -117,11 +125,18 @@ public class PeasantProvider implements AssetProvider<Item>
         SoundEffect acknowledge = newSoundEffect("data/sounds/human/unit/peasant/acknowledge_1.mp3");
         SoundEffect construct = newSoundEffect("data/sounds/human/unit/peasant/construct.mp3");
 
+        SoundEffect gatherWood = newSoundEffect(
+            "data/sounds/neutral/chopping/1.wav",
+            "data/sounds/neutral/chopping/2.wav",
+            "data/sounds/neutral/chopping/3.wav",
+            "data/sounds/neutral/chopping/4.wav");
+
         Map<Identifier, SoundEffect> sounds = new HashMap<Identifier, SoundEffect>();
         sounds.put(new Identifier("Selected"), selected);
         sounds.put(new Identifier("Complete"), complete);
         sounds.put(new Identifier("Acknowledge"), acknowledge);
         sounds.put(new Identifier("Construct"), construct);
+        sounds.put(new Identifier("GatherWood"), gatherWood);
 
         return sounds;
     }
@@ -130,5 +145,14 @@ public class PeasantProvider implements AssetProvider<Item>
     {
         Sound sound = assets.get(path, Sound.class);
         return new BasicSoundEffect(sound);
+    }
+
+    private SoundEffect newSoundEffect(String ... paths)
+    {
+        Collection<SoundEffect> effects = new ArrayList<SoundEffect>(paths.length);
+        for (String path: paths){
+            effects.add(newSoundEffect(path));
+        }
+        return new SoundEffectSet(effects);
     }
 }
