@@ -13,7 +13,7 @@ public class ItemPredicates
 {
     public static Predicate<Item> itemWithId(Identifier id)
     {
-        return new ItemWithId(id);
+        return new ItemWithId(id); //TODO: Pool?
     }
 
     public static class ItemWithId implements Predicate<Item>
@@ -32,9 +32,30 @@ public class ItemPredicates
         }
     }
 
+    public static Predicate<Item> itemWithType(Identifier type)
+    {
+        return new ItemWithType(type); //TODO: Pool?
+    }
+
+    public static class ItemWithType implements Predicate<Item>
+    {
+        private Identifier type;
+
+        public ItemWithType(Identifier type)
+        {
+            this.type = type;
+        }
+
+        @Override
+        public boolean test(Item item)
+        {
+            return type.equals(item.getType());
+        }
+    }
+
     public static Predicate<Item> itemWithProperty(ItemProperty key, Object value)
     {
-        return new ItemWithProperty(key, value);
+        return new ItemWithProperty(key, value); //TODO: Pool?
     }
 
     public static class ItemWithProperty implements Predicate<Item>

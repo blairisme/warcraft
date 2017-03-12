@@ -16,13 +16,6 @@ import java.util.EnumSet;
 //TODO: Split into specialized classes
 public class Unit extends AnimatedItem
 {
-    private static final Identifier HEALTH_PROPERTY = new Identifier("Health");
-    private static final Identifier ACTIONS_PROPERTY = new Identifier("Actions");
-    private static final Identifier ICON_PROPERTY = new Identifier("Icon");
-    private static final Identifier GOLD_PROPERTY = new Identifier("Gold");
-    private static final Identifier WOOD_PROPERTY = new Identifier("Wood");
-    private static final Identifier OWNER_PROPERTY = new Identifier("Owner");
-
     private Identifier owner;
     private String name;
     private Drawable icon;

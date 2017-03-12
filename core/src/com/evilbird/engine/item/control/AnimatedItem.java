@@ -1,12 +1,12 @@
 package com.evilbird.engine.item.control;
 
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
@@ -20,9 +20,6 @@ import java.util.Map;
 //TODO: Log if sound is missing
 public class AnimatedItem extends Item
 {
-    private static final Identifier ANIMATION_PROPERTY = new Identifier("Animation");
-    private static final Identifier SOUND_PROPERTY = new Identifier("Sound");
-
     private float direction;
     private ShapeRenderer shapeRenderer;
 
@@ -33,9 +30,9 @@ public class AnimatedItem extends Item
     private Map<Identifier, DirectionalAnimation> animations;
 
     private boolean updateSound;
-    private Sound currentSound;
+    private SoundEffect currentSound;
     private Identifier currentSoundId;
-    private Map<Identifier, Sound> sounds;
+    private Map<Identifier, SoundEffect> sounds;
 
     public AnimatedItem()
     {
@@ -45,7 +42,7 @@ public class AnimatedItem extends Item
         this.currentAnimation = null;
         this.currentAnimationId = null;
         this.animations = new HashMap<Identifier, DirectionalAnimation>();
-        this.sounds = new HashMap<Identifier, Sound>();
+        this.sounds = new HashMap<Identifier, SoundEffect>();
         this.currentSound = null;
         this.currentSoundId = null;
         this.updateSound = false;
@@ -86,12 +83,12 @@ public class AnimatedItem extends Item
         updateSound = true;
     }
 
-    public void setAvailableSound(Identifier id, Sound sound)
+    public void setAvailableSound(Identifier id, SoundEffect sound)
     {
         sounds.put(id, sound);
     }
 
-    public void setAvailableSounds(Map<Identifier, Sound> sounds)
+    public void setAvailableSounds(Map<Identifier, SoundEffect> sounds)
     {
         this.sounds.putAll(sounds);
     }
@@ -154,10 +151,8 @@ public class AnimatedItem extends Item
 
     private void drawAnimation(Batch batch)
     {
-        //if (currentAnimation != null){
-            TextureRegion region = currentAnimation.getKeyFrame(animationTime);
-            batch.draw(region, getX(), getY(), getWidth(), getHeight());
-       // }
+        TextureRegion region = currentAnimation.getKeyFrame(animationTime);
+        batch.draw(region, getX(), getY(), getWidth(), getHeight());
     }
 
     private void drawSelection(Batch batch)
@@ -206,7 +201,7 @@ public class AnimatedItem extends Item
     {
         if (sounds.containsKey(currentSoundId)){
             currentSound = sounds.get(currentSoundId);
-            currentSound.play(1f);
+            currentSound.play();
         }
     }
 

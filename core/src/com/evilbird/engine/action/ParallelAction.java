@@ -48,6 +48,7 @@ public class ParallelAction extends Action
     {
         actionCompletion.clear();
         for (Action action: actions){
+            action.restart();
             actionCompletion.put(action, false);
         }
     }

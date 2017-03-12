@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.evilbird.engine.common.audio.BasicSoundEffect;
+import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
@@ -33,7 +35,7 @@ public class PeasantProvider implements AssetProvider<Item>
     @Override
     public void load()
     {
-        assets.load("data/sounds/human/unit/peasant/selected_1.mp3", Sound.class);
+        assets.load("data/sounds/human/unit/peasant/selected_1.wav", Sound.class);
         assets.load("data/sounds/human/unit/peasant/complete.mp3", Sound.class);
         assets.load("data/sounds/human/unit/peasant/acknowledge_1.mp3", Sound.class);
         assets.load("data/sounds/human/unit/peasant/construct.mp3", Sound.class);
@@ -108,19 +110,25 @@ public class PeasantProvider implements AssetProvider<Item>
         return new TextureRegionDrawable(iconRegion);
     }
 
-    private Map<Identifier, Sound> getSounds()
+    private Map<Identifier, SoundEffect> getSounds()
     {
-        Sound selected = assets.get("data/sounds/human/unit/peasant/selected_1.mp3", Sound.class);
-        Sound complete = assets.get("data/sounds/human/unit/peasant/complete.mp3", Sound.class);
-        Sound acknowledge = assets.get("data/sounds/human/unit/peasant/acknowledge_1.mp3", Sound.class);
-        Sound construct = assets.get("data/sounds/human/unit/peasant/construct.mp3", Sound.class);
+        SoundEffect selected = newSoundEffect("data/sounds/human/unit/peasant/selected_1.wav");
+        SoundEffect complete = newSoundEffect("data/sounds/human/unit/peasant/complete.mp3");
+        SoundEffect acknowledge = newSoundEffect("data/sounds/human/unit/peasant/acknowledge_1.mp3");
+        SoundEffect construct = newSoundEffect("data/sounds/human/unit/peasant/construct.mp3");
 
-        Map<Identifier, Sound> sounds = new HashMap<Identifier, Sound>();
+        Map<Identifier, SoundEffect> sounds = new HashMap<Identifier, SoundEffect>();
         sounds.put(new Identifier("Selected"), selected);
         sounds.put(new Identifier("Complete"), complete);
         sounds.put(new Identifier("Acknowledge"), acknowledge);
         sounds.put(new Identifier("Construct"), construct);
 
         return sounds;
+    }
+
+    private SoundEffect newSoundEffect(String path)
+    {
+        Sound sound = assets.get(path, Sound.class);
+        return new BasicSoundEffect(sound);
     }
 }

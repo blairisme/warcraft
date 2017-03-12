@@ -1,12 +1,12 @@
 package com.evilbird.warcraft.item.world.building.human;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
@@ -87,9 +87,9 @@ public class BarracksProvider implements AssetProvider<Item>
         return new TextureRegionDrawable(iconRegion);
     }
 
-    private Map<Identifier, Sound> getSounds()
+    private Map<Identifier, SoundEffect> getSounds()
     {
-        Map<Identifier, Sound> sounds = new HashMap<Identifier, Sound>();
+        Map<Identifier, SoundEffect> sounds = new HashMap<Identifier, SoundEffect>();
         return sounds;
     }
 }

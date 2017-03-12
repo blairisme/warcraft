@@ -175,12 +175,14 @@ public class Level1 implements AssetProvider<ItemRoot>
                 Float gold = (Float)properties.get("Gold");
                 Float wood = (Float)properties.get("Wood");
                 String name = object.getName();
+                Boolean ai = (Boolean)properties.get("AI");
+                String betterType = ai == Boolean.TRUE ? "CurrentPlayer" : "AIPlayer";
 
                 Unit player = new Unit();
                 player.setTouchable(Touchable.disabled);
                 player.setVisible(false);
                 player.setId(new Identifier(name));
-                player.setType(new Identifier("Player"));
+                player.setType(new Identifier(betterType));
                 player.setWood(wood);
                 player.setGold(gold);
 
