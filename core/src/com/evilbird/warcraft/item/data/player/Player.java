@@ -1,6 +1,7 @@
 package com.evilbird.warcraft.item.data.player;
 
-import com.evilbird.warcraft.item.world.unit.Unit;
+import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.item.ItemGroup;
 
 import javax.inject.Inject;
 
@@ -9,7 +10,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class Player extends Unit
+public class Player extends ItemGroup
 {
     private float gold;
     private float oil;
@@ -18,41 +19,36 @@ public class Player extends Unit
     @Inject
     public Player()
     {
+        super.setPosition(0, 0);
+        super.setSize(Float.MAX_VALUE, Float.MAX_VALUE);
+    }
+
+    public boolean isConsoleUser()
+    {
+        return true;
     }
 
     @Override
-    public float getGold()
+    public void setSize(Vector2 size)
     {
-        return gold;
+        super.setSize(Float.MAX_VALUE, Float.MAX_VALUE);
     }
 
     @Override
-    public float getOil()
+    public void setSize(float width, float height)
     {
-        return oil;
+        super.setSize(Float.MAX_VALUE, Float.MAX_VALUE);
     }
 
     @Override
-    public float getWood()
+    public void setPosition(Vector2 position)
     {
-        return wood;
+        super.setPosition(0, 0);
     }
 
     @Override
-    public void setGold(float gold)
+    public void setPosition(float x, float y)
     {
-        this.gold = gold;
-    }
-
-    @Override
-    public void setOil(float oil)
-    {
-        this.oil = oil;
-    }
-
-    @Override
-    public void setWood(float wood)
-    {
-        this.wood = wood;
+        super.setPosition(0, 0);
     }
 }

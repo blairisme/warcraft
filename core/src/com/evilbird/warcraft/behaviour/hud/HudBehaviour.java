@@ -6,10 +6,10 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.hud.action.ActionPane;
 import com.evilbird.warcraft.item.hud.resource.ResourcePanel;
 import com.evilbird.warcraft.item.hud.state.StatePane;
-import com.evilbird.warcraft.item.world.unit.Unit;
 
 import java.util.Collection;
 import java.util.List;
@@ -37,12 +37,12 @@ public class HudBehaviour implements Behaviour
 
     private void updateResourceBar(ItemRoot world, ItemRoot hud, List<UserInput> inputs)
     {
-        Unit player = (Unit)world.find(itemWithId(new Identifier("Player1"))); //TODO: Obtain Id && Cache && Use Player class
+        Player player = (Player)world.find(itemWithId(new Identifier("Player1"))); //TODO: Obtain Id && Cache && Use Player class
         ResourcePanel resourcePane = (ResourcePanel)hud.find(itemWithId(new Identifier("ResourcePane"))); //TODO: Cache
 
-        resourcePane.setGold(player.getGold()); //TODO: Frequency too high. Only when changed.
-        resourcePane.setOil(player.getOil()); //TODO: Frequency too high. Only when changed.
-        resourcePane.setWood(player.getWood()); //TODO: Frequency too high. Only when changed.
+        //resourcePane.setGold(player.getGold()); //TODO: Frequency too high. Only when changed.
+        //resourcePane.setOil(player.getOil()); //TODO: Frequency too high. Only when changed.
+        //resourcePane.setWood(player.getWood()); //TODO: Frequency too high. Only when changed.
 
         Collection<Item> selection = world.findAll(selectedItem()); //TODO: Frequency too high. Only when changed.
 

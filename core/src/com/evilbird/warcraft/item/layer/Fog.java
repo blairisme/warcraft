@@ -1,58 +1,42 @@
 package com.evilbird.warcraft.item.layer;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.item.world.unit.UnitProperties;
+import com.evilbird.engine.item.specialized.Layer;
 
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.item.ItemPredicates.itemWithAction;
-import static com.evilbird.engine.item.ItemPredicates.itemWithProperty;
+import static com.evilbird.engine.item.ItemPredicates.itemWithId;
 
-public class Fog extends Item
+public class Fog extends Layer
 {
-    private TiledMapTileLayer layer;
-    private LayerRenderer renderer;
     private FogTileSet tileSet;
     private boolean initialized;
 
     public Fog(FogTileSet tileSet)
     {
-        this.layer = null;
-        this.renderer = null;
         this.tileSet = tileSet;
         this.initialized = false;
+        setType(new Identifier("Fog"));
     }
 
     @Override
-    public void setSize(Vector2 size)
+    public void setLayer(TiledMapTileLayer layer)
     {
-        setSize(size.x, size.y);
-    }
-
-    @Override
-    public void setSize(float width, float height)
-    {
-        int layerWidth = Math.round(width / 32f);
-        int layerHeight = Math.round(height / 32f);
-        this.layer = new TiledMapTileLayer(layerWidth, layerHeight, 32, 32);
-        this.renderer = new LayerRenderer(layer, new LayerCamera(this));
-    }
-
-    @Override
-    public void draw(Batch batch, float alpha)
-    {
-        renderer.draw(batch, alpha);
+        super.setLayer(new TiledMapTileLayer(
+            layer.getWidth(),
+            layer.getHeight(),
+            (int)layer.getTileWidth(),
+            (int)layer.getTileHeight()));
     }
 
     @Override
@@ -71,28 +55,29 @@ public class Fog extends Item
     private void initialize()
     {
         conceal();
-        ItemRoot world = getRoot();
-        Collection<Item> revealedItems = world.findAll(itemOwnedByPlayer());
-        revealItems(revealedItems);
+        ItemGroup player = getPlayer();
+        revealItems(player.getItems());
     }
 
     private void update()
     {
-        ItemRoot world = getRoot();
-        Collection<Item> revealedItems = world.findAll(both(itemWithAction(), itemOwnedByPlayer()));
+        ItemGroup player = getPlayer();
+        Collection<Item> revealedItems = player.findAll(itemWithAction());
         revealItems(revealedItems);
     }
 
-    private Predicate<Item> itemOwnedByPlayer()
+    private ItemGroup getPlayer()
     {
-        return itemWithProperty(UnitProperties.Owner, new Identifier("Player1"));
+        ItemRoot world = getRoot();
+        return (ItemGroup)world.find(itemWithId(new Identifier("Player1"))); //TODO
     }
 
     private void conceal(){
-        for (int x = 0; x < layer.getWidth(); ++x)
+        for (int x = 0; x < layer.getWidth(); ++x){
             for (int y = 0; y < layer.getHeight(); ++y){
                 layer.setCell(x, y, tileSet.full);
             }
+        }
     }
 
     private void revealItems(Collection<Item> items)

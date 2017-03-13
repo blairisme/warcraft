@@ -12,13 +12,10 @@ public enum ActionType implements ActionIdentifier
 
     Gather,
     Build,
-    Prototype,
+    BuildingSite,
 
     CreateBarracks,
-    CreateBarracksPrototype,
-
     CreateFarm,
-    CreateFarmPrototype,
 
     Attack,
     Stop,

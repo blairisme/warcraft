@@ -8,9 +8,9 @@ import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemIdentifier;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.item.world.building.BuildingType;
+import com.evilbird.engine.item.ItemType;
+import com.evilbird.warcraft.item.hud.building.BuildingSiteType;
 
 import javax.inject.Inject;
 
@@ -33,22 +33,16 @@ public class PrototypeActionProvider implements ActionProvider
     public Action get(Item item, Item target, UserInput input)
     {
         if (Objects.equals(target.getType(), new Identifier("CreateBarracksButton"))){
-            return get(item, BuildingType.BarracksPrototype);
+            return get(item, BuildingSiteType.BarracksBuildingSite);
         }
         throw new UnsupportedOperationException();
     }
 
-    public Action get(Item item, ItemIdentifier prototype)
+    public Action get(Item item, ItemType siteType)
     {
-        ItemRoot itemRoot = item.getRoot();
+        ItemRoot root = item.getRoot();
         Vector2 screenCenter = new Vector2(512, 384);
-        Vector2 location = itemRoot.unproject(screenCenter);
-        Action createPrototype = newCreateAction(itemRoot, prototype, new Identifier(), location);
-        return createPrototype;
-    }
-
-    private Action newCreateAction(ItemRoot root, ItemIdentifier type, Identifier id, Vector2 position)
-    {
-        return new CreateAction(root, type, itemFactory, id, position);
+        Vector2 location = root.unproject(screenCenter);
+        return new CreateAction(root, siteType, itemFactory, new Identifier(), location, true);
     }
 }

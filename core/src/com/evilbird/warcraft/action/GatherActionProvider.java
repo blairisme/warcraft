@@ -16,16 +16,15 @@ import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemProperty;
-import com.evilbird.warcraft.item.world.unit.UnitProperties;
+import com.evilbird.warcraft.item.unit.UnitProperties;
 
 import java.util.Collection;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.item.ItemComparators.closestItem;
-import static com.evilbird.engine.item.ItemPredicates.itemWithProperty;
 import static com.evilbird.engine.item.ItemPredicates.itemWithType;
 
 /**
@@ -119,11 +118,10 @@ public class GatherActionProvider implements ActionProvider
 
     private Item findDepot(Item item)
     {
-        Predicate<Item> townHall = itemWithType(new Identifier("TownHall"));
-        Predicate<Item> ownedByPlayer = itemWithProperty(UnitProperties.Owner, new Identifier("Player1")); //TODO
-        Predicate<Item> ownedDepots = both(townHall, ownedByPlayer);
+        ItemGroup player = item.getParent();
+        Predicate<Item> ownedDepots = itemWithType(new Identifier("TownHall"));
         Comparator<Item> closestDepot = closestItem(item);
-        Collection<Item> depots = item.getRoot().findAll(ownedDepots);
+        Collection<Item> depots = player.findAll(ownedDepots);
         return Collections.min(depots, closestDepot);
     }
 

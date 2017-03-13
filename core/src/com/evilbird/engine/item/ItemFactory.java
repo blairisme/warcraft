@@ -9,5 +9,5 @@ public interface ItemFactory
 {
     void load();
 
-    Item newItem(ItemIdentifier type);
+    Item newItem(ItemType type);
 }

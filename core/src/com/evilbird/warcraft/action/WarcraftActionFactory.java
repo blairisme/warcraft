@@ -23,7 +23,7 @@ public class WarcraftActionFactory implements ActionFactory
         GatherActionProvider gatherActionProvider,
         MoveActionProvider moveActionProvider,
         PanActionProvider panActionProvider,
-        PrototypeActionProvider prototypeActionProvider,
+        PrototypeActionProvider buildingSiteActionProvider,
         SelectionActionProvider selectionActionProvider,
         StopActionProvider stopActionProvider,
         ZoomActionProvider zoomActionProvider)
@@ -31,11 +31,11 @@ public class WarcraftActionFactory implements ActionFactory
         actions = new HashMap<ActionIdentifier, ActionProvider>();
         actions.put(ActionType.Attack, attackActionProvider);
         actions.put(ActionType.Build, buildActionProvider);
+        actions.put(ActionType.BuildingSite, buildingSiteActionProvider);
         actions.put(ActionType.Drag, dragActionProvider);
         actions.put(ActionType.Gather, gatherActionProvider);
         actions.put(ActionType.Move, moveActionProvider);
         actions.put(ActionType.Pan, panActionProvider);
-        actions.put(ActionType.Prototype, prototypeActionProvider);
         actions.put(ActionType.Select, selectionActionProvider);
         actions.put(ActionType.Stop, stopActionProvider);
         actions.put(ActionType.Zoom, zoomActionProvider);

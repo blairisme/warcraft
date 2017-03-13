@@ -19,10 +19,10 @@ import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemIdentifier;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.item.world.building.BuildingType;
-import com.evilbird.warcraft.item.world.unit.UnitProperties;
+import com.evilbird.engine.item.ItemType;
+import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.building.BuildingProperties;
 
 import javax.inject.Inject;
 
@@ -62,20 +62,20 @@ public class BuildActionProvider implements ActionProvider
 
     public Action get(Item prototype, Item builder)
     {
-        if (Objects.equals(prototype.getType(), new Identifier("BarracksPrototype"))){ //TODO: Obtain mapping from prototype
-            return build(prototype, builder, BuildingType.Barracks);
+        if (Objects.equals(prototype.getType(), new Identifier("BarracksBuildingSite"))){ //TODO: Obtain mapping from prototype
+            return build(prototype, builder, UnitType.Barracks);
         }
         throw new UnsupportedOperationException();
     }
 
-    private Action build(Item prototype, Item builder, ItemIdentifier buildingType)
+    private Action build(Item prototype, Item builder, ItemType buildingType)
     {
         Action remove = new RemoveAction(prototype);
         Action build = build(builder, buildingType, prototype.getPosition());
         return new SequenceAction(remove, build);
     }
 
-    private Action build(Item builder, ItemIdentifier type, Vector2 location)
+    private Action build(Item builder, ItemType type, Vector2 location)
     {
         ItemRoot itemRoot = builder.getRoot();
         Identifier building = new Identifier();
@@ -97,8 +97,8 @@ public class BuildActionProvider implements ActionProvider
         Action animateBuildingBefore = animateActionProvider.get(stage, building, new Identifier("Construct"));
         Action before = new ParallelAction(animateBuilderBefore, animateBuildingBefore, soundBefore);
 
-        ActionValue value = new ItemReferenceValue(stage, building, UnitProperties.Health); //TODO: Use progress instead
-        ActionModifier modifier = new DeltaModifier(100f, DeltaType.PerSecond);
+        ActionValue value = new ItemReferenceValue(stage, building, BuildingProperties.Progress);
+        ActionModifier modifier = new DeltaModifier(10f, DeltaType.PerSecond);
         ActionDuration duration = new TimeDuration(10f);
         Action build = new ModifyAction(value, modifier, duration);
 
@@ -110,8 +110,8 @@ public class BuildActionProvider implements ActionProvider
         return new SequenceAction(before, build, after);
     }
 
-    private Action newCreateAction(ItemRoot root, ItemIdentifier type, Identifier id, Vector2 position)
+    private Action newCreateAction(ItemRoot root, ItemType type, Identifier id, Vector2 position)
     {
-        return new CreateAction(root, type, itemFactory, id, position);
+        return new CreateAction(root, type, itemFactory, id, position, true);
     }
 }

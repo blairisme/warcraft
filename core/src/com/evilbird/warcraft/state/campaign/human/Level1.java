@@ -2,37 +2,31 @@ package com.evilbird.warcraft.state.campaign.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.item.specialized.Layer;
 import com.evilbird.warcraft.item.data.DataType;
-import com.evilbird.warcraft.item.data.camera.Camera;
-import com.evilbird.warcraft.item.layer.Fog;
 import com.evilbird.warcraft.item.layer.LayerType;
-import com.evilbird.warcraft.item.layer.Map;
-import com.evilbird.warcraft.item.world.unit.Unit;
-import com.evilbird.warcraft.item.world.unit.UnitType;
+import com.evilbird.warcraft.item.unit.UnitType;
 
-import org.apache.commons.lang3.Range;
-
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -56,59 +50,163 @@ public class Level1 implements AssetProvider<ItemRoot>
     @Override
     public ItemRoot get()
     {
+        TiledMap level = loadLevel("data/levels/human/level1.tmx");
+        return loadLevelItem(level);
+    }
+
+    private TiledMap loadLevel(String path)
+    {
         TmxMapLoader.Parameters parameters = new TmxMapLoader.Parameters();
         parameters.textureMinFilter = Texture.TextureFilter.Linear;
         parameters.textureMagFilter = Texture.TextureFilter.Nearest;
 
-        assets.load("data/levels/human/level1.tmx", TiledMap.class, parameters);
-        assets.finishLoading();
-        TiledMap map = assets.get("data/levels/human/level1.tmx", TiledMap.class);
-
-        ItemRoot world = new ItemRoot();
-        addItems(world, map);
-
-        return world;
+        assets.load(path, TiledMap.class, parameters);
+        assets.finishLoadingAsset(path);
+        return assets.get(path, TiledMap.class);
     }
 
-    private void addItems(ItemRoot world, TiledMap map)
+    private ItemRoot loadLevelItem(TiledMap level)
     {
-        addMapItem(world, map);
-        for (MapLayer layer: map.getLayers())
-        {
-            addAggregateItems(world, layer);
-            addObjectItems(world, layer);
+        ItemRoot result = new ItemRoot();
+        result.setViewport(new ScreenViewport());
+        addItems(level, result);
+        return result;
+    }
+
+    private ItemRoot addItems(TiledMap level, ItemRoot root)
+    {
+        Map<String, ItemComposite> rootItems = getComposites(root);
+        addPrimaryItems(level, rootItems);
+
+        Map<String, ItemComposite> primaryItems = getComposites(root.getItems());
+        addSecondaryItems(level, primaryItems);
+
+        return root;
+    }
+
+    private Map<String, ItemComposite> getComposites(ItemRoot root)
+    {
+        Map<String, ItemComposite> rootItems = new HashMap<String, ItemComposite>();
+        rootItems.put("root", root);
+        return rootItems;
+    }
+
+    private Map<String, ItemComposite> getComposites(Collection<Item> items)
+    {
+        Map<String, ItemComposite> result = new HashMap<String, ItemComposite>();
+        for (Item item: items){
+            if (item instanceof ItemComposite){
+                String identifier = item.getId().toString();
+                result.put(identifier, (ItemComposite)item);
+            }
         }
-        addFog(world, map);
+        return result;
     }
 
-    //TODO: Move into loop. Obtain layer from loop
-    private void addMapItem(ItemRoot world, TiledMap tiledMap)
+    private void addPrimaryItems(TiledMap level, Map<String, ItemComposite> parents)
     {
-        TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
-
-        Map map = (Map)itemFactory.newItem(LayerType.Map);
-        map.setLayer(layer);
-        map.setSize(getSize(layer));
-        world.addItem(map);
+        for (MapLayer layer: level.getLayers()){
+            if (isPrimaryItem(layer)){
+                addItems(layer, parents);
+            }
+        }
     }
 
-    //TODO: Move into loop. Obtain layer from loop
-    private void addFog(ItemRoot world, TiledMap tiledMap)
+    private void addSecondaryItems(TiledMap level, Map<String, ItemComposite> parents)
     {
-        TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
-
-        Fog fog = (Fog)itemFactory.newItem(LayerType.OpaqueFog);
-        fog.setSize(getSize(layer));
-        world.addItem(fog);
+        for (MapLayer layer: level.getLayers()){
+            if (isSecondaryItem(layer)){
+                addItems(layer, parents);
+            }
+        }
     }
 
-    private Vector2 getSize(TiledMapTileLayer layer)
+    private void addItems(MapLayer layer, Map<String, ItemComposite> parents)
     {
-        float width = layer.getWidth() * layer.getTileWidth();
-        float height = layer.getHeight() * layer.getTileHeight();
-        return new Vector2(width, height);
+        if (isLayerItem(layer)){
+            addLayerItems(layer, parents);
+        }
+        else{
+            addObjectItems(layer, parents);
+        }
     }
 
+    private void addLayerItems(MapLayer layer, Map<String, ItemComposite> parents)
+    {
+        Layer item = (Layer)itemFactory.newItem(LayerType.valueOf(layer.getName()));
+        item.setLayer((TiledMapTileLayer)layer);
+
+        ItemComposite parent = parents.get("root");
+        parent.addItem(item);
+    }
+
+    private void addObjectItems(MapLayer layer, Map<String, ItemComposite> parents)
+    {
+        for (MapObject object : layer.getObjects())
+        {
+            MapProperties properties = object.getProperties();
+
+            Item item = itemFactory.newItem(getItemType(layer));
+            item.setId(new Identifier(object.getName()));
+            item.setVisible(object.isVisible());
+            item.setTouchable(getTouchable(properties));
+            item.setSize((Float)properties.get("width"), (Float)properties.get("height"));
+            item.setPosition((Float)properties.get("x"), (Float)properties.get("y"));
+
+            ItemComposite parent = parents.get(getOwner(properties));
+            parent.addItem(item);
+        }
+    }
+
+    private boolean isPrimaryItem(MapLayer layer)
+    {
+        return isLayerItem(layer) || isDataItem(layer);
+    }
+
+    private boolean isSecondaryItem(MapLayer layer)
+    {
+        return ! isPrimaryItem(layer);
+    }
+
+    private boolean isLayerItem(MapLayer layer)
+    {
+        return Objects.equals(layer.getName(), "Map") ||
+               Objects.equals(layer.getName(), "OpaqueFog") ||
+                Objects.equals(layer.getName(), "Wood");
+    }
+
+    private boolean isDataItem(MapLayer layer)
+    {
+        return Objects.equals(layer.getName(), "Player") ||
+               Objects.equals(layer.getName(), "Camera");
+    }
+
+    private ItemType getItemType(MapLayer layer)
+    {
+        if (isLayerItem(layer)){
+            return LayerType.valueOf(layer.getName());
+        }
+        if (isDataItem(layer)){
+            return DataType.valueOf(layer.getName());
+        }
+        return UnitType.valueOf(layer.getName());
+    }
+
+    private Touchable getTouchable(MapProperties properties)
+    {
+        Boolean touchable = (Boolean)properties.get("Touchable");
+        return touchable == Boolean.FALSE ? Touchable.childrenOnly : Touchable.enabled;
+    }
+
+    private String getOwner(MapProperties properties)
+    {
+        String owner = (String)properties.get("Owner");
+        return owner == null ? "root" : owner;
+    }
+
+
+
+    /*
     private void addAggregateItems(ItemRoot world, MapLayer layer)
     {
         if (Objects.equals(layer.getName(), "Wood")) // TODO: swap for property aggregated=true
@@ -136,14 +234,13 @@ public class Level1 implements AssetProvider<ItemRoot>
                         Float worldX = x * width;
                         Float worldY = y * height;
 
-                        Unit unit = (Unit)itemFactory.newItem(UnitType.Tree);
+                        Unit unit = (Unit)itemFactory.newItem(ResourceType.Tree);
                         unit.setSize(width, height);
                         unit.setAvailableAnimation(new Identifier("Idle"), animation);
                         unit.setAvailableAnimation(new Identifier("GatherWood"), animation);
                         unit.setAnimation(new Identifier("Idle"));
                         unit.setId(new Identifier());
                         unit.setPosition(worldX, worldY);
-                        unit.setOwner(new Identifier("Neutral"));
 
                         world.addItem(unit);
                     }
@@ -183,8 +280,6 @@ public class Level1 implements AssetProvider<ItemRoot>
                 player.setVisible(false);
                 player.setId(new Identifier(name));
                 player.setType(new Identifier(betterType));
-                player.setWood(wood);
-                player.setGold(gold);
 
                 world.addItem(player);
             }
@@ -201,10 +296,10 @@ public class Level1 implements AssetProvider<ItemRoot>
                 unit.setSize(width, height);
                 unit.setPosition(x, y);
                 unit.setId(new Identifier(name));
-                unit.setOwner(new Identifier(owner));
 
                 world.addItem(unit);
             }
         }
     }
+    */
 }

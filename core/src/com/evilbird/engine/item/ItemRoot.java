@@ -12,7 +12,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-public class ItemRoot
+public class ItemRoot implements ItemComposite
 {
     private Stage delegate;
     private ItemGroup group;
@@ -29,23 +29,45 @@ public class ItemRoot
     }
 
     /**
-     * Adds an {@link Item} as a child of this item root.
+     * Adds an {@link Item} as a child of the item root.
      *
      * @param item  the item to add.
      */
+    @Override
     public void addItem(Item item)
     {
         this.group.addItem(item);
     }
 
     /**
-     * Removes an {@link Item} from this group.
+     * Removes an {@link Item} from the item root.
      *
      * @param item  the item to remove.
      */
+    @Override
     public void removeItem(Item item)
     {
         this.group.removeItem(item);
+    }
+
+    /**
+     * Removes all {@link Item}s from the item root.
+     */
+    @Override
+    public void clearItems()
+    {
+        this.group.clearItems();
+    }
+
+    /**
+     * Returns a collection containing the children of the ItemComposite.
+     *
+     * @return the children of the ItemGroup.
+     */
+    @Override
+    public Collection<Item> getItems()
+    {
+        return this.group.getItems();
     }
 
     /**

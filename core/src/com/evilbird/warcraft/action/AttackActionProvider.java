@@ -19,7 +19,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperty;
-import com.evilbird.warcraft.item.world.unit.UnitProperties;
+import com.evilbird.warcraft.item.unit.UnitProperties;
 
 import javax.inject.Inject;
 
@@ -28,6 +28,9 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
+//TODO: Read attack damage from unit properties
+//TODO: Randomly choose attack damage between min and max
+//TODO: Negate attack by armour of target
 public class AttackActionProvider implements ActionProvider
 {
     private MoveActionProvider moveActionProvider;

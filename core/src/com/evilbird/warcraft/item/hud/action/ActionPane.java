@@ -6,7 +6,7 @@ import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.item.world.unit.Unit;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -70,8 +70,8 @@ public class ActionPane extends GridPane
     }
 
     private Collection<ActionType> getActions(Item item){
-        if (item instanceof Unit){
-            Unit unit = (Unit)item;
+        if (item instanceof Combatant){
+            Combatant unit = (Combatant)item;
             return unit.getActions();
         }
         return Collections.emptyList();

@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperty;
+import com.evilbird.engine.item.ItemRoot;
 
 import javax.inject.Inject;
 
@@ -30,9 +31,10 @@ public class Camera extends Item
         setVisible(false);
     }
 
-    public OrthographicCamera asOrthographicCamera()
+    @Override
+    public void setRoot(ItemRoot root)
     {
-        return camera;
+        root.getViewport().setCamera(camera);
     }
 
     public float getZoom()

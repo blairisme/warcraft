@@ -7,7 +7,8 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.TextLabel;
 import com.evilbird.warcraft.item.hud.common.UnitPane;
-import com.evilbird.warcraft.item.world.unit.Unit;
+import com.evilbird.warcraft.item.unit.building.Building;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Provider;
 
@@ -78,10 +79,10 @@ public class DetailsPane extends GridPane
 
     private String getLevel(Item item)
     {
-        if (item instanceof Unit)
+        if (item instanceof Combatant)
         {
-            Unit unit = (Unit)item;
-            return "Level " + String.valueOf(unit.getLevel()); //TODO: Localize
+            Combatant combatant = (Combatant)item;
+            return "Level " + String.valueOf(combatant.getLevel()); //TODO: Localize
         }
         return "";
     }
@@ -98,9 +99,25 @@ public class DetailsPane extends GridPane
             setGoldMineDetails(item);
         }
         else if (Objects.equals(new Identifier("Footman"), item.getType()) ||
-                Objects.equals(new Identifier("Peasant"), item.getType())){
-            setUnitDetails((Unit)item);
+                 Objects.equals(new Identifier("Peasant"), item.getType())){
+            setUnitDetails((Combatant)item);
         }
+
+        /*
+        else if (Objects.equals(new Identifier("Barracks"), item.getType())){
+            setBuildingDetails(item);
+        }
+        */
+    }
+
+    private boolean isBuilding(Item item)
+    {
+        if (item instanceof Building)
+        {
+            Building building = (Building)item;
+            return building.getComplete();
+        }
+        return false;
     }
 
     private void setFarmDetails(Item item)
@@ -155,13 +172,13 @@ public class DetailsPane extends GridPane
         setCell(detailsContainer, 0, 1);
     }
 
-    private void setUnitDetails(Unit unit)
+    private void setUnitDetails(Combatant combatant)
     {
-        TextLabel armour = createDetailsLabel("Armour", unit.getArmour());
-        TextLabel damage = createDetailsLabel("Damage", unit.getDamageMinimum(), unit.getDamageMaximum());
-        TextLabel range = createDetailsLabel("Range", unit.getRange());
-        TextLabel sight = createDetailsLabel("Sight", unit.getSight());
-        TextLabel speed = createDetailsLabel("Speed", unit.getSpeed());
+        TextLabel armour = createDetailsLabel("Armour", combatant.getArmour());
+        TextLabel damage = createDetailsLabel("Damage", combatant.getDamageMinimum(), combatant.getDamageMaximum());
+        TextLabel range = createDetailsLabel("Range", combatant.getRange());
+        TextLabel sight = createDetailsLabel("Sight", combatant.getSight());
+        TextLabel speed = createDetailsLabel("Speed", combatant.getSpeed());
 
         GridPane detailsContainer = new GridPane(1, 5);
         detailsContainer.setSize(160, 100);

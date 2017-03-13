@@ -15,7 +15,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-public class ItemGroup extends Item implements GroupObserver
+public class ItemGroup extends Item implements GroupObserver, ItemComposite
 {
     private Collection<Item> items;
 
@@ -69,6 +69,16 @@ public class ItemGroup extends Item implements GroupObserver
     }
 
     /**
+     * Returns a collection containing the children of the ItemGroup.
+     *
+     * @return the children of the ItemGroup.
+     */
+    public Collection<Item> getItems()
+    {
+        return items;
+    }
+
+    /**
      * Returns the {@link Item} at the specified location in world coordinates. Hit testing is
      * performed in the order the item were inserted into the group, last inserted actors being
      * tested first.
@@ -82,7 +92,7 @@ public class ItemGroup extends Item implements GroupObserver
     {
         Actor actor = delegate.hit(coordinates.x, coordinates.y, touchable);
         if (actor != null){
-            Item item = (Item) actor.getUserObject();
+            Item item = (Item)actor.getUserObject();
             return item;
         }
         return null;

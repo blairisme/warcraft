@@ -3,11 +3,11 @@ package com.evilbird.warcraft.item;
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemIdentifier;
+import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.item.data.DataProvider;
 import com.evilbird.warcraft.item.hud.HudControlProvider;
 import com.evilbird.warcraft.item.layer.LayerProvider;
-import com.evilbird.warcraft.item.world.WorldItemProvider;
+import com.evilbird.warcraft.item.unit.UnitProvider;
 
 import javax.inject.Inject;
 
@@ -20,10 +20,10 @@ public class WarcraftItemFactory implements ItemFactory
         DataProvider dataProvider,
         HudControlProvider hudProvider,
         LayerProvider layerProvider,
-        WorldItemProvider worldItemProvider)
+        UnitProvider unitProvider)
     {
         providers = new IdentifiedAssetProviderSet<Item>();
-        providers.addProvider(worldItemProvider);
+        providers.addProvider(unitProvider);
         providers.addProvider(layerProvider);
         providers.addProvider(dataProvider);
         providers.addProvider(hudProvider);
@@ -36,7 +36,7 @@ public class WarcraftItemFactory implements ItemFactory
     }
 
     @Override
-    public Item newItem(ItemIdentifier type)
+    public Item newItem(ItemType type)
     {
         Item result = providers.get(type);
         if (result == null){

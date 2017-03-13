@@ -91,6 +91,28 @@ public class ItemPredicates
         }
     }
 
+    public static Predicate<Item> itemWithOwner(Identifier id)
+    {
+        return new ItemWithOwner(id);
+    }
+
+    public static class ItemWithOwner implements Predicate<Item>
+    {
+        private Identifier id;
+
+        public ItemWithOwner(Identifier id)
+        {
+            this.id = id;
+        }
+
+        @Override
+        public boolean test(Item item)
+        {
+            Item parent = item.getParent();
+            return Objects.equals(parent.getId(), id);
+        }
+    }
+
     public static Predicate<Item> selectedItem()
     {
         return new SelectedItem(); //TODO singleton?
@@ -104,4 +126,6 @@ public class ItemPredicates
             return item.getSelected();
         }
     }
+
+
 }

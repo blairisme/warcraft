@@ -15,10 +15,12 @@ import javax.inject.Provider;
 public class LayerProvider extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
-    public LayerProvider(Provider<Map> mapProvider, FogProvider fogProvider)
+    public LayerProvider(Provider<Map> mapProvider, FogProvider fogProvider, Provider<Wood> woodProvider)
     {
         addProvider(LayerType.Map, mapProvider);
         addProvider(LayerType.OpaqueFog, fogProvider);
         addProvider(LayerType.TransparentFog, fogProvider);
+
+        addProvider(LayerType.Wood, woodProvider);
     }
 }

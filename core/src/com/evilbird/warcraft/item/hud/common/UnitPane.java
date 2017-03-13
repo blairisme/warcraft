@@ -6,7 +6,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.Image;
-import com.evilbird.warcraft.item.world.unit.Unit;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 /**
  * Instances of this class TODO
@@ -41,9 +41,9 @@ public class UnitPane extends GridPane
 
     public void setItem(Item item)
     {
-        if (item instanceof Unit) //TODO: Pass in unit?
+        if (item instanceof Combatant) //TODO: Pass in unit?
         {
-            Unit unit = (Unit)item;
+            Combatant unit = (Combatant)item;
             Drawable icon = unit.getIcon();
 
             float health = unit.getHealth();

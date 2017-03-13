@@ -36,7 +36,7 @@ public class UnitPaneProvider implements AssetProvider<UnitPane>
     }
 
     @Override
-    public com.evilbird.warcraft.item.hud.common.UnitPane get()
+    public UnitPane get()
     {
         UnitPane result = new UnitPane(healthBarProvider);
         result.setBackground(getTexture("data/textures/neutral/perennial/selection.png"));
