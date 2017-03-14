@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.layer;
+package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 

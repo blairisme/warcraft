@@ -15,9 +15,9 @@ import com.evilbird.engine.item.ItemProperty;
 import java.util.HashMap;
 import java.util.Map;
 
+//TODO: Rename to Animation
 //TODO: Move selected box drawing to unit
-//TODO: Does playing belong here? Feels like it should be in some audio manager class.
-//TODO: Log if sound is missing
+//TODO: Use real logging
 public class AnimatedItem extends Item
 {
     private float direction;
@@ -52,6 +52,11 @@ public class AnimatedItem extends Item
     public Identifier getAnimation()
     {
         return currentAnimationId;
+    }
+
+    protected TextureRegion getAnimationFrame()
+    {
+        return currentAnimation.getKeyFrame(animationTime);
     }
 
     public void setAnimation(Identifier animationId)
@@ -135,7 +140,7 @@ public class AnimatedItem extends Item
         drawSelection(batch);
     }
 
-    private void updateAnimation()
+    protected void updateAnimation()
     {
         if (updateAnimation){
             updateAnimation = false;
@@ -144,21 +149,21 @@ public class AnimatedItem extends Item
                 currentAnimation.setDirection(direction);
             }
             else {
-                System.out.println("Missing animation: " + currentAnimationId.toString()); //TODO: Use real logging
+                System.out.println("Missing animation: " + currentAnimationId.toString());
             }
         }
     }
 
-    private void drawAnimation(Batch batch)
+    protected void drawAnimation(Batch batch)
     {
-        TextureRegion region = currentAnimation.getKeyFrame(animationTime);
+        TextureRegion region = getAnimationFrame();
         batch.draw(region, getX(), getY(), getWidth(), getHeight());
     }
 
-    private void drawSelection(Batch batch)
+    protected void drawSelection(Batch batch)
     {
         if (getSelected()){
-            batch.end();
+            batch.end(); //TODO: Inefficient. Better if draw occurs using batch.
             shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
             shapeRenderer.begin(ShapeType.Line);
             shapeRenderer.setColor(Color.LIME); //TODO: r70 g200 b60
@@ -176,12 +181,12 @@ public class AnimatedItem extends Item
         updateAudio();
     }
 
-    private void updateVisual(float delta)
+    protected void updateVisual(float delta)
     {
         animationTime += delta;
     }
 
-    private void updateAudio()
+    protected void updateAudio()
     {
         if (updateSound){
             updateSound = false;
@@ -190,18 +195,21 @@ public class AnimatedItem extends Item
         }
     }
 
-    private void stopCurrentSound()
+    protected void stopCurrentSound()
     {
         if (currentSound != null){
             currentSound.stop();
         }
     }
 
-    private void startNewSound()
+    protected void startNewSound()
     {
         if (sounds.containsKey(currentSoundId)){
             currentSound = sounds.get(currentSoundId);
             currentSound.play();
+        }
+        else {
+            System.out.println("Missing sound: " + currentSoundId.toString());
         }
     }
 

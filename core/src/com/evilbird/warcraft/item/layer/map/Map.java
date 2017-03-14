@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.layer;
+package com.evilbird.warcraft.item.layer.map;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.specialized.Layer;

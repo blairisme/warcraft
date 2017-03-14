@@ -3,12 +3,14 @@ package com.evilbird.engine.item;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.item.framework.GroupExtension;
 import com.evilbird.engine.item.framework.GroupObserver;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Instances of this class represent a node in the item graph that contains other items.
@@ -17,7 +19,7 @@ import java.util.Collection;
  */
 public class ItemGroup extends Item implements GroupObserver, ItemComposite
 {
-    private Collection<Item> items;
+    private List<Item> items;
 
     /**
      * Constructs a new instance of this class.
@@ -87,15 +89,19 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
      * @param touchable     specifies if hit detection will respect the items touchability.
      * @return              the item at the specified location or null if no item is located there.
      */
-
+    @Override
     public Item hit(Vector2 coordinates, boolean touchable)
     {
-        Actor actor = delegate.hit(coordinates.x, coordinates.y, touchable);
-        if (actor != null){
-            Item item = (Item)actor.getUserObject();
-            return item;
+        if (touchable && delegate.getTouchable() == Touchable.disabled) return null;
+        for (int itemIndex = items.size() - 1; itemIndex >= 0; itemIndex--){
+            Item item = items.get(itemIndex);
+            Vector2 localCoordinates = item.parentToLocalCoordinates(coordinates);
+            Item hit = item.hit(localCoordinates, touchable);
+            if (hit != null){
+                return hit;
+            }
         }
-        return null;
+        return super.hit(coordinates, touchable);
     }
 
     /**

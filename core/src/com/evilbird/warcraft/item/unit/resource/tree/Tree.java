@@ -1,0 +1,61 @@
+package com.evilbird.warcraft.item.unit.resource.tree;
+
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.evilbird.engine.common.graphics.DirectionalAnimation;
+import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.warcraft.common.AnimationUtils;
+import com.evilbird.warcraft.item.unit.resource.Resource;
+
+/**
+ * Instances of this class TODO:Finish
+ *
+ * @author Blair Butterworth
+ */
+public class Tree extends Resource
+{
+    private Cell cell;
+
+    public Tree()
+    {
+        setType(new Identifier("Tree"));
+    }
+
+    public void setCell(Cell cell)
+    {
+        this.cell = cell;
+        setIdleTexture();
+    }
+
+    @Override
+    public void setAnimation(Identifier animationId)
+    {
+        super.setAnimation(animationId);
+        super.updateAnimation();
+        setCellTexture();
+    }
+
+    @Override
+    public void draw(Batch batch, float alpha)
+    {
+        //Drawing handled by forest
+    }
+
+    private void setCellTexture()
+    {
+        if (cell != null){
+            cell.setTile(new StaticTiledMapTile(getAnimationFrame()));
+        }
+    }
+
+    private void setIdleTexture()
+    {
+        TiledMapTile tile = cell.getTile();
+        TextureRegion texture = tile.getTextureRegion();
+        DirectionalAnimation animation = AnimationUtils.getAnimation(texture);
+        setAvailableAnimation(new Identifier("Idle"), animation);
+    }
+}

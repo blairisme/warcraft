@@ -25,7 +25,11 @@ public class Unit extends AnimatedItem
     @Inject
     public Unit()
     {
+        name = "Unknown";
+        icon = null;
         actions = EnumSet.noneOf(ActionType.class);
+        health = 0;
+        healthMaximum = 0;
     }
 
     public EnumSet<ActionType> getActions()

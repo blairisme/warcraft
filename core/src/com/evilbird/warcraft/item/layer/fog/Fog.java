@@ -1,8 +1,9 @@
-package com.evilbird.warcraft.item.layer;
+package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
@@ -27,6 +28,7 @@ public class Fog extends Layer
         this.tileSet = tileSet;
         this.initialized = false;
         setType(new Identifier("Fog"));
+        setTouchable(Touchable.disabled);
     }
 
     @Override
@@ -121,6 +123,7 @@ public class Fog extends Layer
         return result;
     }
 
+    //TODO: Cater for thin peninsulas
     private void updateCellEdge(int x, int y)
     {
         boolean north = cellEmpty(x, y + 1);

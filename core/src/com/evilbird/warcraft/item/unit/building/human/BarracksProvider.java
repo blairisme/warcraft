@@ -13,8 +13,8 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.common.AnimationBuilder;
 import com.evilbird.warcraft.item.unit.building.Building;
-import com.evilbird.warcraft.item.unit.combatant.common.AnimationBuilder;
 
 import java.util.EnumSet;
 import java.util.HashMap;

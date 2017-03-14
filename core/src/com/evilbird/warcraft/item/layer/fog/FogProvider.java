@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.layer;
+package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -12,6 +12,7 @@ import com.evilbird.engine.common.lang.IdentifierNew;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.layer.LayerType;
 
 import javax.inject.Inject;
 

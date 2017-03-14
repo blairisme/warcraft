@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.unit.resource;
+package com.evilbird.warcraft.item.unit.resource.goldmine;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,7 +13,8 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.item.unit.combatant.common.AnimationBuilder;
+import com.evilbird.warcraft.common.AnimationBuilder;
+import com.evilbird.warcraft.item.unit.resource.Resource;
 
 import java.util.EnumSet;
 import java.util.HashMap;

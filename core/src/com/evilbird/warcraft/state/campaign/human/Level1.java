@@ -171,8 +171,9 @@ public class Level1 implements AssetProvider<ItemRoot>
     private boolean isLayerItem(MapLayer layer)
     {
         return Objects.equals(layer.getName(), "Map") ||
+               Objects.equals(layer.getName(), "Forest") ||
                Objects.equals(layer.getName(), "OpaqueFog") ||
-                Objects.equals(layer.getName(), "Wood");
+               Objects.equals(layer.getName(), "TransparentFog");
     }
 
     private boolean isDataItem(MapLayer layer)
@@ -203,103 +204,4 @@ public class Level1 implements AssetProvider<ItemRoot>
         String owner = (String)properties.get("Owner");
         return owner == null ? "root" : owner;
     }
-
-
-
-    /*
-    private void addAggregateItems(ItemRoot world, MapLayer layer)
-    {
-        if (Objects.equals(layer.getName(), "Wood")) // TODO: swap for property aggregated=true
-        {
-            TiledMapTileLayer tileLayer = (TiledMapTileLayer)layer;
-
-            for (int x = 0; x < tileLayer.getWidth(); x++)
-            {
-                for (int y = 0; y < tileLayer.getHeight(); ++y)
-                {
-                    TiledMapTileLayer.Cell cell = tileLayer.getCell(x, y);
-
-                    if (cell != null)
-                    {
-                        TiledMapTile tile = cell.getTile();
-                        Array<TextureRegion> textures = Array.with(tile.getTextureRegion());
-
-                        java.util.Map<Range<Float>, Array<TextureRegion>> frames = new HashMap<Range<Float>, Array<TextureRegion>>(1);
-                        frames.put(Range.between(0.0f, 360.0f), textures);
-
-                        DirectionalAnimation animation = new DirectionalAnimation(0f, 0.15f, frames, Animation.PlayMode.LOOP);
-
-                        Float width = tileLayer.getTileWidth();
-                        Float height = tileLayer.getTileHeight();
-                        Float worldX = x * width;
-                        Float worldY = y * height;
-
-                        Unit unit = (Unit)itemFactory.newItem(ResourceType.Tree);
-                        unit.setSize(width, height);
-                        unit.setAvailableAnimation(new Identifier("Idle"), animation);
-                        unit.setAvailableAnimation(new Identifier("GatherWood"), animation);
-                        unit.setAnimation(new Identifier("Idle"));
-                        unit.setId(new Identifier());
-                        unit.setPosition(worldX, worldY);
-
-                        world.addItem(unit);
-                    }
-                }
-            }
-        }
-    }
-
-    private void addObjectItems(ItemRoot world, MapLayer layer)
-    {
-        for (MapObject object : layer.getObjects())
-        {
-            MapProperties properties = object.getProperties();
-            String type = (String) properties.get("type");
-
-            if (Objects.equals(type, "Camera")) // TODO
-            {
-                Float x = (Float)properties.get("x");
-                Float y = (Float)properties.get("y");
-
-                Camera camera = (Camera)itemFactory.newItem(DataType.Camera);
-                camera.setPosition(x, y);
-
-                world.addItem(camera);
-                world.setViewport(new ScreenViewport(camera.asOrthographicCamera()));
-            }
-            else if (Objects.equals(type, "Player")) // TODO
-            {
-                Float gold = (Float)properties.get("Gold");
-                Float wood = (Float)properties.get("Wood");
-                String name = object.getName();
-                Boolean ai = (Boolean)properties.get("AI");
-                String betterType = ai == Boolean.TRUE ? "CurrentPlayer" : "AIPlayer";
-
-                Unit player = new Unit();
-                player.setTouchable(Touchable.disabled);
-                player.setVisible(false);
-                player.setId(new Identifier(name));
-                player.setType(new Identifier(betterType));
-
-                world.addItem(player);
-            }
-            else
-            {
-                Float x = (Float) properties.get("x");
-                Float y = (Float) properties.get("y");
-                Float width = (Float)properties.get("width");
-                Float height = (Float)properties.get("height");
-                String owner = (String)properties.get("Owner");
-                String name = object.getName();
-
-                Unit unit = (Unit)itemFactory.newItem(UnitType.valueOf(type));
-                unit.setSize(width, height);
-                unit.setPosition(x, y);
-                unit.setId(new Identifier(name));
-
-                world.addItem(unit);
-            }
-        }
-    }
-    */
 }

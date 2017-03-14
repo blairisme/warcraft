@@ -15,12 +15,14 @@ import com.evilbird.engine.item.framework.ActorObserver;
  *
  * @author Blair Butterworth
  */
+//TODO: Consider use either vectors or individual values for size and position.
+//TODO: Use identifier interface for type and id.
 public class Item implements PropertySet<ItemProperty, Object>, ActorObserver
 {
     Actor delegate;
     private ItemRoot root;
     private ItemGroup parent;
-    private Identifier id; //TODO Change type to string
+    private Identifier id;
     private Identifier type;
     private boolean selected;
     private boolean selectable;
@@ -74,6 +76,11 @@ public class Item implements PropertySet<ItemProperty, Object>, ActorObserver
     public boolean getTouchable()
     {
         return delegate.isTouchable();
+    }
+
+    public boolean getVisible()
+    {
+        return delegate.isVisible();
     }
 
     public Vector2 getSize()
@@ -136,6 +143,12 @@ public class Item implements PropertySet<ItemProperty, Object>, ActorObserver
         delegate.setVisible(visible);
     }
 
+    /**
+     * Sets the spatial dimensions of the item.
+     *
+     * @param width     the new width of the item.
+     * @param height    the new height of the item.
+     */
     public void setSize(float width, float height)
     {
         delegate.setSize(width, height);
@@ -166,14 +179,6 @@ public class Item implements PropertySet<ItemProperty, Object>, ActorObserver
         this.root = root;
     }
 
-    public void draw(Batch batch, float alpha)
-    {
-    }
-
-    public void update(float delta)
-    {
-    }
-
     public void addAction(Action action)
     {
         delegate.addAction(action);
@@ -189,12 +194,54 @@ public class Item implements PropertySet<ItemProperty, Object>, ActorObserver
         delegate.clearActions();
     }
 
+    public void draw(Batch batch, float alpha)
+    {
+    }
+
+    public void update(float delta)
+    {
+    }
+
+    /**
+     * Called when the item's position has been changed.
+     */
     public void positionChanged()
     {
     }
 
+    /**
+     * Called when the item's size has been changed.
+     */
     public void sizeChanged()
     {
+    }
+
+    /**
+     * Returns the {@link Item} at the specified location in the items local coordinate system (0,0
+     * is the bottom left of the actor and width,height is the upper right).
+     *
+     * @param position  the world coordinates to test.
+     * @param touchable specifies if hit detection will respect the items touchability.
+     * @return          the item at the specified location or null if no item is located there.
+     */
+    public Item hit(Vector2 position, boolean touchable)
+    {
+        if (touchable && delegate.getTouchable() != Touchable.enabled) return null;
+        return position.x >= 0 && position.x < delegate.getWidth() &&
+               position.y >= 0 && position.y < delegate.getHeight() ? this : null;
+    }
+
+    /**
+     * Converts the coordinates given in the parent's coordinate system to this items's coordinate
+     * system.
+     *
+     * @param   coordinates given in the parent's coordinate system.
+     * @return  coordinates given in the items's coordinate system.
+     */
+    public Vector2 parentToLocalCoordinates(Vector2 coordinates)
+    {
+        Vector2 result = new Vector2(coordinates);
+        return delegate.parentToLocalCoordinates(result);
     }
 
     @Override
