@@ -34,7 +34,7 @@ public class ResourcePanelProvider implements AssetProvider<Item>
     @Override
     public Item get()
     {
-        ResourcePanel result = new ResourcePanel();
+        ResourcePane result = new ResourcePane();
         result.setBackground(getBackground());
         result.setGoldIcon(getGoldIcon());
         result.setGoldText("0");

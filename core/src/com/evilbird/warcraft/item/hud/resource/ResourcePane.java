@@ -16,7 +16,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 
 //TODO: Use item table
-public class ResourcePanel extends Item
+public class ResourcePane extends Item
 {
     private Table table;
     private Label goldText;
@@ -26,7 +26,7 @@ public class ResourcePanel extends Item
     private Label woodText;
     private Image woodImage;
 
-    public ResourcePanel()
+    public ResourcePane()
     {
         goldText = createLabel();
         oilText = createLabel();

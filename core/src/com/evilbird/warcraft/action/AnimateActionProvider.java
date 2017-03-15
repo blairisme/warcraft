@@ -12,7 +12,8 @@ import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.control.AnimationProperties;
+import com.evilbird.engine.item.specialized.AnimationIdentifier;
+import com.evilbird.engine.item.specialized.AnimationProperty;
 
 import javax.inject.Inject;
 
@@ -28,19 +29,19 @@ public class AnimateActionProvider
     {
     }
 
-    public Action get(Item item, Identifier animation)
+    public Action get(Item item, AnimationIdentifier animation)
     {
-        ActionValue value = new ItemValue(item, AnimationProperties.Animation);
+        ActionValue value = new ItemValue(item, AnimationProperty.Animation);
         return get(value, animation);
     }
 
-    public Action get(ItemRoot itemRoot, Identifier itemId, Identifier animation)
+    public Action get(ItemRoot itemRoot, Identifier itemId, AnimationIdentifier animation)
     {
-        ActionValue value = new ItemReferenceValue(itemRoot, itemId, AnimationProperties.Animation);
+        ActionValue value = new ItemReferenceValue(itemRoot, itemId, AnimationProperty.Animation);
         return get(value, animation);
     }
 
-    private Action get(ActionValue value, Identifier animation)
+    private Action get(ActionValue value, AnimationIdentifier animation)
     {
         ActionModifier modifier = new ConstantModifier(animation);
         ActionDuration duration = new InstantDuration();

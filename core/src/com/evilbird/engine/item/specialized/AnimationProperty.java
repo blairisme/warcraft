@@ -1,4 +1,4 @@
-package com.evilbird.engine.item.control;
+package com.evilbird.engine.item.specialized;
 
 import com.evilbird.engine.item.ItemProperty;
 
@@ -7,7 +7,7 @@ import com.evilbird.engine.item.ItemProperty;
  *
  * @author Blair Butterworth
  */
-public enum AnimationProperties implements ItemProperty
+public enum AnimationProperty implements ItemProperty
 {
     Animation,
     Sound

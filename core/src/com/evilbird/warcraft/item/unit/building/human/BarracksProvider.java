@@ -6,18 +6,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.common.AnimationBuilder;
+import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -46,8 +46,7 @@ public class BarracksProvider implements AssetProvider<Item>
         Building result = new Building();
         result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
-        result.setAnimation(new Identifier("Idle"));
-        result.setAvailableSounds(getSounds());
+        result.setAnimation(UnitAnimation.Idle);
         result.setHealth(800.0f);
         result.setHealthMaximum(800.0f);
         result.setIcon(getIcon());
@@ -66,7 +65,7 @@ public class BarracksProvider implements AssetProvider<Item>
         return actions;
     }
 
-    private Map<Identifier, DirectionalAnimation> getAnimations()
+    private Map<AnimationIdentifier, DirectionalAnimation> getAnimations()
     {
         Texture texture = assets.get("data/textures/human/winter/barracks.png", Texture.class);
         Texture constructionTexture = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
@@ -78,11 +77,5 @@ public class BarracksProvider implements AssetProvider<Item>
         Texture iconTexture = assets.get("data/textures/neutral/perennial/icons.png", Texture.class);
         TextureRegion iconRegion = new TextureRegion(iconTexture, 92, 304, 46, 38);
         return new TextureRegionDrawable(iconRegion);
-    }
-
-    private Map<Identifier, SoundEffect> getSounds()
-    {
-        Map<Identifier, SoundEffect> sounds = new HashMap<Identifier, SoundEffect>();
-        return sounds;
     }
 }

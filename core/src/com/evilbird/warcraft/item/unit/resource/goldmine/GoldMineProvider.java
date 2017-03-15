@@ -11,9 +11,13 @@ import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.specialized.AnimationIdentifier;
+import com.evilbird.engine.item.specialized.SoundIdentifier;
 import com.evilbird.warcraft.common.AnimationBuilder;
 import com.evilbird.warcraft.common.AnimationUtils;
 import com.evilbird.warcraft.item.unit.ResourceType;
+import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 
 import java.util.HashMap;
@@ -44,7 +48,7 @@ public class GoldMineProvider implements AssetProvider<Item>
         Resource result = new Resource();
         result.setAvailableAnimations(getAnimations());
         result.setAvailableSounds(getSounds());
-        result.setAnimation(new Identifier("Idle"));
+        result.setAnimation(UnitAnimation.Idle);
         result.setHealth(2500.0f);
         result.setHealthMaximum(2500.0f);
         result.setIcon(getIcon());
@@ -58,13 +62,15 @@ public class GoldMineProvider implements AssetProvider<Item>
         return result;
     }
 
-    private Map<Identifier, DirectionalAnimation> getAnimations()
+    private Map<AnimationIdentifier, DirectionalAnimation> getAnimations()
     {
         Texture texture = assets.get("data/textures/neutral/winter/gold_mine.png", Texture.class);
         Texture constructionTexture = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
-        Map<Identifier, DirectionalAnimation> animations = AnimationBuilder.getBuildingAnimationSet(texture, constructionTexture, 96);
-        animations.put(new Identifier("GatherGold"), animations.get(new Identifier("Construct")));
-        animations.remove(new Identifier("Construct"));
+
+        Map<AnimationIdentifier, DirectionalAnimation> animations = AnimationBuilder.getBuildingAnimationSet(texture, constructionTexture, 96);
+        animations.put(UnitAnimation.GatherGold, animations.get(UnitAnimation.Construct));
+        animations.remove(UnitAnimation.Construct);
+
         return animations;
     }
 
@@ -73,10 +79,10 @@ public class GoldMineProvider implements AssetProvider<Item>
         return AnimationUtils.getDrawable(assets, "data/textures/neutral/perennial/icons.png", 184, 532, 46, 38);
     }
 
-    private Map<Identifier, SoundEffect> getSounds()
+    private Map<SoundIdentifier, SoundEffect> getSounds()
     {
-        Map<Identifier, SoundEffect> sounds = new HashMap<Identifier, SoundEffect>();
-        sounds.put(new Identifier("GatherGold"), new SilentSoundEffect());
+        Map<SoundIdentifier, SoundEffect> sounds = new HashMap<SoundIdentifier, SoundEffect>();
+        sounds.put(UnitSound.GatherGold, new SilentSoundEffect());
         return sounds;
     }
 }

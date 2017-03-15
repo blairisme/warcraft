@@ -7,7 +7,9 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.warcraft.common.AnimationUtils;
+import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 
 /**
@@ -31,7 +33,7 @@ public class Tree extends Resource
     }
 
     @Override
-    public void setAnimation(Identifier animationId)
+    public void setAnimation(AnimationIdentifier animationId)
     {
         super.setAnimation(animationId);
         super.updateAnimation();
@@ -55,7 +57,7 @@ public class Tree extends Resource
         TiledMapTile tile = cell.getTile();
         TextureRegion texture = tile.getTextureRegion();
         DirectionalAnimation animation = AnimationUtils.getAnimation(texture);
-        setAvailableAnimation(new Identifier("Idle"), animation);
-        setAvailableAnimation(new Identifier("GatherWood"), animation);
+        setAvailableAnimation(UnitAnimation.Idle, animation);
+        setAvailableAnimation(UnitAnimation.GatherWood, animation);
     }
 }

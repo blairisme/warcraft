@@ -8,12 +8,12 @@ import com.evilbird.engine.action.duration.ActionDuration;
 import com.evilbird.engine.action.duration.PredicateDuration;
 import com.evilbird.engine.action.modifier.ActionModifier;
 import com.evilbird.engine.action.modifier.MoveModifier;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperties;
 import com.evilbird.engine.item.ItemProperty;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import java.util.Arrays;
 
@@ -54,9 +54,9 @@ public class MoveActionProvider implements ActionProvider
 
     private Action newAnimatedMove(Item item, Vector2 destination)
     {
-        Action animateMove = animateActionProvider.get(item, new Identifier("Move"));
+        Action animateMove = animateActionProvider.get(item, UnitAnimation.Move);
         Action move = newMoveAction(item, destination);
-        Action animateIdle = animateActionProvider.get(item, new Identifier("Idle"));
+        Action animateIdle = animateActionProvider.get(item, UnitAnimation.Idle);
         return new SequenceAction(Arrays.asList(animateMove, move, animateIdle));
     }
 

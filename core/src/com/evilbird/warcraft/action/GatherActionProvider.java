@@ -20,7 +20,11 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.item.specialized.AnimationIdentifier;
+import com.evilbird.engine.item.specialized.SoundIdentifier;
 import com.evilbird.warcraft.item.unit.ResourceType;
+import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.warcraft.item.unit.UnitSound;
 
 import java.util.Collection;
 
@@ -77,8 +81,8 @@ public class GatherActionProvider implements ActionProvider
     {
         Action deselect = selectionActionProvider.get(gatherer, false);
 
-        Identifier animation = getGatherAnimation(type);
-        Identifier sound = getGatherSound(type);
+        AnimationIdentifier animation = getGatherAnimation(type);
+        SoundIdentifier sound = getGatherSound(type);
         Action resourceTake = resourceTake(resource, type, animation, sound);
         Action resourceReceive = resourceReceive(gatherer, type, animation, sound);
         return new ParallelAction(deselect, resourceTake, resourceReceive);
@@ -86,31 +90,31 @@ public class GatherActionProvider implements ActionProvider
 
     private Action deposit(Item gatherer, Item player, ResourceType type)
     {
-        Identifier animation = getDepositAnimation(type);
-        Identifier sound = getDepositSound(type);
+        AnimationIdentifier animation = getDepositAnimation(type);
+        SoundIdentifier sound = getDepositSound(type);
         Action resourceTake = resourceTake(gatherer, type, animation, sound);
         Action resourceReceive = resourceReceive(player, type);
 
         return new ParallelAction(resourceTake, resourceReceive);
     }
 
-    private Action resourceTake(Item item, ResourceType type, Identifier animation, Identifier sound)
+    private Action resourceTake(Item item, ResourceType type, AnimationIdentifier animation, SoundIdentifier sound)
     {
         Action takeAnimation = animateActionProvider.get(item, animation);
         Action takeSound = repeatedSound(item, sound);
         Action takeResource = resourceTake(item, type);
         Action takeAction = new ParallelAction(takeResource, takeSound);
-        Action idleAnimation = animateActionProvider.get(item, new Identifier("Idle"));
+        Action idleAnimation = animateActionProvider.get(item,  UnitAnimation.Idle);
         return new SequenceAction(takeAnimation, takeAction, idleAnimation);
     }
 
-    private Action resourceReceive(Item item, ResourceType type, Identifier animation, Identifier sound)
+    private Action resourceReceive(Item item, ResourceType type, AnimationIdentifier animation, SoundIdentifier sound)
     {
         Action receiveAnimation = animateActionProvider.get(item, animation);
         Action receiveSound = repeatedSound(item, sound);
         Action receiveResource = resourceReceive(item, type);
         Action receiveAction = new ParallelAction(receiveResource, receiveSound);
-        Action idleAnimation = animateActionProvider.get(item, new Identifier("Idle"));
+        Action idleAnimation = animateActionProvider.get(item,  UnitAnimation.Idle);
         return new SequenceAction(receiveAnimation, receiveAction, idleAnimation);
     }
 
@@ -130,7 +134,7 @@ public class GatherActionProvider implements ActionProvider
         return new ModifyAction(value, modifier, duration);
     }
 
-    private Action repeatedSound(Item item, Identifier soundId)
+    private Action repeatedSound(Item item, SoundIdentifier soundId)
     {
         Action sound = audioActionProvider.get(item, soundId);
         Action soundBuffer = new DelayedAction(sound, new TimeDuration(1f));
@@ -156,24 +160,24 @@ public class GatherActionProvider implements ActionProvider
         return ResourceType.valueOf(resource.getType().toString());
     }
 
-    private Identifier getGatherAnimation(ResourceType resource)
+    private AnimationIdentifier getGatherAnimation(ResourceType resource)
     {
-        return new Identifier("Gather" + resource.toString());
+        return UnitAnimation.valueOf("Gather" + resource.toString());
     }
 
-    private Identifier getGatherSound(ResourceType resource)
+    private SoundIdentifier getGatherSound(ResourceType resource)
     {
-        return new Identifier("Gather" + resource.toString());
+        return UnitSound.valueOf("Gather" + resource.toString());
     }
 
-    private Identifier getDepositAnimation(ResourceType resource)
+    private AnimationIdentifier getDepositAnimation(ResourceType resource)
     {
-        return new Identifier("Deposit" + resource.toString());
+        return UnitAnimation.valueOf("Deposit" + resource.toString());
     }
 
-    private Identifier getDepositSound(ResourceType resource)
+    private SoundIdentifier getDepositSound(ResourceType resource)
     {
-        return new Identifier("Deposit" + resource.toString());
+        return UnitSound.valueOf("Deposit" + resource.toString());
     }
 
 

@@ -15,6 +15,7 @@ public class ModifyAction extends Action
     private ActionDuration duration;
 
     //TODO remove
+    @Deprecated
     public ModifyAction(Item target, ItemProperty property, ActionModifier modifier, ActionDuration duration)
     {
         this(new ItemValue(target, property), modifier, duration);

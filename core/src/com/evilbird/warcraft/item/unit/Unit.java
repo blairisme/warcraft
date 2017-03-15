@@ -2,7 +2,8 @@ package com.evilbird.warcraft.item.unit;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.item.ItemProperty;
-import com.evilbird.engine.item.control.AnimatedItem;
+import com.evilbird.engine.item.specialized.Animation;
+import com.evilbird.engine.item.specialized.ResourceIdentifier;
 import com.evilbird.warcraft.action.ActionType;
 
 import java.util.EnumSet;
@@ -16,13 +17,13 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class Unit extends AnimatedItem
+public class Unit extends Animation
 {
     private String name;
     private Drawable icon;
-    private EnumSet<ActionType> actions;
     private float health;
     private float healthMaximum;
+    private EnumSet<ActionType> actions;
     private Map<ResourceIdentifier, Float> resources;
 
     @Inject

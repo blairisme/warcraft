@@ -7,11 +7,11 @@ import com.evilbird.engine.action.duration.ActionDuration;
 import com.evilbird.engine.action.duration.InstantDuration;
 import com.evilbird.engine.action.modifier.ActionModifier;
 import com.evilbird.engine.action.modifier.ConstantModifier;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperties;
 import com.evilbird.engine.item.ItemProperty;
+import com.evilbird.warcraft.item.unit.UnitSound;
 
 import javax.inject.Inject;
 
@@ -46,7 +46,7 @@ public class SelectionActionProvider implements ActionProvider
         Action result = newSelectionAction(item, selected);
         if (selected)
         {
-            Action sound = audioActionProvider.get(item, new Identifier("Selected"));
+            Action sound = audioActionProvider.get(item, UnitSound.Selected);
             result = new ParallelAction(result, sound);
         }
         return result;

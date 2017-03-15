@@ -5,7 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.item.specialized.AnimationIdentifier;
+import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import org.apache.commons.lang3.Range;
 
@@ -15,7 +16,7 @@ import java.util.Map;
 //TODO: Needs cleaning/refactoring
 public class AnimationBuilder
 {
-    public static Map<Identifier, DirectionalAnimation> getAnimationSet(Texture texture, Texture decomposeTexture)
+    public static Map<AnimationIdentifier, DirectionalAnimation> getAnimationSet(Texture texture, Texture decomposeTexture)
     {
         Array<TextureRegion> walkNorth = getWalkAnimation(texture, 0);
         Array<TextureRegion> walkNorthEast = getWalkAnimation(texture, 72);
@@ -112,18 +113,18 @@ public class AnimationBuilder
         DirectionalAnimation dieAnimation = new DirectionalAnimation(0f, 0.15f, dieFrames, Animation.PlayMode.NORMAL);
         DirectionalAnimation decomposeAnimation = new DirectionalAnimation(0f, 2f, decomposeFrames, Animation.PlayMode.NORMAL);
 
-        Map<Identifier, DirectionalAnimation> animations = new HashMap<Identifier, DirectionalAnimation>();
-        animations.put(new Identifier("Idle"), idleAnimation);
-        animations.put(new Identifier("Move"), moveAnimation);
-        animations.put(new Identifier("Attack"), attackAnimation);
-        animations.put(new Identifier("Hidden"), hiddenAnimation);
-        animations.put(new Identifier("Die"), dieAnimation);
-        animations.put(new Identifier("Decompose"), decomposeAnimation);
+        Map<AnimationIdentifier, DirectionalAnimation> animations = new HashMap<AnimationIdentifier, DirectionalAnimation>();
+        animations.put(UnitAnimation.Idle, idleAnimation);
+        animations.put(UnitAnimation.Move, moveAnimation);
+        animations.put(UnitAnimation.Attack, attackAnimation);
+        animations.put(UnitAnimation.Hidden, hiddenAnimation);
+        animations.put(UnitAnimation.Die, dieAnimation);
+        animations.put(UnitAnimation.Decompose, decomposeAnimation);
 
         return animations;
     }
 
-    public static Map<Identifier, DirectionalAnimation> getBuildingAnimationSet(Texture texture, Texture constructionTexture, int size)
+    public static Map<AnimationIdentifier, DirectionalAnimation> getBuildingAnimationSet(Texture texture, Texture constructionTexture, int size)
     {
         TextureRegion constructionRegion1 = new TextureRegion(constructionTexture, 0, 0, 64, 64);
         TextureRegion constructionRegion2 = new TextureRegion(constructionTexture, 0, 64, 64, 64);
@@ -141,9 +142,9 @@ public class AnimationBuilder
         DirectionalAnimation idleAnimation = new DirectionalAnimation(0f, 0.15f, idleFrames, Animation.PlayMode.LOOP);
         DirectionalAnimation constructionAnimation = new DirectionalAnimation(0f, 3f, constructionFrames, Animation.PlayMode.NORMAL);
 
-        Map<Identifier, DirectionalAnimation> animations = new HashMap<Identifier, DirectionalAnimation>();
-        animations.put(new Identifier("Idle"), idleAnimation);
-        animations.put(new Identifier("Construct"), constructionAnimation);
+        Map<AnimationIdentifier, DirectionalAnimation> animations = new HashMap<AnimationIdentifier, DirectionalAnimation>();
+        animations.put(UnitAnimation.Idle, idleAnimation);
+        animations.put(UnitAnimation.Construct, constructionAnimation);
 
         return animations;
     }
@@ -192,7 +193,7 @@ public class AnimationBuilder
         return getAnimation(texture, x, 0, size);
     }
 
-    public static Array<TextureRegion> getAnimation(Texture texture, int x, int y, int size)
+    private static Array<TextureRegion> getAnimation(Texture texture, int x, int y, int size)
     {
         TextureRegion region1 = new TextureRegion(texture, x, y, size, size);
         return Array.with(region1);

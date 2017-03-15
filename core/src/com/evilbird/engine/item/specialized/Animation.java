@@ -1,4 +1,4 @@
-package com.evilbird.engine.item.control;
+package com.evilbird.engine.item.specialized;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -8,48 +8,46 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperty;
 
 import java.util.HashMap;
 import java.util.Map;
 
-//TODO: Rename to Animation
 //TODO: Move selected box drawing to unit
 //TODO: Use real logging
-public class AnimatedItem extends Item
+public class Animation extends Item
 {
     private float direction;
     private ShapeRenderer shapeRenderer;
 
     private boolean updateAnimation;
     private float animationTime;
-    private Identifier currentAnimationId;
+    private AnimationIdentifier currentAnimationId;
     private DirectionalAnimation currentAnimation;
-    private Map<Identifier, DirectionalAnimation> animations;
+    private Map<AnimationIdentifier, DirectionalAnimation> animations;
 
     private boolean updateSound;
     private SoundEffect currentSound;
-    private Identifier currentSoundId;
-    private Map<Identifier, SoundEffect> sounds;
+    private SoundIdentifier currentSoundId;
+    private Map<SoundIdentifier, SoundEffect> sounds;
 
-    public AnimatedItem()
+    public Animation()
     {
         this.shapeRenderer = new ShapeRenderer();
         this.direction = 0;
         this.animationTime = 0;
         this.currentAnimation = null;
         this.currentAnimationId = null;
-        this.animations = new HashMap<Identifier, DirectionalAnimation>();
-        this.sounds = new HashMap<Identifier, SoundEffect>();
+        this.animations = new HashMap<AnimationIdentifier, DirectionalAnimation>();
+        this.sounds = new HashMap<SoundIdentifier, SoundEffect>();
         this.currentSound = null;
         this.currentSoundId = null;
         this.updateSound = false;
         this.updateAnimation = false;
     }
 
-    public Identifier getAnimation()
+    public AnimationIdentifier getAnimation()
     {
         return currentAnimationId;
     }
@@ -59,41 +57,41 @@ public class AnimatedItem extends Item
         return currentAnimation.getKeyFrame(animationTime);
     }
 
-    public void setAnimation(Identifier animationId)
+    public void setAnimation(AnimationIdentifier animationId)
     {
         this.currentAnimationId = animationId;
         this.updateAnimation = true;
     }
 
-    public void setAvailableAnimation(Identifier id, DirectionalAnimation animation)
+    public void setAvailableAnimation(AnimationIdentifier id, DirectionalAnimation animation)
     {
         this.animations.put(id, animation);
         this.updateAnimation = true;
     }
 
-    public void setAvailableAnimations(Map<Identifier, DirectionalAnimation> animations)
+    public void setAvailableAnimations(Map<AnimationIdentifier, DirectionalAnimation> animations)
     {
         this.animations.putAll(animations);
         this.updateAnimation = true;
     }
 
-    public Identifier getSound()
+    public SoundIdentifier getSound()
     {
         return currentSoundId;
     }
 
-    public void setSound(Identifier id)
+    public void setSound(SoundIdentifier id)
     {
         currentSoundId = id;
         updateSound = true;
     }
 
-    public void setAvailableSound(Identifier id, SoundEffect sound)
+    public void setAvailableSound(SoundIdentifier id, SoundEffect sound)
     {
         sounds.put(id, sound);
     }
 
-    public void setAvailableSounds(Map<Identifier, SoundEffect> sounds)
+    public void setAvailableSounds(Map<SoundIdentifier, SoundEffect> sounds)
     {
         this.sounds.putAll(sounds);
     }
@@ -216,10 +214,10 @@ public class AnimatedItem extends Item
     @Override
     public Object getProperty(ItemProperty property)
     {
-        if (AnimationProperties.Animation.equals(property)){
+        if (AnimationProperty.Animation.equals(property)){
             return getAnimation();
         }
-        else if (AnimationProperties.Sound.equals(property)){
+        else if (AnimationProperty.Sound.equals(property)){
             return getSound();
         }
         return super.getProperty(property);
@@ -228,11 +226,11 @@ public class AnimatedItem extends Item
     @Override
     public void setProperty(ItemProperty property, Object value)
     {
-        if (AnimationProperties.Animation.equals(property)){
-            setAnimation((Identifier) value);
+        if (AnimationProperty.Animation.equals(property)){
+            setAnimation((AnimationIdentifier)value);
         }
-        else if (AnimationProperties.Sound.equals(property)){
-            setSound((Identifier)value);
+        else if (AnimationProperty.Sound.equals(property)){
+            setSound((SoundIdentifier)value);
         }
         else{
             super.setProperty(property, value);

@@ -21,6 +21,8 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.ItemType;
+import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.BuildingProperties;
 
@@ -80,7 +82,7 @@ public class BuildActionProvider implements ActionProvider
         ItemRoot itemRoot = builder.getRoot();
         Identifier building = new Identifier();
 
-        Action acknowledge = audioActionProvider.get(builder, new Identifier("Acknowledge"));
+        Action acknowledge = audioActionProvider.get(builder,  UnitSound.Acknowledge);
         Action moveToSite = moveActionProvider.get(builder, location);
         Action deselectBuilder = selectionActionProvider.get(builder, false);
         Action createFarm = newCreateAction(itemRoot, type, building, location);
@@ -92,9 +94,9 @@ public class BuildActionProvider implements ActionProvider
 
     private Action build(Item builder, Identifier building, ItemRoot stage)
     {
-        Action soundBefore = audioActionProvider.get(builder, new Identifier("Construct"));
-        Action animateBuilderBefore = animateActionProvider.get(builder, new Identifier("Build"));
-        Action animateBuildingBefore = animateActionProvider.get(stage, building, new Identifier("Construct"));
+        Action soundBefore = audioActionProvider.get(builder, UnitSound.Construct);
+        Action animateBuilderBefore = animateActionProvider.get(builder,  UnitAnimation.Build);
+        Action animateBuildingBefore = animateActionProvider.get(stage, building,  UnitAnimation.Construct);
         Action before = new ParallelAction(animateBuilderBefore, animateBuildingBefore, soundBefore);
 
         ActionValue value = new ItemReferenceValue(stage, building, BuildingProperties.Progress);
@@ -102,9 +104,9 @@ public class BuildActionProvider implements ActionProvider
         ActionDuration duration = new TimeDuration(10f);
         Action build = new ModifyAction(value, modifier, duration);
 
-        Action soundAfter = audioActionProvider.get(builder, new Identifier("Complete"));
-        Action animateBuilderAfter = animateActionProvider.get(builder, new Identifier("Idle"));
-        Action animateBuildingAfter = animateActionProvider.get(stage, building, new Identifier("Idle"));
+        Action soundAfter = audioActionProvider.get(builder, UnitSound.Complete);
+        Action animateBuilderAfter = animateActionProvider.get(builder,  UnitAnimation.Idle);
+        Action animateBuildingAfter = animateActionProvider.get(stage, building,  UnitAnimation.Idle);
         Action after = new ParallelAction(animateBuilderAfter, animateBuildingAfter, soundAfter);
 
         return new SequenceAction(before, build, after);
