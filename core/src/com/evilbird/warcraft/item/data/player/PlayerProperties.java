@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.unit;
+package com.evilbird.warcraft.item.data.player;
 
 import com.evilbird.engine.item.ItemProperty;
 
@@ -7,9 +7,6 @@ import com.evilbird.engine.item.ItemProperty;
  *
  * @author Blair Butterworth
  */
-public enum UnitProperties implements ItemProperty
+public enum PlayerProperties implements ItemProperty
 {
-    Actions,
-    Health,
-    Icon
 }

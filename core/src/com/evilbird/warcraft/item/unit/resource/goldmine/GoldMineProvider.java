@@ -2,21 +2,20 @@ package com.evilbird.warcraft.item.unit.resource.goldmine;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.evilbird.engine.common.audio.SilentSoundEffect;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.common.AnimationBuilder;
+import com.evilbird.warcraft.common.AnimationUtils;
+import com.evilbird.warcraft.item.unit.ResourceType;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,10 +42,9 @@ public class GoldMineProvider implements AssetProvider<Item>
     public Item get()
     {
         Resource result = new Resource();
-        result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
-        result.setAnimation(new Identifier("Idle"));
         result.setAvailableSounds(getSounds());
+        result.setAnimation(new Identifier("Idle"));
         result.setHealth(2500.0f);
         result.setHealthMaximum(2500.0f);
         result.setIcon(getIcon());
@@ -54,16 +52,10 @@ public class GoldMineProvider implements AssetProvider<Item>
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
-        result.setType(new Identifier("GoldMine"));
-        result.setAmount(2500f);
+        result.setType(new Identifier("Gold"));
+        result.setResource(ResourceType.Gold, 2500f);
         result.setSize(96, 96);
         return result;
-    }
-
-    private EnumSet<ActionType> getActions()
-    {
-        EnumSet<ActionType> actions = EnumSet.noneOf(ActionType.class);
-        return actions;
     }
 
     private Map<Identifier, DirectionalAnimation> getAnimations()
@@ -78,14 +70,13 @@ public class GoldMineProvider implements AssetProvider<Item>
 
     private Drawable getIcon()
     {
-        Texture iconTexture = assets.get("data/textures/neutral/perennial/icons.png", Texture.class);
-        TextureRegion iconRegion = new TextureRegion(iconTexture, 184, 532, 46, 38);
-        return new TextureRegionDrawable(iconRegion);
+        return AnimationUtils.getDrawable(assets, "data/textures/neutral/perennial/icons.png", 184, 532, 46, 38);
     }
 
     private Map<Identifier, SoundEffect> getSounds()
     {
         Map<Identifier, SoundEffect> sounds = new HashMap<Identifier, SoundEffect>();
+        sounds.put(new Identifier("GatherGold"), new SilentSoundEffect());
         return sounds;
     }
 }

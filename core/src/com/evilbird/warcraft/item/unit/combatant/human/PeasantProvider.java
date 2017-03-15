@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.audio.BasicSoundEffect;
+import com.evilbird.engine.common.audio.SilentSoundEffect;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.audio.SoundEffectSet;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
@@ -122,6 +123,7 @@ public class PeasantProvider implements AssetProvider<Item>
 
     private Map<Identifier, SoundEffect> getSounds()
     {
+        SoundEffect silent = new SilentSoundEffect();
         SoundEffect selected = newSoundEffect("data/sounds/human/unit/peasant/selected_1.wav");
         SoundEffect complete = newSoundEffect("data/sounds/human/unit/peasant/complete.mp3");
         SoundEffect acknowledge = newSoundEffect("data/sounds/human/unit/peasant/acknowledge_1.mp3");
@@ -138,7 +140,10 @@ public class PeasantProvider implements AssetProvider<Item>
         sounds.put(new Identifier("Complete"), complete);
         sounds.put(new Identifier("Acknowledge"), acknowledge);
         sounds.put(new Identifier("Construct"), construct);
+        sounds.put(new Identifier("GatherGold"), silent);
         sounds.put(new Identifier("GatherWood"), gatherWood);
+        sounds.put(new Identifier("DepositGold"), silent);
+        sounds.put(new Identifier("DepositWood"), silent);
 
         return sounds;
     }

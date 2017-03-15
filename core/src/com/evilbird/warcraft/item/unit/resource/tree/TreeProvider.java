@@ -5,11 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.common.audio.SilentSoundEffect;
+import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.common.AnimationUtils;
+import com.evilbird.warcraft.item.unit.ResourceType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +40,7 @@ public class TreeProvider implements AssetProvider<Tree>
     {
         Tree result = new Tree();
         result.setAvailableAnimations(getAnimations());
+        result.setAvailableSounds(getSounds());
         result.setAnimation(new Identifier("Idle"));
         result.setIcon(getIcon());
         result.setName("Tree");
@@ -44,7 +48,7 @@ public class TreeProvider implements AssetProvider<Tree>
         result.setSelectable(false);
         result.setTouchable(Touchable.enabled);
         result.setType(new Identifier("Wood"));
-        result.setAmount(100f);
+        result.setResource(ResourceType.Wood, 100f);
         result.setSize(32, 32);
         return result;
     }
@@ -69,5 +73,12 @@ public class TreeProvider implements AssetProvider<Tree>
     private Drawable getIcon()
     {
         return AnimationUtils.getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 684, 46, 38);
+    }
+
+    private Map<Identifier, SoundEffect> getSounds()
+    {
+        Map<Identifier, SoundEffect> sounds = new HashMap<Identifier, SoundEffect>();
+        sounds.put(new Identifier("GatherWood"), new SilentSoundEffect());
+        return sounds;
     }
 }

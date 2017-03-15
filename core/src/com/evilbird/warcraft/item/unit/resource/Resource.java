@@ -9,15 +9,5 @@ import com.evilbird.warcraft.item.unit.Unit;
  */
 public class Resource extends Unit
 {
-    private float amount;
 
-    public float getAmount()
-    {
-        return amount;
-    }
-
-    public void setAmount(float amount)
-    {
-        this.amount = amount;
-    }
 }

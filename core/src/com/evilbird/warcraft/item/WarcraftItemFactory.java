@@ -24,9 +24,9 @@ public class WarcraftItemFactory implements ItemFactory
     {
         providers = new IdentifiedAssetProviderSet<Item>();
         providers.addProvider(unitProvider);
+        providers.addProvider(hudProvider);
         providers.addProvider(layerProvider);
         providers.addProvider(dataProvider);
-        providers.addProvider(hudProvider);
     }
 
     @Override

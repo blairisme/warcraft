@@ -6,6 +6,8 @@ import com.evilbird.engine.item.control.AnimatedItem;
 import com.evilbird.warcraft.action.ActionType;
 
 import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -21,6 +23,7 @@ public class Unit extends AnimatedItem
     private EnumSet<ActionType> actions;
     private float health;
     private float healthMaximum;
+    private Map<ResourceIdentifier, Float> resources;
 
     @Inject
     public Unit()
@@ -30,6 +33,7 @@ public class Unit extends AnimatedItem
         actions = EnumSet.noneOf(ActionType.class);
         health = 0;
         healthMaximum = 0;
+        resources = new HashMap<ResourceIdentifier, Float>();
     }
 
     public EnumSet<ActionType> getActions()
@@ -57,6 +61,12 @@ public class Unit extends AnimatedItem
         return name;
     }
 
+    public float getResource(ResourceIdentifier resource)
+    {
+        Float result = resources.get(resource);
+        return result != null ? result : 0f;
+    }
+
     public void setActions(EnumSet<ActionType> actions)
     {
         this.actions = actions;
@@ -82,6 +92,11 @@ public class Unit extends AnimatedItem
         this.name = name;
     }
 
+    public void setResource(ResourceIdentifier resource, float value)
+    {
+        this.resources.put(resource, value);
+    }
+
     @Override
     public Object getProperty(ItemProperty property)
     {
@@ -93,6 +108,9 @@ public class Unit extends AnimatedItem
         }
         else if (UnitProperties.Icon.equals(property)){
             return getIcon();
+        }
+        else if (property instanceof ResourceIdentifier){
+            return getResource((ResourceIdentifier)property);
         }
         return super.getProperty(property);
     }
@@ -108,6 +126,9 @@ public class Unit extends AnimatedItem
         }
         else if (UnitProperties.Icon.equals(property)){
             setIcon((Drawable)value);
+        }
+        else if (property instanceof ResourceIdentifier){
+            setResource((ResourceIdentifier)property, (Float)value);
         }
         else{
             super.setProperty(property, value);

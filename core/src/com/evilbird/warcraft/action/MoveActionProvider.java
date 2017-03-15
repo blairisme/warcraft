@@ -55,12 +55,12 @@ public class MoveActionProvider implements ActionProvider
     private Action newAnimatedMove(Item item, Vector2 destination)
     {
         Action animateMove = animateActionProvider.get(item, new Identifier("Move"));
-        Action move = newMove(item, destination);
+        Action move = newMoveAction(item, destination);
         Action animateIdle = animateActionProvider.get(item, new Identifier("Idle"));
         return new SequenceAction(Arrays.asList(animateMove, move, animateIdle));
     }
 
-    private Action newMove(Item item, Vector2 destination)
+    private Action newMoveAction(Item item, Vector2 destination)
     {
         ItemProperty position = ItemProperties.Position;
         ActionModifier modifier = new MoveModifier(destination, 64f);

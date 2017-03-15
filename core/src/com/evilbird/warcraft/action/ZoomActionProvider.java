@@ -1,6 +1,7 @@
 package com.evilbird.warcraft.action;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.CompositeAction;
 import com.evilbird.engine.action.ModifyAction;
 import com.evilbird.engine.action.duration.ActionDuration;
 import com.evilbird.engine.action.duration.InstantDuration;
@@ -39,13 +40,13 @@ public class ZoomActionProvider implements ActionProvider
         {
             Action storeZoom = storeZoom(item);
             Action updateZoom = updateZoom(item, input);
-            return new com.evilbird.engine.action.CompositeAction(storeZoom, updateZoom);
+            return new CompositeAction(storeZoom, updateZoom);
         }
         else
         {
             Action resetZoom = resetZoom(item);
             Action updateZoom = updateZoom(item, input);
-            return new com.evilbird.engine.action.CompositeAction(resetZoom, updateZoom);
+            return new CompositeAction(resetZoom, updateZoom);
         }
     }
 

@@ -85,6 +85,8 @@ public class Forest extends Layer
 
             result = treeProvider.get();
             result.setCell(cell);
+            result.setSize(layer.getTileWidth(), layer.getTileHeight());
+            result.setPosition(x * layer.getTileWidth(), y * layer.getTileHeight());
 
             trees.put(cell, result);
         }

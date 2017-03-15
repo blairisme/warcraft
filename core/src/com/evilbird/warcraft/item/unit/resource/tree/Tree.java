@@ -21,13 +21,13 @@ public class Tree extends Resource
 
     public Tree()
     {
-        setType(new Identifier("Tree"));
+        setType(new Identifier("Wood"));
     }
 
     public void setCell(Cell cell)
     {
         this.cell = cell;
-        setIdleTexture();
+        setItemTexture();
     }
 
     @Override
@@ -41,7 +41,6 @@ public class Tree extends Resource
     @Override
     public void draw(Batch batch, float alpha)
     {
-        //Drawing handled by forest
     }
 
     private void setCellTexture()
@@ -51,11 +50,12 @@ public class Tree extends Resource
         }
     }
 
-    private void setIdleTexture()
+    private void setItemTexture()
     {
         TiledMapTile tile = cell.getTile();
         TextureRegion texture = tile.getTextureRegion();
         DirectionalAnimation animation = AnimationUtils.getAnimation(texture);
         setAvailableAnimation(new Identifier("Idle"), animation);
+        setAvailableAnimation(new Identifier("GatherWood"), animation);
     }
 }

@@ -1,6 +1,7 @@
 package com.evilbird.warcraft.action;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.DelayedAction;
 import com.evilbird.engine.action.ModifyAction;
 import com.evilbird.engine.action.ParallelAction;
 import com.evilbird.engine.action.RemoveAction;
@@ -11,10 +12,8 @@ import com.evilbird.engine.action.duration.TimeDuration;
 import com.evilbird.engine.action.modifier.ActionModifier;
 import com.evilbird.engine.action.modifier.DeltaModifier;
 import com.evilbird.engine.action.modifier.DeltaType;
-import com.evilbird.engine.action.modifier.PassiveModifier;
 import com.evilbird.engine.action.value.ActionValue;
 import com.evilbird.engine.action.value.ItemValue;
-import com.evilbird.engine.action.value.TransientValue;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
@@ -81,16 +80,7 @@ public class AttackActionProvider implements ActionProvider
     private Action newAnimationAction(Item item, Identifier animation, float time)
     {
         Action animate = animateActionProvider.get(item, animation);
-        Action wait = newWaitAction(time);
-        return new ParallelAction(animate, wait);
-    }
-
-    private Action newWaitAction(float time)
-    {
-        ActionValue value = new TransientValue();
-        ActionModifier modifier = new PassiveModifier();
-        ActionDuration duration = new TimeDuration(time);
-        return new ModifyAction(value, modifier, duration);
+        return new DelayedAction(animate, new TimeDuration(time));
     }
 
     private Action newAttackAction(Item target)
