@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
@@ -61,7 +61,7 @@ public class FarmProvider implements AssetProvider<Item>
         result.setTouchable(Touchable.enabled);
         result.setSpeed(0f);
         result.setSight(4f);
-        result.setType(new Identifier("Farm"));
+        result.setType(new NamedIdentifier("Farm"));
         result.setSize(64, 64);
         return result;
     }

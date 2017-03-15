@@ -14,7 +14,7 @@ import com.evilbird.engine.action.modifier.DeltaModifier;
 import com.evilbird.engine.action.modifier.DeltaType;
 import com.evilbird.engine.action.value.ActionValue;
 import com.evilbird.engine.action.value.ItemReferenceValue;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
@@ -64,7 +64,7 @@ public class BuildActionProvider implements ActionProvider
 
     public Action get(Item prototype, Item builder)
     {
-        if (Objects.equals(prototype.getType(), new Identifier("BarracksBuildingSite"))){ //TODO: Obtain mapping from prototype
+        if (Objects.equals(prototype.getType(), new NamedIdentifier("BarracksBuildingSite"))){ //TODO: Obtain mapping from prototype
             return build(prototype, builder, UnitType.Barracks);
         }
         throw new UnsupportedOperationException();
@@ -80,7 +80,7 @@ public class BuildActionProvider implements ActionProvider
     private Action build(Item builder, ItemType type, Vector2 location)
     {
         ItemRoot itemRoot = builder.getRoot();
-        Identifier building = new Identifier();
+        NamedIdentifier building = new NamedIdentifier();
 
         Action acknowledge = audioActionProvider.get(builder,  UnitSound.Acknowledge);
         Action moveToSite = moveActionProvider.get(builder, location);
@@ -92,7 +92,7 @@ public class BuildActionProvider implements ActionProvider
         return new SequenceAction(acknowledge, moveToSite, deselectBuilder, createFarm, buildFarm, selectBuilder);
     }
 
-    private Action build(Item builder, Identifier building, ItemRoot stage)
+    private Action build(Item builder, NamedIdentifier building, ItemRoot stage)
     {
         Action soundBefore = audioActionProvider.get(builder, UnitSound.Construct);
         Action animateBuilderBefore = animateActionProvider.get(builder,  UnitAnimation.Build);
@@ -112,7 +112,7 @@ public class BuildActionProvider implements ActionProvider
         return new SequenceAction(before, build, after);
     }
 
-    private Action newCreateAction(ItemRoot root, ItemType type, Identifier id, Vector2 position)
+    private Action newCreateAction(ItemRoot root, ItemType type, NamedIdentifier id, Vector2 position)
     {
         return new CreateAction(root, type, itemFactory, id, position, true);
     }

@@ -1,6 +1,6 @@
 package com.evilbird.engine.common.inject;
 
-import com.evilbird.engine.common.lang.IdentifierNew;
+import com.evilbird.engine.common.lang.Identifier;
 
 import javax.inject.Provider;
 
@@ -24,7 +24,7 @@ public class ProviderAdapter<T> implements IdentifiedAssetProvider<T>
     }
 
     @Override
-    public T get(IdentifierNew identifier)
+    public T get(Identifier identifier)
     {
         return delegate.get();
     }

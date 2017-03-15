@@ -7,7 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.Layer;
 import com.evilbird.warcraft.item.unit.resource.tree.Tree;
@@ -35,7 +35,7 @@ public class Forest extends Layer
         this.treeProvider = treeProvider;
         this.trees = new HashMap<Cell, Tree>();
 
-        setType(new Identifier("Forest"));
+        setType(new NamedIdentifier("Forest"));
         setTouchable(Touchable.enabled);
     }
 

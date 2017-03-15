@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.inject.AssetProvider;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.hud.building.BuildingSite;
@@ -43,7 +43,7 @@ public class BarracksBuildingSiteProvider implements AssetProvider<Item>
         buildingSite.setBuildingTexture(getTexture("data/textures/human/winter/barracks.png"));
         buildingSite.setAllowedTexture(getTexture("data/textures/neutral/hud/building_allowed.png"));
         buildingSite.setProhibitedTexture(getTexture("data/textures/neutral/hud/building_prohibited.png"));
-        buildingSite.setType(new Identifier("BarracksBuildingSite"));
+        buildingSite.setType(new NamedIdentifier("BarracksBuildingSite"));
         buildingSite.setSize(96, 96);
         return buildingSite;
     }

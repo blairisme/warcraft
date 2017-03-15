@@ -3,7 +3,7 @@ package com.evilbird.warcraft.item.hud.action;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.control.ImageButton;
 import com.evilbird.warcraft.action.ActionType;
 
@@ -26,7 +26,7 @@ public class ActionButton extends ImageButton
         actionId = ActionType.Unknown;
         setPadding(4);
         setSize(54, 46);
-        setType(new Identifier("ActionButton"));
+        setType(new NamedIdentifier("ActionButton"));
         setTouchable(Touchable.enabled);
     }
 
@@ -35,7 +35,7 @@ public class ActionButton extends ImageButton
         actionId = action;
         setImage(icons.get(actionId));
 
-        setType(new Identifier(action.toString() + "Button"));
+        setType(new NamedIdentifier(action.toString() + "Button"));
     }
 
     public void setActionIcons(Map<ActionIdentifier, Drawable> icons)

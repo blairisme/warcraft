@@ -2,7 +2,7 @@ package com.evilbird.engine.action;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemProperties;
@@ -12,7 +12,7 @@ import com.evilbird.engine.item.ItemType;
 public class CreateAction extends Action
 {
     private ItemRoot root;
-    private Identifier id;
+    private NamedIdentifier id;
     private ItemType type;
     private ItemFactory factory;
     private Vector2 position;
@@ -22,7 +22,7 @@ public class CreateAction extends Action
         ItemRoot root,
         ItemType type,
         ItemFactory factory,
-        Identifier id,
+        NamedIdentifier id,
         Vector2 position,
         boolean selected)
     {

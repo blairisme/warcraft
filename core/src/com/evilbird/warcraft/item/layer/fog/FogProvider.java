@@ -8,7 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
-import com.evilbird.engine.common.lang.IdentifierNew;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
@@ -38,7 +38,7 @@ public class FogProvider implements IdentifiedAssetProvider<Item>
     }
 
     @Override
-    public Item get(IdentifierNew identifier)
+    public Item get(Identifier identifier)
     {
         if (Objects.equals(identifier, LayerType.OpaqueFog)){
             return new Fog(getOpaqueTextureSet());

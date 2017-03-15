@@ -6,7 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.warcraft.common.AnimationUtils;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -23,7 +23,7 @@ public class Tree extends Resource
 
     public Tree()
     {
-        setType(new Identifier("Wood"));
+        setType(new NamedIdentifier("Wood"));
     }
 
     public void setCell(Cell cell)

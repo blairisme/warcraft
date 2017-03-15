@@ -2,7 +2,7 @@ package com.evilbird.warcraft.item.hud.common;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.control.ProgressBar;
 
 /**
@@ -18,7 +18,7 @@ public class HealthBar extends ProgressBar
 
     public HealthBar()
     {
-        setType(new Identifier("HealthBar"));
+        setType(new NamedIdentifier("HealthBar"));
         setTouchable(Touchable.disabled);
     }
 

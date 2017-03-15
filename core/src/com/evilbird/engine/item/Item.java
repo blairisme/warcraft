@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.collection.PropertySet;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.framework.ActorExtension;
 import com.evilbird.engine.item.framework.ActorObserver;
 
@@ -16,7 +17,6 @@ import com.evilbird.engine.item.framework.ActorObserver;
  * @author Blair Butterworth
  */
 //TODO: Consider use either vectors or individual values for size and position.
-//TODO: Use identifier interface for type and id.
 public class Item implements PropertySet<ItemProperty, Object>, ActorObserver
 {
     Actor delegate;
@@ -32,10 +32,11 @@ public class Item implements PropertySet<ItemProperty, Object>, ActorObserver
         this.delegate = initializeDelegate();
         this.delegate.setUserObject(this);
 
-        setId(new Identifier("Unknown" + hashCode()));
-        setType(new Identifier("Unknown"));
+        setId(new NamedIdentifier());
+        setType(new NamedIdentifier("Unknown"));
         setSelected(false);
         setSelectable(true);
+        setTouchable(Touchable.enabled);
     }
 
     protected Actor initializeDelegate()

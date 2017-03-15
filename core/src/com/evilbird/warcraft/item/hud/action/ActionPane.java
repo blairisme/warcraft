@@ -1,7 +1,7 @@
 package com.evilbird.warcraft.item.hud.action;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
@@ -36,8 +36,8 @@ public class ActionPane extends GridPane
         setCellPadding(3);
         setCellWidthMinimum(54);
         setCellHeightMinimum(46);
-        setId(new Identifier("ActionPane"));
-        setType(new Identifier("ActionPane"));
+        setId(new NamedIdentifier("ActionPane"));
+        setType(new NamedIdentifier("ActionPane"));
         setTouchable(Touchable.childrenOnly);
     }
 

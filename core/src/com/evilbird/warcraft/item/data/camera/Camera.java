@@ -2,7 +2,7 @@ package com.evilbird.warcraft.item.data.camera;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperty;
 import com.evilbird.engine.item.ItemRoot;
@@ -24,8 +24,8 @@ public class Camera extends Item
         camera.zoom = 1f;
         originalZoom = 1f;
 
-        setId(new Identifier("Camera"));
-        setType(new Identifier("Camera"));
+        setId(new NamedIdentifier("Camera"));
+        setType(new NamedIdentifier("Camera"));
         setPosition(camera.position.x, camera.position.y);
         setTouchable(Touchable.disabled);
         setVisible(false);

@@ -1,12 +1,12 @@
 package com.evilbird.engine.item.specialized;
 
-import com.evilbird.engine.common.lang.IdentifierNew;
+import com.evilbird.engine.common.lang.Identifier;
 
 /**
  * Implementors of this TODO:Finish
  *
  * @author Blair Butterworth
  */
-public interface AnimationIdentifier extends IdentifierNew
+public interface AnimationIdentifier extends Identifier
 {
 }

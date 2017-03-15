@@ -1,7 +1,7 @@
 package com.evilbird.warcraft.item.hud.state;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
@@ -35,8 +35,8 @@ public class DetailsPane extends GridPane
         setCellSpacing(15);
         setCellWidthMinimum(170);
         setCellHeightMinimum(50);
-        setId(new Identifier("DetailsPane"));
-        setType(new Identifier("DetailsPane"));
+        setId(new NamedIdentifier("DetailsPane"));
+        setType(new NamedIdentifier("DetailsPane"));
         setTouchable(Touchable.disabled);
     }
 
@@ -89,17 +89,17 @@ public class DetailsPane extends GridPane
 
     private void setDetails(Item item)
     {
-        if (Objects.equals(new Identifier("Farm"), item.getType())){
+        if (Objects.equals(new NamedIdentifier("Farm"), item.getType())){
             setFarmDetails(item);
         }
-        else if (Objects.equals(new Identifier("TownHall"), item.getType())){
+        else if (Objects.equals(new NamedIdentifier("TownHall"), item.getType())){
             setTownHallDetails(item);
         }
-        else if (Objects.equals(new Identifier("GoldMine"), item.getType())){
+        else if (Objects.equals(new NamedIdentifier("GoldMine"), item.getType())){
             setGoldMineDetails(item);
         }
-        else if (Objects.equals(new Identifier("Footman"), item.getType()) ||
-                 Objects.equals(new Identifier("Peasant"), item.getType())){
+        else if (Objects.equals(new NamedIdentifier("Footman"), item.getType()) ||
+                 Objects.equals(new NamedIdentifier("Peasant"), item.getType())){
             setUnitDetails((Combatant)item);
         }
 

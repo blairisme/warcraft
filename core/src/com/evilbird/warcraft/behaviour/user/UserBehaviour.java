@@ -2,7 +2,7 @@ package com.evilbird.warcraft.behaviour.user;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.behaviour.Behaviour;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
@@ -159,7 +159,7 @@ public class UserBehaviour implements Behaviour
 
     private Item getCameraTarget(ItemRoot world)
     {
-        return world.find(itemWithId(new Identifier("Camera")));
+        return world.find(itemWithId(new NamedIdentifier("Camera")));
     }
 
     private Item getWorldTarget(ItemRoot world, UserInput userInput)

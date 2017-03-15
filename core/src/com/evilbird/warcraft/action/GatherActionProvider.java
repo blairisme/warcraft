@@ -16,7 +16,7 @@ import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.common.collection.Collections;
 import com.evilbird.engine.common.function.Comparator;
 import com.evilbird.engine.common.function.Predicate;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
@@ -144,7 +144,7 @@ public class GatherActionProvider implements ActionProvider
     private Item findDepot(Item item)
     {
         ItemGroup player = item.getParent();
-        Predicate<Item> ownedDepots = itemWithType(new Identifier("TownHall"));
+        Predicate<Item> ownedDepots = itemWithType(new NamedIdentifier("TownHall"));
         Comparator<Item> closestDepot = closestItem(item);
         Collection<Item> depots = player.findAll(ownedDepots);
         return Collections.min(depots, closestDepot);

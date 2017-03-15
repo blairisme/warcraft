@@ -1,6 +1,7 @@
 package com.evilbird.warcraft.behaviour.user.interaction;
 
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
@@ -13,9 +14,9 @@ import com.evilbird.engine.item.Item;
  */
 public abstract class AbstractInteraction implements Interaction
 {
-    protected Identifier targetType;
-    protected Identifier hudType;
-    protected Identifier selectedType;
+    protected NamedIdentifier targetType;
+    protected NamedIdentifier hudType;
+    protected NamedIdentifier selectedType;
     protected UserInputType inputType;
 
     public AbstractInteraction()
@@ -33,17 +34,17 @@ public abstract class AbstractInteraction implements Interaction
 
     public void setTargetType(String targetType)
     {
-        this.targetType = targetType != null ? new Identifier(targetType) : null; //TODO;
+        this.targetType = targetType != null ? new NamedIdentifier(targetType) : null; //TODO;
     }
 
     public void setSelectedType(String selectedType)
     {
-        this.selectedType = selectedType != null ? new Identifier(selectedType) : null; //TODO;
+        this.selectedType = selectedType != null ? new NamedIdentifier(selectedType) : null; //TODO;
     }
 
     public void setHudType(String hudType)
     {
-        this.hudType = hudType != null ? new Identifier(hudType) : null; //TODO;
+        this.hudType = hudType != null ? new NamedIdentifier(hudType) : null; //TODO;
     }
 
     @Override

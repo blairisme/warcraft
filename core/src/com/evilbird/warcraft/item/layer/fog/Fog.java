@@ -4,7 +4,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
@@ -27,7 +27,7 @@ public class Fog extends Layer
     {
         this.tileSet = tileSet;
         this.initialized = false;
-        setType(new Identifier("Fog"));
+        setType(new NamedIdentifier("Fog"));
         setTouchable(Touchable.disabled);
     }
 
@@ -71,7 +71,7 @@ public class Fog extends Layer
     private ItemGroup getPlayer()
     {
         ItemRoot world = getRoot();
-        return (ItemGroup)world.find(itemWithId(new Identifier("Player1"))); //TODO
+        return (ItemGroup)world.find(itemWithId(new NamedIdentifier("Player1"))); //TODO
     }
 
     private void conceal(){

@@ -1,6 +1,6 @@
 package com.evilbird.engine.common.inject;
 
-import com.evilbird.engine.common.lang.IdentifierNew;
+import com.evilbird.engine.common.lang.Identifier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,31 +14,31 @@ import javax.inject.Provider;
  */
 public class IdentifiedAssetProviderSet<T> implements IdentifiedAssetProvider<T>
 {
-    private Map<IdentifierNew, IdentifiedAssetProvider<? extends T>> delegates;
+    private Map<Identifier, IdentifiedAssetProvider<? extends T>> delegates;
 
     public IdentifiedAssetProviderSet()
     {
-        delegates = new HashMap<IdentifierNew, IdentifiedAssetProvider<? extends T>>();
+        delegates = new HashMap<Identifier, IdentifiedAssetProvider<? extends T>>();
     }
 
-    public void addProvider(IdentifierNew key, Provider<? extends T> provider)
+    public void addProvider(Identifier key, Provider<? extends T> provider)
     {
         delegates.put(key, new ProviderAdapter(provider));
     }
 
-    public void addProvider(IdentifierNew key, AssetProvider<? extends T> provider)
+    public void addProvider(Identifier key, AssetProvider<? extends T> provider)
     {
         delegates.put(key, new AssetProviderAdapter(provider));
     }
 
-    public void addProvider(IdentifierNew key, IdentifiedAssetProvider<? extends T> provider)
+    public void addProvider(Identifier key, IdentifiedAssetProvider<? extends T> provider)
     {
         delegates.put(key, provider);
     }
 
     public void addProvider(IdentifiedAssetProviderSet<T> provider)
     {
-        for (IdentifierNew key: provider.delegates.keySet())
+        for (Identifier key: provider.delegates.keySet())
         {
             addProvider(key, provider);
         }
@@ -52,7 +52,7 @@ public class IdentifiedAssetProviderSet<T> implements IdentifiedAssetProvider<T>
         }
     }
 
-    public T get(IdentifierNew key)
+    public T get(Identifier key)
     {
         IdentifiedAssetProvider<? extends T> delegate = delegates.get(key);
 

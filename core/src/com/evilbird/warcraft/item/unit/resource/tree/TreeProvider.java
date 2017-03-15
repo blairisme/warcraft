@@ -9,7 +9,7 @@ import com.evilbird.engine.common.audio.SilentSoundEffect;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.SoundIdentifier;
@@ -51,7 +51,7 @@ public class TreeProvider implements AssetProvider<Tree>
         result.setSelected(false);
         result.setSelectable(false);
         result.setTouchable(Touchable.enabled);
-        result.setType(new Identifier("Wood"));
+        result.setType(new NamedIdentifier("Wood"));
         result.setResource(ResourceType.Wood, 100f);
         result.setSize(32, 32);
         return result;

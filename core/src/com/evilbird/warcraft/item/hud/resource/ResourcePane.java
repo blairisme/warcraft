@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
 
 //TODO: Use item table
@@ -35,8 +35,8 @@ public class ResourcePane extends Item
         oilImage = new Image();
         woodImage = new Image();
         table = createTable();
-        setId(new Identifier("ResourcePane"));
-        setType(new Identifier("ResourcePane"));
+        setId(new NamedIdentifier("ResourcePane"));
+        setType(new NamedIdentifier("ResourcePane"));
         setTouchable(Touchable.disabled);
     }
 

@@ -2,7 +2,7 @@ package com.evilbird.warcraft.behaviour.hud;
 
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.Behaviour;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
@@ -68,7 +68,7 @@ public class HudBehaviour implements Behaviour
     private Player getConsolePlayer(ItemRoot world)
     {
         if (player == null){
-            player = (Player)world.find(itemWithId(new Identifier("Player1")));
+            player = (Player)world.find(itemWithId(new NamedIdentifier("Player1")));
         }
         return player;
     }
@@ -76,7 +76,7 @@ public class HudBehaviour implements Behaviour
     private ResourcePane getResourcePane(ItemRoot hud)
     {
         if (resourcePane == null){
-            resourcePane = (ResourcePane)hud.find(itemWithId(new Identifier("ResourcePane")));
+            resourcePane = (ResourcePane)hud.find(itemWithId(new NamedIdentifier("ResourcePane")));
         }
         return resourcePane;
     }
@@ -84,7 +84,7 @@ public class HudBehaviour implements Behaviour
     private ActionPane getActionPane(ItemRoot hud)
     {
         if (actionPane == null){
-            actionPane = (ActionPane) hud.find(itemWithId(new Identifier("ActionPane")));
+            actionPane = (ActionPane) hud.find(itemWithId(new NamedIdentifier("ActionPane")));
         }
         return actionPane;
     }
@@ -92,7 +92,7 @@ public class HudBehaviour implements Behaviour
     private StatePane getStatePane(ItemRoot hud)
     {
         if (statePane == null){
-            statePane = (StatePane)hud.find(itemWithId(new Identifier("StatePane")));
+            statePane = (StatePane)hud.find(itemWithId(new NamedIdentifier("StatePane")));
         }
         return statePane;
     }

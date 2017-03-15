@@ -1,7 +1,7 @@
 package com.evilbird.engine.item;
 
-import com.evilbird.engine.common.lang.IdentifierNew;
+import com.evilbird.engine.common.lang.Identifier;
 
-public interface ItemType extends IdentifierNew
+public interface ItemType extends Identifier
 {
 }

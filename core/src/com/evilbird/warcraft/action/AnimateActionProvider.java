@@ -9,7 +9,7 @@ import com.evilbird.engine.action.modifier.ConstantModifier;
 import com.evilbird.engine.action.value.ActionValue;
 import com.evilbird.engine.action.value.ItemReferenceValue;
 import com.evilbird.engine.action.value.ItemValue;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
@@ -35,7 +35,7 @@ public class AnimateActionProvider
         return get(value, animation);
     }
 
-    public Action get(ItemRoot itemRoot, Identifier itemId, AnimationIdentifier animation)
+    public Action get(ItemRoot itemRoot, NamedIdentifier itemId, AnimationIdentifier animation)
     {
         ActionValue value = new ItemReferenceValue(itemRoot, itemId, AnimationProperty.Animation);
         return get(value, animation);

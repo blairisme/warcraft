@@ -2,12 +2,7 @@ package com.evilbird.engine.common.lang;
 
 import java.util.UUID;
 
-/**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
- */
-public class NamedIdentifier implements IdentifierNew
+public class NamedIdentifier implements Identifier
 {
     private String name;
 

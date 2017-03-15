@@ -11,7 +11,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.common.inject.AssetProvider;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
@@ -147,7 +147,7 @@ public class Level1 implements AssetProvider<ItemRoot>
             MapProperties properties = object.getProperties();
 
             Item item = itemFactory.newItem(getItemType(layer));
-            item.setId(new Identifier(object.getName()));
+            item.setId(new NamedIdentifier(object.getName()));
             item.setVisible(object.isVisible());
             item.setTouchable(getTouchable(properties));
             item.setSize((Float)properties.get("width"), (Float)properties.get("height"));

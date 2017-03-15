@@ -1,7 +1,7 @@
 package com.evilbird.engine.item;
 
 import com.evilbird.engine.common.function.Predicate;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 
 /**
@@ -11,16 +11,16 @@ import com.evilbird.engine.common.lang.Objects;
  */
 public class ItemPredicates
 {
-    public static Predicate<Item> itemWithId(Identifier id)
+    public static Predicate<Item> itemWithId(NamedIdentifier id)
     {
         return new ItemWithId(id); //TODO: Pool?
     }
 
     public static class ItemWithId implements Predicate<Item>
     {
-        private Identifier id;
+        private NamedIdentifier id;
 
-        public ItemWithId(Identifier id)
+        public ItemWithId(NamedIdentifier id)
         {
             this.id = id;
         }
@@ -32,16 +32,16 @@ public class ItemPredicates
         }
     }
 
-    public static Predicate<Item> itemWithType(Identifier type)
+    public static Predicate<Item> itemWithType(NamedIdentifier type)
     {
         return new ItemWithType(type); //TODO: Pool?
     }
 
     public static class ItemWithType implements Predicate<Item>
     {
-        private Identifier type;
+        private NamedIdentifier type;
 
-        public ItemWithType(Identifier type)
+        public ItemWithType(NamedIdentifier type)
         {
             this.type = type;
         }
@@ -91,16 +91,16 @@ public class ItemPredicates
         }
     }
 
-    public static Predicate<Item> itemWithOwner(Identifier id)
+    public static Predicate<Item> itemWithOwner(NamedIdentifier id)
     {
         return new ItemWithOwner(id);
     }
 
     public static class ItemWithOwner implements Predicate<Item>
     {
-        private Identifier id;
+        private NamedIdentifier id;
 
-        public ItemWithOwner(Identifier id)
+        public ItemWithOwner(NamedIdentifier id)
         {
             this.id = id;
         }

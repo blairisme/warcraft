@@ -1,7 +1,7 @@
 package com.evilbird.warcraft.item.hud.state;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
@@ -30,8 +30,8 @@ public class StatePane extends ItemGroup
         this.selectionPane = selectionPaneProvider.get();
         addItem(selectionPane);
         setSize(176, 176); //TODO
-        setId(new Identifier("StatePane"));
-        setType(new Identifier("StatePane"));
+        setId(new NamedIdentifier("StatePane"));
+        setType(new NamedIdentifier("StatePane"));
         setTouchable(Touchable.childrenOnly);
     }
 

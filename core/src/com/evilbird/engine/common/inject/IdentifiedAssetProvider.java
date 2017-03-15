@@ -1,6 +1,6 @@
 package com.evilbird.engine.common.inject;
 
-import com.evilbird.engine.common.lang.IdentifierNew;
+import com.evilbird.engine.common.lang.Identifier;
 
 /**
  * Instances of this class TODO:Finish
@@ -11,5 +11,5 @@ public interface IdentifiedAssetProvider<T>
 {
     void load();
 
-    T get(IdentifierNew identifier);
+    T get(Identifier identifier);
 }
