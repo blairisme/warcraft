@@ -37,8 +37,8 @@ CFont:New("large-title", CGraphic:New("ui/fonts/large_episode_titles.png", 52, 5
 
 --	FIXME: only yellow, white, and grey are correct.
 
-function DefineFontColor(id, t)
-  fc = CFontColor:New(id)
+function DefineFontColor(name, t)
+  fc = CFontColor:New(name)
   for i = 0,(table.getn(t) / 3 - 1) do
     fc.Colors[i] = CColor(t[i * 3 + 1], t[i * 3 + 2], t[i * 3 + 3])
   end

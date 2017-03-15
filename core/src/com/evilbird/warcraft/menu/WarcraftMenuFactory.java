@@ -15,11 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.level.Level;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuFactory;
+import com.evilbird.engine.menu.MenuIdentifier;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -42,7 +42,7 @@ public class WarcraftMenuFactory implements MenuFactory
         this.assetManager.load("data/textures/menu/menu.png", Texture.class);
     }
 
-    public Menu newMenu(Identifier id)
+    public Menu rootMenu()
     {
         Stage stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -108,6 +108,12 @@ public class WarcraftMenuFactory implements MenuFactory
         });
         return menu;
     }
+
+    public Menu newMenu(MenuIdentifier menuIdentifier)
+    {
+        throw new UnsupportedOperationException();
+    }
+
 
     private void addButton(Table table, TextButton button)
     {

@@ -398,7 +398,7 @@ local mapinfo = {
   nplayers = 1,
   w = 32,
   h = 32,
-  id = 0
+  name = 0
 }
 
 function GetMapInfo(mapname)
@@ -424,14 +424,14 @@ function GetMapInfo(mapname)
     end
   end
 
-  function PresentMap(description, nplayers, w, h, id)
+  function PresentMap(description, nplayers, w, h, name)
     mapinfo.description = description
     -- nplayers includes rescue-passive and rescue-active
     -- calculate the real nplayers in DefinePlayerTypes
     --mapinfo.nplayers = nplayers
     mapinfo.w = w
     mapinfo.h = h
-    mapinfo.id = id
+    mapinfo.name = name
   end
 
   Load(mapname)

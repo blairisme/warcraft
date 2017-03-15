@@ -124,13 +124,13 @@ function RunJoiningMapMenu(s)
   resources:setEnabled(false)
 
   local OldPresentMap = PresentMap
-  PresentMap = function(desc, nplayers, w, h, id)
+  PresentMap = function(desc, nplayers, w, h, name)
     numplayers = nplayers
     players:setCaption(""..nplayers)
     players:adjustSize()
     descr:setCaption(desc)
     descr:adjustSize()
-    OldPresentMap(desc, nplayers, w, h, id)
+    OldPresentMap(desc, nplayers, w, h, name)
   end
 
   -- Security: The map name is checked by the stratagus engine.
@@ -368,14 +368,14 @@ function RunCreateMultiGameMenu(s)
   descr = menu:writeText(description, sx+20, sy*3+90)
 
   local OldPresentMap = PresentMap
-  PresentMap = function(desc, nplayers, w, h, id)
+  PresentMap = function(desc, nplayers, w, h, name)
     numplayers = nplayers
     players:setCaption(""..numplayers)
     players:adjustSize()
     description = desc
     descr:setCaption(desc)
     descr:adjustSize()
-    OldPresentMap(desc, nplayers, w, h, id)
+    OldPresentMap(desc, nplayers, w, h, name)
   end
 
   Load(mapfile)

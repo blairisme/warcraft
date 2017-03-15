@@ -4,7 +4,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.BehaviourFactory;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.menu.Menu;
@@ -70,7 +69,7 @@ public class GameLoaderModel
         loadingTime += delta;
         if (loadingTime >= 2 && assets.update())
         {
-            Menu menu = menuFactory.newMenu(new Identifier("Root"));
+            Menu menu = menuFactory.rootMenu();
             presenter.setMenuScreen(menu);
         }
     }

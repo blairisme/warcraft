@@ -35,25 +35,25 @@
   </data>
  </layer>
  <objectgroup name="Footman">
-  <object id="8" name="Footman1" gid="385" x="400" y="250" width="72" height="72"/>
+  <object name="8" name="Footman1" gid="385" x="400" y="250" width="72" height="72"/>
  </objectgroup>
  <objectgroup name="Townhall">
-  <object id="10" name="Townhall1" gid="570" x="384" y="512" width="128" height="128"/>
+  <object name="10" name="Townhall1" gid="570" x="384" y="512" width="128" height="128"/>
  </objectgroup>
  <objectgroup name="Peasant">
-  <object id="12" name="Peasant1" gid="445" x="365.333" y="373.333" width="72" height="72"/>
+  <object name="12" name="Peasant1" gid="445" x="365.333" y="373.333" width="72" height="72"/>
  </objectgroup>
  <objectgroup name="Farm">
-  <object id="11" name="Farm1" gid="572" x="576" y="349.333" width="64" height="64"/>
+  <object name="11" name="Farm1" gid="572" x="576" y="349.333" width="64" height="64"/>
  </objectgroup>
  <objectgroup name="Barracks">
-  <object id="13" name="Barracks1" gid="574" x="221.333" y="382.667" width="96" height="96"/>
+  <object name="13" name="Barracks1" gid="574" x="221.333" y="382.667" width="96" height="96"/>
  </objectgroup>
  <objectgroup name="GoldMine">
-  <object id="14" name="GoldMine1" gid="576" x="929.333" y="1024" width="96" height="96"/>
+  <object name="14" name="GoldMine1" gid="576" x="929.333" y="1024" width="96" height="96"/>
  </objectgroup>
  <objectgroup name="Grunt">
-  <object id="15" name="Grunt1" gid="510" x="858.667" y="906.667" width="72" height="72"/>
-  <object id="16" name="Grunt2" gid="510" x="764" y="969.333" width="72" height="72"/>
+  <object name="15" name="Grunt1" gid="510" x="858.667" y="906.667" width="72" height="72"/>
+  <object name="16" name="Grunt2" gid="510" x="764" y="969.333" width="72" height="72"/>
  </objectgroup>
 </map>
