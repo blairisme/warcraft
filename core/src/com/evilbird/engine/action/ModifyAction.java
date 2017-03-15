@@ -4,22 +4,12 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.duration.ActionDuration;
 import com.evilbird.engine.action.modifier.ActionModifier;
 import com.evilbird.engine.action.value.ActionValue;
-import com.evilbird.engine.action.value.ItemValue;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemProperty;
 
 public class ModifyAction extends Action
 {
     private ActionValue value;
     private ActionModifier modifier;
     private ActionDuration duration;
-
-    //TODO remove
-    @Deprecated
-    public ModifyAction(Item target, ItemProperty property, ActionModifier modifier, ActionDuration duration)
-    {
-        this(new ItemValue(target, property), modifier, duration);
-    }
 
     public ModifyAction(ActionValue value, ActionModifier modifier, ActionDuration duration)
     {

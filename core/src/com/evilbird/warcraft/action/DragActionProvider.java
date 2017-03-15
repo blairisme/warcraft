@@ -8,10 +8,11 @@ import com.evilbird.engine.action.duration.InstantDuration;
 import com.evilbird.engine.action.modifier.ActionModifier;
 import com.evilbird.engine.action.modifier.DeltaModifier;
 import com.evilbird.engine.action.modifier.DeltaType;
+import com.evilbird.engine.action.value.ActionValue;
+import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperties;
-import com.evilbird.engine.item.ItemProperty;
 
 import javax.inject.Inject;
 
@@ -33,9 +34,9 @@ public class DragActionProvider implements ActionProvider
         Vector2 inputDelta = input.getDelta();
         Vector2 dragDelta = new Vector2(inputDelta.x * -1, inputDelta.y * -1);
 
-        ItemProperty property = ItemProperties.Position;
+        ActionValue value = new ItemValue(target, ItemProperties.Position);
         ActionModifier modifier = new DeltaModifier(dragDelta, DeltaType.PerUpdate);
         ActionDuration duration = new InstantDuration();
-        return new ModifyAction(item, property, modifier, duration);
+        return new ModifyAction(value, modifier, duration);
     }
 }

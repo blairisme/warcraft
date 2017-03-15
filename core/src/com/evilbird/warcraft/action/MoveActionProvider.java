@@ -8,10 +8,11 @@ import com.evilbird.engine.action.duration.ActionDuration;
 import com.evilbird.engine.action.duration.PredicateDuration;
 import com.evilbird.engine.action.modifier.ActionModifier;
 import com.evilbird.engine.action.modifier.MoveModifier;
+import com.evilbird.engine.action.value.ActionValue;
+import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperties;
-import com.evilbird.engine.item.ItemProperty;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
@@ -24,6 +25,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
+//TODO: Move should position the item in the middle of the given position not above and to the right.
 public class MoveActionProvider implements ActionProvider
 {
     private AnimateActionProvider animateActionProvider;
@@ -62,9 +64,9 @@ public class MoveActionProvider implements ActionProvider
 
     private Action newMoveAction(Item item, Vector2 destination)
     {
-        ItemProperty position = ItemProperties.Position;
+        ActionValue value = new ItemValue(item, ItemProperties.Position);
         ActionModifier modifier = new MoveModifier(destination, 64f);
-        ActionDuration duration = new PredicateDuration(item, position, destination);
-        return new ModifyAction(item, position, modifier, duration);
+        ActionDuration duration = new PredicateDuration(item, ItemProperties.Position, destination);
+        return new ModifyAction(value, modifier, duration);
     }
 }

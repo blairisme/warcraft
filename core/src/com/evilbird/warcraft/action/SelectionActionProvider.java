@@ -7,10 +7,11 @@ import com.evilbird.engine.action.duration.ActionDuration;
 import com.evilbird.engine.action.duration.InstantDuration;
 import com.evilbird.engine.action.modifier.ActionModifier;
 import com.evilbird.engine.action.modifier.ConstantModifier;
+import com.evilbird.engine.action.value.ActionValue;
+import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperties;
-import com.evilbird.engine.item.ItemProperty;
 import com.evilbird.warcraft.item.unit.UnitSound;
 
 import javax.inject.Inject;
@@ -54,9 +55,9 @@ public class SelectionActionProvider implements ActionProvider
 
     private Action newSelectionAction(Item item, boolean selected)
     {
-        ItemProperty property = ItemProperties.Selected;
+        ActionValue value = new ItemValue(item, ItemProperties.Selected);
         ActionModifier modifier = new ConstantModifier(selected);
         ActionDuration duration = new InstantDuration();
-        return new ModifyAction(item, property, modifier, duration);
+        return new ModifyAction(value, modifier, duration);
     }
 }

@@ -8,10 +8,11 @@ import com.evilbird.engine.action.duration.InstantDuration;
 import com.evilbird.engine.action.modifier.ActionModifier;
 import com.evilbird.engine.action.modifier.DeltaModifier;
 import com.evilbird.engine.action.modifier.DeltaType;
+import com.evilbird.engine.action.value.ActionValue;
+import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperties;
-import com.evilbird.engine.item.ItemProperty;
 
 import javax.inject.Inject;
 
@@ -35,10 +36,10 @@ public class PanActionProvider implements ActionProvider
 
     public Action get(Item item, UserInput input)
     {
-        ItemProperty position = ItemProperties.Position;
+        ActionValue value = new ItemValue(item, ItemProperties.Position);
         ActionModifier modifier = getPanModifier(item, input.getDelta());
         ActionDuration duration = new InstantDuration();
-        return new ModifyAction(item, position, modifier, duration);
+        return new ModifyAction(value, modifier, duration);
     }
 
     private ActionModifier getPanModifier(Item item, Vector2 delta)
