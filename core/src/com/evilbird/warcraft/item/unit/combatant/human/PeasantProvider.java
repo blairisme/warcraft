@@ -88,11 +88,9 @@ public class PeasantProvider implements AssetProvider<Item>
         actions.add(ActionType.Attack);
         actions.add(ActionType.Repair);
         actions.add(ActionType.GatherGold);
-        actions.add(ActionType.GatherWood);
         actions.add(ActionType.BuildFarm);
         actions.add(ActionType.BuildBarracks);
         actions.add(ActionType.BuildTownHall);
-        //return with goods
         return actions;
     }
 

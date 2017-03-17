@@ -27,6 +27,7 @@ public class WarcraftActionFactory implements ActionFactory
         BuildingSiteActionProvider buildingSiteActionProvider,
         SelectionActionProvider selectionActionProvider,
         StopActionProvider stopActionProvider,
+        TrainActionProvider trainActionProvider,
         ZoomActionProvider zoomActionProvider)
     {
         actions = new HashMap<ActionCatagory, ActionProvider>();
@@ -40,6 +41,7 @@ public class WarcraftActionFactory implements ActionFactory
         actions.put(ActionCatagory.Pan, panActionProvider);
         actions.put(ActionCatagory.Select, selectionActionProvider);
         actions.put(ActionCatagory.Stop, stopActionProvider);
+        actions.put(ActionCatagory.Train, trainActionProvider);
         actions.put(ActionCatagory.Zoom, zoomActionProvider);
     }
 

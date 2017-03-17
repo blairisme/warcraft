@@ -73,6 +73,9 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
             icons.put(ActionType.BuildBarracks, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 92, 304, 46, 38));
             icons.put(ActionType.BuildFarm, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 138, 266, 46, 38));
             icons.put(ActionType.BuildTownHall, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 304, 46, 38));
+
+            icons.put(ActionType.TrainPeasant, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 0, 46, 38));
+            icons.put(ActionType.TrainFootman, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 92, 0, 46, 38));
         }
         return icons;
     }

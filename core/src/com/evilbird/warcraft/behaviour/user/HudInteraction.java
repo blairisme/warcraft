@@ -47,6 +47,10 @@ public class HudInteraction implements Interaction
         interactions.add(selectionFactory.get(UserInputType.Action, "Cancel", "BarracksSite", null, ActionType.Cancel));
         interactions.add(selectionFactory.get(UserInputType.Action, "Cancel", "FarmSite", null, ActionType.Cancel));
         interactions.add(selectionFactory.get(UserInputType.Action, "Cancel", "TownHallSite", null, ActionType.Cancel));
+
+        //TODO: Move into train class
+        interactions.add(selectionFactory.get(UserInputType.Action, "TrainPeasant", "TownHall", null, ActionType.TrainPeasant));
+        interactions.add(selectionFactory.get(UserInputType.Action, "TrainFootman", "Barracks", null, ActionType.TrainFootman));
     }
 
     @Override

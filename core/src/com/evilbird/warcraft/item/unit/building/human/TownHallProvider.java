@@ -57,9 +57,7 @@ public class TownHallProvider implements AssetProvider<Item>
 
     private EnumSet<ActionType> getActions()
     {
-        EnumSet<ActionType> actions = EnumSet.noneOf(ActionType.class);
-        //actions.add(Actions.BuildPeasant);
-        return actions;
+        return EnumSet.of(ActionType.TrainPeasant);
     }
 
     private Map<AnimationIdentifier, DirectionalAnimation> getAnimations()

@@ -161,7 +161,18 @@ public class DetailsPane extends GridPane
 
     private void setProductionDetails(Building building)
     {
+        //TextLabel training = createLabel("Training", 160, 12);
 
+        BuildingBar buildingBar = buildingBarProvider.get();
+        buildingBar.setBuilding(building);
+
+        GridPane detailsContainer = new GridPane(1, 1);
+        detailsContainer.setSize(160, 100);
+        detailsContainer.setHorizontalCellPadding(4);
+        detailsContainer.setVerticalCellPadding(80);
+        detailsContainer.setCell(buildingBar, 0, 0);
+
+        setCell(detailsContainer, 0, 1);
     }
 
     private void setFarmDetails(Building building)

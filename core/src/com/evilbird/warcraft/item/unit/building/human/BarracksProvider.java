@@ -62,6 +62,7 @@ public class BarracksProvider implements AssetProvider<Item>
     private EnumSet<ActionType> getActions()
     {
         EnumSet<ActionType> actions = EnumSet.noneOf(ActionType.class);
+        actions.add(ActionType.TrainFootman);
         return actions;
     }
 
