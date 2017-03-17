@@ -36,7 +36,7 @@ public class BuildingSiteActionProvider implements ActionProvider
         ItemType type = getBuildingSiteType(action);
         NamedIdentifier identifier = new NamedIdentifier();
         Vector2 location = getScreenCenter(item.getRoot());
-        return new CreateAction(item.getParent(), type, itemFactory, identifier, location, false);
+        return new CreateAction(item.getParent(), type, itemFactory, identifier, location, true);
     }
 
     private BuildSiteType getBuildingSiteType(ActionType actionType)

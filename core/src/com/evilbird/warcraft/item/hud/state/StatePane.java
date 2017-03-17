@@ -5,7 +5,9 @@ import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.warcraft.item.hud.building.BuildSite;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.inject.Inject;
@@ -35,52 +37,35 @@ public class StatePane extends ItemGroup
         setTouchable(Touchable.childrenOnly);
     }
 
-    public Collection<Item> getSelection()
-    {
-        return selection;
-    }
-
     public void setSelection(Collection<Item> newSelection)
     {
-        if (! Objects.equals(selection, newSelection))
+        if (!Objects.equals(selection, newSelection))
         {
             selection = newSelection;
             clearItems();
 
-            if (selection.size() == 1)
+            Collection<Item> items = removeHudElements(selection);
+            if (items.size() == 1)
             {
-                detailsPane.setItem(selection.iterator().next());
+                detailsPane.setItem(items.iterator().next());
                 addItem(detailsPane);
             }
             else
             {
-                selectionPane.setItems(selection);
+                selectionPane.setItems(items);
                 addItem(selectionPane);
             }
         }
     }
 
-    /*
-    private static final Identifier SELECTION_PROPERTY = new Identifier("Selection");
-
-    @Override
-    public Object getProperty(Identifier property)
+    private Collection<Item> removeHudElements(Collection<Item> elements)
     {
-        if (Objects.equals(property, SELECTION_PROPERTY)){
-            return getSelection();
+        Collection<Item> result = new ArrayList<Item>(elements.size());
+        for (Item element: elements){
+            if (!(element instanceof BuildSite)){
+                result.add(element);
+            }
         }
-        return super.getProperty(property);
+        return result;
     }
-
-    @Override
-    public void setProperty(Identifier property, Object value)
-    {
-        if (Objects.equals(property, SELECTION_PROPERTY)){
-            setSelection((Collection<Item>)value);
-        }
-        else{
-            super.setProperty(property, value);
-        }
-    }
-    */
 }

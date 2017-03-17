@@ -62,16 +62,17 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
         if (icons == null){
             icons = new HashMap<ActionIdentifier, Drawable>();
             icons.put(ActionType.Move, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 138, 608, 46, 38));
-            icons.put(ActionType.Stop, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 1254, 46, 38));
             icons.put(ActionType.Attack, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 874, 46, 38));
+            icons.put(ActionType.Stop, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 1254, 46, 38));
+            icons.put(ActionType.Cancel, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 684, 46, 38));
 
-            icons.put(ActionType.Repair, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 646, 46, 38)); //TO
-            icons.put(ActionType.GatherGold, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 646, 46, 38)); //TO
-            icons.put(ActionType.GatherWood, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 646, 46, 38)); //TO
+            icons.put(ActionType.Repair, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 646, 46, 38));
+            icons.put(ActionType.GatherGold, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 646, 46, 38));
+            icons.put(ActionType.GatherWood, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 646, 46, 38));
 
             icons.put(ActionType.BuildBarracks, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 92, 304, 46, 38));
             icons.put(ActionType.BuildFarm, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 138, 266, 46, 38));
-            icons.put(ActionType.BuildTownHall, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 304, 46, 38)); //TO
+            icons.put(ActionType.BuildTownHall, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 304, 46, 38));
         }
         return icons;
     }

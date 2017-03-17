@@ -6,6 +6,7 @@ import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.item.hud.building.BuildSite;
 import com.evilbird.warcraft.item.unit.Unit;
 
 import java.util.ArrayList;
@@ -41,22 +42,41 @@ public class ActionPane extends GridPane
         setTouchable(Touchable.childrenOnly);
     }
 
-    public Collection<Item> getSelection()
-    {
-        return selection;
-    }
-
     public void setSelection(Collection<Item> newSelection)
     {
         if (! Objects.equals(selection, newSelection)){
             selection = newSelection;
-
-            Collection<ActionType> actions = getActions(selection);
-            Collection<Item> tiles = getTiles(actions);
-
             clearCells();
-            setCells(tiles);
+
+            if (isBuildSiteSelected(selection)){
+                showCancelAction();
+            }
+            else {
+                showUnitActions(selection);
+            }
         }
+    }
+
+    private boolean isBuildSiteSelected(Collection<Item> selection)
+    {
+        for (Item item: selection){
+            if (item instanceof BuildSite){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void showCancelAction()
+    {
+        ActionButton cancelButton = getButton(ActionType.Cancel);
+        setCell(cancelButton, 2, 2);
+    }
+
+    private void showUnitActions(Collection<Item> selection)
+    {
+        Collection<ActionType> actions = getActions(selection);
+        setCells(getTiles(actions));
     }
 
     private Collection<ActionType> getActions(Collection<Item> selection)
@@ -69,7 +89,8 @@ public class ActionPane extends GridPane
         return result;
     }
 
-    private Collection<ActionType> getActions(Item item){
+    private Collection<ActionType> getActions(Item item)
+    {
         if (item instanceof Unit){
             Unit unit = (Unit)item;
             return unit.getActions();

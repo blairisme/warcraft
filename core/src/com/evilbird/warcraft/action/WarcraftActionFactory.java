@@ -19,6 +19,7 @@ public class WarcraftActionFactory implements ActionFactory
     public WarcraftActionFactory(
         AttackActionProvider attackActionProvider,
         BuildActionProvider buildActionProvider,
+        CancelActionProvider cancelActionProvider,
         DragActionProvider dragActionProvider,
         GatherActionProvider gatherActionProvider,
         MoveActionProvider moveActionProvider,
@@ -32,6 +33,7 @@ public class WarcraftActionFactory implements ActionFactory
         actions.put(ActionCatagory.Attack, attackActionProvider);
         actions.put(ActionCatagory.Build, buildActionProvider);
         actions.put(ActionCatagory.BuildSite, buildingSiteActionProvider);
+        actions.put(ActionCatagory.Cancel, cancelActionProvider);
         actions.put(ActionCatagory.Drag, dragActionProvider);
         actions.put(ActionCatagory.Gather, gatherActionProvider);
         actions.put(ActionCatagory.Move, moveActionProvider);

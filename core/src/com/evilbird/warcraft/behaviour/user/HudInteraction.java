@@ -26,8 +26,8 @@ public class HudInteraction implements Interaction
         interactions = new CompositeInteraction();
 
         //TODO: Move into stop class
-        interactions.add(selectionFactory.get(UserInputType.Action, "StopButton", "Footman", null, ActionType.Stop));
-        interactions.add(selectionFactory.get(UserInputType.Action, "StopButton", "Peasant", null, ActionType.Stop));
+        interactions.add(selectionFactory.get(UserInputType.Action, "Stop", "Footman", null, ActionType.Stop));
+        interactions.add(selectionFactory.get(UserInputType.Action, "Stop", "Peasant", null, ActionType.Stop));
 
         //TODO: Move into build class
         interactions.add(selectionFactory.get(UserInputType.Action, "BuildBarracks", "Peasant", null, ActionType.BuildBarracksSite));
@@ -42,6 +42,11 @@ public class HudInteraction implements Interaction
         interactions.add(targetFactory.get(UserInputType.Drag, "BarracksSite", null, null, ActionType.Drag));
         interactions.add(targetFactory.get(UserInputType.Drag, "FarmSite", null, null, ActionType.Drag));
         interactions.add(targetFactory.get(UserInputType.Drag, "TownHallSite", null, null, ActionType.Drag));
+
+        //TODO: Move into cancel class
+        interactions.add(selectionFactory.get(UserInputType.Action, "Cancel", "BarracksSite", null, ActionType.Cancel));
+        interactions.add(selectionFactory.get(UserInputType.Action, "Cancel", "FarmSite", null, ActionType.Cancel));
+        interactions.add(selectionFactory.get(UserInputType.Action, "Cancel", "TownHallSite", null, ActionType.Cancel));
     }
 
     @Override
