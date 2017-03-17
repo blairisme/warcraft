@@ -3,7 +3,6 @@ package com.evilbird.warcraft.item.unit.building.human;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
@@ -15,7 +14,7 @@ import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.common.AnimationBuilder;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.building.Building;
 
 import java.util.EnumSet;
 import java.util.Map;
@@ -43,24 +42,14 @@ public class FarmProvider implements AssetProvider<Item>
     @Override
     public Item get()
     {
-        Combatant result = new Combatant();
+        Building result = new Building();
         result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
-        result.setArmour(0f);
-        result.setDamageMinimum(0f);
-        result.setDamageMaximum(0f);
         result.setHealth(400.0f);
         result.setHealthMaximum(400.0f);
         result.setIcon(getIcon());
-        result.setLevel(1);
         result.setName("Farm");
-        result.setRange(0f);
-        result.setSelected(false);
-        result.setSelectable(true);
-        result.setTouchable(Touchable.enabled);
-        result.setSpeed(0f);
-        result.setSight(4f);
         result.setType(new NamedIdentifier("Farm"));
         result.setSize(64, 64);
         return result;

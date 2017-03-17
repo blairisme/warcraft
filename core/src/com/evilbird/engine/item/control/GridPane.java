@@ -12,12 +12,14 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
+//TODO: Update cell positions when padding, spacings or bounds are altered.
 public class GridPane extends ItemGroup
 {
     private Drawable background;
     private Item[][] cells;
-    private int cellPadding;
     private int cellSpacing;
+    private int cellPaddingVertical;
+    private int cellPaddingHorizontal;
     private int[] cellWidths;
     private int[] cellHeights;
     private int cellWidthMinimum;
@@ -32,7 +34,8 @@ public class GridPane extends ItemGroup
         this.cells = new Item[columnCount][rowCount];
         this.cellWidths = new int[columnCount];
         this.cellHeights = new int[rowCount];
-        this.cellPadding = 0;
+        this.cellPaddingVertical = 0;
+        this.cellPaddingHorizontal = 0;
         this.cellSpacing = 0;
         this.cellWidthMinimum = 0;
         this.cellHeightMinimum = 0;
@@ -46,7 +49,18 @@ public class GridPane extends ItemGroup
 
     public void setCellPadding(int cellPadding)
     {
-        this.cellPadding = cellPadding;
+        this.cellPaddingVertical = cellPadding;
+        this.cellPaddingHorizontal = cellPadding;
+    }
+
+    public void setVerticalCellPadding(int cellPadding)
+    {
+        this.cellPaddingVertical = cellPadding;
+    }
+
+    public void setHorizontalCellPadding(int cellPadding)
+    {
+        this.cellPaddingHorizontal = cellPadding;
     }
 
     public void setCellSpacing(int cellSpacing)
@@ -114,9 +128,9 @@ public class GridPane extends ItemGroup
     private void updateCellPositions()
     {
         int cumulativeX;
-        int cumulativeY = (int)getHeight() - cellPadding;
+        int cumulativeY = (int)getHeight() - cellPaddingVertical;
         for (int row = 0; row < rowCount; row++){
-            cumulativeX = cellPadding;
+            cumulativeX = cellPaddingHorizontal;
             cumulativeY -= cellHeights[row];
             for (int column = 0; column < columnCount; column++) {
                 Item cell = cells[column][row];

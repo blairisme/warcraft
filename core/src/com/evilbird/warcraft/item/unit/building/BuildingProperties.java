@@ -9,5 +9,7 @@ import com.evilbird.engine.item.ItemProperty;
  */
 public enum BuildingProperties implements ItemProperty
 {
+    Constructing,
+    Producing,
     Progress
 }

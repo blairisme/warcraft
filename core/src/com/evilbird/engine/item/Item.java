@@ -266,6 +266,9 @@ public class Item implements PropertySet<ItemProperty, Object>, ActorObserver
         else if (ItemProperties.Touchable.equals(key)){
             return getTouchable();
         }
+        else if (ItemProperties.Visible.equals(key)){
+            return getVisible();
+        }
         //throw new IllegalArgumentException(key.toString());
         System.out.println("Missing property: " + key.toString());
         return null; //TODO
@@ -288,6 +291,9 @@ public class Item implements PropertySet<ItemProperty, Object>, ActorObserver
         }
         else if (ItemProperties.Touchable.equals(key)){
             setTouchable((Touchable)value);
+        }
+        else if (ItemProperties.Visible.equals(key)){
+            setVisible((Boolean)value);
         }
         else{
             throw new IllegalArgumentException(key.toString());

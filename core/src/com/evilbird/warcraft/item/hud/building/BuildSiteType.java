@@ -7,9 +7,9 @@ import com.evilbird.engine.item.ItemType;
  *
  * @author Blair Butterworth
  */
-public enum BuildingSiteType implements ItemType
+public enum BuildSiteType implements ItemType
 {
-    BarracksBuildingSite,
-    FarmBuildingSite,
-    TownHallBuildingSite
+    BarracksBuildSite,
+    FarmBuildSite,
+    TownHallBuildSite
 }

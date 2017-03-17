@@ -23,8 +23,8 @@ public class GatherInteraction implements Interaction
     public GatherInteraction(SelectionInteractionFactory interactionFactory)
     {
         interactions = new CompositeInteraction();
-        interactions.add(interactionFactory.get(UserInputType.Action, "Gold", "Peasant", null, ActionType.Gather));
-        interactions.add(interactionFactory.get(UserInputType.Action, "Wood", "Peasant", null, ActionType.Gather));
+        interactions.add(interactionFactory.get(UserInputType.Action, "Gold", "Peasant", null, ActionType.GatherGold));
+        interactions.add(interactionFactory.get(UserInputType.Action, "Wood", "Peasant", null, ActionType.GatherWood));
     }
 
     @Override

@@ -26,7 +26,7 @@ public class SelectInteraction implements Interaction
         interactions.add(targetFactory.get(UserInputType.Action, "Footman", null, null, ActionType.Select));
         interactions.add(targetFactory.get(UserInputType.Action, "Peasant", null, null, ActionType.Select));
         interactions.add(targetFactory.get(UserInputType.Action, "Grunt", null, null, ActionType.Select));
-        interactions.add(targetFactory.get(UserInputType.Action, "GoldMine", null, null, ActionType.Select));
+        interactions.add(targetFactory.get(UserInputType.Action, "Gold", null, null, ActionType.Select));
         interactions.add(targetFactory.get(UserInputType.Action, "TownHall", null, null, ActionType.Select));
         interactions.add(targetFactory.get(UserInputType.Action, "Barracks", null, null, ActionType.Select));
         interactions.add(targetFactory.get(UserInputType.Action, "Farm", null, null, ActionType.Select));

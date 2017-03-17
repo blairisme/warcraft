@@ -2,13 +2,12 @@ package com.evilbird.warcraft.item.hud.common;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 
 import javax.inject.Inject;
+
+import static com.evilbird.warcraft.common.TextureUtils.getDrawable;
 
 /**
  * Instances of this class TODO:Finish
@@ -39,14 +38,7 @@ public class UnitPaneProvider implements AssetProvider<UnitPane>
     public UnitPane get()
     {
         UnitPane result = new UnitPane(healthBarProvider);
-        result.setBackground(getTexture("data/textures/neutral/perennial/selection.png"));
+        result.setBackground(getDrawable(assets, "data/textures/neutral/perennial/selection.png"));
         return result;
-    }
-
-    private Drawable getTexture(String path)
-    {
-        Texture texture = assets.get(path);
-        TextureRegion region = new TextureRegion(texture);
-        return new TextureRegionDrawable(region);
     }
 }

@@ -2,13 +2,12 @@ package com.evilbird.warcraft.item.hud.common;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 
 import javax.inject.Inject;
+
+import static com.evilbird.warcraft.common.TextureUtils.getDrawable;
 
 /**
  * Instances of this class TODO:Finish
@@ -37,16 +36,9 @@ public class HealthBarProvider implements AssetProvider<HealthBar>
     public HealthBar get()
     {
         HealthBar result = new HealthBar();
-        result.setHighHealthTexture(getTexture("data/textures/neutral/perennial/health_bar_high.png"));
-        result.setMediumHealthTexture(getTexture("data/textures/neutral/perennial/health_bar_medium.png"));
-        result.setLowHealthTexture(getTexture("data/textures/neutral/perennial/health_bar_low.png"));
+        result.setHighHealthTexture(getDrawable(assets, "data/textures/neutral/perennial/health_bar_high.png"));
+        result.setMediumHealthTexture(getDrawable(assets, "data/textures/neutral/perennial/health_bar_medium.png"));
+        result.setLowHealthTexture(getDrawable(assets, "data/textures/neutral/perennial/health_bar_low.png"));
         return result;
-    }
-
-    private Drawable getTexture(String path)
-    {
-        Texture texture = assets.get(path);
-        TextureRegion region = new TextureRegion(texture);
-        return new TextureRegionDrawable(region);
     }
 }

@@ -52,7 +52,7 @@ public class AttackActionProvider implements ActionProvider
     }
 
     @Override
-    public Action get(Item item, Item target, UserInput input)
+    public Action get(ActionType action, Item item, Item target, UserInput input)
     {
         return get(item, target);
     }

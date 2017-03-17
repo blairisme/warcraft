@@ -4,7 +4,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.item.hud.common.UnitPaneProvider;
 
 import javax.inject.Inject;
 
@@ -15,29 +14,29 @@ import static com.evilbird.warcraft.common.TextureUtils.getDrawable;
  *
  * @author Blair Butterworth
  */
-public class SelectionPaneProvider implements AssetProvider<SelectionPane>
+public class BuildingBarProvider implements AssetProvider<BuildingBar>
 {
     private AssetManager assets;
-    private UnitPaneProvider tileProvider;
 
     @Inject
-    public SelectionPaneProvider(Device device, UnitPaneProvider tileProvider)
+    public BuildingBarProvider(Device device)
     {
         this.assets = device.getAssetStorage().getAssets();
-        this.tileProvider = tileProvider;
     }
 
     @Override
     public void load()
     {
-        assets.load("data/textures/human/hud/selection_panel.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/building_progress_bar.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/building_progress_background.png", Texture.class);
     }
 
     @Override
-    public SelectionPane get()
+    public BuildingBar get()
     {
-        SelectionPane result = new SelectionPane(tileProvider);
-        result.setBackground(getDrawable(assets, "data/textures/human/hud/selection_panel.png"));
+        BuildingBar result = new BuildingBar();
+        result.setBackground(getDrawable(assets, "data/textures/neutral/perennial/building_progress_background.png"));
+        result.setProgressTexture(getDrawable(assets, "data/textures/neutral/perennial/building_progress_bar.png"));
         return result;
     }
 }

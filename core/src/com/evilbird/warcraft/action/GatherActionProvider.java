@@ -59,7 +59,7 @@ public class GatherActionProvider implements ActionProvider
     }
 
     @Override
-    public Action get(Item gatherer, Item resource, UserInput input)
+    public Action get(ActionType action, Item gatherer, Item resource, UserInput input)
     {
         Item depot = findDepot(gatherer);
         Item player = findPlayer(gatherer);

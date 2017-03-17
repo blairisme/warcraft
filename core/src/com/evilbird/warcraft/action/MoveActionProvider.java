@@ -37,7 +37,7 @@ public class MoveActionProvider implements ActionProvider
     }
 
     @Override
-    public Action get(Item item, Item target, UserInput input)
+    public Action get(ActionType action, Item item, Item target, UserInput input)
     {
         ItemRoot root = item.getRoot();
         Vector2 position = root.unproject(input.getPosition());

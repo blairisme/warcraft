@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.item.Item;
 
+import javax.inject.Inject;
+
 /**
  * Instances of this class TODO:Finish
  *
@@ -15,6 +17,7 @@ public class ProgressBar extends Item
     private float textureWidth;
     private float progress;
 
+    @Inject
     public ProgressBar()
     {
         texture = null;

@@ -1,21 +1,21 @@
 package com.evilbird.engine.action.value;
 
-import com.evilbird.engine.common.lang.NamedIdentifier;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemProperty;
-import com.evilbird.engine.item.ItemRoot;
 
 import static com.evilbird.engine.item.ItemPredicates.itemWithId;
 
 public class ItemReferenceValue implements ActionValue
 {
-    private ItemRoot root;
-    private NamedIdentifier identifier;
+    private ItemComposite composite;
+    private Identifier identifier;
     private ItemProperty property;
 
-    public ItemReferenceValue(ItemRoot root, NamedIdentifier identifier, ItemProperty property)
+    public ItemReferenceValue(ItemComposite composite, Identifier identifier, ItemProperty property)
     {
-        this.root = root;
+        this.composite = composite;
         this.identifier = identifier;
         this.property = property;
     }
@@ -23,14 +23,14 @@ public class ItemReferenceValue implements ActionValue
     @Override
     public Object get()
     {
-        Item item = root.find(itemWithId(identifier));
+        Item item = composite.find(itemWithId(identifier));
         return item.getProperty(property);
     }
 
     @Override
     public void set(Object value)
     {
-        Item item = root.find(itemWithId(identifier));
+        Item item = composite.find(itemWithId(identifier));
         item.setProperty(property, value);
     }
 }

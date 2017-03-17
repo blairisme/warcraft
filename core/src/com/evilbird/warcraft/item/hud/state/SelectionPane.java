@@ -5,6 +5,7 @@ import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.warcraft.item.hud.common.UnitPane;
+import com.evilbird.warcraft.item.unit.Unit;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,15 +44,17 @@ public class SelectionPane extends GridPane
     {
         Collection<Item> result = new ArrayList<Item>(items.size());
         for (Item item: items){
-            result.add(getUnitPane(item));
+            if (item instanceof Unit){
+                result.add(getUnitPane((Unit)item));
+            }
         }
         return result;
     }
 
-    private Item getUnitPane(Item item)
+    private Item getUnitPane(Unit unit)
     {
         UnitPane result = tileProvider.get();
-        result.setItem(item);
+        result.setItem(unit);
         result.setSize(54, 53);
         return result;
     }

@@ -9,9 +9,9 @@ import com.evilbird.engine.action.modifier.ConstantModifier;
 import com.evilbird.engine.action.value.ActionValue;
 import com.evilbird.engine.action.value.ItemReferenceValue;
 import com.evilbird.engine.action.value.ItemValue;
-import com.evilbird.engine.common.lang.NamedIdentifier;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.AnimationProperty;
 
@@ -35,13 +35,13 @@ public class AnimateActionProvider
         return get(value, animation);
     }
 
-    public Action get(ItemRoot itemRoot, NamedIdentifier itemId, AnimationIdentifier animation)
+    public Action get(ItemComposite itemParent, Identifier itemId, AnimationIdentifier animation)
     {
-        ActionValue value = new ItemReferenceValue(itemRoot, itemId, AnimationProperty.Animation);
+        ActionValue value = new ItemReferenceValue(itemParent, itemId, AnimationProperty.Animation);
         return get(value, animation);
     }
 
-    private Action get(ActionValue value, AnimationIdentifier animation)
+    public Action get(ActionValue value, AnimationIdentifier animation)
     {
         ActionModifier modifier = new ConstantModifier(animation);
         ActionDuration duration = new InstantDuration();

@@ -24,13 +24,24 @@ public class HudInteraction implements Interaction
     public HudInteraction(SelectionInteractionFactory selectionFactory, TargetInteractionFactory targetFactory)
     {
         interactions = new CompositeInteraction();
+
+        //TODO: Move into stop class
         interactions.add(selectionFactory.get(UserInputType.Action, "StopButton", "Footman", null, ActionType.Stop));
         interactions.add(selectionFactory.get(UserInputType.Action, "StopButton", "Peasant", null, ActionType.Stop));
 
-        interactions.add(selectionFactory.get(UserInputType.Action, "CreateBarracksButton", "Peasant", null, ActionType.BuildingSite));
-        interactions.add(selectionFactory.get(UserInputType.Action, "BarracksBuildingSite", "Peasant", null, ActionType.Build));
+        //TODO: Move into build class
+        interactions.add(selectionFactory.get(UserInputType.Action, "BuildBarracks", "Peasant", null, ActionType.BuildBarracksSite));
+        interactions.add(selectionFactory.get(UserInputType.Action, "BuildFarm", "Peasant", null, ActionType.BuildFarmSite));
+        interactions.add(selectionFactory.get(UserInputType.Action, "BuildTownHall", "Peasant", null, ActionType.BuildTownHallSite));
 
-        interactions.add(targetFactory.get(UserInputType.Drag, "BarracksBuildingSite", null, null, ActionType.Drag));
+        interactions.add(selectionFactory.get(UserInputType.Action, "BarracksSite", "Peasant", null, ActionType.BuildBarracks));
+        interactions.add(selectionFactory.get(UserInputType.Action, "FarmSite", "Peasant", null, ActionType.BuildFarm));
+        interactions.add(selectionFactory.get(UserInputType.Action, "TownHallSite", "Peasant", null, ActionType.BuildTownHall));
+
+        //TODO: Move into drag class
+        interactions.add(targetFactory.get(UserInputType.Drag, "BarracksSite", null, null, ActionType.Drag));
+        interactions.add(targetFactory.get(UserInputType.Drag, "FarmSite", null, null, ActionType.Drag));
+        interactions.add(targetFactory.get(UserInputType.Drag, "TownHallSite", null, null, ActionType.Drag));
     }
 
     @Override

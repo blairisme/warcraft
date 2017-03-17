@@ -11,5 +11,5 @@ import com.evilbird.engine.item.Item;
  */
 public interface ActionProvider
 {
-    Action get(Item item, Item target, UserInput input);
+    Action get(ActionType action, Item item, Item target, UserInput input);
 }

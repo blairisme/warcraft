@@ -11,5 +11,6 @@ public enum ResourceType implements ResourceIdentifier
 {
     Gold,
     Oil,
-    Wood
+    Wood,
+    Production
 }

@@ -12,5 +12,6 @@ public enum ItemProperties implements ItemProperty
     Selected,
     Touchable,
     Position,
-    Size
+    Size,
+    Visible
 }

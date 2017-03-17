@@ -14,9 +14,10 @@ public enum HudControls implements ItemType
     ControlPane,
     DetailsPane,
     HealthBar,
+    BuildingBar,
     MinimapPane,
     ResourcePane,
     SelectionPane,
     StatePane,
-    UnitPane
+    UnitPane,
 }

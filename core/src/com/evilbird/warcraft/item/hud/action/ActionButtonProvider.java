@@ -2,9 +2,7 @@ package com.evilbird.warcraft.item.hud.action;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
@@ -15,6 +13,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import static com.evilbird.warcraft.common.TextureUtils.getDrawable;
+
 /**
  * Instances of this class TODO:Finish
  *
@@ -23,6 +23,8 @@ import javax.inject.Inject;
 public class ActionButtonProvider implements AssetProvider<ActionButton>
 {
     private AssetManager assets;
+    private Drawable background;
+    private Map<ActionIdentifier, Drawable> icons;
 
     @Inject
     public ActionButtonProvider(Device device)
@@ -46,36 +48,32 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
         return result;
     }
 
-    //TODO: Cache
     private Drawable getBackground()
     {
-        return getTexture("data/textures/neutral/perennial/action.png");
+        if (background == null){
+            background = getDrawable(assets, "data/textures/neutral/perennial/action.png");
+        }
+        return background;
     }
 
-    //TODO: Cache
     //TODO: Improve implementation
     private Map<ActionIdentifier, Drawable> getActionIcons()
     {
-        Map<ActionIdentifier, Drawable> result = new HashMap<ActionIdentifier, Drawable>();
-        result.put(ActionType.Move, getTexture("data/textures/neutral/perennial/icons.png", 138, 608, 46, 38));
-        result.put(ActionType.Stop, getTexture("data/textures/neutral/perennial/icons.png", 46, 1254, 46, 38));
-        result.put(ActionType.Attack, getTexture("data/textures/neutral/perennial/icons.png", 46, 874, 46, 38));
-        result.put(ActionType.CreateBarracks, getTexture("data/textures/neutral/perennial/icons.png", 92, 646, 46, 38));
-        result.put(ActionType.CreateFarm, getTexture("data/textures/neutral/perennial/icons.png", 138, 646, 46, 38));
-        return result;
-    }
+        if (icons == null){
+            icons = new HashMap<ActionIdentifier, Drawable>();
+            icons.put(ActionType.Move, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 138, 608, 46, 38));
+            icons.put(ActionType.Stop, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 1254, 46, 38));
+            icons.put(ActionType.Attack, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 874, 46, 38));
 
-    private Drawable getTexture(String path)
-    {
-        Texture texture = assets.get(path);
-        TextureRegion region = new TextureRegion(texture);
-        return new TextureRegionDrawable(region);
-    }
+            icons.put(ActionType.Repair, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 646, 46, 38)); //TO
+            icons.put(ActionType.GatherGold, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 646, 46, 38)); //TO
+            icons.put(ActionType.GatherWood, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 646, 46, 38)); //TO
 
-    private Drawable getTexture(String path, int x, int y, int width, int height)
-    {
-        Texture texture = assets.get(path);
-        TextureRegion region = new TextureRegion(texture, x, y, width, height);
-        return new TextureRegionDrawable(region);
+            icons.put(ActionType.BuildBarracks, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 92, 304, 46, 38));
+            icons.put(ActionType.BuildFarm, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 138, 266, 46, 38));
+            icons.put(ActionType.BuildTownHall, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 304, 46, 38)); //TO
+        }
+        return icons;
     }
 }
+

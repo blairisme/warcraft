@@ -2,13 +2,12 @@ package com.evilbird.warcraft.item.hud.action;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 
 import javax.inject.Inject;
+
+import static com.evilbird.warcraft.common.TextureUtils.getDrawable;
 
 /**
  * Instances of this class TODO:Finish
@@ -39,15 +38,7 @@ public class ActionPaneProvider implements AssetProvider<ActionPane>
     public ActionPane get()
     {
         ActionPane result = new ActionPane(actionButtonProvider);
-        result.setBackground(getBackground());
+        result.setBackground(getDrawable(assets, "data/textures/human/hud/action_panel.png"));
         return result;
-    }
-
-    private Drawable getBackground()
-    {
-        Texture texture = assets.get("data/textures/human/hud/action_panel.png");
-        TextureRegion region = new TextureRegion(texture);
-        Drawable drawable = new TextureRegionDrawable(region);
-        return drawable;
     }
 }

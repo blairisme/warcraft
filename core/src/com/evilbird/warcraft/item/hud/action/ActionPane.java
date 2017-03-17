@@ -6,7 +6,7 @@ import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.Unit;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -70,8 +70,8 @@ public class ActionPane extends GridPane
     }
 
     private Collection<ActionType> getActions(Item item){
-        if (item instanceof Combatant){
-            Combatant unit = (Combatant)item;
+        if (item instanceof Unit){
+            Unit unit = (Unit)item;
             return unit.getActions();
         }
         return Collections.emptyList();
@@ -93,29 +93,4 @@ public class ActionPane extends GridPane
         result.setSize(54, 46);
         return result;
     }
-
-    /*
-
-    private static final Identifier SELECTION_PROPERTY = new Identifier("Selection");
-
-    @Override
-    public Object getProperty(Identifier property)
-    {
-        if (Objects.equals(property, SELECTION_PROPERTY)){
-            return getSelection();
-        }
-        return super.getProperty(property);
-    }
-
-    @Override
-    public void setProperty(Identifier property, Object value)
-    {
-        if (Objects.equals(property, SELECTION_PROPERTY)){
-            setSelection((Collection<Item>)value);
-        }
-        else{
-            super.setProperty(property, value);
-        }
-    }
-    */
 }

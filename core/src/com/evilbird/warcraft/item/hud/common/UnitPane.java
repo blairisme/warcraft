@@ -3,10 +3,9 @@ package com.evilbird.warcraft.item.hud.common;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.lang.NamedIdentifier;
-import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.Image;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.Unit;
 
 /**
  * Instances of this class TODO
@@ -39,20 +38,16 @@ public class UnitPane extends GridPane
         setTouchable(Touchable.enabled);
     }
 
-    public void setItem(Item item)
+    public void setItem(Unit unit)
     {
-        if (item instanceof Combatant) //TODO: Pass in unit?
-        {
-            Combatant unit = (Combatant)item;
-            Drawable icon = unit.getIcon();
+        Drawable icon = unit.getIcon();
 
-            float health = unit.getHealth();
-            float healthMaximum = unit.getHealthMaximum();
-            float healthPercent = health != 0 && healthMaximum != 0 ? health / healthMaximum : 0f;
+        float health = unit.getHealth();
+        float healthMaximum = unit.getHealthMaximum();
+        float healthPercent = health != 0 && healthMaximum != 0 ? health / healthMaximum : 0f;
 
-            setImage(icon);
-            setHealth(healthPercent);
-        }
+        setImage(icon);
+        setHealth(healthPercent);
     }
 
     public void setImage(Drawable drawable)

@@ -21,8 +21,13 @@ public class TextLabel extends Item
     protected Actor initializeDelegate()
     {
         label = new Label("", getDefaultStyle());
-        label.setAlignment(Align.center);
+        label.setAlignment(Align.left);
         return label;
+    }
+
+    public void setAlignment(TextLabelAlignment alignment)
+    {
+        label.setAlignment(alignment.getGdxEquivalent());
     }
 
     public void setColor(Color color)

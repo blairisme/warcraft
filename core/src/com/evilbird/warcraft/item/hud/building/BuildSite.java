@@ -9,14 +9,14 @@ import com.evilbird.engine.item.Item;
  *
  * @author Blair Butterworth
  */
-public class BuildingSite extends Item
+public class BuildSite extends Item
 {
     private Drawable building;
     private Drawable overlay;
     private Drawable allowed;
     private Drawable prohibited;
 
-    public BuildingSite()
+    public BuildSite()
     {
     }
 

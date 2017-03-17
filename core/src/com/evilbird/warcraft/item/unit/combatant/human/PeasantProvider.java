@@ -86,11 +86,12 @@ public class PeasantProvider implements AssetProvider<Item>
         actions.add(ActionType.Move);
         actions.add(ActionType.Stop);
         actions.add(ActionType.Attack);
-        //actions.add(Actions.Repair);
-        //actions.add(Actions.Harvest);
-        actions.add(ActionType.CreateFarm);
-        actions.add(ActionType.CreateBarracks);
-        //actions.add(Actions.BuildTownhall);
+        actions.add(ActionType.Repair);
+        actions.add(ActionType.GatherGold);
+        actions.add(ActionType.GatherWood);
+        actions.add(ActionType.BuildFarm);
+        actions.add(ActionType.BuildBarracks);
+        actions.add(ActionType.BuildTownHall);
         //return with goods
         return actions;
     }

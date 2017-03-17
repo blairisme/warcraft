@@ -29,12 +29,12 @@ public class DragActionProvider implements ActionProvider
     }
 
     @Override
-    public Action get(Item item, Item target, UserInput input)
+    public Action get(ActionType action, Item item, Item target, UserInput input)
     {
         Vector2 inputDelta = input.getDelta();
         Vector2 dragDelta = new Vector2(inputDelta.x * -1, inputDelta.y * -1);
 
-        ActionValue value = new ItemValue(target, ItemProperties.Position);
+        ActionValue value = new ItemValue(item, ItemProperties.Position);
         ActionModifier modifier = new DeltaModifier(dragDelta, DeltaType.PerUpdate);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(value, modifier, duration);
