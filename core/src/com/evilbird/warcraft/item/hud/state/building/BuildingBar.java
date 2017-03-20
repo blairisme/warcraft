@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.hud.state;
+package com.evilbird.warcraft.item.hud.state.building;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.lang.NamedIdentifier;
@@ -45,7 +45,7 @@ public class BuildingBar extends GridPane
         setType(new NamedIdentifier("BuildingProgressBar"));
     }
 
-    public void setBuilding(Building building)
+    public void setProgress(float progess)
     {
         this.building = building;
     }
@@ -55,10 +55,5 @@ public class BuildingBar extends GridPane
         progressBar.setTexture(texture);
     }
 
-    @Override
-    public void update(float delta)
-    {
-        progressBar.setProgress(building.getProgress());
-        super.update(delta);
-    }
+
 }

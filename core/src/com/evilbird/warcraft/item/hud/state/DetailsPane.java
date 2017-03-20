@@ -26,11 +26,11 @@ import javax.inject.Provider;
 public class DetailsPane extends GridPane
 {
     private Provider<UnitPane> unitPaneProvider;
-    private Provider<BuildingBar> buildingBarProvider;
+    private Provider<com.evilbird.warcraft.item.hud.state.building.BuildingBar> buildingBarProvider;
 
     public DetailsPane(
         Provider<UnitPane> unitPaneProvider,
-        Provider<BuildingBar> buildingBarProvider)
+        Provider<com.evilbird.warcraft.item.hud.state.building.BuildingBar> buildingBarProvider)
     {
         super(1, 2);
         this.unitPaneProvider = unitPaneProvider;
@@ -147,6 +147,7 @@ public class DetailsPane extends GridPane
 
     private void setConstructionDetails(Building building)
     {
+        /*
         BuildingBar buildingBar = buildingBarProvider.get();
         buildingBar.setBuilding(building);
 
@@ -157,10 +158,12 @@ public class DetailsPane extends GridPane
         detailsContainer.setCell(buildingBar, 0, 0);
 
         setCell(detailsContainer, 0, 1);
+        */
     }
 
     private void setProductionDetails(Building building)
     {
+        /*
         //TextLabel training = createLabel("Training", 160, 12);
 
         BuildingBar buildingBar = buildingBarProvider.get();
@@ -173,6 +176,7 @@ public class DetailsPane extends GridPane
         detailsContainer.setCell(buildingBar, 0, 0);
 
         setCell(detailsContainer, 0, 1);
+        */
     }
 
     private void setFarmDetails(Building building)

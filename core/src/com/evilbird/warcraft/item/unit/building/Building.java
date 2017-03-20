@@ -1,5 +1,6 @@
 package com.evilbird.warcraft.item.unit.building;
 
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.ItemProperty;
 import com.evilbird.warcraft.item.unit.Unit;
 
@@ -13,6 +14,7 @@ public class Building extends Unit
     private boolean constructing;
     private boolean producing;
     private float progress;
+    private Identifier productionType;
 
     public Building()
     {

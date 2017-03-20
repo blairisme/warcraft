@@ -10,10 +10,10 @@ import com.evilbird.warcraft.item.hud.common.UnitPaneProvider;
 import com.evilbird.warcraft.item.hud.control.ControlPane;
 import com.evilbird.warcraft.item.hud.minimap.MinimapPaneProvider;
 import com.evilbird.warcraft.item.hud.resource.ResourcePanelProvider;
-import com.evilbird.warcraft.item.hud.state.BuildingBarProvider;
 import com.evilbird.warcraft.item.hud.state.DetailsPaneProvider;
 import com.evilbird.warcraft.item.hud.state.SelectionPaneProvider;
 import com.evilbird.warcraft.item.hud.state.StatePane;
+import com.evilbird.warcraft.item.hud.state.building.BuildingBarProvider;
 
 import javax.inject.Inject;
 import javax.inject.Provider;

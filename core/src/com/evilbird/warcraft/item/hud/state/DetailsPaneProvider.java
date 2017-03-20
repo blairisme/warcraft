@@ -19,13 +19,13 @@ public class DetailsPaneProvider implements AssetProvider<DetailsPane>
 {
     private AssetManager assets;
     private UnitPaneProvider unitPaneProvider;
-    private BuildingBarProvider buildingBarProvider;
+    private com.evilbird.warcraft.item.hud.state.building.BuildingBarProvider buildingBarProvider;
 
     @Inject
     public DetailsPaneProvider(
         Device device,
         UnitPaneProvider unitPaneProvider,
-        BuildingBarProvider buildingBarProvider)
+        com.evilbird.warcraft.item.hud.state.building.BuildingBarProvider buildingBarProvider)
     {
         this.assets = device.getAssetStorage().getAssets();
         this.unitPaneProvider = unitPaneProvider;
