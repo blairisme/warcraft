@@ -7,7 +7,6 @@ import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.ProgressBar;
 import com.evilbird.engine.item.control.TextLabel;
 import com.evilbird.engine.item.control.TextLabelAlignment;
-import com.evilbird.warcraft.item.unit.building.Building;
 
 /**
  * Instances of this class TODO:Finish
@@ -15,12 +14,11 @@ import com.evilbird.warcraft.item.unit.building.Building;
  * @author Blair Butterworth
  */
 //TODO: Localize text
-public class BuildingBar extends GridPane
+public class BuildingProgress extends GridPane
 {
-    private Building building;
     private ProgressBar progressBar;
 
-    public BuildingBar()
+    public BuildingProgress()
     {
         super(1, 1);
 
@@ -45,9 +43,9 @@ public class BuildingBar extends GridPane
         setType(new NamedIdentifier("BuildingProgressBar"));
     }
 
-    public void setProgress(float progess)
+    public void setProgress(float progress)
     {
-        this.building = building;
+        progressBar.setProgress(progress);
     }
 
     public void setProgressTexture(Drawable texture)

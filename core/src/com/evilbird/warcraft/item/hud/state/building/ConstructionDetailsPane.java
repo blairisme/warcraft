@@ -11,12 +11,12 @@ import com.evilbird.warcraft.item.unit.building.Building;
 public class ConstructionDetailsPane extends GridPane
 {
     private Building building;
-    private BuildingBar progressBar;
+    private BuildingProgress progressBar;
 
-    public ConstructionDetailsPane(BuildingBarProvider buildingBarProvider)
+    public ConstructionDetailsPane(BuildingProgressProvider buildingProgressProvider)
     {
         super(1, 1);
-        this.progressBar = buildingBarProvider.get();
+        progressBar = buildingProgressProvider.get();
 
         setSize(160, 100);
         setHorizontalCellPadding(4);

@@ -42,6 +42,11 @@ public class GridPane extends ItemGroup
         this.background = null;
     }
 
+    public Item getCell(int x, int y)
+    {
+        return cells[x][y];
+    }
+
     public void setBackground(Drawable background)
     {
         this.background = background;

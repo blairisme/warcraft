@@ -14,12 +14,12 @@ import static com.evilbird.warcraft.common.TextureUtils.getDrawable;
  *
  * @author Blair Butterworth
  */
-public class BuildingBarProvider implements AssetProvider<BuildingBar>
+public class BuildingProgressProvider implements AssetProvider<BuildingProgress>
 {
     private AssetManager assets;
 
     @Inject
-    public BuildingBarProvider(Device device)
+    public BuildingProgressProvider(Device device)
     {
         this.assets = device.getAssetStorage().getAssets();
     }
@@ -32,9 +32,9 @@ public class BuildingBarProvider implements AssetProvider<BuildingBar>
     }
 
     @Override
-    public BuildingBar get()
+    public BuildingProgress get()
     {
-        BuildingBar result = new BuildingBar();
+        BuildingProgress result = new BuildingProgress();
         result.setBackground(getDrawable(assets, "data/textures/neutral/perennial/building_progress_background.png"));
         result.setProgressTexture(getDrawable(assets, "data/textures/neutral/perennial/building_progress_bar.png"));
         return result;

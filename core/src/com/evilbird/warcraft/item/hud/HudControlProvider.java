@@ -13,7 +13,7 @@ import com.evilbird.warcraft.item.hud.resource.ResourcePanelProvider;
 import com.evilbird.warcraft.item.hud.state.DetailsPaneProvider;
 import com.evilbird.warcraft.item.hud.state.SelectionPaneProvider;
 import com.evilbird.warcraft.item.hud.state.StatePane;
-import com.evilbird.warcraft.item.hud.state.building.BuildingBarProvider;
+import com.evilbird.warcraft.item.hud.state.building.BuildingProgressProvider;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -41,7 +41,7 @@ public class HudControlProvider extends IdentifiedAssetProviderSet<Item>
     public HudControlProvider(
         ActionButtonProvider actionButtonProvider,
         ActionPaneProvider actionPaneProvider,
-        BuildingBarProvider buildingBarProvider,
+        BuildingProgressProvider buildingProgressProvider,
         Provider<ControlPane> controlPanelProvider,
         DetailsPaneProvider detailsPaneProvider,
         HealthBarProvider healthBarProvider,
@@ -57,7 +57,7 @@ public class HudControlProvider extends IdentifiedAssetProviderSet<Item>
         addProvider(ControlPane, controlPanelProvider);
         addProvider(DetailsPane, detailsPaneProvider);
         addProvider(HealthBar, healthBarProvider);
-        addProvider(BuildingBar, buildingBarProvider);
+        addProvider(BuildingBar, buildingProgressProvider);
         addProvider(MinimapPane, minimapPaneProvider);
         addProvider(ResourcePane, resourcePaneProvider);
         addProvider(SelectionPane, selectionPaneProvider);
