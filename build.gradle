@@ -63,6 +63,7 @@ project(":core") {
         compile 'javax.inject:javax.inject:1'
         compile 'org.apache.commons:commons-lang3:3.5'
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
     }
 }
 
@@ -76,9 +77,9 @@ project(":desktop") {
         compile 'com.google.dagger:dagger:2.9'
         apt 'com.google.dagger:dagger-compiler:2.9'
         compile 'org.apache.commons:commons-lang3:3.5'
+        compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-
         //compile 'net.java.dev.jna:jna:4.2.2'
         //compile 'net.java.dev.jna:jna-platform:4.2.2'
     }
