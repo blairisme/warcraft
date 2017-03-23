@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.NamedIdentifier;
+import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 
@@ -24,12 +25,9 @@ import java.util.concurrent.CancellationException;
 //TODO: Implement movement restricted to certain terrains. E.g., land, water, air.
 public class MoveModifier implements ActionModifier
 {
-    private Item self;
     private ItemRoot root;
     private float speedPerSecond;
-    private float radius;
     private Vector2 destination;
-    private Vector2 direction;
     private Collection<Identifier> capability;
 
 
@@ -42,16 +40,13 @@ public class MoveModifier implements ActionModifier
 
     public MoveModifier(Item item, Vector2 destination)
     {
-        this.self = item;
         this.root = item.getRoot();
         this.speedPerSecond = 64f; //TODO: Obtain from item
-        this.radius = 36f; //TODO: Obtain from item
         this.capability = new ArrayList<Identifier>(); //TODO: Obtain from item
         this.capability.add(new NamedIdentifier("Map")); //TODO: Obtain from item
 
-        this.direction = null;
         this.destination = destination;
-this.update = true;
+        this.update = true;
     }
 
     @Override
@@ -70,19 +65,18 @@ this.update = true;
             if (update)
             {
                 update = false;
-                IndexedGraph<WorldNode> graph = new WorldGraph(root);
+                WorldGraph graph = new WorldGraph(root);
                 IndexedAStarPathFinder pathFinder = new IndexedAStarPathFinder(graph);
 
-                WorldNode start = new WorldNode((int)(position.x / 32f), (int)(position.y / 32f), new NamedIdentifier("Peasant"));
-                WorldNode end = new WorldNode((int)(destination.x / 32f), (int)(destination.y / 32f), new NamedIdentifier("Map"));
-                Heuristic<WorldNode> heuristic = new TraversalHeuristic();
+                WorldNode start = graph.getNode(position);
+                WorldNode end = graph.getNode(destination);
+                Heuristic<WorldNode> heuristic = new ManhattanDistance(); //new TraversalHeuristic();
                 GraphPath<WorldNode> output = new DefaultGraphPath();
 
                 if (pathFinder.searchNodePath(start, end, heuristic, output)){
                     path = output;
                     pathIterator = path.iterator();
                     pathNode = pathIterator.next();
-                    destination = pathNode.getWorldPosition();
                 }
             }
 
@@ -92,13 +86,12 @@ this.update = true;
             }
 
 
-
-            if (position.equals(destination)){
+            Vector2 pathDestination = pathNode.getWorldPosition();
+            if (position.equals(pathDestination)){
 
                 if (pathIterator.hasNext())
                 {
                     pathNode = pathIterator.next();
-                    destination = pathNode.getWorldPosition();
                 }
                 else
                 {
@@ -107,12 +100,19 @@ this.update = true;
             }
 
 
-            Vector2 direction = destination.cpy().sub(position).nor();
-            Vector2 increment = direction.cpy().scl(time * speedPerSecond);
-            Vector2 newPosition = position.cpy().add(increment);
+            Vector2 remaining = pathDestination.cpy().sub(position);
+            float remainingDistance = remaining.len();
+            float incrementDistance = time * speedPerSecond;
 
-            Rectangle nodeBounds = pathNode.getWorldBounds();
-            return nodeBounds.contains(newPosition) ? destination : newPosition;
+            if (remainingDistance > incrementDistance)
+            {
+                Vector2 direction = remaining.nor();
+                Vector2 increment = direction.scl(incrementDistance);
+                Vector2 newPosition = position.cpy().add(increment);
+                return newPosition;
+            }
+            return pathDestination;
+
 
         }
         throw new IllegalArgumentException();
@@ -171,41 +171,6 @@ this.update = true;
         }
     }
 
-    private static class WorldNodeConnection implements Connection<WorldNode>
-    {
-        private WorldNode from;
-        private WorldNode to;
-        private float cost;
-
-        public WorldNodeConnection(WorldNode from, WorldNode to)
-        {
-            this.from = from;
-            this.to = to;
-
-            Vector2 fromPosition = new Vector2(from.getWorldPosition());
-            Vector2 toPosition = new Vector2(to.getWorldPosition());
-            this.cost = toPosition.sub(fromPosition).len2();
-        }
-
-        @Override
-        public float getCost()
-        {
-            return cost;
-        }
-
-        @Override
-        public WorldNode getFromNode()
-        {
-            return from;
-        }
-
-        @Override
-        public WorldNode getToNode()
-        {
-            return to;
-        }
-    }
-
     private static class WorldGraph implements IndexedGraph<WorldNode>
     {
         private int width;
@@ -226,6 +191,13 @@ this.update = true;
                     nodes[x][y] = new WorldNode(x, y, index++, hit.getType());
                 }
             }
+        }
+
+        public WorldNode getNode(Vector2 position)
+        {
+            int x = (int)(position.x / 32);
+            int y = (int)(position.y / 32);
+            return nodes[x][y];
         }
 
         @Override
@@ -256,7 +228,7 @@ this.update = true;
                         WorldNode toNode = nodes[x][y];
                         Identifier occupant = toNode.getOccupant();
 
-                       // if (Objects.equals(occupant, new NamedIdentifier("Map")))
+                        if (Objects.equals(occupant, new NamedIdentifier("Map")))
                         {
                             Connection<WorldNode> connection = new DefaultConnection(fromNode, toNode);
                             result.add(connection);
@@ -291,4 +263,43 @@ this.update = true;
             return Math.abs(endNode.x - node.x) + Math.abs(endNode.y - node.y);
         }
     }
+
+
+
+    /*
+    private static class WorldNodeConnection implements Connection<WorldNode>
+    {
+        private WorldNode from;
+        private WorldNode to;
+        private float cost;
+
+        public WorldNodeConnection(WorldNode from, WorldNode to)
+        {
+            this.from = from;
+            this.to = to;
+
+            Vector2 fromPosition = new Vector2(from.getWorldPosition());
+            Vector2 toPosition = new Vector2(to.getWorldPosition());
+            this.cost = toPosition.sub(fromPosition).len2();
+        }
+
+        @Override
+        public float getCost()
+        {
+            return cost;
+        }
+
+        @Override
+        public WorldNode getFromNode()
+        {
+            return from;
+        }
+
+        @Override
+        public WorldNode getToNode()
+        {
+            return to;
+        }
+    }
+*/
 }
