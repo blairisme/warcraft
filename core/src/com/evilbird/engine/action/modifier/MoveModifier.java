@@ -1,20 +1,19 @@
 package com.evilbird.engine.action.modifier;
 
-import com.badlogic.gdx.ai.pfa.Connection;
-import com.badlogic.gdx.ai.pfa.DefaultConnection;
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
-import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
+import com.evilbird.engine.common.ai.ManhattanHeuristic;
+import com.evilbird.engine.common.ai.SpatialNode;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.NamedIdentifier;
-import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.SpatialItemGraph;
+import com.evilbird.engine.item.SpatialItemNode;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,9 +30,9 @@ public class MoveModifier implements ActionModifier
     private Collection<Identifier> capability;
 
 
-    private GraphPath<WorldNode> path;
-    private Iterator<WorldNode> pathIterator;
-    private WorldNode pathNode;
+    private GraphPath<SpatialItemNode> path;
+    private Iterator<SpatialItemNode> pathIterator;
+    private SpatialItemNode pathNode;
 
 
     private boolean update;
@@ -65,13 +64,13 @@ public class MoveModifier implements ActionModifier
             if (update)
             {
                 update = false;
-                WorldGraph graph = new WorldGraph(root);
+                SpatialItemGraph graph = root.getSpatialGraph();
                 IndexedAStarPathFinder pathFinder = new IndexedAStarPathFinder(graph);
 
-                WorldNode start = graph.getNode(position);
-                WorldNode end = graph.getNode(destination);
-                Heuristic<WorldNode> heuristic = new ManhattanDistance(); //new TraversalHeuristic();
-                GraphPath<WorldNode> output = new DefaultGraphPath();
+                SpatialItemNode start = graph.getNode(position);
+                SpatialItemNode end = graph.getNode(destination);
+                Heuristic<SpatialNode> heuristic = new ManhattanHeuristic(); //new TraversalHeuristic();
+                GraphPath<SpatialItemNode> output = new DefaultGraphPath();
 
                 if (pathFinder.searchNodePath(start, end, heuristic, output)){
                     path = output;
@@ -86,7 +85,8 @@ public class MoveModifier implements ActionModifier
             }
 
 
-            Vector2 pathDestination = pathNode.getWorldPosition();
+            GridPoint2 pathIndex = pathNode.getSpatialIndex();
+            Vector2 pathDestination = new Vector2(32 * pathIndex.x, 32 * pathIndex.y);
             if (position.equals(pathDestination)){
 
                 if (pathIterator.hasNext())
@@ -123,12 +123,15 @@ public class MoveModifier implements ActionModifier
 
 
 
-
-
-
-
-
-
+    /*
+    private static class ManhattanHeuristic implements Heuristic<WorldNode>
+    {
+        @Override
+        public float estimate(WorldNode node, WorldNode endNode)
+        {
+            return Math.abs(endNode.x - node.x) + Math.abs(endNode.y - node.y);
+        }
+    }
 
     private static class WorldNode
     {
@@ -163,11 +166,6 @@ public class MoveModifier implements ActionModifier
         public Vector2 getWorldPosition()
         {
             return new Vector2(32 * x, 32 * y);
-        }
-
-        public Rectangle getWorldBounds()
-        {
-            return new Rectangle(32 * x, 32 * y, 32, 32);
         }
     }
 
@@ -255,18 +253,6 @@ public class MoveModifier implements ActionModifier
         }
     }
 
-    private static class ManhattanDistance implements Heuristic<WorldNode>
-    {
-        @Override
-        public float estimate(WorldNode node, WorldNode endNode)
-        {
-            return Math.abs(endNode.x - node.x) + Math.abs(endNode.y - node.y);
-        }
-    }
-
-
-
-    /*
     private static class WorldNodeConnection implements Connection<WorldNode>
     {
         private WorldNode from;

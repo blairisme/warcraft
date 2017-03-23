@@ -1,5 +1,6 @@
 package com.evilbird.engine.item;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -16,6 +17,7 @@ public class ItemRoot implements ItemComposite
 {
     private Stage delegate;
     private ItemGroup group;
+    //private SpatialItemGraph spatialGraph;
 
     /**
      * Constructs a new instance of this class.
@@ -111,21 +113,42 @@ public class ItemRoot implements ItemComposite
         delegate.act(delta);
     }
 
+    /**
+     * Returns the roots {@link Viewport} which manages the {@link Camera} and determines how world
+     * coordinates are mapped to and from the screen.
+     *
+     * @return a viewport.
+     */
     public Viewport getViewport()
     {
         return delegate.getViewport();
     }
 
+    /**
+     * Sets the roots {@link Viewport} which manages the {@link Camera} and determines how world
+     * coordinates are mapped to and from the screen.
+     *
+     * @param viewport a viewport.
+     */
     public void setViewport(Viewport viewport)
     {
         delegate.setViewport(viewport);
     }
 
+    /**
+     * Configures the viewport's screen bounds using the specified screen size.
+     *
+     * @param width     the new width of the viewport.
+     * @param height    the new height of the viewport.
+     */
     public void resize(int width, int height)
     {
         delegate.getViewport().update(width, height);
     }
 
+    /**
+     * Release system resources used by the root.
+     */
     public void dispose()
     {
         delegate.dispose();
@@ -167,5 +190,10 @@ public class ItemRoot implements ItemComposite
     public Item hit(Vector2 coordinates, boolean touchable)
     {
         return group.hit(coordinates, touchable);
+    }
+
+    public SpatialItemGraph getSpatialGraph()
+    {
+        return new SpatialItemGraph(this);
     }
 }
