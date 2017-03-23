@@ -65,7 +65,7 @@ public class MoveActionProvider implements ActionProvider
     private Action newMoveAction(Item item, Vector2 destination)
     {
         ActionValue value = new ItemValue(item, ItemProperties.Position);
-        ActionModifier modifier = new MoveModifier(destination, 64f);
+        ActionModifier modifier = new MoveModifier(item, destination);
         ActionDuration duration = new PredicateDuration(item, ItemProperties.Position, destination);
         return new ModifyAction(value, modifier, duration);
     }
