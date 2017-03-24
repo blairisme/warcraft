@@ -32,7 +32,7 @@ public class ModifyAction extends Action
         }
         catch (CancellationException e)
         {
-            System.out.print("Modify operation cancelled");
+            System.out.print("Modify operation cancelled"); //TODO: Do something better with this
             return true;
         }
     }
