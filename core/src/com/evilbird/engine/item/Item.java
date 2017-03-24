@@ -16,7 +16,7 @@ import com.evilbird.engine.item.framework.ActorObserver;
  *
  * @author Blair Butterworth
  */
-//TODO: Consider use either vectors or individual values for size and position.
+//TODO: Consider whether to use vectors or individual values for size and position.
 public class Item implements PropertySet<ItemProperty, Object>, ActorObserver
 {
     Actor delegate;

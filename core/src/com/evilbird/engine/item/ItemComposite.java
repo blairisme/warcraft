@@ -1,5 +1,6 @@
 package com.evilbird.engine.item;
 
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.function.Predicate;
 
 import java.util.Collection;
@@ -52,4 +53,15 @@ public interface ItemComposite
      * @return          all child items satisfying the given predicate.
      */
     Collection<Item> findAll(Predicate<Item> predicate);
+
+    /**
+     * Returns the {@link Item} at the specified location in world coordinates. Hit testing is
+     * performed in the order the item were inserted into the root, last inserted actors being
+     * tested first.
+     *
+     * @param coordinates   the world coordinates to test.
+     * @param touchable     specifies if hit detection will respect the items touchability.
+     * @return              the item at the specified location or null if no item is located there.
+     */
+    Item hit(Vector2 coordinates, boolean touchable);
 }

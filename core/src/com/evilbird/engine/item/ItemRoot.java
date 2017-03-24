@@ -17,17 +17,18 @@ public class ItemRoot implements ItemComposite
 {
     private Stage delegate;
     private ItemGroup group;
-    //private SpatialItemGraph spatialGraph;
+    private SpatialGraph spatialGraph;
 
     /**
      * Constructs a new instance of this class.
      */
     public ItemRoot()
     {
-        this.delegate = new Stage();
         this.group = new ItemGroup();
         this.group.setRoot(this);
+        this.delegate = new Stage();
         this.delegate.addActor(group.delegate);
+        this.spatialGraph = new SpatialGraph(this, 32, 32, 32, 32);
     }
 
     /**
@@ -111,6 +112,7 @@ public class ItemRoot implements ItemComposite
     {
         delegate.getCamera().update();
         delegate.act(delta);
+        spatialGraph.update();
     }
 
     /**
@@ -192,8 +194,8 @@ public class ItemRoot implements ItemComposite
         return group.hit(coordinates, touchable);
     }
 
-    public SpatialItemGraph getSpatialGraph()
+    public SpatialGraph getSpatialGraph()
     {
-        return new SpatialItemGraph(this);
+        return spatialGraph;
     }
 }

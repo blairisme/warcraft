@@ -3,6 +3,7 @@ package com.evilbird.engine.item;
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.ai.SpatialNode;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.NamedIdentifier;
 
 /**
  * Instances of this class TODO:Finish
@@ -15,11 +16,11 @@ public class SpatialItemNode implements SpatialNode
     private GridPoint2 spatialIndex;
     private Identifier occupant;
 
-    public SpatialItemNode(int index, GridPoint2 spatialIndex, Identifier occupant)
+    public SpatialItemNode(int index, GridPoint2 spatialIndex)
     {
         this.spatialIndex = spatialIndex;
         this.index = index;
-        this.occupant = occupant;
+        this.occupant = new NamedIdentifier("Unknown");
     }
 
     @Override
@@ -37,5 +38,10 @@ public class SpatialItemNode implements SpatialNode
     public Identifier getOccupant()
     {
         return occupant;
+    }
+
+    public void setOccupant(Identifier occupant)
+    {
+        this.occupant = occupant;
     }
 }
