@@ -89,7 +89,7 @@ public class MoveModifier implements ActionModifier
             }
 
 
-            GridPoint2 pathIndex = pathNode.getSpatialIndex();
+            GridPoint2 pathIndex = pathNode.getSpatialReference();
             Vector2 pathDestination = new Vector2(32 * pathIndex.x, 32 * pathIndex.y);
             if (position.equals(pathDestination)){
 
@@ -134,7 +134,8 @@ public class MoveModifier implements ActionModifier
         @Override
         public boolean test(SpatialItemNode node)
         {
-            return type.equals(node.getOccupant());
+            Item item = node.getOccupant();
+            return type.equals(node != null ? item.getType() : new NamedIdentifier("Unknown"));
         }
     }
 }

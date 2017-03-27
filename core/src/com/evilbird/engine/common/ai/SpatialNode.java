@@ -9,5 +9,5 @@ import com.badlogic.gdx.math.GridPoint2;
  */
 public interface SpatialNode extends IndexedNode
 {
-    GridPoint2 getSpatialIndex();
+    GridPoint2 getSpatialReference();
 }

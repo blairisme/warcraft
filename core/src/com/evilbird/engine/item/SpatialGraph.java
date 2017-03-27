@@ -8,11 +8,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.function.AcceptPredicate;
 import com.evilbird.engine.common.function.Predicate;
-import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.evilbird.engine.item.ItemPredicates.itemWithAction;
 
@@ -29,6 +30,7 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
     private int nodeCountY;
     private ItemComposite root;
     private SpatialItemNode[][] nodes;
+    private Map<Item, Collection<SpatialItemNode>> occupantCache;
     private boolean populated;
     private Predicate<SpatialItemNode> connectionFilter;
 
@@ -42,6 +44,8 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         this.nodes = graph.nodes;
         this.populated = graph.populated;
         this.connectionFilter = connectionFilter;
+
+        this.occupantCache = graph.occupantCache;
     }
 
     public SpatialGraph(ItemComposite root, int nodeWidth, int nodeHeight, int nodeCountX, int nodeCountY)
@@ -54,6 +58,8 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         this.nodes = createNodeArray(nodeCountX, nodeCountY);
         this.populated = false;
         this.connectionFilter = new AcceptPredicate<SpatialItemNode>();
+
+        this.occupantCache = new HashMap<Item, Collection<SpatialItemNode>>();
     }
 
     @Override
@@ -61,7 +67,7 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
     {
         Array<Connection<SpatialItemNode>> result = new Array<Connection<SpatialItemNode>>();
 
-        GridPoint2 fromIndex = fromNode.getSpatialIndex();
+        GridPoint2 fromIndex = fromNode.getSpatialReference();
         int startX = Math.max(0, fromIndex.x - 1);
         int startY = Math.max(0, fromIndex.y - 1);
         int endX = Math.min(nodeCountX - 1, fromIndex.x + 1);
@@ -102,49 +108,90 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
     public void update()
     {
         if (!populated){
-            populated = true;
-            updateAll();
+            populate();
         }
         else{
-            //updateModified();
+            maintain();
         }
     }
 
-    private void updateModified()
+    private void populate()
+    {
+        populated = true;
+        for (int x = 0; x < nodeCountX; x++) {
+            for (int y = 0; y < nodeCountY; y++) {
+                setOccupant(nodes[x][y]);
+            }
+        }
+    }
+
+    private void maintain()
     {
         Collection<Item> modified = root.findAll(itemWithAction());
         for (Item item: modified)
         {
-            Vector2 position = item.getPosition();
-            Vector2 size = item.getSize();
+            Collection<SpatialItemNode> invalidated = getSpatialNodes(item);
+            //Collection<SpatialItemNode> cached = getCachedOccupants(item);
 
-            int startX = (int)(position.x / nodeWidth);
-            int startY = (int)(position.y / nodeHeight);
-            int endX = startX + (int)(size.x / nodeWidth);
-            int endY = startY + (int)(size.x / nodeWidth);
+            setOccupants(invalidated);
+            //setOccupants(cached);
+        }
+    }
 
-            for (int x = startX; x < endX; x++) {
-                for (int y = startY; y < endY; y++) {
-                    update(x, y);
+    private Collection<SpatialItemNode> getSpatialNodes(Item item)
+    {
+        Vector2 position = item.getPosition();
+        int startX = (int)(position.x / nodeWidth) - 1;
+        int startY = (int)(position.y / nodeHeight) - 1;
+
+        Vector2 size = item.getSize();
+        int endX = startX + (int)(size.x / nodeWidth) + 1;
+        int endY = startY + (int)(size.x / nodeWidth) + 1;
+
+        Collection<SpatialItemNode> result = new ArrayList<SpatialItemNode>();
+        for (int x = startX; x < endX; x++) {
+            for (int y = startY; y < endY; y++) {
+                result.add(nodes[x][y]);
+            }
+        }
+        return result;
+    }
+
+    private void setOccupants(Collection<SpatialItemNode> invalidatedNodes)
+    {
+        for (SpatialItemNode invalidatedNode: invalidatedNodes){
+            setOccupant(invalidatedNode);
+        }
+    }
+
+    private void setOccupant(SpatialItemNode invalidatedNode)
+    {
+        GridPoint2 gridRef = invalidatedNode.getSpatialReference();
+        Vector2 position = new Vector2((gridRef.x * nodeWidth) + 16, (gridRef.y * nodeHeight) + 16);
+
+        Item occupant = root.hit(position, true);
+        Item previous = invalidatedNode.getOccupant();
+        invalidatedNode.setOccupant(occupant);
+
+        if (!Objects.equals(occupant,previous ))
+        {
+            String type = occupant != null ? occupant.getType().toString() : "<Null>";
+            System.out.println("Updated x:" + String.valueOf(gridRef.x) + " y:" + String.valueOf(gridRef.y) + " t:" + type);
+        }
+    }
+
+    private Collection<SpatialItemNode> getCachedOccupants(Item item)
+    {
+        Collection<SpatialItemNode> result = new ArrayList<SpatialItemNode>();
+        for (int x = 0; x < nodeCountX; x++){
+            for (int y = 0; y < nodeCountY; y++){
+                SpatialItemNode node = nodes[x][y];
+                if (node.equals(item)){
+                    result.add(node);
                 }
             }
         }
-    }
-
-    private void updateAll()
-    {
-        for (int x = 0; x < nodeCountX; x++) {
-            for (int y = 0; y < nodeCountY; y++) {
-                update(x, y);
-            }
-        }
-    }
-
-    private void update(int x, int y)
-    {
-        Vector2 position = new Vector2(x * nodeWidth, y * nodeHeight);
-        Item hit = root.hit(position, true);
-        nodes[x][y].setOccupant(hit != null ? hit.getType() : new NamedIdentifier("Unknown"));
+        return result;
     }
 
     private SpatialItemNode[][] createNodeArray(int width, int height)
