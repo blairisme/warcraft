@@ -62,7 +62,7 @@ public class FootmanProvider implements AssetProvider<Item>
         result.setSpeed(10f);
         result.setSight(4f);
         result.setType(new NamedIdentifier("Footman"));
-        result.setSize(72, 72);
+        result.setSize(32, 32);
         return result;
     }
 

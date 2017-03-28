@@ -88,6 +88,33 @@ public class Combatant extends Unit
     }
 
     /*
+    @Override //TODO
+    public Item hit(Vector2 position, boolean touchable)
+    {
+        //if (touchable && delegate.getTouchable() != Touchable.enabled) return null;
+        Vector2 center = new Vector2(36, 36);
+
+
+        return position.x >= (center.x - 16) && position.x < (center.x + 16) &&
+                position.y >= (center.y - 16) && position.y < (center.y + 16) ? this : null;
+    }
+
+    @Override
+    protected void drawSelection(Batch batch)
+    {
+        if (getSelected()){
+            Vector2 center = new Vector2(36, 36);
+
+            batch.end(); //TODO: Inefficient. Better if draw occurs using batch.
+            shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setColor(Color.LIME); //TODO: r70 g200 b60
+            shapeRenderer.rect(getX() + 20, getY() + 20, 32, 32);
+            shapeRenderer.end();
+            batch.begin();
+        }
+    }
+
     @Override
     public Object getProperty(ItemProperty property)
     {

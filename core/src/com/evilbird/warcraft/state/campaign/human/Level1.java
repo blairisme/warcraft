@@ -150,7 +150,7 @@ public class Level1 implements AssetProvider<ItemRoot>
             item.setId(new NamedIdentifier(object.getName()));
             item.setVisible(object.isVisible());
             item.setTouchable(getTouchable(properties));
-            item.setSize((Float)properties.get("width"), (Float)properties.get("height"));
+            //item.setSize((Float)properties.get("width"), (Float)properties.get("height"));
             item.setPosition((Float)properties.get("x"), (Float)properties.get("y"));
 
             ItemComposite parent = parents.get(getOwner(properties));

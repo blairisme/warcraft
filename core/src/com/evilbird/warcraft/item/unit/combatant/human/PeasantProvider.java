@@ -76,7 +76,7 @@ public class PeasantProvider implements AssetProvider<Item>
         result.setSight(4f);
         result.setName("Peasant");
         result.setType(new NamedIdentifier("Peasant"));
-        result.setSize(72, 72);
+        result.setSize(32, 32);
         return result;
     }
 

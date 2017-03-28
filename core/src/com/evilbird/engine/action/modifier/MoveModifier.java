@@ -4,7 +4,6 @@ import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.ai.ManhattanHeuristic;
 import com.evilbird.engine.common.ai.SpatialNode;
@@ -26,33 +25,30 @@ import java.util.concurrent.CancellationException;
 public class MoveModifier implements ActionModifier
 {
     private ItemRoot root;
-    private float speedPerSecond;
+    private float speed;
     private Vector2 destination;
     private Collection<Identifier> capability;
 
-
+    private SpatialGraph graph;
     private GraphPath<SpatialItemNode> path;
     private Iterator<SpatialItemNode> pathIterator;
-    private SpatialItemNode pathNode;
+    private int pathIteratorIndex;
+    private Vector2 nextNodeLocation;
 
-
-    private boolean update;
 
     public MoveModifier(Item item, Vector2 destination)
     {
         this.root = item.getRoot();
-        this.speedPerSecond = 64f; //TODO: Obtain from item
+        this.speed = 64f; //TODO: Obtain from item
         this.capability = new ArrayList<Identifier>(); //TODO: Obtain from item
         this.capability.add(new NamedIdentifier("Map")); //TODO: Obtain from item
-
         this.destination = destination;
-        this.update = true;
     }
 
     @Override
     public void restart()
     {
-
+        path = null;
     }
 
     @Override
@@ -61,68 +57,87 @@ public class MoveModifier implements ActionModifier
         if (value instanceof Vector2)
         {
             Vector2 position = (Vector2)value;
-
-            if (update)
-            {
-                update = false;
-                SpatialGraph rootGraph = root.getSpatialGraph();
-                SpatialGraph graph = new SpatialGraph(rootGraph, new NodeWithType(new NamedIdentifier("Map")));
-
-
-                IndexedAStarPathFinder pathFinder = new IndexedAStarPathFinder(graph);
-
-                SpatialItemNode start = graph.getNode(position);
-                SpatialItemNode end = graph.getNode(destination);
-                Heuristic<SpatialNode> heuristic = new ManhattanHeuristic(); //new TraversalHeuristic();
-                GraphPath<SpatialItemNode> output = new DefaultGraphPath();
-
-                if (pathFinder.searchNodePath(start, end, heuristic, output)){
-                    path = output;
-                    pathIterator = path.iterator();
-                    pathNode = pathIterator.next();
-                }
-            }
-
-            if (path == null)
-            {
-                throw new CancellationException();
-            }
-
-
-            GridPoint2 pathIndex = pathNode.getSpatialReference();
-            Vector2 pathDestination = new Vector2(32 * pathIndex.x, 32 * pathIndex.y);
-            if (position.equals(pathDestination)){
-
-                if (pathIterator.hasNext())
-                {
-                    pathNode = pathIterator.next();
-                }
-                else
-                {
-                    throw new CancellationException();
-                }
-            }
-
-
-            Vector2 remaining = pathDestination.cpy().sub(position);
-            float remainingDistance = remaining.len();
-            float incrementDistance = time * speedPerSecond;
-
-            if (remainingDistance > incrementDistance)
-            {
-                Vector2 direction = remaining.nor();
-                Vector2 increment = direction.scl(incrementDistance);
-                Vector2 newPosition = position.cpy().add(increment);
-                return newPosition;
-            }
-            return pathDestination;
-
-
+            loadPath(position);
+            incrementPath(position);
+            return updatePosition(position, time);
         }
         throw new IllegalArgumentException();
     }
 
-    public static class NodeWithType implements Predicate<SpatialItemNode>
+    private void loadPath(Vector2 position)
+    {
+        if (path == null)
+        {
+            graph = getSpatialGraph();
+            path = getSpatialPath(graph, position);
+            pathIterator = path.iterator();
+            pathIteratorIndex = 0;
+            SpatialItemNode nextNode = pathIterator.next();
+            nextNodeLocation = nextNode.getWorldReference();
+        }
+    }
+
+    private SpatialGraph getSpatialGraph()
+    {
+        SpatialGraph rootGraph = root.getSpatialGraph();
+        return new SpatialGraph(rootGraph, new NodeWithType(new NamedIdentifier("Map")));
+    }
+
+    private GraphPath<SpatialItemNode> getSpatialPath(SpatialGraph spatialGraph, Vector2 position)
+    {
+        SpatialItemNode start = graph.getNode(position);
+        SpatialItemNode end = graph.getNode(destination);
+        IndexedAStarPathFinder pathFinder = new IndexedAStarPathFinder(spatialGraph);
+        Heuristic<SpatialNode> heuristic = new ManhattanHeuristic();
+        GraphPath<SpatialItemNode> result = new DefaultGraphPath();
+        if (pathFinder.searchNodePath(start, end, heuristic, result)){
+            return result;
+        }
+        throw new CancellationException();
+    }
+
+    private void incrementPath(Vector2 position)
+    {
+        if (position.equals(nextNodeLocation)){
+            updateOccupants();
+            if (pathIterator.hasNext()){
+                SpatialItemNode nextNode = pathIterator.next();
+                nextNodeLocation = nextNode.getWorldReference();
+                pathIteratorIndex += 1;
+            }
+            else{
+                throw new CancellationException();
+            }
+        }
+    }
+
+    private void updateOccupants()
+    {
+        int itemSize = 2; //TODO: Calculate
+        for (int i = Math.max(0, pathIteratorIndex - itemSize); i <= pathIteratorIndex; i++)
+        {
+            SpatialItemNode node = path.get(i);
+            graph.updateOccupant(node);
+        }
+    }
+
+    private Vector2 updatePosition(Vector2 position, float time)
+    {
+        Vector2 remaining = nextNodeLocation.cpy().sub(position);
+        float remainingDistance = remaining.len();
+        float incrementDistance = time * speed;
+
+        if (remainingDistance > incrementDistance)
+        {
+            Vector2 direction = remaining.nor();
+            Vector2 increment = direction.scl(incrementDistance);
+            Vector2 newPosition = position.cpy().add(increment);
+            return newPosition;
+        }
+        return nextNodeLocation;
+    }
+
+    private static class NodeWithType implements Predicate<SpatialItemNode>
     {
         private Identifier type;
 
@@ -135,7 +150,8 @@ public class MoveModifier implements ActionModifier
         public boolean test(SpatialItemNode node)
         {
             Item item = node.getOccupant();
-            return type.equals(node != null ? item.getType() : new NamedIdentifier("Unknown"));
+            Identifier other = node != null ? item.getType() : new NamedIdentifier("Unknown");
+            return type.equals(other);
         }
     }
 }

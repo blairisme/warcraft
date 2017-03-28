@@ -19,7 +19,7 @@ import java.util.Map;
 public class Animation extends Item
 {
     private float direction;
-    private ShapeRenderer shapeRenderer;
+    protected ShapeRenderer shapeRenderer;
 
     private boolean updateAnimation;
     private float animationTime;
@@ -134,8 +134,8 @@ public class Animation extends Item
     public void draw(Batch batch, float alpha)
     {
         updateAnimation();
-        drawAnimation(batch);
         drawSelection(batch);
+        drawAnimation(batch);
     }
 
     protected void updateAnimation()
@@ -155,7 +155,17 @@ public class Animation extends Item
     protected void drawAnimation(Batch batch)
     {
         TextureRegion region = getAnimationFrame();
-        batch.draw(region, getX(), getY(), getWidth(), getHeight());
+
+        float width = region.getRegionWidth();
+        float height = region.getRegionHeight();
+
+        float widthHalfDelta = (width - getWidth()) * 0.5f;
+        float heightHalfDelta = (height - getHeight()) * 0.5f;
+
+        float x = getX() - widthHalfDelta;
+        float y = getY() - heightHalfDelta;
+
+        batch.draw(region, x, y, width, height);
     }
 
     protected void drawSelection(Batch batch)

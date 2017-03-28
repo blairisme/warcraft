@@ -1,6 +1,7 @@
 package com.evilbird.engine.item;
 
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.ai.SpatialNode;
 
 /**
@@ -31,6 +32,12 @@ public class SpatialItemNode implements SpatialNode
     public GridPoint2 getSpatialReference()
     {
         return gridReference;
+    }
+
+    //TODO
+    public Vector2 getWorldReference()
+    {
+        return new Vector2(32 * gridReference.x, 32 * gridReference.y);
     }
 
     public Item getOccupant()

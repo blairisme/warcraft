@@ -1,6 +1,7 @@
 package com.evilbird.warcraft.item.data.camera;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
@@ -55,6 +56,12 @@ public class Camera extends Item
     public void setOriginalZoom(float originalZoom)
     {
         this.originalZoom = originalZoom;
+    }
+
+    @Override
+    public Item hit(Vector2 position, boolean touchable)
+    {
+        return null;
     }
 
     @Override
