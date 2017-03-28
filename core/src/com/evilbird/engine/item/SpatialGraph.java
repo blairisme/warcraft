@@ -105,15 +105,10 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
     {
         if (!populated){
             populated = true;
-            populate();
-        }
-    }
-
-    public void populate()
-    {
-        for (int x = 0; x < nodeCountX; x++) {
-            for (int y = 0; y < nodeCountY; y++) {
-                updateOccupant(nodes[x][y]);
+            for (int x = 0; x < nodeCountX; x++) {
+                for (int y = 0; y < nodeCountY; y++) {
+                    updateOccupant(nodes[x][y]);
+                }
             }
         }
     }

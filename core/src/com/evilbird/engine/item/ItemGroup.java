@@ -55,8 +55,10 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
      */
     public void removeItem(Item item)
     {
-        Group group = (Group)delegate;
-        group.removeActor(item.delegate);
+        //Group group = (Group)delegate;
+        //group.removeActor(item.delegate);
+
+        item.delegate.remove();
         items.remove(item);
     }
 

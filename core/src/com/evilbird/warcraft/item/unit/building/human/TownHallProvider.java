@@ -12,7 +12,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.common.AnimationBuilder;
+import com.evilbird.warcraft.common.AnimationBuilderOld;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.building.Building;
 
@@ -65,7 +65,7 @@ public class TownHallProvider implements AssetProvider<Item>
         Texture texture = assets.get("data/textures/human/winter/town_hall.png", Texture.class);
         Texture constructionTexture = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
 
-        Map<AnimationIdentifier, DirectionalAnimation> animations = AnimationBuilder.getBuildingAnimationSet(texture, constructionTexture, 128);
+        Map<AnimationIdentifier, DirectionalAnimation> animations = AnimationBuilderOld.getBuildingAnimationSet(texture, constructionTexture, 128);
         animations.put(UnitAnimation.DepositGold, animations.get(UnitAnimation.Idle));
         animations.put(UnitAnimation.DepositWood, animations.get(UnitAnimation.Idle));
         return animations;

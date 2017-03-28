@@ -15,7 +15,6 @@ public class ManhattanHeuristic implements Heuristic<SpatialNode>
     {
         GridPoint2 startIndex = node.getSpatialReference();
         GridPoint2 endIndex = node.getSpatialReference();
-        //return Math.abs(startIndex.dst2(endIndex));
         return Math.abs(endIndex.x - startIndex.x) + Math.abs(endIndex.y - startIndex.y);
     }
 }

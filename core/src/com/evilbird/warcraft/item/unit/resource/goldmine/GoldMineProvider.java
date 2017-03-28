@@ -13,7 +13,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.SoundIdentifier;
-import com.evilbird.warcraft.common.AnimationBuilder;
+import com.evilbird.warcraft.common.AnimationBuilderOld;
 import com.evilbird.warcraft.common.AnimationUtils;
 import com.evilbird.warcraft.item.unit.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -67,7 +67,7 @@ public class GoldMineProvider implements AssetProvider<Item>
         Texture texture = assets.get("data/textures/neutral/winter/gold_mine.png", Texture.class);
         Texture constructionTexture = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
 
-        Map<AnimationIdentifier, DirectionalAnimation> animations = AnimationBuilder.getBuildingAnimationSet(texture, constructionTexture, 96);
+        Map<AnimationIdentifier, DirectionalAnimation> animations = AnimationBuilderOld.getBuildingAnimationSet(texture, constructionTexture, 96);
         animations.put(UnitAnimation.GatherGold, animations.get(UnitAnimation.Construct));
         animations.remove(UnitAnimation.Construct);
 

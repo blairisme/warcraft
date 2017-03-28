@@ -16,7 +16,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.SoundIdentifier;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.common.AnimationBuilder;
+import com.evilbird.warcraft.common.AnimationBuilderOld;
 import com.evilbird.warcraft.common.SoundUtils;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -99,7 +99,7 @@ public class PeasantProvider implements AssetProvider<Item>
         Texture texture = assets.get("data/textures/human/perennial/peasant.png", Texture.class);
         Texture decomposeTexture = assets.get("data/textures/neutral/perennial/decompose.png", Texture.class);
 
-        Map<AnimationIdentifier, DirectionalAnimation> animations = AnimationBuilder.getAnimationSet(texture, decomposeTexture);
+        Map<AnimationIdentifier, DirectionalAnimation> animations = AnimationBuilderOld.getAnimationSet(texture, decomposeTexture);
         animations.put(UnitAnimation.GatherGold, animations.get(UnitAnimation.Hidden));
         animations.put(UnitAnimation.GatherWood, animations.get(UnitAnimation.Attack));
         animations.put(UnitAnimation.DepositGold, animations.get(UnitAnimation.Hidden));

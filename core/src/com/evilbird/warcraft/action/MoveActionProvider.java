@@ -3,6 +3,7 @@ package com.evilbird.warcraft.action;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ModifyAction;
+import com.evilbird.engine.action.ParallelAction;
 import com.evilbird.engine.action.SequenceAction;
 import com.evilbird.engine.action.duration.ActionDuration;
 import com.evilbird.engine.action.duration.PredicateDuration;
@@ -14,9 +15,8 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperties;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.action.common.ConfirmActionProvider;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
-
-import java.util.Arrays;
 
 import javax.inject.Inject;
 
@@ -25,15 +25,18 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-//TODO: Move should position the item in the middle of the given position not above and to the right.
 public class MoveActionProvider implements ActionProvider
 {
     private AnimateActionProvider animateActionProvider;
+    private ConfirmActionProvider confirmActionProvider;
 
     @Inject
-    public MoveActionProvider(AnimateActionProvider animateActionProvider)
+    public MoveActionProvider(
+        AnimateActionProvider animateActionProvider,
+        ConfirmActionProvider confirmActionProvider)
     {
         this.animateActionProvider = animateActionProvider;
+        this.confirmActionProvider = confirmActionProvider;
     }
 
     @Override
@@ -41,28 +44,36 @@ public class MoveActionProvider implements ActionProvider
     {
         ItemRoot root = item.getRoot();
         Vector2 position = root.unproject(input.getPosition());
-        return newAnimatedMove(item, position);
+        return getConfirmMoveAction(item, position);
     }
 
     public Action get(Item item, Item destination)
     {
-        return newAnimatedMove(item, destination.getPosition());
+        return getAnimatedMoveAction(item, destination.getPosition());
     }
 
     public Action get(Item item, Vector2 destination)
     {
-        return newAnimatedMove(item, destination);
+        return getAnimatedMoveAction(item, destination);
     }
 
-    private Action newAnimatedMove(Item item, Vector2 destination)
+    private Action getConfirmMoveAction(Item item, Vector2 destination)
     {
-        Action animateMove = animateActionProvider.get(item, UnitAnimation.Move);
-        Action move = newMoveAction(item, destination);
-        Action animateIdle = animateActionProvider.get(item, UnitAnimation.Idle);
-        return new SequenceAction(Arrays.asList(animateMove, move, animateIdle));
+        Action confirm = confirmActionProvider.get(item.getParent(), destination);
+        Action move = getAnimatedMoveAction(item, destination);
+        return new ParallelAction(confirm, move);
     }
 
-    private Action newMoveAction(Item item, Vector2 destination)
+    private Action getAnimatedMoveAction(Item item, Vector2 destination)
+    {
+        Action confirm = confirmActionProvider.get(item.getParent(), destination);
+        Action animateMove = animateActionProvider.get(item, UnitAnimation.Move);
+        Action move = getMoveAction(item, destination);
+        Action animateIdle = animateActionProvider.get(item, UnitAnimation.Idle);
+        return new SequenceAction(confirm, animateMove, move, animateIdle);
+    }
+
+    private Action getMoveAction(Item item, Vector2 destination)
     {
         ActionValue value = new ItemValue(item, ItemProperties.Position);
         ActionModifier modifier = new MoveModifier(item, destination);

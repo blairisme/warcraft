@@ -20,8 +20,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.concurrent.CancellationException;
 
-//TODO: Implement moving around other items.
-//TODO: Implement movement restricted to certain terrains. E.g., land, water, air.
+/**
+ * @Author Blair Butterworth
+ */
 public class MoveModifier implements ActionModifier
 {
     private ItemRoot root;

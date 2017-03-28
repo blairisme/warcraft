@@ -19,6 +19,7 @@ import java.util.Map;
  */
 public class AnimationUtils
 {
+    @Deprecated
     public static DirectionalAnimation getAnimation(TextureRegion texture)
     {
         Array<TextureRegion> textures = Array.with(texture);

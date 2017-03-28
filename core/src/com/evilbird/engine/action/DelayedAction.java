@@ -14,6 +14,13 @@ public class DelayedAction extends Action
     private ActionDuration delay;
     private boolean invoked;
 
+    public DelayedAction(ActionDuration delay)
+    {
+        this.action = null;
+        this.delay = delay;
+        this.invoked = true;
+    }
+
     public DelayedAction(Action action, ActionDuration delay)
     {
         this.action = action;
@@ -33,8 +40,10 @@ public class DelayedAction extends Action
     @Override
     public void restart()
     {
-        action.restart();
+        if (action != null){
+            action.restart();
+            invoked = false;
+        }
         delay.restart();
-        invoked = false;
     }
 }

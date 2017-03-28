@@ -13,7 +13,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.common.AnimationBuilder;
+import com.evilbird.warcraft.common.AnimationBuilderOld;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
@@ -79,7 +79,7 @@ public class FootmanProvider implements AssetProvider<Item>
     {
         Texture texture = assets.get("data/textures/human/perennial/footman.png", Texture.class);
         Texture decomposeTexture = assets.get("data/textures/neutral/perennial/decompose.png", Texture.class);
-        return AnimationBuilder.getAnimationSet(texture, decomposeTexture);
+        return AnimationBuilderOld.getAnimationSet(texture, decomposeTexture);
     }
 
     private Drawable getIcon()
