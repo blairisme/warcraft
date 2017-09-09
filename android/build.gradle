@@ -1,5 +1,5 @@
 android {
-    buildToolsVersion "23.0.2"
+    buildToolsVersion '25.0.0'
     compileSdkVersion 20
     sourceSets {
         main {
@@ -19,8 +19,8 @@ android {
     }
     defaultConfig {
         applicationId "com.evilbird.warcraft"
-        minSdkVersion 21
-        targetSdkVersion 23
+        minSdkVersion 20
+        targetSdkVersion 20
     }
     productFlavors {
     }
@@ -77,6 +77,7 @@ task run(type: Exec) {
     commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.evilbird.warcraft/com.evilbird.warcraft.AndroidLauncher'
 }
 // sets up the Android Eclipse project, using the old Ant based build.
+/*
 eclipse {
     // need to specify Java source sets explicitly, SpringSource Gradle Eclipse plugin
     // ignores any nodes added in classpath.file.withXml
@@ -106,6 +107,8 @@ eclipse {
         buildCommand "com.android.ide.eclipse.adt.ApkBuilder"
     }
 }
+*/
+
 // sets up the Android Idea project, using the old Ant based build.
 idea {
     module {
@@ -128,5 +131,6 @@ idea {
         }
     }
 }
+
 dependencies {
 }
