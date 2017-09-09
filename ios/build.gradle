@@ -1,6 +1,6 @@
 sourceSets.main.java.srcDirs = [ "src/" ]
 
-sourceCompatibility = '1.7'
+//sourceCompatibility = '1.7'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 ext {
@@ -12,8 +12,9 @@ launchIPadSimulator.dependsOn build
 launchIOSDevice.dependsOn build
 createIPA.dependsOn build
 
-
+/*
 eclipse.project {
     name = appName + "-ios"
     natures 'org.robovm.eclipse.RoboVMNature'
 }
+*/

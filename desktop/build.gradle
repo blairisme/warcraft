@@ -1,6 +1,6 @@
 apply plugin: "java"
 
-sourceCompatibility = 1.6
+//sourceCompatibility = 1.6
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 project.ext.mainClassName = "com.evilbird.warcraft.desktop.DesktopLauncher"
@@ -27,6 +27,7 @@ task dist(type: Jar) {
 
 dist.dependsOn classes
 
+/*
 eclipse {
     project {
         name = appName + "-desktop"
@@ -44,3 +45,4 @@ task afterEclipseImport(description: "Post processing after project generation",
     printer.print(classpath)
   }
 }
+*/
