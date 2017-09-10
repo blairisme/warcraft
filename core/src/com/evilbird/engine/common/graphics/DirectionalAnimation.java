@@ -27,6 +27,10 @@ public class DirectionalAnimation
         reset();
     }
 
+    public Map<Range<Float>, Array<TextureRegion>> getFrames() {
+        return frames;
+    }
+
     public TextureRegion getKeyFrame(float stateTime)
     {
         return delegate.getKeyFrame(stateTime);
@@ -37,13 +41,23 @@ public class DirectionalAnimation
         return direction;
     }
 
+    public float getDuration()
+    {
+        return duration;
+    }
+
+    public PlayMode getMode()
+    {
+        return mode;
+    }
+
     public void setDirection(float direction)
     {
         this.direction = direction;
         reset();
     }
 
-    public void reset()
+    private void reset()
     {
         this.delegate = new Animation(duration, getFrames(direction), mode);
     }

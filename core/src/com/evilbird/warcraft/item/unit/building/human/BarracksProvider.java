@@ -13,7 +13,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.common.AnimationBuilderOld;
+import com.evilbird.warcraft.common.AnimationCollections;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.building.Building;
 
@@ -68,9 +68,9 @@ public class BarracksProvider implements AssetProvider<Item>
 
     private Map<AnimationIdentifier, DirectionalAnimation> getAnimations()
     {
-        Texture texture = assets.get("data/textures/human/winter/barracks.png", Texture.class);
-        Texture constructionTexture = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
-        return AnimationBuilderOld.getBuildingAnimationSet(texture, constructionTexture, 96);
+        Texture general = assets.get("data/textures/human/winter/barracks.png", Texture.class);
+        Texture construction = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
+        return AnimationCollections.buildingAnimations(general, construction, 96, 96);
     }
 
     private Drawable getIcon()

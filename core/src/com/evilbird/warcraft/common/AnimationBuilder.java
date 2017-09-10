@@ -2,6 +2,7 @@ package com.evilbird.warcraft.common;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
@@ -21,23 +22,24 @@ import java.util.Map.Entry;
 public class AnimationBuilder
 {
     private Texture texture;
-    private AnimationLayout layout;
+    private AnimationSchema schema;
 
     public void setTexture(Texture texture)
     {
         this.texture = texture;
     }
 
-    public void setLayout(AnimationLayout layout)
+    public void setSchema(AnimationSchema schema)
     {
-        this.layout = layout;
+        this.schema = schema;
     }
 
     public DirectionalAnimation build()
     {
-        Map<Range<Float>, List<Rectangle>> frameRegions = layout.getFrameRegions();
-        Map<Range<Float>, Array<TextureRegion>> frames = getFrames(frameRegions);
-        return new DirectionalAnimation(0f, layout.getFrameInterval(), frames, Animation.PlayMode.LOOP);
+        Map<Range<Float>, List<Rectangle>> regions = schema.getFrameRegions();
+        Map<Range<Float>, Array<TextureRegion>> frames = getFrames(regions);
+        PlayMode mode = schema.getLoop() ? PlayMode.LOOP : PlayMode.NORMAL;
+        return new DirectionalAnimation(0f, schema.getFrameInterval(), frames, mode);
     }
 
     private Map<Range<Float>, Array<TextureRegion>> getFrames(Map<Range<Float>, List<Rectangle>> regions)

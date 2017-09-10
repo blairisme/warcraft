@@ -9,6 +9,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.Animation;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.warcraft.common.AnimationBuilder;
+import com.evilbird.warcraft.common.AnimationCollections;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
@@ -17,7 +18,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.common.AnimationLayouts.effectLayout;
+import static com.evilbird.warcraft.common.AnimationSchemas.effectSchema;
 
 /**
  * Instances of this class TODO:Finish
@@ -52,18 +53,9 @@ public class ConfirmProvider implements AssetProvider<Item>
     }
 
     //TODO: Cache
-    //TODO: Move map into AnimationSetBuilder
     private Map<AnimationIdentifier, DirectionalAnimation> getAnimations()
     {
-        AnimationBuilder animationBuilder = new AnimationBuilder();
-        animationBuilder.setTexture(assets.get("data/textures/neutral/hud/green_cross.png", Texture.class));
-        animationBuilder.setLayout(effectLayout());
-
-        DirectionalAnimation animation = animationBuilder.build();
-
-        Map<AnimationIdentifier, DirectionalAnimation> result = new HashMap<AnimationIdentifier, DirectionalAnimation>();
-        result.put(UnitAnimation.Idle, animation);
-
-        return result;
+        Texture texture = assets.get("data/textures/neutral/hud/green_cross.png", Texture.class);
+        return AnimationCollections.effectAnimations(texture);
     }
 }

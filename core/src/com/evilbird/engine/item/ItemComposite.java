@@ -15,7 +15,7 @@ public interface ItemComposite
     /**
      * Adds an {@link Item} as a child of the ItemComposite.
      *
-     * @param item  the item to add.
+     * @param item  the item to set.
      */
     void addItem(Item item);
 

@@ -13,8 +13,8 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.SoundIdentifier;
-import com.evilbird.warcraft.common.AnimationBuilderOld;
-import com.evilbird.warcraft.common.AnimationUtils;
+import com.evilbird.warcraft.common.AnimationCollectionBuilder;
+import com.evilbird.warcraft.common.TextureUtils;
 import com.evilbird.warcraft.item.unit.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -24,6 +24,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
+
+import static com.evilbird.warcraft.common.AnimationSchemas.gatherSchema;
+import static com.evilbird.warcraft.common.AnimationSchemas.idleSingualarSchema;
 
 public class GoldMineProvider implements AssetProvider<Item>
 {
@@ -64,19 +67,18 @@ public class GoldMineProvider implements AssetProvider<Item>
 
     private Map<AnimationIdentifier, DirectionalAnimation> getAnimations()
     {
-        Texture texture = assets.get("data/textures/neutral/winter/gold_mine.png", Texture.class);
-        Texture constructionTexture = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
+        Texture general = assets.get("data/textures/neutral/winter/gold_mine.png", Texture.class);
+        Texture gather = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
 
-        Map<AnimationIdentifier, DirectionalAnimation> animations = AnimationBuilderOld.getBuildingAnimationSet(texture, constructionTexture, 96);
-        animations.put(UnitAnimation.GatherGold, animations.get(UnitAnimation.Construct));
-        animations.remove(UnitAnimation.Construct);
-
-        return animations;
+        AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
+        builder.set(UnitAnimation.Idle, idleSingualarSchema(96, 96), general);
+        builder.set(UnitAnimation.GatherGold, gatherSchema(96, 96), gather);
+        return builder.build();
     }
 
     private Drawable getIcon()
     {
-        return AnimationUtils.getDrawable(assets, "data/textures/neutral/perennial/icons.png", 184, 532, 46, 38);
+        return TextureUtils.getDrawable(assets, "data/textures/neutral/perennial/icons.png", 184, 532, 46, 38);
     }
 
     private Map<SoundIdentifier, SoundEffect> getSounds()

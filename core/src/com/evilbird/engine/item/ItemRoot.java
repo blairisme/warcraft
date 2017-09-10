@@ -34,7 +34,7 @@ public class ItemRoot implements ItemComposite
     /**
      * Adds an {@link Item} as a child of the item root.
      *
-     * @param item  the item to add.
+     * @param item  the item to set.
      */
     @Override
     public void addItem(Item item)

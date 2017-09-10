@@ -37,7 +37,7 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
     /**
      * Adds an {@link Item} as a child of this Group.
      *
-     * @param item  the item to add.
+     * @param item  the item to set.
      */
     public void addItem(Item item)
     {

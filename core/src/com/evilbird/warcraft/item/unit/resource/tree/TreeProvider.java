@@ -14,6 +14,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.SoundIdentifier;
 import com.evilbird.warcraft.common.AnimationUtils;
+import com.evilbird.warcraft.common.TextureUtils;
 import com.evilbird.warcraft.item.unit.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -76,7 +77,7 @@ public class TreeProvider implements AssetProvider<Tree>
 
     private Drawable getIcon()
     {
-        return AnimationUtils.getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 684, 46, 38);
+        return TextureUtils.getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 684, 46, 38);
     }
 
     private Map<SoundIdentifier, SoundEffect> getSounds()
