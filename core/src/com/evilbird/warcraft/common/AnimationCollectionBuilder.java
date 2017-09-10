@@ -19,13 +19,11 @@ import java.util.Map.Entry;
 public class AnimationCollectionBuilder
 {
     private Map<AnimationIdentifier, AnimationIdentifier> aliases;
-    private Map<AnimationIdentifier, AnimationIdentifier> merged;
-    private Map<Texture, Map<AnimationIdentifier, AnimationSchema>> animations;
+    private Map<AnimationIdentifier, Map<AnimationSchema, Texture>> animations;
 
     public AnimationCollectionBuilder()
     {
         aliases = new HashMap<>(2);
-        merged = new HashMap<>(2);
         animations = new HashMap<>(2);
     }
 
@@ -34,19 +32,14 @@ public class AnimationCollectionBuilder
         aliases.put(sourceId, targetId);
     }
 
-    public void merge(AnimationIdentifier sourceId, AnimationIdentifier targetId)
-    {
-        merged.put(sourceId, targetId);
-    }
-
     public void set(AnimationIdentifier id, AnimationSchema schema, Texture texture)
     {
-        Map<AnimationIdentifier, AnimationSchema> schemas = animations.get(texture);
+        Map<AnimationSchema, Texture> schemas = animations.get(id);
         if (schemas == null){
             schemas = new HashMap<>();
         }
-        schemas.put(id, schema);
-        animations.put(texture, schemas);
+        schemas.put(schema, texture);
+        animations.put(id, schemas);
     }
 
     public Map<AnimationIdentifier, DirectionalAnimation> build()
@@ -54,23 +47,32 @@ public class AnimationCollectionBuilder
         AnimationBuilder builder = new AnimationBuilder();
         Map<AnimationIdentifier, DirectionalAnimation> result = new HashMap<>();
 
-        for (Entry<Texture, Map<AnimationIdentifier, AnimationSchema>> animation: animations.entrySet()){
+        for (Entry<AnimationIdentifier, Map<AnimationSchema, Texture>> animation: animations.entrySet()){
+            DirectionalAnimation product = null;
+            for (Entry<AnimationSchema, Texture> schema: animation.getValue().entrySet()) {
+                builder.setSchema(schema.getKey());
+                builder.setTexture(schema.getValue());
+                product = product == null ? builder.build() : AnimationUtils.combine(product, builder.build());
+            }
+            result.put(animation.getKey(), product);
+            /*
             builder.setTexture(animation.getKey());
 
             for (Entry<AnimationIdentifier, AnimationSchema> schema: animation.getValue().entrySet()){
                 builder.setSchema(schema.getValue());
                 result.put(schema.getKey(), builder.build());
             }
+            */
         }
-        for  (Entry<AnimationIdentifier, AnimationIdentifier> alias: aliases.entrySet()){
+        for (Entry<AnimationIdentifier, AnimationIdentifier> alias: aliases.entrySet()){
             result.put(alias.getKey(), result.get(alias.getValue()));
         }
-        for  (Entry<AnimationIdentifier, AnimationIdentifier> merge: merged.entrySet()){
-
-            DirectionalAnimation source =  result.get(merge.getKey());
-            DirectionalAnimation target =  result.get(merge.getValue());
-            result.put(merge.getKey(), AnimationUtils.combine(source, target));
-        }
+//        for  (Entry<AnimationIdentifier, AnimationIdentifier> merge: merged.entrySet()){
+//
+//            DirectionalAnimation source =  result.get(merge.getKey());
+//            DirectionalAnimation target =  result.get(merge.getValue());
+//            result.put(merge.getKey(), AnimationUtils.combine(source, target));
+//        }
         return result;
     }
 }

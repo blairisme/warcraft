@@ -51,7 +51,7 @@ public class AnimationSchemas
         return new AnimationSchema(frames, 0.15f, true);
     }
 
-    public static AnimationSchema constuctSchema(int width, int height)
+    public static AnimationSchema constructSchema(int width, int height)
     {
         List<List<Rectangle>> regions = getRegions(1, 2, 0, 0, width, height);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);

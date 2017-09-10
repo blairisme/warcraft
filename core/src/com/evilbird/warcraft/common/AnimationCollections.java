@@ -8,7 +8,7 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
 import java.util.Map;
 
 import static com.evilbird.warcraft.common.AnimationSchemas.attackSchema;
-import static com.evilbird.warcraft.common.AnimationSchemas.constuctSchema;
+import static com.evilbird.warcraft.common.AnimationSchemas.constructSchema;
 import static com.evilbird.warcraft.common.AnimationSchemas.deathSchema;
 import static com.evilbird.warcraft.common.AnimationSchemas.decomposeSchema;
 import static com.evilbird.warcraft.common.AnimationSchemas.effectSchema;
@@ -66,8 +66,10 @@ public class AnimationCollections
     {
         AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
         builder.set(UnitAnimation.Idle, idleSingualarSchema(width, height), general);
-        builder.set(UnitAnimation.Construct, constuctSchema(width, height), construct);
-        builder.merge(UnitAnimation.Construct, UnitAnimation.Idle);
+        builder.set(UnitAnimation.Construct, constructSchema(width, height), construct);
+
+        builder.set(UnitAnimation.Construct, constructSchema(width, height), general);
+
         builder.associate(UnitAnimation.DepositGold, UnitAnimation.Idle);
         builder.associate(UnitAnimation.DepositWood, UnitAnimation.Idle);
         return builder.build();
