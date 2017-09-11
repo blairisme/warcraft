@@ -5,10 +5,14 @@ import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.Arrays;
 import java.util.Map;
 
 import static com.evilbird.warcraft.common.AnimationSchemas.attackSchema;
-import static com.evilbird.warcraft.common.AnimationSchemas.constructSchema;
+import static com.evilbird.warcraft.common.AnimationSchemas.constructBeginSchema;
+import static com.evilbird.warcraft.common.AnimationSchemas.constructEndSchema;
 import static com.evilbird.warcraft.common.AnimationSchemas.deathSchema;
 import static com.evilbird.warcraft.common.AnimationSchemas.decomposeSchema;
 import static com.evilbird.warcraft.common.AnimationSchemas.effectSchema;
@@ -66,10 +70,9 @@ public class AnimationCollections
     {
         AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
         builder.set(UnitAnimation.Idle, idleSingualarSchema(width, height), general);
-        builder.set(UnitAnimation.Construct, constructSchema(width, height), construct);
-
-        builder.set(UnitAnimation.Construct, constructSchema(width, height), general);
-
+        builder.set(UnitAnimation.Construct, Arrays.asList(
+                Pair.of(constructBeginSchema(width, height), construct),
+                Pair.of(constructEndSchema(width, height), general)));
         builder.associate(UnitAnimation.DepositGold, UnitAnimation.Idle);
         builder.associate(UnitAnimation.DepositWood, UnitAnimation.Idle);
         return builder.build();
