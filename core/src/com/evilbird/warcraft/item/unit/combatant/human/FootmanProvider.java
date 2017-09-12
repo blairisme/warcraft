@@ -13,7 +13,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.common.AnimationCollections;
+import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 

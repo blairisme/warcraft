@@ -8,17 +8,13 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.Animation;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
-import com.evilbird.warcraft.common.AnimationBuilder;
-import com.evilbird.warcraft.common.AnimationCollections;
+import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
-
-import static com.evilbird.warcraft.common.AnimationSchemas.effectSchema;
 
 /**
  * Instances of this class TODO:Finish

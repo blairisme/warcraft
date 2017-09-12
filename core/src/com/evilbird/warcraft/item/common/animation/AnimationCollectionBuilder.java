@@ -1,14 +1,11 @@
-package com.evilbird.warcraft.common;
+package com.evilbird.warcraft.item.common.animation;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.evilbird.engine.common.collection.Collections;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
-import com.evilbird.engine.item.specialized.Animation;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;

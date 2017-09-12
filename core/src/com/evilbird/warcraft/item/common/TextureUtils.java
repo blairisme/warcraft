@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.common;
+package com.evilbird.warcraft.item.common;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;

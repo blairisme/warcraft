@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.common;
+package com.evilbird.warcraft.item.common.animation;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

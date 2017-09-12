@@ -13,8 +13,8 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.SoundIdentifier;
-import com.evilbird.warcraft.common.AnimationCollectionBuilder;
-import com.evilbird.warcraft.common.TextureUtils;
+import com.evilbird.warcraft.item.common.animation.AnimationCollectionBuilder;
+import com.evilbird.warcraft.item.common.TextureUtils;
 import com.evilbird.warcraft.item.unit.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -25,8 +25,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.common.AnimationSchemas.gatherSchema;
-import static com.evilbird.warcraft.common.AnimationSchemas.idleSingualarSchema;
+import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.gatherSchema;
+import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.idleSingualarSchema;
 
 public class GoldMineProvider implements AssetProvider<Item>
 {

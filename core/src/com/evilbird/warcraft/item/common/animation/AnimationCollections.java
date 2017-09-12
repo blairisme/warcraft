@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.common;
+package com.evilbird.warcraft.item.common.animation;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
@@ -10,17 +10,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.Arrays;
 import java.util.Map;
 
-import static com.evilbird.warcraft.common.AnimationSchemas.attackSchema;
-import static com.evilbird.warcraft.common.AnimationSchemas.constructBeginSchema;
-import static com.evilbird.warcraft.common.AnimationSchemas.constructEndSchema;
-import static com.evilbird.warcraft.common.AnimationSchemas.deathSchema;
-import static com.evilbird.warcraft.common.AnimationSchemas.decomposeSchema;
-import static com.evilbird.warcraft.common.AnimationSchemas.effectSchema;
-import static com.evilbird.warcraft.common.AnimationSchemas.hiddenSchema;
-import static com.evilbird.warcraft.common.AnimationSchemas.idleSchema;
-import static com.evilbird.warcraft.common.AnimationSchemas.idleSingualarSchema;
-import static com.evilbird.warcraft.common.AnimationSchemas.moveSchema;
-
 /**
  * Created by blair on 10/09/2017.
  */
@@ -30,12 +19,12 @@ public class AnimationCollections
             Texture generalTexture, Texture decomposeTexture)
     {
         AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
-        builder.set(UnitAnimation.Idle, idleSchema(), generalTexture);
-        builder.set(UnitAnimation.Move, moveSchema(), generalTexture);
-        builder.set(UnitAnimation.Attack, attackSchema(), generalTexture);
-        builder.set(UnitAnimation.Hidden, hiddenSchema(), generalTexture);
-        builder.set(UnitAnimation.Die, deathSchema(), generalTexture);
-        builder.set(UnitAnimation.Decompose, decomposeSchema(), decomposeTexture);
+        builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(), generalTexture);
+        builder.set(UnitAnimation.Move, AnimationSchemas.moveSchema(), generalTexture);
+        builder.set(UnitAnimation.Attack, AnimationSchemas.attackSchema(), generalTexture);
+        builder.set(UnitAnimation.Hidden, AnimationSchemas.hiddenSchema(), generalTexture);
+        builder.set(UnitAnimation.Die, AnimationSchemas.deathSchema(), generalTexture);
+        builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decomposeTexture);
         return builder.build();
     }
 
@@ -43,12 +32,12 @@ public class AnimationCollections
             Texture generalTexture, Texture decomposeTexture)
     {
         AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
-        builder.set(UnitAnimation.Idle, idleSchema(), generalTexture);
-        builder.set(UnitAnimation.Move, moveSchema(), generalTexture);
-        builder.set(UnitAnimation.Attack, attackSchema(), generalTexture);
-        builder.set(UnitAnimation.Hidden, hiddenSchema(), generalTexture);
-        builder.set(UnitAnimation.Die, deathSchema(), generalTexture);
-        builder.set(UnitAnimation.Decompose, decomposeSchema(), decomposeTexture);
+        builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(), generalTexture);
+        builder.set(UnitAnimation.Move, AnimationSchemas.moveSchema(), generalTexture);
+        builder.set(UnitAnimation.Attack, AnimationSchemas.attackSchema(), generalTexture);
+        builder.set(UnitAnimation.Hidden, AnimationSchemas.hiddenSchema(), generalTexture);
+        builder.set(UnitAnimation.Die, AnimationSchemas.deathSchema(), generalTexture);
+        builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decomposeTexture);
         builder.associate(UnitAnimation.GatherGold, UnitAnimation.Hidden);
         builder.associate(UnitAnimation.GatherWood, UnitAnimation.Attack);
         builder.associate(UnitAnimation.DepositGold, UnitAnimation.Hidden);
@@ -61,7 +50,7 @@ public class AnimationCollections
             Texture texture)
     {
         AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
-        builder.set(UnitAnimation.Idle, effectSchema(), texture);
+        builder.set(UnitAnimation.Idle, AnimationSchemas.effectSchema(), texture);
         return builder.build();
     }
 
@@ -69,10 +58,10 @@ public class AnimationCollections
             Texture general, Texture construct, int width, int height)
     {
         AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
-        builder.set(UnitAnimation.Idle, idleSingualarSchema(width, height), general);
+        builder.set(UnitAnimation.Idle, AnimationSchemas.idleSingualarSchema(width, height), general);
         builder.set(UnitAnimation.Construct, Arrays.asList(
-                Pair.of(constructBeginSchema(width, height), construct),
-                Pair.of(constructEndSchema(width, height), general)));
+                Pair.of(AnimationSchemas.constructBeginSchema(width, height), construct),
+                Pair.of(AnimationSchemas.constructEndSchema(width, height), general)));
         builder.associate(UnitAnimation.DepositGold, UnitAnimation.Idle);
         builder.associate(UnitAnimation.DepositWood, UnitAnimation.Idle);
         return builder.build();
