@@ -65,7 +65,7 @@ public class AnimationSchemas
 
     public static AnimationSchema gatherSchema(int width, int height)
     {
-        List<List<Rectangle>> regions = getRegions(1, 2, 0, 0, width, height);
+        List<List<Rectangle>> regions = getRegions(1, 1, 0, height, width, height);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
         return new AnimationSchema(frames, 3f, false);
     }

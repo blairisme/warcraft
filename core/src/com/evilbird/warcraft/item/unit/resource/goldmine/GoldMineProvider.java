@@ -68,11 +68,10 @@ public class GoldMineProvider implements AssetProvider<Item>
     private Map<AnimationIdentifier, DirectionalAnimation> getAnimations()
     {
         Texture general = assets.get("data/textures/neutral/winter/gold_mine.png", Texture.class);
-        Texture gather = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
 
         AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
         builder.set(UnitAnimation.Idle, idleSingualarSchema(96, 96), general);
-        builder.set(UnitAnimation.GatherGold, gatherSchema(96, 96), gather);
+        builder.set(UnitAnimation.GatherGold, gatherSchema(96, 96), general);
         return builder.build();
     }
 
