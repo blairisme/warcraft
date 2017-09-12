@@ -23,12 +23,14 @@ import java.util.concurrent.CancellationException;
 /**
  * @Author Blair Butterworth
  */
+//TODO: Use interface to reposition item, not properties
 public class MoveModifier implements ActionModifier
 {
     private ItemRoot root;
     private float speed;
     private Vector2 destination;
     private Collection<Identifier> capability;
+    private boolean useAdjacent;
 
     private SpatialGraph graph;
     private GraphPath<SpatialItemNode> path;
@@ -36,14 +38,19 @@ public class MoveModifier implements ActionModifier
     private int pathIteratorIndex;
     private Vector2 nextNodeLocation;
 
-
     public MoveModifier(Item item, Vector2 destination)
+    {
+        this(item, destination, false);
+    }
+
+    public MoveModifier(Item item, Vector2 destination, boolean useAdjacent)
     {
         this.root = item.getRoot();
         this.speed = 64f; //TODO: Obtain from item
         this.capability = new ArrayList<Identifier>(); //TODO: Obtain from item
         this.capability.add(new NamedIdentifier("Map")); //TODO: Obtain from item
         this.destination = destination;
+        this.useAdjacent = useAdjacent;
     }
 
     @Override
@@ -87,7 +94,7 @@ public class MoveModifier implements ActionModifier
     private GraphPath<SpatialItemNode> getSpatialPath(SpatialGraph spatialGraph, Vector2 position)
     {
         SpatialItemNode start = graph.getNode(position);
-        SpatialItemNode end = graph.getNode(destination);
+        SpatialItemNode end = useAdjacent ? graph.getAdjacentNode(destination) : graph.getNode(destination);
         IndexedAStarPathFinder pathFinder = new IndexedAStarPathFinder(spatialGraph);
         Heuristic<SpatialNode> heuristic = new ManhattanHeuristic();
         GraphPath<SpatialItemNode> result = new DefaultGraphPath();

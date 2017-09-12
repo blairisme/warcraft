@@ -14,6 +14,7 @@ import com.evilbird.engine.item.ItemProperty;
 import java.util.HashMap;
 import java.util.Map;
 
+//TODO: Rename to AnimatedItem?
 //TODO: Move selected box drawing to unit
 //TODO: Use real logging
 public class Animation extends Item

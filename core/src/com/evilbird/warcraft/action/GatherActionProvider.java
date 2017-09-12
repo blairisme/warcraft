@@ -25,6 +25,7 @@ import com.evilbird.engine.item.specialized.SoundIdentifier;
 import com.evilbird.warcraft.item.unit.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import java.util.Collection;
 
@@ -40,14 +41,14 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithType;
  */
 public class GatherActionProvider implements ActionProvider
 {
-    private MoveActionProvider moveActionProvider;
+    private RepositionActionProvider moveActionProvider;
     private AudioActionProvider audioActionProvider;
     private AnimateActionProvider animateActionProvider;
     private SelectionActionProvider selectionActionProvider;
 
     @Inject
     public GatherActionProvider(
-        MoveActionProvider moveActionProvider,
+        RepositionActionProvider moveActionProvider,
         AudioActionProvider audioActionProvider,
         AnimateActionProvider animateActionProvider,
         SelectionActionProvider selectionActionProvider)
@@ -68,7 +69,7 @@ public class GatherActionProvider implements ActionProvider
         return new RepeatedAction(gather);
     }
 
-    public Action gather(Item gatherer, Item resource, ResourceType type, Item depot, Item player)
+    private Action gather(Item gatherer, Item resource, ResourceType type, Item depot, Item player)
     {
         Action moveToResource = moveActionProvider.get(gatherer, resource);
         Action obtainResource = obtain(gatherer, resource, type);

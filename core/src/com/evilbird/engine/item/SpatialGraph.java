@@ -59,8 +59,7 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
     }
 
     @Override
-    public Array<Connection<SpatialItemNode>> getConnections(SpatialItemNode fromNode)
-    {
+    public Array<Connection<SpatialItemNode>> getConnections(SpatialItemNode fromNode) {
         Array<Connection<SpatialItemNode>> result = new Array<Connection<SpatialItemNode>>();
 
         GridPoint2 fromIndex = fromNode.getSpatialReference();
@@ -69,12 +68,12 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         int endX = Math.min(nodeCountX - 1, fromIndex.x + 1);
         int endY = Math.min(nodeCountY - 1, fromIndex.y + 1);
 
-        for (int x = startX; x <= endX; x++){
-            for (int y = startY; y <= endY; y++){
-                if (!(x == fromIndex.x && y == fromIndex.y)){
+        for (int x = startX; x <= endX; x++) {
+            for (int y = startY; y <= endY; y++) {
+                if (!(x == fromIndex.x && y == fromIndex.y)) {
                     SpatialItemNode toNode = nodes[x][y];
-                    if (connectionFilter.test(toNode)){
-                        result.add(new DefaultConnection(fromNode, toNode));
+                    if (connectionFilter.test(toNode)) {
+                        result.add(new SpatialItemConnection(fromNode, toNode));
                     }
                 }
             }
@@ -87,6 +86,18 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         int x = (int)Math.floor(position.x / nodeWidth);
         int y = (int)Math.floor(position.y / nodeHeight);
         return nodes[x][y];
+    }
+
+    // TODO find all nodes around object and return first one that passes filter.
+    public SpatialItemNode getAdjacentNode(Vector2 position)
+    {
+        SpatialItemNode node = getNode(position);
+        Array<Connection<SpatialItemNode>> connections = getConnections(node);
+
+        if (connections.size > 0){
+            return connections.get(0).getToNode();
+        }
+        return node;
     }
 
     @Override
