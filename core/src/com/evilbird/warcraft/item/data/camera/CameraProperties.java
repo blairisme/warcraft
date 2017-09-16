@@ -7,6 +7,7 @@ import com.evilbird.engine.item.ItemProperty;
  *
  * @author Blair Butterworth
  */
+@Deprecated
 public enum CameraProperties implements ItemProperty
 {
     Zoom,

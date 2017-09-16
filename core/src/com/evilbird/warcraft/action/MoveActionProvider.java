@@ -17,7 +17,6 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperties;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.specialized.animated.Animated;
-import com.evilbird.warcraft.action.common.ConfirmActionProvider;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import javax.inject.Inject;

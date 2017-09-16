@@ -87,4 +87,21 @@ public class AttackActionProvider implements ActionProvider
         ActionDuration duration = new PredicateDuration(target, health, 0f);
         return new ModifyAction(value, modifier, duration);
     }
+
+
+    private class AttackAction extends Action
+    {
+        private Attackable attackable;
+
+        public AttackAction(Attackable attackable)
+        {
+
+        }
+
+        @Override
+        public boolean act(float delta)
+        {
+            return false;
+        }
+    }
 }

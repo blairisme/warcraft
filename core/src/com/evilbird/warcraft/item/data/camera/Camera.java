@@ -7,7 +7,6 @@ import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperty;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.action.common.Zoomable;
 
 import javax.inject.Inject;
 

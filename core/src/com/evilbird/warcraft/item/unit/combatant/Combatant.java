@@ -1,6 +1,6 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
-import com.evilbird.warcraft.action.common.Movable;
+import com.evilbird.warcraft.action.Movable;
 import com.evilbird.warcraft.item.unit.Unit;
 
 /**
