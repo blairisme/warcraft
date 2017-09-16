@@ -19,7 +19,7 @@ import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.ItemType;
-import com.evilbird.engine.item.specialized.Layer;
+import com.evilbird.engine.item.specialized.layer.Layer;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitType;

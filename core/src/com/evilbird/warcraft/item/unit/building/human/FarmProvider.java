@@ -10,7 +10,7 @@ import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.AnimationIdentifier;
+import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.unit.UnitAnimation;

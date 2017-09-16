@@ -14,12 +14,9 @@ import javax.inject.Inject;
  */
 public class CancelActionProvider implements ActionProvider
 {
-    private AnimateActionProvider animateActionProvider;
-
     @Inject
-    public CancelActionProvider(AnimateActionProvider animateActionProvider)
+    public CancelActionProvider()
     {
-        this.animateActionProvider = animateActionProvider;
     }
 
     @Override

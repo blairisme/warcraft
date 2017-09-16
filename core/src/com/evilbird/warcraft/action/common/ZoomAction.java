@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.action.common;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.CompositeAction;
@@ -12,44 +12,23 @@ import com.evilbird.engine.action.value.ActionValue;
 import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.common.Zoomable;
 import com.evilbird.warcraft.item.data.camera.CameraProperties;
 
-import javax.inject.Inject;
-
 /**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
+ * Created by blair on 15/09/2017.
  */
-public class ZoomActionProvider implements ActionProvider
+
+public class ZoomAction extends Action
 {
-    @Inject
-    public ZoomActionProvider()
-    {
-    }
+    private Zoomable zoomable;
+    private UserInput input;
 
     @Override
-    public Action get(ActionType action, Item item, Item target, UserInput input)
+    public boolean act(float delta)
     {
-        return get(item, input);
+        return true;
     }
 
-    public Action get(Item item, UserInput input)
-    {
-        if (input.getCount() == 1)
-        {
-            Action storeZoom = storeZoom(item);
-            Action updateZoom = updateZoom(item, input);
-            return new CompositeAction(storeZoom, updateZoom);
-        }
-        else
-        {
-            Action resetZoom = resetZoom(item);
-            Action updateZoom = updateZoom(item, input);
-            return new CompositeAction(resetZoom, updateZoom);
-        }
-    }
 
     private Action storeZoom(Item item)
     {
@@ -73,39 +52,5 @@ public class ZoomActionProvider implements ActionProvider
         ActionModifier modifier = new ScaleModifier(input.getDelta().x, 0.25f, 1.5f);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(zoom, modifier, duration);
-    }
-
-    private static class StoreZoomAction extends Action
-    {
-        private Zoomable zoomable;
-
-        public StoreZoomAction(Zoomable zoomable)
-        {
-            this.zoomable = zoomable;
-        }
-
-        @Override
-        public boolean act(float delta)
-        {
-            return false;
-        }
-    }
-
-    private static class ResetZoomAction extends Action
-    {
-        @Override
-        public boolean act(float delta)
-        {
-            return false;
-        }
-    }
-
-    private static class UpdateZoomAction extends Action
-    {
-        @Override
-        public boolean act(float delta)
-        {
-            return false;
-        }
     }
 }

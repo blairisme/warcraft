@@ -3,7 +3,7 @@ package com.evilbird.warcraft.item.data.player;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemProperty;
-import com.evilbird.engine.item.specialized.ResourceIdentifier;
+import com.evilbird.engine.item.specialized.animated.ResourceIdentifier;
 
 import java.util.HashMap;
 import java.util.Map;

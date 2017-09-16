@@ -6,8 +6,8 @@ import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.Animation;
-import com.evilbird.engine.item.specialized.AnimationIdentifier;
+import com.evilbird.engine.item.specialized.animated.AnimatedItem;
+import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -40,7 +40,7 @@ public class ConfirmProvider implements AssetProvider<Item>
     @Override
     public Item get()
     {
-        Animation result = new Animation();
+        AnimatedItem result = new AnimatedItem();
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
         result.setType(EffectType.Confirm);

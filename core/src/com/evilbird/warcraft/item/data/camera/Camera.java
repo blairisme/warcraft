@@ -7,12 +7,13 @@ import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperty;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.action.common.Zoomable;
 
 import javax.inject.Inject;
 
 import static com.badlogic.gdx.Gdx.graphics;
 
-public class Camera extends Item
+public class Camera extends Item implements Zoomable
 {
     private float originalZoom;
     private OrthographicCamera camera;

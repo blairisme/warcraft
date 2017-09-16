@@ -2,7 +2,7 @@ package com.evilbird.warcraft.item.common.animation;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
-import com.evilbird.engine.item.specialized.AnimationIdentifier;
+import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import org.apache.commons.lang3.tuple.Pair;

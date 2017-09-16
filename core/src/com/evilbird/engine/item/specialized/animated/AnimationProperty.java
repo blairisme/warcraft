@@ -1,4 +1,4 @@
-package com.evilbird.engine.item.specialized;
+package com.evilbird.engine.item.specialized.animated;
 
 import com.evilbird.engine.item.ItemProperty;
 
@@ -7,6 +7,7 @@ import com.evilbird.engine.item.ItemProperty;
  *
  * @author Blair Butterworth
  */
+@Deprecated
 public enum AnimationProperty implements ItemProperty
 {
     Animation,

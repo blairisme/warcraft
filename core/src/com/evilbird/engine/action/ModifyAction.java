@@ -7,6 +7,7 @@ import com.evilbird.engine.action.value.ActionValue;
 
 import java.util.concurrent.CancellationException;
 
+@Deprecated
 public class ModifyAction extends Action
 {
     private ActionValue value;

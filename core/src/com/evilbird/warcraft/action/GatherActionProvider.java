@@ -11,6 +11,9 @@ import com.evilbird.engine.action.duration.TimeDuration;
 import com.evilbird.engine.action.modifier.ActionModifier;
 import com.evilbird.engine.action.modifier.DeltaModifier;
 import com.evilbird.engine.action.modifier.DeltaType;
+import com.evilbird.engine.action.replacement.AnimateAction;
+import com.evilbird.engine.action.replacement.AudibleAction;
+import com.evilbird.engine.action.replacement.SelectAction;
 import com.evilbird.engine.action.value.ActionValue;
 import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.common.collection.Collections;
@@ -20,12 +23,15 @@ import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.specialized.AnimationIdentifier;
-import com.evilbird.engine.item.specialized.SoundIdentifier;
+import com.evilbird.engine.item.specialized.animated.Animated;
+import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
+import com.evilbird.engine.item.specialized.animated.Audible;
+import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
+import com.evilbird.warcraft.action.common.Movable;
+import com.evilbird.warcraft.action.common.MoveAction;
 import com.evilbird.warcraft.item.unit.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import java.util.Collection;
 
@@ -41,22 +47,9 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithType;
  */
 public class GatherActionProvider implements ActionProvider
 {
-    private RepositionActionProvider moveActionProvider;
-    private AudioActionProvider audioActionProvider;
-    private AnimateActionProvider animateActionProvider;
-    private SelectionActionProvider selectionActionProvider;
-
     @Inject
-    public GatherActionProvider(
-        RepositionActionProvider moveActionProvider,
-        AudioActionProvider audioActionProvider,
-        AnimateActionProvider animateActionProvider,
-        SelectionActionProvider selectionActionProvider)
+    public GatherActionProvider()
     {
-        this.moveActionProvider = moveActionProvider;
-        this.audioActionProvider = audioActionProvider;
-        this.animateActionProvider = animateActionProvider;
-        this.selectionActionProvider = selectionActionProvider;
     }
 
     @Override
@@ -71,16 +64,24 @@ public class GatherActionProvider implements ActionProvider
 
     private Action gather(Item gatherer, Item resource, ResourceType type, Item depot, Item player)
     {
-        Action moveToResource = moveActionProvider.get(gatherer, resource);
+        Action moveToResource = move(gatherer, resource);
         Action obtainResource = obtain(gatherer, resource, type);
-        Action moveToDepot = moveActionProvider.get(gatherer, depot);
+        Action moveToDepot = move(gatherer, depot);
         Action depositResource = deposit(gatherer, player, type);
         return new SequenceAction(moveToResource, obtainResource, moveToDepot, depositResource);
     }
 
+    private Action move(Item target, Item destination)
+    {
+        Action animate = new AnimateAction((Animated)target, UnitAnimation.Move);
+        Action reposition = new MoveAction((Movable)target, destination);
+        Action idle = new AnimateAction((Animated)target, UnitAnimation.Idle);
+        return new SequenceAction(animate, reposition, idle);
+    }
+
     private Action obtain(Item gatherer, Item resource, ResourceType type)
     {
-        Action deselect = selectionActionProvider.get(gatherer, false);
+        Action deselect = new SelectAction(gatherer, false);
 
         AnimationIdentifier animation = getGatherAnimation(type);
         SoundIdentifier sound = getGatherSound(type);
@@ -101,21 +102,21 @@ public class GatherActionProvider implements ActionProvider
 
     private Action resourceTake(Item item, ResourceType type, AnimationIdentifier animation, SoundIdentifier sound)
     {
-        Action takeAnimation = animateActionProvider.get(item, animation);
+        Action takeAnimation = new AnimateAction((Animated)item, animation);
         Action takeSound = repeatedSound(item, sound);
         Action takeResource = resourceTake(item, type);
         Action takeAction = new ParallelAction(takeResource, takeSound);
-        Action idleAnimation = animateActionProvider.get(item,  UnitAnimation.Idle);
+        Action idleAnimation = new AnimateAction((Animated)item, UnitAnimation.Idle);
         return new SequenceAction(takeAnimation, takeAction, idleAnimation);
     }
 
     private Action resourceReceive(Item item, ResourceType type, AnimationIdentifier animation, SoundIdentifier sound)
     {
-        Action receiveAnimation = animateActionProvider.get(item, animation);
+        Action receiveAnimation = new AnimateAction((Animated)item, animation);
         Action receiveSound = repeatedSound(item, sound);
         Action receiveResource = resourceReceive(item, type);
         Action receiveAction = new ParallelAction(receiveResource, receiveSound);
-        Action idleAnimation = animateActionProvider.get(item,  UnitAnimation.Idle);
+        Action idleAnimation = new AnimateAction((Animated)item,  UnitAnimation.Idle);
         return new SequenceAction(receiveAnimation, receiveAction, idleAnimation);
     }
 
@@ -137,7 +138,7 @@ public class GatherActionProvider implements ActionProvider
 
     private Action repeatedSound(Item item, SoundIdentifier soundId)
     {
-        Action sound = audioActionProvider.get(item, soundId);
+        Action sound = new AudibleAction((Audible)item, soundId);
         Action soundBuffer = new DelayedAction(sound, new TimeDuration(1f));
         return new RepeatedAction(soundBuffer, 10);
     }

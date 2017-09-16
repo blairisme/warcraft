@@ -13,6 +13,9 @@ import com.evilbird.engine.action.duration.TimeDuration;
 import com.evilbird.engine.action.modifier.ActionModifier;
 import com.evilbird.engine.action.modifier.ConstantModifier;
 import com.evilbird.engine.action.modifier.DeltaModifier;
+import com.evilbird.engine.action.replacement.AnimateAction;
+import com.evilbird.engine.action.replacement.AudibleAction;
+import com.evilbird.engine.action.replacement.SelectAction;
 import com.evilbird.engine.action.value.ActionValue;
 import com.evilbird.engine.action.value.ItemReferenceValue;
 import com.evilbird.engine.action.value.ItemValue;
@@ -25,6 +28,9 @@ import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemProperties;
 import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.item.Reference;
+import com.evilbird.engine.item.specialized.animated.Animated;
+import com.evilbird.engine.item.specialized.animated.Audible;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -43,24 +49,15 @@ import static com.evilbird.warcraft.item.unit.building.BuildingProperties.Progre
 public class BuildActionProvider implements ActionProvider
 {
     private ItemFactory itemFactory;
-    private AudioActionProvider audioActionProvider;
-    private AnimateActionProvider animateActionProvider;
     private MoveActionProvider moveActionProvider;
-    private SelectionActionProvider selectionActionProvider;
 
     @Inject
     public BuildActionProvider(
         ItemFactory itemFactory,
-        AudioActionProvider audioActionProvider,
-        AnimateActionProvider animateActionProvider,
-        MoveActionProvider moveActionProvider,
-        SelectionActionProvider selectionActionProvider)
+        MoveActionProvider moveActionProvider)
     {
         this.itemFactory = itemFactory;
-        this.audioActionProvider = audioActionProvider;
-        this.animateActionProvider = animateActionProvider;
         this.moveActionProvider = moveActionProvider;
-        this.selectionActionProvider = selectionActionProvider;
     }
 
     @Override
@@ -95,9 +92,9 @@ public class BuildActionProvider implements ActionProvider
 
     private Action prepareBuilder(Item builder, Vector2 location)
     {
-        Action acknowledge = audioActionProvider.get(builder,  UnitSound.Acknowledge);
+        Action acknowledge = new AudibleAction((Audible)builder,  UnitSound.Acknowledge);
         Action moveToSite = moveActionProvider.get(builder, location);
-        Action deselectBuilder = selectionActionProvider.get(builder, false);
+        Action deselectBuilder = new SelectAction(builder, false);
         Action hideBuilder = setVisible(builder, false);
         return new SequenceAction(acknowledge, moveToSite, deselectBuilder, hideBuilder);
     }
@@ -107,10 +104,11 @@ public class BuildActionProvider implements ActionProvider
         ItemGroup player = builder.getParent();
         NamedIdentifier building = new NamedIdentifier();
         Action create = create(player, type, building, location);
+        Reference<Animated> reference = new Reference<>(player, building);
 
-        Action soundBefore = audioActionProvider.get(builder, UnitSound.Construct);
-        Action animateBuilderBefore = animateActionProvider.get(builder, UnitAnimation.Build);
-        Action animateBuildingBefore = animateActionProvider.get(player, building, UnitAnimation.Construct);
+        Action soundBefore = new AudibleAction((Audible)builder, UnitSound.Construct);
+        Action animateBuilderBefore = new AnimateAction((Animated)builder, UnitAnimation.Build);
+        Action animateBuildingBefore = new AnimateAction(reference, UnitAnimation.Construct);
         Action before = new ParallelAction(animateBuilderBefore, animateBuildingBefore, soundBefore);
 
         Action constructing = setConstructing(player, building, true);
@@ -118,9 +116,9 @@ public class BuildActionProvider implements ActionProvider
         Action idle = setConstructing(player, building, false);
         Action construct = new SequenceAction(constructing, progress, idle);
 
-        Action soundAfter = audioActionProvider.get(builder, UnitSound.Complete);
-        Action animateBuilderAfter = animateActionProvider.get(builder, UnitAnimation.Idle);
-        Action animateBuildingAfter = animateActionProvider.get(player, building, UnitAnimation.Idle);
+        Action soundAfter = new AudibleAction((Audible)builder, UnitSound.Complete);
+        Action animateBuilderAfter = new AnimateAction((Animated)builder, UnitAnimation.Idle);
+        Action animateBuildingAfter = new AnimateAction(reference, UnitAnimation.Idle);
         Action after = new ParallelAction(animateBuilderAfter, animateBuildingAfter, soundAfter);
 
         return new SequenceAction(create, before, construct, after);

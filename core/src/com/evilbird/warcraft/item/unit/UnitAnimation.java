@@ -1,6 +1,6 @@
 package com.evilbird.warcraft.item.unit;
 
-import com.evilbird.engine.item.specialized.AnimationIdentifier;
+import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 
 /**
  * Instances of this class TODO:Finish

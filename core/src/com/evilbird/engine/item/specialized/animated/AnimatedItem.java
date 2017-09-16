@@ -1,4 +1,4 @@
-package com.evilbird.engine.item.specialized;
+package com.evilbird.engine.item.specialized.animated;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -14,10 +14,9 @@ import com.evilbird.engine.item.ItemProperty;
 import java.util.HashMap;
 import java.util.Map;
 
-//TODO: Rename to AnimatedItem?
 //TODO: Move selected box drawing to unit
 //TODO: Use real logging
-public class Animation extends Item
+public class AnimatedItem extends Item implements Animated, Audible
 {
     private float direction;
     protected ShapeRenderer shapeRenderer;
@@ -33,7 +32,7 @@ public class Animation extends Item
     private SoundIdentifier currentSoundId;
     private Map<SoundIdentifier, SoundEffect> sounds;
 
-    public Animation()
+    public AnimatedItem()
     {
         this.shapeRenderer = new ShapeRenderer();
         this.direction = 0;

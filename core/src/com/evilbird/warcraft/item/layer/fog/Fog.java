@@ -8,7 +8,7 @@ import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.specialized.Layer;
+import com.evilbird.engine.item.specialized.layer.Layer;
 
 import org.apache.commons.lang3.tuple.Pair;
 

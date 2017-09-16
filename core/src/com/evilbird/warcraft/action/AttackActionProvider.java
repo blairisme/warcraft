@@ -12,12 +12,16 @@ import com.evilbird.engine.action.duration.TimeDuration;
 import com.evilbird.engine.action.modifier.ActionModifier;
 import com.evilbird.engine.action.modifier.DeltaModifier;
 import com.evilbird.engine.action.modifier.DeltaType;
+import com.evilbird.engine.action.replacement.AnimateAction;
+import com.evilbird.engine.action.replacement.DisableAction;
+import com.evilbird.engine.action.replacement.SelectAction;
 import com.evilbird.engine.action.value.ActionValue;
 import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperty;
-import com.evilbird.engine.item.specialized.AnimationIdentifier;
+import com.evilbird.engine.item.specialized.animated.Animated;
+import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitProperties;
 
@@ -34,21 +38,12 @@ import javax.inject.Inject;
 public class AttackActionProvider implements ActionProvider
 {
     private MoveActionProvider moveActionProvider;
-    private AnimateActionProvider animateActionProvider;
-    private DisableActionProvider disableActionProvider;
-    private SelectionActionProvider selectionActionProvider;
 
     @Inject
     public AttackActionProvider(
-        AnimateActionProvider animateActionProvider,
-        DisableActionProvider disableActionProvider,
-        MoveActionProvider moveActionProvider,
-        SelectionActionProvider selectionActionProvider)
+        MoveActionProvider moveActionProvider)
     {
         this.moveActionProvider = moveActionProvider;
-        this.animateActionProvider = animateActionProvider;
-        this.disableActionProvider = disableActionProvider;
-        this.selectionActionProvider = selectionActionProvider;
     }
 
     @Override
@@ -57,18 +52,18 @@ public class AttackActionProvider implements ActionProvider
         return get(item, target);
     }
 
-    public Action get(Item attacker, Item target)
+    private Action get(Item attacker, Item target)
     {
         Action move = moveActionProvider.get(attacker, target);
 
-        Action attackAnimation = animateActionProvider.get(attacker, UnitAnimation.Attack);
+        Action attackAnimation = new AnimateAction((Animated)attacker, UnitAnimation.Attack);
         Action reduceHealth = newAttackAction(target);
         Action attack = new ParallelAction(attackAnimation, reduceHealth);
 
         Action deadAnimation = newAnimationAction(target, UnitAnimation.Die, 0.5f);
-        Action deselect = selectionActionProvider.get(target, false);
-        Action disable = disableActionProvider.get(target, false);
-        Action idleAnimation = animateActionProvider.get(attacker, UnitAnimation.Idle);
+        Action deselect = new SelectAction(target, false);
+        Action disable = new DisableAction(target, false);
+        Action idleAnimation = new AnimateAction((Animated)target, UnitAnimation.Idle);
         Action die = new ParallelAction(deadAnimation, deselect, disable, idleAnimation);
 
         Action decompose = newAnimationAction(target, UnitAnimation.Decompose, 10f);
@@ -80,7 +75,7 @@ public class AttackActionProvider implements ActionProvider
 
     private Action newAnimationAction(Item item, AnimationIdentifier animation, float time)
     {
-        Action animate = animateActionProvider.get(item, animation);
+        Action animate = new AnimateAction((Animated)item, animation);
         return new DelayedAction(animate, new TimeDuration(time));
     }
 

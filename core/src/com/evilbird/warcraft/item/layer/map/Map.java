@@ -1,7 +1,7 @@
 package com.evilbird.warcraft.item.layer.map;
 
 import com.evilbird.engine.common.lang.NamedIdentifier;
-import com.evilbird.engine.item.specialized.Layer;
+import com.evilbird.engine.item.specialized.layer.Layer;
 
 import javax.inject.Inject;
 

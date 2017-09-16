@@ -1,6 +1,6 @@
 package com.evilbird.warcraft.item.unit;
 
-import com.evilbird.engine.item.specialized.SoundIdentifier;
+import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
 
 /**
  * Instances of this class TODO:Finish

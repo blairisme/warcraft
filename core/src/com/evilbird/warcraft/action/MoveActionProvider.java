@@ -9,12 +9,14 @@ import com.evilbird.engine.action.duration.ActionDuration;
 import com.evilbird.engine.action.duration.PredicateDuration;
 import com.evilbird.engine.action.modifier.ActionModifier;
 import com.evilbird.engine.action.modifier.MoveModifier;
+import com.evilbird.engine.action.replacement.AnimateAction;
 import com.evilbird.engine.action.value.ActionValue;
 import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperties;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.warcraft.action.common.ConfirmActionProvider;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
@@ -27,15 +29,12 @@ import javax.inject.Inject;
  */
 public class MoveActionProvider implements ActionProvider
 {
-    private AnimateActionProvider animateActionProvider;
     private ConfirmActionProvider confirmActionProvider;
 
     @Inject
     public MoveActionProvider(
-        AnimateActionProvider animateActionProvider,
         ConfirmActionProvider confirmActionProvider)
     {
-        this.animateActionProvider = animateActionProvider;
         this.confirmActionProvider = confirmActionProvider;
     }
 
@@ -67,9 +66,9 @@ public class MoveActionProvider implements ActionProvider
     private Action getAnimatedMoveAction(Item item, Vector2 destination)
     {
         Action confirm = confirmActionProvider.get(item.getParent(), destination);
-        Action animateMove = animateActionProvider.get(item, UnitAnimation.Move);
+        Action animateMove = new AnimateAction((Animated)item, UnitAnimation.Move);
         Action move = getMoveAction(item, destination);
-        Action animateIdle = animateActionProvider.get(item, UnitAnimation.Idle);
+        Action animateIdle = new AnimateAction((Animated)item, UnitAnimation.Idle);
         return new SequenceAction(confirm, animateMove, move, animateIdle);
     }
 

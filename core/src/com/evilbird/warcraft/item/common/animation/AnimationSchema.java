@@ -1,8 +1,6 @@
 package com.evilbird.warcraft.item.common.animation;
 
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.math.Rectangle;
-import com.evilbird.engine.item.specialized.AnimationIdentifier;
 
 import org.apache.commons.lang3.Range;
 

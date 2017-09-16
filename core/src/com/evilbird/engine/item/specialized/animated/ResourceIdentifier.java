@@ -1,4 +1,4 @@
-package com.evilbird.engine.item.specialized;
+package com.evilbird.engine.item.specialized.animated;
 
 import com.evilbird.engine.item.ItemProperty;
 

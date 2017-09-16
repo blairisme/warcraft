@@ -1,5 +1,6 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
+import com.evilbird.warcraft.action.common.Movable;
 import com.evilbird.warcraft.item.unit.Unit;
 
 /**
@@ -7,7 +8,7 @@ import com.evilbird.warcraft.item.unit.Unit;
  *
  * @author Blair Butterworth
  */
-public class Combatant extends Unit
+public class Combatant extends Unit implements Movable
 {
     private float armour;
     private float damageMinimum;
@@ -16,6 +17,7 @@ public class Combatant extends Unit
     private float speed;
     private float sight;
     private float range;
+
 
     public float getArmour()
     {
@@ -40,6 +42,12 @@ public class Combatant extends Unit
     public float getSpeed()
     {
         return speed;
+    }
+
+    @Override
+    public float getMovementSpeed()
+    {
+        return 64f; //TODO
     }
 
     public float getSight()
@@ -80,6 +88,12 @@ public class Combatant extends Unit
     public void setSight(float sight)
     {
         this.sight = sight;
+    }
+
+    @Override
+    public void setMovementSpeed(float speed)
+    {
+        //TODO
     }
 
     public void setRange(float range)

@@ -7,7 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.lang.NamedIdentifier;
-import com.evilbird.engine.item.specialized.AnimationIdentifier;
+import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.warcraft.item.common.animation.AnimationUtils;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.resource.Resource;

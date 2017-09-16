@@ -2,8 +2,8 @@ package com.evilbird.warcraft.item.unit;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.item.ItemProperty;
-import com.evilbird.engine.item.specialized.Animation;
-import com.evilbird.engine.item.specialized.ResourceIdentifier;
+import com.evilbird.engine.item.specialized.animated.AnimatedItem;
+import com.evilbird.engine.item.specialized.animated.ResourceIdentifier;
 import com.evilbird.warcraft.action.ActionType;
 
 import java.util.EnumSet;
@@ -17,7 +17,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class Unit extends Animation
+public class Unit extends AnimatedItem
 {
     private String name;
     private Drawable icon;

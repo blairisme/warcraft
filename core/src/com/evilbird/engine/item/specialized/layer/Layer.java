@@ -1,4 +1,4 @@
-package com.evilbird.engine.item.specialized;
+package com.evilbird.engine.item.specialized.layer;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
