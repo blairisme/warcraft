@@ -20,12 +20,12 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class ConfirmActionProvider
+public class ConfirmSequence
 {
     private ItemFactory itemFactory;
 
     @Inject
-    public ConfirmActionProvider(ItemFactory itemFactory)
+    public ConfirmSequence(ItemFactory itemFactory)
     {
         this.itemFactory = itemFactory;
     }

@@ -24,13 +24,13 @@ import javax.inject.Inject;
  */
 public class MoveSequence implements ActionProvider
 {
-    private ConfirmActionProvider confirmActionProvider;
+    private ConfirmSequence confirmSequence;
 
     @Inject
     public MoveSequence(
-        ConfirmActionProvider confirmActionProvider)
+        ConfirmSequence confirmSequence)
     {
-        this.confirmActionProvider = confirmActionProvider;
+        this.confirmSequence = confirmSequence;
     }
 
     @Override
@@ -43,14 +43,14 @@ public class MoveSequence implements ActionProvider
 
     private Action getConfirmMoveAction(Item item, Vector2 destination)
     {
-        Action confirm = confirmActionProvider.get(item.getParent(), destination);
+        Action confirm = confirmSequence.get(item.getParent(), destination);
         Action move = getAnimatedMoveAction(item, destination);
         return new ParallelAction(confirm, move);
     }
 
     private Action getAnimatedMoveAction(Item item, Vector2 destination)
     {
-        Action confirm = confirmActionProvider.get(item.getParent(), destination);
+        Action confirm = confirmSequence.get(item.getParent(), destination);
         Action animateMove = new AnimateAction((Animated)item, UnitAnimation.Move);
         Action move = new MoveAction((Movable)item, destination);
         Action animateIdle = new AnimateAction((Animated)item, UnitAnimation.Idle);
