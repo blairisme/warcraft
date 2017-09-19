@@ -5,7 +5,6 @@ import com.evilbird.engine.item.ItemProperty;
 import com.evilbird.engine.item.specialized.animated.AnimatedItem;
 import com.evilbird.engine.item.specialized.animated.ResourceIdentifier;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.action.Destructible;
 
 import java.util.EnumSet;
 import java.util.HashMap;

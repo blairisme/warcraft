@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.item.unit;
 
 /**
  * Created by blair on 15/09/2017.

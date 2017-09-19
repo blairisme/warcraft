@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -22,6 +22,10 @@ import com.evilbird.engine.item.ItemType;
 import com.evilbird.engine.item.Reference;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.Audible;
+import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.item.unit.Movable;
+import com.evilbird.warcraft.action.common.ProgressAction;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -36,18 +40,14 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithId;
  *
  * @author Blair Butterworth
  */
-public class BuildActionProvider implements ActionProvider
+public class BuildSequence implements ActionProvider
 {
     private ItemFactory itemFactory;
-    private MoveActionProvider moveActionProvider;
 
     @Inject
-    public BuildActionProvider(
-        ItemFactory itemFactory,
-        MoveActionProvider moveActionProvider)
+    public BuildSequence(ItemFactory itemFactory)
     {
         this.itemFactory = itemFactory;
-        this.moveActionProvider = moveActionProvider;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class BuildActionProvider implements ActionProvider
     private Action prepareBuilder(Item builder, Vector2 location)
     {
         Action acknowledge = new AudibleAction((Audible)builder,  UnitSound.Acknowledge);
-        Action moveToSite = new MoveAction((Movable)builder, location);
+        Action moveToSite = new com.evilbird.warcraft.action.common.MoveAction((Movable)builder, location);
         Action deselectBuilder = new SelectAction(builder, false);
         Action hideBuilder = new VisibleAction(builder, false);
         return new SequenceAction(acknowledge, moveToSite, deselectBuilder, hideBuilder);

@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.item.unit;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.replacement.Positionable;

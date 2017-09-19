@@ -1,9 +1,11 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.action.replacement.Positionable;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.item.data.camera.Zoomable;
 
 import javax.inject.Inject;
 
@@ -12,16 +14,16 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class DragActionProvider implements ActionProvider
+public class ZoomSequence implements ActionProvider
 {
     @Inject
-    public DragActionProvider()
+    public ZoomSequence()
     {
     }
 
     @Override
     public Action get(ActionType action, Item item, Item target, UserInput input)
     {
-        return new DragAction(item, input);
+        return new com.evilbird.warcraft.action.common.ZoomAction((Zoomable)item, input);
     }
 }

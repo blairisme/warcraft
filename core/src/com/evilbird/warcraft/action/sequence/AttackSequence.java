@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.DelayedAction;
@@ -13,6 +13,10 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
+import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.item.unit.Destructible;
+import com.evilbird.warcraft.item.unit.Movable;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
@@ -23,15 +27,11 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class AttackActionProvider implements ActionProvider
+public class AttackSequence implements ActionProvider
 {
-    private MoveActionProvider moveActionProvider;
-
     @Inject
-    public AttackActionProvider(
-        MoveActionProvider moveActionProvider)
+    public AttackSequence()
     {
-        this.moveActionProvider = moveActionProvider;
     }
 
     @Override
@@ -43,11 +43,11 @@ public class AttackActionProvider implements ActionProvider
     private Action get(Item attacker, Item target)
     {
         Action moveAnimation = new AnimateAction((Animated)attacker, UnitAnimation.Move);
-        Action moveAction = new MoveAction((Movable)attacker, target);
+        Action moveAction = new com.evilbird.warcraft.action.common.MoveAction((Movable)attacker, target);
         Action move = new ParallelAction(moveAnimation, moveAction);
 
         Action attackAnimation = new AnimateAction((Animated)attacker, UnitAnimation.Attack);
-        Action reduceHealth = new AttackAction((Combatant)attacker, (Destructible)target);
+        Action reduceHealth = new com.evilbird.warcraft.action.common.AttackAction((Combatant)attacker, (Destructible)target);
         Action attack = new ParallelAction(attackAnimation, reduceHealth);
 
         Action deadAnimation = newAnimationAction(target, UnitAnimation.Die, 0.5f);

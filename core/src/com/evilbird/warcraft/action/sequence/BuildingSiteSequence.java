@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -9,6 +9,8 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.ItemType;
+import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.item.hud.building.BuildSiteType;
 
 import javax.inject.Inject;
@@ -20,12 +22,12 @@ import static com.badlogic.gdx.Gdx.graphics;
  *
  * @author Blair Butterworth
  */
-public class BuildingSiteActionProvider implements ActionProvider
+public class BuildingSiteSequence implements ActionProvider
 {
     private ItemFactory itemFactory;
 
     @Inject
-    public BuildingSiteActionProvider(ItemFactory itemFactory)
+    public BuildingSiteSequence(ItemFactory itemFactory)
     {
         this.itemFactory = itemFactory;
     }

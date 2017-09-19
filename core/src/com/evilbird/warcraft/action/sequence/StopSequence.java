@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ClearAction;
@@ -7,6 +7,8 @@ import com.evilbird.engine.action.replacement.AnimateAction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.Animated;
+import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import javax.inject.Inject;
@@ -16,10 +18,10 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class StopActionProvider implements ActionProvider
+public class StopSequence implements ActionProvider
 {
     @Inject
-    public StopActionProvider()
+    public StopSequence()
     {
     }
 

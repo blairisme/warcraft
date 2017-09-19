@@ -1,7 +1,7 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.action.common;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.warcraft.item.unit.resource.Resource;
+import com.evilbird.warcraft.item.unit.resource.ResourceContainer;
 
 /**
  * Created by blair on 19/09/2017.

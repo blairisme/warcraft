@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.action.common;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.item.Reference;

@@ -1,22 +1,18 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.action.ModifyAction;
 import com.evilbird.engine.action.ParallelAction;
 import com.evilbird.engine.action.SequenceAction;
-import com.evilbird.engine.action.duration.ActionDuration;
-import com.evilbird.engine.action.duration.PredicateDuration;
-import com.evilbird.engine.action.modifier.ActionModifier;
-import com.evilbird.engine.action.modifier.MoveModifier;
 import com.evilbird.engine.action.replacement.AnimateAction;
-import com.evilbird.engine.action.value.ActionValue;
-import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemProperties;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.specialized.animated.Animated;
+import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.action.common.MoveAction;
+import com.evilbird.warcraft.item.unit.Movable;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import javax.inject.Inject;
@@ -26,12 +22,12 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class MoveActionProvider implements ActionProvider
+public class MoveSequence implements ActionProvider
 {
     private ConfirmActionProvider confirmActionProvider;
 
     @Inject
-    public MoveActionProvider(
+    public MoveSequence(
         ConfirmActionProvider confirmActionProvider)
     {
         this.confirmActionProvider = confirmActionProvider;

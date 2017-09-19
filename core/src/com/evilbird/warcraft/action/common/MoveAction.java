@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.action.common;
 
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;
@@ -17,6 +17,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.SpatialGraph;
 import com.evilbird.engine.item.SpatialItemNode;
+import com.evilbird.warcraft.item.unit.Movable;
 
 import java.util.Iterator;
 import java.util.concurrent.CancellationException;

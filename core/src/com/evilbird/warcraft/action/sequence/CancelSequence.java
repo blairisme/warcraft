@@ -1,9 +1,11 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.RemoveAction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.ActionType;
 
 import javax.inject.Inject;
 
@@ -12,10 +14,10 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class CancelActionProvider implements ActionProvider
+public class CancelSequence implements ActionProvider
 {
     @Inject
-    public CancelActionProvider()
+    public CancelSequence()
     {
     }
 

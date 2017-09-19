@@ -1,9 +1,11 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.data.camera.Zoomable;
+import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.action.common.PanAction;
 
 import javax.inject.Inject;
 
@@ -12,16 +14,16 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class ZoomActionProvider implements ActionProvider
+public class PanSequence implements ActionProvider
 {
     @Inject
-    public ZoomActionProvider()
+    public PanSequence()
     {
     }
 
     @Override
     public Action get(ActionType action, Item item, Item target, UserInput input)
     {
-        return new ZoomAction((Zoomable)item, input);
+        return new PanAction(item, input);
     }
 }

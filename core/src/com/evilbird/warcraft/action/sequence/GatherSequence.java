@@ -1,21 +1,14 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.DelayedAction;
-import com.evilbird.engine.action.ModifyAction;
 import com.evilbird.engine.action.ParallelAction;
 import com.evilbird.engine.action.RepeatedAction;
 import com.evilbird.engine.action.SequenceAction;
-import com.evilbird.engine.action.duration.ActionDuration;
 import com.evilbird.engine.action.duration.TimeDuration;
-import com.evilbird.engine.action.modifier.ActionModifier;
-import com.evilbird.engine.action.modifier.DeltaModifier;
-import com.evilbird.engine.action.modifier.DeltaType;
 import com.evilbird.engine.action.replacement.AnimateAction;
 import com.evilbird.engine.action.replacement.AudibleAction;
 import com.evilbird.engine.action.replacement.SelectAction;
-import com.evilbird.engine.action.value.ActionValue;
-import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.common.collection.Collections;
 import com.evilbird.engine.common.function.Comparator;
 import com.evilbird.engine.common.function.Predicate;
@@ -27,6 +20,11 @@ import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.animated.Audible;
 import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
+import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.item.unit.Movable;
+import com.evilbird.warcraft.item.unit.resource.ResourceContainer;
+import com.evilbird.warcraft.action.common.ResourceTransferAction;
 import com.evilbird.warcraft.item.unit.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -43,10 +41,10 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithType;
  *
  * @author Blair Butterworth
  */
-public class GatherActionProvider implements ActionProvider
+public class GatherSequence implements ActionProvider
 {
     @Inject
-    public GatherActionProvider()
+    public GatherSequence()
     {
     }
 
@@ -72,7 +70,7 @@ public class GatherActionProvider implements ActionProvider
     private Action move(Item target, Item destination)
     {
         Action animate = new AnimateAction((Animated)target, UnitAnimation.Move);
-        Action reposition = new MoveAction((Movable)target, destination);
+        Action reposition = new com.evilbird.warcraft.action.common.MoveAction((Movable)target, destination);
         Action idle = new AnimateAction((Animated)target, UnitAnimation.Idle);
         return new SequenceAction(animate, reposition, idle);
     }
@@ -91,7 +89,7 @@ public class GatherActionProvider implements ActionProvider
         Action resourceSound = repeatedSound(resource, obtainSound);
 
         Action setup = new ParallelAction(deselect, gathererAnimation, resourceAnimation, gathererSound, resourceSound);
-        Action transfer = new ResourceTransferAction((ResourceContainer)resource, (ResourceContainer)gatherer);
+        Action transfer = new com.evilbird.warcraft.action.common.ResourceTransferAction((ResourceContainer)resource, (ResourceContainer)gatherer);
 
         return new ParallelAction(setup, transfer);
     }

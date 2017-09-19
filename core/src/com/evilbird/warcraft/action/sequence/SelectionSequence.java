@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.action;
+package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ModifyAction;
@@ -15,6 +15,8 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemProperties;
 import com.evilbird.engine.item.specialized.animated.Audible;
+import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.item.unit.UnitSound;
 
 import javax.inject.Inject;
@@ -24,10 +26,10 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class SelectionActionProvider implements ActionProvider
+public class SelectionSequence implements ActionProvider
 {
     @Inject
-    public SelectionActionProvider()
+    public SelectionSequence()
     {
     }
 
