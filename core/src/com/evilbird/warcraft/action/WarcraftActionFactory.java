@@ -13,7 +13,7 @@ import javax.inject.Inject;
 
 public class WarcraftActionFactory implements ActionFactory
 {
-    private Map<ActionCatagory, ActionProvider> actions;
+    private Map<ActionCategory, ActionProvider> actions;
 
     @Inject
     public WarcraftActionFactory(
@@ -30,19 +30,19 @@ public class WarcraftActionFactory implements ActionFactory
         TrainActionProvider trainActionProvider,
         ZoomActionProvider zoomActionProvider)
     {
-        actions = new HashMap<ActionCatagory, ActionProvider>();
-        actions.put(ActionCatagory.Attack, attackActionProvider);
-        actions.put(ActionCatagory.Build, buildActionProvider);
-        actions.put(ActionCatagory.BuildSite, buildingSiteActionProvider);
-        actions.put(ActionCatagory.Cancel, cancelActionProvider);
-        actions.put(ActionCatagory.Drag, dragActionProvider);
-        actions.put(ActionCatagory.Gather, gatherActionProvider);
-        actions.put(ActionCatagory.Move, moveActionProvider);
-        actions.put(ActionCatagory.Pan, panActionProvider);
-        actions.put(ActionCatagory.Select, selectionActionProvider);
-        actions.put(ActionCatagory.Stop, stopActionProvider);
-        actions.put(ActionCatagory.Train, trainActionProvider);
-        actions.put(ActionCatagory.Zoom, zoomActionProvider);
+        actions = new HashMap<ActionCategory, ActionProvider>();
+        actions.put(ActionCategory.Attack, attackActionProvider);
+        actions.put(ActionCategory.Build, buildActionProvider);
+        actions.put(ActionCategory.BuildSite, buildingSiteActionProvider);
+        actions.put(ActionCategory.Cancel, cancelActionProvider);
+        actions.put(ActionCategory.Drag, dragActionProvider);
+        actions.put(ActionCategory.Gather, gatherActionProvider);
+        actions.put(ActionCategory.Move, moveActionProvider);
+        actions.put(ActionCategory.Pan, panActionProvider);
+        actions.put(ActionCategory.Select, selectionActionProvider);
+        actions.put(ActionCategory.Stop, stopActionProvider);
+        actions.put(ActionCategory.Train, trainActionProvider);
+        actions.put(ActionCategory.Zoom, zoomActionProvider);
     }
 
     @Override

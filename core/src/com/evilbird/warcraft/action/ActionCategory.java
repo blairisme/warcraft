@@ -2,7 +2,7 @@ package com.evilbird.warcraft.action;
 
 import com.evilbird.engine.action.ActionIdentifier;
 
-public enum ActionCatagory implements ActionIdentifier
+public enum ActionCategory implements ActionIdentifier
 {
     Select,
     Move,

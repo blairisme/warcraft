@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.replacement.Disablable;
 import com.evilbird.engine.action.replacement.Positionable;
 import com.evilbird.engine.action.replacement.Selectable;
+import com.evilbird.engine.action.replacement.Visible;
 import com.evilbird.engine.common.collection.PropertySet;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.NamedIdentifier;
@@ -20,7 +21,7 @@ import com.evilbird.engine.item.framework.ActorObserver;
  * @author Blair Butterworth
  */
 //TODO: Consider whether to use vectors or individual values for size and position.
-public class Item implements PropertySet<ItemProperty, Object>, ActorObserver, Positionable, Selectable, Disablable
+public class Item implements PropertySet<ItemProperty, Object>, ActorObserver, Positionable, Selectable, Disablable, Visible
 {
     Actor delegate;
     private ItemRoot root;

@@ -20,6 +20,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
 
@@ -47,13 +48,14 @@ public class TrainActionProvider implements ActionProvider
     @Override
     public Action get(ActionType action, Item item, Item target, UserInput input)
     {
-        Action startProducing = setProducing(item, true);
-        Action incrementProgress = incrementProgress(item);
-        Action endProducing = setProducing(item, false);
+        Action startProducing = setProducing((Building)item, true);
+        Action incrementProgress = new ProgressAction((Building)item);
+        Action endProducing = setProducing((Building)item, false);
         Action addProduct = addProduct(item, action);
         return new SequenceAction(startProducing, incrementProgress, endProducing, addProduct);
     }
 
+    /*
     private Action incrementProgress(Item building)
     {
         ActionValue value = new ItemValue(building, Progress);
@@ -68,6 +70,19 @@ public class TrainActionProvider implements ActionProvider
         ActionModifier modifier = new ConstantModifier(producing);
         ActionDuration duration = new InstantDuration();
         return new ModifyAction(value, modifier, duration);
+    }
+    */
+
+    //TODO: Remove
+    private Action setProducing(Building building, boolean producing)
+    {
+        return new Action() {
+            @Override
+            public boolean act(float delta) {
+                building.setProducing(producing);
+                return false;
+            }
+        };
     }
 
     private Action addProduct(Item building, ActionType action)
@@ -92,21 +107,5 @@ public class TrainActionProvider implements ActionProvider
             case TrainPeasant: return UnitType.Peasant;
             default: throw new UnsupportedOperationException();
         }
-    }
-
-    private Action setVisible(Item item, boolean visible)
-    {
-        ActionValue value = new ItemValue(item, Visible);
-        ActionModifier modifier = new ConstantModifier(visible);
-        ActionDuration duration = new InstantDuration();
-        return new ModifyAction(value, modifier, duration);
-    }
-
-    private Action setPosition(Item item, Vector2 position)
-    {
-        ActionValue value = new ItemValue(item, Position);
-        ActionModifier modifier = new ConstantModifier(position);
-        ActionDuration duration = new InstantDuration();
-        return new ModifyAction(value, modifier, duration);
     }
 }

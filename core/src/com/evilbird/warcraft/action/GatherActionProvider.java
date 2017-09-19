@@ -81,23 +81,86 @@ public class GatherActionProvider implements ActionProvider
     {
         Action deselect = new SelectAction(gatherer, false);
 
-        AnimationIdentifier animation = getGatherAnimation(type);
-        SoundIdentifier sound = getGatherSound(type);
-        Action resourceTake = resourceTake(resource, type, animation, sound);
-        Action resourceReceive = resourceReceive(gatherer, type, animation, sound);
-        return new ParallelAction(deselect, resourceTake, resourceReceive);
+        SoundIdentifier obtainSound = getObtainSound(type);
+        AnimationIdentifier obtainAnimation = getObtainAnimation(type);
+
+        Action gathererAnimation = new AnimateAction((Animated)gatherer, obtainAnimation);
+        Action resourceAnimation = new AnimateAction((Animated)resource, obtainAnimation);
+
+        Action gathererSound = repeatedSound(gatherer, obtainSound);
+        Action resourceSound = repeatedSound(resource, obtainSound);
+
+        Action setup = new ParallelAction(deselect, gathererAnimation, resourceAnimation, gathererSound, resourceSound);
+        Action transfer = new ResourceTransferAction((ResourceContainer)resource, (ResourceContainer)gatherer);
+
+        return new ParallelAction(setup, transfer);
     }
 
     private Action deposit(Item gatherer, Item player, ResourceType type)
     {
-        AnimationIdentifier animation = getDepositAnimation(type);
-        SoundIdentifier sound = getDepositSound(type);
-        Action resourceTake = resourceTake(gatherer, type, animation, sound);
-        Action resourceReceive = resourceReceive(player, type);
+        AnimationIdentifier depositAnimation = getDepositAnimation(type);
+        SoundIdentifier depositSound = getDepositSound(type);
 
-        return new ParallelAction(resourceTake, resourceReceive);
+        Action gathererAnimation = new AnimateAction((Animated)gatherer, depositAnimation);
+        Action playerAnimation = new AnimateAction((Animated)player, depositAnimation);
+
+        Action gathererSound = repeatedSound(gatherer, depositSound);
+        Action playerSound = repeatedSound(player, depositSound);
+
+        Action setup = new ParallelAction(gathererAnimation, playerAnimation, gathererSound, playerSound);
+        Action transfer = new ResourceTransferAction((ResourceContainer)player, (ResourceContainer)gatherer);
+
+        return new ParallelAction(setup, transfer);
     }
 
+    private Action repeatedSound(Item item, SoundIdentifier soundId)
+    {
+        Action sound = new AudibleAction((Audible)item, soundId);
+        Action soundBuffer = new DelayedAction(sound, new TimeDuration(1f));
+        return new RepeatedAction(soundBuffer, 10);
+    }
+
+    private Item findDepot(Item item)
+    {
+        ItemGroup player = item.getParent();
+        Predicate<Item> ownedDepots = itemWithType(new NamedIdentifier("TownHall"));
+        Comparator<Item> closestDepot = closestItem(item);
+        Collection<Item> depots = player.findAll(ownedDepots);
+        return Collections.min(depots, closestDepot);
+    }
+
+    private Item findPlayer(Item item)
+    {
+        return item.getParent();
+    }
+
+    private ResourceType getResourceProperty(Item resource)
+    {
+        return ResourceType.valueOf(resource.getType().toString());
+    }
+
+    private AnimationIdentifier getObtainAnimation(ResourceType resource)
+    {
+        return UnitAnimation.valueOf("Gather" + resource.toString());
+    }
+
+    private SoundIdentifier getObtainSound(ResourceType resource)
+    {
+        return UnitSound.valueOf("Gather" + resource.toString());
+    }
+
+    private AnimationIdentifier getDepositAnimation(ResourceType resource)
+    {
+        return UnitAnimation.valueOf("Deposit" + resource.toString());
+    }
+
+    private SoundIdentifier getDepositSound(ResourceType resource)
+    {
+        return UnitSound.valueOf("Deposit" + resource.toString());
+    }
+
+
+    /*
     private Action resourceTake(Item item, ResourceType type, AnimationIdentifier animation, SoundIdentifier sound)
     {
         Action takeAnimation = new AnimateAction((Animated)item, animation);
@@ -133,54 +196,7 @@ public class GatherActionProvider implements ActionProvider
         ActionDuration duration = new TimeDuration(10f);
         return new ModifyAction(value, modifier, duration);
     }
-
-    private Action repeatedSound(Item item, SoundIdentifier soundId)
-    {
-        Action sound = new AudibleAction((Audible)item, soundId);
-        Action soundBuffer = new DelayedAction(sound, new TimeDuration(1f));
-        return new RepeatedAction(soundBuffer, 10);
-    }
-
-    private Item findDepot(Item item)
-    {
-        ItemGroup player = item.getParent();
-        Predicate<Item> ownedDepots = itemWithType(new NamedIdentifier("TownHall"));
-        Comparator<Item> closestDepot = closestItem(item);
-        Collection<Item> depots = player.findAll(ownedDepots);
-        return Collections.min(depots, closestDepot);
-    }
-
-    private Item findPlayer(Item item)
-    {
-        return item.getParent();
-    }
-
-    private ResourceType getResourceProperty(Item resource)
-    {
-        return ResourceType.valueOf(resource.getType().toString());
-    }
-
-    private AnimationIdentifier getGatherAnimation(ResourceType resource)
-    {
-        return UnitAnimation.valueOf("Gather" + resource.toString());
-    }
-
-    private SoundIdentifier getGatherSound(ResourceType resource)
-    {
-        return UnitSound.valueOf("Gather" + resource.toString());
-    }
-
-    private AnimationIdentifier getDepositAnimation(ResourceType resource)
-    {
-        return UnitAnimation.valueOf("Deposit" + resource.toString());
-    }
-
-    private SoundIdentifier getDepositSound(ResourceType resource)
-    {
-        return UnitSound.valueOf("Deposit" + resource.toString());
-    }
-
-
+    */
 
 
 

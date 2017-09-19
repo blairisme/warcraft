@@ -45,16 +45,6 @@ public class MoveActionProvider implements ActionProvider
         return getConfirmMoveAction(item, position);
     }
 
-    public Action get(Item item, Item destination)
-    {
-        return getAnimatedMoveAction(item, destination.getPosition());
-    }
-
-    public Action get(Item item, Vector2 destination)
-    {
-        return getAnimatedMoveAction(item, destination);
-    }
-
     private Action getConfirmMoveAction(Item item, Vector2 destination)
     {
         Action confirm = confirmActionProvider.get(item.getParent(), destination);
@@ -66,16 +56,8 @@ public class MoveActionProvider implements ActionProvider
     {
         Action confirm = confirmActionProvider.get(item.getParent(), destination);
         Action animateMove = new AnimateAction((Animated)item, UnitAnimation.Move);
-        Action move = getMoveAction(item, destination);
+        Action move = new MoveAction((Movable)item, destination);
         Action animateIdle = new AnimateAction((Animated)item, UnitAnimation.Idle);
         return new SequenceAction(confirm, animateMove, move, animateIdle);
-    }
-
-    private Action getMoveAction(Item item, Vector2 destination)
-    {
-        ActionValue value = new ItemValue(item, ItemProperties.Position);
-        ActionModifier modifier = new MoveModifier(item, destination);
-        ActionDuration duration = new PredicateDuration(item, ItemProperties.Position, destination);
-        return new ModifyAction(value, modifier, duration);
     }
 }

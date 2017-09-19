@@ -8,6 +8,7 @@ import com.evilbird.engine.action.duration.InstantDuration;
 import com.evilbird.engine.action.modifier.ActionModifier;
 import com.evilbird.engine.action.modifier.DeltaModifier;
 import com.evilbird.engine.action.modifier.DeltaType;
+import com.evilbird.engine.action.replacement.PositionAction;
 import com.evilbird.engine.action.value.ActionValue;
 import com.evilbird.engine.action.value.ItemValue;
 import com.evilbird.engine.device.UserInput;
@@ -31,39 +32,6 @@ public class PanActionProvider implements ActionProvider
     @Override
     public Action get(ActionType action, Item item, Item target, UserInput input)
     {
-        return get(item, input);
-    }
-
-    public Action get(Item item, UserInput input)
-    {
-        ActionValue value = new ItemValue(item, ItemProperties.Position);
-        ActionModifier modifier = getPanModifier(item, input.getDelta());
-        ActionDuration duration = new InstantDuration();
-        return new ModifyAction(value, modifier, duration);
-    }
-
-    private ActionModifier getPanModifier(Item item, Vector2 delta)
-    {
-        //OrthographicCamera camera = (OrthographicCamera)item.getStage().getCamera();
-
-        //float mapWidth = 1024; //TODO
-        //float mapHeight = 1024; //TODO
-
-        //float viewportWidth = camera.viewportWidth * camera.zoom;
-        //float viewportHeight = camera.viewportHeight * camera.zoom;
-
-        Vector2 lowerBound = null;
-        Vector2 upperBound = null;
-/*
-        if (mapWidth >= viewportWidth && mapHeight >= viewportHeight)
-        {
-            float viewportHalfWidth = viewportWidth * .5f;
-            float viewportHalfHeight = viewportHeight * .5f;
-
-            lowerBound = new Vector2(viewportHalfWidth, viewportHalfHeight);
-            upperBound = new Vector2(mapWidth - viewportHalfWidth, mapHeight - viewportHalfHeight);
-        }
-*/
-        return new DeltaModifier(delta, DeltaType.PerUpdate, lowerBound, upperBound);
+        return new PanAction(item, input);
     }
 }

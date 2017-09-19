@@ -2,41 +2,33 @@ package com.evilbird.warcraft.action;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 /**
  * Created by blair on 15/09/2017.
  */
-
+//TODO: Randomly choose attack damage between min and max
+//TODO: Negate attack by armour of target
 public class AttackAction extends Action
 {
-    private Attackable attackable;
+    private Combatant combatant;
+    private Destructible destructible;
 
-    public AttackAction()
+    public AttackAction(Combatant combatant, Destructible destructible)
     {
-        
+        this.combatant = combatant;
+        this.destructible = destructible;
     }
 
     @Override
-    public boolean act(float delta)
+    public boolean act(float time)
     {
-/*
-        ItemProperty health = UnitProperties.Health;
-        ActionValue value = new ItemValue(target, health);
-        ActionModifier modifier = new DeltaModifier(-10f, DeltaType.PerSecond, 0f, 100f);
-        ActionDuration duration = new PredicateDuration(target, health, 0f);
-        return new ModifyAction(value, modifier, duration);
-
-         */
-
-/*
-        float value = zoomable.getZoom();
-        float delta = input.getDelta().x;
-        float scale =  value * delta;
-        float zoom = MathUtils.clamp(scale, 0.25f, 1.5f);
-        zoomable.setZoom(zoom);
-        */
-
-
-        return false;
+        float health = destructible.getHealth();
+        float damage = combatant.getDamageMaximum();
+        float delta = time * damage;
+        float update = health - delta;
+        float result = MathUtils.clamp(update, 0f, 100f);
+        destructible.setHealth(result);
+        return result == 0f;
     }
 }

@@ -9,45 +9,45 @@ import com.evilbird.engine.action.ActionIdentifier;
  */
 public enum ActionType implements ActionIdentifier
 {
-    Select  (ActionCatagory.Select),
-    Move    (ActionCatagory.Move),
+    Select  (ActionCategory.Select),
+    Move    (ActionCategory.Move),
 
-    Pan     (ActionCatagory.Pan),
-    Zoom    (ActionCatagory.Zoom),
-    Drag    (ActionCatagory.Drag),
+    Pan     (ActionCategory.Pan),
+    Zoom    (ActionCategory.Zoom),
+    Drag    (ActionCategory.Drag),
 
-    Attack  (ActionCatagory.Attack),
-    Stop    (ActionCatagory.Stop),
-    Cancel  (ActionCatagory.Cancel),
-    Repair  (ActionCatagory.Repair),
+    Attack  (ActionCategory.Attack),
+    Stop    (ActionCategory.Stop),
+    Cancel  (ActionCategory.Cancel),
+    Repair  (ActionCategory.Repair),
 
-    GatherGold  (ActionCatagory.Gather),
-    GatherOil   (ActionCatagory.Gather),
-    GatherWood  (ActionCatagory.Gather),
+    GatherGold  (ActionCategory.Gather),
+    GatherOil   (ActionCategory.Gather),
+    GatherWood  (ActionCategory.Gather),
 
-    BuildBarracks   (ActionCatagory.Build),
-    BuildFarm       (ActionCatagory.Build),
-    BuildTownHall   (ActionCatagory.Build),
+    BuildBarracks   (ActionCategory.Build),
+    BuildFarm       (ActionCategory.Build),
+    BuildTownHall   (ActionCategory.Build),
 
-    BuildBarracksSite   (ActionCatagory.BuildSite),
-    BuildFarmSite       (ActionCatagory.BuildSite),
-    BuildTownHallSite   (ActionCatagory.BuildSite),
+    BuildBarracksSite   (ActionCategory.BuildSite),
+    BuildFarmSite       (ActionCategory.BuildSite),
+    BuildTownHallSite   (ActionCategory.BuildSite),
 
-    TrainPeasant    (ActionCatagory.Train),
-    TrainFootman    (ActionCatagory.Train),
+    TrainPeasant    (ActionCategory.Train),
+    TrainFootman    (ActionCategory.Train),
 
-    UpgradeArmour (ActionCatagory.Upgrade),
+    UpgradeArmour (ActionCategory.Upgrade),
 
-    Unknown (ActionCatagory.Unknown);
+    Unknown (ActionCategory.Unknown);
 
-    private ActionCatagory category;
+    private ActionCategory category;
 
-    ActionType(ActionCatagory catagory)
+    ActionType(ActionCategory catagory)
     {
         this.category = catagory;
     }
 
-    public ActionCatagory getCategory()
+    public ActionCategory getCategory()
     {
         return category;
     }
