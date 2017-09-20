@@ -1,7 +1,7 @@
-package com.evilbird.engine.action;
+package com.evilbird.engine.action.framework;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.action.duration.ActionDuration;
+import com.evilbird.engine.action.framework.ActionDuration;
 
 /**
  * Instances of this class TODO:Finish

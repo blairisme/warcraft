@@ -1,4 +1,4 @@
-package com.evilbird.engine.action.duration;
+package com.evilbird.engine.action.framework;
 
 public class TimeDuration implements ActionDuration
 {

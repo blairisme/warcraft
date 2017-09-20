@@ -1,4 +1,4 @@
-package com.evilbird.engine.action.replacement;
+package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 
@@ -7,10 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.Action;
  */
 public class VisibleAction extends Action
 {
-    private Visible visible;
+    private com.evilbird.engine.item.Visible visible;
     private boolean enabled;
 
-    public VisibleAction(Visible visible, boolean enabled)
+    public VisibleAction(com.evilbird.engine.item.Visible visible, boolean enabled)
     {
         this.visible = visible;
         this.enabled = enabled;

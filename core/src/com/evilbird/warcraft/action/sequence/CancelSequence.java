@@ -1,7 +1,7 @@
 package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.action.RemoveAction;
+import com.evilbird.engine.action.common.RemoveAction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionProvider;

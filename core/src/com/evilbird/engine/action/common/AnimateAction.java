@@ -1,4 +1,4 @@
-package com.evilbird.engine.action.replacement;
+package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.item.Reference;

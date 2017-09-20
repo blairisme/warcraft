@@ -1,14 +1,14 @@
 package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.action.DelayedAction;
-import com.evilbird.engine.action.ParallelAction;
-import com.evilbird.engine.action.RemoveAction;
-import com.evilbird.engine.action.SequenceAction;
-import com.evilbird.engine.action.duration.TimeDuration;
-import com.evilbird.engine.action.replacement.AnimateAction;
-import com.evilbird.engine.action.replacement.DisableAction;
-import com.evilbird.engine.action.replacement.SelectAction;
+import com.evilbird.engine.action.framework.DelayedAction;
+import com.evilbird.engine.action.framework.ParallelAction;
+import com.evilbird.engine.action.common.RemoveAction;
+import com.evilbird.engine.action.framework.SequenceAction;
+import com.evilbird.engine.action.framework.TimeDuration;
+import com.evilbird.engine.action.common.AnimateAction;
+import com.evilbird.engine.action.common.DisableAction;
+import com.evilbird.engine.action.common.SelectAction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.Animated;

@@ -1,19 +1,11 @@
 package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.action.ModifyAction;
-import com.evilbird.engine.action.ParallelAction;
-import com.evilbird.engine.action.duration.ActionDuration;
-import com.evilbird.engine.action.duration.InstantDuration;
-import com.evilbird.engine.action.modifier.ActionModifier;
-import com.evilbird.engine.action.modifier.ConstantModifier;
-import com.evilbird.engine.action.replacement.AudibleAction;
-import com.evilbird.engine.action.replacement.SelectAction;
-import com.evilbird.engine.action.value.ActionValue;
-import com.evilbird.engine.action.value.ItemValue;
+import com.evilbird.engine.action.framework.ParallelAction;
+import com.evilbird.engine.action.common.AudibleAction;
+import com.evilbird.engine.action.common.SelectAction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemProperties;
 import com.evilbird.engine.item.specialized.animated.Audible;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.ActionType;

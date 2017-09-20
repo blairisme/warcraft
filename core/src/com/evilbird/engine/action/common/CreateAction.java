@@ -1,4 +1,4 @@
-package com.evilbird.engine.action;
+package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;

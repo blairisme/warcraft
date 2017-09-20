@@ -1,7 +1,8 @@
-package com.evilbird.engine.action.replacement;
+package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.evilbird.engine.item.Disablable;
 
 /**
  * Created by blair on 15/09/2017.

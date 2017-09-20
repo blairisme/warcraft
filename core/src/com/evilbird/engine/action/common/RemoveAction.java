@@ -1,4 +1,4 @@
-package com.evilbird.engine.action;
+package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.common.lang.Identifier;
@@ -6,7 +6,6 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemPredicates;
 
-//TODO: Use interface to obtain item
 public class RemoveAction extends Action
 {
     private ItemComposite parent;

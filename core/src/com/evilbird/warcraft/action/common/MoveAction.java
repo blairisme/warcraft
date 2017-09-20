@@ -6,7 +6,7 @@ import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.action.replacement.Positionable;
+import com.evilbird.engine.item.Positionable;
 import com.evilbird.engine.common.ai.ManhattanHeuristic;
 import com.evilbird.engine.common.ai.SpatialNode;
 import com.evilbird.engine.common.function.Predicate;

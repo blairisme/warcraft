@@ -1,4 +1,4 @@
-package com.evilbird.engine.action.replacement;
+package com.evilbird.engine.item;
 
 import com.badlogic.gdx.math.Vector2;
 

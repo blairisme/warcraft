@@ -1,4 +1,4 @@
-package com.evilbird.engine.action;
+package com.evilbird.engine.action.framework;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 

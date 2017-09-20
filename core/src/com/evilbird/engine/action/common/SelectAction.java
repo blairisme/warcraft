@@ -1,4 +1,4 @@
-package com.evilbird.engine.action.replacement;
+package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 
@@ -8,10 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 
 public class SelectAction extends Action
 {
-    private Selectable selectable;
+    private com.evilbird.engine.item.Selectable selectable;
     private boolean selected;
 
-    public SelectAction(Selectable selectable, boolean selected)
+    public SelectAction(com.evilbird.engine.item.Selectable selectable, boolean selected)
     {
         this.selectable = selectable;
         this.selected = selected;
