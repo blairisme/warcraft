@@ -21,9 +21,7 @@ public class SelectAction extends Action
     @Override
     public boolean act(float time)
     {
-        if (selectable.getSelectable()) {
-            selectable.setSelected(selected);
-        }
+        selectable.setSelected(selected);
         return true;
     }
 }
