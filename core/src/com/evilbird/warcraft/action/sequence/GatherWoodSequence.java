@@ -45,11 +45,9 @@ public class GatherWoodSequence extends GatherSequence
     protected Action obtainTransfer(Item gatherer, Item resource, ResourceType type)
     {
         Action transfer = super.obtainTransfer(gatherer, resource, type);
-
         Action sound = new AudibleAction((Audible)gatherer, UnitSound.GatherWood);
         Action soundBuffer = new DelayedAction(sound, new TimeDuration(1f));
         Action gatherSound = new RepeatedAction(soundBuffer, 10);
-
         return new ParallelAction(transfer, gatherSound);
     }
 
@@ -59,7 +57,8 @@ public class GatherWoodSequence extends GatherSequence
         Action deselect = new SelectAction(gatherer, false);
         Action disable = new DisableAction(gatherer, false);
         Action hide = new VisibleAction(gatherer, false);
-        return new ParallelAction(deselect, disable, hide);
+        Action moveAnimation = new AnimateAction((Animated)gatherer, UnitAnimation.MoveWithWood);
+        return new ParallelAction(deselect, disable, hide, moveAnimation);
     }
 
     @Override
@@ -67,6 +66,7 @@ public class GatherWoodSequence extends GatherSequence
     {
         Action enable = new DisableAction(gatherer, true);
         Action show = new VisibleAction(gatherer, true);
-        return new ParallelAction(enable, show);
+        Action idleAnimation = new AnimateAction((Animated)gatherer, UnitAnimation.Idle);
+        return new ParallelAction(enable, show, idleAnimation);
     }
 }

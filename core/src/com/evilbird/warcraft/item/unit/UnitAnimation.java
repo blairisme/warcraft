@@ -12,6 +12,8 @@ public enum UnitAnimation implements AnimationIdentifier
     Idle,
     Hidden,
     Move,
+    MoveWithGold,
+    MoveWithWood,
 
     Attack,
     Die,

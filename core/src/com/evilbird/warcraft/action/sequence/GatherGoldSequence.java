@@ -38,8 +38,8 @@ public class GatherGoldSequence extends GatherSequence
     {
         Action enable = new DisableAction(gatherer, true);
         Action show = new VisibleAction(gatherer, true);
-        Action goldmineIdle = new AnimateAction((Animated)resource, UnitAnimation.Idle);
-        return new ParallelAction(enable, show, goldmineIdle);
+        Action idleAnimation = new AnimateAction((Animated)resource, UnitAnimation.Idle);
+        return new ParallelAction(enable, show, idleAnimation);
     }
 
     @Override
@@ -48,7 +48,8 @@ public class GatherGoldSequence extends GatherSequence
         Action deselect = new SelectAction(gatherer, false);
         Action disable = new DisableAction(gatherer, false);
         Action hide = new VisibleAction(gatherer, false);
-        return new ParallelAction(deselect, disable, hide);
+        Action moveAnimation = new AnimateAction((Animated)gatherer, UnitAnimation.MoveWithGold);
+        return new ParallelAction(deselect, disable, hide, moveAnimation);
     }
 
     @Override
@@ -56,6 +57,7 @@ public class GatherGoldSequence extends GatherSequence
     {
         Action enable = new DisableAction(gatherer, true);
         Action show = new VisibleAction(gatherer, true);
-        return new ParallelAction(enable, show);
+        Action idleAnimation = new AnimateAction((Animated)gatherer, UnitAnimation.Idle);
+        return new ParallelAction(enable, show, idleAnimation);
     }
 }
