@@ -5,6 +5,11 @@ public class TimeDuration implements ActionDuration
     private float duration;
     private float total;
 
+    /**
+     * Creates a new instance of this class given the length of the duration.
+     *
+     * @param duration the length of the duration specified in seconds.
+     */
     public TimeDuration(float duration)
     {
         this.duration = duration;

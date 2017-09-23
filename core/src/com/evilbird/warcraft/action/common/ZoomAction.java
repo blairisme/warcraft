@@ -3,7 +3,7 @@ package com.evilbird.warcraft.action.common;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.warcraft.item.data.camera.Zoomable;
+import com.evilbird.warcraft.item.common.capability.Zoomable;
 
 /**
  * Created by blair on 15/09/2017.

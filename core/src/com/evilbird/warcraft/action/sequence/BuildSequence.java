@@ -24,7 +24,7 @@ import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.Audible;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.item.unit.Movable;
+import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.action.common.ProgressAction;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;

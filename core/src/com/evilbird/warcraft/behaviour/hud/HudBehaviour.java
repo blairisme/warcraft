@@ -10,7 +10,7 @@ import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.hud.action.ActionPane;
 import com.evilbird.warcraft.item.hud.resource.ResourcePane;
 import com.evilbird.warcraft.item.hud.state.StatePane;
-import com.evilbird.warcraft.item.unit.ResourceType;
+import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import java.util.Collection;
 import java.util.List;

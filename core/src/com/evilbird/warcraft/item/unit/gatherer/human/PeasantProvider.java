@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.unit.combatant.human;
+package com.evilbird.warcraft.item.unit.gatherer.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
@@ -21,6 +21,7 @@ import com.evilbird.warcraft.item.common.sound.SoundUtils;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -59,7 +60,7 @@ public class PeasantProvider implements AssetProvider<Item>
     @Override
     public Item get()
     {
-        Combatant result = new Combatant();
+        Gatherer result = new Gatherer();
         result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);

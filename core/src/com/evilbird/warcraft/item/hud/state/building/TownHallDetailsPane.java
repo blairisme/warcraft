@@ -4,7 +4,7 @@ import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.TextLabel;
 import com.evilbird.engine.item.control.TextLabelAlignment;
 import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.unit.ResourceType;
+import com.evilbird.warcraft.item.unit.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 /**

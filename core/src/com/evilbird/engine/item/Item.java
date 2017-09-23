@@ -17,7 +17,7 @@ import com.evilbird.engine.item.framework.ActorObserver;
  * @author Blair Butterworth
  */
 //TODO: Consider whether to use vectors or individual values for size and position.
-public class Item implements PropertySet<ItemProperty, Object>, ActorObserver, Positionable, Selectable, Disablable, Visible
+public class Item implements ActorObserver, Positionable, Selectable, Disablable, Visible
 {
     Actor delegate;
     private ItemRoot root;
@@ -243,60 +243,5 @@ public class Item implements PropertySet<ItemProperty, Object>, ActorObserver, P
     {
         Vector2 result = new Vector2(coordinates);
         return delegate.parentToLocalCoordinates(result);
-    }
-
-    @Override
-    public Object getProperty(ItemProperty key)
-    {
-        if (ItemProperties.Id.equals(key)){
-            return getId();
-        }
-        else if (ItemProperties.Type.equals(key)){
-            return getType();
-        }
-        else if (ItemProperties.Selected.equals(key)){
-            return getSelected();
-        }
-        else if (ItemProperties.Position.equals(key)){
-            return getPosition();
-        }
-        else if (ItemProperties.Size.equals(key)){
-            return getSize();
-        }
-        else if (ItemProperties.Touchable.equals(key)){
-            return getTouchable();
-        }
-        else if (ItemProperties.Visible.equals(key)){
-            return getVisible();
-        }
-        //throw new IllegalArgumentException(key.toString());
-        System.out.println("Missing property: " + key.toString());
-        return null; //TODO
-    }
-
-    @Override
-    public void setProperty(ItemProperty key, Object value)
-    {
-        if (ItemProperties.Id.equals(key)){
-            setId((Identifier)value);
-        }
-        else if (ItemProperties.Type.equals(key)){
-            setType((Identifier)value);
-        }
-        else if (ItemProperties.Selected.equals(key)){
-            setSelected((Boolean)value);
-        }
-        else if (ItemProperties.Position.equals(key)){
-            setPosition((Vector2)value);
-        }
-        else if (ItemProperties.Touchable.equals(key)){
-            setTouchable((Touchable)value);
-        }
-        else if (ItemProperties.Visible.equals(key)){
-            setVisible((Boolean)value);
-        }
-        else{
-            throw new IllegalArgumentException(key.toString());
-        }
     }
 }

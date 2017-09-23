@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.data.camera;
+package com.evilbird.warcraft.item.common.capability;
 
 /**
  * Created by blair on 15/09/2017.

@@ -1,6 +1,6 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
-import com.evilbird.warcraft.item.unit.Movable;
+import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.unit.Unit;
 
 /**
@@ -126,56 +126,6 @@ public class Combatant extends Unit implements Movable
             shapeRenderer.rect(getX() + 20, getY() + 20, 32, 32);
             shapeRenderer.end();
             batch.begin();
-        }
-    }
-
-    @Override
-    public Object getProperty(ItemProperty property)
-    {
-        if (UnitProperties.Actions.equals(property)){
-            return getActions();
-        }
-        else if (UnitProperties.Health.equals(property)){
-            return getHealth();
-        }
-        else if (UnitProperties.Icon.equals(property)){
-            return getIcon();
-        }
-        else if (UnitProperties.Gold.equals(property)){
-            return getGold();
-        }
-        else if (UnitProperties.Wood.equals(property)){
-            return getWood();
-        }
-        else if (UnitProperties.Owner.equals(property)){
-            return getOwner();
-        }
-        return super.getProperty(property);
-    }
-
-    @Override
-    public void setProperty(ItemProperty property, Object value)
-    {
-        if (UnitProperties.Actions.equals(property)){
-            setActions((EnumSet<ActionType>)value);
-        }
-        else if (UnitProperties.Health.equals(property)){
-            setHealth((Float)value);
-        }
-        else if (UnitProperties.Icon.equals(property)){
-            setIcon((Drawable)value);
-        }
-        else if (UnitProperties.Gold.equals(property)){
-            setGold((Float)value);
-        }
-        else if (UnitProperties.Wood.equals(property)){
-            setWood((Float)value);
-        }
-        else if (UnitProperties.Owner.equals(property)){
-            setOwner((Identifier)value);
-        }
-        else{
-            super.setProperty(property, value);
         }
     }
     */

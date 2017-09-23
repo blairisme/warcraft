@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemProperty;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -218,32 +217,6 @@ public class AnimatedItem extends Item implements Animated, Audible
         }
         else {
             System.out.println("Missing sound: " + currentSoundId.toString());
-        }
-    }
-
-    @Override
-    public Object getProperty(ItemProperty property)
-    {
-        if (AnimationProperty.Animation.equals(property)){
-            return getAnimation();
-        }
-        else if (AnimationProperty.Sound.equals(property)){
-            return getSound();
-        }
-        return super.getProperty(property);
-    }
-
-    @Override
-    public void setProperty(ItemProperty property, Object value)
-    {
-        if (AnimationProperty.Animation.equals(property)){
-            setAnimation((AnimationIdentifier)value);
-        }
-        else if (AnimationProperty.Sound.equals(property)){
-            setSound((SoundIdentifier)value);
-        }
-        else{
-            super.setProperty(property, value);
         }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="49">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="49">
  <tileset firstgid="1" name="terrain" tilewidth="32" tileheight="32" tilecount="384" columns="16">
   <image source="../../textures/neutral/winter/terrain.png" width="512" height="768"/>
  </tileset>
@@ -72,7 +72,7 @@
   </object>
  </objectgroup>
  <objectgroup name="Peasant">
-  <object id="37" name="Peasant1" type="Peasant" gid="481" x="429.333" y="324.333" width="72" height="72">
+  <object id="37" name="Peasant1" type="Peasant" gid="481" x="416" y="324.333" width="72" height="72">
    <properties>
     <property name="Owner" value="Player1"/>
    </properties>

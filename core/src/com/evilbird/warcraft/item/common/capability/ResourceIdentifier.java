@@ -1,4 +1,4 @@
-package com.evilbird.engine.item;
+package com.evilbird.warcraft.item.common.capability;
 
 import com.evilbird.engine.common.lang.Identifier;
 
@@ -7,6 +7,6 @@ import com.evilbird.engine.common.lang.Identifier;
  *
  * @author Blair Butterworth
  */
-public interface ItemProperty extends Identifier
+public interface ResourceIdentifier extends Identifier
 {
 }

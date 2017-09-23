@@ -5,14 +5,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemProperty;
 import com.evilbird.engine.item.ItemRoot;
 
 import javax.inject.Inject;
 
 import static com.badlogic.gdx.Gdx.graphics;
 
-public class Camera extends Item implements Zoomable
+public class Camera extends Item implements com.evilbird.warcraft.item.common.capability.Zoomable
 {
     private float originalZoom;
     private OrthographicCamera camera;
@@ -69,31 +68,5 @@ public class Camera extends Item implements Zoomable
     {
         camera.position.x = getX();
         camera.position.y = getY();
-    }
-
-    @Override
-    public Object getProperty(ItemProperty property)
-    {
-        if (CameraProperties.Zoom.equals(property)){
-            return getZoom();
-        }
-        else if (CameraProperties.OriginalZoom.equals(property)){
-            return getOriginalZoom();
-        }
-        return super.getProperty(property);
-    }
-
-    @Override
-    public void setProperty(ItemProperty property, Object value)
-    {
-        if (CameraProperties.Zoom.equals(property)){
-            setZoom((Float) value);
-        }
-        else if (CameraProperties.OriginalZoom.equals(property)){
-            setOriginalZoom((Float) value);
-        }
-        else{
-            super.setProperty(property, value);
-        }
     }
 }

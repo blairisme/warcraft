@@ -3,6 +3,7 @@ package com.evilbird.engine.action.common;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.item.Disablable;
+import com.evilbird.engine.item.Selectable;
 
 /**
  * Created by blair on 15/09/2017.
@@ -10,19 +11,19 @@ import com.evilbird.engine.item.Disablable;
 
 public class DisableAction extends Action
 {
-    private Disablable disablable;
-    private boolean disable;
+    private Selectable selectable;
+    private boolean disabled;
 
-    public DisableAction(Disablable disablable, boolean disable)
+    public DisableAction(Selectable selectable, boolean disabled)
     {
-        this.disablable = disablable;
-        this.disable = disable;
+        this.selectable = selectable;
+        this.disabled = disabled;
     }
 
     @Override
     public boolean act(float delta)
     {
-        disablable.setTouchable(disable ? Touchable.disabled : Touchable.enabled);
+        selectable.setSelectable(disabled);
         return true;
     }
 }

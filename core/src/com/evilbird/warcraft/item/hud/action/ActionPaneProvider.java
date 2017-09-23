@@ -7,7 +7,7 @@ import com.evilbird.engine.device.Device;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.common.TextureUtils.getDrawable;
+import static com.evilbird.warcraft.item.common.texture.TextureUtils.getDrawable;
 
 /**
  * Instances of this class TODO:Finish

@@ -1,14 +1,11 @@
 package com.evilbird.warcraft.item.unit;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.item.ItemProperty;
 import com.evilbird.engine.item.specialized.animated.AnimatedItem;
-import com.evilbird.engine.item.specialized.animated.ResourceIdentifier;
 import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.item.common.capability.Destructible;
 
 import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -24,7 +21,6 @@ public class Unit extends AnimatedItem implements Destructible
     private float health;
     private float healthMaximum;
     private EnumSet<ActionType> actions;
-    private Map<ResourceIdentifier, Float> resources;
 
     @Inject
     public Unit()
@@ -34,7 +30,6 @@ public class Unit extends AnimatedItem implements Destructible
         actions = EnumSet.noneOf(ActionType.class);
         health = 0;
         healthMaximum = 0;
-        resources = new HashMap<ResourceIdentifier, Float>();
     }
 
     public EnumSet<ActionType> getActions()
@@ -62,12 +57,6 @@ public class Unit extends AnimatedItem implements Destructible
         return name;
     }
 
-    public float getResource(ResourceIdentifier resource)
-    {
-        Float result = resources.get(resource);
-        return result != null ? result : 0f;
-    }
-
     public void setActions(EnumSet<ActionType> actions)
     {
         this.actions = actions;
@@ -91,48 +80,5 @@ public class Unit extends AnimatedItem implements Destructible
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    public void setResource(ResourceIdentifier resource, float value)
-    {
-        this.resources.put(resource, value);
-    }
-
-    @Override
-    public Object getProperty(ItemProperty property)
-    {
-        if (UnitProperties.Actions.equals(property)){
-            return getActions();
-        }
-        else if (UnitProperties.Health.equals(property)){
-            return getHealth();
-        }
-        else if (UnitProperties.Icon.equals(property)){
-            return getIcon();
-        }
-        else if (property instanceof ResourceIdentifier){
-            return getResource((ResourceIdentifier)property);
-        }
-        return super.getProperty(property);
-    }
-
-    @Override
-    public void setProperty(ItemProperty property, Object value)
-    {
-        if (UnitProperties.Actions.equals(property)){
-            setActions((EnumSet<ActionType>)value);
-        }
-        else if (UnitProperties.Health.equals(property)){
-            setHealth((Float)value);
-        }
-        else if (UnitProperties.Icon.equals(property)){
-            setIcon((Drawable)value);
-        }
-        else if (property instanceof ResourceIdentifier){
-            setResource((ResourceIdentifier)property, (Float)value);
-        }
-        else{
-            super.setProperty(property, value);
-        }
     }
 }

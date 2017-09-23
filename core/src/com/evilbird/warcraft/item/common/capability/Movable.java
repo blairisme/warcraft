@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.unit;
+package com.evilbird.warcraft.item.common.capability;
 
 import com.evilbird.engine.item.Positionable;
 

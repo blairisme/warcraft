@@ -1,7 +1,6 @@
 package com.evilbird.warcraft.item.unit.building;
 
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.ItemProperty;
 import com.evilbird.warcraft.item.unit.Unit;
 
 /**
@@ -51,37 +50,5 @@ public class Building extends Unit
     public void setProgress(float progress)
     {
         this.progress = progress;
-    }
-
-    @Override
-    public Object getProperty(ItemProperty property)
-    {
-        if (BuildingProperties.Constructing.equals(property)){
-            return isConstructing();
-        }
-        else if (BuildingProperties.Producing.equals(property)){
-            return isProducing();
-        }
-        else if (BuildingProperties.Progress.equals(property)){
-            return getProgress();
-        }
-        return super.getProperty(property);
-    }
-
-    @Override
-    public void setProperty(ItemProperty property, Object value)
-    {
-        if (BuildingProperties.Constructing.equals(property)){
-            setConstructing((Boolean)value);
-        }
-        else if (BuildingProperties.Producing.equals(property)){
-            setProducing((Boolean)value);
-        }
-        else if (BuildingProperties.Progress.equals(property)){
-            setProgress((Float)value);
-        }
-        else{
-            super.setProperty(property, value);
-        }
     }
 }

@@ -2,8 +2,8 @@ package com.evilbird.warcraft.item.data.player;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.ItemProperty;
-import com.evilbird.engine.item.specialized.animated.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.capability.ResourceContainer;
+import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +15,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class Player extends ItemGroup
+public class Player extends ItemGroup implements ResourceContainer
 {
     private boolean consoleUser;
     private Map<ResourceIdentifier, Float> resources;
@@ -41,7 +41,7 @@ public class Player extends ItemGroup
         return result != null ? result : 0f;
     }
 
-    public void setResource(ResourceIdentifier type, Float value)
+    public void setResource(ResourceIdentifier type, float value)
     {
         this.resources.put(type, value);
     }
@@ -68,25 +68,5 @@ public class Player extends ItemGroup
     public void setPosition(float x, float y)
     {
         super.setPosition(0, 0);
-    }
-
-    @Override
-    public Object getProperty(ItemProperty property)
-    {
-        if (property instanceof ResourceIdentifier){
-            return getResource((ResourceIdentifier)property);
-        }
-        return super.getProperty(property);
-    }
-
-    @Override
-    public void setProperty(ItemProperty property, Object value)
-    {
-        if (property instanceof ResourceIdentifier){
-            setResource((ResourceIdentifier)property, (Float)value);
-        }
-        else{
-            super.setProperty(property, value);
-        }
     }
 }

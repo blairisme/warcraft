@@ -6,7 +6,6 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemProperties;
 import com.evilbird.engine.item.ItemType;
 
 public class CreateAction extends Action
@@ -38,8 +37,8 @@ public class CreateAction extends Action
     public boolean act(float delta)
     {
         Item item = factory.newItem(type);
+        item.setId(id);
         item.setPosition(position);
-        item.setProperty(ItemProperties.Id, id);
         item.setSelected(selected);
         parent.addItem(item);
         return true;

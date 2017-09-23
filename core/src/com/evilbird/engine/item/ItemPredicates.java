@@ -53,30 +53,6 @@ public class ItemPredicates
         }
     }
 
-    public static Predicate<Item> itemWithProperty(ItemProperty key, Object value)
-    {
-        return new ItemWithProperty(key, value); //TODO: Pool?
-    }
-
-    public static class ItemWithProperty implements Predicate<Item>
-    {
-        private ItemProperty key;
-        private Object value;
-
-        public ItemWithProperty(ItemProperty key, Object value)
-        {
-            this.key = key;
-            this.value = value;
-        }
-
-        @Override
-        public boolean test(Item item)
-        {
-            Object otherValue = item.getProperty(key);
-            return Objects.equals(value, otherValue);
-        }
-    }
-
     public static Predicate<Item> itemWithAction()
     {
         return new ItemWithAction(); //TODO singleton?

@@ -17,7 +17,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.SpatialGraph;
 import com.evilbird.engine.item.SpatialItemNode;
-import com.evilbird.warcraft.item.unit.Movable;
+import com.evilbird.warcraft.item.common.capability.Movable;
 
 import java.util.Iterator;
 import java.util.concurrent.CancellationException;
