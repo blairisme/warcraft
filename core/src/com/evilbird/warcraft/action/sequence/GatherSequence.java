@@ -43,13 +43,8 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithType;
  *
  * @author Blair Butterworth
  */
-public class GatherSequence implements ActionProvider
+public abstract class GatherSequence implements ActionProvider
 {
-    @Inject
-    public GatherSequence()
-    {
-    }
-
     @Override
     public Action get(ActionType action, Item gatherer, Item resource, UserInput input)
     {
@@ -65,7 +60,7 @@ public class GatherSequence implements ActionProvider
         Action moveToResource = move(gatherer, resource);
         Action obtainResource = obtain(gatherer, resource, type);
         Action moveToDepot = move(gatherer, depot);
-        Action depositResource = deposit(gatherer, player, type);
+        Action depositResource = deposit(gatherer, depot, player, type);
         return new SequenceAction(moveToResource, obtainResource, moveToDepot, depositResource);
     }
 
@@ -79,35 +74,53 @@ public class GatherSequence implements ActionProvider
 
     private Action obtain(Item gatherer, Item resource, ResourceType type)
     {
-        Action deselect = new SelectAction(gatherer, false);
-        Action disable = new DisableAction(gatherer, false);
-        Action meh = new ParallelAction(deselect, disable);
-
-        Action setAnimation = obtainAnimation(gatherer, resource, type);
-        Action transfer = obtainAction(gatherer, resource, type);
-        Action resetAnimation = resetAnimation(gatherer, resource);
-        return new SequenceAction(meh, setAnimation, transfer, resetAnimation);
+        Action setup = obtainSetup(gatherer, resource, type);
+        Action transfer = obtainTransfer(gatherer, resource, type);
+        Action teardown = obtainTeardown(gatherer, resource, type);
+        return new SequenceAction(setup, transfer, teardown);
     }
 
-    private Action obtainAnimation(Item gatherer, Item resource, ResourceType type)
+    protected Action obtainTransfer(Item gatherer, Item resource, ResourceType type)
     {
-        AnimationIdentifier obtainAnimationId = getObtainAnimation(type);
-        Action gathererAnimation = new AnimateAction((Animated)gatherer, obtainAnimationId);
-        Action resourceAnimation = new AnimateAction((Animated)resource, obtainAnimationId);
-        return new ParallelAction(gathererAnimation, resourceAnimation);
+        ResourceContainer source = (ResourceContainer)resource;;
+        ResourceContainer destination = (ResourceContainer)gatherer;
+        Action transferAction = new ResourceTransferAction(source, destination, type, 10f);
+        return new DelayedAction(transferAction, new TimeDuration(10f));
     }
 
-    private Action obtainAction(Item gatherer, Item resource, ResourceType type)
+    protected abstract Action obtainSetup(Item gatherer, Item resource, ResourceType type);
+
+    protected abstract Action obtainTeardown(Item gatherer, Item resource, ResourceType type);
+
+    private Action deposit(Item gatherer, Item depot, Item player, ResourceType type)
     {
-        SoundIdentifier obtainSoundId = getObtainSound(type);
-        Action gathererSound = repeatedSound(gatherer, obtainSoundId);
-        Action resourceSound = repeatedSound(resource, obtainSoundId);
-
-        Action transferAction = new ResourceTransferAction((ResourceContainer)resource, (ResourceContainer)gatherer, type, 10f);
-        Action transferDelay = new DelayedAction(transferAction, new TimeDuration(10f));
-
-        return new ParallelAction(transferDelay, gathererSound, resourceSound);
+        Action setup = depositSetup(gatherer, depot, player, type);
+        Action transfer = depositTransfer(gatherer, depot, player, type);
+        Action teardown = depositTeardown(gatherer, depot, player, type);
+        return new SequenceAction(setup, transfer, teardown);
     }
+
+    protected Action depositTransfer(Item gatherer, Item depot, Item player, ResourceType type)
+    {
+        ResourceContainer source = (ResourceContainer)gatherer;
+        ResourceContainer destination = (ResourceContainer)player;
+        Action transferAction = new ResourceTransferAction(source, destination, type, 10f);
+        return new DelayedAction(transferAction, new TimeDuration(10f));
+    }
+
+    protected abstract Action depositSetup(Item gatherer, Item depot, Item Player, ResourceType type);
+
+    protected abstract Action depositTeardown(Item gatherer, Item depot, Item Player, ResourceType type);
+
+
+
+
+
+
+
+
+
+
 
     private Action resetAnimation(Item gatherer, Item resource)
     {

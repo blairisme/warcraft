@@ -27,8 +27,7 @@ public class MoveSequence implements ActionProvider
     private ConfirmSequence confirmSequence;
 
     @Inject
-    public MoveSequence(
-        ConfirmSequence confirmSequence)
+    public MoveSequence(ConfirmSequence confirmSequence)
     {
         this.confirmSequence = confirmSequence;
     }

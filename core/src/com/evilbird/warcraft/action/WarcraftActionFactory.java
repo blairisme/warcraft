@@ -10,7 +10,9 @@ import com.evilbird.warcraft.action.sequence.BuildSequence;
 import com.evilbird.warcraft.action.sequence.BuildingSiteSequence;
 import com.evilbird.warcraft.action.sequence.CancelSequence;
 import com.evilbird.warcraft.action.sequence.DragSequence;
+import com.evilbird.warcraft.action.sequence.GatherGoldSequence;
 import com.evilbird.warcraft.action.sequence.GatherSequence;
+import com.evilbird.warcraft.action.sequence.GatherWoodSequence;
 import com.evilbird.warcraft.action.sequence.MoveSequence;
 import com.evilbird.warcraft.action.sequence.PanSequence;
 import com.evilbird.warcraft.action.sequence.SelectionSequence;
@@ -33,7 +35,8 @@ public class WarcraftActionFactory implements ActionFactory
         BuildSequence buildSequence,
         CancelSequence cancelSequence,
         DragSequence dragSequence,
-        GatherSequence gatherSequence,
+        GatherGoldSequence gatherGoldSequence,
+        GatherWoodSequence gatherWoodSequence,
         MoveSequence moveSequence,
         PanSequence panActionProvider,
         BuildingSiteSequence buildingSiteSequence,
@@ -48,7 +51,8 @@ public class WarcraftActionFactory implements ActionFactory
         actions.put(ActionCategory.BuildSite, buildingSiteSequence);
         actions.put(ActionCategory.Cancel, cancelSequence);
         actions.put(ActionCategory.Drag, dragSequence);
-        actions.put(ActionCategory.Gather, gatherSequence);
+        actions.put(ActionCategory.GatherGold, gatherGoldSequence);
+        actions.put(ActionCategory.GatherWood, gatherWoodSequence);
         actions.put(ActionCategory.Move, moveSequence);
         actions.put(ActionCategory.Pan, panActionProvider);
         actions.put(ActionCategory.Select, selectionSequence);

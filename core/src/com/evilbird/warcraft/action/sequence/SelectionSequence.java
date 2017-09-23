@@ -1,6 +1,7 @@
 package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.framework.EmptyAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.common.AudibleAction;
 import com.evilbird.engine.action.common.SelectAction;
@@ -28,12 +29,11 @@ public class SelectionSequence implements ActionProvider
     @Override
     public Action get(ActionType action, Item item, Item target, UserInput input)
     {
-        return get(item);
-    }
-
-    private Action get(Item item)
-    {
-        return get(item, !item.getSelected());
+        if (item.getSelectable())
+        {
+            return get(item, !item.getSelected());
+        }
+        return new EmptyAction();
     }
 
     public Action get(Item item, boolean selected)
