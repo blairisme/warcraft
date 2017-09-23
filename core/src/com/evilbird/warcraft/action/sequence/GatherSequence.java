@@ -1,6 +1,7 @@
 package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.common.ClearAction;
 import com.evilbird.engine.action.common.DisableAction;
 import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.action.framework.ParallelAction;
@@ -48,6 +49,13 @@ public abstract class GatherSequence implements ActionProvider
     @Override
     public Action get(ActionType action, Item gatherer, Item resource, UserInput input)
     {
+        Action gather = gather(gatherer, resource);
+        Action reset = new ClearAction(gatherer, gather);
+        return new SequenceAction(reset, gather);
+    }
+
+    protected Action gather(Item gatherer, Item resource)
+    {
         Item depot = findDepot(gatherer);
         Item player = findPlayer(gatherer);
         ResourceType type = getResourceProperty(resource);
@@ -55,7 +63,7 @@ public abstract class GatherSequence implements ActionProvider
         return new RepeatedAction(gather);
     }
 
-    private Action gather(Item gatherer, Item resource, ResourceType type, Item depot, Item player)
+    protected Action gather(Item gatherer, Item resource, ResourceType type, Item depot, Item player)
     {
         Action moveToResource = move(gatherer, resource);
         Action obtainResource = obtain(gatherer, resource, type);
@@ -64,7 +72,7 @@ public abstract class GatherSequence implements ActionProvider
         return new SequenceAction(moveToResource, obtainResource, moveToDepot, depositResource);
     }
 
-    private Action move(Item target, Item destination)
+    protected Action move(Item target, Item destination)
     {
         Action animate = new AnimateAction((Animated)target, UnitAnimation.Move);
         Action reposition = new MoveAction((Movable)target, destination);
@@ -72,7 +80,7 @@ public abstract class GatherSequence implements ActionProvider
         return new SequenceAction(animate, reposition, idle);
     }
 
-    private Action obtain(Item gatherer, Item resource, ResourceType type)
+    protected Action obtain(Item gatherer, Item resource, ResourceType type)
     {
         Action setup = obtainSetup(gatherer, resource, type);
         Action transfer = obtainTransfer(gatherer, resource, type);
@@ -112,47 +120,6 @@ public abstract class GatherSequence implements ActionProvider
 
     protected abstract Action depositTeardown(Item gatherer, Item depot, Item Player, ResourceType type);
 
-
-
-
-
-
-
-
-
-
-
-    private Action resetAnimation(Item gatherer, Item resource)
-    {
-        Action gathererIdle = new AnimateAction((Animated)gatherer, UnitAnimation.Idle);
-        Action resourceIdle = new AnimateAction((Animated)resource, UnitAnimation.Idle);
-        return new ParallelAction(gathererIdle, resourceIdle);
-    }
-
-    private Action deposit(Item gatherer, Item player, ResourceType type)
-    {
-        AnimationIdentifier depositAnimation = getDepositAnimation(type);
-        SoundIdentifier depositSound = getDepositSound(type);
-
-        Action gathererAnimation = new AnimateAction((Animated)gatherer, depositAnimation);
-        //Action playerAnimation = new AnimateAction((Animated)player, depositAnimation);
-        Action gathererSound = repeatedSound(gatherer, depositSound);
-        //Action playerSound = repeatedSound(player, depositSound);
-        Action setup = new ParallelAction(gathererAnimation, gathererSound);
-
-        Action transfer = new ResourceTransferAction((ResourceContainer)gatherer, (ResourceContainer)player, type, 10f);
-        Action transferWait = new DelayedAction(transfer, new TimeDuration(10f));
-
-        return new ParallelAction(setup, transferWait);
-    }
-
-    private Action repeatedSound(Item item, SoundIdentifier soundId)
-    {
-        Action sound = new AudibleAction((Audible)item, soundId);
-        Action soundBuffer = new DelayedAction(sound, new TimeDuration(1f));
-        return new RepeatedAction(soundBuffer, 10);
-    }
-
     private Item findDepot(Item item)
     {
         ItemGroup player = item.getParent();
@@ -170,25 +137,5 @@ public abstract class GatherSequence implements ActionProvider
     private ResourceType getResourceProperty(Item resource)
     {
         return ResourceType.valueOf(resource.getType().toString());
-    }
-
-    private AnimationIdentifier getObtainAnimation(ResourceType resource)
-    {
-        return UnitAnimation.valueOf("Gather" + resource.toString());
-    }
-
-    private SoundIdentifier getObtainSound(ResourceType resource)
-    {
-        return UnitSound.valueOf("Gather" + resource.toString());
-    }
-
-    private AnimationIdentifier getDepositAnimation(ResourceType resource)
-    {
-        return UnitAnimation.valueOf("Deposit" + resource.toString());
-    }
-
-    private SoundIdentifier getDepositSound(ResourceType resource)
-    {
-        return UnitSound.valueOf("Deposit" + resource.toString());
     }
 }
