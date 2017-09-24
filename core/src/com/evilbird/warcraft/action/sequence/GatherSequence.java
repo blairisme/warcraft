@@ -3,6 +3,7 @@ package com.evilbird.warcraft.action.sequence;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.common.ClearAction;
 import com.evilbird.engine.action.common.DisableAction;
+import com.evilbird.engine.action.common.VisibleAction;
 import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.RepeatedAction;
@@ -25,6 +26,7 @@ import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.action.common.MoveAction;
+import com.evilbird.warcraft.action.common.ReplacementAction;
 import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.action.common.ResourceTransferAction;
@@ -46,12 +48,20 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithType;
  */
 public abstract class GatherSequence implements ActionProvider
 {
+    private ConfirmSequence confirmSequence;
+
+    protected GatherSequence(ConfirmSequence confirmSequence)
+    {
+        this.confirmSequence = confirmSequence;
+    }
+
     @Override
     public Action get(ActionType action, Item gatherer, Item resource, UserInput input)
     {
-        Action gather = gather(gatherer, resource);
-        Action reset = new ClearAction(gatherer, gather);
-        return new SequenceAction(reset, gather);
+        Action confirm = confirmSequence.get(gatherer, input);
+        Action sequence = gather(gatherer, resource);
+        Action gather = new ParallelAction(confirm, sequence);
+        return new ReplacementAction(gatherer, gather);
     }
 
     protected Action gather(Item gatherer, Item resource)
@@ -72,11 +82,11 @@ public abstract class GatherSequence implements ActionProvider
         return new SequenceAction(moveToResource, obtainResource, moveToDepot, depositResource);
     }
 
-    protected Action move(Item target, Item destination)
+    protected Action move(Item gatherer, Item destination)
     {
-        Action animate = new AnimateAction((Animated)target, UnitAnimation.Move);
-        Action reposition = new MoveAction((Movable)target, destination);
-        Action idle = new AnimateAction((Animated)target, UnitAnimation.Idle);
+        Action animate = new AnimateAction((Animated)gatherer, UnitAnimation.Move);
+        Action reposition = new MoveAction((Movable)gatherer, destination);
+        Action idle = new AnimateAction((Animated)gatherer, UnitAnimation.Idle);
         return new SequenceAction(animate, reposition, idle);
     }
 
@@ -90,7 +100,7 @@ public abstract class GatherSequence implements ActionProvider
 
     protected Action obtainTransfer(Item gatherer, Item resource, ResourceType type)
     {
-        ResourceContainer source = (ResourceContainer)resource;;
+        ResourceContainer source = (ResourceContainer)resource;
         ResourceContainer destination = (ResourceContainer)gatherer;
         Action transferAction = new ResourceTransferAction(source, destination, type, 10f);
         return new DelayedAction(transferAction, new TimeDuration(10f));
@@ -116,9 +126,21 @@ public abstract class GatherSequence implements ActionProvider
         return new DelayedAction(transferAction, new TimeDuration(10f));
     }
 
-    protected abstract Action depositSetup(Item gatherer, Item depot, Item Player, ResourceType type);
+    protected Action depositSetup(Item gatherer, Item depot, Item Player, ResourceType type)
+    {
+        Action deselect = new SelectAction(gatherer, false);
+        Action disable = new DisableAction(gatherer, false);
+        Action hide = new VisibleAction(gatherer, false);
+        return new ParallelAction(deselect, disable, hide);
+    }
 
-    protected abstract Action depositTeardown(Item gatherer, Item depot, Item Player, ResourceType type);
+    protected Action depositTeardown(Item gatherer, Item depot, Item Player, ResourceType type)
+    {
+        Action enable = new DisableAction(gatherer, true);
+        Action show = new VisibleAction(gatherer, true);
+        Action idleAnimation = new AnimateAction((Animated)gatherer, UnitAnimation.Idle);
+        return new ParallelAction(enable, show, idleAnimation);
+    }
 
     private Item findDepot(Item item)
     {

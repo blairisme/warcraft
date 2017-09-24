@@ -2,6 +2,7 @@ package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.common.ClearAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.common.AnimateAction;
@@ -12,6 +13,7 @@ import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.action.common.MoveAction;
+import com.evilbird.warcraft.action.common.ReplacementAction;
 import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
@@ -35,24 +37,23 @@ public class MoveSequence implements ActionProvider
     @Override
     public Action get(ActionType action, Item item, Item target, UserInput input)
     {
-        ItemRoot root = item.getRoot();
-        Vector2 position = root.unproject(input.getPosition());
-        return getConfirmMoveAction(item, position);
+        Action confirm = confirmSequence.get(item, input);
+        Action sequence = move(item, getDestination(item, input));
+        Action move = new ParallelAction(confirm, sequence);
+        return new ReplacementAction(item, move);
     }
 
-    private Action getConfirmMoveAction(Item item, Vector2 destination)
+    private Action move(Item item, Vector2 destination)
     {
-        Action confirm = confirmSequence.get(item.getParent(), destination);
-        Action move = getAnimatedMoveAction(item, destination);
-        return new ParallelAction(confirm, move);
-    }
-
-    private Action getAnimatedMoveAction(Item item, Vector2 destination)
-    {
-        Action confirm = confirmSequence.get(item.getParent(), destination);
         Action animateMove = new AnimateAction((Animated)item, UnitAnimation.Move);
         Action move = new MoveAction((Movable)item, destination);
         Action animateIdle = new AnimateAction((Animated)item, UnitAnimation.Idle);
-        return new SequenceAction(confirm, animateMove, move, animateIdle);
+        return new SequenceAction(animateMove, move, animateIdle);
+    }
+
+    private Vector2 getDestination(Item item, UserInput input)
+    {
+        ItemRoot root = item.getRoot();
+        return root.unproject(input.getPosition());
     }
 }

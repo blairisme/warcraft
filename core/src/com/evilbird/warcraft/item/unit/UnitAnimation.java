@@ -9,8 +9,12 @@ import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
  */
 public enum UnitAnimation implements AnimationIdentifier
 {
-    Idle,
     Hidden,
+
+    Idle,
+    IdleWithGold,
+    IdleWithWood,
+
     Move,
     MoveWithGold,
     MoveWithWood,

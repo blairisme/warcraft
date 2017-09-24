@@ -6,9 +6,13 @@ import com.evilbird.engine.action.common.DisableAction;
 import com.evilbird.engine.action.common.SelectAction;
 import com.evilbird.engine.action.common.VisibleAction;
 import com.evilbird.engine.action.framework.ParallelAction;
+import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.Animated;
+import com.evilbird.warcraft.action.common.MoveAction;
+import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import javax.inject.Inject;
@@ -19,8 +23,9 @@ import javax.inject.Inject;
 public class GatherGoldSequence extends GatherSequence
 {
     @Inject
-    public GatherGoldSequence()
+    public GatherGoldSequence(ConfirmSequence confirmSequence)
     {
+        super(confirmSequence);
     }
 
     @Override
@@ -39,25 +44,6 @@ public class GatherGoldSequence extends GatherSequence
         Action enable = new DisableAction(gatherer, true);
         Action show = new VisibleAction(gatherer, true);
         Action idleAnimation = new AnimateAction((Animated)resource, UnitAnimation.Idle);
-        return new ParallelAction(enable, show, idleAnimation);
-    }
-
-    @Override
-    protected Action depositSetup(Item gatherer, Item depot, Item Player, ResourceType type)
-    {
-        Action deselect = new SelectAction(gatherer, false);
-        Action disable = new DisableAction(gatherer, false);
-        Action hide = new VisibleAction(gatherer, false);
-        Action moveAnimation = new AnimateAction((Animated)gatherer, UnitAnimation.MoveWithGold);
-        return new ParallelAction(deselect, disable, hide, moveAnimation);
-    }
-
-    @Override
-    protected Action depositTeardown(Item gatherer, Item depot, Item Player, ResourceType type)
-    {
-        Action enable = new DisableAction(gatherer, true);
-        Action show = new VisibleAction(gatherer, true);
-        Action idleAnimation = new AnimateAction((Animated)gatherer, UnitAnimation.Idle);
         return new ParallelAction(enable, show, idleAnimation);
     }
 }

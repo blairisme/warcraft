@@ -3,18 +3,19 @@ package com.evilbird.warcraft.action.sequence;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.common.AnimateAction;
 import com.evilbird.engine.action.common.AudibleAction;
-import com.evilbird.engine.action.common.DisableAction;
-import com.evilbird.engine.action.common.SelectAction;
-import com.evilbird.engine.action.common.VisibleAction;
 import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.RepeatedAction;
+import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.TimeDuration;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.Audible;
+import com.evilbird.warcraft.action.common.MoveAction;
+import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
+import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import javax.inject.Inject;
@@ -25,8 +26,9 @@ import javax.inject.Inject;
 public class GatherWoodSequence extends GatherSequence
 {
     @Inject
-    public GatherWoodSequence()
+    public GatherWoodSequence(ConfirmSequence confirmSequence)
     {
+        super(confirmSequence);
     }
 
     @Override
@@ -49,24 +51,5 @@ public class GatherWoodSequence extends GatherSequence
         Action soundBuffer = new DelayedAction(sound, new TimeDuration(1f));
         Action gatherSound = new RepeatedAction(soundBuffer, 10);
         return new ParallelAction(transfer, gatherSound);
-    }
-
-    @Override
-    protected Action depositSetup(Item gatherer, Item depot, Item Player, ResourceType type)
-    {
-        Action deselect = new SelectAction(gatherer, false);
-        Action disable = new DisableAction(gatherer, false);
-        Action hide = new VisibleAction(gatherer, false);
-        Action moveAnimation = new AnimateAction((Animated)gatherer, UnitAnimation.MoveWithWood);
-        return new ParallelAction(deselect, disable, hide, moveAnimation);
-    }
-
-    @Override
-    protected Action depositTeardown(Item gatherer, Item depot, Item Player, ResourceType type)
-    {
-        Action enable = new DisableAction(gatherer, true);
-        Action show = new VisibleAction(gatherer, true);
-        Action idleAnimation = new AnimateAction((Animated)gatherer, UnitAnimation.Idle);
-        return new ParallelAction(enable, show, idleAnimation);
     }
 }
