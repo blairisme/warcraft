@@ -20,6 +20,9 @@ import javax.inject.Inject;
 /**
  * Created by blair on 23/09/2017.
  */
+// TODO: Gold gathered at rate of 100 over 5 seconds
+// TODO: Deposit time: 5 seconds
+// TODO: Destroy mine if empty
 public class GatherGoldSequence extends GatherSequence
 {
     @Inject

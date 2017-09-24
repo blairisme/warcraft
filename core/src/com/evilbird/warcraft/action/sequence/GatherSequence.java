@@ -46,6 +46,9 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithType;
  *
  * @author Blair Butterworth
  */
+//TODO: Cope with leaving mid gather and returning to gather
+//TODO: Cope with leaving mid gather and returning to Depot
+//TODO: Cope with other types of depot. E.g., lumbermill
 public abstract class GatherSequence implements ActionProvider
 {
     private ConfirmSequence confirmSequence;
@@ -102,8 +105,9 @@ public abstract class GatherSequence implements ActionProvider
     {
         ResourceContainer source = (ResourceContainer)resource;
         ResourceContainer destination = (ResourceContainer)gatherer;
-        Action transferAction = new ResourceTransferAction(source, destination, type, 10f);
-        return new DelayedAction(transferAction, new TimeDuration(10f));
+        Action transfer = new ResourceTransferAction(source, destination, type, 10f);
+        Action wait = new DelayedAction(new TimeDuration(10f));
+        return new SequenceAction(transfer, wait);
     }
 
     protected abstract Action obtainSetup(Item gatherer, Item resource, ResourceType type);
@@ -122,8 +126,9 @@ public abstract class GatherSequence implements ActionProvider
     {
         ResourceContainer source = (ResourceContainer)gatherer;
         ResourceContainer destination = (ResourceContainer)player;
-        Action transferAction = new ResourceTransferAction(source, destination, type, 10f);
-        return new DelayedAction(transferAction, new TimeDuration(10f));
+        Action transfer = new ResourceTransferAction(source, destination, type, 10f);
+        Action wait = new DelayedAction(new TimeDuration(10f));
+        return new SequenceAction(transfer, wait);
     }
 
     protected Action depositSetup(Item gatherer, Item depot, Item Player, ResourceType type)
