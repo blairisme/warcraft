@@ -2,62 +2,37 @@ package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.common.*;
-import com.evilbird.engine.action.framework.DelayedAction;
-import com.evilbird.engine.action.framework.ParallelAction;
-import com.evilbird.engine.action.framework.RepeatedAction;
-import com.evilbird.engine.action.framework.SequenceAction;
-import com.evilbird.engine.action.framework.TimeDuration;
-import com.evilbird.engine.common.collection.Collections;
-import com.evilbird.engine.common.function.Comparator;
-import com.evilbird.engine.common.function.Predicate;
-import com.evilbird.engine.common.lang.NamedIdentifier;
+import com.evilbird.engine.action.framework.*;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.ItemOperations;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
-import com.evilbird.engine.item.specialized.animated.Audible;
-import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.action.common.AnimationAliasAction;
-import com.evilbird.warcraft.action.common.MoveAction;
-import com.evilbird.warcraft.action.subsequence.MoveSubsequence;
-import com.evilbird.warcraft.item.common.capability.Movable;
-import com.evilbird.warcraft.item.common.capability.ResourceContainer;
+import com.evilbird.warcraft.action.common.ReplacementAction;
 import com.evilbird.warcraft.action.common.ResourceTransferAction;
+import com.evilbird.warcraft.item.common.capability.ResourceContainer;
+import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
-import com.evilbird.warcraft.item.unit.UnitAnimation;
-import com.evilbird.warcraft.item.unit.UnitSound;
 
-import java.util.Collection;
-
-import javax.inject.Inject;
-
-import static com.evilbird.engine.item.ItemComparators.closestItem;
 import static com.evilbird.engine.item.ItemOperations.findClosest;
-import static com.evilbird.engine.item.ItemPredicates.itemWithType;
 
 /**
  * @author Blair Butterworth
  */
-//TODO: Cope with leaving mid gather and returning to gather
 //TODO: Cope with leaving mid gather and returning to Depot
 //TODO: Cope with other types of depot. E.g., lumbermill
 public abstract class GatherSequence implements ActionProvider
 {
-    private AudibleSequence audibleSequence;
-    private MoveSubsequence moveSubsequence;
+    private MoveSequence moveSequence;
 
-    @Inject
     public GatherSequence(
-        AudibleSequence audibleSequence,
-        MoveSubsequence moveSubsequence)
+        MoveSequence moveSequence)
     {
-        this.audibleSequence = audibleSequence;
-        this.moveSubsequence = moveSubsequence;
+        this.moveSequence = moveSequence;
     }
 
     @Override
@@ -69,26 +44,28 @@ public abstract class GatherSequence implements ActionProvider
 
         Action depositHeldResources = depositHeldResources(gatherer, depot, player);
         Action gatherMoreResources = gather(gatherer, resource, type, depot, player);
-        return new SequenceAction(depositHeldResources, gatherMoreResources);
+        Action gatherResources = new SequenceAction(depositHeldResources, gatherMoreResources);
+
+        return new ReplacementAction(gatherer, gatherResources);
     }
 
-    private Action depositHeldResources(Item gatherer, Item depot, Item player)
+    protected Action depositHeldResources(Item gatherer, Item depot, Item player)
     {
         Action depositHeldGold = depositHeldResource(gatherer, depot, player, ResourceType.Gold);
         Action depositHeldWood = depositHeldResource(gatherer, depot, player, ResourceType.Wood);
         return new SequenceAction(depositHeldGold, depositHeldWood);
     }
 
-    private Action depositHeldResource(Item gatherer, Item depot, Item player, ResourceType type)
+    protected Action depositHeldResource(Item gatherer, Item depot, Item player, ResourceType type)
     {
         ResourceContainer gathererResources = (ResourceContainer)gatherer;
         if (gathererResources.getResource(type) > 0) {
             return deposit(gatherer, depot, player, type);
         }
-        return new PlaceholderAction();
+        return new EmptyAction();
     }
 
-    private Action gather(Item gatherer, Item resource, ResourceType type, Item depot, Item player)
+    protected Action gather(Item gatherer, Item resource, ResourceType type, Item depot, Item player)
     {
         Action obtain = obtain(gatherer, resource, type);
         Action deposit = deposit(gatherer, depot, player, type);
@@ -96,29 +73,23 @@ public abstract class GatherSequence implements ActionProvider
         return new RepeatedAction(gather);
     }
 
-    private Action obtain(Item gatherer, Item resource, ResourceType type)
+    protected Action obtain(Item gatherer, Item resource, ResourceType type)
     {
-        Action move = moveSubsequence.get(gatherer, resource);
-        Action deselect = new SelectAction(gatherer, false);
-        Action disable = new DisableAction(gatherer, false);
-        Action preAnimation = preObtainAnimation(gatherer, resource, type);
+        Action move = moveSequence.get(gatherer, resource);
+        Action preObtain = preObtainAction(gatherer, resource, type);
         Action obtain = obtainAction(gatherer, resource, type);
-        Action postAnimation = postObtainAnimation(gatherer, resource, type);
-        Action enable = new DisableAction(gatherer, true);
-        return new SequenceAction(move, deselect, disable, preAnimation, obtain, postAnimation, enable);
+        Action postObtain = postObtainAction(gatherer, resource, type);
+        return new SequenceAction(move, preObtain, obtain, postObtain);
     }
 
-    private Action obtainAction(Item gatherer, Item resource, ResourceType type)
+    protected Action obtainAction(Item gatherer, Item resource, ResourceType type)
     {
-        SoundIdentifier obtainSoundId = UnitSound.getGatherSound(type);
-        Action gathererSound = audibleSequence.get(gatherer, obtainSoundId, 10, 1f);
-        Action resourceSound = audibleSequence.get(resource, obtainSoundId, 10, 1f);
-        Action transferAction = new ResourceTransferAction((ResourceContainer)resource, (ResourceContainer)gatherer, type, 10f);
-        Action transferDelay = new DelayedAction(transferAction, new TimeDuration(10f));
-        return new ParallelAction(transferDelay, gathererSound, resourceSound);
+        Action transferAction = new ResourceTransferAction((ResourceContainer)resource, (ResourceContainer)gatherer, type, getGatherCapacity(gatherer));
+        Action transferDelay = new DelayedAction(getGatherSpeed(gatherer));
+        return new SequenceAction(transferDelay, transferAction);
     }
 
-    private Action preObtainAnimation(Item gatherer, Item resource, ResourceType type)
+    protected Action preObtainAction(Item gatherer, Item resource, ResourceType type)
     {
         AnimationIdentifier obtainAnimationId = UnitAnimation.getGatherAnimation(type);
         Action gathererAnimation = new AnimateAction((Animated)gatherer, obtainAnimationId);
@@ -126,7 +97,7 @@ public abstract class GatherSequence implements ActionProvider
         return new ParallelAction(gathererAnimation, resourceAnimation);
     }
 
-    private Action postObtainAnimation(Item gatherer, Item resource, ResourceType type)
+    protected Action postObtainAction(Item gatherer, Item resource, ResourceType type)
     {
         Action gatherMovement = new AnimationAliasAction((Animated)gatherer, UnitAnimation.Move, UnitAnimation.getMoveAnimation(type));
         Action gathererIdle = new AnimateAction((Animated)gatherer, UnitAnimation.Idle);
@@ -134,36 +105,40 @@ public abstract class GatherSequence implements ActionProvider
         return new ParallelAction(gatherMovement, gathererIdle, resourceIdle);
     }
 
-    private Action deposit(Item gatherer, Item depot, Item player, ResourceType type)
+    protected Action deposit(Item gatherer, Item depot, Item player, ResourceType type)
     {
-        Action move = moveSubsequence.get(gatherer, depot);
+        Action move = moveSequence.get(gatherer, depot);
+        Action preDeposit = preDepositAction(gatherer, type);
+        Action deposit = depositAction(gatherer, player, type);
+        Action postDeposit = postDepositAction(gatherer);
+        return new SequenceAction(move, preDeposit, deposit, postDeposit);
+    }
+
+    protected Action depositAction(Item gatherer, Item player, ResourceType type)
+    {
+        Action transfer = new ResourceTransferAction((ResourceContainer)gatherer, (ResourceContainer)player, type, getGatherCapacity(gatherer));
+        Action transferDelay = new DelayedAction(new TimeDuration(5f));
+        return new SequenceAction(transfer, transferDelay);
+    }
+
+    protected Action preDepositAction(Item gatherer, ResourceType type)
+    {
         Action deselect = new SelectAction(gatherer, false);
         Action disable = new DisableAction(gatherer, false);
-        Action preAnimation = preDepositAnimation(gatherer, type);
-        Action deposit = depositAction(gatherer, player, type);
-        Action postAnimation = postDepositAnimation(gatherer);
+        Action hide = new VisibleAction(gatherer, false);
+        return new ParallelAction(deselect, disable, hide);
+    }
+
+    private Action postDepositAction(Item gatherer)
+    {
+        Action resetMove = new AnimationAliasAction((Animated)gatherer, UnitAnimation.Move, UnitAnimation.MoveBasic);
+        Action animate = new AnimateAction((Animated)gatherer, UnitAnimation.Idle);
         Action enable = new DisableAction(gatherer, true);
-        return new SequenceAction(move, deselect, disable, preAnimation, deposit, postAnimation, enable);
+        Action show = new VisibleAction(gatherer, true);
+        return new ParallelAction(resetMove, animate, enable, show);
     }
 
-    private Action depositAction(Item gatherer, Item player, ResourceType type)
-    {
-        Action transfer = new ResourceTransferAction((ResourceContainer)gatherer, (ResourceContainer)player, type, 10f);
-        Action transferDelay = new DelayedAction(transfer, new TimeDuration(10f));
-        return transferDelay;
-    }
+    protected abstract float getGatherCapacity(Item gatherer);
 
-    private Action preDepositAnimation(Item gatherer, ResourceType type)
-    {
-        AnimationIdentifier animationId = UnitAnimation.getDepositAnimation(type);
-        Action gathererAnimation = new AnimateAction((Animated)gatherer, animationId);
-        return new ParallelAction(gathererAnimation);
-    }
-
-    private Action postDepositAnimation(Item gatherer)
-    {
-        Action gatherMovement = new AnimationAliasAction((Animated)gatherer, UnitAnimation.Move, UnitAnimation.MoveBasic);
-        Action gathererIdle = new AnimateAction((Animated)gatherer, UnitAnimation.Idle);
-        return new ParallelAction(gatherMovement, gathererIdle);
-    }
+    protected abstract float getGatherSpeed(Item gatherer);
 }

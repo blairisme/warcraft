@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.action.subsequence;
+package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -23,12 +23,12 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class ConfirmSubsequence
+public class ConfirmSequence
 {
     private ItemFactory itemFactory;
 
     @Inject
-    public ConfirmSubsequence(ItemFactory itemFactory)
+    public ConfirmSequence(ItemFactory itemFactory)
     {
         this.itemFactory = itemFactory;
     }

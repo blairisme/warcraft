@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.action.subsequence;
+package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -16,10 +16,10 @@ import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import javax.inject.Inject;
 
-public class MoveSubsequence
+public class MoveSequence
 {
     @Inject
-    public MoveSubsequence() {
+    public MoveSequence() {
     }
 
     public Action get(Item item, Item destination)

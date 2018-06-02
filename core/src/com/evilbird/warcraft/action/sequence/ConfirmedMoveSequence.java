@@ -8,8 +8,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.action.subsequence.ConfirmSubsequence;
-import com.evilbird.warcraft.action.subsequence.MoveSubsequence;
+import com.evilbird.warcraft.action.common.ReplacementAction;
 
 import javax.inject.Inject;
 
@@ -18,18 +17,18 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class MoveSequence implements ActionProvider
+public class ConfirmedMoveSequence implements ActionProvider
 {
-    private MoveSubsequence moveSubsequence;
-    private ConfirmSubsequence confirmSubsequence;
+    private MoveSequence moveSequence;
+    private ConfirmSequence confirmSequence;
 
     @Inject
-    public MoveSequence(
-        MoveSubsequence moveSubsequence,
-        ConfirmSubsequence confirmSubsequence)
+    public ConfirmedMoveSequence(
+        MoveSequence moveSequence,
+        ConfirmSequence confirmSequence)
     {
-        this.moveSubsequence = moveSubsequence;
-        this.confirmSubsequence = confirmSubsequence;
+        this.moveSequence = moveSequence;
+        this.confirmSequence = confirmSequence;
     }
 
     @Override
@@ -37,8 +36,9 @@ public class MoveSequence implements ActionProvider
     {
         ItemRoot root = item.getRoot();
         Vector2 destination = root.unproject(input.getPosition());
-        Action confirm = confirmSubsequence.get(item.getParent(), destination);
-        Action move = moveSubsequence.get(item, destination);
-        return new SequenceAction(confirm, move);
+        Action confirm = confirmSequence.get(item.getParent(), destination);
+        Action move = moveSequence.get(item, destination);
+        Action confirmedMove = new SequenceAction(confirm, move);
+        return new ReplacementAction(item, confirmedMove);
     }
 }
