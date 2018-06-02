@@ -29,11 +29,14 @@ public class AnimationCollections
     }
 
     public static Map<AnimationIdentifier, DirectionalAnimation> gatherAnimations(
-            Texture generalTexture, Texture decomposeTexture)
+            Texture generalTexture, Texture decomposeTexture, Texture moveGoldTexture, Texture moveWoodTexture)
     {
         AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
         builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(), generalTexture);
-        builder.set(UnitAnimation.Move, AnimationSchemas.moveSchema(), generalTexture);
+        builder.set(UnitAnimation.MoveBasic, AnimationSchemas.moveSchema(), generalTexture);
+        builder.set(UnitAnimation.MoveGold, AnimationSchemas.moveSchema(), moveGoldTexture);
+        builder.set(UnitAnimation.MoveWood, AnimationSchemas.moveSchema(), moveWoodTexture);
+        builder.associate(UnitAnimation.Move, UnitAnimation.MoveBasic);
         builder.set(UnitAnimation.Attack, AnimationSchemas.attackSchema(), generalTexture);
         builder.set(UnitAnimation.Hidden, AnimationSchemas.hiddenSchema(), generalTexture);
         builder.set(UnitAnimation.Die, AnimationSchemas.deathSchema(), generalTexture);

@@ -52,9 +52,11 @@ public class PeasantProvider implements AssetProvider<Item>
         assets.load("data/sounds/neutral/chopping/3.wav", Sound.class);
         assets.load("data/sounds/neutral/chopping/4.wav", Sound.class);
 
-        assets.load("data/textures/human/perennial/peasant.png", Texture.class);
-        assets.load("data/textures/neutral/perennial/decompose.png", Texture.class);
         assets.load("data/textures/neutral/perennial/icons.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/decompose.png", Texture.class);
+        assets.load("data/textures/human/perennial/peasant.png", Texture.class);
+        assets.load("data/textures/human/perennial/peasant_move_gold.png", Texture.class);
+        assets.load("data/textures/human/perennial/peasant_move_wood.png", Texture.class);
     }
 
     @Override
@@ -98,8 +100,10 @@ public class PeasantProvider implements AssetProvider<Item>
     private Map<AnimationIdentifier, DirectionalAnimation> getAnimations()
     {
         Texture general = assets.get("data/textures/human/perennial/peasant.png", Texture.class);
+        Texture moveGold = assets.get("data/textures/human/perennial/peasant_move_gold.png", Texture.class);
+        Texture moveWood = assets.get("data/textures/human/perennial/peasant_move_wood.png", Texture.class);
         Texture decompose = assets.get("data/textures/neutral/perennial/decompose.png", Texture.class);
-        return AnimationCollections.gatherAnimations(general, decompose);
+        return AnimationCollections.gatherAnimations(general, decompose, moveGold, moveWood);
     }
 
     private Drawable getIcon()

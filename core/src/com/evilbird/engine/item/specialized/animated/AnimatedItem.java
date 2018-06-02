@@ -56,6 +56,11 @@ public class AnimatedItem extends Item implements Animated, Audible
         return currentAnimation.getKeyFrame(animationTime);
     }
 
+    public DirectionalAnimation getAvailableAnimation(AnimationIdentifier id)
+    {
+        return animations.get(id);
+    }
+
     public void setAnimation(AnimationIdentifier animationId)
     {
         this.currentAnimationId = animationId;
