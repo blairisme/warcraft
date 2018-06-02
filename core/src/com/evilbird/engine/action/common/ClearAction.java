@@ -11,16 +11,27 @@ import com.evilbird.engine.item.Item;
 public class ClearAction extends Action
 {
     private Item item;
+    private Action next;
 
     public ClearAction(Item item)
     {
         this.item = item;
     }
 
+    public ClearAction(Item item, Action next)
+    {
+        this.item = item;
+        this.next = next;
+    }
+
+
     @Override
     public boolean act(float delta)
     {
         item.clearActions();
+        if (next != null) {
+            item.addAction(next);
+        }
         return true;
     }
 

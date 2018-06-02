@@ -41,10 +41,7 @@ public class AnimationCollections
         builder.set(UnitAnimation.Hidden, AnimationSchemas.hiddenSchema(), generalTexture);
         builder.set(UnitAnimation.Die, AnimationSchemas.deathSchema(), generalTexture);
         builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decomposeTexture);
-        builder.associate(UnitAnimation.GatherGold, UnitAnimation.Hidden);
         builder.associate(UnitAnimation.GatherWood, UnitAnimation.Attack);
-        builder.associate(UnitAnimation.DepositGold, UnitAnimation.Hidden);
-        builder.associate(UnitAnimation.DepositWood, UnitAnimation.Hidden);
         builder.associate(UnitAnimation.Build, UnitAnimation.Hidden);
         return builder.build();
     }

@@ -9,6 +9,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.action.common.ReplacementAction;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import javax.inject.Inject;
@@ -28,8 +29,7 @@ public class StopSequence implements ActionProvider
     @Override
     public Action get(ActionType action, Item item, Item target, UserInput input)
     {
-        Action clearAction = new ClearAction(item);
         Action idleAnimation = new AnimateAction((Animated)item, UnitAnimation.Idle);
-        return new SequenceAction(idleAnimation, clearAction);
+        return new ReplacementAction(item, idleAnimation);
     }
 }

@@ -21,9 +21,9 @@ public enum ActionType implements ActionIdentifier
     Cancel  (ActionCategory.Cancel),
     Repair  (ActionCategory.Repair),
 
-    GatherGold  (ActionCategory.Gather),
-    GatherOil   (ActionCategory.Gather),
-    GatherWood  (ActionCategory.Gather),
+    GatherGold  (ActionCategory.GatherGold),
+    GatherOil   (ActionCategory.GatherOil),
+    GatherWood  (ActionCategory.GatherWood),
 
     BuildBarracks   (ActionCategory.Build),
     BuildFarm       (ActionCategory.Build),

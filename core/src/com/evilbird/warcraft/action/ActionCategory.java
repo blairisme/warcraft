@@ -11,9 +11,11 @@ public enum ActionCategory implements ActionIdentifier
     Zoom,
     Drag,
 
-    Gather,
-    Repair,
+    GatherGold,
+    GatherWood,
+    GatherOil,
 
+    Repair,
     Build,
     BuildSite,
     Train,

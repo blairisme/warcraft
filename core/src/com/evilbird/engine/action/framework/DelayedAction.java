@@ -10,40 +10,27 @@ import com.evilbird.engine.action.framework.ActionDuration;
  */
 public class DelayedAction extends Action
 {
-    private Action action;
     private ActionDuration delay;
-    private boolean invoked;
+
+    public DelayedAction(float time)
+    {
+        this(new TimeDuration(time));
+    }
 
     public DelayedAction(ActionDuration delay)
     {
-        this.action = null;
         this.delay = delay;
-        this.invoked = true;
-    }
-
-    public DelayedAction(Action action, ActionDuration delay)
-    {
-        this.action = action;
-        this.delay = delay;
-        this.invoked = false;
     }
 
     @Override
     public boolean act(float delta)
     {
-        if (! invoked){
-            invoked = action.act(delta);
-        }
         return delay.isComplete(delta);
     }
 
     @Override
     public void restart()
     {
-        if (action != null){
-            action.restart();
-            invoked = false;
-        }
         delay.restart();
     }
 }

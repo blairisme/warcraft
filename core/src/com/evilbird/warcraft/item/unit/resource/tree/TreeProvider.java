@@ -62,7 +62,7 @@ public class TreeProvider implements AssetProvider<Tree>
     {
         Texture texture = assets.get("data/textures/neutral/winter/terrain.png", Texture.class);
         TextureRegion idleTexture =  new TextureRegion(texture, 7 * 32, 0, 32, 32);
-        TextureRegion deathTexture =  new TextureRegion(texture, 15 * 32, 7 * 32, 32, 32);
+        TextureRegion deathTexture =  new TextureRegion(texture, 448, 224, 32, 32);
 
         DirectionalAnimation idleAnimation = AnimationUtils.getAnimation(idleTexture);
         DirectionalAnimation deathAnimation = AnimationUtils.getAnimation(deathTexture);

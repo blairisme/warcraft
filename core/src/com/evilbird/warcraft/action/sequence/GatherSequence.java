@@ -43,7 +43,10 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithType;
 /**
  * @author Blair Butterworth
  */
-public class GatherSequence implements ActionProvider
+//TODO: Cope with leaving mid gather and returning to gather
+//TODO: Cope with leaving mid gather and returning to Depot
+//TODO: Cope with other types of depot. E.g., lumbermill
+public abstract class GatherSequence implements ActionProvider
 {
     private AudibleSequence audibleSequence;
     private MoveSubsequence moveSubsequence;

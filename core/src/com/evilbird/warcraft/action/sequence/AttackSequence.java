@@ -15,6 +15,10 @@ import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.action.common.AttackAction;
+import com.evilbird.warcraft.action.common.DieAction;
+import com.evilbird.warcraft.action.common.MoveAction;
+import com.evilbird.warcraft.action.common.ReplacementAction;
 import com.evilbird.warcraft.item.common.capability.Destructible;
 import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -27,6 +31,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
+//TODO: Handle target moving away
 public class AttackSequence implements ActionProvider
 {
     @Inject
@@ -37,35 +42,23 @@ public class AttackSequence implements ActionProvider
     @Override
     public Action get(ActionType action, Item item, Item target, UserInput input)
     {
-        return get(item, target);
+        Action attack = attack(item, target);
+        return new ReplacementAction(item, attack);
     }
 
-    private Action get(Item attacker, Item target)
+    private Action attack(Item attacker, Item target)
     {
         Action moveAnimation = new AnimateAction((Animated)attacker, UnitAnimation.Move);
-        Action moveAction = new com.evilbird.warcraft.action.common.MoveAction((Movable)attacker, target);
+        Action moveAction = new MoveAction((Movable)attacker, target);
         Action move = new ParallelAction(moveAnimation, moveAction);
 
         Action attackAnimation = new AnimateAction((Animated)attacker, UnitAnimation.Attack);
-        Action reduceHealth = new com.evilbird.warcraft.action.common.AttackAction((Combatant)attacker, (Destructible)target);
+        Action reduceHealth = new AttackAction((Combatant)attacker, (Destructible)target);
         Action attack = new ParallelAction(attackAnimation, reduceHealth);
 
-        Action deadAnimation = newAnimationAction(target, UnitAnimation.Die, 0.5f);
-        Action deselect = new SelectAction(target, false);
-        Action disable = new DisableAction(target, false);
-        Action idleAnimation = new AnimateAction((Animated)target, UnitAnimation.Idle);
-        Action die = new ParallelAction(deadAnimation, deselect, disable, idleAnimation);
+        Action idleAnimation = new AnimateAction((Animated)attacker, UnitAnimation.Idle);
+        Action die = new DieAction(target);
 
-        Action decompose = newAnimationAction(target, UnitAnimation.Decompose, 10f);
-        Action remove = new RemoveAction(target);
-        Action clean = new SequenceAction(decompose, remove);
-
-        return new SequenceAction(move, attack, die, clean);
-    }
-
-    private Action newAnimationAction(Item item, AnimationIdentifier animation, float time)
-    {
-        Action animate = new AnimateAction((Animated)item, animation);
-        return new DelayedAction(animate, new TimeDuration(time));
+        return new SequenceAction(move, attack, idleAnimation, die);
     }
 }
