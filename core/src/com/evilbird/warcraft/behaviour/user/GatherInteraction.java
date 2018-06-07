@@ -7,6 +7,7 @@ import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.behaviour.user.interaction.CompositeInteraction;
 import com.evilbird.warcraft.behaviour.user.interaction.Interaction;
 import com.evilbird.warcraft.behaviour.user.interaction.SelectionInteractionFactory;
+import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
 
@@ -23,8 +24,8 @@ public class GatherInteraction implements Interaction
     public GatherInteraction(SelectionInteractionFactory interactionFactory)
     {
         interactions = new CompositeInteraction();
-        interactions.add(interactionFactory.get(UserInputType.Action, "Gold", "Peasant", null, ActionType.GatherGold));
-        interactions.add(interactionFactory.get(UserInputType.Action, "Wood", "Peasant", null, ActionType.GatherWood));
+        interactions.add(interactionFactory.get(UserInputType.Action, UnitType.GoldMine, UnitType.Peasant, null, ActionType.GatherGold));
+        interactions.add(interactionFactory.get(UserInputType.Action, UnitType.Tree, UnitType.Peasant, null, ActionType.GatherWood));
     }
 
     @Override

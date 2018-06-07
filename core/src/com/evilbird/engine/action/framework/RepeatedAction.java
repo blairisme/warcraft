@@ -10,32 +10,26 @@ public class RepeatedAction extends Action
     private int count;
     private int times;
 
-    public RepeatedAction(Action action)
-    {
+    public RepeatedAction(Action action) {
         this(action, INFINITE);
     }
 
-    public RepeatedAction(Action action, int times)
-    {
+    public RepeatedAction(Action action, int times) {
         this.action = action;
         this.times = times;
         this.count = 0;
     }
 
     @Override
-    public boolean act(float delta)
-    {
-        if (action.act(delta))
-        {
+    public boolean act(float delta) {
+        if (action.act(delta)) {
             return repeat();
         }
         return false;
     }
 
-    private boolean repeat()
-    {
-        if (times == INFINITE || count++ < times)
-        {
+    private boolean repeat() {
+        if (times == INFINITE || count++ < times) {
             action.restart();
             return false;
         }
@@ -43,8 +37,7 @@ public class RepeatedAction extends Action
     }
 
     @Override
-    public void restart()
-    {
+    public void restart() {
         action.restart();
         count = 0;
     }

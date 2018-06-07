@@ -1,7 +1,10 @@
 package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.action.common.*;
+import com.evilbird.engine.action.common.AnimateAction;
+import com.evilbird.engine.action.common.DisableAction;
+import com.evilbird.engine.action.common.SelectAction;
+import com.evilbird.engine.action.common.VisibleAction;
 import com.evilbird.engine.action.framework.*;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
@@ -13,12 +16,16 @@ import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.action.common.AnimationAliasAction;
 import com.evilbird.warcraft.action.common.ReplacementAction;
 import com.evilbird.warcraft.action.common.ResourceTransferAction;
+import com.evilbird.warcraft.item.common.capability.Destructible;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.resource.Resource;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
+import com.evilbird.engine.common.function.Supplier;
 
 import static com.evilbird.engine.item.ItemOperations.findClosest;
+import static com.evilbird.engine.item.ItemSuppliers.isAlive;
 
 /**
  * @author Blair Butterworth
@@ -29,9 +36,7 @@ public abstract class GatherSequence implements ActionProvider
 {
     private MoveSequence moveSequence;
 
-    public GatherSequence(
-        MoveSequence moveSequence)
-    {
+    public GatherSequence(MoveSequence moveSequence) {
         this.moveSequence = moveSequence;
     }
 
@@ -40,10 +45,9 @@ public abstract class GatherSequence implements ActionProvider
     {
         Item player = gatherer.getParent();
         Item depot = findClosest((ItemGroup)player, UnitType.TownHall, gatherer);
-        ResourceType type = ResourceType.valueOf(resource.getType().toString()); //TODO: replace with resource.getType()
 
         Action depositHeldResources = depositHeldResources(gatherer, depot, player);
-        Action gatherMoreResources = gather(gatherer, resource, type, depot, player);
+        Action gatherMoreResources = gather(gatherer, resource, depot, player);
         Action gatherResources = new SequenceAction(depositHeldResources, gatherMoreResources);
 
         return new ReplacementAction(gatherer, gatherResources);
@@ -65,11 +69,20 @@ public abstract class GatherSequence implements ActionProvider
         return new EmptyAction();
     }
 
-    protected Action gather(Item gatherer, Item resource, ResourceType type, Item depot, Item player)
+    protected Action gather(final Item gatherer, final Item resource, final Item depot, final Item player)
     {
-        Action obtain = obtain(gatherer, resource, type);
-        Action deposit = deposit(gatherer, depot, player, type);
-        Action gather = new SequenceAction(obtain, deposit);
+        Supplier<Action> supplier = new Supplier<Action>() {
+            public Action get() {
+                Item closestDepot = findClosest(depot);
+                Item closestResource = findClosest(resource);
+                ResourceType type = ((Resource)resource).getResourceType();
+
+                Action obtain = obtain(gatherer, closestResource, type);
+                Action deposit = deposit(gatherer, closestDepot, player, type);
+                return new SequenceAction(obtain, deposit);
+            }
+        };
+        Action gather = new SuppliedAction(supplier);
         return new RepeatedAction(gather);
     }
 
@@ -84,7 +97,8 @@ public abstract class GatherSequence implements ActionProvider
 
     protected Action obtainAction(Item gatherer, Item resource, ResourceType type)
     {
-        Action transferAction = new ResourceTransferAction((ResourceContainer)resource, (ResourceContainer)gatherer, type, getGatherCapacity(gatherer));
+        float transferAmount = getGatherCapacity(gatherer);
+        Action transferAction = new ResourceTransferAction((ResourceContainer)resource, (ResourceContainer)gatherer, type, transferAmount);
         Action transferDelay = new DelayedAction(getGatherSpeed(gatherer));
         return new SequenceAction(transferDelay, transferAction);
     }
@@ -100,9 +114,17 @@ public abstract class GatherSequence implements ActionProvider
     protected Action postObtainAction(Item gatherer, Item resource, ResourceType type)
     {
         Action gatherMovement = new AnimationAliasAction((Animated)gatherer, UnitAnimation.Move, UnitAnimation.getMoveAnimation(type));
-        Action gathererIdle = new AnimateAction((Animated)gatherer, UnitAnimation.Idle);
-        Action resourceIdle = new AnimateAction((Animated)resource, UnitAnimation.Idle);
-        return new ParallelAction(gatherMovement, gathererIdle, resourceIdle);
+        Action gathererIdle = new AnimationAliasAction((Animated)gatherer, UnitAnimation.Idle, UnitAnimation.getIdleAnimation(type));
+
+        Action deselect = new SelectAction(resource, false);
+        Action disable = new DisableAction(resource, false);
+        Action deadAnimation = new AnimateAction((Animated)resource, UnitAnimation.Dead);
+        Action deadAction = new ParallelAction(deselect, disable, deadAnimation);
+
+        Action aliveAction = new AnimateAction((Animated)resource, UnitAnimation.Idle);
+        Action resourceAnimation = new BranchAction(isAlive((Destructible)resource), aliveAction, deadAction);
+
+        return new ParallelAction(gatherMovement, gathererIdle, resourceAnimation);
     }
 
     protected Action deposit(Item gatherer, Item depot, Item player, ResourceType type)
@@ -132,7 +154,7 @@ public abstract class GatherSequence implements ActionProvider
     private Action postDepositAction(Item gatherer)
     {
         Action resetMove = new AnimationAliasAction((Animated)gatherer, UnitAnimation.Move, UnitAnimation.MoveBasic);
-        Action animate = new AnimateAction((Animated)gatherer, UnitAnimation.Idle);
+        Action animate = new AnimationAliasAction((Animated)gatherer, UnitAnimation.Idle, UnitAnimation.IdleBasic);
         Action enable = new DisableAction(gatherer, true);
         Action show = new VisibleAction(gatherer, true);
         return new ParallelAction(resetMove, animate, enable, show);

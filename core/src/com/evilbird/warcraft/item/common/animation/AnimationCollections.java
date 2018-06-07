@@ -32,7 +32,10 @@ public class AnimationCollections
             Texture generalTexture, Texture decomposeTexture, Texture moveGoldTexture, Texture moveWoodTexture)
     {
         AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
-        builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(), generalTexture);
+        builder.set(UnitAnimation.IdleBasic, AnimationSchemas.idleSchema(), generalTexture);
+        builder.set(UnitAnimation.IdleGold, AnimationSchemas.idleSchema(), moveGoldTexture);
+        builder.set(UnitAnimation.IdleWood, AnimationSchemas.idleSchema(), moveWoodTexture);
+        builder.associate(UnitAnimation.Idle, UnitAnimation.IdleBasic);
         builder.set(UnitAnimation.MoveBasic, AnimationSchemas.moveSchema(), generalTexture);
         builder.set(UnitAnimation.MoveGold, AnimationSchemas.moveSchema(), moveGoldTexture);
         builder.set(UnitAnimation.MoveWood, AnimationSchemas.moveSchema(), moveWoodTexture);

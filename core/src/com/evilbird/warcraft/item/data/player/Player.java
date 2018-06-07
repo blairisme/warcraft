@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
+import com.evilbird.warcraft.item.data.DataType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,7 @@ public class Player extends ItemGroup implements ResourceContainer
     {
         super.setPosition(0, 0);
         super.setSize(Float.MAX_VALUE, Float.MAX_VALUE);
+        super.setType(DataType.Player);
 
         consoleUser = true;
         resources = new HashMap<ResourceIdentifier, Float>();

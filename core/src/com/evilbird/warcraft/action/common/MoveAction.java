@@ -18,6 +18,7 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.SpatialGraph;
 import com.evilbird.engine.item.SpatialItemNode;
 import com.evilbird.warcraft.item.common.capability.Movable;
+import com.evilbird.warcraft.item.layer.LayerType;
 
 import java.util.Iterator;
 import java.util.concurrent.CancellationException;
@@ -102,7 +103,7 @@ public class MoveAction extends Action
     {
         ItemRoot root = target.getRoot();
         SpatialGraph rootGraph = root.getSpatialGraph();
-        return new SpatialGraph(rootGraph, new NodeWithType(new NamedIdentifier("Map")));
+        return new SpatialGraph(rootGraph, new NodeWithType(LayerType.Map));
     }
 
     private GraphPath<SpatialItemNode> getSpatialPath(SpatialGraph spatialGraph, Vector2 position)

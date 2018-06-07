@@ -4,6 +4,7 @@ import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.unit.Unit;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,23 +15,30 @@ import java.util.Map;
  */
 public class Resource extends Unit implements ResourceContainer
 {
-    private Map<ResourceIdentifier, Float> resources;
+    private ResourceType resourceType;
+    private float resourceValue;
 
     public Resource()
     {
-        resources = new HashMap<ResourceIdentifier, Float>();
+        resourceType = null;
+        resourceValue = 0f;
+    }
+
+    public ResourceType getResourceType() {
+        return resourceType;
     }
 
     @Override
-    public float getResource(ResourceIdentifier resource)
-    {
-        Float result = resources.get(resource);
-        return result != null ? result : 0f;
+    public float getResource(ResourceIdentifier resource) {
+        if (resourceType == resource) {
+            return resourceValue;
+        }
+        return 0f;
     }
 
     @Override
-    public void setResource(ResourceIdentifier resource, float value)
-    {
-        this.resources.put(resource, value);
+    public void setResource(ResourceIdentifier resource, float value) {
+        resourceType = (ResourceType)resource;
+        resourceValue = value;
     }
 }

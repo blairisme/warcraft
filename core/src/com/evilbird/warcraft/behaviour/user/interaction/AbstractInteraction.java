@@ -14,9 +14,9 @@ import com.evilbird.engine.item.Item;
  */
 public abstract class AbstractInteraction implements Interaction
 {
-    protected NamedIdentifier targetType;
-    protected NamedIdentifier hudType;
-    protected NamedIdentifier selectedType;
+    protected Identifier targetType;
+    protected Identifier hudType;
+    protected Identifier selectedType;
     protected UserInputType inputType;
 
     public AbstractInteraction()
@@ -32,19 +32,37 @@ public abstract class AbstractInteraction implements Interaction
         this.inputType = inputType;
     }
 
+    @Deprecated //TODO: Remove
     public void setTargetType(String targetType)
     {
-        this.targetType = targetType != null ? new NamedIdentifier(targetType) : null; //TODO;
+        this.targetType = targetType != null ? new NamedIdentifier(targetType) : null;
     }
 
+    public void setTargetType(Identifier targetType)
+    {
+        this.targetType = targetType;
+    }
+
+    @Deprecated //TODO: Remove
     public void setSelectedType(String selectedType)
     {
-        this.selectedType = selectedType != null ? new NamedIdentifier(selectedType) : null; //TODO;
+        this.selectedType = selectedType != null ? new NamedIdentifier(selectedType) : null;
     }
 
+    public void setSelectedType(Identifier selectedType)
+    {
+        this.selectedType = selectedType;
+    }
+
+    @Deprecated //TODO: Remove
     public void setHudType(String hudType)
     {
-        this.hudType = hudType != null ? new NamedIdentifier(hudType) : null; //TODO;
+        this.hudType = hudType != null ? new NamedIdentifier(hudType) : null;
+    }
+
+    public void setHudType(Identifier hudType)
+    {
+        this.hudType = hudType;
     }
 
     @Override

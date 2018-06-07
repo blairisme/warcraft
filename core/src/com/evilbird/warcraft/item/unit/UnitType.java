@@ -21,5 +21,6 @@ public enum UnitType implements ItemType
 
     /* Resource */
     GoldMine,
+    Tree,
     OilPatch
 }

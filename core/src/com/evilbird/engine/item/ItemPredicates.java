@@ -103,5 +103,17 @@ public class ItemPredicates
         }
     }
 
+    public static Predicate<Item> selectableItem()
+    {
+        return new SelectableItem(); //TODO singleton?
+    }
 
+    public static class SelectableItem implements Predicate<Item>
+    {
+        @Override
+        public boolean test(Item item)
+        {
+            return item.getSelectable();
+        }
+    }
 }

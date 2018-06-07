@@ -7,6 +7,7 @@ import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.behaviour.user.interaction.CompositeInteraction;
 import com.evilbird.warcraft.behaviour.user.interaction.Interaction;
 import com.evilbird.warcraft.behaviour.user.interaction.SelectionInteractionFactory;
+import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
 
@@ -23,7 +24,7 @@ public class AttackInteraction implements Interaction
     public AttackInteraction(SelectionInteractionFactory interactionFactory)
     {
         interactions = new CompositeInteraction();
-        interactions.add(interactionFactory.get(UserInputType.Action, "Grunt", "Footman", null, ActionType.Attack));
+        interactions.add(interactionFactory.get(UserInputType.Action, UnitType.Grunt, UnitType.Footman, null, ActionType.Attack));
     }
 
     @Override

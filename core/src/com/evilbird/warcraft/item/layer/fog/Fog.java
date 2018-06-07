@@ -10,6 +10,7 @@ import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.specialized.layer.Layer;
 
+import com.evilbird.warcraft.item.layer.LayerType;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class Fog extends Layer
     {
         this.tileSet = tileSet;
         this.initialized = false;
-        setType(new NamedIdentifier("Fog"));
+        setType(LayerType.OpaqueFog);
         setTouchable(Touchable.disabled);
     }
 

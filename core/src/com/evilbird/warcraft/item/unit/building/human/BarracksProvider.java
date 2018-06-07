@@ -15,6 +15,7 @@ import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import java.util.EnumSet;
@@ -54,7 +55,7 @@ public class BarracksProvider implements AssetProvider<Item>
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
-        result.setType(new NamedIdentifier("Barracks"));
+        result.setType(UnitType.Barracks);
         result.setSize(96, 96);
         return result;
     }

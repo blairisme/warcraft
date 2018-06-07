@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
 
 /**
@@ -13,7 +14,7 @@ import com.evilbird.engine.item.ItemRoot;
  *
  * @author Blair Butterworth
  */
-public class Layer extends Item
+public class Layer extends ItemGroup
 {
     protected TiledMapTileLayer layer;
     protected OrthographicCamera camera;

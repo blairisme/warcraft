@@ -14,6 +14,7 @@ import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import java.util.EnumSet;
@@ -50,7 +51,7 @@ public class FarmProvider implements AssetProvider<Item>
         result.setHealthMaximum(400.0f);
         result.setIcon(getIcon());
         result.setName("Farm");
-        result.setType(new NamedIdentifier("Farm"));
+        result.setType(UnitType.Farm);
         result.setSize(64, 64);
         return result;
     }

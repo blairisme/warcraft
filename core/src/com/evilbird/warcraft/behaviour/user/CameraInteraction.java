@@ -7,6 +7,7 @@ import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.behaviour.user.interaction.CompositeInteraction;
 import com.evilbird.warcraft.behaviour.user.interaction.Interaction;
 import com.evilbird.warcraft.behaviour.user.interaction.TargetInteractionFactory;
+import com.evilbird.warcraft.item.data.DataType;
 
 import javax.inject.Inject;
 
@@ -23,8 +24,8 @@ public class CameraInteraction implements Interaction
     public CameraInteraction(TargetInteractionFactory targetFactory)
     {
         interactions = new CompositeInteraction();
-        interactions.add(targetFactory.get(UserInputType.Zoom, "Camera", null, null, ActionType.Zoom));
-        interactions.add(targetFactory.get(UserInputType.Drag, "Camera", null, null, ActionType.Pan));
+        interactions.add(targetFactory.get(UserInputType.Zoom, DataType.Camera, null, null, ActionType.Zoom));
+        interactions.add(targetFactory.get(UserInputType.Drag, DataType.Camera, null, null, ActionType.Pan));
     }
 
     @Override

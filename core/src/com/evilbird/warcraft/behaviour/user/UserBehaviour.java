@@ -7,6 +7,7 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.behaviour.user.interaction.CompositeInteraction;
+import com.evilbird.warcraft.item.data.DataType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -159,7 +160,7 @@ public class UserBehaviour implements Behaviour
 
     private Item getCameraTarget(ItemRoot world)
     {
-        return world.find(itemWithId(new NamedIdentifier("Camera")));
+        return world.find(itemWithId(DataType.Camera));
     }
 
     private Item getWorldTarget(ItemRoot world, UserInput userInput)

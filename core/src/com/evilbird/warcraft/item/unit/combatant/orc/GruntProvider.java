@@ -15,6 +15,7 @@ import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import java.util.EnumSet;
@@ -60,7 +61,7 @@ public class GruntProvider implements AssetProvider<Item>
         result.setTouchable(Touchable.enabled);
         result.setSpeed(10f);
         result.setSight(4f);
-        result.setType(new NamedIdentifier("Grunt"));
+        result.setType(UnitType.Grunt);
         result.setSize(72, 72);
         return result;
     }

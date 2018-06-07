@@ -7,12 +7,15 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.layer.Layer;
+import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.resource.tree.Tree;
 import com.evilbird.warcraft.item.unit.resource.tree.TreeProvider;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +27,7 @@ import javax.inject.Inject;
  * @author Blair Butterworth
  */
 //TODO: Prune "dead" trees
+//TODO: Finish making Forest an ItemGroup - added populateTrees but not the remaining contract
 public class Forest extends Layer
 {
     private TreeProvider treeProvider;
@@ -35,15 +39,17 @@ public class Forest extends Layer
         this.treeProvider = treeProvider;
         this.trees = new HashMap<Cell, Tree>();
 
-        setType(new NamedIdentifier("Forest"));
+        setType(LayerType.Forest);
         setTouchable(Touchable.enabled);
     }
 
     @Override
-    public void setLayer(TiledMapTileLayer layer)
+    public void draw(Batch batch, float alpha)
     {
-        super.setLayer(layer);
-        trees.clear();
+        super.draw(batch, alpha);
+        for (Tree tree: trees.values()){
+            tree.draw(batch, alpha);
+        }
     }
 
     @Override
@@ -59,12 +65,11 @@ public class Forest extends Layer
     }
 
     @Override
-    public void draw(Batch batch, float alpha)
+    public void setLayer(TiledMapTileLayer layer)
     {
-        super.draw(batch, alpha);
-        for (Tree tree: trees.values()){
-            tree.draw(batch, alpha);
-        }
+        super.setLayer(layer);
+        trees.clear();
+        populateTrees();
     }
 
     @Override
@@ -73,6 +78,18 @@ public class Forest extends Layer
         super.update(delta);
         for (Tree tree: trees.values()){
             tree.update(delta);
+        }
+    }
+
+    private void populateTrees() {
+        for (int x = 0; x < layer.getTileWidth(); ++x){
+            for (int y = 0; y < layer.getTileWidth(); ++y){
+                Cell cell = layer.getCell(x, y);
+                if (cell != null) {
+                    Tree tree = getTree(x, y, cell);
+                    addItem(tree);
+                }
+            }
         }
     }
 

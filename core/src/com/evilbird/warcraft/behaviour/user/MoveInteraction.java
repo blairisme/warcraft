@@ -7,6 +7,8 @@ import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.behaviour.user.interaction.CompositeInteraction;
 import com.evilbird.warcraft.behaviour.user.interaction.Interaction;
 import com.evilbird.warcraft.behaviour.user.interaction.SelectionInteractionFactory;
+import com.evilbird.warcraft.item.layer.LayerType;
+import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
 
@@ -23,9 +25,9 @@ public class MoveInteraction implements Interaction
     public MoveInteraction(SelectionInteractionFactory interactionFactory)
     {
         interactions = new CompositeInteraction();
-        interactions.add(interactionFactory.get(UserInputType.Action, "Map", "Footman", null, ActionType.Move));
-        interactions.add(interactionFactory.get(UserInputType.Action, "Map", "Peasant", null, ActionType.Move));
-        interactions.add(interactionFactory.get(UserInputType.Action, "Map", "Grunt", null, ActionType.Move));
+        interactions.add(interactionFactory.get(UserInputType.Action, LayerType.Map, UnitType.Footman, null, ActionType.Move));
+        interactions.add(interactionFactory.get(UserInputType.Action, LayerType.Map, UnitType.Peasant, null, ActionType.Move));
+        interactions.add(interactionFactory.get(UserInputType.Action, LayerType.Map, UnitType.Grunt, null, ActionType.Move));
     }
 
     @Override

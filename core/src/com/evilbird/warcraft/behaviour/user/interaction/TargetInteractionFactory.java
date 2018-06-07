@@ -1,5 +1,6 @@
 package com.evilbird.warcraft.behaviour.user.interaction;
 
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.warcraft.action.ActionType;
 
@@ -21,12 +22,29 @@ public class TargetInteractionFactory
         this.provider = provider;
     }
 
+    @Deprecated //TODO: Remove
     public TargetInteraction get(
         UserInputType inputType,
         String targetType,
         String selectedType,
         String hudType,
         ActionType actionType)
+    {
+        TargetInteraction result = provider.get();
+        result.setActionType(actionType);
+        result.setInputType(inputType);
+        result.setTargetType(targetType);
+        result.setSelectedType(selectedType);
+        result.setHudType(hudType);
+        return result;
+    }
+
+    public TargetInteraction get(
+            UserInputType inputType,
+            Identifier targetType,
+            Identifier selectedType,
+            Identifier hudType,
+            ActionType actionType)
     {
         TargetInteraction result = provider.get();
         result.setActionType(actionType);

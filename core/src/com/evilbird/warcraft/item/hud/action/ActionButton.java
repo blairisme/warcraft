@@ -30,7 +30,8 @@ public class ActionButton extends ImageButton
     public void setAction(ActionIdentifier action)
     {
         setImage(icons.get(action));
-        setType(new NamedIdentifier(action.toString()));
+        //setType(new NamedIdentifier(action.toString()));
+        setType(action);
     }
 
     public void setActionIcons(Map<ActionIdentifier, Drawable> icons)

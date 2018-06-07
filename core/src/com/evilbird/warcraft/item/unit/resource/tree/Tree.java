@@ -23,7 +23,6 @@ public class Tree extends Resource
 
     public Tree()
     {
-        setType(new NamedIdentifier("Wood"));
     }
 
     public void setCell(Cell cell)
@@ -56,7 +55,7 @@ public class Tree extends Resource
     {
         TiledMapTile tile = cell.getTile();
         TextureRegion texture = tile.getTextureRegion();
-        DirectionalAnimation animation = AnimationUtils.getAnimation(texture);
+        DirectionalAnimation animation = AnimationUtils.getAnimation(texture); //TODO: replace use of deprecated method
         setAvailableAnimation(UnitAnimation.Idle, animation);
         setAvailableAnimation(UnitAnimation.GatherWood, animation);
     }
