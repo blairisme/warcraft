@@ -68,8 +68,7 @@ public abstract class AbstractInteraction implements Interaction
     @Override
     public boolean update(UserInput input, Item target, Item worldSelection, Item hudSelection)
     {
-        if (applies(input, target, worldSelection, hudSelection))
-        {
+        if (applies(input, target, worldSelection, hudSelection)) {
             apply(input, target, worldSelection);
             return true;
         }

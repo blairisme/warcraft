@@ -32,8 +32,8 @@ public class Item implements ActorObserver, Positionable, Selectable, Disablable
         this.delegate = initializeDelegate();
         this.delegate.setUserObject(this);
 
-        setId(new NamedIdentifier());
-        setType(new NamedIdentifier("Unknown"));
+        setId(new NamedIdentifier());//TODO: replace with enum
+        setType(new NamedIdentifier("Unknown")); //TODO: replace with enum
         setSelected(false);
         setSelectable(true);
         setTouchable(Touchable.enabled);

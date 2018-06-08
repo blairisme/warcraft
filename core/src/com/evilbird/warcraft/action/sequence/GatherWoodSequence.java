@@ -26,6 +26,11 @@ public class GatherWoodSequence extends GatherSequence
     }
 
     @Override
+    protected ResourceType getResourceType() {
+        return ResourceType.Wood;
+    }
+
+    @Override
     protected float getGatherCapacity(Item gatherer) {
         return 100f;
     }
@@ -36,10 +41,10 @@ public class GatherWoodSequence extends GatherSequence
     }
 
     @Override
-    protected Action obtainAction(Item gatherer, Item resource, ResourceType type) {
-        SoundIdentifier obtainSoundId = UnitSound.getGatherSound(type);
+    protected Action obtainAction(Item gatherer, Item resource) {
+        SoundIdentifier obtainSoundId = UnitSound.getGatherSound(getResourceType());
         Action sound = audibleSequence.get(gatherer, obtainSoundId, 40, 1f);
-        Action obtain = super.obtainAction(gatherer, resource, type);
+        Action obtain = super.obtainAction(gatherer, resource);
         return new ParallelAction(obtain, sound);
     }
 }

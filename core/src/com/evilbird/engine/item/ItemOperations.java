@@ -17,7 +17,10 @@ public class ItemOperations
     {
         Predicate<Item> selector = both(itemWithType(type), selectableItem());
         Collection<Item> itemsWithType = itemGroup.findAll(selector);
-        return Collections.min(itemsWithType, closestItem(locus));
+        if (! itemsWithType.isEmpty()) {
+            return Collections.min(itemsWithType, closestItem(locus));
+        }
+        return null;
     }
 
     public static Item findClosest(Item item)

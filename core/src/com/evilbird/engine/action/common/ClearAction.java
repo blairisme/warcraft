@@ -8,6 +8,7 @@ import com.evilbird.engine.item.Item;
  *
  * @author Blair Butterworth
  */
+//TODO: Separate cancellation and replacement action
 public class ClearAction extends Action
 {
     private Item item;
@@ -23,7 +24,6 @@ public class ClearAction extends Action
         this.item = item;
         this.next = next;
     }
-
 
     @Override
     public boolean act(float delta)

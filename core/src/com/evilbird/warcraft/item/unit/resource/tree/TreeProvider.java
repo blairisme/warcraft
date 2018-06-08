@@ -55,6 +55,8 @@ public class TreeProvider implements AssetProvider<Tree>
         result.setTouchable(Touchable.enabled);
         result.setType(UnitType.Tree);
         result.setResource(ResourceType.Wood, 100f);
+        result.setHealth(100.0f);
+        result.setHealthMaximum(100.0f);
         result.setSize(32, 32);
         return result;
     }

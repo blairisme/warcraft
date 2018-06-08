@@ -29,6 +29,7 @@ import javax.inject.Inject;
 import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.gatherSchema;
 import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.idleSingualarSchema;
 
+// TODO: Add missing death animation - for resources have been exhausted
 public class GoldMineProvider implements AssetProvider<Item>
 {
     private AssetManager assets;
@@ -50,15 +51,15 @@ public class GoldMineProvider implements AssetProvider<Item>
         result.setAvailableAnimations(getAnimations());
         result.setAvailableSounds(getSounds());
         result.setAnimation(UnitAnimation.Idle);
-        result.setHealth(2500.0f);
-        result.setHealthMaximum(2500.0f);
+        result.setHealth(100.0f);
+        result.setHealthMaximum(100.0f);
         result.setIcon(getIcon());
         result.setName("Gold Mine");
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
         result.setType(UnitType.GoldMine);
-        result.setResource(ResourceType.Gold, 2500f);
+        result.setResource(ResourceType.Gold, 100f);
         result.setSize(96, 96);
         return result;
     }

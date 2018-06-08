@@ -23,6 +23,11 @@ public class GatherGoldSequence extends GatherSequence
     }
 
     @Override
+    protected ResourceType getResourceType() {
+        return ResourceType.Gold;
+    }
+
+    @Override
     protected float getGatherCapacity(Item gatherer) {
         return 100f;
     }
@@ -33,21 +38,19 @@ public class GatherGoldSequence extends GatherSequence
     }
 
     @Override
-    protected Action preObtainAction(Item gatherer, Item resource, ResourceType type) {
+    protected Action preObtainAction(Item gatherer, Item resource) {
         Action deselect = new SelectAction(gatherer, false);
         Action disable = new DisableAction(gatherer, false);
         Action hide = new VisibleAction(gatherer, false);
-        Action original = super.preObtainAction(gatherer, resource, type);
+        Action original = super.preObtainAction(gatherer, resource);
         return new ParallelAction(deselect, disable, hide, original);
     }
 
     @Override
-    protected Action postObtainAction(Item gatherer, Item resource, ResourceType type) {
+    protected Action postObtainAction(Item gatherer, Item resource) {
         Action enable = new DisableAction(gatherer, true);
         Action show = new VisibleAction(gatherer, true);
-        Action original = super.postObtainAction(gatherer, resource, type);
+        Action original = super.postObtainAction(gatherer, resource);
         return new ParallelAction(enable, show, original);
     }
-
-
 }

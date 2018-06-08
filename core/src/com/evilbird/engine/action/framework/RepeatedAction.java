@@ -2,6 +2,8 @@ package com.evilbird.engine.action.framework;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 
+import java.util.concurrent.CancellationException;
+
 public class RepeatedAction extends Action
 {
     private static final int INFINITE = -1;
@@ -22,10 +24,15 @@ public class RepeatedAction extends Action
 
     @Override
     public boolean act(float delta) {
-        if (action.act(delta)) {
-            return repeat();
+        try {
+            if (action.act(delta)) {
+                return repeat();
+            }
+            return false;
         }
-        return false;
+        catch (CancellationException e){ //TODO: remove - exceptions shouldn't be used for non-exceptional functionality
+            return true;
+        }
     }
 
     private boolean repeat() {
