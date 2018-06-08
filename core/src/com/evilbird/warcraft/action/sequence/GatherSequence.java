@@ -32,6 +32,8 @@ import static com.evilbird.engine.item.ItemSuppliers.isAlive;
  */
 //TODO: Cope with leaving mid gather and returning to Depot
 //TODO: Cope with other types of depot. E.g., lumbermill
+//TODO: Cope with multiple gathers using single resource - trees
+//TODO: Cope with no more resources
 public abstract class GatherSequence implements ActionProvider
 {
     private MoveSequence moveSequence;
@@ -44,36 +46,35 @@ public abstract class GatherSequence implements ActionProvider
     public Action get(ActionType action, Item gatherer, Item resource, UserInput input)
     {
         Item player = gatherer.getParent();
-        Item depot = findClosest((ItemGroup)player, UnitType.TownHall, gatherer);
-
-        Action depositHeldResources = depositHeldResources(gatherer, depot, player);
-        Action gatherMoreResources = gather(gatherer, resource, depot, player);
+        Action depositHeldResources = depositHeldResources(gatherer, player);
+        Action gatherMoreResources = gather(gatherer, resource, player);
         Action gatherResources = new SequenceAction(depositHeldResources, gatherMoreResources);
-
         return new ReplacementAction(gatherer, gatherResources);
     }
 
-    protected Action depositHeldResources(Item gatherer, Item depot, Item player)
+    protected Action depositHeldResources(Item gatherer, Item player)
     {
-        Action depositHeldGold = depositHeldResource(gatherer, depot, player, ResourceType.Gold);
-        Action depositHeldWood = depositHeldResource(gatherer, depot, player, ResourceType.Wood);
+        Action depositHeldGold = depositHeldResource(gatherer, player, ResourceType.Gold);
+        Action depositHeldWood = depositHeldResource(gatherer, player, ResourceType.Wood);
         return new SequenceAction(depositHeldGold, depositHeldWood);
     }
 
-    protected Action depositHeldResource(Item gatherer, Item depot, Item player, ResourceType type)
+    protected Action depositHeldResource(Item gatherer, Item player, ResourceType type)
     {
         ResourceContainer gathererResources = (ResourceContainer)gatherer;
         if (gathererResources.getResource(type) > 0) {
+            Item depot = findClosest((ItemGroup)player, UnitType.TownHall, gatherer);
             return deposit(gatherer, depot, player, type);
         }
         return new EmptyAction();
     }
 
-    protected Action gather(final Item gatherer, final Item resource, final Item depot, final Item player)
+    protected Action gather(final Item gatherer, final Item resource, final Item player)
     {
         Supplier<Action> supplier = new Supplier<Action>() {
             public Action get() {
-                Item closestDepot = findClosest(depot);
+
+                Item closestDepot = findClosest((ItemGroup)player, UnitType.TownHall, gatherer);
                 Item closestResource = findClosest(resource);
                 ResourceType type = ((Resource)resource).getResourceType();
 
@@ -85,6 +86,8 @@ public abstract class GatherSequence implements ActionProvider
         Action gather = new SuppliedAction(supplier);
         return new RepeatedAction(gather);
     }
+
+
 
     protected Action obtain(Item gatherer, Item resource, ResourceType type)
     {
@@ -98,8 +101,8 @@ public abstract class GatherSequence implements ActionProvider
     protected Action obtainAction(Item gatherer, Item resource, ResourceType type)
     {
         float transferAmount = getGatherCapacity(gatherer);
+        Action transferDelay = new DelayedAction(getGatherSpeed(gatherer), isAlive((Destructible)resource));
         Action transferAction = new ResourceTransferAction((ResourceContainer)resource, (ResourceContainer)gatherer, type, transferAmount);
-        Action transferDelay = new DelayedAction(getGatherSpeed(gatherer));
         return new SequenceAction(transferDelay, transferAction);
     }
 
@@ -130,20 +133,20 @@ public abstract class GatherSequence implements ActionProvider
     protected Action deposit(Item gatherer, Item depot, Item player, ResourceType type)
     {
         Action move = moveSequence.get(gatherer, depot);
-        Action preDeposit = preDepositAction(gatherer, type);
-        Action deposit = depositAction(gatherer, player, type);
+        Action preDeposit = preDepositAction(gatherer);
+        Action deposit = depositAction(gatherer, depot, player, type);
         Action postDeposit = postDepositAction(gatherer);
         return new SequenceAction(move, preDeposit, deposit, postDeposit);
     }
 
-    protected Action depositAction(Item gatherer, Item player, ResourceType type)
+    protected Action depositAction(Item gatherer, Item depot, Item player, ResourceType type)
     {
         Action transfer = new ResourceTransferAction((ResourceContainer)gatherer, (ResourceContainer)player, type, getGatherCapacity(gatherer));
-        Action transferDelay = new DelayedAction(new TimeDuration(5f));
+        Action transferDelay = new DelayedAction(new TimeDuration(5f), isAlive((Destructible)depot));
         return new SequenceAction(transfer, transferDelay);
     }
 
-    protected Action preDepositAction(Item gatherer, ResourceType type)
+    protected Action preDepositAction(Item gatherer)
     {
         Action deselect = new SelectAction(gatherer, false);
         Action disable = new DisableAction(gatherer, false);
@@ -162,5 +165,5 @@ public abstract class GatherSequence implements ActionProvider
 
     protected abstract float getGatherCapacity(Item gatherer);
 
-    protected abstract float getGatherSpeed(Item gatherer);
+    protected abstract ActionDuration getGatherSpeed(Item gatherer);
 }

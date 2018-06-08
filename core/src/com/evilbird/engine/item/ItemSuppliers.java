@@ -1,8 +1,7 @@
 package com.evilbird.engine.item;
 
+import com.evilbird.engine.common.function.Supplier;
 import com.evilbird.warcraft.item.common.capability.Destructible;
-
-import java.util.function.Supplier;
 
 public class ItemSuppliers
 {

@@ -4,7 +4,9 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.common.DisableAction;
 import com.evilbird.engine.action.common.SelectAction;
 import com.evilbird.engine.action.common.VisibleAction;
+import com.evilbird.engine.action.framework.ActionDuration;
 import com.evilbird.engine.action.framework.ParallelAction;
+import com.evilbird.engine.action.framework.TimeDuration;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
@@ -13,7 +15,6 @@ import javax.inject.Inject;
 /**
  * Created by blair on 23/09/2017.
  */
-// TODO: Destroy mine if empty
 public class GatherGoldSequence extends GatherSequence
 {
     @Inject
@@ -27,8 +28,8 @@ public class GatherGoldSequence extends GatherSequence
     }
 
     @Override
-    protected float getGatherSpeed(Item gatherer) {
-        return 5f;
+    protected ActionDuration getGatherSpeed(Item gatherer) {
+        return new TimeDuration(5f);
     }
 
     @Override

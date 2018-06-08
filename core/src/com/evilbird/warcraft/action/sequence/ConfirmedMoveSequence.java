@@ -2,6 +2,7 @@ package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
@@ -38,7 +39,7 @@ public class ConfirmedMoveSequence implements ActionProvider
         Vector2 destination = root.unproject(input.getPosition());
         Action confirm = confirmSequence.get(item.getParent(), destination);
         Action move = moveSequence.get(item, destination);
-        Action confirmedMove = new SequenceAction(confirm, move);
+        Action confirmedMove = new ParallelAction(confirm, move);
         return new ReplacementAction(item, confirmedMove);
     }
 }

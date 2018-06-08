@@ -1,8 +1,7 @@
 package com.evilbird.engine.action.framework;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-
-import java.util.function.Supplier;
+import com.evilbird.engine.common.function.Supplier;
 
 public class BranchAction extends Action
 {
@@ -18,7 +17,7 @@ public class BranchAction extends Action
 
     @Override
     public boolean act(float delta) {
-        if (decision.get()) {
+        if (decision.get() == Boolean.TRUE) {
             return trueAction.act(delta);
         }
         else {

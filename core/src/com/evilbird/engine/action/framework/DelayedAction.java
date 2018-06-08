@@ -1,7 +1,9 @@
 package com.evilbird.engine.action.framework;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.action.framework.ActionDuration;
+import com.evilbird.engine.common.function.BooleanSupplier;
+import com.evilbird.engine.common.function.Supplier;
+import com.evilbird.engine.common.function.Suppliers;
 
 /**
  * Instances of this class TODO:Finish
@@ -11,21 +13,26 @@ import com.evilbird.engine.action.framework.ActionDuration;
 public class DelayedAction extends Action
 {
     private ActionDuration delay;
-
-    public DelayedAction(float time)
-    {
-        this(new TimeDuration(time));
-    }
+    private Supplier<Boolean> validator;
 
     public DelayedAction(ActionDuration delay)
     {
+        this(delay, Suppliers.isTrue());
+    }
+
+    public DelayedAction(ActionDuration delay, Supplier<Boolean> validator)
+    {
         this.delay = delay;
+        this.validator = validator;
     }
 
     @Override
     public boolean act(float delta)
     {
-        return delay.isComplete(delta);
+        if (validator.get() == Boolean.TRUE) {
+            return delay.isComplete(delta);
+        }
+        return true;
     }
 
     @Override
