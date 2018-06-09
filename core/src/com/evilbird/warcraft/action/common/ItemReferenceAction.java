@@ -24,12 +24,7 @@ public class ItemReferenceAction extends Action
     @Override
     public boolean act(float delta) {
         if (delegate == null) {
-            Item item = itemSupplier.get();
-
-            if (item == null) {
-                throw new CancellationException(); //TODO: Replace with getActor().clearActions() - doesnt work because composite actions dont pass actor to their children
-            }
-            delegate = actionSupplier.apply(item);
+            updateDelegate();
         }
         return delegate.act(delta);
     }
@@ -37,5 +32,14 @@ public class ItemReferenceAction extends Action
     @Override
     public void restart() {
         delegate = null;
+    }
+
+    private void updateDelegate() {
+        Item item = itemSupplier.get();
+
+        if (item == null) {
+            throw new CancellationException(); //TODO: Replace with getActor().clearActions() - doesnt work because composite actions dont pass actor to their children
+        }
+        delegate = actionSupplier.apply(item);
     }
 }

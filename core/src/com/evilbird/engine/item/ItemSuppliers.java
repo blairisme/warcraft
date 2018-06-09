@@ -24,10 +24,10 @@ public class ItemSuppliers
         };
     }
 
-    public static Supplier<Boolean> isEmpty(ResourceContainer container, ResourceType type) {
+    public static Supplier<Boolean> hasResources(ResourceContainer container, ResourceType type) {
         return new Supplier<Boolean>() {
             public Boolean get() {
-                return (container.getResource(type) <= 0);
+                return (container.getResource(type) > 0);
             }
         };
     }

@@ -38,6 +38,7 @@ public class BarracksProvider implements AssetProvider<Item>
     {
         assets.load("data/textures/human/winter/barracks.png", Texture.class);
         assets.load("data/textures/neutral/perennial/construction.png", Texture.class);
+        assets.load("data/textures/neutral/winter/destroyed_site.png", Texture.class);
         assets.load("data/textures/neutral/perennial/icons.png", Texture.class);
     }
 
@@ -71,7 +72,8 @@ public class BarracksProvider implements AssetProvider<Item>
     {
         Texture general = assets.get("data/textures/human/winter/barracks.png", Texture.class);
         Texture construction = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
-        return AnimationCollections.buildingAnimations(general, construction, 96, 96);
+        Texture destruction = assets.get("data/textures/neutral/winter/destroyed_site.png", Texture.class);
+        return AnimationCollections.buildingAnimations(general, construction, destruction, 96, 96);
     }
 
     private Drawable getIcon()

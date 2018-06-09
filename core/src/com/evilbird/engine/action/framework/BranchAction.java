@@ -5,6 +5,7 @@ import com.evilbird.engine.common.function.Supplier;
 
 public class BranchAction extends Action
 {
+    private Action delegate;
     private Action trueAction;
     private Action falseAction;
     private Supplier<Boolean> decision;
@@ -17,11 +18,14 @@ public class BranchAction extends Action
 
     @Override
     public boolean act(float delta) {
-        if (decision.get() == Boolean.TRUE) {
-            return trueAction.act(delta);
+        if (delegate == null) {
+            delegate = decision.get() == Boolean.TRUE ? trueAction : falseAction;
         }
-        else {
-            return falseAction.act(delta);
-        }
+        return delegate.act(delta);
+    }
+
+    @Override
+    public void restart() {
+        delegate = null;
     }
 }

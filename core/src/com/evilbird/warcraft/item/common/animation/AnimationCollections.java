@@ -10,6 +10,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.Arrays;
 import java.util.Map;
 
+import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.*;
+
 /**
  * Created by blair on 10/09/2017.
  */
@@ -44,13 +46,13 @@ public class AnimationCollections
         builder.set(UnitAnimation.Hidden, AnimationSchemas.hiddenSchema(), generalTexture);
         builder.set(UnitAnimation.Die, AnimationSchemas.deathSchema(), generalTexture);
         builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decomposeTexture);
+        builder.associate(UnitAnimation.GatherGold, UnitAnimation.Hidden);
         builder.associate(UnitAnimation.GatherWood, UnitAnimation.Attack);
         builder.associate(UnitAnimation.Build, UnitAnimation.Hidden);
         return builder.build();
     }
 
-    public static Map<AnimationIdentifier, DirectionalAnimation> effectAnimations(
-            Texture texture)
+    public static Map<AnimationIdentifier, DirectionalAnimation> effectAnimations(Texture texture)
     {
         AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
         builder.set(UnitAnimation.Idle, AnimationSchemas.effectSchema(), texture);
@@ -58,15 +60,24 @@ public class AnimationCollections
     }
 
     public static Map<AnimationIdentifier, DirectionalAnimation> buildingAnimations(
-            Texture general, Texture construct, int width, int height)
+            Texture general, Texture construction, Texture destruction, int width, int height)
     {
         AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
         builder.set(UnitAnimation.Idle, AnimationSchemas.idleSingualarSchema(width, height), general);
         builder.set(UnitAnimation.Construct, Arrays.asList(
-                Pair.of(AnimationSchemas.constructBeginSchema(width, height), construct),
+                Pair.of(AnimationSchemas.constructBeginSchema(width, height), construction),
                 Pair.of(AnimationSchemas.constructEndSchema(width, height), general)));
-        builder.associate(UnitAnimation.DepositGold, UnitAnimation.Idle);
-        builder.associate(UnitAnimation.DepositWood, UnitAnimation.Idle);
+        builder.set(UnitAnimation.Dead, buildingDestructionScheme(), destruction);
+        return builder.build();
+    }
+
+    public static Map<AnimationIdentifier, DirectionalAnimation> resourceBuildingAnimations(
+            Texture general, Texture destruction)
+    {
+        AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
+        builder.set(UnitAnimation.Idle, idleSingualarSchema(96, 96), general);
+        builder.set(UnitAnimation.Gathering, gatheringSchema(96, 96), general);
+        builder.set(UnitAnimation.Dead, buildingDestructionScheme(), destruction);
         return builder.build();
     }
 }

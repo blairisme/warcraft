@@ -30,22 +30,9 @@ public enum UnitAnimation implements AnimationIdentifier
     Dead,
     Decompose,
 
+    Gathering,
     GatherGold,
-    GatherOil,
-    GatherWood,
-
-    DepositGold,
-    DepositOil,
-    DepositWood;
-
-    public static UnitAnimation getDepositAnimation(ResourceType resource)
-    {
-        switch (resource){
-            case Gold: return DepositGold;
-            case Wood: return DepositWood;
-            default: throw new UnsupportedOperationException();
-        }
-    }
+    GatherWood;
 
     public static UnitAnimation getGatherAnimation(ResourceType resource)
     {

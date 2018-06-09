@@ -57,6 +57,6 @@ public class Tree extends Resource
         TextureRegion texture = tile.getTextureRegion();
         DirectionalAnimation animation = AnimationUtils.getAnimation(texture); //TODO: replace use of deprecated method
         setAvailableAnimation(UnitAnimation.Idle, animation);
-        setAvailableAnimation(UnitAnimation.GatherWood, animation);
+        setAvailableAnimation(UnitAnimation.Gathering, animation);
     }
 }

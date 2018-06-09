@@ -14,6 +14,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
 import com.evilbird.warcraft.item.common.animation.AnimationCollectionBuilder;
+import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.common.texture.TextureUtils;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
@@ -25,9 +26,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
-
-import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.gatherSchema;
-import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.idleSingualarSchema;
 
 // TODO: Add missing death animation - for resources have been exhausted
 public class GoldMineProvider implements AssetProvider<Item>
@@ -42,6 +40,7 @@ public class GoldMineProvider implements AssetProvider<Item>
     @Override
     public void load() {
         assets.load("data/textures/neutral/winter/gold_mine.png", Texture.class);
+        assets.load("data/textures/neutral/winter/destroyed_site.png", Texture.class);
         assets.load("data/textures/neutral/perennial/construction.png", Texture.class);
     }
 
@@ -66,10 +65,8 @@ public class GoldMineProvider implements AssetProvider<Item>
 
     private Map<AnimationIdentifier, DirectionalAnimation> getAnimations() {
         Texture general = assets.get("data/textures/neutral/winter/gold_mine.png", Texture.class);
-        AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
-        builder.set(UnitAnimation.Idle, idleSingualarSchema(96, 96), general);
-        builder.set(UnitAnimation.GatherGold, gatherSchema(96, 96), general);
-        return builder.build();
+        Texture destruction = assets.get("data/textures/neutral/winter/destroyed_site.png", Texture.class);
+        return AnimationCollections.resourceBuildingAnimations(general, destruction);
     }
 
     private Drawable getIcon() {

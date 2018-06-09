@@ -27,22 +27,20 @@ public class FarmProvider implements AssetProvider<Item>
     private AssetManager assets;
 
     @Inject
-    public FarmProvider(Device device)
-    {
+    public FarmProvider(Device device) {
         this.assets = device.getAssetStorage().getAssets();
     }
 
     @Override
-    public void load()
-    {
+    public void load() {
         assets.load("data/textures/human/winter/farm.png", Texture.class);
         assets.load("data/textures/neutral/perennial/construction.png", Texture.class);
+        assets.load("data/textures/neutral/winter/destroyed_site.png", Texture.class);
         assets.load("data/textures/neutral/perennial/icons.png", Texture.class);
     }
 
     @Override
-    public Item get()
-    {
+    public Item get() {
         Building result = new Building();
         result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
@@ -56,21 +54,19 @@ public class FarmProvider implements AssetProvider<Item>
         return result;
     }
 
-    private EnumSet<ActionType> getActions()
-    {
+    private EnumSet<ActionType> getActions() {
         EnumSet<ActionType> actions = EnumSet.noneOf(ActionType.class);
         return actions;
     }
 
-    private Map<AnimationIdentifier, DirectionalAnimation> getAnimations()
-    {
+    private Map<AnimationIdentifier, DirectionalAnimation> getAnimations() {
         Texture general = assets.get("data/textures/human/winter/farm.png", Texture.class);
         Texture construction = assets.get("data/textures/neutral/perennial/construction.png", Texture.class);
-        return AnimationCollections.buildingAnimations(general, construction, 64, 64);
+        Texture destruction = assets.get("data/textures/neutral/winter/destroyed_site.png", Texture.class);
+        return AnimationCollections.buildingAnimations(general, construction, destruction, 64, 64);
     }
 
-    private Drawable getIcon()
-    {
+    private Drawable getIcon() {
         Texture iconTexture = assets.get("data/textures/neutral/perennial/icons.png", Texture.class);
         TextureRegion iconRegion = new TextureRegion(iconTexture, 138, 266, 46, 38);
         return new TextureRegionDrawable(iconRegion);
