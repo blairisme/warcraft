@@ -26,7 +26,6 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-//TODO: Prune "dead" trees
 //TODO: Finish making Forest an ItemGroup - added populateTrees but not the remaining contract
 public class Forest extends Layer
 {

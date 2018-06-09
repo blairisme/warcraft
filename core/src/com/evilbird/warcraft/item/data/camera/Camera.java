@@ -25,7 +25,7 @@ public class Camera extends Item implements com.evilbird.warcraft.item.common.ca
         camera.zoom = 1f;
         originalZoom = 1f;
 
-        setId(new NamedIdentifier("Camera"));
+        setId(DataType.Camera);
         setType(DataType.Camera);
         setPosition(camera.position.x, camera.position.y);
         setTouchable(Touchable.disabled);

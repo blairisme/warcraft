@@ -42,15 +42,13 @@ public abstract class GatherSequence implements ActionProvider
     }
 
     @Override
-    public Action get(ActionType action, Item gatherer, Item resource, UserInput input)
-    {
+    public Action get(ActionType action, Item gatherer, Item resource, UserInput input) {
         Action gather = gather(gatherer, resource);
         Action gatherContinually = new RepeatedAction(gather);
         return new ReplacementAction(gatherer, gatherContinually);
     }
 
-    protected Action gather(Item gatherer, Item resource)
-    {
+    protected Action gather(Item gatherer, Item resource) {
         ItemGroup player = gatherer.getParent();
         Action obtain = new ItemReferenceAction(findClosest(resource), new ObtainAction(gatherer));
         Action deposit = new ItemReferenceAction(findClosest(player, TownHall, gatherer), new DepositAction(gatherer, player));
@@ -70,8 +68,7 @@ public abstract class GatherSequence implements ActionProvider
         }
     }
 
-    protected Action obtain(Item gatherer, Item resource)
-    {
+    protected Action obtain(Item gatherer, Item resource) {
         Action move = moveSequence.get(gatherer, resource);
         Action preObtain = preObtainAction(gatherer, resource);
         Action obtain = obtainAction(gatherer, resource);
@@ -79,22 +76,19 @@ public abstract class GatherSequence implements ActionProvider
         return new SequenceAction(move, preObtain, obtain, postObtain);
     }
 
-    protected Action obtainAction(Item gatherer, Item resource)
-    {
+    protected Action obtainAction(Item gatherer, Item resource) {
         Action transferDelay = new DelayedAction(getGatherSpeed(gatherer), isAlive((Destructible)resource));
         Action transferAction = new ResourceTransferAction((ResourceContainer)resource, (ResourceContainer)gatherer, getResourceType(), getGatherCapacity(gatherer));
         return new SequenceAction(transferDelay, transferAction);
     }
 
-    protected Action preObtainAction(Item gatherer, Item resource)
-    {
+    protected Action preObtainAction(Item gatherer, Item resource) {
         Action gathererAnimation = new AnimateAction((Animated)gatherer, getGatherAnimation(getResourceType()));
         Action resourceAnimation = new AnimateAction((Animated)resource, UnitAnimation.Gathering);
         return new ParallelAction(gathererAnimation, resourceAnimation);
     }
 
-    protected Action postObtainAction(Item gatherer, Item resource)
-    {
+    protected Action postObtainAction(Item gatherer, Item resource) {
         Action gatherMovement = new AnimationAliasAction((Animated)gatherer, UnitAnimation.Move, UnitAnimation.getMoveAnimation(getResourceType()));
         Action gathererIdle = new AnimationAliasAction((Animated)gatherer, UnitAnimation.Idle, UnitAnimation.getIdleAnimation(getResourceType()));
 
@@ -122,8 +116,7 @@ public abstract class GatherSequence implements ActionProvider
         }
     }
 
-    protected Action deposit(Item gatherer, Item depot, Item player)
-    {
+    protected Action deposit(Item gatherer, Item depot, Item player) {
         Action move = moveSequence.get(gatherer, depot);
         Action preDeposit = preDepositAction(gatherer);
         Action deposit = depositAction(gatherer, depot, player);
@@ -131,23 +124,20 @@ public abstract class GatherSequence implements ActionProvider
         return new SequenceAction(move, preDeposit, deposit, postDeposit);
     }
 
-    protected Action depositAction(Item gatherer, Item depot, Item player)
-    {
+    protected Action depositAction(Item gatherer, Item depot, Item player) {
         Action transfer = new ResourceTransferAction((ResourceContainer)gatherer, (ResourceContainer)player, getResourceType(), getGatherCapacity(gatherer));
         Action transferDelay = new DelayedAction(new TimeDuration(5f), isAlive((Destructible)depot));
         return new SequenceAction(transfer, transferDelay);
     }
 
-    protected Action preDepositAction(Item gatherer)
-    {
+    protected Action preDepositAction(Item gatherer) {
         Action deselect = new SelectAction(gatherer, false);
         Action disable = new DisableAction(gatherer, false);
         Action hide = new VisibleAction(gatherer, false);
         return new ParallelAction(deselect, disable, hide);
     }
 
-    private Action postDepositAction(Item gatherer)
-    {
+    private Action postDepositAction(Item gatherer) {
         Action resetMove = new AnimationAliasAction((Animated)gatherer, UnitAnimation.Move, UnitAnimation.MoveBasic);
         Action animate = new AnimationAliasAction((Animated)gatherer, UnitAnimation.Idle, UnitAnimation.IdleBasic);
         Action enable = new DisableAction(gatherer, true);

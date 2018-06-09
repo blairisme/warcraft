@@ -1,5 +1,6 @@
 package com.evilbird.warcraft.item.common.animation;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 import org.apache.commons.lang3.Range;
@@ -91,6 +92,12 @@ public class AnimationSchemas
         List<List<Rectangle>> regions = getRegions(8, 6, 0, 0, 72, 72);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
         return new AnimationSchema(frames, 2f, false);
+    }
+
+    public static AnimationSchema treeStumpSchema() {
+        List<List<Rectangle>> regions = getRegions(1, 1, 448, 224, 32, 32);
+        Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
+        return new AnimationSchema(frames, 1f, true);
     }
 
     private static List<List<Rectangle>> getRegions(int xCount, int yCount, int x, int y, int width, int height) {

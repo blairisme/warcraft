@@ -13,6 +13,9 @@ import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
+import com.evilbird.warcraft.item.common.animation.AnimationCollectionBuilder;
+import com.evilbird.warcraft.item.common.animation.AnimationCollections;
+import com.evilbird.warcraft.item.common.animation.AnimationSchemas;
 import com.evilbird.warcraft.item.common.animation.AnimationUtils;
 import com.evilbird.warcraft.item.common.texture.TextureUtils;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -30,24 +33,21 @@ public class TreeProvider implements AssetProvider<Tree>
     private AssetManager assets;
 
     @Inject
-    public TreeProvider(Device device)
-    {
+    public TreeProvider(Device device) {
         this.assets = device.getAssetStorage().getAssets();
     }
 
     @Override
-    public void load()
-    {
+    public void load() {
         assets.load("data/textures/neutral/winter/terrain.png", Texture.class);
     }
 
     @Override
-    public Tree get()
-    {
+    public Tree get() {
         Tree result = new Tree();
         result.setAvailableAnimations(getAnimations());
         result.setAvailableSounds(getSounds());
-        result.setAnimation(UnitAnimation.Idle);
+        result.setAnimation(UnitAnimation.Dead);
         result.setIcon(getIcon());
         result.setName("Tree");
         result.setSelected(false);
@@ -61,26 +61,18 @@ public class TreeProvider implements AssetProvider<Tree>
         return result;
     }
 
-    private Map<AnimationIdentifier, DirectionalAnimation> getAnimations()
-    {
+    private Map<AnimationIdentifier, DirectionalAnimation> getAnimations() {
         Texture texture = assets.get("data/textures/neutral/winter/terrain.png", Texture.class);
-        TextureRegion deathTexture =  new TextureRegion(texture, 448, 224, 32, 32);
-
-        DirectionalAnimation deathAnimation = AnimationUtils.getAnimation(deathTexture);
-
-        Map<AnimationIdentifier, DirectionalAnimation> animations = new HashMap<AnimationIdentifier, DirectionalAnimation>();
-        animations.put(UnitAnimation.Dead, deathAnimation);
-
-        return animations;
+        AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
+        builder.set(UnitAnimation.Dead, AnimationSchemas.treeStumpSchema(), texture);
+        return builder.build();
     }
 
-    private Drawable getIcon()
-    {
+    private Drawable getIcon() {
         return TextureUtils.getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 684, 46, 38);
     }
 
-    private Map<SoundIdentifier, SoundEffect> getSounds()
-    {
+    private Map<SoundIdentifier, SoundEffect> getSounds() {
         Map<SoundIdentifier, SoundEffect> sounds = new HashMap<SoundIdentifier, SoundEffect>();
         sounds.put(UnitSound.GatherWood, new SilentSoundEffect());
         return sounds;

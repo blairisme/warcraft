@@ -18,6 +18,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.item.ItemPredicates.itemWithId;
+import static com.evilbird.engine.item.ItemPredicates.itemWithType;
 import static com.evilbird.engine.item.ItemPredicates.selectedItem;
 
 public class UserBehaviour implements Behaviour
@@ -160,7 +161,7 @@ public class UserBehaviour implements Behaviour
 
     private Item getCameraTarget(ItemRoot world)
     {
-        return world.find(itemWithId(DataType.Camera));
+        return world.find(itemWithType(DataType.Camera));
     }
 
     private Item getWorldTarget(ItemRoot world, UserInput userInput)
