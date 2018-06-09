@@ -50,15 +50,15 @@ public class GoldMineProvider implements AssetProvider<Item>
         result.setAvailableAnimations(getAnimations());
         result.setAvailableSounds(getSounds());
         result.setAnimation(UnitAnimation.Idle);
-        result.setHealth(100.0f);
-        result.setHealthMaximum(100.0f);
+        result.setHealth(2400f);
+        result.setHealthMaximum(2400f);
         result.setIcon(getIcon());
         result.setName("Gold Mine");
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
         result.setType(UnitType.GoldMine);
-        result.setResource(ResourceType.Gold, 100f);
+        result.setResource(ResourceType.Gold, 2400f);
         result.setSize(96, 96);
         return result;
     }

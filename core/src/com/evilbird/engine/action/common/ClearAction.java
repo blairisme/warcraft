@@ -1,6 +1,7 @@
 package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 
 /**
@@ -8,7 +9,7 @@ import com.evilbird.engine.item.Item;
  *
  * @author Blair Butterworth
  */
-public class ClearAction extends Action
+public class ClearAction extends BasicAction
 {
     private Item item;
 

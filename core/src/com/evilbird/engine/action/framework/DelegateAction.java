@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool;
 
-public abstract class DelegateAction extends Action
+public abstract class DelegateAction extends BasicAction
 {
     protected Action delegate;
 

@@ -10,7 +10,6 @@ import com.evilbird.engine.item.Item;
 
 import java.util.concurrent.CancellationException;
 
-
 public class ReferenceAction extends DelegateAction
 {
     private Supplier<Item> itemSupplier;
@@ -25,7 +24,12 @@ public class ReferenceAction extends DelegateAction
     @Override
     public boolean act(float delta) {
         if (delegate == null) {
-            updateDelegate();
+            delegate = createDelegate();
+
+            if (delegate == null) {
+                cancel();
+                return true;
+            }
         }
         return delegate.act(delta);
     }
@@ -35,13 +39,11 @@ public class ReferenceAction extends DelegateAction
         delegate = null;
     }
 
-    private void updateDelegate() {
+    private Action createDelegate() {
         Item item = itemSupplier.get();
-        if (item == null) {
-            Actor actor = getActor();
-            actor.clearActions();
-            //throw new CancellationException(); //TODO: Replace with getActor().clearActions() - doesnt work because composite actions dont pass actor to their children
+        if (item != null) {
+            return actionSupplier.apply(item);
         }
-        delegate = actionSupplier.apply(item);
+        return null;
     }
 }

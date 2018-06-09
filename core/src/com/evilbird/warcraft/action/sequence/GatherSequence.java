@@ -35,6 +35,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 //TODO: Cope with other types of depot. E.g., lumbermill
 //TODO: Cope with multiple gathers using single resource - trees
 //TODO: Cope with no more resources
+//TODO: Only choose next resource if it can be accessed - trees on the edge of forests, not within
 public abstract class GatherSequence implements ActionProvider
 {
     private MoveSequence moveSequence;

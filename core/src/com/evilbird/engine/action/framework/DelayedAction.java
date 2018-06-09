@@ -1,6 +1,5 @@
 package com.evilbird.engine.action.framework;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.framework.duration.ActionDuration;
 import com.evilbird.engine.common.function.Supplier;
 import com.evilbird.engine.common.function.Suppliers;
@@ -10,12 +9,12 @@ import com.evilbird.engine.common.function.Suppliers;
  *
  * @author Blair Butterworth
  */
-public class DelayedAction extends Action
+public class DelayedAction extends BasicAction
 {
-    private com.evilbird.engine.action.framework.duration.ActionDuration delay;
+    private ActionDuration delay;
     private Supplier<Boolean> validator;
 
-    public DelayedAction(com.evilbird.engine.action.framework.duration.ActionDuration delay) {
+    public DelayedAction(ActionDuration delay) {
         this(delay, Suppliers.isTrue());
     }
 

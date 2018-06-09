@@ -24,6 +24,9 @@ import java.util.Iterator;
 import java.util.concurrent.CancellationException;
 
 //TODO: Implement movement capability
+//TODO: Orient item towards target at end
+//TODO: Ignore current node when traversing path
+//TODO: Don't allow two units to occupy the same node
 public class MoveAction extends Action
 {
     private Movable target;
