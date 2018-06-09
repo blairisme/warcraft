@@ -4,11 +4,9 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 
 import java.util.concurrent.CancellationException;
 
-public class RepeatedAction extends Action
+public class RepeatedAction extends DelegateAction
 {
     private static final int INFINITE = -1;
-
-    private Action action;
     private int count;
     private int times;
 
@@ -17,7 +15,7 @@ public class RepeatedAction extends Action
     }
 
     public RepeatedAction(Action action, int times) {
-        this.action = action;
+        super(action);
         this.times = times;
         this.count = 0;
     }
@@ -25,7 +23,7 @@ public class RepeatedAction extends Action
     @Override
     public boolean act(float delta) {
         try {
-            if (action.act(delta)) {
+            if (delegate.act(delta)) {
                 return repeat();
             }
             return false;
@@ -37,7 +35,7 @@ public class RepeatedAction extends Action
 
     private boolean repeat() {
         if (times == INFINITE || count++ < times) {
-            action.restart();
+            delegate.restart();
             return false;
         }
         return true;
@@ -45,7 +43,7 @@ public class RepeatedAction extends Action
 
     @Override
     public void restart() {
-        action.restart();
+        super.restart();
         count = 0;
     }
 }

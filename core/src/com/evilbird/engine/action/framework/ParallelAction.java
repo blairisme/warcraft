@@ -8,26 +8,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class ParallelAction extends Action
+public class ParallelAction extends CompositeAction
 {
-    private List<Action> actions;
     private Map<Action, Boolean> actionCompletion;
 
-    public ParallelAction(List<Action> actions)
-    {
-        this.actions = actions;
+    public ParallelAction(List<Action> actions) {
+        super(actions);
         this.actionCompletion = new HashMap<Action, Boolean>(actions.size());
         restart();
     }
 
-    public ParallelAction(Action... actions)
-    {
+    public ParallelAction(Action... actions) {
         this(Arrays.<Action>asList(actions));
     }
 
     @Override
-    public boolean act(float delta)
-    {
+    public boolean act(float delta) {
         boolean result = true;
         for (Entry<Action, Boolean> entry: actionCompletion.entrySet())
         {
@@ -44,12 +40,11 @@ public class ParallelAction extends Action
     }
 
     @Override
-    public void restart()
-    {
+    public void restart() {
+        super.restart();
         actionCompletion.clear();
-        for (Action action: actions){
-            action.restart();
-            actionCompletion.put(action, false);
+        for (Action delegate: delegates){
+            actionCompletion.put(delegate, false);
         }
     }
 }

@@ -8,7 +8,7 @@ import com.evilbird.engine.action.common.SelectAction;
 import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.SequenceAction;
-import com.evilbird.engine.action.framework.TimeDuration;
+import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.warcraft.item.unit.UnitAnimation;

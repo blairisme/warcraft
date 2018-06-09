@@ -6,6 +6,8 @@ import com.evilbird.engine.action.common.DisableAction;
 import com.evilbird.engine.action.common.SelectAction;
 import com.evilbird.engine.action.common.VisibleAction;
 import com.evilbird.engine.action.framework.*;
+import com.evilbird.engine.action.framework.duration.ActionDuration;
+import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
@@ -13,8 +15,8 @@ import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.action.common.AnimationAliasAction;
-import com.evilbird.warcraft.action.common.ItemReferenceAction;
-import com.evilbird.warcraft.action.common.ReplacementAction;
+import com.evilbird.engine.action.common.ReferenceAction;
+import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.warcraft.action.common.ResourceTransferAction;
 import com.evilbird.warcraft.item.common.capability.Destructible;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
@@ -50,8 +52,8 @@ public abstract class GatherSequence implements ActionProvider
 
     protected Action gather(Item gatherer, Item resource) {
         ItemGroup player = gatherer.getParent();
-        Action obtain = new ItemReferenceAction(findClosest(resource), new ObtainAction(gatherer));
-        Action deposit = new ItemReferenceAction(findClosest(player, TownHall, gatherer), new DepositAction(gatherer, player));
+        Action obtain = new ReferenceAction(findClosest(resource), new ObtainAction(gatherer));
+        Action deposit = new ReferenceAction(findClosest(player, TownHall, gatherer), new DepositAction(gatherer, player));
         Action optionallyDeposit = new OptionalAction(hasResources((ResourceContainer)gatherer, getResourceType()), deposit);
         return new SequenceAction(optionallyDeposit, obtain);
     }

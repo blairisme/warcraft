@@ -5,7 +5,7 @@ import com.evilbird.engine.action.common.AudibleAction;
 import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.action.framework.RepeatedAction;
 import com.evilbird.engine.action.framework.SequenceAction;
-import com.evilbird.engine.action.framework.TimeDuration;
+import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.Audible;
 import com.evilbird.engine.item.specialized.animated.SoundIdentifier;

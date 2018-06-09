@@ -1,4 +1,4 @@
-package com.evilbird.engine.action.framework;
+package com.evilbird.engine.action.framework.duration;
 
 public interface ActionDuration
 {

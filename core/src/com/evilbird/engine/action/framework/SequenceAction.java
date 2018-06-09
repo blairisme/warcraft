@@ -6,26 +6,22 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-public class SequenceAction extends Action
+public class SequenceAction extends CompositeAction
 {
     private Action current;
-    private List<Action> sequence;
     private Iterator<Action> iterator;
 
-    public SequenceAction(List<Action> sequence)
-    {
-        this.sequence = sequence;
+    public SequenceAction(List<Action> sequence) {
+        super(sequence);
         restart();
     }
 
-    public SequenceAction(Action ... sequence)
-    {
+    public SequenceAction(Action ... sequence) {
         this(Arrays.<Action>asList(sequence));
     }
 
     @Override
-    public boolean act(float delta)
-    {
+    public boolean act(float delta) {
         boolean result = current.act(delta);
         if (result && iterator.hasNext())
         {
@@ -36,12 +32,9 @@ public class SequenceAction extends Action
     }
 
     @Override
-    public void restart()
-    {
-        for (Action action: sequence){
-            action.restart();
-        }
-        this.iterator = sequence.iterator();
+    public void restart() {
+        super.restart();
+        this.iterator = delegates.iterator();
         this.current = iterator.next();
     }
 }

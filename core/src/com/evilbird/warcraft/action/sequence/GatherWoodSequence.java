@@ -1,9 +1,9 @@
 package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.action.framework.ActionDuration;
+import com.evilbird.engine.action.framework.duration.ActionDuration;
 import com.evilbird.engine.action.framework.ParallelAction;
-import com.evilbird.engine.action.framework.TimeDuration;
+import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
 import com.evilbird.warcraft.item.unit.UnitSound;
