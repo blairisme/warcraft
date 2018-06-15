@@ -22,15 +22,10 @@ public class RepeatedAction extends DelegateAction
 
     @Override
     public boolean act(float delta) {
-        try {
-            if (delegate.act(delta)) {
-                return repeat();
-            }
-            return false;
+        if (delegate.act(delta)) {
+            return repeat();
         }
-        catch (CancellationException e){ //TODO: remove - exceptions shouldn't be used for non-exceptional functionality
-            return true;
-        }
+        return false;
     }
 
     private boolean repeat() {

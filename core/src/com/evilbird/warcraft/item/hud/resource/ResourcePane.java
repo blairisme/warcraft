@@ -127,23 +127,4 @@ public class ResourcePane extends Item
     {
         table.act(delta);
     }
-
-    /*
-    @Override
-    public void setProperty(Identifier property, Object value)
-    {
-        if (Objects.equals(property, new Identifier("Gold"))){
-            setGoldText(value.toString());
-        }
-        else if (Objects.equals(property, new Identifier("Oil"))){
-            setOilText(value.toString());
-        }
-        else if (Objects.equals(property, new Identifier("Wood"))){
-            setWoodText(value.toString());
-        }
-        else{
-            super.setProperty(property, value);
-        }
-    }
-    */
 }

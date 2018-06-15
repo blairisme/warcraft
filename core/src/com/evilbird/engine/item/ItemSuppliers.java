@@ -6,6 +6,8 @@ import com.evilbird.warcraft.item.common.capability.Destructible;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
+import static com.evilbird.engine.item.ItemPredicates.itemWithId;
+
 public class ItemSuppliers
 {
     public static Supplier<Boolean> isDead(Destructible item) {
@@ -40,10 +42,18 @@ public class ItemSuppliers
         };
     }
 
-    public static Supplier<Item> findClosest(ItemGroup group, Identifier type, Item locus) {
+    public static Supplier<Item> findClosest(ItemComposite group, Identifier type, Item locus) {
         return new Supplier<Item>() {
             public Item get() {
                 return ItemOperations.findClosest(group, type, locus);
+            }
+        };
+    }
+
+    public static Supplier<Item> findById(ItemComposite group, Identifier id) {
+        return new Supplier<Item>() {
+            public Item get() {
+                return group.find(itemWithId(id));
             }
         };
     }

@@ -1,7 +1,5 @@
 package com.evilbird.engine.action.framework.duration;
 
-import com.evilbird.engine.action.framework.duration.ActionDuration;
-
 public class TimeDuration implements ActionDuration
 {
     private float duration;
@@ -12,22 +10,33 @@ public class TimeDuration implements ActionDuration
      *
      * @param duration the length of the duration specified in seconds.
      */
-    public TimeDuration(float duration)
-    {
+    public TimeDuration(float duration) {
         this.duration = duration;
         restart();
     }
 
     @Override
-    public boolean isComplete(float time)
-    {
+    public boolean isComplete(float time) {
         total += time;
         return total >= duration;
     }
 
+    public float getProgress() {
+        if (total == 0) {
+            return 0;
+        }
+        if (total >= duration) {
+            return 1;
+        }
+        return total / duration;
+    }
+
+    public float getProgressPercentage() {
+        return getProgress() * 100;
+    }
+
     @Override
-    public void restart()
-    {
+    public void restart() {
         this.total = 0;
     }
 }

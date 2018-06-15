@@ -2,43 +2,33 @@ package com.evilbird.warcraft.action.common;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 
 /**
- * Created by blair on 19/09/2017.
+ * Instances of this action apply a given delta to the resources contained in a
+ * given resource container.
+ *
+ * @author Blair Butterworth
  */
-public class ResourceTransferAction extends Action
+public class ResourceTransferAction extends BasicAction
 {
-    private ResourceContainer source;
-    private ResourceContainer destination;
+    private float delta;
+    private ResourceContainer container;
     private ResourceIdentifier type;
-    private float amount;
 
-    public ResourceTransferAction(
-        ResourceContainer source,
-        ResourceContainer destination,
-        ResourceIdentifier type,
-        float amount)
-    {
+    public ResourceTransferAction(ResourceContainer container, ResourceIdentifier type, float delta) {
+        this.container = container;
         this.type = type;
-        this.source = source;
-        this.destination = destination;
-        this.amount = amount;
+        this.delta = delta;
     }
 
     @Override
-    public boolean act(float time)
-    {
-        float sourceValue = source.getResource(type);
-        float delta = sourceValue - amount < 0 ? sourceValue : amount;
-        float newSource = sourceValue - delta;
-        source.setResource(type, newSource);
-
-        float destinationValue = destination.getResource(type);
-        float newDestination = MathUtils.clamp(destinationValue + amount, 0f, Float.MAX_VALUE);
-        destination.setResource(type, newDestination);
-
+    public boolean act(float time) {
+        float oldValue = container.getResource(type);
+        float newValue = MathUtils.clamp(oldValue + delta, 0f, Float.MAX_VALUE);
+        container.setResource(type, newValue);
         return true;
     }
 }

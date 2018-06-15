@@ -11,46 +11,42 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this class provide helper functions for working with
+ * Collections.
  *
  * @author Blair Butterworth
  */
 public class Collections
 {
-    public static <T> T min(Collection<? extends T> collection, Comparator<? super T> comparator)
-    {
+    public static <T> T min(Collection<? extends T> collection, Comparator<? super T> comparator) {
         Iterator<? extends T> iterator = collection.iterator();
         T result = iterator.next();
 
-        while(iterator.hasNext())
-        {
+        while(iterator.hasNext()) {
             T other = iterator.next();
-            if(comparator.compare(other, result) < 0)
-            {
+
+            if(comparator.compare(other, result) < 0) {
                 result = other;
             }
         }
         return result;
     }
 
-    public static <T> Array<T> union(Array<T> collectionA, Array<T> collectionB)
-    {
+    public static <T> Array<T> union(Array<T> collectionA, Array<T> collectionB) {
         Array<T> result = new Array<>(collectionA.size + collectionB.size);
         result.addAll(collectionA);
         result.addAll(collectionB);
         return result;
     }
 
-    public static <T> List<T> union(List<T> collectionA, List<T> collectionB)
-    {
+    public static <T> List<T> union(List<T> collectionA, List<T> collectionB) {
         List<T> result = new ArrayList<>(collectionA.size() + collectionB.size());
         result.addAll(collectionA);
         result.addAll(collectionB);
         return result;
     }
 
-    public static <K, V> Map<K, V> union(Map<K, V> collectionA, Map<K, V> collectionB)
-    {
+    public static <K, V> Map<K, V> union(Map<K, V> collectionA, Map<K, V> collectionB) {
         Map<K, V> result = new HashMap<>(collectionA.size() + collectionB.size());
         result.putAll(collectionA);
         result.putAll(collectionB);

@@ -11,6 +11,7 @@ import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.item.ItemOperations;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.ActionType;
@@ -20,10 +21,13 @@ import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.warcraft.action.common.ResourceTransferAction;
 import com.evilbird.warcraft.item.common.capability.Destructible;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
+import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
+import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 import com.evilbird.engine.common.function.Function;
 
+import static com.evilbird.engine.item.ItemOperations.findAncestorByType;
 import static com.evilbird.engine.item.ItemSuppliers.*;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.getGatherAnimation;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
@@ -52,7 +56,7 @@ public abstract class GatherSequence implements ActionProvider
     }
 
     protected Action gather(Item gatherer, Item resource) {
-        ItemGroup player = gatherer.getParent();
+        ItemGroup player = (ItemGroup)findAncestorByType(gatherer, DataType.Player);
         Action obtain = new ReferenceAction(findClosest(resource), new ObtainAction(gatherer));
         Action deposit = new ReferenceAction(findClosest(player, TownHall, gatherer), new DepositAction(gatherer, player));
         Action optionallyDeposit = new OptionalAction(hasResources((ResourceContainer)gatherer, getResourceType()), deposit);
@@ -80,8 +84,11 @@ public abstract class GatherSequence implements ActionProvider
     }
 
     protected Action obtainAction(Item gatherer, Item resource) {
+
         Action transferDelay = new DelayedAction(getGatherSpeed(gatherer), isAlive((Destructible)resource));
-        Action transferAction = new ResourceTransferAction((ResourceContainer)resource, (ResourceContainer)gatherer, getResourceType(), getGatherCapacity(gatherer));
+        Action transferFrom = new ResourceTransferAction((ResourceContainer)resource, getResourceType(), getGatherCapacity(gatherer) * -1);
+        Action transferTo = new ResourceTransferAction((ResourceContainer)gatherer, getResourceType(), getGatherCapacity(gatherer));
+        Action transferAction = new ParallelAction(transferFrom, transferTo);
         return new SequenceAction(transferDelay, transferAction);
     }
 
@@ -128,7 +135,9 @@ public abstract class GatherSequence implements ActionProvider
     }
 
     protected Action depositAction(Item gatherer, Item depot, Item player) {
-        Action transfer = new ResourceTransferAction((ResourceContainer)gatherer, (ResourceContainer)player, getResourceType(), getGatherCapacity(gatherer));
+        Action transferFrom = new ResourceTransferAction((ResourceContainer)gatherer, getResourceType(), getGatherCapacity(gatherer) * -1);
+        Action transferTo = new ResourceTransferAction((ResourceContainer)player, getResourceType(), getGatherCapacity(gatherer));
+        Action transfer = new ParallelAction(transferFrom, transferTo);
         Action transferDelay = new DelayedAction(new TimeDuration(5f), isAlive((Destructible)depot));
         return new SequenceAction(transfer, transferDelay);
     }

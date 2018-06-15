@@ -25,17 +25,17 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-//TODO: Handle target moving away
 public class AttackSequence implements ActionProvider
 {
+    private MoveSequence moveSequence;
+
     @Inject
-    public AttackSequence()
-    {
+    public AttackSequence(MoveSequence moveSequence) {
+        this.moveSequence = moveSequence;
     }
 
     @Override
-    public Action get(ActionType action, Item item, Item target, UserInput input)
-    {
+    public Action get(ActionType action, Item item, Item target, UserInput input) {
         Action attack = attack(item, target);
         return new ReplacementAction(item, attack);
     }

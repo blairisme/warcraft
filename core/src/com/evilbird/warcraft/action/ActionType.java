@@ -32,6 +32,7 @@ public enum ActionType implements ActionIdentifier
     BuildBarracksSite   (ActionCategory.BuildSite),
     BuildFarmSite       (ActionCategory.BuildSite),
     BuildTownHallSite   (ActionCategory.BuildSite),
+    BuildSiteCancel     (ActionCategory.CancelBuildSite),
 
     TrainPeasant    (ActionCategory.Train),
     TrainFootman    (ActionCategory.Train),

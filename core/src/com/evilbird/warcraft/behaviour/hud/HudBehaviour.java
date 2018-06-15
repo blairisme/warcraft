@@ -7,6 +7,7 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.hud.HudControls;
 import com.evilbird.warcraft.item.hud.action.ActionPane;
 import com.evilbird.warcraft.item.hud.resource.ResourcePane;
 import com.evilbird.warcraft.item.hud.state.StatePane;
@@ -60,7 +61,7 @@ public class HudBehaviour implements Behaviour
         ActionPane actionPane = getActionPane(hud);
         StatePane statePane = getStatePane(hud);
 
-        Collection<Item> selection = world.findAll(selectedItem());
+        Collection<Item> selection = world.findAll(selectedItem()); //TODO: improve efficiency
         actionPane.setSelection(selection);
         statePane.setSelection(selection);
     }
@@ -84,7 +85,7 @@ public class HudBehaviour implements Behaviour
     private ActionPane getActionPane(ItemRoot hud)
     {
         if (actionPane == null){
-            actionPane = (ActionPane) hud.find(itemWithId(new NamedIdentifier("ActionPane")));
+            actionPane = (ActionPane) hud.find(itemWithId(HudControls.ActionPane));
         }
         return actionPane;
     }

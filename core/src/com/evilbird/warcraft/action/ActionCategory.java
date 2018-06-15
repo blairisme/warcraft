@@ -24,6 +24,7 @@ public enum ActionCategory implements ActionIdentifier
     Attack,
     Stop,
     Cancel,
+    CancelBuildSite,
 
     Unknown
 }

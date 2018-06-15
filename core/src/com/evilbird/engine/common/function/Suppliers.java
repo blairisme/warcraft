@@ -10,4 +10,13 @@ public class Suppliers
             }
         };
     }
+
+    public static <T> Supplier<T> constantValue(T value){
+        return new Supplier<T>() {
+            @Override
+            public T get() {
+                return value;
+            }
+        };
+    }
 }

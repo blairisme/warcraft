@@ -11,15 +11,11 @@ import com.evilbird.engine.action.common.AudibleAction;
 import com.evilbird.engine.action.common.PositionAction;
 import com.evilbird.engine.action.common.SelectAction;
 import com.evilbird.engine.action.common.VisibleAction;
+import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemComposite;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.ItemType;
-import com.evilbird.engine.item.Reference;
+import com.evilbird.engine.item.*;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.Audible;
 import com.evilbird.warcraft.action.ActionProvider;
@@ -102,7 +98,7 @@ public class BuildSequence implements ActionProvider
         Action before = new ParallelAction(animateBuilderBefore, animateBuildingBefore, soundBefore);
 
         Action constructing = setConstructing(player, building, true);
-        Action progress = new ProgressAction(new Reference<>(player, building));
+        Action progress = new ProgressAction(ItemSuppliers.findById(player, building), new TimeDuration(30f));
         Action idle = setConstructing(player, building, false);
         Action construct = new SequenceAction(constructing, progress, idle);
 

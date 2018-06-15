@@ -5,19 +5,7 @@ import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.sequence.AttackSequence;
-import com.evilbird.warcraft.action.sequence.BuildSequence;
-import com.evilbird.warcraft.action.sequence.BuildingSiteSequence;
-import com.evilbird.warcraft.action.sequence.CancelSequence;
-import com.evilbird.warcraft.action.sequence.DragSequence;
-import com.evilbird.warcraft.action.sequence.GatherGoldSequence;
-import com.evilbird.warcraft.action.sequence.GatherWoodSequence;
-import com.evilbird.warcraft.action.sequence.ConfirmedMoveSequence;
-import com.evilbird.warcraft.action.sequence.PanSequence;
-import com.evilbird.warcraft.action.sequence.SelectionSequence;
-import com.evilbird.warcraft.action.sequence.StopSequence;
-import com.evilbird.warcraft.action.sequence.TrainSequence;
-import com.evilbird.warcraft.action.sequence.ZoomSequence;
+import com.evilbird.warcraft.action.sequence.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +21,7 @@ public class WarcraftActionFactory implements ActionFactory
         AttackSequence attackSequence,
         BuildSequence buildSequence,
         CancelSequence cancelSequence,
+        CancelBuildingSiteSequence cancelBuildingSiteSequence,
         DragSequence dragSequence,
         GatherGoldSequence gatherGoldSequence,
         GatherWoodSequence gatherWoodSequence,
@@ -48,6 +37,7 @@ public class WarcraftActionFactory implements ActionFactory
         actions.put(ActionCategory.Attack, attackSequence);
         actions.put(ActionCategory.Build, buildSequence);
         actions.put(ActionCategory.BuildSite, buildingSiteSequence);
+        actions.put(ActionCategory.CancelBuildSite, cancelBuildingSiteSequence);
         actions.put(ActionCategory.Cancel, cancelSequence);
         actions.put(ActionCategory.Drag, dragSequence);
         actions.put(ActionCategory.GatherGold, gatherGoldSequence);
@@ -61,15 +51,12 @@ public class WarcraftActionFactory implements ActionFactory
     }
 
     @Override
-    public void load()
-    {
+    public void load() {
     }
 
     @Override
-    public Action newAction(ActionIdentifier action, Item item, Item target, UserInput input)
-    {
-        if (action instanceof ActionType)
-        {
+    public Action newAction(ActionIdentifier action, Item item, Item target, UserInput input) {
+        if (action instanceof ActionType) {
             ActionType type = (ActionType)action;
             ActionProvider provider = actions.get(type.getCategory());
             return provider.get(type, item, target, input);

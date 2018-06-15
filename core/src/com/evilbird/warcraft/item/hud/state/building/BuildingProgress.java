@@ -18,8 +18,7 @@ public class BuildingProgress extends GridPane
 {
     private ProgressBar progressBar;
 
-    public BuildingProgress()
-    {
+    public BuildingProgress() {
         super(1, 1);
 
         progressBar = new ProgressBar();
@@ -43,15 +42,11 @@ public class BuildingProgress extends GridPane
         setType(new NamedIdentifier("BuildingProgressBar"));
     }
 
-    public void setProgress(float progress)
-    {
+    public void setProgress(float progress) {
         progressBar.setProgress(progress);
     }
 
-    public void setProgressTexture(Drawable texture)
-    {
+    public void setProgressTexture(Drawable texture) {
         progressBar.setTexture(texture);
     }
-
-
 }

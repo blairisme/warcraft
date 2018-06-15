@@ -1,9 +1,9 @@
 package com.evilbird.warcraft.item.hud.state.building;
 
-import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.BorderPane;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
@@ -14,19 +14,16 @@ public class BuildingDetailsPane extends BorderPane
     private BuildingProgressProvider buildingProgressProvider;
 
     @Inject
-    public BuildingDetailsPane(BuildingProgressProvider buildingProgressProvider)
-    {
+    public BuildingDetailsPane(BuildingProgressProvider buildingProgressProvider) {
         this.buildingProgressProvider = buildingProgressProvider;
     }
 
-    public void setBuilding(Building building)
-    {
+    public void setBuilding(Building building) {
         this.building = building;
     }
 
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
         if (building.isConstructing()){
             if (!isConstructionDetailsShown()){
                 showConstructionDetails();
@@ -37,12 +34,12 @@ public class BuildingDetailsPane extends BorderPane
                 showProductionDetails();
             }
         }
-        else if (Objects.equals(new NamedIdentifier("Farm"), building.getType())){
+        else if (Objects.equals(UnitType.Farm, building.getType())){
             if (!isFarmDetailsShown()){
                 showFarmDetails();
             }
         }
-        else if (Objects.equals(new NamedIdentifier("TownHall"), building.getType())){
+        else if (Objects.equals(UnitType.TownHall, building.getType())){
             if (!isTownHallDetailsShown()){
                 showTownHallDetails();
             }
@@ -50,53 +47,45 @@ public class BuildingDetailsPane extends BorderPane
         super.update(delta);
     }
 
-    private boolean isConstructionDetailsShown()
-    {
+    private boolean isConstructionDetailsShown() {
         Item current = getCenter();
         return current instanceof ConstructionDetailsPane;
     }
 
-    private boolean isProductionDetailsShown()
-    {
+    private boolean isProductionDetailsShown() {
         Item current = getCenter();
         return current instanceof ProductionDetailsPane;
     }
 
-    private boolean isFarmDetailsShown()
-    {
+    private boolean isFarmDetailsShown() {
         Item current = getCenter();
         return current instanceof FarmDetailsPane;
     }
 
-    private boolean isTownHallDetailsShown()
-    {
+    private boolean isTownHallDetailsShown() {
         Item current = getCenter();
         return current instanceof TownHallDetailsPane;
     }
 
-    private void showConstructionDetails()
-    {
+    private void showConstructionDetails() {
         ConstructionDetailsPane detailsPane = new ConstructionDetailsPane(buildingProgressProvider);
         detailsPane.setBuilding(building);
         setCenter(detailsPane);
     }
 
-    private void showProductionDetails()
-    {
+    private void showProductionDetails() {
         ProductionDetailsPane detailsPane = new ProductionDetailsPane(buildingProgressProvider);
         detailsPane.setBuilding(building);
         setCenter(detailsPane);
     }
 
-    private void showFarmDetails()
-    {
+    private void showFarmDetails() {
         FarmDetailsPane detailsPane = new FarmDetailsPane();
         detailsPane.setBuilding(building);
         setCenter(detailsPane);
     }
 
-    private void showTownHallDetails()
-    {
+    private void showTownHallDetails() {
         TownHallDetailsPane detailsPane = new TownHallDetailsPane();
         detailsPane.setBuilding(building);
         setCenter(detailsPane);

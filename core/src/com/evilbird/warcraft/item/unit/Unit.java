@@ -32,7 +32,7 @@ public class Unit extends AnimatedItem implements Destructible
         healthMaximum = 0;
     }
 
-    public EnumSet<ActionType> getActions()
+    public EnumSet<ActionType> getAvailableActions()
     {
         return actions;
     }

@@ -9,16 +9,19 @@ import com.evilbird.engine.item.Item;
  *
  * @author Blair Butterworth
  */
-public class ClearAction extends BasicAction
+public class CancelAction extends BasicAction
 {
     private Item item;
 
-    public ClearAction(Item item) {
+    public CancelAction(Item item) {
         this.item = item;
     }
 
     @Override
     public boolean act(float delta) {
+        for (Action action: item.getActions()) {
+            action.restart();
+        }
         item.clearActions();
         return true;
     }
