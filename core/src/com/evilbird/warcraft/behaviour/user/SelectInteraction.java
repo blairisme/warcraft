@@ -4,6 +4,7 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.action.type.CommonAction;
 import com.evilbird.warcraft.behaviour.user.interaction.CompositeInteraction;
 import com.evilbird.warcraft.behaviour.user.interaction.Interaction;
 import com.evilbird.warcraft.behaviour.user.interaction.TargetInteractionFactory;
@@ -24,13 +25,13 @@ public class SelectInteraction implements Interaction
     public SelectInteraction(TargetInteractionFactory targetFactory)
     {
         interactions = new CompositeInteraction();
-        interactions.add(targetFactory.get(UserInputType.Action, UnitType.Footman, null, null, ActionType.Select));
-        interactions.add(targetFactory.get(UserInputType.Action, UnitType.Peasant, null, null, ActionType.Select));
-        interactions.add(targetFactory.get(UserInputType.Action, UnitType.Grunt, null, null, ActionType.Select));
-        interactions.add(targetFactory.get(UserInputType.Action, UnitType.GoldMine, null, null, ActionType.Select));
-        interactions.add(targetFactory.get(UserInputType.Action, UnitType.TownHall, null, null, ActionType.Select));
-        interactions.add(targetFactory.get(UserInputType.Action, UnitType.Barracks, null, null, ActionType.Select));
-        interactions.add(targetFactory.get(UserInputType.Action, UnitType.Farm, null, null, ActionType.Select));
+        interactions.add(targetFactory.get(UserInputType.Action, UnitType.Footman, null, null, CommonAction.Select));
+        interactions.add(targetFactory.get(UserInputType.Action, UnitType.Peasant, null, null, CommonAction.Select));
+        interactions.add(targetFactory.get(UserInputType.Action, UnitType.Grunt, null, null, CommonAction.Select));
+        interactions.add(targetFactory.get(UserInputType.Action, UnitType.GoldMine, null, null, CommonAction.Select));
+        interactions.add(targetFactory.get(UserInputType.Action, UnitType.TownHall, null, null, CommonAction.Select));
+        interactions.add(targetFactory.get(UserInputType.Action, UnitType.Barracks, null, null, CommonAction.Select));
+        interactions.add(targetFactory.get(UserInputType.Action, UnitType.Farm, null, null, CommonAction.Select));
     }
 
     @Override

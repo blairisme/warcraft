@@ -6,6 +6,7 @@ import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.sequence.*;
+import com.evilbird.warcraft.action.type.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,40 +15,41 @@ import javax.inject.Inject;
 
 public class WarcraftActionFactory implements ActionFactory
 {
-    private Map<ActionCategory, ActionProvider> actions;
+    private Map<ActionIdentifier, ActionProvider> actions;
 
     @Inject
     public WarcraftActionFactory(
-        AttackSequence attackSequence,
-        BuildSequence buildSequence,
-        CancelSequence cancelSequence,
+        AttackSequence attackActionProvider,
+        BuildSequence buildActionProvider,
+        CancelSequence cancelActionProvider,
         CancelBuildingSiteSequence cancelBuildingSiteSequence,
-        DragSequence dragSequence,
+        DragSequence dragActionProvider,
         GatherGoldSequence gatherGoldSequence,
         GatherWoodSequence gatherWoodSequence,
-        ConfirmedMoveSequence confirmedMoveSequence,
+        ConfirmedMoveSequence moveActionProvider,
         PanSequence panActionProvider,
         BuildingSiteSequence buildingSiteSequence,
-        SelectionSequence selectionSequence,
-        StopSequence stopSequence,
-        TrainSequence trainSequence,
-        ZoomSequence zoomSequence)
+        SelectionSequence selectActionProvider,
+        StopSequence stopActionProvider,
+        TrainSequence trainActionProvider,
+        ZoomSequence zoomActionProvider)
     {
-        actions = new HashMap<ActionCategory, ActionProvider>();
-        actions.put(ActionCategory.Attack, attackSequence);
-        actions.put(ActionCategory.Build, buildSequence);
-        actions.put(ActionCategory.BuildSite, buildingSiteSequence);
-        actions.put(ActionCategory.CancelBuildSite, cancelBuildingSiteSequence);
-        actions.put(ActionCategory.Cancel, cancelSequence);
-        actions.put(ActionCategory.Drag, dragSequence);
-        actions.put(ActionCategory.GatherGold, gatherGoldSequence);
-        actions.put(ActionCategory.GatherWood, gatherWoodSequence);
-        actions.put(ActionCategory.Move, confirmedMoveSequence);
-        actions.put(ActionCategory.Pan, panActionProvider);
-        actions.put(ActionCategory.Select, selectionSequence);
-        actions.put(ActionCategory.Stop, stopSequence);
-        actions.put(ActionCategory.Train, trainSequence);
-        actions.put(ActionCategory.Zoom, zoomSequence);
+        actions = new HashMap<ActionIdentifier, ActionProvider>();
+        registerProvider(CommonAction.Attack, attackActionProvider);
+        registerProvider(CommonAction.Cancel, cancelActionProvider);
+        registerProvider(CommonAction.Select, selectActionProvider);
+        registerProvider(CommonAction.Stop, stopActionProvider);
+        registerProvider(CommonAction.Move, moveActionProvider);
+
+        registerProvider(CameraAction.Drag, dragActionProvider);
+        registerProvider(CameraAction.Pan, panActionProvider);
+        registerProvider(CameraAction.Zoom, zoomActionProvider);
+
+        registerProvider(GatherAction.GatherGold, gatherGoldSequence);
+        registerProvider(GatherAction.GatherWood, gatherWoodSequence);
+
+        registerProvider(BuildAction.values(), buildActionProvider);
+        registerProvider(TrainAction.values(), trainActionProvider);
     }
 
     @Override
@@ -56,11 +58,20 @@ public class WarcraftActionFactory implements ActionFactory
 
     @Override
     public Action newAction(ActionIdentifier action, Item item, Item target, UserInput input) {
-        if (action instanceof ActionType) {
-            ActionType type = (ActionType)action;
-            ActionProvider provider = actions.get(type.getCategory());
-            return provider.get(type, item, target, input);
+        ActionProvider provider = actions.get(action);
+        if (provider != null) {
+            return provider.get(action, item, target, input);
         }
         throw new UnsupportedOperationException();
+    }
+
+    private void registerProvider(ActionIdentifier[] identifiers, ActionProvider provider) {
+        for (ActionIdentifier identifier: identifiers) {
+            actions.put(identifier, provider);
+        }
+    }
+
+    private void registerProvider(ActionIdentifier identifier, ActionProvider provider) {
+        actions.put(identifier, provider);
     }
 }

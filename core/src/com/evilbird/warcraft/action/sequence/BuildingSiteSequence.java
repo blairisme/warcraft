@@ -2,15 +2,15 @@ package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.CreateAction;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.item.*;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.action.type.BuildAction;
+import com.evilbird.warcraft.action.type.BuildSiteAction;
 import com.evilbird.warcraft.item.hud.building.BuildSiteType;
 
 import javax.inject.Inject;
@@ -33,29 +33,11 @@ public class BuildingSiteSequence implements ActionProvider
     }
 
     @Override
-    public Action get(ActionType action, Item item, Item target, UserInput input)
+    public Action get(ActionIdentifier actionType, Item item, Item target, UserInput input)
     {
-        ItemType type = getBuildingSiteType(action);
+        BuildSiteAction action = (BuildSiteAction)actionType;
         NamedIdentifier identifier = new NamedIdentifier();
-        Vector2 location = getScreenCenter(item.getRoot());
-        return new CreateAction(item.getParent(), type, itemFactory, identifier, location, true);
-    }
-
-    private BuildSiteType getBuildingSiteType(ActionType actionType)
-    {
-        switch (actionType){
-            case BuildBarracksSite: return BuildSiteType.BarracksBuildSite;
-            case BuildFarmSite: return BuildSiteType.FarmBuildSite;
-            case BuildTownHallSite: return BuildSiteType.TownHallBuildSite;
-            default: throw new UnsupportedOperationException();
-        }
-    }
-
-    private Vector2 getScreenCenter(ItemRoot root)
-    {
-        float x = graphics.getWidth() * 0.5f;
-        float y = graphics.getHeight() * 0.5f;
-        Vector2 screenCenter = new Vector2(x, y);
-        return root.unproject(screenCenter);
+        Vector2 location = ItemOperations.getScreenCenter(item.getRoot());
+        return new CreateAction(item.getParent(), action.getBuildSiteType(), itemFactory, identifier, location, true);
     }
 }

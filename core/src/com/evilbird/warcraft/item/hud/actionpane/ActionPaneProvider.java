@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.hud.action;
+package com.evilbird.warcraft.item.hud.actionpane;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,23 +20,18 @@ public class ActionPaneProvider implements AssetProvider<ActionPane>
     private ActionButtonProvider actionButtonProvider;
 
     @Inject
-    public ActionPaneProvider(
-        Device device,
-        ActionButtonProvider actionButtonProvider)
-    {
+    public ActionPaneProvider(Device device, ActionButtonProvider actionButtonProvider) {
         this.assets = device.getAssetStorage().getAssets();
         this.actionButtonProvider = actionButtonProvider;
     }
 
     @Override
-    public void load()
-    {
+    public void load() {
         assets.load("data/textures/human/hud/action_panel.png", Texture.class);
     }
 
     @Override
-    public ActionPane get()
-    {
+    public ActionPane get() {
         ActionPane result = new ActionPane(actionButtonProvider);
         result.setBackground(getDrawable(assets, "data/textures/human/hud/action_panel.png"));
         return result;

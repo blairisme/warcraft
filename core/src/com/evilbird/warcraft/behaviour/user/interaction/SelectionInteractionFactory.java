@@ -1,5 +1,6 @@
 package com.evilbird.warcraft.behaviour.user.interaction;
 
+import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.warcraft.action.ActionType;
@@ -28,7 +29,7 @@ public class SelectionInteractionFactory
         String targetType,
         String selectedType,
         String hudType,
-        ActionType actionType)
+        ActionIdentifier actionType)
     {
         SelectionInteraction result = provider.get();
         result.setActionType(actionType);
@@ -44,7 +45,7 @@ public class SelectionInteractionFactory
             Identifier targetType,
             Identifier selectedType,
             Identifier hudType,
-            ActionType actionType)
+            ActionIdentifier actionType)
     {
         SelectionInteraction result = provider.get();
         result.setActionType(actionType);

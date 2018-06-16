@@ -4,6 +4,7 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.action.type.*;
 import com.evilbird.warcraft.behaviour.user.interaction.CompositeInteraction;
 import com.evilbird.warcraft.behaviour.user.interaction.Interaction;
 import com.evilbird.warcraft.behaviour.user.interaction.SelectionInteractionFactory;
@@ -28,33 +29,33 @@ public class HudInteraction implements Interaction
         interactions = new CompositeInteraction();
 
         //TODO: Move into stop class
-        interactions.add(selectionFactory.get(UserInputType.Action, ActionType.Stop, UnitType.Footman, null, ActionType.Stop));
-        interactions.add(selectionFactory.get(UserInputType.Action, ActionType.Stop, UnitType.Peasant, null, ActionType.Stop));
+        interactions.add(selectionFactory.get(UserInputType.Action, CommonAction.Stop, UnitType.Footman, null, CommonAction.Stop));
+        interactions.add(selectionFactory.get(UserInputType.Action, CommonAction.Stop, UnitType.Peasant, null, CommonAction.Stop));
 
         //TODO: Move into build class
-        interactions.add(selectionFactory.get(UserInputType.Action, ActionType.BuildBarracks, UnitType.Peasant, null, ActionType.BuildBarracksSite));
-        interactions.add(selectionFactory.get(UserInputType.Action, ActionType.BuildFarm, UnitType.Peasant, null, ActionType.BuildFarmSite));
-        interactions.add(selectionFactory.get(UserInputType.Action, ActionType.BuildTownHall, UnitType.Peasant, null, ActionType.BuildTownHallSite));
+        interactions.add(selectionFactory.get(UserInputType.Action, BuildAction.BuildBarracks, UnitType.Peasant, null, BuildSiteAction.BuildBarracksSite));
+        interactions.add(selectionFactory.get(UserInputType.Action, BuildAction.BuildFarm, UnitType.Peasant, null, BuildSiteAction.BuildFarmSite));
+        interactions.add(selectionFactory.get(UserInputType.Action, BuildAction.BuildTownHall, UnitType.Peasant, null, BuildSiteAction.BuildTownHallSite));
 
-        interactions.add(selectionFactory.get(UserInputType.Action, ActionType.BuildBarracksSite, UnitType.Peasant, null, ActionType.BuildBarracks));
-        interactions.add(selectionFactory.get(UserInputType.Action, ActionType.BuildFarmSite, UnitType.Peasant, null, ActionType.BuildFarm));
-        interactions.add(selectionFactory.get(UserInputType.Action, ActionType.BuildTownHallSite, UnitType.Peasant, null, ActionType.BuildTownHall));
+        interactions.add(selectionFactory.get(UserInputType.Action, BuildSiteAction.BuildBarracksSite, UnitType.Peasant, null, BuildAction.BuildBarracks));
+        interactions.add(selectionFactory.get(UserInputType.Action, BuildSiteAction.BuildFarmSite, UnitType.Peasant, null, BuildAction.BuildFarm));
+        interactions.add(selectionFactory.get(UserInputType.Action, BuildSiteAction.BuildTownHallSite, UnitType.Peasant, null, BuildAction.BuildTownHall));
 
         //TODO: Move into drag class
-        interactions.add(targetFactory.get(UserInputType.Drag, BuildSiteType.BarracksBuildSite, null, null, ActionType.Drag));
-        interactions.add(targetFactory.get(UserInputType.Drag, BuildSiteType.FarmBuildSite, null, null, ActionType.Drag));
-        interactions.add(targetFactory.get(UserInputType.Drag, BuildSiteType.TownHallBuildSite, null, null, ActionType.Drag));
+        interactions.add(targetFactory.get(UserInputType.Drag, BuildSiteType.BarracksBuildSite, null, null, CameraAction.Drag));
+        interactions.add(targetFactory.get(UserInputType.Drag, BuildSiteType.FarmBuildSite, null, null, CameraAction.Drag));
+        interactions.add(targetFactory.get(UserInputType.Drag, BuildSiteType.TownHallBuildSite, null, null, CameraAction.Drag));
 
         //TODO: Move into cancel class
-        interactions.add(selectionFactory.get(UserInputType.Action, ActionType.Cancel, UnitType.TownHall, null, ActionType.Cancel));
-        interactions.add(selectionFactory.get(UserInputType.Action, ActionType.Cancel, UnitType.Barracks, null, ActionType.Cancel));
-        interactions.add(selectionFactory.get(UserInputType.Action, ActionType.Cancel, BuildSiteType.BarracksBuildSite, null, ActionType.BuildSiteCancel));
-        interactions.add(selectionFactory.get(UserInputType.Action, ActionType.Cancel, BuildSiteType.FarmBuildSite, null, ActionType.BuildSiteCancel));
-        interactions.add(selectionFactory.get(UserInputType.Action, ActionType.Cancel, BuildSiteType.TownHallBuildSite, null, ActionType.BuildSiteCancel));
+        interactions.add(selectionFactory.get(UserInputType.Action, CommonAction.Cancel, UnitType.TownHall, null, CommonAction.Cancel));
+        interactions.add(selectionFactory.get(UserInputType.Action, CommonAction.Cancel, UnitType.Barracks, null, CommonAction.Cancel));
+//        interactions.add(selectionFactory.get(UserInputType.Action, CommonAction.Cancel, BuildSiteType.BarracksBuildSite, null, ActionType.BuildSiteCancel));
+//        interactions.add(selectionFactory.get(UserInputType.Action, CommonAction.Cancel, BuildSiteType.FarmBuildSite, null, ActionType.BuildSiteCancel));
+//        interactions.add(selectionFactory.get(UserInputType.Action, CommonAction.Cancel, BuildSiteType.TownHallBuildSite, null, ActionType.BuildSiteCancel));
 
         //TODO: Move into train class
-        interactions.add(selectionFactory.get(UserInputType.Action, ActionType.TrainPeasant, UnitType.TownHall, null, ActionType.TrainPeasant));
-        interactions.add(selectionFactory.get(UserInputType.Action, ActionType.TrainFootman, UnitType.Barracks, null, ActionType.TrainFootman));
+        interactions.add(selectionFactory.get(UserInputType.Action, TrainAction.TrainPeasant, UnitType.TownHall, null, TrainAction.TrainPeasant));
+        interactions.add(selectionFactory.get(UserInputType.Action, TrainAction.TrainFootman, UnitType.Barracks, null, TrainAction.TrainFootman));
     }
 
     @Override

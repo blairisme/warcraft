@@ -1,10 +1,12 @@
 package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.action.common.DragAction;
 
 import javax.inject.Inject;
 
@@ -21,8 +23,8 @@ public class DragSequence implements ActionProvider
     }
 
     @Override
-    public Action get(ActionType action, Item item, Item target, UserInput input)
+    public Action get(ActionIdentifier action, Item item, Item target, UserInput input)
     {
-        return new com.evilbird.warcraft.action.common.DragAction(item, input);
+        return new DragAction(item, input);
     }
 }

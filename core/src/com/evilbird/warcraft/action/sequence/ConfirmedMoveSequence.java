@@ -2,6 +2,7 @@ package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
@@ -23,16 +24,14 @@ public class ConfirmedMoveSequence implements ActionProvider
     private ConfirmSequence confirmSequence;
 
     @Inject
-    public ConfirmedMoveSequence(
-        MoveSequence moveSequence,
-        ConfirmSequence confirmSequence)
+    public ConfirmedMoveSequence(MoveSequence moveSequence, ConfirmSequence confirmSequence)
     {
         this.moveSequence = moveSequence;
         this.confirmSequence = confirmSequence;
     }
 
     @Override
-    public Action get(ActionType action, Item item, Item target, UserInput input)
+    public Action get(ActionIdentifier action, Item item, Item target, UserInput input)
     {
         ItemRoot root = item.getRoot();
         Vector2 destination = root.unproject(input.getPosition());

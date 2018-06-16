@@ -1,6 +1,7 @@
 package com.evilbird.warcraft.action;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 
@@ -11,5 +12,5 @@ import com.evilbird.engine.item.Item;
  */
 public interface ActionProvider
 {
-    Action get(ActionType action, Item item, Item target, UserInput input);
+    Action get(ActionIdentifier action, Item item, Item target, UserInput input);
 }

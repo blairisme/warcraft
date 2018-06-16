@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.NamedIdentifier;
@@ -17,6 +18,7 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Map;
 
@@ -42,7 +44,6 @@ public class FarmProvider implements AssetProvider<Item>
     @Override
     public Item get() {
         Building result = new Building();
-        result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
         result.setHealth(400.0f);
@@ -52,11 +53,6 @@ public class FarmProvider implements AssetProvider<Item>
         result.setType(UnitType.Farm);
         result.setSize(64, 64);
         return result;
-    }
-
-    private EnumSet<ActionType> getActions() {
-        EnumSet<ActionType> actions = EnumSet.noneOf(ActionType.class);
-        return actions;
     }
 
     private Map<AnimationIdentifier, DirectionalAnimation> getAnimations() {

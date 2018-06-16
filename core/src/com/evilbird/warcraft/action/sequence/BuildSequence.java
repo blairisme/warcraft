@@ -2,6 +2,7 @@ package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.CreateAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.common.RemoveAction;
@@ -20,6 +21,7 @@ import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.Audible;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.ActionType;
+import com.evilbird.warcraft.action.type.BuildAction;
 import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.action.common.ProgressAction;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -47,16 +49,17 @@ public class BuildSequence implements ActionProvider
     }
 
     @Override
-    public Action get(ActionType action, Item builder, Item buildingSite, UserInput input)
+    public Action get(ActionIdentifier actionType, Item builder, Item buildingSite, UserInput input)
     {
+        BuildAction action = (BuildAction)actionType;
         Action removeBuildSite = new RemoveAction(buildingSite);
         Action constructBuilding = construct(action, builder, buildingSite);
         return new SequenceAction(removeBuildSite, constructBuilding);
     }
 
-    private Action construct(ActionType action, Item builder, Item buildingSite)
+    private Action construct(BuildAction action, Item builder, Item buildingSite)
     {
-        ItemType type = getBuildingType(action);
+        ItemType type = action.getUnitType();
         Vector2 location = buildingSite.getPosition();
 
         Action prepareBuilder = prepareBuilder(builder, location);
@@ -64,16 +67,6 @@ public class BuildSequence implements ActionProvider
         Action resetBuilder = resetBuilder(builder, location);
 
         return new SequenceAction(prepareBuilder, constructBuilding, resetBuilder);
-    }
-
-    private UnitType getBuildingType(ActionType actionType)
-    {
-        switch (actionType){
-            case BuildBarracks: return UnitType.Barracks;
-            case BuildFarm: return UnitType.Farm;
-            case BuildTownHall: return UnitType.TownHall;
-            default: throw new UnsupportedOperationException();
-        }
     }
 
     private Action prepareBuilder(Item builder, Vector2 location)

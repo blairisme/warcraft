@@ -1,6 +1,7 @@
 package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.common.AnimateAction;
@@ -35,7 +36,7 @@ public class AttackSequence implements ActionProvider
     }
 
     @Override
-    public Action get(ActionType action, Item item, Item target, UserInput input) {
+    public Action get(ActionIdentifier action, Item item, Item target, UserInput input) {
         Action attack = attack(item, target);
         return new ReplacementAction(item, attack);
     }

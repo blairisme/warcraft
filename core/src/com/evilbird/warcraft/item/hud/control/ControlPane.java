@@ -3,7 +3,7 @@ package com.evilbird.warcraft.item.hud.control;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.control.GridPane;
-import com.evilbird.warcraft.item.hud.action.ActionPaneProvider;
+import com.evilbird.warcraft.item.hud.actionpane.ActionPaneProvider;
 import com.evilbird.warcraft.item.hud.minimap.MinimapPaneProvider;
 import com.evilbird.warcraft.item.hud.state.StatePane;
 

@@ -1,5 +1,6 @@
 package com.evilbird.engine.item;
 
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.collection.Collections;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.function.Predicates;
@@ -9,6 +10,7 @@ import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.Collection;
 
+import static com.badlogic.gdx.Gdx.graphics;
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.item.ItemComparators.closestItem;
 import static com.evilbird.engine.item.ItemPredicates.itemWithType;
@@ -41,7 +43,14 @@ public class ItemOperations
             }
             parent = parent.getParent();
         }
-
         throw new IllegalStateException("Illegal item hierarchy - missing player");
+    }
+
+    public static Vector2 getScreenCenter(ItemRoot root)
+    {
+        float x = graphics.getWidth() * 0.5f;
+        float y = graphics.getHeight() * 0.5f;
+        Vector2 screenCenter = new Vector2(x, y);
+        return root.unproject(screenCenter);
     }
 }

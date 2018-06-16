@@ -15,30 +15,30 @@ import java.util.Map;
  */
 public class Resource extends Unit implements ResourceContainer
 {
-    private ResourceType resourceType;
-    private float resourceValue;
+    private Map<ResourceIdentifier, Float> resources;
 
-    public Resource()
-    {
-        resourceType = null;
-        resourceValue = 0f;
-    }
-
-    public ResourceType getResourceType() {
-        return resourceType;
+    public Resource() {
+        resources = new HashMap<ResourceIdentifier, Float>();
     }
 
     @Override
     public float getResource(ResourceIdentifier resource) {
-        if (resourceType == resource) {
-            return resourceValue;
-        }
-        return 0f;
+        Float result = resources.get(resource);
+        return result != null ? result : 0f;
     }
 
     @Override
-    public void setResource(ResourceIdentifier resource, float value) {
-        resourceType = (ResourceType)resource;
-        resourceValue = value;
+    public Map<ResourceIdentifier, Float> getResources() {
+        return resources;
+    }
+
+    @Override
+    public void setResource(ResourceIdentifier type, float value) {
+        this.resources.put(type, value);
+    }
+
+    @Override
+    public void setResources(Map<ResourceIdentifier, Float> resources) {
+        this.resources = resources;
     }
 }

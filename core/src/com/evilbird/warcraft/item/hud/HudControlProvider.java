@@ -2,8 +2,8 @@ package com.evilbird.warcraft.item.hud;
 
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.hud.action.ActionButtonProvider;
-import com.evilbird.warcraft.item.hud.action.ActionPaneProvider;
+import com.evilbird.warcraft.item.hud.actionpane.ActionButtonProvider;
+import com.evilbird.warcraft.item.hud.actionpane.ActionPaneProvider;
 import com.evilbird.warcraft.item.hud.building.BuildSiteProvider;
 import com.evilbird.warcraft.item.hud.common.HealthBarProvider;
 import com.evilbird.warcraft.item.hud.common.UnitPaneProvider;

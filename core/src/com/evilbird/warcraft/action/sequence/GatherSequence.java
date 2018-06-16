@@ -1,6 +1,7 @@
 package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.AnimateAction;
 import com.evilbird.engine.action.common.DisableAction;
 import com.evilbird.engine.action.common.SelectAction;
@@ -49,7 +50,7 @@ public abstract class GatherSequence implements ActionProvider
     }
 
     @Override
-    public Action get(ActionType action, Item gatherer, Item resource, UserInput input) {
+    public Action get(ActionIdentifier action, Item gatherer, Item resource, UserInput input) {
         Action gather = gather(gatherer, resource);
         Action gatherContinually = new RepeatedAction(gather);
         return new ReplacementAction(gatherer, gatherContinually);

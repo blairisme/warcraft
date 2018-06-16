@@ -1,10 +1,13 @@
 package com.evilbird.warcraft.item.unit;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.item.specialized.animated.AnimatedItem;
 import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.item.common.capability.Destructible;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.EnumSet;
 
 import javax.inject.Inject;
@@ -20,19 +23,19 @@ public class Unit extends AnimatedItem implements Destructible
     private Drawable icon;
     private float health;
     private float healthMaximum;
-    private EnumSet<ActionType> actions;
+    private Collection<ActionIdentifier> actions;
 
     @Inject
     public Unit()
     {
         name = "Unknown";
         icon = null;
-        actions = EnumSet.noneOf(ActionType.class);
+        actions = Collections.emptyList();
         health = 0;
         healthMaximum = 0;
     }
 
-    public EnumSet<ActionType> getAvailableActions()
+    public Collection<ActionIdentifier> getAvailableActions()
     {
         return actions;
     }
@@ -57,7 +60,7 @@ public class Unit extends AnimatedItem implements Destructible
         return name;
     }
 
-    public void setActions(EnumSet<ActionType> actions)
+    public void setActions(Collection<ActionIdentifier> actions)
     {
         this.actions = actions;
     }

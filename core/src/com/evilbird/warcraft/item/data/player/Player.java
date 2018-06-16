@@ -22,8 +22,7 @@ public class Player extends ItemGroup implements ResourceContainer
     private Map<ResourceIdentifier, Float> resources;
 
     @Inject
-    public Player()
-    {
+    public Player() {
         super.setPosition(0, 0);
         super.setSize(Float.MAX_VALUE, Float.MAX_VALUE);
         super.setType(DataType.Player);
@@ -32,43 +31,48 @@ public class Player extends ItemGroup implements ResourceContainer
         resources = new HashMap<ResourceIdentifier, Float>();
     }
 
-    public boolean getConsoleUser()
-    {
+    public boolean getConsoleUser() {
         return consoleUser;
     }
 
-    public float getResource(ResourceIdentifier resource)
-    {
+    @Override
+    public float getResource(ResourceIdentifier resource) {
         Float result = resources.get(resource);
         return result != null ? result : 0f;
     }
 
-    public void setResource(ResourceIdentifier type, float value)
-    {
+    @Override
+    public Map<ResourceIdentifier, Float> getResources() {
+        return resources;
+    }
+
+    @Override
+    public void setResource(ResourceIdentifier type, float value) {
         this.resources.put(type, value);
     }
 
     @Override
-    public void setSize(Vector2 size)
-    {
+    public void setResources(Map<ResourceIdentifier, Float> resources) {
+        this.resources = resources;
+    }
+
+    @Override
+    public void setSize(Vector2 size) {
         super.setSize(Float.MAX_VALUE, Float.MAX_VALUE);
     }
 
     @Override
-    public void setSize(float width, float height)
-    {
+    public void setSize(float width, float height) {
         super.setSize(Float.MAX_VALUE, Float.MAX_VALUE);
     }
 
     @Override
-    public void setPosition(Vector2 position)
-    {
+    public void setPosition(Vector2 position) {
         super.setPosition(0, 0);
     }
 
     @Override
-    public void setPosition(float x, float y)
-    {
+    public void setPosition(float x, float y) {
         super.setPosition(0, 0);
     }
 }

@@ -2,6 +2,7 @@ package com.evilbird.warcraft.behaviour.user.interaction;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionType;
@@ -15,7 +16,7 @@ import javax.inject.Inject;
  */
 public class SelectionInteraction extends AbstractInteraction
 {
-    private ActionType actionType;
+    private ActionIdentifier actionType;
     private ActionFactory actionFactory;
 
     @Inject
@@ -24,7 +25,7 @@ public class SelectionInteraction extends AbstractInteraction
         this.actionFactory = actionFactory;
     }
 
-    public void setActionType(ActionType actionType)
+    public void setActionType(ActionIdentifier actionType)
     {
         this.actionType = actionType;
     }
