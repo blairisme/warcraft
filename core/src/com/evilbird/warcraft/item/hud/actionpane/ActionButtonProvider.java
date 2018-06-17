@@ -31,6 +31,7 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
     private AssetManager assets;
     private Drawable background;
     private Map<ActionIdentifier, Drawable> icons;
+    private Map<ActionIdentifier, Drawable> disabledIcons;
 
     @Inject
     public ActionButtonProvider(Device device) {
@@ -41,6 +42,7 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
     public void load() {
         assets.load("data/textures/neutral/perennial/action.png", Texture.class);
         assets.load("data/textures/neutral/perennial/icons.png", Texture.class);
+        assets.load("data/textures/neutral/perennial/icons_disabled.png", Texture.class);
     }
 
     @Override
@@ -54,9 +56,12 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
         ActionButton result = get();
         result.setPadding(4);
         result.setSize(54, 46);
-        result.setType(HudControls.ActionButton);
+        result.setId(identifier); //TODO: use something else m
+        //result.setType(HudControls.ActionButton);
+        result.setType(identifier);
         result.setTouchable(Touchable.enabled);
-        result.setImage(getActionIcons().get(identifier));
+        result.setImage(getNormalIcon(identifier));
+        result.setDisabledImage(getDisabledIcon(identifier));
         return result;
     }
 
@@ -67,7 +72,7 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
         return background;
     }
 
-    private Map<ActionIdentifier, Drawable> getActionIcons() {
+    private Drawable getNormalIcon(ActionIdentifier identifier) {
         if (icons == null){
             icons = new HashMap<ActionIdentifier, Drawable>();
             icons.put(CommonAction.Move, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 138, 608, 46, 38));
@@ -86,7 +91,29 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
             icons.put(TrainAction.TrainPeasant, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 0, 46, 38));
             icons.put(TrainAction.TrainFootman, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 92, 0, 46, 38));
         }
-        return icons;
+        return icons.get(identifier);
+    }
+
+    private Drawable getDisabledIcon(ActionIdentifier identifier) {
+        if (disabledIcons == null){
+            disabledIcons = new HashMap<ActionIdentifier, Drawable>();
+            disabledIcons.put(CommonAction.Move, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 138, 608, 46, 38));
+            disabledIcons.put(CommonAction.Attack, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 874, 46, 38));
+            disabledIcons.put(CommonAction.Stop, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 1254, 46, 38));
+            disabledIcons.put(CommonAction.Cancel, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 684, 46, 38));
+            disabledIcons.put(CommonAction.Repair, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 0, 646, 46, 38));
+
+            disabledIcons.put(GatherAction.GatherGold, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 646, 46, 38));
+            disabledIcons.put(GatherAction.GatherWood, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 646, 46, 38));
+
+            disabledIcons.put(BuildAction.BuildBarracks, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 92, 304, 46, 38));
+            disabledIcons.put(BuildAction.BuildFarm, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 138, 266, 46, 38));
+            disabledIcons.put(BuildAction.BuildTownHall, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 0, 304, 46, 38));
+
+            disabledIcons.put(TrainAction.TrainPeasant, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 0, 0, 46, 38));
+            disabledIcons.put(TrainAction.TrainFootman, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 92, 0, 46, 38));
+        }
+        return disabledIcons.get(identifier);
     }
 }
 

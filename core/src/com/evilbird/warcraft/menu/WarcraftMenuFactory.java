@@ -101,9 +101,6 @@ public class WarcraftMenuFactory implements MenuFactory
             {
                 Level level = levelProvider.get();
                 menu.setScreen(level);
-
-                //Level level = new Level(menu.getDevice(), menu.getService());
-                //menu.setScreen(level);
             }
         });
         return menu;

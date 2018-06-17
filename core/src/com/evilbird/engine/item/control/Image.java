@@ -11,35 +11,30 @@ import com.evilbird.engine.item.Item;
  */
 public class Image extends Item
 {
-    private Drawable image;
-    private Drawable background;
-    private int padding;
+    protected Drawable image;
+    protected Drawable background;
+    protected int padding;
 
-    public Image()
-    {
+    public Image() {
         this.image = null;
         this.background = null;
         this.padding = 0;
     }
 
-    public void setImage(Drawable image)
-    {
+    public void setImage(Drawable image) {
         this.image = image;
     }
 
-    public void setBackground(Drawable background)
-    {
+    public void setBackground(Drawable background) {
         this.background = background;
     }
 
-    public void setPadding(int padding)
-    {
+    public void setPadding(int padding) {
         this.padding = padding;
     }
 
     @Override
-    public void draw(Batch batch, float alpha)
-    {
+    public void draw(Batch batch, float alpha) {
         if (background != null){
             float x = getX();
             float y = getY();

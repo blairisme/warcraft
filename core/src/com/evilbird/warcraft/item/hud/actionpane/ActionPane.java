@@ -13,6 +13,7 @@ import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.action.type.CommonAction;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.capability.ResourceRequirement;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.hud.HudControls;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -20,6 +21,8 @@ import com.evilbird.warcraft.item.unit.Unit;
 import java.util.*;
 
 import javax.inject.Inject;
+
+import static com.evilbird.engine.common.lang.Objects.requireNonNull;
 
 /**
  * Instances of this class show a grid of buttons representing the actions that
@@ -32,7 +35,6 @@ public class ActionPane extends GridPane
     private Collection<Item> selection;
     private Map<ResourceIdentifier, Float> resources;
     private ActionButtonProvider buttonProvider;
-
     private boolean cancelShown;
 
     @Inject
@@ -54,10 +56,11 @@ public class ActionPane extends GridPane
         setTouchable(Touchable.childrenOnly);
     }
 
-    public void setSelection(Collection<Item> selection) {
-        if (viewInvalidated(selection)) {
-            updateModel(selection);
-            updateView(selection);
+    public void setSelection(Collection<Item> newSelection) {
+        if (viewInvalidated(newSelection)) {
+            System.out.println("actions updated");
+            updateModel(newSelection);
+            updateView(newSelection);
         }
     }
 
@@ -71,7 +74,7 @@ public class ActionPane extends GridPane
 
     private boolean actionsUpdated(Collection<Item> newSelection) {
         boolean showCancel = hasAction(newSelection);
-        return ! Objects.equals(cancelShown, showCancel);
+        return cancelShown != showCancel;
     }
 
     private boolean resourcesUpdated(Collection<Item> newSelection) {
@@ -104,7 +107,7 @@ public class ActionPane extends GridPane
     private void updateView(Collection<Item> selection) {
         clearCells();
 
-        if (actionsUpdated(selection)){
+        if (hasAction(selection)){
             showCancelAction();
         }
         else {
@@ -130,7 +133,7 @@ public class ActionPane extends GridPane
 
         if (selectionIterator.hasNext()) {
             Item item = selectionIterator.next();
-            result = getAvailableActions(item);
+            result.addAll(getAvailableActions(item));
 
             while (selectionIterator.hasNext()) {
                 item = selectionIterator.next();
@@ -158,6 +161,24 @@ public class ActionPane extends GridPane
 
     private ActionButton getButton(ActionIdentifier action) {
         ActionButton result = buttonProvider.get(action);
+        result.setTouchable(meetsResourceRequirements(action) ? Touchable.enabled : Touchable.disabled);
         return result;
+    }
+
+    private boolean meetsResourceRequirements(ActionIdentifier action) {
+        if (action instanceof ResourceRequirement) {
+            ResourceRequirement requirementAction = (ResourceRequirement)action;
+            Map<ResourceIdentifier, Float> requirements = requirementAction.getResourceRequirements();
+
+            for (Map.Entry<ResourceIdentifier, Float> requirement: requirements.entrySet()) {
+                Float playerResource = requireNonNull(resources.get(requirement.getKey()), 0f);
+                Float requiredResource = requirement.getValue();
+
+                if (playerResource < requiredResource) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

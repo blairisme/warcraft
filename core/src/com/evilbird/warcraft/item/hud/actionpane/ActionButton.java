@@ -18,9 +18,6 @@ import java.util.Map;
 public class ActionButton extends ImageButton
 {
     public ActionButton() {
-
     }
-
-
 }
 

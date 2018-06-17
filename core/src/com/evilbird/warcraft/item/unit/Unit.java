@@ -37,7 +37,7 @@ public class Unit extends AnimatedItem implements Destructible
 
     public Collection<ActionIdentifier> getAvailableActions()
     {
-        return actions;
+        return Collections.unmodifiableCollection(actions);
     }
 
     public float getHealth()

@@ -23,11 +23,11 @@ public class ImageButton extends Image
     @Override
     public void draw(Batch batch, float alpha) {
         super.draw(batch, alpha);
-        if (disabledImage != null){
-            float x = getX();
-            float y = getY();
-            float width = getWidth();
-            float height = getHeight();
+        if (getTouchable() == false && disabledImage != null){
+            float x = getX() + padding;
+            float y = getY() + padding;
+            float width = getWidth() - (padding * 2);
+            float height = getHeight() - (padding * 2);
             disabledImage.draw(batch, x, y, width, height);
         }
     }

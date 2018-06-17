@@ -6,7 +6,8 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 
 /**
- * Instances of this class TODO:Finish
+ * Implementors of this interface provide a method that creates an action given
+ * a type identifier and contextual information.
  *
  * @author Blair Butterworth
  */

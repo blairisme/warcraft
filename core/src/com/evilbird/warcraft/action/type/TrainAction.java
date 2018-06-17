@@ -9,12 +9,13 @@ import com.evilbird.warcraft.item.unit.UnitType;
 import java.util.Map;
 
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
+import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
 import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
 
 public enum TrainAction implements ActionIdentifier, ResourceRequirement
 {
-    TrainFootman (20f, Footman, Maps.of(Gold, 100f)),
-    TrainPeasant (20f, Footman, Maps.of(Gold, 100f));
+    TrainFootman (20f, Footman, Maps.of(Gold, 250f)),
+    TrainPeasant (20f, Peasant, Maps.of(Gold, 100f));
 
     private float trainTime;
     private UnitType unitType;
