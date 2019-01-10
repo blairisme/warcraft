@@ -36,6 +36,7 @@ import static com.evilbird.engine.item.ItemOperations.findAncestorByType;
  *
  * @author Blair Butterworth
  */
+//TODO - Relocate unit using width of created item
 public class TrainSequence implements ActionProvider
 {
     private ItemFactory itemFactory;

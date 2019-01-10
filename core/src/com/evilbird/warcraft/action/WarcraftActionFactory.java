@@ -28,18 +28,21 @@ public class WarcraftActionFactory implements ActionFactory
         GatherWoodSequence gatherWoodSequence,
         ConfirmedMoveSequence moveActionProvider,
         PanSequence panActionProvider,
-        BuildingSiteSequence buildingSiteSequence,
+        BuildingSiteSequence buildSiteProvider,
         SelectionSequence selectActionProvider,
         StopSequence stopActionProvider,
         TrainSequence trainActionProvider,
-        ZoomSequence zoomActionProvider)
+        ZoomSequence zoomActionProvider,
+        RepositionSequence repositionProvider)
     {
-        actions = new HashMap<ActionIdentifier, ActionProvider>();
+        actions = new HashMap<>();
+
         registerProvider(CommonAction.Attack, attackActionProvider);
         registerProvider(CommonAction.Cancel, cancelActionProvider);
         registerProvider(CommonAction.Select, selectActionProvider);
         registerProvider(CommonAction.Stop, stopActionProvider);
         registerProvider(CommonAction.Move, moveActionProvider);
+        registerProvider(CommonAction.Reposition, repositionProvider);
 
         registerProvider(CameraAction.Drag, dragActionProvider);
         registerProvider(CameraAction.Pan, panActionProvider);
@@ -49,6 +52,7 @@ public class WarcraftActionFactory implements ActionFactory
         registerProvider(GatherAction.GatherWood, gatherWoodSequence);
 
         registerProvider(BuildAction.values(), buildActionProvider);
+        registerProvider(BuildSiteAction.values(), buildSiteProvider);
         registerProvider(TrainAction.values(), trainActionProvider);
     }
 

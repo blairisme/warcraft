@@ -15,6 +15,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
+// TODO: Cancelling training should return some resources
 public class CancelSequence implements ActionProvider
 {
     @Inject

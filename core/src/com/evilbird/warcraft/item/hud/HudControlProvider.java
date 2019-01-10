@@ -4,7 +4,6 @@ import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.hud.actionpane.ActionButtonProvider;
 import com.evilbird.warcraft.item.hud.actionpane.ActionPaneProvider;
-import com.evilbird.warcraft.item.hud.building.BuildSiteProvider;
 import com.evilbird.warcraft.item.hud.common.HealthBarProvider;
 import com.evilbird.warcraft.item.hud.common.UnitPaneProvider;
 import com.evilbird.warcraft.item.hud.control.ControlPane;
@@ -49,8 +48,7 @@ public class HudControlProvider extends IdentifiedAssetProviderSet<Item>
         ResourcePanelProvider resourcePaneProvider,
         SelectionPaneProvider selectionPaneProvider,
         Provider<StatePane> statePaneProvider,
-        UnitPaneProvider unitPaneProvider,
-        BuildSiteProvider buildingSiteProvider)
+        UnitPaneProvider unitPaneProvider)
     {
         addProvider(ActionButton, actionButtonProvider);
         addProvider(ActionPane, actionPaneProvider);
@@ -63,6 +61,5 @@ public class HudControlProvider extends IdentifiedAssetProviderSet<Item>
         addProvider(SelectionPane, selectionPaneProvider);
         addProvider(StatePane, statePaneProvider);
         addProvider(UnitPane, unitPaneProvider);
-        addProvider(buildingSiteProvider);
     }
 }

@@ -6,6 +6,7 @@ import com.evilbird.warcraft.item.unit.building.BuildingProvider;
 import com.evilbird.warcraft.item.unit.combatant.CombatantProvider;
 import com.evilbird.warcraft.item.unit.gatherer.GathererProvider;
 import com.evilbird.warcraft.item.unit.resource.ResourceProvider;
+import com.evilbird.warcraft.item.unit.site.BuildSiteProvider;
 
 import javax.inject.Inject;
 
@@ -19,11 +20,13 @@ public class UnitProvider extends IdentifiedAssetProviderSet<Item>
     @Inject
     public UnitProvider(
         BuildingProvider buildingProvider,
+        BuildSiteProvider buildingSiteProvider,
         ResourceProvider resourceProvider,
         CombatantProvider combatantProvider,
         GathererProvider gathererProvider)
     {
         addProvider(buildingProvider);
+        addProvider(buildingSiteProvider);
         addProvider(resourceProvider);
         addProvider(combatantProvider);
         addProvider(gathererProvider);

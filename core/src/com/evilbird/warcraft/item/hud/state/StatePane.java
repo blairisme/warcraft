@@ -5,7 +5,7 @@ import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.warcraft.item.hud.building.BuildSite;
+import com.evilbird.warcraft.item.unit.site.BuildSite;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,8 +31,8 @@ public class StatePane extends ItemGroup
         this.detailsPane = detailsPaneProvider.get();
         this.selectionPane = selectionPaneProvider.get();
         addItem(selectionPane);
-        setSize(176, 176); //TODO
-        setId(new NamedIdentifier("StatePane"));
+        setSize(176, 176); //TODO: scale flexibly
+        setId(new NamedIdentifier("StatePane")); //TODO: use enum
         setType(new NamedIdentifier("StatePane"));
         setTouchable(Touchable.childrenOnly);
     }

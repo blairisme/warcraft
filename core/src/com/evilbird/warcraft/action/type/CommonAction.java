@@ -9,5 +9,6 @@ public enum CommonAction implements ActionIdentifier
     Attack,
     Stop,
     Cancel,
-    Repair;
+    Repair,
+    Reposition
 }

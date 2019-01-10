@@ -8,12 +8,10 @@ package com.evilbird.engine.common.audio;
 public class SilentSoundEffect implements SoundEffect
 {
     @Override
-    public void play()
-    {
+    public void play() {
     }
 
     @Override
-    public void stop()
-    {
+    public void stop() {
     }
 }

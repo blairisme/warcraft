@@ -8,17 +8,12 @@ import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.*;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.action.type.BuildAction;
 import com.evilbird.warcraft.action.type.BuildSiteAction;
-import com.evilbird.warcraft.item.hud.building.BuildSiteType;
 
 import javax.inject.Inject;
 
-import static com.badlogic.gdx.Gdx.graphics;
-
 /**
- * Instances of this class TODO:Finish
+ * Instances of this class create a new building site.
  *
  * @author Blair Butterworth
  */

@@ -37,14 +37,12 @@ public class PeasantProvider implements AssetProvider<Item>
     private AssetManager assets;
 
     @Inject
-    public PeasantProvider(Device device)
-    {
+    public PeasantProvider(Device device) {
         this.assets = device.getAssetStorage().getAssets();
     }
 
     @Override
-    public void load()
-    {
+    public void load() {
         assets.load("data/sounds/human/unit/peasant/selected_1.wav", Sound.class);
         assets.load("data/sounds/human/unit/peasant/complete.mp3", Sound.class);
         assets.load("data/sounds/human/unit/peasant/acknowledge_1.mp3", Sound.class);
@@ -63,8 +61,7 @@ public class PeasantProvider implements AssetProvider<Item>
     }
 
     @Override
-    public Item get()
-    {
+    public Item get() {
         Gatherer result = new Gatherer();
         result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
@@ -86,8 +83,7 @@ public class PeasantProvider implements AssetProvider<Item>
         return result;
     }
 
-    private Collection<ActionIdentifier> getActions()
-    {
+    private Collection<ActionIdentifier> getActions() {
         Collection<ActionIdentifier> actions = new ArrayList<>();
         actions.add(CommonAction.Move);
         actions.add(CommonAction.Stop);
@@ -101,8 +97,7 @@ public class PeasantProvider implements AssetProvider<Item>
         return actions;
     }
 
-    private Map<AnimationIdentifier, DirectionalAnimation> getAnimations()
-    {
+    private Map<AnimationIdentifier, DirectionalAnimation> getAnimations() {
         Texture general = assets.get("data/textures/human/perennial/peasant.png", Texture.class);
         Texture moveGold = assets.get("data/textures/human/perennial/peasant_move_gold.png", Texture.class);
         Texture moveWood = assets.get("data/textures/human/perennial/peasant_move_wood.png", Texture.class);
@@ -110,15 +105,13 @@ public class PeasantProvider implements AssetProvider<Item>
         return AnimationCollections.gatherAnimations(general, decompose, moveGold, moveWood);
     }
 
-    private Drawable getIcon()
-    {
+    private Drawable getIcon() {
         Texture iconTexture = assets.get("data/textures/neutral/perennial/icons.png", Texture.class);
         TextureRegion iconRegion = new TextureRegion(iconTexture, 0, 0, 46, 38);
         return new TextureRegionDrawable(iconRegion);
     }
 
-    private Map<SoundIdentifier, SoundEffect> getSounds()
-    {
+    private Map<SoundIdentifier, SoundEffect> getSounds() {
         SoundEffect silent = new SilentSoundEffect();
         SoundEffect selected = SoundUtils.newSoundEffect(assets, "data/sounds/human/unit/peasant/selected_1.wav");
         SoundEffect complete = SoundUtils.newSoundEffect(assets, "data/sounds/human/unit/peasant/complete.mp3");
@@ -126,7 +119,7 @@ public class PeasantProvider implements AssetProvider<Item>
         SoundEffect construct = SoundUtils.newSoundEffect(assets, "data/sounds/human/unit/peasant/construct.mp3");
         SoundEffect gatherWood = SoundUtils.newSoundEffect(assets, "data/sounds/neutral/chopping/", ".wav", 1, 4);
 
-        Map<SoundIdentifier, SoundEffect> sounds = new HashMap<SoundIdentifier, SoundEffect>();
+        Map<SoundIdentifier, SoundEffect> sounds = new HashMap<>();
         sounds.put(UnitSound.Selected, selected);
         sounds.put(UnitSound.Complete, complete);
         sounds.put(UnitSound.Acknowledge, acknowledge);
@@ -138,6 +131,4 @@ public class PeasantProvider implements AssetProvider<Item>
 
         return sounds;
     }
-
-
 }

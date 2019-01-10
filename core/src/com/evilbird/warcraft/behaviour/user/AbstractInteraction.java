@@ -1,14 +1,22 @@
-package com.evilbird.warcraft.behaviour.user.interaction;
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
+package com.evilbird.warcraft.behaviour.user;
 
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this class define operations common to all interactions.
  *
  * @author Blair Butterworth
  */
@@ -32,21 +40,9 @@ public abstract class AbstractInteraction implements Interaction
         this.inputType = inputType;
     }
 
-    @Deprecated //TODO: Remove
-    public void setTargetType(String targetType)
-    {
-        this.targetType = targetType != null ? new NamedIdentifier(targetType) : null;
-    }
-
     public void setTargetType(Identifier targetType)
     {
         this.targetType = targetType;
-    }
-
-    @Deprecated //TODO: Remove
-    public void setSelectedType(String selectedType)
-    {
-        this.selectedType = selectedType != null ? new NamedIdentifier(selectedType) : null;
     }
 
     public void setSelectedType(Identifier selectedType)
@@ -54,28 +50,19 @@ public abstract class AbstractInteraction implements Interaction
         this.selectedType = selectedType;
     }
 
-    @Deprecated //TODO: Remove
-    public void setHudType(String hudType)
-    {
-        this.hudType = hudType != null ? new NamedIdentifier(hudType) : null;
-    }
-
     public void setHudType(Identifier hudType)
     {
         this.hudType = hudType;
     }
+//
+//    @Override
+//    public void update(UserInput input, Item target, Item worldSelection, Item hudSelection)
+//    {
+//        apply(input, target, worldSelection);
+//    }
 
     @Override
-    public boolean update(UserInput input, Item target, Item worldSelection, Item hudSelection)
-    {
-        if (applies(input, target, worldSelection, hudSelection)) {
-            apply(input, target, worldSelection);
-            return true;
-        }
-        return false;
-    }
-
-    protected boolean applies(UserInput input, Item target, Item worldSelection, Item hudSelection)
+    public boolean applies(UserInput input, Item target, Item worldSelection, Item hudSelection)
     {
         if (inputType != null && !Objects.equals(inputType, input.getType())){
             return false;
@@ -92,9 +79,7 @@ public abstract class AbstractInteraction implements Interaction
         return true;
     }
 
-    protected void apply(UserInput input, Item target, Item selected)
-    {
-    }
+    //protected abstract void apply(UserInput input, Item target, Item selected);
 
     private Identifier getType(Item item)
     {

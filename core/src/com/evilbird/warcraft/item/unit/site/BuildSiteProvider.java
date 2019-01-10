@@ -1,10 +1,10 @@
-package com.evilbird.warcraft.item.hud.building;
+package com.evilbird.warcraft.item.unit.site;
 
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.hud.building.human.BarracksBuildSiteProvider;
-import com.evilbird.warcraft.item.hud.building.human.FarmBuildSiteProvider;
-import com.evilbird.warcraft.item.hud.building.human.TownHallBuildSiteProvider;
+import com.evilbird.warcraft.item.unit.site.human.BarracksBuildSiteProvider;
+import com.evilbird.warcraft.item.unit.site.human.FarmBuildSiteProvider;
+import com.evilbird.warcraft.item.unit.site.human.TownHallBuildSiteProvider;
 
 import javax.inject.Inject;
 
@@ -21,8 +21,8 @@ public class BuildSiteProvider extends IdentifiedAssetProviderSet<Item>
         FarmBuildSiteProvider farmBuildSiteProvider,
         TownHallBuildSiteProvider townHallBuildSiteProvider)
     {
-        addProvider(BuildSiteType.BarracksBuildSite, barracksBuildSiteProvider);
-        addProvider(BuildSiteType.FarmBuildSite, farmBuildSiteProvider);
-        addProvider(BuildSiteType.TownHallBuildSite, townHallBuildSiteProvider);
+        addProvider(BuildSiteType.Barracks, barracksBuildSiteProvider);
+        addProvider(BuildSiteType.Farm, farmBuildSiteProvider);
+        addProvider(BuildSiteType.TownHall, townHallBuildSiteProvider);
     }
 }

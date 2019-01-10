@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.hud.building;
+package com.evilbird.warcraft.item.unit.site;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;

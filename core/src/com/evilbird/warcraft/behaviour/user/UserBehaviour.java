@@ -1,118 +1,98 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.behaviour.user;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.behaviour.Behaviour;
-import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.behaviour.user.interaction.CompositeInteraction;
 import com.evilbird.warcraft.item.data.DataType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import javax.inject.Inject;
+import java.util.*;
 
-import static com.evilbird.engine.item.ItemPredicates.itemWithId;
 import static com.evilbird.engine.item.ItemPredicates.itemWithType;
 import static com.evilbird.engine.item.ItemPredicates.selectedItem;
 
+/**
+ * Instances of this class modify the game state based on user input.
+ *
+ * @author Blair Butterworth
+ */
 public class UserBehaviour implements Behaviour
 {
-    private CompositeInteraction interactions;
+    private UserInteractions interactions;
 
     @Inject
-    public UserBehaviour(
-        AttackInteraction attackInteraction,
-        CameraInteraction cameraInteraction,
-        GatherInteraction gatherInteraction,
-        HudInteraction hudInteraction,
-        MoveInteraction moveInteraction,
-        SelectInteraction selectInteraction)
-    {
-        interactions = new CompositeInteraction();
-        interactions.add(attackInteraction);
-        interactions.add(cameraInteraction);
-        interactions.add(gatherInteraction);
-        interactions.add(hudInteraction);
-        interactions.add(moveInteraction);
-        interactions.add(selectInteraction);
+    public UserBehaviour(UserInteractions interactions) {
+        this.interactions = interactions;
     }
 
     @Override
-    public void update(ItemRoot world, ItemRoot hud, List<UserInput> inputs)
-    {
-        if (! inputs.isEmpty())
-        {
+    public void update(ItemRoot world, ItemRoot hud, List<UserInput> inputs) {
+        if (! inputs.isEmpty()) {
             Collection<Item> hudSelection = hud.findAll(selectedItem());
             Collection<Item> worldSelection = world.findAll(selectedItem());
 
-            for (UserInput input : inputs)
-            {
+            for (UserInput input : inputs) {
                 Collection<Item> targets = getTargets(world, hud, input);
                 update(input, targets, worldSelection, hudSelection);
             }
         }
     }
 
-    private void update(UserInput input, Collection<Item> target, Collection<Item> world, Collection<Item> hud)
-    {
-        if (world.isEmpty())
-        {
+    private void update(UserInput input, Collection<Item> target, Collection<Item> world, Collection<Item> hud) {
+        if (world.isEmpty()) {
             update(input, target, (Item)null, hud);
         }
-        for (Item worldSelected: world)
-        {
+        for (Item worldSelected: world) {
             update(input, target, worldSelected, hud);
         }
     }
 
-    private void update(UserInput input, Collection<Item> target, Item world, Collection<Item> hud)
-    {
-        if (hud.isEmpty())
-        {
+    private void update(UserInput input, Collection<Item> target, Item world, Collection<Item> hud) {
+        if (hud.isEmpty()) {
             update(input, target, world, (Item)null);
         }
-        for (Item hudSelected: hud)
-        {
+        for (Item hudSelected: hud) {
             update(input, target, world, hudSelected);
         }
     }
 
-    private void update(UserInput input, Collection<Item> targets, Item world, Item hud)
-    {
-        for (Item target: targets)
-        {
-            if (update(input, target, world, hud))
-            {
+    private void update(UserInput input, Collection<Item> targets, Item world, Item hud) {
+        for (Item target: targets) {
+            if (update(input, target, world, hud)) {
                 return;
             }
         }
     }
 
-    private boolean update(UserInput input, Item target, Item world, Item hud)
-    {
-        logUpdate(input, target, world, hud);
-
-        return interactions.update(input, target, world, hud);
+    private boolean update(UserInput input, Item target, Item world, Item hud) {
+        //logUpdate(input, target, world, hud);
+        Interaction interaction = interactions.getInteraction(input, target, world, hud);
+        if (interaction != null) {
+            interaction.update(input, target, world, hud);
+            return true;
+        }
+        return false;
     }
 
-    private void logUpdate(UserInput input, Item target, Item world, Item hud)
-    {
-        String inputType = input.getType().toString();
-
-        String targetType = target != null ? target.getType().toString() : "<none>";
-
-        String worldType = world != null ? world.getType().toString() : "<none>";
-
-        String hudType = hud != null ? hud.getType().toString() : "<none>";
-
-        System.out.println("Input: " + inputType + ", target: " + targetType + ", world: " + worldType + ", hud: " + hudType);
-    }
+//    private void logUpdate(UserInput input, Item target, Item world, Item hud)
+//    {
+//        String inputType = input.getType().toString();
+//        String targetType = target != null ? target.getType().toString() : "<none>";
+//        String worldType = world != null ? world.getType().toString() : "<none>";
+//        String hudType = hud != null ? hud.getType().toString() : "<none>";
+//        System.out.println("Input: " + inputType + ", target: " + targetType + ", world: " + worldType + ", hud: " + hudType);
+//    }
 
     private Collection<Item> getTargets(ItemRoot world, ItemRoot hud, UserInput input)
     {
@@ -142,7 +122,7 @@ public class UserBehaviour implements Behaviour
 
     private Collection<Item> getWorldTargets(ItemRoot world, UserInput userInput)
     {
-        Collection<Item> result = new ArrayList<Item>();
+        Collection<Item> result = new ArrayList<>();
 
         Item worldTarget = getWorldTarget(world, userInput);
 

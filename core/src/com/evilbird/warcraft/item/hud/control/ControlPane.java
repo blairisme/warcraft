@@ -31,7 +31,7 @@ public class ControlPane extends GridPane
         setCell(minimapPaneProvider.get(), 0, 0);
         setCell(statePaneProvider.get(), 0, 1);
         setCell(actionPaneProvider.get(), 0, 2);
-        setType(new NamedIdentifier("ControlPane"));
+        setType(new NamedIdentifier("ControlPane")); //TODO: Use enum
         setTouchable(Touchable.enabled);
     }
 }

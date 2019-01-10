@@ -17,7 +17,7 @@ public class Gatherer extends Combatant implements ResourceContainer
 
     @Inject
     public Gatherer() {
-        resources = new HashMap<ResourceIdentifier, Float>();
+        resources = new HashMap<>();
     }
 
     @Override

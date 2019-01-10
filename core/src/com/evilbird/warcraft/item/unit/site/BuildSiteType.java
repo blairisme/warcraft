@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.hud.building;
+package com.evilbird.warcraft.item.unit.site;
 
 import com.evilbird.engine.item.ItemType;
 
@@ -9,7 +9,7 @@ import com.evilbird.engine.item.ItemType;
  */
 public enum BuildSiteType implements ItemType
 {
-    BarracksBuildSite,
-    FarmBuildSite,
-    TownHallBuildSite
+    Barracks,
+    Farm,
+    TownHall
 }

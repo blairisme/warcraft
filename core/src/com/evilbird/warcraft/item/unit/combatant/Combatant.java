@@ -18,116 +18,70 @@ public class Combatant extends Unit implements Movable
     private float sight;
     private float range;
 
-
-    public float getArmour()
-    {
+    public float getArmour() {
         return armour;
     }
 
-    public float getDamageMinimum()
-    {
+    public float getDamageMinimum() {
         return damageMinimum;
     }
 
-    public float getDamageMaximum()
-    {
+    public float getDamageMaximum() {
         return damageMaximum;
     }
 
-    public int getLevel()
-    {
+    public int getLevel() {
         return level;
     }
 
-    public float getSpeed()
-    {
+    public float getSpeed() {
         return speed;
     }
 
     @Override
-    public float getMovementSpeed()
-    {
+    public float getMovementSpeed() {
         return 64f; //TODO
     }
 
-    public float getSight()
-    {
+    public float getSight() {
         return sight;
     }
 
-    public float getRange()
-    {
+    public float getRange() {
         return range;
     }
 
-    public void setArmour(float armour)
-    {
+    public void setArmour(float armour) {
         this.armour = armour;
     }
 
-    public void setDamageMinimum(float damageMinimum)
-    {
+    public void setDamageMinimum(float damageMinimum) {
         this.damageMinimum = damageMinimum;
     }
 
-    public void setDamageMaximum(float damageMaximum)
-    {
+    public void setDamageMaximum(float damageMaximum) {
         this.damageMaximum = damageMaximum;
     }
 
-    public void setLevel(int level)
-    {
+    public void setLevel(int level) {
         this.level = level;
     }
 
-    public void setSpeed(float speed)
-    {
+    public void setSpeed(float speed) {
         this.speed = speed;
     }
 
-    public void setSight(float sight)
-    {
+    public void setSight(float sight) {
         this.sight = sight;
     }
 
     @Override
-    public void setMovementSpeed(float speed)
-    {
+    public void setMovementSpeed(float speed) {
         //TODO
     }
 
-    public void setRange(float range)
-    {
+    public void setRange(float range) {
         this.range = range;
     }
-
-    /*
-    @Override //TODO
-    public Item hit(Vector2 position, boolean touchable)
-    {
-        //if (touchable && delegate.getTouchable() != Touchable.enabled) return null;
-        Vector2 center = new Vector2(36, 36);
-
-
-        return position.x >= (center.x - 16) && position.x < (center.x + 16) &&
-                position.y >= (center.y - 16) && position.y < (center.y + 16) ? this : null;
-    }
-
-    @Override
-    protected void drawSelection(Batch batch)
-    {
-        if (getSelected()){
-            Vector2 center = new Vector2(36, 36);
-
-            batch.end(); //TODO: Inefficient. Better if draw occurs using batch.
-            shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-            shapeRenderer.setColor(Color.LIME); //TODO: r70 g200 b60
-            shapeRenderer.rect(getX() + 20, getY() + 20, 32, 32);
-            shapeRenderer.end();
-            batch.begin();
-        }
-    }
-    */
 }
 
