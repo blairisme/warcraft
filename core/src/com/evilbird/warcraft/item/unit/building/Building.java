@@ -1,10 +1,9 @@
 package com.evilbird.warcraft.item.unit.building;
 
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.item.unit.Unit;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this class represent a building.
  *
  * @author Blair Butterworth
  */
@@ -13,7 +12,6 @@ public class Building extends Unit
     private boolean constructing;
     private boolean producing;
     private float progress;
-    private Identifier productionType;
 
     public Building()
     {

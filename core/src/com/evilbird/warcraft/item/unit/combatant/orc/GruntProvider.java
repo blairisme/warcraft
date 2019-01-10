@@ -9,12 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
-import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
-import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.action.type.CommonAction;
+import com.evilbird.warcraft.action.identifier.CommonAction;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -22,7 +20,6 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.EnumSet;
 import java.util.Map;
 
 import javax.inject.Inject;

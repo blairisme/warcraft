@@ -1,7 +1,7 @@
-package com.evilbird.warcraft.action.type;
+package com.evilbird.warcraft.action.identifier;
 
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.warcraft.item.unit.site.BuildSiteType;
+import com.evilbird.warcraft.item.site.BuildSiteType;
 
 public enum BuildSiteAction implements ActionIdentifier
 {

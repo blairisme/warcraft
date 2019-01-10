@@ -8,6 +8,7 @@ import com.evilbird.warcraft.item.data.DataProvider;
 import com.evilbird.warcraft.item.effect.EffectProvider;
 import com.evilbird.warcraft.item.hud.HudControlProvider;
 import com.evilbird.warcraft.item.layer.LayerProvider;
+import com.evilbird.warcraft.item.site.BuildSiteProvider;
 import com.evilbird.warcraft.item.unit.UnitProvider;
 
 import javax.inject.Inject;
@@ -22,14 +23,16 @@ public class WarcraftItemFactory implements ItemFactory
         HudControlProvider hudProvider,
         LayerProvider layerProvider,
         UnitProvider unitProvider,
-        EffectProvider effectProvider)
+        EffectProvider effectProvider,
+        BuildSiteProvider buildingSiteProvider)
     {
-        providers = new IdentifiedAssetProviderSet<Item>();
+        providers = new IdentifiedAssetProviderSet<>();
         providers.addProvider(unitProvider);
         providers.addProvider(hudProvider);
         providers.addProvider(layerProvider);
         providers.addProvider(dataProvider);
         providers.addProvider(effectProvider);
+        providers.addProvider(buildingSiteProvider);
     }
 
     @Override

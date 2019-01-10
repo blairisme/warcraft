@@ -11,14 +11,14 @@ import com.evilbird.warcraft.action.ActionType;
 import javax.inject.Inject;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this class remove a given building site.
  *
  * @author Blair Butterworth
  */
-public class CancelBuildingSiteSequence implements ActionProvider
+public class RemoveBuildingSite implements ActionProvider
 {
     @Inject
-    public CancelBuildingSiteSequence() {
+    public RemoveBuildingSite() {
     }
 
     @Override

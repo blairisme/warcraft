@@ -1,7 +1,6 @@
-package com.evilbird.warcraft.action.common;
+package com.evilbird.warcraft.action.component;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;

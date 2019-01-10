@@ -1,10 +1,10 @@
-package com.evilbird.warcraft.item.unit.site;
+package com.evilbird.warcraft.item.site;
 
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.unit.site.human.BarracksBuildSiteProvider;
-import com.evilbird.warcraft.item.unit.site.human.FarmBuildSiteProvider;
-import com.evilbird.warcraft.item.unit.site.human.TownHallBuildSiteProvider;
+import com.evilbird.warcraft.item.site.human.BarracksBuildSiteProvider;
+import com.evilbird.warcraft.item.site.human.FarmBuildSiteProvider;
+import com.evilbird.warcraft.item.site.human.TownHallBuildSiteProvider;
 
 import javax.inject.Inject;
 

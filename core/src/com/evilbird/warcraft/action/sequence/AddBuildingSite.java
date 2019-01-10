@@ -8,7 +8,7 @@ import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.*;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.type.BuildSiteAction;
+import com.evilbird.warcraft.action.identifier.BuildSiteAction;
 
 import javax.inject.Inject;
 
@@ -17,12 +17,12 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class BuildingSiteSequence implements ActionProvider
+public class AddBuildingSite implements ActionProvider
 {
     private ItemFactory itemFactory;
 
     @Inject
-    public BuildingSiteSequence(ItemFactory itemFactory)
+    public AddBuildingSite(ItemFactory itemFactory)
     {
         this.itemFactory = itemFactory;
     }

@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.action.common;
+package com.evilbird.warcraft.action.component;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;

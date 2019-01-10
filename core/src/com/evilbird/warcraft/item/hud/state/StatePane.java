@@ -5,7 +5,7 @@ import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.warcraft.item.unit.site.BuildSite;
+import com.evilbird.warcraft.item.site.BuildSite;
 
 import java.util.ArrayList;
 import java.util.Collection;

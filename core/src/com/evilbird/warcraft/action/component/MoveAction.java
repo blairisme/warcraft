@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.action.common;
+package com.evilbird.warcraft.action.component;
 
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;

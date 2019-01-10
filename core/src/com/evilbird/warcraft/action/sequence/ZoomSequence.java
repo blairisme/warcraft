@@ -5,9 +5,8 @@ import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.item.common.capability.Zoomable;
-import com.evilbird.warcraft.action.common.ZoomAction;
+import com.evilbird.warcraft.action.component.ZoomAction;
 
 import javax.inject.Inject;
 

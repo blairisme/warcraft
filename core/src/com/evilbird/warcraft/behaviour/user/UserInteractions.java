@@ -14,11 +14,11 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.type.*;
+import com.evilbird.warcraft.action.identifier.*;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.site.BuildSiteType;
+import com.evilbird.warcraft.item.site.BuildSiteType;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -84,7 +84,7 @@ public class UserInteractions
     }
 
     private void addGatherInteractions() {
-        addSelectionInteraction(UserInputType.Action, UnitType.GoldMine, UnitType.Peasant,GatherAction.GatherGold);
+        addSelectionInteraction(UserInputType.Action, UnitType.GoldMine, UnitType.Peasant, GatherAction.GatherGold);
         addSelectionInteraction(UserInputType.Action, UnitType.Tree, UnitType.Peasant, GatherAction.GatherWood);
     }
 

@@ -4,15 +4,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.common.AnimateAction;
 import com.evilbird.engine.action.framework.SequenceAction;
-import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.Animated;
-import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
-import com.evilbird.warcraft.action.common.MoveAction;
+import com.evilbird.warcraft.action.component.MoveAction;
 import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
-import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
-import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import javax.inject.Inject;
 

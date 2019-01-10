@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.unit.site;
+package com.evilbird.warcraft.item.site;
 
 import com.evilbird.engine.item.ItemType;
 

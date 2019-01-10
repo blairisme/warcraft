@@ -7,12 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.action.type.BuildAction;
-import com.evilbird.warcraft.action.type.CommonAction;
-import com.evilbird.warcraft.action.type.GatherAction;
-import com.evilbird.warcraft.action.type.TrainAction;
-import com.evilbird.warcraft.item.hud.HudControls;
+import com.evilbird.warcraft.action.identifier.BuildAction;
+import com.evilbird.warcraft.action.identifier.CommonAction;
+import com.evilbird.warcraft.action.identifier.GatherAction;
+import com.evilbird.warcraft.action.identifier.TrainAction;
 
 import java.util.HashMap;
 import java.util.Map;

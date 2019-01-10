@@ -5,8 +5,8 @@ import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.identifier.*;
 import com.evilbird.warcraft.action.sequence.*;
-import com.evilbird.warcraft.action.type.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,13 +22,13 @@ public class WarcraftActionFactory implements ActionFactory
         AttackSequence attackActionProvider,
         BuildSequence buildActionProvider,
         CancelSequence cancelActionProvider,
-        CancelBuildingSiteSequence cancelBuildingSiteSequence,
+        RemoveBuildingSite cancelBuildingSiteSequence,
         DragSequence dragActionProvider,
         GatherGoldSequence gatherGoldSequence,
         GatherWoodSequence gatherWoodSequence,
         ConfirmedMoveSequence moveActionProvider,
         PanSequence panActionProvider,
-        BuildingSiteSequence buildSiteProvider,
+        AddBuildingSite buildSiteProvider,
         SelectionSequence selectActionProvider,
         StopSequence stopActionProvider,
         TrainSequence trainActionProvider,

@@ -14,10 +14,10 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.action.common.ProgressAction;
-import com.evilbird.warcraft.action.common.ResourceTransferAction;
-import com.evilbird.warcraft.action.type.TrainAction;
+import com.evilbird.warcraft.action.component.ProducingAction;
+import com.evilbird.warcraft.action.component.ProgressAction;
+import com.evilbird.warcraft.action.component.ResourceTransferAction;
+import com.evilbird.warcraft.action.identifier.TrainAction;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 import com.evilbird.warcraft.item.data.DataType;
@@ -47,15 +47,19 @@ public class TrainSequence implements ActionProvider
     }
 
     @Override
-    public Action get(ActionIdentifier actionType, Item building, Item target, UserInput input) {
+    public Action get(ActionIdentifier actionType, Item item, Item target, UserInput input) {
         TrainAction action = (TrainAction)actionType;
+        Building building = (Building)item;
+
         Action purchase = decrementResources(action, building);
         Action train = trainUnit(action, building);
         Action create = createUnit(action, building);
+
         return new SequenceAction(purchase, train, create);
     }
 
-    private Action decrementResources(TrainAction action, Item building) {
+    //TODO: Refactor into single action
+    private Action decrementResources(TrainAction action, Building building) {
         Item player = findAncestorByType(building, DataType.Player);
         List<Action> resourceTransfers = new ArrayList<>();
 
@@ -65,11 +69,14 @@ public class TrainSequence implements ActionProvider
         return new ParallelAction(resourceTransfers);
     }
 
-    private Action trainUnit(TrainAction action, Item building) {
-        return new ProgressAction((Building)building, new TimeDuration(action.getTrainTime()));
+    private Action trainUnit(TrainAction action, Building building) {
+        ProducingAction before = new ProducingAction(building, true);
+        ProgressAction progress = new ProgressAction(building, new TimeDuration(action.getTrainTime()));
+        ProducingAction after = new ProducingAction(building, false);
+        return new SequenceAction(before, progress, after);
     }
 
-    private Action createUnit(TrainAction action, Item building) {
+    private Action createUnit(TrainAction action, Building building) {
         ItemComposite player = building.getParent();
         Identifier identifier = new NamedIdentifier();
         Vector2 location = building.getPosition();

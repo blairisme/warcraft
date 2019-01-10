@@ -20,59 +20,57 @@ import com.evilbird.engine.item.*;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.Audible;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.ActionType;
-import com.evilbird.warcraft.action.type.BuildAction;
-import com.evilbird.warcraft.item.common.capability.Movable;
-import com.evilbird.warcraft.action.common.ProgressAction;
+import com.evilbird.warcraft.action.component.ConstructAction;
+import com.evilbird.warcraft.action.identifier.BuildAction;
+import com.evilbird.warcraft.action.component.ProgressAction;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
-import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.item.ItemPredicates.itemWithId;
+import static com.evilbird.engine.item.ItemSuppliers.findById;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this class construct a building.
  *
  * @author Blair Butterworth
  */
 public class BuildSequence implements ActionProvider
 {
     private ItemFactory itemFactory;
+    private MoveSequence moveFactory;
 
     @Inject
-    public BuildSequence(ItemFactory itemFactory)
-    {
+    public BuildSequence(ItemFactory itemFactory, MoveSequence moveSequence) {
         this.itemFactory = itemFactory;
+        this.moveFactory = moveSequence;
     }
 
     @Override
-    public Action get(ActionIdentifier actionType, Item builder, Item buildingSite, UserInput input)
-    {
-        BuildAction action = (BuildAction)actionType;
-        Action removeBuildSite = new RemoveAction(buildingSite);
-        Action constructBuilding = construct(action, builder, buildingSite);
-        return new SequenceAction(removeBuildSite, constructBuilding);
+    public Action get(ActionIdentifier action, Item builder, Item buildingSite, UserInput input) {
+        Action removeBuildingSite = new RemoveAction(buildingSite);
+        //purchase
+        Action constructBuilding = construct((BuildAction)action, builder, buildingSite);
+        return new SequenceAction(removeBuildingSite, constructBuilding);
     }
 
-    private Action construct(BuildAction action, Item builder, Item buildingSite)
-    {
+    private Action construct(BuildAction action, Item builder, Item buildingSite) {
         ItemType type = action.getUnitType();
         Vector2 location = buildingSite.getPosition();
 
-        Action prepareBuilder = prepareBuilder(builder, location);
+        Action repositionBuilder = repositionBuilder(builder, location);
         Action constructBuilding = constructBuilding(builder, type, location);
         Action resetBuilder = resetBuilder(builder, location);
 
-        return new SequenceAction(prepareBuilder, constructBuilding, resetBuilder);
+        return new SequenceAction(repositionBuilder, constructBuilding, resetBuilder);
     }
 
-    private Action prepareBuilder(Item builder, Vector2 location)
+    private Action repositionBuilder(Item builder, Vector2 location)
     {
-        Action acknowledge = new AudibleAction((Audible)builder,  UnitSound.Acknowledge);
-        Action moveToSite = new com.evilbird.warcraft.action.common.MoveAction((Movable)builder, location);
+        Action acknowledge = new AudibleAction((Audible)builder, UnitSound.Acknowledge);
+        Action moveToSite = moveFactory.get(builder, location);
         Action deselectBuilder = new SelectAction(builder, false);
         Action hideBuilder = new VisibleAction(builder, false);
         return new SequenceAction(acknowledge, moveToSite, deselectBuilder, hideBuilder);
@@ -82,6 +80,7 @@ public class BuildSequence implements ActionProvider
     {
         ItemGroup player = builder.getParent();
         NamedIdentifier building = new NamedIdentifier();
+
         Action create = new CreateAction(player, type, itemFactory, building, location, true);
         Reference<Animated> reference = new Reference<>(player, building);
 
@@ -90,9 +89,9 @@ public class BuildSequence implements ActionProvider
         Action animateBuildingBefore = new AnimateAction(reference, UnitAnimation.Construct);
         Action before = new ParallelAction(animateBuilderBefore, animateBuildingBefore, soundBefore);
 
-        Action constructing = setConstructing(player, building, true);
-        Action progress = new ProgressAction(ItemSuppliers.findById(player, building), new TimeDuration(30f));
-        Action idle = setConstructing(player, building, false);
+        Action constructing = new ConstructAction(findById(player, building), true); //setConstructing(player, building, true);
+        Action progress = new ProgressAction(findById(player, building), new TimeDuration(30f)); //Get build time from action type
+        Action idle = new ConstructAction(findById(player, building), false);
         Action construct = new SequenceAction(constructing, progress, idle);
 
         Action soundAfter = new AudibleAction((Audible)builder, UnitSound.Complete);
@@ -109,36 +108,5 @@ public class BuildSequence implements ActionProvider
         Action repositionBuilder = new PositionAction(builder, resetLocation);
         Action showBuilder = new VisibleAction(builder, true);
         return new SequenceAction(repositionBuilder, showBuilder);
-    }
-
-    /*
-    private Action setProgress(ItemComposite player, Identifier building)
-    {
-        ActionValue value = new ItemReferenceValue(player, building, Progress);
-        Action reset = new ModifyAction(value, new ConstantModifier(0f), new InstantDuration());
-        Action increment = new ModifyAction(value, new DeltaModifier(0.05f, PerSecond, 0f, 1f), new TimeDuration(20f));
-        return new SequenceAction(reset, increment);
-    }
-
-    private Action setConstructing(ItemComposite player, Identifier building, boolean constructing)
-    {
-        ActionValue value = new ItemReferenceValue(player, building, BuildingProperties.Constructing);
-        ActionModifier modifier = new ConstantModifier(constructing);
-        ActionDuration duration = new InstantDuration();
-        return new ModifyAction(value, modifier, duration);
-    }
-    */
-
-    //TODO: Remove
-    private Action setConstructing(ItemComposite player, Identifier id, boolean constructing)
-    {
-        return new Action() {
-            @Override
-            public boolean act(float delta) {
-                Building building = (Building)player.find(itemWithId(id));
-                building.setConstructing(constructing);
-                return false;
-            }
-        };
     }
 }

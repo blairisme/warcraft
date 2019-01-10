@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.action.type;
+package com.evilbird.warcraft.action.identifier;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.collection.Maps;
