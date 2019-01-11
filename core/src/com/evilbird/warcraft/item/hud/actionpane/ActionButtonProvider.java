@@ -7,10 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.action.identifier.BuildAction;
-import com.evilbird.warcraft.action.identifier.CommonAction;
-import com.evilbird.warcraft.action.identifier.GatherAction;
-import com.evilbird.warcraft.action.identifier.TrainAction;
+import com.evilbird.warcraft.action.identifier.BuildActionType;
+import com.evilbird.warcraft.action.identifier.CommonActionType;
+import com.evilbird.warcraft.action.identifier.GatherActionType;
+import com.evilbird.warcraft.action.identifier.TrainActionType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,21 +73,21 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
     private Drawable getNormalIcon(ActionIdentifier identifier) {
         if (icons == null){
             icons = new HashMap<ActionIdentifier, Drawable>();
-            icons.put(CommonAction.Move, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 138, 608, 46, 38));
-            icons.put(CommonAction.Attack, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 874, 46, 38));
-            icons.put(CommonAction.Stop, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 1254, 46, 38));
-            icons.put(CommonAction.Cancel, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 684, 46, 38));
-            icons.put(CommonAction.Repair, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 646, 46, 38));
+            icons.put(CommonActionType.Move, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 138, 608, 46, 38));
+            icons.put(CommonActionType.Attack, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 874, 46, 38));
+            icons.put(CommonActionType.Stop, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 1254, 46, 38));
+            icons.put(CommonActionType.Cancel, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 684, 46, 38));
+            icons.put(CommonActionType.Repair, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 646, 46, 38));
 
-            icons.put(GatherAction.GatherGold, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 646, 46, 38));
-            icons.put(GatherAction.GatherWood, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 646, 46, 38));
+            icons.put(GatherActionType.GatherGold, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 646, 46, 38));
+            icons.put(GatherActionType.GatherWood, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 646, 46, 38));
 
-            icons.put(BuildAction.BuildBarracks, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 92, 304, 46, 38));
-            icons.put(BuildAction.BuildFarm, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 138, 266, 46, 38));
-            icons.put(BuildAction.BuildTownHall, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 304, 46, 38));
+            icons.put(BuildActionType.BuildBarracks, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 92, 304, 46, 38));
+            icons.put(BuildActionType.BuildFarm, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 138, 266, 46, 38));
+            icons.put(BuildActionType.BuildTownHall, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 304, 46, 38));
 
-            icons.put(TrainAction.TrainPeasant, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 0, 46, 38));
-            icons.put(TrainAction.TrainFootman, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 92, 0, 46, 38));
+            icons.put(TrainActionType.TrainPeasant, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 0, 46, 38));
+            icons.put(TrainActionType.TrainFootman, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 92, 0, 46, 38));
         }
         return icons.get(identifier);
     }
@@ -95,21 +95,21 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
     private Drawable getDisabledIcon(ActionIdentifier identifier) {
         if (disabledIcons == null){
             disabledIcons = new HashMap<ActionIdentifier, Drawable>();
-            disabledIcons.put(CommonAction.Move, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 138, 608, 46, 38));
-            disabledIcons.put(CommonAction.Attack, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 874, 46, 38));
-            disabledIcons.put(CommonAction.Stop, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 1254, 46, 38));
-            disabledIcons.put(CommonAction.Cancel, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 684, 46, 38));
-            disabledIcons.put(CommonAction.Repair, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 0, 646, 46, 38));
+            disabledIcons.put(CommonActionType.Move, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 138, 608, 46, 38));
+            disabledIcons.put(CommonActionType.Attack, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 874, 46, 38));
+            disabledIcons.put(CommonActionType.Stop, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 1254, 46, 38));
+            disabledIcons.put(CommonActionType.Cancel, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 684, 46, 38));
+            disabledIcons.put(CommonActionType.Repair, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 0, 646, 46, 38));
 
-            disabledIcons.put(GatherAction.GatherGold, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 646, 46, 38));
-            disabledIcons.put(GatherAction.GatherWood, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 646, 46, 38));
+            disabledIcons.put(GatherActionType.GatherGold, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 646, 46, 38));
+            disabledIcons.put(GatherActionType.GatherWood, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 646, 46, 38));
 
-            disabledIcons.put(BuildAction.BuildBarracks, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 92, 304, 46, 38));
-            disabledIcons.put(BuildAction.BuildFarm, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 138, 266, 46, 38));
-            disabledIcons.put(BuildAction.BuildTownHall, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 0, 304, 46, 38));
+            disabledIcons.put(BuildActionType.BuildBarracks, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 92, 304, 46, 38));
+            disabledIcons.put(BuildActionType.BuildFarm, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 138, 266, 46, 38));
+            disabledIcons.put(BuildActionType.BuildTownHall, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 0, 304, 46, 38));
 
-            disabledIcons.put(TrainAction.TrainPeasant, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 0, 0, 46, 38));
-            disabledIcons.put(TrainAction.TrainFootman, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 92, 0, 46, 38));
+            disabledIcons.put(TrainActionType.TrainPeasant, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 0, 0, 46, 38));
+            disabledIcons.put(TrainActionType.TrainFootman, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 92, 0, 46, 38));
         }
         return disabledIcons.get(identifier);
     }

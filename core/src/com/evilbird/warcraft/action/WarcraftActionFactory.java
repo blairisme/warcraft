@@ -37,23 +37,23 @@ public class WarcraftActionFactory implements ActionFactory
     {
         actions = new HashMap<>();
 
-        registerProvider(CommonAction.Attack, attackActionProvider);
-        registerProvider(CommonAction.Cancel, cancelActionProvider);
-        registerProvider(CommonAction.Select, selectActionProvider);
-        registerProvider(CommonAction.Stop, stopActionProvider);
-        registerProvider(CommonAction.Move, moveActionProvider);
-        registerProvider(CommonAction.Reposition, repositionProvider);
+        registerProvider(CommonActionType.Attack, attackActionProvider);
+        registerProvider(CommonActionType.Cancel, cancelActionProvider);
+        registerProvider(CommonActionType.Select, selectActionProvider);
+        registerProvider(CommonActionType.Stop, stopActionProvider);
+        registerProvider(CommonActionType.Move, moveActionProvider);
+        registerProvider(CommonActionType.Reposition, repositionProvider);
 
-        registerProvider(CameraAction.Drag, dragActionProvider);
-        registerProvider(CameraAction.Pan, panActionProvider);
-        registerProvider(CameraAction.Zoom, zoomActionProvider);
+        registerProvider(CameraActionType.Drag, dragActionProvider);
+        registerProvider(CameraActionType.Pan, panActionProvider);
+        registerProvider(CameraActionType.Zoom, zoomActionProvider);
 
-        registerProvider(GatherAction.GatherGold, gatherGoldSequence);
-        registerProvider(GatherAction.GatherWood, gatherWoodSequence);
+        registerProvider(GatherActionType.GatherGold, gatherGoldSequence);
+        registerProvider(GatherActionType.GatherWood, gatherWoodSequence);
 
-        registerProvider(BuildAction.values(), buildActionProvider);
-        registerProvider(BuildSiteAction.values(), buildSiteProvider);
-        registerProvider(TrainAction.values(), trainActionProvider);
+        registerProvider(BuildActionType.values(), buildActionProvider);
+        registerProvider(SiteActionType.values(), buildSiteProvider);
+        registerProvider(TrainActionType.values(), trainActionProvider);
     }
 
     @Override

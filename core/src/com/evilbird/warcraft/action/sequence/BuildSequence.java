@@ -1,18 +1,23 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.action.common.CreateAction;
+import com.evilbird.engine.action.common.*;
 import com.evilbird.engine.action.framework.ParallelAction;
-import com.evilbird.engine.action.common.RemoveAction;
 import com.evilbird.engine.action.framework.SequenceAction;
-import com.evilbird.engine.action.common.AnimateAction;
-import com.evilbird.engine.action.common.AudibleAction;
-import com.evilbird.engine.action.common.PositionAction;
-import com.evilbird.engine.action.common.SelectAction;
-import com.evilbird.engine.action.common.VisibleAction;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
+import com.evilbird.engine.common.function.Suppliers;
+import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.UserInput;
@@ -20,17 +25,21 @@ import com.evilbird.engine.item.*;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.Audible;
 import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.component.AlignAction;
 import com.evilbird.warcraft.action.component.ConstructAction;
-import com.evilbird.warcraft.action.identifier.BuildAction;
 import com.evilbird.warcraft.action.component.ProgressAction;
+import com.evilbird.warcraft.action.component.ResourceTransferAction;
+import com.evilbird.warcraft.action.identifier.BuildActionType;
+import com.evilbird.warcraft.item.common.capability.ResourceContainer;
+import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.item.ItemPredicates.itemWithId;
-import static com.evilbird.engine.item.ItemSuppliers.findById;
+import static com.evilbird.engine.common.function.Suppliers.constantValue;
+import static com.evilbird.engine.item.ItemOperations.findAncestorByType;
 
 /**
  * Instances of this class construct a building.
@@ -49,64 +58,83 @@ public class BuildSequence implements ActionProvider
     }
 
     @Override
-    public Action get(ActionIdentifier action, Item builder, Item buildingSite, UserInput input) {
-        Action removeBuildingSite = new RemoveAction(buildingSite);
-        //purchase
-        Action constructBuilding = construct((BuildAction)action, builder, buildingSite);
-        return new SequenceAction(removeBuildingSite, constructBuilding);
+    public Action get(ActionIdentifier action, Item builder, Item site, UserInput input) {
+        return buildBuilding((BuildActionType)action, builder, site);
     }
 
-    private Action construct(BuildAction action, Item builder, Item buildingSite) {
-        ItemType type = action.getUnitType();
-        Vector2 location = buildingSite.getPosition();
+    private Action buildBuilding(BuildActionType action, Item builder, Item site) {
+        Action removeSite = new RemoveAction(site);
+        Action purchaseBuilding = purchaseBuilding(action, builder);
+        Action constructBuilding = constructBuilding(action, builder, site);
+        return new ParallelAction(removeSite, purchaseBuilding, constructBuilding);
+    }
+
+    private Action purchaseBuilding(BuildActionType action, Item builder) {
+        ResourceContainer player = (ResourceContainer)findAncestorByType(builder, DataType.Player);
+        return new ResourceTransferAction(player, action.getResourceRequirements());
+    }
+
+    private Action constructBuilding(BuildActionType type, Item builder, Item site) {
+        Vector2 location = site.getPosition();
+        Identifier identifier = new NamedIdentifier();
+        Reference<Building> building = new Reference<>(builder.getParent(), identifier);
 
         Action repositionBuilder = repositionBuilder(builder, location);
-        Action constructBuilding = constructBuilding(builder, type, location);
-        Action resetBuilder = resetBuilder(builder, location);
+        Action hideBuilder = hideBuilder(builder);
+        Action createBuilding = createBuilding(builder.getParent(), type.getBuildType(), identifier, location);
+        Action constructBuilding = constructBuilding(type, builder, building);
+        Action showBuilder = showBuilder(builder, building);
 
-        return new SequenceAction(repositionBuilder, constructBuilding, resetBuilder);
+        return new SequenceAction(repositionBuilder, hideBuilder, createBuilding, constructBuilding, showBuilder);
     }
 
-    private Action repositionBuilder(Item builder, Vector2 location)
-    {
+    private Action repositionBuilder(Item builder, Vector2 location) {
         Action acknowledge = new AudibleAction((Audible)builder, UnitSound.Acknowledge);
         Action moveToSite = moveFactory.get(builder, location);
-        Action deselectBuilder = new SelectAction(builder, false);
-        Action hideBuilder = new VisibleAction(builder, false);
-        return new SequenceAction(acknowledge, moveToSite, deselectBuilder, hideBuilder);
+        return new SequenceAction(acknowledge, moveToSite);
     }
 
-    private Action constructBuilding(Item builder, ItemType type, Vector2 location)
-    {
-        ItemGroup player = builder.getParent();
-        NamedIdentifier building = new NamedIdentifier();
+    private Action hideBuilder(Item builder) {
+        Action deselect = new SelectAction(builder, false);
+        Action hide = new VisibleAction(builder, false);
+        return new ParallelAction(deselect, hide);
+    }
 
-        Action create = new CreateAction(player, type, itemFactory, building, location, true);
-        Reference<Animated> reference = new Reference<>(player, building);
+    private Action constructBuilding(BuildActionType type, Item builder, Reference<Building> building) {
+        Action preConstruction = preConstructionAudioVisual(builder, building);
+        Action constructionProgress = constructionProgress(building, type.getBuildDuration());
+        Action postConstruction = postConstructionAudioVisual(builder, building);
+        return new SequenceAction(preConstruction, constructionProgress, postConstruction);
+    }
 
+    private Action createBuilding(ItemGroup player, ItemType type, Identifier identifier, Vector2 location) {
+        return new CreateAction(player, type, itemFactory, identifier, location, true);
+    }
+
+    private Action preConstructionAudioVisual(Item builder, Reference<Building> building) {
         Action soundBefore = new AudibleAction((Audible)builder, UnitSound.Construct);
         Action animateBuilderBefore = new AnimateAction((Animated)builder, UnitAnimation.Build);
-        Action animateBuildingBefore = new AnimateAction(reference, UnitAnimation.Construct);
-        Action before = new ParallelAction(animateBuilderBefore, animateBuildingBefore, soundBefore);
-
-        Action constructing = new ConstructAction(findById(player, building), true); //setConstructing(player, building, true);
-        Action progress = new ProgressAction(findById(player, building), new TimeDuration(30f)); //Get build time from action type
-        Action idle = new ConstructAction(findById(player, building), false);
-        Action construct = new SequenceAction(constructing, progress, idle);
-
-        Action soundAfter = new AudibleAction((Audible)builder, UnitSound.Complete);
-        Action animateBuilderAfter = new AnimateAction((Animated)builder, UnitAnimation.Idle);
-        Action animateBuildingAfter = new AnimateAction(reference, UnitAnimation.Idle);
-        Action after = new ParallelAction(animateBuilderAfter, animateBuildingAfter, soundAfter);
-
-        return new SequenceAction(create, before, construct, after);
+        Action animateBuildingBefore = new AnimateAction(building, UnitAnimation.Construct);
+        return new ParallelAction(animateBuilderBefore, animateBuildingBefore, soundBefore);
     }
 
-    private Action resetBuilder(Item builder, Vector2 location)
-    {
-        Vector2 resetLocation = new Vector2(location.x - builder.getWidth(), location.y);
-        Action repositionBuilder = new PositionAction(builder, resetLocation);
-        Action showBuilder = new VisibleAction(builder, true);
-        return new SequenceAction(repositionBuilder, showBuilder);
+    private Action constructionProgress(Reference<Building> building, TimeDuration duration) {
+        Action constructing = new ConstructAction(building, true);
+        Action progress = new ProgressAction(building, duration);
+        Action idle = new ConstructAction(building, false);
+        return new SequenceAction(constructing, progress, idle);
+    }
+
+    private Action postConstructionAudioVisual(Item builder, Reference<Building> building) {
+        Action soundAfter = new AudibleAction((Audible)builder, UnitSound.Complete);
+        Action animateBuilderAfter = new AnimateAction((Animated)builder, UnitAnimation.Idle);
+        Action animateBuildingAfter = new AnimateAction(building, UnitAnimation.Idle);
+        return new ParallelAction(animateBuilderAfter, animateBuildingAfter, soundAfter);
+    }
+
+    private Action showBuilder(Item builder, Reference<Building> building) {
+        Action reposition = new AlignAction(constantValue(builder), building, Alignment.BottomLeft);
+        Action show = new VisibleAction(builder, true);
+        return new ParallelAction(reposition, show);
     }
 }

@@ -8,7 +8,7 @@ import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemOperations;
 import com.evilbird.engine.item.control.GridPane;
-import com.evilbird.warcraft.action.identifier.CommonAction;
+import com.evilbird.warcraft.action.identifier.CommonActionType;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 import com.evilbird.warcraft.item.common.capability.ResourceRequirement;
@@ -114,7 +114,7 @@ public class ActionPane extends GridPane
     }
 
     private void showCancelAction() {
-        ActionButton cancelButton = getButton(CommonAction.Cancel);
+        ActionButton cancelButton = getButton(CommonActionType.Cancel);
         setCell(cancelButton, 2, 2);
         cancelShown = true;
     }

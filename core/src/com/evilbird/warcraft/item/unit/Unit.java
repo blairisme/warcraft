@@ -3,14 +3,11 @@ package com.evilbird.warcraft.item.unit;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.item.specialized.animated.AnimatedItem;
-import com.evilbird.warcraft.action.ActionType;
 import com.evilbird.warcraft.item.common.capability.Destructible;
 
+import javax.inject.Inject;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.EnumSet;
-
-import javax.inject.Inject;
 
 /**
  * Instances of this class TODO:Finish

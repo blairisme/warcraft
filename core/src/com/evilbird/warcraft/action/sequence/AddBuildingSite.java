@@ -6,9 +6,11 @@ import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.CreateAction;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.item.*;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.item.ItemOperations;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.identifier.BuildSiteAction;
+import com.evilbird.warcraft.action.identifier.SiteActionType;
 
 import javax.inject.Inject;
 
@@ -30,7 +32,7 @@ public class AddBuildingSite implements ActionProvider
     @Override
     public Action get(ActionIdentifier actionType, Item item, Item target, UserInput input)
     {
-        BuildSiteAction action = (BuildSiteAction)actionType;
+        SiteActionType action = (SiteActionType)actionType;
         NamedIdentifier identifier = new NamedIdentifier();
         Vector2 location = ItemOperations.getScreenCenter(item.getRoot());
         return new CreateAction(item.getParent(), action.getBuildSiteType(), itemFactory, identifier, location, true);

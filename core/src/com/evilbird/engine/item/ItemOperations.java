@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.item;
 
 import com.badlogic.gdx.math.Vector2;
@@ -16,6 +25,11 @@ import static com.evilbird.engine.item.ItemComparators.closestItem;
 import static com.evilbird.engine.item.ItemPredicates.itemWithType;
 import static com.evilbird.engine.item.ItemPredicates.selectableItem;
 
+/**
+ * Instances of this class contain common item lookup utility functions.
+ *
+ * @author Blair Butterworth
+ */
 public class ItemOperations
 {
     public static Item findClosest(ItemComposite itemGroup, Identifier type, Item locus) {
@@ -52,5 +66,9 @@ public class ItemOperations
         float y = graphics.getHeight() * 0.5f;
         Vector2 screenCenter = new Vector2(x, y);
         return root.unproject(screenCenter);
+    }
+
+    private ItemOperations(){
+        throw new UnsupportedOperationException();
     }
 }

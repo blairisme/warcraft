@@ -15,9 +15,9 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
-import com.evilbird.warcraft.action.identifier.BuildAction;
-import com.evilbird.warcraft.action.identifier.CommonAction;
-import com.evilbird.warcraft.action.identifier.GatherAction;
+import com.evilbird.warcraft.action.identifier.BuildActionType;
+import com.evilbird.warcraft.action.identifier.CommonActionType;
+import com.evilbird.warcraft.action.identifier.GatherActionType;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.common.sound.SoundUtils;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -82,15 +82,15 @@ public class PeasantProvider implements AssetProvider<Item>
 
     private Collection<ActionIdentifier> getActions() {
         Collection<ActionIdentifier> actions = new ArrayList<>();
-        actions.add(CommonAction.Move);
-        actions.add(CommonAction.Stop);
-        actions.add(CommonAction.Attack);
-        actions.add(CommonAction.Repair);
-        actions.add(GatherAction.GatherGold);
-        //actions.add(GatherAction.GatherWood);
-        actions.add(BuildAction.BuildFarm);
-        actions.add(BuildAction.BuildBarracks);
-        actions.add(BuildAction.BuildTownHall);
+        actions.add(CommonActionType.Move);
+        actions.add(CommonActionType.Stop);
+        actions.add(CommonActionType.Attack);
+        actions.add(CommonActionType.Repair);
+        actions.add(GatherActionType.GatherGold);
+        //actions.add(GatherActionType.GatherWood);
+        actions.add(BuildActionType.BuildFarm);
+        actions.add(BuildActionType.BuildBarracks);
+        actions.add(BuildActionType.BuildTownHall);
         return actions;
     }
 

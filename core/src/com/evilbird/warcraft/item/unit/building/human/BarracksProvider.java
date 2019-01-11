@@ -12,7 +12,7 @@ import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
-import com.evilbird.warcraft.action.identifier.TrainAction;
+import com.evilbird.warcraft.action.identifier.TrainActionType;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -70,7 +70,7 @@ public class BarracksProvider implements AssetProvider<Item>
 
     private Collection<ActionIdentifier> getActions() {
         Collection<ActionIdentifier> actions = new ArrayList<>();
-        actions.add(TrainAction.TrainFootman);
+        actions.add(TrainActionType.TrainFootman);
         return actions;
     }
 

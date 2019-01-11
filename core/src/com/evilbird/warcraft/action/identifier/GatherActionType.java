@@ -1,9 +1,18 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.action.identifier;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
-public enum GatherAction implements ActionIdentifier
+public enum GatherActionType implements ActionIdentifier
 {
     GatherGold  (ResourceType.Gold, 100f, 5f),
     GatherOil   (ResourceType.Oil, 100f, 5f),
@@ -13,7 +22,7 @@ public enum GatherAction implements ActionIdentifier
     private float gatherSpeed;
     private ResourceType resourceType;
 
-    private GatherAction(ResourceType resourceType, float gatherAmount, float gatherSpeed) {
+    private GatherActionType(ResourceType resourceType, float gatherAmount, float gatherSpeed) {
         this.gatherAmount = gatherAmount;
         this.gatherSpeed = gatherSpeed;
         this.resourceType = resourceType;

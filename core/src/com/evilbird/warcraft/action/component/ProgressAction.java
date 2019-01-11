@@ -25,14 +25,14 @@ import com.evilbird.warcraft.item.unit.building.Building;
 public class ProgressAction extends BasicAction
 {
     private Building building;
-    private Supplier<Item> supplier;
+    private Supplier<? extends Building> supplier;
     private TimeDuration duration;
 
     public ProgressAction(Building building, TimeDuration duration) {
         this(Suppliers.constantValue(building), duration);
     }
 
-    public ProgressAction(Supplier<Item> supplier, TimeDuration duration) {
+    public ProgressAction(Supplier<? extends Building> supplier, TimeDuration duration) {
         this.supplier = supplier;
         this.duration = duration;
     }
@@ -43,7 +43,6 @@ public class ProgressAction extends BasicAction
         super.restart();
         duration.restart();
         if (building != null) {
-            //building.setProducing(false);
             building.setProgress(0f);
         }
     }
@@ -59,19 +58,17 @@ public class ProgressAction extends BasicAction
 
     private boolean updateBuilding() {
         if (building == null){
-            building = (Building)supplier.get();
+            building = supplier.get();
         }
         return building != null;
     }
 
     private boolean updateProgress(float delta) {
         if (! duration.isComplete(delta)) {
-            //building.setProducing(true);
             building.setProgress(duration.getProgress());
             return false;
         }
         else {
-            //building.setProducing(false);
             building.setProgress(0f);
             return true;
         }

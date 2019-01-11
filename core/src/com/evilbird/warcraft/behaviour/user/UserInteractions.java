@@ -65,61 +65,61 @@ public class UserInteractions
     }
 
     private void addAttackInteractions() {
-        addSelectionInteraction(UserInputType.Action, UnitType.Grunt, UnitType.Footman, CommonAction.Attack);
+        addSelectionInteraction(UserInputType.Action, UnitType.Grunt, UnitType.Footman, CommonActionType.Attack);
     }
 
     private void addBuildingSiteInteractions() {
-        addSelectionInteraction(UserInputType.Action, BuildSiteType.Barracks, UnitType.Peasant, BuildAction.BuildBarracks);
-        addSelectionInteraction(UserInputType.Action, BuildSiteType.Farm, UnitType.Peasant, BuildAction.BuildFarm);
-        addSelectionInteraction(UserInputType.Action, BuildSiteType.TownHall, UnitType.Peasant, BuildAction.BuildTownHall);
+        addSelectionInteraction(UserInputType.Action, BuildSiteType.Barracks, UnitType.Peasant, BuildActionType.BuildBarracks);
+        addSelectionInteraction(UserInputType.Action, BuildSiteType.Farm, UnitType.Peasant, BuildActionType.BuildFarm);
+        addSelectionInteraction(UserInputType.Action, BuildSiteType.TownHall, UnitType.Peasant, BuildActionType.BuildTownHall);
 
-        addTargetInteraction(UserInputType.Drag, BuildSiteType.Barracks, CommonAction.Reposition);
-        addTargetInteraction(UserInputType.Drag, BuildSiteType.Farm, CommonAction.Reposition);
-        addTargetInteraction(UserInputType.Drag, BuildSiteType.TownHall, CommonAction.Reposition);
+        addTargetInteraction(UserInputType.Drag, BuildSiteType.Barracks, CommonActionType.Reposition);
+        addTargetInteraction(UserInputType.Drag, BuildSiteType.Farm, CommonActionType.Reposition);
+        addTargetInteraction(UserInputType.Drag, BuildSiteType.TownHall, CommonActionType.Reposition);
     }
 
     private void addCameraInteractions() {
-        addTargetInteraction(UserInputType.Zoom, DataType.Camera, CameraAction.Zoom);
-        addTargetInteraction(UserInputType.Drag, DataType.Camera, CameraAction.Pan);
+        addTargetInteraction(UserInputType.Zoom, DataType.Camera, CameraActionType.Zoom);
+        addTargetInteraction(UserInputType.Drag, DataType.Camera, CameraActionType.Pan);
     }
 
     private void addGatherInteractions() {
-        addSelectionInteraction(UserInputType.Action, UnitType.GoldMine, UnitType.Peasant, GatherAction.GatherGold);
-        addSelectionInteraction(UserInputType.Action, UnitType.Tree, UnitType.Peasant, GatherAction.GatherWood);
+        addSelectionInteraction(UserInputType.Action, UnitType.GoldMine, UnitType.Peasant, GatherActionType.GatherGold);
+        addSelectionInteraction(UserInputType.Action, UnitType.Tree, UnitType.Peasant, GatherActionType.GatherWood);
     }
 
     private void addHudInteractions() {
-        addSelectionInteraction(UserInputType.Action, CommonAction.Stop, UnitType.Footman, CommonAction.Stop);
-        addSelectionInteraction(UserInputType.Action, CommonAction.Stop, UnitType.Peasant, CommonAction.Stop);
+        addSelectionInteraction(UserInputType.Action, CommonActionType.Stop, UnitType.Footman, CommonActionType.Stop);
+        addSelectionInteraction(UserInputType.Action, CommonActionType.Stop, UnitType.Peasant, CommonActionType.Stop);
 
-        addSelectionInteraction(UserInputType.Action, BuildAction.BuildBarracks, UnitType.Peasant, BuildSiteAction.BuildBarracksSite);
-        addSelectionInteraction(UserInputType.Action, BuildAction.BuildFarm, UnitType.Peasant, BuildSiteAction.BuildFarmSite);
-        addSelectionInteraction(UserInputType.Action, BuildAction.BuildTownHall, UnitType.Peasant, BuildSiteAction.BuildTownHallSite);
+        addSelectionInteraction(UserInputType.Action, BuildActionType.BuildBarracks, UnitType.Peasant, SiteActionType.BuildBarracksSite);
+        addSelectionInteraction(UserInputType.Action, BuildActionType.BuildFarm, UnitType.Peasant, SiteActionType.BuildFarmSite);
+        addSelectionInteraction(UserInputType.Action, BuildActionType.BuildTownHall, UnitType.Peasant, SiteActionType.BuildTownHallSite);
 
-        addSelectionInteraction(UserInputType.Action, CommonAction.Cancel, UnitType.TownHall, CommonAction.Cancel);
-        addSelectionInteraction(UserInputType.Action, CommonAction.Cancel, UnitType.Barracks, CommonAction.Cancel);
-//        addSelectionInteraction(UserInputType.Action, CommonAction.Cancel, BuildSiteType.Barracks, CommonAction.Cancel);
-//        addSelectionInteraction(UserInputType.Action, CommonAction.Cancel, BuildSiteType.Farm, CommonAction.Cancel);
-//        addSelectionInteraction(UserInputType.Action, CommonAction.Cancel, BuildSiteType.TownHall, CommonAction.Cancel);
+        addSelectionInteraction(UserInputType.Action, CommonActionType.Cancel, UnitType.TownHall, CommonActionType.Cancel);
+        addSelectionInteraction(UserInputType.Action, CommonActionType.Cancel, UnitType.Barracks, CommonActionType.Cancel);
+//        addSelectionInteraction(UserInputType.Action, CommonActionType.Cancel, BuildSiteType.Barracks, CommonActionType.Cancel);
+//        addSelectionInteraction(UserInputType.Action, CommonActionType.Cancel, BuildSiteType.Farm, CommonActionType.Cancel);
+//        addSelectionInteraction(UserInputType.Action, CommonActionType.Cancel, BuildSiteType.TownHall, CommonActionType.Cancel);
 
-        addSelectionInteraction(UserInputType.Action, TrainAction.TrainPeasant, UnitType.TownHall, TrainAction.TrainPeasant);
-        addSelectionInteraction(UserInputType.Action, TrainAction.TrainFootman, UnitType.Barracks, TrainAction.TrainFootman);
+        addSelectionInteraction(UserInputType.Action, TrainActionType.TrainPeasant, UnitType.TownHall, TrainActionType.TrainPeasant);
+        addSelectionInteraction(UserInputType.Action, TrainActionType.TrainFootman, UnitType.Barracks, TrainActionType.TrainFootman);
     }
 
     private void addMoveInteractions() {
-        addSelectionInteraction(UserInputType.Action, LayerType.Map, UnitType.Footman, CommonAction.Move);
-        addSelectionInteraction(UserInputType.Action, LayerType.Map, UnitType.Peasant, CommonAction.Move);
-        addSelectionInteraction(UserInputType.Action, LayerType.Map, UnitType.Grunt, CommonAction.Move);
+        addSelectionInteraction(UserInputType.Action, LayerType.Map, UnitType.Footman, CommonActionType.Move);
+        addSelectionInteraction(UserInputType.Action, LayerType.Map, UnitType.Peasant, CommonActionType.Move);
+        addSelectionInteraction(UserInputType.Action, LayerType.Map, UnitType.Grunt, CommonActionType.Move);
     }
 
     private void addSelectionInteractions() {
-        addTargetInteraction(UserInputType.Action, UnitType.Footman, CommonAction.Select);
-        addTargetInteraction(UserInputType.Action, UnitType.Peasant, CommonAction.Select);
-        addTargetInteraction(UserInputType.Action, UnitType.Grunt, CommonAction.Select);
-        addTargetInteraction(UserInputType.Action, UnitType.GoldMine, CommonAction.Select);
-        addTargetInteraction(UserInputType.Action, UnitType.TownHall, CommonAction.Select);
-        addTargetInteraction(UserInputType.Action, UnitType.Barracks, CommonAction.Select);
-        addTargetInteraction(UserInputType.Action, UnitType.Farm, CommonAction.Select);
+        addTargetInteraction(UserInputType.Action, UnitType.Footman, CommonActionType.Select);
+        addTargetInteraction(UserInputType.Action, UnitType.Peasant, CommonActionType.Select);
+        addTargetInteraction(UserInputType.Action, UnitType.Grunt, CommonActionType.Select);
+        addTargetInteraction(UserInputType.Action, UnitType.GoldMine, CommonActionType.Select);
+        addTargetInteraction(UserInputType.Action, UnitType.TownHall, CommonActionType.Select);
+        addTargetInteraction(UserInputType.Action, UnitType.Barracks, CommonActionType.Select);
+        addTargetInteraction(UserInputType.Action, UnitType.Farm, CommonActionType.Select);
     }
 
     private void addSelectionInteraction(

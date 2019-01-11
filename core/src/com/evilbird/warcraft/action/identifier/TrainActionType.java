@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.action.identifier;
 
 import com.evilbird.engine.action.ActionIdentifier;
@@ -12,16 +21,16 @@ import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
 import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
 
-public enum TrainAction implements ActionIdentifier, ResourceRequirement
+public enum TrainActionType implements ActionIdentifier, ResourceRequirement
 {
-    TrainFootman (20f, Footman, Maps.of(Gold, 250f)),
-    TrainPeasant (20f, Peasant, Maps.of(Gold, 100f));
+    TrainFootman (20f, Footman, Maps.of(Gold, -250f)),
+    TrainPeasant (20f, Peasant, Maps.of(Gold, -100f));
 
     private float trainTime;
     private UnitType unitType;
     private Map<ResourceIdentifier, Float> unitCost;
 
-    private TrainAction(float trainTime, UnitType unitType, Map<ResourceIdentifier, Float> unitCost) {
+    private TrainActionType(float trainTime, UnitType unitType, Map<ResourceIdentifier, Float> unitCost) {
         this.trainTime = trainTime;
         this.unitType = unitType;
         this.unitCost = unitCost;
