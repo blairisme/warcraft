@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.math.Vector2;
@@ -19,12 +28,12 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class AddBuildingSite implements ActionProvider
+public class CreateBuildingSiteSequence implements ActionProvider
 {
     private ItemFactory itemFactory;
 
     @Inject
-    public AddBuildingSite(ItemFactory itemFactory)
+    public CreateBuildingSiteSequence(ItemFactory itemFactory)
     {
         this.itemFactory = itemFactory;
     }

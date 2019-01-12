@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -5,7 +14,8 @@ import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this class represent an {@link Action} cancels the
+ * <code>Actions</code> assigned to a given {@link Item}.
  *
  * @author Blair Butterworth
  */

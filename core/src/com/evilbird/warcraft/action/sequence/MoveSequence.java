@@ -2,39 +2,38 @@ package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.action.common.AnimateAction;
-import com.evilbird.engine.action.framework.SequenceAction;
+import com.evilbird.engine.action.ActionIdentifier;
+import com.evilbird.engine.action.common.ReplacementAction;
+import com.evilbird.engine.action.framework.ParallelAction;
+import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.animated.Animated;
-import com.evilbird.warcraft.action.component.MoveAction;
-import com.evilbird.warcraft.item.common.capability.Movable;
-import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.component.AnimatedMoveAction;
 
 import javax.inject.Inject;
 
-public class MoveSequence
+/**
+ * Instances of this class TODO:Finish
+ *
+ * @author Blair Butterworth
+ */
+public class MoveSequence implements ActionProvider
 {
+    private ConfirmSequence confirmSequence;
+
     @Inject
-    public MoveSequence() {
+    public MoveSequence(ConfirmSequence confirmSequence) {
+        this.confirmSequence = confirmSequence;
     }
 
-    public Action get(Item item, Item destination)
-    {
-        Action move = new MoveAction((Movable)item, destination);
-        return animate(item, move);
+    @Override
+    public Action get(ActionIdentifier action, Item item, Item target, UserInput input) {
+        ItemRoot root = item.getRoot();
+        Vector2 destination = root.unproject(input.getPosition());
+        Action confirm = confirmSequence.get(item.getParent(), destination);
+        Action move = new AnimatedMoveAction(item, destination);
+        Action confirmedMove = new ParallelAction(confirm, move);
+        return new ReplacementAction(item, confirmedMove);
     }
-
-    public Action get(Item item, Vector2 destination)
-    {
-        Action move = new MoveAction((Movable)item, destination);
-        return animate(item, move);
-    }
-
-    private Action animate(Item item, Action move)
-    {
-        Action animateMove = new AnimateAction((Animated)item, UnitAnimation.Move);
-        Action animateIdle = new AnimateAction((Animated)item, UnitAnimation.Idle);
-        return new SequenceAction(animateMove, move, animateIdle);
-    }
-
 }

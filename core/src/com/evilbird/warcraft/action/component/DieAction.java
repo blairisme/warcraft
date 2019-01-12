@@ -13,9 +13,6 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
-/**
- * Created by blair on 24/09/2017.
- */
 public class DieAction extends Action
 {
     private Action delegate;

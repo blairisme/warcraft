@@ -20,13 +20,11 @@ import javax.inject.Inject;
 public class StopSequence implements ActionProvider
 {
     @Inject
-    public StopSequence()
-    {
+    public StopSequence() {
     }
 
     @Override
-    public Action get(ActionIdentifier action, Item item, Item target, UserInput input)
-    {
+    public Action get(ActionIdentifier action, Item item, Item target, UserInput input) {
         Action idleAnimation = new AnimateAction((Animated)item, UnitAnimation.Idle);
         return new ReplacementAction(item, idleAnimation);
     }

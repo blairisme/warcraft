@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.math.Vector2;
@@ -9,6 +18,12 @@ import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemType;
 
+/**
+ * Instances of this class represent an {@link Action} creates a new
+ * {@link Item}.
+ *
+ * @author Blair Butterworth
+ */
 public class CreateAction extends BasicAction
 {
     private ItemComposite parent;

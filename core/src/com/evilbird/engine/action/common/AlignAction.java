@@ -7,18 +7,17 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.component;
+package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.action.common.PositionAction;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.function.Supplier;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.item.Item;
 
 /**
- * Instances of this class represent an {@link BasicAction Action} that aligns
+ * Instances of this class represent an {@link Action} that aligns
  * the given {@link Item} with respect to another <code>Item</code>.
  *
  * @author Blair Butterworth

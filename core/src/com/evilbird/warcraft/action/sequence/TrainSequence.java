@@ -13,7 +13,7 @@ import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.Reference;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.component.AlignAction;
+import com.evilbird.engine.action.common.AlignAction;
 import com.evilbird.warcraft.action.component.ProducingAction;
 import com.evilbird.warcraft.action.component.ProgressAction;
 import com.evilbird.warcraft.action.component.ResourceTransferAction;

@@ -18,8 +18,7 @@ import javax.inject.Inject;
 public class GatherGoldSequence extends GatherSequence
 {
     @Inject
-    public GatherGoldSequence(MoveSequence moveSequence) {
-        super(moveSequence);
+    public GatherGoldSequence(){
     }
 
     @Override

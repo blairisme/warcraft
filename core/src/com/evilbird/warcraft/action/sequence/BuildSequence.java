@@ -16,7 +16,6 @@ import com.evilbird.engine.action.common.*;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
-import com.evilbird.engine.common.function.Suppliers;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.NamedIdentifier;
@@ -25,7 +24,8 @@ import com.evilbird.engine.item.*;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.Audible;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.component.AlignAction;
+import com.evilbird.engine.action.common.AlignAction;
+import com.evilbird.warcraft.action.component.AnimatedMoveAction;
 import com.evilbird.warcraft.action.component.ConstructAction;
 import com.evilbird.warcraft.action.component.ProgressAction;
 import com.evilbird.warcraft.action.component.ResourceTransferAction;
@@ -49,12 +49,10 @@ import static com.evilbird.engine.item.ItemOperations.findAncestorByType;
 public class BuildSequence implements ActionProvider
 {
     private ItemFactory itemFactory;
-    private MoveSequence moveFactory;
 
     @Inject
-    public BuildSequence(ItemFactory itemFactory, MoveSequence moveSequence) {
+    public BuildSequence(ItemFactory itemFactory) {
         this.itemFactory = itemFactory;
-        this.moveFactory = moveSequence;
     }
 
     @Override
@@ -90,7 +88,7 @@ public class BuildSequence implements ActionProvider
 
     private Action repositionBuilder(Item builder, Vector2 location) {
         Action acknowledge = new AudibleAction((Audible)builder, UnitSound.Acknowledge);
-        Action moveToSite = moveFactory.get(builder, location);
+        Action moveToSite = new AnimatedMoveAction(builder, location);
         return new SequenceAction(acknowledge, moveToSite);
     }
 

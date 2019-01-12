@@ -5,10 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.warcraft.item.common.capability.Zoomable;
 
-/**
- * Created by blair on 15/09/2017.
- */
-
 public class ZoomAction extends Action
 {
     private Zoomable zoomable;

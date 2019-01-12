@@ -1,6 +1,7 @@
 package com.evilbird.warcraft.action.sequence;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.common.RepeatedAudibleAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.duration.ActionDuration;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
@@ -17,12 +18,8 @@ import javax.inject.Inject;
 // TODO: Lumber mill increases rate to 125
 public class GatherWoodSequence extends GatherSequence
 {
-    private AudibleSequence audibleSequence;
-
     @Inject
-    public GatherWoodSequence(AudibleSequence audibleSequence, MoveSequence moveSequence) {
-        super(moveSequence);
-        this.audibleSequence = audibleSequence;
+    public GatherWoodSequence(){
     }
 
     @Override
@@ -43,7 +40,7 @@ public class GatherWoodSequence extends GatherSequence
     @Override
     protected Action obtainAction(Item gatherer, Item resource) {
         SoundIdentifier obtainSoundId = UnitSound.getGatherSound(getResourceType());
-        Action sound = audibleSequence.get(gatherer, obtainSoundId, 40, 1f);
+        Action sound = new RepeatedAudibleAction(gatherer, obtainSoundId, 40, 1f);
         Action obtain = super.obtainAction(gatherer, resource);
         return new ParallelAction(obtain, sound);
     }

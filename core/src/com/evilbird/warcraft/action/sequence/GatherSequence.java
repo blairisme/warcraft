@@ -12,6 +12,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.component.AnimatedMoveAction;
 import com.evilbird.warcraft.action.component.AnimationAliasAction;
 import com.evilbird.warcraft.action.component.ResourceTransferAction;
 import com.evilbird.warcraft.item.common.capability.Destructible;
@@ -35,12 +36,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 //TODO: Only choose next resource if it can be accessed - trees on the edge of forests, not within
 public abstract class GatherSequence implements ActionProvider
 {
-    private MoveSequence moveSequence;
-
-    public GatherSequence(MoveSequence moveSequence) {
-        this.moveSequence = moveSequence;
-    }
-
     @Override
     public Action get(ActionIdentifier action, Item gatherer, Item resource, UserInput input) {
         Action gather = gather(gatherer, resource);
@@ -69,7 +64,7 @@ public abstract class GatherSequence implements ActionProvider
     }
 
     protected Action obtain(Item gatherer, Item resource) {
-        Action move = moveSequence.get(gatherer, resource);
+        Action move = new AnimatedMoveAction(gatherer, resource);
         Action preObtain = preObtainAction(gatherer, resource);
         Action obtain = obtainAction(gatherer, resource);
         Action postObtain = postObtainAction(gatherer, resource);
@@ -120,7 +115,7 @@ public abstract class GatherSequence implements ActionProvider
     }
 
     protected Action deposit(Item gatherer, Item depot, Item player) {
-        Action move = moveSequence.get(gatherer, depot);
+        Action move = new AnimatedMoveAction(gatherer, depot);
         Action preDeposit = preDepositAction(gatherer);
         Action deposit = depositAction(gatherer, depot, player);
         Action postDeposit = postDepositAction(gatherer);

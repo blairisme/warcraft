@@ -1,13 +1,19 @@
-package com.evilbird.warcraft.action.component;
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
+package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.item.Positionable;
 import com.evilbird.engine.device.UserInput;
+import com.evilbird.engine.item.Positionable;
 
-/**
- * Created by blair on 16/09/2017.
- */
 public class DragAction extends Action
 {
     private Positionable positionable;
