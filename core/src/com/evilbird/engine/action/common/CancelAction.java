@@ -14,7 +14,7 @@ import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 
 /**
- * Instances of this class represent an {@link Action} cancels the
+ * Instances of this class represent an {@link Action} that cancels the
  * <code>Actions</code> assigned to a given {@link Item}.
  *
  * @author Blair Butterworth

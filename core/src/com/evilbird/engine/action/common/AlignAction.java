@@ -16,6 +16,8 @@ import com.evilbird.engine.common.function.Supplier;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.item.Item;
 
+import static com.evilbird.engine.common.function.Suppliers.constantValue;
+
 /**
  * Instances of this class represent an {@link Action} that aligns
  * the given {@link Item} with respect to another <code>Item</code>.
@@ -27,6 +29,10 @@ public class AlignAction extends BasicAction
     private Alignment alignment;
     private Supplier<? extends Item> itemSupplier;
     private Supplier<? extends Item> referenceSupplier;
+
+    public AlignAction(Item item, Item reference, Alignment alignment) {
+        this(constantValue(item), constantValue(reference), alignment);
+    }
 
     public AlignAction(
         Supplier<? extends Item> itemSupplier,

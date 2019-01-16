@@ -58,6 +58,7 @@ public class UserBehaviour implements Behaviour
         }
     }
 
+    // TODO: Remove hud
     private void update(UserInput input, Collection<Item> target, Item world, Collection<Item> hud) {
         if (hud.isEmpty()) {
             update(input, target, world, (Item)null);
@@ -69,87 +70,71 @@ public class UserBehaviour implements Behaviour
 
     private void update(UserInput input, Collection<Item> targets, Item world, Item hud) {
         for (Item target: targets) {
-            if (update(input, target, world, hud)) {
+            if (update(input, target, world)) {
                 return;
             }
         }
     }
 
-    private boolean update(UserInput input, Item target, Item world, Item hud) {
-        //logUpdate(input, target, world, hud);
-        Interaction interaction = interactions.getInteraction(input, target, world, hud);
+    private boolean update(UserInput input, Item target, Item selected) {
+        logUpdate(input, target, selected);
+        Interaction interaction = interactions.getInteraction(input, target, selected);
         if (interaction != null) {
-            interaction.update(input, target, world, hud);
+            interaction.update(input, target, selected);
             return true;
         }
         return false;
     }
 
-//    private void logUpdate(UserInput input, Item target, Item world, Item hud)
-//    {
-//        String inputType = input.getType().toString();
-//        String targetType = target != null ? target.getType().toString() : "<none>";
-//        String worldType = world != null ? world.getType().toString() : "<none>";
-//        String hudType = hud != null ? hud.getType().toString() : "<none>";
-//        System.out.println("Input: " + inputType + ", target: " + targetType + ", world: " + worldType + ", hud: " + hudType);
-//    }
+    private void logUpdate(UserInput input, Item target, Item world) {
+        String inputType = input.getType().toString();
+        String targetType = target != null ? target.getType().toString() : "<none>";
+        String worldType = world != null ? world.getType().toString() : "<none>";
+        System.out.println("Input: " + inputType + ", target: " + targetType + ", world: " + worldType);
+    }
 
-    private Collection<Item> getTargets(ItemRoot world, ItemRoot hud, UserInput input)
-    {
+    private Collection<Item> getTargets(ItemRoot world, ItemRoot hud, UserInput input) {
         Collection<Item> hudTargets = getHudTargets(hud, input);
 
-        if (!hudTargets.isEmpty())
-        {
+        if (!hudTargets.isEmpty()) {
             return hudTargets;
         }
         return getWorldTargets(world, input);
     }
 
-    private Collection<Item> getHudTargets(ItemRoot hud, UserInput userInput)
-    {
+    private Collection<Item> getHudTargets(ItemRoot hud, UserInput userInput) {
         Vector2 position = userInput.getPosition();
-
         Vector2 hudPosition = hud.unproject(position);
 
         Item hudElement = hud.hit(hudPosition, true);
-
-        if (hudElement != null)
-        {
+        if (hudElement != null) {
             return Arrays.asList(hudElement);
         }
         return Collections.emptyList();
     }
 
-    private Collection<Item> getWorldTargets(ItemRoot world, UserInput userInput)
-    {
+    private Collection<Item> getWorldTargets(ItemRoot world, UserInput userInput) {
         Collection<Item> result = new ArrayList<>();
-
         Item worldTarget = getWorldTarget(world, userInput);
 
-        if (worldTarget != null)
-        {
+        if (worldTarget != null) {
             result.add(worldTarget);
         }
         Item cameraTarget = getCameraTarget(world);
 
-        if (cameraTarget != null)
-        {
+        if (cameraTarget != null) {
             result.add(cameraTarget);
         }
         return result;
     }
 
-    private Item getCameraTarget(ItemRoot world)
-    {
+    private Item getCameraTarget(ItemRoot world) {
         return world.find(itemWithType(DataType.Camera));
     }
 
-    private Item getWorldTarget(ItemRoot world, UserInput userInput)
-    {
+    private Item getWorldTarget(ItemRoot world, UserInput userInput) {
         Vector2 position = userInput.getPosition();
-
         Vector2 worldPosition = world.unproject(position);
-
         return world.hit(worldPosition, true);
     }
 }

@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.unit.gatherer.human;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -15,9 +24,6 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
-import com.evilbird.warcraft.action.identifier.BuildActionType;
-import com.evilbird.warcraft.action.identifier.CommonActionType;
-import com.evilbird.warcraft.action.identifier.GatherActionType;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.common.sound.SoundUtils;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -60,7 +66,7 @@ public class PeasantProvider implements AssetProvider<Item>
     @Override
     public Item get() {
         Gatherer result = new Gatherer();
-        result.setActions(getActions());
+//        result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
         result.setAvailableSounds(getSounds());
@@ -82,15 +88,13 @@ public class PeasantProvider implements AssetProvider<Item>
 
     private Collection<ActionIdentifier> getActions() {
         Collection<ActionIdentifier> actions = new ArrayList<>();
-        actions.add(CommonActionType.Move);
-        actions.add(CommonActionType.Stop);
-        actions.add(CommonActionType.Attack);
-        actions.add(CommonActionType.Repair);
-        actions.add(GatherActionType.GatherGold);
-        //actions.add(GatherActionType.GatherWood);
-        actions.add(BuildActionType.BuildFarm);
-        actions.add(BuildActionType.BuildBarracks);
-        actions.add(BuildActionType.BuildTownHall);
+//        actions.add(GeneralActions.Move);
+//        actions.add(GeneralActions.Attack);
+//        actions.add(GatherActions.GatherGold);
+//        //actions.add(GatherActions.GatherWood);
+//        actions.add(ConstructionActions.ConstructFarm);
+//        actions.add(ConstructionActions.ConstructBarracks);
+//        actions.add(ConstructionActions.ConstructTownHall);
         return actions;
     }
 

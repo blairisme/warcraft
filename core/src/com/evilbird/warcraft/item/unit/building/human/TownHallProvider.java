@@ -5,20 +5,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
-import com.evilbird.warcraft.action.identifier.TrainActionType;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -44,7 +40,7 @@ public class TownHallProvider implements AssetProvider<Item>
     @Override
     public Item get() {
         Building result = new Building();
-        result.setActions(getActions());
+//        result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
         result.setHealth(1200.0f);
@@ -56,11 +52,11 @@ public class TownHallProvider implements AssetProvider<Item>
         return result;
     }
 
-    private Collection<ActionIdentifier> getActions() {
-        Collection<ActionIdentifier> actions = new ArrayList<>();
-        actions.add(TrainActionType.TrainPeasant);
-        return actions;
-    }
+//    private Collection<ActionIdentifier> getActions() {
+//        Collection<ActionIdentifier> actions = new ArrayList<>();
+//        //actions.add(TrainActions.TrainPeasantButton);
+//        return actions;
+//    }
 
     private Map<AnimationIdentifier, DirectionalAnimation> getAnimations() {
         Texture general = assets.get("data/textures/human/winter/town_hall.png", Texture.class);

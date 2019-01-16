@@ -28,4 +28,8 @@ public class ReplacementAction extends DelegateAction
         item.addAction(delegate);
         return true;
     }
+
+    public Action getReplacement() {
+        return delegate;
+    }
 }

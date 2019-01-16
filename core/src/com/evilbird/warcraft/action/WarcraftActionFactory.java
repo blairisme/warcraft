@@ -1,59 +1,84 @@
+/*
+ * Blair Butterworth (c) 2018
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.action;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.action.ActionFactory;
-import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.action.*;
+import com.evilbird.engine.action.common.ReplacementAction;
+import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.common.lang.Identifiable;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.action.identifier.*;
 import com.evilbird.warcraft.action.sequence.*;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-
+/**
+ * Instances of this class provide access to {@link Action Actions}, self
+ * contained "bundles" of behaviour, that modify the game state to implement
+ * Warcraft game play.
+ *
+ * @author Blair Butterworth
+ */
 public class WarcraftActionFactory implements ActionFactory
 {
     private Map<ActionIdentifier, ActionProvider> actions;
 
     @Inject
     public WarcraftActionFactory(
-        AttackSequence attackActionProvider,
-        BuildSequence buildActionProvider,
-        CancelSequence cancelActionProvider,
-        RemoveBuildingSite cancelBuildingSiteSequence,
-        DragSequence dragActionProvider,
-        GatherGoldSequence gatherGoldSequence,
-        GatherWoodSequence gatherWoodSequence,
-        MoveSequence moveActionProvider,
-        PanSequence panActionProvider,
-        CreateBuildingSiteSequence buildSiteProvider,
-        SelectionSequence selectActionProvider,
-        StopSequence stopActionProvider,
-        TrainSequence trainActionProvider,
-        ZoomSequence zoomActionProvider,
-        RepositionSequence repositionProvider)
+        Attack attackProvider,
+        AttackCancel attackCancelProvider,
+        CameraPan cameraPanProvider,
+        CameraZoom cameraZoomProvider,
+        Construct constructProvider,
+        ConstructCancel constructCancelProvider,
+        GatherGold gatherGoldProvider,
+        GatherWood gatherWoodProvider,
+        GatherCancel gatherCancelProvider,
+        Move moveProvider,
+        MoveCancel moveCancelProvider,
+        Placeholder placeholderProvider,
+        PlaceholderCancel placeholderCancelProvider,
+        Reposition repositionProvider,
+        Select selectProvider,
+        Train trainProvider,
+        TrainCancel trainCancelProvider)
     {
         actions = new HashMap<>();
 
-        registerProvider(CommonActionType.Attack, attackActionProvider);
-        registerProvider(CommonActionType.Cancel, cancelActionProvider);
-        registerProvider(CommonActionType.Select, selectActionProvider);
-        registerProvider(CommonActionType.Stop, stopActionProvider);
-        registerProvider(CommonActionType.Move, moveActionProvider);
-        registerProvider(CommonActionType.Reposition, repositionProvider);
+        registerProvider(GeneralActions.Attack, attackProvider);
+        registerProvider(CancelActions.CancelAttack, attackCancelProvider);
 
-        registerProvider(CameraActionType.Drag, dragActionProvider);
-        registerProvider(CameraActionType.Pan, panActionProvider);
-        registerProvider(CameraActionType.Zoom, zoomActionProvider);
+        registerProvider(CameraActions.Pan, cameraPanProvider);
+        registerProvider(CameraActions.Zoom, cameraZoomProvider);
 
-        registerProvider(GatherActionType.GatherGold, gatherGoldSequence);
-        registerProvider(GatherActionType.GatherWood, gatherWoodSequence);
+        registerProvider(ConstructionActions.values(), constructProvider);
+        registerProvider(CancelActions.CancelConstruct, constructCancelProvider);
 
-        registerProvider(BuildActionType.values(), buildActionProvider);
-        registerProvider(SiteActionType.values(), buildSiteProvider);
-        registerProvider(TrainActionType.values(), trainActionProvider);
+        registerProvider(GatherActions.GatherGold, gatherGoldProvider);
+        registerProvider(GatherActions.GatherWood, gatherWoodProvider);
+        registerProvider(CancelActions.CancelGather, gatherCancelProvider);
+
+        registerProvider(GeneralActions.Move, moveProvider);
+        registerProvider(CancelActions.CancelMove, moveCancelProvider);
+
+        registerProvider(PlaceholderActions.values(), placeholderProvider);
+        registerProvider(GeneralActions.Reposition, repositionProvider);
+        registerProvider(CancelActions.CancelPlaceholder, placeholderCancelProvider);
+
+        registerProvider(GeneralActions.Select, selectProvider);
+
+        registerProvider(TrainActions.values(), trainProvider);
+        registerProvider(CancelActions.CancelTrain, trainCancelProvider);
     }
 
     @Override
@@ -61,21 +86,34 @@ public class WarcraftActionFactory implements ActionFactory
     }
 
     @Override
-    public Action newAction(ActionIdentifier action, Item item, Item target, UserInput input) {
-        ActionProvider provider = actions.get(action);
+    public Action newAction(ActionIdentifier identifier, ActionContext context) {
+        ActionProvider provider = actions.get(identifier);
         if (provider != null) {
-            return provider.get(action, item, target, input);
+            Action result = provider.get(identifier, context);
+            updateIdentifier(result, identifier);
+            return result;
         }
-        throw new UnsupportedOperationException();
+        throw new UnknownActionException(identifier);
     }
 
-    private void registerProvider(ActionIdentifier[] identifiers, ActionProvider provider) {
-        for (ActionIdentifier identifier: identifiers) {
-            actions.put(identifier, provider);
+    private void updateIdentifier(Action action, ActionIdentifier identifier) {
+        if (action instanceof BasicAction) {
+            BasicAction basicAction = (BasicAction)action;
+            basicAction.setIdentifier(identifier);
+        }
+        if (action instanceof ReplacementAction) {
+            ReplacementAction replacementAction = (ReplacementAction)action;
+            updateIdentifier(replacementAction.getReplacement(), identifier);
         }
     }
 
     private void registerProvider(ActionIdentifier identifier, ActionProvider provider) {
         actions.put(identifier, provider);
+    }
+
+    private void registerProvider(ActionIdentifier[] identifiers, ActionProvider provider) {
+        for (ActionIdentifier identifier: identifiers) {
+            registerProvider(identifier, provider);
+        }
     }
 }

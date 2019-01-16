@@ -1,35 +1,33 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.hud.actionpane;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.action.identifier.BuildActionType;
-import com.evilbird.warcraft.action.identifier.CommonActionType;
-import com.evilbird.warcraft.action.identifier.GatherActionType;
-import com.evilbird.warcraft.action.identifier.TrainActionType;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.inject.Inject;
 
 import static com.evilbird.warcraft.item.common.texture.TextureUtils.getDrawable;
 
-/**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
- */
 public class ActionButtonProvider implements AssetProvider<ActionButton>
 {
+    private static final String BACKGROUND = "data/textures/neutral/perennial/action.png";
+    private static final String ICONS = "data/textures/neutral/perennial/icons.png";
+    private static final String ICONS_DISABLED = "data/textures/neutral/perennial/icons_disabled.png";
+    
     private AssetManager assets;
     private Drawable background;
-    private Map<ActionIdentifier, Drawable> icons;
-    private Map<ActionIdentifier, Drawable> disabledIcons;
 
     @Inject
     public ActionButtonProvider(Device device) {
@@ -38,9 +36,9 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
 
     @Override
     public void load() {
-        assets.load("data/textures/neutral/perennial/action.png", Texture.class);
-        assets.load("data/textures/neutral/perennial/icons.png", Texture.class);
-        assets.load("data/textures/neutral/perennial/icons_disabled.png", Texture.class);
+        assets.load(BACKGROUND, Texture.class);
+        assets.load(ICONS, Texture.class);
+        assets.load(ICONS_DISABLED, Texture.class);
     }
 
     @Override
@@ -50,68 +48,48 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
         return result;
     }
 
-    public ActionButton get(ActionIdentifier identifier) {
+    public ActionButton get(ActionButtonType type) {
         ActionButton result = get();
         result.setPadding(4);
         result.setSize(54, 46);
-        result.setId(identifier); //TODO: use something else m
+        result.setId(type);
+        result.setType(type);
         //result.setType(HudControls.ActionButton);
-        result.setType(identifier);
         result.setTouchable(Touchable.enabled);
-        result.setImage(getNormalIcon(identifier));
-        result.setDisabledImage(getDisabledIcon(identifier));
+        result.setImage(getNormalIcon(type));
+        result.setDisabledImage(getDisabledIcon(type));
         return result;
     }
 
     private Drawable getBackground() {
         if (background == null){
-            background = getDrawable(assets, "data/textures/neutral/perennial/action.png");
+            background = getDrawable(assets, BACKGROUND);
         }
         return background;
     }
 
-    private Drawable getNormalIcon(ActionIdentifier identifier) {
-        if (icons == null){
-            icons = new HashMap<ActionIdentifier, Drawable>();
-            icons.put(CommonActionType.Move, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 138, 608, 46, 38));
-            icons.put(CommonActionType.Attack, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 874, 46, 38));
-            icons.put(CommonActionType.Stop, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 1254, 46, 38));
-            icons.put(CommonActionType.Cancel, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 684, 46, 38));
-            icons.put(CommonActionType.Repair, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 646, 46, 38));
-
-            icons.put(GatherActionType.GatherGold, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 646, 46, 38));
-            icons.put(GatherActionType.GatherWood, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 46, 646, 46, 38));
-
-            icons.put(BuildActionType.BuildBarracks, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 92, 304, 46, 38));
-            icons.put(BuildActionType.BuildFarm, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 138, 266, 46, 38));
-            icons.put(BuildActionType.BuildTownHall, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 304, 46, 38));
-
-            icons.put(TrainActionType.TrainPeasant, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 0, 0, 46, 38));
-            icons.put(TrainActionType.TrainFootman, getDrawable(assets, "data/textures/neutral/perennial/icons.png", 92, 0, 46, 38));
+    private Drawable getNormalIcon(ActionButtonType type) {
+        switch (type) {
+            case CancelButton: return getDrawable(assets, ICONS, 46, 684, 46, 38);
+            case BuildBarracksButton: return getDrawable(assets, ICONS, 92, 304, 46, 38);
+            case BuildFarmButton: return getDrawable(assets, ICONS, 138, 266, 46, 38);
+            case BuildTownHallButton: return getDrawable(assets, ICONS, 0, 304, 46, 38);
+            case TrainFootmanButton: return getDrawable(assets, ICONS, 0, 0, 46, 38);
+            case TrainPeasantButton: return getDrawable(assets, ICONS, 92, 0, 46, 38);
+            default: throw new UnsupportedOperationException();
         }
-        return icons.get(identifier);
     }
 
-    private Drawable getDisabledIcon(ActionIdentifier identifier) {
-        if (disabledIcons == null){
-            disabledIcons = new HashMap<ActionIdentifier, Drawable>();
-            disabledIcons.put(CommonActionType.Move, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 138, 608, 46, 38));
-            disabledIcons.put(CommonActionType.Attack, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 874, 46, 38));
-            disabledIcons.put(CommonActionType.Stop, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 1254, 46, 38));
-            disabledIcons.put(CommonActionType.Cancel, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 684, 46, 38));
-            disabledIcons.put(CommonActionType.Repair, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 0, 646, 46, 38));
-
-            disabledIcons.put(GatherActionType.GatherGold, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 646, 46, 38));
-            disabledIcons.put(GatherActionType.GatherWood, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 46, 646, 46, 38));
-
-            disabledIcons.put(BuildActionType.BuildBarracks, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 92, 304, 46, 38));
-            disabledIcons.put(BuildActionType.BuildFarm, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 138, 266, 46, 38));
-            disabledIcons.put(BuildActionType.BuildTownHall, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 0, 304, 46, 38));
-
-            disabledIcons.put(TrainActionType.TrainPeasant, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 0, 0, 46, 38));
-            disabledIcons.put(TrainActionType.TrainFootman, getDrawable(assets, "data/textures/neutral/perennial/icons_disabled.png", 92, 0, 46, 38));
+    private Drawable getDisabledIcon(ActionButtonType type) {
+        switch (type) {
+            case CancelButton: getDrawable(assets, ICONS_DISABLED, 46, 684, 46, 38);
+            case BuildBarracksButton: return getDrawable(assets, ICONS_DISABLED, 92, 304, 46, 38);
+            case BuildFarmButton: return getDrawable(assets, ICONS_DISABLED, 138, 266, 46, 38);
+            case BuildTownHallButton: return getDrawable(assets, ICONS_DISABLED, 0, 304, 46, 38);
+            case TrainFootmanButton: return getDrawable(assets, ICONS_DISABLED, 92, 0, 46, 38);
+            case TrainPeasantButton: return getDrawable(assets, ICONS_DISABLED, 0, 0, 46, 38);
+            default: throw new UnsupportedOperationException();
         }
-        return disabledIcons.get(identifier);
     }
 }
 

@@ -20,22 +20,22 @@ public class Unit extends AnimatedItem implements Destructible
     private Drawable icon;
     private float health;
     private float healthMaximum;
-    private Collection<ActionIdentifier> actions;
+//    private Collection<ActionIdentifier> actions;
 
     @Inject
     public Unit()
     {
         name = "Unknown";
         icon = null;
-        actions = Collections.emptyList();
+//        actions = Collections.emptyList();
         health = 0;
         healthMaximum = 0;
     }
 
-    public Collection<ActionIdentifier> getAvailableActions()
-    {
-        return Collections.unmodifiableCollection(actions);
-    }
+//    public Collection<ActionIdentifier> getAvailableActions()
+//    {
+//        return Collections.unmodifiableCollection(actions);
+//    }
 
     public float getHealth()
     {
@@ -57,10 +57,10 @@ public class Unit extends AnimatedItem implements Destructible
         return name;
     }
 
-    public void setActions(Collection<ActionIdentifier> actions)
-    {
-        this.actions = actions;
-    }
+//    public void setActions(Collection<ActionIdentifier> actions)
+//    {
+//        this.actions = actions;
+//    }
 
     public void setIcon(Drawable icon)
     {

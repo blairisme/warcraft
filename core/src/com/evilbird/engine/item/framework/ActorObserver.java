@@ -25,5 +25,5 @@ public interface ActorObserver
     /**
      * Called when the actor's size has been changed.
      */
-    void sizeChanged ();
+    void sizeChanged();
 }

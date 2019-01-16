@@ -24,26 +24,20 @@ public interface Interaction
     /**
      * Determines if this interaction applies to the given game state.
      *
-     * @param input             the last {@link UserInput input} provided by
-     *                          the user.
-     * @param target            the {@link Item item} thats the focus of the
-     *                          user input.
-     * @param worldSelection    the currently selected items.
-     * @param hudSelection
-     * @return
+     * @param input     the last {@link UserInput input} provided by the user.
+     * @param target    the {@link Item} thats the focus of the user input.
+     * @param selected  the currently selected items.
+     * @return          <code>true</code> if the interaction applies to the
+     *                  given state, otherwise false.
      */
-    boolean applies(UserInput input, Item target, Item worldSelection, Item hudSelection);
+    boolean applies(UserInput input, Item target, Item selected);
 
     /**
      * Applies this interaction to the given game state.
      *
-     * @param input             the last {@link UserInput input} provided by
-     *                          the user.
-     * @param target            the {@link Item item} thats the focus of the
-     *                          user input.
-     * @param worldSelection    the currently selected items.
-     * @param hudSelection
-     * @return
+     * @param input     the last {@link UserInput input} provided by the user.
+     * @param target    the {@link Item} thats the focus of the user input.
+     * @param selected  the currently selected items.
      */
-    void update(UserInput input, Item target, Item worldSelection, Item hudSelection);
+    void update(UserInput input, Item target, Item selected);
 }

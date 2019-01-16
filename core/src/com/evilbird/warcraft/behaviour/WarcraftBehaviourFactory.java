@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.behaviour;
 
 import com.evilbird.engine.behaviour.Behaviour;
@@ -12,6 +21,12 @@ import java.util.Arrays;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
+/**
+ * Instances of this class defines the game logic that modifies the state of
+ * the game in response to user input, time and other factors.
+ *
+ * @author Blair Butterworth
+ */
 public class WarcraftBehaviourFactory implements BehaviourFactory
 {
     private Provider<HudBehaviour> hudBehaviourProvider;
@@ -27,13 +42,11 @@ public class WarcraftBehaviourFactory implements BehaviourFactory
     }
 
     @Override
-    public void load()
-    {
+    public void load() {
     }
 
     @Override
-    public Behaviour newBehaviour(BehaviourType type)
-    {
+    public Behaviour newBehaviour(BehaviourType type) {
         Behaviour hudBehaviour = hudBehaviourProvider.get();
         Behaviour userBehaviour = userBehaviourProvider.get();
         return new CompositeBehaviour(Arrays.asList(hudBehaviour, userBehaviour));

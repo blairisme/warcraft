@@ -6,7 +6,6 @@ import com.evilbird.warcraft.item.unit.building.BuildingProvider;
 import com.evilbird.warcraft.item.unit.combatant.CombatantProvider;
 import com.evilbird.warcraft.item.unit.gatherer.GathererProvider;
 import com.evilbird.warcraft.item.unit.resource.ResourceProvider;
-import com.evilbird.warcraft.item.site.BuildSiteProvider;
 
 import javax.inject.Inject;
 

@@ -11,6 +11,7 @@ import com.evilbird.warcraft.item.unit.resource.ResourceType;
 public enum UnitSound implements SoundIdentifier
 {
     Attack,
+    Die,
 
     Selected,
     Acknowledge,

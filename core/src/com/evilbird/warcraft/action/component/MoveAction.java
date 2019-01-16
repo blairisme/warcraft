@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2018
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.action.component;
 
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
@@ -6,17 +15,13 @@ import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.item.Positionable;
 import com.evilbird.engine.common.ai.ManhattanHeuristic;
 import com.evilbird.engine.common.ai.SpatialNode;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.SpatialGraph;
-import com.evilbird.engine.item.SpatialItemNode;
+import com.evilbird.engine.item.*;
 import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.layer.LayerType;
 

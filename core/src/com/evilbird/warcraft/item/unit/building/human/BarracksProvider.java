@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2018
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.unit.building.human;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -12,7 +21,6 @@ import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
-import com.evilbird.warcraft.action.identifier.TrainActionType;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -23,7 +31,7 @@ import java.util.*;
 import javax.inject.Inject;
 
 /**
- * Instances of this class create {@link Building Barracks's}, loading the
+ * Instances of this class create {@link Building AddBarracksPlaceholder's}, loading the
  * necessary assets and defining the appropriate attributes.
  *
  * @author Blair
@@ -53,13 +61,13 @@ public class BarracksProvider implements AssetProvider<Item>
     @Override
     public Item get() {
         Building result = new Building();
-        result.setActions(getActions());
+//        result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
         result.setHealth(800.0f);
         result.setHealthMaximum(800.0f);
         result.setIcon(getIcon());
-        result.setName("Barracks");
+        result.setName("AddBarracksPlaceholder");
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
@@ -70,7 +78,7 @@ public class BarracksProvider implements AssetProvider<Item>
 
     private Collection<ActionIdentifier> getActions() {
         Collection<ActionIdentifier> actions = new ArrayList<>();
-        actions.add(TrainActionType.TrainFootman);
+       // actions.add(TrainActions.TrainFootmanButton);
         return actions;
     }
 

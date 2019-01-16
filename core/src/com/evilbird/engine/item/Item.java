@@ -14,11 +14,11 @@ import com.evilbird.engine.item.framework.ActorObserver;
 import java.util.Collection;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this class represent the basic entity in the game.
  *
  * @author Blair Butterworth
  */
-//TODO: Consider whether to use vectors or individual values for size and position.
+//TODO: use either vectors or individual values for size and position.
 public class Item implements ActorObserver, Positionable, Selectable, Disablable, Visible
 {
     Actor delegate;
@@ -29,8 +29,7 @@ public class Item implements ActorObserver, Positionable, Selectable, Disablable
     private boolean selected;
     private boolean selectable;
 
-    public Item()
-    {
+    public Item() {
         this.delegate = initializeDelegate();
         this.delegate.setUserObject(this);
 
@@ -41,149 +40,121 @@ public class Item implements ActorObserver, Positionable, Selectable, Disablable
         setTouchable(Touchable.enabled);
     }
 
-    protected Actor initializeDelegate()
-    {
+    protected Actor initializeDelegate() {
         return new ActorExtension(this);
     }
 
-    public Identifier getId()
-    {
+    public Identifier getId() {
         return id;
     }
 
-    public Identifier getType()
-    {
+    public Identifier getType() {
         return type;
     }
 
-    public ItemGroup getParent()
-    {
+    public ItemGroup getParent() {
         return parent;
     }
 
-    public ItemRoot getRoot()
-    {
+    public ItemRoot getRoot() {
         return root;
     }
 
-    public boolean getSelected()
-    {
+    public boolean getSelected() {
         return selected;
     }
 
-    public boolean getSelectable()
-    {
+    public boolean getSelectable() {
         return selectable;
     }
 
-    public boolean getTouchable()
-    {
+    public boolean getTouchable() {
         return delegate.isTouchable();
     }
 
-    public boolean getVisible()
-    {
+    public boolean getVisible() {
         return delegate.isVisible();
     }
 
-    public Vector2 getSize()
-    {
+    public Vector2 getSize() {
         return new Vector2(delegate.getWidth(), delegate.getHeight());
     }
 
-    public float getWidth()
-    {
+    public float getWidth() {
         return delegate.getWidth();
     }
 
-    public float getHeight()
-    {
+    public float getHeight() {
         return delegate.getHeight();
     }
 
-    public Vector2 getPosition()
-    {
+    public Vector2 getPosition() {
         return new Vector2(delegate.getX(), delegate.getY());
     }
 
-    public float getX()
-    {
+    public float getX() {
         return delegate.getX();
     }
 
-    public float getY()
-    {
+    public float getY() {
         return delegate.getY();
     }
 
-    public void setId(Identifier id)
-    {
+    public void setId(Identifier id) {
         this.id = id;
     }
 
-    public void setType(Identifier type)
-    {
+    public void setType(Identifier type) {
         this.type = type;
     }
 
-    public void setSelected(boolean selected)
-    {
+    public void setSelected(boolean selected) {
         this.selected = selected;
     }
 
-    public void setSelectable(boolean selectable)
-    {
+    public void setSelectable(boolean selectable) {
         this.selectable = selectable;
     }
 
-    public void setTouchable(Touchable touchable)
-    {
+    public void setTouchable(Touchable touchable) {
         delegate.setTouchable(touchable);
     }
 
-    public void setVisible(boolean visible)
-    {
+    public void setVisible(boolean visible) {
         delegate.setVisible(visible);
     }
 
     /**
      * Sets the spatial dimensions of the item.
      *
-     * @param width     the new width of the item.
-     * @param height    the new height of the item.
+     * @param width  the new width of the item.
+     * @param height the new height of the item.
      */
-    public void setSize(float width, float height)
-    {
+    public void setSize(float width, float height) {
         delegate.setSize(width, height);
     }
 
-    public void setSize(Vector2 size)
-    {
+    public void setSize(Vector2 size) {
         delegate.setSize(size.x, size.y);
     }
 
-    public void setPosition(float x, float y)
-    {
+    public void setPosition(float x, float y) {
         delegate.setPosition(x, y);
     }
 
-    public void setPosition(Vector2 position)
-    {
+    public void setPosition(Vector2 position) {
         delegate.setPosition(position.x, position.y);
     }
 
-    public void setParent(ItemGroup parent)
-    {
+    public void setParent(ItemGroup parent) {
         this.parent = parent;
     }
 
-    public void setRoot(ItemRoot root)
-    {
+    public void setRoot(ItemRoot root) {
         this.root = root;
     }
 
-    public void addAction(Action action)
-    {
+    public void addAction(Action action) {
         delegate.addAction(action);
     }
 
@@ -191,36 +162,34 @@ public class Item implements ActorObserver, Positionable, Selectable, Disablable
         return delegate.getActions();
     }
 
-    public boolean hasActions()
-    {
+    public boolean hasActions() {
         return delegate.hasActions();
     }
 
-    public void clearActions()
-    {
+    public void clearActions() {
         delegate.clearActions();
     }
 
-    public void draw(Batch batch, float alpha)
-    {
+    @Override
+    public void draw(Batch batch, float alpha) {
     }
 
-    public void update(float delta)
-    {
+    @Override
+    public void update(float delta) {
     }
 
     /**
      * Called when the item's position has been changed.
      */
-    public void positionChanged()
-    {
+    @Override
+    public void positionChanged() {
     }
 
     /**
      * Called when the item's size has been changed.
      */
-    public void sizeChanged()
-    {
+    @Override
+    public void sizeChanged() {
     }
 
     /**
@@ -229,24 +198,22 @@ public class Item implements ActorObserver, Positionable, Selectable, Disablable
      *
      * @param position  the world coordinates to test.
      * @param touchable specifies if hit detection will respect the items touchability.
-     * @return          the item at the specified location or null if no item is located there.
+     * @return the item at the specified location or null if no item is located there.
      */
-    public Item hit(Vector2 position, boolean touchable)
-    {
+    public Item hit(Vector2 position, boolean touchable) {
         if (touchable && delegate.getTouchable() != Touchable.enabled) return null;
         return position.x >= 0 && position.x < delegate.getWidth() &&
-               position.y >= 0 && position.y < delegate.getHeight() ? this : null;
+                position.y >= 0 && position.y < delegate.getHeight() ? this : null;
     }
 
     /**
      * Converts the coordinates given in the parent's coordinate system to this items's coordinate
      * system.
      *
-     * @param   coordinates given in the parent's coordinate system.
-     * @return  coordinates given in the items's coordinate system.
+     * @param coordinates given in the parent's coordinate system.
+     * @return coordinates given in the items's coordinate system.
      */
-    public Vector2 parentToLocalCoordinates(Vector2 coordinates)
-    {
+    public Vector2 parentToLocalCoordinates(Vector2 coordinates) {
         Vector2 result = new Vector2(coordinates);
         return delegate.parentToLocalCoordinates(result);
     }

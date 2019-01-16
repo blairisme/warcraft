@@ -9,21 +9,29 @@
 
 package com.evilbird.warcraft.behaviour.user;
 
-import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.identifier.*;
-import com.evilbird.warcraft.item.data.DataType;
-import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.site.BuildSiteType;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
-import java.util.ArrayList;
-import java.util.Collection;
+
+import static com.evilbird.engine.device.UserInputType.Drag;
+import static com.evilbird.warcraft.action.identifier.GeneralActions.*;
+import static com.evilbird.warcraft.action.identifier.CameraActions.*;
+import static com.evilbird.warcraft.action.identifier.CancelActions.*;
+import static com.evilbird.warcraft.action.identifier.GatherActions.*;
+import static com.evilbird.warcraft.action.identifier.PlaceholderActions.AddBarracksPlaceholder;
+import static com.evilbird.warcraft.action.identifier.PlaceholderActions.AddFarmPlaceholder;
+import static com.evilbird.warcraft.action.identifier.PlaceholderActions.AddTownHallPlaceholder;
+import static com.evilbird.warcraft.action.identifier.TrainActions.*;
+import static com.evilbird.warcraft.action.identifier.ConstructionActions.*;
+import static com.evilbird.warcraft.behaviour.user.InteractionApplicability.*;
+import static com.evilbird.warcraft.item.data.DataType.Camera;
+import static com.evilbird.warcraft.item.hud.actionpane.ActionButtonType.*;
+import static com.evilbird.warcraft.item.layer.LayerType.*;
+import static com.evilbird.warcraft.item.placeholder.PlaceholderType.*;
+import static com.evilbird.warcraft.item.unit.UnitType.*;
 
 /**
  * Instances of this class define the different ways the user can interact with
@@ -33,118 +41,93 @@ import java.util.Collection;
  */
 public class UserInteractions
 {
-    private Collection<Interaction> interactions;
-    private Provider<TargetInteraction> targetFactory;
-    private Provider<SelectionInteraction> selectionFactory;
+    private InteractionContainer interactions;
 
     @Inject
-    public UserInteractions(Provider<SelectionInteraction> selectionFactory, Provider<TargetInteraction> targetFactory) {
-        this.interactions = new ArrayList<>();
-        this.selectionFactory = selectionFactory;
-        this.targetFactory = targetFactory;
-        addInteractions();
-    }
-
-    public Interaction getInteraction(UserInput input, Item target, Item worldSelection, Item hudSelection) {
-        for (Interaction interaction: interactions) {
-            if (interaction.applies(input, target, worldSelection, hudSelection)) {
-                return interaction;
-            }
-        }
-        return null;
-    }
-
-    private void addInteractions() {
+    public UserInteractions(InteractionContainer interactions) {
+        this.interactions = interactions;
         addAttackInteractions();
-        addBuildingSiteInteractions();
         addCameraInteractions();
+        addCancelInteractions();
+        addConstructInteractions();
         addGatherInteractions();
-        addHudInteractions();
+        addTrainInteractions();
         addMoveInteractions();
+        addPlaceholderInteractions();
         addSelectionInteractions();
     }
 
-    private void addAttackInteractions() {
-        addSelectionInteraction(UserInputType.Action, UnitType.Grunt, UnitType.Footman, CommonActionType.Attack);
+    public Interaction getInteraction(UserInput input, Item item, Item selected) {
+        return interactions.getInteraction(input, item, selected);
     }
 
-    private void addBuildingSiteInteractions() {
-        addSelectionInteraction(UserInputType.Action, BuildSiteType.Barracks, UnitType.Peasant, BuildActionType.BuildBarracks);
-        addSelectionInteraction(UserInputType.Action, BuildSiteType.Farm, UnitType.Peasant, BuildActionType.BuildFarm);
-        addSelectionInteraction(UserInputType.Action, BuildSiteType.TownHall, UnitType.Peasant, BuildActionType.BuildTownHall);
+    private void addAttackInteractions() {
+        interactions.addAction(Attack).whenTarget(Grunt).whenSelected(Footman).appliedTo(Selected);
+    }
 
-        addTargetInteraction(UserInputType.Drag, BuildSiteType.Barracks, CommonActionType.Reposition);
-        addTargetInteraction(UserInputType.Drag, BuildSiteType.Farm, CommonActionType.Reposition);
-        addTargetInteraction(UserInputType.Drag, BuildSiteType.TownHall, CommonActionType.Reposition);
+    private void addPlaceholderInteractions() {
+        interactions.addAction(ConstructBarracks).whenTarget(BarracksPlaceholder).whenSelected(Peasant).appliedTo(Selected);
+        interactions.addAction(ConstructFarm).whenTarget(FarmPlaceholder).whenSelected(Peasant).appliedTo(Selected);
+        interactions.addAction(ConstructTownHall).whenTarget(TownHallPlaceholder).whenSelected(Peasant).appliedTo(Selected);
+
+        interactions.addAction(Reposition).forInput(Drag).whenTarget(BarracksPlaceholder).appliedTo(Target);
+        interactions.addAction(Reposition).forInput(Drag).whenTarget(FarmPlaceholder).appliedTo(Target);
+        interactions.addAction(Reposition).forInput(Drag).whenTarget(TownHallPlaceholder).appliedTo(Target);
     }
 
     private void addCameraInteractions() {
-        addTargetInteraction(UserInputType.Zoom, DataType.Camera, CameraActionType.Zoom);
-        addTargetInteraction(UserInputType.Drag, DataType.Camera, CameraActionType.Pan);
+        interactions.addAction(Pan).forInput(Drag).whenTarget(Camera).appliedTo(Target);
+        interactions.addAction(Zoom).forInput(UserInputType.Zoom).whenTarget(Camera).appliedTo(Target);
     }
 
     private void addGatherInteractions() {
-        addSelectionInteraction(UserInputType.Action, UnitType.GoldMine, UnitType.Peasant, GatherActionType.GatherGold);
-        addSelectionInteraction(UserInputType.Action, UnitType.Tree, UnitType.Peasant, GatherActionType.GatherWood);
+        interactions.addAction(GatherGold).whenTarget(GoldMine).whenSelected(Peasant).appliedTo(Selected);
+        interactions.addAction(GatherWood).whenTarget(Tree).whenSelected(Peasant).appliedTo(Selected);
     }
 
-    private void addHudInteractions() {
-        addSelectionInteraction(UserInputType.Action, CommonActionType.Stop, UnitType.Footman, CommonActionType.Stop);
-        addSelectionInteraction(UserInputType.Action, CommonActionType.Stop, UnitType.Peasant, CommonActionType.Stop);
+    private void addCancelInteractions() {
+        interactions.addAction(CancelAttack).whenTarget(CancelButton).whenSelected(Footman).withAction(Attack).appliedTo(Selected);
+        interactions.addAction(CancelAttack).whenTarget(CancelButton).whenSelected(Peasant).withAction(Attack).appliedTo(Selected);
 
-        addSelectionInteraction(UserInputType.Action, BuildActionType.BuildBarracks, UnitType.Peasant, SiteActionType.BuildBarracksSite);
-        addSelectionInteraction(UserInputType.Action, BuildActionType.BuildFarm, UnitType.Peasant, SiteActionType.BuildFarmSite);
-        addSelectionInteraction(UserInputType.Action, BuildActionType.BuildTownHall, UnitType.Peasant, SiteActionType.BuildTownHallSite);
+        interactions.addAction(CancelConstruct).whenTarget(CancelButton).whenSelected(Barracks).withAction(ConstructBarracks).appliedTo(Selected);
+        interactions.addAction(CancelConstruct).whenTarget(CancelButton).whenSelected(Farm).withAction(ConstructFarm).appliedTo(Selected);
+        interactions.addAction(CancelConstruct).whenTarget(CancelButton).whenSelected(TownHall).withAction(ConstructTownHall).appliedTo(Selected);
 
-        addSelectionInteraction(UserInputType.Action, CommonActionType.Cancel, UnitType.TownHall, CommonActionType.Cancel);
-        addSelectionInteraction(UserInputType.Action, CommonActionType.Cancel, UnitType.Barracks, CommonActionType.Cancel);
-//        addSelectionInteraction(UserInputType.Action, CommonActionType.Cancel, BuildSiteType.Barracks, CommonActionType.Cancel);
-//        addSelectionInteraction(UserInputType.Action, CommonActionType.Cancel, BuildSiteType.Farm, CommonActionType.Cancel);
-//        addSelectionInteraction(UserInputType.Action, CommonActionType.Cancel, BuildSiteType.TownHall, CommonActionType.Cancel);
+        interactions.addAction(CancelPlaceholder).whenTarget(CancelButton).whenSelected(BarracksPlaceholder).appliedTo(Selected);
+        interactions.addAction(CancelPlaceholder).whenTarget(CancelButton).whenSelected(FarmPlaceholder).appliedTo(Selected);
+        interactions.addAction(CancelPlaceholder).whenTarget(CancelButton).whenSelected(TownHallPlaceholder).appliedTo(Selected);
 
-        addSelectionInteraction(UserInputType.Action, TrainActionType.TrainPeasant, UnitType.TownHall, TrainActionType.TrainPeasant);
-        addSelectionInteraction(UserInputType.Action, TrainActionType.TrainFootman, UnitType.Barracks, TrainActionType.TrainFootman);
+        interactions.addAction(CancelMove).whenTarget(CancelButton).whenSelected(Footman).withAction(Move).appliedTo(Selected);
+        interactions.addAction(CancelMove).whenTarget(CancelButton).whenSelected(Peasant).withAction(Move).appliedTo(Selected);
+
+        interactions.addAction(CancelGather).whenTarget(CancelButton).whenSelected(Peasant).withAction(GatherGold).appliedTo(Selected);
+        interactions.addAction(CancelGather).whenTarget(CancelButton).whenSelected(Peasant).withAction(GatherWood).appliedTo(Selected);
+    }
+
+    public void addConstructInteractions() {
+        interactions.addAction(AddBarracksPlaceholder).whenTarget(BuildBarracksButton).whenSelected(Peasant).appliedTo(Selected);
+        interactions.addAction(AddFarmPlaceholder).whenTarget(BuildFarmButton).whenSelected(Peasant).appliedTo(Selected);
+        interactions.addAction(AddTownHallPlaceholder).whenTarget(BuildTownHallButton).whenSelected(Peasant).appliedTo(Selected);
+    }
+
+    private void addTrainInteractions() {
+        interactions.addAction(TrainFootman).whenTarget(TrainFootmanButton).whenSelected(Barracks).appliedTo(Selected);
+        interactions.addAction(TrainPeasant).whenTarget(TrainPeasantButton).whenSelected(TownHall).appliedTo(Selected);
     }
 
     private void addMoveInteractions() {
-        addSelectionInteraction(UserInputType.Action, LayerType.Map, UnitType.Footman, CommonActionType.Move);
-        addSelectionInteraction(UserInputType.Action, LayerType.Map, UnitType.Peasant, CommonActionType.Move);
-        addSelectionInteraction(UserInputType.Action, LayerType.Map, UnitType.Grunt, CommonActionType.Move);
+        interactions.addAction(Move).whenTarget(Map).whenSelected(Footman).appliedTo(Selected);
+        interactions.addAction(Move).whenTarget(Map).whenSelected(Peasant).appliedTo(Selected);
+        interactions.addAction(Move).whenTarget(Map).whenSelected(Grunt).appliedTo(Selected);
     }
 
     private void addSelectionInteractions() {
-        addTargetInteraction(UserInputType.Action, UnitType.Footman, CommonActionType.Select);
-        addTargetInteraction(UserInputType.Action, UnitType.Peasant, CommonActionType.Select);
-        addTargetInteraction(UserInputType.Action, UnitType.Grunt, CommonActionType.Select);
-        addTargetInteraction(UserInputType.Action, UnitType.GoldMine, CommonActionType.Select);
-        addTargetInteraction(UserInputType.Action, UnitType.TownHall, CommonActionType.Select);
-        addTargetInteraction(UserInputType.Action, UnitType.Barracks, CommonActionType.Select);
-        addTargetInteraction(UserInputType.Action, UnitType.Farm, CommonActionType.Select);
-    }
-
-    private void addSelectionInteraction(
-        UserInputType inputType,
-        Identifier targetType,
-        Identifier selectedType,
-        ActionIdentifier actionType)
-    {
-        SelectionInteraction result = selectionFactory.get();
-        result.setActionType(actionType);
-        result.setInputType(inputType);
-        result.setTargetType(targetType);
-        result.setSelectedType(selectedType);
-        interactions.add(result);
-    }
-
-    private void addTargetInteraction(
-        UserInputType inputType,
-        Identifier targetType,
-        ActionIdentifier actionType)
-    {
-        TargetInteraction result = targetFactory.get();
-        result.setActionType(actionType);
-        result.setInputType(inputType);
-        result.setTargetType(targetType);
-        interactions.add(result);
+        interactions.addAction(Select).whenTarget(Footman).appliedTo(Target);
+        interactions.addAction(Select).whenTarget(Peasant).appliedTo(Target);
+        interactions.addAction(Select).whenTarget(Grunt).appliedTo(Target);
+        interactions.addAction(Select).whenTarget(GoldMine).appliedTo(Target);
+        interactions.addAction(Select).whenTarget(UnitType.TownHall).appliedTo(Target);
+        interactions.addAction(Select).whenTarget(UnitType.Barracks).appliedTo(Target);
+        interactions.addAction(Select).whenTarget(UnitType.Farm).appliedTo(Target);
     }
 }

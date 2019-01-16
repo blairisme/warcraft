@@ -5,7 +5,7 @@ import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.warcraft.item.site.BuildSite;
+import com.evilbird.warcraft.item.placeholder.Placeholder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -62,7 +62,7 @@ public class StatePane extends ItemGroup
     {
         Collection<Item> result = new ArrayList<Item>(elements.size());
         for (Item element: elements){
-            if (!(element instanceof BuildSite)){
+            if (!(element instanceof Placeholder)){
                 result.add(element);
             }
         }

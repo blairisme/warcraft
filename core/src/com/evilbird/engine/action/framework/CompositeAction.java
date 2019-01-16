@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Pool;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CompositeAction extends Action
+public abstract class CompositeAction extends BasicAction
 {
     protected List<Action> delegates;
 

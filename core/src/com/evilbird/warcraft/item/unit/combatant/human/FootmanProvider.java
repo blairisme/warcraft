@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.unit.combatant.human;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -6,20 +15,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
-import com.evilbird.warcraft.action.identifier.CommonActionType;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -46,7 +51,7 @@ public class FootmanProvider implements AssetProvider<Item>
     public Item get()
     {
         Combatant result = new Combatant();
-        result.setActions(getActions());
+//        result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
         result.setArmour(1f);
@@ -68,14 +73,13 @@ public class FootmanProvider implements AssetProvider<Item>
         return result;
     }
 
-    private Collection<ActionIdentifier> getActions()
-    {
-        Collection<ActionIdentifier> actions = new ArrayList<>();
-        actions.add(CommonActionType.Move);
-        actions.add(CommonActionType.Stop);
-        actions.add(CommonActionType.Attack);
-        return actions;
-    }
+//    private Collection<ActionIdentifier> getActions()
+//    {
+//        Collection<ActionIdentifier> actions = new ArrayList<>();
+////        actions.add(GeneralActions.Move);
+////        actions.add(GeneralActions.Attack);
+//        return actions;
+//    }
 
     private Map<AnimationIdentifier, DirectionalAnimation> getAnimations()
     {

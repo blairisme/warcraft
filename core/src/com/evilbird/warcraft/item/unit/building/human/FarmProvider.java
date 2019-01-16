@@ -43,7 +43,7 @@ public class FarmProvider implements AssetProvider<Item>
         result.setHealth(400.0f);
         result.setHealthMaximum(400.0f);
         result.setIcon(getIcon());
-        result.setName("Farm");
+        result.setName("AddFarmPlaceholder");
         result.setType(UnitType.Farm);
         result.setSize(64, 64);
         return result;
