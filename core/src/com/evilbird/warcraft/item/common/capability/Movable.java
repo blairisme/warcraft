@@ -1,10 +1,16 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.common.capability;
 
 import com.evilbird.engine.item.Positionable;
 
-/**
- * Created by blair on 13/09/2017.
- */
 public interface Movable extends Positionable
 {
     public float getMovementSpeed();

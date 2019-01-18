@@ -4,11 +4,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.ai.SpatialNode;
 
-/**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
- */
 public class SpatialItemNode implements SpatialNode
 {
     private int index;

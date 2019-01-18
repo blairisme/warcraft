@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.item;
 
 import com.badlogic.gdx.ai.pfa.Connection;
@@ -13,11 +22,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
- */
 public class SpatialGraph implements IndexedGraph<SpatialItemNode>
 {
     private float nodeWidth;
@@ -30,8 +34,7 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
     private boolean populated;
     private Predicate<SpatialItemNode> connectionFilter;
 
-    public SpatialGraph(SpatialGraph graph, Predicate<SpatialItemNode> connectionFilter)
-    {
+    public SpatialGraph(SpatialGraph graph, Predicate<SpatialItemNode> connectionFilter) {
         this.root = graph.root;
         this.nodeWidth = graph.nodeWidth;
         this.nodeHeight = graph.nodeHeight;
@@ -40,12 +43,10 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         this.nodes = graph.nodes;
         this.populated = graph.populated;
         this.connectionFilter = connectionFilter;
-
         this.occupantCache = graph.occupantCache;
     }
 
-    public SpatialGraph(ItemComposite root, int nodeWidth, int nodeHeight, int nodeCountX, int nodeCountY)
-    {
+    public SpatialGraph(ItemComposite root, int nodeWidth, int nodeHeight, int nodeCountX, int nodeCountY) {
         this.root = root;
         this.nodeWidth = nodeWidth;
         this.nodeHeight = nodeHeight;
@@ -53,9 +54,8 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         this.nodeCountY = nodeCountY;
         this.nodes = createNodeArray(nodeCountX, nodeCountY);
         this.populated = false;
-        this.connectionFilter = new AcceptPredicate<SpatialItemNode>();
-
-        this.occupantCache = new HashMap<Item, Collection<SpatialItemNode>>();
+        this.connectionFilter = new AcceptPredicate<>();
+        this.occupantCache = new HashMap<>();
     }
 
     @Override
@@ -81,16 +81,14 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         return result;
     }
 
-    public SpatialItemNode getNode(Vector2 position)
-    {
+    public SpatialItemNode getNode(Vector2 position) {
         int x = (int)Math.floor(position.x / nodeWidth);
         int y = (int)Math.floor(position.y / nodeHeight);
         return nodes[x][y];
     }
 
     // TODO find all nodes around object and return first one that passes filter.
-    public SpatialItemNode getAdjacentNode(Vector2 position)
-    {
+    public SpatialItemNode getAdjacentNode(Vector2 position) {
         SpatialItemNode node = getNode(position);
         Array<Connection<SpatialItemNode>> connections = getConnections(node);
 
@@ -107,13 +105,11 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
     }
 
     @Override
-    public int getIndex(SpatialItemNode node)
-    {
+    public int getIndex(SpatialItemNode node) {
         return node.getIndex();
     }
 
-    public void update()
-    {
+    public void update() {
         if (!populated){
             populated = true;
             for (int x = 0; x < nodeCountX; x++) {
@@ -124,15 +120,13 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         }
     }
 
-    public void updateOccupant(SpatialItemNode invalidatedNode)
-    {
+    public void updateOccupant(SpatialItemNode invalidatedNode) {
         Vector2 position = invalidatedNode.getWorldReference();
         Item occupant = root.hit(position, true);
         invalidatedNode.setOccupant(occupant);
     }
 
-    private SpatialItemNode[][] createNodeArray(int width, int height)
-    {
+    private SpatialItemNode[][] createNodeArray(int width, int height) {
         int index = 0;
         SpatialItemNode[][] result = new SpatialItemNode[width][height];
         for (int x = 0; x < width; x++){

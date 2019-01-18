@@ -38,6 +38,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
+//TODO: Handle impossible path
 public class Attack implements ActionProvider
 {
     private ItemFactory itemFactory;

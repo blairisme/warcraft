@@ -1,13 +1,14 @@
 package com.evilbird.engine.common.ai;
 
 import com.badlogic.gdx.ai.pfa.Connection;
+import com.evilbird.engine.item.SpatialItemNode;
 
 /**
  * Instances of this class TODO:Finish
  *
  * @author Blair Butterworth
  */
-public class ManhattanConnection<T extends SpatialNode> implements Connection<T>
+public class ManhattanConnection<T extends SpatialItemNode> implements Connection<T>
 {
     private float cost;
     private T fromNode;

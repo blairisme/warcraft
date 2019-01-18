@@ -15,6 +15,12 @@ import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifiable;
 import com.evilbird.engine.common.lang.Identifier;
 
+/**
+ * Instances of this class represent a base class for {@link Action Actions},
+ * containing common methods and properties utilised by many custom actions.
+ *
+ * @author Blair Butterworth
+ */
 public abstract class BasicAction extends Action implements Identifiable
 {
     private Identifier identifier;
