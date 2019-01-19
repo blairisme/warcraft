@@ -20,7 +20,7 @@ import com.evilbird.engine.item.SpatialItemNode;
  *
  * @author Blair Butterworth
  */
-public class MoveActionFilter implements Predicate<SpatialItemNode>
+class MoveActionFilter implements Predicate<SpatialItemNode>
 {
     private Identifier type;
 
@@ -30,8 +30,12 @@ public class MoveActionFilter implements Predicate<SpatialItemNode>
 
     @Override
     public boolean test(SpatialItemNode node) {
-        Item occupant = node.getOccupant();
-        Identifier occupantType = occupant.getType();
-        return type.equals(occupantType);
+        for (Item occupant: node.getOccupants()) {
+            Identifier occupantType = occupant.getType();
+            if (! type.equals(occupantType)){
+                return false;
+            }
+        }
+        return true;
     }
 }

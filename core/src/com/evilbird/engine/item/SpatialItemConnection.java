@@ -4,9 +4,9 @@ import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.math.GridPoint2;
 
 /**
- * Created by blair on 12/09/2017.
+ * Instances of this class represent a connection between two
+ * {@link SpatialItemNode SpatialItemNodes} of a {@link SpatialGraph}.
  */
-
 public class SpatialItemConnection implements Connection<SpatialItemNode>
 {
     protected float cost;

@@ -12,7 +12,7 @@ package com.evilbird.engine.action.common;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.item.Positionable;
+import com.evilbird.engine.common.lang.Positionable;
 
 public class DragAction extends Action
 {

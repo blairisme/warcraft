@@ -1,41 +1,34 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.unit;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.item.specialized.animated.AnimatedItem;
 import com.evilbird.warcraft.item.common.capability.Destructible;
 
 import javax.inject.Inject;
-import java.util.Collection;
-import java.util.Collections;
 
-/**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
- */
 public class Unit extends AnimatedItem implements Destructible
 {
     private String name;
     private Drawable icon;
     private float health;
     private float healthMaximum;
-//    private Collection<ActionIdentifier> actions;
 
     @Inject
-    public Unit()
-    {
+    public Unit() {
         name = "Unknown";
         icon = null;
-//        actions = Collections.emptyList();
         health = 0;
         healthMaximum = 0;
     }
-
-//    public Collection<ActionIdentifier> getAvailableActions()
-//    {
-//        return Collections.unmodifiableCollection(actions);
-//    }
 
     public float getHealth()
     {
@@ -56,11 +49,6 @@ public class Unit extends AnimatedItem implements Destructible
     {
         return name;
     }
-
-//    public void setActions(Collection<ActionIdentifier> actions)
-//    {
-//        this.actions = actions;
-//    }
 
     public void setIcon(Drawable icon)
     {

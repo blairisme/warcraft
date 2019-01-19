@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.layer.forest;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -22,29 +31,25 @@ import java.util.Map;
 import javax.inject.Inject;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this class represent a forest, a collection of trees.
  *
  * @author Blair Butterworth
  */
-//TODO: Finish making Forest an ItemGroup - added populateTrees but not the remaining contract
 public class Forest extends Layer
 {
     private TreeProvider treeProvider;
     private Map<Cell, Tree> trees;
 
     @Inject
-    public Forest(TreeProvider treeProvider)
-    {
+    public Forest(TreeProvider treeProvider) {
         this.treeProvider = treeProvider;
-        this.trees = new HashMap<Cell, Tree>();
-
+        this.trees = new HashMap<>();
         setType(LayerType.Forest);
-        setTouchable(Touchable.enabled);
+        setTouchable(Touchable.disabled);
     }
 
     @Override
-    public void draw(Batch batch, float alpha)
-    {
+    public void draw(Batch batch, float alpha) {
         super.draw(batch, alpha);
         for (Tree tree: trees.values()){
             tree.draw(batch, alpha);
@@ -52,28 +57,19 @@ public class Forest extends Layer
     }
 
     @Override
-    public Item hit(Vector2 position, boolean touchable)
-    {
-        if (touchable && !getTouchable()) return null;
-
-        int x = Math.round(position.x / layer.getTileWidth());
-        int y = Math.round(position.y / layer.getTileHeight());
-
-        Cell cell = layer.getCell(x, y);
-        return cell != null ? getTree(x, y, cell) : null;
+    public Item hit(Vector2 coordinates, boolean respectTouchability) {
+        return childHit(coordinates, respectTouchability);
     }
 
     @Override
-    public void setLayer(TiledMapTileLayer layer)
-    {
+    public void setLayer(TiledMapTileLayer layer) {
         super.setLayer(layer);
         trees.clear();
         populateTrees();
     }
 
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
         super.update(delta);
         for (Tree tree: trees.values()){
             tree.update(delta);
@@ -92,10 +88,9 @@ public class Forest extends Layer
         }
     }
 
-    private Tree getTree(int x, int y, Cell cell)
-    {
+    private Tree getTree(int x, int y, Cell cell) {
         Tree result = trees.get(cell);
-        if (result == null){
+        if (result == null) {
             cell = copyCell(cell);
             layer.setCell(x, y, cell);
 
@@ -109,15 +104,13 @@ public class Forest extends Layer
         return result;
     }
 
-    private Cell copyCell(Cell cell)
-    {
+    private Cell copyCell(Cell cell) {
         Cell result = new Cell();
         result.setTile(copyTile(cell.getTile()));
         return result;
     }
 
-    private TiledMapTile copyTile(TiledMapTile tile)
-    {
+    private TiledMapTile copyTile(TiledMapTile tile) {
         if (tile instanceof StaticTiledMapTile){
             return new StaticTiledMapTile((StaticTiledMapTile)tile);
         }

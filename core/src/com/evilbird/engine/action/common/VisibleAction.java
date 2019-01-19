@@ -10,7 +10,7 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Visible;
+import com.evilbird.engine.common.lang.Visible;
 
 public class VisibleAction extends BasicAction
 {

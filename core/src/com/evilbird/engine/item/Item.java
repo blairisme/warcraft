@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.item;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -6,12 +15,9 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
-import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.NamedIdentifier;
+import com.evilbird.engine.common.lang.*;
 import com.evilbird.engine.item.framework.ActorExtension;
 import com.evilbird.engine.item.framework.ActorObserver;
-
-import java.util.Collection;
 
 /**
  * Instances of this class represent the basic entity in the game.
@@ -19,7 +25,7 @@ import java.util.Collection;
  * @author Blair Butterworth
  */
 //TODO: use either vectors or individual values for size and position.
-public class Item implements ActorObserver, Positionable, Selectable, Disablable, Visible
+public class Item implements ActorObserver, Identifiable, Categorizable, Positionable, Selectable, Disablable, Visible
 {
     Actor delegate;
     private ItemRoot root;
@@ -44,10 +50,12 @@ public class Item implements ActorObserver, Positionable, Selectable, Disablable
         return new ActorExtension(this);
     }
 
-    public Identifier getId() {
+    @Override
+    public Identifier getIdentifier() {
         return id;
     }
 
+    @Override
     public Identifier getType() {
         return type;
     }

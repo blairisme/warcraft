@@ -9,9 +9,17 @@
 
 package com.evilbird.warcraft.item.unit.combatant;
 
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.unit.Unit;
 
+/**
+ * Instances of this class define a combatant: a {@link Unit} specialization
+ * that can move and attack other Units.
+ *
+ * @author Blair Butterworth
+ */
+//TODO: Add ability to define movement speed
 public class Combatant extends Unit implements Movable
 {
     private float armour;
@@ -47,6 +55,11 @@ public class Combatant extends Unit implements Movable
         return 64f; //TODO
     }
 
+    @Override
+    public Vector2 getMovementDisplacement() {
+        return getSize();
+    }
+
     public float getSight() {
         return sight;
     }
@@ -77,11 +90,6 @@ public class Combatant extends Unit implements Movable
 
     public void setSight(float sight) {
         this.sight = sight;
-    }
-
-    @Override
-    public void setMovementSpeed(float speed) {
-        //TODO
     }
 
     public void setRange(float range) {

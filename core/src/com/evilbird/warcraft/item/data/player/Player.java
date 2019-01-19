@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.data.player;
 
 import com.badlogic.gdx.math.Vector2;
@@ -12,7 +21,8 @@ import java.util.Map;
 import javax.inject.Inject;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this class represent a player, either real or artificial.
+ * Player items own other units as well as storing accumulated resources.
  *
  * @author Blair Butterworth
  */
@@ -28,7 +38,7 @@ public class Player extends ItemGroup implements ResourceContainer
         super.setType(DataType.Player);
 
         consoleUser = true;
-        resources = new HashMap<ResourceIdentifier, Float>();
+        resources = new HashMap<>();
     }
 
     public boolean getConsoleUser() {

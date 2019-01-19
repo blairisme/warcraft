@@ -10,13 +10,12 @@
 package com.evilbird.engine.common.lang;
 
 /**
- * Implementors of this interface provide methods for accessing an
- * {@link Identifier} that uniquely identifies the given objects among similar
- * objects.
+ * Implementors of this interface represent an object that belongs to a
+ * category.
  *
  * @author Blair Butterworth
  */
-public interface Identifiable
+public interface Categorizable
 {
-    Identifier getIdentifier();
+    Identifier getType();
 }

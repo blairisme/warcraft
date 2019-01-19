@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.item;
 
 import com.badlogic.gdx.math.Vector2;
@@ -6,7 +15,8 @@ import com.evilbird.engine.common.function.Predicate;
 import java.util.Collection;
 
 /**
- * Implementors of this TODO:Finish
+ * Implementors of this interface represent a container for a collection of
+ * {@link Item Items}.
  *
  * @author Blair Butterworth
  */
@@ -39,29 +49,35 @@ public interface ItemComposite
     Collection<Item> getItems();
 
     /**
-     * Returns the first child {@link Item} that satisfies the given {@link Predicate}.
+     * Returns the first child {@link Item} that satisfies the given
+     * {@link Predicate}.
      *
-     * @param predicate a predicate implementation used to differentiate between items.
+     * @param predicate a predicate implementation used to differentiate
+     *                  between items.
      * @return          a child item satisfying the given predicate.
      */
     Item find(Predicate<Item> predicate);
 
     /**
-     * Returns the all child {@link Item}s that satisfy the given {@link Predicate}.
+     * Returns the all child {@link Item}s that satisfy the given
+     * {@link Predicate}.
      *
-     * @param predicate a predicate implementation used to differentiate between items.
+     * @param predicate a predicate implementation used to differentiate
+     *                  between items.
      * @return          all child items satisfying the given predicate.
      */
     Collection<Item> findAll(Predicate<Item> predicate);
 
     /**
-     * Returns the {@link Item} at the specified location in world coordinates. Hit testing is
-     * performed in the order the item were inserted into the root, last inserted actors being
-     * tested first.
+     * Returns the {@link Item} at the specified location in world
+     * coordinates. Hit testing is performed in the order the item were
+     * inserted into the root, last inserted actors being tested first.
      *
      * @param coordinates   the world coordinates to test.
-     * @param touchable     specifies if hit detection will respect the items touchability.
-     * @return              the item at the specified location or null if no item is located there.
+     * @param touchable     specifies if hit detection will respect the items
+     *                      touchability.
+     * @return              the item at the specified location or null if no
+     *                      item is located there.
      */
     Item hit(Vector2 coordinates, boolean touchable);
 }

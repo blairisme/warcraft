@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.data.camera;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -6,13 +15,14 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.item.common.capability.Zoomable;
 import com.evilbird.warcraft.item.data.DataType;
 
 import javax.inject.Inject;
 
 import static com.badlogic.gdx.Gdx.graphics;
 
-public class Camera extends Item implements com.evilbird.warcraft.item.common.capability.Zoomable
+public class Camera extends Item implements Zoomable
 {
     private float originalZoom;
     private OrthographicCamera camera;

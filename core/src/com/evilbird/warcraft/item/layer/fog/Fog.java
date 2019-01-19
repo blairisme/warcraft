@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -19,13 +28,19 @@ import java.util.Collection;
 import static com.evilbird.engine.item.ItemPredicates.itemWithAction;
 import static com.evilbird.engine.item.ItemPredicates.itemWithId;
 
+/**
+ * Instances of this class represent fog of war: a layer of darkness that
+ * recedes when units walk near and discover new territory.
+ *
+ * @author Blair Butterworth
+ */
+//TODO: Finish
 public class Fog extends Layer
 {
     private FogTileSet tileSet;
     private boolean initialized;
 
-    public Fog(FogTileSet tileSet)
-    {
+    public Fog(FogTileSet tileSet) {
         this.tileSet = tileSet;
         this.initialized = false;
         setType(LayerType.OpaqueFog);
@@ -33,8 +48,7 @@ public class Fog extends Layer
     }
 
     @Override
-    public void setLayer(TiledMapTileLayer layer)
-    {
+    public void setLayer(TiledMapTileLayer layer) {
         super.setLayer(new TiledMapTileLayer(
             layer.getWidth(),
             layer.getHeight(),
@@ -43,8 +57,7 @@ public class Fog extends Layer
     }
 
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
         super.update(delta);
         if (!initialized){
             initialized = true;
@@ -55,22 +68,19 @@ public class Fog extends Layer
         }
     }
 
-    private void initialize()
-    {
+    private void initialize() {
         conceal();
         ItemGroup player = getPlayer();
         revealItems(player.getItems());
     }
 
-    private void update()
-    {
+    private void update() {
         ItemGroup player = getPlayer();
         Collection<Item> revealedItems = player.findAll(itemWithAction());
         revealItems(revealedItems);
     }
 
-    private ItemGroup getPlayer()
-    {
+    private ItemGroup getPlayer() {
         ItemRoot world = getRoot();
         return (ItemGroup)world.find(itemWithId(new NamedIdentifier("Player1"))); //TODO
     }
@@ -83,15 +93,13 @@ public class Fog extends Layer
         }
     }
 
-    private void revealItems(Collection<Item> items)
-    {
+    private void revealItems(Collection<Item> items) {
         for (Item item: items){
             revealItem(item);
         }
     }
 
-    private void revealItem(Item item)
-    {
+    private void revealItem(Item item) {
         Collection<Pair<Integer, Integer>> revealedCells = getRevealedCells(item);
         for (Pair<Integer, Integer> revealedGrid: revealedCells){
             layer.setCell(revealedGrid.getLeft(), revealedGrid.getRight(), null);
@@ -103,8 +111,7 @@ public class Fog extends Layer
 
     @SuppressWarnings("SuspiciousNameCombination")
     //TODO: Dont include corners as in original game
-    private Collection<Pair<Integer, Integer>> getRevealedCells(Item item)
-    {
+    private Collection<Pair<Integer, Integer>> getRevealedCells(Item item) {
         Collection<Pair<Integer, Integer>> result = new ArrayList<Pair<Integer, Integer>>();
 
         Vector2 position = item.getPosition();

@@ -11,7 +11,7 @@ package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Positionable;
+import com.evilbird.engine.common.lang.Positionable;
 
 public class PositionAction extends BasicAction
 {

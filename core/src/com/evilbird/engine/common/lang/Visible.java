@@ -10,13 +10,14 @@
 package com.evilbird.engine.common.lang;
 
 /**
- * Implementors of this interface provide methods for accessing an
- * {@link Identifier} that uniquely identifies the given objects among similar
- * objects.
+ * Implementors of this interface represent an object with visibility. Usually
+ * this relates to object rendering.
  *
  * @author Blair Butterworth
  */
-public interface Identifiable
+public interface Visible
 {
-    Identifier getIdentifier();
+    boolean getVisible();
+
+    void setVisible(boolean visible);
 }

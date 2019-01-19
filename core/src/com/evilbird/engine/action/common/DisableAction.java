@@ -10,7 +10,7 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Selectable;
+import com.evilbird.engine.common.lang.Selectable;
 
 public class DisableAction extends BasicAction
 {

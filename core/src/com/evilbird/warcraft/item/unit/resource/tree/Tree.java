@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2018
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.unit.resource.tree;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -14,9 +23,6 @@ import com.evilbird.warcraft.item.common.animation.AnimationUtils;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 
-/**
- * @author Blair Butterworth
- */
 public class Tree extends Resource
 {
     private Cell cell;

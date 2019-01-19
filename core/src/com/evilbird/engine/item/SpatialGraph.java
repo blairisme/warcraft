@@ -18,10 +18,20 @@ import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.function.AcceptPredicate;
 import com.evilbird.engine.common.function.Predicate;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Instances of this class represent a graph of the game space, represented as
+ * a 2 dimensional matrix of 32 x 32 pixel sized nodes.
+ *
+ * @author Blair Butterworth
+ */
+// TODO: find all nodes around object and return first one that passes filter.
+// TODO: Rename to ItemGraph
+// TODO: Refactor common behaviour into engine/common/pathing package
 public class SpatialGraph implements IndexedGraph<SpatialItemNode>
 {
     private float nodeWidth;
@@ -60,7 +70,7 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
 
     @Override
     public Array<Connection<SpatialItemNode>> getConnections(SpatialItemNode fromNode) {
-        Array<Connection<SpatialItemNode>> result = new Array<Connection<SpatialItemNode>>();
+        Array<Connection<SpatialItemNode>> result = new Array<>();
 
         GridPoint2 fromIndex = fromNode.getSpatialReference();
         int startX = Math.max(0, fromIndex.x - 1);
@@ -82,9 +92,37 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
     }
 
     public SpatialItemNode getNode(Vector2 position) {
-        int x = (int)Math.floor(position.x / nodeWidth);
-        int y = (int)Math.floor(position.y / nodeHeight);
-        return nodes[x][y];
+        GridPoint2 spatialPosition = toSpatial(position);
+        return nodes[spatialPosition.x][spatialPosition.y];
+    }
+
+    public Collection<SpatialItemNode> getNodes(Vector2 worldPosition, Vector2 worldSize) {
+        GridPoint2 spatialPosition = toSpatial(worldPosition);
+        return getNodes(spatialPosition, worldSize);
+    }
+
+    public Collection<SpatialItemNode> getNodes(GridPoint2 spatialPosition, Vector2 worldSize) {
+        GridPoint2 spatialSize = toSpatial(worldSize);
+        return getNodes(spatialPosition, spatialSize);
+    }
+
+    public Collection<SpatialItemNode> getNodes(GridPoint2 spatialPosition, GridPoint2 spatialSize) {
+        int xCount = spatialSize.x;
+        int yCount = spatialSize.y;
+
+        int xStart = spatialPosition.x;
+        int yStart = spatialPosition.y;
+
+        int xEnd = Math.min(xStart + xCount, nodeCountX);
+        int yEnd = Math.min(yStart + yCount, nodeCountY);
+
+        Collection<SpatialItemNode> result = new ArrayList<>();
+        for (int x = xStart; x < xEnd; x++) {
+            for (int y = yStart; y < yEnd; y++) {
+                result.add(nodes[x][y]);
+            }
+        }
+        return result;
     }
 
     // TODO find all nodes around object and return first one that passes filter.
@@ -99,8 +137,7 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
     }
 
     @Override
-    public int getNodeCount()
-    {
+    public int getNodeCount() {
         return nodeCountX * nodeCountY;
     }
 
@@ -112,18 +149,26 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
     public void update() {
         if (!populated){
             populated = true;
-            for (int x = 0; x < nodeCountX; x++) {
-                for (int y = 0; y < nodeCountY; y++) {
-                    updateOccupant(nodes[x][y]);
-                }
-            }
+            updateOccupant(root.getItems());
         }
     }
 
-    public void updateOccupant(SpatialItemNode invalidatedNode) {
-        Vector2 position = invalidatedNode.getWorldReference();
-        Item occupant = root.hit(position, true);
-        invalidatedNode.setOccupant(occupant);
+    private void updateOccupant(Collection<Item> items) {
+        for (Item item: items) {
+            if (item instanceof ItemComposite) {
+                ItemComposite composite = (ItemComposite)item;
+                updateOccupant(composite.getItems());
+            }
+            updateOccupant(item);
+        }
+    }
+
+    private void updateOccupant(Item item) {
+        if (item.getTouchable()) {
+            for (SpatialItemNode node : getNodes(item.getPosition(), item.getSize())) {
+                node.addOccupant(item);
+            }
+        }
     }
 
     private SpatialItemNode[][] createNodeArray(int width, int height) {
@@ -134,6 +179,13 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
                 result[x][y] = new SpatialItemNode(index++, new GridPoint2(x, y));
             }
         }
+        return result;
+    }
+
+    private GridPoint2 toSpatial(Vector2 vector) {
+        GridPoint2 result = new GridPoint2();
+        result.x = (int)Math.floor(vector.x / nodeWidth);
+        result.y = (int)Math.floor(vector.y / nodeHeight);
         return result;
     }
 }

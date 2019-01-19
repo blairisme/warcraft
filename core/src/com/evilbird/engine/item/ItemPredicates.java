@@ -28,7 +28,7 @@ public class ItemPredicates
         @Override
         public boolean test(Item item)
         {
-            return id.equals(item.getId());
+            return id.equals(item.getIdentifier());
         }
     }
 
@@ -85,7 +85,7 @@ public class ItemPredicates
         public boolean test(Item item)
         {
             Item parent = item.getParent();
-            return Objects.equals(parent.getId(), id);
+            return Objects.equals(parent.getIdentifier(), id);
         }
     }
 

@@ -96,7 +96,7 @@ public class Level1 implements AssetProvider<ItemRoot>
         Map<String, ItemComposite> result = new HashMap<String, ItemComposite>();
         for (Item item: items){
             if (item instanceof ItemComposite){
-                String identifier = item.getId().toString();
+                String identifier = item.getIdentifier().toString();
                 result.put(identifier, (ItemComposite)item);
             }
         }

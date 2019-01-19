@@ -1,11 +1,26 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.item;
 
-import com.evilbird.engine.item.ItemRoot;
-
 /**
- * Created by blair on 15/09/2017.
+ * Implementors of this interface represent an object that belongs to an item
+ * hierarchy.
+ *
+ * @author Blair Butterworth
  */
 public interface Parented
 {
-    public ItemRoot getRoot();
+    /**
+     * Returns the highest item the hierarchy.
+     *
+     * @return  the root item.
+     */
+    ItemRoot getRoot();
 }

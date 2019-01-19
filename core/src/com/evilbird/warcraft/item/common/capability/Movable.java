@@ -9,11 +9,32 @@
 
 package com.evilbird.warcraft.item.common.capability;
 
-import com.evilbird.engine.item.Positionable;
+import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.common.lang.Categorizable;
+import com.evilbird.engine.common.lang.Positionable;
 
-public interface Movable extends Positionable
+/**
+ * Implementors of this interface provide methods that define a movable object,
+ * an item that can navigate around the game world.
+ *
+ * @author Blair Butterworth
+ */
+public interface Movable extends Positionable, Categorizable
 {
-    public float getMovementSpeed();
+    /**
+     * Return the speed of the movable.
+     *
+     * @return  the the speed of the movable, in pixels per second.
+     */
+    float getMovementSpeed();
 
-    public void setMovementSpeed(float speed);
+    /**
+     * Returns the size that movables displacement, the area in which only this
+     * movable can occupy.
+     *
+     * @return  the size of the movable, in pixels.
+     */
+    Vector2 getMovementDisplacement();
+
+
 }
