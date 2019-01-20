@@ -26,6 +26,7 @@ import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.common.sound.SoundUtils;
+import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -66,7 +67,6 @@ public class PeasantProvider implements AssetProvider<Item>
     @Override
     public Item get() {
         Gatherer result = new Gatherer();
-//        result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
         result.setAvailableSounds(getSounds());
@@ -77,6 +77,8 @@ public class PeasantProvider implements AssetProvider<Item>
         result.setHealthMaximum(30f);
         result.setIcon(getIcon());
         result.setLevel(1);
+        result.setMovementSpeed(64f);
+        result.setMovementCapability(LayerType.Map);
         result.setRange(1f);
         result.setSpeed(10f);
         result.setSight(4f);
@@ -84,18 +86,6 @@ public class PeasantProvider implements AssetProvider<Item>
         result.setType(UnitType.Peasant);
         result.setSize(32, 32);
         return result;
-    }
-
-    private Collection<ActionIdentifier> getActions() {
-        Collection<ActionIdentifier> actions = new ArrayList<>();
-//        actions.add(GeneralActions.Move);
-//        actions.add(GeneralActions.Attack);
-//        actions.add(GatherActions.GatherGold);
-//        //actions.add(GatherActions.GatherWood);
-//        actions.add(ConstructionActions.ConstructFarm);
-//        actions.add(ConstructionActions.ConstructBarracks);
-//        actions.add(ConstructionActions.ConstructTownHall);
-        return actions;
     }
 
     private Map<AnimationIdentifier, DirectionalAnimation> getAnimations() {

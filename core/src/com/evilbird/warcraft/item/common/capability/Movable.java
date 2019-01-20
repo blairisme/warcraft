@@ -11,7 +11,11 @@ package com.evilbird.warcraft.item.common.capability;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.lang.Categorizable;
+import com.evilbird.engine.common.lang.Directionable;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Positionable;
+
+import java.util.Collection;
 
 /**
  * Implementors of this interface provide methods that define a movable object,
@@ -19,7 +23,7 @@ import com.evilbird.engine.common.lang.Positionable;
  *
  * @author Blair Butterworth
  */
-public interface Movable extends Positionable, Categorizable
+public interface Movable extends Positionable, Directionable, Categorizable
 {
     /**
      * Return the speed of the movable.
@@ -36,5 +40,11 @@ public interface Movable extends Positionable, Categorizable
      */
     Vector2 getMovementDisplacement();
 
-
+    /**
+     * Returns a collection of item types that the movable can traverse. An
+     * empty collection indicates that all item types can be traversed.
+     *
+     * @return a collection of item type identifiers.
+     */
+    Collection<Identifier> getMovementCapability();
 }

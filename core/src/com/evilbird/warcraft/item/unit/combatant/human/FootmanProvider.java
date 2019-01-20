@@ -21,10 +21,12 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
+import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -34,24 +36,20 @@ public class FootmanProvider implements AssetProvider<Item>
     private AssetManager assets;
 
     @Inject
-    public FootmanProvider(Device device)
-    {
+    public FootmanProvider(Device device) {
         this.assets = device.getAssetStorage().getAssets();
     }
 
     @Override
-    public void load()
-    {
+    public void load() {
         assets.load("data/textures/human/perennial/footman.png", Texture.class);
         assets.load("data/textures/neutral/perennial/decompose.png", Texture.class);
         assets.load("data/textures/neutral/perennial/icons.png", Texture.class);
     }
 
     @Override
-    public Item get()
-    {
+    public Item get() {
         Combatant result = new Combatant();
-//        result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
         result.setArmour(1f);
@@ -62,6 +60,8 @@ public class FootmanProvider implements AssetProvider<Item>
         result.setIcon(getIcon());
         result.setLevel(1);
         result.setName("Footman");
+        result.setMovementSpeed(64f);
+        result.setMovementCapability(LayerType.Map);
         result.setRange(1f);
         result.setSelected(false);
         result.setSelectable(true);
@@ -73,23 +73,13 @@ public class FootmanProvider implements AssetProvider<Item>
         return result;
     }
 
-//    private Collection<ActionIdentifier> getActions()
-//    {
-//        Collection<ActionIdentifier> actions = new ArrayList<>();
-////        actions.add(GeneralActions.Move);
-////        actions.add(GeneralActions.Attack);
-//        return actions;
-//    }
-
-    private Map<AnimationIdentifier, DirectionalAnimation> getAnimations()
-    {
+    private Map<AnimationIdentifier, DirectionalAnimation> getAnimations() {
         Texture general = assets.get("data/textures/human/perennial/footman.png", Texture.class);
         Texture decompose = assets.get("data/textures/neutral/perennial/decompose.png", Texture.class);
         return AnimationCollections.combatantAnimations(general, decompose);
     }
 
-    private Drawable getIcon()
-    {
+    private Drawable getIcon() {
         Texture iconTexture = assets.get("data/textures/neutral/perennial/icons.png", Texture.class);
         TextureRegion iconRegion = new TextureRegion(iconTexture, 92, 0, 46, 38);
         return new TextureRegionDrawable(iconRegion);

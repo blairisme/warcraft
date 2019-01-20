@@ -10,8 +10,12 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.unit.Unit;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Instances of this class define a combatant: a {@link Unit} specialization
@@ -29,6 +33,8 @@ public class Combatant extends Unit implements Movable
     private float speed;
     private float sight;
     private float range;
+    private float movementSpeed;
+    private Collection<Identifier> movementCapability;
 
     public float getArmour() {
         return armour;
@@ -52,12 +58,16 @@ public class Combatant extends Unit implements Movable
 
     @Override
     public float getMovementSpeed() {
-        return 64f; //TODO
+        return movementSpeed;
     }
 
     @Override
     public Vector2 getMovementDisplacement() {
         return getSize();
+    }
+
+    public Collection<Identifier> getMovementCapability() {
+        return movementCapability;
     }
 
     public float getSight() {
@@ -82,6 +92,18 @@ public class Combatant extends Unit implements Movable
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public void setMovementSpeed(float movementSpeed) {
+        this.movementSpeed = movementSpeed;
+    }
+
+    public void setMovementCapability(Identifier movementCapability) {
+        this.movementCapability = Arrays.asList(movementCapability);
+    }
+
+    public void setMovementCapability(Collection<Identifier> movementCapability) {
+        this.movementCapability = movementCapability;
     }
 
     public void setSpeed(float speed) {

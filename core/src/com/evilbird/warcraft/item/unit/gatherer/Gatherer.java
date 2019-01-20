@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.unit.gatherer;
 
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
@@ -9,7 +18,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by blair on 21/09/2017.
+ * Instances of this class represent a unit that can both fight and collect
+ * resources.
+ *
+ * @author Blair Butterworth
  */
 public class Gatherer extends Combatant implements ResourceContainer
 {

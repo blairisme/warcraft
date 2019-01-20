@@ -23,39 +23,30 @@ import com.evilbird.warcraft.item.layer.LayerType;
 
 import java.util.Iterator;
 
-//TODO: Implement movement capability
-//TODO: Orient item towards target at end
 //TODO: Don't allow two units to occupy the same node
 //TODO: Handle target moving away
 public class MoveAction extends BasicAction
 {
     private Movable target;
-
-
-    private Vector2 destination;
-    private boolean adjacent;
-
-
+    private MoveDestination destination;
+    private MovePathFilter filter;
     private SpatialGraph graph;
     private GraphPath<SpatialItemNode> path;
     private Iterator<SpatialItemNode> pathIterator;
     private SpatialItemNode pathNode;
 
-//    private int pathIteratorIndex;
-//    private Vector2 nextNodeLocation;
-
     public MoveAction(Movable target, Vector2 destination) {
-        this(target, destination, false);
+        this(target, new MoveDestinationVector(destination));
     }
 
     public MoveAction(Movable target, Positionable destination) {
-        this(target, destination.getPosition(), true);
+        this(target, new MoveDestinationItem(destination));
     }
 
-    private MoveAction(Movable target, Vector2 destination, boolean adjacent) {
+    private MoveAction(Movable target, MoveDestination destination) {
         this.target = target;
         this.destination = destination;
-        this.adjacent = adjacent;
+        this.filter = new MovePathFilter(target);
     }
 
     @Override
@@ -65,69 +56,101 @@ public class MoveAction extends BasicAction
 
     @Override
     public boolean act(float time) {
-        Vector2 position = target.getPosition();
-        return !updatePath(position) || updatePosition(position, time);
+        if (! isValid()) {
+            restart();
+        }
+        if (! load()) {
+            return true;
+        }
+        if (! update(time)) {
+            finish();
+            return true;
+        }
+        return false;
     }
 
-    private boolean updatePath(Vector2 position) {
-        return loadGraph() && loadPath(position) && loadIterator() && incrementPath(position);
+    private boolean isValid() {
+        return isPathNodeValid() && isDestinationValid();
+    }
+
+    private boolean isPathNodeValid() {
+        if (pathNode != null && ! filter.test(pathNode)) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isDestinationValid() {
+        return destination.isDestinationValid();
+    }
+
+    private boolean load() {
+        return loadGraph() && loadPath();
     }
 
     private boolean loadGraph() {
         if (graph == null) {
             ItemRoot root = target.getRoot();
             SpatialGraph rootGraph = root.getSpatialGraph();
-            graph = new SpatialGraph(rootGraph, new MoveActionFilter(LayerType.Map)); //TODO: move capability
+            graph = new SpatialGraph(rootGraph, filter);
         }
         return true;
     }
 
-    private boolean loadPath(Vector2 position) {
+    private boolean loadPath() {
         if (path == null) {
-            SpatialItemNode start = graph.getNode(position);
-            SpatialItemNode end = adjacent ? graph.getAdjacentNode(destination) : graph.getNode(destination);
+            SpatialItemNode start = graph.getNode(target.getPosition());
+            SpatialItemNode end = destination.getDestinationNode(graph);
             IndexedAStarPathFinder<SpatialItemNode> pathFinder = new IndexedAStarPathFinder<>(graph);
 
             Heuristic<SpatialItemNode> heuristic = new ManhattanHeuristic();
             GraphPath<SpatialItemNode> result = new DefaultGraphPath<>();
             if (pathFinder.searchNodePath(start, end, heuristic, result)) {
                 path = result;
+                pathIterator = path.iterator();
+                pathNode = start;
+                return initializePathNode();
             }
         }
         return path != null;
     }
 
-    private boolean loadIterator() {
-        if (pathIterator == null) {
-            pathIterator = path.iterator();
-
-            if (path.getCount() == 0) {
-                return false;
-            }
-            else if (path.getCount() == 1) {
-                pathNode = pathIterator.next();
-            }
-            else if (path.getCount() > 1) {
-                // Ignore current cell and move to next
-                pathIterator.next();
-                pathNode = pathIterator.next();
-            }
+    private boolean initializePathNode() {
+        if (path.getCount() == 0) {
+            return false;
+        }
+        if (path.getCount() > 0) {
+            incrementNode();
+        }
+        if (path.getCount() > 1) {
+            incrementNode();
         }
         return true;
     }
 
-    private boolean incrementPath(Vector2 position) {
-        if (position.equals(pathNode.getWorldReference())) {
+    private boolean update(float time) {
+        Vector2 position = target.getPosition();
+        return incrementPath(position) && updatePosition(position, time);
+    }
+
+    private boolean incrementPath(Vector2 targetPosition) {
+        Vector2 nodePosition = pathNode.getWorldReference();
+
+        if (targetPosition.equals(nodePosition)) {
             if (pathIterator.hasNext()) {
-                removeOccupants(pathNode, target);
-                pathNode = pathIterator.next();
-                addOccupants(pathNode, target);
+                incrementNode();
             }
             else {
                 return false;
             }
         }
         return true;
+    }
+
+    private void incrementNode() {
+        removeOccupants(pathNode, target);
+        pathNode = pathIterator.next();
+        addOccupants(pathNode, target);
     }
 
     private void addOccupants(SpatialItemNode node, Movable occupant) {
@@ -145,8 +168,7 @@ public class MoveAction extends BasicAction
     private boolean updatePosition(Vector2 oldPosition, float time) {
         Vector2 newPosition = getNextPosition(oldPosition, time);
         target.setPosition(newPosition);
-        //return Objects.equals(newPosition, destination);
-        return false;
+        return true;
     }
 
     private Vector2 getNextPosition(Vector2 position, float time) {
@@ -161,5 +183,9 @@ public class MoveAction extends BasicAction
             return position.cpy().add(increment);
         }
         return pathNodePosition;
+    }
+
+    private void finish() {
+        target.setDirection(destination.getOrientationTarget().cpy().nor());
     }
 }
