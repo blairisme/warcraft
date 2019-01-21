@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2018
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.common.animation;
 
 import com.badlogic.gdx.math.Rectangle;
@@ -7,11 +16,6 @@ import org.apache.commons.lang3.Range;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Implementors of this TODO:Finish
- *
- * @author Blair Butterworth
- */
 public class AnimationSchema
 {
     private float interval;

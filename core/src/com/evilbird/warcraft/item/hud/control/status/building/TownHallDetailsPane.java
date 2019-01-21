@@ -1,4 +1,13 @@
-package com.evilbird.warcraft.item.hud.control.state.building;
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
+package com.evilbird.warcraft.item.hud.control.status.building;
 
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.TextLabel;
@@ -8,7 +17,8 @@ import com.evilbird.warcraft.item.unit.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this user interface show details about a Town Hall, including
+ * the resources that the owning player has accumulated.
  *
  * @author Blair Butterworth
  */
@@ -19,8 +29,7 @@ public class TownHallDetailsPane extends GridPane
     private TextLabel lumber;
     private TextLabel oil;
 
-    public TownHallDetailsPane()
-    {
+    public TownHallDetailsPane() {
         super(1, 4);
 
         gold = createLabel("Gold");
@@ -37,23 +46,20 @@ public class TownHallDetailsPane extends GridPane
         setCellHeightMinimum(12);
     }
 
-    public void setBuilding(Building building)
-    {
+    public void setBuilding(Building building) {
         this.building = building;
     }
 
     @Override
-    public void update(float delta)
-    {
-        Player player = (Player)building.getParent();
+    public void update(float delta) {
+        Player player = (Player) building.getParent();
         gold.setText(getText("Gold", player.getResource(ResourceType.Gold)));
         lumber.setText(getText("Lumber", player.getResource(ResourceType.Wood)));
         oil.setText(getText("Oil", player.getResource(ResourceType.Oil)));
         super.update(delta);
     }
 
-    private String getText(String prefix, float suffix)
-    {
+    private String getText(String prefix, float suffix) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(prefix);
         stringBuilder.append(": ");
@@ -61,8 +67,7 @@ public class TownHallDetailsPane extends GridPane
         return stringBuilder.toString();
     }
 
-    private TextLabel createLabel(String text)
-    {
+    private TextLabel createLabel(String text) {
         TextLabel result = new TextLabel();
         result.setText(text);
         result.setSize(160, 12);

@@ -20,6 +20,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.warcraft.item.common.texture.TextureUtils.getDrawable;
 
+//TODO: Move texture coordinates into type enum
 public class ActionButtonProvider implements AssetProvider<ActionButton>
 {
     private static final String BACKGROUND = "data/textures/neutral/perennial/action.png";
@@ -54,7 +55,6 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
         result.setSize(54, 46);
         result.setId(type);
         result.setType(type);
-        //result.setType(HudControls.ActionButton);
         result.setTouchable(Touchable.enabled);
         result.setImage(getNormalIcon(type));
         result.setDisabledImage(getDisabledIcon(type));
@@ -71,9 +71,20 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
     private Drawable getNormalIcon(ActionButtonType type) {
         switch (type) {
             case CancelButton: return getDrawable(assets, ICONS, 46, 684, 46, 38);
+            case MoveButton: return getDrawable(assets, ICONS, 138, 608, 46, 38);
+            case StopButton: return getDrawable(assets, ICONS, 184, 1216, 46, 38);
+            case AttackButton: return getDrawable(assets, ICONS, 46, 874, 46, 38);
+            case DefendButton: return getDrawable(assets, ICONS, 0, 1368, 46, 38);
+            case PatrolButton: return getDrawable(assets, ICONS, 138, 1330, 46, 38);
+            case RepairButton: return getDrawable(assets, ICONS, 0, 646, 46, 38);
+            case GatherButton: return getDrawable(assets, ICONS, 46, 646, 46, 38);
+            case BuildSimpleButton: return getDrawable(assets, ICONS, 92, 646, 46, 38);
+            case BuildAdvancedButton: return getDrawable(assets, ICONS, 138, 646, 46, 38);
+            case BuildCancelButton: return getDrawable(assets, ICONS, 46, 684, 46, 38);
             case BuildBarracksButton: return getDrawable(assets, ICONS, 92, 304, 46, 38);
             case BuildFarmButton: return getDrawable(assets, ICONS, 138, 266, 46, 38);
             case BuildTownHallButton: return getDrawable(assets, ICONS, 0, 304, 46, 38);
+            case BuildStablesButton: return getDrawable(assets, ICONS, 46, 418, 46, 38);
             case TrainFootmanButton: return getDrawable(assets, ICONS, 92, 0, 46, 38);
             case TrainPeasantButton: return getDrawable(assets, ICONS, 0, 0, 46, 38);
             default: throw new UnsupportedOperationException();
@@ -83,9 +94,20 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
     private Drawable getDisabledIcon(ActionButtonType type) {
         switch (type) {
             case CancelButton: getDrawable(assets, ICONS_DISABLED, 46, 684, 46, 38);
+            case MoveButton: return getDrawable(assets, ICONS_DISABLED, 138, 608, 46, 38);
+            case StopButton: return getDrawable(assets, ICONS_DISABLED, 184, 1216, 46, 38);
+            case AttackButton: return getDrawable(assets, ICONS_DISABLED, 46, 874, 46, 38);
+            case DefendButton: return getDrawable(assets, ICONS_DISABLED, 0, 1368, 46, 38);
+            case PatrolButton: return getDrawable(assets, ICONS_DISABLED, 138, 1330, 46, 38);
+            case RepairButton: return getDrawable(assets, ICONS_DISABLED, 0, 646, 46, 38);
+            case GatherButton: return getDrawable(assets, ICONS_DISABLED, 46, 646, 46, 38);
+            case BuildSimpleButton: return getDrawable(assets, ICONS_DISABLED, 92, 646, 46, 38);
+            case BuildAdvancedButton: return getDrawable(assets, ICONS_DISABLED, 138, 646, 46, 38);
+            case BuildCancelButton: return getDrawable(assets, ICONS_DISABLED, 46, 684, 46, 38);
             case BuildBarracksButton: return getDrawable(assets, ICONS_DISABLED, 92, 304, 46, 38);
             case BuildFarmButton: return getDrawable(assets, ICONS_DISABLED, 138, 266, 46, 38);
             case BuildTownHallButton: return getDrawable(assets, ICONS_DISABLED, 0, 304, 46, 38);
+            case BuildStablesButton: return getDrawable(assets, ICONS_DISABLED, 46, 418, 46, 38);
             case TrainFootmanButton: return getDrawable(assets, ICONS_DISABLED, 92, 0, 46, 38);
             case TrainPeasantButton: return getDrawable(assets, ICONS_DISABLED, 0, 0, 46, 38);
             default: throw new UnsupportedOperationException();

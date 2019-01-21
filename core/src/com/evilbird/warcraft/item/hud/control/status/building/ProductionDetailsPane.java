@@ -1,4 +1,13 @@
-package com.evilbird.warcraft.item.hud.control.state.building;
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
+package com.evilbird.warcraft.item.hud.control.status.building;
 
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.TextLabel;
@@ -6,17 +15,18 @@ import com.evilbird.engine.item.control.TextLabelAlignment;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this user interface are shown when a building is producing
+ * something, usually a unit or upgrade.
  *
  * @author Blair Butterworth
  */
+//TODO: Show tile with icon and name of thing being produced
 public class ProductionDetailsPane extends GridPane
 {
     private Building building;
     private BuildingProgress progressBar;
 
-    public ProductionDetailsPane(BuildingProgressProvider buildingProgressProvider)
-    {
+    public ProductionDetailsPane(BuildingProgressProvider buildingProgressProvider) {
         super(1, 1);
         progressBar = buildingProgressProvider.get();
 
@@ -28,20 +38,17 @@ public class ProductionDetailsPane extends GridPane
         setCell(progressBar, 0, 0);
     }
 
-    public void setBuilding(Building building)
-    {
+    public void setBuilding(Building building) {
         this.building = building;
     }
 
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
         progressBar.setProgress(building.getProgress());
         super.update(delta);
     }
 
-    private TextLabel createLabel(String text)
-    {
+    private TextLabel createLabel(String text) {
         TextLabel result = new TextLabel();
         result.setText(text);
         result.setSize(160, 12);

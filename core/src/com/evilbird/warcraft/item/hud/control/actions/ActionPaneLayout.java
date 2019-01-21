@@ -9,17 +9,16 @@
 
 package com.evilbird.warcraft.item.hud.control.actions;
 
-import com.evilbird.engine.item.control.ImageButton;
+import com.evilbird.engine.common.lang.Identifier;
 
 /**
- * Instances of this user interface control represent a button that invokes an
- * action on a unit.
+ * Defines options for action pane menu identifiers.
  *
  * @author Blair Butterworth
  */
-public class ActionButton extends ImageButton
+public enum ActionPaneLayout implements Identifier
 {
-    public ActionButton() {
-    }
+    Actions,
+    SimpleBuildings,
+    AdvancedBuildings
 }
-

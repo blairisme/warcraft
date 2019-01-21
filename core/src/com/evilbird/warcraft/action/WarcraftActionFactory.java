@@ -46,6 +46,7 @@ public class WarcraftActionFactory implements ActionFactory
         GatherCancel gatherCancelProvider,
         Move moveProvider,
         MoveCancel moveCancelProvider,
+        Navigate navigateProvider,
         Placeholder placeholderProvider,
         PlaceholderCancel placeholderCancelProvider,
         Reposition repositionProvider,
@@ -70,6 +71,8 @@ public class WarcraftActionFactory implements ActionFactory
 
         registerProvider(GeneralActions.Move, moveProvider);
         registerProvider(CancelActions.CancelMove, moveCancelProvider);
+
+        registerProvider(NavigateActions.values(), navigateProvider);
 
         registerProvider(PlaceholderActions.values(), placeholderProvider);
         registerProvider(GeneralActions.Reposition, repositionProvider);

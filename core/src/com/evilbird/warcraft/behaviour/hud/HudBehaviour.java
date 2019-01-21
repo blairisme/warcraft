@@ -43,20 +43,17 @@ public class HudBehaviour implements Behaviour
     private ActionFactory actionFactory;
 
     @Inject
-    public HudBehaviour(ActionFactory actionFactory)
-    {
+    public HudBehaviour(ActionFactory actionFactory) {
         this.actionFactory = actionFactory;
     }
 
     @Override
-    public void update(ItemRoot world, ItemRoot hud, List<UserInput> inputs)
-    {
+    public void update(ItemRoot world, ItemRoot hud, List<UserInput> inputs) {
         updateResourceBar(world, hud);
         updateSelection(world, hud);
     }
 
-    private void updateResourceBar(ItemRoot world, ItemRoot hud)
-    {
+    private void updateResourceBar(ItemRoot world, ItemRoot hud) {
         Player player = getConsolePlayer(world);
         ResourcePane resourcePane = getResourcePane(hud);
 
@@ -65,8 +62,7 @@ public class HudBehaviour implements Behaviour
         resourcePane.setWood(player.getResource(ResourceType.Wood));
     }
 
-    private void updateSelection(ItemRoot world, ItemRoot hud)
-    {
+    private void updateSelection(ItemRoot world, ItemRoot hud) {
         ActionPane actionPane = getActionPane(hud);
         StatePane statePane = getStatePane(hud);
 
@@ -75,34 +71,30 @@ public class HudBehaviour implements Behaviour
         statePane.setSelection(selection);
     }
 
-    private Player getConsolePlayer(ItemRoot world)
-    {
-        if (player == null){
-            player = (Player)world.find(itemWithId(new NamedIdentifier("Player1")));
+    private Player getConsolePlayer(ItemRoot world) {
+        if (player == null) {
+            player = (Player) world.find(itemWithId(new NamedIdentifier("Player1")));
         }
         return player;
     }
 
-    private ResourcePane getResourcePane(ItemRoot hud)
-    {
-        if (resourcePane == null){
-            resourcePane = (ResourcePane)hud.find(itemWithId(HudControls.ResourcePane));
+    private ResourcePane getResourcePane(ItemRoot hud) {
+        if (resourcePane == null) {
+            resourcePane = (ResourcePane) hud.find(itemWithId(HudControls.ResourcePane));
         }
         return resourcePane;
     }
 
-    private ActionPane getActionPane(ItemRoot hud)
-    {
-        if (actionPane == null){
-            actionPane = (ActionPane)hud.find(itemWithId(HudControls.ActionPane));
+    private ActionPane getActionPane(ItemRoot hud) {
+        if (actionPane == null) {
+            actionPane = (ActionPane) hud.find(itemWithId(HudControls.ActionPane));
         }
         return actionPane;
     }
 
-    private StatePane getStatePane(ItemRoot hud)
-    {
-        if (statePane == null){
-            statePane = (StatePane)hud.find(itemWithId(HudControls.StatePane));
+    private StatePane getStatePane(ItemRoot hud) {
+        if (statePane == null) {
+            statePane = (StatePane) hud.find(itemWithId(HudControls.StatePane));
         }
         return statePane;
     }

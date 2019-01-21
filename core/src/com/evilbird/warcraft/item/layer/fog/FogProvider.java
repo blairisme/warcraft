@@ -17,7 +17,7 @@ import com.evilbird.warcraft.item.layer.LayerType;
 import javax.inject.Inject;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this factory create {@link Fog} instances.
  *
  * @author Blair Butterworth
  */

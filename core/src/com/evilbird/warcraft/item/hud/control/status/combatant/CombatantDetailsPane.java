@@ -1,4 +1,13 @@
-package com.evilbird.warcraft.item.hud.control.state.combatant;
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
+package com.evilbird.warcraft.item.hud.control.status.combatant;
 
 import com.evilbird.engine.item.control.BorderPane;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -6,7 +15,8 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import javax.inject.Inject;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this user interface show details about
+ * {@link Combatant Combatants}.
  *
  * @author Blair Butterworth
  */

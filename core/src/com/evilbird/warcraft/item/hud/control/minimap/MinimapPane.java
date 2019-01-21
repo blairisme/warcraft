@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2018
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.hud.control.minimap;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -5,30 +14,23 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.control.Image;
+import com.evilbird.warcraft.item.hud.HudControls;
 
-/**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
- */
 public class MinimapPane extends ItemGroup
 {
     private Image image;
 
-    public MinimapPane()
-    {
+    public MinimapPane() {
         this.image = new Image();
         this.image.setSize(176, 136);
         setSize(176, 136);
         addItem(image);
-        setId(new NamedIdentifier("MinimapPane"));
-        setType(new NamedIdentifier("MinimapPane"));
+        setId(HudControls.MinimapPane);
+        setType(HudControls.MinimapPane);
         setTouchable(Touchable.disabled);
     }
 
-    public void setBackground(Drawable drawable)
-    {
+    public void setBackground(Drawable drawable) {
         this.image.setBackground(drawable);
     }
-
 }

@@ -1,4 +1,13 @@
-package com.evilbird.warcraft.item.hud.control.state.building;
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
+package com.evilbird.warcraft.item.hud.control.status.building;
 
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
@@ -8,6 +17,12 @@ import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
 
+/**
+ * Instances of this user interface show details about a building, such as
+ * construction or training information.
+ *
+ * @author Blair Butterworth
+ */
 public class BuildingDetailsPane extends BorderPane
 {
     private Building building;
@@ -44,6 +59,9 @@ public class BuildingDetailsPane extends BorderPane
                 showTownHallDetails();
             }
         }
+        else if (! isNothingShown()) {
+            showNothing();
+        }
         super.update(delta);
     }
 
@@ -65,6 +83,11 @@ public class BuildingDetailsPane extends BorderPane
     private boolean isTownHallDetailsShown() {
         Item current = getCenter();
         return current instanceof TownHallDetailsPane;
+    }
+
+    private boolean isNothingShown() {
+        Item current = getCenter();
+        return current == null;
     }
 
     private void showConstructionDetails() {
@@ -89,5 +112,9 @@ public class BuildingDetailsPane extends BorderPane
         TownHallDetailsPane detailsPane = new TownHallDetailsPane();
         detailsPane.setBuilding(building);
         setCenter(detailsPane);
+    }
+
+    private void showNothing() {
+        clearItems();
     }
 }

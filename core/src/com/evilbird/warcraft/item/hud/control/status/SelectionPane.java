@@ -28,6 +28,7 @@ import javax.inject.Provider;
  * @author Blair Butterworth
  */
 //TODO: Scale flexibly
+//TODO: Focus on unit when selected
 public class SelectionPane extends GridPane
 {
     private Provider<UnitPane> tileProvider;
@@ -50,7 +51,7 @@ public class SelectionPane extends GridPane
     }
 
     private Collection<Item> getUnitPanes(Collection<Item> items) {
-        Collection<Item> result = new ArrayList<Item>(items.size());
+        Collection<Item> result = new ArrayList<>(items.size());
         for (Item item : items) {
             if (item instanceof Unit) {
                 result.add(getUnitPane((Unit) item));
@@ -59,7 +60,7 @@ public class SelectionPane extends GridPane
         return result;
     }
 
-    private Item getUnitPane(Unit unit) {
+    private UnitPane getUnitPane(Unit unit) {
         UnitPane result = tileProvider.get();
         result.setItem(unit);
         result.setSize(54, 53);

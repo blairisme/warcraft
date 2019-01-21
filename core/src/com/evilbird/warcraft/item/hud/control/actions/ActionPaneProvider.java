@@ -18,6 +18,11 @@ import javax.inject.Inject;
 
 import static com.evilbird.warcraft.item.common.texture.TextureUtils.getDrawable;
 
+/**
+ * Instances of this factory create {@link ActionPane ActionPanes}.
+ *
+ * @author Blair Butterworth
+ */
 public class ActionPaneProvider implements AssetProvider<ActionPane>
 {
     private static final String BACKGROUND = "data/textures/human/hud/action_panel.png";

@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2018
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.unit.resource;
 
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
@@ -8,17 +17,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
- */
 public class Resource extends Unit implements ResourceContainer
 {
     private Map<ResourceIdentifier, Float> resources;
 
     public Resource() {
-        resources = new HashMap<ResourceIdentifier, Float>();
+        resources = new HashMap<>();
     }
 
     @Override

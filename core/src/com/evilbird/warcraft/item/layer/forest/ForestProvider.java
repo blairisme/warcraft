@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2018
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.layer.forest;
 
 import com.evilbird.engine.common.inject.AssetProvider;
@@ -6,7 +15,7 @@ import com.evilbird.warcraft.item.unit.resource.tree.TreeProvider;
 import javax.inject.Inject;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this factory create {@link Forest Forests}.
  *
  * @author Blair Butterworth
  */

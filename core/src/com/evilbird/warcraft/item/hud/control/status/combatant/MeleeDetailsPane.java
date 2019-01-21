@@ -1,4 +1,13 @@
-package com.evilbird.warcraft.item.hud.control.state.combatant;
+/*
+ * Blair Butterworth (c) 2018
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
+package com.evilbird.warcraft.item.hud.control.status.combatant;
 
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.TextLabel;
@@ -6,12 +15,6 @@ import com.evilbird.engine.item.control.TextLabelAlignment;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
-
-/**
- * Instances of this TODO:Finish
- *
- * @author Blair Butterworth
- */
 
 public class MeleeDetailsPane extends GridPane
 {
@@ -23,8 +26,7 @@ public class MeleeDetailsPane extends GridPane
     private TextLabel speed;
 
     @Inject
-    public MeleeDetailsPane()
-    {
+    public MeleeDetailsPane() {
         super(1, 5);
         armour = createLabel("Armour");
         damage = createLabel("Damage");
@@ -43,14 +45,12 @@ public class MeleeDetailsPane extends GridPane
         setCellHeightMinimum(12);
     }
 
-    public void setCombatant(Combatant combatant)
-    {
+    public void setCombatant(Combatant combatant) {
         this.combatant = combatant;
     }
 
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
         super.update(delta);
         armour.setText(getText("Armour", combatant.getArmour()));
         damage.setText(getText("Damage", combatant.getDamageMinimum(), combatant.getDamageMaximum()));
@@ -59,8 +59,7 @@ public class MeleeDetailsPane extends GridPane
         speed.setText(getText("Speed", combatant.getSpeed()));
     }
 
-    private String getText(String prefix, float suffix)
-    {
+    private String getText(String prefix, float suffix) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(prefix);
         stringBuilder.append(": ");
@@ -68,8 +67,7 @@ public class MeleeDetailsPane extends GridPane
         return stringBuilder.toString();
     }
 
-    private String getText(String prefix, float suffixMin, float suffixMax)
-    {
+    private String getText(String prefix, float suffixMin, float suffixMax) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(prefix);
         stringBuilder.append(": ");
@@ -79,8 +77,7 @@ public class MeleeDetailsPane extends GridPane
         return stringBuilder.toString();
     }
 
-    private TextLabel createLabel(String text)
-    {
+    private TextLabel createLabel(String text) {
         TextLabel result = new TextLabel();
         result.setText(text);
         result.setSize(160, 12);

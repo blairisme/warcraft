@@ -12,6 +12,8 @@ package com.evilbird.warcraft.item.hud.control.actions;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
+import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.Navigable;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemOperations;
@@ -20,6 +22,7 @@ import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.hud.HudControls;
+import org.apache.commons.lang3.Validate;
 
 import java.util.*;
 
@@ -31,11 +34,14 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class ActionPane extends GridPane
+//TODO: Disable buttons if insufficient resources
+//TODO: Disable buttons if constructing
+public class ActionPane extends GridPane implements Navigable
 {
     private Collection<Item> selection;
     private Map<ResourceIdentifier, Float> resources;
     private ActionButtonProvider buttonProvider;
+    private ActionPaneLayout layout;
     private boolean cancelShown;
 
     @Inject
@@ -45,6 +51,7 @@ public class ActionPane extends GridPane
         this.buttonProvider = buttonProvider;
         this.selection = Collections.emptyList();
         this.resources = Collections.emptyMap();
+        this.layout = ActionPaneLayout.Actions;
         this.cancelShown = false;
 
         setSize(176, 176);
@@ -58,13 +65,22 @@ public class ActionPane extends GridPane
 
     public void setSelection(Collection<Item> newSelection) {
         if (viewInvalidated(newSelection)) {
+            resetLayout();
             updateModel(newSelection);
             updateView(newSelection);
         }
     }
 
+    @Override
+    public void navigate(Identifier location) {
+        Validate.isInstanceOf(ActionPaneLayout.class, location);
+        layout = (ActionPaneLayout)location;
+        updateModel(selection);
+        updateView(selection);
+    }
+
     private boolean viewInvalidated(Collection<Item> newSelection) {
-        return selectionUpdated(newSelection) || actionsUpdated(newSelection) || resourcesUpdated(newSelection);
+        return selectionUpdated(newSelection) || actionsUpdated(newSelection); //|| resourcesUpdated(newSelection);
     }
 
     private boolean selectionUpdated(Collection<Item> newSelection) {
@@ -98,6 +114,10 @@ public class ActionPane extends GridPane
         return Collections.emptyMap();
     }
 
+    private void resetLayout() {
+        layout = ActionPaneLayout.Actions;
+    }
+
     private void updateModel(Collection<Item> newSelection) {
         selection = newSelection;
         resources = getResources(newSelection);
@@ -106,11 +126,11 @@ public class ActionPane extends GridPane
     private void updateView(Collection<Item> selection) {
         clearCells();
 
-        if (hasAction(selection)){
+        if (layout == ActionPaneLayout.Actions && hasAction(selection)){
             showCancelAction();
         }
         else {
-            showUnitActions(selection);
+            showActions(selection);
         }
     }
 
@@ -120,14 +140,23 @@ public class ActionPane extends GridPane
         cancelShown = true;
     }
 
-    private void showUnitActions(Collection<Item> selection) {
-        Collection<ActionButtonType> actions = getAvailableActions(selection);
+    private void showActions(Collection<Item> selection) {
+        List<ActionButtonType> actions = getActionButtons(selection);
         setCells(getTiles(actions));
         cancelShown = false;
     }
 
-    private Collection<ActionButtonType> getAvailableActions(Collection<Item> selection) {
-        Collection<ActionButtonType> result = new ArrayList<>();
+    private List<ActionButtonType> getActionButtons(Collection<Item> selection) {
+        switch (layout) {
+            case Actions: return getItemActionButtons(selection);
+            case SimpleBuildings: return ActionButtonAssociations.getSimpleBuildingButtons();
+            case AdvancedBuildings: return ActionButtonAssociations.getAdvancedBuildingButtons();
+            default: throw new UnsupportedOperationException();
+        }
+    }
+
+    private List<ActionButtonType> getItemActionButtons(Collection<Item> selection) {
+        List<ActionButtonType> result = new ArrayList<>();
         Iterator<Item> selectionIterator = selection.iterator();
 
         if (selectionIterator.hasNext()) {

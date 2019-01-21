@@ -20,18 +20,26 @@ public enum ActionButtonType implements Identifier
 {
     CancelButton,
     MoveButton,
-    AttackButton,
     StopButton,
 
-    BuildBasicButton,
+    AttackButton,
+    DefendButton,
+    PatrolButton,
+
+    RepairButton,
+    GatherButton,
+
+    BuildSimpleButton,
     BuildAdvancedButton,
+    BuildCancelButton,
 
     BuildBarracksButton,
     BuildFarmButton,
     BuildTownHallButton,
+    BuildStablesButton,
 
     TrainFootmanButton,
     TrainPeasantButton
 
-    
+
 }

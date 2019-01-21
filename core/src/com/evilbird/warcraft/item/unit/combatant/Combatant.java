@@ -23,7 +23,6 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-//TODO: Add ability to define movement speed
 public class Combatant extends Unit implements Movable
 {
     private float armour;

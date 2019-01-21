@@ -21,6 +21,7 @@ import static com.evilbird.warcraft.action.identifier.GeneralActions.*;
 import static com.evilbird.warcraft.action.identifier.CameraActions.*;
 import static com.evilbird.warcraft.action.identifier.CancelActions.*;
 import static com.evilbird.warcraft.action.identifier.GatherActions.*;
+import static com.evilbird.warcraft.action.identifier.NavigateActions.*;
 import static com.evilbird.warcraft.action.identifier.PlaceholderActions.AddBarracksPlaceholder;
 import static com.evilbird.warcraft.action.identifier.PlaceholderActions.AddFarmPlaceholder;
 import static com.evilbird.warcraft.action.identifier.PlaceholderActions.AddTownHallPlaceholder;
@@ -47,6 +48,7 @@ public class UserInteractions
     public UserInteractions(InteractionContainer interactions) {
         this.interactions = interactions;
         addAttackInteractions();
+        addBuildMenuInteractions();
         addCameraInteractions();
         addCancelInteractions();
         addConstructInteractions();
@@ -102,6 +104,12 @@ public class UserInteractions
 
         interactions.addAction(CancelGather).whenTarget(CancelButton).whenSelected(Peasant).withAction(GatherGold).appliedTo(Selected);
         interactions.addAction(CancelGather).whenTarget(CancelButton).whenSelected(Peasant).withAction(GatherWood).appliedTo(Selected);
+    }
+
+    private void addBuildMenuInteractions() {
+        interactions.addAction(ActionsMenu).whenTarget(BuildCancelButton).appliedTo(Selected);
+        interactions.addAction(BuildSimpleMenu).whenTarget(BuildSimpleButton).appliedTo(Selected);
+        interactions.addAction(BuildAdvancedMenu).whenTarget(BuildAdvancedButton).appliedTo(Selected);
     }
 
     public void addConstructInteractions() {

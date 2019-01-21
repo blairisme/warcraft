@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2018
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.unit.resource.goldmine;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -27,7 +36,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-// TODO: Add missing death animation - for resources have been exhausted
+// TODO: Add missing death animation - for resources that have been exhausted
 public class GoldMineProvider implements AssetProvider<Item>
 {
     private AssetManager assets;

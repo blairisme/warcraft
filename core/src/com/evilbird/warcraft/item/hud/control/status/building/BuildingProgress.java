@@ -1,4 +1,13 @@
-package com.evilbird.warcraft.item.hud.control.state.building;
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
+package com.evilbird.warcraft.item.hud.control.status.building;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.lang.NamedIdentifier;
@@ -8,12 +17,6 @@ import com.evilbird.engine.item.control.ProgressBar;
 import com.evilbird.engine.item.control.TextLabel;
 import com.evilbird.engine.item.control.TextLabelAlignment;
 
-/**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
- */
-//TODO: Localize text
 public class BuildingProgress extends GridPane
 {
     private ProgressBar progressBar;

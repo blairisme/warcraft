@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2018
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.common.sound;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -9,11 +18,6 @@ import com.evilbird.engine.common.audio.SoundEffectSet;
 import java.util.ArrayList;
 import java.util.Collection;
 
-/**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
- */
 public class SoundUtils
 {
     public static SoundEffect newSoundEffect(AssetManager assets, String path)
