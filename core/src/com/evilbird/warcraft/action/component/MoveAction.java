@@ -23,8 +23,10 @@ import com.evilbird.warcraft.item.layer.LayerType;
 
 import java.util.Iterator;
 
-//TODO: Don't allow two units to occupy the same node
-//TODO: Handle target moving away
+//TODO: Don't allow two units to occupy the same node (not always but under certain conditions)
+//TODO: Handle target moving away (dont recalculate path every update )
+//TODO: Move to close point adjacent to item destination, not the bottom left (change in spatial graph possibly).
+//TODO: Newly created items are not avoided (not added to spatial graph)
 public class MoveAction extends BasicAction
 {
     private Movable target;

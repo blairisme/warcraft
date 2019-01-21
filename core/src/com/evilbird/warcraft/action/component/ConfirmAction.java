@@ -17,12 +17,15 @@ import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
+import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.item.effect.EffectType;
+
+import javax.swing.text.Position;
 
 /**
  * Instances of this class show a confirmation effect at the given location.
@@ -32,10 +35,15 @@ import com.evilbird.warcraft.item.effect.EffectType;
 public class ConfirmAction extends DelegateAction
 {
     public ConfirmAction(ItemFactory itemFactory, Item target) {
-        this(itemFactory, target.getRoot(), target.getPosition());
+        initialize(itemFactory, target.getRoot(), target.getPosition());
     }
 
     public ConfirmAction(ItemFactory itemFactory, ItemComposite parent, Vector2 position) {
+        Vector2 centeredPosition = new Vector2(position.x - 16, position.y - 16);
+        initialize(itemFactory, parent, centeredPosition);
+    }
+
+    private void initialize(ItemFactory itemFactory, ItemComposite parent, Vector2 position) {
         Identifier id = new NamedIdentifier();
         Action create = new CreateAction(parent, EffectType.Confirm, itemFactory, id, position, false);
         Action delay = new DelayedAction(new TimeDuration(0.55f));
