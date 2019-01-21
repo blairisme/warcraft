@@ -1,13 +1,17 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.item;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.function.Comparator;
 
-/**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
- */
 public class ItemComparators
 {
     public static Comparator<Item> closestItem(Item target)

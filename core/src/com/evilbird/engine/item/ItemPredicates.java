@@ -1,14 +1,18 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.item;
 
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Objects;
 
-/**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
- */
 public class ItemPredicates
 {
     public static Predicate<Item> itemWithId(Identifier id)

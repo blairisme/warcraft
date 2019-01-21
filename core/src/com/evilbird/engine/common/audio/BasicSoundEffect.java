@@ -1,9 +1,19 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.common.audio;
 
 import com.badlogic.gdx.audio.Sound;
 
 /**
- * Instances of this class TODO:Finish
+ * Implementors of this class represent a sound effect, a short audio clip
+ * played in response to an event in the game.
  *
  * @author Blair Butterworth
  */
@@ -12,21 +22,18 @@ public class BasicSoundEffect implements SoundEffect
     private Sound delegate;
     private long instanceId;
 
-    public BasicSoundEffect(Sound delegate)
-    {
+    public BasicSoundEffect(Sound delegate) {
         this.delegate = delegate;
         this.instanceId = -1;
     }
 
     @Override
-    public void play()
-    {
+    public void play() {
         instanceId = delegate.play();
     }
 
     @Override
-    public void stop()
-    {
+    public void stop() {
         if (instanceId != -1){
             delegate.stop(instanceId);
         }

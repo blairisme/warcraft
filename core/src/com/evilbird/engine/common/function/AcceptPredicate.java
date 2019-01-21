@@ -1,10 +1,13 @@
-package com.evilbird.engine.common.function;
-
-/**
- * Instances of this TODO:Finish
+/*
+ * Blair Butterworth (c) 2019
  *
- * @author Blair Butterworth
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
  */
+
+package com.evilbird.engine.common.function;
 
 public class AcceptPredicate<T> implements Predicate<T>
 {

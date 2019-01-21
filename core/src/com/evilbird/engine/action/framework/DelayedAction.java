@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.framework.duration.ActionDuration;
@@ -5,7 +14,8 @@ import com.evilbird.engine.common.function.Supplier;
 import com.evilbird.engine.common.function.Suppliers;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this class provide an {@link BasicAction Action} that is only
+ * acted upon when indicated to do so by a given {@link Supplier validator}.
  *
  * @author Blair Butterworth
  */

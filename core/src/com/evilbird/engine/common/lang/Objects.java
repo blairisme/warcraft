@@ -1,7 +1,17 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.common.lang;
 
 /**
- * Instances of this class TODO:Finish
+ * A peer of the Java Objects class, which isn't available on certain versions
+ * of Android.
  *
  * @author Blair Butterworth
  */

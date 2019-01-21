@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.state;
 
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
@@ -10,11 +19,6 @@ import com.evilbird.warcraft.state.scenario.ScenarioProvider;
 
 import javax.inject.Inject;
 
-/**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
- */
 public class WarcraftStateFactory implements StateFactory
 {
     private IdentifiedAssetProviderSet<ItemRoot> providers;
@@ -25,7 +29,7 @@ public class WarcraftStateFactory implements StateFactory
         CampaignProvider campaignProvider,
         ScenarioProvider scenarioProvider)
     {
-        providers = new IdentifiedAssetProviderSet<ItemRoot>();
+        providers = new IdentifiedAssetProviderSet<>();
         providers.addProvider(hudProvider);
         providers.addProvider(campaignProvider);
         providers.addProvider(scenarioProvider);

@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.common.inject;
 
 import com.evilbird.engine.common.lang.Identifier;
@@ -7,11 +16,6 @@ import java.util.Map;
 
 import javax.inject.Provider;
 
-/**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
- */
 public class IdentifiedAssetProviderSet<T> implements IdentifiedAssetProvider<T>
 {
     private Map<Identifier, IdentifiedAssetProvider<? extends T>> delegates;
