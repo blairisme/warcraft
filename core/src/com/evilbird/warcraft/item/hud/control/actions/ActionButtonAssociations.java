@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.hud.actionpane;
+package com.evilbird.warcraft.item.hud.control.actions;
 
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -19,11 +19,11 @@ import java.util.List;
 public class ActionButtonAssociations
 {
     public static List<ActionButtonType> getActionButtons(Item item) {
-        if (item.getType() == UnitType.Barracks) {
-            return getBarracksButtons();
-        }
         if (item.getType() == UnitType.Peasant) {
             return getGathererButtons();
+        }
+        if (item.getType() == UnitType.Barracks) {
+            return getBarracksButtons();
         }
         if (item.getType() == UnitType.TownHall) {
             return getTownhallButtons();

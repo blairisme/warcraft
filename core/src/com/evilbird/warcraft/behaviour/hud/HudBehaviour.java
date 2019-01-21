@@ -17,9 +17,9 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.hud.HudControls;
-import com.evilbird.warcraft.item.hud.actionpane.ActionPane;
+import com.evilbird.warcraft.item.hud.control.actions.ActionPane;
 import com.evilbird.warcraft.item.hud.resource.ResourcePane;
-import com.evilbird.warcraft.item.hud.state.StatePane;
+import com.evilbird.warcraft.item.hud.control.status.StatePane;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import java.util.Collection;
@@ -86,7 +86,7 @@ public class HudBehaviour implements Behaviour
     private ResourcePane getResourcePane(ItemRoot hud)
     {
         if (resourcePane == null){
-            resourcePane = (ResourcePane)hud.find(itemWithId(new NamedIdentifier("ResourcePane")));
+            resourcePane = (ResourcePane)hud.find(itemWithId(HudControls.ResourcePane));
         }
         return resourcePane;
     }
@@ -102,7 +102,7 @@ public class HudBehaviour implements Behaviour
     private StatePane getStatePane(ItemRoot hud)
     {
         if (statePane == null){
-            statePane = (StatePane)hud.find(itemWithId(new NamedIdentifier("StatePane")));
+            statePane = (StatePane)hud.find(itemWithId(HudControls.StatePane));
         }
         return statePane;
     }

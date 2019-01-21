@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.hud.state.resource;
+package com.evilbird.warcraft.item.hud.control.state.resource;
 
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;

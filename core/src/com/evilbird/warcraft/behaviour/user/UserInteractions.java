@@ -28,7 +28,7 @@ import static com.evilbird.warcraft.action.identifier.TrainActions.*;
 import static com.evilbird.warcraft.action.identifier.ConstructionActions.*;
 import static com.evilbird.warcraft.behaviour.user.InteractionApplicability.*;
 import static com.evilbird.warcraft.item.data.DataType.Camera;
-import static com.evilbird.warcraft.item.hud.actionpane.ActionButtonType.*;
+import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.*;
 import static com.evilbird.warcraft.item.layer.LayerType.*;
 import static com.evilbird.warcraft.item.placeholder.PlaceholderType.*;
 import static com.evilbird.warcraft.item.unit.UnitType.*;

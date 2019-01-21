@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.hud.state.building;
+package com.evilbird.warcraft.item.hud.control.state.building;
 
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.TextLabel;

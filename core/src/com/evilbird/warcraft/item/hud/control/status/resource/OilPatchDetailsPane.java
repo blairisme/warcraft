@@ -1,47 +1,47 @@
-package com.evilbird.warcraft.item.hud.state.building;
+package com.evilbird.warcraft.item.hud.control.state.resource;
 
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.TextLabel;
 import com.evilbird.engine.item.control.TextLabelAlignment;
-import com.evilbird.warcraft.item.unit.building.Building;
+import com.evilbird.warcraft.item.unit.resource.ResourceType;
+import com.evilbird.warcraft.item.unit.resource.Resource;
+
+import javax.inject.Inject;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this TODO:Finish
  *
  * @author Blair Butterworth
  */
-public class FarmDetailsPane extends GridPane
+//TODO: Localize
+public class OilPatchDetailsPane extends GridPane
 {
-    private Building building;
-    private TextLabel grown;
-    private TextLabel used;
+    private Resource resource;
+    private TextLabel label;
 
-    public FarmDetailsPane()
+    @Inject
+    public OilPatchDetailsPane()
     {
-        super(1, 3);
-
-        grown = createLabel("Grown");
-        used = createLabel("Used");
+        super(1, 1);
+        label = createLabel("Oil Left");
 
         setSize(160, 100);
         setCellSpacing(4);
-        setCell(createLabel("Food Usage"), 0, 0);
-        setCell(grown, 0, 1);
-        setCell(used, 0, 2);
+        setCell(label, 0, 0);
         setCellWidthMinimum(160);
         setCellHeightMinimum(12);
     }
 
-    public void setBuilding(Building building)
+    public void setResource(Resource resource)
     {
-        this.building = building;
+        this.resource = resource;
     }
 
     @Override
     public void update(float delta)
     {
-
         super.update(delta);
+        label.setText(getText("Oil Left", resource.getResource(ResourceType.Gold)));
     }
 
     private String getText(String prefix, float suffix)

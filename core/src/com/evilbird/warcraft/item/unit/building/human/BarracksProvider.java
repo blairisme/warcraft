@@ -31,10 +31,10 @@ import java.util.*;
 import javax.inject.Inject;
 
 /**
- * Instances of this class create {@link Building AddBarracksPlaceholder's}, loading the
+ * Instances of this class create {@link Building Barrack's}, loading the
  * necessary assets and defining the appropriate attributes.
  *
- * @author Blair
+ * @author Blair Butterworth
  */
 public class BarracksProvider implements AssetProvider<Item>
 {
@@ -61,25 +61,18 @@ public class BarracksProvider implements AssetProvider<Item>
     @Override
     public Item get() {
         Building result = new Building();
-//        result.setActions(getActions());
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
         result.setHealth(800.0f);
         result.setHealthMaximum(800.0f);
         result.setIcon(getIcon());
-        result.setName("AddBarracksPlaceholder");
+        result.setName("Barracks");
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
         result.setType(UnitType.Barracks);
         result.setSize(96, 96);
         return result;
-    }
-
-    private Collection<ActionIdentifier> getActions() {
-        Collection<ActionIdentifier> actions = new ArrayList<>();
-       // actions.add(TrainActions.TrainFootmanButton);
-        return actions;
     }
 
     private Map<AnimationIdentifier, DirectionalAnimation> getAnimations() {

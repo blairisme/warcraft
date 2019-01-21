@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.hud.minimap;
+package com.evilbird.warcraft.item.hud.control.minimap;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;

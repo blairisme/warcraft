@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.hud.state.building;
+package com.evilbird.warcraft.item.hud.control.state.building;
 
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.TextLabel;
@@ -10,22 +10,26 @@ import com.evilbird.warcraft.item.unit.building.Building;
  *
  * @author Blair Butterworth
  */
-public class ProductionDetailsPane extends GridPane
+public class FarmDetailsPane extends GridPane
 {
     private Building building;
-    private BuildingProgress progressBar;
+    private TextLabel grown;
+    private TextLabel used;
 
-    public ProductionDetailsPane(BuildingProgressProvider buildingProgressProvider)
+    public FarmDetailsPane()
     {
-        super(1, 1);
-        progressBar = buildingProgressProvider.get();
+        super(1, 3);
 
-        TextLabel training = createLabel("Training");
+        grown = createLabel("Grown");
+        used = createLabel("Used");
 
         setSize(160, 100);
-        setHorizontalCellPadding(4);
-        setVerticalCellPadding(80);
-        setCell(progressBar, 0, 0);
+        setCellSpacing(4);
+        setCell(createLabel("Food Usage"), 0, 0);
+        setCell(grown, 0, 1);
+        setCell(used, 0, 2);
+        setCellWidthMinimum(160);
+        setCellHeightMinimum(12);
     }
 
     public void setBuilding(Building building)
@@ -36,8 +40,17 @@ public class ProductionDetailsPane extends GridPane
     @Override
     public void update(float delta)
     {
-        progressBar.setProgress(building.getProgress());
+
         super.update(delta);
+    }
+
+    private String getText(String prefix, float suffix)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(prefix);
+        stringBuilder.append(": ");
+        stringBuilder.append(Math.round(suffix));
+        return stringBuilder.toString();
     }
 
     private TextLabel createLabel(String text)

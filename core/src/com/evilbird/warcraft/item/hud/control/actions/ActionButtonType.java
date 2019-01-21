@@ -7,16 +7,31 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.hud.actionpane;
+package com.evilbird.warcraft.item.hud.control.actions;
 
 import com.evilbird.engine.common.lang.Identifier;
 
+/**
+ * Defines options for specifying action button types.
+ *
+ * @author Blair Butterworth
+ */
 public enum ActionButtonType implements Identifier
 {
     CancelButton,
+    MoveButton,
+    AttackButton,
+    StopButton,
+
+    BuildBasicButton,
+    BuildAdvancedButton,
+
     BuildBarracksButton,
     BuildFarmButton,
     BuildTownHallButton,
+
     TrainFootmanButton,
     TrainPeasantButton
+
+    
 }

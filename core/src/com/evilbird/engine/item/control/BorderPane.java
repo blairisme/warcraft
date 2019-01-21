@@ -14,24 +14,27 @@ import com.evilbird.engine.item.ItemGroup;
 
 import javax.inject.Inject;
 
+/**
+ * Instances of this user interface control that lays out its children in top,
+ * left, right, bottom, and center positions.
+ *
+ * @author Blair Butterworth
+ */
 public class BorderPane extends ItemGroup
 {
     private Item center;
 
     @Inject
-    public BorderPane()
-    {
+    public BorderPane() {
         center = null;
     }
 
-    public Item getCenter()
-    {
+    public Item getCenter() {
         return center;
     }
 
-    public void setCenter(Item newCenter)
-    {
-        if (center != null){
+    public void setCenter(Item newCenter) {
+        if (center != null) {
             removeItem(center);
         }
         center = newCenter;
@@ -39,10 +42,9 @@ public class BorderPane extends ItemGroup
     }
 
     @Override
-    public void sizeChanged()
-    {
+    public void sizeChanged() {
         super.sizeChanged();
-        if (center != null){
+        if (center != null) {
             center.setSize(getSize());
         }
     }

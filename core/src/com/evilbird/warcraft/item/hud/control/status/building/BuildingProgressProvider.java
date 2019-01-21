@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.hud.state.building;
+package com.evilbird.warcraft.item.hud.control.state.building;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;

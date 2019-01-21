@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.hud.minimap;
+package com.evilbird.warcraft.item.hud.control.minimap;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;

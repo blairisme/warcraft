@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.hud.state.building;
+package com.evilbird.warcraft.item.hud.control.state.building;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.lang.NamedIdentifier;

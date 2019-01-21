@@ -1,4 +1,4 @@
-package com.evilbird.warcraft.item.hud.state.resource;
+package com.evilbird.warcraft.item.hud.control.state.resource;
 
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.TextLabel;
@@ -14,16 +14,16 @@ import javax.inject.Inject;
  * @author Blair Butterworth
  */
 //TODO: Localize
-public class OilPatchDetailsPane extends GridPane
+public class GoldMineDetailsPane extends GridPane
 {
     private Resource resource;
     private TextLabel label;
 
     @Inject
-    public OilPatchDetailsPane()
+    public GoldMineDetailsPane()
     {
         super(1, 1);
-        label = createLabel("Oil Left");
+        label = createLabel("Gold Left");
 
         setSize(160, 100);
         setCellSpacing(4);
@@ -41,7 +41,7 @@ public class OilPatchDetailsPane extends GridPane
     public void update(float delta)
     {
         super.update(delta);
-        label.setText(getText("Oil Left", resource.getResource(ResourceType.Gold)));
+        label.setText(getText("Gold Left", resource.getResource(ResourceType.Gold)));
     }
 
     private String getText(String prefix, float suffix)

@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.hud.actionpane;
+package com.evilbird.warcraft.item.hud.control.actions;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -74,8 +74,8 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
             case BuildBarracksButton: return getDrawable(assets, ICONS, 92, 304, 46, 38);
             case BuildFarmButton: return getDrawable(assets, ICONS, 138, 266, 46, 38);
             case BuildTownHallButton: return getDrawable(assets, ICONS, 0, 304, 46, 38);
-            case TrainFootmanButton: return getDrawable(assets, ICONS, 0, 0, 46, 38);
-            case TrainPeasantButton: return getDrawable(assets, ICONS, 92, 0, 46, 38);
+            case TrainFootmanButton: return getDrawable(assets, ICONS, 92, 0, 46, 38);
+            case TrainPeasantButton: return getDrawable(assets, ICONS, 0, 0, 46, 38);
             default: throw new UnsupportedOperationException();
         }
     }

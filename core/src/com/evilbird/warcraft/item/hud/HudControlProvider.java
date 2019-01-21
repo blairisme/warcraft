@@ -1,18 +1,27 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.hud;
 
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.hud.actionpane.ActionButtonProvider;
-import com.evilbird.warcraft.item.hud.actionpane.ActionPaneProvider;
+import com.evilbird.warcraft.item.hud.control.actions.ActionButtonProvider;
+import com.evilbird.warcraft.item.hud.control.actions.ActionPaneProvider;
 import com.evilbird.warcraft.item.hud.common.HealthBarProvider;
 import com.evilbird.warcraft.item.hud.common.UnitPaneProvider;
 import com.evilbird.warcraft.item.hud.control.ControlPane;
-import com.evilbird.warcraft.item.hud.minimap.MinimapPaneProvider;
+import com.evilbird.warcraft.item.hud.control.minimap.MinimapPaneProvider;
 import com.evilbird.warcraft.item.hud.resource.ResourcePanelProvider;
-import com.evilbird.warcraft.item.hud.state.DetailsPaneProvider;
-import com.evilbird.warcraft.item.hud.state.SelectionPaneProvider;
-import com.evilbird.warcraft.item.hud.state.StatePane;
-import com.evilbird.warcraft.item.hud.state.building.BuildingProgressProvider;
+import com.evilbird.warcraft.item.hud.control.status.DetailsPaneProvider;
+import com.evilbird.warcraft.item.hud.control.status.SelectionPaneProvider;
+import com.evilbird.warcraft.item.hud.control.status.StatePane;
+import com.evilbird.warcraft.item.hud.control.status.building.BuildingProgressProvider;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -30,7 +39,7 @@ import static com.evilbird.warcraft.item.hud.HudControls.StatePane;
 import static com.evilbird.warcraft.item.hud.HudControls.UnitPane;
 
 /**
- * Instances of this class TODO:Finish
+ * Instances of this factory create user interface controls.
  *
  * @author Blair Butterworth
  */

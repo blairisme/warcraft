@@ -1,4 +1,13 @@
-package com.evilbird.warcraft.item.hud.state;
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
+package com.evilbird.warcraft.item.hud.control.status;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.NamedIdentifier;
@@ -6,11 +15,12 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.TextLabel;
 import com.evilbird.engine.item.control.TextLabelAlignment;
+import com.evilbird.warcraft.item.hud.HudControls;
 import com.evilbird.warcraft.item.hud.common.UnitPane;
-import com.evilbird.warcraft.item.hud.state.building.BuildingDetailsPane;
-import com.evilbird.warcraft.item.hud.state.building.BuildingProgressProvider;
-import com.evilbird.warcraft.item.hud.state.combatant.CombatantDetailsPane;
-import com.evilbird.warcraft.item.hud.state.resource.ResourceDetailsPane;
+import com.evilbird.warcraft.item.hud.control.status.building.BuildingDetailsPane;
+import com.evilbird.warcraft.item.hud.control.status.building.BuildingProgressProvider;
+import com.evilbird.warcraft.item.hud.control.status.combatant.CombatantDetailsPane;
+import com.evilbird.warcraft.item.hud.control.status.resource.ResourceDetailsPane;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -18,12 +28,8 @@ import com.evilbird.warcraft.item.unit.resource.Resource;
 
 import javax.inject.Provider;
 
-/**
- * Instances of this class TODO:Finish
- *
- * @author Blair Butterworth
- */
 //TODO: Localize
+//TODO: Scale flexibly
 public class DetailsPane extends GridPane
 {
     private Provider<UnitPane> unitPaneProvider;
@@ -39,37 +45,32 @@ public class DetailsPane extends GridPane
         initialize();
     }
 
-    private void initialize()
-    {
+    private void initialize() {
         setSize(176, 176);
         setCellPadding(5);
         setCellSpacing(15);
         setCellWidthMinimum(170);
         setCellHeightMinimum(50);
-        setId(new NamedIdentifier("DetailsPane"));
-        setType(new NamedIdentifier("DetailsPane"));
+        setId(HudControls.DetailsPane);
+        setType(HudControls.DetailsPane);
         setTouchable(Touchable.disabled);
     }
 
-    public void setItem(Item item)
-    {
+    public void setItem(Item item) {
         clearCells();
         setTitle(item);
         setDetails(item);
     }
 
-    private void setTitle(Item item)
-    {
-        if (item instanceof Combatant){
-            setCombatantTitle((Combatant)item);
-        }
-        else if (item instanceof Unit){
-            setUnitTitle((Unit)item);
+    private void setTitle(Item item) {
+        if (item instanceof Combatant) {
+            setCombatantTitle((Combatant) item);
+        } else if (item instanceof Unit) {
+            setUnitTitle((Unit) item);
         }
     }
 
-    private void setUnitTitle(Unit unit)
-    {
+    private void setUnitTitle(Unit unit) {
         UnitPane unitPane = unitPaneProvider.get();
         unitPane.setItem(unit);
         unitPane.setSize(54, 53);
@@ -91,8 +92,7 @@ public class DetailsPane extends GridPane
         setCell(titleContainer, 0, 0);
     }
 
-    private void setCombatantTitle(Combatant combatant)
-    {
+    private void setCombatantTitle(Combatant combatant) {
         UnitPane unitPane = unitPaneProvider.get();
         unitPane.setItem(combatant);
         unitPane.setSize(54, 53);
@@ -117,37 +117,31 @@ public class DetailsPane extends GridPane
         setCell(titleContainer, 0, 0);
     }
 
-    private void setDetails(Item item)
-    {
-        if (item instanceof Building){
-            setBuildingDetails((Building)item);
-        }
-        else if (item instanceof Combatant){
-            setCombatantDetails((Combatant)item);
-        }
-        else if (item instanceof Resource){
-            setResourceDetails((Resource)item);
+    private void setDetails(Item item) {
+        if (item instanceof Building) {
+            setBuildingDetails((Building) item);
+        } else if (item instanceof Combatant) {
+            setCombatantDetails((Combatant) item);
+        } else if (item instanceof Resource) {
+            setResourceDetails((Resource) item);
         }
     }
 
-    private void setBuildingDetails(Building building)
-    {
+    private void setBuildingDetails(Building building) {
         BuildingDetailsPane buildingDetailsPane = new BuildingDetailsPane(buildingProgressProvider);
         buildingDetailsPane.setBuilding(building);
         buildingDetailsPane.setSize(160, 100);
         setCell(buildingDetailsPane, 0, 1);
     }
 
-    private void setCombatantDetails(Combatant combatant)
-    {
+    private void setCombatantDetails(Combatant combatant) {
         CombatantDetailsPane combatantDetailsPane = new CombatantDetailsPane();
         combatantDetailsPane.setCombatant(combatant);
         combatantDetailsPane.setSize(160, 100);
         setCell(combatantDetailsPane, 0, 1);
     }
 
-    private void setResourceDetails(Resource resource)
-    {
+    private void setResourceDetails(Resource resource) {
         ResourceDetailsPane resourceDetailsPane = new ResourceDetailsPane();
         resourceDetailsPane.setResource(resource);
         resourceDetailsPane.setSize(160, 100);
