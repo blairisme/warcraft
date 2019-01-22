@@ -53,8 +53,8 @@ public class LevelModel
 
     public void load()
     {
-        world = stateFactory.get(HumanCampaign.Level1);
-        hud = stateFactory.get(HudType.Human);
+        world = stateFactory.get(HumanCampaign.Level1); //TODO
+        hud = stateFactory.get(HudType.Human);  //TODO
         behaviour = behaviourFactory.newBehaviour(null); //TODO Provide meaningful id
 
         presenter.setHud(hud);

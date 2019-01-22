@@ -104,7 +104,7 @@ public class ItemRoot implements ItemComposite
      * @param predicate a predicate implementation used to differentiate between items.
      * @return all child items satisfying the given predicate.
      */
-    public Collection<Item> findAll(Predicate<Item> predicate) {
+    public <T extends Item> Collection<T> findAll(Predicate<T> predicate) {
         return group.findAll(predicate);
     }
 
@@ -121,9 +121,9 @@ public class ItemRoot implements ItemComposite
      * @param delta the time between this frame and the last frame.
      */
     public void update(float delta) {
+        spatialGraph.update();
         delegate.getCamera().update();
         delegate.act(delta);
-        spatialGraph.update();
     }
 
     /**

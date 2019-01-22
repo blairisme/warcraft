@@ -19,4 +19,6 @@ public interface ActionContext
     Item getTarget();
 
     UserInput getInput();
+
+    boolean showFeedback();
 }

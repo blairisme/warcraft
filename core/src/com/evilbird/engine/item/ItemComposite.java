@@ -66,7 +66,7 @@ public interface ItemComposite
      *                  between items.
      * @return          all child items satisfying the given predicate.
      */
-    Collection<Item> findAll(Predicate<Item> predicate);
+    <T extends Item> Collection<T> findAll(Predicate<T> predicate);
 
     /**
      * Returns the {@link Item} at the specified location in world

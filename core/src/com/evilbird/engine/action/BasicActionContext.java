@@ -38,4 +38,9 @@ public class BasicActionContext implements ActionContext
     public UserInput getInput() {
         return input;
     }
+
+    @Override
+    public boolean showFeedback() {
+        return input != null; //TODO
+    }
 }

@@ -39,6 +39,9 @@ import javax.inject.Inject;
  * @author Blair Butterworth
  */
 //TODO: Handle impossible path
+//TODO: Handle target walking away
+//TODO: Orient towards target if they move
+//TODO: Stop attacking if target dead
 public class Attack implements ActionProvider
 {
     private ItemFactory itemFactory;
@@ -50,22 +53,25 @@ public class Attack implements ActionProvider
 
     @Override
     public Action get(ActionIdentifier action, ActionContext context) {
-        Action attack = attack(context.getItem(), context.getTarget());
+        Action attack = attack(context.getItem(), context.getTarget(), context.showFeedback());
         return new ReplacementAction(context.getItem(), attack);
     }
 
-    private Action attack(Item attacker, Item target) {
-        Action repositionAttacker = repositionAttacker(attacker, target);
+    private Action attack(Item attacker, Item target, boolean feedback) {
+        Action repositionAttacker = repositionAttacker(attacker, target, feedback);
         Action performAttack = performAttack(attacker, target);
         Action completeAttack = completeAttack(attacker, target);
         return new SequenceAction(repositionAttacker, performAttack, completeAttack);
     }
 
-    private Action repositionAttacker(Item attacker, Item target) {
-        Action effect = new ConfirmAction(itemFactory, target);
-        Action sound = new AudibleAction((Audible)attacker, UnitSound.Acknowledge);
+    private Action repositionAttacker(Item attacker, Item target, boolean feedback) {
         Action move = new AnimatedMoveAction(attacker, target);
-        return new ParallelAction(effect, sound, move);
+        if (feedback) {
+            Action effect = new ConfirmAction(itemFactory, target);
+            Action sound = new AudibleAction((Audible) attacker, UnitSound.Acknowledge);
+            return new ParallelAction(effect, sound, move);
+        }
+        return move;
     }
 
     private Action performAttack(Item attacker, Item target) {

@@ -45,10 +45,10 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
     /**
      * Adds an {@link Item} as a child of this Group.
      *
-     * @param item  the item to set.
+     * @param item the item to set.
      */
     public void addItem(Item item) {
-        Group group = (Group)delegate;
+        Group group = (Group) delegate;
         group.addActor(item.delegate);
         item.setParent(this);
         item.setRoot(getRoot());
@@ -58,7 +58,7 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
     /**
      * Removes an {@link Item} from this group.
      *
-     * @param item  the item to remove.
+     * @param item the item to remove.
      */
     public void removeItem(Item item) {
         item.delegate.remove();
@@ -69,7 +69,7 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
      * Removes all {@link Item}s from this group.
      */
     public void clearItems() {
-        Group group = (Group)delegate;
+        Group group = (Group) delegate;
         group.clearChildren();
         items.clear();
     }
@@ -89,11 +89,11 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
      * group, last inserted actors being tested first, with the ItemGroup
      * itself tested last.
      *
-     * @param coordinates           the world coordinates to test.
-     * @param respectTouchability   specifies if hit detection will respect the
-     *                              items touchability.
-     * @return  the item at the specified location or null if no item is
-     *          located there.
+     * @param coordinates         the world coordinates to test.
+     * @param respectTouchability specifies if hit detection will respect the
+     *                            items touchability.
+     * @return the item at the specified location or null if no item is
+     * located there.
      */
     @Override
     public Item hit(Vector2 coordinates, boolean respectTouchability) {
@@ -112,18 +112,18 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
      * being tested first. This method does not respect the touchability of the
      * ItemGroup, only its children.
      *
-     * @param coordinates           the world coordinates to test.
-     * @param respectTouchability   specifies if hit detection will respect the
-     *                              items touchability.
-     * @return  the item at the specified location or null if no item is
-     *          located there.
+     * @param coordinates         the world coordinates to test.
+     * @param respectTouchability specifies if hit detection will respect the
+     *                            items touchability.
+     * @return the item at the specified location or null if no item is
+     * located there.
      */
     protected Item childHit(Vector2 coordinates, boolean respectTouchability) {
-        for (int itemIndex = items.size() - 1; itemIndex >= 0; itemIndex--){
+        for (int itemIndex = items.size() - 1; itemIndex >= 0; itemIndex--) {
             Item item = items.get(itemIndex);
             Vector2 localCoordinates = item.parentToLocalCoordinates(coordinates);
             Item hit = item.hit(localCoordinates, respectTouchability);
-            if (hit != null){
+            if (hit != null) {
                 return hit;
             }
         }
@@ -134,10 +134,9 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
      * Returns the first child {@link Item} that satisfies the given {@link Predicate}.
      *
      * @param predicate a predicate implementation used to differentiate between items.
-     * @return          a child item satisfying the given predicate.
+     * @return a child item satisfying the given predicate.
      */
-    public Item find(Predicate<Item> predicate)
-    {
+    public Item find(Predicate<Item> predicate) {
         return find(this, predicate);
     }
 
@@ -145,22 +144,20 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
      * Returns the all child {@link Item}s that satisfy the given {@link Predicate}.
      *
      * @param predicate a predicate implementation used to differentiate between items.
-     * @return          all child items satisfying the given predicate.
+     * @return all child items satisfying the given predicate.
      */
-    public Collection<Item> findAll(Predicate<Item> predicate)
-    {
+    public <T extends Item> Collection<T> findAll(Predicate<T> predicate) {
         return findAll(this, predicate);
     }
 
-    private Item find(ItemGroup group, Predicate<Item> predicate)
-    {
-        for (Item item: group.items){
-            if (predicate.test(item)){
+    private Item find(ItemGroup group, Predicate<Item> predicate) {
+        for (Item item : group.items) {
+            if (predicate.test(item)) {
                 return item;
             }
-            if (item instanceof ItemGroup){
-                Item result = find((ItemGroup)item, predicate);
-                if (result != null){
+            if (item instanceof ItemGroup) {
+                Item result = find((ItemGroup) item, predicate);
+                if (result != null) {
                     return result;
                 }
             }
@@ -168,15 +165,14 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
         return null;
     }
 
-    private Collection<Item> findAll(ItemGroup group, Predicate<Item> predicate)
-    {
-        Collection<Item> result = new ArrayList<Item>();
-        for (Item item: group.items){
-            if (predicate.test(item)){
-                result.add(item);
+    private <T extends Item> Collection<T> findAll(ItemGroup group, Predicate<T> predicate) {
+        Collection<T> result = new ArrayList<>();
+        for (Item item : group.items) {
+            if (predicate.test((T)item)) {
+                result.add((T)item);
             }
-            if (item instanceof ItemGroup){
-                result.addAll(findAll((ItemGroup)item, predicate));
+            if (item instanceof ItemGroup) {
+                result.addAll(findAll((ItemGroup) item, predicate));
             }
         }
         return result;

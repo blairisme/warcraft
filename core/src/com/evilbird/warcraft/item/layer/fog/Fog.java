@@ -35,6 +35,7 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithId;
  * @author Blair Butterworth
  */
 //TODO: Finish
+//TODO: Improve performance
 public class Fog extends Layer
 {
     private FogTileSet tileSet;

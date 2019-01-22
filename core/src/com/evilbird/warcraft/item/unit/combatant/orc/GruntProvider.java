@@ -66,7 +66,7 @@ public class GruntProvider implements AssetProvider<Item>
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
         result.setSpeed(10f);
-        result.setSight(4f);
+        result.setSight(256f);
         result.setType(UnitType.Grunt);
         result.setSize(32, 32);
         return result;

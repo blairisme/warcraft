@@ -15,108 +15,106 @@ import com.evilbird.engine.common.lang.Objects;
 
 public class ItemPredicates
 {
-    public static Predicate<Item> itemWithId(Identifier id)
-    {
+    @SuppressWarnings("unchecked")
+    public static <T extends Item> Predicate<T> itemWithClass(Class<T> clazz) {
+        return new ItemWithClass(clazz); //TODO: Pool?
+    }
+
+    public static class ItemWithClass <T extends Item> implements Predicate<T> {
+        private Class<T> clazz;
+
+        public ItemWithClass(Class<T> clazz) {
+            this.clazz = clazz;
+        }
+
+        @Override
+        public boolean test(T item) {
+            return clazz.isAssignableFrom(item.getClass());
+        }
+    }
+
+
+    public static Predicate<Item> itemWithId(Identifier id) {
         return new ItemWithId(id); //TODO: Pool?
     }
 
-    public static class ItemWithId implements Predicate<Item>
-    {
+    public static class ItemWithId implements Predicate<Item> {
         private Identifier id;
 
-        public ItemWithId(Identifier id)
-        {
+        public ItemWithId(Identifier id) {
             this.id = id;
         }
 
         @Override
-        public boolean test(Item item)
-        {
+        public boolean test(Item item) {
             return id.equals(item.getIdentifier());
         }
     }
 
-    public static Predicate<Item> itemWithType(Identifier type)
-    {
+    public static Predicate<Item> itemWithType(Identifier type) {
         return new ItemWithType(type); //TODO: Pool?
     }
 
-    public static class ItemWithType implements Predicate<Item>
-    {
+    public static class ItemWithType implements Predicate<Item> {
         private Identifier type;
 
-        public ItemWithType(Identifier type)
-        {
+        public ItemWithType(Identifier type) {
             this.type = type;
         }
 
         @Override
-        public boolean test(Item item)
-        {
+        public boolean test(Item item) {
             return type.equals(item.getType());
         }
     }
 
-    public static Predicate<Item> itemWithAction()
-    {
+    public static Predicate<Item> itemWithAction() {
         return new ItemWithAction(); //TODO singleton?
     }
 
-    public static class ItemWithAction implements Predicate<Item>
-    {
+    public static class ItemWithAction implements Predicate<Item> {
         @Override
-        public boolean test(Item item)
-        {
+        public boolean test(Item item) {
             return item.hasActions();
         }
     }
 
-    public static Predicate<Item> itemWithOwner(Identifier id)
-    {
+    public static Predicate<Item> itemWithOwner(Identifier id) {
         return new ItemWithOwner(id);
     }
 
-    public static class ItemWithOwner implements Predicate<Item>
-    {
+    public static class ItemWithOwner implements Predicate<Item> {
         private Identifier id;
 
-        public ItemWithOwner(Identifier id)
-        {
+        public ItemWithOwner(Identifier id) {
             this.id = id;
         }
 
         @Override
-        public boolean test(Item item)
-        {
+        public boolean test(Item item) {
             Item parent = item.getParent();
             return Objects.equals(parent.getIdentifier(), id);
         }
     }
 
-    public static Predicate<Item> selectedItem()
-    {
+    public static Predicate<Item> selectedItem() {
         return new SelectedItem(); //TODO singleton?
     }
 
-    public static class SelectedItem implements Predicate<Item>
-    {
+    public static class SelectedItem implements Predicate<Item> {
         @Override
-        public boolean test(Item item)
-        {
+        public boolean test(Item item) {
             return item.getSelected();
         }
     }
 
-    public static Predicate<Item> selectableItem()
-    {
+    public static Predicate<Item> selectableItem() {
         return new SelectableItem(); //TODO singleton?
     }
 
-    public static class SelectableItem implements Predicate<Item>
-    {
+    public static class SelectableItem implements Predicate<Item> {
         @Override
-        public boolean test(Item item)
-        {
+        public boolean test(Item item) {
             return item.getSelectable();
         }
     }
