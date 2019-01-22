@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.item;
 
 import com.badlogic.gdx.graphics.Camera;
@@ -22,8 +31,7 @@ public class ItemRoot implements ItemComposite
     /**
      * Constructs a new instance of this class.
      */
-    public ItemRoot()
-    {
+    public ItemRoot() {
         this.group = new ItemGroup();
         this.group.setRoot(this);
         this.delegate = new Stage();
@@ -34,22 +42,20 @@ public class ItemRoot implements ItemComposite
     /**
      * Adds an {@link Item} as a child of the item root.
      *
-     * @param item  the item to set.
+     * @param item the item to set.
      */
     @Override
-    public void addItem(Item item)
-    {
+    public void addItem(Item item) {
         this.group.addItem(item);
     }
 
     /**
      * Removes an {@link Item} from the item root.
      *
-     * @param item  the item to remove.
+     * @param item the item to remove.
      */
     @Override
-    public void removeItem(Item item)
-    {
+    public void removeItem(Item item) {
         this.group.removeItem(item);
     }
 
@@ -57,8 +63,7 @@ public class ItemRoot implements ItemComposite
      * Removes all {@link Item}s from the item root.
      */
     @Override
-    public void clearItems()
-    {
+    public void clearItems() {
         this.group.clearItems();
     }
 
@@ -68,19 +73,28 @@ public class ItemRoot implements ItemComposite
      * @return the children of the ItemGroup.
      */
     @Override
-    public Collection<Item> getItems()
-    {
+    public Collection<Item> getItems() {
         return this.group.getItems();
+    }
+
+    /**
+     * Returns a {@link SpatialGraph}, a graph of the game space, represented
+     * as a 2 dimensional matrix of 32 x 32 pixel sized nodes, containing all
+     * of the touchable items contained in the item root.
+     *
+     * @return  a {@link SpatialGraph}.
+     */
+    public SpatialGraph getSpatialGraph() {
+        return spatialGraph;
     }
 
     /**
      * Returns the first child {@link Item} that satisfies the given {@link Predicate}.
      *
      * @param predicate a predicate implementation used to differentiate between items.
-     * @return          a child item satisfying the given predicate.
+     * @return a child item satisfying the given predicate.
      */
-    public Item find(Predicate<Item> predicate)
-    {
+    public Item find(Predicate<Item> predicate) {
         return group.find(predicate);
     }
 
@@ -88,18 +102,16 @@ public class ItemRoot implements ItemComposite
      * Returns the all child {@link Item}s that satisfy the given {@link Predicate}.
      *
      * @param predicate a predicate implementation used to differentiate between items.
-     * @return          all child items satisfying the given predicate.
+     * @return all child items satisfying the given predicate.
      */
-    public Collection<Item> findAll(Predicate<Item> predicate)
-    {
+    public Collection<Item> findAll(Predicate<Item> predicate) {
         return group.findAll(predicate);
     }
 
     /**
      * Draws the item graph.
      */
-    public void draw()
-    {
+    public void draw() {
         delegate.draw();
     }
 
@@ -108,8 +120,7 @@ public class ItemRoot implements ItemComposite
      *
      * @param delta the time between this frame and the last frame.
      */
-    public void update(float delta)
-    {
+    public void update(float delta) {
         delegate.getCamera().update();
         delegate.act(delta);
         spatialGraph.update();
@@ -121,8 +132,7 @@ public class ItemRoot implements ItemComposite
      *
      * @return a viewport.
      */
-    public Viewport getViewport()
-    {
+    public Viewport getViewport() {
         return delegate.getViewport();
     }
 
@@ -132,38 +142,34 @@ public class ItemRoot implements ItemComposite
      *
      * @param viewport a viewport.
      */
-    public void setViewport(Viewport viewport)
-    {
+    public void setViewport(Viewport viewport) {
         delegate.setViewport(viewport);
     }
 
     /**
      * Configures the viewport's screen bounds using the specified screen size.
      *
-     * @param width     the new width of the viewport.
-     * @param height    the new height of the viewport.
+     * @param width  the new width of the viewport.
+     * @param height the new height of the viewport.
      */
-    public void resize(int width, int height)
-    {
+    public void resize(int width, int height) {
         delegate.getViewport().update(width, height);
     }
 
     /**
      * Release system resources used by the root.
      */
-    public void dispose()
-    {
+    public void dispose() {
         delegate.dispose();
     }
 
     /**
      * Transforms the given screen coordinates into world coordinates.
      *
-     * @param coordinates   The screen coordinates to convert.
-     * @return              The given screen coordinates transformed into world coordinates.
+     * @param coordinates The screen coordinates to convert.
+     * @return The given screen coordinates transformed into world coordinates.
      */
-    public Vector2 unproject(Vector2 coordinates)
-    {
+    public Vector2 unproject(Vector2 coordinates) {
         Vector2 result = new Vector2(coordinates);
         return delegate.screenToStageCoordinates(result);
     }
@@ -171,11 +177,10 @@ public class ItemRoot implements ItemComposite
     /**
      * Transforms the given world coordinates into screen coordinates.
      *
-     * @param coordinates   The world coordinates to convert.
-     * @return              The given world coordinates transformed into screen coordinates.
+     * @param coordinates The world coordinates to convert.
+     * @return The given world coordinates transformed into screen coordinates.
      */
-    public Vector2 project(Vector2 coordinates)
-    {
+    public Vector2 project(Vector2 coordinates) {
         Vector2 result = new Vector2(coordinates);
         return delegate.stageToScreenCoordinates(result);
     }
@@ -185,17 +190,11 @@ public class ItemRoot implements ItemComposite
      * performed in the order the item were inserted into the root, last inserted actors being
      * tested first. To get world coordinates from screen coordinates, use {@link #unproject(Vector2)}.
      *
-     * @param coordinates   the world coordinates to test.
-     * @param touchable     specifies if hit detection will respect the items touchability.
-     * @return              the item at the specified location or null if no item is located there.
+     * @param coordinates the world coordinates to test.
+     * @param touchable   specifies if hit detection will respect the items touchability.
+     * @return the item at the specified location or null if no item is located there.
      */
-    public Item hit(Vector2 coordinates, boolean touchable)
-    {
+    public Item hit(Vector2 coordinates, boolean touchable) {
         return group.hit(coordinates, touchable);
-    }
-
-    public SpatialGraph getSpatialGraph()
-    {
-        return spatialGraph;
     }
 }

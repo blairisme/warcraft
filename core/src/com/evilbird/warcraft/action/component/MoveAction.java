@@ -23,6 +23,13 @@ import com.evilbird.warcraft.item.layer.LayerType;
 
 import java.util.Iterator;
 
+/**
+ * Instances of this {@link BasicAction action} move an item from their current
+ * location to a given destination. The moving item will be animated with a
+ * movement animation, as well choose a path that avoids obstacles.
+ *
+ * @author Blair Butterworth
+ */
 //TODO: Don't allow two units to occupy the same node (not always but under certain conditions)
 //TODO: Handle target moving away (dont recalculate path every update )
 //TODO: Move to close point adjacent to item destination, not the bottom left (change in spatial graph possibly).
@@ -41,7 +48,7 @@ public class MoveAction extends BasicAction
         this(target, new MoveDestinationVector(destination));
     }
 
-    public MoveAction(Movable target, Positionable destination) {
+    public MoveAction(Movable target, Item destination) {
         this(target, new MoveDestinationItem(destination));
     }
 
@@ -150,21 +157,9 @@ public class MoveAction extends BasicAction
     }
 
     private void incrementNode() {
-        removeOccupants(pathNode, target);
+        graph.removeOccupants(pathNode, (Item)target);
         pathNode = pathIterator.next();
-        addOccupants(pathNode, target);
-    }
-
-    private void addOccupants(SpatialItemNode node, Movable occupant) {
-        for (SpatialItemNode adjacentNode: graph.getNodes(node.getSpatialReference(), occupant.getMovementDisplacement())) {
-            adjacentNode.addOccupant((Item)occupant);
-        }
-    }
-
-    private void removeOccupants(SpatialItemNode node, Movable occupant) {
-        for (SpatialItemNode adjacentNode: graph.getNodes(node.getSpatialReference(), occupant.getMovementDisplacement())) {
-            adjacentNode.removeOccupant((Item)occupant);
-        }
+        graph.addOccupants(pathNode, (Item)target);
     }
 
     private boolean updatePosition(Vector2 oldPosition, float time) {

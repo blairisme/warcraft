@@ -11,18 +11,20 @@ package com.evilbird.warcraft.action.component;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.lang.Positionable;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.SpatialGraph;
 import com.evilbird.engine.item.SpatialItemNode;
 
-/**
- * @author Blair Butterworth
- */
+import java.util.Map;
+
 public class MoveDestinationItem implements MoveDestination
 {
-    private Positionable destination;
+    private Item destination;
+    private SpatialGraph graph;
 
-    public MoveDestinationItem(Positionable destination) {
+    public MoveDestinationItem(Item destination) {
         this.destination = destination;
+        this.graph = destination.getRoot().getSpatialGraph();
     }
 
     @Override
@@ -37,6 +39,7 @@ public class MoveDestinationItem implements MoveDestination
 
     @Override
     public boolean isDestinationValid() {
-        return true;
+        Map<Item, SpatialItemNode> newOccupants = graph.getNewOccupants();
+        return !newOccupants.containsKey(destination);
     }
 }

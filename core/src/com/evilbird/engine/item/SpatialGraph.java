@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.function.AcceptPredicate;
 import com.evilbird.engine.common.function.Predicate;
+import com.evilbird.warcraft.item.common.capability.Movable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,15 +35,15 @@ import java.util.Map;
 // TODO: Refactor common behaviour into engine/common/pathing package
 public class SpatialGraph implements IndexedGraph<SpatialItemNode>
 {
+    private boolean populated;
     private float nodeWidth;
     private float nodeHeight;
     private int nodeCountX;
     private int nodeCountY;
     private ItemComposite root;
     private SpatialItemNode[][] nodes;
-    private Map<Item, Collection<SpatialItemNode>> occupantCache;
-    private boolean populated;
     private Predicate<SpatialItemNode> connectionFilter;
+    private Map<Item, SpatialItemNode> newOccupants;
 
     public SpatialGraph(SpatialGraph graph, Predicate<SpatialItemNode> connectionFilter) {
         this.root = graph.root;
@@ -53,7 +54,7 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         this.nodes = graph.nodes;
         this.populated = graph.populated;
         this.connectionFilter = connectionFilter;
-        this.occupantCache = graph.occupantCache;
+        this.newOccupants = graph.newOccupants;
     }
 
     public SpatialGraph(ItemComposite root, int nodeWidth, int nodeHeight, int nodeCountX, int nodeCountY) {
@@ -65,7 +66,7 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         this.nodes = createNodeArray(nodeCountX, nodeCountY);
         this.populated = false;
         this.connectionFilter = new AcceptPredicate<>();
-        this.occupantCache = new HashMap<>();
+        this.newOccupants = new HashMap<>();
     }
 
     @Override
@@ -89,6 +90,11 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
             }
         }
         return result;
+    }
+
+    @Override
+    public int getNodeCount() {
+        return nodeCountX * nodeCountY;
     }
 
     public SpatialItemNode getNode(Vector2 position) {
@@ -125,7 +131,7 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         return result;
     }
 
-    // TODO find all nodes around object and return first one that passes filter.
+    // TODO find all nodes around object and return first one that passes filter
     public SpatialItemNode getAdjacentNode(Vector2 position) {
         SpatialItemNode node = getNode(position);
         Array<Connection<SpatialItemNode>> connections = getConnections(node);
@@ -137,13 +143,12 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
     }
 
     @Override
-    public int getNodeCount() {
-        return nodeCountX * nodeCountY;
-    }
-
-    @Override
     public int getIndex(SpatialItemNode node) {
         return node.getIndex();
+    }
+
+    public Map<Item, SpatialItemNode> getNewOccupants() {
+        return newOccupants;
     }
 
     public void update() {
@@ -151,22 +156,37 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
             populated = true;
             updateOccupant(root.getItems());
         }
+        newOccupants.clear();
     }
 
-    private void updateOccupant(Collection<Item> items) {
-        for (Item item: items) {
-            if (item instanceof ItemComposite) {
-                ItemComposite composite = (ItemComposite)item;
-                updateOccupant(composite.getItems());
-            }
-            updateOccupant(item);
+    public void addOccupants(SpatialItemNode node, Item occupant) {
+        for (SpatialItemNode adjacentNode: getNodes(node.getSpatialReference(), occupant.getSize())) {
+            adjacentNode.addOccupant(occupant);
+            newOccupants.put(occupant, node);
         }
     }
 
-    private void updateOccupant(Item item) {
-        if (item.getTouchable()) {
-            for (SpatialItemNode node : getNodes(item.getPosition(), item.getSize())) {
-                node.addOccupant(item);
+    public void removeOccupants(SpatialItemNode node, Item occupant) {
+        for (SpatialItemNode adjacentNode: getNodes(node.getSpatialReference(), occupant.getSize())) {
+            adjacentNode.removeOccupant(occupant);
+        }
+    }
+
+    public void updateOccupant(Collection<Item> occupants) {
+        for (Item occupant: occupants) {
+            if (occupant instanceof ItemComposite) {
+                ItemComposite composite = (ItemComposite)occupant;
+                updateOccupant(composite.getItems());
+            }
+            updateOccupant(occupant);
+        }
+    }
+
+    public void updateOccupant(Item occupant) {
+        if (occupant.getTouchable()) {
+            for (SpatialItemNode node : getNodes(occupant.getPosition(), occupant.getSize())) {
+                node.addOccupant(occupant);
+                newOccupants.put(occupant, node);
             }
         }
     }
