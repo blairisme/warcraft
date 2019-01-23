@@ -81,9 +81,12 @@ public class Fog extends Layer
         revealItems(revealedItems);
     }
 
+    //TODO: use enum
+    //TODO: find players and filter by console user
+    //TODO: cache player
     private ItemGroup getPlayer() {
         ItemRoot world = getRoot();
-        return (ItemGroup)world.find(itemWithId(new NamedIdentifier("Player1"))); //TODO
+        return (ItemGroup)world.find(itemWithId(new NamedIdentifier("Player1")));
     }
 
     private void conceal(){

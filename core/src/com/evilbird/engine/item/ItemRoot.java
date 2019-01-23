@@ -22,6 +22,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
+//TODO: Dont include spatial graph for hud root
 public class ItemRoot implements ItemComposite
 {
     private Stage delegate;

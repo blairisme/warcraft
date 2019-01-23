@@ -35,6 +35,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
+//TODO: Reassign textures of adjacent tiles when item dies
 public class Forest extends Layer
 {
     private TreeProvider treeProvider;

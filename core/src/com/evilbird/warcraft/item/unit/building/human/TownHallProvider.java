@@ -37,10 +37,10 @@ import javax.inject.Inject;
 //TODO: Create construction image of size 128x128
 public class TownHallProvider implements AssetProvider<Item>
 {
-    public static final String BASE = "data/textures/human/winter/town_hall.png";
-    public static final String CONSTRUCTION = "data/textures/neutral/perennial/construction.png";
-    public static final String DESTRUCTION = "data/textures/neutral/winter/destroyed_site.png";
-    public static final String ICONS = "data/textures/neutral/perennial/icons.png";
+    private static final String BASE = "data/textures/human/winter/town_hall.png";
+    private static final String CONSTRUCTION = "data/textures/neutral/perennial/construction.png";
+    private static final String DESTRUCTION = "data/textures/neutral/winter/destroyed_site.png";
+    private static final String ICONS = "data/textures/neutral/perennial/icons.png";
     private AssetManager assets;
 
     @Inject

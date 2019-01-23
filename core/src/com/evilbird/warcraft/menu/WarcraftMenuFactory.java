@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.menu;
 
 import com.badlogic.gdx.Gdx;
@@ -24,6 +33,7 @@ import com.evilbird.engine.menu.MenuIdentifier;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
+//TODO: Refactor into root menu class
 public class WarcraftMenuFactory implements MenuFactory
 {
     private AssetManager assetManager;

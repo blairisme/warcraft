@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.loader;
 
 import com.badlogic.gdx.Gdx;
@@ -18,8 +27,7 @@ public class GameLoaderView extends ScreenAdapter
     private Table container;
 
     @Inject
-    public GameLoaderView()
-    {
+    public GameLoaderView() {
         container = new Table();
         container.setFillParent(true);
 
@@ -27,16 +35,14 @@ public class GameLoaderView extends ScreenAdapter
         stage.addActor(container);
     }
 
-    public void setBackground(Texture texture)
-    {
+    public void setBackground(Texture texture) {
         TextureRegion region = new TextureRegion(texture);
         Drawable drawable = new TextureRegionDrawable(region);
         container.setBackground(drawable);
     }
 
     @Override
-    public void render(float delta)
-    {
+    public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -45,14 +51,12 @@ public class GameLoaderView extends ScreenAdapter
     }
 
     @Override
-    public void resize(int width, int height)
-    {
+    public void resize(int width, int height) {
         stage.getViewport().update(width, height, false);
     }
 
     @Override
-    public void dispose()
-    {
+    public void dispose() {
         stage.dispose();
     }
 }

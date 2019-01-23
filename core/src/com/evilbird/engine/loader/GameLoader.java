@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.loader;
 
 import com.badlogic.gdx.ScreenAdapter;
@@ -7,6 +16,7 @@ import com.evilbird.engine.menu.Menu;
 
 import javax.inject.Inject;
 
+//TODO: Move loading out of constructor
 public class GameLoader extends ScreenAdapter
 {
     private GameLoaderModel model;
@@ -14,8 +24,7 @@ public class GameLoader extends ScreenAdapter
     private GameScreenManager screenManager;
 
     @Inject
-    public GameLoader(GameLoaderModel model, GameLoaderView view)
-    {
+    public GameLoader(GameLoaderModel model, GameLoaderView view) {
         this.view = view;
         this.model = model;
         this.model.setPresenter(this);
@@ -24,36 +33,31 @@ public class GameLoader extends ScreenAdapter
     }
 
     @Override
-    public void dispose()
-    {
+    public void dispose() {
         view.dispose();
     }
 
     @Override
-    public void render(float delta)
-    {
+    public void render(float delta) {
         model.update(delta);
         view.render(delta);
     }
 
     @Override
-    public void resize(int width, int height)
-    {
+    public void resize(int width, int height) {
         view.resize(width, height);
     }
 
-    public void setScreenManager(GameScreenManager screenManager)
-    {
+    public void setScreenManager(GameScreenManager screenManager) {
         this.screenManager = screenManager;
     }
 
-    public void setMenuScreen(Menu menu)
-    {
+    public void setMenuScreen(Menu menu) {
         menu.setScreenManager(screenManager);
         screenManager.setScreen(menu);
     }
-    public void setBackground(Texture texture)
-    {
+
+    public void setBackground(Texture texture) {
         view.setBackground(texture);
     }
 }

@@ -59,7 +59,7 @@ public class ResourcePane extends Item
 
     private Table createTable() {
         Table table = new Table();
-        table.setBounds(0, Gdx.graphics.getHeight() - 20, Gdx.graphics.getWidth(), 20); //TODO
+        table.setBounds(0, Gdx.graphics.getHeight() - 20, Gdx.graphics.getWidth(), 20);
         table.align(Align.center);
         table.add(goldImage).width(14).padRight(5f);
         table.add(goldText).width(50).padRight(5f);

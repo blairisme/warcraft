@@ -27,6 +27,7 @@ import java.util.List;
  *
  * @author Blair Butterworth
  */
+//TODO: Add caching to find
 public class ItemGroup extends Item implements GroupObserver, ItemComposite
 {
     protected List<Item> items;

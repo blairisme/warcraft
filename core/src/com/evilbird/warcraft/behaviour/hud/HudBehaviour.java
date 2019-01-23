@@ -33,7 +33,6 @@ import static com.evilbird.engine.item.ItemPredicates.selectedItem;
 //TODO: Resource update frequency too high. Only when changed.
 //TODO: Selection update Frequency too high. Only when selection changed.
 //TODO: Use player.isConsoleUser to find player
-//TODO: Use statically defined hud control identifiers
 public class HudBehaviour implements Behaviour
 {
     private Player player;

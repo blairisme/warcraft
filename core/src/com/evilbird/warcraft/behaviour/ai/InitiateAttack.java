@@ -35,7 +35,7 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithClass;
  *
  * @author Blair Butterworth
  */
-//TODO: Improve performance - caching?
+//TODO: Improve performance - caching? Consider putting caching into ItemGroup
 public class InitiateAttack implements AiProcedure
 {
     private ActionFactory actionFactory;
@@ -77,7 +77,6 @@ public class InitiateAttack implements AiProcedure
 //        return aiPlayers;
 //    }
 
-    //TODO: cache
     private Collection<Player> getEnemyPlayers(Item item) {
         Player player = (Player)item.getParent();
         ItemRoot root = item.getRoot();

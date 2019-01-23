@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.loader;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -41,13 +50,11 @@ public class GameLoaderModel
         this.stateFactory = stateFactory;
     }
 
-    public void setPresenter(GameLoader presenter)
-    {
+    public void setPresenter(GameLoader presenter) {
         this.presenter = presenter;
     }
 
-    public void loadBackground()
-    {
+    public void loadBackground() {
         assets.load("data/textures/menu/title.png", Texture.class);
         assets.finishLoading();
 
@@ -55,8 +62,7 @@ public class GameLoaderModel
         presenter.setBackground(texture);
     }
 
-    public void loadAssets()
-    {
+    public void loadAssets() {
         actionFactory.load();
         menuFactory.load();
         itemFactory.load();
@@ -64,11 +70,9 @@ public class GameLoaderModel
         stateFactory.load();
     }
 
-    public void update(float delta)
-    {
+    public void update(float delta) {
         loadingTime += delta;
-        if (loadingTime >= 2 && assets.update())
-        {
+        if (loadingTime >= 2 && assets.update()) {
             Menu menu = menuFactory.rootMenu();
             presenter.setMenuScreen(menu);
         }

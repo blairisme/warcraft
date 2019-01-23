@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft;
 
 import com.badlogic.gdx.Gdx;
@@ -14,74 +23,63 @@ public class AndroidInput implements DeviceInput, GestureDetector.GestureListene
 {
     private List<UserInput> inputs;
 
-    public AndroidInput()
-    {
-        inputs = new ArrayList<UserInput>();
+    public AndroidInput() {
+        inputs = new ArrayList<>();
     }
 
     @Override
-    public void install()
-    {
+    public void install() {
         GestureDetector gestureDetector = new GestureDetector(this);
         Gdx.input.setInputProcessor(gestureDetector);
     }
 
     @Override
-    public List<UserInput> readInput()
-    {
+    public List<UserInput> readInput() {
         List<UserInput> result = new ArrayList<UserInput>(inputs);
         inputs.clear();
         return result;
     }
 
-    private synchronized void pushInput(UserInput userInput)
-    {
+    private synchronized void pushInput(UserInput userInput) {
         inputs.add(userInput);
     }
 
     @Override
-    public boolean touchDown(float x, float y, int pointer, int button)
-    {
+    public boolean touchDown(float x, float y, int pointer, int button) {
         return false;
     }
 
     @Override
-    public boolean tap(float x, float y, int count, int button)
-    {
+    public boolean tap(float x, float y, int count, int button) {
         UserInput input = new UserInput(UserInputType.Action, new Vector2(x, y), 1);
         pushInput(input);
         return true;
     }
 
     @Override
-    public boolean longPress(float x, float y)
-    {
+    public boolean longPress(float x, float y) {
         return false;
     }
 
     @Override
-    public boolean fling(float velocityX, float velocityY, int button)
-    {
+    public boolean fling(float velocityX, float velocityY, int button) {
         return false;
     }
 
     @Override
-    public boolean pan(float x, float y, float deltaX, float deltaY)
-    {
+    public boolean pan(float x, float y, float deltaX, float deltaY) {
         UserInput input = new UserInput(UserInputType.Drag, new Vector2(x, y), new Vector2(deltaX * -1, deltaY), 1);
         pushInput(input);
         return true;
     }
 
     @Override
-    public boolean panStop(float x, float y, int pointer, int button)
-    {
+    public boolean panStop(float x, float y, int pointer, int button) {
         return false;
     }
 
     @Override
-    public boolean zoom(float initialDistance, float distance)
-    {
+    public boolean zoom(float initialDistance, float distance) {
         float scale = initialDistance / distance;
         Vector2 delta = new Vector2(scale, scale);
 
@@ -95,10 +93,8 @@ public class AndroidInput implements DeviceInput, GestureDetector.GestureListene
     private int count = 1;
 
     @Override
-    public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2)
-    {
-        if (! pinching)
-        {
+    public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
+        if (!pinching) {
             pinching = true;
             count = 1;
             /*
@@ -117,8 +113,7 @@ public class AndroidInput implements DeviceInput, GestureDetector.GestureListene
     }
 
     @Override
-    public void pinchStop()
-    {
+    public void pinchStop() {
         pinching = false;
     }
 }

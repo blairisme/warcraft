@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -13,44 +22,37 @@ public class AndroidStorage implements DeviceStorage
 {
     private AssetManager assetManager;
 
-    public AndroidStorage()
-    {
+    public AndroidStorage() {
         this.assetManager = new AssetManager();
         this.assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
     }
 
-    public AssetManager getAssets()
-    {
+    public AssetManager getAssets() {
         return assetManager;
     }
 
     @Override
-    public <T> T read(String path) throws IOException
-    {
+    public <T> T read(String path) throws IOException {
         return assetManager.get(path);
     }
 
     @Override
-    public boolean delete(String path) throws IOException
-    {
+    public boolean delete(String path) throws IOException {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean exists(String path) throws IOException
-    {
+    public boolean exists(String path) throws IOException {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Collection<String> list() throws IOException
-    {
+    public Collection<String> list() throws IOException {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> void write(T object, String path) throws IOException
-    {
+    public <T> void write(T object, String path) throws IOException {
         throw new UnsupportedOperationException();
     }
 }
