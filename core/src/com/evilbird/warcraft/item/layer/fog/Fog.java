@@ -36,6 +36,7 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithId;
  */
 //TODO: Finish
 //TODO: Improve performance
+//TODO: Shouldnt show fog at map edges.
 public class Fog extends Layer
 {
     private FogTileSet tileSet;
@@ -115,6 +116,7 @@ public class Fog extends Layer
 
     @SuppressWarnings("SuspiciousNameCombination")
     //TODO: Dont include corners as in original game
+    //TODO: Use sight from item
     private Collection<Pair<Integer, Integer>> getRevealedCells(Item item) {
         Collection<Pair<Integer, Integer>> result = new ArrayList<Pair<Integer, Integer>>();
 

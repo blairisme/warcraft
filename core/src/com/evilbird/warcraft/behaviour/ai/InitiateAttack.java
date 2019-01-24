@@ -35,6 +35,7 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithClass;
  *
  * @author Blair Butterworth
  */
+//TODO: Ignore dead combatants
 //TODO: Improve performance - caching? Consider putting caching into ItemGroup
 public class InitiateAttack implements AiProcedure
 {

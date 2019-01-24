@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.state.campaign.human;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -36,26 +45,22 @@ public class Level1 implements AssetProvider<ItemRoot>
     private ItemFactory itemFactory;
 
     @Inject
-    public Level1(Device device, ItemFactory itemFactory)
-    {
+    public Level1(Device device, ItemFactory itemFactory) {
         this.assets = device.getAssetStorage().getAssets();
         this.itemFactory = itemFactory;
     }
 
     @Override
-    public void load()
-    {
+    public void load() {
     }
 
     @Override
-    public ItemRoot get()
-    {
+    public ItemRoot get() {
         TiledMap level = loadLevel("data/levels/human/level1.tmx");
         return loadLevelItem(level);
     }
 
-    private TiledMap loadLevel(String path)
-    {
+    private TiledMap loadLevel(String path) {
         TmxMapLoader.Parameters parameters = new TmxMapLoader.Parameters();
         parameters.textureMinFilter = Texture.TextureFilter.Linear;
         parameters.textureMagFilter = Texture.TextureFilter.Nearest;
@@ -65,16 +70,14 @@ public class Level1 implements AssetProvider<ItemRoot>
         return assets.get(path, TiledMap.class);
     }
 
-    private ItemRoot loadLevelItem(TiledMap level)
-    {
+    private ItemRoot loadLevelItem(TiledMap level) {
         ItemRoot result = new ItemRoot();
         result.setViewport(new ScreenViewport());
         addItems(level, result);
         return result;
     }
 
-    private ItemRoot addItems(TiledMap level, ItemRoot root)
-    {
+    private ItemRoot addItems(TiledMap level, ItemRoot root) {
         Map<String, ItemComposite> rootItems = getComposites(root);
         addPrimaryItems(level, rootItems);
 
@@ -84,66 +87,57 @@ public class Level1 implements AssetProvider<ItemRoot>
         return root;
     }
 
-    private Map<String, ItemComposite> getComposites(ItemRoot root)
-    {
+    private Map<String, ItemComposite> getComposites(ItemRoot root) {
         Map<String, ItemComposite> rootItems = new HashMap<String, ItemComposite>();
         rootItems.put("root", root);
         return rootItems;
     }
 
-    private Map<String, ItemComposite> getComposites(Collection<Item> items)
-    {
+    private Map<String, ItemComposite> getComposites(Collection<Item> items) {
         Map<String, ItemComposite> result = new HashMap<String, ItemComposite>();
-        for (Item item: items){
-            if (item instanceof ItemComposite){
+        for (Item item : items) {
+            if (item instanceof ItemComposite) {
                 String identifier = item.getIdentifier().toString();
-                result.put(identifier, (ItemComposite)item);
+                result.put(identifier, (ItemComposite) item);
             }
         }
         return result;
     }
 
-    private void addPrimaryItems(TiledMap level, Map<String, ItemComposite> parents)
-    {
-        for (MapLayer layer: level.getLayers()){
-            if (isPrimaryItem(layer)){
+    private void addPrimaryItems(TiledMap level, Map<String, ItemComposite> parents) {
+        for (MapLayer layer : level.getLayers()) {
+            if (isPrimaryItem(layer)) {
                 addItems(layer, parents);
             }
         }
     }
 
-    private void addSecondaryItems(TiledMap level, Map<String, ItemComposite> parents)
-    {
-        for (MapLayer layer: level.getLayers()){
-            if (isSecondaryItem(layer)){
+    private void addSecondaryItems(TiledMap level, Map<String, ItemComposite> parents) {
+        for (MapLayer layer : level.getLayers()) {
+            if (isSecondaryItem(layer)) {
                 addItems(layer, parents);
             }
         }
     }
 
-    private void addItems(MapLayer layer, Map<String, ItemComposite> parents)
-    {
-        if (isLayerItem(layer)){
+    private void addItems(MapLayer layer, Map<String, ItemComposite> parents) {
+        if (isLayerItem(layer)) {
             addLayerItems(layer, parents);
-        }
-        else{
+        } else {
             addObjectItems(layer, parents);
         }
     }
 
-    private void addLayerItems(MapLayer layer, Map<String, ItemComposite> parents)
-    {
-        Layer item = (Layer)itemFactory.newItem(LayerType.valueOf(layer.getName()));
-        item.setLayer((TiledMapTileLayer)layer);
+    private void addLayerItems(MapLayer layer, Map<String, ItemComposite> parents) {
+        Layer item = (Layer) itemFactory.newItem(LayerType.valueOf(layer.getName()));
+        item.setLayer((TiledMapTileLayer) layer);
 
         ItemComposite parent = parents.get("root");
         parent.addItem(item);
     }
 
-    private void addObjectItems(MapLayer layer, Map<String, ItemComposite> parents)
-    {
-        for (MapObject object : layer.getObjects())
-        {
+    private void addObjectItems(MapLayer layer, Map<String, ItemComposite> parents) {
+        for (MapObject object : layer.getObjects()) {
             MapProperties properties = object.getProperties();
 
             Item item = itemFactory.newItem(getItemType(layer));
@@ -151,57 +145,50 @@ public class Level1 implements AssetProvider<ItemRoot>
             item.setVisible(object.isVisible());
             item.setTouchable(getTouchable(properties));
             //item.setSize((Float)properties.get("width"), (Float)properties.get("height"));
-            item.setPosition((Float)properties.get("x"), (Float)properties.get("y"));
+            item.setPosition((Float) properties.get("x"), (Float) properties.get("y"));
 
             ItemComposite parent = parents.get(getOwner(properties));
             parent.addItem(item);
         }
     }
 
-    private boolean isPrimaryItem(MapLayer layer)
-    {
+    private boolean isPrimaryItem(MapLayer layer) {
         return isLayerItem(layer) || isDataItem(layer);
     }
 
-    private boolean isSecondaryItem(MapLayer layer)
-    {
-        return ! isPrimaryItem(layer);
+    private boolean isSecondaryItem(MapLayer layer) {
+        return !isPrimaryItem(layer);
     }
 
-    private boolean isLayerItem(MapLayer layer)
-    {
+    private boolean isLayerItem(MapLayer layer) {
         return Objects.equals(layer.getName(), "Map") ||
-               Objects.equals(layer.getName(), "Forest") ||
-               Objects.equals(layer.getName(), "OpaqueFog") ||
-               Objects.equals(layer.getName(), "TransparentFog");
+                Objects.equals(layer.getName(), "Forest") ||
+                Objects.equals(layer.getName(), "OpaqueFog") ||
+                Objects.equals(layer.getName(), "TransparentFog");
     }
 
-    private boolean isDataItem(MapLayer layer)
-    {
+    private boolean isDataItem(MapLayer layer) {
         return Objects.equals(layer.getName(), "Player") ||
-               Objects.equals(layer.getName(), "Camera");
+                Objects.equals(layer.getName(), "Camera");
     }
 
-    private ItemType getItemType(MapLayer layer)
-    {
-        if (isLayerItem(layer)){
+    private ItemType getItemType(MapLayer layer) {
+        if (isLayerItem(layer)) {
             return LayerType.valueOf(layer.getName());
         }
-        if (isDataItem(layer)){
+        if (isDataItem(layer)) {
             return DataType.valueOf(layer.getName());
         }
         return UnitType.valueOf(layer.getName());
     }
 
-    private Touchable getTouchable(MapProperties properties)
-    {
-        Boolean touchable = (Boolean)properties.get("Touchable");
+    private Touchable getTouchable(MapProperties properties) {
+        Boolean touchable = (Boolean) properties.get("Touchable");
         return touchable == Boolean.FALSE ? Touchable.childrenOnly : Touchable.enabled;
     }
 
-    private String getOwner(MapProperties properties)
-    {
-        String owner = (String)properties.get("Owner");
+    private String getOwner(MapProperties properties) {
+        String owner = (String) properties.get("Owner");
         return owner == null ? "root" : owner;
     }
 }

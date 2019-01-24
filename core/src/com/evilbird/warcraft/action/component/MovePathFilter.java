@@ -16,6 +16,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.SpatialItemNode;
 import com.evilbird.warcraft.item.common.capability.Movable;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -26,77 +27,32 @@ import java.util.Collection;
  */
 class MovePathFilter implements Predicate<SpatialItemNode>
 {
-    private Predicate<SpatialItemNode> delegate;
+    private Collection<Item> permittedItems;
+    private Collection<Identifier> requiredTypes;
 
     public MovePathFilter(Movable movable) {
-        Collection<Identifier> allowedTypes = movable.getMovementCapability();
+        this(movable.getMovementCapability(), Arrays.asList((Item)movable));
+    }
 
-        if (allowedTypes.isEmpty()) {
-            delegate = new PermitAll();
-        }
-        else if (allowedTypes.size() == 1) {
-            delegate = new PermitSingleton(movable, allowedTypes.iterator().next());
-        }
-        else {
-            delegate = new PermitSet(movable, allowedTypes);
-        }
+    public MovePathFilter(Movable movable, Item permitted) {
+        this(movable.getMovementCapability(), Arrays.asList((Item)movable, permitted));
+    }
+
+    public MovePathFilter(Collection<Identifier> requiredTypes, Collection<Item> permittedItems) {
+        this.requiredTypes = requiredTypes;
+        this.permittedItems = permittedItems;
     }
 
     @Override
     public boolean test(SpatialItemNode node) {
-        return delegate.test(node);
-    }
-
-    private static class PermitAll implements Predicate<SpatialItemNode> {
-        @Override
-        public boolean test(SpatialItemNode value) {
-            return true;
-        }
-    }
-
-    private static class PermitSingleton implements Predicate<SpatialItemNode> {
-        private Movable movable;
-        private Identifier allowedType;
-
-        public PermitSingleton(Movable movable, Identifier allowedType) {
-            this.allowedType = allowedType;
-            this.movable = movable;
-        }
-
-        @Override
-        public boolean test(SpatialItemNode node) {
-            for (Item occupant : node.getOccupants()) {
-                if (Objects.equals(occupant, movable)) {
-                    return true;
-                }
-                if (!Objects.equals(allowedType, occupant.getType())) {
-                    return false;
-                }
+        for (Item occupant : node.getOccupants()) {
+            if (permittedItems.contains(occupant)) {
+                return true;
             }
-            return true;
-        }
-    }
-
-    private static class PermitSet implements Predicate<SpatialItemNode> {
-        private Movable movable;
-        private Collection<Identifier> allowedTypes;
-
-        public PermitSet(Movable movable, Collection<Identifier> allowedTypes) {
-            this.allowedTypes = allowedTypes;
-            this.movable = movable;
-        }
-
-        @Override
-        public boolean test(SpatialItemNode node) {
-            for (Item occupant : node.getOccupants()) {
-                if (Objects.equals(occupant, movable)) {
-                    return true;
-                }
-                if (!allowedTypes.contains(occupant.getType())) {
-                    return false;
-                }
+            if (!requiredTypes.contains(occupant.getType())) {
+                return false;
             }
-            return true;
         }
+        return true;
     }
 }

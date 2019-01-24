@@ -29,6 +29,7 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
+//TODO: Consider using an action pool
 public class WarcraftActionFactory implements ActionFactory
 {
     private Map<ActionIdentifier, ActionProvider> actions;

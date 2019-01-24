@@ -14,23 +14,19 @@ import com.evilbird.engine.common.function.Comparator;
 
 public class ItemComparators
 {
-    public static Comparator<Item> closestItem(Item target)
-    {
+    public static Comparator<Item> closestItem(Item target) {
         return new ClosestItem(target); //TODO: Singleton?
     }
 
-    public static class ClosestItem implements Comparator<Item>
-    {
+    public static class ClosestItem implements Comparator<Item> {
         private Vector2 target;
 
-        public ClosestItem(Item item)
-        {
+        public ClosestItem(Item item) {
             this.target = item.getPosition();
         }
 
         @Override
-        public int compare(Item var1, Item var2)
-        {
+        public int compare(Item var1, Item var2) {
             Vector2 position1 = var1.getPosition();
             Vector2 position2 = var2.getPosition();
 

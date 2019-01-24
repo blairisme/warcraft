@@ -30,9 +30,9 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-// TODO: find all nodes around object and return first one that passes filter.
 // TODO: Rename to ItemGraph
 // TODO: Refactor common behaviour into engine/common/pathing package
+// TODO: Newly created items are not avoided (not added to spatial graph)
 public class SpatialGraph implements IndexedGraph<SpatialItemNode>
 {
     private boolean populated;
@@ -129,17 +129,6 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
             }
         }
         return result;
-    }
-
-    // TODO find all nodes around object and return first one that passes filter
-    public SpatialItemNode getAdjacentNode(Vector2 position) {
-        SpatialItemNode node = getNode(position);
-        Array<Connection<SpatialItemNode>> connections = getConnections(node);
-
-        if (connections.size > 0){
-            return connections.get(0).getToNode();
-        }
-        return node;
     }
 
     @Override

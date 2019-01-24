@@ -12,14 +12,16 @@ package com.evilbird.warcraft.action.component;
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.ai.pfa.Heuristic;
+import com.badlogic.gdx.ai.pfa.PathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.pathing.ManhattanHeuristic;
-import com.evilbird.engine.common.lang.Positionable;
-import com.evilbird.engine.item.*;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.SpatialGraph;
+import com.evilbird.engine.item.SpatialItemNode;
 import com.evilbird.warcraft.item.common.capability.Movable;
-import com.evilbird.warcraft.item.layer.LayerType;
 
 import java.util.Iterator;
 
@@ -30,10 +32,6 @@ import java.util.Iterator;
  *
  * @author Blair Butterworth
  */
-//TODO: Don't allow two units to occupy the same node (not always but under certain conditions)
-//TODO: Handle target moving away (dont recalculate path every update )
-//TODO: Move to close point adjacent to item destination, not the bottom left (change in spatial graph possibly).
-//TODO: Newly created items are not avoided (not added to spatial graph)
 public class MoveAction extends BasicAction
 {
     private Movable target;
@@ -43,19 +41,20 @@ public class MoveAction extends BasicAction
     private GraphPath<SpatialItemNode> path;
     private Iterator<SpatialItemNode> pathIterator;
     private SpatialItemNode pathNode;
+    private SpatialItemNode endNode;
 
     public MoveAction(Movable target, Vector2 destination) {
-        this(target, new MoveDestinationVector(destination));
+        this(target, new MoveDestinationVector(destination), new MovePathFilter(target));
     }
 
     public MoveAction(Movable target, Item destination) {
-        this(target, new MoveDestinationItem(destination));
+        this(target, new MoveDestinationItem(destination), new MovePathFilter(target, destination));
     }
 
-    private MoveAction(Movable target, MoveDestination destination) {
+    private MoveAction(Movable target, MoveDestination destination, MovePathFilter filter) {
         this.target = target;
         this.destination = destination;
-        this.filter = new MovePathFilter(target);
+        this.filter = filter;
     }
 
     @Override
@@ -65,32 +64,39 @@ public class MoveAction extends BasicAction
 
     @Override
     public boolean act(float time) {
-        if (! isValid()) {
-            restart();
-        }
-        if (! load()) {
+        if (!load()) {
+            error();
             return true;
         }
-        if (! update(time)) {
-            finish();
+        if (!isCompletable()) {
+            error();
+            return true;
+        }
+        if (!isValid()) {
+            restart();
+            return false;
+        }
+        if (!update(time)) {
+            complete();
             return true;
         }
         return false;
     }
 
+    private boolean isCompletable() {
+        return pathNode != endNode || filter.test(endNode);
+    }
+
     private boolean isValid() {
-        return isPathNodeValid() && isDestinationValid();
+        return isNextNodeValid() && isLastNodeValid();
     }
 
-    private boolean isPathNodeValid() {
-        if (pathNode != null && ! filter.test(pathNode)) {
-            return false;
-        }
-        return true;
+    private boolean isNextNodeValid() {
+         return filter.test(pathNode);
     }
 
-    private boolean isDestinationValid() {
-        return destination.isDestinationValid();
+    private boolean isLastNodeValid() {
+        return destination.isDestinationValid(graph);
     }
 
     private boolean load() {
@@ -108,16 +114,16 @@ public class MoveAction extends BasicAction
 
     private boolean loadPath() {
         if (path == null) {
-            SpatialItemNode start = graph.getNode(target.getPosition());
-            SpatialItemNode end = destination.getDestinationNode(graph);
-            IndexedAStarPathFinder<SpatialItemNode> pathFinder = new IndexedAStarPathFinder<>(graph);
-
+            SpatialItemNode startNode = graph.getNode(target.getPosition());
+            endNode = destination.getDestinationNode(graph, startNode);
+            PathFinder<SpatialItemNode> pathFinder = new IndexedAStarPathFinder<>(graph);
             Heuristic<SpatialItemNode> heuristic = new ManhattanHeuristic();
             GraphPath<SpatialItemNode> result = new DefaultGraphPath<>();
-            if (pathFinder.searchNodePath(start, end, heuristic, result)) {
+
+            if (pathFinder.searchNodePath(startNode, endNode, heuristic, result)) {
                 path = result;
                 pathIterator = path.iterator();
-                pathNode = start;
+                pathNode = startNode;
                 return initializePathNode();
             }
         }
@@ -128,38 +134,44 @@ public class MoveAction extends BasicAction
         if (path.getCount() == 0) {
             return false;
         }
-        if (path.getCount() > 0) {
-            incrementNode();
+        else if (path.getCount() == 1) {
+            return incrementNode();
         }
-        if (path.getCount() > 1) {
-            incrementNode();
+        else {
+            incrementNode(); //ignore partial cell
+            return incrementNode();
         }
-        return true;
     }
 
     private boolean update(float time) {
         Vector2 position = target.getPosition();
-        return incrementPath(position) && updatePosition(position, time);
+        return updatePath(position) && updatePosition(position, time);
     }
 
-    private boolean incrementPath(Vector2 targetPosition) {
+    private boolean updatePath(Vector2 targetPosition) {
         Vector2 nodePosition = pathNode.getWorldReference();
-
         if (targetPosition.equals(nodePosition)) {
-            if (pathIterator.hasNext()) {
-                incrementNode();
-            }
-            else {
-                return false;
-            }
+            return incrementPath();
         }
         return true;
     }
 
-    private void incrementNode() {
-        graph.removeOccupants(pathNode, (Item)target);
-        pathNode = pathIterator.next();
-        graph.addOccupants(pathNode, (Item)target);
+    private boolean incrementPath() {
+        if (pathIterator.hasNext()) {
+            return incrementNode();
+        }
+        return false;
+    }
+
+    private boolean incrementNode() {
+        SpatialItemNode nextNode = pathIterator.next();
+        if (!destination.isDestinationReached(nextNode)) {
+            graph.removeOccupants(pathNode, (Item) target);
+            pathNode = nextNode;
+            graph.addOccupants(pathNode, (Item) target);
+            return true;
+        }
+        return false;
     }
 
     private boolean updatePosition(Vector2 oldPosition, float time) {
@@ -182,7 +194,14 @@ public class MoveAction extends BasicAction
         return pathNodePosition;
     }
 
-    private void finish() {
-        target.setDirection(destination.getOrientationTarget().cpy().nor());
+    private void error() {
+    }
+
+    private void complete() {
+        Vector2 targetPosition = target.getPosition();
+        Vector2 destinationPosition = destination.getOrientationTarget().cpy();
+        Vector2 direction = destinationPosition.sub(targetPosition);
+        Vector2 normalizedDirection = direction.nor();
+        target.setDirection(normalizedDirection);
     }
 }

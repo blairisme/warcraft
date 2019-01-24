@@ -14,13 +14,18 @@ import com.evilbird.engine.item.SpatialGraph;
 import com.evilbird.engine.item.SpatialItemNode;
 
 /**
+ * Implementors of this interface provide methods that specify the end point of
+ * a {@link MoveAction move action}.
+ *
  * @author Blair Butterworth
  */
 interface MoveDestination
 {
-    SpatialItemNode getDestinationNode(SpatialGraph graph);
-
     Vector2 getOrientationTarget();
 
-    boolean isDestinationValid();
+    SpatialItemNode getDestinationNode(SpatialGraph graph, SpatialItemNode node);
+
+    boolean isDestinationValid(SpatialGraph graph);
+
+    boolean isDestinationReached(SpatialItemNode node);
 }
