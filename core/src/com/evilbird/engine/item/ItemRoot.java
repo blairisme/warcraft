@@ -27,7 +27,7 @@ public class ItemRoot implements ItemComposite
 {
     private Stage delegate;
     private ItemGroup group;
-    private SpatialGraph spatialGraph;
+    private ItemGraph graph;
 
     /**
      * Constructs a new instance of this class.
@@ -37,7 +37,7 @@ public class ItemRoot implements ItemComposite
         this.group.setRoot(this);
         this.delegate = new Stage();
         this.delegate.addActor(group.delegate);
-        this.spatialGraph = new SpatialGraph(this, 32, 32, 32, 32);
+        this.graph = new ItemGraph(this, 32, 32, 32, 32);
     }
 
     /**
@@ -79,14 +79,14 @@ public class ItemRoot implements ItemComposite
     }
 
     /**
-     * Returns a {@link SpatialGraph}, a graph of the game space, represented
+     * Returns a {@link ItemGraph}, a graph of the game space, represented
      * as a 2 dimensional matrix of 32 x 32 pixel sized nodes, containing all
      * of the touchable items contained in the item root.
      *
-     * @return  a {@link SpatialGraph}.
+     * @return  a {@link ItemGraph}.
      */
-    public SpatialGraph getSpatialGraph() {
-        return spatialGraph;
+    public ItemGraph getSpatialGraph() {
+        return graph;
     }
 
     /**
@@ -122,7 +122,7 @@ public class ItemRoot implements ItemComposite
      * @param delta the time between this frame and the last frame.
      */
     public void update(float delta) {
-        spatialGraph.update();
+        graph.update();
         delegate.getCamera().update();
         delegate.act(delta);
     }

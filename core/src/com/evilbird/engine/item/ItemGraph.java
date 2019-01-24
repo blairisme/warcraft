@@ -10,14 +10,12 @@
 package com.evilbird.engine.item;
 
 import com.badlogic.gdx.ai.pfa.Connection;
-import com.badlogic.gdx.ai.pfa.DefaultConnection;
-import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.function.AcceptPredicate;
 import com.evilbird.engine.common.function.Predicate;
-import com.evilbird.warcraft.item.common.capability.Movable;
+import com.evilbird.engine.common.pathing.SpatialGraph;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,10 +28,8 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-// TODO: Rename to ItemGraph
-// TODO: Refactor common behaviour into engine/common/pathing package
 // TODO: Newly created items are not avoided (not added to spatial graph)
-public class SpatialGraph implements IndexedGraph<SpatialItemNode>
+public class ItemGraph implements SpatialGraph<ItemNode>
 {
     private boolean populated;
     private float nodeWidth;
@@ -41,11 +37,11 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
     private int nodeCountX;
     private int nodeCountY;
     private ItemComposite root;
-    private SpatialItemNode[][] nodes;
-    private Predicate<SpatialItemNode> connectionFilter;
-    private Map<Item, SpatialItemNode> newOccupants;
+    private ItemNode[][] nodes;
+    private Predicate<ItemNode> connectionFilter;
+    private Map<Item, ItemNode> newOccupants;
 
-    public SpatialGraph(SpatialGraph graph, Predicate<SpatialItemNode> connectionFilter) {
+    public ItemGraph(ItemGraph graph, Predicate<ItemNode> connectionFilter) {
         this.root = graph.root;
         this.nodeWidth = graph.nodeWidth;
         this.nodeHeight = graph.nodeHeight;
@@ -57,7 +53,7 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         this.newOccupants = graph.newOccupants;
     }
 
-    public SpatialGraph(ItemComposite root, int nodeWidth, int nodeHeight, int nodeCountX, int nodeCountY) {
+    public ItemGraph(ItemComposite root, int nodeWidth, int nodeHeight, int nodeCountX, int nodeCountY) {
         this.root = root;
         this.nodeWidth = nodeWidth;
         this.nodeHeight = nodeHeight;
@@ -70,8 +66,8 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
     }
 
     @Override
-    public Array<Connection<SpatialItemNode>> getConnections(SpatialItemNode fromNode) {
-        Array<Connection<SpatialItemNode>> result = new Array<>();
+    public Array<Connection<ItemNode>> getConnections(ItemNode fromNode) {
+        Array<Connection<ItemNode>> result = new Array<>();
 
         GridPoint2 fromIndex = fromNode.getSpatialReference();
         int startX = Math.max(0, fromIndex.x - 1);
@@ -82,9 +78,9 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         for (int x = startX; x <= endX; x++) {
             for (int y = startY; y <= endY; y++) {
                 if (!(x == fromIndex.x && y == fromIndex.y)) {
-                    SpatialItemNode toNode = nodes[x][y];
+                    ItemNode toNode = nodes[x][y];
                     if (connectionFilter.test(toNode)) {
-                        result.add(new SpatialItemConnection(fromNode, toNode));
+                        result.add(new ItemConnection(fromNode, toNode));
                     }
                 }
             }
@@ -97,22 +93,22 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         return nodeCountX * nodeCountY;
     }
 
-    public SpatialItemNode getNode(Vector2 position) {
+    public ItemNode getNode(Vector2 position) {
         GridPoint2 spatialPosition = toSpatial(position);
         return nodes[spatialPosition.x][spatialPosition.y];
     }
 
-    public Collection<SpatialItemNode> getNodes(Vector2 worldPosition, Vector2 worldSize) {
+    public Collection<ItemNode> getNodes(Vector2 worldPosition, Vector2 worldSize) {
         GridPoint2 spatialPosition = toSpatial(worldPosition);
         return getNodes(spatialPosition, worldSize);
     }
 
-    public Collection<SpatialItemNode> getNodes(GridPoint2 spatialPosition, Vector2 worldSize) {
+    public Collection<ItemNode> getNodes(GridPoint2 spatialPosition, Vector2 worldSize) {
         GridPoint2 spatialSize = toSpatial(worldSize);
         return getNodes(spatialPosition, spatialSize);
     }
 
-    public Collection<SpatialItemNode> getNodes(GridPoint2 spatialPosition, GridPoint2 spatialSize) {
+    public Collection<ItemNode> getNodes(GridPoint2 spatialPosition, GridPoint2 spatialSize) {
         int xCount = spatialSize.x;
         int yCount = spatialSize.y;
 
@@ -122,7 +118,7 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         int xEnd = Math.min(xStart + xCount, nodeCountX);
         int yEnd = Math.min(yStart + yCount, nodeCountY);
 
-        Collection<SpatialItemNode> result = new ArrayList<>();
+        Collection<ItemNode> result = new ArrayList<>();
         for (int x = xStart; x < xEnd; x++) {
             for (int y = yStart; y < yEnd; y++) {
                 result.add(nodes[x][y]);
@@ -132,11 +128,11 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
     }
 
     @Override
-    public int getIndex(SpatialItemNode node) {
+    public int getIndex(ItemNode node) {
         return node.getIndex();
     }
 
-    public Map<Item, SpatialItemNode> getNewOccupants() {
+    public Map<Item, ItemNode> getNewOccupants() {
         return newOccupants;
     }
 
@@ -148,15 +144,15 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
         newOccupants.clear();
     }
 
-    public void addOccupants(SpatialItemNode node, Item occupant) {
-        for (SpatialItemNode adjacentNode: getNodes(node.getSpatialReference(), occupant.getSize())) {
+    public void addOccupants(ItemNode node, Item occupant) {
+        for (ItemNode adjacentNode: getNodes(node.getSpatialReference(), occupant.getSize())) {
             adjacentNode.addOccupant(occupant);
             newOccupants.put(occupant, node);
         }
     }
 
-    public void removeOccupants(SpatialItemNode node, Item occupant) {
-        for (SpatialItemNode adjacentNode: getNodes(node.getSpatialReference(), occupant.getSize())) {
+    public void removeOccupants(ItemNode node, Item occupant) {
+        for (ItemNode adjacentNode: getNodes(node.getSpatialReference(), occupant.getSize())) {
             adjacentNode.removeOccupant(occupant);
         }
     }
@@ -173,19 +169,19 @@ public class SpatialGraph implements IndexedGraph<SpatialItemNode>
 
     public void updateOccupant(Item occupant) {
         if (occupant.getTouchable()) {
-            for (SpatialItemNode node : getNodes(occupant.getPosition(), occupant.getSize())) {
+            for (ItemNode node : getNodes(occupant.getPosition(), occupant.getSize())) {
                 node.addOccupant(occupant);
                 newOccupants.put(occupant, node);
             }
         }
     }
 
-    private SpatialItemNode[][] createNodeArray(int width, int height) {
+    private ItemNode[][] createNodeArray(int width, int height) {
         int index = 0;
-        SpatialItemNode[][] result = new SpatialItemNode[width][height];
+        ItemNode[][] result = new ItemNode[width][height];
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++){
-                result[x][y] = new SpatialItemNode(index++, new GridPoint2(x, y));
+                result[x][y] = new ItemNode(index++, new GridPoint2(x, y));
             }
         }
         return result;

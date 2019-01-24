@@ -11,8 +11,8 @@ package com.evilbird.warcraft.action.component;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.SpatialGraph;
-import com.evilbird.engine.item.SpatialItemNode;
+import com.evilbird.engine.item.ItemGraph;
+import com.evilbird.engine.item.ItemNode;
 import com.evilbird.engine.common.pathing.SpatialUtils;
 
 import java.util.Collection;
@@ -34,8 +34,8 @@ class MoveDestinationItem implements MoveDestination
     }
 
     @Override
-    public SpatialItemNode getDestinationNode(SpatialGraph graph, SpatialItemNode node) {
-        Collection<SpatialItemNode> nodes = graph.getNodes(destination.getPosition(), destination.getSize());
+    public ItemNode getDestinationNode(ItemGraph graph, ItemNode node) {
+        Collection<ItemNode> nodes = graph.getNodes(destination.getPosition(), destination.getSize());
         return SpatialUtils.getClosest(nodes, node);
     }
 
@@ -45,13 +45,13 @@ class MoveDestinationItem implements MoveDestination
     }
 
     @Override
-    public boolean isDestinationValid(SpatialGraph graph) {
-        Map<Item, SpatialItemNode> newOccupants = graph.getNewOccupants();
+    public boolean isDestinationValid(ItemGraph graph) {
+        Map<Item, ItemNode> newOccupants = graph.getNewOccupants();
         return !newOccupants.containsKey(destination);
     }
 
     @Override
-    public boolean isDestinationReached(SpatialItemNode node) {
+    public boolean isDestinationReached(ItemNode node) {
         Collection<Item> occupants = node.getOccupants();
         return occupants.contains(destination);
     }

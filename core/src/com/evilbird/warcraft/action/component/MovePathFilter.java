@@ -11,9 +11,8 @@ package com.evilbird.warcraft.action.component;
 
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.SpatialItemNode;
+import com.evilbird.engine.item.ItemNode;
 import com.evilbird.warcraft.item.common.capability.Movable;
 
 import java.util.Arrays;
@@ -25,7 +24,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-class MovePathFilter implements Predicate<SpatialItemNode>
+class MovePathFilter implements Predicate<ItemNode>
 {
     private Collection<Item> permittedItems;
     private Collection<Identifier> requiredTypes;
@@ -44,7 +43,7 @@ class MovePathFilter implements Predicate<SpatialItemNode>
     }
 
     @Override
-    public boolean test(SpatialItemNode node) {
+    public boolean test(ItemNode node) {
         for (Item occupant : node.getOccupants()) {
             if (permittedItems.contains(occupant)) {
                 return true;

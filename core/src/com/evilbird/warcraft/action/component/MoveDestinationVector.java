@@ -11,9 +11,8 @@ package com.evilbird.warcraft.action.component;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.lang.Objects;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.SpatialGraph;
-import com.evilbird.engine.item.SpatialItemNode;
+import com.evilbird.engine.item.ItemGraph;
+import com.evilbird.engine.item.ItemNode;
 
 /**
  * Instances of this {@link MoveDestination} represent a destination
@@ -31,17 +30,17 @@ class MoveDestinationVector implements MoveDestination
     }
 
     @Override
-    public SpatialItemNode getDestinationNode(SpatialGraph graph, SpatialItemNode node) {
+    public ItemNode getDestinationNode(ItemGraph graph, ItemNode node) {
         return graph.getNode(destination);
     }
 
     @Override
-    public boolean isDestinationValid(SpatialGraph graph) {
+    public boolean isDestinationValid(ItemGraph graph) {
         return true;
     }
 
     @Override
-    public boolean isDestinationReached(SpatialItemNode node) {
+    public boolean isDestinationReached(ItemNode node) {
         return Objects.equals(node.getWorldReference(), destination);
     }
 

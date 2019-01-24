@@ -19,8 +19,8 @@ import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.pathing.ManhattanHeuristic;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.SpatialGraph;
-import com.evilbird.engine.item.SpatialItemNode;
+import com.evilbird.engine.item.ItemGraph;
+import com.evilbird.engine.item.ItemNode;
 import com.evilbird.warcraft.item.common.capability.Movable;
 
 import java.util.Iterator;
@@ -37,11 +37,11 @@ public class MoveAction extends BasicAction
     private Movable target;
     private MoveDestination destination;
     private MovePathFilter filter;
-    private SpatialGraph graph;
-    private GraphPath<SpatialItemNode> path;
-    private Iterator<SpatialItemNode> pathIterator;
-    private SpatialItemNode pathNode;
-    private SpatialItemNode endNode;
+    private ItemGraph graph;
+    private GraphPath<ItemNode> path;
+    private Iterator<ItemNode> pathIterator;
+    private ItemNode pathNode;
+    private ItemNode endNode;
 
     public MoveAction(Movable target, Vector2 destination) {
         this(target, new MoveDestinationVector(destination), new MovePathFilter(target));
@@ -106,19 +106,19 @@ public class MoveAction extends BasicAction
     private boolean loadGraph() {
         if (graph == null) {
             ItemRoot root = target.getRoot();
-            SpatialGraph rootGraph = root.getSpatialGraph();
-            graph = new SpatialGraph(rootGraph, filter);
+            ItemGraph rootGraph = root.getSpatialGraph();
+            graph = new ItemGraph(rootGraph, filter);
         }
         return true;
     }
 
     private boolean loadPath() {
         if (path == null) {
-            SpatialItemNode startNode = graph.getNode(target.getPosition());
+            ItemNode startNode = graph.getNode(target.getPosition());
             endNode = destination.getDestinationNode(graph, startNode);
-            PathFinder<SpatialItemNode> pathFinder = new IndexedAStarPathFinder<>(graph);
-            Heuristic<SpatialItemNode> heuristic = new ManhattanHeuristic();
-            GraphPath<SpatialItemNode> result = new DefaultGraphPath<>();
+            PathFinder<ItemNode> pathFinder = new IndexedAStarPathFinder<>(graph);
+            Heuristic<ItemNode> heuristic = new ManhattanHeuristic<>();
+            GraphPath<ItemNode> result = new DefaultGraphPath<>();
 
             if (pathFinder.searchNodePath(startNode, endNode, heuristic, result)) {
                 path = result;
@@ -164,7 +164,7 @@ public class MoveAction extends BasicAction
     }
 
     private boolean incrementNode() {
-        SpatialItemNode nextNode = pathIterator.next();
+        ItemNode nextNode = pathIterator.next();
         if (!destination.isDestinationReached(nextNode)) {
             graph.removeOccupants(pathNode, (Item) target);
             pathNode = nextNode;

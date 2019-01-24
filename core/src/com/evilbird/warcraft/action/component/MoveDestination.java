@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.action.component;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.item.SpatialGraph;
-import com.evilbird.engine.item.SpatialItemNode;
+import com.evilbird.engine.item.ItemGraph;
+import com.evilbird.engine.item.ItemNode;
 
 /**
  * Implementors of this interface provide methods that specify the end point of
@@ -23,9 +23,9 @@ interface MoveDestination
 {
     Vector2 getOrientationTarget();
 
-    SpatialItemNode getDestinationNode(SpatialGraph graph, SpatialItemNode node);
+    ItemNode getDestinationNode(ItemGraph graph, ItemNode node);
 
-    boolean isDestinationValid(SpatialGraph graph);
+    boolean isDestinationValid(ItemGraph graph);
 
-    boolean isDestinationReached(SpatialItemNode node);
+    boolean isDestinationReached(ItemNode node);
 }

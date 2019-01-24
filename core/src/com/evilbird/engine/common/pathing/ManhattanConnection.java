@@ -9,41 +9,34 @@
 
 package com.evilbird.engine.common.pathing;
 
-import com.badlogic.gdx.ai.pfa.Connection;
-import com.evilbird.engine.item.SpatialItemNode;
-
-public class ManhattanConnection<T extends SpatialItemNode> implements Connection<T>
+public class ManhattanConnection<T extends SpatialNode> implements SpatialConnection<T>
 {
     private float cost;
     private T fromNode;
     private T toNode;
 
-    public ManhattanConnection(T fromNode, T toNode)
-    {
+    public ManhattanConnection(T fromNode, T toNode) {
         this.fromNode = fromNode;
         this.toNode = toNode;
         this.cost = -1;
     }
 
     @Override
-    public float getCost()
-    {
-        if (cost == -1){
-            ManhattanHeuristic heuristic = new ManhattanHeuristic();
+    public float getCost() {
+        if (cost == -1) {
+            ManhattanHeuristic<T> heuristic = new ManhattanHeuristic<>();
             cost = heuristic.estimate(fromNode, toNode);
         }
         return cost;
     }
 
     @Override
-    public T getFromNode()
-    {
+    public T getFromNode() {
         return fromNode;
     }
 
     @Override
-    public T getToNode()
-    {
+    public T getToNode() {
         return toNode;
     }
 }

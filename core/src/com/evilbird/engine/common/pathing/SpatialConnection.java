@@ -9,17 +9,13 @@
 
 package com.evilbird.engine.common.pathing;
 
-import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.ai.pfa.Connection;
 
 /**
- * Implementors of this interface represent a single division of the game
- * space.
+ * Implementors of this interface represent a connection between
+ * {@link SpatialNode SpatialNodes}.
  *
  * @author Blair Butterworth
  */
-public interface SpatialNode
-{
-    int getIndex();
-
-    GridPoint2 getSpatialReference();
+public interface SpatialConnection <T extends SpatialNode> extends Connection<T> {
 }

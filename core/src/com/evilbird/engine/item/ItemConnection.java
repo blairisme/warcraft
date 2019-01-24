@@ -1,26 +1,36 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.item;
 
-import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.math.GridPoint2;
+import com.evilbird.engine.common.pathing.SpatialConnection;
 
 /**
  * Instances of this class represent a connection between two
- * {@link SpatialItemNode SpatialItemNodes} of a {@link SpatialGraph}.
+ * {@link ItemNode SpatialItemNodes} of a {@link ItemGraph}.
+ *
+ * @author Blair Butterworth
  */
-public class SpatialItemConnection implements Connection<SpatialItemNode>
+public class ItemConnection implements SpatialConnection<ItemNode>
 {
     protected float cost;
-    protected SpatialItemNode fromNode;
-    protected SpatialItemNode toNode;
+    protected ItemNode fromNode;
+    protected ItemNode toNode;
 
-    public SpatialItemConnection (SpatialItemNode fromNode, SpatialItemNode toNode) {
+    public ItemConnection(ItemNode fromNode, ItemNode toNode) {
         this.fromNode = fromNode;
         this.toNode = toNode;
         this.cost = calculateCost(fromNode, toNode);
     }
 
-    private float calculateCost(SpatialItemNode fromNode, SpatialItemNode toNode)
-    {
+    private float calculateCost(ItemNode fromNode, ItemNode toNode) {
         GridPoint2 startIndex = fromNode.getSpatialReference();
         GridPoint2 endIndex = toNode.getSpatialReference();
         return Math.abs(endIndex.x - startIndex.x) + Math.abs(endIndex.y - startIndex.y);
@@ -32,12 +42,12 @@ public class SpatialItemConnection implements Connection<SpatialItemNode>
     }
 
     @Override
-    public SpatialItemNode getFromNode () {
+    public ItemNode getFromNode () {
         return fromNode;
     }
 
     @Override
-    public SpatialItemNode getToNode () {
+    public ItemNode getToNode () {
         return toNode;
     }
 }

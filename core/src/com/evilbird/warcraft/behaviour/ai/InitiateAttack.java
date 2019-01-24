@@ -16,8 +16,8 @@ import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.BasicActionContext;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.SpatialGraph;
-import com.evilbird.engine.item.SpatialItemNode;
+import com.evilbird.engine.item.ItemGraph;
+import com.evilbird.engine.item.ItemNode;
 import com.evilbird.warcraft.action.identifier.GeneralActions;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -58,8 +58,8 @@ public class InitiateAttack implements AiProcedure
     }
 
     private Collection<Item> getMovedItems(ItemRoot gameState) {
-        SpatialGraph spatialGraph = gameState.getSpatialGraph();
-        Map<Item, SpatialItemNode> newOccupants = spatialGraph.getNewOccupants();
+        ItemGraph spatialGraph = gameState.getSpatialGraph();
+        Map<Item, ItemNode> newOccupants = spatialGraph.getNewOccupants();
         return newOccupants.keySet();
     }
 

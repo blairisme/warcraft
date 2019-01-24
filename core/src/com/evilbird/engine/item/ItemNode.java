@@ -16,14 +16,20 @@ import com.evilbird.engine.common.pathing.SpatialNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpatialItemNode implements SpatialNode
+/**
+ * Instances of this class represent a single division of the game
+ * space, which can be occupied by {@link Item Items}.
+ *
+ * @author Blair Butterworth
+ */
+public class ItemNode implements SpatialNode
 {
     private int index;
     private List<Item> occupants;
     private GridPoint2 gridReference;
     private Vector2 worldReference;
 
-    public SpatialItemNode(int index, GridPoint2 gridReference) {
+    public ItemNode(int index, GridPoint2 gridReference) {
         this.index = index;
         this.occupants = new ArrayList<>(2);
         this.gridReference = gridReference;

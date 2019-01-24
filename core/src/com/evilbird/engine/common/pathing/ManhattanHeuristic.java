@@ -11,12 +11,11 @@ package com.evilbird.engine.common.pathing;
 
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.item.SpatialItemNode;
 
-public class ManhattanHeuristic implements Heuristic<SpatialItemNode>
+public class ManhattanHeuristic<T extends SpatialNode> implements Heuristic<T>
 {
     @Override
-    public float estimate(SpatialItemNode node, SpatialItemNode endNode) {
+    public float estimate(T node, T endNode) {
         GridPoint2 startIndex = node.getSpatialReference();
         GridPoint2 endIndex = node.getSpatialReference();
         return Math.abs(endIndex.x - startIndex.x) + Math.abs(endIndex.y - startIndex.y);
