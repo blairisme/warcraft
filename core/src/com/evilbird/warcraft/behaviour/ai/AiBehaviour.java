@@ -31,7 +31,7 @@ public class AiBehaviour implements Behaviour
     @Inject
     public AiBehaviour(InitiateAttack initiateAttack) {
         procedures = new ArrayList<>();
-        procedures.add(initiateAttack);
+        //procedures.add(initiateAttack);
     }
 
     @Override

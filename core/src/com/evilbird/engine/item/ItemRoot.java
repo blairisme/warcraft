@@ -18,26 +18,27 @@ import com.evilbird.engine.common.function.Predicate;
 import java.util.Collection;
 
 /**
- * Instances of this class represent the root node in the item graph.
+ * Instances of this class represent the root node in the item hierarchy.
  *
  * @author Blair Butterworth
  */
-//TODO: Dont include spatial graph for hud root
-public class ItemRoot implements ItemComposite
+public class ItemRoot implements ItemComposite, ItemGroupObserver
 {
     private Stage delegate;
     private ItemGroup group;
     private ItemGraph graph;
 
-    /**
-     * Constructs a new instance of this class.
-     */
-    public ItemRoot() {
+    public ItemRoot(ItemGraph graph){
         this.group = new ItemGroup();
         this.group.setRoot(this);
+
         this.delegate = new Stage();
         this.delegate.addActor(group.delegate);
-        this.graph = new ItemGraph(this, 32, 32, 32, 32);
+
+        if (graph != null) {
+            this.graph = graph;
+            this.group.addObserver(this);
+        }
     }
 
     /**
@@ -122,7 +123,9 @@ public class ItemRoot implements ItemComposite
      * @param delta the time between this frame and the last frame.
      */
     public void update(float delta) {
-        graph.update();
+        if (graph != null) {
+            graph.update();
+        }
         delegate.getCamera().update();
         delegate.act(delta);
     }
@@ -197,5 +200,30 @@ public class ItemRoot implements ItemComposite
      */
     public Item hit(Vector2 coordinates, boolean touchable) {
         return group.hit(coordinates, touchable);
+    }
+
+    @Override
+    public void itemAdded(Item item) {
+        graph.addOccupants(item);
+        if (item instanceof ItemGroup) {
+            ItemGroup group = (ItemGroup)item;
+            group.addObserver(this);
+            graph.addOccupants(group.getItems());
+        }
+    }
+
+    @Override
+    public void itemRemoved(Item item) {
+        graph.removeOccupants(item);
+        if (item instanceof ItemGroup) {
+            ItemGroup group = (ItemGroup)item;
+            group.removeObserver(this);
+            graph.removeOccupants(group.getItems());
+        }
+    }
+
+    @Override
+    public void itemsCleared() {
+        graph.clearOccupants();
     }
 }

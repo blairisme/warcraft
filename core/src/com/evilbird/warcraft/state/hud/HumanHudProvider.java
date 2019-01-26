@@ -34,7 +34,7 @@ public class HumanHudProvider implements AssetProvider<ItemRoot>
     @Override
     public ItemRoot get()
     {
-        ItemRoot hud = new ItemRoot();
+        ItemRoot hud = new ItemRoot(null);
         hud.addItem(itemFactory.newItem(HudControls.ResourcePane));
         hud.addItem(itemFactory.newItem(HudControls.ControlPane));
         return hud;

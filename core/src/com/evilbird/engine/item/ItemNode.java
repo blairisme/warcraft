@@ -9,8 +9,11 @@
 
 package com.evilbird.engine.item;
 
+import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.evilbird.engine.common.collection.Arrays;
 import com.evilbird.engine.common.pathing.SpatialNode;
 
 import java.util.ArrayList;
@@ -28,12 +31,22 @@ public class ItemNode implements SpatialNode
     private List<Item> occupants;
     private GridPoint2 gridReference;
     private Vector2 worldReference;
+    private Array<Connection<ItemNode>> connections;
 
     public ItemNode(int index, GridPoint2 gridReference) {
         this.index = index;
         this.occupants = new ArrayList<>(2);
         this.gridReference = gridReference;
         this.worldReference = new Vector2(32 * gridReference.x, 32 * gridReference.y);
+        this.connections = Arrays.emptyArray();
+    }
+
+    public Array<Connection<ItemNode>> getConnections() {
+        return connections;
+    }
+
+    public void setConnections(Array<Connection<ItemNode>> connections) {
+        this.connections = connections;
     }
 
     @Override
@@ -60,5 +73,9 @@ public class ItemNode implements SpatialNode
 
     public void removeOccupant(Item occupant) {
         occupants.remove(occupant);
+    }
+
+    public void removeOccupants() {
+        occupants.clear();
     }
 }

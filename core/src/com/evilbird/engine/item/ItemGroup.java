@@ -31,12 +31,14 @@ import java.util.List;
 public class ItemGroup extends Item implements GroupObserver, ItemComposite
 {
     protected List<Item> items;
+    protected Collection<ItemGroupObserver> observers;
 
     /**
      * Constructs a new instance of this class.
      */
     public ItemGroup() {
         this.items = new ArrayList<>();
+        this.observers = new ArrayList<>();
     }
 
     protected Actor initializeDelegate() {
@@ -54,6 +56,7 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
         item.setParent(this);
         item.setRoot(getRoot());
         items.add(item);
+        notifyItemAdded(item);
     }
 
     /**
@@ -64,6 +67,7 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
     public void removeItem(Item item) {
         item.delegate.remove();
         items.remove(item);
+        notifyItemRemoved(item);
     }
 
     /**
@@ -73,6 +77,7 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
         Group group = (Group) delegate;
         group.clearChildren();
         items.clear();
+        notifyItemsCleared();
     }
 
     /**
@@ -82,6 +87,28 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
      */
     public Collection<Item> getItems() {
         return items;
+    }
+
+    /**
+     * Adds an {@link ItemGroupObserver observer} to the collection of
+     * observers that will be notified when an {@link Item} is added or
+     * removed from the ItemGroup.
+     *
+     * @param observer an <code>ItemGroupObserver</code>.
+     */
+    public void addObserver(ItemGroupObserver observer) {
+        this.observers.add(observer);
+    }
+
+    /**
+     * Removes an {@link ItemGroupObserver observer} from the collection of
+     * observers that are be notified when an {@link Item} is added or
+     * removed from the ItemGroup.
+     *
+     * @param observer an <code>ItemGroupObserver</code>.
+     */
+    public void removeObserver(ItemGroupObserver observer) {
+        this.observers.remove(observer);
     }
 
     /**
@@ -177,5 +204,23 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
             }
         }
         return result;
+    }
+
+    private void notifyItemAdded(Item item) {
+        for (ItemGroupObserver observer: observers) {
+            observer.itemAdded(item);
+        }
+    }
+
+    private void notifyItemRemoved(Item item) {
+        for (ItemGroupObserver observer: observers) {
+            observer.itemRemoved(item);
+        }
+    }
+
+    private void notifyItemsCleared() {
+        for (ItemGroupObserver observer: observers) {
+            observer.itemsCleared();
+        }
     }
 }

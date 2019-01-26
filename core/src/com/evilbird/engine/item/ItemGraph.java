@@ -13,6 +13,7 @@ import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.evilbird.engine.common.collection.Arrays;
 import com.evilbird.engine.common.function.AcceptPredicate;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.pathing.SpatialGraph;
@@ -28,64 +29,40 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-// TODO: Newly created items are not avoided (not added to spatial graph)
 public class ItemGraph implements SpatialGraph<ItemNode>
 {
-    private boolean populated;
     private float nodeWidth;
     private float nodeHeight;
     private int nodeCountX;
     private int nodeCountY;
-    private ItemComposite root;
     private ItemNode[][] nodes;
-    private Predicate<ItemNode> connectionFilter;
     private Map<Item, ItemNode> newOccupants;
+    private Predicate<Connection<ItemNode>> nodeFilter;
 
-    public ItemGraph(ItemGraph graph, Predicate<ItemNode> connectionFilter) {
-        this.root = graph.root;
+    public ItemGraph(ItemGraph graph, Predicate<ItemNode> nodeFilter) {
         this.nodeWidth = graph.nodeWidth;
         this.nodeHeight = graph.nodeHeight;
         this.nodeCountX = graph.nodeCountX;
         this.nodeCountY = graph.nodeCountY;
         this.nodes = graph.nodes;
-        this.populated = graph.populated;
-        this.connectionFilter = connectionFilter;
         this.newOccupants = graph.newOccupants;
+        this.nodeFilter = new ItemConnectionPredicate(nodeFilter);
     }
 
-    public ItemGraph(ItemComposite root, int nodeWidth, int nodeHeight, int nodeCountX, int nodeCountY) {
-        this.root = root;
+    public ItemGraph(int nodeWidth, int nodeHeight, int nodeCountX, int nodeCountY) {
         this.nodeWidth = nodeWidth;
         this.nodeHeight = nodeHeight;
         this.nodeCountX = nodeCountX;
         this.nodeCountY = nodeCountY;
-        this.nodes = createNodeArray(nodeCountX, nodeCountY);
-        this.populated = false;
-        this.connectionFilter = new AcceptPredicate<>();
         this.newOccupants = new HashMap<>();
+        this.nodeFilter = new AcceptPredicate<>();
+        this.nodes = createNodeArray(nodeCountX, nodeCountY);
     }
 
     @Override
     public Array<Connection<ItemNode>> getConnections(ItemNode fromNode) {
-        Array<Connection<ItemNode>> result = new Array<>();
-
-        GridPoint2 fromIndex = fromNode.getSpatialReference();
-        int startX = Math.max(0, fromIndex.x - 1);
-        int startY = Math.max(0, fromIndex.y - 1);
-        int endX = Math.min(nodeCountX - 1, fromIndex.x + 1);
-        int endY = Math.min(nodeCountY - 1, fromIndex.y + 1);
-
-        for (int x = startX; x <= endX; x++) {
-            for (int y = startY; y <= endY; y++) {
-                if (!(x == fromIndex.x && y == fromIndex.y)) {
-                    ItemNode toNode = nodes[x][y];
-                    if (connectionFilter.test(toNode)) {
-                        result.add(new ItemConnection(fromNode, toNode));
-                    }
-                }
-            }
-        }
-        return result;
+        Array<Connection<ItemNode>> result = fromNode.getConnections();
+        return Arrays.retain(result, nodeFilter);
     }
 
     @Override
@@ -137,11 +114,20 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     }
 
     public void update() {
-        if (!populated){
-            populated = true;
-            updateOccupant(root.getItems());
-        }
         newOccupants.clear();
+    }
+
+    public void addOccupants(Collection<Item> occupants) {
+        for (Item occupant: occupants) {
+            addOccupants(occupant);
+        }
+    }
+
+    public void addOccupants(Item occupant) {
+        if (occupant.getTouchable()) {
+            ItemNode node = getNode(occupant.getPosition());
+            addOccupants(node, occupant);
+        }
     }
 
     public void addOccupants(ItemNode node, Item occupant) {
@@ -151,37 +137,73 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         }
     }
 
+    public void removeOccupants(Collection<Item> occupants) {
+        for (Item occupant: occupants) {
+            removeOccupants(occupant);
+        }
+    }
+
+    public void removeOccupants(Item occupant) {
+        if (occupant.getTouchable()) {
+            ItemNode node = getNode(occupant.getPosition());
+            removeOccupants(node, occupant);
+        }
+    }
+
     public void removeOccupants(ItemNode node, Item occupant) {
         for (ItemNode adjacentNode: getNodes(node.getSpatialReference(), occupant.getSize())) {
             adjacentNode.removeOccupant(occupant);
         }
     }
 
-    public void updateOccupant(Collection<Item> occupants) {
-        for (Item occupant: occupants) {
-            if (occupant instanceof ItemComposite) {
-                ItemComposite composite = (ItemComposite)occupant;
-                updateOccupant(composite.getItems());
-            }
-            updateOccupant(occupant);
-        }
-    }
-
-    public void updateOccupant(Item occupant) {
-        if (occupant.getTouchable()) {
-            for (ItemNode node : getNodes(occupant.getPosition(), occupant.getSize())) {
-                node.addOccupant(occupant);
-                newOccupants.put(occupant, node);
+    public void clearOccupants() {
+        for (int x = 0; x < nodeCountX; x++) {
+            for (int y = 0; y < nodeCountY; y++) {
+                nodes[x][y].removeOccupants();
             }
         }
     }
 
     private ItemNode[][] createNodeArray(int width, int height) {
+        ItemNode[][] result = createNodes(width, height);
+        addConnections(result, width, height);
+        return result;
+    }
+
+    private ItemNode[][] createNodes(int width, int height) {
         int index = 0;
         ItemNode[][] result = new ItemNode[width][height];
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++){
                 result[x][y] = new ItemNode(index++, new GridPoint2(x, y));
+            }
+        }
+        return result;
+    }
+
+    private void addConnections(ItemNode[][] nodes, int width, int height) {
+        for (int x = 0; x < width; x++){
+            for (int y = 0; y < height; y++){
+                nodes[x][y].setConnections(createConnections(nodes, nodes[x][y]));
+            }
+        }
+    }
+
+    private Array<Connection<ItemNode>> createConnections(ItemNode[][] nodes, ItemNode fromNode) {
+        Array<Connection<ItemNode>> result = new Array<>();
+
+        GridPoint2 fromIndex = fromNode.getSpatialReference();
+        int startX = Math.max(0, fromIndex.x - 1);
+        int startY = Math.max(0, fromIndex.y - 1);
+        int endX = Math.min(nodeCountX - 1, fromIndex.x + 1);
+        int endY = Math.min(nodeCountY - 1, fromIndex.y + 1);
+
+        for (int x = startX; x <= endX; x++) {
+            for (int y = startY; y <= endY; y++) {
+                if (!(x == fromIndex.x && y == fromIndex.y)) {
+                    ItemNode toNode = nodes[x][y];
+                    result.add(new ItemConnection(fromNode, toNode));
+                }
             }
         }
         return result;

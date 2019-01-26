@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.effect.confirm;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
@@ -25,37 +26,41 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+/**
+ * Instances of this class represent a confirmation animation item, shown to
+ * provide visual feedback to the user when they
+ *
+ * @author Blair Butterworth
+ */
 public class ConfirmProvider implements AssetProvider<Item>
 {
+    private static final String TEXTURE = "data/textures/neutral/hud/green_cross.png";
     private AssetManager assets;
 
     @Inject
-    public ConfirmProvider(Device device)
-    {
+    public ConfirmProvider(Device device) {
         assets = device.getAssetStorage().getAssets();
     }
 
     @Override
-    public void load()
-    {
-        assets.load("data/textures/neutral/hud/green_cross.png", Texture.class);
+    public void load() {
+        assets.load(TEXTURE, Texture.class);
     }
 
     @Override
-    public Item get()
-    {
+    public Item get() {
         AnimatedItem result = new AnimatedItem();
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
+        result.setTouchable(Touchable.disabled);
         result.setType(EffectType.Confirm);
         result.setSize(32, 32);
         return result;
     }
 
     //TODO: Cache
-    private Map<AnimationIdentifier, DirectionalAnimation> getAnimations()
-    {
-        Texture texture = assets.get("data/textures/neutral/hud/green_cross.png", Texture.class);
+    private Map<AnimationIdentifier, DirectionalAnimation> getAnimations() {
+        Texture texture = assets.get(TEXTURE, Texture.class);
         return AnimationCollections.effectAnimations(texture);
     }
 }

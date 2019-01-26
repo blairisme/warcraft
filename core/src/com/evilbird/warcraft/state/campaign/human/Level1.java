@@ -23,11 +23,7 @@ import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemComposite;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.item.*;
 import com.evilbird.engine.item.specialized.layer.Layer;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.layer.LayerType;
@@ -71,7 +67,7 @@ public class Level1 implements AssetProvider<ItemRoot>
     }
 
     private ItemRoot loadLevelItem(TiledMap level) {
-        ItemRoot result = new ItemRoot();
+        ItemRoot result = new ItemRoot(new ItemGraph(32, 32, 32, 32));
         result.setViewport(new ScreenViewport());
         addItems(level, result);
         return result;
