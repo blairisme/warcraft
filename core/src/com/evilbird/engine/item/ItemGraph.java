@@ -20,8 +20,6 @@ import com.evilbird.engine.common.pathing.SpatialGraph;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Instances of this class represent a graph of the game space, represented as
@@ -36,7 +34,6 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     private int nodeCountX;
     private int nodeCountY;
     private ItemNode[][] nodes;
-    private Map<Item, ItemNode> newOccupants;
     private Predicate<Connection<ItemNode>> nodeFilter;
 
     public ItemGraph(ItemGraph graph, Predicate<ItemNode> nodeFilter) {
@@ -45,7 +42,6 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         this.nodeCountX = graph.nodeCountX;
         this.nodeCountY = graph.nodeCountY;
         this.nodes = graph.nodes;
-        this.newOccupants = graph.newOccupants;
         this.nodeFilter = new ItemConnectionPredicate(nodeFilter);
     }
 
@@ -54,7 +50,6 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         this.nodeHeight = nodeHeight;
         this.nodeCountX = nodeCountX;
         this.nodeCountY = nodeCountY;
-        this.newOccupants = new HashMap<>();
         this.nodeFilter = new AcceptPredicate<>();
         this.nodes = createNodeArray(nodeCountX, nodeCountY);
     }
@@ -109,14 +104,6 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         return node.getIndex();
     }
 
-    public Map<Item, ItemNode> getNewOccupants() {
-        return newOccupants;
-    }
-
-    public void update() {
-        newOccupants.clear();
-    }
-
     public void addOccupants(Collection<Item> occupants) {
         for (Item occupant: occupants) {
             addOccupants(occupant);
@@ -133,7 +120,6 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     public void addOccupants(ItemNode node, Item occupant) {
         for (ItemNode adjacentNode: getNodes(node.getSpatialReference(), occupant.getSize())) {
             adjacentNode.addOccupant(occupant);
-            newOccupants.put(occupant, node);
         }
     }
 

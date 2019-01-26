@@ -35,4 +35,11 @@ public class Arrays
         }
         return result;
     }
+
+    public static <T> Array<T> union(Array<T> collectionA, Array<T> collectionB) {
+        Array<T> result = new Array<>(collectionA.size + collectionB.size);
+        result.addAll(collectionA);
+        result.addAll(collectionB);
+        return result;
+    }
 }

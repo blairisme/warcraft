@@ -30,43 +30,39 @@ public class Unit extends AnimatedItem implements Destructible
         healthMaximum = 0;
     }
 
-    public float getHealth()
-    {
+    public boolean isAlive() {
+        return health > 0;
+    }
+
+    public float getHealth() {
         return health;
     }
 
-    public float getHealthMaximum()
-    {
+    public float getHealthMaximum() {
         return healthMaximum;
     }
 
-    public Drawable getIcon()
-    {
+    public Drawable getIcon() {
         return icon;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setIcon(Drawable icon)
-    {
+    public void setIcon(Drawable icon) {
         this.icon = icon;
     }
 
-    public void setHealth(float health)
-    {
+    public void setHealth(float health) {
         this.health = health;
     }
 
-    public void setHealthMaximum(float healthMaximum)
-    {
+    public void setHealthMaximum(float healthMaximum) {
         this.healthMaximum = healthMaximum;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 }

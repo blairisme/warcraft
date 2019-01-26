@@ -28,7 +28,7 @@ import javax.inject.Inject;
  */
 public class Player extends ItemGroup implements ResourceContainer
 {
-    private boolean consoleUser;
+    private boolean humanPlayer;
     private Map<ResourceIdentifier, Float> resources;
 
     @Inject
@@ -36,13 +36,11 @@ public class Player extends ItemGroup implements ResourceContainer
         super.setPosition(0, 0);
         super.setSize(Float.MAX_VALUE, Float.MAX_VALUE);
         super.setType(DataType.Player);
-
-        consoleUser = true;
         resources = new HashMap<>();
     }
 
-    public boolean getConsoleUser() {
-        return consoleUser;
+    public boolean isHumanPlayer() {
+        return humanPlayer;
     }
 
     @Override
@@ -54,6 +52,10 @@ public class Player extends ItemGroup implements ResourceContainer
     @Override
     public Map<ResourceIdentifier, Float> getResources() {
         return resources;
+    }
+
+    public void setHumanPlayer(boolean humanPlayer) {
+        this.humanPlayer = humanPlayer;
     }
 
     @Override

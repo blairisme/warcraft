@@ -25,7 +25,7 @@ interface MoveDestination
 
     ItemNode getDestinationNode(ItemGraph graph, ItemNode node);
 
-    boolean isDestinationValid(ItemGraph graph);
+    boolean isDestinationValid(ItemGraph graph, ItemNode node);
 
-    boolean isDestinationReached(ItemNode node);
+    boolean isDestinationReached(ItemGraph graph, ItemNode node);
 }

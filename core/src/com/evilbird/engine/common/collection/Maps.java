@@ -31,4 +31,11 @@ public class Maps
         result.put(k3, v3);
         return result;
     }
+
+    public static <K, V> Map<K, V> union(Map<K, V> collectionA, Map<K, V> collectionB) {
+        Map<K, V> result = new HashMap<>(collectionA.size() + collectionB.size());
+        result.putAll(collectionA);
+        result.putAll(collectionB);
+        return result;
+    }
 }

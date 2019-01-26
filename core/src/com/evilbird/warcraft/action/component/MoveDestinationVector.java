@@ -35,12 +35,12 @@ class MoveDestinationVector implements MoveDestination
     }
 
     @Override
-    public boolean isDestinationValid(ItemGraph graph) {
+    public boolean isDestinationValid(ItemGraph graph, ItemNode node) {
         return true;
     }
 
     @Override
-    public boolean isDestinationReached(ItemNode node) {
+    public boolean isDestinationReached(ItemGraph graph, ItemNode node) {
         return Objects.equals(node.getWorldReference(), destination);
     }
 

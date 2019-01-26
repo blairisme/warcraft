@@ -9,25 +9,26 @@
 
 package com.evilbird.warcraft.behaviour.ai;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.BasicActionContext;
+import com.evilbird.engine.common.collection.Collections;
+import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.ItemGraph;
-import com.evilbird.engine.item.ItemNode;
 import com.evilbird.warcraft.action.identifier.GeneralActions;
-import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
 
-import static com.evilbird.engine.item.ItemPredicates.itemWithClass;
+import static com.evilbird.engine.common.function.Predicates.both;
+import static com.evilbird.engine.common.function.Predicates.not;
+import static com.evilbird.engine.item.ItemPredicates.*;
+import static com.evilbird.warcraft.item.unit.UnitPredicates.isAi;
+import static com.evilbird.warcraft.item.unit.UnitPredicates.isAlive;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Instances of this {@link AiProcedure} instruct AI combatants to attack an
@@ -35,77 +36,43 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithClass;
  *
  * @author Blair Butterworth
  */
-//TODO: Ignore dead combatants
-//TODO: Improve performance - caching? Consider putting caching into ItemGroup
-public class InitiateAttack implements AiProcedure
+public class InitiateAttack extends PeriodicProcedure
 {
     private ActionFactory actionFactory;
 
     @Inject
     public InitiateAttack(ActionFactory actionFactory) {
+        super(1, SECONDS);
         this.actionFactory = actionFactory;
     }
 
     @Override
-    public void update(ItemRoot gameState) {
-        for (Item movedItem: getMovedItems(gameState)) {
-            for (Combatant enemyCombatant: getEnemyCombatants(movedItem)) {
-                if (shouldAttack(enemyCombatant, movedItem)) {
-                    attack(enemyCombatant, movedItem);
-                }
+    public void periodicUpdate(ItemRoot gameState) {
+        Collection<Combatant> combatants = getCombatants(gameState);
+        for (Combatant combatant: getAvailableCombatants(combatants)) {
+            Combatant enemy = getAvailableEnemy(combatants, combatant);
+            if (enemy != null) {
+                attack(combatant, enemy);
             }
         }
     }
 
-    private Collection<Item> getMovedItems(ItemRoot gameState) {
-        ItemGraph spatialGraph = gameState.getSpatialGraph();
-        Map<Item, ItemNode> newOccupants = spatialGraph.getNewOccupants();
-        return newOccupants.keySet();
+    private Collection<Combatant> getCombatants(ItemRoot gameState) {
+        Collection<Combatant> combatants = gameState.findAll(itemWithClass(Combatant.class));
+        return Collections.retain(combatants, isAlive());
     }
 
-    private Collection<Combatant> getEnemyCombatants(Item item) {
-        Collection<Combatant> enemyCombatants = new ArrayList<>();
-        for (Player enemyPlayer: getEnemyPlayers(item)) {
-            enemyCombatants.addAll(getCombatants(enemyPlayer));
-        }
-        return enemyCombatants;
+    private Collection<Combatant> getAvailableCombatants(Collection<Combatant> combatants) {
+        return Collections.retain(combatants, both(isIdle(), isAi()));
     }
 
-//    private Collection<Item> getAiPlayers(ItemRoot world) {
-//        if (aiPlayers == null) {
-//            aiPlayers = world.findAll(itemWithType(DataType.Player));
-//        }
-//        return aiPlayers;
-//    }
-
-    private Collection<Player> getEnemyPlayers(Item item) {
-        Player player = (Player)item.getParent();
-        ItemRoot root = item.getRoot();
-
-        Collection<Player> players = root.findAll(itemWithClass(Player.class));
-        players.remove(player);
-
-        return players;
+    private Combatant getAvailableEnemy(Collection<Combatant> combatants, Combatant combatant) {
+        Item player = combatant.getParent();
+        return Collections.find(combatants, both(not(isOwnedBy(player)), withinRange(combatant)));
     }
 
-    private Collection<Combatant> getCombatants(Player player) {
-        return player.findAll(itemWithClass(Combatant.class));
-    }
-
-    private boolean shouldAttack(Combatant combatant, Item target) {
-        return isIdle(combatant) && withinAttackRange(combatant, target);
-    }
-
-    private boolean isIdle(Combatant combatant) {
-        return !combatant.hasActions();
-    }
-
-    private boolean withinAttackRange(Combatant combatant, Item target) {
-        Vector2 combatantPosition = combatant.getPosition();
-        Vector2 targetPosition = target.getPosition();
-        float range = combatant.getSight();
-        float distance = combatantPosition.dst(targetPosition);
-        return distance <= range;
+    private Predicate<Item> withinRange(Combatant combatant) {
+        return isNear(combatant.getPosition(), combatant.getSight());
     }
 
     private void attack(Combatant combatant, Item target) {

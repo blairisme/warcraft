@@ -16,6 +16,7 @@ import com.evilbird.engine.item.ItemRoot;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public class AiBehaviour implements Behaviour
     @Inject
     public AiBehaviour(InitiateAttack initiateAttack) {
         procedures = new ArrayList<>();
-        //procedures.add(initiateAttack);
+        procedures.add(initiateAttack);
     }
 
     @Override

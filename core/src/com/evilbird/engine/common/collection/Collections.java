@@ -1,14 +1,12 @@
 package com.evilbird.engine.common.collection;
 
-import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.function.Comparator;
+import com.evilbird.engine.common.function.Predicate;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Instances of this class provide helper functions for working with
@@ -18,24 +16,42 @@ import java.util.Map;
  */
 public class Collections
 {
+    private Collections() {
+        throw new UnsupportedOperationException();
+    }
+
+    public static <T> T find(Collection<T> collection, Predicate<? super T> predicate) {
+        Iterator<T> iterator = collection.iterator();
+        while (iterator.hasNext()) {
+            final T element = iterator.next();
+            if (predicate.test(element)) {
+                return element;
+            }
+        }
+        return null;
+    }
+
     public static <T> T min(Collection<? extends T> collection, Comparator<? super T> comparator) {
         Iterator<? extends T> iterator = collection.iterator();
         T result = iterator.next();
 
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             T other = iterator.next();
 
-            if(comparator.compare(other, result) < 0) {
+            if (comparator.compare(other, result) < 0) {
                 result = other;
             }
         }
         return result;
     }
 
-    public static <T> Array<T> union(Array<T> collectionA, Array<T> collectionB) {
-        Array<T> result = new Array<>(collectionA.size + collectionB.size);
-        result.addAll(collectionA);
-        result.addAll(collectionB);
+    public static <T> Collection<T> retain(Collection<? extends T> collection, Predicate<? super T> predicate) {
+        Collection<T> result = new ArrayList<>(collection.size());
+        for (T element: collection) {
+            if (predicate.test(element)) {
+                result.add(element);
+            }
+        }
         return result;
     }
 
@@ -43,13 +59,6 @@ public class Collections
         List<T> result = new ArrayList<>(collectionA.size() + collectionB.size());
         result.addAll(collectionA);
         result.addAll(collectionB);
-        return result;
-    }
-
-    public static <K, V> Map<K, V> union(Map<K, V> collectionA, Map<K, V> collectionB) {
-        Map<K, V> result = new HashMap<>(collectionA.size() + collectionB.size());
-        result.putAll(collectionA);
-        result.putAll(collectionB);
         return result;
     }
 }

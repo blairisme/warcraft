@@ -75,6 +75,10 @@ public class ItemNode implements SpatialNode
         occupants.remove(occupant);
     }
 
+    public boolean hasOccupant(Item occupant) {
+        return occupants.contains(occupant);
+    }
+
     public void removeOccupants() {
         occupants.clear();
     }

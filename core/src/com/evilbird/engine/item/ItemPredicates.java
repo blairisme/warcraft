@@ -9,15 +9,26 @@
 
 package com.evilbird.engine.item;
 
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Objects;
 
+/**
+ * Instances of this class provide commonly used {@link Predicate Predicates}
+ * that operate on {@link Item Items}.
+ *
+ * @author Blair Butterworth
+ */
 public class ItemPredicates
 {
+    private ItemPredicates() {
+        throw new UnsupportedOperationException();
+    }
+
     @SuppressWarnings("unchecked")
     public static <T extends Item> Predicate<T> itemWithClass(Class<T> clazz) {
-        return new ItemWithClass(clazz); //TODO: Pool?
+        return new ItemWithClass(clazz);
     }
 
     public static class ItemWithClass <T extends Item> implements Predicate<T> {
@@ -33,9 +44,8 @@ public class ItemPredicates
         }
     }
 
-
     public static Predicate<Item> itemWithId(Identifier id) {
-        return new ItemWithId(id); //TODO: Pool?
+        return new ItemWithId(id);
     }
 
     public static class ItemWithId implements Predicate<Item> {
@@ -52,7 +62,7 @@ public class ItemPredicates
     }
 
     public static Predicate<Item> itemWithType(Identifier type) {
-        return new ItemWithType(type); //TODO: Pool?
+        return new ItemWithType(type);
     }
 
     public static class ItemWithType implements Predicate<Item> {
@@ -69,7 +79,7 @@ public class ItemPredicates
     }
 
     public static Predicate<Item> itemWithAction() {
-        return new ItemWithAction(); //TODO singleton?
+        return new ItemWithAction();
     }
 
     public static class ItemWithAction implements Predicate<Item> {
@@ -98,7 +108,7 @@ public class ItemPredicates
     }
 
     public static Predicate<Item> selectedItem() {
-        return new SelectedItem(); //TODO singleton?
+        return new SelectedItem();
     }
 
     public static class SelectedItem implements Predicate<Item> {
@@ -109,7 +119,7 @@ public class ItemPredicates
     }
 
     public static Predicate<Item> selectableItem() {
-        return new SelectableItem(); //TODO singleton?
+        return new SelectableItem();
     }
 
     public static class SelectableItem implements Predicate<Item> {
@@ -117,5 +127,35 @@ public class ItemPredicates
         public boolean test(Item item) {
             return item.getSelectable();
         }
+    }
+
+    public static Predicate<Item> isIdle() {
+        return new Predicate<Item>() {
+            @Override
+            public boolean test(Item item) {
+                return !item.hasActions();
+            }
+        };
+    }
+
+    public static Predicate<Item> isOwnedBy(Item ownerA) {
+        return new Predicate<Item>() {
+            @Override
+            public boolean test(Item item) {
+                Item ownerB = item.getParent();
+                return Objects.equals(ownerA, ownerB);
+            }
+        };
+    }
+
+    public static Predicate<Item> isNear(Vector2 position, float radius) {
+        return new Predicate<Item>() {
+            @Override
+            public boolean test(Item target) {
+                Vector2 targetPosition = target.getPosition();
+                float distance = position.dst(targetPosition);
+                return distance <= radius;
+            }
+        };
     }
 }

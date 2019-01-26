@@ -72,13 +72,13 @@ public class MoveAction extends BasicAction
             error();
             return true;
         }
-        if (!isValid()) {
-            restart();
-            return false;
-        }
         if (!update(time)) {
             complete();
             return true;
+        }
+        if (!isValid()) {
+            restart();
+            return false;
         }
         return false;
     }
@@ -96,7 +96,7 @@ public class MoveAction extends BasicAction
     }
 
     private boolean isLastNodeValid() {
-        return destination.isDestinationValid(graph);
+        return destination.isDestinationValid(graph, endNode);
     }
 
     private boolean load() {
@@ -165,10 +165,10 @@ public class MoveAction extends BasicAction
 
     private boolean incrementNode() {
         ItemNode nextNode = pathIterator.next();
-        if (!destination.isDestinationReached(nextNode)) {
-            graph.removeOccupants(pathNode, (Item) target);
+        if (!destination.isDestinationReached(graph, nextNode)) {
+            graph.removeOccupants(pathNode, (Item)target);
             pathNode = nextNode;
-            graph.addOccupants(pathNode, (Item) target);
+            graph.addOccupants(pathNode, (Item)target);
             return true;
         }
         return false;

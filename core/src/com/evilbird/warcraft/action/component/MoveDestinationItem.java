@@ -10,13 +10,12 @@
 package com.evilbird.warcraft.action.component;
 
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.common.pathing.SpatialUtils;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGraph;
 import com.evilbird.engine.item.ItemNode;
-import com.evilbird.engine.common.pathing.SpatialUtils;
 
 import java.util.Collection;
-import java.util.Map;
 
 /**
  * Instances of this {@link MoveDestination} represent a destination
@@ -45,13 +44,12 @@ class MoveDestinationItem implements MoveDestination
     }
 
     @Override
-    public boolean isDestinationValid(ItemGraph graph) {
-        Map<Item, ItemNode> newOccupants = graph.getNewOccupants();
-        return !newOccupants.containsKey(destination);
+    public boolean isDestinationValid(ItemGraph graph, ItemNode node) {
+        return node.hasOccupant(destination);
     }
 
     @Override
-    public boolean isDestinationReached(ItemNode node) {
+    public boolean isDestinationReached(ItemGraph graph, ItemNode node) {
         Collection<Item> occupants = node.getOccupants();
         return occupants.contains(destination);
     }

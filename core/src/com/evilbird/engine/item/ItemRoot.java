@@ -123,9 +123,6 @@ public class ItemRoot implements ItemComposite, ItemGroupObserver
      * @param delta the time between this frame and the last frame.
      */
     public void update(float delta) {
-        if (graph != null) {
-            graph.update();
-        }
         delegate.getCamera().update();
         delegate.act(delta);
     }

@@ -26,8 +26,10 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.*;
 import com.evilbird.engine.item.specialized.layer.Layer;
 import com.evilbird.warcraft.item.data.DataType;
+import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -35,6 +37,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+//TODO: Move into serialzation library
 public class Level1 implements AssetProvider<ItemRoot>
 {
     private AssetManager assets;
@@ -134,18 +137,45 @@ public class Level1 implements AssetProvider<ItemRoot>
 
     private void addObjectItems(MapLayer layer, Map<String, ItemComposite> parents) {
         for (MapObject object : layer.getObjects()) {
-            MapProperties properties = object.getProperties();
-
-            Item item = itemFactory.newItem(getItemType(layer));
-            item.setId(new NamedIdentifier(object.getName()));
-            item.setVisible(object.isVisible());
-            item.setTouchable(getTouchable(properties));
-            //item.setSize((Float)properties.get("width"), (Float)properties.get("height"));
-            item.setPosition((Float) properties.get("x"), (Float) properties.get("y"));
-
-            ItemComposite parent = parents.get(getOwner(properties));
+            Item item = newItem(getItemType(layer), object);
+            ItemComposite parent = getParent(parents, object);
             parent.addItem(item);
         }
+    }
+
+    private Item newItem(ItemType type, MapObject object) {
+        Item item = createItem(type, object);
+        setGeneralAttributes(item, object.getProperties());
+        setCustomAttributes(item, object.getProperties());
+        return item;
+    }
+
+    private Item createItem(ItemType type, MapObject object) {
+        Item item = itemFactory.newItem(type);
+        item.setId(new NamedIdentifier(object.getName()));
+        item.setVisible(object.isVisible());
+        return item;
+    }
+
+    private void setGeneralAttributes(Item item, MapProperties properties) {
+        item.setTouchable(getTouchable(properties));
+        item.setPosition((Float)properties.get("x"), (Float)properties.get("y"));
+    }
+
+    private void setCustomAttributes(Item item, MapProperties properties) {
+        if (item instanceof Player) {
+            Player player = (Player)item;
+            player.setHumanPlayer(! properties.get("AI", Boolean.class));
+            player.setResource(ResourceType.Gold, properties.get("Gold", Float.class));
+            player.setResource(ResourceType.Oil, properties.get("Oil", Float.class));
+            player.setResource(ResourceType.Wood, properties.get("Wood", Float.class));
+        }
+    }
+
+    private ItemComposite getParent(Map<String, ItemComposite> parents, MapObject object) {
+        MapProperties properties = object.getProperties();
+        String owner = getOwner(properties);
+        return parents.get(owner);
     }
 
     private boolean isPrimaryItem(MapLayer layer) {
@@ -164,8 +194,15 @@ public class Level1 implements AssetProvider<ItemRoot>
     }
 
     private boolean isDataItem(MapLayer layer) {
-        return Objects.equals(layer.getName(), "Player") ||
-                Objects.equals(layer.getName(), "Camera");
+        return isPlayerItem(layer) || isCameraItem(layer) ;
+    }
+
+    private boolean isPlayerItem(MapLayer layer) {
+        return Objects.equals(layer.getName(), "Player");
+    }
+
+    private boolean isCameraItem(MapLayer layer) {
+        return Objects.equals(layer.getName(), "Camera");
     }
 
     private ItemType getItemType(MapLayer layer) {

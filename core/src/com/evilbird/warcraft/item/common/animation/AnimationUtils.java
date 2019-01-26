@@ -12,7 +12,9 @@ package com.evilbird.warcraft.item.common.animation;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.evilbird.engine.common.collection.Arrays;
 import com.evilbird.engine.common.collection.Collections;
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 
 import org.apache.commons.lang3.Range;
@@ -41,7 +43,7 @@ public class AnimationUtils
             Range<Float> range = sourceFrameEntry.getKey();
             Array<TextureRegion> sourceFrames = sourceFrameEntry.getValue();
             Array<TextureRegion> targetFrames = targetFrameSet.get(range);
-            combinedFrames.put(range, Collections.union(sourceFrames, targetFrames));
+            combinedFrames.put(range, Arrays.union(sourceFrames, targetFrames));
         }
         return new DirectionalAnimation(source.getDirection(), source.getDuration(), combinedFrames, source.getMode());
     }

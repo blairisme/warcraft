@@ -193,6 +193,7 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
         return null;
     }
 
+    @SuppressWarnings("unchecked")
     private <T extends Item> Collection<T> findAll(ItemGroup group, Predicate<T> predicate) {
         Collection<T> result = new ArrayList<>();
         for (Item item : group.items) {
