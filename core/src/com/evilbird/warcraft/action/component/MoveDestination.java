@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.action.component;
 
-import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.item.ItemGraph;
 import com.evilbird.engine.item.ItemNode;
 
@@ -21,8 +20,6 @@ import com.evilbird.engine.item.ItemNode;
  */
 interface MoveDestination
 {
-    Vector2 getOrientationTarget();
-
     ItemNode getDestinationNode(ItemGraph graph, ItemNode node);
 
     boolean isDestinationValid(ItemGraph graph, ItemNode node);

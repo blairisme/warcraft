@@ -39,11 +39,6 @@ class MoveDestinationItem implements MoveDestination
     }
 
     @Override
-    public Vector2 getOrientationTarget() {
-        return destination.getPosition();
-    }
-
-    @Override
     public boolean isDestinationValid(ItemGraph graph, ItemNode node) {
         return node.hasOccupant(destination);
     }

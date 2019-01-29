@@ -9,14 +9,13 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.common.function.Predicate;
 
-public class RequirementAction<T extends Action> extends DelegateAction
+public class RequirementAction extends DelegateAction
 {
-    private Predicate<? super T> requirement;
+    private Predicate<BasicAction> requirement;
 
-    public RequirementAction(T delegate, Predicate<? super T> requirement) {
+    public RequirementAction(BasicAction delegate, Predicate<BasicAction> requirement) {
         super(delegate);
         this.requirement = requirement;
     }
@@ -24,8 +23,9 @@ public class RequirementAction<T extends Action> extends DelegateAction
     @Override
     @SuppressWarnings("unchecked")
     public boolean act(float delta) {
-        if (! requirement.test((T)delegate)) {
+        if (! requirement.test((BasicAction)delegate)) {
             cancel();
+            return true;
         }
         return delegate.act(delta);
     }

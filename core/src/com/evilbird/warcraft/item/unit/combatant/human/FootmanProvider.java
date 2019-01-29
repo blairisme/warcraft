@@ -31,6 +31,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+//TODO: Add sounds for selected, acknowledge, attack
 public class FootmanProvider implements AssetProvider<Item>
 {
     private AssetManager assets;
@@ -62,7 +63,7 @@ public class FootmanProvider implements AssetProvider<Item>
         result.setName("Footman");
         result.setMovementSpeed(64f);
         result.setMovementCapability(LayerType.Map);
-        result.setRange(36);
+        result.setRange(32 + 5);
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);

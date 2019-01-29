@@ -31,6 +31,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+//TODO: Add sounds for selected, acknowledge, attack
 public class GruntProvider implements AssetProvider<Item>
 {
     private AssetManager assets;
@@ -61,7 +62,7 @@ public class GruntProvider implements AssetProvider<Item>
         result.setName("Grunt");
         result.setMovementSpeed(64f);
         result.setMovementCapability(LayerType.Map);
-        result.setRange(48);
+        result.setRange(32 + 5);
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);

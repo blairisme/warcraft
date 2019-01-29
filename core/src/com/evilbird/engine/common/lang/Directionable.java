@@ -16,7 +16,7 @@ import com.badlogic.gdx.math.Vector2;
  *
  * @author Blair Butterworth
  */
-public interface Directionable
+public interface Directionable extends Positionable
 {
     /**
      * Sets the direction of the object.

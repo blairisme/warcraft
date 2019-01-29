@@ -200,10 +200,5 @@ public class MoveAction extends BasicAction
     }
 
     private void complete() {
-        Vector2 targetPosition = target.getPosition();
-        Vector2 destinationPosition = destination.getOrientationTarget().cpy();
-        Vector2 direction = destinationPosition.sub(targetPosition);
-        Vector2 normalizedDirection = direction.nor();
-        target.setDirection(normalizedDirection);
     }
 }

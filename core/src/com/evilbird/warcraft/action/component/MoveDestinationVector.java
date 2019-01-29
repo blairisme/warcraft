@@ -43,9 +43,4 @@ class MoveDestinationVector implements MoveDestination
     public boolean isDestinationReached(ItemGraph graph, ItemNode node) {
         return Objects.equals(node.getWorldReference(), destination);
     }
-
-    @Override
-    public Vector2 getOrientationTarget() {
-        return destination;
-    }
 }

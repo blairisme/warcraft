@@ -16,6 +16,7 @@ import com.evilbird.engine.action.common.AudibleAction;
 import com.evilbird.engine.action.common.RepeatedAudibleAction;
 import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.engine.action.framework.*;
+import com.evilbird.engine.common.lang.Directionable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.specialized.animated.Animated;
@@ -79,9 +80,11 @@ public class Attack implements ActionProvider
     }
 
     private BasicAction reposition(Item attacker, Item target) {
-        BasicAction move = new MoveAction((Movable)attacker, target);
-        BasicAction animation = new AnimatedAction(move, (Animated)attacker, UnitAnimation.Move, UnitAnimation.Idle);
-        return new RequirementAction<>(animation, noError());
+        BasicAction reposition = new MoveAction((Movable)attacker, target);
+        BasicAction animation = new AnimatedAction(reposition, (Animated)attacker, UnitAnimation.Move, UnitAnimation.Idle);
+        BasicAction move = new RequirementAction(animation, noError());
+        BasicAction reorient = new DirectionAction((Directionable)attacker, target);
+        return new SequenceAction(move, reorient);
     }
 
     private BasicAction damage(Item attacker, Item target) {
