@@ -26,6 +26,7 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
  *
  * @author Blair Butterworth
  */
+//TODO: Replace with Animated Action
 public class AnimatedMoveAction extends DelegateAction
 {
     public AnimatedMoveAction(Item item, Item destination) {

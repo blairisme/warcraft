@@ -15,6 +15,9 @@ import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.RepeatedAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
+import com.evilbird.engine.common.function.ResettableSupplier;
+import com.evilbird.engine.common.function.Supplier;
+import com.evilbird.engine.common.function.Suppliers;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.Audible;
 import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
@@ -27,11 +30,15 @@ import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
  */
 public class RepeatedAudibleAction extends DelegateAction
 {
-    public RepeatedAudibleAction(Item item, SoundIdentifier soundId, int repetitions, float repetitionDelay) {
-        Action sound = new AudibleAction((Audible)item, soundId);
-        Action buffer = new DelayedAction(new TimeDuration(repetitionDelay));
-        Action soundBuffer = new SequenceAction(sound, buffer);
-        delegate = new RepeatedAction(soundBuffer, repetitions);
+    public RepeatedAudibleAction(Item item, SoundIdentifier sound, int repetitions, float delay) {
+        this(item, sound, delay, Suppliers.counter(repetitions));
+    }
+
+    public RepeatedAudibleAction(Item item, SoundIdentifier sound, float delay, Supplier<Boolean> repeat) {
+        Action audible = new AudibleAction((Audible)item, sound);
+        Action buffer = new DelayedAction(new TimeDuration(delay));
+        Action soundBuffer = new SequenceAction(audible, buffer);
+        delegate = new RepeatedAction(soundBuffer, repeat);
     }
 
     @Override

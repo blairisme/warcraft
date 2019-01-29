@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.AudibleAction;
+import com.evilbird.engine.action.common.RepeatedAudibleAction;
 import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.engine.action.framework.*;
 import com.evilbird.engine.item.Item;
@@ -30,6 +31,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.utilities.ActionPredicates.noError;
+import static com.evilbird.engine.item.ItemSuppliers.isAlive;
 import static com.evilbird.warcraft.action.common.ActionPredicates.withinRange;
 
 /**
@@ -84,7 +86,9 @@ public class Attack implements ActionProvider
 
     private BasicAction damage(Item attacker, Item target) {
         Action attack = new AttackAction((Combatant)attacker, (Destructible)target);
-        return new AnimatedAction(attack, (Animated)attacker, UnitAnimation.Attack, UnitAnimation.Idle);
+        Action sound = new RepeatedAudibleAction(attacker, UnitSound.Attack, 5, isAlive((Destructible)target));
+        Action damage = new ParallelAction(attack, sound);
+        return new AnimatedAction(damage, (Animated)attacker, UnitAnimation.Attack, UnitAnimation.Idle);
     }
 
     private Action die(Item target) {

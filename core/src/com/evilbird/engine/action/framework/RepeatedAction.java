@@ -1,21 +1,40 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.action.framework;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.common.function.ResettableSupplier;
+import com.evilbird.engine.common.function.Suppliers;
+import com.evilbird.engine.common.function.Supplier;
 
+/**
+ * Instances of this {@link Action} execute a given action repeatedly, until
+ * (optionally) instructed to stop.
+ *
+ * @author Blair Butterworth
+ */
 public class RepeatedAction extends DelegateAction
 {
-    private static final int INFINITE = -1;
-    private int count;
-    private int times;
+    private Supplier<Boolean> repeat;
 
     public RepeatedAction(Action action) {
-        this(action, INFINITE);
+        this(action, Suppliers.isTrue());
     }
 
-    public RepeatedAction(Action action, int times) {
+    public RepeatedAction(Action action, ResettableSupplier<Boolean> repeat) {
+        this(action, (Supplier<Boolean>)repeat);
+    }
+
+    public RepeatedAction(Action action, Supplier<Boolean> repeat) {
         super(action);
-        this.times = times;
-        this.count = 0;
+        this.repeat = repeat;
     }
 
     @Override
@@ -27,7 +46,7 @@ public class RepeatedAction extends DelegateAction
     }
 
     private boolean repeat() {
-        if (times == INFINITE || count++ < times) {
+        if (repeat.get()) {
             delegate.restart();
             return false;
         }
@@ -37,6 +56,8 @@ public class RepeatedAction extends DelegateAction
     @Override
     public void restart() {
         super.restart();
-        count = 0;
+        if (repeat instanceof ResettableSupplier) {
+            ((ResettableSupplier)repeat).reset();
+        }
     }
 }

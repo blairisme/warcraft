@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.common.function;
 
+//TODO: Move into predicates
 public class AcceptPredicate<T> implements Predicate<T>
 {
     @Override
