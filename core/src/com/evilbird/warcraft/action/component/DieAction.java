@@ -29,18 +29,15 @@ import com.evilbird.warcraft.item.unit.UnitSound;
  */
 public class DieAction extends DelegateAction
 {
-    private Action delegate;
-
     public DieAction(Item item) {
         Action deselect = new SelectAction(item, false);
         Action disable = new DisableAction(item, false);
-        Action cancel = new CancelAction(item);
 
         Action dieSound = new AudibleAction((Audible)item, UnitSound.Die);
         Action dieAnimation = new AnimateAction((Animated)item, UnitAnimation.Die);
         Action dieWait = new DelayedAction(new TimeDuration(0.5f));
         //Action dieSequence = new SequenceAction(dieAnimation, dieWait);
-        Action die = new ParallelAction(deselect, disable, cancel, dieSound, dieAnimation, dieWait);
+        Action die = new ParallelAction(deselect, disable, dieSound, dieAnimation, dieWait);
 
         Action decomposeAnimation = new AnimateAction((Animated)item, UnitAnimation.Decompose);
         Action decomposeWait = new DelayedAction(new TimeDuration(10f));

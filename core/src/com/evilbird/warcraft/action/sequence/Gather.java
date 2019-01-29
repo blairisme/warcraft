@@ -85,7 +85,6 @@ public abstract class Gather implements ActionProvider
     }
 
     protected Action obtainAction(Item gatherer, Item resource) {
-
         Action transferDelay = new DelayedAction(getGatherSpeed(gatherer), isAlive((Destructible)resource));
         Action transferFrom = new ResourceTransferAction((ResourceContainer)resource, getResourceType(), getGatherCapacity(gatherer) * -1);
         Action transferTo = new ResourceTransferAction((ResourceContainer)gatherer, getResourceType(), getGatherCapacity(gatherer));

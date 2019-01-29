@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.action.component;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.common.AnimateAction;
 import com.evilbird.engine.action.framework.DelegateAction;
@@ -17,8 +16,7 @@ import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.Animated;
-import com.evilbird.warcraft.item.common.capability.Movable;
-import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 
 /**
  * Instances of this class represent an {@link Action} that moves a given
@@ -26,20 +24,17 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
  *
  * @author Blair Butterworth
  */
-public class AnimatedMoveAction extends DelegateAction
+public class AnimatedAction extends DelegateAction
 {
-    public AnimatedMoveAction(Item item, Item destination) {
-        this(item, new MoveAction((Movable)item, destination));
-    }
-
-    public AnimatedMoveAction(Item item, Vector2 destination) {
-        this(item, new MoveAction((Movable)item, destination));
-    }
-
-    private AnimatedMoveAction(Item item, Action move) {
-        Action animate = new AnimateAction((Animated)item, UnitAnimation.Move);
-        Action initial = new ParallelAction(animate, move);
-        Action complete = new AnimateAction((Animated)item, UnitAnimation.Idle);
+    public AnimatedAction(
+        Action action,
+        Animated animated,
+        AnimationIdentifier startAnimation,
+        AnimationIdentifier endAnimation)
+    {
+        Action animate = new AnimateAction(animated, startAnimation);
+        Action initial = new ParallelAction(animate, action);
+        Action complete = new AnimateAction(animated, endAnimation);
         delegate = new SequenceAction(initial, complete);
     }
 

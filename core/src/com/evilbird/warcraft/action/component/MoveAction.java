@@ -124,7 +124,8 @@ public class MoveAction extends BasicAction
                 path = result;
                 pathIterator = path.iterator();
                 pathNode = startNode;
-                return initializePathNode();
+                initializePathNode();
+                return true;
             }
         }
         return path != null;
@@ -195,6 +196,7 @@ public class MoveAction extends BasicAction
     }
 
     private void error() {
+        setError(new MoveImpossibleException((Item)target));
     }
 
     private void complete() {

@@ -10,6 +10,7 @@
 package com.evilbird.engine.item;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -24,7 +25,7 @@ import com.evilbird.engine.item.framework.ActorObserver;
  *
  * @author Blair Butterworth
  */
-//TODO: use either vectors or individual values for size and position.
+// TODO: Cache size, position and bounds
 public class Item implements ActorObserver, Identifiable, Categorizable, Positionable, Selectable, Disablable, Visible
 {
     Actor delegate;
@@ -84,6 +85,10 @@ public class Item implements ActorObserver, Identifiable, Categorizable, Positio
         return delegate.isVisible();
     }
 
+    public Rectangle getBounds() {
+        return new Rectangle(delegate.getX(), delegate.getY(), delegate.getWidth(), delegate.getHeight());
+    }
+
     public Vector2 getSize() {
         return new Vector2(delegate.getWidth(), delegate.getHeight());
     }
@@ -98,6 +103,11 @@ public class Item implements ActorObserver, Identifiable, Categorizable, Positio
 
     public Vector2 getPosition() {
         return new Vector2(delegate.getX(), delegate.getY());
+    }
+
+    public Vector2 getPosition(Alignment alignment) {
+        int align = alignment.toGdxAlign();
+        return new Vector2(delegate.getX(align), delegate.getY(align));
     }
 
     public float getX() {

@@ -14,7 +14,6 @@ import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.BasicActionContext;
 import com.evilbird.engine.common.collection.Collections;
-import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.action.identifier.GeneralActions;
@@ -28,6 +27,7 @@ import static com.evilbird.engine.common.function.Predicates.not;
 import static com.evilbird.engine.item.ItemPredicates.*;
 import static com.evilbird.warcraft.item.unit.UnitPredicates.isAi;
 import static com.evilbird.warcraft.item.unit.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.item.unit.combatant.CombatantPredicates.withinSight;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
@@ -68,11 +68,7 @@ public class InitiateAttack extends PeriodicProcedure
 
     private Combatant getAvailableEnemy(Collection<Combatant> combatants, Combatant combatant) {
         Item player = combatant.getParent();
-        return Collections.find(combatants, both(not(isOwnedBy(player)), withinRange(combatant)));
-    }
-
-    private Predicate<Item> withinRange(Combatant combatant) {
-        return isNear(combatant.getPosition(), combatant.getSight());
+        return Collections.find(combatants, both(not(isOwnedBy(player)), withinSight(combatant)));
     }
 
     private void attack(Combatant combatant, Item target) {

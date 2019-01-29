@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.component;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.item.common.capability.Destructible;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
@@ -21,7 +22,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
  */
 //TODO: Randomly choose attack damage between min and max
 //TODO: Negate attack by armour of target
-public class AttackAction extends Action
+public class AttackAction extends BasicAction
 {
     private Combatant combatant;
     private Destructible destructible;

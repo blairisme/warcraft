@@ -35,7 +35,7 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithId;
  * @author Blair Butterworth
  */
 //TODO: Finish
-//TODO: Improve performance
+//TODO: Improve performance - use item move events
 //TODO: Shouldnt show fog at map edges.
 public class Fog extends Layer
 {

@@ -61,7 +61,7 @@ public class GruntProvider implements AssetProvider<Item>
         result.setName("Grunt");
         result.setMovementSpeed(64f);
         result.setMovementCapability(LayerType.Map);
-        result.setRange(1f);
+        result.setRange(48);
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);

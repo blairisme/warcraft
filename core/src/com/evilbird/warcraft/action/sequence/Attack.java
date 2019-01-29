@@ -12,36 +12,32 @@ package com.evilbird.warcraft.action.sequence;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.action.common.AnimateAction;
 import com.evilbird.engine.action.common.AudibleAction;
 import com.evilbird.engine.action.common.ReplacementAction;
-import com.evilbird.engine.action.framework.ParallelAction;
-import com.evilbird.engine.action.framework.SequenceAction;
+import com.evilbird.engine.action.framework.*;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.Audible;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.component.AnimatedMoveAction;
-import com.evilbird.warcraft.action.component.AttackAction;
-import com.evilbird.warcraft.action.component.ConfirmAction;
-import com.evilbird.warcraft.action.component.DieAction;
+import com.evilbird.warcraft.action.component.*;
 import com.evilbird.warcraft.item.common.capability.Destructible;
+import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
+import static com.evilbird.engine.action.utilities.ActionPredicates.noError;
+import static com.evilbird.warcraft.action.common.ActionPredicates.withinRange;
+
 /**
- * Instances of this class move an item to a given target and attacks it.
+ * Instances of this factory create {@link Action Actions} that cause a given
+ * {@link Item} to attack another, after first moving within attack range.
  *
  * @author Blair Butterworth
  */
-//TODO: Handle impossible path
-//TODO: Handle target walking away
-//TODO: Orient towards target if they move
-//TODO: Stop attacking if target dead
 public class Attack implements ActionProvider
 {
     private ItemFactory itemFactory;
@@ -53,36 +49,46 @@ public class Attack implements ActionProvider
 
     @Override
     public Action get(ActionIdentifier action, ActionContext context) {
-        Action attack = attack(context.getItem(), context.getTarget(), context.showFeedback());
+        Action attack = attack((Combatant)context.getItem(), context.getTarget(), context.showFeedback());
         return new ReplacementAction(context.getItem(), attack);
     }
 
-    private Action attack(Item attacker, Item target, boolean feedback) {
-        Action repositionAttacker = repositionAttacker(attacker, target, feedback);
-        Action performAttack = performAttack(attacker, target);
-        Action completeAttack = completeAttack(attacker, target);
-        return new SequenceAction(repositionAttacker, performAttack, completeAttack);
+    private Action attack(Combatant attacker, Item target, boolean showFeedback) {
+        Action feedback = feedback(attacker, target, showFeedback);
+        Action attack = attack(attacker, target);
+        Action complete = die(target);
+        Action initiate = new ParallelAction(feedback, attack);
+        return new SequenceAction(initiate, complete);
     }
 
-    private Action repositionAttacker(Item attacker, Item target, boolean feedback) {
-        Action move = new AnimatedMoveAction(attacker, target);
+    private Action feedback(Item attacker, Item target, boolean feedback) {
         if (feedback) {
             Action effect = new ConfirmAction(itemFactory, target);
             Action sound = new AudibleAction((Audible) attacker, UnitSound.Acknowledge);
-            return new ParallelAction(effect, sound, move);
+            return new ParallelAction(effect, sound);
         }
-        return move;
+        return new EmptyAction();
     }
 
-    private Action performAttack(Item attacker, Item target) {
-        Action animate = new AnimateAction((Animated)attacker, UnitAnimation.Attack);
-        Action reduceHealth = new AttackAction((Combatant)attacker, (Destructible)target);
-        return new ParallelAction(animate, reduceHealth);
+    private Action attack(Combatant attacker, Item target) {
+        BasicAction reposition = reposition(attacker, target);
+        BasicAction damage = damage(attacker, target);
+        return new PrerequisiteAction(damage, reposition, withinRange(attacker, target));
     }
 
-    private Action completeAttack(Item attacker, Item target) {
-        Action attackerIdle = new AnimateAction((Animated)attacker, UnitAnimation.Idle);
-        Action targetDead = new DieAction(target);
-        return new ParallelAction(attackerIdle, targetDead);
+    private BasicAction reposition(Item attacker, Item target) {
+        BasicAction move = new MoveAction((Movable)attacker, target);
+        BasicAction animation = new AnimatedAction(move, (Animated)attacker, UnitAnimation.Move, UnitAnimation.Idle);
+        return new RequirementAction<>(animation, noError());
+    }
+
+    private BasicAction damage(Item attacker, Item target) {
+        Action attack = new AttackAction((Combatant)attacker, (Destructible)target);
+        return new AnimatedAction(attack, (Animated)attacker, UnitAnimation.Attack, UnitAnimation.Idle);
+    }
+
+    private Action die(Item target) {
+        Action die = new DieAction(target);
+        return new ReplacementAction(target, die);
     }
 }

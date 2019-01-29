@@ -1,7 +1,5 @@
 package com.evilbird.engine.action.framework.duration;
 
-import com.evilbird.engine.action.framework.duration.ActionDuration;
-
 public class InstantDuration implements ActionDuration
 {
     @Override

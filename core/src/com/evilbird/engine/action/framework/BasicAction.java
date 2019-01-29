@@ -24,6 +24,7 @@ import com.evilbird.engine.common.lang.Identifier;
 public abstract class BasicAction extends Action implements Identifiable
 {
     private Identifier identifier;
+    private Throwable error;
 
     public BasicAction() {
         identifier = GenericIdentifier.Unknown;
@@ -35,8 +36,26 @@ public abstract class BasicAction extends Action implements Identifiable
     }
 
     @Override
+    public void restart() {
+        super.restart();
+        error = null;
+    }
+
+    public Throwable getError() {
+        return error;
+    }
+
+    public boolean hasError() {
+        return getError() != null;
+    }
+
+    @Override
     public Identifier getIdentifier() {
         return identifier;
+    }
+
+    public void setError(Throwable error) {
+        this.error = error;
     }
 
     public void setIdentifier(Identifier identifier) {

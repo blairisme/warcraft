@@ -62,7 +62,7 @@ public class FootmanProvider implements AssetProvider<Item>
         result.setName("Footman");
         result.setMovementSpeed(64f);
         result.setMovementCapability(LayerType.Map);
-        result.setRange(1f);
+        result.setRange(36);
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);

@@ -2,8 +2,6 @@ package com.evilbird.engine.action.framework;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 
-import java.util.concurrent.CancellationException;
-
 public class RepeatedAction extends DelegateAction
 {
     private static final int INFINITE = -1;
