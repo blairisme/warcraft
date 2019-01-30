@@ -67,7 +67,7 @@ public class Attack implements ActionProvider
     private Action feedback(Item attacker, Item target, boolean feedback) {
         if (feedback) {
             Action effect = new ConfirmAction(itemFactory, target);
-            Action sound = new AudibleAction((Audible) attacker, UnitSound.Acknowledge);
+            Action sound = new AudibleAction((Audible)attacker, UnitSound.Acknowledge);
             return new ParallelAction(effect, sound);
         }
         return new EmptyAction();
@@ -89,7 +89,7 @@ public class Attack implements ActionProvider
 
     private BasicAction damage(Item attacker, Item target) {
         Action attack = new AttackAction((Combatant)attacker, (Destructible)target);
-        Action sound = new RepeatedAudibleAction(attacker, UnitSound.Attack, 5, isAlive((Destructible)target));
+        Action sound = new RepeatedAudibleAction(attacker, UnitSound.Attack, 0.5f, isAlive((Destructible)target));
         Action damage = new ParallelAction(attack, sound);
         return new AnimatedAction(damage, (Animated)attacker, UnitAnimation.Attack, UnitAnimation.Idle);
     }

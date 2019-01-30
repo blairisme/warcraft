@@ -9,18 +9,11 @@
 
 package com.evilbird.warcraft.action.common;
 
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGraph;
-import com.evilbird.engine.item.ItemNode;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantPredicates;
-
-import java.util.Collection;
-
 
 /**
  * Instances of this class provide common {@link Predicate Predicates} for
@@ -46,27 +39,4 @@ public class ActionPredicates
             }
         };
     }
-
-
-//    private static class WithinRange implements Predicate<Item>
-//    {
-//        private Item item;
-//        private ItemGraph graph;
-//
-//        public WithinRange(Item item) {
-//            this.item = item;
-//            this.graph = item.getRoot().getSpatialGraph();
-//        }
-//
-//        @Override
-//        public boolean test(Item value) {
-//
-//            Collection<ItemNode> nodes = graph.getNodes(item.getPosition(), item.getSize());
-//
-//
-//
-//
-//            return false;
-//        }
-//    }
 }

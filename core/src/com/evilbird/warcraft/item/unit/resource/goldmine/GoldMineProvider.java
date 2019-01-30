@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.unit.resource.goldmine;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -36,9 +37,18 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-// TODO: Add missing death animation - for resources that have been exhausted
+import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
+import static com.evilbird.engine.common.audio.SoundType.MP3;
+import static com.evilbird.warcraft.item.common.sound.SoundUtils.newSoundEffect;
+
 public class GoldMineProvider implements AssetProvider<Item>
 {
+    private static final String BASE = "data/textures/neutral/winter/gold_mine.png";
+    private static final String ICONS = "data/textures/neutral/perennial/icons.png";
+    private static final String DESTRUCTION = "data/textures/neutral/winter/destroyed_site.png";
+    private static final String CONSTRUCTION = "data/textures/neutral/perennial/construction.png";
+    private static final String SELECTED = "data/sounds/neutral/resource/goldmine/selected/1.mp3";
+    private static final String DESTROYED = "data/sounds/neutral/building/destroyed/";
     private AssetManager assets;
 
     @Inject
@@ -48,9 +58,20 @@ public class GoldMineProvider implements AssetProvider<Item>
 
     @Override
     public void load() {
-        assets.load("data/textures/neutral/winter/gold_mine.png", Texture.class);
-        assets.load("data/textures/neutral/winter/destroyed_site.png", Texture.class);
-        assets.load("data/textures/neutral/perennial/construction.png", Texture.class);
+        loadTextures();
+        loadSounds();
+    }
+
+    private void loadTextures() {
+        assets.load(BASE, Texture.class);
+        assets.load(ICONS, Texture.class);
+        assets.load(DESTRUCTION, Texture.class);
+        assets.load(CONSTRUCTION, Texture.class);
+    }
+
+    private void loadSounds() {
+        assets.load(SELECTED, Sound.class);
+        loadSoundSet(assets, DESTROYED, MP3, 3);
     }
 
     @Override
@@ -73,18 +94,20 @@ public class GoldMineProvider implements AssetProvider<Item>
     }
 
     private Map<AnimationIdentifier, DirectionalAnimation> getAnimations() {
-        Texture general = assets.get("data/textures/neutral/winter/gold_mine.png", Texture.class);
-        Texture destruction = assets.get("data/textures/neutral/winter/destroyed_site.png", Texture.class);
+        Texture general = assets.get(BASE, Texture.class);
+        Texture destruction = assets.get(DESTRUCTION, Texture.class);
         return AnimationCollections.resourceBuildingAnimations(general, destruction);
     }
 
     private Drawable getIcon() {
-        return TextureUtils.getDrawable(assets, "data/textures/neutral/perennial/icons.png", 184, 532, 46, 38);
+        return TextureUtils.getDrawable(assets, ICONS, 184, 532, 46, 38);
     }
 
     private Map<SoundIdentifier, SoundEffect> getSounds() {
-        Map<SoundIdentifier, SoundEffect> sounds = new HashMap<SoundIdentifier, SoundEffect>();
+        Map<SoundIdentifier, SoundEffect> sounds = new HashMap<>();
         sounds.put(UnitSound.GatherGold, new SilentSoundEffect());
+        sounds.put(UnitSound.Selected, newSoundEffect(assets, SELECTED));
+        sounds.put(UnitSound.Die, newSoundEffect(assets, DESTROYED, MP3, 3));
         return sounds;
     }
 }

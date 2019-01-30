@@ -14,41 +14,51 @@ import com.badlogic.gdx.audio.Sound;
 import com.evilbird.engine.common.audio.BasicSoundEffect;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.audio.SoundEffectSet;
+import com.evilbird.engine.common.audio.SoundType;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * Instances of this class provide common utility functions for working with
+ * sound effects.
+ *
+ * @author Blair Butterworth
+ */
 public class SoundUtils
 {
-    public static SoundEffect newSoundEffect(AssetManager assets, String path)
-    {
+    private SoundUtils() {
+    }
+
+    public static SoundEffect newSoundEffect(AssetManager assets, String path) {
         Sound sound = assets.get(path, Sound.class);
         return new BasicSoundEffect(sound);
     }
 
-    public static SoundEffect newSoundEffect(AssetManager assets, String ... paths)
-    {
-        Collection<SoundEffect> effects = new ArrayList<SoundEffect>(paths.length);
-        for (String path: paths){
+    public static SoundEffect newSoundEffect(AssetManager assets, String... paths) {
+        Collection<SoundEffect> effects = new ArrayList<>(paths.length);
+        for (String path : paths) {
             effects.add(newSoundEffect(assets, path));
         }
         return new SoundEffectSet(effects);
     }
 
-    public static SoundEffect newSoundEffect(AssetManager assets, Collection<String> paths)
-    {
-        Collection<SoundEffect> effects = new ArrayList<SoundEffect>(paths.size());
-        for (String path: paths){
+    public static SoundEffect newSoundEffect(AssetManager assets, Collection<String> paths) {
+        Collection<SoundEffect> effects = new ArrayList<>(paths.size());
+        for (String path : paths) {
             effects.add(newSoundEffect(assets, path));
         }
         return new SoundEffectSet(effects);
     }
 
-    public static SoundEffect newSoundEffect(AssetManager assets, String prefix, String suffix, int start, int end)
-    {
-        Collection<String> paths = new ArrayList<String>();
-        for (int i = start; i <= end; i++){
-            paths.add(prefix + String.valueOf(i) + suffix);
+    public static SoundEffect newSoundEffect(AssetManager assets, String prefix, SoundType type, int count) {
+        return newSoundEffect(assets, prefix, type.getFileExtension(), 1, count);
+    }
+
+    public static SoundEffect newSoundEffect(AssetManager assets, String prefix, String suffix, int start, int end) {
+        Collection<String> paths = new ArrayList<>();
+        for (int i = start; i <= end; i++) {
+            paths.add(prefix + i + suffix);
         }
         return newSoundEffect(assets, paths);
     }

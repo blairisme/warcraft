@@ -22,6 +22,7 @@ public enum UnitSound implements SoundIdentifier
 
     Construct,
     Complete,
+    Ready,
 
     GatherGold,
     GatherOil,
