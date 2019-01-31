@@ -16,7 +16,7 @@ import com.evilbird.engine.menu.Menu;
 
 import javax.inject.Inject;
 
-//TODO: Move loading out of constructor
+//TODO: Move loading out of constructor - GameEngine.create() should call GameLoader.load()
 public class GameLoader extends ScreenAdapter
 {
     private GameLoaderModel model;
