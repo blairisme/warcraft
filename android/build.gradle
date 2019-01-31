@@ -1,5 +1,14 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 android {
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '27.0.3'
     compileSdkVersion 24
     sourceSets {
         main {
@@ -21,12 +30,16 @@ android {
         applicationId "com.evilbird.warcraft"
         minSdkVersion 24
         targetSdkVersion 24
+
+        jackOptions {
+            enabled true
+        }
     }
     productFlavors {
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 

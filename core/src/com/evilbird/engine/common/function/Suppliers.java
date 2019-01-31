@@ -21,21 +21,11 @@ public class Suppliers
     }
 
     public static Supplier<Boolean> isTrue() {
-        return new Supplier<Boolean>() {
-            @Override
-            public Boolean get() {
-                return Boolean.TRUE;
-            }
-        };
+        return () -> Boolean.TRUE;
     }
 
     public static <T> Supplier<T> constantValue(final T value){
-        return new Supplier<T>() {
-            @Override
-            public T get() {
-                return value;
-            }
-        };
+        return () -> value;
     }
 
     public static ResettableSupplier<Boolean> counter(int times) {

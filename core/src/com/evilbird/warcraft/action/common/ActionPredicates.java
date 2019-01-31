@@ -32,11 +32,6 @@ public class ActionPredicates
     }
 
     public static Predicate<Action> actionPredicate(final Predicate<Item> delegate, final Item item) {
-        return new Predicate<Action>() {
-            @Override
-            public boolean test(Action value) {
-                return delegate.test(item);
-            }
-        };
+        return (value) -> delegate.test(item);
     }
 }
