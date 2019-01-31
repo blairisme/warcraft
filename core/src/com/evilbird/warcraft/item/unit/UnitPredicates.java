@@ -14,8 +14,8 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.data.player.Player;
 
 /**
- * Instances of this class provide commonly used {@link Predicate Predicates}
- * that operate on {@link Unit Units}.
+ * Defines commonly used {@link Predicate Predicates} that operate on
+ * {@link Unit Units}.
  *
  * @author Blair Butterworth
  */
@@ -26,21 +26,13 @@ public class UnitPredicates
     }
 
     public static Predicate<Unit> isAlive() {
-        return new Predicate<Unit>() {
-            @Override
-            public boolean test(Unit unit) {
-                return unit.isAlive();
-            }
-        };
+        return Unit::isAlive;
     }
 
     public static Predicate<Item> isAi() {
-        return new Predicate<Item>() {
-            @Override
-            public boolean test(Item item) {
-                Player player = (Player)item.getParent();
-                return !player.isHumanPlayer();
-            }
+        return (item) -> {
+            Player player = (Player)item.getParent();
+            return !player.isHumanPlayer();
         };
     }
 }

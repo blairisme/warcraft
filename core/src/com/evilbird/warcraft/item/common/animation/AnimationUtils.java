@@ -13,10 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.collection.Arrays;
-import com.evilbird.engine.common.collection.Collections;
-import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
-
 import org.apache.commons.lang3.Range;
 
 import java.util.HashMap;

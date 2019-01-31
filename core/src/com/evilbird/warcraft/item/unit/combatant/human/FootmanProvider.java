@@ -10,13 +10,9 @@
 package com.evilbird.warcraft.item.unit.combatant.human;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.evilbird.engine.common.assets.AssetUtilities;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
@@ -25,7 +21,6 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
-import com.evilbird.warcraft.item.common.sound.SoundUtils;
 import com.evilbird.warcraft.item.common.texture.TextureUtils;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -33,13 +28,10 @@ import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
-import java.util.Arrays;
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-
-import static com.evilbird.engine.common.assets.AssetUtilities.loadSet;
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundType.MP3;
 import static com.evilbird.warcraft.item.common.sound.SoundUtils.newSoundEffect;
@@ -89,12 +81,12 @@ public class FootmanProvider implements AssetProvider<Item>
         result.setDefence(2);
         result.setDamageMinimum(2);
         result.setDamageMaximum(9);
-        result.setHealth(100f);
-        result.setHealthMaximum(100f);
+        result.setHealth(60);
+        result.setHealthMaximum(60);
         result.setIcon(getIcon());
         result.setLevel(1);
         result.setName("Footman");
-        result.setMovementSpeed(64f); // 10
+        result.setMovementSpeed(64); // 10
         result.setMovementCapability(LayerType.Map);
         result.setRange(32 + 5); // 1
         result.setSelected(false);

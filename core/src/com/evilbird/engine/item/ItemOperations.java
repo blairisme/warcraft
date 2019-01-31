@@ -12,10 +12,8 @@ package com.evilbird.engine.item;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.collection.Collections;
 import com.evilbird.engine.common.function.Predicate;
-import com.evilbird.engine.common.function.Predicates;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Objects;
-import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.Collection;
 

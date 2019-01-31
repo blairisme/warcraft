@@ -11,9 +11,7 @@ package com.evilbird.warcraft.item.unit.building.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
@@ -29,10 +27,8 @@ import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.inject.Inject;
+import java.util.Map;
 
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundType.MP3;
@@ -103,6 +99,6 @@ public class TownHallProvider implements AssetProvider<Item>
     }
 
     private Map<SoundIdentifier, SoundEffect> getSounds() {
-        return Maps.of(UnitSound.Die, newSoundEffect(assets, DESTROYED, MP3, 3));
+        return Maps.<SoundIdentifier, SoundEffect>of(UnitSound.Die, newSoundEffect(assets, DESTROYED, MP3, 3));
     }
 }

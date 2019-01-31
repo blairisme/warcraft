@@ -11,7 +11,6 @@ package com.evilbird.warcraft.item.hud.control.minimap;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.control.Image;
 import com.evilbird.warcraft.item.hud.HudControls;

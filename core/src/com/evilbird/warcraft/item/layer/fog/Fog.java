@@ -18,7 +18,6 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.specialized.layer.Layer;
-
 import com.evilbird.warcraft.item.layer.LayerType;
 import org.apache.commons.lang3.tuple.Pair;
 

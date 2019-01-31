@@ -14,8 +14,7 @@ import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 public enum UnitAnimation implements AnimationIdentifier
 {
-    Hidden, //todo: remove
-
+    Hidden,
     Idle,
     IdleBasic,
     IdleGold,

@@ -10,12 +10,9 @@
 package com.evilbird.warcraft.item.unit.combatant.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
@@ -31,13 +28,10 @@ import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
-import java.util.Arrays;
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-
-import static com.evilbird.engine.common.assets.AssetUtilities.loadSet;
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundType.MP3;
 import static com.evilbird.warcraft.item.common.sound.SoundUtils.newSoundEffect;
@@ -87,19 +81,19 @@ public class GruntProvider implements AssetProvider<Item>
         result.setDefence(2);
         result.setDamageMinimum(2);
         result.setDamageMaximum(9);
-        result.setHealth(100f);
-        result.setHealthMaximum(100f);
+        result.setHealth(60);
+        result.setHealthMaximum(60);
         result.setIcon(getIcon());
         result.setLevel(1);
         result.setName("Grunt");
-        result.setMovementSpeed(64f);
+        result.setMovementSpeed(64); //10
         result.setMovementCapability(LayerType.Map);
-        result.setRange(32 + 5);
+        result.setRange(32 + 5); //1
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
-        result.setSpeed(10f);
-        result.setSight(256f);
+        result.setSpeed(10);
+        result.setSight(4 * 32); //4
         result.setType(UnitType.Grunt);
         result.setSize(32, 32);
         return result;

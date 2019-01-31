@@ -11,32 +11,22 @@ package com.evilbird.warcraft.item.hud;
 
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.hud.control.actions.ActionButtonProvider;
-import com.evilbird.warcraft.item.hud.control.actions.ActionPaneProvider;
 import com.evilbird.warcraft.item.hud.common.HealthBarProvider;
 import com.evilbird.warcraft.item.hud.common.UnitPaneProvider;
 import com.evilbird.warcraft.item.hud.control.ControlPane;
+import com.evilbird.warcraft.item.hud.control.actions.ActionButtonProvider;
+import com.evilbird.warcraft.item.hud.control.actions.ActionPaneProvider;
 import com.evilbird.warcraft.item.hud.control.minimap.MinimapPaneProvider;
-import com.evilbird.warcraft.item.hud.resource.ResourcePanelProvider;
 import com.evilbird.warcraft.item.hud.control.status.DetailsPaneProvider;
 import com.evilbird.warcraft.item.hud.control.status.SelectionPaneProvider;
 import com.evilbird.warcraft.item.hud.control.status.StatePane;
 import com.evilbird.warcraft.item.hud.control.status.building.BuildingProgressProvider;
+import com.evilbird.warcraft.item.hud.resource.ResourcePanelProvider;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-import static com.evilbird.warcraft.item.hud.HudControls.ActionButton;
-import static com.evilbird.warcraft.item.hud.HudControls.ActionPane;
-import static com.evilbird.warcraft.item.hud.HudControls.BuildingBar;
-import static com.evilbird.warcraft.item.hud.HudControls.ControlPane;
-import static com.evilbird.warcraft.item.hud.HudControls.DetailsPane;
-import static com.evilbird.warcraft.item.hud.HudControls.HealthBar;
-import static com.evilbird.warcraft.item.hud.HudControls.MinimapPane;
-import static com.evilbird.warcraft.item.hud.HudControls.ResourcePane;
-import static com.evilbird.warcraft.item.hud.HudControls.SelectionPane;
-import static com.evilbird.warcraft.item.hud.HudControls.StatePane;
-import static com.evilbird.warcraft.item.hud.HudControls.UnitPane;
+import static com.evilbird.warcraft.item.hud.HudControls.*;
 
 /**
  * Instances of this factory create user interface controls.

@@ -12,10 +12,7 @@ package com.evilbird.warcraft.item.unit.gatherer.human;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.audio.SilentSoundEffect;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
@@ -25,7 +22,6 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
-import com.evilbird.warcraft.item.common.sound.SoundUtils;
 import com.evilbird.warcraft.item.common.texture.TextureUtils;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -33,11 +29,10 @@ import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
-import java.util.*;
-
 import javax.inject.Inject;
+import java.util.HashMap;
+import java.util.Map;
 
-import static com.evilbird.engine.common.assets.AssetUtilities.loadSet;
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundType.MP3;
 import static com.evilbird.warcraft.item.common.sound.SoundUtils.newSoundEffect;

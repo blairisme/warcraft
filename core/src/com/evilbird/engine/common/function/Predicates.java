@@ -9,69 +9,30 @@
 
 package com.evilbird.engine.common.function;
 
+/**
+ * Instances of this class contain common {@link Predicate Predicates}.
+ *
+ * @author Blair Butterworth
+ */
 public class Predicates
 {
+    private Predicates() {
+        throw new UnsupportedOperationException();
+    }
+
     public static <T> Predicate<T> accept() {
-        return new Predicate<T>() {
-            @Override
-            public boolean test(T value) {
-                return true;
-            }
-        };
+        return (value) -> true;
     }
 
     public static <T> Predicate<T> both(Predicate<? super T> left, Predicate<? super T> right) {
-        return new And(left, right);
+        return (value) -> left.test(value) && right.test(value);
     }
 
     public static <T> Predicate<T> either(Predicate<T> left, Predicate<T> right) {
-        return new Or(left, right);
+        return (value) -> left.test(value) || right.test(value);
     }
 
     public static <T> Predicate<T> not(Predicate<? super T> predicate) {
-        return new Not(predicate);
-    }
-
-    public static class And<T> implements Predicate<T> {
-        private Predicate<T> left;
-        private Predicate<T> right;
-
-        public And(Predicate<T> left, Predicate<T> right) {
-            this.left = left;
-            this.right = right;
-        }
-
-        @Override
-        public boolean test(T value) {
-            return left.test(value) && right.test(value);
-        }
-    }
-
-    public static class Or<T> implements Predicate<T> {
-        private Predicate<T> left;
-        private Predicate<T> right;
-
-        public Or(Predicate<T> left, Predicate<T> right) {
-            this.left = left;
-            this.right = right;
-        }
-
-        @Override
-        public boolean test(T value) {
-            return left.test(value) || right.test(value);
-        }
-    }
-
-    public static class Not<T> implements Predicate<T> {
-        private Predicate<T> predicate;
-
-        public Not(Predicate<T> predicate) {
-            this.predicate = predicate;
-        }
-
-        @Override
-        public boolean test(T value) {
-            return !predicate.test(value);
-        }
+        return (value) -> !predicate.test(value);
     }
 }

@@ -34,22 +34,27 @@ public class AttackAction extends BasicAction
 
     @Override
     public boolean act(float time) {
-        float damage = getDamage(time);
+        float defence = getDefence(time);
+        float attack = getAttack(time);
+        float damage = getDamage(attack, defence);
         float health = setHealth(damage);
         return isDead(health);
     }
 
-    private float getDamage(float time) {
-        int attack = getAttack();
+    private float getDefence(float time) {
         int defence = target.getDefence();
-        float damage = Math.max(0, attack - defence);
-        return time * damage;
+        return time * defence;
     }
 
-    private int getAttack() {
-        int damageMin = attacker.getDamageMinimum();
-        int damageMax = attacker.getDamageMaximum();
-        return random.nextInt(damageMin, damageMax);
+    private float getAttack(float time) {
+        int attackMin = attacker.getDamageMinimum();
+        int attackMax = attacker.getDamageMaximum();
+        int attack = random.nextInt(attackMin, attackMax);
+        return time * attack;
+    }
+
+    private float getDamage(float attack, float defence) {
+       return Math.max(0, attack - defence);
     }
 
     private float setHealth(float damage) {

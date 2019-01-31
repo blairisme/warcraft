@@ -12,14 +12,11 @@ package com.evilbird.engine.level;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.event.EventStream;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.StateFactory;
 import com.evilbird.warcraft.state.campaign.human.HumanCampaign;
 import com.evilbird.warcraft.state.hud.HudType;
-
-import java.util.List;
 
 import javax.inject.Inject;
 

@@ -16,19 +16,15 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.function.Predicate;
-import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.layer.Layer;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.resource.tree.Tree;
 import com.evilbird.warcraft.item.unit.resource.tree.TreeProvider;
 
-import java.util.Collection;
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.inject.Inject;
 
 /**
  * Instances of this class represent a forest, a collection of trees.

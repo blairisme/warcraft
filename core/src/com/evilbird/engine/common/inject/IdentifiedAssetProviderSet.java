@@ -11,10 +11,9 @@ package com.evilbird.engine.common.inject;
 
 import com.evilbird.engine.common.lang.Identifier;
 
+import javax.inject.Provider;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.inject.Provider;
 
 public class IdentifiedAssetProviderSet<T> implements IdentifiedAssetProvider<T>
 {

@@ -24,9 +24,8 @@ import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.hud.HudControls;
 import org.apache.commons.lang3.Validate;
 
-import java.util.*;
-
 import javax.inject.Inject;
+import java.util.*;
 
 /**
  * Instances of this class show a grid of buttons representing the actions that

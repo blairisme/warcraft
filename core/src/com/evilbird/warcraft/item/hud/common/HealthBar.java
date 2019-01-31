@@ -11,7 +11,6 @@ package com.evilbird.warcraft.item.hud.common;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.control.ProgressBar;
 import com.evilbird.warcraft.item.hud.HudControls;
 

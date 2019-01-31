@@ -123,7 +123,7 @@ public class Construct implements ActionProvider
     private Action constructionProgress(Item builder, Reference<Building> building, TimeDuration duration) {
         Action constructing = new ConstructAction(building, constantValue(builder), true);
         Action progress = new ProgressAction(building, duration);
-        Action idle = new ConstructAction(building, constantValue(null), false);
+        Action idle = new ConstructAction(building, constantValue((Item)null), false);
         return new SequenceAction(constructing, progress, idle);
     }
 
