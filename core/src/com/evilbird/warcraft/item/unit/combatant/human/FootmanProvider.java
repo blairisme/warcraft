@@ -81,12 +81,12 @@ public class FootmanProvider implements AssetProvider<Item>
         result.setDefence(2);
         result.setDamageMinimum(2);
         result.setDamageMaximum(9);
-        result.setHealth(100f);
-        result.setHealthMaximum(100f);
+        result.setHealth(60);
+        result.setHealthMaximum(60);
         result.setIcon(getIcon());
         result.setLevel(1);
         result.setName("Footman");
-        result.setMovementSpeed(64f); // 10
+        result.setMovementSpeed(64); // 10
         result.setMovementCapability(LayerType.Map);
         result.setRange(32 + 5); // 1
         result.setSelected(false);

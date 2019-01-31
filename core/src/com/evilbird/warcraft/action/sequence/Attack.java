@@ -69,7 +69,7 @@ public class Attack implements ActionProvider
         Action effect = new ConfirmAction(itemFactory, target);
         Action sound = new AudibleAction((Audible)attacker, UnitSound.Acknowledge);
         Action feedback = new ParallelAction(effect, sound);
-        return new OptionalAction(constantValue(include),feedback);
+        return new OptionalAction(constantValue(include), feedback);
     }
 
     private Action attack(Combatant attacker, Item target) {
