@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.action.component;
 
-import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.pathing.SpatialUtils;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGraph;

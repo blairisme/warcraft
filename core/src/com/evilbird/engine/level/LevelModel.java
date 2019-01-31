@@ -13,6 +13,7 @@ import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.UserInput;
+import com.evilbird.engine.event.EventStream;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.StateFactory;
 import com.evilbird.warcraft.state.campaign.human.HumanCampaign;
@@ -34,25 +35,26 @@ public class LevelModel
     private ItemRoot hud;
     private ItemRoot world;
     private Behaviour behaviour;
+    private EventStream events;
 
     @Inject
     public LevelModel(
         Device device,
         StateFactory stateFactory,
-        BehaviourFactory behaviourFactory)
+        BehaviourFactory behaviourFactory,
+        EventStream eventStream)
     {
         this.device = device;
         this.stateFactory = stateFactory;
         this.behaviourFactory = behaviourFactory;
+        this.events = eventStream;
     }
 
-    public void setPresenter(Level presenter)
-    {
+    public void setPresenter(Level presenter) {
         this.presenter = presenter;
     }
 
-    public void load()
-    {
+    public void load() {
         world = stateFactory.get(HumanCampaign.Level1); //TODO
         hud = stateFactory.get(HudType.Human);  //TODO
         behaviour = behaviourFactory.newBehaviour(null); //TODO Provide meaningful id
@@ -63,10 +65,9 @@ public class LevelModel
         device.getDeviceInput().install(); //TODO
     }
 
-    public void update(float delta)
-    {
-        List<UserInput> inputs = device.getDeviceInput().readInput();
-        behaviour.update(world, hud, inputs);
+    public void update(float delta) {
+        behaviour.update(world, hud, device.getDeviceInput().readInput());
+        events.clear();
         world.update(delta);
         hud.update(delta);
     }

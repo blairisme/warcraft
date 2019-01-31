@@ -22,7 +22,8 @@ import com.evilbird.warcraft.item.unit.resource.ResourceType;
 import javax.inject.Inject;
 
 /**
- * Instances of this class provide {@link Action Actions} that gather gold.
+ * Instances of this {@link Action} instruct a given {@link Gather} to gather
+ * gold.
  *
  * @author Blair Butterworth
  */

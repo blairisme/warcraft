@@ -52,7 +52,7 @@ public class MeleeDetailsPane extends GridPane
     @Override
     public void update(float delta) {
         super.update(delta);
-        armour.setText(getText("Armour", combatant.getArmour()));
+        armour.setText(getText("Armour", combatant.getDefence()));
         damage.setText(getText("Damage", combatant.getDamageMinimum(), combatant.getDamageMaximum()));
         range.setText(getText("Range", combatant.getRange()));
         sight.setText(getText("Sight", combatant.getSight()));

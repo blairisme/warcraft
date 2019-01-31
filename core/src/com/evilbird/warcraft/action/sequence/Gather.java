@@ -24,7 +24,7 @@ import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.component.AnimatedMoveAction;
 import com.evilbird.warcraft.action.component.AnimationAliasAction;
 import com.evilbird.warcraft.action.component.ResourceTransferAction;
-import com.evilbird.warcraft.item.common.capability.Destructible;
+import com.evilbird.warcraft.item.common.capability.Destroyable;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -40,6 +40,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
  *
  * @author Blair Butterworth
  */
+//TODO: Cope with the resource dieing during action
 //TODO: Cope with leaving mid gather and returning to Depot
 //TODO: Cope with other types of depot. E.g., lumbermill
 //TODO: Cope with multiple gathers using single resource - trees
@@ -85,7 +86,7 @@ public abstract class Gather implements ActionProvider
     }
 
     protected Action obtainAction(Item gatherer, Item resource) {
-        Action transferDelay = new DelayedAction(getGatherSpeed(gatherer), isAlive((Destructible)resource));
+        Action transferDelay = new DelayedAction(getGatherSpeed(gatherer), isAlive((Destroyable)resource));
         Action transferFrom = new ResourceTransferAction((ResourceContainer)resource, getResourceType(), getGatherCapacity(gatherer) * -1);
         Action transferTo = new ResourceTransferAction((ResourceContainer)gatherer, getResourceType(), getGatherCapacity(gatherer));
         Action transferAction = new ParallelAction(transferFrom, transferTo);
@@ -138,7 +139,7 @@ public abstract class Gather implements ActionProvider
         Action transferFrom = new ResourceTransferAction((ResourceContainer)gatherer, getResourceType(), getGatherCapacity(gatherer) * -1);
         Action transferTo = new ResourceTransferAction((ResourceContainer)player, getResourceType(), getGatherCapacity(gatherer));
         Action transfer = new ParallelAction(transferFrom, transferTo);
-        Action transferDelay = new DelayedAction(new TimeDuration(5f), isAlive((Destructible)depot));
+        Action transferDelay = new DelayedAction(new TimeDuration(5f), isAlive((Destroyable)depot));
         return new SequenceAction(transfer, transferDelay);
     }
 

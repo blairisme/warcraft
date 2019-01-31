@@ -14,48 +14,46 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.warcraft.item.common.capability.Zoomable;
 
+/**
+ * Instances of this {@link Action} apply the zoom delta specified in a
+ * {@link UserInput} event to the given {@link Zoomable}.
+ *
+ * @author Blair Butterworth
+ */
 public class ZoomAction extends Action
 {
     private Zoomable zoomable;
     private UserInput input;
 
-    public ZoomAction(Zoomable zoomable, UserInput input)
-    {
+    public ZoomAction(Zoomable zoomable, UserInput input) {
         this.zoomable = zoomable;
         this.input = input;
     }
 
     @Override
-    public boolean act(float time)
-    {
-        if (input.getCount() == 1)
-        {
+    public boolean act(float time) {
+        if (input.getCount() == 1) {
             storeZoom();
             updateZoom();
-        }
-        else
-        {
+        } else {
             resetZoom();
             updateZoom();
         }
         return true;
     }
 
-    private void storeZoom()
-    {
+    private void storeZoom() {
         zoomable.setOriginalZoom(zoomable.getZoom());
     }
 
-    private void resetZoom()
-    {
+    private void resetZoom() {
         zoomable.setZoom(zoomable.getOriginalZoom());
     }
 
-    private void updateZoom()
-    {
+    private void updateZoom() {
         float value = zoomable.getZoom();
         float delta = input.getDelta().x;
-        float scale =  value * delta;
+        float scale = value * delta;
         float zoom = MathUtils.clamp(scale, 0.25f, 1.5f);
         zoomable.setZoom(zoom);
     }

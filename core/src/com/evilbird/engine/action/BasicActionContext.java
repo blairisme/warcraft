@@ -17,11 +17,17 @@ public class BasicActionContext implements ActionContext
     private Item item;
     private Item target;
     private UserInput input;
+    private boolean feedback;
 
     public BasicActionContext(Item item, Item target, UserInput input) {
+        this(item, target, input, input != null);
+    }
+
+    public BasicActionContext(Item item, Item target, UserInput input, boolean feedback) {
         this.item = item;
         this.target = target;
         this.input = input;
+        this.feedback = feedback;
     }
 
     @Override
@@ -41,6 +47,6 @@ public class BasicActionContext implements ActionContext
 
     @Override
     public boolean showFeedback() {
-        return input != null; //TODO
+        return feedback;
     }
 }

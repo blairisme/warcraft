@@ -18,9 +18,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.pathing.ManhattanHeuristic;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.ItemGraph;
 import com.evilbird.engine.item.ItemNode;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.common.capability.Movable;
 
 import java.util.Iterator;

@@ -84,9 +84,9 @@ public class GruntProvider implements AssetProvider<Item>
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
         result.setAvailableSounds(getSounds());
-        result.setArmour(2f);
-        result.setDamageMinimum(2f);
-        result.setDamageMaximum(9f);
+        result.setDefence(2);
+        result.setDamageMinimum(2);
+        result.setDamageMaximum(9);
         result.setHealth(100f);
         result.setHealthMaximum(100f);
         result.setIcon(getIcon());

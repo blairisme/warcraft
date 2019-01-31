@@ -28,8 +28,7 @@ public class Camera extends Item implements Zoomable
     private OrthographicCamera camera;
 
     @Inject
-    public Camera()
-    {
+    public Camera() {
         camera = new OrthographicCamera(graphics.getWidth(), graphics.getHeight());
         camera.setToOrtho(false, 30, 20);
         camera.zoom = 1f;
@@ -43,40 +42,33 @@ public class Camera extends Item implements Zoomable
     }
 
     @Override
-    public void setRoot(ItemRoot root)
-    {
+    public void setRoot(ItemRoot root) {
         root.getViewport().setCamera(camera);
     }
 
-    public float getZoom()
-    {
+    public float getZoom() {
         return camera.zoom;
     }
 
-    public float getOriginalZoom()
-    {
+    public float getOriginalZoom() {
         return originalZoom;
     }
 
-    public void setZoom(float zoom)
-    {
+    public void setZoom(float zoom) {
         camera.zoom = zoom;
     }
 
-    public void setOriginalZoom(float originalZoom)
-    {
+    public void setOriginalZoom(float originalZoom) {
         this.originalZoom = originalZoom;
     }
 
     @Override
-    public Item hit(Vector2 position, boolean touchable)
-    {
+    public Item hit(Vector2 position, boolean touchable) {
         return null;
     }
 
     @Override
-    public void positionChanged()
-    {
+    public void positionChanged() {
         camera.position.x = getX();
         camera.position.y = getY();
     }

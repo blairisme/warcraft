@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.common.animation;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -12,9 +21,6 @@ import java.util.Map;
 
 import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.*;
 
-/**
- * Created by blair on 10/09/2017.
- */
 public class AnimationCollections
 {
     public static Map<AnimationIdentifier, DirectionalAnimation> combatantAnimations(

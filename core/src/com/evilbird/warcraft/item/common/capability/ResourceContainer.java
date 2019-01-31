@@ -1,14 +1,29 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.common.capability;
 
 import java.util.Map;
 
+/**
+ * Implementors of this interface represent a container for the storage of
+ * resources.
+ *
+ * @author Blair Butterworth
+ */
 public interface ResourceContainer
 {
-    public float getResource(ResourceIdentifier resource);
+    float getResource(ResourceIdentifier resource);
 
-    public Map<ResourceIdentifier, Float> getResources();
+    Map<ResourceIdentifier, Float> getResources();
 
-    public void setResource(ResourceIdentifier resource, float value);
+    void setResource(ResourceIdentifier resource, float value);
 
-    public void setResources(Map<ResourceIdentifier, Float> resources);
+    void setResources(Map<ResourceIdentifier, Float> resources);
 }

@@ -25,25 +25,24 @@ import java.util.Collection;
  */
 public class Combatant extends Unit implements Movable
 {
-    private float armour;
-    private float damageMinimum;
-    private float damageMaximum;
     private int level;
+    private int damageMinimum;
+    private int damageMaximum;
     private float speed;
     private float sight;
     private float range;
     private float movementSpeed;
     private Collection<Identifier> movementCapability;
 
-    public float getArmour() {
-        return armour;
+    public Combatant() {
+        super();
     }
 
-    public float getDamageMinimum() {
+    public int getDamageMinimum() {
         return damageMinimum;
     }
 
-    public float getDamageMaximum() {
+    public int getDamageMaximum() {
         return damageMaximum;
     }
 
@@ -77,15 +76,11 @@ public class Combatant extends Unit implements Movable
         return range;
     }
 
-    public void setArmour(float armour) {
-        this.armour = armour;
-    }
-
-    public void setDamageMinimum(float damageMinimum) {
+    public void setDamageMinimum(int damageMinimum) {
         this.damageMinimum = damageMinimum;
     }
 
-    public void setDamageMaximum(float damageMaximum) {
+    public void setDamageMaximum(int damageMaximum) {
         this.damageMaximum = damageMaximum;
     }
 

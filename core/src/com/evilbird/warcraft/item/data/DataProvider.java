@@ -20,8 +20,7 @@ import javax.inject.Provider;
 public class DataProvider extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
-    public DataProvider(Provider<Camera> cameraProvider, Provider<Player> playerProvider)
-    {
+    public DataProvider(Provider<Camera> cameraProvider, Provider<Player> playerProvider) {
         addProvider(DataType.Camera, cameraProvider);
         addProvider(DataType.Player, playerProvider);
     }

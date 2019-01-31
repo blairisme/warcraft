@@ -86,22 +86,22 @@ public class FootmanProvider implements AssetProvider<Item>
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
         result.setAvailableSounds(getSounds());
-        result.setArmour(1f);
-        result.setDamageMinimum(2f);
-        result.setDamageMaximum(9f);
+        result.setDefence(2);
+        result.setDamageMinimum(2);
+        result.setDamageMaximum(9);
         result.setHealth(100f);
         result.setHealthMaximum(100f);
         result.setIcon(getIcon());
         result.setLevel(1);
         result.setName("Footman");
-        result.setMovementSpeed(64f);
+        result.setMovementSpeed(64f); // 10
         result.setMovementCapability(LayerType.Map);
-        result.setRange(32 + 5);
+        result.setRange(32 + 5); // 1
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
         result.setSpeed(10f);
-        result.setSight(256f);
+        result.setSight(4 * 32); //4
         result.setType(UnitType.Footman);
         result.setSize(32, 32);
         return result;

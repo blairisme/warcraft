@@ -1,5 +1,5 @@
 /*
- * Blair Butterworth (c) 2018
+ * Blair Butterworth (c) 2019
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
@@ -9,13 +9,16 @@
 
 package com.evilbird.warcraft.item.common.capability;
 
-import com.evilbird.engine.common.lang.Identifier;
-
 /**
- * Implementors of this interface specify unique identifiers for resources.
+ * Implementors of this interface represent an object that can be destroyed.
  *
  * @author Blair Butterworth
  */
-public interface ResourceIdentifier extends Identifier
+public interface Destroyable
 {
+    int getDefence();
+
+    float getHealth();
+
+    void setHealth(float health);
 }

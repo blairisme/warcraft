@@ -58,7 +58,6 @@ public class ConfirmProvider implements AssetProvider<Item>
         return result;
     }
 
-    //TODO: Cache
     private Map<AnimationIdentifier, DirectionalAnimation> getAnimations() {
         Texture texture = assets.get(TEXTURE, Texture.class);
         return AnimationCollections.effectAnimations(texture);

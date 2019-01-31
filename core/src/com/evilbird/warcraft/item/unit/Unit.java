@@ -11,14 +11,21 @@ package com.evilbird.warcraft.item.unit;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.item.specialized.animated.AnimatedItem;
-import com.evilbird.warcraft.item.common.capability.Destructible;
+import com.evilbird.warcraft.item.common.capability.Destroyable;
 
 import javax.inject.Inject;
 
-public class Unit extends AnimatedItem implements Destructible
+/**
+ * Instances of this represent a game object that the user can control and
+ * interact with.
+ *
+ * @author Blair Butterworth
+ */
+public class Unit extends AnimatedItem implements Destroyable
 {
     private String name;
     private Drawable icon;
+    private int defence;
     private float health;
     private float healthMaximum;
 
@@ -26,6 +33,7 @@ public class Unit extends AnimatedItem implements Destructible
     public Unit() {
         name = "Unknown";
         icon = null;
+        defence = 0;
         health = 0;
         healthMaximum = 0;
     }
@@ -34,6 +42,12 @@ public class Unit extends AnimatedItem implements Destructible
         return health > 0;
     }
 
+    @Override
+    public int getDefence() {
+        return defence;
+    }
+
+    @Override
     public float getHealth() {
         return health;
     }
@@ -48,6 +62,10 @@ public class Unit extends AnimatedItem implements Destructible
 
     public String getName() {
         return name;
+    }
+
+    public void setDefence(int defence) {
+        this.defence = defence;
     }
 
     public void setIcon(Drawable icon) {

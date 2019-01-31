@@ -96,9 +96,9 @@ public class PeasantProvider implements AssetProvider<Item>
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
         result.setAvailableSounds(getSounds());
-        result.setArmour(0f);
-        result.setDamageMinimum(1f);
-        result.setDamageMaximum(5f);
+        result.setDefence(0);
+        result.setDamageMinimum(1);
+        result.setDamageMaximum(5);
         result.setHealth(30f);
         result.setHealthMaximum(30f);
         result.setIcon(getIcon());

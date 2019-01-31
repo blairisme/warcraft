@@ -9,14 +9,11 @@
 
 package com.evilbird.engine.item;
 
-import com.evilbird.engine.common.function.ResettableSupplier;
 import com.evilbird.engine.common.function.Supplier;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.warcraft.item.common.capability.Destructible;
+import com.evilbird.warcraft.item.common.capability.Destroyable;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
-
-import static com.evilbird.engine.item.ItemPredicates.itemWithId;
 
 /**
  * Instances of this class provide commonly used {@link Supplier Suppliers}
@@ -26,7 +23,7 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithId;
  */
 public class ItemSuppliers
 {
-    public static Supplier<Boolean> isAlive(Destructible item) {
+    public static Supplier<Boolean> isAlive(Destroyable item) {
         return new Supplier<Boolean>() {
             @Override
             public Boolean get() {

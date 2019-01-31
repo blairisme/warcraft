@@ -25,21 +25,19 @@ import java.util.Map.Entry;
 
 public class AnimationUtils
 {
-    public static DirectionalAnimation getAnimation(TextureRegion texture)
-    {
+    public static DirectionalAnimation getAnimation(TextureRegion texture) {
         Array<TextureRegion> textures = Array.with(texture);
         Map<Range<Float>, Array<TextureRegion>> frames = new HashMap<Range<Float>, Array<TextureRegion>>(1);
         frames.put(Range.between(0.0f, 360.0f), textures);
         return new DirectionalAnimation(0f, Float.MAX_VALUE, frames, Animation.PlayMode.LOOP);
     }
 
-    public static DirectionalAnimation combine(DirectionalAnimation source, DirectionalAnimation target)
-    {
+    public static DirectionalAnimation combine(DirectionalAnimation source, DirectionalAnimation target) {
         Map<Range<Float>, Array<TextureRegion>> sourceFrameSet = source.getFrames();
         Map<Range<Float>, Array<TextureRegion>> targetFrameSet = target.getFrames();
         Map<Range<Float>, Array<TextureRegion>> combinedFrames = new HashMap<>(sourceFrameSet.size());
 
-        for (Entry<Range<Float>, Array<TextureRegion>> sourceFrameEntry: sourceFrameSet.entrySet()){
+        for (Entry<Range<Float>, Array<TextureRegion>> sourceFrameEntry : sourceFrameSet.entrySet()) {
             Range<Float> range = sourceFrameEntry.getKey();
             Array<TextureRegion> sourceFrames = sourceFrameEntry.getValue();
             Array<TextureRegion> targetFrames = targetFrameSet.get(range);

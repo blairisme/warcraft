@@ -12,6 +12,9 @@ package com.evilbird.warcraft.action.component;
 import com.evilbird.engine.item.Item;
 
 /**
+ * Instances of this error are produced when a {@link MoveAction} is unable
+ * find a path to a given destination.
+ *
  * @author Blair Butterworth
  */
 public class MoveImpossibleException extends RuntimeException

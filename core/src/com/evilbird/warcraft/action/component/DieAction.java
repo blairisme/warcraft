@@ -35,12 +35,11 @@ public class DieAction extends DelegateAction
 
         Action dieSound = new AudibleAction((Audible)item, UnitSound.Die);
         Action dieAnimation = new AnimateAction((Animated)item, UnitAnimation.Die);
-        Action dieWait = new DelayedAction(new TimeDuration(0.5f));
-        //Action dieSequence = new SequenceAction(dieAnimation, dieWait);
+        Action dieWait = new DelayedAction(new TimeDuration(1));
         Action die = new ParallelAction(deselect, disable, dieSound, dieAnimation, dieWait);
 
         Action decomposeAnimation = new AnimateAction((Animated)item, UnitAnimation.Decompose);
-        Action decomposeWait = new DelayedAction(new TimeDuration(10f));
+        Action decomposeWait = new DelayedAction(new TimeDuration(10));
         Action decompose = new SequenceAction(decomposeAnimation, decomposeWait);
 
         Action remove = new RemoveAction(item);

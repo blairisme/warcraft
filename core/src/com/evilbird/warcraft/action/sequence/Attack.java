@@ -23,7 +23,7 @@ import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.Audible;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.component.*;
-import com.evilbird.warcraft.item.common.capability.Destructible;
+import com.evilbird.warcraft.item.common.capability.Destroyable;
 import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -32,6 +32,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.utilities.ActionPredicates.noError;
+import static com.evilbird.engine.common.function.Suppliers.constantValue;
 import static com.evilbird.engine.item.ItemSuppliers.isAlive;
 import static com.evilbird.warcraft.action.common.ActionPredicates.withinRange;
 
@@ -64,13 +65,11 @@ public class Attack implements ActionProvider
         return new SequenceAction(initiate, complete);
     }
 
-    private Action feedback(Item attacker, Item target, boolean feedback) {
-        if (feedback) {
-            Action effect = new ConfirmAction(itemFactory, target);
-            Action sound = new AudibleAction((Audible)attacker, UnitSound.Acknowledge);
-            return new ParallelAction(effect, sound);
-        }
-        return new EmptyAction();
+    private Action feedback(Item attacker, Item target, boolean include) {
+        Action effect = new ConfirmAction(itemFactory, target);
+        Action sound = new AudibleAction((Audible)attacker, UnitSound.Acknowledge);
+        Action feedback = new ParallelAction(effect, sound);
+        return new OptionalAction(constantValue(include),feedback);
     }
 
     private Action attack(Combatant attacker, Item target) {
@@ -88,8 +87,8 @@ public class Attack implements ActionProvider
     }
 
     private BasicAction damage(Item attacker, Item target) {
-        Action attack = new AttackAction((Combatant)attacker, (Destructible)target);
-        Action sound = new RepeatedAudibleAction(attacker, UnitSound.Attack, 0.5f, isAlive((Destructible)target));
+        Action attack = new AttackAction((Combatant)attacker, (Destroyable)target);
+        Action sound = new RepeatedAudibleAction(attacker, UnitSound.Attack, 0.5f, isAlive((Destroyable)target));
         Action damage = new ParallelAction(attack, sound);
         return new AnimatedAction(damage, (Animated)attacker, UnitAnimation.Attack, UnitAnimation.Idle);
     }

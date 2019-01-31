@@ -22,25 +22,21 @@ public class AnimationSchema
     private boolean loop;
     private Map<Range<Float>, List<Rectangle>> frames;
 
-    public AnimationSchema(Map<Range<Float>, List<Rectangle>> frames, float interval, boolean loop)
-    {
+    public AnimationSchema(Map<Range<Float>, List<Rectangle>> frames, float interval, boolean loop) {
         this.frames = frames;
         this.interval = interval;
         this.loop = loop;
     }
 
-    public float getFrameInterval()
-    {
+    public float getFrameInterval() {
         return interval;
     }
 
-    public boolean getLoop()
-    {
+    public boolean getLoop() {
         return loop;
     }
 
-    public Map<Range<Float>, List<Rectangle>> getFrameRegions()
-    {
+    public Map<Range<Float>, List<Rectangle>> getFrameRegions() {
         return frames;
     }
 }

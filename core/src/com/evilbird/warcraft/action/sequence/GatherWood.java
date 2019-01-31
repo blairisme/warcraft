@@ -21,6 +21,12 @@ import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import javax.inject.Inject;
 
+/**
+ * Instances of this {@link Action} instruct a given {@link Gather} to gather
+ * wood.
+ *
+ * @author Blair Butterworth
+ */
 // TODO: Lumber mill increases rate to 125
 public class GatherWood extends Gather
 {

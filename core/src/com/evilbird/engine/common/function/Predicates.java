@@ -11,6 +11,15 @@ package com.evilbird.engine.common.function;
 
 public class Predicates
 {
+    public static <T> Predicate<T> accept() {
+        return new Predicate<T>() {
+            @Override
+            public boolean test(T value) {
+                return true;
+            }
+        };
+    }
+
     public static <T> Predicate<T> both(Predicate<? super T> left, Predicate<? super T> right) {
         return new And(left, right);
     }

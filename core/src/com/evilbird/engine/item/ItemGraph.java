@@ -14,8 +14,8 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.collection.Arrays;
-import com.evilbird.engine.common.function.AcceptPredicate;
 import com.evilbird.engine.common.function.Predicate;
+import com.evilbird.engine.common.function.Predicates;
 import com.evilbird.engine.common.pathing.SpatialGraph;
 
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         this.nodeHeight = nodeHeight;
         this.nodeCountX = nodeCountX;
         this.nodeCountY = nodeCountY;
-        this.nodeFilter = new AcceptPredicate<>();
+        this.nodeFilter = Predicates.accept();
         this.nodes = createNodeArray(nodeCountX, nodeCountY);
     }
 

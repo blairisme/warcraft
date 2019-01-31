@@ -21,22 +21,18 @@ public class LevelView
     private ItemRoot world;
 
     @Inject
-    public LevelView()
-    {
+    public LevelView() {
     }
 
-    public void setWorld(ItemRoot world)
-    {
+    public void setWorld(ItemRoot world) {
         this.world = world;
     }
 
-    public void setHud(ItemRoot hud)
-    {
+    public void setHud(ItemRoot hud) {
         this.hud = hud;
     }
 
-    public void draw()
-    {
+    public void draw() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -44,14 +40,12 @@ public class LevelView
         hud.draw();
     }
 
-    public void resize(int width, int height)
-    {
+    public void resize(int width, int height) {
         world.resize(width, height);
         hud.resize(width, height);
     }
 
-    public void dispose()
-    {
+    public void dispose() {
         world.dispose();
         hud.dispose();
     }
