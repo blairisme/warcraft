@@ -106,6 +106,6 @@ public class BarracksProvider implements AssetProvider<Item>
     }
 
     private Map<SoundIdentifier, SoundEffect> getSounds() {
-        return Maps.of(UnitSound.Die, newSoundEffect(assets, DESTROYED, MP3, 3));
+        return Maps.<SoundIdentifier, SoundEffect>of(UnitSound.Die, newSoundEffect(assets, DESTROYED, MP3, 3));
     }
 }

@@ -29,7 +29,7 @@ public class Suppliers
         };
     }
 
-    public static <T> Supplier<T> constantValue(T value){
+    public static <T> Supplier<T> constantValue(final T value){
         return new Supplier<T>() {
             @Override
             public T get() {

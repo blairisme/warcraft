@@ -28,8 +28,8 @@ import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
  */
 public enum TrainActions implements ActionIdentifier, ResourceRequirement
 {
-    TrainFootman (20f, Footman, Maps.of(Gold, 250f)),
-    TrainPeasant (20f, Peasant, Maps.of(Gold, 100f));
+    TrainFootman (20f, Footman, Maps.<ResourceIdentifier, Float>of(Gold, 250f)),
+    TrainPeasant (20f, Peasant, Maps.<ResourceIdentifier, Float>of(Gold, 100f));
 
     private float trainTime;
     private UnitType unitType;

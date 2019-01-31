@@ -27,9 +27,9 @@ import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
  */
 public enum ConstructionActions implements ActionIdentifier, ResourceRequirement
 {
-    ConstructBarracks   (UnitType.Barracks, 20f, Maps.of(Gold, 100f)),
-    ConstructFarm       (UnitType.Farm, 20f, Maps.of(Gold, 100f)),
-    ConstructTownHall   (UnitType.TownHall, 20f, Maps.of(Gold, 100f));
+    ConstructBarracks   (UnitType.Barracks, 20f, Maps.<ResourceIdentifier, Float>of(Gold, 100f)),
+    ConstructFarm       (UnitType.Farm, 20f, Maps.<ResourceIdentifier, Float>of(Gold, 100f)),
+    ConstructTownHall   (UnitType.TownHall, 20f, Maps.<ResourceIdentifier, Float>of(Gold, 100f));
 
     private UnitType type;
     private float time;

@@ -143,43 +143,26 @@ public class ItemPredicates
     }
 
     public static Predicate<Item> isOwnedBy(Item ownerA) {
-        return new Predicate<Item>() {
-            @Override
-            public boolean test(Item item) {
-                Item ownerB = item.getParent();
-                return Objects.equals(ownerA, ownerB);
-            }
-        };
+        return new IsOwnedBy(ownerA);
+    }
+
+    private static class IsOwnedBy implements Predicate<Item> {
+        private Item ownerA;
+
+        public IsOwnedBy(Item ownerA) {
+            this.ownerA = ownerA;
+        }
+
+        @Override
+        public boolean test(Item item) {
+            Item ownerB = item.getParent();
+            return Objects.equals(ownerA, ownerB);
+        }
     }
 
     public static Predicate<Item> isNear(Item item, float radius) {
         return new IsNear(item, radius);
     }
-
-//    private static class IsNear implements Predicate<Item> {
-//        private Item locus;
-//        private Rectangle perimeter;
-//
-//        public IsNear(Item item, float radius) {
-//            locus = item;
-//            perimeter = scale(item.getBounds(), radius);
-//        }
-//
-//        @Override
-//        public boolean test(Item target) {
-//            perimeter.setCenter(locus.getPosition(Alignment.Center));
-//            return perimeter.contains(target.getBounds());
-//        }
-//
-//        private Rectangle scale(Rectangle rectangle, float factor) {
-//            Vector2 center = rectangle.getCenter(new Vector2());
-//            Vector2 size = rectangle.getSize(new Vector2());
-//            Vector2 scaled = size.add(factor, factor);
-//            rectangle.setSize(scaled.x, scaled.y);
-//            rectangle.setCenter(center);
-//            return rectangle;
-//        }
-//    }
 
     private static class IsNear implements Predicate<Item> {
         private Item locus;
@@ -189,12 +172,6 @@ public class ItemPredicates
             locus = item;
             perimeter = new Circle(item.getPosition(), radius);
         }
-
-//        @Override
-//        public boolean test(Item target) {
-//            perimeter.setPosition(locus.getPosition(Alignment.Center));
-//            return perimeter.contains(target.getPosition(Alignment.Center));
-//        }
 
         @Override
         public boolean test(Item target) {

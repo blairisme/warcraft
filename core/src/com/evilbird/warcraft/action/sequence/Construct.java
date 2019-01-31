@@ -17,6 +17,7 @@ import com.evilbird.engine.action.common.*;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
+import com.evilbird.engine.common.function.Supplier;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.NamedIdentifier;
@@ -123,7 +124,7 @@ public class Construct implements ActionProvider
     private Action constructionProgress(Item builder, Reference<Building> building, TimeDuration duration) {
         Action constructing = new ConstructAction(building, constantValue(builder), true);
         Action progress = new ProgressAction(building, duration);
-        Action idle = new ConstructAction(building, constantValue(null), false);
+        Action idle = new ConstructAction(building, constantValue((Item)null), false);
         return new SequenceAction(constructing, progress, idle);
     }
 

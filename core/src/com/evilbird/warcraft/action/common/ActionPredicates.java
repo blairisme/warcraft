@@ -31,7 +31,7 @@ public class ActionPredicates
         return actionPredicate(CombatantPredicates.withinRange(attacker), target);
     }
 
-    public static Predicate<Action> actionPredicate(Predicate<Item> delegate, Item item) {
+    public static Predicate<Action> actionPredicate(final Predicate<Item> delegate, final Item item) {
         return new Predicate<Action>() {
             @Override
             public boolean test(Action value) {
