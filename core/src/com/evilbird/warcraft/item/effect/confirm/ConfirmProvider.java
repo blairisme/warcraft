@@ -22,9 +22,8 @@ import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
-import java.util.Map;
-
 import javax.inject.Inject;
+import java.util.Map;
 
 /**
  * Instances of this class represent a confirmation animation item, shown to

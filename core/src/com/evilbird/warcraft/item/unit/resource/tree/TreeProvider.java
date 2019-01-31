@@ -2,31 +2,26 @@ package com.evilbird.warcraft.item.unit.resource.tree;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.audio.SilentSoundEffect;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
-import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
 import com.evilbird.warcraft.item.common.animation.AnimationCollectionBuilder;
-import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.common.animation.AnimationSchemas;
-import com.evilbird.warcraft.item.common.animation.AnimationUtils;
 import com.evilbird.warcraft.item.common.texture.TextureUtils;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import javax.inject.Inject;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TreeProvider implements AssetProvider<Tree>
 {

@@ -18,24 +18,21 @@ import com.evilbird.engine.common.audio.SilentSoundEffect;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
-import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
-import com.evilbird.warcraft.item.common.animation.AnimationCollectionBuilder;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.common.texture.TextureUtils;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.Resource;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import javax.inject.Inject;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundType.MP3;

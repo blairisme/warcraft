@@ -17,7 +17,6 @@ import com.evilbird.engine.action.common.*;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
-import com.evilbird.engine.common.function.Supplier;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.NamedIdentifier;

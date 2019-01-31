@@ -18,14 +18,13 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.hud.HudControls;
 import com.evilbird.warcraft.item.hud.control.actions.ActionPane;
-import com.evilbird.warcraft.item.hud.resource.ResourcePane;
 import com.evilbird.warcraft.item.hud.control.status.StatePane;
+import com.evilbird.warcraft.item.hud.resource.ResourcePane;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
+import javax.inject.Inject;
 import java.util.Collection;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import static com.evilbird.engine.item.ItemPredicates.itemWithId;
 import static com.evilbird.engine.item.ItemPredicates.selectedItem;

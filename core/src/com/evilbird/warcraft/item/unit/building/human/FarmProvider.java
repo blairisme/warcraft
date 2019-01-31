@@ -31,7 +31,6 @@ import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.evilbird.engine.common.assets.AssetUtilities.loadSet;
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundType.MP3;
 import static com.evilbird.warcraft.item.common.sound.SoundUtils.newSoundEffect;

@@ -15,10 +15,9 @@ import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 import com.evilbird.warcraft.item.data.DataType;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.inject.Inject;
 
 /**
  * Instances of this class represent a player, either real or artificial.

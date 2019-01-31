@@ -10,12 +10,9 @@
 package com.evilbird.warcraft.item.unit.combatant.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
@@ -31,13 +28,10 @@ import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
-import java.util.Arrays;
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-
-import static com.evilbird.engine.common.assets.AssetUtilities.loadSet;
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundType.MP3;
 import static com.evilbird.warcraft.item.common.sound.SoundUtils.newSoundEffect;

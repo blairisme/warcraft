@@ -10,17 +10,15 @@
 package com.evilbird.warcraft.item.hud.control.status;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.hud.HudControls;
 import com.evilbird.warcraft.item.placeholder.Placeholder;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
-
-import javax.inject.Inject;
 
 /**
  * Instances of this user interface control displays the state of a given unit.

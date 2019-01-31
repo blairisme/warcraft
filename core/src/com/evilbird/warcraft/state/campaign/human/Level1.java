@@ -31,11 +31,10 @@ import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
+import javax.inject.Inject;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.inject.Inject;
 
 //TODO: Move into serialzation library
 public class Level1 implements AssetProvider<ItemRoot>

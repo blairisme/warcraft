@@ -10,13 +10,11 @@
 package com.evilbird.warcraft.item.hud.control.actions;
 
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.*;
 

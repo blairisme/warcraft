@@ -12,8 +12,8 @@ package com.evilbird.warcraft.item.hud.control.status.resource;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.TextLabel;
 import com.evilbird.engine.item.control.TextLabelAlignment;
-import com.evilbird.warcraft.item.unit.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.resource.Resource;
+import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import javax.inject.Inject;
 

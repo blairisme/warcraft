@@ -17,10 +17,9 @@ import com.evilbird.warcraft.behaviour.ai.AiBehaviour;
 import com.evilbird.warcraft.behaviour.hud.HudBehaviour;
 import com.evilbird.warcraft.behaviour.user.UserBehaviour;
 
-import java.util.Arrays;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
+import java.util.Arrays;
 
 /**
  * Instances of this class defines the game logic that modifies the state of
