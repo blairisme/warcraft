@@ -40,12 +40,11 @@ import static com.evilbird.warcraft.item.common.sound.SoundUtils.newSoundEffect;
  *
  * @author Blair Butterworth
  */
-//TODO: Create construction image of size 128x128
 public class TownHallProvider implements AssetProvider<Item>
 {
     private static final String BASE = "data/textures/human/winter/town_hall.png";
     private static final String ICONS = "data/textures/neutral/perennial/icons.png";
-    private static final String CONSTRUCTION = "data/textures/neutral/perennial/construction.png";
+    private static final String CONSTRUCTION = "data/textures/neutral/perennial/construction_large.png";
     private static final String DESTRUCTION = "data/textures/neutral/winter/destroyed_site.png";
     private static final String DESTROYED = "data/sounds/neutral/building/destroyed/";
     private AssetManager assets;

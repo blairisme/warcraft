@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -24,7 +25,16 @@ import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.hud.HudControls;
 
-//TODO: Use item table control
+import static com.evilbird.engine.common.graphics.DensityIndependentPixel.dip;
+
+/**
+ * Instances of this user interface control display the resources the user has
+ * accumulated. By default the control is positioned along the top of the
+ * screen.
+ *
+ * @author Blair Butterworth
+ */
+//TODO: Use table control based on items - or a grid pane...
 //TODO: Use flexible scaling depending on screen size
 public class ResourcePane extends Item
 {
@@ -50,22 +60,21 @@ public class ResourcePane extends Item
     }
 
     private Label createLabel() {
-        BitmapFont labelFont = new BitmapFont();
-        Color labelColor = Color.WHITE;
-        Label.LabelStyle labelStyle = new Label.LabelStyle(labelFont, labelColor);
+        LabelStyle labelStyle = new LabelStyle(new BitmapFont(), Color.WHITE);
         return new Label("", labelStyle);
     }
 
     private Table createTable() {
         Table table = new Table();
-        table.setBounds(0, Gdx.graphics.getHeight() - 20, Gdx.graphics.getWidth(), 20);
+        table.setBounds(0, Gdx.graphics.getHeight() - dip(20), Gdx.graphics.getWidth(), dip(20));
         table.align(Align.center);
-        table.add(goldImage).width(14).padRight(5f);
-        table.add(goldText).width(50).padRight(5f);
-        table.add(oilImage).width(14).padRight(5f);
-        table.add(oilText).width(50).padRight(5f);
-        table.add(woodImage).width(14).padRight(5f);
-        table.add(woodText).width(50).padRight(5f);
+        table.add(goldImage).width(dip(14)).padRight(dip(5));
+        table.add(goldText).width(dip(50)).padRight(dip(5));
+        table.add(oilImage).width(dip(14)).padRight(dip(5));
+        table.add(oilText).width(dip(50)).padRight(dip(5));
+        table.add(woodImage).width(dip(14)).padRight(dip(5));
+        table.add(woodText).width(dip(50)).padRight(dip(5));
+
         return table;
     }
 
