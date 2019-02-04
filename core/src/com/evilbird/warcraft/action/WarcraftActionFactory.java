@@ -16,8 +16,30 @@ import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.UnknownActionException;
 import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.warcraft.action.identifier.*;
-import com.evilbird.warcraft.action.sequence.*;
+import com.evilbird.warcraft.action.attack.AttackActions;
+import com.evilbird.warcraft.action.attack.AttackFactory;
+import com.evilbird.warcraft.action.camera.CameraActions;
+import com.evilbird.warcraft.action.camera.CameraFactory;
+import com.evilbird.warcraft.action.common.CancelActions;
+import com.evilbird.warcraft.action.common.GeneralActions;
+import com.evilbird.warcraft.action.confirm.ConfirmActions;
+import com.evilbird.warcraft.action.confirm.ConfirmFactory;
+import com.evilbird.warcraft.action.construct.Construct;
+import com.evilbird.warcraft.action.construct.ConstructCancel;
+import com.evilbird.warcraft.action.construct.ConstructionActions;
+import com.evilbird.warcraft.action.gather.GatherActions;
+import com.evilbird.warcraft.action.gather.GatherCancel;
+import com.evilbird.warcraft.action.gather.GatherGold;
+import com.evilbird.warcraft.action.gather.GatherWood;
+import com.evilbird.warcraft.action.hud.*;
+import com.evilbird.warcraft.action.move.MoveActions;
+import com.evilbird.warcraft.action.move.MoveFactory;
+import com.evilbird.warcraft.action.move.MoveCancel;
+import com.evilbird.warcraft.action.select.SelectActions;
+import com.evilbird.warcraft.action.select.SelectFactory;
+import com.evilbird.warcraft.action.train.Train;
+import com.evilbird.warcraft.action.train.TrainActions;
+import com.evilbird.warcraft.action.train.TrainCancel;
 
 import javax.inject.Inject;
 import java.util.HashMap;
@@ -37,50 +59,45 @@ public class WarcraftActionFactory implements ActionFactory
 
     @Inject
     public WarcraftActionFactory(
-        Attack attackProvider,
-        AttackCancel attackCancelProvider,
-        CameraPan cameraPanProvider,
-        CameraZoom cameraZoomProvider,
+        AttackFactory attackProvider,
+        CameraFactory cameraFactory,
+        ConfirmFactory confirmFactory,
         Construct constructProvider,
         ConstructCancel constructCancelProvider,
         GatherGold gatherGoldProvider,
         GatherWood gatherWoodProvider,
         GatherCancel gatherCancelProvider,
-        Move moveProvider,
-        MoveCancel moveCancelProvider,
+        MoveFactory moveFactory,
         Navigate navigateProvider,
         Placeholder placeholderProvider,
         PlaceholderCancel placeholderCancelProvider,
         Reposition repositionProvider,
-        Select selectProvider,
+        SelectFactory selectFactory,
         Train trainProvider,
         TrainCancel trainCancelProvider)
     {
         actions = new HashMap<>();
 
-        registerProvider(GeneralActions.Attack, attackProvider);
-        registerProvider(CancelActions.CancelAttack, attackCancelProvider);
-
-        registerProvider(CameraActions.Pan, cameraPanProvider);
-        registerProvider(CameraActions.Zoom, cameraZoomProvider);
+        registerProvider(AttackActions.values(), attackProvider);
+        registerProvider(CameraActions.values(), cameraFactory);
 
         registerProvider(ConstructionActions.values(), constructProvider);
         registerProvider(CancelActions.CancelConstruct, constructCancelProvider);
+
+        registerProvider(ConfirmActions.values(), confirmFactory);
 
         registerProvider(GatherActions.GatherGold, gatherGoldProvider);
         registerProvider(GatherActions.GatherWood, gatherWoodProvider);
         registerProvider(CancelActions.CancelGather, gatherCancelProvider);
 
-        registerProvider(GeneralActions.Move, moveProvider);
-        registerProvider(CancelActions.CancelMove, moveCancelProvider);
-
+        registerProvider(MoveActions.values(), moveFactory);
         registerProvider(NavigateActions.values(), navigateProvider);
 
         registerProvider(PlaceholderActions.values(), placeholderProvider);
         registerProvider(GeneralActions.Reposition, repositionProvider);
         registerProvider(CancelActions.CancelPlaceholder, placeholderCancelProvider);
 
-        registerProvider(GeneralActions.Select, selectProvider);
+        registerProvider(SelectActions.values(), selectFactory);
 
         registerProvider(TrainActions.values(), trainProvider);
         registerProvider(CancelActions.CancelTrain, trainCancelProvider);

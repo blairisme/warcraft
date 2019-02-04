@@ -16,7 +16,8 @@ import com.evilbird.engine.action.BasicActionContext;
 import com.evilbird.engine.common.collection.Collections;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.action.identifier.GeneralActions;
+import com.evilbird.warcraft.action.attack.AttackActions;
+import com.evilbird.warcraft.action.common.GeneralActions;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
@@ -73,7 +74,7 @@ public class InitiateAttack extends PeriodicProcedure
 
     private void attack(Combatant combatant, Item target) {
         ActionContext context = new BasicActionContext(combatant, target, null);
-        Action action = actionFactory.newAction(GeneralActions.Attack, context);
+        Action action = actionFactory.newAction(AttackActions.AttackMelee, context);
         combatant.addAction(action);
     }
 }

@@ -38,6 +38,7 @@ public class InteractionDefinition implements Interaction
     private Identifier selectedType;
     private UserInputType inputType;
     private InteractionApplicability applicability;
+    private InteractionAssignment assignment;
 
     @Inject
     public InteractionDefinition(ActionFactory factory) {
@@ -95,6 +96,11 @@ public class InteractionDefinition implements Interaction
         return this;
     }
 
+    public InteractionDefinition assignedTo(InteractionAssignment assignment) {
+        this.assignment = assignment;
+        return this;
+    }
+
     @Override
     public boolean applies(UserInput input, Item touched, Item selected) {
         if (inputType != null && !Objects.equals(inputType, input.getType())){
@@ -124,7 +130,8 @@ public class InteractionDefinition implements Interaction
         ActionContext context = new BasicActionContext(primary, secondary, input);
         Action action = factory.newAction(actionType, context);
 
-        primary.addAction(action);
+        Item subject = getSubject(primary);
+        subject.addAction(action);
     }
 
     private Item getPrimary(Item item, Item selected) {
@@ -140,6 +147,14 @@ public class InteractionDefinition implements Interaction
             case Target: return selected;
             case Selected: return item;
             default: return selected;
+        }
+    }
+
+    private Item getSubject(Item item) {
+        switch (assignment) {
+            case Item: return item;
+            case Parent: return item.getParent();
+            default: return item;
         }
     }
 }

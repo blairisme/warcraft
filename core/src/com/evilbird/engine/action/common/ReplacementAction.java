@@ -26,6 +26,10 @@ public class ReplacementAction extends DelegateAction
 {
     private Supplier<Item> supplier;
 
+    public ReplacementAction(Action next) {
+        this((Item)null, next);
+    }
+
     public ReplacementAction(Item item, Action next) {
         this(constantValue(item), next);
     }
@@ -33,6 +37,10 @@ public class ReplacementAction extends DelegateAction
     public ReplacementAction(Supplier<Item> supplier, Action next) {
         super(next);
         this.supplier = supplier;
+    }
+
+    public void setItem(Item item) {
+        this.supplier = constantValue(item);
     }
 
     @Override

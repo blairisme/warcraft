@@ -14,6 +14,8 @@ import com.evilbird.engine.item.Reference;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 
+import javax.inject.Inject;
+
 /**
  * Instances of this class represent an action that changes the animation
  * applied to the given {@link Animated element}.
@@ -26,6 +28,14 @@ public class AnimateAction extends BasicAction
     private AnimationIdentifier animation;
     private Reference<? extends Animated> reference;
 
+    @Inject
+    public AnimateAction(){
+    }
+
+    public AnimateAction(AnimationIdentifier animation) {
+        this.animation = animation;
+    }
+
     public AnimateAction(Animated animated, AnimationIdentifier animation) {
         this.animated = animated;
         this.animation = animation;
@@ -33,6 +43,14 @@ public class AnimateAction extends BasicAction
 
     public AnimateAction(Reference<? extends Animated> reference, AnimationIdentifier animation) {
         this.reference = reference;
+        this.animation = animation;
+    }
+
+    public void setItem(Animated animated) {
+        this.animated = animated;
+    }
+
+    public void setAnimation(AnimationIdentifier animation) {
         this.animation = animation;
     }
 

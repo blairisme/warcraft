@@ -25,6 +25,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
+//TODO: Improve lookup performance
 public class InteractionContainer
 {
     private Provider<InteractionDefinition> factory;
@@ -40,16 +41,18 @@ public class InteractionContainer
         InteractionDefinition interaction = factory.get();
         interaction.forAction(action);
         interaction.forInput(UserInputType.Action);
+        interaction.assignedTo(InteractionAssignment.Item);
         interactions.add(interaction);
         return interaction;
     }
 
-    public Interaction getInteraction(UserInput input, Item item, Item selected) {
+    public Collection<Interaction> getInteractions(UserInput input, Item item, Item selected) {
+        Collection<Interaction> result = new ArrayList<>();
         for (Interaction interaction: interactions) {
             if (interaction.applies(input, item, selected)) {
-                return interaction;
+                result.add(interaction);
             }
         }
-        return null;
+        return result;
     }
 }

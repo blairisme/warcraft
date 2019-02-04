@@ -14,22 +14,33 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.common.lang.Positionable;
 import com.evilbird.engine.device.UserInput;
 
+import javax.inject.Inject;
+
 public class PanAction extends Action
 {
+    private Vector2 delta;
     private Positionable positionable;
-    private UserInput input;
 
-    public PanAction(Positionable positionable, UserInput input)
-    {
+    @Inject
+    public PanAction() {
+    }
+
+    public PanAction(Positionable positionable, Vector2 delta) {
         this.positionable = positionable;
-        this.input = input;
+        this.delta = delta;
+    }
+
+    public void setPositionable(Positionable positionable) {
+        this.positionable = positionable;
+    }
+
+    public void setPositionDelta(Vector2 delta) {
+        this.delta = delta;
     }
 
     @Override
-    public boolean act(float time)
-    {
+    public boolean act(float time) {
         Vector2 value = positionable.getPosition();
-        Vector2 delta = input.getDelta();
         Vector2 difference = new Vector2(delta.x, delta.y);
         Vector2 result = value.add(difference);
         positionable.setPosition(result);

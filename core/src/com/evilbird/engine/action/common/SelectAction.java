@@ -14,16 +14,36 @@ import com.evilbird.engine.common.lang.Selectable;
 
 public class SelectAction extends BasicAction
 {
-    private Selectable selectable;
     private boolean selected;
+    private Selectable selectable;
+
+    public SelectAction() {
+    }
 
     public SelectAction(Selectable selectable, boolean selected) {
+        setSelectable(selectable);
+        setSelected(selected);
+    }
+
+    public Selectable getSelectable() {
+        return selectable;
+    }
+
+    public boolean getSelected() {
+        return selected;
+    }
+
+    public void setSelectable(Selectable selectable) {
         this.selectable = selectable;
+    }
+
+    public void setSelected(boolean selected) {
         this.selected = selected;
     }
 
     @Override
     public boolean act(float time) {
+        Selectable selectable = getSelectable();
         selectable.setSelected(selected);
         return true;
     }

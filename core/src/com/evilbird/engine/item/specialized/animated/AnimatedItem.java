@@ -22,7 +22,7 @@ import com.evilbird.engine.item.Item;
 import java.util.HashMap;
 import java.util.Map;
 
-//TODO: Move selected box drawing to unit
+//TODO: MoveFactory selected box drawing to unit
 //TODO: Use real logging
 public class AnimatedItem extends Item implements Animated, Audible
 {
@@ -96,7 +96,7 @@ public class AnimatedItem extends Item implements Animated, Audible
     public void setSound(SoundIdentifier id)
     {
         currentSoundId = id;
-        updateSound = true;
+        updateSound = id != null;
     }
 
     public void setAvailableSound(SoundIdentifier id, SoundEffect sound)

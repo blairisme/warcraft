@@ -42,7 +42,7 @@ public class AnimationCollectionBuilder
         animations.put(id, data);
     }
 
-    //TODO: Move multiple schema/texture logic into AnimationBuilder. Stop animation merging.
+    //TODO: MoveFactory multiple schema/texture logic into AnimationBuilder. Stop animation merging.
     public Map<AnimationIdentifier, DirectionalAnimation> build() {
         AnimationBuilder builder = new AnimationBuilder();
         Map<AnimationIdentifier, DirectionalAnimation> result = new HashMap<>();

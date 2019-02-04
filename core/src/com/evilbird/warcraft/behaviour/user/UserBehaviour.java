@@ -77,21 +77,20 @@ public class UserBehaviour implements Behaviour
     }
 
     private boolean update(UserInput input, Item target, Item selected) {
-        logUpdate(input, target, selected);
-        Interaction interaction = interactions.getInteraction(input, target, selected);
-        if (interaction != null) {
+        //logUpdate(input, target, selected);
+        Collection<Interaction> actions = interactions.getInteractions(input, target, selected);
+        for (Interaction interaction: actions) {
             interaction.update(input, target, selected);
-            return true;
         }
-        return false;
+        return !actions.isEmpty();
     }
 
-    private void logUpdate(UserInput input, Item target, Item world) {
-        String inputType = input.getType().toString();
-        String targetType = target != null ? target.getType().toString() : "<none>";
-        String worldType = world != null ? world.getType().toString() : "<none>";
-        System.out.println("Input: " + inputType + ", target: " + targetType + ", world: " + worldType);
-    }
+//    private void logUpdate(UserInput input, Item target, Item world) {
+//        String inputType = input.getType().toString();
+//        String targetType = target != null ? target.getType().toString() : "<none>";
+//        String worldType = world != null ? world.getType().toString() : "<none>";
+//        System.out.println("Input: " + inputType + ", target: " + targetType + ", world: " + worldType);
+//    }
 
     private Collection<Item> getTargets(ItemRoot world, ItemRoot hud, UserInput input) {
         Collection<Item> hudTargets = getHudTargets(hud, input);
@@ -128,6 +127,7 @@ public class UserBehaviour implements Behaviour
         return result;
     }
 
+    // TODO: cache camera - theres only one?
     private Item getCameraTarget(ItemRoot world) {
         return world.find(itemWithType(DataType.Camera));
     }

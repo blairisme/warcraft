@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.warcraft.item.common.texture.TextureUtils.getDrawable;
 
-//TODO: Move texture coordinates into type enum
+//TODO: MoveFactory texture coordinates into type enum
 public class ActionButtonProvider implements AssetProvider<ActionButton>
 {
     private static final String BACKGROUND = "data/textures/neutral/perennial/action.png";

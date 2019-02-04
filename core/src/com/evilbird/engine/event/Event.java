@@ -9,8 +9,20 @@
 
 package com.evilbird.engine.event;
 
+import com.evilbird.engine.item.Item;
+
 /**
+ * Implementors of this interface represent an instance of a note worthy
+ * phenomenon: an event.
+ *
  * @author Blair Butterworth
  */
-public interface Event {
+public interface Event
+{
+    /**
+     * The {@link Item} involved in the event.
+     *
+     * @return an <code>Item</code>.
+     */
+    Item getSubject();
 }

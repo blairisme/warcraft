@@ -51,8 +51,4 @@ public class SequenceAction extends CompositeAction
         this.iterator = delegates.iterator();
         this.current = iterator.next();
     }
-
-    public Action getCurrent() {
-        return current;
-    }
 }

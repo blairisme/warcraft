@@ -12,5 +12,6 @@ package com.evilbird.warcraft.behaviour.user;
 public enum InteractionApplicability
 {
     Selected,
+    SelectedPlayer,
     Target
 }

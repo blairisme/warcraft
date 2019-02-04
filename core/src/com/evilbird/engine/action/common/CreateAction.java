@@ -19,8 +19,8 @@ import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemType;
 
 /**
- * Instances of this class represent an {@link Action} creates a new
- * {@link Item}.
+ * Instances of this {@link Action} create a new {@link Item} with the given
+ * attributes.
  *
  * @author Blair Butterworth
  */
@@ -50,8 +50,7 @@ public class CreateAction extends BasicAction
     }
 
     @Override
-    public boolean act(float delta)
-    {
+    public boolean act(float delta) {
         Item item = factory.newItem(type);
         item.setId(id);
         item.setPosition(position);
@@ -60,8 +59,7 @@ public class CreateAction extends BasicAction
         return true;
     }
 
-    @Override
-    public void restart()
+    @Override public void restart()
     {
     }
 }

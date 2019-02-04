@@ -12,7 +12,7 @@ package com.evilbird.engine.level;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.event.EventStream;
+import com.evilbird.engine.event.Events;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.StateFactory;
 import com.evilbird.warcraft.state.campaign.human.HumanCampaign;
@@ -32,19 +32,19 @@ public class LevelModel
     private ItemRoot hud;
     private ItemRoot world;
     private Behaviour behaviour;
-    private EventStream events;
+    private Events events;
 
     @Inject
     public LevelModel(
         Device device,
         StateFactory stateFactory,
         BehaviourFactory behaviourFactory,
-        EventStream eventStream)
+        Events events)
     {
         this.device = device;
         this.stateFactory = stateFactory;
         this.behaviourFactory = behaviourFactory;
-        this.events = eventStream;
+        this.events = events;
     }
 
     public void setPresenter(Level presenter) {
