@@ -12,13 +12,15 @@ package com.evilbird.engine.item;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.utils.Array;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.common.lang.*;
 import com.evilbird.engine.item.framework.ActorExtension;
 import com.evilbird.engine.item.framework.ActorObserver;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Instances of this class represent the basic entity in the game.
@@ -172,12 +174,20 @@ public class Item implements ActorObserver, Identifiable, Categorizable, Positio
         this.root = root;
     }
 
+
+
+
+    private Collection<Action> actions = new ArrayList<>();
+
     public void addAction(Action action) {
-        delegate.addAction(action);
+        if (action instanceof ItemAction) {
+            delegate.addAction(((ItemAction)action).delegate);
+        }
+        actions.add(action);
     }
 
-    public Array<Action> getActions() {
-        return delegate.getActions();
+    public Collection<Action> getActions() {
+        return actions;
     }
 
     public boolean hasActions() {
@@ -187,6 +197,11 @@ public class Item implements ActorObserver, Identifiable, Categorizable, Positio
     public void clearActions() {
         delegate.clearActions();
     }
+
+
+
+
+
 
     @Override
     public void draw(Batch batch, float alpha) {

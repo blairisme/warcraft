@@ -11,30 +11,26 @@ package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Selectable;
+import com.evilbird.engine.item.Item;
+
+import javax.inject.Inject;
 
 public class SelectAction extends BasicAction
 {
     private boolean selected;
-    private Selectable selectable;
 
+    @Inject
     public SelectAction() {
     }
 
+    @Deprecated
     public SelectAction(Selectable selectable, boolean selected) {
-        setSelectable(selectable);
+        setItem((Item)selectable);
         setSelected(selected);
-    }
-
-    public Selectable getSelectable() {
-        return selectable;
     }
 
     public boolean getSelected() {
         return selected;
-    }
-
-    public void setSelectable(Selectable selectable) {
-        this.selectable = selectable;
     }
 
     public void setSelected(boolean selected) {
@@ -43,7 +39,7 @@ public class SelectAction extends BasicAction
 
     @Override
     public boolean act(float time) {
-        Selectable selectable = getSelectable();
+        Selectable selectable = getItem();
         selectable.setSelected(selected);
         return true;
     }

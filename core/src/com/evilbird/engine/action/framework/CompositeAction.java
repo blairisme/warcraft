@@ -9,16 +9,14 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Pool;
+import com.evilbird.engine.item.Item;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Instances of this {@link BasicAction Action} provide common implementation
+ * Instances of this {@link Action Action} provide common implementation
  * for those actions which represent collection of child actions.
  *
  * @author Blair Butterworth
@@ -35,7 +33,7 @@ public abstract class CompositeAction extends BasicAction
         this.delegates = delegates;
     }
 
-    public CompositeAction(Action ... delegates) {
+    public CompositeAction(Action... delegates) {
         this(Arrays.asList(delegates));
     }
 
@@ -57,23 +55,15 @@ public abstract class CompositeAction extends BasicAction
     }
 
     @Override
-    public void setActor(Actor actor) {
-        super.setActor(actor);
+    public void setItem(Item item) {
+        super.setItem(item);
         for (Action delegate: delegates) {
-            delegate.setActor(actor);
+            delegate.setItem(item);
         }
     }
 
     @Override
-    public void setPool(Pool pool) {
-        super.setPool(pool);
-        for (Action delegate: delegates) {
-            delegate.setPool(pool);
-        }
-    }
-
-    @Override
-    public void setTarget(Actor target) {
+    public void setTarget(Item target) {
         super.setTarget(target);
         for (Action delegate: delegates) {
             delegate.setTarget(target);
@@ -83,11 +73,8 @@ public abstract class CompositeAction extends BasicAction
     @Override
     public Throwable getError() {
         for (Action delegate: delegates) {
-            if (delegate instanceof BasicAction) {
-                BasicAction action = (BasicAction) delegate;
-                if (action.hasError()) {
-                    return action.getError();
-                }
+            if (delegate.hasError()) {
+                return delegate.getError();
             }
         }
         return null;
@@ -96,10 +83,7 @@ public abstract class CompositeAction extends BasicAction
     @Override
     public void setError(Throwable error) {
         for (Action delegate: delegates) {
-            if (delegate instanceof BasicAction) {
-                BasicAction action = (BasicAction) delegate;
-                action.setError(error);
-            }
+            delegate.setError(error);
         }
     }
 }

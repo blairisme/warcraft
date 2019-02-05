@@ -9,13 +9,12 @@
 
 package com.evilbird.warcraft.action;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.UnknownActionException;
 import com.evilbird.engine.action.common.ReplacementAction;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.attack.AttackFactory;
 import com.evilbird.warcraft.action.camera.CameraActions;
@@ -34,7 +33,6 @@ import com.evilbird.warcraft.action.gather.GatherWood;
 import com.evilbird.warcraft.action.hud.*;
 import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.move.MoveFactory;
-import com.evilbird.warcraft.action.move.MoveCancel;
 import com.evilbird.warcraft.action.select.SelectActions;
 import com.evilbird.warcraft.action.select.SelectFactory;
 import com.evilbird.warcraft.action.train.Train;
@@ -119,10 +117,7 @@ public class WarcraftActionFactory implements ActionFactory
     }
 
     private void updateIdentifier(Action action, ActionIdentifier identifier) {
-        if (action instanceof BasicAction) {
-            BasicAction basicAction = (BasicAction)action;
-            basicAction.setIdentifier(identifier);
-        }
+        action.setIdentifier(identifier);
         if (action instanceof ReplacementAction) {
             ReplacementAction replacementAction = (ReplacementAction)action;
             updateIdentifier(replacementAction.getReplacement(), identifier);

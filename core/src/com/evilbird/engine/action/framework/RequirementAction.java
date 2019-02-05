@@ -13,9 +13,9 @@ import com.evilbird.engine.common.function.Predicate;
 
 public class RequirementAction extends DelegateAction
 {
-    private Predicate<BasicAction> requirement;
+    private Predicate<Action> requirement;
 
-    public RequirementAction(BasicAction delegate, Predicate<BasicAction> requirement) {
+    public RequirementAction(Action delegate, Predicate<Action> requirement) {
         super(delegate);
         this.requirement = requirement;
     }
@@ -23,7 +23,7 @@ public class RequirementAction extends DelegateAction
     @Override
     @SuppressWarnings("unchecked")
     public boolean act(float delta) {
-        if (! requirement.test((BasicAction)delegate)) {
+        if (! requirement.test((Action)delegate)) {
             cancel();
             return true;
         }

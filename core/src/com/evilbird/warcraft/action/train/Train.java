@@ -9,11 +9,11 @@
 
 package com.evilbird.warcraft.action.train;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.AlignAction;
 import com.evilbird.engine.action.common.CreateAction;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.common.lang.Identifier;

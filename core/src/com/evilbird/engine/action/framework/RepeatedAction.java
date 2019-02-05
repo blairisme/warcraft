@@ -9,7 +9,6 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.common.function.ResettableSupplier;
 import com.evilbird.engine.common.function.Supplier;
 import com.evilbird.engine.common.function.Suppliers;

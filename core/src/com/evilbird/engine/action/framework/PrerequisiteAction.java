@@ -9,11 +9,10 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.common.function.Predicate;
 
 /**
- * Instances of this {@link BasicAction Action} execute an <code>Action</code>
+ * Instances of this {@link Action Action} execute an <code>Action</code>
  * if a given {@link Predicate} evaluates to <code>true</code>. If it evaluates
  * to false a prerequisite <code>Action</code> is executed first.
  *
@@ -21,12 +20,12 @@ import com.evilbird.engine.common.function.Predicate;
  */
 public class PrerequisiteAction extends CompositeAction
 {
-    private BasicAction action;
-    private BasicAction requisite;
-    private BasicAction current;
+    private Action action;
+    private Action requisite;
+    private Action current;
     private Predicate<Action> predicate;
 
-    public PrerequisiteAction(BasicAction action, BasicAction requisite, Predicate<Action> predicate) {
+    public PrerequisiteAction(Action action, Action requisite, Predicate<Action> predicate) {
         super(action, requisite);
         this.action = action;
         this.requisite = requisite;
@@ -45,7 +44,7 @@ public class PrerequisiteAction extends CompositeAction
         return actionAct(delta);
     }
 
-    private BasicAction getInitialAction() {
+    private Action getInitialAction() {
         return predicate.test(action) ? action : requisite;
     }
 

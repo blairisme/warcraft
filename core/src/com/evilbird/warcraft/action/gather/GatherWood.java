@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.action.gather;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.common.RepeatedAudibleAction;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.duration.ActionDuration;
 import com.evilbird.engine.action.framework.duration.TimeDuration;

@@ -9,9 +9,7 @@
 
 package com.evilbird.warcraft.item.hud.control.actions;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Navigable;
 import com.evilbird.engine.common.lang.Objects;
@@ -98,8 +96,7 @@ public class ActionPane extends GridPane implements Navigable
 
     private boolean hasAction(Collection<Item> selection) {
         if (selection.size() == 1) {
-            Array<Action> actions = selection.iterator().next().getActions();
-            return actions.size > 0;
+            return selection.iterator().next().hasActions();
         }
         return false;
     }

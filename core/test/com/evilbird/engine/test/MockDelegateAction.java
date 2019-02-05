@@ -9,11 +9,11 @@
 
 package com.evilbird.engine.test;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.DelegateAction;
 
 public class MockDelegateAction extends DelegateAction {
-    public MockDelegateAction(BasicAction delegate) {
+    public MockDelegateAction(Action delegate) {
         super(delegate);
     }
 

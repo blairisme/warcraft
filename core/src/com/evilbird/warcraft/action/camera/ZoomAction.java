@@ -10,19 +10,19 @@
 package com.evilbird.warcraft.action.camera;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.warcraft.item.common.capability.Zoomable;
 
 import javax.inject.Inject;
 
 /**
- * Instances of this {@link Action} apply the zoom delta specified in a
+ * Instances of this Action apply the zoom delta specified in a
  * {@link UserInput} event to the given {@link Zoomable}.
  *
  * @author Blair Butterworth
  */
-public class ZoomAction extends Action
+public class ZoomAction extends BasicAction
 {
     private Zoomable zoomable;
     private UserInput input;

@@ -11,8 +11,6 @@ package com.evilbird.engine.action.framework;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class RequirementActionTest
 {
     @Test

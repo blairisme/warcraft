@@ -10,7 +10,7 @@
 package com.evilbird.engine.action.framework;
 
 /**
- * Instances of this {@link BasicAction Action} don't do anything. This is
+ * Instances of this {@link Action Action} don't do anything. This is
  * useful in situations with optional behaviour.
  *
  * @author Blair Butterworth

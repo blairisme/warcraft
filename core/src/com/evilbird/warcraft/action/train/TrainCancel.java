@@ -9,10 +9,10 @@
 
 package com.evilbird.warcraft.action.train;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.ReplacementAction;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.common.ResourceTransferAction;

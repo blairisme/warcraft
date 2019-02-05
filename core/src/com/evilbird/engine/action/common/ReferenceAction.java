@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.action.common;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.common.function.Function;
 import com.evilbird.engine.common.function.Supplier;

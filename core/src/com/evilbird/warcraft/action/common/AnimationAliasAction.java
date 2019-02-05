@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.common;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
@@ -19,7 +19,7 @@ import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
  *
  * @author Blair Butterworth
  */
-public class AnimationAliasAction extends Action
+public class AnimationAliasAction extends BasicAction
 {
     private Animated item;
     private AnimationIdentifier id;

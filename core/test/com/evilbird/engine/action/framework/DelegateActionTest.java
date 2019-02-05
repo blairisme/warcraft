@@ -22,7 +22,7 @@ public class DelegateActionTest
 {
     @Test
     public void actorTest() {
-        BasicAction underlyingAction = new MockBasicAction();
+        Action underlyingAction = new MockBasicAction();
         DelegateAction delegateAction = new MockDelegateAction(underlyingAction);
 
         Assert.assertNull(delegateAction.getActor());
@@ -35,7 +35,7 @@ public class DelegateActionTest
 
     @Test
     public void targetTest() {
-        BasicAction underlyingAction = new MockBasicAction();
+        Action underlyingAction = new MockBasicAction();
         DelegateAction delegateAction = new MockDelegateAction(underlyingAction);
 
         Assert.assertNull(delegateAction.getTarget());
@@ -48,7 +48,7 @@ public class DelegateActionTest
     
     @Test
     public void identifierTest() {
-        BasicAction underlyingAction = new MockBasicAction();
+        Action underlyingAction = new MockBasicAction();
         DelegateAction delegateAction = new MockDelegateAction(underlyingAction);
 
         Assert.assertEquals(GenericIdentifier.Unknown, delegateAction.getIdentifier());
@@ -61,7 +61,7 @@ public class DelegateActionTest
     
     @Test
     public void errorTest() {
-        BasicAction underlyingAction = new MockBasicAction();
+        Action underlyingAction = new MockBasicAction();
         DelegateAction delegateAction = new MockDelegateAction(underlyingAction);
 
         Assert.assertNull(delegateAction.getError());

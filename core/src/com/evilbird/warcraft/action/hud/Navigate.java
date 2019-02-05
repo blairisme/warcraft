@@ -9,10 +9,10 @@
 
 package com.evilbird.warcraft.action.hud;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.NavigateAction;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Navigable;
 import com.evilbird.engine.item.Item;

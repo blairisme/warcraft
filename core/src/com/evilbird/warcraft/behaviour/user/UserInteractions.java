@@ -15,7 +15,6 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
-
 import java.util.Collection;
 
 import static com.evilbird.engine.device.UserInputType.Drag;
@@ -24,7 +23,7 @@ import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
 import static com.evilbird.warcraft.action.camera.CameraActions.Pan;
 import static com.evilbird.warcraft.action.camera.CameraActions.Zoom;
 import static com.evilbird.warcraft.action.common.CancelActions.*;
-import static com.evilbird.warcraft.action.common.GeneralActions.*;
+import static com.evilbird.warcraft.action.common.GeneralActions.Reposition;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmLocation;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmTarget;
 import static com.evilbird.warcraft.action.construct.ConstructionActions.*;

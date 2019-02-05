@@ -10,22 +10,17 @@
 package com.evilbird.warcraft.action.move;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.action.common.AnimateAction;
-import com.evilbird.engine.action.common.ReplacementAction;
-import com.evilbird.engine.action.framework.SequenceAction;
+import com.evilbird.engine.action.framework.Action;
+import com.evilbird.engine.action.utilities.InjectedPool;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.common.AnimatedMoveAction;
-import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.warcraft.action.common.CancelAction;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 
 /**
  * Instances of this class create {@link Action Actions} that instruct a given
@@ -36,47 +31,53 @@ import javax.inject.Provider;
  */
 public class MoveFactory implements ActionProvider
 {
-    private MoveReporter moveReporter;
-    private Provider<MoveSequence> movePathPool;
-    private Provider<AnimateAction> moveCancelPool;
+    private MoveReporter reporter;
+    private InjectedPool<MoveSequence> movePool;
+    private InjectedPool<CancelAction> cancelPool;
 
     @Inject
     public MoveFactory(
-        MoveReporter moveReporter,
-        Provider<MoveSequence> movePathPool,
-        Provider<AnimateAction> moveCancelPool)
+        MoveReporter reporter,
+        InjectedPool<MoveSequence> movePool,
+        InjectedPool<CancelAction> cancelPool)
     {
-        this.moveReporter = moveReporter;
-        this.movePathPool = movePathPool;
-        this.moveCancelPool = moveCancelPool;
+        this.reporter = reporter;
+        this.movePool = movePool;
+        this.cancelPool = cancelPool;
     }
 
     @Override
     public Action get(ActionIdentifier action, ActionContext context) {
         switch((MoveActions)action) {
             case MoveToLocation: return getMoveToLocationAction(context);
-            case MoveCancel: return getMoveCancelAction(context);
+            case MoveToItem: return moveToItemAction(context);
+            case MoveCancel: return getMoveCancelAction();
             default: throw new UnsupportedOperationException();
         }
     }
 
-    public Action getMoveToLocationAction(ActionContext context) {
-        Item item = context.getItem();
-        ItemRoot root = item.getRoot();
-        UserInput input = context.getInput();
-        Vector2 destination = root.unproject(input.getPosition());
-
-        MoveSequence action = movePathPool.get();
-        action.setItem(item);
-        action.setDestination(destination);
-        action.setObserver(moveReporter);
-
+    private Action moveToItemAction(ActionContext context) {
+        MoveSequence action = movePool.obtain();
+        action.setDestination(context.getItem());
+        action.setObserver(reporter);
         return action;
     }
 
-    public Action getMoveCancelAction(ActionContext context) {
+    private Action getMoveToLocationAction(ActionContext context) {
+        MoveSequence action = movePool.obtain();
+        action.setDestination(getDestinationLocation(context));
+        action.setObserver(reporter);
+        return action;
+    }
+
+    private Action getMoveCancelAction() {
+        return cancelPool.obtain();
+    }
+
+    private Vector2 getDestinationLocation(ActionContext context) {
         Item item = context.getItem();
-        Action idleAnimation = new AnimateAction((Animated)item, UnitAnimation.Idle);
-        return new ReplacementAction(item, idleAnimation);
+        ItemRoot root = item.getRoot();
+        UserInput input = context.getInput();
+        return root.unproject(input.getPosition());
     }
 }

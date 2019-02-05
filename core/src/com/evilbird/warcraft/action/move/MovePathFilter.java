@@ -15,6 +15,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemNode;
 import com.evilbird.warcraft.item.common.capability.Movable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -29,17 +30,22 @@ class MovePathFilter implements Predicate<ItemNode>
     private Collection<Item> permittedItems;
     private Collection<Identifier> requiredTypes;
 
-    public MovePathFilter(Movable movable) {
-        this(movable.getMovementCapability(), Arrays.asList((Item)movable));
+    public MovePathFilter() {
+        permittedItems = new ArrayList<>();
+        requiredTypes = new ArrayList<>();
     }
 
-    public MovePathFilter(Movable movable, Item permitted) {
-        this(movable.getMovementCapability(), Arrays.asList((Item)movable, permitted));
+    public void addPermittedItem(Item item) {
+        permittedItems.add(item);
     }
 
-    public MovePathFilter(Collection<Identifier> requiredTypes, Collection<Item> permittedItems) {
-        this.requiredTypes = requiredTypes;
-        this.permittedItems = permittedItems;
+    public void addRequiredTypes(Movable movable) {
+        requiredTypes.addAll(movable.getMovementCapability());
+    }
+
+    public void clear() {
+        permittedItems.clear();
+        requiredTypes.clear();
     }
 
     @Override

@@ -20,9 +20,9 @@ public class CompositeActionTest
 {
     @Test
     public void actorTest() {
-        BasicAction childA = new MockBasicAction();
-        BasicAction childB = new MockBasicAction();
-        BasicAction childC = new MockBasicAction();
+        Action childA = new MockBasicAction();
+        Action childB = new MockBasicAction();
+        Action childC = new MockBasicAction();
         MockCompositeAction composite = new MockCompositeAction(childA, childB, childC);
 
         Assert.assertNull(composite.getActor());
@@ -41,9 +41,9 @@ public class CompositeActionTest
 
     @Test
     public void errorTest() {
-        BasicAction childA = new MockBasicAction();
-        BasicAction childB = new MockBasicAction();
-        BasicAction childC = new MockBasicAction();
+        Action childA = new MockBasicAction();
+        Action childB = new MockBasicAction();
+        Action childC = new MockBasicAction();
         MockCompositeAction composite = new MockCompositeAction(childA, childB, childC);
 
         Assert.assertNull(composite.getError());

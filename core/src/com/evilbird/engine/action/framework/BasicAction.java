@@ -9,11 +9,10 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.evilbird.engine.common.lang.GenericIdentifier;
-import com.evilbird.engine.common.lang.Identifiable;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemAction;
 
 /**
  * Instances of this class represent a base class for {@link Action Actions},
@@ -21,7 +20,7 @@ import com.evilbird.engine.common.lang.Identifier;
  *
  * @author Blair Butterworth
  */
-public abstract class BasicAction extends Action implements Identifiable
+public abstract class BasicAction extends ItemAction implements Action
 {
     private Identifier identifier;
     private Throwable error;
@@ -31,11 +30,10 @@ public abstract class BasicAction extends Action implements Identifiable
     }
 
     public void cancel() {
-        Actor actor = getActor();
-        actor.clearActions();
+        Item item = getItem();
+        item.clearActions();
     }
 
-    @Override
     public void restart() {
         super.restart();
         error = null;

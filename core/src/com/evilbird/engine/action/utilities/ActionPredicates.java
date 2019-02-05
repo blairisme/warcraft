@@ -9,18 +9,18 @@
 
 package com.evilbird.engine.action.utilities;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.common.function.Predicate;
 
 /**
  * Defines common {@link Predicate Predicates} that operate on
- * {@link BasicAction BasicActions}.
+ * {@link Action BasicActions}.
  *
  * @author Blair Butterworth
  */
 public class ActionPredicates
 {
-    public static Predicate<BasicAction> noError() {
+    public static Predicate<Action> noError() {
         return (value) -> !value.hasError();
     }
 }

@@ -14,7 +14,7 @@ import com.evilbird.engine.common.function.Supplier;
 import com.evilbird.engine.common.function.Suppliers;
 
 /**
- * Instances of this class provide an {@link BasicAction Action} that is only
+ * Instances of this class provide an {@link Action Action} that is only
  * acted upon when indicated to do so by a given {@link Supplier validator}.
  *
  * @author Blair Butterworth

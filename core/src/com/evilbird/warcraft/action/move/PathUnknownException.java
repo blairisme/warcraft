@@ -17,9 +17,9 @@ import com.evilbird.engine.item.Item;
  *
  * @author Blair Butterworth
  */
-public class MoveImpossibleException extends RuntimeException
+public class PathUnknownException extends RuntimeException
 {
-    public MoveImpossibleException(Item item) {
-        super("Unable to move item " + item.getIdentifier() + " to destination");
+    public PathUnknownException(Item item) {
+        super("Unable to determine path to " + item.getIdentifier());
     }
 }

@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.action.common;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.common.function.Supplier;
 import com.evilbird.engine.item.Item;
@@ -22,6 +22,7 @@ import static com.evilbird.engine.common.function.Suppliers.constantValue;
  *
  * @author Blair Butterworth
  */
+//TODO: remove supplier
 public class ReplacementAction extends DelegateAction
 {
     private Supplier<Item> supplier;
@@ -39,13 +40,9 @@ public class ReplacementAction extends DelegateAction
         this.supplier = supplier;
     }
 
-    public void setItem(Item item) {
-        this.supplier = constantValue(item);
-    }
-
     @Override
     public boolean act(float delta) {
-        Item item = supplier.get();
+        Item item = getItem();
         item.clearActions();
         item.addAction(delegate);
         return true;

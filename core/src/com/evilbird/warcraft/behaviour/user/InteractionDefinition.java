@@ -9,11 +9,11 @@
 
 package com.evilbird.warcraft.behaviour.user;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.BasicActionContext;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.UserInput;

@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.action;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.persistence.Persisted;
 

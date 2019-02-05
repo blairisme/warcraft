@@ -22,9 +22,9 @@ public class SequenceActionTest
 {
     @Test
     public void actTest() {
-        BasicAction childA = newMockAction();
-        BasicAction childB = newMockAction();
-        BasicAction childC = newMockAction();
+        Action childA = newMockAction();
+        Action childB = newMockAction();
+        Action childC = newMockAction();
         SequenceAction sequence = new SequenceAction(childA, childB, childC);
 
         assertFalse(sequence.act(1));
@@ -38,9 +38,9 @@ public class SequenceActionTest
 
     @Test
     public void actorTest() {
-        BasicAction childA = new MockBasicAction();
-        BasicAction childB = new MockBasicAction();
-        BasicAction childC = new MockBasicAction();
+        Action childA = new MockBasicAction();
+        Action childB = new MockBasicAction();
+        Action childC = new MockBasicAction();
         SequenceAction sequence = new SequenceAction(childA, childB, childC);
 
         Assert.assertNull(sequence.getActor());
@@ -59,9 +59,9 @@ public class SequenceActionTest
 
     @Test
     public void errorTest() {
-        BasicAction childA = new MockBasicAction();
-        BasicAction childB = new MockBasicAction();
-        BasicAction childC = new MockBasicAction();
+        Action childA = new MockBasicAction();
+        Action childB = new MockBasicAction();
+        Action childC = new MockBasicAction();
         SequenceAction sequence = new SequenceAction(childA, childB, childC);
 
         Assert.assertNull(sequence.getError());
@@ -76,8 +76,8 @@ public class SequenceActionTest
         Assert.assertNull(childC.getError());
     }
 
-    private BasicAction newMockAction() {
-        BasicAction result = Mockito.mock(BasicAction.class);
+    private Action newMockAction() {
+        Action result = Mockito.mock(Action.class);
         Mockito.when(result.act(1)).thenReturn(true);
         return result;
     }

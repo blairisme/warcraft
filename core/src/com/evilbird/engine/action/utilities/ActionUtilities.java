@@ -9,8 +9,7 @@
 
 package com.evilbird.engine.action.utilities;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.evilbird.engine.common.lang.Identifiable;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 
@@ -31,11 +30,8 @@ public class ActionUtilities
 
     public static boolean hasIdentifiedAction(Iterable<Action> actions, Identifier identifier) {
         for (Action action: actions) {
-            if (action instanceof Identifiable) {
-                Identifiable identifiable = (Identifiable)action;
-                if (identifiable.getIdentifier() == identifier) {
-                    return true;
-                }
+            if (action.getIdentifier() == identifier) {
+                return true;
             }
         }
         return false;

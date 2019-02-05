@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.action.gather;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.*;

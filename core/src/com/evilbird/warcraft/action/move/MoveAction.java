@@ -15,6 +15,7 @@ import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.PathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.pathing.ManhattanHeuristic;
 import com.evilbird.engine.item.Item;
@@ -23,11 +24,10 @@ import com.evilbird.engine.item.ItemNode;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.common.capability.Movable;
 
-import javax.inject.Inject;
 import java.util.Iterator;
 
 /**
- * Instances of this {@link BasicAction action} move an item from their current
+ * Instances of this {@link Action action} move an item from their current
  * location to a given destination. The moving item will be animated with a
  * movement animation, as well choose a path that avoids obstacles.
  *
@@ -46,37 +46,52 @@ public class MoveAction extends BasicAction
     private ItemNode endNode;
 
     public MoveAction() {
+        this.filter = new MovePathFilter();
     }
 
     public MoveAction(Movable target, Vector2 destination) {
-        setItem(target);
-        setDestination(destination);
+        this.target = target;
+        this.destination = new MoveDestinationVector(destination);
+        this.filter = new MovePathFilter();
     }
 
     public MoveAction(Movable target, Item destination) {
-        setItem(target);
-        setDestination(destination);
+        this.target = target;
+        this.destination = new MoveDestinationItem(destination);
+        this.filter = new MovePathFilter();
     }
 
-    public void setItem(Movable target) {
-        this.target = target;
-        this.path = null;
+    @Override
+    public void setItem(Item item) {
+        if (item != null) {
+            target = (Movable)item;
+            filter.addRequiredTypes(target);
+            filter.addPermittedItem(item);
+        } else {
+            reset();
+        }
     }
 
     public void setDestination(Vector2 destination) {
         this.destination = new MoveDestinationVector(destination);
-        this.filter = new MovePathFilter(target);
-        this.path = null;
+        restart();
     }
 
     public void setDestination(Item destination) {
         this.destination = new MoveDestinationItem(destination);
-        this.filter = new MovePathFilter(target, destination);
-        this.path = null;
+        this.filter.addPermittedItem(destination);
+        restart();
     }
 
     public void setObserver(MoveObserver observer) {
         this.observer = observer;
+    }
+
+    @Override
+    public void reset() {
+        path = null;
+        graph = null;
+        filter.clear();
     }
 
     @Override
@@ -138,6 +153,7 @@ public class MoveAction extends BasicAction
         if (path == null) {
             ItemNode startNode = graph.getNode(target.getPosition());
             endNode = destination.getDestinationNode(graph, startNode);
+
             PathFinder<ItemNode> pathFinder = new IndexedAStarPathFinder<>(graph);
             Heuristic<ItemNode> heuristic = new ManhattanHeuristic<>();
             GraphPath<ItemNode> result = new DefaultGraphPath<>();
@@ -219,7 +235,7 @@ public class MoveAction extends BasicAction
     }
 
     private void error() {
-        setError(new MoveImpossibleException((Item)target));
+        setError(new PathUnknownException((Item)target));
     }
 
     private void complete() {

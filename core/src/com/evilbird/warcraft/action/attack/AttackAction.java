@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.attack;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.common.DirectionAction;
 import com.evilbird.engine.action.common.RepeatedAudibleAction;
 import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.engine.action.framework.*;
@@ -17,7 +17,6 @@ import com.evilbird.engine.common.lang.Directionable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.warcraft.action.common.AnimatedAction;
-import com.evilbird.engine.action.common.DirectionAction;
 import com.evilbird.warcraft.action.move.MoveAction;
 import com.evilbird.warcraft.item.common.capability.Destroyable;
 import com.evilbird.warcraft.item.common.capability.Movable;
@@ -79,20 +78,20 @@ public class AttackAction extends DelegateAction
     }
 
     private Action attack(Combatant attacker, Item target) {
-        BasicAction reposition = reposition(attacker, target);
-        BasicAction damage = damage(attacker, target);
+        Action reposition = reposition(attacker, target);
+        Action damage = damage(attacker, target);
         return new PrerequisiteAction(damage, reposition, withinRange(attacker, target));
     }
 
-    private BasicAction reposition(Item attacker, Item target) {
-        BasicAction reposition = new MoveAction((Movable)attacker, target);
-        BasicAction animation = new AnimatedAction(reposition, (Animated)attacker, UnitAnimation.Move, UnitAnimation.Idle);
-        BasicAction move = new RequirementAction(animation, noError());
-        BasicAction reorient = new DirectionAction((Directionable)attacker, target);
+    private Action reposition(Item attacker, Item target) {
+        Action reposition = new MoveAction((Movable)attacker, target);
+        Action animation = new AnimatedAction(reposition, (Animated)attacker, UnitAnimation.Move, UnitAnimation.Idle);
+        Action move = new RequirementAction(animation, noError());
+        Action reorient = new DirectionAction((Directionable)attacker, target);
         return new SequenceAction(move, reorient);
     }
 
-    private BasicAction damage(Item attacker, Item target) {
+    private Action damage(Item attacker, Item target) {
         Action attack = new DamageAction((Combatant)attacker, (Destroyable)target);
         Action sound = new RepeatedAudibleAction(attacker, UnitSound.Attack, 0.5f, isAlive((Destroyable)target));
         Action damage = new ParallelAction(attack, sound);

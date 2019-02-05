@@ -10,11 +10,11 @@
 package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Positionable;
 import com.evilbird.engine.device.UserInput;
 
-public class DragAction extends Action
+public class DragAction extends BasicAction
 {
     private Positionable positionable;
     private UserInput input;

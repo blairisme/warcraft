@@ -21,9 +21,9 @@ public class ParallelActionTest
 {
     @Test
     public void actTest() {
-        BasicAction childA = newMockAction();
-        BasicAction childB = newMockAction();
-        BasicAction childC = newMockAction();
+        Action childA = newMockAction();
+        Action childB = newMockAction();
+        Action childC = newMockAction();
         ParallelAction parallel = new ParallelAction(childA, childB, childC);
 
         assertTrue(parallel.act(1));
@@ -35,9 +35,9 @@ public class ParallelActionTest
 
     @Test
     public void actorTest() {
-        BasicAction childA = new MockBasicAction();
-        BasicAction childB = new MockBasicAction();
-        BasicAction childC = new MockBasicAction();
+        Action childA = new MockBasicAction();
+        Action childB = new MockBasicAction();
+        Action childC = new MockBasicAction();
         ParallelAction parallel = new ParallelAction(childA, childB, childC);
 
         Assert.assertNull(parallel.getActor());
@@ -56,9 +56,9 @@ public class ParallelActionTest
 
     @Test
     public void errorTest() {
-        BasicAction childA = new MockBasicAction();
-        BasicAction childB = new MockBasicAction();
-        BasicAction childC = new MockBasicAction();
+        Action childA = new MockBasicAction();
+        Action childB = new MockBasicAction();
+        Action childC = new MockBasicAction();
         ParallelAction parallel = new ParallelAction(childA, childB, childC);
 
         Assert.assertNull(parallel.getError());
@@ -73,8 +73,8 @@ public class ParallelActionTest
         Assert.assertNull(childC.getError());
     }
 
-    private BasicAction newMockAction() {
-        BasicAction result = Mockito.mock(BasicAction.class);
+    private Action newMockAction() {
+        Action result = Mockito.mock(Action.class);
         Mockito.when(result.act(1)).thenReturn(true);
         return result;
     }

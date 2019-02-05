@@ -10,10 +10,10 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.*;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
@@ -56,7 +56,7 @@ public class Construct implements ActionProvider
     }
 
     @Override
-    public Action get(ActionIdentifier action,ActionContext context) {
+    public Action get(ActionIdentifier action, ActionContext context) {
         return buildBuilding((ConstructionActions)action, context.getItem(), context.getTarget());
     }
 

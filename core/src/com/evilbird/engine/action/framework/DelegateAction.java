@@ -9,10 +9,8 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Pool;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.item.Item;
 
 /**
  * Instances of this {@link Action} provide the basic implementation of an
@@ -31,19 +29,18 @@ public abstract class DelegateAction extends BasicAction
         this.delegate = delegate;
     }
 
-    @Override
-    public Identifier getIdentifier() {
-        if (delegate instanceof BasicAction) {
-            return ((BasicAction)delegate).getIdentifier();
-        }
-        return super.getIdentifier();
-    }
+//    @Override
+//    public Identifier getIdentifier() {
+//        if (delegate != null) {
+//            return delegate.getIdentifier();
+//        }
+//        return super.getIdentifier();
+//    }
 
     @Override
     public void setIdentifier(Identifier identifier) {
-        super.setIdentifier(identifier);
-        if (delegate instanceof BasicAction) {
-            ((BasicAction)delegate).setIdentifier(identifier);
+        if (delegate != null) {
+            delegate.setIdentifier(identifier);
         }
     }
 
@@ -63,48 +60,32 @@ public abstract class DelegateAction extends BasicAction
         }
     }
 
-    @Override
-    public Actor getActor() {
-        if (delegate != null) {
-            return delegate.getActor();
-        }
-        return super.getActor();
-    }
+//    @Override
+//    public Item getItem() {
+//        if (delegate != null) {
+//            return delegate.getItem();
+//        }
+//        return super.getItem();
+//    }
 
     @Override
-    public void setActor(Actor actor) {
-        super.setActor(actor);
+    public void setItem(Item item) {
+        super.setItem(item);
         if (delegate != null) {
-            delegate.setActor(actor);
-        }
-    }
-
-    @Override
-    public Pool getPool() {
-        if (delegate != null) {
-            return delegate.getPool();
-        }
-        return super.getPool();
-    }
-
-    @Override
-    public void setPool(Pool pool) {
-        super.setPool(pool);
-        if (delegate != null) {
-            delegate.setPool(pool);
+            delegate.setItem(item);
         }
     }
 
-    @Override
-    public Actor getTarget() {
-        if (delegate != null) {
-            return delegate.getTarget();
-        }
-        return super.getTarget();
-    }
+//    @Override
+//    public Item getTarget() {
+//        if (delegate != null) {
+//            return delegate.getTarget();
+//        }
+//        return super.getTarget();
+//    }
 
     @Override
-    public void setTarget(Actor target) {
+    public void setTarget(Item target) {
         super.setTarget(target);
         if (delegate != null) {
             delegate.setTarget(target);
@@ -113,16 +94,11 @@ public abstract class DelegateAction extends BasicAction
 
     @Override
     public Throwable getError() {
-        if (delegate instanceof BasicAction) {
-            return ((BasicAction)delegate).getError();
-        }
-        return null;
+        return delegate.getError();
     }
 
     @Override
     public void setError(Throwable error) {
-        if (delegate instanceof BasicAction) {
-            ((BasicAction)delegate).setError(error);
-        }
+        delegate.setError(error);
     }
 }

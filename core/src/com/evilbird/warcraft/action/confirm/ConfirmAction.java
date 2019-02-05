@@ -10,9 +10,9 @@
 package com.evilbird.warcraft.action.confirm;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.common.CreateAction;
 import com.evilbird.engine.action.common.RemoveAction;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.SequenceAction;

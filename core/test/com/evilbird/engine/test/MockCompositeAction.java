@@ -9,12 +9,12 @@
 
 package com.evilbird.engine.test;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.CompositeAction;
 
 public class MockCompositeAction extends CompositeAction
 {
-    public MockCompositeAction(Action ... actions) {
+    public MockCompositeAction(Action... actions) {
         super(actions);
     }
 

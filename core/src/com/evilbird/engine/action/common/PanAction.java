@@ -10,13 +10,12 @@
 package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Positionable;
-import com.evilbird.engine.device.UserInput;
 
 import javax.inject.Inject;
 
-public class PanAction extends Action
+public class PanAction extends BasicAction
 {
     private Vector2 delta;
     private Positionable positionable;

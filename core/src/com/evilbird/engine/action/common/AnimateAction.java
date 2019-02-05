@@ -10,6 +10,7 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.Reference;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
@@ -46,8 +47,9 @@ public class AnimateAction extends BasicAction
         this.animation = animation;
     }
 
-    public void setItem(Animated animated) {
-        this.animated = animated;
+    @Override
+    public void setItem(Item animated) {
+        this.animated = (Animated)animated;
     }
 
     public void setAnimation(AnimationIdentifier animation) {

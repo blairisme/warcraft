@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.common;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;

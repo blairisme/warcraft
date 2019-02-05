@@ -10,15 +10,13 @@
 package com.evilbird.warcraft.action.move;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.evilbird.engine.action.common.AnimateAction;
 import com.evilbird.engine.action.common.ReplacementAction;
+import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.animated.Animated;
-import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import javax.inject.Inject;
@@ -26,28 +24,15 @@ import javax.inject.Inject;
 public class MoveSequence extends DelegateAction
 {
     private MoveAction move;
-    private AnimateAction moveAnimation;
-    private AnimateAction idleAnimation;
-    private ReplacementAction replacement;
 
     @Inject
     public MoveSequence() {
         move = new MoveAction();
-        moveAnimation = new AnimateAction(UnitAnimation.Move);
-        idleAnimation = new AnimateAction(UnitAnimation.Idle);
-
+        Action moveAnimation = new AnimateAction(UnitAnimation.Move);
         Action initial = new ParallelAction(move, moveAnimation);
+        Action idleAnimation = new AnimateAction(UnitAnimation.Idle);
         Action sequence = new SequenceAction(initial, idleAnimation);
-        replacement = new ReplacementAction(sequence);
-
-        delegate = replacement;
-    }
-
-    public void setItem(Item item) {
-        move.setItem((Movable)item);
-        moveAnimation.setItem((Animated)item);
-        idleAnimation.setItem((Animated)item);
-        replacement.setItem(item);
+        delegate = new ReplacementAction(sequence);
     }
 
     public void setDestination(Item destination) {

@@ -9,12 +9,10 @@
 
 package com.evilbird.warcraft.action.select;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.evilbird.engine.action.common.AudibleAction;
 import com.evilbird.engine.action.common.SelectAction;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.ParallelAction;
-import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.animated.Audible;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -41,12 +39,12 @@ public class SelectToggleAction extends DelegateAction
         return delegate.act(delta);
     }
 
+    @Override
     public void setItem(Item item) {
-        boolean selected = !item.getSelected();
+        super.setItem(item);
+        boolean selected = item != null && !item.getSelected();
         select.setSelected(selected);
-        select.setSelectable(item);
         audio.setSound(selected ? UnitSound.Selected : null);
-        audio.setAudible((Audible)item);
     }
 
     public void setObserver(SelectObserver observer) {
@@ -62,7 +60,7 @@ public class SelectToggleAction extends DelegateAction
     private void notifySelected() {
         if (!notified && observer != null) {
             notified = true;
-            observer.onSelect((Item)select.getSelectable(), select.getSelected());
+            observer.onSelect(select.getItem(), select.getSelected());
         }
     }
 }
