@@ -9,9 +9,9 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.test.MockBasicAction;
 import com.evilbird.engine.test.MockDelegateAction;
 import org.junit.Assert;
@@ -25,12 +25,12 @@ public class DelegateActionTest
         Action underlyingAction = new MockBasicAction();
         DelegateAction delegateAction = new MockDelegateAction(underlyingAction);
 
-        Assert.assertNull(delegateAction.getActor());
-        Actor actor = Mockito.mock(Actor.class);
+        Assert.assertNull(delegateAction.getItem());
+        Item actor = Mockito.mock(Item.class);
 
-        delegateAction.setActor(actor);
-        Assert.assertEquals(actor, underlyingAction.getActor());
-        Assert.assertEquals(actor, delegateAction.getActor());
+        delegateAction.setItem(actor);
+        Assert.assertEquals(actor, underlyingAction.getItem());
+        Assert.assertEquals(actor, delegateAction.getItem());
     }
 
     @Test
@@ -39,7 +39,7 @@ public class DelegateActionTest
         DelegateAction delegateAction = new MockDelegateAction(underlyingAction);
 
         Assert.assertNull(delegateAction.getTarget());
-        Actor target = Mockito.mock(Actor.class);
+        Item target = Mockito.mock(Item.class);
 
         delegateAction.setTarget(target);
         Assert.assertEquals(target, underlyingAction.getTarget());

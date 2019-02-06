@@ -25,7 +25,7 @@ import com.evilbird.warcraft.action.confirm.ConfirmActions;
 import com.evilbird.warcraft.action.confirm.ConfirmFactory;
 import com.evilbird.warcraft.action.construct.Construct;
 import com.evilbird.warcraft.action.construct.ConstructCancel;
-import com.evilbird.warcraft.action.construct.ConstructionActions;
+import com.evilbird.warcraft.action.construct.ConstructActions;
 import com.evilbird.warcraft.action.gather.GatherActions;
 import com.evilbird.warcraft.action.gather.GatherCancel;
 import com.evilbird.warcraft.action.gather.GatherGold;
@@ -79,7 +79,7 @@ public class WarcraftActionFactory implements ActionFactory
         registerProvider(AttackActions.values(), attackProvider);
         registerProvider(CameraActions.values(), cameraFactory);
 
-        registerProvider(ConstructionActions.values(), constructProvider);
+        registerProvider(ConstructActions.values(), constructProvider);
         registerProvider(CancelActions.CancelConstruct, constructCancelProvider);
 
         registerProvider(ConfirmActions.values(), confirmFactory);

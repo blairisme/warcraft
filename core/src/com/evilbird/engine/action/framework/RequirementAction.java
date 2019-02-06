@@ -21,9 +21,8 @@ public class RequirementAction extends DelegateAction
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public boolean act(float delta) {
-        if (! requirement.test((Action)delegate)) {
+        if (! requirement.test(delegate)) {
             cancel();
             return true;
         }

@@ -11,6 +11,7 @@ package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemAction;
 
@@ -24,27 +25,32 @@ public abstract class BasicAction extends ItemAction implements Action
 {
     private Identifier identifier;
     private Throwable error;
+    private UserInput cause;
 
     public BasicAction() {
         identifier = GenericIdentifier.Unknown;
     }
 
+    @Override
     public void cancel() {
         Item item = getItem();
         item.clearActions();
     }
 
+    @Override
     public void restart() {
         super.restart();
         error = null;
     }
 
-    public Throwable getError() {
-        return error;
+    @Override
+    public UserInput getCause() {
+        return cause;
     }
 
-    public boolean hasError() {
-        return getError() != null;
+    @Override
+    public Throwable getError() {
+        return error;
     }
 
     @Override
@@ -52,10 +58,22 @@ public abstract class BasicAction extends ItemAction implements Action
         return identifier;
     }
 
+    @Override
+    public boolean hasError() {
+        return getError() != null;
+    }
+
+    @Override
+    public void setCause(UserInput cause) {
+        this.cause = cause;
+    }
+
+    @Override
     public void setError(Throwable error) {
         this.error = error;
     }
 
+    @Override
     public void setIdentifier(Identifier identifier) {
         this.identifier = identifier;
     }

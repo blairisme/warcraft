@@ -25,7 +25,7 @@ import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
  *
  * @author Blair Butterworth
  */
-public enum ConstructionActions implements ActionIdentifier, ResourceRequirement
+public enum ConstructActions implements ActionIdentifier, ResourceRequirement
 {
     ConstructBarracks   (UnitType.Barracks, 20f, Maps.<ResourceIdentifier, Float>of(Gold, 100f)),
     ConstructFarm       (UnitType.Farm, 20f, Maps.<ResourceIdentifier, Float>of(Gold, 100f)),
@@ -35,7 +35,7 @@ public enum ConstructionActions implements ActionIdentifier, ResourceRequirement
     private float time;
     private Map<ResourceIdentifier, Float> resources;
 
-    ConstructionActions(UnitType type, float time, Map<ResourceIdentifier, Float> resources) {
+    ConstructActions(UnitType type, float time, Map<ResourceIdentifier, Float> resources) {
         this.type = type;
         this.time = time;
         this.resources = resources;

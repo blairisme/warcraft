@@ -19,16 +19,12 @@ import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.layer.map.Map;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.utilities.ActionUtilities.hasIdentifiedAction;
 
-/**
- * Defines an interaction, a combination of
- *
- * @author Blair Butterworth
- */
 public class InteractionDefinition implements Interaction
 {
     private ActionFactory factory;
@@ -132,6 +128,10 @@ public class InteractionDefinition implements Interaction
 
         Item subject = getSubject(primary);
         subject.addAction(action);
+
+        action.setItem(primary);
+        action.setTarget(secondary);
+        action.setCause(input);
     }
 
     private Item getPrimary(Item item, Item selected) {

@@ -13,6 +13,12 @@ import com.evilbird.engine.event.Event;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemNode;
 
+/**
+ * Instances of this {@link Event} are produced when an {@link Item} moves from
+ * one {@link ItemNode} to another.
+ *
+ * @author Blair Butterworth
+ */
 public class MoveEvent implements Event
 {
     private Item subject;

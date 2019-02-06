@@ -74,6 +74,7 @@ public class InitiateAttack extends PeriodicProcedure
     private void attack(Combatant combatant, Item target) {
         ActionContext context = new BasicActionContext(combatant, target, null);
         Action action = actionFactory.newAction(AttackActions.AttackMelee, context);
+        action.setTarget(target);
         combatant.addAction(action);
     }
 }

@@ -14,6 +14,9 @@ import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Directionable;
 import com.evilbird.engine.common.lang.Positionable;
+import com.evilbird.engine.item.Item;
+
+import javax.inject.Inject;
 
 /**
  * Instances of this {@link Action Action} orient an Item towards another
@@ -26,8 +29,19 @@ public class DirectionAction extends BasicAction
     private Directionable item;
     private Positionable target;
 
-    public DirectionAction(Directionable item, Positionable target) {
-        this.item = item;
+    @Inject
+    public DirectionAction() {
+    }
+
+    @Override
+    public void setItem(Item item) {
+        super.setItem(item);
+        this.item = (Directionable)item;
+    }
+
+    @Override
+    public void setTarget(Item target) {
+        super.setTarget(target);
         this.target = target;
     }
 

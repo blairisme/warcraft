@@ -12,19 +12,28 @@ package com.evilbird.engine.action.common;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Positionable;
+import com.evilbird.engine.item.Item;
 
 public class PositionAction extends BasicAction
 {
-    private Positionable positionable;
     private Vector2 position;
 
+    public PositionAction() {
+    }
+
+    @Deprecated
     public PositionAction(Positionable positionable, Vector2 position) {
-        this.positionable = positionable;
+        setItem((Item)positionable);
+        this.position = position;
+    }
+
+    public void setPosition(Vector2 position) {
         this.position = position;
     }
 
     @Override
     public boolean act(float time) {
+        Positionable positionable = getItem();
         positionable.setPosition(position);
         return true;
     }

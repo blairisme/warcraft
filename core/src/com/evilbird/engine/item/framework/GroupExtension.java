@@ -12,6 +12,7 @@ package com.evilbird.engine.item.framework;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
+//TODO: rename
 public class GroupExtension extends Group
 {
     private GroupObserver observer;

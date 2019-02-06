@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.test.MockBasicAction;
 import org.junit.Assert;
 import org.junit.Test;
@@ -40,18 +40,18 @@ public class ParallelActionTest
         Action childC = new MockBasicAction();
         ParallelAction parallel = new ParallelAction(childA, childB, childC);
 
-        Assert.assertNull(parallel.getActor());
-        Assert.assertNull(childA.getActor());
-        Assert.assertNull(childB.getActor());
-        Assert.assertNull(childC.getActor());
+        Assert.assertNull(parallel.getItem());
+        Assert.assertNull(childA.getItem());
+        Assert.assertNull(childB.getItem());
+        Assert.assertNull(childC.getItem());
 
-        Actor actor = Mockito.mock(Actor.class);
-        parallel.setActor(actor);
+        Item actor = Mockito.mock(Item.class);
+        parallel.setItem(actor);
 
-        Assert.assertEquals(actor, parallel.getActor());
-        Assert.assertEquals(actor, childA.getActor());
-        Assert.assertEquals(actor, childB.getActor());
-        Assert.assertEquals(actor, childC.getActor());
+        Assert.assertEquals(actor, parallel.getItem());
+        Assert.assertEquals(actor, childA.getItem());
+        Assert.assertEquals(actor, childB.getItem());
+        Assert.assertEquals(actor, childC.getItem());
     }
 
     @Test

@@ -21,7 +21,14 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import javax.inject.Inject;
 
-public class MoveSequence extends DelegateAction
+/**
+ * Instances of this {@link Action action} move an {@link Item} from its
+ * current location to a given destination. The moving item will be animated
+ * with a movement animation.
+ *
+ * @author Blair Butterworth
+ */
+class MoveSequence extends DelegateAction
 {
     private MoveAction move;
 

@@ -9,57 +9,34 @@
 
 package com.evilbird.warcraft.action.confirm;
 
-import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.utilities.InjectedPool;
-import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.action.ActionProvider;
 
 import javax.inject.Inject;
 
 public class ConfirmFactory implements ActionProvider
 {
-    private InjectedPool<ConfirmAction> pool;
+    private InjectedPool<ConfirmItem> itemPool;
+    private InjectedPool<ConfirmLocation> locationPool;
 
     @Inject
-    public ConfirmFactory(InjectedPool<ConfirmAction> pool) {
-        this.pool = pool;
+    public ConfirmFactory(
+        InjectedPool<ConfirmItem> itemPool,
+        InjectedPool<ConfirmLocation> locationPool)
+    {
+        this.itemPool = itemPool;
+        this.locationPool = locationPool;
     }
 
     @Override
     public Action get(ActionIdentifier action, ActionContext context) {
         switch ((ConfirmActions)action) {
-            case ConfirmLocation: return getConfirmLocationAction(context);
-            case ConfirmTarget: return getConfirmTargetAction(context);
+            case ConfirmLocation: return locationPool.obtain();
+            case ConfirmTarget: return itemPool.obtain();
             default: throw new UnsupportedOperationException();
         }
-    }
-
-    private Action getConfirmLocationAction(ActionContext context) {
-        Item item = context.getItem();
-        ItemRoot root = item.getRoot();
-
-        UserInput input = context.getInput();
-        Vector2 destination = root.unproject(input.getPosition());
-
-        ConfirmAction confirm = pool.obtain();
-        confirm.setLocation(destination, root);
-        return confirm;
-    }
-
-    private Action getConfirmTargetAction(ActionContext context) {
-        Item item = context.getItem();
-        ItemRoot root = item.getRoot();
-
-        ConfirmAction confirm = pool.obtain();
-        confirm.setLocation(item, root);
-        return confirm;
-
-        //Action sound = new AudibleAction((Audible)attacker, UnitSound.Acknowledge);
-        //return new ParallelAction(effect, sound);
     }
 }

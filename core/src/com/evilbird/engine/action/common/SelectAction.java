@@ -23,6 +23,10 @@ public class SelectAction extends BasicAction
     public SelectAction() {
     }
 
+    public SelectAction(boolean selected) {
+        this.selected = selected;
+    }
+
     @Deprecated
     public SelectAction(Selectable selectable, boolean selected) {
         setItem((Item)selectable);

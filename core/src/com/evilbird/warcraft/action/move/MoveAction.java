@@ -49,12 +49,14 @@ public class MoveAction extends BasicAction
         this.filter = new MovePathFilter();
     }
 
+    @Deprecated
     public MoveAction(Movable target, Vector2 destination) {
         this.target = target;
         this.destination = new MoveDestinationVector(destination);
         this.filter = new MovePathFilter();
     }
 
+    @Deprecated
     public MoveAction(Movable target, Item destination) {
         this.target = target;
         this.destination = new MoveDestinationItem(destination);

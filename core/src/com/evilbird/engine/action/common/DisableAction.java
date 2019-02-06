@@ -11,19 +11,35 @@ package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Selectable;
+import com.evilbird.engine.item.Item;
+
+import javax.inject.Inject;
 
 public class DisableAction extends BasicAction
 {
-    private Selectable selectable;
     private boolean disabled;
 
+    @Inject
+    public DisableAction() {
+    }
+
+    public DisableAction(boolean disabled) {
+        this.disabled = disabled;
+    }
+
+    @Deprecated
     public DisableAction(Selectable selectable, boolean disabled) {
-        this.selectable = selectable;
+        setItem((Item)selectable);
+        this.disabled = disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
         this.disabled = disabled;
     }
 
     @Override
     public boolean act(float delta) {
+        Selectable selectable = getItem();
         selectable.setSelectable(disabled);
         return true;
     }

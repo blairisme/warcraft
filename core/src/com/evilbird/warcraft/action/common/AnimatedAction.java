@@ -26,15 +26,10 @@ import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
  */
 public class AnimatedAction extends DelegateAction
 {
-    public AnimatedAction(
-        Action action,
-        Animated animated,
-        AnimationIdentifier startAnimation,
-        AnimationIdentifier endAnimation)
-    {
-        Action animate = new AnimateAction(animated, startAnimation);
+    public AnimatedAction(Action action, AnimationIdentifier startAnimation, AnimationIdentifier endAnimation) {
+        Action animate = new AnimateAction(startAnimation);
         Action initial = new ParallelAction(animate, action);
-        Action complete = new AnimateAction(animated, endAnimation);
+        Action complete = new AnimateAction(endAnimation);
         delegate = new SequenceAction(initial, complete);
     }
 

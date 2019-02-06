@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
 import com.evilbird.engine.common.function.Predicate;
+import com.evilbird.engine.common.function.Supplier;
 import com.evilbird.engine.item.Item;
 
 import static com.evilbird.engine.item.ItemPredicates.isNear;
@@ -32,5 +33,9 @@ public class CombatantPredicates
 
     public static Predicate<Item> withinRange(Combatant combatant) {
         return isNear(combatant, combatant.getRange());
+    }
+
+    public static Predicate<Item> withinRange(Supplier<Combatant> supplier) {
+        return isNear(supplier, () -> supplier.get().getRange());
     }
 }

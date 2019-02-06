@@ -26,7 +26,7 @@ import static com.evilbird.warcraft.action.common.CancelActions.*;
 import static com.evilbird.warcraft.action.common.GeneralActions.Reposition;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmLocation;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmTarget;
-import static com.evilbird.warcraft.action.construct.ConstructionActions.*;
+import static com.evilbird.warcraft.action.construct.ConstructActions.*;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherGold;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherWood;
 import static com.evilbird.warcraft.action.hud.NavigateActions.*;

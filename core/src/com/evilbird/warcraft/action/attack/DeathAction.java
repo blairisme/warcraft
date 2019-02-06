@@ -25,6 +25,24 @@ import com.evilbird.warcraft.item.unit.UnitSound;
  */
 public class DeathAction extends DelegateAction
 {
+    public DeathAction() {
+        Action deselect = new SelectAction(false);
+        Action disable = new DisableAction(false);
+
+        Action dieSound = new AudibleAction(UnitSound.Die);
+        Action dieAnimation = new AnimateAction(UnitAnimation.Die);
+        Action dieWait = new DelayedAction(new TimeDuration(1));
+        Action die = new ParallelAction(deselect, disable, dieSound, dieAnimation, dieWait);
+
+        Action decomposeAnimation = new AnimateAction(UnitAnimation.Decompose);
+        Action decomposeWait = new DelayedAction(new TimeDuration(10));
+        Action decompose = new SequenceAction(decomposeAnimation, decomposeWait);
+
+        Action remove = new RemoveAction();
+        delegate = new SequenceAction(die, decompose, remove);
+    }
+
+    @Deprecated
     public DeathAction(Item item) {
         Action deselect = new SelectAction(item, false);
         Action disable = new DisableAction(item, false);

@@ -12,6 +12,7 @@ package com.evilbird.engine.action.framework;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.evilbird.engine.common.lang.Identifiable;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 
 public interface Action extends Identifiable, Poolable
@@ -22,13 +23,17 @@ public interface Action extends Identifiable, Poolable
 
     void restart();
 
-    Item getItem() ;
+    Item getItem();
 
     Item getTarget();
+
+    UserInput getCause();
 
     Throwable getError();
 
     boolean hasError();
+
+    void setCause(UserInput input);
 
     void setItem(Item item);
 

@@ -57,24 +57,24 @@ public class Construct implements ActionProvider
 
     @Override
     public Action get(ActionIdentifier action, ActionContext context) {
-        return buildBuilding((ConstructionActions)action, context.getItem(), context.getTarget());
+        return buildBuilding((ConstructActions)action, context.getItem(), context.getTarget());
     }
 
-    private Action buildBuilding(ConstructionActions action, Item builder, Item site) {
+    private Action buildBuilding(ConstructActions action, Item builder, Item site) {
         Action removeSite = new RemoveAction(site);
         Action purchaseBuilding = purchaseBuilding(action, builder);
         Action constructBuilding = constructBuilding(action, builder, site);
         return new ParallelAction(removeSite, purchaseBuilding, constructBuilding);
     }
 
-    private Action purchaseBuilding(ConstructionActions type, Item builder) {
+    private Action purchaseBuilding(ConstructActions type, Item builder) {
         ResourceContainer player = (ResourceContainer)findAncestorByType(builder, DataType.Player);
         Map<ResourceIdentifier, Float> requirements = type.getResourceRequirements();
         Map<ResourceIdentifier, Float> resources = ResourceUtils.negate(requirements);
         return new ResourceTransferAction(player, resources);
     }
 
-    private Action constructBuilding(ConstructionActions type, Item builder, Item site) {
+    private Action constructBuilding(ConstructActions type, Item builder, Item site) {
         Vector2 location = site.getPosition();
         Identifier identifier = new NamedIdentifier();
         Reference<Building> building = new Reference<>(builder.getParent(), identifier);
@@ -100,7 +100,7 @@ public class Construct implements ActionProvider
         return new ParallelAction(deselect, hide);
     }
 
-    private Action constructBuilding(ConstructionActions type, Item builder, Reference<Building> building) {
+    private Action constructBuilding(ConstructActions type, Item builder, Reference<Building> building) {
         Action preConstruction = preConstructionAudioVisual(builder, building);
         Action constructionProgress = constructionProgress(builder, building, type.getBuildDuration());
         Action postConstruction = postConstructionAudioVisual(builder, building);

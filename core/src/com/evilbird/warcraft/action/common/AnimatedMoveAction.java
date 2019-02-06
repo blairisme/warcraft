@@ -30,14 +30,17 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
 //TODO: Replace with Animated Action
 public class AnimatedMoveAction extends DelegateAction
 {
+    @Deprecated
     public AnimatedMoveAction(Item item, Item destination) {
         this(item, new MoveAction((Movable)item, destination));
     }
 
+    @Deprecated
     public AnimatedMoveAction(Item item, Vector2 destination) {
         this(item, new MoveAction((Movable)item, destination));
     }
 
+    @Deprecated
     private AnimatedMoveAction(Item item, Action move) {
         Action animate = new AnimateAction((Animated)item, UnitAnimation.Move);
         Action initial = new ParallelAction(animate, move);

@@ -13,10 +13,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemComposite;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.common.lang.NamedIdentifier;
+import com.evilbird.engine.item.*;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Instances of this {@link Action} create a new {@link Item} with the given
@@ -26,12 +27,10 @@ import com.evilbird.engine.item.ItemType;
  */
 public class CreateAction extends BasicAction
 {
-    private ItemComposite parent;
-    private Identifier id;
     private ItemType type;
     private ItemFactory factory;
     private Vector2 position;
-    private boolean selected;
+    private Collection<Action> dependents;
 
     public CreateAction(
         ItemComposite parent,
@@ -41,25 +40,35 @@ public class CreateAction extends BasicAction
         Vector2 position,
         boolean selected)
     {
-        this.parent = parent;
-        this.id = id;
-        this.type = type;
+    }
+
+    public CreateAction(ItemFactory factory, ItemType type, Action ... dependents) {
         this.factory = factory;
+        this.type = type;
+        this.dependents = Arrays.asList(dependents);
+    }
+
+    public void setPosition(Vector2 position) {
         this.position = position;
-        this.selected = selected;
     }
 
     @Override
     public boolean act(float delta) {
         Item item = factory.newItem(type);
-        item.setId(id);
         item.setPosition(position);
-        item.setSelected(selected);
+
+        ItemComposite parent = getParent();
         parent.addItem(item);
+
+        dependents.forEach((action) -> action.setItem(item));
         return true;
     }
 
-    @Override public void restart()
-    {
+    private ItemComposite getParent() {
+        Item item = getItem();
+        if (item instanceof ItemComposite) {
+            return (ItemComposite)item;
+        }
+        return item.getParent();
     }
 }

@@ -11,8 +11,11 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.math.RandomGenerator;
+import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.capability.Destroyable;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
+
+import javax.inject.Inject;
 
 /**
  * Instances of this Action reduce the health of the given item.
@@ -25,10 +28,21 @@ public class DamageAction extends BasicAction
     private Destroyable target;
     private RandomGenerator random;
 
-    public DamageAction(Combatant attacker, Destroyable target) {
-        this.attacker = attacker;
-        this.target = target;
-        this.random = new RandomGenerator();
+    @Inject
+    public DamageAction() {
+        random = new RandomGenerator();
+    }
+
+    @Override
+    public void setItem(Item item) {
+        super.setItem(item);
+        this.attacker = (Combatant)item;
+    }
+
+    @Override
+    public void setTarget(Item item) {
+        super.setTarget(item);
+        this.target = (Destroyable)item;
     }
 
     @Override

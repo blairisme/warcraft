@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.test.MockBasicAction;
 import com.evilbird.engine.test.MockCompositeAction;
 import org.junit.Assert;
@@ -25,18 +25,18 @@ public class CompositeActionTest
         Action childC = new MockBasicAction();
         MockCompositeAction composite = new MockCompositeAction(childA, childB, childC);
 
-        Assert.assertNull(composite.getActor());
-        Assert.assertNull(childA.getActor());
-        Assert.assertNull(childB.getActor());
-        Assert.assertNull(childC.getActor());
+        Assert.assertNull(composite.getItem());
+        Assert.assertNull(childA.getItem());
+        Assert.assertNull(childB.getItem());
+        Assert.assertNull(childC.getItem());
 
-        Actor actor = Mockito.mock(Actor.class);
-        composite.setActor(actor);
+        Item actor = Mockito.mock(Item.class);
+        composite.setItem(actor);
 
-        Assert.assertEquals(actor, composite.getActor());
-        Assert.assertEquals(actor, childA.getActor());
-        Assert.assertEquals(actor, childB.getActor());
-        Assert.assertEquals(actor, childC.getActor());
+        Assert.assertEquals(actor, composite.getItem());
+        Assert.assertEquals(actor, childA.getItem());
+        Assert.assertEquals(actor, childB.getItem());
+        Assert.assertEquals(actor, childC.getItem());
     }
 
     @Test

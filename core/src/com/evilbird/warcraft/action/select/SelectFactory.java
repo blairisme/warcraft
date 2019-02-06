@@ -41,7 +41,6 @@ public class SelectFactory implements ActionProvider
         if (item.getSelectable()) {
             SelectToggleAction toggle = pool.obtain();
             toggle.setObserver(reporter);
-            toggle.setItem(item);
             return toggle;
         }
         return new EmptyAction();

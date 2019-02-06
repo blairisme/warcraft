@@ -24,47 +24,34 @@ import javax.inject.Inject;
  */
 public class ZoomAction extends BasicAction
 {
-    private Zoomable zoomable;
-    private UserInput input;
-
     @Inject
     public ZoomAction() {
     }
 
-    public ZoomAction(Zoomable zoomable, UserInput input) {
-        this.zoomable = zoomable;
-        this.input = input;
-    }
-
-    public void setZoomable(Zoomable zoomable) {
-        this.zoomable = zoomable;
-    }
-
-    public void setZoomEvent(UserInput input) {
-        this.input = input;
-    }
-
     @Override
     public boolean act(float time) {
+        UserInput input = getCause();
+        Zoomable zoomable = (Zoomable)getItem();
+
         if (input.getCount() == 1) {
-            storeZoom();
-            updateZoom();
+            storeZoom(zoomable);
+            updateZoom(zoomable, input);
         } else {
-            resetZoom();
-            updateZoom();
+            resetZoom(zoomable);
+            updateZoom(zoomable, input);
         }
         return true;
     }
 
-    private void storeZoom() {
+    private void storeZoom(Zoomable zoomable) {
         zoomable.setOriginalZoom(zoomable.getZoom());
     }
 
-    private void resetZoom() {
+    private void resetZoom(Zoomable zoomable) {
         zoomable.setZoom(zoomable.getOriginalZoom());
     }
 
-    private void updateZoom() {
+    private void updateZoom(Zoomable zoomable, UserInput input) {
         float value = zoomable.getZoom();
         float delta = input.getDelta().x;
         float scale = value * delta;

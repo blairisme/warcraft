@@ -9,9 +9,7 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.evilbird.engine.common.function.ResettableSupplier;
-import com.evilbird.engine.common.function.Supplier;
-import com.evilbird.engine.common.function.Suppliers;
+import com.evilbird.engine.common.function.*;
 
 /**
  * Instances of this {@link Action} execute a given action repeatedly, until
@@ -21,17 +19,13 @@ import com.evilbird.engine.common.function.Suppliers;
  */
 public class RepeatedAction extends DelegateAction
 {
-    private Supplier<Boolean> repeat;
+    private Predicate<Action> repeat;
 
     public RepeatedAction(Action action) {
-        this(action, Suppliers.isTrue());
+        this(action, Predicates.accept());
     }
 
-    public RepeatedAction(Action action, ResettableSupplier<Boolean> repeat) {
-        this(action, (Supplier<Boolean>)repeat);
-    }
-
-    public RepeatedAction(Action action, Supplier<Boolean> repeat) {
+    public RepeatedAction(Action action, Predicate<Action> repeat) {
         super(action);
         this.repeat = repeat;
     }
@@ -45,7 +39,7 @@ public class RepeatedAction extends DelegateAction
     }
 
     private boolean repeat() {
-        if (repeat.get()) {
+        if (repeat.test(this)) {
             delegate.restart();
             return false;
         }
@@ -55,8 +49,8 @@ public class RepeatedAction extends DelegateAction
     @Override
     public void restart() {
         super.restart();
-        if (repeat instanceof ResettableSupplier) {
-            ((ResettableSupplier)repeat).reset();
+        if (repeat instanceof ResettablePredicate) {
+            ((ResettablePredicate)repeat).reset();
         }
     }
 }

@@ -9,14 +9,11 @@
 
 package com.evilbird.warcraft.action.move;
 
-import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.utilities.InjectedPool;
-import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.common.CancelAction;
 
@@ -32,52 +29,46 @@ import javax.inject.Inject;
 public class MoveFactory implements ActionProvider
 {
     private MoveReporter reporter;
-    private InjectedPool<MoveSequence> movePool;
     private InjectedPool<CancelAction> cancelPool;
+    private InjectedPool<MoveToItem> moveItemPool;
+    private InjectedPool<MoveToLocation> moveLocationPool;
 
     @Inject
     public MoveFactory(
         MoveReporter reporter,
-        InjectedPool<MoveSequence> movePool,
-        InjectedPool<CancelAction> cancelPool)
+        InjectedPool<CancelAction> cancelPool,
+        InjectedPool<MoveToItem> moveItemPool,
+        InjectedPool<MoveToLocation> moveLocationPool)
     {
         this.reporter = reporter;
-        this.movePool = movePool;
         this.cancelPool = cancelPool;
+        this.moveItemPool = moveItemPool;
+        this.moveLocationPool = moveLocationPool;
     }
 
     @Override
     public Action get(ActionIdentifier action, ActionContext context) {
         switch((MoveActions)action) {
-            case MoveToLocation: return getMoveToLocationAction(context);
-            case MoveToItem: return moveToItemAction(context);
+            case MoveToLocation: return getMoveToLocationAction();
+            case MoveToItem: return moveToItemAction();
             case MoveCancel: return getMoveCancelAction();
             default: throw new UnsupportedOperationException();
         }
     }
 
-    private Action moveToItemAction(ActionContext context) {
-        MoveSequence action = movePool.obtain();
-        action.setDestination(context.getItem());
+    private Action moveToItemAction() {
+        MoveSequence action = moveItemPool.obtain();
         action.setObserver(reporter);
         return action;
     }
 
-    private Action getMoveToLocationAction(ActionContext context) {
-        MoveSequence action = movePool.obtain();
-        action.setDestination(getDestinationLocation(context));
+    private Action getMoveToLocationAction() {
+        MoveSequence action = moveLocationPool.obtain();
         action.setObserver(reporter);
         return action;
     }
 
     private Action getMoveCancelAction() {
         return cancelPool.obtain();
-    }
-
-    private Vector2 getDestinationLocation(ActionContext context) {
-        Item item = context.getItem();
-        ItemRoot root = item.getRoot();
-        UserInput input = context.getInput();
-        return root.unproject(input.getPosition());
     }
 }

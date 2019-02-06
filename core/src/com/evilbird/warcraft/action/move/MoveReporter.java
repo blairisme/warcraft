@@ -15,7 +15,13 @@ import com.evilbird.engine.item.ItemNode;
 
 import javax.inject.Inject;
 
-public class MoveReporter implements MoveObserver
+/**
+ * Instances of this class observe movement events and report them to the
+ * {@link Events} stream.
+ *
+ * @author Blair Butterworth
+ */
+class MoveReporter implements MoveObserver
 {
     private Events events;
 

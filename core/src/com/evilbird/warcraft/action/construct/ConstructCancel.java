@@ -45,18 +45,18 @@ public class ConstructCancel implements ActionProvider
 
     @Override
     public Action get(ActionIdentifier action, ActionContext context) {
-        Action stopConstructing = stopConstructing((ConstructionActions)action, (Building)context.getItem());
+        Action stopConstructing = stopConstructing((ConstructActions)action, (Building)context.getItem());
         return new ReplacementAction(context.getItem(), stopConstructing);
     }
 
-    private Action stopConstructing(ConstructionActions type, Building building) {
+    private Action stopConstructing(ConstructActions type, Building building) {
         Action restoreResources = restoreResources(type, building);
         Action restoreBuilder = restoreBuilder(building);
         Action removeBuilding = removeBuilding(building);
         return new ParallelAction(restoreResources, restoreBuilder, removeBuilding);
     }
 
-    private Action restoreResources(ConstructionActions type, Building building) {
+    private Action restoreResources(ConstructActions type, Building building) {
         ResourceContainer player = (ResourceContainer)findAncestorByType(building, DataType.Player);
         Map<ResourceIdentifier, Float> requirements = type.getResourceRequirements();
         Map<ResourceIdentifier, Float> resources = ResourceUtils.scale(requirements, 1 - building.getProgress());

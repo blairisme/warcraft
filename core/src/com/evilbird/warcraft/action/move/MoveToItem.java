@@ -10,15 +10,19 @@
 package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemNode;
 
-/**
- * Implementors of this interface provide methods that are called when an item
- * moves.
- *
- * @author Blair Butterworth
- */
-interface MoveObserver
+import javax.inject.Inject;
+
+public class MoveToItem extends MoveSequence
 {
-    void onMove(Item subject, ItemNode location);
+    @Inject
+    public MoveToItem() {
+        super();
+    }
+
+    @Override
+    public void setTarget(Item target) {
+        super.setTarget(target);
+        setDestination(target);
+    }
 }

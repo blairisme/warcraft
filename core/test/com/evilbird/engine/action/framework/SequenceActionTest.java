@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.test.MockBasicAction;
 import org.junit.Assert;
 import org.junit.Test;
@@ -43,18 +43,18 @@ public class SequenceActionTest
         Action childC = new MockBasicAction();
         SequenceAction sequence = new SequenceAction(childA, childB, childC);
 
-        Assert.assertNull(sequence.getActor());
-        Assert.assertNull(childA.getActor());
-        Assert.assertNull(childB.getActor());
-        Assert.assertNull(childC.getActor());
+        Assert.assertNull(sequence.getItem());
+        Assert.assertNull(childA.getItem());
+        Assert.assertNull(childB.getItem());
+        Assert.assertNull(childC.getItem());
 
-        Actor actor = Mockito.mock(Actor.class);
-        sequence.setActor(actor);
+        Item actor = Mockito.mock(Item.class);
+        sequence.setItem(actor);
 
-        Assert.assertEquals(actor, sequence.getActor());
-        Assert.assertEquals(actor, childA.getActor());
-        Assert.assertEquals(actor, childB.getActor());
-        Assert.assertEquals(actor, childC.getActor());
+        Assert.assertEquals(actor, sequence.getItem());
+        Assert.assertEquals(actor, childA.getItem());
+        Assert.assertEquals(actor, childB.getItem());
+        Assert.assertEquals(actor, childC.getItem());
     }
 
     @Test
