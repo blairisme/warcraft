@@ -13,7 +13,10 @@ import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.common.function.Supplier;
 import com.evilbird.engine.common.function.Suppliers;
+import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
+
+import javax.inject.Inject;
 
 /**
  * Instances of this action represent an action whose operation takes time,
@@ -23,24 +26,29 @@ import com.evilbird.warcraft.item.unit.building.Building;
  */
 public class ProgressAction extends BasicAction
 {
-    private Building building;
-    private Supplier<? extends Building> supplier;
     private TimeDuration duration;
 
-    public ProgressAction(Building building, TimeDuration duration) {
-        this(Suppliers.constantValue(building), duration);
+    @Inject
+    public ProgressAction() {
     }
 
-    public ProgressAction(Supplier<? extends Building> supplier, TimeDuration duration) {
-        this.supplier = supplier;
+    @Deprecated
+    public ProgressAction(Building building, TimeDuration duration) {
+        setItem(building);
         this.duration = duration;
     }
 
-    //TODO: Update building before null check
+    public void setDuration(TimeDuration duration) {
+        this.duration = duration;
+    }
+
     @Override
     public void restart() {
         super.restart();
-        duration.restart();
+        if (duration != null) {
+            duration.restart();
+        }
+        Building building = (Building)getItem();
         if (building != null) {
             building.setProgress(0f);
         }
@@ -48,21 +56,7 @@ public class ProgressAction extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        if (! updateBuilding()){
-            cancel();
-            return true;
-        }
-        return updateProgress(delta);
-    }
-
-    private boolean updateBuilding() {
-        if (building == null){
-            building = supplier.get();
-        }
-        return building != null;
-    }
-
-    private boolean updateProgress(float delta) {
+        Building building = (Building)getItem();
         if (! duration.isComplete(delta)) {
             building.setProgress(duration.getProgress());
             return false;

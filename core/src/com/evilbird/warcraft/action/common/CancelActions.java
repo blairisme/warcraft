@@ -18,8 +18,5 @@ import com.evilbird.engine.action.ActionIdentifier;
  */
 public enum CancelActions implements ActionIdentifier
 {
-    CancelConstruct,
     CancelGather,
-    CancelPlaceholder,
-    CancelTrain
 }

@@ -29,11 +29,15 @@ import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
 public enum TrainActions implements ActionIdentifier, ResourceRequirement
 {
     TrainFootman (20f, Footman, Maps.<ResourceIdentifier, Float>of(Gold, 250f)),
-    TrainPeasant (20f, Peasant, Maps.<ResourceIdentifier, Float>of(Gold, 100f));
+    TrainPeasant (20f, Peasant, Maps.<ResourceIdentifier, Float>of(Gold, 100f)),
+    TrainCancel;
 
     private float trainTime;
     private UnitType unitType;
     private Map<ResourceIdentifier, Float> unitCost;
+
+    TrainActions() {
+    }
 
     TrainActions(float trainTime, UnitType unitType, Map<ResourceIdentifier, Float> unitCost) {
         this.trainTime = trainTime;

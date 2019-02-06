@@ -23,6 +23,7 @@ import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.Reference;
 import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.common.ProducingAction;
 import com.evilbird.warcraft.action.common.ProgressAction;
 import com.evilbird.warcraft.action.common.ResourceTransferAction;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
@@ -73,9 +74,9 @@ public class Train implements ActionProvider
     }
 
     private Action trainUnit(TrainActions action, Building building) {
-        ProducingAction before = new ProducingAction(building, true);
+        com.evilbird.warcraft.action.common.ProducingAction before = new com.evilbird.warcraft.action.common.ProducingAction(building, true);
         ProgressAction progress = new ProgressAction(building, new TimeDuration(action.getTrainTime()));
-        ProducingAction after = new ProducingAction(building, false);
+        com.evilbird.warcraft.action.common.ProducingAction after = new ProducingAction(building, false);
         return new SequenceAction(before, progress, after);
     }
 

@@ -27,6 +27,7 @@ public class AnimateAction extends BasicAction
 {
     private Animated animated;
     private AnimationIdentifier animation;
+    @Deprecated
     private Reference<? extends Animated> reference;
 
     @Inject
@@ -37,11 +38,13 @@ public class AnimateAction extends BasicAction
         this.animation = animation;
     }
 
+    @Deprecated
     public AnimateAction(Animated animated, AnimationIdentifier animation) {
         this.animated = animated;
         this.animation = animation;
     }
 
+    @Deprecated
     public AnimateAction(Reference<? extends Animated> reference, AnimationIdentifier animation) {
         this.reference = reference;
         this.animation = animation;

@@ -71,8 +71,8 @@ public class ConstructCancel implements ActionProvider
     }
 
     private Action removeBuilding(Building building) {
-        Action constructing = new ConstructAction(building, null, false);
+        //Action constructing = new ConstructAction(building, null, false);
         Action destroy = new DeathAction(building);
-        return new ParallelAction(constructing, destroy);
+        return new ParallelAction(/*constructing,*/ destroy);
     }
 }

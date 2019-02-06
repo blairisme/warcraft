@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.hud;
+package com.evilbird.warcraft.action.placeholder;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.item.placeholder.PlaceholderType;
@@ -21,9 +21,14 @@ public enum PlaceholderActions implements ActionIdentifier
 {
     AddBarracksPlaceholder  (PlaceholderType.BarracksPlaceholder),
     AddFarmPlaceholder      (PlaceholderType.FarmPlaceholder),
-    AddTownHallPlaceholder  (PlaceholderType.TownHallPlaceholder);
+    AddTownHallPlaceholder  (PlaceholderType.TownHallPlaceholder),
+    PlaceholderMove,
+    PlaceholderCancel;
 
     private PlaceholderType placeholderType;
+
+    PlaceholderActions() {
+    }
 
     PlaceholderActions(PlaceholderType placeholderType) {
         this.placeholderType = placeholderType;

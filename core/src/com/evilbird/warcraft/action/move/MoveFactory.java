@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
+import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.utilities.InjectedPool;
 import com.evilbird.engine.item.Item;
@@ -59,13 +60,13 @@ public class MoveFactory implements ActionProvider
     private Action moveToItemAction() {
         MoveSequence action = moveItemPool.obtain();
         action.setObserver(reporter);
-        return action;
+        return new ReplacementAction(action); //TODO
     }
 
     private Action getMoveToLocationAction() {
         MoveSequence action = moveLocationPool.obtain();
         action.setObserver(reporter);
-        return action;
+        return new ReplacementAction(action);
     }
 
     private Action getMoveCancelAction() {

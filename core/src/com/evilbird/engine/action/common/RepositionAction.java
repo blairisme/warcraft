@@ -7,17 +7,13 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.hud;
+package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.action.ActionContext;
-import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.action.common.PositionAction;
-import com.evilbird.engine.action.framework.Action;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.action.ActionProvider;
 
 import javax.inject.Inject;
 
@@ -29,20 +25,21 @@ import javax.inject.Inject;
  */
 // TODO: Should block camera when input.count > 1 (session capability)
 // TODO: Repositions to center of item - should reposition with respect to where the item is touched
-public class Reposition implements ActionProvider
+public class RepositionAction extends BasicAction
 {
     @Inject
-    public Reposition() {
+    public RepositionAction() {
     }
 
     @Override
-    public Action get(ActionIdentifier action, ActionContext context) {
-        Item item = context.getItem();
-        UserInput input = context.getInput();
+    public boolean act(float delta) {
+        Item item = getItem();
+        UserInput input = getCause();
         ItemRoot root = item.getRoot();
         Vector2 position = root.unproject(input.getPosition());
         position.x -= item.getWidth() / 2;
         position.y -= item.getHeight() / 2;
-        return new PositionAction(item, position);
+        item.setPosition(position);
+        return true;
     }
 }

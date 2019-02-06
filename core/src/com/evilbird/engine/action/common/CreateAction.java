@@ -16,6 +16,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -32,6 +33,7 @@ public class CreateAction extends BasicAction
     private Vector2 position;
     private Collection<Action> dependents;
 
+    @Deprecated
     public CreateAction(
         ItemComposite parent,
         ItemType type,
@@ -42,14 +44,35 @@ public class CreateAction extends BasicAction
     {
     }
 
+    public CreateAction(ItemFactory factory, Action ... dependents) {
+        this(factory, null, dependents);
+    }
+
     public CreateAction(ItemFactory factory, ItemType type, Action ... dependents) {
         this.factory = factory;
         this.type = type;
-        this.dependents = Arrays.asList(dependents);
+        this.dependents = new ArrayList<>();
+        this.dependents.addAll(Arrays.asList(dependents));
+    }
+
+    public ItemType getType() {
+        return type;
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void setType(ItemType type) {
+        this.type = type;
     }
 
     public void setPosition(Vector2 position) {
         this.position = position;
+    }
+
+    public void addDependency(Action dependency) {
+        dependents.add(dependency);
     }
 
     @Override

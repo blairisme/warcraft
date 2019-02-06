@@ -20,24 +20,24 @@ import com.evilbird.warcraft.action.attack.AttackFactory;
 import com.evilbird.warcraft.action.camera.CameraActions;
 import com.evilbird.warcraft.action.camera.CameraFactory;
 import com.evilbird.warcraft.action.common.CancelActions;
-import com.evilbird.warcraft.action.common.GeneralActions;
 import com.evilbird.warcraft.action.confirm.ConfirmActions;
 import com.evilbird.warcraft.action.confirm.ConfirmFactory;
-import com.evilbird.warcraft.action.construct.Construct;
-import com.evilbird.warcraft.action.construct.ConstructCancel;
+import com.evilbird.warcraft.action.construct.ConstructFactory;
 import com.evilbird.warcraft.action.construct.ConstructActions;
 import com.evilbird.warcraft.action.gather.GatherActions;
 import com.evilbird.warcraft.action.gather.GatherCancel;
 import com.evilbird.warcraft.action.gather.GatherGold;
 import com.evilbird.warcraft.action.gather.GatherWood;
-import com.evilbird.warcraft.action.hud.*;
 import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.move.MoveFactory;
+import com.evilbird.warcraft.action.navigate.NavigateActions;
+import com.evilbird.warcraft.action.navigate.NavigateFactory;
+import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
+import com.evilbird.warcraft.action.placeholder.PlaceholderFactory;
 import com.evilbird.warcraft.action.select.SelectActions;
 import com.evilbird.warcraft.action.select.SelectFactory;
 import com.evilbird.warcraft.action.train.Train;
 import com.evilbird.warcraft.action.train.TrainActions;
-import com.evilbird.warcraft.action.train.TrainCancel;
 
 import javax.inject.Inject;
 import java.util.HashMap;
@@ -60,28 +60,21 @@ public class WarcraftActionFactory implements ActionFactory
         AttackFactory attackProvider,
         CameraFactory cameraFactory,
         ConfirmFactory confirmFactory,
-        Construct constructProvider,
-        ConstructCancel constructCancelProvider,
+        ConstructFactory constructFactory,
         GatherGold gatherGoldProvider,
         GatherWood gatherWoodProvider,
         GatherCancel gatherCancelProvider,
         MoveFactory moveFactory,
-        Navigate navigateProvider,
-        Placeholder placeholderProvider,
-        PlaceholderCancel placeholderCancelProvider,
-        Reposition repositionProvider,
+        NavigateFactory navigateFactory,
+        PlaceholderFactory placeholderFactory,
         SelectFactory selectFactory,
-        Train trainProvider,
-        TrainCancel trainCancelProvider)
+        Train trainProvider)
     {
         actions = new HashMap<>();
 
         registerProvider(AttackActions.values(), attackProvider);
         registerProvider(CameraActions.values(), cameraFactory);
-
-        registerProvider(ConstructActions.values(), constructProvider);
-        registerProvider(CancelActions.CancelConstruct, constructCancelProvider);
-
+        registerProvider(ConstructActions.values(), constructFactory);
         registerProvider(ConfirmActions.values(), confirmFactory);
 
         registerProvider(GatherActions.GatherGold, gatherGoldProvider);
@@ -89,16 +82,11 @@ public class WarcraftActionFactory implements ActionFactory
         registerProvider(CancelActions.CancelGather, gatherCancelProvider);
 
         registerProvider(MoveActions.values(), moveFactory);
-        registerProvider(NavigateActions.values(), navigateProvider);
-
-        registerProvider(PlaceholderActions.values(), placeholderProvider);
-        registerProvider(GeneralActions.Reposition, repositionProvider);
-        registerProvider(CancelActions.CancelPlaceholder, placeholderCancelProvider);
-
+        registerProvider(NavigateActions.values(), navigateFactory);
+        registerProvider(PlaceholderActions.values(), placeholderFactory);
         registerProvider(SelectActions.values(), selectFactory);
 
         registerProvider(TrainActions.values(), trainProvider);
-        registerProvider(CancelActions.CancelTrain, trainCancelProvider);
     }
 
     @Override

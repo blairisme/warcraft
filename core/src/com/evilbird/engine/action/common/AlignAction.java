@@ -30,10 +30,16 @@ public class AlignAction extends BasicAction
     private Supplier<? extends Item> itemSupplier;
     private Supplier<? extends Item> referenceSupplier;
 
+    public AlignAction(Alignment alignment) {
+        this.alignment = alignment;
+    }
+
+    @Deprecated
     public AlignAction(Item item, Item reference, Alignment alignment) {
         this(constantValue(item), constantValue(reference), alignment);
     }
 
+    @Deprecated
     public AlignAction(
         Supplier<? extends Item> itemSupplier,
         Supplier<? extends Item> referenceSupplier,
@@ -46,11 +52,11 @@ public class AlignAction extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Item item = itemSupplier.get();
-        Item reference = referenceSupplier.get();
+        Item item = getItem();
+        Item reference = getTarget();
         Vector2 position = calculatePosition(item, reference, alignment);
-        Action delegate = new PositionAction(item, position);
-        return delegate.act(delta);
+        item.setPosition(position);
+        return true;
     }
 
     private Vector2 calculatePosition(Item item, Item reference, Alignment alignment) {

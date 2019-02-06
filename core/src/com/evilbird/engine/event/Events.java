@@ -12,10 +12,12 @@ package com.evilbird.engine.event;
 import com.evilbird.engine.common.collection.UnmodifiableIterator;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.ArrayDeque;
 import java.util.Iterator;
 import java.util.Queue;
 
+@Singleton
 public class Events implements Iterable<Event>
 {
     private Queue<Event> queue;

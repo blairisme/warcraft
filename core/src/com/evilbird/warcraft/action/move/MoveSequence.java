@@ -38,8 +38,7 @@ class MoveSequence extends DelegateAction
         Action moveAnimation = new AnimateAction(UnitAnimation.Move);
         Action initial = new ParallelAction(move, moveAnimation);
         Action idleAnimation = new AnimateAction(UnitAnimation.Idle);
-        Action sequence = new SequenceAction(initial, idleAnimation);
-        delegate = new ReplacementAction(sequence);
+        delegate = new SequenceAction(initial, idleAnimation);
     }
 
     public void setDestination(Item destination) {

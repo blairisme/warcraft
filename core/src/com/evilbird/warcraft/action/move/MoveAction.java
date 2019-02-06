@@ -27,9 +27,9 @@ import com.evilbird.warcraft.item.common.capability.Movable;
 import java.util.Iterator;
 
 /**
- * Instances of this {@link Action action} move an item from their current
- * location to a given destination. The moving item will be animated with a
- * movement animation, as well choose a path that avoids obstacles.
+ * Instances of this {@link Action action} move an {@link Item} from its
+ * current location to a given destination. The moving item will be animated
+ * with a movement animation, as well choose a path that avoids obstacles.
  *
  * @author Blair Butterworth
  */
