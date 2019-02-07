@@ -12,10 +12,11 @@ package com.evilbird.engine.item;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.function.Comparator;
 
+
 public class ItemComparators
 {
     public static Comparator<Item> closestItem(Item target) {
-        return new ClosestItem(target); //TODO: Singleton?
+        return new ClosestItem(target);
     }
 
     public static class ClosestItem implements Comparator<Item> {
@@ -30,7 +31,7 @@ public class ItemComparators
             Vector2 position1 = var1.getPosition();
             Vector2 position2 = var2.getPosition();
 
-            float distance1 = target.dst(position1);
+            float distance1 = target.dst(position1); //TODO: dst2 more efficient
             float distance2 = target.dst(position2);
 
             return Float.compare(distance1, distance2);

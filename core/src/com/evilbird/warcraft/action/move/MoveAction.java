@@ -69,20 +69,16 @@ public class MoveAction extends BasicAction
             target = (Movable)item;
             filter.addRequiredTypes(target);
             filter.addPermittedItem(item);
-        } else {
-            reset();
         }
     }
 
     public void setDestination(Vector2 destination) {
         this.destination = new MoveDestinationVector(destination);
-        restart();
     }
 
     public void setDestination(Item destination) {
         this.destination = new MoveDestinationItem(destination);
         this.filter.addPermittedItem(destination);
-        restart();
     }
 
     public void setObserver(MoveObserver observer) {
@@ -92,7 +88,6 @@ public class MoveAction extends BasicAction
     @Override
     public void reset() {
         path = null;
-        graph = null;
         filter.clear();
     }
 

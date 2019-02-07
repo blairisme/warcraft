@@ -10,9 +10,7 @@
 package com.evilbird.engine.item;
 
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.function.Predicate;
-import com.evilbird.engine.common.function.Supplier;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Objects;
@@ -66,10 +64,6 @@ public class ItemPredicates
         return new IsNear(item, radius);
     }
 
-    public static Predicate<Item> isNear(Supplier<? extends Item> itemSupplier, Supplier<Float> radiusSupplier) {
-        return new IsNearDeferred(itemSupplier, radiusSupplier);
-    }
-
     private static class IsNear implements Predicate<Item> {
         private Item locus;
         private Circle perimeter;
@@ -82,25 +76,6 @@ public class ItemPredicates
         @Override
         public boolean test(Item target) {
             perimeter.setPosition(locus.getPosition(Alignment.Center));
-            return ShapeUtilities.contains(perimeter, target.getBounds());
-        }
-    }
-
-    private static class IsNearDeferred implements Predicate<Item> {
-        private Supplier<? extends Item> locusSupplier;
-        private Supplier<Float> radiusSupplier;
-
-        private IsNearDeferred(Supplier<? extends Item> locusSupplier, Supplier<Float> radiusSupplier) {
-            this.locusSupplier = locusSupplier;
-            this.radiusSupplier = radiusSupplier;
-        }
-
-        @Override
-        public boolean test(Item target) {
-            Item locus = locusSupplier.get();
-            Float radius = radiusSupplier.get();
-            Vector2 center = locus.getPosition(Alignment.Center);
-            Circle perimeter = new Circle(center, radius);
             return ShapeUtilities.contains(perimeter, target.getBounds());
         }
     }

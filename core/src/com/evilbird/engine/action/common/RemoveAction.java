@@ -28,12 +28,6 @@ public class RemoveAction extends BasicAction
         this.source = source;
     }
 
-    @Deprecated
-    public RemoveAction(Item item) {
-        setItem(item);
-        this.source = ActionTarget.Item;
-    }
-
     @Override
     public boolean act(float delta) {
         Item item = getRemoveItem();

@@ -31,9 +31,4 @@ public class AnimatedAction extends DelegateAction
         Action complete = new AnimateAction(endAnimation);
         delegate = new SequenceAction(initial, complete);
     }
-
-    @Override
-    public boolean act(float delta) {
-        return delegate.act(delta);
-    }
 }

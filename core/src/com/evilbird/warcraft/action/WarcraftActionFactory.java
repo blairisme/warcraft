@@ -19,15 +19,12 @@ import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.attack.AttackFactory;
 import com.evilbird.warcraft.action.camera.CameraActions;
 import com.evilbird.warcraft.action.camera.CameraFactory;
-import com.evilbird.warcraft.action.common.CancelActions;
 import com.evilbird.warcraft.action.confirm.ConfirmActions;
 import com.evilbird.warcraft.action.confirm.ConfirmFactory;
 import com.evilbird.warcraft.action.construct.ConstructActions;
 import com.evilbird.warcraft.action.construct.ConstructFactory;
 import com.evilbird.warcraft.action.gather.GatherActions;
-import com.evilbird.warcraft.action.gather.GatherCancel;
-import com.evilbird.warcraft.action.gather.GatherGold;
-import com.evilbird.warcraft.action.gather.GatherWood;
+import com.evilbird.warcraft.action.gather.GatherFactory;
 import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.move.MoveFactory;
 import com.evilbird.warcraft.action.navigate.NavigateActions;
@@ -60,9 +57,7 @@ public class WarcraftActionFactory implements ActionFactory
         CameraFactory cameraFactory,
         ConfirmFactory confirmFactory,
         ConstructFactory constructFactory,
-        GatherGold gatherGoldProvider,
-        GatherWood gatherWoodProvider,
-        GatherCancel gatherCancelProvider,
+        GatherFactory gatherFactory,
         MoveFactory moveFactory,
         NavigateFactory navigateFactory,
         PlaceholderFactory placeholderFactory,
@@ -75,11 +70,7 @@ public class WarcraftActionFactory implements ActionFactory
         registerProvider(CameraActions.values(), cameraFactory);
         registerProvider(ConstructActions.values(), constructFactory);
         registerProvider(ConfirmActions.values(), confirmFactory);
-
-        registerProvider(GatherActions.GatherGold, gatherGoldProvider);
-        registerProvider(GatherActions.GatherWood, gatherWoodProvider);
-        registerProvider(CancelActions.CancelGather, gatherCancelProvider);
-
+        registerProvider(GatherActions.values(), gatherFactory);
         registerProvider(MoveActions.values(), moveFactory);
         registerProvider(NavigateActions.values(), navigateFactory);
         registerProvider(PlaceholderActions.values(), placeholderFactory);

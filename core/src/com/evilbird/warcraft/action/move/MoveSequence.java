@@ -51,9 +51,4 @@ class MoveSequence extends DelegateAction
     public void setObserver(MoveObserver observer) {
         move.setObserver(observer);
     }
-
-    @Override
-    public boolean act(float delta) {
-        return delegate.act(delta);
-    }
 }

@@ -18,8 +18,6 @@ import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.action.common.ProduceAction;
-import com.evilbird.warcraft.action.common.ProducingAction;
-import com.evilbird.warcraft.action.common.ProgressAction;
 import com.evilbird.warcraft.action.common.ResourceTransferAction;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 import com.evilbird.warcraft.item.common.resource.ResourceUtils;
@@ -37,6 +35,7 @@ import static com.evilbird.engine.common.lang.Alignment.BottomLeft;
  * @author Blair Butterworth
  */
 //TODO: Combine create and align actions
+//TODO: bug - when one item completes, other complete instantly
 public class TrainAction extends DelegateAction
 {
     private CreateAction create;

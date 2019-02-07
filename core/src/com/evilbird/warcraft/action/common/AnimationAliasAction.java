@@ -21,18 +21,17 @@ import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
  */
 public class AnimationAliasAction extends BasicAction
 {
-    private Animated item;
     private AnimationIdentifier id;
     private AnimationIdentifier alias;
 
-    public AnimationAliasAction(Animated item, AnimationIdentifier id, AnimationIdentifier alias) {
-        this.item = item;
+    public AnimationAliasAction(AnimationIdentifier id, AnimationIdentifier alias) {
         this.id = id;
         this.alias = alias;
     }
 
     @Override
     public boolean act(float delta) {
+        Animated item = (Animated)getItem();
         DirectionalAnimation newAnimations = item.getAvailableAnimation(alias);
         item.setAvailableAnimation(id, newAnimations);
         return true;

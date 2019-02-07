@@ -23,6 +23,8 @@ import static com.evilbird.engine.item.ItemComparators.closestItem;
 import static com.evilbird.engine.item.ItemPredicates.itemWithType;
 import static com.evilbird.engine.item.ItemPredicates.selectableItem;
 
+;
+
 /**
  * Instances of this class contain common item lookup utility functions.
  *
@@ -30,6 +32,9 @@ import static com.evilbird.engine.item.ItemPredicates.selectableItem;
  */
 public class ItemOperations
 {
+    private ItemOperations(){
+    }
+
     public static Item findClosest(ItemComposite itemGroup, Identifier type, Item locus) {
         Predicate<Item> selector = both(itemWithType(type), selectableItem());
         Collection<Item> itemsWithType = itemGroup.findAll(selector);
@@ -37,13 +42,6 @@ public class ItemOperations
             return Collections.min(itemsWithType, closestItem(locus));
         }
         return null;
-    }
-
-    public static Item findClosest(Item item) {
-        if (! item.getSelectable()){
-            return findClosest(item.getParent(), item.getType(), item);
-        }
-        return item;
     }
 
     public static Item findAncestorByType(Item item, Identifier type) {
@@ -58,15 +56,10 @@ public class ItemOperations
         throw new IllegalStateException("Illegal item hierarchy - missing player");
     }
 
-    public static Vector2 getScreenCenter(ItemRoot root)
-    {
+    public static Vector2 getScreenCenter(ItemRoot root) {
         float x = graphics.getWidth() * 0.5f;
         float y = graphics.getHeight() * 0.5f;
         Vector2 screenCenter = new Vector2(x, y);
         return root.unproject(screenCenter);
-    }
-
-    private ItemOperations(){
-        throw new UnsupportedOperationException();
     }
 }

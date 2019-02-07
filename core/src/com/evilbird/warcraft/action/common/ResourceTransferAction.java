@@ -17,6 +17,7 @@ import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 import com.evilbird.warcraft.item.data.DataType;
 
+import java.util.Collections;
 import java.util.Map;
 
 import static com.evilbird.engine.item.ItemOperations.findAncestorByType;
@@ -29,28 +30,19 @@ import static com.evilbird.engine.item.ItemOperations.findAncestorByType;
  */
 public class ResourceTransferAction extends BasicAction
 {
-    @Deprecated
-    private ResourceContainer container;
-
     private ActionTarget target;
     private Map<ResourceIdentifier, Float> deltas;
 
-    public ResourceTransferAction() {
-        this(ActionTarget.Item);
-    }
-
     public ResourceTransferAction(ActionTarget target) {
+        this(target, Collections.emptyMap());
+    }
+
+    public ResourceTransferAction(ActionTarget target, ResourceIdentifier type, float delta) {
+        this(target, Maps.of(type, delta));
+    }
+
+    public ResourceTransferAction(ActionTarget target, Map<ResourceIdentifier, Float> deltas) {
         this.target = target;
-    }
-
-    @Deprecated
-    public ResourceTransferAction(ResourceContainer container, ResourceIdentifier type, float delta) {
-        this(container, Maps.of(type, delta));
-    }
-
-    @Deprecated
-    public ResourceTransferAction(ResourceContainer container, Map<ResourceIdentifier, Float> deltas) {
-        this.container = container;
         this.deltas = deltas;
     }
 
@@ -74,9 +66,6 @@ public class ResourceTransferAction extends BasicAction
     }
 
     private ResourceContainer getContainer() {
-        if (container != null) {
-            return container;
-        }
         switch (target) {
             case Item: return (ResourceContainer)getItem();
             case Target: return (ResourceContainer)getTarget();

@@ -10,8 +10,6 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.Reference;
 import com.evilbird.engine.item.specialized.animated.Animated;
 import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
 
@@ -25,34 +23,25 @@ import javax.inject.Inject;
  */
 public class AnimateAction extends BasicAction
 {
-    private Animated animated;
+    private ActionTarget source;
     private AnimationIdentifier animation;
-    @Deprecated
-    private Reference<? extends Animated> reference;
 
     @Inject
-    public AnimateAction(){
+    public AnimateAction() {
+        this(null);
     }
 
     public AnimateAction(AnimationIdentifier animation) {
+        this(ActionTarget.Item, animation);
+    }
+
+    public AnimateAction(ActionTarget source, AnimationIdentifier animation) {
+        this.source = source;
         this.animation = animation;
     }
 
-    @Deprecated
-    public AnimateAction(Animated animated, AnimationIdentifier animation) {
-        this.animated = animated;
-        this.animation = animation;
-    }
-
-    @Deprecated
-    public AnimateAction(Reference<? extends Animated> reference, AnimationIdentifier animation) {
-        this.reference = reference;
-        this.animation = animation;
-    }
-
-    @Override
-    public void setItem(Item animated) {
-        this.animated = (Animated)animated;
+    public AnimationIdentifier getAnimation() {
+        return animation;
     }
 
     public void setAnimation(AnimationIdentifier animation) {
@@ -67,9 +56,10 @@ public class AnimateAction extends BasicAction
     }
 
     private Animated getAnimated() {
-        if (reference != null){
-            return reference.get();
+        switch (source) {
+            case Item: return (Animated)getItem();
+            case Target: return (Animated)getTarget();
+            default: throw new UnsupportedOperationException();
         }
-        return animated;
     }
 }

@@ -12,8 +12,6 @@ package com.evilbird.engine.common.math;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.common.lang.Alignment;
-import com.evilbird.engine.item.Item;
 
 /**
  * Instances of this class contain common utility functions for working with

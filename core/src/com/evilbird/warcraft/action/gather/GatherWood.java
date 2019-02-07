@@ -14,46 +14,54 @@ import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.duration.ActionDuration;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
+import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.item.unit.UnitSound;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import javax.inject.Inject;
 
 /**
- * Instances of this {@link Action} instruct a given {@link Gather} to gather
+ * Instances of this {@link Action} instruct a given {@link GatherAction} to gather
  * wood.
  *
  * @author Blair Butterworth
  */
-// TODO: Lumber mill increases rate to 125
-public class GatherWood extends Gather
+public class GatherWood extends GatherAction
 {
     @Inject
     public GatherWood(){
     }
 
     @Override
-    protected ResourceType getResourceType() {
+    protected ItemType getDepotType() {
+        return UnitType.TownHall;
+    }
+
+    @Override
+    protected ItemType getResourceType() {
+        return UnitType.Tree;
+    }
+
+    @Override
+    protected ResourceType getResourceVariety() {
         return ResourceType.Wood;
     }
 
     @Override
-    protected float getGatherCapacity(Item gatherer) {
+    protected float getGatherCapacity() {
         return 100f;
     }
 
     @Override
-    protected ActionDuration getGatherSpeed(Item gatherer) {
+    protected ActionDuration getGatherSpeed() {
         return new TimeDuration(40f);
     }
 
     @Override
-    protected Action obtainAction(Item gatherer, Item resource) {
-        SoundIdentifier obtainSoundId = UnitSound.getGatherSound(getResourceType());
-        Action sound = new RepeatedAudibleAction(gatherer, obtainSoundId, 40, 1f);
-        Action obtain = super.obtainAction(gatherer, resource);
+    protected Action obtainResources() {
+        Action sound = new RepeatedAudibleAction(UnitSound.GatherWood, 40, 1f);
+        Action obtain = super.obtainResources();
         return new ParallelAction(obtain, sound);
     }
 }

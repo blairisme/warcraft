@@ -35,11 +35,13 @@ public class RepositionAction extends BasicAction
     public boolean act(float delta) {
         Item item = getItem();
         UserInput input = getCause();
+
         ItemRoot root = item.getRoot();
         Vector2 position = root.unproject(input.getPosition());
         position.x -= item.getWidth() / 2;
         position.y -= item.getHeight() / 2;
         item.setPosition(position);
+
         return true;
     }
 }

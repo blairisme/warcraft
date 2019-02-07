@@ -10,6 +10,7 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 
 /**
@@ -73,6 +74,14 @@ public class DelegateAction extends BasicAction
         super.setTarget(target);
         if (delegate != null) {
             delegate.setTarget(target);
+        }
+    }
+
+    @Override
+    public void setCause(UserInput cause) {
+        super.setCause(cause);
+        if (delegate != null) {
+            delegate.setCause(cause);
         }
     }
 

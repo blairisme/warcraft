@@ -16,52 +16,63 @@ import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.duration.ActionDuration;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemType;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import javax.inject.Inject;
 
 /**
- * Instances of this {@link Action} instruct a given {@link Gather} to gather
+ * Instances of this {@link Action} instruct a given {@link GatherAction} to gather
  * gold.
  *
  * @author Blair Butterworth
  */
-public class GatherGold extends Gather
+public class GatherGold extends GatherAction
 {
     @Inject
     public GatherGold(){
     }
 
     @Override
-    protected ResourceType getResourceType() {
+    protected ItemType getDepotType() {
+        return UnitType.TownHall;
+    }
+
+    @Override
+    protected ItemType getResourceType() {
+        return UnitType.GoldMine;
+    }
+
+    @Override
+    protected ResourceType getResourceVariety() {
         return ResourceType.Gold;
     }
 
     @Override
-    protected float getGatherCapacity(Item gatherer) {
+    protected float getGatherCapacity() {
         return 100f;
     }
 
     @Override
-    protected ActionDuration getGatherSpeed(Item gatherer) {
+    protected ActionDuration getGatherSpeed() {
         return new TimeDuration(5f);
     }
 
     @Override
-    protected Action preObtainAction(Item gatherer, Item resource) {
-        Action deselect = new SelectAction(gatherer, false);
-        Action disable = new DisableAction(gatherer, false);
-        Action hide = new VisibleAction(gatherer, false);
-        Action original = super.preObtainAction(gatherer, resource);
+    protected Action preObtainAnimation() {
+        Action deselect = new SelectAction(false);
+        Action disable = new DisableAction(false);
+        Action hide = new VisibleAction(false);
+        Action original = super.preObtainAnimation();
         return new ParallelAction(deselect, disable, hide, original);
     }
 
     @Override
-    protected Action postObtainAction(Item gatherer, Item resource) {
-        Action enable = new DisableAction(gatherer, true);
-        Action show = new VisibleAction(gatherer, true);
-        Action original = super.postObtainAction(gatherer, resource);
+    protected Action postObtainAnimation() {
+        Action enable = new DisableAction(true);
+        Action show = new VisibleAction(true);
+        Action original = super.postObtainAnimation();
         return new ParallelAction(enable, show, original);
     }
 }

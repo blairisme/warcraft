@@ -24,14 +24,24 @@ import javax.inject.Inject;
 public class AttackReporter implements AttackObserver
 {
     private Events events;
+    private boolean notified;
 
     @Inject
     public AttackReporter(Events events) {
         this.events = events;
+        this.notified = false;
     }
 
     @Override
     public void onAttack(Combatant attacker, Item target) {
-        events.add(new AttackEvent(attacker, target));
+        if (! notified) {
+            notified = true;
+            events.add(new AttackEvent(attacker, target));
+        }
+    }
+
+    @Override
+    public void reset() {
+        notified = false;
     }
 }

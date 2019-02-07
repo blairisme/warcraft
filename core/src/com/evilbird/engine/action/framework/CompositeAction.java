@@ -34,7 +34,7 @@ public abstract class CompositeAction extends BasicAction
     }
 
     public CompositeAction(Action... delegates) {
-        this(Arrays.asList(delegates));
+        this.delegates = Arrays.asList(delegates);
     }
 
     @Override
@@ -51,7 +51,6 @@ public abstract class CompositeAction extends BasicAction
         for (Action delegate: delegates) {
             delegate.reset();
         }
-        delegates.clear();
     }
 
     @Override

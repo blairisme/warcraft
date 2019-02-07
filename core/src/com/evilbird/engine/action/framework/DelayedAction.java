@@ -10,8 +10,9 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.framework.duration.ActionDuration;
+import com.evilbird.engine.common.function.Predicate;
+import com.evilbird.engine.common.function.Predicates;
 import com.evilbird.engine.common.function.Supplier;
-import com.evilbird.engine.common.function.Suppliers;
 
 /**
  * Instances of this class provide an {@link Action Action} that is only
@@ -22,20 +23,20 @@ import com.evilbird.engine.common.function.Suppliers;
 public class DelayedAction extends BasicAction
 {
     private ActionDuration delay;
-    private Supplier<Boolean> validator;
+    private Predicate<Action> validator;
 
     public DelayedAction(ActionDuration delay) {
-        this(delay, Suppliers.isTrue());
+        this(delay, Predicates.accept());
     }
 
-    public DelayedAction(ActionDuration delay, Supplier<Boolean> validator) {
+    public DelayedAction(ActionDuration delay, Predicate<Action> validator) {
         this.delay = delay;
         this.validator = validator;
     }
 
     @Override
     public boolean act(float delta) {
-        if (validator.get() == Boolean.TRUE) {
+        if (validator.test(this)) {
             return delay.isComplete(delta);
         }
         return true;

@@ -9,7 +9,6 @@
 
 package com.evilbird.engine.action.framework;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,12 +24,13 @@ public class SequenceAction extends CompositeAction
     private Iterator<Action> iterator;
 
     public SequenceAction(Action... sequence) {
-        this(Arrays.<Action>asList(sequence));
+        super(sequence);
+        resetIterator();
     }
 
     public SequenceAction(List<Action> sequence) {
         super(sequence);
-        restart();
+        resetIterator();
     }
 
     @Override
@@ -46,6 +46,16 @@ public class SequenceAction extends CompositeAction
     @Override
     public void restart() {
         super.restart();
+        resetIterator();
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        resetIterator();
+    }
+
+    private void resetIterator() {
         this.iterator = delegates.iterator();
         this.current = iterator.next();
     }

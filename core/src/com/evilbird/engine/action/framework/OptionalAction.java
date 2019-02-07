@@ -9,11 +9,11 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.evilbird.engine.common.function.Supplier;
+import com.evilbird.engine.common.function.Predicate;
 
 public class OptionalAction extends BranchAction
 {
-    public OptionalAction(Supplier<Boolean> decision, Action trueAction) {
+    public OptionalAction(Predicate<Action> decision, Action trueAction) {
         super(decision, trueAction, new EmptyAction());
     }
 }

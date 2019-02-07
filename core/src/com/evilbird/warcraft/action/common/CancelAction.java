@@ -24,9 +24,4 @@ public class CancelAction extends DelegateAction
         Action idle = new AnimateAction(UnitAnimation.Idle);
         delegate = new ReplacementAction(idle);
     }
-
-    @Override
-    public boolean act(float delta) {
-        return delegate.act(delta);
-    }
 }

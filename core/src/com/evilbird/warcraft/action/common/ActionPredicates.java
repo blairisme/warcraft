@@ -13,9 +13,11 @@ import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.function.ResettablePredicate;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantPredicates;
+import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 /**
  * Instances of this class provide common {@link Predicate Predicates} for
@@ -85,4 +87,14 @@ public class ActionPredicates
             count = 0;
         }
     }
+
+
+    public static Predicate<Action> targetHasResources(final ResourceType type) {
+        return (action) -> {
+            ResourceContainer container = (ResourceContainer)action.getItem();
+            return container.getResource(type) > 0;
+        };
+    }
+
+
 }

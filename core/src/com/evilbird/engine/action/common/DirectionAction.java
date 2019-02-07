@@ -14,7 +14,6 @@ import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Directionable;
 import com.evilbird.engine.common.lang.Positionable;
-import com.evilbird.engine.item.Item;
 
 import javax.inject.Inject;
 
@@ -26,32 +25,21 @@ import javax.inject.Inject;
  */
 public class DirectionAction extends BasicAction
 {
-    private Directionable item;
-    private Positionable target;
-
     @Inject
     public DirectionAction() {
     }
 
     @Override
-    public void setItem(Item item) {
-        super.setItem(item);
-        this.item = (Directionable)item;
-    }
-
-    @Override
-    public void setTarget(Item target) {
-        super.setTarget(target);
-        this.target = target;
-    }
-
-    @Override
     public boolean act(float delta) {
+        Directionable item = (Directionable)getItem();
+        Positionable target = getTarget();
+
         Vector2 itemPosition = item.getPosition();
         Vector2 targetPosition = target.getPosition();
         Vector2 direction = targetPosition.sub(itemPosition);
         Vector2 normalizedDirection = direction.nor();
         item.setDirection(normalizedDirection);
+
         return true;
     }
 }

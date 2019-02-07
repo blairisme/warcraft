@@ -41,8 +41,13 @@ public class ConstructFactory implements ActionProvider
         ConstructActions constructAction = (ConstructActions)action;
 
         switch (constructAction) {
-//            case ConstructCancel: return getCancelAction();
-            default: return getConstructAction(constructAction);
+            case ConstructBarracksCancel:
+            case ConstructTownhallCancel:
+            case ConstructFarmCancel: return getCancelAction(constructAction);
+            case ConstructBarracks:
+            case ConstructTownHall:
+            case ConstructFarm: return getConstructAction(constructAction);
+            default: throw new UnsupportedOperationException();
         }
     }
 
@@ -55,7 +60,9 @@ public class ConstructFactory implements ActionProvider
         return constructAction;
     }
 
-//    private Action getCancelAction() {
-//        return cancelPool.obtain();
-//    }
+    private Action getCancelAction(ConstructActions action) {
+        ConstructCancel constructCancel = cancelPool.obtain();
+        constructCancel.setBuildCost(action.getResourceRequirements());
+        return constructCancel;
+    }
 }

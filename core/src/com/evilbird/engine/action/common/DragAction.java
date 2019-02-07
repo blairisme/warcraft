@@ -19,15 +19,13 @@ public class DragAction extends BasicAction
     private Positionable positionable;
     private UserInput input;
 
-    public DragAction(Positionable positionable, UserInput input)
-    {
+    public DragAction(Positionable positionable, UserInput input) {
         this.positionable = positionable;
         this.input = input;
     }
 
     @Override
-    public boolean act(float time)
-    {
+    public boolean act(float time) {
         Vector2 value = positionable.getPosition();
         Vector2 delta = input.getDelta();
         Vector2 difference = new Vector2(delta.x * -1, delta.y * -1);

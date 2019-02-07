@@ -11,19 +11,12 @@ package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Visible;
-import com.evilbird.engine.item.Item;
 
 public class VisibleAction extends BasicAction
 {
     private boolean enabled;
 
     public VisibleAction(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    @Deprecated
-    public VisibleAction(Visible visible, boolean enabled) {
-        setItem((Item)visible);
         this.enabled = enabled;
     }
 

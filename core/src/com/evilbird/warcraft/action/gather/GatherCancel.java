@@ -9,14 +9,11 @@
 
 package com.evilbird.warcraft.action.gather;
 
-import com.evilbird.engine.action.ActionContext;
-import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.AnimateAction;
 import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.engine.action.framework.Action;
+import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.animated.Animated;
-import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import javax.inject.Inject;
@@ -27,16 +24,11 @@ import javax.inject.Inject;
  * @author Blair Butterworth
  */
 //TODO: Have gatherer keep some resources
-public class GatherCancel implements ActionProvider
+public class GatherCancel extends DelegateAction
 {
     @Inject
     public GatherCancel(){
-    }
-
-    @Override
-    public Action get(ActionIdentifier action, ActionContext context) {
-        Item item = context.getItem();
-        Action idleAnimation = new AnimateAction((Animated)item, UnitAnimation.Idle);
-        return new ReplacementAction(item, idleAnimation);
+        Action idleAnimation = new AnimateAction(UnitAnimation.Idle);
+        delegate = new ReplacementAction(idleAnimation);
     }
 }

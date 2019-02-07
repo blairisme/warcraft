@@ -9,7 +9,6 @@
 
 package com.evilbird.engine.action.framework;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,14 +24,16 @@ public class ParallelAction extends CompositeAction
 {
     private Map<Action, Boolean> actionCompletion;
 
-    public ParallelAction(Action... actions) {
-        this(Arrays.<Action>asList(actions));
+    public ParallelAction(Action ... actions) {
+        super(actions);
+        this.actionCompletion = new HashMap<>(actions.length);
+        resetCompletion();
     }
 
     public ParallelAction(List<Action> actions) {
         super(actions);
-        this.actionCompletion = new HashMap<Action, Boolean>(actions.size());
-        restart();
+        this.actionCompletion = new HashMap<>(actions.size());
+        resetCompletion();
     }
 
     @Override
@@ -53,6 +54,16 @@ public class ParallelAction extends CompositeAction
     @Override
     public void restart() {
         super.restart();
+        resetCompletion();
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        resetCompletion();
+    }
+
+    private void resetCompletion() {
         actionCompletion.clear();
         for (Action delegate : delegates) {
             actionCompletion.put(delegate, false);

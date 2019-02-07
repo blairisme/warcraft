@@ -62,12 +62,14 @@ public class Forest extends Layer
     public void setLayer(TiledMapTileLayer layer) {
         super.setLayer(layer);
         trees.clear();
-        populateTrees();
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
+        if (trees.isEmpty()) {
+            populateTrees();
+        }
         for (Tree tree: trees.values()){
             tree.update(delta);
         }

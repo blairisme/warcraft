@@ -35,7 +35,6 @@ import static com.evilbird.warcraft.action.common.ActionPredicates.withinRange;
  */
 public class AttackAction extends DelegateAction
 {
-    private boolean notified;
     private AttackObserver observer;
 
     @Inject
@@ -54,6 +53,12 @@ public class AttackAction extends DelegateAction
     public boolean act(float delta) {
         observer.onAttack((Combatant)getItem(), getTarget());
         return delegate.act(delta);
+    }
+
+    @Override
+    public void restart() {
+        super.restart();
+        observer.reset();
     }
 
     private Action attackTarget(MoveFactory moveFactory) {

@@ -12,9 +12,10 @@ package com.evilbird.engine.action.common;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.NamedIdentifier;
-import com.evilbird.engine.item.*;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemComposite;
+import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.item.ItemType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,23 +27,13 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
+//TODO: tidy
 public class CreateAction extends BasicAction
 {
     private ItemType type;
     private ItemFactory factory;
     private Vector2 position;
     private Collection<Action> dependents;
-
-    @Deprecated
-    public CreateAction(
-        ItemComposite parent,
-        ItemType type,
-        ItemFactory factory,
-        Identifier id,
-        Vector2 position,
-        boolean selected)
-    {
-    }
 
     public CreateAction(ItemFactory factory, Action ... dependents) {
         this(factory, null, dependents);

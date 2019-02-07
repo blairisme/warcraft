@@ -10,7 +10,6 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.specialized.animated.Audible;
 import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
 
@@ -28,11 +27,6 @@ public class AudibleAction extends BasicAction
 
     public AudibleAction(SoundIdentifier sound){
         this.sound = sound;
-    }
-
-    @Deprecated
-    public AudibleAction(Audible audible, SoundIdentifier sound) {
-        setSound(sound);
     }
 
     public SoundIdentifier getSound() {

@@ -30,13 +30,18 @@ public enum ConstructActions implements ActionIdentifier, ResourceRequirement
     ConstructBarracks   (UnitType.Barracks, 20f, Maps.<ResourceIdentifier, Float>of(Gold, 100f)),
     ConstructFarm       (UnitType.Farm, 20f, Maps.<ResourceIdentifier, Float>of(Gold, 100f)),
     ConstructTownHall   (UnitType.TownHall, 20f, Maps.<ResourceIdentifier, Float>of(Gold, 100f)),
-    ConstructCancel;
+    ConstructBarracksCancel (ConstructBarracks),
+    ConstructFarmCancel     (ConstructFarm),
+    ConstructTownhallCancel (ConstructTownHall);
 
     private UnitType type;
     private float time;
     private Map<ResourceIdentifier, Float> resources;
 
-    ConstructActions() {
+    ConstructActions(ConstructActions other) {
+        this.type = other.type;
+        this.time = other.time;
+        this.resources = other.resources;
     }
 
     ConstructActions(UnitType type, float time, Map<ResourceIdentifier, Float> resources) {
