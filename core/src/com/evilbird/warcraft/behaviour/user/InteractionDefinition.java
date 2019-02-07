@@ -19,7 +19,6 @@ import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.layer.map.Map;
 
 import javax.inject.Inject;
 

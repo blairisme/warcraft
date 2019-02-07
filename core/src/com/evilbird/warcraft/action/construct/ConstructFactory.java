@@ -21,13 +21,13 @@ import javax.inject.Inject;
 public class ConstructFactory implements ActionProvider
 {
     private ConstructReporter reporter;
-    private InjectedPool<ConstructSequence> constructPool;
+    private InjectedPool<ConstructAction> constructPool;
     private InjectedPool<ConstructCancel> cancelPool;
 
     @Inject
     public ConstructFactory(
         ConstructReporter reporter,
-        InjectedPool<ConstructSequence> constructPool,
+        InjectedPool<ConstructAction> constructPool,
         InjectedPool<ConstructCancel> cancelPool)
     {
         this.reporter = reporter;
@@ -47,7 +47,7 @@ public class ConstructFactory implements ActionProvider
     }
 
     private Action getConstructAction(ConstructActions action) {
-        ConstructSequence constructAction = constructPool.obtain();
+        ConstructAction constructAction = constructPool.obtain();
         constructAction.setObserver(reporter);
         constructAction.setBuildType(action.getBuildType());
         constructAction.setBuildDuration(action.getBuildDuration());

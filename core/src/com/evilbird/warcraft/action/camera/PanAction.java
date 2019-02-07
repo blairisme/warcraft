@@ -12,7 +12,6 @@ package com.evilbird.warcraft.action.camera;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Positionable;
-import com.evilbird.engine.device.UserInput;
 
 import javax.inject.Inject;
 

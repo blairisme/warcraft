@@ -18,7 +18,7 @@ import com.evilbird.engine.item.Item;
  *
  * @author Blair Butterworth
  */
-public abstract class DelegateAction extends BasicAction
+public class DelegateAction extends BasicAction
 {
     protected Action delegate;
 
@@ -29,13 +29,13 @@ public abstract class DelegateAction extends BasicAction
         this.delegate = delegate;
     }
 
-//    @Override
-//    public Identifier getIdentifier() {
-//        if (delegate != null) {
-//            return delegate.getIdentifier();
-//        }
-//        return super.getIdentifier();
-//    }
+    @Override
+    public boolean act(float delta) {
+        if (delegate != null) {
+            return delegate.act(delta);
+        }
+        return true;
+    }
 
     @Override
     public void setIdentifier(Identifier identifier) {
@@ -60,14 +60,6 @@ public abstract class DelegateAction extends BasicAction
         }
     }
 
-//    @Override
-//    public Item getItem() {
-//        if (delegate != null) {
-//            return delegate.getItem();
-//        }
-//        return super.getItem();
-//    }
-
     @Override
     public void setItem(Item item) {
         super.setItem(item);
@@ -75,14 +67,6 @@ public abstract class DelegateAction extends BasicAction
             delegate.setItem(item);
         }
     }
-
-//    @Override
-//    public Item getTarget() {
-//        if (delegate != null) {
-//            return delegate.getTarget();
-//        }
-//        return super.getTarget();
-//    }
 
     @Override
     public void setTarget(Item target) {

@@ -65,13 +65,13 @@ public class ConstructCancel implements ActionProvider
 
     private Action restoreBuilder(Building building) {
         Item builder = building.getBuilder();
-        Action reposition = new AlignAction(builder, building, Alignment.BottomLeft);
+        //Action reposition = new AlignAction(builder, building, Alignment.BottomLeft);
         Action show = new VisibleAction(builder, true);
-        return new ParallelAction(reposition, show);
+        return new ParallelAction(/*reposition,*/ show);
     }
 
     private Action removeBuilding(Building building) {
-        //Action constructing = new ConstructAction(building, null, false);
+        //Action constructing = new ConstructingAction(building, null, false);
         Action destroy = new DeathAction(building);
         return new ParallelAction(/*constructing,*/ destroy);
     }

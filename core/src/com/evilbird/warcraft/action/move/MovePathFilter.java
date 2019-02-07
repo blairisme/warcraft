@@ -16,7 +16,6 @@ import com.evilbird.engine.item.ItemNode;
 import com.evilbird.warcraft.item.common.capability.Movable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
 /**

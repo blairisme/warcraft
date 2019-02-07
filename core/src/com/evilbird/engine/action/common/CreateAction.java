@@ -78,12 +78,17 @@ public class CreateAction extends BasicAction
     @Override
     public boolean act(float delta) {
         Item item = factory.newItem(type);
-        item.setPosition(position);
+
+        if (position != null) {
+            item.setPosition(position);
+        }
 
         ItemComposite parent = getParent();
         parent.addItem(item);
 
+        dependents.forEach((action) -> action.setTarget(action.getItem()));
         dependents.forEach((action) -> action.setItem(item));
+
         return true;
     }
 

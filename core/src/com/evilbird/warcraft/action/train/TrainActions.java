@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.action.train;
 
 import com.evilbird.engine.action.ActionIdentifier;
+import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 import com.evilbird.warcraft.item.common.capability.ResourceRequirement;
@@ -30,22 +31,26 @@ public enum TrainActions implements ActionIdentifier, ResourceRequirement
 {
     TrainFootman (20f, Footman, Maps.<ResourceIdentifier, Float>of(Gold, 250f)),
     TrainPeasant (20f, Peasant, Maps.<ResourceIdentifier, Float>of(Gold, 100f)),
-    TrainCancel;
+    TrainFootmanCancel(TrainFootman),
+    TrainPeasantCancel(TrainPeasant);
 
-    private float trainTime;
+    private TimeDuration trainTime;
     private UnitType unitType;
     private Map<ResourceIdentifier, Float> unitCost;
 
-    TrainActions() {
+    TrainActions(TrainActions other) {
+        this.trainTime = other.trainTime;
+        this.unitType = other.unitType;
+        this.unitCost = other.unitCost;
     }
 
     TrainActions(float trainTime, UnitType unitType, Map<ResourceIdentifier, Float> unitCost) {
-        this.trainTime = trainTime;
+        this.trainTime = new TimeDuration(trainTime);
         this.unitType = unitType;
         this.unitCost = unitCost;
     }
 
-    public float getTrainTime() {
+    public TimeDuration getTrainTime() {
         return trainTime;
     }
 

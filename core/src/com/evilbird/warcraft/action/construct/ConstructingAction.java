@@ -7,29 +7,31 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.common;
+package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 /**
- * Instances of this class toggle the state indicating if a building is
- * producing something, or not.
+ * Instances of this class toggle the state indicating if a building is under
+ * construction.
  *
  * @author Blair Butterworth
  */
-public class ProducingAction extends BasicAction
+public class ConstructingAction extends BasicAction
 {
-    private boolean producing;
+    private boolean constructing;
 
-    public ProducingAction(boolean producing) {
-        this.producing = producing;
+    public ConstructingAction(boolean constructing) {
+        this.constructing = constructing;
     }
 
     @Override
     public boolean act(float delta) {
         Building building = (Building)getItem();
-        building.setProducing(producing);
+        //building.setBuilder(getTarget());
+        building.setConstructing(constructing);
         return true;
     }
+
 }

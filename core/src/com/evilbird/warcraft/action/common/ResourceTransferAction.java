@@ -13,8 +13,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemOperations;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 import com.evilbird.warcraft.item.data.DataType;
@@ -56,9 +54,8 @@ public class ResourceTransferAction extends BasicAction
         this.deltas = deltas;
     }
 
-    @Override
-    public void setItem(Item item) {
-        super.setItem(item);
+    public Map<ResourceIdentifier, Float> getResourceDeltas() {
+        return deltas;
     }
 
     public void setResourceDeltas(Map<ResourceIdentifier, Float> deltas) {

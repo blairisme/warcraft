@@ -27,27 +27,9 @@ import static com.evilbird.engine.common.function.Suppliers.constantValue;
 public class AlignAction extends BasicAction
 {
     private Alignment alignment;
-    private Supplier<? extends Item> itemSupplier;
-    private Supplier<? extends Item> referenceSupplier;
 
     public AlignAction(Alignment alignment) {
         this.alignment = alignment;
-    }
-
-    @Deprecated
-    public AlignAction(Item item, Item reference, Alignment alignment) {
-        this(constantValue(item), constantValue(reference), alignment);
-    }
-
-    @Deprecated
-    public AlignAction(
-        Supplier<? extends Item> itemSupplier,
-        Supplier<? extends Item> referenceSupplier,
-        Alignment alignment)
-    {
-        this.alignment = alignment;
-        this.itemSupplier = itemSupplier;
-        this.referenceSupplier = referenceSupplier;
     }
 
     @Override

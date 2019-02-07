@@ -12,12 +12,48 @@ package com.evilbird.warcraft.action.train;
 import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.framework.Action;
+import com.evilbird.engine.action.utilities.InjectedPool;
 import com.evilbird.warcraft.action.ActionProvider;
+import org.apache.commons.lang3.Validate;
+
+import javax.inject.Inject;
 
 public class TrainFactory implements ActionProvider
 {
+    private InjectedPool<TrainAction> trainPool;
+    private InjectedPool<TrainCancel> cancelPool;
+
+    @Inject
+    public TrainFactory(InjectedPool<TrainAction> trainPool, InjectedPool<TrainCancel> cancelPool) {
+        this.trainPool = trainPool;
+        this.cancelPool = cancelPool;
+    }
+
     @Override
     public Action get(ActionIdentifier action, ActionContext context) {
-        return null;
+        Validate.isInstanceOf(TrainActions.class, action);
+        TrainActions trainAction = (TrainActions)action;
+
+        switch (trainAction) {
+            case TrainFootman:
+            case TrainPeasant: return getTrainAction(trainAction);
+            case TrainFootmanCancel:
+            case TrainPeasantCancel: return getTrainCancel(trainAction);
+            default: throw new UnsupportedOperationException();
+        }
+    }
+
+    private Action getTrainAction(TrainActions trainAction) {
+        TrainAction action = trainPool.obtain();
+        action.setTrainType(trainAction.getUnitType());
+        action.setTrainDuration(trainAction.getTrainTime());
+        action.setTrainCost(trainAction.getResourceRequirements());
+        return action;
+    }
+
+    private Action getTrainCancel(TrainActions trainAction) {
+        TrainCancel action = cancelPool.obtain();
+        action.setTrainCost(trainAction.getResourceRequirements());
+        return action;
     }
 }

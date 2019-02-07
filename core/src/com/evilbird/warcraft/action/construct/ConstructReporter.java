@@ -19,14 +19,24 @@ import javax.inject.Inject;
 public class ConstructReporter implements ConstructObserver
 {
     private Events events;
+    private boolean reported;
 
     @Inject
     public ConstructReporter(Events events) {
         this.events = events;
+        this.reported = false;
     }
 
     @Override
     public void onConstruct(Item builder, ItemType type, Vector2 location) {
-        events.add(new ConstructEvent(builder, type, location));
+        if (! reported) {
+            reported = true;
+            events.add(new ConstructEvent(builder, type, location));
+        }
+    }
+
+    @Override
+    public void reset() {
+        reported = false;
     }
 }

@@ -22,8 +22,8 @@ import com.evilbird.warcraft.action.camera.CameraFactory;
 import com.evilbird.warcraft.action.common.CancelActions;
 import com.evilbird.warcraft.action.confirm.ConfirmActions;
 import com.evilbird.warcraft.action.confirm.ConfirmFactory;
-import com.evilbird.warcraft.action.construct.ConstructFactory;
 import com.evilbird.warcraft.action.construct.ConstructActions;
+import com.evilbird.warcraft.action.construct.ConstructFactory;
 import com.evilbird.warcraft.action.gather.GatherActions;
 import com.evilbird.warcraft.action.gather.GatherCancel;
 import com.evilbird.warcraft.action.gather.GatherGold;
@@ -36,8 +36,8 @@ import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
 import com.evilbird.warcraft.action.placeholder.PlaceholderFactory;
 import com.evilbird.warcraft.action.select.SelectActions;
 import com.evilbird.warcraft.action.select.SelectFactory;
-import com.evilbird.warcraft.action.train.Train;
 import com.evilbird.warcraft.action.train.TrainActions;
+import com.evilbird.warcraft.action.train.TrainFactory;
 
 import javax.inject.Inject;
 import java.util.HashMap;
@@ -50,7 +50,6 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-//TODO: Consider using an action pool
 public class WarcraftActionFactory implements ActionFactory
 {
     private Map<ActionIdentifier, ActionProvider> actions;
@@ -68,7 +67,7 @@ public class WarcraftActionFactory implements ActionFactory
         NavigateFactory navigateFactory,
         PlaceholderFactory placeholderFactory,
         SelectFactory selectFactory,
-        Train trainProvider)
+        TrainFactory trainFactory)
     {
         actions = new HashMap<>();
 
@@ -85,8 +84,7 @@ public class WarcraftActionFactory implements ActionFactory
         registerProvider(NavigateActions.values(), navigateFactory);
         registerProvider(PlaceholderActions.values(), placeholderFactory);
         registerProvider(SelectActions.values(), selectFactory);
-
-        registerProvider(TrainActions.values(), trainProvider);
+        registerProvider(TrainActions.values(), trainFactory);
     }
 
     @Override
