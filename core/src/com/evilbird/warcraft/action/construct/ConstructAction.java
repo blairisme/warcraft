@@ -18,8 +18,9 @@ import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.warcraft.action.common.ProgressAction;
-import com.evilbird.warcraft.action.common.ResourceTransferAction;
+import com.evilbird.warcraft.action.common.production.ProgressAction;
+import com.evilbird.warcraft.action.common.resource.ResourceTransferAction;
+import com.evilbird.warcraft.action.common.resource.ResourceTransferRelay;
 import com.evilbird.warcraft.action.move.MoveToItem;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 import com.evilbird.warcraft.item.common.resource.ResourceUtils;
@@ -40,7 +41,8 @@ import static com.evilbird.engine.action.common.ActionTarget.Target;
  */
 public class ConstructAction extends DelegateAction
 {
-    private ConstructObserver observer;
+   // private ConstructObserver observer;
+    private ResourceTransferRelay relay;
     private ResourceTransferAction purchaseBuilding;
     private CreateAction createBuilding;
     private ProgressAction progressAction;
@@ -74,19 +76,14 @@ public class ConstructAction extends DelegateAction
     }
 
     public void setObserver(ConstructObserver observer) {
-        this.observer = observer;
+        //this.observer = observer;
+        this.relay.setDelegate(observer);
     }
 
     @Override
     public boolean act(float delta) {
-        observer.onConstruct(getItem(), createBuilding.getType(), createBuilding.getPosition());
+        //observer.onConstruct(getItem(), createBuilding.getType(), createBuilding.getPosition());
         return delegate.act(delta);
-    }
-
-    @Override
-    public void reset() {
-        super.reset();
-        observer.reset();
     }
 
     private Action initialize() {
@@ -96,7 +93,8 @@ public class ConstructAction extends DelegateAction
     }
 
     private Action initializeState() {
-        purchaseBuilding = new ResourceTransferAction(Player);
+        relay = new ResourceTransferRelay();
+        purchaseBuilding = new ResourceTransferAction(Player, relay);
         Action removePlaceholder = new RemoveAction(Target);
         return new ParallelAction(removePlaceholder, purchaseBuilding);
     }

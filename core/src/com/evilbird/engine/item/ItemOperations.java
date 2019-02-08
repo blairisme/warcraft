@@ -23,8 +23,6 @@ import static com.evilbird.engine.item.ItemComparators.closestItem;
 import static com.evilbird.engine.item.ItemPredicates.itemWithType;
 import static com.evilbird.engine.item.ItemPredicates.selectableItem;
 
-;
-
 /**
  * Instances of this class contain common item lookup utility functions.
  *
@@ -44,16 +42,19 @@ public class ItemOperations
         return null;
     }
 
-    public static Item findAncestorByType(Item item, Identifier type) {
+    public static Item findAncestor(Item item, Predicate<Item> predicate) {
         Item parent = item.getParent();
-
         while (parent != null) {
-            if (Objects.equals(parent.getType(), type)) {
+            if (predicate.test(parent)) {
                 return parent;
             }
             parent = parent.getParent();
         }
-        throw new IllegalStateException("Illegal item hierarchy - missing player");
+        return null;
+    }
+
+    public static Item findAncestorByType(Item item, Identifier type) {
+        return findAncestor(item, itemWithType(type));
     }
 
     public static Vector2 getScreenCenter(ItemRoot root) {

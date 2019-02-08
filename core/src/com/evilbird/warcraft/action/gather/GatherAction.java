@@ -16,16 +16,17 @@ import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemType;
-import com.evilbird.warcraft.action.common.AnimationAliasAction;
-import com.evilbird.warcraft.action.common.ResourceTransferAction;
+import com.evilbird.warcraft.action.common.animation.AnimationAliasAction;
+import com.evilbird.warcraft.action.common.resource.ResourceTransferAction;
+import com.evilbird.warcraft.action.common.resource.ResourceTransferRelay;
 import com.evilbird.warcraft.action.move.MoveToItem;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import static com.evilbird.engine.item.ItemOperations.findClosest;
 import static com.evilbird.warcraft.action.common.ActionPredicates.isTargetAlive;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.getHumanPlayer;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.getGatherAnimation;
-import static com.evilbird.warcraft.item.unit.UnitPredicates.getHumanPlayer;
 
 /**
  * Instances of this class provide common gathering functionality.
@@ -44,8 +45,10 @@ public abstract class GatherAction extends DelegateAction
 {
     private Action obtainSequence;
     private Action depositSequence;
+    private ResourceTransferRelay relay;
 
     public GatherAction() {
+        relay = new ResourceTransferRelay();
         obtainSequence = obtainSequence();
         depositSequence = depositSequence();
 
@@ -69,6 +72,10 @@ public abstract class GatherAction extends DelegateAction
         }
     }
 
+    public void setObserver(GatherObserver observer) {
+        this.relay.setDelegate(observer);
+    }
+
     protected Action obtainSequence() {
         Action move = new MoveToItem();
         Action preObtain = preObtainAnimation();
@@ -78,10 +85,10 @@ public abstract class GatherAction extends DelegateAction
     }
 
     protected Action obtainResources() {
-        Action transferDelay = new DelayedAction(getGatherSpeed(), isTargetAlive());
-        Action transferFrom = new ResourceTransferAction(ActionTarget.Target, getResourceVariety(), getGatherCapacity() * -1);
-        Action transferTo = new ResourceTransferAction(ActionTarget.Item, getResourceVariety(), getGatherCapacity());
+        Action transferFrom = new ResourceTransferAction(ActionTarget.Target, getResourceVariety(), getGatherCapacity() * -1, relay);
+        Action transferTo = new ResourceTransferAction(ActionTarget.Item, getResourceVariety(), getGatherCapacity(), relay);
         Action transferAction = new ParallelAction(transferFrom, transferTo);
+        Action transferDelay = new DelayedAction(getGatherSpeed(), isTargetAlive());
         return new SequenceAction(transferDelay, transferAction);
     }
 
@@ -114,8 +121,8 @@ public abstract class GatherAction extends DelegateAction
     }
 
     protected Action depositAction() {
-        Action transferFrom = new ResourceTransferAction(ActionTarget.Item, getResourceVariety(), getGatherCapacity() * -1);
-        Action transferTo = new ResourceTransferAction(ActionTarget.Player, getResourceVariety(), getGatherCapacity());
+        Action transferFrom = new ResourceTransferAction(ActionTarget.Item, getResourceVariety(), getGatherCapacity() * -1, relay);
+        Action transferTo = new ResourceTransferAction(ActionTarget.Player, getResourceVariety(), getGatherCapacity(), relay);
         Action transfer = new ParallelAction(transferFrom, transferTo);
         Action transferDelay = new DelayedAction(new TimeDuration(5f), isTargetAlive());
         return new SequenceAction(transfer, transferDelay);
@@ -128,7 +135,7 @@ public abstract class GatherAction extends DelegateAction
         return new ParallelAction(deselect, disable, hide);
     }
 
-    private Action postDepositAction() {
+    protected Action postDepositAction() {
         Action resetMove = new AnimationAliasAction(UnitAnimation.Move, UnitAnimation.MoveBasic);
         Action animate = new AnimationAliasAction(UnitAnimation.Idle, UnitAnimation.IdleBasic);
         Action enable = new DisableAction(true);

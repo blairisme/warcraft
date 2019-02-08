@@ -40,10 +40,6 @@ public class TimeDuration implements ActionDuration
         return total / duration;
     }
 
-    public float getProgressPercentage() {
-        return getProgress() * 100;
-    }
-
     @Override
     public void restart() {
         this.total = 0;

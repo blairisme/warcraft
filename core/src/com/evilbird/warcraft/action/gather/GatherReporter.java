@@ -7,30 +7,22 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.construct;
+package com.evilbird.warcraft.action.gather;
 
-import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.event.Events;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 
 import javax.inject.Inject;
 
-public class ConstructReporter implements ConstructObserver
+public class GatherReporter implements GatherObserver
 {
     private Events events;
 
     @Inject
-    public ConstructReporter(Events events) {
+    public GatherReporter(Events events) {
         this.events = events;
-    }
-
-    @Override
-    public void onConstruct(Item builder, ItemType type, Vector2 location) {
-        events.add(new ConstructEvent(builder, type, location));
     }
 
     @Override

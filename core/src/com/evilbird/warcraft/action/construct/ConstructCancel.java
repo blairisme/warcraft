@@ -17,7 +17,7 @@ import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.attack.DeathAction;
-import com.evilbird.warcraft.action.common.ResourceTransferAction;
+import com.evilbird.warcraft.action.common.resource.ResourceTransferAction;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 import com.evilbird.warcraft.item.common.resource.ResourceUtils;
 import com.evilbird.warcraft.item.unit.building.Building;

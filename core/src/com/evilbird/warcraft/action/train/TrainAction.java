@@ -17,8 +17,11 @@ import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.warcraft.action.common.ProduceAction;
-import com.evilbird.warcraft.action.common.ResourceTransferAction;
+import com.evilbird.warcraft.action.common.production.ProduceAction;
+import com.evilbird.warcraft.action.common.resource.ResourceTransferAction;
+import com.evilbird.warcraft.action.common.resource.ResourceTransferObserver;
+import com.evilbird.warcraft.action.common.resource.ResourceTransferRelay;
+import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 import com.evilbird.warcraft.item.common.resource.ResourceUtils;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -41,10 +44,12 @@ public class TrainAction extends DelegateAction
     private CreateAction create;
     private ProduceAction produce;
     private ResourceTransferAction purchase;
+    private ResourceTransferRelay relay;
 
     @Inject
     public TrainAction(ItemFactory itemFactory) {
-        purchase = new ResourceTransferAction(ActionTarget.Player);
+        relay = new ResourceTransferRelay();
+        purchase = new ResourceTransferAction(ActionTarget.Player, relay);
         produce = new ProduceAction();
         Action create = createUnit(itemFactory);
         delegate = new SequenceAction(purchase, produce, create);
@@ -65,6 +70,10 @@ public class TrainAction extends DelegateAction
 
     public void setTrainDuration(TimeDuration duration) {
         this.produce.setDuration(duration);
+    }
+
+    public void setObserver(TrainObserver observer) {
+        this.relay.setDelegate(observer);
     }
 
     private Action createUnit(ItemFactory itemFactory) {

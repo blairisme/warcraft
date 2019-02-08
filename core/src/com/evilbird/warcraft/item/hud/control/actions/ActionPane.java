@@ -36,20 +36,22 @@ import java.util.*;
 public class ActionPane extends GridPane implements Navigable
 {
     private Collection<Item> selection;
-    private Map<ResourceIdentifier, Float> resources;
+//    private Map<ResourceIdentifier, Float> resources;
     private ActionButtonProvider buttonProvider;
     private ActionPaneLayout layout;
     private boolean cancelShown;
+    private boolean invalidated;
 
     @Inject
     public ActionPane(ActionButtonProvider buttonProvider) {
         super(3, 3);
 
         this.buttonProvider = buttonProvider;
-        this.selection = Collections.emptyList();
-        this.resources = Collections.emptyMap();
+        this.selection = new ArrayList<>();
+//        this.resources = Collections.emptyMap();
         this.layout = ActionPaneLayout.Actions;
         this.cancelShown = false;
+        this.invalidated = true;
 
         setSize(176, 176);
         setCellPadding(3);
@@ -60,11 +62,20 @@ public class ActionPane extends GridPane implements Navigable
         setTouchable(Touchable.childrenOnly);
     }
 
-    public void setSelection(Collection<Item> newSelection) {
-        if (viewInvalidated(newSelection)) {
-            resetLayout();
-            updateModel(newSelection);
-            updateView(newSelection);
+    public void updateSelection(Collection<Item> newSelection) {
+        selection.clear();
+        selection.addAll(newSelection);
+        layout = ActionPaneLayout.Actions;
+        invalidated = true;
+    }
+
+    public void updateSelection(Item item, boolean selected) {
+        layout = ActionPaneLayout.Actions;
+        invalidated = true;
+        if (selected) {
+            selection.add(item);
+        } else {
+            selection.remove(item);
         }
     }
 
@@ -72,54 +83,19 @@ public class ActionPane extends GridPane implements Navigable
     public void navigate(Identifier location) {
         Validate.isInstanceOf(ActionPaneLayout.class, location);
         layout = (ActionPaneLayout)location;
-        updateModel(selection);
-        updateView(selection);
+        invalidated = true;
     }
 
-    private boolean viewInvalidated(Collection<Item> newSelection) {
-        return selectionUpdated(newSelection) || actionsUpdated(newSelection); //|| resourcesUpdated(newSelection);
-    }
-
-    private boolean selectionUpdated(Collection<Item> newSelection) {
-        return ! Objects.equals(selection, newSelection);
-    }
-
-    private boolean actionsUpdated(Collection<Item> newSelection) {
-        boolean showCancel = hasAction(newSelection);
-        return cancelShown != showCancel;
-    }
-
-    private boolean resourcesUpdated(Collection<Item> newSelection) {
-        Map<ResourceIdentifier, Float> newResources = getResources(newSelection);
-        return ! Objects.equals(resources, newResources);
-    }
-
-    private boolean hasAction(Collection<Item> selection) {
-        if (selection.size() == 1) {
-            return selection.iterator().next().hasActions();
+    @Override
+    public void update(float delta) {
+        super.update(delta);
+        if (invalidated) {
+            invalidated = false;
+            updateView();
         }
-        return false;
     }
 
-    private Map<ResourceIdentifier, Float> getResources(Collection<Item> selection) {
-        if (! selection.isEmpty()) {
-            Item item = selection.iterator().next();
-            Item player = ItemOperations.findAncestorByType(item, DataType.Player);
-            return new HashMap<>(((ResourceContainer)player).getResources());
-        }
-        return Collections.emptyMap();
-    }
-
-    private void resetLayout() {
-        layout = ActionPaneLayout.Actions;
-    }
-
-    private void updateModel(Collection<Item> newSelection) {
-        selection = newSelection;
-        resources = getResources(newSelection);
-    }
-
-    private void updateView(Collection<Item> selection) {
+    private void updateView() {
         clearCells();
 
         if (layout == ActionPaneLayout.Actions && hasAction(selection)){
@@ -128,6 +104,13 @@ public class ActionPane extends GridPane implements Navigable
         else {
             showActions(selection);
         }
+    }
+
+    private boolean hasAction(Collection<Item> selection) {
+        if (selection.size() == 1) {
+            return selection.iterator().next().hasActions();
+        }
+        return false;
     }
 
     private void showCancelAction() {
@@ -204,5 +187,44 @@ public class ActionPane extends GridPane implements Navigable
 //            }
 //        }
 //        return true;
+//    }
+
+
+
+
+//    private boolean viewInvalidated(Collection<Item> newSelection) {
+//        return selectionUpdated(newSelection) || actionsUpdated(newSelection); //|| resourcesUpdated(newSelection);
+//    }
+//
+//    private boolean selectionUpdated(Collection<Item> newSelection) {
+//        return ! Objects.equals(selection, newSelection);
+//    }
+//
+//    private boolean actionsUpdated(Collection<Item> newSelection) {
+//        boolean showCancel = hasAction(newSelection);
+//        return cancelShown != showCancel;
+//    }
+//
+//    private boolean resourcesUpdated(Collection<Item> newSelection) {
+//        Map<ResourceIdentifier, Float> newResources = getResources(newSelection);
+//        return ! Objects.equals(resources, newResources);
+//    }
+//
+//    private Map<ResourceIdentifier, Float> getResources(Collection<Item> selection) {
+//        if (! selection.isEmpty()) {
+//            Item item = selection.iterator().next();
+//            Item player = ItemOperations.findAncestorByType(item, DataType.Player);
+//            return new HashMap<>(((ResourceContainer)player).getResources());
+//        }
+//        return Collections.emptyMap();
+//    }
+//
+//    private void resetLayout() {
+//        layout = ActionPaneLayout.Actions;
+//    }
+//
+//    private void updateModel(Collection<Item> newSelection) {
+//        selection = newSelection;
+//        resources = getResources(newSelection);
 //    }
 }

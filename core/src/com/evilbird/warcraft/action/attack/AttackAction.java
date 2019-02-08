@@ -14,7 +14,7 @@ import com.evilbird.engine.action.common.RepeatedAudibleAction;
 import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.engine.action.framework.*;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.common.AnimatedAction;
+import com.evilbird.warcraft.action.common.animation.AnimatedAction;
 import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.move.MoveFactory;
 import com.evilbird.warcraft.item.unit.UnitAnimation;

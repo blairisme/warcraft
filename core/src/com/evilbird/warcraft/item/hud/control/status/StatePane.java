@@ -31,6 +31,7 @@ public class StatePane extends ItemGroup
     private DetailsPane detailsPane;
     private SelectionPane selectionPane;
     private Collection<Item> selection;
+    private boolean invalidated;
 
     @Inject
     public StatePane(
@@ -39,19 +40,40 @@ public class StatePane extends ItemGroup
     {
         this.detailsPane = detailsPaneProvider.get();
         this.selectionPane = selectionPaneProvider.get();
+        this.selection = new ArrayList<>();
+        this.invalidated = true;
+
         addItem(selectionPane);
-        setSize(176, 176); //TODO: scale flexibly
+        setSize(176, 176);
         setId(HudControls.StatePane);
         setType(HudControls.StatePane);
         setTouchable(Touchable.childrenOnly);
     }
 
-    public void setSelection(Collection<Item> newSelection) {
-        if (!Objects.equals(selection, newSelection)) {
-            selection = newSelection;
-            clearItems();
+    public void updateSelection(Item item, boolean selected) {
+        invalidated = true;
+        if (selected) {
+            selection.add(item);
+        } else {
+            selection.remove(item);
+        }
+    }
 
+    public void updateSelection(Collection<Item> newSelection) {
+        selection.clear();
+        selection.addAll(newSelection);
+        invalidated = true;
+    }
+
+    @Override
+    public void update(float delta) {
+        super.update(delta);
+        if (invalidated) {
+            invalidated = false;
+
+            clearItems();
             Collection<Item> items = removeHudElements(selection);
+
             if (items.size() == 1) {
                 detailsPane.setItem(items.iterator().next());
                 addItem(detailsPane);

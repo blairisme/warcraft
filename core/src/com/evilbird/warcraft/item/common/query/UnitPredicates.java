@@ -7,13 +7,15 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.unit;
+package com.evilbird.warcraft.item.common.query;
 
 import com.evilbird.engine.common.function.Predicate;
+import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.unit.Unit;
 
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.item.ItemOperations.findAncestorByType;
@@ -49,12 +51,7 @@ public class UnitPredicates
         };
     }
 
-    public static Player getHumanPlayer(Item worldItem) {
-        ItemRoot root = worldItem.getRoot();
-        return (Player)root.find(both(itemWithType(DataType.Player), isHuman()));
-    }
-
-    public static Player getAncestorPlayer(Item worldItem) {
-        return (Player)findAncestorByType(worldItem, DataType.Player);
+    public static Predicate<Item> isPlayer() {
+        return (item) -> Objects.equals(item.getType(), DataType.Player);
     }
 }

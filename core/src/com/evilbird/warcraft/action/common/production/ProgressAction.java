@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.common;
+package com.evilbird.warcraft.action.common.production;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
@@ -40,18 +40,6 @@ public class ProgressAction extends BasicAction
     }
 
     @Override
-    public void restart() {
-        super.restart();
-        if (duration != null) {
-            duration.restart();
-        }
-        Building building = (Building)getItem();
-        if (building != null) {
-            building.setProgress(0f);
-        }
-    }
-
-    @Override
     public boolean act(float delta) {
         Building building = (Building)getItem();
         if (! duration.isComplete(delta)) {
@@ -61,6 +49,33 @@ public class ProgressAction extends BasicAction
         else {
             building.setProgress(0f);
             return true;
+        }
+    }
+
+    @Override
+    public void restart() {
+        super.restart();
+        resetDuration();
+        resetProgress();
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        resetDuration();
+        resetProgress();
+    }
+
+    private void resetDuration() {
+        if (duration != null) {
+            duration.restart();
+        }
+    }
+
+    private void resetProgress() {
+        Building building = (Building)getItem();
+        if (building != null) {
+            building.setProgress(0f);
         }
     }
 }

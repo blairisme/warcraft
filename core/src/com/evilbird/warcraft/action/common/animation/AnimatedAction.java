@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.common;
+package com.evilbird.warcraft.action.common.animation;
 
 import com.evilbird.engine.action.common.AnimateAction;
 import com.evilbird.engine.action.framework.Action;

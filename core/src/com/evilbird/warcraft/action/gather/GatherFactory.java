@@ -20,16 +20,19 @@ import javax.inject.Inject;
 
 public class GatherFactory implements ActionProvider
 {
+    private GatherReporter reporter;
     private InjectedPool<GatherGold> goldPool;
     private InjectedPool<GatherWood> woodPool;
     private InjectedPool<GatherCancel> cancelPool;
 
     @Inject
     public GatherFactory(
+        GatherReporter reporter,
         InjectedPool<GatherGold> goldPool,
         InjectedPool<GatherWood> woodPool,
         InjectedPool<GatherCancel> cancelPool)
     {
+        this.reporter = reporter;
         this.goldPool = goldPool;
         this.woodPool = woodPool;
         this.cancelPool = cancelPool;
@@ -49,17 +52,18 @@ public class GatherFactory implements ActionProvider
     }
 
     private Action getGatherGoldAction() {
-        Action result = goldPool.obtain();
+        GatherGold result = goldPool.obtain();
+        result.setObserver(reporter);
         return result;
     }
 
     private Action getGatherWoodAction() {
-        Action result = woodPool.obtain();
+        GatherWood result = woodPool.obtain();
+        result.setObserver(reporter);
         return result;
     }
 
     private Action getGatherCancelAction() {
-        Action result = cancelPool.obtain();
-        return result;
+        return cancelPool.obtain();
     }
 }
