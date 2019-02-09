@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.action.confirm;
 
-import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.utilities.InjectedPool;
@@ -32,7 +31,7 @@ public class ConfirmFactory implements ActionProvider
     }
 
     @Override
-    public Action get(ActionIdentifier action, ActionContext context) {
+    public Action get(ActionIdentifier action) {
         switch ((ConfirmActions)action) {
             case ConfirmLocation: return locationPool.obtain();
             case ConfirmTarget: return itemPool.obtain();

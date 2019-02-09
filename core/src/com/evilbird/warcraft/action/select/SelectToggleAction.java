@@ -41,7 +41,7 @@ public class SelectToggleAction extends DelegateAction
     @Override
     public void setItem(Item item) {
         super.setItem(item);
-        boolean selected = item != null && !item.getSelected();
+        boolean selected = item != null && item.getSelectable() && !item.getSelected();
         select.setSelected(selected);
         audio.setSound(selected ? UnitSound.Selected : null);
     }

@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.action.train;
 
-import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.utilities.InjectedPool;
@@ -36,7 +35,7 @@ public class TrainFactory implements ActionProvider
     }
 
     @Override
-    public Action get(ActionIdentifier action, ActionContext context) {
+    public Action get(ActionIdentifier action) {
         Validate.isInstanceOf(TrainActions.class, action);
         TrainActions trainAction = (TrainActions)action;
 

@@ -23,14 +23,12 @@ import com.evilbird.engine.common.persistence.Persisted;
 public interface ActionFactory extends Persisted
 {
     /**
-     * Returns an {@link Action} with the given {@link Identifier} applied to
-     * the given {@link ActionContext}.
+     * Returns an {@link Action} with the given {@link Identifier}.
      *
      * @param identifier    the identifier of the desired action.
-     * @param context       the context to which the action applies.
      * @return              the desired action.
      * @throws UnknownActionException   thrown if an action with the given
      *                                  identifier doesn't exist.
      */
-    Action newAction(ActionIdentifier identifier, ActionContext context);
+    Action newAction(ActionIdentifier identifier);
 }

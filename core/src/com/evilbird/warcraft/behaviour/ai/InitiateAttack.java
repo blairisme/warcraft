@@ -9,9 +9,7 @@
 
 package com.evilbird.warcraft.behaviour.ai;
 
-import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionFactory;
-import com.evilbird.engine.action.BasicActionContext;
 import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.common.collection.Collections;
 import com.evilbird.engine.item.Item;
@@ -72,8 +70,7 @@ public class InitiateAttack extends PeriodicProcedure
     }
 
     private void attack(Combatant combatant, Item target) {
-        ActionContext context = new BasicActionContext(combatant, target, null);
-        Action action = actionFactory.newAction(AttackActions.AttackMelee, context);
+        Action action = actionFactory.newAction(AttackActions.AttackMelee);
         action.setTarget(target);
         combatant.addAction(action);
     }

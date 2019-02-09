@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.action.gather;
 
-import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.utilities.InjectedPool;
@@ -39,7 +38,7 @@ public class GatherFactory implements ActionProvider
     }
 
     @Override
-    public Action get(ActionIdentifier action, ActionContext context) {
+    public Action get(ActionIdentifier action) {
         Validate.isInstanceOf(GatherActions.class, action);
         GatherActions gatherAction = (GatherActions)action;
 

@@ -9,14 +9,13 @@
 
 package com.evilbird.warcraft.action.move;
 
-import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.action.utilities.InjectedPool;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.common.CancelAction;
+import com.evilbird.warcraft.action.common.cancel.CancelAction;
 
 import javax.inject.Inject;
 
@@ -48,7 +47,7 @@ public class MoveFactory implements ActionProvider
     }
 
     @Override
-    public Action get(ActionIdentifier action, ActionContext context) {
+    public Action get(ActionIdentifier action) {
         switch((MoveActions)action) {
             case MoveToLocation: return getMoveToLocationAction();
             case MoveToItem: return moveToItemAction();

@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.action;
 
-import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.framework.Action;
 
@@ -21,5 +20,5 @@ import com.evilbird.engine.action.framework.Action;
  */
 public interface ActionProvider
 {
-    Action get(ActionIdentifier action, ActionContext context);
+    Action get(ActionIdentifier action);
 }

@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.action;
 
-import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.UnknownActionException;
@@ -83,10 +82,10 @@ public class WarcraftActionFactory implements ActionFactory
     }
 
     @Override
-    public Action newAction(ActionIdentifier identifier, ActionContext context) {
+    public Action newAction(ActionIdentifier identifier) {
         ActionProvider provider = actions.get(identifier);
         if (provider != null) {
-            Action result = provider.get(identifier, context);
+            Action result = provider.get(identifier);
             updateIdentifier(result, identifier);
             return result;
         }

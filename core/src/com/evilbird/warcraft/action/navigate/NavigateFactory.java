@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.action.navigate;
 
-import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.common.NavigateAction;
@@ -35,7 +34,7 @@ public class NavigateFactory implements ActionProvider
     }
 
     @Override
-    public Action get(ActionIdentifier identifier, ActionContext context) {
+    public Action get(ActionIdentifier identifier) {
         Validate.isInstanceOf(NavigateActions.class, identifier);
         NavigateActions navigateAction = (NavigateActions)identifier;
 

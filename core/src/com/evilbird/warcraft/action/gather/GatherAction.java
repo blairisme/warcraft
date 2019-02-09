@@ -24,7 +24,7 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import static com.evilbird.engine.item.ItemOperations.findClosest;
-import static com.evilbird.warcraft.action.common.ActionPredicates.isTargetAlive;
+import static com.evilbird.warcraft.action.common.query.ActionPredicates.isTargetAlive;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getHumanPlayer;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.getGatherAnimation;
 

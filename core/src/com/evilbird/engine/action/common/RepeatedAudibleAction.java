@@ -14,7 +14,7 @@ import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
 
-import static com.evilbird.warcraft.action.common.ActionPredicates.counter;
+import static com.evilbird.warcraft.action.common.query.ActionPredicates.counter;
 
 /**
  * Instances of this class represent an {@link Action} that plays a sound

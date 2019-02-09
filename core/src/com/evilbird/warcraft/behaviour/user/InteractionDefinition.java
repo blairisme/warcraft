@@ -9,10 +9,8 @@
 
 package com.evilbird.warcraft.behaviour.user;
 
-import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.action.BasicActionContext;
 import com.evilbird.engine.action.framework.Action;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Objects;
@@ -121,11 +119,9 @@ public class InteractionDefinition implements Interaction
     public void update(UserInput input, Item item, Item selected) {
         Item primary = getPrimary(item, selected);
         Item secondary = getSecondary(item, selected);
-
-        ActionContext context = new BasicActionContext(primary, secondary, input);
-        Action action = factory.newAction(actionType, context);
-
         Item subject = getSubject(primary);
+
+        Action action = factory.newAction(actionType);
         subject.addAction(action);
 
         action.setItem(primary);

@@ -22,7 +22,6 @@ import com.evilbird.warcraft.item.hud.HudControls;
 import com.evilbird.warcraft.item.hud.control.actions.ActionPane;
 import com.evilbird.warcraft.item.hud.control.status.StatePane;
 import com.evilbird.warcraft.item.hud.resource.ResourcePane;
-import com.evilbird.warcraft.item.unit.resource.Resource;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import javax.inject.Inject;

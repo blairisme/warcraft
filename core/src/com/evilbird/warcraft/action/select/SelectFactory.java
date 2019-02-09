@@ -9,10 +9,8 @@
 
 package com.evilbird.warcraft.action.select;
 
-import com.evilbird.engine.action.ActionContext;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.framework.Action;
-import com.evilbird.engine.action.framework.EmptyAction;
 import com.evilbird.engine.action.utilities.InjectedPool;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionProvider;
@@ -36,13 +34,9 @@ public class SelectFactory implements ActionProvider
     }
 
     @Override
-    public Action get(ActionIdentifier action, ActionContext context) {
-        Item item = context.getItem();
-        if (item.getSelectable()) {
-            SelectToggleAction toggle = pool.obtain();
-            toggle.setObserver(reporter);
-            return toggle;
-        }
-        return new EmptyAction();
+    public Action get(ActionIdentifier action) {
+        SelectToggleAction toggle = pool.obtain();
+        toggle.setObserver(reporter);
+        return toggle;
     }
 }

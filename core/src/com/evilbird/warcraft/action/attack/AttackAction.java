@@ -24,8 +24,8 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.utilities.ActionPredicates.noError;
-import static com.evilbird.warcraft.action.common.ActionPredicates.isTargetAlive;
-import static com.evilbird.warcraft.action.common.ActionPredicates.withinRange;
+import static com.evilbird.warcraft.action.common.query.ActionPredicates.isTargetAlive;
+import static com.evilbird.warcraft.action.common.query.ActionPredicates.withinRange;
 
 /**
  * Instances of this {@link Action} cause a given {@link Item} to attack
@@ -68,7 +68,7 @@ public class AttackAction extends DelegateAction
     }
 
     private Action reposition(MoveFactory moveFactory) {
-        Action reposition = moveFactory.get(MoveActions.MoveToItem, null);
+        Action reposition = moveFactory.get(MoveActions.MoveToItem);
         Action animation = new AnimatedAction(reposition, UnitAnimation.Move, UnitAnimation.Idle);
         Action move = new RequirementAction(animation, noError());
         Action reorient = new DirectionAction();

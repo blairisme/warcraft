@@ -12,18 +12,16 @@ package com.evilbird.warcraft.item.hud.control.actions;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Navigable;
-import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemOperations;
 import com.evilbird.engine.item.control.GridPane;
-import com.evilbird.warcraft.item.common.capability.ResourceContainer;
-import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
-import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.hud.HudControls;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Instances of this class show a grid of buttons representing the actions that

@@ -12,14 +12,9 @@ package com.evilbird.warcraft.item.common.query;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.Unit;
-
-import static com.evilbird.engine.common.function.Predicates.both;
-import static com.evilbird.engine.item.ItemOperations.findAncestorByType;
-import static com.evilbird.engine.item.ItemPredicates.itemWithType;
 
 /**
  * Defines commonly used {@link Predicate Predicates} that operate on
