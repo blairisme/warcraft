@@ -25,6 +25,7 @@ public class Unit extends AnimatedItem implements Destroyable
 {
     private String name;
     private Drawable icon;
+    private int sight;
     private int defence;
     private float health;
     private float healthMaximum;
@@ -33,6 +34,7 @@ public class Unit extends AnimatedItem implements Destroyable
     public Unit() {
         name = "Unknown";
         icon = null;
+        sight = 0;
         defence = 0;
         health = 0;
         healthMaximum = 0;
@@ -64,6 +66,10 @@ public class Unit extends AnimatedItem implements Destroyable
         return name;
     }
 
+    public int getSight() {
+        return sight;
+    }
+
     public void setDefence(int defence) {
         this.defence = defence;
     }
@@ -82,5 +88,9 @@ public class Unit extends AnimatedItem implements Destroyable
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setSight(int sight) {
+        this.sight = sight;
     }
 }

@@ -11,6 +11,7 @@ import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.event.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.layer.LayerType;
 
@@ -23,34 +24,32 @@ import javax.inject.Inject;
  */
 public class FogProvider implements IdentifiedAssetProvider<Item>
 {
+    private Events events;
     private AssetManager assets;
 
     @Inject
-    public FogProvider(Device device)
-    {
-        assets = device.getAssetStorage().getAssets();
+    public FogProvider(Device device, Events events) {
+        this.assets = device.getAssetStorage().getAssets();
+        this.events = events;
     }
 
     @Override
-    public void load()
-    {
+    public void load() {
         assets.load("data/textures/neutral/winter/terrain.png", Texture.class);
     }
 
     @Override
-    public Item get(Identifier identifier)
-    {
-        if (Objects.equals(identifier, LayerType.OpaqueFog)){
-            return new Fog(getOpaqueTextureSet());
+    public Item get(Identifier identifier) {
+        if (Objects.equals(identifier, LayerType.OpaqueFog)) {
+            return new Fog(getOpaqueTextureSet(), events);
         }
-        if (Objects.equals(identifier, LayerType.TransparentFog)){
+        if (Objects.equals(identifier, LayerType.TransparentFog)) {
             throw new UnsupportedOperationException("Not yet implemented");
         }
         return null;
     }
 
-    private FogTileSet getOpaqueTextureSet()
-    {
+    private FogTileSet getOpaqueTextureSet() {
         Texture opaqueTexture = getOpaqueTexture();
         Texture terrainTexture = getTerrainTexture();
 
@@ -75,23 +74,20 @@ public class FogProvider implements IdentifiedAssetProvider<Item>
         return result;
     }
 
-    private Texture getOpaqueTexture()
-    {
+    private Texture getOpaqueTexture() {
         Pixmap pixmap = new Pixmap(32, 32, Pixmap.Format.RGBA8888);
         pixmap.setColor(0, 0, 0, 1);
         pixmap.fillRectangle(0, 0, 32, 32);
         return new Texture(pixmap);
     }
 
-    private Texture getTerrainTexture()
-    {
+    private Texture getTerrainTexture() {
         Texture texture = assets.get("data/textures/neutral/winter/terrain.png", Texture.class);
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Nearest);
         return texture;
     }
 
-    private Cell createCell(TextureRegion region)
-    {
+    private Cell createCell(TextureRegion region) {
         TiledMapTile tile = new StaticTiledMapTile(region);
         Cell cell = new Cell();
         cell.setTile(tile);

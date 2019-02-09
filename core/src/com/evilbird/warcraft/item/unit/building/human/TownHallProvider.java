@@ -77,8 +77,9 @@ public class TownHallProvider implements AssetProvider<Item>
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
         result.setAvailableSounds(getSounds());
-        result.setHealth(1200.0f);
-        result.setHealthMaximum(1200.0f);
+        result.setSight(5 * 32);
+        result.setHealth(1200);
+        result.setHealthMaximum(1200);
         result.setIcon(getIcon());
         result.setName("Town Hall");
         result.setType(UnitType.TownHall);

@@ -78,8 +78,9 @@ public class BarracksProvider implements AssetProvider<Item>
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
         result.setAvailableSounds(getSounds());
-        result.setHealth(800.0f);
-        result.setHealthMaximum(800.0f);
+        result.setSight(5 * 32);
+        result.setHealth(800);
+        result.setHealthMaximum(800);
         result.setIcon(getIcon());
         result.setName("Barracks");
         result.setSelected(false);

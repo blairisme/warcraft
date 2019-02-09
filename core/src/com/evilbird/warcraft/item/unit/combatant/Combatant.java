@@ -29,7 +29,6 @@ public class Combatant extends Unit implements Movable
     private int damageMinimum;
     private int damageMaximum;
     private float speed;
-    private float sight;
     private float range;
     private float movementSpeed;
     private Collection<Identifier> movementCapability;
@@ -68,10 +67,6 @@ public class Combatant extends Unit implements Movable
         return movementCapability;
     }
 
-    public float getSight() {
-        return sight;
-    }
-
     public float getRange() {
         return range;
     }
@@ -102,10 +97,6 @@ public class Combatant extends Unit implements Movable
 
     public void setSpeed(float speed) {
         this.speed = speed;
-    }
-
-    public void setSight(float sight) {
-        this.sight = sight;
     }
 
     public void setRange(float range) {

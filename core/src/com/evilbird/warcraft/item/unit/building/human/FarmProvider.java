@@ -80,8 +80,9 @@ public class FarmProvider implements AssetProvider<Item>
         result.setAvailableAnimations(getAnimations());
         result.setAnimation(UnitAnimation.Idle);
         result.setAvailableSounds(getSounds());
-        result.setHealth(400.0f);
-        result.setHealthMaximum(400.0f);
+        result.setSight(5 * 32);
+        result.setHealth(400);
+        result.setHealthMaximum(400);
         result.setIcon(getIcon());
         result.setName("Farm");
         result.setType(UnitType.Farm);

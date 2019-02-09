@@ -13,19 +13,18 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.lang.NamedIdentifier;
+import com.evilbird.engine.event.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.specialized.layer.Layer;
+import com.evilbird.warcraft.action.move.MoveEvent;
+import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.layer.LayerType;
+import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-import static com.evilbird.engine.item.ItemPredicates.itemWithAction;
-import static com.evilbird.engine.item.ItemPredicates.itemWithId;
 
 /**
  * Instances of this class represent fog of war: a layer of darkness that
@@ -33,15 +32,18 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithId;
  *
  * @author Blair Butterworth
  */
-//TODO: Finish
-//TODO: Improve performance - use item move events
-//TODO: Shouldnt show fog at map edges.
+//TODO: Bug: thin peninsulas rendered incorrectly. Fix: don't render them.
+//TODO: Bug: revealing doesn't include item size, only position. Fix: use logic from ItemGraph.
 public class Fog extends Layer
 {
+    private Events events;
     private FogTileSet tileSet;
     private boolean initialized;
+    private int xMax;
+    private int yMax;
 
-    public Fog(FogTileSet tileSet) {
+    public Fog(FogTileSet tileSet, Events events) {
+        this.events = events;
         this.tileSet = tileSet;
         this.initialized = false;
         setType(LayerType.OpaqueFog);
@@ -55,6 +57,8 @@ public class Fog extends Layer
             layer.getHeight(),
             (int)layer.getTileWidth(),
             (int)layer.getTileHeight()));
+        xMax = layer.getWidth() - 1;
+        yMax = layer.getHeight() - 1;
     }
 
     @Override
@@ -71,22 +75,14 @@ public class Fog extends Layer
 
     private void initialize() {
         conceal();
-        ItemGroup player = getPlayer();
+        ItemGroup player = UnitOperations.getHumanPlayer(getRoot());
         revealItems(player.getItems());
     }
 
     private void update() {
-        ItemGroup player = getPlayer();
-        Collection<Item> revealedItems = player.findAll(itemWithAction());
-        revealItems(revealedItems);
-    }
-
-    //TODO: use enum
-    //TODO: find players and filter by console user
-    //TODO: cache player
-    private ItemGroup getPlayer() {
-        ItemRoot world = getRoot();
-        return (ItemGroup)world.find(itemWithId(new NamedIdentifier("Player1")));
+        for (MoveEvent moveEvent: events.getEvents(MoveEvent.class)) {
+            revealItem(moveEvent.getSubject());
+        }
     }
 
     private void conceal(){
@@ -113,18 +109,15 @@ public class Fog extends Layer
         }
     }
 
-    @SuppressWarnings("SuspiciousNameCombination")
-    //TODO: Dont include corners as in original game
-    //TODO: Use sight from item
     private Collection<Pair<Integer, Integer>> getRevealedCells(Item item) {
-        Collection<Pair<Integer, Integer>> result = new ArrayList<Pair<Integer, Integer>>();
+        Collection<Pair<Integer, Integer>> result = new ArrayList<>();
 
         Vector2 position = item.getPosition();
         int itemX = position.x != 0 ? Math.round(position.x / 32) : 0;
         int itemY = position.y != 0 ? Math.round(position.y / 32) : 0;
         int width = layer.getWidth();
         int height = layer.getHeight();
-        int radius = 5;
+        int radius = getSight(item);
 
         for (int x = itemX - radius; x <= itemX + radius; x++){
             for (int y = itemY - radius; y <= itemY + radius; y++){
@@ -136,9 +129,15 @@ public class Fog extends Layer
         return result;
     }
 
-    //TODO: Cater for thin peninsulas
-    private void updateCellEdge(int x, int y)
-    {
+    private int getSight(Item item){
+        if (item instanceof Unit){
+            Unit unit = (Unit)item;
+            return unit.getSight() / 32;
+        }
+        return 0;
+    }
+
+    private void updateCellEdge(int x, int y) {
         boolean north = cellEmpty(x, y + 1);
         boolean northEast = cellEmpty(x + 1, y + 1);
         boolean east = cellEmpty(x + 1, y);
@@ -148,7 +147,23 @@ public class Fog extends Layer
         boolean west = cellEmpty(x - 1, y);
         boolean northWest = cellEmpty(x - 1, y + 1);
 
-        if (!north && !west && !northWest){
+        if (x == 0 || x == xMax) {
+            if (! (y == 0 || y == yMax)) {
+                if (!north) {
+                    layer.setCell(x, y, tileSet.bottom);
+                } else if (!south) {
+                    layer.setCell(x, y, tileSet.top);
+                }
+            }
+        }
+        else if (y == 0 || y == yMax) {
+            if (!west) {
+                layer.setCell(x, y, tileSet.right);
+            } else if (!east) {
+                layer.setCell(x, y, tileSet.left);
+            }
+        }
+        else if (!north && !west && !northWest){
             layer.setCell(x, y, tileSet.bottomRightInternal);
         }
         else if (!north && !east && !northEast){
@@ -186,8 +201,7 @@ public class Fog extends Layer
         }
     }
 
-    private boolean cellEmpty(int x, int y)
-    {
+    private boolean cellEmpty(int x, int y) {
         if (x >= 0 && x < layer.getWidth() && y >= 0 && y < layer.getHeight()){
             Cell cell = layer.getCell(x, y);
             return cell == null || cell != tileSet.full;
