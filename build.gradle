@@ -1,18 +1,28 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.3.1'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.2.0'
     }
 }
 
 plugins {
-    id "net.ltgt.apt" version "0.5"
+    id "net.ltgt.apt" version "0.10"
 }
 
 allprojects {
@@ -31,6 +41,8 @@ allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+        google()
+        jcenter()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
@@ -42,17 +54,17 @@ project(":android") {
     configurations { natives }
 
     dependencies {
-        compile project(":core")
-        compile 'com.google.dagger:dagger:2.9'
-        annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
-        compile 'org.apache.commons:commons-lang3:3.5'
-        compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+        implementation project(":core")
+        implementation 'com.google.dagger:dagger:2.20'
+        annotationProcessor 'com.google.dagger:dagger-compiler:2.20'
+        implementation 'org.apache.commons:commons-lang3:3.8.1'
+        implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
-        testCompile group: 'junit', name: 'junit', version: '4.12'
+        testImplementation group: 'junit', name: 'junit', version: '4.12'
     }
 }
 
@@ -60,12 +72,12 @@ project(":core") {
     apply plugin: "java"
 
     dependencies {
-        compile 'javax.inject:javax.inject:1'
-        compile 'org.apache.commons:commons-lang3:3.5'
-        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
-        testCompile group: 'junit', name: 'junit', version: '4.12'
-        testCompile group: 'org.mockito', name: 'mockito-core', version: '2.23.4'
+        implementation 'javax.inject:javax.inject:1'
+        implementation 'org.apache.commons:commons-lang3:3.8.1'
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+        testImplementation group: 'junit', name: 'junit', version: '4.12'
+        testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.23.4'
     }
 }
 
@@ -74,16 +86,17 @@ project(":desktop") {
     apply plugin: "net.ltgt.apt"
 
     dependencies {
-        compile project(":core")
-        compile 'javax.inject:javax.inject:1'
-        compile 'com.google.dagger:dagger:2.9'
-        apt 'com.google.dagger:dagger-compiler:2.9'
-        compile 'org.apache.commons:commons-lang3:3.5'
-        compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
-        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        testCompile group: 'junit', name: 'junit', version: '4.12'
-        testCompile group: 'org.mockito', name: 'mockito-core', version: '2.23.4'
+        implementation project(":core")
+        implementation 'javax.inject:javax.inject:1'
+        implementation 'com.google.dagger:dagger:2.20'
+        apt 'com.google.dagger:dagger-compiler:2.20'
+        implementation 'org.apache.commons:commons-lang3:3.8.1'
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+        implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        testImplementation group: 'junit', name: 'junit', version: '4.12'
+        testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.23.4'
     }
 }
 
@@ -92,17 +105,11 @@ project(":ios") {
     apply plugin: "robovm"
 
     dependencies {
-        compile project(":core")
-        compile 'org.apache.commons:commons-lang3:3.5'
-        compile "com.mobidevelop.robovm:robovm-rt:$roboVMVersion"
-        compile "com.mobidevelop.robovm:robovm-cocoatouch:$roboVMVersion"
-        compile "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
+        implementation project(":core")
+        implementation 'org.apache.commons:commons-lang3:3.8.1'
+        implementation "com.mobidevelop.robovm:robovm-rt:$roboVMVersion"
+        implementation "com.mobidevelop.robovm:robovm-cocoatouch:$roboVMVersion"
+        implementation "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
     }
 }
-
-/*
-tasks.eclipse.doLast {
-    delete ".project"
-}
-*/

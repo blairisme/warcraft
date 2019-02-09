@@ -56,7 +56,7 @@ public class DelegateActionTest
 
         delegateAction.setIdentifier(identifier);
         Assert.assertEquals(identifier, underlyingAction.getIdentifier());
-        Assert.assertEquals(identifier, delegateAction.getIdentifier());
+        Assert.assertNotEquals(identifier, delegateAction.getIdentifier());
     }
     
     @Test
