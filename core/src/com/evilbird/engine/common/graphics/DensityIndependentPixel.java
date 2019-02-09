@@ -11,15 +11,11 @@ package com.evilbird.engine.common.graphics;
 
 import com.badlogic.gdx.Gdx;
 
-/**
- * @author Blair Butterworth
- */
 public class DensityIndependentPixel
 {
-    private static final float density = Gdx.graphics.getDensity() * 1;
+    private static final float density = Gdx.graphics.getDensity();
 
     public static float dip(float value) {
-        //return density * value;
-        return value;
+        return density * value;
     }
 }

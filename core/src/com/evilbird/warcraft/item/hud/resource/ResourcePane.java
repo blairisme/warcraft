@@ -11,10 +11,13 @@ package com.evilbird.warcraft.item.hud.resource;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -60,22 +63,46 @@ public class ResourcePane extends Item
     }
 
     private Label createLabel() {
-        LabelStyle labelStyle = new LabelStyle(new BitmapFont(), Color.WHITE);
+        BitmapFont font = new BitmapFont();
+        //font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        //font.getData().setScale(dip(1.3f));
+
+        LabelStyle labelStyle = new LabelStyle(font, Color.WHITE);
         return new Label("", labelStyle);
     }
 
     private Table createTable() {
-        Table table = new Table();
-        table.setBounds(0, Gdx.graphics.getHeight() - dip(20), Gdx.graphics.getWidth(), dip(20));
-        table.align(Align.center);
-        table.add(goldImage).width(dip(14)).padRight(dip(5));
-        table.add(goldText).width(dip(50)).padRight(dip(5));
-        table.add(oilImage).width(dip(14)).padRight(dip(5));
-        table.add(oilText).width(dip(50)).padRight(dip(5));
-        table.add(woodImage).width(dip(14)).padRight(dip(5));
-        table.add(woodText).width(dip(50)).padRight(dip(5));
+        int viewHeight = Gdx.graphics.getHeight();
+        int viewWidth = Gdx.graphics.getWidth();
 
+        Table table = new Table();
+        table.setBounds(0, viewHeight - dip(30), viewWidth, dip(30));
+        table.align(Align.center);
+        addCell(table, goldImage);
+        addCell(table, goldText);
+        addCell(table, woodImage);
+        addCell(table, woodText);
+        addCell(table, oilImage);
+        addCell(table, oilText);
         return table;
+    }
+
+    private void addCell(Table table, Image image) {
+        addCell(table, image, 25);
+    }
+
+    private void addCell(Table table, Label label) {
+        addCell(table, label, 100);
+    }
+
+    private void addCell(Table table, Actor actor, int width) {
+        Cell<Actor> cell = table.add(actor);
+        cell.width(dip(width));
+        cell.padRight(dip(10));
+        cell.padTop(dip(3));
+        cell.padBottom(dip(3));
+        cell.expandY();
+        cell.fillY();
     }
 
     public void setBackground(TextureRegion texture) {
