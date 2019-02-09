@@ -7,34 +7,50 @@
  *      https://opensource.org/licenses/MIT
  */
 
-apply plugin: "java"
+plugins {
+    id "java"
+    id "edu.sc.seis.macAppBundle" version "2.3.0"
+    id "com.github.johnrengelman.shadow" version "4.0.4"
+}
 
 targetCompatibility = 1.8
 sourceCompatibility = 1.8
 
-sourceSets.main.java.srcDirs = [ "src/" ]
-sourceSets.test.java.srcDirs = [ "test/" ]
+sourceSets{
+    main.java.srcDirs = [ "src/" ]
+    test.java.srcDirs = [ "test/" ]
+}
 
-project.ext.mainClassName = "com.evilbird.warcraft.desktop.DesktopLauncher"
-project.ext.assetsDir = new File("../android/assets");
+ext{
+    appName = "Warcraft2"
+    assetsDir = "../android/assets"
+    iconPath = "../android/assets/data/icons/WarcraftIcon.icns"
+    mainClass = "com.evilbird.warcraft.desktop.DesktopLauncher"
+}
 
 task run(dependsOn: classes, type: JavaExec) {
-    main = project.mainClassName
+    main = project.mainClass
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.assetsDir
-    ignoreExitValue = true
+    setIgnoreExitValue(true)
 }
 
-task dist(type: Jar) {
-    from files(sourceSets.main.output.classesDir)
-    from files(sourceSets.main.output.resourcesDir)
-    from {configurations.implementation.collect {zipTree(it)}}
-    from files(project.assetsDir);
- 
+shadowJar {
+    baseName = project.appName
+    from files((String)project.assetsDir)
+    exclude "*.dll"
+    exclude "*.so"
     manifest {
-        attributes 'Main-Class': project.mainClassName
+        attributes 'Main-Class': project.mainClass
     }
+    minimize()
 }
 
-dist.dependsOn classes
+macAppBundle {
+    icon = project.iconPath
+    appName = project.appName
+    mainClassName = project.mainClass
+    bundleJRE = true
+    jarTask = "shadowJar"
+}
