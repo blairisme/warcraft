@@ -9,6 +9,7 @@
 
 plugins {
     id "java"
+    id 'edu.sc.seis.launch4j' version '2.4.4'
     id "edu.sc.seis.macAppBundle" version "2.3.0"
     id "com.github.johnrengelman.shadow" version "4.0.4"
 }
@@ -39,7 +40,7 @@ task run(dependsOn: classes, type: JavaExec) {
 shadowJar {
     baseName = project.appName
     from files((String)project.assetsDir)
-    exclude "*.dll"
+   // exclude "*.dll"      //dlls needed for windows but not mac
     exclude "*.so"
     manifest {
         attributes 'Main-Class': project.mainClass
@@ -47,10 +48,19 @@ shadowJar {
     minimize()
 }
 
+//Task: createApp
 macAppBundle {
     icon = project.iconPath
     appName = project.appName
     mainClassName = project.mainClass
     bundleJRE = true
     jarTask = "shadowJar"
+}
+
+//Task: createExe
+launch4j {
+    mainClassName = project.mainClass
+    icon = "${projectDir}/../android/assets/data/icons/WarcraftIcon.ico"
+    jar = "${projectDir}/build/libs/Warcraft2-1.0-all.jar"
+    //bundledJrePath = System.getProperty('java.home')
 }
