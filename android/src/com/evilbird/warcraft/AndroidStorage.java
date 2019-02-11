@@ -11,8 +11,12 @@ package com.evilbird.warcraft;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.evilbird.engine.common.assets.FreeTypeFontGeneratorLoader;
+import com.evilbird.engine.common.assets.FreeTypeFontLoader;
 import com.evilbird.engine.device.DeviceStorage;
 
 import java.io.IOException;
@@ -25,6 +29,8 @@ public class AndroidStorage implements DeviceStorage
     public AndroidStorage() {
         this.assetManager = new AssetManager();
         this.assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+        this.assetManager.setLoader(BitmapFont.class, new FreeTypeFontLoader(new InternalFileHandleResolver()));
+        this.assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(new InternalFileHandleResolver()));
     }
 
     public AssetManager getAssets() {

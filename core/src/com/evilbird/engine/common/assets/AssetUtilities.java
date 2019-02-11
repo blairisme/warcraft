@@ -11,6 +11,7 @@ package com.evilbird.engine.common.assets;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.evilbird.engine.common.audio.SoundType;
 
 public class AssetUtilities
@@ -23,5 +24,11 @@ public class AssetUtilities
 
     public static void loadSoundSet(AssetManager assets, String prefix, SoundType type, int count) {
         loadSet(assets, prefix, type.getFileExtension(), count, Sound.class);
+    }
+
+    public static FreeTypeFontLoaderParameters fontSize(int size) {
+        FreeTypeFontParameter style = new FreeTypeFontParameter();
+        style.size = size;
+        return new FreeTypeFontLoaderParameters(style);
     }
 }

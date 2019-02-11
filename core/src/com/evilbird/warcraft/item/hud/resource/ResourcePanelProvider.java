@@ -11,12 +11,16 @@ package com.evilbird.warcraft.item.hud.resource;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 
 import javax.inject.Inject;
+
+import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
+import static com.evilbird.engine.common.graphics.DensityIndependentPixel.dp;
 
 /**
  * Instances of this factory create {@link ResourcePane ResourcePanes}.
@@ -27,6 +31,7 @@ public class ResourcePanelProvider implements AssetProvider<Item>
 {
     private static final String ICONS = "data/textures/neutral/hud/resource-icon.png";
     private static final String BACKGROUND = "data/textures/human/hud/resource_panel.png";
+    private static final String FONT = "data/fonts/lifecraft.ttf";
     private AssetManager assets;
 
     @Inject
@@ -38,11 +43,13 @@ public class ResourcePanelProvider implements AssetProvider<Item>
     public void load() {
         this.assets.load(ICONS, Texture.class);
         this.assets.load(BACKGROUND, Texture.class);
+        this.assets.load(FONT, BitmapFont.class, fontSize(dp(20)));
     }
 
     @Override
     public Item get() {
         ResourcePane result = new ResourcePane();
+        result.setFont(getFont());
         result.setBackground(getBackground());
         result.setGoldIcon(getGoldIcon());
         result.setGoldText("0");
@@ -53,27 +60,27 @@ public class ResourcePanelProvider implements AssetProvider<Item>
         return result;
     }
 
+    private BitmapFont getFont() {
+        return assets.get(FONT);
+    }
+
     private TextureRegion getBackground() {
         Texture texture = assets.get(BACKGROUND);
-        TextureRegion region = new TextureRegion(texture);
-        return region;
+        return new TextureRegion(texture);
     }
 
     private TextureRegion getGoldIcon() {
         Texture texture = assets.get(ICONS);
-        TextureRegion region = new TextureRegion(texture, 0, 0, 14, 14);
-        return region;
+        return new TextureRegion(texture, 0, 0, 14, 14);
     }
 
     private TextureRegion getOilIcon() {
         Texture texture = assets.get(ICONS);
-        TextureRegion region = new TextureRegion(texture, 0, 28, 14, 14);
-        return region;
+        return new TextureRegion(texture, 0, 28, 14, 14);
     }
 
     private TextureRegion getWoodIcon() {
         Texture texture = assets.get(ICONS);
-        TextureRegion region = new TextureRegion(texture, 0, 14, 14, 14);
-        return region;
+        return new TextureRegion(texture, 0, 14, 14, 14);
     }
 }

@@ -11,10 +11,10 @@ package com.evilbird.warcraft.item.hud.resource;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
@@ -28,7 +28,7 @@ import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.hud.HudControls;
 
-import static com.evilbird.engine.common.graphics.DensityIndependentPixel.dip;
+import static com.evilbird.engine.common.graphics.DensityIndependentPixel.dp;
 
 /**
  * Instances of this user interface control display the resources the user has
@@ -64,9 +64,6 @@ public class ResourcePane extends Item
 
     private Label createLabel() {
         BitmapFont font = new BitmapFont();
-        //font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        //font.getData().setScale(dip(1.3f));
-
         LabelStyle labelStyle = new LabelStyle(font, Color.WHITE);
         return new Label("", labelStyle);
     }
@@ -76,7 +73,7 @@ public class ResourcePane extends Item
         int viewWidth = Gdx.graphics.getWidth();
 
         Table table = new Table();
-        table.setBounds(0, viewHeight - dip(30), viewWidth, dip(30));
+        table.setBounds(0, viewHeight - dp(30), viewWidth, dp(30));
         table.align(Align.center);
         addCell(table, goldImage);
         addCell(table, goldText);
@@ -97,12 +94,19 @@ public class ResourcePane extends Item
 
     private void addCell(Table table, Actor actor, int width) {
         Cell<Actor> cell = table.add(actor);
-        cell.width(dip(width));
-        cell.padRight(dip(10));
-        cell.padTop(dip(3));
-        cell.padBottom(dip(3));
+        cell.width(dp(width));
+        cell.padRight(dp(10));
+        cell.padTop(dp(3));
+        cell.padBottom(dp(3));
         cell.expandY();
         cell.fillY();
+    }
+
+    public void setFont(BitmapFont font) {
+        LabelStyle style = new LabelStyle(font, Color.WHITE);
+        goldText.setStyle(style);
+        woodText.setStyle(style);
+        oilText.setStyle(style);
     }
 
     public void setBackground(TextureRegion texture) {
