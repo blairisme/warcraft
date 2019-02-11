@@ -11,7 +11,9 @@ package com.evilbird.engine.common.assets;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.evilbird.engine.common.audio.SoundType;
 
 public class AssetUtilities
@@ -30,5 +32,12 @@ public class AssetUtilities
         FreeTypeFontParameter style = new FreeTypeFontParameter();
         style.size = size;
         return new FreeTypeFontLoaderParameters(style);
+    }
+
+    public static TmxMapLoader.Parameters linearFilter(){
+        TmxMapLoader.Parameters parameters = new TmxMapLoader.Parameters();
+        parameters.textureMinFilter = Texture.TextureFilter.Linear;
+        parameters.textureMagFilter = Texture.TextureFilter.Nearest;
+        return parameters;
     }
 }

@@ -15,7 +15,6 @@ import com.evilbird.engine.state.StateFactory;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.warcraft.state.campaign.CampaignProvider;
 import com.evilbird.warcraft.state.hud.HudProvider;
-import com.evilbird.warcraft.state.scenario.ScenarioProvider;
 
 import javax.inject.Inject;
 
@@ -24,26 +23,19 @@ public class WarcraftStateFactory implements StateFactory
     private IdentifiedAssetProviderSet<ItemRoot> providers;
 
     @Inject
-    public WarcraftStateFactory(
-        HudProvider hudProvider,
-        CampaignProvider campaignProvider,
-        ScenarioProvider scenarioProvider)
-    {
+    public WarcraftStateFactory(CampaignProvider campaignProvider, HudProvider hudProvider) {
         providers = new IdentifiedAssetProviderSet<>();
         providers.addProvider(hudProvider);
         providers.addProvider(campaignProvider);
-        providers.addProvider(scenarioProvider);
     }
 
     @Override
-    public void load()
-    {
+    public void load() {
         providers.load();
     }
 
     @Override
-    public ItemRoot get(StateIdentifier identifier)
-    {
+    public ItemRoot get(StateIdentifier identifier) {
         return providers.get(identifier);
     }
 }

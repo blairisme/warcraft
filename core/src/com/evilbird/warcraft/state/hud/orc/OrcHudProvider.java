@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.hud;
+package com.evilbird.warcraft.state.hud.orc;
 
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.item.ItemRoot;

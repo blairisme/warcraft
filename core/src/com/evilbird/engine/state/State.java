@@ -16,19 +16,16 @@ public class State
     private ItemRoot world;
     private ItemRoot hud;
 
-    public State(ItemRoot world, ItemRoot hud)
-    {
+    public State(ItemRoot world, ItemRoot hud) {
         this.world = world;
         this.hud = hud;
     }
 
-    public ItemRoot getWorld()
-    {
+    public ItemRoot getWorld() {
         return world;
     }
 
-    public ItemRoot getHud()
-    {
+    public ItemRoot getHud() {
         return hud;
     }
 }

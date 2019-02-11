@@ -7,22 +7,17 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.campaign.human;
+package com.evilbird.warcraft.state.common;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
-import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.*;
 import com.evilbird.engine.item.specialized.layer.Layer;
 import com.evilbird.warcraft.item.data.DataType;
@@ -36,39 +31,16 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-//TODO: Move into serialzation library
-public class Level1 implements AssetProvider<ItemRoot>
+public class ItemRootFactory
 {
-    private AssetManager assets;
     private ItemFactory itemFactory;
 
     @Inject
-    public Level1(Device device, ItemFactory itemFactory) {
-        this.assets = device.getAssetStorage().getAssets();
+    public ItemRootFactory(ItemFactory itemFactory) {
         this.itemFactory = itemFactory;
     }
 
-    @Override
-    public void load() {
-    }
-
-    @Override
-    public ItemRoot get() {
-        TiledMap level = loadLevel("data/levels/human/level1.tmx");
-        return loadLevelItem(level);
-    }
-
-    private TiledMap loadLevel(String path) {
-        TmxMapLoader.Parameters parameters = new TmxMapLoader.Parameters();
-        parameters.textureMinFilter = Texture.TextureFilter.Linear;
-        parameters.textureMagFilter = Texture.TextureFilter.Nearest;
-
-        assets.load(path, TiledMap.class, parameters);
-        assets.finishLoadingAsset(path);
-        return assets.get(path, TiledMap.class);
-    }
-
-    private ItemRoot loadLevelItem(TiledMap level) {
+    public ItemRoot load(TiledMap level) {
         ItemRoot result = new ItemRoot(new ItemGraph(32, 32, 32, 32));
         result.setViewport(new ScreenViewport());
         addItems(level, result);

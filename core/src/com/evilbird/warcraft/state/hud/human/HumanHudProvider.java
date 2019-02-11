@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.hud;
+package com.evilbird.warcraft.state.hud.human;
 
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.item.ItemFactory;
@@ -21,20 +21,18 @@ public class HumanHudProvider implements AssetProvider<ItemRoot>
     private ItemFactory itemFactory;
 
     @Inject
-    public HumanHudProvider(ItemFactory itemFactory)
-    {
+    public HumanHudProvider(ItemFactory itemFactory) {
         this.itemFactory = itemFactory;
     }
 
     @Override
-    public void load()
-    {
+    public void load() {
     }
 
     @Override
-    public ItemRoot get()
-    {
+    public ItemRoot get() {
         ItemRoot hud = new ItemRoot(null);
+        //hud.setViewport(viewport);
         hud.addItem(itemFactory.newItem(HudControls.ResourcePane));
         hud.addItem(itemFactory.newItem(HudControls.ControlPane));
         return hud;
