@@ -20,6 +20,6 @@ public class IntroMenuFactory extends IdentifiedAssetProviderSet<Menu>
     public IntroMenuFactory(
         HumanIntroOneFactory humanIntroOneFactory)
     {
-        addProvider(IntroMenu.HumanLevel1, humanIntroOneFactory);
+        addProvider(IntroMenuType.HumanLevel1, humanIntroOneFactory);
     }
 }

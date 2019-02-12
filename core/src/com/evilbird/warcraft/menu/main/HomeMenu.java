@@ -10,10 +10,9 @@
 package com.evilbird.warcraft.menu.main;
 
 import com.badlogic.gdx.Gdx;
-import com.evilbird.warcraft.menu.common.ListMenu;
 import com.evilbird.warcraft.menu.common.events.SelectListener;
 
-public class HomeMenu extends ListMenu
+public class HomeMenu extends MainMenu
 {
     public HomeMenu() {
         insertButton("Single Player Game", campaignMenu());
@@ -24,7 +23,7 @@ public class HomeMenu extends ListMenu
     }
 
     private SelectListener campaignMenu() {
-        return () -> showMenu(MainMenu.Campaign);
+        return () -> showMenu(MainMenuType.Campaign);
     }
 
     private SelectListener exitProgram() {

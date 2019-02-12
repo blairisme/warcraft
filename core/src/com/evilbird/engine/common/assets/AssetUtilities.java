@@ -31,6 +31,8 @@ public class AssetUtilities
     public static FreeTypeFontLoaderParameters fontSize(int size) {
         FreeTypeFontParameter style = new FreeTypeFontParameter();
         style.size = size;
+        style.minFilter = Texture.TextureFilter.Linear;
+        style.magFilter = Texture.TextureFilter.Linear;
         return new FreeTypeFontLoaderParameters(style);
     }
 

@@ -13,9 +13,11 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.menu.Menu;
@@ -28,6 +30,7 @@ public class HomeMenuFactory implements AssetProvider<Menu>
     private static final String BACKGROUND = "data/textures/menu/menu.png";
     private static final String CLICK = "data/sounds/menu/click.mp3";
     private static final String MUSIC = "data/music/13.mp3";
+    //private static final String FONT = "data/fonts/philosopher.ttf";
 
     private AssetManager assets;
 
@@ -40,6 +43,7 @@ public class HomeMenuFactory implements AssetProvider<Menu>
     public void load() {
         assets.load(BUTTON, Texture.class);
         assets.load(BACKGROUND, Texture.class);
+        //assets.load(FONT, BitmapFont.class);
         assets.load(CLICK, Sound.class);
         assets.load(MUSIC, Music.class);
     }
@@ -49,6 +53,7 @@ public class HomeMenuFactory implements AssetProvider<Menu>
         HomeMenu menu = new HomeMenu();
         menu.setBackground(getBackground());
         menu.setButtonTextures(getEnabled(), getSelected(), getDisabled());
+        menu.setButtonFont(getButtonFont());
         menu.setButtonSound(getButtonClick());
         menu.setBackgroundMusic(getBackgroundMusic());
         return menu;
@@ -73,6 +78,11 @@ public class HomeMenuFactory implements AssetProvider<Menu>
     private TextureRegion getDisabled() {
         Texture buttonTexture = assets.get(BUTTON);
         return new TextureRegion(buttonTexture, 0, 56, 224, 28);
+    }
+
+    private BitmapFont getButtonFont() {
+        return Fonts.ARIAL;
+        //return assets.get(FONT);
     }
 
     private Sound getButtonClick() {

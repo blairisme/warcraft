@@ -22,8 +22,8 @@ public class MainMenuFactory extends IdentifiedAssetProviderSet<Menu>
         CampaignMenuFactory campaignMenuFactory,
         NewCampaignMenuFactory newCampaignMenuFactory)
     {
-        addProvider(MainMenu.Home, homeMenuFactory);
-        addProvider(MainMenu.Campaign, campaignMenuFactory);
-        addProvider(MainMenu.CampaignNew, newCampaignMenuFactory);
+        addProvider(MainMenuType.Home, homeMenuFactory);
+        addProvider(MainMenuType.Campaign, campaignMenuFactory);
+        addProvider(MainMenuType.CampaignNew, newCampaignMenuFactory);
     }
 }

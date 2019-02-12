@@ -15,7 +15,7 @@ import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.warcraft.menu.intro.IntroMenuFactory;
-import com.evilbird.warcraft.menu.main.MainMenu;
+import com.evilbird.warcraft.menu.main.MainMenuType;
 import com.evilbird.warcraft.menu.main.MainMenuFactory;
 
 import javax.inject.Inject;
@@ -45,7 +45,7 @@ public class WarcraftMenuFactory implements MenuFactory
 
     @Override
     public Menu newMenu() {
-        return newMenu(MainMenu.Home);
+        return newMenu(MainMenuType.Home);
     }
 
     @Override

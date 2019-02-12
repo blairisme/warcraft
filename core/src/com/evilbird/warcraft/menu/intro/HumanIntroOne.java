@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.menu.intro;
 
-import com.evilbird.warcraft.menu.common.IntroMenu;
 import com.evilbird.warcraft.menu.common.events.SelectListener;
 import com.evilbird.warcraft.state.campaign.human.HumanCampaign;
 import com.evilbird.warcraft.state.hud.HudType;

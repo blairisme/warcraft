@@ -29,9 +29,6 @@ public class FreeTypeFontLoader extends SynchronousAssetLoader<BitmapFont, FreeT
     @Override
     public BitmapFont load(AssetManager manager, String fileName, FileHandle file, FreeTypeFontLoaderParameters parameters) {
         FreeTypeFontParameter style = getStyle(parameters);
-        style.minFilter = Texture.TextureFilter.Linear;
-        style.magFilter = Texture.TextureFilter.Linear;
-
         FreeTypeFontGenerator generator = manager.get(fileName + ".gen", FreeTypeFontGenerator.class);
         generator.scaleForPixelHeight(style.size);
         return generator.generateFont(style);
