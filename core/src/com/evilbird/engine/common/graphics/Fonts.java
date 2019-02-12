@@ -7,9 +7,11 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.menu;
+package com.evilbird.engine.common.graphics;
 
-public interface IndexMenuFactory extends MenuFactory
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+
+public class Fonts
 {
-    Menu newMenu(MenuIdentifier identifier);
+    public static final BitmapFont ARIAL = new BitmapFont();
 }

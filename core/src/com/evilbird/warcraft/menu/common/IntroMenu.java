@@ -10,27 +10,34 @@
 package com.evilbird.warcraft.menu.common;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.evilbird.engine.menu.IndexMenu;
+import com.badlogic.gdx.utils.Align;
+import com.evilbird.engine.menu.Menu;
+import com.evilbird.warcraft.menu.common.controls.StyledButton;
+import com.evilbird.warcraft.menu.common.controls.StyledLabel;
+import com.evilbird.warcraft.menu.common.events.SelectListener;
+import com.evilbird.warcraft.menu.common.events.SelectListenerAdapter;
 
 import javax.inject.Inject;
-import java.util.List;
 
-public class IntroMenu extends IndexMenu
+import static com.badlogic.gdx.scenes.scene2d.ui.Value.percentHeight;
+import static com.badlogic.gdx.scenes.scene2d.ui.Value.percentWidth;
+
+public class IntroMenu extends Menu
 {
     private Table table;
-    private TextButton button;
-    private TextButtonStyle style;
-    private Label title;
-    private Label description;
-    private Label objectives;
+    private StyledButton button;
+    private StyledLabel title;
+    private StyledLabel description;
+    private StyledLabel objectives;
+    private Music narration;
 
     @Inject
     public IntroMenu() {
@@ -38,8 +45,31 @@ public class IntroMenu extends IndexMenu
         title = createTitle(table);
         description = createDescription(table);
         objectives = createObjectives(table);
-        style = createButtonStyle();
-        button = createButton(table, style);
+        button = createButton(table);
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        if (narration != null) {
+            narration.play();
+        }
+    }
+
+    @Override
+    public void hide() {
+        super.hide();
+        if (narration != null) {
+            narration.play();
+        }
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        if (narration != null) {
+            narration.dispose();
+        }
     }
 
     public void setBackground(Drawable background) {
@@ -55,23 +85,24 @@ public class IntroMenu extends IndexMenu
     }
 
     public void setButtonTexture(TextureRegion enabled, TextureRegion selected, TextureRegion disabled) {
-        style.up = new TextureRegionDrawable(enabled);
-        style.down = new TextureRegionDrawable(selected);
-        style.over = new TextureRegionDrawable(enabled);
-        style.checked = new TextureRegionDrawable(enabled);
-        style.checkedOver = new TextureRegionDrawable(enabled);
-        style.disabled = new TextureRegionDrawable(disabled);
+        button.setEnabledTexture(enabled);
+        button.setDisabledTexture(disabled);
+        button.setSelectedTexture(selected);
+    }
+
+    public void setButtonSound(Sound sound) {
+        button.setClickSound(sound);
     }
 
     public void setFont(BitmapFont font) {
-        Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
-        title.setStyle(style);
-        description.setStyle(style);
-        objectives.setStyle(style);
+        title.setFont(font);
+        description.setFont(font);
+        objectives.setFont(font);
+        button.setFont(font);
     }
 
-    public void setMusic(List<Music> music) {
-        //todo
+    public void setNarration(Music narration) {
+        this.narration = narration;
     }
 
     public void setTitle(String title) {
@@ -96,63 +127,53 @@ public class IntroMenu extends IndexMenu
         return table;
     }
 
-    private Label createTitle(Table table) {
-        Label result = createLabel("Title");
+    private StyledLabel createTitle(Table table) {
+        StyledLabel result = new StyledLabel("Title");
+        result.setFontColour(Color.WHITE);
+        result.setAlignment(Align.center);
 
         Cell cell = table.add(result);
         cell.fillX();
-        //cell.width(Value.percentWidth(0.3f, table));
-        cell.height(Value.percentHeight(0.04f, table));
+        cell.expandX();
+        cell.center();
         table.row();
 
         return result;
     }
 
-    private Label createDescription(Table table) {
-        Label result = createLabel("Description");
+    private StyledLabel createDescription(Table table) {
+        StyledLabel result = new StyledLabel("Description");
+        result.setFontColour(Color.WHITE);
 
         Cell cell = table.add(result);
-        cell.fill();
-        cell.expand();
-        table.add();
+        cell.align(Align.left);
+        cell.width(percentWidth(0.65f, table));
+        cell.height(percentHeight(0.35f, table));
+        cell.pad(30);
         table.row();
 
         return result;
     }
 
-    private Label createObjectives(Table table) {
-        Label result = createLabel("Objectives");
+    private StyledLabel createObjectives(Table table) {
+        StyledLabel result = new StyledLabel("Objectives");
+        result.setFontColour(Color.WHITE);
 
-        table.add();
         Cell cell = table.add(result);
-        cell.fill();
-        cell.expand();
+        cell.align(Align.right);
+        cell.width(percentWidth(0.4f, table));
+        cell.height(percentHeight(0.4f, table));
         table.row();
 
         return result;
     }
 
-    private Label createLabel(String text) {
-        BitmapFont font = new BitmapFont(); //TODO - Use singleton
-        Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.WHITE);
-        return new Label(text, labelStyle);
-    }
+    private StyledButton createButton(Table table) {
+        StyledButton result = new StyledButton("Continue");
 
-    private TextButtonStyle createButtonStyle() {
-        TextButtonStyle buttonStyle = new TextButtonStyle();
-        buttonStyle.font = new BitmapFont(); //TODO - Use singleton
-        return buttonStyle;
-    }
-
-    private TextButton createButton(Table table, TextButtonStyle style) {
-        TextButton result = new TextButton("Continue", style);
-
-        table.add();
         Cell cell = table.add(result);
-
-        cell.width(Value.percentWidth(0.1f, table));
-        cell.height(Value.percentHeight(0.04f, table));
-
+        cell.align(Align.right);
+        cell.padRight(20);
         table.row();
 
         return result;

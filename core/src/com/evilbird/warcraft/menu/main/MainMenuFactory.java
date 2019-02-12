@@ -10,11 +10,11 @@
 package com.evilbird.warcraft.menu.main;
 
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
-import com.evilbird.engine.menu.IndexMenu;
+import com.evilbird.engine.menu.Menu;
 
 import javax.inject.Inject;
 
-public class MainMenuFactory extends IdentifiedAssetProviderSet<IndexMenu>
+public class MainMenuFactory extends IdentifiedAssetProviderSet<Menu>
 {
     @Inject
     public MainMenuFactory(

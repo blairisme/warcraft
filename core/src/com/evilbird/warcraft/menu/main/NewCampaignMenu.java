@@ -10,20 +10,19 @@
 package com.evilbird.warcraft.menu.main;
 
 import com.evilbird.warcraft.menu.common.ListMenu;
-import com.evilbird.warcraft.menu.common.SelectListener;
+import com.evilbird.warcraft.menu.common.events.SelectListener;
 import com.evilbird.warcraft.menu.intro.IntroMenu;
 
 public class NewCampaignMenu extends ListMenu
 {
     public NewCampaignMenu() {
-        addButton("Human Campaign", showHumanLevel());
-        addButton("Orc Campaign");
-        addButton("Previous Menu", previousMenu());
+        insertButton("Human Campaign", showHumanLevel());
+        insertButton("Orc Campaign");
+        insertButton("Previous Menu", previousMenu());
     }
 
     private SelectListener showHumanLevel() {
         return () -> showMenu(IntroMenu.HumanLevel1);
-        //return () -> showLevel(HumanCampaign.Level1, HudType.Human);
     }
 
     private SelectListener previousMenu() {

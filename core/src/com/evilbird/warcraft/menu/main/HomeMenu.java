@@ -11,16 +11,16 @@ package com.evilbird.warcraft.menu.main;
 
 import com.badlogic.gdx.Gdx;
 import com.evilbird.warcraft.menu.common.ListMenu;
-import com.evilbird.warcraft.menu.common.SelectListener;
+import com.evilbird.warcraft.menu.common.events.SelectListener;
 
 public class HomeMenu extends ListMenu
 {
     public HomeMenu() {
-        addButton("Single Player Game", campaignMenu());
-        addButton("Multi Player Game");
-        addButton("Replay Introduction");
-        addButton("Show Credits");
-        addButton("Exit Program", exitProgram());
+        insertButton("Single Player Game", campaignMenu());
+        insertButton("Multi Player Game");
+        insertButton("Replay Introduction");
+        insertButton("Show Credits");
+        insertButton("Exit Program", exitProgram());
     }
 
     private SelectListener campaignMenu() {

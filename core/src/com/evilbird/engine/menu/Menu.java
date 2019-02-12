@@ -16,10 +16,16 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.game.GameScreenManager;
+import com.evilbird.engine.level.Level;
+import com.evilbird.engine.state.StateIdentifier;
+
+import javax.inject.Provider;
 
 public class Menu extends ScreenAdapter
 {
     private Stage stage;
+    private MenuFactory menuFactory;
+    private Provider<Level> levelFactory;
     private GameScreenManager screenManager;
 
     public Menu() {
@@ -28,7 +34,11 @@ public class Menu extends ScreenAdapter
 
     public Menu(Stage stage) {
         this.stage = stage;
-        Gdx.input.setInputProcessor(stage); //TODO
+    }
+
+    @Override
+    public void show () {
+        Gdx.input.setInputProcessor(stage);
     }
 
     public Stage getStage() {
@@ -54,8 +64,29 @@ public class Menu extends ScreenAdapter
         stage.dispose();
     }
 
-    public void setScreen(Screen screen) {
-        this.screenManager.setScreen(screen);
+    public void showMenu(MenuIdentifier identifier) {
+        Menu menu = menuFactory.newMenu(identifier);
+        menu.setScreenManager(screenManager);
+        showScreen(menu);
+    }
+
+    public void showLevel(StateIdentifier world, StateIdentifier hud) {
+        Level level = levelFactory.get();
+        level.load(world, hud, null);
+        showScreen(level);
+    }
+
+    public void showScreen(Screen screen) {
+        screenManager.setScreen(screen);
+        dispose();
+    }
+
+    public void setMenuFactory(MenuFactory menuFactory) {
+        this.menuFactory = menuFactory;
+    }
+
+    public void setLevelFactory(Provider<Level> levelFactory) {
+        this.levelFactory = levelFactory;
     }
 
     public void setScreenManager(GameScreenManager screenManager) {

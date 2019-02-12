@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.menu.common;
+package com.evilbird.warcraft.menu.common.events;
 
 public interface SelectListener
 {

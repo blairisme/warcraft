@@ -17,8 +17,6 @@ import com.evilbird.engine.event.Events;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.StateFactory;
 import com.evilbird.engine.state.StateIdentifier;
-import com.evilbird.warcraft.state.campaign.human.HumanCampaign;
-import com.evilbird.warcraft.state.hud.HudType;
 
 import javax.inject.Inject;
 

@@ -10,20 +10,22 @@
 package com.evilbird.warcraft.menu.main;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.menu.IndexMenu;
+import com.evilbird.engine.menu.Menu;
 
 import javax.inject.Inject;
 
-public class HomeMenuFactory implements AssetProvider<IndexMenu>
+public class HomeMenuFactory implements AssetProvider<Menu>
 {
     private static final String BUTTON = "data/textures/menu/button.png";
     private static final String BACKGROUND = "data/textures/menu/menu.png";
+    private static final String CLICK = "data/sounds/menu/click.mp3";
 
     private AssetManager assets;
 
@@ -36,13 +38,15 @@ public class HomeMenuFactory implements AssetProvider<IndexMenu>
     public void load() {
         assets.load(BUTTON, Texture.class);
         assets.load(BACKGROUND, Texture.class);
+        assets.load(CLICK, Sound.class);
     }
 
     @Override
-    public IndexMenu get() {
+    public Menu get() {
         HomeMenu menu = new HomeMenu();
         menu.setBackground(getBackground());
-        menu.setButtonTexture(getEnabled(), getSelected(), getDisabled());
+        menu.setButtonTextures(getEnabled(), getSelected(), getDisabled());
+        menu.setButtonSound(getButtonClick());
         return menu;
     }
 
@@ -65,5 +69,9 @@ public class HomeMenuFactory implements AssetProvider<IndexMenu>
     private TextureRegion getDisabled() {
         Texture buttonTexture = assets.get(BUTTON);
         return new TextureRegion(buttonTexture, 0, 56, 224, 28);
+    }
+
+    private Sound getButtonClick() {
+        return assets.get(CLICK);
     }
 }

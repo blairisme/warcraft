@@ -11,52 +11,58 @@ package com.evilbird.warcraft.menu.intro;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.evilbird.engine.common.audio.MusicCombination;
+import com.evilbird.engine.common.audio.MusicSequence;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.level.Level;
-import com.evilbird.engine.menu.IndexMenu;
-import com.evilbird.warcraft.menu.common.IntroMenu;
+import com.evilbird.engine.menu.Menu;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
-import java.util.Collections;
-import java.util.List;
 
-public class HumanIntroOneFactory implements AssetProvider<IndexMenu>
+import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
+
+public class HumanIntroOneFactory implements AssetProvider<Menu>
 {
+    private static final String FONT = "data/fonts/philosopher.ttf";
     private static final String BUTTON = "data/textures/menu/button.png";
     private static final String BACKGROUND = "data/textures/menu/introduction.png";
-    private static final String NARATION_1 = "data/sounds/menu/human/intro1a.mp3";
-    private static final String NARATION_2 = "data/sounds/menu/human/intro1b.mp3";
+    private static final String NARRATION_PART_1 = "data/sounds/menu/human/intro1a.mp3";
+    private static final String NARRATION_PART_2 = "data/sounds/menu/human/intro1b.mp3";
+    private static final String NARRATION_BACKGROUND = "data/music/04.mp3";
+    private static final String CLICK = "data/sounds/menu/click.mp3";
 
     private AssetManager assets;
-    private Provider<Level> levelFactory;
 
     @Inject
-    public HumanIntroOneFactory(Device device, Provider<Level> levelFactory) {
+    public HumanIntroOneFactory(Device device) {
         this.assets = device.getAssetStorage().getAssets();
-        this.levelFactory = levelFactory;
     }
 
     @Override
     public void load() {
         assets.load(BUTTON, Texture.class);
         assets.load(BACKGROUND, Texture.class);
+        assets.load(FONT, BitmapFont.class, fontSize(20));
+        assets.load(NARRATION_PART_1, Music.class);
+        assets.load(NARRATION_PART_2, Music.class);
+        assets.load(NARRATION_BACKGROUND, Music.class);
+        assets.load(CLICK, Sound.class);
     }
 
     @Override
-    public IndexMenu get() {
-        IntroMenu menu = new IntroMenu();
+    public Menu get() {
+        HumanIntroOne menu = new HumanIntroOne();
         menu.setBackground(getBackground());
         menu.setButtonTexture(getButtonTexture());
-        menu.setTitle(getTitle());
-        menu.setDescription(getDescription());
-        menu.setObjectives(getObjectives());
-        menu.setMusic(getMusic());
+        menu.setFont(getFont());
+        menu.setNarration(getNarration());
+        menu.setButtonSound(getButtonClick());
         return menu;
     }
 
@@ -71,35 +77,22 @@ public class HumanIntroOneFactory implements AssetProvider<IndexMenu>
         return new TextureRegion(buttonTexture, 0, 56, 224, 28);
     }
 
-    private String getTitle() {
-        return "I. HILLSBRAD";
+    private BitmapFont getFont() {
+        return assets.get(FONT);
     }
 
-    private String getDescription() {
-        return "Due to your position as regional commander of the southern " +
-                "defense forces, Lord Terenas commands that you raise an outpost" +
-                " in the Hillsbrad foothills.\n" +
-                "\n" +
-                "It is rumored that Orcish marauders have been raiding coastal" +
-                " towns in the area, but whether these attacks are part of a " +
-                "greater Horde offensive is, as yet, unknown.\n" +
-                "\n" +
-                "Your outpost is to provide food and information for Alliance " +
-                "troops and, as such, should be a community consisting of at " +
-                "least four Farms.\n" +
-                "\n" +
-                "You must also construct a Barracks in order to safeguard the " +
-                "Hillsbrad operation.";
+    private Sound getButtonClick() {
+        return assets.get(CLICK);
     }
 
-    private String getObjectives() {
-        return "Objectives:\n" +
-                "-Build four Farms\n" +
-                "-Build a Barracks\n";
-    }
+    private Music getNarration() {
+        Music narration1 = assets.get(NARRATION_PART_1);
+        Music narration2 = assets.get(NARRATION_PART_2);
+        Music narration = new MusicSequence(narration1, narration2);
 
-    private List<Music> getMusic() {
-        //Music music = Gdx.audio.newMusic(Gdx.files.internal("data/mymusic.mp3"));
-        return Collections.emptyList();
+        Music background = assets.get(NARRATION_BACKGROUND);
+        background.setVolume(0.7f);
+
+        return new MusicCombination(narration, background);
     }
 }

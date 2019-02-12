@@ -10,57 +10,61 @@
 package com.evilbird.warcraft.menu.common;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.evilbird.engine.menu.IndexMenu;
+import com.evilbird.engine.menu.Menu;
+import com.evilbird.warcraft.menu.common.controls.StyledButton;
+import com.evilbird.warcraft.menu.common.events.SelectListener;
+import com.evilbird.warcraft.menu.common.events.SelectListenerAdapter;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Collection;
 
-//TODO: Add button click sounds
-public class ListMenu extends IndexMenu
+public class ListMenu extends Menu
 {
-    private Table buttonTable;
-    private TextButtonStyle buttonStyle;
+    private Table table;
+    private Collection<StyledButton> buttons;
 
     @Inject
     public ListMenu() {
-        buttonTable = createTable();
-        buttonStyle = createButtonStyle();
+        table = createTable();
+        buttons = new ArrayList<>();
     }
 
-    public void addButton(String text) {
-        TextButton button = createButton(text, buttonStyle);
-        addButton(buttonTable, button);
+    public void insertButton(String text) {
+        StyledButton button = createButton(text);
+        insertButton(table, button);
+        buttons.add(button);
     }
 
-    public void addButton(String text, SelectListener action) {
-        TextButton button = createButton(text, buttonStyle, action);
-        addButton(buttonTable, button);
+    public void insertButton(String text, SelectListener action) {
+        StyledButton button = createButton(text, action);
+        insertButton(table, button);
+        buttons.add(button);
     }
 
     public void setBackground(Drawable background) {
-        buttonTable.setBackground(background);
+        table.setBackground(background);
     }
 
-    public void setButtonTexture(TextureRegion enabled, TextureRegion selected, TextureRegion disabled) {
-        buttonStyle.up = new TextureRegionDrawable(enabled);
-        buttonStyle.down = new TextureRegionDrawable(selected);
-        buttonStyle.over = new TextureRegionDrawable(enabled);
-        buttonStyle.checked = new TextureRegionDrawable(enabled);
-        buttonStyle.checkedOver = new TextureRegionDrawable(enabled);
-        buttonStyle.disabled = new TextureRegionDrawable(disabled);
+    public void setButtonTextures(TextureRegion enabled, TextureRegion selected, TextureRegion disabled) {
+        for (StyledButton button: buttons) {
+            button.setEnabledTexture(enabled);
+            button.setDisabledTexture(disabled);
+            button.setSelectedTexture(selected);
+        }
     }
 
     public void setButtonSound(Sound sound) {
-
+        for (StyledButton button: buttons) {
+            button.setClickSound(sound);
+        }
     }
 
     private Table createTable() {
@@ -75,18 +79,12 @@ public class ListMenu extends IndexMenu
         return table;
     }
 
-    private TextButtonStyle createButtonStyle() {
-        TextButtonStyle buttonStyle = new TextButtonStyle();
-        buttonStyle.font = new BitmapFont();
-        return buttonStyle;
+    private StyledButton createButton(String text) {
+        return createButton(text, null);
     }
 
-    private TextButton createButton(String text, TextButtonStyle style) {
-        return createButton(text, style, null);
-    }
-
-    private TextButton createButton(String text, TextButtonStyle style, SelectListener action) {
-        TextButton button = new TextButton(text, style);
+    private StyledButton createButton(String text, SelectListener action) {
+        StyledButton button = new StyledButton(text);
         button.setDisabled(true);
 
         if (action != null) {
@@ -96,7 +94,7 @@ public class ListMenu extends IndexMenu
         return button;
     }
 
-    private void addButton(Table table, TextButton button) {
+    private void insertButton(Table table, TextButton button) {
         Cell cell = table.add(button);
         cell.width(Value.percentWidth(0.3f, table));
         cell.height(Value.percentHeight(0.04f, table));

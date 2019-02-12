@@ -11,6 +11,12 @@ package com.evilbird.engine.menu;
 
 import com.evilbird.engine.common.lang.Identifier;
 
+/**
+ * Implementors of this interface define unique identifiers for
+ * {@link Menu Menus}.
+ *
+ * @author Blair Butterworth
+ */
 public interface MenuIdentifier extends Identifier
 {
 }

@@ -10,15 +10,15 @@
 package com.evilbird.warcraft.menu.main;
 
 import com.evilbird.warcraft.menu.common.ListMenu;
-import com.evilbird.warcraft.menu.common.SelectListener;
+import com.evilbird.warcraft.menu.common.events.SelectListener;
 
 public class CampaignMenu extends ListMenu
 {
     public CampaignMenu() {
-        addButton("New Campaign", showHumanLevel());
-        addButton("Load Game");
-        addButton("Custom Scenario");
-        addButton("Previous Menu", previousMenu());
+        insertButton("New Campaign", showHumanLevel());
+        insertButton("Load Game");
+        insertButton("Custom Scenario");
+        insertButton("Previous Menu", previousMenu());
     }
 
     private SelectListener showHumanLevel() {
