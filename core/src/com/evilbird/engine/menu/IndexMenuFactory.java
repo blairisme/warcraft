@@ -9,9 +9,7 @@
 
 package com.evilbird.engine.menu;
 
-public interface MenuFactory
+public interface IndexMenuFactory extends MenuFactory
 {
-    void load();
-
-    Menu newMenu();
+    Menu newMenu(MenuIdentifier identifier);
 }

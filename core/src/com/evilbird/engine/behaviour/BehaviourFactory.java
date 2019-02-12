@@ -4,5 +4,5 @@ public interface BehaviourFactory
 {
     public void load();
 
-    public Behaviour newBehaviour(BehaviourType type);
+    public Behaviour newBehaviour(BehaviourIdentifier type);
 }

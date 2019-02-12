@@ -11,16 +11,17 @@ package com.evilbird.engine.level;
 
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
+import com.evilbird.engine.behaviour.BehaviourIdentifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.event.Events;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.StateFactory;
+import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.warcraft.state.campaign.human.HumanCampaign;
 import com.evilbird.warcraft.state.hud.HudType;
 
 import javax.inject.Inject;
 
-//TODO: finish
 public class LevelModel
 {
     private Level presenter;
@@ -51,15 +52,14 @@ public class LevelModel
         this.presenter = presenter;
     }
 
-    public void load() {
-        world = stateFactory.get(HumanCampaign.Level1); //TODO
-        hud = stateFactory.get(HudType.Human);  //TODO
-        behaviour = behaviourFactory.newBehaviour(null); //TODO Provide meaningful id
+    public void load(StateIdentifier worldId, StateIdentifier hudId, BehaviourIdentifier behaviourId) {
+        world = stateFactory.get(worldId);
+        hud = stateFactory.get(hudId);
+        behaviour = behaviourFactory.newBehaviour(behaviourId);
 
         presenter.setHud(hud);
         presenter.setWorld(world);
-
-        device.getDeviceInput().install(); //TODO
+        device.getDeviceInput().install();
     }
 
     public void update(float delta) {

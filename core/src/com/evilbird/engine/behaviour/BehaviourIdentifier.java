@@ -17,6 +17,6 @@ import com.evilbird.engine.common.lang.Identifier;
  *
  * @author Blair Butterworth
  */
-public interface BehaviourType extends Identifier
+public interface BehaviourIdentifier extends Identifier
 {
 }

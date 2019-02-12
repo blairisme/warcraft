@@ -7,10 +7,11 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.menu;
+package com.evilbird.warcraft.menu.intro;
 
 import com.evilbird.engine.menu.MenuIdentifier;
 
-public enum MenuType implements MenuIdentifier
+public enum IntroMenu implements MenuIdentifier
 {
+    HumanLevel1
 }

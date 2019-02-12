@@ -73,7 +73,7 @@ public class GameLoaderModel
     public void update(float delta) {
         loadingTime += delta;
         if (loadingTime >= 2 && assets.update()) {
-            Menu menu = menuFactory.rootMenu();
+            Menu menu = menuFactory.newMenu();
             presenter.setMenuScreen(menu);
         }
     }

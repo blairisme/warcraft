@@ -40,11 +40,16 @@ public abstract class WarcraftModuleAndroid
     @Singleton
     public abstract BehaviourFactory bindBehaviourFactory(WarcraftBehaviourFactory warcraftBehaviourFactory);
 
-    @Provides
+    @Binds
     @Singleton
-    public static MenuFactory provideMenuFactory(Device device, Provider<Level> levelProvider) {
-        return new WarcraftMenuFactory(device, levelProvider);
-    }
+    public abstract MenuFactory bindMenuFactory(WarcraftMenuFactory warcraftMenuFactory);
+
+//    @Provides
+//    @Singleton
+//    public static MenuFactory provideMenuFactory(Device device, Provider<Level> levelProvider)
+//    {
+//        return new WarcraftMenuFactory(device, levelProvider);
+//    }
 
     @Binds
     @Singleton

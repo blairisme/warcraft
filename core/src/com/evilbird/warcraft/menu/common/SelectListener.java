@@ -7,11 +7,9 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.menu;
+package com.evilbird.warcraft.menu.common;
 
-public interface MenuFactory
+public interface SelectListener
 {
-    void load();
-
-    Menu newMenu();
+    void onSelect();
 }
