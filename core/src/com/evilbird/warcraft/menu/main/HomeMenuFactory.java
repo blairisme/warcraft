@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.menu.main;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -26,6 +27,7 @@ public class HomeMenuFactory implements AssetProvider<Menu>
     private static final String BUTTON = "data/textures/menu/button.png";
     private static final String BACKGROUND = "data/textures/menu/menu.png";
     private static final String CLICK = "data/sounds/menu/click.mp3";
+    private static final String MUSIC = "data/music/13.mp3";
 
     private AssetManager assets;
 
@@ -39,6 +41,7 @@ public class HomeMenuFactory implements AssetProvider<Menu>
         assets.load(BUTTON, Texture.class);
         assets.load(BACKGROUND, Texture.class);
         assets.load(CLICK, Sound.class);
+        assets.load(MUSIC, Music.class);
     }
 
     @Override
@@ -47,6 +50,7 @@ public class HomeMenuFactory implements AssetProvider<Menu>
         menu.setBackground(getBackground());
         menu.setButtonTextures(getEnabled(), getSelected(), getDisabled());
         menu.setButtonSound(getButtonClick());
+        menu.setBackgroundMusic(getBackgroundMusic());
         return menu;
     }
 
@@ -73,5 +77,9 @@ public class HomeMenuFactory implements AssetProvider<Menu>
 
     private Sound getButtonClick() {
         return assets.get(CLICK);
+    }
+
+    private Music getBackgroundMusic() {
+        return assets.get(MUSIC);
     }
 }

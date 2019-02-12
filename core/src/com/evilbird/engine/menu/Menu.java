@@ -12,6 +12,7 @@ package com.evilbird.engine.menu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -24,6 +25,7 @@ import javax.inject.Provider;
 public class Menu extends ScreenAdapter
 {
     private Stage stage;
+    private Music music;
     private MenuFactory menuFactory;
     private Provider<Level> levelFactory;
     private GameScreenManager screenManager;
@@ -37,8 +39,8 @@ public class Menu extends ScreenAdapter
     }
 
     @Override
-    public void show () {
-        Gdx.input.setInputProcessor(stage);
+    public void dispose() {
+        stage.dispose();
     }
 
     public Stage getStage() {
@@ -60,25 +62,32 @@ public class Menu extends ScreenAdapter
     }
 
     @Override
-    public void dispose() {
-        stage.dispose();
+    public void show () {
+        Gdx.input.setInputProcessor(stage);
+        startBackgroundMusic();
     }
 
     public void showMenu(MenuIdentifier identifier) {
         Menu menu = menuFactory.newMenu(identifier);
         menu.setScreenManager(screenManager);
+        menu.setBackgroundMusic(music);
         showScreen(menu);
     }
 
     public void showLevel(StateIdentifier world, StateIdentifier hud) {
         Level level = levelFactory.get();
         level.load(world, hud, null);
+        stopBackgroundMusic();
         showScreen(level);
     }
 
     public void showScreen(Screen screen) {
         screenManager.setScreen(screen);
         dispose();
+    }
+
+    public void setBackgroundMusic(Music backgroundMusic) {
+        this.music = backgroundMusic;
     }
 
     public void setMenuFactory(MenuFactory menuFactory) {
@@ -91,5 +100,17 @@ public class Menu extends ScreenAdapter
 
     public void setScreenManager(GameScreenManager screenManager) {
         this.screenManager = screenManager;
+    }
+
+    public void startBackgroundMusic() {
+        if (music != null && !music.isPlaying()) {
+            music.play();
+        }
+    }
+
+    public void stopBackgroundMusic() {
+        if (music != null && music.isPlaying()) {
+            music.stop();
+        }
     }
 }
