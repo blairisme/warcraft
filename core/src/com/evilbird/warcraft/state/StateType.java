@@ -7,12 +7,13 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.hud;
+package com.evilbird.warcraft.state;
 
-import com.evilbird.engine.state.StateIdentifier;
+import com.evilbird.engine.state.StateCategory;
 
-public enum HudType implements StateIdentifier
+public enum StateType implements StateCategory
 {
-    Human,
-    Orc
+    Campaign,
+    Scenario,
+    Save
 }

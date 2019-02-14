@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -7,11 +16,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.evilbird.engine.action.events.EventQueue;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.event.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.layer.LayerType;
 
@@ -24,11 +33,11 @@ import javax.inject.Inject;
  */
 public class FogProvider implements IdentifiedAssetProvider<Item>
 {
-    private Events events;
+    private EventQueue events;
     private AssetManager assets;
 
     @Inject
-    public FogProvider(Device device, Events events) {
+    public FogProvider(Device device, EventQueue events) {
         this.assets = device.getAssetStorage().getAssets();
         this.events = events;
     }

@@ -12,6 +12,7 @@ package com.evilbird.warcraft.behaviour.ai;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.state.State;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class AiBehaviour implements Behaviour
     }
 
     @Override
-    public void update(ItemRoot world, ItemRoot hud, List<UserInput> input) {
+    public void update(State state, List<UserInput> input) {
+        ItemRoot world = state.getWorld();
         for (AiProcedure procedure: procedures) {
             procedure.update(world);
         }

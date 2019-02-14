@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.Image;
-import com.evilbird.warcraft.item.hud.HudControls;
+import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.unit.Unit;
 
 /**
@@ -45,7 +45,7 @@ public class UnitPane extends GridPane
         setCellSpacing(2);
         setCell(icon, 0, 0);
         setCell(healthBar, 0, 1);
-        setType(HudControls.UnitPane);
+        setType(HudControl.UnitPane);
         setTouchable(Touchable.enabled);
     }
 

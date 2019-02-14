@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.loader;
+package com.evilbird.engine.game.loader;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,8 +21,17 @@ import com.evilbird.engine.state.StateFactory;
 
 import javax.inject.Inject;
 
+/**
+ * Initializes the various factories and services that provide game objects and
+ * behaviour. When loading is complete the default/root menu is displayed.
+ *
+ * @author Blair Butterworth
+ */
 public class GameLoaderModel
 {
+    private static final String TITLE = "data/textures/menu/title.png";
+    private static final int ANTI_FLASH_DELAY = 2;
+
     private GameLoader presenter;
     private AssetManager assets;
     private ActionFactory actionFactory;
@@ -55,10 +64,10 @@ public class GameLoaderModel
     }
 
     public void loadBackground() {
-        assets.load("data/textures/menu/title.png", Texture.class);
+        assets.load(TITLE, Texture.class);
         assets.finishLoading();
 
-        Texture texture = assets.get("data/textures/menu/title.png");
+        Texture texture = assets.get(TITLE);
         presenter.setBackground(texture);
     }
 
@@ -72,7 +81,7 @@ public class GameLoaderModel
 
     public void update(float delta) {
         loadingTime += delta;
-        if (loadingTime >= 2 && assets.update()) {
+        if (loadingTime >= ANTI_FLASH_DELAY && assets.update()) {
             Menu menu = menuFactory.newMenu();
             presenter.setMenuScreen(menu);
         }

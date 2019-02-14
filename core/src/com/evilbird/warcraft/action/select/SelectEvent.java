@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.select;
 
-import com.evilbird.engine.event.Event;
+import com.evilbird.engine.action.events.Event;
 import com.evilbird.engine.item.Item;
 
 public class SelectEvent implements Event

@@ -31,6 +31,12 @@ public class IdentifiedAssetProviderSet<T> implements IdentifiedAssetProvider<T>
         delegates.put(key, new AssetProviderAdapter<>(provider));
     }
 
+    public void addProvider(Identifier[] keys, IdentifiedAssetProvider<? extends T> provider) {
+        for (Identifier key: keys) {
+            addProvider(key, provider);
+        }
+    }
+
     public void addProvider(Identifier key, IdentifiedAssetProvider<? extends T> provider) {
         delegates.put(key, provider);
     }

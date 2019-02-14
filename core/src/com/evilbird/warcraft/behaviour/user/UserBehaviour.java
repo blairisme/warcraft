@@ -14,6 +14,7 @@ import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.item.data.DataType;
 
 import javax.inject.Inject;
@@ -38,8 +39,11 @@ public class UserBehaviour implements Behaviour
     }
 
     @Override
-    public void update(ItemRoot world, ItemRoot hud, List<UserInput> inputs) {
+    public void update(State state, List<UserInput> inputs) {
         if (! inputs.isEmpty()) {
+            ItemRoot world = state.getWorld();
+            ItemRoot hud = state.getHud();
+
             Collection<Item> hudSelection = hud.findAll(selectedItem());
             Collection<Item> worldSelection = world.findAll(selectedItem());
 
@@ -62,14 +66,14 @@ public class UserBehaviour implements Behaviour
     // TODO: Remove hud
     private void update(UserInput input, Collection<Item> target, Item world, Collection<Item> hud) {
         if (hud.isEmpty()) {
-            update(input, target, world, (Item)null);
+            update(input, target, world);
         }
         for (Item hudSelected: hud) {
-            update(input, target, world, hudSelected);
+            update(input, target, world);
         }
     }
 
-    private void update(UserInput input, Collection<Item> targets, Item world, Item hud) {
+    private void update(UserInput input, Collection<Item> targets, Item world) {
         for (Item target: targets) {
             if (update(input, target, world)) {
                 return;

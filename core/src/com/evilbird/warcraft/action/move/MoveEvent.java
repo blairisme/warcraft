@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.move;
 
-import com.evilbird.engine.event.Event;
+import com.evilbird.engine.action.events.Event;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemNode;
 

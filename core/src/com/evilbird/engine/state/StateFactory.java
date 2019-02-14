@@ -9,11 +9,10 @@
 
 package com.evilbird.engine.state;
 
-import com.evilbird.engine.item.ItemRoot;
-
+@Deprecated
 public interface StateFactory
 {
     void load();
 
-    ItemRoot get(StateIdentifier identifier);
+    State get(StateIdentifier identifier);
 }

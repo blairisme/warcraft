@@ -1,11 +1,10 @@
 package com.evilbird.warcraft.desktop;
 
 import com.evilbird.engine.device.Device;
-
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
+
+import javax.inject.Singleton;
 
 @Module
 public class DesktopModule

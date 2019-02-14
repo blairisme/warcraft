@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.hud.control.status;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.warcraft.item.hud.HudControls;
+import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.placeholder.Placeholder;
 
 import javax.inject.Inject;
@@ -44,8 +44,8 @@ public class StatePane extends ItemGroup
 
         addItem(selectionPane);
         setSize(176, 176);
-        setId(HudControls.StatePane);
-        setType(HudControls.StatePane);
+        setId(HudControl.StatePane);
+        setType(HudControl.StatePane);
         setTouchable(Touchable.childrenOnly);
     }
 

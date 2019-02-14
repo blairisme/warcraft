@@ -23,7 +23,7 @@ local keystrokes = {
   {"PAUSE", "- pause game"},
   {"PRINT", "- make screen shot"},
   {"Alt-H", "- help menu"},
-  {"Alt-R", "- restart scenario"},
+  {"Alt-R", "- restart map"},
   {"Alt-Q", "- quit to main menu"},
   {"Alt-X", "- quit game"},
   {"Alt-B", "- toggle expand map"},

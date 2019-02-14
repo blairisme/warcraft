@@ -14,7 +14,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
 import com.evilbird.engine.item.control.TextLabel;
 import com.evilbird.engine.item.control.TextLabelAlignment;
-import com.evilbird.warcraft.item.hud.HudControls;
+import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.hud.common.UnitPane;
 import com.evilbird.warcraft.item.hud.control.status.building.BuildingDetailsPane;
 import com.evilbird.warcraft.item.hud.control.status.building.BuildingProgressProvider;
@@ -50,8 +50,8 @@ public class DetailsPane extends GridPane
         setCellSpacing(15);
         setCellWidthMinimum(170);
         setCellHeightMinimum(50);
-        setId(HudControls.DetailsPane);
-        setType(HudControls.DetailsPane);
+        setId(HudControl.DetailsPane);
+        setType(HudControl.DetailsPane);
         setTouchable(Touchable.disabled);
     }
 

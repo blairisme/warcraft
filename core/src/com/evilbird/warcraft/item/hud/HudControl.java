@@ -16,7 +16,7 @@ import com.evilbird.engine.item.ItemType;
  *
  * @author Blair Butterworth
  */
-public enum HudControls implements ItemType
+public enum HudControl implements ItemType
 {
     ActionButton,
     ActionPane,

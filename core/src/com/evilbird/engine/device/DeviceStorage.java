@@ -13,6 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 
 public interface DeviceStorage
 {
@@ -20,12 +21,12 @@ public interface DeviceStorage
 
     boolean exists(String path)  throws IOException;
 
-    Collection<String> list()  throws IOException;
+    List<String> list(String path)  throws IOException;
 
     <T> T read(String path)  throws IOException;
 
     <T> void write(T object, String path)  throws IOException;
 
 
-    AssetManager getAssets(); //TODO - Remove
+    AssetManager getAssets(); //TODO - Figure our what to do with this - remove/merge?
 }

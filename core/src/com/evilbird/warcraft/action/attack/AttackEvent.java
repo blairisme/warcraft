@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.attack;
 
-import com.evilbird.engine.event.Event;
+import com.evilbird.engine.action.events.Event;
 import com.evilbird.engine.item.Item;
 
 /**

@@ -7,11 +7,9 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.campaign.orc;
+package com.evilbird.warcraft.state.map;
 
-import com.evilbird.engine.state.StateIdentifier;
-
-public enum OrcCampaign implements StateIdentifier
+public interface MapDefinition
 {
-    Level1
+    String getAssetPath();
 }

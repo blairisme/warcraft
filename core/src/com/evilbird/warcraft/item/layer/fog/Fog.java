@@ -13,7 +13,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.event.Events;
+import com.evilbird.engine.action.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.specialized.layer.Layer;
@@ -36,13 +36,13 @@ import java.util.Collection;
 //TODO: Bug: revealing doesn't include item size, only position. Fix: use logic from ItemGraph.
 public class Fog extends Layer
 {
-    private Events events;
+    private EventQueue events;
     private FogTileSet tileSet;
     private boolean initialized;
     private int xMax;
     private int yMax;
 
-    public Fog(FogTileSet tileSet, Events events) {
+    public Fog(FogTileSet tileSet, EventQueue events) {
         this.events = events;
         this.tileSet = tileSet;
         this.initialized = false;

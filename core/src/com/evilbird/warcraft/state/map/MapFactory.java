@@ -7,8 +7,9 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.common;
+package com.evilbird.warcraft.state.map;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
@@ -16,8 +17,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
+import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.*;
 import com.evilbird.engine.item.specialized.layer.Layer;
 import com.evilbird.warcraft.item.data.DataType;
@@ -25,22 +29,44 @@ import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
+import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ItemRootFactory
+import static com.evilbird.engine.common.assets.AssetUtilities.linearFilter;
+
+public class MapFactory implements IdentifiedAssetProvider<ItemRoot>
 {
+    private AssetManager assets;
     private ItemFactory itemFactory;
 
     @Inject
-    public ItemRootFactory(ItemFactory itemFactory) {
+    public MapFactory(Device device, ItemFactory itemFactory) {
         this.itemFactory = itemFactory;
+        this.assets = device.getAssetStorage().getAssets();
     }
 
-    public ItemRoot load(TiledMap level) {
+    @Override
+    public void load() {
+    }
+
+    @Override
+    public ItemRoot get(Identifier identifier) {
+        Validate.isInstanceOf(MapDefinition.class, identifier);
+        MapDefinition definition = (MapDefinition)identifier;
+
+        String assetPath = definition.getAssetPath();
+        assets.load(assetPath, TiledMap.class, linearFilter());
+        assets.finishLoadingAsset(assetPath);
+        TiledMap tiledMap =  assets.get(assetPath, TiledMap.class);
+
+        return load(tiledMap);
+    }
+
+    private ItemRoot load(TiledMap level) {
         ItemRoot result = new ItemRoot(new ItemGraph(32, 32, 32, 32));
         result.setViewport(new ScreenViewport());
         addItems(level, result);

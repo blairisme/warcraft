@@ -24,20 +24,17 @@ public class ForestProvider implements AssetProvider<Forest>
     private TreeProvider treeProvider;
 
     @Inject
-    public ForestProvider(TreeProvider treeProvider)
-    {
+    public ForestProvider(TreeProvider treeProvider) {
         this.treeProvider = treeProvider;
     }
 
     @Override
-    public void load()
-    {
+    public void load() {
         treeProvider.load();
     }
 
     @Override
-    public Forest get()
-    {
+    public Forest get() {
         return new Forest(treeProvider);
     }
 }

@@ -9,17 +9,17 @@
 
 package com.evilbird.warcraft.action.select;
 
-import com.evilbird.engine.event.Events;
+import com.evilbird.engine.action.events.EventQueue;
 import com.evilbird.engine.item.Item;
 
 import javax.inject.Inject;
 
 public class SelectReporter implements SelectObserver
 {
-    private Events events;
+    private EventQueue events;
 
     @Inject
-    public SelectReporter(Events events) {
+    public SelectReporter(EventQueue events) {
         this.events = events;
     }
 

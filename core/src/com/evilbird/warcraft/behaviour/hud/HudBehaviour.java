@@ -9,16 +9,17 @@
 
 package com.evilbird.warcraft.behaviour.hud;
 
+import com.evilbird.engine.action.events.EventQueue;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.event.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
 import com.evilbird.warcraft.action.select.SelectEvent;
 import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.hud.HudControls;
+import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.hud.control.actions.ActionPane;
 import com.evilbird.warcraft.item.hud.control.status.StatePane;
 import com.evilbird.warcraft.item.hud.resource.ResourcePane;
@@ -34,19 +35,22 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.getHumanPla
 
 public class HudBehaviour implements Behaviour
 {
-    private Events events;
+    private EventQueue events;
     private Player player;
     private ResourcePane resourcePane;
     private ActionPane actionPane;
     private StatePane statePane;
 
     @Inject
-    public HudBehaviour(Events events) {
+    public HudBehaviour(EventQueue events) {
         this.events = events;
     }
 
     @Override
-    public void update(ItemRoot world, ItemRoot hud, List<UserInput> inputs) {
+    public void update(State state, List<UserInput> inputs) {
+        ItemRoot world = state.getWorld();
+        ItemRoot hud = state.getHud();
+
         if (initialized(world, hud)) {
             updateResources();
             updateSelection();
@@ -60,9 +64,9 @@ public class HudBehaviour implements Behaviour
     private boolean initialized(ItemRoot world, ItemRoot hud) {
         if (player == null) {
             player = getHumanPlayer(world);
-            resourcePane = (ResourcePane)hud.find(itemWithId(HudControls.ResourcePane));
-            actionPane = (ActionPane)hud.find(itemWithId(HudControls.ActionPane));
-            statePane = (StatePane)hud.find(itemWithId(HudControls.StatePane));
+            resourcePane = (ResourcePane)hud.find(itemWithId(HudControl.ResourcePane));
+            actionPane = (ActionPane)hud.find(itemWithId(HudControl.ActionPane));
+            statePane = (StatePane)hud.find(itemWithId(HudControl.StatePane));
             return false;
         }
         return true;

@@ -24,7 +24,7 @@ function RunRestartConfirmMenu()
 
   menu:addLabel("Are you sure you", 128, 11)
   menu:addLabel("want to restart", 128, 11 + (24 * 1))
-  menu:addLabel("the scenario?", 128, 11 + (24 * 2))
+  menu:addLabel("the map?", 128, 11 + (24 * 2))
   menu:addFullButton("~!Restart Scenario", "r", 16, 11 + (24 * 3) + 29,
     function() StopGame(GameRestart); menu:stopAll() end)
   menu:addFullButton("Cancel (~<Esc~>)", "escape", 16, 248,

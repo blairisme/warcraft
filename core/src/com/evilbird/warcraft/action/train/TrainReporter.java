@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.train;
 
-import com.evilbird.engine.event.Events;
+import com.evilbird.engine.action.events.EventQueue;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
@@ -18,10 +18,10 @@ import javax.inject.Inject;
 
 public class TrainReporter implements TrainObserver
 {
-    private Events events;
+    private EventQueue events;
 
     @Inject
-    public TrainReporter(Events events) {
+    public TrainReporter(EventQueue events) {
         this.events = events;
     }
 

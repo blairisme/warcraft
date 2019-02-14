@@ -17,17 +17,16 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.game.GameScreenManager;
-import com.evilbird.engine.level.Level;
+import com.evilbird.engine.game.renderer.GameRenderer;
+import com.evilbird.engine.game.renderer.GameRendererFactory;
 import com.evilbird.engine.state.StateIdentifier;
-
-import javax.inject.Provider;
 
 public class Menu extends ScreenAdapter
 {
     private Stage stage;
     private Music music;
     private MenuFactory menuFactory;
-    private Provider<Level> levelFactory;
+    private GameRendererFactory rendererFactory;
     private GameScreenManager screenManager;
 
     public Menu() {
@@ -74,9 +73,8 @@ public class Menu extends ScreenAdapter
         showScreen(menu);
     }
 
-    public void showLevel(StateIdentifier world, StateIdentifier hud) {
-        Level level = levelFactory.get();
-        level.load(world, hud, null);
+    public void showState(StateIdentifier identifier) {
+        GameRenderer level = rendererFactory.get(identifier);
         stopBackgroundMusic();
         showScreen(level);
     }
@@ -94,8 +92,8 @@ public class Menu extends ScreenAdapter
         this.menuFactory = menuFactory;
     }
 
-    public void setLevelFactory(Provider<Level> levelFactory) {
-        this.levelFactory = levelFactory;
+    public void setRendererFactory(GameRendererFactory rendererFactory) {
+        this.rendererFactory = rendererFactory;
     }
 
     public void setScreenManager(GameScreenManager screenManager) {

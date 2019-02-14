@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.event.Event;
+import com.evilbird.engine.action.events.Event;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemType;
 

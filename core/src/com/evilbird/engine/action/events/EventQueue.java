@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.event;
+package com.evilbird.engine.action.events;
 
 import com.evilbird.engine.common.collection.UnmodifiableIterator;
 
@@ -22,13 +22,13 @@ import java.util.*;
  * @author Blair Butterworth
  */
 @Singleton
-public class Events implements Iterable<Event>
+public class EventQueue implements Iterable<Event>
 {
     private Queue<Event> queue;
     private Map<Class<?>, Collection<Event>> types;
 
     @Inject
-    public Events() {
+    public EventQueue() {
         queue = new ArrayDeque<>();
         types = new HashMap<>();
     }

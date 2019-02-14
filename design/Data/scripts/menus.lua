@@ -89,7 +89,7 @@ DefineMenuItem("pos", { 16, 40 + (36 * 4)}, "font", "large",
   "button", {
     "caption", "~!End Scenario",
     "hotkey", "e",
-    "func", "end-scenario-menu",
+    "func", "end-map-menu",
     "style", "gm-full"},
   "menu", "menu-game")
 DefineMenuItem("pos", { 16, 288 - 40}, "font", "large",
@@ -184,14 +184,14 @@ DefineMenuItem("pos", { 162, 80}, "font", "large",
 
 
 --
--- menu-select-scenario
+-- menu-select-map
 --
-DefineMenu("name", "menu-select-scenario", "geometry", {144, 64, 352, 352},
+DefineMenu("name", "menu-select-map", "geometry", {144, 64, 352, 352},
   "panel", "panel5", "background", MenuBackground, "default", 4,
   "init", "scen-select-init", "exit", "scen-select-exit")
 DefineMenuItem("pos", { 176, 8}, "font", "large",
-  "text", {"caption", "Select scenario", "align", "center"},
-  "menu", "menu-select-scenario")
+  "text", {"caption", "Select map", "align", "center"},
+  "menu", "menu-select-map")
 DefineMenuItem("pos", { 24, 140}, "font", "game",
   "listbox", {"size", {288, 108},
     "style", "pulldown",
@@ -199,40 +199,40 @@ DefineMenuItem("pos", { 24, 140}, "font", "game",
     "retopt", "scen-select-lb-retrieve",
     "handler", "scen-select-ok",
     "nlines", 6},
-  "menu", "menu-select-scenario")
+  "menu", "menu-select-map")
 DefineMenuItem("pos", { 312, 140}, "font", "small",
   "vslider", {"size", {18, 108},
     "func", "scen-select-vs-action",
     "handler", "scen-select-ok"},
-  "menu", "menu-select-scenario")
+  "menu", "menu-select-map")
 DefineMenuItem("pos", { 48, 318}, "font", "large",
   "button", {
     "caption", "OK",
     "hotkey", "",
     "func", "scen-select-ok",
     "style", "gm-half"},
-  "menu", "menu-select-scenario")
+  "menu", "menu-select-map")
 DefineMenuItem("pos", { 198, 318}, "font", "large",
   "button", {
     "caption", "Cancel",
     "hotkey", "",
     "func", "scen-select-cancel",
     "style", "gm-half"},
-  "menu", "menu-select-scenario")
+  "menu", "menu-select-map")
 DefineMenuItem("pos", { 132, 40}, "font", "large",
   "text", {"caption", "Type:", "align", "right"},
-  "menu", "menu-select-scenario")
+  "menu", "menu-select-map")
 DefineMenuItem("pos", { 140, 40}, "font", "game",
   "pulldown",  {"size", {192, 20},
     "style", "pulldown",
     "func", "scen-select-tpms-action",
-    "options", {"Stratagus scenario (smp)" },
+    "options", {"Stratagus map (smp)" },
     "default", 0,
     "current", 0},
-  "menu", "menu-select-scenario")
+  "menu", "menu-select-map")
 DefineMenuItem("pos", { 132, 80}, "font", "large",
   "text", {"caption", "Map size:", "align", "right"},
-  "menu", "menu-select-scenario")
+  "menu", "menu-select-map")
 DefineMenuItem("pos", { 140, 80}, "font", "game",
   "pulldown",  {"size", {192, 20},
     "style", "pulldown",
@@ -240,14 +240,14 @@ DefineMenuItem("pos", { 140, 80}, "font", "game",
     "options", {"Any size", "32 x 32", "64 x 64", "96 x 96", "128 x 128", "256 x 256", "512 x 512", "1024 x 1024" },
     "default", 0,
     "current", 0},
-  "menu", "menu-select-scenario")
+  "menu", "menu-select-map")
 DefineMenuItem("pos", { 22, 112}, "font", "game",
   "button", {
     "caption", "",
     "hotkey", "",
     "func", "scen-select-folder",
     "style", "folder"},
-  "menu", "menu-select-scenario")
+  "menu", "menu-select-map")
 
 
 --
@@ -1536,48 +1536,48 @@ DefineMenuItem("pos", { 16, 288 - 40}, "font", "large",
 
 
 --
--- menu-end-scenario
+-- menu-end-map
 --
-DefineMenu("name", "menu-end-scenario", "geometry", {272, 96, 256, 288},
+DefineMenu("name", "menu-end-map", "geometry", {272, 96, 256, 288},
   "panel", "panel1", "default", 5)
 DefineMenuItem("pos", { 128, 11}, "font", "large",
   "text", {"caption", "End Scenario", "align", "center"},
-  "menu", "menu-end-scenario")
+  "menu", "menu-end-map")
 DefineMenuItem("pos", { 16, 40 + (36 * 0)}, "font", "large",
   "button", {
     "caption", "~!Restart Scenario",
     "hotkey", "r",
     "func", function() ProcessMenu("menu-restart-confirm") end,
     "style", "gm-full"},
-  "menu", "menu-end-scenario")
+  "menu", "menu-end-map")
 DefineMenuItem("pos", { 16, 40 + (36 * 1)}, "font", "large",
   "button", {
     "caption", "~!Surrender",
     "hotkey", "s",
     "func", function() ProcessMenu("menu-surrender-confirm") end,
     "style", "gm-full"},
-  "menu", "menu-end-scenario")
+  "menu", "menu-end-map")
 DefineMenuItem("pos", { 16, 40 + (36 * 2)}, "font", "large",
   "button", {
     "caption", "~!Quit to Menu",
     "hotkey", "q",
     "func", function() ProcessMenu("menu-quit-to-menu-confirm") end,
     "style", "gm-full"},
-  "menu", "menu-end-scenario")
+  "menu", "menu-end-map")
 DefineMenuItem("pos", { 16, 40 + (36 * 3)}, "font", "large",
   "button", {
     "caption", "E~!xit Program",
     "hotkey", "x",
     "func", function() ProcessMenu("menu-exit-confirm") end,
     "style", "gm-full"},
-  "menu", "menu-end-scenario")
+  "menu", "menu-end-map")
 DefineMenuItem("pos", { 16, 288 - 40}, "font", "large",
   "button", {
     "caption", "Previous (~<Esc~>)",
     "hotkey", "esc",
     "func", "end-menu",
     "style", "gm-full"},
-  "menu", "menu-end-scenario")
+  "menu", "menu-end-map")
 
 
 --
@@ -3670,13 +3670,13 @@ DefineMenuItem("pos", { 128, 11 + (24 * 1)}, "font", "large",
   "text", {"caption", "want to restart", "align", "center"},
   "menu", "menu-restart-confirm")
 DefineMenuItem("pos", { 128, 11 + (24 * 2)}, "font", "large",
-  "text", {"caption", "the scenario?", "align", "center"},
+  "text", {"caption", "the map?", "align", "center"},
   "menu", "menu-restart-confirm")
 DefineMenuItem("pos", { 16, 11 + (24 * 3) + 29}, "font", "large",
   "button", {
     "caption", "~!Restart Scenario",
     "hotkey", "r",
-    "func", "end-scenario-restart",
+    "func", "end-map-restart",
     "style", "gm-full"},
   "menu", "menu-restart-confirm")
 DefineMenuItem("pos", { 16, 288 - 40}, "font", "large",
@@ -3706,7 +3706,7 @@ DefineMenuItem("pos", { 16, 11 + (24 * 3) + 29}, "font", "large",
   "button", {
     "caption", "~!Surrender",
     "hotkey", "s",
-    "func", "end-scenario-surrender",
+    "func", "end-map-surrender",
     "style", "gm-full"},
   "menu", "menu-surrender-confirm")
 DefineMenuItem("pos", { 16, 288 - 40}, "font", "large",
@@ -3736,7 +3736,7 @@ DefineMenuItem("pos", { 16, 11 + (24 * 3) + 29}, "font", "large",
   "button", {
     "caption", "~!Quit to Menu",
     "hotkey", "q",
-    "func", "end-scenario-quit-to-menu",
+    "func", "end-map-quit-to-menu",
     "style", "gm-full"},
   "menu", "menu-quit-to-menu-confirm")
 DefineMenuItem("pos", { 16, 288 - 40}, "font", "large",

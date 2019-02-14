@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.gather;
 
-import com.evilbird.engine.event.Events;
+import com.evilbird.engine.action.events.EventQueue;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
@@ -18,10 +18,10 @@ import javax.inject.Inject;
 
 public class GatherReporter implements GatherObserver
 {
-    private Events events;
+    private EventQueue events;
 
     @Inject
-    public GatherReporter(Events events) {
+    public GatherReporter(EventQueue events) {
         this.events = events;
     }
 

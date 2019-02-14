@@ -7,29 +7,27 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.level;
+package com.evilbird.engine.game.renderer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.state.State;
 
 import javax.inject.Inject;
 
-public class LevelView
+public class GameRendererView
 {
-    private ItemRoot hud;
     private ItemRoot world;
+    private ItemRoot hud;
 
     @Inject
-    public LevelView() {
+    public GameRendererView() {
     }
 
-    public void setWorld(ItemRoot world) {
-        this.world = world;
-    }
-
-    public void setHud(ItemRoot hud) {
-        this.hud = hud;
+    public void setState(State state) {
+        this.world = state.getWorld();
+        this.hud = state.getHud();
     }
 
     public void draw() {
@@ -46,7 +44,7 @@ public class LevelView
     }
 
     public void dispose() {
-        world.dispose();
+        world.draw();
         hud.dispose();
     }
 }

@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.move;
 
-import com.evilbird.engine.event.Events;
+import com.evilbird.engine.action.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemNode;
 
@@ -17,16 +17,16 @@ import javax.inject.Inject;
 
 /**
  * Instances of this class observe movement events and report them to the
- * {@link Events} stream.
+ * {@link EventQueue} stream.
  *
  * @author Blair Butterworth
  */
 class MoveReporter implements MoveObserver
 {
-    private Events events;
+    private EventQueue events;
 
     @Inject
-    public MoveReporter(Events events) {
+    public MoveReporter(EventQueue events) {
         this.events = events;
     }
 

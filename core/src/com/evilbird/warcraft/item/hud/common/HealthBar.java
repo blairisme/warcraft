@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.hud.common;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.item.control.ProgressBar;
-import com.evilbird.warcraft.item.hud.HudControls;
+import com.evilbird.warcraft.item.hud.HudControl;
 
 /**
  * Instances of this user interface control represents a health bar, a progress
@@ -27,7 +27,7 @@ public class HealthBar extends ProgressBar
     private Drawable lowHealthTexture;
 
     public HealthBar() {
-        setType(HudControls.HealthBar);
+        setType(HudControl.HealthBar);
         setTouchable(Touchable.disabled);
     }
 

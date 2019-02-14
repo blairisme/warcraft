@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.common.resource;
 
-import com.evilbird.engine.event.Event;
+import com.evilbird.engine.action.events.Event;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;

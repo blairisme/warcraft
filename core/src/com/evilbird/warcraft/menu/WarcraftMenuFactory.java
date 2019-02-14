@@ -10,32 +10,31 @@
 package com.evilbird.warcraft.menu;
 
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
-import com.evilbird.engine.level.Level;
+import com.evilbird.engine.game.renderer.GameRendererFactory;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.warcraft.menu.intro.IntroMenuFactory;
-import com.evilbird.warcraft.menu.main.MainMenuType;
 import com.evilbird.warcraft.menu.main.MainMenuFactory;
+import com.evilbird.warcraft.menu.main.MainMenuType;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 
 public class WarcraftMenuFactory implements MenuFactory
 {
-    private Provider<Level> levelFactory;
+    private GameRendererFactory rendererFactory;
     private IdentifiedAssetProviderSet<Menu> factories;
 
     @Inject
     public WarcraftMenuFactory(
-        Provider<Level> levelProvider,
         MainMenuFactory mainMenuFactory,
-        IntroMenuFactory introMenuFactory)
+        IntroMenuFactory introMenuFactory,
+        GameRendererFactory rendererFactory)
     {
-        levelFactory = levelProvider;
-        factories = new IdentifiedAssetProviderSet<>();
-        factories.addProvider(mainMenuFactory);
-        factories.addProvider(introMenuFactory);
+        this.rendererFactory = rendererFactory;
+        this.factories = new IdentifiedAssetProviderSet<>();
+        this.factories.addProvider(mainMenuFactory);
+        this.factories.addProvider(introMenuFactory);
     }
 
     @Override
@@ -52,7 +51,7 @@ public class WarcraftMenuFactory implements MenuFactory
     public Menu newMenu(MenuIdentifier identifier) {
         Menu menu = factories.get(identifier);
         menu.setMenuFactory(this);
-        menu.setLevelFactory(levelFactory);
+        menu.setRendererFactory(rendererFactory);
         return menu;
     }
 }

@@ -7,11 +7,10 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.campaign.human;
+package com.evilbird.engine.state;
 
-import com.evilbird.engine.state.StateIdentifier;
+import com.evilbird.engine.common.lang.Identifier;
 
-public enum HumanCampaign implements StateIdentifier
+public interface StateCategory extends Identifier
 {
-    Level1
 }

@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.event.Events;
+import com.evilbird.engine.action.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
@@ -21,10 +21,10 @@ import javax.inject.Inject;
 
 public class ConstructReporter implements ConstructObserver
 {
-    private Events events;
+    private EventQueue events;
 
     @Inject
-    public ConstructReporter(Events events) {
+    public ConstructReporter(EventQueue events) {
         this.events = events;
     }
 

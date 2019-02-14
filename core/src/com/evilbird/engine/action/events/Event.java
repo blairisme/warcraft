@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.event;
+package com.evilbird.engine.action.events;
 
 import com.evilbird.engine.item.Item;
 

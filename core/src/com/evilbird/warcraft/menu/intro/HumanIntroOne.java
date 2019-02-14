@@ -10,8 +10,7 @@
 package com.evilbird.warcraft.menu.intro;
 
 import com.evilbird.warcraft.menu.common.events.SelectListener;
-import com.evilbird.warcraft.state.campaign.human.HumanCampaign;
-import com.evilbird.warcraft.state.hud.HudType;
+import com.evilbird.warcraft.state.Campaign;
 
 public class HumanIntroOne extends IntroMenu
 {
@@ -48,6 +47,6 @@ public class HumanIntroOne extends IntroMenu
     }
 
     private SelectListener showLevel() {
-        return () -> showLevel(HumanCampaign.Level1, HudType.Human);
+        return () -> showState(Campaign.Human1);
     }
 }

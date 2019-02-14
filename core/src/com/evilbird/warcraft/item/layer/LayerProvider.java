@@ -1,3 +1,12 @@
+/*
+ * Blair Butterworth (c) 2018
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.item.layer;
 
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
@@ -8,12 +17,6 @@ import com.evilbird.warcraft.item.layer.map.Map;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
-
-/**
- * Instances of this REPLACEME
- *
- * @Author Blair
- */
 
 public class LayerProvider extends IdentifiedAssetProviderSet<Item>
 {

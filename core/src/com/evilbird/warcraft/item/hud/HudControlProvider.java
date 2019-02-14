@@ -26,7 +26,7 @@ import com.evilbird.warcraft.item.hud.resource.ResourcePanelProvider;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-import static com.evilbird.warcraft.item.hud.HudControls.*;
+import static com.evilbird.warcraft.item.hud.HudControl.*;
 
 /**
  * Instances of this factory create user interface controls.

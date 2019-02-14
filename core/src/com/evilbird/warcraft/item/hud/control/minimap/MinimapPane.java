@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.control.Image;
-import com.evilbird.warcraft.item.hud.HudControls;
+import com.evilbird.warcraft.item.hud.HudControl;
 
 public class MinimapPane extends ItemGroup
 {
@@ -24,8 +24,8 @@ public class MinimapPane extends ItemGroup
         this.image.setSize(176, 136);
         setSize(176, 136);
         addItem(image);
-        setId(HudControls.MinimapPane);
-        setType(HudControls.MinimapPane);
+        setId(HudControl.MinimapPane);
+        setType(HudControl.MinimapPane);
         setTouchable(Touchable.disabled);
     }
 

@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Navigable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.control.GridPane;
-import com.evilbird.warcraft.item.hud.HudControls;
+import com.evilbird.warcraft.item.hud.HudControl;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -55,8 +55,8 @@ public class ActionPane extends GridPane implements Navigable
         setCellPadding(3);
         setCellWidthMinimum(54);
         setCellHeightMinimum(46);
-        setId(HudControls.ActionPane);
-        setType(HudControls.ActionPane);
+        setId(HudControl.ActionPane);
+        setType(HudControl.ActionPane);
         setTouchable(Touchable.childrenOnly);
     }
 

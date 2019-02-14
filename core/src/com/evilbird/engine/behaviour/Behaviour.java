@@ -10,7 +10,7 @@
 package com.evilbird.engine.behaviour;
 
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.state.State;
 
 import java.util.List;
 
@@ -22,5 +22,5 @@ import java.util.List;
  */
 public interface Behaviour
 {
-    void update(ItemRoot world, ItemRoot hud, List<UserInput> input);
+    void update(State state, List<UserInput> input);
 }

@@ -10,7 +10,7 @@
 package com.evilbird.engine.game;
 
 import com.badlogic.gdx.Game;
-import com.evilbird.engine.loader.GameLoader;
+import com.evilbird.engine.game.loader.GameLoader;
 
 import javax.inject.Inject;
 import javax.inject.Provider;

@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.state;
 
+import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.item.ItemRoot;
 
 public class State
@@ -27,5 +28,9 @@ public class State
 
     public ItemRoot getHud() {
         return hud;
+    }
+
+    public Behaviour getBehaviour() {
+        throw new UnsupportedOperationException(); //TODO
     }
 }

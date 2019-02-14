@@ -20,7 +20,7 @@ import com.evilbird.engine.common.assets.FreeTypeFontLoader;
 import com.evilbird.engine.device.DeviceStorage;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.util.List;
 
 public class DesktopStorage implements DeviceStorage
 {
@@ -53,7 +53,7 @@ public class DesktopStorage implements DeviceStorage
     }
 
     @Override
-    public Collection<String> list() throws IOException {
+    public List<String> list(String path) throws IOException {
         throw new UnsupportedOperationException();
     }
 

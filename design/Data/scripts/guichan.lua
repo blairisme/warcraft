@@ -446,7 +446,7 @@ function RunSelectScenarioMenu()
   menu:setPosition((Video.Width - 352) / 2, (Video.Height - 352) / 2)
   menu:setDrawMenusUnder(true)
 
-  menu:addLabel("Select scenario", 176, 8)
+  menu:addLabel("Select map", 176, 8)
 
   local browser = menu:addBrowser("maps/", "^.*%.smp%.?g?z?$",
     24, 140, 300, 108, mapname)
