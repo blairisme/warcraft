@@ -55,7 +55,7 @@ public class HomeMenuFactory implements AssetProvider<Menu>
         menu.setButtonTextures(getEnabled(), getSelected(), getDisabled());
         menu.setButtonFont(getButtonFont());
         menu.setButtonSound(getButtonClick());
-        menu.setBackgroundMusic(getBackgroundMusic());
+        menu.setMusic(getMusic());
         return menu;
     }
 
@@ -89,7 +89,7 @@ public class HomeMenuFactory implements AssetProvider<Menu>
         return assets.get(CLICK);
     }
 
-    private Music getBackgroundMusic() {
+    private Music getMusic() {
         return assets.get(MUSIC);
     }
 }

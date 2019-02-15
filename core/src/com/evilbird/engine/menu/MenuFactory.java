@@ -9,18 +9,15 @@
 
 package com.evilbird.engine.menu;
 
+import com.evilbird.engine.common.persistence.Persisted;
+
 /**
  * Instances of this factory create {@link Menu} instances.
  *
  * @author Blair Butterworth
  */
-public interface MenuFactory
+public interface MenuFactory extends Persisted
 {
-    /**
-     * Loads an assets required by the MenuFactory.
-     */
-    void load();
-
     /**
      * Creates a new root menu, the home menu or "highest" level menu.
      *

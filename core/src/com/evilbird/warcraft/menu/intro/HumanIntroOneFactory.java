@@ -61,7 +61,7 @@ public class HumanIntroOneFactory implements AssetProvider<Menu>
         menu.setBackground(getBackground());
         menu.setButtonTexture(getButtonTexture());
         menu.setFont(getFont());
-        menu.setNarration(getNarration());
+        menu.setMusic(getNarration());
         menu.setButtonSound(getButtonClick());
         return menu;
     }

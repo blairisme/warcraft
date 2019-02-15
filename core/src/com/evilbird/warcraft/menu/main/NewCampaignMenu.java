@@ -15,8 +15,8 @@ import com.evilbird.warcraft.menu.intro.IntroMenuType;
 public class NewCampaignMenu extends MainMenu
 {
     public NewCampaignMenu() {
-        insertButton("Human Map", showHumanLevel());
-        insertButton("Orc Map");
+        insertButton("Human Campaign", showHumanLevel());
+        insertButton("Orc Campaign");
         insertButton("Previous Menu", previousMenu());
     }
 

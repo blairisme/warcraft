@@ -11,6 +11,13 @@ package com.evilbird.engine.device;
 
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Encapsulates data about a single user interaction with the application.
+ * Methods are provided to determine the type of interaction, dragging,
+ * tapping, etc, as well the location on the screen where the input was made.
+ *
+ * @author Blair Butterworth
+ */
 public class UserInput
 {
     private UserInputType type;

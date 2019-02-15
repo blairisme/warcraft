@@ -15,5 +15,5 @@ public enum StateType implements StateCategory
 {
     Campaign,
     Scenario,
-    Save
+    UserSave
 }

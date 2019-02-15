@@ -13,13 +13,11 @@ import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.menu.MenuFactory;
-import com.evilbird.engine.state.StateFactory;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.warcraft.action.WarcraftActionFactory;
 import com.evilbird.warcraft.behaviour.WarcraftBehaviourFactory;
 import com.evilbird.warcraft.item.WarcraftItemFactory;
 import com.evilbird.warcraft.menu.WarcraftMenuFactory;
-import com.evilbird.warcraft.state.WarcraftStateFactory;
 import com.evilbird.warcraft.state.WarcraftStateService;
 import dagger.Binds;
 import dagger.Module;
@@ -44,10 +42,6 @@ public abstract class WarcraftModuleAndroid
     @Binds
     @Singleton
     public abstract ItemFactory bindItemFactory(WarcraftItemFactory warcraftItemFactory);
-
-    @Binds
-    @Singleton
-    public abstract StateFactory bindStateFactory(WarcraftStateFactory warcraftStateFactory);
 
     @Binds
     @Singleton

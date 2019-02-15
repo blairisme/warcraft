@@ -18,7 +18,6 @@ import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.item.data.DataType;
 
 import javax.inject.Inject;
-
 import java.util.*;
 
 import static com.evilbird.engine.item.ItemPredicates.itemWithType;

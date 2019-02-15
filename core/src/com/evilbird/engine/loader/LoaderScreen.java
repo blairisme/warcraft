@@ -7,29 +7,32 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.game.loader;
+package com.evilbird.engine.loader;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
-import com.evilbird.engine.game.GameScreenManager;
-import com.evilbird.engine.menu.Menu;
+import com.evilbird.engine.game.GameController;
 
 import javax.inject.Inject;
 
-//TODO: Move loading out of constructor - GameEngine.create() should call GameLoader.load()
-public class GameLoader extends ScreenAdapter
+//TODO: Move loading out of constructor - GameEngine.create() should call LoaderScreen.load()
+public class LoaderScreen extends ScreenAdapter
 {
-    private GameLoaderModel model;
-    private GameLoaderView view;
-    private GameScreenManager screenManager;
+    private LoaderScreenModel model;
+    private LoaderScreenView view;
+    private GameController controller;
 
     @Inject
-    public GameLoader(GameLoaderModel model, GameLoaderView view) {
+    public LoaderScreen(LoaderScreenModel model, LoaderScreenView view) {
         this.view = view;
         this.model = model;
         this.model.setPresenter(this);
-        this.model.loadBackground();
-        this.model.loadAssets();
+    }
+
+    public void load() {
+        view.load();
+        model.loadBackground();
+        model.loadAssets();
     }
 
     @Override
@@ -48,13 +51,12 @@ public class GameLoader extends ScreenAdapter
         view.resize(width, height);
     }
 
-    public void setScreenManager(GameScreenManager screenManager) {
-        this.screenManager = screenManager;
+    public void setController(GameController controller) {
+        this.controller = controller;
     }
 
-    public void setMenuScreen(Menu menu) {
-        menu.setScreenManager(screenManager);
-        screenManager.setScreen(menu);
+    public void setMenuScreen() {
+        controller.showMenuRoot();
     }
 
     public void setBackground(Texture texture) {

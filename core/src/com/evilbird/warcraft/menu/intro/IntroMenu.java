@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.menu.intro;
 
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -37,7 +36,6 @@ public class IntroMenu extends Menu
     private StyledLabel title;
     private StyledLabel description;
     private StyledLabel objectives;
-    private Music narration;
 
     @Inject
     public IntroMenu() {
@@ -46,30 +44,6 @@ public class IntroMenu extends Menu
         description = createDescription(table);
         objectives = createObjectives(table);
         button = createButton(table);
-    }
-
-    @Override
-    public void show() {
-        super.show();
-        if (narration != null) {
-            narration.play();
-        }
-    }
-
-    @Override
-    public void hide() {
-        super.hide();
-        if (narration != null) {
-            narration.play();
-        }
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-        if (narration != null) {
-            narration.dispose();
-        }
     }
 
     public void setBackground(Drawable background) {
@@ -99,10 +73,6 @@ public class IntroMenu extends Menu
         description.setFont(font);
         objectives.setFont(font);
         button.setFont(font);
-    }
-
-    public void setNarration(Music narration) {
-        this.narration = narration;
     }
 
     public void setTitle(String title) {

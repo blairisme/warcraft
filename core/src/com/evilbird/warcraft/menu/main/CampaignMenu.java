@@ -14,9 +14,9 @@ import com.evilbird.warcraft.menu.common.events.SelectListener;
 public class CampaignMenu extends MainMenu
 {
     public CampaignMenu() {
-        insertButton("New Map", showHumanLevel());
+        insertButton("New Campaign", showHumanLevel());
         insertButton("Load Game");
-        insertButton("Custom Map");
+        insertButton("Custom Campaign");
         insertButton("Previous Menu", previousMenu());
     }
 

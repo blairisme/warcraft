@@ -9,9 +9,14 @@
 
 package com.evilbird.engine.device;
 
+/**
+ * Defines options for specifying the variety of interaction undertaken by a
+ * user.
+ *
+ * @author Blair Butterworth
+ */
 public enum UserInputType
 {
-    Unknown,
     Action,
     Zoom,
     Drag,

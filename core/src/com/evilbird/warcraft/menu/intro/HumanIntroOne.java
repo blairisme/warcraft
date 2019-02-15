@@ -40,12 +40,6 @@ public class HumanIntroOne extends IntroMenu
         setButtonAction(showLevel());
     }
 
-    @Override
-    public void show() {
-        super.show();
-        stopBackgroundMusic();
-    }
-
     private SelectListener showLevel() {
         return () -> showState(Campaign.Human1);
     }

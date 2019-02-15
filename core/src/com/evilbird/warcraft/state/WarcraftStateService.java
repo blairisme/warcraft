@@ -9,10 +9,15 @@
 
 package com.evilbird.warcraft.state;
 
+import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceStorage;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.state.*;
+import com.evilbird.engine.state.State;
+import com.evilbird.engine.state.StateCategory;
+import com.evilbird.engine.state.StateIdentifier;
+import com.evilbird.engine.state.StateService;
 import com.evilbird.warcraft.state.hud.HudFactory;
 import com.evilbird.warcraft.state.map.MapFactory;
 import org.apache.commons.lang3.Validate;
@@ -27,17 +32,28 @@ import static java.util.Arrays.asList;
 
 public class WarcraftStateService implements StateService
 {
-    private static String SAVE_PATH = "";
+    private static String SAVE_PATH = ""; //TODO
 
     private Device device;
     private HudFactory hudFactory;
     private MapFactory mapFactory;
+    private BehaviourFactory behaviourFactory;
 
     @Inject
-    public WarcraftStateService(Device device, MapFactory mapFactory, HudFactory hudFactory) {
+    public WarcraftStateService(
+        Device device,
+        MapFactory mapFactory,
+        HudFactory hudFactory,
+        BehaviourFactory behaviourFactory)
+    {
         this.device = device;
         this.mapFactory = mapFactory;
         this.hudFactory = hudFactory;
+        this.behaviourFactory = behaviourFactory;
+    }
+
+    @Override
+    public void load() {
     }
 
     @Override
@@ -46,12 +62,12 @@ public class WarcraftStateService implements StateService
         switch ((StateType)category) {
             case Campaign: return asList(Campaign.values());
             case Scenario: return asList(Scenario.values());
-            case Save: return listPersisted();
+            case UserSave: return getUserSaves();
             default: throw new UnsupportedOperationException();
         }
     }
 
-    private List<StateIdentifier> listPersisted() {
+    private List<StateIdentifier> getUserSaves() {
         try {
             DeviceStorage storage = device.getInternalStorage();
             List<String> persisted = storage.list(SAVE_PATH);
@@ -70,17 +86,18 @@ public class WarcraftStateService implements StateService
 
         ItemRoot map = mapFactory.get(definition.getMap());
         ItemRoot hud = hudFactory.get(definition.getHud());
+        Behaviour behaviour = behaviourFactory.newBehaviour(null); //TODO
 
-        return new State(map, hud);
+        return new State(map, hud, behaviour);
     }
 
     @Override
     public void set(StateIdentifier identifier, State state) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException(); //TODO
     }
 
     @Override
     public void remove(StateIdentifier identifier) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException(); //TODO
     }
 }

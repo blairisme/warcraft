@@ -16,10 +16,12 @@ public class State
 {
     private ItemRoot world;
     private ItemRoot hud;
+    private Behaviour behaviour;
 
-    public State(ItemRoot world, ItemRoot hud) {
+    public State(ItemRoot world, ItemRoot hud, Behaviour behaviour) {
         this.world = world;
         this.hud = hud;
+        this.behaviour = behaviour;
     }
 
     public ItemRoot getWorld() {
@@ -31,6 +33,6 @@ public class State
     }
 
     public Behaviour getBehaviour() {
-        throw new UnsupportedOperationException(); //TODO
+        return behaviour;
     }
 }

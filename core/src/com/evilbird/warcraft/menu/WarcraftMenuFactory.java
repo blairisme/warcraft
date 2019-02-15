@@ -10,7 +10,6 @@
 package com.evilbird.warcraft.menu;
 
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
-import com.evilbird.engine.game.renderer.GameRendererFactory;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.menu.MenuIdentifier;
@@ -22,16 +21,13 @@ import javax.inject.Inject;
 
 public class WarcraftMenuFactory implements MenuFactory
 {
-    private GameRendererFactory rendererFactory;
     private IdentifiedAssetProviderSet<Menu> factories;
 
     @Inject
     public WarcraftMenuFactory(
         MainMenuFactory mainMenuFactory,
-        IntroMenuFactory introMenuFactory,
-        GameRendererFactory rendererFactory)
+        IntroMenuFactory introMenuFactory)
     {
-        this.rendererFactory = rendererFactory;
         this.factories = new IdentifiedAssetProviderSet<>();
         this.factories.addProvider(mainMenuFactory);
         this.factories.addProvider(introMenuFactory);
@@ -49,9 +45,6 @@ public class WarcraftMenuFactory implements MenuFactory
 
     @Override
     public Menu newMenu(MenuIdentifier identifier) {
-        Menu menu = factories.get(identifier);
-        menu.setMenuFactory(this);
-        menu.setRendererFactory(rendererFactory);
-        return menu;
+        return factories.get(identifier);
     }
 }

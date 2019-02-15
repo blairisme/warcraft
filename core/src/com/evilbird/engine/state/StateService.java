@@ -9,9 +9,11 @@
 
 package com.evilbird.engine.state;
 
+import com.evilbird.engine.common.persistence.Persisted;
+
 import java.util.List;
 
-public interface StateService
+public interface StateService extends Persisted
 {
     List<StateIdentifier> list(StateCategory type);
 

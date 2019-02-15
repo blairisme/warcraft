@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.common.function.Predicate;
+import com.evilbird.engine.game.GameController;
 
 import java.util.Collection;
 
@@ -27,6 +28,7 @@ public class ItemRoot implements ItemComposite, ItemGroupObserver
     private Stage delegate;
     private ItemGroup group;
     private ItemGraph graph;
+    private GameController controller;
 
     public ItemRoot(ItemGraph graph){
         this.group = new ItemGroup();
@@ -108,6 +110,26 @@ public class ItemRoot implements ItemComposite, ItemGroupObserver
      */
     public <T extends Item> Collection<T> findAll(Predicate<T> predicate) {
         return group.findAll(predicate);
+    }
+
+    /**
+     * Returns a {@link GameController} instance, used to control whats content
+     * is rendered to the screen and to obtain system wide preferences.
+     *
+     * @return a <code>GameController</code>.
+     */
+    public GameController getController() {
+        return controller;
+    }
+
+    /**
+     * Sets a {@link GameController} instance, used to control whats content
+     * is rendered to the screen and to obtain system wide preferences.
+     *
+     * @param controller a <code>GameController</code>.
+     */
+    public void setController(GameController controller) {
+        this.controller = controller;
     }
 
     /**

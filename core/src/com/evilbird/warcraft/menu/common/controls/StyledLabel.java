@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.evilbird.engine.common.graphics.Fonts;
 
+//TODO: Move into core / common
 public class StyledLabel extends Label
 {
     public StyledLabel(String text) {

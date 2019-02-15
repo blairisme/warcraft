@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.state;
 
 import com.evilbird.engine.state.StateIdentifier;
-import com.evilbird.warcraft.state.map.Map;
 import com.evilbird.warcraft.state.hud.Hud;
+import com.evilbird.warcraft.state.map.Map;
 
 public enum Campaign implements StateIdentifier, StateDefinition
 {

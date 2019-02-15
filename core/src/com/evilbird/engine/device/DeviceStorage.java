@@ -12,7 +12,6 @@ package com.evilbird.engine.device;
 import com.badlogic.gdx.assets.AssetManager;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 
 public interface DeviceStorage

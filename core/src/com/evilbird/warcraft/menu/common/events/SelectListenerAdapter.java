@@ -12,6 +12,7 @@ package com.evilbird.warcraft.menu.common.events;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
+//TODO: Move into core / common
 public class SelectListenerAdapter extends ChangeListener
 {
     private SelectListener listener;
