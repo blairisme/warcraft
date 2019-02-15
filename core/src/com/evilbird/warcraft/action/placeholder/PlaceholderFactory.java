@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.placeholder;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.RemoveAction;
 import com.evilbird.engine.action.common.RepositionAction;
-import com.evilbird.engine.action.framework.Action;
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.utilities.InjectedPool;
 import com.evilbird.warcraft.action.ActionProvider;
 import org.apache.commons.lang3.Validate;
@@ -38,8 +38,8 @@ public class PlaceholderFactory implements ActionProvider
 
     @Override
     public Action get(ActionIdentifier action) {
-        Validate.isInstanceOf(com.evilbird.warcraft.action.placeholder.PlaceholderActions.class, action);
-        com.evilbird.warcraft.action.placeholder.PlaceholderActions placeholderAction = (com.evilbird.warcraft.action.placeholder.PlaceholderActions)action;
+        Validate.isInstanceOf(PlaceholderActions.class, action);
+        PlaceholderActions placeholderAction = (PlaceholderActions)action;
 
         switch (placeholderAction) {
             case PlaceholderMove: return movePool.obtain();

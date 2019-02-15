@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.action.framework;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.test.MockBasicAction;
 import org.junit.Assert;
@@ -22,9 +23,9 @@ public class SequenceActionTest
 {
     @Test
     public void actTest() {
-        Action childA = newMockAction();
-        Action childB = newMockAction();
-        Action childC = newMockAction();
+        com.evilbird.engine.action.Action childA = newMockAction();
+        com.evilbird.engine.action.Action childB = newMockAction();
+        com.evilbird.engine.action.Action childC = newMockAction();
         SequenceAction sequence = new SequenceAction(childA, childB, childC);
 
         assertFalse(sequence.act(1));
@@ -38,9 +39,9 @@ public class SequenceActionTest
 
     @Test
     public void actorTest() {
-        Action childA = new MockBasicAction();
-        Action childB = new MockBasicAction();
-        Action childC = new MockBasicAction();
+        com.evilbird.engine.action.Action childA = new MockBasicAction();
+        com.evilbird.engine.action.Action childB = new MockBasicAction();
+        com.evilbird.engine.action.Action childC = new MockBasicAction();
         SequenceAction sequence = new SequenceAction(childA, childB, childC);
 
         Assert.assertNull(sequence.getItem());
@@ -59,9 +60,9 @@ public class SequenceActionTest
 
     @Test
     public void errorTest() {
-        Action childA = new MockBasicAction();
-        Action childB = new MockBasicAction();
-        Action childC = new MockBasicAction();
+        com.evilbird.engine.action.Action childA = new MockBasicAction();
+        com.evilbird.engine.action.Action childB = new MockBasicAction();
+        com.evilbird.engine.action.Action childC = new MockBasicAction();
         SequenceAction sequence = new SequenceAction(childA, childB, childC);
 
         Assert.assertNull(sequence.getError());
@@ -76,8 +77,8 @@ public class SequenceActionTest
         Assert.assertNull(childC.getError());
     }
 
-    private Action newMockAction() {
-        Action result = Mockito.mock(Action.class);
+    private com.evilbird.engine.action.Action newMockAction() {
+        com.evilbird.engine.action.Action result = Mockito.mock(Action.class);
         Mockito.when(result.act(1)).thenReturn(true);
         return result;
     }

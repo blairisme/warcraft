@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.action.attack;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.DirectionAction;
 import com.evilbird.engine.action.common.RepeatedAudibleAction;
 import com.evilbird.engine.action.common.ReplacementAction;

@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.action.framework.Action;
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.*;
 import com.evilbird.engine.item.framework.ActorExtension;
 import com.evilbird.engine.item.framework.ActorObserver;

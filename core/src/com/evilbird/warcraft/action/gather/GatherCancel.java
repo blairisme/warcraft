@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.common.AnimateAction;
 import com.evilbird.engine.action.common.ReplacementAction;
-import com.evilbird.engine.action.framework.Action;
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.UnitAnimation;

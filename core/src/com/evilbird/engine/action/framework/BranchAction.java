@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.action.framework;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.function.Predicate;
 
 public class BranchAction extends CompositeAction

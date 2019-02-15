@@ -9,6 +9,8 @@
 
 package com.evilbird.engine.action.framework;
 
+import com.evilbird.engine.action.Action;
+
 import java.util.Iterator;
 import java.util.List;
 

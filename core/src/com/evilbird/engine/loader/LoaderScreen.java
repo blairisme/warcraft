@@ -15,7 +15,9 @@ import com.evilbird.engine.game.GameController;
 
 import javax.inject.Inject;
 
-//TODO: Move loading out of constructor - GameEngine.create() should call LoaderScreen.load()
+/**
+ * Instances of this class
+ */
 public class LoaderScreen extends ScreenAdapter
 {
     private LoaderScreenModel model;

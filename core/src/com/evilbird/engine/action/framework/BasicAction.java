@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.action.framework;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
@@ -16,7 +17,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemAction;
 
 /**
- * Instances of this class represent a base class for {@link Action Actions},
+ * Instances of this class represent a base class for {@link com.evilbird.engine.action.Action Actions},
  * containing common methods and properties utilised by many custom actions.
  *
  * @author Blair Butterworth

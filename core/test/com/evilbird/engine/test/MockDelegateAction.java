@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.test;
 
-import com.evilbird.engine.action.framework.Action;
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.DelegateAction;
 
 public class MockDelegateAction extends DelegateAction {

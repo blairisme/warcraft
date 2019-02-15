@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.menu;
 
+import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.persistence.Persisted;
 
 /**
@@ -28,9 +29,10 @@ public interface MenuFactory extends Persisted
     /**
      * Creates a new menu identified by the given identifier.
      *
-     * @param identifier the identifier of the menu to create.
-     *
-     * @return a menu instance.
+     * @param identifier    the identifier of the menu to create.
+     * @return              a menu instance.
+     * @throws UnknownEntityException   thrown if a menu with the given
+     *                                  identifier doesn't exist.
      */
-    Menu newMenu(MenuIdentifier identifier);
+    Menu newMenu(MenuIdentifier identifier) throws UnknownEntityException;
 }

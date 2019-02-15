@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.common.query;
 
-import com.evilbird.engine.action.framework.Action;
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.function.ResettablePredicate;
 import com.evilbird.engine.item.Item;
@@ -55,14 +55,12 @@ public class ActionPredicates
         return (value) -> delegate.test(item);
     }
 
-
     public static Predicate<Action> isTargetAlive() {
         return (action) -> {
             Unit unit = (Unit)action.getTarget();
             return unit.isAlive();
         };
     }
-
 
     public static Predicate<Action> counter(int times) {
         return new Counter(times);
@@ -88,13 +86,10 @@ public class ActionPredicates
         }
     }
 
-
     public static Predicate<Action> targetHasResources(final ResourceType type) {
         return (action) -> {
             ResourceContainer container = (ResourceContainer)action.getItem();
             return container.getResource(type) > 0;
         };
     }
-
-
 }

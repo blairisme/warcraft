@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.action.framework;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
@@ -22,7 +23,7 @@ public class DelegateActionTest
 {
     @Test
     public void actorTest() {
-        Action underlyingAction = new MockBasicAction();
+        com.evilbird.engine.action.Action underlyingAction = new MockBasicAction();
         DelegateAction delegateAction = new MockDelegateAction(underlyingAction);
 
         Assert.assertNull(delegateAction.getItem());
@@ -35,7 +36,7 @@ public class DelegateActionTest
 
     @Test
     public void targetTest() {
-        Action underlyingAction = new MockBasicAction();
+        com.evilbird.engine.action.Action underlyingAction = new MockBasicAction();
         DelegateAction delegateAction = new MockDelegateAction(underlyingAction);
 
         Assert.assertNull(delegateAction.getTarget());
@@ -48,7 +49,7 @@ public class DelegateActionTest
     
     @Test
     public void identifierTest() {
-        Action underlyingAction = new MockBasicAction();
+        com.evilbird.engine.action.Action underlyingAction = new MockBasicAction();
         DelegateAction delegateAction = new MockDelegateAction(underlyingAction);
 
         Assert.assertEquals(GenericIdentifier.Unknown, delegateAction.getIdentifier());

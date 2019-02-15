@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.action.framework;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.test.MockBasicAction;
@@ -24,8 +25,8 @@ public class PrerequisiteActionTest
 {
     @Test
     public void actTest() {
-        Action primary = newAction();
-        Action prerequisite = newAction();
+        com.evilbird.engine.action.Action primary = newAction();
+        com.evilbird.engine.action.Action prerequisite = newAction();
         Predicate predicate = newPredicate();
         PrerequisiteAction action = new PrerequisiteAction(primary, prerequisite, predicate);
 
@@ -36,8 +37,8 @@ public class PrerequisiteActionTest
 
     @Test
     public void actPredicateFailTest() {
-        Action primary = newAction();
-        Action prerequisite = newAction();
+        com.evilbird.engine.action.Action primary = newAction();
+        com.evilbird.engine.action.Action prerequisite = newAction();
         Predicate predicate = newPredicate(false);
         PrerequisiteAction action = new PrerequisiteAction(primary, prerequisite, predicate);
 
@@ -55,8 +56,8 @@ public class PrerequisiteActionTest
     @Test
     public void actPrerequisiteErrorTest() {
         Throwable error = new UnknownError();
-        Action primary = newAction();
-        Action prerequisite = newAction(error);
+        com.evilbird.engine.action.Action primary = newAction();
+        com.evilbird.engine.action.Action prerequisite = newAction(error);
         Predicate predicate = newPredicate(false);
         PrerequisiteAction action = new PrerequisiteAction(primary, prerequisite, predicate);
 
@@ -68,8 +69,8 @@ public class PrerequisiteActionTest
 
     @Test
     public void actorTest() {
-        Action primary = new MockBasicAction();
-        Action prerequisite = new MockBasicAction();
+        com.evilbird.engine.action.Action primary = new MockBasicAction();
+        com.evilbird.engine.action.Action prerequisite = new MockBasicAction();
         Predicate predicate = newPredicate();
         PrerequisiteAction action = new PrerequisiteAction(primary, prerequisite, predicate);
 
@@ -87,8 +88,8 @@ public class PrerequisiteActionTest
 
     @Test
     public void errorTest() {
-        Action primary = new MockBasicAction();
-        Action prerequisite = new MockBasicAction();
+        com.evilbird.engine.action.Action primary = new MockBasicAction();
+        com.evilbird.engine.action.Action prerequisite = new MockBasicAction();
         Predicate predicate = newPredicate();
         PrerequisiteAction action = new PrerequisiteAction(primary, prerequisite, predicate);
 
@@ -103,19 +104,19 @@ public class PrerequisiteActionTest
         Assert.assertNull(primary.getError());
     }
 
-    private Action newAction() {
+    private com.evilbird.engine.action.Action newAction() {
         return newAction(null);
     }
 
-    private Action newAction(Throwable error) {
-        Action result = mock(Action.class);
+    private com.evilbird.engine.action.Action newAction(Throwable error) {
+        com.evilbird.engine.action.Action result = mock(com.evilbird.engine.action.Action.class);
         Mockito.when(result.act(1)).thenReturn(true);
         Mockito.when(result.getError()).thenReturn(error);
         Mockito.when(result.hasError()).thenReturn(error != null);
         return result;
     }
 
-    private Predicate<Action> newPredicate() {
+    private Predicate<com.evilbird.engine.action.Action> newPredicate() {
         return newPredicate(true);
     }
 

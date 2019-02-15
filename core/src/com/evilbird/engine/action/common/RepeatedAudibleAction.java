@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.action.common;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.*;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.common.function.Predicate;

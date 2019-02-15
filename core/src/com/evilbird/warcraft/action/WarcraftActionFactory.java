@@ -11,9 +11,9 @@ package com.evilbird.warcraft.action;
 
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.action.UnknownActionException;
+import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.action.common.ReplacementAction;
-import com.evilbird.engine.action.framework.Action;
+import com.evilbird.engine.action.Action;
 import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.attack.AttackFactory;
 import com.evilbird.warcraft.action.camera.CameraActions;
@@ -89,7 +89,7 @@ public class WarcraftActionFactory implements ActionFactory
             updateIdentifier(result, identifier);
             return result;
         }
-        throw new UnknownActionException(identifier);
+        throw new UnknownEntityException(identifier);
     }
 
     private void updateIdentifier(Action action, ActionIdentifier identifier) {

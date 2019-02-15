@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.action;
 
-import com.evilbird.engine.action.framework.Action;
+import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.persistence.Persisted;
 
@@ -27,8 +27,8 @@ public interface ActionFactory extends Persisted
      *
      * @param identifier    the identifier of the desired action.
      * @return              the desired action.
-     * @throws UnknownActionException   thrown if an action with the given
+     * @throws UnknownEntityException   thrown if an action with the given
      *                                  identifier doesn't exist.
      */
-    Action newAction(ActionIdentifier identifier);
+    Action newAction(ActionIdentifier identifier) throws UnknownEntityException;
 }

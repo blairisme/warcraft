@@ -20,7 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import javax.inject.Inject;
 
-public class LoaderScreenView //extends ScreenAdapter
+public class LoaderScreenView
 {
     private Stage stage;
     private Table container;
@@ -43,7 +43,6 @@ public class LoaderScreenView //extends ScreenAdapter
         container.setBackground(drawable);
     }
 
-    //@Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -52,12 +51,10 @@ public class LoaderScreenView //extends ScreenAdapter
         stage.draw();
     }
 
-    //@Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, false);
     }
 
-   // @Override
     public void dispose() {
         stage.dispose();
     }

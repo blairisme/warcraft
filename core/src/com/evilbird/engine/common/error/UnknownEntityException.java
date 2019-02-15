@@ -7,16 +7,18 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.action;
+package com.evilbird.engine.common.error;
 
 import com.evilbird.engine.common.lang.Identifier;
 
 /**
- * Instances of this class uniquely identify an {@link Action}, a bundle of
- * logic that manipulates the game state in a meaningful way.
+ * Thrown if a requested entity doesn't exist.
  *
  * @author Blair Butterworth
  */
-public interface ActionIdentifier extends Identifier
+public class UnknownEntityException extends RuntimeException
 {
+    public UnknownEntityException(Identifier identifier) {
+        super("Entity doesn't exist: " + identifier);
+    }
 }

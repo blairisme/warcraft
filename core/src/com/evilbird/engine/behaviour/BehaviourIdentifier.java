@@ -12,8 +12,9 @@ package com.evilbird.engine.behaviour;
 import com.evilbird.engine.common.lang.Identifier;
 
 /**
- * Instances of this class identify a specific type of behaviour, a bundle of
- * logic that manipulates the game state in a meaningful way.
+ * Instances of this class uniquely identify behaviours, game logic that
+ * decides which modifications to the game state should be made in response
+ * to user input, time and other factors.
  *
  * @author Blair Butterworth
  */

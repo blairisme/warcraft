@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.action.framework;
+package com.evilbird.engine.action;
 
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.evilbird.engine.common.lang.Identifiable;
@@ -15,6 +15,12 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 
+/**
+ * Instances of this class represent a self contained "bundle" of behaviour
+ * that modify the game state is a meaningful manner.
+ *
+ * @author Blair Butterworth
+ */
 public interface Action extends Identifiable, Poolable
 {
     boolean act(float delta);

@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.action.gather;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.*;
 import com.evilbird.engine.action.framework.*;
 import com.evilbird.engine.action.framework.duration.ActionDuration;

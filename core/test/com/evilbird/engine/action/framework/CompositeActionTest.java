@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.action.framework;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.test.MockBasicAction;
 import com.evilbird.engine.test.MockCompositeAction;
@@ -20,9 +21,9 @@ public class CompositeActionTest
 {
     @Test
     public void actorTest() {
-        Action childA = new MockBasicAction();
-        Action childB = new MockBasicAction();
-        Action childC = new MockBasicAction();
+        com.evilbird.engine.action.Action childA = new MockBasicAction();
+        com.evilbird.engine.action.Action childB = new MockBasicAction();
+        com.evilbird.engine.action.Action childC = new MockBasicAction();
         MockCompositeAction composite = new MockCompositeAction(childA, childB, childC);
 
         Assert.assertNull(composite.getItem());
@@ -41,8 +42,8 @@ public class CompositeActionTest
 
     @Test
     public void errorTest() {
-        Action childA = new MockBasicAction();
-        Action childB = new MockBasicAction();
+        com.evilbird.engine.action.Action childA = new MockBasicAction();
+        com.evilbird.engine.action.Action childB = new MockBasicAction();
         Action childC = new MockBasicAction();
         MockCompositeAction composite = new MockCompositeAction(childA, childB, childC);
 

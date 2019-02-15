@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.attack;
 
-import com.evilbird.engine.action.events.EventQueue;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 

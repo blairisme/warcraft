@@ -11,14 +11,22 @@ package com.evilbird.engine.behaviour;
 
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.state.State;
+import org.apache.commons.lang3.Validate;
 
 import java.util.List;
 
+/**
+ * Instances of this {@link Behaviour} use the Composite pattern to make a
+ * collection of behaviours appear as a single behaviour.
+ *
+ * @author Blair Butterworth
+ */
 public class CompositeBehaviour implements Behaviour
 {
     private List<Behaviour> behaviours;
 
     public CompositeBehaviour(List<Behaviour> behaviours) {
+        Validate.notNull(behaviours);
         this.behaviours = behaviours;
     }
 

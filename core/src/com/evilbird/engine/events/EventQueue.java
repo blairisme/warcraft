@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.action.events;
+package com.evilbird.engine.events;
 
 import com.evilbird.engine.common.collection.UnmodifiableIterator;
 
@@ -22,10 +22,10 @@ import java.util.*;
  * @author Blair Butterworth
  */
 @Singleton
-public class EventQueue implements Iterable<Event>
+public class EventQueue implements Iterable<com.evilbird.engine.events.Event>
 {
-    private Queue<Event> queue;
-    private Map<Class<?>, Collection<Event>> types;
+    private Queue<com.evilbird.engine.events.Event> queue;
+    private Map<Class<?>, Collection<com.evilbird.engine.events.Event>> types;
 
     @Inject
     public EventQueue() {
@@ -33,14 +33,14 @@ public class EventQueue implements Iterable<Event>
         types = new HashMap<>();
     }
 
-    public void add(Event event) {
+    public void add(com.evilbird.engine.events.Event event) {
         queue.add(event);
         addTyped(event);
     }
 
-    private void addTyped(Event event) {
+    private void addTyped(com.evilbird.engine.events.Event event) {
         Class<?> type = event.getClass();
-        Collection<Event> typeQueue = types.containsKey(type) ? types.get(type) : new ArrayDeque<>();
+        Collection<com.evilbird.engine.events.Event> typeQueue = types.containsKey(type) ? types.get(type) : new ArrayDeque<>();
         typeQueue.add(event);
         types.put(type, typeQueue);
     }
@@ -51,7 +51,7 @@ public class EventQueue implements Iterable<Event>
     }
 
     @Override
-    public Iterator<Event> iterator() {
+    public Iterator<com.evilbird.engine.events.Event> iterator() {
         return new UnmodifiableIterator<>(queue.iterator());
     }
 

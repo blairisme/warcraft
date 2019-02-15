@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.action.framework.Action;
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.utilities.InjectedPool;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionProvider;
@@ -18,7 +18,7 @@ import com.evilbird.warcraft.action.ActionProvider;
 import javax.inject.Inject;
 
 /**
- * Instances of this class toggle the selection of a given {@link Item}.
+ * Instances of this factory create actions that alter item selection.
  *
  * @author Blair Butterworth
  */

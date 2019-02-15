@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.action.common;
 
-import com.evilbird.engine.action.framework.Action;
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 

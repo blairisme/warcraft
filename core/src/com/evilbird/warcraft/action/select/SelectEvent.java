@@ -9,9 +9,15 @@
 
 package com.evilbird.warcraft.action.select;
 
-import com.evilbird.engine.action.events.Event;
+import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
 
+/**
+ * Instances of this {@link Event} are produced when an {@link Item} is
+ * selected or unselected.
+ *
+ * @author Blair Butterworth
+ */
 public class SelectEvent implements Event
 {
     private Item subject;

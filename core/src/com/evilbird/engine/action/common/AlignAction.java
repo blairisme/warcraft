@@ -10,7 +10,7 @@
 package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.action.framework.Action;
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.item.Item;
@@ -21,6 +21,7 @@ import com.evilbird.engine.item.Item;
  *
  * @author Blair Butterworth
  */
+//TODO: handle destination being occupied
 public class AlignAction extends BasicAction
 {
     private Alignment alignment;

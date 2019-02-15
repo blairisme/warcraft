@@ -9,13 +9,19 @@
 
 package com.evilbird.warcraft.action.train;
 
-import com.evilbird.engine.action.events.EventQueue;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 
 import javax.inject.Inject;
 
+/**
+ * Instances of this class observe training events and report them to the
+ * {@link EventQueue}.
+ *
+ * @author Blair Butterworth
+ */
 public class TrainReporter implements TrainObserver
 {
     private EventQueue events;

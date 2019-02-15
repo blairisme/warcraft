@@ -1,11 +1,17 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.item.specialized.animated;
 
-/**
- * Created by blair on 13/09/2017.
- */
 public interface Audible
 {
-    public SoundIdentifier getSound();
+    SoundIdentifier getSound();
 
-    public void setSound(SoundIdentifier id);
+    void setSound(SoundIdentifier id);
 }

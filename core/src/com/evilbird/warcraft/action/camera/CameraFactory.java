@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.camera;
 
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.action.framework.Action;
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.utilities.InjectedPool;
 import com.evilbird.warcraft.action.ActionProvider;
 import org.apache.commons.lang3.Validate;

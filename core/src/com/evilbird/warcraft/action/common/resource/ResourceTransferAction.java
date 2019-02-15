@@ -28,7 +28,7 @@ import static com.evilbird.engine.item.ItemOperations.findAncestorByType;
  *
  * @author Blair Butterworth
  */
-//TODO: doesnt need to use a map
+//TODO: doesnt need to use a map - can be just id and float
 public class ResourceTransferAction extends BasicAction
 {
     private ActionTarget target;

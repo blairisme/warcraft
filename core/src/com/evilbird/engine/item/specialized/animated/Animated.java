@@ -1,14 +1,23 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.engine.item.specialized.animated;
 
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 
 public interface Animated
 {
-    public AnimationIdentifier getAnimation();
+    AnimationIdentifier getAnimation();
 
-    public void setAnimation(AnimationIdentifier id);
+    void setAnimation(AnimationIdentifier id);
 
-    public DirectionalAnimation getAvailableAnimation(AnimationIdentifier id);
+    DirectionalAnimation getAvailableAnimation(AnimationIdentifier id);
 
-    public void setAvailableAnimation(AnimationIdentifier id, DirectionalAnimation animation);
+    void setAvailableAnimation(AnimationIdentifier id, DirectionalAnimation animation);
 }
