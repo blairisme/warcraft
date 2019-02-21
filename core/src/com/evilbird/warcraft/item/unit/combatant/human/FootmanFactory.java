@@ -36,7 +36,13 @@ import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundType.MP3;
 import static com.evilbird.warcraft.item.common.sound.SoundUtils.newSoundEffect;
 
-public class FootmanProvider implements AssetProvider<Item>
+/**
+ * Instances of this factory create footman, human entry level
+ * {@link Combatant Combatants}.
+ *
+ * @author Blair Butterworth
+ */
+public class FootmanFactory implements AssetProvider<Item>
 {
     private static final String BASE = "data/textures/human/perennial/footman.png";
     private static final String ICONS = "data/textures/neutral/perennial/icons.png";
@@ -49,8 +55,12 @@ public class FootmanProvider implements AssetProvider<Item>
     private AssetManager assets;
 
     @Inject
-    public FootmanProvider(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+    public FootmanFactory(Device device) {
+        this(device.getAssetStorage().getAssets());
+    }
+
+    public FootmanFactory(AssetManager assets) {
+        this.assets = assets;
     }
 
     @Override

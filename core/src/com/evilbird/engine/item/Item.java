@@ -18,6 +18,9 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.*;
 import com.evilbird.engine.item.framework.ActorExtension;
 import com.evilbird.engine.item.framework.ActorObserver;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,19 +31,29 @@ import java.util.Collection;
  * @author Blair Butterworth
  */
 // TODO: Cache size, position and bounds
+// TODO: Create interface for item
 public class Item implements ActorObserver, Identifiable, Categorizable, Positionable, Selectable, Disablable, Visible
 {
-    Actor delegate;
-    private ItemRoot root;
-    private ItemGroup parent;
+    transient Actor delegate;
+    transient ItemRoot root;
+    transient ItemGroup parent;
+
     private Identifier id;
     private Identifier type;
     private boolean selected;
     private boolean selectable;
+    //touchable //TODO:
+    //size //TODO:
+    //position //TODO:
+    //disabled //TODO:
+    //visible //TODO:
+    private Collection<Action> actions;
 
     public Item() {
         this.delegate = initializeDelegate();
-        this.delegate.setUserObject(this);
+        this.delegate.setUserObject(this); //TODO: needed for ItemAction
+
+        actions = new ArrayList<>();
 
         setId(new NamedIdentifier());//TODO: replace with enum
         setType(new NamedIdentifier("Unknown")); //TODO: replace with enum
@@ -176,9 +189,6 @@ public class Item implements ActorObserver, Identifiable, Categorizable, Positio
 
 
 
-
-    private Collection<Action> actions = new ArrayList<>();
-
     public void addAction(Action action) {
         if (action instanceof ItemAction) {
             delegate.addAction(((ItemAction)action).delegate);
@@ -249,5 +259,43 @@ public class Item implements ActorObserver, Identifiable, Categorizable, Positio
     public Vector2 parentToLocalCoordinates(Vector2 coordinates) {
         Vector2 result = new Vector2(coordinates);
         return delegate.parentToLocalCoordinates(result);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("id", id)
+            .append("type", type)
+            .append("selected", selected)
+            .append("selectable", selectable)
+            .append("actions", actions)
+            .toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj == this) return true;
+        if (obj.getClass() != getClass()) return false;
+
+        Item item = (Item)obj;
+        return new EqualsBuilder()
+            .append(selected, item.selected)
+            .append(selectable, item.selectable)
+            .append(id, item.id)
+            .append(type, item.type)
+            .append(actions, item.actions)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .append(id)
+            .append(type)
+            .append(selected)
+            .append(selectable)
+            .append(actions)
+            .toHashCode();
     }
 }

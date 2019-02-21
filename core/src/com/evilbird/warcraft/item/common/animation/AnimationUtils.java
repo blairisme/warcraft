@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+//TODO: Move into common
 public class AnimationUtils
 {
     public static DirectionalAnimation getAnimation(TextureRegion texture) {

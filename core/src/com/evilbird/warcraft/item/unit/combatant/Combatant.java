@@ -13,6 +13,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.unit.Unit;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,6 +26,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
+//TODO: Consolidate speed and movementSpeed
 public class Combatant extends Unit implements Movable
 {
     private int level;
@@ -101,6 +105,53 @@ public class Combatant extends Unit implements Movable
 
     public void setRange(float range) {
         this.range = range;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .appendSuper("unit")
+            .append("level", level)
+            .append("damageMinimum", damageMinimum)
+            .append("damageMaximum", damageMaximum)
+            .append("speed", speed)
+            .append("range", range)
+            .append("movementSpeed", movementSpeed)
+            .append("movementCapability", movementCapability)
+            .toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj == this) return true;
+        if (obj.getClass() != getClass()) return false;
+
+        Combatant combatant = (Combatant)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(level, combatant.level)
+            .append(damageMinimum, combatant.damageMinimum)
+            .append(damageMaximum, combatant.damageMaximum)
+            .append(speed, combatant.speed)
+            .append(range, combatant.range)
+            .append(movementSpeed, combatant.movementSpeed)
+            .append(movementCapability, combatant.movementCapability)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(level)
+            .append(damageMinimum)
+            .append(damageMaximum)
+            .append(speed)
+            .append(range)
+            .append(movementSpeed)
+            .append(movementCapability)
+            .toHashCode();
     }
 }
 

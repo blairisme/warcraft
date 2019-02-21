@@ -18,100 +18,91 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.item.Item;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 //TODO: MoveFactory selected box drawing to unit
 //TODO: Use real logging
 public class AnimatedItem extends Item implements Animated, Audible
 {
     private float direction;
-    protected ShapeRenderer shapeRenderer;
+    private transient ShapeRenderer shapeRenderer;
 
     private boolean updateAnimation;
-    private float animationTime;
-    private AnimationIdentifier currentAnimationId;
-    private DirectionalAnimation currentAnimation;
-    private Map<AnimationIdentifier, DirectionalAnimation> animations;
+    private AnimationIdentifier animationId;
+    private transient float animationTime;
+    private transient DirectionalAnimation currentAnimation;
+    private transient Map<AnimationIdentifier, DirectionalAnimation> animations;
 
     private boolean updateSound;
-    private SoundEffect currentSound;
-    private SoundIdentifier currentSoundId;
-    private Map<SoundIdentifier, SoundEffect> sounds;
+    private SoundIdentifier soundId;
+    private transient SoundEffect currentSound;
+    private transient Map<SoundIdentifier, SoundEffect> sounds;
 
-    public AnimatedItem()
-    {
-        this.shapeRenderer = new ShapeRenderer();
+    public AnimatedItem() {
         this.direction = 0;
         this.animationTime = 0;
         this.currentAnimation = null;
-        this.currentAnimationId = null;
-        this.animations = new HashMap<AnimationIdentifier, DirectionalAnimation>();
-        this.sounds = new HashMap<SoundIdentifier, SoundEffect>();
+        this.animationId = null;
+        this.animations = new HashMap<>();
+        this.sounds = new HashMap<>();
         this.currentSound = null;
-        this.currentSoundId = null;
+        this.soundId = null;
         this.updateSound = false;
         this.updateAnimation = false;
     }
 
-    public AnimationIdentifier getAnimation()
-    {
-        return currentAnimationId;
+    public AnimationIdentifier getAnimation() {
+        return animationId;
     }
 
-    protected TextureRegion getAnimationFrame()
-    {
+    protected TextureRegion getAnimationFrame() {
         return currentAnimation.getKeyFrame(animationTime);
     }
 
-    public DirectionalAnimation getAvailableAnimation(AnimationIdentifier id)
-    {
+    public DirectionalAnimation getAvailableAnimation(AnimationIdentifier id) {
         return animations.get(id);
     }
 
-    public void setAnimation(AnimationIdentifier animationId)
-    {
-        this.currentAnimationId = animationId;
+    public void setAnimation(AnimationIdentifier animationId) {
+        this.animationId = animationId;
         this.updateAnimation = true;
     }
 
-    public void setAvailableAnimation(AnimationIdentifier id, DirectionalAnimation animation)
-    {
+    public void setAvailableAnimation(AnimationIdentifier id, DirectionalAnimation animation) {
         this.animations.put(id, animation);
         this.updateAnimation = true;
     }
 
-    public void setAvailableAnimations(Map<AnimationIdentifier, DirectionalAnimation> animations)
-    {
+    public void setAvailableAnimations(Map<AnimationIdentifier, DirectionalAnimation> animations) {
         this.animations.putAll(animations);
         this.updateAnimation = true;
     }
 
-    public SoundIdentifier getSound()
-    {
-        return currentSoundId;
+    public SoundIdentifier getSound() {
+        return soundId;
     }
 
-    public void setSound(SoundIdentifier id)
-    {
-        currentSoundId = id;
+    public void setSound(SoundIdentifier id) {
+        soundId = id;
         updateSound = id != null;
     }
 
-    public void setAvailableSound(SoundIdentifier id, SoundEffect sound)
-    {
+    public void setAvailableSound(SoundIdentifier id, SoundEffect sound) {
         sounds.put(id, sound);
     }
 
-    public void setAvailableSounds(Map<SoundIdentifier, SoundEffect> sounds)
-    {
+    public void setAvailableSounds(Map<SoundIdentifier, SoundEffect> sounds) {
         this.sounds.putAll(sounds);
     }
 
     @Override
-    public void setPosition(float newX, float newY)
-    {
+    public void setPosition(float newX, float newY) {
         float previousX = getX();
         float previousY = getY();
         super.setPosition(newX, newY);
@@ -119,15 +110,13 @@ public class AnimatedItem extends Item implements Animated, Audible
     }
 
     @Override
-    public void setPosition(Vector2 position)
-    {
+    public void setPosition(Vector2 position) {
         Vector2 previous = getPosition();
         super.setPosition(position);
         this.setDirection(previous.x, previous.y, position.x, position.y);
     }
 
-    public void setDirection(float previousX, float previousY, float newX, float newY)
-    {
+    public void setDirection(float previousX, float previousY, float newX, float newY) {
         Vector2 destination = new Vector2(newX, newY);
         Vector2 position = new Vector2(previousX, previousY);
         Vector2 directionVector = destination.sub(position);
@@ -135,38 +124,33 @@ public class AnimatedItem extends Item implements Animated, Audible
         setDirection(normalizedDirection);
     }
 
-    public void setDirection(Vector2 normalizedDirection)
-    {
+    public void setDirection(Vector2 normalizedDirection) {
         direction = normalizedDirection.angle();
-        if (currentAnimation != null){
+        if (currentAnimation != null) {
             currentAnimation.setDirection(direction);
         }
     }
 
     @Override
-    public void draw(Batch batch, float alpha)
-    {
+    public void draw(Batch batch, float alpha) {
         updateAnimation();
         drawSelection(batch);
         drawAnimation(batch);
     }
 
-    protected void updateAnimation()
-    {
-        if (updateAnimation){
+    protected void updateAnimation() {
+        if (updateAnimation) {
             updateAnimation = false;
-            if (animations.containsKey(currentAnimationId)){
-                currentAnimation = animations.get(currentAnimationId);
+            if (animations.containsKey(animationId)) {
+                currentAnimation = animations.get(animationId);
                 currentAnimation.setDirection(direction);
-            }
-            else {
-                System.out.println("Missing animation: " + currentAnimationId.toString());
+            } else {
+                System.out.println("Missing animation: " + Objects.toString(animationId, "null"));
             }
         }
     }
 
-    protected void drawAnimation(Batch batch)
-    {
+    protected void drawAnimation(Batch batch) {
         TextureRegion region = getAnimationFrame();
 
         float width = region.getRegionWidth();
@@ -181,9 +165,12 @@ public class AnimatedItem extends Item implements Animated, Audible
         batch.draw(region, x, y, width, height);
     }
 
-    protected void drawSelection(Batch batch)
-    {
-        if (getSelected()){
+    protected void drawSelection(Batch batch) {
+        if (getSelected()) {
+            if (shapeRenderer == null) {
+                this.shapeRenderer = new ShapeRenderer();
+            }
+
             batch.end(); //TODO: Inefficient. Better if draw occurs using batch.
             shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
             shapeRenderer.begin(ShapeType.Line);
@@ -195,42 +182,75 @@ public class AnimatedItem extends Item implements Animated, Audible
     }
 
     @Override
-    public void update(float delta)
-    {
+    public void update(float delta) {
         super.update(delta);
         updateVisual(delta);
         updateAudio();
     }
 
-    protected void updateVisual(float delta)
-    {
+    protected void updateVisual(float delta) {
         animationTime += delta;
     }
 
-    protected void updateAudio()
-    {
-        if (updateSound){
+    protected void updateAudio() {
+        if (updateSound) {
             updateSound = false;
             stopCurrentSound();
             startNewSound();
         }
     }
 
-    protected void stopCurrentSound()
-    {
-        if (currentSound != null){
+    protected void stopCurrentSound() {
+        if (currentSound != null) {
             currentSound.stop();
         }
     }
 
-    protected void startNewSound()
-    {
-        if (sounds.containsKey(currentSoundId)){
-            currentSound = sounds.get(currentSoundId);
+    protected void startNewSound() {
+        if (sounds.containsKey(soundId)) {
+            currentSound = sounds.get(soundId);
             currentSound.play();
+        } else {
+            System.out.println("Missing sound: " +  Objects.toString(soundId, "null"));
         }
-        else {
-            System.out.println("Missing sound: " + currentSoundId.toString());
-        }
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .appendSuper("item")
+            .append("direction", direction)
+            .append("currentAnimation", currentAnimation)
+            .append("currentSound", currentSound)
+            .toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj == this) return true;
+        if (obj.getClass() != getClass()) return false;
+
+        AnimatedItem that = (AnimatedItem) obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(direction, that.direction)
+            .append(animationId, that.animationId)
+            .append(animations, that.animations)
+            .append(soundId, that.soundId)
+            .append(sounds, that.sounds)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(direction)
+            .append(animationId)
+            .append(animations)
+            .append(soundId)
+            .append(sounds)
+            .toHashCode();
     }
 }

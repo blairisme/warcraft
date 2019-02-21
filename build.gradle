@@ -84,8 +84,12 @@ project(":core") {
         implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
         implementation "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+
         testImplementation group: 'junit', name: 'junit', version: '4.12'
         testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.23.4'
+        testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
 }
 
@@ -121,5 +125,27 @@ project(":ios") {
         implementation "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
         implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
         implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-ios"
+    }
+}
+
+allprojects {
+    plugins.withType(JavaPlugin) {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    plugins.withType(IdeaPlugin) {
+        idea {
+            module {
+                downloadSources = true
+                excludeDirs += file('.gradle')
+                excludeDirs += file('.idea')
+                excludeDirs += file('build')
+                excludeDirs += file('bin')
+                excludeDirs += file('design')
+                excludeDirs += file('gradle')
+                excludeDirs += file('tools')
+            }
+        }
     }
 }

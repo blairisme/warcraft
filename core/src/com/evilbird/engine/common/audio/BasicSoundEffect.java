@@ -19,10 +19,12 @@ import com.badlogic.gdx.audio.Sound;
  */
 public class BasicSoundEffect implements SoundEffect
 {
+    private String path;
     private Sound delegate;
     private long instanceId;
 
-    public BasicSoundEffect(Sound delegate) {
+    public BasicSoundEffect(Sound delegate, String path) {
+        this.path = path;
         this.delegate = delegate;
         this.instanceId = -1;
     }
@@ -37,5 +39,9 @@ public class BasicSoundEffect implements SoundEffect
         if (instanceId != -1){
             delegate.stop(instanceId);
         }
+    }
+
+    public String getPath() {
+        return path;
     }
 }

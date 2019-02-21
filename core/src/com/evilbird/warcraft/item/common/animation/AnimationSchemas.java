@@ -121,7 +121,7 @@ public class AnimationSchemas
 
     private static Map<Range<Float>, List<Rectangle>> getFrames(List<List<Rectangle>> regions) {
         if (regions.size() == 1) {
-            Map<Range<Float>, List<Rectangle>> frames = new HashMap<Range<Float>, List<Rectangle>>();
+            Map<Range<Float>, List<Rectangle>> frames = new HashMap<>();
             frames.put(Range.between(0.0f, 360.0f), regions.get(0));
             return frames;
         }

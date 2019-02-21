@@ -9,6 +9,10 @@
 
 package com.evilbird.engine.common.lang;
 
+import com.evilbird.engine.common.serialization.IdentifierAdapter;
+import com.evilbird.engine.common.serialization.Serialized;
+
+@Serialized(adapter = IdentifierAdapter.class)
 public interface Identifier
 {
 }

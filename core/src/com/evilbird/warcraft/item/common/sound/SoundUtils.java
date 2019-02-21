@@ -25,6 +25,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
+//TODO: Move into common
 public class SoundUtils
 {
     private SoundUtils() {
@@ -32,7 +33,7 @@ public class SoundUtils
 
     public static SoundEffect newSoundEffect(AssetManager assets, String path) {
         Sound sound = assets.get(path, Sound.class);
-        return new BasicSoundEffect(sound);
+        return new BasicSoundEffect(sound, path);
     }
 
     public static SoundEffect newSoundEffect(AssetManager assets, String... paths) {

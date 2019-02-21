@@ -11,6 +11,7 @@ package com.evilbird.engine.item;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
+//TODO: Move into common
 public interface Disablable
 {
     public boolean getTouchable();

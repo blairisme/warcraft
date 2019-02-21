@@ -20,7 +20,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  */
 public class ActorExtension extends com.badlogic.gdx.scenes.scene2d.Actor
 {
-    private ActorObserver observer;
+    transient private ActorObserver observer;
 
     public ActorExtension(ActorObserver observer) {
         this.observer = observer;

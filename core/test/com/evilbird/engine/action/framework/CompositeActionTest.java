@@ -11,8 +11,8 @@ package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.test.MockBasicAction;
-import com.evilbird.engine.test.MockCompositeAction;
+import com.evilbird.test.mock.action.MockBasicAction;
+import com.evilbird.test.mock.action.MockCompositeAction;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;

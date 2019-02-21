@@ -9,6 +9,11 @@
 
 package com.evilbird.engine.common.serialization;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
+import com.evilbird.engine.common.audio.SoundEffect;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -26,8 +31,22 @@ public class JsonSerializer implements Serializer
 {
     private Gson gson;
 
-    public JsonSerializer() {
+    public JsonSerializer(AssetManager assetManager, ItemFactory itemFactory) {
         GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setPrettyPrinting();
+        gsonBuilder.serializeSpecialFloatingPointValues();
+//        gsonBuilder.registerTypeAdapter(Texture.class, new TextureAdapter(assetManager));
+//        gsonBuilder.registerTypeAdapter(SoundEffect.class, new SoundAdapter(assetManager));
+
+
+        gsonBuilder.registerTypeAdapter(Item.class, new ItemAdapter(itemFactory)); //TODO use annoation
+
+
+        //gsonBuilder.registerTypeAdapter(TextureRegion.class, new TextureRegionAdapter());
+        //gsonBuilder.registerTypeAdapter(Identifier.class, new IdentifierAdapter());
+
+        gsonBuilder.registerTypeAdapterFactory(new SerializedAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new IdentifierAdapterFactory());
         gson = gsonBuilder.create();
     }
 

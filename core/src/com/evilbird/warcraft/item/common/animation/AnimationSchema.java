@@ -15,6 +15,7 @@ import org.apache.commons.lang3.Range;
 import java.util.List;
 import java.util.Map;
 
+//TODO: Move into common
 public class AnimationSchema
 {
     private float interval;

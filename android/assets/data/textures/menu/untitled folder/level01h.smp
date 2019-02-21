@@ -1,6 +1,0 @@
--- Stratagus Map Presentation
--- File generated automatically from pudconvert.
-
-DefinePlayerTypes("computer","person")
-PresentMap("(unnamed)", 2, 32, 32, 1)
-DefineMapSetup("./campaigns/human/level01h_c.sms")

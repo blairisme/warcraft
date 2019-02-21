@@ -44,4 +44,8 @@ public class SoundEffectSet implements SoundEffect
             current.stop();
         }
     }
+
+    public List<SoundEffect> getSounds() {
+        return sounds;
+    }
 }

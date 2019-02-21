@@ -16,6 +16,7 @@ package com.evilbird.warcraft.item.common.capability;
  *
  * @author Blair Butterworth
  */
+//TODO: Move into common
 public interface Zoomable
 {
     float getZoom();

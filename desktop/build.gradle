@@ -41,7 +41,7 @@ shadowJar {
     baseName = project.appName
     from files((String)project.assetsDir)
    // exclude "*.dll"      //dlls needed for windows but not mac
-    exclude "*.so"
+    //exclude "*.so"
     manifest {
         attributes 'Main-Class': project.mainClass
     }

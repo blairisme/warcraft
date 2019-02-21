@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.test;
+package com.evilbird.test.mock.action;
 
 import com.evilbird.engine.action.framework.BasicAction;
 

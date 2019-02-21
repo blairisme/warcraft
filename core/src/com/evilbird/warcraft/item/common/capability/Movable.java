@@ -23,6 +23,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
+//TODO: Move into common
 public interface Movable extends Positionable, Directionable, Categorizable
 {
     /**
