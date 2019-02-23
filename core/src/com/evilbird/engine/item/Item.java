@@ -33,8 +33,6 @@ import static com.evilbird.engine.common.lang.GenericIdentifier.Unknown;
  *
  * @author Blair Butterworth
  */
-// TODO: Create interface for item
-// TODO: Convert ItemAction into a wrapper for a game defined action - rename to ActionDecorator
 @JsonAdapter(ItemAdapter.class)
 public class Item implements Identifiable, Categorizable, Positionable, Selectable, Disablable, Visible
 {
@@ -71,9 +69,7 @@ public class Item implements Identifiable, Categorizable, Positionable, Selectab
      */
     public void addAction(Action action) {
         Validate.notNull(action);
-        Validate.isInstanceOf(ItemAction.class, action);
-
-        delegate.addAction(((ItemAction)action).delegate);
+        delegate.addAction(new ActionDecorator(action));
         actions.add(action);
     }
 

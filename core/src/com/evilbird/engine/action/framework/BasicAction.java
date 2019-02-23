@@ -9,12 +9,12 @@
 
 package com.evilbird.engine.action.framework;
 
+import com.badlogic.gdx.utils.Pool.Poolable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemAction;
 
 /**
  * Instances of this class represent a base class for {@link com.evilbird.engine.action.Action Actions},
@@ -22,9 +22,11 @@ import com.evilbird.engine.item.ItemAction;
  *
  * @author Blair Butterworth
  */
-public abstract class BasicAction extends ItemAction implements Action
+public abstract class BasicAction implements Action, Poolable
 {
     private Identifier identifier;
+    private Item item;
+    private Item target;
     private Throwable error;
     private UserInput cause;
 
@@ -38,10 +40,23 @@ public abstract class BasicAction extends ItemAction implements Action
         item.clearActions();
     }
 
+    public void reset() {
+        error = null;
+    }
+
     @Override
     public void restart() {
-        super.restart();
         error = null;
+    }
+
+    @Override
+    public Item getItem() {
+        return item;
+    }
+
+    @Override
+    public Item getTarget() {
+        return target;
     }
 
     @Override
@@ -67,6 +82,16 @@ public abstract class BasicAction extends ItemAction implements Action
     @Override
     public void setCause(UserInput cause) {
         this.cause = cause;
+    }
+
+    @Override
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    @Override
+    public void setTarget(Item target) {
+        this.target = target;
     }
 
     @Override
