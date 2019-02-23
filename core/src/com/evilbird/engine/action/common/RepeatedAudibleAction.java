@@ -13,7 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.*;
 import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.common.function.Predicate;
-import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
+import com.evilbird.engine.item.animated.SoundIdentifier;
 
 import static com.evilbird.warcraft.action.common.query.ActionPredicates.counter;
 

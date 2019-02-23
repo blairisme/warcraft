@@ -15,7 +15,7 @@ import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
+import com.evilbird.engine.item.animated.AnimationIdentifier;
 
 /**
  * Instances of this class represent an {@link Action} that moves a given

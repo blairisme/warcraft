@@ -9,33 +9,53 @@
 
 package com.evilbird.engine.item;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.engine.common.lang.Objects;
-import com.evilbird.engine.common.serialization.JsonSerializer;
-import com.evilbird.engine.common.serialization.Serializer;
+import com.evilbird.test.testcase.GameTestCase;
+import com.evilbird.test.verifier.EqualityVerifier;
+import com.evilbird.test.verifier.SerializationVerifier;
+import com.evilbird.warcraft.item.unit.UnitType;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
-import static org.mockito.Mockito.mock;
+import java.io.IOException;
 
 /**
  * Instances of this unit test validate the {@link Item} class.
  *
  * @author Blair Butterworth
  */
-public class ItemTest
+public class ItemTest extends GameTestCase
 {
-    @Test
-    public void serializeTest() {
-        AssetManager assets = mock(AssetManager.class);
+    private Item item;
 
+    @Before
+    public void setup() {
+        super.setup();
+        item = newItem();
+        Mockito.when(itemFactory.newItem(Mockito.any())).thenReturn(item);
+    }
+
+    private Item newItem() {
         Item item = new Item();
+        item.setType(UnitType.Footman);
         item.setPosition(12, 34);
         item.setSize(56, 78);
+        return item;
+    }
 
-        Serializer serializer = new JsonSerializer(assets, null);
-        String serialized = serializer.serialize(item, Item.class);
+    @Test
+    public void serializeTest() throws IOException {
+        SerializationVerifier.forClass(Item.class)
+            .withDeserializedForm(item)
+            .withSerializedResource("/item.json")
+            .verify();
+    }
 
-        Item deserialized = serializer.deserialize(serialized, Item.class);
-        Objects.equals(serialized, deserialized);
+    @Test
+    public void equalsTest() {
+        EqualityVerifier.forClass(Item.class)
+            .withMockedTransientFields()
+            .excludeTransientFields()
+            .verify();
     }
 }

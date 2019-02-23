@@ -1,0 +1,17 @@
+{
+  "id": "Generic:Unknown",
+  "type": "UnitType-Footman",
+  "selected": false,
+  "selectable": true,
+  "visible": false,
+  "touchable": "enabled",
+  "size": {
+    "x": 56.0,
+    "y": 78.0
+  },
+  "position": {
+    "x": 12.0,
+    "y": 34.0
+  },
+  "actions": []
+}

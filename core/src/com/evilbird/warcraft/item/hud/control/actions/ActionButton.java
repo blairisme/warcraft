@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.hud.control.actions;
 
-import com.evilbird.engine.item.control.ImageButton;
+import com.evilbird.engine.common.control.ImageButton;
 
 /**
  * Instances of this user interface control represent a button that invokes an

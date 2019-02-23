@@ -1,0 +1,34 @@
+{
+  "direction": 45.0,
+  "updateAnimation": true,
+  "animationId": {
+    "type": "com.evilbird.warcraft.item.unit.UnitAnimation",
+    "value": "Build"
+  },
+  "updateSound": true,
+  "soundId": {
+    "type": "com.evilbird.warcraft.item.unit.UnitSound",
+    "value": "Attack"
+  },
+  "id": {
+    "type": "com.evilbird.engine.common.lang.GenericIdentifier",
+    "value": "Unknown"
+  },
+  "type": {
+    "type": "com.evilbird.warcraft.item.unit.UnitType",
+    "value": "Footman"
+  },
+  "selected": false,
+  "selectable": true,
+  "visible": false,
+  "touchable": "enabled",
+  "size": {
+    "x": 56.0,
+    "y": 78.0
+  },
+  "position": {
+    "x": 12.0,
+    "y": 34.0
+  },
+  "actions": []
+}

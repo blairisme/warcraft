@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.specialized.layer.Layer;
+import com.evilbird.engine.item.layer.Layer;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.layer.LayerType;

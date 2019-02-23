@@ -10,8 +10,8 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.specialized.animated.Animated;
-import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
+import com.evilbird.engine.item.animated.Animated;
+import com.evilbird.engine.item.animated.AnimationIdentifier;
 
 import javax.inject.Inject;
 

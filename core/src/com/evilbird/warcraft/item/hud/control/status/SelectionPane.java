@@ -11,7 +11,7 @@ package com.evilbird.warcraft.item.hud.control.status;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.control.GridPane;
+import com.evilbird.engine.common.control.GridPane;
 import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.hud.common.UnitPane;
 import com.evilbird.warcraft.item.unit.Unit;

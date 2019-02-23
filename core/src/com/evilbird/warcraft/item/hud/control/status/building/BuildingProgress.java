@@ -10,12 +10,12 @@
 package com.evilbird.warcraft.item.hud.control.status.building;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.control.GridPane;
-import com.evilbird.engine.item.control.ProgressBar;
-import com.evilbird.engine.item.control.TextLabel;
-import com.evilbird.engine.item.control.TextLabelAlignment;
+import com.evilbird.engine.common.control.GridPane;
+import com.evilbird.engine.common.control.ProgressBar;
+import com.evilbird.engine.common.control.TextLabel;
+import com.evilbird.engine.common.control.TextLabelAlignment;
+import com.evilbird.warcraft.item.hud.HudControl;
 
 public class BuildingProgress extends GridPane
 {
@@ -42,7 +42,7 @@ public class BuildingProgress extends GridPane
         setCellPadding(3);
         setCell(stack, 0, 0);
 
-        setType(new NamedIdentifier("BuildingProgressBar"));
+        setType(HudControl.BuildingBar);
     }
 
     public void setProgress(float progress) {

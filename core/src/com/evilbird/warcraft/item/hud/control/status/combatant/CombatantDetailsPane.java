@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.hud.control.status.combatant;
 
-import com.evilbird.engine.item.control.BorderPane;
+import com.evilbird.engine.common.control.BorderPane;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;

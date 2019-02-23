@@ -9,10 +9,10 @@
 
 package com.evilbird.warcraft.item.hud.control.status.resource;
 
-import com.evilbird.engine.common.lang.NamedIdentifier;
 import com.evilbird.engine.common.lang.Objects;
-import com.evilbird.engine.item.control.BorderPane;
+import com.evilbird.engine.common.control.BorderPane;
 import com.evilbird.warcraft.item.unit.resource.Resource;
+import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import javax.inject.Inject;
 
@@ -29,9 +29,9 @@ public class ResourceDetailsPane extends BorderPane
     }
 
     public void setResource(Resource resource) {
-        if (Objects.equals(new NamedIdentifier("Gold"), resource.getType())) {
+        if (Objects.equals(ResourceType.Gold, resource.getType())) {
             showGoldMineDetails(resource);
-        } else if (Objects.equals(new NamedIdentifier("Oil"), resource.getType())) {
+        } else if (Objects.equals(ResourceType.Oil, resource.getType())) {
             showOilPatchDetails(resource);
         }
     }

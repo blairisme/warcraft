@@ -14,8 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.function.Predicate;
-import com.evilbird.engine.item.framework.GroupExtension;
-import com.evilbird.engine.item.framework.GroupObserver;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,7 +26,7 @@ import java.util.List;
  * @author Blair Butterworth
  */
 //TODO: Add caching to find
-public class ItemGroup extends Item implements GroupObserver, ItemComposite
+public class ItemGroup extends Item implements ItemComposite
 {
     protected List<Item> items;
     protected Collection<ItemGroupObserver> observers;
@@ -39,10 +37,6 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
     public ItemGroup() {
         this.items = new ArrayList<>();
         this.observers = new ArrayList<>();
-    }
-
-    protected Actor initializeDelegate() {
-        return new GroupExtension(this);
     }
 
     /**
@@ -223,5 +217,10 @@ public class ItemGroup extends Item implements GroupObserver, ItemComposite
         for (ItemGroupObserver observer: observers) {
             observer.itemsCleared();
         }
+    }
+
+    @Override
+    protected Actor newDelegate() {
+        return new GroupDecorator(this);
     }
 }

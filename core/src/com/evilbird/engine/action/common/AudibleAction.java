@@ -10,8 +10,8 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.specialized.animated.Audible;
-import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
+import com.evilbird.engine.item.animated.Audible;
+import com.evilbird.engine.item.animated.SoundIdentifier;
 
 /**
  * Instances of this class represent an Action that plays a sound.

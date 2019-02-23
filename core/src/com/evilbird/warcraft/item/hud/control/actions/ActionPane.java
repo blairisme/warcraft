@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Navigable;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.control.GridPane;
+import com.evilbird.engine.common.control.GridPane;
 import com.evilbird.warcraft.item.hud.HudControl;
 import org.apache.commons.lang3.Validate;
 

@@ -9,15 +9,16 @@
 
 package com.evilbird.engine.common.serialization;
 
+import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.NamedIdentifier;
+import com.evilbird.engine.common.lang.IdentifierAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Instances of this unit test validate logic in the {@link IdentifierAdapter} class.
+ * Instances of this unit test validate logic in the {@link com.evilbird.engine.common.lang.IdentifierAdapter} class.
  *
  * @author Blair Butterworth
  */
@@ -33,9 +34,9 @@ public class IdentifierAdapterTest
 
     @Test
     public void serializeTest() {
-        Identifier identifier = new NamedIdentifier("testy");
+        Identifier identifier = GenericIdentifier.Unknown;
 
-        String expected = "{\"type\":\"com.evilbird.engine.common.lang.NamedIdentifier\",\"data\":{\"name\":\"testy\"}}";
+        String expected = "{\"type\":\"com.evilbird.engine.common.lang.GenericIdentifier\",\"value\":\"Unknown\"}";
         String actual = serializer.toJson(identifier, Identifier.class);
 
         Assert.assertEquals(expected, actual);
@@ -43,9 +44,9 @@ public class IdentifierAdapterTest
 
     @Test
     public void deserializeTest() {
-        String json = "{\"type\":\"com.evilbird.engine.common.lang.NamedIdentifier\",\"data\":{\"name\":\"testy\"}}";
+        String json = "{\"type\":\"com.evilbird.engine.common.lang.GenericIdentifier\",\"value\":\"Unknown\"}";
 
-        Identifier expected = new NamedIdentifier("testy");
+        Identifier expected = GenericIdentifier.Unknown;
         Identifier actual = serializer.fromJson(json, Identifier.class);
 
         Assert.assertEquals(expected, actual);

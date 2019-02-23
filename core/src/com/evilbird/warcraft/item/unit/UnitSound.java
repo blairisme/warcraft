@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.unit;
 
-import com.evilbird.engine.item.specialized.animated.SoundIdentifier;
+import com.evilbird.engine.item.animated.SoundIdentifier;
 
 public enum UnitSound implements SoundIdentifier
 {

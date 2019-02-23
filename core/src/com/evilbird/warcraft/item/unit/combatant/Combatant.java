@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.IdentifierSet;
 import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -19,6 +20,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Instances of this class define a combatant: a {@link Unit} specialization
@@ -35,10 +37,11 @@ public class Combatant extends Unit implements Movable
     private float speed;
     private float range;
     private float movementSpeed;
-    private Collection<Identifier> movementCapability;
+    private IdentifierSet movementCapability;
 
     public Combatant() {
         super();
+        movementCapability = new IdentifierSet();
     }
 
     public int getDamageMinimum() {
@@ -67,7 +70,7 @@ public class Combatant extends Unit implements Movable
         return getSize();
     }
 
-    public Collection<Identifier> getMovementCapability() {
+    public Set<Identifier> getMovementCapability() {
         return movementCapability;
     }
 
@@ -91,12 +94,14 @@ public class Combatant extends Unit implements Movable
         this.movementSpeed = movementSpeed;
     }
 
-    public void setMovementCapability(Identifier movementCapability) {
-        this.movementCapability = Arrays.asList(movementCapability);
+    public void setMovementCapability(Identifier capability) {
+        this.movementCapability.clear();
+        this.movementCapability.add(capability);
     }
 
-    public void setMovementCapability(Collection<Identifier> movementCapability) {
-        this.movementCapability = movementCapability;
+    public void setMovementCapability(Collection<Identifier> capability) {
+        this.movementCapability.clear();
+        this.movementCapability.addAll(capability);
     }
 
     public void setSpeed(float speed) {

@@ -1,0 +1,47 @@
+{
+  "level": 1,
+  "damageMinimum": 2,
+  "damageMaximum": 9,
+  "speed": 10.0,
+  "range": 37.0,
+  "movementSpeed": 64.0,
+  "movementCapability": [
+    {
+      "type": "com.evilbird.warcraft.item.layer.LayerType",
+      "value": "Map"
+    }
+  ],
+  "name": "Footman",
+  "sight": 128,
+  "defence": 2,
+  "health": 60.0,
+  "healthMaximum": 60.0,
+  "direction": 0.0,
+  "updateAnimation": true,
+  "animationId": {
+    "type": "com.evilbird.warcraft.item.unit.UnitAnimation",
+    "value": "Idle"
+  },
+  "updateSound": false,
+  "id": {
+    "type": "com.evilbird.engine.common.lang.GenericIdentifier",
+    "value": "Unknown"
+  },
+  "type": {
+    "type": "com.evilbird.warcraft.item.unit.UnitType",
+    "value": "Footman"
+  },
+  "selected": false,
+  "selectable": true,
+  "visible": false,
+  "touchable": "enabled",
+  "size": {
+    "x": 32.0,
+    "y": 32.0
+  },
+  "position": {
+    "x": 0.0,
+    "y": 0.0
+  },
+  "actions": []
+}

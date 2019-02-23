@@ -14,7 +14,7 @@ import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateIdentifier;
 
 /**
- * Implementors of this interface are used to control whats content is rendered
+ * Implementors of this interface are used to control what content is rendered
  * to the screen and to obtain system preferences.
  *
  * @author Blair Butterworth

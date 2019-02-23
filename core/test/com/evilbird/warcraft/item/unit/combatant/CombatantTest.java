@@ -9,48 +9,50 @@
 
 package com.evilbird.warcraft.item.unit.combatant;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.engine.common.serialization.JsonSerializer;
-import com.evilbird.engine.common.serialization.Serializer;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.test.mock.device.AssetManagerMocks;
+import com.evilbird.test.testcase.GameTestCase;
+import com.evilbird.test.verifier.EqualityVerifier;
+import com.evilbird.test.verifier.SerializationVerifier;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.human.FootmanFactory;
-import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import java.io.IOException;
+
+import static com.evilbird.test.mock.device.AssetManagerMocks.newAssetManagerMock;
 
 /**
  * Instances of this unit test validate logic in the {@link Combatant} class.
  *
  * @author Blair Butterworth
  */
-public class CombatantTest
+public class CombatantTest extends GameTestCase
 {
+    private Combatant combatant;
+
+    @Before
+    public void setup() {
+        super.setup();
+        FootmanFactory footmanFactory = new FootmanFactory(newAssetManagerMock());
+        combatant = (Combatant)footmanFactory.get();
+        Mockito.when(itemFactory.newItem(UnitType.Footman)).thenReturn(combatant);
+    }
+
     @Test
-    //@Ignore
-    public void serializeTest() {
-        AssetManager assets = AssetManagerMocks.newAssetManagerMock();
+    public void serializeTest() throws IOException {
+        SerializationVerifier.forClass(Item.class)
+            .withDeserializedForm(combatant)
+            .withSerializedResource("/combatant.json")
+            .verify();
+    }
 
-        FootmanFactory footmanFactory = new FootmanFactory(assets);
-        Item foo = footmanFactory.get();
-
-        ItemFactory itemFactory = Mockito.mock(ItemFactory.class);
-        Mockito.when(itemFactory.newItem(UnitType.Footman)).thenReturn(foo);
-
-        Combatant expected = (Combatant)footmanFactory.get();
-        expected.setHealth(42);
-        expected.setMovementSpeed(2);
-        expected.setSelected(true);
-
-        Serializer serializer = new JsonSerializer(assets, itemFactory);
-        String json = serializer.serialize(expected, Item.class);
-
-        System.out.println(json);
-
-        Combatant actual = (Combatant)serializer.deserialize(json, Item.class);
-        //Assert.assertNotNull(actual);
-        Assert.assertEquals(expected, actual);
+    @Test
+    public void equalsTest() {
+        EqualityVerifier.forClass(Combatant.class)
+            .withMockedTransientFields()
+            .excludeTransientFields()
+            .verify();
     }
 }

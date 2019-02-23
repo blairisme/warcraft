@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.layer.map;
 
-import com.evilbird.engine.item.specialized.layer.Layer;
+import com.evilbird.engine.item.layer.Layer;
 import com.evilbird.warcraft.item.layer.LayerType;
 
 import javax.inject.Inject;

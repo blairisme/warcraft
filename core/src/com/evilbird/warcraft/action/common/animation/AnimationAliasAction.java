@@ -11,8 +11,8 @@ package com.evilbird.warcraft.action.common.animation;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
-import com.evilbird.engine.item.specialized.animated.Animated;
-import com.evilbird.engine.item.specialized.animated.AnimationIdentifier;
+import com.evilbird.engine.item.animated.Animated;
+import com.evilbird.engine.item.animated.AnimationIdentifier;
 
 /**
  * Instances of this class assigned an alias to a given animation identifier.

@@ -19,11 +19,11 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.NamedIdentifier;
+import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.*;
-import com.evilbird.engine.item.specialized.layer.Layer;
+import com.evilbird.engine.item.layer.Layer;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.layer.LayerType;
@@ -149,7 +149,7 @@ public class MapFactory implements IdentifiedAssetProvider<ItemRoot>
 
     private Item createItem(ItemType type, MapObject object) {
         Item item = itemFactory.newItem(type);
-        item.setId(new NamedIdentifier(object.getName()));
+        item.setId(new TextIdentifier(object.getName()));
         item.setVisible(object.isVisible());
         return item;
     }

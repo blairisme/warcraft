@@ -16,8 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.*;
-import com.evilbird.engine.item.framework.ActorExtension;
-import com.evilbird.engine.item.framework.ActorObserver;
+import com.google.gson.annotations.JsonAdapter;
+import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -25,213 +25,407 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static com.badlogic.gdx.scenes.scene2d.Touchable.enabled;
+import static com.evilbird.engine.common.lang.GenericIdentifier.Unknown;
+
 /**
  * Instances of this class represent the basic entity in the game.
  *
  * @author Blair Butterworth
  */
-// TODO: Cache size, position and bounds
 // TODO: Create interface for item
-public class Item implements ActorObserver, Identifiable, Categorizable, Positionable, Selectable, Disablable, Visible
+// TODO: Convert ItemAction into a wrapper for a game defined action - rename to ActionDecorator
+@JsonAdapter(ItemAdapter.class)
+public class Item implements Identifiable, Categorizable, Positionable, Selectable, Disablable, Visible
 {
     transient Actor delegate;
     transient ItemRoot root;
     transient ItemGroup parent;
-
     private Identifier id;
     private Identifier type;
     private boolean selected;
     private boolean selectable;
-    //touchable //TODO:
-    //size //TODO:
-    //position //TODO:
-    //disabled //TODO:
-    //visible //TODO:
+    private boolean visible;
+    private Touchable touchable;
+    private Vector2 size;
+    private Vector2 position;
     private Collection<Action> actions;
 
     public Item() {
-        this.delegate = initializeDelegate();
-        this.delegate.setUserObject(this); //TODO: needed for ItemAction
-
+        id = Unknown;
+        type = Unknown;
+        selected = false;
+        selectable = true;
+        touchable = enabled;
+        size = new Vector2(1, 1);
+        position = new Vector2(0, 0);
         actions = new ArrayList<>();
-
-        setId(new NamedIdentifier());//TODO: replace with enum
-        setType(new NamedIdentifier("Unknown")); //TODO: replace with enum
-        setSelected(false);
-        setSelectable(true);
-        setTouchable(Touchable.enabled);
+        delegate = getDelegate();
     }
 
-    protected Actor initializeDelegate() {
-        return new ActorExtension(this);
+    /**
+     * Assigns an {@link Action} to the Item, a "bundle" of behaviour that
+     * modifies the Item is a meaningful manner.
+     *
+     * @param action an Action instance.
+     */
+    public void addAction(Action action) {
+        Validate.notNull(action);
+        Validate.isInstanceOf(ItemAction.class, action);
+
+        delegate.addAction(((ItemAction)action).delegate);
+        actions.add(action);
     }
 
+    /**
+     * Removes the {@link Action Actions} assigned to the Item.
+     */
+    public void clearActions() {
+        delegate.clearActions();
+    }
+
+    /**
+     * Returns the {@link Action Actions} assigned to the Item.
+     *
+     * @return  a {@link Collection} of <code>Actions</code>. Will not return
+     *          <code>null</code>.
+     */
+    public Collection<Action> getActions() {
+        return actions;
+    }
+
+    /**
+     * Returns the unique {@link Identifier} of the Item.
+     *
+     * @return an <code>Identifier</code>. Will not return <code>null</code>.
+     */
     @Override
     public Identifier getIdentifier() {
         return id;
     }
 
+    /**
+     * Returns the type of the Item.
+     *
+     * @return a type {@link Identifier}. Will not be <code>null</code>.
+     */
     @Override
     public Identifier getType() {
         return type;
     }
 
+    /**
+     * Returns the parent of the Item: the direct ancestor of the Item in the
+     * Item hierarchy.
+     *
+     * @return an {@link ItemGroup} instance. Will not be <code>null</code>.
+     */
     public ItemGroup getParent() {
         return parent;
     }
 
+    /**
+     * Returns the root of the Item: the most distant ancestor of the Item in
+     * the Item hierarchy.
+     *
+     * @return an {@link ItemRoot} instance. Will not be <code>null</code>.
+     */
     public ItemRoot getRoot() {
         return root;
     }
 
+    /**
+     * Returns whether the Item has been selected by the user: a process that aids
+     * the user by allowing them to issue commands to multiple Items at the
+     * same time.
+     *
+     * @return <code>true</code> if the Item has been selected.
+     */
     public boolean getSelected() {
         return selected;
     }
 
+    /**
+     * Returns whether or not the user can select the Item, a process that aids
+     * the user by allowing them to issue commands to multiple items at the
+     * same time.
+     *
+     * @return <code>true</code> if the Item can been selected.
+     */
     public boolean getSelectable() {
         return selectable;
     }
 
+    /**
+     * Returns whether the Item can be interacted with by the user or not; should
+     * it generate user input events, or not.
+     *
+     * @return <code>true</code> if the Item can be interacted with.
+     */
     public boolean getTouchable() {
-        return delegate.isTouchable();
+        return touchable == Touchable.enabled;
     }
 
+    /**
+     * Returns whether the Item is drawn or not.
+     *
+     * @return <code>true</code> if the Item should be drawn.
+     */
     public boolean getVisible() {
-        return delegate.isVisible();
+        return visible;
     }
 
+    /**
+     * Returns the bounds of the Item, specified in pixels. Updating the
+     * returned value will not effect the Item.
+     *
+     * @return  a {@link Rectangle} describing the Items bounds. Will not
+     *          return <code>null</code>.
+     */
     public Rectangle getBounds() {
-        return new Rectangle(delegate.getX(), delegate.getY(), delegate.getWidth(), delegate.getHeight());
+        return new Rectangle(position.x, position.y, size.x, size.y);
     }
 
+    /**
+     * Returns a {@link Vector2} describing size of the Item in pixels.
+     * Updating the returned value will not effect the Item.
+     *
+     * @return a <code>Vector2</code> instance. Will not return <code>null</code>.
+     */
     public Vector2 getSize() {
-        return new Vector2(delegate.getWidth(), delegate.getHeight());
+        return size.cpy();
     }
 
+    /**
+     * Returns the width of the Item, specified in pixels.
+     *
+     * @return the width of the Item.
+     */
     public float getWidth() {
-        return delegate.getWidth();
+        return size.x;
     }
 
+    /**
+     * Returns the height of the Item, specified in pixels.
+     *
+     * @return the height of the Item.
+     */
     public float getHeight() {
-        return delegate.getHeight();
+        return size.y;
     }
 
+    /**
+     * Returns a {@link Vector2} describing position of the Item in pixels.
+     * Updating the returned value will not effect the Item.
+     *
+     * @return a <code>Vector2</code> instance. Will not return <code>null</code>.
+     */
     public Vector2 getPosition() {
-        return new Vector2(delegate.getX(), delegate.getY());
+        return position.cpy();
     }
 
+    /**
+     * Returns a {@link Vector2} describing position of the Item in pixels with
+     * respect to Item as determined by the given {@link Alignment}. Updating
+     * the returned value will not effect the Item.
+     *
+     * @param alignment the <code>Alignment</code> of the resulting position.
+     * @return          a <code>Vector2</code> instance. Will not return
+     *                  <code>null</code>.
+     */
     public Vector2 getPosition(Alignment alignment) {
+        Validate.notNull(alignment);
         int align = alignment.toGdxAlign();
         return new Vector2(delegate.getX(align), delegate.getY(align));
     }
 
+    /**
+     * Returns the horizontal coordinate of the Item, specified in pixels with
+     * respect to the left hand side of the Item.
+     *
+     * @return the horizontal coordinate of the Item.
+     */
     public float getX() {
-        return delegate.getX();
+        return position.x;
     }
 
+    /**
+     * Returns the vertical coordinate of the Item, specified in pixels with
+     * respect to the bottom of the Item.
+     *
+     * @return the vertical coordinate of the Item.
+     */
     public float getY() {
-        return delegate.getY();
+        return position.y;
     }
 
+    /**
+     * Determines if the Item has currently been assigned an {@link Action}.
+     *
+     * @return <code>true</code> if the Item has an assigned Action.
+     */
+    public boolean hasActions() {
+        return delegate.hasActions();
+    }
+
+    /**
+     * Sets the unique {@link Identifier} of the Item.
+     *
+     * @param id an <code>Identifier</code>. Cannot be <code>null</code>.
+     */
     public void setId(Identifier id) {
+        Validate.notNull(id);
         this.id = id;
     }
 
+    /**
+     * Sets the type of the Item.
+     *
+     * @param type a type {@link Identifier}. Cannot be <code>null</code>.
+     */
     public void setType(Identifier type) {
+        Validate.notNull(type);
         this.type = type;
     }
 
+    /**
+     * Sets the direct ancestor of the Item in the Item hierarchy.
+     *
+     * @param parent an {@link ItemGroup} instance. Cannot be <code>null</code>.
+     */
+    public void setParent(ItemGroup parent) {
+        Validate.notNull(parent);
+        this.parent = parent;
+    }
+
+    /**
+     * Sets the most distant ancestor of the Item in the Item hierarchy.
+     *
+     * @param root an {@link ItemRoot} instance. Cannot be <code>null</code>.
+     */
+    public void setRoot(ItemRoot root) {
+//        Validate.notNull(root);
+        this.root = root;
+    }
+
+    /**
+     * Sets whether the Item has been selected by the user: a process that aids
+     * the user by allowing them to issue commands to multiple items at the
+     * same time.
+     *
+     * @param selected <code>true</code> if the Item has been selected.
+     */
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
 
+    /**
+     * Sets whether or not the user can select the item, a process that aids
+     * the user by allowing them to issue commands to multiple items at the
+     * same time.
+     *
+     * @param selectable <code>true</code> if the Item can been selected.
+     */
     public void setSelectable(boolean selectable) {
         this.selectable = selectable;
     }
 
+    /**
+     * Sets whether the item can be interacted with by the user or not; should
+     * it generate user input events, or not.
+     *
+     * @param touchable <code>true</code> if the Item can be interacted with.
+     */
     public void setTouchable(Touchable touchable) {
-        delegate.setTouchable(touchable);
-    }
-
-    public void setVisible(boolean visible) {
-        delegate.setVisible(visible);
+        this.touchable = touchable;
+        this.delegate.setTouchable(touchable);
     }
 
     /**
-     * Sets the spatial dimensions of the item.
+     * Sets whether the Item is drawn or not.
+     *
+     * @param visible <code>true</code> if the Item should be drawn.
+     */
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+        this.delegate.setVisible(visible);
+    }
+
+    /**
+     * Sets the spatial dimensions of the Item.
      *
      * @param width  the new width of the item.
      * @param height the new height of the item.
      */
     public void setSize(float width, float height) {
-        delegate.setSize(width, height);
+        this.size.x = width;
+        this.size.y = height;
+        this.delegate.setSize(width, height);
     }
 
+    /**
+     * Sets the spatial dimensions of the Item.
+     *
+     * @param size the new spatial dimensions of the Item. Cannot be
+     *             <code>null</code>.
+     */
     public void setSize(Vector2 size) {
-        delegate.setSize(size.x, size.y);
+        Validate.notNull(size);
+        this.size = size;
+        this.delegate.setSize(size.x, size.y);
     }
 
+    /**
+     * Sets the spatial location of the Item.
+     *
+     * @param x the new horizontal coordinate of the Item.
+     * @param y the new vertical coordinate of the Item.
+     */
     public void setPosition(float x, float y) {
-        delegate.setPosition(x, y);
+        this.position.x = x;
+        this.position.y = y;
+        this.delegate.setPosition(x, y);
     }
 
+    /**
+     * Sets the spatial location of the Item.
+     *
+     * @param position a {@link Vector2 position}. Cannot be <code>null</code>.
+     */
     public void setPosition(Vector2 position) {
-        delegate.setPosition(position.x, position.y);
+        Validate.notNull(position);
+        this.position = position;
+        this.delegate.setPosition(position.x, position.y);
     }
 
-    public void setParent(ItemGroup parent) {
-        this.parent = parent;
-    }
-
-    public void setRoot(ItemRoot root) {
-        this.root = root;
-    }
-
-
-
-    public void addAction(Action action) {
-        if (action instanceof ItemAction) {
-            delegate.addAction(((ItemAction)action).delegate);
-        }
-        actions.add(action);
-    }
-
-    public Collection<Action> getActions() {
-        return actions;
-    }
-
-    public boolean hasActions() {
-        return delegate.hasActions();
-    }
-
-    public void clearActions() {
-        delegate.clearActions();
-    }
-
-
-
-
-
-
-    @Override
+    /**
+     * Renders the Item.
+     *
+     * @param batch a {@link Batch} instance, which combines multiple draw
+     *              operations for better efficiency.
+     * @param alpha the transparency of the Items parent.
+     */
     public void draw(Batch batch, float alpha) {
     }
 
-    @Override
+    /**
+     * Updates the Item based on time. Typically this is called each frame by
+     * {@link ItemRoot#update(float)}.
+     *
+     * @param delta Time in seconds since the last frame.
+     */
     public void update(float delta) {
     }
 
     /**
      * Called when the item's position has been changed.
      */
-    @Override
     public void positionChanged() {
     }
 
     /**
      * Called when the item's size has been changed.
      */
-    @Override
     public void sizeChanged() {
     }
 
@@ -244,7 +438,7 @@ public class Item implements ActorObserver, Identifiable, Categorizable, Positio
      * @return the item at the specified location or null if no item is located there.
      */
     public Item hit(Vector2 position, boolean touchable) {
-        if (touchable && delegate.getTouchable() != Touchable.enabled) return null;
+        if (touchable && delegate.getTouchable() != enabled) return null;
         return position.x >= 0 && position.x < delegate.getWidth() &&
                 position.y >= 0 && position.y < delegate.getHeight() ? this : null;
     }
@@ -268,6 +462,10 @@ public class Item implements ActorObserver, Identifiable, Categorizable, Positio
             .append("type", type)
             .append("selected", selected)
             .append("selectable", selectable)
+            .append("visible", visible)
+            .append("touchable", touchable)
+            .append("size", size)
+            .append("position", position)
             .append("actions", actions)
             .toString();
     }
@@ -280,10 +478,14 @@ public class Item implements ActorObserver, Identifiable, Categorizable, Positio
 
         Item item = (Item)obj;
         return new EqualsBuilder()
-            .append(selected, item.selected)
-            .append(selectable, item.selectable)
             .append(id, item.id)
             .append(type, item.type)
+            .append(selected, item.selected)
+            .append(selectable, item.selectable)
+            .append(visible, item.visible)
+            .append(touchable, item.touchable)
+            .append(size, item.size)
+            .append(position, item.position)
             .append(actions, item.actions)
             .isEquals();
     }
@@ -295,7 +497,21 @@ public class Item implements ActorObserver, Identifiable, Categorizable, Positio
             .append(type)
             .append(selected)
             .append(selectable)
+            .append(visible)
+            .append(touchable)
+            .append(size)
+            .append(position)
             .append(actions)
             .toHashCode();
+    }
+
+    protected Actor getDelegate() {
+        Actor result = newDelegate();
+        result.setUserObject(this);
+        return result;
+    }
+
+    protected Actor newDelegate() {
+        return new ActorDecorator(this);
     }
 }

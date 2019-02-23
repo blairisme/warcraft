@@ -9,10 +9,9 @@
 
 package com.evilbird.engine.common.lang;
 
-import com.evilbird.engine.common.serialization.IdentifierAdapter;
-import com.evilbird.engine.common.serialization.Serialized;
+import com.google.gson.annotations.JsonAdapter;
 
-@Serialized(adapter = IdentifierAdapter.class)
+@JsonAdapter(IdentifierAdapter.class)
 public interface Identifier
 {
 }

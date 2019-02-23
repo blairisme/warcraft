@@ -13,6 +13,8 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.evilbird.engine.game.GameInjector;
+import com.evilbird.engine.game.GameService;
 import com.evilbird.warcraft.desktop.DaggerDesktopInjector.Builder;
 
 /**
@@ -34,9 +36,15 @@ public class DesktopLauncher
         return builder.build();
     }
 
+    private static GameService getService() {
+        GameService service = GameService.getInstance();
+        service.setInjector(getInjector());
+        return service;
+    }
+
     private static ApplicationListener getEngine() {
-        DesktopInjector injector = getInjector();
-        return injector.newGameEngine();
+        GameService service = getService();
+        return service.getGameEngine();
     }
 
     private static LwjglApplicationConfiguration getConfiguration() {

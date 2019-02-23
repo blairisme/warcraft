@@ -11,7 +11,7 @@ package com.evilbird.warcraft.item.hud.control.status.building;
 
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.control.BorderPane;
+import com.evilbird.engine.common.control.BorderPane;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
