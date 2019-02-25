@@ -78,6 +78,7 @@ public class Item implements Identifiable, Categorizable, Positionable, Selectab
      */
     public void clearActions() {
         delegate.clearActions();
+        actions.clear();
     }
 
     /**
@@ -301,6 +302,9 @@ public class Item implements Identifiable, Categorizable, Positionable, Selectab
      */
     public void setRoot(ItemRoot root) {
         this.root = root;
+        for (Action action: actions) {
+            action.setRoot(root);
+        }
     }
 
     /**

@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.action.move;
 
+import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.item.Item;
 
 /**
@@ -17,7 +18,7 @@ import com.evilbird.engine.item.Item;
  *
  * @author Blair Butterworth
  */
-public class PathUnknownException extends RuntimeException
+public class PathUnknownException extends ActionException
 {
     public PathUnknownException(Item item) {
         super("Unable to determine path to " + item.getIdentifier());

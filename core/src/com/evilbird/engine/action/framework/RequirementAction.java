@@ -12,6 +12,12 @@ package com.evilbird.engine.action.framework;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.function.Predicate;
 
+/**
+ * Instances of this {@link Action} execute a delegate action only if a given
+ * {@link Predicate requirement} is satisfied.
+ *
+ * @author Blair Butterworth
+ */
 public class RequirementAction extends DelegateAction
 {
     private Predicate<Action> requirement;

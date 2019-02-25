@@ -10,8 +10,9 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.item.Item;
-import com.evilbird.test.mock.action.MockBasicAction;
+import com.evilbird.test.data.action.TestBasicAction;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -36,9 +37,9 @@ public class ParallelActionTest
 
     @Test
     public void actorTest() {
-        com.evilbird.engine.action.Action childA = new MockBasicAction();
-        com.evilbird.engine.action.Action childB = new MockBasicAction();
-        com.evilbird.engine.action.Action childC = new MockBasicAction();
+        com.evilbird.engine.action.Action childA = new TestBasicAction();
+        com.evilbird.engine.action.Action childB = new TestBasicAction();
+        com.evilbird.engine.action.Action childC = new TestBasicAction();
         ParallelAction parallel = new ParallelAction(childA, childB, childC);
 
         Assert.assertNull(parallel.getItem());
@@ -57,15 +58,15 @@ public class ParallelActionTest
 
     @Test
     public void errorTest() {
-        com.evilbird.engine.action.Action childA = new MockBasicAction();
-        com.evilbird.engine.action.Action childB = new MockBasicAction();
-        com.evilbird.engine.action.Action childC = new MockBasicAction();
+        com.evilbird.engine.action.Action childA = new TestBasicAction();
+        com.evilbird.engine.action.Action childB = new TestBasicAction();
+        com.evilbird.engine.action.Action childC = new TestBasicAction();
         ParallelAction parallel = new ParallelAction(childA, childB, childC);
 
         Assert.assertNull(parallel.getError());
         Assert.assertFalse(parallel.hasError());
 
-        Throwable error = new UnknownError();
+        ActionException error = new ActionException("foo");
         childB.setError(error);
 
         Assert.assertEquals(error, parallel.getError());

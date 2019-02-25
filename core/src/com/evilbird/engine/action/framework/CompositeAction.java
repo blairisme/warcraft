@@ -10,6 +10,7 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.item.Item;
 
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ public abstract class CompositeAction extends BasicAction
     }
 
     @Override
-    public Throwable getError() {
+    public ActionException getError() {
         for (Action delegate: delegates) {
             if (delegate.hasError()) {
                 return delegate.getError();
@@ -81,7 +82,7 @@ public abstract class CompositeAction extends BasicAction
     }
 
     @Override
-    public void setError(Throwable error) {
+    public void setError(ActionException error) {
         for (Action delegate: delegates) {
             delegate.setError(error);
         }

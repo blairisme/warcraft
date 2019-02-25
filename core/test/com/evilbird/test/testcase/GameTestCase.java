@@ -18,7 +18,7 @@ import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.game.GameInjector;
 import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.test.mock.item.ItemMocks;
+import com.evilbird.test.data.item.TestItems;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -90,7 +90,7 @@ public class GameTestCase
     public void setup() {
         gameEngine = Mockito.mock(GameEngine.class);
         itemFactory = Mockito.mock(ItemFactory.class);
-        Mockito.when(itemFactory.newItem(Mockito.any())).thenAnswer((invocation) -> ItemMocks.newItem("item"));
+        Mockito.when(itemFactory.newItem(Mockito.any())).thenAnswer((invocation) -> TestItems.newItem("item"));
 
         gameInjector = Mockito.mock(GameInjector.class);
         Mockito.when(gameInjector.getItemFactory()).thenReturn(itemFactory);

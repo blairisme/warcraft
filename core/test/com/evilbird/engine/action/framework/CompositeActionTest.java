@@ -10,9 +10,10 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.item.Item;
-import com.evilbird.test.mock.action.MockBasicAction;
-import com.evilbird.test.mock.action.MockCompositeAction;
+import com.evilbird.test.data.action.TestBasicAction;
+import com.evilbird.test.data.action.TestCompositeAction;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -20,11 +21,11 @@ import org.mockito.Mockito;
 public class CompositeActionTest
 {
     @Test
-    public void actorTest() {
-        Action childA = new MockBasicAction();
-        Action childB = new MockBasicAction();
-        Action childC = new MockBasicAction();
-        MockCompositeAction composite = new MockCompositeAction(childA, childB, childC);
+    public void itemTest() {
+        Action childA = new TestBasicAction();
+        Action childB = new TestBasicAction();
+        Action childC = new TestBasicAction();
+        TestCompositeAction composite = new TestCompositeAction(childA, childB, childC);
 
         Assert.assertNull(composite.getItem());
         Assert.assertNull(childA.getItem());
@@ -42,15 +43,15 @@ public class CompositeActionTest
 
     @Test
     public void errorTest() {
-        Action childA = new MockBasicAction();
-        Action childB = new MockBasicAction();
-        Action childC = new MockBasicAction();
-        MockCompositeAction composite = new MockCompositeAction(childA, childB, childC);
+        Action childA = new TestBasicAction();
+        Action childB = new TestBasicAction();
+        Action childC = new TestBasicAction();
+        TestCompositeAction composite = new TestCompositeAction(childA, childB, childC);
 
         Assert.assertNull(composite.getError());
         Assert.assertFalse(composite.hasError());
 
-        Throwable error = new UnknownError();
+        ActionException error = new ActionException("foo");
         childB.setError(error);
 
         Assert.assertEquals(error, composite.getError());

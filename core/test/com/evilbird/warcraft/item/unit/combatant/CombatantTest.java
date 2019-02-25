@@ -21,7 +21,7 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
-import static com.evilbird.test.mock.device.AssetManagerMocks.newAssetManagerMock;
+import static com.evilbird.test.data.device.TestAssets.newAssetManagerMock;
 
 /**
  * Instances of this unit test validate logic in the {@link Combatant} class.

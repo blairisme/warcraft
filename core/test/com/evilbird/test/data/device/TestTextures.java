@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.test.mock.device;
+package com.evilbird.test.data.device;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.glutils.FileTextureData;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class TextureMocks
+public class TestTextures
 {
     public static Texture newTextureMock() {
         return newTextureMock("/data/texture/image.png");

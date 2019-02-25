@@ -7,14 +7,20 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.test.mock.action;
+package com.evilbird.test.data.action;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.CompositeAction;
 
-public class MockCompositeAction extends CompositeAction
+/**
+ * A concrete instance of the abstract {@link CompositeAction} class, useful
+ * for testing purposes.
+ *
+ * @author Blair Butterworth
+ */
+public class TestCompositeAction extends CompositeAction
 {
-    public MockCompositeAction(Action... actions) {
+    public TestCompositeAction(Action... actions) {
         super(actions);
     }
 

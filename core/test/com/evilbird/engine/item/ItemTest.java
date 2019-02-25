@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.item;
 
-import com.evilbird.test.mock.item.ItemMocks;
+import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
@@ -30,7 +30,7 @@ public class ItemTest extends GameTestCase
     @Before
     public void setup() {
         super.setup();
-        item = ItemMocks.newItem("1");
+        item = TestItems.newItem("1");
     }
 
     @Test

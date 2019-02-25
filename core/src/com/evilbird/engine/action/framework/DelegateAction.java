@@ -10,6 +10,7 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
@@ -87,12 +88,12 @@ public class DelegateAction extends BasicAction
     }
 
     @Override
-    public Throwable getError() {
+    public ActionException getError() {
         return delegate.getError();
     }
 
     @Override
-    public void setError(Throwable error) {
+    public void setError(ActionException error) {
         delegate.setError(error);
     }
 }

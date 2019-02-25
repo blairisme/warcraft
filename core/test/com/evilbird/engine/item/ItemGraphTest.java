@@ -10,7 +10,7 @@
 package com.evilbird.engine.item;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.test.mock.item.ItemMocks;
+import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
@@ -31,8 +31,8 @@ public class ItemGraphTest extends GameTestCase
     @Before
     public void setup() {
         super.setup();
-        Item item1 = ItemMocks.newItem("1");
-        Item item2 = ItemMocks.newItem("2");
+        Item item1 = TestItems.newItem("1");
+        Item item2 = TestItems.newItem("2");
 
         graph = new ItemGraph(32, 32, 2, 2);
         graph.addOccupants(graph.getNode(new Vector2(10, 0)), item1);

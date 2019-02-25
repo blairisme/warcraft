@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.test.mock.device;
+package com.evilbird.test.data.device;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
@@ -18,10 +18,10 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class AssetManagerMocks
+public class TestAssets
 {
     public static AssetManager newAssetManagerMock() {
-        Texture mockTexture = TextureMocks.newTextureMock();
+        Texture mockTexture = TestTextures.newTextureMock();
 
         AssetManager assets = mock(AssetManager.class);
         when(assets.get(anyString(), eq(Texture.class))).thenReturn(mockTexture);

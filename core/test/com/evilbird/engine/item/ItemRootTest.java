@@ -10,7 +10,7 @@
 package com.evilbird.engine.item;
 
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.test.mock.item.ItemMocks;
+import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
@@ -41,14 +41,14 @@ public class ItemRootTest extends GameTestCase
         ItemGroup group1 = new ItemGroup();
         group1.setId(new TextIdentifier("Player1"));
         group1.setType(DataType.Player);
-        group1.addItem(ItemMocks.newItem("1"));
-        group1.addItem(ItemMocks.newItem("2"));
+        group1.addItem(TestItems.newItem("1"));
+        group1.addItem(TestItems.newItem("2"));
 
         ItemGroup group2 = new ItemGroup();
         group2.setType(DataType.Player);
         group2.setId(new TextIdentifier("Player2"));
-        group2.addItem(ItemMocks.newItem("3"));
-        group2.addItem(ItemMocks.newItem("4"));
+        group2.addItem(TestItems.newItem("3"));
+        group2.addItem(TestItems.newItem("4"));
 
         root = new ItemRoot();
         root.setSpatialGraph(graph);

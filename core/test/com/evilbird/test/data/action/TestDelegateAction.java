@@ -7,13 +7,20 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.test.mock.action;
+package com.evilbird.test.data.action;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.DelegateAction;
 
-public class MockDelegateAction extends DelegateAction {
-    public MockDelegateAction(Action delegate) {
+/**
+ * A concrete instance of the abstract {@link DelegateAction} class, useful
+ * for testing purposes.
+ *
+ * @author Blair Butterworth
+ */
+public class TestDelegateAction extends DelegateAction
+{
+    public TestDelegateAction(Action delegate) {
         super(delegate);
     }
 

@@ -10,11 +10,12 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
-import com.evilbird.test.mock.action.MockBasicAction;
-import com.evilbird.test.mock.action.MockDelegateAction;
+import com.evilbird.test.data.action.TestBasicAction;
+import com.evilbird.test.data.action.TestDelegateAction;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -22,9 +23,9 @@ import org.mockito.Mockito;
 public class DelegateActionTest
 {
     @Test
-    public void actorTest() {
-        com.evilbird.engine.action.Action underlyingAction = new MockBasicAction();
-        DelegateAction delegateAction = new MockDelegateAction(underlyingAction);
+    public void itemTest() {
+        com.evilbird.engine.action.Action underlyingAction = new TestBasicAction();
+        DelegateAction delegateAction = new TestDelegateAction(underlyingAction);
 
         Assert.assertNull(delegateAction.getItem());
         Item actor = Mockito.mock(Item.class);
@@ -36,8 +37,8 @@ public class DelegateActionTest
 
     @Test
     public void targetTest() {
-        com.evilbird.engine.action.Action underlyingAction = new MockBasicAction();
-        DelegateAction delegateAction = new MockDelegateAction(underlyingAction);
+        com.evilbird.engine.action.Action underlyingAction = new TestBasicAction();
+        DelegateAction delegateAction = new TestDelegateAction(underlyingAction);
 
         Assert.assertNull(delegateAction.getTarget());
         Item target = Mockito.mock(Item.class);
@@ -49,8 +50,8 @@ public class DelegateActionTest
     
     @Test
     public void identifierTest() {
-        com.evilbird.engine.action.Action underlyingAction = new MockBasicAction();
-        DelegateAction delegateAction = new MockDelegateAction(underlyingAction);
+        com.evilbird.engine.action.Action underlyingAction = new TestBasicAction();
+        DelegateAction delegateAction = new TestDelegateAction(underlyingAction);
 
         Assert.assertEquals(GenericIdentifier.Unknown, delegateAction.getIdentifier());
         Identifier identifier = Mockito.mock(Identifier.class);
@@ -62,13 +63,13 @@ public class DelegateActionTest
     
     @Test
     public void errorTest() {
-        Action underlyingAction = new MockBasicAction();
-        DelegateAction delegateAction = new MockDelegateAction(underlyingAction);
+        Action underlyingAction = new TestBasicAction();
+        DelegateAction delegateAction = new TestDelegateAction(underlyingAction);
 
         Assert.assertNull(delegateAction.getError());
         Assert.assertFalse(delegateAction.hasError());
 
-        Throwable error = new UnknownError();
+        ActionException error = new ActionException("foo");
         underlyingAction.setError(error);
 
         Assert.assertEquals(error, delegateAction.getError());

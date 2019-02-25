@@ -7,11 +7,17 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.test.mock.action;
+package com.evilbird.test.data.action;
 
 import com.evilbird.engine.action.framework.BasicAction;
 
-public class MockBasicAction extends BasicAction
+/**
+ * A concrete instance of the abstract {@link BasicAction} class, useful
+ * for testing purposes.
+ *
+ * @author Blair Butterworth
+ */
+public class TestBasicAction extends BasicAction
 {
     @Override
     public boolean act(float delta) {

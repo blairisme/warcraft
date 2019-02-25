@@ -10,7 +10,7 @@
 package com.evilbird.engine.item;
 
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.test.mock.item.ItemMocks;
+import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.SerializationVerifier;
 import com.evilbird.warcraft.item.data.DataType;
@@ -35,9 +35,9 @@ public class ItemGroupTest extends GameTestCase
         group = new ItemGroup();
         group.setId(new TextIdentifier("Player1"));
         group.setType(DataType.Player);
-        group.addItem(ItemMocks.newItem("1"));
-        group.addItem(ItemMocks.newItem("2"));
-        group.addItem(ItemMocks.newItem("3"));
+        group.addItem(TestItems.newItem("1"));
+        group.addItem(TestItems.newItem("2"));
+        group.addItem(TestItems.newItem("3"));
     }
 
     @Test

@@ -10,6 +10,9 @@
 package com.evilbird.engine.device;
 
 import com.badlogic.gdx.math.Vector2;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Encapsulates data about a single user interaction with the application.
@@ -51,5 +54,40 @@ public class UserInput
 
     public int getCount() {
         return this.count;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("type", type)
+            .append("position", position)
+            .append("delta", delta)
+            .append("count", count)
+            .toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        UserInput userInput = (UserInput)obj;
+        return new EqualsBuilder()
+            .append(count, userInput.count)
+            .append(type, userInput.type)
+            .append(position, userInput.position)
+            .append(delta, userInput.delta)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .append(type)
+            .append(position)
+            .append(delta)
+            .append(count)
+            .toHashCode();
     }
 }
