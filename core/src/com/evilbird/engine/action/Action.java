@@ -23,10 +23,23 @@ import com.evilbird.engine.item.Item;
  */
 public interface Action extends Identifiable, Poolable
 {
+    /**
+     * Updates the Action based on time. Typically this is called each frame by
+     * {@link Item#update(float)}.
+     *
+     * @param delta the number of seconds since the last invocation.
+     * @return      <code>true</code> if the action is done.
+     */
     boolean act(float delta);
 
+    /**
+     * Stops the Action.
+     */
     void cancel();
 
+    /**
+     * Sets the state of the action so it can be run again.
+     */
     void restart();
 
     Item getItem();

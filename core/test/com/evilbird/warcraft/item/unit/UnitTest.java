@@ -9,9 +9,14 @@
 
 package com.evilbird.warcraft.item.unit;
 
-import static org.junit.Assert.*;
+import com.evilbird.test.testcase.GameTestCase;
 
-public class UnitTest
+/**
+ * Instances of this unit test validate the {@link Unit} class.
+ *
+ * @author Blair Butterworth
+ */
+public class UnitTest extends GameTestCase
 {
 
 }

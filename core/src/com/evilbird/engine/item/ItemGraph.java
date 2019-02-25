@@ -17,6 +17,10 @@ import com.evilbird.engine.common.collection.Arrays;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.function.Predicates;
 import com.evilbird.engine.common.pathing.SpatialGraph;
+import com.google.gson.annotations.JsonAdapter;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,14 +31,15 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
+@JsonAdapter(ItemGraphAdapter.class)
 public class ItemGraph implements SpatialGraph<ItemNode>
 {
-    private float nodeWidth;
-    private float nodeHeight;
+    private int nodeWidth;
+    private int nodeHeight;
     private int nodeCountX;
     private int nodeCountY;
-    private ItemNode[][] nodes;
-    private Predicate<Connection<ItemNode>> nodeFilter;
+    private transient ItemNode[][] nodes;
+    private transient Predicate<Connection<ItemNode>> nodeFilter;
 
     public ItemGraph(ItemGraph graph, Predicate<ItemNode> nodeFilter) {
         this.nodeWidth = graph.nodeWidth;
@@ -63,6 +68,22 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     @Override
     public int getNodeCount() {
         return nodeCountX * nodeCountY;
+    }
+
+    public int getNodeCountX() {
+        return nodeCountX;
+    }
+
+    public int getNodeCountY() {
+        return nodeCountY;
+    }
+
+    public int getNodeHeight() {
+        return nodeHeight;
+    }
+
+    public int getNodeWidth() {
+        return nodeWidth;
     }
 
     public ItemNode getNode(Vector2 position) {
@@ -148,6 +169,41 @@ public class ItemGraph implements SpatialGraph<ItemNode>
                 nodes[x][y].removeOccupants();
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("nodeWidth", nodeWidth)
+            .append("nodeHeight", nodeHeight)
+            .append("nodeCountX", nodeCountX)
+            .append("nodeCountY", nodeCountY)
+            .toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        ItemGraph graph = (ItemGraph)obj;
+        return new EqualsBuilder()
+            .append(nodeWidth, graph.nodeWidth)
+            .append(nodeHeight, graph.nodeHeight)
+            .append(nodeCountX, graph.nodeCountX)
+            .append(nodeCountY, graph.nodeCountY)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .append(nodeWidth)
+            .append(nodeHeight)
+            .append(nodeCountX)
+            .append(nodeCountY)
+            .toHashCode();
     }
 
     private ItemNode[][] createNodeArray(int width, int height) {

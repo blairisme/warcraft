@@ -1,6 +1,12 @@
 {
-  "id": "Generic:Unknown",
-  "type": "UnitType-Footman",
+  "id": {
+    "type": "com.evilbird.engine.common.lang.TextIdentifier",
+    "value": "1"
+  },
+  "type": {
+    "type": "com.evilbird.warcraft.item.unit.UnitType",
+    "value": "Footman"
+  },
   "selected": false,
   "selectable": true,
   "visible": false,

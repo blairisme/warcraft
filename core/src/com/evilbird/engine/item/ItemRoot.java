@@ -15,6 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.game.GameController;
+import com.google.gson.annotations.JsonAdapter;
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Collection;
 
@@ -23,24 +28,24 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-public class ItemRoot implements ItemComposite, ItemGroupObserver
+@JsonAdapter(ItemRootAdapter.class)
+public class ItemRoot implements ItemComposite
 {
-    private Stage delegate;
     private ItemGroup group;
     private ItemGraph graph;
-    private GameController controller;
+    private transient Stage delegate;
+    private transient GameController controller;
+    private transient ItemGraphUpdater graphUpdater;
 
-    public ItemRoot(ItemGraph graph){
+    public ItemRoot() {
         this.group = new ItemGroup();
         this.group.setRoot(this);
 
+        this.graphUpdater = new ItemGraphUpdater();
+        this.group.addObserver(graphUpdater);
+
         this.delegate = new Stage();
         this.delegate.addActor(group.delegate);
-
-        if (graph != null) {
-            this.graph = graph;
-            this.group.addObserver(this);
-        }
     }
 
     /**
@@ -83,13 +88,26 @@ public class ItemRoot implements ItemComposite, ItemGroupObserver
 
     /**
      * Returns a {@link ItemGraph}, a graph of the game space, represented
-     * as a 2 dimensional matrix of 32 x 32 pixel sized nodes, containing all
-     * of the touchable items contained in the item root.
+     * as a 2 dimensional matrix of nodes, containing all of the touchable
+     * items contained in the item root.
      *
-     * @return  a {@link ItemGraph}.
+     * @return an {@link ItemGraph}. This method may return <code>null</code>.
      */
     public ItemGraph getSpatialGraph() {
         return graph;
+    }
+
+    /**
+     * Sets the {@link ItemGraph} associated with the ItemRoot. Any Items
+     * added to the ItemRoot will automatically be provided to the ItemGraph
+     * to update occupancy.
+     *
+     * @param graph an {@link ItemGraph}. Cannot be <code>null</code>.
+     */
+    public void setSpatialGraph(ItemGraph graph) {
+        Validate.notNull(graph);
+        this.graph = graph;
+        this.graphUpdater.setGraph(graph);
     }
 
     /**
@@ -222,27 +240,31 @@ public class ItemRoot implements ItemComposite, ItemGroupObserver
     }
 
     @Override
-    public void itemAdded(Item item) {
-        graph.addOccupants(item);
-        if (item instanceof ItemGroup) {
-            ItemGroup group = (ItemGroup)item;
-            group.addObserver(this);
-            graph.addOccupants(group.getItems());
-        }
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("group", group)
+            .append("graph", graph)
+            .toString();
     }
 
     @Override
-    public void itemRemoved(Item item) {
-        graph.removeOccupants(item);
-        if (item instanceof ItemGroup) {
-            ItemGroup group = (ItemGroup)item;
-            group.removeObserver(this);
-            graph.removeOccupants(group.getItems());
-        }
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        ItemRoot other = (ItemRoot)obj;
+        return new EqualsBuilder()
+            .append(group, other.group)
+            .append(graph, other.graph)
+            .isEquals();
     }
 
     @Override
-    public void itemsCleared() {
-        graph.clearOccupants();
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .append(group)
+            .append(graph)
+            .toHashCode();
     }
 }

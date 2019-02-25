@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.item;
 
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.test.mock.item.ItemMocks;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -19,31 +20,36 @@ import org.junit.Test;
 import java.io.IOException;
 
 /**
- * Instances of this unit test validate the {@link Item} class.
+ * Instances of this unit test validate the {@link ItemGraph} class.
  *
  * @author Blair Butterworth
  */
-public class ItemTest extends GameTestCase
+public class ItemGraphTest extends GameTestCase
 {
-    private Item item;
+    private ItemGraph graph;
 
     @Before
     public void setup() {
         super.setup();
-        item = ItemMocks.newItem("1");
+        Item item1 = ItemMocks.newItem("1");
+        Item item2 = ItemMocks.newItem("2");
+
+        graph = new ItemGraph(32, 32, 2, 2);
+        graph.addOccupants(graph.getNode(new Vector2(10, 0)), item1);
+        graph.addOccupants(graph.getNode(new Vector2(0, 10)), item2);
     }
 
     @Test
     public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(Item.class)
-            .withDeserializedForm(item)
-            .withSerializedResource("/item.json")
+        SerializationVerifier.forClass(ItemGraph.class)
+            .withDeserializedForm(graph)
+            .withSerializedResource("/itemgraph.json")
             .verify();
     }
 
     @Test
     public void equalsTest() {
-        EqualityVerifier.forClass(Item.class)
+        EqualityVerifier.forClass(ItemGraph.class)
             .withMockedTransientFields()
             .excludeTransientFields()
             .verify();

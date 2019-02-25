@@ -14,6 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.function.Predicate;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,11 +28,11 @@ import java.util.List;
  *
  * @author Blair Butterworth
  */
-//TODO: Add caching to find
+//TODO Enhancement: Add caching for find invocations
 public class ItemGroup extends Item implements ItemComposite
 {
-    protected List<Item> items;
-    protected Collection<ItemGroupObserver> observers;
+    private List<Item> items;
+    private transient Collection<ItemGroupObserver> observers;
 
     /**
      * Constructs a new instance of this class.
@@ -45,7 +48,7 @@ public class ItemGroup extends Item implements ItemComposite
      * @param item the item to set.
      */
     public void addItem(Item item) {
-        Group group = (Group) delegate;
+        Group group = (Group)delegate;
         group.addActor(item.delegate);
         item.setParent(this);
         item.setRoot(getRoot());
@@ -222,5 +225,34 @@ public class ItemGroup extends Item implements ItemComposite
     @Override
     protected Actor newDelegate() {
         return new GroupDecorator(this);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .appendSuper("group")
+            .append("items", items)
+            .toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        ItemGroup itemGroup = (ItemGroup)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(items, itemGroup.items)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(items)
+            .toHashCode();
     }
 }

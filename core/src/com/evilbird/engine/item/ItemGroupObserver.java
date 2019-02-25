@@ -9,6 +9,12 @@
 
 package com.evilbird.engine.item;
 
+/**
+ * Implementors of this interface provide methods that are called when
+ * {@link Item Items} are added or removed from an {@link ItemGroup}.
+ *
+ * @author Blair Butterworth
+ */
 public interface ItemGroupObserver
 {
     void itemAdded(Item item);

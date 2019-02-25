@@ -1,0 +1,152 @@
+{
+  "graph": {
+    "nodeWidth": 32,
+    "nodeHeight": 32,
+    "nodeCountX": 128,
+    "nodeCountY": 128
+  },
+  "items": [
+    {
+      "items": [
+        {
+          "id": {
+            "type": "com.evilbird.engine.common.lang.TextIdentifier",
+            "value": "1"
+          },
+          "type": {
+            "type": "com.evilbird.warcraft.item.unit.UnitType",
+            "value": "Footman"
+          },
+          "selected": false,
+          "selectable": true,
+          "visible": false,
+          "touchable": "enabled",
+          "size": {
+            "x": 56.0,
+            "y": 78.0
+          },
+          "position": {
+            "x": 12.0,
+            "y": 34.0
+          },
+          "actions": []
+        },
+        {
+          "id": {
+            "type": "com.evilbird.engine.common.lang.TextIdentifier",
+            "value": "2"
+          },
+          "type": {
+            "type": "com.evilbird.warcraft.item.unit.UnitType",
+            "value": "Footman"
+          },
+          "selected": false,
+          "selectable": true,
+          "visible": false,
+          "touchable": "enabled",
+          "size": {
+            "x": 56.0,
+            "y": 78.0
+          },
+          "position": {
+            "x": 12.0,
+            "y": 34.0
+          },
+          "actions": []
+        }
+      ],
+      "id": {
+        "type": "com.evilbird.engine.common.lang.TextIdentifier",
+        "value": "Player1"
+      },
+      "type": {
+        "type": "com.evilbird.warcraft.item.data.DataType",
+        "value": "Player"
+      },
+      "selected": false,
+      "selectable": true,
+      "visible": false,
+      "touchable": "enabled",
+      "size": {
+        "x": 1.0,
+        "y": 1.0
+      },
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "actions": []
+    },
+    {
+      "items": [
+        {
+          "id": {
+            "type": "com.evilbird.engine.common.lang.TextIdentifier",
+            "value": "3"
+          },
+          "type": {
+            "type": "com.evilbird.warcraft.item.unit.UnitType",
+            "value": "Footman"
+          },
+          "selected": false,
+          "selectable": true,
+          "visible": false,
+          "touchable": "enabled",
+          "size": {
+            "x": 56.0,
+            "y": 78.0
+          },
+          "position": {
+            "x": 12.0,
+            "y": 34.0
+          },
+          "actions": []
+        },
+        {
+          "id": {
+            "type": "com.evilbird.engine.common.lang.TextIdentifier",
+            "value": "4"
+          },
+          "type": {
+            "type": "com.evilbird.warcraft.item.unit.UnitType",
+            "value": "Footman"
+          },
+          "selected": false,
+          "selectable": true,
+          "visible": false,
+          "touchable": "enabled",
+          "size": {
+            "x": 56.0,
+            "y": 78.0
+          },
+          "position": {
+            "x": 12.0,
+            "y": 34.0
+          },
+          "actions": []
+        }
+      ],
+      "id": {
+        "type": "com.evilbird.engine.common.lang.TextIdentifier",
+        "value": "Player2"
+      },
+      "type": {
+        "type": "com.evilbird.warcraft.item.data.DataType",
+        "value": "Player"
+      },
+      "selected": false,
+      "selectable": true,
+      "visible": false,
+      "touchable": "enabled",
+      "size": {
+        "x": 1.0,
+        "y": 1.0
+      },
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "actions": []
+    }
+  ]
+}

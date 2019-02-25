@@ -297,10 +297,9 @@ public class Item implements Identifiable, Categorizable, Positionable, Selectab
     /**
      * Sets the most distant ancestor of the Item in the Item hierarchy.
      *
-     * @param root an {@link ItemRoot} instance. Cannot be <code>null</code>.
+     * @param root an {@link ItemRoot} instance.
      */
     public void setRoot(ItemRoot root) {
-//        Validate.notNull(root);
         this.root = root;
     }
 
@@ -468,8 +467,8 @@ public class Item implements Identifiable, Categorizable, Positionable, Selectab
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) return false;
         if (obj == this) return true;
+        if (obj == null) return false;
         if (obj.getClass() != getClass()) return false;
 
         Item item = (Item)obj;

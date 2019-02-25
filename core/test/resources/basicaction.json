@@ -1,0 +1,68 @@
+{
+  "identifier": {
+    "type": "com.evilbird.warcraft.action.move.MoveActions",
+    "value": "MoveToItem"
+  },
+  "item": {
+    "id": {
+      "type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "value": "1"
+    },
+    "type": {
+      "type": "com.evilbird.warcraft.item.unit.UnitType",
+      "value": "Footman"
+    },
+    "selected": false,
+    "selectable": true,
+    "visible": false,
+    "touchable": "enabled",
+    "size": {
+      "x": 56.0,
+      "y": 78.0
+    },
+    "position": {
+      "x": 12.0,
+      "y": 34.0
+    },
+    "actions": []
+  },
+  "target": {
+    "id": {
+      "type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "value": "2"
+    },
+    "type": {
+      "type": "com.evilbird.warcraft.item.unit.UnitType",
+      "value": "Footman"
+    },
+    "selected": false,
+    "selectable": true,
+    "visible": false,
+    "touchable": "enabled",
+    "size": {
+      "x": 56.0,
+      "y": 78.0
+    },
+    "position": {
+      "x": 12.0,
+      "y": 34.0
+    },
+    "actions": []
+  },
+  "error": {
+    "stackTrace": [],
+    "suppressedExceptions": []
+  },
+  "cause": {
+    "type": "Action",
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "delta": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "count": 1
+  }
+}

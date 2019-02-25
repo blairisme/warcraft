@@ -67,8 +67,9 @@ public class MapFactory implements IdentifiedAssetProvider<ItemRoot>
     }
 
     private ItemRoot load(TiledMap level) {
-        ItemRoot result = new ItemRoot(new ItemGraph(32, 32, 32, 32));
+        ItemRoot result = new ItemRoot();
         result.setViewport(new ScreenViewport());
+        result.setSpatialGraph(new ItemGraph(32, 32, 32, 32)); //TODO: use size from level
         addItems(level, result);
         return result;
     }

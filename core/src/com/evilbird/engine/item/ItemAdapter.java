@@ -84,8 +84,10 @@ public class ItemAdapter implements JsonSerializer<Item>, JsonDeserializer<Item>
 
     private void deserialize(String name, JsonElement json, JsonDeserializationContext context, Item item, Class<?> type) {
         Field field = FieldUtils.getField(type, name, true);
-        Object value = context.deserialize(json, field.getType());
-        writeField(field, item, value);
+        if (field != null) {
+            Object value = context.deserialize(json, field.getType());
+            writeField(field, item, value);
+        }
     }
 
     private void writeField(Field field, Object target, Object value) {

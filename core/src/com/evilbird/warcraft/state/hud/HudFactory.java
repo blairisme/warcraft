@@ -36,7 +36,7 @@ public class HudFactory implements IdentifiedAssetProvider<ItemRoot>
         Validate.isInstanceOf(HudDefinition.class, identifier);
         HudDefinition definition = (HudDefinition)identifier;
 
-        ItemRoot hud = new ItemRoot(null);
+        ItemRoot hud = new ItemRoot();
         //hud.setViewport(viewport);
 
         for (HudControl hudControl: definition.getControls()) {

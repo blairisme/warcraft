@@ -11,7 +11,8 @@ package com.evilbird.test.mock.action;
 
 import com.evilbird.engine.action.framework.BasicAction;
 
-public class MockBasicAction extends BasicAction {
+public class MockBasicAction extends BasicAction
+{
     @Override
     public boolean act(float delta) {
         return true;

@@ -15,6 +15,7 @@ import nl.jqno.equalsverifier.Warning;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.mockito.Mockito;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -34,6 +35,11 @@ public class EqualityVerifier
         this.verifier = EqualsVerifier.forClass(type);
         this.verifier.suppress(Warning.NONFINAL_FIELDS);
         this.verifier.usingGetClass();
+    }
+
+    public EqualityVerifier suppress(Warning ... warnings) {
+        verifier.suppress(warnings);
+        return this;
     }
 
     public EqualityVerifier includeFields(String ... fields) {
@@ -56,22 +62,58 @@ public class EqualityVerifier
         return excludeFields(transientFields.toArray(new String[0]));
     }
 
-    public EqualityVerifier withMockedType(Class<?> type) {
-        Object red = Mockito.mock(type);
-        Object black = Mockito.mock(type);
-        verifier.withPrefabValues(type, red, black);
-        return this;
+    public EqualityVerifier withMockedTransientFields() {
+        return withMockedTransientFields(type);
     }
 
-    public EqualityVerifier withMockedTransientFields() {
+    public EqualityVerifier withMockedTransientFields(Class<?> type) {
         for (Field field: FieldUtils.getAllFields(type)) {
             if (Modifier.isTransient(field.getModifiers())) {
-                if (! field.getType().isPrimitive()) {
-                    withMockedType(field.getType());
+                Class<?> fieldType = field.getType();
+                if (! fieldType.isPrimitive()) {
+                    withMockedType(fieldType);
                 }
             }
         }
         return this;
+    }
+
+    public EqualityVerifier withMockedType(Class<?> type) {
+        Object red = newMockedValue(type);
+        Object black = newMockedValue(type);
+        verifier.withPrefabValues(type, red, black);
+        return this;
+    }
+
+    private Object newMockedValue(Class<?> type) {
+        if (type.isArray()){
+            return newMockedArray(type);
+        }
+        return Mockito.mock(type);
+    }
+
+    private Object newMockedArray(Class<?> type) {
+        int dimensions = getDimensions(type);
+        Class<?> elementType = getElementType(type);
+        return Array.newInstance(elementType, 1, dimensions);
+    }
+
+    private Class<?> getElementType(Class<?> type) {
+        Class<?> current = type;
+        while (current.isArray()) {
+            current = current.getComponentType();
+        }
+        return current;
+    }
+
+    private int getDimensions(Class<?> type) {
+        int dimensions = 0;
+        Class<?> current = type;
+        while (current.isArray()) {
+            dimensions++;
+            current = current.getComponentType();
+        }
+        return dimensions;
     }
 
     public void verify() {
