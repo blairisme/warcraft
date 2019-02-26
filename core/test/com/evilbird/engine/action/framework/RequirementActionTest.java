@@ -11,6 +11,11 @@ package com.evilbird.engine.action.framework;
 
 import org.junit.Test;
 
+/**
+ * Instances of this unit test validate the {@link RequirementAction} class.
+ *
+ * @author Blair Butterworth
+ */
 public class RequirementActionTest
 {
     @Test

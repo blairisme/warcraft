@@ -14,8 +14,6 @@ import com.evilbird.engine.action.common.SelectAction;
 import com.evilbird.engine.action.common.VisibleAction;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.ParallelAction;
-import com.evilbird.engine.action.framework.duration.ActionDuration;
-import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
@@ -55,8 +53,8 @@ public class GatherGold extends GatherAction
     }
 
     @Override
-    protected ActionDuration getGatherSpeed() {
-        return new TimeDuration(5f);
+    protected float getGatherSpeed() {
+        return 5;
     }
 
     @Override

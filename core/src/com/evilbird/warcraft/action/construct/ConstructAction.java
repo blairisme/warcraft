@@ -14,7 +14,6 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.SequenceAction;
-import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
@@ -67,7 +66,7 @@ public class ConstructAction extends DelegateAction
         createBuilding.setType(type);
     }
 
-    public void setBuildDuration(TimeDuration duration) {
+    public void setBuildDuration(float duration) {
         progressAction.setDuration(duration);
     }
 

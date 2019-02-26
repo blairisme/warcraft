@@ -15,7 +15,6 @@ import com.evilbird.engine.action.common.CreateAction;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.SequenceAction;
-import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.action.common.production.ProduceAction;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferAction;
@@ -66,7 +65,7 @@ public class TrainAction extends DelegateAction
         this.purchase.setResourceDeltas(ResourceUtils.negate(resources));
     }
 
-    public void setTrainDuration(TimeDuration duration) {
+    public void setTrainDuration(float duration) {
         this.produce.setDuration(duration);
     }
 

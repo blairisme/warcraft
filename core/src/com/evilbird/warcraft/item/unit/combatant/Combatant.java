@@ -11,14 +11,15 @@ package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.IdentifierSet;
 import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Instances of this class define a combatant: a {@link Unit} specialization

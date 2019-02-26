@@ -94,7 +94,7 @@ public class MapFactory implements IdentifiedAssetProvider<ItemRoot>
         Map<String, ItemComposite> result = new HashMap<String, ItemComposite>();
         for (Item item : items) {
             if (item instanceof ItemComposite) {
-                String identifier = item.getIdentifier().toString();
+                String identifier = item.getIdentifier().toString(); //TODO
                 result.put(identifier, (ItemComposite) item);
             }
         }
@@ -173,7 +173,12 @@ public class MapFactory implements IdentifiedAssetProvider<ItemRoot>
     private ItemComposite getParent(Map<String, ItemComposite> parents, MapObject object) {
         MapProperties properties = object.getProperties();
         String owner = getOwner(properties);
-        return parents.get(owner);
+        ItemComposite result = parents.get(owner);
+
+        if (result == null) {
+            System.out.println("Error: " + owner + " missing");
+        }
+        return result;
     }
 
     private boolean isPrimaryItem(MapLayer layer) {

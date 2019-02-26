@@ -21,6 +21,11 @@ import org.mockito.Mockito;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Instances of this unit test validate the {@link PrerequisiteAction} class.
+ *
+ * @author Blair Butterworth
+ */
 @SuppressWarnings("unchecked")
 public class PrerequisiteActionTest
 {

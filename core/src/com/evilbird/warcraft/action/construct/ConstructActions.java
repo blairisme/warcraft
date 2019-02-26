@@ -10,7 +10,6 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 import com.evilbird.warcraft.item.common.capability.ResourceRequirement;
@@ -54,8 +53,8 @@ public enum ConstructActions implements ActionIdentifier, ResourceRequirement
         return type;
     }
 
-    public TimeDuration getBuildDuration() {
-        return new TimeDuration(time);
+    public float getBuildDuration() {
+        return time;
     }
 
     @Override

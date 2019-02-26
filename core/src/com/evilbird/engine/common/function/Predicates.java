@@ -21,7 +21,18 @@ public class Predicates
     }
 
     public static <T> Predicate<T> accept() {
-        return (value) -> true;
+        return new Accept<>();
+    }
+
+    private static class Accept<T> implements Predicate<T> {
+        public boolean test(T value) {
+            return true;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj instanceof Accept;
+        }
     }
 
     public static <T> Predicate<T> both(Predicate<? super T> left, Predicate<? super T> right) {

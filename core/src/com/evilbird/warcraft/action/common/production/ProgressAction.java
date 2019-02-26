@@ -9,8 +9,7 @@
 
 package com.evilbird.warcraft.action.common.production;
 
-import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.action.framework.duration.TimeDuration;
+import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
@@ -21,29 +20,19 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class ProgressAction extends BasicAction
+public class ProgressAction extends DelayedAction
 {
-    private TimeDuration duration;
-
     @Inject
     public ProgressAction() {
     }
 
-    @Deprecated
-    public ProgressAction(Building building, TimeDuration duration) {
-        setItem(building);
-        this.duration = duration;
-    }
-
-    public void setDuration(TimeDuration duration) {
-        this.duration = duration;
-    }
-
     @Override
     public boolean act(float delta) {
+        super.act(delta);
+
         Building building = (Building)getItem();
-        if (! duration.isComplete(delta)) {
-            building.setProgress(duration.getProgress());
+        if (! isComplete()) {
+            building.setProgress(getProgress());
             return false;
         }
         else {
@@ -55,21 +44,13 @@ public class ProgressAction extends BasicAction
     @Override
     public void restart() {
         super.restart();
-        resetDuration();
         resetProgress();
     }
 
     @Override
     public void reset() {
         super.reset();
-        resetDuration();
         resetProgress();
-    }
-
-    private void resetDuration() {
-        if (duration != null) {
-            duration.restart();
-        }
     }
 
     private void resetProgress() {

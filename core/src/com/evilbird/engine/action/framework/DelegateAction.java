@@ -14,6 +14,9 @@ import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Instances of this {@link Action} provide the basic implementation of an
@@ -95,5 +98,33 @@ public class DelegateAction extends BasicAction
     @Override
     public void setError(ActionException error) {
         delegate.setError(error);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("delegate", delegate)
+            .toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        DelegateAction that = (DelegateAction)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(delegate, that.delegate)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(delegate)
+            .toHashCode();
     }
 }

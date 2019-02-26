@@ -11,7 +11,6 @@ package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.*;
-import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.item.animated.SoundIdentifier;
 
@@ -31,7 +30,7 @@ public class RepeatedAudibleAction extends DelegateAction
 
     public RepeatedAudibleAction(SoundIdentifier sound, float delay, Predicate<Action> repeat) {
         Action audible = new AudibleAction(sound);
-        Action buffer = new DelayedAction(new TimeDuration(delay));
+        Action buffer = new DelayedAction(delay);
         Action soundBuffer = new SequenceAction(audible, buffer);
         delegate = new RepeatedAction(soundBuffer, repeat);
     }

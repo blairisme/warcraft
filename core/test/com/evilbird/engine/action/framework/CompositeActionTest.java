@@ -26,6 +26,11 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
+/**
+ * Instances of this unit test validate the {@link CompositeAction} class.
+ *
+ * @author Blair Butterworth
+ */
 public class CompositeActionTest
 {
     private Action childA;

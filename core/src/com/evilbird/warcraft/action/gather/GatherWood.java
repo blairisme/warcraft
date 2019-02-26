@@ -12,8 +12,6 @@ package com.evilbird.warcraft.action.gather;
 import com.evilbird.engine.action.common.RepeatedAudibleAction;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.ParallelAction;
-import com.evilbird.engine.action.framework.duration.ActionDuration;
-import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -54,8 +52,8 @@ public class GatherWood extends GatherAction
     }
 
     @Override
-    protected ActionDuration getGatherSpeed() {
-        return new TimeDuration(40f);
+    protected float getGatherSpeed() {
+        return 40f;
     }
 
     @Override

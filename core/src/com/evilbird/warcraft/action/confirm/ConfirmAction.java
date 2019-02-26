@@ -17,7 +17,6 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.SequenceAction;
-import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -35,7 +34,7 @@ public class ConfirmAction extends DelegateAction
 
     @Inject
     public ConfirmAction(ItemFactory itemFactory) {
-        Action delay = new DelayedAction(new TimeDuration(0.55f));
+        Action delay = new DelayedAction(0.55f);
         Action remove = new RemoveAction();
         Action sound = new AudibleAction(UnitSound.Acknowledge);
         create = new CreateAction(itemFactory, EffectType.Confirm, remove);

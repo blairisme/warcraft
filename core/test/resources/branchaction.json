@@ -1,0 +1,26 @@
+{
+  "_type": "com.evilbird.engine.action.framework.BranchAction",
+  "decision": {
+    "_type": "com.evilbird.engine.common.function.Predicates$Accept"
+  },
+  "actions": [
+    {
+      "_type": "com.evilbird.test.data.action.TestBasicAction",
+      "identifier": {
+        "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
+        "_value": "Unknown"
+      }
+    },
+    {
+      "_type": "com.evilbird.test.data.action.TestBasicAction",
+      "identifier": {
+        "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
+        "_value": "Unknown"
+      }
+    }
+  ],
+  "identifier": {
+    "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
+    "_value": "Unknown"
+  }
+}

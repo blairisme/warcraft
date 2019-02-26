@@ -28,9 +28,7 @@ public class TextIdentifier implements Identifier
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("value", value)
-            .toString();
+        return value;
     }
 
     @Override

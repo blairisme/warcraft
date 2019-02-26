@@ -42,7 +42,9 @@ public abstract class BasicAction implements Action
     @Override
     public void cancel() {
         Item item = getItem();
-        item.clearActions();
+        if (item != null) {
+            item.clearActions();
+        }
     }
 
     public void reset() {
@@ -91,12 +93,12 @@ public abstract class BasicAction implements Action
 
     @Override
     public void setItem(Item item) {
-        this.item = new ItemReference(item);
+        this.item = item != null ? new ItemReference(item) : null;
     }
 
     @Override
     public void setTarget(Item target) {
-        this.target = new ItemReference(target);
+        this.target = target != null ? new ItemReference(target) : null;
     }
 
     @Override

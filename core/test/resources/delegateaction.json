@@ -1,0 +1,14 @@
+{
+  "_type": "com.evilbird.engine.action.framework.DelegateAction",
+  "delegate": {
+    "_type": "com.evilbird.test.data.action.TestBasicAction",
+    "identifier": {
+      "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
+      "_value": "Unknown"
+    }
+  },
+  "identifier": {
+    "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
+    "_value": "Unknown"
+  }
+}

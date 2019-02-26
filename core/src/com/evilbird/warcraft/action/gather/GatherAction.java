@@ -12,8 +12,6 @@ package com.evilbird.warcraft.action.gather;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.*;
 import com.evilbird.engine.action.framework.*;
-import com.evilbird.engine.action.framework.duration.ActionDuration;
-import com.evilbird.engine.action.framework.duration.TimeDuration;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemType;
@@ -25,7 +23,6 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import static com.evilbird.engine.item.ItemOperations.findClosest;
-import static com.evilbird.warcraft.action.common.query.ActionPredicates.isTargetAlive;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getHumanPlayer;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.getGatherAnimation;
 
@@ -89,7 +86,7 @@ public abstract class GatherAction extends DelegateAction
         Action transferFrom = new ResourceTransferAction(ActionTarget.Target, getResourceVariety(), getGatherCapacity() * -1, relay);
         Action transferTo = new ResourceTransferAction(ActionTarget.Item, getResourceVariety(), getGatherCapacity(), relay);
         Action transferAction = new ParallelAction(transferFrom, transferTo);
-        Action transferDelay = new DelayedAction(getGatherSpeed(), isTargetAlive());
+        Action transferDelay = new DelayedAction(getGatherSpeed());
         return new SequenceAction(transferDelay, transferAction);
     }
 
@@ -125,7 +122,7 @@ public abstract class GatherAction extends DelegateAction
         Action transferFrom = new ResourceTransferAction(ActionTarget.Item, getResourceVariety(), getGatherCapacity() * -1, relay);
         Action transferTo = new ResourceTransferAction(ActionTarget.Player, getResourceVariety(), getGatherCapacity(), relay);
         Action transfer = new ParallelAction(transferFrom, transferTo);
-        Action transferDelay = new DelayedAction(new TimeDuration(5f), isTargetAlive());
+        Action transferDelay = new DelayedAction(5f);
         return new SequenceAction(transfer, transferDelay);
     }
 
@@ -152,5 +149,5 @@ public abstract class GatherAction extends DelegateAction
 
     protected abstract float getGatherCapacity();
 
-    protected abstract ActionDuration getGatherSpeed();
+    protected abstract float getGatherSpeed();
 }
