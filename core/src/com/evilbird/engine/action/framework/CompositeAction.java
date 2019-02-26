@@ -12,6 +12,9 @@ package com.evilbird.engine.action.framework;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.item.Item;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,24 +28,24 @@ import java.util.List;
  */
 public abstract class CompositeAction extends BasicAction
 {
-    protected List<Action> delegates;
+    protected List<Action> actions;
 
     public CompositeAction() {
-        delegates = new ArrayList<>();
+        actions = new ArrayList<>();
     }
 
-    public CompositeAction(List<Action> delegates) {
-        this.delegates = delegates;
+    public CompositeAction(List<Action> actions) {
+        this.actions = actions;
     }
 
-    public CompositeAction(Action... delegates) {
-        this.delegates = Arrays.asList(delegates);
+    public CompositeAction(Action... actions) {
+        this.actions = Arrays.asList(actions);
     }
 
     @Override
     public void restart() {
         super.restart();
-        for (Action delegate: delegates) {
+        for (Action delegate: actions) {
             delegate.restart();
         }
     }
@@ -50,7 +53,7 @@ public abstract class CompositeAction extends BasicAction
     @Override
     public void reset() {
         super.reset();
-        for (Action delegate: delegates) {
+        for (Action delegate: actions) {
             delegate.reset();
         }
     }
@@ -58,7 +61,7 @@ public abstract class CompositeAction extends BasicAction
     @Override
     public void setItem(Item item) {
         super.setItem(item);
-        for (Action delegate: delegates) {
+        for (Action delegate: actions) {
             delegate.setItem(item);
         }
     }
@@ -66,14 +69,14 @@ public abstract class CompositeAction extends BasicAction
     @Override
     public void setTarget(Item target) {
         super.setTarget(target);
-        for (Action delegate: delegates) {
+        for (Action delegate: actions) {
             delegate.setTarget(target);
         }
     }
 
     @Override
     public ActionException getError() {
-        for (Action delegate: delegates) {
+        for (Action delegate: actions) {
             if (delegate.hasError()) {
                 return delegate.getError();
             }
@@ -83,8 +86,37 @@ public abstract class CompositeAction extends BasicAction
 
     @Override
     public void setError(ActionException error) {
-        for (Action delegate: delegates) {
+        for (Action delegate: actions) {
             delegate.setError(error);
         }
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .appendSuper("base")
+            .append("actions", actions)
+            .toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        CompositeAction that = (CompositeAction)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(actions, that.actions)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(actions)
+            .toHashCode();
     }
 }

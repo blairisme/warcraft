@@ -58,7 +58,7 @@ public class SequenceAction extends CompositeAction
     }
 
     private void resetIterator() {
-        this.iterator = delegates.iterator();
+        this.iterator = actions.iterator();
         this.current = iterator.next();
     }
 }

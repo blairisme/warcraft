@@ -1,4 +1,5 @@
 {
+  "type": "com.evilbird.test.data.action.TestBasicAction",
   "identifier": {
     "type": "com.evilbird.warcraft.action.move.MoveActions",
     "value": "MoveToItem"

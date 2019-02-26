@@ -14,19 +14,58 @@ import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.data.action.TestCompositeAction;
+import com.evilbird.test.data.item.TestItems;
+import com.evilbird.test.verifier.EqualityVerifier;
+import com.evilbird.test.verifier.SerializationVerifier;
+import com.evilbird.warcraft.action.attack.AttackActions;
+import com.evilbird.warcraft.action.move.MoveActions;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.io.IOException;
+
 public class CompositeActionTest
 {
+    private Action childA;
+    private Action childB;
+    private Action childC;
+    private CompositeAction composite;
+
+    @Before
+    public void setup() {
+        childA = new TestBasicAction();
+        childA.setIdentifier(MoveActions.MoveToItem);
+
+        childB = new TestBasicAction();
+        childB.setIdentifier(MoveActions.MoveCancel);
+
+        childC = new TestBasicAction();
+        childC.setIdentifier(AttackActions.AttackCancel);
+
+        composite = new TestCompositeAction(childA, childB, childC);
+        composite.setIdentifier(AttackActions.AttackMelee);
+    }
+
+    @Test
+    public void serializeTest() throws IOException {
+        SerializationVerifier.forClass(TestCompositeAction.class)
+            .withDeserializedForm(composite)
+            .withSerializedResource("/compositeaction.json")
+            .verify();
+    }
+
+    @Test
+    public void equalsTest() {
+        EqualityVerifier.forClass(TestCompositeAction.class)
+            .withMockedTransientFields(Item.class)
+            .excludeTransientFields()
+            .verify();
+    }
+
     @Test
     public void itemTest() {
-        Action childA = new TestBasicAction();
-        Action childB = new TestBasicAction();
-        Action childC = new TestBasicAction();
-        TestCompositeAction composite = new TestCompositeAction(childA, childB, childC);
-
         Assert.assertNull(composite.getItem());
         Assert.assertNull(childA.getItem());
         Assert.assertNull(childB.getItem());
@@ -43,11 +82,6 @@ public class CompositeActionTest
 
     @Test
     public void errorTest() {
-        Action childA = new TestBasicAction();
-        Action childB = new TestBasicAction();
-        Action childC = new TestBasicAction();
-        TestCompositeAction composite = new TestCompositeAction(childA, childB, childC);
-
         Assert.assertNull(composite.getError());
         Assert.assertFalse(composite.hasError());
 

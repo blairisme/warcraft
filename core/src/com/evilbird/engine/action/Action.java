@@ -12,9 +12,11 @@ package com.evilbird.engine.action;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.evilbird.engine.common.lang.Identifiable;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.serialization.ReflectionAdapter;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
+import com.google.gson.annotations.JsonAdapter;
 
 /**
  * Instances of this class represent a self contained "bundle" of behaviour

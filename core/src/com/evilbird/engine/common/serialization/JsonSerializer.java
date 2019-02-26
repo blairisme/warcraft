@@ -9,6 +9,9 @@
 
 package com.evilbird.engine.common.serialization;
 
+import com.evilbird.engine.action.Action;
+import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.IdentifierAdapter;
 import com.evilbird.engine.common.lang.IdentifierAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,6 +35,8 @@ public class JsonSerializer implements Serializer
         gsonBuilder.setPrettyPrinting();
         gsonBuilder.serializeSpecialFloatingPointValues();
         gsonBuilder.registerTypeAdapterFactory(new IdentifierAdapterFactory());
+        //gsonBuilder.registerTypeHierarchyAdapter(Identifier.class, new ReflectionAdapter());
+        gsonBuilder.registerTypeHierarchyAdapter(Action.class, new ReflectionAdapter());
         gson = gsonBuilder.create();
     }
 

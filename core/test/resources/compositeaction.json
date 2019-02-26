@@ -1,0 +1,30 @@
+{
+  "type": "com.evilbird.test.data.action.TestCompositeAction",
+  "actions": [
+    {
+      "type": "com.evilbird.test.data.action.TestBasicAction",
+      "identifier": {
+        "type": "com.evilbird.warcraft.action.move.MoveActions",
+        "value": "MoveToItem"
+      }
+    },
+    {
+      "type": "com.evilbird.test.data.action.TestBasicAction",
+      "identifier": {
+        "type": "com.evilbird.warcraft.action.move.MoveActions",
+        "value": "MoveCancel"
+      }
+    },
+    {
+      "type": "com.evilbird.test.data.action.TestBasicAction",
+      "identifier": {
+        "type": "com.evilbird.warcraft.action.attack.AttackActions",
+        "value": "AttackCancel"
+      }
+    }
+  ],
+  "identifier": {
+    "type": "com.evilbird.warcraft.action.attack.AttackActions",
+    "value": "AttackMelee"
+  }
+}

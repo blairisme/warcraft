@@ -12,6 +12,12 @@ package com.evilbird.engine.action.framework;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.function.Predicate;
 
+/**
+ * Instances of this {@link Action} execute one of pair of actions based on a
+ * given {@link Predicate}.
+ *
+ * @author Blair Butterworth
+ */
 public class BranchAction extends CompositeAction
 {
     private Action delegate;
@@ -19,14 +25,14 @@ public class BranchAction extends CompositeAction
 
     public BranchAction(Predicate<Action> decision, Action trueAction, Action falseAction) {
         this.decision = decision;
-        delegates.add(trueAction);
-        delegates.add(falseAction);
+        actions.add(trueAction);
+        actions.add(falseAction);
     }
 
     @Override
     public boolean act(float delta) {
         if (delegate == null) {
-            delegate = decision.test(this) ? delegates.get(0) : delegates.get(1);
+            delegate = decision.test(this) ? actions.get(0) : actions.get(1);
         }
         return delegate.act(delta);
     }

@@ -18,7 +18,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Instances of this unit test validate logic in the {@link com.evilbird.engine.common.lang.IdentifierAdapter} class.
+ * Instances of this unit test validate logic in the {@link IdentifierAdapter} class.
  *
  * @author Blair Butterworth
  */

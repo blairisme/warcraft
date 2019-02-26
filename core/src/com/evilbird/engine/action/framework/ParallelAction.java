@@ -67,7 +67,7 @@ public class ParallelAction extends CompositeAction
 
     private void resetCompletion() {
         actionCompletion.clear();
-        for (Action delegate : delegates) {
+        for (Action delegate : actions) {
             actionCompletion.put(delegate, false);
         }
     }
