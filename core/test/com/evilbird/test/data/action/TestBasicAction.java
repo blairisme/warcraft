@@ -35,5 +35,7 @@ public class TestBasicAction extends BasicAction
         return invoked;
     }
 
-
+    public void reset() {
+        invoked = false;
+    }
 }

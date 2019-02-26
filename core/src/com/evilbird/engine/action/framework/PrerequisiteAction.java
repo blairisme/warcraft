@@ -11,6 +11,9 @@ package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.function.Predicate;
+import com.evilbird.engine.common.serialization.SerializedConstructor;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Instances of this {@link Action Action} execute an <code>Action</code>
@@ -21,21 +24,28 @@ import com.evilbird.engine.common.function.Predicate;
  */
 public class PrerequisiteAction extends CompositeAction
 {
-    private Action action;
-    private Action requisite;
-    private Action current;
+    private transient Action action;
+    private transient Action requisite;
+    private transient Action current;
     private Predicate<Action> predicate;
+
+    @SerializedConstructor
+    private PrerequisiteAction() {
+    }
 
     public PrerequisiteAction(Action action, Action requisite, Predicate<Action> predicate) {
         super(action, requisite);
-        this.action = action;
-        this.requisite = requisite;
         this.predicate = predicate;
-        this.current = null;
     }
 
     @Override
     public boolean act(float delta) {
+        if (action == null) {
+            action = getPrimary();
+        }
+        if (requisite == null) {
+            requisite = getRequisite();
+        }
         if (current == null) {
             current = getInitialAction();
         }
@@ -64,5 +74,34 @@ public class PrerequisiteAction extends CompositeAction
             return false;
         }
         return action.act(delta);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        PrerequisiteAction that = (PrerequisiteAction)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(predicate, that.predicate)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(predicate)
+            .toHashCode();
+    }
+
+    private Action getPrimary() {
+        return actions.get(0);
+    }
+
+    private Action getRequisite() {
+        return actions.get(1);
     }
 }
