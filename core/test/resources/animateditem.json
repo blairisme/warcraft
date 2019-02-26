@@ -2,21 +2,21 @@
   "direction": 45.0,
   "updateAnimation": true,
   "animationId": {
-    "type": "com.evilbird.warcraft.item.unit.UnitAnimation",
-    "value": "Build"
+    "_type": "com.evilbird.warcraft.item.unit.UnitAnimation",
+    "_value": "Build"
   },
   "updateSound": true,
   "soundId": {
-    "type": "com.evilbird.warcraft.item.unit.UnitSound",
-    "value": "Attack"
+    "_type": "com.evilbird.warcraft.item.unit.UnitSound",
+    "_value": "Attack"
   },
   "id": {
-    "type": "com.evilbird.engine.common.lang.GenericIdentifier",
-    "value": "Unknown"
+    "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
+    "_value": "Unknown"
   },
   "type": {
-    "type": "com.evilbird.warcraft.item.unit.UnitType",
-    "value": "Footman"
+    "_type": "com.evilbird.warcraft.item.unit.UnitType",
+    "_value": "Footman"
   },
   "selected": false,
   "selectable": true,

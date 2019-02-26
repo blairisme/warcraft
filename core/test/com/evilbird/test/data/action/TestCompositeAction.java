@@ -20,6 +20,9 @@ import com.evilbird.engine.action.framework.CompositeAction;
  */
 public class TestCompositeAction extends CompositeAction
 {
+    public TestCompositeAction() {
+    }
+
     public TestCompositeAction(Action... actions) {
         super(actions);
     }

@@ -9,9 +9,6 @@
 
 package com.evilbird.engine.common.lang;
 
-import com.google.gson.annotations.JsonAdapter;
-
-@JsonAdapter(IdentifierAdapter.class)
 public interface Identifier
 {
 }

@@ -1,8 +1,8 @@
 {
-  "type": "com.evilbird.test.data.action.TestBasicAction",
+  "_type": "com.evilbird.test.data.action.TestBasicAction",
   "identifier": {
-    "type": "com.evilbird.warcraft.action.move.MoveActions",
-    "value": "MoveToItem"
+    "_type": "com.evilbird.warcraft.action.move.MoveActions",
+    "_value": "MoveToItem"
   },
   "error": {
     "detailMessage": "An error has occurred",
@@ -23,13 +23,13 @@
   },
   "item": {
     "identifier": {
-      "type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
       "value": "1"
     }
   },
   "target": {
     "identifier": {
-      "type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
       "value": "2"
     }
   }

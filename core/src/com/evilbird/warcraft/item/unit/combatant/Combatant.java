@@ -18,9 +18,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Instances of this class define a combatant: a {@link Unit} specialization
@@ -37,11 +35,11 @@ public class Combatant extends Unit implements Movable
     private float speed;
     private float range;
     private float movementSpeed;
-    private IdentifierSet movementCapability;
+    private Set<Identifier> movementCapability;
 
     public Combatant() {
         super();
-        movementCapability = new IdentifierSet();
+        movementCapability = new HashSet<>();
     }
 
     public int getDamageMinimum() {

@@ -7,8 +7,8 @@
   "movementSpeed": 64.0,
   "movementCapability": [
     {
-      "type": "com.evilbird.warcraft.item.layer.LayerType",
-      "value": "Map"
+      "_type": "com.evilbird.warcraft.item.layer.LayerType",
+      "_value": "Map"
     }
   ],
   "name": "Footman",
@@ -19,17 +19,17 @@
   "direction": 0.0,
   "updateAnimation": true,
   "animationId": {
-    "type": "com.evilbird.warcraft.item.unit.UnitAnimation",
-    "value": "Idle"
+    "_type": "com.evilbird.warcraft.item.unit.UnitAnimation",
+    "_value": "Idle"
   },
   "updateSound": false,
   "id": {
-    "type": "com.evilbird.engine.common.lang.GenericIdentifier",
-    "value": "Unknown"
+    "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
+    "_value": "Unknown"
   },
   "type": {
-    "type": "com.evilbird.warcraft.item.unit.UnitType",
-    "value": "Footman"
+    "_type": "com.evilbird.warcraft.item.unit.UnitType",
+    "_value": "Footman"
   },
   "selected": false,
   "selectable": true,

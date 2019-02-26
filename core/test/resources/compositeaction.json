@@ -1,30 +1,30 @@
 {
-  "type": "com.evilbird.test.data.action.TestCompositeAction",
+  "_type": "com.evilbird.test.data.action.TestCompositeAction",
   "actions": [
     {
-      "type": "com.evilbird.test.data.action.TestBasicAction",
+      "_type": "com.evilbird.test.data.action.TestBasicAction",
       "identifier": {
-        "type": "com.evilbird.warcraft.action.move.MoveActions",
-        "value": "MoveToItem"
+        "_type": "com.evilbird.warcraft.action.move.MoveActions",
+        "_value": "MoveToItem"
       }
     },
     {
-      "type": "com.evilbird.test.data.action.TestBasicAction",
+      "_type": "com.evilbird.test.data.action.TestBasicAction",
       "identifier": {
-        "type": "com.evilbird.warcraft.action.move.MoveActions",
-        "value": "MoveCancel"
+        "_type": "com.evilbird.warcraft.action.move.MoveActions",
+        "_value": "MoveCancel"
       }
     },
     {
-      "type": "com.evilbird.test.data.action.TestBasicAction",
+      "_type": "com.evilbird.test.data.action.TestBasicAction",
       "identifier": {
-        "type": "com.evilbird.warcraft.action.attack.AttackActions",
-        "value": "AttackCancel"
+        "_type": "com.evilbird.warcraft.action.attack.AttackActions",
+        "_value": "AttackCancel"
       }
     }
   ],
   "identifier": {
-    "type": "com.evilbird.warcraft.action.attack.AttackActions",
-    "value": "AttackMelee"
+    "_type": "com.evilbird.warcraft.action.attack.AttackActions",
+    "_value": "AttackMelee"
   }
 }

@@ -9,30 +9,46 @@
 
 package com.evilbird.engine.common.lang;
 
+import com.evilbird.engine.common.serialization.SerializedConstructor;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class TextIdentifier implements Identifier
 {
-    private String name;
+    private String value;
 
-    public TextIdentifier(String name) {
-        this.name = name;
+    @SerializedConstructor
+    private TextIdentifier() {
+    }
+
+    public TextIdentifier(String value) {
+        this.value = value;
     }
 
     @Override
     public String toString() {
-        return name;
+        return new ToStringBuilder(this)
+            .append("value", value)
+            .toString();
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (object instanceof TextIdentifier) {
-            TextIdentifier other = (TextIdentifier)object;
-            return Objects.equals(this.name, other.name);
-        }
-        return false;
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        TextIdentifier that = (TextIdentifier)obj;
+        return new EqualsBuilder()
+            .append(value, that.value)
+            .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return new HashCodeBuilder(17, 37)
+            .append(value)
+            .toHashCode();
     }
 }
