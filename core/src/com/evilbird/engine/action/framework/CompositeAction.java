@@ -18,6 +18,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,11 +36,12 @@ public abstract class CompositeAction extends BasicAction
     }
 
     public CompositeAction(List<Action> actions) {
-        this.actions = actions;
+        this.actions = new ArrayList<>(actions);
     }
 
     public CompositeAction(Action... actions) {
-        this.actions = Arrays.asList(actions);
+        this.actions = new ArrayList<>(actions.length);
+        Collections.addAll(this.actions, actions);
     }
 
     @Override

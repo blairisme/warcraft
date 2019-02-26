@@ -10,10 +10,11 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.common.serialization.SerializedConstructor;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 /**
@@ -24,33 +25,35 @@ import java.util.Map.Entry;
  */
 public class ParallelAction extends CompositeAction
 {
-    private Map<Action, Boolean> actionCompletion;
+    private List<Action> completed;
 
-    public ParallelAction(Action... actions) {
+    @SerializedConstructor
+    private ParallelAction() {
+    }
+
+    public ParallelAction(Action ... actions) {
         super(actions);
-        this.actionCompletion = new HashMap<>(actions.length);
+        this.completed = new ArrayList<>(actions.length);
         resetCompletion();
     }
 
     public ParallelAction(List<Action> actions) {
         super(actions);
-        this.actionCompletion = new HashMap<>(actions.size());
+        this.completed = new ArrayList<>(actions.size());
         resetCompletion();
     }
 
     @Override
     public boolean act(float delta) {
-        boolean result = true;
-        for (Entry<Action, Boolean> entry : actionCompletion.entrySet()) {
-            boolean complete = entry.getValue();
-            if (!complete) {
-                Action action = entry.getKey();
-                complete = action.act(delta);
-                entry.setValue(complete);
+        ListIterator<Action> iterator = actions.listIterator();
+        while (iterator.hasNext()) {
+            Action action = iterator.next();
+            if (action.act(delta)) {
+                iterator.remove();
+                completed.add(action);
             }
-            result &= complete;
         }
-        return result;
+        return actions.isEmpty();
     }
 
     @Override
@@ -66,9 +69,30 @@ public class ParallelAction extends CompositeAction
     }
 
     private void resetCompletion() {
-        actionCompletion.clear();
-        for (Action delegate : actions) {
-            actionCompletion.put(delegate, false);
+        if (! completed.isEmpty()) {
+            actions.addAll(completed);
         }
+        completed.clear();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        ParallelAction that = (ParallelAction)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(completed, that.completed)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(completed)
+            .toHashCode();
     }
 }

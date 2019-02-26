@@ -9,13 +9,19 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.action.TestBasicAction;
+import com.evilbird.test.verifier.EqualityVerifier;
+import com.evilbird.test.verifier.SerializationVerifier;
+import com.evilbird.warcraft.action.attack.AttackActions;
+import com.evilbird.warcraft.action.move.MoveActions;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import java.io.IOException;
 
 import static org.junit.Assert.assertTrue;
 
@@ -26,27 +32,65 @@ import static org.junit.Assert.assertTrue;
  */
 public class ParallelActionTest
 {
-    @Test
-    public void actTest() {
-        Action childA = newMockAction();
-        Action childB = newMockAction();
-        Action childC = newMockAction();
-        ParallelAction parallel = new ParallelAction(childA, childB, childC);
+    private TestBasicAction childA;
+    private TestBasicAction childB;
+    private TestBasicAction childC;
+    private ParallelAction parallel;
 
-        assertTrue(parallel.act(1));
+    @Before
+    public void setup() {
+        childA = new TestBasicAction();
+        childA.setIdentifier(MoveActions.MoveToItem);
 
-        Mockito.verify(childA, Mockito.times(1)).act(1);
-        Mockito.verify(childB, Mockito.times(1)).act(1);
-        Mockito.verify(childC, Mockito.times(1)).act(1);
+        childB = new TestBasicAction();
+        childB.setIdentifier(MoveActions.MoveCancel);
+
+        childC = new TestBasicAction();
+        childC.setIdentifier(AttackActions.AttackMelee);
+
+        parallel = new ParallelAction(childA, childB, childC);
     }
 
     @Test
-    public void actorTest() {
-        Action childA = new TestBasicAction();
-        Action childB = new TestBasicAction();
-        Action childC = new TestBasicAction();
-        ParallelAction parallel = new ParallelAction(childA, childB, childC);
+    public void serializeTest() throws IOException {
+        SerializationVerifier.forClass(ParallelAction.class)
+                .withDeserializedForm(parallel)
+                .withSerializedResource("/parallelaction.json")
+                .verify();
+    }
 
+    @Test
+    public void serializeAfterActTest() throws IOException {
+        parallel.act(1);
+        SerializationVerifier.forClass(ParallelAction.class)
+                .withDeserializedForm(parallel)
+                .withSerializedResource("/parallelactioncomplete.json")
+                .verify();
+    }
+
+    @Test
+    public void equalsTest() {
+        EqualityVerifier.forClass(ParallelAction.class)
+                .withMockedTransientFields(Item.class)
+                .excludeTransientFields()
+                .verify();
+    }
+
+    @Test
+    public void actTest() {
+        Assert.assertFalse(childA.getInvoked());
+        Assert.assertFalse(childB.getInvoked());
+        Assert.assertFalse(childC.getInvoked());
+
+        assertTrue(parallel.act(1));
+
+        Assert.assertTrue(childA.getInvoked());
+        Assert.assertTrue(childB.getInvoked());
+        Assert.assertTrue(childC.getInvoked());
+    }
+
+    @Test
+    public void itemTest() {
         Assert.assertNull(parallel.getItem());
         Assert.assertNull(childA.getItem());
         Assert.assertNull(childB.getItem());
@@ -63,11 +107,6 @@ public class ParallelActionTest
 
     @Test
     public void errorTest() {
-        Action childA = new TestBasicAction();
-        Action childB = new TestBasicAction();
-        Action childC = new TestBasicAction();
-        ParallelAction parallel = new ParallelAction(childA, childB, childC);
-
         Assert.assertNull(parallel.getError());
         Assert.assertFalse(parallel.hasError());
 
@@ -78,11 +117,5 @@ public class ParallelActionTest
         Assert.assertEquals(error, childB.getError());
         Assert.assertNull(childA.getError());
         Assert.assertNull(childC.getError());
-    }
-
-    private Action newMockAction() {
-        Action result = Mockito.mock(Action.class);
-        Mockito.when(result.act(1)).thenReturn(true);
-        return result;
     }
 }

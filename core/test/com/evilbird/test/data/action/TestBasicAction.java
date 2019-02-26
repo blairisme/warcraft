@@ -19,8 +19,21 @@ import com.evilbird.engine.action.framework.BasicAction;
  */
 public class TestBasicAction extends BasicAction
 {
+    private transient boolean invoked;
+
+    public TestBasicAction() {
+        invoked = false;
+    }
+
     @Override
     public boolean act(float delta) {
+        invoked = true;
         return true;
     }
+
+    public boolean getInvoked() {
+        return invoked;
+    }
+
+
 }
