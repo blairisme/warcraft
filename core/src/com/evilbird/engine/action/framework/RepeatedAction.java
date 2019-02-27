@@ -13,6 +13,9 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.function.Predicates;
 import com.evilbird.engine.common.function.ResettablePredicate;
+import com.evilbird.engine.common.serialization.SerializedConstructor;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Instances of this {@link Action} execute a given action repeatedly, until
@@ -23,6 +26,10 @@ import com.evilbird.engine.common.function.ResettablePredicate;
 public class RepeatedAction extends DelegateAction
 {
     private Predicate<Action> repeat;
+
+    @SerializedConstructor
+    private RepeatedAction() {
+    }
 
     public RepeatedAction(Action action) {
         this(action, Predicates.accept());
@@ -55,5 +62,26 @@ public class RepeatedAction extends DelegateAction
         if (repeat instanceof ResettablePredicate) {
             ((ResettablePredicate)repeat).reset();
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        RepeatedAction that = (RepeatedAction)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(repeat, that.repeat)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(repeat)
+            .toHashCode();
     }
 }

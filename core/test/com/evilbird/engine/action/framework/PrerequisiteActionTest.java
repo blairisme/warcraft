@@ -23,8 +23,7 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Instances of this unit test validate the {@link PrerequisiteAction} class.
@@ -72,38 +71,39 @@ public class PrerequisiteActionTest
     @Test
     public void actTest() {
         predicate.setValue(true);
-        assertTrue(action.act(1));
-        assertTrue(primary.getInvoked());
-        assertFalse(prerequisite.getInvoked());
+        Assert.assertTrue(action.act(1));
+        Assert.assertTrue(primary.getInvoked());
+        Assert.assertFalse(prerequisite.getInvoked());
     }
 
     @Test
     public void actPredicateFailTest() {
         predicate.setValue(false);
-        assertFalse(action.act(1));
-        assertFalse(primary.getInvoked());
-        assertTrue(prerequisite.getInvoked());
+        Assert.assertFalse(action.act(1));
+        Assert.assertFalse(primary.getInvoked());
+        Assert.assertTrue(prerequisite.getInvoked());
 
-        primary.reset();
-        prerequisite.reset();
+        primary.resetState();
+        prerequisite.resetState();
 
         predicate.setValue(true);
-        assertTrue(action.act(1));
-        assertTrue(primary.getInvoked());
-        assertFalse(prerequisite.getInvoked());
+        Assert.assertTrue(action.act(1));
+        Assert.assertTrue(primary.getInvoked());
+        Assert.assertFalse(prerequisite.getInvoked());
     }
 
-//    @Test
-//    public void actPrerequisiteErrorTest() {
-//        ActionException error = new ActionException("An error occurred");
-//        prerequisite.setError(error);
-//
-//        assertTrue(action.act(1));
-//        assertFalse(primary.getInvoked());
-//        assertTrue(prerequisite.getInvoked());
-//
-//        assertEquals(error, action.getError());
-//    }
+    @Test
+    public void actPrerequisiteErrorTest() {
+        ActionException error = new ActionException("An error occurred");
+        prerequisite.setError(error);
+        predicate.setValue(false);
+
+        Assert.assertFalse(action.act(1));
+        Assert.assertFalse(primary.getInvoked());
+        Assert.assertTrue(prerequisite.getInvoked());
+
+        //Assert.assertEquals(error, action.getError()); //todo
+    }
 
     @Test
     public void actorTest() {

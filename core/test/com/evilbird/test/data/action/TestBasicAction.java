@@ -20,22 +20,50 @@ import com.evilbird.engine.action.framework.BasicAction;
 public class TestBasicAction extends BasicAction
 {
     private transient boolean invoked;
+    private transient boolean restarted;
+    private transient boolean reset;
+    private transient boolean complete;
 
     public TestBasicAction() {
-        invoked = false;
+        resetState();
+        complete = true;
     }
 
     @Override
     public boolean act(float delta) {
         invoked = true;
-        return true;
+        return complete;
+    }
+
+    @Override
+    public void restart() {
+        restarted = true;
+    }
+
+    @Override
+    public void reset() {
+        reset = true;
     }
 
     public boolean getInvoked() {
         return invoked;
     }
 
-    public void reset() {
+    public boolean getRestarted() {
+        return restarted;
+    }
+
+    public boolean getReset() {
+        return reset;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
+    }
+
+    public void resetState() {
         invoked = false;
+        restarted = false;
+        reset = false;
     }
 }
