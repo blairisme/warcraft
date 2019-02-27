@@ -12,6 +12,8 @@ package com.evilbird.engine.action.common;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.animated.Audible;
 import com.evilbird.engine.item.animated.SoundIdentifier;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Instances of this class represent an Action that plays a sound.
@@ -23,6 +25,7 @@ public class AudibleAction extends BasicAction
     private SoundIdentifier sound;
 
     public AudibleAction(){
+        this(null);
     }
 
     public AudibleAction(SoundIdentifier sound){
@@ -42,5 +45,26 @@ public class AudibleAction extends BasicAction
         Audible audible = (Audible)getItem();
         audible.setSound(sound);
         return true;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        AudibleAction that = (AudibleAction)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(sound, that.sound)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(sound)
+            .toHashCode();
     }
 }

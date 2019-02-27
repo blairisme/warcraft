@@ -14,6 +14,8 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.item.Item;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Instances of this class represent an {@link Action} that aligns
@@ -21,12 +23,20 @@ import com.evilbird.engine.item.Item;
  *
  * @author Blair Butterworth
  */
-//TODO: handle destination being occupied
+//TODO: handle destination being occupied - create MoveInstantly action
 public class AlignAction extends BasicAction
 {
     private Alignment alignment;
 
+    public AlignAction() {
+        this(Alignment.BottomLeft);
+    }
+
     public AlignAction(Alignment alignment) {
+        this.alignment = alignment;
+    }
+
+    public void setAlignment(Alignment alignment) {
         this.alignment = alignment;
     }
 
@@ -47,5 +57,26 @@ public class AlignAction extends BasicAction
             case BottomLeft: return new Vector2(referencePosition.x - itemSize.x, referencePosition.y);
             default: throw new UnsupportedOperationException();
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        AlignAction that = (AlignAction)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(alignment, that.alignment)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(alignment)
+            .toHashCode();
     }
 }

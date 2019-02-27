@@ -10,11 +10,14 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.*;
+import com.evilbird.engine.action.framework.DelayedAction;
+import com.evilbird.engine.action.framework.DelegateAction;
+import com.evilbird.engine.action.framework.RepeatedAction;
+import com.evilbird.engine.action.framework.SequenceAction;
+import com.evilbird.engine.action.utilities.ActionPredicates;
 import com.evilbird.engine.common.function.Predicate;
+import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.engine.item.animated.SoundIdentifier;
-
-import static com.evilbird.warcraft.action.common.query.ActionPredicates.counter;
 
 /**
  * Instances of this class represent an {@link Action} that plays a sound
@@ -24,8 +27,12 @@ import static com.evilbird.warcraft.action.common.query.ActionPredicates.counter
  */
 public class RepeatedAudibleAction extends DelegateAction
 {
+    @SerializedConstructor
+    private RepeatedAudibleAction() {
+    }
+
     public RepeatedAudibleAction(SoundIdentifier sound, int repetitions, float delay) {
-        this(sound, delay, counter(repetitions));
+        this(sound, delay, ActionPredicates.counter(repetitions));
     }
 
     public RepeatedAudibleAction(SoundIdentifier sound, float delay, Predicate<Action> repeat) {

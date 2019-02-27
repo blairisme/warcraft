@@ -1,0 +1,79 @@
+{
+  "_type": "com.evilbird.engine.action.common.RepeatedAudibleAction",
+  "delegate": {
+    "_type": "com.evilbird.engine.action.framework.RepeatedAction",
+    "repeat": {
+      "_type": "com.evilbird.engine.action.utilities.ActionPredicates$Counter",
+      "times": 5,
+      "count": 0
+    },
+    "delegate": {
+      "_type": "com.evilbird.engine.action.framework.SequenceAction",
+      "index": 0,
+      "actions": [
+        {
+          "_type": "com.evilbird.engine.action.common.AudibleAction",
+          "sound": {
+            "_type": "com.evilbird.warcraft.item.unit.UnitSound",
+            "_value": "GatherWood"
+          },
+          "identifier": {
+            "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
+            "_value": "Unknown"
+          },
+          "item": {
+            "identifier": {
+              "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+              "value": "repeatedaudibleaction"
+            }
+          }
+        },
+        {
+          "_type": "com.evilbird.engine.action.framework.DelayedAction",
+          "duration": 3.1,
+          "total": 0.0,
+          "identifier": {
+            "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
+            "_value": "Unknown"
+          },
+          "item": {
+            "identifier": {
+              "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+              "value": "repeatedaudibleaction"
+            }
+          }
+        }
+      ],
+      "identifier": {
+        "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
+        "_value": "Unknown"
+      },
+      "item": {
+        "identifier": {
+          "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+          "value": "repeatedaudibleaction"
+        }
+      }
+    },
+    "identifier": {
+      "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
+      "_value": "Unknown"
+    },
+    "item": {
+      "identifier": {
+        "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+        "value": "repeatedaudibleaction"
+      }
+    }
+  },
+  "identifier": {
+    "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
+    "_value": "Unknown"
+  },
+  "item": {
+    "identifier": {
+      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "value": "repeatedaudibleaction"
+    }
+  }
+}

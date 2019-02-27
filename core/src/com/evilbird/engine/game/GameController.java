@@ -9,7 +9,6 @@
 
 package com.evilbird.engine.game;
 
-import com.badlogic.gdx.Preferences;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateIdentifier;
 
@@ -21,8 +20,6 @@ import com.evilbird.engine.state.StateIdentifier;
  */
 public interface GameController
 {
-    Preferences getPreferences(String identifier);
-
     void showMenuRoot();
 
     void showMenu(MenuIdentifier identifier);

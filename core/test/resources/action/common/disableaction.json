@@ -1,0 +1,15 @@
+{
+  "_type": "com.evilbird.engine.action.common.DisableAction",
+  "disabled": true,
+  "source": "Item",
+  "identifier": {
+    "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
+    "_value": "Unknown"
+  },
+  "item": {
+    "identifier": {
+      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "value": "disableaction"
+    }
+  }
+}

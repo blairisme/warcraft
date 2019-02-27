@@ -11,15 +11,14 @@ package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Selectable;
-
-import javax.inject.Inject;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class SelectAction extends BasicAction
 {
     private boolean selected;
     private ActionTarget source;
 
-    @Inject
     public SelectAction() {
         this(false);
     }
@@ -54,5 +53,28 @@ public class SelectAction extends BasicAction
             case Target: return getTarget();
             default: throw new UnsupportedOperationException();
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        SelectAction that = (SelectAction)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(selected, that.selected)
+            .append(source, that.source)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(selected)
+            .append(source)
+            .toHashCode();
     }
 }

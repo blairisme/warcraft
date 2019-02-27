@@ -12,8 +12,8 @@ package com.evilbird.engine.action.common;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.animated.Animated;
 import com.evilbird.engine.item.animated.AnimationIdentifier;
-
-import javax.inject.Inject;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Instances of this class represent an action that changes the animation
@@ -26,7 +26,6 @@ public class AnimateAction extends BasicAction
     private ActionTarget source;
     private AnimationIdentifier animation;
 
-    @Inject
     public AnimateAction() {
         this(null);
     }
@@ -61,5 +60,28 @@ public class AnimateAction extends BasicAction
             case Target: return (Animated)getTarget();
             default: throw new UnsupportedOperationException();
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        AnimateAction that = (AnimateAction)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(source, that.source)
+            .append(animation, that.animation)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(source)
+            .append(animation)
+            .toHashCode();
     }
 }

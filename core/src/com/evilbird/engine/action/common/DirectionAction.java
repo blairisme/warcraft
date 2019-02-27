@@ -15,8 +15,6 @@ import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Directionable;
 import com.evilbird.engine.common.lang.Positionable;
 
-import javax.inject.Inject;
-
 /**
  * Instances of this {@link Action Action} orient an Item towards another
  * Item.
@@ -25,7 +23,6 @@ import javax.inject.Inject;
  */
 public class DirectionAction extends BasicAction
 {
-    @Inject
     public DirectionAction() {
     }
 
@@ -42,4 +39,6 @@ public class DirectionAction extends BasicAction
 
         return true;
     }
+
+    
 }

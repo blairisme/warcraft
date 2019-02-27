@@ -10,10 +10,11 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Navigable;
-
-import javax.inject.Inject;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Instances of this class aid navigation through user interface menus.
@@ -25,9 +26,13 @@ public class NavigateAction extends BasicAction
     private Identifier location;
     private ActionTarget source;
 
-    @Inject
     public NavigateAction() {
-        source = ActionTarget.Item;
+        this(GenericIdentifier.Unknown, ActionTarget.Item);
+    }
+
+    public NavigateAction(Identifier location, ActionTarget source) {
+        this.location = location;
+        this.source = source;
     }
 
     public void setSource(ActionTarget source) {
@@ -52,5 +57,28 @@ public class NavigateAction extends BasicAction
             case Parent: return (Navigable)getItem().getParent();
             default: throw new UnsupportedOperationException();
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        NavigateAction that = (NavigateAction)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(location, that.location)
+            .append(source, that.source)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(location)
+            .append(source)
+            .toHashCode();
     }
 }

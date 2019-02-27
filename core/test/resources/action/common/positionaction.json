@@ -1,0 +1,17 @@
+{
+  "_type": "com.evilbird.engine.action.common.PositionAction",
+  "position": {
+    "x": 12.0,
+    "y": 34.0
+  },
+  "identifier": {
+    "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
+    "_value": "Unknown"
+  },
+  "item": {
+    "identifier": {
+      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "value": "positionaction"
+    }
+  }
+}

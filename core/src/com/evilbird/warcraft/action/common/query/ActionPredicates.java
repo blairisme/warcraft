@@ -18,6 +18,8 @@ import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantPredicates;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Instances of this class provide common {@link Predicate Predicates} for
@@ -60,30 +62,6 @@ public class ActionPredicates
             Unit unit = (Unit)action.getTarget();
             return unit.isAlive();
         };
-    }
-
-    public static Predicate<Action> counter(int times) {
-        return new Counter(times);
-    }
-
-    private static class Counter implements ResettablePredicate<Action> {
-        private int times;
-        private int count;
-
-        public Counter(int times) {
-            this.times = times;
-            this.count = 0;
-        }
-
-        @Override
-        public boolean test(Action value) {
-            return count++ < times;
-        }
-
-        @Override
-        public void reset() {
-            count = 0;
-        }
     }
 
     public static Predicate<Action> targetHasResources(final ResourceType type) {

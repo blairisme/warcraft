@@ -61,10 +61,6 @@ public class GameEngine extends Game implements GameController
         setScreen(loaderScreen);
     }
 
-    public Preferences getPreferences(String identifier) {
-        return Gdx.app.getPreferences(identifier);
-    }
-
     @Override
     public void showMenuRoot() {
         menuScreen.setMenu(menuFactory.newMenu());
