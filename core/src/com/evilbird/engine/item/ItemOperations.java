@@ -9,10 +9,13 @@
 
 package com.evilbird.engine.item;
 
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.collection.Collections;
 import com.evilbird.engine.common.function.Predicate;
+import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.math.ShapeUtilities;
 
 import java.util.Collection;
 

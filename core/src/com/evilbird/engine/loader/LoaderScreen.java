@@ -16,7 +16,11 @@ import com.evilbird.engine.game.GameController;
 import javax.inject.Inject;
 
 /**
- * Instances of this class
+ * Instances of this class render an image to the screen whilst the various
+ * factories and services that provide game objects and behaviour are
+ * initialized. When loading is complete the default/root menu is displayed.
+ *
+ * @author Blair Butterworth
  */
 public class LoaderScreen extends ScreenAdapter
 {

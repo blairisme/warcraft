@@ -40,10 +40,6 @@ public class ItemPredicates
         return (item) -> type.equals(item.getType());
     }
 
-    public static Predicate<Item> itemWithAction() {
-        return Item::hasActions;
-    }
-
     public static Predicate<Item> selectedItem() {
         return Item::getSelected;
     }
@@ -64,7 +60,8 @@ public class ItemPredicates
         return new IsNear(item, radius);
     }
 
-    private static class IsNear implements Predicate<Item> {
+    public static class IsNear implements Predicate<Item>
+    {
         private Item locus;
         private Circle perimeter;
 

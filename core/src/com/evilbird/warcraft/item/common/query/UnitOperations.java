@@ -20,6 +20,8 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isHuman;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlayer;
 
 /**
+ * Instances of this class contain common operations for working with Items.
+ *
  * @author Blair Butterworth
  */
 public class UnitOperations

@@ -11,7 +11,6 @@ package com.evilbird.engine.common.math;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 
 /**
  * Instances of this class contain common utility functions for working with
@@ -22,11 +21,6 @@ import com.badlogic.gdx.math.Vector2;
 public class ShapeUtilities
 {
     private ShapeUtilities() {
-    }
-
-    public static boolean withinPerimeter(Vector2 center, float radius, Rectangle bounds) {
-        Circle perimeter = new Circle(center, radius);
-        return contains(perimeter, bounds);
     }
 
     public static boolean contains(Circle circle, Rectangle rectangle) {

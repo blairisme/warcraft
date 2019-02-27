@@ -10,7 +10,7 @@
 package com.evilbird.engine.menu;
 
 import com.evilbird.engine.common.error.UnknownEntityException;
-import com.evilbird.engine.common.persistence.Persisted;
+import com.evilbird.engine.common.lang.Persisted;
 
 /**
  * Instances of this factory create {@link Menu} instances.

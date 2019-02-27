@@ -11,7 +11,6 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.math.RandomGenerator;
-import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.capability.Destroyable;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
@@ -24,25 +23,11 @@ import javax.inject.Inject;
  */
 public class DamageAction extends BasicAction
 {
-    private Combatant attacker;
-    private Destroyable target;
-    private RandomGenerator random;
+    private transient RandomGenerator random;
 
     @Inject
     public DamageAction() {
         random = new RandomGenerator();
-    }
-
-    @Override
-    public void setItem(Item item) {
-        super.setItem(item);
-        this.attacker = (Combatant)item;
-    }
-
-    @Override
-    public void setTarget(Item item) {
-        super.setTarget(item);
-        this.target = (Destroyable)item;
     }
 
     @Override
@@ -55,11 +40,13 @@ public class DamageAction extends BasicAction
     }
 
     private float getDefence(float time) {
+        Destroyable target = (Destroyable)getTarget();
         int defence = target.getDefence();
         return time * defence;
     }
 
     private float getAttack(float time) {
+        Combatant attacker = (Combatant)getItem();
         int attackMin = attacker.getDamageMinimum();
         int attackMax = attacker.getDamageMaximum();
         int attack = random.nextInt(attackMin, attackMax);
@@ -71,6 +58,7 @@ public class DamageAction extends BasicAction
     }
 
     private float setHealth(float damage) {
+        Destroyable target = (Destroyable)getTarget();
         float oldHealth = target.getHealth();
         float newHealth = Math.max(0, oldHealth - damage);
         target.setHealth(newHealth);

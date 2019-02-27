@@ -11,7 +11,7 @@ package com.evilbird.engine.action;
 
 import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.persistence.Persisted;
+import com.evilbird.engine.common.lang.Persisted;
 
 /**
  * Instances of this class provide access to {@link Action Actions}, self

@@ -11,7 +11,7 @@ package com.evilbird.engine.behaviour;
 
 import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.persistence.Persisted;
+import com.evilbird.engine.common.lang.Persisted;
 
 /**
  * Implementors of the factory interface create {@link Behaviour} objects.

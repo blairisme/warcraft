@@ -20,6 +20,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
+//TODO: consider using dst2
 public class SpatialUtils
 {
     public static <T extends SpatialNode> T getClosest(Collection<T> nodes, T target) {

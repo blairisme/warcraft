@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.persistence;
+package com.evilbird.engine.common.lang;
 
 public interface Persisted
 {

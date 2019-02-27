@@ -14,7 +14,6 @@ import com.evilbird.engine.action.common.DirectionAction;
 import com.evilbird.engine.action.common.RepeatedAudibleAction;
 import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.engine.action.framework.*;
-import com.evilbird.engine.action.predicates.ActionPredicates;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.animation.AnimatedAction;
 import com.evilbird.warcraft.action.move.MoveActions;
@@ -25,8 +24,9 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.action.common.query.ActionPredicates.isTargetAlive;
-import static com.evilbird.warcraft.action.common.query.ActionPredicates.withinRange;
+import static com.evilbird.engine.action.predicates.ActionPredicates.withoutError;
+import static com.evilbird.warcraft.action.common.predicate.ActionPredicates.isTargetAlive;
+import static com.evilbird.warcraft.action.common.predicate.ActionPredicates.withinRange;
 
 /**
  * Instances of this {@link Action} cause a given {@link Item} to attack
@@ -71,7 +71,7 @@ public class AttackAction extends DelegateAction
     private Action reposition(MoveFactory moveFactory) {
         Action reposition = moveFactory.get(MoveActions.MoveToItem);
         Action animation = new AnimatedAction(reposition, UnitAnimation.Move, UnitAnimation.Idle);
-        Action move = new RequirementAction(animation, ActionPredicates.withoutError());
+        Action move = new RequirementAction(animation, withoutError());
         Action reorient = new DirectionAction();
         return new SequenceAction(move, reorient);
     }

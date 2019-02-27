@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.state;
 
-import com.evilbird.engine.common.persistence.Persisted;
+import com.evilbird.engine.common.lang.Persisted;
 
 import java.util.List;
 
