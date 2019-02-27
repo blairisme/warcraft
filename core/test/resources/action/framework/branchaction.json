@@ -5,22 +5,10 @@
   },
   "actions": [
     {
-      "_type": "com.evilbird.test.data.action.TestBasicAction",
-      "identifier": {
-        "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
-        "_value": "Unknown"
-      }
+      "_type": "com.evilbird.test.data.action.TestBasicAction"
     },
     {
-      "_type": "com.evilbird.test.data.action.TestBasicAction",
-      "identifier": {
-        "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
-        "_value": "Unknown"
-      }
+      "_type": "com.evilbird.test.data.action.TestBasicAction"
     }
-  ],
-  "identifier": {
-    "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
-    "_value": "Unknown"
-  }
+  ]
 }

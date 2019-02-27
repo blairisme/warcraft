@@ -5,10 +5,6 @@
     "_value": "SimpleBuildings"
   },
   "source": "Item",
-  "identifier": {
-    "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
-    "_value": "Unknown"
-  },
   "item": {
     "identifier": {
       "_type": "com.evilbird.engine.common.lang.TextIdentifier",

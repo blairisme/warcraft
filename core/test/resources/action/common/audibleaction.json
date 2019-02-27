@@ -4,10 +4,6 @@
     "_type": "com.evilbird.warcraft.item.unit.UnitSound",
     "_value": "Attack"
   },
-  "identifier": {
-    "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
-    "_value": "Unknown"
-  },
   "item": {
     "identifier": {
       "_type": "com.evilbird.engine.common.lang.TextIdentifier",

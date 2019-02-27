@@ -36,7 +36,6 @@ public abstract class BasicAction implements Action
     private ItemReference target;
 
     public BasicAction() {
-        identifier = GenericIdentifier.Unknown;
     }
 
     @Override
@@ -78,6 +77,9 @@ public abstract class BasicAction implements Action
 
     @Override
     public Identifier getIdentifier() {
+        if (identifier == null) {
+            return GenericIdentifier.Unknown;
+        }
         return identifier;
     }
 

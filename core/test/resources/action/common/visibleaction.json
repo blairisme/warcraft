@@ -1,10 +1,6 @@
 {
   "_type": "com.evilbird.engine.action.common.VisibleAction",
   "enabled": true,
-  "identifier": {
-    "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
-    "_value": "Unknown"
-  },
   "item": {
     "identifier": {
       "_type": "com.evilbird.engine.common.lang.TextIdentifier",

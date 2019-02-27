@@ -23,9 +23,5 @@
         "_value": "AttackMelee"
       }
     }
-  ],
-  "identifier": {
-    "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
-    "_value": "Unknown"
-  }
+  ]
 }

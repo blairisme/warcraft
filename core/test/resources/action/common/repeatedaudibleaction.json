@@ -17,10 +17,6 @@
             "_type": "com.evilbird.warcraft.item.unit.UnitSound",
             "_value": "GatherWood"
           },
-          "identifier": {
-            "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
-            "_value": "Unknown"
-          },
           "item": {
             "identifier": {
               "_type": "com.evilbird.engine.common.lang.TextIdentifier",
@@ -32,10 +28,6 @@
           "_type": "com.evilbird.engine.action.framework.DelayedAction",
           "duration": 3.1,
           "total": 0.0,
-          "identifier": {
-            "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
-            "_value": "Unknown"
-          },
           "item": {
             "identifier": {
               "_type": "com.evilbird.engine.common.lang.TextIdentifier",
@@ -44,10 +36,6 @@
           }
         }
       ],
-      "identifier": {
-        "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
-        "_value": "Unknown"
-      },
       "item": {
         "identifier": {
           "_type": "com.evilbird.engine.common.lang.TextIdentifier",
@@ -55,20 +43,12 @@
         }
       }
     },
-    "identifier": {
-      "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
-      "_value": "Unknown"
-    },
     "item": {
       "identifier": {
         "_type": "com.evilbird.engine.common.lang.TextIdentifier",
         "value": "repeatedaudibleaction"
       }
     }
-  },
-  "identifier": {
-    "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
-    "_value": "Unknown"
   },
   "item": {
     "identifier": {

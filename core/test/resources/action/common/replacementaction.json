@@ -2,20 +2,12 @@
   "_type": "com.evilbird.engine.action.common.ReplacementAction",
   "delegate": {
     "_type": "com.evilbird.test.data.action.TestBasicAction",
-    "identifier": {
-      "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
-      "_value": "Unknown"
-    },
     "item": {
       "identifier": {
         "_type": "com.evilbird.engine.common.lang.TextIdentifier",
         "value": "replacementaction"
       }
     }
-  },
-  "identifier": {
-    "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
-    "_value": "Unknown"
   },
   "item": {
     "identifier": {
