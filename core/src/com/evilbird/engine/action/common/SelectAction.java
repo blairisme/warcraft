@@ -14,11 +14,14 @@ import com.evilbird.engine.common.lang.Selectable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.inject.Inject;
+
 public class SelectAction extends BasicAction
 {
     private boolean selected;
     private ActionTarget source;
 
+    @Inject
     public SelectAction() {
         this(false);
     }

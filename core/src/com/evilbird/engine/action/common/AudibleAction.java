@@ -15,6 +15,8 @@ import com.evilbird.engine.item.animated.SoundIdentifier;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.inject.Inject;
+
 /**
  * Instances of this class represent an Action that plays a sound.
  *
@@ -24,6 +26,7 @@ public class AudibleAction extends BasicAction
 {
     private SoundIdentifier sound;
 
+    @Inject
     public AudibleAction(){
         this(null);
     }

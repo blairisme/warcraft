@@ -16,6 +16,8 @@ import com.evilbird.engine.item.ItemGroup;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.inject.Inject;
+
 /**
  * Instances of this {@link Action} remove a given {@link Item} when invoked.
  *
@@ -25,6 +27,7 @@ public class RemoveAction extends BasicAction
 {
     private ActionTarget source;
 
+    @Inject
     public RemoveAction() {
         this(ActionTarget.Item);
     }

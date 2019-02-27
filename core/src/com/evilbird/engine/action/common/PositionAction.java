@@ -15,10 +15,13 @@ import com.evilbird.engine.common.lang.Positionable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.inject.Inject;
+
 public class PositionAction extends BasicAction
 {
     private Vector2 position;
 
+    @Inject
     public PositionAction() {
         this(Vector2.Zero);
     }

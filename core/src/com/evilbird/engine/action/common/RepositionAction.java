@@ -15,6 +15,8 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 
+import javax.inject.Inject;
+
 /**
  * Instances of this class reposition a given placeholder to the location of
  * the given input.
@@ -25,6 +27,7 @@ import com.evilbird.engine.item.ItemRoot;
 // TODO: Repositions to center of item - should reposition with respect to where the item is touched
 public class RepositionAction extends BasicAction
 {
+    @Inject
     public RepositionAction() {
     }
 

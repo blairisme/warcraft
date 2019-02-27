@@ -13,6 +13,7 @@ import android.os.Bundle;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.evilbird.engine.game.GameService;
 import com.evilbird.warcraft.DaggerAndroidInjector.Builder;
 
 public class AndroidLauncher extends AndroidApplication
@@ -30,9 +31,15 @@ public class AndroidLauncher extends AndroidApplication
         return builder.build();
     }
 
+    private static GameService getService() {
+        GameService service = GameService.getInstance();
+        service.setInjector(getInjector());
+        return service;
+    }
+
     private static ApplicationListener getEngine() {
-        AndroidInjector injector = getInjector();
-        return injector.newGameEngine();
+        GameService service = getService();
+        return service.getGameEngine();
     }
 
     private static AndroidApplicationConfiguration getConfiguration() {

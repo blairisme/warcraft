@@ -14,10 +14,13 @@ import com.evilbird.engine.common.lang.Visible;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.inject.Inject;
+
 public class VisibleAction extends BasicAction
 {
     private boolean enabled;
 
+    @Inject
     public VisibleAction() {
         this(true);
     }

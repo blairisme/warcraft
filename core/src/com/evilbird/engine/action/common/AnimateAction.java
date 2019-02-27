@@ -15,6 +15,8 @@ import com.evilbird.engine.item.animated.AnimationIdentifier;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.inject.Inject;
+
 /**
  * Instances of this class represent an action that changes the animation
  * applied to the given {@link Animated element}.
@@ -26,6 +28,7 @@ public class AnimateAction extends BasicAction
     private ActionTarget source;
     private AnimationIdentifier animation;
 
+    @Inject
     public AnimateAction() {
         this(null);
     }

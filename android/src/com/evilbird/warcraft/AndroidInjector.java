@@ -9,14 +9,13 @@
 
 package com.evilbird.warcraft;
 
-import com.evilbird.engine.game.GameEngine;
+import com.evilbird.engine.game.GameInjector;
 import dagger.Component;
 
 import javax.inject.Singleton;
 
 @Component(modules = {AndroidModule.class, WarcraftModuleAndroid.class})
 @Singleton
-public interface AndroidInjector
+public interface AndroidInjector extends GameInjector
 {
-    GameEngine newGameEngine();
 }

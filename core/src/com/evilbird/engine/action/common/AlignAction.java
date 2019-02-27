@@ -17,6 +17,8 @@ import com.evilbird.engine.item.Item;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.inject.Inject;
+
 /**
  * Instances of this class represent an {@link Action} that aligns
  * the given {@link Item} with respect to another <code>Item</code>.
@@ -28,6 +30,7 @@ public class AlignAction extends BasicAction
 {
     private Alignment alignment;
 
+    @Inject
     public AlignAction() {
         this(Alignment.BottomLeft);
     }

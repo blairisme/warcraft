@@ -15,6 +15,8 @@ import com.evilbird.engine.item.Item;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.inject.Inject;
+
 /**
  * Instances of this class update the disabled status of an {@link Item}.
  *
@@ -25,6 +27,7 @@ public class DisableAction extends BasicAction
     private boolean disabled;
     private ActionTarget source;
 
+    @Inject
     public DisableAction() {
         this(false);
     }

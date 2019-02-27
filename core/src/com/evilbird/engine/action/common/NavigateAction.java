@@ -16,6 +16,8 @@ import com.evilbird.engine.common.lang.Navigable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.inject.Inject;
+
 /**
  * Instances of this class aid navigation through user interface menus.
  *
@@ -26,6 +28,7 @@ public class NavigateAction extends BasicAction
     private Identifier location;
     private ActionTarget source;
 
+    @Inject
     public NavigateAction() {
         this(GenericIdentifier.Unknown, ActionTarget.Item);
     }
