@@ -44,7 +44,7 @@ public class ItemGroupTest extends GameTestCase
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(ItemGroup.class)
             .withDeserializedForm(group)
-            .withSerializedResource("/itemgroup.json")
+            .withSerializedResource("/item/itemgroup.json")
             .verify();
     }
 

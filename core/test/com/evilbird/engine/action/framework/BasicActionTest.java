@@ -40,7 +40,7 @@ public class BasicActionTest extends GameTestCase
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(TestBasicAction.class)
             .withDeserializedForm(action)
-            .withSerializedResource("/basicaction.json")
+            .withSerializedResource("/action/framework/basicaction.json")
             .verify();
     }
 

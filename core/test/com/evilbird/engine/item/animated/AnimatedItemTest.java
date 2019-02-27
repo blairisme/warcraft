@@ -51,7 +51,7 @@ public class AnimatedItemTest extends GameTestCase
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(AnimatedItem.class)
             .withDeserializedForm(animatedItem)
-            .withSerializedResource("/animateditem.json")
+            .withSerializedResource("/item/animateditem.json")
             .verify();
     }
 

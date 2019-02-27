@@ -37,7 +37,7 @@ public class ItemTest extends GameTestCase
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(Item.class)
             .withDeserializedForm(item)
-            .withSerializedResource("/item.json")
+            .withSerializedResource("/item/item.json")
             .verify();
     }
 

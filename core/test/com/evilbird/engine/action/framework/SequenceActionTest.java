@@ -53,7 +53,7 @@ public class SequenceActionTest
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(SequenceAction.class)
             .withDeserializedForm(sequence)
-            .withSerializedResource("/sequenceaction.json")
+            .withSerializedResource("/action/framework/sequenceaction.json")
             .verify();
     }
 

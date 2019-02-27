@@ -18,13 +18,10 @@ import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
-
-import static org.junit.Assert.*;
 
 /**
  * Instances of this unit test validate the {@link PrerequisiteAction} class.
@@ -57,7 +54,7 @@ public class PrerequisiteActionTest
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(PrerequisiteAction.class)
                 .withDeserializedForm(action)
-                .withSerializedResource("/prerequisiteaction.json")
+                .withSerializedResource("/action/framework/prerequisiteaction.json")
                 .verify();
     }
 

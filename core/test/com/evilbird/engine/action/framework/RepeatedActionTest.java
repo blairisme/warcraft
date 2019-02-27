@@ -42,7 +42,7 @@ public class RepeatedActionTest
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(RepeatedAction.class)
                 .withDeserializedForm(action)
-                .withSerializedResource("/repeatedaction.json")
+                .withSerializedResource("/action/framework/repeatedaction.json")
                 .verify();
     }
 

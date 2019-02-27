@@ -55,7 +55,7 @@ public class ParallelActionTest
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(ParallelAction.class)
                 .withDeserializedForm(parallel)
-                .withSerializedResource("/parallelaction.json")
+                .withSerializedResource("/action/framework/parallelaction.json")
                 .verify();
     }
 
@@ -64,7 +64,7 @@ public class ParallelActionTest
         parallel.act(1);
         SerializationVerifier.forClass(ParallelAction.class)
                 .withDeserializedForm(parallel)
-                .withSerializedResource("/parallelactioncomplete.json")
+                .withSerializedResource("/action/framework/parallelactioncomplete.json")
                 .verify();
     }
 

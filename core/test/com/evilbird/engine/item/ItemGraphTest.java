@@ -43,7 +43,7 @@ public class ItemGraphTest extends GameTestCase
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(ItemGraph.class)
             .withDeserializedForm(graph)
-            .withSerializedResource("/itemgraph.json")
+            .withSerializedResource("/item/itemgraph.json")
             .verify();
     }
 

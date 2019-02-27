@@ -14,7 +14,6 @@ import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.data.action.TestCompositeAction;
-import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
 import com.evilbird.warcraft.action.attack.AttackActions;
@@ -57,7 +56,7 @@ public class CompositeActionTest
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(TestCompositeAction.class)
             .withDeserializedForm(composite)
-            .withSerializedResource("/compositeaction.json")
+            .withSerializedResource("/action/framework/compositeaction.json")
             .verify();
     }
 

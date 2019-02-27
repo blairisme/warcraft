@@ -30,7 +30,7 @@ public class DelayedActionTest
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(DelayedAction.class)
                 .withDeserializedForm(action)
-                .withSerializedResource("/delayedaction.json")
+                .withSerializedResource("/action/framework/delayedaction.json")
                 .verify();
     }
 

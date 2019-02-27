@@ -29,7 +29,7 @@ public class GenericIdentifierTest
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(Identifier.class)
             .withDeserializedForm(identifier)
-            .withSerializedResource("/genericidentifier.json")
+            .withSerializedResource("/common/genericidentifier.json")
             .verify();
     }
 

@@ -46,7 +46,7 @@ public class BranchActionTest
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(BranchAction.class)
             .withDeserializedForm(branchAction)
-            .withSerializedResource("/branchaction.json")
+            .withSerializedResource("/action/framework/branchaction.json")
             .verify();
     }
 

@@ -60,7 +60,7 @@ public class ItemRootTest extends GameTestCase
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(ItemRoot.class)
             .withDeserializedForm(root)
-            .withSerializedResource("/itemroot.json")
+            .withSerializedResource("/item/itemroot.json")
             .verify();
     }
 

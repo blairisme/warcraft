@@ -41,7 +41,7 @@ public class RequirementActionTest
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(RequirementAction.class)
                 .withDeserializedForm(action)
-                .withSerializedResource("/requirementaction.json")
+                .withSerializedResource("/action/framework/requirementaction.json")
                 .verify();
     }
 

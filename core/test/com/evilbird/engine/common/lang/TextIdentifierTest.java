@@ -29,7 +29,7 @@ public class TextIdentifierTest
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(Identifier.class)
                 .withDeserializedForm(identifier)
-                .withSerializedResource("/textidentifier.json")
+                .withSerializedResource("/common/textidentifier.json")
                 .verify();
     }
 

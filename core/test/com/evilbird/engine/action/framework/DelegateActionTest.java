@@ -15,7 +15,6 @@ import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.action.TestBasicAction;
-import com.evilbird.test.data.action.TestBasicActions;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
 import org.junit.Assert;
@@ -45,7 +44,7 @@ public class DelegateActionTest
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(DelegateAction.class)
             .withDeserializedForm(delegateAction)
-            .withSerializedResource("/delegateaction.json")
+            .withSerializedResource("/action/framework/delegateaction.json")
             .verify();
     }
 
