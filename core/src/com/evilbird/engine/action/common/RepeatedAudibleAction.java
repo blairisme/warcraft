@@ -14,7 +14,7 @@ import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.RepeatedAction;
 import com.evilbird.engine.action.framework.SequenceAction;
-import com.evilbird.engine.action.utilities.ActionPredicates;
+import com.evilbird.engine.action.predicates.ActionPredicates;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.engine.item.animated.SoundIdentifier;
@@ -32,7 +32,7 @@ public class RepeatedAudibleAction extends DelegateAction
     }
 
     public RepeatedAudibleAction(SoundIdentifier sound, int repetitions, float delay) {
-        this(sound, delay, ActionPredicates.counter(repetitions));
+        this(sound, delay, ActionPredicates.invocationCount(repetitions));
     }
 
     public RepeatedAudibleAction(SoundIdentifier sound, float delay, Predicate<Action> repeat) {

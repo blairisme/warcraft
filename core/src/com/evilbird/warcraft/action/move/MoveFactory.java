@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.move;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.utilities.InjectedPool;
+import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.common.cancel.CancelAction;

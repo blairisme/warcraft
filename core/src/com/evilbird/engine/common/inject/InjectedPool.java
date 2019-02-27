@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.action.utilities;
+package com.evilbird.engine.common.inject;
 
 import com.badlogic.gdx.utils.Pool;
 

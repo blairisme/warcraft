@@ -3,7 +3,7 @@
   "delegate": {
     "_type": "com.evilbird.engine.action.framework.RepeatedAction",
     "repeat": {
-      "_type": "com.evilbird.engine.action.utilities.ActionPredicates$Counter",
+      "_type": "com.evilbird.engine.action.predicates.InvocationCount",
       "times": 5,
       "count": 0
     },

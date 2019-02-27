@@ -9,9 +9,9 @@
 
 package com.evilbird.warcraft.behaviour.user;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.UserInput;
@@ -20,8 +20,12 @@ import com.evilbird.engine.item.Item;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.utilities.ActionUtilities.hasIdentifiedAction;
-
+/**
+ * Instances of this class define the situations an interaction applies to and
+ * how an interaction should alter the game state.
+ *
+ * @author Blair Butterworth
+ */
 public class InteractionDefinition implements Interaction
 {
     private ActionFactory factory;
@@ -105,7 +109,7 @@ public class InteractionDefinition implements Interaction
         if (selectedType != null && !Objects.equals(selectedType, getType(selected))){
             return false;
         }
-        if (currentType != null && !hasIdentifiedAction(getPrimary(touched, selected), currentType)) {
+        if (currentType != null && !hasAction(getPrimary(touched, selected), currentType)) {
             return false;
         }
         return true;
@@ -113,6 +117,15 @@ public class InteractionDefinition implements Interaction
 
     private Identifier getType(Item item) {
         return item != null ? item.getType() : null;
+    }
+
+    private boolean hasAction(Item item, Identifier identifier) {
+        for (Action action: item.getActions()) {
+            if (action.getIdentifier() == identifier) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

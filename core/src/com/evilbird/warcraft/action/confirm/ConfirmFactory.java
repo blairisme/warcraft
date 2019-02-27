@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.confirm;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.utilities.InjectedPool;
+import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.warcraft.action.ActionProvider;
 
 import javax.inject.Inject;
