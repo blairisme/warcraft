@@ -23,4 +23,10 @@ public class ActionPredicates
     public static Predicate<Action> noError() {
         return (value) -> !value.hasError();
     }
+
+    public static class NoError implements Predicate<Action> {
+        public boolean test(Action value) {
+            return !value.hasError();
+        }
+    }
 }

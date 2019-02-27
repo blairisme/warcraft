@@ -9,16 +9,19 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.action.TestBasicAction;
+import com.evilbird.test.verifier.EqualityVerifier;
+import com.evilbird.test.verifier.SerializationVerifier;
+import com.evilbird.warcraft.action.attack.AttackActions;
+import com.evilbird.warcraft.action.move.MoveActions;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import java.io.IOException;
 
 /**
  * Instances of this unit test validate the {@link SequenceAction} class.
@@ -27,29 +30,61 @@ import static org.junit.Assert.assertTrue;
  */
 public class SequenceActionTest
 {
-    @Test
-    public void actTest() {
-        Action childA = newMockAction();
-        Action childB = newMockAction();
-        Action childC = newMockAction();
-        SequenceAction sequence = new SequenceAction(childA, childB, childC);
+    private TestBasicAction childA;
+    private TestBasicAction childB;
+    private TestBasicAction childC;
+    private SequenceAction sequence;
 
-        assertFalse(sequence.act(1));
-        assertFalse(sequence.act(1));
-        assertTrue(sequence.act(1));
+    @Before
+    public void setup() {
+        childA = new TestBasicAction();
+        childA.setIdentifier(MoveActions.MoveToItem);
 
-        Mockito.verify(childA, Mockito.times(1)).act(1);
-        Mockito.verify(childB, Mockito.times(1)).act(1);
-        Mockito.verify(childC, Mockito.times(1)).act(1);
+        childB = new TestBasicAction();
+        childB.setIdentifier(MoveActions.MoveCancel);
+
+        childC = new TestBasicAction();
+        childC.setIdentifier(AttackActions.AttackMelee);
+
+        sequence = new SequenceAction(childA, childB, childC);
     }
 
     @Test
-    public void actorTest() {
-        Action childA = new TestBasicAction();
-        Action childB = new TestBasicAction();
-        Action childC = new TestBasicAction();
-        SequenceAction sequence = new SequenceAction(childA, childB, childC);
+    public void serializeTest() throws IOException {
+        SerializationVerifier.forClass(SequenceAction.class)
+            .withDeserializedForm(sequence)
+            .withSerializedResource("/sequenceaction.json")
+            .verify();
+    }
 
+    @Test
+    public void equalsTest() {
+        EqualityVerifier.forClass(SequenceAction.class)
+            .withMockedTransientFields(Item.class)
+            .excludeTransientFields()
+            .verify();
+    }
+
+    @Test
+    public void actTest() {
+        Assert.assertFalse(sequence.act(1));
+        Assert.assertTrue(childA.getInvoked());
+        Assert.assertFalse(childB.getInvoked());
+        Assert.assertFalse(childC.getInvoked());
+
+        Assert.assertFalse(sequence.act(1));
+        Assert.assertTrue(childA.getInvoked());
+        Assert.assertTrue(childB.getInvoked());
+        Assert.assertFalse(childC.getInvoked());
+
+        Assert.assertTrue(sequence.act(1));
+        Assert.assertTrue(childA.getInvoked());
+        Assert.assertTrue(childB.getInvoked());
+        Assert.assertTrue(childC.getInvoked());
+    }
+
+    @Test
+    public void itemTest() {
         Assert.assertNull(sequence.getItem());
         Assert.assertNull(childA.getItem());
         Assert.assertNull(childB.getItem());
@@ -66,11 +101,6 @@ public class SequenceActionTest
 
     @Test
     public void errorTest() {
-        Action childA = new TestBasicAction();
-        Action childB = new TestBasicAction();
-        Action childC = new TestBasicAction();
-        SequenceAction sequence = new SequenceAction(childA, childB, childC);
-
         Assert.assertNull(sequence.getError());
         Assert.assertFalse(sequence.hasError());
 
@@ -81,11 +111,5 @@ public class SequenceActionTest
         Assert.assertEquals(error, childB.getError());
         Assert.assertNull(childA.getError());
         Assert.assertNull(childC.getError());
-    }
-
-    private Action newMockAction() {
-        Action result = Mockito.mock(Action.class);
-        Mockito.when(result.act(1)).thenReturn(true);
-        return result;
     }
 }

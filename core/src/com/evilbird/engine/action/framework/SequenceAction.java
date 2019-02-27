@@ -10,8 +10,10 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.common.serialization.SerializedConstructor;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -22,25 +24,32 @@ import java.util.List;
  */
 public class SequenceAction extends CompositeAction
 {
-    private Action current;
-    private Iterator<Action> iterator;
+    private int index;
+    private transient Action current;
 
-    public SequenceAction(Action... sequence) {
+    @SerializedConstructor
+    private SequenceAction() {
+    }
+
+    public SequenceAction(Action ... sequence) {
         super(sequence);
-        resetIterator();
+        resetIndex();
     }
 
     public SequenceAction(List<Action> sequence) {
         super(sequence);
-        resetIterator();
+        resetIndex();
     }
 
     @Override
     public boolean act(float delta) {
-        boolean result = current.act(delta);
-        if (result && iterator.hasNext()) {
-            current = iterator.next();
-            result = false;
+        boolean result = true;
+        if (current != null) {
+            result = current.act(delta);
+            if (result && ++index < actions.size()) {
+                current = actions.get(index);
+                result = false;
+            }
         }
         return result;
     }
@@ -48,17 +57,40 @@ public class SequenceAction extends CompositeAction
     @Override
     public void restart() {
         super.restart();
-        resetIterator();
+        resetIndex();
     }
 
     @Override
     public void reset() {
         super.reset();
-        resetIterator();
+        resetIndex();
     }
 
-    private void resetIterator() {
-        this.iterator = actions.iterator();
-        this.current = iterator.next();
+    private void resetIndex() {
+        index = 0;
+        if (! actions.isEmpty()) {
+            current = actions.get(0);
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        SequenceAction action = (SequenceAction)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(index, action.index)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(index)
+            .toHashCode();
     }
 }

@@ -11,6 +11,9 @@ package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.function.Predicate;
+import com.evilbird.engine.common.serialization.SerializedConstructor;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Instances of this {@link Action} execute a delegate action only if a given
@@ -21,6 +24,10 @@ import com.evilbird.engine.common.function.Predicate;
 public class RequirementAction extends DelegateAction
 {
     private Predicate<Action> requirement;
+
+    @SerializedConstructor
+    private RequirementAction() {
+    }
 
     public RequirementAction(Action delegate, Predicate<Action> requirement) {
         super(delegate);
@@ -34,5 +41,26 @@ public class RequirementAction extends DelegateAction
             return true;
         }
         return delegate.act(delta);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        RequirementAction that = (RequirementAction)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(requirement, that.requirement)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(requirement)
+            .toHashCode();
     }
 }
