@@ -1,8 +1,7 @@
 {
-  "_type": "com.evilbird.test.data.action.TestBasicAction",
   "identifier": {
-    "_type": "com.evilbird.warcraft.action.move.MoveActions",
-    "_value": "MoveToItem"
+    "class": "MoveActions",
+    "enum": "MoveToItem"
   },
   "error": {
     "detailMessage": "An error has occurred",
@@ -22,15 +21,15 @@
     "count": 1
   },
   "item": {
-    "identifier": {
-      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
-      "value": "1"
+    "reference": {
+      "class": "Named",
+      "name": "1"
     }
   },
   "target": {
-    "identifier": {
-      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
-      "value": "2"
+    "reference": {
+      "class": "Named",
+      "name": "2"
     }
   }
 }

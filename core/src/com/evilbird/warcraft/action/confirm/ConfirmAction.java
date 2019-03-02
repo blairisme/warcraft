@@ -30,7 +30,7 @@ import javax.inject.Inject;
  */
 public class ConfirmAction extends DelegateAction
 {
-    private CreateAction create;
+    private transient CreateAction create;
 
     @Inject
     public ConfirmAction(ItemFactory itemFactory) {

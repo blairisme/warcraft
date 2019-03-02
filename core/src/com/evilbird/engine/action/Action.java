@@ -15,6 +15,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
+import com.google.gson.annotations.JsonAdapter;
 
 /**
  * Instances of this class represent a self contained "bundle" of behaviour
@@ -22,6 +23,7 @@ import com.evilbird.engine.item.ItemComposite;
  *
  * @author Blair Butterworth
  */
+@JsonAdapter(ActionAdapter.class)
 public interface Action extends Identifiable, Poolable
 {
     /**

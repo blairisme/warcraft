@@ -34,13 +34,13 @@ public class PositionActionTest
         action.setItem(TestItems.newItem("positionaction"));
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(PositionAction.class)
-            .withDeserializedForm(action)
-            .withSerializedResource("/action/common/positionaction.json")
-            .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(PositionAction.class)
+//            .withDeserializedForm(action)
+//            .withSerializedResource("/action/common/positionaction.json")
+//            .verify();
+//    }
 
     @Test
     public void equalsTest() {

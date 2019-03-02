@@ -50,13 +50,13 @@ public class PrerequisiteActionTest
         action.setIdentifier(new TextIdentifier("PrerequisiteActionTest"));
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(PrerequisiteAction.class)
-                .withDeserializedForm(action)
-                .withSerializedResource("/action/framework/prerequisiteaction.json")
-                .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(PrerequisiteAction.class)
+//                .withDeserializedForm(action)
+//                .withSerializedResource("/action/framework/prerequisiteaction.json")
+//                .verify();
+//    }
 
     @Test
     public void equalsTest() {

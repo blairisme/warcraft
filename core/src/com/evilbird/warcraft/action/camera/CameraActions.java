@@ -10,12 +10,14 @@
 package com.evilbird.warcraft.action.camera;
 
 import com.evilbird.engine.action.ActionIdentifier;
+import com.evilbird.engine.common.serialization.SerializedType;
 
 /**
  * Defines options of specifying camera actions.
  *
  * @author Blair Butterworth
  */
+@SerializedType("CameraActions")
 public enum CameraActions implements ActionIdentifier
 {
     Pan,

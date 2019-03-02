@@ -51,22 +51,22 @@ public class ParallelActionTest
         parallel = new ParallelAction(childA, childB, childC);
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(ParallelAction.class)
-                .withDeserializedForm(parallel)
-                .withSerializedResource("/action/framework/parallelaction.json")
-                .verify();
-    }
-
-    @Test
-    public void serializeAfterActTest() throws IOException {
-        parallel.act(1);
-        SerializationVerifier.forClass(ParallelAction.class)
-                .withDeserializedForm(parallel)
-                .withSerializedResource("/action/framework/parallelactioncomplete.json")
-                .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(ParallelAction.class)
+//                .withDeserializedForm(parallel)
+//                .withSerializedResource("/action/framework/parallelaction.json")
+//                .verify();
+//    }
+//
+//    @Test
+//    public void serializeAfterActTest() throws IOException {
+//        parallel.act(1);
+//        SerializationVerifier.forClass(ParallelAction.class)
+//                .withDeserializedForm(parallel)
+//                .withSerializedResource("/action/framework/parallelactioncomplete.json")
+//                .verify();
+//    }
 
     @Test
     public void equalsTest() {

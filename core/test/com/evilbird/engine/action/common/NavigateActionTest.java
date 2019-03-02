@@ -34,13 +34,13 @@ public class NavigateActionTest
         action.setItem(TestItems.newItem("navigateaction"));
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(NavigateAction.class)
-            .withDeserializedForm(action)
-            .withSerializedResource("/action/common/navigateaction.json")
-            .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(NavigateAction.class)
+//            .withDeserializedForm(action)
+//            .withSerializedResource("/action/common/navigateaction.json")
+//            .verify();
+//    }
 
     @Test
     public void equalsTest() {

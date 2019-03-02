@@ -34,13 +34,13 @@ public class AnimateActionTest
         action.setItem(TestItems.newItem("animateactiontest"));
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(AnimateAction.class)
-                .withDeserializedForm(action)
-                .withSerializedResource("/action/common/animateaction.json")
-                .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(AnimateAction.class)
+//                .withDeserializedForm(action)
+//                .withSerializedResource("/action/common/animateaction.json")
+//                .verify();
+//    }
 
     @Test
     public void equalsTest() {

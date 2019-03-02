@@ -33,13 +33,13 @@ public class DirectionActionTest
         action.setItem(TestItems.newItem("directionaction"));
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(DirectionAction.class)
-                .withDeserializedForm(action)
-                .withSerializedResource("/action/common/directionaction.json")
-                .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(DirectionAction.class)
+//                .withDeserializedForm(action)
+//                .withSerializedResource("/action/common/directionaction.json")
+//                .verify();
+//    }
 
     @Test
     public void equalsTest() {

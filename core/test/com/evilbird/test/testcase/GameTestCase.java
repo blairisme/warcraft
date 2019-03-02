@@ -14,11 +14,15 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
+import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.game.GameInjector;
 import com.evilbird.engine.game.GameService;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.test.data.item.TestItems;
+import com.evilbird.warcraft.action.attack.AttackActions;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -31,6 +35,7 @@ import java.nio.IntBuffer;
 import static org.mockito.Answers.RETURNS_MOCKS;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
 
 /**
  * Instances of this test case set up the game engine ready for tests that
@@ -81,22 +86,34 @@ public class GameTestCase
         application = null;
     }
 
-    protected ItemFactory itemFactory;
     protected GameInjector gameInjector;
     protected GameService gameService;
     protected GameEngine gameEngine;
+    protected ItemFactory itemFactory;
+    protected ActionFactory actionFactory;
 
     @Before
     public void setup() {
         gameEngine = Mockito.mock(GameEngine.class);
+        actionFactory = Mockito.mock(ActionFactory.class);
+
         itemFactory = Mockito.mock(ItemFactory.class);
         Mockito.when(itemFactory.newItem(Mockito.any())).thenAnswer((invocation) -> TestItems.newItem("item"));
 
         gameInjector = Mockito.mock(GameInjector.class);
-        Mockito.when(gameInjector.getItemFactory()).thenReturn(itemFactory);
         Mockito.when(gameInjector.getGameEngine()).thenReturn(gameEngine);
+        Mockito.when(gameInjector.getItemFactory()).thenReturn(itemFactory);
+        Mockito.when(gameInjector.getActionFactory()).thenReturn(actionFactory);
 
         gameService = GameService.getInstance();
         gameService.setInjector(gameInjector);
+    }
+
+    protected void respondWithItem(Item item) {
+        Mockito.when(itemFactory.newItem(Mockito.any())).thenReturn(item);
+    }
+
+    protected void respondWithAction(Action action) {
+        Mockito.when(actionFactory.newAction(Mockito.any())).thenReturn(action);
     }
 }

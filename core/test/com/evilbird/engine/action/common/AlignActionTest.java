@@ -34,13 +34,13 @@ public class AlignActionTest
         action.setItem(TestItems.newItem("aligntest"));
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(AlignAction.class)
-                .withDeserializedForm(action)
-                .withSerializedResource("/action/common/alignaction.json")
-                .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(AlignAction.class)
+//                .withDeserializedForm(action)
+//                .withSerializedResource("/action/common/alignaction.json")
+//                .verify();
+//    }
 
     @Test
     public void equalsTest() {

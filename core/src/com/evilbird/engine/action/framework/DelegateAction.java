@@ -45,6 +45,7 @@ public class DelegateAction extends BasicAction
 
     @Override
     public void setIdentifier(Identifier identifier) {
+        super.setIdentifier(identifier);
         if (delegate != null) {
             delegate.setIdentifier(identifier);
         }

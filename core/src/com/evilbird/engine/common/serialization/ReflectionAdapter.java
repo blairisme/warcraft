@@ -9,102 +9,81 @@
 
 package com.evilbird.engine.common.serialization;
 
-import com.google.gson.JsonSerializer;
 import com.google.gson.*;
-import org.apache.commons.lang3.reflect.ConstructorUtils;
-import org.apache.commons.lang3.reflect.FieldUtils;
+import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
-import java.util.*;
-import java.util.Map.Entry;
-
-import static java.lang.reflect.Modifier.isTransient;
+import java.lang.reflect.Modifier;
 
 /**
  * Instances of this class {@link JsonSerializer serialize} and
  * {@link JsonDeserializer deserialize} an object using reflection. Along with
- * and objects fields its class is also included in the serialized output. This
+ * an objects fields its class is also included in the serialized output. This
  * makes this class useful for serialization and deserialization of values
  * stored as interfaces.
  *
  * @author Blair Butterworth
  */
-public class ReflectionAdapter implements JsonSerializer<Object>, JsonDeserializer<Object>
+public class ReflectionAdapter extends AbstractAdapter<Object>
 {
-    private static final String TYPE = "_type";
-    private static final String VALUE = "_value";
+    private static final String CLASS = "class";
+    private static final String ENUM = "enum";
 
     @Override
-    public JsonElement serialize(Object source, Type type, JsonSerializationContext context) {
+    protected JsonObject getSerializedType(Object target, JsonSerializationContext context) {
+        Class<?> clazz = target.getClass();
+        String type = getTypeName(clazz);
+
+        if (clazz.isEnum()) {
+            return getEnumType(target, type);
+        }
+        return getObjectType(type);
+    }
+
+    private String getTypeName(Class<?> clazz) {
+        if (SerializedTypes.hasAlias(clazz)) {
+            return SerializedTypes.getAlias(clazz);
+        }
+        return clazz.getName();
+    }
+
+    private JsonObject getEnumType(Object target, String type) {
         JsonObject result = new JsonObject();
-        Class<?> sourceType = source.getClass();
-        serializeType(result, sourceType);
-        serializeObject(result, context, source, sourceType);
+        result.addProperty(CLASS, type);
+        result.addProperty(ENUM, target.toString());
         return result;
     }
 
-    private void serializeType(JsonObject json, Class<?> type) {
-        json.addProperty(TYPE, type.getName());
-    }
-
-    private void serializeObject(JsonObject json, JsonSerializationContext context, Object target, Class<?> type)  {
-        if (type.isEnum()) {
-            json.addProperty(VALUE, target.toString());
-        } else {
-            serializeFields(json, context, target, type);
-        }
-    }
-
-    private void serializeFields(JsonObject json, JsonSerializationContext context, Object target, Class<?> type) {
-        for (Field field : FieldUtils.getAllFields(type)) {
-            if (!isTransient(field.getModifiers())) {
-                serializeField(json, context, field, target);
-            }
-        }
-    }
-
-    private void serializeField(JsonObject json, JsonSerializationContext context, Field field, Object target) {
-        String name = field.getName();
-        Class<?> type = field.getType();
-        Object value = readField(field, target);
-        json.add(name, context.serialize(value, type));
-    }
-
-    private Object readField(Field field, Object target) {
-        try {
-            return FieldUtils.readField(field, target, true);
-        }
-        catch (IllegalAccessException error) {
-            throw new JsonParseException(error);
-        }
+    private JsonObject getObjectType(String type) {
+        JsonObject result = new JsonObject();
+        result.addProperty(CLASS, type);
+        return result;
     }
 
     @Override
-    public Object deserialize(JsonElement source, Type type, JsonDeserializationContext context) throws JsonParseException {
-        JsonObject json = source.getAsJsonObject();
-        Object result = createInstance(json);
-        deserializeProperties(json, context, result);
-        return result;
+    protected boolean isSerializedField(Object target, Field field) {
+        return !Modifier.isTransient(field.getModifiers());
     }
 
-    private Object createInstance(JsonObject json) {
-        Class<?> type = getType(json);
-        if (type.isEnum()) {
-            return createEnum(type, json);
+    @Override
+    protected Object getDeserializedInstance(JsonObject json, JsonDeserializationContext context) {
+        if (json.has(ENUM)) {
+            return getEnumInstance(json);
         }
-        return createObject(type);
+        return getObjectInstance(json);
     }
 
     @SuppressWarnings("unchecked")
-    private Enum createEnum(Class<?> type, JsonElement json) {
-        String name = getValue(json);
-        return Enum.valueOf((Class<Enum>)type, name);
+    private Object getEnumInstance(JsonObject json) {
+        Class<Enum> type = (Class<Enum>)getClass(json);
+        String value = json.get(ENUM).getAsString();
+        return Enum.valueOf(type, value);
     }
 
-    private Object createObject(Class<?> type) {
+    private Object getObjectInstance(JsonObject json) {
         try {
+            Class<?> type = getClass(json);
             Constructor<?> constructor = type.getDeclaredConstructor();
             constructor.setAccessible(true);
             return constructor.newInstance();
@@ -114,69 +93,12 @@ public class ReflectionAdapter implements JsonSerializer<Object>, JsonDeserializ
         }
     }
 
-    private void deserializeProperties(JsonObject json, JsonDeserializationContext context, Object result) {
-        for (Entry<String, JsonElement> entry: json.entrySet()) {
-            String property = entry.getKey();
-            if (!TYPE.equals(property)) {
-                deserializeProperty(entry.getKey(), entry.getValue(), context, result, result.getClass());
+    private Class<?> getClass(JsonObject json) {
+        try {
+            String name = json.get(CLASS).getAsString();
+            if (SerializedTypes.hasType(name)) {
+                return SerializedTypes.getType(name);
             }
-        }
-    }
-
-    private void deserializeProperty(String name, JsonElement json, JsonDeserializationContext context, Object target, Class<?> type) {
-        Field field = FieldUtils.getField(type, name, true);
-        if (field != null) {
-            Object value = deserializeField(json, field.getType(), context);
-            writeField(field, target, value);
-        }
-    }
-
-    private Object deserializeField(JsonElement json, Class<?> type, JsonDeserializationContext context) {
-        if (List.class.isAssignableFrom(type)) {
-            return deserializeList(json.getAsJsonArray(), context);
-        }
-        if (Set.class.isAssignableFrom(type)) {
-            return deserializeSet(json.getAsJsonArray(), context);
-        }
-        if (type.isArray()) {
-            return deserializeArray(json.getAsJsonArray(), context);
-        }
-        return context.deserialize(json, type);
-    }
-
-    private Set<Object> deserializeSet(JsonArray elements, JsonDeserializationContext context) {
-        List<Object> list = deserializeList(elements, context);
-        return new HashSet<>(list);
-    }
-
-    private Object[] deserializeArray(JsonArray elements, JsonDeserializationContext context) {
-        List<Object> list = deserializeList(elements, context);
-        return list.toArray();
-    }
-
-    private List<Object> deserializeList(JsonArray elements, JsonDeserializationContext context) {
-        List<Object> result = new ArrayList<>();
-        for (JsonElement element: elements) {
-            Class<?> type = getType(element);
-            result.add(context.deserialize(element, type));
-        }
-        return result;
-    }
-
-    private void writeField(Field field, Object target, Object value) {
-        try {
-            FieldUtils.writeField(field, target, value, true);
-        }
-        catch (IllegalAccessException error) {
-            throw new JsonParseException(error);
-        }
-    }
-
-    private Class<?> getType(JsonElement json){
-        try {
-            JsonObject object = json.getAsJsonObject();
-            JsonElement element = object.get(TYPE);
-            String name = element.getAsString();
             return Class.forName(name);
         }
         catch (ReflectiveOperationException error) {
@@ -184,9 +106,8 @@ public class ReflectionAdapter implements JsonSerializer<Object>, JsonDeserializ
         }
     }
 
-    private String getValue(JsonElement json) {
-        JsonObject object = json.getAsJsonObject();
-        JsonElement value = object.get(VALUE);
-        return value.getAsString();
+    @Override
+    protected boolean isDeserializedField(String name, JsonElement value) {
+        return true;
     }
 }

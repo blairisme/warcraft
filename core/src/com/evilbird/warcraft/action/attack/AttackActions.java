@@ -10,12 +10,14 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.ActionIdentifier;
+import com.evilbird.engine.common.serialization.SerializedType;
 
 /**
  * Defines options for specifying attack action varieties.
  *
  * @author Blair Butterworth
  */
+@SerializedType("AttackActions")
 public enum AttackActions implements ActionIdentifier
 {
     AttackMelee,

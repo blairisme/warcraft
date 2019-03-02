@@ -33,13 +33,13 @@ public class SelectActionTest
         action.setItem(TestItems.newItem("selectaction"));
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(SelectAction.class)
-            .withDeserializedForm(action)
-            .withSerializedResource("/action/common/selectaction.json")
-            .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(SelectAction.class)
+//            .withDeserializedForm(action)
+//            .withSerializedResource("/action/common/selectaction.json")
+//            .verify();
+//    }
 
     @Test
     public void equalsTest() {

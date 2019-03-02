@@ -26,23 +26,22 @@ import java.io.IOException;
  *
  * @author Blair Butterworth
  */
-public class BasicActionTest extends GameTestCase
+public class BasicActionTest
 {
     private Action action;
 
     @Before
     public void setup() {
-        super.setup();
         action = TestBasicActions.newBasicAction();
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(TestBasicAction.class)
-            .withDeserializedForm(action)
-            .withSerializedResource("/action/framework/basicaction.json")
-            .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(TestBasicAction.class)
+//            .withDeserializedForm(action)
+//            .withSerializedResource("/action/framework/basicaction.json")
+//            .verify();
+//    }
 
     @Test
     public void equalsTest() {

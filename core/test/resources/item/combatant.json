@@ -1,4 +1,8 @@
 {
+  "type": {
+    "class": "Units",
+    "enum": "Footman"
+  },
   "level": 1,
   "damageMinimum": 2,
   "damageMaximum": 9,
@@ -7,8 +11,8 @@
   "movementSpeed": 64.0,
   "movementCapability": [
     {
-      "_type": "com.evilbird.warcraft.item.layer.LayerType",
-      "_value": "Map"
+      "class": "Layers",
+      "enum": "Map"
     }
   ],
   "name": "Footman",
@@ -19,17 +23,13 @@
   "direction": 0.0,
   "updateAnimation": true,
   "animationId": {
-    "_type": "com.evilbird.warcraft.item.unit.UnitAnimation",
-    "_value": "Idle"
+    "class": "UnitAnimation",
+    "enum": "Idle"
   },
   "updateSound": false,
   "id": {
-    "_type": "com.evilbird.engine.common.lang.GenericIdentifier",
-    "_value": "Unknown"
-  },
-  "type": {
-    "_type": "com.evilbird.warcraft.item.unit.UnitType",
-    "_value": "Footman"
+    "class": "General",
+    "enum": "Unknown"
   },
   "selected": false,
   "selectable": true,

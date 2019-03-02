@@ -10,7 +10,9 @@
 package com.evilbird.warcraft.action.confirm;
 
 import com.evilbird.engine.action.ActionIdentifier;
+import com.evilbird.engine.common.serialization.SerializedType;
 
+@SerializedType("ConfirmActions")
 public enum ConfirmActions implements ActionIdentifier
 {
     ConfirmLocation,

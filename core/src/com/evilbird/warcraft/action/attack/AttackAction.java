@@ -14,6 +14,7 @@ import com.evilbird.engine.action.common.DirectionAction;
 import com.evilbird.engine.action.common.RepeatedAudibleAction;
 import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.engine.action.framework.*;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.animation.AnimatedAction;
 import com.evilbird.warcraft.action.move.MoveActions;
@@ -21,10 +22,13 @@ import com.evilbird.warcraft.action.move.MoveFactory;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.predicates.ActionPredicates.withoutError;
+import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
 import static com.evilbird.warcraft.action.common.predicate.ActionPredicates.isTargetAlive;
 import static com.evilbird.warcraft.action.common.predicate.ActionPredicates.withinRange;
 
@@ -44,6 +48,7 @@ public class AttackAction extends DelegateAction
         Action complete = killTarget();
         Action sequence = new SequenceAction(initiate, complete);
         delegate = new ReplacementAction(sequence);
+        setIdentifier(AttackMelee);
     }
 
     public void setObserver(AttackObserver observer) {
@@ -86,5 +91,26 @@ public class AttackAction extends DelegateAction
     private Action killTarget() {
         Action die = new DeathAction();
         return new ReplacementAction(die);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        AttackAction that = (AttackAction)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(observer, that.observer)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(observer)
+            .toHashCode();
     }
 }

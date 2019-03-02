@@ -9,9 +9,11 @@
 
 package com.evilbird.warcraft.item.unit;
 
+import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.animated.AnimationIdentifier;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
+@SerializedType("UnitAnimation")
 public enum UnitAnimation implements AnimationIdentifier
 {
     Hidden,

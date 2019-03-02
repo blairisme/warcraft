@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.game;
 
+import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.item.ItemFactory;
 
 /**
@@ -33,6 +34,11 @@ public class GameService implements GameInjector
     @Override
     public GameEngine getGameEngine() {
         return injector.getGameEngine();
+    }
+
+    @Override
+    public ActionFactory getActionFactory() {
+        return injector.getActionFactory();
     }
 
     @Override

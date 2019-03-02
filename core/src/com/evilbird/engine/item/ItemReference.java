@@ -25,7 +25,7 @@ import static com.evilbird.engine.item.ItemPredicates.itemWithId;
  */
 public class ItemReference implements Supplier<Item>
 {
-    private Identifier identifier;
+    private Identifier reference;
     private transient Item cache;
     private transient ItemComposite parent;
 
@@ -33,12 +33,12 @@ public class ItemReference implements Supplier<Item>
         this(item.getIdentifier(), item.getRoot(), item);
     }
 
-    public ItemReference(Identifier identifier, ItemComposite parent) {
-        this(identifier, parent, null);
+    public ItemReference(Identifier reference, ItemComposite parent) {
+        this(reference, parent, null);
     }
 
-    private ItemReference(Identifier identifier, ItemComposite parent, Item cache) {
-        this.identifier = identifier;
+    private ItemReference(Identifier reference, ItemComposite parent, Item cache) {
+        this.reference = reference;
         this.cache = cache;
         this.parent = parent;
     }
@@ -46,7 +46,7 @@ public class ItemReference implements Supplier<Item>
     @Override
     public Item get() {
         if (cache == null) {
-            cache = parent.find(itemWithId(identifier));
+            cache = parent.find(itemWithId(reference));
         }
         return cache;
     }
@@ -58,7 +58,7 @@ public class ItemReference implements Supplier<Item>
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .append("identifier", identifier)
+            .append("reference", reference)
             .toString();
     }
 
@@ -70,14 +70,14 @@ public class ItemReference implements Supplier<Item>
 
         ItemReference that = (ItemReference)obj;
         return new EqualsBuilder()
-            .append(identifier, that.identifier)
+            .append(reference, that.reference)
             .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-            .append(identifier)
+            .append(reference)
             .toHashCode();
     }
 }

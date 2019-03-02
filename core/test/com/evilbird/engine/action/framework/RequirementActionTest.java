@@ -37,13 +37,13 @@ public class RequirementActionTest
         action = new RequirementAction(delegate, predicate);
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(RequirementAction.class)
-                .withDeserializedForm(action)
-                .withSerializedResource("/action/framework/requirementaction.json")
-                .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(RequirementAction.class)
+//                .withDeserializedForm(action)
+//                .withSerializedResource("/action/framework/requirementaction.json")
+//                .verify();
+//    }
 
     @Test
     public void equalsTest() {

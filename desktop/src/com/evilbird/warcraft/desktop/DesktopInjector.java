@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.desktop;
 
-import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.game.GameInjector;
 import dagger.Component;
 

@@ -1,4 +1,4 @@
 {
-  "_type": "com.evilbird.engine.common.lang.TextIdentifier",
-  "value": "test"
+  "class": "Named",
+  "name": "test"
 }

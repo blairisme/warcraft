@@ -9,7 +9,6 @@
 
 package com.evilbird.engine.common.serialization;
 
-import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.google.gson.Gson;
@@ -33,7 +32,6 @@ public class JsonSerializer implements Serializer
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setPrettyPrinting();
         gsonBuilder.serializeSpecialFloatingPointValues();
-        gsonBuilder.registerTypeHierarchyAdapter(Action.class, new ReflectionAdapter());
         gsonBuilder.registerTypeHierarchyAdapter(Predicate.class, new ReflectionAdapter());
         gsonBuilder.registerTypeHierarchyAdapter(Identifier.class, new ReflectionAdapter());
         gson = gsonBuilder.create();

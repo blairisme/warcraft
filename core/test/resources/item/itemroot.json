@@ -9,13 +9,13 @@
     {
       "items": [
         {
-          "id": {
-            "_type": "com.evilbird.engine.common.lang.TextIdentifier",
-            "value": "1"
-          },
           "type": {
-            "_type": "com.evilbird.warcraft.item.unit.UnitType",
-            "_value": "Footman"
+            "class": "Units",
+            "enum": "Footman"
+          },
+          "id": {
+            "class": "Named",
+            "name": "1"
           },
           "selected": false,
           "selectable": true,
@@ -32,13 +32,13 @@
           "actions": []
         },
         {
-          "id": {
-            "_type": "com.evilbird.engine.common.lang.TextIdentifier",
-            "value": "2"
-          },
           "type": {
-            "_type": "com.evilbird.warcraft.item.unit.UnitType",
-            "_value": "Footman"
+            "class": "Units",
+            "enum": "Footman"
+          },
+          "id": {
+            "class": "Named",
+            "name": "2"
           },
           "selected": false,
           "selectable": true,
@@ -56,12 +56,12 @@
         }
       ],
       "id": {
-        "_type": "com.evilbird.engine.common.lang.TextIdentifier",
-        "value": "Player1"
+        "class": "Named",
+        "name": "Player1"
       },
       "type": {
-        "_type": "com.evilbird.warcraft.item.data.DataType",
-        "_value": "Player"
+        "class": "Data",
+        "enum": "Player"
       },
       "selected": false,
       "selectable": true,
@@ -80,13 +80,13 @@
     {
       "items": [
         {
-          "id": {
-            "_type": "com.evilbird.engine.common.lang.TextIdentifier",
-            "value": "3"
-          },
           "type": {
-            "_type": "com.evilbird.warcraft.item.unit.UnitType",
-            "_value": "Footman"
+            "class": "Units",
+            "enum": "Footman"
+          },
+          "id": {
+            "class": "Named",
+            "name": "3"
           },
           "selected": false,
           "selectable": true,
@@ -103,13 +103,13 @@
           "actions": []
         },
         {
-          "id": {
-            "_type": "com.evilbird.engine.common.lang.TextIdentifier",
-            "value": "4"
-          },
           "type": {
-            "_type": "com.evilbird.warcraft.item.unit.UnitType",
-            "_value": "Footman"
+            "class": "Units",
+            "enum": "Footman"
+          },
+          "id": {
+            "class": "Named",
+            "name": "4"
           },
           "selected": false,
           "selectable": true,
@@ -127,12 +127,12 @@
         }
       ],
       "id": {
-        "_type": "com.evilbird.engine.common.lang.TextIdentifier",
-        "value": "Player2"
+        "class": "Named",
+        "name": "Player2"
       },
       "type": {
-        "_type": "com.evilbird.warcraft.item.data.DataType",
-        "_value": "Player"
+        "class": "Data",
+        "enum": "Player"
       },
       "selected": false,
       "selectable": true,

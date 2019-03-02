@@ -9,24 +9,26 @@
 
 package com.evilbird.engine.item;
 
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.action.ActionIdentifier;
+import com.evilbird.engine.common.lang.Objects;
+import com.evilbird.engine.common.serialization.AbstractAdapter;
 import com.evilbird.engine.game.GameService;
-import com.google.gson.*;
-import org.apache.commons.lang3.reflect.FieldUtils;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
-import java.util.Map.Entry;
-
-import static java.lang.reflect.Modifier.isTransient;
+import java.lang.reflect.Modifier;
 
 /**
  * Instances of this class serialize and deserialize {@link Item Items}.
  *
  * @author Blair Butterworth
  */
-public class ItemAdapter implements JsonSerializer<Item>, JsonDeserializer<Item>
+public class ItemAdapter extends AbstractAdapter<Item>
 {
+    private static final String TYPE = "type";
     private ItemFactory itemFactory;
 
     public ItemAdapter() {
@@ -39,63 +41,25 @@ public class ItemAdapter implements JsonSerializer<Item>, JsonDeserializer<Item>
     }
 
     @Override
-    public JsonElement serialize(Item item, Type type, JsonSerializationContext context) {
+    protected JsonObject getSerializedType(Item target, JsonSerializationContext context) {
         JsonObject result = new JsonObject();
-        for (Field field: FieldUtils.getAllFields(item.getClass())) {
-            if (! isTransient(field.getModifiers())) {
-                serialize(result, context, field, item);
-            }
-        }
+        result.add(TYPE, context.serialize(target.getType(), ItemType.class));
         return result;
     }
 
-    private void serialize(JsonObject json, JsonSerializationContext context, Field field, Item item) {
-        String name = field.getName();
-        Class<?> type = field.getType();
-        Object value = readField(field, item);
-        json.add(name, context.serialize(value, type));
-    }
-
-    private Object readField(Field field, Object target) {
-        try {
-            return FieldUtils.readField(field, target, true);
-        }
-        catch (IllegalAccessException error) {
-            throw new JsonParseException(error);
-        }
+    @Override
+    protected boolean isSerializedField(Item target, Field field) {
+        return !Modifier.isTransient(field.getModifiers()) && !Objects.equals(field.getName(), TYPE);
     }
 
     @Override
-    public Item deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
-        JsonObject jsonObject = json.getAsJsonObject();
-        Item item = createItem(jsonObject, context);
-
-        for (Entry<String, JsonElement> entry: jsonObject.entrySet()) {
-            deserialize(entry.getKey(), entry.getValue(), context, item, item.getClass());
-        }
-        return item;
+    protected Item getDeserializedInstance(JsonObject json, JsonDeserializationContext context) {
+        ItemType identifier = context.deserialize(json.get(TYPE), ItemType.class);
+        return itemFactory.newItem(identifier);
     }
 
-    private Item createItem(JsonObject json, JsonDeserializationContext context) {
-        JsonElement element = json.get("type");
-        ItemType type = context.deserialize(element, Identifier.class);
-        return itemFactory.newItem(type);
-    }
-
-    private void deserialize(String name, JsonElement json, JsonDeserializationContext context, Item item, Class<?> type) {
-        Field field = FieldUtils.getField(type, name, true);
-        if (field != null) {
-            Object value = context.deserialize(json, field.getType());
-            writeField(field, item, value);
-        }
-    }
-
-    private void writeField(Field field, Object target, Object value) {
-        try {
-            FieldUtils.writeField(field, target, value, true);
-        }
-        catch (IllegalAccessException error) {
-            throw new JsonParseException(error);
-        }
+    @Override
+    protected boolean isDeserializedField(String name, JsonElement value) {
+        return true;
     }
 }

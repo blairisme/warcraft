@@ -33,13 +33,13 @@ public class RepositionActionTest
         action.setItem(TestItems.newItem("repositionaction"));
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(RepositionAction.class)
-            .withDeserializedForm(action)
-            .withSerializedResource("/action/common/repositionaction.json")
-            .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(RepositionAction.class)
+//            .withDeserializedForm(action)
+//            .withSerializedResource("/action/common/repositionaction.json")
+//            .verify();
+//    }
 
     @Test
     public void equalsTest() {

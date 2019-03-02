@@ -1,14 +1,19 @@
 {
-  "_type": "com.evilbird.engine.action.framework.BranchAction",
   "decision": {
-    "_type": "com.evilbird.engine.common.function.Predicates$Accept"
+    "class": "com.evilbird.engine.common.function.Predicates$Accept"
   },
   "actions": [
     {
-      "_type": "com.evilbird.test.data.action.TestBasicAction"
+      "identifier": {
+        "class": "General",
+        "enum": "Unknown"
+      }
     },
     {
-      "_type": "com.evilbird.test.data.action.TestBasicAction"
+      "identifier": {
+        "class": "General",
+        "enum": "Unknown"
+      }
     }
   ]
 }

@@ -1,0 +1,18 @@
+{
+  "identifier": {
+    "class": "AttackActions",
+    "enum": "AttackMelee"
+  },
+  "item": {
+    "reference": {
+      "class": "Named",
+      "name": "footman"
+    }
+  },
+  "target": {
+    "reference": {
+      "class": "Named",
+      "name": "grunt"
+    }
+  }
+}

@@ -9,8 +9,10 @@
 
 package com.evilbird.warcraft.item.unit;
 
+import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.animated.SoundIdentifier;
 
+@SerializedType("UnitSound")
 public enum UnitSound implements SoundIdentifier
 {
     Attack,

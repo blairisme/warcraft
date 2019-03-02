@@ -33,13 +33,13 @@ public class VisibleActionTest
         action.setItem(TestItems.newItem("visibleaction"));
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(VisibleAction.class)
-            .withDeserializedForm(action)
-            .withSerializedResource("/action/common/visibleaction.json")
-            .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(VisibleAction.class)
+//            .withDeserializedForm(action)
+//            .withSerializedResource("/action/common/visibleaction.json")
+//            .verify();
+//    }
 
     @Test
     public void equalsTest() {

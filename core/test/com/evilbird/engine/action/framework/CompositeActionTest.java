@@ -52,13 +52,13 @@ public class CompositeActionTest
         composite.setIdentifier(AttackActions.AttackMelee);
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(TestCompositeAction.class)
-            .withDeserializedForm(composite)
-            .withSerializedResource("/action/framework/compositeaction.json")
-            .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(TestCompositeAction.class)
+//            .withDeserializedForm(composite)
+//            .withSerializedResource("/action/framework/compositeaction.json")
+//            .verify();
+//    }
 
     @Test
     public void equalsTest() {

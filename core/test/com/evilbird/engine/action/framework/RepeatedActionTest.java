@@ -38,13 +38,13 @@ public class RepeatedActionTest
         action = new RepeatedAction(delegate, predicate);
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(RepeatedAction.class)
-                .withDeserializedForm(action)
-                .withSerializedResource("/action/framework/repeatedaction.json")
-                .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(RepeatedAction.class)
+//                .withDeserializedForm(action)
+//                .withSerializedResource("/action/framework/repeatedaction.json")
+//                .verify();
+//    }
 
     @Test
     public void equalsTest() {

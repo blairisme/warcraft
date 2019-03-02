@@ -9,13 +9,25 @@
 
 package com.evilbird.engine.common.serialization;
 
+import org.junit.Before;
+
 /**
- * Instances of this unit test validate logic in the {@link ReflectionAdapter} class.
+ * Instances of this unit test validate logic in the {@link ReflectionAdapter}
+ * class.
  *
  * @author Blair Butterworth
  */
 public class ReflectionAdapterTest
 {
+    private Serializer serializer;
+
+    @Before
+    public void setup() {
+        serializer = new JsonSerializer();
+    }
+
+
+
 
 //    @Test
 //    public void serializeTest() {

@@ -17,6 +17,8 @@ import com.evilbird.engine.item.ItemRoot;
 
 import javax.inject.Inject;
 
+import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmLocation;
+
 /**
  * Instances of this class show a confirmation effect at a given location.
  *
@@ -27,6 +29,7 @@ public class ConfirmLocation extends ConfirmAction
     @Inject
     public ConfirmLocation(ItemFactory itemFactory) {
         super(itemFactory);
+        setIdentifier(ConfirmLocation);
     }
 
     @Override

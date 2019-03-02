@@ -33,13 +33,13 @@ public class RemoveActionTest
         action.setItem(TestItems.newItem("removeaction"));
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(RemoveAction.class)
-            .withDeserializedForm(action)
-            .withSerializedResource("/action/common/removeaction.json")
-            .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(RemoveAction.class)
+//            .withDeserializedForm(action)
+//            .withSerializedResource("/action/common/removeaction.json")
+//            .verify();
+//    }
 
     @Test
     public void equalsTest() {

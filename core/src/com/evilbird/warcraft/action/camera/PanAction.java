@@ -11,14 +11,18 @@ package com.evilbird.warcraft.action.camera;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Positionable;
 
 import javax.inject.Inject;
+
+import static com.evilbird.warcraft.action.camera.CameraActions.Pan;
 
 public class PanAction extends BasicAction
 {
     @Inject
     public PanAction() {
+        setIdentifier(Pan);
     }
 
     @Override

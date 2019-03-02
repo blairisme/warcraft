@@ -10,25 +10,27 @@
 package com.evilbird.engine.common.lang;
 
 import com.evilbird.engine.common.serialization.SerializedConstructor;
+import com.evilbird.engine.common.serialization.SerializedType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+@SerializedType("Named")
 public class TextIdentifier implements Identifier
 {
-    private String value;
+    private String name;
 
     @SerializedConstructor
     private TextIdentifier() {
     }
 
-    public TextIdentifier(String value) {
-        this.value = value;
+    public TextIdentifier(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return value;
+        return name;
     }
 
     @Override
@@ -39,14 +41,14 @@ public class TextIdentifier implements Identifier
 
         TextIdentifier that = (TextIdentifier)obj;
         return new EqualsBuilder()
-            .append(value, that.value)
+            .append(name, that.name)
             .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-            .append(value)
+            .append(name)
             .toHashCode();
     }
 }

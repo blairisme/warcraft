@@ -20,9 +20,4 @@ import org.junit.Test;
  */
 public class CreateActionTest
 {
-    @Test
-    @Ignore
-    public void missingSerializationTest() {
-        Assert.fail();
-    }
 }

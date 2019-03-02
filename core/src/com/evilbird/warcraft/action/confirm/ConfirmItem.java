@@ -14,6 +14,8 @@ import com.evilbird.engine.item.ItemFactory;
 
 import javax.inject.Inject;
 
+import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmTarget;
+
 /**
  * Instances of this class show a confirmation effect over a given {@link Item}.
  *
@@ -24,6 +26,7 @@ public class ConfirmItem extends ConfirmAction
     @Inject
     public ConfirmItem(ItemFactory itemFactory) {
         super(itemFactory);
+        setIdentifier(ConfirmTarget);
     }
 
     @Override

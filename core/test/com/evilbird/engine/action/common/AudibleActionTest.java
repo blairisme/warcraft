@@ -34,13 +34,13 @@ public class AudibleActionTest
         action.setItem(TestItems.newItem("audibleaction"));
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(AudibleAction.class)
-            .withDeserializedForm(action)
-            .withSerializedResource("/action/common/audibleaction.json")
-            .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(AudibleAction.class)
+//            .withDeserializedForm(action)
+//            .withSerializedResource("/action/common/audibleaction.json")
+//            .verify();
+//    }
 
     @Test
     public void equalsTest() {

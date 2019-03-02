@@ -9,8 +9,10 @@
 
 package com.evilbird.warcraft.item.data;
 
+import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
 
+@SerializedType("Data")
 public enum DataType implements ItemType
 {
     Camera,

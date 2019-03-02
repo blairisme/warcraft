@@ -36,13 +36,13 @@ public class ReplacementActionTest
         action.setItem(TestItems.newItem("replacementaction"));
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(ReplacementAction.class)
-            .withDeserializedForm(action)
-            .withSerializedResource("/action/common/replacementaction.json")
-            .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(ReplacementAction.class)
+//            .withDeserializedForm(action)
+//            .withSerializedResource("/action/common/replacementaction.json")
+//            .verify();
+//    }
 
     @Test
     public void equalsTest() {

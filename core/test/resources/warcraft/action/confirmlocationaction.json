@@ -1,0 +1,12 @@
+{
+  "identifier": {
+    "class": "ConfirmActions",
+    "enum": "ConfirmLocation"
+  },
+  "item": {
+    "reference": {
+      "class": "Named",
+      "name": "map"
+    }
+  }
+}

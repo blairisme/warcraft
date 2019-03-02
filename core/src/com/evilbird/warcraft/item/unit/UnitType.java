@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.unit;
 
+import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
 
 /**
@@ -16,6 +17,7 @@ import com.evilbird.engine.item.ItemType;
  *
  * @author Blair Butterworth
  */
+@SerializedType("Units")
 public enum UnitType implements ItemType
 {
     /* Building */

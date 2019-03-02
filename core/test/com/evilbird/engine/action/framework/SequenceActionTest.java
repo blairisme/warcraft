@@ -49,13 +49,13 @@ public class SequenceActionTest
         sequence = new SequenceAction(childA, childB, childC);
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(SequenceAction.class)
-            .withDeserializedForm(sequence)
-            .withSerializedResource("/action/framework/sequenceaction.json")
-            .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(SequenceAction.class)
+//            .withDeserializedForm(sequence)
+//            .withSerializedResource("/action/framework/sequenceaction.json")
+//            .verify();
+//    }
 
     @Test
     public void equalsTest() {

@@ -26,13 +26,13 @@ public class DelayedActionTest
         action = new DelayedAction(123);
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(DelayedAction.class)
-                .withDeserializedForm(action)
-                .withSerializedResource("/action/framework/delayedaction.json")
-                .verify();
-    }
+//    @Test
+//    public void serializeTest() throws IOException {
+//        SerializationVerifier.forClass(DelayedAction.class)
+//                .withDeserializedForm(action)
+//                .withSerializedResource("/action/framework/delayedaction.json")
+//                .verify();
+//    }
 
     @Test
     public void equalsTest() {

@@ -16,6 +16,8 @@ import com.evilbird.warcraft.item.common.capability.Zoomable;
 
 import javax.inject.Inject;
 
+import static com.evilbird.warcraft.action.camera.CameraActions.Zoom;
+
 /**
  * Instances of this Action apply the zoom delta specified in a
  * {@link UserInput} event to the given {@link Zoomable}.
@@ -26,6 +28,7 @@ public class ZoomAction extends BasicAction
 {
     @Inject
     public ZoomAction() {
+        setIdentifier(Zoom);
     }
 
     @Override
