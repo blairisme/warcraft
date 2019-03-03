@@ -14,9 +14,6 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.audio.MusicCombination;
 import com.evilbird.engine.common.audio.MusicSequence;
 import com.evilbird.engine.common.inject.AssetProvider;
@@ -26,6 +23,7 @@ import com.evilbird.engine.menu.Menu;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
+import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 
 public class HumanIntroOneFactory implements AssetProvider<Menu>
 {
@@ -58,31 +56,12 @@ public class HumanIntroOneFactory implements AssetProvider<Menu>
     @Override
     public Menu get() {
         HumanIntroOne menu = new HumanIntroOne();
-        menu.setBackground(getBackground());
-        menu.setButtonTexture(getButtonTexture());
-        menu.setFont(getFont());
+        menu.setBackground(getDrawable(assets, BACKGROUND));
+        menu.setButtonTexture(getDrawable(assets, BUTTON, 0, 56, 224, 28));
+        menu.setFont(assets.get(FONT));
         menu.setMusic(getNarration());
-        menu.setButtonSound(getButtonClick());
+        menu.setButtonSound(assets.get(CLICK));
         return menu;
-    }
-
-    private Drawable getBackground() {
-        Texture menuTexture = assets.get(BACKGROUND);
-        TextureRegion menuTextureRegion = new TextureRegion(menuTexture);
-        return new TextureRegionDrawable(menuTextureRegion);
-    }
-
-    private TextureRegion getButtonTexture() {
-        Texture buttonTexture = assets.get(BUTTON);
-        return new TextureRegion(buttonTexture, 0, 56, 224, 28);
-    }
-
-    private BitmapFont getFont() {
-        return assets.get(FONT);
-    }
-
-    private Sound getButtonClick() {
-        return assets.get(CLICK);
     }
 
     private Music getNarration() {

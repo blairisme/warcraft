@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.control.GridPane;
 import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.hud.control.actions.ActionPaneProvider;
+import com.evilbird.warcraft.item.hud.control.menu.MenuPaneFactory;
 import com.evilbird.warcraft.item.hud.control.minimap.MinimapPaneProvider;
 import com.evilbird.warcraft.item.hud.control.status.StatePane;
 
@@ -31,16 +32,18 @@ public class ControlPane extends GridPane
     public ControlPane(
         ActionPaneProvider actionPaneProvider,
         MinimapPaneProvider minimapPaneProvider,
-        Provider<StatePane> statePaneProvider)
+        Provider<StatePane> statePaneProvider,
+        MenuPaneFactory menuPaneFactory)
     {
-        super(1, 3);
-        setSize(176, 488);
+        super(1, 4);
+        setSize(176, 488); //TODO - Automagically scale
         setPosition(0, 140); //TODO - Replace with Align left center
         setCellPadding(0);
         setCellSpacing(0);
-        setCell(minimapPaneProvider.get(), 0, 0);
-        setCell(statePaneProvider.get(), 0, 1);
-        setCell(actionPaneProvider.get(), 0, 2);
+        setCell(menuPaneFactory.get(), 0, 0);
+        setCell(minimapPaneProvider.get(), 0, 1);
+        setCell(statePaneProvider.get(), 0, 2);
+        setCell(actionPaneProvider.get(), 0, 3);
         setType(HudControl.ControlPane);
         setTouchable(Touchable.enabled);
     }

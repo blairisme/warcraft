@@ -12,6 +12,7 @@ package com.evilbird.warcraft.behaviour.user;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.navigate.NavigateActions;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
@@ -37,6 +38,7 @@ import static com.evilbird.warcraft.behaviour.user.InteractionApplicability.Sele
 import static com.evilbird.warcraft.behaviour.user.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.user.InteractionAssignment.Parent;
 import static com.evilbird.warcraft.item.data.DataType.Camera;
+import static com.evilbird.warcraft.item.hud.HudControl.MenuPane;
 import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.*;
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
 import static com.evilbird.warcraft.item.placeholder.PlaceholderType.*;
@@ -118,6 +120,10 @@ public class UserInteractions
         interactions.addAction(ActionsMenu).whenTarget(BuildCancelButton).appliedTo(Target);
         interactions.addAction(BuildSimpleMenu).whenTarget(BuildSimpleButton).appliedTo(Target);
         interactions.addAction(BuildAdvancedMenu).whenTarget(BuildAdvancedButton).appliedTo(Target);
+
+
+        //TODO
+        interactions.addAction(IngameMenu).whenTarget(MenuPane).appliedTo(Target);
     }
 
     public void addConstructInteractions() {

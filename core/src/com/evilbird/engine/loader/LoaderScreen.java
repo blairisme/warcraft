@@ -22,6 +22,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
+//TODO: Dispose after loading
 public class LoaderScreen extends ScreenAdapter
 {
     private LoaderScreenModel model;
@@ -62,7 +63,7 @@ public class LoaderScreen extends ScreenAdapter
     }
 
     public void setMenuScreen() {
-        controller.showMenuRoot();
+        controller.showMenu();
     }
 
     public void setBackground(Texture texture) {

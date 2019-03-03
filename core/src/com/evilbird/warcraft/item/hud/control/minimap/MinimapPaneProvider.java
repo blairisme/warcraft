@@ -19,8 +19,11 @@ import com.evilbird.engine.device.Device;
 
 import javax.inject.Inject;
 
+import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
+
 public class MinimapPaneProvider implements AssetProvider<MinimapPane>
 {
+    private static final String TEXTURE = "data/textures/human/hud/minimap_panel.png";
     private AssetManager assets;
 
     @Inject
@@ -30,19 +33,13 @@ public class MinimapPaneProvider implements AssetProvider<MinimapPane>
 
     @Override
     public void load() {
-        assets.load("data/textures/human/hud/minimap_panel.png", Texture.class);
+        assets.load(TEXTURE, Texture.class);
     }
 
     @Override
     public MinimapPane get() {
         MinimapPane result = new MinimapPane();
-        result.setBackground(getTexture("data/textures/human/hud/minimap_panel.png"));
+        result.setBackground(getDrawable(assets, TEXTURE));
         return result;
-    }
-
-    private Drawable getTexture(String path) {
-        Texture texture = assets.get(path);
-        TextureRegion region = new TextureRegion(texture);
-        return new TextureRegionDrawable(region);
     }
 }

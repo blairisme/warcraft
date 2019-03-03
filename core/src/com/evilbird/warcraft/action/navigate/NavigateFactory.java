@@ -38,6 +38,10 @@ public class NavigateFactory implements ActionProvider
         Validate.isInstanceOf(NavigateActions.class, identifier);
         NavigateActions navigateAction = (NavigateActions)identifier;
 
+        if (identifier == NavigateActions.IngameMenu) { //TODO
+            return new IngameMenuAction();
+        }
+
         NavigateAction action = pool.obtain();
         action.setSource(ActionTarget.Parent);
         action.setLocation(navigateAction.getNavigateLocation());

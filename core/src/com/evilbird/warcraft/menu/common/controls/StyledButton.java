@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Disposable;
 import com.evilbird.engine.common.graphics.Fonts;
@@ -42,24 +43,24 @@ public class StyledButton extends TextButton implements Disposable
         setStyle(style);
     }
 
-    public void setEnabledTexture(TextureRegion enabled) {
+    public void setEnabledTexture(Drawable enabled) {
         TextButtonStyle style = getStyle();
-        style.up = new TextureRegionDrawable(enabled);
-        style.over = new TextureRegionDrawable(enabled);
-        style.checked = new TextureRegionDrawable(enabled);
-        style.checkedOver = new TextureRegionDrawable(enabled);
+        style.up = enabled;
+        style.over = enabled;
+        style.checked = enabled;
+        style.checkedOver = enabled;
         setStyle(style);
     }
 
-    public void setDisabledTexture(TextureRegion disabled) {
+    public void setDisabledTexture(Drawable disabled) {
         TextButtonStyle style = getStyle();
-        style.disabled = new TextureRegionDrawable(disabled);
+        style.disabled = disabled;
         setStyle(style);
     }
 
-    public void setSelectedTexture(TextureRegion selected) {
+    public void setSelectedTexture(Drawable selected) {
         TextButtonStyle style = getStyle();
-        style.down = new TextureRegionDrawable(selected);
+        style.down = selected;
         setStyle(style);
     }
 

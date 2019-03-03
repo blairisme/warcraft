@@ -13,7 +13,7 @@ import com.evilbird.engine.item.animated.AnimationIdentifier;
 import com.evilbird.engine.item.animated.SoundIdentifier;
 import com.evilbird.warcraft.item.common.animation.AnimationCollectionBuilder;
 import com.evilbird.warcraft.item.common.animation.AnimationSchemas;
-import com.evilbird.warcraft.item.common.texture.TextureUtils;
+import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;

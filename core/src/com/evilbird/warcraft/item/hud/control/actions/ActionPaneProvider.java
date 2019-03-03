@@ -16,7 +16,7 @@ import com.evilbird.engine.device.Device;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.common.texture.TextureUtils.getDrawable;
+import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 
 /**
  * Instances of this factory create {@link ActionPane ActionPanes}.

@@ -18,7 +18,7 @@ import com.evilbird.engine.device.Device;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.common.texture.TextureUtils.getDrawable;
+import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 
 //TODO: MoveFactory texture coordinates into type enum
 public class ActionButtonProvider implements AssetProvider<ActionButton>

@@ -13,14 +13,13 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.menu.Menu;
 
 import javax.inject.Inject;
+
+import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 
 public class CampaignMenuFactory implements AssetProvider<Menu>
 {
@@ -47,39 +46,12 @@ public class CampaignMenuFactory implements AssetProvider<Menu>
     @Override
     public Menu get() {
         CampaignMenu menu = new CampaignMenu();
-        menu.setBackground(getBackground());
-        menu.setButtonTextures(getEnabled(), getSelected(), getDisabled());
-        menu.setButtonSound(getButtonClick());
-        menu.setMusic(getMusic());
+        menu.setBackground(getDrawable(assets, BACKGROUND));
+        menu.setButtonEnabled(getDrawable(assets, BUTTON, 0, 0, 224, 28));
+        menu.setButtonDisabled(getDrawable(assets, BUTTON, 0, 56, 224, 28));
+        menu.setButtonSelected(getDrawable(assets, BUTTON, 0, 28, 224, 28));
+        menu.setButtonSound(assets.get(CLICK));
+        menu.setMusic(assets.get(MUSIC));
         return menu;
-    }
-
-    private Drawable getBackground() {
-        Texture menuTexture = assets.get(BACKGROUND);
-        TextureRegion menuTextureRegion = new TextureRegion(menuTexture);
-        return new TextureRegionDrawable(menuTextureRegion);
-    }
-
-    private TextureRegion getEnabled() {
-        Texture buttonTexture = assets.get(BUTTON);
-        return new TextureRegion(buttonTexture, 0, 0, 224, 28);
-    }
-
-    private TextureRegion getSelected() {
-        Texture buttonTexture = assets.get(BUTTON);
-        return new TextureRegion(buttonTexture, 0, 28, 224, 28);
-    }
-
-    private TextureRegion getDisabled() {
-        Texture buttonTexture = assets.get(BUTTON);
-        return new TextureRegion(buttonTexture, 0, 56, 224, 28);
-    }
-
-    private Sound getButtonClick() {
-        return assets.get(CLICK);
-    }
-
-    private Music getMusic() {
-        return assets.get(MUSIC);
     }
 }

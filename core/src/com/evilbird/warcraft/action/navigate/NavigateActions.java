@@ -22,9 +22,13 @@ public enum NavigateActions implements ActionIdentifier
 {
     ActionsMenu         (ActionPaneLayout.Actions),
     BuildSimpleMenu     (ActionPaneLayout.SimpleBuildings),
-    BuildAdvancedMenu   (ActionPaneLayout.AdvancedBuildings);
+    BuildAdvancedMenu   (ActionPaneLayout.AdvancedBuildings),
+    IngameMenu;
 
     private Identifier location;
+
+    NavigateActions() {
+    }
 
     NavigateActions(ActionPaneLayout location) {
         this.location = location;

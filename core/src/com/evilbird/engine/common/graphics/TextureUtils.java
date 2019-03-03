@@ -7,31 +7,37 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.common.texture;
+package com.evilbird.engine.common.graphics;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 
 /**
  * Instances of this class provide common utilities for working with textures.
  *
  * @author Blair Butterworth
  */
-//TODO: Move into common
 public class TextureUtils
 {
     public static Drawable getDrawable(AssetManager assets, String path) {
-        Texture iconTexture = assets.get(path, Texture.class);
-        TextureRegion iconRegion = new TextureRegion(iconTexture);
-        return new TextureRegionDrawable(iconRegion);
+        Texture texture = assets.get(path, Texture.class);
+        TextureRegion region = new TextureRegion(texture);
+        return new TextureRegionDrawable(region);
     }
 
     public static Drawable getDrawable(AssetManager assets, String path, int x, int y, int width, int height) {
-        Texture iconTexture = assets.get(path, Texture.class);
-        TextureRegion iconRegion = new TextureRegion(iconTexture, x, y, width, height);
-        return new TextureRegionDrawable(iconRegion);
+        Texture texture = assets.get(path, Texture.class);
+        TextureRegion region = new TextureRegion(texture, x, y, width, height);
+        return new TextureRegionDrawable(region);
+    }
+
+    public static Drawable getTiledDrawable(AssetManager assets, String path) {
+        Texture texture = assets.get(path, Texture.class);
+        TextureRegion region = new TextureRegion(texture);
+        return new TiledDrawable(region);
     }
 }

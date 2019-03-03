@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.common.sound;
+package com.evilbird.engine.common.audio;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
@@ -25,7 +25,6 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-//TODO: Move into common
 public class SoundUtils
 {
     private SoundUtils() {

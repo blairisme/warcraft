@@ -54,11 +54,29 @@ public class MainMenu extends Menu
         table.setBackground(background);
     }
 
-    public void setButtonTextures(TextureRegion enabled, TextureRegion selected, TextureRegion disabled) {
+//    public void setButtonTextures(Drawable enabled, Drawable selected, Drawable disabled) {
+//        for (StyledButton button: buttons) {
+//            button.setEnabledTexture(enabled);
+//            button.setDisabledTexture(disabled);
+//            button.setSelectedTexture(selected);
+//        }
+//    }
+
+    public void setButtonEnabled(Drawable drawable) {
         for (StyledButton button: buttons) {
-            button.setEnabledTexture(enabled);
-            button.setDisabledTexture(disabled);
-            button.setSelectedTexture(selected);
+            button.setEnabledTexture(drawable);
+        }
+    }
+
+    public void setButtonDisabled(Drawable drawable) {
+        for (StyledButton button: buttons) {
+            button.setDisabledTexture(drawable);
+        }
+    }
+
+    public void setButtonSelected(Drawable drawable) {
+        for (StyledButton button: buttons) {
+            button.setSelectedTexture(drawable);
         }
     }
 

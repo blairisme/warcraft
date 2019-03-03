@@ -16,6 +16,8 @@ import com.evilbird.warcraft.item.hud.common.UnitPaneProvider;
 import com.evilbird.warcraft.item.hud.control.ControlPane;
 import com.evilbird.warcraft.item.hud.control.actions.ActionButtonProvider;
 import com.evilbird.warcraft.item.hud.control.actions.ActionPaneProvider;
+import com.evilbird.warcraft.item.hud.control.menu.MenuPane;
+import com.evilbird.warcraft.item.hud.control.menu.MenuPaneFactory;
 import com.evilbird.warcraft.item.hud.control.minimap.MinimapPaneProvider;
 import com.evilbird.warcraft.item.hud.control.status.DetailsPaneProvider;
 import com.evilbird.warcraft.item.hud.control.status.SelectionPaneProvider;
@@ -47,7 +49,8 @@ public class HudControlProvider extends IdentifiedAssetProviderSet<Item>
         ResourcePanelProvider resourcePaneProvider,
         SelectionPaneProvider selectionPaneProvider,
         Provider<StatePane> statePaneProvider,
-        UnitPaneProvider unitPaneProvider)
+        UnitPaneProvider unitPaneProvider,
+        MenuPaneFactory menuPaneFactory)
     {
         addProvider(ActionButton, actionButtonProvider);
         addProvider(ActionPane, actionPaneProvider);
@@ -55,6 +58,7 @@ public class HudControlProvider extends IdentifiedAssetProviderSet<Item>
         addProvider(DetailsPane, detailsPaneProvider);
         addProvider(HealthBar, healthBarProvider);
         addProvider(BuildingBar, buildingProgressProvider);
+        addProvider(MenuPane, menuPaneFactory);
         addProvider(MinimapPane, minimapPaneProvider);
         addProvider(ResourcePane, resourcePaneProvider);
         addProvider(SelectionPane, selectionPaneProvider);

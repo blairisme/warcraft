@@ -22,7 +22,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.animated.AnimationIdentifier;
 import com.evilbird.engine.item.animated.SoundIdentifier;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
-import com.evilbird.warcraft.item.common.texture.TextureUtils;
+import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -33,7 +33,7 @@ import java.util.Map;
 
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundType.MP3;
-import static com.evilbird.warcraft.item.common.sound.SoundUtils.newSoundEffect;
+import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
 
 /**
  * Instances of this class create {@link Building Barrack's}, loading the

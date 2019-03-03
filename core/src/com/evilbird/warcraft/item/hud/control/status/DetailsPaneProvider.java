@@ -18,7 +18,7 @@ import com.evilbird.warcraft.item.hud.control.status.building.BuildingProgressPr
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.common.texture.TextureUtils.getDrawable;
+import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 
 /**
  * Instances of this factory create {@link DetailsPane DetailsPanes}.

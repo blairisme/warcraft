@@ -45,12 +45,35 @@ public class Menu
         this.music = music;
     }
 
+    protected void showMenu() {
+        controller.showMenu();
+    }
+
     protected void showMenu(MenuIdentifier identifier) {
         controller.showMenu(identifier);
     }
 
+    protected void showMenuOverlay(MenuIdentifier identifier) {
+        controller.showMenuOverlay(identifier);
+    }
+
+    protected void showState() {
+        controller.showState();
+        stopMusic();
+    }
+
     protected void showState(StateIdentifier identifier) {
         controller.showState(identifier);
+        stopMusic();
+    }
+
+    protected void startMusic() {
+        if (music != null) {
+            music.play();
+        }
+    }
+
+    protected void stopMusic() {
         if (music != null) {
             music.stop();
         }

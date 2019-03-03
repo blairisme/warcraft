@@ -19,7 +19,7 @@ import com.evilbird.warcraft.item.placeholder.PlaceholderType;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.common.texture.TextureUtils.getDrawable;
+import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 
 public class TownHallPlaceholderProvider implements AssetProvider<Item>
 {

@@ -54,11 +54,11 @@ public class IntroMenu extends Menu
         button.addListener(new SelectListenerAdapter(action));
     }
 
-    public void setButtonTexture(TextureRegion texture) {
+    public void setButtonTexture(Drawable texture) {
         setButtonTexture(texture, texture, texture);
     }
 
-    public void setButtonTexture(TextureRegion enabled, TextureRegion selected, TextureRegion disabled) {
+    public void setButtonTexture(Drawable enabled, Drawable selected, Drawable disabled) {
         button.setEnabledTexture(enabled);
         button.setDisabledTexture(disabled);
         button.setSelectedTexture(selected);

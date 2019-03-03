@@ -24,6 +24,7 @@ public enum HudControl implements ItemType
     DetailsPane,
     HealthBar,
     BuildingBar,
+    MenuPane,
     MinimapPane,
     ResourcePane,
     SelectionPane,
