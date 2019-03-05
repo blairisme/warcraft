@@ -9,11 +9,11 @@
 
 package com.evilbird.warcraft.state;
 
-import com.evilbird.engine.state.StateIdentifier;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.state.hud.Hud;
 import com.evilbird.warcraft.state.map.Map;
 
-public enum Campaign implements StateIdentifier, StateDefinition
+public enum Campaign implements Identifier, StateDefinition
 {
     Human1 (Map.Human1, Hud.Human);
 

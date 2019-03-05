@@ -9,9 +9,9 @@
 
 package com.evilbird.warcraft.state;
 
-import com.evilbird.engine.state.StateCategory;
+import com.evilbird.engine.common.lang.Identifier;
 
-public enum StateType implements StateCategory
+public enum StateType implements Identifier
 {
     Campaign,
     Scenario,

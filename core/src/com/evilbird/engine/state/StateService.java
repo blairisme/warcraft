@@ -9,17 +9,18 @@
 
 package com.evilbird.engine.state;
 
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Persisted;
 
 import java.util.List;
 
 public interface StateService extends Persisted
 {
-    List<StateIdentifier> list(StateCategory type);
+    List<Identifier> list(Identifier type);
 
-    State get(StateIdentifier identifier);
+    State get(Identifier identifier);
 
-    void remove(StateIdentifier identifier);
+    void remove(Identifier identifier);
 
-    void set(StateIdentifier identifier, State state);
+    void set(Identifier identifier, State state);
 }

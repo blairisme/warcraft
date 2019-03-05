@@ -9,11 +9,11 @@
 
 package com.evilbird.warcraft.state;
 
-import com.evilbird.engine.state.StateIdentifier;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.state.hud.Hud;
 import com.evilbird.warcraft.state.map.Map;
 
-public enum Scenario implements StateIdentifier, StateDefinition
+public enum Scenario implements Identifier, StateDefinition
 {
     ;
 

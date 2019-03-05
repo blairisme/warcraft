@@ -10,13 +10,13 @@
 package com.evilbird.engine.game;
 
 import com.badlogic.gdx.Game;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.loader.LoaderScreen;
 import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.menu.MenuOverlay;
 import com.evilbird.engine.menu.MenuScreen;
 import com.evilbird.engine.state.State;
-import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateScreen;
 import com.evilbird.engine.state.StateService;
 
@@ -92,13 +92,13 @@ public class GameEngine extends Game implements GameController
     }
 
     @Override
-    public void showState(StateIdentifier identifier) {
+    public void showState(Identifier identifier) {
         stateScreen.setState(stateService.get(identifier));
         setScreen(stateScreen);
     }
 
     @Override
-    public void saveState(StateIdentifier identifier) {
+    public void saveState(Identifier identifier) {
         State state = stateScreen.getState();
         stateService.set(identifier, state);
     }

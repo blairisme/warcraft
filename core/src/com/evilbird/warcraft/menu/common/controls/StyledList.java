@@ -12,14 +12,24 @@ package com.evilbird.warcraft.menu.common.controls;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.graphics.Fonts;
 
-public class StyledList extends List
+import java.util.Collection;
+
+public class StyledList<T> extends List<Object>
 {
-    public StyledList() {
+    public StyledList(Collection<T> items) {
         super(getDefaultStyle());
+        setItems(items.toArray());
+
+    }
+
+    public StyledList(Collection<T> items, Skin skin) {
+        super(skin);
+        setItems(items.toArray());
     }
 
     public void setBackground(Drawable drawable) {
@@ -50,6 +60,10 @@ public class StyledList extends List
         ListStyle style = getStyle();
         style.selection = drawable;
         setStyle(style);
+    }
+
+    public void setSkin(Skin skin) {
+        setStyle(skin.get(ListStyle.class));
     }
 
     private static ListStyle getDefaultStyle() {

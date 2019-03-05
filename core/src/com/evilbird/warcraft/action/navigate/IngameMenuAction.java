@@ -11,11 +11,8 @@ package com.evilbird.warcraft.action.navigate;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.game.GameController;
-import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.game.GameService;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.menu.ingame.IngameMenus;
+import com.evilbird.warcraft.menu.ingame.IngameMenuType;
 
 public class IngameMenuAction extends BasicAction
 {
@@ -29,7 +26,7 @@ public class IngameMenuAction extends BasicAction
 
         GameService gameService = GameService.getInstance();
         GameController controller = gameService.getGameEngine();
-        controller.showMenuOverlay(IngameMenus.Root);
+        controller.showMenuOverlay(IngameMenuType.Root);
         return true;
     }
 }

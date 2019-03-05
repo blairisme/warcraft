@@ -11,12 +11,11 @@ package com.evilbird.warcraft.state;
 
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceStorage;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
-import com.evilbird.engine.state.StateCategory;
-import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.warcraft.state.hud.HudFactory;
 import com.evilbird.warcraft.state.map.MapFactory;
@@ -57,7 +56,7 @@ public class WarcraftStateService implements StateService
     }
 
     @Override
-    public List<StateIdentifier> list(StateCategory category) {
+    public List<Identifier> list(Identifier category) {
         Validate.isInstanceOf(StateType.class, category);
         switch ((StateType)category) {
             case Campaign: return asList(Campaign.values());
@@ -67,20 +66,21 @@ public class WarcraftStateService implements StateService
         }
     }
 
-    private List<StateIdentifier> getUserSaves() {
-        try {
-            DeviceStorage storage = device.getInternalStorage();
-            List<String> persisted = storage.list(SAVE_PATH);
-            return persisted.stream().map(UserSave::new).collect(Collectors.toList());
-        }
-        catch (IOException exception) {
-            System.out.println(exception.getMessage()); //TODO: handle exception properly
-            return Collections.emptyList();
-        }
+    private List<Identifier> getUserSaves() {
+//        try {
+//            DeviceStorage storage = device.getInternalStorage();
+//            List<String> persisted = storage.list(SAVE_PATH);
+//            return persisted.stream().map(UserSave::new).collect(Collectors.toList());
+//        }
+//        catch (IOException exception) {
+//            System.out.println(exception.getMessage()); //TODO: handle exception properly
+//            return Collections.emptyList();
+//        }
+        return Collections.emptyList();
     }
 
     @Override
-    public State get(StateIdentifier identifier) {
+    public State get(Identifier identifier) {
         Validate.isInstanceOf(StateDefinition.class, identifier);
         StateDefinition definition = (StateDefinition)identifier;
 
@@ -92,12 +92,12 @@ public class WarcraftStateService implements StateService
     }
 
     @Override
-    public void set(StateIdentifier identifier, State state) {
+    public void set(Identifier identifier, State state) {
         throw new UnsupportedOperationException(); //TODO
     }
 
     @Override
-    public void remove(StateIdentifier identifier) {
+    public void remove(Identifier identifier) {
         throw new UnsupportedOperationException(); //TODO
     }
 }

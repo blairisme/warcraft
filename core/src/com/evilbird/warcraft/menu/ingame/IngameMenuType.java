@@ -11,12 +11,17 @@ package com.evilbird.warcraft.menu.ingame;
 
 import com.evilbird.engine.menu.MenuIdentifier;
 
-public enum IngameMenus implements MenuIdentifier
+public enum IngameMenuType implements MenuIdentifier
 {
     Root,
     Save,
     Load,
-    Help,
+    Exit,
+    Confirm,
+    Failure,
     Options,
+    Sounds,
+    Speeds,
+    Preferences,
     Objectives
 }

@@ -10,15 +10,20 @@
 package com.evilbird.warcraft.menu.common.controls;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.graphics.Fonts;
 
-public class StyledTextField extends TextField
+public class StyledField extends TextField
 {
-    public StyledTextField() {
-        super("", defaultStyle());
+    public StyledField(String text) {
+        super(text, defaultStyle());
+    }
+
+    public StyledField(String text, Skin skin) {
+        super(text, skin);
     }
 
     public void setBackground(Drawable drawable) {
@@ -31,6 +36,10 @@ public class StyledTextField extends TextField
         TextFieldStyle style = getStyle();
         style.fontColor = color;
         setStyle(style);
+    }
+
+    public void setSkin(Skin skin) {
+        setStyle(skin.get(TextFieldStyle.class));
     }
 
     private static TextFieldStyle defaultStyle() {

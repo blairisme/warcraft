@@ -9,11 +9,11 @@
 
 package com.evilbird.warcraft.state;
 
-import com.evilbird.engine.state.StateIdentifier;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.state.hud.Hud;
 import com.evilbird.warcraft.state.map.Map;
 
-public class UserSave implements StateIdentifier, StateDefinition
+public class UserSave implements Identifier, StateDefinition
 {
     public UserSave(String path) {
 

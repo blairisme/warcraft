@@ -14,7 +14,7 @@ import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.warcraft.menu.ingame.IngameMenuFactory;
-import com.evilbird.warcraft.menu.ingame.IngameMenus;
+import com.evilbird.warcraft.menu.ingame.IngameMenuType;
 import com.evilbird.warcraft.menu.intro.IntroMenuFactory;
 import com.evilbird.warcraft.menu.main.MainMenuFactory;
 import com.evilbird.warcraft.menu.main.MainMenuType;
@@ -34,7 +34,7 @@ public class WarcraftMenuFactory implements MenuFactory
         this.factories = new IdentifiedAssetProviderSet<>();
         this.factories.addProvider(mainMenuFactory);
         this.factories.addProvider(introMenuFactory);
-        factories.addProvider(IngameMenus.values(), ingameMenuFactory);
+        factories.addProvider(IngameMenuType.values(), ingameMenuFactory);
     }
 
     @Override

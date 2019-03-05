@@ -9,222 +9,129 @@
 
 package com.evilbird.warcraft.menu.ingame;
 
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Cell;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
-import com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.common.function.Function;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.warcraft.menu.common.controls.StyledButton;
 import com.evilbird.warcraft.menu.common.controls.StyledLabel;
 import com.evilbird.warcraft.menu.common.controls.StyledList;
-import com.evilbird.warcraft.menu.common.controls.StyledTextField;
+import com.evilbird.warcraft.menu.common.controls.StyledField;
 import com.evilbird.warcraft.menu.common.events.SelectListener;
-import com.evilbird.warcraft.menu.common.events.SelectListenerAdapter;
+import org.apache.commons.lang3.tuple.Pair;
 
-import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class IngameMenu extends Menu
 {
-    private Table table;
-    private Collection<StyledButton> buttons;
-    private Collection<StyledList> lists;
-    private Collection<StyledTextField> textFields;
+    private Skin skin;
+    private Table container;
 
-    @Inject
-    public IngameMenu() {
-        table = createTable();
-        buttons = new ArrayList<>();
-        lists = new ArrayList<>();
-        textFields = new ArrayList<>();
+    public IngameMenu(Skin skin) {
+        this.skin = skin;
+        this.container = createContainer(skin);
     }
 
-    public void insertButton(String text, IngameMenus menu) {
-        insertButton(text, () -> showMenuOverlay(menu));
+    public void setLayout(IngameMenuLayout layout) {
+        container.setBackground(layout.getBackground());
+        container.setWidth(layout.getWidth());
+        container.setHeight(layout.getHeight());
     }
 
-    public void insertButton(String text, SelectListener action) {
-        StyledButton button = createButton(text, action);
-        insertButton(table, button);
-        buttons.add(button);
+    public void addButton(String text, SelectListener action) {
+        addControl(new StyledButton(text, action, skin));
     }
 
-    public void insertSpacer() {
-        insertButton(table, null);
+    public void addButtonRow(Pair<String, SelectListener> ... buttons) {
+        Table row = addButtonRowTable();
+        for (Pair<String, SelectListener> button: buttons) {
+            addButtowRowCell(row, button.getKey(), button.getValue());
+        }
     }
 
-    public void insertTitle(String title) {
-        StyledLabel label = createLabel(title);
-        insertLabel(table, label);
+    private Table addButtonRowTable() {
+        Table row = new Table(skin);
+        addControl(row);
+        return row;
     }
 
-    public void insertList(Supplier<Collection> itemSupplier, Consumer selectionHandler) {
-        StyledList list = new StyledList();
+    private void addButtowRowCell(Table row, String text, SelectListener action) {
+        Button button = new StyledButton(text, action, skin);
+        Cell cell = row.add(button);
+        setPadding(cell);
+        cell.width(100);
+    }
 
-        list.setItems("File 1", "File 2");
+    public void addTitle(String text) {
+        Cell cell = addControl(new StyledLabel(text, skin, Align.center));
+        cell.padTop(12);
+    }
 
-        Cell cell = table.add(list);
+    public void addLabel(String text) {
+        addControl(new StyledLabel(text, skin, Align.left));
+    }
+
+    public StyledList addList(Collection<Identifier> items) {
+        StyledList list = new StyledList<>(items, skin);
+        ScrollPane scrolled = new ScrollPane(list);
+
+        Cell cell = container.add(scrolled);
+        container.row();
+        setPadding(cell);
+        cell.grow();
+
+        return list;
+    }
+
+    public StyledField addTextField(String text) {
+        StyledField textField = new StyledField(text, skin);
+        addControl(textField);
+        return textField;
+    }
+
+    public void addSpacer() {
+        Cell cell = container.add();
         cell.expand();
-        cell.fill();
-        cell.pad(10);
-        cell.row();
-
-        lists.add(list);
+        container.row();
     }
 
-    public void insertTextField() {
-        StyledTextField field = new StyledTextField();
+    private Table createContainer(Skin skin) {
+        Table containerTable = createContainerTable(skin);
+        Table contentTable = createContentTable(skin);
 
-        Cell cell = table.add(field);
-        cell.width(224); //300
-        cell.height(18);
-        cell.padBottom(6);
-        cell.fill();
-        table.row();
-
-        textFields.add(field);
-    }
-
-
-    public void setTextFieldBackground(Drawable drawable) {
-        for (StyledTextField textField: textFields) {
-            textField.setBackground(drawable);
-        }
-    }
-
-    public void setTextFieldColor(Color color) {
-        for (StyledTextField textField: textFields) {
-            textField.setFontColour(color);
-        }
-    }
-
-
-    public void setListBackground(Drawable drawable) {
-        for (StyledList list: lists) {
-            list.setBackground(drawable);
-        }
-    }
-
-    public void setSelectedColour(Color color) {
-        for (StyledList list: lists) {
-            list.setSelectedColour(color);
-        }
-    }
-
-    public void setListSelection(Drawable drawable) {
-        for (StyledList list: lists) {
-            list.setSelection(drawable);
-        }
-    }
-
-
-
-
-    public void setBackground(Drawable background) {
-        table.setBackground(background);
-    }
-
-    public void setButtonEnabled(Drawable drawable) {
-        for (StyledButton button: buttons) {
-            button.setEnabledTexture(drawable);
-        }
-    }
-
-    public void setButtonDisabled(Drawable drawable) {
-        for (StyledButton button: buttons) {
-            button.setDisabledTexture(drawable);
-        }
-    }
-
-    public void setButtonSelected(Drawable drawable) {
-        for (StyledButton button: buttons) {
-            button.setSelectedTexture(drawable);
-        }
-    }
-
-    public void setButtonFont(BitmapFont font){
-        for (StyledButton button: buttons) {
-            button.setFont(font);
-        }
-    }
-
-    public void setButtonSound(Sound sound) {
-        for (StyledButton button: buttons) {
-            button.setClickSound(sound);
-        }
-    }
-
-    private Table createTable() {
-        Table containerTable = createContainerTable();
-        Table contentTable = createContentTable();
-
-        Stage stage = getStage();
-        stage.addActor(containerTable);
+        setContent(containerTable);
         containerTable.add(contentTable);
 
         return contentTable;
     }
 
-    private Table createContainerTable() {
-        Table table = new Table();
+    private Table createContainerTable(Skin skin) {
+        Table table = new Table(skin);
         table.setFillParent(true);
         table.center();
         return table;
     }
 
-    private Table createContentTable() {
-        Table Table = new Table();
-        Table.center();
-        Table.setWidth(256);
-        Table.setHeight(288);
-        return Table;
+    private Table createContentTable(Skin skin) {
+        Table table = new Table(skin);
+        table.center();
+        return table;
     }
 
-    private StyledButton createButton(String text, SelectListener action) {
-        StyledButton button = new StyledButton(text);
-        button.setDisabled(true);
-
-        if (action != null) {
-            button.setDisabled(false);
-            button.addListener(new SelectListenerAdapter(action));
-        }
-        return button;
-    }
-
-    private void insertButton(Table table, TextButton button) {
-        Cell cell = button != null ? table.add(button) : table.add();
-        cell.width(224);
-        cell.height(28);
-        cell.padBottom(6);
-        cell.fill();
-        table.row();
-    }
-
-    private StyledLabel createLabel(String text) {
-        StyledLabel result = new StyledLabel(text);
-        result.setFontColour(Color.WHITE);
-        result.setAlignment(Align.center);
-        return result;
-    }
-
-    private void insertLabel(Table table, StyledLabel label) {
-        Cell cell = table.add(label);
-        cell.fillX();
+    private Cell addControl(Actor control) {
+        Cell cell = container.add(control);
         cell.expandX();
-        cell.center();
+        cell.fill();
         cell.height(28);
+        setPadding(cell);
+        container.row();
+        return cell;
+    }
+
+    private void setPadding(Cell cell) {
+        cell.padLeft(12);
+        cell.padRight(12);
         cell.padBottom(6);
-        table.row();
     }
 }
