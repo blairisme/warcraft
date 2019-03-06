@@ -32,6 +32,7 @@ import java.util.Map;
  * @author Blair Butterworth
  */
 //TODO: Reassign textures of adjacent tiles when item dies
+//TODO: Consider refactoring this into TreeFactory -> On construction provide adjacent trees to achieve todo above
 public class Forest extends Layer
 {
     private TreeProvider treeProvider;
@@ -47,7 +48,7 @@ public class Forest extends Layer
 
     @Override
     public void draw(Batch batch, float alpha) {
-        super.draw(batch, alpha);
+        super.draw(batch, alpha); //TODO: Why draw layer when drawing all the trees?
         for (Tree tree: trees.values()){
             tree.draw(batch, alpha);
         }

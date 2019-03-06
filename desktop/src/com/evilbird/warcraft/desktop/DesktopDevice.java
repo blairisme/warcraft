@@ -9,18 +9,27 @@
 
 package com.evilbird.warcraft.desktop;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceInput;
 import com.evilbird.engine.device.DeviceStorage;
 
+/**
+ * Represents a device running Microsoft Windows or Apple MacOS. Methods are
+ * provided that supply access to device input and storage mediums.
+ *
+ * @author Blair Butterworth
+ */
 public class DesktopDevice implements Device
 {
     private DeviceInput input;
-    private DeviceStorage assets;
+    private DeviceStorage storage;
+    private AssetManager assets;
 
     public DesktopDevice() {
         this.input = new DesktopInput();
-        this.assets = new DesktopStorage();
+        this.assets = new DesktopAssets();
+        this.storage = new DesktopStorage();
     }
 
     @Override
@@ -29,12 +38,12 @@ public class DesktopDevice implements Device
     }
 
     @Override
-    public DeviceStorage getAssetStorage() {
+    public AssetManager getAssetStorage() {
         return assets;
     }
 
     @Override
-    public DeviceStorage getInternalStorage() {
-        throw new UnsupportedOperationException();
+    public DeviceStorage getDeviceStorage() {
+        return storage;
     }
 }

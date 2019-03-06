@@ -31,7 +31,7 @@ public class BuildingProgressProvider implements AssetProvider<BuildingProgress>
 
     @Inject
     public BuildingProgressProvider(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

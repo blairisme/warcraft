@@ -51,7 +51,7 @@ public class TownHallProvider implements AssetProvider<Item>
 
     @Inject
     public TownHallProvider(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

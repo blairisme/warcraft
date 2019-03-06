@@ -57,7 +57,7 @@ public class PeasantProvider implements AssetProvider<Item>
 
     @Inject
     public PeasantProvider(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

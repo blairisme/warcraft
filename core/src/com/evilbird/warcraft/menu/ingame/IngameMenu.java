@@ -72,8 +72,8 @@ public class IngameMenu extends Menu
         addControl(new StyledLabel(text, skin, Align.left));
     }
 
-    public StyledList addList(Collection<Identifier> items) {
-        StyledList list = new StyledList<>(items, skin);
+    public StyledList addList() {
+        StyledList list = new StyledList<>(skin);
         ScrollPane scrolled = new ScrollPane(list);
 
         Cell cell = container.add(scrolled);

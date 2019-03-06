@@ -32,7 +32,7 @@ public class NewCampaignMenuFactory implements AssetProvider<Menu>
 
     @Inject
     public NewCampaignMenuFactory(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

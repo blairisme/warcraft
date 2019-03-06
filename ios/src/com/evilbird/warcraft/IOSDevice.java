@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceInput;
 import com.evilbird.engine.device.DeviceStorage;
@@ -17,6 +18,7 @@ public class IOSDevice implements Device
 {
     private DeviceInput input;
     private DeviceStorage storage;
+
 
     public IOSDevice() {
         this.input = new IOSInput();
@@ -29,12 +31,12 @@ public class IOSDevice implements Device
     }
 
     @Override
-    public DeviceStorage getAssetStorage() {
-        return storage;
+    public DeviceStorage getDeviceStorage() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public DeviceStorage getInternalStorage() {
+    public AssetManager getAssetStorage() {
         throw new UnsupportedOperationException();
     }
 }

@@ -33,7 +33,7 @@ public class HomeMenuFactory implements AssetProvider<Menu>
 
     @Inject
     public HomeMenuFactory(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

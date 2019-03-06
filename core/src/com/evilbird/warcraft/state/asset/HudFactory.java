@@ -7,18 +7,15 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.hud;
+package com.evilbird.warcraft.state.asset;
 
-import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.hud.HudControl;
-import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
-public class HudFactory implements IdentifiedAssetProvider<ItemRoot>
+public class HudFactory
 {
     private ItemFactory itemFactory;
 
@@ -27,15 +24,7 @@ public class HudFactory implements IdentifiedAssetProvider<ItemRoot>
         this.itemFactory = itemFactory;
     }
 
-    @Override
-    public void load() {
-    }
-
-    @Override
-    public ItemRoot get(Identifier identifier) {
-        Validate.isInstanceOf(HudDefinition.class, identifier);
-        HudDefinition definition = (HudDefinition)identifier;
-
+    public ItemRoot get(HudDefinition definition) {
         ItemRoot hud = new ItemRoot();
         //hud.setViewport(viewport);
 

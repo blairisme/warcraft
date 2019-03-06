@@ -33,7 +33,7 @@ public class SelectionPaneProvider implements AssetProvider<SelectionPane>
 
     @Inject
     public SelectionPaneProvider(Device device, UnitPaneProvider tileProvider) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
         this.tileProvider = tileProvider;
     }
 

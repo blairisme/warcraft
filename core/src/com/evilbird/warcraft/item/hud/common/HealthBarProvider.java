@@ -32,7 +32,7 @@ public class HealthBarProvider implements AssetProvider<HealthBar>
 
     @Inject
     public HealthBarProvider(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

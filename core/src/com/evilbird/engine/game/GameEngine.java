@@ -22,6 +22,7 @@ import com.evilbird.engine.state.StateService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.io.IOException;
 
 /**
  * Instances of this class represent the entry point into the game, which
@@ -92,13 +93,13 @@ public class GameEngine extends Game implements GameController
     }
 
     @Override
-    public void showState(Identifier identifier) {
+    public void showState(Identifier identifier) throws IOException {
         stateScreen.setState(stateService.get(identifier));
         setScreen(stateScreen);
     }
 
     @Override
-    public void saveState(Identifier identifier) {
+    public void saveState(Identifier identifier) throws IOException {
         State state = stateScreen.getState();
         stateService.set(identifier, state);
     }

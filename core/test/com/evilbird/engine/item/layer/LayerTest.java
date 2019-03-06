@@ -7,9 +7,11 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.map;
+package com.evilbird.engine.item.layer;
 
-public interface MapDefinition
+import static org.junit.Assert.*;
+
+public class LayerTest
 {
-    String getAssetPath();
+
 }

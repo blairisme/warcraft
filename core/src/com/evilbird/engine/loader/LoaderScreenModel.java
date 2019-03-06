@@ -50,7 +50,7 @@ public class LoaderScreenModel
         StateService stateService)
     {
         this.loadingTime = 0;
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
         this.actionFactory = actionFactory;
         this.behaviourFactory = behaviourFactory;
         this.itemFactory = itemFactory;

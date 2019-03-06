@@ -52,7 +52,7 @@ public class BarracksProvider implements AssetProvider<Item>
 
     @Inject
     public BarracksProvider(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

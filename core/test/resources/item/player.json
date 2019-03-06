@@ -1,0 +1,26 @@
+{
+  "type": {
+    "class": "Data",
+    "enum": "Player"
+  },
+  "humanPlayer": false,
+  "resources": {},
+  "items": [],
+  "id": {
+    "class": "General",
+    "enum": "Unknown"
+  },
+  "selected": false,
+  "selectable": true,
+  "visible": false,
+  "touchable": "enabled",
+  "size": {
+    "x": 3.4028235E38,
+    "y": 3.4028235E38
+  },
+  "position": {
+    "x": 0.0,
+    "y": 0.0
+  },
+  "actions": []
+}

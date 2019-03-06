@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceInput;
 import com.evilbird.engine.device.DeviceStorage;
@@ -17,10 +18,12 @@ public class AndroidDevice implements Device
 {
     private DeviceInput input;
     private DeviceStorage storage;
+    private AssetManager assets;
 
     public AndroidDevice() {
         this.input = new AndroidInput();
         this.storage = new AndroidStorage();
+        this.assets = new AndroidAssets();
     }
 
     @Override
@@ -29,12 +32,12 @@ public class AndroidDevice implements Device
     }
 
     @Override
-    public DeviceStorage getAssetStorage() {
+    public DeviceStorage getDeviceStorage() {
         return storage;
     }
 
     @Override
-    public DeviceStorage getInternalStorage() {
-        return null;
+    public AssetManager getAssetStorage() {
+        return assets;
     }
 }

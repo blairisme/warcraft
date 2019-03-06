@@ -12,15 +12,16 @@ package com.evilbird.engine.state;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Persisted;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface StateService extends Persisted
 {
-    List<Identifier> list(Identifier type);
+    List<Identifier> list(Identifier type) throws IOException;
 
-    State get(Identifier identifier);
+    State get(Identifier identifier) throws IOException;
 
-    void remove(Identifier identifier);
+    void set(Identifier identifier, State state) throws IOException;
 
-    void set(Identifier identifier, State state);
+    void remove(Identifier identifier) throws IOException;
 }

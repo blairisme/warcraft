@@ -24,12 +24,10 @@ public class StyledList<T> extends List<Object>
     public StyledList(Collection<T> items) {
         super(getDefaultStyle());
         setItems(items.toArray());
-
     }
 
-    public StyledList(Collection<T> items, Skin skin) {
+    public StyledList(Skin skin) {
         super(skin);
-        setItems(items.toArray());
     }
 
     public void setBackground(Drawable drawable) {

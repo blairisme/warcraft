@@ -38,7 +38,7 @@ public class DetailsPaneProvider implements AssetProvider<DetailsPane>
         UnitPaneProvider unitPaneProvider,
         BuildingProgressProvider buildingProgressProvider)
     {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
         this.unitPaneProvider = unitPaneProvider;
         this.buildingProgressProvider = buildingProgressProvider;
     }

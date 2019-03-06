@@ -50,7 +50,7 @@ public class GruntProvider implements AssetProvider<Item>
 
     @Inject
     public GruntProvider(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

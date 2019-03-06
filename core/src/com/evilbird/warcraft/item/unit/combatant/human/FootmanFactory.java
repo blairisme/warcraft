@@ -56,7 +56,7 @@ public class FootmanFactory implements AssetProvider<Item>
 
     @Inject
     public FootmanFactory(Device device) {
-        this(device.getAssetStorage().getAssets());
+        this(device.getAssetStorage());
     }
 
     public FootmanFactory(AssetManager assets) {

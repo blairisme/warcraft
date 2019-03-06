@@ -31,6 +31,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
+//TODO: Rename to FogFactory
 public class FogProvider implements IdentifiedAssetProvider<Item>
 {
     private EventQueue events;
@@ -38,7 +39,7 @@ public class FogProvider implements IdentifiedAssetProvider<Item>
 
     @Inject
     public FogProvider(Device device, EventQueue events) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
         this.events = events;
     }
 

@@ -19,9 +19,9 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.utils.Array;
 
-public class FreeTypeFontLoader extends SynchronousAssetLoader<BitmapFont, FreeTypeFontLoaderParameters> {
+public class FontLoader extends SynchronousAssetLoader<BitmapFont, FreeTypeFontLoaderParameters> {
 
-    public FreeTypeFontLoader(FileHandleResolver resolver) {
+    public FontLoader(FileHandleResolver resolver) {
         super(resolver);
     }
 

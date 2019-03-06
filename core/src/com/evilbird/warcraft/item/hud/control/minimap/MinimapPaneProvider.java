@@ -28,7 +28,7 @@ public class MinimapPaneProvider implements AssetProvider<MinimapPane>
 
     @Inject
     public MinimapPaneProvider(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

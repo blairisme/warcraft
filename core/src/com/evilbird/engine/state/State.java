@@ -15,8 +15,8 @@ import com.evilbird.engine.item.ItemRoot;
 public class State
 {
     private ItemRoot world;
-    private ItemRoot hud;
-    private Behaviour behaviour;
+    private transient ItemRoot hud;
+    private transient Behaviour behaviour;
 
     public State(ItemRoot world, ItemRoot hud, Behaviour behaviour) {
         this.world = world;

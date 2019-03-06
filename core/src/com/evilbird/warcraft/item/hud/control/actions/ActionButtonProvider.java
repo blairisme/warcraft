@@ -32,7 +32,7 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
 
     @Inject
     public ActionButtonProvider(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

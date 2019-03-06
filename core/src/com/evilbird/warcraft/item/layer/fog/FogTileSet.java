@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
+//TODO: Rename to FogStyle
 public class FogTileSet
 {
     public Cell full;

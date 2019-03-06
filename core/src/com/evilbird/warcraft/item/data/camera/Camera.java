@@ -16,6 +16,8 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.common.capability.Zoomable;
 import com.evilbird.warcraft.item.data.DataType;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.inject.Inject;
 
@@ -24,14 +26,16 @@ import static com.badlogic.gdx.Gdx.graphics;
 public class Camera extends Item implements Zoomable
 {
     private float originalZoom;
-    private OrthographicCamera camera;
+    private float currentZoom;
+    private transient OrthographicCamera camera;
 
     @Inject
     public Camera() {
         camera = new OrthographicCamera(graphics.getWidth(), graphics.getHeight());
         camera.setToOrtho(false, 30, 20);
-        camera.zoom = 1f;
-        originalZoom = 1f;
+        originalZoom = 1;
+        camera.zoom = originalZoom;
+        currentZoom = originalZoom;
 
         setId(DataType.Camera);
         setType(DataType.Camera);
@@ -46,7 +50,7 @@ public class Camera extends Item implements Zoomable
     }
 
     public float getZoom() {
-        return camera.zoom;
+        return currentZoom;
     }
 
     public float getOriginalZoom() {
@@ -54,7 +58,8 @@ public class Camera extends Item implements Zoomable
     }
 
     public void setZoom(float zoom) {
-        camera.zoom = zoom;
+        currentZoom = zoom;
+        camera.zoom = currentZoom;
     }
 
     public void setOriginalZoom(float originalZoom) {
@@ -70,5 +75,28 @@ public class Camera extends Item implements Zoomable
     public void positionChanged() {
         camera.position.x = getX();
         camera.position.y = getY();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        Camera camera1 = (Camera)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(originalZoom, camera1.originalZoom)
+            .append(currentZoom, camera1.currentZoom)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(originalZoom)
+            .append(currentZoom)
+            .toHashCode();
     }
 }

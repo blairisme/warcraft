@@ -9,42 +9,32 @@
 
 package com.evilbird.warcraft;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.device.DeviceStorage;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.List;
 
 public class IOSStorage implements DeviceStorage
 {
-    @Override
-    public boolean delete(String path) throws IOException {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean exists(String path) throws IOException {
-        throw new UnsupportedOperationException();
-    }
-
     @Override
     public List<String> list(String path) throws IOException {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> T read(String path) throws IOException {
+    public Reader read(String path) throws IOException {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> void write(T object, String path) throws IOException {
+    public Writer write(String path) throws IOException {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public AssetManager getAssets() {
+    public void remove(String path) throws IOException {
         throw new UnsupportedOperationException();
     }
 }

@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.hud;
+package com.evilbird.warcraft.state.asset;
 
 import com.evilbird.warcraft.item.hud.HudControl;
 

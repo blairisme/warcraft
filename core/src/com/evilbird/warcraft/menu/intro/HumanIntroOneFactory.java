@@ -39,7 +39,7 @@ public class HumanIntroOneFactory implements AssetProvider<Menu>
 
     @Inject
     public HumanIntroOneFactory(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

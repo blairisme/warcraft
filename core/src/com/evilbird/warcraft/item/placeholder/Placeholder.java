@@ -15,18 +15,16 @@ import com.evilbird.engine.item.Item;
 
 public class Placeholder extends Item
 {
-    private Drawable building;
-    private Drawable overlay;
-    private Drawable allowed;
-    private Drawable prohibited;
+    private transient Drawable building;
+    private transient Drawable overlay;
+    private transient Drawable allowed;
+    private transient Drawable prohibited;
 
-    public Placeholder()
-    {
+    public Placeholder() {
     }
 
     @Override
-    public void draw(Batch batch, float alpha)
-    {
+    public void draw(Batch batch, float alpha) {
         float x = getX();
         float y = getY();
         float width = getWidth();
@@ -35,19 +33,16 @@ public class Placeholder extends Item
         overlay.draw(batch, x, y, width, height);
     }
 
-    public void setBuildingTexture(Drawable texture)
-    {
+    public void setBuildingTexture(Drawable texture) {
         this.building = texture;
     }
 
-    public void setAllowedTexture(Drawable texture)
-    {
+    public void setAllowedTexture(Drawable texture) {
         this.allowed = texture;
         this.overlay = texture;
     }
 
-    public void setProhibitedTexture(Drawable texture)
-    {
+    public void setProhibitedTexture(Drawable texture) {
         this.prohibited = texture;
     }
 }

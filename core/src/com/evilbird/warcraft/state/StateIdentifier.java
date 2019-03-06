@@ -9,12 +9,8 @@
 
 package com.evilbird.warcraft.state;
 
-import com.evilbird.warcraft.state.hud.Hud;
-import com.evilbird.warcraft.state.map.Map;
+import com.evilbird.engine.common.lang.Identifier;
 
-public interface StateDefinition
+public interface StateIdentifier extends Identifier
 {
-    Hud getHud();
-
-    Map getMap();
 }

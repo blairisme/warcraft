@@ -26,8 +26,9 @@ import com.evilbird.engine.item.ItemRoot;
 public class Layer extends ItemGroup
 {
     protected TiledMapTileLayer layer;
-    protected OrthographicCamera camera;
+    protected transient OrthographicCamera camera;
 
+    @Override
     public void draw(Batch batch, float alpha) {
         OrthogonalTiledMapRenderer renderer = new OrthogonalTiledMapRenderer(null, batch);
         renderer.setView(getCamera());

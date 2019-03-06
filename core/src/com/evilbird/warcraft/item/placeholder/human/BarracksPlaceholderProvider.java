@@ -27,7 +27,7 @@ public class BarracksPlaceholderProvider implements AssetProvider<Item>
 
     @Inject
     public BarracksPlaceholderProvider(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

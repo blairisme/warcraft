@@ -31,7 +31,7 @@ public class UnitPaneProvider implements AssetProvider<UnitPane>
 
     @Inject
     public UnitPaneProvider(Device device, HealthBarProvider healthBarProvider) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
         this.healthBarProvider = healthBarProvider;
     }
 

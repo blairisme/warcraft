@@ -32,7 +32,7 @@ public class ActionPaneProvider implements AssetProvider<ActionPane>
 
     @Inject
     public ActionPaneProvider(Device device, ActionButtonProvider actionButtonProvider) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
         this.actionButtonProvider = actionButtonProvider;
     }
 

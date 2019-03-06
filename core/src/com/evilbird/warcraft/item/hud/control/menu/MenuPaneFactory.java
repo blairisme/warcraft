@@ -26,7 +26,7 @@ public class MenuPaneFactory implements AssetProvider<MenuPane>
 
     @Inject
     public MenuPaneFactory(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

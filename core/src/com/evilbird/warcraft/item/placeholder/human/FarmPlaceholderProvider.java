@@ -27,7 +27,7 @@ public class FarmPlaceholderProvider implements AssetProvider<Item>
 
     @Inject
     public FarmPlaceholderProvider(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

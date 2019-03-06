@@ -15,6 +15,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -31,10 +32,11 @@ import com.evilbird.engine.state.StateService;
 import com.evilbird.warcraft.menu.common.controls.StyledField;
 import com.evilbird.warcraft.menu.common.controls.StyledList;
 import com.evilbird.warcraft.menu.common.events.SelectListener;
-import com.evilbird.warcraft.state.UserSave;
+import com.evilbird.warcraft.state.user.UserState;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.inject.Inject;
+import java.util.Collection;
 
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 import static com.evilbird.engine.common.graphics.TextureUtils.getTiledDrawable;
@@ -42,10 +44,15 @@ import static com.evilbird.warcraft.menu.ingame.IngameMenuLayout.*;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.*;
 import static com.evilbird.warcraft.menu.intro.IntroMenuType.HumanLevel1;
 import static com.evilbird.warcraft.menu.main.MainMenuType.Home;
-import static com.evilbird.warcraft.state.StateType.UserSave;
+import static com.evilbird.warcraft.state.StateType.UserState;
 
+/**
+ * Instances of this factory create {@link IngameMenu} instances, menus shown
+ *
+ */
 //TODO - Get objectives from state
 //TODO - Get restart point from state
+//TODO - button click sound
 @SuppressWarnings("unchecked")
 public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
 {
@@ -64,7 +71,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
     @Inject
     public IngameMenuFactory(Device device, StateService states) {
         this.states = states;
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override
@@ -183,22 +190,26 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         menu.addTitle("Save Game");
 
         StyledField field = menu.addTextField("");
-        StyledList list = menu.addList(states.list(UserSave));
+        StyledList list = menu.addList();
         menu.addButtonRow(
             Pair.of("Save", saveState(menu, field)),
             Pair.of("Delete", deleteState(menu, list)),
             Pair.of("Cancel", showState(menu)));
+
+        addStates(menu, list);
     }
 
     private void setLoadLayout(IngameMenu menu) {
         menu.setLayout(Wide);
         menu.addTitle("Load Game");
 
-        StyledList list = menu.addList(states.list(UserSave));
+        StyledList list = menu.addList();
         menu.addButtonRow(
             Pair.of("Load", loadState(menu, list)),
             Pair.of("Delete", deleteState(menu, list)),
             Pair.of("Cancel", showState(menu)));
+
+        addStates(menu, list);
     }
 
     private void setExitLayout(IngameMenu menu) {
@@ -273,16 +284,55 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         menu.addButton("Previous", showMenu(menu, Root));
     }
 
+    private void addStates(IngameMenu menu, List list) {
+        try {
+            Collection<Identifier> items = states.list(UserState);
+            list.setItems(items.toArray());
+        }
+        catch (Exception exception) {
+            exception.printStackTrace();
+            //TODO - log error
+            //TODO - show error menu
+        }
+    }
+
     private SelectListener saveState(IngameMenu menu, StyledField field) {
-        return () -> menu.saveState(new UserSave(field.getText()));
+        return () -> {
+            try {
+                menu.saveState(new UserState(field.getText()));
+            }
+            catch (Exception exception) {
+                exception.printStackTrace();
+                //TODO - log error
+                //TODO - show error menu
+            }
+        };
     }
 
     private SelectListener deleteState(IngameMenu menu, StyledList list) {
-        return () -> states.remove((UserSave)list.getSelected());
+        return () -> {
+            try {
+                states.remove((UserState)list.getSelected());
+            }
+            catch (Exception exception) {
+                exception.printStackTrace();
+                //TODO - log error
+                //TODO - show error menu
+            }
+        };
     }
 
     private SelectListener loadState(IngameMenu menu, StyledList list) {
-        return () -> menu.showState((UserSave)list.getSelected());
+        return () -> {
+            try {
+                menu.showState((UserState)list.getSelected());
+            }
+            catch (Exception exception) {
+                exception.printStackTrace();
+                //TODO - log error
+                //TODO - show error menu
+            }
+        };
     }
 
     private SelectListener showState(IngameMenu menu) {

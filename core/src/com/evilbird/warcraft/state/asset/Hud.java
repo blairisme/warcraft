@@ -7,17 +7,17 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.hud;
+package com.evilbird.warcraft.state.asset;
 
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.item.hud.HudControl;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-public enum Hud implements Identifier, HudDefinition
+public enum Hud implements HudDefinition
 {
-    Human (HudControl.ResourcePane, HudControl.ControlPane);
+    Human (HudControl.ResourcePane, HudControl.ControlPane),
+    Orc   ();
 
     private Collection<HudControl> controls;
 

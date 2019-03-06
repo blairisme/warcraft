@@ -38,7 +38,7 @@ public class ConfirmProvider implements AssetProvider<Item>
 
     @Inject
     public ConfirmProvider(Device device) {
-        assets = device.getAssetStorage().getAssets();
+        assets = device.getAssetStorage();
     }
 
     @Override

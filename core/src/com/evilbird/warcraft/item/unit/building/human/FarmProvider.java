@@ -53,7 +53,7 @@ public class FarmProvider implements AssetProvider<Item>
 
     @Inject
     public FarmProvider(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

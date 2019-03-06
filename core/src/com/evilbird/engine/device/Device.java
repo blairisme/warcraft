@@ -9,6 +9,8 @@
 
 package com.evilbird.engine.device;
 
+import com.badlogic.gdx.assets.AssetManager;
+
 /**
  * Implementors of this interface represent a device or system capable of
  * running the application. Methods are provided that supply access to the
@@ -20,7 +22,7 @@ public interface Device
 {
     DeviceInput getDeviceInput();
 
-    DeviceStorage getAssetStorage();
+    AssetManager getAssetStorage();
 
-    DeviceStorage getInternalStorage();
+    DeviceStorage getDeviceStorage();
 }

@@ -14,6 +14,8 @@ import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.common.capability.ResourceContainer;
 import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
 import com.evilbird.warcraft.item.data.DataType;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.inject.Inject;
 import java.util.HashMap;
@@ -85,5 +87,28 @@ public class Player extends ItemGroup implements ResourceContainer
     @Override
     public void setPosition(float x, float y) {
         super.setPosition(0, 0);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        Player player = (Player)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(humanPlayer, player.humanPlayer)
+            .append(resources, player.resources)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(humanPlayer)
+            .append(resources)
+            .toHashCode();
     }
 }

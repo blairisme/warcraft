@@ -14,6 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javax.inject.Inject;
 import java.io.Reader;
 import java.io.Writer;
 
@@ -28,6 +29,7 @@ public class JsonSerializer implements Serializer
 {
     private Gson gson;
 
+    @Inject
     public JsonSerializer() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setPrettyPrinting();

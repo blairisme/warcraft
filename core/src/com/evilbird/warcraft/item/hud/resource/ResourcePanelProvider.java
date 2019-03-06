@@ -36,7 +36,7 @@ public class ResourcePanelProvider implements AssetProvider<Item>
 
     @Inject
     public ResourcePanelProvider(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

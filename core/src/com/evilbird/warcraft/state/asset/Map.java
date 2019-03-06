@@ -7,11 +7,9 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.map;
+package com.evilbird.warcraft.state.asset;
 
-import com.evilbird.engine.common.lang.Identifier;
-
-public enum Map implements Identifier, MapDefinition
+public enum Map implements MapDefinition
 {
     Human1 ("data/levels/human/level1.tmx");
 
@@ -22,7 +20,7 @@ public enum Map implements Identifier, MapDefinition
     }
 
     @Override
-    public String getAssetPath() {
+    public String getFilePath() {
         return assetPath;
     }
 }

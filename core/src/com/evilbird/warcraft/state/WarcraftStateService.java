@@ -9,46 +9,33 @@
 
 package com.evilbird.warcraft.state;
 
-import com.evilbird.engine.behaviour.Behaviour;
-import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.device.Device;
-import com.evilbird.engine.device.DeviceStorage;
-import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateService;
-import com.evilbird.warcraft.state.hud.HudFactory;
-import com.evilbird.warcraft.state.map.MapFactory;
+import com.evilbird.warcraft.state.asset.AssetState;
+import com.evilbird.warcraft.state.asset.AssetStateService;
+import com.evilbird.warcraft.state.user.UserState;
+import com.evilbird.warcraft.state.user.UserStateService;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static java.util.Arrays.asList;
-
+/**
+ * Instances of this {@link StateService} provide access to Warcraft states.
+ *
+ * @author Blair Butterworth
+ */
 public class WarcraftStateService implements StateService
 {
-    private static String SAVE_PATH = ""; //TODO
-
-    private Device device;
-    private HudFactory hudFactory;
-    private MapFactory mapFactory;
-    private BehaviourFactory behaviourFactory;
+    private AssetStateService assetStateService;
+    private UserStateService userStateService;
 
     @Inject
-    public WarcraftStateService(
-        Device device,
-        MapFactory mapFactory,
-        HudFactory hudFactory,
-        BehaviourFactory behaviourFactory)
-    {
-        this.device = device;
-        this.mapFactory = mapFactory;
-        this.hudFactory = hudFactory;
-        this.behaviourFactory = behaviourFactory;
+    public WarcraftStateService(AssetStateService assetStateService, UserStateService userStateService) {
+        this.assetStateService = assetStateService;
+        this.userStateService = userStateService;
     }
 
     @Override
@@ -56,48 +43,33 @@ public class WarcraftStateService implements StateService
     }
 
     @Override
-    public List<Identifier> list(Identifier category) {
+    public List<Identifier> list(Identifier category) throws IOException {
         Validate.isInstanceOf(StateType.class, category);
-        switch ((StateType)category) {
-            case Campaign: return asList(Campaign.values());
-            case Scenario: return asList(Scenario.values());
-            case UserSave: return getUserSaves();
-            default: throw new UnsupportedOperationException();
+        if (category == StateType.AssetState) {
+            return assetStateService.list();
         }
-    }
-
-    private List<Identifier> getUserSaves() {
-//        try {
-//            DeviceStorage storage = device.getInternalStorage();
-//            List<String> persisted = storage.list(SAVE_PATH);
-//            return persisted.stream().map(UserSave::new).collect(Collectors.toList());
-//        }
-//        catch (IOException exception) {
-//            System.out.println(exception.getMessage()); //TODO: handle exception properly
-//            return Collections.emptyList();
-//        }
-        return Collections.emptyList();
+        return userStateService.list();
     }
 
     @Override
-    public State get(Identifier identifier) {
-        Validate.isInstanceOf(StateDefinition.class, identifier);
-        StateDefinition definition = (StateDefinition)identifier;
+    public State get(Identifier identifier) throws IOException {
+        Validate.isInstanceOf(StateIdentifier.class, identifier);
+        if (identifier instanceof AssetState) {
+            return assetStateService.get((AssetState)identifier);
+        }
+        return userStateService.get((UserState)identifier);
+    }
 
-        ItemRoot map = mapFactory.get(definition.getMap());
-        ItemRoot hud = hudFactory.get(definition.getHud());
-        Behaviour behaviour = behaviourFactory.newBehaviour(null); //TODO
 
-        return new State(map, hud, behaviour);
+    @Override
+    public void set(Identifier identifier, State state) throws IOException {
+        Validate.isInstanceOf(UserState.class, identifier);
+        userStateService.set((UserState)identifier, state);
     }
 
     @Override
-    public void set(Identifier identifier, State state) {
-        throw new UnsupportedOperationException(); //TODO
-    }
-
-    @Override
-    public void remove(Identifier identifier) {
-        throw new UnsupportedOperationException(); //TODO
+    public void remove(Identifier identifier) throws IOException {
+        Validate.isInstanceOf(UserState.class, identifier);
+        userStateService.remove((UserState)identifier);
     }
 }

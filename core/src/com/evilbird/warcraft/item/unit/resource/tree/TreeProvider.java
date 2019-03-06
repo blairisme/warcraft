@@ -29,7 +29,7 @@ public class TreeProvider implements AssetProvider<Tree>
 
     @Inject
     public TreeProvider(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

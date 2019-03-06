@@ -50,7 +50,7 @@ public class GoldMineProvider implements AssetProvider<Item>
 
     @Inject
     public GoldMineProvider(Device device) {
-        this.assets = device.getAssetStorage().getAssets();
+        this.assets = device.getAssetStorage();
     }
 
     @Override

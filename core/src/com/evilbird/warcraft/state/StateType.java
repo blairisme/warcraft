@@ -13,7 +13,6 @@ import com.evilbird.engine.common.lang.Identifier;
 
 public enum StateType implements Identifier
 {
-    Campaign,
-    Scenario,
-    UserSave
+    AssetState,
+    UserState
 }

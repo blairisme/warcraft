@@ -9,23 +9,22 @@
 
 package com.evilbird.engine.device;
 
-import com.badlogic.gdx.assets.AssetManager;
-
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
+/**
+ * Implementors of this interface provide methods that facilitate access to a
+ * storage area on the device.
+ *
+ * @author Blair Butterworth
+ */
 public interface DeviceStorage
 {
-    boolean delete(String path)  throws IOException;
+    List<String> list(String path) throws IOException;
 
-    boolean exists(String path)  throws IOException;
+    Reader read(String path) throws IOException;
 
-    List<String> list(String path)  throws IOException;
+    Writer write(String path) throws IOException;
 
-    <T> T read(String path)  throws IOException;
-
-    <T> void write(T object, String path)  throws IOException;
-
-
-    AssetManager getAssets(); //TODO - Figure our what to do with this - remove/merge?
+    void remove(String path) throws IOException;
 }
