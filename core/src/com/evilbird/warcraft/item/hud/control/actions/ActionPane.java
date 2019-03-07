@@ -34,7 +34,7 @@ import java.util.List;
 public class ActionPane extends GridPane implements Navigable
 {
     private Collection<Item> selection;
-//    private Map<ResourceIdentifier, Float> resources;
+//    private Terrain<ResourceIdentifier, Float> resources;
     private ActionButtonProvider buttonProvider;
     private ActionPaneLayout layout;
     private boolean cancelShown;
@@ -173,9 +173,9 @@ public class ActionPane extends GridPane implements Navigable
 //    private boolean meetsResourceRequirements(ActionIdentifier action) {
 //        if (action instanceof ResourceRequirement) {
 //            ResourceRequirement requirementAction = (ResourceRequirement)action;
-//            Map<ResourceIdentifier, Float> requirements = requirementAction.getResourceRequirements();
+//            Terrain<ResourceIdentifier, Float> requirements = requirementAction.getResourceRequirements();
 //
-//            for (Map.Entry<ResourceIdentifier, Float> requirement: requirements.entrySet()) {
+//            for (Terrain.Entry<ResourceIdentifier, Float> requirement: requirements.entrySet()) {
 //                Float playerResource = requireNonNull(resources.get(requirement.getKey()), 0f);
 //                Float requiredResource = requirement.getValue();
 //
@@ -204,11 +204,11 @@ public class ActionPane extends GridPane implements Navigable
 //    }
 //
 //    private boolean resourcesUpdated(Collection<Item> newSelection) {
-//        Map<ResourceIdentifier, Float> newResources = getResources(newSelection);
+//        Terrain<ResourceIdentifier, Float> newResources = getResources(newSelection);
 //        return ! Objects.equals(resources, newResources);
 //    }
 //
-//    private Map<ResourceIdentifier, Float> getResources(Collection<Item> selection) {
+//    private Terrain<ResourceIdentifier, Float> getResources(Collection<Item> selection) {
 //        if (! selection.isEmpty()) {
 //            Item item = selection.iterator().next();
 //            Item player = ItemOperations.findAncestorByType(item, DataType.Player);

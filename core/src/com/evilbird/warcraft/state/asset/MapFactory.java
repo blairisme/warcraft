@@ -17,12 +17,15 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.evilbird.engine.common.assets.TiledMapFile;
+import com.evilbird.engine.common.assets.TiledMapLoader;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.*;
-import com.evilbird.engine.item.layer.Layer;
+import com.evilbird.warcraft.item.layer.Layer;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
@@ -32,30 +35,35 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+//TODO: use size from level
+//TODO: make generic - move to common
+//TODO: dispose of map
 public class MapFactory
 {
+    private TiledMapLoader mapLoader;
     private ItemFactory itemFactory;
 
     @Inject
     public MapFactory(ItemFactory itemFactory) {
         this.itemFactory = itemFactory;
+        this.mapLoader = new TiledMapLoader();
     }
 
     public ItemRoot get(MapDefinition definition) {
-        TmxMapLoader loader = new TmxMapLoader();
-        TiledMap map = loader.load(definition.getFilePath());
-        return load(map);
+        String mapPath = definition.getFilePath();
+        TiledMapFile map = mapLoader.load(mapPath);
+        return getItem(map);
     }
 
-    private ItemRoot load(TiledMap level) {
+    private ItemRoot getItem(TiledMapFile level) {
         ItemRoot result = new ItemRoot();
         result.setViewport(new ScreenViewport());
-        result.setSpatialGraph(new ItemGraph(32, 32, 32, 32)); //TODO: use size from level
+        result.setSpatialGraph(new ItemGraph(32, 32, 32, 32));
         addItems(level, result);
         return result;
     }
 
-    private ItemRoot addItems(TiledMap level, ItemRoot root) {
+    private ItemRoot addItems(TiledMapFile level, ItemRoot root) {
         Map<String, ItemComposite> rootItems = getComposites(root);
         addPrimaryItems(level, rootItems);
 
@@ -76,39 +84,41 @@ public class MapFactory
         for (Item item : items) {
             if (item instanceof ItemComposite) {
                 String identifier = item.getIdentifier().toString(); //TODO
-                result.put(identifier, (ItemComposite) item);
+                result.put(identifier, (ItemComposite)item);
             }
         }
         return result;
     }
 
-    private void addPrimaryItems(TiledMap level, Map<String, ItemComposite> parents) {
+    private void addPrimaryItems(TiledMapFile level, Map<String, ItemComposite> parents) {
         for (MapLayer layer : level.getLayers()) {
             if (isPrimaryItem(layer)) {
-                addItems(layer, parents);
+                addItems(level, layer, parents);
             }
         }
     }
 
-    private void addSecondaryItems(TiledMap level, Map<String, ItemComposite> parents) {
+    private void addSecondaryItems(TiledMapFile level, Map<String, ItemComposite> parents) {
         for (MapLayer layer : level.getLayers()) {
             if (isSecondaryItem(layer)) {
-                addItems(layer, parents);
+                addItems(level, layer, parents);
             }
         }
     }
 
-    private void addItems(MapLayer layer, Map<String, ItemComposite> parents) {
+    private void addItems(TiledMapFile map, MapLayer layer, Map<String, ItemComposite> parents) {
         if (isLayerItem(layer)) {
-            addLayerItems(layer, parents);
+            addLayerItems(map, layer, parents);
         } else {
             addObjectItems(layer, parents);
         }
     }
 
-    private void addLayerItems(MapLayer layer, Map<String, ItemComposite> parents) {
-        Layer item = (Layer) itemFactory.newItem(LayerType.valueOf(layer.getName()));
-        item.setLayer((TiledMapTileLayer) layer);
+    private void addLayerItems(TiledMapFile map, MapLayer layer, Map<String, ItemComposite> parents) {
+        if (!Objects.equals("Map", layer.getName())) return;
+
+        LayerIdentifier layerIdentifier = new LayerIdentifier(map, (TiledMapTileLayer)layer);  //TODO
+        Item item = itemFactory.newItem(layerIdentifier);
 
         ItemComposite parent = parents.get("root");
         parent.addItem(item);
@@ -116,10 +126,18 @@ public class MapFactory
 
     private void addObjectItems(MapLayer layer, Map<String, ItemComposite> parents) {
         for (MapObject object : layer.getObjects()) {
-            Item item = newItem(getItemType(layer), object);
+            ItemType type = getObjectItemType(layer);
+            Item item = newItem(type, object);
             ItemComposite parent = getParent(parents, object);
             parent.addItem(item);
         }
+    }
+
+    private ItemType getObjectItemType(MapLayer layer) {
+        if (isDataItem(layer)) {
+            return DataType.valueOf(layer.getName());
+        }
+        return UnitType.valueOf(layer.getName());
     }
 
     private Item newItem(ItemType type, MapObject object) {
@@ -187,16 +205,6 @@ public class MapFactory
 
     private boolean isCameraItem(MapLayer layer) {
         return Objects.equals(layer.getName(), "Camera");
-    }
-
-    private ItemType getItemType(MapLayer layer) {
-        if (isLayerItem(layer)) {
-            return LayerType.valueOf(layer.getName());
-        }
-        if (isDataItem(layer)) {
-            return DataType.valueOf(layer.getName());
-        }
-        return UnitType.valueOf(layer.getName());
     }
 
     private Touchable getTouchable(MapProperties properties) {

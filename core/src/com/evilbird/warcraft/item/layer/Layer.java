@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.item.layer;
+package com.evilbird.warcraft.item.layer;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -25,8 +25,11 @@ import com.evilbird.engine.item.ItemRoot;
  */
 public class Layer extends ItemGroup
 {
-    protected TiledMapTileLayer layer;
+    protected transient TiledMapTileLayer layer;
     protected transient OrthographicCamera camera;
+
+    public Layer() {
+    }
 
     @Override
     public void draw(Batch batch, float alpha) {

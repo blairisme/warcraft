@@ -17,14 +17,14 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Array;
 
-public class FontGeneratorLoader extends SynchronousAssetLoader<FreeTypeFontGenerator, FreeTypeFontGeneratorLoaderParameters>
+public class FontGeneratorLoader extends SynchronousAssetLoader<FreeTypeFontGenerator, FontGeneratorLoaderParameters>
 {
     public FontGeneratorLoader(FileHandleResolver resolver) {
         super(resolver);
     }
 
     @Override
-    public FreeTypeFontGenerator load(AssetManager manager, String fileName, FileHandle file, FreeTypeFontGeneratorLoaderParameters parameter) {
+    public FreeTypeFontGenerator load(AssetManager manager, String fileName, FileHandle file, FontGeneratorLoaderParameters parameter) {
         if (file.extension().equals("gen")) {
             file = file.sibling(file.nameWithoutExtension());
         }
@@ -32,7 +32,7 @@ public class FontGeneratorLoader extends SynchronousAssetLoader<FreeTypeFontGene
     }
 
     @Override
-    public Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, FreeTypeFontGeneratorLoaderParameters parameter) {
+    public Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, FontGeneratorLoaderParameters parameter) {
         return null;
     }
 }

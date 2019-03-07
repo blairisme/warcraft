@@ -46,6 +46,7 @@ public class HumanIntroOne extends IntroMenu
                 showState(AssetState.Human1);
             }
             catch (Exception exception) {
+                exception.printStackTrace();
                 //TODO - log error
                 //TODO - show error menu
             }

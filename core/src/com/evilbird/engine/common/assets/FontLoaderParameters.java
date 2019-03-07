@@ -13,11 +13,11 @@ import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 
-public class FreeTypeFontLoaderParameters extends AssetLoaderParameters<BitmapFont>
+public class FontLoaderParameters extends AssetLoaderParameters<BitmapFont>
 {
     private FreeTypeFontParameter fontStyle;
 
-    public FreeTypeFontLoaderParameters(FreeTypeFontParameter fontStyle) {
+    public FontLoaderParameters(FreeTypeFontParameter fontStyle) {
         this.fontStyle = fontStyle;
     }
 

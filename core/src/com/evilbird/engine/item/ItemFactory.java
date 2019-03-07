@@ -9,9 +9,15 @@
 
 package com.evilbird.engine.item;
 
-public interface ItemFactory
-{
-    void load();
+import com.evilbird.engine.common.lang.Persisted;
 
+/**
+ * Implementors of factory interface provide methods that create {@link Item}
+ * instances.
+ *
+ * @author Blair Butterworth
+ */
+public interface ItemFactory extends Persisted
+{
     Item newItem(ItemType type);
 }

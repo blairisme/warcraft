@@ -12,5 +12,5 @@ package com.evilbird.engine.common.assets;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
-public class FreeTypeFontGeneratorLoaderParameters extends AssetLoaderParameters<FreeTypeFontGenerator> {
+public class FontGeneratorLoaderParameters extends AssetLoaderParameters<FreeTypeFontGenerator> {
 }

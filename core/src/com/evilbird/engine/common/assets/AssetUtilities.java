@@ -28,12 +28,12 @@ public class AssetUtilities
         loadSet(assets, prefix, type.getFileExtension(), count, Sound.class);
     }
 
-    public static FreeTypeFontLoaderParameters fontSize(int size) {
+    public static FontLoaderParameters fontSize(int size) {
         FreeTypeFontParameter style = new FreeTypeFontParameter();
         style.size = size;
         style.minFilter = Texture.TextureFilter.Linear;
         style.magFilter = Texture.TextureFilter.Linear;
-        return new FreeTypeFontLoaderParameters(style);
+        return new FontLoaderParameters(style);
     }
 
     public static TmxMapLoader.Parameters linearFilter(){

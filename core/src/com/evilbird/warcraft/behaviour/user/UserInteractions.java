@@ -140,11 +140,11 @@ public class UserInteractions
     private void addMoveInteractions() {
         interactions.addAction(MoveToLocation).whenTarget(Map).whenSelected(Footman).appliedTo(Selected);
         interactions.addAction(MoveToLocation).whenTarget(Map).whenSelected(Peasant).appliedTo(Selected);
-//        interactions.addAction(MoveToLocation).whenTarget(Map).whenSelected(Grunt).appliedTo(Selected);
+//        interactions.addAction(MoveToLocation).whenTarget(Terrain).whenSelected(Grunt).appliedTo(Selected);
 
         interactions.addAction(ConfirmLocation).whenTarget(Map).whenSelected(Footman).appliedTo(Selected).assignedTo(Parent);
         interactions.addAction(ConfirmLocation).whenTarget(Map).whenSelected(Peasant).appliedTo(Selected).assignedTo(Parent);
-//        interactions.addAction(ConfirmLocation).whenTarget(Map).whenSelected(Grunt).appliedTo(Selected).assignedTo(Parent);
+//        interactions.addAction(ConfirmLocation).whenTarget(Terrain).whenSelected(Grunt).appliedTo(Selected).assignedTo(Parent);
 
         interactions.addAction(MoveCancel).whenTarget(CancelButton).whenSelected(Footman).withAction(MoveToLocation).appliedTo(Selected);
         interactions.addAction(MoveCancel).whenTarget(CancelButton).whenSelected(Peasant).withAction(MoveToLocation).appliedTo(Selected);

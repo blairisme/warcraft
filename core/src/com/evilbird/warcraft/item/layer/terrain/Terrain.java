@@ -7,17 +7,16 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.layer.map;
+package com.evilbird.warcraft.item.layer.terrain;
 
-import com.evilbird.engine.item.layer.Layer;
+import com.evilbird.warcraft.item.layer.Layer;
 import com.evilbird.warcraft.item.layer.LayerType;
 
 import javax.inject.Inject;
 
-public class Map extends Layer
+public class Terrain extends Layer
 {
     @Inject
-    public Map() {
-        setType(LayerType.Map);
+    public Terrain() {
     }
 }

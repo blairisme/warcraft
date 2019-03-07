@@ -21,7 +21,7 @@ public interface SerializationStrategy
 {
 //    Object getSerializedType(Object target);
 //
-//    Map<String, Object> getSerializedFields(Object target);
+//    Terrain<String, Object> getSerializedFields(Object target);
 //
 //
 //
@@ -31,13 +31,13 @@ public interface SerializationStrategy
 //
 //
 //
-//    //Map<String, Class<?>> getFields();
+//    //Terrain<String, Class<?>> getFields();
 //
-//    Map<String, Object> getFieldValues(Object object);
+//    Terrain<String, Object> getFieldValues(Object object);
 //
 //    //Object getInstance(JsonObject object);
 //
-//    //Object getInstance(Map<String, Object> fieldValues);
+//    //Object getInstance(Terrain<String, Object> fieldValues);
 
 
 

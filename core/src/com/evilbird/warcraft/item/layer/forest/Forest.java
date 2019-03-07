@@ -17,7 +17,7 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.layer.Layer;
+import com.evilbird.warcraft.item.layer.Layer;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.resource.tree.Tree;
 import com.evilbird.warcraft.item.unit.resource.tree.TreeProvider;

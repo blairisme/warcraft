@@ -10,10 +10,9 @@
 package com.evilbird.engine.common.inject;
 
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.Persisted;
 
-public interface IdentifiedAssetProvider<T>
+public interface IdentifiedAssetProvider<T> extends Persisted
 {
-    void load();
-
     T get(Identifier identifier);
 }

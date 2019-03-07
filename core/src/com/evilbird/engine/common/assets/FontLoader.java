@@ -19,21 +19,21 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.utils.Array;
 
-public class FontLoader extends SynchronousAssetLoader<BitmapFont, FreeTypeFontLoaderParameters> {
+public class FontLoader extends SynchronousAssetLoader<BitmapFont, FontLoaderParameters> {
 
     public FontLoader(FileHandleResolver resolver) {
         super(resolver);
     }
 
     @Override
-    public BitmapFont load(AssetManager manager, String fileName, FileHandle file, FreeTypeFontLoaderParameters parameters) {
+    public BitmapFont load(AssetManager manager, String fileName, FileHandle file, FontLoaderParameters parameters) {
         FreeTypeFontParameter style = getStyle(parameters);
         FreeTypeFontGenerator generator = manager.get(fileName + ".gen", FreeTypeFontGenerator.class);
         generator.scaleForPixelHeight(style.size);
         return generator.generateFont(style);
     }
 
-    private FreeTypeFontParameter getStyle(FreeTypeFontLoaderParameters parameters) {
+    private FreeTypeFontParameter getStyle(FontLoaderParameters parameters) {
         if (parameters != null) {
             return parameters.getFontStyle();
         }
@@ -41,7 +41,7 @@ public class FontLoader extends SynchronousAssetLoader<BitmapFont, FreeTypeFontL
     }
 
     @Override
-    public Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, FreeTypeFontLoaderParameters parameters) {
+    public Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, FontLoaderParameters parameters) {
         Array<AssetDescriptor> result = new Array<>();
         result.add(new AssetDescriptor<>(fileName + ".gen", FreeTypeFontGenerator.class));
         return result;
