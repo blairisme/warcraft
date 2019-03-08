@@ -40,4 +40,9 @@ public class TextureUtils
         TextureRegion region = new TextureRegion(texture);
         return new TiledDrawable(region);
     }
+
+    public static TextureRegion getRegion(AssetManager assets, String path, int x, int y, int width, int height) {
+        Texture texture = assets.get(path, Texture.class);
+        return new TextureRegion(texture, x, y, width, height);
+    }
 }

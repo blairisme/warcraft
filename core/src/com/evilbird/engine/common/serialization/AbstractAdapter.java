@@ -11,6 +11,7 @@ package com.evilbird.engine.common.serialization;
 
 import com.google.gson.JsonSerializer;
 import com.google.gson.*;
+import com.google.gson.annotations.JsonAdapter;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.reflect.Field;
@@ -32,6 +33,14 @@ public abstract class AbstractAdapter<T> implements JsonSerializer<T>, JsonDeser
 {
     @Override
     public JsonElement serialize(T source, Type type, JsonSerializationContext context) {
+        JsonSerializer<T> annotatedSerializer = getAnnotatedSerializer(source.getClass());
+        if (annotatedSerializer != null) {
+            return annotatedSerializer.serialize(source, type, context);
+        }
+        return serialize(source, context);
+    }
+
+    private JsonElement serialize(T source, JsonSerializationContext context) {
         JsonObject result = new JsonObject();
         serializeType(result, source, context);
         serializeFields(result, context, source);
@@ -86,6 +95,16 @@ public abstract class AbstractAdapter<T> implements JsonSerializer<T>, JsonDeser
     @Override
     public T deserialize(JsonElement source, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject json = source.getAsJsonObject();
+        JsonDeserializer<T> annotatedDeserializer = getAnnotatedDeserializer(getDeserializedType(json, context));
+        if (annotatedDeserializer != null) {
+            return annotatedDeserializer.deserialize(json, type, context);
+        }
+        return deserialize(json, context);
+    }
+
+    protected abstract Class<?> getDeserializedType(JsonObject json, JsonDeserializationContext context);
+
+    public T deserialize(JsonObject json, JsonDeserializationContext context) throws JsonParseException {
         T result = getDeserializedInstance(json, context);
         deserializeProperties(json, context, result);
         return result;
@@ -166,5 +185,34 @@ public abstract class AbstractAdapter<T> implements JsonSerializer<T>, JsonDeser
         catch (IllegalAccessException error) {
             throw new JsonParseException(error);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private JsonSerializer<T> getAnnotatedSerializer(Class<?> type) {
+        Object annotatedAdapter = getAnnotatedAdapter(type);
+        if (annotatedAdapter instanceof JsonSerializer){
+            return (JsonSerializer<T>)annotatedAdapter;
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private JsonDeserializer<T> getAnnotatedDeserializer(Class<?> type) {
+        Object annotatedAdapter = getAnnotatedAdapter(type);
+        if (annotatedAdapter instanceof JsonDeserializer){
+            return (JsonDeserializer<T>)annotatedAdapter;
+        }
+        return null;
+    }
+
+    private Object getAnnotatedAdapter(Class<?> type) {
+        if (type.isAnnotationPresent(JsonAdapter.class)){
+            JsonAdapter annotation = type.getAnnotation(JsonAdapter.class);
+            if (annotation.value() != this.getClass()) {
+                Class<?> adapterType = annotation.value();
+                return ReflectionUtils.getInstance(adapterType);
+            }
+        }
+        return null;
     }
 }

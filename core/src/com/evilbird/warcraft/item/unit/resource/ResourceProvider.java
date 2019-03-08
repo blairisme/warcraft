@@ -20,8 +20,7 @@ import javax.inject.Inject;
 public class ResourceProvider extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
-    public ResourceProvider(GoldMineProvider goldMineProvider, OilPatchProvider oilPatchProvider)
-    {
+    public ResourceProvider(GoldMineProvider goldMineProvider, OilPatchProvider oilPatchProvider) {
         addProvider(UnitType.GoldMine, goldMineProvider);
         addProvider(UnitType.OilPatch, oilPatchProvider);
     }

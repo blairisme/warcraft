@@ -22,6 +22,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerType;
 
 import javax.inject.Inject;
@@ -50,13 +51,15 @@ public class FogProvider implements IdentifiedAssetProvider<Item>
 
     @Override
     public Item get(Identifier identifier) {
-        if (Objects.equals(identifier, LayerType.OpaqueFog)) {
+        LayerIdentifier layerIdentifier = (LayerIdentifier)identifier;
+
+        if (Objects.equals(layerIdentifier.getType(), LayerType.OpaqueFog)) {
             return new Fog(getOpaqueTextureSet(), events);
         }
-        if (Objects.equals(identifier, LayerType.TransparentFog)) {
+        else if (Objects.equals(layerIdentifier.getType(), LayerType.TransparentFog)) {
             throw new UnsupportedOperationException("Not yet implemented");
         }
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     private FogTileSet getOpaqueTextureSet() {

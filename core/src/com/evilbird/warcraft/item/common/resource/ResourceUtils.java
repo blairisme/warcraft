@@ -9,8 +9,6 @@
 
 package com.evilbird.warcraft.item.common.resource;
 
-import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
-
 import java.util.HashMap;
 import java.util.Map;
 

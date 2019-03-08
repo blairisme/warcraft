@@ -92,22 +92,22 @@ public abstract class GatherAction extends DelegateAction
 
     protected Action preObtainAnimation() {
         Action gathererAnimation = new AnimateAction(ActionTarget.Item, getGatherAnimation(getResourceVariety()));
-        Action resourceAnimation = new AnimateAction(ActionTarget.Target, UnitAnimation.Gathering);
-        return new ParallelAction(gathererAnimation, resourceAnimation);
+        //Action resourceAnimation = new AnimateAction(ActionTarget.Target, UnitAnimation.Gathering); //TODO
+        return new ParallelAction(gathererAnimation/*, resourceAnimation*/);
     }
 
     protected Action postObtainAnimation() {
         Action gatherMovement = new AnimationAliasAction(UnitAnimation.Move, UnitAnimation.getMoveAnimation(getResourceVariety()));
         Action gathererIdle = new AnimationAliasAction(UnitAnimation.Idle, UnitAnimation.getIdleAnimation(getResourceVariety()));
 
-        Action deselect = new SelectAction(ActionTarget.Target, false);
-        Action disable = new DisableAction(ActionTarget.Target, false);
-        Action deadAnimation = new AnimateAction(ActionTarget.Target, UnitAnimation.Dead);
-        Action deadAction = new ParallelAction(deselect, disable, deadAnimation);
-        Action aliveAction = new AnimateAction(ActionTarget.Target, UnitAnimation.Idle);
-        Action resourceAnimation = aliveAction; //= new BranchAction(targetHasResources(getResourceVariety()), aliveAction, deadAction);
+        //Action deselect = new SelectAction(ActionTarget.Target, false);
+        //Action disable = new DisableAction(ActionTarget.Target, false);
+        //Action deadAnimation = new AnimateAction(ActionTarget.Target, UnitAnimation.Dead);
+        //Action deadAction = new ParallelAction(deselect, disable, deadAnimation);
+        //Action aliveAction = new AnimateAction(ActionTarget.Target, UnitAnimation.Idle);
+        //Action resourceAnimation = aliveAction; //= new BranchAction(targetHasResources(getResourceVariety()), aliveAction, deadAction);
 
-        return new ParallelAction(gatherMovement, gathererIdle, resourceAnimation);
+        return new ParallelAction(gatherMovement, gathererIdle/*, resourceAnimation*/);
     }
 
     protected Action depositSequence() {

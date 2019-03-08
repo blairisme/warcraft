@@ -11,7 +11,7 @@
   "movementSpeed": 64.0,
   "movementCapability": [
     {
-      "class": "Layers",
+      "class": "LayerType",
       "enum": "Map"
     }
   ],

@@ -41,6 +41,7 @@ import static com.evilbird.warcraft.item.data.DataType.Camera;
 import static com.evilbird.warcraft.item.hud.HudControl.MenuPane;
 import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.*;
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
+import static com.evilbird.warcraft.item.layer.LayerType.Tree;
 import static com.evilbird.warcraft.item.placeholder.PlaceholderType.*;
 import static com.evilbird.warcraft.item.unit.UnitType.*;
 

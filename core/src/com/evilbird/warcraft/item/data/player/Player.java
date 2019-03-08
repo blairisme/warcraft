@@ -11,8 +11,8 @@ package com.evilbird.warcraft.item.data.player;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.warcraft.item.common.capability.ResourceContainer;
-import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceContainer;
+import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 import com.evilbird.warcraft.item.data.DataType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

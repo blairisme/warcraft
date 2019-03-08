@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.common.predicate;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.function.Predicate;
-import com.evilbird.warcraft.item.common.capability.ResourceContainer;
+import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

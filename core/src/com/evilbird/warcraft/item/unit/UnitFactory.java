@@ -18,10 +18,10 @@ import com.evilbird.warcraft.item.unit.resource.ResourceProvider;
 
 import javax.inject.Inject;
 
-public class UnitProvider extends IdentifiedAssetProviderSet<Item>
+public class UnitFactory extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
-    public UnitProvider(
+    public UnitFactory(
         BuildingProvider buildingProvider,
         ResourceProvider resourceProvider,
         CombatantProvider combatantProvider,

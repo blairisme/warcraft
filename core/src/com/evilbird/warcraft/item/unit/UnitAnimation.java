@@ -39,6 +39,7 @@ public enum UnitAnimation implements AnimationIdentifier
     GatherGold,
     GatherWood;
 
+    @Deprecated //TODO: Remove
     public static UnitAnimation getGatherAnimation(ResourceType resource)
     {
         switch (resource){
@@ -48,6 +49,7 @@ public enum UnitAnimation implements AnimationIdentifier
         }
     }
 
+    @Deprecated //TODO: Remove
     public static UnitAnimation getIdleAnimation(ResourceType resource)
     {
         switch (resource){
@@ -57,6 +59,7 @@ public enum UnitAnimation implements AnimationIdentifier
         }
     }
 
+    @Deprecated //TODO: Remove
     public static UnitAnimation getMoveAnimation(ResourceType resource)
     {
         switch (resource){

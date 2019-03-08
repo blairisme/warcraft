@@ -7,12 +7,14 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.assets;
+package com.evilbird.engine.common.maps;
 
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+
+import javax.inject.Inject;
 
 /**
  * Instances of this class load maps created with the Tiled application.
@@ -23,6 +25,7 @@ public class TiledMapLoader
 {
     private TmxMapLoader loader;
 
+    @Inject
     public TiledMapLoader () {
         this(new InternalFileHandleResolver());
     }

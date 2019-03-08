@@ -13,8 +13,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.warcraft.item.common.capability.ResourceContainer;
-import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceContainer;
+import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 import com.evilbird.warcraft.item.data.DataType;
 
 import java.util.Collections;

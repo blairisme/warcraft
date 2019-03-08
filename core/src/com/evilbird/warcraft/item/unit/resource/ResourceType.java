@@ -9,8 +9,10 @@
 
 package com.evilbird.warcraft.item.unit.resource;
 
-import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 
+//TODO: Move into war item common
+//TODO: Stop using for resource buildings
 public enum ResourceType implements ResourceIdentifier
 {
     Gold,

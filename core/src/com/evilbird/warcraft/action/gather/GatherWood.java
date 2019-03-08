@@ -13,6 +13,7 @@ import com.evilbird.engine.action.common.RepeatedAudibleAction;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.item.ItemType;
+import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
@@ -38,7 +39,7 @@ public class GatherWood extends GatherAction
 
     @Override
     protected ItemType getResourceType() {
-        return UnitType.Tree;
+        return LayerType.Tree;
     }
 
     @Override

@@ -19,7 +19,7 @@ import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.action.common.production.ProduceAction;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferAction;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferRelay;
-import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 import com.evilbird.warcraft.item.common.resource.ResourceUtils;
 import com.evilbird.warcraft.item.unit.UnitType;
 

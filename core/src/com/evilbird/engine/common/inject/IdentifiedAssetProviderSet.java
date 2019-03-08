@@ -54,11 +54,15 @@ public class IdentifiedAssetProviderSet<T> implements IdentifiedAssetProvider<T>
     }
 
     public T get(Identifier key) {
-        IdentifiedAssetProvider<? extends T> delegate = delegates.get(key);
+        IdentifiedAssetProvider<? extends T> delegate = getProvider(key);
 
         if (delegate != null) {
             return delegate.get(key);
         }
         return null;
+    }
+
+    public IdentifiedAssetProvider<? extends T> getProvider(Identifier key) {
+        return delegates.get(key);
     }
 }

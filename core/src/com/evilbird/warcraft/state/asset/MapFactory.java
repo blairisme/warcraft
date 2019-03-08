@@ -12,21 +12,17 @@ package com.evilbird.warcraft.state.asset;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.evilbird.engine.common.assets.TiledMapFile;
-import com.evilbird.engine.common.assets.TiledMapLoader;
+import com.evilbird.engine.common.maps.TiledMapFile;
+import com.evilbird.engine.common.maps.TiledMapLoader;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.*;
-import com.evilbird.warcraft.item.layer.Layer;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
-import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
@@ -115,7 +111,8 @@ public class MapFactory
     }
 
     private void addLayerItems(TiledMapFile map, MapLayer layer, Map<String, ItemComposite> parents) {
-        if (!Objects.equals("Map", layer.getName())) return;
+        if (Objects.equals("OpaqueFog", layer.getName())) return;
+        if (Objects.equals("TransparentFog", layer.getName())) return;
 
         LayerIdentifier layerIdentifier = new LayerIdentifier(map, (TiledMapTileLayer)layer);  //TODO
         Item item = itemFactory.newItem(layerIdentifier);

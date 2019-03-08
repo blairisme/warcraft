@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.action.common.resource;
 
-import com.evilbird.warcraft.item.common.capability.ResourceContainer;
-import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceContainer;
+import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 
 public interface ResourceTransferObserver
 {

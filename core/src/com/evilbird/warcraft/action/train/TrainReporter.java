@@ -11,8 +11,8 @@ package com.evilbird.warcraft.action.train;
 
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
-import com.evilbird.warcraft.item.common.capability.ResourceContainer;
-import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceContainer;
+import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 
 import javax.inject.Inject;
 

@@ -16,10 +16,11 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.Item;
 
 /**
- * Instances of this class represent a rendered item that spans the game space.
- * Usually layers are composed of a collection of smaller entities.
+ * Instances of this class represent a rendered {@link Item} that spans the
+ * game space. Usually layers are composed of a collection of smaller entities.
  *
  * @author Blair Butterworth
  */

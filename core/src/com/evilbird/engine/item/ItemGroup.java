@@ -28,7 +28,8 @@ import java.util.List;
  *
  * @author Blair Butterworth
  */
-//TODO Enhancement: Add caching for find invocations
+//TODO: Enhancement: Add caching for find invocations
+//TODO: Bug: update child root when group root updated
 public class ItemGroup extends Item implements ItemComposite
 {
     private List<Item> items;
@@ -84,6 +85,15 @@ public class ItemGroup extends Item implements ItemComposite
      */
     public Collection<Item> getItems() {
         return items;
+    }
+
+    /**
+     * Returns whether the ItemGroup has been assigned any child Items.
+     *
+     * @return <code>true</code> if the ItemGroup has child Items.
+     */
+    public boolean hasItems() {
+        return !items.isEmpty();
     }
 
     /**

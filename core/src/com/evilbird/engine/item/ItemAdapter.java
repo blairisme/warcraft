@@ -9,7 +9,6 @@
 
 package com.evilbird.engine.item;
 
-import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.common.serialization.AbstractAdapter;
 import com.evilbird.engine.game.GameService;
@@ -50,6 +49,11 @@ public class ItemAdapter extends AbstractAdapter<Item>
     @Override
     protected boolean isSerializedField(Item target, Field field) {
         return !Modifier.isTransient(field.getModifiers()) && !Objects.equals(field.getName(), TYPE);
+    }
+
+    @Override
+    protected Class<?> getDeserializedType(JsonObject json, JsonDeserializationContext context) {
+        return Item.class;
     }
 
     @Override

@@ -17,18 +17,15 @@ import javax.inject.Inject;
 public class OilPatchProvider implements AssetProvider<Resource>
 {
     @Inject
-    public OilPatchProvider()
-    {
+    public OilPatchProvider() {
     }
 
     @Override
-    public void load()
-    {
+    public void load() {
     }
 
     @Override
-    public Resource get()
-    {
+    public Resource get() {
         return null;
     }
 }

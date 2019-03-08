@@ -9,35 +9,44 @@
 
 package com.evilbird.warcraft.item.layer;
 
+import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.layer.fog.FogProvider;
-import com.evilbird.warcraft.item.layer.forest.ForestProvider;
+import com.evilbird.warcraft.item.layer.forest.ForestFactory;
 import com.evilbird.warcraft.item.layer.terrain.TerrainFactory;
 
 import javax.inject.Inject;
 
-public class LayerFactory implements IdentifiedAssetProvider<Item> //extends IdentifiedAssetProviderSet<Item>
+/**
+ * Instances of this factory are used to construct {@link Layer} items.
+ *
+ * @author Blair Butterworth
+ */
+public class LayerFactory extends IdentifiedAssetProviderSet<Item>
 {
-    private TerrainFactory terrainFactory;
-
     @Inject
-    public LayerFactory(TerrainFactory terrainFactory, FogProvider fogProvider, ForestProvider forestProvider) {
-//        addProvider(LayerType.Map, terrainFactory);
-//        addProvider(LayerType.Forest, forestProvider);
-//        addProvider(LayerType.OpaqueFog, fogProvider);
-//        addProvider(LayerType.TransparentFog, fogProvider);
-        this.terrainFactory = terrainFactory;
+    public LayerFactory(
+        FogProvider fogProvider,
+        ForestFactory forestFactory,
+        TerrainFactory terrainFactory)
+    {
+        addProvider(LayerType.Map, terrainFactory);
+        addProvider(LayerType.Forest, forestFactory);
+        addProvider(LayerType.OpaqueFog, fogProvider);
+        addProvider(LayerType.TransparentFog, fogProvider);
     }
 
     @Override
     public Item get(Identifier identifier) {
-        return terrainFactory.get(identifier);
-    }
+        LayerIdentifier layerIdentifier = (LayerIdentifier)identifier;
+        IdentifiedAssetProvider<? extends Item> factory = getProvider(layerIdentifier.getType());
 
-    @Override
-    public void load() {
+        if (factory != null) {
+            return factory.get(layerIdentifier);
+        }
+        throw new UnknownEntityException(identifier);
     }
 }

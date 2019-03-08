@@ -11,8 +11,8 @@ package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
-import com.evilbird.warcraft.item.common.capability.ResourceRequirement;
+import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceRequirement;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.Map;

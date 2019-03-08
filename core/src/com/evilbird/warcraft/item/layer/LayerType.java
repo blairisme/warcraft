@@ -12,11 +12,12 @@ package com.evilbird.warcraft.item.layer;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
 
-//@SerializedType("Layers")
+@SerializedType("LayerType")
 public enum LayerType implements ItemType
 {
     Map,
     Forest,
+    Tree, //TODO: Replace with forest
     OpaqueFog,
     TransparentFog,
 }

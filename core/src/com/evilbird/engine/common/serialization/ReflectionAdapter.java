@@ -67,6 +67,11 @@ public class ReflectionAdapter extends AbstractAdapter<Object>
     }
 
     @Override
+    protected Class<?> getDeserializedType(JsonObject json, JsonDeserializationContext context) {
+        return getClass(json);
+    }
+
+    @Override
     protected Object getDeserializedInstance(JsonObject json, JsonDeserializationContext context) {
         if (json.has(ENUM)) {
             return getEnumInstance(json);
@@ -82,15 +87,8 @@ public class ReflectionAdapter extends AbstractAdapter<Object>
     }
 
     private Object getObjectInstance(JsonObject json) {
-        try {
-            Class<?> type = getClass(json);
-            Constructor<?> constructor = type.getDeclaredConstructor();
-            constructor.setAccessible(true);
-            return constructor.newInstance();
-        }
-        catch (ReflectiveOperationException error) {
-            throw new JsonParseException(error);
-        }
+        Class<?> type = getClass(json);
+        return ReflectionUtils.getInstance(type);
     }
 
     private Class<?> getClass(JsonObject json) {

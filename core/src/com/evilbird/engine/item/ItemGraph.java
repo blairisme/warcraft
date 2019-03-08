@@ -86,8 +86,11 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         return nodeWidth;
     }
 
-    public ItemNode getNode(Vector2 position) {
-        GridPoint2 spatialPosition = toSpatial(position);
+    public ItemNode getNode(Vector2 worldPosition) {
+        return getNode(toSpatial(worldPosition));
+    }
+
+    public ItemNode getNode(GridPoint2 spatialPosition) {
         return nodes[spatialPosition.x][spatialPosition.y];
     }
 
@@ -142,6 +145,10 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         for (ItemNode adjacentNode: getNodes(node.getSpatialReference(), occupant.getSize())) {
             adjacentNode.addOccupant(occupant);
         }
+    }
+
+    public void addOccupant(ItemNode node, Item occupant) {
+        node.addOccupant(occupant);
     }
 
     public void removeOccupants(Collection<Item> occupants) {

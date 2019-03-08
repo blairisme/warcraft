@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.item.unit.resource;
 
-import com.evilbird.warcraft.item.common.capability.ResourceContainer;
-import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceContainer;
+import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 import com.evilbird.warcraft.item.unit.Unit;
 
 import java.util.HashMap;

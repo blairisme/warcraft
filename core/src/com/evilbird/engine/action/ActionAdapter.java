@@ -57,6 +57,11 @@ public class ActionAdapter extends AbstractAdapter<Action>
     }
 
     @Override
+    protected Class<?> getDeserializedType(JsonObject json, JsonDeserializationContext context) {
+        return Action.class;
+    }
+
+    @Override
     protected Action getDeserializedInstance(JsonObject json, JsonDeserializationContext context) {
         JsonElement element = json.get(IDENTIFIER);
         ActionIdentifier identifier = context.deserialize(element, ActionIdentifier.class);

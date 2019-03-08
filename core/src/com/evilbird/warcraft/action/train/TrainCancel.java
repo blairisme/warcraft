@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.train;
 import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferAction;
-import com.evilbird.warcraft.item.common.capability.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 import com.evilbird.warcraft.item.common.resource.ResourceUtils;
 import com.evilbird.warcraft.item.unit.building.Building;
 

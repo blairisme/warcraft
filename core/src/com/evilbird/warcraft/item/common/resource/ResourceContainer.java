@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.common.capability;
+package com.evilbird.warcraft.item.common.resource;
 
 import java.util.Map;
 

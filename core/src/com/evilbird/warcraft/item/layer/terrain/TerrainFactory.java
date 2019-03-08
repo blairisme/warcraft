@@ -11,18 +11,17 @@ package com.evilbird.warcraft.item.layer.terrain;
 
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.evilbird.engine.common.assets.TiledMapFile;
-import com.evilbird.engine.common.assets.TiledMapLoader;
+import com.evilbird.engine.common.maps.TiledMapFile;
+import com.evilbird.engine.common.maps.TiledMapLoader;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
-import com.evilbird.warcraft.item.layer.LayerType;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
 /**
- * Instances of this factory create {@link Terrain} instances.
+ * Instances of this factory create {@link Terrain} layers.
  *
  * @author Blair Butterworth
  */

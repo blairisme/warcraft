@@ -9,111 +9,71 @@
 
 package com.evilbird.warcraft.item.layer.forest;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.common.maps.MapLayerEntry;
+import com.evilbird.engine.common.maps.MapLayerIterable;
 import com.evilbird.warcraft.item.layer.Layer;
-import com.evilbird.warcraft.item.layer.LayerType;
-import com.evilbird.warcraft.item.unit.resource.tree.Tree;
-import com.evilbird.warcraft.item.unit.resource.tree.TreeProvider;
-
-import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.Map;
+import com.google.gson.annotations.JsonAdapter;
 
 /**
- * Instances of this class represent a forest, a collection of trees.
+ * Instances of this class represent a forest layer. Forests consist of
+ * individual cells, trees, which although represented and obtainable as
+ * {@link Item Items }, are actually drawn by the forest. The forest is also
+ * used to
  *
  * @author Blair Butterworth
  */
-//TODO: Reassign textures of adjacent tiles when item dies
-//TODO: Consider refactoring this into TreeFactory -> On construction provide adjacent trees to achieve todo above
+@JsonAdapter(ForestAdapter.class)
 public class Forest extends Layer
 {
-    private TreeProvider treeProvider;
-    private Map<Cell, Tree> trees;
+    private transient static final float DEFAULT_WOOD = 100;
+    private transient ForestStyle style;
 
-    @Inject
-    public Forest(TreeProvider treeProvider) {
-        this.treeProvider = treeProvider;
-        this.trees = new HashMap<>();
-        setType(LayerType.Forest);
-        setTouchable(Touchable.disabled);
+    public Forest() {
     }
 
-    @Override
-    public void draw(Batch batch, float alpha) {
-        super.draw(batch, alpha); //TODO: Why draw layer when drawing all the trees?
-        for (Tree tree: trees.values()){
-            tree.draw(batch, alpha);
-        }
-    }
-
-    @Override
-    public Item hit(Vector2 coordinates, boolean respectTouchability) {
-        return childHit(coordinates, respectTouchability);
-    }
-
-    @Override
-    public void setLayer(TiledMapTileLayer layer) {
-        super.setLayer(layer);
-        trees.clear();
+    public void setSkin(Skin skin) {
+        style = skin.get(ForestStyle.class);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-        if (trees.isEmpty()) {
-            populateTrees();
-        }
-        for (Tree tree: trees.values()){
-            tree.update(delta);
+        if (!hasItems()) {
+            addForestCells();
         }
     }
 
-    private void populateTrees() {
-        for (int x = 0; x < layer.getTileWidth(); ++x){
-            for (int y = 0; y < layer.getTileWidth(); ++y){
-                Cell cell = layer.getCell(x, y);
-                if (cell != null) {
-                    Tree tree = getTree(x, y, cell);
-                    addItem(tree);
-                }
-            }
+    private void addForestCells() {
+        for (MapLayerEntry entry: new MapLayerIterable(layer)) {
+            ForestCell forestCell = new ForestCell();
+            forestCell.setWood(DEFAULT_WOOD);
+            forestCell.setLocation(entry.getPosition());
+            addItem(forestCell);
         }
     }
 
-    private Tree getTree(int x, int y, Cell cell) {
-        Tree result = trees.get(cell);
-        if (result == null) {
-            cell = copyCell(cell);
-            layer.setCell(x, y, cell);
-
-            result = treeProvider.get();
-            result.setCell(cell);
-            result.setSize(layer.getTileWidth(), layer.getTileHeight());
-            result.setPosition(x * layer.getTileWidth(), y * layer.getTileHeight());
-
-            trees.put(cell, result);
-        }
-        return result;
+    public void setDeadTexture(GridPoint2 tile) {
+        setTexture(tile.x, tile.y, style.deadCenter);
+        setTexture(tile.x + 1, tile.y, style.deadEast);
+        setTexture(tile.x + 1, tile.y + 1, style.deadSouthEast);
+        setTexture(tile.x, tile.y + 1, style.deadSouth);
+        setTexture(tile.x - 1, tile.y + 1, style.deadSouthWest);
+        setTexture(tile.x - 1, tile.y, style.deadWest);
+        setTexture(tile.x - 1, tile.y - 1, style.deadNorthWest);
+        setTexture(tile.x, tile.y - 1, style.deadNorth);
+        setTexture(tile.x + 1, tile.y - 1, style.deadNorthEast);
     }
 
-    private Cell copyCell(Cell cell) {
-        Cell result = new Cell();
-        result.setTile(copyTile(cell.getTile()));
-        return result;
-    }
-
-    private TiledMapTile copyTile(TiledMapTile tile) {
-        if (tile instanceof StaticTiledMapTile){
-            return new StaticTiledMapTile((StaticTiledMapTile)tile);
+    private void setTexture(int x, int y, TextureRegion texture) {
+        Cell cell = layer.getCell(x, y);
+        if (cell != null) {
+            cell.setTile(new StaticTiledMapTile(texture));
         }
-        throw new UnsupportedOperationException();
     }
 }
