@@ -14,6 +14,8 @@ import com.evilbird.engine.common.maps.TiledMapFile;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Instances of this class uniquely identify a {@link Layer}. LayerIdentifiers
@@ -59,5 +61,26 @@ public class LayerIdentifier implements ItemType
 
     public TiledMapTileLayer getLayer() {
         return layer;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        LayerIdentifier that = (LayerIdentifier)obj;
+        return new EqualsBuilder()
+            .append(file, that.file)
+            .append(name, that.name)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .append(file)
+            .append(name)
+            .toHashCode();
     }
 }

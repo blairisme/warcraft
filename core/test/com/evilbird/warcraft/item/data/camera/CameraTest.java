@@ -33,7 +33,7 @@ public class CameraTest extends GameTestCase
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(Item.class)
             .withDeserializedForm(camera)
-            .withSerializedResource("/item/camera.json")
+            .withSerializedResource("/warcraft/item/camera.json")
             .verify();
     }
 

@@ -33,7 +33,7 @@ public class PlayerTest extends GameTestCase
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(Item.class)
             .withDeserializedForm(player)
-            .withSerializedResource("/item/player.json")
+            .withSerializedResource("/warcraft/item/player.json")
             .verify();
     }
 

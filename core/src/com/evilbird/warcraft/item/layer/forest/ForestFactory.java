@@ -11,16 +11,13 @@ package com.evilbird.warcraft.item.layer.forest;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.maps.TiledMapFile;
-import com.evilbird.engine.common.maps.TiledMapLoader;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
+import com.evilbird.warcraft.item.layer.LayerUtils;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -36,12 +33,10 @@ public class ForestFactory implements IdentifiedAssetProvider<Forest>
 {
     private static final String TERRAIN = "data/textures/neutral/winter/terrain.png";
     private AssetManager assets;
-    private TiledMapLoader loader;
 
     @Inject
-    public ForestFactory(Device device, TiledMapLoader loader) {
+    public ForestFactory(Device device) {
         this.assets = device.getAssetStorage();
-        this.loader = loader;
     }
 
     @Override
@@ -58,19 +53,9 @@ public class ForestFactory implements IdentifiedAssetProvider<Forest>
         forest.setSkin(getSkin());
         forest.setId(layerIdentifier);
         forest.setType(layerIdentifier.getType());
-        forest.setLayer(getLayer(layerIdentifier));
+        forest.setLayer(LayerUtils.getLayer(layerIdentifier));
         forest.setTouchable(Touchable.childrenOnly);
         return forest;
-    }
-
-    private TiledMapTileLayer getLayer(LayerIdentifier type) {
-        TiledMapTileLayer layer = type.getLayer();
-        if (layer == null) {
-            TiledMapFile map = loader.load(type.getFile());
-            MapLayers layers = map.getLayers();
-            layer = (TiledMapTileLayer)layers.get(type.getName());
-        }
-        return layer;
     }
 
     private Skin getSkin() {

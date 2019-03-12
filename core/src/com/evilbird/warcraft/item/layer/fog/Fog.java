@@ -12,14 +12,13 @@ package com.evilbird.warcraft.item.layer.fog;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.warcraft.item.layer.Layer;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
-import com.evilbird.warcraft.item.layer.LayerType;
+import com.evilbird.warcraft.item.layer.Layer;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -36,18 +35,21 @@ import java.util.Collection;
 //TODO: Bug: revealing doesn't include item size, only position. Fix: use logic from ItemGraph.
 public class Fog extends Layer
 {
-    private EventQueue events;
-    private FogTileSet tileSet;
-    private boolean initialized;
-    private int xMax;
-    private int yMax;
+    private transient EventQueue events;
+    private transient FogStyle style;
+    private transient boolean initialized;
+    private transient int xMax;
+    private transient int yMax;
 
-    public Fog(FogTileSet tileSet, EventQueue events) {
+    public Fog() {
+    }
+
+    public void setEvents(EventQueue events) {
         this.events = events;
-        this.tileSet = tileSet;
-        this.initialized = false;
-        setType(LayerType.OpaqueFog);
-        setTouchable(Touchable.disabled);
+    }
+
+    public void setSkin(Skin skin) {
+        this.style = skin.get(FogStyle.class);
     }
 
     @Override
@@ -88,7 +90,7 @@ public class Fog extends Layer
     private void conceal(){
         for (int x = 0; x < layer.getWidth(); ++x){
             for (int y = 0; y < layer.getHeight(); ++y){
-                layer.setCell(x, y, tileSet.full);
+                layer.setCell(x, y, style.full);
             }
         }
     }
@@ -150,61 +152,61 @@ public class Fog extends Layer
         if (x == 0 || x == xMax) {
             if (! (y == 0 || y == yMax)) {
                 if (!north) {
-                    layer.setCell(x, y, tileSet.bottom);
+                    layer.setCell(x, y, style.bottom);
                 } else if (!south) {
-                    layer.setCell(x, y, tileSet.top);
+                    layer.setCell(x, y, style.top);
                 }
             }
         }
         else if (y == 0 || y == yMax) {
             if (!west) {
-                layer.setCell(x, y, tileSet.right);
+                layer.setCell(x, y, style.right);
             } else if (!east) {
-                layer.setCell(x, y, tileSet.left);
+                layer.setCell(x, y, style.left);
             }
         }
         else if (!north && !west && !northWest){
-            layer.setCell(x, y, tileSet.bottomRightInternal);
+            layer.setCell(x, y, style.bottomRightInternal);
         }
         else if (!north && !east && !northEast){
-            layer.setCell(x, y, tileSet.bottomLeftInternal);
+            layer.setCell(x, y, style.bottomLeftInternal);
         }
         else if (!south && !west && !southWest){
-            layer.setCell(x, y, tileSet.topRightInternal);
+            layer.setCell(x, y, style.topRightInternal);
         }
         else if (!south && !east && !southEast){
-            layer.setCell(x, y, tileSet.topLeftInternal);
+            layer.setCell(x, y, style.topLeftInternal);
         }
         else if (north && west && !northWest){
-            layer.setCell(x, y, tileSet.bottomRightExternal);
+            layer.setCell(x, y, style.bottomRightExternal);
         }
         else if (north && east && !northEast){
-            layer.setCell(x, y, tileSet.bottomLeftExternal);
+            layer.setCell(x, y, style.bottomLeftExternal);
         }
         else if (south && west && !southWest){
-            layer.setCell(x, y, tileSet.topRightExternal);
+            layer.setCell(x, y, style.topRightExternal);
         }
         else if (south && east && !southEast){
-            layer.setCell(x, y, tileSet.topLeftExternal);
+            layer.setCell(x, y, style.topLeftExternal);
         }
         else if (east && !west){
-            layer.setCell(x, y, tileSet.right);
+            layer.setCell(x, y, style.right);
         }
         else if (west && !east){
-            layer.setCell(x, y, tileSet.left);
+            layer.setCell(x, y, style.left);
         }
         else if (south && !north){
-            layer.setCell(x, y, tileSet.bottom);
+            layer.setCell(x, y, style.bottom);
         }
         else if (north && !south){
-            layer.setCell(x, y, tileSet.top);
+            layer.setCell(x, y, style.top);
         }
     }
 
     private boolean cellEmpty(int x, int y) {
         if (x >= 0 && x < layer.getWidth() && y >= 0 && y < layer.getHeight()){
             Cell cell = layer.getCell(x, y);
-            return cell == null || cell != tileSet.full;
+            return cell == null || cell != style.full;
         }
         return false;
     }

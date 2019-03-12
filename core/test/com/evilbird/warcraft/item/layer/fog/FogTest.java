@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.layer.forest;
+package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
@@ -16,15 +16,18 @@ import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
+import com.evilbird.warcraft.item.layer.forest.Forest;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
 
-public class ForestTest extends GameTestCase
+import static org.junit.Assert.*;
+
+public class FogTest extends GameTestCase
 {
-    private Forest forest;
+    private Fog fog;
 
     @Before
     public void setup() {
@@ -36,28 +39,28 @@ public class ForestTest extends GameTestCase
         layer.setCell(1, 0, Mockito.mock(Cell.class));
         layer.setCell(1, 1, Mockito.mock(Cell.class));
 
-        LayerIdentifier identifier = new LayerIdentifier("data/levels/human/level1.tmx", "Map", layer);
+        LayerIdentifier identifier = new LayerIdentifier("data/levels/human/level1.tmx", "OpaqueFog", layer);
 
-        forest = new Forest();
-        forest.setLayer(layer);
-        forest.setId(identifier);
-        forest.setType(identifier.getType());
-        forest.update(1);
+        fog = new Fog();
+        fog.setLayer(layer);
+        fog.setId(identifier);
+        fog.setType(identifier.getType());
+        //fog.update(1);
 
-        respondWithItem(forest);
+        respondWithItem(fog);
     }
 
     @Test
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(Item.class)
-            .withDeserializedForm(forest)
-            .withSerializedResource("/warcraft/item/forest.json")
+            .withDeserializedForm(fog)
+            .withSerializedResource("/warcraft/item/fog.json")
             .verify();
     }
 
     @Test
     public void equalsTest() {
-        EqualityVerifier.forClass(Forest.class)
+        EqualityVerifier.forClass(Fog.class)
             .withMockedTransientFields()
             .excludeTransientFields()
             .verify();

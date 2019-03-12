@@ -44,7 +44,7 @@ public class CombatantTest extends GameTestCase
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(Item.class)
             .withDeserializedForm(combatant)
-            .withSerializedResource("/item/combatant.json")
+            .withSerializedResource("/warcraft/item/combatant.json")
             .verify();
     }
 

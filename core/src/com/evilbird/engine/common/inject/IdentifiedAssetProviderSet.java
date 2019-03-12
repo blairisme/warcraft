@@ -9,26 +9,43 @@
 
 package com.evilbird.engine.common.inject;
 
+import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.lang.Identifier;
 
 import javax.inject.Provider;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Instances of this class represent a collection of asset factories that
+ * produce objects identified by given value.
+ *
+ * @param <T> the type of the objects produced by this factory.
+ *
+ * @author Blair Butterworth
+ */
 public class IdentifiedAssetProviderSet<T> implements IdentifiedAssetProvider<T>
 {
-    private Map<Identifier, IdentifiedAssetProvider<? extends T>> delegates;
+    private Map<Object, IdentifiedAssetProvider<? extends T>> providers;
 
     public IdentifiedAssetProviderSet() {
-        delegates = new HashMap<>();
+        providers = new HashMap<>();
     }
 
     public void addProvider(Identifier key, Provider<? extends T> provider) {
-        delegates.put(key, new ProviderAdapter<>(provider));
+        providers.put(key, new ProviderAdapter<>(provider));
     }
 
     public void addProvider(Identifier key, AssetProvider<? extends T> provider) {
-        delegates.put(key, new AssetProviderAdapter<>(provider));
+        providers.put(key, new AssetProviderAdapter<>(provider));
+    }
+
+    public void addProvider(Identifier key, IdentifiedAssetProvider<? extends T> provider) {
+        providers.put(key, provider);
+    }
+
+    public void addProvider(Class<?> key, IdentifiedAssetProvider<? extends T> provider) {
+        providers.put(key, provider);
     }
 
     public void addProvider(Identifier[] keys, IdentifiedAssetProvider<? extends T> provider) {
@@ -37,32 +54,25 @@ public class IdentifiedAssetProviderSet<T> implements IdentifiedAssetProvider<T>
         }
     }
 
-    public void addProvider(Identifier key, IdentifiedAssetProvider<? extends T> provider) {
-        delegates.put(key, provider);
+    public void addProvider(IdentifiedAssetProviderSet<T> other) {
+        this.providers.putAll(other.providers);
     }
 
-    public void addProvider(IdentifiedAssetProviderSet<T> provider) {
-        for (Identifier key : provider.delegates.keySet()) {
-            addProvider(key, provider);
-        }
-    }
-
+    @Override
     public void load() {
-        for (IdentifiedAssetProvider<? extends T> delegate : delegates.values()) {
+        for (IdentifiedAssetProvider<? extends T> delegate : providers.values()) {
             delegate.load();
         }
     }
 
+    @Override
     public T get(Identifier key) {
-        IdentifiedAssetProvider<? extends T> delegate = getProvider(key);
-
-        if (delegate != null) {
-            return delegate.get(key);
+        if (providers.containsKey(key)) {
+            return providers.get(key).get(key);
         }
-        return null;
-    }
-
-    public IdentifiedAssetProvider<? extends T> getProvider(Identifier key) {
-        return delegates.get(key);
+        if (providers.containsKey(key.getClass())) {
+            return providers.get(key.getClass()).get(key);
+        }
+        throw new UnknownEntityException(key);
     }
 }

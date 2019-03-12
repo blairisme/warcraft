@@ -9,13 +9,10 @@
 
 package com.evilbird.warcraft.item.layer.terrain;
 
-import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.evilbird.engine.common.maps.TiledMapFile;
-import com.evilbird.engine.common.maps.TiledMapLoader;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
+import com.evilbird.warcraft.item.layer.LayerUtils;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -27,11 +24,8 @@ import javax.inject.Inject;
  */
 public class TerrainFactory implements IdentifiedAssetProvider<Terrain>
 {
-    private TiledMapLoader loader;
-
     @Inject
     public TerrainFactory() {
-        loader = new TiledMapLoader();
     }
 
     @Override
@@ -46,17 +40,7 @@ public class TerrainFactory implements IdentifiedAssetProvider<Terrain>
         Terrain terrain = new Terrain();
         terrain.setId(layerIdentifier);
         terrain.setType(layerIdentifier.getType());
-        terrain.setLayer(getLayer(layerIdentifier));
+        terrain.setLayer(LayerUtils.getLayer(layerIdentifier));
         return terrain;
-    }
-
-    private TiledMapTileLayer getLayer(LayerIdentifier type) {
-        TiledMapTileLayer layer = type.getLayer();
-        if (layer == null) {
-            TiledMapFile map = loader.load(type.getFile());
-            MapLayers layers = map.getLayers();
-            layer = (TiledMapTileLayer)layers.get(type.getName());
-        }
-        return layer;
     }
 }

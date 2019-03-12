@@ -11,8 +11,13 @@ package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
-//TODO: Rename to FogStyle
-public class FogTileSet
+/**
+ * Instances of this simple object represent specify the style of a fog
+ * layer cell and the cells that surround it.
+ *
+ * @author Blair Butterworth
+ */
+public class FogStyle
 {
     public Cell full;
     public Cell bottom;

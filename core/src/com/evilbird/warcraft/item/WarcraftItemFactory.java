@@ -34,8 +34,6 @@ public class WarcraftItemFactory implements ItemFactory
 {
     private IdentifiedAssetProviderSet<Item> providers;
 
-    private LayerFactory layerFactory; //TODO
-
     @Inject
     public WarcraftItemFactory(
         DataProvider dataProvider,
@@ -48,12 +46,10 @@ public class WarcraftItemFactory implements ItemFactory
         providers = new IdentifiedAssetProviderSet<>();
         providers.addProvider(unitFactory);
         providers.addProvider(hudProvider);
-        //providers.addProvider(layerFactory);
         providers.addProvider(dataProvider);
         providers.addProvider(effectProvider);
         providers.addProvider(buildingSiteProvider);
-
-        this.layerFactory = layerFactory;
+        providers.addProvider(LayerIdentifier.class, layerFactory);
     }
 
     @Override
@@ -63,14 +59,6 @@ public class WarcraftItemFactory implements ItemFactory
 
     @Override
     public Item newItem(ItemType type) {
-        if (type instanceof LayerIdentifier) {
-            return layerFactory.get(type);
-        }
-
-        Item result = providers.get(type);
-        if (result == null) {
-            throw new UnknownEntityException(type);
-        }
-        return result;
+        return providers.get(type);
     }
 }

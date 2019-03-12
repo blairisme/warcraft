@@ -111,9 +111,6 @@ public class MapFactory
     }
 
     private void addLayerItems(TiledMapFile map, MapLayer layer, Map<String, ItemComposite> parents) {
-        if (Objects.equals("OpaqueFog", layer.getName())) return;
-        if (Objects.equals("TransparentFog", layer.getName())) return;
-
         LayerIdentifier layerIdentifier = new LayerIdentifier(map, (TiledMapTileLayer)layer);  //TODO
         Item item = itemFactory.newItem(layerIdentifier);
 
