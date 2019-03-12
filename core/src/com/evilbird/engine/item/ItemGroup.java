@@ -29,7 +29,6 @@ import java.util.List;
  * @author Blair Butterworth
  */
 //TODO: Enhancement: Add caching for find invocations
-//TODO: Bug: update child root when group root updated
 public class ItemGroup extends Item implements ItemComposite
 {
     private List<Item> items;
@@ -94,6 +93,12 @@ public class ItemGroup extends Item implements ItemComposite
      */
     public boolean hasItems() {
         return !items.isEmpty();
+    }
+
+    @Override
+    public void setRoot(ItemRoot root) {
+        super.setRoot(root);
+        items.forEach(item -> item.setRoot(root));
     }
 
     /**
