@@ -19,6 +19,13 @@ import com.evilbird.engine.game.GameController;
 
 import javax.inject.Inject;
 
+/**
+ * Instances of this class update and render a {@link Menu}. Menus drawn by
+ * this class will occupy the entire screen and are usually drawn above a
+ * background image.
+ *
+ * @author Blair Butterworth
+ */
 public class MenuScreen extends ScreenAdapter
 {
     private Menu menu;

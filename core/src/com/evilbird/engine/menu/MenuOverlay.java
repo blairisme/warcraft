@@ -16,6 +16,14 @@ import com.evilbird.engine.state.StateScreen;
 
 import javax.inject.Inject;
 
+/**
+ * Represents a user interface consisting of a number of selectable options.
+ * Overlay menus are generally used to load or save game states, and differ
+ * from {@link MenuScreen} in that it draws Menus as well as the game state,
+ * which is drawn, but not updated, below the overlay menu while it's shown.
+ *
+ * @author Blair Butterworth
+ */
 public class MenuOverlay extends ScreenAdapter
 {
     private MenuScreen menuScreen;

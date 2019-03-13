@@ -22,7 +22,8 @@ import javax.inject.Inject;
 
 /**
  * Initializes the various factories and services that provide game objects and
- * behaviour. When loading is complete the default/root menu is displayed.
+ * behaviour. When loading is complete the default/root menu is displayed by
+ * the {@link LoaderScreenView}.
  *
  * @author Blair Butterworth
  */

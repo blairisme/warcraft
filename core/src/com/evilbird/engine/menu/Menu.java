@@ -18,6 +18,12 @@ import com.evilbird.engine.game.GameController;
 
 import java.io.IOException;
 
+/**
+ * Represents a user interface consisting of a number of selectable options.
+ * Menus are generally used to load or save game states.
+ *
+ * @author Blair Butterworth
+ */
 public class Menu
 {
     private Stage stage;

@@ -20,6 +20,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import javax.inject.Inject;
 
+/**
+ * Renders a loading image to the screen while the {@link LoaderScreenModel}
+ * initializes the various factories and services that provide game objects and
+ * behaviour.
+ *
+ * @author Blair Butterworth
+ */
 public class LoaderScreenView
 {
     private Stage stage;
