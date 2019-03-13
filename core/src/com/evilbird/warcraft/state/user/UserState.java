@@ -10,20 +10,17 @@
 package com.evilbird.warcraft.state.user;
 
 import com.evilbird.warcraft.state.StateIdentifier;
-import org.apache.commons.io.FilenameUtils;
 
 public class UserState implements StateIdentifier
 {
-    private String path;
     private String name;
 
-    public UserState(String path) {
-        this.path = path;
-        this.name = FilenameUtils.getBaseName(path);
+    public UserState(String name) {
+        this.name = name;
     }
 
-    public String getPath() {
-        return path;
+    public String getName() {
+        return name;
     }
 
     @Override

@@ -11,10 +11,7 @@ package com.evilbird.engine.common.audio;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
-import com.evilbird.engine.common.audio.BasicSoundEffect;
-import com.evilbird.engine.common.audio.SoundEffect;
-import com.evilbird.engine.common.audio.SoundEffectSet;
-import com.evilbird.engine.common.audio.SoundType;
+import com.evilbird.engine.common.file.FileType;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -51,7 +48,7 @@ public class SoundUtils
         return new SoundEffectSet(effects);
     }
 
-    public static SoundEffect newSoundEffect(AssetManager assets, String prefix, SoundType type, int count) {
+    public static SoundEffect newSoundEffect(AssetManager assets, String prefix, FileType type, int count) {
         return newSoundEffect(assets, prefix, type.getFileExtension(), 1, count);
     }
 

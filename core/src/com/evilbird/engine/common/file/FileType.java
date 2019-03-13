@@ -7,20 +7,22 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.audio;
+package com.evilbird.engine.common.file;
 
 /**
  * Values in this enumeration define common sound file types.
  *
  * @author Blair Butterworth
  */
-public enum SoundType
+public enum FileType
 {
+    JSON,
     MP3;
 
     public String getFileExtension() {
         switch (this) {
             case MP3: return ".mp3";
+            case JSON: return ".json";
             default: throw new UnsupportedOperationException();
         }
     }

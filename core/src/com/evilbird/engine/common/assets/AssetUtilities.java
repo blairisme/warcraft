@@ -14,7 +14,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.evilbird.engine.common.audio.SoundType;
+import com.evilbird.engine.common.file.FileType;
 
 public class AssetUtilities
 {
@@ -24,7 +24,7 @@ public class AssetUtilities
         }
     }
 
-    public static void loadSoundSet(AssetManager assets, String prefix, SoundType type, int count) {
+    public static void loadSoundSet(AssetManager assets, String prefix, FileType type, int count) {
         loadSet(assets, prefix, type.getFileExtension(), count, Sound.class);
     }
 

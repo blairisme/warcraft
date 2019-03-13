@@ -80,6 +80,7 @@ public class Menu
 
     public void saveState(Identifier identifier) throws IOException {
         controller.saveState(identifier);
+        controller.showState();
     }
 
     protected void startMusic() {
