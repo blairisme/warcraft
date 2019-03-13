@@ -39,14 +39,14 @@ public class ItemRootTest extends GameTestCase
         ItemGraph graph = new ItemGraph(32, 32, 128, 128);
 
         ItemGroup group1 = new ItemGroup();
-        group1.setId(new TextIdentifier("Player1"));
+        group1.setIdentifier(new TextIdentifier("Player1"));
         group1.setType(DataType.Player);
         group1.addItem(TestItems.newItem("1"));
         group1.addItem(TestItems.newItem("2"));
 
         ItemGroup group2 = new ItemGroup();
         group2.setType(DataType.Player);
-        group2.setId(new TextIdentifier("Player2"));
+        group2.setIdentifier(new TextIdentifier("Player2"));
         group2.addItem(TestItems.newItem("3"));
         group2.addItem(TestItems.newItem("4"));
 

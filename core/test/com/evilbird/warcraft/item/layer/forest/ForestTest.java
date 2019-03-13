@@ -40,7 +40,7 @@ public class ForestTest extends GameTestCase
 
         forest = new Forest();
         forest.setLayer(layer);
-        forest.setId(identifier);
+        forest.setIdentifier(identifier);
         forest.setType(identifier.getType());
         forest.update(1);
 

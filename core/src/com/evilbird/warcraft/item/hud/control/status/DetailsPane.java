@@ -50,7 +50,7 @@ public class DetailsPane extends GridPane
         setCellSpacing(15);
         setCellWidthMinimum(170);
         setCellHeightMinimum(50);
-        setId(HudControl.DetailsPane);
+        setIdentifier(HudControl.DetailsPane);
         setType(HudControl.DetailsPane);
         setTouchable(Touchable.disabled);
     }
@@ -96,7 +96,7 @@ public class DetailsPane extends GridPane
         unitPane.setItem(combatant);
         unitPane.setSize(54, 53);
 
-        String levelText = "Level " + String.valueOf(combatant.getLevel());
+        String levelText = "WorldStateIdentifier " + String.valueOf(combatant.getLevel());
         TextLabel name = createLabel(combatant.getName(), 100, 15);
         TextLabel level = createLabel(levelText, 100, 15);
 

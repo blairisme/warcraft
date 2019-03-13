@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.game.GameController;
+import com.evilbird.engine.state.StateIdentifier;
 
 import java.io.IOException;
 
@@ -79,12 +80,12 @@ public class Menu
         stopMusic();
     }
 
-    public void showState(Identifier identifier) throws IOException {
+    public void showState(StateIdentifier identifier) throws IOException {
         controller.showState(identifier);
         stopMusic();
     }
 
-    public void saveState(Identifier identifier) throws IOException {
+    public void saveState(StateIdentifier identifier) throws IOException {
         controller.saveState(identifier);
         controller.showState();
     }

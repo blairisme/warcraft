@@ -38,7 +38,7 @@ public class SelectionPane extends GridPane
         setCellPadding(3);
         setCellWidthMinimum(54);
         setCellHeightMinimum(53);
-        setId(HudControl.SelectionPane);
+        setIdentifier(HudControl.SelectionPane);
         setType(HudControl.SelectionPane);
         setTouchable(Touchable.childrenOnly);
     }

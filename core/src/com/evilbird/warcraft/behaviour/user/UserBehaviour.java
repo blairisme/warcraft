@@ -11,6 +11,7 @@ package com.evilbird.warcraft.behaviour.user;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
@@ -35,6 +36,11 @@ public class UserBehaviour implements Behaviour
     @Inject
     public UserBehaviour(UserInteractions interactions) {
         this.interactions = interactions;
+    }
+
+    @Override
+    public Identifier getIdentifier() {
+        return null; //TODO
     }
 
     @Override

@@ -35,10 +35,10 @@ import static com.evilbird.warcraft.item.hud.HudControl.*;
  *
  * @author Blair Butterworth
  */
-public class HudControlProvider extends IdentifiedAssetProviderSet<Item>
+public class HudControlFactory extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
-    public HudControlProvider(
+    public HudControlFactory(
         ActionButtonProvider actionButtonProvider,
         ActionPaneProvider actionPaneProvider,
         BuildingProgressProvider buildingProgressProvider,

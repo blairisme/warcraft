@@ -9,13 +9,13 @@
 
 package com.evilbird.warcraft.state.user;
 
-import com.evilbird.warcraft.state.StateIdentifier;
+import com.evilbird.engine.state.StateIdentifier;
 
-public class UserState implements StateIdentifier
+public class UserStateIdentifier implements StateIdentifier
 {
     private String name;
 
-    public UserState(String name) {
+    public UserStateIdentifier(String name) {
         this.name = name;
     }
 

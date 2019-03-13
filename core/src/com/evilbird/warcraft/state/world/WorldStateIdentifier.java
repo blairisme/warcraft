@@ -7,19 +7,18 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.asset;
+package com.evilbird.warcraft.state.world;
 
-public enum Map implements MapDefinition
+public enum WorldStateIdentifier
 {
     Human1 ("data/levels/human/level1.tmx");
 
     private String assetPath;
 
-    Map(String assetPath) {
+    WorldStateIdentifier(String assetPath) {
         this.assetPath = assetPath;
     }
 
-    @Override
     public String getFilePath() {
         return assetPath;
     }

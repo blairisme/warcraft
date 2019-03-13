@@ -17,6 +17,7 @@ import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.menu.MenuOverlay;
 import com.evilbird.engine.menu.MenuScreen;
 import com.evilbird.engine.state.State;
+import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateScreen;
 import com.evilbird.engine.state.StateService;
 
@@ -93,13 +94,13 @@ public class GameEngine extends Game implements GameController
     }
 
     @Override
-    public void showState(Identifier identifier) throws IOException {
+    public void showState(StateIdentifier identifier) throws IOException {
         stateScreen.setState(stateService.get(identifier));
         setScreen(stateScreen);
     }
 
     @Override
-    public void saveState(Identifier identifier) throws IOException {
+    public void saveState(StateIdentifier identifier) throws IOException {
         State state = stateScreen.getState();
         stateService.set(identifier, state);
     }

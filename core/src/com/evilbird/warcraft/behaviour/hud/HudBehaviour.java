@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.behaviour.hud;
 
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.common.lang.Objects;
@@ -44,6 +45,11 @@ public class HudBehaviour implements Behaviour
     @Inject
     public HudBehaviour(EventQueue events) {
         this.events = events;
+    }
+
+    @Override
+    public Identifier getIdentifier() {
+        return null; //TODO
     }
 
     @Override

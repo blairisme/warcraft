@@ -15,11 +15,16 @@ import com.evilbird.warcraft.item.effect.confirm.ConfirmProvider;
 
 import javax.inject.Inject;
 
-public class EffectProvider extends IdentifiedAssetProviderSet<Item>
+/**
+ * Instances of this factory create {@link Item Items} that display an effect,
+ * visual feedback that assists the user.
+ *
+ * @author Blair Butterworth
+ */
+public class EffectFactory extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
-    public EffectProvider(ConfirmProvider confirmProvider)
-    {
+    public EffectFactory(ConfirmProvider confirmProvider) {
         addProvider(EffectType.Confirm, confirmProvider);
     }
 }

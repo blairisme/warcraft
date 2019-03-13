@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.common.function.Predicate;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.game.GameController;
 import com.google.gson.annotations.JsonAdapter;
 import org.apache.commons.lang3.Validate;
@@ -108,6 +109,24 @@ public class ItemRoot implements ItemComposite
         Validate.notNull(graph);
         this.graph = graph;
         this.graphUpdater.setGraph(graph);
+    }
+
+    /**
+     * Returns the unique {@link Identifier} of the ItemRoot.
+     *
+     * @return an <code>Identifier</code>. Will not return <code>null</code>.
+     */
+    public Identifier getIdentifier() {
+        return group.getIdentifier();
+    }
+
+    /**
+     * Sets the unique {@link Identifier} of the ItemRoot.
+     *
+     * @param identifier an <code>Identifier</code>. Cannot be <code>null</code>.
+     */
+    public void setIdentifier(Identifier identifier) {
+        group.setIdentifier(identifier);
     }
 
     /**

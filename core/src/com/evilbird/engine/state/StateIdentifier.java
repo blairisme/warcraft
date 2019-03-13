@@ -7,9 +7,10 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.asset;
+package com.evilbird.engine.state;
 
-public interface MapDefinition
+import com.evilbird.engine.common.lang.Identifier;
+
+public interface StateIdentifier extends Identifier
 {
-    String getFilePath();
 }

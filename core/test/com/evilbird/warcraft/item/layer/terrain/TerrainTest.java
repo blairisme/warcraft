@@ -21,8 +21,6 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
-
 public class TerrainTest extends GameTestCase
 {
     private Terrain terrain;
@@ -41,7 +39,7 @@ public class TerrainTest extends GameTestCase
 
         terrain = new Terrain();
         terrain.setLayer(layer);
-        terrain.setId(identifier);
+        terrain.setIdentifier(identifier);
         terrain.setType(identifier.getType());
 
         respondWithItem(terrain);

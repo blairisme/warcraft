@@ -12,27 +12,11 @@ package com.evilbird.engine.state;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.item.ItemRoot;
 
-public class State
+public interface State
 {
-    private ItemRoot world;
-    private transient ItemRoot hud;
-    private transient Behaviour behaviour;
+    ItemRoot getWorld();
 
-    public State(ItemRoot world, ItemRoot hud, Behaviour behaviour) {
-        this.world = world;
-        this.hud = hud;
-        this.behaviour = behaviour;
-    }
+    ItemRoot getHud();
 
-    public ItemRoot getWorld() {
-        return world;
-    }
-
-    public ItemRoot getHud() {
-        return hud;
-    }
-
-    public Behaviour getBehaviour() {
-        return behaviour;
-    }
+    Behaviour getBehaviour();
 }

@@ -33,7 +33,7 @@ public class ItemGroupTest extends GameTestCase
         super.setup();
 
         group = new ItemGroup();
-        group.setId(new TextIdentifier("Player1"));
+        group.setIdentifier(new TextIdentifier("Player1"));
         group.setType(DataType.Player);
         group.addItem(TestItems.newItem("1"));
         group.addItem(TestItems.newItem("2"));

@@ -56,7 +56,7 @@ public class ResourcePane extends Item
         oilImage = new Image();
         woodImage = new Image();
         table = createTable();
-        setId(HudControl.ResourcePane);
+        setIdentifier(HudControl.ResourcePane);
         setType(HudControl.ResourcePane);
         setTouchable(Touchable.disabled);
     }

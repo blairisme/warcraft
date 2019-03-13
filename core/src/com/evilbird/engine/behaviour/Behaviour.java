@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.behaviour;
 
+import com.evilbird.engine.common.lang.Identifiable;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.state.State;
 
@@ -21,7 +22,7 @@ import java.util.List;
  *
  * @author Blair Butterworth
  */
-public interface Behaviour
+public interface Behaviour extends Identifiable
 {
     /**
      * Provides the behaviour the opportunity to update the game state. The

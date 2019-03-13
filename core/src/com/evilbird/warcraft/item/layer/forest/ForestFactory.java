@@ -51,7 +51,7 @@ public class ForestFactory implements IdentifiedAssetProvider<Forest>
 
         Forest forest = new Forest();
         forest.setSkin(getSkin());
-        forest.setId(layerIdentifier);
+        forest.setIdentifier(layerIdentifier);
         forest.setType(layerIdentifier.getType());
         forest.setLayer(LayerUtils.getLayer(layerIdentifier));
         forest.setTouchable(Touchable.childrenOnly);

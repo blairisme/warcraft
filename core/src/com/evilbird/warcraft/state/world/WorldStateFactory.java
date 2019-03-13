@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.asset;
+package com.evilbird.warcraft.state.world;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -34,18 +34,18 @@ import java.util.Map;
 //TODO: use size from level
 //TODO: make generic - move to common
 //TODO: dispose of map
-public class MapFactory
+public class WorldStateFactory
 {
     private TiledMapLoader mapLoader;
     private ItemFactory itemFactory;
 
     @Inject
-    public MapFactory(ItemFactory itemFactory) {
+    public WorldStateFactory(ItemFactory itemFactory) {
         this.itemFactory = itemFactory;
         this.mapLoader = new TiledMapLoader();
     }
 
-    public ItemRoot get(MapDefinition definition) {
+    public ItemRoot get(WorldStateIdentifier definition) {
         String mapPath = definition.getFilePath();
         TiledMapFile map = mapLoader.load(mapPath);
         return getItem(map);
@@ -143,7 +143,7 @@ public class MapFactory
 
     private Item createItem(ItemType type, MapObject object) {
         Item item = itemFactory.newItem(type);
-        item.setId(new TextIdentifier(object.getName()));
+        item.setIdentifier(new TextIdentifier(object.getName()));
         item.setVisible(object.isVisible());
         return item;
     }

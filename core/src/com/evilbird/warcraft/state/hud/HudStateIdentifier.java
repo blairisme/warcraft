@@ -7,29 +7,29 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.asset;
+package com.evilbird.warcraft.state.hud;
 
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.item.hud.HudControl;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-public enum Hud implements HudDefinition
+public enum HudStateIdentifier implements Identifier
 {
     Human (HudControl.ResourcePane, HudControl.ControlPane),
     Orc   ();
 
     private Collection<HudControl> controls;
 
-    Hud(HudControl ... controls) {
+    HudStateIdentifier(HudControl ... controls) {
         this(Arrays.asList(controls));
     }
 
-    Hud(Collection<HudControl> controls) {
+    HudStateIdentifier(Collection<HudControl> controls) {
         this.controls = controls;
     }
 
-    @Override
     public Collection<HudControl> getControls() {
         return controls;
     }

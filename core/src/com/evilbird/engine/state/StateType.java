@@ -7,12 +7,10 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state;
+package com.evilbird.engine.state;
 
 import com.evilbird.engine.common.lang.Identifier;
 
-public enum StateType implements Identifier
+public interface StateType extends Identifier
 {
-    AssetState,
-    UserState
 }

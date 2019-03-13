@@ -53,7 +53,7 @@ public class ActionButtonProvider implements AssetProvider<ActionButton>
         ActionButton result = get();
         result.setPadding(4);
         result.setSize(54, 46);
-        result.setId(type);
+        result.setIdentifier(type);
         result.setType(type);
         result.setTouchable(Touchable.enabled);
         result.setImage(getNormalIcon(type));

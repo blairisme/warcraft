@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.asset;
+package com.evilbird.warcraft.state.hud;
 
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
@@ -15,20 +15,20 @@ import com.evilbird.warcraft.item.hud.HudControl;
 
 import javax.inject.Inject;
 
-public class HudFactory
+public class HudStateFactory
 {
     private ItemFactory itemFactory;
 
     @Inject
-    public HudFactory(ItemFactory itemFactory) {
+    public HudStateFactory(ItemFactory itemFactory) {
         this.itemFactory = itemFactory;
     }
 
-    public ItemRoot get(HudDefinition definition) {
+    public ItemRoot get(HudStateIdentifier identifier) {
         ItemRoot hud = new ItemRoot();
         //hud.setViewport(viewport);
 
-        for (HudControl hudControl: definition.getControls()) {
+        for (HudControl hudControl: identifier.getControls()) {
             hud.addItem(itemFactory.newItem(hudControl));
         }
         return hud;

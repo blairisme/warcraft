@@ -37,7 +37,7 @@ public class Camera extends Item implements Zoomable
         camera.zoom = originalZoom;
         currentZoom = originalZoom;
 
-        setId(DataType.Camera);
+        setIdentifier(DataType.Camera);
         setType(DataType.Camera);
         setPosition(camera.position.x, camera.position.y);
         setTouchable(Touchable.disabled);

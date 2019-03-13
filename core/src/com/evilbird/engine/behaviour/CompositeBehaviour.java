@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.behaviour;
 
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.state.State;
 import org.apache.commons.lang3.Validate;
@@ -28,6 +29,11 @@ public class CompositeBehaviour implements Behaviour
     public CompositeBehaviour(List<Behaviour> behaviours) {
         Validate.notNull(behaviours);
         this.behaviours = behaviours;
+    }
+
+    @Override
+    public Identifier getIdentifier() {
+        return null; //TODO
     }
 
     @Override

@@ -11,6 +11,7 @@ package com.evilbird.engine.game;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.menu.MenuIdentifier;
+import com.evilbird.engine.state.StateIdentifier;
 
 import java.io.IOException;
 
@@ -54,17 +55,17 @@ public interface GameController
      * Shows the specified game state. If a menu or game state is current shown then
      * this will be disposed.
      *
-     * @param identifier a {@link Identifier}. This parameter cannot be
+     * @param identifier a {@link StateIdentifier}. This parameter cannot be
      *                     <code>null</code>.
      */
-    void showState(Identifier identifier) throws IOException;
+    void showState(StateIdentifier identifier) throws IOException;
 
     /**
      * Saves the current game state into persisted storage and assigned the
      * given identifier which can be used to load it at a later date.
      *
-     * @param identifier a {@link Identifier}. This parameter cannot be
+     * @param identifier a {@link StateIdentifier}. This parameter cannot be
      *                   <code>null</code>.
      */
-    void saveState(Identifier identifier) throws IOException;
+    void saveState(StateIdentifier identifier) throws IOException;
 }

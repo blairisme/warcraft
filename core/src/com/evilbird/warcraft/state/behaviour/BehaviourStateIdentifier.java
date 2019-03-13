@@ -7,11 +7,9 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.behaviour.objective;
+package com.evilbird.warcraft.state.behaviour;
 
-import com.evilbird.engine.behaviour.BehaviourIdentifier;
+import com.evilbird.engine.common.lang.Identifier;
 
-public enum Objective implements BehaviourIdentifier
-{
-    Human1
+public enum BehaviourStateIdentifier implements Identifier {
 }

@@ -10,6 +10,7 @@
 package com.evilbird.engine.game;
 
 import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.item.ItemFactory;
 
 /**
@@ -25,4 +26,6 @@ public interface GameInjector
     ItemFactory getItemFactory();
 
     ActionFactory getActionFactory();
+
+    BehaviourFactory getBehaviourFactory();
 }

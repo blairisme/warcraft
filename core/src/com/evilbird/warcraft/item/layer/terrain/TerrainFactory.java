@@ -38,7 +38,7 @@ public class TerrainFactory implements IdentifiedAssetProvider<Terrain>
         LayerIdentifier layerIdentifier = (LayerIdentifier)identifier;
 
         Terrain terrain = new Terrain();
-        terrain.setId(layerIdentifier);
+        terrain.setIdentifier(layerIdentifier);
         terrain.setType(layerIdentifier.getType());
         terrain.setLayer(LayerUtils.getLayer(layerIdentifier));
         return terrain;

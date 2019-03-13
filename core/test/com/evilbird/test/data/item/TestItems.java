@@ -17,7 +17,7 @@ public class TestItems
 {
     public static Item newItem(String id) {
         Item item = new Item();
-        item.setId(new TextIdentifier(id));
+        item.setIdentifier(new TextIdentifier(id));
         item.setType(UnitType.Footman);
         item.setPosition(12, 34);
         item.setSize(56, 78);

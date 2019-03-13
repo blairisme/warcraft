@@ -9,14 +9,13 @@
 
 package com.evilbird.warcraft.item;
 
-import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.item.data.DataProvider;
-import com.evilbird.warcraft.item.effect.EffectProvider;
-import com.evilbird.warcraft.item.hud.HudControlProvider;
+import com.evilbird.warcraft.item.effect.EffectFactory;
+import com.evilbird.warcraft.item.hud.HudControlFactory;
 import com.evilbird.warcraft.item.layer.LayerFactory;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.placeholder.PlaceholderProvider;
@@ -39,16 +38,16 @@ public class WarcraftItemFactory implements ItemFactory
         DataProvider dataProvider,
         LayerFactory layerFactory,
         UnitFactory unitFactory,
-        EffectProvider effectProvider,
-        HudControlProvider hudProvider,
-        PlaceholderProvider buildingSiteProvider)
+        EffectFactory effectFactory,
+        HudControlFactory hudProvider,
+        PlaceholderProvider placeholderFactory)
     {
         providers = new IdentifiedAssetProviderSet<>();
         providers.addProvider(unitFactory);
         providers.addProvider(hudProvider);
         providers.addProvider(dataProvider);
-        providers.addProvider(effectProvider);
-        providers.addProvider(buildingSiteProvider);
+        providers.addProvider(effectFactory);
+        providers.addProvider(placeholderFactory);
         providers.addProvider(LayerIdentifier.class, layerFactory);
     }
 

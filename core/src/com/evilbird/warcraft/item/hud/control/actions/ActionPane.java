@@ -55,7 +55,7 @@ public class ActionPane extends GridPane implements Navigable
         setCellPadding(3);
         setCellWidthMinimum(54);
         setCellHeightMinimum(46);
-        setId(HudControl.ActionPane);
+        setIdentifier(HudControl.ActionPane);
         setType(HudControl.ActionPane);
         setTouchable(Touchable.childrenOnly);
     }

@@ -16,14 +16,11 @@ import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
-import com.evilbird.warcraft.item.layer.forest.Forest;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
-
-import static org.junit.Assert.*;
 
 public class FogTest extends GameTestCase
 {
@@ -43,7 +40,7 @@ public class FogTest extends GameTestCase
 
         fog = new Fog();
         fog.setLayer(layer);
-        fog.setId(identifier);
+        fog.setIdentifier(identifier);
         fog.setType(identifier.getType());
         //fog.update(1);
 

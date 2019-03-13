@@ -32,7 +32,7 @@ import com.evilbird.engine.state.StateService;
 import com.evilbird.warcraft.menu.common.controls.StyledField;
 import com.evilbird.warcraft.menu.common.controls.StyledList;
 import com.evilbird.warcraft.menu.common.events.SelectListener;
-import com.evilbird.warcraft.state.user.UserState;
+import com.evilbird.warcraft.state.user.UserStateIdentifier;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.inject.Inject;
@@ -44,7 +44,7 @@ import static com.evilbird.warcraft.menu.ingame.IngameMenuLayout.*;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.*;
 import static com.evilbird.warcraft.menu.intro.IntroMenuType.HumanLevel1;
 import static com.evilbird.warcraft.menu.main.MainMenuType.Home;
-import static com.evilbird.warcraft.state.StateType.UserState;
+import static com.evilbird.warcraft.state.WarcraftStateType.UserState;
 
 /**
  * Instances of this factory create {@link IngameMenu} instances, menus shown
@@ -299,7 +299,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
     private SelectListener saveState(IngameMenu menu, StyledField field) {
         return () -> {
             try {
-                menu.saveState(new UserState(field.getText()));
+                menu.saveState(new UserStateIdentifier(field.getText()));
             }
             catch (Exception exception) {
                 exception.printStackTrace();
@@ -312,7 +312,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
     private SelectListener deleteState(IngameMenu menu, StyledList list) {
         return () -> {
             try {
-                states.remove((UserState)list.getSelected());
+                states.remove((UserStateIdentifier)list.getSelected());
             }
             catch (Exception exception) {
                 exception.printStackTrace();
@@ -325,7 +325,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
     private SelectListener loadState(IngameMenu menu, StyledList list) {
         return () -> {
             try {
-                menu.showState((UserState)list.getSelected());
+                menu.showState((UserStateIdentifier)list.getSelected());
             }
             catch (Exception exception) {
                 exception.printStackTrace();

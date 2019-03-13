@@ -268,11 +268,11 @@ public class Item implements Identifiable, Categorizable, Positionable, Selectab
     /**
      * Sets the unique {@link Identifier} of the Item.
      *
-     * @param id an <code>Identifier</code>. Cannot be <code>null</code>.
+     * @param identifier an <code>Identifier</code>. Cannot be <code>null</code>.
      */
-    public void setId(Identifier id) {
+    public void setIdentifier(Identifier identifier) {
         Validate.notNull(id);
-        this.id = id;
+        this.id = identifier;
     }
 
     /**

@@ -10,6 +10,7 @@
 package com.evilbird.engine.game;
 
 import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.item.ItemFactory;
 
 /**
@@ -44,6 +45,11 @@ public class GameService implements GameInjector
     @Override
     public ItemFactory getItemFactory() {
         return injector.getItemFactory();
+    }
+
+    @Override
+    public BehaviourFactory getBehaviourFactory() {
+        return injector.getBehaviourFactory();
     }
 
     public void setInjector(GameInjector injector) {

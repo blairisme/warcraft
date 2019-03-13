@@ -54,27 +54,27 @@ public class UserStateService
         return result;
     }
 
-    public State get(UserState userState) throws IOException {
-        try (Reader reader = storage.read(toPath(userState))) {
+    public State get(UserStateIdentifier userStateIdentifier) throws IOException {
+        try (Reader reader = storage.read(toPath(userStateIdentifier))) {
             return serializer.deserialize(reader, State.class);
         }
     }
 
-    public void set(UserState userState, State state) throws IOException {
-        try (Writer writer = storage.write(toPath(userState))) {
+    public void set(UserStateIdentifier userStateIdentifier, State state) throws IOException {
+        try (Writer writer = storage.write(toPath(userStateIdentifier))) {
             serializer.serialize(state, State.class, writer);
         }
     }
 
-    public void remove(UserState userState) throws IOException {
-        storage.remove(toPath(userState));
+    public void remove(UserStateIdentifier userStateIdentifier) throws IOException {
+        storage.remove(toPath(userStateIdentifier));
     }
 
-    private UserState toState(String path) {
-        return new UserState(FilenameUtils.getBaseName(path));
+    private UserStateIdentifier toState(String path) {
+        return new UserStateIdentifier(FilenameUtils.getBaseName(path));
     }
 
-    private String toPath(UserState state) {
+    private String toPath(UserStateIdentifier state) {
         return SAVES + File.separator + state.getName() + JSON;
     }
 }

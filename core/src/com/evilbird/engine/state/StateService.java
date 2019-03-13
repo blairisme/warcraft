@@ -17,11 +17,11 @@ import java.util.List;
 
 public interface StateService extends Persisted
 {
-    List<Identifier> list(Identifier type) throws IOException;
+    List<Identifier> list(StateType type) throws IOException;
 
-    State get(Identifier identifier) throws IOException;
+    State get(StateIdentifier identifier) throws IOException;
 
-    void set(Identifier identifier, State state) throws IOException;
+    void set(StateIdentifier identifier, State state) throws IOException;
 
-    void remove(Identifier identifier) throws IOException;
+    void remove(StateIdentifier identifier) throws IOException;
 }

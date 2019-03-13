@@ -9,12 +9,15 @@
 
 package com.evilbird.warcraft.state;
 
+import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateService;
+import com.evilbird.engine.state.StateType;
 import com.evilbird.warcraft.state.asset.AssetState;
 import com.evilbird.warcraft.state.asset.AssetStateService;
-import com.evilbird.warcraft.state.user.UserState;
+import com.evilbird.engine.state.StateIdentifier;
+import com.evilbird.warcraft.state.user.UserStateIdentifier;
 import com.evilbird.warcraft.state.user.UserStateService;
 import org.apache.commons.lang3.Validate;
 
@@ -43,33 +46,35 @@ public class WarcraftStateService implements StateService
     }
 
     @Override
-    public List<Identifier> list(Identifier category) throws IOException {
-        Validate.isInstanceOf(StateType.class, category);
-        if (category == StateType.AssetState) {
+    public List<Identifier> list(StateType category) throws IOException {
+        Validate.isInstanceOf(WarcraftStateType.class, category);
+        if (category == WarcraftStateType.AssetState) {
             return assetStateService.list();
         }
         return userStateService.list();
     }
 
     @Override
-    public State get(Identifier identifier) throws IOException {
-        Validate.isInstanceOf(StateIdentifier.class, identifier);
+    public State get(StateIdentifier identifier) throws IOException {
         if (identifier instanceof AssetState) {
             return assetStateService.get((AssetState)identifier);
         }
-        return userStateService.get((UserState)identifier);
+        if (identifier instanceof UserStateIdentifier) {
+            return userStateService.get((UserStateIdentifier)identifier);
+        }
+        throw new UnknownEntityException(identifier);
     }
 
 
     @Override
-    public void set(Identifier identifier, State state) throws IOException {
-        Validate.isInstanceOf(UserState.class, identifier);
-        userStateService.set((UserState)identifier, state);
+    public void set(StateIdentifier identifier, State state) throws IOException {
+        Validate.isInstanceOf(UserStateIdentifier.class, identifier);
+        userStateService.set((UserStateIdentifier)identifier, state);
     }
 
     @Override
-    public void remove(Identifier identifier) throws IOException {
-        Validate.isInstanceOf(UserState.class, identifier);
-        userStateService.remove((UserState)identifier);
+    public void remove(StateIdentifier identifier) throws IOException {
+        Validate.isInstanceOf(UserStateIdentifier.class, identifier);
+        userStateService.remove((UserStateIdentifier)identifier);
     }
 }

@@ -9,8 +9,10 @@
 
 package com.evilbird.warcraft.state;
 
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.state.StateType;
 
-public interface StateIdentifier extends Identifier
+public enum WarcraftStateType implements StateType
 {
+    AssetState,
+    UserState
 }

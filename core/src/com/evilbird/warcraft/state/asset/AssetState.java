@@ -9,25 +9,27 @@
 
 package com.evilbird.warcraft.state.asset;
 
-import com.evilbird.warcraft.state.StateIdentifier;
+import com.evilbird.engine.state.StateIdentifier;
+import com.evilbird.warcraft.state.hud.HudStateIdentifier;
+import com.evilbird.warcraft.state.world.WorldStateIdentifier;
 
 public enum AssetState implements StateIdentifier
 {
-    Human1 (Map.Human1, Hud.Human);
+    Human1 (WorldStateIdentifier.Human1, HudStateIdentifier.Human);
 
-    private HudDefinition hud;
-    private MapDefinition map;
+    private HudStateIdentifier hud;
+    private WorldStateIdentifier world;
 
-    AssetState(MapDefinition map, HudDefinition hud) {
+    AssetState(WorldStateIdentifier world, HudStateIdentifier hud) {
         this.hud = hud;
-        this.map = map;
+        this.world = world;
     }
 
-    public HudDefinition getHud() {
+    public HudStateIdentifier getHud() {
         return hud;
     }
 
-    public MapDefinition getMap() {
-        return map;
+    public WorldStateIdentifier getWorld() {
+        return world;
     }
 }
