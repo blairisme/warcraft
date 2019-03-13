@@ -18,6 +18,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemBasic;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -28,7 +29,7 @@ import java.util.Objects;
 
 //TODO: Move selected box drawing to unit
 //TODO: Use real logging
-public class AnimatedItem extends Item implements Animated, Audible
+public class AnimatedItem extends ItemBasic implements Animated, Audible
 {
     private float direction;
     private transient ShapeRenderer shapeRenderer;

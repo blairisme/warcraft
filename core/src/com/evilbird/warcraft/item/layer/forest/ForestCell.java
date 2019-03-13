@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemBasic;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 import com.evilbird.warcraft.item.layer.LayerType;
@@ -28,7 +29,7 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-public class ForestCell extends Item implements ResourceContainer
+public class ForestCell extends ItemBasic implements ResourceContainer
 {
     private float wood;
     private GridPoint2 location;

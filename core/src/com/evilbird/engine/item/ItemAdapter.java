@@ -25,6 +25,7 @@ import java.lang.reflect.Modifier;
  *
  * @author Blair Butterworth
  */
+//TODO: Dont write out empty values
 public class ItemAdapter extends AbstractAdapter<Item>
 {
     private static final String TYPE = "type";

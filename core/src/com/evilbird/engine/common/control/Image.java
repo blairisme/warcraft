@@ -12,8 +12,9 @@ package com.evilbird.engine.common.control;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemBasic;
 
-public class Image extends Item
+public class Image extends ItemBasic
 {
     protected Drawable image;
     protected Drawable background;

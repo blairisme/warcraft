@@ -11,9 +11,9 @@ package com.evilbird.warcraft.item.placeholder;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemBasic;
 
-public class Placeholder extends Item
+public class Placeholder extends ItemBasic
 {
     private transient Drawable building;
     private transient Drawable overlay;

@@ -16,8 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemBasic;
 
-public class TextLabel extends Item
+public class TextLabel extends ItemBasic
 {
     private Label label;
 

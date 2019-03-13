@@ -25,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemBasic;
 import com.evilbird.warcraft.item.hud.HudControl;
 
 import static com.evilbird.engine.common.graphics.DensityIndependentPixel.dp;
@@ -38,7 +39,7 @@ import static com.evilbird.engine.common.graphics.DensityIndependentPixel.dp;
  */
 //TODO: Use table control based on items - or a grid pane...
 //TODO: Use flexible scaling depending on screen size
-public class ResourcePane extends Item
+public class ResourcePane extends ItemBasic
 {
     private Table table;
     private Label goldText;

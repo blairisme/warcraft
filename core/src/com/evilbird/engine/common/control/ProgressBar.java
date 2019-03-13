@@ -12,10 +12,11 @@ package com.evilbird.engine.common.control;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemBasic;
 
 import javax.inject.Inject;
 
-public class ProgressBar extends Item
+public class ProgressBar extends ItemBasic
 {
     private Drawable texture;
     private float textureWidth;

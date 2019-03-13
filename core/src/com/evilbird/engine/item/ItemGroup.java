@@ -29,7 +29,7 @@ import java.util.List;
  * @author Blair Butterworth
  */
 //TODO: Enhancement: Add caching for find invocations
-public class ItemGroup extends Item implements ItemComposite
+public class ItemGroup extends ItemBasic implements ItemComposite
 {
     private List<Item> items;
     private transient Collection<ItemGroupObserver> observers;
@@ -49,7 +49,7 @@ public class ItemGroup extends Item implements ItemComposite
      */
     public void addItem(Item item) {
         Group group = (Group)delegate;
-        group.addActor(item.delegate);
+        group.addActor(item.toActor());
         item.setParent(this);
         item.setRoot(getRoot());
         items.add(item);
@@ -62,7 +62,7 @@ public class ItemGroup extends Item implements ItemComposite
      * @param item the item to remove.
      */
     public void removeItem(Item item) {
-        item.delegate.remove();
+        item.toActor().remove();
         items.remove(item);
         notifyItemRemoved(item);
     }

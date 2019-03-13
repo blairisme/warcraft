@@ -28,12 +28,12 @@ public class ActionDecorator extends com.badlogic.gdx.scenes.scene2d.Action
 
     @Override
     public Actor getActor() {
-        return delegate.getItem().delegate;
+        return delegate.getItem().toActor();
     }
 
     @Override
     public Actor getTarget() {
-        return delegate.getTarget().delegate;
+        return delegate.getTarget().toActor();
     }
 
     @Override

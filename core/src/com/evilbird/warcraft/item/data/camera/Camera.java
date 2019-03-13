@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemBasic;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.common.capability.Zoomable;
 import com.evilbird.warcraft.item.data.DataType;
@@ -23,7 +24,7 @@ import javax.inject.Inject;
 
 import static com.badlogic.gdx.Gdx.graphics;
 
-public class Camera extends Item implements Zoomable
+public class Camera extends ItemBasic implements Zoomable
 {
     private float originalZoom;
     private float currentZoom;
