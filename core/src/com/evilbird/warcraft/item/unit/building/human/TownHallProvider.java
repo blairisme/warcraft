@@ -15,13 +15,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
+import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.animated.AnimationIdentifier;
 import com.evilbird.engine.item.animated.SoundIdentifier;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
-import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -31,8 +31,8 @@ import javax.inject.Inject;
 import java.util.Map;
 
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
-import static com.evilbird.engine.common.file.FileType.MP3;
 import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
+import static com.evilbird.engine.common.file.FileType.MP3;
 
 /**
  * Instances of this class create {@link Building Town Halls}, loading the

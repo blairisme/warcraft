@@ -13,7 +13,6 @@ import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.engine.common.serialization.SerializedType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @SerializedType("Named")
 public class TextIdentifier implements Identifier

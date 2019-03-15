@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.item.hud;
 
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
 

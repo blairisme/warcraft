@@ -13,7 +13,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.item.hud.control.minimap.MinimapPane;
 
 import javax.inject.Inject;
 

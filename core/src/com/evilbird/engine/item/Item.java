@@ -17,16 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.*;
 import com.google.gson.annotations.JsonAdapter;
-import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.ArrayList;
 import java.util.Collection;
-
-import static com.badlogic.gdx.scenes.scene2d.Touchable.enabled;
-import static com.evilbird.engine.common.lang.GenericIdentifier.Unknown;
 
 /**
  * Implementors of this interface represent a basic game entity.

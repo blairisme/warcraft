@@ -11,18 +11,13 @@ package com.evilbird.engine.common.serialization;
 
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.warcraft.state.WarcraftState;
-import com.evilbird.warcraft.state.WarcraftStateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import org.apache.commons.lang3.tuple.Pair;
 
 import javax.inject.Inject;
 import java.io.Reader;
 import java.io.Writer;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 

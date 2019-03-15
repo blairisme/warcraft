@@ -15,14 +15,11 @@ import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
-import com.evilbird.warcraft.action.attack.AttackAction;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
-
-import static org.junit.Assert.*;
 
 public class ConfirmItemTest extends GameTestCase
 {

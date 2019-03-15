@@ -18,6 +18,9 @@ public class SerializedTypes
 {
     private static Map<String, Class<?>> types;
 
+    private SerializedTypes() {
+    }
+
     public static String getAlias(Class<?> type) {
         SerializedType serializedType = type.getAnnotation(SerializedType.class);
         if (serializedType == null) {

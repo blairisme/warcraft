@@ -10,11 +10,11 @@
 package com.evilbird.warcraft.item.hud.control.status.building;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.common.control.GridPane;
 import com.evilbird.engine.common.control.ProgressBar;
 import com.evilbird.engine.common.control.TextLabel;
 import com.evilbird.engine.common.control.TextLabelAlignment;
+import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.hud.HudControl;
 
 public class BuildingProgress extends GridPane

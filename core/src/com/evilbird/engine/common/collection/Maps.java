@@ -20,6 +20,9 @@ import java.util.Map;
  */
 public class Maps
 {
+    private Maps() {
+    }
+
     public static <K, V> Map<K, V> of (K k1, V v1) {
         Map<K, V> result = new HashMap<>(1);
         result.put(k1, v1);

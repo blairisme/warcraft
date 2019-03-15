@@ -10,7 +10,6 @@
 package com.evilbird.engine.game;
 
 import com.badlogic.gdx.Game;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.loader.LoaderScreen;
 import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.menu.MenuIdentifier;

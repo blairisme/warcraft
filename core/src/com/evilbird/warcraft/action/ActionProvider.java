@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.action;
 
-import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.ActionIdentifier;
 
 /**
  * Implementors of this interface provide a method that creates an action given

@@ -14,4 +14,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 public class Fonts
 {
     public static final BitmapFont ARIAL = new BitmapFont();
+
+    private Fonts() {
+    }
 }

@@ -12,19 +12,24 @@
 
 <module name = "Checker">
     <property name="charset" value="UTF-8"/>
-    <property name="severity" value="warning"/>
+    <property name="severity" value="error"/>
     <property name="fileExtensions" value="java"/>
 
+    <!--<module name="SuppressionFilter">-->
+        <!--<property name="file" value="${config_loc}/suppressions.xml"/>-->
+    <!--</module>-->
+
     <module name="FileLength">
-        <property name="max" value="300"/>
+        <property name="max" value="600"/> <!-- TODO: Reduce to ~250 -->
     </module>
+
     <module name="TreeWalker">
         <!-- Bugs -->
         <module name="HideUtilityClassConstructor"/>
         <module name="EqualsHashCode"/>
         <module name="MethodLength">
             <property name="tokens" value="METHOD_DEF"/>
-            <property name="max" value="25"/>
+            <property name="max" value="80"/> <!-- TODO: Reduce to ~20 -->
         </module>
 
         <!-- Convention -->

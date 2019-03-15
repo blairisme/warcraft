@@ -23,6 +23,9 @@ import java.util.Collection;
 //TODO: consider using dst2
 public class SpatialUtils
 {
+    private SpatialUtils() {
+    }
+
     public static <T extends SpatialNode> T getClosest(Collection<T> nodes, T target) {
         return Collections.min(nodes, new SpatialNodeDistanceComparator(target));
     }

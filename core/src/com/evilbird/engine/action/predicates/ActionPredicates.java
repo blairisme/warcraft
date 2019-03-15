@@ -20,6 +20,9 @@ import com.evilbird.engine.common.function.Predicate;
  */
 public class ActionPredicates
 {
+    private ActionPredicates() {
+    }
+
     public static Predicate<Action> withoutError() {
         return new WithoutError();
     }

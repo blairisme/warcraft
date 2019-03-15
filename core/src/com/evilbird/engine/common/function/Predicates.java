@@ -17,7 +17,6 @@ package com.evilbird.engine.common.function;
 public class Predicates
 {
     private Predicates() {
-        throw new UnsupportedOperationException();
     }
 
     public static <T> Predicate<T> accept() {
@@ -27,11 +26,6 @@ public class Predicates
     private static class Accept<T> implements Predicate<T> {
         public boolean test(T value) {
             return true;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return obj instanceof Accept;
         }
     }
 

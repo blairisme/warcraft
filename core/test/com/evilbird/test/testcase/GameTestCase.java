@@ -20,7 +20,6 @@ import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.behaviour.BehaviourIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.game.GameInjector;
 import com.evilbird.engine.game.GameService;
@@ -31,7 +30,6 @@ import com.evilbird.test.data.action.TestActions;
 import com.evilbird.test.data.behaviour.TestBehaviours;
 import com.evilbird.test.data.item.TestItemGroups;
 import com.evilbird.test.data.item.TestItems;
-import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.layer.LayerType;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -49,7 +47,6 @@ import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 import static org.mockito.Answers.RETURNS_MOCKS;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
 
 /**
  * Instances of this test case set up the game engine ready for tests that

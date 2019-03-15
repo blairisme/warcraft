@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.item.hud.control.status.resource;
 
-import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.common.control.BorderPane;
+import java.util.Objects;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 

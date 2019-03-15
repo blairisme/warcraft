@@ -22,6 +22,9 @@ import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.*;
 
 public class AnimationCollections
 {
+    private AnimationCollections() {
+    }
+
     public static Map<AnimationIdentifier, DirectionalAnimation> combatantAnimations(
             Texture generalTexture, Texture decomposeTexture)
     {

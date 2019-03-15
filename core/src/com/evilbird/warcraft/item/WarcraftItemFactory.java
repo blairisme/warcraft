@@ -15,7 +15,6 @@ import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.item.data.DataProvider;
 import com.evilbird.warcraft.item.effect.EffectFactory;
-import com.evilbird.warcraft.item.hud.HudControlFactory;
 import com.evilbird.warcraft.item.hud.HudFactory;
 import com.evilbird.warcraft.item.hud.HudType;
 import com.evilbird.warcraft.item.layer.LayerFactory;

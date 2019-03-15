@@ -19,6 +19,9 @@ import java.util.Map;
  */
 public class ResourceUtils
 {
+    private ResourceUtils() {
+    }
+
     public static Map<ResourceIdentifier, Float> negate(Map<ResourceIdentifier, Float> resources) {
         return scale(resources, -1);
     }

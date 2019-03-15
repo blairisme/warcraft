@@ -10,7 +10,7 @@
 package com.evilbird.engine.action;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Objects;
+import java.util.Objects;
 import com.evilbird.engine.common.serialization.AbstractAdapter;
 import com.evilbird.engine.game.GameService;
 import com.google.gson.JsonDeserializationContext;

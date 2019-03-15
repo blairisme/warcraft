@@ -27,6 +27,9 @@ import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.*;
 //TODO: cache associations
 public class ActionButtonAssociations
 {
+    private ActionButtonAssociations() {
+    }
+
     public static List<ActionButtonType> getActionButtons(Item item) {
         if (item.getType() == UnitType.Peasant) {
             return getGathererButtons();

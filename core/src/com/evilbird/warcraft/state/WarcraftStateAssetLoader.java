@@ -16,7 +16,6 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.common.maps.TiledMapFile;
 import com.evilbird.engine.common.maps.TiledMapLoader;
@@ -31,6 +30,7 @@ import javax.inject.Inject;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 //TODO: use size from level
 //TODO: graph should also use size from level

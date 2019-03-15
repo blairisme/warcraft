@@ -11,7 +11,6 @@ package com.evilbird.engine.item;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.data.item.TestItems;

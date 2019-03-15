@@ -9,9 +9,9 @@
 
 package com.evilbird.warcraft.action.common.cancel;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.AnimateAction;
 import com.evilbird.engine.action.common.ReplacementAction;
-import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 

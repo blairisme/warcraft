@@ -13,7 +13,6 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.state.StateIdentifier;
 

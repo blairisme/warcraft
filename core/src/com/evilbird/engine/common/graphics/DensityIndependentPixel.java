@@ -15,6 +15,9 @@ public class DensityIndependentPixel
 {
     private static final float density = Gdx.graphics.getDensity();
 
+    private DensityIndependentPixel() {
+    }
+
     public static int dp(float value) {
         return Math.round(density * value);
     }

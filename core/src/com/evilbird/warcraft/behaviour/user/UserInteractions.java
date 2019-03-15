@@ -12,7 +12,6 @@ package com.evilbird.warcraft.behaviour.user;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.navigate.NavigateActions;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;

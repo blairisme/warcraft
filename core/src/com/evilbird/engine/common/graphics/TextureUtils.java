@@ -23,6 +23,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
  */
 public class TextureUtils
 {
+    private TextureUtils() {
+    }
+
     public static Drawable getDrawable(AssetManager assets, String path) {
         Texture texture = assets.get(path, Texture.class);
         TextureRegion region = new TextureRegion(texture);

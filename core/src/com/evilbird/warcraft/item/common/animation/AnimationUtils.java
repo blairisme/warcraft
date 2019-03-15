@@ -23,6 +23,9 @@ import java.util.Map.Entry;
 //TODO: Move into common
 public class AnimationUtils
 {
+    private AnimationUtils() {
+    }
+
     public static DirectionalAnimation getAnimation(TextureRegion texture) {
         Array<TextureRegion> textures = Array.with(texture);
         Map<Range<Float>, Array<TextureRegion>> frames = new HashMap<Range<Float>, Array<TextureRegion>>(1);

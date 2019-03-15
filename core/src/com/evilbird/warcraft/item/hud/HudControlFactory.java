@@ -16,7 +16,6 @@ import com.evilbird.warcraft.item.hud.common.UnitPaneProvider;
 import com.evilbird.warcraft.item.hud.control.ControlPane;
 import com.evilbird.warcraft.item.hud.control.actions.ActionButtonProvider;
 import com.evilbird.warcraft.item.hud.control.actions.ActionPaneProvider;
-import com.evilbird.warcraft.item.hud.control.menu.MenuPane;
 import com.evilbird.warcraft.item.hud.control.menu.MenuPaneFactory;
 import com.evilbird.warcraft.item.hud.control.minimap.MinimapPaneProvider;
 import com.evilbird.warcraft.item.hud.control.status.DetailsPaneProvider;

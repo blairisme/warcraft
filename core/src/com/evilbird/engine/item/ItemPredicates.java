@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Circle;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Objects;
+import java.util.Objects;
 import com.evilbird.engine.common.math.ShapeUtilities;
 
 /**

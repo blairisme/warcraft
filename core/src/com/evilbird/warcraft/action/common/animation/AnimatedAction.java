@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.action.common.animation;
 
-import com.evilbird.engine.action.common.AnimateAction;
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.common.AnimateAction;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.SequenceAction;

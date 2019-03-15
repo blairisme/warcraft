@@ -9,10 +9,9 @@
 
 package com.evilbird.engine.common.serialization;
 
-import com.google.gson.*;
 import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 

@@ -22,7 +22,6 @@ import com.evilbird.warcraft.item.unit.resource.ResourceType;
 public class ActionPredicates
 {
     private ActionPredicates() {
-        throw new UnsupportedOperationException();
     }
 
     public static Predicate<Action> withinRange() {

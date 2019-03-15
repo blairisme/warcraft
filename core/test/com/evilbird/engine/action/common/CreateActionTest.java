@@ -9,10 +9,6 @@
 
 package com.evilbird.engine.action.common;
 
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
 /**
  * Instances of this unit test validate the {@link CreateAction} class.
  *

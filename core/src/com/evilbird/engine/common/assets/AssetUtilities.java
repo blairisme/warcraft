@@ -18,6 +18,9 @@ import com.evilbird.engine.common.file.FileType;
 
 public class AssetUtilities
 {
+    private AssetUtilities() {
+    }
+
     public static void loadSet(AssetManager assets, String prefix, String suffix, int count, Class<?> type) {
         for (int i = 1; i <= count; i++){
             assets.load(prefix + i + suffix, type);

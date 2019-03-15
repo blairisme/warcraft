@@ -9,15 +9,13 @@
 
 package com.evilbird.engine.common.serialization;
 
-import com.google.gson.JsonParseException;
-
 import java.lang.reflect.Constructor;
 
-/**
- * @author Blair Butterworth
- */
 public class ReflectionUtils
 {
+    private ReflectionUtils() {
+    }
+
     public static Object getInstance(Class<?> type) {
         try {
             Constructor<?> constructor = type.getDeclaredConstructor();

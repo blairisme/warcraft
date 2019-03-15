@@ -15,6 +15,9 @@ import com.evilbird.engine.common.function.Comparator;
 //TODO: dst2 more efficient
 public class ItemComparators
 {
+    private ItemComparators() {
+    }
+
     public static Comparator<Item> closestItem(Item target) {
         return new ClosestItem(target);
     }

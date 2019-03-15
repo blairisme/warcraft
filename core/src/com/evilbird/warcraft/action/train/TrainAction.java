@@ -9,10 +9,10 @@
 
 package com.evilbird.warcraft.action.train;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.common.AlignAction;
 import com.evilbird.engine.action.common.CreateAction;
-import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.item.ItemFactory;

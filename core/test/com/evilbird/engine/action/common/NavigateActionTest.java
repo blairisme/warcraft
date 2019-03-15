@@ -12,12 +12,9 @@ package com.evilbird.engine.action.common;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.verifier.EqualityVerifier;
-import com.evilbird.test.verifier.SerializationVerifier;
 import com.evilbird.warcraft.item.hud.control.actions.ActionPaneLayout;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.IOException;
 
 /**
  * Instances of this unit test validate the {@link NavigateAction} class.

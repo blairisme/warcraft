@@ -13,7 +13,6 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.evilbird.engine.game.GameInjector;
 import com.evilbird.engine.game.GameService;
 import com.evilbird.warcraft.desktop.DaggerDesktopInjector.Builder;
 
@@ -25,6 +24,9 @@ import com.evilbird.warcraft.desktop.DaggerDesktopInjector.Builder;
  */
 public class DesktopLauncher
 {
+    private DesktopLauncher() {
+    }
+
     public static void main(String[] arg) {
         ApplicationListener engine = getEngine();
         LwjglApplicationConfiguration configuration = getConfiguration();

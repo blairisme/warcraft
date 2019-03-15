@@ -18,6 +18,9 @@ import javax.inject.Singleton;
 @Module
 public class DesktopModule
 {
+    private DesktopModule() {
+    }
+
     @Provides
     @Singleton
     public static Device provideDevice() {

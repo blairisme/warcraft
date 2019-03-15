@@ -21,8 +21,6 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
-
 public class ConfirmLocationTest extends GameTestCase
 {
     private Item item;

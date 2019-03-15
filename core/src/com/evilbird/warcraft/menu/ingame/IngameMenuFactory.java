@@ -156,24 +156,24 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         skin.add("menu-background-small", getDrawable(assets, BACKGROUND_SMALL), Drawable.class);
     }
 
-    private void setLayout(IngameMenu menu, Identifier identifier) {
+    private IngameMenu setLayout(IngameMenu menu, Identifier identifier) {
         switch ((IngameMenuType)identifier) {
-            case Root: { setRootLayout(menu); break; }
-            case Save: { setSaveLayout(menu); break; }
-            case Load: { setLoadLayout(menu); break; }
-            case Exit: { setExitLayout(menu); break; }
-            case Confirm: { setConfirmLayout(menu); break; }
-            case Failure: { setFailureLayout(menu); break; }
-            case Options: { setOptionsLayout(menu); break; }
-            case Sounds: { setSoundsLayout(menu); break; }
-            case Speeds: { setSpeedsLayout(menu); break; }
-            case Preferences: { setPreferencesLayout(menu); break; }
-            case Objectives: { setObjectivesLayout(menu); break; }
+            case Root: return setRootLayout(menu);
+            case Save: return setSaveLayout(menu);
+            case Load: return setLoadLayout(menu);
+            case Exit: return setExitLayout(menu);
+            case Confirm: return setConfirmLayout(menu);
+            case Failure: return setFailureLayout(menu);
+            case Options: return setOptionsLayout(menu);
+            case Sounds: return setSoundsLayout(menu);
+            case Speeds: return setSpeedsLayout(menu);
+            case Preferences: return setPreferencesLayout(menu);
+            case Objectives: return setObjectivesLayout(menu);
             default: throw new UnsupportedOperationException();
         }
     }
 
-    private void setRootLayout(IngameMenu menu) {
+    private IngameMenu setRootLayout(IngameMenu menu) {
         menu.setLayout(Normal);
         menu.addTitle("Game Menu");
         menu.addButton("Save", showMenu(menu, Save));
@@ -183,9 +183,10 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         menu.addButton("End Scenario", showMenu(menu, Exit));
         menu.addSpacer();
         menu.addButton("Return to Game", showState(menu));
+        return menu;
     }
 
-    private void setSaveLayout(IngameMenu menu) {
+    private IngameMenu setSaveLayout(IngameMenu menu) {
         menu.setLayout(Wide);
         menu.addTitle("Save Game");
 
@@ -197,9 +198,10 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
             Pair.of("Cancel", showState(menu)));
 
         addStates(menu, list);
+        return menu;
     }
 
-    private void setLoadLayout(IngameMenu menu) {
+    private IngameMenu setLoadLayout(IngameMenu menu) {
         menu.setLayout(Wide);
         menu.addTitle("Load Game");
 
@@ -210,9 +212,10 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
             Pair.of("Cancel", showState(menu)));
 
         addStates(menu, list);
+        return menu;
     }
 
-    private void setExitLayout(IngameMenu menu) {
+    private IngameMenu setExitLayout(IngameMenu menu) {
         menu.setLayout(Normal);
         menu.addTitle("End Scenario");
         menu.addButton("Restart Scenario", showMenu(menu, HumanLevel1));
@@ -221,24 +224,27 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         menu.addButton("Exit Program", shutdown(menu));
         menu.addSpacer();
         menu.addButton("Previous", showMenu(menu, Root));
+        return menu;
     }
 
-    private void setConfirmLayout(IngameMenu menu) {
+    private IngameMenu setConfirmLayout(IngameMenu menu) {
         menu.setLayout(Normal);
         menu.addTitle("Are you sure you want to surrender to your enemies?");
         menu.addButton("Surrender", showMenu(menu, Failure));
         menu.addSpacer();
         menu.addButton("Cancel", showState(menu));
+        return menu;
     }
 
-    private void setFailureLayout(IngameMenu menu) {
+    private IngameMenu setFailureLayout(IngameMenu menu) {
         menu.setLayout(Small);
         menu.addTitle("You failed to achieve victory!");
         menu.addSpacer();
         menu.addButton("OK", showMenu(menu, Home));
+        return menu;
     }
 
-    private void setOptionsLayout(IngameMenu menu) {
+    private IngameMenu setOptionsLayout(IngameMenu menu) {
         menu.setLayout(Normal);
         menu.addTitle("Game Options");
         menu.addButton("Sounds", showMenu(menu, Sounds));
@@ -246,42 +252,47 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         menu.addButton("Preferences", showMenu(menu, Preferences));
         menu.addSpacer();
         menu.addButton("Previous", showMenu(menu, Root));
+        return menu;
     }
 
-    private void setSoundsLayout(IngameMenu menu) {
+    private IngameMenu setSoundsLayout(IngameMenu menu) {
         menu.setLayout(Normal);
         menu.addTitle("Sound Settings");
         menu.addSpacer();
         menu.addButtonRow(
             Pair.of("OK", showState(menu)),
             Pair.of("Cancel", showState(menu)));
+        return menu;
     }
 
-    private void setSpeedsLayout(IngameMenu menu) {
+    private IngameMenu setSpeedsLayout(IngameMenu menu) {
         menu.setLayout(Normal);
         menu.addTitle("Speed Settings");
         menu.addSpacer();
         menu.addButtonRow(
             Pair.of("OK", showState(menu)),
             Pair.of("Cancel", showState(menu)));
+        return menu;
     }
 
-    private void setPreferencesLayout(IngameMenu menu) {
+    private IngameMenu setPreferencesLayout(IngameMenu menu) {
         menu.setLayout(Normal);
         menu.addTitle("Preferences");
         menu.addSpacer();
         menu.addButtonRow(
             Pair.of("OK", showState(menu)),
             Pair.of("Cancel", showState(menu)));
+        return menu;
     }
 
-    private void setObjectivesLayout(IngameMenu menu) {
+    private IngameMenu setObjectivesLayout(IngameMenu menu) {
         menu.setLayout(Normal);
         menu.addTitle("Scenario Objectives");
         menu.addLabel(" - Build four Farms");
         menu.addLabel(" - Build a Barracks");
         menu.addSpacer();
         menu.addButton("Previous", showMenu(menu, Root));
+        return menu;
     }
 
     private void addStates(IngameMenu menu, List list) {

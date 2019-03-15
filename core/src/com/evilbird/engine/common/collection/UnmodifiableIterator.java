@@ -10,7 +10,6 @@
 package com.evilbird.engine.common.collection;
 
 import java.util.Iterator;
-import java.lang.UnsupportedOperationException;
 
 /**
  * Decorates an iterator such that it cannot be modified. Attempts to modify it

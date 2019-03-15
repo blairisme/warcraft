@@ -21,6 +21,9 @@ import java.util.*;
  */
 public class AnimationSchemas
 {
+    private AnimationSchemas() {
+    }
+
     public static AnimationSchema effectSchema() {
         List<List<Rectangle>> regions = getRegions(1, 4, 0, 0, 32, 32);
         Collections.reverse(regions.get(0));

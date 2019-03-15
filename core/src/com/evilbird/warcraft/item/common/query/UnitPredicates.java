@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.common.query;
 
 import com.evilbird.engine.common.function.Predicate;
-import com.evilbird.engine.common.lang.Objects;
+import java.util.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;

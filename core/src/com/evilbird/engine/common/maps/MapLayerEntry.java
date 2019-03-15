@@ -9,8 +9,8 @@
 
 package com.evilbird.engine.common.maps;
 
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.math.GridPoint2;
 
 /**
  * @author Blair Butterworth

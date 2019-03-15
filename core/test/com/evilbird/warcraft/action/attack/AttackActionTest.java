@@ -20,7 +20,6 @@ import com.evilbird.warcraft.action.move.MoveFactory;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.io.IOException;
 

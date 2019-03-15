@@ -9,10 +9,10 @@
 
 package com.evilbird.warcraft.action.navigate;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.common.NavigateAction;
-import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.warcraft.action.ActionProvider;
 import org.apache.commons.lang3.Validate;

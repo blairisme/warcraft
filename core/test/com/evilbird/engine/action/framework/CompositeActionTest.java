@@ -15,15 +15,12 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.data.action.TestCompositeAction;
 import com.evilbird.test.verifier.EqualityVerifier;
-import com.evilbird.test.verifier.SerializationVerifier;
 import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.move.MoveActions;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import java.io.IOException;
 
 /**
  * Instances of this unit test validate the {@link CompositeAction} class.

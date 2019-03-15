@@ -21,6 +21,9 @@ public class Arrays
 {
     private static final UnmodifiableArray EMPTY_ARRAY = new UnmodifiableArray();
 
+    private Arrays() {
+    }
+
     @SuppressWarnings("unchecked")
     public static <T> Array<T> emptyArray() {
         return (Array<T>)EMPTY_ARRAY;

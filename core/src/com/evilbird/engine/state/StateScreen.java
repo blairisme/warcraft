@@ -12,10 +12,10 @@ package com.evilbird.engine.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceInput;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.item.ItemRoot;
 

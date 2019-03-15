@@ -9,8 +9,6 @@
 
 package com.evilbird.engine.item.layer;
 
-import static org.junit.Assert.*;
-
 public class LayerTest
 {
 
