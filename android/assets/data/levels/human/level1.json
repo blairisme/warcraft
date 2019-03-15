@@ -1,0 +1,14 @@
+{
+  "hud": {
+    "class": "Hud",
+    "enum": "Human"
+  },
+  "behaviour": {
+    "class": "AI",
+    "enum": "HumanPassive"
+  },
+  "world": {
+    "class": "Scenario",
+    "enum": "Level1"
+  }
+}

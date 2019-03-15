@@ -11,6 +11,11 @@ package com.evilbird.warcraft.state;
 
 import com.evilbird.engine.state.StateType;
 
+/**
+ * Defines varieties of states, primarily built in states or user states.
+ *
+ * @author Blair Butterworth
+ */
 public enum WarcraftStateType implements StateType
 {
     AssetState,

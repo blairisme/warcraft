@@ -7,18 +7,19 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.world;
+package com.evilbird.warcraft.state;
 
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.evilbird.engine.common.lang.Objects;
+import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.common.maps.TiledMapFile;
 import com.evilbird.engine.common.maps.TiledMapLoader;
-import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.common.lang.Objects;
 import com.evilbird.engine.item.*;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
@@ -32,23 +33,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 //TODO: use size from level
-//TODO: make generic - move to common
+//TODO: graph should also use size from level
+//TODO: make generic - move to common ?
 //TODO: dispose of map
-public class WorldStateFactory
+public class WarcraftStateAssetLoader
 {
     private TiledMapLoader mapLoader;
     private ItemFactory itemFactory;
 
-    @Inject
-    public WorldStateFactory(ItemFactory itemFactory) {
-        this.itemFactory = itemFactory;
-        this.mapLoader = new TiledMapLoader();
+    public WarcraftStateAssetLoader(ItemFactory itemFactory) {
+        this(itemFactory, new TiledMapLoader());
     }
 
-    public ItemRoot get(WorldStateIdentifier definition) {
-        String mapPath = definition.getFilePath();
-        TiledMapFile map = mapLoader.load(mapPath);
-        return getItem(map);
+    public WarcraftStateAssetLoader(ItemFactory itemFactory, FileHandleResolver fileResolver) {
+        this(itemFactory, new TiledMapLoader(fileResolver));
+    }
+
+    @Inject
+    public WarcraftStateAssetLoader(ItemFactory itemFactory, TiledMapLoader mapLoader) {
+        this.mapLoader = mapLoader;
+        this.itemFactory = itemFactory;
+    }
+
+    public ItemRoot load(WarcraftStateAsset identifier) {
+        return load(identifier.getFilePath());
+    }
+
+    public ItemRoot load(String path) {
+        return getItem(mapLoader.load(path));
     }
 
     private ItemRoot getItem(TiledMapFile level) {

@@ -7,15 +7,15 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.user;
+package com.evilbird.warcraft.state;
 
 import com.evilbird.engine.state.StateIdentifier;
 
-public class UserStateIdentifier implements StateIdentifier
+public class WarcraftStateIdentifier implements StateIdentifier
 {
     private String name;
 
-    public UserStateIdentifier(String name) {
+    public WarcraftStateIdentifier(String name) {
         this.name = name;
     }
 

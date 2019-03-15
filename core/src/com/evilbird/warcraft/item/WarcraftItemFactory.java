@@ -16,6 +16,8 @@ import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.item.data.DataProvider;
 import com.evilbird.warcraft.item.effect.EffectFactory;
 import com.evilbird.warcraft.item.hud.HudControlFactory;
+import com.evilbird.warcraft.item.hud.HudFactory;
+import com.evilbird.warcraft.item.hud.HudType;
 import com.evilbird.warcraft.item.layer.LayerFactory;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.placeholder.PlaceholderProvider;
@@ -39,15 +41,15 @@ public class WarcraftItemFactory implements ItemFactory
         LayerFactory layerFactory,
         UnitFactory unitFactory,
         EffectFactory effectFactory,
-        HudControlFactory hudProvider,
+        HudFactory hudFactory,
         PlaceholderProvider placeholderFactory)
     {
         providers = new IdentifiedAssetProviderSet<>();
         providers.addProvider(unitFactory);
-        providers.addProvider(hudProvider);
         providers.addProvider(dataProvider);
         providers.addProvider(effectFactory);
         providers.addProvider(placeholderFactory);
+        providers.addProvider(HudType.class, hudFactory);
         providers.addProvider(LayerIdentifier.class, layerFactory);
     }
 

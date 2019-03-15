@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.menu.intro;
 
 import com.evilbird.warcraft.menu.common.events.SelectListener;
-import com.evilbird.warcraft.state.asset.AssetState;
+import com.evilbird.warcraft.state.WarcraftStateScenario;
 
 public class HumanIntroOne extends IntroMenu
 {
@@ -43,7 +43,7 @@ public class HumanIntroOne extends IntroMenu
     private SelectListener showLevel() {
         return () -> {
             try {
-                showState(AssetState.Human1);
+                showState(WarcraftStateScenario.Human1);
             }
             catch (Exception exception) {
                 exception.printStackTrace();

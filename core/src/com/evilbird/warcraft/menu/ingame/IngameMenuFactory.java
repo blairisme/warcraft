@@ -32,7 +32,7 @@ import com.evilbird.engine.state.StateService;
 import com.evilbird.warcraft.menu.common.controls.StyledField;
 import com.evilbird.warcraft.menu.common.controls.StyledList;
 import com.evilbird.warcraft.menu.common.events.SelectListener;
-import com.evilbird.warcraft.state.user.UserStateIdentifier;
+import com.evilbird.warcraft.state.WarcraftStateIdentifier;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.inject.Inject;
@@ -299,7 +299,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
     private SelectListener saveState(IngameMenu menu, StyledField field) {
         return () -> {
             try {
-                menu.saveState(new UserStateIdentifier(field.getText()));
+                menu.saveState(new WarcraftStateIdentifier(field.getText()));
             }
             catch (Exception exception) {
                 exception.printStackTrace();
@@ -312,7 +312,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
     private SelectListener deleteState(IngameMenu menu, StyledList list) {
         return () -> {
             try {
-                states.remove((UserStateIdentifier)list.getSelected());
+                states.remove((WarcraftStateIdentifier)list.getSelected());
             }
             catch (Exception exception) {
                 exception.printStackTrace();
@@ -325,7 +325,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
     private SelectListener loadState(IngameMenu menu, StyledList list) {
         return () -> {
             try {
-                menu.showState((UserStateIdentifier)list.getSelected());
+                menu.showState((WarcraftStateIdentifier)list.getSelected());
             }
             catch (Exception exception) {
                 exception.printStackTrace();

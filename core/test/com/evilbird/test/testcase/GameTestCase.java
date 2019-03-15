@@ -16,13 +16,25 @@ import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.behaviour.BehaviourFactory;
+import com.evilbird.engine.behaviour.BehaviourIdentifier;
+import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.game.GameInjector;
 import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.item.ItemType;
+import com.evilbird.test.data.action.TestActions;
+import com.evilbird.test.data.behaviour.TestBehaviours;
+import com.evilbird.test.data.item.TestItemGroups;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.warcraft.action.attack.AttackActions;
+import com.evilbird.warcraft.item.data.DataType;
+import com.evilbird.warcraft.item.layer.LayerType;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -31,7 +43,9 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import java.nio.IntBuffer;
+import java.util.function.Supplier;
 
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 import static org.mockito.Answers.RETURNS_MOCKS;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -78,6 +92,8 @@ public class GameTestCase
                 return null;
             }
         }).when(Gdx.gl20).glGetProgramiv(anyInt(), anyInt(), any());
+
+        ToStringBuilder.setDefaultStyle(SHORT_PREFIX_STYLE);
     }
 
     @AfterClass
@@ -91,29 +107,68 @@ public class GameTestCase
     protected GameEngine gameEngine;
     protected ItemFactory itemFactory;
     protected ActionFactory actionFactory;
+    protected BehaviourFactory behaviourFactory;
 
     @Before
     public void setup() {
         gameEngine = Mockito.mock(GameEngine.class);
         actionFactory = Mockito.mock(ActionFactory.class);
 
+        behaviourFactory = Mockito.mock(BehaviourFactory.class);
+        respondWithNewBehaviour();
+
         itemFactory = Mockito.mock(ItemFactory.class);
-        Mockito.when(itemFactory.newItem(Mockito.any())).thenAnswer((invocation) -> TestItems.newItem("item"));
+        respondWithNewItem();
 
         gameInjector = Mockito.mock(GameInjector.class);
         Mockito.when(gameInjector.getGameEngine()).thenReturn(gameEngine);
         Mockito.when(gameInjector.getItemFactory()).thenReturn(itemFactory);
         Mockito.when(gameInjector.getActionFactory()).thenReturn(actionFactory);
+        Mockito.when(gameInjector.getBehaviourFactory()).thenReturn(behaviourFactory);
 
         gameService = GameService.getInstance();
         gameService.setInjector(gameInjector);
     }
 
-    protected void respondWithItem(Item item) {
+    public void respondWithNewItem() {
+        //Mockito.when(itemFactory.newItem(Mockito.any())).thenAnswer((invocation) -> TestItems.newItem("item"));
+            //TestItems.newItem(new TextIdentifier("item"), invocation.getArgument(0)));
+        //respondWithItem(DataType.Player, () -> newItemGroup("Player1"));
+
+        Mockito.when(itemFactory.newItem(Mockito.any())).thenAnswer(invocation -> {
+            Identifier identifier = invocation.getArgument(0);
+            if (identifier instanceof LayerType || identifier == DataType.Player) {
+                return TestItemGroups.newItemGroup("Player1");
+            }
+            return TestItems.newItem("item");
+        });
+    }
+
+    public void respondWithItem(Item item) {
         Mockito.when(itemFactory.newItem(Mockito.any())).thenReturn(item);
     }
 
-    protected void respondWithAction(Action action) {
+    public void respondWithItem(ItemType identifier, Supplier<Item> supplier) {
+        Mockito.when(itemFactory.newItem(identifier)).thenAnswer(invocation -> supplier.get());
+    }
+
+    public void respondWithNewAction() {
+        Mockito.when(actionFactory.newAction(Mockito.any())).thenAnswer((invocation) -> TestActions.newAction("action"));
+    }
+
+    public void respondWithAction(Action action) {
         Mockito.when(actionFactory.newAction(Mockito.any())).thenReturn(action);
+    }
+
+    public void respondWithNewBehaviour() {
+        Mockito.when(behaviourFactory.newBehaviour(Mockito.any())).thenAnswer((invocation) -> TestBehaviours.newBehaviour("behaviour"));
+    }
+
+    public void respondWithBehaviour(Behaviour behaviour) {
+        Mockito.when(behaviourFactory.newBehaviour(Mockito.any())).thenReturn(behaviour);
+    }
+
+    public void respondWithBehaviour(Behaviour behaviour, BehaviourIdentifier identifier) {
+        Mockito.when(behaviourFactory.newBehaviour(identifier)).thenReturn(behaviour);
     }
 }

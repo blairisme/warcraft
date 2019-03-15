@@ -18,6 +18,7 @@ import java.util.List;
  *
  * @author Blair Butterworth
  */
+//TODO: Consider using GDX file handle interfaces and such - FileHandleResolver
 public interface DeviceStorage
 {
     List<String> list(String path) throws IOException;

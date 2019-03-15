@@ -12,6 +12,12 @@ package com.evilbird.engine.state;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.item.ItemRoot;
 
+/**
+ * Instances of class represent the game state, a snapshot of the all game
+ * objects and their properties at a given point in time.
+ *
+ * @author Blair Butterworth
+ */
 public interface State
 {
     ItemRoot getWorld();

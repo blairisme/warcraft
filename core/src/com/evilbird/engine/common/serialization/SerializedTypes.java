@@ -19,7 +19,11 @@ public class SerializedTypes
     private static Map<String, Class<?>> types;
 
     public static String getAlias(Class<?> type) {
-        return type.getAnnotation(SerializedType.class).value();
+        SerializedType serializedType = type.getAnnotation(SerializedType.class);
+        if (serializedType == null) {
+            throw new UnsupportedOperationException();
+        }
+        return serializedType.value();
     }
 
     public static Class<?> getType(String alias) {

@@ -65,4 +65,26 @@ public class SerializationVerifier
         Object object = serializer.deserialize(json, type);
         Assert.assertEquals(deserialized, object);
     }
+
+    public void verifySerialization() {
+        Validate.notNull(type);
+        Validate.notNull(serialized);
+        Validate.notNull(deserialized);
+
+        Serializer serializer = new JsonSerializer();
+
+        String json = serializer.serialize(deserialized, type);
+        Assert.assertEquals(serialized, json);
+    }
+
+    public void verifyDeserialization() {
+        Validate.notNull(type);
+        Validate.notNull(serialized);
+        Validate.notNull(deserialized);
+
+        Serializer serializer = new JsonSerializer();
+
+        Object object = serializer.deserialize(serialized, type);
+        Assert.assertEquals(deserialized, object);
+    }
 }

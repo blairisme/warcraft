@@ -10,36 +10,51 @@
 package com.evilbird.warcraft.state;
 
 import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.behaviour.BehaviourFactory;
+import com.evilbird.engine.behaviour.BehaviourIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.engine.game.GameService;
+import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.state.behaviour.BehaviourStateFactory;
-import com.evilbird.warcraft.state.behaviour.BehaviourStateIdentifier;
-import com.evilbird.warcraft.state.hud.HudStateFactory;
-import com.evilbird.warcraft.state.hud.HudStateIdentifier;
+import com.evilbird.engine.item.ItemType;
 import com.google.gson.*;
 
 import javax.inject.Inject;
 import java.lang.reflect.Type;
 
+/**
+ * Instances of this class serialize and deserialize {@link WarcraftState}
+ * objects.
+ *
+ * @author Blair Butterworth
+ */
 public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, JsonDeserializer<WarcraftState>
 {
     private static final String WORLD = "world";
     private static final String HUD = "hud";
     private static final String BEHAVIOUR = "behaviour";
 
-    private HudStateFactory hudFactory;
-    private BehaviourStateFactory behaviourFactory;
+    private ItemFactory itemFactory;
+    private BehaviourFactory behaviourFactory;
+    private WarcraftStateAssetLoader assetLoader;
 
+    @SerializedConstructor
     public WarcraftStateAdapter() {
         GameService service = GameService.getInstance();
-        this.hudFactory = new HudStateFactory(service.getItemFactory());
-        this.behaviourFactory = new BehaviourStateFactory(service.getBehaviourFactory());
+        this.itemFactory = service.getItemFactory();
+        this.behaviourFactory = service.getBehaviourFactory();
+        this.assetLoader = new WarcraftStateAssetLoader(itemFactory);
     }
 
     @Inject
-    public WarcraftStateAdapter(BehaviourStateFactory behaviourFactory, HudStateFactory hudFactory) {
-        this.hudFactory = hudFactory;
+    public WarcraftStateAdapter(
+        ItemFactory itemFactory,
+        BehaviourFactory behaviourFactory,
+        WarcraftStateAssetLoader assetLoader)
+    {
+        this.itemFactory = itemFactory;
+        this.assetLoader = assetLoader;
         this.behaviourFactory = behaviourFactory;
     }
 
@@ -49,7 +64,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
         serializeHud(result, context, source.getHud());
         serializeBehaviour(result, context, source.getBehaviour());
         serializeWorld(result, context, source.getWorld());
-        return null;
+        return result;
     }
 
     private void serializeWorld(JsonObject json, JsonSerializationContext context, ItemRoot world) {
@@ -76,16 +91,24 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     }
 
     private ItemRoot deserializeWorld(JsonObject json, JsonDeserializationContext context) {
-        return context.deserialize(json.get(WORLD), ItemRoot.class);
+        JsonObject world = json.get(WORLD).getAsJsonObject();
+        if (world.has("enum")) { //TODO: fragile
+            WarcraftStateAsset identifier = context.deserialize(world, Identifier.class);
+            return assetLoader.load(identifier);
+        }
+        return context.deserialize(world, ItemRoot.class);
     }
 
     private ItemRoot deserializeHud(JsonObject json, JsonDeserializationContext context) {
         Identifier identifier = context.deserialize(json.get(HUD), Identifier.class);
-        return hudFactory.get((HudStateIdentifier)identifier);
+        ItemRoot result = new ItemRoot();
+        result.setIdentifier(identifier);
+        result.addItem(itemFactory.newItem((ItemType)identifier));
+        return result;
     }
 
     private Behaviour deserializeBehaviour(JsonObject json, JsonDeserializationContext context) {
         Identifier identifier = context.deserialize(json.get(BEHAVIOUR), Identifier.class);
-        return behaviourFactory.get((BehaviourStateIdentifier)identifier);
+        return behaviourFactory.newBehaviour((BehaviourIdentifier)identifier);
     }
 }
