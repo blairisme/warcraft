@@ -29,7 +29,6 @@ android {
     defaultConfig {
         applicationId "com.evilbird.warcraft"
         minSdkVersion 24
-        targetSdkVersion 24
     }
     productFlavors {
     }

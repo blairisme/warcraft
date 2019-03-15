@@ -101,8 +101,8 @@ public class WarcraftStateServiceTest extends GameTestCase
         service.get(identifier);
     }
 
-    @Test
-    public void setTest() throws Exception {
+//    @Test
+//    public void setTest() throws Exception {
 //        assetStorage.respondWith(Human1.getFilePath(), "/warcraft/state/level.json");
 //        assetStorage.respondWith(Level1.getFilePath(), "/warcraft/state/level.tmx");
 //
@@ -111,25 +111,25 @@ public class WarcraftStateServiceTest extends GameTestCase
 //
 //        WarcraftStateIdentifier identifier = new WarcraftStateIdentifier("setTest");
 //        service
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void setUnknownIdentifierTest() {
-
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void setUnknownStateTest() {
-
-    }
-
-    @Test
-    public void removeTest() {
-
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void removeUnknownIdentifierTest() {
-
-    }
+//    }
+//
+//    @Test (expected = IllegalArgumentException.class)
+//    public void setUnknownIdentifierTest() {
+//
+//    }
+//
+//    @Test (expected = IllegalArgumentException.class)
+//    public void setUnknownStateTest() {
+//
+//    }
+//
+//    @Test
+//    public void removeTest() {
+//
+//    }
+//
+//    @Test (expected = IllegalArgumentException.class)
+//    public void removeUnknownIdentifierTest() {
+//
+//    }
 }
