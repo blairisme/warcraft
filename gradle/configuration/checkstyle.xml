@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+    "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+    "http://checkstyle.sourceforge.net/dtds/configuration_1_3.dtd">
+
+<!--
+    This configuration file specifies the rules used to check the quality of the
+    code used in this project.
+
+    Author: Blair Butterworth
+ -->
+
+<module name = "Checker">
+    <property name="charset" value="UTF-8"/>
+    <property name="severity" value="warning"/>
+    <property name="fileExtensions" value="java"/>
+
+    <module name="FileLength">
+        <property name="max" value="300"/>
+    </module>
+    <module name="TreeWalker">
+        <!-- Bugs -->
+        <module name="HideUtilityClassConstructor"/>
+        <module name="EqualsHashCode"/>
+        <module name="MethodLength">
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="max" value="25"/>
+        </module>
+
+        <!-- Convention -->
+        <module name="PackageName">
+            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+        </module>
+        <module name="MethodName">
+            <property name="format" value="^[a-z]([a-zA-Z0-9]+)*$"/>
+        </module>
+
+        <!-- Unfinished code -->
+        <module name="UnusedImports"/>
+        <!--<module name="TodoComment">-->
+            <!--<property name="format" value="(TODO)|(Todo)|(todo)"/>-->
+        <!--</module>-->
+        <!--<module name="JavadocType">-->
+            <!--<property name="scope" value="public"/>-->
+            <!--<property name="authorFormat" value="\S"/>-->
+        <!--</module>-->
+        <module name="EmptyBlock"/>
+        <module name="OneTopLevelClass"/>
+        <module name="OneStatementPerLine"/>
+    </module>
+</module>

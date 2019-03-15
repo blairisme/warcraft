@@ -35,6 +35,7 @@ public class EqualityVerifier
         this.verifier = EqualsVerifier.forClass(type);
         this.verifier.suppress(Warning.NONFINAL_FIELDS);
         this.verifier.usingGetClass();
+        //excludeSyntheticFields();
     }
 
     public EqualityVerifier suppress(Warning ... warnings) {
@@ -55,7 +56,7 @@ public class EqualityVerifier
     public EqualityVerifier excludeTransientFields() {
         Collection<String> transientFields = new ArrayList<>();
         for (Field field: FieldUtils.getAllFields(type)) {
-            if (Modifier.isTransient(field.getModifiers())) {
+            if (!field.isSynthetic() && Modifier.isTransient(field.getModifiers())) {
                 transientFields.add(field.getName());
             }
         }
