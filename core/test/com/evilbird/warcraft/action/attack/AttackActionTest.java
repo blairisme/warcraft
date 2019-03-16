@@ -18,7 +18,6 @@ import com.evilbird.test.verifier.SerializationVerifier;
 import com.evilbird.warcraft.action.move.MoveAction;
 import com.evilbird.warcraft.action.move.MoveFactory;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -48,7 +47,6 @@ public class AttackActionTest extends GameTestCase
     }
 
     @Test
-    @Ignore //TODO: Jacoco error
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(Action.class)
             .withDeserializedForm(action)

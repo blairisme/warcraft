@@ -29,6 +29,7 @@ public class MoveToLocation extends MoveSequence
     @Inject
     public MoveToLocation() {
         super();
+        setIdentifier(MoveActions.MoveToLocation);
     }
 
     @Override

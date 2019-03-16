@@ -11,6 +11,8 @@ package com.evilbird.engine.action;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import java.util.Objects;
+
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.AbstractAdapter;
 import com.evilbird.engine.game.GameService;
 import com.google.gson.JsonDeserializationContext;
@@ -47,7 +49,7 @@ public class ActionAdapter extends AbstractAdapter<Action>
     @Override
     protected JsonObject getSerializedType(Action target, JsonSerializationContext context) {
         JsonObject result = new JsonObject();
-        result.add(IDENTIFIER, context.serialize(target.getIdentifier(), ActionIdentifier.class));
+        result.add(IDENTIFIER, context.serialize(target.getIdentifier(), Identifier.class));
         return result;
     }
 
@@ -64,7 +66,7 @@ public class ActionAdapter extends AbstractAdapter<Action>
     @Override
     protected Action getDeserializedInstance(JsonObject json, JsonDeserializationContext context) {
         JsonElement element = json.get(IDENTIFIER);
-        ActionIdentifier identifier = context.deserialize(element, ActionIdentifier.class);
+        ActionIdentifier identifier = context.deserialize(element, Identifier.class);
         return actionFactory.newAction(identifier);
     }
 

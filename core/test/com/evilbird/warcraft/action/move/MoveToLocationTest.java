@@ -1,42 +1,36 @@
-/*
- * Blair Butterworth (c) 2019
- *
- * This work is licensed under the MIT License. To view a copy of this
- * license, visit
- *
- *      https://opensource.org/licenses/MIT
- */
-
-package com.evilbird.warcraft.action.camera;
+package com.evilbird.warcraft.action.move;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
-import com.evilbird.test.data.item.TestItems;
+import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
+import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 
-public class PanActionTest extends GameTestCase
+public class MoveToLocationTest  extends GameTestCase
 {
-    private Item item;
+    private Combatant item;
     private UserInput input;
-    private PanAction action;
+    private MoveToLocation action;
 
     @Before
     public void setup() {
         super.setup();
 
-        item = TestItems.newItem("footman");
+        item = TestCombatants.newTestCombatant(new TextIdentifier("footman"), UnitType.Footman);
         input = new UserInput(UserInputType.Action, Vector2.Zero, 1);
 
-        action = new PanAction();
+        action = new MoveToLocation();
         action.setItem(item);
         action.setCause(input);
 
@@ -46,16 +40,16 @@ public class PanActionTest extends GameTestCase
     @Test
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(Action.class)
-            .withDeserializedForm(action)
-            .withSerializedResource("/warcraft/action/panaction.json")
-            .verify();
+                .withDeserializedForm(action)
+                .withSerializedResource("/warcraft/action/move/movetolocation.json")
+                .verify();
     }
 
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(Action.class)
-            .withMockedTransientFields(Item.class)
-            .excludeTransientFields()
-            .verify();
+                .withMockedTransientFields(Item.class)
+                .excludeTransientFields()
+                .verify();
     }
 }

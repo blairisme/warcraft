@@ -1,0 +1,24 @@
+{
+  "identifier": {
+    "class": "MoveActions",
+    "enum": "MoveToLocation"
+  },
+  "cause": {
+    "type": "Action",
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "delta": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "count": 1
+  },
+  "item": {
+    "reference": {
+      "class": "Named",
+      "name": "footman"
+    }
+  }
+}

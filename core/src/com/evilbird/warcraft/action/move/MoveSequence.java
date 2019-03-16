@@ -29,7 +29,7 @@ import javax.inject.Inject;
  */
 class MoveSequence extends DelegateAction
 {
-    private MoveAction move;
+    private transient MoveAction move;
 
     @Inject
     public MoveSequence() {

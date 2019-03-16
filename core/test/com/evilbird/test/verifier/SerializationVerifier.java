@@ -14,6 +14,7 @@ import com.evilbird.engine.common.serialization.Serializer;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.junit.Assert;
+import org.junit.ComparisonFailure;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -64,6 +65,17 @@ public class SerializationVerifier
 
         Object object = serializer.deserialize(json, type);
         Assert.assertEquals(deserialized, object);
+    }
+
+    private void assertEquals(Object a, Object b) {
+        try {
+            Assert.assertEquals(a, b);
+        }
+        catch (ComparisonFailure error){
+            if (! error.getMessage().contains("$jacocoData")) {
+                throw error;
+            }
+        }
     }
 
     public void verifySerialization() {

@@ -19,7 +19,6 @@ import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -45,7 +44,6 @@ public class ZoomActionTest extends GameTestCase
     }
 
     @Test
-    @Ignore //TODO: Jacoco error
     public void serializeTest() throws IOException {
         SerializationVerifier.forClass(Action.class)
             .withDeserializedForm(action)

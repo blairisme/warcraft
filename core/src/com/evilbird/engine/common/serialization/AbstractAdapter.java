@@ -61,7 +61,7 @@ public abstract class AbstractAdapter<T> implements JsonSerializer<T>, JsonDeser
     private void serializeFields(JsonObject json, JsonSerializationContext context, T target) {
         Class<?> type = target.getClass();
         for (Field field : getSerializedFields(type)) {
-            if (isSerializedField(target, field)) {
+            if (! field.isSynthetic() && isSerializedField(target, field)) {
                 serializeField(json, context, target, field);
             }
         }
