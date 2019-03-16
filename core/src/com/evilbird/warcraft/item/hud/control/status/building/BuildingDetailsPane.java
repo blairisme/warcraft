@@ -39,30 +39,48 @@ public class BuildingDetailsPane extends BorderPane
 
     @Override
     public void update(float delta) {
-        if (building.isConstructing()){
-            if (!isConstructionDetailsShown()){
-                showConstructionDetails();
-            }
+        if (showProgressDetails()) {
+            return;
         }
-        else if (building.isProducing()){
-            if (!isProductionDetailsShown()) {
-                showProductionDetails();
-            }
-        }
-        else if (Objects.equals(UnitType.Farm, building.getType())){
-            if (!isFarmDetailsShown()){
-                showFarmDetails();
-            }
-        }
-        else if (Objects.equals(UnitType.TownHall, building.getType())){
-            if (!isTownHallDetailsShown()){
-                showTownHallDetails();
-            }
+        else if (showBuildingDetails()) {
+            return;
         }
         else if (! isNothingShown()) {
             showNothing();
         }
         super.update(delta);
+    }
+
+    private boolean showProgressDetails() {
+        if (building.isConstructing()){
+            if (!isConstructionDetailsShown()){
+                showConstructionDetails();
+                return true;
+            }
+        }
+        else if (building.isProducing()){
+            if (!isProductionDetailsShown()) {
+                showProductionDetails();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean showBuildingDetails() {
+        if (Objects.equals(UnitType.Farm, building.getType())){
+            if (!isFarmDetailsShown()){
+                showFarmDetails();
+                return true;
+            }
+        }
+        else if (Objects.equals(UnitType.TownHall, building.getType())){
+            if (!isTownHallDetailsShown()){
+                showTownHallDetails();
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isConstructionDetailsShown() {

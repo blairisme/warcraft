@@ -156,15 +156,15 @@ allprojects {
 }
 
 
-configure(projectsWithPlugin("java")) {
+configure(projectsWithPlugin('java')) {
     apply plugin: 'checkstyle'
     apply plugin: 'jacoco'
 
     checkstyle {
+        toolVersion = "8.18"
         sourceSets = [project.sourceSets.main]
-        configFile = rootProject.file('gradle/configuration/checkstyle.xml')
     }
-
+    
     jacocoTestReport {
         additionalSourceDirs = files(sourceSets.main.allSource.srcDirs)
         sourceDirectories = files(sourceSets.main.allSource.srcDirs)
@@ -178,21 +178,23 @@ configure(projectsWithPlugin("java")) {
 
 
 
-configure(rootProject) {
-    def javaprojects = projectsWithPlugin('java')
-
-    task report(type: JacocoReport/*, dependsOn: javaprojects.test*/) {
-        additionalSourceDirs = files(javaprojects.sourceSets.main.allSource.srcDirs)
-        sourceDirectories = files(javaprojects.sourceSets.main.allSource.srcDirs)
-        classDirectories = files(javaprojects.sourceSets.main.output)
-        executionData = files(javaprojects.collect { javaproject -> javaproject.fileTree(dir: "build/jacoco", include: '**/*.exec') })
-
-        reports {
-            html.enabled = true
-            xml.enabled = true
-        }
-    }
-}
+//configure(rootProject) {
+// apply plugin: 'jacoco'
+//
+//    def javaprojects = projectsWithPlugin('java')
+//
+//    task report(type: JacocoReport/*, dependsOn: javaprojects.test*/) {
+//        additionalSourceDirs = files(javaprojects.sourceSets.main.allSource.srcDirs)
+//        sourceDirectories = files(javaprojects.sourceSets.main.allSource.srcDirs)
+//        classDirectories = files(javaprojects.sourceSets.main.output)
+//        executionData = files(javaprojects.collect { javaproject -> javaproject.fileTree(dir: "build/jacoco", include: '**/*.exec') })
+//
+//        reports {
+//            html.enabled = true
+//            xml.enabled = true
+//        }
+//    }
+//}
 
 
 
