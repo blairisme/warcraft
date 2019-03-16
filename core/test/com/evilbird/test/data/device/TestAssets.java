@@ -20,6 +20,9 @@ import static org.mockito.Mockito.when;
 
 public class TestAssets
 {
+    private TestAssets() {
+    }
+
     public static AssetManager newAssetManagerMock() {
         Texture mockTexture = TestTextures.newTextureMock();
 

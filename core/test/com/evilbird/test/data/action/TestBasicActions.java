@@ -20,6 +20,9 @@ import com.evilbird.warcraft.action.move.MoveActions;
 
 public class TestBasicActions
 {
+    private TestBasicActions() {
+    }
+
     public static Action newBasicAction() {
         return newBasicAction(MoveActions.MoveToItem);
     }

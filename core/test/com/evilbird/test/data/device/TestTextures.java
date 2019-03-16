@@ -18,6 +18,9 @@ import static org.mockito.Mockito.when;
 
 public class TestTextures
 {
+    private TestTextures() {
+    }
+
     public static Texture newTextureMock() {
         return newTextureMock("/data/texture/image.png");
     }

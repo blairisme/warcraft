@@ -15,6 +15,9 @@ import com.evilbird.engine.common.lang.TextIdentifier;
 
 public class TestBehaviours
 {
+    private TestBehaviours() {
+    }
+
     public static Behaviour newBehaviour(String id) {
         return newBehaviour(new TextIdentifier(id));
     }

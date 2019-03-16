@@ -10,7 +10,7 @@
 plugins {
     id "java"
     id 'edu.sc.seis.launch4j' version '2.4.4'
-    id "edu.sc.seis.macAppBundle" version "2.3.0"
+//    id "edu.sc.seis.macAppBundle" version "2.3.0"
     id "com.github.johnrengelman.shadow" version "4.0.4"
 }
 
@@ -29,6 +29,7 @@ ext{
     mainClass = "com.evilbird.warcraft.desktop.DesktopLauncher"
 }
 
+//Task: desktop:run
 task run(dependsOn: classes, type: JavaExec) {
     main = project.mainClass
     classpath = sourceSets.main.runtimeClasspath
@@ -47,15 +48,15 @@ shadowJar {
     }
     minimize()
 }
-
-//Task: createApp
-macAppBundle {
-    icon = project.iconPath
-    appName = project.appName
-    mainClassName = project.mainClass
-    bundleJRE = true
-    jarTask = "shadowJar"
-}
+//
+////Task: createApp
+//macAppBundle {
+//    icon = project.iconPath
+//    appName = project.appName
+//    mainClassName = project.mainClass
+//    bundleJRE = true
+//    jarTask = "shadowJar"
+//}
 
 //Task: createExe
 launch4j {

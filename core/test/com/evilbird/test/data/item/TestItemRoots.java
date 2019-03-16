@@ -17,11 +17,11 @@ import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.data.DataType;
 
-/**
- * @author Blair Butterworth
- */
 public class TestItemRoots
 {
+    private TestItemRoots() {
+    }
+
     public static ItemRoot newItemRoot(Identifier id){
         ItemGraph graph = new ItemGraph(32, 32, 128, 128);
 

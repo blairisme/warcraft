@@ -17,6 +17,9 @@ import com.evilbird.warcraft.item.unit.UnitType;
 
 public class TestItems
 {
+    private TestItems() {
+    }
+
     public static Item newItem(String id) {
         return newItem(new TextIdentifier(id), UnitType.Footman);
     }

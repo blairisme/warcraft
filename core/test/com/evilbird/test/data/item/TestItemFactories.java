@@ -15,11 +15,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/**
- * @author Blair Butterworth
- */
 public class TestItemFactories
 {
+    private TestItemFactories() {
+    }
+
     public static ItemFactory newItemFactory() {
         ItemFactory itemFactory = mock(ItemFactory.class);
         when(itemFactory.newItem(any())).thenAnswer((invocation) -> TestItems.newItem("item"));

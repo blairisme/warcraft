@@ -73,24 +73,19 @@ public class GameTestCase
 
         Mockito.when(Gdx.gl20.glCreateShader(anyInt())).thenReturn(1);
         Mockito.when(Gdx.gl20.glCreateProgram()).thenReturn(1);
-        Mockito.doAnswer(new Answer() {
-            @Override
-            public Void answer(InvocationOnMock invocation) {
-                IntBuffer buffer = (IntBuffer)invocation.getArguments()[2];
-                buffer.put(0, 1);
-                return null;
-            }
-        }).when(Gdx.gl20).glGetShaderiv(anyInt(), anyInt(), any());
-        Mockito.doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) {
-                IntBuffer buffer = (IntBuffer)invocation.getArguments()[2];
-                buffer.put(0, 1);
-                return null;
-            }
-        }).when(Gdx.gl20).glGetProgramiv(anyInt(), anyInt(), any());
+        Mockito.doAnswer(new IntBufferMockAnswer()).when(Gdx.gl20).glGetShaderiv(anyInt(), anyInt(), any());
+        Mockito.doAnswer(new IntBufferMockAnswer()).when(Gdx.gl20).glGetProgramiv(anyInt(), anyInt(), any());
 
         ToStringBuilder.setDefaultStyle(SHORT_PREFIX_STYLE);
+    }
+
+    private static class IntBufferMockAnswer implements Answer<Object> {
+        @Override
+        public Object answer(InvocationOnMock invocation) {
+            IntBuffer buffer = (IntBuffer)invocation.getArguments()[2];
+            buffer.put(0, 1);
+            return null;
+        }
     }
 
     @AfterClass

@@ -16,7 +16,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.1'
+        classpath 'com.android.tools.build:gradle:3.3.2'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.2.0'
     }
 }
@@ -51,6 +51,7 @@ allprojects {
 
 project(":android") {
     apply plugin: "android"
+    apply plugin: 'checkstyle'
 
     configurations { natives }
 
@@ -77,6 +78,8 @@ project(":android") {
 
 project(":core") {
     apply plugin: "java"
+    apply plugin: 'jacoco'
+    apply plugin: 'checkstyle'
 
     dependencies {
         implementation 'javax.inject:javax.inject:1'
@@ -100,13 +103,15 @@ project(":core") {
 
 project(":desktop") {
     apply plugin: "java"
+    apply plugin: 'jacoco'
+    apply plugin: 'checkstyle'
     apply plugin: "net.ltgt.apt"
 
     dependencies {
         implementation project(":core")
         implementation 'javax.inject:javax.inject:1'
         implementation 'com.google.dagger:dagger:2.20'
-        apt 'com.google.dagger:dagger-compiler:2.20'
+        annotationProcessor 'com.google.dagger:dagger-compiler:2.20'
         implementation 'org.apache.commons:commons-lang3:3.8.1'
         implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
         implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
@@ -120,7 +125,9 @@ project(":desktop") {
 
 project(":ios") {
     apply plugin: "java"
+    apply plugin: 'jacoco'
     apply plugin: "robovm"
+    apply plugin: 'checkstyle'
 
     dependencies {
         implementation project(":core")
@@ -153,22 +160,20 @@ allprojects {
             }
         }
     }
-}
 
-
-configure(projectsWithPlugin('java')) {
-    apply plugin: 'checkstyle'
-    apply plugin: 'jacoco'
-
-    checkstyle {
-        toolVersion = "8.18"
-        sourceSets = [project.sourceSets.main]
+    plugins.withType(CheckstylePlugin) {
+        checkstyle {
+            toolVersion = "8.18"
+        }
     }
-    
-    jacocoTestReport {
-        additionalSourceDirs = files(sourceSets.main.allSource.srcDirs)
-        sourceDirectories = files(sourceSets.main.allSource.srcDirs)
-        classDirectories = files(sourceSets.main.output)
+
+    plugins.withType(JacocoPlugin) {
+        jacoco {
+            toolVersion = "0.8.3"
+        }
+    }
+
+    tasks.withType(JacocoReport) {
         reports {
             html.enabled = true
             xml.enabled = true
@@ -176,28 +181,19 @@ configure(projectsWithPlugin('java')) {
     }
 }
 
+task clean(type: Delete) {
+    delete file('build')
+}
 
+task coverageReport(type: JacocoReport) {
+    def jacocoProjects = subprojects.findAll{subProject -> subProject.plugins.hasPlugin('jacoco')}
+    dependsOn jacocoProjects.collect{jacocoProject -> jacocoProject.tasks.findByName('test')}
 
-//configure(rootProject) {
-// apply plugin: 'jacoco'
-//
-//    def javaprojects = projectsWithPlugin('java')
-//
-//    task report(type: JacocoReport/*, dependsOn: javaprojects.test*/) {
-//        additionalSourceDirs = files(javaprojects.sourceSets.main.allSource.srcDirs)
-//        sourceDirectories = files(javaprojects.sourceSets.main.allSource.srcDirs)
-//        classDirectories = files(javaprojects.sourceSets.main.output)
-//        executionData = files(javaprojects.collect { javaproject -> javaproject.fileTree(dir: "build/jacoco", include: '**/*.exec') })
-//
-//        reports {
-//            html.enabled = true
-//            xml.enabled = true
-//        }
-//    }
-//}
+    additionalSourceDirs = files(jacocoProjects.sourceSets.main.allSource.srcDirs)
+    sourceDirectories = files(jacocoProjects.sourceSets.main.allSource.srcDirs)
+    classDirectories = files(jacocoProjects.sourceSets.main.output)
+    executionData = files(jacocoProjects.collect{jacocoProject -> jacocoProject.fileTree(dir: "build/jacoco", include: '**/*.exec') })
+}
 
-
-
-def projectsWithPlugin(def pluginName) {
-    return subprojects.findAll { subproject -> subproject.plugins.hasPlugin(pluginName) }
+task build(dependsOn: coverageReport) {
 }

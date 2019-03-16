@@ -12,11 +12,11 @@ package com.evilbird.test.data.action;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
 
-/**
- * @author Blair Butterworth
- */
 public class TestActions
 {
+    private TestActions() {
+    }
+
     public static Action newAction(String id) {
         TestBasicAction result = new TestBasicAction();
         result.setIdentifier(new TextIdentifier(id));

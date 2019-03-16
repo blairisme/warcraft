@@ -14,11 +14,11 @@ import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.data.DataType;
 
-/**
- * @author Blair Butterworth
- */
 public class TestItemGroups
 {
+    private TestItemGroups() {
+    }
+
     public static ItemGroup newItemGroup(String id){
         return newItemGroup(new TextIdentifier(id), DataType.Player);
     }

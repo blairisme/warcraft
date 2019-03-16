@@ -23,6 +23,9 @@ import java.nio.charset.StandardCharsets;
  */
 public class TestUtils
 {
+    private TestUtils() {
+    }
+
     public static String readResource(String path) throws IOException {
         try(InputStream input = TestUtils.class.getResourceAsStream(path);
             ByteArrayOutputStream output = new ByteArrayOutputStream()) {
