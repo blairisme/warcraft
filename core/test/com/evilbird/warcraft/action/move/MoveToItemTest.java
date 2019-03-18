@@ -7,25 +7,25 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.camera;
+package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
 
 /**
- * Instances of this unit test validate the {@link ZoomAction} class.
+ * Instances of this unit test validate the {@link MoveToItem} class.
  *
  * @author Blair Butterworth
  */
-public class ZoomActionTest extends ActionTestCase
+public class MoveToItemTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        return new ZoomAction();
+        return new MoveToItem();
     }
 
     @Override
     protected Enum newActionId() {
-        return CameraActions.Zoom;
+        return MoveActions.MoveToItem;
     }
 }

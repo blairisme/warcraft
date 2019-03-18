@@ -1,7 +1,7 @@
 {
   "identifier": {
-    "class": "MoveActions",
-    "enum": "MoveToLocation"
+    "class": "${ActionType}",
+    "enum": "${Action}"
   },
   "cause": {
     "type": "Action",
@@ -18,7 +18,13 @@
   "item": {
     "reference": {
       "class": "Named",
-      "name": "footman"
+      "name": "item"
+    }
+  },
+  "target": {
+    "reference": {
+      "class": "Named",
+      "name": "target"
     }
   }
 }

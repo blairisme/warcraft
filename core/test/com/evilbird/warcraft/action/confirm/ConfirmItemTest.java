@@ -10,48 +10,22 @@
 package com.evilbird.warcraft.action.confirm;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.item.Item;
-import com.evilbird.test.data.item.TestItems;
-import com.evilbird.test.testcase.GameTestCase;
-import com.evilbird.test.verifier.EqualityVerifier;
-import com.evilbird.test.verifier.SerializationVerifier;
-import org.junit.Before;
-import org.junit.Test;
+import com.evilbird.test.testcase.ActionTestCase;
 
-import java.io.IOException;
-
-public class ConfirmItemTest extends GameTestCase
+/**
+ * Instances of this unit test validate the {@link ConfirmItem} class.
+ *
+ * @author Blair Butterworth
+ */
+public class ConfirmItemTest extends ActionTestCase
 {
-    private Item item;
-    private Item confirm;
-    private ConfirmItem action;
-
-    @Before
-    public void setup() {
-        super.setup();
-
-        item = TestItems.newItem("map");
-        confirm = TestItems.newItem("confirm");
-
-        action = new ConfirmItem(itemFactory);
-        action.setItem(item);
-
-        respondWithAction(action);
+    @Override
+    protected Action newAction() {
+        return new ConfirmItem(itemFactory);
     }
 
-    @Test
-    public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(Action.class)
-                .withDeserializedForm(action)
-                .withSerializedResource("/warcraft/action/confirmitemaction.json")
-                .verify();
-    }
-
-    @Test
-    public void equalsTest() {
-        EqualityVerifier.forClass(Action.class)
-                .withMockedTransientFields(Item.class)
-                .excludeTransientFields()
-                .verify();
+    @Override
+    protected Enum newActionId() {
+        return ConfirmActions.ConfirmTarget;
     }
 }

@@ -7,25 +7,27 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.camera;
+package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
 
 /**
- * Instances of this unit test validate the {@link ZoomAction} class.
+ * Instances of this unit test validate the {@link ConstructAction} class.
  *
  * @author Blair Butterworth
  */
-public class ZoomActionTest extends ActionTestCase
+public class ConstructActionTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        return new ZoomAction();
+        ConstructAction action = new ConstructAction(itemFactory);
+        action.setIdentifier(ConstructActions.ConstructBarracks);
+        return action;
     }
 
     @Override
     protected Enum newActionId() {
-        return CameraActions.Zoom;
+        return ConstructActions.ConstructBarracks;
     }
 }

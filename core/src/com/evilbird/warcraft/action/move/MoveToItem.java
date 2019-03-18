@@ -27,6 +27,7 @@ public class MoveToItem extends MoveSequence
     @Inject
     public MoveToItem() {
         super();
+        setIdentifier(MoveActions.MoveToItem);
     }
 
     @Override

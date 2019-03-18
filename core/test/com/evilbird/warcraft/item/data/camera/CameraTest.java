@@ -18,6 +18,11 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+/**
+ * Instances of this unit test validate the {@link Camera} class.
+ *
+ * @author Blair Butterworth
+ */
 public class CameraTest extends GameTestCase
 {
     private Camera camera;

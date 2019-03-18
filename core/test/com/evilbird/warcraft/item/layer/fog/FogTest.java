@@ -22,6 +22,11 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
+/**
+ * Instances of this unit test validate the {@link Fog} class.
+ *
+ * @author Blair Butterworth
+ */
 public class FogTest extends GameTestCase
 {
     private Fog fog;

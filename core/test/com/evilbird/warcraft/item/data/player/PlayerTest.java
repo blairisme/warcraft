@@ -18,6 +18,11 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+/**
+ * Instances of this unit test validate the {@link Player} class.
+ *
+ * @author Blair Butterworth
+ */
 public class PlayerTest extends GameTestCase
 {
     private Player player;

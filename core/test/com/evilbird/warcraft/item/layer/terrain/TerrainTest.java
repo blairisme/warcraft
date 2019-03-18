@@ -21,6 +21,11 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
+/**
+ * Instances of this unit test validate the {@link Terrain} class.
+ *
+ * @author Blair Butterworth
+ */
 public class TerrainTest extends GameTestCase
 {
     private Terrain terrain;

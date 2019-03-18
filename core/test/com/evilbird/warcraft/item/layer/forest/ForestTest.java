@@ -22,6 +22,11 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
+/**
+ * Instances of this unit test validate the {@link Forest} class.
+ *
+ * @author Blair Butterworth
+ */
 public class ForestTest extends GameTestCase
 {
     private Forest forest;
