@@ -29,6 +29,7 @@ public class TestCombatants
         item.setType(type);
         item.setPosition(12, 34);
         item.setSize(56, 78);
+        item.setParent(TestItemGroups.newItemGroup("parent"));
         item.setRoot(TestItemRoots.newItemRoot(new TextIdentifier("root")));
         return item;
     }
