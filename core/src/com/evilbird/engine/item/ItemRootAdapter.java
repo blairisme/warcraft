@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.item;
 
+import com.evilbird.engine.common.lang.Identifier;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
@@ -24,13 +25,19 @@ public class ItemRootAdapter implements JsonSerializer<ItemRoot>, JsonDeserializ
 {
     private static final String GRAPH = "graph";
     private static final String ITEMS = "items";
+    private static final String ID = "id";
 
     @Override
     public JsonElement serialize(ItemRoot root, Type type, JsonSerializationContext context) {
         JsonObject result = new JsonObject();
+        serializeId(result, root, context);
         serializeGraph(result, root, context);
         serializeItems(result, root, context);
         return result;
+    }
+
+    private void serializeId(JsonObject json, ItemRoot root, JsonSerializationContext context) {
+        json.add(ID, context.serialize(root.getIdentifier(), Identifier.class));
     }
 
     private void serializeGraph(JsonObject json, ItemRoot root, JsonSerializationContext context) {
@@ -52,9 +59,18 @@ public class ItemRootAdapter implements JsonSerializer<ItemRoot>, JsonDeserializ
     public ItemRoot deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
         ItemRoot result = new ItemRoot();
         JsonObject object = json.getAsJsonObject();
+        deserializeId(result, object, context);
         deserializeGraph(result, object, context);
         deserializeItems(result, object, context);
         return result;
+    }
+
+    private void deserializeId(ItemRoot root, JsonObject json, JsonDeserializationContext context) {
+        if (json.has(ID)) {
+            JsonElement element = json.get(ID);
+            Identifier id = context.deserialize(element, Identifier.class);
+            root.setIdentifier(id);
+        }
     }
 
     private void deserializeGraph(ItemRoot root, JsonObject json, JsonDeserializationContext context) {
@@ -68,9 +84,7 @@ public class ItemRootAdapter implements JsonSerializer<ItemRoot>, JsonDeserializ
     private void deserializeItems(ItemRoot root, JsonObject json, JsonDeserializationContext context) {
         JsonArray items = json.getAsJsonArray(ITEMS);
         for (JsonElement item: items) {
-            JsonObject itemElement = item.getAsJsonObject();
-            Class<?> itemType = itemElement.has(ITEMS) ? ItemGroup.class : Item.class;
-            root.addItem(context.deserialize(item, itemType));
+            root.addItem(context.deserialize(item, Item.class));
         }
     }
 }

@@ -9,12 +9,10 @@
 
 package com.evilbird.engine.item;
 
-import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.test.data.item.TestItems;
+import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
-import com.evilbird.warcraft.item.data.DataType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,25 +33,7 @@ public class ItemRootTest extends GameTestCase
     @Before
     public void setup() {
         super.setup();
-
-        ItemGraph graph = new ItemGraph(32, 32, 128, 128);
-
-        ItemGroup group1 = new ItemGroup();
-        group1.setIdentifier(new TextIdentifier("Player1"));
-        group1.setType(DataType.Player);
-        group1.addItem(TestItems.newItem("1"));
-        group1.addItem(TestItems.newItem("2"));
-
-        ItemGroup group2 = new ItemGroup();
-        group2.setType(DataType.Player);
-        group2.setIdentifier(new TextIdentifier("Player2"));
-        group2.addItem(TestItems.newItem("3"));
-        group2.addItem(TestItems.newItem("4"));
-
-        root = new ItemRoot();
-        root.setSpatialGraph(graph);
-        root.addItem(group1);
-        root.addItem(group2);
+        root = TestItemRoots.newTestRoot("world");
     }
 
     @Test

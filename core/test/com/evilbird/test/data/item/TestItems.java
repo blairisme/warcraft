@@ -21,7 +21,7 @@ public class TestItems
     }
 
     public static Item newItem(String id) {
-        return newItem(new TextIdentifier(id), UnitType.Footman);
+        return newItem(new TextIdentifier(id), UnitType.Peasant);
     }
 
     public static Item newItem(Identifier identifier, Identifier type) {

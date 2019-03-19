@@ -9,10 +9,13 @@
 
 package com.evilbird.warcraft.item.data.player;
 
+import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.item.Item;
+import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
+import com.evilbird.warcraft.item.unit.resource.ResourceType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +33,7 @@ public class PlayerTest extends GameTestCase
     @Before
     public void setup() {
         super.setup();
-        player = new Player();
+        player = TestPlayers.newTestPlayer("Player2");
         respondWithItem(player);
     }
 

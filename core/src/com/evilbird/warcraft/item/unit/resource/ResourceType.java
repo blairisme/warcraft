@@ -9,10 +9,12 @@
 
 package com.evilbird.warcraft.item.unit.resource;
 
+import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 
 //TODO: Move into war item common
 //TODO: Stop using for resource buildings
+@SerializedType("ResourceType")
 public enum ResourceType implements ResourceIdentifier
 {
     Gold,

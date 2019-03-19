@@ -24,7 +24,6 @@ import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.hud.HudType;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -46,32 +45,23 @@ public class WarcraftStateTest extends GameTestCase
     public void setup() {
         super.setup();
 
-        world = TestItemRoots.newItemRoot(new TextIdentifier("world"));
+        world = TestItemRoots.newTestRoot(new TextIdentifier("world"));
         hudControl = TestItems.newItem(new TextIdentifier("resources"), HudControl.ResourcePane);
-        hud = TestItemRoots.newItemRoot(HudType.Human, hudControl);
+        hud = TestItemRoots.newTestRoot(HudType.Human, hudControl);
         behaviour = TestBehaviours.newBehaviour(Ai.HumanPassive);
         state = new WarcraftState(world, hud, behaviour);
 
-        //respondWithNewItem();
         respondWithItem(HudType.Human, () -> hudControl);
         respondWithBehaviour(behaviour, Ai.HumanPassive);
     }
 
     @Test
-    @Ignore
     public void serializeSaveTest() throws IOException {
         SerializationVerifier.forClass(WarcraftState.class)
             .withDeserializedForm(state)
             .withSerializedResource("/warcraft/state/save.json")
             .verify();
     }
-
-//    public void deserializeAssetTest() throws IOException {
-//        SerializationVerifier.forClass(WarcraftState.class)
-//            .withDeserializedForm(state)
-//            .withSerializedResource("/warcraft/state/save.json")
-//            .verify();
-//    }
 
     @Test
     public void equalsTest() {

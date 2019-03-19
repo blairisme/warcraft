@@ -53,11 +53,6 @@ public class ForestCell extends ItemBasic implements ResourceContainer
         return wood;
     }
 
-    @Override
-    public Map<ResourceIdentifier, Float> getResources() {
-        return Maps.of(ResourceType.Wood, wood);
-    }
-
     public float getWood() {
         return wood;
     }
@@ -76,11 +71,6 @@ public class ForestCell extends ItemBasic implements ResourceContainer
             Forest forest = (Forest)getParent();
             forest.setDeadTexture(location);
         }
-    }
-
-    @Override
-    public void setResources(Map<ResourceIdentifier, Float> resources) {
-        resources.forEach(this::setResource);
     }
 
     public void setWood(float wood) {

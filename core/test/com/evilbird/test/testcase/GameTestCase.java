@@ -28,10 +28,13 @@ import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.test.data.action.TestActions;
 import com.evilbird.test.data.behaviour.TestBehaviours;
-import com.evilbird.test.data.item.TestItemGroups;
+import com.evilbird.test.data.item.TestBuildings;
+import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.data.item.TestItems;
+import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.layer.LayerType;
+import com.evilbird.warcraft.item.unit.UnitType;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -123,14 +126,16 @@ public class GameTestCase
     }
 
     public void respondWithNewItem() {
-        //Mockito.when(itemFactory.newItem(Mockito.any())).thenAnswer((invocation) -> TestItems.newItem("item"));
-            //TestItems.newItem(new TextIdentifier("item"), invocation.getArgument(0)));
-        //respondWithItem(DataType.Player, () -> newItemGroup("Player1"));
-
         Mockito.when(itemFactory.newItem(Mockito.any())).thenAnswer(invocation -> {
             Identifier identifier = invocation.getArgument(0);
-            if (identifier instanceof LayerType || identifier == DataType.Player) {
-                return TestItemGroups.newItemGroup("Player1");
+            if (identifier == DataType.Player) {
+                return TestPlayers.newTestPlayer("player");
+            }
+            if (identifier == UnitType.Barracks) {
+                return TestBuildings.newTestBuilding("barracks");
+            }
+            if (identifier == UnitType.Footman) {
+                return TestCombatants.newTestCombatant("footman");
             }
             return TestItems.newItem("item");
         });

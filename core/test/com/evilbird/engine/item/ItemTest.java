@@ -13,6 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.test.data.action.TestBasicAction;
+import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -51,7 +52,7 @@ public class ItemTest extends GameTestCase
         actionB.setIdentifier(TestAction.ActionB);
         Mockito.when(actionFactory.newAction(TestAction.ActionB)).thenReturn(actionB);
 
-        item = TestItems.newItem("1");
+        item = TestCombatants.newTestCombatant("footman");
         item.addAction(actionA);
         item.addAction(actionB);
     }

@@ -9,8 +9,6 @@
 
 package com.evilbird.warcraft.item.common.resource;
 
-import java.util.Map;
-
 /**
  * Implementors of this interface represent a container for the storage of
  * resources.
@@ -21,9 +19,5 @@ public interface ResourceContainer
 {
     float getResource(ResourceIdentifier resource);
 
-    Map<ResourceIdentifier, Float> getResources();
-
     void setResource(ResourceIdentifier resource, float value);
-
-    void setResources(Map<ResourceIdentifier, Float> resources);
 }

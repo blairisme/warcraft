@@ -39,17 +39,7 @@ public class Gatherer extends Combatant implements ResourceContainer
     }
 
     @Override
-    public Map<ResourceIdentifier, Float> getResources() {
-        return resources;
-    }
-
-    @Override
     public void setResource(ResourceIdentifier type, float value) {
         this.resources.put(type, value);
-    }
-
-    @Override
-    public void setResources(Map<ResourceIdentifier, Float> resources) {
-        this.resources = resources;
     }
 }

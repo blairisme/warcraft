@@ -3,9 +3,24 @@
     "class": "Units",
     "enum": "Footman"
   },
+  "level": 0,
+  "damageMinimum": 0,
+  "damageMaximum": 0,
+  "speed": 0.0,
+  "range": 0.0,
+  "movementSpeed": 0.0,
+  "movementCapability": [],
+  "name": "Unknown",
+  "sight": 0,
+  "defence": 0,
+  "health": 0.0,
+  "healthMaximum": 0.0,
+  "direction": 70.55996,
+  "updateAnimation": false,
+  "updateSound": false,
   "id": {
     "class": "Named",
-    "name": "1"
+    "name": "footman"
   },
   "selected": false,
   "selectable": true,
@@ -28,7 +43,7 @@
       "item": {
         "reference": {
           "class": "Named",
-          "name": "1"
+          "name": "footman"
         }
       }
     },
@@ -40,7 +55,7 @@
       "item": {
         "reference": {
           "class": "Named",
-          "name": "1"
+          "name": "footman"
         }
       }
     }

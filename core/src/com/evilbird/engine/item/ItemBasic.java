@@ -34,6 +34,7 @@ import static com.evilbird.engine.common.lang.GenericIdentifier.Unknown;
  *
  * @author Blair Butterworth
  */
+//TODO: Bug: Actions never cleared
 @JsonAdapter(ItemAdapter.class)
 public class ItemBasic implements Item
 {

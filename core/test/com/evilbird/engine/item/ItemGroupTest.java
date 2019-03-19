@@ -11,7 +11,9 @@ package com.evilbird.engine.item;
 
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.test.data.item.TestItems;
+import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.testcase.GameTestCase;
+import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
 import com.evilbird.warcraft.item.data.DataType;
 import org.junit.Before;
@@ -31,28 +33,22 @@ public class ItemGroupTest extends GameTestCase
     @Before
     public void setup() {
         super.setup();
-
-        group = new ItemGroup();
-        group.setIdentifier(new TextIdentifier("Player1"));
-        group.setType(DataType.Player);
-        group.addItem(TestItems.newItem("1"));
-        group.addItem(TestItems.newItem("2"));
-        group.addItem(TestItems.newItem("3"));
+        group = TestPlayers.newTestPlayer("player1");
     }
 
     @Test
     public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(ItemGroup.class)
+        SerializationVerifier.forClass(Item.class)
             .withDeserializedForm(group)
             .withSerializedResource("/item/itemgroup.json")
             .verify();
     }
 
-//    @Test
-//    public void equalsTest() {
-//        EqualityVerifier.forClass(ItemGroup.class)
-//            .withMockedTransientFields()
-//            .excludeTransientFields()
-//            .verify();
-//    }
+    @Test
+    public void equalsTest() {
+        EqualityVerifier.forClass(ItemGroup.class)
+            .withMockedTransientFields()
+            .excludeTransientFields()
+            .verify();
+    }
 }

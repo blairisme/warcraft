@@ -30,18 +30,18 @@ public class Resource extends Unit implements ResourceContainer
         return result != null ? result : 0f;
     }
 
-    @Override
-    public Map<ResourceIdentifier, Float> getResources() {
-        return resources;
-    }
+//    @Override
+//    public Map<ResourceIdentifier, Float> getResources() {
+//        return resources;
+//    }
 
     @Override
     public void setResource(ResourceIdentifier type, float value) {
         this.resources.put(type, value);
     }
 
-    @Override
-    public void setResources(Map<ResourceIdentifier, Float> resources) {
-        this.resources = resources;
-    }
+//    @Override
+//    public void setResources(Map<ResourceIdentifier, Float> resources) {
+//        this.resources = resources;
+//    }
 }
