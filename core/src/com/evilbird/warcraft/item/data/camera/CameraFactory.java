@@ -13,9 +13,6 @@ import com.evilbird.engine.common.inject.AssetProvider;
 
 import javax.inject.Inject;
 
-/**
- * @author Blair Butterworth
- */
 public class CameraFactory implements AssetProvider<Camera>
 {
     @Inject

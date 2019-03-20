@@ -13,8 +13,9 @@ import com.badlogic.gdx.math.Circle;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
-import java.util.Objects;
 import com.evilbird.engine.common.math.ShapeUtilities;
+
+import java.util.Objects;
 
 /**
  * Defines commonly used {@link Predicate Predicates} that operate on

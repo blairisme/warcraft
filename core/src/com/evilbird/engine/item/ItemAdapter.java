@@ -9,8 +9,8 @@
 
 package com.evilbird.engine.item;
 
-import java.util.Objects;
 import com.evilbird.engine.common.serialization.AbstractAdapter;
+import com.evilbird.engine.common.serialization.SerializedTypes;
 import com.evilbird.engine.game.GameService;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
@@ -19,16 +19,20 @@ import com.google.gson.JsonSerializationContext;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Objects;
 
 /**
- * Instances of this class serialize and deserialize {@link Item Items}.
+ * Instances of this class serialize and deserialize {@link Item Items}. New
+ * new object instances are created using the {@link ItemFactory} and the type
+ * field in the given Java or Json data.
  *
  * @author Blair Butterworth
  */
 public class ItemAdapter extends AbstractAdapter<Item>
 {
-    private static final String TYPE = "type";
-    private ItemFactory itemFactory;
+    protected static final String TYPE = "type";
+    protected static final String CLASS = "class";
+    protected ItemFactory itemFactory;
 
     public ItemAdapter() {
         GameService service = GameService.getInstance();
@@ -42,6 +46,7 @@ public class ItemAdapter extends AbstractAdapter<Item>
     @Override
     protected JsonObject getSerializedType(Item target, JsonSerializationContext context) {
         JsonObject result = new JsonObject();
+        result.addProperty(CLASS, SerializedTypes.getName(target.getClass()));
         result.add(TYPE, context.serialize(target.getType(), ItemType.class));
         return result;
     }
@@ -53,6 +58,10 @@ public class ItemAdapter extends AbstractAdapter<Item>
 
     @Override
     protected Class<?> getDeserializedType(JsonObject json, JsonDeserializationContext context) {
+        if (json.has(CLASS)) {
+            String name = json.get(CLASS).getAsString();
+            return SerializedTypes.getInstance(name);
+        }
         return Item.class;
     }
 

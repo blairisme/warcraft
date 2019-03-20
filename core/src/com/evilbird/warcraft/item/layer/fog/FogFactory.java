@@ -70,6 +70,7 @@ public class FogFactory implements IdentifiedAssetProvider<Item>
         Fog fog = new Fog();
         fog.setEvents(events);
         fog.setSkin(getSkin());
+        fog.setIdentifier(identifier);
         fog.setType(LayerType.OpaqueFog);
         fog.setTouchable(Touchable.disabled);
         fog.setLayer(LayerUtils.getLayer(identifier));

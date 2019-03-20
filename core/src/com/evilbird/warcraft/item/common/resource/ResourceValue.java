@@ -7,23 +7,25 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.data.player;
+package com.evilbird.warcraft.item.common.resource;
 
-import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.engine.common.collection.Indexible;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-/**
- * @author Blair Butterworth
- */
-public class Resource
+public class ResourceValue implements Indexible<ResourceIdentifier>
 {
     private ResourceIdentifier id;
     private float value;
 
-    public Resource(ResourceIdentifier id, float value) {
+    public ResourceValue(ResourceIdentifier id, float value) {
         this.id = id;
         this.value = value;
+    }
+
+    @Override
+    public ResourceIdentifier getIndex() {
+        return id;
     }
 
     public ResourceIdentifier getId() {
@@ -44,7 +46,7 @@ public class Resource
         if (obj == null) return false;
         if (obj.getClass() != getClass()) return false;
 
-        Resource resource = (Resource)obj;
+        ResourceValue resource = (ResourceValue)obj;
         return new EqualsBuilder()
             .append(value, resource.value)
             .append(id, resource.id)

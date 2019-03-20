@@ -10,11 +10,11 @@
 package com.evilbird.warcraft.item.hud.control.status.resource;
 
 import com.evilbird.engine.common.control.BorderPane;
-import java.util.Objects;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import javax.inject.Inject;
+import java.util.Objects;
 
 /**
  * Instances of this user interface show details about selectable

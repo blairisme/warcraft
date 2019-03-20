@@ -10,9 +10,10 @@
 package com.evilbird.warcraft.action.move;
 
 import com.badlogic.gdx.math.Vector2;
-import java.util.Objects;
 import com.evilbird.engine.item.ItemGraph;
 import com.evilbird.engine.item.ItemNode;
+
+import java.util.Objects;
 
 /**
  * Instances of this {@link MoveDestination} represent a destination

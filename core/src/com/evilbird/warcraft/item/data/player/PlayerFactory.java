@@ -14,9 +14,6 @@ import com.evilbird.engine.item.Item;
 
 import javax.inject.Inject;
 
-/**
- * @author Blair Butterworth
- */
 public class PlayerFactory implements AssetProvider<Item>
 {
     @Inject

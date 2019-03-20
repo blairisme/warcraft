@@ -38,7 +38,7 @@ public class TestPlayers
         player.setIdentifier(identifier);
         player.setHumanPlayer(true);
         player.setResource(ResourceType.Gold, 123);
-       // player.setResource(ResourceType.Wood, 456);
+        player.setResource(ResourceType.Wood, 456);
         player.addItem(newTestCombatant(new TextIdentifier("footman"), UnitType.Footman, root, player));
         player.addItem(newTestBuilding(new TextIdentifier("barracks"), UnitType.Barracks, root, player));
         return player;

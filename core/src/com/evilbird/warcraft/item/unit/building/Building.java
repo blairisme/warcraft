@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.unit.building;
 
+import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.Unit;
 
@@ -17,6 +18,7 @@ import com.evilbird.warcraft.item.unit.Unit;
  *
  * @author Blair Butterworth
  */
+@SerializedType("Building")
 public class Building extends Unit
 {
     private boolean constructing;

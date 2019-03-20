@@ -65,6 +65,7 @@ public class WarcraftStateAssetLoader
 
     private ItemRoot getItem(TiledMapFile level) {
         ItemRoot result = new ItemRoot();
+        result.setIdentifier(new TextIdentifier("world"));
         result.setViewport(new ScreenViewport());
         result.setSpatialGraph(new ItemGraph(32, 32, 32, 32));
         addItems(level, result);

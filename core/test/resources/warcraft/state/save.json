@@ -28,10 +28,18 @@
               "enum": "Gold"
             },
             "value": 123.0
+          },
+          {
+            "id": {
+              "class": "ResourceType",
+              "enum": "Wood"
+            },
+            "value": 456.0
           }
         ],
         "items": [
           {
+            "class": "Combatant",
             "type": {
               "class": "Units",
               "enum": "Footman"
@@ -70,6 +78,7 @@
             "actions": []
           },
           {
+            "class": "Building",
             "type": {
               "class": "Units",
               "enum": "Barracks"
@@ -135,10 +144,18 @@
               "enum": "Gold"
             },
             "value": 123.0
+          },
+          {
+            "id": {
+              "class": "ResourceType",
+              "enum": "Wood"
+            },
+            "value": 456.0
           }
         ],
         "items": [
           {
+            "class": "Combatant",
             "type": {
               "class": "Units",
               "enum": "Footman"
@@ -177,6 +194,7 @@
             "actions": []
           },
           {
+            "class": "Building",
             "type": {
               "class": "Units",
               "enum": "Barracks"

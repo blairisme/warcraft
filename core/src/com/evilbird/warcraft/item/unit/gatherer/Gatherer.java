@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.unit.gatherer;
 
+import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -23,6 +24,7 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
+@SerializedType("Gatherer")
 public class Gatherer extends Combatant implements ResourceContainer
 {
     private Map<ResourceIdentifier, Float> resources;

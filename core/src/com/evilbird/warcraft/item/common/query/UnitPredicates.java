@@ -10,11 +10,12 @@
 package com.evilbird.warcraft.item.common.query;
 
 import com.evilbird.engine.common.function.Predicate;
-import java.util.Objects;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.Unit;
+
+import java.util.Objects;
 
 /**
  * Defines commonly used {@link Predicate Predicates} that operate on

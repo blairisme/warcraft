@@ -7,9 +7,9 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.item.layer;
+package com.evilbird.engine.common.collection;
 
-public class LayerTest
+public interface Indexible<T>
 {
-
+    T getIndex();
 }

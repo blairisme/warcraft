@@ -10,8 +10,6 @@
 package com.evilbird.engine.action;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import java.util.Objects;
-
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.AbstractAdapter;
 import com.evilbird.engine.game.GameService;
@@ -23,6 +21,7 @@ import com.google.gson.JsonSerializationContext;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Instances of this class serialize and deserialize {@link Action Actions}.

@@ -1,4 +1,5 @@
 {
+  "class": "Combatant",
   "type": {
     "class": "Units",
     "enum": "Footman"

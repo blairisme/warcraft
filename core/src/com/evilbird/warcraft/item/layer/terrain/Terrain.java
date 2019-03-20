@@ -10,8 +10,11 @@
 package com.evilbird.warcraft.item.layer.terrain;
 
 import com.evilbird.engine.common.serialization.SerializedConstructor;
+import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.warcraft.item.layer.Layer;
+import com.evilbird.warcraft.item.layer.LayerAdapter;
 import com.evilbird.warcraft.item.unit.Unit;
+import com.google.gson.annotations.JsonAdapter;
 
 import javax.inject.Inject;
 
@@ -21,6 +24,8 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
+@SerializedType("Terrain")
+@JsonAdapter(LayerAdapter.class)
 public class Terrain extends Layer
 {
     @Inject

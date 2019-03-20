@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.common.maps.MapLayerIterable;
+import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.layer.Layer;
 import com.google.gson.annotations.JsonAdapter;
@@ -28,6 +29,7 @@ import com.google.gson.annotations.JsonAdapter;
  *
  * @author Blair Butterworth
  */
+@SerializedType("Forest")
 @JsonAdapter(ForestAdapter.class)
 public class Forest extends Layer
 {

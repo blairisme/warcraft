@@ -14,10 +14,10 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import java.util.Objects;
 import com.evilbird.engine.game.GameController;
 
 import javax.inject.Inject;
+import java.util.Objects;
 
 /**
  * Instances of this class update and render a {@link Menu}. Menus drawn by

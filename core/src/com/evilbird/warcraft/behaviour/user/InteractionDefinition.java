@@ -13,12 +13,12 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
-import java.util.Objects;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
 
 import javax.inject.Inject;
+import java.util.Objects;
 
 /**
  * Instances of this class define the situations an interaction applies to and

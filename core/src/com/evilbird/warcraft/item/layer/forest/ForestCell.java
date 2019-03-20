@@ -11,7 +11,6 @@ package com.evilbird.warcraft.item.layer.forest;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemBasic;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
@@ -21,7 +20,6 @@ import com.evilbird.warcraft.item.unit.resource.ResourceType;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
-import java.util.Map;
 
 /**
  * Instances of this class represent one cell in the forest layer, decorating

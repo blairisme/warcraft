@@ -32,7 +32,6 @@ import java.util.Map;
 
 import static com.evilbird.engine.action.common.ActionTarget.Player;
 import static com.evilbird.engine.action.common.ActionTarget.Target;
-import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructBarracks;
 
 /**
  * Instances of this class construct a building.

@@ -28,12 +28,8 @@ import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.test.data.action.TestActions;
 import com.evilbird.test.data.behaviour.TestBehaviours;
-import com.evilbird.test.data.item.TestBuildings;
-import com.evilbird.test.data.item.TestCombatants;
-import com.evilbird.test.data.item.TestItems;
-import com.evilbird.test.data.item.TestPlayers;
+import com.evilbird.test.data.item.*;
 import com.evilbird.warcraft.item.data.DataType;
-import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.junit.AfterClass;
@@ -136,6 +132,9 @@ public class GameTestCase
             }
             if (identifier == UnitType.Footman) {
                 return TestCombatants.newTestCombatant("footman");
+            }
+            if (identifier == UnitType.GoldMine) {
+                return TestResources.newTestResource("goldmine");
             }
             return TestItems.newItem("item");
         });

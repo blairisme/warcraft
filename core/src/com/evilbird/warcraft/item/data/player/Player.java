@@ -10,16 +10,18 @@
 package com.evilbird.warcraft.item.data.player;
 
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.common.collection.IndexedSet;
+import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceValue;
 import com.evilbird.warcraft.item.data.DataType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.inject.Inject;
-import java.util.*;
 
 /**
  * Instances of this class represent a player, either real or artificial.
@@ -27,19 +29,18 @@ import java.util.*;
  *
  * @author Blair Butterworth
  */
-//TODO: Resource handling is pants. Improve!
+@SerializedType("Player")
 public class Player extends ItemGroup implements ResourceContainer
 {
     private boolean humanPlayer;
-    private HashSet<Resource> resources;
-    private transient Map<ResourceIdentifier, Resource> index;
+    private IndexedSet<ResourceValue, ResourceIdentifier> resources;
 
     @Inject
     public Player() {
         super.setPosition(0, 0);
         super.setSize(Float.MAX_VALUE, Float.MAX_VALUE);
         super.setType(DataType.Player);
-        resources = new HashSet<>();
+        resources = new IndexedSet<>();
     }
 
     public boolean isHumanPlayer() {
@@ -48,8 +49,10 @@ public class Player extends ItemGroup implements ResourceContainer
 
     @Override
     public float getResource(ResourceIdentifier id) {
-        Resource resource = getResourceContainer(id);
-        return resource.getValue();
+        if (resources.containsKey(id)){
+            return resources.get(id).getValue();
+        }
+        return 0;
     }
 
     public void setHumanPlayer(boolean humanPlayer) {
@@ -58,9 +61,8 @@ public class Player extends ItemGroup implements ResourceContainer
 
     @Override
     public void setResource(ResourceIdentifier id, float value) {
-        Resource resource = getResourceContainer(id);
-        resource.setValue(value);
-        setResourceContainer(resource);
+        resources.removeKey(id);
+        resources.add(new ResourceValue(id, value));
     }
 
     @Override
@@ -113,30 +115,5 @@ public class Player extends ItemGroup implements ResourceContainer
             .append("humanPlayer", humanPlayer)
             .append("resources", resources)
             .toString();
-    }
-
-    private Resource getResourceContainer(ResourceIdentifier id) {
-        initializeIndex();
-        if (index.containsKey(id)) {
-            return index.get(id);
-        }
-        return new Resource(id, 0);
-    }
-
-    private void setResourceContainer(Resource resource) {
-        initializeIndex();
-
-        Resource current = index.get(resource.getId());
-        resources.remove(current);
-
-        resources.add(resource);
-        index.put(resource.getId(), resource);
-    }
-
-    private void initializeIndex() {
-        if (index == null) {
-            index = new HashMap<>();
-            resources.forEach(resource -> index.put(resource.getId(), resource));
-        }
     }
 }

@@ -9,13 +9,10 @@
 
 package com.evilbird.engine.item;
 
-import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
-import com.evilbird.warcraft.item.data.DataType;
 import org.junit.Before;
 import org.junit.Test;
 

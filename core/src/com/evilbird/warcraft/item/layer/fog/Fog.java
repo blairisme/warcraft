@@ -13,13 +13,16 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.layer.Layer;
+import com.evilbird.warcraft.item.layer.LayerAdapter;
 import com.evilbird.warcraft.item.unit.Unit;
+import com.google.gson.annotations.JsonAdapter;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
@@ -33,6 +36,8 @@ import java.util.Collection;
  */
 //TODO: Bug: thin peninsulas rendered incorrectly. Fix: don't render them.
 //TODO: Bug: revealing doesn't include item size, only position. Fix: use logic from ItemGraph.
+@SerializedType("Fog")
+@JsonAdapter(LayerAdapter.class)
 public class Fog extends Layer
 {
     private transient EventQueue events;

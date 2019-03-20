@@ -1,4 +1,5 @@
 {
+  "class": "Player",
   "type": {
     "class": "Data",
     "enum": "Player"
@@ -11,6 +12,13 @@
         "enum": "Gold"
       },
       "value": 123.0
+    },
+    {
+      "id": {
+        "class": "ResourceType",
+        "enum": "Wood"
+      },
+      "value": 456.0
     }
   ],
   "items": [

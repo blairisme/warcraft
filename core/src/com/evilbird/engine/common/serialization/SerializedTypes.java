@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.common.serialization;
 
+import com.evilbird.engine.common.error.ReflectionException;
 import org.reflections.Reflections;
 
 import java.util.HashMap;
@@ -29,8 +30,27 @@ public class SerializedTypes
         return serializedType.value();
     }
 
+    public static String getName(Class<?> clazz) {
+        if (hasAlias(clazz)) {
+            return getAlias(clazz);
+        }
+        return clazz.getName();
+    }
+
     public static Class<?> getType(String alias) {
         return getTypeMap().get(alias);
+    }
+
+    public static Class<?> getInstance(String name) {
+        try {
+            if (hasType(name)) {
+                return getType(name);
+            }
+            return Class.forName(name);
+        }
+        catch (ClassNotFoundException error) {
+            throw new ReflectionException(error);
+        }
     }
 
     public static boolean hasAlias(Class<?> type) {

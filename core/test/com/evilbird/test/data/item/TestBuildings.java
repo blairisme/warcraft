@@ -16,7 +16,6 @@ import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
-import static com.evilbird.test.data.item.TestItemRoots.newTestRoot;
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;
 
 public class TestBuildings

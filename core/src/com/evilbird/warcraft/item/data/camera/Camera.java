@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.data.camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemBasic;
 import com.evilbird.engine.item.ItemRoot;
@@ -24,6 +25,13 @@ import javax.inject.Inject;
 
 import static com.badlogic.gdx.Gdx.graphics;
 
+/**
+ * Instances of this class represent a camera, a positionable entity that
+ * dictates what game content is presented to the user.
+ *
+ * @author Blair Butterworth
+ */
+@SerializedType("Camera")
 public class Camera extends ItemBasic implements Zoomable
 {
     private float originalZoom;

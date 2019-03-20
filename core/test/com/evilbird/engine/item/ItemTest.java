@@ -14,7 +14,6 @@ import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.data.item.TestCombatants;
-import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;

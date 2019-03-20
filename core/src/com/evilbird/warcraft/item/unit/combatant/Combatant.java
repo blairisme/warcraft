@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.warcraft.item.common.capability.Movable;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -28,6 +29,7 @@ import java.util.Set;
  * @author Blair Butterworth
  */
 //TODO: Consolidate speed and movementSpeed
+@SerializedType("Combatant")
 public class Combatant extends Unit implements Movable
 {
     private int level;
