@@ -154,6 +154,7 @@ allprojects {
                 excludeDirs += file('.idea')
                 excludeDirs += file('build')
                 excludeDirs += file('bin')
+                excludeDirs += file('config')
                 excludeDirs += file('design')
                 excludeDirs += file('gradle')
                 excludeDirs += file('tools')

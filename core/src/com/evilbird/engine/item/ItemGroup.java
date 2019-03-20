@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.function.Predicate;
+import com.evilbird.engine.common.serialization.SerializedInitializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -238,11 +239,6 @@ public class ItemGroup extends ItemBasic implements ItemComposite
     }
 
     @Override
-    protected Actor newDelegate() {
-        return new GroupDecorator(this);
-    }
-
-    @Override
     public String toString() {
         return new ToStringBuilder(this)
             .appendSuper("group")
@@ -269,5 +265,21 @@ public class ItemGroup extends ItemBasic implements ItemComposite
             .appendSuper(super.hashCode())
             .append(items)
             .toHashCode();
+    }
+
+    @Override
+    protected Actor newDelegate() {
+        return new GroupDecorator(this);
+    }
+
+    @SerializedInitializer
+    protected void updateDelegate() {
+        super.updateDelegate();
+        Group group = (Group)delegate;
+        for (Item item: items) {
+            group.addActor(item.toActor());
+            item.setParent(this);
+            item.setRoot(getRoot());
+        }
     }
 }

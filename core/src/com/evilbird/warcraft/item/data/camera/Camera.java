@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.data.camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.evilbird.engine.common.serialization.SerializedInitializer;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemBasic;
@@ -107,5 +108,13 @@ public class Camera extends ItemBasic implements Zoomable
             .append(originalZoom)
             .append(currentZoom)
             .toHashCode();
+    }
+
+    @SerializedInitializer
+    protected void updateDelegate() {
+        super.updateDelegate();
+        camera.zoom = currentZoom;
+        camera.position.x = getX();
+        camera.position.y = getY();
     }
 }

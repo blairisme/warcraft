@@ -54,6 +54,9 @@ public class ForestFactory implements IdentifiedAssetProvider<Forest>
         forest.setIdentifier(layerIdentifier);
         forest.setType(layerIdentifier.getType());
         forest.setLayer(LayerUtils.getLayer(layerIdentifier));
+        forest.setVisible(true);
+        forest.setSelected(false);
+        forest.setSelectable(false);
         forest.setTouchable(Touchable.childrenOnly);
         return forest;
     }

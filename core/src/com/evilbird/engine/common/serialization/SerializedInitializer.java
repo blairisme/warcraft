@@ -15,14 +15,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * An annotation that indicates this class should be serialized to JSON with
- * the provided name value as its field name.
+ * An annotation that indicates a method that should be called after an object
+ * is deserialized.
  *
  * @author Blair Butterworth
  */
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE})
-public @interface SerializedType
-{
-    String value();
+public @interface SerializedInitializer {
 }

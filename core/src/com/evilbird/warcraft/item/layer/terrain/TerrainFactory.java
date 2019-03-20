@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.layer.terrain;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
@@ -41,6 +42,10 @@ public class TerrainFactory implements IdentifiedAssetProvider<Terrain>
         terrain.setIdentifier(layerIdentifier);
         terrain.setType(layerIdentifier.getType());
         terrain.setLayer(LayerUtils.getLayer(layerIdentifier));
+        terrain.setVisible(true);
+        terrain.setSelected(false);
+        terrain.setSelectable(false);
+        terrain.setTouchable(Touchable.enabled);
         return terrain;
     }
 }

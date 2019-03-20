@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.serialization.SerializedInitializer;
 import com.google.gson.annotations.JsonAdapter;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -399,6 +400,10 @@ public class ItemBasic implements Item
         this.delegate.setPosition(position.x, position.y);
     }
 
+    public void setZIndex(int index) {
+        this.delegate.setZIndex(index);
+    }
+
     /**
      * Renders the Item.
      *
@@ -519,5 +524,14 @@ public class ItemBasic implements Item
 
     protected Actor newDelegate() {
         return new ActorDecorator(this);
+    }
+
+    @SerializedInitializer
+    protected void updateDelegate() {
+        delegate.setVisible(visible);
+        delegate.setTouchable(touchable);
+        delegate.setSize(size.x, size.y);
+        delegate.setPosition(position.x, position.y);
+        actions.forEach(it -> delegate.addAction(new ActionDecorator(it)));
     }
 }

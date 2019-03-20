@@ -9,7 +9,12 @@
 
 package com.evilbird.engine.common.serialization;
 
+import com.evilbird.engine.common.error.ReflectionException;
+import org.apache.commons.lang3.reflect.MethodUtils;
+
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 public class ReflectionUtils
 {
@@ -23,7 +28,23 @@ public class ReflectionUtils
             return constructor.newInstance();
         }
         catch (ReflectiveOperationException error) {
-            throw new SerializationException(error);
+            throw new ReflectionException(error);
+        }
+    }
+
+    public static void invokeMethod(Object object, Class<? extends Annotation> annotation) {
+        for (Method method: MethodUtils.getMethodsWithAnnotation(object.getClass(), annotation, true, true)) {
+            invokeMethod(method, object);
+        }
+    }
+
+    public static void invokeMethod(Method method, Object object) {
+        try {
+            method.setAccessible(true);
+            method.invoke(object);
+        }
+        catch (ReflectiveOperationException error) {
+            throw new ReflectionException(error);
         }
     }
 }

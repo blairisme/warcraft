@@ -108,6 +108,7 @@ public abstract class AbstractAdapter<T> implements JsonSerializer<T>, JsonDeser
     public T deserialize(JsonObject json, JsonDeserializationContext context) throws JsonParseException {
         T result = getDeserializedInstance(json, context);
         deserializeProperties(json, context, result);
+        invokeAnnotatedInitializer(result);
         return result;
     }
 
@@ -135,6 +136,7 @@ public abstract class AbstractAdapter<T> implements JsonSerializer<T>, JsonDeser
         }
     }
 
+    @SuppressWarnings("unchecked")
     private Object deserializeField(JsonElement json, JsonDeserializationContext context, Field field) {
         Class<?> fieldType = field.getType();
         if (List.class.isAssignableFrom(fieldType)) {
@@ -219,5 +221,9 @@ public abstract class AbstractAdapter<T> implements JsonSerializer<T>, JsonDeser
             }
         }
         return null;
+    }
+
+    private void invokeAnnotatedInitializer(Object object) {
+        ReflectionUtils.invokeMethod(object, SerializedInitializer.class);
     }
 }
