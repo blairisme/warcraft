@@ -33,52 +33,16 @@ import java.util.Iterator;
  *
  * @author Blair Butterworth
  */
-public class MoveAction extends BasicAction
+abstract class MoveAction extends BasicAction
 {
-    private Movable movable;
-    private MoveDestination destination;
-    private MovePathFilter filter;
-    private MoveObserver observer;
     private ItemGraph graph;
+    private ItemNode endNode;
+    private ItemNode pathNode;
     private GraphPath<ItemNode> path;
     private Iterator<ItemNode> pathIterator;
-    private ItemNode pathNode;
-    private ItemNode endNode;
+    private MoveObserver observer;
 
-    public MoveAction() {
-        this.filter = new MovePathFilter();
-    }
-
-    @Deprecated
-    public MoveAction(Movable target, Vector2 destination) {
-        this.movable = target;
-        this.destination = new MoveDestinationVector(destination);
-        this.filter = new MovePathFilter();
-    }
-
-    @Deprecated
-    public MoveAction(Movable target, Item destination) {
-        this.movable = target;
-        this.destination = new MoveDestinationItem(destination);
-        this.filter = new MovePathFilter();
-    }
-
-    @Override
-    public void setItem(Item item) {
-        if (item != null) {
-            movable = (Movable)item;
-            filter.addRequiredTypes(movable);
-            filter.addPermittedItem(item);
-        }
-    }
-
-    public void setDestination(Vector2 destination) {
-        this.destination = new MoveDestinationVector(destination);
-    }
-
-    public void setDestination(Item destination) {
-        this.destination = new MoveDestinationItem(destination);
-        this.filter.addPermittedItem(destination);
+    MoveAction() {
     }
 
     public void setObserver(MoveObserver observer) {
@@ -88,7 +52,6 @@ public class MoveAction extends BasicAction
     @Override
     public void reset() {
         path = null;
-        filter.clear();
     }
 
     @Override
@@ -118,7 +81,7 @@ public class MoveAction extends BasicAction
     }
 
     private boolean isCompletable() {
-        return pathNode != endNode || filter.test(endNode);
+        return pathNode != endNode || getPathFilter().test(endNode);
     }
 
     private boolean isValid() {
@@ -126,11 +89,11 @@ public class MoveAction extends BasicAction
     }
 
     private boolean isNextNodeValid() {
-         return filter.test(pathNode);
+         return getPathFilter().test(pathNode);
     }
 
     private boolean isLastNodeValid() {
-        return destination.isDestinationValid(graph, endNode);
+        return getDestination().isDestinationValid(graph, endNode);
     }
 
     private boolean load() {
@@ -139,17 +102,18 @@ public class MoveAction extends BasicAction
 
     private boolean loadGraph() {
         if (graph == null) {
-            ItemRoot root = movable.getRoot();
+            Item item = getItem();
+            ItemRoot root = item.getRoot();
             ItemGraph rootGraph = root.getSpatialGraph();
-            graph = new ItemGraph(rootGraph, filter);
+            graph = new ItemGraph(rootGraph, getPathFilter());
         }
         return true;
     }
 
     private boolean loadPath() {
         if (path == null) {
-            ItemNode startNode = graph.getNode(movable.getPosition());
-            endNode = destination.getDestinationNode(graph, startNode);
+            ItemNode startNode = graph.getNode(getItem().getPosition());
+            endNode = getDestination().getDestinationNode(graph, startNode);
 
             PathFinder<ItemNode> pathFinder = new IndexedAStarPathFinder<>(graph);
             Heuristic<ItemNode> heuristic = new ManhattanHeuristic<>();
@@ -180,7 +144,8 @@ public class MoveAction extends BasicAction
     }
 
     private boolean update(float time) {
-        Vector2 position = movable.getPosition();
+        Item item = getItem();
+        Vector2 position = item.getPosition();
         return updatePath(position) && updatePosition(position, time);
     }
 
@@ -201,11 +166,12 @@ public class MoveAction extends BasicAction
 
     private boolean incrementNode() {
         ItemNode nextNode = pathIterator.next();
-        if (!destination.isDestinationReached(graph, nextNode)) {
-            graph.removeOccupants(pathNode, (Item) movable);
+        if (!getDestination().isDestinationReached(graph, nextNode)) {
+            Item item = getItem();
+            graph.removeOccupants(pathNode, item);
             pathNode = nextNode;
-            graph.addOccupants(pathNode, (Item) movable);
-            notifyMove(pathNode, (Item) movable);
+            graph.addOccupants(pathNode, item);
+            notifyMove(pathNode, item);
             return true;
         }
         return false;
@@ -213,11 +179,13 @@ public class MoveAction extends BasicAction
 
     private boolean updatePosition(Vector2 oldPosition, float time) {
         Vector2 newPosition = getNextPosition(oldPosition, time);
-        movable.setPosition(newPosition);
+        getItem().setPosition(newPosition);
         return true;
     }
 
     private Vector2 getNextPosition(Vector2 position, float time) {
+        Movable movable = (Movable)getItem();
+
         Vector2 pathNodePosition = pathNode.getWorldReference();
         Vector2 remaining = pathNodePosition.cpy().sub(position);
         float remainingDistance = remaining.len();
@@ -232,7 +200,7 @@ public class MoveAction extends BasicAction
     }
 
     private void error() {
-        setError(new PathUnknownException((Item) movable));
+        setError(new PathUnknownException(getItem()));
     }
 
     private void complete() {
@@ -243,4 +211,8 @@ public class MoveAction extends BasicAction
             observer.onMove(subject, location);
         }
     }
+
+    protected abstract MovePathFilter getPathFilter();
+
+    protected abstract MoveDestination getDestination();
 }

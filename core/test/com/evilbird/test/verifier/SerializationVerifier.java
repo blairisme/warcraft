@@ -20,17 +20,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-public class SerializationVerifier
+public class SerializationVerifier<T>
 {
-    private Class type;
+    private Class<T> type;
     private String serialized;
-    private Object deserialized;
+    private T deserialized;
 
-    public static SerializationVerifier forClass(Class<?> type) {
-        return new SerializationVerifier(type);
+    public static <T> SerializationVerifier<T> forClass(Class<T> type) {
+        return new SerializationVerifier<>(type);
     }
 
-    private SerializationVerifier(Class<?> type) {
+    private SerializationVerifier(Class<T> type) {
         this.type = type;
     }
 
@@ -47,7 +47,7 @@ public class SerializationVerifier
         }
     }
 
-    public SerializationVerifier withDeserializedForm(Object deserialized) {
+    public SerializationVerifier withDeserializedForm(T deserialized) {
         this.deserialized = deserialized;
         return this;
     }

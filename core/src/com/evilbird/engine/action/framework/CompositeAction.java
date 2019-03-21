@@ -11,6 +11,7 @@ package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
+import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -44,6 +45,16 @@ public abstract class CompositeAction extends BasicAction
     }
 
     @Override
+    public ActionException getError() {
+        for (Action delegate: actions) {
+            if (delegate.hasError()) {
+                return delegate.getError();
+            }
+        }
+        return null;
+    }
+
+    @Override
     public void restart() {
         super.restart();
         for (Action delegate: actions) {
@@ -60,6 +71,21 @@ public abstract class CompositeAction extends BasicAction
     }
 
     @Override
+    public void setCause(UserInput cause) {
+        super.setCause(cause);
+        for (Action delegate: actions) {
+            delegate.setCause(cause);
+        }
+    }
+
+    @Override
+    public void setError(ActionException error) {
+        for (Action delegate: actions) {
+            delegate.setError(error);
+        }
+    }
+
+    @Override
     public void setItem(Item item) {
         super.setItem(item);
         for (Action delegate: actions) {
@@ -72,23 +98,6 @@ public abstract class CompositeAction extends BasicAction
         super.setTarget(target);
         for (Action delegate: actions) {
             delegate.setTarget(target);
-        }
-    }
-
-    @Override
-    public ActionException getError() {
-        for (Action delegate: actions) {
-            if (delegate.hasError()) {
-                return delegate.getError();
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public void setError(ActionException error) {
-        for (Action delegate: actions) {
-            delegate.setError(error);
         }
     }
 

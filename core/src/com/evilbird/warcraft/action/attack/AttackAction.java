@@ -15,8 +15,7 @@ import com.evilbird.engine.action.common.RepeatedAudibleAction;
 import com.evilbird.engine.action.framework.*;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.animation.AnimatedAction;
-import com.evilbird.warcraft.action.move.MoveActions;
-import com.evilbird.warcraft.action.move.MoveFactory;
+import com.evilbird.warcraft.action.move.MoveToItemSequence;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -41,9 +40,9 @@ public class AttackAction extends DelegateAction
     private AttackObserver observer;
 
     @Inject
-    public AttackAction(MoveFactory moveFactory) {
+    public AttackAction() {
         setIdentifier(AttackMelee);
-        Action initiate = attackTarget(moveFactory);
+        Action initiate = attackTarget();
         Action complete = killTarget();
         Action sequence = new SequenceAction(initiate, complete);
         delegate = sequence;
@@ -65,14 +64,14 @@ public class AttackAction extends DelegateAction
         observer.reset();
     }
 
-    private Action attackTarget(MoveFactory moveFactory) {
-        Action reposition = reposition(moveFactory);
+    private Action attackTarget() {
+        Action reposition = reposition();
         Action damage = damage();
         return new PrerequisiteAction(damage, reposition, withinRange());
     }
 
-    private Action reposition(MoveFactory moveFactory) {
-        Action reposition = moveFactory.get(MoveActions.MoveToItem);
+    private Action reposition() {
+        Action reposition = new MoveToItemSequence();
         Action animation = new AnimatedAction(reposition, UnitAnimation.Move, UnitAnimation.Idle);
         Action move = new RequirementAction(animation, withoutError());
         Action reorient = new DirectionAction();
