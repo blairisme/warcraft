@@ -32,7 +32,6 @@ public class PlayerTest extends GameTestCase
     public void setup() {
         super.setup();
         player = TestPlayers.newTestPlayer("Player2");
-        respondWithItem(player);
     }
 
     @Test

@@ -12,7 +12,6 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.DirectionAction;
 import com.evilbird.engine.action.common.RepeatedAudibleAction;
-import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.engine.action.framework.*;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.animation.AnimatedAction;
@@ -43,11 +42,11 @@ public class AttackAction extends DelegateAction
 
     @Inject
     public AttackAction(MoveFactory moveFactory) {
+        setIdentifier(AttackMelee);
         Action initiate = attackTarget(moveFactory);
         Action complete = killTarget();
         Action sequence = new SequenceAction(initiate, complete);
-        delegate = new ReplacementAction(sequence);
-        setIdentifier(AttackMelee);
+        delegate = sequence;
     }
 
     public void setObserver(AttackObserver observer) {
@@ -89,7 +88,8 @@ public class AttackAction extends DelegateAction
 
     private Action killTarget() {
         Action die = new DeathAction();
-        return new ReplacementAction(die);
+        return die;
+//        return new ReplacementAction(die);
     }
 
     @Override

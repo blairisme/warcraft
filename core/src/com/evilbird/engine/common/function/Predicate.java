@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.common.function;
 
+//TODO: Replace with Java Comparator now that Android SDK has been bumped
 public interface Predicate<T>
 {
     boolean test(T value);

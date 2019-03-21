@@ -9,9 +9,7 @@
 
 package com.evilbird.warcraft.action.gather;
 
-import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.AnimateAction;
-import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -19,7 +17,8 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
 import javax.inject.Inject;
 
 /**
- * Instances of this class stop a given {@link Item} from gathering.
+ * Instances of this class stop a given {@link Item} from gathering, retaining
+ * resources from the partially completed gathering process.
  *
  * @author Blair Butterworth
  */
@@ -28,7 +27,6 @@ public class GatherCancel extends DelegateAction
 {
     @Inject
     public GatherCancel(){
-        Action idleAnimation = new AnimateAction(UnitAnimation.Idle);
-        delegate = new ReplacementAction(idleAnimation);
+        delegate = new AnimateAction(UnitAnimation.Idle);
     }
 }

@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.common.function;
 
+//TODO: Replace with Java Comparator now that Android SDK has been bumped
 public interface Comparator<T>
 {
     int compare(T var1, T var2);

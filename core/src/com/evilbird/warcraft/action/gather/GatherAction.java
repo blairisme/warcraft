@@ -52,8 +52,7 @@ public abstract class GatherAction extends DelegateAction
 
         //Action deposit = new OptionalAction(targetHasResources(getResourceVariety()), depositSequence);
         Action sequence = new SequenceAction(obtainSequence, depositSequence);
-        Action repeated = new RepeatedAction(sequence);
-        delegate = new ReplacementAction(repeated);
+        delegate = new RepeatedAction(sequence);
     }
 
     @Override

@@ -159,6 +159,10 @@ public class ItemRoot implements ItemComposite
         return controller;
     }
 
+    public ItemGroup getBaseGroup() {
+        return group;
+    }
+
     /**
      * Sets a {@link GameController} instance, used to control whats content
      * is rendered to the screen and to obtain system wide preferences.

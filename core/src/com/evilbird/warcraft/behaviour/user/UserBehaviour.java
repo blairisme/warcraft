@@ -86,6 +86,7 @@ public class UserBehaviour implements Behaviour
         }
     }
 
+    //TODO: Use real logging
     private boolean update(UserInput input, Item target, Item selected) {
         //logUpdate(input, target, selected);
         Collection<Interaction> actions = interactions.getInteractions(input, target, selected);

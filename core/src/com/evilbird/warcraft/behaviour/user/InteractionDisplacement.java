@@ -7,10 +7,10 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.function;
+package com.evilbird.warcraft.behaviour.user;
 
-//TODO: Replace with Java Comparator now that Android SDK has been bumped
-public interface Supplier<T>
+public enum InteractionDisplacement
 {
-    T get();
+    Addition,
+    Replacement
 }

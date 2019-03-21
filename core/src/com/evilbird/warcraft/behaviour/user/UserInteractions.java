@@ -36,6 +36,7 @@ import static com.evilbird.warcraft.action.train.TrainActions.TrainPeasant;
 import static com.evilbird.warcraft.behaviour.user.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.behaviour.user.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.user.InteractionAssignment.Parent;
+import static com.evilbird.warcraft.behaviour.user.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.item.data.DataType.Camera;
 import static com.evilbird.warcraft.item.hud.HudControl.MenuPane;
 import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.*;
@@ -77,7 +78,7 @@ public class UserInteractions
         interactions.addAction(AttackMelee).whenTarget(Grunt).whenSelected(Footman).appliedTo(Selected);
         interactions.addAction(AttackMelee).whenTarget(Grunt).whenSelected(Peasant).appliedTo(Selected);
 
-        interactions.addAction(ConfirmTarget).whenTarget(Grunt).whenSelected(Footman).appliedTo(Selected).assignedTo(Parent);
+        interactions.addAction(ConfirmTarget).whenTarget(Grunt).whenSelected(Footman).appliedTo(Selected).assignedTo(Parent).appliedAs(Addition);
 
         interactions.addAction(AttackCancel).whenTarget(CancelButton).whenSelected(Footman).withAction(AttackMelee).appliedTo(Selected);
         interactions.addAction(AttackCancel).whenTarget(CancelButton).whenSelected(Peasant).withAction(AttackMelee).appliedTo(Selected);
@@ -142,8 +143,8 @@ public class UserInteractions
         interactions.addAction(MoveToLocation).whenTarget(Map).whenSelected(Peasant).appliedTo(Selected);
 //        interactions.addAction(MoveToLocation).whenTarget(Terrain).whenSelected(Grunt).appliedTo(Selected);
 
-        interactions.addAction(ConfirmLocation).whenTarget(Map).whenSelected(Footman).appliedTo(Selected).assignedTo(Parent);
-        interactions.addAction(ConfirmLocation).whenTarget(Map).whenSelected(Peasant).appliedTo(Selected).assignedTo(Parent);
+        interactions.addAction(ConfirmLocation).whenTarget(Map).whenSelected(Footman).appliedTo(Selected).assignedTo(Parent).appliedAs(Addition);
+        interactions.addAction(ConfirmLocation).whenTarget(Map).whenSelected(Peasant).appliedTo(Selected).assignedTo(Parent).appliedAs(Addition);
 //        interactions.addAction(ConfirmLocation).whenTarget(Terrain).whenSelected(Grunt).appliedTo(Selected).assignedTo(Parent);
 
         interactions.addAction(MoveCancel).whenTarget(CancelButton).whenSelected(Footman).withAction(MoveToLocation).appliedTo(Selected);

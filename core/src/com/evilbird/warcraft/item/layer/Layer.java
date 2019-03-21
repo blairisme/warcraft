@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.evilbird.engine.common.serialization.SerializedInitializer;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;

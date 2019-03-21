@@ -25,7 +25,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-//TODO: Improve lookup performance
+//TODO: Improve lookup performance - Map?
 public class InteractionContainer
 {
     private Provider<InteractionDefinition> factory;
@@ -42,6 +42,7 @@ public class InteractionContainer
         interaction.forAction(action);
         interaction.forInput(UserInputType.Action);
         interaction.assignedTo(InteractionAssignment.Item);
+        interaction.appliedAs(InteractionDisplacement.Replacement);
         interactions.add(interaction);
         return interaction;
     }

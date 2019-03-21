@@ -10,6 +10,7 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.animated.Audible;
 import com.evilbird.engine.item.animated.SoundIdentifier;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -45,8 +46,11 @@ public class AudibleAction extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Audible audible = (Audible)getItem();
-        audible.setSound(sound);
+        Item item = getItem();
+        if (item instanceof Audible) {
+            Audible audible = (Audible)item;
+            audible.setSound(sound);
+        }
         return true;
     }
 

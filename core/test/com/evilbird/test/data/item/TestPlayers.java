@@ -41,6 +41,8 @@ public class TestPlayers
         player.setResource(ResourceType.Wood, 456);
         player.addItem(newTestCombatant(new TextIdentifier("footman"), UnitType.Footman, root, player));
         player.addItem(newTestBuilding(new TextIdentifier("barracks"), UnitType.Barracks, root, player));
+        player.setRoot(root);
+        player.setParent(root.getBaseGroup());
         return player;
     }
 }

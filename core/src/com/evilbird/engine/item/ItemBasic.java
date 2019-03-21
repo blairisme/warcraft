@@ -35,7 +35,6 @@ import static com.evilbird.engine.common.lang.GenericIdentifier.Unknown;
  *
  * @author Blair Butterworth
  */
-//TODO: Bug: Actions never cleared
 @JsonAdapter(ItemAdapter.class)
 public class ItemBasic implements Item
 {
@@ -72,15 +71,14 @@ public class ItemBasic implements Item
      */
     public void addAction(Action action) {
         Validate.notNull(action);
-        delegate.addAction(new ActionDecorator(action));
         actions.add(action);
+        action.setItem(this);
     }
 
     /**
      * Removes the {@link Action Actions} assigned to the Item.
      */
     public void clearActions() {
-        delegate.clearActions();
         actions.clear();
     }
 
@@ -305,9 +303,7 @@ public class ItemBasic implements Item
      */
     public void setRoot(ItemRoot root) {
         this.root = root;
-        for (Action action: actions) {
-            action.setRoot(root);
-        }
+        actions.forEach(action -> action.setRoot(root));
     }
 
     /**
@@ -400,10 +396,6 @@ public class ItemBasic implements Item
         this.delegate.setPosition(position.x, position.y);
     }
 
-    public void setZIndex(int index) {
-        this.delegate.setZIndex(index);
-    }
-
     /**
      * Renders the Item.
      *
@@ -421,6 +413,7 @@ public class ItemBasic implements Item
      * @param delta Time in seconds since the last frame.
      */
     public void update(float delta) {
+        actions.removeIf(action -> action.act(delta));
     }
 
     /**
@@ -532,6 +525,5 @@ public class ItemBasic implements Item
         delegate.setTouchable(touchable);
         delegate.setSize(size.x, size.y);
         delegate.setPosition(position.x, position.y);
-        actions.forEach(it -> delegate.addAction(new ActionDecorator(it)));
     }
 }

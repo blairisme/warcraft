@@ -20,6 +20,8 @@ import com.evilbird.engine.item.Item;
 import javax.inject.Inject;
 import java.util.Objects;
 
+import static com.evilbird.warcraft.behaviour.user.InteractionDisplacement.Replacement;
+
 /**
  * Instances of this class define the situations an interaction applies to and
  * how an interaction should alter the game state.
@@ -34,8 +36,9 @@ public class InteractionDefinition implements Interaction
     private Identifier touchedType;
     private Identifier selectedType;
     private UserInputType inputType;
-    private InteractionApplicability applicability;
     private InteractionAssignment assignment;
+    private InteractionApplicability applicability;
+    private InteractionDisplacement displacement;
 
     @Inject
     public InteractionDefinition(ActionFactory factory) {
@@ -59,33 +62,67 @@ public class InteractionDefinition implements Interaction
      * to.
      *
      * @param input the user input that the interaction applies to.
-     * @return      this interaction.
+     * @return      the interaction.
      */
     public InteractionDefinition forInput(UserInputType input) {
         this.inputType = input;
         return this;
     }
 
+    /**
+     * Specifies that this interaction applies when the target of the user
+     * behaviour is of the given type.
+     *
+     * @param identifier    an item type {@link Identifier}.
+     * @return              the interaction.
+     */
     public InteractionDefinition whenTarget(Identifier identifier) {
         touchedType = identifier;
         return this;
     }
 
+    /**
+     * Specifies that this interaction applies when the user has currently
+     * selected an item of the given type.
+     *
+     * @param identifier    an item type {@link Identifier}.
+     * @return              the interaction.
+     */
     public InteractionDefinition whenSelected(Identifier identifier) {
         selectedType = identifier;
         return this;
     }
 
+    /**
+     * Specifies that this interaction applies when the {@link Item} that will
+     * be the recipient of the interaction already has an {@link Action} of the
+     * given type.
+     *
+     * @param identifier    an {@link ActionIdentifier}.
+     * @return              the interaction.
+     */
     public InteractionDefinition withAction(ActionIdentifier identifier) {
         this.currentType = identifier;
         return this;
     }
 
     /**
-     * Sets which {@link Item} the action resulting from this interaction will
-     * be applied to.
+     * Indicates how the interaction should be applied, either as a replacement
+     * for existing {@link Action Actions}, or as an addition.
      *
-     * @param applicability the type of applicability
+     * @@param displacement an {@link InteractionDisplacement} option.
+     * @return              the interaction
+     */
+    public InteractionDefinition appliedAs(InteractionDisplacement displacement) {
+        this.displacement = displacement;
+        return this;
+    }
+
+    /**
+     * Sets which {@link Item} the action resulting from this interaction will
+     * be applied to: the target of the resulting {@link Action}.
+     *
+     * @param applicability an {@link InteractionApplicability} option.
      * @return              the interaction
      */
     public InteractionDefinition appliedTo(InteractionApplicability applicability) {
@@ -93,6 +130,13 @@ public class InteractionDefinition implements Interaction
         return this;
     }
 
+    /**
+     * Sets which {@link Item} the action resulting from this interaction will
+     * be assigned to: the item of the resulting {@link Action}.
+     *
+     * @param assignment    an {@link InteractionAssignment} option.
+     * @return              the interaction
+     */
     public InteractionDefinition assignedTo(InteractionAssignment assignment) {
         this.assignment = assignment;
         return this;
@@ -135,11 +179,14 @@ public class InteractionDefinition implements Interaction
         Item subject = getSubject(primary);
 
         Action action = factory.newAction(actionType);
-        subject.addAction(action);
-
         action.setItem(primary);
         action.setTarget(secondary);
         action.setCause(input);
+
+        if (displacement == Replacement) {
+            subject.clearActions();
+        }
+        subject.addAction(action);
     }
 
     private Item getPrimary(Item item, Item selected) {

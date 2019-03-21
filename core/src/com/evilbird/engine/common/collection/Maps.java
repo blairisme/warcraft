@@ -18,6 +18,7 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
+//TODO: Use Guava which has been brought in by the serialization library
 public class Maps
 {
     private Maps() {

@@ -11,10 +11,10 @@ package com.evilbird.engine.common.collection;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 
-public class IndexedSet<T extends Indexible<I>, I> extends HashSet<T>
+public class IndexedSet<T extends Indexible<I>, I> extends LinkedHashSet<T>
 {
     private transient Map<Object, T> index;
 

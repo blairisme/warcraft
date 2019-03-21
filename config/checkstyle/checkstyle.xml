@@ -16,7 +16,7 @@
     <property name="fileExtensions" value="java"/>
 
     <module name="SuppressionFilter">
-        <property name="file" value="${config_loc}\suppressions.xml"/>
+        <property name="file" value="${config_loc}/suppressions.xml"/>
     </module>
 
     <module name="FileLength">

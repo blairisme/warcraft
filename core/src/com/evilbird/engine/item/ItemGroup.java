@@ -72,7 +72,7 @@ public class ItemGroup extends ItemBasic implements ItemComposite
      * Removes all {@link Item}s from this group.
      */
     public void clearItems() {
-        Group group = (Group) delegate;
+        Group group = (Group)delegate;
         group.clearChildren();
         items.clear();
         notifyItemsCleared();

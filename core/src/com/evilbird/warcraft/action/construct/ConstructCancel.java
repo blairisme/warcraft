@@ -11,7 +11,6 @@ package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionTarget;
-import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.engine.action.common.VisibleAction;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.ParallelAction;
@@ -40,8 +39,7 @@ public class ConstructCancel extends DelegateAction
         restoreResources = new ResourceTransferAction(ActionTarget.Player);
         restoreBuilder = new VisibleAction(true);
         Action removeBuilding = new DeathAction();
-        Action sequence = new ParallelAction(restoreResources, restoreBuilder, removeBuilding);
-        delegate = new ReplacementAction(sequence);
+        delegate = new ParallelAction(restoreResources, restoreBuilder, removeBuilding);
     }
 
     public void setBuildCost(Map<ResourceIdentifier, Float> resources) {

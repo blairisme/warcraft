@@ -12,7 +12,6 @@ package com.evilbird.warcraft.action;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.action.common.ReplacementAction;
 import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.attack.AttackFactory;
@@ -86,18 +85,10 @@ public class WarcraftActionFactory implements ActionFactory
         ActionProvider provider = actions.get(identifier);
         if (provider != null) {
             Action result = provider.get(identifier);
-            updateIdentifier(result, identifier);
+            result.setIdentifier(identifier); //TODO: Evaluate if needed
             return result;
         }
         throw new UnknownEntityException(identifier);
-    }
-
-    private void updateIdentifier(Action action, ActionIdentifier identifier) {
-        action.setIdentifier(identifier);
-        if (action instanceof ReplacementAction) {
-            ReplacementAction replacementAction = (ReplacementAction)action;
-            updateIdentifier(replacementAction.getReplacement(), identifier);
-        }
     }
 
     private void registerProvider(ActionIdentifier identifier, ActionProvider provider) {
