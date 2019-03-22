@@ -10,9 +10,8 @@
 package com.evilbird.warcraft.action.common.animation;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.graphics.DirectionalAnimation;
-import com.evilbird.engine.item.animated.Animated;
-import com.evilbird.engine.item.animated.AnimationIdentifier;
+import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.item.AnimatedItem;
 
 /**
  * Instances of this class assigned an alias to a given animation identifier.
@@ -21,19 +20,18 @@ import com.evilbird.engine.item.animated.AnimationIdentifier;
  */
 public class AnimationAliasAction extends BasicAction
 {
-    private AnimationIdentifier id;
-    private AnimationIdentifier alias;
+    private Identifier id;
+    private Identifier alias;
 
-    public AnimationAliasAction(AnimationIdentifier id, AnimationIdentifier alias) {
+    public AnimationAliasAction(Identifier id, Identifier alias) {
         this.id = id;
         this.alias = alias;
     }
 
     @Override
     public boolean act(float delta) {
-        Animated item = (Animated)getItem();
-        DirectionalAnimation newAnimations = item.getAvailableAnimation(alias);
-        item.setAvailableAnimation(id, newAnimations);
+        AnimatedItem item = (AnimatedItem)getItem();
+        item.setAnimationAlias(alias, id);
         return true;
     }
 }

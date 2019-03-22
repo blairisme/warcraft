@@ -9,11 +9,11 @@
 
 package com.evilbird.warcraft.item.unit;
 
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializedType;
-import com.evilbird.engine.item.animated.SoundIdentifier;
 
 @SerializedType("UnitSound")
-public enum UnitSound implements SoundIdentifier
+public enum UnitSound implements Identifier
 {
     Attack,
     Die,
@@ -31,5 +31,5 @@ public enum UnitSound implements SoundIdentifier
 
     DepositGold,
     DepositOil,
-    DepositWood;
+    DepositWood
 }

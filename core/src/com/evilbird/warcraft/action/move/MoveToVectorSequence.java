@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.action.move;
 
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.AnimateAction;
 import com.evilbird.engine.action.framework.DelegateAction;
@@ -17,7 +18,6 @@ import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
-import com.badlogic.gdx.math.Vector2;
 
 import javax.inject.Inject;
 

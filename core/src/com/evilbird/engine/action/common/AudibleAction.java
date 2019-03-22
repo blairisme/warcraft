@@ -10,9 +10,9 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.common.lang.Audible;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.animated.Audible;
-import com.evilbird.engine.item.animated.SoundIdentifier;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -25,22 +25,22 @@ import javax.inject.Inject;
  */
 public class AudibleAction extends BasicAction
 {
-    private SoundIdentifier sound;
+    private Identifier sound;
 
     @Inject
     public AudibleAction(){
         this(null);
     }
 
-    public AudibleAction(SoundIdentifier sound){
+    public AudibleAction(Identifier sound){
         this.sound = sound;
     }
 
-    public SoundIdentifier getSound() {
+    public Identifier getSound() {
         return sound;
     }
 
-    public void setSound(SoundIdentifier sound) {
+    public void setSound(Identifier sound) {
         this.sound = sound;
     }
 

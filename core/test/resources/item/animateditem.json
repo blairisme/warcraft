@@ -1,11 +1,9 @@
 {
   "direction": 45.0,
-  "updateAnimation": true,
   "animationId": {
     "class": "UnitAnimation",
     "enum": "Build"
   },
-  "updateSound": true,
   "soundId": {
     "class": "UnitSound",
     "enum": "Attack"

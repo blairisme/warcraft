@@ -17,10 +17,9 @@ import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.animated.AnimationIdentifier;
-import com.evilbird.engine.item.animated.SoundIdentifier;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -99,7 +98,7 @@ public class GruntProvider implements AssetProvider<Item>
         return result;
     }
 
-    private Map<AnimationIdentifier, DirectionalAnimation> getAnimations() {
+    private Map<Identifier, DirectionalAnimation> getAnimations() {
         Texture general = assets.get(BASE, Texture.class);
         Texture decompose = assets.get(DECOMPOSE, Texture.class);
         return AnimationCollections.combatantAnimations(general, decompose);
@@ -109,8 +108,8 @@ public class GruntProvider implements AssetProvider<Item>
         return TextureUtils.getDrawable(assets, ICONS, 138, 0, 46, 38);
     }
 
-    private Map<SoundIdentifier, SoundEffect> getSounds() {
-        Map<SoundIdentifier, SoundEffect> sounds = new HashMap<>();
+    private Map<Identifier, SoundEffect> getSounds() {
+        Map<Identifier, SoundEffect> sounds = new HashMap<>();
         sounds.put(UnitSound.Acknowledge, newSoundEffect(assets, ACKNOWLEDGE, MP3, 4));
         sounds.put(UnitSound.Selected, newSoundEffect(assets, SELECTED, MP3, 6));
         sounds.put(UnitSound.Attack, newSoundEffect(assets, ATTACK, MP3, 3));

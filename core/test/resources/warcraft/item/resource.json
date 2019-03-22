@@ -26,8 +26,6 @@
   "health": 0.0,
   "healthMaximum": 0.0,
   "direction": 70.55996,
-  "updateAnimation": false,
-  "updateSound": false,
   "id": {
     "class": "Named",
     "name": "goldmine"

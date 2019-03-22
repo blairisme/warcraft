@@ -16,8 +16,8 @@ import com.evilbird.engine.action.framework.RepeatedAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.predicates.ActionPredicates;
 import com.evilbird.engine.common.function.Predicate;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
-import com.evilbird.engine.item.animated.SoundIdentifier;
 
 /**
  * Instances of this class represent an {@link Action} that plays a sound
@@ -31,11 +31,11 @@ public class RepeatedAudibleAction extends DelegateAction
     private RepeatedAudibleAction() {
     }
 
-    public RepeatedAudibleAction(SoundIdentifier sound, int repetitions, float delay) {
+    public RepeatedAudibleAction(Identifier sound, int repetitions, float delay) {
         this(sound, delay, ActionPredicates.invocationCount(repetitions));
     }
 
-    public RepeatedAudibleAction(SoundIdentifier sound, float delay, Predicate<Action> repeat) {
+    public RepeatedAudibleAction(Identifier sound, float delay, Predicate<Action> repeat) {
         Action audible = new AudibleAction(sound);
         Action buffer = new DelayedAction(delay);
         Action soundBuffer = new SequenceAction(audible, buffer);

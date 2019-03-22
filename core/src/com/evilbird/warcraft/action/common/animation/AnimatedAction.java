@@ -14,8 +14,8 @@ import com.evilbird.engine.action.common.AnimateAction;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.SequenceAction;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.animated.AnimationIdentifier;
 
 /**
  * Instances of this class represent an {@link Action} that moves a given
@@ -25,7 +25,7 @@ import com.evilbird.engine.item.animated.AnimationIdentifier;
  */
 public class AnimatedAction extends DelegateAction
 {
-    public AnimatedAction(Action action, AnimationIdentifier startAnimation, AnimationIdentifier endAnimation) {
+    public AnimatedAction(Action action, Identifier startAnimation, Identifier endAnimation) {
         Action animate = new AnimateAction(startAnimation);
         Action initial = new ParallelAction(animate, action);
         Action complete = new AnimateAction(endAnimation);

@@ -10,8 +10,8 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.animated.Animated;
-import com.evilbird.engine.item.animated.AnimationIdentifier;
+import com.evilbird.engine.common.lang.Animated;
+import com.evilbird.engine.common.lang.Identifier;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -27,27 +27,27 @@ import javax.inject.Inject;
 public class AnimateAction extends BasicAction
 {
     private ActionTarget source;
-    private AnimationIdentifier animation;
+    private Identifier animation;
 
     @Inject
     public AnimateAction() {
         this(null);
     }
 
-    public AnimateAction(AnimationIdentifier animation) {
+    public AnimateAction(Identifier animation) {
         this(ActionTarget.Item, animation);
     }
 
-    public AnimateAction(ActionTarget source, AnimationIdentifier animation) {
+    public AnimateAction(ActionTarget source, Identifier animation) {
         this.source = source;
         this.animation = animation;
     }
 
-    public AnimationIdentifier getAnimation() {
+    public Identifier getAnimation() {
         return animation;
     }
 
-    public void setAnimation(AnimationIdentifier animation) {
+    public void setAnimation(Identifier animation) {
         this.animation = animation;
     }
 

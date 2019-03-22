@@ -7,10 +7,11 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.item.animated;
+package com.evilbird.engine.common.lang;
 
-import com.evilbird.engine.common.lang.Identifier;
-
-public interface AnimationIdentifier extends Identifier
+public interface Audible
 {
+    Identifier getSound();
+
+    void setSound(Identifier id);
 }

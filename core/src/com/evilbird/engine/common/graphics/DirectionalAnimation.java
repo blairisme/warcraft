@@ -18,6 +18,7 @@ import org.apache.commons.lang3.Range;
 import java.util.Map;
 import java.util.Map.Entry;
 
+//TODO: Introduce interface
 public class DirectionalAnimation
 {
     private float direction;

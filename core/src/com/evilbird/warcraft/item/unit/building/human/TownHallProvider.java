@@ -17,10 +17,9 @@ import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.animated.AnimationIdentifier;
-import com.evilbird.engine.item.animated.SoundIdentifier;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -87,7 +86,7 @@ public class TownHallProvider implements AssetProvider<Item>
         return result;
     }
 
-    private Map<AnimationIdentifier, DirectionalAnimation> getAnimations() {
+    private Map<Identifier, DirectionalAnimation> getAnimations() {
         Texture general = assets.get(BASE, Texture.class);
         Texture construct = assets.get(CONSTRUCTION, Texture.class);
         Texture destruction = assets.get(DESTRUCTION, Texture.class);
@@ -98,7 +97,7 @@ public class TownHallProvider implements AssetProvider<Item>
         return TextureUtils.getDrawable(assets, ICONS, 0, 304, 46, 38);
     }
 
-    private Map<SoundIdentifier, SoundEffect> getSounds() {
-        return Maps.<SoundIdentifier, SoundEffect>of(UnitSound.Die, newSoundEffect(assets, DESTROYED, MP3, 3));
+    private Map<Identifier, SoundEffect> getSounds() {
+        return Maps.of(UnitSound.Die, newSoundEffect(assets, DESTROYED, MP3, 3));
     }
 }

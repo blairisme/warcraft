@@ -11,7 +11,7 @@ package com.evilbird.warcraft.item.common.animation;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
-import com.evilbird.engine.item.animated.AnimationIdentifier;
+import com.evilbird.engine.common.lang.Identifier;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Arrays;
@@ -23,32 +23,32 @@ import java.util.Map.Entry;
 //TODO: Move into common
 public class AnimationCollectionBuilder
 {
-    private Map<AnimationIdentifier, AnimationIdentifier> aliases;
-    private Map<AnimationIdentifier, List<Pair<AnimationSchema, Texture>>> animations;
+    private Map<Identifier, Identifier> aliases;
+    private Map<Identifier, List<Pair<AnimationSchema, Texture>>> animations;
 
     public AnimationCollectionBuilder() {
         aliases = new HashMap<>(2);
         animations = new HashMap<>(2);
     }
 
-    public void associate(AnimationIdentifier sourceId, AnimationIdentifier targetId) {
+    public void associate(Identifier sourceId, Identifier targetId) {
         aliases.put(sourceId, targetId);
     }
 
-    public void set(AnimationIdentifier id, AnimationSchema schema, Texture texture) {
+    public void set(Identifier id, AnimationSchema schema, Texture texture) {
         animations.put(id, Arrays.asList(Pair.of(schema, texture)));
     }
 
-    public void set(AnimationIdentifier id, List<Pair<AnimationSchema, Texture>> data) {
+    public void set(Identifier id, List<Pair<AnimationSchema, Texture>> data) {
         animations.put(id, data);
     }
 
     //TODO: MoveFactory multiple schema/texture logic into AnimationBuilder. Stop animation merging.
-    public Map<AnimationIdentifier, DirectionalAnimation> build() {
+    public Map<Identifier, DirectionalAnimation> build() {
         AnimationBuilder builder = new AnimationBuilder();
-        Map<AnimationIdentifier, DirectionalAnimation> result = new HashMap<>();
+        Map<Identifier, DirectionalAnimation> result = new HashMap<>();
 
-        for (Entry<AnimationIdentifier, List<Pair<AnimationSchema, Texture>>> animation : animations.entrySet()) {
+        for (Entry<Identifier, List<Pair<AnimationSchema, Texture>>> animation : animations.entrySet()) {
             DirectionalAnimation product = null;
             for (Pair<AnimationSchema, Texture> schema : animation.getValue()) {
                 builder.setSchema(schema.getKey());
@@ -57,7 +57,7 @@ public class AnimationCollectionBuilder
             }
             result.put(animation.getKey(), product);
         }
-        for (Entry<AnimationIdentifier, AnimationIdentifier> alias : aliases.entrySet()) {
+        for (Entry<Identifier, Identifier> alias : aliases.entrySet()) {
             result.put(alias.getKey(), result.get(alias.getValue()));
         }
         return result;

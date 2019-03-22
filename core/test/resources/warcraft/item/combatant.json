@@ -22,12 +22,10 @@
   "health": 60.0,
   "healthMaximum": 60.0,
   "direction": 0.0,
-  "updateAnimation": true,
   "animationId": {
     "class": "UnitAnimation",
     "enum": "Idle"
   },
-  "updateSound": false,
   "id": {
     "class": "General",
     "enum": "Unknown"

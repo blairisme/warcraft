@@ -14,10 +14,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.item.AnimatedItem;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.animated.AnimatedItem;
-import com.evilbird.engine.item.animated.AnimationIdentifier;
 import com.evilbird.warcraft.item.common.animation.AnimationCollections;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -57,7 +57,7 @@ public class ConfirmProvider implements AssetProvider<Item>
         return result;
     }
 
-    private Map<AnimationIdentifier, DirectionalAnimation> getAnimations() {
+    private Map<Identifier, DirectionalAnimation> getAnimations() {
         Texture texture = assets.get(TEXTURE, Texture.class);
         return AnimationCollections.effectAnimations(texture);
     }

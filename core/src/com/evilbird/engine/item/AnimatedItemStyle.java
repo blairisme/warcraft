@@ -7,10 +7,11 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.item.animated;
+package com.evilbird.engine.item;
 
-import com.evilbird.engine.common.lang.Identifier;
+import com.badlogic.gdx.graphics.Texture;
 
-public interface SoundIdentifier extends Identifier
+public class AnimatedItemStyle
 {
+    public Texture selection;
 }

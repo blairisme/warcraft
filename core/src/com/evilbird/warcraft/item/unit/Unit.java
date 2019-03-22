@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.unit;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.item.animated.AnimatedItem;
+import com.evilbird.engine.item.AnimatedItem;
 import com.evilbird.warcraft.item.common.capability.Destroyable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
