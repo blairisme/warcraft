@@ -18,7 +18,7 @@ import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.action.common.animation.AnimationAliasAction;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferAction;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferRelay;
-import com.evilbird.warcraft.action.move.MoveToItem;
+import com.evilbird.warcraft.action.move.MoveToItemSequence;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
@@ -74,7 +74,7 @@ public abstract class GatherAction extends DelegateAction
     }
 
     protected Action obtainSequence() {
-        Action move = new MoveToItem();
+        Action move = new MoveToItemSequence();
         Action preObtain = preObtainAnimation();
         Action obtain = obtainResources();
         Action postObtain = postObtainAnimation();
@@ -110,7 +110,7 @@ public abstract class GatherAction extends DelegateAction
     }
 
     protected Action depositSequence() {
-        Action move = new MoveToItem();
+        Action move = new MoveToItemSequence();
         Action preDeposit = preDepositAction();
         Action deposit = depositAction();
         Action postDeposit = postDepositAction();

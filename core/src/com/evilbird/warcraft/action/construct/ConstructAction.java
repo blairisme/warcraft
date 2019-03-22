@@ -20,7 +20,7 @@ import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.action.common.production.ProgressAction;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferAction;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferRelay;
-import com.evilbird.warcraft.action.move.MoveToItem;
+import com.evilbird.warcraft.action.move.MoveToItemSequence;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 import com.evilbird.warcraft.item.common.resource.ResourceUtils;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -99,7 +99,7 @@ public class ConstructAction extends DelegateAction
     }
 
     private Action initializeBuilder() {
-        Action reposition = new MoveToItem();
+        Action reposition = new MoveToItemSequence();
         Action deselect = new SelectAction(false);
         Action invisible = new VisibleAction(false);
         Action hide = new ParallelAction(deselect, invisible);

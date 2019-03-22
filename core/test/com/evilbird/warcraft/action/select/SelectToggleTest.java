@@ -13,15 +13,15 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
 
 /**
- * Instances of this unit test validate the {@link SelectToggleAction} class.
+ * Instances of this unit test validate the {@link SelectToggle} class.
  *
  * @author Blair Butterworth
  */
-public class SelectToggleActionTest extends ActionTestCase
+public class SelectToggleTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        SelectToggleAction action = new SelectToggleAction();
+        SelectToggle action = new SelectToggle();
         action.setIdentifier(SelectActions.SelectToggle);
         return action;
     }

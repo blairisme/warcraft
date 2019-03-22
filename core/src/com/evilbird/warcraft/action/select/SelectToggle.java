@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.action.select;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.AudibleAction;
 import com.evilbird.engine.action.common.SelectAction;
 import com.evilbird.engine.action.framework.DelegateAction;
@@ -18,23 +19,31 @@ import com.evilbird.warcraft.item.unit.UnitSound;
 
 import javax.inject.Inject;
 
-public class SelectToggleAction extends DelegateAction
+/**
+ * Instances of this {@link Action} invert the selected status of a given
+ * {@link Item}.
+ *
+ * @author Blair Butterworth
+ */
+public class SelectToggle extends DelegateAction
 {
-    private boolean notified;
     private SelectObserver observer;
     private SelectAction select;
     private AudibleAction audio;
 
     @Inject
-    public SelectToggleAction() {
+    public SelectToggle() {
         select = new SelectAction();
         audio = new AudibleAction();
         delegate = new ParallelAction(select, audio);
+
+//      scenario(SelectItem).givenItem(isAlive()).whenItem(isUnselected()).then(select(), play(Selected));
+//      scenario(DeselectItem).givenItem(isAlive()).whenItem(isSelected()).then(deselect());
     }
 
     @Override
     public boolean act(float delta) {
-        notifySelected();
+        notifyOnSelect();
         return delegate.act(delta);
     }
 
@@ -50,15 +59,8 @@ public class SelectToggleAction extends DelegateAction
         this.observer = observer;
     }
 
-    @Override
-    public void reset() {
-        super.reset();
-        notified = false;
-    }
-
-    private void notifySelected() {
-        if (!notified && observer != null) {
-            notified = true;
+    private void notifyOnSelect() {
+        if (observer != null) {
             observer.onSelect(select.getItem(), select.getSelected());
         }
     }

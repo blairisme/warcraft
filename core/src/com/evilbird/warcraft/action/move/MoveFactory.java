@@ -29,15 +29,15 @@ public class MoveFactory implements ActionProvider
 {
     private MoveReporter reporter;
     private InjectedPool<CancelAction> cancelPool;
-    private InjectedPool<MoveToItem> moveItemPool;
-    private InjectedPool<MoveToLocation> moveLocationPool;
+    private InjectedPool<MoveToItemSequence> moveItemPool;
+    private InjectedPool<MoveToVectorSequence> moveLocationPool;
 
     @Inject
     public MoveFactory(
         MoveReporter reporter,
         InjectedPool<CancelAction> cancelPool,
-        InjectedPool<MoveToItem> moveItemPool,
-        InjectedPool<MoveToLocation> moveLocationPool)
+        InjectedPool<MoveToItemSequence> moveItemPool,
+        InjectedPool<MoveToVectorSequence> moveLocationPool)
     {
         this.reporter = reporter;
         this.cancelPool = cancelPool;
@@ -56,13 +56,13 @@ public class MoveFactory implements ActionProvider
     }
 
     private Action moveToItemAction() {
-        MoveSequence action = moveItemPool.obtain();
+        MoveToItemSequence action = moveItemPool.obtain();
         action.setObserver(reporter);
         return action;
     }
 
     private Action getMoveToLocationAction() {
-        MoveSequence action = moveLocationPool.obtain();
+        MoveToVectorSequence action = moveLocationPool.obtain();
         action.setObserver(reporter);
         return action;
     }

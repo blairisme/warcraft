@@ -13,19 +13,19 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
 
 /**
- * Instances of this unit test validate the {@link MoveToItem} class.
+ * Instances of this unit test validate the {@link MoveToVectorSequence} class.
  *
  * @author Blair Butterworth
  */
-public class MoveToItemTest extends ActionTestCase
+public class MoveToVectorSequenceTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        return new MoveToItem();
+        return new MoveToVectorSequence();
     }
 
     @Override
     protected Enum newActionId() {
-        return MoveActions.MoveToItem;
+        return MoveActions.MoveToLocation;
     }
 }
