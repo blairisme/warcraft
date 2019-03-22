@@ -13,6 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemReference;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -94,6 +95,17 @@ public abstract class CompositeAction extends BasicAction
     }
 
     @Override
+    public void setItemReference(ItemReference reference) {
+        super.setItemReference(reference);
+        for (Action delegate: actions) {
+            if (delegate instanceof BasicAction) {
+                BasicAction basicDelegate = (BasicAction)delegate;
+                basicDelegate.setItemReference(reference);
+            }
+        }
+    }
+
+    @Override
     public void setTarget(Item target) {
         super.setTarget(target);
         for (Action delegate: actions) {
@@ -101,6 +113,17 @@ public abstract class CompositeAction extends BasicAction
         }
     }
 
+    @Override
+    public void setTargetReference(ItemReference reference) {
+        super.setTargetReference(reference);
+        for (Action delegate: actions) {
+            if (delegate instanceof BasicAction) {
+                BasicAction basicDelegate = (BasicAction)delegate;
+                basicDelegate.setTargetReference(reference);
+            }
+        }
+    }
+    
     @Override
     public String toString() {
         return new ToStringBuilder(this)

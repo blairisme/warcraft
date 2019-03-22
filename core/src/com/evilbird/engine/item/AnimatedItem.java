@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 //TODO: Move selected box drawing to unit
-//TODO: User style and skin for selection texture
+//TODO: Use style and skin for selection texture
 public class AnimatedItem extends ItemBasic implements Animated, Audible
 {
     private static transient final Logger logger = LoggerFactory.getLogger(AnimatedItem.class);
@@ -188,6 +188,7 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible
                 currentAnimation.setDirection(direction);
             } else {
                 logger.warn("Missing animation: " + animationId);
+                animationId = null;
             }
         }
     }
@@ -199,6 +200,7 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible
                 currentSound.play();
             } else {
                 logger.warn("Missing sound: " + soundId);
+                soundId = null;
             }
         }
     }
@@ -241,10 +243,4 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible
             .append("sound", soundId)
             .toString();
     }
-
-//    @SerializedInitializer
-//    protected void updateDelegate() {
-//        super.updateDelegate();
-//        updateAnimation = true; //TODO
-//    }
 }

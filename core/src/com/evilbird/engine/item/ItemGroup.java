@@ -276,10 +276,11 @@ public class ItemGroup extends ItemBasic implements ItemComposite
     protected void updateDelegate() {
         super.updateDelegate();
         Group group = (Group)delegate;
+
         for (Item item: items) {
             group.addActor(item.toActor());
             item.setParent(this);
-            item.setRoot(getRoot());
+            //item.setRoot(getRoot());
         }
     }
 }

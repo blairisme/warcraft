@@ -525,5 +525,6 @@ public class ItemBasic implements Item
         delegate.setTouchable(touchable);
         delegate.setSize(size.x, size.y);
         delegate.setPosition(position.x, position.y);
+        //actions.forEach(action -> action.setRoot(parent));
     }
 }

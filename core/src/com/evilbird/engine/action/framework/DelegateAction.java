@@ -12,6 +12,7 @@ package com.evilbird.engine.action.framework;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.serialization.SerializedInitializer;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -127,5 +128,21 @@ public class DelegateAction extends BasicAction
             .appendSuper(super.hashCode())
             .append(delegate)
             .toHashCode();
+    }
+
+    @SerializedInitializer
+    protected void updateDelegate() {
+        delegate.setIdentifier(getIdentifier());
+        delegate.setCause(getCause());
+
+        if (delegate instanceof BasicAction) {
+            BasicAction basicDelegate = (BasicAction)delegate;
+            basicDelegate.setItemReference(getItemReference());
+            basicDelegate.setTargetReference(getTargetReference());
+
+        } else {
+            delegate.setTarget(getTarget());
+            delegate.setItem(getItem());
+        }
     }
 }

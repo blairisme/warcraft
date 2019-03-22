@@ -60,9 +60,17 @@ public abstract class BasicAction implements Action
         return item != null ? item.get() : null;
     }
 
+    public ItemReference getItemReference() {
+        return item;
+    }
+
     @Override
     public Item getTarget() {
         return target != null ? target.get() : null;
+    }
+
+    public ItemReference getTargetReference() {
+        return target;
     }
 
     @Override
@@ -98,9 +106,17 @@ public abstract class BasicAction implements Action
         this.item = item != null ? new ItemReference(item) : null;
     }
 
+    public void setItemReference(ItemReference reference) {
+        this.item = reference;
+    }
+
     @Override
     public void setTarget(Item target) {
         this.target = target != null ? new ItemReference(target) : null;
+    }
+
+    public void setTargetReference(ItemReference reference) {
+        this.target = reference;
     }
 
     @Override
