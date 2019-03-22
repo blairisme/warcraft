@@ -7,12 +7,11 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.action.common;
+package com.evilbird.warcraft.action.menu;
 
+import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Navigable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -23,43 +22,37 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class NavigateAction extends BasicAction
+public class MenuNavigateAction extends BasicAction
 {
-    private Identifier location;
     private ActionTarget source;
 
     @Inject
-    public NavigateAction() {
-        this(GenericIdentifier.Unknown, ActionTarget.Item);
-    }
-
-    public NavigateAction(Identifier location, ActionTarget source) {
-        this.location = location;
-        this.source = source;
+    public MenuNavigateAction() {
     }
 
     public void setSource(ActionTarget source) {
         this.source = source;
     }
 
-    public void setLocation(Identifier location) {
-        this.location = location;
-    }
-
     @Override
     public boolean act(float delta) {
-        Navigable navigable = getNavigable();
-        navigable.navigate(location);
+        MenuProvider menuProvider = getMenuProvider();
+        menuProvider.showMenu(getMenuIdentifier());
         return true;
     }
 
-    private Navigable getNavigable() {
+    private MenuProvider getMenuProvider() {
         switch (source) {
-            case Item: return (Navigable)getItem();
-            case Target: return (Navigable)getTarget();
-            case Parent: return (Navigable)getItem().getParent();
+            case Item: return (MenuProvider)getItem();
+            case Target: return (MenuProvider)getTarget();
+            case Parent: return (MenuProvider)getItem().getParent();
             default: throw new UnsupportedOperationException();
         }
+    }
+
+    private Identifier getMenuIdentifier() {
+        MenuActions menuAction = (MenuActions)getIdentifier();
+        return menuAction.getMenuIdentifier();
     }
 
     @Override
@@ -68,10 +61,9 @@ public class NavigateAction extends BasicAction
         if (obj == null) return false;
         if (obj.getClass() != getClass()) return false;
 
-        NavigateAction that = (NavigateAction)obj;
+        MenuNavigateAction that = (MenuNavigateAction)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
-            .append(location, that.location)
             .append(source, that.source)
             .isEquals();
     }
@@ -80,7 +72,6 @@ public class NavigateAction extends BasicAction
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
-            .append(location)
             .append(source)
             .toHashCode();
     }

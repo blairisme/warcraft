@@ -7,7 +7,9 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.lang;
+package com.evilbird.warcraft.action.menu;
+
+import com.evilbird.engine.common.lang.Identifier;
 
 /**
  * Implementors of this interface represent an object that can navigated
@@ -15,7 +17,7 @@ package com.evilbird.engine.common.lang;
  *
  * @author Blair Butterworth
  */
-public interface Navigable
+public interface MenuProvider
 {
-    void navigate(Identifier location);
+    void showMenu(Identifier location);
 }

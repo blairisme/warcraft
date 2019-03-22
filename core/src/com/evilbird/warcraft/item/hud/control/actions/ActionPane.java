@@ -12,8 +12,8 @@ package com.evilbird.warcraft.item.hud.control.actions;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.control.GridPane;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Navigable;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.menu.MenuProvider;
 import com.evilbird.warcraft.item.hud.HudControl;
 import org.apache.commons.lang3.Validate;
 
@@ -31,7 +31,7 @@ import java.util.List;
  */
 //TODO: Disable buttons if insufficient resources
 //TODO: Disable buttons if constructing
-public class ActionPane extends GridPane implements Navigable
+public class ActionPane extends GridPane implements MenuProvider
 {
     private Collection<Item> selection;
 //    private Terrain<ResourceIdentifier, Float> resources;
@@ -78,7 +78,7 @@ public class ActionPane extends GridPane implements Navigable
     }
 
     @Override
-    public void navigate(Identifier location) {
+    public void showMenu(Identifier location) {
         Validate.isInstanceOf(ActionPaneLayout.class, location);
         layout = (ActionPaneLayout)location;
         invalidated = true;

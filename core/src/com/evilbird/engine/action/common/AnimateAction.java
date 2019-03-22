@@ -14,6 +14,7 @@ import com.evilbird.engine.item.animated.Animated;
 import com.evilbird.engine.item.animated.AnimationIdentifier;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.inject.Inject;
 
@@ -86,5 +87,13 @@ public class AnimateAction extends BasicAction
             .append(source)
             .append(animation)
             .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("source", source)
+            .append("animation", animation)
+            .toString();
     }
 }

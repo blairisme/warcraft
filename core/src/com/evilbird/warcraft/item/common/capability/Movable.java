@@ -19,7 +19,7 @@ import java.util.Collection;
 
 /**
  * Implementors of this interface provide methods that define a movable object,
- * an item that can navigate around the game world.
+ * an item that can showMenu around the game world.
  *
  * @author Blair Butterworth
  */

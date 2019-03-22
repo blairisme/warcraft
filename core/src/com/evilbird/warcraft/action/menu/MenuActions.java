@@ -7,34 +7,32 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.navigate;
+package com.evilbird.warcraft.action.menu;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.item.hud.control.actions.ActionPaneLayout;
+import com.evilbird.warcraft.menu.ingame.IngameMenuType;
 
 /**
  * Defines options of specifying hud menu navigation action varieties.
  *
  * @author Blair Butterworth
  */
-public enum NavigateActions implements ActionIdentifier
+public enum MenuActions implements ActionIdentifier
 {
     ActionsMenu         (ActionPaneLayout.Actions),
     BuildSimpleMenu     (ActionPaneLayout.SimpleBuildings),
     BuildAdvancedMenu   (ActionPaneLayout.AdvancedBuildings),
-    IngameMenu;
+    IngameMenu          (IngameMenuType.Root);
 
-    private Identifier location;
+    private Identifier menuIdentifier;
 
-    NavigateActions() {
+    MenuActions(Identifier location) {
+        this.menuIdentifier = location;
     }
 
-    NavigateActions(ActionPaneLayout location) {
-        this.location = location;
-    }
-
-    public Identifier getNavigateLocation() {
-        return location;
+    public Identifier getMenuIdentifier() {
+        return menuIdentifier;
     }
 }

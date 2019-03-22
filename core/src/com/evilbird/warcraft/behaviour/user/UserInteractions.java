@@ -26,9 +26,9 @@ import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmLocatio
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmTarget;
 import static com.evilbird.warcraft.action.construct.ConstructActions.*;
 import static com.evilbird.warcraft.action.gather.GatherActions.*;
+import static com.evilbird.warcraft.action.menu.MenuActions.*;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveCancel;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveToLocation;
-import static com.evilbird.warcraft.action.navigate.NavigateActions.*;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.*;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectToggle;
 import static com.evilbird.warcraft.action.train.TrainActions.TrainFootman;
@@ -123,7 +123,7 @@ public class UserInteractions
         interactions.addAction(BuildAdvancedMenu).whenTarget(BuildAdvancedButton).appliedTo(Target);
 
 
-        //TODO
+        //TODO: IngameMenu temporary
         interactions.addAction(IngameMenu).whenTarget(MenuPane).appliedTo(Target);
     }
 
@@ -143,6 +143,7 @@ public class UserInteractions
         interactions.addAction(MoveToLocation).whenTarget(Map).whenSelected(Peasant).appliedTo(Selected);
 //        interactions.addAction(MoveToLocation).whenTarget(Terrain).whenSelected(Grunt).appliedTo(Selected);
 
+        //TODO: Shouldn't assign to parent (player) - should player show visuals or play sounds?
         interactions.addAction(ConfirmLocation).whenTarget(Map).whenSelected(Footman).appliedTo(Selected).assignedTo(Parent).appliedAs(Addition);
         interactions.addAction(ConfirmLocation).whenTarget(Map).whenSelected(Peasant).appliedTo(Selected).assignedTo(Parent).appliedAs(Addition);
 //        interactions.addAction(ConfirmLocation).whenTarget(Terrain).whenSelected(Grunt).appliedTo(Selected).assignedTo(Parent);

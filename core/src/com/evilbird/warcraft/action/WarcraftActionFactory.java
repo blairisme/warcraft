@@ -23,10 +23,10 @@ import com.evilbird.warcraft.action.construct.ConstructActions;
 import com.evilbird.warcraft.action.construct.ConstructFactory;
 import com.evilbird.warcraft.action.gather.GatherActions;
 import com.evilbird.warcraft.action.gather.GatherFactory;
+import com.evilbird.warcraft.action.menu.MenuActionFactory;
+import com.evilbird.warcraft.action.menu.MenuActions;
 import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.move.MoveFactory;
-import com.evilbird.warcraft.action.navigate.NavigateActions;
-import com.evilbird.warcraft.action.navigate.NavigateFactory;
 import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
 import com.evilbird.warcraft.action.placeholder.PlaceholderFactory;
 import com.evilbird.warcraft.action.select.SelectActions;
@@ -57,7 +57,7 @@ public class WarcraftActionFactory implements ActionFactory
         ConstructFactory constructFactory,
         GatherFactory gatherFactory,
         MoveFactory moveFactory,
-        NavigateFactory navigateFactory,
+        MenuActionFactory menuActionFactory,
         PlaceholderFactory placeholderFactory,
         SelectFactory selectFactory,
         TrainFactory trainFactory)
@@ -70,7 +70,7 @@ public class WarcraftActionFactory implements ActionFactory
         registerProvider(ConfirmActions.values(), confirmFactory);
         registerProvider(GatherActions.values(), gatherFactory);
         registerProvider(MoveActions.values(), moveFactory);
-        registerProvider(NavigateActions.values(), navigateFactory);
+        registerProvider(MenuActions.values(), menuActionFactory);
         registerProvider(PlaceholderActions.values(), placeholderFactory);
         registerProvider(SelectActions.values(), selectFactory);
         registerProvider(TrainActions.values(), trainFactory);

@@ -12,28 +12,29 @@ package com.evilbird.engine.action.common;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.verifier.EqualityVerifier;
+import com.evilbird.warcraft.action.menu.MenuNavigateAction;
 import com.evilbird.warcraft.item.hud.control.actions.ActionPaneLayout;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Instances of this unit test validate the {@link NavigateAction} class.
+ * Instances of this unit test validate the {@link MenuNavigateAction} class.
  *
  * @author Blair Butterworth
  */
 public class NavigateActionTest
 {
-    private NavigateAction action;
+    private MenuNavigateAction action;
 
     @Before
     public void setup() {
-        action = new NavigateAction(ActionPaneLayout.SimpleBuildings, ActionTarget.Item);
+        action = new MenuNavigateAction(ActionPaneLayout.SimpleBuildings, ActionTarget.Item);
         action.setItem(TestItems.newItem("navigateaction"));
     }
 
 //    @Test
 //    public void serializeTest() throws IOException {
-//        SerializationVerifier.forClass(NavigateAction.class)
+//        SerializationVerifier.forClass(MenuNavigateAction.class)
 //            .withDeserializedForm(action)
 //            .withSerializedResource("/action/common/navigateaction.json")
 //            .verify();
@@ -41,7 +42,7 @@ public class NavigateActionTest
 
     @Test
     public void equalsTest() {
-        EqualityVerifier.forClass(NavigateAction.class)
+        EqualityVerifier.forClass(MenuNavigateAction.class)
             .withMockedTransientFields(Item.class)
             .excludeTransientFields()
             .verify();
