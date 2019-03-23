@@ -17,11 +17,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
+import com.evilbird.engine.control.SelectListener;
+import com.evilbird.engine.control.SelectListenerAdapter;
+import com.evilbird.engine.control.StyledButton;
+import com.evilbird.engine.control.StyledLabel;
 import com.evilbird.engine.menu.Menu;
-import com.evilbird.warcraft.menu.common.controls.StyledButton;
-import com.evilbird.warcraft.menu.common.controls.StyledLabel;
-import com.evilbird.warcraft.menu.common.events.SelectListener;
-import com.evilbird.warcraft.menu.common.events.SelectListenerAdapter;
 
 import javax.inject.Inject;
 

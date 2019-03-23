@@ -12,12 +12,8 @@ package com.evilbird.warcraft.menu.ingame;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
+import com.evilbird.engine.control.*;
 import com.evilbird.engine.menu.Menu;
-import com.evilbird.warcraft.menu.common.controls.StyledButton;
-import com.evilbird.warcraft.menu.common.controls.StyledField;
-import com.evilbird.warcraft.menu.common.controls.StyledLabel;
-import com.evilbird.warcraft.menu.common.controls.StyledList;
-import com.evilbird.warcraft.menu.common.events.SelectListener;
 import org.apache.commons.lang3.tuple.Pair;
 
 public final class IngameMenu extends Menu
@@ -44,7 +40,7 @@ public final class IngameMenu extends Menu
     public final void addButtonRow(Pair<String, SelectListener> ... buttons) {
         Table row = addButtonRowTable();
         for (Pair<String, SelectListener> button: buttons) {
-            addButtowRowCell(row, button.getKey(), button.getValue());
+            addButtonRowCell(row, button.getKey(), button.getValue());
         }
     }
 
@@ -54,7 +50,7 @@ public final class IngameMenu extends Menu
         return row;
     }
 
-    private void addButtowRowCell(Table row, String text, SelectListener action) {
+    private void addButtonRowCell(Table row, String text, SelectListener action) {
         Button button = new StyledButton(text, action, skin);
         Cell cell = row.add(button);
         setPadding(cell);

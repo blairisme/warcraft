@@ -1,7 +1,7 @@
 <!--MIT License (c)-->
 <!--Author: Blair Butterworth-->
 <configuration>
-    <logger name="org.reflections" level="ERROR"/>
+    <logger name="org.reflections" level="WARN"/>
 
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

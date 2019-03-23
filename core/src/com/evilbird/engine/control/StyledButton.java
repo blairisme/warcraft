@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.menu.common.controls;
+package com.evilbird.engine.control;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -19,10 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Disposable;
 import com.evilbird.engine.common.graphics.Fonts;
-import com.evilbird.warcraft.menu.common.events.SelectListener;
-import com.evilbird.warcraft.menu.common.events.SelectListenerAdapter;
 
-//TODO: Move into core / common
 public class StyledButton extends TextButton implements Disposable
 {
     private Sound clickSound;

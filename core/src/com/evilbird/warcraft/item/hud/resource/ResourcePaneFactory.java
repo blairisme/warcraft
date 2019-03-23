@@ -10,9 +10,9 @@
 package com.evilbird.warcraft.item.hud.resource;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
@@ -22,6 +22,7 @@ import com.evilbird.warcraft.item.hud.HudControl;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
+import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 
 /**
  * Instances of this factory create {@link ResourcePane ResourcePanes}.
@@ -49,43 +50,22 @@ public class ResourcePaneFactory implements AssetProvider<Item>
 
     @Override
     public Item get() {
-        ResourcePane result = new ResourcePane();
+        ResourcePane result = new ResourcePane(getStyle());
         result.setIdentifier(HudControl.ResourcePane);
         result.setType(HudControl.ResourcePane);
         result.setTouchable(Touchable.disabled);
         result.setVisible(true);
-        result.setFont(getFont());
-        result.setBackground(getBackground());
-        result.setGoldIcon(getGoldIcon());
-        result.setGoldText("0");
-        result.setOilIcon(getOilIcon());
-        result.setOilText("0");
-        result.setWoodIcon(getWoodIcon());
-        result.setWoodText("0");
         return result;
     }
 
-    private BitmapFont getFont() {
-        return assets.get(FONT);
-    }
-
-    private TextureRegion getBackground() {
-        Texture texture = assets.get(BACKGROUND);
-        return new TextureRegion(texture);
-    }
-
-    private TextureRegion getGoldIcon() {
-        Texture texture = assets.get(ICONS);
-        return new TextureRegion(texture, 0, 0, 14, 14);
-    }
-
-    private TextureRegion getOilIcon() {
-        Texture texture = assets.get(ICONS);
-        return new TextureRegion(texture, 0, 28, 14, 14);
-    }
-
-    private TextureRegion getWoodIcon() {
-        Texture texture = assets.get(ICONS);
-        return new TextureRegion(texture, 0, 14, 14, 14);
+    private ResourcePaneStyle getStyle() {
+        ResourcePaneStyle style = new ResourcePaneStyle();
+        style.font = assets.get(FONT);
+        style.colour = Color.WHITE;
+        style.background = getDrawable(assets, BACKGROUND);
+        style.goldIcon = getDrawable(assets, ICONS, 0, 0, 14, 14);
+        style.oilIcon = getDrawable(assets, ICONS, 0, 28, 14, 14);
+        style.woodIcon = getDrawable(assets, ICONS, 0, 14, 14, 14);
+        return style;
     }
 }

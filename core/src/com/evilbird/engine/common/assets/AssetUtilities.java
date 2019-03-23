@@ -16,6 +16,11 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.evilbird.engine.common.file.FileType;
 
+/**
+ * Contains common functions for working with LibGDX assets.
+ *
+ * @author Blair Butterworth
+ */
 public class AssetUtilities
 {
     private AssetUtilities() {

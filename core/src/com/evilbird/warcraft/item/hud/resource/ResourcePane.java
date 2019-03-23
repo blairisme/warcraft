@@ -11,16 +11,14 @@ package com.evilbird.warcraft.item.hud.resource;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.evilbird.engine.control.StyledLabel;
 import com.evilbird.engine.item.ItemBasic;
 
 /**
@@ -32,22 +30,27 @@ import com.evilbird.engine.item.ItemBasic;
  */
 public class ResourcePane extends ItemBasic
 {
-    private Table table;
-    private Label goldText;
-    private Image goldImage;
-    private Label oilText;
-    private Image oilImage;
-    private Label woodText;
-    private Image woodImage;
+    private Label goldLabel;
+    private Label oilLabel;
+    private Label woodLabel;
 
-    public ResourcePane() {
-        goldText = createLabel();
-        oilText = createLabel();
-        woodText = createLabel();
-        goldImage = new Image();
-        oilImage = new Image();
-        woodImage = new Image();
-        table = createTable();
+    public ResourcePane(ResourcePaneStyle style) {
+        Table container = addContainer(getControl(), style.background);
+        goldLabel = addResource(container, style.goldIcon, style.font, style.colour);
+        woodLabel = addResource(container, style.woodIcon, style.font, style.colour);
+        oilLabel = addResource(container, style.oilIcon, style.font, style.colour);
+    }
+
+    public void setGold(float gold) {
+        goldLabel.setText(String.valueOf(Math.round(gold)));
+    }
+
+    public void setOil(float oil) {
+        oilLabel.setText(String.valueOf(Math.round(oil)));
+    }
+
+    public void setWood(float wood) {
+        woodLabel.setText(String.valueOf(Math.round(wood)));
     }
 
     protected Actor newDelegate() {
@@ -55,99 +58,66 @@ public class ResourcePane extends ItemBasic
         delegate.setFillParent(true);
         return delegate;
     }
-    
-    private Label createLabel() {
-        BitmapFont font = new BitmapFont();
-        LabelStyle labelStyle = new LabelStyle(font, Color.WHITE);
-        return new Label("", labelStyle);
-    }
 
-    private Table createTable() {
-        Table table = new Table();
-        addCell(table, goldImage);
-        addCell(table, goldText);
-        addCell(table, woodImage);
-        addCell(table, woodText);
-        addCell(table, oilImage);
-        addCell(table, oilText);
-
-        Table container = (Table)toActor();
-        Cell cell = container.add(table);
-        cell.align(Align.top);
-        cell.height(24);
-        cell.fillX();
-        cell.expand();
-        cell.row();
-
+    private Table addContainer(Table parent, Drawable background) {
+        Table table = createTable(background);
+        insertTable(parent, table);
         return table;
     }
 
-    private void addCell(Table table, Image image) {
-        addCell(table, image, 25);
+    private Label addResource(Table parent, Drawable icon, BitmapFont font, Color colour) {
+        Image image = createImage(icon);
+        Label label = createLabel(font, colour);
+        insertImage(parent, image);
+        insertLabel(parent, label);
+        return label;
     }
 
-    private void addCell(Table table, Label label) {
-        addCell(table, label, 100);
+    private Table createTable(Drawable background) {
+        Table table = new Table();
+        table.setBackground(background);
+        return table;
     }
 
-    private void addCell(Table table, Actor actor, int width) {
-        Cell<Actor> cell = table.add(actor);
-        cell.width(width);
-        cell.padRight(8);
-        cell.padTop(2);
-        cell.padBottom(2);
-        cell.expandY();
-        cell.fillY();
+    private Image createImage(Drawable background) {
+        return new Image(background);
     }
 
-    public void setFont(BitmapFont font) {
-        LabelStyle style = new LabelStyle(font, Color.WHITE);
-        goldText.setStyle(style);
-        woodText.setStyle(style);
-        oilText.setStyle(style);
+    private Label createLabel(BitmapFont font, Color colour) {
+        StyledLabel label = new StyledLabel("0");
+        label.setFont(font);
+        label.setFontColour(colour);
+        return label;
     }
 
-    public void setBackground(TextureRegion texture) {
-        Drawable drawable = new TextureRegionDrawable(texture);
-        table.setBackground(drawable);
+    private void insertTable(Table parent, Table child) {
+        Cell cell = parent.add(child);
+        cell.align(Align.top);
+        cell.height(16);
+        cell.width(1408);
+        cell.expand();
+        cell.row();
     }
 
-    public void setGold(float gold) {
-        setGoldText(String.valueOf(Math.round(gold)));
+    private void insertImage(Table table, Image image) {
+        Cell cell = table.add(image);
+        cell.width(14);
+        cell.height(16);
+        cell.padLeft(50);
+        cell.padTop(1);
+        cell.padBottom(1);
     }
 
-    public void setGoldText(String text) {
-        goldText.setText(text);
+    private void insertLabel(Table table, Label label) {
+        Cell cell = table.add(label);
+        cell.width(50);
+        cell.height(16);
+        cell.padLeft(8);
+        cell.padTop(1);
+        cell.padBottom(1);
     }
 
-    public void setGoldIcon(TextureRegion texture) {
-        Drawable drawable = new TextureRegionDrawable(texture);
-        goldImage.setDrawable(drawable);
-    }
-
-    public void setOil(float oil) {
-        setOilText(String.valueOf(Math.round(oil)));
-    }
-
-    public void setOilText(String text) {
-        oilText.setText(text);
-    }
-
-    public void setOilIcon(TextureRegion texture) {
-        Drawable drawable = new TextureRegionDrawable(texture);
-        oilImage.setDrawable(drawable);
-    }
-
-    public void setWood(float wood) {
-        setWoodText(String.valueOf(Math.round(wood)));
-    }
-
-    public void setWoodText(String text) {
-        woodText.setText(text);
-    }
-
-    public void setWoodIcon(TextureRegion texture) {
-        Drawable drawable = new TextureRegionDrawable(texture);
-        woodImage.setDrawable(drawable);
+    private Table getControl() {
+        return (Table)toActor();
     }
 }

@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.menu.intro;
 
-import com.evilbird.warcraft.menu.common.events.SelectListener;
+import com.evilbird.engine.control.SelectListener;
 import com.evilbird.warcraft.state.WarcraftStateScenario;
 
 public class HumanIntroOne extends IntroMenu

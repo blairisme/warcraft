@@ -17,10 +17,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.control.SelectListener;
+import com.evilbird.engine.control.SelectListenerAdapter;
+import com.evilbird.engine.control.StyledButton;
 import com.evilbird.engine.menu.Menu;
-import com.evilbird.warcraft.menu.common.controls.StyledButton;
-import com.evilbird.warcraft.menu.common.events.SelectListener;
-import com.evilbird.warcraft.menu.common.events.SelectListenerAdapter;
 
 import javax.inject.Inject;
 import java.util.ArrayList;

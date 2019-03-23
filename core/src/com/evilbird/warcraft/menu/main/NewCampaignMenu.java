@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.menu.main;
 
-import com.evilbird.warcraft.menu.common.events.SelectListener;
+import com.evilbird.engine.control.SelectListener;
 import com.evilbird.warcraft.menu.intro.IntroMenuType;
 
 public class NewCampaignMenu extends MainMenu

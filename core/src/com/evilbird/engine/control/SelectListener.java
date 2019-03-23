@@ -7,9 +7,8 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.menu.common.events;
+package com.evilbird.engine.control;
 
-//TODO: Move into core / common
 public interface SelectListener
 {
     void onSelect();
