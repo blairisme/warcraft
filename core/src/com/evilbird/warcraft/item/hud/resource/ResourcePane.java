@@ -9,13 +9,10 @@
 
 package com.evilbird.warcraft.item.hud.resource;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -25,9 +22,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.item.ItemBasic;
-import com.evilbird.warcraft.item.hud.HudControl;
-
-import static com.evilbird.engine.common.graphics.DensityIndependentPixel.dp;
 
 /**
  * Instances of this user interface control display the resources the user has
@@ -36,8 +30,6 @@ import static com.evilbird.engine.common.graphics.DensityIndependentPixel.dp;
  *
  * @author Blair Butterworth
  */
-//TODO: Use table control based on items - or a grid pane...
-//TODO: Use flexible scaling depending on screen size
 public class ResourcePane extends ItemBasic
 {
     private Table table;
@@ -56,11 +48,14 @@ public class ResourcePane extends ItemBasic
         oilImage = new Image();
         woodImage = new Image();
         table = createTable();
-        setIdentifier(HudControl.ResourcePane);
-        setType(HudControl.ResourcePane);
-        setTouchable(Touchable.disabled);
     }
 
+    protected Actor newDelegate() {
+        Table delegate = new Table();
+        delegate.setFillParent(true);
+        return delegate;
+    }
+    
     private Label createLabel() {
         BitmapFont font = new BitmapFont();
         LabelStyle labelStyle = new LabelStyle(font, Color.WHITE);
@@ -68,18 +63,22 @@ public class ResourcePane extends ItemBasic
     }
 
     private Table createTable() {
-        int viewHeight = Gdx.graphics.getHeight();
-        int viewWidth = Gdx.graphics.getWidth();
-
         Table table = new Table();
-        table.setBounds(0, viewHeight - dp(30), viewWidth, dp(30));
-        table.align(Align.center);
         addCell(table, goldImage);
         addCell(table, goldText);
         addCell(table, woodImage);
         addCell(table, woodText);
         addCell(table, oilImage);
         addCell(table, oilText);
+
+        Table container = (Table)toActor();
+        Cell cell = container.add(table);
+        cell.align(Align.top);
+        cell.height(24);
+        cell.fillX();
+        cell.expand();
+        cell.row();
+
         return table;
     }
 
@@ -93,10 +92,10 @@ public class ResourcePane extends ItemBasic
 
     private void addCell(Table table, Actor actor, int width) {
         Cell<Actor> cell = table.add(actor);
-        cell.width(dp(width));
-        cell.padRight(dp(10));
-        cell.padTop(dp(3));
-        cell.padBottom(dp(3));
+        cell.width(width);
+        cell.padRight(8);
+        cell.padTop(2);
+        cell.padBottom(2);
         cell.expandY();
         cell.fillY();
     }
@@ -150,15 +149,5 @@ public class ResourcePane extends ItemBasic
     public void setWoodIcon(TextureRegion texture) {
         Drawable drawable = new TextureRegionDrawable(texture);
         woodImage.setDrawable(drawable);
-    }
-
-    @Override
-    public void draw(Batch batch, float alpha) {
-        table.draw(batch, alpha);
-    }
-
-    @Override
-    public void update(float delta) {
-        table.act(delta);
     }
 }

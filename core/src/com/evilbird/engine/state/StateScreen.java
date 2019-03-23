@@ -73,8 +73,8 @@ public class StateScreen extends ScreenAdapter
     }
 
     public void resize(int width, int height) {
-        world.resize(width, height);
-        hud.resize(width, height);
+        world.resize(width, height, false);
+        hud.resize(width, height, true);
     }
 
     @Override

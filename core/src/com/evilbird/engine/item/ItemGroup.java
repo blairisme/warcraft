@@ -32,13 +32,12 @@ import java.util.List;
 //TODO: Enhancement: Add caching for find invocations
 public class ItemGroup extends ItemBasic implements ItemComposite
 {
+    private boolean fill;
     private List<Item> items;
     private transient Collection<ItemGroupObserver> observers;
 
-    /**
-     * Constructs a new instance of this class.
-     */
     public ItemGroup() {
+        this.fill = false;
         this.items = new ArrayList<>();
         this.observers = new ArrayList<>();
     }
@@ -54,7 +53,7 @@ public class ItemGroup extends ItemBasic implements ItemComposite
         item.setParent(this);
         item.setRoot(getRoot());
         items.add(item);
-        notifyItemAdded(item);
+        observers.forEach(it -> it.itemAdded(item));
     }
 
     /**
@@ -65,7 +64,7 @@ public class ItemGroup extends ItemBasic implements ItemComposite
     public void removeItem(Item item) {
         item.toActor().remove();
         items.remove(item);
-        notifyItemRemoved(item);
+        observers.forEach(it -> it.itemRemoved(item));
     }
 
     /**
@@ -75,7 +74,7 @@ public class ItemGroup extends ItemBasic implements ItemComposite
         Group group = (Group)delegate;
         group.clearChildren();
         items.clear();
-        notifyItemsCleared();
+        observers.forEach(ItemGroupObserver::itemsCleared);
     }
 
     /**
@@ -94,12 +93,6 @@ public class ItemGroup extends ItemBasic implements ItemComposite
      */
     public boolean hasItems() {
         return !items.isEmpty();
-    }
-
-    @Override
-    public void setRoot(ItemRoot root) {
-        super.setRoot(root);
-        items.forEach(item -> item.setRoot(root));
     }
 
     /**
@@ -125,6 +118,35 @@ public class ItemGroup extends ItemBasic implements ItemComposite
     }
 
     /**
+     * Whether the ItemGroup should resize itself to fill its parent.
+     *
+     * @return <code>true</code> if the ItemGroup should fill its parent.
+     */
+    public boolean getFillParent() {
+        return this.fill;
+    }
+
+    /**
+     * Instructs the ItemGroup to resize to fill its parent.
+     *
+     * @param fill <code>true</code> if the ItemGroup should fill its parent.
+     */
+    public void setFillParent(boolean fill) {
+        this.fill = fill;
+    }
+
+    /**
+     * Sets the most distant ancestor of the Item in the Item hierarchy.
+     *
+     * @param root an {@link ItemRoot} instance.
+     */
+    @Override
+    public void setRoot(ItemRoot root) {
+        super.setRoot(root);
+        items.forEach(item -> item.setRoot(root));
+    }
+
+    /**
      * Returns the {@link Item} at the specified location in world coordinates.
      * Hit testing is performed in the order the item were inserted into the
      * group, last inserted actors being tested first, with the ItemGroup
@@ -133,8 +155,9 @@ public class ItemGroup extends ItemBasic implements ItemComposite
      * @param coordinates         the world coordinates to test.
      * @param respectTouchability specifies if hit detection will respect the
      *                            items touchability.
-     * @return the item at the specified location or null if no item is
-     * located there.
+     *
+     * @return  the item at the specified location. This method may return
+     *          <code>null</code> if no item can be located.
      */
     @Override
     public Item hit(Vector2 coordinates, boolean respectTouchability) {
@@ -156,8 +179,9 @@ public class ItemGroup extends ItemBasic implements ItemComposite
      * @param coordinates         the world coordinates to test.
      * @param respectTouchability specifies if hit detection will respect the
      *                            items touchability.
-     * @return the item at the specified location or null if no item is
-     * located there.
+     *
+     * @return  the item at the specified location. This method may return
+     *          <code>null</code> if no item can be located.
      */
     protected Item childHit(Vector2 coordinates, boolean respectTouchability) {
         for (int itemIndex = items.size() - 1; itemIndex >= 0; itemIndex--) {
@@ -172,23 +196,15 @@ public class ItemGroup extends ItemBasic implements ItemComposite
     }
 
     /**
-     * Returns the first child {@link Item} that satisfies the given {@link Predicate}.
+     * Returns the first child {@link Item} that satisfies the given
+     * {@link Predicate}.
      *
-     * @param predicate a predicate implementation used to differentiate between items.
+     * @param predicate a predicate implementation used to differentiate
+     *                  between items.
      * @return a child item satisfying the given predicate.
      */
     public Item find(Predicate<Item> predicate) {
         return find(this, predicate);
-    }
-
-    /**
-     * Returns the all child {@link Item}s that satisfy the given {@link Predicate}.
-     *
-     * @param predicate a predicate implementation used to differentiate between items.
-     * @return all child items satisfying the given predicate.
-     */
-    public <T extends Item> Collection<T> findAll(Predicate<T> predicate) {
-        return findAll(this, predicate);
     }
 
     private Item find(ItemGroup group, Predicate<Item> predicate) {
@@ -206,6 +222,18 @@ public class ItemGroup extends ItemBasic implements ItemComposite
         return null;
     }
 
+    /**
+     * Returns the all child {@link Item}s that satisfy the given {
+     * @link Predicate}.
+     *
+     * @param predicate a predicate implementation used to differentiate
+     *                  between items.
+     * @return all child items satisfying the given predicate.
+     */
+    public <T extends Item> Collection<T> findAll(Predicate<T> predicate) {
+        return findAll(this, predicate);
+    }
+
     @SuppressWarnings("unchecked")
     private <T extends Item> Collection<T> findAll(ItemGroup group, Predicate<T> predicate) {
         Collection<T> result = new ArrayList<>();
@@ -220,22 +248,17 @@ public class ItemGroup extends ItemBasic implements ItemComposite
         return result;
     }
 
-    private void notifyItemAdded(Item item) {
-        for (ItemGroupObserver observer: observers) {
-            observer.itemAdded(item);
+    @Override
+    public void update(float delta) {
+        ItemGroup parent = getParent();
+        if (fill && parent != null) {
+            float parentWidth = parent.getWidth();
+            float parentHeight = parent.getHeight();
+            if (parentWidth != getWidth() || parentHeight != getHeight()) {
+                setSize(parentWidth, parentHeight);
+            }
         }
-    }
-
-    private void notifyItemRemoved(Item item) {
-        for (ItemGroupObserver observer: observers) {
-            observer.itemRemoved(item);
-        }
-    }
-
-    private void notifyItemsCleared() {
-        for (ItemGroupObserver observer: observers) {
-            observer.itemsCleared();
-        }
+        super.update(delta);
     }
 
     @Override
@@ -243,6 +266,7 @@ public class ItemGroup extends ItemBasic implements ItemComposite
         return new ToStringBuilder(this)
             .appendSuper("group")
             .append("items", items)
+            .append("fill", fill)
             .toString();
     }
 
@@ -255,6 +279,7 @@ public class ItemGroup extends ItemBasic implements ItemComposite
         ItemGroup itemGroup = (ItemGroup)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
+            .append(fill, itemGroup.fill)
             .append(items, itemGroup.items)
             .isEquals();
     }
@@ -263,6 +288,7 @@ public class ItemGroup extends ItemBasic implements ItemComposite
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
+            .append(fill)
             .append(items)
             .toHashCode();
     }
@@ -280,7 +306,6 @@ public class ItemGroup extends ItemBasic implements ItemComposite
         for (Item item: items) {
             group.addActor(item.toActor());
             item.setParent(this);
-            //item.setRoot(getRoot());
         }
     }
 }

@@ -9,9 +9,11 @@
 
 package com.evilbird.engine.item;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
@@ -41,6 +43,8 @@ public class ItemRoot implements ItemComposite
     public ItemRoot() {
         this.group = new ItemGroup();
         this.group.setRoot(this);
+        this.group.setTouchable(Touchable.childrenOnly);
+        this.group.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         this.graphUpdater = new ItemGraphUpdater();
         this.group.addObserver(graphUpdater);
@@ -130,9 +134,12 @@ public class ItemRoot implements ItemComposite
     }
 
     /**
-     * Returns the first child {@link Item} that satisfies the given {@link Predicate}.
+     * Returns the first child {@link Item} that satisfies the given
+     * {@link Predicate}.
      *
-     * @param predicate a predicate implementation used to differentiate between items.
+     * @param predicate a predicate implementation used to differentiate
+     *                  between items.
+     *
      * @return a child item satisfying the given predicate.
      */
     public Item find(Predicate<Item> predicate) {
@@ -140,9 +147,12 @@ public class ItemRoot implements ItemComposite
     }
 
     /**
-     * Returns the all child {@link Item}s that satisfy the given {@link Predicate}.
+     * Returns the all child {@link Item}s that satisfy the given
+     * {@link Predicate}.
      *
-     * @param predicate a predicate implementation used to differentiate between items.
+     * @param predicate a predicate implementation used to differentiate
+     *                  between items.
+     *
      * @return all child items satisfying the given predicate.
      */
     public <T extends Item> Collection<T> findAll(Predicate<T> predicate) {
@@ -191,8 +201,8 @@ public class ItemRoot implements ItemComposite
     }
 
     /**
-     * Returns the roots {@link Viewport} which manages the {@link Camera} and determines how world
-     * coordinates are mapped to and from the screen.
+     * Returns the roots {@link Viewport} which manages the {@link Camera} and
+     * determines how world coordinates are mapped to and from the screen.
      *
      * @return a viewport.
      */
@@ -201,8 +211,8 @@ public class ItemRoot implements ItemComposite
     }
 
     /**
-     * Sets the roots {@link Viewport} which manages the {@link Camera} and determines how world
-     * coordinates are mapped to and from the screen.
+     * Sets the roots {@link Viewport} which manages the {@link Camera} and
+     * determines how world coordinates are mapped to and from the screen.
      *
      * @param viewport a viewport.
      */
@@ -215,9 +225,11 @@ public class ItemRoot implements ItemComposite
      *
      * @param width  the new width of the viewport.
      * @param height the new height of the viewport.
+     * @param center whether the camera should be centered when resizing.
      */
-    public void resize(int width, int height) {
-        delegate.getViewport().update(width, height);
+    public void resize(int width, int height, boolean center) {
+        delegate.getViewport().update(width, height, center);
+        group.setSize(width, height);
     }
 
     /**
@@ -250,13 +262,17 @@ public class ItemRoot implements ItemComposite
     }
 
     /**
-     * Returns the {@link Item} at the specified location in world coordinates. Hit testing is
-     * performed in the order the item were inserted into the root, last inserted actors being
-     * tested first. To get world coordinates from screen coordinates, use {@link #unproject(Vector2)}.
+     * Returns the {@link Item} at the specified location in world coordinates.
+     * Hit testing is performed in the order the item were inserted into the
+     * root, last inserted items being tested first. To get world coordinates
+     * from screen coordinates, use {@link #unproject(Vector2)}.
      *
      * @param coordinates the world coordinates to test.
-     * @param touchable   specifies if hit detection will respect the items touchability.
-     * @return the item at the specified location or null if no item is located there.
+     * @param touchable   specifies if hit detection will respect the items
+     *                    touchability.
+     *
+     * @return the item at the specified location. This method may return
+     *         <code>null</code> if no item can be located.
      */
     public Item hit(Vector2 coordinates, boolean touchable) {
         return group.hit(coordinates, touchable);

@@ -22,7 +22,7 @@ import com.evilbird.warcraft.item.hud.control.status.DetailsPaneProvider;
 import com.evilbird.warcraft.item.hud.control.status.SelectionPaneProvider;
 import com.evilbird.warcraft.item.hud.control.status.StatePane;
 import com.evilbird.warcraft.item.hud.control.status.building.BuildingProgressProvider;
-import com.evilbird.warcraft.item.hud.resource.ResourcePanelProvider;
+import com.evilbird.warcraft.item.hud.resource.ResourcePaneFactory;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -45,7 +45,7 @@ public class HudControlFactory extends IdentifiedAssetProviderSet<Item>
         DetailsPaneProvider detailsPaneProvider,
         HealthBarProvider healthBarProvider,
         MinimapPaneProvider minimapPaneProvider,
-        ResourcePanelProvider resourcePaneProvider,
+        ResourcePaneFactory resourcePaneProvider,
         SelectionPaneProvider selectionPaneProvider,
         Provider<StatePane> statePaneProvider,
         UnitPaneProvider unitPaneProvider,

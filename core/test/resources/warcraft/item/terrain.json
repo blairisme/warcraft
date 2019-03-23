@@ -4,6 +4,7 @@
     "class": "LayerType",
     "enum": "Map"
   },
+  "fill": false,
   "items": [],
   "id": {
     "class": "LayerId",

@@ -4,6 +4,7 @@
     "class": "LayerType",
     "enum": "OpaqueFog"
   },
+  "fill": false,
   "items": [],
   "id": {
     "class": "LayerId",

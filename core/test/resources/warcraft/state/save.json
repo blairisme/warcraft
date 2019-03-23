@@ -37,6 +37,7 @@
             "value": 456.0
           }
         ],
+        "fill": false,
         "items": [
           {
             "class": "Combatant",
@@ -149,6 +150,7 @@
             "value": 456.0
           }
         ],
+        "fill": false,
         "items": [
           {
             "class": "Combatant",

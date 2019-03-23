@@ -29,6 +29,12 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Instances of this {@link Item} are drawn using a selection of given
+ * {@link DirectionalAnimation animations} and {@link SoundEffect sounds}.
+ *
+ * @author Blair Butterworth
+ */
 //TODO: Move selected box drawing to unit
 //TODO: Use style and skin for selection texture
 public class AnimatedItem extends ItemBasic implements Animated, Audible
@@ -62,7 +68,7 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible
      * Returns the identifier of the currently displayed animation.
      *
      * @return  an {@link Identifier}. This methods may return
-     *          <code>null</code>.
+     *          <code>null</code>, indicating that no animation is current used.
      */
     public Identifier getAnimation() {
         return animationId;
@@ -72,12 +78,20 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible
      * Returns the identifier of the currently playing sound.
      *
      * @return  a {@link Identifier}. This method may return
-     *          <code>null</code>.
+     *          <code>null</code>, indicating that no sound is current playing.
      */
     public Identifier getSound() {
         return soundId;
     }
 
+    /**
+     * Specifies that the AnimatedItem shouls be rendered using the animation
+     * with the given identifier.
+     *
+     * @param animationId   the {@link Identifier} of the animation to use.
+     *                      This parameter may be <code>null</code>, indicating
+     *                      that no animation should be used.
+     */
     public void setAnimation(Identifier animationId) {
         this.animationId = animationId;
         this.currentAnimation = null;

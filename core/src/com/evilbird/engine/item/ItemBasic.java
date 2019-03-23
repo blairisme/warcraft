@@ -35,6 +35,7 @@ import static com.evilbird.engine.common.lang.GenericIdentifier.Unknown;
  *
  * @author Blair Butterworth
  */
+//TODO: Move selection into unit
 @JsonAdapter(ItemAdapter.class)
 public class ItemBasic implements Item
 {
@@ -69,6 +70,7 @@ public class ItemBasic implements Item
      *
      * @param action an Action instance.
      */
+    @Override
     public void addAction(Action action) {
         Validate.notNull(action);
         actions.add(action);
@@ -78,6 +80,7 @@ public class ItemBasic implements Item
     /**
      * Removes the {@link Action Actions} assigned to the Item.
      */
+    @Override
     public void clearActions() {
         actions.clear();
     }
@@ -88,6 +91,7 @@ public class ItemBasic implements Item
      * @return  a {@link Collection} of <code>Actions</code>. Will not return
      *          <code>null</code>.
      */
+    @Override
     public Collection<Action> getActions() {
         return actions;
     }
@@ -118,6 +122,7 @@ public class ItemBasic implements Item
      *
      * @return an {@link ItemGroup} instance. Will not be <code>null</code>.
      */
+    @Override
     public ItemGroup getParent() {
         return parent;
     }
@@ -128,6 +133,7 @@ public class ItemBasic implements Item
      *
      * @return an {@link ItemRoot} instance. Will not be <code>null</code>.
      */
+    @Override
     public ItemRoot getRoot() {
         return root;
     }
@@ -139,6 +145,7 @@ public class ItemBasic implements Item
      *
      * @return <code>true</code> if the Item has been selected.
      */
+    @Override
     public boolean getSelected() {
         return selected;
     }
@@ -150,6 +157,7 @@ public class ItemBasic implements Item
      *
      * @return <code>true</code> if the Item can been selected.
      */
+    @Override
     public boolean getSelectable() {
         return selectable;
     }
@@ -160,6 +168,7 @@ public class ItemBasic implements Item
      *
      * @return <code>true</code> if the Item can be interacted with.
      */
+    @Override
     public boolean getTouchable() {
         return touchable == Touchable.enabled;
     }
@@ -169,6 +178,7 @@ public class ItemBasic implements Item
      *
      * @return <code>true</code> if the Item should be drawn.
      */
+    @Override
     public boolean getVisible() {
         return visible;
     }
@@ -180,6 +190,7 @@ public class ItemBasic implements Item
      * @return  a {@link Rectangle} describing the Items bounds. Will not
      *          return <code>null</code>.
      */
+    @Override
     public Rectangle getBounds() {
         return new Rectangle(position.x, position.y, size.x, size.y);
     }
@@ -190,6 +201,7 @@ public class ItemBasic implements Item
      *
      * @return a <code>Vector2</code> instance. Will not return <code>null</code>.
      */
+    @Override
     public Vector2 getSize() {
         return size.cpy();
     }
@@ -199,6 +211,7 @@ public class ItemBasic implements Item
      *
      * @return the width of the Item.
      */
+    @Override
     public float getWidth() {
         return size.x;
     }
@@ -208,6 +221,7 @@ public class ItemBasic implements Item
      *
      * @return the height of the Item.
      */
+    @Override
     public float getHeight() {
         return size.y;
     }
@@ -218,6 +232,7 @@ public class ItemBasic implements Item
      *
      * @return a <code>Vector2</code> instance. Will not return <code>null</code>.
      */
+    @Override
     public Vector2 getPosition() {
         return position.cpy();
     }
@@ -231,6 +246,7 @@ public class ItemBasic implements Item
      * @return          a <code>Vector2</code> instance. Will not return
      *                  <code>null</code>.
      */
+    @Override
     public Vector2 getPosition(Alignment alignment) {
         Validate.notNull(alignment);
         int align = alignment.toGdxAlign();
@@ -243,6 +259,7 @@ public class ItemBasic implements Item
      *
      * @return the horizontal coordinate of the Item.
      */
+    @Override
     public float getX() {
         return position.x;
     }
@@ -253,6 +270,7 @@ public class ItemBasic implements Item
      *
      * @return the vertical coordinate of the Item.
      */
+    @Override
     public float getY() {
         return position.y;
     }
@@ -262,6 +280,7 @@ public class ItemBasic implements Item
      *
      * @return <code>true</code> if the Item has an assigned Action.
      */
+    @Override
     public boolean hasActions() {
         return delegate.hasActions();
     }
@@ -271,6 +290,7 @@ public class ItemBasic implements Item
      *
      * @param identifier an <code>Identifier</code>. Cannot be <code>null</code>.
      */
+    @Override
     public void setIdentifier(Identifier identifier) {
         Validate.notNull(id);
         this.id = identifier;
@@ -281,6 +301,7 @@ public class ItemBasic implements Item
      *
      * @param type a type {@link Identifier}. Cannot be <code>null</code>.
      */
+    @Override
     public void setType(Identifier type) {
         Validate.notNull(type);
         this.type = type;
@@ -291,6 +312,7 @@ public class ItemBasic implements Item
      *
      * @param parent an {@link ItemGroup} instance. Cannot be <code>null</code>.
      */
+    @Override
     public void setParent(ItemGroup parent) {
         Validate.notNull(parent);
         this.parent = parent;
@@ -301,6 +323,7 @@ public class ItemBasic implements Item
      *
      * @param root an {@link ItemRoot} instance.
      */
+    @Override
     public void setRoot(ItemRoot root) {
         this.root = root;
         actions.forEach(action -> action.setRoot(root));
@@ -313,6 +336,7 @@ public class ItemBasic implements Item
      *
      * @param selected <code>true</code> if the Item has been selected.
      */
+    @Override
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
@@ -324,6 +348,7 @@ public class ItemBasic implements Item
      *
      * @param selectable <code>true</code> if the Item can been selected.
      */
+    @Override
     public void setSelectable(boolean selectable) {
         this.selectable = selectable;
     }
@@ -334,6 +359,7 @@ public class ItemBasic implements Item
      *
      * @param touchable <code>true</code> if the Item can be interacted with.
      */
+    @Override
     public void setTouchable(Touchable touchable) {
         this.touchable = touchable;
         this.delegate.setTouchable(touchable);
@@ -344,6 +370,7 @@ public class ItemBasic implements Item
      *
      * @param visible <code>true</code> if the Item should be drawn.
      */
+    @Override
     public void setVisible(boolean visible) {
         this.visible = visible;
         this.delegate.setVisible(visible);
@@ -355,6 +382,7 @@ public class ItemBasic implements Item
      * @param width  the new width of the item.
      * @param height the new height of the item.
      */
+    @Override
     public void setSize(float width, float height) {
         this.size.x = width;
         this.size.y = height;
@@ -367,6 +395,7 @@ public class ItemBasic implements Item
      * @param size the new spatial dimensions of the Item. Cannot be
      *             <code>null</code>.
      */
+    @Override
     public void setSize(Vector2 size) {
         Validate.notNull(size);
         this.size = size;
@@ -379,6 +408,7 @@ public class ItemBasic implements Item
      * @param x the new horizontal coordinate of the Item.
      * @param y the new vertical coordinate of the Item.
      */
+    @Override
     public void setPosition(float x, float y) {
         this.position.x = x;
         this.position.y = y;
@@ -390,6 +420,7 @@ public class ItemBasic implements Item
      *
      * @param position a {@link Vector2 position}. Cannot be <code>null</code>.
      */
+    @Override
     public void setPosition(Vector2 position) {
         Validate.notNull(position);
         this.position = position;
@@ -403,6 +434,7 @@ public class ItemBasic implements Item
      *              operations for better efficiency.
      * @param alpha the transparency of the Items parent.
      */
+    @Override
     public void draw(Batch batch, float alpha) {
     }
 
@@ -412,6 +444,7 @@ public class ItemBasic implements Item
      *
      * @param delta Time in seconds since the last frame.
      */
+    @Override
     public void update(float delta) {
         actions.removeIf(action -> action.act(delta));
     }
@@ -419,12 +452,14 @@ public class ItemBasic implements Item
     /**
      * Called when the item's position has been changed.
      */
+    @Override
     public void positionChanged() {
     }
 
     /**
      * Called when the item's size has been changed.
      */
+    @Override
     public void sizeChanged() {
     }
 
@@ -436,6 +471,7 @@ public class ItemBasic implements Item
      * @param touchable specifies if hit detection will respect the items touchability.
      * @return the item at the specified location or null if no item is located there.
      */
+    @Override
     public Item hit(Vector2 position, boolean touchable) {
         if (touchable && delegate.getTouchable() != enabled) return null;
         return position.x >= 0 && position.x < delegate.getWidth() &&
@@ -449,6 +485,7 @@ public class ItemBasic implements Item
      * @param coordinates given in the parent's coordinate system.
      * @return coordinates given in the items's coordinate system.
      */
+    @Override
     public Vector2 parentToLocalCoordinates(Vector2 coordinates) {
         Vector2 result = new Vector2(coordinates);
         return delegate.parentToLocalCoordinates(result);
@@ -525,6 +562,5 @@ public class ItemBasic implements Item
         delegate.setTouchable(touchable);
         delegate.setSize(size.x, size.y);
         delegate.setPosition(position.x, position.y);
-        //actions.forEach(action -> action.setRoot(parent));
     }
 }

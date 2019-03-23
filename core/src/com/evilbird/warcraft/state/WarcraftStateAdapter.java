@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.state;
 
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.behaviour.BehaviourIdentifier;
@@ -101,7 +102,9 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
 
     private ItemRoot deserializeHud(JsonObject json, JsonDeserializationContext context) {
         Identifier identifier = context.deserialize(json.get(HUD), Identifier.class);
+
         ItemRoot result = new ItemRoot();
+        result.setViewport(new ScreenViewport());
         result.setIdentifier(identifier);
         result.addItem(itemFactory.newItem((ItemType)identifier));
         return result;

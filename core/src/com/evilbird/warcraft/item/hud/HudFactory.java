@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.hud;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
@@ -34,6 +35,9 @@ public class HudFactory implements IdentifiedAssetProvider<Item>
 
     private Item get(HudType hudType) {
         ItemGroup hud = new ItemGroup();
+        hud.setFillParent(true);
+        hud.setTouchable(Touchable.childrenOnly);
+
         hud.addItem(controlFactory.get(HudControl.ResourcePane));
         hud.addItem(controlFactory.get(HudControl.ControlPane));
         return hud;
