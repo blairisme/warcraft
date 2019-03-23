@@ -22,10 +22,9 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-//TODO: Dispose after loading
 public class LoaderScreen extends ScreenAdapter
 {
-    private com.evilbird.engine.game.loader.LoaderScreenModel model;
+    private LoaderScreenModel model;
     private LoaderScreenView view;
     private GameEngine engine;
 

@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.Color;
 public class Colours
 {
     public static final Color FOREST_GREEN = new Color(0x46c83cff);
+    public static final Color GRAPE = new Color(0x1b2560ff);
 
     private Colours() {
     }

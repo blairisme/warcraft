@@ -12,8 +12,6 @@ package com.evilbird.engine.game;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateIdentifier;
 
-import java.io.IOException;
-
 /**
  * Implementors of this interface are used to control what content is rendered
  * to the screen and to obtain system preferences.
@@ -57,7 +55,7 @@ public interface GameController
      * @param identifier a {@link StateIdentifier}. This parameter cannot be
      *                     <code>null</code>.
      */
-    void showState(StateIdentifier identifier) throws IOException;
+    void showState(StateIdentifier identifier);
 
     /**
      * Saves the current game state into persisted storage and assigned the
@@ -66,5 +64,12 @@ public interface GameController
      * @param identifier a {@link StateIdentifier}. This parameter cannot be
      *                   <code>null</code>.
      */
-    void saveState(StateIdentifier identifier) throws IOException;
+    void saveState(StateIdentifier identifier);
+
+    /**
+     * Shows an error screen appropriate to the given error.
+     *
+     * @param error an unexpected error.
+     */
+    void showError(Throwable error);
 }

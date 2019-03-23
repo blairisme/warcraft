@@ -12,7 +12,6 @@ package com.evilbird.engine.state;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Persisted;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface StateService extends Persisted

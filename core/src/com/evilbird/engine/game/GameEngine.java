@@ -10,6 +10,7 @@
 package com.evilbird.engine.game;
 
 import com.badlogic.gdx.Game;
+import com.evilbird.engine.game.error.ErrorScreen;
 import com.evilbird.engine.game.loader.LoaderScreen;
 import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.menu.MenuIdentifier;
@@ -19,6 +20,8 @@ import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateScreen;
 import com.evilbird.engine.state.StateService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -30,10 +33,12 @@ import javax.inject.Singleton;
  * @author Blair Butterworth
  */
 //TODO: Dispose of menus and states when switching
-//TODO: Cope with error when showing state
 @Singleton
 public class GameEngine extends Game implements GameController
 {
+    private static final Logger logger = LoggerFactory.getLogger(GameEngine.class);
+
+    private ErrorScreen errorScreen;
     private LoaderScreen loaderScreen;
     private MenuScreen menuScreen;
     private MenuOverlay menuOverlay;
@@ -44,6 +49,7 @@ public class GameEngine extends Game implements GameController
 
     @Inject
     public GameEngine(
+        ErrorScreen errorScreen,
         LoaderScreen loaderScreen,
         MenuScreen menuScreen,
         MenuOverlay menuOverlay,
@@ -51,6 +57,7 @@ public class GameEngine extends Game implements GameController
         StateScreen stateScreen,
         StateService stateService)
     {
+        this.errorScreen = errorScreen;
         this.loaderScreen = loaderScreen;
         this.loaderScreen.setEngine(this);
         this.menuScreen = menuScreen;
@@ -116,5 +123,24 @@ public class GameEngine extends Game implements GameController
     public void saveState(StateIdentifier identifier) {
         State state = stateScreen.getState();
         stateService.set(identifier, state);
+    }
+
+    @Override
+    public void showError(Throwable error) {
+        errorScreen.setError(error);
+        setScreen(errorScreen);
+    }
+
+    @Override
+    public void render() {
+        try {
+            super.render();
+        }
+        catch (Throwable error) {
+            logger.error(error.getMessage(), error);
+            if (getScreen() != errorScreen) {
+                showError(error);
+            }
+        }
     }
 }
