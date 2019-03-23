@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.loader;
+package com.evilbird.engine.game.loader;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -30,7 +30,7 @@ import javax.inject.Inject;
 public class LoaderScreenModel
 {
     private static final String TITLE = "data/textures/menu/title.png";
-    private static final int ANTI_FLASH_DELAY = 2;
+    private static final int ANTI_FLASH_DELAY = 1;
 
     private LoaderScreen presenter;
     private AssetManager assets;
@@ -82,7 +82,7 @@ public class LoaderScreenModel
     public void update(float delta) {
         loadingTime += delta;
         if (loadingTime >= ANTI_FLASH_DELAY && assets.update()) {
-            presenter.setMenuScreen();
+            presenter.showInitialScreen();
         }
     }
 }

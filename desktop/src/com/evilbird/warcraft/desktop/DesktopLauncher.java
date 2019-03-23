@@ -13,8 +13,10 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.game.GameService;
 import com.evilbird.warcraft.desktop.DaggerDesktopInjector.Builder;
+import picocli.CommandLine;
 
 /**
  * Instances of this class represent the entry point for the desktop version of
@@ -27,8 +29,9 @@ public class DesktopLauncher
     private DesktopLauncher() {
     }
 
-    public static void main(String[] arg) {
-        ApplicationListener engine = getEngine();
+    public static void main(String[] args) {
+        DesktopCommands commands = CommandLine.populateCommand(new DesktopCommands(), args);
+        ApplicationListener engine = getEngine(commands);
         LwjglApplicationConfiguration configuration = getConfiguration();
         new LwjglApplication(engine, configuration);
     }
@@ -44,9 +47,13 @@ public class DesktopLauncher
         return service;
     }
 
-    private static ApplicationListener getEngine() {
+    private static ApplicationListener getEngine(DesktopCommands commands) {
         GameService service = getService();
-        return service.getGameEngine();
+        GameEngine engine = service.getGameEngine();
+        if (commands.getScenario() != null) {
+            engine.setInitialScreen(commands.getScenario());
+        }
+        return engine;
     }
 
     private static LwjglApplicationConfiguration getConfiguration() {
