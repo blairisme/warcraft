@@ -15,13 +15,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * An annotation that indicates this class should be serialized to JSON with
+ * An annotation that indicates this class will be serialized to JSON with
  * the provided name value as its field name.
  *
  * @author Blair Butterworth
  */
-@Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
+@Retention(RetentionPolicy.SOURCE)
 public @interface SerializedType
 {
     String value();

@@ -11,6 +11,7 @@ package com.evilbird.test.verifier;
 
 import com.evilbird.engine.common.serialization.JsonSerializer;
 import com.evilbird.engine.common.serialization.Serializer;
+import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.junit.Assert;
@@ -57,34 +58,12 @@ public class SerializationVerifier<T>
         Validate.notNull(serialized);
         Validate.notNull(deserialized);
 
-        Serializer serializer = new JsonSerializer();
+        Serializer serializer = new JsonSerializer(new WarcraftTypeRegistry());
 
         String json = serializer.serialize(deserialized, type);
         Assert.assertEquals(serialized, json);
 
         Object object = serializer.deserialize(json, type);
-        Assert.assertEquals(deserialized, object);
-    }
-
-    public void verifySerialization() {
-        Validate.notNull(type);
-        Validate.notNull(serialized);
-        Validate.notNull(deserialized);
-
-        Serializer serializer = new JsonSerializer();
-
-        String json = serializer.serialize(deserialized, type);
-        Assert.assertEquals(serialized, json);
-    }
-
-    public void verifyDeserialization() {
-        Validate.notNull(type);
-        Validate.notNull(serialized);
-        Validate.notNull(deserialized);
-
-        Serializer serializer = new JsonSerializer();
-
-        Object object = serializer.deserialize(serialized, type);
         Assert.assertEquals(deserialized, object);
     }
 }

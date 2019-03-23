@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.common.serialization;
 
+import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import org.junit.Before;
 
 /**
@@ -23,7 +24,7 @@ public class ReflectionAdapterTest
 
     @Before
     public void setup() {
-        serializer = new JsonSerializer();
+        serializer = new JsonSerializer(new WarcraftTypeRegistry());
     }
 
 

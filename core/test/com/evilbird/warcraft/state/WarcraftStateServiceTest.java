@@ -19,6 +19,7 @@ import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.utils.TestFileHandleResolver;
+import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,7 +54,7 @@ public class WarcraftStateServiceTest extends GameTestCase
         assetStorage = new TestFileHandleResolver();
         assetLoader = new WarcraftStateAssetLoader(itemFactory, assetStorage);
         adapter = new WarcraftStateAdapter(itemFactory, behaviourFactory, assetLoader);
-        serializer = new JsonSerializer(Maps.of(WarcraftState.class, adapter));
+        serializer = new JsonSerializer(new WarcraftTypeRegistry(), Maps.of(WarcraftState.class, adapter));
         service = new WarcraftStateService(deviceStorage, assetStorage, serializer);
     }
 

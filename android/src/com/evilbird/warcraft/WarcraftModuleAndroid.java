@@ -11,6 +11,7 @@ package com.evilbird.warcraft;
 
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.BehaviourFactory;
+import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.state.StateService;
@@ -19,11 +20,18 @@ import com.evilbird.warcraft.behaviour.WarcraftBehaviourFactory;
 import com.evilbird.warcraft.item.WarcraftItemFactory;
 import com.evilbird.warcraft.menu.WarcraftMenuFactory;
 import com.evilbird.warcraft.state.WarcraftStateService;
+import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import dagger.Binds;
 import dagger.Module;
 
 import javax.inject.Singleton;
 
+/**
+ * Defines the bindings between the core game services and their Warcraft
+ * implementations.
+ *
+ * @author Blair Butterworth
+ */
 @Module
 public abstract class WarcraftModuleAndroid
 {
@@ -46,4 +54,8 @@ public abstract class WarcraftModuleAndroid
     @Binds
     @Singleton
     public abstract StateService bindStateService(WarcraftStateService warcraftStateService);
+
+    @Binds
+    @Singleton
+    public abstract TypeRegistry bindTypeRegistry(WarcraftTypeRegistry warcraftTypeRegistry);
 }

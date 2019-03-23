@@ -11,6 +11,7 @@ package com.evilbird.engine.common.serialization;
 
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -33,16 +34,16 @@ public class JsonSerializer implements Serializer
     private Gson gson;
 
     @Inject
-    public JsonSerializer() {
-        this(Collections.emptyMap());
+    public JsonSerializer(TypeRegistry typeRegistry) {
+        this(typeRegistry, Collections.emptyMap());
     }
 
-    public JsonSerializer(Map<Class<?>, Object> adapters) {
+    public JsonSerializer(TypeRegistry typeRegistry, Map<Class<?>, Object> adapters) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setPrettyPrinting();
         gsonBuilder.serializeSpecialFloatingPointValues();
-        gsonBuilder.registerTypeHierarchyAdapter(Predicate.class, new ReflectionAdapter());
-        gsonBuilder.registerTypeHierarchyAdapter(Identifier.class, new ReflectionAdapter());
+        gsonBuilder.registerTypeHierarchyAdapter(Predicate.class, new ReflectionAdapter(typeRegistry));
+        gsonBuilder.registerTypeHierarchyAdapter(Identifier.class, new ReflectionAdapter(typeRegistry));
         adapters.forEach(gsonBuilder::registerTypeHierarchyAdapter);
         gson = gsonBuilder.create();
     }

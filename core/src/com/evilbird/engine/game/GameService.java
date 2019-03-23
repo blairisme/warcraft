@@ -11,6 +11,7 @@ package com.evilbird.engine.game;
 
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.BehaviourFactory;
+import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.item.ItemFactory;
 
 /**
@@ -50,6 +51,11 @@ public class GameService implements GameInjector
     @Override
     public BehaviourFactory getBehaviourFactory() {
         return injector.getBehaviourFactory();
+    }
+
+    @Override
+    public TypeRegistry getTypeRegistry() {
+        return injector.getTypeRegistry();
     }
 
     public void setInjector(GameInjector injector) {

@@ -36,8 +36,8 @@
   "actions": [
     {
       "identifier": {
-        "class": "TestAction",
-        "enum": "ActionA"
+        "class": "MoveActions",
+        "enum": "MoveToLocation"
       },
       "item": {
         "reference": {
@@ -48,8 +48,8 @@
     },
     {
       "identifier": {
-        "class": "TestAction",
-        "enum": "ActionB"
+        "class": "AttackActions",
+        "enum": "AttackMelee"
       },
       "item": {
         "reference": {

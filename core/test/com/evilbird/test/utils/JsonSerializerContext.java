@@ -10,6 +10,7 @@
 package com.evilbird.test.utils;
 
 import com.evilbird.engine.common.serialization.JsonSerializer;
+import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
@@ -22,7 +23,7 @@ public class JsonSerializerContext implements JsonSerializationContext, JsonDese
     private JsonSerializer serializer;
 
     public JsonSerializerContext() {
-        serializer = new JsonSerializer();
+        serializer = new JsonSerializer(new WarcraftTypeRegistry());
     }
 
     @Override

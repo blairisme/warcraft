@@ -9,12 +9,16 @@
 
 package com.evilbird.warcraft.item.layer;
 
+import com.evilbird.engine.common.reflect.TypeRegistry;
+import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemAdapter;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemType;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
+
+import javax.inject.Inject;
 
 /**
  * Instances of this class serialize and deserialize {@link Layer} objects.
@@ -28,12 +32,14 @@ public class LayerAdapter extends ItemAdapter
 {
     protected static final String ID = "id";
 
-    public LayerAdapter() {
-        super();
+    @Inject
+    public LayerAdapter(ItemFactory itemFactory, TypeRegistry typeRegistry) {
+        super(itemFactory, typeRegistry);
     }
 
-    public LayerAdapter(ItemFactory itemFactory) {
-        super(itemFactory);
+    @SerializedConstructor
+    protected LayerAdapter() {
+        super();
     }
 
     @Override

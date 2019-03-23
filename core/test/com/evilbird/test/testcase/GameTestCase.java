@@ -20,6 +20,7 @@ import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.behaviour.BehaviourIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.game.GameInjector;
 import com.evilbird.engine.game.GameService;
@@ -31,6 +32,7 @@ import com.evilbird.test.data.behaviour.TestBehaviours;
 import com.evilbird.test.data.item.*;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -99,6 +101,7 @@ public class GameTestCase
     protected ItemFactory itemFactory;
     protected ActionFactory actionFactory;
     protected BehaviourFactory behaviourFactory;
+    protected TypeRegistry typeRegistry;
 
     @Before
     public void setup() {
@@ -111,11 +114,14 @@ public class GameTestCase
         itemFactory = Mockito.mock(ItemFactory.class);
         respondWithNewItem();
 
+        typeRegistry = new WarcraftTypeRegistry();
+
         gameInjector = Mockito.mock(GameInjector.class);
         Mockito.when(gameInjector.getGameEngine()).thenReturn(gameEngine);
         Mockito.when(gameInjector.getItemFactory()).thenReturn(itemFactory);
         Mockito.when(gameInjector.getActionFactory()).thenReturn(actionFactory);
         Mockito.when(gameInjector.getBehaviourFactory()).thenReturn(behaviourFactory);
+        Mockito.when(gameInjector.getTypeRegistry()).thenReturn(typeRegistry);
 
         gameService = GameService.getInstance();
         gameService.setInjector(gameInjector);

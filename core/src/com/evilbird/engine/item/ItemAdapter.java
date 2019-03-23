@@ -9,14 +9,16 @@
 
 package com.evilbird.engine.item;
 
+import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.common.serialization.AbstractAdapter;
-import com.evilbird.engine.common.serialization.SerializedTypes;
+import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.engine.game.GameService;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 
+import javax.inject.Inject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Objects;
@@ -32,21 +34,27 @@ public class ItemAdapter extends AbstractAdapter<Item>
 {
     protected static final String TYPE = "type";
     protected static final String CLASS = "class";
-    protected ItemFactory itemFactory;
 
-    public ItemAdapter() {
-        GameService service = GameService.getInstance();
-        this.itemFactory = service.getItemFactory();
+    protected ItemFactory itemFactory;
+    protected TypeRegistry typeRegistry;
+
+    @Inject
+    public ItemAdapter(ItemFactory itemFactory, TypeRegistry typeRegistry) {
+        this.itemFactory = itemFactory;
+        this.typeRegistry = typeRegistry;
     }
 
-    public ItemAdapter(ItemFactory itemFactory) {
-        this.itemFactory = itemFactory;
+    @SerializedConstructor
+    protected ItemAdapter() {
+        GameService service = GameService.getInstance();
+        this.itemFactory = service.getItemFactory();
+        this.typeRegistry = service.getTypeRegistry();
     }
 
     @Override
     protected JsonObject getSerializedType(Item target, JsonSerializationContext context) {
         JsonObject result = new JsonObject();
-        result.addProperty(CLASS, SerializedTypes.getName(target.getClass()));
+        result.addProperty(CLASS, typeRegistry.getName(target.getClass()));
         result.add(TYPE, context.serialize(target.getType(), ItemType.class));
         return result;
     }
@@ -60,7 +68,7 @@ public class ItemAdapter extends AbstractAdapter<Item>
     protected Class<?> getDeserializedType(JsonObject json, JsonDeserializationContext context) {
         if (json.has(CLASS)) {
             String name = json.get(CLASS).getAsString();
-            return SerializedTypes.getInstance(name);
+            return typeRegistry.getType(name);
         }
         return Item.class;
     }

@@ -9,9 +9,12 @@
 
 package com.evilbird.engine.common.serialization;
 
+import com.evilbird.engine.common.reflect.TypeRegistry;
+import com.evilbird.engine.game.GameService;
 import com.google.gson.JsonSerializer;
 import com.google.gson.*;
 
+import javax.inject.Inject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
@@ -29,22 +32,27 @@ public class ReflectionAdapter extends AbstractAdapter<Object>
     private static final String CLASS = "class";
     private static final String ENUM = "enum";
 
+    private TypeRegistry typeRegistry;
+
+    @Inject
+    public ReflectionAdapter(TypeRegistry typeRegistry) {
+        this.typeRegistry = typeRegistry;
+    }
+
+    private ReflectionAdapter() {
+        GameService service = GameService.getInstance();
+        this.typeRegistry = service.getTypeRegistry();
+    }
+
     @Override
     protected JsonObject getSerializedType(Object target, JsonSerializationContext context) {
         Class<?> clazz = target.getClass();
-        String type = getTypeName(clazz);
+        String type = typeRegistry.getName(clazz);
 
         if (clazz.isEnum()) {
             return getEnumType(target, type);
         }
         return getObjectType(type);
-    }
-
-    private String getTypeName(Class<?> clazz) {
-        if (SerializedTypes.hasAlias(clazz)) {
-            return SerializedTypes.getAlias(clazz);
-        }
-        return clazz.getName();
     }
 
     private JsonObject getEnumType(Object target, String type) {
@@ -91,16 +99,8 @@ public class ReflectionAdapter extends AbstractAdapter<Object>
     }
 
     private Class<?> getClass(JsonObject json) {
-        try {
-            String name = json.get(CLASS).getAsString();
-            if (SerializedTypes.hasType(name)) {
-                return SerializedTypes.getType(name);
-            }
-            return Class.forName(name);
-        }
-        catch (ReflectiveOperationException error) {
-            throw new JsonParseException(error);
-        }
+        String name = json.get(CLASS).getAsString();
+        return typeRegistry.getType(name);
     }
 
     @Override

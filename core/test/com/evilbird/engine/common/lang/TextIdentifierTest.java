@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.common.lang;
 
+import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
 import org.junit.Before;
@@ -16,12 +17,13 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-public class TextIdentifierTest
+public class TextIdentifierTest extends GameTestCase
 {
     private TextIdentifier identifier;
 
     @Before
     public void setup() {
+        super.setup();
         identifier = new TextIdentifier("test");
     }
 
