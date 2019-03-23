@@ -12,6 +12,7 @@ package com.evilbird.engine.loader;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.game.GameController;
+import com.evilbird.engine.game.GameEngine;
 
 import javax.inject.Inject;
 
@@ -27,7 +28,7 @@ public class LoaderScreen extends ScreenAdapter
 {
     private LoaderScreenModel model;
     private LoaderScreenView view;
-    private GameController controller;
+    private GameEngine engine;
 
     @Inject
     public LoaderScreen(LoaderScreenModel model, LoaderScreenView view) {
@@ -58,12 +59,12 @@ public class LoaderScreen extends ScreenAdapter
         view.resize(width, height);
     }
 
-    public void setController(GameController controller) {
-        this.controller = controller;
+    public void setEngine(GameEngine engine) {
+        this.engine = engine;
     }
 
-    public void setMenuScreen() {
-        controller.showMenu();
+    public void showInitialScreen() {
+        engine.showInitialScreen();
     }
 
     public void setBackground(Texture texture) {

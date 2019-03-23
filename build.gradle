@@ -117,12 +117,14 @@ project(":desktop") {
         implementation 'javax.inject:javax.inject:1'
         implementation 'com.google.dagger:dagger:2.20'
         annotationProcessor 'com.google.dagger:dagger-compiler:2.20'
-        implementation 'org.apache.commons:commons-lang3:3.8.1'
+        implementation group: 'info.picocli', name: 'picocli', version: '3.9.5'
+
         implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
         implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+
         testImplementation group: 'junit', name: 'junit', version: '4.12'
         testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.23.4'
     }

@@ -31,6 +31,7 @@ import java.io.IOException;
  * @author Blair Butterworth
  */
 //TODO: Dispose of menus and states when switching
+//TODO: Cope with error when showing state
 @Singleton
 public class GameEngine extends Game implements GameController
 {
@@ -40,6 +41,7 @@ public class GameEngine extends Game implements GameController
     private MenuFactory menuFactory;
     private StateScreen stateScreen;
     private StateService stateService;
+    private Runnable initialScreen;
 
     @Inject
     public GameEngine(
@@ -51,7 +53,7 @@ public class GameEngine extends Game implements GameController
         StateService stateService)
     {
         this.loaderScreen = loaderScreen;
-        this.loaderScreen.setController(this);
+        this.loaderScreen.setEngine(this);
         this.menuScreen = menuScreen;
         this.menuScreen.setController(this);
         this.menuFactory = menuFactory;
@@ -61,12 +63,31 @@ public class GameEngine extends Game implements GameController
         this.menuOverlay = menuOverlay;
         this.menuOverlay.setMenuScreen(menuScreen);
         this.menuOverlay.setStateScreen(stateScreen);
+        this.initialScreen = this::showMenu;
     }
 
     @Override
     public void create() {
         loaderScreen.load();
         setScreen(loaderScreen);
+    }
+
+    public void showInitialScreen() {
+        initialScreen.run();
+    }
+
+    public void setInitialScreen(StateIdentifier identifier) { 
+        initialScreen = () -> {
+            try {
+                showState(identifier);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        };
+    }
+
+    public void setInitialScreen(MenuIdentifier identifier) {
+        initialScreen = () -> showMenu(identifier);
     }
 
     @Override
