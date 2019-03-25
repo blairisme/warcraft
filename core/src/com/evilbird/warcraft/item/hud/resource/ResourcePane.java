@@ -56,6 +56,7 @@ public class ResourcePane extends ItemBasic
     protected Actor newDelegate() {
         Table delegate = new Table();
         delegate.setFillParent(true);
+        //delegate.debug();
         return delegate;
     }
 

@@ -228,8 +228,9 @@ public class ItemRoot implements ItemComposite
      * @param center whether the camera should be centered when resizing.
      */
     public void resize(int width, int height, boolean center) {
-        delegate.getViewport().update(width, height, center);
-        group.setSize(width, height);
+        Viewport viewport = delegate.getViewport();
+        viewport.update(width, height, center);
+        group.setSize(viewport.getWorldWidth(), viewport.getWorldHeight());
     }
 
     /**
