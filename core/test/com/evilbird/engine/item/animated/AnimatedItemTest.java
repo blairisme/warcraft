@@ -11,7 +11,7 @@ package com.evilbird.engine.item.animated;
 
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
-import com.evilbird.engine.item.AnimatedItem;
+import com.evilbird.engine.item.specialized.AnimatedItem;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
@@ -26,7 +26,7 @@ import java.io.IOException;
 
 public class AnimatedItemTest extends GameTestCase
 {
-    private com.evilbird.engine.item.AnimatedItem animatedItem;
+    private AnimatedItem animatedItem;
 
     @Before
     public void setup() {
@@ -35,8 +35,8 @@ public class AnimatedItemTest extends GameTestCase
         Mockito.when(itemFactory.newItem(Mockito.any())).thenReturn(animatedItem);
     }
 
-    private com.evilbird.engine.item.AnimatedItem newAnimatedItem() {
-        com.evilbird.engine.item.AnimatedItem item = new com.evilbird.engine.item.AnimatedItem();
+    private AnimatedItem newAnimatedItem() {
+        AnimatedItem item = new AnimatedItem();
         item.setType(UnitType.Footman);
         item.setSize(56, 78);
         item.setPosition(12, 34);
@@ -50,7 +50,7 @@ public class AnimatedItemTest extends GameTestCase
 
     @Test
     public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(com.evilbird.engine.item.AnimatedItem.class)
+        SerializationVerifier.forClass(AnimatedItem.class)
             .withDeserializedForm(animatedItem)
             .withSerializedResource("/item/animateditem.json")
             .verify();

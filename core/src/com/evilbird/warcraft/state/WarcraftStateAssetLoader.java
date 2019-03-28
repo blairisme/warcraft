@@ -20,6 +20,7 @@ import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.common.maps.TiledMapFile;
 import com.evilbird.engine.common.maps.TiledMapLoader;
 import com.evilbird.engine.item.*;
+import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;

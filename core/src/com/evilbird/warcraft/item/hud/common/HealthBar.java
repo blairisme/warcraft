@@ -9,10 +9,8 @@
 
 package com.evilbird.warcraft.item.hud.common;
 
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.common.control.ProgressBar;
-import com.evilbird.warcraft.item.hud.HudControl;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 /**
  * Instances of this user interface control represents a health bar, a progress
@@ -20,39 +18,35 @@ import com.evilbird.warcraft.item.hud.HudControl;
  *
  * @author Blair Butterworth
  */
+//TODO: Use constants for style
 public class HealthBar extends ProgressBar
 {
-    private Drawable highHealthTexture;
-    private Drawable mediumHealthTexture;
-    private Drawable lowHealthTexture;
+    private Skin skin;
+    private String style;
 
-    public HealthBar() {
-        setType(HudControl.HealthBar);
-        setTouchable(Touchable.disabled);
-    }
-
-    public void setHighHealthTexture(Drawable texture) {
-        this.highHealthTexture = texture;
-    }
-
-    public void setMediumHealthTexture(Drawable texture) {
-        this.mediumHealthTexture = texture;
-    }
-
-    public void setLowHealthTexture(Drawable texture) {
-        this.lowHealthTexture = texture;
+    public HealthBar(float min, float max, Skin skin) {
+        super(min, max, 1, false, skin, "health-progress-high");
+        this.skin = skin;
+        this.style = "health-progress-high";
     }
 
     @Override
-    public void setProgress(float progress) {
-        super.setProgress(progress);
-
+    public boolean setValue(float progress) {
         if (progress >= 0f && progress < 0.33f) {
-            setTexture(lowHealthTexture);
+            setStyle("health-progress-low");
         } else if (progress >= 0.33f && progress < 0.66f) {
-            setTexture(mediumHealthTexture);
+            setStyle("health-progress-medium");
         } else {
-            setTexture(highHealthTexture);
+            setStyle("health-progress-high");
+        }
+
+        return super.setValue(progress);
+    }
+
+    private void setStyle(String name) {
+        if (!name.equals(style)) {
+            style = name;
+            setStyle(skin.get(name, ProgressBarStyle.class));
         }
     }
 }

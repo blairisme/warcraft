@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemNode;
+import com.evilbird.engine.item.spatial.ItemNode;
 
 /**
  * Instances of this {@link Event} are produced when an {@link Item} moves from

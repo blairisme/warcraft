@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.layer;
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemAdapter;
+import com.evilbird.engine.item.ItemBasicAdapter;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemType;
 import com.google.gson.JsonDeserializationContext;
@@ -22,13 +22,13 @@ import javax.inject.Inject;
 
 /**
  * Instances of this class serialize and deserialize {@link Layer} objects.
- * The adapter uses the same approach as {@link ItemAdapter}, creating a new
- * object instance using the {@link ItemFactory}, however while ItemAdapter
+ * The adapter uses the same approach as {@link ItemBasicAdapter}, creating a new
+ * object instance using the {@link ItemFactory}, however while ItemBasicAdapter
  * does this using the Items type, LayerAdapter uses the Layers identifier.
  *
  * @author Blair Butterworth
  */
-public class LayerAdapter extends ItemAdapter
+public class LayerAdapter extends ItemBasicAdapter
 {
     protected static final String ID = "id";
 

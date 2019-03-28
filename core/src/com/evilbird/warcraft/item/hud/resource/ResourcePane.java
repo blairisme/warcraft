@@ -11,7 +11,6 @@ package com.evilbird.warcraft.item.hud.resource;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -19,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.control.StyledLabel;
-import com.evilbird.engine.item.ItemBasic;
+import com.evilbird.engine.item.specialized.TableItem;
 
 /**
  * Instances of this user interface control display the resources the user has
@@ -28,14 +27,15 @@ import com.evilbird.engine.item.ItemBasic;
  *
  * @author Blair Butterworth
  */
-public class ResourcePane extends ItemBasic
+public class ResourcePane extends TableItem
 {
     private Label goldLabel;
     private Label oilLabel;
     private Label woodLabel;
 
     public ResourcePane(ResourcePaneStyle style) {
-        Table container = addContainer(getControl(), style.background);
+        setFillParent(true);
+        Table container = addContainer(style.background);
         goldLabel = addResource(container, style.goldIcon, style.font, style.colour);
         woodLabel = addResource(container, style.woodIcon, style.font, style.colour);
         oilLabel = addResource(container, style.oilIcon, style.font, style.colour);
@@ -53,16 +53,9 @@ public class ResourcePane extends ItemBasic
         woodLabel.setText(String.valueOf(Math.round(wood)));
     }
 
-    protected Actor newDelegate() {
-        Table delegate = new Table();
-        delegate.setFillParent(true);
-        //delegate.debug();
-        return delegate;
-    }
-
-    private Table addContainer(Table parent, Drawable background) {
+    private Table addContainer(Drawable background) {
         Table table = createTable(background);
-        insertTable(parent, table);
+        insertTable(table);
         return table;
     }
 
@@ -91,8 +84,8 @@ public class ResourcePane extends ItemBasic
         return label;
     }
 
-    private void insertTable(Table parent, Table child) {
-        Cell cell = parent.add(child);
+    private void insertTable(Table child) {
+        Cell cell = add(child);
         cell.align(Align.top);
         cell.height(16);
         cell.width(1408);
@@ -116,9 +109,5 @@ public class ResourcePane extends ItemBasic
         cell.padLeft(8);
         cell.padTop(1);
         cell.padBottom(1);
-    }
-
-    private Table getControl() {
-        return (Table)toActor();
     }
 }

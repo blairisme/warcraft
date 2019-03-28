@@ -11,8 +11,8 @@ package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.common.pathing.SpatialUtils;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGraph;
-import com.evilbird.engine.item.ItemNode;
+import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.engine.item.spatial.ItemNode;
 
 import java.util.Collection;
 

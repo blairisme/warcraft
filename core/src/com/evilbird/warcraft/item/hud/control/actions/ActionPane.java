@@ -10,14 +10,15 @@
 package com.evilbird.warcraft.item.hud.control.actions;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.control.GridPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.action.menu.MenuProvider;
 import com.evilbird.warcraft.item.hud.HudControl;
 import org.apache.commons.lang3.Validate;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -31,30 +32,30 @@ import java.util.List;
  */
 //TODO: Disable buttons if insufficient resources
 //TODO: Disable buttons if constructing
-public class ActionPane extends GridPane implements MenuProvider
+public class ActionPane extends GridItem implements MenuProvider
 {
     private Collection<Item> selection;
-//    private Terrain<ResourceIdentifier, Float> resources;
-    private ActionButtonProvider buttonProvider;
-    private ActionPaneLayout layout;
+//    private Map<ResourceIdentifier, Float> resources;
+    private ActionPaneView view;
     private boolean cancelShown;
     private boolean invalidated;
 
-    @Inject
-    public ActionPane(ActionButtonProvider buttonProvider) {
+    public ActionPane(Skin skin) {
         super(3, 3);
 
-        this.buttonProvider = buttonProvider;
         this.selection = new ArrayList<>();
 //        this.resources = Collections.emptyMap();
-        this.layout = ActionPaneLayout.Actions;
+        this.view = ActionPaneView.Actions;
         this.cancelShown = false;
         this.invalidated = true;
 
+        setSkin(skin);
+        setBackground("action-panel");
         setSize(176, 176);
-        setCellPadding(3);
-        setCellWidthMinimum(54);
-        setCellHeightMinimum(46);
+        //setCellPadding(3);
+        setCellPadding(1);
+        setCellWidth(54);
+        setCellHeight(46);
         setIdentifier(HudControl.ActionPane);
         setType(HudControl.ActionPane);
         setTouchable(Touchable.childrenOnly);
@@ -63,12 +64,12 @@ public class ActionPane extends GridPane implements MenuProvider
     public void updateSelection(Collection<Item> newSelection) {
         selection.clear();
         selection.addAll(newSelection);
-        layout = ActionPaneLayout.Actions;
+        view = ActionPaneView.Actions;
         invalidated = true;
     }
 
     public void updateSelection(Item item, boolean selected) {
-        layout = ActionPaneLayout.Actions;
+        view = ActionPaneView.Actions;
         invalidated = true;
         if (selected) {
             selection.add(item);
@@ -79,8 +80,8 @@ public class ActionPane extends GridPane implements MenuProvider
 
     @Override
     public void showMenu(Identifier location) {
-        Validate.isInstanceOf(ActionPaneLayout.class, location);
-        layout = (ActionPaneLayout)location;
+        Validate.isInstanceOf(ActionPaneView.class, location);
+        view = (ActionPaneView)location;
         invalidated = true;
     }
 
@@ -94,9 +95,9 @@ public class ActionPane extends GridPane implements MenuProvider
     }
 
     private void updateView() {
-        clearCells();
+        clearItems();
 
-        if (layout == ActionPaneLayout.Actions && hasAction(selection)){
+        if (view == ActionPaneView.Actions && hasAction(selection)){
             showCancelAction();
         }
         else {
@@ -112,37 +113,40 @@ public class ActionPane extends GridPane implements MenuProvider
     }
 
     private void showCancelAction() {
+        setAlignment(Alignment.BottomRight);
         ActionButton cancelButton = getButton(ActionButtonType.CancelButton);
-        setCell(cancelButton, 2, 2);
+        add(cancelButton);
         cancelShown = true;
     }
 
     private void showActions(Collection<Item> selection) {
-        List<ActionButtonType> actions = getActionButtons(selection);
-        setCells(getTiles(actions));
+        setAlignment(Alignment.TopLeft);
+        List<ActionButtonType> actions = getActions(selection);
+        List<ActionButton> buttons = getButtons(actions);
+        buttons.forEach(this::add);
         cancelShown = false;
     }
 
-    private List<ActionButtonType> getActionButtons(Collection<Item> selection) {
-        switch (layout) {
-            case Actions: return getItemActionButtons(selection);
-            case SimpleBuildings: return ActionButtonAssociations.getSimpleBuildingButtons();
-            case AdvancedBuildings: return ActionButtonAssociations.getAdvancedBuildingButtons();
+    private List<ActionButtonType> getActions(Collection<Item> selection) {
+        switch (view) {
+            case Actions: return getItemActions(selection);
+            case SimpleBuildings: return ActionBindings.getSimpleBuildingButtons();
+            case AdvancedBuildings: return ActionBindings.getAdvancedBuildingButtons();
             default: throw new UnsupportedOperationException();
         }
     }
 
-    private List<ActionButtonType> getItemActionButtons(Collection<Item> selection) {
+    private List<ActionButtonType> getItemActions(Collection<Item> selection) {
         List<ActionButtonType> result = new ArrayList<>();
         Iterator<Item> selectionIterator = selection.iterator();
 
         if (selectionIterator.hasNext()) {
             Item item = selectionIterator.next();
-            result.addAll(ActionButtonAssociations.getActionButtons(item));
+            result.addAll(ActionBindings.getActionButtons(item));
 
             while (selectionIterator.hasNext()) {
                 item = selectionIterator.next();
-                result.retainAll(ActionButtonAssociations.getActionButtons(item));
+                result.retainAll(ActionBindings.getActionButtons(item));
             }
         }
         return result;
@@ -156,8 +160,8 @@ public class ActionPane extends GridPane implements MenuProvider
 //        return Collections.emptyList();
 //    }
 
-    private Collection<Item> getTiles(Collection<ActionButtonType> actions) {
-        Collection<Item> result = new ArrayList<>(actions.size());
+    private List<ActionButton> getButtons(List<ActionButtonType> actions) {
+        List<ActionButton> result = new ArrayList<>(actions.size());
         for (ActionButtonType action: actions){
             result.add(getButton(action));
         }
@@ -165,7 +169,8 @@ public class ActionPane extends GridPane implements MenuProvider
     }
 
     private ActionButton getButton(ActionButtonType action) {
-        ActionButton result = buttonProvider.get(action);
+        ActionButton result = new ActionButton(getSkin());
+        result.setType(action);
         //result.setTouchable(meetsResourceRequirements(action) ? Touchable.enabled : Touchable.disabled);
         return result;
     }
@@ -218,7 +223,7 @@ public class ActionPane extends GridPane implements MenuProvider
 //    }
 //
 //    private void resetLayout() {
-//        layout = ActionPaneLayout.Actions;
+//        view = ActionPaneView.Actions;
 //    }
 //
 //    private void updateModel(Collection<Item> newSelection) {

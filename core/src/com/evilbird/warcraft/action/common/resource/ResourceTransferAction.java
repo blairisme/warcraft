@@ -20,7 +20,7 @@ import com.evilbird.warcraft.item.data.DataType;
 import java.util.Collections;
 import java.util.Map;
 
-import static com.evilbird.engine.item.ItemOperations.findAncestorByType;
+import static com.evilbird.engine.item.utility.ItemOperations.findAncestorByType;
 
 /**
  * Instances of this action apply a given delta to the resources contained in a

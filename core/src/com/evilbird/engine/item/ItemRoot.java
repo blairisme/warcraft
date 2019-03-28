@@ -18,6 +18,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.game.GameController;
+import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.engine.item.spatial.ItemGraphUpdater;
 import com.google.gson.annotations.JsonAdapter;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -35,10 +37,10 @@ import java.util.Collection;
 public class ItemRoot implements ItemComposite
 {
     private ItemGroup group;
-    private ItemGraph graph;
+    private com.evilbird.engine.item.spatial.ItemGraph graph;
     private transient Stage delegate;
     private transient GameController controller;
-    private transient ItemGraphUpdater graphUpdater;
+    private transient com.evilbird.engine.item.spatial.ItemGraphUpdater graphUpdater;
 
     public ItemRoot() {
         this.group = new ItemGroup();
@@ -92,22 +94,22 @@ public class ItemRoot implements ItemComposite
     }
 
     /**
-     * Returns a {@link ItemGraph}, a graph of the game space, represented
+     * Returns a {@link com.evilbird.engine.item.spatial.ItemGraph}, a graph of the game space, represented
      * as a 2 dimensional matrix of nodes, containing all of the touchable
      * items contained in the item root.
      *
-     * @return an {@link ItemGraph}. This method may return <code>null</code>.
+     * @return an {@link com.evilbird.engine.item.spatial.ItemGraph}. This method may return <code>null</code>.
      */
-    public ItemGraph getSpatialGraph() {
+    public com.evilbird.engine.item.spatial.ItemGraph getSpatialGraph() {
         return graph;
     }
 
     /**
-     * Sets the {@link ItemGraph} associated with the ItemRoot. Any Items
+     * Sets the {@link com.evilbird.engine.item.spatial.ItemGraph} associated with the ItemRoot. Any Items
      * added to the ItemRoot will automatically be provided to the ItemGraph
      * to update occupancy.
      *
-     * @param graph an {@link ItemGraph}. Cannot be <code>null</code>.
+     * @param graph an {@link com.evilbird.engine.item.spatial.ItemGraph}. Cannot be <code>null</code>.
      */
     public void setSpatialGraph(ItemGraph graph) {
         Validate.notNull(graph);

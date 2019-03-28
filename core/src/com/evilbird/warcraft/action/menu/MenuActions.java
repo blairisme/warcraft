@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.menu;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.warcraft.item.hud.control.actions.ActionPaneLayout;
+import com.evilbird.warcraft.item.hud.control.actions.ActionPaneView;
 import com.evilbird.warcraft.menu.ingame.IngameMenuType;
 
 /**
@@ -21,9 +21,9 @@ import com.evilbird.warcraft.menu.ingame.IngameMenuType;
  */
 public enum MenuActions implements ActionIdentifier
 {
-    ActionsMenu         (ActionPaneLayout.Actions),
-    BuildSimpleMenu     (ActionPaneLayout.SimpleBuildings),
-    BuildAdvancedMenu   (ActionPaneLayout.AdvancedBuildings),
+    ActionsMenu         (ActionPaneView.Actions),
+    BuildSimpleMenu     (ActionPaneView.SimpleBuildings),
+    BuildAdvancedMenu   (ActionPaneView.AdvancedBuildings),
     IngameMenu          (IngameMenuType.Root);
 
     private Identifier menuIdentifier;

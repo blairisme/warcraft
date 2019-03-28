@@ -9,7 +9,14 @@
 
 package com.evilbird.warcraft.item.hud.control.actions;
 
-import com.evilbird.engine.common.control.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.item.specialized.TableItem;
+
+import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.CancelButton;
 
 /**
  * Instances of this user interface control represent a button that invokes an
@@ -17,9 +24,44 @@ import com.evilbird.engine.common.control.ImageButton;
  *
  * @author Blair Butterworth
  */
-public class ActionButton extends ImageButton
+public class ActionButton extends TableItem
 {
-    public ActionButton() {
+    private ImageButton icon;
+
+    public ActionButton(Skin skin) {
+        initialize(skin);
+        icon = addIcon(skin);
+    }
+
+    public void setType(ActionButtonType buttonType) {
+        super.setType(buttonType);
+        icon.setStyle(getIconStyle(buttonType));
+    }
+
+    private void initialize(Skin skin) {
+        setSkin(skin);
+        setTouchable(Touchable.enabled);
+        setBackground(getActionStyle().background);
+    }
+
+    private ImageButton addIcon(Skin skin) {
+        ImageButton icon = new ImageButton(getIconStyle(CancelButton));
+        Cell cell = add(icon);
+        cell.pad(2);
+        cell.row();
+        return icon;
+    }
+
+    private ActionButtonStyle getActionStyle() {
+        return getSkin().get("action-button", ActionButtonStyle.class);
+    }
+
+    private ImageButtonStyle getIconStyle(ActionButtonType buttonType) {
+        ActionButtonStyle actionStyle = getActionStyle();
+        ImageButtonStyle buttonStyle = new ImageButtonStyle();
+        buttonStyle.imageUp = actionStyle.icons.get(buttonType);
+        buttonStyle.disabled = actionStyle.disabledIcons.get(buttonType);
+        return buttonStyle;
     }
 }
 

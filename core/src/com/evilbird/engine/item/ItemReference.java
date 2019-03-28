@@ -15,7 +15,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import static com.evilbird.engine.item.ItemPredicates.itemWithId;
+import static com.evilbird.engine.item.utility.ItemPredicates.itemWithId;
 
 /**
  * Instances of this class lookup an {@link Item} when requested using the

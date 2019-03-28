@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.move;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemNode;
+import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.item.common.capability.Movable;
 
 import java.util.ArrayList;

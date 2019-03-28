@@ -13,6 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 public interface Disablable
 {
+    //boolean isTouchable();
+
+    //Touchable getTouchable();
+
     boolean getTouchable();
 
     void setTouchable(Touchable touchable);

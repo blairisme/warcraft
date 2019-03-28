@@ -22,7 +22,7 @@ import java.util.Collection;
 
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.common.function.Predicates.not;
-import static com.evilbird.engine.item.ItemPredicates.*;
+import static com.evilbird.engine.item.utility.ItemPredicates.*;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.unit.combatant.CombatantPredicates.withinSight;

@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.action.move;
 
-import com.evilbird.engine.item.ItemGraph;
-import com.evilbird.engine.item.ItemNode;
+import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.engine.item.spatial.ItemNode;
 
 /**
  * Implementors of this interface provide methods that specify the end point of

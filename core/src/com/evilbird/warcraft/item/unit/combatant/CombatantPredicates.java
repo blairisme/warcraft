@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.unit.combatant;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.item.Item;
 
-import static com.evilbird.engine.item.ItemPredicates.isNear;
+import static com.evilbird.engine.item.utility.ItemPredicates.isNear;
 
 /**
  * Instances of this class provide common {@link Predicate Predicates} that

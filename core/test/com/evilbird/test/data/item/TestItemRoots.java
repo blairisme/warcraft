@@ -12,8 +12,8 @@ package com.evilbird.test.data.item;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGraph;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.spatial.ItemGraph;
 
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;
 

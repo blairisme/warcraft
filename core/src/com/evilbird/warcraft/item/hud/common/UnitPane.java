@@ -10,70 +10,74 @@
 package com.evilbird.warcraft.item.hud.common;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.common.control.GridPane;
-import com.evilbird.engine.common.control.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.unit.Unit;
 
 /**
- * Instances of this user interface control display an tile containing a units
- * icon.
+ * A user interface control that displays a tile containing the icon of a
+ * {@link Unit} and a health displaying the units remaining health.
  *
  * @author Blair Butterworth
  */
-public class UnitPane extends GridPane
+public class UnitPane extends GridItem
 {
-    private Image icon;
-    private HealthBar healthBar;
     private Unit unit;
-    private float unitHealth;
+    private Image icon;
+    private HealthBar health;
 
-    public UnitPane(HealthBarProvider healthBarProvider) {
+    public UnitPane(Skin skin) {
         super(1, 2);
-
-        icon = new Image();
-        icon.setSize(50, 42);
-        icon.setPadding(2);
-
-        healthBar = healthBarProvider.get();
-        healthBar.setProgress(1);
-        healthBar.setSize(46, 5);
-
-        setSize(54, 53);
-        setCellPadding(2);
-        setCellSpacing(2);
-        setCell(icon, 0, 0);
-        setCell(healthBar, 0, 1);
-        setType(HudControl.UnitPane);
-        setTouchable(Touchable.enabled);
+        initialize(skin);
+        icon = addIcon(skin);
+        health = addHealth(skin);
     }
 
     public void setItem(Unit unit) {
         this.unit = unit;
-        this.unitHealth = 0;
-        updateImage();
-        updateHealth();
-    }
-
-    private void updateImage() {
-        Drawable image = unit.getIcon();
-        icon.setImage(image);
-    }
-
-    private void updateHealth() {
-        float currentHealth = unit.getHealth();
-        if (currentHealth != unitHealth) {
-            unitHealth = currentHealth;
-            float healthMaximum = unit.getHealthMaximum();
-            float healthPercent = currentHealth != 0 && healthMaximum != 0 ? currentHealth / healthMaximum : 0f;
-            healthBar.setProgress(healthPercent);
-        }
+        this.icon.setDrawable(unit.getIcon());
+        this.health.setRange(0, unit.getHealthMaximum());
+        this.health.setValue(unit.getHealth());
     }
 
     @Override
     public void update(float delta) {
-        updateHealth();
         super.update(delta);
+        this.health.setValue(unit.getHealth());
+    }
+
+    private void initialize(Skin skin) {
+        setSkin(skin);
+        setSize(54, 52);
+        setCellPadding(2);
+        setCellSpacing(-2);
+        setBackground("unit-panel");
+        setType(HudControl.UnitPane);
+        setTouchable(Touchable.enabled);
+    }
+
+    private Image addIcon(Skin skin) {
+        Image icon = new Image();
+        icon.setSize(50, 42);
+
+        Cell cell = add(icon);
+        cell.width(50);
+        cell.height(42);
+
+        return icon;
+    }
+
+    private HealthBar addHealth(Skin skin) {
+        HealthBar health = new HealthBar(0, 1, skin);
+        health.setSize(46, 5);
+
+        Cell cell = add(health);
+        cell.width(46);
+        cell.height(5);
+
+        return health;
     }
 }

@@ -18,6 +18,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
+import com.evilbird.engine.item.interop.ActorDecorator;
 import com.google.gson.annotations.JsonAdapter;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -36,7 +37,7 @@ import static com.evilbird.engine.common.lang.GenericIdentifier.Unknown;
  * @author Blair Butterworth
  */
 //TODO: Move selection into unit
-@JsonAdapter(ItemAdapter.class)
+@JsonAdapter(ItemBasicAdapter.class)
 public class ItemBasic implements Item
 {
     transient Actor delegate;

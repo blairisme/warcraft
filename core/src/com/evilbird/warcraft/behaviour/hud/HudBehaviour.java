@@ -21,7 +21,7 @@ import com.evilbird.warcraft.action.select.SelectEvent;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.hud.control.actions.ActionPane;
-import com.evilbird.warcraft.item.hud.control.status.StatePane;
+import com.evilbird.warcraft.item.hud.control.status.StatusPane;
 import com.evilbird.warcraft.item.hud.resource.ResourcePane;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
@@ -30,8 +30,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-import static com.evilbird.engine.item.ItemPredicates.itemWithId;
-import static com.evilbird.engine.item.ItemPredicates.selectedItem;
+import static com.evilbird.engine.item.utility.ItemPredicates.itemWithId;
+import static com.evilbird.engine.item.utility.ItemPredicates.selectedItem;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getHumanPlayer;
 
 public class HudBehaviour implements Behaviour
@@ -40,7 +40,7 @@ public class HudBehaviour implements Behaviour
     private Player player;
     private ResourcePane resourcePane;
     private ActionPane actionPane;
-    private StatePane statePane;
+    private StatusPane statusPane;
 
     @Inject
     public HudBehaviour(EventQueue events) {
@@ -72,7 +72,7 @@ public class HudBehaviour implements Behaviour
             player = getHumanPlayer(world);
             resourcePane = (ResourcePane)hud.find(itemWithId(HudControl.ResourcePane));
             actionPane = (ActionPane)hud.find(itemWithId(HudControl.ActionPane));
-            statePane = (StatePane)hud.find(itemWithId(HudControl.StatePane));
+            statusPane = (StatusPane)hud.find(itemWithId(HudControl.StatePane));
             return false;
         }
         return true;
@@ -102,7 +102,7 @@ public class HudBehaviour implements Behaviour
             boolean selected = event.getSelected();
 
             actionPane.updateSelection(subject, selected);
-            statePane.updateSelection(subject, selected);
+            statusPane.updateSelection(subject, selected);
         }
     }
 
@@ -115,6 +115,6 @@ public class HudBehaviour implements Behaviour
     private void initializeSelection(ItemRoot world) {
         Collection<Item> selection = world.findAll(selectedItem());
         actionPane.updateSelection(selection);
-        statePane.updateSelection(selection);
+        statusPane.updateSelection(selection);
     }
 }

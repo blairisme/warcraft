@@ -10,15 +10,17 @@
 package com.evilbird.warcraft.item.hud.control;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.control.GridPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Align;
+import com.evilbird.engine.common.lang.Alignment;
+import com.evilbird.engine.item.ItemBasic;
+import com.evilbird.engine.item.specialized.TableItem;
 import com.evilbird.warcraft.item.hud.HudControl;
-import com.evilbird.warcraft.item.hud.control.actions.ActionPaneProvider;
-import com.evilbird.warcraft.item.hud.control.menu.MenuPaneFactory;
-import com.evilbird.warcraft.item.hud.control.minimap.MinimapPaneProvider;
-import com.evilbird.warcraft.item.hud.control.status.StatePane;
-
-import javax.inject.Inject;
-import javax.inject.Provider;
+import com.evilbird.warcraft.item.hud.control.actions.ActionPane;
+import com.evilbird.warcraft.item.hud.control.menu.MenuPane;
+import com.evilbird.warcraft.item.hud.control.minimap.MiniMapPane;
+import com.evilbird.warcraft.item.hud.control.status.StatusPane;
 
 /**
  * Instances of this class represent the user interface shown on the left of
@@ -26,25 +28,42 @@ import javax.inject.Provider;
  *
  * @author Blair Butterworth
  */
-public class ControlPane extends GridPane
+public class ControlPane extends TableItem
 {
-    @Inject
-    public ControlPane(
-        ActionPaneProvider actionPaneProvider,
-        MinimapPaneProvider minimapPaneProvider,
-        Provider<StatePane> statePaneProvider,
-        MenuPaneFactory menuPaneFactory)
-    {
-        super(1, 4);
-        setSize(176, 488); //TODO - Automagically scale
-        setPosition(0, 140); //TODO - Replace with Align left center
-        setCellPadding(0);
-        setCellSpacing(0);
-        setCell(menuPaneFactory.get(), 0, 0);
-        setCell(minimapPaneProvider.get(), 0, 1);
-        setCell(statePaneProvider.get(), 0, 2);
-        setCell(actionPaneProvider.get(), 0, 3);
+    public ControlPane(Skin skin) {
+        initialize(skin);
+        addControls(skin);
+    }
+
+    private void initialize(Skin skin) {
+        setSkin(skin);
+        setFillParent(true);
         setType(HudControl.ControlPane);
-        setTouchable(Touchable.enabled);
+        setTouchable(Touchable.childrenOnly);
+    }
+
+    private void addControls(Skin skin) {
+        TableItem container = addContainer();
+        addControl(container, new MenuPane(skin));
+        addControl(container, new MiniMapPane(skin));
+        addControl(container, new StatusPane(skin));
+        addControl(container, new ActionPane(skin));
+    }
+
+    private TableItem addContainer() {
+        TableItem table = new TableItem();
+        table.setAlignment(Alignment.Top);
+
+        Cell cell = add(table);
+        cell.align(Align.left);
+        cell.expand();
+        cell.row();
+
+        return table;
+    }
+
+    private void addControl(TableItem table, ItemBasic item) {
+        Cell cell = table.add(item);
+        cell.row();
     }
 }

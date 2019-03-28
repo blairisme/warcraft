@@ -10,6 +10,7 @@
 package com.evilbird.engine.item;
 
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.item.spatial.ItemGraph;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
@@ -41,9 +42,9 @@ public class ItemRootAdapter implements JsonSerializer<ItemRoot>, JsonDeserializ
     }
 
     private void serializeGraph(JsonObject json, ItemRoot root, JsonSerializationContext context) {
-        ItemGraph graph = root.getSpatialGraph();
+        com.evilbird.engine.item.spatial.ItemGraph graph = root.getSpatialGraph();
         if (graph != null) {
-            json.add(GRAPH, context.serialize(graph, ItemGraph.class));
+            json.add(GRAPH, context.serialize(graph, com.evilbird.engine.item.spatial.ItemGraph.class));
         }
     }
 
@@ -76,7 +77,7 @@ public class ItemRootAdapter implements JsonSerializer<ItemRoot>, JsonDeserializ
     private void deserializeGraph(ItemRoot root, JsonObject json, JsonDeserializationContext context) {
         if (json.has(GRAPH)) {
             JsonElement graphElement = json.get(GRAPH);
-            ItemGraph graph = context.deserialize(graphElement, ItemGraph.class);
+            com.evilbird.engine.item.spatial.ItemGraph graph = context.deserialize(graphElement, ItemGraph.class);
             root.setSpatialGraph(graph);
         }
     }

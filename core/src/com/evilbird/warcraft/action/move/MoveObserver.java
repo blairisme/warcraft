@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemNode;
+import com.evilbird.engine.item.spatial.ItemNode;
 
 /**
  * Implementors of this interface provide methods that are called when an item

@@ -13,7 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.CreateAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemOperations;
+import com.evilbird.engine.item.utility.ItemOperations;
 
 import javax.inject.Inject;
 

@@ -153,11 +153,11 @@ public class UserInteractions
     }
 
     private void addSelectionInteractions() {
-        interactions.addAction(SelectToggle).whenTarget(Footman).appliedTo(Target);
-        interactions.addAction(SelectToggle).whenTarget(Peasant).appliedTo(Target);
-        interactions.addAction(SelectToggle).whenTarget(GoldMine).appliedTo(Target);
-        interactions.addAction(SelectToggle).whenTarget(UnitType.TownHall).appliedTo(Target);
-        interactions.addAction(SelectToggle).whenTarget(UnitType.Barracks).appliedTo(Target);
-        interactions.addAction(SelectToggle).whenTarget(UnitType.Farm).appliedTo(Target);
+        interactions.addAction(SelectToggle).whenTarget(Footman).appliedTo(Target).appliedAs(Addition);
+        interactions.addAction(SelectToggle).whenTarget(Peasant).appliedTo(Target).appliedAs(Addition);
+        interactions.addAction(SelectToggle).whenTarget(GoldMine).appliedTo(Target).appliedAs(Addition);
+        interactions.addAction(SelectToggle).whenTarget(UnitType.TownHall).appliedTo(Target).appliedAs(Addition);
+        interactions.addAction(SelectToggle).whenTarget(UnitType.Barracks).appliedTo(Target).appliedAs(Addition);
+        interactions.addAction(SelectToggle).whenTarget(UnitType.Farm).appliedTo(Target).appliedAs(Addition);
     }
 }

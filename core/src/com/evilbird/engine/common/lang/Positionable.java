@@ -10,7 +10,6 @@
 package com.evilbird.engine.common.lang;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.item.Parented;
 
 /**
  * Implementors of this interface represent an object that occupies a position
@@ -18,7 +17,7 @@ import com.evilbird.engine.item.Parented;
  *
  * @author Blair Butterworth
  */
-public interface Positionable extends Parented
+public interface Positionable
 {
     /**
      * Returns the current position of the positionable.

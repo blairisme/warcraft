@@ -15,7 +15,7 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.data.player.Player;
 
 import static com.evilbird.engine.common.function.Predicates.both;
-import static com.evilbird.engine.item.ItemOperations.findAncestor;
+import static com.evilbird.engine.item.utility.ItemOperations.findAncestor;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isHuman;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlayer;
 

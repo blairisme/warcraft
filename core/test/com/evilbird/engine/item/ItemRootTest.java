@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.item;
 
+import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;

@@ -13,16 +13,19 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
+import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.item.data.DataType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.*;
 
-import static com.evilbird.engine.item.ItemPredicates.itemWithType;
-import static com.evilbird.engine.item.ItemPredicates.selectedItem;
+import static com.evilbird.engine.item.utility.ItemPredicates.itemWithType;
+import static com.evilbird.engine.item.utility.ItemPredicates.selectedItem;
 
 /**
  * Instances of this class modify the game state based on user input.
@@ -31,6 +34,7 @@ import static com.evilbird.engine.item.ItemPredicates.selectedItem;
  */
 public class UserBehaviour implements Behaviour
 {
+    private static transient final Logger logger = LoggerFactory.getLogger(UserBehaviour.class);
     private UserInteractions interactions;
 
     @Inject
@@ -86,9 +90,8 @@ public class UserBehaviour implements Behaviour
         }
     }
 
-    //TODO: Use real logging
     private boolean update(UserInput input, Item target, Item selected) {
-        //logUpdate(input, target, selected);
+        logger.info("User {}, target {}, selected {}", getType(input), getType(target), getType(selected));
         Collection<Interaction> actions = interactions.getInteractions(input, target, selected);
         for (Interaction interaction: actions) {
             interaction.update(input, target, selected);
@@ -96,12 +99,19 @@ public class UserBehaviour implements Behaviour
         return !actions.isEmpty();
     }
 
-//    private void logUpdate(UserInput input, Item target, Item world) {
-//        String inputType = input.getType().toString();
-//        String targetType = target != null ? target.getType().toString() : "<none>";
-//        String worldType = world != null ? world.getType().toString() : "<none>";
-//        System.out.println("Input: " + inputType + ", target: " + targetType + ", world: " + worldType);
-//    }
+    private Identifier getType(Item item) {
+        if (item != null) {
+            return item.getType();
+        }
+        return null;
+    }
+
+    private UserInputType getType(UserInput input) {
+        if (input != null) {
+            return input.getType();
+        }
+        return null;
+    }
 
     private Collection<Item> getTargets(ItemRoot world, ItemRoot hud, UserInput input) {
         Collection<Item> hudTargets = getHudTargets(hud, input);

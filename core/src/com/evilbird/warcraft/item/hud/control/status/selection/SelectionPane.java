@@ -1,0 +1,67 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
+package com.evilbird.warcraft.item.hud.control.status.selection;
+
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.warcraft.item.hud.HudControl;
+import com.evilbird.warcraft.item.hud.common.UnitPane;
+import com.evilbird.warcraft.item.unit.Unit;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+/**
+ * Instances of this class display the selected units.
+ *
+ * @author Blair Butterworth
+ */
+//TODO: Bug: Handle case where selection count exceeds available space
+//TODO: Enhancement: Focus on unit when selection tile clicked
+//TODO: Enhancement: Add mechanism to deselect selected item
+public class SelectionPane extends GridItem
+{
+    public SelectionPane(Skin skin) {
+        super(3, 3);
+        setSkin(skin);
+        setBackground("selection-panel");
+        setSize(176, 176);
+        setCellPadding(3);
+        setCellWidth(54);
+        setCellHeight(53);
+        setIdentifier(HudControl.SelectionPane);
+        setType(HudControl.SelectionPane);
+        setTouchable(Touchable.childrenOnly);
+    }
+
+    public void setItems(Collection<Item> selection) {
+        clearItems();
+        addItems(getUnitPanes(selection));
+    }
+
+    private Collection<Item> getUnitPanes(Collection<Item> items) {
+        Collection<Item> result = new ArrayList<>(items.size());
+        for (Item item : items) {
+            if (item instanceof Unit) {
+                result.add(getUnitPane((Unit) item));
+            }
+        }
+        return result;
+    }
+
+    private UnitPane getUnitPane(Unit unit) {
+        UnitPane result = new UnitPane(getSkin());
+        result.setItem(unit);
+        result.setSize(54, 53);
+        return result;
+    }
+}

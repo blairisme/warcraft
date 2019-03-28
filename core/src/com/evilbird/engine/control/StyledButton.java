@@ -29,8 +29,8 @@ public class StyledButton extends TextButton implements Disposable
         addListeners();
     }
 
-    public StyledButton(String text, Skin skin) {
-        super(text, skin);
+    public StyledButton(String text, Skin skin, String style) {
+        super(text, skin, style);
         addListeners();
     }
 
@@ -89,9 +89,9 @@ public class StyledButton extends TextButton implements Disposable
         clickSound = sound;
     }
 
-    public void setSkin(Skin skin) {
-        setStyle(skin.get(TextButtonStyle.class));
-    }
+//    public void setSkin(Skin skin) {
+//        setStyle(skin.get(TextButtonStyle.class));
+//    }
 
     private static TextButtonStyle newDefaultFont() {
         TextButtonStyle style = new TextButtonStyle();

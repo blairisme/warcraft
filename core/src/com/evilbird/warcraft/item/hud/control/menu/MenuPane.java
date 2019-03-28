@@ -10,30 +10,37 @@
 package com.evilbird.warcraft.item.hud.control.menu;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.common.control.Image;
-import com.evilbird.engine.item.ItemGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.evilbird.engine.item.specialized.TableItem;
 import com.evilbird.warcraft.item.hud.HudControl;
 
-public class MenuPane extends ItemGroup
+/**
+ * Represents a user interface panel displayed at the top of the heads
+ * up display control bar. Contains a button that when clicked displays the
+ * in-game menu.
+ *
+ * @author Blair Butterworth
+ */
+public class MenuPane extends TableItem
 {
-    private Image image;
-
-    public MenuPane() {
-        this.image = new Image();
-        this.image.setSize(176, 24);
-        image.setType(HudControl.MenuPane);
-
-       // button = new ImageButton();
-
-        setSize(176, 24);
-        addItem(image);
-        setIdentifier(HudControl.MenuPane);
-        setType(HudControl.MenuPane);
-        setTouchable(Touchable.enabled);
+    public MenuPane(Skin skin) {
+        initialize(skin);
+        addControls(skin);
     }
 
-    public void setBackground(Drawable drawable) {
-        this.image.setBackground(drawable);
+    private void initialize(Skin skin) {
+        setSkin(skin);
+        setSize(176, 24);
+        setCentered();
+        setBackground("menu-panel");
+        setTouchable(Touchable.enabled);
+        setType(HudControl.MenuPane);
+        setIdentifier(HudControl.MenuPane);
+    }
+
+    private void addControls(Skin skin) {
+        TextButton button = new TextButton("Menu", skin, "button-thin-medium");
+        add(button);
     }
 }

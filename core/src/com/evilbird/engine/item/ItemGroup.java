@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
+import com.evilbird.engine.item.interop.GroupDecorator;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -29,12 +30,13 @@ import java.util.List;
  *
  * @author Blair Butterworth
  */
+//TODO: Use ItemComposite instead of Group in search
 //TODO: Enhancement: Add caching for find invocations
 public class ItemGroup extends ItemBasic implements ItemComposite
 {
-    private boolean fill;
-    private List<Item> items;
-    private transient Collection<ItemGroupObserver> observers;
+    protected boolean fill;
+    protected List<Item> items;
+    protected transient Collection<ItemGroupObserver> observers;
 
     public ItemGroup() {
         this.fill = false;

@@ -25,7 +25,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-@JsonAdapter(ItemAdapter.class)
+@JsonAdapter(ItemBasicAdapter.class)
 public interface Item extends Identifiable, Categorizable, Positionable, Selectable, Disablable, Visible
 {
     /**
