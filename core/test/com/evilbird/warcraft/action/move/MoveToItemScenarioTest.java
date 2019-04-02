@@ -11,17 +11,18 @@ package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
+import org.mockito.Mockito;
 
 /**
- * Instances of this unit test validate the {@link MoveToItemSequence} class.
+ * Instances of this unit test validate the {@link MoveToItemScenario} class.
  *
  * @author Blair Butterworth
  */
-public class MoveToItemSequenceTest extends ActionTestCase
+public class MoveToItemScenarioTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        return new MoveToItemSequence();
+        return new MoveToItemScenario(Mockito.mock(MoveReporter.class));
     }
 
     @Override

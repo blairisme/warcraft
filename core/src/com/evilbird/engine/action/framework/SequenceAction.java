@@ -42,6 +42,12 @@ public class SequenceAction extends CompositeAction
     }
 
     @Override
+    public void add(Action action) {
+        super.add(action);
+        resetIndex();
+    }
+
+    @Override
     public boolean act(float delta) {
         boolean result = true;
         if (current != null) {

@@ -27,19 +27,16 @@ import javax.inject.Inject;
  */
 public class MoveFactory implements ActionProvider
 {
-    private MoveReporter reporter;
     private InjectedPool<CancelAction> cancelPool;
-    private InjectedPool<MoveToItemSequence> moveItemPool;
-    private InjectedPool<MoveToVectorSequence> moveLocationPool;
+    private InjectedPool<MoveToItemScenario> moveItemPool;
+    private InjectedPool<MoveToVectorScenario> moveLocationPool;
 
     @Inject
     public MoveFactory(
-        MoveReporter reporter,
         InjectedPool<CancelAction> cancelPool,
-        InjectedPool<MoveToItemSequence> moveItemPool,
-        InjectedPool<MoveToVectorSequence> moveLocationPool)
+        InjectedPool<MoveToItemScenario> moveItemPool,
+        InjectedPool<MoveToVectorScenario> moveLocationPool)
     {
-        this.reporter = reporter;
         this.cancelPool = cancelPool;
         this.moveItemPool = moveItemPool;
         this.moveLocationPool = moveLocationPool;
@@ -48,26 +45,10 @@ public class MoveFactory implements ActionProvider
     @Override
     public Action get(ActionIdentifier action) {
         switch((MoveActions)action) {
-            case MoveToLocation: return getMoveToLocationAction();
-            case MoveToItem: return moveToItemAction();
-            case MoveCancel: return getMoveCancelAction();
+            case MoveToLocation: return moveLocationPool.obtain();
+            case MoveToItem: return moveItemPool.obtain();
+            case MoveCancel: return cancelPool.obtain();
             default: throw new UnsupportedOperationException();
         }
-    }
-
-    private Action moveToItemAction() {
-        MoveToItemSequence action = moveItemPool.obtain();
-        action.setObserver(reporter);
-        return action;
-    }
-
-    private Action getMoveToLocationAction() {
-        MoveToVectorSequence action = moveLocationPool.obtain();
-        action.setObserver(reporter);
-        return action;
-    }
-
-    private Action getMoveCancelAction() {
-        return cancelPool.obtain();
     }
 }

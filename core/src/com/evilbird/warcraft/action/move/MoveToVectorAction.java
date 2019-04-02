@@ -66,4 +66,10 @@ class MoveToVectorAction extends MoveAction
         filter = null;
         destination = null;
     }
+
+    public static MoveToVectorAction moveToCause(MoveObserver observer) {
+        MoveToVectorAction result = new MoveToVectorAction();
+        result.setObserver(observer);
+        return result;
+    }
 }

@@ -45,6 +45,10 @@ public abstract class CompositeAction extends BasicAction
         Collections.addAll(this.actions, actions);
     }
 
+    public void add(Action action) {
+        actions.add(action);
+    }
+
     @Override
     public ActionException getError() {
         for (Action delegate: actions) {

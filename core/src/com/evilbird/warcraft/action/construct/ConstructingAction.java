@@ -29,7 +29,7 @@ public class ConstructingAction extends BasicAction
     @Override
     public boolean act(float delta) {
         Building building = (Building)getItem();
-        //building.setBuilder(getTarget());
+        //building.setConstructor(getTarget());
         building.setConstructing(constructing);
         return true;
     }

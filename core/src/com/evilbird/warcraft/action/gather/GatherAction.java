@@ -18,7 +18,7 @@ import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.action.common.animation.AnimationAliasAction;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferAction;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferRelay;
-import com.evilbird.warcraft.action.move.MoveToItemSequence;
+import com.evilbird.warcraft.action.move.MoveToItemScenario;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
@@ -39,7 +39,7 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.getGatherAnimation;
 //TODO: Cope with no route to resource
 //TODO: Only choose next resource if it can be accessed - trees on the edge of forests, not within
 //TODO: Need to "kill" resource when empty.
-public abstract class GatherAction extends DelegateAction
+abstract class GatherAction extends DelegateAction
 {
     private Action obtainSequence;
     private Action depositSequence;
@@ -74,7 +74,7 @@ public abstract class GatherAction extends DelegateAction
     }
 
     protected Action obtainSequence() {
-        Action move = new MoveToItemSequence();
+        Action move = new MoveToItemScenario(null);
         Action preObtain = preObtainAnimation();
         Action obtain = obtainResources();
         Action postObtain = postObtainAnimation();
@@ -110,7 +110,7 @@ public abstract class GatherAction extends DelegateAction
     }
 
     protected Action depositSequence() {
-        Action move = new MoveToItemSequence();
+        Action move = new MoveToItemScenario(null);
         Action preDeposit = preDepositAction();
         Action deposit = depositAction();
         Action postDeposit = postDepositAction();

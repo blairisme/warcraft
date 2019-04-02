@@ -15,11 +15,14 @@ import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceRequirement;
+import com.evilbird.warcraft.item.common.resource.ResourceUtils;
 import com.evilbird.warcraft.item.data.DataType;
 
 import java.util.Collections;
 import java.util.Map;
 
+import static com.evilbird.engine.action.common.ActionTarget.Player;
 import static com.evilbird.engine.item.utility.ItemOperations.findAncestorByType;
 
 /**
@@ -95,5 +98,10 @@ public class ResourceTransferAction extends BasicAction
         if (observer != null) {
             observer.onTransfer(container, resource, value);
         }
+    }
+
+    public static ResourceTransferAction purchase(ResourceRequirement requirements, ResourceTransferObserver observer) {
+        Map<ResourceIdentifier, Float> cost = ResourceUtils.negate(requirements.getResourceRequirements());
+        return new ResourceTransferAction(Player, cost, observer);
     }
 }

@@ -61,4 +61,10 @@ class MoveToItemAction extends MoveAction
         filter = null;
         destination = null;
     }
+
+    public static MoveToItemAction moveToItem(MoveObserver observer) {
+        MoveToItemAction result = new MoveToItemAction();
+        result.setObserver(observer);
+        return result;
+    }
 }

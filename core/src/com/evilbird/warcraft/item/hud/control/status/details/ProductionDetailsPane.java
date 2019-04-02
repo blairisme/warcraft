@@ -9,12 +9,9 @@
 
 package com.evilbird.warcraft.item.hud.control.status.details;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.control.StyledLabel;
+import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.item.unit.building.Building;
 
@@ -24,39 +21,61 @@ import com.evilbird.warcraft.item.unit.building.Building;
  *
  * @author Blair Butterworth
  */
-//TODO: Show tile with icon and name of thing being produced
 public class ProductionDetailsPane extends GridItem
 {
     private Building building;
-    private ProgressBar progressBar;
+    private Image productImage;
+    private ProgressBar productionProgress;
 
     public ProductionDetailsPane(Skin skin) {
-        super(1, 1);
-        progressBar = new ProgressBar(0, 100, 1, false, skin, "building-progress");
-
-        Label training = createLabel("Training");
-
-        setSize(160, 100);
-        setHorizontalCellPadding(4);
-        setVerticalCellPadding(80);
-        add(progressBar);
+        super(1, 2);
+        initialize(skin);
+        productImage = addProductImage(skin);
+        productionProgress = addProductionProgress(skin);
     }
 
     public void setBuilding(Building building) {
         this.building = building;
+        this.productImage.setDrawable(building.getIcon()); //TODO: Wrong: need to show icon of thing being made
     }
 
     @Override
     public void update(float delta) {
-        progressBar.setValue(building.getProgress());
         super.update(delta);
+        productionProgress.setValue(building.getProgress());
     }
 
-    private Label createLabel(String text) {
-        Label result = new StyledLabel(text);
-        result.setSize(160, 12);
-        result.setAlignment(Align.center);
-        result.setColor(Color.WHITE);
-        return result;
+    private void initialize(Skin skin) {
+        setSkin(skin);
+        setSize(160, 100);
+        setCellSpacing(8);
+        setAlignment(Alignment.Bottom);
+    }
+
+    private Image addProductImage(Skin skin) {
+        GridItem container = new GridItem(2, 1);
+        add(container);
+
+        Label label = new Label("Training: ", skin);
+        Cell cell = container.add(label);
+        cell.grow();
+
+        Image image = new Image();
+        container.add(image);
+        return image;
+    }
+
+    private ProgressBar addProductionProgress(Skin skin) {
+        Stack container = new Stack();
+        add(container);
+
+        ProgressBar progressBar = new ProgressBar(0, 1, 0.005f, false, skin, "building-progress");
+        container.add(progressBar);
+
+        Label label = new Label("% Complete", skin);
+        label.setAlignment(Align.center);
+        container.add(label);
+
+        return progressBar;
     }
 }

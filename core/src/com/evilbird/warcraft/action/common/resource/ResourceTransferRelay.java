@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.common.resource;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 
+//TODO: Evaluate if needed - Remove I think
 public class ResourceTransferRelay implements ResourceTransferObserver
 {
     private ResourceTransferObserver delegate;

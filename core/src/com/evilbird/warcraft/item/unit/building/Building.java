@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.unit.building;
 
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemReference;
 import com.evilbird.warcraft.item.unit.Unit;
 
 /**
@@ -24,13 +25,13 @@ public class Building extends Unit
     private boolean constructing;
     private boolean producing;
     private float progress;
-    private Item builder;
+    private ItemReference constructor;
 
     public Building() {
         constructing = false;
         producing = false;
         progress = 1f;
-        builder = null;
+        constructor = null;
     }
 
     public boolean isConstructing() {
@@ -41,16 +42,16 @@ public class Building extends Unit
         return producing;
     }
 
-    public Item getBuilder() {
-        return builder;
+    public Item getConstructor() {
+        return constructor != null ? constructor.get() : null;
     }
 
     public float getProgress() {
         return progress;
     }
 
-    public void setBuilder(Item builder) {
-        this.builder = builder;
+    public void setConstructor(Item constructor) {
+        this.constructor = new ItemReference(constructor);
     }
 
     public void setConstructing(boolean constructing) {

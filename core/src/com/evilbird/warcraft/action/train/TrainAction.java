@@ -9,24 +9,14 @@
 
 package com.evilbird.warcraft.action.train;
 
-import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.ActionTarget;
-import com.evilbird.engine.action.common.AlignAction;
-import com.evilbird.engine.action.common.CreateAction;
-import com.evilbird.engine.action.framework.DelegateAction;
-import com.evilbird.engine.action.framework.SequenceAction;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.warcraft.action.common.production.ProduceAction;
-import com.evilbird.warcraft.action.common.resource.ResourceTransferAction;
-import com.evilbird.warcraft.action.common.resource.ResourceTransferRelay;
-import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
-import com.evilbird.warcraft.item.common.resource.ResourceUtils;
-import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.engine.action.framework.ScenarioAction;
 
 import javax.inject.Inject;
-import java.util.Map;
 
-import static com.evilbird.engine.common.lang.Alignment.BottomLeft;
+import static com.evilbird.warcraft.action.common.production.CreateAction.create;
+import static com.evilbird.warcraft.action.common.production.ProduceAction.produce;
+import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.purchase;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 
 /**
  * Instances of this action sequence create a new unit, decrementing the
@@ -34,48 +24,21 @@ import static com.evilbird.engine.common.lang.Alignment.BottomLeft;
  *
  * @author Blair Butterworth
  */
-//TODO: Combine create and align actions
-//TODO: bug - when one item completes, subsequent invocations complete instantly
-public class TrainAction extends DelegateAction
+public class TrainAction extends ScenarioAction<TrainActions>
 {
-    private CreateAction create;
-    private ProduceAction produce;
-    private ResourceTransferAction purchase;
-    private ResourceTransferRelay relay;
+    private TrainReporter events;
 
     @Inject
-    public TrainAction(ItemFactory itemFactory) {
-        relay = new ResourceTransferRelay();
-        purchase = new ResourceTransferAction(ActionTarget.Player, relay);
-        produce = new ProduceAction();
-        Action create = createUnit(itemFactory);
-        delegate = new SequenceAction(purchase, produce, create);
+    public TrainAction(TrainReporter observer) {
+        this.events = observer;
     }
 
     @Override
-    public boolean act(float delta) {
-        return delegate.act(delta);
-    }
-
-    public void setTrainType(UnitType type){
-        this.create.setType(type);
-    }
-
-    public void setTrainCost(Map<ResourceIdentifier, Float> resources) {
-        this.purchase.setResourceDeltas(ResourceUtils.negate(resources));
-    }
-
-    public void setTrainDuration(float duration) {
-        this.produce.setDuration(duration);
-    }
-
-    public void setObserver(TrainObserver observer) {
-        this.relay.setDelegate(observer);
-    }
-
-    private Action createUnit(ItemFactory itemFactory) {
-        Action reposition = new AlignAction(BottomLeft);
-        create = new CreateAction(itemFactory, reposition);
-        return new SequenceAction(create, reposition);
+    protected void steps(TrainActions type) {
+        scenario(type);
+        given(isAlive());
+        then(purchase(type, events));
+        then(produce(type));
+        then(create(type, events));
     }
 }

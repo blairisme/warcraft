@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.train;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
+import org.mockito.Mockito;
 
 /**
  * Instances of this unit test validate the {@link TrainAction} class.
@@ -21,7 +22,7 @@ public class TrainActionTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        TrainAction action = new TrainAction(itemFactory);
+        TrainAction action = new TrainAction(Mockito.mock(TrainReporter.class));
         action.setIdentifier(TrainActions.TrainFootman);
         return action;
     }

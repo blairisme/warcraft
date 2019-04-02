@@ -29,6 +29,10 @@ public class AnimateAction extends BasicAction
     private ActionTarget source;
     private Identifier animation;
 
+    public static AnimateAction animate(Identifier animation) {
+        return new AnimateAction(animation);
+    }
+
     @Inject
     public AnimateAction() {
         this(null);

@@ -20,16 +20,14 @@ import com.evilbird.engine.action.framework.SequenceAction;
  */
 public class ProduceAction extends DelegateAction
 {
-    private ProgressAction progress;
-
-    public ProduceAction() {
+    public ProduceAction(float duration) {
         ProducingAction before = new ProducingAction(true);
         ProducingAction after = new ProducingAction(false);
-        progress = new ProgressAction();
+        ProgressAction progress = new ProgressAction(duration);
         delegate = new SequenceAction(before, progress, after);
     }
 
-    public void setDuration(float duration) {
-        progress.setDuration(duration);
+    public static ProduceAction produce(Producible producible) {
+        return new ProduceAction(producible.getDuration());
     }
 }

@@ -29,8 +29,11 @@ public class UnitPredicates
         throw new UnsupportedOperationException();
     }
 
-    public static Predicate<Unit> isAlive() {
-        return Unit::isAlive;
+    public static Predicate<Item> isAlive() {
+        return (item) -> {
+            Unit unit = (Unit)item;
+            return unit.isAlive();
+        };
     }
 
     public static Predicate<Item> isAi() {

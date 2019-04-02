@@ -11,12 +11,20 @@ package com.evilbird.warcraft.action.camera;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Positionable;
+import com.evilbird.engine.device.UserInput;
+import com.evilbird.engine.item.Item;
 
 import javax.inject.Inject;
+import java.util.Objects;
 
 import static com.evilbird.warcraft.action.camera.CameraActions.Pan;
 
+/**
+ * Represents an action that when invoked will pan the camera by the delta
+ * specified in the given {@link UserInput cause}.
+ *
+ * @author Blair Butterworth
+ */
 public class PanAction extends BasicAction
 {
     @Inject
@@ -26,13 +34,16 @@ public class PanAction extends BasicAction
 
     @Override
     public boolean act(float time) {
-        Positionable positionable = getItem();
-        Vector2 delta = getCause().getDelta();
+        UserInput cause = getCause();
+        Objects.requireNonNull(cause);
 
-        Vector2 value = positionable.getPosition();
+        Item item = getItem();
+        Vector2 delta = cause.getDelta();
+
+        Vector2 value = item.getPosition();
         Vector2 difference = new Vector2(delta.x, delta.y);
         Vector2 result = value.add(difference);
-        positionable.setPosition(result);
+        item.setPosition(result);
 
         return true;
     }

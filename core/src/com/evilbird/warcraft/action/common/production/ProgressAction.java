@@ -15,8 +15,8 @@ import com.evilbird.warcraft.item.unit.building.Building;
 import javax.inject.Inject;
 
 /**
- * Instances of this action represent an action whose operation takes time,
- * which is communicated to the user via a progress bar.
+ * Represents an action whose operation takes time, which is communicated to
+ * the user via a progress bar.
  *
  * @author Blair Butterworth
  */
@@ -24,6 +24,10 @@ public class ProgressAction extends DelayedAction
 {
     @Inject
     public ProgressAction() {
+    }
+
+    public ProgressAction(float duration) {
+        super(duration);
     }
 
     @Override

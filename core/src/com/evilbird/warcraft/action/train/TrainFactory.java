@@ -19,17 +19,14 @@ import javax.inject.Inject;
 
 public class TrainFactory implements ActionProvider
 {
-    private TrainReporter reporter;
     private InjectedPool<TrainAction> trainPool;
     private InjectedPool<TrainCancel> cancelPool;
 
     @Inject
     public TrainFactory(
-        TrainReporter reporter,
         InjectedPool<TrainAction> trainPool,
         InjectedPool<TrainCancel> cancelPool)
     {
-        this.reporter = reporter;
         this.trainPool = trainPool;
         this.cancelPool = cancelPool;
     }
@@ -50,10 +47,7 @@ public class TrainFactory implements ActionProvider
 
     private Action getTrainAction(TrainActions trainAction) {
         TrainAction action = trainPool.obtain();
-        action.setObserver(reporter);
-        action.setTrainType(trainAction.getUnitType());
-        action.setTrainDuration(trainAction.getTrainTime());
-        action.setTrainCost(trainAction.getResourceRequirements());
+        action.setIdentifier(trainAction);
         return action;
     }
 

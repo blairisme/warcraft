@@ -39,7 +39,6 @@ public class CreateAction extends BasicAction
 
     @SerializedConstructor
     private CreateAction() {
-
     }
 
     public CreateAction(ItemFactory factory, Action ... dependents) {

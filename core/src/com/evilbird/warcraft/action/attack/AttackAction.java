@@ -15,7 +15,7 @@ import com.evilbird.engine.action.common.RepeatedAudibleAction;
 import com.evilbird.engine.action.framework.*;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.animation.AnimatedAction;
-import com.evilbird.warcraft.action.move.MoveToItemSequence;
+import com.evilbird.warcraft.action.move.MoveToItemScenario;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -71,7 +71,7 @@ public class AttackAction extends DelegateAction
     }
 
     private Action reposition() {
-        Action reposition = new MoveToItemSequence();
+        Action reposition = new MoveToItemScenario(null);
         Action animation = new AnimatedAction(reposition, UnitAnimation.Move, UnitAnimation.Idle);
         Action move = new RequirementAction(animation, withoutError());
         Action reorient = new DirectionAction();

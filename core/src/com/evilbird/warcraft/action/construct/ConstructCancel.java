@@ -50,7 +50,7 @@ public class ConstructCancel extends DelegateAction
     public void setItem(Item item) {
         super.setItem(item);
         Building building = (Building)item;
-        restoreBuilder.setItem(building.getBuilder());
+        restoreBuilder.setItem(building.getConstructor());
     }
 
     @Override

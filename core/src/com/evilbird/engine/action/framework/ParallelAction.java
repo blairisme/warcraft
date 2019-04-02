@@ -45,6 +45,12 @@ public class ParallelAction extends CompositeAction
     }
 
     @Override
+    public void add(Action action) {
+        super.add(action);
+        resetCompletion();
+    }
+
+    @Override
     public boolean act(float delta) {
         ListIterator<Action> iterator = actions.listIterator();
         while (iterator.hasNext()) {
