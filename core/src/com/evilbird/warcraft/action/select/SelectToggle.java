@@ -10,14 +10,18 @@
 package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.AudibleAction;
-import com.evilbird.engine.action.common.SelectAction;
-import com.evilbird.engine.action.framework.DelegateAction;
-import com.evilbird.engine.action.framework.ParallelAction;
+import com.evilbird.engine.action.framework.FeatureAction;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.unit.UnitSound;
 
 import javax.inject.Inject;
+
+import static com.evilbird.engine.action.common.AudibleAction.play;
+import static com.evilbird.engine.action.common.SelectAction.deselect;
+import static com.evilbird.engine.action.common.SelectAction.select;
+import static com.evilbird.warcraft.action.select.SelectReporter.notifySelected;
+import static com.evilbird.warcraft.action.select.SelectReporter.notifyUnselected;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
+import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
 
 /**
  * Instances of this {@link Action} invert the selected status of a given
@@ -25,43 +29,28 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class SelectToggle extends DelegateAction
+public class SelectToggle extends FeatureAction
 {
-    private SelectObserver observer;
-    private SelectAction select;
-    private AudibleAction audio;
+    private SelectReporter observer;
 
     @Inject
-    public SelectToggle() {
-        select = new SelectAction();
-        audio = new AudibleAction();
-        delegate = new ParallelAction(select, audio);
-
-//      scenario(SelectItem).givenItem(isAlive()).whenItem(isUnselected()).then(select(), play(Selected));
-//      scenario(DeselectItem).givenItem(isAlive()).whenItem(isSelected()).then(deselect());
+    public SelectToggle(SelectReporter reporter) {
+        feature(SelectActions.SelectToggle);
+        observer = reporter;
     }
 
     @Override
-    public boolean act(float delta) {
-        notifyOnSelect();
-        return delegate.act(delta);
-    }
+    protected void features() {
+        scenario("Select")
+            .given(isAlive())
+            .when(isUnselected(getItem()))
+            .then(select(), play(Selected))
+            .then(notifySelected(observer));
 
-    @Override
-    public void setItem(Item item) {
-        super.setItem(item);
-        boolean selected = item != null && item.getSelectable() && !item.getSelected();
-        select.setSelected(selected);
-        audio.setSound(selected ? UnitSound.Selected : null);
-    }
-
-    public void setObserver(SelectObserver observer) {
-        this.observer = observer;
-    }
-
-    private void notifyOnSelect() {
-        if (observer != null) {
-            observer.onSelect(select.getItem(), select.getSelected());
-        }
+        scenario("Deselect")
+            .given(isAlive())
+            .when(isSelected(getItem()))
+            .then(deselect())
+            .then(notifyUnselected(observer));
     }
 }

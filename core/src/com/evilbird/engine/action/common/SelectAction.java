@@ -35,10 +35,19 @@ public class SelectAction extends BasicAction
         this.selected = selected;
     }
 
+    public static SelectAction select() {
+        return new SelectAction(true);
+    }
+
+    public static SelectAction deselect() {
+        return new SelectAction(false);
+    }
+
     public boolean getSelected() {
         return selected;
     }
 
+    @Deprecated //TODO: Immutable
     public void setSelected(boolean selected) {
         this.selected = selected;
     }

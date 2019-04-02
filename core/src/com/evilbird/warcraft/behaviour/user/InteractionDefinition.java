@@ -191,7 +191,6 @@ public class InteractionDefinition implements Interaction
 
     private Item getPrimary(Item item, Item selected) {
         switch (applicability) {
-            case Target: return item;
             case Selected: return selected;
             default: return item;
         }
@@ -199,7 +198,6 @@ public class InteractionDefinition implements Interaction
 
     private Item getSecondary(Item item, Item selected) {
         switch (applicability) {
-            case Target: return selected;
             case Selected: return item;
             default: return selected;
         }
@@ -207,7 +205,6 @@ public class InteractionDefinition implements Interaction
 
     private Item getSubject(Item item) {
         switch (assignment) {
-            case Item: return item;
             case Parent: return item.getParent();
             default: return item;
         }

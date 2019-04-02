@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
+import org.mockito.Mockito;
 
 /**
  * Instances of this unit test validate the {@link SelectToggle} class.
@@ -21,7 +22,7 @@ public class SelectToggleTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        SelectToggle action = new SelectToggle();
+        SelectToggle action = new SelectToggle(Mockito.mock(SelectReporter.class));
         action.setIdentifier(SelectActions.SelectToggle);
         return action;
     }

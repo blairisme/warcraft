@@ -36,10 +36,15 @@ public class AudibleAction extends BasicAction
         this.sound = sound;
     }
 
+    public static AudibleAction play(Identifier sound) {
+        return new AudibleAction(sound);
+    }
+
     public Identifier getSound() {
         return sound;
     }
 
+    @Deprecated //TODO: Immutableize
     public void setSound(Identifier sound) {
         this.sound = sound;
     }

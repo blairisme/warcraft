@@ -53,4 +53,22 @@ public class UnitPredicates
     public static Predicate<Item> isPlayer() {
         return (item) -> Objects.equals(item.getType(), DataType.Player);
     }
+
+    public static Predicate<Item> isSelected() {
+        return Item::getSelected;
+    }
+
+    public static Predicate<Item> isSelected(Item item) {
+        final boolean selected = item.getSelected();
+        return (it) -> selected;
+    }
+
+    public static Predicate<Item> isUnselected() {
+        return (item) -> !item.getSelected();
+    }
+
+    public static Predicate<Item> isUnselected(Item item) {
+        final boolean selected = item.getSelected();
+        return (it) -> !selected;
+    }
 }

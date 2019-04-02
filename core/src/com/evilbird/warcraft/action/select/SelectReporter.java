@@ -13,6 +13,7 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 
 import javax.inject.Inject;
+import java.util.function.Consumer;
 
 /**
  * Instances of this class observe selection events and report them to the
@@ -32,5 +33,13 @@ public class SelectReporter implements SelectObserver
     @Override
     public void onSelect(Item item, boolean selected) {
         events.add(new SelectEvent(item, selected));
+    }
+
+    public static Consumer<Item> notifySelected(SelectReporter reporter) {
+        return (item) -> reporter.onSelect(item, true);
+    }
+
+    public static Consumer<Item> notifyUnselected(SelectReporter reporter) {
+        return (item) -> reporter.onSelect(item, false);
     }
 }

@@ -35,7 +35,7 @@ public class SelectFactory implements ActionProvider
     @Override
     public Action get(ActionIdentifier action) {
         SelectToggle toggle = pool.obtain();
-        toggle.setObserver(reporter);
+        //toggle.setObserver(reporter);
         return toggle;
     }
 }
