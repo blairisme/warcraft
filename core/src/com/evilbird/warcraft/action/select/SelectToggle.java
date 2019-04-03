@@ -12,14 +12,14 @@ package com.evilbird.warcraft.action.select;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.FeatureAction;
 import com.evilbird.engine.item.Item;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.common.AudibleAction.play;
-import static com.evilbird.engine.action.common.SelectAction.deselect;
-import static com.evilbird.engine.action.common.SelectAction.select;
-import static com.evilbird.warcraft.action.select.SelectReporter.notifySelected;
-import static com.evilbird.warcraft.action.select.SelectReporter.notifyUnselected;
+import static com.evilbird.warcraft.action.select.SelectAction.deselect;
+import static com.evilbird.warcraft.action.select.SelectAction.select;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
 import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
 
@@ -31,7 +31,7 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
  */
 public class SelectToggle extends FeatureAction
 {
-    private SelectReporter observer;
+    private transient SelectReporter observer;
 
     @Inject
     public SelectToggle(SelectReporter reporter) {
@@ -44,13 +44,32 @@ public class SelectToggle extends FeatureAction
         scenario("Select")
             .given(isAlive())
             .when(isUnselected(getItem()))
-            .then(select(), play(Selected))
-            .then(notifySelected(observer));
+            .then(select(observer), play(Selected));
 
         scenario("Deselect")
             .given(isAlive())
             .when(isSelected(getItem()))
-            .then(deselect())
-            .then(notifyUnselected(observer));
+            .then(deselect(observer));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        SelectToggle that = (SelectToggle)obj;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(obj))
+            .append(observer, that.observer)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .appendSuper(super.hashCode())
+            .append(observer)
+            .toHashCode();
     }
 }

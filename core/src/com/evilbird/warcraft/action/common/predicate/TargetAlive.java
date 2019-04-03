@@ -13,6 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.warcraft.item.unit.Unit;
 
+@Deprecated
 public class TargetAlive implements Predicate<Action>
 {
     public TargetAlive() {

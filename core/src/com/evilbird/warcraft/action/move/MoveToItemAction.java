@@ -23,7 +23,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-class MoveToItemAction extends MoveAction
+public class MoveToItemAction extends MoveAction
 {
     private MovePathFilter filter;
     private MoveDestination destination;
@@ -60,6 +60,10 @@ class MoveToItemAction extends MoveAction
         super.reset();
         filter = null;
         destination = null;
+    }
+
+    public static MoveToItemAction move(MoveObserver observer) {
+        return moveToItem(observer);
     }
 
     public static MoveToItemAction moveToItem(MoveObserver observer) {

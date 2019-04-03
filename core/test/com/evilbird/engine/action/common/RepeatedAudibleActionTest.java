@@ -27,7 +27,7 @@ public class RepeatedAudibleActionTest
 
     @Before
     public void setup() {
-        action = new RepeatedAudibleAction(UnitSound.GatherWood, 5, 3.1f);
+        action = new RepeatedAudibleAction(UnitSound.ChopWood, 5, 3.1f);
         action.setItem(TestItems.newItem("repeatedaudibleaction"));
     }
 

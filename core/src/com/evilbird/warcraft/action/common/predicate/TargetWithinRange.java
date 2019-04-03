@@ -21,6 +21,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
  *
  * @author Blair Butterworth
  */
+@Deprecated
 public class TargetWithinRange implements Predicate<Action>
 {
     public TargetWithinRange() {

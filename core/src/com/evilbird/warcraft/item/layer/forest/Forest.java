@@ -63,13 +63,13 @@ public class Forest extends Layer
     public void setDeadTexture(GridPoint2 tile) {
         setTexture(tile.x, tile.y, style.deadCenter);
         setTexture(tile.x + 1, tile.y, style.deadEast);
-        setTexture(tile.x + 1, tile.y + 1, style.deadSouthEast);
-        setTexture(tile.x, tile.y + 1, style.deadSouth);
-        setTexture(tile.x - 1, tile.y + 1, style.deadSouthWest);
+        setTexture(tile.x + 1, tile.y + 1, style.deadNorthEast);
+        setTexture(tile.x, tile.y + 1, style.deadNorth);
+        setTexture(tile.x - 1, tile.y + 1, style.deadNorthWest);
         setTexture(tile.x - 1, tile.y, style.deadWest);
-        setTexture(tile.x - 1, tile.y - 1, style.deadNorthWest);
-        setTexture(tile.x, tile.y - 1, style.deadNorth);
-        setTexture(tile.x + 1, tile.y - 1, style.deadNorthEast);
+        setTexture(tile.x - 1, tile.y - 1, style.deadSouthWest);
+        setTexture(tile.x, tile.y - 1, style.deadSouth);
+        setTexture(tile.x + 1, tile.y - 1, style.deadSouthEast);
     }
 
     private void setTexture(int x, int y, TextureRegion texture) {

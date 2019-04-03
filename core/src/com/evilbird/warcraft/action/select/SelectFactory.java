@@ -23,19 +23,15 @@ import javax.inject.Inject;
  */
 public class SelectFactory implements ActionProvider
 {
-    private SelectReporter reporter;
     private InjectedPool<SelectToggle> pool;
 
     @Inject
-    public SelectFactory(SelectReporter reporter, InjectedPool<SelectToggle> pool) {
+    public SelectFactory(InjectedPool<SelectToggle> pool) {
         this.pool = pool;
-        this.reporter = reporter;
     }
 
     @Override
     public Action get(ActionIdentifier action) {
-        SelectToggle toggle = pool.obtain();
-        //toggle.setObserver(reporter);
-        return toggle;
+        return pool.obtain();
     }
 }

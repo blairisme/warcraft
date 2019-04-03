@@ -34,4 +34,8 @@ public class AnimationAliasAction extends BasicAction
         item.setAnimationAlias(alias, id);
         return true;
     }
+
+    public static AnimationAliasAction setAnimation(Identifier id, Identifier alias) {
+        return new AnimationAliasAction(id, alias);
+    }
 }

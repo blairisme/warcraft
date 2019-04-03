@@ -41,4 +41,8 @@ public class RepeatedAudibleAction extends DelegateAction
         Action soundBuffer = new SequenceAction(audible, buffer);
         delegate = new RepeatedAction(soundBuffer, repeat);
     }
+
+    public static RepeatedAudibleAction playRepeat(Identifier sound, int repetitions) {
+        return new RepeatedAudibleAction(sound, repetitions, 1);
+    }
 }

@@ -19,6 +19,7 @@ import com.evilbird.warcraft.item.unit.resource.ResourceType;
  *
  * @author Blair Butterworth
  */
+@Deprecated
 public class ActionPredicates
 {
     private ActionPredicates() {

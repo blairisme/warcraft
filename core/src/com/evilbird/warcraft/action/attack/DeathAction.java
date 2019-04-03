@@ -10,11 +10,15 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.*;
+import com.evilbird.engine.action.common.AnimateAction;
+import com.evilbird.engine.action.common.AudibleAction;
+import com.evilbird.engine.action.common.DisableAction;
+import com.evilbird.engine.action.common.RemoveAction;
 import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.SequenceAction;
+import com.evilbird.warcraft.action.select.SelectAction;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 
@@ -26,7 +30,7 @@ import com.evilbird.warcraft.item.unit.UnitSound;
 public class DeathAction extends DelegateAction
 {
     public DeathAction() {
-        Action deselect = new SelectAction(false);
+        Action deselect = new SelectAction(false, null);
         Action disable = new DisableAction(false);
 
         Action dieSound = new AudibleAction(UnitSound.Die);

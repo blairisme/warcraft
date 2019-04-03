@@ -26,7 +26,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
  */
 public class TrainAction extends ScenarioAction<TrainActions>
 {
-    private TrainReporter events;
+    private transient TrainReporter events;
 
     @Inject
     public TrainAction(TrainReporter observer) {

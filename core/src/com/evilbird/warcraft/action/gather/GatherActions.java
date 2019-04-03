@@ -10,14 +10,19 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.ActionIdentifier;
+import com.evilbird.engine.common.collection.Maps;
+import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceRequirement;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
+
+import java.util.Map;
 
 /**
  * Defines options of specifying gather action varieties.
  *
  * @author Blair Butterworth
  */
-public enum GatherActions implements ActionIdentifier
+public enum GatherActions implements ActionIdentifier, ResourceRequirement
 {
     GatherGold  (ResourceType.Gold, 100f, 5f),
     GatherOil   (ResourceType.Oil, 100f, 5f),
@@ -47,5 +52,10 @@ public enum GatherActions implements ActionIdentifier
 
     public float getGatherSpeed() {
         return gatherSpeed;
+    }
+
+    @Override
+    public Map<ResourceIdentifier, Float> getResourceRequirements() {
+        return Maps.of(resourceType, gatherAmount);
     }
 }

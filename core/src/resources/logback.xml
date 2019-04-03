@@ -8,7 +8,7 @@
     </appender>
 
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${user.home}\.warcraft2\log\log.txt</file>
+        <file>${user.home}/.warcraft2/log/log.txt</file>
         <append>true</append>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">

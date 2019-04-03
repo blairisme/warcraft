@@ -16,6 +16,7 @@ import com.evilbird.warcraft.item.unit.resource.ResourceType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+@Deprecated
 public class TargetHasResources implements Predicate<Action>
 {
     private ResourceType type;

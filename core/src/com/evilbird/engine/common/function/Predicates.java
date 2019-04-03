@@ -29,6 +29,10 @@ public class Predicates
         }
     }
 
+    public static <T> Predicate<T> never() {
+        return (value) -> false;
+    }
+
     public static <T> Predicate<T> both(Predicate<? super T> left, Predicate<? super T> right) {
         return (value) -> left.test(value) && right.test(value);
     }

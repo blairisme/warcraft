@@ -25,9 +25,9 @@ public enum UnitSound implements Identifier
     Complete,
     Ready,
 
-    GatherGold,
+    MineGold,
     GatherOil,
-    GatherWood,
+    ChopWood,
 
     DepositGold,
     DepositOil,

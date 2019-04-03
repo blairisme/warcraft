@@ -10,57 +10,73 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.RepeatedAudibleAction;
-import com.evilbird.engine.action.framework.ParallelAction;
-import com.evilbird.engine.item.ItemType;
-import com.evilbird.warcraft.item.layer.LayerType;
-import com.evilbird.warcraft.item.unit.UnitSound;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.resource.ResourceType;
+import com.evilbird.engine.action.framework.FeatureAction;
+import com.evilbird.warcraft.item.common.resource.ResourceRequirement;
 
 import javax.inject.Inject;
 
+import static com.evilbird.engine.action.common.ActionTarget.*;
+import static com.evilbird.engine.action.common.AnimateAction.animate;
+import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
+import static com.evilbird.engine.action.common.VisibleAction.hide;
+import static com.evilbird.engine.action.common.VisibleAction.show;
+import static com.evilbird.engine.action.framework.DelayedAction.delay;
+import static com.evilbird.engine.item.utility.ItemSuppliers.closest;
+import static com.evilbird.warcraft.action.common.animation.AnimationAliasAction.setAnimation;
+import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.transfer;
+import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
+import static com.evilbird.warcraft.action.select.SelectAction.deselect;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
+import static com.evilbird.warcraft.item.layer.LayerType.Tree;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.GatherWood;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.*;
+import static com.evilbird.warcraft.item.unit.UnitSound.ChopWood;
+import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
+import static com.evilbird.warcraft.item.unit.resource.ResourceType.Wood;
+
 /**
- * Instances of this {@link Action} instruct a given {@link GatherAction} to gather
- * wood.
+ * Instances of this {@link Action} instruct a given Item to gather wood.
  *
  * @author Blair Butterworth
  */
-public class GatherWood extends GatherAction
+public class GatherWood extends FeatureAction
 {
+    private GatherReporter reporter;
+
     @Inject
-    public GatherWood(){
+    public GatherWood(GatherReporter reporter) {
+        this.reporter = reporter;
+        feature(GatherActions.GatherWood);
+        repeats();
     }
 
     @Override
-    protected ItemType getDepotType() {
-        return UnitType.TownHall;
+    protected void features() {
+        scenario("obtain")
+            .given(isAlive())
+            .when(noResources(Wood))
+            .then(animate(Move))
+            .then(move(reporter))
+            .then(animate(GatherWood))
+            .then(delay(5), playRepeat(ChopWood, 5))
+            .then(transfer(Target, Item, resource(), reporter))
+            .then(setAnimation(Move, MoveWood))
+            .then(animate(Idle))
+            .withTarget(closest(Tree, getTarget()));
+
+        scenario("deposit")
+            .givenItem(isAlive())
+            .whenItem(hasResources(Wood))
+            .then(animate(Move))
+            .then(move(reporter))
+            .then(hide(), deselect(reporter))
+            .then(delay(5))
+            .then(transfer(Item, Player, resource(), reporter))
+            .then(show(), animate(Idle), setAnimation(Move, MoveBasic))
+            .withTarget(closest(TownHall, getTarget()));
     }
 
-    @Override
-    protected ItemType getResourceType() {
-        return LayerType.Tree;
-    }
-
-    @Override
-    protected ResourceType getResourceVariety() {
-        return ResourceType.Wood;
-    }
-
-    @Override
-    protected float getGatherCapacity() {
-        return 100f;
-    }
-
-    @Override
-    protected float getGatherSpeed() {
-        return 40f;
-    }
-
-    @Override
-    protected Action obtainResources() {
-        Action sound = new RepeatedAudibleAction(UnitSound.GatherWood, 40, 1f);
-        Action obtain = super.obtainResources();
-        return new ParallelAction(obtain, sound);
+    private ResourceRequirement resource() {
+        return GatherActions.GatherWood;
     }
 }

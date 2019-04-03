@@ -10,8 +10,10 @@
 package com.evilbird.warcraft.action.common.resource;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
@@ -103,5 +105,15 @@ public class ResourceTransferAction extends BasicAction
     public static ResourceTransferAction purchase(ResourceRequirement requirements, ResourceTransferObserver observer) {
         Map<ResourceIdentifier, Float> cost = ResourceUtils.negate(requirements.getResourceRequirements());
         return new ResourceTransferAction(Player, cost, observer);
+    }
+
+    public static Action transfer(ActionTarget from, ActionTarget to, ResourceRequirement requirements, ResourceTransferObserver observer) {
+        Map<ResourceIdentifier, Float> amount = requirements.getResourceRequirements();
+        Map<ResourceIdentifier, Float> cost = ResourceUtils.negate(amount);
+
+        Action transferFrom = new ResourceTransferAction(from, cost, observer);
+        Action transferTo = new ResourceTransferAction(to, amount, observer);
+
+        return new ParallelAction(transferFrom, transferTo);
     }
 }

@@ -22,9 +22,11 @@ import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
+import static com.evilbird.engine.common.graphics.TextureUtils.getRegion;
+
 /**
  * Instances of this factory create {@link Forest} instances, loading the
- * appropriate assets to display the forest, and its cells, in different
+ * appropriate assets to display the forest and its cells in different
  * states.
  *
  * @author Blair Butterworth
@@ -69,7 +71,15 @@ public class ForestFactory implements IdentifiedAssetProvider<Forest>
 
     private ForestStyle getForestStyle() {
         ForestStyle forestStyle = new ForestStyle();
-        //forestStyle.deadCenter = getRegion(assets, TERRAIN, 448, 224, 32, 32);
+        forestStyle.deadCenter = getRegion(assets, TERRAIN, 448, 224, 32, 32);
+        forestStyle.deadNorth = getRegion(assets, TERRAIN, 352, 224, 32, 32);
+        forestStyle.deadNorthEast = getRegion(assets, TERRAIN, 192, 192, 32, 32);
+        forestStyle.deadEast = getRegion(assets, TERRAIN, 0, 256, 32, 32);
+        forestStyle.deadSouthEast = getRegion(assets, TERRAIN, 32, 256, 32, 32);
+        forestStyle.deadSouth = getRegion(assets, TERRAIN, 288, 224, 32, 32);
+        forestStyle.deadSouthWest = getRegion(assets, TERRAIN, 352, 192, 32, 32);
+        forestStyle.deadWest = getRegion(assets, TERRAIN, 128, 256, 32, 32);
+        forestStyle.deadNorthWest = getRegion(assets, TERRAIN, 448, 192, 32, 32);
         return forestStyle;
     }
 }

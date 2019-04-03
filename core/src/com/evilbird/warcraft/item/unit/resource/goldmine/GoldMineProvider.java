@@ -101,7 +101,7 @@ public class GoldMineProvider implements AssetProvider<Item>
 
     private Map<Identifier, SoundEffect> getSounds() {
         Map<Identifier, SoundEffect> sounds = new HashMap<>();
-        sounds.put(UnitSound.GatherGold, new SilentSoundEffect());
+        sounds.put(UnitSound.MineGold, new SilentSoundEffect());
         sounds.put(UnitSound.Selected, newSoundEffect(assets, SELECTED));
         sounds.put(UnitSound.Die, newSoundEffect(assets, DESTROYED, MP3, 3));
         return sounds;

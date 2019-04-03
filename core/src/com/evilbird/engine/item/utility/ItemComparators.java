@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.function.Comparator;
 import com.evilbird.engine.item.Item;
 
-//TODO: dst2 more efficient
 public class ItemComparators
 {
     private ItemComparators() {
@@ -35,8 +34,8 @@ public class ItemComparators
             Vector2 position1 = var1.getPosition();
             Vector2 position2 = var2.getPosition();
 
-            float distance1 = target.dst(position1);
-            float distance2 = target.dst(position2);
+            float distance1 = target.dst2(position1);
+            float distance2 = target.dst2(position2);
 
             return Float.compare(distance1, distance2);
         }

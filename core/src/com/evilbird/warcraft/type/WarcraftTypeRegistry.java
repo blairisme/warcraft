@@ -7,6 +7,7 @@ import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.camera.CameraActions;
 import com.evilbird.warcraft.action.confirm.ConfirmActions;
 import com.evilbird.warcraft.action.move.MoveActions;
+import com.evilbird.warcraft.action.train.TrainActions;
 import com.evilbird.warcraft.behaviour.ai.Ai;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.camera.Camera;
@@ -47,6 +48,7 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("AttackActions", AttackActions.class);
         registerType("CameraActions", CameraActions.class);
         registerType("ConfirmActions", ConfirmActions.class);
+        registerType("TrainAction", TrainActions.class);
         registerType("MoveActions", MoveActions.class);
         registerType("AI", Ai.class);
         registerType("Hud", HudType.class);

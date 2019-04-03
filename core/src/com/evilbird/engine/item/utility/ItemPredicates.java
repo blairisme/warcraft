@@ -50,6 +50,10 @@ public class ItemPredicates
         return Item::getSelectable;
     }
 
+    public static Predicate<Item> touchableItem() {
+        return Item::getTouchable;
+    }
+
     public static Predicate<Item> isIdle() {
         return (item) -> !item.hasActions();
     }

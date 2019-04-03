@@ -128,8 +128,8 @@ public class PeasantProvider implements AssetProvider<Item>
         sounds.put(UnitSound.Complete, newSoundEffect(assets, COMPLETE));
         sounds.put(UnitSound.Attack, newSoundEffect(assets, ATTACK));
         sounds.put(UnitSound.Ready, newSoundEffect(assets, READY));
-        sounds.put(UnitSound.GatherWood, newSoundEffect(assets, CHOPPING, MP3, 4));
-        sounds.put(UnitSound.GatherGold, new SilentSoundEffect());
+        sounds.put(UnitSound.ChopWood, newSoundEffect(assets, CHOPPING, MP3, 4));
+        sounds.put(UnitSound.MineGold, new SilentSoundEffect());
         sounds.put(UnitSound.DepositGold, new SilentSoundEffect());
         sounds.put(UnitSound.DepositWood, new SilentSoundEffect());
         return sounds;

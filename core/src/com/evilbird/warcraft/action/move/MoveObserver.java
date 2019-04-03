@@ -18,7 +18,7 @@ import com.evilbird.engine.item.spatial.ItemNode;
  *
  * @author Blair Butterworth
  */
-interface MoveObserver
+public interface MoveObserver
 {
     void onMove(Item subject, ItemNode location);
 }

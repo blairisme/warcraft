@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
+import org.mockito.Mockito;
 
 /**
  * Instances of this unit test validate the {@link GatherWood} class.
@@ -21,7 +22,7 @@ public class GatherGoldTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        GatherGold action = new GatherGold();
+        GatherGold action = new GatherGold(Mockito.mock(GatherReporter.class));
         action.setIdentifier(GatherActions.GatherGold);
         return action;
     }

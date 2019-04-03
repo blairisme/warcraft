@@ -11,9 +11,11 @@ package com.evilbird.warcraft.item.common.query;
 
 import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import java.util.Objects;
 
@@ -70,5 +72,19 @@ public class UnitPredicates
     public static Predicate<Item> isUnselected(Item item) {
         final boolean selected = item.getSelected();
         return (it) -> !selected;
+    }
+
+    public static Predicate<Item> hasResources(ResourceType type) {
+        return (item) -> {
+            ResourceContainer container = (ResourceContainer)item;
+            return container.getResource(type) > 0;
+        };
+    }
+
+    public static Predicate<Item> noResources(ResourceType type) {
+        return (item) -> {
+            ResourceContainer container = (ResourceContainer)item;
+            return container.getResource(type) == 0;
+        };
     }
 }

@@ -23,7 +23,7 @@ import static com.badlogic.gdx.Gdx.graphics;
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.item.utility.ItemComparators.closestItem;
 import static com.evilbird.engine.item.utility.ItemPredicates.itemWithType;
-import static com.evilbird.engine.item.utility.ItemPredicates.selectableItem;
+import static com.evilbird.engine.item.utility.ItemPredicates.touchableItem;
 
 /**
  * Instances of this class contain common item lookup utility functions.
@@ -35,8 +35,12 @@ public class ItemOperations
     private ItemOperations(){
     }
 
+    public static Item findClosest(Identifier type, Item locus) {
+        return findClosest(locus.getRoot(), type, locus);
+    }
+
     public static Item findClosest(ItemComposite itemGroup, Identifier type, Item locus) {
-        Predicate<Item> selector = both(itemWithType(type), selectableItem());
+        Predicate<Item> selector = both(itemWithType(type), touchableItem()); //selectableItem());
         Collection<Item> itemsWithType = itemGroup.findAll(selector);
         if (! itemsWithType.isEmpty()) {
             return Collections.min(itemsWithType, closestItem(locus));

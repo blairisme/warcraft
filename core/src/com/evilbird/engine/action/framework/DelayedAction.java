@@ -30,7 +30,12 @@ public class DelayedAction extends BasicAction
     }
 
     public DelayedAction(float seconds) {
-        setDuration(seconds);
+        this.duration = seconds;
+        this.total = 0;
+    }
+
+    public static DelayedAction delay(float seconds) {
+        return new DelayedAction(seconds);
     }
 
     public void setDuration(float seconds) {

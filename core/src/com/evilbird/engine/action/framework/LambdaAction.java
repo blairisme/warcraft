@@ -7,9 +7,8 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.action.common;
+package com.evilbird.engine.action.framework;
 
-import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 
 import java.util.function.Consumer;

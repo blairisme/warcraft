@@ -11,15 +11,16 @@ package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionTarget;
-import com.evilbird.engine.action.common.LambdaAction;
 import com.evilbird.engine.action.predicates.ActionPredicate;
 import com.evilbird.engine.common.function.Predicate;
-import com.evilbird.engine.common.function.Predicates;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 
+import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static com.evilbird.engine.action.common.ActionTarget.Target;
 
 /**
  * Represents an action whose operation is specified somewhat like Gherkin.
@@ -31,33 +32,70 @@ import java.util.function.Function;
 @SuppressWarnings("unchecked")
 public class ScenarioAction<T extends Identifier> extends BasicAction
 {
-    private ActionPredicate given;
-    private ActionPredicate when;
-    private SequenceAction then;
-    private Action scenario;
+    private transient Action scenario;
+    private transient ActionPredicate given;
+    private transient ActionPredicate when;
+    private transient SequenceAction then;
+    private transient Supplier<Item> itemSupplier;
+    private transient Supplier<Item> targetSupplier;
 
     public ScenarioAction() {
-        given = new ActionPredicate(Predicates.accept(), ActionTarget.Item);
         then = new SequenceAction();
     }
 
+    /**
+     * Sets the unique identifier of the scenario.
+     *
+     * @param identifier an {@link Identifier} instance. This parameter cannot
+     *                   be <code>null</code>.
+     *
+     * @return this scenario.
+     */
     public ScenarioAction scenario(Identifier identifier) {
+        Objects.requireNonNull(identifier);
         setIdentifier(identifier);
         return this;
     }
 
-    public ScenarioAction given(Predicate<Item> condition) {
+    /**
+     * Adds a requirement pertaining to the Scenarios item that must be
+     * fulfilled at all times for the Scenario to continue running.
+     *
+     * @param condition     a condition that must be fulfilled at all times.
+     *                      This parameter cannot be <code>null</code>.
+     *
+     * @return this scenario.
+     */
+    public ScenarioAction given(Predicate<? super Item> condition) {
         return givenItem(condition);
     }
 
+    /**
+     * Adds a requirement pertaining to the Scenarios item that must be
+     * fulfilled at all times for the Scenario to continue running.
+     *
+     * @param condition     a condition that must be fulfilled at all times.
+     *                      This parameter cannot be <code>null</code>.
+     *
+     * @return this scenario.
+     */
     public ScenarioAction givenItem(Predicate<? super Item> condition) {
         given = new ActionPredicate(condition, ActionTarget.Item);
         scenario = null;
         return this;
     }
 
+    /**
+     * Adds a requirement pertaining to the Scenarios target that must be
+     * fulfilled at all times for the Scenario to continue running.
+     *
+     * @param condition     a condition that must be fulfilled at all times.
+     *                      This parameter cannot be <code>null</code>.
+     *
+     * @return this scenario.
+     */
     public ScenarioAction givenTarget(Predicate<? super Item> condition) {
-        given = new ActionPredicate(condition, ActionTarget.Target);
+        given = new ActionPredicate(condition, Target);
         scenario = null;
         return this;
     }
@@ -73,7 +111,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     }
 
     public ScenarioAction whenTarget(Predicate<? super Item> condition) {
-        when = new ActionPredicate(condition, ActionTarget.Target);
+        when = new ActionPredicate(condition, Target);
         scenario = null;
         return this;
     }
@@ -96,34 +134,71 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         return this;
     }
 
+    public ScenarioAction withItem(Supplier<Item> updater) {
+        itemSupplier = updater;
+        scenario = null;
+        return this;
+    }
+
+    public ScenarioAction withTarget(Supplier<Item> updater) {
+        targetSupplier = updater;
+        scenario = null;
+        return this;
+    }
+
     @Override
     public boolean act(float delta) {
-        if (scenario == null) {
-            steps((T)getIdentifier());
-            scenario = build();
-        }
+        Action scenario = getScenario();
         return scenario.act(delta);
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        Action scenario = getScenario();
+        scenario.reset();
+    }
+
+    @Override
+    public void restart() {
+        super.restart();
+        Action scenario = getScenario();
+        scenario.restart();
     }
 
     protected void steps(T identifier) {
     }
 
-    protected Action build() {
-        Action result = then;
-        if (when != null) {
-            result = new OptionalAction(result, when);
-            updateAction(result);
+    private Action getScenario() {
+        if (scenario == null) {
+            steps((T)getIdentifier());
+            scenario = build();
         }
-        if (given != null) {
-            result = new RequirementAction(result, given);
-            updateAction(result);
-        }
+        return scenario;
+    }
+
+    private Action build() {
+        Action result = create();
+        result.setItem(getItem());
+        result.setTarget(getTarget());
+        result.setCause(getCause());
         return result;
     }
 
-    protected void updateAction(Action action) {
-        action.setItem(getItem());
-        action.setTarget(getTarget());
-        action.setCause(getCause());
+    private Action create() {
+        Action result = then;
+        if (when != null) {
+            result = new OptionalAction(result, when);
+        }
+        if (given != null) {
+            result = new RequirementAction(result, given);
+        }
+        if (itemSupplier != null) {
+            result = new UpdateAction(result, itemSupplier, ActionTarget.Item);
+        }
+        if (targetSupplier != null) {
+            result = new UpdateAction(result, targetSupplier, ActionTarget.Target);
+        }
+        return result;
     }
 }

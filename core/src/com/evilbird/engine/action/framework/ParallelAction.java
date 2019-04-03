@@ -65,14 +65,14 @@ public class ParallelAction extends CompositeAction
 
     @Override
     public void restart() {
-        super.restart();
         resetCompletion();
+        super.restart();
     }
 
     @Override
     public void reset() {
-        super.reset();
         resetCompletion();
+        super.reset();
     }
 
     private void resetCompletion() {

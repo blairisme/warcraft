@@ -13,8 +13,14 @@ import com.evilbird.engine.common.lang.Identifier;
 
 public class FeatureAction extends ParallelAction
 {
+    private boolean repeats;
+
     public FeatureAction() {
         super();
+    }
+
+    public void repeats() {
+        this.repeats = true;
     }
 
     public void feature(Identifier identifier) {
@@ -35,7 +41,12 @@ public class FeatureAction extends ParallelAction
         if (actions.isEmpty()){
             features();
         }
-        return super.act(delta);
+        boolean result = super.act(delta);
+        if (result && repeats) {
+            restart();
+            result = false;
+        }
+        return result;
     }
 
     protected void features() {

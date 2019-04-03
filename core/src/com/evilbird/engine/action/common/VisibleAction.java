@@ -29,6 +29,14 @@ public class VisibleAction extends BasicAction
         this.enabled = enabled;
     }
 
+    public static VisibleAction show() {
+        return new VisibleAction(true);
+    }
+
+    public static VisibleAction hide() {
+        return new VisibleAction(false);
+    }
+
     @Override
     public boolean act(float time) {
         Visible visible = getItem();

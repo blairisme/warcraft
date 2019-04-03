@@ -10,67 +10,69 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.DisableAction;
-import com.evilbird.engine.action.common.SelectAction;
-import com.evilbird.engine.action.common.VisibleAction;
-import com.evilbird.engine.action.framework.ParallelAction;
-import com.evilbird.engine.item.ItemType;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.resource.ResourceType;
+import com.evilbird.engine.action.framework.FeatureAction;
+import com.evilbird.warcraft.item.common.resource.ResourceRequirement;
 
 import javax.inject.Inject;
 
+import static com.evilbird.engine.action.common.ActionTarget.*;
+import static com.evilbird.engine.action.common.AnimateAction.animate;
+import static com.evilbird.engine.action.common.VisibleAction.hide;
+import static com.evilbird.engine.action.common.VisibleAction.show;
+import static com.evilbird.engine.action.framework.DelayedAction.delay;
+import static com.evilbird.engine.item.utility.ItemSuppliers.closest;
+import static com.evilbird.warcraft.action.common.animation.AnimationAliasAction.setAnimation;
+import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.transfer;
+import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
+import static com.evilbird.warcraft.action.select.SelectAction.deselect;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.*;
+import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
+import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
+import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
+
 /**
- * Instances of this {@link Action} instruct a given {@link GatherAction} to gather
- * gold.
+ * Instances of this {@link Action} instruct an Item to gather gold.
  *
  * @author Blair Butterworth
  */
-public class GatherGold extends GatherAction
+public class GatherGold extends FeatureAction
 {
+    private GatherReporter reporter;
+
     @Inject
-    public GatherGold(){
+    public GatherGold(GatherReporter reporter) {
+        this.reporter = reporter;
+        feature(GatherActions.GatherGold);
+        repeats();
     }
 
     @Override
-    protected ItemType getDepotType() {
-        return UnitType.TownHall;
+    protected void features() {
+        scenario("obtain")
+            .given(isAlive())
+            .when(noResources(Gold))
+            .then(animate(Move))
+            .then(move(reporter))
+            .then(hide(), deselect(reporter))
+            .then(delay(5))
+            .then(transfer(Target, Item, resource(), reporter))
+            .then(show(), setAnimation(Move, MoveGold), animate(Idle))
+            .withTarget(closest(GoldMine, getTarget()));
+
+        scenario("deposit")
+            .givenItem(isAlive())
+            .whenItem(hasResources(Gold))
+            .then(animate(Move))
+            .then(move(reporter))
+            .then(hide(), deselect(reporter))
+            .then(delay(5))
+            .then(transfer(Item, Player, resource(), reporter))
+            .then(show(), animate(Idle), setAnimation(Move, MoveBasic))
+            .withTarget(closest(TownHall, getTarget()));
     }
 
-    @Override
-    protected ItemType getResourceType() {
-        return UnitType.GoldMine;
-    }
-
-    @Override
-    protected ResourceType getResourceVariety() {
-        return ResourceType.Gold;
-    }
-
-    @Override
-    protected float getGatherCapacity() {
-        return 100f;
-    }
-
-    @Override
-    protected float getGatherSpeed() {
-        return 5;
-    }
-
-    @Override
-    protected Action preObtainAnimation() {
-        Action deselect = new SelectAction(false);
-        Action disable = new DisableAction(false);
-        Action hide = new VisibleAction(false);
-        Action original = super.preObtainAnimation();
-        return new ParallelAction(deselect, disable, hide, original);
-    }
-
-    @Override
-    protected Action postObtainAnimation() {
-        Action enable = new DisableAction(true);
-        Action show = new VisibleAction(true);
-        Action original = super.postObtainAnimation();
-        return new ParallelAction(enable, show, original);
+    private ResourceRequirement resource() {
+        return GatherActions.GatherGold;
     }
 }
