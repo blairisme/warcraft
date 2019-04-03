@@ -10,7 +10,8 @@
 package com.evilbird.engine.item.spatial;
 
 import com.badlogic.gdx.ai.pfa.Connection;
-import com.evilbird.engine.common.function.Predicate;
+
+import java.util.function.Predicate;
 
 /**
  * A wrapper for an {@link ItemNode} {@link Predicate} that allows it to be

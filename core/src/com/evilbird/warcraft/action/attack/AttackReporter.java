@@ -11,6 +11,9 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.warcraft.action.move.MoveEvent;
+import com.evilbird.warcraft.action.move.MoveObserver;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
@@ -21,27 +24,22 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class AttackReporter implements AttackObserver
+public class AttackReporter implements AttackObserver, MoveObserver
 {
     private EventQueue events;
-    private boolean notified;
 
     @Inject
     public AttackReporter(EventQueue events) {
         this.events = events;
-        this.notified = false;
     }
 
     @Override
     public void onAttack(Combatant attacker, Item target) {
-        if (! notified) {
-            notified = true;
-            events.add(new AttackEvent(attacker, target));
-        }
+        events.add(new AttackEvent(attacker, target));
     }
 
     @Override
-    public void reset() {
-        notified = false;
+    public void onMove(Item subject, ItemNode location) {
+        events.add(new MoveEvent(subject, location));
     }
 }

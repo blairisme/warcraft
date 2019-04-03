@@ -10,11 +10,12 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.function.Predicate;
 
 /**
  * Instances of this {@link Action} execute one of pair of actions based on a

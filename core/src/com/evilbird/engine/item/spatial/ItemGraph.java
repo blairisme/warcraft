@@ -14,7 +14,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.collection.Arrays;
-import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.function.Predicates;
 import com.evilbird.engine.common.pathing.SpatialGraph;
 import com.evilbird.engine.item.Item;
@@ -25,6 +24,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.Predicate;
 
 /**
  * Instances of this class represent a graph of the game space, represented as

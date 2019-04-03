@@ -10,8 +10,9 @@
 package com.evilbird.warcraft.action.common.predicate;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
+
+import java.util.function.Predicate;
 
 /**
  * Instances of this class provide common {@link Predicate Predicates} for

@@ -11,13 +11,13 @@ package com.evilbird.engine.item.utility;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.collection.Collections;
-import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
 
 import java.util.Collection;
+import java.util.function.Predicate;
 
 import static com.badlogic.gdx.Gdx.graphics;
 import static com.evilbird.engine.common.function.Predicates.both;

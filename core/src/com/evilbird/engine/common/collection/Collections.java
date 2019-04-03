@@ -9,13 +9,8 @@
 
 package com.evilbird.engine.common.collection;
 
-import com.evilbird.engine.common.function.Comparator;
-import com.evilbird.engine.common.function.Predicate;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.function.Predicate;
 
 /**
  * Instances of this class provide helper functions for working with

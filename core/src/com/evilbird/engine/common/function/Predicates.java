@@ -9,6 +9,8 @@
 
 package com.evilbird.engine.common.function;
 
+import java.util.function.Predicate;
+
 /**
  * Instances of this class contain common {@link Predicate Predicates}.
  *
@@ -20,13 +22,7 @@ public class Predicates
     }
 
     public static <T> Predicate<T> accept() {
-        return new Accept<>();
-    }
-
-    private static class Accept<T> implements Predicate<T> {
-        public boolean test(T value) {
-            return true;
-        }
+        return (value) -> true;
     }
 
     public static <T> Predicate<T> never() {

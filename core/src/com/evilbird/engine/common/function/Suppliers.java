@@ -9,6 +9,8 @@
 
 package com.evilbird.engine.common.function;
 
+import java.util.function.Supplier;
+
 /**
  * Instances of this class define commonly used {@link Supplier Suppliers}.
  *

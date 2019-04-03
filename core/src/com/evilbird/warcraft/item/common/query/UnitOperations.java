@@ -9,10 +9,11 @@
 
 package com.evilbird.warcraft.item.common.query;
 
-import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.data.player.Player;
+
+import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.item.utility.ItemOperations.findAncestor;

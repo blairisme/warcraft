@@ -10,13 +10,14 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.function.Predicates;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.verifier.EqualityVerifier;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.function.Predicate;
 
 /**
  * Instances of this unit test validate the {@link BranchAction} class.

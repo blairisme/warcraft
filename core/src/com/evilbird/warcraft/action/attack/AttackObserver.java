@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.action.attack;
 
-import com.evilbird.engine.common.lang.Resettable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
@@ -19,7 +18,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
  *
  * @author Blair Butterworth
  */
-public interface AttackObserver extends Resettable
+public interface AttackObserver
 {
     void onAttack(Combatant attacker, Item target);
 }

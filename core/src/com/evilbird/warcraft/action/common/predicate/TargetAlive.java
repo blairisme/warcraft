@@ -10,8 +10,9 @@
 package com.evilbird.warcraft.action.common.predicate;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.warcraft.item.unit.Unit;
+
+import java.util.function.Predicate;
 
 @Deprecated
 public class TargetAlive implements Predicate<Action>

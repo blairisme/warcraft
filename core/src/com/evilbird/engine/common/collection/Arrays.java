@@ -10,7 +10,8 @@
 package com.evilbird.engine.common.collection;
 
 import com.badlogic.gdx.utils.Array;
-import com.evilbird.engine.common.function.Predicate;
+
+import java.util.function.Predicate;
 
 /**
  * Instances of this class provide helper functions for working with Arrays.

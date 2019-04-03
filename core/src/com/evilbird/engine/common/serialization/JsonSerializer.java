@@ -9,7 +9,6 @@
 
 package com.evilbird.engine.common.serialization;
 
-import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.google.gson.Gson;
@@ -21,6 +20,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.Collections;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * Instances of this class serialize objects into their equivalent JSON

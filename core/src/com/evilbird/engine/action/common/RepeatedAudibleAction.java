@@ -15,9 +15,10 @@ import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.RepeatedAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.predicates.ActionPredicates;
-import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
+
+import java.util.function.Predicate;
 
 /**
  * Instances of this class represent an {@link Action} that plays a sound

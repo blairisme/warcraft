@@ -10,14 +10,13 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.common.function.Supplier;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Instances of this class provide an {@link Action Action} that is only
- * acted upon when indicated to do so by a given {@link Supplier validator}.
+ * acted upon when a given time has elapsed.
  *
  * @author Blair Butterworth
  */

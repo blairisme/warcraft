@@ -30,6 +30,10 @@ public class DamageAction extends BasicAction
         random = new RandomGenerator();
     }
 
+    public static DamageAction attack() {
+        return new DamageAction();
+    }
+
     @Override
     public boolean act(float time) {
         float defence = getDefence(time);

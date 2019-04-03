@@ -10,9 +10,9 @@
 package com.evilbird.engine.item;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.common.function.Predicate;
 
 import java.util.Collection;
+import java.util.function.Predicate;
 
 /**
  * Implementors of this interface represent a container for a collection of

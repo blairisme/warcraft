@@ -24,10 +24,15 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.inject.Inject;
 
+import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.predicates.ActionPredicates.withoutError;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
+import static com.evilbird.warcraft.action.attack.DamageAction.attack;
 import static com.evilbird.warcraft.action.common.predicate.ActionPredicates.isTargetAlive;
 import static com.evilbird.warcraft.action.common.predicate.ActionPredicates.withinRange;
+import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.*;
 
 /**
  * Instances of this {@link Action} cause a given {@link Item} to attack
@@ -35,8 +40,64 @@ import static com.evilbird.warcraft.action.common.predicate.ActionPredicates.wit
  *
  * @author Blair Butterworth
  */
-public class AttackAction extends DelegateAction
+public class AttackAction extends FeatureAction //extends DelegateAction
 {
+    private AttackReporter reporter;
+
+    @Inject
+    public AttackAction(AttackReporter reporter) {
+        this.reporter = reporter;
+        feature(AttackMelee);
+        repeats();
+    }
+
+    @Override
+    protected void features() {
+        Combatant combatant = (Combatant)getItem();
+
+        scenario("reposition")
+            .givenItem(isAlive())
+            .givenTarget(isAlive()) //TODO: multiple givens not supported yet
+            .whenTarget(notInRange(combatant))
+            .then(animate(Move))
+            .then(move(reporter))
+            .then(animate(Idle));
+
+        scenario("attack")
+            .givenItem(isAlive())
+            .givenTarget(isAlive()) //TODO: multiple givens not supported yet
+            .whenTarget(inRange(combatant))
+            .then(animate(Attack))
+            .then(attack())
+            .then(animate(Idle));
+
+//        scenario("kill")
+//            .whenTarget(isDead())
+
+
+
+        /*
+           Action deselect = new SelectAction(false, null);
+        Action disable = new DisableAction(false);
+
+        Action dieSound = new AudibleAction(UnitSound.Die);
+        Action dieAnimation = new AnimateAction(UnitAnimation.Die);
+        Action dieWait = new DelayedAction(1);
+        Action die = new ParallelAction(deselect, disable, dieSound, dieAnimation, dieWait);
+
+        Action decomposeAnimation = new AnimateAction(UnitAnimation.Decompose);
+        Action decomposeWait = new DelayedAction(10);
+        Action decompose = new SequenceAction(decomposeAnimation, decomposeWait);
+
+        Action remove = new RemoveAction();
+        delegate = new SequenceAction(die, decompose, remove);
+         */
+
+    }
+
+
+
+    /*
     private AttackObserver observer;
 
     @Inject
@@ -58,11 +119,6 @@ public class AttackAction extends DelegateAction
         return delegate.act(delta);
     }
 
-    @Override
-    public void restart() {
-        super.restart();
-        observer.reset();
-    }
 
     private Action attackTarget() {
         Action reposition = reposition();
@@ -111,4 +167,6 @@ public class AttackAction extends DelegateAction
             .append(observer)
             .toHashCode();
     }
+
+     */
 }

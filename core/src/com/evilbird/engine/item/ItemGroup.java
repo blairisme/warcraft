@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
 import com.evilbird.engine.item.interop.GroupDecorator;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -23,6 +22,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Instances of this class represent a node in the item graph that contains

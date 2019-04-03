@@ -11,8 +11,9 @@ package com.evilbird.engine.action.predicates;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionTarget;
-import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.item.Item;
+
+import java.util.function.Predicate;
 
 public class ActionPredicate implements Predicate<Action>
 {

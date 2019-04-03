@@ -10,9 +10,9 @@
 package com.evilbird.test.data.lang;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.common.function.Predicate;
 
 import java.util.Objects;
+import java.util.function.Predicate;
 
 public class TestPredicate implements Predicate<Action>
 {

@@ -11,6 +11,8 @@ package com.evilbird.engine.common.function;
 
 import com.evilbird.engine.common.lang.Resettable;
 
+import java.util.function.Predicate;
+
 /**
  * Implementors of this interface provide an object of a given type and whose
  * underlying mechanism can be reset, if stateful.

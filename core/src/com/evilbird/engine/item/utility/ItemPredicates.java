@@ -10,13 +10,13 @@
 package com.evilbird.engine.item.utility;
 
 import com.badlogic.gdx.math.Circle;
-import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.math.ShapeUtilities;
 import com.evilbird.engine.item.Item;
 
 import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * Defines commonly used {@link Predicate Predicates} that operate on

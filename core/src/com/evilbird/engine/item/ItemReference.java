@@ -9,11 +9,12 @@
 
 package com.evilbird.engine.item;
 
-import com.evilbird.engine.common.function.Supplier;
 import com.evilbird.engine.common.lang.Identifier;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.function.Supplier;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.itemWithId;
 

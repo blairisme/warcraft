@@ -10,7 +10,8 @@
 package com.evilbird.engine.action.predicates;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.common.function.Predicate;
+
+import java.util.function.Predicate;
 
 /**
  * Defines common {@link Predicate Predicates} that operate on

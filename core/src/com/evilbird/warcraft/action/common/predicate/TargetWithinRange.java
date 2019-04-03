@@ -10,10 +10,11 @@
 package com.evilbird.warcraft.action.common.predicate;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.common.function.Predicate;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.utility.ItemPredicates;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
+
+import java.util.function.Predicate;
 
 /**
  * Instances of this {@link Predicate} tests the Item and Target contained in a

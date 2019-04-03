@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
+import org.mockito.Mockito;
 
 /**
  * Instances of this unit test validate the {@link AttackAction} class.
@@ -21,7 +22,7 @@ public class AttackActionTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        return new AttackAction();
+        return new AttackAction(Mockito.mock(AttackReporter.class));
     }
 
     @Override

@@ -27,17 +27,14 @@ import javax.inject.Inject;
  */
 public class AttackFactory implements ActionProvider
 {
-    private AttackReporter reporter;
     private InjectedPool<AttackAction> attackPool;
     private InjectedPool<CancelAction> cancelPool;
 
     @Inject
     public AttackFactory(
-        AttackReporter reporter,
         InjectedPool<AttackAction> attackPool,
         InjectedPool<CancelAction> cancelPool)
     {
-        this.reporter = reporter;
         this.attackPool = attackPool;
         this.cancelPool = cancelPool;
     }
@@ -46,19 +43,9 @@ public class AttackFactory implements ActionProvider
     public Action get(ActionIdentifier action) {
         Validate.isInstanceOf(AttackActions.class, action);
         switch ((AttackActions)action) {
-            case AttackMelee: return getMeleeAttackAction();
-            case AttackCancel: return getCancelAttackAction();
+            case AttackMelee: return attackPool.obtain();
+            case AttackCancel: return cancelPool.obtain();
             default: throw new UnsupportedOperationException();
         }
-    }
-
-    private Action getMeleeAttackAction() {
-        AttackAction attack = attackPool.obtain();
-        attack.setObserver(reporter);
-        return attack;
-    }
-
-    private Action getCancelAttackAction() {
-        return cancelPool.obtain();
     }
 }

@@ -9,15 +9,18 @@
 
 package com.evilbird.warcraft.item.common.query;
 
-import com.evilbird.engine.common.function.Predicate;
+import com.evilbird.engine.common.function.Predicates;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.utility.ItemPredicates;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * Defines commonly used {@link Predicate Predicates} that operate on
@@ -35,6 +38,13 @@ public class UnitPredicates
         return (item) -> {
             Unit unit = (Unit)item;
             return unit.isAlive();
+        };
+    }
+
+    public static Predicate<Item> isDead() {
+        return (item) -> {
+            Unit unit = (Unit)item;
+            return !unit.isAlive();
         };
     }
 
@@ -86,5 +96,13 @@ public class UnitPredicates
             ResourceContainer container = (ResourceContainer)item;
             return container.getResource(type) == 0;
         };
+    }
+
+    public static Predicate<Item> inRange(Combatant combatant) {
+        return ItemPredicates.isNear(combatant, combatant.getRange());
+    }
+
+    public static Predicate<Item> notInRange(Combatant combatant) {
+        return Predicates.not(inRange(combatant));
     }
 }

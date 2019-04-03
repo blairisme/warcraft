@@ -10,8 +10,9 @@
 package com.evilbird.engine.item.utility;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.common.function.Comparator;
 import com.evilbird.engine.item.Item;
+
+import java.util.Comparator;
 
 public class ItemComparators
 {

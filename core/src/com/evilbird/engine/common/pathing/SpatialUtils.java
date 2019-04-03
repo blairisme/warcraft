@@ -11,9 +11,9 @@ package com.evilbird.engine.common.pathing;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.collection.Collections;
-import com.evilbird.engine.common.function.Comparator;
 
 import java.util.Collection;
+import java.util.Comparator;
 
 /**
  * Instances of this class contain common {@link SpatialNode} utility functions.
