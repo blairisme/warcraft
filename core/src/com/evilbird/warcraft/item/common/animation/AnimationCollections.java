@@ -31,7 +31,7 @@ public class AnimationCollections
         AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
         builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(), generalTexture);
         builder.set(UnitAnimation.Move, AnimationSchemas.moveSchema(), generalTexture);
-        builder.set(UnitAnimation.Attack, AnimationSchemas.attackSchema(), generalTexture);
+        builder.set(UnitAnimation.MeleeAttack, AnimationSchemas.attackSchema(), generalTexture);
         builder.set(UnitAnimation.Hidden, AnimationSchemas.hiddenSchema(), generalTexture);
         builder.set(UnitAnimation.Die, AnimationSchemas.deathSchema(), generalTexture);
         builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decomposeTexture);
@@ -50,12 +50,12 @@ public class AnimationCollections
         builder.set(UnitAnimation.MoveGold, AnimationSchemas.moveSchema(), moveGoldTexture);
         builder.set(UnitAnimation.MoveWood, AnimationSchemas.moveSchema(), moveWoodTexture);
         builder.associate(UnitAnimation.Move, UnitAnimation.MoveBasic);
-        builder.set(UnitAnimation.Attack, AnimationSchemas.attackSchema(), generalTexture);
+        builder.set(UnitAnimation.MeleeAttack, AnimationSchemas.attackSchema(), generalTexture);
         builder.set(UnitAnimation.Hidden, AnimationSchemas.hiddenSchema(), generalTexture);
         builder.set(UnitAnimation.Die, AnimationSchemas.deathSchema(), generalTexture);
         builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decomposeTexture);
         builder.associate(UnitAnimation.GatherGold, UnitAnimation.Hidden);
-        builder.associate(UnitAnimation.GatherWood, UnitAnimation.Attack);
+        builder.associate(UnitAnimation.GatherWood, UnitAnimation.MeleeAttack);
         builder.associate(UnitAnimation.Build, UnitAnimation.Hidden);
         return builder.build();
     }

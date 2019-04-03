@@ -27,7 +27,7 @@ public class AnimateActionTest
 
     @Before
     public void setup() {
-        action = new AnimateAction(UnitAnimation.Attack);
+        action = new AnimateAction(UnitAnimation.MeleeAttack);
         action.setItem(TestItems.newItem("animateactiontest"));
     }
 

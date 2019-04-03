@@ -48,7 +48,7 @@ public class GatherWood extends FeatureAction
     public GatherWood(GatherReporter reporter) {
         this.reporter = reporter;
         feature(GatherActions.GatherWood);
-        repeats();
+        reevaluate();
     }
 
     @Override

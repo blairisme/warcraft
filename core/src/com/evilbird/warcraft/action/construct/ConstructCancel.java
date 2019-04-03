@@ -9,13 +9,11 @@
 
 package com.evilbird.warcraft.action.construct;
 
-import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.common.VisibleAction;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.attack.DeathAction;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferAction;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 import com.evilbird.warcraft.item.common.resource.ResourceUtils;
@@ -38,8 +36,8 @@ public class ConstructCancel extends DelegateAction
     public ConstructCancel() {
         restoreResources = new ResourceTransferAction(ActionTarget.Player);
         restoreBuilder = new VisibleAction(true);
-        Action removeBuilding = new DeathAction();
-        delegate = new ParallelAction(restoreResources, restoreBuilder, removeBuilding);
+        //Action removeBuilding = new DeathAction();
+        delegate = new ParallelAction(restoreResources, restoreBuilder/*, removeBuilding*/);
     }
 
     public void setBuildCost(Map<ResourceIdentifier, Float> resources) {

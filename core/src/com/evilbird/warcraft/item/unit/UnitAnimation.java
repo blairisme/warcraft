@@ -27,7 +27,7 @@ public enum UnitAnimation implements Identifier
     MoveGold,
     MoveWood,
 
-    Attack,
+    MeleeAttack,
     Build,
     Construct,
 

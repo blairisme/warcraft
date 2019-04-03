@@ -29,7 +29,7 @@ public class DisableAction extends BasicAction
 
     @Inject
     public DisableAction() {
-        this(false);
+        this(true);
     }
 
     public DisableAction(boolean disabled) {
@@ -41,12 +41,12 @@ public class DisableAction extends BasicAction
         this.disabled = disabled;
     }
 
-    public void setDisabled(boolean disabled) {
-        this.disabled = disabled;
+    public static DisableAction enable() {
+        return new DisableAction(false);
     }
 
-    public void setSource(ActionTarget source) {
-        this.source = source;
+    public static DisableAction disable() {
+        return new DisableAction(true);
     }
 
     @Override

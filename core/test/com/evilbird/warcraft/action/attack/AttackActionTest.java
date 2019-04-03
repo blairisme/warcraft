@@ -9,24 +9,33 @@
 
 package com.evilbird.warcraft.action.attack;
 
-import com.evilbird.engine.action.Action;
-import com.evilbird.test.testcase.ActionTestCase;
-import org.mockito.Mockito;
+import com.evilbird.engine.item.Item;
+import com.evilbird.test.data.item.TestItems;
+import com.evilbird.test.verifier.EqualityVerifier;
+import org.junit.Before;
+import org.junit.Test;
 
-/**
- * Instances of this unit test validate the {@link AttackAction} class.
- *
- * @author Blair Butterworth
- */
-public class AttackActionTest extends ActionTestCase
+public class AttackActionTest
 {
-    @Override
-    protected Action newAction() {
-        return new AttackAction(Mockito.mock(AttackReporter.class));
+    private Item item;
+    private Item target;
+    private AttackAction action;
+
+    @Before
+    public void setup() {
+        item = TestItems.newItem("footman");
+        target = TestItems.newItem("grunt");
+
+        action = new AttackAction();
+        action.setItem(item);
+        action.setTarget(target);
     }
 
-    @Override
-    protected Enum newActionId() {
-        return AttackActions.AttackMelee;
+    @Test
+    public void equalsTest() {
+        EqualityVerifier.forClass(AttackAction.class)
+                .withMockedTransientFields(Item.class)
+                .excludeTransientFields()
+                .verify();
     }
 }

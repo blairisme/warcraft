@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.common.predicate;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.warcraft.item.unit.resource.ResourceType;
+import com.evilbird.engine.item.Item;
 
 import java.util.function.Predicate;
 
@@ -20,21 +20,16 @@ import java.util.function.Predicate;
  *
  * @author Blair Butterworth
  */
-@Deprecated
 public class ActionPredicates
 {
     private ActionPredicates() {
     }
 
-    public static Predicate<Action> withinRange() {
-        return new TargetWithinRange();
+    public static Predicate<Action> item(Predicate<Item> condition) {
+        return (action) -> condition.test(action.getItem());
     }
 
-    public static Predicate<Action> isTargetAlive() {
-        return new TargetAlive();
-    }
-
-    public static Predicate<Action> targetHasResources(ResourceType type) {
-        return new TargetHasResources(type);
+    public static Predicate<Action> target(Predicate<Item> condition) {
+        return (action) -> condition.test(action.getTarget());
     }
 }

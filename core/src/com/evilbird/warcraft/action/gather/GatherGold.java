@@ -44,7 +44,7 @@ public class GatherGold extends FeatureAction
     public GatherGold(GatherReporter reporter) {
         this.reporter = reporter;
         feature(GatherActions.GatherGold);
-        repeats();
+        reevaluate();
     }
 
     @Override

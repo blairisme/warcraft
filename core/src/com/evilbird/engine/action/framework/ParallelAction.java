@@ -15,6 +15,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -61,6 +62,12 @@ public class ParallelAction extends CompositeAction
             }
         }
         return actions.isEmpty();
+    }
+
+    public Collection<Action> getActions() {
+        Collection<Action> result = new ArrayList<>(actions);
+        result.addAll(completed);
+        return result;
     }
 
     @Override

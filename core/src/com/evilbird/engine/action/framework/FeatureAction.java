@@ -9,18 +9,19 @@
 
 package com.evilbird.engine.action.framework;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Identifier;
 
 public class FeatureAction extends ParallelAction
 {
-    private boolean repeats;
+    private boolean reevaluate;
 
     public FeatureAction() {
         super();
     }
 
-    public void repeats() {
-        this.repeats = true;
+    public void reevaluate() {
+        this.reevaluate = true;
     }
 
     public void feature(Identifier identifier) {
@@ -42,7 +43,7 @@ public class FeatureAction extends ParallelAction
             features();
         }
         boolean result = super.act(delta);
-        if (result && repeats) {
+        if (result && repeat()) {
             restart();
             result = false;
         }
@@ -50,5 +51,17 @@ public class FeatureAction extends ParallelAction
     }
 
     protected void features() {
+    }
+
+    private boolean repeat() {
+        if (reevaluate) {
+            for (Action action: getActions()) {
+                ScenarioAction scenario = (ScenarioAction)action;
+                if (scenario.evaluate()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

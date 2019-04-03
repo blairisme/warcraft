@@ -36,8 +36,8 @@ public class RemoveAction extends BasicAction
         this.source = source;
     }
 
-    public void setSource(ActionTarget source) {
-        this.source = source;
+    public static RemoveAction remove() {
+        return new RemoveAction(ActionTarget.Item);
     }
 
     @Override

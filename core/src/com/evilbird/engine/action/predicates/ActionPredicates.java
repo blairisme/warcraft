@@ -25,7 +25,7 @@ public class ActionPredicates
     }
 
     public static Predicate<Action> withoutError() {
-        return new WithoutError();
+        return (action) -> !action.hasError();
     }
 
     public static Predicate<Action> invocationCount(int times) {

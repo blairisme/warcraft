@@ -1,5 +1,5 @@
 /*
- * Blair Butterworth (c) 2019
+ * Blair Butterworth (c) 2018
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
@@ -10,163 +10,68 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.DirectionAction;
-import com.evilbird.engine.action.common.RepeatedAudibleAction;
-import com.evilbird.engine.action.framework.*;
+import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.common.math.RandomGenerator;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.common.animation.AnimatedAction;
-import com.evilbird.warcraft.action.move.MoveToItemScenario;
-import com.evilbird.warcraft.item.unit.UnitAnimation;
-import com.evilbird.warcraft.item.unit.UnitSound;
+import com.evilbird.warcraft.item.common.capability.Destroyable;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.common.AnimateAction.animate;
-import static com.evilbird.engine.action.predicates.ActionPredicates.withoutError;
-import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
-import static com.evilbird.warcraft.action.attack.DamageAction.attack;
-import static com.evilbird.warcraft.action.common.predicate.ActionPredicates.isTargetAlive;
-import static com.evilbird.warcraft.action.common.predicate.ActionPredicates.withinRange;
-import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.*;
-
 /**
- * Instances of this {@link Action} cause a given {@link Item} to attack
- * another, after first moving within attack range.
+ * Instances of this {@link Action} reduce the health of a given {@link Item}.
  *
  * @author Blair Butterworth
  */
-public class AttackAction extends FeatureAction //extends DelegateAction
+public class AttackAction extends BasicAction
 {
-    private AttackReporter reporter;
-
-    @Inject
-    public AttackAction(AttackReporter reporter) {
-        this.reporter = reporter;
-        feature(AttackMelee);
-        repeats();
-    }
-
-    @Override
-    protected void features() {
-        Combatant combatant = (Combatant)getItem();
-
-        scenario("reposition")
-            .givenItem(isAlive())
-            .givenTarget(isAlive()) //TODO: multiple givens not supported yet
-            .whenTarget(notInRange(combatant))
-            .then(animate(Move))
-            .then(move(reporter))
-            .then(animate(Idle));
-
-        scenario("attack")
-            .givenItem(isAlive())
-            .givenTarget(isAlive()) //TODO: multiple givens not supported yet
-            .whenTarget(inRange(combatant))
-            .then(animate(Attack))
-            .then(attack())
-            .then(animate(Idle));
-
-//        scenario("kill")
-//            .whenTarget(isDead())
-
-
-
-        /*
-           Action deselect = new SelectAction(false, null);
-        Action disable = new DisableAction(false);
-
-        Action dieSound = new AudibleAction(UnitSound.Die);
-        Action dieAnimation = new AnimateAction(UnitAnimation.Die);
-        Action dieWait = new DelayedAction(1);
-        Action die = new ParallelAction(deselect, disable, dieSound, dieAnimation, dieWait);
-
-        Action decomposeAnimation = new AnimateAction(UnitAnimation.Decompose);
-        Action decomposeWait = new DelayedAction(10);
-        Action decompose = new SequenceAction(decomposeAnimation, decomposeWait);
-
-        Action remove = new RemoveAction();
-        delegate = new SequenceAction(die, decompose, remove);
-         */
-
-    }
-
-
-
-    /*
-    private AttackObserver observer;
+    private transient RandomGenerator random;
 
     @Inject
     public AttackAction() {
-        setIdentifier(AttackMelee);
-        Action initiate = attackTarget();
-        Action complete = killTarget();
-        Action sequence = new SequenceAction(initiate, complete);
-        delegate = sequence;
+        random = new RandomGenerator();
     }
 
-    public void setObserver(AttackObserver observer) {
-        this.observer = observer;
+    public static AttackAction attack() {
+        return new AttackAction();
     }
 
     @Override
-    public boolean act(float delta) {
-        observer.onAttack((Combatant)getItem(), getTarget());
-        return delegate.act(delta);
+    public boolean act(float time) {
+        float defence = getDefence(time);
+        float attack = getAttack(time);
+        float damage = getDamage(attack, defence);
+        float health = setHealth(damage);
+        return isDead(health);
     }
 
-
-    private Action attackTarget() {
-        Action reposition = reposition();
-        Action damage = damage();
-        return new PrerequisiteAction(damage, reposition, withinRange());
+    private float getDefence(float time) {
+        Destroyable target = (Destroyable)getTarget();
+        int defence = target.getDefence();
+        return time * defence;
     }
 
-    private Action reposition() {
-        Action reposition = new MoveToItemScenario(null);
-        Action animation = new AnimatedAction(reposition, UnitAnimation.Move, UnitAnimation.Idle);
-        Action move = new RequirementAction(animation, withoutError());
-        Action reorient = new DirectionAction();
-        return new SequenceAction(move, reorient);
+    private float getAttack(float time) {
+        Combatant attacker = (Combatant)getItem();
+        int attackMin = attacker.getDamageMinimum();
+        int attackMax = attacker.getDamageMaximum();
+        int attack = random.nextInt(attackMin, attackMax);
+        return time * attack;
     }
 
-    private Action damage() {
-        Action attack = new DamageAction();
-        Action sound = new RepeatedAudibleAction(UnitSound.Attack, 0.5f, isTargetAlive());
-        Action damage = new ParallelAction(attack, sound);
-        return new AnimatedAction(damage, UnitAnimation.Attack, UnitAnimation.Idle);
+    private float getDamage(float attack, float defence) {
+       return Math.max(0, attack - defence);
     }
 
-    private Action killTarget() {
-        Action die = new DeathAction();
-        return die;
-//        return new ReplacementAction(die);
+    private float setHealth(float damage) {
+        Destroyable target = (Destroyable)getTarget();
+        float oldHealth = target.getHealth();
+        float newHealth = Math.max(0, oldHealth - damage);
+        target.setHealth(newHealth);
+        return newHealth;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null) return false;
-        if (obj.getClass() != getClass()) return false;
-
-        AttackAction that = (AttackAction)obj;
-        return new EqualsBuilder()
-            .appendSuper(super.equals(obj))
-            .append(observer, that.observer)
-            .isEquals();
+    private boolean isDead(float health) {
+        return health == 0f;
     }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-            .appendSuper(super.hashCode())
-            .append(observer)
-            .toHashCode();
-    }
-
-     */
 }
