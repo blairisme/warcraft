@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.common.production;
+package com.evilbird.warcraft.action.common.create;
 
 import com.evilbird.engine.item.ItemType;
 

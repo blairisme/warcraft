@@ -38,6 +38,10 @@ public class ItemPredicates
         return (item) -> id.equals(item.getIdentifier());
     }
 
+    public static Predicate<Item> isType(final Class<?> type) {
+        return (item) -> type.isAssignableFrom(item.getClass());
+    }
+
     public static Predicate<Item> itemWithType(final Identifier type) {
         return (item) -> type.equals(item.getType());
     }

@@ -196,7 +196,19 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         return this;
     }
 
+    /**
+     * Assigns a Lambda to be executed as an Action in sequence, after any
+     * previously specified Actions, provided that all specified when
+     * conditions are <code>true</code> and all given conditions remain
+     * <code>true</code> for the duration Actions execution.
+     *
+     * @param lambda    a {@link Consumer<Item>}. This parameter cannot be
+     *                 <code>null</code>.
+     *
+     * @return this scenario.
+     */
     public ScenarioAction then(Consumer<Item> lambda) {
+        Objects.requireNonNull(lambda);
         then.add(new LambdaAction(lambda));
         scenario = null;
         return this;

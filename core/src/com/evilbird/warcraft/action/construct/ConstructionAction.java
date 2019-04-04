@@ -7,8 +7,9 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.train;
+package com.evilbird.warcraft.action.construct;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
@@ -16,34 +17,34 @@ import com.evilbird.warcraft.action.common.create.Producible;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 /**
- * Represents an action whose operation takes time, which is communicated to
- * the user via a progress bar.
+ * Represents an {@link Action} that indicates a building is under construction
+ * and its progress towards construction.
  *
  * @author Blair Butterworth
  */
-public class TrainAction extends DelayedAction
+public class ConstructionAction extends DelayedAction
 {
     private ActionTarget source;
 
     @SerializedConstructor
-    private TrainAction() {
+    private ConstructionAction() {
     }
 
-    public TrainAction(float duration) {
+    public ConstructionAction(float duration) {
         this(ActionTarget.Item, duration);
     }
 
-    public TrainAction(ActionTarget source, float duration) {
+    public ConstructionAction(ActionTarget source, float duration) {
         super(duration);
         this.source = source;
     }
 
-    public static TrainAction produce(Producible producible) {
-        return produce(ActionTarget.Item, producible);
+    public static ConstructionAction construct(Producible producible) {
+        return construct(ActionTarget.Item, producible);
     }
 
-    public static TrainAction produce(ActionTarget source, Producible producible) {
-        return new TrainAction(source, producible.getDuration());
+    public static ConstructionAction construct(ActionTarget source, Producible producible) {
+        return new ConstructionAction(source, producible.getDuration());
     }
 
     @Override
@@ -51,11 +52,11 @@ public class TrainAction extends DelayedAction
         super.act(delta);
         Building building = getBuilding();
         if (! isComplete()) {
-            building.setProductionProgress(getProgress());
+            building.setConstructionProgress(getProgress());
             return false;
         }
         else {
-            building.setProductionProgress(1);
+            building.setConstructionProgress(1);
             return true;
         }
     }
@@ -83,7 +84,7 @@ public class TrainAction extends DelayedAction
     private void resetProgress() {
         Building building = getBuilding();
         if (building != null) {
-            building.setProductionProgress(1);
+            building.setConstructionProgress(1);
         }
     }
 }

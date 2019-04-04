@@ -17,11 +17,11 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.action.common.ActionTarget.*;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
+import static com.evilbird.engine.action.common.AnimationAliasAction.setAnimation;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
 import static com.evilbird.engine.item.utility.ItemSuppliers.closest;
-import static com.evilbird.warcraft.action.common.animation.AnimationAliasAction.setAnimation;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.transfer;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;

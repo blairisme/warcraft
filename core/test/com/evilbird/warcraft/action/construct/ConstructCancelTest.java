@@ -15,12 +15,14 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.item.unit.UnitType;
+import org.junit.Ignore;
 
 /**
  * Instances of this unit test validate the {@link ConstructCancel} class.
  *
  * @author Blair Butterworth
  */
+@Ignore
 public class ConstructCancelTest extends ActionTestCase
 {
     @Override

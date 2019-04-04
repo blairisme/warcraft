@@ -12,21 +12,22 @@ package com.evilbird.engine.action.common;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.verifier.EqualityVerifier;
+import com.evilbird.warcraft.action.common.remove.RemoveAction;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Instances of this unit test validate the {@link RemoveAction} class.
+ * Instances of this unit test validate the {@link com.evilbird.warcraft.action.common.remove.RemoveAction} class.
  *
  * @author Blair Butterworth
  */
 public class RemoveActionTest
 {
-    private RemoveAction action;
+    private com.evilbird.warcraft.action.common.remove.RemoveAction action;
 
     @Before
     public void setup() {
-        action = new RemoveAction(ActionTarget.Item);
+        action = new com.evilbird.warcraft.action.common.remove.RemoveAction(ActionTarget.Item);
         action.setItem(TestItems.newItem("removeaction"));
     }
 

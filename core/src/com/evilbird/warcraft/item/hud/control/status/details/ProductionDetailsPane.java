@@ -42,7 +42,7 @@ public class ProductionDetailsPane extends GridItem
     @Override
     public void update(float delta) {
         super.update(delta);
-        productionProgress.setValue(building.getProgress());
+        productionProgress.setValue(building.getProductionProgress());
     }
 
     private void initialize(Skin skin) {

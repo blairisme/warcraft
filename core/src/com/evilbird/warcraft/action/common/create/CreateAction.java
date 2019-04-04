@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.common.production;
+package com.evilbird.warcraft.action.common.create;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
@@ -16,6 +16,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemType;
+import com.evilbird.warcraft.item.unit.building.Building;
 
 public class CreateAction extends BasicAction
 {
@@ -25,14 +26,14 @@ public class CreateAction extends BasicAction
 
     public CreateAction(ItemType type, CreateObserver observer) {
         this.itemType = type;
-        this.itemFactory = GameService.getInstance().getItemFactory();
         this.observer = observer;
+        this.itemFactory = GameService.getInstance().getItemFactory();
     }
 
     public CreateAction(ItemFactory factory, ItemType type, CreateObserver observer) {
         this.itemType = type;
-        this.itemFactory = factory;
         this.observer = observer;
+        this.itemFactory = factory;
     }
 
     public static CreateAction create(Producible producible, CreateObserver observer) {
@@ -44,6 +45,8 @@ public class CreateAction extends BasicAction
         Item item = itemFactory.newItem(itemType);
         setPosition(item);
         setParent(item);
+        setState(item);
+
         return true;
     }
 
@@ -70,6 +73,13 @@ public class CreateAction extends BasicAction
             return (ItemComposite)producer;
         }
         return producer.getParent();
+    }
+
+    private void setState(Item item) {
+        if (item instanceof Building){
+            Building building = (Building)item;
+            building.setConstructionProgress(0);
+        }
     }
 }
 

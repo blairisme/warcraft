@@ -21,6 +21,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 
+@SuppressWarnings("unchecked")
 public class EqualityVerifier
 {
     public static EqualityVerifier forClass(Class<?> type) {

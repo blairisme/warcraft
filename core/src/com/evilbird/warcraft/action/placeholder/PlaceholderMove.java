@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.action.common;
+package com.evilbird.warcraft.action.placeholder;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
@@ -25,10 +25,10 @@ import javax.inject.Inject;
  */
 // TODO: Should block camera when input.count > 1 (session capability)
 // TODO: Repositions to center of item - should reposition with respect to where the item is touched
-public class RepositionAction extends BasicAction
+public class PlaceholderMove extends BasicAction
 {
     @Inject
-    public RepositionAction() {
+    public PlaceholderMove() {
     }
 
     @Override

@@ -48,7 +48,7 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("AttackActions", AttackActions.class);
         registerType("CameraActions", CameraActions.class);
         registerType("ConfirmActions", ConfirmActions.class);
-        registerType("TrainAction", TrainActions.class);
+        registerType("TrainSequence", TrainActions.class);
         registerType("MoveActions", MoveActions.class);
         registerType("AI", Ai.class);
         registerType("Hud", HudType.class);

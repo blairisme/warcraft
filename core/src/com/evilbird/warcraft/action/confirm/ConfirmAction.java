@@ -11,15 +11,13 @@ package com.evilbird.warcraft.action.confirm;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.AudibleAction;
 import com.evilbird.engine.action.common.CreateAction;
-import com.evilbird.engine.action.common.RemoveAction;
 import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.warcraft.action.common.remove.RemoveAction;
 import com.evilbird.warcraft.item.effect.EffectType;
-import com.evilbird.warcraft.item.unit.UnitSound;
 
 import javax.inject.Inject;
 
@@ -36,9 +34,9 @@ public class ConfirmAction extends DelegateAction
     public ConfirmAction(ItemFactory itemFactory) {
         Action delay = new DelayedAction(0.55f);
         Action remove = new RemoveAction();
-        Action sound = new AudibleAction(UnitSound.Acknowledge);
+        //Action sound = new AudibleAction(UnitSound.Acknowledge);
         create = new CreateAction(itemFactory, EffectType.Confirm, remove);
-        delegate = new SequenceAction(create, sound, delay, remove);
+        delegate = new SequenceAction(create, /*sound,*/ delay, remove);
     }
 
     public void setLocation(Vector2 location) {

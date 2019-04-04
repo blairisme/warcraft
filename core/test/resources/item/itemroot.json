@@ -73,9 +73,8 @@
             "class": "Units",
             "enum": "Barracks"
           },
-          "constructing": false,
-          "producing": false,
-          "progress": 1.0,
+          "producing": 1.0,
+          "constructing": 1.0,
           "name": "Unknown",
           "sight": 0,
           "defence": 0,
@@ -186,9 +185,8 @@
             "class": "Units",
             "enum": "Barracks"
           },
-          "constructing": false,
-          "producing": false,
-          "progress": 1.0,
+          "producing": 1.0,
+          "constructing": 1.0,
           "name": "Unknown",
           "sight": 0,
           "defence": 0,

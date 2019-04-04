@@ -11,10 +11,9 @@ package com.evilbird.warcraft.action.placeholder;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.action.common.RemoveAction;
-import com.evilbird.engine.action.common.RepositionAction;
 import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.common.remove.RemoveAction;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -23,13 +22,13 @@ public class PlaceholderFactory implements ActionProvider
 {
     private InjectedPool<RemoveAction> cancelPool;
     private InjectedPool<PlaceholderCreate> createPool;
-    private InjectedPool<RepositionAction> movePool;
+    private InjectedPool<PlaceholderMove> movePool;
 
     @Inject
     public PlaceholderFactory(
         InjectedPool<RemoveAction> cancelPool,
         InjectedPool<PlaceholderCreate> createPool,
-        InjectedPool<RepositionAction> movePool)
+        InjectedPool<PlaceholderMove> movePool)
     {
         this.cancelPool = cancelPool;
         this.createPool = createPool;

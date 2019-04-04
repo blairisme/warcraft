@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.train;
 
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.warcraft.action.common.production.CreateObserver;
+import com.evilbird.warcraft.action.common.create.CreateObserver;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;

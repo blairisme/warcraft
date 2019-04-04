@@ -34,6 +34,8 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
+//TODO: Enhancement: Use BitSet to update cell textures
+//TODO: Bug (potential): respond to creation events (when they exist :s)
 //TODO: Bug: thin peninsulas rendered incorrectly. Fix: don't render them.
 //TODO: Bug: revealing doesn't include item size, only position. Fix: use logic from ItemGraph.
 @SerializedType("Fog")

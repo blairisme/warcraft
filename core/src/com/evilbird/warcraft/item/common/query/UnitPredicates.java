@@ -16,6 +16,7 @@ import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
@@ -98,11 +99,26 @@ public class UnitPredicates
         };
     }
 
+    public static Predicate<Item> isAdjacent(Item item) {
+        return ItemPredicates.isNear(item, item.getWidth());
+    }
+
+    public static Predicate<Item> notAdjacent(Item item) {
+        return Predicates.not(isAdjacent(item));
+    }
+
     public static Predicate<Item> inRange(Combatant combatant) {
         return ItemPredicates.isNear(combatant, combatant.getRange());
     }
 
     public static Predicate<Item> notInRange(Combatant combatant) {
         return Predicates.not(inRange(combatant));
+    }
+
+    public static Predicate<Item> isConstructing() {
+        return (item) -> {
+            Building building = (Building)item;
+            return building.isConstructing();
+        };
     }
 }

@@ -19,17 +19,14 @@ import javax.inject.Inject;
 
 public class ConstructFactory implements ActionProvider
 {
-    private ConstructReporter reporter;
-    private InjectedPool<ConstructAction> constructPool;
+    private InjectedPool<ConstructSequence> constructPool;
     private InjectedPool<ConstructCancel> cancelPool;
 
     @Inject
     public ConstructFactory(
-        ConstructReporter reporter,
-        InjectedPool<ConstructAction> constructPool,
+        InjectedPool<ConstructSequence> constructPool,
         InjectedPool<ConstructCancel> cancelPool)
     {
-        this.reporter = reporter;
         this.constructPool = constructPool;
         this.cancelPool = cancelPool;
     }
@@ -51,17 +48,14 @@ public class ConstructFactory implements ActionProvider
     }
 
     private Action getConstructAction(ConstructActions action) {
-        ConstructAction constructAction = constructPool.obtain();
-        constructAction.setObserver(reporter);
-        constructAction.setBuildType(action.getBuildType());
-        constructAction.setBuildDuration(action.getBuildDuration());
-        constructAction.setBuildCost(action.getResourceRequirements());
+        ConstructSequence constructAction = constructPool.obtain();
+        constructAction.setIdentifier(action);
         return constructAction;
     }
 
     private Action getCancelAction(ConstructActions action) {
         ConstructCancel constructCancel = cancelPool.obtain();
-        constructCancel.setBuildCost(action.getResourceRequirements());
+        constructCancel.setIdentifier(action);
         return constructCancel;
     }
 }

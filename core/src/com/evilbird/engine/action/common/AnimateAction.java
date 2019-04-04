@@ -12,11 +12,10 @@ package com.evilbird.engine.action.common;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Animated;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.serialization.SerializedConstructor;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-
-import javax.inject.Inject;
 
 /**
  * Instances of this class represent an action that changes the animation
@@ -29,13 +28,8 @@ public class AnimateAction extends BasicAction
     private ActionTarget source;
     private Identifier animation;
 
-    public static AnimateAction animate(Identifier animation) {
-        return new AnimateAction(animation);
-    }
-
-    @Inject
-    public AnimateAction() {
-        this(null);
+    @SerializedConstructor
+    private AnimateAction(){
     }
 
     public AnimateAction(Identifier animation) {
@@ -47,12 +41,12 @@ public class AnimateAction extends BasicAction
         this.animation = animation;
     }
 
-    public Identifier getAnimation() {
-        return animation;
+    public static AnimateAction animate(Identifier animation) {
+        return new AnimateAction(animation);
     }
 
-    public void setAnimation(Identifier animation) {
-        this.animation = animation;
+    public static AnimateAction animate(ActionTarget target, Identifier animation) {
+        return new AnimateAction(target, animation);
     }
 
     @Override

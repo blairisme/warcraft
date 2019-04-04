@@ -12,27 +12,28 @@ package com.evilbird.engine.action.common;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.verifier.EqualityVerifier;
+import com.evilbird.warcraft.action.placeholder.PlaceholderMove;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Instances of this unit test validate the {@link RepositionAction} class.
+ * Instances of this unit test validate the {@link PlaceholderMove} class.
  *
  * @author Blair Butterworth
  */
-public class RepositionActionTest
+public class PlaceholderMoveTest
 {
-    private RepositionAction action;
+    private PlaceholderMove action;
 
     @Before
     public void setup() {
-        action = new RepositionAction();
+        action = new PlaceholderMove();
         action.setItem(TestItems.newItem("repositionaction"));
     }
 
 //    @Test
 //    public void serializeTest() throws IOException {
-//        SerializationVerifier.forClass(RepositionAction.class)
+//        SerializationVerifier.forClass(PlaceholderMove.class)
 //            .withDeserializedForm(action)
 //            .withSerializedResource("/action/common/repositionaction.json")
 //            .verify();
@@ -40,7 +41,7 @@ public class RepositionActionTest
 
     @Test
     public void equalsTest() {
-        EqualityVerifier.forClass(RepositionAction.class)
+        EqualityVerifier.forClass(PlaceholderMove.class)
             .withMockedTransientFields(Item.class)
             .excludeTransientFields()
             .verify();

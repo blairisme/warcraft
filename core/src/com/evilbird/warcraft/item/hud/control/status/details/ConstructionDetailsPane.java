@@ -9,8 +9,12 @@
 
 package com.evilbird.warcraft.item.hud.control.status.details;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.badlogic.gdx.utils.Align;
+import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.item.unit.building.Building;
 
@@ -23,16 +27,12 @@ import com.evilbird.warcraft.item.unit.building.Building;
 public class ConstructionDetailsPane extends GridItem
 {
     private Building building;
-    private ProgressBar progressBar;
+    private ProgressBar progress;
 
     public ConstructionDetailsPane(Skin skin) {
         super(1, 1);
-        progressBar = new ProgressBar(0, 100, 1, false, skin, "building-progress");
-
-        setSize(160, 100);
-        setHorizontalCellPadding(4);
-        setVerticalCellPadding(80);
-        add(progressBar);
+        initialize(skin);
+        progress = addProgress(skin);
     }
 
     public void setBuilding(Building building) {
@@ -41,7 +41,28 @@ public class ConstructionDetailsPane extends GridItem
 
     @Override
     public void update(float delta) {
-        progressBar.setValue(building.getProgress());
+        progress.setValue(building.getConstructionProgress());
         super.update(delta);
+    }
+
+    private void initialize(Skin skin) {
+        setSkin(skin);
+        setSize(160, 100);
+        setCellSpacing(8);
+        setAlignment(Alignment.Bottom);
+    }
+
+    private ProgressBar addProgress(Skin skin) {
+        Stack container = new Stack();
+        add(container);
+
+        ProgressBar progressBar = new ProgressBar(0, 1, 0.005f, false, skin, "building-progress");
+        container.add(progressBar);
+
+        Label label = new Label("% Complete", skin);
+        label.setAlignment(Align.center);
+        container.add(label);
+
+        return progressBar;
     }
 }

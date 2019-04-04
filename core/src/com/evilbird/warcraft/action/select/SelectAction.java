@@ -9,15 +9,24 @@
 
 package com.evilbird.warcraft.action.select;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 
+import java.util.Objects;
+
+/**
+ * An {@link Action} that sets an {@link Item Items} selected state.
+ *
+ * @author Blair Butterworth
+ */
 public class SelectAction extends BasicAction
 {
     private boolean selected;
     private SelectObserver observer;
 
     public SelectAction(boolean selected, SelectObserver observer) {
+        Objects.requireNonNull(observer);
         this.selected = selected;
         this.observer = observer;
     }
@@ -34,9 +43,7 @@ public class SelectAction extends BasicAction
     public boolean act(float time) {
         Item item = getItem();
         item.setSelected(selected);
-        if (observer != null) {
-            observer.onSelect(item, selected);
-        }
+        observer.onSelect(item, selected);
         return true;
     }
 }

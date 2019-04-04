@@ -30,6 +30,7 @@ import java.util.Collections;
  *
  * @author Blair Butterworth
  */
+@Deprecated
 public class CreateAction extends BasicAction
 {
     private ItemType type;

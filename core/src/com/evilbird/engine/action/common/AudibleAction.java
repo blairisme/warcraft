@@ -12,11 +12,9 @@ package com.evilbird.engine.action.common;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Audible;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.common.serialization.SerializedConstructor;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-
-import javax.inject.Inject;
 
 /**
  * Instances of this class represent an Action that plays a sound.
@@ -26,37 +24,42 @@ import javax.inject.Inject;
 public class AudibleAction extends BasicAction
 {
     private Identifier sound;
+    private ActionTarget source;
 
-    @Inject
-    public AudibleAction(){
-        this(null);
+    @SerializedConstructor
+    private AudibleAction(){
     }
 
-    public AudibleAction(Identifier sound){
+    public AudibleAction(Identifier sound) {
+        this(ActionTarget.Item, sound);
+    }
+
+    public AudibleAction(ActionTarget source, Identifier sound){
         this.sound = sound;
+        this.source = source;
     }
 
     public static AudibleAction play(Identifier sound) {
-        return new AudibleAction(sound);
+        return play(ActionTarget.Item, sound);
     }
 
-    public Identifier getSound() {
-        return sound;
-    }
-
-    @Deprecated //TODO: Immutableize
-    public void setSound(Identifier sound) {
-        this.sound = sound;
+    public static AudibleAction play(ActionTarget source, Identifier sound) {
+        return new AudibleAction(source, sound);
     }
 
     @Override
     public boolean act(float delta) {
-        Item item = getItem();
-        if (item instanceof Audible) {
-            Audible audible = (Audible)item;
-            audible.setSound(sound);
-        }
+        Audible audible = getAudible();
+        audible.setSound(sound);
         return true;
+    }
+
+    private Audible getAudible() {
+        switch (source) {
+            case Item: return (Audible)getItem();
+            case Target: return (Audible)getTarget();
+            default: throw new UnsupportedOperationException();
+        }
     }
 
     @Override
@@ -69,6 +72,7 @@ public class AudibleAction extends BasicAction
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(sound, that.sound)
+            .append(source, that.source)
             .isEquals();
     }
 
@@ -77,6 +81,7 @@ public class AudibleAction extends BasicAction
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
             .append(sound)
+            .append(source)
             .toHashCode();
     }
 }

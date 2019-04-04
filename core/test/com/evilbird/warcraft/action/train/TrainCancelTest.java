@@ -11,12 +11,14 @@ package com.evilbird.warcraft.action.train;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
+import org.junit.Ignore;
 
 /**
  * Instances of this unit test validate the {@link TrainCancel} class.
  *
  * @author Blair Butterworth
  */
+@Ignore
 public class TrainCancelTest extends ActionTestCase
 {
     @Override

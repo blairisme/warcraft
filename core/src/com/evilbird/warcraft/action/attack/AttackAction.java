@@ -12,14 +12,17 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.math.RandomGenerator;
-import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.capability.Destroyable;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
 /**
- * Instances of this {@link Action} reduce the health of a given {@link Item}.
+ * Instances of this {@link Action} reduce the health of the Actions target.
+ * The amount of damage inflicted will be chosen at random from between the
+ * Action subjects damage {@link Combatant#getDamageMinimum() minimum} and
+ * {@link Combatant#getDamageMaximum() maximum}. The Action will end when the
+ * targets health reaches zero.
  *
  * @author Blair Butterworth
  */

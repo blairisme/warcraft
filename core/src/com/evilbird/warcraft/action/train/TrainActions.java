@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.train;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.item.ItemType;
-import com.evilbird.warcraft.action.common.production.Producible;
+import com.evilbird.warcraft.action.common.create.Producible;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 import com.evilbird.warcraft.item.common.resource.ResourceRequirement;
 import com.evilbird.warcraft.item.unit.UnitType;

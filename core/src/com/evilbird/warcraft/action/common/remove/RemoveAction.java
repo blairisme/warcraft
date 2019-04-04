@@ -7,9 +7,10 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.action.common;
+package com.evilbird.warcraft.action.common.remove;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
@@ -23,6 +24,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
+//TODO: Add events
 public class RemoveAction extends BasicAction
 {
     private ActionTarget source;
@@ -38,6 +40,10 @@ public class RemoveAction extends BasicAction
 
     public static RemoveAction remove() {
         return new RemoveAction(ActionTarget.Item);
+    }
+
+    public static RemoveAction remove(ActionTarget target) {
+        return new RemoveAction(target);
     }
 
     @Override

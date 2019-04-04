@@ -15,6 +15,7 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import javax.inject.Inject;
 
+@Deprecated
 public class CancelAction extends DelegateAction
 {
     @Inject

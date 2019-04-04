@@ -17,14 +17,20 @@ import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
+/**
+ * Instances of this factory create {@link TrainSequence} and {@link TrainCancel}
+ * actions.
+ *
+ * @author Blair Butterworth
+ */
 public class TrainFactory implements ActionProvider
 {
-    private InjectedPool<TrainAction> trainPool;
+    private InjectedPool<TrainSequence> trainPool;
     private InjectedPool<TrainCancel> cancelPool;
 
     @Inject
     public TrainFactory(
-        InjectedPool<TrainAction> trainPool,
+        InjectedPool<TrainSequence> trainPool,
         InjectedPool<TrainCancel> cancelPool)
     {
         this.trainPool = trainPool;
@@ -46,14 +52,15 @@ public class TrainFactory implements ActionProvider
     }
 
     private Action getTrainAction(TrainActions trainAction) {
-        TrainAction action = trainPool.obtain();
+        TrainSequence action = trainPool.obtain();
         action.setIdentifier(trainAction);
         return action;
     }
 
     private Action getTrainCancel(TrainActions trainAction) {
         TrainCancel action = cancelPool.obtain();
-        action.setTrainCost(trainAction.getResourceRequirements());
+        action.setIdentifier(trainAction);
+        //action.setTrainCost(trainAction.getResourceRequirements());
         return action;
     }
 }

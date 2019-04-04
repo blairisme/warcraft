@@ -10,8 +10,6 @@
 package com.evilbird.warcraft.item.unit.building;
 
 import com.evilbird.engine.common.serialization.SerializedType;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemReference;
 import com.evilbird.warcraft.item.unit.Unit;
 
 /**
@@ -22,47 +20,35 @@ import com.evilbird.warcraft.item.unit.Unit;
 @SerializedType("Building")
 public class Building extends Unit
 {
-    private boolean constructing;
-    private boolean producing;
-    private float progress;
-    private ItemReference constructor;
+    private float producing;
+    private float constructing;
 
     public Building() {
-        constructing = false;
-        producing = false;
-        progress = 1f;
-        constructor = null;
+        producing = 1;
+        constructing = 1;
     }
 
     public boolean isConstructing() {
-        return constructing;
+        return constructing != 1;
     }
 
     public boolean isProducing() {
+        return producing != 1;
+    }
+
+    public float getConstructionProgress() {
+        return constructing;
+    }
+
+    public float getProductionProgress() {
         return producing;
     }
 
-    public Item getConstructor() {
-        return constructor != null ? constructor.get() : null;
-    }
-
-    public float getProgress() {
-        return progress;
-    }
-
-    public void setConstructor(Item constructor) {
-        this.constructor = new ItemReference(constructor);
-    }
-
-    public void setConstructing(boolean constructing) {
+    public void setConstructionProgress(float constructing) {
         this.constructing = constructing;
     }
 
-    public void setProducing(boolean producing) {
-        this.producing = producing;
-    }
-
-    public void setProgress(float progress) {
-        this.progress = progress;
+    public void setProductionProgress(float progress) {
+        this.producing = progress;
     }
 }

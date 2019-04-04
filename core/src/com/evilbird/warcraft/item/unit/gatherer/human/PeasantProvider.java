@@ -124,7 +124,7 @@ public class PeasantProvider implements AssetProvider<Item>
         Map<Identifier, SoundEffect> sounds = new HashMap<>();
         sounds.put(UnitSound.Selected, newSoundEffect(assets, SELECTED, MP3, 4));
         sounds.put(UnitSound.Acknowledge, newSoundEffect(assets, ACKNOWLEDGE, MP3, 4));
-        sounds.put(UnitSound.Construct, newSoundEffect(assets, CONSTRUCT));
+        sounds.put(UnitSound.Build, newSoundEffect(assets, CONSTRUCT));
         sounds.put(UnitSound.Complete, newSoundEffect(assets, COMPLETE));
         sounds.put(UnitSound.Attack, newSoundEffect(assets, ATTACK));
         sounds.put(UnitSound.Ready, newSoundEffect(assets, READY));

@@ -14,15 +14,15 @@ import com.evilbird.test.testcase.ActionTestCase;
 import org.mockito.Mockito;
 
 /**
- * Instances of this unit test validate the {@link TrainAction} class.
+ * Instances of this unit test validate the {@link TrainSequence} class.
  *
  * @author Blair Butterworth
  */
-public class TrainActionTest extends ActionTestCase
+public class TrainSequenceTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        TrainAction action = new TrainAction(Mockito.mock(TrainReporter.class));
+        TrainSequence action = new TrainSequence(Mockito.mock(TrainReporter.class));
         action.setIdentifier(TrainActions.TrainFootman);
         return action;
     }

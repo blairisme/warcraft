@@ -10,6 +10,7 @@
 package com.evilbird.engine.action.predicates;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.item.Item;
 
 import java.util.function.Predicate;
 
@@ -30,5 +31,13 @@ public class ActionPredicates
 
     public static Predicate<Action> invocationCount(int times) {
         return new InvocationCount(times);
+    }
+
+    public static Predicate<Action> item(Predicate<Item> condition) {
+        return (action) -> condition.test(action.getItem());
+    }
+
+    public static Predicate<Action> target(Predicate<Item> condition) {
+        return (action) -> condition.test(action.getTarget());
     }
 }

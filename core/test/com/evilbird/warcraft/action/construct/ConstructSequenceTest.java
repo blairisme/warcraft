@@ -11,17 +11,18 @@ package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
+import org.mockito.Mockito;
 
 /**
- * Instances of this unit test validate the {@link ConstructAction} class.
+ * Instances of this unit test validate the {@link ConstructSequence} class.
  *
  * @author Blair Butterworth
  */
-public class ConstructActionTest extends ActionTestCase
+public class ConstructSequenceTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        ConstructAction action = new ConstructAction(itemFactory);
+        ConstructSequence action = new ConstructSequence(Mockito.mock(ConstructReporter.class));
         action.setIdentifier(ConstructActions.ConstructBarracks);
         return action;
     }
