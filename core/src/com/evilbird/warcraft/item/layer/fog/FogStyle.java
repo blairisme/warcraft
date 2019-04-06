@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.evilbird.warcraft.item.layer.common.BitMatrix;
+import com.evilbird.engine.common.collection.BitMatrix;
 
 import java.util.Map;
 

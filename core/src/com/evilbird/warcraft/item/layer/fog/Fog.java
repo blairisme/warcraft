@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.collection.BitMatrix;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
@@ -22,14 +23,11 @@ import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.layer.Layer;
 import com.evilbird.warcraft.item.layer.LayerAdapter;
-import com.evilbird.warcraft.item.layer.common.BitMatrix;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.google.gson.annotations.JsonAdapter;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
 
 /**
  * Instances of this class represent fog of war: a layer of darkness that
@@ -37,7 +35,6 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-//TODO: Enhancement: Use BitSet to update cell textures
 //TODO: Bug (potential): respond to creation events (when they exist :s)
 //TODO: Bug: revealing doesn't include item size, only position. Fix: use logic from ItemGraph.
 //TODO: update sight to cells, not pixels
@@ -45,10 +42,10 @@ import java.util.Map;
 @JsonAdapter(LayerAdapter.class)
 public class Fog extends Layer
 {
-    private static final int EDGE_MATRIX_SIZE = 5;
-    private static final int EDGE_MATRIX_CENTER = 2;
-    private static final int PATTERN_MATRIX_SIZE = 3;
-    private static final int PATTERN_MATRIX_CENTER = 1;
+    private static transient final int EDGE_MATRIX_SIZE = 5;
+    private static transient final int EDGE_MATRIX_CENTER = 2;
+    private static transient final int PATTERN_MATRIX_SIZE = 3;
+    private static transient final int PATTERN_MATRIX_CENTER = 1;
 
     private transient FogStyle style;
     private transient EventQueue events;
@@ -174,7 +171,7 @@ public class Fog extends Layer
     private void updateCellEdges(int x, int y, BitMatrix cellEdges) {
         for (int i = 0; i < PATTERN_MATRIX_SIZE; i++) {
             for (int j = 0; j < PATTERN_MATRIX_SIZE; j++) {
-                BitMatrix edgePattern = cellEdges.getSubMatrix(i, j, PATTERN_MATRIX_SIZE);
+                BitMatrix edgePattern = cellEdges.subMatrix(i, j, PATTERN_MATRIX_SIZE);
                 Cell edgeStyle = style.edges.get(edgePattern);
 
                 if (edgeStyle != null) {
@@ -187,9 +184,9 @@ public class Fog extends Layer
     }
 
     private boolean isCellOccupied(int x, int y) {
-//        if (x < 0 || x >= layer.getWidth() || y < 0 || y >= layer.getHeight()) {
-//            return true;
-//        }
+        if (x < 0 || x >= layer.getWidth()) return true;
+        if (y < 0 || y >= layer.getHeight()) return true;
+
         Cell cell = layer.getCell(x, y);
         return cell != style.empty;
     }

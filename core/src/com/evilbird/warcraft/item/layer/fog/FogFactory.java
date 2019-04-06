@@ -18,6 +18,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.collection.BitMatrix;
 import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
@@ -27,17 +28,13 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.layer.LayerUtils;
-import com.evilbird.warcraft.item.layer.common.BitMatrix;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.evilbird.engine.common.graphics.TextureUtils.getRegion;
-import static com.evilbird.engine.common.graphics.TextureUtils.region;
-import static com.evilbird.warcraft.item.layer.common.BitMatrix.matrix;
-import static com.evilbird.warcraft.item.layer.common.BitMatrix.matrix3;
+import static com.evilbird.engine.common.collection.BitMatrix.matrix3;
 
 /**
  * Instances of this factory create {@link Fog} instances.
@@ -106,6 +103,14 @@ public class FogFactory implements IdentifiedAssetProvider<Item>
         return result;
     }
 
+    private FogStyle getTransparentStyle() {
+        FogStyle result = new FogStyle();
+        result.full = cell(getTransparentTexture());
+        result.empty = null;
+        result.edges = getEdgeStyles(getTerrainTexture());
+        return result;
+    }
+
     private Map<BitMatrix, Cell> getEdgeStyles(Texture texture) {
         Map<BitMatrix, Cell> styles = new HashMap<>();
         addStraightEdges(styles, texture);
@@ -124,37 +129,37 @@ public class FogFactory implements IdentifiedAssetProvider<Item>
 
     private void addLeftEdge(Map<BitMatrix, Cell> styles, Texture texture) {
         Cell style = cell(texture, 192, 0, 32, 32);
-        styles.put(matrix(3, "0,1,1,0,1,1,0,1,1"), style); //left
-        styles.put(matrix(3, "0,1,1,0,1,1,1,1,1"), style); //top overhang
-        styles.put(matrix(3, "1,1,1,0,1,1,0,1,1"), style); //bottom overhang
+        styles.put(matrix3("0,1,1,0,1,1,0,1,1"), style); //left
+        styles.put(matrix3("0,1,1,0,1,1,1,1,1"), style); //top overhang
+        styles.put(matrix3("1,1,1,0,1,1,0,1,1"), style); //bottom overhang
     }
 
     private void addRightEdge(Map<BitMatrix, Cell> styles, Texture texture) {
         Cell style = cell(texture, 128, 0, 32, 32);
-        styles.put(matrix(3, "1,1,0,1,1,0,1,1,0"), style); //right
-        styles.put(matrix(3, "1,1,0,1,1,0,1,1,1"), style); //top overhang
-        styles.put(matrix(3, "1,1,1,1,1,0,1,1,0"), style); //bottom overhang
+        styles.put(matrix3("1,1,0,1,1,0,1,1,0"), style); //right
+        styles.put(matrix3("1,1,0,1,1,0,1,1,1"), style); //top overhang
+        styles.put(matrix3("1,1,1,1,1,0,1,1,0"), style); //bottom overhang
     }
 
     private void addTopEdge(Map<BitMatrix, Cell> styles, Texture texture) {
         Cell style = cell(texture, 256, 0, 32, 32);
-        styles.put(matrix(3, "1,1,1,1,1,1,0,0,0"), style); //top
-        styles.put(matrix(3, "1,1,1,1,1,1,1,0,0"), style); //left overhang
-        styles.put(matrix(3, "1,1,1,1,1,1,0,0,1"), style); //right overhang
+        styles.put(matrix3("1,1,1,1,1,1,0,0,0"), style); //top
+        styles.put(matrix3("1,1,1,1,1,1,1,0,0"), style); //left overhang
+        styles.put(matrix3("1,1,1,1,1,1,0,0,1"), style); //right overhang
     }
 
     private void addBottomEdge(Map<BitMatrix, Cell> styles, Texture texture) {
         Cell style = cell(texture, 64, 0, 32, 32);
-        styles.put(matrix(3, "0,0,0,1,1,1,1,1,1"), style); //bottom
-        styles.put(matrix(3, "1,0,0,1,1,1,1,1,1"), style); //left overhang
-        styles.put(matrix(3, "0,0,1,1,1,1,1,1,1"), style); //right overhang
+        styles.put(matrix3("0,0,0,1,1,1,1,1,1"), style); //bottom
+        styles.put(matrix3("1,0,0,1,1,1,1,1,1"), style); //left overhang
+        styles.put(matrix3("0,0,1,1,1,1,1,1,1"), style); //right overhang
     }
 
     private void addInternalCorners(Map<BitMatrix, Cell> styles, Texture texture) {
-        styles.put(matrix(3, "1,1,0,1,1,1,1,1,1"), cell(texture, 32, 0, 32, 32)); //bottom right internal
-        styles.put(matrix(3, "0,1,1,1,1,1,1,1,1"), cell(texture, 96, 0, 32, 32)); //bottom left internal
-        styles.put(matrix(3, "1,1,1,1,1,1,1,1,0"), cell(texture, 224, 0, 32, 32)); //top right internal
-        styles.put(matrix(3, "1,1,1,1,1,1,0,1,1"), cell(texture, 288, 0, 32, 32)); //top left internal
+        styles.put(matrix3("1,1,0,1,1,1,1,1,1"), cell(texture, 32, 0, 32, 32)); //bottom right internal
+        styles.put(matrix3("0,1,1,1,1,1,1,1,1"), cell(texture, 96, 0, 32, 32)); //bottom left internal
+        styles.put(matrix3("1,1,1,1,1,1,1,1,0"), cell(texture, 224, 0, 32, 32)); //top right internal
+        styles.put(matrix3("1,1,1,1,1,1,0,1,1"), cell(texture, 288, 0, 32, 32)); //top left internal
     }
 
     private void addExternalCorners(Map<BitMatrix, Cell> styles, Texture texture) {
@@ -174,32 +179,32 @@ public class FogFactory implements IdentifiedAssetProvider<Item>
 
     private void addTopRightExternalCorner(Map<BitMatrix, Cell> styles, Texture texture) {
         Cell style = cell(texture, 384, 0, 32, 32);
-        styles.put(matrix(3, "1,1,0,1,1,0,0,0,0"), style); //top right corner
-        styles.put(matrix(3, "1,1,1,1,1,0,0,0,0"), style); //bottom right overhang
-        styles.put(matrix(3, "1,1,0,1,1,0,1,0,0"), style); //top left overhang
-        styles.put(matrix(3, "1,1,1,1,1,0,1,0,0"), style); //both overhangs
+        styles.put(matrix3("1,1,0,1,1,0,0,0,0"), style); //top right corner
+        styles.put(matrix3("1,1,1,1,1,0,0,0,0"), style); //bottom right overhang
+        styles.put(matrix3("1,1,0,1,1,0,1,0,0"), style); //top left overhang
+        styles.put(matrix3("1,1,1,1,1,0,1,0,0"), style); //both overhangs
     }
 
     private void addBottomLeftExternalCorner(Map<BitMatrix, Cell> styles, Texture texture) {
         Cell style = cell(texture, 352, 0, 32, 32);
-        styles.put(matrix(3, "0,0,0,0,1,1,0,1,1"), style); //bottom left corner
-        styles.put(matrix(3, "0,0,0,0,1,1,1,1,1"), style); //top left overhang
-        styles.put(matrix(3, "0,0,1,0,1,1,0,1,1"), style); //bottom right overhang
-        styles.put(matrix(3, "0,0,1,0,1,1,1,1,1"), style); //both overhangs
+        styles.put(matrix3("0,0,0,0,1,1,0,1,1"), style); //bottom left corner
+        styles.put(matrix3("0,0,0,0,1,1,1,1,1"), style); //top left overhang
+        styles.put(matrix3("0,0,1,0,1,1,0,1,1"), style); //bottom right overhang
+        styles.put(matrix3("0,0,1,0,1,1,1,1,1"), style); //both overhangs
     }
 
     private void addBottomRightExternalCorner(Map<BitMatrix, Cell> styles, Texture texture) {
         Cell style = cell(texture, 320, 0, 32, 32);
-        styles.put(matrix(3, "0,0,0,1,1,0,1,1,0"), style); //bottom right external
-        styles.put(matrix(3, "0,0,0,1,1,0,1,1,1"), style); //top right overhang
-        styles.put(matrix(3, "1,0,0,1,1,0,1,1,0"), style); //bottom left overhang
-        styles.put(matrix(3, "1,0,0,1,1,0,1,1,1"), style); //both overhangs
+        styles.put(matrix3("0,0,0,1,1,0,1,1,0"), style); //bottom right external
+        styles.put(matrix3("0,0,0,1,1,0,1,1,1"), style); //top right overhang
+        styles.put(matrix3("1,0,0,1,1,0,1,1,0"), style); //bottom left overhang
+        styles.put(matrix3("1,0,0,1,1,0,1,1,1"), style); //both overhangs
     }
 
     private void addPeninsulas(Map<BitMatrix, Cell> styles, Texture texture) {
-        styles.put(matrix(3, "0,1,0,0,1,0,0,1,0"), cell(texture, 160, 0, 32, 32)); //vertical peninsula
-        styles.put(matrix(3, "1,0,0,0,0,0,0,0,1"), cell(texture, 448, 0, 32, 32)); //forward-slash peninsula
-        styles.put(matrix(3, "0,0,1,0,0,0,1,0,0"), cell(texture, 480, 0, 32, 32)); //back-slash peninsula
+        styles.put(matrix3("0,1,0,0,1,0,0,1,0"), cell(texture, 160, 0, 32, 32)); //vertical peninsula
+        styles.put(matrix3("1,0,0,0,0,0,0,0,1"), cell(texture, 448, 0, 32, 32)); //forward-slash peninsula
+        styles.put(matrix3("0,0,1,0,0,0,1,0,0"), cell(texture, 480, 0, 32, 32)); //back-slash peninsula
     }
 
     private Texture getOpaqueTexture() {
@@ -209,6 +214,11 @@ public class FogFactory implements IdentifiedAssetProvider<Item>
         return new Texture(pixmap);
     }
 
+    private TextureRegion getTransparentTexture() {
+        Texture texture = assets.get(TERRAIN, Texture.class);
+        return new TextureRegion(texture, 0, 0, 32, 32);
+    }
+
     private Texture getTerrainTexture() {
         Texture texture = assets.get(TERRAIN, Texture.class);
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Nearest);
@@ -216,15 +226,14 @@ public class FogFactory implements IdentifiedAssetProvider<Item>
     }
 
     private Cell cell(Texture texture) {
-        TextureRegion region = new TextureRegion(texture);
-        TiledMapTile tile = new StaticTiledMapTile(region);
-        Cell cell = new Cell();
-        cell.setTile(tile);
-        return cell;
+        return cell(new TextureRegion(texture));
     }
 
     private Cell cell(Texture texture, int x, int y, int width, int height) {
-        TextureRegion region = new TextureRegion(texture, x, y, width, height);
+        return cell(new TextureRegion(texture, x, y, width, height));
+    }
+
+    private Cell cell(TextureRegion region) {
         TiledMapTile tile = new StaticTiledMapTile(region);
         Cell cell = new Cell();
         cell.setTile(tile);
