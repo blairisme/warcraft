@@ -12,7 +12,8 @@ package com.evilbird.engine.common.collection;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * Represents an {@link Array} that cannot be modified.
+ * Decorates an {@link Array} such that it cannot be modified. Attempts to
+ * modify it will result in an {@link UnsupportedOperationException}.
  *
  * @author Blair Butterworth
  */
