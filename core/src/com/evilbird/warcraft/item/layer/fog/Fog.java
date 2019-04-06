@@ -29,6 +29,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * Instances of this class represent fog of war: a layer of darkness that
@@ -38,7 +39,6 @@ import java.util.Collection;
  */
 //TODO: Enhancement: Use BitSet to update cell textures
 //TODO: Bug (potential): respond to creation events (when they exist :s)
-//TODO: Bug: thin peninsulas rendered incorrectly. Fix: don't render them.
 //TODO: Bug: revealing doesn't include item size, only position. Fix: use logic from ItemGraph.
 //TODO: update sight to cells, not pixels
 @SerializedType("Fog")
@@ -187,6 +187,9 @@ public class Fog extends Layer
     }
 
     private boolean isCellOccupied(int x, int y) {
+//        if (x < 0 || x >= layer.getWidth() || y < 0 || y >= layer.getHeight()) {
+//            return true;
+//        }
         Cell cell = layer.getCell(x, y);
         return cell != style.empty;
     }

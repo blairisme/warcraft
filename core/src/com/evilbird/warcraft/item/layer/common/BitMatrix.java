@@ -40,15 +40,8 @@ public class BitMatrix
         return result;
     }
 
-    public boolean contains(BitMatrix other) {
-        for (int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
-                if (other.values[x][y] && !this.values[x][y]) {
-                    return false;
-                }
-            }
-        }
-        return true;
+    public static BitMatrix matrix3(String bits) {
+        return matrix(3, bits);
     }
 
     public boolean isEmpty() {
