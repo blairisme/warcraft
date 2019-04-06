@@ -69,6 +69,7 @@ public class ForestCell extends ItemBasic implements ResourceContainer
             Forest forest = (Forest)getParent();
             forest.setDeadTexture(location);
             setTouchable(Touchable.disabled);
+            setType(LayerType.Map);
         }
     }
 

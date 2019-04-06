@@ -13,9 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.BitMatrix;
@@ -35,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.evilbird.engine.common.collection.BitMatrix.matrix3;
+import static com.evilbird.warcraft.item.layer.LayerUtils.cell;
 
 /**
  * Instances of this factory create {@link Fog} instances.
@@ -97,16 +96,16 @@ public class FogFactory implements IdentifiedAssetProvider<Item>
 
     private FogStyle getOpaqueStyle() {
         FogStyle result = new FogStyle();
-        result.full = cell(getOpaqueTexture());
         result.empty = null;
+        result.full = cell(getOpaqueTexture());
         result.edges = getEdgeStyles(getTerrainTexture());
         return result;
     }
 
     private FogStyle getTransparentStyle() {
         FogStyle result = new FogStyle();
-        result.full = cell(getTransparentTexture());
         result.empty = null;
+        result.full = cell(getTransparentTexture());
         result.edges = getEdgeStyles(getTerrainTexture());
         return result;
     }
@@ -223,21 +222,6 @@ public class FogFactory implements IdentifiedAssetProvider<Item>
         Texture texture = assets.get(TERRAIN, Texture.class);
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Nearest);
         return texture;
-    }
-
-    private Cell cell(Texture texture) {
-        return cell(new TextureRegion(texture));
-    }
-
-    private Cell cell(Texture texture, int x, int y, int width, int height) {
-        return cell(new TextureRegion(texture, x, y, width, height));
-    }
-
-    private Cell cell(TextureRegion region) {
-        TiledMapTile tile = new StaticTiledMapTile(region);
-        Cell cell = new Cell();
-        cell.setTile(tile);
-        return cell;
     }
 }
 

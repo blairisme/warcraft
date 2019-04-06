@@ -59,9 +59,9 @@ public class GatherWood extends FeatureAction
             .then(animate(Move))
             .then(move(reporter))
             .then(animate(GatherWood))
-            .then(delay(5), playRepeat(ChopWood, 5))
+            .then(delay(1), playRepeat(ChopWood, 1))
             .then(transfer(Target, Item, resource(), reporter))
-            .then(setAnimation(Move, MoveWood))
+            .then(setAnimation(Move, MoveWood), setAnimation(Idle, IdleWood))
             .then(animate(Idle))
             .withTarget(closest(Tree, getTarget()));
 
@@ -71,9 +71,9 @@ public class GatherWood extends FeatureAction
             .then(animate(Move))
             .then(move(reporter))
             .then(hide(), deselect(reporter))
-            .then(delay(5))
+            .then(delay(1))
             .then(transfer(Item, Player, resource(), reporter))
-            .then(show(), animate(Idle), setAnimation(Move, MoveBasic))
+            .then(show(), setAnimation(Move, MoveBasic), setAnimation(Idle, IdleBasic), animate(Idle))
             .withTarget(closest(TownHall, getTarget()));
     }
 

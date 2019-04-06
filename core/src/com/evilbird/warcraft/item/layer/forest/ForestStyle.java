@@ -9,7 +9,10 @@
 
 package com.evilbird.warcraft.item.layer.forest;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.evilbird.engine.common.collection.BitMatrix;
+
+import java.util.Map;
 
 /**
  * Instances of this simple object represent specify the style of a forest
@@ -19,13 +22,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class ForestStyle
 {
-    public TextureRegion deadCenter;
-    public TextureRegion deadNorth;
-    public TextureRegion deadNorthEast;
-    public TextureRegion deadEast;
-    public TextureRegion deadSouthEast;
-    public TextureRegion deadSouth;
-    public TextureRegion deadSouthWest;
-    public TextureRegion deadWest;
-    public TextureRegion deadNorthWest;
+    public Cell deforested;
+    public Map<BitMatrix, Cell> trees;
 }
