@@ -27,9 +27,16 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.layer.LayerUtils;
+import com.evilbird.warcraft.item.layer.common.BitMatrix;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.evilbird.engine.common.graphics.TextureUtils.getRegion;
+import static com.evilbird.engine.common.graphics.TextureUtils.region;
+import static com.evilbird.warcraft.item.layer.common.BitMatrix.matrix;
 
 /**
  * Instances of this factory create {@link Fog} instances.
@@ -91,26 +98,58 @@ public class FogFactory implements IdentifiedAssetProvider<Item>
     }
 
     private FogStyle getOpaqueStyle() {
-        Texture opaqueTexture = getOpaqueTexture();
-        Texture terrainTexture = getTerrainTexture();
+        Texture opaque = getOpaqueTexture();
+        Texture terrain = getTerrainTexture();
 
         FogStyle result = new FogStyle();
-        result.full = createCell(new TextureRegion(opaqueTexture));
+        result.full = cell(new TextureRegion(opaque));
+        result.empty = null;
 
-        result.bottomRightInternal = createCell(new TextureRegion(terrainTexture, 32, 0, 32, 32));
-        result.bottom = createCell(new TextureRegion(terrainTexture, 64, 0, 32, 32));
-        result.bottomLeftInternal = createCell(new TextureRegion(terrainTexture, 96, 0, 32, 32));
-        result.right = createCell(new TextureRegion(terrainTexture, 128, 0, 32, 32));
+        result.edges = new HashMap<>();
+        result.edges.put(matrix(3, "0,1,1,0,1,1,0,1,1"), cell(terrain, 192, 0, 32, 32)); //left
+        result.edges.put(matrix(3, "1,1,0,1,1,0,1,1,0"), cell(terrain, 128, 0, 32, 32)); //right
 
-        result.left = createCell(new TextureRegion(terrainTexture, 192, 0, 32, 32));
-        result.topRightInternal = createCell(new TextureRegion(terrainTexture, 224, 0, 32, 32));
-        result.top = createCell(new TextureRegion(terrainTexture, 256, 0, 32, 32));
-        result.topLeftInternal = createCell(new TextureRegion(terrainTexture, 288, 0, 32, 32));
+        result.edges.put(matrix(3, "1,1,1,1,1,1,0,0,0"), cell(terrain, 256, 0, 32, 32)); //top
+        result.edges.put(matrix(3, "0,0,0,1,1,1,1,1,0"), cell(terrain, 64, 0, 32, 32)); //bottom
 
-        result.bottomRightExternal = createCell(new TextureRegion(terrainTexture, 320, 0, 32, 32));
-        result.bottomLeftExternal = createCell(new TextureRegion(terrainTexture, 352, 0, 32, 32));
-        result.topRightExternal = createCell(new TextureRegion(terrainTexture, 384, 0, 32, 32));
-        result.topLeftExternal = createCell(new TextureRegion(terrainTexture, 416, 0, 32, 32));
+        result.edges.put(matrix(3, "1,1,1,1,1,1,1,1,0"), cell(terrain, 32, 0, 32, 32)); //bottom right internal
+        result.edges.put(matrix(3, "1,1,1,1,1,1,0,1,1"), cell(terrain, 96, 0, 32, 32)); //bottom left internal
+        result.edges.put(matrix(3, "1,1,0,1,1,1,1,1,1"), cell(terrain, 224, 0, 32, 32)); //top right internal
+        result.edges.put(matrix(3, "0,1,1,1,1,1,1,1,1"), cell(terrain, 288, 0, 32, 32)); //top left internal
+
+        result.edges.put(matrix(3, "0,1,0,0,1,0,0,1,0"), cell(terrain, 160, 0, 32, 32)); //vertical peninsula
+
+        result.edges.put(matrix(3, "1,1,0,1,1,0,0,0,0"), cell(terrain, 320, 0, 32, 32)); //bottom right external
+        result.edges.put(matrix(3, "0,1,1,0,1,1,0,0,0"), cell(terrain, 352, 0, 32, 32)); //bottom left external
+        result.edges.put(matrix(3, "0,0,0,1,1,0,1,1,0"), cell(terrain, 384, 0, 32, 32)); //top right external
+        result.edges.put(matrix(3, "0,0,0,0,1,1,0,1,1"), cell(terrain, 416, 0, 32, 32)); //top left external
+
+
+        result.edges.put(matrix(3, "0,0,1,0,1,0,1,0,0"), cell(terrain, 448, 0, 32, 32)); //bottom left top right
+        result.edges.put(matrix(3, "1,0,0,0,1,0,0,0,1"), cell(terrain, 480, 0, 32, 32)); //top left bottom right
+
+
+        /*
+         * 0 0 1
+         * 0 1 0
+         * 1 0 0
+         */
+
+
+//        result.bottomRightInternal = createCell(new TextureRegion(terrainTexture, 32, 0, 32, 32));
+//        result.bottom = createCell(new TextureRegion(terrainTexture, 64, 0, 32, 32));
+//        result.bottomLeftInternal = createCell(new TextureRegion(terrainTexture, 96, 0, 32, 32));
+//        result.right = createCell(new TextureRegion(terrainTexture, 128, 0, 32, 32));
+//
+//        result.left = createCell(new TextureRegion(terrainTexture, 192, 0, 32, 32));
+//        result.topRightInternal = createCell(new TextureRegion(terrainTexture, 224, 0, 32, 32));
+//        result.top = createCell(new TextureRegion(terrainTexture, 256, 0, 32, 32));
+//        result.topLeftInternal = createCell(new TextureRegion(terrainTexture, 288, 0, 32, 32));
+//
+//        result.bottomRightExternal = createCell(new TextureRegion(terrainTexture, 320, 0, 32, 32));
+//        result.bottomLeftExternal = createCell(new TextureRegion(terrainTexture, 352, 0, 32, 32));
+//        result.topRightExternal = createCell(new TextureRegion(terrainTexture, 384, 0, 32, 32));
+//        result.topLeftExternal = createCell(new TextureRegion(terrainTexture, 416, 0, 32, 32));
 
         return result;
     }
@@ -128,7 +167,15 @@ public class FogFactory implements IdentifiedAssetProvider<Item>
         return texture;
     }
 
-    private Cell createCell(TextureRegion region) {
+    private Cell cell(TextureRegion region) {
+        TiledMapTile tile = new StaticTiledMapTile(region);
+        Cell cell = new Cell();
+        cell.setTile(tile);
+        return cell;
+    }
+
+    private Cell cell(Texture texture, int x, int y, int width, int height) {
+        TextureRegion region = new TextureRegion(texture, x, y, width, height);
         TiledMapTile tile = new StaticTiledMapTile(region);
         Cell cell = new Cell();
         cell.setTile(tile);

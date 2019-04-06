@@ -60,4 +60,8 @@ public class TextureUtils
         Texture texture = assets.get(path, Texture.class);
         return new TextureRegion(texture, x, y, width, height);
     }
+
+    public static TextureRegion region(Texture texture, int x, int y, int width, int height) {
+        return new TextureRegion(texture, x, y, width, height);
+    }
 }
