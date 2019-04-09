@@ -23,8 +23,6 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-// TODO: Should block camera when input.count > 1 (session capability)
-// TODO: Repositions to center of item - should reposition with respect to where the item is touched
 public class PlaceholderMove extends BasicAction
 {
     @Inject

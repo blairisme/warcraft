@@ -22,7 +22,6 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-//TODO: Have gatherer keep some resources
 public class GatherCancel extends DelegateAction
 {
     @Inject
