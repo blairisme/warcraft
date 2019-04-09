@@ -16,6 +16,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+/**
+ * Instances of this unit test validate logic in the {@link MapLayerIterator}
+ * class.
+ *
+ * @author Blair Butterworth
+ */
 public class MapLayerIteratorTest
 {
     private Cell cell1;

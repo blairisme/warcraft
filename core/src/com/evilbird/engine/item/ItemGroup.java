@@ -30,8 +30,6 @@ import java.util.function.Predicate;
  *
  * @author Blair Butterworth
  */
-//TODO: Use ItemComposite instead of Group in search
-//TODO: Enhancement: Add caching for find invocations
 public class ItemGroup extends ItemBasic implements ItemComposite
 {
     protected boolean fill;
@@ -209,13 +207,13 @@ public class ItemGroup extends ItemBasic implements ItemComposite
         return find(this, predicate);
     }
 
-    private Item find(ItemGroup group, Predicate<Item> predicate) {
-        for (Item item : group.items) {
+    private Item find(ItemComposite group, Predicate<Item> predicate) {
+        for (Item item : group.getItems()) {
             if (predicate.test(item)) {
                 return item;
             }
-            if (item instanceof ItemGroup) {
-                Item result = find((ItemGroup) item, predicate);
+            if (item instanceof ItemComposite) {
+                Item result = find((ItemComposite)item, predicate);
                 if (result != null) {
                     return result;
                 }
@@ -237,14 +235,14 @@ public class ItemGroup extends ItemBasic implements ItemComposite
     }
 
     @SuppressWarnings("unchecked")
-    private <T extends Item> Collection<T> findAll(ItemGroup group, Predicate<T> predicate) {
+    private <T extends Item> Collection<T> findAll(ItemComposite group, Predicate<T> predicate) {
         Collection<T> result = new ArrayList<>();
-        for (Item item : group.items) {
+        for (Item item : group.getItems()) {
             if (predicate.test((T)item)) {
                 result.add((T)item);
             }
-            if (item instanceof ItemGroup) {
-                result.addAll(findAll((ItemGroup) item, predicate));
+            if (item instanceof ItemComposite) {
+                result.addAll(findAll((ItemComposite)item, predicate));
             }
         }
         return result;

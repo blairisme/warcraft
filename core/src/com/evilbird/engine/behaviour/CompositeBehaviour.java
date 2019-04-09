@@ -33,7 +33,7 @@ public class CompositeBehaviour implements Behaviour
 
     @Override
     public Identifier getIdentifier() {
-        return null; //TODO
+        return null;
     }
 
     @Override

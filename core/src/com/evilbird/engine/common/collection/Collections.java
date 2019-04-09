@@ -9,7 +9,11 @@
 
 package com.evilbird.engine.common.collection;
 
-import java.util.*;
+import org.apache.commons.lang3.Validate;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.function.Predicate;
 
 /**
@@ -18,14 +22,30 @@ import java.util.function.Predicate;
  *
  * @author Blair Butterworth
  */
-//TODO: Rename to CollectionUtils or Replace with Guava
 public class Collections
 {
+    /**
+     * Disable construction of this static utility class.
+     */
     private Collections() {
-        throw new UnsupportedOperationException();
     }
 
+    /**
+     * Iterates through the given {@link Collection} returning the first
+     * element that matches the given {@link Predicate}. If no match is found
+     * then {@code null} is returned.
+     *
+     * @param collection    the {@code Collection} to search.
+     * @param predicate     the condition that the desired element fulfils.
+     * @param <T>           the type of elements in the {@code Collection}.
+     *
+     * @return  the first element that matches the given {@code Predicate}, or
+     *          {@code null} if no match is found.
+     */
     public static <T> T find(Collection<T> collection, Predicate<? super T> predicate) {
+        Validate.notNull(collection);
+        Validate.notNull(predicate);
+
         Iterator<T> iterator = collection.iterator();
         while (iterator.hasNext()) {
             final T element = iterator.next();
@@ -36,20 +56,6 @@ public class Collections
         return null;
     }
 
-    public static <T> T min(Collection<? extends T> collection, Comparator<? super T> comparator) {
-        Iterator<? extends T> iterator = collection.iterator();
-        T result = iterator.next();
-
-        while (iterator.hasNext()) {
-            T other = iterator.next();
-
-            if (comparator.compare(other, result) < 0) {
-                result = other;
-            }
-        }
-        return result;
-    }
-
     public static <T> Collection<T> retain(Collection<? extends T> collection, Predicate<? super T> predicate) {
         Collection<T> result = new ArrayList<>(collection.size());
         for (T element: collection) {
@@ -57,13 +63,6 @@ public class Collections
                 result.add(element);
             }
         }
-        return result;
-    }
-
-    public static <T> List<T> union(List<T> collectionA, List<T> collectionB) {
-        List<T> result = new ArrayList<>(collectionA.size() + collectionB.size());
-        result.addAll(collectionA);
-        result.addAll(collectionB);
         return result;
     }
 }

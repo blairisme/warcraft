@@ -27,7 +27,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author Blair Butterworth
  */
-//TODO: Bug: cancel causes concurrent modification - clearing actions while looping and acting
 public abstract class BasicAction implements Action
 {
     private Identifier identifier;
@@ -41,10 +40,10 @@ public abstract class BasicAction implements Action
 
     @Override
     public void cancel() {
-//        Item item = getItem();
-//        if (item != null) {
-//            item.clearActions();
-//        }
+        Item item = getItem();
+        if (item != null) {
+            item.clearActions();
+        }
     }
 
     public void reset() {

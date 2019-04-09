@@ -9,67 +9,20 @@
 
 package com.evilbird.engine.common.graphics;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Array;
-import org.apache.commons.lang3.Range;
-
-import java.util.Map;
-import java.util.Map.Entry;
-
-//TODO: Introduce interface
-public class DirectionalAnimation
+/**
+ * Represents an {@link Animation} whose direction can be specified, altering
+ * the visual appearance of the animation to accordingly.
+ *
+ * @author Blair Butterworth
+ */
+public interface DirectionalAnimation extends Animation
 {
-    private float direction;
-    private float duration;
-    private PlayMode mode;
-    private Animation animation;
-    private Map<Range<Float>, Array<TextureRegion>> frames;
-
-    public DirectionalAnimation(float direction, float duration, Map<Range<Float>, Array<TextureRegion>> frames, PlayMode mode) {
-        this.direction = direction;
-        this.duration = duration;
-        this.mode = mode;
-        this.frames = frames;
-        reset();
-    }
-
-    public Map<Range<Float>, Array<TextureRegion>> getFrames() {
-        return frames;
-    }
-
-    public TextureRegion getKeyFrame(float stateTime) {
-        return animation.getKeyFrame(stateTime);
-    }
-
-    public float getDirection() {
-        return direction;
-    }
-
-    public float getDuration() {
-        return duration;
-    }
-
-    public PlayMode getMode() {
-        return mode;
-    }
-
-    public void setDirection(float direction) {
-        this.direction = direction;
-        reset();
-    }
-
-    private void reset() {
-        this.animation = new Animation(duration, getFrames(direction), mode);
-    }
-
-    private Array<TextureRegion> getFrames(float direction) {
-        for (Entry<Range<Float>, Array<TextureRegion>> frameEntry : frames.entrySet()) {
-            if (frameEntry.getKey().contains(direction)) {
-                return frameEntry.getValue();
-            }
-        }
-        return new Array<>();
-    }
+    /**
+     * Sets the direction of the animation, potentially altering its
+     * appearance. Direction is specified in degrees.
+     *
+     * @param direction a direction. Must be a positive integer between 0 and
+     *                  360.
+     */
+    void setDirection(float direction);
 }

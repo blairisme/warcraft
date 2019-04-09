@@ -10,9 +10,9 @@
 package com.evilbird.engine.common.pathing;
 
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.common.collection.Collections;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 
 /**
@@ -20,7 +20,6 @@ import java.util.Comparator;
  *
  * @author Blair Butterworth
  */
-//TODO: consider using dst2
 public class SpatialUtils
 {
     private SpatialUtils() {
@@ -39,8 +38,8 @@ public class SpatialUtils
 
         @Override
         public int compare(SpatialNode nodeA, SpatialNode nodeB) {
-            float distanceA = nodeA.getSpatialReference().dst(target);
-            float distanceB = nodeB.getSpatialReference().dst(target);
+            float distanceA = nodeA.getSpatialReference().dst2(target);
+            float distanceB = nodeB.getSpatialReference().dst2(target);
             return Float.compare(distanceA, distanceB);
         }
     }

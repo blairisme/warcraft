@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
-import com.evilbird.engine.common.graphics.DirectionalAnimation;
+import com.evilbird.engine.common.graphics.BasicAnimation;
 import org.apache.commons.lang3.Range;
 
 import java.util.HashMap;
@@ -36,11 +36,11 @@ public class AnimationBuilder
         this.schema = schema;
     }
 
-    public DirectionalAnimation build() {
+    public BasicAnimation build() {
         Map<Range<Float>, List<Rectangle>> regions = schema.getFrameRegions();
         Map<Range<Float>, Array<TextureRegion>> frames = getFrames(regions);
         PlayMode mode = schema.getLoop() ? PlayMode.LOOP : PlayMode.NORMAL;
-        return new DirectionalAnimation(0f, schema.getFrameInterval(), frames, mode);
+        return new BasicAnimation(0f, schema.getFrameInterval(), frames, mode);
     }
 
     private Map<Range<Float>, Array<TextureRegion>> getFrames(Map<Range<Float>, List<Rectangle>> regions) {

@@ -28,9 +28,8 @@ public class UserInput
     private Vector2 delta;
     private int count;
 
-    // TODO: Remove count parameter
     public UserInput(UserInputType type, Vector2 position, int count) {
-        this(type, position, Vector2.Zero, 1);
+        this(type, position, Vector2.Zero, count);
     }
 
     public UserInput(UserInputType type, Vector2 position, Vector2 delta, int count) {

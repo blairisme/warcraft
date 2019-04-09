@@ -32,7 +32,6 @@ import javax.inject.Singleton;
  *
  * @author Blair Butterworth
  */
-//TODO: Dispose of menus and states when switching
 @Singleton
 public class GameEngine extends Game implements GameController
 {

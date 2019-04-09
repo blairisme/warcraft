@@ -37,8 +37,6 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-//TODO: Move selected box drawing to unit
-//TODO: Use style and skin for selection texture
 public class AnimatedItem extends ItemBasic implements Animated, Audible
 {
     private static transient final Logger logger = LoggerFactory.getLogger(AnimatedItem.class);
@@ -166,7 +164,7 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible
 
     private void drawAnimation(Batch batch) {
         if (currentAnimation != null) {
-            TextureRegion region = currentAnimation.getKeyFrame(animationTime);
+            TextureRegion region = currentAnimation.getFrame(animationTime);
             float width = region.getRegionWidth();
             float height = region.getRegionHeight();
             float widthHalfDelta = (width - getWidth()) * 0.5f;

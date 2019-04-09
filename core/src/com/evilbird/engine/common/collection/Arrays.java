@@ -22,9 +22,17 @@ public class Arrays
 {
     private static final UnmodifiableArray EMPTY_ARRAY = new UnmodifiableArray();
 
+    /**
+     * Disable construction of this static utility class.
+     */
     private Arrays() {
     }
 
+    /**
+     * Returns an empt
+     * @param <T>
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public static <T> Array<T> emptyArray() {
         return (Array<T>)EMPTY_ARRAY;

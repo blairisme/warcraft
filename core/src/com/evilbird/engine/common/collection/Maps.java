@@ -18,37 +18,68 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-//TODO: Use Guava which has been brought in by the serialization library
 public class Maps
 {
+    /**
+     * Disable construction of this static utility class.
+     */
     private Maps() {
     }
 
-    public static <K, V> Map<K, V> of (K k1, V v1) {
+    /**
+     * Returns a new {@link Map} containing the given key value pair.
+     *
+     * @param k1    the key with which the given value is to be associated.
+     * @param v1    the value to be associated with the given key.
+     * @param <K>   the key type.
+     * @param <V>   the value type.
+     *
+     * @return a new {@ocde Map} containing the given key value pair.
+     */
+    public static <K, V> Map<K, V> of(K k1, V v1) {
         Map<K, V> result = new HashMap<>(1);
         result.put(k1, v1);
         return result;
     }
 
-    public static <K, V> Map<K, V> of (K k1, V v1, K k2, V v2) {
+    /**
+     * Returns a new {@link Map} containing the given key value pairs.
+     *
+     * @param k1    the key with which the first value is to be associated.
+     * @param v1    the value to be associated with the first key.
+     * @param k2    the key with which the second value is to be associated.
+     * @param v2    the value to be associated with the second key.
+     * @param <K>   the key type.
+     * @param <V>   the value type.
+     *
+     * @return a new {@ocde Map} containing the given key value pairs.
+     */
+    public static <K, V> Map<K, V> of(K k1, V v1, K k2, V v2) {
         Map<K, V> result = new HashMap<>(2);
         result.put(k1, v1);
         result.put(k2, v2);
         return result;
     }
 
-    public static <K, V> Map<K, V> of (K k1, V v1, K k2, V v2, K k3, V v3) {
+    /**
+     * Returns a new {@link Map} containing the given key value pairs.
+     *
+     * @param k1    the key with which the first value is to be associated.
+     * @param v1    the value to be associated with the first key.
+     * @param k2    the key with which the second value is to be associated.
+     * @param v2    the value to be associated with the second key.
+     * @param k3    the key with which the third value is to be associated.
+     * @param v3    the value to be associated with the third key.
+     * @param <K>   the key type.
+     * @param <V>   the value type.
+     *
+     * @return a new {@ocde Map} containing the given key value pairs.
+     */
+    public static <K, V> Map<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3) {
         Map<K, V> result = new HashMap<>(2);
         result.put(k1, v1);
         result.put(k2, v2);
         result.put(k3, v3);
-        return result;
-    }
-
-    public static <K, V> Map<K, V> union(Map<K, V> collectionA, Map<K, V> collectionB) {
-        Map<K, V> result = new HashMap<>(collectionA.size() + collectionB.size());
-        result.putAll(collectionA);
-        result.putAll(collectionB);
         return result;
     }
 }

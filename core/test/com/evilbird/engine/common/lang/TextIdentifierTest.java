@@ -17,6 +17,12 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+/**
+ * Instances of this unit test validate logic in the {@link TextIdentifier}
+ * class.
+ *
+ * @author Blair Butterworth
+ */
 public class TextIdentifierTest extends GameTestCase
 {
     private TextIdentifier identifier;

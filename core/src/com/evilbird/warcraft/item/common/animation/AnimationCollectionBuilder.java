@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.common.animation;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.evilbird.engine.common.graphics.BasicAnimation;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.lang.Identifier;
 import org.apache.commons.lang3.tuple.Pair;
@@ -49,7 +50,7 @@ public class AnimationCollectionBuilder
         Map<Identifier, DirectionalAnimation> result = new HashMap<>();
 
         for (Entry<Identifier, List<Pair<AnimationSchema, Texture>>> animation : animations.entrySet()) {
-            DirectionalAnimation product = null;
+            BasicAnimation product = null;
             for (Pair<AnimationSchema, Texture> schema : animation.getValue()) {
                 builder.setSchema(schema.getKey());
                 builder.setTexture(schema.getValue());

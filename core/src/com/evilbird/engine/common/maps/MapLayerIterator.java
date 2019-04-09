@@ -14,9 +14,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 import java.util.Iterator;
 
-/**
- * @author Blair Butterworth
- */
 public class MapLayerIterator implements Iterator<MapLayerEntry>
 {
     private TiledMapTileLayer layer;

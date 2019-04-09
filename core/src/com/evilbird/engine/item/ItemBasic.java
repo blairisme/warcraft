@@ -25,8 +25,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 import static com.badlogic.gdx.scenes.scene2d.Touchable.enabled;
 import static com.evilbird.engine.common.lang.GenericIdentifier.Unknown;
@@ -36,7 +35,6 @@ import static com.evilbird.engine.common.lang.GenericIdentifier.Unknown;
  *
  * @author Blair Butterworth
  */
-//TODO: Move selection into unit
 @JsonAdapter(ItemBasicAdapter.class)
 public class ItemBasic implements Item
 {
@@ -51,7 +49,8 @@ public class ItemBasic implements Item
     private Touchable touchable;
     private Vector2 size;
     private Vector2 position;
-    private Collection<Action> actions;
+    private List<Action> actions;
+    private transient ListIterator<Action> iterator;
 
     public ItemBasic() {
         id = Unknown;
@@ -74,8 +73,12 @@ public class ItemBasic implements Item
     @Override
     public void addAction(Action action) {
         Validate.notNull(action);
-        actions.add(action);
         action.setItem(this);
+        if (iterator != null) {
+            iterator.add(action);
+        } else {
+            actions.add(action);
+        }
     }
 
     /**
@@ -83,6 +86,9 @@ public class ItemBasic implements Item
      */
     @Override
     public void clearActions() {
+        if (iterator != null) {
+            iterator = Collections.emptyListIterator();
+        }
         actions.clear();
     }
 
@@ -94,7 +100,7 @@ public class ItemBasic implements Item
      */
     @Override
     public Collection<Action> getActions() {
-        return actions;
+        return Collections.unmodifiableList(actions);
     }
 
     /**
@@ -447,7 +453,14 @@ public class ItemBasic implements Item
      */
     @Override
     public void update(float delta) {
-        actions.removeIf(action -> action.act(delta));
+        iterator = actions.listIterator();
+        while (iterator.hasNext()) {
+            Action action = iterator.next();
+            if (action.act(delta)) {
+                iterator.remove();
+            }
+        }
+        iterator = null;
     }
 
     /**

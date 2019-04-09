@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.collection.Arrays;
+import com.evilbird.engine.common.graphics.BasicAnimation;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import org.apache.commons.lang3.Range;
 
@@ -30,10 +31,10 @@ public class AnimationUtils
         Array<TextureRegion> textures = Array.with(texture);
         Map<Range<Float>, Array<TextureRegion>> frames = new HashMap<Range<Float>, Array<TextureRegion>>(1);
         frames.put(Range.between(0.0f, 360.0f), textures);
-        return new DirectionalAnimation(0f, Float.MAX_VALUE, frames, Animation.PlayMode.LOOP);
+        return new BasicAnimation(0f, Float.MAX_VALUE, frames, Animation.PlayMode.LOOP);
     }
 
-    public static DirectionalAnimation combine(DirectionalAnimation source, DirectionalAnimation target) {
+    public static BasicAnimation combine(BasicAnimation source, BasicAnimation target) {
         Map<Range<Float>, Array<TextureRegion>> sourceFrameSet = source.getFrames();
         Map<Range<Float>, Array<TextureRegion>> targetFrameSet = target.getFrames();
         Map<Range<Float>, Array<TextureRegion>> combinedFrames = new HashMap<>(sourceFrameSet.size());
@@ -44,6 +45,6 @@ public class AnimationUtils
             Array<TextureRegion> targetFrames = targetFrameSet.get(range);
             combinedFrames.put(range, Arrays.union(sourceFrames, targetFrames));
         }
-        return new DirectionalAnimation(source.getDirection(), source.getDuration(), combinedFrames, source.getMode());
+        return new BasicAnimation(source.getDirection(), source.getDuration(), combinedFrames, source.getMode());
     }
 }

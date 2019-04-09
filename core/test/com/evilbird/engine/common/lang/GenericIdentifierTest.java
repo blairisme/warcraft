@@ -17,6 +17,12 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+/**
+ * Instances of this unit test validate logic in the {@link GenericIdentifier}
+ * class.
+ *
+ * @author Blair Butterworth
+ */
 public class GenericIdentifierTest extends GameTestCase
 {
     private GenericIdentifier identifier;
