@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.common.cancel;
+package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.common.AnimateAction;
 import com.evilbird.engine.action.framework.DelegateAction;
@@ -15,11 +15,11 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import javax.inject.Inject;
 
-@Deprecated
-public class CancelAction extends DelegateAction
+public class MoveCancel extends DelegateAction
 {
     @Inject
-    public CancelAction() {
-        delegate = new AnimateAction(UnitAnimation.Idle);
+    public MoveCancel() {
+        super(new AnimateAction(UnitAnimation.Idle));
+        setIdentifier(MoveActions.MoveCancel);
     }
 }

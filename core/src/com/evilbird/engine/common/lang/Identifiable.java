@@ -16,7 +16,7 @@ package com.evilbird.engine.common.lang;
  *
  * @author Blair Butterworth
  */
-public interface Identifiable
+public interface Identifiable <T extends Identifier>
 {
-    Identifier getIdentifier();
+    T getIdentifier();
 }

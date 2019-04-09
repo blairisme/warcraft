@@ -10,6 +10,8 @@
 package com.evilbird.warcraft.action.train;
 
 import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.create.CreateObserver;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
@@ -30,6 +32,11 @@ public class TrainReporter implements TrainObserver, CreateObserver
     @Inject
     public TrainReporter(EventQueue events) {
         this.events = events;
+    }
+
+    @Override
+    public void onCreate(Item item) {
+        events.add(new CreateEvent(item));
     }
 
     @Override

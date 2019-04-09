@@ -13,20 +13,19 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.common.remove.RemoveAction;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
 public class PlaceholderFactory implements ActionProvider
 {
-    private InjectedPool<RemoveAction> cancelPool;
+    private InjectedPool<PlaceHolderCancel> cancelPool;
     private InjectedPool<PlaceholderCreate> createPool;
     private InjectedPool<PlaceholderMove> movePool;
 
     @Inject
     public PlaceholderFactory(
-        InjectedPool<RemoveAction> cancelPool,
+        InjectedPool<PlaceHolderCancel> cancelPool,
         InjectedPool<PlaceholderCreate> createPool,
         InjectedPool<PlaceholderMove> movePool)
     {
@@ -49,7 +48,7 @@ public class PlaceholderFactory implements ActionProvider
 
     private Action getCreateAction(PlaceholderActions placeholder) {
         PlaceholderCreate action = createPool.obtain();
-        action.setType(placeholder.getPlaceholderType());
+        action.setIdentifier(placeholder);
         return action;
     }
 }

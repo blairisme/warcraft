@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.placeholder;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
+import org.mockito.Mockito;
 
 /**
  * Instances of this unit test validate the {@link PlaceholderCreate} class.
@@ -21,7 +22,7 @@ public class PlaceholderCreateTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        PlaceholderCreate action = new PlaceholderCreate(itemFactory);
+        PlaceholderCreate action = new PlaceholderCreate(Mockito.mock(PlaceholderReporter.class));
         action.setIdentifier(PlaceholderActions.AddBarracksPlaceholder);
         return action;
     }

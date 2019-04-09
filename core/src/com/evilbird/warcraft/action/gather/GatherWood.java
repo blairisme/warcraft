@@ -42,7 +42,7 @@ import static com.evilbird.warcraft.item.unit.resource.ResourceType.Wood;
 //TODO: update closest to be aware of ability to move to destination
 public class GatherWood extends FeatureAction
 {
-    private GatherReporter reporter;
+    private transient GatherReporter reporter;
 
     @Inject
     public GatherWood(GatherReporter reporter) {

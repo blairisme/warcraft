@@ -34,7 +34,7 @@ public enum PlaceholderActions implements ActionIdentifier
         this.placeholderType = placeholderType;
     }
 
-    public PlaceholderType getPlaceholderType() {
+    public PlaceholderType type() {
         return placeholderType;
     }
 }

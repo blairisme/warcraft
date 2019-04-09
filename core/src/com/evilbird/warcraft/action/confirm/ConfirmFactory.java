@@ -16,6 +16,12 @@ import com.evilbird.warcraft.action.ActionProvider;
 
 import javax.inject.Inject;
 
+/**
+ * Instances of this factory create {@link Action}s that display a confirm
+ * effect.
+ *
+ * @author Blair Butterworth
+ */
 public class ConfirmFactory implements ActionProvider
 {
     private InjectedPool<ConfirmItem> itemPool;

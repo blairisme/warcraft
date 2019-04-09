@@ -12,7 +12,6 @@ package com.evilbird.warcraft.action.train;
 import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
-import com.evilbird.warcraft.action.common.create.Producible;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 /**
@@ -38,11 +37,11 @@ public class TrainAction extends DelayedAction
         this.source = source;
     }
 
-    public static TrainAction produce(Producible producible) {
+    public static TrainAction produce(TrainActions producible) {
         return produce(ActionTarget.Item, producible);
     }
 
-    public static TrainAction produce(ActionTarget source, Producible producible) {
+    public static TrainAction produce(ActionTarget source, TrainActions producible) {
         return new TrainAction(source, producible.getDuration());
     }
 

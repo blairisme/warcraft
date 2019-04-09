@@ -179,14 +179,14 @@ public class InteractionDefinition implements Interaction
         Item subject = getSubject(primary);
 
         Action action = factory.newAction(actionType);
-        action.setItem(primary);
-        action.setTarget(secondary);
-        action.setCause(input);
-
         if (displacement == Replacement) {
             subject.clearActions();
         }
         subject.addAction(action);
+
+        action.setItem(primary);
+        action.setTarget(secondary);
+        action.setCause(input);
     }
 
     private Item getPrimary(Item item, Item selected) {

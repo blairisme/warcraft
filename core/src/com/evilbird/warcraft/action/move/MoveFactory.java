@@ -14,7 +14,6 @@ import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.common.cancel.CancelAction;
 
 import javax.inject.Inject;
 
@@ -27,13 +26,13 @@ import javax.inject.Inject;
  */
 public class MoveFactory implements ActionProvider
 {
-    private InjectedPool<CancelAction> cancelPool;
+    private InjectedPool<MoveCancel> cancelPool;
     private InjectedPool<MoveToItemScenario> moveItemPool;
     private InjectedPool<MoveToVectorScenario> moveLocationPool;
 
     @Inject
     public MoveFactory(
-        InjectedPool<CancelAction> cancelPool,
+        InjectedPool<MoveCancel> cancelPool,
         InjectedPool<MoveToItemScenario> moveItemPool,
         InjectedPool<MoveToVectorScenario> moveLocationPool)
     {

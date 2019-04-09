@@ -9,5 +9,21 @@
 
 package com.evilbird.warcraft.action.common.remove;
 
-public class RemoveObserver {
+import com.evilbird.engine.item.Item;
+
+/**
+ * Implementors of this interface provide methods that are called when
+ * {@link Item Items} are removed.
+ *
+ * @author Blair Butterworth
+ */
+public interface RemoveObserver
+{
+    /**
+     * Called when an {@link Item} has been removed.
+     *
+     * @param removed   an {@code Item} instance. This parameter will not be
+     *                  {@code null}.
+     */
+    void onRemove(Item removed);
 }

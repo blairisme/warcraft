@@ -38,7 +38,7 @@ import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
  */
 public class GatherGold extends FeatureAction
 {
-    private GatherReporter reporter;
+    private transient GatherReporter reporter;
 
     @Inject
     public GatherGold(GatherReporter reporter) {

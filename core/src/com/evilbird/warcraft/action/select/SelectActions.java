@@ -11,6 +11,11 @@ package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.ActionIdentifier;
 
+/**
+ * Defines options of specifying selection action varieties.
+ *
+ * @author Blair Butterworth
+ */
 public enum SelectActions implements ActionIdentifier
 {
     SelectToggle

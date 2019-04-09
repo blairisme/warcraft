@@ -11,7 +11,6 @@ package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.warcraft.action.common.create.Producible;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 import com.evilbird.warcraft.item.common.resource.ResourceRequirement;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -25,7 +24,7 @@ import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
  *
  * @author Blair Butterworth
  */
-public enum ConstructActions implements ActionIdentifier, ResourceRequirement, Producible
+public enum ConstructActions implements ActionIdentifier, ResourceRequirement
 {
     ConstructBarracks   (UnitType.Barracks, 20f, Maps.<ResourceIdentifier, Float>of(Gold, 100f)),
     ConstructFarm       (UnitType.Farm, 20f, Maps.<ResourceIdentifier, Float>of(Gold, 100f)),
@@ -50,12 +49,12 @@ public enum ConstructActions implements ActionIdentifier, ResourceRequirement, P
         this.resources = resources;
     }
 
-    @Override
+   // @Override
     public UnitType getItemType() {
         return type;
     }
 
-    @Override
+    //@Override
     public float getDuration() {
         return time;
     }

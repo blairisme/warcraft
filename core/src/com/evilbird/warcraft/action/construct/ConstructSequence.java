@@ -10,11 +10,13 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.framework.FeatureAction;
+import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.placeholder.Placeholder;
+import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
+import java.util.function.Consumer;
 
-import static com.evilbird.engine.action.common.ActionTarget.Item;
 import static com.evilbird.engine.action.common.ActionTarget.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AudibleAction.play;
@@ -68,7 +70,8 @@ public class ConstructSequence extends FeatureAction
     private void prepare(ConstructActions building) {
         scenario("prepare")
             .whenTarget(isType(Placeholder.class))
-            .then(remove(Target), purchase(building, reporter), create(building, reporter));
+            .then(remove(Target, reporter), purchase(building, reporter))
+            .then(create(building.getItemType(), properties(), reporter));
     }
 
     private void build(ConstructActions building) {
@@ -76,8 +79,25 @@ public class ConstructSequence extends FeatureAction
             .withTarget(closest(building.getItemType(), getTarget()))
             .whenItem(isAdjacent(getTarget()))
             .whenTarget(isConstructing())
-            .then(hide(Item), deselect(reporter), animate(Target, Construct))
+            .then(hide(), deselect(reporter), animate(Target, Construct))
             .then(construct(Target, building), play(Target, Build))
-            .then(show(Item), animate(Item, Idle), animate(Target, Idle));
+            .then(show(), animate(Idle), animate(Target, Idle));
+    }
+
+    private Consumer<Item> properties() {
+        return (item) -> {
+            setPosition(item);
+            setBuilding(item);
+        };
+    }
+
+    private void setPosition(Item item) {
+        Item target = getTarget();
+        item.setPosition(target.getPosition());
+    }
+
+    private void setBuilding(Item item) {
+        Building building = (Building)item;
+        building.setConstructionProgress(0);
     }
 }

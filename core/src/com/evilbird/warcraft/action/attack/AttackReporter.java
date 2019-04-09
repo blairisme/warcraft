@@ -12,6 +12,8 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.warcraft.action.common.remove.RemoveEvent;
+import com.evilbird.warcraft.action.common.remove.RemoveObserver;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.action.move.MoveObserver;
 import com.evilbird.warcraft.action.select.SelectEvent;
@@ -26,7 +28,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class AttackReporter implements AttackObserver, MoveObserver, SelectObserver
+public class AttackReporter implements AttackObserver, MoveObserver, SelectObserver, RemoveObserver
 {
     private EventQueue events;
 
@@ -48,5 +50,10 @@ public class AttackReporter implements AttackObserver, MoveObserver, SelectObser
     @Override
     public void onSelect(Item item, boolean selected) {
         events.add(new SelectEvent(item, selected));
+    }
+
+    @Override
+    public void onRemove(Item removed) {
+        events.add(new RemoveEvent(removed));
     }
 }

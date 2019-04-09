@@ -17,6 +17,11 @@ import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
+/**
+ * Instances of this factory create actions related to gathering resources.
+ *
+ * @author Blair Butterworth
+ */
 public class GatherFactory implements ActionProvider
 {
     private InjectedPool<GatherGold> goldPool;

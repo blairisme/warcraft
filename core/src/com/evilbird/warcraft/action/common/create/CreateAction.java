@@ -9,76 +9,81 @@
 
 package com.evilbird.warcraft.action.common.create;
 
-import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemType;
-import com.evilbird.warcraft.item.unit.building.Building;
 
+import java.util.function.Consumer;
+
+/**
+ * Instances of this {@link Action} create a new {@link Item} when invoked.
+ *
+ * @author Blair Butterworth
+ */
 public class CreateAction extends BasicAction
 {
     private ItemType itemType;
     private ItemFactory itemFactory;
     private CreateObserver observer;
+    private Consumer<Item> properties;
 
-    public CreateAction(ItemType type, CreateObserver observer) {
+    public CreateAction(ItemType type, Consumer<Item> properties, CreateObserver observer) {
         this.itemType = type;
         this.observer = observer;
+        this.properties = properties;
         this.itemFactory = GameService.getInstance().getItemFactory();
     }
 
-    public CreateAction(ItemFactory factory, ItemType type, CreateObserver observer) {
+    public CreateAction(ItemFactory factory, ItemType type, Consumer<Item> properties, CreateObserver observer) {
         this.itemType = type;
         this.observer = observer;
+        this.properties = properties;
         this.itemFactory = factory;
     }
 
-    public static CreateAction create(Producible producible, CreateObserver observer) {
-        return new CreateAction(producible.getItemType(), observer);
+    public static CreateAction create(ItemType type, Consumer<Item> properties, CreateObserver observer) {
+        return new CreateAction(type, properties, observer);
     }
 
     @Override
     public boolean act(float delta) {
-        Item item = itemFactory.newItem(itemType);
-        setPosition(item);
+        Item item = createItem();
         setParent(item);
-        setState(item);
-
+        setProperties(item);
+        notifyObserver(item);
         return true;
     }
 
-    private void setPosition(Item item) {
-        Item producer = getItem();
-        Vector2 position = getPosition(item, producer);
-        item.setPosition(position);
+    protected Item createItem() {
+        return itemFactory.newItem(itemType);
     }
 
-    private Vector2 getPosition(Item item, Item producer) {
-        Vector2 itemSize = item.getSize();
-        Vector2 referencePosition = producer.getPosition();
-        return new Vector2(referencePosition.x - itemSize.x, referencePosition.y);
-    }
-
-    private void setParent(Item item) {
+    protected void setParent(Item item) {
         Item producer = getItem();
         ItemComposite parent = getParent(producer);
         parent.addItem(item);
     }
 
-    private ItemComposite getParent(Item producer) {
+    protected ItemComposite getParent(Item producer) {
         if (producer instanceof ItemComposite) {
             return (ItemComposite)producer;
         }
         return producer.getParent();
     }
 
-    private void setState(Item item) {
-        if (item instanceof Building){
-            Building building = (Building)item;
-            building.setConstructionProgress(0);
+    protected void setProperties(Item item) {
+        if (properties != null) {
+            properties.accept(item);
+        }
+    }
+
+    protected void notifyObserver(Item item) {
+        if (observer != null) {
+            observer.onCreate(item);
         }
     }
 }

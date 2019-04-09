@@ -23,10 +23,10 @@ import javax.inject.Inject;
  */
 public class SelectFactory implements ActionProvider
 {
-    private InjectedPool<SelectToggle> pool;
+    private InjectedPool<SelectSequence> pool;
 
     @Inject
-    public SelectFactory(InjectedPool<SelectToggle> pool) {
+    public SelectFactory(InjectedPool<SelectSequence> pool) {
         this.pool = pool;
     }
 

@@ -10,12 +10,14 @@
 package com.evilbird.warcraft.action.placeholder;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.CreateAction;
+import com.evilbird.engine.action.framework.ScenarioAction;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.utility.ItemOperations;
 
 import javax.inject.Inject;
+import java.util.function.Consumer;
+
+import static com.evilbird.engine.item.utility.ItemOperations.getScreenCenter;
+import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 
 /**
  * Instances of this class provide {@link Action Actions} that add a building
@@ -23,18 +25,21 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class PlaceholderCreate extends CreateAction
+public class PlaceholderCreate extends ScenarioAction<PlaceholderActions>
 {
+    private transient PlaceholderReporter reporter;
+
     @Inject
-    public PlaceholderCreate(ItemFactory itemFactory) {
-        super(itemFactory);
+    public PlaceholderCreate(PlaceholderReporter reporter) {
+        this.reporter = reporter;
     }
 
     @Override
-    public void setItem(Item item) {
-        super.setItem(item);
-        if (item != null) {
-            setPosition(ItemOperations.getScreenCenter(item.getRoot()));
-        }
+    protected void steps(PlaceholderActions placeholder) {
+        then(create(placeholder.type(), properties(), reporter));
+    }
+
+    private Consumer<Item> properties() {
+        return (item) -> item.setPosition(getScreenCenter(item));
     }
 }

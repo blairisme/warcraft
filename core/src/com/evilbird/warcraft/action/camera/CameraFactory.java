@@ -17,6 +17,11 @@ import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
+/**
+ * Instances of this factory create {@link PanAction}s and {@link ZoomAction}s.
+ *
+ * @author Blair Butterworth
+ */
 public class CameraFactory implements ActionProvider
 {
     private InjectedPool<PanAction> panPool;

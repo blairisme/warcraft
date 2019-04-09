@@ -29,6 +29,7 @@ public class PlaceholderMove extends BasicAction
 {
     @Inject
     public PlaceholderMove() {
+        setIdentifier(PlaceholderActions.PlaceholderMove);
     }
 
     @Override

@@ -14,72 +14,74 @@ import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.inject.Inject;
+import java.util.function.Supplier;
 
 /**
  * Instances of this {@link Action} remove a given {@link Item} when invoked.
  *
  * @author Blair Butterworth
  */
-//TODO: Add events
 public class RemoveAction extends BasicAction
 {
-    private ActionTarget source;
+    private Supplier<Item> supplier;
+    private RemoveObserver observer;
 
-    @Inject
-    public RemoveAction() {
-        this(ActionTarget.Item);
+    public RemoveAction(ActionTarget target, RemoveObserver observer) {
+        this.supplier = new ActionTargetSupplier(target);
+        this.observer = observer;
     }
 
-    public RemoveAction(ActionTarget source) {
-        this.source = source;
+    public RemoveAction(Supplier<Item> supplier, RemoveObserver observer) {
+        this.supplier = supplier;
+        this.observer = observer;
     }
 
-    public static RemoveAction remove() {
-        return new RemoveAction(ActionTarget.Item);
+    public static RemoveAction remove(RemoveObserver observer) {
+        return new RemoveAction(ActionTarget.Item, observer);
     }
 
-    public static RemoveAction remove(ActionTarget target) {
-        return new RemoveAction(target);
+    public static RemoveAction remove(ActionTarget target, RemoveObserver observer) {
+        return new RemoveAction(target, observer);
+    }
+
+    public static RemoveAction remove(Supplier<Item> supplier, RemoveObserver observer) {
+        return new RemoveAction(supplier, observer);
     }
 
     @Override
     public boolean act(float delta) {
-        Item item = getRemoveItem();
-        ItemGroup parent = item.getParent();
-        parent.removeItem(item);
+        Item item = supplier.get();
+        removeItem(item);
+        notifyRemove(item);
         return true;
     }
 
-    private Item getRemoveItem() {
-        switch (source) {
-            case Item: return getItem();
-            case Target: return getTarget();
-            default: throw new UnsupportedOperationException();
+    protected void removeItem(Item item) {
+        ItemGroup parent = item.getParent();
+        parent.removeItem(item);
+    }
+
+    protected void notifyRemove(Item item) {
+        if (observer != null) {
+            observer.onRemove(item);
         }
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null) return false;
-        if (obj.getClass() != getClass()) return false;
+    private class ActionTargetSupplier implements Supplier<Item> {
+        private ActionTarget source;
 
-        RemoveAction that = (RemoveAction)obj;
-        return new EqualsBuilder()
-            .appendSuper(super.equals(obj))
-            .append(source, that.source)
-            .isEquals();
-    }
+        public ActionTargetSupplier(ActionTarget source) {
+            this.source = source;
+        }
 
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-            .appendSuper(super.hashCode())
-            .append(source)
-            .toHashCode();
+        @Override
+        public Item get() {
+            switch (source) {
+                case Item: return getItem();
+                case Target: return getTarget();
+                default: throw new UnsupportedOperationException();
+            }
+        }
     }
 }

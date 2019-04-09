@@ -9,5 +9,21 @@
 
 package com.evilbird.warcraft.action.common.create;
 
-public interface CreateObserver {
+import com.evilbird.engine.item.Item;
+
+/**
+ * Implementors of this interface provide methods that are called when
+ * {@link Item Items} are created.
+ *
+ * @author Blair Butterworth
+ */
+public interface CreateObserver
+{
+    /**
+     * Called when an {@link Item} has been created and assigned to its parent.
+     *
+     * @param newItem   an {@code Item} instance. This parameter will not be
+     *                  {@code null}.
+     */
+    void onCreate(Item newItem);
 }

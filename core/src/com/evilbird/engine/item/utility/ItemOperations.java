@@ -63,6 +63,10 @@ public class ItemOperations
         return findAncestor(item, itemWithType(type));
     }
 
+    public static Vector2 getScreenCenter(Item item) {
+        return getScreenCenter(item.getRoot());
+    }
+
     public static Vector2 getScreenCenter(ItemRoot root) {
         float x = graphics.getWidth() * 0.5f;
         float y = graphics.getHeight() * 0.5f;

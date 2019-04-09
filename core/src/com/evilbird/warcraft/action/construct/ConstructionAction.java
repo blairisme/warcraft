@@ -13,7 +13,6 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
-import com.evilbird.warcraft.action.common.create.Producible;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 /**
@@ -39,11 +38,11 @@ public class ConstructionAction extends DelayedAction
         this.source = source;
     }
 
-    public static ConstructionAction construct(Producible producible) {
+    public static ConstructionAction construct(ConstructActions producible) {
         return construct(ActionTarget.Item, producible);
     }
 
-    public static ConstructionAction construct(ActionTarget source, Producible producible) {
+    public static ConstructionAction construct(ActionTarget source, ConstructActions producible) {
         return new ConstructionAction(source, producible.getDuration());
     }
 

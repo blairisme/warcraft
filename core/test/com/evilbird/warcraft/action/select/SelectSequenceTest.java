@@ -14,15 +14,15 @@ import com.evilbird.test.testcase.ActionTestCase;
 import org.mockito.Mockito;
 
 /**
- * Instances of this unit test validate the {@link SelectToggle} class.
+ * Instances of this unit test validate the {@link SelectSequence} class.
  *
  * @author Blair Butterworth
  */
-public class SelectToggleTest extends ActionTestCase
+public class SelectSequenceTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        SelectToggle action = new SelectToggle(Mockito.mock(SelectReporter.class));
+        SelectSequence action = new SelectSequence(Mockito.mock(SelectReporter.class));
         action.setIdentifier(SelectActions.SelectToggle);
         return action;
     }

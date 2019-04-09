@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.confirm;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
+import org.mockito.Mockito;
 
 /**
  * Instances of this unit test validate the {@link ConfirmLocation} class.
@@ -21,7 +22,7 @@ public class ConfirmLocationTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        return new ConfirmLocation(itemFactory);
+        return new ConfirmLocation(Mockito.mock(ConfirmReporter.class));
     }
 
     @Override

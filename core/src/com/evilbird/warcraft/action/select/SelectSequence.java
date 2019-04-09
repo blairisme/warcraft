@@ -29,12 +29,12 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
  *
  * @author Blair Butterworth
  */
-public class SelectToggle extends FeatureAction
+public class SelectSequence extends FeatureAction
 {
     private transient SelectReporter observer;
 
     @Inject
-    public SelectToggle(SelectReporter reporter) {
+    public SelectSequence(SelectReporter reporter) {
         feature(SelectActions.SelectToggle);
         observer = reporter;
     }
@@ -58,7 +58,7 @@ public class SelectToggle extends FeatureAction
         if (obj == null) return false;
         if (obj.getClass() != getClass()) return false;
 
-        SelectToggle that = (SelectToggle)obj;
+        SelectSequence that = (SelectSequence)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(observer, that.observer)

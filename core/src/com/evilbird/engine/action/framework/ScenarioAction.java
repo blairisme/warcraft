@@ -214,24 +214,46 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         return this;
     }
 
-    public ScenarioAction withItem(Supplier<Item> updater) {
-        itemSupplier = updater;
-        scenario = null;
-        return this;
-    }
-
     public ScenarioAction withItem(Item item) {
+        Objects.requireNonNull(item);
         setItem(item);
         return this;
     }
 
+    public ScenarioAction withItem(Supplier<Item> supplier) {
+        Objects.requireNonNull(supplier);
+        itemSupplier = supplier;
+        scenario = null;
+        return this;
+    }
+
+    /**
+     * Specifies the target of the Scenario, an optional {@link Item} that this
+     * action will manipulate.
+     *
+     * @param target an {@code Item} instance. May be {@code null}.
+     *
+     * @return this scenario.
+     */
     public ScenarioAction withTarget(Item target) {
         setTarget(target);
         return this;
     }
 
-    public ScenarioAction withTarget(Supplier<Item> updater) {
-        targetSupplier = updater;
+    /**
+     * Assigns a {@link Supplier} that specifies the target of the Scenario,
+     * an optional {@link Item} that this action will manipulate. The supplier
+     * will be asked for the target {@code Item} once as soon as the Scenario
+     * is acted upon or after its restarted or reset.
+     *
+     * @param supplier  an {@code Item Supplier}. This parameter cannot be
+     *                  {@code null}.
+     *
+     * @return this scenario.
+     */
+    public ScenarioAction withTarget(Supplier<Item> supplier) {
+        Objects.requireNonNull(supplier);
+        targetSupplier = supplier;
         scenario = null;
         return this;
     }

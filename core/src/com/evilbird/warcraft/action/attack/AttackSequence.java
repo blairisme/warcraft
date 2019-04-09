@@ -40,7 +40,7 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Attack;
  */
 public class AttackSequence extends FeatureAction
 {
-    private AttackReporter reporter;
+    private transient AttackReporter reporter;
 
     @Inject
     public AttackSequence(AttackReporter reporter) {
@@ -84,6 +84,6 @@ public class AttackSequence extends FeatureAction
             .then(deselect(reporter), disable(), play(UnitSound.Die))
             .then(animate(Die), delay(1))
             .then(animate(Decompose), delay(10))
-            .then(remove());
+            .then(remove(reporter));
     }
 }

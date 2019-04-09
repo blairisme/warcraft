@@ -14,7 +14,6 @@ import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.common.cancel.CancelAction;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -28,12 +27,12 @@ import javax.inject.Inject;
 public class AttackFactory implements ActionProvider
 {
     private InjectedPool<AttackSequence> attackPool;
-    private InjectedPool<CancelAction> cancelPool;
+    private InjectedPool<AttackCancel> cancelPool;
 
     @Inject
     public AttackFactory(
         InjectedPool<AttackSequence> attackPool,
-        InjectedPool<CancelAction> cancelPool)
+        InjectedPool<AttackCancel> cancelPool)
     {
         this.attackPool = attackPool;
         this.cancelPool = cancelPool;

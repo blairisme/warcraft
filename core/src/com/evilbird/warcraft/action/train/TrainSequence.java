@@ -9,9 +9,12 @@
 
 package com.evilbird.warcraft.action.train;
 
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.ScenarioAction;
+import com.evilbird.engine.item.Item;
 
 import javax.inject.Inject;
+import java.util.function.Consumer;
 
 import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.purchase;
@@ -39,6 +42,20 @@ public class TrainSequence extends ScenarioAction<TrainActions>
         given(isAlive());
         then(purchase(type, events));
         then(produce(type));
-        then(create(type, events));
+        then(create(type.getItemType(), properties(), events));
+    }
+
+    private Consumer<Item> properties() {
+        return (item) -> {
+            Vector2 position = getPosition(item);
+            item.setPosition(position);
+        };
+    }
+
+    private Vector2 getPosition(Item item) {
+        Item producer = getItem();
+        Vector2 itemSize = item.getSize();
+        Vector2 referencePosition = producer.getPosition();
+        return new Vector2(referencePosition.x - itemSize.x, referencePosition.y);
     }
 }

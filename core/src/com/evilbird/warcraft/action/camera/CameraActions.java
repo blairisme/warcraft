@@ -20,6 +20,13 @@ import com.evilbird.engine.common.serialization.SerializedType;
 @SerializedType("CameraActions")
 public enum CameraActions implements ActionIdentifier
 {
+    /**
+     * An identifier for the {@link PanAction} action.
+     */
     Pan,
+
+    /**
+     * An identifier for the {@link ZoomAction} action.
+     */
     Zoom,
 }
