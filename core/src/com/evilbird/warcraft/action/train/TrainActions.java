@@ -10,13 +10,10 @@
 package com.evilbird.warcraft.action.train;
 
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.item.ItemType;
+import com.evilbird.warcraft.action.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
-import com.evilbird.warcraft.item.common.resource.ResourceRequirement;
 import com.evilbird.warcraft.item.unit.UnitType;
-
-import java.util.Map;
 
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
@@ -27,27 +24,30 @@ import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
  *
  * @author Blair Butterworth
  */
-public enum TrainActions implements ActionIdentifier, ResourceRequirement
+public enum TrainActions implements ActionIdentifier, ResourceQuantity
 {
-    TrainFootman (20f, Footman, Maps.<ResourceIdentifier, Float>of(Gold, 250f)),
-    TrainPeasant (20f, Peasant, Maps.<ResourceIdentifier, Float>of(Gold, 100f)),
+    TrainFootman (20f, Footman, Gold, 250f),
+    TrainPeasant (20f, Peasant, Gold, 100f),
     TrainFootmanCancel(TrainFootman),
     TrainPeasantCancel(TrainPeasant);
 
     private float trainTime;
     private UnitType unitType;
-    private Map<ResourceIdentifier, Float> unitCost;
+    private ResourceIdentifier resource;
+    private float amount;
 
     TrainActions(TrainActions other) {
         this.trainTime = other.trainTime;
         this.unitType = other.unitType;
-        this.unitCost = other.unitCost;
+        this.resource = other.resource;
+        this.amount = other.amount;
     }
 
-    TrainActions(float trainTime, UnitType unitType, Map<ResourceIdentifier, Float> unitCost) {
+    TrainActions(float trainTime, UnitType unitType, ResourceIdentifier resource, float amount) {
         this.trainTime = trainTime;
         this.unitType = unitType;
-        this.unitCost = unitCost;
+        this.resource = resource;
+        this.amount = amount;
     }
 
     public float getDuration() {
@@ -59,7 +59,12 @@ public enum TrainActions implements ActionIdentifier, ResourceRequirement
     }
 
     @Override
-    public Map<ResourceIdentifier, Float> getResourceRequirements() {
-        return unitCost;
+    public ResourceIdentifier getResource() {
+        return resource;
+    }
+
+    @Override
+    public float getValue() {
+        return amount;
     }
 }

@@ -14,15 +14,9 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.action.framework.ParallelAction;
-import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
-import com.evilbird.warcraft.item.common.resource.ResourceRequirement;
-import com.evilbird.warcraft.item.common.resource.ResourceUtils;
 import com.evilbird.warcraft.item.data.DataType;
-
-import java.util.Collections;
-import java.util.Map;
 
 import static com.evilbird.engine.action.common.ActionTarget.Player;
 import static com.evilbird.engine.item.utility.ItemOperations.findAncestorByType;
@@ -33,56 +27,51 @@ import static com.evilbird.engine.item.utility.ItemOperations.findAncestorByType
  *
  * @author Blair Butterworth
  */
-//TODO: doesnt need to use a map - can be just id and float
 public class ResourceTransferAction extends BasicAction
 {
+    private float factor;
     private ActionTarget target;
+    private ResourceQuantity quantity;
     private ResourceTransferObserver observer;
-    private Map<ResourceIdentifier, Float> deltas;
 
-    public ResourceTransferAction(ActionTarget target) {
-        this(target, null);
-    }
-
-    public ResourceTransferAction(ActionTarget target, ResourceTransferObserver observer) {
-        this(target, Collections.emptyMap(), observer);
-    }
-
-    public ResourceTransferAction(ActionTarget target, ResourceIdentifier type, float delta, ResourceTransferObserver observer) {
-        this(target, Maps.of(type, delta), observer);
-    }
-
-    private ResourceTransferAction(ActionTarget target, Map<ResourceIdentifier, Float> deltas, ResourceTransferObserver observer) {
+    private ResourceTransferAction(
+        ActionTarget target,
+        ResourceQuantity quantity,
+        float factor,
+        ResourceTransferObserver observer)
+    {
         this.target = target;
-        this.deltas = deltas;
+        this.quantity = quantity;
+        this.factor = factor;
         this.observer = observer;
     }
 
-    public Map<ResourceIdentifier, Float> getResourceDeltas() {
-        return deltas;
+    public static Action purchase(ResourceQuantity amount, ResourceTransferObserver observer) {
+        return new ResourceTransferAction(Player, amount, -1, observer);
     }
 
-    public void setResourceDeltas(Map<ResourceIdentifier, Float> deltas) {
-        this.deltas = deltas;
+    public static Action refund(ResourceQuantity amount, float proportion, ResourceTransferObserver observer) {
+        return new ResourceTransferAction(Player, amount, proportion, observer);
     }
 
-    public void setObserver(ResourceTransferObserver observer) {
-        this.observer = observer;
+    public static Action transfer(ActionTarget from, ActionTarget to, ResourceQuantity amount, ResourceTransferObserver observer) {
+        Action transferFrom = new ResourceTransferAction(from, amount, -1, observer);
+        Action transferTo = new ResourceTransferAction(to, amount, 1, observer);
+        return new ParallelAction(transferFrom, transferTo);
     }
 
     @Override
     public boolean act(float time) {
+        ResourceIdentifier resource = quantity.getResource();
         ResourceContainer container = getContainer();
-        for (Map.Entry<ResourceIdentifier, Float> delta: deltas.entrySet()) {
-            ResourceIdentifier resource = delta.getKey();
-            float diff = delta.getValue();
 
-            float oldValue = container.getResource(resource);
-            float newValue = MathUtils.clamp(oldValue + diff, 0f, Float.MAX_VALUE);
+        float delta = quantity.getValue() * factor;
+        float oldValue = container.getResource(resource);
+        float newValue = MathUtils.clamp(oldValue + delta, 0f, Float.MAX_VALUE);
 
-            container.setResource(resource, newValue);
-            notifyObserver(container, resource, newValue);
-        }
+        container.setResource(resource, newValue);
+        notifyObserver(container, resource, newValue);
+
         return true;
     }
 
@@ -100,20 +89,5 @@ public class ResourceTransferAction extends BasicAction
         if (observer != null) {
             observer.onTransfer(container, resource, value);
         }
-    }
-
-    public static ResourceTransferAction purchase(ResourceRequirement requirements, ResourceTransferObserver observer) {
-        Map<ResourceIdentifier, Float> cost = ResourceUtils.negate(requirements.getResourceRequirements());
-        return new ResourceTransferAction(Player, cost, observer);
-    }
-
-    public static Action transfer(ActionTarget from, ActionTarget to, ResourceRequirement requirements, ResourceTransferObserver observer) {
-        Map<ResourceIdentifier, Float> amount = requirements.getResourceRequirements();
-        Map<ResourceIdentifier, Float> cost = ResourceUtils.negate(amount);
-
-        Action transferFrom = new ResourceTransferAction(from, cost, observer);
-        Action transferTo = new ResourceTransferAction(to, amount, observer);
-
-        return new ParallelAction(transferFrom, transferTo);
     }
 }

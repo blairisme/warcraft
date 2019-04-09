@@ -52,7 +52,7 @@ public class MenuActionFactory implements ActionProvider
     }
 
     private Action getOverlayAction(MenuActions action) {
-        Action result = overlayPool.obtain();
+        MenuOverlayAction result = overlayPool.obtain();
         result.setIdentifier(action);
         return result;
     }

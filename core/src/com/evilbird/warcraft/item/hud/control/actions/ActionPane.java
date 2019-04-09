@@ -176,9 +176,9 @@ public class ActionPane extends GridItem implements MenuProvider
     }
 
 //    private boolean meetsResourceRequirements(ActionIdentifier action) {
-//        if (action instanceof ResourceRequirement) {
-//            ResourceRequirement requirementAction = (ResourceRequirement)action;
-//            Terrain<ResourceIdentifier, Float> requirements = requirementAction.getResourceRequirements();
+//        if (action instanceof ResourceQuantity) {
+//            ResourceQuantity requirementAction = (ResourceQuantity)action;
+//            Terrain<ResourceIdentifier, Float> requirements = requirementAction.getValues();
 //
 //            for (Terrain.Entry<ResourceIdentifier, Float> requirement: requirements.entrySet()) {
 //                Float playerResource = requireNonNull(resources.get(requirement.getKey()), 0f);

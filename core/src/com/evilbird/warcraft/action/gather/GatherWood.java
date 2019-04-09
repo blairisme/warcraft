@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.FeatureAction;
-import com.evilbird.warcraft.item.common.resource.ResourceRequirement;
+import com.evilbird.warcraft.action.common.resource.ResourceQuantity;
 
 import javax.inject.Inject;
 
@@ -76,7 +76,7 @@ public class GatherWood extends FeatureAction
             .withTarget(closest(TownHall, getTarget()));
     }
 
-    private ResourceRequirement resource() {
+    private ResourceQuantity resource() {
         return GatherActions.GatherWood;
     }
 }

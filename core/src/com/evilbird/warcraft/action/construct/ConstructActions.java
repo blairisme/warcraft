@@ -10,12 +10,9 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.common.collection.Maps;
+import com.evilbird.warcraft.action.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
-import com.evilbird.warcraft.item.common.resource.ResourceRequirement;
 import com.evilbird.warcraft.item.unit.UnitType;
-
-import java.util.Map;
 
 import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
 
@@ -24,29 +21,32 @@ import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
  *
  * @author Blair Butterworth
  */
-public enum ConstructActions implements ActionIdentifier, ResourceRequirement
+public enum ConstructActions implements ActionIdentifier, ResourceQuantity
 {
-    ConstructBarracks   (UnitType.Barracks, 20f, Maps.<ResourceIdentifier, Float>of(Gold, 100f)),
-    ConstructFarm       (UnitType.Farm, 20f, Maps.<ResourceIdentifier, Float>of(Gold, 100f)),
-    ConstructTownHall   (UnitType.TownHall, 20f, Maps.<ResourceIdentifier, Float>of(Gold, 100f)),
+    ConstructBarracks   (UnitType.Barracks, 20f, Gold, 100f),
+    ConstructFarm       (UnitType.Farm, 20f, Gold, 100f),
+    ConstructTownHall   (UnitType.TownHall, 20f, Gold, 100f),
     ConstructBarracksCancel (ConstructBarracks),
     ConstructFarmCancel     (ConstructFarm),
     ConstructTownhallCancel (ConstructTownHall);
 
     private UnitType type;
     private float time;
-    private Map<ResourceIdentifier, Float> resources;
+    private ResourceIdentifier resource;
+    private float amount;
 
     ConstructActions(ConstructActions other) {
         this.type = other.type;
         this.time = other.time;
-        this.resources = other.resources;
+        this.resource = other.resource;
+        this.amount = other.amount;
     }
 
-    ConstructActions(UnitType type, float time, Map<ResourceIdentifier, Float> resources) {
+    ConstructActions(UnitType type, float time, ResourceIdentifier resource, float amount) {
         this.type = type;
         this.time = time;
-        this.resources = resources;
+        this.resource = resource;
+        this.amount = amount;
     }
 
    // @Override
@@ -60,7 +60,12 @@ public enum ConstructActions implements ActionIdentifier, ResourceRequirement
     }
 
     @Override
-    public Map<ResourceIdentifier, Float> getResourceRequirements() {
-        return resources;
+    public ResourceIdentifier getResource() {
+        return resource;
+    }
+
+    @Override
+    public float getValue() {
+        return amount;
     }
 }

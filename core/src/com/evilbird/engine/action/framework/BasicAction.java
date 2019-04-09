@@ -134,7 +134,6 @@ public abstract class BasicAction implements Action
         this.error = error;
     }
 
-    @Override
     public void setIdentifier(Identifier identifier) {
         this.identifier = identifier;
     }

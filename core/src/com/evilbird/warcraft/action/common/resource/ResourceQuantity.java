@@ -7,17 +7,19 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.common.resource;
+package com.evilbird.warcraft.action.common.resource;
 
-import java.util.Map;
+import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 
 /**
  * Implementors of this interface represent an object with an associated
- * resource cost, usual required for creation.
+ * resource cost.
  *
  * @author Blair Butterworth
  */
-public interface ResourceRequirement
+public interface ResourceQuantity
 {
-    Map<ResourceIdentifier, Float> getResourceRequirements();
+    ResourceIdentifier getResource();
+
+    float getValue();
 }
