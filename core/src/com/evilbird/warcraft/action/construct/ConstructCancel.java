@@ -15,7 +15,7 @@ import com.evilbird.warcraft.item.unit.building.Building;
 import javax.inject.Inject;
 
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.refund;
-import static com.evilbird.warcraft.action.construct.ConstructionAction.stopConstructing;
+import static com.evilbird.warcraft.action.construct.ConstructAction.stopConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
 
 /**
@@ -44,43 +44,11 @@ public class ConstructCancel extends ScenarioAction<ConstructActions>
     protected void steps(ConstructActions action) {
         scenario(action);
         given(isConstructing());
-        then(stopConstructing());
-        then(refund(action, amount(), reporter));
+        then(stopConstructing(), refund(action, amount(), reporter));
     }
 
     private float amount() {
         Building building = (Building)getItem();
         return 1 - building.getConstructionProgress();
     }
-
-//    private VisibleAction restoreBuilder;
-//    private ResourceTransferAction restoreResources;
-//
-//    @Inject
-//    public ConstructCancel() {
-//        restoreResources = new ResourceTransferAction(ActionTarget.Player);
-//        restoreBuilder = new VisibleAction(true);
-//        //Action removeBuilding = new DeathAction();
-//        delegate = new ParallelAction(restoreResources, restoreBuilder/*, removeBuilding*/);
-//    }
-//
-//    public void setBuildCost(Map<ResourceIdentifier, Float> resources) {
-//        this.restoreResources.setResourceDeltas(resources);
-//    }
-//
-//    @Override
-//    public void setItem(Item item) {
-//        super.setItem(item);
-//        Building building = (Building)item;
-//        restoreBuilder.setItem(building.getConstructor());
-//    }
-//
-//    @Override
-//    public boolean act(float delta) {
-//        Building building = (Building)getItem();
-//        Map<ResourceIdentifier, Float> fullCosts = restoreResources.getResourceDeltas();
-//        Map<ResourceIdentifier, Float> scaledCosts = ResourceUtils.scale(fullCosts, 1 - building.getConstructionProgress());
-//        restoreResources.setResourceDeltas(scaledCosts);
-//        return super.act(delta);
-//    }
 }

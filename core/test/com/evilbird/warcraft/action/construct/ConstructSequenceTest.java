@@ -28,7 +28,7 @@ public class ConstructSequenceTest extends ActionTestCase
     }
 
     @Override
-    protected Enum newActionId() {
+    protected Enum newIdentifier() {
         return ConstructActions.ConstructBarracks;
     }
 }

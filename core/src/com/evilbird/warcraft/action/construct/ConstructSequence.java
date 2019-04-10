@@ -27,7 +27,7 @@ import static com.evilbird.engine.item.utility.ItemSuppliers.closest;
 import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.purchase;
-import static com.evilbird.warcraft.action.construct.ConstructionAction.construct;
+import static com.evilbird.warcraft.action.construct.ConstructAction.construct;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;

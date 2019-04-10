@@ -27,7 +27,7 @@ public class GatherCancelTest extends ActionTestCase
     }
 
     @Override
-    protected Enum newActionId() {
+    protected Enum newIdentifier() {
         return GatherActions.GatherCancel;
     }
 }

@@ -28,7 +28,7 @@ public class TrainCancelTest extends ActionTestCase
     }
 
     @Override
-    protected Enum newActionId() {
+    protected Enum newIdentifier() {
         return TrainActions.TrainFootmanCancel;
     }
 }

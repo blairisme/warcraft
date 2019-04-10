@@ -26,7 +26,7 @@ public class MoveToVectorScenarioTest extends ActionTestCase
     }
 
     @Override
-    protected Enum newActionId() {
+    protected Enum newIdentifier() {
         return MoveActions.MoveToLocation;
     }
 }

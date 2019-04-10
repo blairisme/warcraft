@@ -21,33 +21,33 @@ import com.evilbird.warcraft.item.unit.building.Building;
  *
  * @author Blair Butterworth
  */
-public class ConstructionAction extends DelayedAction
+public class ConstructAction extends DelayedAction
 {
     private ActionTarget source;
 
     @SerializedConstructor
-    private ConstructionAction() {
+    private ConstructAction() {
     }
 
-    public ConstructionAction(float duration) {
+    public ConstructAction(float duration) {
         this(ActionTarget.Item, duration);
     }
 
-    public ConstructionAction(ActionTarget source, float duration) {
+    public ConstructAction(ActionTarget source, float duration) {
         super(duration);
         this.source = source;
     }
 
-    public static ConstructionAction construct(ConstructActions producible) {
+    public static ConstructAction construct(ConstructActions producible) {
         return construct(ActionTarget.Item, producible);
     }
 
-    public static ConstructionAction construct(ActionTarget source, ConstructActions producible) {
-        return new ConstructionAction(source, producible.getDuration());
+    public static ConstructAction construct(ActionTarget source, ConstructActions producible) {
+        return new ConstructAction(source, producible.getDuration());
     }
 
-    public static ConstructionAction stopConstructing() {
-        return new ConstructionAction(ActionTarget.Item, 0);
+    public static ConstructAction stopConstructing() {
+        return new ConstructAction(ActionTarget.Item, 0);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class SelectSequenceTest extends ActionTestCase
     }
 
     @Override
-    protected Enum newActionId() {
+    protected Enum newIdentifier() {
         return SelectActions.SelectToggle;
     }
 }

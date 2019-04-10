@@ -28,7 +28,7 @@ public class GatherGoldTest extends ActionTestCase
     }
 
     @Override
-    protected Enum newActionId() {
+    protected Enum newIdentifier() {
         return GatherActions.GatherGold;
     }
 }

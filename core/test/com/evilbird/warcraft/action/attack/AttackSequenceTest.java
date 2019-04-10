@@ -26,7 +26,7 @@ public class AttackSequenceTest extends ActionTestCase
     }
 
     @Override
-    protected Enum newActionId() {
+    protected Enum newIdentifier() {
         return AttackActions.AttackMelee;
     }
 }

@@ -28,7 +28,7 @@ public class PlaceholderCreateTest extends ActionTestCase
     }
 
     @Override
-    protected Enum newActionId() {
+    protected Enum newIdentifier() {
         return PlaceholderActions.AddBarracksPlaceholder;
     }
 }

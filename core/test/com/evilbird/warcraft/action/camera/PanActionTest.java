@@ -25,7 +25,7 @@ public class PanActionTest extends ActionTestCase
     }
 
     @Override
-    protected Enum newActionId() {
+    protected Enum newIdentifier() {
         return CameraActions.Pan;
     }
 }

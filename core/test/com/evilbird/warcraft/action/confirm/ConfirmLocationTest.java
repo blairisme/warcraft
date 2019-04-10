@@ -26,7 +26,7 @@ public class ConfirmLocationTest extends ActionTestCase
     }
 
     @Override
-    protected Enum newActionId() {
+    protected Enum newIdentifier() {
         return ConfirmActions.ConfirmLocation;
     }
 }

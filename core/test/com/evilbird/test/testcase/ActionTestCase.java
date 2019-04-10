@@ -58,22 +58,6 @@ public abstract class ActionTestCase extends GameTestCase
         respondWithAction(action);
     }
 
-    protected Item newItem() {
-        return TestCombatants.newTestCombatant(new TextIdentifier("item"), UnitType.Footman);
-    }
-
-    protected Item newTarget() {
-        return TestCombatants.newTestCombatant(new TextIdentifier("target"), UnitType.Grunt);
-    }
-
-    protected UserInput newCause() {
-        return new UserInput(UserInputType.Action, Vector2.Zero, 1);
-    }
-
-    protected abstract Action newAction();
-
-    protected abstract Enum newActionId();
-
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(Action.class)
@@ -84,7 +68,7 @@ public abstract class ActionTestCase extends GameTestCase
 
     @Test
     public void serializeTest() throws IOException {
-        Enum id = newActionId();
+        Enum id = newIdentifier();
         String actionId = id.name();
         String actionType = types.getName(id.getClass());
 
@@ -96,5 +80,21 @@ public abstract class ActionTestCase extends GameTestCase
             .withDeserializedForm(action)
             .withSerializedForm(serialized)
             .verify();
+    }
+
+    protected abstract Action newAction();
+
+    protected abstract Enum newIdentifier();
+
+    protected Item newItem() {
+        return TestCombatants.newTestCombatant(new TextIdentifier("item"), UnitType.Footman);
+    }
+
+    protected Item newTarget() {
+        return TestCombatants.newTestCombatant(new TextIdentifier("target"), UnitType.Grunt);
+    }
+
+    protected UserInput newCause() {
+        return new UserInput(UserInputType.Action, Vector2.Zero, 1);
     }
 }

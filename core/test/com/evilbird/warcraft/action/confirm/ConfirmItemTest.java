@@ -26,7 +26,7 @@ public class ConfirmItemTest extends ActionTestCase
     }
 
     @Override
-    protected Enum newActionId() {
+    protected Enum newIdentifier() {
         return ConfirmActions.ConfirmTarget;
     }
 }

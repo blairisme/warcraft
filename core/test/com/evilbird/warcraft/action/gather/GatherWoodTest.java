@@ -28,7 +28,7 @@ public class GatherWoodTest extends ActionTestCase
     }
 
     @Override
-    protected Enum newActionId() {
+    protected Enum newIdentifier() {
         return GatherActions.GatherWood;
     }
 }

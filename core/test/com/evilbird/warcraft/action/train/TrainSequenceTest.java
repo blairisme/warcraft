@@ -28,7 +28,7 @@ public class TrainSequenceTest extends ActionTestCase
     }
 
     @Override
-    protected Enum newActionId() {
+    protected Enum newIdentifier() {
         return TrainActions.TrainFootman;
     }
 }

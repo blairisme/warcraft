@@ -29,7 +29,7 @@ public class MenuNavigateActionTest extends ActionTestCase
     }
 
     @Override
-    protected Enum newActionId() {
+    protected Enum newIdentifier() {
         return MenuActions.BuildSimpleMenu;
     }
 }
