@@ -49,12 +49,10 @@ public enum ConstructActions implements ActionIdentifier, ResourceQuantity
         this.amount = amount;
     }
 
-   // @Override
     public UnitType getItemType() {
         return type;
     }
 
-    //@Override
     public float getDuration() {
         return time;
     }

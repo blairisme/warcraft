@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * Instances of this class represent a collection of asset factories that
- * produce objects identified by given value.
+ * startProducing objects identified by given value.
  *
  * @param <T> the type of the objects produced by this factory.
  *

@@ -9,39 +9,49 @@
 
 package com.evilbird.warcraft.action.train;
 
-import com.evilbird.engine.action.framework.DelegateAction;
+import com.evilbird.engine.action.framework.ScenarioAction;
+import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
 
+import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.refund;
+import static com.evilbird.warcraft.action.train.TrainAction.stopProducing;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isProducing;
+
 /**
- * Instances of this class stop the training of a unit.
+ * Instances of this class stop the training of an {@link Item}, refunding a
+ * proportion of the cost of training it.
  *
  * @author Blair Butterworth
  */
-public class TrainCancel extends DelegateAction
+public class TrainCancel extends ScenarioAction<TrainActions>
 {
+    private TrainReporter reporter;
+
+    /**
+     * Constructs a new instance of this class given a {@link TrainReporter}
+     * used to report the transfer of resources involved in the refund for the
+     * partially complete train operation.
+     *
+     * @param reporter  a {@code TrainReporter} instance. This parameter
+     *                  cannot be {@code null}.
+     */
     @Inject
-    public TrainCancel() {
+    public TrainCancel(TrainReporter reporter) {
+        this.reporter = reporter;
     }
 
-//    private ResourceTransferAction transfer;
-//
-//    @Inject
-//    public TrainCancel() {
-//        transfer = new ResourceTransferAction(ActionTarget.Player);
-//        delegate = transfer;
-//    }
-//
-//    public void setTrainCost(Map<ResourceIdentifier, Float> resources) {
-//        transfer.setResourceDeltas(resources);
-//    }
-//
-//    @Override
-//    public boolean act(float delta) {
-//        Building building = (Building)getItem();
-//        Map<ResourceIdentifier, Float> fullCosts = transfer.getResourceDeltas();
-//        Map<ResourceIdentifier, Float> scaledCosts = ResourceUtils.scale(fullCosts, 1 - building.getProgress());
-//        transfer.setResourceDeltas(scaledCosts);
-//        return delegate.act(delta);
-//    }
+    @Override
+    protected void steps(TrainActions action) {
+        scenario(action);
+        given(isProducing());
+        then(stopProducing());
+        then(refund(action, amount(), reporter));
+    }
+
+    private float amount() {
+        Building building = (Building)getItem();
+        return 1 - building.getProductionProgress();
+    }
 }

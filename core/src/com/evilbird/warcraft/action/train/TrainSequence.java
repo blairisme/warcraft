@@ -18,7 +18,7 @@ import java.util.function.Consumer;
 
 import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.purchase;
-import static com.evilbird.warcraft.action.train.TrainAction.produce;
+import static com.evilbird.warcraft.action.train.TrainAction.startProducing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 
 /**
@@ -41,7 +41,7 @@ public class TrainSequence extends ScenarioAction<TrainActions>
         scenario(type);
         given(isAlive());
         then(purchase(type, events));
-        then(produce(type));
+        then(startProducing(type));
         then(create(type.getItemType(), properties(), events));
     }
 

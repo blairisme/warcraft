@@ -46,6 +46,10 @@ public class ConstructionAction extends DelayedAction
         return new ConstructionAction(source, producible.getDuration());
     }
 
+    public static ConstructionAction stopConstructing() {
+        return new ConstructionAction(ActionTarget.Item, 0);
+    }
+
     @Override
     public boolean act(float delta) {
         super.act(delta);

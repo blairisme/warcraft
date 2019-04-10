@@ -12,11 +12,12 @@ package com.evilbird.warcraft.action.train;
 import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
+import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 /**
- * Represents an action whose operation takes time, which is communicated to
- * the user via a progress bar.
+ * Instances of this Action alter an {@link Item}s state to indicate that its
+ * in the process of producing something.
  *
  * @author Blair Butterworth
  */
@@ -37,12 +38,16 @@ public class TrainAction extends DelayedAction
         this.source = source;
     }
 
-    public static TrainAction produce(TrainActions producible) {
-        return produce(ActionTarget.Item, producible);
+    public static TrainAction startProducing(TrainActions producible) {
+        return startProducing(ActionTarget.Item, producible);
     }
 
-    public static TrainAction produce(ActionTarget source, TrainActions producible) {
+    public static TrainAction startProducing(ActionTarget source, TrainActions producible) {
         return new TrainAction(source, producible.getDuration());
+    }
+
+    public static TrainAction stopProducing() {
+        return new TrainAction(ActionTarget.Item, 0);
     }
 
     @Override

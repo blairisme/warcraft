@@ -26,8 +26,8 @@ import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
  */
 public enum TrainActions implements ActionIdentifier, ResourceQuantity
 {
-    TrainFootman (20f, Footman, Gold, 250f),
-    TrainPeasant (20f, Peasant, Gold, 100f),
+    TrainFootman (Footman, 20f, Gold, 250f),
+    TrainPeasant (Peasant, 20f, Gold, 100f),
     TrainFootmanCancel(TrainFootman),
     TrainPeasantCancel(TrainPeasant);
 
@@ -43,7 +43,7 @@ public enum TrainActions implements ActionIdentifier, ResourceQuantity
         this.amount = other.amount;
     }
 
-    TrainActions(float trainTime, UnitType unitType, ResourceIdentifier resource, float amount) {
+    TrainActions(UnitType unitType, float trainTime, ResourceIdentifier resource, float amount) {
         this.trainTime = trainTime;
         this.unitType = unitType;
         this.resource = resource;

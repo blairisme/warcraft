@@ -10,7 +10,7 @@
 package com.evilbird.engine.common.audio;
 
 /**
- * Instances of this class represent a {@link SoundEffect} that doesnt produce
+ * Instances of this class represent a {@link SoundEffect} that doesnt startProducing
  * an audio output, I.E., its silent.
  *
  * @author Blair Butterworth

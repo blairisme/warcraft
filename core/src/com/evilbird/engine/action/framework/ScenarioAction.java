@@ -23,7 +23,8 @@ import java.util.function.Supplier;
 import static com.evilbird.engine.common.function.Predicates.both;
 
 /**
- * Represents an action whose operation is specified somewhat like Gherkin.
+ * Represents an action whose operation is specified in a syntax akin to
+ * Gherkin.
  *
  * @param <T> an action identifier type.
  *
@@ -39,6 +40,10 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     private transient Supplier<Item> itemSupplier;
     private transient Supplier<Item> targetSupplier;
 
+    /**
+     * Constructs a new instance of this class with no requirements, branches
+     * or operations.
+     */
     public ScenarioAction() {
         then = new SequenceAction();
     }
@@ -214,12 +219,32 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         return this;
     }
 
+    /**
+     * Specifies the subject of the Scenario, the {@link Item} that the
+     * Scenario will operate on.
+     *
+     * @param item  an {@code Item} instance. This parameter cannot be
+     *              {@code null}.
+     *
+     * @return this scenario.
+     */
     public ScenarioAction withItem(Item item) {
         Objects.requireNonNull(item);
         setItem(item);
         return this;
     }
 
+    /**
+     * Assigns a {@link Supplier} that specifies the subject of the Scenario,
+     * the {@link Item} that the Scenario will operate on. The supplier will be
+     * asked for the subject {@code Item} once as soon as the Scenario is acted
+     * upon or after its restarted or reset.
+     *
+     * @param supplier  an {@code Item Supplier}. This parameter cannot be
+     *                  {@code null}.
+     *
+     * @return this scenario.
+     */
     public ScenarioAction withItem(Supplier<Item> supplier) {
         Objects.requireNonNull(supplier);
         itemSupplier = supplier;

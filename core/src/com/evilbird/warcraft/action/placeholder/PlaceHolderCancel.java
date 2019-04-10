@@ -9,19 +9,19 @@
 
 package com.evilbird.warcraft.action.placeholder;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.ScenarioAction;
 
 import javax.inject.Inject;
 
-public class PlaceHolderCancel extends BasicAction
+public class PlaceHolderCancel extends ScenarioAction //extends BasicAction
 {
     @Inject
     public PlaceHolderCancel() {
         setIdentifier(PlaceholderActions.PlaceholderCancel);
     }
 
-    @Override
-    public boolean act(float delta) {
-        return false;
-    }
+//    @Override
+//    public boolean act(float delta) {
+//        return false;
+//    }
 }

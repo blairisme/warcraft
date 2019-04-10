@@ -25,7 +25,8 @@ import javax.inject.Inject;
 public class GatherCancel extends DelegateAction
 {
     @Inject
-    public GatherCancel(){
-        delegate = new AnimateAction(UnitAnimation.Idle);
+    public GatherCancel() {
+        super(new AnimateAction(UnitAnimation.Idle));
+        setIdentifier(GatherActions.GatherCancel);
     }
 }

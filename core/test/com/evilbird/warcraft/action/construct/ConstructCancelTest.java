@@ -15,19 +15,18 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.item.unit.UnitType;
-import org.junit.Ignore;
+import org.mockito.Mockito;
 
 /**
  * Instances of this unit test validate the {@link ConstructCancel} class.
  *
  * @author Blair Butterworth
  */
-@Ignore
 public class ConstructCancelTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        ConstructCancel action = new ConstructCancel();
+        ConstructCancel action = new ConstructCancel(Mockito.mock(ConstructReporter.class));
         action.setIdentifier(ConstructActions.ConstructBarracksCancel);
         return action;
     }

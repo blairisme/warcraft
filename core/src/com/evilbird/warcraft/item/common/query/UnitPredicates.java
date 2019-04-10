@@ -121,4 +121,11 @@ public class UnitPredicates
             return building.isConstructing();
         };
     }
+
+    public static Predicate<Item> isProducing() {
+        return (item) -> {
+            Building building = (Building)item;
+            return building.isProducing();
+        };
+    }
 }
