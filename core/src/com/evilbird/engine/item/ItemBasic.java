@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.common.collection.EmptyIterator;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
@@ -87,7 +88,7 @@ public class ItemBasic implements Item
     @Override
     public void clearActions() {
         if (iterator != null) {
-            iterator = Collections.emptyListIterator();
+            iterator = new EmptyIterator<>();
         }
         actions.clear();
     }
@@ -101,6 +102,16 @@ public class ItemBasic implements Item
     @Override
     public Collection<Action> getActions() {
         return Collections.unmodifiableList(actions);
+    }
+
+    /**
+     * Determines if the Item has currently been assigned an {@link Action}.
+     *
+     * @return <code>true</code> if the Item has an assigned Action.
+     */
+    @Override
+    public boolean hasActions() {
+        return !actions.isEmpty();
     }
 
     /**
@@ -280,16 +291,6 @@ public class ItemBasic implements Item
     @Override
     public float getY() {
         return position.y;
-    }
-
-    /**
-     * Determines if the Item has currently been assigned an {@link Action}.
-     *
-     * @return <code>true</code> if the Item has an assigned Action.
-     */
-    @Override
-    public boolean hasActions() {
-        return delegate.hasActions();
     }
 
     /**

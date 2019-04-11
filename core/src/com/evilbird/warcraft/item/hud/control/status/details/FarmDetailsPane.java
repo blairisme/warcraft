@@ -9,11 +9,9 @@
 
 package com.evilbird.warcraft.item.hud.control.status.details;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.control.StyledLabel;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.item.unit.building.Building;
 
@@ -36,10 +34,10 @@ public class FarmDetailsPane extends GridItem
         setCellWidth(160);
         setCellHeight(12);
 
-        grown = createLabel("Grown");
-        used = createLabel("Used");
+        grown = createLabel("Grown", skin);
+        used = createLabel("Used", skin);
 
-        add(createLabel("Food Usage"));
+        add(createLabel("Food Usage", skin));
         add(grown);
         add(used);
     }
@@ -56,11 +54,10 @@ public class FarmDetailsPane extends GridItem
         return stringBuilder.toString();
     }
 
-    private Label createLabel(String text) {
-        StyledLabel result = new StyledLabel(text);
+    private Label createLabel(String text, Skin skin) {
+        Label result = new Label(text, skin);
         result.setSize(160, 12);
         result.setAlignment(Align.center);
-        result.setFontColour(Color.WHITE);
         return result;
     }
 }

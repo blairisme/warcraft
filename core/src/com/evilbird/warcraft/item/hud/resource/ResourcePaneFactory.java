@@ -12,7 +12,6 @@ package com.evilbird.warcraft.item.hud.resource;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.inject.AssetProvider;
@@ -22,7 +21,6 @@ import com.evilbird.warcraft.item.hud.HudControl;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 
 /**

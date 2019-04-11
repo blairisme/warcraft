@@ -25,11 +25,10 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-//TODO: Bug: Handle case where selection count exceeds available space
-//TODO: Enhancement: Focus on unit when selection tile clicked
-//TODO: Enhancement: Add mechanism to deselect selected item
 public class SelectionPane extends GridItem
 {
+    private static final int SELECTION_MAX = 9;
+
     public SelectionPane(Skin skin) {
         super(3, 3);
         setSkin(skin);
@@ -53,6 +52,9 @@ public class SelectionPane extends GridItem
         for (Item item : items) {
             if (item instanceof Unit) {
                 result.add(getUnitPane((Unit) item));
+            }
+            if (result.size() == SELECTION_MAX) {
+                break;
             }
         }
         return result;

@@ -17,12 +17,13 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.action.menu.MenuProvider;
 import com.evilbird.warcraft.item.hud.HudControl;
-import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
+import static com.evilbird.warcraft.item.hud.control.actions.ActionPaneView.Actions;
 
 /**
  * Instances of this class show a grid of buttons representing the actions that
@@ -30,29 +31,22 @@ import java.util.List;
  *
  * @author Blair Butterworth
  */
-//TODO: Disable buttons if insufficient resources
-//TODO: Disable buttons if constructing
 public class ActionPane extends GridItem implements MenuProvider
 {
     private Collection<Item> selection;
-//    private Map<ResourceIdentifier, Float> resources;
     private ActionPaneView view;
-    private boolean cancelShown;
     private boolean invalidated;
 
     public ActionPane(Skin skin) {
         super(3, 3);
 
-        this.selection = new ArrayList<>();
-//        this.resources = Collections.emptyMap();
-        this.view = ActionPaneView.Actions;
-        this.cancelShown = false;
+        this.view = Actions;
         this.invalidated = true;
+        this.selection = new ArrayList<>();
 
         setSkin(skin);
         setBackground("action-panel");
         setSize(176, 176);
-        //setCellPadding(3);
         setCellPadding(1);
         setCellWidth(54);
         setCellHeight(46);
@@ -62,14 +56,14 @@ public class ActionPane extends GridItem implements MenuProvider
     }
 
     public void updateSelection(Collection<Item> newSelection) {
+        view = Actions;
+        invalidated = true;
         selection.clear();
         selection.addAll(newSelection);
-        view = ActionPaneView.Actions;
-        invalidated = true;
     }
 
     public void updateSelection(Item item, boolean selected) {
-        view = ActionPaneView.Actions;
+        view = Actions;
         invalidated = true;
         if (selected) {
             selection.add(item);
@@ -78,16 +72,20 @@ public class ActionPane extends GridItem implements MenuProvider
         }
     }
 
+    public void invalidateItem(Item item) {
+        if (selection.contains(item)) {
+            invalidated = true;
+        }
+    }
+
     @Override
     public void showMenu(Identifier location) {
-        Validate.isInstanceOf(ActionPaneView.class, location);
         view = (ActionPaneView)location;
         invalidated = true;
     }
 
     @Override
     public void update(float delta) {
-        super.update(delta);
         if (invalidated) {
             invalidated = false;
             updateView();
@@ -96,35 +94,31 @@ public class ActionPane extends GridItem implements MenuProvider
 
     private void updateView() {
         clearItems();
-
-        if (view == ActionPaneView.Actions && hasAction(selection)){
-            showCancelAction();
-        }
-        else {
-            showActions(selection);
+        if (shouldShowCancel()){
+            showCancel();
+        } else {
+            showActions();
         }
     }
 
-    private boolean hasAction(Collection<Item> selection) {
-        if (selection.size() == 1) {
+    private boolean shouldShowCancel() {
+        if (view == Actions && selection.size() == 1) {
             return selection.iterator().next().hasActions();
         }
         return false;
     }
 
-    private void showCancelAction() {
+    private void showCancel() {
         setAlignment(Alignment.BottomRight);
         ActionButton cancelButton = getButton(ActionButtonType.CancelButton);
         add(cancelButton);
-        cancelShown = true;
     }
 
-    private void showActions(Collection<Item> selection) {
+    private void showActions() {
         setAlignment(Alignment.TopLeft);
         List<ActionButtonType> actions = getActions(selection);
         List<ActionButton> buttons = getButtons(actions);
         buttons.forEach(this::add);
-        cancelShown = false;
     }
 
     private List<ActionButtonType> getActions(Collection<Item> selection) {
@@ -152,14 +146,6 @@ public class ActionPane extends GridItem implements MenuProvider
         return result;
     }
 
-//    private Collection<ActionIdentifier> getAvailableActions(Item item) {
-//        if (item instanceof Unit){
-//            Unit unit = (Unit)item;
-//            return unit.getAvailableActions();
-//        }
-//        return Collections.emptyList();
-//    }
-
     private List<ActionButton> getButtons(List<ActionButtonType> actions) {
         List<ActionButton> result = new ArrayList<>(actions.size());
         for (ActionButtonType action: actions){
@@ -174,60 +160,4 @@ public class ActionPane extends GridItem implements MenuProvider
         //result.setTouchable(meetsResourceRequirements(action) ? Touchable.enabled : Touchable.disabled);
         return result;
     }
-
-//    private boolean meetsResourceRequirements(ActionIdentifier action) {
-//        if (action instanceof ResourceQuantity) {
-//            ResourceQuantity requirementAction = (ResourceQuantity)action;
-//            Terrain<ResourceIdentifier, Float> requirements = requirementAction.getValues();
-//
-//            for (Terrain.Entry<ResourceIdentifier, Float> requirement: requirements.entrySet()) {
-//                Float playerResource = requireNonNull(resources.get(requirement.getKey()), 0f);
-//                Float requiredResource = requirement.getValue();
-//
-//                if (playerResource < requiredResource) {
-//                    return false;
-//                }
-//            }
-//        }
-//        return true;
-//    }
-
-
-
-
-//    private boolean viewInvalidated(Collection<Item> newSelection) {
-//        return selectionUpdated(newSelection) || actionsUpdated(newSelection); //|| resourcesUpdated(newSelection);
-//    }
-//
-//    private boolean selectionUpdated(Collection<Item> newSelection) {
-//        return ! Objects.equals(selection, newSelection);
-//    }
-//
-//    private boolean actionsUpdated(Collection<Item> newSelection) {
-//        boolean showCancel = hasAction(newSelection);
-//        return cancelShown != showCancel;
-//    }
-//
-//    private boolean resourcesUpdated(Collection<Item> newSelection) {
-//        Terrain<ResourceIdentifier, Float> newResources = getResources(newSelection);
-//        return ! Objects.equals(resources, newResources);
-//    }
-//
-//    private Terrain<ResourceIdentifier, Float> getResources(Collection<Item> selection) {
-//        if (! selection.isEmpty()) {
-//            Item item = selection.iterator().next();
-//            Item player = ItemOperations.findAncestorByType(item, DataType.Player);
-//            return new HashMap<>(((ResourceContainer)player).getResources());
-//        }
-//        return Collections.emptyMap();
-//    }
-//
-//    private void resetLayout() {
-//        view = ActionPaneView.Actions;
-//    }
-//
-//    private void updateModel(Collection<Item> newSelection) {
-//        selection = newSelection;
-//        resources = getResources(newSelection);
-//    }
 }

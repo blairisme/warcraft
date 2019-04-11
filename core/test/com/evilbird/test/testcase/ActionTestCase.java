@@ -82,6 +82,9 @@ public abstract class ActionTestCase extends GameTestCase
             .verify();
     }
 
+
+
+
     protected abstract Action newAction();
 
     protected abstract Enum newIdentifier();

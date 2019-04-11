@@ -61,5 +61,4 @@ public class ConstructCancelTest extends ActionTestCase
         Assert.assertFalse(building.isConstructing());
         Assert.assertEquals(173, player.getResource(ResourceType.Gold), 1);
     }
-
 }

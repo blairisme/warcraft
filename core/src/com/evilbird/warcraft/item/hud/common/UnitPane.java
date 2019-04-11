@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.GridItem;
-import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.unit.Unit;
 
 /**

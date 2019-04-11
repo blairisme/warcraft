@@ -18,6 +18,7 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
 import com.evilbird.warcraft.action.select.SelectEvent;
+import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.hud.control.actions.ActionPane;
@@ -38,9 +39,9 @@ public class HudBehaviour implements Behaviour
 {
     private EventQueue events;
     private Player player;
-    private ResourcePane resourcePane;
     private ActionPane actionPane;
     private StatusPane statusPane;
+    private ResourcePane resourcePane;
 
     @Inject
     public HudBehaviour(EventQueue events) {
@@ -49,7 +50,7 @@ public class HudBehaviour implements Behaviour
 
     @Override
     public Identifier getIdentifier() {
-        return null; //TODO
+        return WarcraftBehaviour.HudBehaviour;
     }
 
     @Override
@@ -76,6 +77,18 @@ public class HudBehaviour implements Behaviour
             return false;
         }
         return true;
+    }
+
+    private void initializeResources() {
+        resourcePane.setGold(player.getResource(ResourceType.Gold));
+        resourcePane.setOil(player.getResource(ResourceType.Oil));
+        resourcePane.setWood(player.getResource(ResourceType.Wood));
+    }
+
+    private void initializeSelection(ItemRoot world) {
+        Collection<Item> selection = world.findAll(selectedItem());
+        actionPane.updateSelection(selection);
+        statusPane.updateSelection(selection);
     }
 
     private void updateResources() {
@@ -106,15 +119,10 @@ public class HudBehaviour implements Behaviour
         }
     }
 
-    private void initializeResources() {
-        resourcePane.setGold(player.getResource(ResourceType.Gold));
-        resourcePane.setOil(player.getResource(ResourceType.Oil));
-        resourcePane.setWood(player.getResource(ResourceType.Wood));
-    }
-
-    private void initializeSelection(ItemRoot world) {
-        Collection<Item> selection = world.findAll(selectedItem());
-        actionPane.updateSelection(selection);
-        statusPane.updateSelection(selection);
-    }
+//    private void updateActions() {
+//        for (TrainEvent event: events.getEvents(TrainEvent.class)) {
+//            Item subject = event.getSubject();
+//            actionPane.invalidateItem(subject);
+//        }
+//    }
 }

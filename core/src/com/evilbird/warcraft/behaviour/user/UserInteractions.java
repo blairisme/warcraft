@@ -31,8 +31,7 @@ import static com.evilbird.warcraft.action.move.MoveActions.MoveCancel;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveToLocation;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.*;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectToggle;
-import static com.evilbird.warcraft.action.train.TrainActions.TrainFootman;
-import static com.evilbird.warcraft.action.train.TrainActions.TrainPeasant;
+import static com.evilbird.warcraft.action.train.TrainActions.*;
 import static com.evilbird.warcraft.behaviour.user.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.behaviour.user.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.user.InteractionAssignment.Parent;
@@ -115,6 +114,8 @@ public class UserInteractions
 
         interactions.addAction(GatherCancel).whenTarget(CancelButton).whenSelected(Peasant).withAction(GatherGold).appliedTo(Selected);
         interactions.addAction(GatherCancel).whenTarget(CancelButton).whenSelected(Peasant).withAction(GatherWood).appliedTo(Selected);
+
+        interactions.addAction(TrainFootmanCancel).whenTarget(CancelButton).whenSelected(Barracks).withAction(TrainFootman).appliedTo(Selected);
     }
 
     private void addMenuInteractions() {
