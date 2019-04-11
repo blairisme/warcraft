@@ -84,9 +84,7 @@ public class WarcraftActionFactory implements ActionFactory
     public Action newAction(ActionIdentifier identifier) {
         ActionProvider provider = actions.get(identifier);
         if (provider != null) {
-            Action result = provider.get(identifier);
-            result.setIdentifier(identifier); //TODO: Evaluate if needed
-            return result;
+            return provider.get(identifier);
         }
         throw new UnknownEntityException(identifier);
     }
