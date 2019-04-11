@@ -55,7 +55,6 @@ public class UnitPane extends GridItem
         setCellPadding(2);
         setCellSpacing(-2);
         setBackground("unit-panel");
-        setType(HudControl.UnitPane);
         setTouchable(Touchable.enabled);
     }
 

@@ -13,6 +13,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
+/**
+ * Defines the visual appearance of the {@link ResourcePane} class.
+ *
+ * @author Blair Butterworth
+ */
 public class ResourcePaneStyle
 {
     public Color colour;

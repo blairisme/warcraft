@@ -59,7 +59,7 @@ public class UserInteractions
     public UserInteractions(InteractionContainer interactions) {
         this.interactions = interactions;
         addAttackInteractions();
-        addBuildMenuInteractions();
+        addMenuInteractions();
         addCameraInteractions();
         addCancelInteractions();
         addConstructInteractions();
@@ -117,13 +117,10 @@ public class UserInteractions
         interactions.addAction(GatherCancel).whenTarget(CancelButton).whenSelected(Peasant).withAction(GatherWood).appliedTo(Selected);
     }
 
-    private void addBuildMenuInteractions() {
+    private void addMenuInteractions() {
         interactions.addAction(ActionsMenu).whenTarget(BuildCancelButton).appliedTo(Target);
         interactions.addAction(BuildSimpleMenu).whenTarget(BuildSimpleButton).appliedTo(Target);
         interactions.addAction(BuildAdvancedMenu).whenTarget(BuildAdvancedButton).appliedTo(Target);
-
-
-        //TODO: IngameMenu temporary
         interactions.addAction(IngameMenu).whenTarget(MenuPane).appliedTo(Target);
     }
 

@@ -29,6 +29,12 @@ import java.util.Map;
 
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 
+/**
+ * Instances of this factory create {@link ControlPane ControlPanes}, loading
+ * the appropriate assets for their correct display.
+ *
+ * @author Blair Butterworth.
+ */
 //TODO: Replace string ids with constants
 public class ControlPaneFactory implements AssetProvider<ControlPane>
 {
@@ -158,7 +164,8 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
     
     private Drawable getActionIcon(ActionButtonType type) {
         switch (type) {
-            case CancelButton: return getDrawable(assets, ACTION_ICONS, 46, 684, 46, 38);
+            case CancelButton:
+            case BuildCancelButton: return getDrawable(assets, ACTION_ICONS, 46, 684, 46, 38);
             case MoveButton: return getDrawable(assets, ACTION_ICONS, 138, 608, 46, 38);
             case StopButton: return getDrawable(assets, ACTION_ICONS, 184, 1216, 46, 38);
             case AttackButton: return getDrawable(assets, ACTION_ICONS, 46, 874, 46, 38);
@@ -168,7 +175,6 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
             case GatherButton: return getDrawable(assets, ACTION_ICONS, 46, 646, 46, 38);
             case BuildSimpleButton: return getDrawable(assets, ACTION_ICONS, 92, 646, 46, 38);
             case BuildAdvancedButton: return getDrawable(assets, ACTION_ICONS, 138, 646, 46, 38);
-            case BuildCancelButton: return getDrawable(assets, ACTION_ICONS, 46, 684, 46, 38);
             case BuildBarracksButton: return getDrawable(assets, ACTION_ICONS, 92, 304, 46, 38);
             case BuildFarmButton: return getDrawable(assets, ACTION_ICONS, 138, 266, 46, 38);
             case BuildTownHallButton: return getDrawable(assets, ACTION_ICONS, 0, 304, 46, 38);
@@ -189,7 +195,8 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
     
     private Drawable getActionDisabledIcon(ActionButtonType type) {
         switch (type) {
-            case CancelButton: getDrawable(assets, ACTION_ICONS_DISABLED, 46, 684, 46, 38);
+            case CancelButton:
+            case BuildCancelButton: getDrawable(assets, ACTION_ICONS_DISABLED, 46, 684, 46, 38);
             case MoveButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 138, 608, 46, 38);
             case StopButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 184, 1216, 46, 38);
             case AttackButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 46, 874, 46, 38);
@@ -199,7 +206,6 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
             case GatherButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 46, 646, 46, 38);
             case BuildSimpleButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 92, 646, 46, 38);
             case BuildAdvancedButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 138, 646, 46, 38);
-            case BuildCancelButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 46, 684, 46, 38);
             case BuildBarracksButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 92, 304, 46, 38);
             case BuildFarmButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 138, 266, 46, 38);
             case BuildTownHallButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 0, 304, 46, 38);

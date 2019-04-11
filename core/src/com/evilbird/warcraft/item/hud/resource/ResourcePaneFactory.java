@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
@@ -33,7 +34,7 @@ public class ResourcePaneFactory implements AssetProvider<Item>
 {
     private static final String ICONS = "data/textures/neutral/hud/resource-icon.png";
     private static final String BACKGROUND = "data/textures/human/hud/resource_panel.png";
-    private static final String FONT = "data/fonts/lifecraft.ttf";
+    //private static final String FONT = "data/fonts/lifecraft.ttf";
     private AssetManager assets;
 
     @Inject
@@ -45,7 +46,7 @@ public class ResourcePaneFactory implements AssetProvider<Item>
     public void load() {
         this.assets.load(ICONS, Texture.class);
         this.assets.load(BACKGROUND, Texture.class);
-        this.assets.load(FONT, BitmapFont.class, fontSize(16));
+        //this.assets.load(FONT, BitmapFont.class, fontSize(16));
     }
 
     @Override
@@ -60,7 +61,7 @@ public class ResourcePaneFactory implements AssetProvider<Item>
 
     private ResourcePaneStyle getStyle() {
         ResourcePaneStyle style = new ResourcePaneStyle();
-        style.font = assets.get(FONT);
+        style.font = Fonts.ARIAL;
         style.colour = Color.WHITE;
         style.background = getDrawable(assets, BACKGROUND);
         style.goldIcon = getDrawable(assets, ICONS, 0, 0, 14, 14);

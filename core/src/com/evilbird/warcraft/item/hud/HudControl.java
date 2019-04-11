@@ -18,16 +18,12 @@ import com.evilbird.engine.item.ItemType;
  */
 public enum HudControl implements ItemType
 {
-    ActionButton,
     ActionPane,
     ControlPane,
     DetailsPane,
-    HealthBar,
-    BuildingBar,
     MenuPane,
     MinimapPane,
     ResourcePane,
     SelectionPane,
     StatePane,
-    UnitPane,
 }
