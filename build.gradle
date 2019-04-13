@@ -205,6 +205,12 @@ task coverageReport(type: JacocoReport) {
     sourceDirectories = files(jacocoProjects.sourceSets.main.allSource.srcDirs)
     classDirectories = files(jacocoProjects.sourceSets.main.output)
     executionData = files(jacocoProjects.collect{jacocoProject -> jacocoProject.fileTree(dir: "build/jacoco", include: '**/*.exec') })
+
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: '**/*_Factory*')
+        })
+    }
 }
 
 task build(dependsOn: coverageReport) {
