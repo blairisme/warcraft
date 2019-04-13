@@ -16,7 +16,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.game.GameService;
 import com.evilbird.warcraft.desktop.DaggerDesktopInjector.Builder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import picocli.CommandLine;
+
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 /**
  * Instances of this class represent the entry point for the desktop version of
@@ -30,6 +33,7 @@ public class DesktopLauncher
     }
 
     public static void main(String[] args) {
+        ToStringBuilder.setDefaultStyle(SHORT_PREFIX_STYLE);
         DesktopCommands commands = CommandLine.populateCommand(new DesktopCommands(), args);
         ApplicationListener engine = getEngine(commands);
         LwjglApplicationConfiguration configuration = getConfiguration();

@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.common.resource;
 import com.evilbird.engine.common.collection.Indexible;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class ResourceValue implements Indexible<ResourceIdentifier>
 {
@@ -59,5 +60,13 @@ public class ResourceValue implements Indexible<ResourceIdentifier>
             .append(id)
             .append(value)
             .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("id", id)
+            .append("value", value)
+            .toString();
     }
 }

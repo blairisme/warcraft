@@ -1,9 +1,11 @@
 <!--MIT License (c)-->
 <!--Author: Blair Butterworth-->
-<configuration>
+<configuration debug="true">
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</Pattern>
+<!--            <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</Pattern>-->
+<!--            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -26,7 +28,7 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
+    <root level="debug">
         <appender-ref ref="stdout" />
         <appender-ref ref="file" />
     </root>

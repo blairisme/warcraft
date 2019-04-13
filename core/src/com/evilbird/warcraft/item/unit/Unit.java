@@ -100,6 +100,7 @@ public class Unit extends AnimatedItem implements Destroyable
     @Override
     public String toString() {
         return new ToStringBuilder(this)
+            .appendSuper("animated")
             .append("name", name)
             .append("sight", sight)
             .append("defence", defence)

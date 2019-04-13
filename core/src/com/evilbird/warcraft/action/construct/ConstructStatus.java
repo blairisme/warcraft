@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.construct;
 
 /**
- * Specifies the set of states TODO
+ * Specifies the set of options for construction state.
  *
  * @author Blair Butterworth
  */

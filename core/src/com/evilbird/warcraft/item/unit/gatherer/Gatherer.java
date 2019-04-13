@@ -13,6 +13,7 @@ import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.inject.Inject;
 import java.util.HashMap;
@@ -43,5 +44,13 @@ public class Gatherer extends Combatant implements ResourceContainer
     @Override
     public void setResource(ResourceIdentifier type, float value) {
         this.resources.put(type, value);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .appendSuper("combatant")
+            .append("resources", resources)
+            .toString();
     }
 }
