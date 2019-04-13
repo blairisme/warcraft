@@ -17,6 +17,12 @@ import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
+/**
+ * Instances of this factory create {@link ConstructSequence} and
+ * {@link ConstructCancel} actions.
+ *
+ * @author Blair Butterworth
+ */
 public class ConstructFactory implements ActionProvider
 {
     private InjectedPool<ConstructSequence> constructPool;

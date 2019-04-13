@@ -9,6 +9,8 @@
 
 package com.evilbird.warcraft.action.construct;
 
+import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.action.framework.ScenarioAction;
 import com.evilbird.warcraft.item.unit.building.Building;
 
@@ -44,11 +46,16 @@ public class ConstructCancel extends ScenarioAction<ConstructActions>
     protected void steps(ConstructActions action) {
         scenario(action);
         given(isConstructing());
-        then(stopConstructing(), refund(action, amount(), reporter));
+        then(stopConstructing(), refund(action, amount(), reporter), notifyCancelled());
     }
 
     private float amount() {
         Building building = (Building)getItem();
         return 1 - building.getConstructionProgress();
+    }
+
+    private Action notifyCancelled() {
+        return new LambdaAction((building, target) ->
+            reporter.onConstructionCancelled(null, (Building)building));
     }
 }

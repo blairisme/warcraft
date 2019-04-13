@@ -25,14 +25,6 @@ public class TrainAction extends DelayedAction
 {
     private ActionTarget source;
 
-    @SerializedConstructor
-    private TrainAction() {
-    }
-
-    public TrainAction(float duration) {
-        this(ActionTarget.Item, duration);
-    }
-
     public TrainAction(ActionTarget source, float duration) {
         super(duration);
         this.source = source;

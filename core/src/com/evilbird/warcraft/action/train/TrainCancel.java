@@ -9,6 +9,8 @@
 
 package com.evilbird.warcraft.action.train;
 
+import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.action.framework.ScenarioAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -27,7 +29,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isProducing
  */
 public class TrainCancel extends ScenarioAction<TrainActions>
 {
-    private TrainReporter reporter;
+    private transient TrainReporter reporter;
 
     /**
      * Constructs a new instance of this class given a {@link TrainReporter}
@@ -46,12 +48,16 @@ public class TrainCancel extends ScenarioAction<TrainActions>
     protected void steps(TrainActions action) {
         scenario(action);
         given(isProducing());
-        then(stopProducing());
-        then(refund(action, amount(), reporter));
+        then(stopProducing(), refund(action, amount(), reporter), notifyCancelled());
     }
 
     private float amount() {
         Building building = (Building)getItem();
         return 1 - building.getProductionProgress();
+    }
+
+    private Action notifyCancelled() {
+        return new LambdaAction((item, target) ->
+            reporter.onTrainCancelled((Building)item));
     }
 }

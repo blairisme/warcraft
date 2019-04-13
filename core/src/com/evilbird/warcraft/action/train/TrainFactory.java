@@ -60,7 +60,6 @@ public class TrainFactory implements ActionProvider
     private Action getTrainCancel(TrainActions trainAction) {
         TrainCancel action = cancelPool.obtain();
         action.setIdentifier(trainAction);
-        //action.setTrainCost(trainAction.getValues());
         return action;
     }
 }

@@ -14,8 +14,10 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.create.CreateObserver;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
+import com.evilbird.warcraft.action.common.resource.ResourceTransferObserver;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
 
@@ -25,7 +27,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class TrainReporter implements TrainObserver, CreateObserver
+public class TrainReporter implements CreateObserver, TrainObserver, ResourceTransferObserver
 {
     private EventQueue events;
 
@@ -37,6 +39,21 @@ public class TrainReporter implements TrainObserver, CreateObserver
     @Override
     public void onCreate(Item item) {
         events.add(new CreateEvent(item));
+    }
+
+    @Override
+    public void onTrainStarted(Building building) {
+        events.add(new TrainEvent(building, TrainStatus.Started));
+    }
+
+    @Override
+    public void onTrainCompleted(Building building) {
+        events.add(new TrainEvent(building, TrainStatus.Complete));
+    }
+
+    @Override
+    public void onTrainCancelled(Building building) {
+        events.add(new TrainEvent(building, TrainStatus.Cancelled));
     }
 
     @Override

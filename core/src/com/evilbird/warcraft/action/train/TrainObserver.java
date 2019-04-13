@@ -9,7 +9,19 @@
 
 package com.evilbird.warcraft.action.train;
 
-import com.evilbird.warcraft.action.common.resource.ResourceTransferObserver;
+import com.evilbird.warcraft.item.unit.building.Building;
 
-public interface TrainObserver extends ResourceTransferObserver {
+/**
+ * Implementors of this interface provide methods that are called when the
+ * training action is started, completes or is cancelled.
+ *
+ * @author Blair Butterworth
+ */
+public interface TrainObserver
+{
+    void onTrainStarted(Building building);
+
+    void onTrainCompleted(Building building);
+
+    void onTrainCancelled(Building building);
 }

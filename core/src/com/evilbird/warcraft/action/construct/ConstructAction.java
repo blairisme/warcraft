@@ -15,6 +15,8 @@ import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.warcraft.item.unit.building.Building;
 
+import java.util.Objects;
+
 /**
  * Represents an {@link Action} that indicates a building is under construction
  * and its progress towards construction.
@@ -25,16 +27,19 @@ public class ConstructAction extends DelayedAction
 {
     private ActionTarget source;
 
-    @SerializedConstructor
-    private ConstructAction() {
-    }
-
-    public ConstructAction(float duration) {
-        this(ActionTarget.Item, duration);
-    }
-
+    /**
+     * Constructs a new instance of this class given a {@link ActionTarget}
+     * describing the subject of the action (the building being constructed)
+     * and the time it will take for construction to complete.
+     *
+     * @param source    the subject of the action. This parameter cannot be
+     *                  {@code null}.
+     * @param duration  the time it will take for construction to complete,
+     *                  specified in seconds.
+     */
     public ConstructAction(ActionTarget source, float duration) {
         super(duration);
+        Objects.requireNonNull(source);
         this.source = source;
     }
 

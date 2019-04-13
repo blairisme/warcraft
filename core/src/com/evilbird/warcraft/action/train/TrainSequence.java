@@ -10,8 +10,11 @@
 package com.evilbird.warcraft.action.train;
 
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.action.framework.ScenarioAction;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
 import java.util.function.Consumer;
@@ -29,20 +32,20 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
  */
 public class TrainSequence extends ScenarioAction<TrainActions>
 {
-    private transient TrainReporter events;
+    private transient TrainReporter reporter;
 
     @Inject
-    public TrainSequence(TrainReporter observer) {
-        this.events = observer;
+    public TrainSequence(TrainReporter reporter) {
+        this.reporter = reporter;
     }
 
     @Override
     protected void steps(TrainActions type) {
         scenario(type);
         given(isAlive());
-        then(purchase(type, events));
+        then(purchase(type, reporter), notifyStarted());
         then(startProducing(type));
-        then(create(type.getItemType(), properties(), events));
+        then(create(type.getItemType(), properties(), reporter), notifyComplete());
     }
 
     private Consumer<Item> properties() {
@@ -57,5 +60,15 @@ public class TrainSequence extends ScenarioAction<TrainActions>
         Vector2 itemSize = item.getSize();
         Vector2 referencePosition = producer.getPosition();
         return new Vector2(referencePosition.x - itemSize.x, referencePosition.y);
+    }
+
+    private Action notifyStarted() {
+        return new LambdaAction((item, target) ->
+            reporter.onTrainStarted((Building)item));
+    }
+
+    private Action notifyComplete() {
+        return new LambdaAction((item, target) ->
+            reporter.onTrainCompleted((Building)item));
     }
 }

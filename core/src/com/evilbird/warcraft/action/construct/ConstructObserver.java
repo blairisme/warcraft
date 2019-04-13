@@ -12,6 +12,12 @@ package com.evilbird.warcraft.action.construct;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
 
+/**
+ * Implementors of this interface provide methods that are called when the
+ * construction action is started, completes or is cancelled.
+ *
+ * @author Blair Butterworth
+ */
 public interface ConstructObserver
 {
     void onConstructionStarted(Item builder, Building building);
