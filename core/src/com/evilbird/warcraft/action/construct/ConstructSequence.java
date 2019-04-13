@@ -10,11 +10,13 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.framework.FeatureAction;
+import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.placeholder.Placeholder;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import static com.evilbird.engine.action.common.ActionTarget.Target;
@@ -79,9 +81,11 @@ public class ConstructSequence extends FeatureAction
             .withTarget(closest(building.getItemType(), getTarget()))
             .whenItem(isAdjacent(getTarget()))
             .whenTarget(isConstructing())
+            .then(startedEvent())
             .then(hide(), deselect(reporter), animate(Target, Construct))
             .then(construct(Target, building), play(Target, Build))
-            .then(show(), animate(Idle), animate(Target, Idle));
+            .then(show(), animate(Idle), animate(Target, Idle))
+            .then(completedEvent());
     }
 
     private Consumer<Item> properties() {
@@ -99,5 +103,17 @@ public class ConstructSequence extends FeatureAction
     private void setBuilding(Item item) {
         Building building = (Building)item;
         building.setConstructionProgress(0);
+    }
+
+    private LambdaAction notifyStarted() {
+        return new LambdaAction(startedEvent());
+    }
+
+    private BiConsumer<Item, Item> startedEvent() {
+        return (builder, building) -> reporter.onConstructionStarted(builder, (Building)building);
+    }
+
+    private BiConsumer<Item, Item> completedEvent() {
+        return (builder, building) -> reporter.onConstructionCompleted(builder, (Building)building);
     }
 }

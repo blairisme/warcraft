@@ -24,6 +24,7 @@ import com.evilbird.warcraft.action.select.SelectEvent;
 import com.evilbird.warcraft.action.select.SelectObserver;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
 
@@ -34,13 +35,28 @@ import javax.inject.Inject;
  * @author Blair Butterworth
  */
 public class ConstructReporter implements
-        CreateObserver, MoveObserver, RemoveObserver, SelectObserver, ResourceTransferObserver
+    ConstructObserver, CreateObserver, MoveObserver, RemoveObserver, SelectObserver, ResourceTransferObserver
 {
     private EventQueue events;
 
     @Inject
     public ConstructReporter(EventQueue events) {
         this.events = events;
+    }
+
+    @Override
+    public void onConstructionStarted(Item builder, Building building) {
+        events.add(new ConstructEvent(builder, building, ConstructStatus.Started));
+    }
+
+    @Override
+    public void onConstructionCompleted(Item builder, Building building) {
+        events.add(new ConstructEvent(builder, building, ConstructStatus.Complete));
+    }
+
+    @Override
+    public void onConstructionCancelled(Item builder, Building building) {
+        events.add(new ConstructEvent(builder, building, ConstructStatus.Cancelled));
     }
 
     @Override

@@ -16,6 +16,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 
 import java.util.Objects;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -52,7 +53,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * Sets the unique identifier of the scenario.
      *
      * @param identifier an {@link Identifier} instance. This parameter cannot
-     *                   be <code>null</code>.
+     *                   be {@code null}.
      *
      * @return this scenario.
      */
@@ -68,7 +69,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * given statements will be combined into a conjunction (and &).
      *
      * @param condition     a condition that must be fulfilled at all times.
-     *                      This parameter cannot be <code>null</code>.
+     *                      This parameter cannot be {@code null}.
      *
      * @return this scenario.
      */
@@ -82,7 +83,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * given statements will be combined into a conjunction (and &).
      *
      * @param condition     a condition that must be fulfilled at all times.
-     *                      This parameter cannot be <code>null</code>.
+     *                      This parameter cannot be {@code null}.
      *
      * @return this scenario.
      */
@@ -100,7 +101,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * given statements will be combined into a conjunction (and &).
      *
      * @param condition     a condition that must be fulfilled at all times.
-     *                      This parameter cannot be <code>null</code>.
+     *                      This parameter cannot be {@code null}.
      *
      * @return this scenario.
      */
@@ -119,7 +120,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * (and &).
      *
      * @param condition     a branch condition. This parameter cannot be
-     *                      <code>null</code>.
+     *                      {@code null}.
      *
      * @return this scenario.
      */
@@ -134,7 +135,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * (and &).
      *
      * @param condition     a branch condition. This parameter cannot be
-     *                      <code>null</code>.
+     *                      {@code null}.
      *
      * @return this scenario.
      */
@@ -153,7 +154,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * (and &).
      *
      * @param condition     a branch condition. This parameter cannot be
-     *                      <code>null</code>.
+     *                      {@code null}.
      *
      * @return this scenario.
      */
@@ -168,10 +169,10 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     /**
      * Sets an {@link Action} that will be executed in sequence, after any
      * previously specified Actions, provided that all specified when
-     * conditions are <code>true</code> and all given conditions remain
-     * <code>true</code> for the duration Actions execution.
+     * conditions are {@code true}and all given conditions remain
+     * {@code true}for the duration Actions execution.
      *
-     * @param action    an Action. This parameter cannot be <code>null</code>.
+     * @param action    an Action. This parameter cannot be {@code null}.
      *
      * @return this scenario.
      */
@@ -186,11 +187,11 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * Sets a series of {@link Action Actions} that will be executed as a set
      * in parallel, but overall synchronously in sequence after any
      * previously specified Actions. This is provided that all specified when
-     * conditions are <code>true</code> and all given conditions remain
-     * <code>true</code> for the duration Actions execution.
+     * conditions are {@code true}and all given conditions remain
+     * {@code true}for the duration Actions execution.
      *
      * @param actions an array of Actions. This parameter cannot be
-     *                <code>null</code>.
+     *                {@code null}.
      *
      * @return this scenario.
      */
@@ -204,15 +205,16 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     /**
      * Assigns a Lambda to be executed as an Action in sequence, after any
      * previously specified Actions, provided that all specified when
-     * conditions are <code>true</code> and all given conditions remain
-     * <code>true</code> for the duration Actions execution.
+     * conditions are {@code true} and all given conditions remain
+     * {@code true} for the duration Actions execution.
      *
-     * @param lambda    a {@link Consumer<Item>}. This parameter cannot be
-     *                 <code>null</code>.
+     * @param lambda    a {@link BiConsumer<Item, Item>} that will receive the
+     *                  current item and target when invoked. This parameter
+     *                  cannot be {@code null}.
      *
      * @return this scenario.
      */
-    public ScenarioAction then(Consumer<Item> lambda) {
+    public ScenarioAction then(BiConsumer<Item, Item> lambda) {
         Objects.requireNonNull(lambda);
         then.add(new LambdaAction(lambda));
         scenario = null;
