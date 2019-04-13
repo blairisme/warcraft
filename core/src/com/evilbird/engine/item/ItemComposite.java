@@ -30,11 +30,23 @@ public interface ItemComposite
     void addItem(Item item);
 
     /**
-     * Removes an {@link Item} from the ItemComposite.
+     * Returns a collection containing the children of the ItemComposite.
      *
-     * @param item  the item to remove.
+     * @return the children of the ItemGroup.
      */
-    void removeItem(Item item);
+    Collection<Item> getItems();
+
+    /**
+     * Determines whether the given {@link Item} is contained in the {@code
+     * ItemComposite}: its one of its children.
+     *
+     * @param item  the {@code Item} to search for. This parameter cannot be
+     *              {@code null}.
+     *
+     * @return  {@code true} if the given {@code Item} is contained in the
+     *          {@code ItemComposite}
+     */
+    boolean containsItem(Item item);
 
     /**
      * Removes all {@link Item}s from the ItemComposite.
@@ -42,11 +54,11 @@ public interface ItemComposite
     void clearItems();
 
     /**
-     * Returns a collection containing the children of the ItemComposite.
+     * Removes an {@link Item} from the ItemComposite.
      *
-     * @return the children of the ItemGroup.
+     * @param item  the item to remove.
      */
-    Collection<Item> getItems();
+    void removeItem(Item item);
 
     /**
      * Returns the first child {@link Item} that satisfies the given

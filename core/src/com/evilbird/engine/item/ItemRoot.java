@@ -37,10 +37,10 @@ import java.util.function.Predicate;
 public class ItemRoot implements ItemComposite
 {
     private ItemGroup group;
-    private com.evilbird.engine.item.spatial.ItemGraph graph;
+    private ItemGraph graph;
     private transient Stage delegate;
     private transient GameController controller;
-    private transient com.evilbird.engine.item.spatial.ItemGraphUpdater graphUpdater;
+    private transient ItemGraphUpdater graphUpdater;
 
     public ItemRoot() {
         this.group = new ItemGroup();
@@ -56,7 +56,7 @@ public class ItemRoot implements ItemComposite
     }
 
     /**
-     * Adds an {@link Item} as a child of the item root.
+     * Adds an {@link Item} as a child of the {@code ItemRoot}.
      *
      * @param item the item to set.
      */
@@ -66,7 +66,7 @@ public class ItemRoot implements ItemComposite
     }
 
     /**
-     * Removes an {@link Item} from the item root.
+     * Removes an {@link Item} from the {@code ItemRoot}.
      *
      * @param item the item to remove.
      */
@@ -76,13 +76,27 @@ public class ItemRoot implements ItemComposite
     }
 
     /**
-     * Removes all {@link Item}s from the item root.
+     * Removes all {@link Item}s from the item {@code ItemRoot}.
      */
     @Override
     public void clearItems() {
         this.group.clearItems();
     }
 
+    /**
+     * Determines whether the given {@link Item} is contained in the {@code
+     * ItemRoot}: its one of its children.
+     *
+     * @param item  the {@code Item} to search for. This parameter cannot be
+     *              {@code null}.
+     *
+     * @return  {@code true} if the given {@code Item} is contained in the
+     *          {@code ItemRoot}
+     */
+    public boolean containsItem(Item item) {
+        return group.containsItem(item);
+    }
+    
     /**
      * Returns a collection containing the children of the ItemComposite.
      *
@@ -94,22 +108,22 @@ public class ItemRoot implements ItemComposite
     }
 
     /**
-     * Returns a {@link com.evilbird.engine.item.spatial.ItemGraph}, a graph of the game space, represented
+     * Returns a {@link ItemGraph}, a graph of the game space, represented
      * as a 2 dimensional matrix of nodes, containing all of the touchable
      * items contained in the item root.
      *
-     * @return an {@link com.evilbird.engine.item.spatial.ItemGraph}. This method may return <code>null</code>.
+     * @return an {@link ItemGraph}. This method may return {@code null}.
      */
-    public com.evilbird.engine.item.spatial.ItemGraph getSpatialGraph() {
+    public ItemGraph getSpatialGraph() {
         return graph;
     }
 
     /**
-     * Sets the {@link com.evilbird.engine.item.spatial.ItemGraph} associated with the ItemRoot. Any Items
+     * Sets the {@link ItemGraph} associated with the ItemRoot. Any Items
      * added to the ItemRoot will automatically be provided to the ItemGraph
      * to update occupancy.
      *
-     * @param graph an {@link com.evilbird.engine.item.spatial.ItemGraph}. Cannot be <code>null</code>.
+     * @param graph an {@link ItemGraph}. Cannot be {@code null}.
      */
     public void setSpatialGraph(ItemGraph graph) {
         Validate.notNull(graph);
@@ -120,7 +134,7 @@ public class ItemRoot implements ItemComposite
     /**
      * Returns the unique {@link Identifier} of the ItemRoot.
      *
-     * @return an <code>Identifier</code>. Will not return <code>null</code>.
+     * @return an <code>Identifier</code>. Will not return {@code null}.
      */
     public Identifier getIdentifier() {
         return group.getIdentifier();
@@ -129,7 +143,7 @@ public class ItemRoot implements ItemComposite
     /**
      * Sets the unique {@link Identifier} of the ItemRoot.
      *
-     * @param identifier an <code>Identifier</code>. Cannot be <code>null</code>.
+     * @param identifier an <code>Identifier</code>. Cannot be {@code null}.
      */
     public void setIdentifier(Identifier identifier) {
         group.setIdentifier(identifier);
@@ -165,7 +179,7 @@ public class ItemRoot implements ItemComposite
      * Returns a {@link GameController} instance, used to control whats content
      * is rendered to the screen and to obtain system wide preferences.
      *
-     * @return a <code>GameController</code>.
+     * @return a {@code GameController}.
      */
     public GameController getController() {
         return controller;
@@ -179,7 +193,7 @@ public class ItemRoot implements ItemComposite
      * Sets a {@link GameController} instance, used to control whats content
      * is rendered to the screen and to obtain system wide preferences.
      *
-     * @param controller a <code>GameController</code>.
+     * @param controller a {@code GameController}.
      */
     public void setController(GameController controller) {
         this.controller = controller;
@@ -275,7 +289,7 @@ public class ItemRoot implements ItemComposite
      *                    touchability.
      *
      * @return the item at the specified location. This method may return
-     *         <code>null</code> if no item can be located.
+     *         {@code null} if no item can be located.
      */
     public Item hit(Vector2 coordinates, boolean touchable) {
         return group.hit(coordinates, touchable);

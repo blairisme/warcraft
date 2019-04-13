@@ -14,11 +14,11 @@ import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.RepeatedAction;
 import com.evilbird.engine.action.framework.SequenceAction;
-import com.evilbird.engine.action.predicates.ActionPredicates;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.serialization.SerializedConstructor;
 
 import java.util.function.Predicate;
+
+import static com.evilbird.engine.action.predicates.ActionPredicates.invocationCount;
 
 /**
  * Instances of this class represent an {@link Action} that plays a sound
@@ -28,14 +28,6 @@ import java.util.function.Predicate;
  */
 public class RepeatedAudibleAction extends DelegateAction
 {
-    @SerializedConstructor
-    private RepeatedAudibleAction() {
-    }
-
-    public RepeatedAudibleAction(Identifier sound, int repetitions, float delay) {
-        this(sound, delay, ActionPredicates.invocationCount(repetitions));
-    }
-
     public RepeatedAudibleAction(Identifier sound, float delay, Predicate<Action> repeat) {
         Action audible = new AudibleAction(sound);
         Action buffer = new DelayedAction(delay);
@@ -44,7 +36,11 @@ public class RepeatedAudibleAction extends DelegateAction
     }
 
     public static RepeatedAudibleAction playRepeat(Identifier sound, int repetitions) {
-        return new RepeatedAudibleAction(sound, repetitions, 1);
+        return new RepeatedAudibleAction(sound, 1, invocationCount(repetitions));
+    }
+
+    public static RepeatedAudibleAction playRepeat(Identifier sound, int repetitions, float interval) {
+        return new RepeatedAudibleAction(sound, interval, invocationCount(repetitions));
     }
 
     public static RepeatedAudibleAction playRepeat(Identifier sound, Predicate<Action> condition) {

@@ -182,6 +182,13 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         return this;
     }
 
+    public ScenarioAction thenUpdate(Action action) {
+        Objects.requireNonNull(action);
+        then.add(new CopyAction(action, then));
+        scenario = null;
+        return this;
+    }
+
     /**
      * Sets a series of {@link Action Actions} that will be executed as a set
      * in parallel, but overall synchronously in sequence after any

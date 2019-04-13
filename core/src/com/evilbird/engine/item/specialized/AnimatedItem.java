@@ -201,7 +201,7 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible
                 currentAnimation = animations.get(animationId);
                 currentAnimation.setDirection(direction);
             } else {
-                logger.warn("Missing animation: " + animationId);
+                logger.warn("{} missing animation: {}", getType(), animationId);
                 animationId = null;
             }
         }
@@ -213,7 +213,7 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible
                 currentSound = sounds.get(soundId);
                 currentSound.play();
             } else {
-                logger.warn("Missing sound: " + soundId);
+                logger.warn("{} missing sound: {}", getType(), soundId);
                 soundId = null;
             }
         }

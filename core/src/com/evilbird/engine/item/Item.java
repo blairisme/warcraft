@@ -45,28 +45,28 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * Returns the {@link Action Actions} assigned to the Item.
      *
      * @return  a {@link Collection} of <code>Actions</code>. Will not return
-     *          <code>null</code>.
+     *          {@code null}.
      */
     Collection<Action> getActions();
 
     /**
      * Determines if the Item has currently been assigned an {@link Action}.
      *
-     * @return <code>true</code> if the Item has an assigned Action.
+     * @return {@code true} if the Item has an assigned Action.
      */
     boolean hasActions();
 
     /**
      * Returns the unique {@link Identifier} of the Item.
      *
-     * @return an <code>Identifier</code>. Will not return <code>null</code>.
+     * @return an {@code Identifier}. Will not return {@code null}.
      */
     Identifier getIdentifier();
 
     /**
      * Returns the type of the Item.
      *
-     * @return a type {@link Identifier}. Will not be <code>null</code>.
+     * @return a type {@link Identifier}. Will not be {@code null}.
      */
     Identifier getType();
 
@@ -74,7 +74,7 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * Returns the parent of the Item: the direct ancestor of the Item in the
      * Item hierarchy.
      *
-     * @return an {@link ItemGroup} instance. Will not be <code>null</code>.
+     * @return an {@link ItemGroup} instance. Will not be {@code null}.
      */
     ItemGroup getParent();
 
@@ -82,7 +82,7 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * Returns the root of the Item: the most distant ancestor of the Item in
      * the Item hierarchy.
      *
-     * @return an {@link ItemRoot} instance. Will not be <code>null</code>.
+     * @return an {@link ItemRoot} instance. Will not be {@code null}.
      */
     ItemRoot getRoot();
 
@@ -91,7 +91,7 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * the user by allowing them to issue commands to multiple Items at the
      * same time.
      *
-     * @return <code>true</code> if the Item has been selected.
+     * @return {@code true} if the Item has been selected.
      */
     boolean getSelected();
 
@@ -100,7 +100,7 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * the user by allowing them to issue commands to multiple items at the
      * same time.
      *
-     * @return <code>true</code> if the Item can been selected.
+     * @return {@code true} if the Item can been selected.
      */
     boolean getSelectable();
 
@@ -108,14 +108,14 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * Returns whether the Item can be interacted with by the user or not; should
      * it generate user input events, or not.
      *
-     * @return <code>true</code> if the Item can be interacted with.
+     * @return {@code true} if the Item can be interacted with.
      */
     boolean getTouchable();
 
     /**
      * Returns whether the Item is drawn or not.
      *
-     * @return <code>true</code> if the Item should be drawn.
+     * @return {@code true} if the Item should be drawn.
      */
     boolean getVisible();
 
@@ -124,7 +124,7 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * returned value will not effect the Item.
      *
      * @return  a {@link Rectangle} describing the Items bounds. Will not
-     *          return <code>null</code>.
+     *          return {@code null}.
      */
     Rectangle getBounds();
 
@@ -132,7 +132,7 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * Returns a {@link Vector2} describing size of the Item in pixels.
      * Updating the returned value will not effect the Item.
      *
-     * @return a <code>Vector2</code> instance. Will not return <code>null</code>.
+     * @return a {@code Vector2} instance. Will not return {@code null}.
      */
     Vector2 getSize();
 
@@ -154,7 +154,7 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * Returns a {@link Vector2} describing position of the Item in pixels.
      * Updating the returned value will not effect the Item.
      *
-     * @return a <code>Vector2</code> instance. Will not return <code>null</code>.
+     * @return a {@code Vector2} instance. Will not return {@code null}.
      */
     Vector2 getPosition();
 
@@ -164,8 +164,8 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * the returned value will not effect the Item.
      *
      * @param alignment the <code>Alignment</code> of the resulting position.
-     * @return          a <code>Vector2</code> instance. Will not return
-     *                  <code>null</code>.
+     * @return          a {@code Vector2} instance. Will not return
+     *                  {@code null}.
      */
     Vector2 getPosition(Alignment alignment);
 
@@ -188,21 +188,21 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
     /**
      * Sets the unique {@link Identifier} of the Item.
      *
-     * @param identifier an <code>Identifier</code>. Cannot be <code>null</code>.
+     * @param identifier an {@code Identifier}. Cannot be {@code null}.
      */
     void setIdentifier(Identifier identifier);
 
     /**
      * Sets the type of the Item.
      *
-     * @param type a type {@link Identifier}. Cannot be <code>null</code>.
+     * @param type a type {@link Identifier}. Cannot be {@code null}.
      */
     void setType(Identifier type);
 
     /**
      * Sets the direct ancestor of the Item in the Item hierarchy.
      *
-     * @param parent an {@link ItemGroup} instance. Cannot be <code>null</code>.
+     * @param parent an {@link ItemGroup} instance. Cannot be {@code null}.
      */
     void setParent(ItemGroup parent);
 
@@ -218,7 +218,7 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * the user by allowing them to issue commands to multiple items at the
      * same time.
      *
-     * @param selected <code>true</code> if the Item has been selected.
+     * @param selected {@code true} if the Item has been selected.
      */
     void setSelected(boolean selected);
 
@@ -227,7 +227,7 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * the user by allowing them to issue commands to multiple items at the
      * same time.
      *
-     * @param selectable <code>true</code> if the Item can been selected.
+     * @param selectable {@code true} if the Item can been selected.
      */
     void setSelectable(boolean selectable);
 
@@ -235,14 +235,14 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * Sets whether the item can be interacted with by the user or not; should
      * it generate user input events, or not.
      *
-     * @param touchable <code>true</code> if the Item can be interacted with.
+     * @param touchable {@code true} if the Item can be interacted with.
      */
     void setTouchable(Touchable touchable);
 
     /**
      * Sets whether the Item is drawn or not.
      *
-     * @param visible <code>true</code> if the Item should be drawn.
+     * @param visible {@code true} if the Item should be drawn.
      */
     void setVisible(boolean visible);
 
@@ -258,7 +258,7 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * Sets the spatial dimensions of the Item.
      *
      * @param size the new spatial dimensions of the Item. Cannot be
-     *             <code>null</code>.
+     *             {@code null}.
      */
     void setSize(Vector2 size);
 
@@ -273,7 +273,7 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
     /**
      * Sets the spatial location of the Item.
      *
-     * @param position a {@link Vector2 position}. Cannot be <code>null</code>.
+     * @param position a {@link Vector2 position}. Cannot be {@code null}.
      */
     void setPosition(Vector2 position);
 
@@ -305,8 +305,9 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
     void sizeChanged();
 
     /**
-     * Returns the {@link Item} at the specified location in the items local coordinate system (0,0
-     * is the bottom left of the actor and width,height is the upper right).
+     * Returns the {@link Item} at the specified location in the items local
+     * coordinate system (0,0) s the bottom left of the actor and width, height
+     * is the upper right).
      *
      * @param position  the world coordinates to test.
      * @param touchable specifies if hit detection will respect the items touchability.

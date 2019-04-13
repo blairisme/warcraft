@@ -87,6 +87,20 @@ public class ItemGroup extends ItemBasic implements ItemComposite
     }
 
     /**
+     * Determines whether the given {@link Item} is contained in the {@code
+     * ItemGroup}: its one of its children.
+     *
+     * @param item  the {@code Item} to search for. This parameter cannot be
+     *              {@code null}.
+     *
+     * @return  {@code true} if the given {@code Item} is contained in the
+     *          {@code ItemGroup}
+     */
+    public boolean containsItem(Item item) {
+        return items.contains(item);
+    }
+
+    /**
      * Returns whether the ItemGroup has been assigned any child Items.
      *
      * @return <code>true</code> if the ItemGroup has child Items.

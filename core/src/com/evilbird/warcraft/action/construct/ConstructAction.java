@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.construct;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.framework.DelayedAction;
+import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import java.util.Objects;
@@ -69,9 +70,17 @@ public class ConstructAction extends DelayedAction
     }
 
     private Building getBuilding() {
+        Item source = getSource();
+        if (source instanceof Building) {
+            return (Building)source;
+        }
+        throw new UnsupportedOperationException();
+    }
+
+    private Item getSource() {
         switch (source) {
-            case Item: return (Building)getItem();
-            case Target: return (Building)getTarget();
+            case Item: return getItem();
+            case Target: return getTarget();
             default: throw new UnsupportedOperationException();
         }
     }
@@ -89,8 +98,9 @@ public class ConstructAction extends DelayedAction
     }
 
     private void resetProgress() {
-        Building building = getBuilding();
-        if (building != null) {
+        Item source = getSource();
+        if (source instanceof Building) {
+            Building building = (Building)source;
             building.setConstructionProgress(1);
         }
     }

@@ -15,6 +15,7 @@ import com.evilbird.engine.item.utility.ItemPredicates;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.placeholder.Placeholder;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -61,6 +62,14 @@ public class UnitPredicates
             Player player = (Player)item;
             return player.isHumanPlayer();
         };
+    }
+
+    public static Predicate<Item> isBuilding() {
+        return (item) -> item instanceof Building;
+    }
+
+    public static Predicate<Item> isPlaceholder() {
+        return (item) -> item instanceof Placeholder;
     }
 
     public static Predicate<Item> isPlayer() {

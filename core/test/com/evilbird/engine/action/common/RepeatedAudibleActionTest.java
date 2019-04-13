@@ -16,6 +16,8 @@ import com.evilbird.warcraft.item.unit.UnitSound;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
+
 /**
  * Instances of this unit test validate the {@link RepeatedAudibleAction} class.
  *
@@ -27,7 +29,7 @@ public class RepeatedAudibleActionTest
 
     @Before
     public void setup() {
-        action = new RepeatedAudibleAction(UnitSound.ChopWood, 5, 3.1f);
+        action = playRepeat(UnitSound.ChopWood, 5, 3.1f);
         action.setItem(TestItems.newItem("repeatedaudibleaction"));
     }
 

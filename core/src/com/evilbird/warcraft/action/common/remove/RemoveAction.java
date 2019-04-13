@@ -52,8 +52,17 @@ public class RemoveAction extends BasicAction
     @Override
     public boolean act(float delta) {
         Item item = supplier.get();
+
+
+
         removeItem(item);
         notifyRemove(item);
+
+
+        setTarget(null);
+
+
+
         return true;
     }
 

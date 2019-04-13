@@ -13,7 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.FeatureAction;
 import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.placeholder.Placeholder;
+import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
@@ -22,10 +22,10 @@ import java.util.function.Consumer;
 import static com.evilbird.engine.action.common.ActionTarget.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AudibleAction.play;
+import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
-import static com.evilbird.engine.item.utility.ItemPredicates.isType;
-import static com.evilbird.engine.item.utility.ItemSuppliers.closest;
+import static com.evilbird.engine.item.utility.ItemSuppliers.ifExists;
 import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.purchase;
@@ -35,6 +35,7 @@ import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.*;
 import static com.evilbird.warcraft.item.unit.UnitSound.Build;
+import static com.evilbird.warcraft.item.unit.UnitSound.Complete;
 
 /**
  * Instances of this class construct a building.
@@ -63,7 +64,7 @@ public class ConstructSequence extends FeatureAction
     protected void features() {
         ConstructActions building = (ConstructActions)getIdentifier();
         reposition();
-        prepare(building);
+        prepare();
         build(building);
     }
 
@@ -77,27 +78,31 @@ public class ConstructSequence extends FeatureAction
             .then(animate(Idle));
     }
 
-    private void prepare(ConstructActions building) {
+    private void prepare() {
         scenario("prepare")
-            .whenTarget(isType(Placeholder.class))
-            .then(remove(Target, reporter), purchase(building, reporter))
-            .then(create(building.getItemType(), properties(), reporter));
+            .whenTarget(isPlaceholder())
+            .then(hide(Target));
     }
 
     private void build(ConstructActions building) {
+        ItemType type = building.getItemType();
         scenario("construct")
-            .withTarget(closest(building.getItemType(), getTarget()))
+            .withTarget(ifExists(getTarget()))
             .whenItem(isAdjacent(getTarget()))
-            .whenTarget(isConstructing())
+            .whenTarget(isPlaceholder())
+            .then(purchase(building, reporter))
+            .thenUpdate(remove(Target, reporter))
+            .thenUpdate(create(type, properties(), reporter))
             .then(hide(), deselect(reporter), animate(Target, Construct), notifyStarted())
-            .then(construct(Target, building), play(Target, Build))
-            .then(show(), animate(Idle), animate(Target, Idle), notifyComplete());
+            .then(construct(Target, building), playRepeat(Build, 3, 5))
+            .then(show(), animate(Idle), animate(Target, Idle),  play(Complete), notifyComplete());
     }
 
     private Consumer<Item> properties() {
         return (item) -> {
             setPosition(item);
             setBuilding(item);
+            setAnimation(item);
         };
     }
 
@@ -109,6 +114,11 @@ public class ConstructSequence extends FeatureAction
     private void setBuilding(Item item) {
         Building building = (Building)item;
         building.setConstructionProgress(0);
+    }
+
+    private void setAnimation(Item item) {
+        Building building = (Building)item;
+        building.setAnimation(BuildingSite);
     }
 
     private Action notifyStarted() {

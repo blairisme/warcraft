@@ -16,6 +16,8 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.Objects;
@@ -30,6 +32,8 @@ import static com.evilbird.warcraft.behaviour.user.InteractionDisplacement.Repla
  */
 public class InteractionDefinition implements Interaction
 {
+    private static final Logger logger = LoggerFactory.getLogger(UserBehaviour.class);
+
     private ActionFactory factory;
     private ActionIdentifier actionType;
     private ActionIdentifier currentType;
@@ -187,6 +191,8 @@ public class InteractionDefinition implements Interaction
         action.setItem(primary);
         action.setTarget(secondary);
         action.setCause(input);
+
+        logger.debug("Assigned action {} to item {}", actionType, subject);
     }
 
     private Item getPrimary(Item item, Item selected) {

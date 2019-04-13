@@ -34,7 +34,7 @@ import static com.evilbird.engine.item.utility.ItemPredicates.selectedItem;
  */
 public class UserBehaviour implements Behaviour
 {
-    private static transient final Logger logger = LoggerFactory.getLogger(UserBehaviour.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserBehaviour.class);
     private UserInteractions interactions;
 
     @Inject
@@ -91,8 +91,9 @@ public class UserBehaviour implements Behaviour
     }
 
     private boolean update(UserInput input, Item target, Item selected) {
-        logger.info("User {}, target {}, selected {}", getType(input), getType(target), getType(selected));
+        logger.debug("Input {}, target {}, selected {}", getType(input), getType(target), getType(selected));
         Collection<Interaction> actions = interactions.getInteractions(input, target, selected);
+
         for (Interaction interaction: actions) {
             interaction.update(input, target, selected);
         }

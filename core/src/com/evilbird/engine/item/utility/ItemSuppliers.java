@@ -28,4 +28,8 @@ public class ItemSuppliers
     public static Supplier<Item> closest(Identifier type, Item locus) {
         return () -> ItemOperations.findClosest(type, locus);
     }
+
+    public static Supplier<Item> ifExists(Item item) {
+        return () -> item.getParent().containsItem(item) ? item : null;
+    }
 }
