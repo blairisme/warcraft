@@ -18,17 +18,16 @@ import java.util.function.Predicate;
 
 /**
  * Instances of this class provide helper functions for working with
- * Collections.
+ * CollectionUtils.
  *
  * @author Blair Butterworth
  */
-//TODO: rename CollectionUtils
-public class Collections
+public class CollectionUtils
 {
     /**
      * Disable construction of this static utility class.
      */
-    private Collections() {
+    private CollectionUtils() {
     }
 
     /**

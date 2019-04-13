@@ -11,7 +11,7 @@ package com.evilbird.warcraft.behaviour.ai;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
-import com.evilbird.engine.common.collection.Collections;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.action.attack.AttackActions;
@@ -57,16 +57,16 @@ public class InitiateAttack extends PeriodicProcedure
 
     private Collection<Combatant> getCombatants(ItemRoot gameState) {
         Collection<Combatant> combatants = gameState.findAll(itemWithClass(Combatant.class));
-        return Collections.retain(combatants, isAlive());
+        return CollectionUtils.retain(combatants, isAlive());
     }
 
     private Collection<Combatant> getAvailableCombatants(Collection<Combatant> combatants) {
-        return Collections.retain(combatants, both(isIdle(), isAi()));
+        return CollectionUtils.retain(combatants, both(isIdle(), isAi()));
     }
 
     private Combatant getAvailableEnemy(Collection<Combatant> combatants, Combatant combatant) {
         Item player = combatant.getParent();
-        return Collections.find(combatants, both(not(isOwnedBy(player)), withinSight(combatant)));
+        return CollectionUtils.find(combatants, both(not(isOwnedBy(player)), withinSight(combatant)));
     }
 
     private void attack(Combatant combatant, Item target) {
