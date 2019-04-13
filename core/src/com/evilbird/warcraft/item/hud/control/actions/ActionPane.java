@@ -17,6 +17,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.action.menu.MenuProvider;
 import com.evilbird.warcraft.item.hud.HudControl;
+import com.evilbird.warcraft.item.unit.building.Building;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,15 +34,12 @@ import static com.evilbird.warcraft.item.hud.control.actions.ActionPaneView.Acti
  */
 public class ActionPane extends GridItem implements MenuProvider
 {
-    private Collection<Item> selection;
     private ActionPaneView view;
-    private boolean invalidated;
+    private List<Item> selection;
 
     public ActionPane(Skin skin) {
         super(3, 3);
-
         this.view = Actions;
-        this.invalidated = true;
         this.selection = new ArrayList<>();
 
         setSkin(skin);
@@ -55,66 +53,69 @@ public class ActionPane extends GridItem implements MenuProvider
         setTouchable(Touchable.childrenOnly);
     }
 
-    public void updateSelection(Collection<Item> newSelection) {
+    public void setSelected(Collection<Item> newSelection) {
         view = Actions;
-        invalidated = true;
         selection.clear();
         selection.addAll(newSelection);
+        updateView();
     }
 
-    public void updateSelection(Item item, boolean selected) {
+    public void setSelected(Item item, boolean selected) {
         view = Actions;
-        invalidated = true;
         if (selected) {
             selection.add(item);
         } else {
             selection.remove(item);
         }
+        updateView();
     }
 
-    public void invalidateItem(Item item) {
-        if (selection.contains(item)) {
-            invalidated = true;
+    public void setConstructing(Building building, boolean constructing) {
+        if (selection.contains(building)) {
+            updateView(constructing);
+        }
+    }
+
+    public void setProducing(Building building, boolean producing) {
+        if (selection.contains(building)) {
+            updateView(producing);
         }
     }
 
     @Override
     public void showMenu(Identifier location) {
         view = (ActionPaneView)location;
-        invalidated = true;
+        updateView();
     }
 
-    @Override
-    public void update(float delta) {
-        if (invalidated) {
-            invalidated = false;
-            updateView();
-        }
-    }
-
-    private void updateView() {
-        clearItems();
-        if (shouldShowCancel()){
-            showCancel();
-        } else {
-            showActions();
-        }
-    }
-
-    private boolean shouldShowCancel() {
+    private boolean showCancel() {
         if (view == Actions && selection.size() == 1) {
-            return selection.iterator().next().hasActions();
+            Item item = selection.get(0);
+            return item.hasActions();
         }
         return false;
     }
 
-    private void showCancel() {
+    private void updateView() {
+        updateView(showCancel());
+    }
+
+    private void updateView(boolean showCancel) {
+        clearItems();
+        if (showCancel){
+            addCancelButton();
+        } else {
+            addActionButtons();
+        }
+    }
+
+    private void addCancelButton() {
         setAlignment(Alignment.BottomRight);
         ActionButton cancelButton = getButton(ActionButtonType.CancelButton);
         add(cancelButton);
     }
 
-    private void showActions() {
+    private void addActionButtons() {
         setAlignment(Alignment.TopLeft);
         List<ActionButtonType> actions = getActions(selection);
         List<ActionButton> buttons = getButtons(actions);

@@ -7,42 +7,42 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.hud.control.status.details;
+package com.evilbird.warcraft.item.hud.control.status.details.building;
 
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 /**
- * Instances of this user interface are shown when a building is producing
- * something, usually a unit or upgrade.
+ * Instances of this user interface are shown when a building is under
+ * construction.
  *
  * @author Blair Butterworth
  */
-public class ProductionDetailsPane extends GridItem
+public class ConstructionDetailsPane extends GridItem
 {
     private Building building;
-    private Image productImage;
-    private ProgressBar productionProgress;
+    private ProgressBar progress;
 
-    public ProductionDetailsPane(Skin skin) {
-        super(1, 2);
+    public ConstructionDetailsPane(Skin skin) {
+        super(1, 1);
         initialize(skin);
-        productImage = addProductImage(skin);
-        productionProgress = addProductionProgress(skin);
+        progress = addProgress(skin);
     }
 
     public void setBuilding(Building building) {
         this.building = building;
-        this.productImage.setDrawable(building.getIcon()); //TODO: Wrong: need to show icon of thing being made
     }
 
     @Override
     public void update(float delta) {
+        progress.setValue(building.getConstructionProgress());
         super.update(delta);
-        productionProgress.setValue(building.getProductionProgress());
     }
 
     private void initialize(Skin skin) {
@@ -52,20 +52,7 @@ public class ProductionDetailsPane extends GridItem
         setAlignment(Alignment.Bottom);
     }
 
-    private Image addProductImage(Skin skin) {
-        GridItem container = new GridItem(2, 1);
-        add(container);
-
-        Label label = new Label("Training: ", skin);
-        Cell cell = container.add(label);
-        cell.grow();
-
-        Image image = new Image();
-        container.add(image);
-        return image;
-    }
-
-    private ProgressBar addProductionProgress(Skin skin) {
+    private ProgressBar addProgress(Skin skin) {
         Stack container = new Stack();
         add(container);
 

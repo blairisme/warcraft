@@ -17,7 +17,6 @@ import com.evilbird.warcraft.item.placeholder.Placeholder;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import static com.evilbird.engine.action.common.ActionTarget.Target;

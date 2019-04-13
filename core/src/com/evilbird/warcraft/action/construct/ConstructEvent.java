@@ -53,4 +53,8 @@ public class ConstructEvent implements Event
     public Item getSubject() {
         return building;
     }
+
+    public boolean isConstructing() {
+        return status == ConstructStatus.Started;
+    }
 }

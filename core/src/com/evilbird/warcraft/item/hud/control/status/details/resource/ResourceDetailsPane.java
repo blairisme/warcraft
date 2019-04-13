@@ -7,12 +7,14 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.hud.control.status.details;
+package com.evilbird.warcraft.item.hud.control.status.details.resource;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.warcraft.item.hud.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
@@ -23,7 +25,7 @@ import com.evilbird.warcraft.item.unit.resource.ResourceType;
  *
  * @author Blair Butterworth
  */
-public class ResourceDetailsPane extends GridItem
+public class ResourceDetailsPane extends GridItem implements DetailsPaneElement
 {
     private Resource resource;
     private Label resourceLabel;
@@ -42,8 +44,8 @@ public class ResourceDetailsPane extends GridItem
         add(resourceLabel);
     }
 
-    public void setResource(Resource resource) {
-        this.resource = resource;
+    public void setItem(Item item) {
+        this.resource = (Resource)item;
         this.resourceValue = -1;
     }
 

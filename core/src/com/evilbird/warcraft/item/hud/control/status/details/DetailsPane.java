@@ -14,6 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.warcraft.item.hud.control.status.details.building.BuildingDetailsPane;
+import com.evilbird.warcraft.item.hud.control.status.details.combatant.CombatantDetailsPane;
+import com.evilbird.warcraft.item.hud.control.status.details.combatant.CombatantTitlePane;
+import com.evilbird.warcraft.item.hud.control.status.details.common.UnitTitlePane;
+import com.evilbird.warcraft.item.hud.control.status.details.resource.ResourceDetailsPane;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -29,13 +34,38 @@ import com.evilbird.warcraft.item.unit.resource.Resource;
  */
 public class DetailsPane extends GridItem
 {
+    private UnitTitlePane generalTitle;
+    private CombatantTitlePane combatantTitle;
+    private BuildingDetailsPane buildingDetails;
+    private CombatantDetailsPane combatantDetails;
+    private ResourceDetailsPane resourceDetails;
+
     public DetailsPane(Skin skin) {
         super(1, 2);
+
+        generalTitle = new UnitTitlePane(skin);
+        combatantTitle = new CombatantTitlePane(skin);
+        buildingDetails = new BuildingDetailsPane(skin);
+        combatantDetails = new CombatantDetailsPane(skin);
+        resourceDetails = new ResourceDetailsPane(skin);
+
         setSkin(skin);
         setBackground("details-panel");
         setSize(176, 176);
         setCellPadding(8);
         setTouchable(Touchable.disabled);
+    }
+
+    public void setConstructing(Building building, boolean constructing) {
+        if (isShown(buildingDetails)) {
+            buildingDetails.setConstructing(building, constructing);
+        }
+    }
+
+    public void setProducing(Building building, boolean producing) {
+        if (isShown(buildingDetails)) {
+            buildingDetails.setProducing(building, producing);
+        }
     }
 
     public void setItem(Item item) {
@@ -46,58 +76,32 @@ public class DetailsPane extends GridItem
 
     private void setTitle(Item item) {
         if (item instanceof Combatant) {
-            setCombatantTitle((Combatant)item);
+            setTitle(combatantTitle, item);
         } else if (item instanceof Unit) {
-            setUnitTitle((Unit)item);
+            setTitle(generalTitle, item);
         }
     }
 
-    private void setUnitTitle(Unit unit) {
-        UnitTitlePane titlePane = new UnitTitlePane(getSkin());
-        titlePane.setUnit(unit);
-
-        Cell cell = add(titlePane);
-        cell.expandX();
-        cell.fillX();
-    }
-
-    private void setCombatantTitle(Combatant combatant) {
-        CombatantTitlePane titlePane = new CombatantTitlePane(getSkin());
-        titlePane.setCombatant(combatant);
-
-        Cell cell = add(titlePane);
+    private void setTitle(DetailsPaneElement view, Item item) {
+        view.setItem(item);
+        Cell cell = add(view);
         cell.expandX();
         cell.fillX();
     }
 
     private void setDetails(Item item) {
         if (item instanceof Building) {
-            setBuildingDetails((Building)item);
+            setDetails(buildingDetails, item);
         } else if (item instanceof Combatant) {
-            setCombatantDetails((Combatant)item);
+            setDetails(combatantDetails, item);
         } else if (item instanceof Resource) {
-            setResourceDetails((Resource)item);
+            setDetails(resourceDetails, item);
         }
     }
 
-    private void setBuildingDetails(Building building) {
-        BuildingDetailsPane buildingDetailsPane = new BuildingDetailsPane(getSkin());
-        buildingDetailsPane.setBuilding(building);
-        buildingDetailsPane.setSize(160, 100);
-        add(buildingDetailsPane);
-    }
-
-    private void setCombatantDetails(Combatant combatant) {
-        CombatantDetailsPane combatantDetailsPane = new CombatantDetailsPane(getSkin());
-        combatantDetailsPane.setCombatant(combatant);
-        combatantDetailsPane.setSize(160, 100);
-        add(combatantDetailsPane);
-    }
-
-    private void setResourceDetails(Resource resource) {
-        ResourceDetailsPane resourceDetailsPane = new ResourceDetailsPane(getSkin());
-        resourceDetailsPane.setResource(resource);
-        resourceDetailsPane.setSize(160, 100);
-        add(resourceDetailsPane);
+    private void setDetails(DetailsPaneElement view, Item item) {
+        view.setItem(item);
+        view.setSize(160, 100);
+        add(view);
     }
 }

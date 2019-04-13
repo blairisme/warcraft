@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.hud.control.status.details;
+package com.evilbird.warcraft.item.hud.control.status.details.building;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;

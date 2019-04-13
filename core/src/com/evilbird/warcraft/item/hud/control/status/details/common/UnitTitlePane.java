@@ -7,14 +7,16 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.hud.control.status.details;
+package com.evilbird.warcraft.item.hud.control.status.details.common;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.item.hud.common.UnitPane;
+import com.evilbird.warcraft.item.hud.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.unit.Unit;
 
 /**
@@ -23,7 +25,7 @@ import com.evilbird.warcraft.item.unit.Unit;
  *
  * @author Blair Butterworth
  */
-public class UnitTitlePane extends GridItem
+public class UnitTitlePane extends GridItem implements DetailsPaneElement
 {
     private Label title;
     private UnitPane icon;
@@ -34,7 +36,8 @@ public class UnitTitlePane extends GridItem
         this.title = addTitle(skin);
     }
 
-    public void setUnit(Unit unit) {
+    public void setItem(Item item) {
+        Unit unit = (Unit)item;
         icon.setItem(unit);
         title.setText(unit.getName());
     }

@@ -61,6 +61,11 @@ public class GridItem extends TableItem
         newItems.forEach(this::add);
     }
 
+    public boolean isShown(Item item) {
+        Collection<Item> items = getItems();
+        return items.contains(item);
+    }
+
     public void setCellPadding(int cellPadding) {
         this.cellPaddingVertical = cellPadding;
         this.cellPaddingHorizontal = cellPadding;

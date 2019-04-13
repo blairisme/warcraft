@@ -7,12 +7,14 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.hud.control.status.details;
+package com.evilbird.warcraft.item.hud.control.status.details.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.warcraft.item.hud.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
@@ -23,7 +25,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class CombatantDetailsPane extends GridItem
+public class CombatantDetailsPane extends GridItem implements DetailsPaneElement
 {
     private Label armour;
     private Label damage;
@@ -53,7 +55,8 @@ public class CombatantDetailsPane extends GridItem
         add(speed);
     }
 
-    public void setCombatant(Combatant combatant) {
+    public void setItem(Item item) {
+        Combatant combatant = (Combatant)item;
         armour.setText(getText("Armour", combatant.getDefence()));
         damage.setText(getText("Damage", combatant.getDamageMinimum(), combatant.getDamageMaximum()));
         range.setText(getText("Range", combatant.getRange()));

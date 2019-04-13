@@ -11,7 +11,6 @@ package com.evilbird.warcraft.action.train;
 
 import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.framework.DelayedAction;
-import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
 

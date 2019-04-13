@@ -17,13 +17,16 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
+import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.select.SelectEvent;
+import com.evilbird.warcraft.action.train.TrainEvent;
 import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.hud.control.actions.ActionPane;
 import com.evilbird.warcraft.item.hud.control.status.StatusPane;
 import com.evilbird.warcraft.item.hud.resource.ResourcePane;
+import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import javax.inject.Inject;
@@ -61,6 +64,8 @@ public class HudBehaviour implements Behaviour
         if (initialized(world, hud)) {
             updateResources();
             updateSelection();
+            updateConstructing();
+            updateTraining();
         }
         else {
             initializeResources();
@@ -87,8 +92,8 @@ public class HudBehaviour implements Behaviour
 
     private void initializeSelection(ItemRoot world) {
         Collection<Item> selection = world.findAll(selectedItem());
-        actionPane.updateSelection(selection);
-        statusPane.updateSelection(selection);
+        actionPane.setSelected(selection);
+        statusPane.setSelected(selection);
     }
 
     private void updateResources() {
@@ -114,15 +119,29 @@ public class HudBehaviour implements Behaviour
             Item subject = event.getSubject();
             boolean selected = event.getSelected();
 
-            actionPane.updateSelection(subject, selected);
-            statusPane.updateSelection(subject, selected);
+            actionPane.setSelected(subject, selected);
+            statusPane.setSelected(subject, selected);
         }
     }
 
-//    private void updateActions() {
-//        for (TrainEvent event: events.getEvents(TrainEvent.class)) {
-//            Item subject = event.getSubject();
-//            actionPane.invalidateItem(subject);
-//        }
-//    }
+    private void updateConstructing() {
+        for (ConstructEvent event: events.getEvents(ConstructEvent.class)) {
+            Building building = event.getBuilding();
+            boolean constructing = event.isConstructing();
+
+            actionPane.setConstructing(building, constructing);
+            statusPane.setConstructing(building, constructing);
+        }
+    }
+
+    private void updateTraining() {
+        for (TrainEvent event: events.getEvents(TrainEvent.class)) {
+            Building building = event.getBuilding();
+            boolean training = event.isTraining();
+
+            actionPane.setProducing(building, training);
+            statusPane.setProducing(building, training);
+        }
+    }
+
 }

@@ -7,14 +7,16 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.hud.control.status.details;
+package com.evilbird.warcraft.item.hud.control.status.details.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.item.hud.common.UnitPane;
+import com.evilbird.warcraft.item.hud.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 /**
@@ -23,7 +25,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
  *
  * @author Blair Butterworth
  */
-public class CombatantTitlePane extends GridItem
+public class CombatantTitlePane extends GridItem implements DetailsPaneElement
 {
     private Label title;
     private Label level;
@@ -38,7 +40,8 @@ public class CombatantTitlePane extends GridItem
         this.level = addLabel(labels, skin);
     }
 
-    public void setCombatant(Combatant combatant) {
+    public void setItem(Item item) {
+        Combatant combatant = (Combatant)item;
         icon.setItem(combatant);
         title.setText(combatant.getName());
         level.setText("Level " + combatant.getLevel());

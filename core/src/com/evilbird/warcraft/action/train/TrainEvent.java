@@ -40,4 +40,8 @@ public class TrainEvent implements Event
     public Item getSubject() {
         return building;
     }
+
+    public boolean isTraining() {
+        return status == TrainStatus.Started;
+    }
 }

@@ -16,6 +16,7 @@ import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.hud.control.status.details.DetailsPane;
 import com.evilbird.warcraft.item.hud.control.status.selection.SelectionPane;
+import com.evilbird.warcraft.item.unit.building.Building;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,44 +34,44 @@ public class StatusPane extends ItemGroup
     private DetailsPane detailsPane;
     private SelectionPane selectionPane;
     private Collection<Item> selection;
-    private boolean invalidated;
 
     public StatusPane(Skin skin) {
-        this.invalidated = true;
         this.selection = new ArrayList<>();
         this.detailsPane = new DetailsPane(skin);
         this.selectionPane = new SelectionPane(skin);
 
-        addItem(selectionPane);
         setSize(176, 176);
-        setIdentifier(HudControl.StatePane);
         setType(HudControl.StatePane);
+        setIdentifier(HudControl.StatePane);
         setTouchable(Touchable.childrenOnly);
+        addItem(selectionPane);
     }
 
-    public void updateSelection(Item item, boolean selected) {
-        invalidated = true;
+    public void setConstructing(Building building, boolean constructing) {
+        if (selection.contains(building) && isShown(detailsPane)) {
+            detailsPane.setConstructing(building, constructing);
+        }
+    }
+
+    public void setProducing(Building building, boolean producing) {
+        if (selection.contains(building) && isShown(detailsPane)) {
+            detailsPane.setProducing(building, producing);
+        }
+    }
+
+    public void setSelected(Item item, boolean selected) {
         if (selected) {
             selection.add(item);
         } else {
             selection.remove(item);
         }
+        updateDisplay();
     }
 
-    public void updateSelection(Collection<Item> newSelection) {
+    public void setSelected(Collection<Item> selected) {
         selection.clear();
-        selection.addAll(newSelection);
-        invalidated = true;
-    }
-
-    @Override
-    public void update(float delta) {
-        super.update(delta);
-        if (invalidated) {
-            invalidated = false;
-            clearItems();
-            updateDisplay();
-        }
+        selection.addAll(selected);
+        updateDisplay();
     }
 
     private void updateDisplay() {
@@ -89,5 +90,10 @@ public class StatusPane extends ItemGroup
     private void showSelection(Collection<Item> selection) {
         selectionPane.setItems(selection);
         addItem(selectionPane);
+    }
+
+    private boolean isShown(Item item) {
+        Collection<Item> items = getItems();
+        return items.contains(item);
     }
 }

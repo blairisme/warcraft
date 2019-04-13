@@ -22,6 +22,7 @@ import java.util.function.Predicate;
  *
  * @author Blair Butterworth
  */
+//TODO: rename CollectionUtils
 public class Collections
 {
     /**
