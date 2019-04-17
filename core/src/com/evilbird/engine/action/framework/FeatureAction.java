@@ -11,6 +11,7 @@ package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.TextIdentifier;
 
 public class FeatureAction extends ParallelAction
 {
@@ -30,6 +31,7 @@ public class FeatureAction extends ParallelAction
 
     public ScenarioAction scenario(String name) {
         ScenarioAction scenario = new ScenarioAction();
+        scenario.setIdentifier(new TextIdentifier(name));
         scenario.setItem(getItem());
         scenario.setTarget(getTarget());
         scenario.setCause(getCause());

@@ -14,6 +14,8 @@ import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.predicates.ActionPredicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 import java.util.function.BiConsumer;
@@ -33,6 +35,8 @@ import static com.evilbird.engine.common.function.Predicates.both;
 @SuppressWarnings("unchecked")
 public class ScenarioAction<T extends Identifier> extends BasicAction
 {
+    private static transient final Logger logger = LoggerFactory.getLogger(ScenarioAction.class);
+
     private transient Action scenario;
     private transient SequenceAction then;
     private transient Predicate<Action> given;
@@ -46,6 +50,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      */
     public ScenarioAction() {
         then = new SequenceAction();
+        then.add(log("Action sequence started: {}", getIdentifier()));
     }
 
     /**
@@ -169,7 +174,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * Sets an {@link Action} that will be executed in sequence, after any
      * previously specified Actions, provided that all specified when
      * conditions are {@code true}and all given conditions remain
-     * {@code true}for the duration Actions execution.
+     * {@code true} for the duration Actions execution.
      *
      * @param action    an Action. This parameter cannot be {@code null}.
      *
@@ -182,6 +187,18 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         return this;
     }
 
+    /**
+     * Sets an {@link Action} that will be executed in sequence, after any
+     * previously specified Actions, provided that all specified when
+     * conditions are {@code true}and all given conditions remain
+     * {@code true} for the duration Actions execution. After execution, any
+     * subsequent actions will updated to use the subject and target of the
+     * given {@code Action}.
+     *
+     * @param action    an Action. This parameter cannot be {@code null}.
+     *
+     * @return this scenario.
+     */
     public ScenarioAction thenUpdate(Action action) {
         Objects.requireNonNull(action);
         then.add(new CopyAction(action, then));
@@ -194,7 +211,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * in parallel, but overall synchronously in sequence after any
      * previously specified Actions. This is provided that all specified when
      * conditions are {@code true}and all given conditions remain
-     * {@code true}for the duration Actions execution.
+     * {@code true} for the duration Actions execution.
      *
      * @param actions an array of Actions. This parameter cannot be
      *                {@code null}.
@@ -343,6 +360,8 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
 
     private Action create() {
         Action result = then;
+        then.add(log("Action sequence completed: {}", getIdentifier()));
+
         if (when != null) {
             result = new OptionalAction(result, when);
         }
@@ -356,5 +375,9 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
             result = new UpdateAction(result, targetSupplier, ActionTarget.Target);
         }
         return result;
+    }
+
+    private Action log(String message, Object ... values) {
+        return new LambdaAction((i, t) -> logger.debug(message, values));
     }
 }

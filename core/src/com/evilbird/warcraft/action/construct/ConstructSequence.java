@@ -69,7 +69,7 @@ public class ConstructSequence extends FeatureAction
     }
 
     private void reposition() {
-        scenario("reposition")
+        scenario("reposition builder")
             .given(isAlive())
             .givenItem(isAlive())
             .when(notAdjacent(getTarget()))
@@ -79,14 +79,15 @@ public class ConstructSequence extends FeatureAction
     }
 
     private void prepare() {
-        scenario("prepare")
+        scenario("remove building placeholder")
+            .withTarget(ifExists(getTarget()))
             .whenTarget(isPlaceholder())
             .then(hide(Target));
     }
 
     private void build(ConstructActions building) {
         ItemType type = building.getItemType();
-        scenario("construct")
+        scenario("construct building")
             .withTarget(ifExists(getTarget()))
             .whenItem(isAdjacent(getTarget()))
             .whenTarget(isPlaceholder())

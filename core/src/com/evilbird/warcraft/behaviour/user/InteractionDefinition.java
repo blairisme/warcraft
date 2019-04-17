@@ -192,7 +192,7 @@ public class InteractionDefinition implements Interaction
         action.setTarget(secondary);
         action.setCause(input);
 
-        logger.debug("Assigned action {} to item {}", actionType, subject);
+        //logger.debug("Assigned action {} to item {}", actionType, subject);
     }
 
     private Item getPrimary(Item item, Item selected) {
