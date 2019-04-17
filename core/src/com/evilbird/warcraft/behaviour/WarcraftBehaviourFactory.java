@@ -14,7 +14,7 @@ import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.behaviour.BehaviourIdentifier;
 import com.evilbird.engine.behaviour.CompositeBehaviour;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviour;
-import com.evilbird.warcraft.behaviour.hud.HudBehaviour;
+import com.evilbird.warcraft.behaviour.user.HudBehaviour;
 import com.evilbird.warcraft.behaviour.user.UserBehaviour;
 
 import javax.inject.Inject;
@@ -50,6 +50,9 @@ public class WarcraftBehaviourFactory implements BehaviourFactory
 
     @Override
     public Behaviour newBehaviour(BehaviourIdentifier type) {
+
+
+
         Behaviour aiBehaviour = aiBehaviourProvider.get();
         Behaviour hudBehaviour = hudBehaviourProvider.get();
         Behaviour userBehaviour = userBehaviourProvider.get();

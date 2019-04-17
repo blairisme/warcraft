@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.behaviour.hud;
+package com.evilbird.warcraft.behaviour.user;
 
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.common.lang.Identifier;
@@ -20,7 +20,6 @@ import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
 import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.select.SelectEvent;
 import com.evilbird.warcraft.action.train.TrainEvent;
-import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.hud.control.actions.ActionPane;
@@ -53,7 +52,7 @@ public class HudBehaviour implements Behaviour
 
     @Override
     public Identifier getIdentifier() {
-        return WarcraftBehaviour.HudBehaviour;
+        return null;//TODO
     }
 
     @Override
@@ -143,5 +142,4 @@ public class HudBehaviour implements Behaviour
             statusPane.setProducing(building, training);
         }
     }
-
 }

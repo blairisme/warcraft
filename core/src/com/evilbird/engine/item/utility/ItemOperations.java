@@ -9,8 +9,11 @@
 
 package com.evilbird.engine.item.utility;
 
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.math.ShapeUtilities;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
@@ -26,7 +29,8 @@ import static com.evilbird.engine.item.utility.ItemPredicates.itemWithType;
 import static com.evilbird.engine.item.utility.ItemPredicates.touchableItem;
 
 /**
- * Instances of this class contain common item lookup utility functions.
+ * Instances of this class contain common functions for working with
+ * {@link Item Items}.
  *
  * @author Blair Butterworth
  */
@@ -72,5 +76,14 @@ public class ItemOperations
         float y = graphics.getHeight() * 0.5f;
         Vector2 screenCenter = new Vector2(x, y);
         return root.unproject(screenCenter);
+    }
+
+    public static boolean isIdle(Item item) {
+        return !item.hasActions();
+    }
+
+    public static boolean isNear(Item locus, float radius, Item target) {
+        Circle perimeter = new Circle(locus.getPosition(Alignment.Center), radius);
+        return ShapeUtilities.contains(perimeter, target.getBounds());
     }
 }

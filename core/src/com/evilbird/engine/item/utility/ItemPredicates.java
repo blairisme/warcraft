@@ -15,7 +15,6 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.math.ShapeUtilities;
 import com.evilbird.engine.item.Item;
 
-import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -30,16 +29,8 @@ public class ItemPredicates
         throw new UnsupportedOperationException();
     }
 
-    public static <T extends Item> Predicate<T> itemWithClass(final Class<T> clazz) {
-        return (item) -> clazz.isAssignableFrom(item.getClass());
-    }
-
     public static Predicate<Item> itemWithId(final Identifier id) {
         return (item) -> id.equals(item.getIdentifier());
-    }
-
-    public static Predicate<Item> isType(final Class<?> type) {
-        return (item) -> type.isAssignableFrom(item.getClass());
     }
 
     public static Predicate<Item> itemWithType(final Identifier type) {
@@ -50,20 +41,8 @@ public class ItemPredicates
         return Item::getSelected;
     }
 
-    public static Predicate<Item> selectableItem() {
-        return Item::getSelectable;
-    }
-
     public static Predicate<Item> touchableItem() {
         return Item::getTouchable;
-    }
-
-    public static Predicate<Item> isIdle() {
-        return (item) -> !item.hasActions();
-    }
-
-    public static Predicate<Item> isOwnedBy(final Item owner) {
-        return (item) -> Objects.equals(owner, item.getParent());
     }
 
     public static Predicate<Item> isNear(Item item, float radius) {

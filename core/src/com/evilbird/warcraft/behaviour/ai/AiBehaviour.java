@@ -44,8 +44,8 @@ public class AiBehaviour implements Behaviour
     @Override
     public void update(State state, List<UserInput> input) {
         ItemRoot world = state.getWorld();
-//        for (AiProcedure procedure: procedures) {
-//            procedure.update(world);
-//        }
+        for (AiProcedure procedure: procedures) {
+            procedure.update(world);
+        }
     }
 }

@@ -19,7 +19,7 @@ import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
-import com.evilbird.warcraft.behaviour.ai.Ai;
+import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
 import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.hud.HudType;
 import nl.jqno.equalsverifier.Warning;
@@ -48,11 +48,11 @@ public class WarcraftStateTest extends GameTestCase
         world = TestItemRoots.newTestRoot(new TextIdentifier("world"));
         hudControl = TestItems.newItem(new TextIdentifier("resources"), HudControl.ResourcePane);
         hud = TestItemRoots.newTestRoot(HudType.Human, hudControl);
-        behaviour = TestBehaviours.newBehaviour(Ai.HumanPassive);
+        behaviour = TestBehaviours.newBehaviour(WarcraftBehaviour.Human1);
         state = new WarcraftState(world, hud, behaviour);
 
         respondWithItem(HudType.Human, () -> hudControl);
-        respondWithBehaviour(behaviour, Ai.HumanPassive);
+        respondWithBehaviour(behaviour, WarcraftBehaviour.Human1);
     }
 
     @Test

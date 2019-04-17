@@ -32,13 +32,13 @@ public class HealthBar extends ProgressBar
 
     @Override
     public boolean setValue(float progress) {
-        if (progress >= 0f && progress < 0.33f) {
-            setStyle("health-progress-low");
-        } else if (progress >= 0.33f && progress < 0.66f) {
-            setStyle("health-progress-medium");
-        } else {
-            setStyle("health-progress-high");
-        }
+//        if (progress >= 0f && progress < 0.33f) {
+//            setStyle("health-progress-low");
+//        } else if (progress >= 0.33f && progress < 0.66f) {
+//            setStyle("health-progress-medium");
+//        } else {
+//            setStyle("health-progress-high");
+//        }
 
         return super.setValue(progress);
     }

@@ -79,7 +79,7 @@ public class ConstructSequence extends FeatureAction
     }
 
     private void prepare() {
-        scenario("remove building placeholder")
+        scenario("hide building placeholder")
             .withTarget(ifExists(getTarget()))
             .whenTarget(isPlaceholder())
             .then(hide(Target));

@@ -14,6 +14,12 @@ import com.evilbird.engine.item.Item;
 
 import java.util.Comparator;
 
+/**
+ * Instances of this class define commonly used {@link Comparator Comparators}
+ * that operate on {@link Item Items}.
+ *
+ * @author Blair Butterworth
+ */
 public class ItemComparators
 {
     private ItemComparators() {

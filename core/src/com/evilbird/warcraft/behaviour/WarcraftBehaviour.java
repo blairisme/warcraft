@@ -18,6 +18,9 @@ import com.evilbird.engine.behaviour.BehaviourIdentifier;
  */
 public enum WarcraftBehaviour implements BehaviourIdentifier
 {
-    HudBehaviour,
-    UserBehaviour
+    Human1,
+    Human2,
+
+    Orc1,
+    Orc2,
 }

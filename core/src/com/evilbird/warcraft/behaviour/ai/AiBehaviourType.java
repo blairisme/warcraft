@@ -13,7 +13,13 @@ import com.evilbird.engine.behaviour.BehaviourIdentifier;
 import com.evilbird.engine.common.serialization.SerializedType;
 
 @SerializedType("AI")
-public enum Ai implements BehaviourIdentifier
+public enum AiBehaviourType implements BehaviourIdentifier
 {
-    HumanPassive
+    HumanEasy,
+    HumanMedium,
+    HumanHard,
+
+    OrcEasy,
+    OrcMedium,
+    OrcHard
 }

@@ -23,6 +23,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static com.evilbird.engine.common.function.Predicates.both;
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 /**
  * Represents an action whose operation is specified in a syntax akin to
@@ -50,7 +51,6 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      */
     public ScenarioAction() {
         then = new SequenceAction();
-        then.add(log("Action sequence started: {}", getIdentifier()));
     }
 
     /**
@@ -360,8 +360,10 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
 
     private Action create() {
         Action result = then;
-        then.add(log("Action sequence completed: {}", getIdentifier()));
 
+        if (result != null) {
+            result = log(result);
+        }
         if (when != null) {
             result = new OptionalAction(result, when);
         }
@@ -375,6 +377,14 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
             result = new UpdateAction(result, targetSupplier, ActionTarget.Target);
         }
         return result;
+    }
+
+    private Action log(Action action) {
+        ParallelAction result = new ParallelAction();
+        result.add(log("Action sequence started: {}", getIdentifier()));
+        result.add(action);
+        result.add(log("Action sequence completed: {}", getIdentifier()));
+        return action;
     }
 
     private Action log(String message, Object ... values) {

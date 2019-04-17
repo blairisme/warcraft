@@ -12,12 +12,12 @@ package com.evilbird.warcraft.item.common.query;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.both;
-import static com.evilbird.engine.item.utility.ItemOperations.findAncestor;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isHuman;
+import static com.evilbird.engine.item.utility.ItemOperations.isNear;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlayer;
 
 /**
@@ -36,12 +36,26 @@ public class UnitOperations
     }
 
     public static Player getHumanPlayer(ItemRoot itemRoot) {
-        Predicate<Item> query = both(isPlayer(), isHuman());
+        Predicate<Item> query = both(isPlayer(), UnitPredicates.isHuman());
         return (Player)itemRoot.find(query);
     }
 
-    public static Player getAncestorPlayer(Item worldItem) {
-        Predicate<Item> query = isPlayer();
-        return (Player)findAncestor(worldItem, query);
+    public static boolean isHuman(Item item) {
+        if (! (item instanceof Player)) {
+            item = item.getParent();
+        }
+        if (item instanceof Player) {
+            Player player = (Player) item;
+            return player.isHumanPlayer();
+        }
+        return false;
+    }
+
+    public static boolean inSight(Combatant combatant, Item target) {
+        return isNear(combatant, combatant.getSight(), target);
+    }
+
+    public static boolean inRange(Combatant combatant, Item target) {
+        return isNear(combatant, combatant.getRange(), target);
     }
 }

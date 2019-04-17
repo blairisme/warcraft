@@ -59,13 +59,23 @@ public class UnitPredicates
 
     public static Predicate<Item> isHuman() {
         return (item) -> {
-            Player player = (Player)item;
-            return player.isHumanPlayer();
+            if (! (item instanceof Player)) {
+                item = item.getParent();
+            }
+            if (item instanceof Player) {
+                Player player = (Player) item;
+                return player.isHumanPlayer();
+            }
+            return false;
         };
     }
 
     public static Predicate<Item> isBuilding() {
         return (item) -> item instanceof Building;
+    }
+
+    public static Predicate<Item> isCombatant() {
+        return (item) -> item instanceof Combatant;
     }
 
     public static Predicate<Item> isPlaceholder() {
