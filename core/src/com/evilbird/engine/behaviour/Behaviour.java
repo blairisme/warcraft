@@ -9,7 +9,9 @@
 
 package com.evilbird.engine.behaviour;
 
+import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifiable;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.state.State;
 
@@ -33,4 +35,8 @@ public interface Behaviour extends Identifiable
      * @param input a list of user input in the order in which they occurred.
      */
     void update(State state, List<UserInput> input);
+
+    default Identifier getIdentifier() {
+        return GenericIdentifier.Unknown;
+    }
 }

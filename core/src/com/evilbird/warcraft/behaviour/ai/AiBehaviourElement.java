@@ -17,7 +17,7 @@ import com.evilbird.engine.item.ItemRoot;
  *
  * @author Blair Butterworth
  */
-public interface AiProcedure
+public interface AiBehaviourElement
 {
     void update(ItemRoot gameState);
 }

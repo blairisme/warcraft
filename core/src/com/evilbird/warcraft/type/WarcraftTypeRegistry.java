@@ -8,6 +8,7 @@ import com.evilbird.warcraft.action.camera.CameraActions;
 import com.evilbird.warcraft.action.confirm.ConfirmActions;
 import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.train.TrainActions;
+import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.camera.Camera;
 import com.evilbird.warcraft.item.data.player.Player;
@@ -49,7 +50,6 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("ConfirmActions", ConfirmActions.class);
         registerType("TrainSequence", TrainActions.class);
         registerType("MoveActions", MoveActions.class);
-        //registerType("AI", Ai.class);
         registerType("Hud", HudType.class);
         registerType("LayerId", LayerIdentifier.class);
         registerType("LayerType", LayerType.class);
@@ -58,6 +58,7 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("Units", UnitType.class);
         registerType("ResourceType", ResourceType.class);
         registerType("Scenario", WarcraftStateAsset.class);
+        registerType("Behaviour", WarcraftBehaviour.class);
     }
 
     private void registerItems() {

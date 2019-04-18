@@ -43,7 +43,9 @@ public class MenuActionFactory implements ActionProvider
         MenuActions menuAction = (MenuActions)identifier;
 
         switch (menuAction) {
-            case IngameMenu: return getOverlayAction(menuAction);
+            case IngameMenu:
+            case FailureMenu:
+            case VictoryMenu: return getOverlayAction(menuAction);
             case ActionsMenu:
             case BuildSimpleMenu:
             case BuildAdvancedMenu: return getNavigateAction(menuAction);

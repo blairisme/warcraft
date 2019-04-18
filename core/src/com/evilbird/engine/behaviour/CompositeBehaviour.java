@@ -14,6 +14,7 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.state.State;
 import org.apache.commons.lang3.Validate;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,16 +25,18 @@ import java.util.List;
  */
 public class CompositeBehaviour implements Behaviour
 {
+    private BehaviourIdentifier identifier;
     private List<Behaviour> behaviours;
 
-    public CompositeBehaviour(List<Behaviour> behaviours) {
+    public CompositeBehaviour(BehaviourIdentifier identifier, Behaviour ... behaviours) {
         Validate.notNull(behaviours);
-        this.behaviours = behaviours;
+        this.identifier = identifier;
+        this.behaviours = Arrays.asList(behaviours);
     }
 
     @Override
     public Identifier getIdentifier() {
-        return null;
+        return identifier;
     }
 
     @Override

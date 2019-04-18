@@ -9,11 +9,9 @@
 
 package com.evilbird.warcraft.behaviour.ai;
 
-import com.evilbird.engine.behaviour.BehaviourIdentifier;
-import com.evilbird.engine.common.serialization.SerializedType;
+import com.evilbird.engine.common.lang.Identifier;
 
-@SerializedType("AI")
-public enum AiBehaviourType implements BehaviourIdentifier
+public enum AiBehaviours implements Identifier
 {
     HumanEasy,
     HumanMedium,

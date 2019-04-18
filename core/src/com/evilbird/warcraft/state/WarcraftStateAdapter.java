@@ -123,8 +123,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     }
 
     private Behaviour deserializeBehaviour(JsonObject json, JsonDeserializationContext context) {
-        //Identifier identifier = context.deserialize(json.get(BEHAVIOUR), Identifier.class);
-        //return behaviourFactory.newBehaviour((BehaviourIdentifier)identifier);
-        return behaviourFactory.newBehaviour(null);
+        Identifier identifier = context.deserialize(json.get(BEHAVIOUR), Identifier.class);
+        return behaviourFactory.newBehaviour((BehaviourIdentifier)identifier);
     }
 }

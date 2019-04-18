@@ -15,20 +15,17 @@ public class AssetProviderAdapter<T> implements IdentifiedAssetProvider<T>
 {
     private AssetProvider<T> delegate;
 
-    public AssetProviderAdapter(AssetProvider<T> delegate)
-    {
+    public AssetProviderAdapter(AssetProvider<T> delegate) {
         this.delegate = delegate;
     }
 
     @Override
-    public void load()
-    {
+    public void load() {
         delegate.load();
     }
 
     @Override
-    public T get(Identifier identifier)
-    {
+    public T get(Identifier identifier) {
         return delegate.get();
     }
 }

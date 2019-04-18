@@ -7,10 +7,9 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.behaviour.user;
+package com.evilbird.warcraft.behaviour.ui.menu;
 
 import com.evilbird.engine.behaviour.Behaviour;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
@@ -37,7 +36,7 @@ import static com.evilbird.engine.item.utility.ItemPredicates.itemWithId;
 import static com.evilbird.engine.item.utility.ItemPredicates.selectedItem;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getHumanPlayer;
 
-public class HudBehaviour implements Behaviour
+public class MenuBehaviour implements Behaviour
 {
     private EventQueue events;
     private Player player;
@@ -46,13 +45,8 @@ public class HudBehaviour implements Behaviour
     private ResourcePane resourcePane;
 
     @Inject
-    public HudBehaviour(EventQueue events) {
+    public MenuBehaviour(EventQueue events) {
         this.events = events;
-    }
-
-    @Override
-    public Identifier getIdentifier() {
-        return null;//TODO
     }
 
     @Override

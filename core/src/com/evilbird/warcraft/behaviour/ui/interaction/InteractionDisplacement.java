@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.behaviour.user;
+package com.evilbird.warcraft.behaviour.ui.interaction;
 
 public enum InteractionDisplacement
 {

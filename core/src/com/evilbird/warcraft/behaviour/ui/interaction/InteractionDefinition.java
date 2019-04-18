@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.behaviour.user;
+package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.util.Objects;
 
-import static com.evilbird.warcraft.behaviour.user.InteractionDisplacement.Replacement;
+import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Replacement;
 
 /**
  * Instances of this class define the situations an interaction applies to and
@@ -32,7 +32,7 @@ import static com.evilbird.warcraft.behaviour.user.InteractionDisplacement.Repla
  */
 public class InteractionDefinition implements Interaction
 {
-    private static final Logger logger = LoggerFactory.getLogger(UserBehaviour.class);
+    private static final Logger logger = LoggerFactory.getLogger(InteractionBehaviour.class);
 
     private ActionFactory factory;
     private ActionIdentifier actionType;

@@ -23,7 +23,6 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static com.evilbird.engine.common.function.Predicates.both;
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 /**
  * Represents an action whose operation is specified in a syntax akin to

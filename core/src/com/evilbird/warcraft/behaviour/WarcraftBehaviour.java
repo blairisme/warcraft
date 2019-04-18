@@ -12,7 +12,7 @@ package com.evilbird.warcraft.behaviour;
 import com.evilbird.engine.behaviour.BehaviourIdentifier;
 
 /**
- * Define identifiers for behaviour varieties.
+ * Defines identifiers for behaviour varieties.
  *
  * @author Blair Butterworth
  */
@@ -20,7 +20,9 @@ public enum WarcraftBehaviour implements BehaviourIdentifier
 {
     Human1,
     Human2,
+    HumanEasy,
 
     Orc1,
     Orc2,
+    OrcHard
 }

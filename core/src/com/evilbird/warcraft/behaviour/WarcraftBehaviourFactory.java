@@ -13,13 +13,18 @@ import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.behaviour.BehaviourIdentifier;
 import com.evilbird.engine.behaviour.CompositeBehaviour;
-import com.evilbird.warcraft.behaviour.ai.AiBehaviour;
-import com.evilbird.warcraft.behaviour.user.HudBehaviour;
-import com.evilbird.warcraft.behaviour.user.UserBehaviour;
+import com.evilbird.warcraft.behaviour.ai.AiBehaviourFactory;
+import com.evilbird.warcraft.behaviour.ai.AiBehaviours;
+import com.evilbird.warcraft.behaviour.scenario.ScenarioBehaviourFactory;
+import com.evilbird.warcraft.behaviour.scenario.ScenarioBehaviours;
+import com.evilbird.warcraft.behaviour.ui.UiBehaviourFactory;
+import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
-import java.util.Arrays;
+
+import static com.evilbird.warcraft.behaviour.ai.AiBehaviours.HumanEasy;
+import static com.evilbird.warcraft.behaviour.scenario.ScenarioBehaviours.Human1;
+import static com.evilbird.warcraft.behaviour.scenario.ScenarioBehaviours.Human2;
 
 /**
  * Instances of this class defines the game logic that modifies the state of
@@ -29,19 +34,19 @@ import java.util.Arrays;
  */
 public class WarcraftBehaviourFactory implements BehaviourFactory
 {
-    private Provider<AiBehaviour> aiBehaviourProvider;
-    private Provider<HudBehaviour> hudBehaviourProvider;
-    private Provider<UserBehaviour> userBehaviourProvider;
+    private AiBehaviourFactory aiBehaviours;
+    private UiBehaviourFactory uiBehaviours;
+    private ScenarioBehaviourFactory scenarioBehaviours;
 
     @Inject
     public WarcraftBehaviourFactory(
-        Provider<AiBehaviour> aiBehaviourProvider,
-        Provider<HudBehaviour> hudBehaviourProvider,
-        Provider<UserBehaviour> userBehaviourProvider)
+        AiBehaviourFactory aiBehaviours,
+        UiBehaviourFactory uiBehaviours,
+        ScenarioBehaviourFactory scenarioBehaviours)
     {
-        this.aiBehaviourProvider = aiBehaviourProvider;
-        this.hudBehaviourProvider = hudBehaviourProvider;
-        this.userBehaviourProvider = userBehaviourProvider;
+        this.aiBehaviours = aiBehaviours;
+        this.uiBehaviours = uiBehaviours;
+        this.scenarioBehaviours = scenarioBehaviours;
     }
 
     @Override
@@ -49,13 +54,21 @@ public class WarcraftBehaviourFactory implements BehaviourFactory
     }
 
     @Override
-    public Behaviour newBehaviour(BehaviourIdentifier type) {
+    public Behaviour newBehaviour(BehaviourIdentifier id) {
+        Validate.isInstanceOf(WarcraftBehaviour.class, id);
+        WarcraftBehaviour type = (WarcraftBehaviour)id;
 
+        switch(type) {
+            case Human1: return newLevelBehaviour(id, Human1, HumanEasy);
+            case Human2: return newLevelBehaviour(id, Human2, HumanEasy);
+            default: throw new UnsupportedOperationException();
+        }
+    }
 
-
-        Behaviour aiBehaviour = aiBehaviourProvider.get();
-        Behaviour hudBehaviour = hudBehaviourProvider.get();
-        Behaviour userBehaviour = userBehaviourProvider.get();
-        return new CompositeBehaviour(Arrays.asList(aiBehaviour, hudBehaviour, userBehaviour));
+    private Behaviour newLevelBehaviour(BehaviourIdentifier id, ScenarioBehaviours scenario, AiBehaviours ai) {
+        Behaviour aiBehaviour = aiBehaviours.get(ai);
+        Behaviour uiBehaviour = uiBehaviours.get();
+        Behaviour scenarioBehaviour = scenarioBehaviours.get(scenario);
+        return new CompositeBehaviour(id, aiBehaviour, uiBehaviour, scenarioBehaviour);
     }
 }

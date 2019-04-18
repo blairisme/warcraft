@@ -7,11 +7,11 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.behaviour.user;
+package com.evilbird.engine.common.inject;
 
-public enum InteractionApplicability
+import com.evilbird.engine.common.lang.Identifier;
+
+public interface IdentifiedProvider<T>
 {
-    Selected,
-    SelectedPlayer,
-    Target
+    T get(Identifier identifier);
 }

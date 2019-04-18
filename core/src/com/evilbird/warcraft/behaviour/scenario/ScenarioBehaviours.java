@@ -7,10 +7,12 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.inject;
+package com.evilbird.warcraft.behaviour.scenario;
 
-import com.evilbird.engine.common.lang.Persisted;
+import com.evilbird.engine.common.lang.Identifier;
 
-public interface IdentifiedAssetProvider<T> extends IdentifiedProvider<T>, Persisted
+public enum ScenarioBehaviours implements Identifier
 {
+    Human1,
+    Human2
 }

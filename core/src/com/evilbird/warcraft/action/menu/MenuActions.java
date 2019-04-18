@@ -24,7 +24,9 @@ public enum MenuActions implements ActionIdentifier
     ActionsMenu         (ActionPaneView.Actions),
     BuildSimpleMenu     (ActionPaneView.SimpleBuildings),
     BuildAdvancedMenu   (ActionPaneView.AdvancedBuildings),
-    IngameMenu          (IngameMenuType.Root);
+    IngameMenu          (IngameMenuType.Root),
+    FailureMenu         (IngameMenuType.Failure),
+    VictoryMenu         (IngameMenuType.Victory);
 
     private Identifier menuIdentifier;
 

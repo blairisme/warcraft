@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.behaviour.user;
+package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.behaviour.Behaviour;
@@ -32,19 +32,14 @@ import static com.evilbird.engine.item.utility.ItemPredicates.selectedItem;
  *
  * @author Blair Butterworth
  */
-public class UserBehaviour implements Behaviour
+public class InteractionBehaviour implements Behaviour
 {
-    private static final Logger logger = LoggerFactory.getLogger(UserBehaviour.class);
-    private UserInteractions interactions;
+    private static final Logger logger = LoggerFactory.getLogger(InteractionBehaviour.class);
+    private Interactions interactions;
 
     @Inject
-    public UserBehaviour(UserInteractions interactions) {
+    public InteractionBehaviour(Interactions interactions) {
         this.interactions = interactions;
-    }
-
-    @Override
-    public Identifier getIdentifier() {
-        return null; //TODO
     }
 
     @Override

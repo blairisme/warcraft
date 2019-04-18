@@ -163,12 +163,13 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
             case Load: return setLoadLayout(menu);
             case Exit: return setExitLayout(menu);
             case Confirm: return setConfirmLayout(menu);
-            case Failure: return setFailureLayout(menu);
             case Options: return setOptionsLayout(menu);
             case Sounds: return setSoundsLayout(menu);
             case Speeds: return setSpeedsLayout(menu);
             case Preferences: return setPreferencesLayout(menu);
             case Objectives: return setObjectivesLayout(menu);
+            case Failure: return setFailureLayout(menu);
+            case Victory: return setVictoryLayout(menu);
             default: throw new UnsupportedOperationException();
         }
     }
@@ -241,6 +242,14 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         menu.addTitle("You failed to achieve victory!");
         menu.addSpacer();
         menu.addButton("OK", showMenu(menu, Home));
+        return menu;
+    }
+
+    private IngameMenu setVictoryLayout(IngameMenu menu) {
+        menu.setLayout(Small);
+        menu.addTitle("Victory!");
+        menu.addSpacer();
+        menu.addButton("OK", showMenu(menu, Home)); //TODO
         return menu;
     }
 

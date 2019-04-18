@@ -40,4 +40,17 @@ public class Predicates
     public static <T> Predicate<T> not(Predicate<? super T> predicate) {
         return (value) -> !predicate.test(value);
     }
+
+    @SafeVarargs
+    @SuppressWarnings("unchecked")
+    public static <T> Predicate<T> combination(Predicate<? super T> ... conditions) {
+        return (value) -> {
+            for (Predicate condition : conditions) {
+                if (!condition.test(value)) {
+                    return false;
+                }
+            }
+            return true;
+        };
+    }
 }

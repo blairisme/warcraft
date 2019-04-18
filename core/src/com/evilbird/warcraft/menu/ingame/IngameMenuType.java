@@ -18,10 +18,11 @@ public enum IngameMenuType implements MenuIdentifier
     Load,
     Exit,
     Confirm,
-    Failure,
     Options,
     Sounds,
     Speeds,
     Preferences,
-    Objectives
+    Objectives,
+    Failure,
+    Victory
 }

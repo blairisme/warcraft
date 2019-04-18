@@ -4,7 +4,7 @@
     "enum": "Human"
   },
   "behaviour": {
-    "class": "AI",
+    "class": "Behaviour",
     "enum": "Human1"
   },
   "world": {

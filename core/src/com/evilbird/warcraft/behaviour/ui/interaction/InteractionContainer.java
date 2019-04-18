@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.behaviour.user;
+package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.device.UserInput;
@@ -25,7 +25,6 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-//TODO: Improve lookup performance - Map?
 public class InteractionContainer
 {
     private Provider<InteractionDefinition> factory;

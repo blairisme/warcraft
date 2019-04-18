@@ -14,6 +14,7 @@ import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.math.ShapeUtilities;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemRoot;
 
 import java.util.function.Predicate;
 
@@ -35,6 +36,14 @@ public class ItemPredicates
 
     public static Predicate<Item> itemWithType(final Identifier type) {
         return (item) -> type.equals(item.getType());
+    }
+
+    public static Predicate<Item> withType(final Identifier type) {
+        return itemWithType(type);
+    }
+
+    public static Predicate<Item> withClazz(final Class<?> type) {
+        return (item) -> type.isAssignableFrom(item.getClass());
     }
 
     public static Predicate<Item> selectedItem() {
@@ -64,5 +73,13 @@ public class ItemPredicates
             perimeter.setPosition(locus.getPosition(Alignment.Center));
             return ShapeUtilities.contains(perimeter, target.getBounds());
         }
+    }
+
+    public static Predicate<ItemRoot> hasMinimum(Predicate<Item> condition, int count) {
+        return (composite) -> composite.findAll(condition).size() >= count;
+    }
+
+    public static Predicate<ItemRoot> hasMaximum(Predicate<Item> condition, int count) {
+        return (composite) -> composite.findAll(condition).size() <= count;
     }
 }

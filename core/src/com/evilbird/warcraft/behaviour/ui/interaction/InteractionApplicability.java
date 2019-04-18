@@ -7,10 +7,11 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.inject;
+package com.evilbird.warcraft.behaviour.ui.interaction;
 
-import com.evilbird.engine.common.lang.Persisted;
-
-public interface IdentifiedAssetProvider<T> extends IdentifiedProvider<T>, Persisted
+public enum InteractionApplicability
 {
+    Selected,
+    SelectedPlayer,
+    Target
 }

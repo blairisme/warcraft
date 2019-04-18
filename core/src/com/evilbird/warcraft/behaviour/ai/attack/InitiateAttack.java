@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.behaviour.ai;
+package com.evilbird.warcraft.behaviour.ai.attack;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
@@ -18,6 +18,7 @@ import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
+import com.evilbird.warcraft.behaviour.ai.AiBehaviourElement;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
@@ -32,12 +33,12 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant;
 
 /**
- * Instances of this {@link AiProcedure} instruct AI combatants to attack an
+ * Instances of this {@link AiBehaviourElement} instruct AI combatants to attack an
  * enemy if they move nearby.
  *
  * @author Blair Butterworth
  */
-public class InitiateAttack implements AiProcedure
+public class InitiateAttack implements AiBehaviourElement
 {
     private EventQueue events;
     private ActionFactory actions;

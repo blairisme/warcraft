@@ -4,8 +4,8 @@
     "enum": "Human"
   },
   "behaviour": {
-    "class": "AI",
-    "enum": "HumanPassive"
+    "class": "Behaviour",
+    "enum": "Human1"
   },
   "world": {
     "id": {

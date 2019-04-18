@@ -62,4 +62,8 @@ public class EventQueue implements Iterable<Event>
         }
         return Collections.emptyList();
     }
+
+    public boolean hasEvents(Class<? extends Event> type) {
+        return types.containsKey(type);
+    }
 }

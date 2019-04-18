@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.behaviour.user;
+package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
