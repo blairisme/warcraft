@@ -9,7 +9,11 @@
 
 package com.evilbird.engine.common.function;
 
+import java.util.Collection;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
+
+import static java.util.Arrays.asList;
 
 /**
  * Instances of this class contain common {@link Predicate Predicates}.
@@ -41,16 +45,25 @@ public class Predicates
         return (value) -> !predicate.test(value);
     }
 
+    public static <X, Y> BiPredicate<X, Y> combine(Predicate<X> left, Predicate<Y> right) {
+        return (x, y) -> left.test(x) && right.test(y);
+    }
+
     @SafeVarargs
-    @SuppressWarnings("unchecked")
-    public static <T> Predicate<T> combination(Predicate<? super T> ... conditions) {
-        return (value) -> {
-            for (Predicate condition : conditions) {
-                if (!condition.test(value)) {
-                    return false;
-                }
-            }
-            return true;
-        };
+    public static <T> Predicate<T> all(Predicate< T> ... conditions) {
+        return all(asList(conditions));
+    }
+
+    public static <T> Predicate<T> all(Collection<Predicate<T>> conditions) {
+        return (value) -> conditions.stream().allMatch(predicate -> predicate.test(value));
+    }
+
+    @SafeVarargs
+    public static <X, Y> BiPredicate<X, Y> allBi(BiPredicate<X, Y> ... conditions) {
+        return allBi(asList(conditions));
+    }
+
+    public static <X, Y> BiPredicate<X, Y> allBi(Collection<BiPredicate<X, Y>> conditions) {
+        return (x, y) -> conditions.stream().allMatch(predicate -> predicate.test(x, y));
     }
 }

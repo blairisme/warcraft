@@ -11,6 +11,11 @@ package com.evilbird.warcraft.behaviour.ai;
 
 import com.evilbird.engine.common.lang.Identifier;
 
+/**
+ * Defines options for specifying AI behaviours.
+ *
+ * @author Blair Butterworth
+ */
 public enum AiBehaviours implements Identifier
 {
     HumanEasy,

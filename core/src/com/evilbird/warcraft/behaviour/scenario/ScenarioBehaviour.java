@@ -21,13 +21,21 @@ import com.evilbird.warcraft.action.menu.MenuActions;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.function.BiPredicate;
 
+/**
+ * Instances of this behaviour govern the success and failure conditions
+ * applied to scenarios, primarily levels. When the conditions are met the user
+ * is shown an appropriate menu, leading to the mission summary screen.
+ *
+ * @author Blair Butterworth
+ */
 public class ScenarioBehaviour implements Behaviour
 {
     private EventQueue events;
     private ActionFactory actions;
-    private ScenarioCondition winCondition;
-    private ScenarioCondition loseCondition;
+    private BiPredicate<ItemRoot, EventQueue> winCondition;
+    private BiPredicate<ItemRoot, EventQueue> loseCondition;
 
     @Inject
     public ScenarioBehaviour(ActionFactory actions, EventQueue events) {
@@ -35,11 +43,11 @@ public class ScenarioBehaviour implements Behaviour
         this.actions = actions;
     }
 
-    public void setWinCondition(ScenarioCondition winCondition) {
+    public void setWinCondition(BiPredicate<ItemRoot, EventQueue> winCondition) {
         this.winCondition = winCondition;
     }
 
-    public void setLoseCondition(ScenarioCondition loseCondition) {
+    public void setLoseCondition(BiPredicate<ItemRoot, EventQueue> loseCondition) {
         this.loseCondition = loseCondition;
     }
 
@@ -49,10 +57,10 @@ public class ScenarioBehaviour implements Behaviour
     }
 
     private void evaluate(ItemRoot state) {
-        if (winCondition.applicable(events) && winCondition.evaluate(state)) {
+        if (winCondition.test(state, events)) {
             enterWinState(state);
         }
-        if (loseCondition.applicable(events) && loseCondition.evaluate(state)) {
+        if (loseCondition.test(state, events)) {
             enterLoseState(state);
         }
     }

@@ -25,8 +25,8 @@ import java.util.List;
  */
 public class CompositeBehaviour implements Behaviour
 {
-    private BehaviourIdentifier identifier;
-    private List<Behaviour> behaviours;
+    private transient BehaviourIdentifier identifier;
+    private transient List<Behaviour> behaviours;
 
     public CompositeBehaviour(BehaviourIdentifier identifier, Behaviour ... behaviours) {
         Validate.notNull(behaviours);

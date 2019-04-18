@@ -11,6 +11,11 @@ package com.evilbird.warcraft.behaviour.scenario;
 
 import com.evilbird.engine.common.lang.Identifier;
 
+/**
+ * Defines options for specifying scenario behaviours.
+ *
+ * @author Blair Butterworth
+ */
 public enum ScenarioBehaviours implements Identifier
 {
     Human1,

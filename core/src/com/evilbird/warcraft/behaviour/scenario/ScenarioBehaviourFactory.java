@@ -20,9 +20,14 @@ import javax.inject.Provider;
 import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.warcraft.behaviour.scenario.ScenarioConditions.playerHasMinimum;
 import static com.evilbird.warcraft.behaviour.scenario.ScenarioConditions.playerHasNone;
-import static com.evilbird.warcraft.item.unit.UnitType.Farm;
-import static com.evilbird.warcraft.item.unit.UnitType.Footman;
+import static com.evilbird.warcraft.item.unit.UnitType.*;
 
+/**
+ * Instances of this factory create {@link ScenarioBehaviour ScenarioBehaviours}
+ * whose conditions are determined by a given {@link ScenarioBehaviours} value.
+ *
+ * @author Blair Butterworth
+ */
 public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
 {
     private Provider<ScenarioBehaviour> factory;
@@ -44,7 +49,7 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
 
     private Behaviour humanLevel1() {
         ScenarioBehaviour result = factory.get();
-        result.setWinCondition(playerHasMinimum(of(Farm, 3, Footman, 3)));
+        result.setWinCondition(playerHasMinimum(of(Farm, 4, Barracks, 1)));
         result.setLoseCondition(playerHasNone(Unit.class));
         return result;
     }
