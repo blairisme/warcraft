@@ -208,7 +208,7 @@ task coverageReport(type: JacocoReport) {
 
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: '**/*_Factory*')
+            fileTree(dir: it, excludes: ['**/Dagger*', '**/*_Factory*', '**/*_ProvideDeviceFactory*'])
         })
     }
 }
