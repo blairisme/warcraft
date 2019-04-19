@@ -20,7 +20,8 @@ import javax.inject.Provider;
 import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.warcraft.behaviour.scenario.ScenarioConditions.playerHasMinimum;
 import static com.evilbird.warcraft.behaviour.scenario.ScenarioConditions.playerHasNone;
-import static com.evilbird.warcraft.item.unit.UnitType.*;
+import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
+import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 
 /**
  * Instances of this factory create {@link ScenarioBehaviour ScenarioBehaviours}

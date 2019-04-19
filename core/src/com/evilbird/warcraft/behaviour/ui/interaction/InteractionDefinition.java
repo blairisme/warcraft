@@ -146,6 +146,10 @@ public class InteractionDefinition implements Interaction
         return this;
     }
 
+    public ActionIdentifier getAction() {
+        return actionType;
+    }
+
     @Override
     public boolean applies(UserInput input, Item touched, Item selected) {
         if (inputType != null && !Objects.equals(inputType, input.getType())){
