@@ -48,7 +48,7 @@ public class TestFileHandleResolver implements FileHandleResolver
         return getHandle(name);
     }
 
-    private FileHandle getHandle(String name) {
+    public static FileHandle getHandle(String name) {
         try {
             URL url = TestFileHandleResolver.class.getResource(name);
             URI uri = url.toURI();

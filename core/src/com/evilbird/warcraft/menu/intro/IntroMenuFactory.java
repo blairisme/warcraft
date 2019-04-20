@@ -92,11 +92,11 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     private void addNarration(IntroMenu menu, String asset1, String asset2) {
-        Music narration1 = assets.get(asset1);
-        Music narration2 = assets.get(asset2);
+        Music narration1 = assets.get(asset1, Music.class);
+        Music narration2 = assets.get(asset2, Music.class);
         Music narration = new MusicSequence(narration1, narration2);
 
-        Music background = assets.get(NARRATION_BACKGROUND);
+        Music background = assets.get(NARRATION_BACKGROUND, Music.class);
         background.setVolume(0.7f);
 
         Music music = new MusicCombination(narration, background);

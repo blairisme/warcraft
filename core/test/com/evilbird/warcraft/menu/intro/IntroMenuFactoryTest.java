@@ -17,7 +17,6 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.test.testcase.GameTestCase;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -54,7 +53,7 @@ public class IntroMenuFactoryTest extends GameTestCase
     }
 
     @Test
-    @Ignore
+//    @Ignore
     public void getTest() {
         factory.load();
         IntroMenu menu = (IntroMenu)factory.get(IntroMenuType.HumanLevel1);
