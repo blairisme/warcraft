@@ -53,10 +53,11 @@ public class InteractionDefinition implements Interaction
      * Sets the {@link ActionIdentifier action} that this interaction will
      * result in.
      *
-     * @param action    an action identifier.
+     * @param action    an {@code ActionIdentifier}.
      * @return          this interaction.
      */
     public InteractionDefinition forAction(ActionIdentifier action) {
+        Objects.requireNonNull(action);
         this.actionType = action;
         return this;
     }
@@ -146,8 +147,45 @@ public class InteractionDefinition implements Interaction
         return this;
     }
 
+    /**
+     * Returns the {@link ActionIdentifier action} that this interaction will
+     * result in.
+     *
+     * @return an {@code ActionIdentifier}.
+     */
     public ActionIdentifier getAction() {
         return actionType;
+    }
+
+    /**
+     * Returns the {@link UserInputType user input} that this interaction
+     * applies to.
+     *
+     * @return a {@code UserInputType} option.
+     */
+    public UserInputType getInput() {
+        return inputType;
+    }
+
+    /**
+     * Returns the {@link Item} that the action resulting from this interaction
+     * will be assigned to: the item of the resulting {@link Action}.
+     *
+     * @return an {@link InteractionAssignment} option.
+     */
+    public InteractionAssignment getAssignedTo() {
+        return assignment;
+    }
+
+    /**
+     * Returns an {@link InteractionDisplacement} option indicating how the
+     * interaction should be applied, either as a replacement for existing
+     * {@link Action Actions}, or as an addition.
+     *
+     * @return an {@code InteractionDisplacement} option.
+     */
+    public InteractionDisplacement getAppliedAs() {
+        return displacement;
     }
 
     @Override
@@ -196,7 +234,7 @@ public class InteractionDefinition implements Interaction
         action.setTarget(secondary);
         action.setCause(input);
 
-        //logger.debug("Assigned action {} to item {}", actionType, subject);
+        logger.debug("Assigned action {} to item {}", actionType, subject.getIdentifier());
     }
 
     private Item getPrimary(Item item, Item selected) {
