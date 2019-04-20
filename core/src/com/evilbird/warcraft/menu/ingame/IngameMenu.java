@@ -32,6 +32,10 @@ public final class IngameMenu extends Menu
         container.setHeight(layout.getHeight());
     }
 
+    public Skin getSkin() {
+        return skin;
+    }
+
     public void addButton(String text, SelectListener action) {
         addControl(new StyledButton(text, action, skin));
     }

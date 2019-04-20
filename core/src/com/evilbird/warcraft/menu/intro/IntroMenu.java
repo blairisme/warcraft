@@ -9,18 +9,11 @@
 
 package com.evilbird.warcraft.menu.intro;
 
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Cell;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.control.SelectListener;
 import com.evilbird.engine.control.SelectListenerAdapter;
-import com.evilbird.engine.control.StyledButton;
-import com.evilbird.engine.control.StyledLabel;
 import com.evilbird.engine.menu.Menu;
 
 import javax.inject.Inject;
@@ -30,48 +23,25 @@ import static com.badlogic.gdx.scenes.scene2d.ui.Value.percentWidth;
 
 public class IntroMenu extends Menu
 {
+    private Skin skin;
     private Table table;
-    private StyledButton button;
-    private StyledLabel title;
-    private StyledLabel description;
-    private StyledLabel objectives;
+    private TextButton button;
+    private Label title;
+    private Label description;
+    private Label objectives;
 
     @Inject
-    public IntroMenu() {
-        table = createTable();
-        title = createTitle(table);
-        description = createDescription(table);
-        objectives = createObjectives(table);
-        button = createButton(table);
+    public IntroMenu(Skin skin) {
+        this.skin = skin;
+        this.table = createTable(skin);
+        this.title = createTitle(skin, table);
+        this.description = createDescription(skin, table);
+        this.objectives = createObjectives(skin, table);
+        this.button = createButton(skin, table);
     }
 
-    public void setBackground(Drawable background) {
-        table.setBackground(background);
-    }
-
-    public void setButtonAction(SelectListener action) {
-        button.addListener(new SelectListenerAdapter(action));
-    }
-
-    public void setButtonTexture(Drawable texture) {
-        setButtonTexture(texture, texture, texture);
-    }
-
-    public void setButtonTexture(Drawable enabled, Drawable selected, Drawable disabled) {
-        button.setEnabledTexture(enabled);
-        button.setDisabledTexture(disabled);
-        button.setSelectedTexture(selected);
-    }
-
-    public void setButtonSound(Sound sound) {
-        button.setClickSound(sound);
-    }
-
-    public void setFont(BitmapFont font) {
-        title.setFont(font);
-        description.setFont(font);
-        objectives.setFont(font);
-        button.setFont(font);
+    public Skin getSkin() {
+        return skin;
     }
 
     public void setTitle(String title) {
@@ -86,9 +56,14 @@ public class IntroMenu extends Menu
         this.objectives.setText(objectives);
     }
 
-    private Table createTable() {
-        Table table = new Table();
+    public void setButtonAction(SelectListener action) {
+        button.addListener(new SelectListenerAdapter(action));
+    }
+
+    private Table createTable(Skin skin) {
+        Table table = new Table(skin);
         table.setFillParent(true);
+        table.setBackground("intro-background");
 
         Stage stage = getStage();
         stage.addActor(table);
@@ -96,9 +71,8 @@ public class IntroMenu extends Menu
         return table;
     }
 
-    private StyledLabel createTitle(Table table) {
-        StyledLabel result = new StyledLabel("Title");
-        result.setFontColour(Color.WHITE);
+    private Label createTitle(Skin skin, Table table) {
+        Label result = new Label("Title", skin);
         result.setAlignment(Align.center);
 
         Cell cell = table.add(result);
@@ -110,9 +84,9 @@ public class IntroMenu extends Menu
         return result;
     }
 
-    private StyledLabel createDescription(Table table) {
-        StyledLabel result = new StyledLabel("Description");
-        result.setFontColour(Color.WHITE);
+    private Label createDescription(Skin skin, Table table) {
+        Label result = new Label("Description", skin);
+        result.setWrap(true);
 
         Cell cell = table.add(result);
         cell.align(Align.left);
@@ -124,9 +98,8 @@ public class IntroMenu extends Menu
         return result;
     }
 
-    private StyledLabel createObjectives(Table table) {
-        StyledLabel result = new StyledLabel("Objectives");
-        result.setFontColour(Color.WHITE);
+    private Label createObjectives(Skin skin, Table table) {
+        Label result = new Label("Objectives", skin);
 
         Cell cell = table.add(result);
         cell.align(Align.right);
@@ -137,8 +110,8 @@ public class IntroMenu extends Menu
         return result;
     }
 
-    private StyledButton createButton(Table table) {
-        StyledButton result = new StyledButton("Continue");
+    private TextButton createButton(Skin skin, Table table) {
+        TextButton result = new TextButton("Continue", skin);
 
         Cell cell = table.add(result);
         cell.align(Align.right);

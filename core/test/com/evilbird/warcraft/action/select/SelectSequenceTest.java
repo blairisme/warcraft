@@ -14,8 +14,8 @@ import com.evilbird.test.testcase.ActionTestCase;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Instances of this unit test validate the {@link SelectSequence} class.

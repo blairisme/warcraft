@@ -127,7 +127,6 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         LabelStyle labelStyle = new LabelStyle();
         labelStyle.font = Fonts.ARIAL;
         labelStyle.fontColor = Color.GOLD;
-
         skin.add("default", labelStyle);
     }
 
