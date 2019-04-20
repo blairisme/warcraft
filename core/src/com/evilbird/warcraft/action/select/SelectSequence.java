@@ -32,6 +32,7 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
 public class SelectSequence extends FeatureAction
 {
     private transient SelectReporter observer;
+    private transient Boolean selected;
 
     @Inject
     public SelectSequence(SelectReporter reporter) {
@@ -41,15 +42,40 @@ public class SelectSequence extends FeatureAction
 
     @Override
     protected void features() {
+        initializeSelection();
+
         scenario("Select")
             .given(isAlive())
-            .when(isUnselected(getItem()))
+            .when((item) -> !selected)
             .then(select(observer), play(Selected));
 
         scenario("Deselect")
             .given(isAlive())
-            .when(isSelected(getItem()))
+            .when((item) -> selected)
             .then(deselect(observer));
+    }
+
+    @Override
+    public void restart() {
+        super.restart();
+        updateSelection();
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        updateSelection();
+    }
+
+    private void initializeSelection() {
+         if (selected == null) {
+             updateSelection();
+        }
+    }
+
+    private void updateSelection() {
+        Item item = getItem();
+        selected = item.getSelected();
     }
 
     @Override

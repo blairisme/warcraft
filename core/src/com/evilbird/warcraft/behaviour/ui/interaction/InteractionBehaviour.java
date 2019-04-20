@@ -24,7 +24,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.itemWithType;
 import static com.evilbird.engine.item.utility.ItemPredicates.selectedItem;
@@ -92,29 +94,30 @@ public class InteractionBehaviour implements Behaviour
 
             for (UserInput input : inputs) {
                 Collection<Item> targets = getTargets(world, hud, input);
-                evaluate(input, targets, selected);
+                evaluateTargets(input, targets, selected);
             }
         }
     }
 
-    private void evaluate(UserInput input, Collection<Item> target, Collection<Item> world) {
-        if (world.isEmpty()) {
-            evaluate(input, target, (Item)null);
-        }
-        for (Item worldSelected: world) {
-            evaluate(input, target, worldSelected);
-        }
-    }
-
-    private void evaluate(UserInput input, Collection<Item> targets, Item world) {
+    private void evaluateTargets(UserInput input, Collection<Item> targets, Collection<Item> selected) {
         for (Item target: targets) {
-            if (evaluate(input, target, world)) {
-                return;
-            }
+            evaluateSelection(input, target, selected);
         }
     }
 
-    private boolean evaluate(UserInput input, Item target, Item selected) {
+    private void evaluateSelection(UserInput input, Item target, Collection<Item> selected) {
+        if (selected.isEmpty()) {
+            applyInteractions(input, target, null);
+        }
+        if (selected.contains(target)) {
+            applyInteractions(input, target, target);
+        }
+        else for (Item selectedItem: selected) {
+            applyInteractions(input, target, selectedItem);
+        }
+    }
+
+    private boolean applyInteractions(UserInput input, Item target, Item selected) {
         log(input, target, selected);
         Collection<Interaction> actions = interactions.getInteractions(input, target, selected);
         actions.forEach(interaction -> interaction.update(input, target, selected));

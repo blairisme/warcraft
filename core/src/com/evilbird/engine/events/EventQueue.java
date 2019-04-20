@@ -10,6 +10,8 @@
 package com.evilbird.engine.events;
 
 import com.evilbird.engine.common.collection.UnmodifiableIterator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -24,6 +26,8 @@ import java.util.*;
 @Singleton
 public class EventQueue implements Iterable<Event>
 {
+    private static final Logger logger = LoggerFactory.getLogger(EventQueue.class);
+
     private Queue<Event> queue;
     private Map<Class<?>, Collection<Event>> types;
 
@@ -34,6 +38,7 @@ public class EventQueue implements Iterable<Event>
     }
 
     public void add(Event event) {
+        logger.debug("Event added - {}", event);
         queue.add(event);
         addTyped(event);
     }
