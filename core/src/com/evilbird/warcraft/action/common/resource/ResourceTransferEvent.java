@@ -13,7 +13,14 @@ import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
+/**
+ * Instances of this {@link Event} are produced when resources are transferred
+ * to or from a {@link ResourceContainer}
+ *
+ * @author Blair Butterworth
+ */
 public class ResourceTransferEvent implements Event
 {
     private ResourceContainer recipient;
@@ -41,5 +48,14 @@ public class ResourceTransferEvent implements Event
 
     public float getValue() {
         return value;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("recipient", recipient.getIdentifier())
+            .append("resource", resource)
+            .append("value", value)
+            .toString();
     }
 }

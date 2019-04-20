@@ -19,7 +19,10 @@ sourceCompatibility = 1.8
 
 sourceSets{
     main.java.srcDirs = [ "src/" ]
+    main.resources.srcDirs = ["src/resources"]
+
     test.java.srcDirs = [ "test/" ]
+    test.resources.srcDirs = [ "test/resources" ]
 }
 
 ext{

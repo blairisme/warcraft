@@ -9,13 +9,15 @@
 
 package com.evilbird.warcraft.item.common.resource;
 
+import com.evilbird.engine.common.lang.Identifiable;
+
 /**
  * Implementors of this interface represent a container for the storage of
  * resources.
  *
  * @author Blair Butterworth
  */
-public interface ResourceContainer
+public interface ResourceContainer extends Identifiable
 {
     float getResource(ResourceIdentifier resource);
 

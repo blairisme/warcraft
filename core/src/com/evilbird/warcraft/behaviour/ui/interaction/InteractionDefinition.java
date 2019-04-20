@@ -32,7 +32,7 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplace
  */
 public class InteractionDefinition implements Interaction
 {
-    private static final Logger logger = LoggerFactory.getLogger(InteractionBehaviour.class);
+    private static final Logger logger = LoggerFactory.getLogger(InteractionDefinition.class);
 
     private ActionFactory factory;
     private ActionIdentifier actionType;
@@ -234,7 +234,7 @@ public class InteractionDefinition implements Interaction
         action.setTarget(secondary);
         action.setCause(input);
 
-        logger.debug("Assigned action {} to item {}", actionType, subject.getIdentifier());
+        log(actionType, primary);
     }
 
     private Item getPrimary(Item item, Item selected) {
@@ -256,6 +256,11 @@ public class InteractionDefinition implements Interaction
             case Parent: return item.getParent();
             default: return item;
         }
+    }
+
+    private void log(ActionIdentifier actionType, Item subject) {
+        logger.debug("Action started - type: '{}' subject: '{}'",
+            actionType, subject.getIdentifier());
     }
 }
 

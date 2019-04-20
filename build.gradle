@@ -59,7 +59,10 @@ project(":android") {
         implementation project(":core")
         implementation 'com.google.dagger:dagger:2.20'
         annotationProcessor 'com.google.dagger:dagger-compiler:2.20'
-        implementation 'org.apache.commons:commons-lang3:3.8.1'
+        
+        implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+        implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+
         implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
@@ -84,7 +87,6 @@ project(":core") {
     dependencies {
         implementation group: 'javax.inject', name: 'javax.inject', version: '1'
         implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
-        implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 
         implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
         implementation group: 'commons-io', name: 'commons-io', version: '2.6'

@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Instances of this {@link Event} are generated when one {@link Item} is
@@ -35,5 +36,13 @@ public class AttackEvent implements Event
 
     public Item getTarget() {
         return target;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("subject", subject.getIdentifier())
+            .append("target", target.getIdentifier())
+            .toString();
     }
 }

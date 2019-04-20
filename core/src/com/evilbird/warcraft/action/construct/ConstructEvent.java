@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.construct;
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Objects;
 
@@ -56,5 +57,14 @@ public class ConstructEvent implements Event
 
     public boolean isConstructing() {
         return status == ConstructStatus.Started;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("builder", builder.getIdentifier())
+            .append("building", building.getIdentifier())
+            .append("status", status)
+            .toString();
     }
 }

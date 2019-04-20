@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.common.remove;
 
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Objects;
 
@@ -38,5 +39,12 @@ public class RemoveEvent implements Event
     @Override
     public Item getSubject() {
         return subject;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("subject", subject.getIdentifier())
+            .toString();
     }
 }

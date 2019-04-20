@@ -73,8 +73,15 @@ public class GameEngine extends Game implements GameController
 
     @Override
     public void create() {
+        logger.debug("Game engine started");
         loaderScreen.load();
         setScreen(loaderScreen);
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        logger.debug("Game engine stopped");
     }
 
     public void showInitialScreen() {

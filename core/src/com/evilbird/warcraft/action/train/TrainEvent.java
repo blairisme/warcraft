@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.train;
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Instances of this {@link Event} are generated when a unit is trained.
@@ -43,5 +44,13 @@ public class TrainEvent implements Event
 
     public boolean isTraining() {
         return status == TrainStatus.Started;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("building", building.getIdentifier())
+            .append("status", status)
+            .toString();
     }
 }

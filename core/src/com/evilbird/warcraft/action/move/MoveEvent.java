@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.move;
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.spatial.ItemNode;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Instances of this {@link Event} are produced when an {@link Item} moves from
@@ -36,5 +37,13 @@ public class MoveEvent implements Event
 
     public ItemNode getLocation() {
         return location;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("subject", subject.getIdentifier())
+            .append("location", location.getSpatialReference())
+            .toString();
     }
 }

@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.action.common.AudibleAction.play;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.action.select.SelectAction.select;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
 
 /**

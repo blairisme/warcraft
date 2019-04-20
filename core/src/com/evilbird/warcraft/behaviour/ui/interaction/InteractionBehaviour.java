@@ -24,9 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.itemWithType;
 import static com.evilbird.engine.item.utility.ItemPredicates.selectedItem;
@@ -117,11 +115,11 @@ public class InteractionBehaviour implements Behaviour
         }
     }
 
-    private boolean applyInteractions(UserInput input, Item target, Item selected) {
-        log(input, target, selected);
-        Collection<Interaction> actions = interactions.getInteractions(input, target, selected);
-        actions.forEach(interaction -> interaction.update(input, target, selected));
-        return !actions.isEmpty();
+    private void applyInteractions(UserInput input, Item target, Item selected) {
+        logInput(input, target, selected);
+        for (Interaction interaction: interactions.getInteractions(input, target, selected)) {
+            interaction.update(input, target, selected);
+        }
     }
 
     private Collection<Item> getTargets(ItemRoot world, ItemRoot hud, UserInput input) {
@@ -154,8 +152,9 @@ public class InteractionBehaviour implements Behaviour
         return world.hit(worldPosition, true);
     }
 
-    private void log(UserInput input, Item target, Item selected) {
-        logger.debug("Input {}, target {}, selected {}", getType(input), getType(target), getType(selected));
+    private void logInput(UserInput input, Item target, Item selected) {
+        logger.debug("User input - type: '{}' target: '{}' selected: '{}'",
+            getType(input), getType(target), getType(selected));
     }
 
     private Identifier getType(Item item) {

@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Instances of this {@link Event} are produced when an {@link Item} is
@@ -35,5 +36,13 @@ public class SelectEvent implements Event
 
     public boolean getSelected() {
         return selected;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("subject", subject.getIdentifier())
+            .append("selected", selected)
+            .toString();
     }
 }

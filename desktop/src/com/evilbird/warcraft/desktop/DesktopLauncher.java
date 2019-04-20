@@ -33,7 +33,15 @@ public class DesktopLauncher
     }
 
     public static void main(String[] args) {
+        configure();
+        start(args);
+    }
+
+    private static void configure() {
         ToStringBuilder.setDefaultStyle(SHORT_PREFIX_STYLE);
+    }
+
+    private static void start(String[] args) {
         DesktopCommands commands = CommandLine.populateCommand(new DesktopCommands(), args);
         ApplicationListener engine = getEngine(commands);
         LwjglApplicationConfiguration configuration = getConfiguration();

@@ -1,16 +1,14 @@
 <!--MIT License (c)-->
 <!--Author: Blair Butterworth-->
-<configuration debug="true">
+<configuration>
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-<!--            <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</Pattern>-->
-<!--            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level - %msg%n</pattern>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</Pattern>
         </encoder>
     </appender>
 
-    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${user.home}/.warcraft2/log/log.txt</file>
+    <appender name="foo" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>C:/Users/blair/.warcraft2/log/log.txt</file>
         <append>true</append>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
@@ -30,6 +28,6 @@
 
     <root level="debug">
         <appender-ref ref="stdout" />
-        <appender-ref ref="file" />
+        <appender-ref ref="foo" />
     </root>
 </configuration>
