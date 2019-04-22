@@ -53,7 +53,6 @@ public class IntroMenuFactoryTest extends GameTestCase
     }
 
     @Test
-//    @Ignore
     public void getTest() {
         factory.load();
         IntroMenu menu = (IntroMenu)factory.get(IntroMenuType.HumanLevel1);

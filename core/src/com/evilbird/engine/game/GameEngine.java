@@ -84,6 +84,10 @@ public class GameEngine extends Game implements GameController
         logger.debug("Game engine stopped");
     }
 
+    public State getState() {
+        return stateScreen.getState();
+    }
+
     public void showInitialScreen() {
         initialScreen.run();
     }

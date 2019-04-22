@@ -18,6 +18,7 @@ import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.item.utility.ItemOperations.isNear;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlayer;
 
 /**
@@ -49,6 +50,11 @@ public class UnitOperations
             return player.isHumanPlayer();
         }
         return false;
+    }
+
+    public static Player getAiPlayer(ItemRoot itemRoot) {
+        Predicate<Item> query = both(isPlayer(), isAi());
+        return (Player)itemRoot.find(query);
     }
 
     public static boolean inSight(Combatant combatant, Item target) {

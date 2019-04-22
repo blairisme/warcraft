@@ -65,6 +65,9 @@ public class DesktopLauncher
         if (commands.getScenario() != null) {
             engine.setInitialScreen(commands.getScenario());
         }
+        if (commands.getMenu() != null) {
+            engine.setInitialScreen(commands.getMenu());
+        }
         return engine;
     }
 
