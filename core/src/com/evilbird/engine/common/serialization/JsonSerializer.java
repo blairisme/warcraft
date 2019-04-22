@@ -42,6 +42,7 @@ public class JsonSerializer implements Serializer
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setPrettyPrinting();
         gsonBuilder.serializeSpecialFloatingPointValues();
+        gsonBuilder.enableComplexMapKeySerialization();
         gsonBuilder.registerTypeHierarchyAdapter(Predicate.class, new ReflectionAdapter(typeRegistry));
         gsonBuilder.registerTypeHierarchyAdapter(Identifier.class, new ReflectionAdapter(typeRegistry));
         adapters.forEach(gsonBuilder::registerTypeHierarchyAdapter);

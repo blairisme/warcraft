@@ -26,10 +26,10 @@ import static com.evilbird.warcraft.action.common.resource.ResourceTransferActio
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.*;
 import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
-import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
 
 /**
  * Instances of this {@link Action} instruct an Item to gather gold.

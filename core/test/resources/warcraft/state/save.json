@@ -20,23 +20,15 @@
     },
     "items": [
       {
-        "humanPlayer": true,
-        "resources": [
-          {
-            "id": {
-              "class": "ResourceType",
-              "enum": "Gold"
-            },
-            "value": 123.0
-          },
-          {
-            "id": {
-              "class": "ResourceType",
-              "enum": "Wood"
-            },
-            "value": 456.0
-          }
-        ],
+        "corporeal": true,
+        "statistics": {
+          "Kills": 4.0,
+          "Buildings": 10.0
+        },
+        "resources": {
+          "Gold": 123.0,
+          "Wood": 456.0
+        },
         "fill": false,
         "items": [
           {
@@ -122,8 +114,8 @@
         "visible": false,
         "touchable": "enabled",
         "size": {
-          "x": 3.4028235E38,
-          "y": 3.4028235E38
+          "x": 1.0,
+          "y": 1.0
         },
         "position": {
           "x": 0.0,
@@ -132,23 +124,15 @@
         "actions": []
       },
       {
-        "humanPlayer": true,
-        "resources": [
-          {
-            "id": {
-              "class": "ResourceType",
-              "enum": "Gold"
-            },
-            "value": 123.0
-          },
-          {
-            "id": {
-              "class": "ResourceType",
-              "enum": "Wood"
-            },
-            "value": 456.0
-          }
-        ],
+        "corporeal": true,
+        "statistics": {
+          "Kills": 4.0,
+          "Buildings": 10.0
+        },
+        "resources": {
+          "Gold": 123.0,
+          "Wood": 456.0
+        },
         "fill": false,
         "items": [
           {
@@ -234,8 +218,8 @@
         "visible": false,
         "touchable": "enabled",
         "size": {
-          "x": 3.4028235E38,
-          "y": 3.4028235E38
+          "x": 1.0,
+          "y": 1.0
         },
         "position": {
           "x": 0.0,

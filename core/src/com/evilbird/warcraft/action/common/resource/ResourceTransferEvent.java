@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.common.resource;
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
-import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
@@ -24,13 +24,15 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class ResourceTransferEvent implements Event
 {
     private ResourceContainer recipient;
-    private ResourceIdentifier resource;
-    private float value;
+    private ResourceType resource;
+    private float oldValue;
+    private float newValue;
 
-    public ResourceTransferEvent(ResourceContainer recipient, ResourceIdentifier resource, float value) {
+    public ResourceTransferEvent(ResourceContainer recipient, ResourceType resource, float oldValue, float newValue) {
         this.recipient = recipient;
         this.resource = resource;
-        this.value = value;
+        this.oldValue = oldValue;
+        this.newValue = newValue;
     }
 
     @Override
@@ -42,12 +44,16 @@ public class ResourceTransferEvent implements Event
         return recipient;
     }
 
-    public ResourceIdentifier getResource() {
+    public ResourceType getResource() {
         return resource;
     }
 
     public float getValue() {
-        return value;
+        return newValue;
+    }
+
+    public float getOldValue() {
+        return oldValue;
     }
 
     @Override
@@ -55,7 +61,8 @@ public class ResourceTransferEvent implements Event
         return new ToStringBuilder(this)
             .append("recipient", recipient.getIdentifier())
             .append("resource", resource)
-            .append("value", value)
+            .append("oldValue", oldValue)
+            .append("newValue", newValue)
             .toString();
     }
 }

@@ -16,6 +16,9 @@ import com.evilbird.engine.common.lang.Identifier;
  *
  * @author Blair Butterworth
  */
-public interface ResourceIdentifier extends Identifier
+public enum ResourceType implements Identifier
 {
+    Gold,
+    Oil,
+    Wood
 }

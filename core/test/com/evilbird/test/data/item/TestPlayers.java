@@ -12,9 +12,10 @@ package com.evilbird.test.data.item;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.data.player.PlayerStatisticType;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import static com.evilbird.test.data.item.TestBuildings.newTestBuilding;
 import static com.evilbird.test.data.item.TestCombatants.newTestCombatant;
@@ -36,9 +37,11 @@ public class TestPlayers
     public static Player newTestPlayer(Identifier identifier, ItemRoot root) {
         Player player = new Player();
         player.setIdentifier(identifier);
-        player.setHumanPlayer(true);
+        player.setCorporeal(true);
         player.setResource(ResourceType.Gold, 123);
         player.setResource(ResourceType.Wood, 456);
+        player.setStatistic(PlayerStatisticType.Kills, 4);
+        player.setStatistic(PlayerStatisticType.Buildings, 10);
         player.addItem(newTestCombatant(new TextIdentifier("footman"), UnitType.Footman, root, player));
         player.addItem(newTestBuilding(new TextIdentifier("barracks"), UnitType.Barracks, root, player));
         player.setRoot(root);

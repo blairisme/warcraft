@@ -14,10 +14,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.hud.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.Resource;
-import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 /**
  * Instances of this user interface show details about selectable

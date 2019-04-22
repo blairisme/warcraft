@@ -27,12 +27,12 @@ import static com.evilbird.warcraft.action.common.resource.ResourceTransferActio
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
 import static com.evilbird.warcraft.item.layer.LayerType.Tree;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.GatherWood;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.*;
 import static com.evilbird.warcraft.item.unit.UnitSound.ChopWood;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
-import static com.evilbird.warcraft.item.unit.resource.ResourceType.Wood;
 
 /**
  * Instances of this {@link Action} instruct a given Item to gather wood.

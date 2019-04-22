@@ -10,18 +10,17 @@
 package com.evilbird.warcraft.item.data.player;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.common.collection.IndexedSet;
-import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
-import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
-import com.evilbird.warcraft.item.common.resource.ResourceValue;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.DataType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.inject.Inject;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Instances of this class represent a player, either real or artificial.
@@ -29,60 +28,87 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-@SerializedType("Player")
 public class Player extends ItemGroup implements ResourceContainer
 {
-    private boolean humanPlayer;
-    private IndexedSet<ResourceValue, ResourceIdentifier> resources;
+    private boolean corporeal;
+    private String description;
+    private Map<String, Double> statistics;
+    private Map<String, Double> resources;
 
     @Inject
     public Player() {
-        super.setPosition(0, 0);
-        super.setSize(Float.MAX_VALUE, Float.MAX_VALUE);
-        super.setType(DataType.Player);
-        resources = new IndexedSet<>();
+        setType(DataType.Player);
+        setPosition(0, 0);
+        setSize(Float.MAX_VALUE, Float.MAX_VALUE);
+        resources = new LinkedHashMap<>();
+        statistics = new LinkedHashMap<>();
     }
 
-    public boolean isHumanPlayer() {
-        return humanPlayer;
+    public boolean isCorporeal() {
+        return corporeal;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override
-    public float getResource(ResourceIdentifier id) {
-        if (resources.containsKey(id)){
-            return resources.get(id).getValue();
+    public float getResource(ResourceType type) {
+        String key = type.name();
+        if (resources.containsKey(key)){
+            return resources.get(key).floatValue();
         }
         return 0;
     }
 
-    public void setHumanPlayer(boolean humanPlayer) {
-        this.humanPlayer = humanPlayer;
+    public int getStatistic(PlayerStatisticType type) {
+        String key = type.name();
+        if (statistics.containsKey(key)) {
+            return statistics.get(key).intValue();
+        }
+        return 0;
+    }
+
+    public void setCorporeal(boolean corporeal) {
+        this.corporeal = corporeal;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
-    public void setResource(ResourceIdentifier id, float value) {
-        resources.removeKey(id);
-        resources.add(new ResourceValue(id, value));
+    public void setResource(ResourceType type, float value) {
+        String key = type.name();
+        resources.put(key, (double)value);
+    }
+
+    public void setStatistic(PlayerStatisticType type, int value) {
+        String key = type.name();
+        statistics.put(key, (double)value);
+    }
+
+    public void incrementStatistic(PlayerStatisticType type, float value) {
+        String key = type.name();
+        double current = statistics.containsKey(key) ? statistics.get(key) : 0;
+        double updated = current + value;
+        statistics.put(key, updated);
     }
 
     @Override
     public void setSize(Vector2 size) {
-        super.setSize(Float.MAX_VALUE, Float.MAX_VALUE);
     }
 
     @Override
     public void setSize(float width, float height) {
-        super.setSize(Float.MAX_VALUE, Float.MAX_VALUE);
     }
 
     @Override
     public void setPosition(Vector2 position) {
-        super.setPosition(0, 0);
     }
 
     @Override
     public void setPosition(float x, float y) {
-        super.setPosition(0, 0);
     }
 
     @Override
@@ -94,8 +120,10 @@ public class Player extends ItemGroup implements ResourceContainer
         Player player = (Player)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
-            .append(humanPlayer, player.humanPlayer)
+            .append(description, player.description)
+            .append(corporeal, player.corporeal)
             .append(resources, player.resources)
+            .append(statistics, player.statistics)
             .isEquals();
     }
 
@@ -103,8 +131,10 @@ public class Player extends ItemGroup implements ResourceContainer
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
-            .append(humanPlayer)
+            .append(description)
+            .append(corporeal)
             .append(resources)
+            .append(statistics)
             .toHashCode();
     }
 
@@ -112,7 +142,8 @@ public class Player extends ItemGroup implements ResourceContainer
     public String toString() {
         return new ToStringBuilder(this)
             .appendSuper("base")
-            .append("humanPlayer", humanPlayer)
+            .append("description", description)
+            .append("corporeal", corporeal)
             .append("resources", resources)
             .toString();
     }

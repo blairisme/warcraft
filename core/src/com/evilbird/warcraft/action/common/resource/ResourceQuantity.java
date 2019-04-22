@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.common.resource;
 
-import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 
 /**
  * Implementors of this interface represent an object with an associated
@@ -19,7 +19,7 @@ import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
  */
 public interface ResourceQuantity
 {
-    ResourceIdentifier getResource();
+    ResourceType getResource();
 
     float getValue();
 }

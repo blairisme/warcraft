@@ -9,15 +9,16 @@
 
 package com.evilbird.warcraft.item.unit.resource;
 
-import com.evilbird.engine.common.collection.IndexedSet;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
-import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
-import com.evilbird.warcraft.item.common.resource.ResourceValue;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Instances of this class represent a game entity that contains resources,
@@ -29,24 +30,25 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @SerializedType("Resource")
 public class Resource extends Unit implements ResourceContainer
 {
-    private IndexedSet<ResourceValue, ResourceIdentifier> resources;
+    private Map<String, Double> resources;
 
     public Resource() {
-        resources = new IndexedSet<>();
+        resources = new LinkedHashMap<>();
     }
 
     @Override
-    public float getResource(ResourceIdentifier id) {
-        if (resources.containsKey(id)){
-            return resources.get(id).getValue();
+    public float getResource(ResourceType type) {
+        String key = type.name();
+        if (resources.containsKey(key)){
+            return resources.get(key).floatValue();
         }
         return 0;
     }
 
     @Override
-    public void setResource(ResourceIdentifier id, float value) {
-        resources.removeKey(id);
-        resources.add(new ResourceValue(id, value));
+    public void setResource(ResourceType type, float value) {
+        String key = type.name();
+        resources.put(key, (double)value);
     }
 
     @Override

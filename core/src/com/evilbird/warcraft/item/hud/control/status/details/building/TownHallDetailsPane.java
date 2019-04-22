@@ -14,9 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.control.LabelProperty;
 import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.building.Building;
-import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import java.util.function.Function;
 import java.util.function.Supplier;

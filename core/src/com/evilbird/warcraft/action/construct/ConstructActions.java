@@ -11,10 +11,10 @@ package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.action.common.resource.ResourceQuantity;
-import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitType;
 
-import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 
 /**
  * Defines options of specifying construction action varieties.
@@ -32,7 +32,7 @@ public enum ConstructActions implements ActionIdentifier, ResourceQuantity
 
     private UnitType type;
     private float time;
-    private ResourceIdentifier resource;
+    private ResourceType resource;
     private float amount;
 
     ConstructActions(ConstructActions other) {
@@ -42,7 +42,7 @@ public enum ConstructActions implements ActionIdentifier, ResourceQuantity
         this.amount = other.amount;
     }
 
-    ConstructActions(UnitType type, float time, ResourceIdentifier resource, float amount) {
+    ConstructActions(UnitType type, float time, ResourceType resource, float amount) {
         this.type = type;
         this.time = time;
         this.resource = resource;
@@ -58,7 +58,7 @@ public enum ConstructActions implements ActionIdentifier, ResourceQuantity
     }
 
     @Override
-    public ResourceIdentifier getResource() {
+    public ResourceType getResource() {
         return resource;
     }
 

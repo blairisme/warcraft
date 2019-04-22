@@ -11,12 +11,12 @@ package com.evilbird.warcraft.item.unit.gatherer;
 
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
-import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.inject.Inject;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -28,22 +28,26 @@ import java.util.Map;
 @SerializedType("Gatherer")
 public class Gatherer extends Combatant implements ResourceContainer
 {
-    private Map<ResourceIdentifier, Float> resources;
+    private Map<String, Double> resources;
 
     @Inject
     public Gatherer() {
-        resources = new HashMap<>();
+        resources = new LinkedHashMap<>();
     }
 
     @Override
-    public float getResource(ResourceIdentifier resource) {
-        Float result = resources.get(resource);
-        return result != null ? result : 0f;
+    public float getResource(ResourceType type) {
+        String key = type.name();
+        if (resources.containsKey(key)){
+            return resources.get(key).floatValue();
+        }
+        return 0;
     }
 
     @Override
-    public void setResource(ResourceIdentifier type, float value) {
-        this.resources.put(type, value);
+    public void setResource(ResourceType type, float value) {
+        String key = type.name();
+        resources.put(key, (double)value);
     }
 
     @Override

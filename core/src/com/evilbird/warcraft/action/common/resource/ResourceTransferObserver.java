@@ -10,9 +10,9 @@
 package com.evilbird.warcraft.action.common.resource;
 
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
-import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 
 public interface ResourceTransferObserver
 {
-    void onTransfer(ResourceContainer recipient, ResourceIdentifier resource, float value);
+    void onTransfer(ResourceContainer recipient, ResourceType resource, float value, float delta);
 }

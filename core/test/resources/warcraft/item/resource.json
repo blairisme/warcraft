@@ -4,22 +4,10 @@
     "class": "Units",
     "enum": "GoldMine"
   },
-  "resources": [
-    {
-      "id": {
-        "class": "ResourceType",
-        "enum": "Gold"
-      },
-      "value": 123.0
-    },
-    {
-      "id": {
-        "class": "ResourceType",
-        "enum": "Wood"
-      },
-      "value": 456.0
-    }
-  ],
+  "resources": {
+    "Gold": 123.0,
+    "Wood": 456.0
+  },
   "name": "Unknown",
   "sight": 0,
   "defence": 0,

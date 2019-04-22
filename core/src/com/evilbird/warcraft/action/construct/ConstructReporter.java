@@ -23,7 +23,7 @@ import com.evilbird.warcraft.action.move.MoveObserver;
 import com.evilbird.warcraft.action.select.SelectEvent;
 import com.evilbird.warcraft.action.select.SelectObserver;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
-import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
@@ -80,7 +80,7 @@ public class ConstructReporter implements
     }
 
     @Override
-    public void onTransfer(ResourceContainer recipient, ResourceIdentifier resource, float value) {
-        events.add(new ResourceTransferEvent(recipient, resource, value));
+    public void onTransfer(ResourceContainer recipient, ResourceType resource, float oldValue, float newValue) {
+        events.add(new ResourceTransferEvent(recipient, resource, oldValue, newValue));
     }
 }

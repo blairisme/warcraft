@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.control.StyledLabel;
 import com.evilbird.engine.item.specialized.TableItem;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 
 /**
  * Instances of this user interface control display the resources the user has
@@ -39,6 +40,18 @@ public class ResourcePane extends TableItem
         goldLabel = addResource(container, style.goldIcon, style.font, style.colour);
         woodLabel = addResource(container, style.woodIcon, style.font, style.colour);
         oilLabel = addResource(container, style.oilIcon, style.font, style.colour);
+    }
+
+    public void setResource(ResourceType resource, float value) {
+        if (resource == ResourceType.Gold) {
+            setGold(value);
+        }
+        else if (resource == ResourceType.Oil) {
+            setOil(value);
+        }
+        else if (resource == ResourceType.Wood) {
+            setWood(value);
+        }
     }
 
     public void setGold(float gold) {

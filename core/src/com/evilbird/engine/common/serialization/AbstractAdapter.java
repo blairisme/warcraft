@@ -9,7 +9,6 @@
 
 package com.evilbird.engine.common.serialization;
 
-import com.evilbird.engine.common.collection.IndexedSet;
 import com.google.gson.JsonSerializer;
 import com.google.gson.*;
 import com.google.gson.annotations.JsonAdapter;
@@ -142,9 +141,8 @@ public abstract class AbstractAdapter<T> implements JsonSerializer<T>, JsonDeser
         if (List.class.isAssignableFrom(fieldType)) {
             return deserializeList(json.getAsJsonArray(), context, field);
         }
-        if (IndexedSet.class.isAssignableFrom(fieldType)){
-            List<Object> list = deserializeList(json.getAsJsonArray(), context, field);
-            return new IndexedSet(list);
+        if (Map.class.isAssignableFrom(fieldType)) {
+            return context.deserialize(json, LinkedHashMap.class);
         }
         if (Set.class.isAssignableFrom(fieldType) ) {
             return deserializeSet(json.getAsJsonArray(), context, field);

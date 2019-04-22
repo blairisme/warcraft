@@ -14,9 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemBasic;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
-import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.layer.LayerType;
-import com.evilbird.warcraft.item.unit.resource.ResourceType;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -46,7 +45,7 @@ public class ForestCell extends ItemBasic implements ResourceContainer
     }
 
     @Override
-    public float getResource(ResourceIdentifier resource) {
+    public float getResource(ResourceType resource) {
         Validate.isTrue(resource == ResourceType.Wood);
         return wood;
     }
@@ -62,7 +61,7 @@ public class ForestCell extends ItemBasic implements ResourceContainer
     }
 
     @Override
-    public void setResource(ResourceIdentifier resource, float value) {
+    public void setResource(ResourceType resource, float value) {
         Validate.isTrue(resource == ResourceType.Wood);
         wood = Math.max(value, 0);
         if (wood == 0) {

@@ -15,7 +15,7 @@ import com.evilbird.engine.action.common.ActionTarget;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
-import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.DataType;
 
 import static com.evilbird.engine.action.common.ActionTarget.Player;
@@ -62,7 +62,7 @@ public class ResourceTransferAction extends BasicAction
 
     @Override
     public boolean act(float time) {
-        ResourceIdentifier resource = quantity.getResource();
+        ResourceType resource = quantity.getResource();
         ResourceContainer container = getContainer();
 
         float delta = quantity.getValue() * factor;
@@ -70,7 +70,7 @@ public class ResourceTransferAction extends BasicAction
         float newValue = MathUtils.clamp(oldValue + delta, 0f, Float.MAX_VALUE);
 
         container.setResource(resource, newValue);
-        notifyObserver(container, resource, newValue);
+        notifyObserver(container, resource, oldValue, newValue);
 
         return true;
     }
@@ -85,9 +85,9 @@ public class ResourceTransferAction extends BasicAction
         }
     }
 
-    private void notifyObserver(ResourceContainer container, ResourceIdentifier resource, float value) {
+    private void notifyObserver(ResourceContainer container, ResourceType resource, float oldValue, float newValue) {
         if (observer != null) {
-            observer.onTransfer(container, resource, value);
+            observer.onTransfer(container, resource, oldValue, newValue);
         }
     }
 }

@@ -47,7 +47,7 @@ public class UnitOperations
         }
         if (item instanceof Player) {
             Player player = (Player) item;
-            return player.isHumanPlayer();
+            return player.isCorporeal();
         }
         return false;
     }

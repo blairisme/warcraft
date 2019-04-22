@@ -19,7 +19,7 @@ import com.evilbird.engine.common.lang.Identifiable;
  */
 public interface ResourceContainer extends Identifiable
 {
-    float getResource(ResourceIdentifier resource);
+    float getResource(ResourceType resource);
 
-    void setResource(ResourceIdentifier resource, float value);
+    void setResource(ResourceType resource, float value);
 }

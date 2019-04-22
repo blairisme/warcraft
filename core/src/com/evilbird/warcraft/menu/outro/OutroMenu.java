@@ -17,11 +17,20 @@ import com.evilbird.engine.control.SelectListener;
 import com.evilbird.engine.control.SelectListenerAdapter;
 import com.evilbird.engine.control.TextProgressBar;
 import com.evilbird.engine.game.GameController;
+import com.evilbird.engine.game.GameEngine;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.menu.Menu;
+import com.evilbird.engine.state.State;
+import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.data.player.PlayerStatisticType;
 
 import javax.inject.Inject;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.badlogic.gdx.scenes.scene2d.ui.Value.percentHeight;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.getAiPlayer;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.getHumanPlayer;
 
 public class OutroMenu extends Menu
 {
@@ -61,13 +70,17 @@ public class OutroMenu extends Menu
     public void setController(GameController controller) {
         super.setController(controller);
 
-//        GameEngine engine = (GameEngine)controller;
-//        State state = engine.getState();
-//        ItemRoot world = state.getWorld();
-//        Player humanPlayer = getHumanPlayer(world);
+        GameEngine engine = (GameEngine)controller;
+        State state = engine.getState();
 
-        updateSummary();
-        updateDetails();
+        if (state != null) {
+            ItemRoot world = state.getWorld();
+            Player human = getHumanPlayer(world);
+            Player ai = getAiPlayer(world);
+
+            updateSummary(human);
+            updateDetails(human, ai);
+        }
     }
 
     private Table createContainer() {
@@ -91,11 +104,24 @@ public class OutroMenu extends Menu
         return summary;
     }
 
-    private void updateSummary() {
+    private void updateSummary(Player player) {
         summary.clear();
+
+        int points = getScore(player);
+        String score = String.valueOf(points);
+        String rank = getRank(points);
+
         addSummaryLabel("Outcome", "Defeat!");
-        addSummaryLabel("Rank", "Servant");
-        addSummaryLabel("Score", "0");
+        addSummaryLabel("Rank", rank);
+        addSummaryLabel("Score", score);
+    }
+
+    private int getScore(Player player) {
+        return 0;
+    }
+
+    private String getRank(int score) {
+        return "Servant";
     }
 
     private void addSummaryLabel(String title, String value) {
@@ -127,11 +153,10 @@ public class OutroMenu extends Menu
         return details;
     }
 
-    private void updateDetails() {
+    private void updateDetails(Player human, Player ai) {
         details.clear();
         addDetailsHeaders();
-        addDetailsValues();
-        addDetailsValues();
+        addDetailValues(human, ai);
     }
 
     private void addDetailsHeaders() {
@@ -142,23 +167,6 @@ public class OutroMenu extends Menu
         addDetailsHeader("Oil");
         addDetailsHeader("Kills");
         addDetailsHeaderEnd("Razings");
-    }
-
-    private void addDetailsValues() {
-        addDetailsValue(4);
-        addDetailsValue(0);
-        addDetailsValue(0);
-        addDetailsValue(0);
-        addDetailsValue(0);
-        addDetailsValue(0);
-        addDetailsValueEnd(0);
-
-        addDetailsTextLine("Nation of Azeroth - You");
-    }
-
-    private void addDetailsHeaderEnd(String text) {
-        Cell cell = addDetailsHeader(text);
-        cell.row();
     }
 
     private Cell addDetailsHeader(String text) {
@@ -173,9 +181,42 @@ public class OutroMenu extends Menu
         return cell;
     }
 
-    private Cell addDetailsValue(int value) {
-        TextProgressBar bar = new TextProgressBar(0, 1, 1, "2", skin, "progress-outro");
-        bar.setValue(1);
+    private void addDetailsHeaderEnd(String text) {
+        Cell cell = addDetailsHeader(text);
+        cell.row();
+    }
+
+    private void addDetailValues(Player human, Player ai) {
+        Map<PlayerStatisticType, Float> largestValues = getLargestStatistics(human, ai);
+        addDetailsValues(human, largestValues);
+        addDetailsTextLine(human);
+        addDetailsValues(ai, largestValues);
+        addDetailsTextLine(ai);
+    }
+
+    private Map<PlayerStatisticType, Float> getLargestStatistics(Player... players) {
+        Map<PlayerStatisticType, Float> result = new HashMap<>();
+        for (PlayerStatisticType statistic: PlayerStatisticType.values()) {
+            float maximum = 0;
+            for (Player player: players) {
+                maximum = Math.max(maximum, player.getStatistic(statistic));
+            }
+            result.put(statistic, maximum);
+        }
+        return result;
+    }
+
+    private void addDetailsValues(Player player, Map<PlayerStatisticType, Float> largestValues) {
+        for (PlayerStatisticType statistic: PlayerStatisticType.values()) {
+            addDetailsValue(player.getStatistic(statistic), largestValues.get(statistic));
+        }
+        details.row();
+    }
+
+    private void addDetailsValue(float value, float max) {
+        TextProgressBar bar = new TextProgressBar(0, max, 1, "2", skin, "progress-outro");
+        bar.setValue(value);
+        bar.setText(String.valueOf(value));
 
         Cell cell = details.add(bar);
         cell.align(Align.center);
@@ -183,16 +224,12 @@ public class OutroMenu extends Menu
         cell.height(28);
         cell.padLeft(8);
         cell.padRight(8);
-
-        return cell;
     }
 
-    private void addDetailsValueEnd(int value) {
-        Cell cell = addDetailsValue(value);
-        cell.row();
-    }
+    private void addDetailsTextLine(Player player){
+        String text = player.getDescription();
+        text += player.isCorporeal() ? " - You" : "- Enemy";
 
-    private void addDetailsTextLine(String text){
         Label textLine = new Label(text, skin, "font-large");
         textLine.setAlignment(Align.center);
 

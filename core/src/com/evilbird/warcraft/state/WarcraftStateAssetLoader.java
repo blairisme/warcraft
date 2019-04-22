@@ -21,11 +21,11 @@ import com.evilbird.engine.common.maps.TiledMapFile;
 import com.evilbird.engine.common.maps.TiledMapLoader;
 import com.evilbird.engine.item.*;
 import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -170,7 +170,8 @@ public class WarcraftStateAssetLoader
     private void setCustomAttributes(Item item, MapProperties properties) {
         if (item instanceof Player) {
             Player player = (Player)item;
-            player.setHumanPlayer(! properties.get("AI", Boolean.class));
+            player.setCorporeal(! properties.get("AI", Boolean.class));
+            player.setDescription(properties.get("Description", String.class));
             player.setResource(ResourceType.Gold, properties.get("Gold", Float.class));
             player.setResource(ResourceType.Oil, properties.get("Oil", Float.class));
             player.setResource(ResourceType.Wood, properties.get("Wood", Float.class));

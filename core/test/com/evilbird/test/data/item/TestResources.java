@@ -12,10 +12,10 @@ package com.evilbird.test.data.item;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.Resource;
-import com.evilbird.warcraft.item.unit.resource.ResourceType;
 
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;
 

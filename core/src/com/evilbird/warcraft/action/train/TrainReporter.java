@@ -16,7 +16,7 @@ import com.evilbird.warcraft.action.common.create.CreateObserver;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferObserver;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
-import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
@@ -57,7 +57,7 @@ public class TrainReporter implements CreateObserver, TrainObserver, ResourceTra
     }
 
     @Override
-    public void onTransfer(ResourceContainer recipient, ResourceIdentifier resource, float value) {
-        events.add(new ResourceTransferEvent(recipient, resource, value));
+    public void onTransfer(ResourceContainer recipient, ResourceType resource, float oldValue, float newValue) {
+        events.add(new ResourceTransferEvent(recipient, resource, oldValue, newValue));
     }
 }

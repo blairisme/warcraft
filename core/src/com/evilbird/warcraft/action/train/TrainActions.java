@@ -12,12 +12,12 @@ package com.evilbird.warcraft.action.train;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.action.common.resource.ResourceQuantity;
-import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitType;
 
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
-import static com.evilbird.warcraft.item.unit.resource.ResourceType.Gold;
 
 /**
  * Defines options of specifying training action varieties.
@@ -33,7 +33,7 @@ public enum TrainActions implements ActionIdentifier, ResourceQuantity
 
     private float trainTime;
     private UnitType unitType;
-    private ResourceIdentifier resource;
+    private ResourceType resource;
     private float amount;
 
     TrainActions(TrainActions other) {
@@ -43,7 +43,7 @@ public enum TrainActions implements ActionIdentifier, ResourceQuantity
         this.amount = other.amount;
     }
 
-    TrainActions(UnitType unitType, float trainTime, ResourceIdentifier resource, float amount) {
+    TrainActions(UnitType unitType, float trainTime, ResourceType resource, float amount) {
         this.trainTime = trainTime;
         this.unitType = unitType;
         this.resource = resource;
@@ -59,7 +59,7 @@ public enum TrainActions implements ActionIdentifier, ResourceQuantity
     }
 
     @Override
-    public ResourceIdentifier getResource() {
+    public ResourceType getResource() {
         return resource;
     }
 

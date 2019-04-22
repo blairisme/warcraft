@@ -9,6 +9,7 @@ import com.evilbird.warcraft.action.confirm.ConfirmActions;
 import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.train.TrainActions;
 import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.camera.Camera;
 import com.evilbird.warcraft.item.data.player.Player;
@@ -25,7 +26,6 @@ import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.item.unit.resource.Resource;
-import com.evilbird.warcraft.item.unit.resource.ResourceType;
 import com.evilbird.warcraft.state.WarcraftStateAsset;
 
 import javax.inject.Inject;

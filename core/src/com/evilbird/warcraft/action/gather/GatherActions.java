@@ -11,8 +11,7 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.action.common.resource.ResourceQuantity;
-import com.evilbird.warcraft.item.common.resource.ResourceIdentifier;
-import com.evilbird.warcraft.item.unit.resource.ResourceType;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 
 /**
  * Defines options of specifying gather action varieties.
@@ -52,7 +51,7 @@ public enum GatherActions implements ActionIdentifier, ResourceQuantity
     }
 
     @Override
-    public ResourceIdentifier getResource() {
+    public ResourceType getResource() {
         return resourceType;
     }
 
