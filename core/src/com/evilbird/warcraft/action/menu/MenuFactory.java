@@ -23,13 +23,13 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class MenuActionFactory implements ActionProvider
+public class MenuFactory implements ActionProvider
 {
     private InjectedPool<MenuNavigateAction> navigatePool;
     private InjectedPool<MenuOverlayAction> overlayPool;
 
     @Inject
-    public MenuActionFactory(
+    public MenuFactory(
         InjectedPool<MenuNavigateAction> navigatePool,
         InjectedPool<MenuOverlayAction> overlayPool)
     {

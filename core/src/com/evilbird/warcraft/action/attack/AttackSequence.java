@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.FeatureAction;
+import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -72,9 +73,9 @@ public class AttackSequence extends FeatureAction
             .givenItem(isAlive())
             .whenTarget(isAlive())
             .whenTarget(inRange(combatant))
-            .then(animate(MeleeAttack))
+            .then(animate(MeleeAttack), notifyStarted())
             .then(attack(), playRepeat(Attack, target(isAlive())))
-            .then(animate(Idle));
+            .then(animate(Idle), notifyComplete());
     }
 
     private void kill() {
@@ -85,5 +86,15 @@ public class AttackSequence extends FeatureAction
             .then(animate(Die), delay(1))
             .then(animate(Decompose), delay(10))
             .then(remove(reporter));
+    }
+
+    private Action notifyStarted() {
+        return new LambdaAction((attacker, target) ->
+                reporter.onAttackStarted((Combatant)attacker, target));
+    }
+
+    private Action notifyComplete() {
+        return new LambdaAction((attacker, target) ->
+            reporter.onAttackCompleted((Combatant)attacker, target));
     }
 }

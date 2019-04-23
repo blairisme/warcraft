@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
+import org.mockito.Mockito;
 
 /**
  * Instances of this unit test validate the {@link GatherWood} class.
@@ -21,7 +22,7 @@ public class GatherCancelTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        GatherCancel action = new GatherCancel();
+        GatherCancel action = new GatherCancel(Mockito.mock(GatherReporter.class));
         action.setIdentifier(GatherActions.GatherCancel);
         return action;
     }

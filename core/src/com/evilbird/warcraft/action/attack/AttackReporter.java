@@ -38,8 +38,18 @@ public class AttackReporter implements AttackObserver, MoveObserver, SelectObser
     }
 
     @Override
-    public void onAttack(Combatant attacker, Item target) {
-        events.add(new AttackEvent(attacker, target));
+    public void onAttackStarted(Combatant attacker, Item target) {
+        events.add(new AttackEvent(attacker, target, AttackStatus.Started));
+    }
+
+    @Override
+    public void onAttackCompleted(Combatant attacker, Item target) {
+        events.add(new AttackEvent(attacker, target, AttackStatus.Complete));
+    }
+
+    @Override
+    public void onAttackCancelled(Combatant attacker, Item target) {
+        events.add(new AttackEvent(attacker, target, AttackStatus.Cancelled));
     }
 
     @Override

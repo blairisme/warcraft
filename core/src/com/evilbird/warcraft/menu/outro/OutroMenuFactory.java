@@ -23,6 +23,7 @@ import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.menu.Menu;
+import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
@@ -30,12 +31,18 @@ import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 import static com.evilbird.warcraft.menu.main.MainMenuType.Home;
 
+/**
+ * Instances of this factory create {@link OutroMenu OutroMenus}, menus shown
+ * when a scenario is completed, or failed.
+ *
+ * @author Blair Butterworth
+ */
 public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
 {
     private static final String FONT = "data/fonts/philosopher.ttf";
     private static final String FONT_LARGE = "data/fonts/philosopher-large.ttf";
     private static final String BUTTON = "data/textures/menu/button.png";
-    private static final String STRINGS = "data/strings/intro1";
+    private static final String STRINGS = "data/strings/outro";
     private static final String BACKGROUND_VICTORY = "data/textures/human/menu/victory.png";
     private static final String BACKGROUND_DEFEAT = "data/textures/human/menu/defeat.png";
     private static final String PROGRESS_BACKGROUND = "data/textures/neutral/perennial/stats_progress_background.png";
@@ -50,7 +57,7 @@ public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
 
     @Override
     public void load() {
-        assets.load(FONT, BitmapFont.class, fontSize(10));
+        assets.load(FONT, BitmapFont.class, fontSize(18));
         assets.load(FONT_LARGE, BitmapFont.class, fontSize(36));
         assets.load(BUTTON, Texture.class);
         assets.load(BACKGROUND_VICTORY, Texture.class);
@@ -62,27 +69,14 @@ public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
 
     @Override
     public Menu get(Identifier identifier) {
-        if (identifier == OutroMenuType.Victory) {
-            return getVictoryMenu();
-        }
-        if (identifier == OutroMenuType.Defeat) {
-            return getDefeatMenu();
-        }
-        throw new UnsupportedOperationException();
+        Validate.isInstanceOf(OutroMenuType.class, identifier);
+        return getMenu((OutroMenuType)identifier);
     }
 
-    private Menu getVictoryMenu() {
-        return getMenu("outro-background-victory");
-    }
-
-    private Menu getDefeatMenu() {
-        return getMenu("outro-background-defeat");
-    }
-
-    private Menu getMenu(String background) {
+    private Menu getMenu(OutroMenuType type) {
         OutroMenu menu = new OutroMenu(getSkin());
-        menu.setBackground(background);
-        menu.setLabelBundle(assets.get(STRINGS, I18NBundle.class));
+        menu.setType(type);
+        menu.setLabelBundle(getStrings());
         menu.setButtonAction(() -> menu.showMenu(Home));
         return menu;
     }
@@ -97,8 +91,8 @@ public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     private void addBackgroundStyle(Skin skin) {
-        skin.add("outro-background-defeat", getDrawable(assets, BACKGROUND_DEFEAT), Drawable.class);
-        skin.add("outro-background-victory", getDrawable(assets, BACKGROUND_VICTORY), Drawable.class);
+        skin.add("background-defeat", getDrawable(assets, BACKGROUND_DEFEAT), Drawable.class);
+        skin.add("background-victory", getDrawable(assets, BACKGROUND_VICTORY), Drawable.class);
     }
 
     private void addLabelStyle(Skin skin) {
@@ -140,5 +134,10 @@ public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
         style.knobBefore = style.knob;
 
         skin.add("progress-outro", style);
+    }
+
+    private OutroMenuStrings getStrings() {
+        I18NBundle bundle = assets.get(STRINGS, I18NBundle.class);
+        return new OutroMenuStrings(bundle);
     }
 }

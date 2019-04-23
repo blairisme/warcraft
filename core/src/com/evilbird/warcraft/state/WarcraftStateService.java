@@ -38,7 +38,6 @@ import java.util.List;
  *
  * @author Blair Butterworth
  */
-//TODO: Bug: errors during serialization leave empty files behind
 public class WarcraftStateService implements StateService
 {
     private static final String SAVES = "saves";

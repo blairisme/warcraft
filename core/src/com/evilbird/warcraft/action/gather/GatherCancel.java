@@ -9,12 +9,15 @@
 
 package com.evilbird.warcraft.action.gather;
 
-import com.evilbird.engine.action.common.AnimateAction;
-import com.evilbird.engine.action.framework.DelegateAction;
+import com.evilbird.engine.action.framework.ScenarioAction;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import javax.inject.Inject;
+
+import static com.evilbird.engine.action.common.AnimateAction.animate;
+import static com.evilbird.warcraft.action.gather.GatherEvents.gatherCancelled;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 
 /**
  * Instances of this class stop a given {@link Item} from gathering, retaining
@@ -22,11 +25,18 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class GatherCancel extends DelegateAction
+public class GatherCancel extends ScenarioAction
 {
+    private GatherReporter reporter;
+
     @Inject
-    public GatherCancel() {
-        super(new AnimateAction(UnitAnimation.Idle));
-        setIdentifier(GatherActions.GatherCancel);
+    public GatherCancel(GatherReporter reporter) {
+        this.reporter = reporter;
+    }
+
+    @Override
+    protected void steps(Identifier identifier) {
+        scenario(GatherActions.GatherCancel);
+        then(animate(Idle), gatherCancelled(reporter));
     }
 }

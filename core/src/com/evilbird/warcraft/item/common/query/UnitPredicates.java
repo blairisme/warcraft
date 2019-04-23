@@ -52,8 +52,14 @@ public class UnitPredicates
 
     public static Predicate<Item> isAi() {
         return (item) -> {
-            Player player = (Player)item.getParent();
-            return !player.isCorporeal();
+            if (! (item instanceof Player)) {
+                item = item.getParent();
+            }
+            if (item instanceof Player) {
+                Player player = (Player) item;
+                return !player.isCorporeal();
+            }
+            return false;
         };
     }
 

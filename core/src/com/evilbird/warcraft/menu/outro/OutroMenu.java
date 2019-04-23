@@ -12,7 +12,6 @@ package com.evilbird.warcraft.menu.outro;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.control.SelectListener;
 import com.evilbird.engine.control.SelectListenerAdapter;
 import com.evilbird.engine.control.TextProgressBar;
@@ -22,24 +21,37 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.data.player.PlayerStatisticType;
+import com.evilbird.warcraft.item.data.player.PlayerStatistic;
 
 import javax.inject.Inject;
+import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.badlogic.gdx.scenes.scene2d.ui.Value.percentHeight;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getAiPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getHumanPlayer;
+import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Score;
+import static com.evilbird.warcraft.menu.outro.OutroMenuType.Victory;
+import static java.util.Arrays.asList;
 
+/**
+ * Represents a menu shown when a scenario is completed or failed. The menu
+ * contains a table of statistics, detailing the units created and killed by
+ * the player and their enemies as well as the resources they gathered.
+ *
+ * @author Blair Butterworth
+ */
 public class OutroMenu extends Menu
 {
     private Skin skin;
-    private I18NBundle strings;
+    private OutroMenuType type;
+    private OutroMenuStrings strings;
     private Table container;
     private Table summary;
     private Table details;
-    private Button button;
+    private TextButton button;
 
     @Inject
     public OutroMenu(Skin skin) {
@@ -54,16 +66,18 @@ public class OutroMenu extends Menu
         return skin;
     }
 
-    public void setBackground(String name) {
-        container.setBackground(name);
+    public void setType(OutroMenuType type) {
+        this.type = type;
+        this.container.setBackground(type == Victory ? "background-victory" : "background-defeat");
     }
 
-    public void setLabelBundle(I18NBundle bundle) {
-        strings = bundle;
+    public void setLabelBundle(OutroMenuStrings strings) {
+        this.strings = strings;
+        this.button.setText(strings.getButtonLabel());
     }
 
     public void setButtonAction(SelectListener action) {
-        button.addListener(new SelectListenerAdapter(action));
+        this.button.addListener(new SelectListenerAdapter(action));
     }
 
     @Override
@@ -106,22 +120,15 @@ public class OutroMenu extends Menu
 
     private void updateSummary(Player player) {
         summary.clear();
-
-        int points = getScore(player);
-        String score = String.valueOf(points);
-        String rank = getRank(points);
-
-        addSummaryLabel("Outcome", "Defeat!");
-        addSummaryLabel("Rank", rank);
-        addSummaryLabel("Score", score);
+        int score = getScore(player);
+        addSummaryLabel(strings.getOutcomeLabel(), strings.getOutcome(type));
+        addSummaryLabel(strings.getRankLabel(), strings.getRank(score));
+        addSummaryLabel(strings.getScoreLabel(), String.valueOf(score));
     }
 
     private int getScore(Player player) {
-        return 0;
-    }
-
-    private String getRank(int score) {
-        return "Servant";
+        int score = player.getStatistic(Score);
+        return type == Victory ? score + 500 : score;
     }
 
     private void addSummaryLabel(String title, String value) {
@@ -160,16 +167,17 @@ public class OutroMenu extends Menu
     }
 
     private void addDetailsHeaders() {
-        addDetailsHeader("Units");
-        addDetailsHeader("Buildings");
-        addDetailsHeader("Gold");
-        addDetailsHeader("Lumber");
-        addDetailsHeader("Oil");
-        addDetailsHeader("Kills");
-        addDetailsHeaderEnd("Razings");
+        addDetailsHeader(strings.getUnitLabel());
+        addDetailsHeader(strings.getBuildingsLabel());
+        addDetailsHeader(strings.getGoldLabel());
+        addDetailsHeader(strings.getWoodLabel());
+        addDetailsHeader(strings.getOilLabel());
+        addDetailsHeader(strings.getKillsLabel());
+        addDetailsHeader(strings.getRazedLabel());
+        details.row();
     }
 
-    private Cell addDetailsHeader(String text) {
+    private void addDetailsHeader(String text) {
         Label label = new Label(text, skin);
         label.setAlignment(Align.center);
 
@@ -177,26 +185,25 @@ public class OutroMenu extends Menu
         cell.expandX();
         cell.fillX();
         cell.padBottom(12);
-
-        return cell;
-    }
-
-    private void addDetailsHeaderEnd(String text) {
-        Cell cell = addDetailsHeader(text);
-        cell.row();
     }
 
     private void addDetailValues(Player human, Player ai) {
-        Map<PlayerStatisticType, Float> largestValues = getLargestStatistics(human, ai);
+        Map<PlayerStatistic, Float> largestValues = getLargestStatistics(asList(human, ai));
         addDetailsValues(human, largestValues);
         addDetailsTextLine(human);
         addDetailsValues(ai, largestValues);
         addDetailsTextLine(ai);
     }
 
-    private Map<PlayerStatisticType, Float> getLargestStatistics(Player... players) {
-        Map<PlayerStatisticType, Float> result = new HashMap<>();
-        for (PlayerStatisticType statistic: PlayerStatisticType.values()) {
+    private EnumSet<PlayerStatistic> getDetailStatistics() {
+        EnumSet<PlayerStatistic> result = EnumSet.allOf(PlayerStatistic.class);
+        result.remove(Score);
+        return result;
+    }
+
+    private Map<PlayerStatistic, Float> getLargestStatistics(List<Player> players) {
+        Map<PlayerStatistic, Float> result = new HashMap<>();
+        for (PlayerStatistic statistic: getDetailStatistics()) {
             float maximum = 0;
             for (Player player: players) {
                 maximum = Math.max(maximum, player.getStatistic(statistic));
@@ -206,17 +213,17 @@ public class OutroMenu extends Menu
         return result;
     }
 
-    private void addDetailsValues(Player player, Map<PlayerStatisticType, Float> largestValues) {
-        for (PlayerStatisticType statistic: PlayerStatisticType.values()) {
+    private void addDetailsValues(Player player, Map<PlayerStatistic, Float> largestValues) {
+        for (PlayerStatistic statistic: getDetailStatistics()) {
             addDetailsValue(player.getStatistic(statistic), largestValues.get(statistic));
         }
         details.row();
     }
 
     private void addDetailsValue(float value, float max) {
-        TextProgressBar bar = new TextProgressBar(0, max, 1, "2", skin, "progress-outro");
+        TextProgressBar bar = new TextProgressBar(0, max, 1, "", skin, "progress-outro");
         bar.setValue(value);
-        bar.setText(String.valueOf(value));
+        bar.setText(String.valueOf((int)value));
 
         Cell cell = details.add(bar);
         cell.align(Align.center);
@@ -227,10 +234,8 @@ public class OutroMenu extends Menu
     }
 
     private void addDetailsTextLine(Player player){
-        String text = player.getDescription();
-        text += player.isCorporeal() ? " - You" : "- Enemy";
-
-        Label textLine = new Label(text, skin, "font-large");
+        String playerName = strings.getPlayerName(player);
+        Label textLine = new Label(playerName, skin, "font-large");
         textLine.setAlignment(Align.center);
 
         Cell cell = details.add(textLine);
@@ -244,7 +249,7 @@ public class OutroMenu extends Menu
     }
 
     private TextButton createButton() {
-        TextButton result = new TextButton("Continue", skin);
+        TextButton result = new TextButton("", skin);
 
         Cell cell = container.add(result);
         cell.align(Align.right);

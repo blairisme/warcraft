@@ -15,20 +15,27 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
-import com.evilbird.warcraft.action.common.create.CreateEvent;
+import com.evilbird.warcraft.action.attack.AttackEvent;
+import com.evilbird.warcraft.action.attack.AttackStatus;
 import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
 import com.evilbird.warcraft.action.construct.ConstructEvent;
+import com.evilbird.warcraft.action.construct.ConstructStatus;
+import com.evilbird.warcraft.action.gather.GatherEvent;
+import com.evilbird.warcraft.action.gather.GatherStatus;
 import com.evilbird.warcraft.action.select.SelectEvent;
 import com.evilbird.warcraft.action.train.TrainEvent;
+import com.evilbird.warcraft.action.train.TrainStatus;
+import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.data.player.PlayerStatisticType;
+import com.evilbird.warcraft.item.data.player.PlayerStatistic;
 import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.hud.control.actions.ActionPane;
 import com.evilbird.warcraft.item.hud.control.status.StatusPane;
 import com.evilbird.warcraft.item.hud.resource.ResourcePane;
+import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.building.Building;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.resource.Resource;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -37,7 +44,18 @@ import java.util.List;
 import static com.evilbird.engine.item.utility.ItemPredicates.itemWithId;
 import static com.evilbird.engine.item.utility.ItemPredicates.selectedItem;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getHumanPlayer;
+import static com.evilbird.warcraft.item.data.player.PlayerScore.getScoreValue;
+import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Score;
 
+/**
+ * Instances of this behaviour update the user interface based on game state
+ * changes. Specifically it provides the heads up display with the currently
+ * selected items and player resources. It also updates player statistics, the
+ * number of units and buildings created and killed and the number of resources
+ * gathered.
+ *
+ * @author Blair Butterworth
+ */
 public class MenuBehaviour implements Behaviour
 {
     private EventQueue events;
@@ -61,7 +79,8 @@ public class MenuBehaviour implements Behaviour
             updateSelectionRecipients();
             updateConstructionRecipients();
             updateTrainingRecipients();
-            updateCreationRecipients();
+            updateAttackRecipients();
+            updateGatherRecipients();
         }
         else {
             initializeResources();
@@ -92,6 +111,13 @@ public class MenuBehaviour implements Behaviour
         statusPane.setSelected(selection);
     }
 
+    private void updateSelectionRecipients() {
+        for (SelectEvent event: events.getEvents(SelectEvent.class)) {
+            actionPane.setSelected(event.getSubject(), event.getSelected());
+            statusPane.setSelected(event.getSubject(), event.getSelected());
+        }
+    }
+
     private void updateResourceRecipients() {
         for (ResourceTransferEvent event: events.getEvents(ResourceTransferEvent.class)) {
             if (event.getSubject() == player) {
@@ -100,60 +126,67 @@ public class MenuBehaviour implements Behaviour
         }
     }
 
-    private PlayerStatisticType getResourceStat(ResourceType type) {
-        switch (type) {
-            case Gold: return PlayerStatisticType.Gold;
-            case Oil: return PlayerStatisticType.Oil;
-            case Wood: return PlayerStatisticType.Wood;
-            default: throw new UnsupportedOperationException();
-        }
-    }
-
-    private void updateSelectionRecipients() {
-        for (SelectEvent event: events.getEvents(SelectEvent.class)) {
-            Item subject = event.getSubject();
-            boolean selected = event.getSelected();
-
-            actionPane.setSelected(subject, selected);
-            statusPane.setSelected(subject, selected);
-        }
-    }
-
     private void updateConstructionRecipients() {
         for (ConstructEvent event: events.getEvents(ConstructEvent.class)) {
-            Building building = event.getBuilding();
-            boolean constructing = event.isConstructing();
+            actionPane.setConstructing(event.getBuilding(), event.isConstructing());
+            statusPane.setConstructing(event.getBuilding(), event.isConstructing());
 
-            actionPane.setConstructing(building, constructing);
-            statusPane.setConstructing(building, constructing);
+            if (event.getStatus() == ConstructStatus.Complete) {
+                Player player = UnitOperations.getPlayer(event.getSubject());
+                player.incrementStatistic(PlayerStatistic.Buildings, 1);
+            }
         }
     }
 
     private void updateTrainingRecipients() {
         for (TrainEvent event: events.getEvents(TrainEvent.class)) {
-            Building building = event.getBuilding();
-            boolean training = event.isTraining();
+            actionPane.setProducing(event.getBuilding(), event.isTraining());
+            statusPane.setProducing(event.getBuilding(), event.isTraining());
 
-            actionPane.setProducing(building, training);
-            statusPane.setProducing(building, training);
-        }
-    }
-
-    private void updateCreationRecipients() {
-        for (CreateEvent event: events.getEvents(CreateEvent.class)) {
-            Item subject = event.getSubject();
-            Item parent = subject.getParent();
-            if (parent == player) {
-                if (subject instanceof Building) {
-                    player.incrementStatistic(PlayerStatisticType.Buildings, 1);
-                } else if (subject instanceof Combatant) {
-                    player.incrementStatistic(PlayerStatisticType.Units, 1);
-                }
+            if (event.getStatus() == TrainStatus.Complete) {
+                Player player = UnitOperations.getPlayer(event.getSubject());
+                player.incrementStatistic(PlayerStatistic.Units, 1);
             }
         }
     }
 
-    private void updateRemovalRecipients() {
+    private void updateAttackRecipients() {
+        for (AttackEvent event: events.getEvents(AttackEvent.class)) {
+            if (event.getStatus() == AttackStatus.Complete) {
+                PlayerStatistic statistic = getAttackStat(event.getTarget());
+                Player player = UnitOperations.getPlayer(event.getSubject());
+                player.incrementStatistic(statistic, 1);
+                player.incrementStatistic(Score, getScoreValue(event.getTarget()));
+            }
+        }
+    }
 
+    private PlayerStatistic getAttackStat(Item target) {
+        if (target instanceof Building || target instanceof Resource) {
+            return PlayerStatistic.Razed;
+        }
+        if (target instanceof Unit) {
+            return PlayerStatistic.Units;
+        }
+        throw new UnsupportedOperationException();
+    }
+
+    private void updateGatherRecipients() {
+        for (GatherEvent event: events.getEvents(GatherEvent.class)) {
+            if (event.getStatus() == GatherStatus.DepositStarted) {
+                PlayerStatistic statistic = getResourceStat(event.getType());
+                Player player = UnitOperations.getPlayer(event.getSubject());
+                player.incrementStatistic(statistic, event.getValue());
+            }
+        }
+    }
+
+    private PlayerStatistic getResourceStat(ResourceType type) {
+        switch (type) {
+            case Gold: return PlayerStatistic.Gold;
+            case Oil: return PlayerStatistic.Oil;
+            case Wood: return PlayerStatistic.Wood;
+            default: throw new UnsupportedOperationException();
+        }
     }
 }

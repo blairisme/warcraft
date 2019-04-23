@@ -20,5 +20,9 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
  */
 public interface AttackObserver
 {
-    void onAttack(Combatant attacker, Item target);
+    void onAttackStarted(Combatant attacker, Item target);
+
+    void onAttackCompleted(Combatant attacker, Item target);
+
+    void onAttackCancelled(Combatant attacker, Item target);
 }

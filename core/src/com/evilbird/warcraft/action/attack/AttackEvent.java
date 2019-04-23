@@ -23,10 +23,12 @@ public class AttackEvent implements Event
 {
     private Item subject;
     private Item target;
+    private AttackStatus status;
 
-    public AttackEvent(Item subject, Item target) {
+    public AttackEvent(Item subject, Item target, AttackStatus status) {
         this.subject = subject;
         this.target = target;
+        this.status = status;
     }
 
     @Override
@@ -38,11 +40,16 @@ public class AttackEvent implements Event
         return target;
     }
 
+    public AttackStatus getStatus() {
+        return status;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
             .append("subject", subject.getIdentifier())
             .append("target", target.getIdentifier())
+            .append("status", status)
             .toString();
     }
 }

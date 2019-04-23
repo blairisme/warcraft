@@ -62,6 +62,10 @@ public class Menu
         this.music = music;
     }
 
+    public void showError(Throwable error) {
+        controller.showError(error);
+    }
+
     public void showMenu() {
         controller.showMenu();
     }

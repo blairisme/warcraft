@@ -23,8 +23,8 @@ import com.evilbird.warcraft.action.construct.ConstructActions;
 import com.evilbird.warcraft.action.construct.ConstructFactory;
 import com.evilbird.warcraft.action.gather.GatherActions;
 import com.evilbird.warcraft.action.gather.GatherFactory;
-import com.evilbird.warcraft.action.menu.MenuActionFactory;
 import com.evilbird.warcraft.action.menu.MenuActions;
+import com.evilbird.warcraft.action.menu.MenuFactory;
 import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.move.MoveFactory;
 import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
@@ -57,7 +57,7 @@ public class WarcraftActionFactory implements ActionFactory
         ConstructFactory constructFactory,
         GatherFactory gatherFactory,
         MoveFactory moveFactory,
-        MenuActionFactory menuActionFactory,
+        MenuFactory menuFactory,
         PlaceholderFactory placeholderFactory,
         SelectFactory selectFactory,
         TrainFactory trainFactory)
@@ -70,7 +70,7 @@ public class WarcraftActionFactory implements ActionFactory
         registerProvider(ConfirmActions.values(), confirmFactory);
         registerProvider(GatherActions.values(), gatherFactory);
         registerProvider(MoveActions.values(), moveFactory);
-        registerProvider(MenuActions.values(), menuActionFactory);
+        registerProvider(MenuActions.values(), menuFactory);
         registerProvider(PlaceholderActions.values(), placeholderFactory);
         registerProvider(SelectActions.values(), selectFactory);
         registerProvider(TrainActions.values(), trainFactory);

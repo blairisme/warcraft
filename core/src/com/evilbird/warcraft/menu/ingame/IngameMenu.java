@@ -16,7 +16,7 @@ import com.evilbird.engine.control.*;
 import com.evilbird.engine.menu.Menu;
 import org.apache.commons.lang3.tuple.Pair;
 
-public final class IngameMenu extends Menu
+public class IngameMenu extends Menu
 {
     private Skin skin;
     private Table container;

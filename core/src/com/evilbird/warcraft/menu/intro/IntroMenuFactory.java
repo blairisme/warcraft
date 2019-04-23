@@ -29,6 +29,8 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.state.StateIdentifier;
 import org.apache.commons.lang3.Validate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 
@@ -36,8 +38,15 @@ import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 import static com.evilbird.warcraft.state.WarcraftStateScenario.Human1;
 
+/**
+ * Instances of this factory create {@link IntroMenu}s, menus that introduce a
+ * scenario and explain the conditions required to win it.
+ *
+ * @author Blair Butterworth
+ */
 public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(IntroMenuFactory.class);
     private static final String FONT = "data/fonts/philosopher.ttf";
     private static final String BUTTON = "data/textures/menu/button.png";
     private static final String BACKGROUND = "data/textures/menu/introduction.png";
@@ -116,10 +125,9 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
             try {
                 menu.showState(level);
             }
-            catch (Exception exception) {
-                exception.printStackTrace();
-                //TODO - log error
-                //TODO - show error menu
+            catch (Throwable error) {
+                LOGGER.error("Failed to load state", error);
+                menu.showError(error);
             }
         });
     }

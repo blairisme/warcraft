@@ -14,6 +14,11 @@ import com.evilbird.engine.item.Item;
 
 import javax.inject.Inject;
 
+/**
+ * Instances of this factory create {@link Player} objects.
+ *
+ * @author Blair Butterworth
+ */
 public class PlayerFactory implements AssetProvider<Item>
 {
     @Inject

@@ -32,8 +32,11 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateService;
+import com.evilbird.warcraft.menu.outro.OutroMenuType;
 import com.evilbird.warcraft.state.WarcraftStateIdentifier;
 import org.apache.commons.lang3.tuple.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -43,19 +46,18 @@ import static com.evilbird.engine.common.graphics.TextureUtils.getTiledDrawable;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuLayout.*;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.*;
 import static com.evilbird.warcraft.menu.intro.IntroMenuType.HumanLevel1;
-import static com.evilbird.warcraft.menu.main.MainMenuType.Home;
 import static com.evilbird.warcraft.state.WarcraftStateType.UserState;
 
 /**
- * Instances of this factory create {@link IngameMenu} instances, menus shown
+ * Instances of this factory create {@link IngameMenu} instances, menus
+ * accessible during the game and rendered over a paused game state.
  *
+ * @author Blair Butterworth
  */
-//TODO - Get objectives from state
-//TODO - Get restart point from state
-//TODO - button click sound
 @SuppressWarnings("unchecked")
 public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(IngameMenuFactory.class);
     private static final String BUTTON_ENABLED = "data/textures/human/menu/button-large-normal.png";
     private static final String BUTTON_DISABLED = "data/textures/human/menu/button-large-grayed.png";
     private static final String BUTTON_SELECTED = "data/textures/human/menu/button-large-pressed.png";
@@ -89,8 +91,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
     @Override
     public Menu get(Identifier identifier) {
         IngameMenu menu = new IngameMenu(getSkin());
-        setLayout(menu, identifier);
-        return menu;
+        return setLayout(menu, identifier);
     }
 
     private Skin getSkin() {
@@ -167,7 +168,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
             case Speeds: return setSpeedsLayout(menu);
             case Preferences: return setPreferencesLayout(menu);
             case Objectives: return setObjectivesLayout(menu);
-            case Failure: return setFailureLayout(menu);
+            case Defeat: return setDefeatLayout(menu);
             case Victory: return setVictoryLayout(menu);
             default: throw new UnsupportedOperationException();
         }
@@ -221,7 +222,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         menu.addButton("Restart Scenario", showMenu(menu, HumanLevel1));
         menu.addButton("Surrender", showMenu(menu, Confirm));
         menu.addButton("Quit to Menu", showMenu(menu, Confirm));
-        menu.addButton("Exit Program", shutdown(menu));
+        menu.addButton("Exit Program", shutdown());
         menu.addSpacer();
         menu.addButton("Previous", showMenu(menu, Root));
         return menu;
@@ -230,25 +231,9 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
     private IngameMenu setConfirmLayout(IngameMenu menu) {
         menu.setLayout(Normal);
         menu.addTitle("Are you sure you want to surrender to your enemies?");
-        menu.addButton("Surrender", showMenu(menu, Failure));
+        menu.addButton("Surrender", showMenu(menu, Defeat));
         menu.addSpacer();
         menu.addButton("Cancel", showState(menu));
-        return menu;
-    }
-
-    private IngameMenu setFailureLayout(IngameMenu menu) {
-        menu.setLayout(Small);
-        menu.addTitle("You failed to achieve victory!");
-        menu.addSpacer();
-        menu.addButton("OK", showMenu(menu, Home));
-        return menu;
-    }
-
-    private IngameMenu setVictoryLayout(IngameMenu menu) {
-        menu.setLayout(Small);
-        menu.addTitle("Victory!");
-        menu.addSpacer();
-        menu.addButton("OK", showMenu(menu, Home)); //TODO
         return menu;
     }
 
@@ -303,15 +288,30 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         return menu;
     }
 
+    private IngameMenu setDefeatLayout(IngameMenu menu) {
+        menu.setLayout(Small);
+        menu.addTitle("You failed to achieve victory!");
+        menu.addSpacer();
+        menu.addButton("OK", showMenu(menu, OutroMenuType.Defeat));
+        return menu;
+    }
+
+    private IngameMenu setVictoryLayout(IngameMenu menu) {
+        menu.setLayout(Small);
+        menu.addTitle("Victory!");
+        menu.addSpacer();
+        menu.addButton("OK", showMenu(menu, OutroMenuType.Victory));
+        return menu;
+    }
+
     private void addStates(IngameMenu menu, List list) {
         try {
             Collection<Identifier> items = states.list(UserState);
             list.setItems(items.toArray());
         }
-        catch (Exception exception) {
-            exception.printStackTrace();
-            //TODO - log error
-            //TODO - show error menu
+        catch (Throwable error) {
+            LOGGER.error("Failed to list states", error);
+            menu.showError(error);
         }
     }
 
@@ -320,10 +320,9 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
             try {
                 menu.saveState(new WarcraftStateIdentifier(field.getText()));
             }
-            catch (Exception exception) {
-                exception.printStackTrace();
-                //TODO - log error
-                //TODO - show error menu
+            catch (Throwable error) {
+                LOGGER.error("Failed to save state", error);
+                menu.showError(error);
             }
         };
     }
@@ -333,10 +332,9 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
             try {
                 states.remove((WarcraftStateIdentifier)list.getSelected());
             }
-            catch (Exception exception) {
-                exception.printStackTrace();
-                //TODO - log error
-                //TODO - show error menu
+            catch (Throwable error) {
+                LOGGER.error("Failed to remove state", error);
+                menu.showError(error);
             }
         };
     }
@@ -346,10 +344,9 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
             try {
                 menu.showState((WarcraftStateIdentifier)list.getSelected());
             }
-            catch (Exception exception) {
-                exception.printStackTrace();
-                //TODO - log error
-                //TODO - show error menu
+            catch (Throwable error) {
+                LOGGER.error("Failed to load state", error);
+                menu.showError(error);
             }
         };
     }
@@ -366,7 +363,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         return () -> menu.showMenu(type);
     }
 
-    private SelectListener shutdown(IngameMenu menu) {
+    private SelectListener shutdown() {
         return () -> Gdx.app.exit();
     }
 }

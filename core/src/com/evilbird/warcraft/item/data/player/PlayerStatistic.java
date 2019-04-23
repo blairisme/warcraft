@@ -9,7 +9,12 @@
 
 package com.evilbird.warcraft.item.data.player;
 
-public enum PlayerStatisticType
+/**
+ * Defines options for the various statistics kept about player actions.
+ *
+ * @author Blair Butterworth
+ */
+public enum PlayerStatistic
 {
     Units,
     Buildings,
@@ -17,5 +22,6 @@ public enum PlayerStatisticType
     Wood,
     Oil,
     Kills,
-    Razings;
+    Razed,
+    Score
 }

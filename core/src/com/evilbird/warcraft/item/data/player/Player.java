@@ -61,7 +61,7 @@ public class Player extends ItemGroup implements ResourceContainer
         return 0;
     }
 
-    public int getStatistic(PlayerStatisticType type) {
+    public int getStatistic(PlayerStatistic type) {
         String key = type.name();
         if (statistics.containsKey(key)) {
             return statistics.get(key).intValue();
@@ -83,16 +83,15 @@ public class Player extends ItemGroup implements ResourceContainer
         resources.put(key, (double)value);
     }
 
-    public void setStatistic(PlayerStatisticType type, int value) {
+    public void setStatistic(PlayerStatistic type, float value) {
         String key = type.name();
         statistics.put(key, (double)value);
     }
 
-    public void incrementStatistic(PlayerStatisticType type, float value) {
-        String key = type.name();
-        double current = statistics.containsKey(key) ? statistics.get(key) : 0;
-        double updated = current + value;
-        statistics.put(key, updated);
+    public void incrementStatistic(PlayerStatistic type, float value) {
+        float current = getStatistic(type);
+        float updated = current + value;
+        setStatistic(type, updated);
     }
 
     @Override

@@ -34,7 +34,7 @@ public class Maps
      * @param <K>   the key type.
      * @param <V>   the value type.
      *
-     * @return a new {@ocde Map} containing the given key value pair.
+     * @return a new {@code Map} containing the given key value pair.
      */
     public static <K, V> Map<K, V> of(K k1, V v1) {
         Map<K, V> result = new HashMap<>(1);
@@ -52,7 +52,7 @@ public class Maps
      * @param <K>   the key type.
      * @param <V>   the value type.
      *
-     * @return a new {@ocde Map} containing the given key value pairs.
+     * @return a new {@code Map} containing the given key value pairs.
      */
     public static <K, V> Map<K, V> of(K k1, V v1, K k2, V v2) {
         Map<K, V> result = new HashMap<>(2);
@@ -73,7 +73,7 @@ public class Maps
      * @param <K>   the key type.
      * @param <V>   the value type.
      *
-     * @return a new {@ocde Map} containing the given key value pairs.
+     * @return a new {@code Map} containing the given key value pairs.
      */
     public static <K, V> Map<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3) {
         Map<K, V> result = new HashMap<>(2);

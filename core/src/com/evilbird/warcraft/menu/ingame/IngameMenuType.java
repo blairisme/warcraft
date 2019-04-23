@@ -11,6 +11,11 @@ package com.evilbird.warcraft.menu.ingame;
 
 import com.evilbird.engine.menu.MenuIdentifier;
 
+/**
+ * Defines options for in-game menu varieties.
+ *
+ * @author Blair Butterworth
+ */
 public enum IngameMenuType implements MenuIdentifier
 {
     Root,
@@ -23,6 +28,6 @@ public enum IngameMenuType implements MenuIdentifier
     Speeds,
     Preferences,
     Objectives,
-    Failure,
+    Defeat,
     Victory
 }

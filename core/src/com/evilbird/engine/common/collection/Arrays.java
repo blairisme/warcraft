@@ -14,7 +14,8 @@ import com.badlogic.gdx.utils.Array;
 import java.util.function.Predicate;
 
 /**
- * Instances of this class provide helper functions for working with Arrays.
+ * Instances of this class provide helper functions for working with LibGDX
+ * {@link Array Arrays}.
  *
  * @author Blair Butterworth
  */
@@ -29,9 +30,11 @@ public class Arrays
     }
 
     /**
-     * Returns an empt
-     * @param <T>
-     * @return
+     * Returns an empty LibGDX Array (immutable).
+     *
+     * @param <T> type of elements, if there were any, in the array.
+     *
+     * @return an empty immutable array.
      */
     @SuppressWarnings("unchecked")
     public static <T> Array<T> emptyArray() {

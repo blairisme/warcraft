@@ -31,6 +31,10 @@ public class UnitOperations
     private UnitOperations() {
     }
 
+    public static Player getPlayer(Item item) {
+        return (Player)item.getParent();
+    }
+
     public static Player getHumanPlayer(Item worldItem) {
         ItemRoot itemRoot = worldItem.getRoot();
         return getHumanPlayer(itemRoot);

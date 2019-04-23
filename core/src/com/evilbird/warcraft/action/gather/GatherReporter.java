@@ -20,6 +20,7 @@ import com.evilbird.warcraft.action.select.SelectEvent;
 import com.evilbird.warcraft.action.select.SelectObserver;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
@@ -29,7 +30,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class GatherReporter implements MoveObserver, SelectObserver, ResourceTransferObserver
+public class GatherReporter implements GatherObserver, MoveObserver, SelectObserver, ResourceTransferObserver
 {
     private EventQueue events;
 
@@ -39,8 +40,28 @@ public class GatherReporter implements MoveObserver, SelectObserver, ResourceTra
     }
 
     @Override
-    public void onTransfer(ResourceContainer recipient, ResourceType resource, float oldValue, float newValue) {
-        events.add(new ResourceTransferEvent(recipient, resource, oldValue, newValue));
+    public void onObtainStarted(Gatherer gatherer, Item source, ResourceType type) {
+        events.add(new GatherEvent(gatherer, GatherStatus.ObtainStarted, source, type));
+    }
+
+    @Override
+    public void onObtainComplete(Gatherer gatherer, Item source, ResourceType type, float value) {
+        events.add(new GatherEvent(gatherer, GatherStatus.ObtainComplete, source, type, value));
+    }
+
+    @Override
+    public void onDepositStarted(Gatherer gatherer, Item destination, ResourceType type, float value) {
+        events.add(new GatherEvent(gatherer, GatherStatus.DepositStarted, destination, type, value));
+    }
+
+    @Override
+    public void onDepositComplete(Gatherer gatherer, Item destination, ResourceType type) {
+        events.add(new GatherEvent(gatherer, GatherStatus.DepositComplete, destination, type));
+    }
+
+    @Override
+    public void onGatherCancelled(Gatherer gatherer) {
+        events.add(new GatherEvent(gatherer, GatherStatus.Cancelled));
     }
 
     @Override
@@ -51,5 +72,10 @@ public class GatherReporter implements MoveObserver, SelectObserver, ResourceTra
     @Override
     public void onSelect(Item item, boolean selected) {
         events.add(new SelectEvent(item, selected));
+    }
+
+    @Override
+    public void onTransfer(ResourceContainer recipient, ResourceType resource, float oldValue, float newValue) {
+        events.add(new ResourceTransferEvent(recipient, resource, oldValue, newValue));
     }
 }

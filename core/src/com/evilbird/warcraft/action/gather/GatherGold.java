@@ -23,6 +23,7 @@ import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
 import static com.evilbird.engine.item.utility.ItemSuppliers.closest;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.transfer;
+import static com.evilbird.warcraft.action.gather.GatherEvents.*;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
@@ -54,9 +55,9 @@ public class GatherGold extends FeatureAction
             .when(noResources(Gold))
             .then(animate(Move))
             .then(move(reporter))
-            .then(hide(), deselect(reporter))
+            .then(hide(), deselect(reporter), obtainStarted(reporter, resource()))
             .then(delay(5))
-            .then(transfer(Target, Item, resource(), reporter))
+            .then(transfer(Target, Item, resource(), reporter), obtainComplete(reporter, resource()))
             .then(show(), setAnimation(Move, MoveGold), animate(Idle))
             .withTarget(closest(GoldMine, getTarget()));
 
@@ -65,9 +66,9 @@ public class GatherGold extends FeatureAction
             .whenItem(hasResources(Gold))
             .then(animate(Move))
             .then(move(reporter))
-            .then(hide(), deselect(reporter))
+            .then(hide(), deselect(reporter), depositStarted(reporter, resource()))
             .then(delay(5))
-            .then(transfer(Item, Player, resource(), reporter))
+            .then(transfer(Item, Player, resource(), reporter), depositComplete(reporter, resource()))
             .then(show(), animate(Idle), setAnimation(Move, MoveBasic))
             .withTarget(closest(TownHall, getTarget()));
     }
