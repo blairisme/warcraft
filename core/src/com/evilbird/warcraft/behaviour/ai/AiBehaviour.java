@@ -40,7 +40,7 @@ public class AiBehaviour implements Behaviour
     public void update(State state, List<UserInput> input) {
         ItemRoot world = state.getWorld();
         for (AiBehaviourElement procedure: components) {
-            procedure.update(world);
+            //procedure.update(world);
         }
     }
 }

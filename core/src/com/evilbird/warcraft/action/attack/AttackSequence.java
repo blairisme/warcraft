@@ -18,6 +18,9 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
+import java.lang.annotation.Target;
+
+import static com.evilbird.engine.action.common.ActionTarget.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AudibleAction.play;
 import static com.evilbird.engine.action.common.DisableAction.disable;
@@ -71,6 +74,7 @@ public class AttackSequence extends FeatureAction
     private void engage(Combatant combatant) {
         scenario("attack")
             .givenItem(isAlive())
+//            .givenTarget(isAlive())
             .whenTarget(isAlive())
             .whenTarget(inRange(combatant))
             .then(animate(MeleeAttack), notifyStarted())
@@ -80,17 +84,15 @@ public class AttackSequence extends FeatureAction
 
     private void kill() {
         scenario("kill")
-            .withItem(getTarget())
             .whenTarget(isDead())
-            .then(deselect(reporter), disable(), play(UnitSound.Die))
-            .then(animate(Die), delay(1))
-            .then(animate(Decompose), delay(10))
-            .then(remove(reporter));
+            .then(animate(Target, Die), delay(1), play(Target, Die), deselect(Target, reporter), disable(Target))
+            .then(animate(Target, Decompose), delay(2))
+            .then(remove(Target, reporter));
     }
 
     private Action notifyStarted() {
         return new LambdaAction((attacker, target) ->
-                reporter.onAttackStarted((Combatant)attacker, target));
+            reporter.onAttackStarted((Combatant)attacker, target));
     }
 
     private Action notifyComplete() {

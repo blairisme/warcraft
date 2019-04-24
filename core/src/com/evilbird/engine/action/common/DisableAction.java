@@ -45,8 +45,16 @@ public class DisableAction extends BasicAction
         return new DisableAction(false);
     }
 
+    public static DisableAction enable(ActionTarget source) {
+        return new DisableAction(source, false);
+    }
+
     public static DisableAction disable() {
         return new DisableAction(true);
+    }
+
+    public static DisableAction disable(ActionTarget source) {
+        return new DisableAction(source, true);
     }
 
     @Override
