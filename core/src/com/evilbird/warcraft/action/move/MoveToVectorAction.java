@@ -43,7 +43,7 @@ class MoveToVectorAction extends MoveAction
             ItemRoot root = item.getRoot();
             UserInput cause = getCause();
             Vector2 projected = cause.getPosition();
-            Vector2 position =  root.unproject(projected);
+            Vector2 position = root.unproject(projected);
             destination = new MoveDestinationVector(position);
         }
         return destination;

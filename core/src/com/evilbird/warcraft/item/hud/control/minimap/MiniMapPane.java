@@ -20,7 +20,6 @@ import com.evilbird.warcraft.item.hud.HudControl;
  *
  * @author Blair Butterworth
  */
-//TODO: Use spatial graph to draw minimap
 public class MiniMapPane extends TableItem
 {
     public MiniMapPane(Skin skin) {

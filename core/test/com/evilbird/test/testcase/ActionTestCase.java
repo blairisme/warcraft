@@ -82,8 +82,10 @@ public abstract class ActionTestCase extends GameTestCase
             .verify();
     }
 
-
-
+    @Test
+    public void actTest() {
+        action.act(1);
+    }
 
     protected abstract Action newAction();
 

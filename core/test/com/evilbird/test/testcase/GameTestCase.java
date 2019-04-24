@@ -12,6 +12,7 @@ package com.evilbird.test.testcase;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
 import com.evilbird.engine.action.Action;
@@ -71,6 +72,10 @@ public class GameTestCase
         });
         Gdx.gl20 = Mockito.mock(GL20.class, RETURNS_MOCKS);
         Gdx.gl = Gdx.gl20;
+        Gdx.graphics = Mockito.mock(Graphics.class, RETURNS_MOCKS);
+
+        Mockito.when(Gdx.graphics.getWidth()).thenReturn(1024);
+        Mockito.when(Gdx.graphics.getHeight()).thenReturn(1024);
 
         Mockito.when(Gdx.gl20.glCreateShader(anyInt())).thenReturn(1);
         Mockito.when(Gdx.gl20.glCreateProgram()).thenReturn(1);

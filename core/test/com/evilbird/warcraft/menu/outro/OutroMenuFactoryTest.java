@@ -55,8 +55,10 @@ public class OutroMenuFactoryTest extends GameTestCase
     @Test
     public void getTest() {
         factory.load();
-        OutroMenu menu = (OutroMenu)factory.get(OutroMenuType.Victory);
-        Assert.assertNotNull(menu);
-        Assert.assertTrue(menu.getSkin().has("background-victory", Drawable.class));
+        for (OutroMenuType menuType: OutroMenuType.values()) {
+            OutroMenu menu = (OutroMenu)factory.get(menuType);
+            Assert.assertNotNull(menu);
+            Assert.assertTrue(menu.getSkin().has("background-victory", Drawable.class));
+        }
     }
 }

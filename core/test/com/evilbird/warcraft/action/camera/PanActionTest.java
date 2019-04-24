@@ -10,7 +10,10 @@
 package com.evilbird.warcraft.action.camera;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.common.lang.TextIdentifier;
+import com.evilbird.engine.item.Item;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.item.data.camera.Camera;
 
 /**
  * Instances of this unit test validate the {@link PanAction} class.
@@ -27,5 +30,12 @@ public class PanActionTest extends ActionTestCase
     @Override
     protected Enum newIdentifier() {
         return CameraActions.Pan;
+    }
+
+    @Override
+    protected Item newItem() {
+        Camera camera = new Camera();
+        camera.setIdentifier(new TextIdentifier("item"));
+        return camera;
     }
 }

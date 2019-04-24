@@ -53,7 +53,8 @@ public class ActionButton extends TableItem
     }
 
     private ActionButtonStyle getActionStyle() {
-        return getSkin().get("action-button", ActionButtonStyle.class);
+        ActionButtonStyle style = getSkin().get("action-button", ActionButtonStyle.class);
+        return style != null ? style : new ActionButtonStyle();
     }
 
     private ImageButtonStyle getIconStyle(ActionButtonType buttonType) {

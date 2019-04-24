@@ -55,8 +55,10 @@ public class IngameMenuFactoryTest extends GameTestCase
     @Test
     public void getTest() {
         factory.load();
-        IngameMenu menu = (IngameMenu)factory.get(IngameMenuType.Root);
-        Assert.assertNotNull(menu);
-        Assert.assertTrue(menu.getSkin().has("menu-background-normal", Drawable.class));
+        for (IngameMenuType menuType: IngameMenuType.values()) {
+            IngameMenu menu = (IngameMenu)factory.get(menuType);
+            Assert.assertNotNull(menu);
+            Assert.assertTrue(menu.getSkin().has("menu-background-normal", Drawable.class));
+        }
     }
 }
