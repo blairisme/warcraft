@@ -50,7 +50,7 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
 
     private Behaviour humanLevel1() {
         ScenarioBehaviour result = factory.get();
-        result.setWinCondition(playerHasMinimum(of(Farm, 2, Barracks, 1)));
+        result.setWinCondition(playerHasMinimum(of(Farm, 4, Barracks, 1)));
         result.setLoseCondition(playerHasNone(Unit.class));
         return result;
     }
