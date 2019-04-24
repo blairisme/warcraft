@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.layer.forest;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -43,7 +44,10 @@ public class ForestTest extends GameTestCase
 
         LayerIdentifier identifier = new LayerIdentifier("data/levels/human/level1.tmx", "Map", layer);
 
-        forest = new Forest();
+        Skin skin = new Skin();
+        skin.add("default", Mockito.mock(ForestStyle.class), ForestStyle.class);
+
+        forest = new Forest(skin);
         forest.setLayer(layer);
         forest.setIdentifier(identifier);
         forest.setType(identifier.getType());

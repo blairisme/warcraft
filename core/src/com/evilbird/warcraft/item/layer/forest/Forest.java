@@ -37,13 +37,17 @@ public class Forest extends Layer
     private static transient final int PATTERN_MATRIX_SIZE = 3;
     private static transient final int PATTERN_MATRIX_CENTER = 1;
     private static transient final float DEFAULT_WOOD = 100;
+
+    private transient Skin skin;
     private transient ForestStyle style;
 
-    public Forest() {
+    public Forest(Skin skin) {
+        this.skin = skin;
+        this.style = skin.get(ForestStyle.class);
     }
 
-    public void setSkin(Skin skin) {
-        style = skin.get(ForestStyle.class);
+    public Skin getSkin() {
+        return skin;
     }
 
     @Override

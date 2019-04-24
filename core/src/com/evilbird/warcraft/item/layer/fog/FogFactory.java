@@ -22,7 +22,6 @@ import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.layer.LayerUtils;
@@ -40,10 +39,10 @@ import static com.evilbird.warcraft.item.layer.LayerUtils.cell;
  *
  * @author Blair Butterworth
  */
-//TODO: Feature: Add support for transparent fog
-public class FogFactory implements IdentifiedAssetProvider<Item>
+public class FogFactory implements IdentifiedAssetProvider<Fog>
 {
-    private static final String TERRAIN = "data/textures/neutral/winter/terrain.png";
+    public static final String TERRAIN = "data/textures/neutral/winter/terrain.png";
+
     private EventQueue events;
     private AssetManager assets;
 
@@ -53,13 +52,18 @@ public class FogFactory implements IdentifiedAssetProvider<Item>
         this.events = events;
     }
 
+    public FogFactory(AssetManager assets, EventQueue events) {
+        this.assets = assets;
+        this.events = events;
+    }
+
     @Override
     public void load() {
         assets.load(TERRAIN, Texture.class);
     }
 
     @Override
-    public Item get(Identifier identifier) {
+    public Fog get(Identifier identifier) {
         Validate.isInstanceOf(LayerIdentifier.class, identifier);
         LayerIdentifier layerIdentifier = (LayerIdentifier)identifier;
 
@@ -71,9 +75,8 @@ public class FogFactory implements IdentifiedAssetProvider<Item>
     }
 
     private Fog getOpaqueFog(LayerIdentifier identifier) {
-        Fog fog = new Fog();
+        Fog fog = new Fog(getSkin());
         fog.setEvents(events);
-        fog.setSkin(getSkin());
         fog.setIdentifier(identifier);
         fog.setType(LayerType.OpaqueFog);
         fog.setLayer(LayerUtils.getLayer(identifier));

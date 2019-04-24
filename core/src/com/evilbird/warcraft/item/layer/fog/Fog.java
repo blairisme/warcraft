@@ -19,6 +19,7 @@ import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.layer.Layer;
@@ -35,7 +36,6 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-//TODO: Bug (potential): respond to creation events (when they exist :s)
 //TODO: Bug: revealing doesn't include item size, only position. Fix: use logic from ItemGraph.
 //TODO: update sight to cells, not pixels
 @SerializedType("Fog")
@@ -47,19 +47,22 @@ public class Fog extends Layer
     private static transient final int PATTERN_MATRIX_SIZE = 3;
     private static transient final int PATTERN_MATRIX_CENTER = 1;
 
+    private transient Skin skin;
     private transient FogStyle style;
     private transient EventQueue events;
     private transient boolean initialized;
 
-    public Fog() {
+    public Fog(Skin skin) {
+        this.skin = skin;
+        this.style = skin.get(FogStyle.class);
+    }
+
+    public Skin getSkin() {
+        return skin;
     }
 
     public void setEvents(EventQueue events) {
         this.events = events;
-    }
-
-    public void setSkin(Skin skin) {
-        this.style = skin.get(FogStyle.class);
     }
 
     @Override
@@ -92,6 +95,9 @@ public class Fog extends Layer
     private void update() {
         for (MoveEvent moveEvent: events.getEvents(MoveEvent.class)) {
             revealItem(moveEvent.getSubject());
+        }
+        for (CreateEvent createEvent: events.getEvents(CreateEvent.class)) {
+            revealItem(createEvent.getSubject());
         }
     }
 

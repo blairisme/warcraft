@@ -38,12 +38,17 @@ import static com.evilbird.warcraft.item.layer.LayerUtils.cell;
  */
 public class ForestFactory implements IdentifiedAssetProvider<Forest>
 {
-    private static final String TERRAIN = "data/textures/neutral/winter/terrain.png";
+    public static final String TERRAIN = "data/textures/neutral/winter/terrain.png";
+
     private AssetManager assets;
 
     @Inject
     public ForestFactory(Device device) {
-        this.assets = device.getAssetStorage();
+        this(device.getAssetStorage());
+    }
+
+    public ForestFactory(AssetManager assets) {
+        this.assets = assets;
     }
 
     @Override
@@ -56,8 +61,7 @@ public class ForestFactory implements IdentifiedAssetProvider<Forest>
         Validate.isInstanceOf(LayerIdentifier.class, identifier);
         LayerIdentifier layerIdentifier = (LayerIdentifier)identifier;
 
-        Forest forest = new Forest();
-        forest.setSkin(getSkin());
+        Forest forest = new Forest(getSkin());
         forest.setIdentifier(layerIdentifier);
         forest.setType(layerIdentifier.getType());
         forest.setLayer(LayerUtils.getLayer(layerIdentifier));

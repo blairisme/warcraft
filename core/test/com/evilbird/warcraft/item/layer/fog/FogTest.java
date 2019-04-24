@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -43,7 +44,10 @@ public class FogTest extends GameTestCase
 
         LayerIdentifier identifier = new LayerIdentifier("data/levels/human/level1.tmx", "OpaqueFog", layer);
 
-        fog = new Fog();
+        Skin skin = new Skin();
+        skin.add("default", Mockito.mock(FogStyle.class), FogStyle.class);
+
+        fog = new Fog(skin);
         fog.setLayer(layer);
         fog.setIdentifier(identifier);
         fog.setType(identifier.getType());

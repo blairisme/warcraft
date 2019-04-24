@@ -17,7 +17,7 @@ public enum LayerType implements ItemType
 {
     Map,
     Forest,
-    Tree, //TODO: Replace with forest
+    Tree,
     OpaqueFog,
     TransparentFog,
 }
