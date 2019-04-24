@@ -18,7 +18,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimatedItem;
-import com.evilbird.warcraft.item.common.animation.AnimationCollections;
+import com.evilbird.warcraft.item.common.animation.AnimationSets;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
@@ -59,6 +59,6 @@ public class ConfirmProvider implements AssetProvider<Item>
 
     private Map<Identifier, DirectionalAnimation> getAnimations() {
         Texture texture = assets.get(TEXTURE, Texture.class);
-        return AnimationCollections.effectAnimations(texture);
+        return AnimationSets.effectAnimations(texture);
     }
 }

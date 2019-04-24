@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.common.capability;
+package com.evilbird.engine.common.lang;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.lang.Categorizable;
@@ -23,7 +23,6 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-//TODO: Move into common
 public interface Movable extends Positionable, Directionable, Categorizable
 {
     /**
@@ -32,14 +31,6 @@ public interface Movable extends Positionable, Directionable, Categorizable
      * @return  the the speed of the movable, in pixels per second.
      */
     float getMovementSpeed();
-
-    /**
-     * Returns the size that movables displacement, the area in which only this
-     * movable can occupy.
-     *
-     * @return  the size of the movable, in pixels.
-     */
-    Vector2 getMovementDisplacement();
 
     /**
      * Returns a collection of item types that the movable can traverse. An

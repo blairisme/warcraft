@@ -21,7 +21,7 @@ import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.common.animation.AnimationCollections;
+import com.evilbird.warcraft.item.common.animation.AnimationSets;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -113,7 +113,7 @@ public class PeasantProvider implements AssetProvider<Item>
         Texture moveGold = assets.get(MOVE_GOLD, Texture.class);
         Texture moveWood = assets.get(MOVE_WOOD, Texture.class);
         Texture decompose = assets.get(DECOMPOSE, Texture.class);
-        return AnimationCollections.gatherAnimations(general, decompose, moveGold, moveWood);
+        return AnimationSets.gatherAnimations(general, decompose, moveGold, moveWood);
     }
 
     private Drawable getIcon() {

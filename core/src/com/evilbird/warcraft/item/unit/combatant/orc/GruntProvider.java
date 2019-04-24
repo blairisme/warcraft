@@ -20,7 +20,7 @@ import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.common.animation.AnimationCollections;
+import com.evilbird.warcraft.item.common.animation.AnimationSets;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -101,7 +101,7 @@ public class GruntProvider implements AssetProvider<Item>
     private Map<Identifier, DirectionalAnimation> getAnimations() {
         Texture general = assets.get(BASE, Texture.class);
         Texture decompose = assets.get(DECOMPOSE, Texture.class);
-        return AnimationCollections.combatantAnimations(general, decompose);
+        return AnimationSets.combatantAnimations(general, decompose);
     }
 
     private Drawable getIcon() {

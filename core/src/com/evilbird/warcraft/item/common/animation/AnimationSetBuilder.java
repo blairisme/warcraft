@@ -10,9 +10,14 @@
 package com.evilbird.warcraft.item.common.animation;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
+import com.evilbird.engine.common.graphics.AnimationBuilder;
+import com.evilbird.engine.common.graphics.AnimationSchema;
 import com.evilbird.engine.common.graphics.BasicAnimation;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.lang.Identifier;
+import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Arrays;
@@ -21,13 +26,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-//TODO: Move into common
-public class AnimationCollectionBuilder
+import static com.evilbird.engine.common.collection.Arrays.union;
+
+public class AnimationSetBuilder
 {
     private Map<Identifier, Identifier> aliases;
     private Map<Identifier, List<Pair<AnimationSchema, Texture>>> animations;
 
-    public AnimationCollectionBuilder() {
+    public AnimationSetBuilder() {
         aliases = new HashMap<>(2);
         animations = new HashMap<>(2);
     }
@@ -44,7 +50,6 @@ public class AnimationCollectionBuilder
         animations.put(id, data);
     }
 
-    //TODO: MoveFactory multiple schema/texture logic into AnimationBuilder. Stop animation merging.
     public Map<Identifier, DirectionalAnimation> build() {
         AnimationBuilder builder = new AnimationBuilder();
         Map<Identifier, DirectionalAnimation> result = new HashMap<>();
@@ -54,7 +59,7 @@ public class AnimationCollectionBuilder
             for (Pair<AnimationSchema, Texture> schema : animation.getValue()) {
                 builder.setSchema(schema.getKey());
                 builder.setTexture(schema.getValue());
-                product = product == null ? builder.build() : AnimationUtils.combine(product, builder.build());
+                product = product == null ? builder.build() : combine(product, builder.build());
             }
             result.put(animation.getKey(), product);
         }
@@ -62,5 +67,19 @@ public class AnimationCollectionBuilder
             result.put(alias.getKey(), result.get(alias.getValue()));
         }
         return result;
+    }
+
+    private BasicAnimation combine(BasicAnimation source, BasicAnimation target) {
+        Map<Range<Float>, Array<TextureRegion>> sourceFrameSet = source.getFrames();
+        Map<Range<Float>, Array<TextureRegion>> targetFrameSet = target.getFrames();
+        Map<Range<Float>, Array<TextureRegion>> combinedFrames = new HashMap<>(sourceFrameSet.size());
+
+        for (Entry<Range<Float>, Array<TextureRegion>> sourceFrameEntry : sourceFrameSet.entrySet()) {
+            Range<Float> range = sourceFrameEntry.getKey();
+            Array<TextureRegion> sourceFrames = sourceFrameEntry.getValue();
+            Array<TextureRegion> targetFrames = targetFrameSet.get(range);
+            combinedFrames.put(range, union(sourceFrames, targetFrames));
+        }
+        return new BasicAnimation(source.getDirection(), source.getDuration(), combinedFrames, source.getMode());
     }
 }

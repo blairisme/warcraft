@@ -20,7 +20,7 @@ import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.common.animation.AnimationCollections;
+import com.evilbird.warcraft.item.common.animation.AnimationSets;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -90,7 +90,7 @@ public class TownHallProvider implements AssetProvider<Item>
         Texture general = assets.get(BASE, Texture.class);
         Texture construct = assets.get(CONSTRUCTION, Texture.class);
         Texture destruction = assets.get(DESTRUCTION, Texture.class);
-        return AnimationCollections.buildingAnimations(general, construct, destruction, 128, 128);
+        return AnimationSets.buildingAnimations(general, construct, destruction, 128, 128);
     }
 
     private Drawable getIcon() {

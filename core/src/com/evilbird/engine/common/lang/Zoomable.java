@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.common.capability;
+package com.evilbird.engine.common.lang;
 
 /**
  * Implementors of this interface represent an object whose presentation can be
@@ -16,7 +16,6 @@ package com.evilbird.warcraft.item.common.capability;
  *
  * @author Blair Butterworth
  */
-//TODO: Move into common
 public interface Zoomable
 {
     float getZoom();

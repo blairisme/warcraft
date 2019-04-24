@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.common.animation;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.evilbird.engine.common.graphics.AnimationSchema;
 import org.apache.commons.lang3.Range;
 
 import java.util.*;

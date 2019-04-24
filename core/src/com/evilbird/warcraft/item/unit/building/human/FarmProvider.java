@@ -20,7 +20,7 @@ import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.common.animation.AnimationCollections;
+import com.evilbird.warcraft.item.common.animation.AnimationSets;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -93,7 +93,7 @@ public class FarmProvider implements AssetProvider<Item>
         Texture general = assets.get(MAIN, Texture.class);
         Texture construction = assets.get(CONSTRUCTION, Texture.class);
         Texture destruction = assets.get(DESTRUCTION, Texture.class);
-        return AnimationCollections.buildingAnimations(general, construction, destruction, 64, 64);
+        return AnimationSets.buildingAnimations(general, construction, destruction, 64, 64);
     }
 
     private Drawable getIcon() {

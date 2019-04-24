@@ -7,15 +7,13 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.common.capability;
+package com.evilbird.engine.common.lang;
 
 /**
  * Implementors of this interface represent an object that can be destroyed.
  *
  * @author Blair Butterworth
  */
-//TODO: Move into common
-//TODO: Refactor defence into new interface extending destroyable
 public interface Destroyable
 {
     int getDefence();

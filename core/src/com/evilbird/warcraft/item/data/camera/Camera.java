@@ -17,7 +17,7 @@ import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemBasic;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.item.common.capability.Zoomable;
+import com.evilbird.engine.common.lang.Zoomable;
 import com.evilbird.warcraft.item.data.DataType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

@@ -20,15 +20,15 @@ import java.util.Map;
 
 import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.*;
 
-public class AnimationCollections
+public class AnimationSets
 {
-    private AnimationCollections() {
+    private AnimationSets() {
     }
 
     public static Map<Identifier, DirectionalAnimation> combatantAnimations(
             Texture generalTexture, Texture decomposeTexture)
     {
-        AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
+        AnimationSetBuilder builder = new AnimationSetBuilder();
         builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(), generalTexture);
         builder.set(UnitAnimation.Move, AnimationSchemas.moveSchema(), generalTexture);
         builder.set(UnitAnimation.MeleeAttack, AnimationSchemas.attackSchema(), generalTexture);
@@ -41,7 +41,7 @@ public class AnimationCollections
     public static Map<Identifier, DirectionalAnimation> gatherAnimations(
             Texture generalTexture, Texture decomposeTexture, Texture moveGoldTexture, Texture moveWoodTexture)
     {
-        AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
+        AnimationSetBuilder builder = new AnimationSetBuilder();
         builder.set(UnitAnimation.IdleBasic, AnimationSchemas.idleSchema(), generalTexture);
         builder.set(UnitAnimation.IdleGold, AnimationSchemas.idleSchema(), moveGoldTexture);
         builder.set(UnitAnimation.IdleWood, AnimationSchemas.idleSchema(), moveWoodTexture);
@@ -60,9 +60,8 @@ public class AnimationCollections
         return builder.build();
     }
 
-    public static Map<Identifier, DirectionalAnimation> effectAnimations(Texture texture)
-    {
-        AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
+    public static Map<Identifier, DirectionalAnimation> effectAnimations(Texture texture) {
+        AnimationSetBuilder builder = new AnimationSetBuilder();
         builder.set(UnitAnimation.Idle, AnimationSchemas.effectSchema(), texture);
         return builder.build();
     }
@@ -70,7 +69,7 @@ public class AnimationCollections
     public static Map<Identifier, DirectionalAnimation> buildingAnimations(
             Texture general, Texture construction, Texture destruction, int width, int height)
     {
-        AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
+        AnimationSetBuilder builder = new AnimationSetBuilder();
         builder.set(UnitAnimation.Idle, AnimationSchemas.idleSingualarSchema(width, height), general);
         builder.set(UnitAnimation.BuildingSite, AnimationSchemas.constructBeginSchema(width, height), construction);
         builder.set(UnitAnimation.Construct, Arrays.asList(
@@ -83,7 +82,7 @@ public class AnimationCollections
     public static Map<Identifier, DirectionalAnimation> resourceBuildingAnimations(
             Texture general, Texture destruction)
     {
-        AnimationCollectionBuilder builder = new AnimationCollectionBuilder();
+        AnimationSetBuilder builder = new AnimationSetBuilder();
         builder.set(UnitAnimation.Idle, idleSingualarSchema(96, 96), general);
         builder.set(UnitAnimation.Gathering, gatheringSchema(96, 96), general);
         builder.set(UnitAnimation.Dead, buildingDestructionScheme(), destruction);

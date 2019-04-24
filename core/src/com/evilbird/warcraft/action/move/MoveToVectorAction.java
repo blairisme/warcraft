@@ -14,7 +14,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.item.common.capability.Movable;
+import com.evilbird.engine.common.lang.Movable;
 
 import javax.inject.Inject;
 

@@ -7,14 +7,13 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.common.animation;
+package com.evilbird.engine.common.graphics;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
-import com.evilbird.engine.common.graphics.BasicAnimation;
 import org.apache.commons.lang3.Range;
 
 import java.util.HashMap;
@@ -22,7 +21,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-//TODO: Move into common
+/**
+ * Instances of this class build {@link Animation Animations}. Animations are
+ * built using a given {@link Texture} and a {@link AnimationSchema} which
+ * describes the layout of frames with the texture.
+ *
+ * @author Blair Butterworth
+ */
 public class AnimationBuilder
 {
     private Texture texture;
@@ -52,7 +57,7 @@ public class AnimationBuilder
     }
 
     private Array<TextureRegion> getFrames(List<Rectangle> regions) {
-        Array<TextureRegion> result = new Array<TextureRegion>(regions.size());
+        Array<TextureRegion> result = new Array<>(regions.size());
         for (Rectangle region : regions) {
             result.add(getFrame(region));
         }
@@ -61,10 +66,10 @@ public class AnimationBuilder
 
     private TextureRegion getFrame(Rectangle region) {
         return new TextureRegion(
-                texture,
-                (int) region.getX(),
-                (int) region.getY(),
-                (int) region.getWidth(),
-                (int) region.getHeight());
+            texture,
+            (int) region.getX(),
+            (int) region.getY(),
+            (int) region.getWidth(),
+            (int) region.getHeight());
     }
 }
