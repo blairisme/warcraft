@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.unit.building.human;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.audio.SoundEffect;
@@ -39,17 +40,19 @@ import static com.evilbird.engine.common.file.FileType.MP3;
  *
  * @author Blair Butterworth
  */
-public class TownHallProvider implements AssetProvider<Item>
+public class TownHallFactory implements AssetProvider<Item>
 {
     private static final String BASE = "data/textures/human/winter/town_hall.png";
     private static final String ICONS = "data/textures/neutral/perennial/icons.png";
     private static final String CONSTRUCTION = "data/textures/neutral/perennial/construction_large.png";
     private static final String DESTRUCTION = "data/textures/neutral/winter/destroyed_site.png";
     private static final String DESTROYED = "data/sounds/neutral/building/destroyed/";
+    private static final String SELECTED = "data/sounds/neutral/building/selected/1.mp3";
+
     private AssetManager assets;
 
     @Inject
-    public TownHallProvider(Device device) {
+    public TownHallFactory(Device device) {
         this.assets = device.getAssetStorage();
     }
 
@@ -68,6 +71,7 @@ public class TownHallProvider implements AssetProvider<Item>
 
     private void loadSounds() {
         loadSoundSet(assets, DESTROYED, MP3, 3);
+        assets.load(SELECTED, Sound.class);
     }
 
     @Override
@@ -98,6 +102,8 @@ public class TownHallProvider implements AssetProvider<Item>
     }
 
     private Map<Identifier, SoundEffect> getSounds() {
-        return Maps.of(UnitSound.Die, newSoundEffect(assets, DESTROYED, MP3, 3));
+        return Maps.of(
+            UnitSound.Die, newSoundEffect(assets, DESTROYED, MP3, 3),
+            UnitSound.Selected, newSoundEffect(assets, SELECTED));
     }
 }

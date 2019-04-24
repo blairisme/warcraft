@@ -1,5 +1,5 @@
 /*
- * Blair Butterworth (c) 2018
+ * Blair Butterworth (c) 2019
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
@@ -10,11 +10,10 @@
 package com.evilbird.warcraft.item.unit.building.human;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.audio.SoundEffect;
-import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.inject.AssetProvider;
@@ -28,6 +27,7 @@ import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
@@ -35,22 +35,24 @@ import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
 import static com.evilbird.engine.common.file.FileType.MP3;
 
 /**
- * Instances of this class create {@link Building Barrack's}, loading the
+ * Instances of this class create {@link Building Farms}, loading the
  * necessary assets and defining the appropriate attributes.
  *
  * @author Blair Butterworth
  */
-public class BarracksProvider implements AssetProvider<Item>
+public class FarmFactory implements AssetProvider<Item>
 {
-    private static final String BASE = "data/textures/human/winter/barracks.png";
+    private static final String MAIN = "data/textures/human/winter/farm.png";
     private static final String ICONS = "data/textures/neutral/perennial/icons.png";
-    private static final String CONSTRUCTION = "data/textures/neutral/perennial/construction_medium.png";
+    private static final String CONSTRUCTION = "data/textures/neutral/perennial/construction.png";
     private static final String DESTRUCTION = "data/textures/neutral/winter/destroyed_site.png";
+    private static final String SELECTED = "data/sounds/human/building/farm/selected/1.mp3";
     private static final String DESTROYED = "data/sounds/neutral/building/destroyed/";
+
     private AssetManager assets;
 
     @Inject
-    public BarracksProvider(Device device) {
+    public FarmFactory(Device device) {
         this.assets = device.getAssetStorage();
     }
 
@@ -61,13 +63,14 @@ public class BarracksProvider implements AssetProvider<Item>
     }
 
     private void loadTextures() {
-        assets.load(BASE, Texture.class);
-        assets.load(ICONS, Texture.class);
+        assets.load(MAIN, Texture.class);
         assets.load(CONSTRUCTION, Texture.class);
         assets.load(DESTRUCTION, Texture.class);
+        assets.load(ICONS, Texture.class);
     }
 
     private void loadSounds() {
+        assets.load(SELECTED, Sound.class);
         loadSoundSet(assets, DESTROYED, MP3, 3);
     }
 
@@ -78,30 +81,30 @@ public class BarracksProvider implements AssetProvider<Item>
         result.setAnimation(UnitAnimation.Idle);
         result.setAvailableSounds(getSounds());
         result.setSight(5 * 32);
-        result.setHealth(800);
-        result.setHealthMaximum(800);
+        result.setHealth(400);
+        result.setHealthMaximum(400);
         result.setIcon(getIcon());
-        result.setName("Barracks");
-        result.setSelected(false);
-        result.setSelectable(true);
-        result.setTouchable(Touchable.enabled);
-        result.setType(UnitType.Barracks);
-        result.setSize(96, 96);
+        result.setName("Farm");
+        result.setType(UnitType.Farm);
+        result.setSize(64, 64);
         return result;
     }
 
     private Map<Identifier, DirectionalAnimation> getAnimations() {
-        Texture general = assets.get(BASE, Texture.class);
+        Texture general = assets.get(MAIN, Texture.class);
         Texture construction = assets.get(CONSTRUCTION, Texture.class);
         Texture destruction = assets.get(DESTRUCTION, Texture.class);
-        return AnimationSets.buildingAnimations(general, construction, destruction, 96, 96);
+        return AnimationSets.buildingAnimations(general, construction, destruction, 64, 64);
     }
 
     private Drawable getIcon() {
-        return TextureUtils.getDrawable(assets, ICONS, 92, 304, 46, 38);
+        return TextureUtils.getDrawable(assets, ICONS, 138, 266, 46, 38);
     }
 
     private Map<Identifier, SoundEffect> getSounds() {
-        return Maps.of(UnitSound.Die, newSoundEffect(assets, DESTROYED, MP3, 3));
+        Map<Identifier, SoundEffect> sounds = new HashMap<>();
+        sounds.put(UnitSound.Selected, newSoundEffect(assets, SELECTED));
+        sounds.put(UnitSound.Die, newSoundEffect(assets, DESTROYED, MP3, 3));
+        return sounds;
     }
 }
