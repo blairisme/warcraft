@@ -33,7 +33,7 @@ public class AnimationSets
         builder.set(UnitAnimation.Move, AnimationSchemas.moveSchema(), generalTexture);
         builder.set(UnitAnimation.MeleeAttack, AnimationSchemas.attackSchema(), generalTexture);
         builder.set(UnitAnimation.Hidden, AnimationSchemas.hiddenSchema(), generalTexture);
-        builder.set(UnitAnimation.Die, AnimationSchemas.deathSchema(), generalTexture);
+        builder.set(UnitAnimation.Death, AnimationSchemas.deathSchema(), generalTexture);
         builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decomposeTexture);
         return builder.build();
     }
@@ -52,7 +52,7 @@ public class AnimationSets
         builder.associate(UnitAnimation.Move, UnitAnimation.MoveBasic);
         builder.set(UnitAnimation.MeleeAttack, AnimationSchemas.attackSchema(), generalTexture);
         builder.set(UnitAnimation.Hidden, AnimationSchemas.hiddenSchema(), generalTexture);
-        builder.set(UnitAnimation.Die, AnimationSchemas.deathSchema(), generalTexture);
+        builder.set(UnitAnimation.Death, AnimationSchemas.deathSchema(), generalTexture);
         builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decomposeTexture);
         builder.associate(UnitAnimation.GatherGold, UnitAnimation.Hidden);
         builder.associate(UnitAnimation.GatherWood, UnitAnimation.MeleeAttack);

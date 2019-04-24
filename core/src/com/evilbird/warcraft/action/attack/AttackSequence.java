@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.action.attack;
@@ -18,8 +18,6 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
-import java.lang.annotation.Target;
-
 import static com.evilbird.engine.action.common.ActionTarget.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AudibleAction.play;
@@ -27,6 +25,8 @@ import static com.evilbird.engine.action.common.DisableAction.disable;
 import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
 import static com.evilbird.engine.action.predicates.ActionPredicates.target;
+import static com.evilbird.engine.common.function.Predicates.nonNull;
+import static com.evilbird.engine.item.utility.ItemSuppliers.ifExists;
 import static com.evilbird.warcraft.action.attack.AttackAction.attack;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
 import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
@@ -35,6 +35,7 @@ import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.*;
 import static com.evilbird.warcraft.item.unit.UnitSound.Attack;
+import static com.evilbird.warcraft.item.unit.UnitSound.Die;
 
 /**
  * Instances of this {@link Action} cause a given {@link Item} to attack
@@ -74,7 +75,7 @@ public class AttackSequence extends FeatureAction
     private void engage(Combatant combatant) {
         scenario("attack")
             .givenItem(isAlive())
-//            .givenTarget(isAlive())
+            .whenTarget(nonNull())
             .whenTarget(isAlive())
             .whenTarget(inRange(combatant))
             .then(animate(MeleeAttack), notifyStarted())
@@ -84,8 +85,10 @@ public class AttackSequence extends FeatureAction
 
     private void kill() {
         scenario("kill")
+            .withTarget(ifExists(getTarget()))
+            .whenTarget(nonNull())
             .whenTarget(isDead())
-            .then(animate(Target, Die), delay(1), play(Target, Die), deselect(Target, reporter), disable(Target))
+            .then(animate(Target, Death), delay(1), play(Target, Die), deselect(Target, reporter), disable(Target))
             .then(animate(Target, Decompose), delay(2))
             .then(remove(Target, reporter));
     }

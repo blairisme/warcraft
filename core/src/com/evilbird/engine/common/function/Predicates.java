@@ -10,6 +10,7 @@
 package com.evilbird.engine.common.function;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
@@ -23,6 +24,10 @@ import static java.util.Arrays.asList;
 public class Predicates
 {
     private Predicates() {
+    }
+
+    public static <T> Predicate<T> nonNull() {
+        return Objects::nonNull;
     }
 
     public static <T> Predicate<T> accept() {

@@ -38,7 +38,7 @@ public class RequirementAction extends DelegateAction
     @Override
     public boolean act(float delta) {
         if (! requirement.test(delegate)) {
-            cancel();
+            //cancel();
             return true;
         }
         return delegate.act(delta);
