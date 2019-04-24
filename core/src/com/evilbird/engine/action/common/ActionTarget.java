@@ -9,6 +9,14 @@
 
 package com.evilbird.engine.action.common;
 
+import com.evilbird.engine.action.Action;
+
+/**
+ * Defines option for specifying the recipient of an {@link Action Actions}
+ * operation.
+ *
+ * @author Blair Butterworth
+ */
 public enum ActionTarget
 {
     Item,

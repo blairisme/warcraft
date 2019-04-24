@@ -11,8 +11,8 @@ package com.evilbird.warcraft.action.camera;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.common.lang.Zoomable;
+import com.evilbird.engine.device.UserInput;
 
 import javax.inject.Inject;
 

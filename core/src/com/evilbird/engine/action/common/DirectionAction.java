@@ -29,6 +29,17 @@ public class DirectionAction extends BasicAction
     public DirectionAction() {
     }
 
+    /**
+     * Creates a new {@link DirectionAction}, which when invoked will reorient
+     * the actions subject towards the actions target.
+     *
+     * @return  a {@code DirectionAction} instance. Will not return
+     *          {@code null}.
+     */
+    public static DirectionAction reorient() {
+        return new DirectionAction();
+    }
+
     @Override
     public boolean act(float delta) {
         Directionable item = (Directionable)getItem();

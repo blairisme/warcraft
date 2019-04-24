@@ -9,12 +9,6 @@
 
 package com.evilbird.engine.common.lang;
 
-import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.common.lang.Categorizable;
-import com.evilbird.engine.common.lang.Directionable;
-import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Positionable;
-
 import java.util.Collection;
 
 /**

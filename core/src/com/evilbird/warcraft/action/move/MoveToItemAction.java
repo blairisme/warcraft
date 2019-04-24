@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.item.Item;
 import com.evilbird.engine.common.lang.Movable;
+import com.evilbird.engine.item.Item;
 
 import javax.inject.Inject;
 

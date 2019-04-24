@@ -5,8 +5,8 @@
     "enum": "Footman"
   },
   "level": 1,
-  "damageMinimum": 2,
-  "damageMaximum": 9,
+  "damageMinimum": 10,
+  "damageMaximum": 19,
   "speed": 10.0,
   "range": 37.0,
   "movementSpeed": 64.0,

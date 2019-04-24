@@ -16,10 +16,11 @@ import com.evilbird.engine.common.serialization.SerializedConstructor;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import com.evilbird.engine.action.Action;
 
 /**
- * Instances of this class represent an action that changes the animation
- * applied to the given {@link Animated element}.
+ * Instances of this class represent an {@link Action} that changes the
+ * animation applied to the given {@link Animated element}.
  *
  * @author Blair Butterworth
  */
