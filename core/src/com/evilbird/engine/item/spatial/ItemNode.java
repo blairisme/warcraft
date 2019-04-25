@@ -16,6 +16,9 @@ import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.collection.Arrays;
 import com.evilbird.engine.common.pathing.SpatialNode;
 import com.evilbird.engine.item.Item;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +34,8 @@ public class ItemNode implements SpatialNode
     private int index;
     private List<Item> occupants;
     private GridPoint2 gridReference;
-    private Vector2 worldReference;
-    private Array<Connection<ItemNode>> connections;
+    private transient Vector2 worldReference;
+    private transient Array<Connection<ItemNode>> connections;
 
     public ItemNode(int index, GridPoint2 gridReference) {
         this.index = index;
@@ -80,7 +83,43 @@ public class ItemNode implements SpatialNode
         return occupants.contains(occupant);
     }
 
+    public boolean hasOccupants() {
+        return !occupants.isEmpty();
+    }
+
     public void removeOccupants() {
         occupants.clear();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+
+        ItemNode itemNode = (ItemNode)obj;
+        return new EqualsBuilder()
+            .append(index, itemNode.index)
+            .append(occupants, itemNode.occupants)
+            .append(gridReference, itemNode.gridReference)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .append(index)
+            .append(occupants)
+            .append(gridReference)
+            .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("index", index)
+            .append("gridReference", gridReference)
+            .append("occupants", occupants)
+            .toString();
     }
 }

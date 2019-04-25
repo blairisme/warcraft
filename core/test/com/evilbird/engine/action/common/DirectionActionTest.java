@@ -16,7 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Instances of this unit test validate the {@link AlignAction} class.
+ * Instances of this unit test validate the {@link DirectionAction} class.
  *
  * @author Blair Butterworth
  */
@@ -29,14 +29,6 @@ public class DirectionActionTest
         action = new DirectionAction();
         action.setItem(TestItems.newItem("directionaction"));
     }
-
-//    @Test
-//    public void serializeTest() throws IOException {
-//        SerializationVerifier.forClass(DirectionAction.class)
-//                .withDeserializedForm(action)
-//                .withSerializedResource("/action/common/directionaction.json")
-//                .verify();
-//    }
 
     @Test
     public void equalsTest() {

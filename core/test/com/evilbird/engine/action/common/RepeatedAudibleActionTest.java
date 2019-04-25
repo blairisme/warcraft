@@ -33,14 +33,6 @@ public class RepeatedAudibleActionTest
         action.setItem(TestItems.newItem("repeatedaudibleaction"));
     }
 
-//    @Test
-//    public void serializeTest() throws IOException {
-//        SerializationVerifier.forClass(RepeatedAudibleAction.class)
-//            .withDeserializedForm(action)
-//            .withSerializedResource("/action/common/repeatedaudibleaction.json")
-//            .verify();
-//    }
-
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(RepeatedAudibleAction.class)

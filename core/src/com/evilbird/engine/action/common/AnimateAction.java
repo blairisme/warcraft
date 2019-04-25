@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.action.common;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Animated;
 import com.evilbird.engine.common.lang.Identifier;
@@ -16,7 +17,6 @@ import com.evilbird.engine.common.serialization.SerializedConstructor;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import com.evilbird.engine.action.Action;
 
 /**
  * Instances of this class represent an {@link Action} that changes the

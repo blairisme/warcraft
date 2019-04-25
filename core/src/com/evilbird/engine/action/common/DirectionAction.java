@@ -53,6 +53,4 @@ public class DirectionAction extends BasicAction
 
         return true;
     }
-
-    
 }

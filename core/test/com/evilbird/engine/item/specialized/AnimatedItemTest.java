@@ -7,11 +7,10 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.item.animated;
+package com.evilbird.engine.item.specialized;
 
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
-import com.evilbird.engine.item.specialized.AnimatedItem;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;

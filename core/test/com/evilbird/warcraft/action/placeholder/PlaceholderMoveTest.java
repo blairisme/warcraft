@@ -1,4 +1,13 @@
 /*
+ * Copyright (c) 2019, Blair Butterworth
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *        https://opensource.org/licenses/MIT
+ */
+
+/*
  * Blair Butterworth (c) 2019
  *
  * This work is licensed under the MIT License. To view a copy of this
@@ -7,12 +16,11 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.action.common;
+package com.evilbird.warcraft.action.placeholder;
 
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.verifier.EqualityVerifier;
-import com.evilbird.warcraft.action.placeholder.PlaceholderMove;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,14 +38,6 @@ public class PlaceholderMoveTest
         action = new PlaceholderMove();
         action.setItem(TestItems.newItem("repositionaction"));
     }
-
-//    @Test
-//    public void serializeTest() throws IOException {
-//        SerializationVerifier.forClass(PlaceholderMove.class)
-//            .withDeserializedForm(action)
-//            .withSerializedResource("/action/common/repositionaction.json")
-//            .verify();
-//    }
 
     @Test
     public void equalsTest() {

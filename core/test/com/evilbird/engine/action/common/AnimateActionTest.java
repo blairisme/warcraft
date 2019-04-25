@@ -10,9 +10,12 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.item.Item;
-import com.evilbird.test.data.item.TestItems;
+import com.evilbird.engine.item.specialized.AnimatedItem;
+import com.evilbird.test.data.item.TestCombatants;
+import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,23 +24,25 @@ import org.junit.Test;
  *
  * @author Blair Butterworth
  */
-public class AnimateActionTest
+public class AnimateActionTest extends GameTestCase
 {
     private AnimateAction action;
+    private AnimatedItem item;
 
     @Before
     public void setup() {
+        item = TestCombatants.newTestCombatant("animateactiontest");
+        item.setAnimation(UnitAnimation.Idle);
+
         action = new AnimateAction(UnitAnimation.MeleeAttack);
-        action.setItem(TestItems.newItem("animateactiontest"));
+        action.setItem(item);
     }
 
-//    @Test
-//    public void serializeTest() throws IOException {
-//        SerializationVerifier.forClass(AnimateAction.class)
-//                .withDeserializedForm(action)
-//                .withSerializedResource("/action/common/animateaction.json")
-//                .verify();
-//    }
+    @Test
+    public void actTest() {
+        Assert.assertTrue(action.act(1));
+        Assert.assertEquals(UnitAnimation.MeleeAttack, item.getAnimation());
+    }
 
     @Test
     public void equalsTest() {

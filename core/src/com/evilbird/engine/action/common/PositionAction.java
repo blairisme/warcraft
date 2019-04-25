@@ -9,56 +9,48 @@
 
 package com.evilbird.engine.action.common;
 
-import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Positionable;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.engine.item.spatial.ItemNode;
 
 import javax.inject.Inject;
+import java.util.Collection;
+import java.util.Optional;
 
+/**
+ * Instances of this {@link Action} position the subject of the action in the
+ * first unoccupied position adjacent to the actions target.
+ *
+ * @author Blair Butterworth
+ */
 public class PositionAction extends BasicAction
 {
-    private Vector2 position;
-
     @Inject
     public PositionAction() {
-        this(Vector2.Zero);
     }
 
-    public PositionAction(Vector2 position) {
-        this.position = position;
-    }
-
-    public void setPosition(Vector2 position) {
-        this.position = position;
+    public static PositionAction positionAdjacent() {
+        return new PositionAction();
     }
 
     @Override
-    public boolean act(float time) {
-        Positionable positionable = getItem();
-        positionable.setPosition(position);
+    public boolean act(float delta) {
+        Item item = getItem();
+        Item target = getTarget();
+
+        ItemRoot root = target.getRoot();
+        ItemGraph graph = root.getSpatialGraph();
+
+        Collection<ItemNode> adjacent = graph.getAdjacentNodes(target.getPosition(), target.getSize());
+        Optional<ItemNode> unoccupied = adjacent.stream().filter(node -> !node.hasOccupants()).findFirst();
+
+        if (unoccupied.isPresent()) {
+            ItemNode destination = unoccupied.get();
+            item.setPosition(destination.getWorldReference());
+        }
         return true;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null) return false;
-        if (obj.getClass() != getClass()) return false;
-
-        PositionAction that = (PositionAction)obj;
-        return new EqualsBuilder()
-            .appendSuper(super.equals(obj))
-            .append(position, that.position)
-            .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-            .appendSuper(super.hashCode())
-            .append(position)
-            .toHashCode();
     }
 }

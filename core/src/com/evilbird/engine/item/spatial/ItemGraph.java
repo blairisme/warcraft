@@ -22,8 +22,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 import java.util.function.Predicate;
 
 /**
@@ -118,6 +117,59 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         Collection<ItemNode> result = new ArrayList<>();
         for (int x = xStart; x < xEnd; x++) {
             for (int y = yStart; y < yEnd; y++) {
+                result.add(nodes[x][y]);
+            }
+        }
+        return result;
+    }
+
+    public Collection<ItemNode> getAdjacentNodes(Vector2 worldPosition, Vector2 worldSize) {
+        Objects.requireNonNull(worldPosition);
+        Objects.requireNonNull(worldSize);
+
+        GridPoint2 spatialPosition = toSpatial(worldPosition);
+        GridPoint2 spatialSize = toSpatial(worldSize);
+
+        return getAdjacentNodes(spatialPosition, spatialSize);
+    }
+
+    /**
+     * Returns the set of {@link ItemNode ItemNodes} directly adjacent to the
+     * given {@link GridPoint2 spatial position} with the given size.
+     *
+     * @param spatialPosition   the position whose adjacent nodes will be
+     *                          returned
+     * @param spatialSize       a size that allows adjacent nodes to be
+     *                          returned for an object larger than a single
+     *                          node.
+     *
+     * @return a {@link Collection} of unique {@code ItemNodes}.
+     */
+    public Collection<ItemNode> getAdjacentNodes(GridPoint2 spatialPosition, GridPoint2 spatialSize) {
+        Objects.requireNonNull(spatialPosition);
+        Objects.requireNonNull(spatialSize);
+
+        int xCount = spatialSize.x + 2;
+        int yCount = spatialSize.y + 2;
+        int xStart = spatialPosition.x - 1;
+        int yStart = spatialPosition.y - 1;
+        int xEnd = spatialPosition.x + spatialSize.x;
+        int yEnd = spatialPosition.y + spatialSize.y;
+
+        Set<ItemNode> result = new LinkedHashSet<>();
+        result.addAll(getNodeSequence(xStart, 1, yStart, yCount)); //left
+        result.addAll(getNodeSequence(xStart, xCount, yStart, 1)); //top
+        result.addAll(getNodeSequence(xEnd, 1, yStart, yCount)); //right
+        result.addAll(getNodeSequence(xStart, xCount, yEnd, 1)); //bottom
+        return result;
+    }
+
+    private Collection<ItemNode> getNodeSequence(int xStart, int xCount, int yStart, int yCount) {
+        Collection<ItemNode> result = new ArrayList<>();
+        for (int x = xStart; x < xStart + xCount; x++) {
+            for (int y = yStart; y < yStart + yCount; y++) {
+                if (x < 0 || x >= nodeCountX) continue;
+                if (y < 0 || y >= nodeCountY) continue;
                 result.add(nodes[x][y]);
             }
         }
