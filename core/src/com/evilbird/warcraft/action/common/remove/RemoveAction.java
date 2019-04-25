@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.common.remove;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.ActionTarget;
+import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
@@ -27,7 +27,7 @@ public class RemoveAction extends BasicAction
     private Supplier<Item> supplier;
     private RemoveObserver observer;
 
-    public RemoveAction(ActionTarget target, RemoveObserver observer) {
+    public RemoveAction(ActionRecipient target, RemoveObserver observer) {
         this.supplier = new ActionTargetSupplier(target);
         this.observer = observer;
     }
@@ -38,10 +38,10 @@ public class RemoveAction extends BasicAction
     }
 
     public static RemoveAction remove(RemoveObserver observer) {
-        return new RemoveAction(ActionTarget.Item, observer);
+        return new RemoveAction(ActionRecipient.Subject, observer);
     }
 
-    public static RemoveAction remove(ActionTarget target, RemoveObserver observer) {
+    public static RemoveAction remove(ActionRecipient target, RemoveObserver observer) {
         return new RemoveAction(target, observer);
     }
 
@@ -70,16 +70,16 @@ public class RemoveAction extends BasicAction
     }
 
     private class ActionTargetSupplier implements Supplier<Item> {
-        private ActionTarget source;
+        private ActionRecipient source;
 
-        public ActionTargetSupplier(ActionTarget source) {
+        public ActionTargetSupplier(ActionRecipient source) {
             this.source = source;
         }
 
         @Override
         public Item get() {
             switch (source) {
-                case Item: return getItem();
+                case Subject: return getItem();
                 case Target: return getTarget();
                 default: throw new UnsupportedOperationException();
             }

@@ -10,17 +10,17 @@
 package com.evilbird.engine.action.predicates;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.ActionTarget;
+import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.item.Item;
 
 import java.util.function.Predicate;
 
 public class ActionPredicate implements Predicate<Action>
 {
-    private ActionTarget target;
+    private ActionRecipient target;
     private Predicate<? super Item> predicate;
 
-    public ActionPredicate(Predicate<? super Item> predicate, ActionTarget target) {
+    public ActionPredicate(Predicate<? super Item> predicate, ActionRecipient target) {
         this.target = target;
         this.predicate = predicate;
     }
@@ -28,7 +28,7 @@ public class ActionPredicate implements Predicate<Action>
     @Override
     public boolean test(Action action) {
         switch (target) {
-            case Item: return predicate.test(action.getItem());
+            case Subject: return predicate.test(action.getItem());
             case Target: return predicate.test(action.getTarget());
             default: throw new UnsupportedOperationException();
         }

@@ -9,16 +9,17 @@
 
 package com.evilbird.warcraft.action.train;
 
-import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.action.framework.ScenarioAction;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
-import java.util.function.Consumer;
+import java.util.function.Predicate;
 
+import static com.evilbird.engine.action.common.ActionRecipient.Subject;
+import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.PositionAction.positionAdjacent;
 import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.purchase;
@@ -46,24 +47,12 @@ public class TrainSequence extends ScenarioAction<TrainActions>
         given(isAlive());
         then(purchase(type, reporter), notifyStarted());
         then(startProducing(type));
-        thenUpdate(create(type.getItemType(), properties(), reporter));
-        then(positionAdjacent(), notifyComplete());
-
-        //then(create(type.getItemType(), properties(), reporter), notifyComplete());
+        thenUpdate(create(type.getItemType(), reporter));
+        then(positionAdjacent(Target, Subject, movementCapability()), notifyComplete());
     }
 
-    private Consumer<Item> properties() {
-        return (item) -> {
-//            Vector2 position = getPosition(item);
-//            item.setPosition(position);
-        };
-    }
-
-    private Vector2 getPosition(Item item) {
-        Item producer = getItem();
-        Vector2 itemSize = item.getSize();
-        Vector2 referencePosition = producer.getPosition();
-        return new Vector2(referencePosition.x - itemSize.x, referencePosition.y);
+    private Predicate<ItemNode> movementCapability() {
+        return (node) -> true;
     }
 
     private Action notifyStarted() {

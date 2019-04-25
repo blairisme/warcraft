@@ -11,11 +11,12 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.FeatureAction;
+import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.resource.ResourceQuantity;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.common.ActionTarget.*;
+import static com.evilbird.engine.action.common.ActionRecipient.*;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AnimationAliasAction.setAnimation;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
@@ -33,7 +34,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 
 /**
- * Instances of this {@link Action} instruct an Item to gather gold.
+ * Instances of this {@link Action} instruct an {@link Item} to gather gold.
  *
  * @author Blair Butterworth
  */
@@ -57,7 +58,7 @@ public class GatherGold extends FeatureAction
             .then(move(reporter))
             .then(hide(), deselect(reporter), obtainStarted(reporter, resource()))
             .then(delay(5))
-            .then(transfer(Target, Item, resource(), reporter), obtainComplete(reporter, resource()))
+            .then(transfer(Target, Subject, resource(), reporter), obtainComplete(reporter, resource()))
             .then(show(), setAnimation(Move, MoveGold), animate(Idle))
             .withTarget(closest(GoldMine, getTarget()));
 
@@ -68,7 +69,7 @@ public class GatherGold extends FeatureAction
             .then(move(reporter))
             .then(hide(), deselect(reporter), depositStarted(reporter, resource()))
             .then(delay(5))
-            .then(transfer(Item, Player, resource(), reporter), depositComplete(reporter, resource()))
+            .then(transfer(Subject, Player, resource(), reporter), depositComplete(reporter, resource()))
             .then(show(), animate(Idle), setAnimation(Move, MoveBasic))
             .withTarget(closest(TownHall, getTarget()));
     }

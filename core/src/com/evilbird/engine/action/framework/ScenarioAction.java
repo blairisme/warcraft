@@ -10,7 +10,7 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.ActionTarget;
+import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.predicates.ActionPredicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
@@ -92,7 +92,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      */
     public ScenarioAction givenItem(Predicate<? super Item> condition) {
         Objects.requireNonNull(condition);
-        Predicate<Action> newGiven = new ActionPredicate(condition, ActionTarget.Item);
+        Predicate<Action> newGiven = new ActionPredicate(condition, ActionRecipient.Subject);
         given = given != null ? both(given, newGiven) : newGiven;
         scenario = null;
         return this;
@@ -110,7 +110,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      */
     public ScenarioAction givenTarget(Predicate<? super Item> condition) {
         Objects.requireNonNull(condition);
-        Predicate<Action> newGiven = new ActionPredicate(condition, ActionTarget.Target);
+        Predicate<Action> newGiven = new ActionPredicate(condition, ActionRecipient.Target);
         given = given != null ? both(given, newGiven) : newGiven;
         scenario = null;
         return this;
@@ -144,7 +144,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      */
     public ScenarioAction whenItem(Predicate<? super Item> condition) {
         Objects.requireNonNull(condition);
-        Predicate<Action> newWhen = new ActionPredicate(condition, ActionTarget.Item);
+        Predicate<Action> newWhen = new ActionPredicate(condition, ActionRecipient.Subject);
         when = when != null ? both(when, newWhen) : newWhen;
         scenario = null;
         return this;
@@ -163,7 +163,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      */
     public ScenarioAction whenTarget(Predicate<? super Item> condition) {
         Objects.requireNonNull(condition);
-        Predicate<Action> newWhen = new ActionPredicate(condition, ActionTarget.Target);
+        Predicate<Action> newWhen = new ActionPredicate(condition, ActionRecipient.Target);
         when = when != null ? both(when, newWhen) : newWhen;
         scenario = null;
         return this;
@@ -247,7 +247,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * Specifies the subject of the Scenario, the {@link Item} that the
      * Scenario will operate on.
      *
-     * @param item  an {@code Item} instance. This parameter cannot be
+     * @param item  an {@code Subject} instance. This parameter cannot be
      *              {@code null}.
      *
      * @return this scenario.
@@ -261,10 +261,10 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     /**
      * Assigns a {@link Supplier} that specifies the subject of the Scenario,
      * the {@link Item} that the Scenario will operate on. The supplier will be
-     * asked for the subject {@code Item} once as soon as the Scenario is acted
+     * asked for the subject {@code Subject} once as soon as the Scenario is acted
      * upon or after its restarted or reset.
      *
-     * @param supplier  an {@code Item Supplier}. This parameter cannot be
+     * @param supplier  an {@code Subject Supplier}. This parameter cannot be
      *                  {@code null}.
      *
      * @return this scenario.
@@ -280,7 +280,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * Specifies the target of the Scenario, an optional {@link Item} that this
      * action will manipulate.
      *
-     * @param target an {@code Item} instance. May be {@code null}.
+     * @param target an {@code Subject} instance. May be {@code null}.
      *
      * @return this scenario.
      */
@@ -292,10 +292,10 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     /**
      * Assigns a {@link Supplier} that specifies the target of the Scenario,
      * an optional {@link Item} that this action will manipulate. The supplier
-     * will be asked for the target {@code Item} once as soon as the Scenario
+     * will be asked for the target {@code Subject} once as soon as the Scenario
      * is acted upon or after its restarted or reset.
      *
-     * @param supplier  an {@code Item Supplier}. This parameter cannot be
+     * @param supplier  an {@code Subject Supplier}. This parameter cannot be
      *                  {@code null}.
      *
      * @return this scenario.
@@ -370,10 +370,10 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
             result = new RequirementAction(result, given);
         }
         if (itemSupplier != null) {
-            result = new UpdateAction(result, itemSupplier, ActionTarget.Item);
+            result = new UpdateAction(result, itemSupplier, ActionRecipient.Subject);
         }
         if (targetSupplier != null) {
-            result = new UpdateAction(result, targetSupplier, ActionTarget.Target);
+            result = new UpdateAction(result, targetSupplier, ActionRecipient.Target);
         }
         return result;
     }

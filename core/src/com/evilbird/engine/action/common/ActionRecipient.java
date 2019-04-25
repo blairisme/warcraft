@@ -17,9 +17,9 @@ import com.evilbird.engine.action.Action;
  *
  * @author Blair Butterworth
  */
-public enum ActionTarget
+public enum ActionRecipient
 {
-    Item,
+    Subject,
     Target,
     Parent,
     Player

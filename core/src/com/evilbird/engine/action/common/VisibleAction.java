@@ -17,6 +17,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.inject.Inject;
 
+import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
+
 /**
  * Instances of this {@link BasicAction Action} modify an {@link Item Items}
  * visibility: whether its rendered or not.
@@ -26,7 +28,7 @@ import javax.inject.Inject;
 public class VisibleAction extends BasicAction
 {
     private boolean enabled;
-    private ActionTarget source;
+    private ActionRecipient recipient;
 
     @Inject
     public VisibleAction() {
@@ -34,43 +36,35 @@ public class VisibleAction extends BasicAction
     }
 
     public VisibleAction(boolean enabled) {
-        this(ActionTarget.Item, enabled);
+        this(ActionRecipient.Subject, enabled);
     }
 
-    public VisibleAction(ActionTarget target, boolean enabled) {
+    public VisibleAction(ActionRecipient target, boolean enabled) {
         this.enabled = enabled;
-        this.source = target;
+        this.recipient = target;
     }
 
     public static VisibleAction show() {
-        return show(ActionTarget.Item);
+        return show(ActionRecipient.Subject);
     }
 
-    public static VisibleAction show(ActionTarget target) {
-        return new VisibleAction(target, true);
+    public static VisibleAction show(ActionRecipient recipient) {
+        return new VisibleAction(recipient, true);
     }
 
     public static VisibleAction hide() {
-        return hide(ActionTarget.Item);
+        return hide(ActionRecipient.Subject);
     }
 
-    public static VisibleAction hide(ActionTarget target) {
-        return new VisibleAction(target, false);
+    public static VisibleAction hide(ActionRecipient recipient) {
+        return new VisibleAction(recipient, false);
     }
 
     @Override
     public boolean act(float time) {
-        Visible visible = getVisible();
+        Visible visible = getRecipient(this, recipient);
         visible.setVisible(enabled);
         return true;
-    }
-
-    private Visible getVisible() {
-        switch (source) {
-            case Item: return getItem();
-            case Target: return getTarget();
-            default: throw new UnsupportedOperationException();
-        }
     }
 
     @Override
@@ -83,7 +77,7 @@ public class VisibleAction extends BasicAction
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(enabled, that.enabled)
-            .append(source, that.source)
+            .append(recipient, that.recipient)
             .isEquals();
     }
 
@@ -92,7 +86,7 @@ public class VisibleAction extends BasicAction
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
             .append(enabled)
-            .append(source)
+            .append(recipient)
             .toHashCode();
     }
 }

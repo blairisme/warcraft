@@ -49,6 +49,10 @@ public class CreateAction extends BasicAction
         return new CreateAction(type, properties, observer);
     }
 
+    public static CreateAction create(ItemType type, CreateObserver observer) {
+        return new CreateAction(type, item -> {}, observer);
+    }
+
     @Override
     public boolean act(float delta) {
         Item item = createItem();

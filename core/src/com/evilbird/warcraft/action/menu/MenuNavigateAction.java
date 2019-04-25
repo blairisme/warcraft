@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.menu;
 
-import com.evilbird.engine.action.common.ActionTarget;
+import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Identifier;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -24,13 +24,13 @@ import javax.inject.Inject;
  */
 public class MenuNavigateAction extends BasicAction
 {
-    private ActionTarget source;
+    private ActionRecipient source;
 
     @Inject
     public MenuNavigateAction() {
     }
 
-    public void setSource(ActionTarget source) {
+    public void setSource(ActionRecipient source) {
         this.source = source;
     }
 
@@ -43,7 +43,7 @@ public class MenuNavigateAction extends BasicAction
 
     private MenuProvider getMenuProvider() {
         switch (source) {
-            case Item: return (MenuProvider)getItem();
+            case Subject: return (MenuProvider)getItem();
             case Target: return (MenuProvider)getTarget();
             case Parent: return (MenuProvider)getItem().getParent();
             default: throw new UnsupportedOperationException();

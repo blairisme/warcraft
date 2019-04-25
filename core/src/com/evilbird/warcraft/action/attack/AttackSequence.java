@@ -17,7 +17,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.common.ActionTarget.Target;
+import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AudibleAction.play;
 import static com.evilbird.engine.action.common.DirectionAction.reorient;

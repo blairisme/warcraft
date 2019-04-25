@@ -17,6 +17,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.inject.Inject;
 
+import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
+
 /**
  * Instances of this class update the disabled status of an {@link Item}.
  *
@@ -25,7 +27,7 @@ import javax.inject.Inject;
 public class DisableAction extends BasicAction
 {
     private boolean disabled;
-    private ActionTarget source;
+    private ActionRecipient recipient;
 
     @Inject
     public DisableAction() {
@@ -33,11 +35,11 @@ public class DisableAction extends BasicAction
     }
 
     public DisableAction(boolean disabled) {
-        this(ActionTarget.Item, disabled);
+        this(ActionRecipient.Subject, disabled);
     }
 
-    public DisableAction(ActionTarget source, boolean disabled) {
-        this.source = source;
+    public DisableAction(ActionRecipient recipient, boolean disabled) {
+        this.recipient = recipient;
         this.disabled = disabled;
     }
 
@@ -45,31 +47,23 @@ public class DisableAction extends BasicAction
         return new DisableAction(false);
     }
 
-    public static DisableAction enable(ActionTarget source) {
-        return new DisableAction(source, false);
+    public static DisableAction enable(ActionRecipient recipient) {
+        return new DisableAction(recipient, false);
     }
 
     public static DisableAction disable() {
         return new DisableAction(true);
     }
 
-    public static DisableAction disable(ActionTarget source) {
-        return new DisableAction(source, true);
+    public static DisableAction disable(ActionRecipient recipient) {
+        return new DisableAction(recipient, true);
     }
 
     @Override
     public boolean act(float delta) {
-        Selectable selectable = getSelectable();
+        Selectable selectable = getRecipient(this, recipient);
         selectable.setSelectable(disabled);
         return true;
-    }
-
-    private Selectable getSelectable() {
-        switch (source) {
-            case Item: return getItem();
-            case Target: return getTarget();
-            default: throw new UnsupportedOperationException();
-        }
     }
 
     @Override
@@ -82,7 +76,7 @@ public class DisableAction extends BasicAction
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(disabled, that.disabled)
-            .append(source, that.source)
+            .append(recipient, that.recipient)
             .isEquals();
     }
 
@@ -91,7 +85,7 @@ public class DisableAction extends BasicAction
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
             .append(disabled)
-            .append(source)
+            .append(recipient)
             .toHashCode();
     }
 }

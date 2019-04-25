@@ -16,6 +16,8 @@ import com.evilbird.engine.common.serialization.SerializedConstructor;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
+
 /**
  * Instances of this class represent an Action that plays a sound.
  *
@@ -24,42 +26,34 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public class AudibleAction extends BasicAction
 {
     private Identifier sound;
-    private ActionTarget source;
+    private ActionRecipient recipient;
 
     @SerializedConstructor
     private AudibleAction(){
     }
 
     public AudibleAction(Identifier sound) {
-        this(ActionTarget.Item, sound);
+        this(ActionRecipient.Subject, sound);
     }
 
-    public AudibleAction(ActionTarget source, Identifier sound){
+    public AudibleAction(ActionRecipient recipient, Identifier sound){
         this.sound = sound;
-        this.source = source;
+        this.recipient = recipient;
     }
 
     public static AudibleAction play(Identifier sound) {
-        return play(ActionTarget.Item, sound);
+        return play(ActionRecipient.Subject, sound);
     }
 
-    public static AudibleAction play(ActionTarget source, Identifier sound) {
+    public static AudibleAction play(ActionRecipient source, Identifier sound) {
         return new AudibleAction(source, sound);
     }
 
     @Override
     public boolean act(float delta) {
-        Audible audible = getAudible();
+        Audible audible = (Audible)getRecipient(this, recipient);
         audible.setSound(sound);
         return true;
-    }
-
-    private Audible getAudible() {
-        switch (source) {
-            case Item: return (Audible)getItem();
-            case Target: return (Audible)getTarget();
-            default: throw new UnsupportedOperationException();
-        }
     }
 
     @Override
@@ -72,7 +66,7 @@ public class AudibleAction extends BasicAction
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(sound, that.sound)
-            .append(source, that.source)
+            .append(recipient, that.recipient)
             .isEquals();
     }
 
@@ -81,7 +75,7 @@ public class AudibleAction extends BasicAction
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
             .append(sound)
-            .append(source)
+            .append(recipient)
             .toHashCode();
     }
 }

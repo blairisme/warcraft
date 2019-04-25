@@ -19,7 +19,7 @@ import com.evilbird.warcraft.item.unit.building.Building;
 import javax.inject.Inject;
 import java.util.function.Consumer;
 
-import static com.evilbird.engine.action.common.ActionTarget.Target;
+import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AudibleAction.play;
 import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;

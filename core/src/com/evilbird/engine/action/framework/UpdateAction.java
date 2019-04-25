@@ -10,7 +10,7 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.ActionTarget;
+import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.item.Item;
 
 import java.util.function.Supplier;
@@ -24,10 +24,10 @@ import java.util.function.Supplier;
 public class UpdateAction extends DelegateAction
 {
     private boolean applied;
-    private ActionTarget type;
+    private ActionRecipient type;
     private Supplier<Item> supplier;
 
-    public UpdateAction(Action client, Supplier<Item> supplier, ActionTarget type) {
+    public UpdateAction(Action client, Supplier<Item> supplier, ActionRecipient type) {
         super(client);
         this.applied = false;
         this.type = type;
@@ -56,10 +56,10 @@ public class UpdateAction extends DelegateAction
     }
 
     private void update() {
-        if (type == ActionTarget.Item) {
+        if (type == ActionRecipient.Subject) {
             setItem(supplier.get());
         }
-        else if (type == ActionTarget.Target) {
+        else if (type == ActionRecipient.Target) {
             setTarget(supplier.get());
         }
         else {

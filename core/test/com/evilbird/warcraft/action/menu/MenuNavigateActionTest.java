@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.menu;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.ActionTarget;
+import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.testcase.ActionTestCase;
@@ -28,7 +28,7 @@ public class MenuNavigateActionTest extends ActionTestCase
     @Override
     protected Action newAction() {
         MenuNavigateAction action = new MenuNavigateAction();
-        action.setSource(ActionTarget.Item);
+        action.setSource(ActionRecipient.Subject);
         action.setIdentifier(MenuActions.BuildSimpleMenu);
         return action;
     }

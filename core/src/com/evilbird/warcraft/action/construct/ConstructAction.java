@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.ActionTarget;
+import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -25,10 +25,10 @@ import java.util.Objects;
  */
 public class ConstructAction extends DelayedAction
 {
-    private ActionTarget source;
+    private ActionRecipient source;
 
     /**
-     * Constructs a new instance of this class given a {@link ActionTarget}
+     * Constructs a new instance of this class given a {@link ActionRecipient}
      * describing the subject of the action (the building being constructed)
      * and the time it will take for construction to complete.
      *
@@ -37,22 +37,22 @@ public class ConstructAction extends DelayedAction
      * @param duration  the time it will take for construction to complete,
      *                  specified in seconds.
      */
-    public ConstructAction(ActionTarget source, float duration) {
+    public ConstructAction(ActionRecipient source, float duration) {
         super(duration);
         Objects.requireNonNull(source);
         this.source = source;
     }
 
     public static ConstructAction construct(ConstructActions producible) {
-        return construct(ActionTarget.Item, producible);
+        return construct(ActionRecipient.Subject, producible);
     }
 
-    public static ConstructAction construct(ActionTarget source, ConstructActions producible) {
+    public static ConstructAction construct(ActionRecipient source, ConstructActions producible) {
         return new ConstructAction(source, producible.getDuration());
     }
 
     public static ConstructAction stopConstructing() {
-        return new ConstructAction(ActionTarget.Item, 0);
+        return new ConstructAction(ActionRecipient.Subject, 0);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class ConstructAction extends DelayedAction
 
     private Item getSource() {
         switch (source) {
-            case Item: return getItem();
+            case Subject: return getItem();
             case Target: return getTarget();
             default: throw new UnsupportedOperationException();
         }

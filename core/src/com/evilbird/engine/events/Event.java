@@ -22,7 +22,7 @@ public interface Event
     /**
      * The {@link Item} involved in the event.
      *
-     * @return an <code>Item</code>.
+     * @return an {@code Item}.
      */
     Item getSubject();
 }

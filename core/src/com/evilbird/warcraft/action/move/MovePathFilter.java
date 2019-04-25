@@ -24,7 +24,7 @@ import java.util.function.Predicate;
  *
  * @author Blair Butterworth
  */
-class MovePathFilter implements Predicate<ItemNode>
+public class MovePathFilter implements Predicate<ItemNode>
 {
     private Collection<Item> permittedItems;
     private Collection<Identifier> requiredTypes;

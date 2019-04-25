@@ -37,7 +37,7 @@ public class PositionActionTest extends GameTestCase
         item = TestCombatants.newTestCombatant("item");
         target = TestBuildings.newTestBuilding("target");
 
-        action = new PositionAction();
+        action = new PositionAction(ActionRecipient.Subject, ActionRecipient.Target, node -> true);
         action.setItem(item);
         action.setTarget(target);
     }

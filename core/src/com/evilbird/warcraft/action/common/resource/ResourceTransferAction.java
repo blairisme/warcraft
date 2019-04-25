@@ -11,14 +11,14 @@ package com.evilbird.warcraft.action.common.resource;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.ActionTarget;
+import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.DataType;
 
-import static com.evilbird.engine.action.common.ActionTarget.Player;
+import static com.evilbird.engine.action.common.ActionRecipient.Player;
 import static com.evilbird.engine.item.utility.ItemOperations.findAncestorByType;
 
 /**
@@ -30,12 +30,12 @@ import static com.evilbird.engine.item.utility.ItemOperations.findAncestorByType
 public class ResourceTransferAction extends BasicAction
 {
     private float factor;
-    private ActionTarget target;
+    private ActionRecipient target;
     private ResourceQuantity quantity;
     private ResourceTransferObserver observer;
 
     private ResourceTransferAction(
-        ActionTarget target,
+        ActionRecipient target,
         ResourceQuantity quantity,
         float factor,
         ResourceTransferObserver observer)
@@ -54,7 +54,7 @@ public class ResourceTransferAction extends BasicAction
         return new ResourceTransferAction(Player, amount, proportion, observer);
     }
 
-    public static Action transfer(ActionTarget from, ActionTarget to, ResourceQuantity amount, ResourceTransferObserver observer) {
+    public static Action transfer(ActionRecipient from, ActionRecipient to, ResourceQuantity amount, ResourceTransferObserver observer) {
         Action transferFrom = new ResourceTransferAction(from, amount, -1, observer);
         Action transferTo = new ResourceTransferAction(to, amount, 1, observer);
         return new ParallelAction(transferFrom, transferTo);
@@ -77,7 +77,7 @@ public class ResourceTransferAction extends BasicAction
 
     private ResourceContainer getContainer() {
         switch (target) {
-            case Item: return (ResourceContainer)getItem();
+            case Subject: return (ResourceContainer)getItem();
             case Target: return (ResourceContainer)getTarget();
             case Parent: return (ResourceContainer)getItem().getParent();
             case Player: return (ResourceContainer)findAncestorByType(getItem(), DataType.Player);

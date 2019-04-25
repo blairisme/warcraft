@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.ActionTarget;
+import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 
@@ -24,10 +24,10 @@ import java.util.Objects;
 public class SelectAction extends BasicAction
 {
     private boolean selected;
-    private ActionTarget source;
+    private ActionRecipient source;
     private SelectObserver observer;
 
-    public SelectAction(ActionTarget source, boolean selected, SelectObserver observer) {
+    public SelectAction(ActionRecipient source, boolean selected, SelectObserver observer) {
         Objects.requireNonNull(observer);
         this.source = source;
         this.selected = selected;
@@ -35,18 +35,18 @@ public class SelectAction extends BasicAction
     }
 
     public static SelectAction select(SelectObserver observer) {
-        return new SelectAction(ActionTarget.Item, true, observer);
+        return new SelectAction(ActionRecipient.Subject, true, observer);
     }
 
-    public static SelectAction select(ActionTarget source, SelectObserver observer) {
+    public static SelectAction select(ActionRecipient source, SelectObserver observer) {
         return new SelectAction(source, true, observer);
     }
 
     public static SelectAction deselect(SelectObserver observer) {
-        return new SelectAction(ActionTarget.Item, false, observer);
+        return new SelectAction(ActionRecipient.Subject, false, observer);
     }
 
-    public static SelectAction deselect(ActionTarget source, SelectObserver observer) {
+    public static SelectAction deselect(ActionRecipient source, SelectObserver observer) {
         return new SelectAction(source, false, observer);
     }
 
@@ -60,7 +60,7 @@ public class SelectAction extends BasicAction
 
     private Item getSelectable() {
         switch (source) {
-            case Item: return getItem();
+            case Subject: return getItem();
             case Target: return getTarget();
             default: throw new UnsupportedOperationException();
         }

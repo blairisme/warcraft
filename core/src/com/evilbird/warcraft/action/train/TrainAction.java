@@ -9,10 +9,12 @@
 
 package com.evilbird.warcraft.action.train;
 
-import com.evilbird.engine.action.common.ActionTarget;
+import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
+
+import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
 
 /**
  * Instances of this Action alter an {@link Item}s state to indicate that its
@@ -22,29 +24,29 @@ import com.evilbird.warcraft.item.unit.building.Building;
  */
 public class TrainAction extends DelayedAction
 {
-    private ActionTarget source;
+    private ActionRecipient recipient;
 
-    public TrainAction(ActionTarget source, float duration) {
+    public TrainAction(ActionRecipient recipient, float duration) {
         super(duration);
-        this.source = source;
+        this.recipient = recipient;
     }
 
     public static TrainAction startProducing(TrainActions producible) {
-        return startProducing(ActionTarget.Item, producible);
+        return startProducing(ActionRecipient.Subject, producible);
     }
 
-    public static TrainAction startProducing(ActionTarget source, TrainActions producible) {
+    public static TrainAction startProducing(ActionRecipient source, TrainActions producible) {
         return new TrainAction(source, producible.getDuration());
     }
 
     public static TrainAction stopProducing() {
-        return new TrainAction(ActionTarget.Item, 0);
+        return new TrainAction(ActionRecipient.Subject, 0);
     }
 
     @Override
     public boolean act(float delta) {
         super.act(delta);
-        Building building = getBuilding();
+        Building building = (Building)getRecipient(this, recipient);
         if (! isComplete()) {
             building.setProductionProgress(getProgress());
             return false;
@@ -52,14 +54,6 @@ public class TrainAction extends DelayedAction
         else {
             building.setProductionProgress(1);
             return true;
-        }
-    }
-
-    private Building getBuilding() {
-        switch (source) {
-            case Item: return (Building)getItem();
-            case Target: return (Building)getTarget();
-            default: throw new UnsupportedOperationException();
         }
     }
 
@@ -76,7 +70,7 @@ public class TrainAction extends DelayedAction
     }
 
     private void resetProgress() {
-        Building building = getBuilding();
+        Building building = (Building)getRecipient(this, recipient);
         if (building != null) {
             building.setProductionProgress(1);
         }

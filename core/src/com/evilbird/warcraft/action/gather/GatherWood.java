@@ -11,11 +11,12 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.FeatureAction;
+import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.resource.ResourceQuantity;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.common.ActionTarget.*;
+import static com.evilbird.engine.action.common.ActionRecipient.*;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AnimationAliasAction.setAnimation;
 import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
@@ -36,7 +37,7 @@ import static com.evilbird.warcraft.item.unit.UnitSound.ChopWood;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 
 /**
- * Instances of this {@link Action} instruct a given Item to gather wood.
+ * Instances of this {@link Action} instruct a given {@link Item} to gather wood.
  *
  * @author Blair Butterworth
  */
@@ -60,7 +61,7 @@ public class GatherWood extends FeatureAction
             .then(move(reporter))
             .then(animate(GatherWood), obtainStarted(reporter, resource()))
             .then(delay(1), playRepeat(ChopWood, 1))
-            .then(transfer(Target, Item, resource(), reporter), obtainComplete(reporter, resource()))
+            .then(transfer(Target, Subject, resource(), reporter), obtainComplete(reporter, resource()))
             .then(setAnimation(Move, MoveWood), setAnimation(Idle, IdleWood))
             .then(animate(Idle))
             .withTarget(closest(Tree, getTarget()));
@@ -72,7 +73,7 @@ public class GatherWood extends FeatureAction
             .then(move(reporter))
             .then(hide(), deselect(reporter), depositStarted(reporter, resource()))
             .then(delay(1))
-            .then(transfer(Item, Player, resource(), reporter), depositComplete(reporter, resource()))
+            .then(transfer(Subject, Player, resource(), reporter), depositComplete(reporter, resource()))
             .then(show(), setAnimation(Move, MoveBasic), setAnimation(Idle, IdleBasic), animate(Idle))
             .withTarget(closest(TownHall, getTarget()));
     }
