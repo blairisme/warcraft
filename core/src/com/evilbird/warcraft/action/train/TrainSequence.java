@@ -19,6 +19,7 @@ import com.evilbird.warcraft.item.unit.building.Building;
 import javax.inject.Inject;
 import java.util.function.Consumer;
 
+import static com.evilbird.engine.action.common.PositionAction.positionAdjacent;
 import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.purchase;
 import static com.evilbird.warcraft.action.train.TrainAction.startProducing;
@@ -45,13 +46,16 @@ public class TrainSequence extends ScenarioAction<TrainActions>
         given(isAlive());
         then(purchase(type, reporter), notifyStarted());
         then(startProducing(type));
-        then(create(type.getItemType(), properties(), reporter), notifyComplete());
+        thenUpdate(create(type.getItemType(), properties(), reporter));
+        then(positionAdjacent(), notifyComplete());
+
+        //then(create(type.getItemType(), properties(), reporter), notifyComplete());
     }
 
     private Consumer<Item> properties() {
         return (item) -> {
-            Vector2 position = getPosition(item);
-            item.setPosition(position);
+//            Vector2 position = getPosition(item);
+//            item.setPosition(position);
         };
     }
 
