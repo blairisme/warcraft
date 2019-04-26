@@ -9,6 +9,11 @@
 
 package com.evilbird.warcraft.action.train;
 
+/**
+ * Specifies the set of options for the state of the training sequence.
+ *
+ * @author Blair Butterworth
+ */
 public enum TrainStatus
 {
     Started,

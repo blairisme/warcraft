@@ -39,6 +39,8 @@ public class TestBuildings
         item.setSize(56, 78);
         item.setParent(parent);
         item.setRoot(root);
+        item.setHealth(100);
+        item.setHealthMaximum(100);
         return item;
     }
 }

@@ -1,4 +1,13 @@
 /*
+ * Copyright (c) 2019, Blair Butterworth
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *        https://opensource.org/licenses/MIT
+ */
+
+/*
  * Blair Butterworth (c) 2019
  *
  * This work is licensed under the MIT License. To view a copy of this
@@ -7,10 +16,12 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.action.common;
+package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.common.lang.Movable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
@@ -20,8 +31,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.Collection;
 import java.util.Optional;
-import java.util.function.Predicate;
 
+import static com.evilbird.engine.action.common.ActionRecipient.Subject;
+import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
 
 /**
@@ -30,36 +42,43 @@ import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
  *
  * @author Blair Butterworth
  */
-public class PositionAction extends BasicAction
+public class MoveAdjacent extends BasicAction
 {
     private ActionRecipient from;
     private ActionRecipient to;
-    private Predicate<ItemNode> unoccupied;
 
-    public PositionAction(ActionRecipient from, ActionRecipient to, Predicate<ItemNode> unoccupied) {
+    public MoveAdjacent(ActionRecipient from, ActionRecipient to) {
         this.from = from;
         this.to = to;
-        this.unoccupied = unoccupied;
     }
 
-    public static PositionAction positionAdjacent(ActionRecipient from, ActionRecipient to, Predicate<ItemNode> unoccupied) {
-        return new PositionAction(from, to, unoccupied);
+    public static MoveAdjacent moveAdjacent(ActionRecipient from, ActionRecipient to) {
+        return new MoveAdjacent(from, to);
+    }
+
+    public static MoveAdjacent moveAdjacentSubject() {
+        return moveAdjacent(Target, Subject);
     }
 
     @Override
     public boolean act(float delta) {
-        Item item = getRecipient(this, from);
+        Item subject = getRecipient(this, from);
         Item target = getRecipient(this, to);
 
         ItemRoot root = target.getRoot();
         ItemGraph graph = root.getSpatialGraph();
 
-        Collection<ItemNode> adjacentNodes = graph.getAdjacentNodes(target.getPosition(), target.getSize());
-        Optional<ItemNode> unoccupiedNode = adjacentNodes.stream().filter(unoccupied).findFirst();
+        MovePathFilter capability = new MovePathFilter();
+        capability.addRequiredTypes((Movable)subject);
 
-        if (unoccupiedNode.isPresent()) {
-            ItemNode destination = unoccupiedNode.get();
-            item.setPosition(destination.getWorldReference());
+        Collection<ItemNode> adjacent = graph.getAdjacentNodes(target.getPosition(), target.getSize());
+        Optional<ItemNode> unoccupied = adjacent.stream().filter(capability).findFirst();
+
+        if (unoccupied.isPresent()) {
+            graph.removeOccupants(subject);
+            ItemNode destination = unoccupied.get();
+            subject.setPosition(destination.getWorldReference());
+            graph.addOccupants(subject);
         }
         return true;
     }
@@ -70,12 +89,11 @@ public class PositionAction extends BasicAction
         if (obj == null) return false;
         if (obj.getClass() != getClass()) return false;
 
-        PositionAction that = (PositionAction)obj;
+        MoveAdjacent that = (MoveAdjacent)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(from, that.from)
             .append(to, that.to)
-            .append(unoccupied, that.unoccupied)
             .isEquals();
     }
 
@@ -85,7 +103,6 @@ public class PositionAction extends BasicAction
             .appendSuper(super.hashCode())
             .append(from)
             .append(to)
-            .append(unoccupied)
             .toHashCode();
     }
 }

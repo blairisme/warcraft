@@ -20,6 +20,7 @@ import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.utils.TestUtils;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
+import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import org.junit.Before;
@@ -39,6 +40,7 @@ public abstract class ActionTestCase extends GameTestCase
     protected Item target;
     protected UserInput cause;
     protected Action action;
+    protected Player player;
     protected TypeRegistry types;
 
     @Before
@@ -49,6 +51,7 @@ public abstract class ActionTestCase extends GameTestCase
         item = newItem();
         target = newTarget();
         cause = newCause();
+        player = (Player)item.getParent();
 
         action = newAction();
         action.setItem(item);

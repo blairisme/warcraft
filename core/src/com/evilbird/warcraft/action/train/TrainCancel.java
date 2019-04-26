@@ -9,8 +9,6 @@
 
 package com.evilbird.warcraft.action.train;
 
-import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.action.framework.ScenarioAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -19,6 +17,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.refund;
 import static com.evilbird.warcraft.action.train.TrainAction.stopProducing;
+import static com.evilbird.warcraft.action.train.TrainEvents.onTrainCancelled;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isProducing;
 
 /**
@@ -48,16 +47,11 @@ public class TrainCancel extends ScenarioAction<TrainActions>
     protected void steps(TrainActions action) {
         scenario(action);
         given(isProducing());
-        then(stopProducing(), refund(action, amount(), reporter), notifyCancelled());
+        then(stopProducing(), refund(action, amount(), reporter), onTrainCancelled(reporter));
     }
 
     private float amount() {
         Building building = (Building)getItem();
         return 1 - building.getProductionProgress();
-    }
-
-    private Action notifyCancelled() {
-        return new LambdaAction((item, target) ->
-            reporter.onTrainCancelled((Building)item));
     }
 }

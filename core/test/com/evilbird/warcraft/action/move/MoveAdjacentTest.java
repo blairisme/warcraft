@@ -1,4 +1,13 @@
 /*
+ * Copyright (c) 2019, Blair Butterworth
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *        https://opensource.org/licenses/MIT
+ */
+
+/*
  * Blair Butterworth (c) 2019
  *
  * This work is licensed under the MIT License. To view a copy of this
@@ -7,9 +16,10 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.action.common;
+package com.evilbird.warcraft.action.move;
 
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestCombatants;
@@ -22,13 +32,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Instances of this unit test validate the {@link PositionAction} class.
+ * Instances of this unit test validate the {@link MoveAdjacent} class.
  *
  * @author Blair Butterworth
  */
-public class PositionActionTest extends GameTestCase
+public class MoveAdjacentTest extends GameTestCase
 {
-    private PositionAction action;
+    private MoveAdjacent action;
     private Combatant item;
     private Building target;
 
@@ -37,7 +47,7 @@ public class PositionActionTest extends GameTestCase
         item = TestCombatants.newTestCombatant("item");
         target = TestBuildings.newTestBuilding("target");
 
-        action = new PositionAction(ActionRecipient.Subject, ActionRecipient.Target, node -> true);
+        action = new MoveAdjacent(ActionRecipient.Subject, ActionRecipient.Target);
         action.setItem(item);
         action.setTarget(target);
     }
@@ -56,7 +66,7 @@ public class PositionActionTest extends GameTestCase
 
     @Test
     public void equalsTest() {
-        EqualityVerifier.forClass(PositionAction.class)
+        EqualityVerifier.forClass(MoveAdjacent.class)
             .withMockedTransientFields(Item.class)
             .excludeTransientFields()
             .verify();
