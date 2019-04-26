@@ -19,6 +19,8 @@ import javax.inject.Inject;
 import static com.evilbird.engine.action.common.ActionRecipient.*;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AnimationAliasAction.setAnimation;
+import static com.evilbird.engine.action.common.DisableAction.disable;
+import static com.evilbird.engine.action.common.DisableAction.enable;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
@@ -56,10 +58,10 @@ public class GatherGold extends FeatureAction
             .when(noResources(Gold))
             .then(animate(Move))
             .then(move(reporter))
-            .then(hide(), deselect(reporter), obtainStarted(reporter, resource()))
+            .then(hide(), disable(), deselect(reporter), obtainStarted(reporter, resource()))
             .then(delay(5))
             .then(transfer(Target, Subject, resource(), reporter), obtainComplete(reporter, resource()))
-            .then(show(), setAnimation(Move, MoveGold), animate(Idle))
+            .then(show(), enable(), setAnimation(Move, MoveGold), animate(Idle))
             .withTarget(closest(GoldMine, getTarget()));
 
         scenario("deposit")
@@ -67,10 +69,10 @@ public class GatherGold extends FeatureAction
             .whenItem(hasResources(Gold))
             .then(animate(Move))
             .then(move(reporter))
-            .then(hide(), deselect(reporter), depositStarted(reporter, resource()))
+            .then(hide(), disable(), deselect(reporter), depositStarted(reporter, resource()))
             .then(delay(5))
             .then(transfer(Subject, Player, resource(), reporter), depositComplete(reporter, resource()))
-            .then(show(), animate(Idle), setAnimation(Move, MoveBasic))
+            .then(show(), enable(), animate(Idle), setAnimation(Move, MoveBasic))
             .withTarget(closest(TownHall, getTarget()));
     }
 

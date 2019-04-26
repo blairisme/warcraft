@@ -65,7 +65,7 @@ public class DisableAction extends BasicAction
     public boolean act(float delta) {
         Item subject = getRecipient(this, recipient);
         setSpatial(subject, disabled);
-        setSelectability(subject, disabled);
+        setEnablement(subject, disabled);
         return true;
     }
 
@@ -80,7 +80,7 @@ public class DisableAction extends BasicAction
         }
     }
 
-    private void setSelectability(Item subject, boolean disabled) {
+    private void setEnablement(Item subject, boolean disabled) {
         subject.setSelectable(!disabled);
         subject.setTouchable(disabled ? Touchable.disabled : Touchable.enabled);
     }
