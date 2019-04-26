@@ -9,9 +9,11 @@
 
 package com.evilbird.engine.action.common;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.spatial.ItemGraph;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -61,9 +63,26 @@ public class DisableAction extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Selectable selectable = getRecipient(this, recipient);
-        selectable.setSelectable(disabled);
+        Item subject = getRecipient(this, recipient);
+        setSpatial(subject, disabled);
+        setSelectability(subject, disabled);
         return true;
+    }
+
+    private void setSpatial(Item subject, boolean disabled) {
+        ItemRoot root = subject.getRoot();
+        ItemGraph graph = root.getSpatialGraph();
+
+        if (disabled) {
+            graph.removeOccupants(subject);
+        } else {
+            graph.addOccupants(subject);
+        }
+    }
+
+    private void setSelectability(Item subject, boolean disabled) {
+        subject.setSelectable(!disabled);
+        subject.setTouchable(disabled ? Touchable.disabled : Touchable.enabled);
     }
 
     @Override

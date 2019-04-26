@@ -60,6 +60,10 @@ public class MoveAdjacent extends BasicAction
         return moveAdjacent(Target, Subject);
     }
 
+    public static MoveAdjacent moveAdjacentTarget() {
+        return moveAdjacent(Subject, Target);
+    }
+
     @Override
     public boolean act(float delta) {
         Item subject = getRecipient(this, from);

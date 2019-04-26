@@ -9,9 +9,7 @@
 
 package com.evilbird.warcraft.action.construct;
 
-import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.FeatureAction;
-import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -22,6 +20,8 @@ import java.util.function.Consumer;
 import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AudibleAction.play;
+import static com.evilbird.engine.action.common.DisableAction.disable;
+import static com.evilbird.engine.action.common.DisableAction.enable;
 import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
@@ -30,6 +30,9 @@ import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.purchase;
 import static com.evilbird.warcraft.action.construct.ConstructAction.construct;
+import static com.evilbird.warcraft.action.construct.ConstructEvents.constructCompleted;
+import static com.evilbird.warcraft.action.construct.ConstructEvents.constructStarted;
+import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacentTarget;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
@@ -70,8 +73,10 @@ public class ConstructSequence extends FeatureAction
 
     private void reposition() {
         scenario("reposition builder")
+            .withTarget(ifExists(getTarget()))
             .given(isAlive())
             .givenItem(isAlive())
+            .whenTarget(isPlaceholder())
             .when(notAdjacent(getTarget()))
             .then(animate(Move))
             .then(move(reporter))
@@ -94,41 +99,19 @@ public class ConstructSequence extends FeatureAction
             .then(purchase(building, reporter))
             .thenUpdate(remove(Target, reporter))
             .thenUpdate(create(type, properties(), reporter))
-            .then(hide(), deselect(reporter), animate(Target, Construct), notifyStarted())
+            .then(constructStarted(reporter))
+            .then(hide(), disable(), deselect(reporter), animate(Target, Construct))
             .then(construct(Target, building), playRepeat(Build, 3, 5))
-            .then(show(), animate(Idle), animate(Target, Idle),  play(Complete), notifyComplete());
+            .then(show(), enable(), animate(Idle), animate(Target, Idle), play(Complete), moveAdjacentTarget())
+            .then(constructCompleted(reporter));
     }
 
     private Consumer<Item> properties() {
         return (item) -> {
-            setPosition(item);
-            setBuilding(item);
-            setAnimation(item);
+            Building building = (Building)item;
+            building.setConstructionProgress(0);
+            building.setAnimation(BuildingSite);
+            building.setPosition(getTarget().getPosition());
         };
-    }
-
-    private void setPosition(Item item) {
-        Item target = getTarget();
-        item.setPosition(target.getPosition());
-    }
-
-    private void setBuilding(Item item) {
-        Building building = (Building)item;
-        building.setConstructionProgress(0);
-    }
-
-    private void setAnimation(Item item) {
-        Building building = (Building)item;
-        building.setAnimation(BuildingSite);
-    }
-
-    private Action notifyStarted() {
-        return new LambdaAction((builder, building) ->
-            reporter.onConstructionStarted(builder, (Building)building));
-    }
-
-    private Action notifyComplete() {
-        return new LambdaAction((builder, building) ->
-            reporter.onConstructionCompleted(builder, (Building)building));
     }
 }

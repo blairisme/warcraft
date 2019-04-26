@@ -9,8 +9,6 @@
 
 package com.evilbird.warcraft.action.construct;
 
-import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.action.framework.ScenarioAction;
 import com.evilbird.warcraft.item.unit.building.Building;
 
@@ -18,6 +16,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.refund;
 import static com.evilbird.warcraft.action.construct.ConstructAction.stopConstructing;
+import static com.evilbird.warcraft.action.construct.ConstructEvents.constructCancelled;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
 
 /**
@@ -46,16 +45,11 @@ public class ConstructCancel extends ScenarioAction<ConstructActions>
     protected void steps(ConstructActions action) {
         scenario(action);
         given(isConstructing());
-        then(stopConstructing(), refund(action, amount(), reporter), notifyCancelled());
+        then(stopConstructing(), refund(action, amount(), reporter), constructCancelled(reporter));
     }
 
     private float amount() {
         Building building = (Building)getItem();
         return 1 - building.getConstructionProgress();
-    }
-
-    private Action notifyCancelled() {
-        return new LambdaAction((building, target) ->
-            reporter.onConstructionCancelled(null, (Building)building));
     }
 }

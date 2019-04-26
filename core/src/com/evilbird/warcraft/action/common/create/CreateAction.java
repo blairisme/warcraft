@@ -56,9 +56,9 @@ public class CreateAction extends BasicAction
     @Override
     public boolean act(float delta) {
         Item item = createItem();
+        setProperties(item);
         setTarget(item);
         setParent(item);
-        setProperties(item);
         notifyObserver(item);
         return true;
     }

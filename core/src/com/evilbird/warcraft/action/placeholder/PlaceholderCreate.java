@@ -40,6 +40,6 @@ public class PlaceholderCreate extends ScenarioAction<PlaceholderActions>
     }
 
     private Consumer<Item> properties() {
-        return (item) -> item.setPosition(getScreenCenter(item));
+        return (created) -> created.setPosition(getScreenCenter(getItem()));
     }
 }
