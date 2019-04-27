@@ -23,15 +23,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.itemWithType;
 import static com.evilbird.engine.item.utility.ItemPredicates.selectedItem;
 import static com.evilbird.warcraft.item.data.DataType.Camera;
-import static java.util.Arrays.asList;
-import static java.util.Collections.emptyList;
-import static java.util.Collections.singleton;
 
 /**
  * Instances of this class modify the game state based on user input.
@@ -91,59 +89,55 @@ public class InteractionBehaviour implements Behaviour
             ItemRoot hud = state.getHud();
 
             for (UserInput input : inputs) {
-                Collection<Item> targets = getTargets(world, hud, input);
-                evaluateTargets(input, targets, selected);
+                Item target = getTargets(world, hud, input);
+                evaluateTarget(input, target, selected);
             }
         }
     }
 
-    private void evaluateTargets(UserInput input, Collection<Item> targets, Collection<Item> selected) {
-        for (Item target: targets) {
-            evaluateSelection(input, target, selected);
-        }
-    }
-
-    private void evaluateSelection(UserInput input, Item target, Collection<Item> selected) {
-        if (selected.isEmpty()) {
-            applyInteractions(input, target, null);
-        }
-        if (selected.contains(target)) {
-            applyInteractions(input, target, target);
-        }
-        else for (Item selectedItem: selected) {
-            applyInteractions(input, target, selectedItem);
-        }
-    }
-
-    private void applyInteractions(UserInput input, Item target, Item selected) {
-        logInput(input, target, selected);
-        for (Interaction interaction: interactions.getInteractions(input, target, selected)) {
-            interaction.update(input, target, selected);
-        }
-    }
-
-    private Collection<Item> getTargets(ItemRoot world, ItemRoot hud, UserInput input) {
-        Collection<Item> result = getHudTargets(hud, input);
+    private Collection<Interaction> evaluateTarget(UserInput input, Item target, Collection<Item> selected) {
+        Collection<Interaction> result = evaluateSelection(input, target, selected);
         if (result.isEmpty()) {
-            result = getWorldTargets(world, input);
+            result = evaluateSelection(input, camera, selected);
         }
         return result;
     }
 
-    private Collection<Item> getHudTargets(ItemRoot hud, UserInput userInput) {
-        Vector2 position = userInput.getPosition();
-        Vector2 hudPosition = hud.unproject(position);
-
-        Item hudElement = hud.hit(hudPosition, true);
-        if (hudElement != null) {
-            return singleton(hudElement);
+    private Collection<Interaction> evaluateSelection(UserInput input, Item target, Collection<Item> selected) {
+        Collection<Interaction> result = new ArrayList<>();
+        if (selected.isEmpty()) {
+            result.addAll(applyInteractions(input, target, null));
         }
-        return emptyList();
+        if (selected.contains(target)) {
+            result.addAll(applyInteractions(input, target, target));
+        }
+        else for (Item selectedItem: selected) {
+            result.addAll(applyInteractions(input, target, selectedItem));
+        }
+        return result;
     }
 
-    private Collection<Item> getWorldTargets(ItemRoot world, UserInput userInput) {
-        Item worldTarget = getWorldTarget(world, userInput);
-        return worldTarget != null ? asList(worldTarget, camera) : singleton(camera);
+    private Collection<Interaction> applyInteractions(UserInput input, Item target, Item selected) {
+        logInput(input, target, selected);
+        Collection<Interaction> results = interactions.getInteractions(input, target, selected);
+        for (Interaction interaction: results) {
+            interaction.update(input, target, selected);
+        }
+        return results;
+    }
+
+    private Item getTargets(ItemRoot world, ItemRoot hud, UserInput input) {
+        Item result = getHudTarget(hud, input);
+        if (result == null) {
+            result = getWorldTarget(world, input);
+        }
+        return result;
+    }
+
+    private Item getHudTarget(ItemRoot hud, UserInput userInput) {
+        Vector2 position = userInput.getPosition();
+        Vector2 hudPosition = hud.unproject(position);
+        return hud.hit(hudPosition, true);
     }
 
     private Item getWorldTarget(ItemRoot world, UserInput userInput) {
