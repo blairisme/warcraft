@@ -167,27 +167,6 @@ public class InteractionDefinition implements Interaction
         return inputType;
     }
 
-    /**
-     * Returns the {@link Item} that the action resulting from this interaction
-     * will be assigned to: the item of the resulting {@link Action}.
-     *
-     * @return an {@link InteractionAssignment} option.
-     */
-    public InteractionAssignment getAssignedTo() {
-        return assignment;
-    }
-
-    /**
-     * Returns an {@link InteractionDisplacement} option indicating how the
-     * interaction should be applied, either as a replacement for existing
-     * {@link Action Actions}, or as an addition.
-     *
-     * @return an {@code InteractionDisplacement} option.
-     */
-    public InteractionDisplacement getAppliedAs() {
-        return displacement;
-    }
-
     @Override
     public boolean applies(UserInput input, Item touched, Item selected) {
         if (inputType != null && !Objects.equals(inputType, input.getType())){
@@ -234,7 +213,7 @@ public class InteractionDefinition implements Interaction
         action.setTarget(secondary);
         action.setCause(input);
 
-        log(actionType, primary);
+        //log(actionType, primary);
     }
 
     private Item getPrimary(Item item, Item selected) {

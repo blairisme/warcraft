@@ -23,6 +23,8 @@ import java.util.List;
 public class AndroidInput implements DeviceInput, GestureDetector.GestureListener
 {
     private List<UserInput> inputs;
+    private int panCount;
+    private int zoomCount;
 
     public AndroidInput() {
         inputs = new ArrayList<>();
@@ -36,7 +38,7 @@ public class AndroidInput implements DeviceInput, GestureDetector.GestureListene
 
     @Override
     public List<UserInput> readInput() {
-        List<UserInput> result = new ArrayList<UserInput>(inputs);
+        List<UserInput> result = new ArrayList<>(inputs);
         inputs.clear();
         return result;
     }
@@ -69,13 +71,14 @@ public class AndroidInput implements DeviceInput, GestureDetector.GestureListene
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        UserInput input = new UserInput(UserInputType.Drag, new Vector2(x, y), new Vector2(deltaX * -1, deltaY), 1);
+        UserInput input = new UserInput(UserInputType.Drag, new Vector2(x, y), new Vector2(deltaX * -1, deltaY), panCount++);
         pushInput(input);
         return true;
     }
 
     @Override
     public boolean panStop(float x, float y, int pointer, int button) {
+        panCount = 1;
         return false;
     }
 
@@ -84,37 +87,38 @@ public class AndroidInput implements DeviceInput, GestureDetector.GestureListene
         float scale = initialDistance / distance;
         Vector2 delta = new Vector2(scale, scale);
 
-        UserInput input = new UserInput(UserInputType.Zoom, Vector2.Zero, delta, count++);
+        UserInput input = new UserInput(UserInputType.Zoom, Vector2.Zero, delta, zoomCount++);
         pushInput(input);
 
         return true;
     }
 
-    private boolean pinching = false;
-    private int count = 1;
+//    private boolean pinching = false;
+//    private int count = 1;
 
     @Override
     public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-        if (!pinching) {
-            pinching = true;
-            count = 1;
-            /*
-            float pointerCenterX = (pointer1.x + pointer2.x)/2;
-            float pointerCenterY = (pointer1.y+ pointer2.y)/2;
-            float screenCenterX = graphics.getWidth()/2;
-            float screenCenterY = graphics.getHeight();
-            float panX = screenCenterX - pointerCenterX;
-            float panY = screenCenterY - pointerCenterY-1;
-            Vector2 delta = new Vector2(panX, panY);
-            UserInput input = new UserInput(UserInputType.Drag, Vector2.Zero, delta, 1);
-            pushInput(input);
-            */
-        }
+//        if (!pinching) {
+//            pinching = true;
+//            count = 1;
+//
+//            float pointerCenterX = (pointer1.x + pointer2.x)/2;
+//            float pointerCenterY = (pointer1.y+ pointer2.y)/2;
+//            float screenCenterX = graphics.getWidth()/2;
+//            float screenCenterY = graphics.getHeight();
+//            float panX = screenCenterX - pointerCenterX;
+//            float panY = screenCenterY - pointerCenterY-1;
+//            Vector2 delta = new Vector2(panX, panY);
+//            UserInput input = new UserInput(UserInputType.Drag, Vector2.Zero, delta, 1);
+//            pushInput(input);
+//
+//        }
         return false;
     }
 
     @Override
     public void pinchStop() {
-        pinching = false;
+        zoomCount = 1;
+//        pinching = false;
     }
 }

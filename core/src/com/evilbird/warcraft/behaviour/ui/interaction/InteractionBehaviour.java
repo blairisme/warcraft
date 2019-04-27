@@ -23,8 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.itemWithType;
@@ -55,7 +55,7 @@ public class InteractionBehaviour implements Behaviour
     @Override
     public void update(State state, List<UserInput> inputs) {
         updateCache(state);
-        evaluateInput(state, inputs);
+        evaluateInputs(state, inputs);
     }
 
     private void updateCache(State state) {
@@ -83,47 +83,70 @@ public class InteractionBehaviour implements Behaviour
         }
     }
 
-    private void evaluateInput(State state, List<UserInput> inputs) {
+    private Item target;
+    private Collection<Interaction> actions;
+
+    private void evaluateInputs(State state, List<UserInput> inputs) {
         if (! inputs.isEmpty()) {
             ItemRoot world = state.getWorld();
             ItemRoot hud = state.getHud();
 
             for (UserInput input : inputs) {
-                Item target = getTargets(world, hud, input);
-                evaluateTarget(input, target, selected);
+                if (input.getCount() == 1) {
+                    evaluateInput(input, world, hud, selected);
+                } else {
+                    applyPrevious(input, selected);
+                }
             }
         }
     }
 
-    private Collection<Interaction> evaluateTarget(UserInput input, Item target, Collection<Item> selected) {
-        Collection<Interaction> result = evaluateSelection(input, target, selected);
-        if (result.isEmpty()) {
-            result = evaluateSelection(input, camera, selected);
+    private void evaluateInput(UserInput input, ItemRoot world, ItemRoot hud, Collection<Item> selected) {
+        target = getTargets(world, hud, input);
+        actions = evaluateSelection(input, target, selected);
+        if (actions.isEmpty()) {
+            target = camera;
+            actions = evaluateSelection(input, target, selected);
         }
-        return result;
+    }
+
+    private void applyPrevious(UserInput input, Collection<Item> selected) {
+        if (selected.isEmpty()) {
+            applyInteractions(actions, input, target, (Item)null);
+        } else {
+            applyInteractions(actions, input, target, selected);
+        }
     }
 
     private Collection<Interaction> evaluateSelection(UserInput input, Item target, Collection<Item> selected) {
-        Collection<Interaction> result = new ArrayList<>();
         if (selected.isEmpty()) {
-            result.addAll(applyInteractions(input, target, null));
+            return evaluateInteractions(input, target, null);
         }
-        if (selected.contains(target)) {
-            result.addAll(applyInteractions(input, target, target));
+        else if (selected.contains(target)) {
+            return evaluateInteractions(input, target, target);
         }
         else for (Item selectedItem: selected) {
-            result.addAll(applyInteractions(input, target, selectedItem));
+            return evaluateInteractions(input, target, selectedItem);
         }
-        return result;
+        return Collections.emptyList();
     }
 
-    private Collection<Interaction> applyInteractions(UserInput input, Item target, Item selected) {
+    private Collection<Interaction> evaluateInteractions(UserInput input, Item target, Item selected) {
         logInput(input, target, selected);
-        Collection<Interaction> results = interactions.getInteractions(input, target, selected);
-        for (Interaction interaction: results) {
+        Collection<Interaction> applicable = interactions.getInteractions(input, target, selected);
+        applyInteractions(applicable, input, target, selected);
+        return applicable;
+    }
+
+    private void applyInteractions(Collection<Interaction> actions, UserInput input, Item target, Collection<Item> selected) {
+        for (Item selectedItem: selected) {
+            applyInteractions(actions, input, target, selectedItem);
+        }
+    }
+    private void applyInteractions(Collection<Interaction> actions, UserInput input, Item target, Item selected) {
+        for (Interaction interaction: actions) {
             interaction.update(input, target, selected);
         }
-        return results;
     }
 
     private Item getTargets(ItemRoot world, ItemRoot hud, UserInput input) {

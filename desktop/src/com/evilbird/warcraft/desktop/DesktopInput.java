@@ -22,9 +22,13 @@ import java.util.List;
 public class DesktopInput implements DeviceInput, GestureDetector.GestureListener
 {
     private List<UserInput> inputs;
+    private int panCount;
+    private int zoomCount;
 
     public DesktopInput() {
         inputs = new ArrayList<>();
+        panCount = 1;
+        zoomCount = 1;
     }
 
     @Override
@@ -68,20 +72,21 @@ public class DesktopInput implements DeviceInput, GestureDetector.GestureListene
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        UserInput input = new UserInput(UserInputType.Drag, new Vector2(x, y), new Vector2(deltaX * -1, deltaY), 1);
+        UserInput input = new UserInput(UserInputType.Drag, new Vector2(x, y), new Vector2(deltaX * -1, deltaY), panCount++);
         pushInput(input);
         return true;
     }
 
     @Override
     public boolean panStop(float x, float y, int pointer, int button) {
+        panCount = 1;
         return false;
     }
 
     @Override
     public boolean zoom(float initialDistance, float distance) {
         float scale = distance / initialDistance;
-        UserInput input = new UserInput(UserInputType.Zoom, new Vector2(0, 0), new Vector2(scale, scale), 1);
+        UserInput input = new UserInput(UserInputType.Zoom, new Vector2(0, 0), new Vector2(scale, scale), zoomCount++);
         pushInput(input);
         return true;
     }
@@ -93,5 +98,6 @@ public class DesktopInput implements DeviceInput, GestureDetector.GestureListene
 
     @Override
     public void pinchStop() {
+        zoomCount = 1;
     }
 }
