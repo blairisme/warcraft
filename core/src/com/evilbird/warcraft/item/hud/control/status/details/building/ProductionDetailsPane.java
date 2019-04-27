@@ -36,7 +36,7 @@ public class ProductionDetailsPane extends GridItem
 
     public void setBuilding(Building building) {
         this.building = building;
-        this.productImage.setDrawable(building.getIcon()); //TODO: Wrong: need to show icon of thing being made
+        this.productImage.setDrawable(building.getIcon());
     }
 
     @Override

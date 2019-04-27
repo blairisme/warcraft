@@ -101,7 +101,6 @@ public class FootmanFactory implements AssetProvider<Item>
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
-        result.setSpeed(10f);
         result.setSight(4 * 32); //4
         result.setType(UnitType.Footman);
         result.setSize(32, 32);

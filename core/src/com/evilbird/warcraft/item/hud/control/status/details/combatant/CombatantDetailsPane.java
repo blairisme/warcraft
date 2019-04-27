@@ -61,7 +61,7 @@ public class CombatantDetailsPane extends GridItem implements DetailsPaneElement
         damage.setText(getText("Damage", combatant.getDamageMinimum(), combatant.getDamageMaximum()));
         range.setText(getText("Range", combatant.getRange()));
         sight.setText(getText("Sight", combatant.getSight()));
-        speed.setText(getText("Speed", combatant.getSpeed()));
+        speed.setText(getText("Speed", combatant.getMovementSpeed()));
     }
 
     private String getText(String prefix, float suffix) {

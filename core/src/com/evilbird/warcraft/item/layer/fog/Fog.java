@@ -36,8 +36,6 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-//TODO: Bug: revealing doesn't include item size, only position. Fix: use logic from ItemGraph.
-//TODO: update sight to cells, not pixels
 @SerializedType("Fog")
 @JsonAdapter(LayerAdapter.class)
 public class Fog extends Layer

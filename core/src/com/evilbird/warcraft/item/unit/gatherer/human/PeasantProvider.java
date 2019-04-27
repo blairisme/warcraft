@@ -100,7 +100,6 @@ public class PeasantProvider implements AssetProvider<Item>
         result.setMovementSpeed(64f);
         result.setMovementCapability(LayerType.Map);
         result.setRange(1f);
-        result.setSpeed(10f);
         result.setSight(5 * 32);
         result.setName("Peasant");
         result.setType(UnitType.Peasant);

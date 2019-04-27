@@ -27,14 +27,12 @@ import java.util.Set;
  *
  * @author Blair Butterworth
  */
-//TODO: Consolidate speed and movementSpeed
 @SerializedType("Combatant")
 public class Combatant extends Unit implements Movable
 {
     private int level;
     private int damageMinimum;
     private int damageMaximum;
-    private float speed;
     private float range;
     private float movementSpeed;
     private Set<Identifier> movementCapability;
@@ -54,10 +52,6 @@ public class Combatant extends Unit implements Movable
 
     public int getLevel() {
         return level;
-    }
-
-    public float getSpeed() {
-        return speed;
     }
 
     @Override
@@ -99,10 +93,6 @@ public class Combatant extends Unit implements Movable
         this.movementCapability.addAll(capability);
     }
 
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-
     public void setRange(float range) {
         this.range = range;
     }
@@ -114,7 +104,6 @@ public class Combatant extends Unit implements Movable
             .append("level", level)
             .append("damageMinimum", damageMinimum)
             .append("damageMaximum", damageMaximum)
-            .append("speed", speed)
             .append("range", range)
             .append("movementSpeed", movementSpeed)
             .append("movementCapability", movementCapability)
@@ -133,7 +122,6 @@ public class Combatant extends Unit implements Movable
             .append(level, combatant.level)
             .append(damageMinimum, combatant.damageMinimum)
             .append(damageMaximum, combatant.damageMaximum)
-            .append(speed, combatant.speed)
             .append(range, combatant.range)
             .append(movementSpeed, combatant.movementSpeed)
             .append(movementCapability, combatant.movementCapability)
@@ -147,7 +135,6 @@ public class Combatant extends Unit implements Movable
             .append(level)
             .append(damageMinimum)
             .append(damageMaximum)
-            .append(speed)
             .append(range)
             .append(movementSpeed)
             .append(movementCapability)

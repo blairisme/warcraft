@@ -35,7 +35,6 @@ import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
  *
  * @author Blair Butterworth.
  */
-//TODO: Replace string ids with constants
 public class ControlPaneFactory implements AssetProvider<ControlPane>
 {
     private static final String ACTION_BUTTON = "data/textures/neutral/perennial/action.png";

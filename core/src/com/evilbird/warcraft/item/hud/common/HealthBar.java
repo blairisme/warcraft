@@ -18,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
  *
  * @author Blair Butterworth
  */
-//TODO: Use constants for style
 public class HealthBar extends ProgressBar
 {
     private Skin skin;
