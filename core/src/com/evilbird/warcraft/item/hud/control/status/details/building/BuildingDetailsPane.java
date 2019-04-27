@@ -76,21 +76,26 @@ public class BuildingDetailsPane extends TableItem implements DetailsPaneElement
 
     private void showConstructionDetails(Building building) {
         constructionDetails.setBuilding(building);
-        add(constructionDetails);
+        showView(constructionDetails);
     }
 
     private void showProductionDetails(Building building) {
         productionDetails.setBuilding(building);
-        add(productionDetails);
+        showView(productionDetails);
     }
 
     private void showFarmDetails(Building building) {
         farmDetails.setBuilding(building);
-        add(farmDetails);
+        showView(farmDetails);
     }
 
     private void showTownHallDetails(Building building) {
         townHallDetails.setBuilding(building);
-        add(townHallDetails);
+        showView(townHallDetails);
+    }
+
+    private void showView(Item view) {
+        clearItems();
+        add(view);
     }
 }
