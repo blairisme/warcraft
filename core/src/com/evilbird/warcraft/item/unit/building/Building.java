@@ -28,11 +28,6 @@ public class Building extends Unit
         constructing = 1;
     }
 
-    @Override
-    public boolean isAlive() {
-        return !isConstructing() && super.isAlive();
-    }
-
     public boolean isConstructing() {
         return constructing != 1;
     }
