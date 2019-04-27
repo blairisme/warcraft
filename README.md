@@ -2,7 +2,7 @@
 
 <h4 align="center">Warcraft 2 port for Android, iOS, Windows and OS X. </h4>
 
-![Alt text](/docs/combined.png?raw=true "Application")
+<p align="center">
 
 [![Build Status](https://travis-ci.com/blairisme/newton.svg?branch=master)](https://travis-ci.com/blairisme/newton)
 [![Code Coverage](https://codecov.io/gh/blairisme/newton/branch/master/graph/badge.svg)](https://codecov.io/gh/blairisme/newton)
@@ -10,9 +10,13 @@
 [![GitHub release](https://img.shields.io/badge/release-v0.1-blue.svg)](https://github.com/blairisme/newton/releases/tag/v0.1)
 [![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL-blue.svg)](https://github.com/blairisme/newton/blob/master/LICENSE)
 
+</p>
+
+![Alt text](/docs/combined.png?raw=true "Application")
+
 ---
 
-An unofficial hobbyist recreation of Warcraft 2 for Android, Windows, MacOS and IOS. Created so that the excellent word Blizzard
+An unofficial fan made recreation of Warcraft 2 by Blizzard, created so that this excellent game can be enjoyed on modern devices. This application is a homage to the original and as such, all copyright and legal ownership remains with the original creators of this game, Blizzard.
 
 
 
