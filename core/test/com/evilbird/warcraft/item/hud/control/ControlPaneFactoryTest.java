@@ -1,0 +1,54 @@
+/*
+ * Copyright (c) 2019, Blair Butterworth
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *        https://opensource.org/licenses/MIT
+ */
+
+package com.evilbird.warcraft.item.hud.control;
+
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
+import com.evilbird.test.data.device.TestAssets;
+import com.evilbird.test.testcase.GameTestCase;
+import com.evilbird.warcraft.item.hud.HudControl;
+import com.evilbird.warcraft.item.hud.control.actions.ActionButtonStyle;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+/**
+ * Instances of this unit test validate the {@link ControlPaneFactory} class.
+ *
+ * @author Blair Butterworth
+ */
+public class ControlPaneFactoryTest extends GameTestCase
+{
+    private static final String ACTION_BUTTON = "data/textures/neutral/perennial/action.png";
+
+    private ControlPaneFactory factory;
+    private AssetManager assets;
+
+    @Before
+    public void setup() {
+        assets = TestAssets.newAssetManagerMock();
+        factory = new ControlPaneFactory(assets);
+    }
+
+    @Test
+    public void loadTest() {
+        factory.load();
+        Mockito.verify(assets).load(ACTION_BUTTON, Texture.class);
+    }
+
+    @Test
+    public void getTest() {
+        ControlPane controlPane = factory.get();
+        Assert.assertNotNull(controlPane);
+        Assert.assertEquals(HudControl.ControlPane, controlPane.getType());
+        Assert.assertTrue(controlPane.getSkin().has("action-button", ActionButtonStyle.class));
+    }
+}

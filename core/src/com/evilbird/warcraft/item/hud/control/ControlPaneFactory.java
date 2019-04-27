@@ -60,7 +60,11 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
 
     @Inject
     public ControlPaneFactory(Device device) {
-        this.assets = device.getAssetStorage();
+        this(device.getAssetStorage());
+    }
+
+    public ControlPaneFactory(AssetManager assets) {
+        this.assets = assets;
     }
 
     @Override
