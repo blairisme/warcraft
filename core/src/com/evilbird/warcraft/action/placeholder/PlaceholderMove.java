@@ -17,6 +17,9 @@ import com.evilbird.engine.item.ItemRoot;
 
 import javax.inject.Inject;
 
+import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_HEIGHT;
+import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+
 /**
  * Instances of this class reposition a given placeholder to the location of
  * the given input.
@@ -37,10 +40,14 @@ public class PlaceholderMove extends BasicAction
 
         ItemRoot root = item.getRoot();
         Vector2 position = root.unproject(input.getPosition());
-        position.x -= item.getWidth() / 2;
-        position.y -= item.getHeight() / 2;
-        item.setPosition(position);
 
+        position.x -= item.getWidth()/2;
+        position.y -= item.getHeight()/2;
+
+        position.x = Math.round(position.x/TILE_WIDTH) * TILE_WIDTH;
+        position.y = Math.round(position.y/TILE_HEIGHT) * TILE_HEIGHT;
+
+        item.setPosition(position);
         return true;
     }
 }

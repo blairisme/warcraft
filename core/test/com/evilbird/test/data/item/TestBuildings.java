@@ -16,6 +16,7 @@ import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
+import static com.evilbird.test.data.item.TestItemRoots.newTestRoot;
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;
 
 public class TestBuildings
@@ -28,7 +29,7 @@ public class TestBuildings
     }
 
     public static Building newTestBuilding(Identifier identifier, Identifier type) {
-        return newTestBuilding(identifier, type, TestItemRoots.newTestRoot("root"), newTestPlayer("parent"));
+        return newTestBuilding(identifier, type, newTestRoot("root"), newTestPlayer("parent"));
     }
 
     public static Building newTestBuilding(Identifier identifier, Identifier type, ItemRoot root, Player parent) {
