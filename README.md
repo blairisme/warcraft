@@ -8,7 +8,14 @@
 
 Warcraft 2 port for Android, iOS, Windows and OS X.
 
+![Alt text](/docs/combined.png?raw=true "Optional Title")
+
+
 Newton is a data analysis platform created by a team from the Computer Science
 department of University College London. It provides users the ability to carry
 out data science operations on a variable set of data, automatically fetched and
 made available for analysis.
+
+
+
+
