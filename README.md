@@ -29,7 +29,7 @@
 
 ---
 
-An unofficial fan made recreation of Warcraft 2, created so that this excellent game can be enjoyed on modern devices. This application is a homage to the original and as such, all copyright and legal ownership remains with the original creators of this game, Blizzard.
+An unofficial recreation of Warcraft 2, made so that this excellent game can be enjoyed by fans of the original on modern platforms. This application is a tribute to the original and as such, all copyright and legal ownership remain with the games original author, Blizzard.
 
 
 
