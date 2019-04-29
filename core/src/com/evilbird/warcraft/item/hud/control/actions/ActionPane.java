@@ -16,14 +16,13 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.action.menu.MenuProvider;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.unit.building.Building;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
+import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonDetails.hasResources;
 import static com.evilbird.warcraft.item.hud.control.actions.ActionPaneView.Actions;
 
 /**
@@ -36,11 +35,13 @@ public class ActionPane extends GridItem implements MenuProvider
 {
     private ActionPaneView view;
     private List<Item> selection;
+    private Map<ResourceType, Float> resources;
 
     public ActionPane(Skin skin) {
         super(3, 3);
         this.view = Actions;
         this.selection = new ArrayList<>();
+        this.resources = new HashMap<>();
 
         setSkin(skin);
         setBackground("action-panel");
@@ -51,6 +52,18 @@ public class ActionPane extends GridItem implements MenuProvider
         setIdentifier(HudControl.ActionPane);
         setType(HudControl.ActionPane);
         setTouchable(Touchable.childrenOnly);
+    }
+
+    public void setConstructing(Building building, boolean constructing) {
+        if (selection.contains(building)) {
+            updateView(constructing);
+        }
+    }
+
+    public void setProducing(Building building, boolean producing) {
+        if (selection.contains(building)) {
+            updateView(producing);
+        }
     }
 
     public void setSelected(Collection<Item> newSelection) {
@@ -70,16 +83,9 @@ public class ActionPane extends GridItem implements MenuProvider
         updateView();
     }
 
-    public void setConstructing(Building building, boolean constructing) {
-        if (selection.contains(building)) {
-            updateView(constructing);
-        }
-    }
-
-    public void setProducing(Building building, boolean producing) {
-        if (selection.contains(building)) {
-            updateView(producing);
-        }
+    public void setResource(ResourceType resource, float value) {
+        resources.put(resource, value);
+        updateView();
     }
 
     @Override
@@ -117,8 +123,8 @@ public class ActionPane extends GridItem implements MenuProvider
     private List<ActionButtonType> getActions(Collection<Item> selection) {
         switch (view) {
             case Actions: return getItemActions(selection);
-            case SimpleBuildings: return ActionBindings.getSimpleBuildingButtons();
-            case AdvancedBuildings: return ActionBindings.getAdvancedBuildingButtons();
+            case SimpleBuildings: return ActionButtonDetails.getSimpleBuildingButtons();
+            case AdvancedBuildings: return ActionButtonDetails.getAdvancedBuildingButtons();
             default: throw new UnsupportedOperationException();
         }
     }
@@ -129,11 +135,11 @@ public class ActionPane extends GridItem implements MenuProvider
 
         if (selectionIterator.hasNext()) {
             Item item = selectionIterator.next();
-            result.addAll(ActionBindings.getActionButtons(item));
+            result.addAll(ActionButtonDetails.getActionButtons(item));
 
             while (selectionIterator.hasNext()) {
                 item = selectionIterator.next();
-                result.retainAll(ActionBindings.getActionButtons(item));
+                result.retainAll(ActionButtonDetails.getActionButtons(item));
             }
         }
         return result;
@@ -147,10 +153,10 @@ public class ActionPane extends GridItem implements MenuProvider
         return result;
     }
 
-    private ActionButton getButton(ActionButtonType action) {
-        ActionButton result = new ActionButton(getSkin());
-        result.setType(action);
-        //result.setTouchable(meetsResourceRequirements(action) ? Touchable.enabled : Touchable.disabled);
-        return result;
+    private ActionButton getButton(ActionButtonType type) {
+        ActionButton button = new ActionButton(getSkin());
+        button.setType(type);
+        button.setEnabled(hasResources(type, resources));
+        return button;
     }
 }

@@ -28,7 +28,12 @@ public class ResourceTransferEvent implements Event
     private float oldValue;
     private float newValue;
 
-    public ResourceTransferEvent(ResourceContainer recipient, ResourceType resource, float oldValue, float newValue) {
+    public ResourceTransferEvent(
+        ResourceContainer recipient,
+        ResourceType resource,
+        float oldValue,
+        float newValue)
+    {
         this.recipient = recipient;
         this.resource = resource;
         this.oldValue = oldValue;

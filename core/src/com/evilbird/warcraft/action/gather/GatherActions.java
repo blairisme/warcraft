@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.warcraft.action.common.resource.ResourceQuantity;
+import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 
 /**

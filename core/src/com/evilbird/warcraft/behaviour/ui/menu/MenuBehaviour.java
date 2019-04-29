@@ -100,9 +100,11 @@ public class MenuBehaviour implements Behaviour
     }
 
     private void initializeResources() {
-        resourcePane.setGold(player.getResource(ResourceType.Gold));
-        resourcePane.setOil(player.getResource(ResourceType.Oil));
-        resourcePane.setWood(player.getResource(ResourceType.Wood));
+        for (ResourceType resourceType: ResourceType.values()) {
+            float resourceValue = player.getResource(resourceType);
+            actionPane.setResource(resourceType, resourceValue);
+            resourcePane.setResource(resourceType, resourceValue);
+        }
     }
 
     private void initializeSelection(ItemRoot world) {
@@ -121,6 +123,7 @@ public class MenuBehaviour implements Behaviour
     private void updateResourceRecipients() {
         for (ResourceTransferEvent event: events.getEvents(ResourceTransferEvent.class)) {
             if (event.getSubject() == player) {
+                actionPane.setResource(event.getResource(), event.getValue());
                 resourcePane.setResource(event.getResource(), event.getValue());
             }
         }

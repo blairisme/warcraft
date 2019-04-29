@@ -15,6 +15,7 @@ import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
+import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.DataType;
 
@@ -46,15 +47,27 @@ public class ResourceTransferAction extends BasicAction
         this.observer = observer;
     }
 
-    public static Action purchase(ResourceQuantity amount, ResourceTransferObserver observer) {
+    public static Action purchase(
+        ResourceQuantity amount,
+        ResourceTransferObserver observer)
+    {
         return new ResourceTransferAction(Player, amount, -1, observer);
     }
 
-    public static Action refund(ResourceQuantity amount, float proportion, ResourceTransferObserver observer) {
+    public static Action refund(
+        ResourceQuantity amount,
+        float proportion,
+        ResourceTransferObserver observer)
+    {
         return new ResourceTransferAction(Player, amount, proportion, observer);
     }
 
-    public static Action transfer(ActionRecipient from, ActionRecipient to, ResourceQuantity amount, ResourceTransferObserver observer) {
+    public static Action transfer(
+        ActionRecipient from,
+        ActionRecipient to,
+        ResourceQuantity amount,
+        ResourceTransferObserver observer)
+    {
         Action transferFrom = new ResourceTransferAction(from, amount, -1, observer);
         Action transferTo = new ResourceTransferAction(to, amount, 1, observer);
         return new ParallelAction(transferFrom, transferTo);

@@ -43,6 +43,9 @@ public class InteractionBehaviour implements Behaviour
     private Item camera;
     private Collection<Item> selected;
 
+    private Item target;
+    private Collection<Interaction> actions;
+
     private EventQueue events;
     private Interactions interactions;
 
@@ -82,9 +85,6 @@ public class InteractionBehaviour implements Behaviour
             }
         }
     }
-
-    private Item target;
-    private Collection<Interaction> actions;
 
     private void evaluateInputs(State state, List<UserInput> inputs) {
         if (! inputs.isEmpty()) {

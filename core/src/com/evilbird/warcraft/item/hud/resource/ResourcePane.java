@@ -44,26 +44,14 @@ public class ResourcePane extends TableItem
 
     public void setResource(ResourceType resource, float value) {
         if (resource == ResourceType.Gold) {
-            setGold(value);
+            goldLabel.setText(String.valueOf(Math.round(value)));
         }
         else if (resource == ResourceType.Oil) {
-            setOil(value);
+            oilLabel.setText(String.valueOf(Math.round((value))));
         }
         else if (resource == ResourceType.Wood) {
-            setWood(value);
+            woodLabel.setText(String.valueOf(Math.round(value)));
         }
-    }
-
-    public void setGold(float gold) {
-        goldLabel.setText(String.valueOf(Math.round(gold)));
-    }
-
-    public void setOil(float oil) {
-        oilLabel.setText(String.valueOf(Math.round(oil)));
-    }
-
-    public void setWood(float wood) {
-        woodLabel.setText(String.valueOf(Math.round(wood)));
     }
 
     private Table addContainer(Drawable background) {

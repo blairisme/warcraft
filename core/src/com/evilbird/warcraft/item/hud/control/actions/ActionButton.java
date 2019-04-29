@@ -30,7 +30,12 @@ public class ActionButton extends TableItem
 
     public ActionButton(Skin skin) {
         initialize(skin);
-        icon = addIcon(skin);
+        icon = addIcon();
+    }
+
+    public void setEnabled(boolean enabled) {
+        icon.setDisabled(!enabled);
+        setTouchable(enabled ? Touchable.enabled : Touchable.disabled);
     }
 
     public void setType(ActionButtonType buttonType) {
@@ -44,7 +49,7 @@ public class ActionButton extends TableItem
         setBackground(getActionStyle().background);
     }
 
-    private ImageButton addIcon(Skin skin) {
+    private ImageButton addIcon() {
         ImageButton icon = new ImageButton(getIconStyle(CancelButton));
         Cell cell = add(icon);
         cell.pad(2);
@@ -61,7 +66,7 @@ public class ActionButton extends TableItem
         ActionButtonStyle actionStyle = getActionStyle();
         ImageButtonStyle buttonStyle = new ImageButtonStyle();
         buttonStyle.imageUp = actionStyle.icons.get(buttonType);
-        buttonStyle.disabled = actionStyle.disabledIcons.get(buttonType);
+        buttonStyle.imageDisabled = actionStyle.disabledIcons.get(buttonType);
         return buttonStyle;
     }
 }
