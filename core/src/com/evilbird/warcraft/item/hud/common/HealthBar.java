@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.hud.common;
 
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 /**
  * Instances of this user interface control represents a health bar, a progress
@@ -20,32 +21,59 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
  */
 public class HealthBar extends ProgressBar
 {
+    private enum HealthStyle {
+        High,
+        Medium,
+        Low
+    }
+
     private Skin skin;
-    private String style;
+    private HealthStyle style;
 
     public HealthBar(float min, float max, Skin skin) {
-        super(min, max, 1, false, skin, "health-progress-high");
+        super(min, max, 1, false, getStyle(skin, HealthStyle.High));
         this.skin = skin;
-        this.style = "health-progress-high";
+        this.style = HealthStyle.High;
     }
 
     @Override
-    public boolean setValue(float progress) {
-//        if (progress >= 0f && progress < 0.33f) {
-//            setStyle("health-progress-low");
-//        } else if (progress >= 0.33f && progress < 0.66f) {
-//            setStyle("health-progress-medium");
-//        } else {
-//            setStyle("health-progress-high");
-//        }
-
-        return super.setValue(progress);
+    public boolean setValue(float value) {
+        boolean result = super.setValue(value);
+        setStyle(getPercent());
+        return result;
     }
 
-    private void setStyle(String name) {
-        if (!name.equals(style)) {
-            style = name;
-            setStyle(skin.get(name, ProgressBarStyle.class));
+    private void setStyle(float progress) {
+        if (progress >= 0f && progress < 0.33f) {
+            setStyle(skin, HealthStyle.Low);
+        } else if (progress >= 0.33f && progress < 0.66f) {
+            setStyle(skin, HealthStyle.Medium);
+        } else {
+            setStyle(skin, HealthStyle.High);
         }
+    }
+
+    private void setStyle(Skin skin, HealthStyle newStyle) {
+        if (style != newStyle) {
+            style = newStyle;
+            setStyle(getStyle(skin, newStyle));
+        }
+    }
+
+    private static ProgressBarStyle getStyle(Skin skin, HealthStyle styleName) {
+        HealthBarStyle healthStyle = skin.get("default", HealthBarStyle.class);
+        switch (styleName) {
+            case High: return getStyle(healthStyle.highBar);
+            case Medium: return getStyle(healthStyle.mediumBar);
+            case Low: return getStyle(healthStyle.lowBar);
+            default: throw new UnsupportedOperationException();
+        }
+    }
+
+    private static ProgressBarStyle getStyle(Drawable drawable) {
+        ProgressBarStyle style = new ProgressBarStyle();
+        style.knob = drawable;
+        style.knobBefore = drawable;
+        return style;
     }
 }

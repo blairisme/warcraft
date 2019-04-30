@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
+import com.evilbird.warcraft.item.hud.common.HealthBarStyle;
 import com.evilbird.warcraft.item.hud.control.actions.ActionButtonStyle;
 import com.evilbird.warcraft.item.hud.control.actions.ActionButtonType;
 
@@ -95,9 +96,9 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
     private Skin getSkin() {
         Skin skin = new Skin();
         skin.add("default", getDefaultFont());
+        skin.add("default", getHealthBarStyle());
         skin.add("button-thin-medium", getButtonStyle());
         skin.add("building-progress", getBuildingProgressStyle());
-        skin.add("health-progress-high", getHealthProgressHigh());
         skin.add("action-button", getActionButtonStyle());
         skin.add("action-panel", getDrawable(assets, ACTION_PANEL), Drawable.class);
         skin.add("details-panel", getDrawable(assets, DETAILS_PANEL), Drawable.class);
@@ -142,10 +143,11 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
         return style;
     }
 
-    private ProgressBarStyle getHealthProgressHigh() {
-        ProgressBarStyle style = new ProgressBarStyle();
-        style.knob = getDrawable(assets, HEALTH_PROGRESS_HIGH);
-        style.knobBefore = style.knob;
+    private HealthBarStyle getHealthBarStyle() {
+        HealthBarStyle style = new HealthBarStyle();
+        style.highBar = getDrawable(assets, HEALTH_PROGRESS_HIGH);
+        style.mediumBar = getDrawable(assets, HEALTH_PROGRESS_MEDIUM);
+        style.lowBar = getDrawable(assets, HEALTH_PROGRESS_LOW);
         return style;
     }
 

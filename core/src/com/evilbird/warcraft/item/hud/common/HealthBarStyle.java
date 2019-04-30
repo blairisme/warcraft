@@ -11,6 +11,11 @@ package com.evilbird.warcraft.item.hud.common;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
+/**
+ * Specifies the graphical representation of the {@link HealthBar} control.
+ *
+ * @author Blair Butterworth
+ */
 public class HealthBarStyle
 {
     public Drawable highBar;

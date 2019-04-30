@@ -35,6 +35,11 @@ import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
 import static com.evilbird.engine.common.file.FileType.MP3;
 
+/**
+ * Instances of this factory create Grunts, Orcish {@link Combatant Combatants}.
+ *
+ * @author Blair Butterworth
+ */
 public class GruntProvider implements AssetProvider<Item>
 {
     private static final String BASE = "data/textures/orc/perennial/grunt.png";
@@ -78,8 +83,8 @@ public class GruntProvider implements AssetProvider<Item>
         result.setAnimation(UnitAnimation.Idle);
         result.setAvailableSounds(getSounds());
         result.setDefence(2);
-        result.setDamageMinimum(2);
-        result.setDamageMaximum(9);
+        result.setDamageMinimum(10); //2
+        result.setDamageMaximum(19); //9
         result.setHealth(60);
         result.setHealthMaximum(60);
         result.setIcon(getIcon());
