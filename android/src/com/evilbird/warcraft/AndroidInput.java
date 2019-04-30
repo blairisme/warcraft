@@ -19,7 +19,6 @@ import com.evilbird.engine.device.UserInputType;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Finish zoom implementation
 public class AndroidInput implements DeviceInput, GestureDetector.GestureListener
 {
     private List<UserInput> inputs;
