@@ -18,20 +18,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Instances of this unit test validate the {@link WarcraftStateAssetLoader} class.
+ * Instances of this unit test validate the {@link WarcraftStateFileLoader} class.
  *
  * @author Blair Butterworth
  */
-public class WarcraftStateAssetLoaderTest extends GameTestCase
+public class WarcraftStateFileLoaderTest extends GameTestCase
 {
     private TiledMapLoader mapLoader;
-    private WarcraftStateAssetLoader assetloader;
+    private WarcraftStateFileLoader assetloader;
 
     @Before
     public void setup() {
         super.setup();
         mapLoader = new TiledMapLoader(new TestFileHandleResolver());
-        assetloader = new WarcraftStateAssetLoader(itemFactory, mapLoader);
+        assetloader = new WarcraftStateFileLoader(itemFactory, mapLoader);
     }
 
     @Test

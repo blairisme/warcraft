@@ -31,7 +31,7 @@ import static com.evilbird.warcraft.state.WarcraftStateAsset.Level1;
 public class WarcraftStateAdapterTest extends GameTestCase
 {
     private WarcraftStateAdapter adapter;
-    private WarcraftStateAssetLoader assetLoader;
+    private WarcraftStateFileLoader assetLoader;
     private TiledMapLoader mapLoader;
     private TestFileHandleResolver resolver;
 
@@ -40,7 +40,7 @@ public class WarcraftStateAdapterTest extends GameTestCase
         super.setup();
         resolver = new TestFileHandleResolver();
         mapLoader = new TiledMapLoader(resolver);
-        assetLoader = new WarcraftStateAssetLoader(itemFactory, mapLoader);
+        assetLoader = new WarcraftStateFileLoader(itemFactory, mapLoader);
         adapter = new WarcraftStateAdapter(itemFactory, behaviourFactory, assetLoader);
     }
 

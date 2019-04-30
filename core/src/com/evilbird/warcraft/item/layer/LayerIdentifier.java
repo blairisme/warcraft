@@ -10,7 +10,6 @@
 package com.evilbird.warcraft.item.layer;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.evilbird.engine.common.maps.TiledMapFile;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
@@ -35,10 +34,6 @@ public class LayerIdentifier implements ItemType
 
     @SerializedConstructor
     private LayerIdentifier() {
-    }
-
-    public LayerIdentifier(TiledMapFile map, TiledMapTileLayer layer) {
-        this(map.getFile(), layer.getName(), layer);
     }
 
     public LayerIdentifier(String file, String name, TiledMapTileLayer layer){

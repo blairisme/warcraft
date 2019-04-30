@@ -38,21 +38,21 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
 
     private ItemFactory itemFactory;
     private BehaviourFactory behaviourFactory;
-    private WarcraftStateAssetLoader assetLoader;
+    private WarcraftStateFileLoader assetLoader;
 
     @SerializedConstructor
     public WarcraftStateAdapter() {
         GameService service = GameService.getInstance();
         this.itemFactory = service.getItemFactory();
         this.behaviourFactory = service.getBehaviourFactory();
-        this.assetLoader = new WarcraftStateAssetLoader(itemFactory);
+        this.assetLoader = new WarcraftStateFileLoader(itemFactory);
     }
 
     @Inject
     public WarcraftStateAdapter(
         ItemFactory itemFactory,
         BehaviourFactory behaviourFactory,
-        WarcraftStateAssetLoader assetLoader)
+        WarcraftStateFileLoader assetLoader)
     {
         this.itemFactory = itemFactory;
         this.assetLoader = assetLoader;
@@ -93,7 +93,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
 
     private ItemRoot deserializeWorld(JsonObject json, JsonDeserializationContext context) {
         JsonObject world = json.get(WORLD).getAsJsonObject();
-        if (world.has("enum")) { //TODO: fragile
+        if (world.has("enum")) {
             WarcraftStateAsset identifier = context.deserialize(world, Identifier.class);
             return assetLoader.load(identifier);
         }

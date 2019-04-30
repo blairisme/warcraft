@@ -43,7 +43,7 @@ public class WarcraftStateServiceTest extends GameTestCase
     private JsonSerializer serializer;
     private DeviceStorage deviceStorage;
     private TestFileHandleResolver assetStorage;
-    private WarcraftStateAssetLoader assetLoader;
+    private WarcraftStateFileLoader assetLoader;
     private WarcraftStateAdapter adapter;
     private WarcraftStateService service;
 
@@ -52,7 +52,7 @@ public class WarcraftStateServiceTest extends GameTestCase
         super.setup();
         deviceStorage = Mockito.mock(DeviceStorage.class);
         assetStorage = new TestFileHandleResolver();
-        assetLoader = new WarcraftStateAssetLoader(itemFactory, assetStorage);
+        assetLoader = new WarcraftStateFileLoader(itemFactory, assetStorage);
         adapter = new WarcraftStateAdapter(itemFactory, behaviourFactory, assetLoader);
         serializer = new JsonSerializer(new WarcraftTypeRegistry(), Maps.of(WarcraftState.class, adapter));
         service = new WarcraftStateService(deviceStorage, assetStorage, serializer);
