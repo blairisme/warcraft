@@ -117,6 +117,7 @@ public class Interactions
         interactions.addAction(GatherCancel).whenTarget(CancelButton).whenSelected(Peasant).withAction(GatherWood).appliedTo(Selected);
 
         interactions.addAction(TrainFootmanCancel).whenTarget(CancelButton).whenSelected(Barracks).withAction(TrainFootman).appliedTo(Selected);
+        interactions.addAction(TrainPeasantCancel).whenTarget(CancelButton).whenSelected(TownHall).withAction(TrainPeasant).appliedTo(Selected);
     }
 
     private void addMenuInteractions() {

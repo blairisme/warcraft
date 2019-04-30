@@ -94,8 +94,19 @@ public class ActionPane extends GridItem implements MenuProvider
         updateView();
     }
 
+    private boolean showCancel() {
+        if (selection.size() == 1) {
+            Item selected = selection.get(0);
+            if (selected instanceof Building) {
+                Building building = (Building)selected;
+                return building.isProducing() || building.isConstructing();
+            }
+        }
+        return false;
+    }
+
     private void updateView() {
-        updateView(false);
+        updateView(showCancel());
     }
 
     private void updateView(boolean showCancel) {
