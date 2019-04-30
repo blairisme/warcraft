@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.FeatureAction;
+import com.evilbird.engine.action.framework.ScenarioSetAction;
 import com.evilbird.engine.item.Item;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -29,7 +29,7 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
  *
  * @author Blair Butterworth
  */
-public class SelectSequence extends FeatureAction
+public class SelectSequence extends ScenarioSetAction
 {
     private transient SelectReporter observer;
     private transient Boolean selected;

@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.FeatureAction;
+import com.evilbird.engine.action.framework.ScenarioSetAction;
 import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -43,7 +43,7 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Die;
  *
  * @author Blair Butterworth
  */
-public class AttackSequence extends FeatureAction
+public class AttackSequence extends ScenarioSetAction
 {
     private transient AttackReporter reporter;
 

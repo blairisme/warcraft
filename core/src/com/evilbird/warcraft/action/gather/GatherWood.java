@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.FeatureAction;
+import com.evilbird.engine.action.framework.ScenarioSetAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 
@@ -41,7 +41,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
  *
  * @author Blair Butterworth
  */
-public class GatherWood extends FeatureAction
+public class GatherWood extends ScenarioSetAction
 {
     private transient GatherReporter reporter;
 

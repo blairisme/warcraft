@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.construct;
 
-import com.evilbird.engine.action.framework.FeatureAction;
+import com.evilbird.engine.action.framework.ScenarioSetAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -45,7 +45,7 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Complete;
  *
  * @author Blair Butterworth
  */
-public class ConstructSequence extends FeatureAction
+public class ConstructSequence extends ScenarioSetAction
 {
     private transient ConstructReporter reporter;
 

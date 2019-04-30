@@ -13,6 +13,12 @@ import com.evilbird.engine.action.Action;
 
 import java.util.function.Predicate;
 
+/**
+ * Represents an {@link Action} whose that will only be invoked if a given
+ * condition evaluates to {@code true}.
+ *
+ * @author Blair Butterworth
+ */
 public class OptionalAction extends BranchAction
 {
     public OptionalAction(Action action, Predicate<Action> condition) {

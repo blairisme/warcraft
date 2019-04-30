@@ -13,11 +13,17 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
 
-public class FeatureAction extends ParallelAction
+/**
+ * Represents a collection of {@link ScenarioAction scenarios} whose operation
+ * is specified in a syntax akin to a Gherkin feature.
+ *
+ * @author Blair Butterworth
+ */
+public class ScenarioSetAction extends ParallelAction
 {
     private boolean reevaluate;
 
-    public FeatureAction() {
+    public ScenarioSetAction() {
         super();
     }
 
