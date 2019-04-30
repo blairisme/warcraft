@@ -42,9 +42,9 @@
 
         <!-- Unfinished code -->
         <module name="UnusedImports"/>
-        <!--<module name="TodoComment">-->
-            <!--<property name="format" value="(TODO)|(Todo)|(todo)"/>-->
-        <!--</module>-->
+        <module name="TodoComment">
+            <property name="format" value="(TODO)|(Todo)|(todo)"/>
+        </module>
         <!--<module name="JavadocType">-->
             <!--<property name="scope" value="public"/>-->
             <!--<property name="authorFormat" value="\S"/>-->
