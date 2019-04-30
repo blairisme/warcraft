@@ -88,13 +88,17 @@ public class OutroMenu extends Menu
         State state = engine.getState();
 
         if (state != null) {
-            ItemRoot world = state.getWorld();
-            Player human = getHumanPlayer(world);
-            Player ai = getAiPlayer(world);
-
-            updateSummary(human);
-            updateDetails(human, ai);
+            updateView(state);
         }
+    }
+
+    private void updateView(State state) {
+        ItemRoot world = state.getWorld();
+        Player human = getHumanPlayer(world);
+        Player ai = getAiPlayer(world);
+
+        updateSummary(human);
+        updateDetails(human, ai);
     }
 
     private Table createContainer() {
