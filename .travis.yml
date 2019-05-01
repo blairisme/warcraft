@@ -1,12 +1,15 @@
 dist: trusty
 
-language: java
+language: android
+jdk: oraclejdk8
+android:
+  components:
+    - tools
+    - android-24
+    - build-tools-28.0.3
 
-jdk:
-  - oraclejdk8
-
-script:
-  - ./build.sh
+    script:
+      - ./gradlew clean build report
 
 #after_success:
 #  - bash <(curl -s https://codecov.io/bash)
