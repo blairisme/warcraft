@@ -1,17 +1,23 @@
 dist: trusty
 
-language: android
-jdk: oraclejdk8
+matrix:
+  include:
+    - language: java
+      jdk: oraclejdk8
+      script:
+        - ./gradlew :core:clean :desktop:clean :core:build :desktop:build
 
-android:
-  components:
-    - platform-tools
-    - tools
-    - build-tools-28.0.3
-    - android-24
-
-script:
-  - ./gradlew clean build report
+    - language: android
+      jdk: oraclejdk8
+      android:
+        components:
+          - platform-tools
+          - tools
+          - build-tools-28.0.3
+          - android-24
+      script:
+        - ./gradlew :android:clean :android:assemble
 
 #after_success:
+#  - ./gradlew report
 #  - bash <(curl -s https://codecov.io/bash)
