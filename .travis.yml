@@ -9,6 +9,6 @@ android:
 script:
   - ./gradlew clean :core:build :desktop:build
 
-#after_success:
-#  - ./gradlew report
+after_success:
+  - ./gradlew report
 #  - bash <(curl -s https://codecov.io/bash)
