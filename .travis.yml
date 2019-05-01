@@ -7,7 +7,7 @@ android:
     - android-24
 
 script:
-  - ./gradlew clean
+  - ./gradlew clean :core:build
 
 #after_success:
 #  - ./gradlew report
