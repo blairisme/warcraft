@@ -3,12 +3,12 @@
 <h4 align="center">Warcraft 2 port for Android, iOS, Windows and OS X. </h4>
 
 <p align="center">
-    <a href="https://travis-ci.com/blairisme/newton">
-        <img src="https://travis-ci.com/blairisme/newton.svg?branch=master"
+    <a href="https://travis-ci.com/blairisme/warcraft">
+        <img src="https://travis-ci.com/blairisme/warcraft.svg?token=xAbCzFqN7meosKLcCcxB&branch=develop"
             alt="Build Status"/>
     </a>
-    <a href="https://codecov.io/gh/blairisme/newton">
-        <img src="https://codecov.io/gh/blairisme/newton/branch/master/graph/badge.svg"
+    <a href="https://codecov.io/gh/blairisme/warcraft">
+        <img src="https://codecov.io/gh/blairisme/warcraft/branch/develop/graph/badge.svg?token=mJVgDaze7L" 
             alt="Code Coverage"/>
     </a>
     <a href="https://www.codacy.com/app/blairisme/newton?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=blairisme/newton&amp;utm_campaign=Badge_Grade">
@@ -19,7 +19,7 @@
         <img src="https://img.shields.io/badge/release-v0.1-blue.svg"
             alt="Build Release"/>
     </a>
-    <a href="https://github.com/blairisme/newton/blob/master/LICENSE">
+    <a href="https://github.com/blairisme/warcraft/blob/develop/LICENSE">
         <img src="https://img.shields.io/badge/license-MIT-blue.svg"
             alt="MIT License"/>
     </a>

@@ -11,3 +11,11 @@ script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t fdb74fd7-f5ad-4d56-bf0a-43ec5a43f491
+
+#deploy:
+#  provider: releases
+#  api_key: "GITHUB OAUTH TOKEN"
+#  file: "FILE TO UPLOAD"
+#  skip_cleanup: true
+#  on:
+#    tags: true
