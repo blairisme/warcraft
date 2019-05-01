@@ -7,8 +7,7 @@ android:
     - android-24
 
 script:
-  - ./gradlew clean :core:build :desktop:build
+  - ./gradlew clean :core:build :desktop:build report
 
 after_success:
-  - ./gradlew report
-#  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash) -t fdb74fd7-f5ad-4d56-bf0a-43ec5a43f491
