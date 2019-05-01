@@ -2,14 +2,16 @@ dist: trusty
 
 language: android
 jdk: oraclejdk8
+
 android:
   components:
+    - platform-tools
     - tools
-    - android-24
     - build-tools-28.0.3
+    - android-24
 
-    script:
-      - ./gradlew clean build report
+script:
+  - ./gradlew clean build report
 
 #after_success:
 #  - bash <(curl -s https://codecov.io/bash)
