@@ -9,90 +9,55 @@
 
 package com.evilbird.warcraft.menu.main;
 
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Cell;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Value;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.evilbird.engine.control.SelectListener;
 import com.evilbird.engine.control.SelectListenerAdapter;
-import com.evilbird.engine.control.StyledButton;
 import com.evilbird.engine.menu.Menu;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Collection;
 
+/**
+ * Represents a user interface shown as the user enters the application, that
+ * contains a options to start a new game, load and existing game or modify the
+ * games settings.
+ *
+ * @author Blair Butterworth
+ */
 public class MainMenu extends Menu
 {
+    private Skin skin;
     private Table table;
-    private Collection<StyledButton> buttons;
 
     @Inject
-    public MainMenu() {
-        table = createTable();
-        buttons = new ArrayList<>();
+    public MainMenu(Skin skin) {
+        this.skin = skin;
+        this.table = createTable();
+        updateStyle();
+    }
+
+    public Skin getSkin() {
+        return skin;
     }
 
     public void insertButton(String text) {
-        StyledButton button = createButton(text);
+        TextButton button = createButton(text);
         insertButton(table, button);
-        buttons.add(button);
     }
 
     public void insertButton(String text, SelectListener action) {
-        StyledButton button = createButton(text, action);
+        TextButton button = createButton(text, action);
         insertButton(table, button);
-        buttons.add(button);
     }
 
-    public void setBackground(Drawable background) {
-        table.setBackground(background);
-    }
-
-//    public void setButtonTextures(Drawable enabled, Drawable selected, Drawable disabled) {
-//        for (StyledButton button: buttons) {
-//            button.setEnabledTexture(enabled);
-//            button.setDisabledTexture(disabled);
-//            button.setSelectedTexture(selected);
-//        }
-//    }
-
-    public void setButtonEnabled(Drawable drawable) {
-        for (StyledButton button: buttons) {
-            button.setEnabledTexture(drawable);
-        }
-    }
-
-    public void setButtonDisabled(Drawable drawable) {
-        for (StyledButton button: buttons) {
-            button.setDisabledTexture(drawable);
-        }
-    }
-
-    public void setButtonSelected(Drawable drawable) {
-        for (StyledButton button: buttons) {
-            button.setSelectedTexture(drawable);
-        }
-    }
-
-    public void setButtonFont(BitmapFont font){
-        for (StyledButton button: buttons) {
-            button.setFont(font);
-        }
-    }
-
-    public void setButtonSound(Sound sound) {
-        for (StyledButton button: buttons) {
-            button.setClickSound(sound);
-        }
+    private void updateStyle() {
+        MainMenuStyle style = skin.get("default", MainMenuStyle.class);
+        table.setBackground(style.background);
+        setMusic(style.music);
     }
 
     private Table createTable() {
-        Table table = new Table();
+        Table table = new Table(skin);
         table.setFillParent(true);
         table.center();
         table.padTop(150f);
@@ -103,12 +68,12 @@ public class MainMenu extends Menu
         return table;
     }
 
-    private StyledButton createButton(String text) {
+    private TextButton createButton(String text) {
         return createButton(text, null);
     }
 
-    private StyledButton createButton(String text, SelectListener action) {
-        StyledButton button = new StyledButton(text);
+    private TextButton createButton(String text, SelectListener action) {
+        TextButton button = new TextButton(text, skin);
         button.setDisabled(true);
 
         if (action != null) {

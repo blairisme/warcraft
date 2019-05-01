@@ -24,6 +24,18 @@ import com.evilbird.warcraft.menu.outro.OutroMenuType;
 
 import javax.inject.Inject;
 
+/**
+ * Instances of this factory create {@link Menu Menus} whose contents are
+ * specified by the given menu identifiers. This class supports creation of
+ * main menus, level introduction and completion menus and in-game menus.
+ *
+ * @see MainMenuType
+ * @see IntroMenuType
+ * @see OutroMenuType
+ * @see IngameMenuType
+ *
+ * @author Blair Butterworth
+ */
 public class WarcraftMenuFactory implements MenuFactory
 {
     private IdentifiedAssetProviderSet<Menu> factories;
@@ -36,7 +48,7 @@ public class WarcraftMenuFactory implements MenuFactory
         IngameMenuFactory ingameMenuFactory)
     {
         this.factories = new IdentifiedAssetProviderSet<>();
-        this.factories.addProvider(mainMenuFactory);
+        this.factories.addProvider(MainMenuType.values(), mainMenuFactory);
         this.factories.addProvider(IntroMenuType.values(), introMenuFactory);
         this.factories.addProvider(OutroMenuType.values(), outroMenuFactory);
         this.factories.addProvider(IngameMenuType.values(), ingameMenuFactory);

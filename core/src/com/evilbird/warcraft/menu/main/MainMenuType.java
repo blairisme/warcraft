@@ -11,6 +11,12 @@ package com.evilbird.warcraft.menu.main;
 
 import com.evilbird.engine.menu.MenuIdentifier;
 
+/**
+ * Defines options for main menu varieties: those menus shown when the user
+ * enters the application.
+ *
+ * @author Blair Butterworth
+ */
 public enum MainMenuType implements MenuIdentifier
 {
     Home,

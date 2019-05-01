@@ -127,7 +127,7 @@ public class Interactions
         interactions.addAction(IngameMenu).whenTarget(MenuPane).appliedTo(Target);
     }
 
-    public void addConstructInteractions() {
+    private void addConstructInteractions() {
         interactions.addAction(AddBarracksPlaceholder).whenTarget(BuildBarracksButton).whenSelected(Peasant).appliedTo(Selected);
         interactions.addAction(AddFarmPlaceholder).whenTarget(BuildFarmButton).whenSelected(Peasant).appliedTo(Selected);
         interactions.addAction(AddTownHallPlaceholder).whenTarget(BuildTownHallButton).whenSelected(Peasant).appliedTo(Selected);
