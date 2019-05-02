@@ -35,8 +35,6 @@ public class ForestCell extends ItemBasic implements ResourceContainer
     public ForestCell() {
         setType(LayerType.Tree);
         setTouchable(Touchable.enabled);
-        setSelectable(false);
-        setSelected(false);
         setVisible(false);
     }
 

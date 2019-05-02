@@ -93,22 +93,34 @@ public class UnitPredicates
     }
 
     public static Predicate<Item> isSelected() {
-        return Item::getSelected;
-    }
+        return (item) -> {
+            if (item instanceof Unit) {
+                Unit unit = (Unit)item;
+                return unit.getSelected();
+            }
+            return false;
 
-    public static Predicate<Item> isSelected(Item item) {
-        final boolean selected = item.getSelected();
-        return (it) -> selected;
+        };
     }
-
-    public static Predicate<Item> isUnselected() {
-        return (item) -> !item.getSelected();
-    }
-
-    public static Predicate<Item> isUnselected(Item item) {
-        final boolean selected = item.getSelected();
-        return (it) -> !selected;
-    }
+//
+//    public static Predicate<Item> isSelected(Item item) {
+//        Unit unit = (Unit)item;
+//        final boolean selected = unit.getSelected();
+//        return (it) -> selected;
+//    }
+//
+//    public static Predicate<Item> isUnselected() {
+//        return (item) -> {
+//            Unit unit = (Unit)item;
+//            return !unit.getSelected();
+//        };
+//    }
+//
+//    public static Predicate<Item> isUnselected(Item item) {
+//        Unit unit = (Unit)item;
+//        final boolean selected = unit.getSelected();
+//        return (it) -> !selected;
+//    }
 
     public static Predicate<Item> hasResources(ResourceType type) {
         return (item) -> {

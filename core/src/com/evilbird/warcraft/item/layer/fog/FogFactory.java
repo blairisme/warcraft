@@ -81,8 +81,6 @@ public class FogFactory implements IdentifiedAssetProvider<Fog>
         fog.setType(LayerType.OpaqueFog);
         fog.setLayer(LayerUtils.getLayer(identifier));
         fog.setVisible(true);
-        fog.setSelected(false);
-        fog.setSelectable(false);
         fog.setTouchable(Touchable.disabled);
         return fog;
     }

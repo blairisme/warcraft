@@ -11,6 +11,7 @@ package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
@@ -81,7 +82,8 @@ public class DisableAction extends BasicAction
     }
 
     private void setEnablement(Item subject, boolean disabled) {
-        subject.setSelectable(!disabled);
+        Selectable selectable = (Selectable)subject;
+        selectable.setSelectable(!disabled);
         subject.setTouchable(disabled ? Touchable.disabled : Touchable.enabled);
     }
 

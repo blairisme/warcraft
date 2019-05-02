@@ -48,13 +48,13 @@
             "defence": 0,
             "health": 100.0,
             "healthMaximum": 100.0,
+            "selected": false,
+            "selectable": true,
             "direction": 70.55996,
             "id": {
               "class": "Named",
               "name": "footman"
             },
-            "selected": false,
-            "selectable": true,
             "visible": false,
             "touchable": "enabled",
             "size": {
@@ -80,13 +80,13 @@
             "defence": 0,
             "health": 100.0,
             "healthMaximum": 100.0,
+            "selected": false,
+            "selectable": true,
             "direction": 70.55996,
             "id": {
               "class": "Named",
               "name": "barracks"
             },
-            "selected": false,
-            "selectable": true,
             "visible": false,
             "touchable": "enabled",
             "size": {
@@ -108,8 +108,6 @@
           "class": "Data",
           "enum": "Player"
         },
-        "selected": false,
-        "selectable": true,
         "visible": false,
         "touchable": "enabled",
         "size": {
@@ -151,13 +149,13 @@
             "defence": 0,
             "health": 100.0,
             "healthMaximum": 100.0,
+            "selected": false,
+            "selectable": true,
             "direction": 70.55996,
             "id": {
               "class": "Named",
               "name": "footman"
             },
-            "selected": false,
-            "selectable": true,
             "visible": false,
             "touchable": "enabled",
             "size": {
@@ -183,13 +181,13 @@
             "defence": 0,
             "health": 100.0,
             "healthMaximum": 100.0,
+            "selected": false,
+            "selectable": true,
             "direction": 70.55996,
             "id": {
               "class": "Named",
               "name": "barracks"
             },
-            "selected": false,
-            "selectable": true,
             "visible": false,
             "touchable": "enabled",
             "size": {
@@ -211,8 +209,6 @@
           "class": "Data",
           "enum": "Player"
         },
-        "selected": false,
-        "selectable": true,
         "visible": false,
         "touchable": "enabled",
         "size": {

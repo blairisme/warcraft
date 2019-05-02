@@ -43,8 +43,6 @@ public class TerrainFactory implements IdentifiedAssetProvider<Terrain>
         terrain.setType(layerIdentifier.getType());
         terrain.setLayer(LayerUtils.getLayer(layerIdentifier));
         terrain.setVisible(true);
-        terrain.setSelected(false);
-        terrain.setSelectable(false);
         terrain.setTouchable(Touchable.enabled);
         return terrain;
     }

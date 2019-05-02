@@ -20,6 +20,8 @@
   "defence": 2,
   "health": 60.0,
   "healthMaximum": 60.0,
+  "selected": false,
+  "selectable": true,
   "direction": 0.0,
   "animationId": {
     "class": "UnitAnimation",
@@ -29,8 +31,6 @@
     "class": "General",
     "enum": "Unknown"
   },
-  "selected": false,
-  "selectable": true,
   "visible": false,
   "touchable": "enabled",
   "size": {

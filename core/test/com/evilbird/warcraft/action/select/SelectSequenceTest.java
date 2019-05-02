@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.test.testcase.ActionTestCase;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -38,17 +39,19 @@ public class SelectSequenceTest extends ActionTestCase
 
     @Test
     public void actTest() {
-        assertFalse(item.getSelected());
+        Selectable selectable = (Selectable)item;
+
+        assertFalse(selectable.getSelected());
         assertTrue(action.act(1));
-        assertTrue(item.getSelected());
+        assertTrue(selectable.getSelected());
 
         assertTrue(action.act(1));
-        assertTrue(item.getSelected());
+        assertTrue(selectable.getSelected());
 
         action.restart();
 
-        assertTrue(item.getSelected());
+        assertTrue(selectable.getSelected());
         assertTrue(action.act(1));
-        assertFalse(item.getSelected());
+        assertFalse(selectable.getSelected());
     }
 }

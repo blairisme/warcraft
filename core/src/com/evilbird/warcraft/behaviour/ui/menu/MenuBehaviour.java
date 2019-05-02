@@ -42,8 +42,8 @@ import java.util.Collection;
 import java.util.List;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.itemWithId;
-import static com.evilbird.engine.item.utility.ItemPredicates.selectedItem;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getHumanPlayer;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.item.data.player.PlayerScore.getScoreValue;
 import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Score;
 
@@ -108,7 +108,7 @@ public class MenuBehaviour implements Behaviour
     }
 
     private void initializeSelection(ItemRoot world) {
-        Collection<Item> selection = world.findAll(selectedItem());
+        Collection<Item> selection = world.findAll(isSelected());
         actionPane.setSelected(selection);
         statusPane.setSelected(selection);
     }

@@ -26,7 +26,7 @@ import java.util.Collection;
  * @author Blair Butterworth
  */
 @JsonAdapter(ItemBasicAdapter.class)
-public interface Item extends Identifiable, Categorizable, Positionable, Selectable, Disablable, Visible
+public interface Item extends Identifiable, Categorizable, Positionable, Disablable, Visible
 {
     /**
      * Assigns an {@link Action} to the Item, a "bundle" of behaviour that
@@ -85,24 +85,6 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * @return an {@link ItemRoot} instance. Will not be {@code null}.
      */
     ItemRoot getRoot();
-
-    /**
-     * Returns whether the Item has been selected by the user: a process that aids
-     * the user by allowing them to issue commands to multiple Items at the
-     * same time.
-     *
-     * @return {@code true} if the Item has been selected.
-     */
-    boolean getSelected();
-
-    /**
-     * Returns whether or not the user can select the Item, a process that aids
-     * the user by allowing them to issue commands to multiple items at the
-     * same time.
-     *
-     * @return {@code true} if the Item can been selected.
-     */
-    boolean getSelectable();
 
     /**
      * Returns whether the Item can be interacted with by the user or not; should
@@ -212,24 +194,6 @@ public interface Item extends Identifiable, Categorizable, Positionable, Selecta
      * @param root an {@link ItemRoot} instance.
      */
     void setRoot(ItemRoot root);
-
-    /**
-     * Sets whether the Item has been selected by the user: a process that aids
-     * the user by allowing them to issue commands to multiple items at the
-     * same time.
-     *
-     * @param selected {@code true} if the Item has been selected.
-     */
-    void setSelected(boolean selected);
-
-    /**
-     * Sets whether or not the user can select the item, a process that aids
-     * the user by allowing them to issue commands to multiple items at the
-     * same time.
-     *
-     * @param selectable {@code true} if the Item can been selected.
-     */
-    void setSelectable(boolean selectable);
 
     /**
      * Sets whether the item can be interacted with by the user or not; should

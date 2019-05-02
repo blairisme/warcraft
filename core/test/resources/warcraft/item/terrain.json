@@ -11,8 +11,6 @@
     "file": "data/levels/human/level1.tmx",
     "name": "Map"
   },
-  "selected": false,
-  "selectable": true,
   "visible": false,
   "touchable": "enabled",
   "size": {

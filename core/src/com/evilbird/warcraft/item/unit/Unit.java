@@ -9,8 +9,13 @@
 
 package com.evilbird.warcraft.item.unit;
 
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.lang.Destroyable;
+import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.specialized.AnimatedItem;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -24,23 +29,32 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class Unit extends AnimatedItem implements Destroyable
+public class Unit extends AnimatedItem implements Destroyable, Selectable
 {
     private String name;
     private int sight;
     private int defence;
     private float health;
     private float healthMaximum;
+    private boolean selected;
+    private boolean selectable;
+
     private transient Drawable icon;
+    private transient Texture selection;
 
     @Inject
     public Unit() {
         name = "Unknown";
         icon = null;
+
         sight = 0;
         defence = 0;
+
         health = 0;
         healthMaximum = 0;
+
+        selected = false;
+        selectable = true;
     }
 
     public boolean isAlive() {
@@ -73,6 +87,30 @@ public class Unit extends AnimatedItem implements Destroyable
         return sight;
     }
 
+    /**
+     * Returns whether the Unit has been selected by the user: a process that aids
+     * the user by allowing them to issue commands to multiple Items at the
+     * same time.
+     *
+     * @return {@code true} if the Unit has been selected.
+     */
+    @Override
+    public boolean getSelected() {
+        return selected;
+    }
+
+    /**
+     * Returns whether or not the user can select the Unit, a process that aids
+     * the user by allowing them to issue commands to multiple items at the
+     * same time.
+     *
+     * @return {@code true} if the Unit can been selected.
+     */
+    @Override
+    public boolean getSelectable() {
+        return selectable;
+    }
+
     public void setDefence(int defence) {
         this.defence = defence;
     }
@@ -98,6 +136,30 @@ public class Unit extends AnimatedItem implements Destroyable
     }
 
     @Override
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    @Override
+    public void setSelectable(boolean selectable) {
+        this.selectable = selectable;
+    }
+
+    @Override
+    public void draw(Batch batch, float alpha) {
+        if (selection == null){
+            Pixmap pixmap = new Pixmap((int)getWidth(), (int)getHeight(), Pixmap.Format.RGBA8888);
+            pixmap.setColor(Colours.FOREST_GREEN);
+            pixmap.drawRectangle(0, 0, pixmap.getWidth(), pixmap.getHeight());
+            selection = new Texture(pixmap);
+        }
+        if (getSelected()) {
+            batch.draw(selection, getX(), getY(), getWidth(), getHeight());
+        }
+        super.draw(batch, alpha);
+    }
+
+    @Override
     public String toString() {
         return new ToStringBuilder(this)
             .appendSuper("animated")
@@ -106,6 +168,8 @@ public class Unit extends AnimatedItem implements Destroyable
             .append("defence", defence)
             .append("health", health)
             .append("healthMaximum", healthMaximum)
+            .append("selected", selected)
+            .append("selectable", selectable)
             .toString();
     }
 
@@ -123,6 +187,8 @@ public class Unit extends AnimatedItem implements Destroyable
             .append(health, unit.health)
             .append(healthMaximum, unit.healthMaximum)
             .append(name, unit.name)
+            .append(selected, unit.selected)
+            .append(selectable, unit.selectable)
             .isEquals();
     }
 
@@ -135,6 +201,8 @@ public class Unit extends AnimatedItem implements Destroyable
             .append(defence)
             .append(health)
             .append(healthMaximum)
+            .append(selected)
+            .append(selectable)
             .toHashCode();
     }
 }

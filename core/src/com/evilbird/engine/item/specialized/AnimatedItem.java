@@ -9,13 +9,10 @@
 
 package com.evilbird.engine.item.specialized;
 
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.audio.SoundEffect;
-import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.lang.Animated;
 import com.evilbird.engine.common.lang.Audible;
@@ -42,8 +39,6 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible
     private static transient final Logger logger = LoggerFactory.getLogger(AnimatedItem.class);
 
     private float direction;
-    private transient Texture selection;
-
     private Identifier animationId;
     private transient float animationTime;
     private transient DirectionalAnimation currentAnimation;
@@ -158,11 +153,6 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible
 
     @Override
     public void draw(Batch batch, float alpha) {
-        drawSelection(batch);
-        drawAnimation(batch);
-    }
-
-    private void drawAnimation(Batch batch) {
         if (currentAnimation != null) {
             TextureRegion region = currentAnimation.getFrame(animationTime);
             float width = region.getRegionWidth();
@@ -172,18 +162,6 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible
             float x = getX() - widthHalfDelta;
             float y = getY() - heightHalfDelta;
             batch.draw(region, x, y, width, height);
-        }
-    }
-
-    private void drawSelection(Batch batch) {
-        if (selection == null){
-            Pixmap pixmap = new Pixmap((int)getWidth(), (int)getHeight(), Pixmap.Format.RGBA8888);
-            pixmap.setColor(Colours.FOREST_GREEN);
-            pixmap.drawRectangle(0, 0, pixmap.getWidth(), pixmap.getHeight());
-            selection = new Texture(pixmap);
-        }
-        if (getSelected()) {
-            batch.draw(selection, getX(), getY(), getWidth(), getHeight());
         }
     }
 

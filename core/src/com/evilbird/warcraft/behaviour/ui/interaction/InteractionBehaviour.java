@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.itemWithType;
-import static com.evilbird.engine.item.utility.ItemPredicates.selectedItem;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.item.data.DataType.Camera;
 
 /**
@@ -72,7 +72,7 @@ public class InteractionBehaviour implements Behaviour
     private void initializeCache(State state) {
         ItemRoot world = state.getWorld();
         camera = world.find(itemWithType(Camera));
-        selected = world.findAll(selectedItem());
+        selected = world.findAll(isSelected());
     }
 
     private void synchronizeCache() {

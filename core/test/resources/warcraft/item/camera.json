@@ -10,8 +10,6 @@
     "class": "Data",
     "enum": "Camera"
   },
-  "selected": false,
-  "selectable": true,
   "visible": false,
   "touchable": "disabled",
   "size": {

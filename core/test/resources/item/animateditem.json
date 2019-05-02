@@ -16,8 +16,6 @@
     "class": "Units",
     "enum": "Footman"
   },
-  "selected": false,
-  "selectable": true,
   "visible": false,
   "touchable": "enabled",
   "size": {

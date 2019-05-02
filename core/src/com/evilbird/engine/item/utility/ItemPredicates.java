@@ -46,10 +46,6 @@ public class ItemPredicates
         return (item) -> type.isAssignableFrom(item.getClass());
     }
 
-    public static Predicate<Item> selectedItem() {
-        return Item::getSelected;
-    }
-
     public static Predicate<Item> touchableItem() {
         return Item::getTouchable;
     }

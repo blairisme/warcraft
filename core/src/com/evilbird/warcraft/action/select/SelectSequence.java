@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.ScenarioSetAction;
+import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -74,8 +75,8 @@ public class SelectSequence extends ScenarioSetAction
     }
 
     private void updateSelection() {
-        Item item = getItem();
-        selected = item.getSelected();
+        Selectable selectable = (Selectable)getItem();
+        selected = selectable.getSelected();
     }
 
     @Override

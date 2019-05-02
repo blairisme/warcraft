@@ -27,6 +27,8 @@
       "defence": 0,
       "health": 100.0,
       "healthMaximum": 100.0,
+      "selected": false,
+      "selectable": true,
       "direction": 70.55996,
       "id": {
         "class": "Named",
@@ -36,8 +38,6 @@
         "class": "Units",
         "enum": "Footman"
       },
-      "selected": false,
-      "selectable": true,
       "visible": false,
       "touchable": "enabled",
       "size": {
@@ -58,6 +58,8 @@
       "defence": 0,
       "health": 100.0,
       "healthMaximum": 100.0,
+      "selected": false,
+      "selectable": true,
       "direction": 70.55996,
       "id": {
         "class": "Named",
@@ -67,8 +69,6 @@
         "class": "Units",
         "enum": "Barracks"
       },
-      "selected": false,
-      "selectable": true,
       "visible": false,
       "touchable": "enabled",
       "size": {
@@ -86,8 +86,6 @@
     "class": "Named",
     "name": "player1"
   },
-  "selected": false,
-  "selectable": true,
   "visible": false,
   "touchable": "enabled",
   "size": {

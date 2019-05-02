@@ -12,9 +12,12 @@ package com.evilbird.warcraft.action.select;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
 
 import java.util.Objects;
+
+import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
 
 /**
  * An {@link Action} that sets an {@link Item Items} selected state.
@@ -24,12 +27,12 @@ import java.util.Objects;
 public class SelectAction extends BasicAction
 {
     private boolean selected;
-    private ActionRecipient source;
+    private ActionRecipient recipient;
     private SelectObserver observer;
 
-    public SelectAction(ActionRecipient source, boolean selected, SelectObserver observer) {
+    public SelectAction(ActionRecipient recipient, boolean selected, SelectObserver observer) {
         Objects.requireNonNull(observer);
-        this.source = source;
+        this.recipient = recipient;
         this.selected = selected;
         this.observer = observer;
     }
@@ -52,17 +55,9 @@ public class SelectAction extends BasicAction
 
     @Override
     public boolean act(float time) {
-        Item item = getSelectable();
-        item.setSelected(selected);
-        observer.onSelect(item, selected);
+        Selectable selectable = (Selectable)getRecipient(this, recipient);
+        selectable.setSelected(selected);
+        observer.onSelect((Item)selectable, selected);
         return true;
-    }
-
-    private Item getSelectable() {
-        switch (source) {
-            case Subject: return getItem();
-            case Target: return getTarget();
-            default: throw new UnsupportedOperationException();
-        }
     }
 }
