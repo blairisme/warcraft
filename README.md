@@ -11,11 +11,11 @@
         <img src="https://codecov.io/gh/blairisme/warcraft/branch/develop/graph/badge.svg?token=mJVgDaze7L" 
             alt="Code Coverage"/>
     </a>
-    <a href="https://www.codacy.com/app/blairisme/newton?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=blairisme/newton&amp;utm_campaign=Badge_Grade">
-        <img src="https://api.codacy.com/project/badge/Grade/6d4ca6c355fc4a82aa773e7b5cf96585"
+    <a href="https://codeclimate.com/github/blairisme/warcraft/maintainability">
+        <img src="https://api.codeclimate.com/v1/badges/0c61118331b6168cb5e9/maintainability" 
             alt="Code Quality"/>
     </a>
-    <a href="https://github.com/blairisme/newton/releases/tag/v0.1">
+    <a href="https://github.com/blairisme/warcraft/releases/tag/v0.1-alpha">
         <img src="https://img.shields.io/badge/release-v0.1-blue.svg"
             alt="Build Release"/>
     </a>
