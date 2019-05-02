@@ -14,7 +14,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.human.FootmanFactory;
-import com.evilbird.warcraft.item.unit.combatant.orc.GruntProvider;
+import com.evilbird.warcraft.item.unit.combatant.orc.GruntFactory;
 
 import javax.inject.Inject;
 
@@ -29,10 +29,10 @@ public class CombatantFactory extends IdentifiedAssetProviderSet<Item>
     @Inject
     public CombatantFactory(
         FootmanFactory footmanFactory,
-        GruntProvider gruntProvider)
+        GruntFactory gruntFactory)
     {
         super();
         addProvider(UnitType.Footman, footmanFactory);
-        addProvider(UnitType.Grunt, gruntProvider);
+        addProvider(UnitType.Grunt, gruntFactory);
     }
 }

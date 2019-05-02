@@ -40,7 +40,7 @@ import static com.evilbird.engine.common.file.FileType.MP3;
  *
  * @author Blair Butterworth
  */
-public class GruntProvider implements AssetProvider<Item>
+public class GruntFactory implements AssetProvider<Item>
 {
     private static final String BASE = "data/textures/orc/perennial/grunt.png";
     private static final String ICONS = "data/textures/neutral/perennial/icons.png";
@@ -53,8 +53,12 @@ public class GruntProvider implements AssetProvider<Item>
     private AssetManager assets;
 
     @Inject
-    public GruntProvider(Device device) {
-        this.assets = device.getAssetStorage();
+    public GruntFactory(Device device) {
+        this(device.getAssetStorage());
+    }
+
+    public GruntFactory(AssetManager assets) {
+        this.assets = assets;
     }
 
     @Override
