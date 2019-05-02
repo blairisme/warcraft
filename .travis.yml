@@ -10,12 +10,15 @@ script:
   - ./gradlew clean :core:build :desktop:build report
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -t fdb74fd7-f5ad-4d56-bf0a-43ec5a43f491
+  - bash <(curl -s https://codecov.io/bash) -t $CODECOV_DEPLOY_TOKEN
 
-#deploy:
-#  provider: releases
-#  api_key: "GITHUB OAUTH TOKEN"
-#  file: "FILE TO UPLOAD"
-#  skip_cleanup: true
-#  on:
-#    tags: true
+before_deploy:
+  - ./gradlew :desktop:installer
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_DEPLOY_OAUTH_TOKEN
+  file: desktop/build/installer/*
+  skip_cleanup: true
+  on:
+    tags: true
