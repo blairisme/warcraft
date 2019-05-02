@@ -10,7 +10,7 @@
 plugins {
     id "java"
     id 'edu.sc.seis.launch4j' version '2.4.4'
-//    id "edu.sc.seis.macAppBundle" version "2.3.0"
+    id "edu.sc.seis.macAppBundle" version "2.3.0"
     id "com.github.johnrengelman.shadow" version "4.0.4"
 }
 
@@ -51,20 +51,29 @@ shadowJar {
     }
     minimize()
 }
-//
-////Task: createApp
-//macAppBundle {
-//    icon = project.iconPath
-//    appName = project.appName
-//    mainClassName = project.mainClass
-//    bundleJRE = true
-//    jarTask = "shadowJar"
-//}
 
-//Task: createExe
+//Task: createApp
+macAppBundle {
+    icon = project.iconPath
+    appName = project.appName
+    mainClassName = project.mainClass
+   // bundleJRE = true
+    jarTask = "shadowJar"
+}
+
+//Task-: createExe
 launch4j {
     mainClassName = project.mainClass
     icon = "${projectDir}/../android/assets/data/icons/WarcraftIcon.ico"
     jar = "${projectDir}/build/libs/Warcraft2-1.0-all.jar"
+    outfile = "${appName}.exe"
     //bundledJrePath = System.getProperty('java.home')
+}
+
+task installer(dependsOn: [createApp, createExe], type: Copy) {
+    description "Generate application installers"
+
+    from 'build/launch4j/Warcraft2.exe'
+    from 'build/macApp/'
+    into 'build/installer'
 }
