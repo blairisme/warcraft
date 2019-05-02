@@ -4,6 +4,6 @@
         "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 
 <suppressions>
-    <suppress checks="FileLength" files="Item.java|ItemBasic.java"/>
-    <suppress checks="MethodLength" files="Fog.java"/>
+    <suppress checks="FileLength" files=".*Test.*"/>
+    <suppress checks="MethodLength" files=".*Test.*"/>
 </suppressions>

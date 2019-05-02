@@ -1,0 +1,26 @@
+checks:
+  file-lines:
+    config:
+      threshold: 400 #default=250
+  method-lines:
+    config:
+      threshold: 25 #default=20
+  method-count:
+    config:
+      threshold: 40 #default=20
+
+plugins:
+  checkstyle:
+    enabled: true
+    config:
+      file: "config/checkstyle/checkstyle.xml"
+
+  duplication:
+    enabled: true
+    config:
+      languages:
+        java:
+          filters:
+            - "(/* ___)"
+            - "(* ___)"
+            - "(*/ ___)"
