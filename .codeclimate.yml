@@ -8,19 +8,12 @@ checks:
   method-count:
     config:
       threshold: 40 #default=20
+  similar-code:
+    enabled: false
+  identical-code:
+    enabled: false
 
 plugins:
 #  checkstyle:
 #    enabled: true
-#    config:
-#      file: "config/checkstyle/checkstyle.xml"
-
-  duplication:
-    enabled: true
-    config:
-      languages:
-        java:
-          filters:
-            - "(/* ___)"
-            - "(* ___)"
-            - "(*/ ___)"
+#    config: 'config/checkstyle/checkstyle.xml'
