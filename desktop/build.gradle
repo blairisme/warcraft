@@ -70,10 +70,18 @@ launch4j {
     //bundledJrePath = System.getProperty('java.home')
 }
 
-task installer(dependsOn: [createApp, createExe], type: Copy) {
-    description "Generate application installers"
-
-    from 'build/launch4j/Warcraft2.exe'
+task macInstaller(dependsOn: createApp, type: Zip) {
     from 'build/macApp/'
-    into 'build/installer'
+    archiveName 'Warcraft-MacOS.zip'
+    destinationDir file('build/installer')
+}
+
+task windowsInstaller(dependsOn: createExe, type: Zip) {
+    from 'build/launch4j/Warcraft2.exe'
+    archiveName 'Warcraft-Windows.zip'
+    destinationDir file('build/installer')
+}
+
+task installer(dependsOn: [macInstaller, windowsInstaller]) {
+    description "Generate application installers"
 }
