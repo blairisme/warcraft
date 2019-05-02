@@ -40,10 +40,10 @@ import java.util.Collection;
 @JsonAdapter(LayerAdapter.class)
 public class Fog extends Layer
 {
-    private static transient final int EDGE_MATRIX_SIZE = 5;
-    private static transient final int EDGE_MATRIX_CENTER = 2;
-    private static transient final int PATTERN_MATRIX_SIZE = 3;
-    private static transient final int PATTERN_MATRIX_CENTER = 1;
+    private static final transient int EDGE_MATRIX_SIZE = 5;
+    private static final transient int EDGE_MATRIX_CENTER = 2;
+    private static final transient int PATTERN_MATRIX_SIZE = 3;
+    private static final transient int PATTERN_MATRIX_CENTER = 1;
 
     private transient Skin skin;
     private transient FogStyle style;
@@ -80,30 +80,30 @@ public class Fog extends Layer
             initialize();
         }
         else {
-            update();
+            revealItems();
         }
     }
 
     private void initialize() {
-        conceal();
+        concealItems();
         ItemGroup player = UnitOperations.getHumanPlayer(getRoot());
         revealItems(player.getItems());
     }
 
-    private void update() {
+    private void concealItems(){
+        for (int x = 0; x < layer.getWidth(); ++x){
+            for (int y = 0; y < layer.getHeight(); ++y){
+                layer.setCell(x, y, style.full);
+            }
+        }
+    }
+
+    private void revealItems() {
         for (MoveEvent moveEvent: events.getEvents(MoveEvent.class)) {
             revealItem(moveEvent.getSubject());
         }
         for (CreateEvent createEvent: events.getEvents(CreateEvent.class)) {
             revealItem(createEvent.getSubject());
-        }
-    }
-
-    private void conceal(){
-        for (int x = 0; x < layer.getWidth(); ++x){
-            for (int y = 0; y < layer.getHeight(); ++y){
-                layer.setCell(x, y, style.full);
-            }
         }
     }
 
@@ -160,18 +160,6 @@ public class Fog extends Layer
         }
     }
 
-    private BitMatrix getCellEdges(int x, int y) {
-        BitMatrix occupation = new BitMatrix(EDGE_MATRIX_SIZE);
-        for (int i = 0; i < EDGE_MATRIX_SIZE; i++) {
-            for (int j = 0; j < EDGE_MATRIX_SIZE; j++) {
-                int xIndex = x + (i - EDGE_MATRIX_CENTER);
-                int yIndex = y + (j - EDGE_MATRIX_CENTER);
-                occupation.set(i, j, isCellOccupied(xIndex, yIndex));
-            }
-        }
-        return occupation;
-    }
-
     private void updateCellEdges(int x, int y, BitMatrix cellEdges) {
         for (int i = 0; i < PATTERN_MATRIX_SIZE; i++) {
             for (int j = 0; j < PATTERN_MATRIX_SIZE; j++) {
@@ -185,6 +173,18 @@ public class Fog extends Layer
                 }
             }
         }
+    }
+
+    private BitMatrix getCellEdges(int x, int y) {
+        BitMatrix occupation = new BitMatrix(EDGE_MATRIX_SIZE);
+        for (int i = 0; i < EDGE_MATRIX_SIZE; i++) {
+            for (int j = 0; j < EDGE_MATRIX_SIZE; j++) {
+                int xIndex = x + (i - EDGE_MATRIX_CENTER);
+                int yIndex = y + (j - EDGE_MATRIX_CENTER);
+                occupation.set(i, j, isCellOccupied(xIndex, yIndex));
+            }
+        }
+        return occupation;
     }
 
     private boolean isCellOccupied(int x, int y) {

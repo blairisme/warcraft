@@ -4,6 +4,5 @@
         "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 
 <suppressions>
-    <suppress checks="FileLength" files=".*Test.*"/>
-    <suppress checks="MethodLength" files=".*Test.*"/>
+    <suppress checks=".*" files=".*Test.*"/>
 </suppressions>

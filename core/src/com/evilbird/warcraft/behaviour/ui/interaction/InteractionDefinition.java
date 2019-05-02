@@ -115,7 +115,7 @@ public class InteractionDefinition implements Interaction
      * Indicates how the interaction should be applied, either as a replacement
      * for existing {@link Action Actions}, or as an addition.
      *
-     * @@param displacement an {@link InteractionDisplacement} option.
+     * @param displacement  an {@link InteractionDisplacement} option.
      * @return              the interaction
      */
     public InteractionDefinition appliedAs(InteractionDisplacement displacement) {

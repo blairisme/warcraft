@@ -201,7 +201,7 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
     private Drawable getActionDisabledIcon(ActionButtonType type) {
         switch (type) {
             case CancelButton:
-            case BuildCancelButton: getDrawable(assets, ACTION_ICONS_DISABLED, 46, 684, 46, 38);
+            case BuildCancelButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 46, 684, 46, 38);
             case MoveButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 138, 608, 46, 38);
             case StopButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 184, 1216, 46, 38);
             case AttackButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 46, 874, 46, 38);

@@ -4,7 +4,7 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 ext {
-	mainClassName = "com.evilbird.warcraft.IOSLauncher"
+	mainClassName = "com.evilbird.warcraft.IosLauncher"
 }
 
 launchIPhoneSimulator.dependsOn build

@@ -16,7 +16,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.List;
 
-public class IOSStorage implements DeviceStorage
+public class IosStorage implements DeviceStorage
 {
     @Override
     public List<String> list(String path) throws IOException {

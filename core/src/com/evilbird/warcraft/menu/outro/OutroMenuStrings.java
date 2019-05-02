@@ -34,6 +34,7 @@ public class OutroMenuStrings
     public String getOutcomeLabel() {
         return bundle.get("outcome-label");
     }
+
     public String getRank(int score) {
         if (score >= 0 && score <= 2000) {
             return bundle.get("rank-first-human");

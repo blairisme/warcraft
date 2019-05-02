@@ -229,10 +229,10 @@ public class WarcraftStateFileLoader
     }
 
     private boolean isLayerItem(MapLayer layer) {
-        return Objects.equals(layer.getName(), TERRAIN_ID) ||
-            Objects.equals(layer.getName(), FOREST_ID) ||
-            Objects.equals(layer.getName(), OPAQUE_FOG_ID) ||
-            Objects.equals(layer.getName(), TRANSPARENT_FOG_ID);
+        return Objects.equals(layer.getName(), TERRAIN_ID)
+                || Objects.equals(layer.getName(), FOREST_ID)
+                || Objects.equals(layer.getName(), OPAQUE_FOG_ID)
+                || Objects.equals(layer.getName(), TRANSPARENT_FOG_ID);
     }
 
     private boolean isDataItem(MapLayer layer) {

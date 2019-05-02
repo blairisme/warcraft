@@ -27,7 +27,8 @@ import java.util.Map;
 
 /**
  * Instances of this class represent a confirmation animation item, shown to
- * provide visual feedback to the user when they
+ * provide visual feedback to the user when they perform an action involving a
+ * destination.
  *
  * @author Blair Butterworth
  */

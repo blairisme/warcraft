@@ -17,7 +17,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Instances of this {@link Event} are produced when resources are transferred
- * to or from a {@link ResourceContainer}
+ * to or from a {@link ResourceContainer}.
  *
  * @author Blair Butterworth
  */

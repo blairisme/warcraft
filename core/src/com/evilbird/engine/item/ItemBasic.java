@@ -253,8 +253,8 @@ public class ItemBasic implements Item
     @Override
     public Item hit(Vector2 position, boolean touchable) {
         if (touchable && delegate.getTouchable() != enabled) return null;
-        return position.x >= 0 && position.x < delegate.getWidth() &&
-                position.y >= 0 && position.y < delegate.getHeight() ? this : null;
+        return position.x >= 0 && position.x < delegate.getWidth()
+            && position.y >= 0 && position.y < delegate.getHeight() ? this : null;
     }
 
     @Override

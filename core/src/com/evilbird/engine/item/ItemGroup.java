@@ -237,8 +237,8 @@ public class ItemGroup extends ItemBasic implements ItemComposite
     }
 
     /**
-     * Returns the all child {@link Item}s that satisfy the given {
-     * @link Predicate}.
+     * Returns the all child {@link Item}s that satisfy the given
+     * {@link Predicate}.
      *
      * @param predicate a predicate implementation used to differentiate
      *                  between items.

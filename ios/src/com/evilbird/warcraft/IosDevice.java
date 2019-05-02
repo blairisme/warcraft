@@ -14,15 +14,15 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceInput;
 import com.evilbird.engine.device.DeviceStorage;
 
-public class IOSDevice implements Device
+public class IosDevice implements Device
 {
     private DeviceInput input;
     private DeviceStorage storage;
 
 
-    public IOSDevice() {
-        this.input = new IOSInput();
-        this.storage = new IOSStorage();
+    public IosDevice() {
+        this.input = new IosInput();
+        this.storage = new IosStorage();
     }
 
     @Override

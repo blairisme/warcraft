@@ -11,7 +11,6 @@ package com.evilbird.warcraft.item.unit.building;
 
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.warcraft.item.unit.Unit;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 /**
  * Instances of this class represent a building, a {@link Unit} specialization

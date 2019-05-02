@@ -36,7 +36,7 @@ import java.util.Map;
  */
 public class AnimatedItem extends ItemBasic implements Animated, Audible
 {
-    private static transient final Logger logger = LoggerFactory.getLogger(AnimatedItem.class);
+    private static final transient Logger logger = LoggerFactory.getLogger(AnimatedItem.class);
 
     private float direction;
     private Identifier animationId;

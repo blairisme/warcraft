@@ -21,7 +21,7 @@ import com.evilbird.warcraft.item.unit.UnitType;
 public class PlayerScore
 {
     /**
-     * Disable construction of static utility class
+     * Disable construction of static utility class.
      */
     private PlayerScore() {
     }

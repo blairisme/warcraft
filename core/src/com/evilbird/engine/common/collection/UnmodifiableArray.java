@@ -20,57 +20,57 @@ import com.badlogic.gdx.utils.Array;
 public class UnmodifiableArray<T> extends Array<T>
 {
     @Override
-    public void add (T value) {
+    public void add(T value) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void addAll (T[] array, int start, int count) {
+    public void addAll(T[] array, int start, int count) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void set (int index, T value) {
+    public void set(int index, T value) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void insert (int index, T value) {
+    public void insert(int index, T value) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void swap (int first, int second) {
+    public void swap(int first, int second) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean removeValue (T value, boolean identity) {
+    public boolean removeValue(T value, boolean identity) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public T removeIndex (int index) {
+    public T removeIndex(int index) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void removeRange (int start, int end) {
+    public void removeRange(int start, int end) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean removeAll (Array<? extends T> array, boolean identity) {
+    public boolean removeAll(Array<? extends T> array, boolean identity) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public T pop () {
+    public T pop() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void clear () {
+    public void clear() {
         throw new UnsupportedOperationException();
     }
 }

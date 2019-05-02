@@ -20,9 +20,9 @@ import com.evilbird.engine.common.assets.FontLoader;
  *
  * @author Blair Butterworth
  */
-public class IOSAssets extends AssetManager
+public class IosAssets extends AssetManager
 {
-    public IOSAssets() {
+    public IosAssets() {
         setLoader(TiledMap.class, new TmxMapLoader(getFileHandleResolver()));
         setLoader(BitmapFont.class, new FontLoader(getFileHandleResolver()));
         //setLoader(FreeTypeFontGenerator.class, new FontGeneratorLoader(getFileHandleResolver()));

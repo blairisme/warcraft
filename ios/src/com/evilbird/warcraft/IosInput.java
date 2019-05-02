@@ -15,7 +15,7 @@ import com.evilbird.engine.device.UserInput;
 import java.util.Collections;
 import java.util.List;
 
-public class IOSInput implements DeviceInput
+public class IosInput implements DeviceInput
 {
     @Override
     public void install() {

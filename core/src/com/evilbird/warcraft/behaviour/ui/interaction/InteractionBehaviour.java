@@ -143,6 +143,7 @@ public class InteractionBehaviour implements Behaviour
             applyInteractions(actions, input, target, selectedItem);
         }
     }
+
     private void applyInteractions(Collection<Interaction> actions, UserInput input, Item target, Item selected) {
         for (Interaction interaction: actions) {
             interaction.update(input, target, selected);

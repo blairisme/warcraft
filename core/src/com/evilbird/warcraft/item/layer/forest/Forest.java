@@ -32,11 +32,11 @@ import com.google.gson.annotations.JsonAdapter;
 @JsonAdapter(ForestAdapter.class)
 public class Forest extends Layer
 {
-    private static transient final int EDGE_MATRIX_SIZE = 5;
-    private static transient final int EDGE_MATRIX_CENTER = 2;
-    private static transient final int PATTERN_MATRIX_SIZE = 3;
-    private static transient final int PATTERN_MATRIX_CENTER = 1;
-    private static transient final float DEFAULT_WOOD = 100;
+    private static final transient int EDGE_MATRIX_SIZE = 5;
+    private static final transient int EDGE_MATRIX_CENTER = 2;
+    private static final transient int PATTERN_MATRIX_SIZE = 3;
+    private static final transient int PATTERN_MATRIX_CENTER = 1;
+    private static final transient float DEFAULT_WOOD = 100;
 
     private transient Skin skin;
     private transient ForestStyle style;

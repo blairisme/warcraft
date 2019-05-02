@@ -29,7 +29,7 @@ public class LambdaAction extends BasicAction
      * Constructs a new instance of this class given the lambda that will be
      * called when the action is invoked.
      *
-     * @param lambda    a {@link BiConsumer<Item, Item>} that will receive the
+     * @param lambda    a {@link BiConsumer} that will receive the
      *                  current item and target when invoked. This parameter
      *                  cannot be {@code null}.
      */

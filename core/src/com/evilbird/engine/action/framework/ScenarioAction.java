@@ -35,7 +35,7 @@ import static com.evilbird.engine.common.function.Predicates.both;
 @SuppressWarnings("unchecked")
 public class ScenarioAction<T extends Identifier> extends BasicAction
 {
-    private static transient final Logger logger = LoggerFactory.getLogger(ScenarioAction.class);
+    private static final transient Logger logger = LoggerFactory.getLogger(ScenarioAction.class);
 
     private transient Action scenario;
     private transient SequenceAction then;
@@ -187,25 +187,6 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     }
 
     /**
-     * Sets an {@link Action} that will be executed in sequence, after any
-     * previously specified Actions, provided that all specified when
-     * conditions are {@code true}and all given conditions remain
-     * {@code true} for the duration Actions execution. After execution, any
-     * subsequent actions will updated to use the subject and target of the
-     * given {@code Action}.
-     *
-     * @param action    an Action. This parameter cannot be {@code null}.
-     *
-     * @return this scenario.
-     */
-    public ScenarioAction thenUpdate(Action action) {
-        Objects.requireNonNull(action);
-        then.add(new CopyAction(action, then));
-        scenario = null;
-        return this;
-    }
-
-    /**
      * Sets a series of {@link Action Actions} that will be executed as a set
      * in parallel, but overall synchronously in sequence after any
      * previously specified Actions. This is provided that all specified when
@@ -230,7 +211,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * conditions are {@code true} and all given conditions remain
      * {@code true} for the duration Actions execution.
      *
-     * @param lambda    a {@link BiConsumer<Item, Item>} that will receive the
+     * @param lambda    a {@link BiConsumer} that will receive the
      *                  current item and target when invoked. This parameter
      *                  cannot be {@code null}.
      *
@@ -239,6 +220,25 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     public ScenarioAction then(BiConsumer<Item, Item> lambda) {
         Objects.requireNonNull(lambda);
         then.add(new LambdaAction(lambda));
+        scenario = null;
+        return this;
+    }
+
+    /**
+     * Sets an {@link Action} that will be executed in sequence, after any
+     * previously specified Actions, provided that all specified when
+     * conditions are {@code true}and all given conditions remain
+     * {@code true} for the duration Actions execution. After execution, any
+     * subsequent actions will updated to use the subject and target of the
+     * given {@code Action}.
+     *
+     * @param action    an Action. This parameter cannot be {@code null}.
+     *
+     * @return this scenario.
+     */
+    public ScenarioAction thenUpdate(Action action) {
+        Objects.requireNonNull(action);
+        then.add(new CopyAction(action, then));
         scenario = null;
         return this;
     }
