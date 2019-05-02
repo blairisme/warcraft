@@ -1,5 +1,6 @@
 <component name="CopyrightManager">
   <copyright>
+    <option name="keyword" value="Copyright|Blair Butterworth \(c\)" />
     <option name="notice" value="Copyright (c) &amp;#36;today.year, Blair Butterworth&#10; &#10;This work is licensed under the MIT License. To view a copy of this&#10;license, visit&#10; &#10;       https://opensource.org/licenses/MIT" />
     <option name="myName" value="MIT" />
   </copyright>
