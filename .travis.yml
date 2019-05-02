@@ -18,7 +18,9 @@ before_deploy:
 deploy:
   provider: releases
   api_key: $GITHUB_DEPLOY_OAUTH_TOKEN
-  file: desktop/build/installer/*
+  file_glob: true
+  file: $TRAVIS_BUILD_DIR/desktop/build/installer/*
   skip_cleanup: true
+  overwrite: true
   on:
     tags: true
