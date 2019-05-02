@@ -10,10 +10,10 @@ checks:
       threshold: 40 #default=20
 
 plugins:
-  checkstyle:
-    enabled: true
-    config:
-      file: "config/checkstyle/checkstyle.xml"
+#  checkstyle:
+#    enabled: true
+#    config:
+#      file: "config/checkstyle/checkstyle.xml"
 
   duplication:
     enabled: true
