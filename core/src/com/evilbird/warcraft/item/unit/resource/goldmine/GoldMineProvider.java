@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2018
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.item.unit.resource.goldmine;
@@ -37,6 +37,12 @@ import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
 import static com.evilbird.engine.common.file.FileType.MP3;
 
+/**
+ * Instances of this factory create Gold Mines, a {@link Resource}
+ * specialization from which gold can be obtained.
+ *
+ * @author Blair Butterworth
+ */
 public class GoldMineProvider implements AssetProvider<Item>
 {
     private static final String BASE = "data/textures/neutral/winter/gold_mine.png";

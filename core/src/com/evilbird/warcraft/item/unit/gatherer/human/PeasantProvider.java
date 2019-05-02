@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.item.unit.gatherer.human;
@@ -36,6 +36,12 @@ import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
 import static com.evilbird.engine.common.file.FileType.MP3;
 
+/**
+ * Instances of this factory create Peasants, the land based gathering unit
+ * available to the human faction.
+ *
+ * @author Blair Butterworth
+ */
 public class PeasantProvider implements AssetProvider<Item>
 {
     private static final String BASE = "data/textures/human/perennial/peasant.png";

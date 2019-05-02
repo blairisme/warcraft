@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2018
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.item.unit;
@@ -13,7 +13,7 @@ import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.BuildingFactory;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactory;
-import com.evilbird.warcraft.item.unit.gatherer.GathererProvider;
+import com.evilbird.warcraft.item.unit.gatherer.GathererFactory;
 import com.evilbird.warcraft.item.unit.resource.ResourceProvider;
 
 import javax.inject.Inject;
@@ -31,11 +31,11 @@ public class UnitFactory extends IdentifiedAssetProviderSet<Item>
         BuildingFactory buildingFactory,
         ResourceProvider resourceProvider,
         CombatantFactory combatantFactory,
-        GathererProvider gathererProvider)
+        GathererFactory gathererFactory)
     {
         addProvider(buildingFactory);
         addProvider(resourceProvider);
         addProvider(combatantFactory);
-        addProvider(gathererProvider);
+        addProvider(gathererFactory);
     }
 }

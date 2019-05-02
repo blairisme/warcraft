@@ -1,19 +1,21 @@
 /*
- * Blair Butterworth (c) 2018
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.item.unit.building;
 
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 /**
- * Instances of this class represent a building.
+ * Instances of this class represent a building, a {@link Unit} specialization
+ * that provides the user the ability to train {@link Unit Units}.
  *
  * @author Blair Butterworth
  */

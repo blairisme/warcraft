@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.item.unit.gatherer;
@@ -20,8 +20,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Instances of this class represent a unit that can both fight and collect
- * resources.
+ * Instances of this class represent a gatherer: a {@link Combatant}
+ * specialization that can both fight and collect resources.
  *
  * @author Blair Butterworth
  */
