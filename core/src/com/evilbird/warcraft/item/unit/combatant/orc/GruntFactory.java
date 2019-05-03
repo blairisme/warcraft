@@ -12,18 +12,21 @@ package com.evilbird.warcraft.item.unit.combatant.orc;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.SoundEffect;
-import com.evilbird.engine.common.graphics.DirectionalAnimation;
+import com.evilbird.engine.common.graphics.Animation;
+import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.specialized.AnimatedItemStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationSets;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
+import com.evilbird.warcraft.item.unit.UnitStyle;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
@@ -82,16 +85,13 @@ public class GruntFactory implements AssetProvider<Item>
 
     @Override
     public Item get() {
-        Combatant result = new Combatant();
-        result.setAvailableAnimations(getAnimations());
+        Combatant result = new Combatant(getSkin());
         result.setAnimation(UnitAnimation.Idle);
-        result.setAvailableSounds(getSounds());
         result.setDefence(2);
         result.setDamageMinimum(10); //2
         result.setDamageMaximum(19); //9
         result.setHealth(60);
         result.setHealthMaximum(60);
-        result.setIcon(getIcon());
         result.setLevel(1);
         result.setName("Grunt");
         result.setMovementSpeed(64); //10
@@ -106,14 +106,24 @@ public class GruntFactory implements AssetProvider<Item>
         return result;
     }
 
-    private Map<Identifier, DirectionalAnimation> getAnimations() {
+    private Skin getSkin() {
+        Skin skin = new Skin();
+        skin.add("default", getAnimationStyle(), AnimatedItemStyle.class);
+        skin.add("default", getUnitStyle(), UnitStyle.class);
+        return skin;
+    }
+
+    private AnimatedItemStyle getAnimationStyle() {
+        AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
+        animatedItemStyle.animations = getAnimations();
+        animatedItemStyle.sounds = getSounds();
+        return animatedItemStyle;
+    }
+
+    private Map<Identifier, Animation> getAnimations() {
         Texture general = assets.get(BASE, Texture.class);
         Texture decompose = assets.get(DECOMPOSE, Texture.class);
         return AnimationSets.combatantAnimations(general, decompose);
-    }
-
-    private Drawable getIcon() {
-        return TextureUtils.getDrawable(assets, ICONS, 138, 0, 46, 38);
     }
 
     private Map<Identifier, SoundEffect> getSounds() {
@@ -123,5 +133,12 @@ public class GruntFactory implements AssetProvider<Item>
         sounds.put(UnitSound.Attack, newSoundEffect(assets, ATTACK, MP3, 3));
         sounds.put(UnitSound.Die, newSoundEffect(assets, DEAD, MP3, 1));
         return sounds;
+    }
+
+    private UnitStyle getUnitStyle() {
+        UnitStyle unitStyle = new UnitStyle();
+        unitStyle.icon = TextureUtils.getDrawable(assets, ICONS, 138, 0, 46, 38);
+        unitStyle.selection = TextureUtils.getRectangle(32, 32, Colours.FOREST_GREEN);
+        return unitStyle;
     }
 }

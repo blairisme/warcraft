@@ -93,4 +93,21 @@ public class TextureUtils
         TextureRegion region = new TextureRegion(texture);
         return new TiledDrawable(region);
     }
+
+    /**
+     * Generates a texture containing a 1 pixel wide rectangle of the given
+     * width and height.
+     *
+     * @param width     the width of the resulting rectangle.
+     * @param height    the height of the resulting rectangle.
+     * @param color     the colour of the resulting rectangle.
+     *
+     * @return a new {@link Texture}. This method will not return {@code null}.
+     */
+    public static Texture getRectangle(int width, int height, Color color) {
+        Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
+        pixmap.setColor(color);
+        pixmap.drawRectangle(0, 0, pixmap.getWidth(), pixmap.getHeight());
+        return new Texture(pixmap);
+    }
 }

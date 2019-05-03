@@ -18,6 +18,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;
+import static com.evilbird.test.data.item.TestSkin.newTestSkin;
 
 public class TestGatherers
 {
@@ -33,7 +34,7 @@ public class TestGatherers
     }
 
     public static Combatant newTestGatherer(Identifier identifier, Identifier type, ItemRoot root, Player parent) {
-        Gatherer item = new Gatherer();
+        Gatherer item = new Gatherer(newTestSkin());
         item.setIdentifier(identifier);
         item.setType(type);
         item.setPosition(12, 34);

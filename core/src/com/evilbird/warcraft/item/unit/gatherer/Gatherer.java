@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.unit.gatherer;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
@@ -31,7 +32,8 @@ public class Gatherer extends Combatant implements ResourceContainer
     private Map<String, Double> resources;
 
     @Inject
-    public Gatherer() {
+    public Gatherer(Skin skin) {
+        super(skin);
         resources = new LinkedHashMap<>();
     }
 

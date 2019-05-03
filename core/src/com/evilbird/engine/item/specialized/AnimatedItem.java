@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.engine.item.specialized;
@@ -12,11 +12,11 @@ package com.evilbird.engine.item.specialized;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.SoundEffect;
+import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
-import com.evilbird.engine.common.lang.Animated;
-import com.evilbird.engine.common.lang.Audible;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.*;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemBasic;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -25,7 +25,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -34,85 +33,75 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-public class AnimatedItem extends ItemBasic implements Animated, Audible
+public class AnimatedItem extends ItemBasic implements Animated, Audible, Directionable, Styleable
 {
     private static final transient Logger logger = LoggerFactory.getLogger(AnimatedItem.class);
 
     private float direction;
     private Identifier animationId;
-    private transient float animationTime;
-    private transient DirectionalAnimation currentAnimation;
-    private transient Map<Identifier, DirectionalAnimation> animations;
-
     private Identifier soundId;
+
+    private transient Skin skin;
+    private transient float animationTime;
+    private transient Animation currentAnimation;
     private transient SoundEffect currentSound;
+    private transient Map<Identifier, Animation> animations;
     private transient Map<Identifier, SoundEffect> sounds;
 
-    public AnimatedItem() {
+    /**
+     * Constructs a new instance of this class given a {@link Skin} containing
+     * an {@link AnimatedItemStyle}, specifying the visual and auditory
+     * presentation of the new {@code AnimatedItem}.
+     *
+     * @param skin a {@code Skin} instance. This method cannot be {@code null}.
+     */
+    public AnimatedItem(Skin skin) {
+        this.skin = skin;
         this.direction = 0;
-        this.animationTime = 0;
-        this.currentAnimation = null;
-        this.animationId = null;
-        this.animations = new HashMap<>();
-        this.sounds = new HashMap<>();
-        this.currentSound = null;
-        this.soundId = null;
+        setStyle("default");
     }
 
-    /**
-     * Returns the identifier of the currently displayed animation.
-     *
-     * @return  an {@link Identifier}. This methods may return
-     *          <code>null</code>, indicating that no animation is current used.
-     */
+    @Override
     public Identifier getAnimation() {
         return animationId;
     }
 
-    /**
-     * Returns the identifier of the currently playing sound.
-     *
-     * @return  a {@link Identifier}. This method may return
-     *          <code>null</code>, indicating that no sound is current playing.
-     */
+    @Override
     public Identifier getSound() {
         return soundId;
     }
 
-    /**
-     * Specifies that the AnimatedItem shouls be rendered using the animation
-     * with the given identifier.
-     *
-     * @param animationId   the {@link Identifier} of the animation to use.
-     *                      This parameter may be <code>null</code>, indicating
-     *                      that no animation should be used.
-     */
-    public void setAnimation(Identifier animationId) {
-        this.animationId = animationId;
+    @Override
+    public Skin getSkin() {
+        return skin;
+    }
+
+    @Override
+    public void setStyle(String name) {
+        AnimatedItemStyle style = skin.get(name, AnimatedItemStyle.class);
+
+        this.animations = style.animations;
         this.currentAnimation = null;
+        this.animationId = null;
+        this.animationTime = 0;
+
+        this.sounds = style.sounds;
+        this.currentSound = null;
+        this.soundId = null;
+    }
+
+    @Override
+    public void setAnimation(Identifier id) {
+        animationId = id;
+        currentAnimation = null;
     }
 
     public void setAnimationAlias(Identifier animationId, Identifier aliasId) {
-        DirectionalAnimation animation = animations.get(animationId);
-        setAvailableAnimation(aliasId, animation);
+        Animation animation = animations.get(animationId);
+        animations.put(aliasId, animation);
     }
 
-    public void setAvailableAnimation(Identifier id, DirectionalAnimation animation) {
-        this.animations.put(id, animation);
-    }
-
-    public void setAvailableAnimations(Map<Identifier, DirectionalAnimation> animations) {
-        this.animations.putAll(animations);
-    }
-
-    public void setAvailableSound(Identifier id, SoundEffect sound) {
-        sounds.put(id, sound);
-    }
-
-    public void setAvailableSounds(Map<Identifier, SoundEffect> collection) {
-        sounds.putAll(collection);
-    }
-
+    @Override
     public void setSound(Identifier id) {
         if (currentSound != null) {
             currentSound.stop();
@@ -136,19 +125,25 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible
         this.setDirection(previous.x, previous.y, position.x, position.y);
     }
 
-    public void setDirection(float previousX, float previousY, float newX, float newY) {
+    @Override
+    public void setDirection(Vector2 normalizedDirection) {
+        direction = normalizedDirection.angle();
+        setDirection(direction);
+    }
+
+    private void setDirection(float direction) {
+        if (currentAnimation instanceof DirectionalAnimation) {
+            DirectionalAnimation animation = (DirectionalAnimation)currentAnimation;
+            animation.setDirection(direction);
+        }
+    }
+
+    private void setDirection(float previousX, float previousY, float newX, float newY) {
         Vector2 destination = new Vector2(newX, newY);
         Vector2 position = new Vector2(previousX, previousY);
         Vector2 directionVector = destination.sub(position);
         Vector2 normalizedDirection = directionVector.nor();
         setDirection(normalizedDirection);
-    }
-
-    public void setDirection(Vector2 normalizedDirection) {
-        direction = normalizedDirection.angle();
-        if (currentAnimation != null) {
-            currentAnimation.setDirection(direction);
-        }
     }
 
     @Override
@@ -177,7 +172,7 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible
         if (currentAnimation == null && animationId != null) {
             if (animations.containsKey(animationId)) {
                 currentAnimation = animations.get(animationId);
-                currentAnimation.setDirection(direction);
+                setDirection(direction);
             } else {
                 logger.warn("{} missing animation: {}", getType(), animationId);
                 animationId = null;

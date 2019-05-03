@@ -11,12 +11,14 @@ package com.evilbird.engine.common.lang;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
+/**
+ * Implementors of this interface represent an object that the user can
+ * interact with.
+ *
+ * @author Blair Butterworth
+ */
 public interface Disablable
 {
-    //boolean isTouchable();
-
-    //Touchable getTouchable();
-
     boolean getTouchable();
 
     void setTouchable(Touchable touchable);

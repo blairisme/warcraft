@@ -9,8 +9,7 @@
 
 package com.evilbird.engine.item.specialized;
 
-import com.evilbird.engine.common.audio.SoundEffect;
-import com.evilbird.engine.common.graphics.DirectionalAnimation;
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
@@ -22,6 +21,8 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
+
+import static com.evilbird.test.data.item.TestSkin.newTestSkin;
 
 public class AnimatedItemTest extends GameTestCase
 {
@@ -35,14 +36,12 @@ public class AnimatedItemTest extends GameTestCase
     }
 
     private AnimatedItem newAnimatedItem() {
-        AnimatedItem item = new AnimatedItem();
+        AnimatedItem item = new AnimatedItem(newTestSkin());
         item.setType(UnitType.Footman);
         item.setSize(56, 78);
         item.setPosition(12, 34);
-        item.setDirection(1, 2, 3, 4);
-        item.setAvailableAnimation(UnitAnimation.Build, Mockito.mock(DirectionalAnimation.class));
+        item.setDirection(new Vector2(1, 1));
         item.setAnimation(UnitAnimation.Build);
-        item.setAvailableSound(UnitSound.Attack, Mockito.mock(SoundEffect.class));
         item.setSound(UnitSound.Attack);
         return item;
     }

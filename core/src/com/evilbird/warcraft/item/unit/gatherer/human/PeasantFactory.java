@@ -12,19 +12,22 @@ package com.evilbird.warcraft.item.unit.gatherer.human;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.SilentSoundEffect;
 import com.evilbird.engine.common.audio.SoundEffect;
-import com.evilbird.engine.common.graphics.DirectionalAnimation;
+import com.evilbird.engine.common.graphics.Animation;
+import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.specialized.AnimatedItemStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationSets;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
+import com.evilbird.warcraft.item.unit.UnitStyle;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
@@ -42,7 +45,7 @@ import static com.evilbird.engine.common.file.FileType.MP3;
  *
  * @author Blair Butterworth
  */
-public class PeasantProvider implements AssetProvider<Item>
+public class PeasantFactory implements AssetProvider<Item>
 {
     private static final String BASE = "data/textures/human/perennial/peasant.png";
     private static final String ICONS = "data/textures/neutral/perennial/icons.png";
@@ -61,7 +64,7 @@ public class PeasantProvider implements AssetProvider<Item>
     private AssetManager assets;
 
     @Inject
-    public PeasantProvider(Device device) {
+    public PeasantFactory(Device device) {
         this.assets = device.getAssetStorage();
     }
 
@@ -92,16 +95,13 @@ public class PeasantProvider implements AssetProvider<Item>
 
     @Override
     public Item get() {
-        Gatherer result = new Gatherer();
-        result.setAvailableAnimations(getAnimations());
+        Gatherer result = new Gatherer(getSkin());
         result.setAnimation(UnitAnimation.Idle);
-        result.setAvailableSounds(getSounds());
         result.setDefence(0);
         result.setDamageMinimum(1);
         result.setDamageMaximum(5);
         result.setHealth(30f);
         result.setHealthMaximum(30f);
-        result.setIcon(getIcon());
         result.setLevel(1);
         result.setMovementSpeed(64f);
         result.setMovementCapability(LayerType.Map);
@@ -113,16 +113,26 @@ public class PeasantProvider implements AssetProvider<Item>
         return result;
     }
 
-    private Map<Identifier, DirectionalAnimation> getAnimations() {
+    private Skin getSkin() {
+        Skin skin = new Skin();
+        skin.add("default", getAnimationStyle(), AnimatedItemStyle.class);
+        skin.add("default", getUnitStyle(), UnitStyle.class);
+        return skin;
+    }
+
+    private AnimatedItemStyle getAnimationStyle() {
+        AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
+        animatedItemStyle.animations = getAnimations();
+        animatedItemStyle.sounds = getSounds();
+        return animatedItemStyle;
+    }
+
+    private Map<Identifier, Animation> getAnimations() {
         Texture general = assets.get(BASE, Texture.class);
         Texture moveGold = assets.get(MOVE_GOLD, Texture.class);
         Texture moveWood = assets.get(MOVE_WOOD, Texture.class);
         Texture decompose = assets.get(DECOMPOSE, Texture.class);
         return AnimationSets.gatherAnimations(general, decompose, moveGold, moveWood);
-    }
-
-    private Drawable getIcon() {
-        return TextureUtils.getDrawable(assets, ICONS, 0, 0, 46, 38);
     }
 
     private Map<Identifier, SoundEffect> getSounds() {
@@ -138,5 +148,12 @@ public class PeasantProvider implements AssetProvider<Item>
         sounds.put(UnitSound.DepositGold, new SilentSoundEffect());
         sounds.put(UnitSound.DepositWood, new SilentSoundEffect());
         return sounds;
+    }
+
+    private UnitStyle getUnitStyle() {
+        UnitStyle unitStyle = new UnitStyle();
+        unitStyle.icon = TextureUtils.getDrawable(assets, ICONS, 0, 0, 46, 38);
+        unitStyle.selection = TextureUtils.getRectangle(32, 32, Colours.FOREST_GREEN);
+        return unitStyle;
     }
 }

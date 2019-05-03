@@ -9,11 +9,9 @@
 
 package com.evilbird.warcraft.item.unit;
 
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.specialized.AnimatedItem;
@@ -38,21 +36,16 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable
     private float healthMaximum;
     private boolean selected;
     private boolean selectable;
-
-    private transient Drawable icon;
-    private transient Texture selection;
+    private transient UnitStyle style;
 
     @Inject
-    public Unit() {
+    public Unit(Skin skin) {
+        super(skin);
         name = "Unknown";
-        icon = null;
-
         sight = 0;
         defence = 0;
-
         health = 0;
         healthMaximum = 0;
-
         selected = false;
         selectable = true;
     }
@@ -76,7 +69,7 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable
     }
 
     public Drawable getIcon() {
-        return icon;
+        return style.icon;
     }
 
     public String getName() {
@@ -115,10 +108,6 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable
         this.defence = defence;
     }
 
-    public void setIcon(Drawable icon) {
-        this.icon = icon;
-    }
-
     public void setHealth(float health) {
         this.health = health;
     }
@@ -146,15 +135,16 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable
     }
 
     @Override
+    public void setStyle(String name) {
+        super.setStyle(name);
+        Skin skin = getSkin();
+        style = skin.get(name, UnitStyle.class);
+    }
+
+    @Override
     public void draw(Batch batch, float alpha) {
-        if (selection == null){
-            Pixmap pixmap = new Pixmap((int)getWidth(), (int)getHeight(), Pixmap.Format.RGBA8888);
-            pixmap.setColor(Colours.FOREST_GREEN);
-            pixmap.drawRectangle(0, 0, pixmap.getWidth(), pixmap.getHeight());
-            selection = new Texture(pixmap);
-        }
         if (getSelected()) {
-            batch.draw(selection, getX(), getY(), getWidth(), getHeight());
+            batch.draw(style.selection, getX(), getY(), getWidth(), getHeight());
         }
         super.draw(batch, alpha);
     }

@@ -18,6 +18,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import static com.evilbird.test.data.item.TestItemRoots.newTestRoot;
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;
+import static com.evilbird.test.data.item.TestSkin.newTestSkin;
 
 public class TestCombatants
 {
@@ -33,7 +34,7 @@ public class TestCombatants
     }
 
     public static Combatant newTestCombatant(Identifier identifier, Identifier type, ItemRoot root, Player parent) {
-        Combatant item = new Combatant();
+        Combatant item = new Combatant(newTestSkin());
         item.setIdentifier(identifier);
         item.setType(type);
         item.setPosition(12, 34);

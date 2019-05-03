@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.unit.building;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.warcraft.item.unit.Unit;
 
@@ -24,7 +25,8 @@ public class Building extends Unit
     private float producing;
     private float constructing;
 
-    public Building() {
+    public Building(Skin skin) {
+        super(skin);
         producing = 1;
         constructing = 1;
     }

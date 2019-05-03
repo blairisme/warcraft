@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.unit.resource;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
@@ -32,7 +33,8 @@ public class Resource extends Unit implements ResourceContainer
 {
     private Map<String, Double> resources;
 
-    public Resource() {
+    public Resource(Skin skin) {
+        super(skin);
         resources = new LinkedHashMap<>();
     }
 

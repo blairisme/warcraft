@@ -21,7 +21,8 @@ public interface Directionable extends Positionable
     /**
      * Sets the direction of the object.
      *
-     * @param normalizedDirection   a normalised direction vector.
+     * @param direction a normalised direction vector. This parameter cannot be
+     *                  {@code null}.
      */
-    void setDirection(Vector2 normalizedDirection);
+    void setDirection(Vector2 direction);
 }

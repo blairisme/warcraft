@@ -14,7 +14,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.BuildingFactory;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactory;
 import com.evilbird.warcraft.item.unit.gatherer.GathererFactory;
-import com.evilbird.warcraft.item.unit.resource.ResourceProvider;
+import com.evilbird.warcraft.item.unit.resource.ResourceFactory;
 
 import javax.inject.Inject;
 
@@ -29,12 +29,12 @@ public class UnitFactory extends IdentifiedAssetProviderSet<Item>
     @Inject
     public UnitFactory(
         BuildingFactory buildingFactory,
-        ResourceProvider resourceProvider,
+        ResourceFactory resourceFactory,
         CombatantFactory combatantFactory,
         GathererFactory gathererFactory)
     {
         addProvider(buildingFactory);
-        addProvider(resourceProvider);
+        addProvider(resourceFactory);
         addProvider(combatantFactory);
         addProvider(gathererFactory);
     }

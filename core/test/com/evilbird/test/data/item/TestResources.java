@@ -18,6 +18,7 @@ import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;
+import static com.evilbird.test.data.item.TestSkin.newTestSkin;
 
 public class TestResources
 {
@@ -33,7 +34,7 @@ public class TestResources
     }
 
     public static Resource newTestResource(Identifier identifier, Identifier type, ItemRoot root, Player parent) {
-        Resource resource = new Resource();
+        Resource resource = new Resource(newTestSkin());
         resource.setIdentifier(identifier);
         resource.setType(type);
         resource.setPosition(12, 34);

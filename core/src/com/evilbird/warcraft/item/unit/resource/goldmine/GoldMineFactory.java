@@ -13,19 +13,22 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.SilentSoundEffect;
 import com.evilbird.engine.common.audio.SoundEffect;
-import com.evilbird.engine.common.graphics.DirectionalAnimation;
+import com.evilbird.engine.common.graphics.Animation;
+import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.specialized.AnimatedItemStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationSets;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
+import com.evilbird.warcraft.item.unit.UnitStyle;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 
@@ -43,7 +46,7 @@ import static com.evilbird.engine.common.file.FileType.MP3;
  *
  * @author Blair Butterworth
  */
-public class GoldMineProvider implements AssetProvider<Item>
+public class GoldMineFactory implements AssetProvider<Item>
 {
     private static final String BASE = "data/textures/neutral/winter/gold_mine.png";
     private static final String ICONS = "data/textures/neutral/perennial/icons.png";
@@ -54,7 +57,7 @@ public class GoldMineProvider implements AssetProvider<Item>
     private AssetManager assets;
 
     @Inject
-    public GoldMineProvider(Device device) {
+    public GoldMineFactory(Device device) {
         this.assets = device.getAssetStorage();
     }
 
@@ -78,13 +81,10 @@ public class GoldMineProvider implements AssetProvider<Item>
 
     @Override
     public Item get() {
-        Resource result = new Resource();
-        result.setAvailableAnimations(getAnimations());
-        result.setAvailableSounds(getSounds());
+        Resource result = new Resource(getSkin());
         result.setAnimation(UnitAnimation.Idle);
         result.setHealth(2400f);
         result.setHealthMaximum(2400f);
-        result.setIcon(getIcon());
         result.setName("Gold Mine");
         result.setSelected(false);
         result.setSelectable(true);
@@ -95,14 +95,24 @@ public class GoldMineProvider implements AssetProvider<Item>
         return result;
     }
 
-    private Map<Identifier, DirectionalAnimation> getAnimations() {
+    private Skin getSkin() {
+        Skin skin = new Skin();
+        skin.add("default", getAnimationStyle(), AnimatedItemStyle.class);
+        skin.add("default", getUnitStyle(), UnitStyle.class);
+        return skin;
+    }
+
+    private AnimatedItemStyle getAnimationStyle() {
+        AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
+        animatedItemStyle.animations = getAnimations();
+        animatedItemStyle.sounds = getSounds();
+        return animatedItemStyle;
+    }
+
+    private Map<Identifier, Animation> getAnimations() {
         Texture general = assets.get(BASE, Texture.class);
         Texture destruction = assets.get(DESTRUCTION, Texture.class);
         return AnimationSets.resourceBuildingAnimations(general, destruction);
-    }
-
-    private Drawable getIcon() {
-        return TextureUtils.getDrawable(assets, ICONS, 184, 532, 46, 38);
     }
 
     private Map<Identifier, SoundEffect> getSounds() {
@@ -111,5 +121,12 @@ public class GoldMineProvider implements AssetProvider<Item>
         sounds.put(UnitSound.Selected, newSoundEffect(assets, SELECTED));
         sounds.put(UnitSound.Die, newSoundEffect(assets, DESTROYED, MP3, 3));
         return sounds;
+    }
+
+    private UnitStyle getUnitStyle() {
+        UnitStyle unitStyle = new UnitStyle();
+        unitStyle.icon = TextureUtils.getDrawable(assets, ICONS, 184, 532, 46, 38);
+        unitStyle.selection = TextureUtils.getRectangle(96, 96, Colours.FOREST_GREEN);
+        return unitStyle;
     }
 }

@@ -13,18 +13,21 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.engine.common.graphics.DirectionalAnimation;
+import com.evilbird.engine.common.graphics.Animation;
+import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.specialized.AnimatedItemStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationSets;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
+import com.evilbird.warcraft.item.unit.UnitStyle;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
@@ -77,14 +80,11 @@ public class BarracksFactory implements AssetProvider<Item>
 
     @Override
     public Item get() {
-        Building result = new Building();
-        result.setAvailableAnimations(getAnimations());
+        Building result = new Building(getSkin());
         result.setAnimation(UnitAnimation.Idle);
-        result.setAvailableSounds(getSounds());
         result.setSight(5 * 32);
         result.setHealth(800);
         result.setHealthMaximum(800);
-        result.setIcon(getIcon());
         result.setName("Barracks");
         result.setSelected(false);
         result.setSelectable(true);
@@ -94,20 +94,37 @@ public class BarracksFactory implements AssetProvider<Item>
         return result;
     }
 
-    private Map<Identifier, DirectionalAnimation> getAnimations() {
+    private Skin getSkin() {
+        Skin skin = new Skin();
+        skin.add("default", getAnimationStyle(), AnimatedItemStyle.class);
+        skin.add("default", getUnitStyle(), UnitStyle.class);
+        return skin;
+    }
+
+    private AnimatedItemStyle getAnimationStyle() {
+        AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
+        animatedItemStyle.animations = getAnimations();
+        animatedItemStyle.sounds = getSounds();
+        return animatedItemStyle;
+    }
+
+    private Map<Identifier, Animation> getAnimations() {
         Texture general = assets.get(BASE, Texture.class);
         Texture construction = assets.get(CONSTRUCTION, Texture.class);
         Texture destruction = assets.get(DESTRUCTION, Texture.class);
         return AnimationSets.buildingAnimations(general, construction, destruction, 96, 96);
     }
 
-    private Drawable getIcon() {
-        return TextureUtils.getDrawable(assets, ICONS, 92, 304, 46, 38);
-    }
-
     private Map<Identifier, SoundEffect> getSounds() {
         return Maps.of(
             UnitSound.Die, newSoundEffect(assets, DESTROYED, MP3, 3),
             UnitSound.Selected, newSoundEffect(assets, SELECTED));
+    }
+
+    private UnitStyle getUnitStyle() {
+        UnitStyle unitStyle = new UnitStyle();
+        unitStyle.icon = TextureUtils.getDrawable(assets, ICONS, 92, 304, 46, 38);
+        unitStyle.selection = TextureUtils.getRectangle(96, 96, Colours.FOREST_GREEN);
+        return unitStyle;
     }
 }

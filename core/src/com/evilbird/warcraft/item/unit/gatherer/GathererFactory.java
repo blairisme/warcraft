@@ -13,7 +13,7 @@ import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
-import com.evilbird.warcraft.item.unit.gatherer.human.PeasantProvider;
+import com.evilbird.warcraft.item.unit.gatherer.human.PeasantFactory;
 
 import javax.inject.Inject;
 
@@ -26,8 +26,8 @@ import javax.inject.Inject;
 public class GathererFactory extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
-    public GathererFactory(PeasantProvider peasantProvider) {
+    public GathererFactory(PeasantFactory peasantFactory) {
         super();
-        addProvider(UnitType.Peasant, peasantProvider);
+        addProvider(UnitType.Peasant, peasantFactory);
     }
 }

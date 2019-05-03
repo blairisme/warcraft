@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.common.animation;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.evilbird.engine.common.graphics.DirectionalAnimation;
+import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import org.apache.commons.lang3.tuple.Pair;
@@ -20,12 +20,18 @@ import java.util.Map;
 
 import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.*;
 
+/**
+ * Used to obtain commonly used animation sequence sets. For example all of the
+ * animations common to combatants.
+ *
+ * @author Blair Butterworth
+ */
 public class AnimationSets
 {
     private AnimationSets() {
     }
 
-    public static Map<Identifier, DirectionalAnimation> combatantAnimations(
+    public static Map<Identifier, Animation> combatantAnimations(
             Texture generalTexture, Texture decomposeTexture)
     {
         AnimationSetBuilder builder = new AnimationSetBuilder();
@@ -38,7 +44,7 @@ public class AnimationSets
         return builder.build();
     }
 
-    public static Map<Identifier, DirectionalAnimation> gatherAnimations(
+    public static Map<Identifier, Animation> gatherAnimations(
             Texture generalTexture, Texture decomposeTexture, Texture moveGoldTexture, Texture moveWoodTexture)
     {
         AnimationSetBuilder builder = new AnimationSetBuilder();
@@ -60,13 +66,13 @@ public class AnimationSets
         return builder.build();
     }
 
-    public static Map<Identifier, DirectionalAnimation> effectAnimations(Texture texture) {
+    public static Map<Identifier, Animation> effectAnimations(Texture texture) {
         AnimationSetBuilder builder = new AnimationSetBuilder();
         builder.set(UnitAnimation.Idle, AnimationSchemas.effectSchema(), texture);
         return builder.build();
     }
 
-    public static Map<Identifier, DirectionalAnimation> buildingAnimations(
+    public static Map<Identifier, Animation> buildingAnimations(
             Texture general, Texture construction, Texture destruction, int width, int height)
     {
         AnimationSetBuilder builder = new AnimationSetBuilder();
@@ -79,7 +85,7 @@ public class AnimationSets
         return builder.build();
     }
 
-    public static Map<Identifier, DirectionalAnimation> resourceBuildingAnimations(
+    public static Map<Identifier, Animation> resourceBuildingAnimations(
             Texture general, Texture destruction)
     {
         AnimationSetBuilder builder = new AnimationSetBuilder();

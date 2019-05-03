@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.unit.combatant;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Movable;
 import com.evilbird.engine.common.serialization.SerializedType;
@@ -37,8 +38,8 @@ public class Combatant extends Unit implements Movable
     private float movementSpeed;
     private Set<Identifier> movementCapability;
 
-    public Combatant() {
-        super();
+    public Combatant(Skin skin) {
+        super(skin);
         movementCapability = new HashSet<>();
     }
 

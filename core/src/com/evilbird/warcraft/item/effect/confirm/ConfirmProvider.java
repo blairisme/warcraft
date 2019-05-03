@@ -12,18 +12,18 @@ package com.evilbird.warcraft.item.effect.confirm;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.graphics.DirectionalAnimation;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.inject.AssetProvider;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimatedItem;
+import com.evilbird.engine.item.specialized.AnimatedItemStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationSets;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import javax.inject.Inject;
-import java.util.Map;
+import java.util.Collections;
 
 /**
  * Instances of this class represent a confirmation animation item, shown to
@@ -49,8 +49,7 @@ public class ConfirmProvider implements AssetProvider<Item>
 
     @Override
     public Item get() {
-        AnimatedItem result = new AnimatedItem();
-        result.setAvailableAnimations(getAnimations());
+        AnimatedItem result = new AnimatedItem(getSkin());
         result.setAnimation(UnitAnimation.Idle);
         result.setTouchable(Touchable.disabled);
         result.setType(EffectType.Confirm);
@@ -58,8 +57,16 @@ public class ConfirmProvider implements AssetProvider<Item>
         return result;
     }
 
-    private Map<Identifier, DirectionalAnimation> getAnimations() {
-        Texture texture = assets.get(TEXTURE, Texture.class);
-        return AnimationSets.effectAnimations(texture);
+    private Skin getSkin() {
+        Skin skin = new Skin();
+        skin.add("default", getAnimationStyle(), AnimatedItemStyle.class);
+        return skin;
+    }
+
+    private AnimatedItemStyle getAnimationStyle() {
+        AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
+        animatedItemStyle.animations = AnimationSets.effectAnimations(assets.get(TEXTURE, Texture.class));
+        animatedItemStyle.sounds = Collections.emptyMap();
+        return animatedItemStyle;
     }
 }

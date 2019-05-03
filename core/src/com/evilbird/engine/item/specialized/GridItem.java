@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.engine.item.specialized;
@@ -68,14 +68,6 @@ public class GridItem extends TableItem
 
     public void setCellPadding(int cellPadding) {
         this.cellPaddingVertical = cellPadding;
-        this.cellPaddingHorizontal = cellPadding;
-    }
-
-    public void setVerticalCellPadding(int cellPadding) {
-        this.cellPaddingVertical = cellPadding;
-    }
-
-    public void setHorizontalCellPadding(int cellPadding) {
         this.cellPaddingHorizontal = cellPadding;
     }
 

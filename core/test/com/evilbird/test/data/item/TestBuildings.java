@@ -18,6 +18,7 @@ import com.evilbird.warcraft.item.unit.building.Building;
 
 import static com.evilbird.test.data.item.TestItemRoots.newTestRoot;
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;
+import static com.evilbird.test.data.item.TestSkin.newTestSkin;
 
 public class TestBuildings
 {
@@ -33,7 +34,7 @@ public class TestBuildings
     }
 
     public static Building newTestBuilding(Identifier identifier, Identifier type, ItemRoot root, Player parent) {
-        Building item = new Building();
+        Building item = new Building(newTestSkin());
         item.setIdentifier(identifier);
         item.setType(type);
         item.setPosition(12, 34);

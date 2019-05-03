@@ -11,6 +11,11 @@ package com.evilbird.warcraft.item.effect;
 
 import com.evilbird.engine.item.ItemType;
 
+/**
+ * Defines options of specifying effect varieties.
+ *
+ * @author Blair Butterworth
+ */
 public enum EffectType implements ItemType
 {
     Confirm
