@@ -1,15 +1,17 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.item.data.player;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
@@ -34,14 +36,26 @@ public class Player extends ItemGroup implements ResourceContainer
     private String description;
     private Map<String, Double> statistics;
     private Map<String, Double> resources;
+    private transient Skin skin;
+    private transient Music music;
 
     @Inject
-    public Player() {
+    public Player(Skin skin) {
+        this.skin = skin;
+        this.resources = new LinkedHashMap<>();
+        this.statistics = new LinkedHashMap<>();
+
         setType(DataType.Player);
         setPosition(0, 0);
         setSize(Float.MAX_VALUE, Float.MAX_VALUE);
-        resources = new LinkedHashMap<>();
-        statistics = new LinkedHashMap<>();
+
+        initializeMusic();
+    }
+
+    private void initializeMusic() {
+        PlayerStyle playerStyle = skin.get("default", PlayerStyle.class);
+        music = playerStyle.music;
+        music.play();
     }
 
     public boolean isCorporeal() {

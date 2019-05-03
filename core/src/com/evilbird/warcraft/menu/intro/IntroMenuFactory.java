@@ -37,6 +37,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 import static com.evilbird.warcraft.state.WarcraftStateScenario.Human1;
+import static java.util.Arrays.asList;
 
 /**
  * Instances of this factory create {@link IntroMenu}s, menus that introduce a
@@ -103,7 +104,7 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
     private void addNarration(IntroMenu menu, String asset1, String asset2) {
         Music narration1 = assets.get(asset1, Music.class);
         Music narration2 = assets.get(asset2, Music.class);
-        Music narration = new MusicSequence(narration1, narration2);
+        Music narration = new MusicSequence(asList(narration1, narration2));
 
         Music background = assets.get(NARRATION_BACKGROUND, Music.class);
         background.setVolume(0.7f);

@@ -1,32 +1,43 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.engine.common.audio;
 
 import com.badlogic.gdx.audio.Music;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * Represents a sequence of steamed audio, where each audio steam is played one
+ * after the other. Methods are provided to play, pause and stop the music
+ * sequence, as well as to configure its playback.
+ *
+ * @author Blair Butterworth
+ */
 public class MusicSequence implements Music
 {
     private boolean playing;
+    private Music current;
     private List<Music> sequence;
     private Iterator<Music> iterator;
-    private Music current;
 
-    public MusicSequence(Music ... sequence) {
-        this(Arrays.asList(sequence));
-    }
-
+    /**
+     * Constructs a new instance of this class given an ordered collection of
+     * music to play in sequence.
+     *
+     * @param sequence a {@link List} of {@link Music}. This parameter cannot
+     *                 be {@code null}.
+     */
     public MusicSequence(List<Music> sequence) {
+        Objects.requireNonNull(sequence);
         this.sequence = sequence;
     }
 

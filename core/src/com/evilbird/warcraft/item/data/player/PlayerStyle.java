@@ -9,19 +9,17 @@
 
 package com.evilbird.warcraft.item.data.player;
 
+import com.badlogic.gdx.audio.Music;
+
 /**
- * Defines options for the various statistics kept about player actions.
+ * Defines the visual and auditory presentation of a {@link Player}.
  *
  * @author Blair Butterworth
  */
-public enum PlayerStatistic
+public class PlayerStyle
 {
-    Units,
-    Buildings,
-    Gold,
-    Wood,
-    Oil,
-    Kills,
-    Razed,
-    Score
+    /**
+     * The music to play during the game.
+     */
+    public Music music;
 }

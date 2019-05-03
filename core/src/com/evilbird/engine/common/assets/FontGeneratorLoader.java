@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.engine.common.assets;
@@ -17,6 +17,12 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * Instances of this class load fonts generators, which create Bitmap fonts
+ * from TrueType, OTF, and other FreeType supported fonts in memory at runtime.
+ *
+ * @author Blair Butterworth
+ */
 public class FontGeneratorLoader extends SynchronousAssetLoader<FreeTypeFontGenerator, FontGeneratorLoaderParameters>
 {
     public FontGeneratorLoader(FileHandleResolver resolver) {

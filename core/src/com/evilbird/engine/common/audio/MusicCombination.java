@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.engine.common.audio;
@@ -14,6 +14,13 @@ import com.badlogic.gdx.audio.Music;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents a audio stream comprised of individual audio streams played in
+ * parallel. Methods are provided to play, pause and stop the music combination,
+ * as well as to configure its playback.
+ *
+ * @author Blair Butterworth
+ */
 public class MusicCombination implements Music
 {
     private boolean playing;
