@@ -18,4 +18,5 @@ checks:
 plugins:
   checkstyle:
     enabled: true
-    config: 'config/checkstyle/checkstyle_codeclimate.xml'
+    config:
+      file: 'config/checkstyle/checkstyle_codeclimate.xml'

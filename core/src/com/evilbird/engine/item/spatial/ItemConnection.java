@@ -37,17 +37,17 @@ public class ItemConnection implements SpatialConnection<ItemNode>
     }
 
     @Override
-    public float getCost () {
+    public float getCost() {
         return cost;
     }
 
     @Override
-    public ItemNode getFromNode () {
+    public ItemNode getFromNode() {
         return fromNode;
     }
 
     @Override
-    public ItemNode getToNode () {
+    public ItemNode getToNode() {
         return toNode;
     }
 }
