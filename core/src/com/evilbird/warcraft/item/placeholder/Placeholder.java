@@ -12,11 +12,17 @@ package com.evilbird.warcraft.item.placeholder;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.events.Event;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemBasic;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.item.utility.ItemOperations;
+import com.evilbird.warcraft.action.common.create.CreateEvent;
+import com.evilbird.warcraft.action.common.remove.RemoveEvent;
+import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.item.layer.LayerType;
 
 import java.util.Collection;
@@ -36,6 +42,7 @@ public class Placeholder extends ItemBasic
     private transient Drawable allowed;
     private transient Drawable blocked;
     private transient boolean isClear;
+    private transient EventQueue events;
 
     public Placeholder(Skin skin) {
         this.skin = skin;
@@ -44,6 +51,10 @@ public class Placeholder extends ItemBasic
 
     public boolean isClear() {
         return isClear;
+    }
+
+    public void setEvents(EventQueue events) {
+        this.events = events;
     }
 
     public void setStyle(String name) {
@@ -73,6 +84,22 @@ public class Placeholder extends ItemBasic
     @Override
     public void positionChanged() {
         evaluateOccupation(getRoot());
+    }
+
+    @Override
+    public void update(float delta) {
+        super.update(delta);
+        evaluateEvents(events.getEvents(CreateEvent.class));
+        evaluateEvents(events.getEvents(RemoveEvent.class));
+        evaluateEvents(events.getEvents(MoveEvent.class));
+    }
+
+    private void evaluateEvents(Collection<? extends Event> events) {
+        for (Event event: events) {
+            if (ItemOperations.overlaps(this, event.getSubject())) {
+                evaluateOccupation(getRoot());
+            }
+        }
     }
 
     private void evaluateOccupation(ItemRoot root) {

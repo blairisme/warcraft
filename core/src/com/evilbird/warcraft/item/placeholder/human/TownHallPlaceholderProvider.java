@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.placeholder.Placeholder;
 import com.evilbird.warcraft.item.placeholder.PlaceholderStyle;
@@ -34,10 +35,13 @@ public class TownHallPlaceholderProvider implements AssetProvider<Item>
     private static final String BUILDING_TEXTURE = "data/textures/human/winter/town_hall.png";
     private static final String ALLOWED_TEXTURE = "data/textures/neutral/hud/building_allowed.png";
     private static final String PROHIBITED_TEXTURE = "data/textures/neutral/hud/building_prohibited.png";
+
     private AssetManager assets;
+    private EventQueue events;
 
     @Inject
-    public TownHallPlaceholderProvider(Device device) {
+    public TownHallPlaceholderProvider(Device device, EventQueue events) {
+        this.events = events;
         this.assets = device.getAssetStorage();
     }
 
@@ -53,6 +57,7 @@ public class TownHallPlaceholderProvider implements AssetProvider<Item>
         Placeholder placeholder = new Placeholder(getSkin());
         placeholder.setType(PlaceholderType.TownHallPlaceholder);
         placeholder.setSize(128, 128);
+        placeholder.setEvents(events);
         return placeholder;
     }
 

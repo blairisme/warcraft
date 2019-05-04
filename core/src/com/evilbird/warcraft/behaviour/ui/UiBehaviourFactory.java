@@ -15,6 +15,13 @@ import com.evilbird.engine.common.inject.InjectedPool;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
+/**
+ * Instances of this factory create {@link UiBehaviour}, which modify the game
+ * state in response to user interaction and updates to the game state that
+ * should be presented to the user.
+ *
+ * @author Blair Butterworth
+ */
 public class UiBehaviourFactory implements Provider<Behaviour>
 {
     private InjectedPool<UiBehaviour> pool;

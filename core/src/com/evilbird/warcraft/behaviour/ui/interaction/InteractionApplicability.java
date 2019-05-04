@@ -9,6 +9,12 @@
 
 package com.evilbird.warcraft.behaviour.ui.interaction;
 
+/**
+ * Defines options for specifying the type of item that an
+ * {@link InteractionDefinition} applies to.
+ *
+ * @author Blair Butterworth
+ */
 public enum InteractionApplicability
 {
     Selected,

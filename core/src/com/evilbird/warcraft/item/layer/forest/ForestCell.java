@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemBasic;
+import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.layer.LayerType;
@@ -26,7 +27,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class ForestCell extends ItemBasic implements ResourceContainer
+public class ForestCell extends ItemBasic implements ResourceContainer, ItemGraphOccupant
 {
     private float wood;
     private GridPoint2 location;

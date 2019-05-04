@@ -9,6 +9,12 @@
 
 package com.evilbird.warcraft.behaviour.ui.interaction;
 
+/**
+ * Defines options for specifying the item that will be the recipient of an
+ * actions resulting from an {@link InteractionDefinition}.
+ *
+ * @author Blair Butterworth
+ */
 public enum InteractionAssignment
 {
     Item,

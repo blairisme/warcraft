@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.layer.terrain;
 
 import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.engine.common.serialization.SerializedType;
+import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.warcraft.item.layer.Layer;
 import com.evilbird.warcraft.item.layer.LayerAdapter;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -26,7 +27,7 @@ import javax.inject.Inject;
  */
 @SerializedType("Terrain")
 @JsonAdapter(LayerAdapter.class)
-public class Terrain extends Layer
+public class Terrain extends Layer implements ItemGraphOccupant
 {
     @Inject
     @SerializedConstructor

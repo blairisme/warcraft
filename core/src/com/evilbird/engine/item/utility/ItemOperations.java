@@ -10,6 +10,7 @@
 package com.evilbird.engine.item.utility;
 
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
@@ -85,5 +86,11 @@ public class ItemOperations
     public static boolean isNear(Item locus, float radius, Item target) {
         Circle perimeter = new Circle(locus.getPosition(Alignment.Center), radius);
         return ShapeUtilities.contains(perimeter, target.getBounds());
+    }
+
+    public static boolean overlaps(Item itemA, Item itemB) {
+        Rectangle rectangleA = itemA.getBounds();
+        Rectangle rectangleB = itemB.getBounds();
+        return rectangleA.overlaps(rectangleB);
     }
 }

@@ -55,7 +55,7 @@ public class Player extends ItemGroup implements ResourceContainer
     private void initializeMusic() {
         PlayerStyle playerStyle = skin.get("default", PlayerStyle.class);
         music = playerStyle.music;
-        music.play();
+        music.setVolume(0.3f);
     }
 
     public boolean isCorporeal() {
@@ -85,6 +85,10 @@ public class Player extends ItemGroup implements ResourceContainer
 
     public void setCorporeal(boolean corporeal) {
         this.corporeal = corporeal;
+
+        if (corporeal) {
+            music.play();
+        }
     }
 
     public void setDescription(String description) {

@@ -9,6 +9,13 @@
 
 package com.evilbird.warcraft.behaviour.ui.interaction;
 
+/**
+ * Defines options for specifying whether any actions resulting from an
+ * {@link InteractionDefinition} should replace existing actions or supplement
+ * them.
+ *
+ * @author Blair Butterworth
+ */
 public enum InteractionDisplacement
 {
     Addition,

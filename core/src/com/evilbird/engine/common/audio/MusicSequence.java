@@ -24,7 +24,9 @@ import java.util.Objects;
  */
 public class MusicSequence implements Music
 {
+    private float volume;
     private boolean playing;
+    private boolean looping;
     private Music current;
     private List<Music> sequence;
     private Iterator<Music> iterator;
@@ -39,6 +41,9 @@ public class MusicSequence implements Music
     public MusicSequence(List<Music> sequence) {
         Objects.requireNonNull(sequence);
         this.sequence = sequence;
+        this.volume = 1;
+        this.playing = false;
+        this.looping = false;
     }
 
     @Override
@@ -66,7 +71,11 @@ public class MusicSequence implements Music
             current.play();
         }
         else {
-            playing = false;
+            if (looping) {
+                iterator = sequence.iterator();
+            } else {
+                playing = false;
+            }
         }
     }
 
@@ -104,23 +113,26 @@ public class MusicSequence implements Music
     }
 
     @Override
-    public void setLooping(boolean isLooping) {
-        throw new UnsupportedOperationException();
+    public void setLooping(boolean looping) {
+        this.looping = looping;
     }
 
     @Override
     public boolean isLooping() {
-        throw new UnsupportedOperationException();
+        return looping;
     }
 
     @Override
     public void setVolume(float volume) {
-        throw new UnsupportedOperationException();
+        this.volume = volume;
+        for (Music music: sequence){
+            music.setVolume(volume);
+        }
     }
 
     @Override
     public float getVolume() {
-        throw new UnsupportedOperationException();
+       return this.volume;
     }
 
     @Override

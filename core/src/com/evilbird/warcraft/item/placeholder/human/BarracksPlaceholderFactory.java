@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.placeholder.Placeholder;
 import com.evilbird.warcraft.item.placeholder.PlaceholderStyle;
@@ -36,9 +37,11 @@ public class BarracksPlaceholderFactory implements AssetProvider<Item>
     private static final String PROHIBITED_TEXTURE = "data/textures/neutral/hud/building_prohibited.png";
 
     private AssetManager assets;
+    private EventQueue events;
 
     @Inject
-    public BarracksPlaceholderFactory(Device device) {
+    public BarracksPlaceholderFactory(Device device, EventQueue events) {
+        this.events = events;
         this.assets = device.getAssetStorage();
     }
 
@@ -54,6 +57,7 @@ public class BarracksPlaceholderFactory implements AssetProvider<Item>
         Placeholder placeholder = new Placeholder(getSkin());
         placeholder.setType(PlaceholderType.BarracksPlaceholder);
         placeholder.setSize(96, 96);
+        placeholder.setEvents(events);
         return placeholder;
     }
 

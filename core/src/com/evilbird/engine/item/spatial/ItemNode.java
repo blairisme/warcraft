@@ -14,14 +14,16 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.collection.Arrays;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.pathing.SpatialNode;
 import com.evilbird.engine.item.Item;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Instances of this class represent a single division of the game
@@ -32,14 +34,14 @@ import java.util.List;
 public class ItemNode implements SpatialNode
 {
     private int index;
-    private List<Item> occupants;
+    private Map<Identifier, Item> occupants;
     private GridPoint2 gridReference;
     private transient Vector2 worldReference;
     private transient Array<Connection<ItemNode>> connections;
 
     public ItemNode(int index, GridPoint2 gridReference) {
         this.index = index;
-        this.occupants = new ArrayList<>(2);
+        this.occupants = new HashMap<>(3);
         this.gridReference = gridReference;
         this.worldReference = new Vector2(32 * gridReference.x, 32 * gridReference.y);
         this.connections = Arrays.emptyArray();
@@ -67,24 +69,20 @@ public class ItemNode implements SpatialNode
         return worldReference;
     }
 
-    public List<Item> getOccupants() {
-        return occupants;
+    public Collection<Item> getOccupants() {
+        return occupants.values();
     }
 
     public void addOccupant(Item occupant) {
-        occupants.add(occupant);
+        occupants.put(occupant.getIdentifier(), occupant);
     }
 
     public void removeOccupant(Item occupant) {
-        occupants.remove(occupant);
+        occupants.remove(occupant.getIdentifier());
     }
 
     public boolean hasOccupant(Item occupant) {
-        return occupants.contains(occupant);
-    }
-
-    public boolean hasOccupants() {
-        return !occupants.isEmpty();
+        return occupants.containsKey(occupant.getIdentifier());
     }
 
     public void removeOccupants() {

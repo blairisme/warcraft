@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.lang.Selectable;
+import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.engine.item.specialized.AnimatedItem;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -27,7 +28,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class Unit extends AnimatedItem implements Destroyable, Selectable
+public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemGraphOccupant
 {
     private String name;
     private int sight;

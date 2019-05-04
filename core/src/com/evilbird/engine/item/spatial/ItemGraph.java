@@ -123,6 +123,10 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         return result;
     }
 
+    public Collection<ItemNode> getAdjacentNodes(Item item) {
+        return getAdjacentNodes(item.getPosition(), item.getSize());
+    }
+
     public Collection<ItemNode> getAdjacentNodes(Vector2 worldPosition, Vector2 worldSize) {
         Objects.requireNonNull(worldPosition);
         Objects.requireNonNull(worldSize);
@@ -188,20 +192,16 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     }
 
     public void addOccupants(Item occupant) {
-        if (occupant.getTouchable()) {
-            ItemNode node = getNode(occupant.getPosition());
-            addOccupants(node, occupant);
-        }
+        ItemNode node = getNode(occupant.getPosition());
+        addOccupants(node, occupant);
     }
 
     public void addOccupants(ItemNode node, Item occupant) {
-        for (ItemNode adjacentNode: getNodes(node.getSpatialReference(), occupant.getSize())) {
-            adjacentNode.addOccupant(occupant);
+        if (occupant instanceof ItemGraphOccupant) {
+            for (ItemNode adjacentNode : getNodes(node.getSpatialReference(), occupant.getSize())) {
+                adjacentNode.addOccupant(occupant);
+            }
         }
-    }
-
-    public void addOccupant(ItemNode node, Item occupant) {
-        node.addOccupant(occupant);
     }
 
     public void removeOccupants(Collection<Item> occupants) {
@@ -211,15 +211,15 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     }
 
     public void removeOccupants(Item occupant) {
-        if (occupant.getTouchable()) {
-            ItemNode node = getNode(occupant.getPosition());
-            removeOccupants(node, occupant);
-        }
+        ItemNode node = getNode(occupant.getPosition());
+        removeOccupants(node, occupant);
     }
 
     public void removeOccupants(ItemNode node, Item occupant) {
-        for (ItemNode adjacentNode: getNodes(node.getSpatialReference(), occupant.getSize())) {
-            adjacentNode.removeOccupant(occupant);
+        if (occupant instanceof ItemGraphOccupant) {
+            for (ItemNode adjacentNode : getNodes(node.getSpatialReference(), occupant.getSize())) {
+                adjacentNode.removeOccupant(occupant);
+            }
         }
     }
 

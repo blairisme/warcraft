@@ -18,6 +18,13 @@ import com.evilbird.warcraft.behaviour.ui.menu.MenuBehaviour;
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * Instances of this class modify the game state in response to user
+ * interaction and updates to the game state that should be presented to the
+ * user. I.E., the users current game resources.
+ *
+ * @author Blair Butterworth
+ */
 public class UiBehaviour implements Behaviour
 {
     private MenuBehaviour menuBehaviour;

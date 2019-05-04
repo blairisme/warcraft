@@ -123,30 +123,38 @@ abstract class MoveAction extends BasicAction
                 path = result;
                 pathIterator = path.iterator();
                 pathNode = startNode;
-                initializePathNode();
+                clearAdjacentNodes();
+                setInitialNode();
                 return true;
             }
         }
         return path != null;
     }
 
-    private boolean initializePathNode() {
-        if (path.getCount() == 0) {
-            return false;
+    private void clearAdjacentNodes() {
+        Item item = getItem();
+        for (ItemNode node : graph.getAdjacentNodes(item)) {
+            node.removeOccupant(item);
         }
-        else if (path.getCount() == 1) {
-            return incrementNode();
-        }
-        else {
-            incrementNode(); //ignore partial cell
-            return incrementNode();
+    }
+
+    private void setInitialNode() {
+        if (path.getCount() != 0) {
+            if (path.getCount() == 1) {
+                incrementNode();
+            }
+            else {
+                //ignore moving to current node
+                incrementNode();
+                incrementNode();
+            }
         }
     }
 
     private boolean update(float time) {
         Item item = getItem();
         Vector2 position = item.getPosition();
-        return updatePath(position) && updatePosition(position, time);
+        return updatePath(position) && updatePosition(item, position, time);
     }
 
     private boolean updatePath(Vector2 targetPosition) {
@@ -177,14 +185,14 @@ abstract class MoveAction extends BasicAction
         return false;
     }
 
-    private boolean updatePosition(Vector2 oldPosition, float time) {
-        Vector2 newPosition = getNextPosition(oldPosition, time);
-        getItem().setPosition(newPosition);
+    private boolean updatePosition(Item item, Vector2 oldPosition, float time) {
+        Vector2 newPosition = getNextPosition(item, oldPosition, time);
+        item.setPosition(newPosition);
         return true;
     }
 
-    private Vector2 getNextPosition(Vector2 position, float time) {
-        Movable movable = (Movable)getItem();
+    private Vector2 getNextPosition(Item item, Vector2 position, float time) {
+        Movable movable = (Movable)item;
 
         Vector2 pathNodePosition = pathNode.getWorldReference();
         Vector2 remaining = pathNodePosition.cpy().sub(position);
