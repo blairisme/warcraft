@@ -16,12 +16,15 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.Objects;
+import java.util.function.Predicate;
 
+import static com.evilbird.engine.item.utility.ItemPredicates.hasAction;
+import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
+import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
+import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionAssignment.Parent;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Replacement;
 
 /**
@@ -32,14 +35,12 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplace
  */
 public class InteractionDefinition implements Interaction
 {
-    private static final Logger logger = LoggerFactory.getLogger(InteractionDefinition.class);
-
     private ActionFactory factory;
     private ActionIdentifier actionType;
-    private ActionIdentifier currentType;
-    private Identifier touchedType;
-    private Identifier selectedType;
-    private UserInputType inputType;
+    private Predicate<Item> touchedCondition;
+    private Predicate<Item> selectedCondition;
+    private Predicate<Item> actionCondition;
+    private Predicate<UserInput> inputCondition;
     private InteractionAssignment assignment;
     private InteractionApplicability applicability;
     private InteractionDisplacement displacement;
@@ -70,7 +71,19 @@ public class InteractionDefinition implements Interaction
      * @return      the interaction.
      */
     public InteractionDefinition forInput(UserInputType input) {
-        this.inputType = input;
+        Objects.requireNonNull(input);
+        return forInput(hasType(input));
+    }
+
+    /**
+     * Sets a condition applied to user input, that specifies the set of states
+     * this interaction applies to.
+     *
+     * @param condition a {@link Predicate}.
+     * @return the interaction.
+     */
+    public InteractionDefinition forInput(Predicate<UserInput> condition) {
+        inputCondition = condition;
         return this;
     }
 
@@ -78,11 +91,24 @@ public class InteractionDefinition implements Interaction
      * Specifies that this interaction applies when the target of the user
      * behaviour is of the given type.
      *
-     * @param identifier    an item type {@link Identifier}.
+     * @param identifier    an item type {@link Identifier}. This parameter
+     *                      cannot be {@code null}.
      * @return              the interaction.
      */
     public InteractionDefinition whenTarget(Identifier identifier) {
-        touchedType = identifier;
+        Objects.requireNonNull(identifier);
+        return whenTarget(hasType(identifier));
+    }
+
+    /**
+     * Sets a condition applied to the target of the user behaviour, that
+     * specifies the set of states this interaction applies to.
+     *
+     * @param condition a {@link Predicate}.
+     * @return          the interaction.
+     */
+    public InteractionDefinition whenTarget(Predicate<Item> condition) {
+        touchedCondition = condition;
         return this;
     }
 
@@ -90,11 +116,24 @@ public class InteractionDefinition implements Interaction
      * Specifies that this interaction applies when the user has currently
      * selected an item of the given type.
      *
-     * @param identifier    an item type {@link Identifier}.
+     * @param identifier    an item type {@link Identifier}. This parameter
+     *                      cannot be {@code null}.
      * @return              the interaction.
      */
     public InteractionDefinition whenSelected(Identifier identifier) {
-        selectedType = identifier;
+        Objects.requireNonNull(identifier);
+        return whenSelected(hasType(identifier));
+    }
+
+    /**
+     * Sets a condition applied to the currently selected item, that specifies
+     * the set of states this interaction applies to.
+     *
+     * @param condition a {@link Predicate}.
+     * @return the interaction.
+     */
+    public InteractionDefinition whenSelected(Predicate<Item> condition) {
+        selectedCondition = condition;
         return this;
     }
 
@@ -103,11 +142,25 @@ public class InteractionDefinition implements Interaction
      * be the recipient of the interaction already has an {@link Action} of the
      * given type.
      *
-     * @param identifier    an {@link ActionIdentifier}.
+     * @param identifier    an {@link ActionIdentifier}. This parameter
+     *                      cannot be {@code null}.
      * @return              the interaction.
      */
     public InteractionDefinition withAction(ActionIdentifier identifier) {
-        this.currentType = identifier;
+        Objects.requireNonNull(identifier);
+        return withAction(hasType(identifier));
+    }
+
+    /**
+     * Sets a condition that operates on the item that the interaction will be
+     * applied to, that specifies the set of states this interaction applies
+     * to.
+     *
+     * @param condition a {@link Predicate}.
+     * @return the interaction.
+     */
+    public InteractionDefinition withAction(Predicate<Action> condition) {
+        actionCondition = condition != null ? hasAction(condition) : null;
         return this;
     }
 
@@ -115,10 +168,12 @@ public class InteractionDefinition implements Interaction
      * Indicates how the interaction should be applied, either as a replacement
      * for existing {@link Action Actions}, or as an addition.
      *
-     * @param displacement  an {@link InteractionDisplacement} option.
+     * @param displacement  an {@link InteractionDisplacement} option. This
+     *                      parameter cannot be {@code null}.
      * @return              the interaction
      */
     public InteractionDefinition appliedAs(InteractionDisplacement displacement) {
+        Objects.requireNonNull(displacement);
         this.displacement = displacement;
         return this;
     }
@@ -127,10 +182,12 @@ public class InteractionDefinition implements Interaction
      * Sets which {@link Item} the action resulting from this interaction will
      * be applied to: the target of the resulting {@link Action}.
      *
-     * @param applicability an {@link InteractionApplicability} option.
+     * @param applicability an {@link InteractionApplicability} option. This
+     *                      parameter cannot be {@code null}.
      * @return              the interaction
      */
     public InteractionDefinition appliedTo(InteractionApplicability applicability) {
+        Objects.requireNonNull(applicability);
         this.applicability = applicability;
         return this;
     }
@@ -139,10 +196,12 @@ public class InteractionDefinition implements Interaction
      * Sets which {@link Item} the action resulting from this interaction will
      * be assigned to: the item of the resulting {@link Action}.
      *
-     * @param assignment    an {@link InteractionAssignment} option.
+     * @param assignment    an {@link InteractionAssignment} option. This
+     *                      parameter cannot be {@code null}.
      * @return              the interaction
      */
     public InteractionDefinition assignedTo(InteractionAssignment assignment) {
+        Objects.requireNonNull(assignment);
         this.assignment = assignment;
         return this;
     }
@@ -157,48 +216,25 @@ public class InteractionDefinition implements Interaction
         return actionType;
     }
 
-    /**
-     * Returns the {@link UserInputType user input} that this interaction
-     * applies to.
-     *
-     * @return a {@code UserInputType} option.
-     */
-    public UserInputType getInput() {
-        return inputType;
-    }
-
     @Override
     public boolean applies(UserInput input, Item touched, Item selected) {
-        if (inputType != null && !Objects.equals(inputType, input.getType())){
+        if (inputCondition != null && !inputCondition.test(input)) {
             return false;
         }
-        if (touchedType != null && !Objects.equals(touchedType, getType(touched))){
+        if (touchedCondition != null && !touchedCondition.test(touched)) {
             return false;
         }
-        if (selectedType != null && !Objects.equals(selectedType, getType(selected))){
+        if (selectedCondition != null && !selectedCondition.test(selected)) {
             return false;
         }
-        if (currentType != null && !hasAction(getPrimary(touched, selected), currentType)) {
+        if (actionCondition != null && !actionCondition.test(getPrimary(touched, selected))) {
             return false;
         }
         return true;
     }
 
-    private Identifier getType(Item item) {
-        return item != null ? item.getType() : null;
-    }
-
-    private boolean hasAction(Item item, Identifier identifier) {
-        for (Action action: item.getActions()) {
-            if (action.getIdentifier() == identifier) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override
-    public void update(UserInput input, Item item, Item selected) {
+    public void apply(UserInput input, Item item, Item selected) {
         Item primary = getPrimary(item, selected);
         Item secondary = getSecondary(item, selected);
         Item subject = getSubject(primary);
@@ -212,34 +248,18 @@ public class InteractionDefinition implements Interaction
         action.setItem(primary);
         action.setTarget(secondary);
         action.setCause(input);
-
-        //log(actionType, primary);
     }
 
     private Item getPrimary(Item item, Item selected) {
-        switch (applicability) {
-            case Selected: return selected;
-            default: return item;
-        }
+        return applicability == Selected ? selected : item;
     }
 
     private Item getSecondary(Item item, Item selected) {
-        switch (applicability) {
-            case Selected: return item;
-            default: return selected;
-        }
+        return applicability == Selected ? item : selected;
     }
 
     private Item getSubject(Item item) {
-        switch (assignment) {
-            case Parent: return item.getParent();
-            default: return item;
-        }
-    }
-
-    private void log(ActionIdentifier actionType, Item subject) {
-        logger.debug("Action started - type: '{}' subject: '{}'",
-            actionType, subject.getIdentifier());
+        return assignment == Parent ? item.getParent() : item;
     }
 }
 

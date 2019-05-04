@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import java.util.Objects;
 
 /**
- * Instances of this class update and render a {@link Menu}. Menus drawn by
+ * Instances of this class apply and render a {@link Menu}. Menus drawn by
  * this class will occupy the entire screen and are usually drawn above a
  * background image.
  *

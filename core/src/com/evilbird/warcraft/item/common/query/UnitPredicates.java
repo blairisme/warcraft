@@ -102,25 +102,6 @@ public class UnitPredicates
 
         };
     }
-//
-//    public static Predicate<Item> isSelected(Item item) {
-//        Unit unit = (Unit)item;
-//        final boolean selected = unit.getSelected();
-//        return (it) -> selected;
-//    }
-//
-//    public static Predicate<Item> isUnselected() {
-//        return (item) -> {
-//            Unit unit = (Unit)item;
-//            return !unit.getSelected();
-//        };
-//    }
-//
-//    public static Predicate<Item> isUnselected(Item item) {
-//        Unit unit = (Unit)item;
-//        final boolean selected = unit.getSelected();
-//        return (it) -> !selected;
-//    }
 
     public static Predicate<Item> hasResources(ResourceType type) {
         return (item) -> {
@@ -163,6 +144,16 @@ public class UnitPredicates
         return (item) -> {
             Building building = (Building)item;
             return building.isProducing();
+        };
+    }
+
+    public static Predicate<Item> isPlaceholderClear() {
+        return item -> {
+            if (item instanceof Placeholder) {
+                Placeholder placeholder = (Placeholder)item;
+                return placeholder.isClear();
+            }
+            return false;
         };
     }
 }

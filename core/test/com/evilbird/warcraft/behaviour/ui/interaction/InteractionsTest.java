@@ -31,8 +31,7 @@ import java.util.stream.Collectors;
 import static com.evilbird.engine.device.UserInputType.Action;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmTarget;
-import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructBarracks;
-import static com.evilbird.warcraft.item.placeholder.PlaceholderType.BarracksPlaceholder;
+import static com.evilbird.warcraft.action.gather.GatherActions.GatherGold;
 import static com.evilbird.warcraft.item.unit.UnitType.*;
 import static java.util.Arrays.asList;
 
@@ -59,7 +58,7 @@ public class InteractionsTest
     @Test
     public void getInteractionsTest() {
         assertInteractions(asList(AttackMelee, ConfirmTarget), Action, Grunt, Footman);
-        assertInteraction(ConstructBarracks, Action, BarracksPlaceholder, Peasant);
+        assertInteraction(GatherGold, Action, GoldMine, Peasant);
     }
 
     private void assertInteraction(ActionIdentifier action, UserInputType input, ItemType target, ItemType selected) {
@@ -68,7 +67,7 @@ public class InteractionsTest
         Item selectedItem = TestItems.newItem(new TextIdentifier("test-selected"), selected);
 
         Collection<Interaction> results = interactions.getInteractions(userInput, targetItem, selectedItem);
-        Assert.assertEquals(1, results.size());
+        Assert.assertTrue(results.size() >= 1);
 
         InteractionDefinition result = (InteractionDefinition)results.iterator().next();
         Assert.assertEquals(action, result.getAction());

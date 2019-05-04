@@ -19,7 +19,7 @@ import java.util.*;
 
 /**
  * Instances of this class represent a queue of events, note worthy phenomenon
- * that occurred within the last update cycle.
+ * that occurred within the last apply cycle.
  *
  * @author Blair Butterworth
  */

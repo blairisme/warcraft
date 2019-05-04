@@ -10,9 +10,13 @@
 package com.evilbird.engine.item.utility;
 
 import com.badlogic.gdx.math.Circle;
+import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.math.ShapeUtilities;
+import com.evilbird.engine.device.UserInput;
+import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 
@@ -77,5 +81,21 @@ public class ItemPredicates
 
     public static Predicate<ItemRoot> hasMaximum(Predicate<Item> condition, int count) {
         return (composite) -> composite.findAll(condition).size() <= count;
+    }
+
+    public static Predicate<Item> hasType(Identifier type) {
+        return item -> item != null && item.getType() == type;
+    }
+
+    public static Predicate<UserInput> hasType(UserInputType type) {
+        return input -> input != null && input.getType() == type;
+    }
+
+    public static Predicate<Action> hasType(ActionIdentifier type) {
+        return action -> action != null && action.getIdentifier() == type;
+    }
+
+    public static Predicate<Item> hasAction(Predicate<Action> condition) {
+        return item -> item != null && item.getActions().stream().anyMatch(condition);
     }
 }

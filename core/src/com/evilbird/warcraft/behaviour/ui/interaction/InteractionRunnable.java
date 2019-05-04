@@ -28,6 +28,6 @@ public class InteractionRunnable implements Runnable
 
     @Override
     public void run() {
-        interaction.update(input, target, selected);
+        interaction.apply(input, target, selected);
     }
 }

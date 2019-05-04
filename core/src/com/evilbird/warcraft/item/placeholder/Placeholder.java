@@ -35,15 +35,15 @@ public class Placeholder extends ItemBasic
     private transient Drawable overlay;
     private transient Drawable allowed;
     private transient Drawable blocked;
-    private transient boolean isBlocked;
+    private transient boolean isClear;
 
     public Placeholder(Skin skin) {
         this.skin = skin;
         setStyle("default");
     }
 
-    public boolean isBlocked() {
-        return isBlocked;
+    public boolean isClear() {
+        return isClear;
     }
 
     public void setStyle(String name) {
@@ -51,7 +51,7 @@ public class Placeholder extends ItemBasic
         building = style.building;
         allowed = style.allowed;
         blocked = style.prohibited;
-        overlay = isBlocked ? blocked : allowed;
+        overlay = isClear ? allowed : blocked;
     }
 
     @Override
@@ -80,8 +80,8 @@ public class Placeholder extends ItemBasic
             ItemGraph graph = root.getSpatialGraph();
             Collection<ItemNode> nodes = graph.getNodes(getPosition(), getSize());
 
-            isBlocked = !nodes.stream().allMatch(this::isUnoccupied);
-            overlay = isBlocked ? blocked : allowed;
+            isClear = nodes.stream().allMatch(this::isUnoccupied);
+            overlay = isClear ? allowed : blocked;
         }
     }
 

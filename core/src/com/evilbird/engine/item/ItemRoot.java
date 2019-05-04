@@ -121,7 +121,7 @@ public class ItemRoot implements ItemComposite
     /**
      * Sets the {@link ItemGraph} associated with the ItemRoot. Any Items
      * added to the ItemRoot will automatically be provided to the ItemGraph
-     * to update occupancy.
+     * to apply occupancy.
      *
      * @param graph an {@link ItemGraph}. Cannot be {@code null}.
      */

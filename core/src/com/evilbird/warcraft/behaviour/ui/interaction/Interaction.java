@@ -39,5 +39,5 @@ public interface Interaction
      * @param target    the {@link Item} thats the focus of the user input.
      * @param selected  the currently selected items.
      */
-    void update(UserInput input, Item target, Item selected);
+    void apply(UserInput input, Item target, Item selected);
 }

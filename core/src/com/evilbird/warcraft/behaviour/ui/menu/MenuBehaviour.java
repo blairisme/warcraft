@@ -48,7 +48,7 @@ import static com.evilbird.warcraft.item.data.player.PlayerScore.getScoreValue;
 import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Score;
 
 /**
- * Instances of this behaviour update the user interface based on game state
+ * Instances of this behaviour apply the user interface based on game state
  * changes. Specifically it provides the heads up display with the currently
  * selected items and player resources. It also updates player statistics, the
  * number of units and buildings created and killed and the number of resources

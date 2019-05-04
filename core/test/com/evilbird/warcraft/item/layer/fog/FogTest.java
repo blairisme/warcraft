@@ -51,7 +51,7 @@ public class FogTest extends GameTestCase
         fog.setLayer(layer);
         fog.setIdentifier(identifier);
         fog.setType(identifier.getType());
-        //fog.update(1);
+        //fog.apply(1);
 
         respondWithItem(fog);
     }

@@ -15,7 +15,7 @@ import com.evilbird.engine.item.ItemGroupObserver;
 
 /**
  * Instances of this class observe {@link ItemGroup} events and use these to
- * update the occupancy of an {@link ItemGraph}.
+ * apply the occupancy of an {@link ItemGraph}.
  *
  * @author Blair Butterworth
  */

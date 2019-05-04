@@ -27,9 +27,9 @@ import java.util.List;
 public interface Behaviour extends Identifiable
 {
     /**
-     * Provides the behaviour the opportunity to update the game state. The
+     * Provides the behaviour the opportunity to apply the game state. The
      * behaviour is also provided with any user input that occurred between
-     * this and the previous call to update .
+     * this and the previous call to apply .
      *
      * @param state the current game state.
      * @param input a list of user input in the order in which they occurred.

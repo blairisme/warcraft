@@ -101,7 +101,7 @@ public interface Action extends Identifiable, Poolable
     /**
      * Sets the {@link ItemComposite} at the root of the item hierarchy.
      * Actions usually maintain references to {@link Item Items}, rather
-     * than Items themselves, so this method will update the parent used to
+     * than Items themselves, so this method will apply the parent used to
      * resolve item references.
      *
      * @param root an ItemComposite instance. Cannot be <code>null</code>.

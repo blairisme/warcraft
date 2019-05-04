@@ -23,7 +23,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
 
 /**
- * Instances of this class update the disabled status of an {@link Item}.
+ * Instances of this class apply the disabled status of an {@link Item}.
  *
  * @author Blair Butterworth
  */

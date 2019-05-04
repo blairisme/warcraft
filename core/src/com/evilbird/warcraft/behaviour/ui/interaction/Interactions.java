@@ -9,15 +9,19 @@
 
 package com.evilbird.warcraft.behaviour.ui.interaction;
 
+import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.placeholder.PlaceholderType;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
 import java.util.Collection;
 
+import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.device.UserInputType.Drag;
+import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackCancel;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
 import static com.evilbird.warcraft.action.camera.CameraActions.Pan;
@@ -36,6 +40,7 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionAssignment.Parent;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholderClear;
 import static com.evilbird.warcraft.item.data.DataType.Camera;
 import static com.evilbird.warcraft.item.hud.HudControl.MenuPane;
 import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.*;
@@ -85,13 +90,27 @@ public class Interactions
     }
 
     private void addPlaceholderInteractions() {
-        interactions.addAction(ConstructBarracks).whenTarget(BarracksPlaceholder).whenSelected(Peasant).appliedTo(Selected);
-        interactions.addAction(ConstructFarm).whenTarget(FarmPlaceholder).whenSelected(Peasant).appliedTo(Selected);
-        interactions.addAction(ConstructTownHall).whenTarget(TownHallPlaceholder).whenSelected(Peasant).appliedTo(Selected);
+        addConstructPlaceholder(BarracksPlaceholder, ConstructBarracks);
+        addConstructPlaceholder(FarmPlaceholder, ConstructFarm);
+        addConstructPlaceholder(TownHallPlaceholder, ConstructTownHall);
 
-        interactions.addAction(PlaceholderMove).forInput(Drag).whenTarget(BarracksPlaceholder).appliedTo(Target);
-        interactions.addAction(PlaceholderMove).forInput(Drag).whenTarget(FarmPlaceholder).appliedTo(Target);
-        interactions.addAction(PlaceholderMove).forInput(Drag).whenTarget(TownHallPlaceholder).appliedTo(Target);
+        addDragPlaceholder(BarracksPlaceholder);
+        addDragPlaceholder(FarmPlaceholder);
+        addDragPlaceholder(TownHallPlaceholder);
+    }
+
+    private void addConstructPlaceholder(PlaceholderType type, ActionIdentifier action) {
+        interactions.addAction(action)
+            .whenTarget(both(withType(type), isPlaceholderClear()))
+            .whenSelected(Peasant)
+            .appliedTo(Selected);
+    }
+
+    private void addDragPlaceholder(PlaceholderType type) {
+        interactions.addAction(PlaceholderMove)
+            .forInput(Drag)
+            .whenTarget(type)
+            .appliedTo(Target);
     }
 
     private void addCameraInteractions() {

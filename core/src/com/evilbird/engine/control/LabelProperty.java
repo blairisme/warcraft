@@ -16,7 +16,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * Instances of this class update a {@link Label} when a given value changes.
+ * Instances of this class apply a {@link Label} when a given value changes.
  *
  * @author Blair Butterworth
  */
