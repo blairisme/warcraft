@@ -9,7 +9,9 @@
 
 package com.evilbird.warcraft.item.unit.combatant;
 
+import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.item.Item;
+import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
@@ -35,8 +37,7 @@ public class CombatantTest extends GameTestCase
     @Before
     public void setup() {
         super.setup();
-        FootmanFactory footmanFactory = new FootmanFactory(newAssetManagerMock());
-        combatant = (Combatant)footmanFactory.get();
+        combatant = TestCombatants.newTestCombatant(new TextIdentifier("footman"), UnitType.Footman);
         Mockito.when(itemFactory.newItem(UnitType.Footman)).thenReturn(combatant);
     }
 

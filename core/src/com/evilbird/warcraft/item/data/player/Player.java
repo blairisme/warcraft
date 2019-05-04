@@ -44,11 +44,7 @@ public class Player extends ItemGroup implements ResourceContainer
         this.skin = skin;
         this.resources = new LinkedHashMap<>();
         this.statistics = new LinkedHashMap<>();
-
         setType(DataType.Player);
-        setPosition(0, 0);
-        setSize(Float.MAX_VALUE, Float.MAX_VALUE);
-
         initializeMusic();
     }
 

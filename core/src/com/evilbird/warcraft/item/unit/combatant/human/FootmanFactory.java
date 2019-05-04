@@ -37,6 +37,7 @@ import java.util.Map;
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
 import static com.evilbird.engine.common.file.FileType.MP3;
+import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 
 /**
  * Instances of this factory create footman, human entry level
@@ -103,6 +104,7 @@ public class FootmanFactory implements AssetProvider<Item>
         result.setTouchable(Touchable.enabled);
         result.setSight(4 * 32); //4
         result.setType(UnitType.Footman);
+        result.setIdentifier(objectIdentifier("Footman", result));
         result.setSize(32, 32);
         return result;
     }

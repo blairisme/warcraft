@@ -4,42 +4,33 @@
     "class": "Units",
     "enum": "Footman"
   },
-  "level": 1,
-  "damageMinimum": 10,
-  "damageMaximum": 19,
-  "range": 37.0,
-  "movementSpeed": 64.0,
-  "movementCapability": [
-    {
-      "class": "LayerType",
-      "enum": "Map"
-    }
-  ],
-  "name": "Footman",
-  "sight": 128,
-  "defence": 2,
-  "health": 60.0,
-  "healthMaximum": 60.0,
+  "level": 0,
+  "damageMinimum": 0,
+  "damageMaximum": 0,
+  "range": 0.0,
+  "movementSpeed": 0.0,
+  "movementCapability": [],
+  "name": "Unknown",
+  "sight": 0,
+  "defence": 0,
+  "health": 100.0,
+  "healthMaximum": 100.0,
   "selected": false,
   "selectable": true,
-  "direction": 0.0,
-  "animationId": {
-    "class": "UnitAnimation",
-    "enum": "Idle"
-  },
+  "direction": 70.55996,
   "id": {
-    "class": "General",
-    "enum": "Unknown"
+    "class": "Named",
+    "name": "footman"
   },
   "visible": false,
   "touchable": "enabled",
   "size": {
-    "x": 32.0,
-    "y": 32.0
+    "x": 56.0,
+    "y": 78.0
   },
   "position": {
-    "x": 0.0,
-    "y": 0.0
+    "x": 12.0,
+    "y": 34.0
   },
   "actions": []
 }

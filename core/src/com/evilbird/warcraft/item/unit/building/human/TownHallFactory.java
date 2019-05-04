@@ -36,6 +36,7 @@ import java.util.Map;
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
 import static com.evilbird.engine.common.file.FileType.MP3;
+import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 
 /**
  * Instances of this class create {@link Building Town Halls}, loading the
@@ -86,6 +87,7 @@ public class TownHallFactory implements AssetProvider<Item>
         result.setHealthMaximum(1200);
         result.setName("Town Hall");
         result.setType(UnitType.TownHall);
+        result.setIdentifier(objectIdentifier("TownHall", result));
         result.setSize(128, 128);
         return result;
     }

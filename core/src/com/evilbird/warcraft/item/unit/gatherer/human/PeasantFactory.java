@@ -38,6 +38,7 @@ import java.util.Map;
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
 import static com.evilbird.engine.common.file.FileType.MP3;
+import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 
 /**
  * Instances of this factory create Peasants, the land based gathering unit
@@ -109,6 +110,7 @@ public class PeasantFactory implements AssetProvider<Item>
         result.setSight(5 * 32);
         result.setName("Peasant");
         result.setType(UnitType.Peasant);
+        result.setIdentifier(objectIdentifier("Peasant", result));
         result.setSize(32, 32);
         return result;
     }

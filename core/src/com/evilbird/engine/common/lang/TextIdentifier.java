@@ -27,6 +27,11 @@ public class TextIdentifier implements Identifier
         this.name = name;
     }
 
+    public static Identifier objectIdentifier(String prefix, Object object) {
+        String unique = Integer.toHexString(System.identityHashCode(object));
+        return new TextIdentifier(prefix + unique);
+    }
+
     @Override
     public String toString() {
         return name;

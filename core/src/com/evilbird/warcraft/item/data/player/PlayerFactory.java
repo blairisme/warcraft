@@ -18,12 +18,14 @@ import com.evilbird.engine.common.audio.MusicSequence;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.data.DataType;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.evilbird.engine.common.file.FileType.MP3;
+import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 
 /**
  * Instances of this factory create {@link Player} objects.
@@ -52,7 +54,12 @@ public class PlayerFactory implements AssetProvider<Item>
 
     @Override
     public Item get() {
-        return new Player(getSkin());
+        Player player = new Player(getSkin());
+        player.setType(DataType.Player);
+        player.setIdentifier(objectIdentifier("Player", player));
+        player.setPosition(0, 0);
+        player.setSize(Float.MAX_VALUE, Float.MAX_VALUE);
+        return player;
     }
 
     private Skin getSkin() {

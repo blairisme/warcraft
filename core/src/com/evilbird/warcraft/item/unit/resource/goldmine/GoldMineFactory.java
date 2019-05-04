@@ -39,6 +39,7 @@ import java.util.Map;
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
 import static com.evilbird.engine.common.file.FileType.MP3;
+import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 
 /**
  * Instances of this factory create Gold Mines, a {@link Resource}
@@ -91,6 +92,7 @@ public class GoldMineFactory implements AssetProvider<Item>
         result.setTouchable(Touchable.enabled);
         result.setType(UnitType.GoldMine);
         result.setResource(ResourceType.Gold, 2400f);
+        result.setIdentifier(objectIdentifier("GoldMine", result));
         result.setSize(96, 96);
         return result;
     }

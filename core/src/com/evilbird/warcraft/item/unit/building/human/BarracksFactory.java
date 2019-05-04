@@ -37,6 +37,7 @@ import java.util.Map;
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
 import static com.evilbird.engine.common.file.FileType.MP3;
+import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 
 /**
  * Instances of this class create {@link Building Barrack's}, loading the
@@ -90,6 +91,7 @@ public class BarracksFactory implements AssetProvider<Item>
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
         result.setType(UnitType.Barracks);
+        result.setIdentifier(objectIdentifier("Barracks", result));
         result.setSize(96, 96);
         return result;
     }

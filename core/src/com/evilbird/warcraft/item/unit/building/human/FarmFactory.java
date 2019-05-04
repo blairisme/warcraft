@@ -36,6 +36,7 @@ import java.util.Map;
 import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
 import static com.evilbird.engine.common.file.FileType.MP3;
+import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 
 /**
  * Instances of this class create {@link Building Farms}, loading the
@@ -86,6 +87,7 @@ public class FarmFactory implements AssetProvider<Item>
         result.setHealthMaximum(400);
         result.setName("Farm");
         result.setType(UnitType.Farm);
+        result.setIdentifier(objectIdentifier("Farm", result));
         result.setSize(64, 64);
         return result;
     }

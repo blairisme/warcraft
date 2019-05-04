@@ -23,6 +23,7 @@ import com.evilbird.warcraft.item.placeholder.PlaceholderType;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
+import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 
 /**
  * Instances of this factory create {@link Placeholder Placeholders} styled to
@@ -55,6 +56,7 @@ public class FarmPlaceholderProvider implements AssetProvider<Item>
     @Override
     public Item get() {
         Placeholder placeholder = new Placeholder(getSkin());
+        placeholder.setIdentifier(objectIdentifier("Placeholder", placeholder));
         placeholder.setType(PlaceholderType.FarmPlaceholder);
         placeholder.setSize(64, 64);
         placeholder.setEvents(events);

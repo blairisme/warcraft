@@ -25,6 +25,8 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
 import javax.inject.Inject;
 import java.util.Collections;
 
+import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
+
 /**
  * Instances of this class represent a confirmation animation item, shown to
  * provide visual feedback to the user when they perform an action involving a
@@ -53,6 +55,7 @@ public class ConfirmProvider implements AssetProvider<Item>
         result.setAnimation(UnitAnimation.Idle);
         result.setTouchable(Touchable.disabled);
         result.setType(EffectType.Confirm);
+        result.setIdentifier(objectIdentifier("Confirm", result));
         result.setSize(32, 32);
         return result;
     }
