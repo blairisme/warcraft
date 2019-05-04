@@ -9,10 +9,13 @@
 
 package com.evilbird.warcraft.item.hud;
 
-import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
 
-@SerializedType("Hud")
+/**
+ * Defines options of specifying hud presentation varieties.
+ *
+ * @author Blair Butterworth
+ */
 public enum HudType implements ItemType
 {
     Human,

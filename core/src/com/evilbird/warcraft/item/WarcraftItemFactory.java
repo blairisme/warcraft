@@ -19,7 +19,7 @@ import com.evilbird.warcraft.item.hud.HudFactory;
 import com.evilbird.warcraft.item.hud.HudType;
 import com.evilbird.warcraft.item.layer.LayerFactory;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
-import com.evilbird.warcraft.item.placeholder.PlaceholderProvider;
+import com.evilbird.warcraft.item.placeholder.PlaceholderFactory;
 import com.evilbird.warcraft.item.unit.UnitFactory;
 
 import javax.inject.Inject;
@@ -41,7 +41,7 @@ public class WarcraftItemFactory implements ItemFactory
         UnitFactory unitFactory,
         EffectFactory effectFactory,
         HudFactory hudFactory,
-        PlaceholderProvider placeholderFactory)
+        PlaceholderFactory placeholderFactory)
     {
         providers = new IdentifiedAssetProviderSet<>();
         providers.addProvider(unitFactory);

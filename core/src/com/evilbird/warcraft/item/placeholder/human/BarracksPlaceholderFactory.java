@@ -25,19 +25,20 @@ import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 
 /**
  * Instances of this factory create {@link Placeholder Placeholders} styled to
- * represent a farm before construction.
+ * represent a barracks before construction.
  *
  * @author Blair Butterworth
  */
-public class FarmPlaceholderProvider implements AssetProvider<Item>
+public class BarracksPlaceholderFactory implements AssetProvider<Item>
 {
-    private static final String BUILDING_TEXTURE = "data/textures/human/winter/farm.png";
+    private static final String BUILDING_TEXTURE = "data/textures/human/winter/barracks.png";
     private static final String ALLOWED_TEXTURE = "data/textures/neutral/hud/building_allowed.png";
     private static final String PROHIBITED_TEXTURE = "data/textures/neutral/hud/building_prohibited.png";
+
     private AssetManager assets;
 
     @Inject
-    public FarmPlaceholderProvider(Device device) {
+    public BarracksPlaceholderFactory(Device device) {
         this.assets = device.getAssetStorage();
     }
 
@@ -51,8 +52,8 @@ public class FarmPlaceholderProvider implements AssetProvider<Item>
     @Override
     public Item get() {
         Placeholder placeholder = new Placeholder(getSkin());
-        placeholder.setType(PlaceholderType.FarmPlaceholder);
-        placeholder.setSize(64, 64);
+        placeholder.setType(PlaceholderType.BarracksPlaceholder);
+        placeholder.setSize(96, 96);
         return placeholder;
     }
 
@@ -64,9 +65,9 @@ public class FarmPlaceholderProvider implements AssetProvider<Item>
 
     private PlaceholderStyle getStyle() {
         PlaceholderStyle style = new PlaceholderStyle();
-        style.building = getDrawable(assets, BUILDING_TEXTURE, 0, 0, 64, 64);
-        style.allowed = getDrawable(assets, ALLOWED_TEXTURE, 0, 0, 64, 64);
-        style.prohibited = getDrawable(assets, PROHIBITED_TEXTURE, 0, 0, 64, 64);
+        style.building = getDrawable(assets, BUILDING_TEXTURE, 0, 0, 96, 96);
+        style.allowed = getDrawable(assets, ALLOWED_TEXTURE, 0, 0, 96, 96);
+        style.prohibited = getDrawable(assets, PROHIBITED_TEXTURE, 0, 0, 96, 96);
         return style;
     }
 }

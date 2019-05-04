@@ -53,7 +53,7 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
     private static final String BACKGROUND = "data/textures/menu/introduction.png";
     private static final String INTRO_NARRATION_1A = "data/sounds/menu/human/intro1a.mp3";
     private static final String INTRO_NARRATION_2B = "data/sounds/menu/human/intro1b.mp3";
-    private static final String NARRATION_BACKGROUND = "data/music/04.mp3";
+    private static final String NARRATION_BACKGROUND = "data/music/4.mp3";
     private static final String CLICK = "data/sounds/menu/click.mp3";
     private static final String INTRO_BUNDLE_1 = "data/strings/intro1";
 

@@ -1,26 +1,57 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.item.placeholder;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemBasic;
+import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.warcraft.item.layer.LayerType;
 
+import java.util.Collection;
+
+/**
+ * The visual representation of a building before construction, allowing the
+ * user to move it to the correct location and ensure it doesn't overlap an
+ * existing structure.
+ *
+ * @author Blair Butterworth
+ */
 public class Placeholder extends ItemBasic
 {
+    private transient Skin skin;
     private transient Drawable building;
     private transient Drawable overlay;
     private transient Drawable allowed;
-    private transient Drawable prohibited;
+    private transient Drawable blocked;
+    private transient boolean isBlocked;
 
-    public Placeholder() {
+    public Placeholder(Skin skin) {
+        this.skin = skin;
+        setStyle("default");
+    }
+
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setStyle(String name) {
+        PlaceholderStyle style = skin.get(name, PlaceholderStyle.class);
+        building = style.building;
+        allowed = style.allowed;
+        blocked = style.prohibited;
+        overlay = isBlocked ? blocked : allowed;
     }
 
     @Override
@@ -33,16 +64,33 @@ public class Placeholder extends ItemBasic
         overlay.draw(batch, x, y, width, height);
     }
 
-    public void setBuildingTexture(Drawable texture) {
-        this.building = texture;
+    @Override
+    public void setRoot(ItemRoot root) {
+        super.setRoot(root);
+        evaluateOccupation(root);
     }
 
-    public void setAllowedTexture(Drawable texture) {
-        this.allowed = texture;
-        this.overlay = texture;
+    @Override
+    public void positionChanged() {
+        evaluateOccupation(getRoot());
     }
 
-    public void setProhibitedTexture(Drawable texture) {
-        this.prohibited = texture;
+    private void evaluateOccupation(ItemRoot root) {
+        if (root != null) {
+            ItemGraph graph = root.getSpatialGraph();
+            Collection<ItemNode> nodes = graph.getNodes(getPosition(), getSize());
+
+            isBlocked = !nodes.stream().allMatch(this::isUnoccupied);
+            overlay = isBlocked ? blocked : allowed;
+        }
+    }
+
+    private boolean isUnoccupied(ItemNode node) {
+        Collection<Item> occupants = node.getOccupants();
+        if (occupants.size() == 1) {
+            Item occupant = occupants.iterator().next();
+            return occupant.getType() == LayerType.Map;
+        }
+        return false;
     }
 }

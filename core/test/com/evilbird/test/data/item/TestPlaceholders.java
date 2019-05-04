@@ -9,11 +9,13 @@
 
 package com.evilbird.test.data.item;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.placeholder.Placeholder;
+import com.evilbird.warcraft.item.placeholder.PlaceholderStyle;
 import com.evilbird.warcraft.item.placeholder.PlaceholderType;
 
 import static com.evilbird.test.data.item.TestItemRoots.newTestRoot;
@@ -33,7 +35,7 @@ public class TestPlaceholders
     }
 
     public static Placeholder newTestPlaceholder(Identifier identifier, Identifier type, ItemRoot root, ItemGroup parent) {
-        Placeholder item = new Placeholder();
+        Placeholder item = new Placeholder(getSkin());
         item.setIdentifier(identifier);
         item.setType(type);
         item.setRoot(root);
@@ -41,5 +43,11 @@ public class TestPlaceholders
         item.setPosition(128, 128);
         item.setSize(64, 64);
         return item;
+    }
+
+    private static Skin getSkin() {
+        Skin skin = new Skin();
+        skin.add("default", new PlaceholderStyle(), PlaceholderStyle.class);
+        return skin;
     }
 }
