@@ -58,7 +58,11 @@ public class BarracksFactory implements AssetProvider<Item>
 
     @Inject
     public BarracksFactory(Device device) {
-        this.assets = device.getAssetStorage();
+        this(device.getAssetStorage());
+    }
+
+    public BarracksFactory(AssetManager assets) {
+        this.assets = assets;
     }
 
     @Override

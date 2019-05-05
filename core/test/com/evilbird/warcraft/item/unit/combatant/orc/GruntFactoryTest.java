@@ -10,45 +10,29 @@
 package com.evilbird.warcraft.item.unit.combatant.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
-import com.evilbird.test.testcase.GameTestCase;
+import com.evilbird.engine.common.collection.Maps;
+import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.item.Item;
+import com.evilbird.test.testcase.FactoryTestCase;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
 
-import static com.evilbird.test.data.device.TestAssets.newAssetManagerMock;
+import java.util.Map;
 
 /**
  * Instances of this unit test validate logic in the {@link GruntFactory} class.
  *
  * @author Blair Butterworth
  */
-public class GruntFactoryTest extends GameTestCase
+public class GruntFactoryTest  extends FactoryTestCase<Item>
 {
-    private static final String BASE = "data/textures/orc/perennial/grunt.png";
-
-    private GruntFactory factory;
-    private AssetManager assets;
-
-    @Before
-    public void setup() {
-        assets = newAssetManagerMock();
-        factory = new GruntFactory(assets);
+    @Override
+    protected AssetProvider<Item> newFactory(AssetManager assets) {
+        return new GruntFactory(assets);
     }
 
-    @Test
-    public void loadTest() {
-        factory.load();
-        Mockito.verify(assets).load(BASE, Texture.class);
-    }
-
-    @Test
-    public void getTest() {
-        Combatant grunt = (Combatant)factory.get();
-        Assert.assertNotNull(grunt);
-        Assert.assertEquals(UnitType.Grunt, grunt.getType());
+    @Override
+    protected Map<String, Object> newValueProperties() {
+        return Maps.of("type", UnitType.Grunt,
+                "HealthMaximum", 60.0f);
     }
 }

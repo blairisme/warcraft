@@ -16,14 +16,11 @@ import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.combatant.human.FootmanFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
-
-import static com.evilbird.test.data.device.TestAssets.newAssetManagerMock;
 
 /**
  * Instances of this unit test validate logic in the {@link Combatant} class.

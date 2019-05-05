@@ -55,11 +55,16 @@ public class GoldMineFactory implements AssetProvider<Item>
     private static final String CONSTRUCTION = "data/textures/neutral/perennial/construction.png";
     private static final String SELECTED = "data/sounds/neutral/resource/goldmine/selected/1.mp3";
     private static final String DESTROYED = "data/sounds/neutral/building/destroyed/";
+
     private AssetManager assets;
 
     @Inject
     public GoldMineFactory(Device device) {
-        this.assets = device.getAssetStorage();
+        this(device.getAssetStorage());
+    }
+
+    public GoldMineFactory(AssetManager assets) {
+        this.assets = assets;
     }
 
     @Override

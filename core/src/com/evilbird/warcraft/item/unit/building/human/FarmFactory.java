@@ -57,7 +57,11 @@ public class FarmFactory implements AssetProvider<Item>
 
     @Inject
     public FarmFactory(Device device) {
-        this.assets = device.getAssetStorage();
+        this(device.getAssetStorage());
+    }
+
+    public FarmFactory(AssetManager assets) {
+        this.assets = assets;
     }
 
     @Override

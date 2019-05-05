@@ -66,7 +66,11 @@ public class PeasantFactory implements AssetProvider<Item>
 
     @Inject
     public PeasantFactory(Device device) {
-        this.assets = device.getAssetStorage();
+        this(device.getAssetStorage());
+    }
+
+    public PeasantFactory(AssetManager assets) {
+        this.assets = assets;
     }
 
     @Override

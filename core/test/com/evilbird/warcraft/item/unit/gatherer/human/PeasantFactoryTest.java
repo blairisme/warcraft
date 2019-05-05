@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.unit.combatant.human;
+package com.evilbird.warcraft.item.unit.gatherer.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.collection.Maps;
@@ -19,20 +19,20 @@ import com.evilbird.warcraft.item.unit.UnitType;
 import java.util.Map;
 
 /**
- * Instances of this unit test validate logic in the {@link FootmanFactory} class.
+ * Instances of this unit test validate logic in the {@link PeasantFactory} class.
  *
  * @author Blair Butterworth
  */
-public class FootmanFactoryTest extends FactoryTestCase<Item>
+public class PeasantFactoryTest extends FactoryTestCase<Item>
 {
     @Override
     protected AssetProvider<Item> newFactory(AssetManager assets) {
-        return new FootmanFactory(assets);
+        return new PeasantFactory(assets);
     }
 
     @Override
     protected Map<String, Object> newValueProperties() {
-        return Maps.of("type", UnitType.Footman,
-            "HealthMaximum", 60.0f);
+        return Maps.of("type", UnitType.Peasant,
+                "HealthMaximum", 30.0f);
     }
 }
