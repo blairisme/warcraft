@@ -19,6 +19,8 @@ import java.util.function.Consumer;
 
 import static com.evilbird.engine.item.utility.ItemOperations.getScreenCenter;
 import static com.evilbird.warcraft.action.common.create.CreateAction.create;
+import static com.evilbird.warcraft.action.placeholder.PlaceholderEvents.placeholderAdded;
+import static com.evilbird.warcraft.action.placeholder.PlaceholderUtils.assignConstruction;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_HEIGHT;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 
@@ -38,8 +40,10 @@ public class PlaceholderCreate extends ScenarioAction<PlaceholderActions>
     }
 
     @Override
-    protected void steps(PlaceholderActions placeholder) {
-        then(create(placeholder.type(), properties(), reporter));
+    protected void steps(PlaceholderActions action) {
+        scenario(action);
+        thenUpdate(create(action.type(), properties(), observer -> {}));
+        then(assignConstruction(), placeholderAdded(reporter));
     }
 
     private Consumer<Item> properties() {

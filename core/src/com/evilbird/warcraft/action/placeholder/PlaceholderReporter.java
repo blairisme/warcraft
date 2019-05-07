@@ -9,9 +9,8 @@
 
 package com.evilbird.warcraft.action.placeholder;
 
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.common.create.CreateObserver;
-import com.evilbird.warcraft.action.common.remove.RemoveObserver;
 
 import javax.inject.Inject;
 
@@ -20,17 +19,22 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class PlaceholderReporter implements CreateObserver, RemoveObserver
+public class PlaceholderReporter implements PlaceholderObserver
 {
+    private EventQueue events;
+
     @Inject
-    public PlaceholderReporter() {
+    public PlaceholderReporter(EventQueue events) {
+        this.events = events;
     }
 
     @Override
-    public void onCreate(Item newItem) {
+    public void onPlaceholderAdded(Item builder, Item placeholder) {
+        events.add(new PlaceholderEvent(builder, placeholder, PlaceholderStatus.Added));
     }
 
     @Override
-    public void onRemove(Item removed) {
+    public void onPlaceholderRemoved(Item builder, Item placeholder) {
+        events.add(new PlaceholderEvent(builder, placeholder, PlaceholderStatus.Removed));
     }
 }

@@ -38,15 +38,12 @@ public class CreateAction extends BasicAction
         this.itemFactory = GameService.getInstance().getItemFactory();
     }
 
-    public CreateAction(ItemFactory factory, ItemType type, Consumer<Item> properties, CreateObserver observer) {
-        this.itemType = type;
-        this.observer = observer;
-        this.properties = properties;
-        this.itemFactory = factory;
-    }
-
     public static CreateAction create(ItemType type, Consumer<Item> properties, CreateObserver observer) {
         return new CreateAction(type, properties, observer);
+    }
+
+    public static CreateAction create(ItemType type, Consumer<Item> properties) {
+        return new CreateAction(type, properties, observer -> {});
     }
 
     public static CreateAction create(ItemType type, CreateObserver observer) {

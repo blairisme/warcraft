@@ -20,6 +20,7 @@ import com.evilbird.warcraft.item.placeholder.Placeholder;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -133,7 +134,7 @@ public class UnitPredicates
         return Predicates.not(inRange(combatant));
     }
 
-    public static Predicate<Item> isConstructing() {
+    public static Predicate<Item> isUnderConstruction() {
         return (item) -> {
             Building building = (Building)item;
             return building.isConstructing();
@@ -144,6 +145,16 @@ public class UnitPredicates
         return (item) -> {
             Building building = (Building)item;
             return building.isProducing();
+        };
+    }
+
+    public static Predicate<Item> isGathererConstructing() {
+        return (item) -> {
+            if (item instanceof Gatherer) {
+                Gatherer gatherer = (Gatherer)item;
+                return gatherer.isConstructing();
+            }
+            return false;
         };
     }
 

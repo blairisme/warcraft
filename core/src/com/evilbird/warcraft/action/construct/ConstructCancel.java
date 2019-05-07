@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.refund;
 import static com.evilbird.warcraft.action.construct.ConstructAction.stopConstructing;
 import static com.evilbird.warcraft.action.construct.ConstructEvents.constructCancelled;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isUnderConstruction;
 
 /**
  * Instances of this class stop the construction of a building.
@@ -44,7 +44,7 @@ public class ConstructCancel extends ScenarioAction<ConstructActions>
     @Override
     protected void steps(ConstructActions action) {
         scenario(action);
-        given(isConstructing());
+        given(isUnderConstruction());
         then(stopConstructing(), refund(action, amount(), reporter), constructCancelled(reporter));
     }
 

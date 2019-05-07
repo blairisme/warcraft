@@ -22,6 +22,8 @@ import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.construct.ConstructStatus;
 import com.evilbird.warcraft.action.gather.GatherEvent;
 import com.evilbird.warcraft.action.gather.GatherStatus;
+import com.evilbird.warcraft.action.placeholder.PlaceholderEvent;
+import com.evilbird.warcraft.action.placeholder.PlaceholderStatus;
 import com.evilbird.warcraft.action.select.SelectEvent;
 import com.evilbird.warcraft.action.train.TrainEvent;
 import com.evilbird.warcraft.action.train.TrainStatus;
@@ -139,6 +141,13 @@ public class MenuBehaviour implements Behaviour
                 player.incrementStatistic(PlayerStatistic.Buildings, 1);
             }
         }
+
+
+
+        for (PlaceholderEvent event: events.getEvents(PlaceholderEvent.class)) {
+            actionPane.setPlaceholder(event.getBuilder(), event.getStatus() == PlaceholderStatus.Added);
+        }
+
     }
 
     private void updateTrainingRecipients() {

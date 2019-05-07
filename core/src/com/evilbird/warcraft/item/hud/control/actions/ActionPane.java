@@ -19,6 +19,7 @@ import com.evilbird.warcraft.action.menu.MenuProvider;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.unit.building.Building;
+import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import java.util.*;
 
@@ -66,6 +67,12 @@ public class ActionPane extends GridItem implements MenuProvider
         }
     }
 
+    public void setPlaceholder(Item builder, boolean added) {
+        if (selection.contains(builder)) {
+            updateView(added);
+        }
+    }
+
     public void setSelected(Collection<Item> newSelection) {
         view = Actions;
         selection.clear();
@@ -100,6 +107,10 @@ public class ActionPane extends GridItem implements MenuProvider
             if (selected instanceof Building) {
                 Building building = (Building)selected;
                 return building.isProducing() || building.isConstructing();
+            }
+            if (selected instanceof Gatherer) {
+                Gatherer gatherer = (Gatherer)selected;
+                return gatherer.isConstructing();
             }
         }
         return false;

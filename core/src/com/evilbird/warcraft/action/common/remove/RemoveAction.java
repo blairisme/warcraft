@@ -41,6 +41,10 @@ public class RemoveAction extends BasicAction
         return new RemoveAction(ActionRecipient.Subject, observer);
     }
 
+    public static RemoveAction remove(ActionRecipient target) {
+        return new RemoveAction(target, observer -> {});
+    }
+
     public static RemoveAction remove(ActionRecipient target, RemoveObserver observer) {
         return new RemoveAction(target, observer);
     }

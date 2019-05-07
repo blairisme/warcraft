@@ -14,7 +14,6 @@ import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;
@@ -25,15 +24,15 @@ public class TestGatherers
     private TestGatherers() {
     }
 
-    public static Combatant newTestGatherer(String id) {
+    public static Gatherer newTestGatherer(String id) {
         return newTestGatherer(new TextIdentifier(id), UnitType.Footman);
     }
 
-    public static Combatant newTestGatherer(Identifier identifier, Identifier type) {
+    public static Gatherer newTestGatherer(Identifier identifier, Identifier type) {
         return newTestGatherer(identifier, type, TestItemRoots.newTestRoot("root"), newTestPlayer("parent"));
     }
 
-    public static Combatant newTestGatherer(Identifier identifier, Identifier type, ItemRoot root, Player parent) {
+    public static Gatherer newTestGatherer(Identifier identifier, Identifier type, ItemRoot root, Player parent) {
         Gatherer item = new Gatherer(newTestSkin());
         item.setIdentifier(identifier);
         item.setType(type);

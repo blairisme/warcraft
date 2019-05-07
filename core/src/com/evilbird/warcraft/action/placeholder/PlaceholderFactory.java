@@ -17,15 +17,25 @@ import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
+import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderCancel;
+import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderMove;
+
+/**
+ * Instances of this factory create {@link Action Actions} related to
+ * placeholders, user interface elements used to prepare a building for
+ * construction.
+ *
+ * @author Blair Butterworth
+ */
 public class PlaceholderFactory implements ActionProvider
 {
-    private InjectedPool<PlaceHolderCancel> cancelPool;
+    private InjectedPool<PlaceholderCancel> cancelPool;
     private InjectedPool<PlaceholderCreate> createPool;
     private InjectedPool<PlaceholderMove> movePool;
 
     @Inject
     public PlaceholderFactory(
-        InjectedPool<PlaceHolderCancel> cancelPool,
+        InjectedPool<PlaceholderCancel> cancelPool,
         InjectedPool<PlaceholderCreate> createPool,
         InjectedPool<PlaceholderMove> movePool)
     {
@@ -37,18 +47,18 @@ public class PlaceholderFactory implements ActionProvider
     @Override
     public Action get(ActionIdentifier action) {
         Validate.isInstanceOf(PlaceholderActions.class, action);
-        PlaceholderActions placeholderAction = (PlaceholderActions)action;
+        PlaceholderActions identifier = (PlaceholderActions)action;
 
-        switch (placeholderAction) {
-            case PlaceholderMove: return movePool.obtain();
-            case PlaceholderCancel: return cancelPool.obtain();
-            default: return getCreateAction(placeholderAction);
+        switch (identifier) {
+            case PlaceholderMove: return getAction(movePool, PlaceholderMove);
+            case PlaceholderCancel: return getAction(cancelPool, PlaceholderCancel);
+            default: return getAction(createPool, identifier);
         }
     }
 
-    private Action getCreateAction(PlaceholderActions placeholder) {
-        PlaceholderCreate action = createPool.obtain();
-        action.setIdentifier(placeholder);
+    private <T extends Action> Action getAction(InjectedPool<T> pool, PlaceholderActions identifier) {
+        T action = pool.obtain();
+        action.setIdentifier(identifier);
         return action;
     }
 }

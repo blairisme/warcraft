@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.unit.gatherer;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.serialization.SerializedType;
+import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -26,15 +26,19 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-@SerializedType("Gatherer")
 public class Gatherer extends Combatant implements ResourceContainer
 {
+    private Item construction;
     private Map<String, Double> resources;
 
     @Inject
     public Gatherer(Skin skin) {
         super(skin);
         resources = new LinkedHashMap<>();
+    }
+
+    public Item getConstruction() {
+        return construction;
     }
 
     @Override
@@ -44,6 +48,14 @@ public class Gatherer extends Combatant implements ResourceContainer
             return resources.get(key).floatValue();
         }
         return 0;
+    }
+
+    public boolean isConstructing() {
+        return construction != null;
+    }
+
+    public void setConstruction(Item construction) {
+        this.construction = construction;
     }
 
     @Override
@@ -56,6 +68,7 @@ public class Gatherer extends Combatant implements ResourceContainer
     public String toString() {
         return new ToStringBuilder(this)
             .appendSuper("combatant")
+            .append("construction", construction)
             .append("resources", resources)
             .toString();
     }
