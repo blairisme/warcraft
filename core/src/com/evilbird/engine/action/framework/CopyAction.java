@@ -26,10 +26,6 @@ public class CopyAction extends DelegateAction
         this.host = host;
     }
 
-    public void setHost(Action host) {
-        this.host = host;
-    }
-
     @Override
     public boolean act(float delta) {
         boolean result = delegate.act(delta);

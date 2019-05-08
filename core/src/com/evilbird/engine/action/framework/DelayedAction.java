@@ -37,11 +37,6 @@ public class DelayedAction extends BasicAction
         return new DelayedAction(seconds);
     }
 
-    public void setDuration(float seconds) {
-        this.duration = seconds;
-        this.total = 0;
-    }
-
     @Override
     public boolean act(float delta) {
         total += delta;

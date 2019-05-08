@@ -101,7 +101,7 @@ public class ConstructSequence extends ScenarioSetAction
             .thenUpdate(create(type, properties(), reporter))
             .then(constructStarted(reporter))
             .then(hide(), disable(), deselect(reporter), animate(Target, Construct), unassignConstruction())
-            .then(construct(Target, building), playRepeat(Build, 3, 5))
+            .then(construct(building), playRepeat(Build, 3, 5))
             .then(show(), enable(), animate(Idle), animate(Target, Idle), play(Complete), moveAdjacentTarget())
             .then(constructCompleted(reporter));
     }

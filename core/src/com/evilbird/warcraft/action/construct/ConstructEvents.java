@@ -34,7 +34,7 @@ public class ConstructEvents
     }
 
     public static Action constructCancelled(ConstructReporter reporter) {
-        return new LambdaAction((building, target) ->
-            reporter.onConstructionCancelled(null, (Building)building));
+        return new LambdaAction((building, builder) ->
+            reporter.onConstructionCancelled(builder, (Building)building));
     }
 }

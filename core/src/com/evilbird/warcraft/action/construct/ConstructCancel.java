@@ -10,14 +10,30 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.framework.ScenarioAction;
+import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
 
+import static com.evilbird.engine.action.common.ActionRecipient.Subject;
+import static com.evilbird.engine.action.common.ActionRecipient.Target;
+import static com.evilbird.engine.action.common.AnimateAction.animate;
+import static com.evilbird.engine.action.common.AudibleAction.play;
+import static com.evilbird.engine.action.common.DisableAction.disable;
+import static com.evilbird.engine.action.common.DisableAction.enable;
+import static com.evilbird.engine.action.common.VisibleAction.show;
+import static com.evilbird.engine.action.framework.ClearAction.clear;
+import static com.evilbird.engine.action.framework.DelayedAction.delay;
+import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.refund;
 import static com.evilbird.warcraft.action.construct.ConstructAction.stopConstructing;
 import static com.evilbird.warcraft.action.construct.ConstructEvents.constructCancelled;
+import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacent;
+import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isUnderConstruction;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Dead;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.item.unit.UnitSound.Die;
 
 /**
  * Instances of this class stop the construction of a building.
@@ -45,11 +61,22 @@ public class ConstructCancel extends ScenarioAction<ConstructActions>
     protected void steps(ConstructActions action) {
         scenario(action);
         given(isUnderConstruction());
-        then(stopConstructing(), refund(action, amount(), reporter), constructCancelled(reporter));
+        withTarget(getBuilder());
+        then(stopConstructing(), disable(), deselect(reporter), animate(Dead), play(Die));
+        then(clear(Target), show(Target), enable(Target), animate(Target, Idle), moveAdjacent(Target, Subject));
+        then(refund(action, amount(), reporter), constructCancelled(reporter), delay(10));
+        then(remove(reporter));
+    }
+
+    private Building getBuilding() {
+        return (Building)getItem();
+    }
+
+    private Item getBuilder() {
+        return getBuilding().getConstructor();
     }
 
     private float amount() {
-        Building building = (Building)getItem();
-        return 1 - building.getConstructionProgress();
+        return 1 - getBuilding().getConstructionProgress();
     }
 }

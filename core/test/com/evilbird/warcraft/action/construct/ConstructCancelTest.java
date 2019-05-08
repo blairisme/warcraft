@@ -50,15 +50,26 @@ public class ConstructCancelTest extends ActionTestCase
 
     @Test
     public void actTest(){
+        Item builder = target;
         Building building = (Building)item;
+        building.setConstructor(builder);
         Player player = (Player)building.getParent();
 
         Assert.assertTrue(building.isConstructing());
         Assert.assertEquals(123, player.getResource(ResourceType.Gold), 1);
 
-        Assert.assertTrue(action.act(0));
-
+        Assert.assertFalse(action.act(1));
         Assert.assertFalse(building.isConstructing());
+        Assert.assertNull(building.getConstructor());
+
+        /*
+        Assert.assertFalse(action.act(1));
+        Assert.assertTrue(builder.getVisible());
+
+        Assert.assertFalse(action.act(1));
         Assert.assertEquals(173, player.getResource(ResourceType.Gold), 1);
+
+        Assert.assertFalse(action.act(15));
+        */
     }
 }

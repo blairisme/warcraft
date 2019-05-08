@@ -11,6 +11,8 @@ package com.evilbird.warcraft.item.unit.building;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.serialization.SerializedType;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemReference;
 import com.evilbird.warcraft.item.unit.Unit;
 
 /**
@@ -24,6 +26,7 @@ public class Building extends Unit
 {
     private float producing;
     private float constructing;
+    private ItemReference constructor;
 
     public Building(Skin skin) {
         super(skin);
@@ -39,12 +42,20 @@ public class Building extends Unit
         return producing != 1;
     }
 
+    public Item getConstructor() {
+        return constructor != null ? constructor.get() : null;
+    }
+
     public float getConstructionProgress() {
         return constructing;
     }
 
     public float getProductionProgress() {
         return producing;
+    }
+
+    public void setConstructor(Item constructor) {
+        this.constructor = constructor != null ? new ItemReference(constructor) : null;
     }
 
     public void setConstructionProgress(float constructing) {

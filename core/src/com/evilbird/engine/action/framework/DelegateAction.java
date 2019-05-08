@@ -21,7 +21,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Instances of this {@link Action} provide the basic implementation of an
- * <code>Action</code> which defers its operation to another <code>Action</code>.
+ * {@code Action} which defers its operation to another {@code Action}.
  *
  * @author Blair Butterworth
  */

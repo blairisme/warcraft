@@ -21,7 +21,6 @@ import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.utils.MockProvider;
 import com.evilbird.warcraft.action.camera.CameraActions;
 import com.evilbird.warcraft.item.data.DataType;
-import com.evilbird.warcraft.item.layer.LayerType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,8 +33,8 @@ import java.util.Collections;
 import static com.evilbird.engine.device.UserInputType.Action;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmTarget;
-import static com.evilbird.warcraft.action.gather.GatherActions.GatherGold;
-import static com.evilbird.warcraft.item.unit.UnitType.*;
+import static com.evilbird.warcraft.item.unit.UnitType.Footman;
+import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
 import static java.util.Arrays.asList;
 
 /**

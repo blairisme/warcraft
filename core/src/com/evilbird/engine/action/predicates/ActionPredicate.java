@@ -15,6 +15,12 @@ import com.evilbird.engine.item.Item;
 
 import java.util.function.Predicate;
 
+/**
+ * A {@link Predicate} specialization that wraps an {@link Action} and provides
+ * its subject or target to a given delegate {@code Predicate}.
+ *
+ * @author Blair Butterworth
+ */
 public class ActionPredicate implements Predicate<Action>
 {
     private ActionRecipient target;

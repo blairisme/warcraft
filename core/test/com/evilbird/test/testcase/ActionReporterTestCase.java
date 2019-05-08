@@ -19,8 +19,10 @@ import org.mockito.Mockito;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Instances of this test case provide common validation for action reporters.
@@ -45,14 +47,14 @@ public abstract class ActionReporterTestCase extends GameTestCase
 
     protected abstract Class<?> getReporterType();
 
-    protected abstract Collection<Class<?>> getReportedTypes();
-
-    protected abstract Class<? extends Event> getReportedEvent();
+    protected abstract Map<Class<?>, Class<? extends Event>> getReportedTypes();
 
     @Test
     public void eventTest() throws Exception {
-        Class<? extends Event> reportedEvent = getReportedEvent();
-        for (Class<?> reportedType: getReportedTypes()) {
+        for (Entry<Class<?>, Class<? extends Event>> reported: getReportedTypes().entrySet()) {
+            Class<?> reportedType = reported.getKey();
+            Class<? extends Event> reportedEvent = reported.getValue();
+
             for (Method method: reportedType.getMethods()) {
                 events.clear();
                 Assert.assertFalse(events.hasEvents(reportedEvent));
@@ -65,8 +67,23 @@ public abstract class ActionReporterTestCase extends GameTestCase
     private Object[] getMockParameters(Method method) {
         List<Object> result = new ArrayList<>();
         for (Class<?> parameter: method.getParameterTypes()){
-            result.add(Mockito.mock(parameter));
+            result.add(getMockParameter(parameter));
         }
         return result.toArray();
+    }
+
+    @SuppressWarnings("unchecked")
+    private Object getMockParameter(Class<?> parameter) {
+        if (parameter == boolean.class || parameter == Boolean.class) {
+            return true;
+        }
+        if (parameter == float.class|| parameter == Float.class) {
+            return 0f;
+        }
+        if (parameter.isEnum()) {
+            EnumSet enumset = EnumSet.allOf((Class<? extends Enum>)parameter);
+            return enumset.iterator().next();
+        }
+        return Mockito.mock(parameter);
     }
 }

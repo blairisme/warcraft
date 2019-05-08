@@ -9,11 +9,11 @@
 
 package com.evilbird.warcraft.action.placeholder;
 
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.events.Event;
 import com.evilbird.test.testcase.ActionReporterTestCase;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.Map;
 
 /**
  * Instances of this unit test validate the {@link PlaceholderReporter} class.
@@ -28,12 +28,7 @@ public class PlaceholderReporterTest extends ActionReporterTestCase
     }
 
     @Override
-    protected Collection<Class<?>> getReportedTypes() {
-        return Collections.singleton(PlaceholderObserver.class);
-    }
-
-    @Override
-    protected Class<? extends Event> getReportedEvent() {
-        return PlaceholderEvent.class;
+    protected Map<Class<?>, Class<? extends Event>> getReportedTypes() {
+        return Maps.of(PlaceholderObserver.class, PlaceholderEvent.class);
     }
 }
