@@ -18,7 +18,10 @@ import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
 
 import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Objects;
+import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.hasAction;
@@ -36,14 +39,14 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplace
 public class InteractionDefinition implements Interaction
 {
     private ActionFactory factory;
-    private ActionIdentifier actionType;
+    private Collection<ActionIdentifier> actions;
     private Predicate<Item> touchedCondition;
     private Predicate<Item> selectedCondition;
     private Predicate<Item> actionCondition;
     private Predicate<UserInput> inputCondition;
     private InteractionAssignment assignment;
     private InteractionApplicability applicability;
-    private InteractionDisplacement displacement;
+    private BiConsumer<Item, Action> application;
 
     @Inject
     public InteractionDefinition(ActionFactory factory) {
@@ -51,15 +54,14 @@ public class InteractionDefinition implements Interaction
     }
 
     /**
-     * Sets the {@link ActionIdentifier action} that this interaction will
+     * Sets the {@link ActionIdentifier actions} that this interaction will
      * result in.
      *
-     * @param action    an {@code ActionIdentifier}.
+     * @param actions   an array of {@code ActionIdentifier}s.
      * @return          this interaction.
      */
-    public InteractionDefinition forAction(ActionIdentifier action) {
-        Objects.requireNonNull(action);
-        this.actionType = action;
+    public InteractionDefinition forAction(ActionIdentifier ... actions) {
+        this.actions = Arrays.asList(actions);
         return this;
     }
 
@@ -174,7 +176,25 @@ public class InteractionDefinition implements Interaction
      */
     public InteractionDefinition appliedAs(InteractionDisplacement displacement) {
         Objects.requireNonNull(displacement);
-        this.displacement = displacement;
+        return appliedAs((subject, action) -> {
+            if (displacement == Replacement) {
+                subject.clearActions();
+            }
+            subject.addAction(action);
+        });
+    }
+
+    /**
+     * Indicates how the interaction should be applied.
+     *
+     * @param consumer  a {@link BiConsumer} that will be called with the
+     *                  action resulting from this interaction and the Item it
+     *                  should be applied to.
+     * @return          the interaction
+     */
+    public InteractionDefinition appliedAs(BiConsumer<Item, Action> consumer) {
+        Objects.requireNonNull(consumer);
+        application = consumer;
         return this;
     }
 
@@ -207,13 +227,13 @@ public class InteractionDefinition implements Interaction
     }
 
     /**
-     * Returns the {@link ActionIdentifier action} that this interaction will
+     * Returns the {@link ActionIdentifier actions} that this interaction will
      * result in.
      *
-     * @return an {@code ActionIdentifier}.
+     * @return an {@code ActionIdentifier} collection.
      */
-    public ActionIdentifier getAction() {
-        return actionType;
+    public Collection<ActionIdentifier> getActions() {
+        return actions;
     }
 
     @Override
@@ -239,11 +259,14 @@ public class InteractionDefinition implements Interaction
         Item secondary = getSecondary(item, selected);
         Item subject = getSubject(primary);
 
-        Action action = factory.newAction(actionType);
-        if (displacement == Replacement) {
-            subject.clearActions();
+        for (ActionIdentifier action: actions) {
+            apply(action, input, primary, secondary, subject);
         }
-        subject.addAction(action);
+    }
+
+    private void apply(ActionIdentifier actionType, UserInput input, Item primary, Item secondary, Item subject) {
+        Action action = factory.newAction(actionType);
+        application.accept(subject, action);
 
         action.setItem(primary);
         action.setTarget(secondary);

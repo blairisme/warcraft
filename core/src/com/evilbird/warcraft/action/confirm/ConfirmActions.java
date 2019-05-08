@@ -21,5 +21,5 @@ import com.evilbird.engine.common.serialization.SerializedType;
 public enum ConfirmActions implements ActionIdentifier
 {
     ConfirmLocation,
-    ConfirmTarget,
+    ConfirmTarget
 }

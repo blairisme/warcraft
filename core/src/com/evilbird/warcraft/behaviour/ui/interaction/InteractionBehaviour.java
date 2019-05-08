@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.itemWithType;
@@ -44,7 +43,7 @@ public class InteractionBehaviour implements Behaviour
     private Collection<Item> selected;
 
     private Item target;
-    private Collection<Interaction> actions;
+    private Interaction previous;
 
     private EventQueue events;
     private Interactions interactions;
@@ -103,22 +102,22 @@ public class InteractionBehaviour implements Behaviour
 
     private void evaluateInput(UserInput input, ItemRoot world, ItemRoot hud, Collection<Item> selected) {
         target = getTargets(world, hud, input);
-        actions = evaluateSelection(input, target, selected);
-        if (actions.isEmpty()) {
+        previous = evaluateSelection(input, target, selected);
+        if (previous == null) {
             target = camera;
-            actions = evaluateSelection(input, target, selected);
+            previous = evaluateSelection(input, target, selected);
         }
     }
 
     private void applyPrevious(UserInput input, Collection<Item> selected) {
         if (selected.isEmpty()) {
-            applyInteractions(actions, input, target, (Item)null);
+            applyInteraction(previous, input, target, (Item)null);
         } else {
-            applyInteractions(actions, input, target, selected);
+            applyInteraction(previous, input, target, selected);
         }
     }
 
-    private Collection<Interaction> evaluateSelection(UserInput input, Item target, Collection<Item> selected) {
+    private Interaction evaluateSelection(UserInput input, Item target, Collection<Item> selected) {
         if (selected.isEmpty()) {
             return evaluateInteractions(input, target, null);
         }
@@ -128,24 +127,24 @@ public class InteractionBehaviour implements Behaviour
         else for (Item selectedItem: selected) {
             return evaluateInteractions(input, target, selectedItem);
         }
-        return Collections.emptyList();
+        return null;
     }
 
-    private Collection<Interaction> evaluateInteractions(UserInput input, Item target, Item selected) {
+    private Interaction evaluateInteractions(UserInput input, Item target, Item selected) {
         logInput(input, target, selected);
-        Collection<Interaction> applicable = interactions.getInteractions(input, target, selected);
-        applyInteractions(applicable, input, target, selected);
-        return applicable;
+        Interaction interaction = interactions.getInteraction(input, target, selected);
+        applyInteraction(interaction, input, target, selected);
+        return interaction;
     }
 
-    private void applyInteractions(Collection<Interaction> actions, UserInput input, Item target, Collection<Item> selected) {
+    private void applyInteraction(Interaction interaction, UserInput input, Item target, Collection<Item> selected) {
         for (Item selectedItem: selected) {
-            applyInteractions(actions, input, target, selectedItem);
+            applyInteraction(interaction, input, target, selectedItem);
         }
     }
 
-    private void applyInteractions(Collection<Interaction> actions, UserInput input, Item target, Item selected) {
-        for (Interaction interaction: actions) {
+    private void applyInteraction(Interaction interaction, UserInput input, Item target, Item selected) {
+        if (interaction != null) {
             interaction.apply(input, target, selected);
         }
     }

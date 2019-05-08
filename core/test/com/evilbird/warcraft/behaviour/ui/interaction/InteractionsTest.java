@@ -19,6 +19,9 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.utils.MockProvider;
+import com.evilbird.warcraft.action.camera.CameraActions;
+import com.evilbird.warcraft.item.data.DataType;
+import com.evilbird.warcraft.item.layer.LayerType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +29,7 @@ import org.mockito.Mockito;
 
 import javax.inject.Provider;
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.Collections;
 
 import static com.evilbird.engine.device.UserInputType.Action;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
@@ -58,30 +61,31 @@ public class InteractionsTest
     @Test
     public void getInteractionsTest() {
         assertInteractions(asList(AttackMelee, ConfirmTarget), Action, Grunt, Footman);
-        assertInteraction(GatherGold, Action, GoldMine, Peasant);
+        assertInteraction(CameraActions.Pan, UserInputType.Drag, DataType.Camera, null);
     }
 
     private void assertInteraction(ActionIdentifier action, UserInputType input, ItemType target, ItemType selected) {
         UserInput userInput = new UserInput(input, new Vector2(1, 2), 1);
         Item targetItem = TestItems.newItem(new TextIdentifier("test-target"), target);
-        Item selectedItem = TestItems.newItem(new TextIdentifier("test-selected"), selected);
+        Item selectedItem = selected != null ? TestItems.newItem(new TextIdentifier("test-selected"), selected) : null;
 
-        Collection<Interaction> results = interactions.getInteractions(userInput, targetItem, selectedItem);
-        Assert.assertTrue(results.size() >= 1);
+        InteractionDefinition result = (InteractionDefinition)interactions.getInteraction(userInput, targetItem, selectedItem);
+        Assert.assertNotNull(result);
 
-        InteractionDefinition result = (InteractionDefinition)results.iterator().next();
-        Assert.assertEquals(action, result.getAction());
+        Collection<ActionIdentifier> actual = result.getActions();
+        Assert.assertEquals(1, actual.size());
+        Assert.assertTrue(actual.contains(action));
     }
 
-    private void assertInteractions(Collection<ActionIdentifier> actions, UserInputType input, ItemType target, ItemType selected) {
+    private void assertInteractions(Collection<ActionIdentifier> expected, UserInputType input, ItemType target, ItemType selected) {
         UserInput userInput = new UserInput(input, new Vector2(1, 2), 1);
         Item targetItem = TestItems.newItem(new TextIdentifier("test-target"), target);
         Item selectedItem = TestItems.newItem(new TextIdentifier("test-selected"), selected);
 
-        Collection<Interaction> results = interactions.getInteractions(userInput, targetItem, selectedItem);
-        Collection<ActionIdentifier> actual = results.stream().map(interaction -> ((InteractionDefinition)interaction).getAction()).collect(Collectors.toList());
+        InteractionDefinition result = (InteractionDefinition)interactions.getInteraction(userInput, targetItem, selectedItem);
+        Collection<ActionIdentifier> actual = result != null ? result.getActions() : Collections.emptyList();
 
-        Assert.assertEquals(actions.size(), results.size());
-        Assert.assertTrue(actual.containsAll(actions));
+        Assert.assertEquals(expected.size(), actual.size());
+        Assert.assertTrue(actual.containsAll(expected));
     }
 }

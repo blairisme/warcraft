@@ -148,6 +148,7 @@ public class InteractionDefinitionTest extends GameTestCase
 
         definition.forAction(ConstructActions.ConstructBarracks);
         definition.appliedTo(InteractionApplicability.Target);
+        definition.appliedAs(InteractionDisplacement.Addition);
         definition.apply(input, target, selected);
 
         assertTrue(target.getActions().contains(action));

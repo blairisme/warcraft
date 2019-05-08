@@ -9,19 +9,17 @@
 
 package com.evilbird.warcraft.behaviour.ui.interaction;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.hud.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.placeholder.PlaceholderType;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
-import java.util.Collection;
-import java.util.Map;
+import java.util.function.BiConsumer;
 
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.device.UserInputType.Drag;
@@ -42,7 +40,6 @@ import static com.evilbird.warcraft.action.select.SelectActions.SelectToggle;
 import static com.evilbird.warcraft.action.train.TrainActions.*;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
-import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionAssignment.Parent;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
 import static com.evilbird.warcraft.item.data.DataType.Camera;
@@ -61,49 +58,42 @@ import static com.evilbird.warcraft.item.unit.UnitType.*;
  */
 public class Interactions
 {
-    private static final Map<ActionIdentifier, ActionButtonType> ADD_PLACEHOLDER_TARGETS = Maps.of(
-            AddBarracksPlaceholder, BuildBarracksButton,
-            AddFarmPlaceholder, BuildFarmButton,
-            AddTownHallPlaceholder, BuildTownHallButton);
-
-    private static final Map<ActionIdentifier, PlaceholderType> BEGIN_CONSTRUCTION_TARGETS = Maps.of(
-            ConstructBarracks, BarracksPlaceholder,
-            ConstructFarm, FarmPlaceholder,
-            ConstructTownHall, TownHallPlaceholder);
-
-    private static final Map<ActionIdentifier, UnitType> CANCEL_CONSTRUCTION_TARGETS = Maps.of(
-            ConstructBarracksCancel, Barracks,
-            ConstructFarmCancel, Farm,
-            ConstructTownhallCancel, TownHall);
-
     private InteractionContainer interactions;
 
     @Inject
     public Interactions(InteractionContainer interactions) {
         this.interactions = interactions;
-        addAttackInteractions();
-        addMenuInteractions();
-        addCameraInteractions();
+        attackInteractions();
+        menuInteractions();
+        cameraInteractions();
         constructionInteractions();
-        addGatherInteractions();
-        addTrainInteractions();
-        addMoveInteractions();
-        addSelectionInteractions();
+        gatherInteractions();
+        trainInteractions();
+        moveInteractions();
+        selectionInteractions();
     }
 
-    public Collection<Interaction> getInteractions(UserInput input, Item item, Item selected) {
-        return interactions.getInteractions(input, item, selected);
+    public Interaction getInteraction(UserInput input, Item item, Item selected) {
+        return interactions.getInteraction(input, item, selected);
     }
 
-    private void addAttackInteractions() {
-        interactions.addAction(AttackMelee).whenTarget(Grunt).whenSelected(Footman).appliedTo(Selected);
-        interactions.addAction(AttackMelee).whenTarget(Grunt).whenSelected(Peasant).appliedTo(Selected);
+    private void attackInteractions() {
+        attackInteraction(Footman, Grunt);
+        attackInteraction(Peasant, Grunt);
+    }
 
-        interactions.addAction(ConfirmTarget).whenTarget(Grunt).whenSelected(Footman).appliedTo(Selected).assignedTo(Parent).appliedAs(Addition);
-        interactions.addAction(ConfirmTarget).whenTarget(Grunt).whenSelected(Peasant).appliedTo(Selected).assignedTo(Parent).appliedAs(Addition);
+    private void attackInteraction(Identifier combatant, Identifier target) {
+        interactions.addAction(AttackMelee, ConfirmTarget)
+            .whenSelected(combatant)
+            .whenTarget(target)
+            .appliedTo(Selected)
+            .appliedAs(confirmedAction());
 
-        interactions.addAction(AttackCancel).whenTarget(CancelButton).whenSelected(Footman).withAction(AttackMelee).appliedTo(Selected);
-        interactions.addAction(AttackCancel).whenTarget(CancelButton).whenSelected(Peasant).withAction(AttackMelee).appliedTo(Selected);
+        interactions.addAction(AttackCancel)
+            .whenSelected(combatant)
+            .whenTarget(CancelButton)
+            .withAction(AttackMelee)
+            .appliedTo(Selected);
     }
 
     private void constructionInteractions() {
@@ -115,7 +105,9 @@ public class Interactions
     }
 
     public void addPlaceholder() {
-        ADD_PLACEHOLDER_TARGETS.forEach(this::addPlaceholder);
+        addPlaceholder(AddBarracksPlaceholder, BuildBarracksButton);
+        addPlaceholder(AddFarmPlaceholder, BuildFarmButton);
+        addPlaceholder(AddTownHallPlaceholder, BuildTownHallButton);
     }
 
     public void addPlaceholder(ActionIdentifier placeholderType, Identifier buttonType) {
@@ -140,7 +132,9 @@ public class Interactions
     }
 
     private void beginConstruction() {
-        BEGIN_CONSTRUCTION_TARGETS.forEach(this::beginConstruction);
+        beginConstruction(ConstructBarracks, BarracksPlaceholder);
+        beginConstruction(ConstructFarm, FarmPlaceholder);
+        beginConstruction(ConstructTownHall, TownHallPlaceholder);
     }
 
     private void beginConstruction(ActionIdentifier construction, PlaceholderType placeholder) {
@@ -151,7 +145,9 @@ public class Interactions
     }
 
     private void cancelConstruction() {
-        CANCEL_CONSTRUCTION_TARGETS.forEach(this::cancelConstruction);
+        cancelConstruction(ConstructBarracksCancel, Barracks);
+        cancelConstruction(ConstructFarmCancel, Farm);
+        cancelConstruction(ConstructTownhallCancel, TownHall);
     }
 
     private void cancelConstruction(ActionIdentifier cancel, UnitType building) {
@@ -161,51 +157,123 @@ public class Interactions
             .appliedTo(Selected);
     }
 
-    private void addCameraInteractions() {
-        interactions.addAction(Pan).forInput(Drag).whenTarget(Camera).appliedTo(Target);
-        interactions.addAction(Zoom).forInput(UserInputType.Zoom).whenTarget(Camera).appliedTo(Target);
+    private void cameraInteractions() {
+        interactions.addAction(Pan)
+            .forInput(Drag)
+            .whenTarget(Camera)
+            .appliedTo(Target);
+
+        interactions.addAction(Zoom)
+            .forInput(UserInputType.Zoom)
+            .whenTarget(Camera)
+            .appliedTo(Target);
     }
 
-    private void addGatherInteractions() {
-        interactions.addAction(GatherGold).whenTarget(GoldMine).whenSelected(Peasant).appliedTo(Selected);
-        interactions.addAction(GatherWood).whenTarget(Tree).whenSelected(Peasant).appliedTo(Selected);
-
-        interactions.addAction(GatherCancel).whenTarget(CancelButton).whenSelected(Peasant).withAction(GatherGold).appliedTo(Selected);
-        interactions.addAction(GatherCancel).whenTarget(CancelButton).whenSelected(Peasant).withAction(GatherWood).appliedTo(Selected);
+    private void gatherInteractions() {
+        gatherInteraction(GatherGold, Peasant, GoldMine);
+        gatherInteraction(GatherWood, Peasant, Tree);
     }
 
-    private void addMenuInteractions() {
-        interactions.addAction(ActionsMenu).whenTarget(BuildCancelButton).appliedTo(Target);
-        interactions.addAction(BuildSimpleMenu).whenTarget(BuildSimpleButton).appliedTo(Target);
-        interactions.addAction(BuildAdvancedMenu).whenTarget(BuildAdvancedButton).appliedTo(Target);
-        interactions.addAction(IngameMenu).whenTarget(MenuPane).appliedTo(Target);
+    private void gatherInteraction(ActionIdentifier action, Identifier gatherer, Identifier resource) {
+        interactions.addAction(action, ConfirmTarget)
+            .whenSelected(gatherer)
+            .whenTarget(resource)
+            .appliedTo(Selected)
+            .appliedAs(confirmedAction());
+
+        interactions.addAction(GatherCancel)
+            .whenSelected(gatherer)
+            .whenTarget(CancelButton)
+            .withAction(action)
+            .appliedTo(Selected);
     }
 
-    private void addTrainInteractions() {
-        interactions.addAction(TrainFootman).whenTarget(TrainFootmanButton).whenSelected(Barracks).appliedTo(Selected);
-        interactions.addAction(TrainPeasant).whenTarget(TrainPeasantButton).whenSelected(TownHall).appliedTo(Selected);
+    private void menuInteractions() {
+        interactions.addAction(ActionsMenu)
+            .whenTarget(BuildCancelButton)
+            .appliedTo(Target);
 
-        interactions.addAction(TrainFootmanCancel).whenTarget(CancelButton).whenSelected(Barracks).withAction(TrainFootman).appliedTo(Selected);
-        interactions.addAction(TrainPeasantCancel).whenTarget(CancelButton).whenSelected(TownHall).withAction(TrainPeasant).appliedTo(Selected);
+        interactions.addAction(BuildSimpleMenu)
+            .whenTarget(BuildSimpleButton)
+            .appliedTo(Target);
+
+        interactions.addAction(BuildAdvancedMenu)
+            .whenTarget(BuildAdvancedButton)
+            .appliedTo(Target);
+
+        interactions.addAction(IngameMenu)
+            .whenTarget(MenuPane)
+            .appliedTo(Target);
     }
 
-    private void addMoveInteractions() {
-        interactions.addAction(MoveToLocation).whenTarget(Map).whenSelected(Footman).appliedTo(Selected);
-        interactions.addAction(MoveToLocation).whenTarget(Map).whenSelected(Peasant).appliedTo(Selected);
-
-        interactions.addAction(ConfirmLocation).whenTarget(Map).whenSelected(Footman).appliedTo(Selected).assignedTo(Parent).appliedAs(Addition);
-        interactions.addAction(ConfirmLocation).whenTarget(Map).whenSelected(Peasant).appliedTo(Selected).assignedTo(Parent).appliedAs(Addition);
-
-        interactions.addAction(MoveCancel).whenTarget(CancelButton).whenSelected(Footman).withAction(MoveToLocation).appliedTo(Selected);
-        interactions.addAction(MoveCancel).whenTarget(CancelButton).whenSelected(Peasant).withAction(MoveToLocation).appliedTo(Selected);
+    private void trainInteractions() {
+        trainInteraction(TrainFootman, TrainFootmanCancel, TrainFootmanButton, Barracks);
+        trainInteraction(TrainPeasant, TrainPeasantCancel, TrainPeasantButton, TownHall);
     }
 
-    private void addSelectionInteractions() {
-        interactions.addAction(SelectToggle).whenTarget(Footman).appliedTo(Target).appliedAs(Addition);
-        interactions.addAction(SelectToggle).whenTarget(Peasant).appliedTo(Target).appliedAs(Addition);
-        interactions.addAction(SelectToggle).whenTarget(GoldMine).appliedTo(Target).appliedAs(Addition);
-        interactions.addAction(SelectToggle).whenTarget(UnitType.TownHall).appliedTo(Target).appliedAs(Addition);
-        interactions.addAction(SelectToggle).whenTarget(UnitType.Barracks).appliedTo(Target).appliedAs(Addition);
-        interactions.addAction(SelectToggle).whenTarget(UnitType.Farm).appliedTo(Target).appliedAs(Addition);
+    private void trainInteraction(
+        ActionIdentifier action,
+        ActionIdentifier cancel,
+        Identifier build,
+        Identifier building)
+    {
+        interactions.addAction(action)
+            .whenSelected(building)
+            .whenTarget(build)
+            .appliedTo(Selected);
+
+        interactions.addAction(cancel)
+            .whenSelected(building)
+            .whenTarget(CancelButton)
+            .withAction(action)
+            .appliedTo(Selected);
+    }
+
+    private void moveInteractions() {
+        moveInteraction(Footman);
+        moveInteraction(Peasant);
+    }
+
+    private void moveInteraction(Identifier movable) {
+        interactions.addAction(MoveToLocation, ConfirmLocation)
+            .whenSelected(movable)
+            .whenTarget(Map)
+            .appliedTo(Selected)
+            .appliedAs(confirmedAction());
+
+        interactions.addAction(MoveCancel)
+            .whenSelected(movable)
+            .whenTarget(CancelButton)
+            .withAction(MoveToLocation)
+            .appliedTo(Selected);
+    }
+
+    private void selectionInteractions() {
+        selectionInteraction(Footman);
+        selectionInteraction(Peasant);
+        selectionInteraction(GoldMine);
+        selectionInteraction(TownHall);
+        selectionInteraction(Barracks);
+        selectionInteraction(Farm);
+    }
+    
+    private void selectionInteraction(Identifier selectable) {
+        interactions.addAction(SelectToggle)
+            .whenTarget(selectable)
+            .appliedTo(Target)
+            .appliedAs(Addition);
+    }
+
+    private BiConsumer<Item, Action> confirmedAction() {
+        return (subject, action) -> {
+            Identifier id = action.getIdentifier();
+            if (id == ConfirmTarget || id == ConfirmLocation) {
+                Item parent = subject.getParent();
+                parent.addAction(action);
+            } else {
+                subject.clearActions();
+                subject.addAction(action);
+            }
+        };
     }
 }

@@ -20,8 +20,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import javax.inject.Provider;
-import java.util.Arrays;
-import java.util.Collection;
 
 /**
  * Instances of this unit test validate the {@link InteractionContainer} class.
@@ -63,8 +61,8 @@ public class InteractionContainerTest
         Mockito.when(interaction2.applies(input, target, selected)).thenReturn(true);
         Mockito.when(interaction3.applies(input, target, selected)).thenReturn(false);
 
-        Collection<Interaction> expected = Arrays.asList(interaction2);
-        Collection<Interaction> actual = container.getInteractions(input, target, selected);
+        Interaction expected = interaction2;
+        Interaction actual = container.getInteraction(input, target, selected);
         Assert.assertEquals(expected, actual);
     }
 }

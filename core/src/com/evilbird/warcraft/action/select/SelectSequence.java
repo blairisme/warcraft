@@ -48,6 +48,7 @@ public class SelectSequence extends ScenarioSetAction
         scenario("Select")
             .given(isAlive())
             .when((item) -> !selected)
+            //.then(this::deselectAll)
             .then(select(observer), play(Selected));
 
         scenario("Deselect")
@@ -55,6 +56,27 @@ public class SelectSequence extends ScenarioSetAction
             .when((item) -> selected)
             .then(deselect(observer));
     }
+
+
+//    private void deselectAll(Object subject, Object target) {
+//        Item item = getItem();
+//        deselectAll(item.getParent());
+//    }
+//
+//    private void deselectAll(Item item) {
+//        if (item instanceof ItemComposite) {
+//            ItemComposite parent = (ItemComposite)item;
+//            for (Item child : parent.getItems()) {
+//                deselectAll(child);
+//            }
+//        }
+//        if (item instanceof Unit) {
+//            Unit unit = (Unit)item;
+//            if (unit.getSelected()) {
+//                unit.setSelected(false);
+//            }
+//        }
+//    }
 
     @Override
     public void restart() {
