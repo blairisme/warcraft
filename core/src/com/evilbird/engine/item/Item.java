@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.*;
@@ -168,6 +169,15 @@ public interface Item extends Identifiable, Categorizable, Positionable, Disabla
     float getY();
 
     /**
+     * Returns the z-index of the Item.
+     *
+     * @return a positive integer.
+     *
+     * @see #setZIndex(int).
+     */
+    int getZIndex();
+
+    /**
      * Sets the unique {@link Identifier} of the Item.
      *
      * @param identifier an {@code Identifier}. Cannot be {@code null}.
@@ -240,6 +250,16 @@ public interface Item extends Identifiable, Categorizable, Positionable, Disabla
      * @param position a {@link Vector2 position}. Cannot be {@code null}.
      */
     void setPosition(Vector2 position);
+
+    /**
+     * Sets the z-index of the Item. The z-index is the index into the parent's
+     * children, where a lower index is below a higher index. Setting a z-index
+     * higher than the number of children will move the child to the front.
+     * Setting a z-index less than zero is invalid.
+     *
+     * @param index the new z-index. Must be a positive value.
+     */
+    void setZIndex(int index);
 
     /**
      * Renders the Item.

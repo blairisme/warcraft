@@ -163,6 +163,11 @@ public class ItemBasic implements Item
     }
 
     @Override
+    public int getZIndex() {
+        return delegate.getZIndex();
+    }
+
+    @Override
     public void setIdentifier(Identifier identifier) {
         Validate.notNull(id);
         this.id = identifier;
@@ -224,6 +229,11 @@ public class ItemBasic implements Item
         Validate.notNull(position);
         this.position = position;
         this.delegate.setPosition(position.x, position.y);
+    }
+
+    @Override
+    public void setZIndex(int index) {
+        this.delegate.setZIndex(index);
     }
 
     @Override
