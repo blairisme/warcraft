@@ -9,6 +9,8 @@
 
 package com.evilbird.warcraft.item.common.query;
 
+import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.common.function.Predicates;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.utility.ItemPredicates;
@@ -166,5 +168,23 @@ public class UnitPredicates
             }
             return false;
         };
+    }
+
+    public static Action assignConstruction() {
+        return new LambdaAction((subject, target) -> {
+            if (subject instanceof Gatherer) {
+                Gatherer gatherer = (Gatherer)subject;
+                gatherer.setConstruction(target);
+            }
+        });
+    }
+
+    public static Action unassignConstruction() {
+        return new LambdaAction((subject, target) -> {
+            if (subject instanceof Gatherer) {
+                Gatherer gatherer = (Gatherer)subject;
+                gatherer.setConstruction(null);
+            }
+        });
     }
 }

@@ -19,7 +19,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderEvents.placeholderRemoved;
-import static com.evilbird.warcraft.action.placeholder.PlaceholderUtils.unassignConstruction;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.unassignConstruction;
 
 /**
  * Instances of this class stop the use of a placeholder, removing it from the

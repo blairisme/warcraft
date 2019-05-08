@@ -20,9 +20,9 @@ import java.util.function.Consumer;
 import static com.evilbird.engine.item.utility.ItemOperations.getScreenCenter;
 import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderEvents.placeholderAdded;
-import static com.evilbird.warcraft.action.placeholder.PlaceholderUtils.assignConstruction;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_HEIGHT;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.assignConstruction;
 
 /**
  * Instances of this class provide {@link Action Actions} that add a building
