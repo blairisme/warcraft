@@ -48,11 +48,12 @@ public class ItemGroup extends ItemBasic implements ItemComposite
      * @param item the item to set.
      */
     public void addItem(Item item) {
+        int index = Math.min(item.getZIndex(), items.size());
         Group group = (Group)delegate;
-        group.addActor(item.toActor());
+        group.addActorAt(index, item.toActor());
         item.setParent(this);
         item.setRoot(getRoot());
-        items.add(item);
+        items.add(index, item);
         observers.forEach(it -> it.itemAdded(item));
     }
 

@@ -63,6 +63,7 @@ public class WarcraftStateFileLoader
     private static final String GOLD_PROPERTY = "Gold";
     private static final String OIL_PROPERTY = "Oil";
     private static final String WOOD_PROPERTY = "Wood";
+    private static final String ZINDEX_PROPERTY = "ZIndex";
 
     private TiledMapLoader mapLoader;
     private ItemFactory itemFactory;
@@ -98,18 +99,11 @@ public class WarcraftStateFileLoader
         result.setIdentifier(new TextIdentifier("world"));
         result.setViewport(new ScreenViewport());
         result.setSpatialGraph(new ItemGraph(tileSize.x, tileSize.y, mapSize.x, mapSize.y));
-        addItems(level, result);
+
+        addPrimaryItems(level, getComposites(result));
+        addSecondaryItems(level, getComposites(result.getItems()));
+
         return result;
-    }
-
-    private ItemRoot addItems(TiledMapFile level, ItemRoot root) {
-        Map<String, ItemComposite> rootItems = getComposites(root);
-        addPrimaryItems(level, rootItems);
-
-        Map<String, ItemComposite> primaryItems = getComposites(root.getItems());
-        addSecondaryItems(level, primaryItems);
-
-        return root;
     }
 
     private Map<String, ItemComposite> getComposites(ItemRoot root) {
@@ -196,6 +190,10 @@ public class WarcraftStateFileLoader
     private void setGeneralAttributes(Item item, MapProperties properties) {
         item.setTouchable(getTouchable(properties));
         item.setPosition((Float)properties.get(POSITION_X_PROPERTY), (Float)properties.get(POSITION_Y_PROPERTY));
+
+        if (properties.containsKey(ZINDEX_PROPERTY)) {
+            item.setZIndex((Integer)properties.get(ZINDEX_PROPERTY));
+        }
     }
 
     private void setCustomAttributes(Item item, MapProperties properties) {

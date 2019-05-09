@@ -49,6 +49,7 @@ public class ItemBasic implements Item
     private Vector2 size;
     private Vector2 position;
     private List<Action> actions;
+    private transient int index;
     private transient ListIterator<Action> iterator;
 
     public ItemBasic() {
@@ -59,6 +60,7 @@ public class ItemBasic implements Item
         position = new Vector2(0, 0);
         actions = new ArrayList<>();
         delegate = getDelegate();
+        index = Integer.MAX_VALUE;
     }
 
     @Override
@@ -164,7 +166,7 @@ public class ItemBasic implements Item
 
     @Override
     public int getZIndex() {
-        return delegate.getZIndex();
+        return index;
     }
 
     @Override
@@ -233,6 +235,7 @@ public class ItemBasic implements Item
 
     @Override
     public void setZIndex(int index) {
+        this.index = index;
         this.delegate.setZIndex(index);
     }
 
