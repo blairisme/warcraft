@@ -243,7 +243,7 @@ public class Interactions
 
         interactions.addAction(MoveCancel)
             .whenSelected(movable)
-            .whenTarget(CancelButton)
+            .whenTarget(StopButton)
             .withAction(MoveToLocation)
             .appliedTo(Selected);
     }
