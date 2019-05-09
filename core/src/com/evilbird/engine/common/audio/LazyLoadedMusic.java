@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.common.audio;
 
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.audio.Music;
@@ -23,6 +24,7 @@ public class LazyLoadedMusic implements Music
 {
     private Music music;
     private String path;
+    private Audio service;
     private FileHandleResolver resolver;
 
     private float volume;
@@ -30,7 +32,12 @@ public class LazyLoadedMusic implements Music
     private OnCompletionListener listener;
 
     public LazyLoadedMusic(FileHandleResolver resolver, String path) {
+        this(Gdx.audio, resolver, path);
+    }
+
+    public LazyLoadedMusic(Audio service, FileHandleResolver resolver, String path) {
         this.path = path;
+        this.service = service;
         this.resolver = resolver;
         this.volume = 1;
         this.looping = false;
@@ -40,7 +47,7 @@ public class LazyLoadedMusic implements Music
     public void play() {
         if (music == null) {
             FileHandle file = resolver.resolve(path);
-            music = Gdx.audio.newMusic(file);
+            music = service.newMusic(file);
             music.setLooping(looping);
             music.setVolume(volume);
             music.setOnCompletionListener(listener);

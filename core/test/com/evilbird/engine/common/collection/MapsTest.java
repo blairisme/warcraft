@@ -15,6 +15,11 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Instances of this unit test validate the {@link Maps} class.
+ *
+ * @author Blair Butterworth
+ */
 public class MapsTest
 {
     @Test
