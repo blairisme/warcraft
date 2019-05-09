@@ -14,6 +14,8 @@ import java.util.ListIterator;
 /**
  * An {@link ListIterator} that has no elements.
  *
+ * @param <T> the type of elements returned by this iterator.
+ *
  * @author Blair Butterworth
  */
 public class EmptyIterator<T> implements ListIterator<T> {

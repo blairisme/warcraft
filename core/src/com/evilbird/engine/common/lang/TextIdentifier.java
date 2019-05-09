@@ -14,6 +14,12 @@ import com.evilbird.engine.common.serialization.SerializedType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+/**
+ * Represents an {@link Identifier} based on a given text string, usually the
+ * name of the object the identifier belongs to.
+ *
+ * @author Blair Butterworth
+ */
 @SerializedType("Named")
 public class TextIdentifier implements Identifier
 {

@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.*;
@@ -172,8 +171,6 @@ public interface Item extends Identifiable, Categorizable, Positionable, Disabla
      * Returns the z-index of the Item.
      *
      * @return a positive integer.
-     *
-     * @see #setZIndex(int).
      */
     int getZIndex();
 

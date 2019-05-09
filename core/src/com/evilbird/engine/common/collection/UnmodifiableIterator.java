@@ -15,6 +15,8 @@ import java.util.Iterator;
  * Decorates an iterator such that it cannot be modified. Attempts to modify it
  * will result in an {@link UnsupportedOperationException}.
  *
+ * @param <T> the type of elements returned by this iterator.
+ *
  * @author Blair Butterworth
  */
 public class UnmodifiableIterator<T> implements Iterator<T>

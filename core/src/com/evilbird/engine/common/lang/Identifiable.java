@@ -14,6 +14,8 @@ package com.evilbird.engine.common.lang;
  * {@link Identifier} that uniquely identifies the given objects among similar
  * objects.
  *
+ * @param <T> the type of identifiers provided by the Identifiable.
+ *
  * @author Blair Butterworth
  */
 public interface Identifiable <T extends Identifier>

@@ -9,6 +9,12 @@
 
 package com.evilbird.engine.common.lang;
 
+/**
+ * Implementors of this interface represent an operation that requires loading
+ * from persisted storage.
+ *
+ * @author Blair Butterworth
+ */
 public interface Persisted
 {
     void load();

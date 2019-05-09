@@ -15,6 +15,8 @@ import com.badlogic.gdx.utils.Array;
  * Decorates an {@link Array} such that it cannot be modified. Attempts to
  * modify it will result in an {@link UnsupportedOperationException}.
  *
+ * @param <T> the type of elements returned by this Array.
+ *
  * @author Blair Butterworth
  */
 public class UnmodifiableArray<T> extends Array<T>
