@@ -20,6 +20,7 @@ import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.device.UserInputType.Drag;
@@ -45,6 +46,8 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
 import static com.evilbird.warcraft.item.data.DataType.Camera;
 import static com.evilbird.warcraft.item.hud.HudControl.MenuPane;
 import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.*;
+import static com.evilbird.warcraft.item.hud.control.status.selection.SelectionButtonType.FocusButton;
+import static com.evilbird.warcraft.item.hud.control.status.selection.SelectionButtonType.UnselectButton;
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
 import static com.evilbird.warcraft.item.layer.LayerType.Tree;
 import static com.evilbird.warcraft.item.placeholder.PlaceholderType.*;
@@ -167,6 +170,11 @@ public class Interactions
             .forInput(UserInputType.Zoom)
             .whenTarget(Camera)
             .appliedTo(Target);
+
+        interactions.addAction(SelectToggle)
+            .whenTarget(FocusButton)
+            .appliedTo(Target)
+            .appliedAs(buttonAction());
     }
 
     private void gatherInteractions() {
@@ -249,19 +257,31 @@ public class Interactions
     }
 
     private void selectionInteractions() {
-        selectionInteraction(Footman);
-        selectionInteraction(Peasant);
-        selectionInteraction(GoldMine);
-        selectionInteraction(TownHall);
-        selectionInteraction(Barracks);
-        selectionInteraction(Farm);
+        selectToggle();
+        unselectButton();
+    }
+
+    private void selectToggle() {
+        selectToggle(Footman);
+        selectToggle(Peasant);
+        selectToggle(GoldMine);
+        selectToggle(TownHall);
+        selectToggle(Barracks);
+        selectToggle(Farm);
     }
     
-    private void selectionInteraction(Identifier selectable) {
+    private void selectToggle(Identifier selectable) {
         interactions.addAction(SelectToggle)
             .whenTarget(selectable)
             .appliedTo(Target)
             .appliedAs(Addition);
+    }
+
+    private void unselectButton() {
+        interactions.addAction(SelectToggle)
+            .whenTarget(UnselectButton)
+            .appliedTo(Target)
+            .appliedAs(buttonAction());
     }
 
     private BiConsumer<Item, Action> confirmedAction() {
@@ -273,6 +293,20 @@ public class Interactions
             } else {
                 subject.clearActions();
                 subject.addAction(action);
+            }
+        };
+    }
+
+    private BiConsumer<Item, Action> buttonAction() {
+        return (subject, action) -> {
+            Item parent = subject.getParent();
+            if (parent instanceof Supplier) {
+                Supplier supplier = (Supplier)parent;
+                Object recipient = supplier.get();
+                if (recipient instanceof Item) {
+                    Item item = (Item)recipient;
+                    item.addAction(action);
+                }
             }
         };
     }

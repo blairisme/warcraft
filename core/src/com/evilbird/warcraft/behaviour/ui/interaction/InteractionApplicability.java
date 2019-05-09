@@ -18,6 +18,7 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 public enum InteractionApplicability
 {
     Selected,
-    SelectedPlayer,
-    Target
+    Target,
+    TargetParent
+
 }

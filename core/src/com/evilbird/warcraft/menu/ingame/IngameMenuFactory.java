@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -26,8 +27,6 @@ import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.control.SelectListener;
-import com.evilbird.engine.control.StyledField;
-import com.evilbird.engine.control.StyledList;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuIdentifier;
@@ -191,8 +190,8 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         menu.setLayout(Wide);
         menu.addTitle("Save Game");
 
-        StyledField field = menu.addTextField("");
-        StyledList list = menu.addList();
+        TextField field = menu.addTextField("");
+        List list = menu.addList();
         menu.addButtonRow(
             Pair.of("Save", saveState(menu, field)),
             Pair.of("Delete", deleteState(menu, list)),
@@ -206,7 +205,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         menu.setLayout(Wide);
         menu.addTitle("Load Game");
 
-        StyledList list = menu.addList();
+        List list = menu.addList();
         menu.addButtonRow(
             Pair.of("Load", loadState(menu, list)),
             Pair.of("Delete", deleteState(menu, list)),
@@ -315,7 +314,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         }
     }
 
-    private SelectListener saveState(IngameMenu menu, StyledField field) {
+    private SelectListener saveState(IngameMenu menu, TextField field) {
         return () -> {
             try {
                 menu.saveState(new WarcraftStateIdentifier(field.getText()));
@@ -327,7 +326,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         };
     }
 
-    private SelectListener deleteState(IngameMenu menu, StyledList list) {
+    private SelectListener deleteState(IngameMenu menu, List list) {
         return () -> {
             try {
                 states.remove((WarcraftStateIdentifier)list.getSelected());
@@ -339,7 +338,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         };
     }
 
-    private SelectListener loadState(IngameMenu menu, StyledList list) {
+    private SelectListener loadState(IngameMenu menu, List list) {
         return () -> {
             try {
                 menu.showState((WarcraftStateIdentifier)list.getSelected());

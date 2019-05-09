@@ -12,7 +12,9 @@ package com.evilbird.warcraft.menu.ingame;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.control.*;
+import com.evilbird.engine.control.SelectListener;
+import com.evilbird.engine.control.SelectListenerAdapter;
+import com.evilbird.engine.control.StyledLabel;
 import com.evilbird.engine.menu.Menu;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -37,7 +39,9 @@ public class IngameMenu extends Menu
     }
 
     public void addButton(String text, SelectListener action) {
-        addControl(new StyledButton(text, action, skin));
+        Button button = new TextButton(text, skin);
+        button.addListener(new SelectListenerAdapter(action));
+        addControl(button);
     }
 
     @SafeVarargs
@@ -55,7 +59,9 @@ public class IngameMenu extends Menu
     }
 
     private void addButtonRowCell(Table row, String text, SelectListener action) {
-        Button button = new StyledButton(text, action, skin);
+        Button button = new TextButton(text, skin);
+        button.addListener(new SelectListenerAdapter(action));
+
         Cell cell = row.add(button);
         setPadding(cell);
         cell.width(100);
@@ -70,8 +76,8 @@ public class IngameMenu extends Menu
         addControl(new StyledLabel(text, skin, Align.left));
     }
 
-    public StyledList addList() {
-        StyledList list = new StyledList<>(skin);
+    public List addList() {
+        List list = new List<>(skin);
         ScrollPane scrolled = new ScrollPane(list);
 
         Cell cell = container.add(scrolled);
@@ -82,8 +88,8 @@ public class IngameMenu extends Menu
         return list;
     }
 
-    public StyledField addTextField(String text) {
-        StyledField textField = new StyledField(text, skin);
+    public TextField addTextField(String text) {
+        TextField textField = new TextField(text, skin);
         addControl(textField);
         return textField;
     }

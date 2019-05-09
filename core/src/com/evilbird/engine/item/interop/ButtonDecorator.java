@@ -1,30 +1,30 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.engine.item.interop;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.evilbird.engine.item.Item;
 
 /**
- * Instances of this class decorate the LibGDX {@link Table} class with an
- * {@link Item}, allowing the Item to receive events from the Table without
+ * Instances of this class decorate the LibGDX {@link Button} class with an
+ * {@link Item}, allowing the Item to receive events from the Button without
  * inheriting from it.
  *
  * @author Blair Butterworth
  */
-public class TableDecorator extends Table
+public class ButtonDecorator extends Button
 {
     private Item item;
 
-    public TableDecorator(Item item) {
+    public ButtonDecorator(Item item) {
         this.item = item;
     }
 

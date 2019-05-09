@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.item.hud.HudControl;
-import com.evilbird.warcraft.item.hud.common.UnitPane;
 import com.evilbird.warcraft.item.unit.Unit;
 
 import java.util.ArrayList;
@@ -51,7 +50,7 @@ public class SelectionPane extends GridItem
         Collection<Item> result = new ArrayList<>(items.size());
         for (Item item : items) {
             if (item instanceof Unit) {
-                result.add(getUnitPane((Unit) item));
+                result.add(getSelectionButton(item));
             }
             if (result.size() == SELECTION_MAX) {
                 break;
@@ -60,10 +59,9 @@ public class SelectionPane extends GridItem
         return result;
     }
 
-    private UnitPane getUnitPane(Unit unit) {
-        UnitPane result = new UnitPane(getSkin());
-        result.setItem(unit);
-        result.setSize(54, 53);
+    private SelectionButton getSelectionButton(Item item) {
+        SelectionButton result = new SelectionButton(getSkin());
+        result.set(item);
         return result;
     }
 }

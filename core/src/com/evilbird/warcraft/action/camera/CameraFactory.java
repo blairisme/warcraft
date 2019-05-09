@@ -26,9 +26,15 @@ public class CameraFactory implements ActionProvider
 {
     private InjectedPool<PanAction> panPool;
     private InjectedPool<ZoomAction> zoomPool;
+    private InjectedPool<FocusAction> focusPool;
 
     @Inject
-    public CameraFactory(InjectedPool<PanAction> panPool, InjectedPool<ZoomAction> zoomPool) {
+    public CameraFactory(
+        InjectedPool<FocusAction> focusPool,
+        InjectedPool<PanAction> panPool,
+        InjectedPool<ZoomAction> zoomPool)
+    {
+        this.focusPool = focusPool;
         this.panPool = panPool;
         this.zoomPool = zoomPool;
     }
@@ -37,6 +43,7 @@ public class CameraFactory implements ActionProvider
     public Action get(ActionIdentifier action) {
         Validate.isInstanceOf(CameraActions.class, action);
         switch((CameraActions)action) {
+            case Focus: return focusPool.obtain();
             case Pan: return panPool.obtain();
             case Zoom: return zoomPool.obtain();
             default: throw new UnsupportedOperationException();

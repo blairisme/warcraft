@@ -23,6 +23,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.item.hud.common.HealthBarStyle;
 import com.evilbird.warcraft.item.hud.control.actions.ActionButtonStyle;
 import com.evilbird.warcraft.item.hud.control.actions.ActionButtonType;
+import com.evilbird.warcraft.item.hud.control.status.selection.SelectionButtonStyle;
 
 import javax.inject.Inject;
 import java.util.HashMap;
@@ -41,6 +42,7 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
     private static final String ACTION_BUTTON = "data/textures/neutral/perennial/action.png";
     private static final String ACTION_ICONS = "data/textures/neutral/perennial/icons.png";
     private static final String ACTION_ICONS_DISABLED = "data/textures/neutral/perennial/icons_disabled.png";
+    private static final String UNSELECT_BUTTON = "data/textures/neutral/perennial/unselect.png";
     private static final String ACTION_PANEL = "data/textures/human/hud/action_panel.png";
     private static final String DETAILS_PANEL = "data/textures/human/hud/details_panel.png";
     private static final String MENU_PANEL = "data/textures/human/hud/menu_panel.png";
@@ -73,6 +75,7 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
         assets.load(ACTION_ICONS, Texture.class);
         assets.load(ACTION_ICONS_DISABLED, Texture.class);
         assets.load(ACTION_PANEL, Texture.class);
+        assets.load(UNSELECT_BUTTON, Texture.class);
         assets.load(DETAILS_PANEL, Texture.class);
         assets.load(MENU_PANEL, Texture.class);
         assets.load(MINIMAP_PANEL, Texture.class);
@@ -97,6 +100,7 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
         Skin skin = new Skin();
         skin.add("default", getDefaultFont());
         skin.add("default", getHealthBarStyle());
+        skin.add("default", getSelectionButtonStyle());
         skin.add("button-thin-medium", getButtonStyle());
         skin.add("building-progress", getBuildingProgressStyle());
         skin.add("action-button", getActionButtonStyle());
@@ -148,6 +152,14 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
         style.highBar = getDrawable(assets, HEALTH_PROGRESS_HIGH);
         style.mediumBar = getDrawable(assets, HEALTH_PROGRESS_MEDIUM);
         style.lowBar = getDrawable(assets, HEALTH_PROGRESS_LOW);
+        return style;
+    }
+
+    private SelectionButtonStyle getSelectionButtonStyle() {
+        SelectionButtonStyle style =  new SelectionButtonStyle();
+        style.closeButtonEnabled = getDrawable(assets, UNSELECT_BUTTON);
+        style.closeButtonDisabled = getDrawable(assets, UNSELECT_BUTTON);
+        style.closeButtonSelected = getDrawable(assets, UNSELECT_BUTTON);
         return style;
     }
 

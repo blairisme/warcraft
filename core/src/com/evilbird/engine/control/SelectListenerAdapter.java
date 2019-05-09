@@ -12,6 +12,12 @@ package com.evilbird.engine.control;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
+/**
+ * Instances of this adapter wrap a {@link SelectListener}, decorating it as
+ * an {@link ChangeListener}.
+ *
+ * @author Blair Butterworth
+ */
 public class SelectListenerAdapter extends ChangeListener
 {
     private SelectListener listener;

@@ -29,4 +29,9 @@ public enum CameraActions implements ActionIdentifier
      * An identifier for the {@link ZoomAction} action.
      */
     Zoom,
+
+    /**
+     * An identifier for the {@link FocusAction} action.
+     */
+    Focus
 }

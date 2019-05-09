@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.Fonts;
 
+@Deprecated
 public class StyledLabel extends Label
 {
     public StyledLabel(String text) {
