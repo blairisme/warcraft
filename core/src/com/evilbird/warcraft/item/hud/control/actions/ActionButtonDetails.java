@@ -33,6 +33,10 @@ import static java.util.Collections.singletonList;
  */
 public class ActionButtonDetails
 {
+    private static List<ActionButtonType> unsupported = asList(
+        MoveButton, AttackButton, PatrolButton, DefendButton, RepairButton,
+        GatherButton, BuildStablesButton);
+
     private static List<ActionButtonType> simpleBuildings = asList(
         BuildFarmButton, BuildBarracksButton, BuildTownHallButton, BuildCancelButton);
 
@@ -68,7 +72,15 @@ public class ActionButtonDetails
         return advancedBuildings;
     }
 
-    public static boolean hasResources(ActionButtonType type, Map<ResourceType, Float> resources) {
+    public static boolean isEnabled(ActionButtonType type, Map<ResourceType, Float> resources) {
+        return isSupported(type) && hasResources(type, resources);
+    }
+
+    private static boolean isSupported(ActionButtonType type) {
+        return !unsupported.contains(type);
+    }
+
+    private static boolean hasResources(ActionButtonType type, Map<ResourceType, Float> resources) {
         if (costs.containsKey(type)) {
             for (Entry<ResourceType, Float> cost: costs.get(type).entrySet()) {
                 if (getResource(resources, cost.getKey()) < cost.getValue()) {

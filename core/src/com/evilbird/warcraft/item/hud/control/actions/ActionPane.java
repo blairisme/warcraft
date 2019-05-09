@@ -23,7 +23,7 @@ import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import java.util.*;
 
-import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonDetails.hasResources;
+import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonDetails.isEnabled;
 import static com.evilbird.warcraft.item.hud.control.actions.ActionPaneView.Actions;
 
 /**
@@ -178,7 +178,7 @@ public class ActionPane extends GridItem implements MenuProvider
     private ActionButton getButton(ActionButtonType type) {
         ActionButton button = new ActionButton(getSkin());
         button.setType(type);
-        button.setEnabled(hasResources(type, resources));
+        button.setEnabled(isEnabled(type, resources));
         return button;
     }
 }
