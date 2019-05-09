@@ -93,6 +93,7 @@ public class TownHallFactory implements AssetProvider<Item>
         result.setType(UnitType.TownHall);
         result.setIdentifier(objectIdentifier("TownHall", result));
         result.setSize(128, 128);
+        result.setZIndex(0);
         return result;
     }
 

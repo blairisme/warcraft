@@ -9,8 +9,8 @@
 
 package com.evilbird.engine.common.inject;
 
-import com.evilbird.engine.common.lang.Persisted;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.Persisted;
 
 /**
  * Implementors of this interface provide instances of {@code T} identified by

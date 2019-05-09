@@ -97,6 +97,7 @@ public class BarracksFactory implements AssetProvider<Item>
         result.setType(UnitType.Barracks);
         result.setIdentifier(objectIdentifier("Barracks", result));
         result.setSize(96, 96);
+        result.setZIndex(0);
         return result;
     }
 

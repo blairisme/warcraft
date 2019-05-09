@@ -93,6 +93,7 @@ public class FarmFactory implements AssetProvider<Item>
         result.setType(UnitType.Farm);
         result.setIdentifier(objectIdentifier("Farm", result));
         result.setSize(64, 64);
+        result.setZIndex(0);
         return result;
     }
 
