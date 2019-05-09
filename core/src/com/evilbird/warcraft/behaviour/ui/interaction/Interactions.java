@@ -20,6 +20,7 @@ import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 import static com.evilbird.engine.common.function.Predicates.both;
@@ -27,8 +28,7 @@ import static com.evilbird.engine.device.UserInputType.Drag;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackCancel;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
-import static com.evilbird.warcraft.action.camera.CameraActions.Pan;
-import static com.evilbird.warcraft.action.camera.CameraActions.Zoom;
+import static com.evilbird.warcraft.action.camera.CameraActions.*;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmLocation;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmTarget;
 import static com.evilbird.warcraft.action.construct.ConstructActions.*;
@@ -171,10 +171,9 @@ public class Interactions
             .whenTarget(Camera)
             .appliedTo(Target);
 
-        interactions.addAction(SelectToggle)
+        interactions.addAction(Focus)
             .whenTarget(FocusButton)
-            .appliedTo(Target)
-            .appliedAs(buttonAction());
+            .appliedTo(targetParentItem(), selectedItem());
     }
 
     private void gatherInteractions() {
@@ -280,8 +279,7 @@ public class Interactions
     private void unselectButton() {
         interactions.addAction(SelectToggle)
             .whenTarget(UnselectButton)
-            .appliedTo(Target)
-            .appliedAs(buttonAction());
+            .appliedTo(targetParentItem(), selectedItem());
     }
 
     private BiConsumer<Item, Action> confirmedAction() {
@@ -297,17 +295,21 @@ public class Interactions
         };
     }
 
-    private BiConsumer<Item, Action> buttonAction() {
-        return (subject, action) -> {
-            Item parent = subject.getParent();
+    private BiFunction<Item, Item, Item> targetParentItem() {
+        return (target, selected) -> {
+            Item parent = target.getParent();
             if (parent instanceof Supplier) {
                 Supplier supplier = (Supplier)parent;
                 Object recipient = supplier.get();
                 if (recipient instanceof Item) {
-                    Item item = (Item)recipient;
-                    item.addAction(action);
+                    return (Item)recipient;
                 }
             }
+            return target;
         };
+    }
+
+    private BiFunction<Item, Item, Item> selectedItem() {
+        return (target, selected) -> selected;
     }
 }

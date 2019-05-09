@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.control;
+package com.evilbird.engine.common.control;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 

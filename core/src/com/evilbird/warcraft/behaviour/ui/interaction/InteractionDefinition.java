@@ -22,6 +22,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.hasAction;
@@ -44,8 +46,9 @@ public class InteractionDefinition implements Interaction
     private Predicate<Item> selectedCondition;
     private Predicate<Item> actionCondition;
     private Predicate<UserInput> inputCondition;
-    private InteractionAssignment assignment;
-    private InteractionApplicability applicability;
+    private BiFunction<Item, Item, Item> subjectSupplier;
+    private BiFunction<Item, Item, Item> targetSupplier;
+    private Function<Item, Item> recipientSupplier;
     private BiConsumer<Item, Action> application;
 
     @Inject
@@ -199,8 +202,9 @@ public class InteractionDefinition implements Interaction
     }
 
     /**
-     * Sets which {@link Item} the action resulting from this interaction will
-     * be applied to: the target of the resulting {@link Action}.
+     * Sets which {@link Item Items} the action resulting from this interaction
+     * will be applied to: the subject and target of the resulting
+     * {@link Action}.
      *
      * @param applicability an {@link InteractionApplicability} option. This
      *                      parameter cannot be {@code null}.
@@ -208,21 +212,63 @@ public class InteractionDefinition implements Interaction
      */
     public InteractionDefinition appliedTo(InteractionApplicability applicability) {
         Objects.requireNonNull(applicability);
-        this.applicability = applicability;
+        return appliedTo(
+            (target, selected) -> applicability == Selected ? selected : target,
+            (target, selected) -> applicability == Selected ? target : selected);
+    }
+
+    /**
+     * Sets which {@link Item Items} the action resulting from this interaction
+     * will be applied to: the subject and target of the resulting
+     * {@link Action}.
+     *
+     * @param subjectSupplier   a {@link BiFunction} the provides the subject
+     *                          for the resulting action. This parameter cannot
+     *                          be {@code null}.
+     * @param targetSupplier    a {@link BiFunction} the provides the target
+     *                          for the resulting action. This parameter cannot
+     *                          be {@code null}.
+     *
+     * @return the interaction
+     */
+    public InteractionDefinition appliedTo(
+        BiFunction<Item, Item, Item> subjectSupplier,
+        BiFunction<Item, Item, Item> targetSupplier)
+    {
+        Objects.requireNonNull(subjectSupplier);
+        Objects.requireNonNull(targetSupplier);
+        this.subjectSupplier = subjectSupplier;
+        this.targetSupplier = targetSupplier;
         return this;
     }
 
     /**
      * Sets which {@link Item} the action resulting from this interaction will
-     * be assigned to: the item of the resulting {@link Action}.
+     * be assigned to: the recipient of the resulting {@link Action}.
      *
      * @param assignment    an {@link InteractionAssignment} option. This
      *                      parameter cannot be {@code null}.
-     * @return              the interaction
+     *
+     * @return the interaction
      */
     public InteractionDefinition assignedTo(InteractionAssignment assignment) {
         Objects.requireNonNull(assignment);
-        this.assignment = assignment;
+        return assignedTo(target -> assignment == Parent ? target.getParent() : target);
+    }
+
+    /**
+     * Sets which {@link Item} the action resulting from this interaction will
+     * be assigned to: the recipient of the resulting {@link Action}.
+     *
+     * @param recipientSupplier a {@link Function} the provides the recipient
+     *                          of the resulting action. This parameter cannot
+     *                          be {@code null}.
+     *
+     * @return the interaction
+     */
+    public InteractionDefinition assignedTo(Function<Item, Item> recipientSupplier) {
+        Objects.requireNonNull(recipientSupplier);
+        this.recipientSupplier = recipientSupplier;
         return this;
     }
 
@@ -247,7 +293,7 @@ public class InteractionDefinition implements Interaction
         if (selectedCondition != null && !selectedCondition.test(selected)) {
             return false;
         }
-        if (actionCondition != null && !actionCondition.test(getPrimary(touched, selected))) {
+        if (actionCondition != null && !actionCondition.test(subjectSupplier.apply(touched, selected))) {
             return false;
         }
         return true;
@@ -255,34 +301,18 @@ public class InteractionDefinition implements Interaction
 
     @Override
     public void apply(UserInput input, Item item, Item selected) {
-        Item primary = getPrimary(item, selected);
-        Item secondary = getSecondary(item, selected);
-        Item subject = getSubject(primary);
+        Item subject = subjectSupplier.apply(item, selected);
+        Item target = targetSupplier.apply(item, selected);
+        Item recipient = recipientSupplier.apply(subject);
 
-        for (ActionIdentifier action: actions) {
-            apply(action, input, primary, secondary, subject);
+        for (ActionIdentifier actionType: actions) {
+            Action action = factory.newAction(actionType);
+            application.accept(recipient, action);
+
+            action.setItem(subject);
+            action.setTarget(target);
+            action.setCause(input);
         }
-    }
-
-    private void apply(ActionIdentifier actionType, UserInput input, Item primary, Item secondary, Item subject) {
-        Action action = factory.newAction(actionType);
-        application.accept(subject, action);
-
-        action.setItem(primary);
-        action.setTarget(secondary);
-        action.setCause(input);
-    }
-
-    private Item getPrimary(Item item, Item selected) {
-        return applicability == Selected ? selected : item;
-    }
-
-    private Item getSecondary(Item item, Item selected) {
-        return applicability == Selected ? item : selected;
-    }
-
-    private Item getSubject(Item item) {
-        return assignment == Parent ? item.getParent() : item;
     }
 }
 

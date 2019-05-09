@@ -16,7 +16,6 @@ import com.evilbird.engine.item.ItemRoot;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.item.utility.ItemOperations.getScreenCenter;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.action.camera.CameraActions.Focus;
 import static com.evilbird.warcraft.item.data.DataType.Camera;
@@ -40,9 +39,10 @@ public class FocusAction extends BasicAction
         ItemRoot root = item.getRoot();
 
         Vector2 size = item.getSize();
-        Vector2 position = getScreenCenter(root);
-        position.x = position.x - (size.x / 2);
-        position.y = position.y - (size.y / 2);
+        Vector2 position = item.getPosition();
+
+        position.x -= size.x / 2;
+        position.y -= size.y / 2;
 
         Item camera = root.find(withType(Camera));
         camera.setPosition(position);

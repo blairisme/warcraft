@@ -26,7 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.control.SelectListener;
+import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuIdentifier;

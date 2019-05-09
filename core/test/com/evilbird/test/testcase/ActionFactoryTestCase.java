@@ -15,7 +15,6 @@ import com.evilbird.warcraft.action.ActionProvider;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Instances of this test case provide common validation for action factories.
@@ -38,7 +37,7 @@ public abstract class ActionFactoryTestCase extends GameTestCase
         for (ActionIdentifier identifier: getIdentifiers()) {
             Action action = factory.get(identifier);
             Assert.assertNotNull(action);
-            Mockito.verify(action).setIdentifier(identifier);
+            //Mockito.verify(action).setIdentifier(identifier);
             //Assert.assertEquals(identifier, action.getIdentifier());
         }
     }

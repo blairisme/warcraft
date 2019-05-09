@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.construct;
+package com.evilbird.warcraft.action.camera;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.inject.InjectedPool;
@@ -16,21 +16,22 @@ import com.evilbird.test.utils.MockInjectedPool;
 import com.evilbird.warcraft.action.ActionProvider;
 
 /**
- * Instances of this unit test validate the {@link ConstructFactory} class.
+ * Instances of this unit test validate the {@link CameraFactory} class.
  *
  * @author Blair Butterworth
  */
-public class ConstructFactoryTest extends ActionFactoryTestCase
+public class CameraFactoryTest extends ActionFactoryTestCase
 {
     @Override
     protected ActionProvider newFactory() {
-        InjectedPool<ConstructSequence> constructPool = new MockInjectedPool<>(ConstructSequence.class);
-        InjectedPool<ConstructCancel> cancelPool = new MockInjectedPool<>(ConstructCancel.class);
-        return new ConstructFactory(constructPool, cancelPool);
+        InjectedPool<FocusAction> focusPool = new MockInjectedPool<>(FocusAction.class);
+        InjectedPool<PanAction> panPool = new MockInjectedPool<>(PanAction.class);
+        InjectedPool<ZoomAction> zoomPool = new MockInjectedPool<>(ZoomAction.class);
+        return new CameraFactory(focusPool, panPool, zoomPool);
     }
 
     @Override
     protected ActionIdentifier[] getIdentifiers() {
-        return ConstructActions.values();
+        return CameraActions.values();
     }
 }

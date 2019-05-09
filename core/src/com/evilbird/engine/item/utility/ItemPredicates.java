@@ -35,11 +35,11 @@ public class ItemPredicates
     }
 
     public static Predicate<Item> itemWithId(final Identifier id) {
-        return (item) -> id.equals(item.getIdentifier());
+        return (item) -> item != null && id.equals(item.getIdentifier());
     }
 
     public static Predicate<Item> itemWithType(final Identifier type) {
-        return (item) -> type.equals(item.getType());
+        return (item) -> item != null && type.equals(item.getType());
     }
 
     public static Predicate<Item> withType(final Identifier type) {
@@ -47,7 +47,7 @@ public class ItemPredicates
     }
 
     public static Predicate<Item> withClazz(final Class<?> type) {
-        return (item) -> type.isAssignableFrom(item.getClass());
+        return (item) -> item != null && type.isAssignableFrom(item.getClass());
     }
 
     public static Predicate<Item> touchableItem() {

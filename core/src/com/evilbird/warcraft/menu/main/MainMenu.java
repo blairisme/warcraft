@@ -11,8 +11,8 @@ package com.evilbird.warcraft.menu.main;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.evilbird.engine.control.SelectListener;
-import com.evilbird.engine.control.SelectListenerAdapter;
+import com.evilbird.engine.common.control.SelectListener;
+import com.evilbird.engine.common.control.SelectListenerAdapter;
 import com.evilbird.engine.menu.Menu;
 
 import javax.inject.Inject;

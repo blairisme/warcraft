@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.hud.control.status.details.building;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.control.LabelProperty;
+import com.evilbird.engine.common.control.LabelProperty;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;

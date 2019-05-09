@@ -19,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.graphics.TextureUtils;
-import com.evilbird.engine.control.StyledLabel;
+import com.evilbird.engine.common.control.StyledLabel;
 
 import javax.inject.Inject;
 

@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.control;
+package com.evilbird.engine.common.control;
 
 /**
  * Implementors of this interface are called when a user interface control is

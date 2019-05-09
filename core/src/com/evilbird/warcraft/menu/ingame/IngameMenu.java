@@ -12,9 +12,9 @@ package com.evilbird.warcraft.menu.ingame;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.control.SelectListener;
-import com.evilbird.engine.control.SelectListenerAdapter;
-import com.evilbird.engine.control.StyledLabel;
+import com.evilbird.engine.common.control.SelectListener;
+import com.evilbird.engine.common.control.SelectListenerAdapter;
+import com.evilbird.engine.common.control.StyledLabel;
 import com.evilbird.engine.menu.Menu;
 import org.apache.commons.lang3.tuple.Pair;
 
