@@ -46,6 +46,9 @@ public class DesktopInput implements DeviceInput, GestureDetector.GestureListene
 
     @Override
     public void install() {
+        if (input == null) {
+            input = Gdx.input;
+        }
         GestureDetector gestureDetector = new GestureDetector(this);
         input.setInputProcessor(gestureDetector);
     }
