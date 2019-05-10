@@ -6,11 +6,17 @@ android:
     - build-tools-28.0.3
     - android-24
 
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
 script:
   - ./gradlew clean :core:build :desktop:build report
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t $CODECOV_DEPLOY_TOKEN
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 before_deploy:
   - ./gradlew :desktop:installer
