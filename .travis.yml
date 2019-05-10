@@ -21,7 +21,7 @@ after_success:
   - export JACOCO_SOURCE_PATH=desktop/src
   - ./cc-test-reporter format-coverage desktop/build/reports/jacoco/report/report.xml -t jacoco -o coverage/codeclimate.desktop.json
   - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json -p 2
-  - ./cc-test-reporter after-build
+  - ./cc-test-reporter upload-coverage
 
 before_deploy:
   - ./gradlew :desktop:installer
