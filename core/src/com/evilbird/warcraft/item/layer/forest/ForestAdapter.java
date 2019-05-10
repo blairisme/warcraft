@@ -20,7 +20,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
@@ -77,7 +76,7 @@ public class ForestAdapter implements JsonSerializer<Forest>, JsonDeserializer<F
     }
 
     @Override
-    public Forest deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
+    public Forest deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
         JsonObject object = json.getAsJsonObject();
         Forest forest = deserializeInstance(object, context);
         Collection<ForestCell> cells = deserializeCells(object, context);

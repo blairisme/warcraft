@@ -176,9 +176,9 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         Collection<ItemNode> result = new ArrayList<>();
         for (int x = xStart; x < xStart + xCount; x++) {
             for (int y = yStart; y < yStart + yCount; y++) {
-                if (x < 0 || x >= nodeCountX) continue;
-                if (y < 0 || y >= nodeCountY) continue;
-                result.add(nodes[x][y]);
+                if (x >= 0 && x < nodeCountX && y >= 0 && y < nodeCountY) {
+                    result.add(nodes[x][y]);
+                }
             }
         }
         return result;
@@ -247,9 +247,9 @@ public class ItemGraph implements SpatialGraph<ItemNode>
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null) return false;
-        if (obj.getClass() != getClass()) return false;
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) { return false; }
 
         ItemGraph graph = (ItemGraph)obj;
         return new EqualsBuilder()

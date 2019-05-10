@@ -46,9 +46,9 @@ public class InvocationCount implements ResettablePredicate<Action>
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null) return false;
-        if (obj.getClass() != getClass()) return false;
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) { return false; }
 
         InvocationCount counter = (InvocationCount)obj;
         return new EqualsBuilder()

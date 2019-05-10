@@ -32,7 +32,12 @@ public class BasicAnimation implements DirectionalAnimation
     private Animation animation;
     private Map<Range<Float>, Array<TextureRegion>> frames;
 
-    public BasicAnimation(float direction, float duration, Map<Range<Float>, Array<TextureRegion>> frames, PlayMode mode) {
+    public BasicAnimation(
+        float direction,
+        float duration,
+        Map<Range<Float>, Array<TextureRegion>> frames,
+        PlayMode mode)
+    {
         this.direction = direction;
         this.duration = duration;
         this.mode = mode;

@@ -88,7 +88,9 @@ public class DesktopInput implements DeviceInput, GestureDetector.GestureListene
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        UserInput input = new UserInput(UserInputType.Drag, new Vector2(x, y), new Vector2(deltaX * -1, deltaY), panCount++);
+        Vector2 position = new Vector2(x, y);
+        Vector2 delta = new Vector2(deltaX * -1, deltaY);
+        UserInput input = new UserInput(UserInputType.Drag, position, delta, panCount++);
         pushInput(input);
         return true;
     }

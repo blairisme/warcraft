@@ -126,9 +126,9 @@ public class Player extends ItemGroup implements ResourceContainer
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null) return false;
-        if (obj.getClass() != getClass()) return false;
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) { return false; }
 
         Player player = (Player)obj;
         return new EqualsBuilder()

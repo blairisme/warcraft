@@ -134,15 +134,15 @@ public abstract class AbstractAdapter<T> implements JsonSerializer<T>, JsonDeser
             JsonElement value = entry.getValue();
 
             if (isDeserializedField(name, value)) {
-                deserializeProperty(name, value, context, result, type);
+                Field field = FieldUtils.getField(type, name, true);
+                deserializeProperty(field, value, context, result);
             }
         }
     }
 
     protected abstract boolean isDeserializedField(String name, JsonElement value);
 
-    private void deserializeProperty(String name, JsonElement json, JsonDeserializationContext context, Object target, Class<?> type) {
-        Field field = FieldUtils.getField(type, name, true);
+    private void deserializeProperty(Field field, JsonElement json, JsonDeserializationContext context, Object target){
         if (field != null) {
             Object value = deserializeField(json, context, field);
             writeField(field, target, value);

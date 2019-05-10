@@ -103,8 +103,8 @@ public class Forest extends Layer
     }
 
     private boolean isCellOccupied(int x, int y) {
-        if (x < 0 || x >= layer.getWidth()) return true;
-        if (y < 0 || y >= layer.getHeight()) return true;
+        if (x < 0 || x >= layer.getWidth()) { return true; }
+        if (y < 0 || y >= layer.getHeight()) { return true; }
 
         Cell cell = layer.getCell(x, y);
         return cell != null && cell != style.deforested;

@@ -10,6 +10,9 @@ checks:
   method-count:
     config:
       threshold: 40 #default=20
+  method-complexity:
+    config:
+      threshold: 10 #default=5
   similar-code:
     enabled: false
   identical-code:

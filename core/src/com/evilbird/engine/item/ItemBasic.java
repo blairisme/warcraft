@@ -269,7 +269,9 @@ public class ItemBasic implements Item
 
     @Override
     public Item hit(Vector2 position, boolean touchable) {
-        if (touchable && delegate.getTouchable() != enabled) return null;
+        if (touchable && delegate.getTouchable() != enabled) {
+            return null;
+        }
         return position.x >= 0 && position.x < delegate.getWidth()
             && position.y >= 0 && position.y < delegate.getHeight() ? this : null;
     }
@@ -295,9 +297,9 @@ public class ItemBasic implements Item
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null) return false;
-        if (obj.getClass() != getClass()) return false;
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) { return false; }
 
         ItemBasic item = (ItemBasic)obj;
         return new EqualsBuilder()

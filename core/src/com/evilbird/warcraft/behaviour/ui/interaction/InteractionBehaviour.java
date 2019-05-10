@@ -124,8 +124,10 @@ public class InteractionBehaviour implements Behaviour
         else if (selected.contains(target)) {
             return evaluateInteractions(input, target, target);
         }
-        else for (Item selectedItem: selected) {
-            return evaluateInteractions(input, target, selectedItem);
+        else {
+            for (Item selectedItem: selected) {
+                return evaluateInteractions(input, target, selectedItem);
+            }
         }
         return null;
     }

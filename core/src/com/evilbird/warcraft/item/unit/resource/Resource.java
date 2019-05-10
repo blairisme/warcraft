@@ -54,14 +54,14 @@ public class Resource extends Unit implements ResourceContainer
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (object == this) return true;
-        if (object == null) return false;
-        if (object.getClass() != getClass()) return false;
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) { return false; }
 
-        Resource resource = (Resource)object;
+        Resource resource = (Resource)obj;
         return new EqualsBuilder()
-            .appendSuper(super.equals(object))
+            .appendSuper(super.equals(obj))
             .append(resources, resource.resources)
             .isEquals();
     }

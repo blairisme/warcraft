@@ -13,7 +13,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
@@ -43,7 +42,7 @@ public class ItemGraphAdapter implements JsonSerializer<ItemGraph>, JsonDeserial
     }
 
     @Override
-    public ItemGraph deserialize(JsonElement source, Type type, JsonDeserializationContext context) throws JsonParseException {
+    public ItemGraph deserialize(JsonElement source, Type type, JsonDeserializationContext context) {
         JsonObject json = source.getAsJsonObject();
         int nodeCountX = json.get(NODE_COUNT_X).getAsInt();
         int nodeCountY = json.get(NODE_COUNT_Y).getAsInt();
@@ -51,6 +50,4 @@ public class ItemGraphAdapter implements JsonSerializer<ItemGraph>, JsonDeserial
         int nodeWidth = json.get(NODE_WIDTH).getAsInt();
         return new ItemGraph(nodeWidth, nodeHeight, nodeCountX, nodeCountY);
     }
-
-
 }

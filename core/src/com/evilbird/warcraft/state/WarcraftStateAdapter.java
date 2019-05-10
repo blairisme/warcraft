@@ -23,7 +23,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
@@ -89,7 +88,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     }
 
     @Override
-    public WarcraftState deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
+    public WarcraftState deserialize(JsonElement element, Type type, JsonDeserializationContext context) {
         JsonObject json = element.getAsJsonObject();
         ItemRoot world = deserializeWorld(json, context);
         ItemRoot hud = deserializeHud(json, context);

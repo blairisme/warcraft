@@ -16,7 +16,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
@@ -64,7 +63,7 @@ public class ItemRootAdapter implements JsonSerializer<ItemRoot>, JsonDeserializ
     }
 
     @Override
-    public ItemRoot deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
+    public ItemRoot deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
         ItemRoot result = new ItemRoot();
         JsonObject object = json.getAsJsonObject();
         deserializeId(result, object, context);

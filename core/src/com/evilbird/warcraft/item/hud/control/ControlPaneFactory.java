@@ -52,8 +52,8 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
     private static final String BUTTON_ENABLED = "data/textures/human/menu/button-thin-medium-normal.png";
     private static final String BUTTON_SELECTED = "data/textures/human/menu/button-thin-medium-pressed.png";
     private static final String BUTTON_DISABLED = "data/textures/human/menu/button-thin-medium-grayed.png";
-    private static final String BUILDING_PROGRESS_FILL = "data/textures/neutral/perennial/building_progress_bar.png";
-    private static final String BUILDING_PROGRESS_BACKGROUND = "data/textures/neutral/perennial/building_progress_background.png";
+    private static final String BUILDING_FILL = "data/textures/neutral/perennial/building_progress_bar.png";
+    private static final String BUILDING_BACKGROUND="data/textures/neutral/perennial/building_progress_background.png";
     private static final String HEALTH_PROGRESS_HIGH = "data/textures/neutral/perennial/health_bar_high.png";
     private static final String HEALTH_PROGRESS_MEDIUM = "data/textures/neutral/perennial/health_bar_medium.png";
     private static final String HEALTH_PROGRESS_LOW = "data/textures/neutral/perennial/health_bar_low.png";
@@ -71,24 +71,44 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
 
     @Override
     public void load() {
+        loadActionAssets();
+        loadPanelAssets();
+        loadButtonAssets();
+        loadBuildingAssets();
+        loadHealthAssets();
+    }
+
+    private void loadActionAssets() {
         assets.load(ACTION_BUTTON, Texture.class);
         assets.load(ACTION_ICONS, Texture.class);
         assets.load(ACTION_ICONS_DISABLED, Texture.class);
         assets.load(ACTION_PANEL, Texture.class);
-        assets.load(UNSELECT_BUTTON, Texture.class);
+    }
+
+    private void loadPanelAssets() {
         assets.load(DETAILS_PANEL, Texture.class);
         assets.load(MENU_PANEL, Texture.class);
         assets.load(MINIMAP_PANEL, Texture.class);
         assets.load(SELECTION_PANEL, Texture.class);
         assets.load(UNIT_PANEL, Texture.class);
-        assets.load(BUTTON_ENABLED, Texture.class);
-        assets.load(BUTTON_SELECTED, Texture.class);
-        assets.load(BUTTON_DISABLED, Texture.class);
-        assets.load(BUILDING_PROGRESS_FILL, Texture.class);
-        assets.load(BUILDING_PROGRESS_BACKGROUND, Texture.class);
+    }
+
+    private void loadBuildingAssets() {
+        assets.load(BUILDING_FILL, Texture.class);
+        assets.load(BUILDING_BACKGROUND, Texture.class);
+    }
+
+    private void loadHealthAssets() {
         assets.load(HEALTH_PROGRESS_HIGH, Texture.class);
         assets.load(HEALTH_PROGRESS_MEDIUM, Texture.class);
         assets.load(HEALTH_PROGRESS_LOW, Texture.class);
+    }
+
+    private void loadButtonAssets() {
+        assets.load(UNSELECT_BUTTON, Texture.class);
+        assets.load(BUTTON_ENABLED, Texture.class);
+        assets.load(BUTTON_SELECTED, Texture.class);
+        assets.load(BUTTON_DISABLED, Texture.class);
     }
 
     @Override
@@ -135,8 +155,8 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
 
     private ProgressBarStyle getBuildingProgressStyle() {
         ProgressBarStyle style = new ProgressBarStyle();
-        style.background = getDrawable(assets, BUILDING_PROGRESS_BACKGROUND);
-        style.knob = getDrawable(assets, BUILDING_PROGRESS_FILL);
+        style.background = getDrawable(assets, BUILDING_BACKGROUND);
+        style.knob = getDrawable(assets, BUILDING_FILL);
         style.knobBefore = style.knob;
         return style;
     }
