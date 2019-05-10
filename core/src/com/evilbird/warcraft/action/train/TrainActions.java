@@ -26,8 +26,8 @@ import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
  */
 public enum TrainActions implements ActionIdentifier, ResourceQuantity
 {
-    TrainFootman (Footman, 20f, Gold, 250f),
-    TrainPeasant (Peasant, 20f, Gold, 100f),
+    TrainFootman(Footman, 20f, Gold, 250f),
+    TrainPeasant(Peasant, 20f, Gold, 100f),
     TrainFootmanCancel(TrainFootman),
     TrainPeasantCancel(TrainPeasant);
 

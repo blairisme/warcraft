@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.desktop;
@@ -22,6 +22,12 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Provides access to device persistence. For desktop platforms this is located
+ * in the ".warcraft" directory located in the users home directory.
+ *
+ * @author Blair Butterworth
+ */
 public class DesktopStorage implements DeviceStorage
 {
     private static final String STORAGE_ROOT = ".warcraft2" + File.separator;

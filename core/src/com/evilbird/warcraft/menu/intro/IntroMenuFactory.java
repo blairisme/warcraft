@@ -146,21 +146,15 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     private void addButtonStyle(Skin skin) {
-        Drawable enabled = getDrawable(assets, BUTTON, 0, 0, 225, 30);
-        Drawable selected = getDrawable(assets, BUTTON, 0, 30, 225, 30);
-        Drawable disabled = getDrawable(assets, BUTTON, 0, 60, 225, 30);
-
         TextButtonStyle textButtonStyle = new TextButtonStyle();
         textButtonStyle.font = Fonts.ARIAL;
         textButtonStyle.fontColor = Color.WHITE;
-        textButtonStyle.up = enabled;
-        textButtonStyle.over = enabled;
-        textButtonStyle.checked = enabled;
-        textButtonStyle.checkedOver = enabled;
-        textButtonStyle.disabled = disabled;
-        textButtonStyle.down = selected;
-
+        textButtonStyle.up = getDrawable(assets, BUTTON, 0, 0, 225, 30);;
+        textButtonStyle.over = textButtonStyle.up;
+        textButtonStyle.checked = textButtonStyle.up;
+        textButtonStyle.checkedOver = textButtonStyle.up;
+        textButtonStyle.disabled = getDrawable(assets, BUTTON, 0, 60, 225, 30);
+        textButtonStyle.down = getDrawable(assets, BUTTON, 0, 30, 225, 30);
         skin.add("default", textButtonStyle);
-        //menu.setButtonSound(assets.get(CLICK));
     }
 }

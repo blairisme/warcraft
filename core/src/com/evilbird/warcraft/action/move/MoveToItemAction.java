@@ -45,12 +45,10 @@ public class MoveToItemAction extends MoveAction
     public MovePathFilter getPathFilter() {
         if (filter == null) {
             Item item = getItem();
-            Item target = getTarget();
-
             filter = new MovePathFilter();
             filter.addRequiredTypes((Movable)item);
             filter.addPermittedItem(item);
-            filter.addPermittedItem(target);
+            filter.addPermittedItem(getTarget());
         }
         return filter;
     }

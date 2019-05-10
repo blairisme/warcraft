@@ -88,12 +88,12 @@ public class GridItem extends TableItem
         int column = count % columnCount;
         int row = count / columnCount;
 
-        setCellSize(cell);
-        setCellPadding(cell, row, column);
-        setCellRow(cell, count, column);
+        updateCellSize(cell);
+        updateCellPadding(cell, row, column);
+        updateCellRow(cell, count, column);
     }
 
-    private void setCellSize(Cell<Actor> cell) {
+    private void updateCellSize(Cell<Actor> cell) {
         if (cellWidthMinimum != 0) {
             cell.width(cellWidthMinimum);
         }
@@ -102,7 +102,7 @@ public class GridItem extends TableItem
         }
     }
 
-    private void setCellPadding(Cell<Actor> cell, int row, int column) {
+    private void updateCellPadding(Cell<Actor> cell, int row, int column) {
         cell.padLeft(cellPaddingHorizontal);
         cell.padRight(cellPaddingHorizontal);
 
@@ -117,7 +117,7 @@ public class GridItem extends TableItem
         }
     }
 
-    private void setCellRow(Cell<Actor> cell, int count, int column) {
+    private void updateCellRow(Cell<Actor> cell, int count, int column) {
         if (column == 0) {
             cell.row();
         }

@@ -42,12 +42,12 @@ public class MainMenu extends Menu
 
     public void insertButton(String text) {
         TextButton button = createButton(text);
-        insertButton(table, button);
+        addButton(table, button);
     }
 
     public void insertButton(String text, SelectListener action) {
         TextButton button = createButton(text, action);
-        insertButton(table, button);
+        addButton(table, button);
     }
 
     private void updateStyle() {
@@ -83,7 +83,7 @@ public class MainMenu extends Menu
         return button;
     }
 
-    private void insertButton(Table table, TextButton button) {
+    private void addButton(Table table, TextButton button) {
         Cell cell = table.add(button);
         cell.width(Value.percentWidth(0.3f, table));
         cell.height(Value.percentHeight(0.04f, table));

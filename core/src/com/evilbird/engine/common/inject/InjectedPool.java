@@ -18,6 +18,8 @@ import javax.inject.Provider;
  * Instances of this class are used to obtain objects, which are created using
  * injection and stored in a pool for reuse.
  *
+ * @param <T> the type of element provided by the InjectedPool.
+ *
  * @author Blair Butterworth
  */
 public class InjectedPool<T> extends Pool<T>

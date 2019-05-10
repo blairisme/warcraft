@@ -1,15 +1,16 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.desktop;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.device.DeviceInput;
@@ -19,22 +20,34 @@ import com.evilbird.engine.device.UserInputType;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Reads user input to the desktop application, generating the appropriate
+ * {@link UserInput} events.
+ *
+ * @author Blair Butterworth
+ */
 public class DesktopInput implements DeviceInput, GestureDetector.GestureListener
 {
+    private Input input;
     private List<UserInput> inputs;
     private int panCount;
     private int zoomCount;
 
     public DesktopInput() {
-        inputs = new ArrayList<>();
-        panCount = 1;
-        zoomCount = 1;
+        this(Gdx.input);
+    }
+
+    public DesktopInput(Input input) {
+        this.input = input;
+        this.inputs = new ArrayList<>();
+        this.panCount = 1;
+        this.zoomCount = 1;
     }
 
     @Override
     public void install() {
         GestureDetector gestureDetector = new GestureDetector(this);
-        Gdx.input.setInputProcessor(gestureDetector);
+        input.setInputProcessor(gestureDetector);
     }
 
     @Override

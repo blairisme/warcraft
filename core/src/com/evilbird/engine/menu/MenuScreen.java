@@ -60,7 +60,7 @@ public class MenuScreen extends ScreenAdapter
     }
 
     @Override
-    public void show () {
+    public void show() {
         Gdx.input.setInputProcessor(stage);
         startMusic();
     }

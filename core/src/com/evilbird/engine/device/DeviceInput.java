@@ -11,6 +11,11 @@ package com.evilbird.engine.device;
 
 import java.util.List;
 
+/**
+ * Implementors of this interface read user input to the application.
+ *
+ * @author Blair Butterworth
+ */
 public interface DeviceInput
 {
     void install();

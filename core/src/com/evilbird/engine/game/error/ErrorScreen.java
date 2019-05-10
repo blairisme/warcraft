@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.engine.game.error;
@@ -17,12 +17,18 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
+import com.evilbird.engine.common.control.StyledLabel;
 import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.graphics.TextureUtils;
-import com.evilbird.engine.common.control.StyledLabel;
 
 import javax.inject.Inject;
 
+/**
+ * Represents a user interface view shown if an unexpected errors during the
+ * operation of the application.
+ *
+ * @author Blair Butterworth
+ */
 public class ErrorScreen extends ScreenAdapter
 {
     private Stage stage;

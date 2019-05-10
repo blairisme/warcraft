@@ -23,10 +23,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuIdentifier;
@@ -104,22 +104,15 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     private void addButtonStyle(Skin skin) {
-        Drawable enabled = getDrawable(assets, BUTTON_ENABLED);
-        Drawable disabled = getDrawable(assets, BUTTON_DISABLED);
-        Drawable selected = getDrawable(assets, BUTTON_SELECTED);
-
         TextButtonStyle textButtonStyle = new TextButtonStyle();
         textButtonStyle.font = Fonts.ARIAL;
         textButtonStyle.fontColor = Color.WHITE;
-        textButtonStyle.up = enabled;
-        textButtonStyle.over = enabled;
-        textButtonStyle.checked = enabled;
-        textButtonStyle.checkedOver = enabled;
-        textButtonStyle.disabled = disabled;
-        textButtonStyle.down = selected;
-
-        //menu.setButtonSound(assets.get(CLICK));
-
+        textButtonStyle.up = getDrawable(assets, BUTTON_ENABLED);;
+        textButtonStyle.over = textButtonStyle.up;
+        textButtonStyle.checked = textButtonStyle.up;
+        textButtonStyle.checkedOver = textButtonStyle.up;
+        textButtonStyle.disabled = getDrawable(assets, BUTTON_DISABLED);
+        textButtonStyle.down = getDrawable(assets, BUTTON_SELECTED);
         skin.add("default", textButtonStyle);
     }
 

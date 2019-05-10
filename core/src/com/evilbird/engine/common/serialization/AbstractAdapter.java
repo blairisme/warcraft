@@ -27,6 +27,8 @@ import java.util.Map.Entry;
  * makes this class useful for serialization and deserialization of values
  * stored as interfaces.
  *
+ * @param <T> the type of object serialized by the AbstractAdapter.
+ *
  * @author Blair Butterworth
  */
 public abstract class AbstractAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T>
@@ -102,14 +104,14 @@ public abstract class AbstractAdapter<T> implements JsonSerializer<T>, JsonDeser
         return deserialize(json, context);
     }
 
-    protected abstract Class<?> getDeserializedType(JsonObject json, JsonDeserializationContext context);
-
     public T deserialize(JsonObject json, JsonDeserializationContext context) throws JsonParseException {
         T result = getDeserializedInstance(json, context);
         deserializeProperties(json, context, result);
         invokeAnnotatedInitializer(result);
         return result;
     }
+
+    protected abstract Class<?> getDeserializedType(JsonObject json, JsonDeserializationContext context);
 
     protected abstract T getDeserializedInstance(JsonObject json, JsonDeserializationContext context);
 

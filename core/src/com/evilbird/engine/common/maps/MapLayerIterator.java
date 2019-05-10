@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.engine.common.maps;
@@ -14,6 +14,12 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 import java.util.Iterator;
 
+/**
+ * Instances of this iterate loop through the contents of a
+ * {@link TiledMapTileLayer}.
+ *
+ * @author Blair Butterworth
+ */
 public class MapLayerIterator implements Iterator<MapLayerEntry>
 {
     private TiledMapTileLayer layer;

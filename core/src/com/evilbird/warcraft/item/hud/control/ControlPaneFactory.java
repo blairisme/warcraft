@@ -121,21 +121,15 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
     }
 
     private TextButtonStyle getButtonStyle() {
-        Drawable enabled = getDrawable(assets, BUTTON_ENABLED);
-        Drawable disabled = getDrawable(assets, BUTTON_DISABLED);
-        Drawable selected = getDrawable(assets, BUTTON_SELECTED);
-
         TextButtonStyle textButtonStyle = new TextButtonStyle();
         textButtonStyle.font = Fonts.ARIAL;
         textButtonStyle.fontColor = Color.WHITE;
-        textButtonStyle.up = enabled;
-        textButtonStyle.over = enabled;
-        textButtonStyle.checked = enabled;
-        textButtonStyle.checkedOver = enabled;
-        textButtonStyle.disabled = disabled;
-        textButtonStyle.down = selected;
-
-        //menu.setButtonSound(assets.get(CLICK));
+        textButtonStyle.up = getDrawable(assets, BUTTON_ENABLED);
+        textButtonStyle.over = textButtonStyle.up;
+        textButtonStyle.checked = textButtonStyle.up;
+        textButtonStyle.checkedOver = textButtonStyle.up;
+        textButtonStyle.disabled = getDrawable(assets, BUTTON_DISABLED);;
+        textButtonStyle.down = getDrawable(assets, BUTTON_SELECTED);;
         return textButtonStyle;
     }
 

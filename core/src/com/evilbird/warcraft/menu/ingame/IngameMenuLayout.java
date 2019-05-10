@@ -11,9 +11,9 @@ package com.evilbird.warcraft.menu.ingame;
 
 public enum IngameMenuLayout
 {
-    Normal  ("menu-background-normal", 256, 288),
-    Wide    ("menu-background-wide", 384, 256),
-    Small   ("menu-background-small", 288, 128);
+    Normal("menu-background-normal", 256, 288),
+    Wide("menu-background-wide", 384, 256),
+    Small("menu-background-small", 288, 128);
 
     private String background;
     private int width;

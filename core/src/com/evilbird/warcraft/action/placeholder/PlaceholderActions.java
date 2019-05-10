@@ -19,9 +19,9 @@ import com.evilbird.warcraft.item.placeholder.PlaceholderType;
  */
 public enum PlaceholderActions implements ActionIdentifier
 {
-    AddBarracksPlaceholder  (PlaceholderType.BarracksPlaceholder),
-    AddFarmPlaceholder      (PlaceholderType.FarmPlaceholder),
-    AddTownHallPlaceholder  (PlaceholderType.TownHallPlaceholder),
+    AddBarracksPlaceholder(PlaceholderType.BarracksPlaceholder),
+    AddFarmPlaceholder(PlaceholderType.FarmPlaceholder),
+    AddTownHallPlaceholder(PlaceholderType.TownHallPlaceholder),
     PlaceholderMove,
     PlaceholderCancel;
 

@@ -21,7 +21,7 @@ import com.evilbird.engine.common.serialization.SerializedType;
 @SerializedType("Scenario")
 public enum WarcraftStateAsset implements Identifier
 {
-    Level1 ("data/levels/human/level1.tmx");
+    Level1("data/levels/human/level1.tmx");
 
     private String path;
 

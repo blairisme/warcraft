@@ -17,11 +17,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.warcraft.menu.intro.IntroMenuType;
@@ -134,20 +133,15 @@ public class MainMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     private TextButtonStyle getTextButtonStyle() {
-        Drawable enabled = getDrawable(assets, BUTTON, 0, 0, 224, 28);
-        Drawable selected = getDrawable(assets, BUTTON, 0, 28, 224, 28);
-        Drawable disabled = getDrawable(assets, BUTTON, 0, 56, 224, 28);
-
         TextButtonStyle textButtonStyle = new TextButtonStyle();
         textButtonStyle.font = Fonts.ARIAL;
         textButtonStyle.fontColor = Color.WHITE;
-        textButtonStyle.up = enabled;
-        textButtonStyle.over = enabled;
-        textButtonStyle.checked = enabled;
-        textButtonStyle.checkedOver = enabled;
-        textButtonStyle.disabled = disabled;
-        textButtonStyle.down = selected;
-
+        textButtonStyle.up = getDrawable(assets, BUTTON, 0, 0, 224, 28);
+        textButtonStyle.over = textButtonStyle.up;
+        textButtonStyle.checked = textButtonStyle.up;
+        textButtonStyle.checkedOver = textButtonStyle.up;
+        textButtonStyle.disabled = getDrawable(assets, BUTTON, 0, 56, 224, 28);
+        textButtonStyle.down = getDrawable(assets, BUTTON, 0, 28, 224, 28);
         return textButtonStyle;
     }
 }
