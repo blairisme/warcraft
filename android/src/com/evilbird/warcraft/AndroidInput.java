@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft;
@@ -19,6 +19,12 @@ import com.evilbird.engine.device.UserInputType;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Reads user input to the Android application, generating the appropriate
+ * {@link UserInput} events.
+ *
+ * @author Blair Butterworth
+ */
 public class AndroidInput implements DeviceInput, GestureDetector.GestureListener
 {
     private List<UserInput> inputs;
@@ -70,7 +76,9 @@ public class AndroidInput implements DeviceInput, GestureDetector.GestureListene
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        UserInput input = new UserInput(UserInputType.Drag, new Vector2(x, y), new Vector2(deltaX * -1, deltaY), panCount++);
+        Vector2 position = new Vector2(x, y);
+        Vector2 delta = new Vector2(deltaX * -1, deltaY);
+        UserInput input = new UserInput(UserInputType.Drag, position, delta, panCount++);
         pushInput(input);
         return true;
     }
