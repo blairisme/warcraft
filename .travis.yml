@@ -16,7 +16,8 @@ script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t $CODECOV_DEPLOY_TOKEN
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter format-coverage build/reports/jacoco/report/report.xml -t jacoco
+  - ./cc-test-reporter after-build
 
 before_deploy:
   - ./gradlew :desktop:installer
