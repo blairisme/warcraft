@@ -85,3 +85,11 @@ task windowsInstaller(dependsOn: createExe, type: Zip) {
 task installer(dependsOn: [macInstaller, windowsInstaller]) {
     description "Generate application installers"
 }
+
+task report(dependsOn: test, type: JacocoReport) {
+    description = "Generates a test coverate report"
+    executionData = files(project.file("build/jacoco/test.exec"))
+    sourceDirectories = files(project.file("src"))
+    classDirectories = files(project.fileTree(dir: "build/classes/java/main",
+        excludes: ['**/Dagger*', '**/*_Factory*', '**/*_ProvideDeviceFactory*']))
+}

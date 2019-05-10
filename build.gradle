@@ -201,7 +201,7 @@ task clean(type: Delete) {
 }
 
 task report(type: JacocoReport) {
-    description = "Generates an aggregate report from all subprojects"
+    description = "Generates an aggregate code coverate report for all subprojects"
 
     def jacocoProjects = subprojects.findAll{subProject ->
         subProject.plugins.hasPlugin('jacoco')}

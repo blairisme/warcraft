@@ -16,7 +16,11 @@ script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t $CODECOV_DEPLOY_TOKEN
-  - ./cc-test-reporter format-coverage build/reports/jacoco/report/report.xml -t jacoco
+  - export JACOCO_SOURCE_PATH=core/src
+  - ./cc-test-reporter format-coverage core/build/reports/jacoco/report/report.xml -t jacoco -o coverage/codeclimate.core.json
+  - export JACOCO_SOURCE_PATH=desktop/src
+  - ./cc-test-reporter format-coverage desktop/build/reports/jacoco/report/report.xml -t jacoco -o coverage/codeclimate.desktop.json
+  - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json -p 2
   - ./cc-test-reporter after-build
 
 before_deploy:
@@ -31,3 +35,5 @@ deploy:
   overwrite: true
   on:
     tags: true
+
+
