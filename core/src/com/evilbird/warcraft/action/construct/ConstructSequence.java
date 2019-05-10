@@ -35,8 +35,15 @@ import static com.evilbird.warcraft.action.construct.ConstructEvents.constructSt
 import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacentTarget;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.*;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAdjacent;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholder;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.notAdjacent;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.unassignConstruction;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.BuildingSite;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Construct;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 import static com.evilbird.warcraft.item.unit.UnitSound.Build;
 import static com.evilbird.warcraft.item.unit.UnitSound.Complete;
 

@@ -32,8 +32,15 @@ import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
 import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.*;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.inRange;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDead;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.notInRange;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Death;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Decompose;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.MeleeAttack;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 import static com.evilbird.warcraft.item.unit.UnitSound.Attack;
 import static com.evilbird.warcraft.item.unit.UnitSound.Die;
 

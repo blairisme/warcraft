@@ -16,7 +16,9 @@ import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.common.ActionRecipient.*;
+import static com.evilbird.engine.action.common.ActionRecipient.Player;
+import static com.evilbird.engine.action.common.ActionRecipient.Subject;
+import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AnimationAliasAction.setAnimation;
 import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
@@ -25,14 +27,24 @@ import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
 import static com.evilbird.engine.item.utility.ItemSuppliers.closest;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.transfer;
-import static com.evilbird.warcraft.action.gather.GatherEvents.*;
+import static com.evilbird.warcraft.action.gather.GatherEvents.depositComplete;
+import static com.evilbird.warcraft.action.gather.GatherEvents.depositStarted;
+import static com.evilbird.warcraft.action.gather.GatherEvents.obtainComplete;
+import static com.evilbird.warcraft.action.gather.GatherEvents.obtainStarted;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasResources;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.noResources;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
 import static com.evilbird.warcraft.item.layer.LayerType.Tree;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.GatherWood;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.*;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.IdleBasic;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.IdleWood;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.MoveBasic;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.MoveWood;
 import static com.evilbird.warcraft.item.unit.UnitSound.ChopWood;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 

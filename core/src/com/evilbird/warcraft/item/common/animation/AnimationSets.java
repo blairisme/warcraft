@@ -18,7 +18,9 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.Arrays;
 import java.util.Map;
 
-import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.*;
+import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.buildingDestructionScheme;
+import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.gatheringSchema;
+import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.idleSingualarSchema;
 
 /**
  * Used to obtain commonly used animation sequence sets. For example all of the
