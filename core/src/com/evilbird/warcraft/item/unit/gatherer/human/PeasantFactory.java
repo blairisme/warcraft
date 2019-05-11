@@ -108,7 +108,7 @@ public class PeasantFactory implements AssetProvider<Item>
         result.setHealth(30f);
         result.setHealthMaximum(30f);
         result.setLevel(1);
-        result.setMovementSpeed(64f); //10?
+        result.setMovementSpeed(2.5f * 32f); // 10 = 2.5 tiles per second
         result.setMovementCapability(LayerType.Map);
         result.setRange(1f);
         result.setSight(5 * 32);  //4 blocks

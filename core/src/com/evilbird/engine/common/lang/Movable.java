@@ -9,6 +9,8 @@
 
 package com.evilbird.engine.common.lang;
 
+import com.evilbird.engine.item.Item;
+
 import java.util.Collection;
 
 /**
@@ -17,7 +19,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-public interface Movable extends Positionable, Directionable, Categorizable
+public interface Movable extends Item
 {
     /**
      * Return the speed of the movable.

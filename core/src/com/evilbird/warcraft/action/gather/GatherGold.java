@@ -13,6 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.ScenarioSetAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
+import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
@@ -26,7 +27,6 @@ import static com.evilbird.engine.action.common.DisableAction.enable;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
-import static com.evilbird.engine.item.utility.ItemSuppliers.closest;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.transfer;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositComplete;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositStarted;
@@ -37,6 +37,7 @@ import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasResources;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.noResources;
+import static com.evilbird.warcraft.item.common.query.UnitSuppliers.closest;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
@@ -72,7 +73,7 @@ public class GatherGold extends ScenarioSetAction
             .then(delay(5))
             .then(transfer(Target, Subject, resource(), reporter), obtainComplete(reporter, resource()))
             .then(show(), enable(), setAnimation(Move, MoveGold), animate(Idle))
-            .withTarget(closest(GoldMine, getTarget()));
+            .withTarget(closest(getGatherer(), GoldMine, getTarget()));
 
         scenario("deposit")
             .givenItem(isAlive())
@@ -83,10 +84,14 @@ public class GatherGold extends ScenarioSetAction
             .then(delay(5))
             .then(transfer(Subject, Player, resource(), reporter), depositComplete(reporter, resource()))
             .then(show(), enable(), animate(Idle), setAnimation(Move, MoveBasic))
-            .withTarget(closest(TownHall, getTarget()));
+            .withTarget(closest(getGatherer(), TownHall));
     }
 
     private ResourceQuantity resource() {
         return GatherActions.GatherGold;
+    }
+
+    public Gatherer getGatherer() {
+        return (Gatherer)getItem();
     }
 }

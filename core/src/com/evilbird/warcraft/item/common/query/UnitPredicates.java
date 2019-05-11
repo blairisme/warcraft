@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.common.query;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.common.function.Predicates;
+import com.evilbird.engine.common.lang.Movable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.utility.ItemPredicates;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
@@ -26,6 +27,8 @@ import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import java.util.Objects;
 import java.util.function.Predicate;
+
+import static com.evilbird.warcraft.action.common.path.ItemPathFinder.hasPath;
 
 /**
  * Defines commonly used {@link Predicate Predicates} that operate on
@@ -111,6 +114,10 @@ public class UnitPredicates
             ResourceContainer container = (ResourceContainer)item;
             return container.getResource(type) > 0;
         };
+    }
+
+    public static Predicate<Item> hasPathTo(Movable source) {
+        return destination -> hasPath(source, destination);
     }
 
     public static Predicate<Item> noResources(ResourceType type) {

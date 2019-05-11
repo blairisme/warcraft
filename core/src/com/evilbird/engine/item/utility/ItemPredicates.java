@@ -54,6 +54,10 @@ public class ItemPredicates
         return Item::getTouchable;
     }
 
+    public static Predicate<Item> touchableWithType(Identifier type) {
+        return item -> item != null && item.getTouchable() && type.equals(item.getType());
+    }
+
     public static Predicate<Item> isNear(Item item, float radius) {
         return new IsNear(item, radius);
     }

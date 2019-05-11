@@ -15,6 +15,7 @@ import com.evilbird.engine.common.lang.Movable;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 
 import javax.inject.Inject;
 
@@ -28,7 +29,7 @@ import javax.inject.Inject;
  */
 class MoveToVectorAction extends MoveAction
 {
-    private MovePathFilter filter;
+    private ItemPathFilter filter;
     private MoveDestination destination;
 
     @Inject
@@ -50,12 +51,12 @@ class MoveToVectorAction extends MoveAction
     }
 
     @Override
-    public MovePathFilter getPathFilter() {
+    public ItemPathFilter getPathFilter() {
         if (filter == null) {
-            Item item = getItem();
-            filter = new MovePathFilter();
-            filter.addRequiredTypes((Movable)item);
-            filter.addPermittedItem(item);
+            Movable item = (Movable)getItem();
+            filter = new ItemPathFilter();
+            filter.addTraversableItem(item);
+            filter.addTraversableTypes(item.getMovementCapability());
         }
         return filter;
     }

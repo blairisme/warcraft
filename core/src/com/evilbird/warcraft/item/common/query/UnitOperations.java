@@ -9,15 +9,25 @@
 
 package com.evilbird.warcraft.item.common.query;
 
+import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.Movable;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.function.Predicate;
 
+import static com.evilbird.engine.common.collection.CollectionUtils.findFirst;
 import static com.evilbird.engine.common.function.Predicates.both;
+import static com.evilbird.engine.item.utility.ItemComparators.closestItem;
 import static com.evilbird.engine.item.utility.ItemOperations.isNear;
+import static com.evilbird.engine.item.utility.ItemPredicates.touchableWithType;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasPathTo;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlayer;
 
@@ -29,6 +39,25 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlayer;
 public class UnitOperations
 {
     private UnitOperations() {
+    }
+
+    public static Item findClosest(Movable source, Identifier type) {
+        return findClosest(source, type, source);
+    }
+
+    public static Item findClosest(Movable source, Identifier type, Item locus) {
+        ItemComposite group = source.getRoot();
+        Collection<Item> items = group.findAll(touchableWithType(type));
+        return findClosest(source, locus, items);
+    }
+
+    public static Item findClosest(Movable source, Item locus, Collection<Item> items) {
+        if (! items.isEmpty()) {
+            List<Item> closest = new ArrayList<>(items);
+            closest.sort(closestItem(locus));
+            return findFirst(closest, hasPathTo(source));
+        }
+        return null;
     }
 
     public static Player getPlayer(Item item) {
