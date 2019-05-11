@@ -80,6 +80,7 @@ public class MenuBehaviour implements Behaviour
             updateResourceRecipients();
             updateSelectionRecipients();
             updateConstructionRecipients();
+            updatePlaceholderRecipients();
             updateTrainingRecipients();
             updateAttackRecipients();
             updateGatherRecipients();
@@ -141,13 +142,12 @@ public class MenuBehaviour implements Behaviour
                 player.incrementStatistic(PlayerStatistic.Buildings, 1);
             }
         }
+    }
 
-
-
+    private void updatePlaceholderRecipients() {
         for (PlaceholderEvent event: events.getEvents(PlaceholderEvent.class)) {
             actionPane.setPlaceholder(event.getBuilder(), event.getStatus() == PlaceholderStatus.Added);
         }
-
     }
 
     private void updateTrainingRecipients() {

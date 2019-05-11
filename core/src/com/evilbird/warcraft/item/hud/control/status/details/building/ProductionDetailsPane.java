@@ -77,7 +77,7 @@ public class ProductionDetailsPane extends GridItem
     }
 
     private void addProductImage(Skin skin, GridItem container) {
-        ProductionDetailsStyle style = skin.get(ProductionDetailsStyle.class);
+        ProductionDetailsStyle style = skin.get("default", ProductionDetailsStyle.class);
 
         Image background = new Image();
         background.setDrawable(style.trainBackground);
