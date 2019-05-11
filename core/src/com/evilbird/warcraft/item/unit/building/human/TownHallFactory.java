@@ -86,7 +86,7 @@ public class TownHallFactory implements AssetProvider<Item>
     public Item get() {
         Building result = new Building(getSkin());
         result.setAnimation(UnitAnimation.Idle);
-        result.setSight(5 * 32);
+        result.setSight(1);  //1
         result.setHealth(1200);
         result.setHealthMaximum(1200);
         result.setName("Town Hall");

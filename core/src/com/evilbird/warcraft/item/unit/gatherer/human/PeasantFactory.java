@@ -108,10 +108,10 @@ public class PeasantFactory implements AssetProvider<Item>
         result.setHealth(30f);
         result.setHealthMaximum(30f);
         result.setLevel(1);
-        result.setMovementSpeed(64f);
+        result.setMovementSpeed(64f); //10?
         result.setMovementCapability(LayerType.Map);
         result.setRange(1f);
-        result.setSight(5 * 32);
+        result.setSight(5 * 32);  //4 blocks
         result.setName("Peasant");
         result.setType(UnitType.Peasant);
         result.setIdentifier(objectIdentifier("Peasant", result));

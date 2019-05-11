@@ -14,7 +14,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.Zoomable;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
-import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemBasic;
 import com.evilbird.engine.item.ItemRoot;
@@ -32,7 +31,6 @@ import static com.badlogic.gdx.Gdx.graphics;
  *
  * @author Blair Butterworth
  */
-@SerializedType("Camera")
 public class Camera extends ItemBasic implements Zoomable
 {
     private float originalZoom;

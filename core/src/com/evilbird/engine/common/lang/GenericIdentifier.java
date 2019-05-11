@@ -9,14 +9,11 @@
 
 package com.evilbird.engine.common.lang;
 
-import com.evilbird.engine.common.serialization.SerializedType;
-
 /**
  * Defines common identifiers.
  *
  * @author Blair Butterworth
  */
-@SerializedType("General")
 public enum GenericIdentifier implements Identifier
 {
     Unknown

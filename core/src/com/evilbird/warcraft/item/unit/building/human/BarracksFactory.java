@@ -87,7 +87,7 @@ public class BarracksFactory implements AssetProvider<Item>
     public Item get() {
         Building result = new Building(getSkin());
         result.setAnimation(UnitAnimation.Idle);
-        result.setSight(5 * 32);
+        result.setSight(32); //1
         result.setHealth(800);
         result.setHealthMaximum(800);
         result.setName("Barracks");
