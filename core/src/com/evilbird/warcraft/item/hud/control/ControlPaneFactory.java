@@ -23,6 +23,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.item.hud.common.HealthBarStyle;
 import com.evilbird.warcraft.item.hud.control.actions.ActionButtonStyle;
 import com.evilbird.warcraft.item.hud.control.actions.ActionButtonType;
+import com.evilbird.warcraft.item.hud.control.status.details.building.ProductionDetailsStyle;
 import com.evilbird.warcraft.item.hud.control.status.selection.SelectionButtonStyle;
 
 import javax.inject.Inject;
@@ -39,9 +40,9 @@ import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
  */
 public class ControlPaneFactory implements AssetProvider<ControlPane>
 {
+    private static final String ICONS = "data/textures/neutral/perennial/icons.png";
+    private static final String ICONS_DISABLED = "data/textures/neutral/perennial/icons_disabled.png";
     private static final String ACTION_BUTTON = "data/textures/neutral/perennial/action.png";
-    private static final String ACTION_ICONS = "data/textures/neutral/perennial/icons.png";
-    private static final String ACTION_ICONS_DISABLED = "data/textures/neutral/perennial/icons_disabled.png";
     private static final String UNSELECT_BUTTON = "data/textures/neutral/perennial/unselect.png";
     private static final String ACTION_PANEL = "data/textures/human/hud/action_panel.png";
     private static final String DETAILS_PANEL = "data/textures/human/hud/details_panel.png";
@@ -80,8 +81,8 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
 
     private void loadActionAssets() {
         assets.load(ACTION_BUTTON, Texture.class);
-        assets.load(ACTION_ICONS, Texture.class);
-        assets.load(ACTION_ICONS_DISABLED, Texture.class);
+        assets.load(ICONS, Texture.class);
+        assets.load(ICONS_DISABLED, Texture.class);
         assets.load(ACTION_PANEL, Texture.class);
     }
 
@@ -121,6 +122,7 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
         skin.add("default", getDefaultFont());
         skin.add("default", getHealthBarStyle());
         skin.add("default", getSelectionButtonStyle());
+        skin.add("default", getProductionDetailsStyle());
         skin.add("button-thin-medium", getButtonStyle());
         skin.add("building-progress", getBuildingProgressStyle());
         skin.add("action-button", getActionButtonStyle());
@@ -161,6 +163,14 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
         return style;
     }
 
+    private ProductionDetailsStyle getProductionDetailsStyle() {
+        ProductionDetailsStyle style = new ProductionDetailsStyle();
+        style.trainBackground = getDrawable(assets, ACTION_BUTTON);
+        style.trainPeasantIcon = getDrawable(assets, ICONS, 0, 0, 46, 38);
+        style.trainFootmanIcon = getDrawable(assets, ICONS, 92, 0, 46, 38);
+        return style;
+    }
+
     private HealthBarStyle getHealthBarStyle() {
         HealthBarStyle style = new HealthBarStyle();
         style.highBar = getDrawable(assets, HEALTH_PROGRESS_HIGH);
@@ -196,22 +206,22 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
     private Drawable getActionIcon(ActionButtonType type) {
         switch (type) {
             case CancelButton:
-            case BuildCancelButton: return getDrawable(assets, ACTION_ICONS, 46, 684, 46, 38);
-            case MoveButton: return getDrawable(assets, ACTION_ICONS, 138, 608, 46, 38);
-            case StopButton: return getDrawable(assets, ACTION_ICONS, 184, 1216, 46, 38);
-            case AttackButton: return getDrawable(assets, ACTION_ICONS, 46, 874, 46, 38);
-            case DefendButton: return getDrawable(assets, ACTION_ICONS, 0, 1368, 46, 38);
-            case PatrolButton: return getDrawable(assets, ACTION_ICONS, 138, 1330, 46, 38);
-            case RepairButton: return getDrawable(assets, ACTION_ICONS, 0, 646, 46, 38);
-            case GatherButton: return getDrawable(assets, ACTION_ICONS, 46, 646, 46, 38);
-            case BuildSimpleButton: return getDrawable(assets, ACTION_ICONS, 92, 646, 46, 38);
-            case BuildAdvancedButton: return getDrawable(assets, ACTION_ICONS, 138, 646, 46, 38);
-            case BuildBarracksButton: return getDrawable(assets, ACTION_ICONS, 92, 304, 46, 38);
-            case BuildFarmButton: return getDrawable(assets, ACTION_ICONS, 138, 266, 46, 38);
-            case BuildTownHallButton: return getDrawable(assets, ACTION_ICONS, 0, 304, 46, 38);
-            case BuildStablesButton: return getDrawable(assets, ACTION_ICONS, 46, 418, 46, 38);
-            case TrainFootmanButton: return getDrawable(assets, ACTION_ICONS, 92, 0, 46, 38);
-            case TrainPeasantButton: return getDrawable(assets, ACTION_ICONS, 0, 0, 46, 38);
+            case BuildCancelButton: return getDrawable(assets, ICONS, 46, 684, 46, 38);
+            case MoveButton: return getDrawable(assets, ICONS, 138, 608, 46, 38);
+            case StopButton: return getDrawable(assets, ICONS, 184, 1216, 46, 38);
+            case AttackButton: return getDrawable(assets, ICONS, 46, 874, 46, 38);
+            case DefendButton: return getDrawable(assets, ICONS, 0, 1368, 46, 38);
+            case PatrolButton: return getDrawable(assets, ICONS, 138, 1330, 46, 38);
+            case RepairButton: return getDrawable(assets, ICONS, 0, 646, 46, 38);
+            case GatherButton: return getDrawable(assets, ICONS, 46, 646, 46, 38);
+            case BuildSimpleButton: return getDrawable(assets, ICONS, 92, 646, 46, 38);
+            case BuildAdvancedButton: return getDrawable(assets, ICONS, 138, 646, 46, 38);
+            case BuildBarracksButton: return getDrawable(assets, ICONS, 92, 304, 46, 38);
+            case BuildFarmButton: return getDrawable(assets, ICONS, 138, 266, 46, 38);
+            case BuildTownHallButton: return getDrawable(assets, ICONS, 0, 304, 46, 38);
+            case BuildStablesButton: return getDrawable(assets, ICONS, 46, 418, 46, 38);
+            case TrainFootmanButton: return getDrawable(assets, ICONS, 92, 0, 46, 38);
+            case TrainPeasantButton: return getDrawable(assets, ICONS, 0, 0, 46, 38);
             default: throw new UnsupportedOperationException();
         }
     }
@@ -227,22 +237,22 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
     private Drawable getActionDisabledIcon(ActionButtonType type) {
         switch (type) {
             case CancelButton:
-            case BuildCancelButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 46, 684, 46, 38);
-            case MoveButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 138, 608, 46, 38);
-            case StopButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 184, 1216, 46, 38);
-            case AttackButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 46, 874, 46, 38);
-            case DefendButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 0, 1368, 46, 38);
-            case PatrolButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 138, 1330, 46, 38);
-            case RepairButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 0, 646, 46, 38);
-            case GatherButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 46, 646, 46, 38);
-            case BuildSimpleButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 92, 646, 46, 38);
-            case BuildAdvancedButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 138, 646, 46, 38);
-            case BuildBarracksButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 92, 304, 46, 38);
-            case BuildFarmButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 138, 266, 46, 38);
-            case BuildTownHallButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 0, 304, 46, 38);
-            case BuildStablesButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 46, 418, 46, 38);
-            case TrainFootmanButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 92, 0, 46, 38);
-            case TrainPeasantButton: return getDrawable(assets, ACTION_ICONS_DISABLED, 0, 0, 46, 38);
+            case BuildCancelButton: return getDrawable(assets, ICONS_DISABLED, 46, 684, 46, 38);
+            case MoveButton: return getDrawable(assets, ICONS_DISABLED, 138, 608, 46, 38);
+            case StopButton: return getDrawable(assets, ICONS_DISABLED, 184, 1216, 46, 38);
+            case AttackButton: return getDrawable(assets, ICONS_DISABLED, 46, 874, 46, 38);
+            case DefendButton: return getDrawable(assets, ICONS_DISABLED, 0, 1368, 46, 38);
+            case PatrolButton: return getDrawable(assets, ICONS_DISABLED, 138, 1330, 46, 38);
+            case RepairButton: return getDrawable(assets, ICONS_DISABLED, 0, 646, 46, 38);
+            case GatherButton: return getDrawable(assets, ICONS_DISABLED, 46, 646, 46, 38);
+            case BuildSimpleButton: return getDrawable(assets, ICONS_DISABLED, 92, 646, 46, 38);
+            case BuildAdvancedButton: return getDrawable(assets, ICONS_DISABLED, 138, 646, 46, 38);
+            case BuildBarracksButton: return getDrawable(assets, ICONS_DISABLED, 92, 304, 46, 38);
+            case BuildFarmButton: return getDrawable(assets, ICONS_DISABLED, 138, 266, 46, 38);
+            case BuildTownHallButton: return getDrawable(assets, ICONS_DISABLED, 0, 304, 46, 38);
+            case BuildStablesButton: return getDrawable(assets, ICONS_DISABLED, 46, 418, 46, 38);
+            case TrainFootmanButton: return getDrawable(assets, ICONS_DISABLED, 92, 0, 46, 38);
+            case TrainPeasantButton: return getDrawable(assets, ICONS_DISABLED, 0, 0, 46, 38);
             default: throw new UnsupportedOperationException();
         }
     }

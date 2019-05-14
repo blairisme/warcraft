@@ -9,20 +9,17 @@
 
 package com.evilbird.warcraft.action.move;
 
-import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;
-import com.badlogic.gdx.ai.pfa.Heuristic;
-import com.badlogic.gdx.ai.pfa.PathFinder;
-import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Movable;
-import com.evilbird.engine.common.pathing.ManhattanHeuristic;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.warcraft.action.common.path.ItemPathFilter;
+import com.evilbird.warcraft.action.common.path.ItemPathFinder;
 
 import java.util.Iterator;
 
@@ -114,13 +111,9 @@ abstract class MoveAction extends BasicAction
         if (path == null) {
             ItemNode startNode = graph.getNode(getItem().getPosition());
             endNode = getDestination().getDestinationNode(graph, startNode);
+            path = ItemPathFinder.findPath(graph, startNode, endNode);
 
-            PathFinder<ItemNode> pathFinder = new IndexedAStarPathFinder<>(graph);
-            Heuristic<ItemNode> heuristic = new ManhattanHeuristic<>();
-            GraphPath<ItemNode> result = new DefaultGraphPath<>();
-
-            if (pathFinder.searchNodePath(startNode, endNode, heuristic, result)) {
-                path = result;
+            if (path != null) {
                 pathIterator = path.iterator();
                 pathNode = startNode;
                 clearAdjacentNodes();
@@ -220,7 +213,7 @@ abstract class MoveAction extends BasicAction
         }
     }
 
-    protected abstract MovePathFilter getPathFilter();
+    protected abstract ItemPathFilter getPathFilter();
 
     protected abstract MoveDestination getDestination();
 }

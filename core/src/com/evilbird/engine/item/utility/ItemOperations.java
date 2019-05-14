@@ -16,18 +16,12 @@ import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.math.ShapeUtilities;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.function.Predicate;
 
 import static com.badlogic.gdx.Gdx.graphics;
-import static com.evilbird.engine.common.function.Predicates.both;
-import static com.evilbird.engine.item.utility.ItemComparators.closestItem;
 import static com.evilbird.engine.item.utility.ItemPredicates.itemWithType;
-import static com.evilbird.engine.item.utility.ItemPredicates.touchableItem;
 
 /**
  * Instances of this class contain common functions for working with
@@ -38,19 +32,6 @@ import static com.evilbird.engine.item.utility.ItemPredicates.touchableItem;
 public class ItemOperations
 {
     private ItemOperations(){
-    }
-
-    public static Item findClosest(Identifier type, Item locus) {
-        return findClosest(locus.getRoot(), type, locus);
-    }
-
-    public static Item findClosest(ItemComposite itemGroup, Identifier type, Item locus) {
-        Predicate<Item> selector = both(itemWithType(type), touchableItem()); //selectableItem());
-        Collection<Item> itemsWithType = itemGroup.findAll(selector);
-        if (! itemsWithType.isEmpty()) {
-            return Collections.min(itemsWithType, closestItem(locus));
-        }
-        return null;
     }
 
     public static Item findAncestor(Item item, Predicate<Item> predicate) {

@@ -26,6 +26,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -66,14 +67,14 @@ public class MoveAdjacent extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Item subject = getRecipient(this, from);
+        Movable subject = (Movable)getRecipient(this, from);
         Item target = getRecipient(this, to);
 
         ItemRoot root = target.getRoot();
         ItemGraph graph = root.getSpatialGraph();
 
-        MovePathFilter capability = new MovePathFilter();
-        capability.addRequiredTypes((Movable)subject);
+        ItemPathFilter capability = new ItemPathFilter();
+        capability.addTraversableTypes(subject.getMovementCapability());
 
         Collection<ItemNode> adjacent = graph.getAdjacentNodes(target.getPosition(), target.getSize());
         Optional<ItemNode> unoccupied = adjacent.stream().filter(capability).findFirst();

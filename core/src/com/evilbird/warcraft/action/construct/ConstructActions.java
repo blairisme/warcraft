@@ -23,9 +23,9 @@ import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
  */
 public enum ConstructActions implements ActionIdentifier, ResourceQuantity
 {
-    ConstructBarracks(UnitType.Barracks, 20f, Gold, 100f),
-    ConstructFarm(UnitType.Farm, 20f, Gold, 100f),
-    ConstructTownHall(UnitType.TownHall, 20f, Gold, 100f),
+    ConstructBarracks(UnitType.Barracks, 20f, Gold, 100f),  //700g, 450w, 90sec
+    ConstructFarm(UnitType.Farm, 20f, Gold, 100f),          //500g, 250w, 30sec
+    ConstructTownHall(UnitType.TownHall, 20f, Gold, 100f),  //1200g, 800w, 90sec
     ConstructBarracksCancel(ConstructBarracks),
     ConstructFarmCancel(ConstructFarm),
     ConstructTownhallCancel(ConstructTownHall);

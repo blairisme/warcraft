@@ -15,7 +15,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.BitMatrix;
-import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
@@ -36,7 +35,6 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-@SerializedType("Fog")
 @JsonAdapter(LayerAdapter.class)
 public class Fog extends Layer
 {
@@ -126,22 +124,24 @@ public class Fog extends Layer
     private Collection<GridPoint2> getRevealedCells(Item item) {
         Collection<GridPoint2> result = new ArrayList<>();
 
-        Vector2 position = item.getPosition();
-        int itemX = position.x != 0 ? Math.round(position.x / 32) : 0;
-        int itemY = position.y != 0 ? Math.round(position.y / 32) : 0;
-        int width = layer.getWidth();
-        int height = layer.getHeight();
         int radius = getSight(item);
+        GridPoint2 position = toGridPoint(item.getPosition());
+        GridPoint2 itemSize = toGridPoint(item.getSize());
 
-        for (int x = itemX - radius; x <= itemX + radius; x++){
-            for (int y = itemY - radius; y <= itemY + radius; y++){
-                if (x >= 0 && y >= 0 && x < width && y < height){
-                    if (isCellOccupied(x, y)) {
-                        result.add(new GridPoint2(x, y));
-                    }
+        for (int x = position.x - radius; x <= position.x + radius + itemSize.x; x++){
+            for (int y = position.y - radius; y <= position.y + radius + itemSize.x; y++){
+                if (withinBounds(x, y) && isOccupied(x, y)){
+                    result.add(new GridPoint2(x, y));
                 }
             }
         }
+        return result;
+    }
+
+    private GridPoint2 toGridPoint(Vector2 vector) {
+        GridPoint2 result = new GridPoint2();
+        result.x = vector.x != 0 ? Math.round(vector.x / 32) : 0;
+        result.y = vector.y != 0 ? Math.round(vector.y / 32) : 0;
         return result;
     }
 
@@ -151,6 +151,10 @@ public class Fog extends Layer
             return unit.getSight() / 32;
         }
         return 0;
+    }
+
+    private boolean withinBounds(int x, int y) {
+        return x >= 0 && y >= 0 && x < layer.getWidth() && y < layer.getHeight();
     }
 
     private void updateCellEdges(int x, int y) {
@@ -181,13 +185,13 @@ public class Fog extends Layer
             for (int j = 0; j < EDGE_MATRIX_SIZE; j++) {
                 int xIndex = x + (i - EDGE_MATRIX_CENTER);
                 int yIndex = y + (j - EDGE_MATRIX_CENTER);
-                occupation.set(i, j, isCellOccupied(xIndex, yIndex));
+                occupation.set(i, j, isOccupied(xIndex, yIndex));
             }
         }
         return occupation;
     }
 
-    private boolean isCellOccupied(int x, int y) {
+    private boolean isOccupied(int x, int y) {
         if (x < 0 || x >= layer.getWidth()) { return true; }
         if (y < 0 || y >= layer.getHeight()) { return true; }
 

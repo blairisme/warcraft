@@ -86,7 +86,7 @@ public class FarmFactory implements AssetProvider<Item>
     public Item get() {
         Building result = new Building(getSkin());
         result.setAnimation(UnitAnimation.Idle);
-        result.setSight(5 * 32);
+        result.setSight(1);  //1
         result.setHealth(400);
         result.setHealthMaximum(400);
         result.setName("Farm");

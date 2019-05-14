@@ -9,7 +9,6 @@
 
 package com.evilbird.engine.item.utility;
 
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 
 import java.util.function.Supplier;
@@ -23,10 +22,6 @@ import java.util.function.Supplier;
 public class ItemSuppliers
 {
     private ItemSuppliers() {
-    }
-
-    public static Supplier<Item> closest(Identifier type, Item locus) {
-        return () -> ItemOperations.findClosest(type, locus);
     }
 
     public static Supplier<Item> ifExists(Item item) {

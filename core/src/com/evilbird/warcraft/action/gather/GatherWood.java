@@ -13,6 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.ScenarioSetAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
+import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
@@ -25,7 +26,6 @@ import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
-import static com.evilbird.engine.item.utility.ItemSuppliers.closest;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.transfer;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositComplete;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositStarted;
@@ -36,6 +36,7 @@ import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasResources;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.noResources;
+import static com.evilbird.warcraft.item.common.query.UnitSuppliers.closest;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
 import static com.evilbird.warcraft.item.layer.LayerType.Tree;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.GatherWood;
@@ -76,7 +77,7 @@ public class GatherWood extends ScenarioSetAction
             .then(transfer(Target, Subject, resource(), reporter), obtainComplete(reporter, resource()))
             .then(setAnimation(Move, MoveWood), setAnimation(Idle, IdleWood))
             .then(animate(Idle))
-            .withTarget(closest(Tree, getTarget()));
+            .withTarget(closest(getGatherer(), Tree, getTarget()));
 
         scenario("deposit")
             .givenItem(isAlive())
@@ -87,10 +88,14 @@ public class GatherWood extends ScenarioSetAction
             .then(delay(1))
             .then(transfer(Subject, Player, resource(), reporter), depositComplete(reporter, resource()))
             .then(show(), setAnimation(Move, MoveBasic), setAnimation(Idle, IdleBasic), animate(Idle))
-            .withTarget(closest(TownHall, getTarget()));
+            .withTarget(closest(getGatherer(), TownHall));
     }
 
     private ResourceQuantity resource() {
         return GatherActions.GatherWood;
+    }
+
+    public Gatherer getGatherer() {
+        return (Gatherer)getItem();
     }
 }

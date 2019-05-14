@@ -13,6 +13,7 @@ import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Instances of this {@link Event} are generated when a {@link Gatherer}
@@ -81,5 +82,16 @@ public class GatherEvent implements Event
 
     public float getValue() {
         return value;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("subject", subject.getIdentifier())
+            .append("recipient", recipient.getIdentifier())
+            .append("status", status)
+            .append("type", type)
+            .append("value", value)
+            .toString();
     }
 }
