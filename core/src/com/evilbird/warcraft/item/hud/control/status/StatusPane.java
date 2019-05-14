@@ -59,6 +59,10 @@ public class StatusPane extends ItemGroup
         }
     }
 
+    public Collection<Item> getSelected() {
+        return selection;
+    }
+
     public void setSelected(Item item, boolean selected) {
         if (selected) {
             selection.add(item);

@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.control.StyledLabel;
 import com.evilbird.engine.item.specialized.TableItem;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.item.hud.HudControl;
 
 /**
  * Instances of this user interface control display the resources the user has
@@ -36,21 +37,39 @@ public class ResourcePane extends TableItem
 
     public ResourcePane(ResourcePaneStyle style) {
         setFillParent(true);
+        setIdentifier(HudControl.ResourcePane);
         Table container = addContainer(style.background);
         goldLabel = addResource(container, style.goldIcon, style.font, style.colour);
         woodLabel = addResource(container, style.woodIcon, style.font, style.colour);
         oilLabel = addResource(container, style.oilIcon, style.font, style.colour);
     }
 
-    public void setResource(ResourceType resource, float value) {
+    public String getResourceText(ResourceType resource) {
         if (resource == ResourceType.Gold) {
-            goldLabel.setText(String.valueOf(Math.round(value)));
+            return goldLabel.getText().toString();
         }
         else if (resource == ResourceType.Oil) {
-            oilLabel.setText(String.valueOf(Math.round((value))));
+            return oilLabel.getText().toString();
         }
         else if (resource == ResourceType.Wood) {
-            woodLabel.setText(String.valueOf(Math.round(value)));
+            return woodLabel.getText().toString();
+        }
+        return "";
+    }
+
+    public void setResourceText(ResourceType resource, float value) {
+        setResourceText(resource, String.valueOf(Math.round(value)));
+    }
+
+    public void setResourceText(ResourceType resource, String text) {
+        if (resource == ResourceType.Gold) {
+            goldLabel.setText(text);
+        }
+        else if (resource == ResourceType.Oil) {
+            oilLabel.setText(text);
+        }
+        else if (resource == ResourceType.Wood) {
+            woodLabel.setText(text);
         }
     }
 

@@ -12,12 +12,19 @@ package com.evilbird.warcraft.behaviour.ui.menu;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.Fonts;
+import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
+import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.data.item.TestItemRoots;
+import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.testcase.GameTestCase;
+import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
+import com.evilbird.warcraft.action.select.SelectEvent;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.hud.control.actions.ActionPane;
@@ -27,9 +34,13 @@ import com.evilbird.warcraft.item.hud.resource.ResourcePaneStyle;
 import com.evilbird.warcraft.state.WarcraftState;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -64,20 +75,13 @@ public class MenuBehaviourTest extends GameTestCase
 
         player = TestPlayers.newTestPlayer("player");
         resourcePane = new ResourcePane(resourceStyle);
-        resourcePane.setIdentifier(HudControl.ResourcePane);
         actionPane = new ActionPane(skin);
         statusPane = new StatusPane(skin);
 
-        ItemRoot world = TestItemRoots.newTestRoot("world");
-        world.addItem(player);
-
-        ItemRoot hud = TestItemRoots.newTestRoot("hud");
-        hud.addItem(resourcePane);
-        hud.addItem(actionPane);
-        hud.addItem(statusPane);
+        ItemRoot world = TestItemRoots.newTestRoot(new TextIdentifier("world"), player);
+        ItemRoot hud = TestItemRoots.newTestRoot(new TextIdentifier("hud"), resourcePane, actionPane, statusPane);
 
         state = new WarcraftState(world, hud, null);
-
         events = new EventQueue();
         menuBehaviour = new MenuBehaviour(events);
     }
@@ -91,5 +95,44 @@ public class MenuBehaviourTest extends GameTestCase
     public void updateTest() {
         menuBehaviour.update(state, Collections.emptyList());
         menuBehaviour.update(state, Collections.emptyList());
+    }
+
+    @Test
+    public void resourceUpdateTest() {
+        menuBehaviour.update(state, Collections.emptyList());
+        resourceUpdateTest(ResourceType.Gold, 200.3f);
+        resourceUpdateTest(ResourceType.Oil, 123.7f);
+        resourceUpdateTest(ResourceType.Wood, 555.9f);
+    }
+
+    private void resourceUpdateTest(ResourceType resource, float value) {
+        events.add(new ResourceTransferEvent(player, resource, 100f, value));
+        menuBehaviour.update(state, Collections.emptyList());
+
+        assertEquals(String.valueOf(Math.round(value)), resourcePane.getResourceText(resource));
+        assertEquals(value, actionPane.getResource(resource), 0.1);
+    }
+
+    @Test
+    public void selectionUpdateTest() {
+        menuBehaviour.update(state, Collections.emptyList());
+
+        Item item1 = TestCombatants.newTestCombatant("item");
+        Item item2 = TestCombatants.newTestCombatant("item");
+        events.add(new SelectEvent(item1, true));
+        events.add(new SelectEvent(item2, true));
+        menuBehaviour.update(state, Collections.emptyList());
+
+        Collection<Item> expected1 = Arrays.asList(item1, item2);
+        assertEquals(expected1, actionPane.getSelected());
+        assertEquals(expected1, statusPane.getSelected());
+
+        events.clear();
+        events.add(new SelectEvent(item1, false));
+        menuBehaviour.update(state, Collections.emptyList());
+
+        Collection<Item> expected2 = Arrays.asList(item2);
+        assertEquals(expected2, actionPane.getSelected());
+        assertEquals(expected2, statusPane.getSelected());
     }
 }

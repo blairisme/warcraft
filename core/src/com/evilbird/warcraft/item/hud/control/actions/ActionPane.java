@@ -78,6 +78,10 @@ public class ActionPane extends GridItem implements MenuProvider
         }
     }
 
+    public Collection<Item> getSelected() {
+        return selection;
+    }
+
     public void setSelected(Collection<Item> newSelection) {
         view = Actions;
         selection.clear();
@@ -93,6 +97,10 @@ public class ActionPane extends GridItem implements MenuProvider
             selection.remove(item);
         }
         updateView();
+    }
+
+    public float getResource(ResourceType resource) {
+        return resources.get(resource);
     }
 
     public void setResource(ResourceType resource, float value) {

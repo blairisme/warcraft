@@ -106,7 +106,7 @@ public class MenuBehaviour implements Behaviour
         for (ResourceType resourceType: ResourceType.values()) {
             float resourceValue = player.getResource(resourceType);
             actionPane.setResource(resourceType, resourceValue);
-            resourcePane.setResource(resourceType, resourceValue);
+            resourcePane.setResourceText(resourceType, resourceValue);
         }
     }
 
@@ -127,7 +127,7 @@ public class MenuBehaviour implements Behaviour
         for (ResourceTransferEvent event: events.getEvents(ResourceTransferEvent.class)) {
             if (event.getSubject() == player) {
                 actionPane.setResource(event.getResource(), event.getValue());
-                resourcePane.setResource(event.getResource(), event.getValue());
+                resourcePane.setResourceText(event.getResource(), event.getValue());
             }
         }
     }

@@ -65,8 +65,13 @@ public class ActionButton extends TableItem
     private ImageButtonStyle getIconStyle(ActionButtonType buttonType) {
         ActionButtonStyle actionStyle = getActionStyle();
         ImageButtonStyle buttonStyle = new ImageButtonStyle();
-        buttonStyle.imageUp = actionStyle.icons.get(buttonType);
-        buttonStyle.imageDisabled = actionStyle.disabledIcons.get(buttonType);
+
+        if (actionStyle.icons != null) {
+            buttonStyle.imageUp = actionStyle.icons.get(buttonType);
+        }
+        if (actionStyle.disabledIcons != null) {
+            buttonStyle.imageDisabled = actionStyle.disabledIcons.get(buttonType);
+        }
         return buttonStyle;
     }
 }
