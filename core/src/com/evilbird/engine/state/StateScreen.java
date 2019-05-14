@@ -41,16 +41,16 @@ public class StateScreen extends ScreenAdapter
         return state;
     }
 
+    public void setController(GameController controller) {
+        this.controller = controller;
+        updateController();
+    }
+
     public void setState(State state) {
         this.state = state;
         this.world = state.getWorld();
         this.hud = state.getHud();
         this.behaviour = state.getBehaviour();
-        updateController();
-    }
-
-    public void setController(GameController controller) {
-        this.controller = controller;
         updateController();
     }
 
@@ -63,8 +63,9 @@ public class StateScreen extends ScreenAdapter
 
     @Override
     public void dispose() {
-        world.dispose();
-        hud.dispose();
+        if (state != null) {
+            state.dispose();
+        }
     }
 
     @Override

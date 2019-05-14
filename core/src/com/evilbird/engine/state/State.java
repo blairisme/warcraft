@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.state;
 
+import com.badlogic.gdx.utils.Disposable;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.item.ItemRoot;
 
@@ -18,7 +19,7 @@ import com.evilbird.engine.item.ItemRoot;
  *
  * @author Blair Butterworth
  */
-public interface State
+public interface State extends Disposable
 {
     ItemRoot getWorld();
 

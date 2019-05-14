@@ -95,24 +95,4 @@ public class ConstructAction extends DelayedAction
     private Item getBuilder() {
         return getRecipient(this, builder);
     }
-
-//    @Override
-//    public void restart() {
-//        super.restart();
-//        resetProgress();
-//    }
-//
-//    @Override
-//    public void reset() {
-//        super.reset();
-//        resetProgress();
-//    }
-//
-//    private void resetProgress() {
-//        Item recipient = getRecipient(this, building);
-//        if (recipient instanceof Building) {
-//            Building item = (Building)recipient;
-//            item.setConstructionProgress(1);
-//        }
-//    }
 }

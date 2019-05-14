@@ -61,7 +61,7 @@ public class LoaderScreen extends ScreenAdapter
         this.engine = engine;
     }
 
-    public void showInitialScreen() {
+    public void loadingComplete() {
         engine.showInitialScreen();
     }
 

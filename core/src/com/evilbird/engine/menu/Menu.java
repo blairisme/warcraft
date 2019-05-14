@@ -12,11 +12,10 @@ package com.evilbird.engine.menu;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.state.StateIdentifier;
-
-import java.io.IOException;
 
 /**
  * Represents a user interface consisting of a number of selectable options.
@@ -24,7 +23,7 @@ import java.io.IOException;
  *
  * @author Blair Butterworth
  */
-public class Menu
+public class Menu implements Disposable
 {
     private Stage stage;
     private Music music;
@@ -36,6 +35,10 @@ public class Menu
 
     public Menu(Stage stage) {
         this.stage = stage;
+    }
+
+    public void dispose() {
+        stage.dispose();
     }
 
     public Stage getStage() {
@@ -83,12 +86,12 @@ public class Menu
         stopMusic();
     }
 
-    public void showState(StateIdentifier identifier) throws IOException {
+    public void showState(StateIdentifier identifier) {
         controller.showState(identifier);
         stopMusic();
     }
 
-    public void saveState(StateIdentifier identifier) throws IOException {
+    public void saveState(StateIdentifier identifier) {
         controller.saveState(identifier);
         controller.showState();
     }

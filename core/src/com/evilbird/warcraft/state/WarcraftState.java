@@ -38,6 +38,12 @@ public class WarcraftState implements State
         this.behaviour = behaviour;
     }
 
+    @Override
+    public void dispose() {
+        this.world.dispose();
+        this.hud.dispose();
+    }
+
     public ItemRoot getWorld() {
         return world;
     }

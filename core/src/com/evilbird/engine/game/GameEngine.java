@@ -102,18 +102,21 @@ public class GameEngine extends Game implements GameController
 
     @Override
     public void showMenu() {
+        menuScreen.dispose();
         menuScreen.setMenu(menuFactory.newMenu());
         setScreen(menuScreen);
     }
 
     @Override
     public void showMenu(MenuIdentifier identifier) {
+        menuScreen.dispose();
         menuScreen.setMenu(menuFactory.newMenu(identifier));
         setScreen(menuScreen);
     }
 
     @Override
     public void showMenuOverlay(MenuIdentifier identifier) {
+        menuScreen.dispose();
         menuScreen.setMenu(menuFactory.newMenu(identifier));
         setScreen(menuOverlay);
     }
@@ -125,6 +128,7 @@ public class GameEngine extends Game implements GameController
 
     @Override
     public void showState(StateIdentifier identifier) {
+        stateScreen.dispose();
         stateScreen.setState(stateService.get(identifier));
         setScreen(stateScreen);
     }

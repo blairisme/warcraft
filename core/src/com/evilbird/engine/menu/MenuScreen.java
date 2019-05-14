@@ -37,6 +37,10 @@ public class MenuScreen extends ScreenAdapter
     public MenuScreen() {
     }
 
+    public Menu getMenu() {
+        return menu;
+    }
+
     public void setMenu(Menu menu) {
         this.menu = menu;
         this.stage = menu.getStage();
@@ -51,7 +55,9 @@ public class MenuScreen extends ScreenAdapter
 
     @Override
     public void dispose() {
-        stage.dispose();
+        if (menu != null) {
+            menu.dispose();
+        }
     }
 
     @Override

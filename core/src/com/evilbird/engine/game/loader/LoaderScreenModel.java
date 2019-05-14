@@ -82,7 +82,7 @@ public class LoaderScreenModel
     public void update(float delta) {
         loadingTime += delta;
         if (loadingTime >= ANTI_FLASH_DELAY && assets.update()) {
-            presenter.showInitialScreen();
+            presenter.loadingComplete();
         }
     }
 }
