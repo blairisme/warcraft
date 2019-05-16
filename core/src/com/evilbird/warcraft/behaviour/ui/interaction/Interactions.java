@@ -15,6 +15,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.select.SelectActions;
 import com.evilbird.warcraft.item.placeholder.PlaceholderType;
 import com.evilbird.warcraft.item.unit.UnitType;
 
@@ -296,6 +297,7 @@ public class Interactions
 
     private void selectionInteractions() {
         selectToggle();
+        selectArea();
         unselectButton();
     }
 
@@ -315,10 +317,27 @@ public class Interactions
             .appliedAs(Addition);
     }
 
+    private void selectArea() {
+        interactions.addAction(SelectActions.SelectBoxBegin)
+                .forInput(UserInputType.SelectStart)
+                .appliedTo(Target)
+                .appliedAs(Addition);
+
+        interactions.addAction(SelectActions.SelectBoxResize)
+                .forInput(UserInputType.SelectResize)
+                .appliedTo(Target)
+                .appliedAs(Addition);
+
+        interactions.addAction(SelectActions.SelectBoxEnd)
+                .forInput(UserInputType.SelectStop)
+                .appliedTo(Target)
+                .appliedAs(Addition);
+    }
+
     private void unselectButton() {
         interactions.addAction(SelectToggle)
-            .whenTarget(UnselectButton)
-            .appliedTo(targetParentItem(), selectedItem());
+                .whenTarget(UnselectButton)
+                .appliedTo(targetParentItem(), selectedItem());
     }
 
     private BiConsumer<Item, Action> confirmedAction() {

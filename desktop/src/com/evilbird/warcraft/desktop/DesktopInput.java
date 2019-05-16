@@ -11,8 +11,9 @@ package com.evilbird.warcraft.desktop;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.common.input.GestureAnalyzer;
+import com.evilbird.engine.common.input.GestureObserver;
 import com.evilbird.engine.device.DeviceInput;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
@@ -26,12 +27,15 @@ import java.util.List;
  *
  * @author Blair Butterworth
  */
-public class DesktopInput implements DeviceInput, GestureDetector.GestureListener
+public class DesktopInput implements DeviceInput, GestureObserver
 {
     private Input input;
     private List<UserInput> inputs;
     private int panCount;
     private int zoomCount;
+    private int depressedButton;
+    private float depressedButtonX;
+    private float depressedButtonY;
 
     public DesktopInput() {
         this(Gdx.input);
@@ -42,6 +46,9 @@ public class DesktopInput implements DeviceInput, GestureDetector.GestureListene
         this.inputs = new ArrayList<>();
         this.panCount = 1;
         this.zoomCount = 1;
+        this.depressedButton = -1;
+        this.depressedButtonX = -1;
+        this.depressedButtonY = -1;
     }
 
     @Override
@@ -49,7 +56,7 @@ public class DesktopInput implements DeviceInput, GestureDetector.GestureListene
         if (input == null) {
             input = Gdx.input;
         }
-        GestureDetector gestureDetector = new GestureDetector(this);
+        GestureAnalyzer gestureDetector = new GestureAnalyzer(this);
         input.setInputProcessor(gestureDetector);
     }
 
@@ -66,6 +73,25 @@ public class DesktopInput implements DeviceInput, GestureDetector.GestureListene
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
+        depressedButton = button;
+        depressedButtonX = x;
+        depressedButtonY = y;
+        if (button == 1) {
+            UserInput input = new UserInput(UserInputType.SelectStart, new Vector2(x, y), 1);
+            pushInput(input);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int x, int y, int pointer, int button) {
+        depressedButton = -1;
+        depressedButtonX = -1;
+        depressedButtonY = -1;
+        if (button == 1) {
+            UserInput input = new UserInput(UserInputType.SelectStop, new Vector2(x, y), 1);
+            pushInput(input);
+        }
         return false;
     }
 
@@ -88,10 +114,17 @@ public class DesktopInput implements DeviceInput, GestureDetector.GestureListene
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        Vector2 position = new Vector2(x, y);
-        Vector2 delta = new Vector2(deltaX * -1, deltaY);
-        UserInput input = new UserInput(UserInputType.Drag, position, delta, panCount++);
-        pushInput(input);
+        if (depressedButton == 1) {
+            Vector2 origin = new Vector2(depressedButtonX, depressedButtonY);
+            Vector2 size = new Vector2(x, y);
+            UserInput input = new UserInput(UserInputType.SelectResize, origin, size, panCount++);
+            pushInput(input);
+        } else {
+            Vector2 position = new Vector2(x, y);
+            Vector2 delta = new Vector2(deltaX * -1, deltaY);
+            UserInput input = new UserInput(UserInputType.Drag, position, delta, panCount++);
+            pushInput(input);
+        }
         return true;
     }
 

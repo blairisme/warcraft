@@ -15,6 +15,7 @@ import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Instances of this class uniquely identify a {@link Layer}. LayerIdentifiers
@@ -77,5 +78,13 @@ public class LayerIdentifier implements ItemType
             .append(file)
             .append(name)
             .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("name", name)
+            .append("file", file)
+            .toString();
     }
 }

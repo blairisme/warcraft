@@ -20,4 +20,8 @@ public enum UserInputType
     Action,
     Zoom,
     Drag,
+
+    SelectStart,
+    SelectResize,
+    SelectStop
 }

@@ -10,6 +10,7 @@
 package com.evilbird.engine.item.utility;
 
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Alignment;
@@ -48,10 +49,6 @@ public class ItemPredicates
 
     public static Predicate<Item> withClazz(final Class<?> type) {
         return (item) -> item != null && type.isAssignableFrom(item.getClass());
-    }
-
-    public static Predicate<Item> touchableItem() {
-        return Item::getTouchable;
     }
 
     public static Predicate<Item> touchableWithType(Identifier type) {
@@ -101,5 +98,17 @@ public class ItemPredicates
 
     public static Predicate<Item> hasAction(Predicate<Action> condition) {
         return item -> item != null && item.getActions().stream().anyMatch(condition);
+    }
+
+    public static Predicate<Item> overlapping(Item target) {
+        return overlapping(target.getBounds());
+    }
+
+    public static Predicate<Item> overlapping(Rectangle target) {
+        return item -> item != null && target.overlaps(item.getBounds());
+    }
+
+    public static Predicate<Item> touchable() {
+        return item -> item != null && item.getTouchable();
     }
 }

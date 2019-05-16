@@ -13,6 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.warcraft.action.ActionProvider;
+import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
@@ -23,15 +24,30 @@ import javax.inject.Inject;
  */
 public class SelectFactory implements ActionProvider
 {
-    private InjectedPool<SelectSequence> pool;
+    private InjectedPool<SelectArea> selectAreaPool;
+    private InjectedPool<SelectSequence> selectTogglePool;
 
     @Inject
-    public SelectFactory(InjectedPool<SelectSequence> pool) {
-        this.pool = pool;
+    public SelectFactory(InjectedPool<SelectArea> selectAreaPool, InjectedPool<SelectSequence> selectTogglePool) {
+        this.selectAreaPool = selectAreaPool;
+        this.selectTogglePool = selectTogglePool;
     }
 
     @Override
-    public Action get(ActionIdentifier action) {
-        return pool.obtain();
+    public Action get(ActionIdentifier identifier) {
+        Validate.isInstanceOf(SelectActions.class, identifier);
+        switch ((SelectActions)identifier) {
+            case SelectBoxBegin:
+            case SelectBoxResize:
+            case SelectBoxEnd: return getAction(selectAreaPool, identifier);
+            case SelectToggle: return getAction(selectTogglePool, identifier);
+            default: throw new UnsupportedOperationException();
+        }
+    }
+
+    private <T extends Action> T getAction(InjectedPool<T> pool, ActionIdentifier identifier) {
+        T result = pool.obtain();
+        result.setIdentifier(identifier);
+        return result;
     }
 }

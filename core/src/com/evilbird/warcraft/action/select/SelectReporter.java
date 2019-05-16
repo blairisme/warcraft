@@ -33,12 +33,4 @@ public class SelectReporter implements SelectObserver
     public void onSelect(Item item, boolean selected) {
         events.add(new SelectEvent(item, selected));
     }
-
-//    public static Consumer<Item> notifySelected(SelectReporter reporter) {
-//        return (item) -> reporter.onSelect(item, true);
-//    }
-//
-//    public static Consumer<Item> notifyUnselected(SelectReporter reporter) {
-//        return (item) -> reporter.onSelect(item, false);
-//    }
 }
