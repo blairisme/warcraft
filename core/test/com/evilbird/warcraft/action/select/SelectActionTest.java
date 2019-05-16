@@ -11,9 +11,13 @@ package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.item.unit.Unit;
+import org.junit.Test;
 import org.mockito.Mockito;
 
 import static com.evilbird.engine.action.common.ActionRecipient.Subject;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Instances of this unit test validate the {@link SelectAction} class.
@@ -32,5 +36,13 @@ public class SelectActionTest extends ActionTestCase
     @Override
     protected Enum newIdentifier() {
         return SelectActions.SelectToggle;
+    }
+
+    @Test
+    public void actTest() {
+        Unit unit = (Unit)item;
+        assertFalse(unit.getSelected());
+        assertTrue(action.act(1));
+        assertTrue(unit.getSelected());
     }
 }

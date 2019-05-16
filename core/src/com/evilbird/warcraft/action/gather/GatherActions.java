@@ -21,7 +21,7 @@ import com.evilbird.warcraft.item.common.resource.ResourceType;
 public enum GatherActions implements ActionIdentifier, ResourceQuantity
 {
     GatherGold(ResourceType.Gold, 100f, 5f),
-    GatherOil(ResourceType.Oil, 100f, 5f),
+   // GatherOil(ResourceType.Oil, 100f, 5f),
     GatherWood(ResourceType.Wood, 100f, 40f),
     GatherCancel;
 

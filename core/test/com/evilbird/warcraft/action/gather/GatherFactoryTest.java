@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.camera;
+package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.inject.InjectedPool;
@@ -17,11 +17,11 @@ import com.evilbird.warcraft.action.ActionProvider;
 import org.junit.Before;
 
 /**
- * Instances of this unit test validate the {@link CameraFactory} class.
+ * Instances of this unit test validate the {@link GatherFactory} class.
  *
  * @author Blair Butterworth
  */
-public class CameraFactoryTest extends ActionFactoryTestCase
+public class GatherFactoryTest extends ActionFactoryTestCase
 {
     @Before
     public void setup() {
@@ -31,14 +31,14 @@ public class CameraFactoryTest extends ActionFactoryTestCase
 
     @Override
     protected ActionProvider newFactory() {
-        InjectedPool<FocusAction> focusPool = new MockInjectedPool<>(FocusAction.class);
-        InjectedPool<PanAction> panPool = new MockInjectedPool<>(PanAction.class);
-        InjectedPool<ZoomAction> zoomPool = new MockInjectedPool<>(ZoomAction.class);
-        return new CameraFactory(focusPool, panPool, zoomPool);
+        InjectedPool<GatherGold> goldPool = new MockInjectedPool<>(GatherGold.class);
+        InjectedPool<GatherWood> woodPool = new MockInjectedPool<>(GatherWood.class);
+        InjectedPool<GatherCancel> cancelPool = new MockInjectedPool<>(GatherCancel.class);
+        return new GatherFactory(goldPool, woodPool, cancelPool);
     }
 
     @Override
     protected ActionIdentifier[] getIdentifiers() {
-        return CameraActions.values();
+        return GatherActions.values();
     }
 }
