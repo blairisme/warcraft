@@ -10,12 +10,16 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.action.framework.ScenarioSetAction;
+import com.evilbird.engine.common.collection.Sets;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
+import java.util.Collections;
+import java.util.Set;
 
 import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
@@ -29,6 +33,8 @@ import static com.evilbird.engine.common.function.Predicates.nonNull;
 import static com.evilbird.engine.item.utility.ItemSuppliers.ifExists;
 import static com.evilbird.warcraft.action.attack.AttackAction.attack;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
+import static com.evilbird.warcraft.action.attack.AttackEvents.notifyComplete;
+import static com.evilbird.warcraft.action.attack.AttackEvents.notifyStarted;
 import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
@@ -36,6 +42,8 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.inRange;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDead;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.notInRange;
+import static com.evilbird.warcraft.item.common.resource.ResourceQuantum.resource;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Food;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Death;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Decompose;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
@@ -94,9 +102,9 @@ public class AttackSequence extends ScenarioSetAction
             .whenTarget(inRange(combatant))
             .givenItem(isAlive())
             .givenTarget(inRange(combatant))
-            .then(animate(MeleeAttack), notifyStarted())
+            .then(animate(MeleeAttack), notifyStarted(reporter))
             .then(attack(), playRepeat(Attack, target(isAlive())))
-            .then(animate(Idle), notifyComplete());
+            .then(animate(Idle), notifyComplete(reporter));
     }
 
     private void kill() {
@@ -105,17 +113,19 @@ public class AttackSequence extends ScenarioSetAction
             .whenTarget(nonNull())
             .whenTarget(isDead())
             .then(animate(Target, Death), delay(1), play(Target, Die), deselect(Target, reporter), disable(Target))
+            //.then(refund())
             .then(animate(Target, Decompose), delay(2))
             .then(remove(Target, reporter));
     }
 
-    private Action notifyStarted() {
-        return new LambdaAction((attacker, target) ->
-            reporter.onAttackStarted((Combatant)attacker, target));
-    }
 
-    private Action notifyComplete() {
-        return new LambdaAction((attacker, target) ->
-            reporter.onAttackCompleted((Combatant)attacker, target));
+    private Set<ResourceQuantity> resources(Item item) {
+        if (item.getType() == UnitType.Farm) {
+            return Sets.of(resource(Food, 5));
+        }
+        if (item instanceof Combatant) {
+            return Sets.of(resource(Food, 1));
+        }
+        return Collections.emptySet();
     }
 }

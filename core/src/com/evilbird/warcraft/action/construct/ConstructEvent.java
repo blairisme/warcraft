@@ -59,6 +59,10 @@ public class ConstructEvent implements Event
         return status == ConstructStatus.Started;
     }
 
+    public boolean isComplete() {
+        return status == ConstructStatus.Complete;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)

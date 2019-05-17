@@ -161,6 +161,7 @@
    <properties>
     <property name="AI" type="bool" value="false"/>
     <property name="Description" value="Nation of Azeroth"/>
+    <property name="Food" type="float" value="5"/>
     <property name="Gold" type="float" value="1000"/>
     <property name="Oil" type="float" value="0"/>
     <property name="Touchable" type="bool" value="false"/>

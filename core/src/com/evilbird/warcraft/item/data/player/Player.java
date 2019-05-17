@@ -81,7 +81,6 @@ public class Player extends ItemGroup implements ResourceContainer
 
     public void setCorporeal(boolean corporeal) {
         this.corporeal = corporeal;
-
         if (corporeal) {
             music.play();
         }
@@ -105,6 +104,12 @@ public class Player extends ItemGroup implements ResourceContainer
     public void incrementStatistic(PlayerStatistic type, float value) {
         float current = getStatistic(type);
         float updated = current + value;
+        setStatistic(type, updated);
+    }
+
+    public void decrementStatistic(PlayerStatistic type, float value) {
+        float current = getStatistic(type);
+        float updated = Math.max(current - value, 0);
         setStatistic(type, updated);
     }
 

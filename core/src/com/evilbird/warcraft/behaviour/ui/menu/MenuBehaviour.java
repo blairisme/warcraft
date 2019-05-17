@@ -36,6 +36,7 @@ import com.evilbird.warcraft.item.hud.control.actions.ActionPane;
 import com.evilbird.warcraft.item.hud.control.status.StatusPane;
 import com.evilbird.warcraft.item.hud.resource.ResourcePane;
 import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 
@@ -44,6 +45,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.itemWithId;
+import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getHumanPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.item.data.player.PlayerScore.getScoreValue;
@@ -88,6 +90,7 @@ public class MenuBehaviour implements Behaviour
         else {
             initializeResources();
             initializeSelection(world);
+            initializePopulation(world);
         }
     }
 
@@ -116,6 +119,12 @@ public class MenuBehaviour implements Behaviour
         statusPane.setSelected(selection);
     }
 
+    private void initializePopulation(ItemRoot world) {
+        for (Item farm: world.findAll(withType(UnitType.Farm))){
+            player.incrementStatistic(PlayerStatistic.Population, 5);
+        }
+    }
+
     private void updateSelectionRecipients() {
         for (SelectEvent event: events.getEvents(SelectEvent.class)) {
             actionPane.setSelected(event.getSubject(), event.getSelected());
@@ -140,6 +149,10 @@ public class MenuBehaviour implements Behaviour
             if (event.getStatus() == ConstructStatus.Complete) {
                 Player player = UnitOperations.getPlayer(event.getSubject());
                 player.incrementStatistic(PlayerStatistic.Buildings, 1);
+
+                if (event.getBuilding().getType() == UnitType.Farm) {
+                    player.incrementStatistic(PlayerStatistic.Population, 5);
+                }
             }
         }
     }
@@ -169,6 +182,10 @@ public class MenuBehaviour implements Behaviour
                 Player player = UnitOperations.getPlayer(event.getSubject());
                 player.incrementStatistic(statistic, 1);
                 player.incrementStatistic(Score, getScoreValue(event.getTarget()));
+
+                if (event.getTarget().getType() == UnitType.Farm) {
+                    player.decrementStatistic(PlayerStatistic.Population, 5);
+                }
             }
         }
     }

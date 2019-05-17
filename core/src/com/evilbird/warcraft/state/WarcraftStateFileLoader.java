@@ -67,6 +67,7 @@ public class WarcraftStateFileLoader
     private static final String GOLD_PROPERTY = "Gold";
     private static final String OIL_PROPERTY = "Oil";
     private static final String WOOD_PROPERTY = "Wood";
+    private static final String FOOD_PROPERTY = "Food";
     private static final String ZINDEX_PROPERTY = "ZIndex";
 
     private TiledMapLoader mapLoader;
@@ -205,9 +206,10 @@ public class WarcraftStateFileLoader
             Player player = (Player)item;
             player.setCorporeal(! properties.get(AI_PROPERTY, Boolean.class));
             player.setDescription(properties.get(DESCRIPTION_PROPERTY, String.class));
-            player.setResource(ResourceType.Gold, properties.get(GOLD_PROPERTY, Float.class));
-            player.setResource(ResourceType.Oil, properties.get(OIL_PROPERTY, Float.class));
-            player.setResource(ResourceType.Wood, properties.get(WOOD_PROPERTY, Float.class));
+            player.setResource(ResourceType.Gold, getFloatProperty(properties, GOLD_PROPERTY));
+            player.setResource(ResourceType.Oil, getFloatProperty(properties, OIL_PROPERTY));
+            player.setResource(ResourceType.Wood, getFloatProperty(properties, WOOD_PROPERTY));
+            player.setResource(ResourceType.Food, getFloatProperty(properties, FOOD_PROPERTY));
         }
     }
 
@@ -257,5 +259,9 @@ public class WarcraftStateFileLoader
     private String getOwner(MapProperties properties) {
         String owner = (String)properties.get(OWNER_PROPERTY);
         return owner == null ? ROOT_ID : owner;
+    }
+
+    private float getFloatProperty(MapProperties properties, String name) {
+        return properties.containsKey(name) ? properties.get(name, Float.class) : 0;
     }
 }

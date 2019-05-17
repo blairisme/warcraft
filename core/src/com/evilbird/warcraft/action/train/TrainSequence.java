@@ -17,6 +17,7 @@ import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.purchase;
 import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacentSubject;
 import static com.evilbird.warcraft.action.train.TrainAction.startProducing;
+import static com.evilbird.warcraft.action.train.TrainAttributes.productionCost;
 import static com.evilbird.warcraft.action.train.TrainEvents.onTrainCompleted;
 import static com.evilbird.warcraft.action.train.TrainEvents.onTrainStarted;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
@@ -50,7 +51,7 @@ public class TrainSequence extends ScenarioAction<TrainActions>
     protected void steps(TrainActions type) {
         scenario(type);
         given(isAlive());
-        then(purchase(type, reporter), onTrainStarted(reporter));
+        then(purchase(productionCost(type), reporter), onTrainStarted(reporter));
         then(startProducing(type));
         thenUpdate(create(type.getItemType(), reporter));
         then(moveAdjacentSubject(), onTrainCompleted(reporter));

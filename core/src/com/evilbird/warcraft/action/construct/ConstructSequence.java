@@ -10,11 +10,15 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.framework.ScenarioSetAction;
+import com.evilbird.engine.common.collection.Sets;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemType;
+import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
+import java.util.Collections;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import static com.evilbird.engine.action.common.ActionRecipient.Target;
@@ -28,6 +32,7 @@ import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.item.utility.ItemSuppliers.ifExists;
 import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
+import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.deposit;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.purchase;
 import static com.evilbird.warcraft.action.construct.ConstructAction.construct;
 import static com.evilbird.warcraft.action.construct.ConstructEvents.constructCompleted;
@@ -40,6 +45,8 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholder;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.notAdjacent;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.unassignConstruction;
+import static com.evilbird.warcraft.item.common.resource.ResourceQuantum.resource;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Food;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.BuildingSite;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Construct;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
@@ -110,6 +117,7 @@ public class ConstructSequence extends ScenarioSetAction
             .then(hide(), disable(), deselect(reporter), animate(Target, Construct), unassignConstruction())
             .then(construct(building), playRepeat(Build, 3, 5))
             .then(show(), enable(), animate(Idle), animate(Target, Idle), play(Complete), moveAdjacentTarget())
+            .then(deposit(resources(building), reporter))
             .then(constructCompleted(reporter));
     }
 
@@ -120,5 +128,12 @@ public class ConstructSequence extends ScenarioSetAction
             building.setAnimation(BuildingSite);
             building.setPosition(getTarget().getPosition());
         };
+    }
+
+    private Set<ResourceQuantity> resources(ConstructActions building) {
+        if (building == ConstructActions.ConstructFarm) {
+            return Sets.of(resource(Food, 5));
+        }
+        return Collections.emptySet();
     }
 }

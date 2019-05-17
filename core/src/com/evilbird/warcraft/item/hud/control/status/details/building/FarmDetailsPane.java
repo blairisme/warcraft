@@ -12,8 +12,15 @@ package com.evilbird.warcraft.item.hud.control.status.details.building;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
+import com.evilbird.engine.common.control.LabelProperty;
 import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.data.player.PlayerStatistic;
 import com.evilbird.warcraft.item.unit.building.Building;
+
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Instances of this user interface show details about a farm.
@@ -22,9 +29,9 @@ import com.evilbird.warcraft.item.unit.building.Building;
  */
 public class FarmDetailsPane extends GridItem
 {
-    private Building building;
-    private Label grown;
-    private Label used;
+    private Player player;
+    private LabelProperty grown;
+    private LabelProperty used;
 
     public FarmDetailsPane(Skin skin) {
         super(1, 3);
@@ -34,30 +41,50 @@ public class FarmDetailsPane extends GridItem
         setCellWidth(160);
         setCellHeight(12);
 
-        grown = createLabel("Grown", skin);
-        used = createLabel("Used", skin);
-
-        add(createLabel("Food Usage", skin));
-        add(grown);
-        add(used);
+        addLabel("Food Usage", skin);
+        grown = addLabel(skin, this::getGrown, this::getGrownLabel);
+        used = addLabel(skin, this::getUsed, this::getUsedLabel);
     }
 
     public void setBuilding(Building building) {
-        this.building = building;
+        this.player = (Player)building.getParent();
     }
 
-    private String getText(String prefix, float suffix) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(prefix);
-        stringBuilder.append(": ");
-        stringBuilder.append(Math.round(suffix));
-        return stringBuilder.toString();
+    @Override
+    public void update(float delta) {
+        super.update(delta);
+        grown.evaluate();
+        used.evaluate();
     }
 
-    private Label createLabel(String text, Skin skin) {
+    private LabelProperty addLabel(Skin skin, Supplier<Float> value, Function<Float, String> text) {
+        Label label = addLabel("", skin);
+        return new LabelProperty(label, value, text);
+    }
+
+    private Label addLabel(String text, Skin skin) {
         Label result = new Label(text, skin);
         result.setSize(160, 12);
         result.setAlignment(Align.center);
+        add(result);
         return result;
+    }
+
+    private Float getGrown() {
+        return (float)player.getStatistic(PlayerStatistic.Population);
+    }
+
+    private String getGrownLabel(Float value) {
+        return "Grown: " + Math.round(value);
+    }
+
+    private Float getUsed() {
+        float total = player.getStatistic(PlayerStatistic.Population);
+        float remaining = player.getResource(ResourceType.Food);
+        return total - remaining;
+    }
+
+    private String getUsedLabel(Float value) {
+        return "Used: " + Math.round(value);
     }
 }

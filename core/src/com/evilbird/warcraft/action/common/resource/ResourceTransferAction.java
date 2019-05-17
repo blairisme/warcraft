@@ -19,6 +19,10 @@ import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.DataType;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
+
 import static com.evilbird.engine.action.common.ActionRecipient.Player;
 import static com.evilbird.engine.item.utility.ItemOperations.findAncestorByType;
 
@@ -32,8 +36,8 @@ public class ResourceTransferAction extends BasicAction
 {
     private float factor;
     private ActionRecipient target;
-    private ResourceQuantity quantity;
     private ResourceTransferObserver observer;
+    private Collection<ResourceQuantity> quantities;
 
     private ResourceTransferAction(
         ActionRecipient target,
@@ -41,40 +45,82 @@ public class ResourceTransferAction extends BasicAction
         float factor,
         ResourceTransferObserver observer)
     {
+        this(target, Collections.singleton(quantity), factor, observer);
+    }
+
+    private ResourceTransferAction(
+        ActionRecipient target,
+        Collection<ResourceQuantity> quantities,
+        float factor,
+        ResourceTransferObserver observer)
+    {
         this.target = target;
-        this.quantity = quantity;
+        this.quantities = quantities;
         this.factor = factor;
         this.observer = observer;
     }
 
     public static Action purchase(
-        ResourceQuantity amount,
+        ResourceQuantity quantity,
         ResourceTransferObserver observer)
     {
-        return new ResourceTransferAction(Player, amount, -1, observer);
+        return new ResourceTransferAction(Player, quantity, -1, observer);
+    }
+
+    public static Action purchase(
+        Set<ResourceQuantity> quantities,
+        ResourceTransferObserver observer)
+    {
+        return new ResourceTransferAction(Player, quantities, -1, observer);
+    }
+
+    public static Action deposit(ResourceQuantity quantity, ResourceTransferObserver observer) {
+        return new ResourceTransferAction(Player, quantity, 1, observer);
+    }
+
+    public static Action deposit(Set<ResourceQuantity> quantities, ResourceTransferObserver observer) {
+        return new ResourceTransferAction(Player, quantities, 1, observer);
     }
 
     public static Action refund(
-        ResourceQuantity amount,
+        ResourceQuantity quantity,
         float proportion,
         ResourceTransferObserver observer)
     {
-        return new ResourceTransferAction(Player, amount, proportion, observer);
+        return new ResourceTransferAction(Player, quantity, proportion, observer);
     }
 
     public static Action transfer(
         ActionRecipient from,
         ActionRecipient to,
-        ResourceQuantity amount,
+        ResourceQuantity quantity,
         ResourceTransferObserver observer)
     {
-        Action transferFrom = new ResourceTransferAction(from, amount, -1, observer);
-        Action transferTo = new ResourceTransferAction(to, amount, 1, observer);
+        Action transferFrom = new ResourceTransferAction(from, quantity, -1, observer);
+        Action transferTo = new ResourceTransferAction(to, quantity, 1, observer);
+        return new ParallelAction(transferFrom, transferTo);
+    }
+
+    public static Action transfer(
+        ActionRecipient from,
+        ActionRecipient to,
+        Set<ResourceQuantity> quantities,
+        ResourceTransferObserver observer)
+    {
+        Action transferFrom = new ResourceTransferAction(from, quantities, -1, observer);
+        Action transferTo = new ResourceTransferAction(to, quantities, 1, observer);
         return new ParallelAction(transferFrom, transferTo);
     }
 
     @Override
     public boolean act(float time) {
+        for (ResourceQuantity quantity: quantities){
+            setResources(quantity);
+        }
+        return true;
+    }
+
+    private void setResources(ResourceQuantity quantity) {
         ResourceType resource = quantity.getResource();
         ResourceContainer container = getContainer();
 
@@ -84,8 +130,6 @@ public class ResourceTransferAction extends BasicAction
 
         container.setResource(resource, newValue);
         notifyObserver(container, resource, oldValue, newValue);
-
-        return true;
     }
 
     private ResourceContainer getContainer() {
