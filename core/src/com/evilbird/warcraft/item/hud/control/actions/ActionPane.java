@@ -57,7 +57,7 @@ public class ActionPane extends GridItem implements MenuProvider
         setCellHeight(46);
         setIdentifier(HudControl.ActionPane);
         setType(HudControl.ActionPane);
-        setTouchable(Touchable.childrenOnly);
+        setTouchable(Touchable.enabled);
     }
 
     public void setConstructing(Building building, boolean constructing) {
