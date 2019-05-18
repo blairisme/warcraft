@@ -21,6 +21,7 @@ import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
+import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.layer.Layer;
 import com.evilbird.warcraft.item.layer.LayerAdapter;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -78,7 +79,7 @@ public class Fog extends Layer
             initialize();
         }
         else {
-            revealItems();
+            evaluateEvents();
         }
     }
 
@@ -96,12 +97,19 @@ public class Fog extends Layer
         }
     }
 
-    private void revealItems() {
+    private void evaluateEvents() {
         for (MoveEvent moveEvent: events.getEvents(MoveEvent.class)) {
-            revealItem(moveEvent.getSubject());
+            evaluateEvent(moveEvent.getSubject());
         }
         for (CreateEvent createEvent: events.getEvents(CreateEvent.class)) {
-            revealItem(createEvent.getSubject());
+            evaluateEvent(createEvent.getSubject());
+        }
+    }
+
+    private void evaluateEvent(Item item) {
+        Player player = UnitOperations.getPlayer(item);
+        if (player.isCorporeal()) {
+            revealItem(item);
         }
     }
 
@@ -113,10 +121,10 @@ public class Fog extends Layer
 
     private void revealItem(Item item) {
         Collection<GridPoint2> revealedCells = getRevealedCells(item);
-        for (GridPoint2 revealedCell: revealedCells){
+        for (GridPoint2 revealedCell : revealedCells) {
             layer.setCell(revealedCell.x, revealedCell.y, style.empty);
         }
-        for (GridPoint2 revealedCell: revealedCells){
+        for (GridPoint2 revealedCell : revealedCells) {
             updateCellEdges(revealedCell.x, revealedCell.y);
         }
     }
