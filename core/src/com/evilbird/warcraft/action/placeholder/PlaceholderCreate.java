@@ -11,8 +11,8 @@ package com.evilbird.warcraft.action.placeholder;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 
 import javax.inject.Inject;
 import java.util.function.Consumer;

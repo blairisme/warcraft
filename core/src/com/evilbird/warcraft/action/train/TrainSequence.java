@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.train;
 
 import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
 
@@ -58,10 +59,16 @@ public class TrainSequence extends ScenarioAction<TrainActions>
     protected void steps(UnitType unit) {
         given(isAlive());
         then(purchase(costOf(unit), reporter), onTrainStarted(reporter));
-        then(startProducing(trainTime(unit)));
+        then(startProducing(trainProgress(unit), trainTime(unit)));
         thenUpdate(create(unit, reporter));
         then(moveAdjacentSubject(), onTrainCompleted(reporter));
     }
 
-
+    private float trainProgress(UnitType unit) {
+        Building building = (Building)getItem();
+        if (building.isProducing()) {
+            return building.getProductionProgress() * trainTime(unit);
+        }
+        return 0;
+    }
 }

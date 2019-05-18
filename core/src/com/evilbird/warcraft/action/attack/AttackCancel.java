@@ -11,8 +11,8 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.LambdaAction;
-import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;

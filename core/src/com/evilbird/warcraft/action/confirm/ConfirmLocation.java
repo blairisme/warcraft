@@ -10,13 +10,13 @@
 package com.evilbird.warcraft.action.confirm;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.RandomIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 
 import javax.inject.Inject;
 import java.util.function.Consumer;

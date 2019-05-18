@@ -25,16 +25,54 @@ public class DelayedAction extends BasicAction
     private float duration;
     private float total;
 
-    public DelayedAction() {
+    private DelayedAction() {
     }
 
-    public DelayedAction(float seconds) {
-        this.duration = seconds;
+    /**
+     * Constructs a new instance of this class lasting the given time.
+     *
+     * @param duration  the length of the delay, in seconds.
+     */
+    public DelayedAction(float duration) {
         this.total = 0;
+        this.duration = duration;
     }
 
-    public static DelayedAction delay(float seconds) {
-        return new DelayedAction(seconds);
+    /**
+     * Constructs a new instance of this class starting and lasting the given
+     * times.
+     *
+     * @param start     that starting point of the delay, if the delay is
+     *                  partially complete.
+     * @param duration  the length of the delay, in seconds.
+     */
+    public DelayedAction(float start, float duration) {
+        this.total = start;
+        this.duration = duration;
+    }
+
+    /**
+     * Returns a delay action lasting the given time.
+     *
+     * @param duration  the length of the delay, in seconds.
+     *
+     * @return a new DelayedAction.
+     */
+    public static DelayedAction delay(float duration) {
+        return new DelayedAction(duration);
+    }
+
+    /**
+     * Returns a delay action starting and lasting the given times.
+     *
+     * @param start     that starting point of the delay, if the delay is
+     *                  partially complete.
+     * @param duration  the length of the delay, in seconds.
+     *
+     * @return a new DelayedAction.
+     */
+    public static DelayedAction delay(float start, float duration) {
+        return new DelayedAction(start, duration);
     }
 
     @Override

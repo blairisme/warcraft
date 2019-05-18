@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.action.construct;
 
-import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
