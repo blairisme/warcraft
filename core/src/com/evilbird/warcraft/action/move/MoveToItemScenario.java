@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.ScenarioAction;
+import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 import com.evilbird.engine.item.Item;
 
 import javax.inject.Inject;

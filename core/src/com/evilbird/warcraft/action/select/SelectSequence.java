@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.ScenarioSetAction;
+import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
 import org.apache.commons.lang3.builder.EqualsBuilder;

@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.construct;
 
-import com.evilbird.engine.action.framework.ScenarioAction;
+import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;

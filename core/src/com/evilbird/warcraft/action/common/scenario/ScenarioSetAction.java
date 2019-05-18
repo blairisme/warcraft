@@ -1,15 +1,17 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.action.framework;
+package com.evilbird.warcraft.action.common.scenario;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
 
@@ -19,16 +21,19 @@ import com.evilbird.engine.common.lang.TextIdentifier;
  *
  * @author Blair Butterworth
  */
-public class ScenarioSetAction extends ParallelAction
+public class ScenarioSetAction extends BasicAction
 {
-    private boolean reevaluate;
+    private transient boolean reevaluate;
+    private transient ParallelAction actions;
 
     public ScenarioSetAction() {
         super();
+        reevaluate = false;
+        actions = new ParallelAction();
     }
 
     public void reevaluate() {
-        this.reevaluate = true;
+        reevaluate = true;
     }
 
     public void feature(Identifier identifier) {
@@ -41,7 +46,7 @@ public class ScenarioSetAction extends ParallelAction
         scenario.setItem(getItem());
         scenario.setTarget(getTarget());
         scenario.setCause(getCause());
-        add(scenario);
+        actions.add(scenario);
         return scenario;
     }
 
@@ -50,7 +55,7 @@ public class ScenarioSetAction extends ParallelAction
         if (actions.isEmpty()){
             features();
         }
-        boolean result = super.act(delta);
+        boolean result = actions.act(delta);
         if (result && repeat()) {
             restart();
             result = false;
@@ -63,7 +68,7 @@ public class ScenarioSetAction extends ParallelAction
 
     private boolean repeat() {
         if (reevaluate) {
-            for (Action action: getActions()) {
+            for (Action action: actions.getActions()) {
                 ScenarioAction scenario = (ScenarioAction)action;
                 if (scenario.evaluate()) {
                     return true;

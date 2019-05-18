@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.ScenarioSetAction;
+import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;

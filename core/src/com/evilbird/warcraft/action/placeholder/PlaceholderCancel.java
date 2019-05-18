@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.placeholder;
 
-import com.evilbird.engine.action.framework.ScenarioAction;
+import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
