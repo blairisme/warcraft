@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.unit.combatant.human;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -53,7 +54,8 @@ public class FootmanFactory implements AssetProvider<Item>
     private static final String ACKNOWLEDGE = "data/sounds/human/unit/footman/acknowledge/";
     private static final String SELECTED = "data/sounds/human/unit/footman/selected/";
     private static final String ATTACK = "data/sounds/neutral/unit/attack/melee/";
-    private static final String DEAD = "data/sounds/human/unit/common/dead/";
+    private static final String READY = "data/sounds/human/unit/footman/ready/1.mp3";
+    private static final String DEAD = "data/sounds/human/unit/common/dead/1.mp3";
 
     private AssetManager assets;
 
@@ -82,7 +84,8 @@ public class FootmanFactory implements AssetProvider<Item>
         loadSoundSet(assets, ACKNOWLEDGE, MP3, 4);
         loadSoundSet(assets, SELECTED, MP3, 6);
         loadSoundSet(assets, ATTACK, MP3, 3);
-        loadSoundSet(assets, DEAD, MP3, 1);
+        assets.load(DEAD, Sound.class);
+        assets.load(READY, Sound.class);
     }
 
     @Override
@@ -134,7 +137,8 @@ public class FootmanFactory implements AssetProvider<Item>
         sounds.put(UnitSound.Acknowledge, newSoundEffect(assets, ACKNOWLEDGE, MP3, 4));
         sounds.put(UnitSound.Selected, newSoundEffect(assets, SELECTED, MP3, 6));
         sounds.put(UnitSound.Attack, newSoundEffect(assets, ATTACK, MP3, 3));
-        sounds.put(UnitSound.Die, newSoundEffect(assets, DEAD, MP3, 1));
+        sounds.put(UnitSound.Die, newSoundEffect(assets, DEAD));
+        sounds.put(UnitSound.Ready, newSoundEffect(assets, READY));
         return sounds;
     }
 

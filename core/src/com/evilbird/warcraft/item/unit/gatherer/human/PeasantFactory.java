@@ -61,6 +61,7 @@ public class PeasantFactory implements AssetProvider<Item>
     private static final String COMPLETE = "data/sounds/human/unit/peasant/complete/1.mp3";
     private static final String CONSTRUCT = "data/sounds/human/unit/peasant/construct/1.mp3";
     private static final String READY = "data/sounds/human/unit/peasant/ready/1.mp3";
+    private static final String DEAD = "data/sounds/human/unit/common/dead/1.mp3";
 
     private AssetManager assets;
 
@@ -92,6 +93,7 @@ public class PeasantFactory implements AssetProvider<Item>
         assets.load(COMPLETE, Sound.class);
         assets.load(CONSTRUCT, Sound.class);
         assets.load(READY, Sound.class);
+        assets.load(DEAD, Sound.class);
 
         loadSoundSet(assets, SELECTED, MP3, 4);
         loadSoundSet(assets, ACKNOWLEDGE, MP3, 4);
@@ -147,8 +149,9 @@ public class PeasantFactory implements AssetProvider<Item>
         sounds.put(UnitSound.Acknowledge, newSoundEffect(assets, ACKNOWLEDGE, MP3, 4));
         sounds.put(UnitSound.Build, newSoundEffect(assets, CONSTRUCT));
         sounds.put(UnitSound.Complete, newSoundEffect(assets, COMPLETE));
-        sounds.put(UnitSound.Attack, newSoundEffect(assets, ATTACK));
         sounds.put(UnitSound.Ready, newSoundEffect(assets, READY));
+        sounds.put(UnitSound.Attack, newSoundEffect(assets, ATTACK));
+        sounds.put(UnitSound.Die, newSoundEffect(assets, DEAD));
         sounds.put(UnitSound.ChopWood, newSoundEffect(assets, CHOPPING, MP3, 4));
         sounds.put(UnitSound.MineGold, new SilentSoundEffect());
         sounds.put(UnitSound.DepositGold, new SilentSoundEffect());
