@@ -11,6 +11,9 @@ package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 /**
  * Instances of this {@link Action} copy the subject and target of a given
  * delegate when invoked.
@@ -19,18 +22,18 @@ import com.evilbird.engine.action.Action;
  */
 public class CopyAction extends DelegateAction
 {
-    private Action host;
+    private Collection<Action> receivers;
 
-    public CopyAction(Action delegate, Action host) {
+    public CopyAction(Action delegate, Action ... receivers) {
         super(delegate);
-        this.host = host;
+        this.receivers = Arrays.asList(receivers);
     }
 
     @Override
     public boolean act(float delta) {
         boolean result = delegate.act(delta);
-        host.setItem(delegate.getItem());
-        host.setTarget(delegate.getTarget());
+        receivers.forEach(receiver -> receiver.setItem(delegate.getItem()));
+        receivers.forEach(receiver -> receiver.setTarget(delegate.getTarget()));
         return result;
     }
 }

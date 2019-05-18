@@ -14,7 +14,6 @@ import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.common.function.Predicates;
 import com.evilbird.engine.common.lang.Movable;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.utility.ItemPredicates;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.DataType;
@@ -28,6 +27,7 @@ import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import java.util.Objects;
 import java.util.function.Predicate;
 
+import static com.evilbird.engine.item.utility.ItemOperations.isNear;
 import static com.evilbird.warcraft.action.common.path.ItemPathFinder.hasPath;
 
 /**
@@ -127,8 +127,9 @@ public class UnitPredicates
         };
     }
 
-    public static Predicate<Item> isAdjacent(Item item) {
-        return ItemPredicates.isNear(item, item.getWidth());
+    public static Predicate<Item> isAdjacent(Item locus) {
+        Objects.requireNonNull(locus);
+        return item -> item != null && isNear(locus, locus.getWidth(), item);
     }
 
     public static Predicate<Item> notAdjacent(Item item) {
@@ -136,7 +137,8 @@ public class UnitPredicates
     }
 
     public static Predicate<Item> inRange(Combatant combatant) {
-        return ItemPredicates.isNear(combatant, combatant.getRange());
+        Objects.requireNonNull(combatant);
+        return item -> item != null && isNear(combatant, combatant.getRange(), item);
     }
 
     public static Predicate<Item> notInRange(Combatant combatant) {

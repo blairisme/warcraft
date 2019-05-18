@@ -26,5 +26,16 @@ public class ItemSuppliers
 
     public static Supplier<Item> ifExists(Item item) {
         return () -> item.getParent().containsItem(item) ? item : null;
+        /*
+                return () -> {
+            if (item != null) {
+                ItemGroup parent = item.getParent();
+                if (parent != null && parent.containsItem(item)) {
+                    return item;
+                }
+            }
+            return null;
+        };
+         */
     }
 }

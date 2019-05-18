@@ -111,8 +111,8 @@ public class ConstructSequence extends ScenarioSetAction
             .whenItem(isAdjacent(getTarget()))
             .whenTarget(isPlaceholder())
             .then(purchase(costOf(building), reporter))
-            .thenUpdate(remove(Target, reporter))
-            .thenUpdate(create(building, properties(), reporter))
+            .thenUpdate(create(building, properties(), reporter), this)
+            .thenUpdate(remove(Target, reporter), this)
             .then(constructStarted(reporter))
             .then(hide(), disable(), deselect(reporter), animate(Target, Construct), unassignConstruction())
             .then(construct(buildTime(building)), playRepeat(Build, 3, 5))
@@ -128,5 +128,13 @@ public class ConstructSequence extends ScenarioSetAction
             building.setAnimation(BuildingSite);
             building.setPosition(getTarget().getPosition());
         };
+    }
+
+    private float constructProgress(UnitType unit) {
+        Building building = (Building)getItem();
+        if (building.isConstructing()) {
+            return building.getConstructionProgress() * buildTime(unit);
+        }
+        return 0;
     }
 }

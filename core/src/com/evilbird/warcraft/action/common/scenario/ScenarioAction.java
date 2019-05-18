@@ -245,24 +245,13 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * @return this scenario.
      */
     public ScenarioAction thenUpdate(Action action) {
-        Objects.requireNonNull(action);
-        then.add(new CopyAction(action, then));
-        scenario = null;
-        return this;
+        return thenUpdate(action, then);
     }
 
-    /**
-     * Specifies the subject of the Scenario, the {@link Item} that the
-     * Scenario will operate on.
-     *
-     * @param item  an {@code Subject} instance. This parameter cannot be
-     *              {@code null}.
-     *
-     * @return this scenario.
-     */
-    public ScenarioAction withItem(Item item) {
-        Objects.requireNonNull(item);
-        setItem(item);
+    public ScenarioAction thenUpdate(Action action, Action receiver) {
+        Objects.requireNonNull(action);
+        then.add(new CopyAction(action, then, receiver));
+        scenario = null;
         return this;
     }
 
