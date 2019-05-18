@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.action.train;
@@ -31,12 +31,8 @@ public class TrainAction extends DelayedAction
         this.recipient = recipient;
     }
 
-    public static TrainAction startProducing(TrainActions producible) {
-        return startProducing(ActionRecipient.Subject, producible);
-    }
-
-    public static TrainAction startProducing(ActionRecipient source, TrainActions producible) {
-        return new TrainAction(source, producible.getDuration());
+    public static TrainAction startProducing(float duration) {
+        return new TrainAction(ActionRecipient.Subject, duration);
     }
 
     public static TrainAction stopProducing() {

@@ -1,15 +1,16 @@
 /*
- * Blair Butterworth (c) 2018
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.action.train;
 
 import com.evilbird.engine.action.framework.ScenarioAction;
+import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
 
@@ -17,10 +18,11 @@ import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.purchase;
 import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacentSubject;
 import static com.evilbird.warcraft.action.train.TrainAction.startProducing;
-import static com.evilbird.warcraft.action.train.TrainAttributes.productionCost;
 import static com.evilbird.warcraft.action.train.TrainEvents.onTrainCompleted;
 import static com.evilbird.warcraft.action.train.TrainEvents.onTrainStarted;
+import static com.evilbird.warcraft.action.train.TrainTimes.trainTime;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.item.unit.UnitCosts.costOf;
 
 /**
  * Instances of this action sequence create a new unit, decrementing the
@@ -48,12 +50,18 @@ public class TrainSequence extends ScenarioAction<TrainActions>
     }
 
     @Override
-    protected void steps(TrainActions type) {
-        scenario(type);
+    protected void steps(TrainActions action) {
+        scenario(action);
+        steps(action.getUnitType());
+    }
+
+    protected void steps(UnitType unit) {
         given(isAlive());
-        then(purchase(productionCost(type), reporter), onTrainStarted(reporter));
-        then(startProducing(type));
-        thenUpdate(create(type.getItemType(), reporter));
+        then(purchase(costOf(unit), reporter), onTrainStarted(reporter));
+        then(startProducing(trainTime(unit)));
+        thenUpdate(create(unit, reporter));
         then(moveAdjacentSubject(), onTrainCompleted(reporter));
     }
+
+
 }

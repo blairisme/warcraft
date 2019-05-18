@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.action.construct;
@@ -54,12 +54,8 @@ public class ConstructAction extends DelayedAction
         this.building = building;
     }
 
-    public static ConstructAction construct(ConstructActions action) {
-        return construct(Target, Subject, action);
-    }
-
-    public static ConstructAction construct(ActionRecipient building, ActionRecipient builder, ConstructActions action){
-        return new ConstructAction(building, builder, action.getDuration());
+    public static ConstructAction construct(float duration){
+        return new ConstructAction(Target, Subject, duration);
     }
 
     public static ConstructAction stopConstructing() {

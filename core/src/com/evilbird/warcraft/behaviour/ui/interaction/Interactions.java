@@ -39,7 +39,7 @@ import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructB
 import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructFarm;
 import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructFarmCancel;
 import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructTownHall;
-import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructTownhallCancel;
+import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructTownHallCancel;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherCancel;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherGold;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherWood;
@@ -190,7 +190,7 @@ public class Interactions
     private void cancelConstruction() {
         cancelConstruction(ConstructBarracksCancel, Barracks);
         cancelConstruction(ConstructFarmCancel, Farm);
-        cancelConstruction(ConstructTownhallCancel, TownHall);
+        cancelConstruction(ConstructTownHallCancel, TownHall);
     }
 
     private void cancelConstruction(ActionIdentifier cancel, UnitType building) {

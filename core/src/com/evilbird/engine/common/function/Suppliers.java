@@ -9,7 +9,13 @@
 
 package com.evilbird.engine.common.function;
 
+import com.badlogic.gdx.math.MathUtils;
+
+import java.util.Collection;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
+
+import static java.util.Collections.singleton;
 
 /**
  * Instances of this class define commonly used {@link Supplier Suppliers}.
@@ -22,35 +28,19 @@ public class Suppliers
         throw new UnsupportedOperationException();
     }
 
-    public static Supplier<Boolean> isTrue() {
-        return () -> Boolean.TRUE;
-    }
-
-    public static <T> Supplier<T> constantValue(final T value){
+    public static <T> Supplier<Collection<T>> constant(Collection<T> value) {
         return () -> value;
     }
 
-    public static ResettableSupplier<Boolean> counter(int times) {
-        return new Counter(times);
+    public static <T> Supplier<Collection<T>> constant(T value) {
+        return () -> singleton(value);
     }
 
-    private static class Counter implements ResettableSupplier<Boolean> {
-        private int times;
-        private int count;
+    public static BiFunction<Float, Float, Float> increment() {
+        return (current, delta) -> MathUtils.clamp(current + delta, 0f, Float.MAX_VALUE);
+    }
 
-        public Counter(int times) {
-            this.times = times;
-            this.count = 0;
-        }
-
-        @Override
-        public Boolean get() {
-            return count++ < times;
-        }
-
-        @Override
-        public void reset() {
-            count = 0;
-        }
+    public static BiFunction<Float, Float, Float> decrement() {
+        return (current, delta) -> MathUtils.clamp(current - delta, 0f, Float.MAX_VALUE);
     }
 }

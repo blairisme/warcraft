@@ -20,6 +20,9 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
  */
 public class AttackEvents
 {
+    private AttackEvents() {
+    }
+
     public static Action notifyStarted(AttackReporter reporter) {
         return new LambdaAction((attacker, target) ->
             reporter.onAttackStarted((Combatant)attacker, target));

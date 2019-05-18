@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.action.construct;
@@ -43,12 +43,12 @@ public class ConstructFactory implements ActionProvider
         ConstructActions constructAction = (ConstructActions)action;
 
         switch (constructAction) {
-            case ConstructBarracksCancel:
-            case ConstructTownhallCancel:
-            case ConstructFarmCancel: return getCancelAction(constructAction);
             case ConstructBarracks:
             case ConstructTownHall:
             case ConstructFarm: return getConstructAction(constructAction);
+            case ConstructBarracksCancel:
+            case ConstructTownHallCancel:
+            case ConstructFarmCancel: return getCancelAction(constructAction);
             default: throw new UnsupportedOperationException();
         }
     }

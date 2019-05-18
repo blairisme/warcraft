@@ -37,6 +37,7 @@ import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
 import static com.evilbird.engine.common.file.FileType.MP3;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Food;
 
 /**
  * Instances of this class create {@link Building Farms}, loading the
@@ -86,7 +87,7 @@ public class FarmFactory implements AssetProvider<Item>
     public Item get() {
         Building result = new Building(getSkin());
         result.setAnimation(UnitAnimation.Idle);
-        result.setSight(1);  //1
+        result.setSight(1);
         result.setHealth(400);
         result.setHealthMaximum(400);
         result.setName("Farm");
@@ -94,6 +95,7 @@ public class FarmFactory implements AssetProvider<Item>
         result.setIdentifier(objectIdentifier("Farm", result));
         result.setSize(64, 64);
         result.setZIndex(0);
+        result.setResource(Food, 5);
         return result;
     }
 

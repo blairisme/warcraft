@@ -22,6 +22,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import static com.evilbird.warcraft.action.train.TrainActions.TrainFootman;
+import static com.evilbird.warcraft.action.train.TrainTimes.trainTime;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 
 /**
@@ -42,13 +44,13 @@ public class TrainSequenceTest extends ActionTestCase
     @Override
     protected Action newAction() {
         TrainSequence action = new TrainSequence(reporter);
-        action.setIdentifier(TrainActions.TrainFootman);
+        action.setIdentifier(TrainFootman);
         return action;
     }
 
     @Override
     protected Enum newIdentifier() {
-        return TrainActions.TrainFootman;
+        return TrainFootman;
     }
 
     @Override
@@ -70,7 +72,7 @@ public class TrainSequenceTest extends ActionTestCase
         Assert.assertFalse(action.act(1));
         Assert.assertEquals(0.1f, subject.getProductionProgress(), 0.1f);
 
-        Assert.assertFalse(action.act(TrainActions.TrainFootman.getDuration() + 10));
+        Assert.assertFalse(action.act(trainTime(TrainFootman.getUnitType()) + 10));
         Assert.assertFalse(subject.isProducing());
 
         Assert.assertFalse(action.act(1));
