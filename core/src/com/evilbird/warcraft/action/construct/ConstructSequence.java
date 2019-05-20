@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.action.construct;
 
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -26,7 +27,8 @@ import static com.evilbird.engine.action.common.DisableAction.enable;
 import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
-import static com.evilbird.engine.item.utility.ItemSuppliers.ifExists;
+import static com.evilbird.engine.action.predicates.ActionPredicates.target;
+import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
 import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
 import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.purchase;
@@ -38,10 +40,9 @@ import static com.evilbird.warcraft.action.construct.ConstructTimes.buildTime;
 import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacentTarget;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAdjacent;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholder;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.notAdjacent;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.unassignConstruction;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.BuildingSite;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Construct;
@@ -71,68 +72,64 @@ public class ConstructSequence extends ScenarioSetAction
     @Inject
     public ConstructSequence(ConstructReporter reporter) {
         this.reporter = reporter;
-        reevaluate();
     }
 
     @Override
     protected void features() {
-        ConstructActions building = (ConstructActions)getIdentifier();
-        reposition();
-        prepare();
+        ConstructActions action = (ConstructActions)getIdentifier();
+        features(action.getUnitType());
+    }
+
+    private void features(UnitType building) {
         build(building);
-    }
-
-    private void reposition() {
-        scenario("reposition builder")
-            .withTarget(ifExists(getTarget()))
-            .given(isAlive())
-            .givenItem(isAlive())
-            .whenTarget(isPlaceholder())
-            .when(notAdjacent(getTarget()))
-            .then(animate(Move))
-            .then(move(reporter))
-            .then(animate(Idle));
-    }
-
-    private void prepare() {
-        scenario("hide building placeholder")
-            .withTarget(ifExists(getTarget()))
-            .whenTarget(isPlaceholder())
-            .then(hide(Target));
-    }
-
-    private void build(ConstructActions action) {
-        build(action.getUnitType());
+        resume(building);
     }
 
     private void build(UnitType building) {
-        scenario("construct building")
-            .withTarget(ifExists(getTarget()))
-            .whenItem(isAdjacent(getTarget()))
+        scenario("Construct Building")
+            .givenItem(isAlive())
             .whenTarget(isPlaceholder())
+            .then(animate(Move))
+            .then(move(reporter))
+            .then(animate(Idle))
             .then(purchase(costOf(building), reporter))
+            .then(remove(Target, reporter))
             .thenUpdate(create(building, properties(), reporter), this)
-            .thenUpdate(remove(Target, reporter), this)
             .then(constructStarted(reporter))
             .then(hide(), disable(), deselect(reporter), animate(Target, Construct), unassignConstruction())
-            .then(construct(buildTime(building)), playRepeat(Build, 3, 5))
+            .then(construct(buildProgress(building), buildTime(building)), playRepeat(Build, 3, 5))
+            .then(show(), enable(), animate(Idle), animate(Target, Idle), play(Complete), moveAdjacentTarget())
+            .then(transfer(Target, Player, reporter))
+            .then(constructCompleted(reporter));
+    }
+
+
+    private void resume(UnitType building) {
+        scenario("Resume Construction")
+            .givenItem(isAlive())
+            .whenTarget(hasType(building))
+            .whenTarget(isConstructing())
+            .then(construct(buildProgress(building), buildTime(building)), playRepeat(Build, target(isConstructing())))
             .then(show(), enable(), animate(Idle), animate(Target, Idle), play(Complete), moveAdjacentTarget())
             .then(transfer(Target, Player, reporter))
             .then(constructCompleted(reporter));
     }
 
     private Consumer<Item> properties() {
+        Vector2 position = getTarget().getPosition();
         return (item) -> {
             Building building = (Building)item;
             building.setConstructionProgress(0);
             building.setAnimation(BuildingSite);
-            building.setPosition(getTarget().getPosition());
+            building.setPosition(position);
+            building.setVisible(true);
         };
     }
 
-    private float constructProgress(UnitType unit) {
-        Building building = (Building)getItem();
-        if (building.isConstructing()) {
+    private float buildProgress(UnitType unit) {
+        Item target = getTarget();
+        if (target instanceof Building) {
+            Building building = (Building)target;
             return building.getConstructionProgress() * buildTime(unit);
         }
         return 0;

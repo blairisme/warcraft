@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.unit.building;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemReference;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -77,5 +78,13 @@ public class Building extends Unit implements ResourceContainer
 
     public void setResource(ResourceType type, float value) {
         resources.put(type.name(), (double)value);
+    }
+
+    @Override
+    public void setRoot(ItemRoot root) {
+        super.setRoot(root);
+        if (constructor != null) {
+            constructor.setParent(root);
+        }
     }
 }

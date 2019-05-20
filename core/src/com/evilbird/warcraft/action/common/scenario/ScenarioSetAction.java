@@ -14,6 +14,8 @@ import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
+import com.evilbird.engine.device.UserInput;
+import com.evilbird.engine.item.Item;
 
 /**
  * Represents a collection of {@link ScenarioAction scenarios} whose operation
@@ -61,6 +63,24 @@ public class ScenarioSetAction extends BasicAction
             result = false;
         }
         return result;
+    }
+
+    @Override
+    public void setItem(Item item) {
+        super.setItem(item);
+        actions.setItem(item);
+    }
+
+    @Override
+    public void setTarget(Item target) {
+        super.setTarget(target);
+        actions.setTarget(target);
+    }
+
+    @Override
+    public void setCause(UserInput cause) {
+        super.setCause(cause);
+        actions.setCause(cause);
     }
 
     protected void features() {

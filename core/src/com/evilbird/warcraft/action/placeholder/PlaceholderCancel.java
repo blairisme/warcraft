@@ -39,7 +39,7 @@ public class PlaceholderCancel extends ScenarioAction
 
     @Override
     protected void steps(Identifier identifier) {
-        withTarget(getConstruction());
+        setTarget(getConstruction());
         then(remove(Target));
         then(unassignConstruction(), placeholderRemoved(reporter));
     }

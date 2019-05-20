@@ -57,23 +57,4 @@ public class TrainAction extends DelayedAction
             return true;
         }
     }
-
-//    @Override
-//    public void restart() {
-//        super.restart();
-//        resetProgress();
-//    }
-//
-//    @Override
-//    public void reset() {
-//        super.reset();
-//        resetProgress();
-//    }
-//
-//    private void resetProgress() {
-//        Building building = (Building)getRecipient(this, recipient);
-//        if (building != null) {
-//            building.setProductionProgress(1);
-//        }
-//    }
 }

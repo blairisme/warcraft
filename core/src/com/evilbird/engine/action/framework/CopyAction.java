@@ -24,9 +24,9 @@ public class CopyAction extends DelegateAction
 {
     private Collection<Action> receivers;
 
-    public CopyAction(Action delegate, Action ... receivers) {
+    public CopyAction(Action delegate, Collection<Action> receivers) {
         super(delegate);
-        this.receivers = Arrays.asList(receivers);
+        this.receivers = receivers;
     }
 
     @Override

@@ -21,16 +21,22 @@ import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.UpdateAction;
 import com.evilbird.engine.action.predicates.ActionPredicate;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static com.evilbird.engine.common.function.Predicates.both;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singleton;
 
 /**
  * Represents an action whose operation is specified in a syntax akin to
@@ -244,13 +250,10 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      *
      * @return this scenario.
      */
-    public ScenarioAction thenUpdate(Action action) {
-        return thenUpdate(action, then);
-    }
-
-    public ScenarioAction thenUpdate(Action action, Action receiver) {
+    public ScenarioAction thenUpdate(Action action, Action ... receivers) {
         Objects.requireNonNull(action);
-        then.add(new CopyAction(action, then, receiver));
+        Collection<Action> list = receivers.length > 0 ? asList(receivers) : singleton(then);
+        then.add(new CopyAction(action, list));
         scenario = null;
         return this;
     }
@@ -270,19 +273,6 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         Objects.requireNonNull(supplier);
         itemSupplier = supplier;
         scenario = null;
-        return this;
-    }
-
-    /**
-     * Specifies the target of the Scenario, an optional {@link Item} that this
-     * action will manipulate.
-     *
-     * @param target an {@code Subject} instance. May be {@code null}.
-     *
-     * @return this scenario.
-     */
-    public ScenarioAction withTarget(Item target) {
-        setTarget(target);
         return this;
     }
 
@@ -333,6 +323,30 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         super.restart();
         Action scenario = getScenario();
         scenario.restart();
+    }
+
+    @Override
+    public void setItem(Item item) {
+        super.setItem(item);
+        if (scenario != null) {
+            scenario.setItem(item);
+        }
+    }
+
+    @Override
+    public void setTarget(Item target) {
+        super.setTarget(target);
+        if (scenario != null) {
+            scenario.setTarget(target);
+        }
+    }
+
+    @Override
+    public void setCause(UserInput cause) {
+        super.setCause(cause);
+        if (scenario != null) {
+            scenario.setCause(cause);
+        }
     }
 
     protected void steps(T identifier) {

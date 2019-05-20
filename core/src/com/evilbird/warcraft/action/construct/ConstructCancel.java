@@ -31,7 +31,7 @@ import static com.evilbird.warcraft.action.construct.ConstructAction.stopConstru
 import static com.evilbird.warcraft.action.construct.ConstructEvents.constructCancelled;
 import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacent;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isUnderConstruction;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Dead;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.item.unit.UnitCosts.costOf;
@@ -66,8 +66,8 @@ public class ConstructCancel extends ScenarioAction<ConstructActions>
     }
 
     private void steps(UnitType building) {
-        given(isUnderConstruction());
-        withTarget(getBuilder());
+        setTarget(getBuilder());
+        given(isConstructing());
         then(stopConstructing(), disable(), deselect(reporter), animate(Dead), play(Die));
         then(clear(Target), show(Target), enable(Target), animate(Target, Idle), moveAdjacent(Target, Subject));
         then(deposit(costOf(building), reporter), constructCancelled(reporter), delay(10));

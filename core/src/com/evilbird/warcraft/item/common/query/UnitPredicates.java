@@ -26,6 +26,7 @@ import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import static com.evilbird.engine.item.utility.ItemOperations.isNear;
 import static com.evilbird.warcraft.action.common.path.ItemPathFinder.hasPath;
@@ -132,8 +133,19 @@ public class UnitPredicates
         return item -> item != null && isNear(locus, locus.getWidth(), item);
     }
 
+    public static Predicate<Item> isAdjacent(Supplier<Item> locusSupplier) {
+        return target -> {
+            Item locus = locusSupplier.get();
+            return isNear(locus, locus.getWidth(), target);
+        };
+    }
+
     public static Predicate<Item> notAdjacent(Item item) {
         return Predicates.not(isAdjacent(item));
+    }
+
+    public static Predicate<Item> notAdjacent(Supplier<Item> locusSupplier) {
+        return Predicates.not(isAdjacent(locusSupplier));
     }
 
     public static Predicate<Item> inRange(Combatant combatant) {
@@ -145,7 +157,7 @@ public class UnitPredicates
         return Predicates.not(inRange(combatant));
     }
 
-    public static Predicate<Item> isUnderConstruction() {
+    public static Predicate<Item> isConstructing() {
         return (item) -> {
             Building building = (Building)item;
             return building.isConstructing();
