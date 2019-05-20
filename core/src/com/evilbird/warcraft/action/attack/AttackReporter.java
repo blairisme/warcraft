@@ -14,8 +14,8 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveObserver;
-import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
-import com.evilbird.warcraft.action.common.resource.ResourceTransferObserver;
+import com.evilbird.warcraft.action.common.transfer.TransferEvent;
+import com.evilbird.warcraft.action.common.transfer.TransferObserver;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.action.move.MoveObserver;
 import com.evilbird.warcraft.action.select.SelectEvent;
@@ -33,7 +33,7 @@ import javax.inject.Inject;
  * @author Blair Butterworth
  */
 public class AttackReporter implements
-        AttackObserver, MoveObserver, SelectObserver, RemoveObserver, ResourceTransferObserver
+        AttackObserver, MoveObserver, SelectObserver, RemoveObserver, TransferObserver
 {
     private EventQueue events;
 
@@ -74,6 +74,6 @@ public class AttackReporter implements
 
     @Override
     public void onTransfer(ResourceContainer recipient, ResourceType resource, float oldValue, float newValue) {
-        events.add(new ResourceTransferEvent(recipient, resource, oldValue, newValue));
+        events.add(new TransferEvent(recipient, resource, oldValue, newValue));
     }
 }

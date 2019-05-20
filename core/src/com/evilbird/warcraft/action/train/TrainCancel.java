@@ -15,7 +15,7 @@ import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.deposit;
+import static com.evilbird.warcraft.action.common.transfer.TransferAction.deposit;
 import static com.evilbird.warcraft.action.train.TrainAction.stopProducing;
 import static com.evilbird.warcraft.action.train.TrainEvents.onTrainCancelled;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isProducing;

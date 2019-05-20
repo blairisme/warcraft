@@ -26,7 +26,7 @@ import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.ClearAction.clear;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
 import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
-import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.deposit;
+import static com.evilbird.warcraft.action.common.transfer.TransferAction.deposit;
 import static com.evilbird.warcraft.action.construct.ConstructAction.stopConstructing;
 import static com.evilbird.warcraft.action.construct.ConstructEvents.constructCancelled;
 import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacent;

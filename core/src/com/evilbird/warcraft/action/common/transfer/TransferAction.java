@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.common.resource;
+package com.evilbird.warcraft.action.common.transfer;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionRecipient;
@@ -33,18 +33,18 @@ import static com.evilbird.engine.common.function.Suppliers.increment;
  *
  * @author Blair Butterworth
  */
-public class ResourceTransferAction extends BasicAction
+public class TransferAction extends BasicAction
 {
     private ActionRecipient target;
-    private ResourceTransferObserver observer;
+    private TransferObserver observer;
     private BiFunction<Float, Float, Float> modifier;
     private Supplier<Collection<ResourceQuantity>> resources;
 
-    private ResourceTransferAction(
+    private TransferAction(
         ActionRecipient target,
         Supplier<Collection<ResourceQuantity>> resources,
         BiFunction<Float, Float, Float> modifier,
-        ResourceTransferObserver observer)
+        TransferObserver observer)
     {
         this.target = target;
         this.resources = resources;
@@ -52,19 +52,19 @@ public class ResourceTransferAction extends BasicAction
         this.observer = observer;
     }
 
-    public static Action purchase(Collection<ResourceQuantity> quantities, ResourceTransferObserver observer) {
-        return new ResourceTransferAction(Player, constant(quantities), decrement(), observer);
+    public static Action purchase(Collection<ResourceQuantity> quantities, TransferObserver observer) {
+        return new TransferAction(Player, constant(quantities), decrement(), observer);
     }
 
-    public static Action deposit(Collection<ResourceQuantity> quantities, ResourceTransferObserver observer) {
-        return new ResourceTransferAction(Player, constant(quantities), increment(), observer);
+    public static Action deposit(Collection<ResourceQuantity> quantities, TransferObserver observer) {
+        return new TransferAction(Player, constant(quantities), increment(), observer);
     }
 
-    public static Action transfer(ActionRecipient from, ActionRecipient to, ResourceTransferObserver observer) {
+    public static Action transfer(ActionRecipient from, ActionRecipient to, TransferObserver observer) {
         ParallelAction result = new ParallelAction();
         ResourceSupplier resourceSupplier = new ResourceSupplier(result, from);
-        result.add(new ResourceTransferAction(from, resourceSupplier, decrement(), observer));
-        result.add(new ResourceTransferAction(to, resourceSupplier, increment(), observer));
+        result.add(new TransferAction(from, resourceSupplier, decrement(), observer));
+        result.add(new TransferAction(to, resourceSupplier, increment(), observer));
         return result;
     }
 
@@ -72,10 +72,10 @@ public class ResourceTransferAction extends BasicAction
         ActionRecipient from,
         ActionRecipient to,
         ResourceQuantity quantity,
-        ResourceTransferObserver observer)
+        TransferObserver observer)
     {
-        Action transferFrom = new ResourceTransferAction(from, constant(quantity), decrement(), observer);
-        Action transferTo = new ResourceTransferAction(to, constant(quantity), increment(), observer);
+        Action transferFrom = new TransferAction(from, constant(quantity), decrement(), observer);
+        Action transferTo = new TransferAction(to, constant(quantity), increment(), observer);
         return new ParallelAction(transferFrom, transferTo);
     }
 
@@ -83,10 +83,10 @@ public class ResourceTransferAction extends BasicAction
         ActionRecipient from,
         ActionRecipient to,
         Collection<ResourceQuantity> quantities,
-        ResourceTransferObserver observer)
+        TransferObserver observer)
     {
-        Action transferFrom = new ResourceTransferAction(from, constant(quantities), decrement(), observer);
-        Action transferTo = new ResourceTransferAction(to, constant(quantities), increment(), observer);
+        Action transferFrom = new TransferAction(from, constant(quantities), decrement(), observer);
+        Action transferTo = new TransferAction(to, constant(quantities), increment(), observer);
         return new ParallelAction(transferFrom, transferTo);
     }
 

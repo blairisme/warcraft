@@ -14,8 +14,8 @@ import com.evilbird.engine.events.Event;
 import com.evilbird.test.testcase.ActionReporterTestCase;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.create.CreateObserver;
-import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
-import com.evilbird.warcraft.action.common.resource.ResourceTransferObserver;
+import com.evilbird.warcraft.action.common.transfer.TransferEvent;
+import com.evilbird.warcraft.action.common.transfer.TransferObserver;
 
 import java.util.Map;
 
@@ -35,6 +35,6 @@ public class TrainReporterTest extends ActionReporterTestCase
     protected Map<Class<?>, Class<? extends Event>> getReportedTypes() {
         return Maps.of(CreateObserver.class, CreateEvent.class,
             TrainObserver.class, TrainEvent.class,
-            ResourceTransferObserver.class, ResourceTransferEvent.class);
+            TransferObserver.class, TransferEvent.class);
     }
 }

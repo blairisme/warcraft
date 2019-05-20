@@ -27,7 +27,7 @@ import static com.evilbird.engine.action.common.DisableAction.enable;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
-import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.transfer;
+import static com.evilbird.warcraft.action.common.transfer.TransferAction.transfer;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositComplete;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositStarted;
 import static com.evilbird.warcraft.action.gather.GatherEvents.obtainComplete;

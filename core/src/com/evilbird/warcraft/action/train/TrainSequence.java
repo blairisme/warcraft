@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.AudibleAction.play;
 import static com.evilbird.warcraft.action.common.create.CreateAction.create;
-import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.purchase;
+import static com.evilbird.warcraft.action.common.transfer.TransferAction.purchase;
 import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacentSubject;
 import static com.evilbird.warcraft.action.train.TrainAction.startProducing;
 import static com.evilbird.warcraft.action.train.TrainEvents.onTrainCompleted;

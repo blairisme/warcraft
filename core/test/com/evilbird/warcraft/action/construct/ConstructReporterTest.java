@@ -16,8 +16,8 @@ import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.create.CreateObserver;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveObserver;
-import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
-import com.evilbird.warcraft.action.common.resource.ResourceTransferObserver;
+import com.evilbird.warcraft.action.common.transfer.TransferEvent;
+import com.evilbird.warcraft.action.common.transfer.TransferObserver;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.action.move.MoveObserver;
 import com.evilbird.warcraft.action.select.SelectEvent;
@@ -44,6 +44,6 @@ public class ConstructReporterTest extends ActionReporterTestCase
             MoveObserver.class, MoveEvent.class,
             RemoveObserver.class, RemoveEvent.class,
             SelectObserver.class, SelectEvent.class,
-            ResourceTransferObserver.class, ResourceTransferEvent.class);
+            TransferObserver.class, TransferEvent.class);
     }
 }

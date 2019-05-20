@@ -13,8 +13,8 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.create.CreateObserver;
-import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
-import com.evilbird.warcraft.action.common.resource.ResourceTransferObserver;
+import com.evilbird.warcraft.action.common.transfer.TransferEvent;
+import com.evilbird.warcraft.action.common.transfer.TransferObserver;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -27,7 +27,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class TrainReporter implements CreateObserver, TrainObserver, ResourceTransferObserver
+public class TrainReporter implements CreateObserver, TrainObserver, TransferObserver
 {
     private EventQueue events;
 
@@ -58,6 +58,6 @@ public class TrainReporter implements CreateObserver, TrainObserver, ResourceTra
 
     @Override
     public void onTransfer(ResourceContainer recipient, ResourceType resource, float oldValue, float newValue) {
-        events.add(new ResourceTransferEvent(recipient, resource, oldValue, newValue));
+        events.add(new TransferEvent(recipient, resource, oldValue, newValue));
     }
 }

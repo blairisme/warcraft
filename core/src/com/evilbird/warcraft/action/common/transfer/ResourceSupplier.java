@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.common.resource;
+package com.evilbird.warcraft.action.common.transfer;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionRecipient;

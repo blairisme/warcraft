@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.common.resource;
+package com.evilbird.warcraft.action.common.transfer;
 
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
@@ -21,14 +21,14 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author Blair Butterworth
  */
-public class ResourceTransferEvent implements Event
+public class TransferEvent implements Event
 {
     private ResourceContainer recipient;
     private ResourceType resource;
     private float oldValue;
     private float newValue;
 
-    public ResourceTransferEvent(
+    public TransferEvent(
         ResourceContainer recipient,
         ResourceType resource,
         float oldValue,
