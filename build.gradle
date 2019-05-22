@@ -32,7 +32,7 @@ allprojects {
     version = '1.0'
     ext {
         appName = "Warcraft"
-        gdxVersion = '1.9.4'
+        gdxVersion = '1.9.9'
         roboVMVersion = '2.2.0'
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
