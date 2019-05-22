@@ -34,7 +34,7 @@ public class Gatherer extends Combatant implements ResourceContainer
     @Inject
     public Gatherer(Skin skin) {
         super(skin);
-        resources = new LinkedHashMap<>();
+        resources = new LinkedHashMap<>(2);
     }
 
     public Item getConstruction() {
@@ -43,11 +43,7 @@ public class Gatherer extends Combatant implements ResourceContainer
 
     @Override
     public float getResource(ResourceType type) {
-        String key = type.name();
-        if (resources.containsKey(key)){
-            return resources.get(key).floatValue();
-        }
-        return 0;
+        return resources.getOrDefault(type.name(), 0.0).floatValue();
     }
 
     public boolean isConstructing() {
@@ -60,8 +56,7 @@ public class Gatherer extends Combatant implements ResourceContainer
 
     @Override
     public void setResource(ResourceType type, float value) {
-        String key = type.name();
-        resources.put(key, (double)value);
+        resources.put(type.name(), (double)value);
     }
 
     @Override

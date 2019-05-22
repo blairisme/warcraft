@@ -26,7 +26,7 @@ public class MiniMapPane extends TableItem
         setSkin(skin);
         setSize(176, 136);
         setBackground("minimap-panel");
-        setTouchable(Touchable.disabled);
+        setTouchable(Touchable.enabled);
         setIdentifier(HudControl.MinimapPane);
         setType(HudControl.MinimapPane);
     }

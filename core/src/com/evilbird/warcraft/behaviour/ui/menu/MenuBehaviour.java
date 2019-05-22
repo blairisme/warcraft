@@ -17,7 +17,7 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.action.attack.AttackEvent;
 import com.evilbird.warcraft.action.attack.AttackStatus;
-import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
+import com.evilbird.warcraft.action.common.transfer.TransferEvent;
 import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.construct.ConstructStatus;
 import com.evilbird.warcraft.action.gather.GatherEvent;
@@ -133,7 +133,7 @@ public class MenuBehaviour implements Behaviour
     }
 
     private void updateResourceRecipients() {
-        for (ResourceTransferEvent event: events.getEvents(ResourceTransferEvent.class)) {
+        for (TransferEvent event: events.getEvents(TransferEvent.class)) {
             if (event.getSubject() == player) {
                 actionPane.setResource(event.getResource(), event.getValue());
                 resourcePane.setResourceText(event.getResource(), event.getValue());

@@ -39,7 +39,7 @@ import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructB
 import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructFarm;
 import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructFarmCancel;
 import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructTownHall;
-import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructTownhallCancel;
+import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructTownHallCancel;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherCancel;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherGold;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherWood;
@@ -62,10 +62,10 @@ import static com.evilbird.warcraft.action.train.TrainActions.TrainPeasantCancel
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isGathererConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholder;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholderClear;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isUnderConstruction;
 import static com.evilbird.warcraft.item.data.DataType.Camera;
 import static com.evilbird.warcraft.item.hud.HudControl.MenuPane;
 import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.BuildAdvancedButton;
@@ -190,13 +190,13 @@ public class Interactions
     private void cancelConstruction() {
         cancelConstruction(ConstructBarracksCancel, Barracks);
         cancelConstruction(ConstructFarmCancel, Farm);
-        cancelConstruction(ConstructTownhallCancel, TownHall);
+        cancelConstruction(ConstructTownHallCancel, TownHall);
     }
 
     private void cancelConstruction(ActionIdentifier cancel, UnitType building) {
         interactions.addAction(cancel)
             .whenTarget(CancelButton)
-            .whenSelected(both(withType(building), isUnderConstruction()))
+            .whenSelected(both(withType(building), isConstructing()))
             .appliedTo(Selected);
     }
 

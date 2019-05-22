@@ -1,26 +1,24 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.action.construct;
 
-import com.evilbird.engine.action.framework.ScenarioSetAction;
-import com.evilbird.engine.common.collection.Sets;
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemType;
-import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
+import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
-import java.util.Collections;
-import java.util.Set;
 import java.util.function.Consumer;
 
+import static com.evilbird.engine.action.common.ActionRecipient.Player;
 import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AudibleAction.play;
@@ -29,28 +27,28 @@ import static com.evilbird.engine.action.common.DisableAction.enable;
 import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
-import static com.evilbird.engine.item.utility.ItemSuppliers.ifExists;
+import static com.evilbird.engine.action.predicates.ActionPredicates.target;
+import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
 import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
-import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.deposit;
-import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.purchase;
+import static com.evilbird.warcraft.action.common.transfer.TransferAction.purchase;
+import static com.evilbird.warcraft.action.common.transfer.TransferAction.transfer;
 import static com.evilbird.warcraft.action.construct.ConstructAction.construct;
 import static com.evilbird.warcraft.action.construct.ConstructEvents.constructCompleted;
 import static com.evilbird.warcraft.action.construct.ConstructEvents.constructStarted;
+import static com.evilbird.warcraft.action.construct.ConstructTimes.buildTime;
 import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacentTarget;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAdjacent;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholder;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.notAdjacent;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.unassignConstruction;
-import static com.evilbird.warcraft.item.common.resource.ResourceQuantum.resource;
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Food;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.BuildingSite;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Construct;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
+import static com.evilbird.warcraft.item.unit.UnitCosts.costOf;
 import static com.evilbird.warcraft.item.unit.UnitSound.Build;
 import static com.evilbird.warcraft.item.unit.UnitSound.Complete;
 
@@ -74,66 +72,66 @@ public class ConstructSequence extends ScenarioSetAction
     @Inject
     public ConstructSequence(ConstructReporter reporter) {
         this.reporter = reporter;
-        reevaluate();
     }
 
     @Override
     protected void features() {
-        ConstructActions building = (ConstructActions)getIdentifier();
-        reposition();
-        prepare();
-        build(building);
+        ConstructActions action = (ConstructActions)getIdentifier();
+        features(action.getUnitType());
     }
 
-    private void reposition() {
-        scenario("reposition builder")
-            .withTarget(ifExists(getTarget()))
-            .given(isAlive())
+    private void features(UnitType building) {
+        build(building);
+        resume(building);
+    }
+
+    private void build(UnitType building) {
+        scenario("Construct Building")
             .givenItem(isAlive())
             .whenTarget(isPlaceholder())
-            .when(notAdjacent(getTarget()))
             .then(animate(Move))
             .then(move(reporter))
-            .then(animate(Idle));
-    }
-
-    private void prepare() {
-        scenario("hide building placeholder")
-            .withTarget(ifExists(getTarget()))
-            .whenTarget(isPlaceholder())
-            .then(hide(Target));
-    }
-
-    private void build(ConstructActions building) {
-        ItemType type = building.getItemType();
-        scenario("construct building")
-            .withTarget(ifExists(getTarget()))
-            .whenItem(isAdjacent(getTarget()))
-            .whenTarget(isPlaceholder())
-            .then(purchase(building, reporter))
-            .thenUpdate(remove(Target, reporter))
-            .thenUpdate(create(type, properties(), reporter))
+            .then(animate(Idle))
+            .then(purchase(costOf(building), reporter))
+            .then(remove(Target, reporter))
+            .thenUpdate(create(building, properties(), reporter), this)
             .then(constructStarted(reporter))
             .then(hide(), disable(), deselect(reporter), animate(Target, Construct), unassignConstruction())
-            .then(construct(building), playRepeat(Build, 3, 5))
+            .then(construct(buildProgress(building), buildTime(building)), playRepeat(Build, 3, 5))
             .then(show(), enable(), animate(Idle), animate(Target, Idle), play(Complete), moveAdjacentTarget())
-            .then(deposit(resources(building), reporter))
+            .then(transfer(Target, Player, reporter))
+            .then(constructCompleted(reporter));
+    }
+
+
+    private void resume(UnitType building) {
+        scenario("Resume Construction")
+            .givenItem(isAlive())
+            .whenTarget(hasType(building))
+            .whenTarget(isConstructing())
+            .then(construct(buildProgress(building), buildTime(building)), playRepeat(Build, target(isConstructing())))
+            .then(show(), enable(), animate(Idle), animate(Target, Idle), play(Complete), moveAdjacentTarget())
+            .then(transfer(Target, Player, reporter))
             .then(constructCompleted(reporter));
     }
 
     private Consumer<Item> properties() {
+        Vector2 position = getTarget().getPosition();
         return (item) -> {
             Building building = (Building)item;
             building.setConstructionProgress(0);
             building.setAnimation(BuildingSite);
-            building.setPosition(getTarget().getPosition());
+            building.setPosition(position);
+            building.setVisible(true);
         };
     }
 
-    private Set<ResourceQuantity> resources(ConstructActions building) {
-        if (building == ConstructActions.ConstructFarm) {
-            return Sets.of(resource(Food, 5));
+    private float buildProgress(UnitType unit) {
+        Item target = getTarget();
+        if (target instanceof Building) {
+            Building building = (Building)target;
+            return building.getConstructionProgress() * buildTime(unit);
         }
-        return Collections.emptySet();
+        return 0;
     }
 }

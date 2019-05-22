@@ -11,6 +11,9 @@ package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.data.DataType;
+
+import static com.evilbird.engine.item.utility.ItemOperations.findAncestorByType;
 
 /**
  * Provides common functions for working with {@link Action Actions}.
@@ -40,6 +43,7 @@ public class ActionUtils
             case Subject: return action.getItem();
             case Target: return action.getTarget();
             case Parent: return action.getItem().getParent();
+            case Player: return findAncestorByType(action.getItem(), DataType.Player);
             default: throw new UnsupportedOperationException();
         }
     }

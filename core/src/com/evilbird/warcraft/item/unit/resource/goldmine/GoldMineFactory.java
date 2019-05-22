@@ -89,14 +89,14 @@ public class GoldMineFactory implements AssetProvider<Item>
     public Item get() {
         Resource result = new Resource(getSkin());
         result.setAnimation(UnitAnimation.Idle);
-        result.setHealth(2400f);
-        result.setHealthMaximum(2400f);
+        result.setHealth(2400);
+        result.setHealthMaximum(2400);
         result.setName("Gold Mine");
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
         result.setType(UnitType.GoldMine);
-        result.setResource(ResourceType.Gold, 2400f);
+        result.setResource(ResourceType.Gold, 2400);
         result.setIdentifier(objectIdentifier("GoldMine", result));
         result.setSize(96, 96);
         return result;

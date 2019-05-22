@@ -20,13 +20,21 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
  */
 public class AttackEvents
 {
-    public static Action notifyStarted(AttackReporter reporter) {
+    private AttackEvents() {
+    }
+
+    public static Action attackStarted(AttackReporter reporter) {
         return new LambdaAction((attacker, target) ->
             reporter.onAttackStarted((Combatant)attacker, target));
     }
 
-    public static Action notifyComplete(AttackReporter reporter) {
+    public static Action attackComplete(AttackReporter reporter) {
         return new LambdaAction((attacker, target) ->
             reporter.onAttackCompleted((Combatant)attacker, target));
+    }
+
+    public static Action attackCancelled(AttackReporter reporter) {
+        return new LambdaAction((attacker, target) ->
+            reporter.onAttackCancelled((Combatant)attacker, target));
     }
 }

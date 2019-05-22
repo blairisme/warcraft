@@ -1,28 +1,40 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.action.framework;
+package com.evilbird.warcraft.action.common.scenario;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionRecipient;
+import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.CopyAction;
+import com.evilbird.engine.action.framework.LambdaAction;
+import com.evilbird.engine.action.framework.OptionalAction;
+import com.evilbird.engine.action.framework.ParallelAction;
+import com.evilbird.engine.action.framework.RequirementAction;
+import com.evilbird.engine.action.framework.SequenceAction;
+import com.evilbird.engine.action.framework.UpdateAction;
 import com.evilbird.engine.action.predicates.ActionPredicate;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static com.evilbird.engine.common.function.Predicates.both;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singleton;
 
 /**
  * Represents an action whose operation is specified in a syntax akin to
@@ -236,25 +248,11 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      *
      * @return this scenario.
      */
-    public ScenarioAction thenUpdate(Action action) {
+    public ScenarioAction thenUpdate(Action action, Action ... receivers) {
         Objects.requireNonNull(action);
-        then.add(new CopyAction(action, then));
+        Collection<Action> list = receivers.length > 0 ? asList(receivers) : singleton(then);
+        then.add(new CopyAction(action, list));
         scenario = null;
-        return this;
-    }
-
-    /**
-     * Specifies the subject of the Scenario, the {@link Item} that the
-     * Scenario will operate on.
-     *
-     * @param item  an {@code Subject} instance. This parameter cannot be
-     *              {@code null}.
-     *
-     * @return this scenario.
-     */
-    public ScenarioAction withItem(Item item) {
-        Objects.requireNonNull(item);
-        setItem(item);
         return this;
     }
 
@@ -273,19 +271,6 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         Objects.requireNonNull(supplier);
         itemSupplier = supplier;
         scenario = null;
-        return this;
-    }
-
-    /**
-     * Specifies the target of the Scenario, an optional {@link Item} that this
-     * action will manipulate.
-     *
-     * @param target an {@code Subject} instance. May be {@code null}.
-     *
-     * @return this scenario.
-     */
-    public ScenarioAction withTarget(Item target) {
-        setTarget(target);
         return this;
     }
 
@@ -336,6 +321,30 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         super.restart();
         Action scenario = getScenario();
         scenario.restart();
+    }
+
+    @Override
+    public void setItem(Item item) {
+        super.setItem(item);
+        if (scenario != null) {
+            scenario.setItem(item);
+        }
+    }
+
+    @Override
+    public void setTarget(Item target) {
+        super.setTarget(target);
+        if (scenario != null) {
+            scenario.setTarget(target);
+        }
+    }
+
+    @Override
+    public void setCause(UserInput cause) {
+        super.setCause(cause);
+        if (scenario != null) {
+            scenario.setCause(cause);
+        }
     }
 
     protected void steps(T identifier) {

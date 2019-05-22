@@ -49,6 +49,10 @@ public abstract class CompositeAction extends BasicAction
         actions.add(action);
     }
 
+    public boolean isEmpty() {
+        return actions.isEmpty();
+    }
+
     @Override
     public ActionException getError() {
         for (Action delegate: actions) {

@@ -43,7 +43,7 @@ public class StatusPane extends ItemGroup
         setSize(176, 176);
         setType(HudControl.StatePane);
         setIdentifier(HudControl.StatePane);
-        setTouchable(Touchable.childrenOnly);
+        setTouchable(Touchable.enabled);
         addItem(selectionPane);
     }
 

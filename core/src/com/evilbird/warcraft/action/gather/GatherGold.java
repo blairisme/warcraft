@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.ScenarioSetAction;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
@@ -27,7 +27,7 @@ import static com.evilbird.engine.action.common.DisableAction.enable;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
-import static com.evilbird.warcraft.action.common.resource.ResourceTransferAction.transfer;
+import static com.evilbird.warcraft.action.common.transfer.TransferAction.transfer;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositComplete;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositStarted;
 import static com.evilbird.warcraft.action.gather.GatherEvents.obtainComplete;

@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.action.construct;
@@ -41,11 +41,13 @@ public class ConstructAction extends DelayedAction
      *                  under construction. This parameter cannot be {@code null}.
      * @param builder   an {@link ActionRecipient} indicating the building
      *                  under construction. This parameter cannot be {@code null}.
+     * @param start     the starting point of the construct action, if
+     *                  construction is partially complete.
      * @param duration  the time it will take for construction to complete,
      *                  specified in seconds.
      */
-    public ConstructAction(ActionRecipient building, ActionRecipient builder, float duration) {
-        super(duration);
+    public ConstructAction(ActionRecipient building, ActionRecipient builder, float start, float duration) {
+        super(start, duration);
 
         Objects.requireNonNull(builder);
         Objects.requireNonNull(building);
@@ -54,20 +56,16 @@ public class ConstructAction extends DelayedAction
         this.building = building;
     }
 
-    public static ConstructAction construct(ConstructActions action) {
-        return construct(Target, Subject, action);
+    public static ConstructAction construct(float duration){
+        return new ConstructAction(Target, Subject, 0, duration);
     }
 
-    public static ConstructAction construct(ActionRecipient building, ActionRecipient builder, ConstructActions action){
-        return new ConstructAction(building, builder, action.getDuration());
+    public static ConstructAction construct(float start, float duration){
+        return new ConstructAction(Target, Subject, start, duration);
     }
 
     public static ConstructAction stopConstructing() {
-        return stopConstructing(Subject, Target);
-    }
-
-    public static ConstructAction stopConstructing(ActionRecipient building, ActionRecipient builder) {
-        return new ConstructAction(building, builder, 0);
+        return new ConstructAction(Subject, Target, 0, 0);
     }
 
     @Override

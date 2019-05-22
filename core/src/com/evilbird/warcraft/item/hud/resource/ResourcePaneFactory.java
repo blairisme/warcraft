@@ -32,7 +32,7 @@ public class ResourcePaneFactory implements AssetProvider<Item>
 {
     private static final String ICONS = "data/textures/neutral/hud/resource-icon.png";
     private static final String BACKGROUND = "data/textures/human/hud/resource_panel.png";
-    //private static final String FONT = "data/fonts/lifecraft.ttf";
+
     private AssetManager assets;
 
     @Inject
@@ -44,7 +44,6 @@ public class ResourcePaneFactory implements AssetProvider<Item>
     public void load() {
         this.assets.load(ICONS, Texture.class);
         this.assets.load(BACKGROUND, Texture.class);
-        //this.assets.load(FONT, BitmapFont.class, fontSize(16));
     }
 
     @Override

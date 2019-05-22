@@ -12,13 +12,14 @@ package com.evilbird.warcraft.item.hud.control.actions;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.item.unit.UnitCosts;
+import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.AttackButton;
 import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.BuildAdvancedButton;
 import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.BuildBarracksButton;
@@ -36,6 +37,7 @@ import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.St
 import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.TrainFootmanButton;
 import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.TrainPeasantButton;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
+import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
@@ -68,12 +70,12 @@ public class ActionButtonDetails
         Barracks, singletonList(TrainFootmanButton),
         TownHall, singletonList(TrainPeasantButton));
 
-    private static Map<ActionButtonType, Map<ResourceType, Float>> costs = Maps.of(
-        TrainFootmanButton, Maps.of(Gold, 250f),
-        TrainPeasantButton, Maps.of(Gold, 100f),
-        BuildFarmButton,    Maps.of(Gold, 100f),
-        BuildBarracksButton, Maps.of(Gold, 100f),
-        BuildTownHallButton, Maps.of(Gold, 100f));
+    private static Map<ActionButtonType, UnitType> products = Maps.of(
+            TrainFootmanButton, Footman,
+            TrainPeasantButton, Peasant,
+            BuildFarmButton,    Farm,
+            BuildBarracksButton, Barracks,
+            BuildTownHallButton, TownHall);
 
     public static List<ActionButtonType> getActionButtons(Item item) {
         if (types.containsKey(item.getType())){
@@ -98,10 +100,11 @@ public class ActionButtonDetails
         return !unsupported.contains(type);
     }
 
-    private static boolean hasResources(ActionButtonType type, Map<ResourceType, Float> resources) {
-        if (costs.containsKey(type)) {
-            for (Entry<ResourceType, Float> cost: costs.get(type).entrySet()) {
-                if (getResource(resources, cost.getKey()) < cost.getValue()) {
+    private static boolean hasResources(ActionButtonType button, Map<ResourceType, Float> resources) {
+        if (products.containsKey(button)) {
+            UnitType type = products.get(button);
+            for (ResourceQuantity cost: UnitCosts.costOf(type)) {
+                if (getResource(resources, cost.getResource()) < cost.getValue()) {
                     return false;
                 }
             }

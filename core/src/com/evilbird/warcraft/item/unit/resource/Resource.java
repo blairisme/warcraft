@@ -35,22 +35,17 @@ public class Resource extends Unit implements ResourceContainer
 
     public Resource(Skin skin) {
         super(skin);
-        resources = new LinkedHashMap<>();
+        resources = new LinkedHashMap<>(2);
     }
 
     @Override
     public float getResource(ResourceType type) {
-        String key = type.name();
-        if (resources.containsKey(key)){
-            return resources.get(key).floatValue();
-        }
-        return 0;
+        return resources.getOrDefault(type.name(), 0.0).floatValue();
     }
 
     @Override
     public void setResource(ResourceType type, float value) {
-        String key = type.name();
-        resources.put(key, (double)value);
+        resources.put(type.name(), (double)value);
     }
 
     @Override

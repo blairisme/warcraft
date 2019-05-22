@@ -21,7 +21,7 @@ import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.testcase.GameTestCase;
-import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
+import com.evilbird.warcraft.action.common.transfer.TransferEvent;
 import com.evilbird.warcraft.action.select.SelectEvent;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
@@ -103,7 +103,7 @@ public class MenuBehaviourTest extends GameTestCase
     }
 
     private void resourceUpdateTest(ResourceType resource, float value) {
-        events.add(new ResourceTransferEvent(player, resource, 100f, value));
+        events.add(new TransferEvent(player, resource, 100f, value));
         menuBehaviour.update(state, Collections.emptyList());
 
         assertEquals(String.valueOf(Math.round(value)), resourcePane.getResourceText(resource));

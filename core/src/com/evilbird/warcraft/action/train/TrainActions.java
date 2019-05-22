@@ -1,21 +1,17 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.action.train;
 
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.item.ItemType;
-import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
-import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitType;
 
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
 
@@ -24,47 +20,20 @@ import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
  *
  * @author Blair Butterworth
  */
-public enum TrainActions implements ActionIdentifier, ResourceQuantity
+public enum TrainActions implements ActionIdentifier
 {
-    TrainFootman(Footman, 20f, Gold, 250f), //600g, 1f
-    TrainPeasant(Peasant, 20f, Gold, 100f), //400g, 1f
-    TrainFootmanCancel(TrainFootman),
-    TrainPeasantCancel(TrainPeasant);
+    TrainFootman,
+    TrainPeasant,
+    TrainFootmanCancel,
+    TrainPeasantCancel;
 
-    private float trainTime;
-    private UnitType unitType;
-    private ResourceType resource;
-    private float amount;
-
-    TrainActions(TrainActions other) {
-        this.trainTime = other.trainTime;
-        this.unitType = other.unitType;
-        this.resource = other.resource;
-        this.amount = other.amount;
-    }
-
-    TrainActions(UnitType unitType, float trainTime, ResourceType resource, float amount) {
-        this.trainTime = trainTime;
-        this.unitType = unitType;
-        this.resource = resource;
-        this.amount = amount;
-    }
-
-    public float getDuration() {
-        return trainTime;
-    }
-
-    public ItemType getItemType() {
-        return unitType;
-    }
-
-    @Override
-    public ResourceType getResource() {
-        return resource;
-    }
-
-    @Override
-    public float getValue() {
-        return amount;
+    public UnitType getUnitType() {
+        switch (this) {
+            case TrainFootman:
+            case TrainFootmanCancel: return Footman;
+            case TrainPeasant:
+            case TrainPeasantCancel: return Peasant;
+            default: throw new UnsupportedOperationException();
+        }
     }
 }

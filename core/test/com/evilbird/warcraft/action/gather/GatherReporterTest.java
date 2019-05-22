@@ -12,8 +12,8 @@ package com.evilbird.warcraft.action.gather;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.events.Event;
 import com.evilbird.test.testcase.ActionReporterTestCase;
-import com.evilbird.warcraft.action.common.resource.ResourceTransferEvent;
-import com.evilbird.warcraft.action.common.resource.ResourceTransferObserver;
+import com.evilbird.warcraft.action.common.transfer.TransferEvent;
+import com.evilbird.warcraft.action.common.transfer.TransferObserver;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.action.move.MoveObserver;
 import com.evilbird.warcraft.action.select.SelectEvent;
@@ -38,6 +38,6 @@ public class GatherReporterTest extends ActionReporterTestCase
         return Maps.of(GatherObserver.class, GatherEvent.class,
             MoveObserver.class, MoveEvent.class,
             SelectObserver.class, SelectEvent.class,
-            ResourceTransferObserver.class, ResourceTransferEvent.class);
+            TransferObserver.class, TransferEvent.class);
     }
 }

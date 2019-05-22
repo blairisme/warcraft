@@ -10,47 +10,31 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.ScenarioSetAction;
-import com.evilbird.engine.common.collection.Sets;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
-import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
-import java.util.Collections;
-import java.util.Set;
 
 import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
-import static com.evilbird.engine.action.common.AudibleAction.play;
+import static com.evilbird.engine.action.common.AssignAction.assign;
 import static com.evilbird.engine.action.common.DirectionAction.reorient;
-import static com.evilbird.engine.action.common.DisableAction.disable;
 import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
-import static com.evilbird.engine.action.framework.DelayedAction.delay;
 import static com.evilbird.engine.action.predicates.ActionPredicates.target;
-import static com.evilbird.engine.common.function.Predicates.nonNull;
-import static com.evilbird.engine.item.utility.ItemSuppliers.ifExists;
 import static com.evilbird.warcraft.action.attack.AttackAction.attack;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
-import static com.evilbird.warcraft.action.attack.AttackEvents.notifyComplete;
-import static com.evilbird.warcraft.action.attack.AttackEvents.notifyStarted;
-import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
+import static com.evilbird.warcraft.action.attack.AttackEvents.attackComplete;
+import static com.evilbird.warcraft.action.attack.AttackEvents.attackStarted;
+import static com.evilbird.warcraft.action.attack.DeathAction.kill;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
-import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.inRange;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDead;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.notInRange;
-import static com.evilbird.warcraft.item.common.resource.ResourceQuantum.resource;
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Food;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Death;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Decompose;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.MeleeAttack;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 import static com.evilbird.warcraft.item.unit.UnitSound.Attack;
-import static com.evilbird.warcraft.item.unit.UnitSound.Die;
 
 /**
  * Instances of this {@link Action} cause a given {@link Item} to attack
@@ -82,7 +66,6 @@ public class AttackSequence extends ScenarioSetAction
         Combatant combatant = (Combatant)getItem();
         reposition(combatant);
         engage(combatant);
-        kill();
     }
 
     private void reposition(Combatant combatant) {
@@ -102,30 +85,9 @@ public class AttackSequence extends ScenarioSetAction
             .whenTarget(inRange(combatant))
             .givenItem(isAlive())
             .givenTarget(inRange(combatant))
-            .then(animate(MeleeAttack), notifyStarted(reporter))
+            .then(animate(MeleeAttack), attackStarted(reporter))
             .then(attack(), playRepeat(Attack, target(isAlive())))
-            .then(animate(Idle), notifyComplete(reporter));
-    }
-
-    private void kill() {
-        scenario("kill")
-            .withTarget(ifExists(getTarget()))
-            .whenTarget(nonNull())
-            .whenTarget(isDead())
-            .then(animate(Target, Death), delay(1), play(Target, Die), deselect(Target, reporter), disable(Target))
-            //.then(refund())
-            .then(animate(Target, Decompose), delay(2))
-            .then(remove(Target, reporter));
-    }
-
-
-    private Set<ResourceQuantity> resources(Item item) {
-        if (item.getType() == UnitType.Farm) {
-            return Sets.of(resource(Food, 5));
-        }
-        if (item instanceof Combatant) {
-            return Sets.of(resource(Food, 1));
-        }
-        return Collections.emptySet();
+            .then(animate(Idle), attackComplete(reporter))
+            .then(assign(kill(reporter), Target));
     }
 }
