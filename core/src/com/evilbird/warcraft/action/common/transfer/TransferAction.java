@@ -23,7 +23,9 @@ import java.util.function.Supplier;
 
 import static com.evilbird.engine.action.common.ActionRecipient.Player;
 import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
-import static com.evilbird.engine.common.function.Suppliers.*;
+import static com.evilbird.engine.common.function.Suppliers.constant;
+import static com.evilbird.engine.common.function.Suppliers.decrement;
+import static com.evilbird.engine.common.function.Suppliers.increment;
 
 /**
  * Instances of this action apply a given delta to the resources contained in a

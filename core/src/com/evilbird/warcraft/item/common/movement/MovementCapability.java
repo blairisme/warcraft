@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.common.movement;
 
 /**
- * Defines options for specifying movement capability
+ * Defines options for specifying movement capability.
  *
  * @author Blair Butterworth
  */

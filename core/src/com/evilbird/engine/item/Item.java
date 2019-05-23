@@ -15,7 +15,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.common.lang.*;
+import com.evilbird.engine.common.lang.Alignment;
+import com.evilbird.engine.common.lang.Categorizable;
+import com.evilbird.engine.common.lang.Disablable;
+import com.evilbird.engine.common.lang.Identifiable;
+import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.Positionable;
+import com.evilbird.engine.common.lang.Visible;
 import com.google.gson.annotations.JsonAdapter;
 
 import java.util.Collection;

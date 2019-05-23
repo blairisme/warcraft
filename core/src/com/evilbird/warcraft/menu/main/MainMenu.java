@@ -10,7 +10,11 @@
 package com.evilbird.warcraft.menu.main;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.control.SelectListenerAdapter;
 import com.evilbird.engine.menu.Menu;

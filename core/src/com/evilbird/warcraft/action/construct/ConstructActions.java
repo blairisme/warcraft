@@ -12,7 +12,9 @@ package com.evilbird.warcraft.action.construct;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.item.unit.UnitType;
 
-import static com.evilbird.warcraft.item.unit.UnitType.*;
+import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
+import static com.evilbird.warcraft.item.unit.UnitType.Farm;
+import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 
 /**
  * Defines options of specifying construction action varieties.
