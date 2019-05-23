@@ -79,6 +79,7 @@ public class StatusPane extends ItemGroup
     }
 
     private void updateDisplay() {
+        clearItems();
         if (selection.size() == 1) {
             showDetails(selection);
         } else {
