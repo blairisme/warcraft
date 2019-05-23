@@ -61,6 +61,13 @@ public class MoveToItemAction extends MoveAction
         destination = null;
     }
 
+    @Override
+    public void restart() {
+        super.restart();
+        filter = null;
+        destination = null;
+    }
+
     public static MoveToItemAction move(MoveObserver observer) {
         return moveToItem(observer);
     }

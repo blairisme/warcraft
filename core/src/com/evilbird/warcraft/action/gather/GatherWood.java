@@ -45,8 +45,8 @@ import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
  */
 public class GatherWood extends ScenarioSetAction
 {
-    private static final float DEPOSIT_TIME = 45;
-    private static final float GATHER_TIME = 5;
+    private static final float DEPOSIT_TIME = 5;
+    private static final float GATHER_TIME = 45;
     private static final ResourceQuantity GATHER_AMOUNT = ResourceQuantum.resource(Wood, 100);
 
     private transient GatherReporter reporter;
@@ -63,7 +63,8 @@ public class GatherWood extends ScenarioSetAction
         scenario("Gather Wood")
             .given(isAlive())
             .when(noResources(Wood))
-            .then(animate(Move), deselect(reporter))
+            .then(deselect(reporter))
+            .then(animate(Move))
             .then(move(reporter))
             .then(animate(GatherWood), obtainStarted(reporter, GATHER_AMOUNT))
             .then(delay(GATHER_TIME), playRepeat(ChopWood, 40, 1))
@@ -78,9 +79,11 @@ public class GatherWood extends ScenarioSetAction
             .then(animate(Move), deselect(reporter))
             .then(move(reporter))
             .then(hide(), depositStarted(reporter, GATHER_AMOUNT))
+            .then(transfer(Subject, Player, GATHER_AMOUNT, reporter))
             .then(delay(DEPOSIT_TIME))
-            .then(transfer(Subject, Player, GATHER_AMOUNT, reporter), depositComplete(reporter, GATHER_AMOUNT))
-            .then(show(), setAnimation(Move, MoveBasic), setAnimation(Idle, IdleBasic), animate(Idle))
+            .then(depositComplete(reporter, GATHER_AMOUNT))
+            .then(show(), setAnimation(Move, MoveBasic), setAnimation(Idle, IdleBasic))
+            .then(animate(Idle))
             .withTarget(closest(getGatherer(), TownHall));
     }
 

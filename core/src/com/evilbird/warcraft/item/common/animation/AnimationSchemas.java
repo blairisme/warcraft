@@ -80,7 +80,7 @@ public class AnimationSchemas
     public static AnimationSchema attackSchema() {
         List<List<Rectangle>> regions = getRegions(8, 4, 0, 360, 72, 72);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 0.10f, true);
+        return new AnimationSchema(frames, 0.15f, true);
     }
 
     public static AnimationSchema buildingDestructionScheme() {

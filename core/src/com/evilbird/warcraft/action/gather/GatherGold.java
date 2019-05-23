@@ -62,12 +62,14 @@ public class GatherGold extends ScenarioSetAction
         scenario("Gather Gold")
             .given(isAlive())
             .when(noResources(Gold))
-            .then(animate(Move), deselect(reporter))
+            .then(deselect(reporter))
+            .then(animate(Move))
             .then(move(reporter))
             .then(hide(), disable(), obtainStarted(reporter, GATHER_AMOUNT))
             .then(delay(GATHER_TIME))
             .then(transfer(Target, Subject, GATHER_AMOUNT, reporter), obtainComplete(reporter, GATHER_AMOUNT))
-            .then(show(), enable(), setAnimation(Move, MoveGold), animate(Idle))
+            .then(show(), enable(), setAnimation(Move, MoveGold), setAnimation(Idle, IdleGold))
+            .then(animate(Idle))
             .withTarget(closest(getGatherer(), GoldMine, getTarget()));
 
         scenario("Deposit Wood")
@@ -76,9 +78,11 @@ public class GatherGold extends ScenarioSetAction
             .then(animate(Move), deselect(reporter))
             .then(move(reporter))
             .then(hide(), disable(), depositStarted(reporter, GATHER_AMOUNT))
+            .then(transfer(Subject, Player, GATHER_AMOUNT, reporter))
             .then(delay(DEPOSIT_TIME))
-            .then(transfer(Subject, Player, GATHER_AMOUNT, reporter), depositComplete(reporter, GATHER_AMOUNT))
-            .then(show(), enable(), animate(Idle), setAnimation(Move, MoveBasic))
+            .then(depositComplete(reporter, GATHER_AMOUNT))
+            .then(show(), enable(), setAnimation(Idle, IdleBasic), setAnimation(Move, MoveBasic))
+            .then(animate(Idle))
             .withTarget(closest(getGatherer(), TownHall));
     }
 
