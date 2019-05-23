@@ -32,7 +32,7 @@ import static com.evilbird.engine.item.utility.ItemPredicates.hasMinimum;
 import static com.evilbird.engine.item.utility.ItemPredicates.withClazz;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isHuman;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
 import static java.util.Arrays.asList;
 
 /**
@@ -74,10 +74,10 @@ public class ScenarioConditions
     }
 
     private static Predicate<Item> aliveItems(Identifier type) {
-        return all(isHuman(), withType(type), isAlive());
+        return all(isCorporeal(), withType(type), isAlive());
     }
 
     private static Predicate<Item> aliveItems(Class<?> type) {
-        return all(isHuman(), withClazz(type), isAlive());
+        return all(isCorporeal(), withClazz(type), isAlive());
     }
 }

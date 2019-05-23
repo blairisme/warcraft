@@ -29,13 +29,13 @@ public class SelectActionTest extends ActionTestCase
     @Override
     protected Action newAction() {
         SelectAction action = new SelectAction(Subject, true, Mockito.mock(SelectReporter.class));
-        action.setIdentifier(SelectActions.SelectInclusive);
+        action.setIdentifier(SelectActions.SelectInvert);
         return action;
     }
 
     @Override
     protected Enum newIdentifier() {
-        return SelectActions.SelectInclusive;
+        return SelectActions.SelectInvert;
     }
 
     @Test

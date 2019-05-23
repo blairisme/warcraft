@@ -19,22 +19,22 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Instances of this unit test validate the {@link SelectInclusive} class.
+ * Instances of this unit test validate the {@link SelectInvert} class.
  *
  * @author Blair Butterworth
  */
-public class SelectInclusiveTest extends ActionTestCase
+public class SelectInvertTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        SelectInclusive action = new SelectInclusive(Mockito.mock(SelectReporter.class));
-        action.setIdentifier(SelectActions.SelectInclusive);
+        SelectInvert action = new SelectInvert(Mockito.mock(SelectReporter.class));
+        action.setIdentifier(SelectActions.SelectInvert);
         return action;
     }
 
     @Override
     protected Enum newIdentifier() {
-        return SelectActions.SelectInclusive;
+        return SelectActions.SelectInvert;
     }
 
     @Test
@@ -42,9 +42,11 @@ public class SelectInclusiveTest extends ActionTestCase
         Selectable selectable = (Selectable)item;
 
         assertFalse(selectable.getSelected());
+        assertFalse(action.act(1));
         assertTrue(action.act(1));
         assertTrue(selectable.getSelected());
 
+        assertFalse(action.act(1));
         assertTrue(action.act(1));
         assertTrue(selectable.getSelected());
 

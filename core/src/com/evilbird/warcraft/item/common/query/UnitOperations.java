@@ -72,7 +72,7 @@ public class UnitOperations
     }
 
     public static Player getHumanPlayer(ItemRoot itemRoot) {
-        Predicate<Item> query = both(isPlayer(), UnitPredicates.isHuman());
+        Predicate<Item> query = both(isPlayer(), UnitPredicates.isCorporeal());
         return (Player)itemRoot.find(query);
     }
 

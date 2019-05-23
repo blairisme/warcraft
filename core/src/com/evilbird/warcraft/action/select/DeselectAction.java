@@ -16,7 +16,9 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 
 import java.util.Collection;
+import java.util.function.Predicate;
 
+import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 import static java.util.stream.Collectors.toList;
 
@@ -28,27 +30,35 @@ import static java.util.stream.Collectors.toList;
 public class DeselectAction extends BasicAction
 {
     private SelectObserver observer;
+    private Predicate<Item> condition;
 
-    public DeselectAction(SelectObserver observer) {
+    public DeselectAction(Predicate<Item> condition, SelectObserver observer) {
         this.observer = observer;
+        this.condition = condition;
     }
 
     public static DeselectAction deselectAll(SelectObserver observer) {
-        return new DeselectAction(observer);
+        return deselectAll(isSelected(), observer);
+    }
+
+    public static DeselectAction deselectAll(Predicate<Item> condition, SelectObserver observer) {
+        return new DeselectAction(both(isSelected(), condition), observer);
     }
 
     @Override
     public boolean act(float delta) {
         Item item = getItem();
         ItemRoot root = item.getRoot();
-        Collection<Item> items = root.findAll(isSelected());
+        Collection<Item> items = root.findAll(condition);
         Collection<Selectable> selected = items.stream().map(element -> (Selectable) element).collect(toList());
         selected.forEach(this::deselect);
         return true;
     }
 
     private void deselect(Selectable selectable) {
-        selectable.setSelected(false);
-        observer.onSelect(selectable, false);
+        if (selectable.getSelected()) {
+            selectable.setSelected(false);
+            observer.onSelect(selectable, false);
+        }
     }
 }

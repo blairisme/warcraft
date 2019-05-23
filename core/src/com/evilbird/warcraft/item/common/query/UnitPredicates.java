@@ -72,7 +72,7 @@ public class UnitPredicates
         };
     }
 
-    public static Predicate<Item> isHuman() {
+    public static Predicate<Item> isCorporeal() {
         return (item) -> {
             if (! (item instanceof Player)) {
                 item = item.getParent();
@@ -91,6 +91,10 @@ public class UnitPredicates
 
     public static Predicate<Item> isCombatant() {
         return (item) -> item instanceof Combatant;
+    }
+
+    public static Predicate<Item> notCombatant() {
+        return not(isCombatant());
     }
 
     public static Predicate<Item> isPlaceholder() {

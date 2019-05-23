@@ -13,15 +13,18 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.common.AudibleAction.play;
 import static com.evilbird.warcraft.action.select.DeselectAction.deselectAll;
+import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.action.select.SelectAction.select;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.notCombatant;
 import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
 
 /**
@@ -30,28 +33,59 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
  *
  * @author Blair Butterworth
  */
-public class SelectExclusive extends ScenarioSetAction
+public class SelectInvert extends ScenarioSetAction
 {
     private transient SelectReporter observer;
     private transient Boolean selected;
 
     @Inject
-    public SelectExclusive(SelectReporter reporter) {
-        feature(SelectActions.SelectExclusive);
+    public SelectInvert(SelectReporter reporter) {
+        feature(SelectActions.SelectInvert);
         observer = reporter;
     }
 
     @Override
     protected void features() {
         initializeSelection();
+        selectFeatures();
+        deselectFeatures();
+    }
 
-        scenario("Select (exclusive)")
+    private void selectFeatures() {
+        scenario("Select Owned Item Inclusive")
             .given(isAlive())
+            .when(isCorporeal())
+            .when(isCombatant())
             .when((item) -> !selected)
-            .then(deselectAll(observer), select(observer), play(Selected));
+            .then(deselectAll(notCombatant(), observer), deselectAll(isAi(), observer))
+            .then(select(observer), play(Selected));
 
-        scenario("Deselect (exclusive)")
+        scenario("Select Owned Item Exclusive")
             .given(isAlive())
+            .when(isCorporeal())
+            .when(notCombatant())
+            .when((item) -> !selected)
+            .then(deselectAll(observer))
+            .then(select(observer), play(Selected));
+
+        scenario("Select Enemy Item Exclusive")
+            .given(isAlive())
+            .when(isAi())
+            .when((item) -> !selected)
+            .then(deselectAll(observer))
+            .then(select(observer));
+    }
+
+    private void deselectFeatures() {
+        scenario("Deselect Inclusive")
+            .given(isAlive())
+            .when(isCombatant())
+            .when((item) -> selected)
+            .then(deselect(observer));
+
+        scenario("Deselect Exclusive")
+            .given(isAlive())
+            .when(notCombatant())
             .when((item) -> selected)
             .then(deselectAll(observer));
     }
@@ -78,25 +112,4 @@ public class SelectExclusive extends ScenarioSetAction
         Selectable selectable = (Selectable)getItem();
         selected = selectable.getSelected();
     }
-//
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (obj == null) { return false; }
-//        if (obj == this) { return true; }
-//        if (obj.getClass() != getClass()) { return false; }
-//
-//        SelectExclusive that = (SelectExclusive)obj;
-//        return new EqualsBuilder()
-//            .appendSuper(super.equals(obj))
-//            .append(observer, that.observer)
-//            .isEquals();
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return new HashCodeBuilder(17, 37)
-//            .appendSuper(super.hashCode())
-//            .append(observer)
-//            .toHashCode();
-//    }
 }

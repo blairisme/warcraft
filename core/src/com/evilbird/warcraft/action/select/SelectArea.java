@@ -117,7 +117,7 @@ public class SelectArea extends BasicAction
     private void deselect(Item item) {
         if (item instanceof Selectable) {
             Selectable selectable = (Selectable)item;
-            if (selectable.getSelectable()) {
+            if (selectable.getSelectable() && selectable.getSelected()) {
                 selectable.setSelected(false);
                 reporter.onSelect(item, false);
             }
@@ -133,7 +133,7 @@ public class SelectArea extends BasicAction
     private void select(Item item) {
         if (item instanceof Combatant) {
             Selectable selectable = (Selectable)item;
-            if (selectable.getSelectable()) {
+            if (selectable.getSelectable() && !selectable.getSelected()) {
                 selectable.setSelected(true);
                 reporter.onSelect(item, true);
             }

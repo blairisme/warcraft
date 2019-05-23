@@ -25,18 +25,15 @@ import javax.inject.Inject;
 public class SelectFactory implements ActionProvider
 {
     private InjectedPool<SelectArea> selectAreaPool;
-    private InjectedPool<SelectInclusive> selectInclusivePool;
-    private InjectedPool<SelectExclusive> selectExclusivePool;
+    private InjectedPool<SelectInvert> selectInvertPool;
 
     @Inject
     public SelectFactory(
         InjectedPool<SelectArea> selectAreaPool,
-        InjectedPool<SelectInclusive> selectInclusivePool,
-        InjectedPool<SelectExclusive> selectExclusivePool)
+        InjectedPool<SelectInvert> selectInvertPool)
     {
         this.selectAreaPool = selectAreaPool;
-        this.selectInclusivePool = selectInclusivePool;
-        this.selectExclusivePool = selectExclusivePool;
+        this.selectInvertPool = selectInvertPool;
     }
 
     @Override
@@ -46,8 +43,7 @@ public class SelectFactory implements ActionProvider
             case SelectBoxBegin:
             case SelectBoxResize:
             case SelectBoxEnd: return getAction(selectAreaPool, identifier);
-            case SelectInclusive: return getAction(selectInclusivePool, identifier);
-            case SelectExclusive: return getAction(selectExclusivePool, identifier);
+            case SelectInvert: return getAction(selectInvertPool, identifier);
             default: throw new UnsupportedOperationException();
         }
     }
