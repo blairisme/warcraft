@@ -22,6 +22,8 @@ import static com.evilbird.engine.action.common.AudibleAction.play;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.action.select.SelectAction.select;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.notSelected;
 import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
 
 /**
@@ -30,14 +32,14 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
  *
  * @author Blair Butterworth
  */
-public class SelectSequence extends ScenarioSetAction
+public class SelectInclusive extends ScenarioSetAction
 {
     private transient SelectReporter observer;
     private transient Boolean selected;
 
     @Inject
-    public SelectSequence(SelectReporter reporter) {
-        feature(SelectActions.SelectToggle);
+    public SelectInclusive(SelectReporter reporter) {
+        feature(SelectActions.SelectInclusive);
         observer = reporter;
     }
 
@@ -78,25 +80,25 @@ public class SelectSequence extends ScenarioSetAction
         Selectable selectable = (Selectable)getItem();
         selected = selectable.getSelected();
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) { return false; }
-        if (obj == this) { return true; }
-        if (obj.getClass() != getClass()) { return false; }
-
-        SelectSequence that = (SelectSequence)obj;
-        return new EqualsBuilder()
-            .appendSuper(super.equals(obj))
-            .append(observer, that.observer)
-            .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-            .appendSuper(super.hashCode())
-            .append(observer)
-            .toHashCode();
-    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (obj == null) { return false; }
+//        if (obj == this) { return true; }
+//        if (obj.getClass() != getClass()) { return false; }
+//
+//        SelectInclusive that = (SelectInclusive)obj;
+//        return new EqualsBuilder()
+//            .appendSuper(super.equals(obj))
+//            .append(observer, that.observer)
+//            .isEquals();
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return new HashCodeBuilder(17, 37)
+//            .appendSuper(super.hashCode())
+//            .append(observer)
+//            .toHashCode();
+//    }
 }

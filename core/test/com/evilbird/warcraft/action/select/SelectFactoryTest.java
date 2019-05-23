@@ -25,8 +25,9 @@ public class SelectFactoryTest extends ActionFactoryTestCase
     @Override
     protected ActionProvider newFactory() {
         InjectedPool<SelectArea> areaPool = new MockInjectedPool<>(SelectArea.class);
-        InjectedPool<SelectSequence> sequencePool = new MockInjectedPool<>(SelectSequence.class);
-        return new SelectFactory(areaPool, sequencePool);
+        InjectedPool<SelectInclusive> inclusivePool = new MockInjectedPool<>(SelectInclusive.class);
+        InjectedPool<SelectExclusive> exclusivePool = new MockInjectedPool<>(SelectExclusive.class);
+        return new SelectFactory(areaPool, inclusivePool, exclusivePool);
     }
 
     @Override

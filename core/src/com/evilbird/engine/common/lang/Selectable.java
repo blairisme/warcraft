@@ -9,6 +9,8 @@
 
 package com.evilbird.engine.common.lang;
 
+import com.evilbird.engine.item.Item;
+
 /**
  * Implementors of this interface provide methods that mark a game object as
  * selectable, a process that aids  the user by allowing them to issue commands
@@ -16,7 +18,7 @@ package com.evilbird.engine.common.lang;
  *
  * @author Blair Butterworth
  */
-public interface Selectable
+public interface Selectable extends Item
 {
     /**
      * Returns whether the game object has been selected by the user.

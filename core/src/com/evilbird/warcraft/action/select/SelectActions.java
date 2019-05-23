@@ -18,7 +18,8 @@ import com.evilbird.engine.action.ActionIdentifier;
  */
 public enum SelectActions implements ActionIdentifier
 {
-    SelectToggle,
+    SelectInclusive,
+    SelectExclusive,
     SelectBoxBegin,
     SelectBoxResize,
     SelectBoxEnd

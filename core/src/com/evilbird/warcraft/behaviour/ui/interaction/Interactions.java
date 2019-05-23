@@ -54,7 +54,8 @@ import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddFar
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddTownHallPlaceholder;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderCancel;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderMove;
-import static com.evilbird.warcraft.action.select.SelectActions.SelectToggle;
+import static com.evilbird.warcraft.action.select.SelectActions.SelectExclusive;
+import static com.evilbird.warcraft.action.select.SelectActions.SelectInclusive;
 import static com.evilbird.warcraft.action.train.TrainActions.TrainFootman;
 import static com.evilbird.warcraft.action.train.TrainActions.TrainFootmanCancel;
 import static com.evilbird.warcraft.action.train.TrainActions.TrainPeasant;
@@ -302,16 +303,17 @@ public class Interactions
     }
 
     private void selectToggle() {
-        selectToggle(Footman);
-        selectToggle(Peasant);
-        selectToggle(GoldMine);
-        selectToggle(TownHall);
-        selectToggle(Barracks);
-        selectToggle(Farm);
+        selectToggle(Footman, true);
+        selectToggle(Peasant, true);
+
+        selectToggle(GoldMine, false);
+        selectToggle(TownHall, false);
+        selectToggle(Barracks, false);
+        selectToggle(Farm, false);
     }
     
-    private void selectToggle(Identifier selectable) {
-        interactions.addAction(SelectToggle)
+    private void selectToggle(Identifier selectable, boolean inclusive) {
+        interactions.addAction(inclusive ? SelectInclusive : SelectExclusive)
             .whenTarget(selectable)
             .appliedTo(Target)
             .appliedAs(Addition);
@@ -335,7 +337,7 @@ public class Interactions
     }
 
     private void unselectButton() {
-        interactions.addAction(SelectToggle)
+        interactions.addAction(SelectInclusive)
                 .whenTarget(UnselectButton)
                 .appliedTo(targetParentItem(), selectedItem());
     }

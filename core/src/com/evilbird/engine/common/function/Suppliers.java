@@ -36,6 +36,10 @@ public class Suppliers
         return () -> singleton(value);
     }
 
+    public static <T> Supplier<T> constantValue(T value) {
+        return () -> value;
+    }
+
     public static BiFunction<Float, Float, Float> increment() {
         return (current, delta) -> MathUtils.clamp(current + delta, 0f, Float.MAX_VALUE);
     }

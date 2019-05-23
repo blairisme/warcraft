@@ -19,22 +19,22 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Instances of this unit test validate the {@link SelectSequence} class.
+ * Instances of this unit test validate the {@link SelectInclusive} class.
  *
  * @author Blair Butterworth
  */
-public class SelectSequenceTest extends ActionTestCase
+public class SelectInclusiveTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        SelectSequence action = new SelectSequence(Mockito.mock(SelectReporter.class));
-        action.setIdentifier(SelectActions.SelectToggle);
+        SelectInclusive action = new SelectInclusive(Mockito.mock(SelectReporter.class));
+        action.setIdentifier(SelectActions.SelectInclusive);
         return action;
     }
 
     @Override
     protected Enum newIdentifier() {
-        return SelectActions.SelectToggle;
+        return SelectActions.SelectInclusive;
     }
 
     @Test

@@ -32,10 +32,12 @@ import static com.evilbird.warcraft.item.selection.SelectionType.SelectionBox;
 /**
  * Instances of this {@link Action} manipulate a {@link SelectionBox}, a user
  * define graphical area that denotes the items the user wishes to select.
+ *
+ * @author Blair Butterworth
  */
 public class SelectArea extends BasicAction
 {
-    private SelectReporter reporter;
+    private transient SelectReporter reporter;
 
     @Inject
     public SelectArea(SelectReporter reporter) {

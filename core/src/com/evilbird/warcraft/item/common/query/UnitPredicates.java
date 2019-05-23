@@ -13,6 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.common.function.Predicates;
 import com.evilbird.engine.common.lang.Movable;
+import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
@@ -28,6 +29,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import static com.evilbird.engine.common.function.Predicates.not;
 import static com.evilbird.engine.item.utility.ItemOperations.isNear;
 import static com.evilbird.warcraft.action.common.path.ItemPathFinder.hasPath;
 
@@ -101,13 +103,17 @@ public class UnitPredicates
 
     public static Predicate<Item> isSelected() {
         return (item) -> {
-            if (item instanceof Unit) {
-                Unit unit = (Unit)item;
-                return unit.getSelected();
+            if (item instanceof Selectable) {
+                Selectable selectable = (Selectable)item;
+                return selectable.getSelected();
             }
             return false;
 
         };
+    }
+
+    public static Predicate<Item> notSelected() {
+        return not(isSelected());
     }
 
     public static Predicate<Item> hasResources(ResourceType type) {
@@ -141,11 +147,11 @@ public class UnitPredicates
     }
 
     public static Predicate<Item> notAdjacent(Item item) {
-        return Predicates.not(isAdjacent(item));
+        return not(isAdjacent(item));
     }
 
     public static Predicate<Item> notAdjacent(Supplier<Item> locusSupplier) {
-        return Predicates.not(isAdjacent(locusSupplier));
+        return not(isAdjacent(locusSupplier));
     }
 
     public static Predicate<Item> inRange(Combatant combatant) {
@@ -154,7 +160,7 @@ public class UnitPredicates
     }
 
     public static Predicate<Item> notInRange(Combatant combatant) {
-        return Predicates.not(inRange(combatant));
+        return not(inRange(combatant));
     }
 
     public static Predicate<Item> isConstructing() {

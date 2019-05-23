@@ -57,7 +57,7 @@ public class SelectAction extends BasicAction
     public boolean act(float time) {
         Selectable selectable = (Selectable)getRecipient(this, recipient);
         selectable.setSelected(selected);
-        observer.onSelect((Item)selectable, selected);
+        observer.onSelect(selectable, selected);
         return true;
     }
 }
