@@ -23,8 +23,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.itemWithType;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
@@ -43,7 +45,7 @@ public class InteractionBehaviour implements Behaviour
     private Collection<Item> selected;
 
     private Item target;
-    private Interaction previous;
+    private Collection<Interaction> previous;
 
     private EventQueue events;
     private Interactions interactions;
@@ -103,7 +105,7 @@ public class InteractionBehaviour implements Behaviour
     private void evaluateInput(UserInput input, ItemRoot world, ItemRoot hud, Collection<Item> selected) {
         target = getTargets(world, hud, input);
         previous = evaluateSelection(input, target, selected);
-        if (previous == null) {
+        if (previous.isEmpty()) {
             target = camera;
             previous = evaluateSelection(input, target, selected);
         }
@@ -111,41 +113,49 @@ public class InteractionBehaviour implements Behaviour
 
     private void applyPrevious(UserInput input, Collection<Item> selected) {
         if (selected.isEmpty()) {
-            applyInteraction(previous, input, target, (Item)null);
+            apply(previous, input, target, (Item)null);
         } else {
-            applyInteraction(previous, input, target, selected);
+            apply(previous, input, target, selected);
         }
     }
 
-    private Interaction evaluateSelection(UserInput input, Item target, Collection<Item> selected) {
+    private Collection<Interaction> evaluateSelection(UserInput input, Item target, Collection<Item> selected) {
+        Collection<Interaction> result = new ArrayList<>();
         if (selected.isEmpty()) {
-            return evaluateInteractions(input, target, null);
+            result.add(evaluateInteractions(input, target, null));
         }
         else if (selected.contains(target)) {
-            return evaluateInteractions(input, target, target);
+            result.add(evaluateInteractions(input, target, target));
         }
         else {
             for (Item selectedItem: selected) {
-                return evaluateInteractions(input, target, selectedItem);
+                result.add(evaluateInteractions(input, target, selectedItem));
             }
         }
-        return null;
+        result.removeIf(Objects::isNull);
+        return result;
     }
 
     private Interaction evaluateInteractions(UserInput input, Item target, Item selected) {
         logInput(input, target, selected);
         Interaction interaction = interactions.getInteraction(input, target, selected);
-        applyInteraction(interaction, input, target, selected);
+        apply(interaction, input, target, selected);
         return interaction;
     }
 
-    private void applyInteraction(Interaction interaction, UserInput input, Item target, Collection<Item> selected) {
-        for (Item selectedItem: selected) {
-            applyInteraction(interaction, input, target, selectedItem);
+    private void apply(Collection<Interaction> interactions, UserInput input, Item target, Collection<Item> selected) {
+        for (Item selectedItem : selected) {
+            apply(interactions, input, target, selectedItem);
         }
     }
 
-    private void applyInteraction(Interaction interaction, UserInput input, Item target, Item selected) {
+    private void apply(Collection<Interaction> interactions, UserInput input, Item target, Item selected) {
+        for (Interaction interaction: interactions) {
+            apply(interaction, input, target, selected);
+        }
+    }
+
+    private void apply(Interaction interaction, UserInput input, Item target, Item selected) {
         if (interaction != null) {
             interaction.apply(input, target, selected);
         }
