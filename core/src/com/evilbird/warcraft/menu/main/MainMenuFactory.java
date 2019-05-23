@@ -30,9 +30,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 import static com.evilbird.warcraft.menu.intro.IntroMenuType.HumanLevel1;
-import static com.evilbird.warcraft.menu.main.MainMenuType.Campaign;
-import static com.evilbird.warcraft.menu.main.MainMenuType.CampaignNew;
-import static com.evilbird.warcraft.menu.main.MainMenuType.Home;
+import static com.evilbird.warcraft.menu.main.MainMenuType.*;
 
 /**
  * Instances of this factory create {@link Menu Menus} whose contents are

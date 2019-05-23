@@ -59,26 +59,30 @@ public class CombatantDetailsPane extends GridItem implements DetailsPaneElement
         Combatant combatant = (Combatant)item;
         armour.setText(getText("Armour", combatant.getDefence()));
         damage.setText(getText("Damage", combatant.getDamageMinimum(), combatant.getDamageMaximum()));
-        range.setText(getText("Range", combatant.getRange()));
-        sight.setText(getText("Sight", combatant.getSight()));
-        speed.setText(getText("Speed", combatant.getMovementSpeed()));
+        range.setText(getText("Range", combatant.getRangeText()));
+        sight.setText(getText("Sight", combatant.getSightText()));
+        speed.setText(getText("Speed", combatant.getMovementSpeedText()));
     }
 
-    private String getText(String prefix, float suffix) {
+    private String getText(String prefix, int suffix) {
+        return getText(prefix, String.valueOf(suffix));
+    }
+
+    private String getText(String prefix, String suffix) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(prefix);
         stringBuilder.append(": ");
-        stringBuilder.append(Math.round(suffix));
+        stringBuilder.append(suffix);
         return stringBuilder.toString();
     }
 
-    private String getText(String prefix, float suffixMin, float suffixMax) {
+    private String getText(String prefix, int suffixMin, int suffixMax) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(prefix);
         stringBuilder.append(": ");
-        stringBuilder.append(Math.round(suffixMin));
+        stringBuilder.append(suffixMin);
         stringBuilder.append("-");
-        stringBuilder.append(Math.round(suffixMax));
+        stringBuilder.append(suffixMax);
         return stringBuilder.toString();
     }
 

@@ -89,19 +89,19 @@ public class GruntFactory implements AssetProvider<Item>
         Combatant result = new Combatant(getSkin());
         result.setAnimation(UnitAnimation.Idle);
         result.setDefence(2);
-        result.setDamageMinimum(10); //2
-        result.setDamageMaximum(19); //9
+        result.setDamageMinimum(2);
+        result.setDamageMaximum(9);
         result.setHealth(60);
         result.setHealthMaximum(60);
         result.setLevel(1);
         result.setName("Grunt");
-        result.setMovementSpeed(64); //10
+        result.setMovementSpeed(80);
         result.setMovementCapability(LayerType.Map);
-        result.setRange(32 + 5); //1
+        result.setRange(32 + 5);
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
-        result.setSight(4 * 32); //4
+        result.setSight(128);
         result.setType(UnitType.Grunt);
         result.setIdentifier(objectIdentifier("Grunt", result));
         result.setSize(32, 32);

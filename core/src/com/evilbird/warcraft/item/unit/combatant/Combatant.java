@@ -18,9 +18,11 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
+import static com.evilbird.warcraft.item.WarcraftItemConstants.MOVEMENT_FACTOR;
+import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 
 /**
  * Instances of this class define a combatant: a {@link Unit} specialization
@@ -34,8 +36,8 @@ public class Combatant extends Unit implements Movable
     private int level;
     private int damageMinimum;
     private int damageMaximum;
-    private float range;
-    private float movementSpeed;
+    private int range;
+    private int movementSpeed;
     private Set<Identifier> movementCapability;
 
     public Combatant(Skin skin) {
@@ -55,17 +57,33 @@ public class Combatant extends Unit implements Movable
         return level;
     }
 
-    @Override
-    public float getMovementSpeed() {
-        return movementSpeed;
-    }
-
     public Set<Identifier> getMovementCapability() {
         return movementCapability;
     }
 
-    public float getRange() {
+    public int getMovementSpeed() {
+        return movementSpeed;
+    }
+
+    public int getMovementSpeedTiles() {
+        return movementSpeed / TILE_WIDTH;
+    }
+
+    public String getMovementSpeedText() {
+        int value = movementSpeed / MOVEMENT_FACTOR;
+        return String.valueOf(value);
+    }
+
+    public int getRange() {
         return range;
+    }
+
+    public int getRangeTiles() {
+        return range / TILE_WIDTH;
+    }
+
+    public String getRangeText() {
+        return String.valueOf(getRangeTiles());
     }
 
     public void setDamageMinimum(int damageMinimum) {
@@ -80,7 +98,7 @@ public class Combatant extends Unit implements Movable
         this.level = level;
     }
 
-    public void setMovementSpeed(float movementSpeed) {
+    public void setMovementSpeed(int movementSpeed) {
         this.movementSpeed = movementSpeed;
     }
 
@@ -89,12 +107,7 @@ public class Combatant extends Unit implements Movable
         this.movementCapability.add(capability);
     }
 
-    public void setMovementCapability(Collection<Identifier> capability) {
-        this.movementCapability.clear();
-        this.movementCapability.addAll(capability);
-    }
-
-    public void setRange(float range) {
+    public void setRange(int range) {
         this.range = range;
     }
 

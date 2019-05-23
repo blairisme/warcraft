@@ -42,20 +42,8 @@ import java.util.Collection;
 
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 import static com.evilbird.engine.common.graphics.TextureUtils.getTiledDrawable;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuLayout.Normal;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuLayout.Small;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuLayout.Wide;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Confirm;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Defeat;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Exit;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Load;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Objectives;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Options;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Preferences;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Root;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Save;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Sounds;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Speeds;
+import static com.evilbird.warcraft.menu.ingame.IngameMenuLayout.*;
+import static com.evilbird.warcraft.menu.ingame.IngameMenuType.*;
 import static com.evilbird.warcraft.menu.intro.IntroMenuType.HumanLevel1;
 import static com.evilbird.warcraft.state.WarcraftStateType.UserState;
 

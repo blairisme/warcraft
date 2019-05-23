@@ -61,9 +61,13 @@ public class SerializationVerifier<T>
         Serializer serializer = new JsonSerializer(new WarcraftTypeRegistry());
 
         String json = serializer.serialize(deserialized, type);
-        Assert.assertEquals(serialized, json);
+        String jsonTrimmed = json.trim().replace("\r","");
+        String serializedTrimmed = serialized.trim().replace("\r","");
+        Assert.assertEquals(serializedTrimmed, jsonTrimmed);
 
         Object object = serializer.deserialize(json, type);
         Assert.assertEquals(deserialized, object);
     }
+
+
 }

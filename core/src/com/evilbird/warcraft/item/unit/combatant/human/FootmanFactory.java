@@ -99,13 +99,13 @@ public class FootmanFactory implements AssetProvider<Item>
         result.setHealthMaximum(60);
         result.setLevel(1);
         result.setName("Footman");
-        result.setMovementSpeed(2.5f * 32f); // 10 = 2.5 tiles per second
+        result.setMovementSpeed(80);
         result.setMovementCapability(LayerType.Map);
-        result.setRange(32 + 5); // 1
+        result.setRange(32 + 5);
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
-        result.setSight(4 * 32); //4
+        result.setSight(128);
         result.setType(UnitType.Footman);
         result.setIdentifier(objectIdentifier("Footman", result));
         result.setSize(32, 32);

@@ -11,12 +11,8 @@ package com.evilbird.engine.common.serialization;
 
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.game.GameService;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 
 import javax.inject.Inject;
 import java.lang.reflect.Field;

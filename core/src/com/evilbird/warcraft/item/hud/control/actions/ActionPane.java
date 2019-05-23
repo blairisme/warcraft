@@ -21,12 +21,7 @@ import com.evilbird.warcraft.item.hud.HudControl;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonDetails.isEnabled;
 import static com.evilbird.warcraft.item.hud.control.actions.ActionPaneView.Actions;

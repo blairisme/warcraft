@@ -13,11 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.evilbird.engine.common.graphics.AnimationSchema;
 import org.apache.commons.lang3.Range;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Instances of this class define animation frame dimensions and layouts.

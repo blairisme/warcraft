@@ -19,12 +19,7 @@ import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.ItemType;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 
 import javax.inject.Inject;
 import java.lang.reflect.Type;
@@ -110,6 +105,10 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
 
         ScreenViewport viewport = new ScreenViewport();
         viewport.setUnitsPerPixel(1);
+//        viewport.setUnitsPerPixel(0.5f);
+
+//        System.out.println(Gdx.graphics.getPpcX());
+//        System.out.println(Gdx.graphics.getDensity());
 
         ItemRoot result = new ItemRoot();
         result.setViewport(viewport);

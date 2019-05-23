@@ -29,9 +29,7 @@ import static com.evilbird.engine.item.utility.ItemComparators.closestItem;
 import static com.evilbird.engine.item.utility.ItemOperations.findAncestorByType;
 import static com.evilbird.engine.item.utility.ItemOperations.isNear;
 import static com.evilbird.engine.item.utility.ItemPredicates.touchableWithType;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasPathTo;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlayer;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
 
 /**
  * Instances of this class contain common operations for working with Items.

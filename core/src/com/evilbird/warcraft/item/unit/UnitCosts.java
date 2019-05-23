@@ -16,9 +16,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import static com.evilbird.warcraft.item.common.resource.ResourceQuantum.resource;
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Food;
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.*;
 
 /**
  * Defines the resources required to create units.

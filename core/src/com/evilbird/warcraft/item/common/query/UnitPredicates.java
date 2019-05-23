@@ -11,7 +11,6 @@ package com.evilbird.warcraft.item.common.query;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.LambdaAction;
-import com.evilbird.engine.common.function.Predicates;
 import com.evilbird.engine.common.lang.Movable;
 import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;

@@ -26,7 +26,7 @@ public interface Movable extends Item
      *
      * @return  the the speed of the movable, in pixels per second.
      */
-    float getMovementSpeed();
+    int getMovementSpeed();
 
     /**
      * Returns a collection of item types that the movable can traverse. An

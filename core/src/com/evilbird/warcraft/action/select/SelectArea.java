@@ -24,9 +24,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import static com.evilbird.engine.common.function.Predicates.both;
-import static com.evilbird.engine.item.utility.ItemPredicates.overlapping;
-import static com.evilbird.engine.item.utility.ItemPredicates.touchable;
-import static com.evilbird.engine.item.utility.ItemPredicates.withType;
+import static com.evilbird.engine.item.utility.ItemPredicates.*;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.item.selection.SelectionType.SelectionBox;
 

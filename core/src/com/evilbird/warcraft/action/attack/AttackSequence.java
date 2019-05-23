@@ -28,12 +28,8 @@ import static com.evilbird.warcraft.action.attack.AttackEvents.attackComplete;
 import static com.evilbird.warcraft.action.attack.AttackEvents.attackStarted;
 import static com.evilbird.warcraft.action.attack.DeathAction.kill;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.inRange;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.notInRange;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.MeleeAttack;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.*;
 import static com.evilbird.warcraft.item.unit.UnitSound.Attack;
 
 /**

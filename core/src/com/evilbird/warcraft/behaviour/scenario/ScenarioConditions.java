@@ -24,13 +24,8 @@ import java.util.Map;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
-import static com.evilbird.engine.common.function.Predicates.all;
-import static com.evilbird.engine.common.function.Predicates.allBi;
-import static com.evilbird.engine.common.function.Predicates.combine;
-import static com.evilbird.engine.item.utility.ItemPredicates.hasMaximum;
-import static com.evilbird.engine.item.utility.ItemPredicates.hasMinimum;
-import static com.evilbird.engine.item.utility.ItemPredicates.withClazz;
-import static com.evilbird.engine.item.utility.ItemPredicates.withType;
+import static com.evilbird.engine.common.function.Predicates.*;
+import static com.evilbird.engine.item.utility.ItemPredicates.*;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
 import static java.util.Arrays.asList;

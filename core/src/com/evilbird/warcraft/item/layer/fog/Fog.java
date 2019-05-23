@@ -30,6 +30,8 @@ import com.google.gson.annotations.JsonAdapter;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+
 /**
  * Instances of this class represent fog of war: a layer of darkness that
  * recedes when units walk near and discover new territory.
@@ -148,15 +150,15 @@ public class Fog extends Layer
 
     private GridPoint2 toGridPoint(Vector2 vector) {
         GridPoint2 result = new GridPoint2();
-        result.x = vector.x != 0 ? Math.round(vector.x / 32) : 0;
-        result.y = vector.y != 0 ? Math.round(vector.y / 32) : 0;
+        result.x = vector.x != 0 ? Math.round(vector.x / TILE_WIDTH) : 0;
+        result.y = vector.y != 0 ? Math.round(vector.y / TILE_WIDTH) : 0;
         return result;
     }
 
     private int getSight(Item item){
         if (item instanceof Unit){
             Unit unit = (Unit)item;
-            return unit.getSight() / 32;
+            return unit.getSightTiles();
         }
         return 0;
     }

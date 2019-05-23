@@ -22,6 +22,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.inject.Inject;
 
+import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+
 /**
  * Instances of this represent a game object that the user can control and
  * interact with.
@@ -81,6 +83,14 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
         return sight;
     }
 
+    public int getSightTiles() {
+        return Math.round(sight / TILE_WIDTH);
+    }
+
+    public String getSightText() {
+        return String.valueOf(getSightTiles());
+    }
+
     /**
      * Returns whether the Unit has been selected by the user: a process that aids
      * the user by allowing them to issue commands to multiple Items at the
@@ -121,8 +131,8 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
         this.name = name;
     }
 
-    public void setSight(int sight) {
-        this.sight = sight;
+    public void setSight(int pixels) {
+        this.sight = pixels;
     }
 
     @Override
