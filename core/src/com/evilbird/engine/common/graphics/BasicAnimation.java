@@ -29,7 +29,7 @@ public class BasicAnimation implements DirectionalAnimation
     private float direction;
     private float duration;
     private PlayMode mode;
-    private Animation animation;
+    private Animation<TextureRegion> animation;
     private Map<Range<Float>, Array<TextureRegion>> frames;
 
     public BasicAnimation(
