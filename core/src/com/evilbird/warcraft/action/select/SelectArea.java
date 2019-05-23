@@ -17,6 +17,7 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.selection.SelectionBox;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -101,24 +102,40 @@ public class SelectArea extends BasicAction
         newSelection.removeAll(oldSelection);
         oldSelection.removeAll(overlapping);
 
-        setSelected(newSelection, true);
-        setSelected(oldSelection, false);
+        select(newSelection);
+        deselect(oldSelection);
 
         return true;
     }
 
-    private void setSelected(Collection<Item> items, boolean selected) {
+    private void deselect(Collection<Item> items) {
         for (Item item: items) {
-            setSelected(item, selected);
+            deselect(item);
         }
     }
 
-    private void setSelected(Item item, boolean selected) {
+    private void deselect(Item item) {
         if (item instanceof Selectable) {
             Selectable selectable = (Selectable)item;
             if (selectable.getSelectable()) {
-                selectable.setSelected(selected);
-                reporter.onSelect(item, selected);
+                selectable.setSelected(false);
+                reporter.onSelect(item, false);
+            }
+        }
+    }
+
+    private void select(Collection<Item> items) {
+        for (Item item: items) {
+            select(item);
+        }
+    }
+
+    private void select(Item item) {
+        if (item instanceof Combatant) {
+            Selectable selectable = (Selectable)item;
+            if (selectable.getSelectable()) {
+                selectable.setSelected(true);
+                reporter.onSelect(item, true);
             }
         }
     }
