@@ -13,6 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
+import com.evilbird.warcraft.item.common.resource.ResourceQuantum;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
@@ -44,6 +45,10 @@ import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
  */
 public class GatherWood extends ScenarioSetAction
 {
+    private static final float DEPOSIT_TIME = 45;
+    private static final float GATHER_TIME = 5;
+    private static final ResourceQuantity GATHER_AMOUNT = ResourceQuantum.resource(Wood, 100);
+
     private transient GatherReporter reporter;
 
     @Inject
@@ -55,32 +60,28 @@ public class GatherWood extends ScenarioSetAction
 
     @Override
     protected void features() {
-        scenario("obtain")
+        scenario("Gather Wood")
             .given(isAlive())
             .when(noResources(Wood))
             .then(animate(Move), deselect(reporter))
             .then(move(reporter))
-            .then(animate(GatherWood), obtainStarted(reporter, resource()))
-            .then(delay(1), playRepeat(ChopWood, 1))
-            .then(transfer(Target, Subject, resource(), reporter), obtainComplete(reporter, resource()))
+            .then(animate(GatherWood), obtainStarted(reporter, GATHER_AMOUNT))
+            .then(delay(GATHER_TIME), playRepeat(ChopWood, 40, 1))
+            .then(transfer(Target, Subject, GATHER_AMOUNT, reporter), obtainComplete(reporter, GATHER_AMOUNT))
             .then(setAnimation(Move, MoveWood), setAnimation(Idle, IdleWood))
             .then(animate(Idle))
             .withTarget(closest(getGatherer(), Tree, getTarget()));
 
-        scenario("deposit")
+        scenario("Deposit Wood")
             .givenItem(isAlive())
             .whenItem(hasResources(Wood))
             .then(animate(Move), deselect(reporter))
             .then(move(reporter))
-            .then(hide(), depositStarted(reporter, resource()))
-            .then(delay(1))
-            .then(transfer(Subject, Player, resource(), reporter), depositComplete(reporter, resource()))
+            .then(hide(), depositStarted(reporter, GATHER_AMOUNT))
+            .then(delay(DEPOSIT_TIME))
+            .then(transfer(Subject, Player, GATHER_AMOUNT, reporter), depositComplete(reporter, GATHER_AMOUNT))
             .then(show(), setAnimation(Move, MoveBasic), setAnimation(Idle, IdleBasic), animate(Idle))
             .withTarget(closest(getGatherer(), TownHall));
-    }
-
-    private ResourceQuantity resource() {
-        return GatherActions.GatherWood;
     }
 
     public Gatherer getGatherer() {

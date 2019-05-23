@@ -31,6 +31,7 @@ import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.*;
 import static com.evilbird.warcraft.item.common.query.UnitSuppliers.closest;
+import static com.evilbird.warcraft.item.common.resource.ResourceQuantum.resource;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.*;
 import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
@@ -43,6 +44,10 @@ import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
  */
 public class GatherGold extends ScenarioSetAction
 {
+    private static final float DEPOSIT_TIME = 5;
+    private static final float GATHER_TIME = 5;
+    private static final ResourceQuantity GATHER_AMOUNT =  resource(Gold, 100);
+
     private transient GatherReporter reporter;
 
     @Inject
@@ -54,31 +59,27 @@ public class GatherGold extends ScenarioSetAction
 
     @Override
     protected void features() {
-        scenario("obtain")
+        scenario("Gather Gold")
             .given(isAlive())
             .when(noResources(Gold))
             .then(animate(Move), deselect(reporter))
             .then(move(reporter))
-            .then(hide(), disable(), obtainStarted(reporter, resource()))
-            .then(delay(5))
-            .then(transfer(Target, Subject, resource(), reporter), obtainComplete(reporter, resource()))
+            .then(hide(), disable(), obtainStarted(reporter, GATHER_AMOUNT))
+            .then(delay(GATHER_TIME))
+            .then(transfer(Target, Subject, GATHER_AMOUNT, reporter), obtainComplete(reporter, GATHER_AMOUNT))
             .then(show(), enable(), setAnimation(Move, MoveGold), animate(Idle))
             .withTarget(closest(getGatherer(), GoldMine, getTarget()));
 
-        scenario("deposit")
+        scenario("Deposit Wood")
             .givenItem(isAlive())
             .whenItem(hasResources(Gold))
             .then(animate(Move), deselect(reporter))
             .then(move(reporter))
-            .then(hide(), disable(), depositStarted(reporter, resource()))
-            .then(delay(5))
-            .then(transfer(Subject, Player, resource(), reporter), depositComplete(reporter, resource()))
+            .then(hide(), disable(), depositStarted(reporter, GATHER_AMOUNT))
+            .then(delay(DEPOSIT_TIME))
+            .then(transfer(Subject, Player, GATHER_AMOUNT, reporter), depositComplete(reporter, GATHER_AMOUNT))
             .then(show(), enable(), animate(Idle), setAnimation(Move, MoveBasic))
             .withTarget(closest(getGatherer(), TownHall));
-    }
-
-    private ResourceQuantity resource() {
-        return GatherActions.GatherGold;
     }
 
     public Gatherer getGatherer() {
