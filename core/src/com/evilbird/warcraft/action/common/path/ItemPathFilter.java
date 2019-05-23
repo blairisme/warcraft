@@ -12,8 +12,12 @@ package com.evilbird.warcraft.action.common.path;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.warcraft.item.common.movement.MovementCapability;
+import com.evilbird.warcraft.item.layer.LayerType;
+import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -82,6 +86,26 @@ public class ItemPathFilter implements Predicate<ItemNode>
     public void addTraversableTypes(Collection<Identifier> types) {
         Objects.requireNonNull(types);
         traversableTypes.addAll(types);
+    }
+
+    /**
+     * Specifies that the path to the filter is applied can contain
+     * {@link Item Items} that grouped by the given movement capability.
+     *
+     * @param capability a MovementCapability.
+     */
+    public void addTraversableCapability(MovementCapability capability) {
+        Objects.requireNonNull(capability);
+        if (capability == MovementCapability.Land) {
+            traversableTypes.add(LayerType.Map);
+        }
+        else if (capability == MovementCapability.Sea) {
+            traversableTypes.add(LayerType.Map);
+        }
+        else if (capability == MovementCapability.Air) {
+            traversableTypes.addAll(Arrays.asList(LayerType.values()));
+            traversableTypes.addAll(Arrays.asList(UnitType.values()));
+        }
     }
 
     @Override

@@ -24,7 +24,6 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimatedItemStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationSets;
-import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitStyle;
@@ -39,6 +38,7 @@ import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
 import static com.evilbird.engine.common.file.FileType.MP3;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
+import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
 
 /**
  * Instances of this factory create Peasants, the land based gathering unit
@@ -111,7 +111,7 @@ public class PeasantFactory implements AssetProvider<Item>
         result.setHealthMaximum(30f);
         result.setLevel(1);
         result.setMovementSpeed(80);
-        result.setMovementCapability(LayerType.Map);
+        result.setMovementCapability(Land);
         result.setRange(32 + 5);
         result.setSight(128);
         result.setName("Peasant");

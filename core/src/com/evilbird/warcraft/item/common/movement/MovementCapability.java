@@ -9,8 +9,14 @@
 
 package com.evilbird.warcraft.item.common.movement;
 
-public enum MoveCapability
+/**
+ * Defines options for specifying movement capability
+ *
+ * @author Blair Butterworth
+ */
+public enum MovementCapability
 {
+    None,
     Land,
     Sea,
     Air

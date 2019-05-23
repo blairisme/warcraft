@@ -11,11 +11,11 @@ package com.evilbird.warcraft.action.move;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.common.lang.Movable;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
+import com.evilbird.warcraft.item.common.movement.Movable;
 
 import javax.inject.Inject;
 
@@ -56,7 +56,7 @@ class MoveToVectorAction extends MoveAction
             Movable item = (Movable)getItem();
             filter = new ItemPathFilter();
             filter.addTraversableItem(item);
-            filter.addTraversableTypes(item.getMovementCapability());
+            filter.addTraversableCapability(item.getMovementCapability());
         }
         return filter;
     }

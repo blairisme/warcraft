@@ -10,19 +10,17 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Movable;
 import com.evilbird.engine.common.serialization.SerializedType;
+import com.evilbird.warcraft.item.common.movement.Movable;
+import com.evilbird.warcraft.item.common.movement.MovementCapability;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import static com.evilbird.warcraft.item.WarcraftItemConstants.MOVEMENT_FACTOR;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+import static com.evilbird.warcraft.item.common.movement.MovementCapability.None;
 
 /**
  * Instances of this class define a combatant: a {@link Unit} specialization
@@ -38,11 +36,11 @@ public class Combatant extends Unit implements Movable
     private int damageMaximum;
     private int range;
     private int movementSpeed;
-    private Set<Identifier> movementCapability;
+    private MovementCapability movementCapability;
 
     public Combatant(Skin skin) {
         super(skin);
-        movementCapability = new HashSet<>();
+        movementCapability = None;
     }
 
     public int getDamageMinimum() {
@@ -57,7 +55,7 @@ public class Combatant extends Unit implements Movable
         return level;
     }
 
-    public Set<Identifier> getMovementCapability() {
+    public MovementCapability getMovementCapability() {
         return movementCapability;
     }
 
@@ -102,9 +100,8 @@ public class Combatant extends Unit implements Movable
         this.movementSpeed = movementSpeed;
     }
 
-    public void setMovementCapability(Identifier capability) {
-        this.movementCapability.clear();
-        this.movementCapability.add(capability);
+    public void setMovementCapability(MovementCapability capability) {
+        this.movementCapability = capability;
     }
 
     public void setRange(int range) {

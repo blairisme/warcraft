@@ -13,13 +13,13 @@ import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Movable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.action.common.path.ItemPathFinder;
+import com.evilbird.warcraft.item.common.movement.Movable;
 
 import java.util.Iterator;
 

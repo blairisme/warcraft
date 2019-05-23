@@ -1,17 +1,15 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.lang;
+package com.evilbird.warcraft.item.common.movement;
 
 import com.evilbird.engine.item.Item;
-
-import java.util.Collection;
 
 /**
  * Implementors of this interface provide methods that define a movable object,
@@ -29,10 +27,10 @@ public interface Movable extends Item
     int getMovementSpeed();
 
     /**
-     * Returns a collection of item types that the movable can traverse. An
-     * empty collection indicates that all item types can be traversed.
+     * Returns a {@link MovementCapability} defining which items the movable
+     * can traverse over.
      *
-     * @return a collection of item type identifiers.
+     * @return a MovementCapability.
      */
-    Collection<Identifier> getMovementCapability();
+    MovementCapability getMovementCapability();
 }

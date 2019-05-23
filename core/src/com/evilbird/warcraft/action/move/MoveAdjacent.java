@@ -21,12 +21,12 @@ package com.evilbird.warcraft.action.move;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Movable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
+import com.evilbird.warcraft.item.common.movement.Movable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -74,7 +74,7 @@ public class MoveAdjacent extends BasicAction
         ItemGraph graph = root.getSpatialGraph();
 
         ItemPathFilter capability = new ItemPathFilter();
-        capability.addTraversableTypes(subject.getMovementCapability());
+        capability.addTraversableCapability(subject.getMovementCapability());
 
         Collection<ItemNode> adjacent = graph.getAdjacentNodes(target.getPosition(), target.getSize());
         Optional<ItemNode> unoccupied = adjacent.stream().filter(capability).findFirst();

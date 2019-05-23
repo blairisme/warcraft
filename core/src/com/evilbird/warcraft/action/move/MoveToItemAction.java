@@ -10,9 +10,9 @@
 package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.common.lang.Movable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
+import com.evilbird.warcraft.item.common.movement.Movable;
 
 import javax.inject.Inject;
 
@@ -49,7 +49,7 @@ public class MoveToItemAction extends MoveAction
             filter = new ItemPathFilter();
             filter.addTraversableItem(item);
             filter.addTraversableItem(getTarget());
-            filter.addTraversableTypes(item.getMovementCapability());
+            filter.addTraversableCapability(item.getMovementCapability());
         }
         return filter;
     }

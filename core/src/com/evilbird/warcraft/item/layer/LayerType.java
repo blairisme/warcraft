@@ -16,6 +16,7 @@ import com.evilbird.engine.item.ItemType;
 public enum LayerType implements ItemType
 {
     Map,
+    Sea,
     Forest,
     Tree,
     OpaqueFog,

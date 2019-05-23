@@ -10,10 +10,10 @@
 package com.evilbird.warcraft.item.common.query;
 
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Movable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.item.common.movement.Movable;
 import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;

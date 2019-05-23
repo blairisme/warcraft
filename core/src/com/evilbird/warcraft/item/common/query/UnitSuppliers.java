@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.item.common.query;
 
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Movable;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.common.movement.Movable;
 import com.evilbird.warcraft.item.unit.Unit;
 
 import java.util.function.Supplier;

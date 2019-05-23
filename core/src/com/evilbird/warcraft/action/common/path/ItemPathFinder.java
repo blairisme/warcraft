@@ -14,12 +14,12 @@ import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.PathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
-import com.evilbird.engine.common.lang.Movable;
 import com.evilbird.engine.common.pathing.ManhattanHeuristic;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.warcraft.item.common.movement.Movable;
 
 /**
  * Instances of this class calculate {@link GraphPath path} between {@link Item
@@ -62,7 +62,7 @@ public class ItemPathFinder
         ItemPathFilter filter = new ItemPathFilter();
         filter.addTraversableItem(fromItem);
         filter.addTraversableItem(toItem);
-        filter.addTraversableTypes(fromItem.getMovementCapability());
+        filter.addTraversableCapability(fromItem.getMovementCapability());
 
         ItemRoot root = fromItem.getRoot();
         ItemGraph graph = root.getSpatialGraph();
