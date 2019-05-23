@@ -54,7 +54,7 @@ public class AnimationSchemas
     public static AnimationSchema constructBeginSchema(int width, int height) {
         List<List<Rectangle>> regions = getRegions(1, 2, 0, 0, width, height);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 3f, false);
+        return new AnimationSchema(frames, 8f, false);
     }
 
     public static AnimationSchema constructEndSchema(int width, int height) {
@@ -62,7 +62,7 @@ public class AnimationSchemas
         Collections.reverse(regions.get(0));
 
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 3f, false);
+        return new AnimationSchema(frames, 8f, false);
     }
 
     public static AnimationSchema gatheringSchema(int width, int height) {
@@ -74,13 +74,13 @@ public class AnimationSchemas
     public static AnimationSchema moveSchema() {
         List<List<Rectangle>> regions = getRegions(8, 5, 0, 0, 72, 72);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 0.15f, true);
+        return new AnimationSchema(frames, 0.10f, true);
     }
 
     public static AnimationSchema attackSchema() {
         List<List<Rectangle>> regions = getRegions(8, 4, 0, 360, 72, 72);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 0.15f, true);
+        return new AnimationSchema(frames, 0.10f, true);
     }
 
     public static AnimationSchema buildingDestructionScheme() {
@@ -99,12 +99,6 @@ public class AnimationSchemas
         List<List<Rectangle>> regions = getRegions(8, 6, 0, 0, 72, 72);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
         return new AnimationSchema(frames, 2f, false);
-    }
-
-    public static AnimationSchema treeStumpSchema() {
-        List<List<Rectangle>> regions = getRegions(1, 1, 448, 224, 32, 32);
-        Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 1f, true);
     }
 
     private static List<List<Rectangle>> getRegions(int xCount, int yCount, int x, int y, int width, int height) {
