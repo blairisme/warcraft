@@ -10,6 +10,7 @@
   <image source="../../textures/human/perennial/peasant.png" width="576" height="936"/>
  </tileset>
  <tileset firstgid="585" name="Grunt" tilewidth="72" tileheight="72" tilecount="96" columns="8">
+  <grid orientation="orthogonal" width="32" height="32"/>
   <image source="../../textures/orc/perennial/grunt.png" width="576" height="864"/>
  </tileset>
  <tileset firstgid="681" name="Townhall" tilewidth="128" tileheight="128" tilecount="2" columns="1">
@@ -86,13 +87,6 @@
  </objectgroup>
  <objectgroup id="7" name="Farm">
   <object id="38" name="Farm1" type="Farm" gid="683" x="608" y="384" width="64" height="64">
-   <properties>
-    <property name="Owner" value="Player1"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup id="8" name="Barracks">
-  <object id="39" name="Barracks1" type="Barracks" gid="685" x="224" y="384" width="96" height="96">
    <properties>
     <property name="Owner" value="Player1"/>
    </properties>
