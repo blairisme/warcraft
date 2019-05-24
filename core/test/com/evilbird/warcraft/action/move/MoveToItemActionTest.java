@@ -16,6 +16,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Instances of this unit test validate the {@link MoveToItemAction} class.
@@ -36,6 +37,7 @@ public class MoveToItemActionTest extends GameTestCase
         action = new MoveToItemAction();
         action.setItem(item);
         action.setTarget(target);
+        action.setObserver(Mockito.mock(MoveObserver.class));
     }
 
     @Test

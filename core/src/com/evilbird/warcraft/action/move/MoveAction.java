@@ -202,15 +202,15 @@ abstract class MoveAction extends BasicAction
 
     private void error() {
         setError(new PathUnknownException(getItem()));
+        observer.onMoveFailed(getItem());
     }
 
     private void complete() {
+        observer.onMoveComplete(getItem());
     }
 
     private void notifyMove(ItemNode location, Item subject) {
-        if (observer != null) {
-            observer.onMove(subject, location);
-        }
+        observer.onMove(subject, location);
     }
 
     protected abstract ItemPathFilter getPathFilter();

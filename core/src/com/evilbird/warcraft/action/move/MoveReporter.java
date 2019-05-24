@@ -32,6 +32,21 @@ class MoveReporter implements MoveObserver
 
     @Override
     public void onMove(Item subject, ItemNode location) {
-        events.add(new MoveEvent(subject, location));
+        events.add(new MoveEvent(subject, location, MoveStatus.Updated));
+    }
+
+    @Override
+    public void onMoveComplete(Item subject) {
+        events.add(new MoveEvent(subject, null, MoveStatus.Complete));
+    }
+
+    @Override
+    public void onMoveFailed(Item subject) {
+        events.add(new MoveEvent(subject, null, MoveStatus.Failed));
+    }
+
+    @Override
+    public void onMoveCancelled(Item subject) {
+        events.add(new MoveEvent(subject, null, MoveStatus.Cancelled));
     }
 }

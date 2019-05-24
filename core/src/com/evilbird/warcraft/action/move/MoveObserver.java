@@ -21,4 +21,10 @@ import com.evilbird.engine.item.spatial.ItemNode;
 public interface MoveObserver
 {
     void onMove(Item subject, ItemNode location);
+
+    void onMoveComplete(Item subject);
+
+    void onMoveFailed(Item subject);
+
+    void onMoveCancelled(Item subject);
 }

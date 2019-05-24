@@ -44,6 +44,10 @@ public class AttackEvent implements Event
         return status;
     }
 
+    public boolean isFinished() {
+        return status != AttackStatus.Started;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)

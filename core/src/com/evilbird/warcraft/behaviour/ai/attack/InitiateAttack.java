@@ -9,28 +9,28 @@
 
 package com.evilbird.warcraft.behaviour.ai.attack;
 
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.action.attack.AttackActions;
-import com.evilbird.warcraft.action.common.create.CreateEvent;
-import com.evilbird.warcraft.action.common.remove.RemoveEvent;
+import com.evilbird.warcraft.action.attack.AttackEvent;
+import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourElement;
+import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 import java.util.Collection;
-import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
-import static com.evilbird.engine.common.function.Predicates.both;
-import static com.evilbird.engine.item.utility.ItemOperations.isIdle;
+import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.inSight;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.isHuman;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant;
 
 /**
  * Instances of this {@link AiBehaviourElement} instruct AI combatants to attack an
@@ -40,67 +40,110 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant
  */
 public class InitiateAttack implements AiBehaviourElement
 {
+    private static final int SIGHT_MAX = 6 * TILE_WIDTH;
+
     private EventQueue events;
     private ActionFactory actions;
-    private Collection<Item> aiCombatants;
-    private Predicate<Item> isAiCombatant;
 
     @Inject
     public InitiateAttack(ActionFactory actions, EventQueue events) {
         this.actions = actions;
         this.events = events;
-        this.isAiCombatant = both(isCombatant(), isAi());
     }
 
     @Override
-    public void update(ItemRoot gameState) {
-        evaluateCache(gameState);
-        evaluateAttack();
+    public void update(ItemRoot state) {
+        evaluateAttackEvents(state);
+        evaluateMoveEvents(state);
     }
 
-    private void evaluateCache(ItemRoot gameState) {
-        if (aiCombatants == null) {
-            initializeCache(gameState);
-        } else {
-            updateCache();
-        }
-    }
-
-    private void initializeCache(ItemRoot gameState) {
-        aiCombatants = gameState.findAll(isAiCombatant);
-    }
-
-    private void updateCache() {
-        for (CreateEvent event : events.getEvents(CreateEvent.class)) {
-            if (isAiCombatant.test(event.getSubject())) {
-                aiCombatants.add(event.getSubject());
+    private void evaluateAttackEvents(ItemRoot state) {
+        for (AttackEvent event: events.getEvents(AttackEvent.class)) {
+            Combatant subject = (Combatant)event.getSubject();
+            if (event.isFinished() && isIdle(subject, AttackActions.class)) {
+                evaluateCombatant(state, subject);
             }
         }
-        for (RemoveEvent event : events.getEvents(RemoveEvent.class)) {
-            aiCombatants.remove(event.getSubject());
-        }
     }
 
-    private void evaluateAttack() {
+    private void evaluateMoveEvents(ItemRoot state) {
         for (MoveEvent event: events.getEvents(MoveEvent.class)) {
-            if (isHuman(event.getSubject())) {
-                initiateAttack(event.getSubject());
+            Item subject = event.getSubject();
+            if (event.isComplete() && isCombatant(subject) && isIdle(subject, MoveActions.class)) {
+                evaluateCombatant(state, (Combatant)subject);
+            }
+            if (isUnit(subject)){
+                evaluateTarget(state, subject);
             }
         }
     }
 
-    private void initiateAttack(Item target) {
-        for (Item aiCombatant: aiCombatants) {
-            Combatant combatant = (Combatant)aiCombatant;
-            if (isIdle(combatant) && inSight(combatant, target)) {
+    private void evaluateCombatant(ItemRoot state, Combatant combatant) {
+        for (Item target : getItems(state, combatant, combatant.getSight())) {
+            if (isUnit(target) && isAnotherTeam(combatant, target) && isAlive(target)) {
                 attack(combatant, target);
+                return;
             }
         }
+    }
+
+    private void evaluateTarget(ItemRoot state, Item target) {
+        for (Item item: getItems(state, target, SIGHT_MAX)) {
+            if (isCombatant(item) && isAlive(item) && isIdle(item) && isAnotherTeam(item, target)) {
+                Combatant combatant = (Combatant)item;
+                if (inSight(combatant, target)) {
+                    attack(combatant, target);
+                }
+            }
+        }
+    }
+
+    private boolean isAnotherTeam(Item itemA, Item itemB){
+        return itemA.getParent() != itemB.getParent();
+    }
+
+    private boolean isCombatant(Item item) {
+        return item instanceof Combatant;
+    }
+
+    private boolean isUnit(Item item) {
+        return item instanceof Unit;
+    }
+
+    private boolean isAlive(Item item) {
+        Unit unit = (Unit)item;
+        return unit.isAlive();
+    }
+
+    private boolean isIdle(Item item) {
+        return isIdle(item, null);
+    }
+
+    private boolean isIdle(Item item, Class<?> allowed) {
+        Collection<Action> actions = item.getActions();
+        if (actions.isEmpty()) {
+            return true;
+        }
+        if (allowed != null && actions.size() == 1) {
+            Action action = actions.iterator().next();
+            return action.getIdentifier().getClass().isAssignableFrom(allowed);
+        }
+        return false;
     }
 
     private void attack(Combatant combatant, Item target) {
         Action action = actions.newAction(AttackActions.AttackMelee);
         action.setTarget(target);
         combatant.addAction(action);
+    }
+
+    private Collection<Item> getItems(ItemRoot state, Item locus, int radius) {
+        ItemGraph graph = state.getSpatialGraph();
+
+        Vector2 size = locus.getSize().add(radius, radius);
+        Vector2 position = locus.getPosition().sub(radius, radius);
+
+        Collection<ItemNode> nodes = graph.getNodes(position, size);
+        return nodes.stream().flatMap(node -> node.getOccupants().stream()).collect(Collectors.toSet());
     }
 }

@@ -115,13 +115,15 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         int xStart = spatialPosition.x;
         int yStart = spatialPosition.y;
 
-        int xEnd = Math.min(xStart + xCount, nodeCountX);
-        int yEnd = Math.min(yStart + yCount, nodeCountY);
+        int xEnd = xStart + xCount;
+        int yEnd = yStart + yCount;
 
         Collection<ItemNode> result = new ArrayList<>();
         for (int x = xStart; x < xEnd; x++) {
             for (int y = yStart; y < yEnd; y++) {
-                result.add(nodes[x][y]);
+                if (x >= 0 && x < nodeCountX && y >= 0 && y < nodeCountY) {
+                    result.add(nodes[x][y]);
+                }
             }
         }
         return result;

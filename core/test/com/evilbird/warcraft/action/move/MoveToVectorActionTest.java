@@ -18,6 +18,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static com.evilbird.engine.device.UserInputType.Action;
 
@@ -40,6 +41,7 @@ public class MoveToVectorActionTest extends GameTestCase
         action = new MoveToVectorAction();
         action.setItem(item);
         action.setTarget(target);
+        action.setObserver(Mockito.mock(MoveObserver.class));
     }
 
     @Test

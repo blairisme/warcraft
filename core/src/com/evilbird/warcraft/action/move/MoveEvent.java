@@ -24,10 +24,12 @@ public class MoveEvent implements Event
 {
     private Item subject;
     private ItemNode location;
+    private MoveStatus status;
 
-    public MoveEvent(Item subject, ItemNode location) {
+    public MoveEvent(Item subject, ItemNode location, MoveStatus status) {
         this.subject = subject;
         this.location = location;
+        this.status = status;
     }
 
     @Override
@@ -39,11 +41,20 @@ public class MoveEvent implements Event
         return location;
     }
 
+    public MoveStatus getStatus() {
+        return status;
+    }
+
+    public boolean isComplete() {
+        return status == MoveStatus.Complete || status == MoveStatus.Failed;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
             .append("subject", subject.getIdentifier())
-            .append("location", location.getSpatialReference())
+            //.append("location", location.getSpatialReference())
+            .append("status", status)
             .toString();
     }
 }

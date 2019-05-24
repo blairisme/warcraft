@@ -24,7 +24,10 @@ import org.mockito.Mockito;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.item.selection.SelectionType.SelectionBox;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Instances of this unit test validate the {@link SelectArea} class.

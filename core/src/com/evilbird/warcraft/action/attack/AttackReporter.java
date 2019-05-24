@@ -18,6 +18,7 @@ import com.evilbird.warcraft.action.common.transfer.TransferEvent;
 import com.evilbird.warcraft.action.common.transfer.TransferObserver;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.action.move.MoveObserver;
+import com.evilbird.warcraft.action.move.MoveStatus;
 import com.evilbird.warcraft.action.select.SelectEvent;
 import com.evilbird.warcraft.action.select.SelectObserver;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
@@ -59,7 +60,22 @@ public class AttackReporter implements
 
     @Override
     public void onMove(Item subject, ItemNode location) {
-        events.add(new MoveEvent(subject, location));
+        events.add(new MoveEvent(subject, location, MoveStatus.Updated));
+    }
+
+    @Override
+    public void onMoveComplete(Item subject) {
+        events.add(new MoveEvent(subject, null, MoveStatus.Complete));
+    }
+
+    @Override
+    public void onMoveFailed(Item subject) {
+        events.add(new MoveEvent(subject, null, MoveStatus.Failed));
+    }
+
+    @Override
+    public void onMoveCancelled(Item subject) {
+        events.add(new MoveEvent(subject, null, MoveStatus.Cancelled));
     }
 
     @Override
