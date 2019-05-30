@@ -32,4 +32,11 @@ public class GestureAnalyzer extends GestureDetector
         observer.touchUp(screenX, screenY, pointer, button);
         return result;
     }
+
+    @Override
+    public boolean scrolled(int amount) {
+        boolean result = super.scrolled(amount);
+        observer.scrolled(amount);
+        return result;
+    }
 }

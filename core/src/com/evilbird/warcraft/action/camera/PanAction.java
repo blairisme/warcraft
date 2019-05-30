@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.data.camera.Camera;
 
 import javax.inject.Inject;
 import java.util.Objects;
@@ -27,6 +28,8 @@ import static com.evilbird.warcraft.action.camera.CameraActions.Pan;
  */
 public class PanAction extends BasicAction
 {
+    private static final float PAN_SENSITIVITY = 2;
+
     @Inject
     public PanAction() {
         setIdentifier(Pan);
@@ -35,15 +38,15 @@ public class PanAction extends BasicAction
     @Override
     public boolean act(float time) {
         UserInput cause = getCause();
-        Objects.requireNonNull(cause);
+        Camera camera = (Camera)getItem();
 
-        Item item = getItem();
         Vector2 delta = cause.getDelta();
+        Vector2 zoomed = delta.scl(camera.getZoom());
+        Vector2 scaled = zoomed.scl(PAN_SENSITIVITY);
 
-        Vector2 value = item.getPosition();
-        Vector2 difference = new Vector2(delta.x, delta.y);
-        Vector2 result = value.add(difference);
-        item.setPosition(result);
+        Vector2 current = camera.getPosition();
+        Vector2 result = current.add(scaled);
+        camera.setPosition(result);
 
         return true;
     }

@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.state;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
@@ -114,6 +115,10 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
 
 //        System.out.println(Gdx.graphics.getPpcX());
 //        System.out.println(Gdx.graphics.getDensity());
+
+        //Mac
+//        43.307087
+//        0.6875
 
         ItemRoot result = new ItemRoot();
         result.setViewport(viewport);

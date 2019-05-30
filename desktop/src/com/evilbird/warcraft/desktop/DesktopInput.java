@@ -135,14 +135,6 @@ public class DesktopInput implements DeviceInput, GestureObserver
     }
 
     @Override
-    public boolean zoom(float initialDistance, float distance) {
-        float scale = distance / initialDistance;
-        UserInput input = new UserInput(UserInputType.Zoom, new Vector2(0, 0), new Vector2(scale, scale), zoomCount++);
-        pushInput(input);
-        return true;
-    }
-
-    @Override
     public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
         return false;
     }
@@ -150,5 +142,23 @@ public class DesktopInput implements DeviceInput, GestureObserver
     @Override
     public void pinchStop() {
         zoomCount = 1;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+
+        UserInput input = new UserInput(UserInputType.Zoom, new Vector2(0, 0), new Vector2(amount, amount), 1);
+        pushInput(input);
+
+        return false;
+    }
+
+    @Override
+    public boolean zoom(float initialDistance, float distance) {
+        //float scale = distance / initialDistance;
+        float scale  = initialDistance - distance;
+        UserInput input = new UserInput(UserInputType.Zoom, new Vector2(0, 0), new Vector2(scale, scale), zoomCount++);
+        pushInput(input);
+        return true;
     }
 }
