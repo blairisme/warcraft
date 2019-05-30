@@ -95,7 +95,13 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     }
 
     public ItemNode getNode(GridPoint2 spatialPosition) {
-        return nodes[spatialPosition.x][spatialPosition.y];
+        int x = spatialPosition.x;
+        int y = spatialPosition.y;
+
+        if (x >= 0 && x < nodeCountX && y >= 0 && y < nodeCountY) {
+            return nodes[x][y];
+        }
+        return null;
     }
 
     public Collection<ItemNode> getNodes(Vector2 worldPosition, Vector2 worldSize) {

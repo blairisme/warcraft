@@ -100,6 +100,11 @@ public class ItemPredicates
         return item -> item != null && item.getActions().stream().anyMatch(condition);
     }
 
+    public static Predicate<Item> hasAction(Identifier identifier) {
+        return item -> item != null && item.getActions().stream().anyMatch(
+            action -> action.getIdentifier() == identifier);
+    }
+
     public static Predicate<Item> overlapping(Item target) {
         return overlapping(target.getBounds());
     }

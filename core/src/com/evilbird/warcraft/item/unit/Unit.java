@@ -87,10 +87,6 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
         return Math.round(sight / TILE_WIDTH);
     }
 
-    public String getSightText() {
-        return String.valueOf(getSightTiles());
-    }
-
     /**
      * Returns whether the Unit has been selected by the user: a process that aids
      * the user by allowing them to issue commands to multiple Items at the

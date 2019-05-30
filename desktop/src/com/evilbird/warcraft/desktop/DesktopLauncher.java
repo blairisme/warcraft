@@ -75,6 +75,8 @@ public class DesktopLauncher
         LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
         configuration.height = 768;
         configuration.width = 1024;
+        //configuration.useHDPI = true;
+       // configuration.foregroundFPS = 30;
         configuration.vSyncEnabled = true;
         configuration.title = "Warcraft II";
         configuration.addIcon("data/icons/WarcraftIcon.png", Files.FileType.Internal);

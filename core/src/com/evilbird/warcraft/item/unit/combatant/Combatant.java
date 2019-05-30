@@ -18,7 +18,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import static com.evilbird.warcraft.item.WarcraftItemConstants.MOVEMENT_FACTOR;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.None;
 
@@ -67,21 +66,12 @@ public class Combatant extends Unit implements Movable
         return movementSpeed / TILE_WIDTH;
     }
 
-    public String getMovementSpeedText() {
-        int value = movementSpeed / MOVEMENT_FACTOR;
-        return String.valueOf(value);
-    }
-
     public int getRange() {
         return range;
     }
 
     public int getRangeTiles() {
         return range / TILE_WIDTH;
-    }
-
-    public String getRangeText() {
-        return String.valueOf(getRangeTiles());
     }
 
     public void setDamageMinimum(int damageMinimum) {

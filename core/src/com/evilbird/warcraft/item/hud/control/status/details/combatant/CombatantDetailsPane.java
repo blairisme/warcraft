@@ -19,6 +19,13 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
+import static com.evilbird.warcraft.item.unit.combatant.CombatantVisualization.getDamageMaximum;
+import static com.evilbird.warcraft.item.unit.combatant.CombatantVisualization.getDamageMinimum;
+import static com.evilbird.warcraft.item.unit.combatant.CombatantVisualization.getDefence;
+import static com.evilbird.warcraft.item.unit.combatant.CombatantVisualization.getMovementSpeed;
+import static com.evilbird.warcraft.item.unit.combatant.CombatantVisualization.getRange;
+import static com.evilbird.warcraft.item.unit.combatant.CombatantVisualization.getSight;
+
 /**
  * Instances of this user interface show details about
  * {@link Combatant Combatants}.
@@ -57,11 +64,11 @@ public class CombatantDetailsPane extends GridItem implements DetailsPaneElement
 
     public void setItem(Item item) {
         Combatant combatant = (Combatant)item;
-        armour.setText(getText("Armour", combatant.getDefence()));
-        damage.setText(getText("Damage", combatant.getDamageMinimum(), combatant.getDamageMaximum()));
-        range.setText(getText("Range", combatant.getRangeText()));
-        sight.setText(getText("Sight", combatant.getSightText()));
-        speed.setText(getText("Speed", combatant.getMovementSpeedText()));
+        armour.setText(getText("Armour", getDefence(combatant)));
+        damage.setText(getText("Damage", getDamageMinimum(combatant), getDamageMaximum(combatant)));
+        range.setText(getText("Range", getRange(combatant)));
+        sight.setText(getText("Sight", getSight(combatant)));
+        speed.setText(getText("Speed", getMovementSpeed(combatant)));
     }
 
     private String getText(String prefix, int suffix) {
@@ -76,7 +83,7 @@ public class CombatantDetailsPane extends GridItem implements DetailsPaneElement
         return stringBuilder.toString();
     }
 
-    private String getText(String prefix, int suffixMin, int suffixMax) {
+    private String getText(String prefix, String suffixMin, String suffixMax) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(prefix);
         stringBuilder.append(": ");

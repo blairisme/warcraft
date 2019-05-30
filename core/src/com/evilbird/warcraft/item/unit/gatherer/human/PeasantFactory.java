@@ -105,8 +105,8 @@ public class PeasantFactory implements AssetProvider<Item>
         Gatherer result = new Gatherer(getSkin());
         result.setAnimation(UnitAnimation.Idle);
         result.setDefence(0);
-        result.setDamageMinimum(1);
-        result.setDamageMaximum(5);
+        result.setDamageMinimum(2);
+        result.setDamageMaximum(10);
         result.setHealth(30f);
         result.setHealthMaximum(30f);
         result.setLevel(1);

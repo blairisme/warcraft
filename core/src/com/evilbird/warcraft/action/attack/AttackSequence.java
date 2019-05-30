@@ -18,7 +18,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
-import static com.evilbird.engine.action.common.AssignAction.assign;
+import static com.evilbird.engine.action.common.AssignAction.assignIfAbsent;
 import static com.evilbird.engine.action.common.DirectionAction.reorient;
 import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
 import static com.evilbird.engine.action.predicates.ActionPredicates.target;
@@ -85,9 +85,11 @@ public class AttackSequence extends ScenarioSetAction
             .whenTarget(inRange(combatant))
             .givenItem(isAlive())
             .givenTarget(inRange(combatant))
-            .then(animate(MeleeAttack), attackStarted(reporter))
+            .then(animate(MeleeAttack))
+            .then(attackStarted(reporter))
             .then(attack(), playRepeat(Attack, target(isAlive())))
-            .then(animate(Idle), attackComplete(reporter))
-            .then(assign(kill(reporter), Target));
+            .then(attackComplete(reporter))
+            .then(animate(Idle))
+            .then(assignIfAbsent(kill(reporter), Target));
     }
 }

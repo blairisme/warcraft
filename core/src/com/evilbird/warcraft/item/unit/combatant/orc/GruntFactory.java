@@ -88,9 +88,9 @@ public class GruntFactory implements AssetProvider<Item>
     public Item get() {
         Combatant result = new Combatant(getSkin());
         result.setAnimation(UnitAnimation.Idle);
-        result.setDefence(2);
-        result.setDamageMinimum(2);
-        result.setDamageMaximum(9);
+        result.setDefence(4);
+        result.setDamageMinimum(4);
+        result.setDamageMaximum(18);
         result.setHealth(60);
         result.setHealthMaximum(60);
         result.setLevel(1);

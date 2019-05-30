@@ -13,6 +13,12 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 
+import java.util.function.Predicate;
+
+import static com.evilbird.engine.common.function.Predicates.accept;
+import static com.evilbird.engine.common.function.Predicates.not;
+import static com.evilbird.engine.item.utility.ItemPredicates.hasAction;
+
 /**
  * Instances of this {@link Action} assign an action to a specified item.
  *
@@ -22,20 +28,28 @@ public class AssignAction extends BasicAction
 {
     private Action action;
     private ActionRecipient recipient;
+    private Predicate<Item> condition;
 
-    public AssignAction(Action action, ActionRecipient recipient) {
+    public AssignAction(Action action, ActionRecipient recipient, Predicate<Item> condition) {
         this.action = action;
         this.recipient = recipient;
+        this.condition = condition;
     }
 
     public static Action assign(Action action, ActionRecipient recipient) {
-        return new AssignAction(action, recipient);
+        return new AssignAction(action, recipient, accept());
+    }
+
+    public static Action assignIfAbsent(Action action, ActionRecipient recipient) {
+        return new AssignAction(action, recipient, not(hasAction(action.getIdentifier())));
     }
 
     @Override
     public boolean act(float delta) {
         Item item = ActionUtils.getRecipient(this, recipient);
-        item.addAction(action);
+        if (condition.test(item)) {
+            item.addAction(action);
+        }
         return true;
     }
 }

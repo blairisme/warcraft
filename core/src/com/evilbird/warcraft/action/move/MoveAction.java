@@ -113,7 +113,7 @@ abstract class MoveAction extends BasicAction
             endNode = getDestination().getDestinationNode(graph, startNode);
             path = ItemPathFinder.findPath(graph, startNode, endNode);
 
-            if (path != null) {
+            if (path != null && endNode != null && startNode != null) {
                 pathIterator = path.iterator();
                 pathNode = startNode;
                 clearAdjacentNodes();
