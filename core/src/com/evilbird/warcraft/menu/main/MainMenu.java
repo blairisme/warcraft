@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.control.SelectListenerAdapter;
 import com.evilbird.engine.menu.Menu;
@@ -89,9 +88,9 @@ public class MainMenu extends Menu
 
     private void addButton(Table table, TextButton button) {
         Cell cell = table.add(button);
-        cell.width(Value.percentWidth(0.3f, table));
-        cell.height(Value.percentHeight(0.04f, table));
-        cell.padBottom(Value.percentHeight(0.01f, table));
+        cell.width(336);
+        cell.height(28);
+        cell.padBottom(12);
         cell.fill();
         table.row();
     }

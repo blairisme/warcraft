@@ -13,7 +13,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.evilbird.engine.common.graphics.Viewports;
 import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.state.StateIdentifier;
 
@@ -30,7 +30,7 @@ public class Menu implements Disposable
     private GameController controller;
 
     public Menu() {
-        this(new Stage(new ScreenViewport()));
+        this.stage = new Stage(Viewports.getDensityAwareViewport());
     }
 
     public Menu(Stage stage) {

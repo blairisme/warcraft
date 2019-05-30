@@ -73,7 +73,7 @@ public class BasicAnimation implements DirectionalAnimation
     }
 
     private void reset() {
-        this.animation = new Animation(duration, getFrameSequence(direction), mode);
+        this.animation = new Animation<>(duration, getFrameSequence(direction), mode);
     }
 
     private Array<TextureRegion> getFrameSequence(float direction) {

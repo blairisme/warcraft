@@ -9,11 +9,10 @@
 
 package com.evilbird.warcraft.state;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.behaviour.BehaviourIdentifier;
+import com.evilbird.engine.common.graphics.Viewports;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.engine.game.GameService;
@@ -107,23 +106,12 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     }
 
     private ItemRoot deserializeHud(JsonObject json, JsonDeserializationContext context) {
-        Identifier identifier = context.deserialize(json.get(HUD), Identifier.class);
-
-        ScreenViewport viewport = new ScreenViewport();
-        viewport.setUnitsPerPixel(1);
-//        viewport.setUnitsPerPixel(0.5f);
-
-//        System.out.println(Gdx.graphics.getPpcX());
-//        System.out.println(Gdx.graphics.getDensity());
-
-        //Mac
-//        43.307087
-//        0.6875
+        ItemType identifier = context.deserialize(json.get(HUD), Identifier.class);
 
         ItemRoot result = new ItemRoot();
-        result.setViewport(viewport);
+        result.setViewport(Viewports.getDensityAwareViewport());
         result.setIdentifier(identifier);
-        result.addItem(itemFactory.newItem((ItemType)identifier));
+        result.addItem(itemFactory.newItem(identifier));
         return result;
     }
 

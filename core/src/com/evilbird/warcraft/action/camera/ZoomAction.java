@@ -28,6 +28,8 @@ import static com.evilbird.warcraft.action.camera.CameraActions.Zoom;
 public class ZoomAction extends BasicAction
 {
     private static final float ZOOM_SENSITIVITY = 10f;
+   // private static final float ZOOM_SENSITIVITY = 0.05f;
+    //private static final float ZOOM_SENSITIVITY = 1;
     private static final float ZOOM_MAX = 1.5f;
     private static final float ZOOM_MIN = 0.25f;
 
@@ -61,8 +63,10 @@ public class ZoomAction extends BasicAction
 
     private void updateZoom(Camera camera, UserInput input) {
         float current = camera.getZoom();
-        float delta = input.getDelta().x / ZOOM_SENSITIVITY;
-        float scale = current + delta;
+        float delta = input.getDelta().x;
+        float compensated = delta != 0 ? delta / ZOOM_SENSITIVITY : 0;
+        float scale = current + compensated;
+        //float scale = current * compensated;
         float zoom = MathUtils.clamp(scale, ZOOM_MIN, ZOOM_MAX);
         camera.setZoom(zoom);
     }

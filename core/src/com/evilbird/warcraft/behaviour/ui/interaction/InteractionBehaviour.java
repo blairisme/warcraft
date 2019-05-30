@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,6 +55,7 @@ public class InteractionBehaviour implements Behaviour
     public InteractionBehaviour(Interactions interactions, EventQueue events) {
         this.events = events;
         this.interactions = interactions;
+        this.previous = Collections.emptyList();
     }
 
     @Override

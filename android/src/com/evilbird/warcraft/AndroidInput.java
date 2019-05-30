@@ -89,9 +89,11 @@ public class AndroidInput implements DeviceInput, GestureDetector.GestureListene
         return false;
     }
 
+    int lastZoom = 0;
+
     @Override
     public boolean zoom(float initialDistance, float distance) {
-        float scale = initialDistance / distance;
+        float scale = initialDistance - distance;
         Vector2 delta = new Vector2(scale, scale);
 
         UserInput input = new UserInput(UserInputType.Zoom, Vector2.Zero, delta, zoomCount++);
@@ -126,6 +128,7 @@ public class AndroidInput implements DeviceInput, GestureDetector.GestureListene
     @Override
     public void pinchStop() {
         zoomCount = 1;
+        lastZoom = -1;
 //        pinching = false;
     }
 }

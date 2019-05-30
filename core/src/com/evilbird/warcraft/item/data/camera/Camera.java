@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.Zoomable;
+import com.evilbird.engine.common.platform.ApplicationUtils;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemBasic;
@@ -41,7 +42,7 @@ public class Camera extends ItemBasic implements Zoomable
     public Camera() {
         camera = new OrthographicCamera(graphics.getWidth(), graphics.getHeight());
         camera.setToOrtho(false, 30, 20);
-        originalZoom = 1;
+        originalZoom = ApplicationUtils.isMobile() ? 0.5f : 1;
         camera.zoom = originalZoom;
         currentZoom = originalZoom;
 
