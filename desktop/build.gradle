@@ -1,46 +1,95 @@
-apply plugin: "java"
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
 
-sourceCompatibility = 1.6
-sourceSets.main.java.srcDirs = [ "src/" ]
+plugins {
+    id "java"
+    id 'edu.sc.seis.launch4j' version '2.4.4'
+    id "edu.sc.seis.macAppBundle" version "2.3.0"
+    id "com.github.johnrengelman.shadow" version "4.0.4"
+}
 
-project.ext.mainClassName = "com.evilbird.warcraft.desktop.DesktopLauncher"
-project.ext.assetsDir = new File("../android/assets");
+targetCompatibility = 1.8
+sourceCompatibility = 1.8
 
+sourceSets{
+    main.java.srcDirs = [ "src/" ]
+    main.resources.srcDirs = ["src/resources"]
+
+    test.java.srcDirs = [ "test/" ]
+    test.resources.srcDirs = [ "test/resources" ]
+}
+
+ext{
+    appName = "Warcraft2"
+    assetsDir = "../android/assets"
+    iconPath = "../android/assets/data/icons/WarcraftIcon.icns"
+    mainClass = "com.evilbird.warcraft.desktop.DesktopLauncher"
+}
+
+//Task: desktop:run
 task run(dependsOn: classes, type: JavaExec) {
-    main = project.mainClassName
+    main = project.mainClass
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.assetsDir
-    ignoreExitValue = true
+    setIgnoreExitValue(true)
 }
 
-task dist(type: Jar) {
-    from files(sourceSets.main.output.classesDir)
-    from files(sourceSets.main.output.resourcesDir)
-    from {configurations.compile.collect {zipTree(it)}}
-    from files(project.assetsDir);
- 
+shadowJar {
+    baseName = project.appName
+    from files((String)project.assetsDir)
+   // exclude "*.dll"      //dlls needed for windows but not mac
+    //exclude "*.so"
     manifest {
-        attributes 'Main-Class': project.mainClassName
+        attributes 'Main-Class': project.mainClass
     }
+    minimize()
 }
 
-dist.dependsOn classes
-
-eclipse {
-    project {
-        name = appName + "-desktop"
-        linkedResource name: 'assets', type: '2', location: 'PARENT-1-PROJECT_LOC/android/assets'
-    }
+//Task: createApp
+macAppBundle {
+    icon = project.iconPath
+    appName = project.appName
+    mainClassName = project.mainClass
+   // bundleJRE = true
+    jarTask = "shadowJar"
 }
 
-task afterEclipseImport(description: "Post processing after project generation", group: "IDE") {
-  doLast {
-    def classpath = new XmlParser().parse(file(".classpath"))
-    new Node(classpath, "classpathentry", [ kind: 'src', path: 'assets' ]);
-    def writer = new FileWriter(file(".classpath"))
-    def printer = new XmlNodePrinter(new PrintWriter(writer))
-    printer.setPreserveWhitespace(true)
-    printer.print(classpath)
-  }
+//Task-: createExe
+launch4j {
+    mainClassName = project.mainClass
+    icon = "${projectDir}/../android/assets/data/icons/WarcraftIcon.ico"
+    jar = "${projectDir}/build/libs/Warcraft2-1.0-all.jar"
+    outfile = "${appName}.exe"
+    //bundledJrePath = System.getProperty('java.home')
+}
+
+task macInstaller(dependsOn: createApp, type: Zip) {
+    from 'build/macApp/'
+    archiveName 'Warcraft-MacOS.zip'
+    destinationDir file('build/installer')
+}
+
+task windowsInstaller(dependsOn: createExe, type: Zip) {
+    from 'build/launch4j/Warcraft2.exe'
+    archiveName 'Warcraft-Windows.zip'
+    destinationDir file('build/installer')
+}
+
+task installer(dependsOn: [macInstaller, windowsInstaller]) {
+    description "Generate application installers"
+}
+
+task report(dependsOn: test, type: JacocoReport) {
+    description = "Generates a test coverate report"
+    executionData = files(project.file("build/jacoco/test.exec"))
+    sourceDirectories = files(project.file("src"))
+    classDirectories = files(project.fileTree(dir: "build/classes/java/main",
+        excludes: ['**/Dagger*', '**/*_Factory*', '**/*_ProvideDeviceFactory*']))
 }

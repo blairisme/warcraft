@@ -1,0 +1,14 @@
+{
+  "_type": "com.evilbird.engine.action.common.AnimateAction",
+  "source": "Item",
+  "animation": {
+    "_type": "com.evilbird.warcraft.item.unit.UnitAnimation",
+    "_value": "Attack"
+  },
+  "item": {
+    "identifier": {
+      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "value": "animateactiontest"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "_type": "com.evilbird.engine.action.common.VisibleAction",
+  "enabled": true,
+  "item": {
+    "identifier": {
+      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "value": "visibleaction"
+    }
+  }
+}

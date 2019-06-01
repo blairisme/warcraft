@@ -1,0 +1,18 @@
+{
+  "_type": "com.evilbird.engine.action.common.ReplacementAction",
+  "delegate": {
+    "_type": "com.evilbird.test.data.action.TestBasicAction",
+    "item": {
+      "identifier": {
+        "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+        "value": "replacementaction"
+      }
+    }
+  },
+  "item": {
+    "identifier": {
+      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "value": "replacementaction"
+    }
+  }
+}

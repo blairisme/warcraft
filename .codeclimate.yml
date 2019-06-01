@@ -1,0 +1,25 @@
+version: "2"
+
+checks:
+  file-lines:
+    config:
+      threshold: 400 #default=250
+  method-lines:
+    config:
+      threshold: 25 #default=20
+  method-count:
+    config:
+      threshold: 40 #default=20
+  method-complexity:
+    config:
+      threshold: 10 #default=5
+  similar-code:
+    enabled: false
+  identical-code:
+    enabled: false
+
+plugins:
+  checkstyle:
+    enabled: true
+    config:
+      file: 'config/checkstyle/checkstyle_codeclimate.xml'

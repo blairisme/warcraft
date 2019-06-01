@@ -1,46 +1,104 @@
+/*
+ * Copyright (c) 2019, Blair Butterworth
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *        https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.warcraft.device.DeviceStorage;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.evilbird.engine.device.DeviceStorage;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
+import java.io.Reader;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Provides access to device persistence.
+ *
+ * @author Blair Butterworth
+ */
 public class AndroidStorage implements DeviceStorage
 {
-    @Override
-    public boolean delete(String path) throws IOException
-    {
-        return false;
+    private static final String STORAGE_ROOT = ".warcraft2" + File.separator;
+
+    private FileHandleResolver resolver;
+
+    public AndroidStorage() {
+        this(new ExternalFileHandleResolver());
+    }
+
+    public AndroidStorage(FileHandleResolver resolver) {
+        this.resolver = resolver;
     }
 
     @Override
-    public boolean exists(String path) throws IOException
-    {
-        return false;
+    public List<String> list(String path) throws IOException {
+        try {
+            FileHandle handle = resolver.resolve(STORAGE_ROOT + path);
+            return convert(handle.list());
+        }
+        catch (GdxRuntimeException error) {
+            throw new IOException(error);
+        }
+    }
+
+    private List<String> convert(FileHandle[] handles) {
+        List<String> result = new ArrayList<>();
+        for (FileHandle handle : handles) {
+            result.add(handle.path());
+        }
+        return result;
     }
 
     @Override
-    public Collection<String> list() throws IOException
-    {
-        return null;
+    public Reader read(String path) throws IOException {
+        try {
+            FileHandle handle = resolver.resolve(STORAGE_ROOT + path);
+            return handle.reader();
+        }
+        catch (GdxRuntimeException error) {
+            throw new IOException(error);
+        }
     }
 
     @Override
-    public <T> T read(String path) throws IOException
-    {
-        return null;
+    public Writer write(String path) throws IOException {
+        try {
+            FileHandle handle = resolver.resolve(STORAGE_ROOT + path);
+            createDirectory(handle);
+            return handle.writer(false);
+        }
+        catch (GdxRuntimeException error) {
+            throw new IOException(error);
+        }
+    }
+
+    private void createDirectory(FileHandle handle) {
+        if (! handle.isDirectory()) {
+            createDirectory(handle.parent());
+        } else {
+            handle.mkdirs();
+        }
     }
 
     @Override
-    public <T> void write(T object, String path) throws IOException
-    {
-
-    }
-
-    @Override
-    public AssetManager getAssets()
-    {
-        return null;
+    public void remove(String path) throws IOException {
+        try {
+            FileHandle handle = resolver.resolve(STORAGE_ROOT + path);
+            handle.delete();
+        }
+        catch (GdxRuntimeException error) {
+            throw new IOException(error);
+        }
     }
 }

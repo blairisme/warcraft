@@ -1,178 +1,160 @@
+/*
+ * Copyright (c) 2019, Blair Butterworth
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *        https://opensource.org/licenses/MIT
+ */
+
 package com.evilbird.warcraft.desktop;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.warcraft.device.DeviceInput;
-import com.evilbird.warcraft.device.UserInput;
-import com.evilbird.warcraft.device.UserInputType;
-import com.sun.jna.Callback;
-import com.sun.jna.Native;
-import com.sun.jna.Pointer;
-import com.sun.jna.platform.win32.User32;
-import com.sun.jna.platform.win32.WinDef;
-import com.sun.jna.platform.win32.WinDef.HWND;
-import com.sun.jna.platform.win32.WinDef.LPARAM;
-import com.sun.jna.platform.win32.WinDef.LRESULT;
-import com.sun.jna.platform.win32.WinDef.WPARAM;
-import com.sun.jna.win32.StdCallLibrary;
-import com.sun.jna.win32.W32APIOptions;
+import com.evilbird.engine.common.input.AbstractGestureObserver;
+import com.evilbird.engine.common.input.GestureAnalyzer;
+import com.evilbird.engine.device.DeviceInput;
+import com.evilbird.engine.device.UserInput;
 
-import org.apache.commons.lang3.reflect.FieldUtils;
-import org.apache.commons.lang3.reflect.MethodUtils;
-import org.lwjgl.opengl.Display;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DesktopInput implements DeviceInput, GestureDetector.GestureListener
+import static com.badlogic.gdx.math.Vector2.Zero;
+import static com.evilbird.engine.device.UserInputType.Action;
+import static com.evilbird.engine.device.UserInputType.Drag;
+import static com.evilbird.engine.device.UserInputType.SelectResize;
+import static com.evilbird.engine.device.UserInputType.SelectStart;
+import static com.evilbird.engine.device.UserInputType.SelectStop;
+import static com.evilbird.engine.device.UserInputType.Zoom;
+
+/**
+ * Reads user input to the desktop application, generating the appropriate
+ * {@link UserInput} events.
+ *
+ * @author Blair Butterworth
+ */
+public class DesktopInput extends AbstractGestureObserver implements DeviceInput
 {
-    private List<com.evilbird.warcraft.device.UserInput> inputs;
+    private static final float ZOOM_SENSITIVITY = 0.10f;
+    private static final int SELECT_BUTTON = 1;
 
-    public DesktopInput()
-    {
-        inputs = new ArrayList<com.evilbird.warcraft.device.UserInput>();
+    private Input input;
+    private List<UserInput> inputs;
+    private int panCount;
+    private int zoomCount;
+    private int depressedButton;
+    private float depressedButtonX;
+    private float depressedButtonY;
+
+    public DesktopInput() {
+        this(Gdx.input);
+    }
+
+    public DesktopInput(Input input) {
+        this.input = input;
+        this.inputs = new ArrayList<>();
+        this.panCount = 0;
+        this.zoomCount = 0;
+        this.depressedButton = 0;
+        this.depressedButtonX = 0;
+        this.depressedButtonY = 0;
     }
 
     @Override
-    public void install()
-    {
-        GestureDetector gestureDetector = new GestureDetector(this);
-        Gdx.input.setInputProcessor(gestureDetector);
-
-
-        long window = getWindowHandle();
-        //System.out.println(windowHandle);
-
-
-        WindowSubclassProc windowProc = new WindowSubclassProc()
-        {
-
-            @Override
-            public LRESULT callback(HWND hwnd, int uMsg, WPARAM wParam, LPARAM lParam)
-            {
-                return null;
-            }
-        };
-
-        HWND windowHandle = new HWND(Pointer.createConstant(window));
-
-        MyUser32.MYINSTANCE.SetWindowLong(windowHandle, MyUser32.GWLP_WNDPROC,  windowProc);
-    }
-
-    public interface MyUser32 extends User32
-    {
-        public static final MyUser32 MYINSTANCE = (MyUser32) Native.loadLibrary("user32", MyUser32.class, W32APIOptions.UNICODE_OPTIONS);
-
-        /**
-         * Sets a new address for the window procedure (value to be set).
-         */
-        public static final int GWLP_WNDPROC = -4;
-
-        /**
-         * Changes an attribute of the specified window
-         * @param   hWnd        A handle to the window
-         * @param   nIndex      The zero-based offset to the value to be set.
-         * @param   callback    The callback function for the value to be set.
-         */
-        public int SetWindowLong(WinDef.HWND hWnd, int nIndex, Callback callback);
-    }
-
-    public interface WindowSubclassProc extends StdCallLibrary.StdCallCallback
-    {
-        public LRESULT callback(HWND hWnd, int uMsg, WPARAM uParam, LPARAM lParam);
-    }
-
-    private long getWindowHandle()
-    {
-        try
-        {
-            Method method = MethodUtils.getMatchingMethod(Display.class, "getImplementation");
-            method.setAccessible(true);
-
-            Object implementation = method.invoke(null);
-            Object handle = FieldUtils.readField(implementation, "hwnd", true);
-
-            return (Long)handle;
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        return 0;
+    public void startMonitoring() {
+        Input controller = getInputController();
+        controller.setInputProcessor(new GestureAnalyzer(this));
     }
 
     @Override
-    public List<UserInput> readInput()
-    {
-        List<com.evilbird.warcraft.device.UserInput> result = new ArrayList<UserInput>(inputs);
+    public void stopMonitoring() {
+        Input controller = getInputController();
+        controller.setInputProcessor(null);
+    }
+
+    private Input getInputController() {
+        if (input == null) {
+            input = Gdx.input;
+        }
+        return input;
+    }
+
+    @Override
+    public List<UserInput> getInput() {
+        List<UserInput> result = new ArrayList<>(inputs);
         inputs.clear();
         return result;
     }
 
-    private synchronized void pushInput(com.evilbird.warcraft.device.UserInput userInput)
-    {
+    private synchronized void addInput(UserInput userInput) {
         inputs.add(userInput);
     }
 
     @Override
-    public boolean touchDown(float x, float y, int pointer, int button)
-    {
+    public boolean touchDown(float x, float y, int pointer, int button) {
+        zoomCount = 0;
+        depressedButton = button;
+        depressedButtonX = x;
+        depressedButtonY = y;
+        if (button == SELECT_BUTTON) {
+            UserInput input = new UserInput(SelectStart, new Vector2(x, y), 1);
+            addInput(input);
+        }
         return false;
     }
 
     @Override
-    public boolean tap(float x, float y, int count, int button)
-    {
-        UserInput input = new UserInput(UserInputType.Action, new Vector2(x, y));
-        pushInput(input);
+    public boolean touchUp(int x, int y, int pointer, int button) {
+        if (button == SELECT_BUTTON) {
+            UserInput input = new UserInput(SelectStop, new Vector2(x, y), 1);
+            addInput(input);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean tap(float x, float y, int count, int button) {
+        UserInput input = new UserInput(Action, new Vector2(x, y), 1);
+        addInput(input);
         return true;
     }
 
     @Override
-    public boolean longPress(float x, float y)
-    {
-        return false;
+    public boolean pan(float x, float y, float deltaX, float deltaY) {
+        if (depressedButton == SELECT_BUTTON) {
+            return panSelection(x, y);
+        }
+        return panCamera(x, y, deltaX, deltaY);
     }
 
-    @Override
-    public boolean fling(float velocityX, float velocityY, int button)
-    {
-        return false;
+    private boolean panCamera(float x, float y, float deltaX, float deltaY) {
+        Vector2 position = new Vector2(x, y);
+        Vector2 delta = new Vector2(deltaX * -1, deltaY);
+        UserInput input = new UserInput(Drag, position, delta, ++panCount);
+        addInput(input);
+        return true;
     }
 
-    @Override
-    public boolean pan(float x, float y, float deltaX, float deltaY)
-    {
-        UserInput input = new UserInput(UserInputType.Pan, new Vector2(x, y), new Vector2(deltaX * -1, deltaY));
-        pushInput(input);
+    private boolean panSelection(float x, float y) {
+        Vector2 origin = new Vector2(depressedButtonX, depressedButtonY);
+        Vector2 size = new Vector2(x, y);
+        UserInput input = new UserInput(SelectResize, origin, size, ++panCount);
+        addInput(input);
         return true;
     }
 
     @Override
-    public boolean panStop(float x, float y, int pointer, int button)
-    {
+    public boolean panStop(float x, float y, int pointer, int button) {
+        panCount = 0;
         return false;
     }
 
     @Override
-    public boolean zoom(float initialDistance, float distance)
-    {
-        float scale = distance / initialDistance;
-        UserInput input = new UserInput(UserInputType.Zoom, new Vector2(0, 0), new Vector2(scale, scale));
-        pushInput(input);
-        return true;
-    }
-
-    @Override
-    public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2)
-    {
+    public boolean scrolled(int amount) {
+        float zoom = ZOOM_SENSITIVITY * amount;
+        UserInput input = new UserInput(Zoom, Zero, new Vector2(zoom, zoom), zoomCount++);
+        addInput(input);
         return false;
-    }
-
-    @Override
-    public void pinchStop()
-    {
     }
 }

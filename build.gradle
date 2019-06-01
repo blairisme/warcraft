@@ -1,24 +1,38 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
 buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:3.3.2'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.2.0'
     }
 }
 
+plugins {
+    id "net.ltgt.apt" version "0.10"
+    id 'jacoco'
+}
+
 allprojects {
-    apply plugin: "eclipse"
     apply plugin: "idea"
 
     version = '1.0'
     ext {
         appName = "Warcraft"
-        gdxVersion = '1.9.4'
+        gdxVersion = '1.9.9'
         roboVMVersion = '2.2.0'
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
@@ -28,6 +42,8 @@ allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+        google()
+        jcenter()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
@@ -35,60 +51,176 @@ allprojects {
 
 project(":android") {
     apply plugin: "android"
+    apply plugin: 'checkstyle'
 
     configurations { natives }
 
     dependencies {
-        compile project(":core")
-        compile 'org.apache.commons:commons-lang3:3.5'
-        compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+        implementation project(":core")
+        implementation 'com.google.dagger:dagger:2.20'
+        annotationProcessor 'com.google.dagger:dagger-compiler:2.20'
+        
+        implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+        implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+        implementation group: 'com.github.tony19', name: 'logback-android', version: '2.0.0'
+
+        implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
+        implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi-v7a"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
+        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
+        testImplementation group: 'junit', name: 'junit', version: '4.12'
     }
 }
 
 project(":core") {
     apply plugin: "java"
-
+    apply plugin: 'jacoco'
+    apply plugin: 'checkstyle'
 
     dependencies {
-        compile 'org.apache.commons:commons-lang3:3.5'
-        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        implementation group: 'javax.inject', name: 'javax.inject', version: '1'
+
+        implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+        implementation group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.2'
+        implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+        
+        implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+        implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+        
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+        implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+
+        testImplementation group: 'junit', name: 'junit', version: '4.12'
+        testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.23.4'
+        testImplementation group: 'commons-io', name: 'commons-io', version: '2.6'
+        testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.1.5'
+        testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
 }
 
 project(":desktop") {
     apply plugin: "java"
-
+    apply plugin: 'jacoco'
+    apply plugin: 'checkstyle'
+    apply plugin: "net.ltgt.apt"
 
     dependencies {
-        compile project(":core")
-        compile 'org.apache.commons:commons-lang3:3.5'
-        compile 'net.java.dev.jna:jna:4.2.2'
-        compile 'net.java.dev.jna:jna-platform:4.2.2'
-        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        implementation project(":core")
+        implementation 'javax.inject:javax.inject:1'
+        implementation 'com.google.dagger:dagger:2.20'
+        annotationProcessor 'com.google.dagger:dagger-compiler:2.20'
+
+        implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+        implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+        implementation group: 'info.picocli', name: 'picocli', version: '3.9.5'
+        implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+
+        implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+        implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+        
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+        implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+
+        testImplementation group: 'junit', name: 'junit', version: '4.12'
+        testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.23.4'
     }
 }
 
 project(":ios") {
     apply plugin: "java"
+    apply plugin: 'jacoco'
     apply plugin: "robovm"
-
+    apply plugin: 'checkstyle'
 
     dependencies {
-        compile project(":core")
-        compile 'org.apache.commons:commons-lang3:3.5'
-        compile "com.mobidevelop.robovm:robovm-rt:$roboVMVersion"
-        compile "com.mobidevelop.robovm:robovm-cocoatouch:$roboVMVersion"
-        compile "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
+        implementation project(":core")
+        implementation 'org.apache.commons:commons-lang3:3.8.1'
+        implementation "com.mobidevelop.robovm:robovm-rt:$roboVMVersion"
+        implementation "com.mobidevelop.robovm:robovm-cocoatouch:$roboVMVersion"
+        implementation "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
+        implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-ios"
     }
 }
 
-tasks.eclipse.doLast {
-    delete ".project"
+allprojects {
+    plugins.withType(JavaPlugin) {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    plugins.withType(IdeaPlugin) {
+        idea {
+            module {
+                downloadSources = true
+                excludeDirs += file('.gradle')
+                excludeDirs += file('.idea')
+                excludeDirs += file('build')
+                excludeDirs += file('bin')
+                excludeDirs += file('config')
+                excludeDirs += file('design')
+                excludeDirs += file('gradle')
+                excludeDirs += file('tools')
+            }
+        }
+    }
+
+    plugins.withType(CheckstylePlugin) {
+        checkstyle {
+            toolVersion = "8.18"
+        }
+    }
+
+    plugins.withType(JacocoPlugin) {
+        jacoco {
+            toolVersion = "0.8.3"
+        }
+    }
+
+    tasks.withType(JacocoReport) {
+        reports {
+            html.enabled = true
+            xml.enabled = true
+        }
+    }
+}
+
+task clean(type: Delete) {
+    description = "Removes the files generated by the project"
+    delete file('build')
+}
+
+task report(type: JacocoReport) {
+    description = "Generates an aggregate code coverate report for all subprojects"
+
+    def jacocoProjects = subprojects.findAll{subProject ->
+        subProject.plugins.hasPlugin('jacoco')}
+
+    dependsOn jacocoProjects.collect{jacocoProject ->
+        jacocoProject.tasks.findByName('test')}
+
+    sourceDirectories = files(jacocoProjects.collect{jacocoProject ->
+        jacocoProject.file("src")})
+    classDirectories = files(jacocoProjects.collect{jacocoProject ->
+        jacocoProject.fileTree(dir: "build/classes/java/main",
+            excludes: ['**/Dagger*', '**/*_Factory*', '**/*_ProvideDeviceFactory*'])})
+    executionData = files(jacocoProjects.collect{jacocoProject ->
+        jacocoProject.fileTree(dir: "build/jacoco",
+            include: '**/*.exec') })
 }

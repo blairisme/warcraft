@@ -1,0 +1,27 @@
+{
+  "_type": "com.evilbird.engine.action.framework.PrerequisiteAction",
+  "predicate": {
+    "_type": "com.evilbird.test.data.lang.TestPredicate",
+    "value": true
+  },
+  "actions": [
+    {
+      "_type": "com.evilbird.test.data.action.TestBasicAction",
+      "identifier": {
+        "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+        "value": "primary"
+      }
+    },
+    {
+      "_type": "com.evilbird.test.data.action.TestBasicAction",
+      "identifier": {
+        "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+        "value": "prerequisite"
+      }
+    }
+  ],
+  "identifier": {
+    "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+    "value": "PrerequisiteActionTest"
+  }
+}

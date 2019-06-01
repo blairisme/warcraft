@@ -1,0 +1,24 @@
+{
+  "class": "Camera",
+  "type": {
+    "class": "Data",
+    "enum": "Camera"
+  },
+  "originalZoom": 0.0,
+  "currentZoom": 0.0,
+  "id": {
+    "class": "Data",
+    "enum": "Camera"
+  },
+  "visible": false,
+  "touchable": "disabled",
+  "size": {
+    "x": 1.0,
+    "y": 1.0
+  },
+  "position": {
+    "x": 15.0,
+    "y": 10.0
+  },
+  "actions": []
+}

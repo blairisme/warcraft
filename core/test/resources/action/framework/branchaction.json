@@ -1,0 +1,19 @@
+{
+  "decision": {
+    "class": "com.evilbird.engine.common.function.Predicates$Accept"
+  },
+  "actions": [
+    {
+      "identifier": {
+        "class": "General",
+        "enum": "Unknown"
+      }
+    },
+    {
+      "identifier": {
+        "class": "General",
+        "enum": "Unknown"
+      }
+    }
+  ]
+}

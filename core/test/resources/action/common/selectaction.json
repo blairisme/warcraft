@@ -1,0 +1,11 @@
+{
+  "_type": "com.evilbird.engine.action.common.SelectAction",
+  "selected": true,
+  "source": "Item",
+  "item": {
+    "identifier": {
+      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "value": "selectaction"
+    }
+  }
+}

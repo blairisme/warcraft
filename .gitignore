@@ -27,7 +27,9 @@ android/libs/arm64-v8a/
 android/libs/x86/
 android/libs/x86_64/
 android/gen/
-.idea/
+.idea/*.xml
+.idea/libraries
+.idea/caches
 *.ipr
 *.iws
 *.iml
@@ -68,3 +70,5 @@ build/
 ## OS Specific
 .DS_Store
 Thumbs.db
+
+design/design/

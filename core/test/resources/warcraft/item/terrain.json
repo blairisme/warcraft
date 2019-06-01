@@ -1,0 +1,25 @@
+{
+  "class": "Terrain",
+  "type": {
+    "class": "LayerType",
+    "enum": "Map"
+  },
+  "fill": false,
+  "items": [],
+  "id": {
+    "class": "LayerId",
+    "file": "data/levels/human/level1.tmx",
+    "name": "Map"
+  },
+  "visible": false,
+  "touchable": "enabled",
+  "size": {
+    "x": 64.0,
+    "y": 64.0
+  },
+  "position": {
+    "x": 0.0,
+    "y": 0.0
+  },
+  "actions": []
+}

@@ -1,0 +1,10 @@
+{
+  "_type": "com.evilbird.engine.action.framework.RequirementAction",
+  "requirement": {
+    "_type": "com.evilbird.test.data.lang.TestPredicate",
+    "value": true
+  },
+  "delegate": {
+    "_type": "com.evilbird.test.data.action.TestBasicAction"
+  }
+}

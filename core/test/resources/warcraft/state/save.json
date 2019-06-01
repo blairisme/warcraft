@@ -1,0 +1,228 @@
+{
+  "hud": {
+    "class": "Hud",
+    "enum": "Human"
+  },
+  "behaviour": {
+    "class": "Behaviour",
+    "enum": "Human1"
+  },
+  "world": {
+    "id": {
+      "class": "Named",
+      "name": "world"
+    },
+    "graph": {
+      "nodeWidth": 32,
+      "nodeHeight": 32,
+      "nodeCountX": 128,
+      "nodeCountY": 128
+    },
+    "items": [
+      {
+        "corporeal": true,
+        "statistics": {
+          "Kills": 4.0,
+          "Buildings": 10.0
+        },
+        "resources": {
+          "Gold": 123.0,
+          "Wood": 456.0
+        },
+        "fill": false,
+        "items": [
+          {
+            "class": "Combatant",
+            "type": {
+              "class": "Units",
+              "enum": "Footman"
+            },
+            "level": 0,
+            "damageMinimum": 0,
+            "damageMaximum": 0,
+            "range": 0,
+            "movementSpeed": 0,
+            "movementCapability": "Land",
+            "name": "Unknown",
+            "sight": 0,
+            "defence": 0,
+            "health": 100.0,
+            "healthMaximum": 100.0,
+            "selected": false,
+            "selectable": true,
+            "direction": 70.55996,
+            "id": {
+              "class": "Named",
+              "name": "footman"
+            },
+            "visible": false,
+            "touchable": "enabled",
+            "size": {
+              "x": 56.0,
+              "y": 78.0
+            },
+            "position": {
+              "x": 12.0,
+              "y": 34.0
+            },
+            "actions": []
+          },
+          {
+            "class": "Building",
+            "type": {
+              "class": "Units",
+              "enum": "Barracks"
+            },
+            "producing": 1.0,
+            "constructing": 1.0,
+            "resources": {},
+            "name": "Unknown",
+            "sight": 0,
+            "defence": 0,
+            "health": 100.0,
+            "healthMaximum": 100.0,
+            "selected": false,
+            "selectable": true,
+            "direction": 70.55996,
+            "id": {
+              "class": "Named",
+              "name": "barracks"
+            },
+            "visible": false,
+            "touchable": "enabled",
+            "size": {
+              "x": 56.0,
+              "y": 78.0
+            },
+            "position": {
+              "x": 12.0,
+              "y": 34.0
+            },
+            "actions": []
+          }
+        ],
+        "id": {
+          "class": "Named",
+          "name": "player1"
+        },
+        "type": {
+          "class": "Data",
+          "enum": "Player"
+        },
+        "visible": false,
+        "touchable": "enabled",
+        "size": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "position": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "actions": []
+      },
+      {
+        "corporeal": true,
+        "statistics": {
+          "Kills": 4.0,
+          "Buildings": 10.0
+        },
+        "resources": {
+          "Gold": 123.0,
+          "Wood": 456.0
+        },
+        "fill": false,
+        "items": [
+          {
+            "class": "Combatant",
+            "type": {
+              "class": "Units",
+              "enum": "Footman"
+            },
+            "level": 0,
+            "damageMinimum": 0,
+            "damageMaximum": 0,
+            "range": 0,
+            "movementSpeed": 0,
+            "movementCapability": "Land",
+            "name": "Unknown",
+            "sight": 0,
+            "defence": 0,
+            "health": 100.0,
+            "healthMaximum": 100.0,
+            "selected": false,
+            "selectable": true,
+            "direction": 70.55996,
+            "id": {
+              "class": "Named",
+              "name": "footman"
+            },
+            "visible": false,
+            "touchable": "enabled",
+            "size": {
+              "x": 56.0,
+              "y": 78.0
+            },
+            "position": {
+              "x": 12.0,
+              "y": 34.0
+            },
+            "actions": []
+          },
+          {
+            "class": "Building",
+            "type": {
+              "class": "Units",
+              "enum": "Barracks"
+            },
+            "producing": 1.0,
+            "constructing": 1.0,
+            "resources": {},
+            "name": "Unknown",
+            "sight": 0,
+            "defence": 0,
+            "health": 100.0,
+            "healthMaximum": 100.0,
+            "selected": false,
+            "selectable": true,
+            "direction": 70.55996,
+            "id": {
+              "class": "Named",
+              "name": "barracks"
+            },
+            "visible": false,
+            "touchable": "enabled",
+            "size": {
+              "x": 56.0,
+              "y": 78.0
+            },
+            "position": {
+              "x": 12.0,
+              "y": 34.0
+            },
+            "actions": []
+          }
+        ],
+        "id": {
+          "class": "Named",
+          "name": "player2"
+        },
+        "type": {
+          "class": "Data",
+          "enum": "Player"
+        },
+        "visible": false,
+        "touchable": "enabled",
+        "size": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "position": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "actions": []
+      }
+    ]
+  }
+}

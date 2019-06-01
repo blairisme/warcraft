@@ -1,0 +1,35 @@
+{
+  "identifier": {
+    "class": "MoveActions",
+    "enum": "MoveToItem"
+  },
+  "error": {
+    "detailMessage": "An error has occurred",
+    "stackTrace": [],
+    "suppressedExceptions": []
+  },
+  "cause": {
+    "type": "Action",
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "delta": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "count": 1
+  },
+  "item": {
+    "reference": {
+      "class": "Named",
+      "name": "1"
+    }
+  },
+  "target": {
+    "reference": {
+      "class": "Named",
+      "name": "2"
+    }
+  }
+}

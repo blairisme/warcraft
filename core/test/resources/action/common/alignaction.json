@@ -1,0 +1,10 @@
+{
+  "_type": "com.evilbird.engine.action.common.AlignAction",
+  "alignment": "BottomLeft",
+  "item": {
+    "identifier": {
+      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "value": "aligntest"
+    }
+  }
+}

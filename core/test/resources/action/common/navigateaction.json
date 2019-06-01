@@ -1,0 +1,14 @@
+{
+  "_type": "com.evilbird.engine.action.common.NavigateAction",
+  "location": {
+    "_type": "com.evilbird.warcraft.item.hud.control.actions.ActionPaneLayout",
+    "_value": "SimpleBuildings"
+  },
+  "source": "Item",
+  "item": {
+    "identifier": {
+      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "value": "navigateaction"
+    }
+  }
+}

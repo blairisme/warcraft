@@ -1,0 +1,9 @@
+{
+  "_type": "com.evilbird.engine.action.common.RepositionAction",
+  "item": {
+    "identifier": {
+      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "value": "repositionaction"
+    }
+  }
+}

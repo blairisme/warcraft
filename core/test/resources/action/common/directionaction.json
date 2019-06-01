@@ -1,0 +1,9 @@
+{
+  "_type": "com.evilbird.engine.action.common.DirectionAction",
+  "item": {
+    "identifier": {
+      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "value": "directionaction"
+    }
+  }
+}

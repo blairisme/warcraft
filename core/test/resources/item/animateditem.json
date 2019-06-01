@@ -1,0 +1,30 @@
+{
+  "direction": 45.0,
+  "animationId": {
+    "class": "UnitAnimation",
+    "enum": "Build"
+  },
+  "soundId": {
+    "class": "UnitSound",
+    "enum": "Attack"
+  },
+  "id": {
+    "class": "General",
+    "enum": "Unknown"
+  },
+  "type": {
+    "class": "Units",
+    "enum": "Footman"
+  },
+  "visible": false,
+  "touchable": "enabled",
+  "size": {
+    "x": 56.0,
+    "y": 78.0
+  },
+  "position": {
+    "x": 12.0,
+    "y": 34.0
+  },
+  "actions": []
+}

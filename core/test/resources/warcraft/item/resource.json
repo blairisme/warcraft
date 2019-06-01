@@ -1,0 +1,34 @@
+{
+  "class": "Resource",
+  "type": {
+    "class": "Units",
+    "enum": "GoldMine"
+  },
+  "resources": {
+    "Gold": 123.0,
+    "Wood": 456.0
+  },
+  "name": "Unknown",
+  "sight": 0,
+  "defence": 0,
+  "health": 0.0,
+  "healthMaximum": 0.0,
+  "selected": false,
+  "selectable": true,
+  "direction": 70.55996,
+  "id": {
+    "class": "Named",
+    "name": "goldmine"
+  },
+  "visible": false,
+  "touchable": "enabled",
+  "size": {
+    "x": 56.0,
+    "y": 78.0
+  },
+  "position": {
+    "x": 12.0,
+    "y": 34.0
+  },
+  "actions": []
+}

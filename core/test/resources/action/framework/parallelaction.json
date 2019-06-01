@@ -1,0 +1,27 @@
+{
+  "_type": "com.evilbird.engine.action.framework.ParallelAction",
+  "completed": [],
+  "actions": [
+    {
+      "_type": "com.evilbird.test.data.action.TestBasicAction",
+      "identifier": {
+        "_type": "com.evilbird.warcraft.action.move.MoveActions",
+        "_value": "MoveToItem"
+      }
+    },
+    {
+      "_type": "com.evilbird.test.data.action.TestBasicAction",
+      "identifier": {
+        "_type": "com.evilbird.warcraft.action.move.MoveActions",
+        "_value": "MoveCancel"
+      }
+    },
+    {
+      "_type": "com.evilbird.test.data.action.TestBasicAction",
+      "identifier": {
+        "_type": "com.evilbird.warcraft.action.attack.AttackActions",
+        "_value": "AttackMelee"
+      }
+    }
+  ]
+}

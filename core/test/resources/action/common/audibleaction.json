@@ -1,0 +1,13 @@
+{
+  "_type": "com.evilbird.engine.action.common.AudibleAction",
+  "sound": {
+    "_type": "com.evilbird.warcraft.item.unit.UnitSound",
+    "_value": "Attack"
+  },
+  "item": {
+    "identifier": {
+      "_type": "com.evilbird.engine.common.lang.TextIdentifier",
+      "value": "audibleaction"
+    }
+  }
+}
