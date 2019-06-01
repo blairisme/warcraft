@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.control.SelectListenerAdapter;
 import com.evilbird.engine.common.control.TextProgressBar;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.item.ItemRoot;
@@ -58,7 +59,8 @@ public class OutroMenu extends Menu
     private TextButton button;
 
     @Inject
-    public OutroMenu(Skin skin) {
+    public OutroMenu(DeviceDisplay display, Skin skin) {
+        super(display);
         this.skin = skin;
         this.container = createContainer();
         this.summary = createSummary();

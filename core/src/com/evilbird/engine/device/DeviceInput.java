@@ -18,7 +18,9 @@ import java.util.List;
  */
 public interface DeviceInput
 {
-    void install();
+    void startMonitoring();
+
+    void stopMonitoring();
 
     List<UserInput> readInput();
 }

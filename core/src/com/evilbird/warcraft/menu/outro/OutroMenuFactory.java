@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.menu.Menu;
 import org.apache.commons.lang3.Validate;
 
@@ -49,10 +50,12 @@ public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
     private static final String PROGRESS_FILL = "data/textures/neutral/perennial/stats_progress_fill.png";
 
     private AssetManager assets;
+    private DeviceDisplay display;
 
     @Inject
     public OutroMenuFactory(Device device) {
         this.assets = device.getAssetStorage();
+        this.display = device.getDeviceDisplay();
     }
 
     @Override
@@ -74,7 +77,7 @@ public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     private Menu getMenu(OutroMenuType type) {
-        OutroMenu menu = new OutroMenu(getSkin());
+        OutroMenu menu = new OutroMenu(display, getSkin());
         menu.setType(type);
         menu.setLabelBundle(getStrings());
         menu.setButtonAction(() -> menu.showMenu(Home));

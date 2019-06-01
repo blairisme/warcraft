@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.menu.outro;
 
 import com.evilbird.engine.common.lang.TextIdentifier;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
@@ -37,8 +38,7 @@ public class OutroMenuTest extends GameTestCase
     @Before
     public void setup() {
         OutroMenuStrings bundle = Mockito.mock(OutroMenuStrings.class, RETURNS_MOCKS);
-
-        menu = new OutroMenu(TestSkin.newTestSkin());
+        menu = new OutroMenu(Mockito.mock(DeviceDisplay.class), TestSkin.newTestSkin());
         menu.setLabelBundle(bundle);
     }
 

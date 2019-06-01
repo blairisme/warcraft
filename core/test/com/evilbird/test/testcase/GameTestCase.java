@@ -22,6 +22,7 @@ import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.behaviour.BehaviourIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.reflect.TypeRegistry;
+import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.game.GameInjector;
 import com.evilbird.engine.game.GameService;
@@ -49,6 +50,7 @@ import org.mockito.stubbing.Answer;
 import java.nio.IntBuffer;
 import java.util.function.Supplier;
 
+import static com.evilbird.test.data.device.TestDevices.newTestDevice;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 import static org.mockito.Answers.RETURNS_MOCKS;
 import static org.mockito.ArgumentMatchers.any;
@@ -104,6 +106,7 @@ public class GameTestCase
         application = null;
     }
 
+    protected Device device;
     protected GameInjector gameInjector;
     protected GameService gameService;
     protected GameEngine gameEngine;
@@ -114,6 +117,7 @@ public class GameTestCase
 
     @Before
     public void setup() {
+        device = newTestDevice();
         gameEngine = Mockito.mock(GameEngine.class);
         actionFactory = Mockito.mock(ActionFactory.class);
 
@@ -126,7 +130,8 @@ public class GameTestCase
         typeRegistry = new WarcraftTypeRegistry();
 
         gameInjector = Mockito.mock(GameInjector.class);
-        Mockito.when(gameInjector.getGameEngine()).thenReturn(gameEngine);
+        Mockito.when(gameInjector.getDevice()).thenReturn(device);
+        Mockito.when(gameInjector.getEngine()).thenReturn(gameEngine);
         Mockito.when(gameInjector.getItemFactory()).thenReturn(itemFactory);
         Mockito.when(gameInjector.getActionFactory()).thenReturn(actionFactory);
         Mockito.when(gameInjector.getBehaviourFactory()).thenReturn(behaviourFactory);

@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.control.SelectListenerAdapter;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.menu.Menu;
 
 import javax.inject.Inject;
@@ -35,7 +36,8 @@ public class IntroMenu extends Menu
     private Label objectives;
 
     @Inject
-    public IntroMenu(Skin skin) {
+    public IntroMenu(DeviceDisplay display, Skin skin) {
+        super(display);
         this.skin = skin;
         this.table = createTable(skin);
         this.title = createTitle(skin, table);

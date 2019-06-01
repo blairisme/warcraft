@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.control.SelectListenerAdapter;
 import com.evilbird.engine.common.control.StyledLabel;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.menu.Menu;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -30,7 +31,8 @@ public class IngameMenu extends Menu
     private Skin skin;
     private Table container;
 
-    public IngameMenu(Skin skin) {
+    public IngameMenu(DeviceDisplay display, Skin skin) {
+        super(display);
         this.skin = skin;
         this.container = createContainer(skin);
     }

@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.lang.Alignment;
-import com.evilbird.engine.common.platform.ApplicationUtils;
 import com.evilbird.engine.item.ItemBasic;
 import com.evilbird.engine.item.specialized.TableItem;
 import com.evilbird.warcraft.item.hud.HudControl;
@@ -45,12 +44,19 @@ public class ControlPane extends TableItem
 
     private void addControls(Skin skin) {
         TableItem container = addContainer();
-        if (ApplicationUtils.isDesktop()) {
+        ControlPaneStyle style = skin.get("default", ControlPaneStyle.class);
+        if (style.showMenuButton) {
             addControl(container, new MenuPane(skin));
+        }
+        if (style.showMiniMap) {
             addControl(container, new MiniMapPane(skin));
         }
-        addControl(container, new StatusPane(skin));
-        addControl(container, new ActionPane(skin));
+        if (style.showStatus) {
+            addControl(container, new StatusPane(skin));
+        }
+        if (style.showActions) {
+            addControl(container, new ActionPane(skin));
+        }
     }
 
     private TableItem addContainer() {

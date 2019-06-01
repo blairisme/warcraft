@@ -52,12 +52,22 @@ public class DesktopInput implements DeviceInput, GestureObserver
     }
 
     @Override
-    public void install() {
+    public void startMonitoring() {
+        Input controller = getInputController();
+        controller.setInputProcessor(new GestureAnalyzer(this));
+    }
+
+    @Override
+    public void stopMonitoring() {
+        Input controller = getInputController();
+        controller.setInputProcessor(null);
+    }
+
+    private Input getInputController() {
         if (input == null) {
             input = Gdx.input;
         }
-        GestureAnalyzer gestureDetector = new GestureAnalyzer(this);
-        input.setInputProcessor(gestureDetector);
+        return input;
     }
 
     @Override

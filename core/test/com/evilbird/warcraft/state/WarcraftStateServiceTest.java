@@ -14,6 +14,7 @@ import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.JsonSerializer;
+import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceStorage;
 import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateIdentifier;
@@ -28,6 +29,7 @@ import org.mockito.Mockito;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.evilbird.test.data.device.TestDevices.newTestDevice;
 import static com.evilbird.warcraft.state.WarcraftStateAsset.Level1;
 import static com.evilbird.warcraft.state.WarcraftStateScenario.Human1;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -41,6 +43,7 @@ import static org.mockito.Mockito.when;
 public class WarcraftStateServiceTest extends GameTestCase
 {
     private JsonSerializer serializer;
+    private Device device;
     private DeviceStorage deviceStorage;
     private TestFileHandleResolver assetStorage;
     private WarcraftStateFileLoader assetLoader;
@@ -50,10 +53,11 @@ public class WarcraftStateServiceTest extends GameTestCase
     @Before
     public void setup() {
         super.setup();
+        device = newTestDevice();
         deviceStorage = Mockito.mock(DeviceStorage.class);
         assetStorage = new TestFileHandleResolver();
         assetLoader = new WarcraftStateFileLoader(itemFactory, assetStorage);
-        adapter = new WarcraftStateAdapter(itemFactory, behaviourFactory, assetLoader);
+        adapter = new WarcraftStateAdapter(device, itemFactory, behaviourFactory, assetLoader);
         serializer = new JsonSerializer(new WarcraftTypeRegistry(), Maps.of(WarcraftState.class, adapter));
         service = new WarcraftStateService(deviceStorage, assetStorage, serializer);
     }

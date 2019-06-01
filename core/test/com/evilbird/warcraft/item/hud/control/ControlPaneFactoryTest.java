@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.hud.control;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.evilbird.engine.device.DeviceControls;
 import com.evilbird.test.data.device.TestAssets;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.item.hud.HudControl;
@@ -35,7 +36,7 @@ public class ControlPaneFactoryTest extends GameTestCase
     @Before
     public void setup() {
         assets = TestAssets.newAssetManagerMock();
-        factory = new ControlPaneFactory(assets);
+        factory = new ControlPaneFactory(assets, Mockito.mock(DeviceControls.class));
     }
 
     @Test

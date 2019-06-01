@@ -57,6 +57,6 @@ public class MenuOverlayAction extends BasicAction
 
     private GameController getSingletonController() {
         GameService gameService = GameService.getInstance();
-        return gameService.getGameEngine();
+        return gameService.getEngine();
     }
 }

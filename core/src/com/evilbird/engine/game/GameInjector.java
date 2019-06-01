@@ -12,6 +12,7 @@ package com.evilbird.engine.game;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.common.reflect.TypeRegistry;
+import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.ItemFactory;
 
 /**
@@ -22,7 +23,9 @@ import com.evilbird.engine.item.ItemFactory;
  */
 public interface GameInjector
 {
-    GameEngine getGameEngine();
+    Device getDevice();
+
+    GameEngine getEngine();
 
     ItemFactory getItemFactory();
 

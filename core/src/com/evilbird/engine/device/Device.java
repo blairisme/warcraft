@@ -20,6 +20,10 @@ import com.badlogic.gdx.assets.AssetManager;
  */
 public interface Device
 {
+    DeviceControls getDeviceControls();
+
+    DeviceDisplay getDeviceDisplay();
+
     DeviceInput getDeviceInput();
 
     AssetManager getAssetStorage();

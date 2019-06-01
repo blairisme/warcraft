@@ -11,6 +11,7 @@ package com.evilbird.warcraft.state;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.evilbird.engine.common.maps.TiledMapLoader;
+import com.evilbird.engine.device.Device;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.utils.JsonSerializerContext;
 import com.evilbird.test.utils.TestFileHandleResolver;
@@ -21,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.evilbird.test.data.device.TestDevices.newTestDevice;
 import static com.evilbird.warcraft.state.WarcraftStateAsset.Level1;
 
 /**
@@ -30,6 +32,7 @@ import static com.evilbird.warcraft.state.WarcraftStateAsset.Level1;
  */
 public class WarcraftStateAdapterTest extends GameTestCase
 {
+    private Device device;
     private WarcraftStateAdapter adapter;
     private WarcraftStateFileLoader assetLoader;
     private TiledMapLoader mapLoader;
@@ -38,10 +41,11 @@ public class WarcraftStateAdapterTest extends GameTestCase
     @Before
     public void setup() {
         super.setup();
+        device = newTestDevice();
         resolver = new TestFileHandleResolver();
         mapLoader = new TiledMapLoader(resolver);
         assetLoader = new WarcraftStateFileLoader(itemFactory, mapLoader);
-        adapter = new WarcraftStateAdapter(itemFactory, behaviourFactory, assetLoader);
+        adapter = new WarcraftStateAdapter(device, itemFactory, behaviourFactory, assetLoader);
     }
 
     @Test

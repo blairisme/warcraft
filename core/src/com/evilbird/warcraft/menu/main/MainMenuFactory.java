@@ -22,6 +22,7 @@ import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.warcraft.menu.intro.IntroMenuType;
 import org.apache.commons.lang3.Validate;
@@ -48,10 +49,12 @@ public class MainMenuFactory implements IdentifiedAssetProvider<Menu>
     private static final String MUSIC = "data/music/13.mp3";
 
     private AssetManager assets;
+    private DeviceDisplay display;
 
     @Inject
     public MainMenuFactory(Device device) {
         this.assets = device.getAssetStorage();
+        this.display = device.getDeviceDisplay();
     }
 
     @Override
@@ -76,7 +79,7 @@ public class MainMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     private Menu getHomeMenu() {
-        MainMenu menu = new MainMenu(getSkin());
+        MainMenu menu = new MainMenu(display, getSkin());
         menu.insertButton("Single Player Game", showMenu(menu, Campaign));
         menu.insertButton("Multi Player Game");
         menu.insertButton("Replay Introduction");
@@ -86,7 +89,7 @@ public class MainMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     private Menu getCampaignMenu() {
-        MainMenu menu = new MainMenu(getSkin());
+        MainMenu menu = new MainMenu(display, getSkin());
         menu.insertButton("New Campaign", showMenu(menu, CampaignNew));
         menu.insertButton("Load Game");
         menu.insertButton("Custom Campaign");
@@ -95,7 +98,7 @@ public class MainMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     private Menu getNewCampaignMenu() {
-        MainMenu menu = new MainMenu(getSkin());
+        MainMenu menu = new MainMenu(display, getSkin());
         menu.insertButton("Human Campaign", showMenu(menu, HumanLevel1));
         menu.insertButton("Orc Campaign");
         menu.insertButton("Previous Menu", showMenu(menu, Campaign));
@@ -103,7 +106,7 @@ public class MainMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     private Menu getLoadCampaignMenu() {
-        MainMenu menu = new MainMenu(getSkin());
+        MainMenu menu = new MainMenu(display, getSkin());
         menu.insertButton("Previous Menu", showMenu(menu, Home));
         return menu;
     }

@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.camera;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.test.data.item.TestCombatants;
@@ -19,6 +20,7 @@ import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.camera.Camera;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -46,7 +48,7 @@ public class FocusActionTest extends ActionTestCase
     protected Item newItem() {
         Combatant combatant = TestCombatants.newTestCombatant("item");
 
-        camera = new Camera();
+        camera = new Camera(Mockito.mock(DeviceDisplay.class));
         camera.setType(DataType.Camera);
 
         ItemRoot root = combatant.getRoot();

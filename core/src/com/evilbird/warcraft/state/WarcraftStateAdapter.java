@@ -9,12 +9,14 @@
 
 package com.evilbird.warcraft.state;
 
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.behaviour.BehaviourIdentifier;
-import com.evilbird.engine.common.graphics.Viewports;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
+import com.evilbird.engine.device.Device;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
@@ -41,26 +43,30 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     private static final String HUD = "hud";
     private static final String BEHAVIOUR = "behaviour";
 
+    private DeviceDisplay display;
     private ItemFactory itemFactory;
     private BehaviourFactory behaviourFactory;
-    private WarcraftStateFileLoader assetLoader;
+    private WarcraftStateFileLoader stateFileLoader;
 
     @SerializedConstructor
     public WarcraftStateAdapter() {
         GameService service = GameService.getInstance();
+        this.display = service.getDevice().getDeviceDisplay();
         this.itemFactory = service.getItemFactory();
         this.behaviourFactory = service.getBehaviourFactory();
-        this.assetLoader = new WarcraftStateFileLoader(itemFactory);
+        this.stateFileLoader = new WarcraftStateFileLoader(itemFactory);
     }
 
     @Inject
     public WarcraftStateAdapter(
+        Device device,
         ItemFactory itemFactory,
         BehaviourFactory behaviourFactory,
         WarcraftStateFileLoader assetLoader)
     {
+        this.display = device.getDeviceDisplay();
         this.itemFactory = itemFactory;
-        this.assetLoader = assetLoader;
+        this.stateFileLoader = assetLoader;
         this.behaviourFactory = behaviourFactory;
     }
 
@@ -100,7 +106,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
         JsonObject world = json.get(WORLD).getAsJsonObject();
         if (world.has("enum")) {
             WarcraftStateAsset identifier = context.deserialize(world, Identifier.class);
-            return assetLoader.load(identifier);
+            return stateFileLoader.load(identifier);
         }
         return context.deserialize(world, ItemRoot.class);
     }
@@ -108,8 +114,11 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     private ItemRoot deserializeHud(JsonObject json, JsonDeserializationContext context) {
         ItemType identifier = context.deserialize(json.get(HUD), Identifier.class);
 
+        ScreenViewport viewport = new ScreenViewport();
+        viewport.setUnitsPerPixel(display.getPixelUnits());
+
         ItemRoot result = new ItemRoot();
-        result.setViewport(Viewports.getDensityAwareViewport());
+        result.setViewport(viewport);
         result.setIdentifier(identifier);
         result.addItem(itemFactory.newItem(identifier));
         return result;

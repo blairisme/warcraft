@@ -45,7 +45,7 @@ public class AndroidLauncher extends AndroidApplication
 
     private static ApplicationListener getEngine() {
         GameService service = getService();
-        return service.getGameEngine();
+        return service.getEngine();
     }
 
     private static AndroidApplicationConfiguration getConfiguration() {

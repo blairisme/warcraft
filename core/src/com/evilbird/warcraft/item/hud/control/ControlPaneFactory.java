@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.device.DeviceControls;
 import com.evilbird.warcraft.item.hud.common.HealthBarStyle;
 import com.evilbird.warcraft.item.hud.control.actions.ActionButtonStyle;
 import com.evilbird.warcraft.item.hud.control.actions.ActionButtonType;
@@ -60,14 +61,16 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
     private static final String HEALTH_PROGRESS_LOW = "data/textures/neutral/perennial/health_bar_low.png";
 
     private AssetManager assets;
+    private DeviceControls controls;
 
     @Inject
     public ControlPaneFactory(Device device) {
-        this(device.getAssetStorage());
+        this(device.getAssetStorage(), device.getDeviceControls());
     }
 
-    public ControlPaneFactory(AssetManager assets) {
+    public ControlPaneFactory(AssetManager assets, DeviceControls controls) {
         this.assets = assets;
+        this.controls = controls;
     }
 
     @Override
@@ -119,10 +122,11 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
 
     private Skin getSkin() {
         Skin skin = new Skin();
-        skin.add("default", getDefaultFont());
+        skin.add("default", getFontStyle());
         skin.add("default", getHealthBarStyle());
         skin.add("default", getSelectionButtonStyle());
         skin.add("default", getProductionDetailsStyle());
+        skin.add("default", getControlPaneStyle());
         skin.add("button-thin-medium", getButtonStyle());
         skin.add("building-progress", getBuildingProgressStyle());
         skin.add("action-button", getActionButtonStyle());
@@ -135,7 +139,16 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
         return skin;
     }
 
-    private LabelStyle getDefaultFont() {
+    private ControlPaneStyle getControlPaneStyle() {
+        ControlPaneStyle style = new ControlPaneStyle();
+        style.showActions = true;
+        style.showStatus = true;
+        style.showMenuButton = !controls.hasMenuButton();
+        style.showMiniMap = style.showMenuButton;
+        return style;
+    }
+
+    private LabelStyle getFontStyle() {
         LabelStyle style = new LabelStyle();
         style.font = Fonts.ARIAL;
         style.fontColor = Color.WHITE;
@@ -150,8 +163,8 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
         textButtonStyle.over = textButtonStyle.up;
         textButtonStyle.checked = textButtonStyle.up;
         textButtonStyle.checkedOver = textButtonStyle.up;
-        textButtonStyle.disabled = getDrawable(assets, BUTTON_DISABLED);;
-        textButtonStyle.down = getDrawable(assets, BUTTON_SELECTED);;
+        textButtonStyle.disabled = getDrawable(assets, BUTTON_DISABLED);
+        textButtonStyle.down = getDrawable(assets, BUTTON_SELECTED);
         return textButtonStyle;
     }
 

@@ -61,7 +61,7 @@ public class DesktopLauncher
 
     private static ApplicationListener getEngine(DesktopCommands commands) {
         GameService service = getService();
-        GameEngine engine = service.getGameEngine();
+        GameEngine engine = service.getEngine();
         if (commands.getScenario() != null) {
             engine.setInitialScreen(commands.getScenario());
         }
@@ -75,7 +75,7 @@ public class DesktopLauncher
         LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
         configuration.height = 768;
         configuration.width = 1024;
-//        configuration.useHDPI = true;
+        configuration.useHDPI = true;
         //configuration.foregroundFPS = 30;
         configuration.vSyncEnabled = true;
         configuration.title = "Warcraft II";

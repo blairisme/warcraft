@@ -24,8 +24,11 @@ import java.util.List;
 public class IosInput implements DeviceInput
 {
     @Override
-    public void install() {
-        //Install input listener
+    public void startMonitoring() {
+    }
+
+    @Override
+    public void stopMonitoring() {
     }
 
     @Override

@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.control.SelectListenerAdapter;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.menu.Menu;
 
 import javax.inject.Inject;
@@ -33,7 +34,8 @@ public class MainMenu extends Menu
     private Table table;
 
     @Inject
-    public MainMenu(Skin skin) {
+    public MainMenu(DeviceDisplay display, Skin skin) {
+        super(display);
         this.skin = skin;
         this.table = createTable();
         updateStyle();

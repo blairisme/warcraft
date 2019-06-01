@@ -9,12 +9,14 @@
 
 package com.evilbird.warcraft.item.data.camera;
 
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.io.IOException;
 
@@ -30,7 +32,7 @@ public class CameraTest extends GameTestCase
     @Before
     public void setup() {
         super.setup();
-        camera = new Camera();
+        camera = new Camera(Mockito.mock(DeviceDisplay.class));
         respondWithItem(camera);
     }
 

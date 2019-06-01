@@ -28,6 +28,7 @@ import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateService;
@@ -80,11 +81,13 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
 
     private AssetManager assets;
     private StateService states;
+    private DeviceDisplay display;
 
     @Inject
     public IngameMenuFactory(Device device, StateService states) {
         this.states = states;
         this.assets = device.getAssetStorage();
+        this.display = device.getDeviceDisplay();
     }
 
     @Override
@@ -101,7 +104,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
 
     @Override
     public Menu get(Identifier identifier) {
-        IngameMenu menu = new IngameMenu(getSkin());
+        IngameMenu menu = new IngameMenu(display, getSkin());
         return setLayout(menu, identifier);
     }
 

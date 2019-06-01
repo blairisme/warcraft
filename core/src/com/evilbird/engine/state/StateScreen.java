@@ -70,7 +70,7 @@ public class StateScreen extends ScreenAdapter
 
     @Override
     public void show() {
-        input.install();
+        input.startMonitoring();
     }
 
     public void resize(int width, int height) {

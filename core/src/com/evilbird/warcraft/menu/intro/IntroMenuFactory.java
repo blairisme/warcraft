@@ -26,6 +26,7 @@ import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.state.StateIdentifier;
 import org.apache.commons.lang3.Validate;
@@ -58,10 +59,12 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
     private static final String INTRO_BUNDLE_1 = "data/strings/intro1";
 
     private AssetManager assets;
+    private DeviceDisplay display;
 
     @Inject
     public IntroMenuFactory(Device device) {
         this.assets = device.getAssetStorage();
+        this.display = device.getDeviceDisplay();
     }
 
     @Override
@@ -87,7 +90,7 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     private Menu getHumanIntro1() {
-        IntroMenu menu = new IntroMenu(getSkin());
+        IntroMenu menu = new IntroMenu(display, getSkin());
         addContent(menu, INTRO_BUNDLE_1);
         addNarration(menu, INTRO_NARRATION_1A, INTRO_NARRATION_2B);
         addButtonAction(menu, Human1);

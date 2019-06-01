@@ -36,9 +36,14 @@ public class AndroidInput implements DeviceInput, GestureDetector.GestureListene
     }
 
     @Override
-    public void install() {
+    public void startMonitoring() {
         GestureDetector gestureDetector = new GestureDetector(this);
         Gdx.input.setInputProcessor(gestureDetector);
+    }
+
+    @Override
+    public void stopMonitoring() {
+        Gdx.input.setInputProcessor(null);
     }
 
     @Override

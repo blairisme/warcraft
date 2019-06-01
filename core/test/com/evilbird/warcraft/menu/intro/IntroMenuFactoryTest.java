@@ -20,7 +20,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static com.evilbird.test.data.device.TestAssets.newAssetManagerMock;
+import static com.evilbird.test.data.device.TestDevices.newTestDevice;
 
 /**
  * Instances of this unit test validate logic in the {@link IntroMenuFactory}
@@ -39,9 +39,8 @@ public class IntroMenuFactoryTest extends GameTestCase
 
     @Before
     public void setup() {
-        assets = newAssetManagerMock();
-        device = Mockito.mock(Device.class);
-        Mockito.when(device.getAssetStorage()).thenReturn(assets);
+        device = newTestDevice();
+        assets = device.getAssetStorage();
         factory = new IntroMenuFactory(device);
     }
 
