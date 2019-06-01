@@ -32,7 +32,7 @@ public class IosInput implements DeviceInput
     }
 
     @Override
-    public List<UserInput> readInput() {
+    public List<UserInput> getInput() {
         return Collections.emptyList();
     }
 }

@@ -22,5 +22,5 @@ public interface DeviceInput
 
     void stopMonitoring();
 
-    List<UserInput> readInput();
+    List<UserInput> getInput();
 }

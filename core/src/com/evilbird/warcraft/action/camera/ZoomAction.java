@@ -27,9 +27,6 @@ import static com.evilbird.warcraft.action.camera.CameraActions.Zoom;
  */
 public class ZoomAction extends BasicAction
 {
-    private static final float ZOOM_SENSITIVITY = 10f;
-   // private static final float ZOOM_SENSITIVITY = 0.05f;
-    //private static final float ZOOM_SENSITIVITY = 1;
     private static final float ZOOM_MAX = 1.5f;
     private static final float ZOOM_MIN = 0.25f;
 
@@ -43,31 +40,12 @@ public class ZoomAction extends BasicAction
         UserInput input = getCause();
         Camera camera = (Camera)getItem();
 
-        if (input.getCount() == 1) {
-            storeZoom(camera);
-            updateZoom(camera, input);
-        } else {
-            resetZoom(camera);
-            updateZoom(camera, input);
-        }
-        return true;
-    }
-
-    private void storeZoom(Camera camera) {
-        camera.setOriginalZoom(camera.getZoom());
-    }
-
-    private void resetZoom(Camera camera) {
-        camera.setZoom(camera.getOriginalZoom());
-    }
-
-    private void updateZoom(Camera camera, UserInput input) {
         float current = camera.getZoom();
         float delta = input.getDelta().x;
-        float compensated = delta != 0 ? delta / ZOOM_SENSITIVITY : 0;
-        float scale = current + compensated;
-        //float scale = current * compensated;
+        float scale = current + delta;
         float zoom = MathUtils.clamp(scale, ZOOM_MIN, ZOOM_MAX);
+
         camera.setZoom(zoom);
+        return true;
     }
 }

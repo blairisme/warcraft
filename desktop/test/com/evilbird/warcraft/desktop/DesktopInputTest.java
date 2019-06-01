@@ -42,7 +42,7 @@ public class DesktopInputTest
     public void tapTest() {
         input.tap(100, 200, 3, 1);
 
-        List<UserInput> inputs = input.readInput();
+        List<UserInput> inputs = input.getInput();
         assertEquals(1, inputs.size());
 
         UserInput expected = new UserInput(UserInputType.Action, new Vector2(100, 200), 1);
@@ -56,7 +56,7 @@ public class DesktopInputTest
         input.pan(100, 200, 50, 50);
         input.pan(124, 124, 10, 10);
 
-        List<UserInput> inputs = input.readInput();
+        List<UserInput> inputs = input.getInput();
         assertEquals(2, inputs.size());
 
         UserInput expected1 = new UserInput(UserInputType.Drag, new Vector2(100, 200), new Vector2(-50, 50), 1);
@@ -71,7 +71,7 @@ public class DesktopInputTest
         input.panStop(45, 56, 22, 33);
         input.pan(500, 500, 17, 17);
 
-        List<UserInput> inputs2 = input.readInput();
+        List<UserInput> inputs2 = input.getInput();
         assertEquals(1, inputs2.size());
 
         UserInput expected3 = new UserInput(UserInputType.Drag, new Vector2(500, 500), new Vector2(-17, 17), 1);

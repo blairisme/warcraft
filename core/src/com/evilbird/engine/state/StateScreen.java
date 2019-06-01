@@ -88,7 +88,7 @@ public class StateScreen extends ScreenAdapter
     }
 
     public void update(float delta){
-        behaviour.update(state, input.readInput());
+        behaviour.update(state, input.getInput());
         events.clear();
         world.update(delta);
         hud.update(delta);

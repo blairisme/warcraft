@@ -12,7 +12,7 @@ package com.evilbird.warcraft.desktop;
 import com.evilbird.engine.device.DeviceDisplay;
 import org.lwjgl.opengl.Display;
 
-import java.awt.*;
+import java.awt.Toolkit;
 
 /**
  * Provides information about the current display, running on a desktop
