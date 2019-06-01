@@ -12,6 +12,7 @@ package com.evilbird.warcraft.menu.intro;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -26,6 +27,13 @@ import javax.inject.Inject;
 import static com.badlogic.gdx.scenes.scene2d.ui.Value.percentHeight;
 import static com.badlogic.gdx.scenes.scene2d.ui.Value.percentWidth;
 
+/**
+ * Instances of this {@link Menu} user interface are shown before the user
+ * starts a scenario. The user is presented with a description of the events
+ * that led up to the scenario and the objectives required to win it.
+ *
+ * @author Blair Butterworth
+ */
 public class IntroMenu extends Menu
 {
     private Skin skin;
@@ -85,6 +93,7 @@ public class IntroMenu extends Menu
         cell.fillX();
         cell.expandX();
         cell.center();
+        cell.height(percentHeight(0.10f, table));
         table.row();
 
         return result;
@@ -93,12 +102,15 @@ public class IntroMenu extends Menu
     private Label createDescription(Skin skin, Table table) {
         Label result = new Label("Description", skin);
         result.setWrap(true);
+        result.setAlignment(Align.topLeft);
 
-        Cell cell = table.add(result);
-        cell.align(Align.left);
-        cell.width(percentWidth(0.65f, table));
-        cell.height(percentHeight(0.35f, table));
-        cell.pad(30);
+        ScrollPane scrollPane = new ScrollPane(result);
+
+        Cell cell = table.add(scrollPane);
+        cell.align(Align.topLeft);
+        cell.width(percentWidth(0.70f, table));
+        cell.height(percentHeight(0.50f, table));
+        cell.pad(10, 30, 10, 10);
         table.row();
 
         return result;
@@ -106,11 +118,12 @@ public class IntroMenu extends Menu
 
     private Label createObjectives(Skin skin, Table table) {
         Label result = new Label("Objectives", skin);
+        result.setAlignment(Align.topLeft);
 
         Cell cell = table.add(result);
         cell.align(Align.right);
         cell.width(percentWidth(0.4f, table));
-        cell.height(percentHeight(0.4f, table));
+        cell.height(percentHeight(0.25f, table));
         table.row();
 
         return result;
@@ -121,7 +134,7 @@ public class IntroMenu extends Menu
 
         Cell cell = table.add(result);
         cell.align(Align.right);
-        cell.padRight(20);
+        cell.pad(10, 10, 10, 20);
         table.row();
 
         return result;

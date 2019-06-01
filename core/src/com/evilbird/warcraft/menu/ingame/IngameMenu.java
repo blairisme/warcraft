@@ -26,6 +26,13 @@ import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.menu.Menu;
 import org.apache.commons.lang3.tuple.Pair;
 
+/**
+ * Instances of this {@link Menu} user interface are shown as the user plays
+ * the game. The user is presented with options to save and load the game as
+ * well as to alter game settings.
+ *
+ * @author Blair Butterworth
+ */
 public class IngameMenu extends Menu
 {
     private Skin skin;
