@@ -16,6 +16,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.utility.ItemOperations;
 
 import javax.inject.Inject;
 import java.util.Arrays;
@@ -30,7 +31,9 @@ import static com.evilbird.engine.item.utility.ItemPredicates.hasAction;
 import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionAssignment.Parent;
+import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Replacement;
+import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Singleton;
 
 /**
  * Instances of this class define the situations an interaction applies to and
@@ -182,8 +185,14 @@ public class InteractionDefinition implements Interaction
         return appliedAs((subject, action) -> {
             if (displacement == Replacement) {
                 subject.clearActions();
+                subject.addAction(action);
             }
-            subject.addAction(action);
+            else if (displacement == Addition) {
+                subject.addAction(action);
+            }
+            else if (displacement == Singleton && !ItemOperations.hasAction(subject, action.getIdentifier())) {
+                subject.addAction(action);
+            }
         });
     }
 

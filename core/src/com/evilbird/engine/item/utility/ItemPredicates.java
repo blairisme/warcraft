@@ -97,12 +97,11 @@ public class ItemPredicates
     }
 
     public static Predicate<Item> hasAction(Predicate<Action> condition) {
-        return item -> item != null && item.getActions().stream().anyMatch(condition);
+        return item -> ItemOperations.hasAction(item, condition);
     }
 
     public static Predicate<Item> hasAction(Identifier identifier) {
-        return item -> item != null && item.getActions().stream().anyMatch(
-            action -> action.getIdentifier() == identifier);
+        return item -> ItemOperations.hasAction(item, identifier);
     }
 
     public static Predicate<Item> overlapping(Item target) {

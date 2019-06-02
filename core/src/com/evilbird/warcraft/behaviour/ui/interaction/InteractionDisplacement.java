@@ -19,5 +19,6 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 public enum InteractionDisplacement
 {
     Addition,
-    Replacement
+    Replacement,
+    Singleton
 }

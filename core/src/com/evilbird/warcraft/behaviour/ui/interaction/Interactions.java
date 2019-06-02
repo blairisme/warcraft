@@ -62,6 +62,7 @@ import static com.evilbird.warcraft.action.train.TrainActions.TrainPeasantCancel
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
+import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Singleton;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isGathererConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholder;
@@ -298,7 +299,7 @@ public class Interactions
     private void selectionInteractions() {
         selectInvert();
         selectArea();
-        unselectButton();
+        deselectButton();
     }
 
     private void selectInvert() {
@@ -335,10 +336,11 @@ public class Interactions
                 .appliedAs(Addition);
     }
 
-    private void unselectButton() {
+    private void deselectButton() {
         interactions.addAction(SelectInvert)
                 .whenTarget(UnselectButton)
-                .appliedTo(targetParentItem(), selectedItem());
+                .appliedTo(targetParentItem(), selectedItem())
+                .appliedAs(Singleton);
     }
 
     private BiConsumer<Item, Action> confirmedAction() {

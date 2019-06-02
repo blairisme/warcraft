@@ -12,6 +12,7 @@ package com.evilbird.engine.item.utility;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.math.ShapeUtilities;
@@ -58,6 +59,14 @@ public class ItemOperations
         float y = graphics.getHeight() * 0.5f;
         Vector2 screenCenter = new Vector2(x, y);
         return root.unproject(screenCenter);
+    }
+
+    public static boolean hasAction(Item item, Predicate<Action> condition) {
+        return item != null && item.getActions().stream().anyMatch(condition);
+    }
+
+    public static boolean hasAction(Item item, Identifier identifier) {
+        return hasAction(item, action -> action.getIdentifier() == identifier);
     }
 
     public static boolean isIdle(Item item) {
