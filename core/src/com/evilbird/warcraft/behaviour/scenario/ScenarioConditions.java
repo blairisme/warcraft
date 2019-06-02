@@ -10,13 +10,12 @@
 package com.evilbird.warcraft.behaviour.scenario;
 
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.events.Event;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.construct.ConstructEvent;
+import com.evilbird.warcraft.action.train.TrainEvent;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,7 +32,6 @@ import static com.evilbird.engine.item.utility.ItemPredicates.withClazz;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
-import static java.util.Arrays.asList;
 
 /**
  * Defines {@link Predicate Predicates} used to define conditions for wining or
@@ -47,7 +45,7 @@ public class ScenarioConditions
     }
 
     public static BiPredicate<ItemRoot, EventQueue> playerHasMinimum(Identifier type, Integer amount) {
-        return combine(hasMinimum(aliveItems(type), amount), forEvents(CreateEvent.class, ConstructEvent.class));
+        return combine(hasMinimum(aliveItems(type), amount), createEvents());
     }
 
     public static BiPredicate<ItemRoot, EventQueue> playerHasMinimum(Map<Identifier, Integer> items) {
@@ -57,20 +55,23 @@ public class ScenarioConditions
     }
 
     public static BiPredicate<ItemRoot, EventQueue> playerHasNone(Class<?> type) {
-        return combine(hasMaximum(aliveItems(type), 0), forEvent(RemoveEvent.class));
+        return combine(hasMaximum(aliveItems(type), 0), removeEvents());
     }
 
-    private static Predicate<EventQueue> forEvent(Class<? extends Event> type) {
-        return (queue) -> queue.hasEvents(type);
+    private static Predicate<EventQueue> createEvents() {
+        return queue -> {
+            for (ConstructEvent event: queue.getEvents(ConstructEvent.class)) {
+                if (event.isComplete()) { return true; }
+            }
+            for (TrainEvent event: queue.getEvents(TrainEvent.class)) {
+                if (event.isComplete()) { return true; }
+            }
+            return false;
+        };
     }
 
-    @SafeVarargs
-    private static Predicate<EventQueue> forEvents(Class<? extends Event> ... types) {
-        return forEvents(asList(types));
-    }
-
-    private static Predicate<EventQueue> forEvents(Collection<Class<? extends Event>> types) {
-        return (queue) -> types.stream().anyMatch(queue::hasEvents);
+    private static Predicate<EventQueue> removeEvents() {
+        return queue -> queue.hasEvents(RemoveEvent.class);
     }
 
     private static Predicate<Item> aliveItems(Identifier type) {

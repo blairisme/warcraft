@@ -46,6 +46,10 @@ public class TrainEvent implements Event
         return status == TrainStatus.Started;
     }
 
+    public boolean isComplete() {
+        return status == TrainStatus.Complete;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
