@@ -206,9 +206,9 @@ public class WarcraftStateFileLoader
             Player player = (Player)item;
             player.setCorporeal(! properties.get(AI_PROPERTY, Boolean.class));
             player.setDescription(properties.get(DESCRIPTION_PROPERTY, String.class));
-            player.setResource(ResourceType.Gold, getFloatProperty(properties, GOLD_PROPERTY));
+            player.setResource(ResourceType.Gold, 50000);//getFloatProperty(properties, GOLD_PROPERTY));
             player.setResource(ResourceType.Oil, getFloatProperty(properties, OIL_PROPERTY));
-            player.setResource(ResourceType.Wood, getFloatProperty(properties, WOOD_PROPERTY));
+            player.setResource(ResourceType.Wood, 50000);//getFloatProperty(properties, WOOD_PROPERTY));
             player.setResource(ResourceType.Food, getFloatProperty(properties, FOOD_PROPERTY));
         }
     }

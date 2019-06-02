@@ -178,9 +178,8 @@ public class MenuBehaviour implements Behaviour
     private void updateAttackRecipients() {
         for (AttackEvent event: events.getEvents(AttackEvent.class)) {
             if (event.getStatus() == AttackStatus.Complete) {
-                PlayerStatistic statistic = getAttackStat(event.getTarget());
                 Player player = UnitOperations.getPlayer(event.getSubject());
-                player.incrementStatistic(statistic, 1);
+                player.incrementStatistic(getAttackStat(event.getTarget()), 1);
                 player.incrementStatistic(Score, getScoreValue(event.getTarget()));
 
                 if (event.getTarget().getType() == UnitType.Farm) {

@@ -21,9 +21,9 @@ public enum PlayerStatistic
     Gold,
     Wood,
     Oil,
-    Food,
-    Population,
     Kills,
     Razed,
-    Score
+    Score,
+    Food,
+    Population,
 }
