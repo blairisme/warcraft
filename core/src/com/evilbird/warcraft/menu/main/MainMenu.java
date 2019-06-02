@@ -92,7 +92,7 @@ public class MainMenu extends Menu
         Cell cell = table.add(button);
         cell.width(336);
         cell.height(28);
-        cell.padBottom(12);
+        cell.padBottom(8);
         cell.fill();
         table.row();
     }
