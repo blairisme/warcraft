@@ -18,8 +18,9 @@ import com.evilbird.engine.common.collection.BitMatrix;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.warcraft.action.common.create.CreateEvent;
+import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
+import com.evilbird.warcraft.action.train.TrainEvent;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.layer.Layer;
@@ -103,8 +104,15 @@ public class Fog extends Layer
         for (MoveEvent moveEvent: events.getEvents(MoveEvent.class)) {
             evaluateEvent(moveEvent.getSubject());
         }
-        for (CreateEvent createEvent: events.getEvents(CreateEvent.class)) {
-            evaluateEvent(createEvent.getSubject());
+        for (ConstructEvent constructEvent: events.getEvents(ConstructEvent.class)) {
+            if (constructEvent.isConstructing()) {
+                evaluateEvent(constructEvent.getSubject());
+            }
+        }
+        for (TrainEvent trainEvent: events.getEvents(TrainEvent.class)) {
+            if (trainEvent.isComplete()) {
+                evaluateEvent(trainEvent.getSubject());
+            }
         }
     }
 

@@ -63,6 +63,10 @@ public class ConstructEvent implements Event
         return status == ConstructStatus.Complete;
     }
 
+    public boolean isCancelled() {
+        return status == ConstructStatus.Cancelled;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
