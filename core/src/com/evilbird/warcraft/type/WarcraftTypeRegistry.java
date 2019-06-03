@@ -10,9 +10,10 @@ import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.train.TrainActions;
 import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
-import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.camera.Camera;
+import com.evilbird.warcraft.item.data.camera.CameraType;
 import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.data.player.PlayerType;
 import com.evilbird.warcraft.item.hud.HudType;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerType;
@@ -62,9 +63,10 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
     }
 
     private void registerItems() {
-        registerType("Data", DataType.class);
         registerType("Camera", Camera.class);
+        registerType("CameraType", CameraType.class);
         registerType("Player", Player.class);
+        registerType("PlayerType", PlayerType.class);
         registerType("Fog", Fog.class);
         registerType("Forest", Forest.class);
         registerType("Terrain", Terrain.class);

@@ -1,10 +1,9 @@
 {
   "class": "Player",
   "type": {
-    "class": "Data",
-    "enum": "Player"
+    "class": "PlayerType",
+    "enum": "Corporeal"
   },
-  "corporeal": true,
   "statistics": {
     "Kills": 4.0,
     "Buildings": 10.0

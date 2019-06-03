@@ -22,7 +22,6 @@ import com.evilbird.engine.item.ItemRoot;
 import java.util.function.Predicate;
 
 import static com.badlogic.gdx.Gdx.graphics;
-import static com.evilbird.engine.item.utility.ItemPredicates.itemWithType;
 
 /**
  * Instances of this class contain common functions for working with
@@ -46,9 +45,9 @@ public class ItemOperations
         return null;
     }
 
-    public static Item findAncestorByType(Item item, Identifier type) {
-        return findAncestor(item, itemWithType(type));
-    }
+//    public static Item findAncestorByType(Item item, Identifier type) {
+//        return findAncestor(item, itemWithType(type));
+//    }
 
     public static Vector2 getScreenCenter(Item item) {
         return getScreenCenter(item.getRoot());

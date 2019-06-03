@@ -36,7 +36,7 @@ import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.data.item.TestResources;
-import com.evilbird.warcraft.item.data.DataType;
+import com.evilbird.warcraft.item.data.player.PlayerType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -144,7 +144,7 @@ public class GameTestCase
     public void respondWithNewItem() {
         Mockito.when(itemFactory.newItem(Mockito.any())).thenAnswer(invocation -> {
             Identifier identifier = invocation.getArgument(0);
-            if (identifier == DataType.Player) {
+            if (identifier instanceof PlayerType) {
                 return TestPlayers.newTestPlayer("player");
             }
             if (identifier == UnitType.Barracks) {

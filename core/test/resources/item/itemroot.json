@@ -11,7 +11,6 @@
   },
   "items": [
     {
-      "corporeal": true,
       "statistics": {
         "Kills": 4.0,
         "Buildings": 10.0
@@ -97,8 +96,8 @@
         "name": "player1"
       },
       "type": {
-        "class": "Data",
-        "enum": "Player"
+        "class": "PlayerType",
+        "enum": "Corporeal"
       },
       "visible": false,
       "touchable": "enabled",
@@ -113,7 +112,6 @@
       "actions": []
     },
     {
-      "corporeal": true,
       "statistics": {
         "Kills": 4.0,
         "Buildings": 10.0
@@ -199,8 +197,8 @@
         "name": "player2"
       },
       "type": {
-        "class": "Data",
-        "enum": "Player"
+        "class": "PlayerType",
+        "enum": "Corporeal"
       },
       "visible": false,
       "touchable": "enabled",

@@ -7,17 +7,16 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.data;
+package com.evilbird.warcraft.item.data.camera;
 
 import com.evilbird.engine.item.ItemType;
 
 /**
- * Defines options of specifying data item varieties.
+ * Defines options of specifying camera varieties.
  *
  * @author Blair Butterworth
  */
-public enum DataType implements ItemType
+public enum CameraType implements ItemType
 {
-    Camera,
-    Player
+    Camera
 }

@@ -12,7 +12,9 @@ package com.evilbird.warcraft.item.data;
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.data.camera.CameraFactory;
+import com.evilbird.warcraft.item.data.camera.CameraType;
 import com.evilbird.warcraft.item.data.player.PlayerFactory;
+import com.evilbird.warcraft.item.data.player.PlayerType;
 
 import javax.inject.Inject;
 
@@ -26,7 +28,7 @@ public class DataProvider extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
     public DataProvider(CameraFactory cameraProvider, PlayerFactory playerProvider) {
-        addProvider(DataType.Camera, cameraProvider);
-        addProvider(DataType.Player, playerProvider);
+        addProvider(CameraType.values(), cameraProvider);
+        addProvider(PlayerType.values(), playerProvider);
     }
 }

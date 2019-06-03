@@ -20,7 +20,7 @@ import com.evilbird.engine.item.ItemType;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.utils.MockProvider;
 import com.evilbird.warcraft.action.camera.CameraActions;
-import com.evilbird.warcraft.item.data.DataType;
+import com.evilbird.warcraft.item.data.camera.CameraType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,7 +60,7 @@ public class InteractionsTest
     @Test
     public void getInteractionsTest() {
         assertInteractions(asList(AttackMelee, ConfirmTarget), Action, Grunt, Footman);
-        assertInteraction(CameraActions.Pan, UserInputType.Drag, DataType.Camera, null);
+        assertInteraction(CameraActions.Pan, UserInputType.Drag, CameraType.Camera, null);
     }
 
     private void assertInteraction(ActionIdentifier action, UserInputType input, ItemType target, ItemType selected) {

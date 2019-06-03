@@ -15,10 +15,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.LazyLoadedMusic;
 import com.evilbird.engine.common.audio.MusicSequence;
-import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.data.DataType;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
  *
  * @author Blair Butterworth
  */
-public class PlayerFactory implements AssetProvider<Item>
+public class PlayerFactory implements IdentifiedAssetProvider<Item>
 {
     private static final String MUSIC_DIRECTORY = "data/music/";
     private static final int MUSIC_COUNT = 15;
@@ -53,9 +53,9 @@ public class PlayerFactory implements AssetProvider<Item>
     }
 
     @Override
-    public Item get() {
+    public Item get(Identifier type) {
         Player player = new Player(getSkin());
-        player.setType(DataType.Player);
+        player.setType(type);
         player.setIdentifier(objectIdentifier("Player", player));
         player.setPosition(0, 0);
         player.setSize(Float.MAX_VALUE, Float.MAX_VALUE);

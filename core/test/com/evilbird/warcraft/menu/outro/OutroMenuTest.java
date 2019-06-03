@@ -19,6 +19,7 @@ import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.data.player.PlayerType;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -47,11 +48,11 @@ public class OutroMenuTest extends GameTestCase
         ItemRoot world = TestItemRoots.newTestRoot("world");
 
         Player humanPlayer = TestPlayers.newTestPlayer(new TextIdentifier("human"), world);
-        humanPlayer.setCorporeal(true);
+        humanPlayer.setType(PlayerType.Corporeal);
         world.addItem(humanPlayer);
 
         Player aiPlayer = TestPlayers.newTestPlayer(new TextIdentifier("ai"), world);
-        aiPlayer.setCorporeal(false);
+        aiPlayer.setType(PlayerType.Artificial);
         world.addItem(aiPlayer);
 
         State state = Mockito.mock(State.class);

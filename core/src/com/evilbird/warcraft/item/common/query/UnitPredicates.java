@@ -16,7 +16,6 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.movement.Movable;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
-import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.placeholder.Placeholder;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -101,7 +100,7 @@ public class UnitPredicates
     }
 
     public static Predicate<Item> isPlayer() {
-        return (item) -> Objects.equals(item.getType(), DataType.Player);
+        return (item) -> item instanceof Player;
     }
 
     public static Predicate<Item> isSelected() {

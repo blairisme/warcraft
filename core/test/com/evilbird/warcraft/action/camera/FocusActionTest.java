@@ -16,8 +16,8 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.camera.Camera;
+import com.evilbird.warcraft.item.data.camera.CameraType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -49,7 +49,7 @@ public class FocusActionTest extends ActionTestCase
         Combatant combatant = TestCombatants.newTestCombatant("item");
 
         camera = new Camera(Mockito.mock(DeviceDisplay.class));
-        camera.setType(DataType.Camera);
+        camera.setType(CameraType.Camera);
 
         ItemRoot root = combatant.getRoot();
         root.addItem(camera);

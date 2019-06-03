@@ -1,13 +1,13 @@
 {
   "class": "Camera",
   "type": {
-    "class": "Data",
+    "class": "CameraType",
     "enum": "Camera"
   },
   "originalZoom": 0.0,
   "currentZoom": 0.0,
   "id": {
-    "class": "Data",
+    "class": "CameraType",
     "enum": "Camera"
   },
   "visible": false,

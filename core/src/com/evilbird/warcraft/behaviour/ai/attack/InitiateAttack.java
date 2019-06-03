@@ -22,6 +22,7 @@ import com.evilbird.warcraft.action.attack.AttackEvent;
 import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourElement;
+import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
@@ -30,6 +31,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.inSight;
 
 /**
@@ -98,8 +100,10 @@ public class InitiateAttack implements AiBehaviourElement
         }
     }
 
-    private boolean isAnotherTeam(Item itemA, Item itemB){
-        return itemA.getParent() != itemB.getParent();
+    private boolean isAnotherTeam(Item itemA, Item itemB) {
+        Player playerA = getPlayer(itemA);
+        Player playerB = getPlayer(itemB);
+        return !playerA.isNeutral() && !playerB.isNeutral() && playerA != playerB;
     }
 
     private boolean isCombatant(Item item) {

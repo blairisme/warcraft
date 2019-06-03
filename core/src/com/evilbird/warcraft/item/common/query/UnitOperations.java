@@ -14,7 +14,6 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.common.movement.Movable;
-import com.evilbird.warcraft.item.data.DataType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
@@ -26,9 +25,10 @@ import java.util.function.Predicate;
 import static com.evilbird.engine.common.collection.CollectionUtils.findFirst;
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.item.utility.ItemComparators.closestItem;
-import static com.evilbird.engine.item.utility.ItemOperations.findAncestorByType;
+import static com.evilbird.engine.item.utility.ItemOperations.findAncestor;
 import static com.evilbird.engine.item.utility.ItemOperations.isNear;
 import static com.evilbird.engine.item.utility.ItemPredicates.touchableWithType;
+import static com.evilbird.engine.item.utility.ItemPredicates.withClazz;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasPathTo;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlayer;
@@ -63,7 +63,7 @@ public class UnitOperations
     }
 
     public static Player getPlayer(Item item) {
-        return (Player)findAncestorByType(item, DataType.Player);
+        return (Player)findAncestor(item, withClazz(Player.class));
     }
 
     public static Player getHumanPlayer(Item worldItem) {

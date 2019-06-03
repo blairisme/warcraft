@@ -19,6 +19,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.action.select.SelectEvent;
+import com.evilbird.warcraft.item.data.camera.Camera;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +30,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import static com.evilbird.engine.item.utility.ItemPredicates.itemWithType;
+import static com.evilbird.engine.item.utility.ItemPredicates.withClazz;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
-import static com.evilbird.warcraft.item.data.DataType.Camera;
 
 /**
  * Instances of this class modify the game state based on user input.
@@ -74,7 +74,7 @@ public class InteractionBehaviour implements Behaviour
 
     private void initializeCache(State state) {
         ItemRoot world = state.getWorld();
-        camera = world.find(itemWithType(Camera));
+        camera = world.find(withClazz(Camera.class));
         selected = world.findAll(isSelected());
     }
 

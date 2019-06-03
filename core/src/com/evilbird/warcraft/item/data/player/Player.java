@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
-import com.evilbird.warcraft.item.data.DataType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -32,7 +31,8 @@ import java.util.Map;
  */
 public class Player extends ItemGroup implements ResourceContainer
 {
-    private boolean corporeal;
+    private static transient final float VOLUME = 0.3f;
+
     private String description;
     private Map<String, Double> statistics;
     private Map<String, Double> resources;
@@ -44,25 +44,25 @@ public class Player extends ItemGroup implements ResourceContainer
         this.skin = skin;
         this.resources = new LinkedHashMap<>();
         this.statistics = new LinkedHashMap<>();
-        setType(DataType.Player);
-        initializeMusic();
+        initialize();
     }
 
-    private void initializeMusic() {
-        PlayerStyle playerStyle = skin.get("default", PlayerStyle.class);
-        music = playerStyle.music;
-        music.setVolume(0.3f);
+    public boolean isArtifical() {
+        return getType() == PlayerType.Artificial;
     }
 
     public boolean isCorporeal() {
-        return corporeal;
+        return getType() == PlayerType.Corporeal;
+    }
+
+    public boolean isNeutral() {
+        return getType() == PlayerType.Neutral;
     }
 
     public String getDescription() {
         return description;
     }
 
-    @Override
     public float getResource(ResourceType type) {
         String key = type.name();
         if (resources.containsKey(key)){
@@ -79,18 +79,10 @@ public class Player extends ItemGroup implements ResourceContainer
         return 0;
     }
 
-    public void setCorporeal(boolean corporeal) {
-        this.corporeal = corporeal;
-        if (corporeal) {
-            music.play();
-        }
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
 
-    @Override
     public void setResource(ResourceType type, float value) {
         String key = type.name();
         resources.put(key, (double)value);
@@ -139,7 +131,6 @@ public class Player extends ItemGroup implements ResourceContainer
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(description, player.description)
-            .append(corporeal, player.corporeal)
             .append(resources, player.resources)
             .append(statistics, player.statistics)
             .isEquals();
@@ -150,7 +141,6 @@ public class Player extends ItemGroup implements ResourceContainer
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
             .append(description)
-            .append(corporeal)
             .append(resources)
             .append(statistics)
             .toHashCode();
@@ -159,10 +149,17 @@ public class Player extends ItemGroup implements ResourceContainer
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .appendSuper("base")
-            .append("description", description)
-            .append("corporeal", corporeal)
+            .append("identifier", getIdentifier())
+            .append("type", getType())
             .append("resources", resources)
             .toString();
+    }
+
+    private void initialize() {
+        if (skin.has("default", PlayerStyle.class)) {
+            PlayerStyle style = skin.get("default", PlayerStyle.class);
+            music = style.music;
+            music.setVolume(VOLUME);
+        }
     }
 }

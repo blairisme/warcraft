@@ -27,8 +27,9 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
-import com.evilbird.warcraft.item.data.DataType;
+import com.evilbird.warcraft.item.data.camera.CameraType;
 import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.data.player.PlayerType;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.slf4j.Logger;
@@ -58,7 +59,6 @@ public class WarcraftStateFileLoader
     private static final String OPAQUE_FOG_ID = "OpaqueFog";
     private static final String TRANSPARENT_FOG_ID = "TransparentFog";
 
-    private static final String AI_PROPERTY = "AI";
     private static final String OWNER_PROPERTY = "Owner";
     private static final String DESCRIPTION_PROPERTY = "Description";
     private static final String TOUCHABLE_PROPERTY = "Touchable";
@@ -93,10 +93,10 @@ public class WarcraftStateFileLoader
 
     public ItemRoot load(String path) {
         TiledMapFile level = mapLoader.load(path);
-        return getItem(level);
+        return load(level);
     }
 
-    private ItemRoot getItem(TiledMapFile level) {
+    private ItemRoot load(TiledMapFile level) {
         GridPoint2 mapSize = level.getMapSize();
         GridPoint2 tileSize = level.getTileSize();
 
@@ -161,7 +161,7 @@ public class WarcraftStateFileLoader
 
     private void addObjectItems(MapLayer layer, Map<String, ItemComposite> parents) {
         for (MapObject object : layer.getObjects()) {
-            ItemType type = getObjectItemType(layer);
+            ItemType type = getItemType(object);
             Item item = newItem(type, object);
             ItemComposite parent = getParent(parents, object);
 
@@ -171,11 +171,27 @@ public class WarcraftStateFileLoader
         }
     }
 
-    private ItemType getObjectItemType(MapLayer layer) {
-        if (isDataItem(layer)) {
-            return DataType.valueOf(layer.getName());
+    private ItemType getItemType(MapObject object) {
+        MapProperties properties = object.getProperties();
+        String type = properties.get("type", "", String.class);
+
+        if (Objects.equals(type, CAMERA_ID)) {
+            return CameraType.Camera;
         }
-        return UnitType.valueOf(layer.getName());
+        if (Objects.equals(type, PLAYER_ID)) {
+            return getPlayerType(object);
+        }
+        return UnitType.valueOf(type);
+    }
+
+    private ItemType getPlayerType(MapObject object) {
+        if (Objects.equals(object.getName(), "Player1")) {
+            return PlayerType.Corporeal;
+        }
+        if (Objects.equals(object.getName(), "Neutral")) {
+            return PlayerType.Neutral;
+        }
+        return PlayerType.Artificial;
     }
 
     private Item newItem(ItemType type, MapObject object) {
@@ -204,18 +220,17 @@ public class WarcraftStateFileLoader
     private void setCustomAttributes(Item item, MapProperties properties) {
         if (item instanceof Player) {
             Player player = (Player)item;
-            player.setCorporeal(! properties.get(AI_PROPERTY, Boolean.class));
-            player.setDescription(properties.get(DESCRIPTION_PROPERTY, String.class));
-            player.setResource(ResourceType.Gold, 50000);//getFloatProperty(properties, GOLD_PROPERTY));
-            player.setResource(ResourceType.Oil, getFloatProperty(properties, OIL_PROPERTY));
-            player.setResource(ResourceType.Wood, 50000);//getFloatProperty(properties, WOOD_PROPERTY));
-            player.setResource(ResourceType.Food, getFloatProperty(properties, FOOD_PROPERTY));
+            player.setDescription(properties.get(DESCRIPTION_PROPERTY, "", String.class));
+            player.setResource(ResourceType.Gold, properties.get(GOLD_PROPERTY, 0f, Float.class));
+            player.setResource(ResourceType.Oil, properties.get(OIL_PROPERTY, 0f, Float.class));
+            player.setResource(ResourceType.Wood, properties.get(WOOD_PROPERTY, 0f, Float.class));
+            player.setResource(ResourceType.Food, properties.get(FOOD_PROPERTY, 0f, Float.class));
         }
     }
 
     private ItemComposite getParent(Map<String, ItemComposite> parents, MapObject object) {
         MapProperties properties = object.getProperties();
-        String owner = getOwner(properties);
+        String owner = properties.get(OWNER_PROPERTY, ROOT_ID, String.class);
         ItemComposite result = parents.get(owner);
 
         if (result == null) {
@@ -225,7 +240,7 @@ public class WarcraftStateFileLoader
     }
 
     private boolean isPrimaryItem(MapLayer layer) {
-        return isLayerItem(layer) || isDataItem(layer);
+        return isLayerItem(layer) || isPlayerItem(layer) || isCameraItem(layer);
     }
 
     private boolean isSecondaryItem(MapLayer layer) {
@@ -239,10 +254,6 @@ public class WarcraftStateFileLoader
                 || Objects.equals(layer.getName(), TRANSPARENT_FOG_ID);
     }
 
-    private boolean isDataItem(MapLayer layer) {
-        return isPlayerItem(layer) || isCameraItem(layer) ;
-    }
-
     private boolean isPlayerItem(MapLayer layer) {
         return Objects.equals(layer.getName(), PLAYER_ID);
     }
@@ -254,14 +265,5 @@ public class WarcraftStateFileLoader
     private Touchable getTouchable(MapProperties properties) {
         Boolean touchable = (Boolean)properties.get(TOUCHABLE_PROPERTY);
         return touchable == Boolean.FALSE ? Touchable.childrenOnly : Touchable.enabled;
-    }
-
-    private String getOwner(MapProperties properties) {
-        String owner = (String)properties.get(OWNER_PROPERTY);
-        return owner == null ? ROOT_ID : owner;
-    }
-
-    private float getFloatProperty(MapProperties properties, String name) {
-        return properties.containsKey(name) ? properties.get(name, Float.class) : 0;
     }
 }

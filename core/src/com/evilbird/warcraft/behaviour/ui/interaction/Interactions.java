@@ -67,7 +67,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstruct
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isGathererConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholder;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholderClear;
-import static com.evilbird.warcraft.item.data.DataType.Camera;
+import static com.evilbird.warcraft.item.data.camera.CameraType.Camera;
 import static com.evilbird.warcraft.item.hud.HudControl.MenuPane;
 import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.BuildAdvancedButton;
 import static com.evilbird.warcraft.item.hud.control.actions.ActionButtonType.BuildBarracksButton;

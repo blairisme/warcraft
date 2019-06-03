@@ -18,6 +18,7 @@ import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerStatistic;
 import com.evilbird.warcraft.item.data.player.PlayerStyle;
+import com.evilbird.warcraft.item.data.player.PlayerType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.mockito.Mockito;
 
@@ -41,7 +42,7 @@ public class TestPlayers
     public static Player newTestPlayer(Identifier identifier, ItemRoot root) {
         Player player = new Player(getSkin());
         player.setIdentifier(identifier);
-        player.setCorporeal(true);
+        player.setType(PlayerType.Corporeal);
         player.setResource(ResourceType.Gold, 123);
         player.setResource(ResourceType.Wood, 456);
         player.setStatistic(PlayerStatistic.Kills, 4);

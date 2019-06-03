@@ -19,7 +19,6 @@ import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemBasic;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.item.data.DataType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -51,8 +50,8 @@ public class Camera extends ItemBasic implements Zoomable
         camera.zoom = originalZoom;
         currentZoom = originalZoom;
 
-        setIdentifier(DataType.Camera);
-        setType(DataType.Camera);
+        setIdentifier(CameraType.Camera);
+        setType(CameraType.Camera);
         setPosition(camera.position.x, camera.position.y);
         setTouchable(Touchable.disabled);
         setVisible(false);
