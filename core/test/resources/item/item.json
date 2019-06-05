@@ -37,24 +37,12 @@
       "identifier": {
         "class": "MoveActions",
         "enum": "MoveToLocation"
-      },
-      "item": {
-        "reference": {
-          "class": "Named",
-          "name": "footman"
-        }
       }
     },
     {
       "identifier": {
         "class": "AttackActions",
         "enum": "AttackMelee"
-      },
-      "item": {
-        "reference": {
-          "class": "Named",
-          "name": "footman"
-        }
       }
     }
   ]

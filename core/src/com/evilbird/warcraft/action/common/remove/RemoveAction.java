@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.common.remove;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 
@@ -24,33 +25,33 @@ import java.util.function.Supplier;
  */
 public class RemoveAction extends BasicAction
 {
+    private Events events;
     private Supplier<Item> supplier;
-    private RemoveObserver observer;
 
-    public RemoveAction(ActionRecipient target, RemoveObserver observer) {
+    public RemoveAction(ActionRecipient target, Events events) {
         this.supplier = new ActionTargetSupplier(target);
-        this.observer = observer;
+        this.events = events;
     }
 
-    public RemoveAction(Supplier<Item> supplier, RemoveObserver observer) {
+    public RemoveAction(Supplier<Item> supplier, Events events) {
         this.supplier = supplier;
-        this.observer = observer;
+        this.events = events;
     }
 
-    public static RemoveAction remove(RemoveObserver observer) {
-        return new RemoveAction(ActionRecipient.Subject, observer);
+    public static RemoveAction remove(Events events) {
+        return new RemoveAction(ActionRecipient.Subject, events);
     }
 
     public static RemoveAction remove(ActionRecipient target) {
         return new RemoveAction(target, observer -> {});
     }
 
-    public static RemoveAction remove(ActionRecipient target, RemoveObserver observer) {
-        return new RemoveAction(target, observer);
+    public static RemoveAction remove(ActionRecipient target, Events events) {
+        return new RemoveAction(target, events);
     }
 
-    public static RemoveAction remove(Supplier<Item> supplier, RemoveObserver observer) {
-        return new RemoveAction(supplier, observer);
+    public static RemoveAction remove(Supplier<Item> supplier, Events events) {
+        return new RemoveAction(supplier, events);
     }
 
     @Override
@@ -68,8 +69,8 @@ public class RemoveAction extends BasicAction
     }
 
     protected void notifyRemove(Item item) {
-        if (observer != null) {
-            observer.onRemove(item);
+        if (events != null) {
+            events.add(new RemoveEvent(item));
         }
     }
 

@@ -79,7 +79,7 @@ public class AnimationSets
     {
         AnimationSetBuilder builder = new AnimationSetBuilder();
         builder.set(UnitAnimation.Idle, AnimationSchemas.idleSingualarSchema(width, height), general);
-        builder.set(UnitAnimation.BuildingSite, AnimationSchemas.constructBeginSchema(width, height), construction);
+        builder.set(UnitAnimation.BuildingSite, AnimationSchemas.constructStaticSchema(width, height), construction);
         builder.set(UnitAnimation.Construct, Arrays.asList(
                 Pair.of(AnimationSchemas.constructBeginSchema(width, height), construction),
                 Pair.of(AnimationSchemas.constructEndSchema(width, height), general)));

@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.train;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.testcase.ActionTestCase;
@@ -26,7 +27,7 @@ public class TrainCancelTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        TrainCancel action = new TrainCancel(Mockito.mock(TrainReporter.class));
+        TrainCancel action = new TrainCancel(Mockito.mock(EventQueue.class));
         action.setIdentifier(TrainActions.TrainFootmanCancel);
         return action;
     }

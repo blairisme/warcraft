@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.move;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 
@@ -33,11 +34,11 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 public class MoveToVectorScenario extends ScenarioAction
 {
     @Inject
-    public MoveToVectorScenario(MoveReporter observer) {
+    public MoveToVectorScenario(EventQueue events) {
         scenario(MoveToLocation);
         given(isAlive());
         then(animate(Move));
-        then(moveToCause(observer));
+        then(moveToCause(events));
         then(animate(Idle));
     }
 }

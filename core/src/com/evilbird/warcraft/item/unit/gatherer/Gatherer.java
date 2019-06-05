@@ -11,6 +11,8 @@ package com.evilbird.warcraft.item.unit.gatherer;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemReference;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -28,7 +30,6 @@ import java.util.Map;
  */
 public class Gatherer extends Combatant implements ResourceContainer
 {
-    private Item construction;
     private Map<String, Double> resources;
 
     @Inject
@@ -37,21 +38,9 @@ public class Gatherer extends Combatant implements ResourceContainer
         resources = new LinkedHashMap<>(2);
     }
 
-    public Item getConstruction() {
-        return construction;
-    }
-
     @Override
     public float getResource(ResourceType type) {
         return resources.getOrDefault(type.name(), 0.0).floatValue();
-    }
-
-    public boolean isConstructing() {
-        return construction != null;
-    }
-
-    public void setConstruction(Item construction) {
-        this.construction = construction;
     }
 
     @Override
@@ -63,7 +52,6 @@ public class Gatherer extends Combatant implements ResourceContainer
     public String toString() {
         return new ToStringBuilder(this)
             .appendSuper("combatant")
-            .append("construction", construction)
             .append("resources", resources)
             .toString();
     }

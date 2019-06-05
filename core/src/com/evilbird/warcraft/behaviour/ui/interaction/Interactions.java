@@ -15,8 +15,8 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.select.SelectActions;
 import com.evilbird.warcraft.item.placeholder.PlaceholderType;
+import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
@@ -26,6 +26,9 @@ import java.util.function.Supplier;
 
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.device.UserInputType.Drag;
+import static com.evilbird.engine.device.UserInputType.SelectResize;
+import static com.evilbird.engine.device.UserInputType.SelectStart;
+import static com.evilbird.engine.device.UserInputType.SelectStop;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackCancel;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
@@ -54,6 +57,9 @@ import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddFar
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddTownHallPlaceholder;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderCancel;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderMove;
+import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxBegin;
+import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxEnd;
+import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxResize;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectInvert;
 import static com.evilbird.warcraft.action.train.TrainActions.TrainFootman;
 import static com.evilbird.warcraft.action.train.TrainActions.TrainFootmanCancel;
@@ -63,8 +69,8 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Singleton;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isGathererConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholder;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholderClear;
 import static com.evilbird.warcraft.item.data.camera.CameraType.Camera;
@@ -164,7 +170,7 @@ public class Interactions
     private void cancelPlaceholder() {
         interactions.addAction(PlaceholderCancel)
             .whenTarget(CancelButton)
-            .whenSelected(isGathererConstructing())
+            .whenSelected(both(withType(Peasant), associatedWith(isPlaceholder())))
             .appliedTo(Selected);
     }
 
@@ -189,16 +195,27 @@ public class Interactions
     }
 
     private void cancelConstruction() {
-        cancelConstruction(ConstructBarracksCancel, Barracks);
-        cancelConstruction(ConstructFarmCancel, Farm);
-        cancelConstruction(ConstructTownHallCancel, TownHall);
+        cancelConstruction(ConstructBarracksCancel, Peasant, Barracks);
+        cancelConstruction(ConstructFarmCancel, Peasant, Farm);
+        cancelConstruction(ConstructTownHallCancel, Peasant, TownHall);
     }
 
-    private void cancelConstruction(ActionIdentifier cancel, UnitType building) {
-        interactions.addAction(cancel)
+    private void cancelConstruction(ActionIdentifier cancelAction, UnitType builder, UnitType building) {
+        interactions.addAction(cancelAction)
             .whenTarget(CancelButton)
             .whenSelected(both(withType(building), isConstructing()))
-            .appliedTo(Selected);
+//            .appliedTo(Selected);
+            .appliedTo(
+                (target, selected) -> selected,
+                (target, selected) -> ((Unit)selected).getAssociatedItem());
+
+        interactions.addAction(cancelAction)
+            .whenTarget(CancelButton)
+            .whenSelected(both(withType(builder), associatedWith(building)))
+//            .appliedTo(Selected);
+            .appliedTo(
+                (target, selected) -> ((Unit)selected).getAssociatedItem(),
+                (target, selected) -> selected);
     }
 
     private void cameraInteractions() {
@@ -320,27 +337,27 @@ public class Interactions
     }
 
     private void selectArea() {
-        interactions.addAction(SelectActions.SelectBoxBegin)
-                .forInput(UserInputType.SelectStart)
-                .appliedTo(Target)
-                .appliedAs(Addition);
+        interactions.addAction(SelectBoxBegin)
+            .forInput(SelectStart)
+            .appliedTo(Target)
+            .appliedAs(Addition);
 
-        interactions.addAction(SelectActions.SelectBoxResize)
-                .forInput(UserInputType.SelectResize)
-                .appliedTo(Target)
-                .appliedAs(Addition);
+        interactions.addAction(SelectBoxResize)
+            .forInput(SelectResize)
+            .appliedTo(Target)
+            .appliedAs(Addition);
 
-        interactions.addAction(SelectActions.SelectBoxEnd)
-                .forInput(UserInputType.SelectStop)
-                .appliedTo(Target)
-                .appliedAs(Addition);
+        interactions.addAction(SelectBoxEnd)
+            .forInput(SelectStop)
+            .appliedTo(Target)
+            .appliedAs(Addition);
     }
 
     private void deselectButton() {
         interactions.addAction(SelectInvert)
-                .whenTarget(UnselectButton)
-                .appliedTo(targetParentItem(), selectedItem())
-                .appliedAs(Singleton);
+            .whenTarget(UnselectButton)
+            .appliedTo(targetParentItem(), selectedItem())
+            .appliedAs(Singleton);
     }
 
     private BiConsumer<Item, Action> confirmedAction() {

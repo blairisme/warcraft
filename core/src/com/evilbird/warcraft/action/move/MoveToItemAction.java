@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.item.common.movement.Movable;
@@ -68,13 +69,13 @@ public class MoveToItemAction extends MoveAction
         destination = null;
     }
 
-    public static MoveToItemAction move(MoveObserver observer) {
-        return moveToItem(observer);
+    public static MoveToItemAction move(Events events) {
+        return moveToItem(events);
     }
 
-    public static MoveToItemAction moveToItem(MoveObserver observer) {
+    public static MoveToItemAction moveToItem(Events events) {
         MoveToItemAction result = new MoveToItemAction();
-        result.setObserver(observer);
+        result.setObserver(events);
         return result;
     }
 }

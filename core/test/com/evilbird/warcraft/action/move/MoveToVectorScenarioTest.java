@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.test.testcase.ActionTestCase;
 import org.mockito.Mockito;
 
@@ -22,7 +23,7 @@ public class MoveToVectorScenarioTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        return new MoveToVectorScenario(Mockito.mock(MoveReporter.class));
+        return new MoveToVectorScenario(Mockito.mock(EventQueue.class));
     }
 
     @Override

@@ -12,6 +12,8 @@ package com.evilbird.warcraft.action.move;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 
@@ -28,18 +30,18 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
  */
 public class MoveCancel extends ScenarioAction
 {
-    private transient MoveReporter reporter;
+    private transient Events events;
 
     /**
-     * Constructs a new instance of this class given a {@link MoveReporter}
+     * Constructs a new instance of this class given a {@link EventQueue}
      * used to report the cancellation of the move operation.
      *
-     * @param reporter  a {@code MoveReporter} instance. This parameter
+     * @param events  a {@code EventQueue} instance. This parameter
      *                  cannot be {@code null}.
      */
     @Inject
-    public MoveCancel(MoveReporter reporter) {
-        this.reporter = reporter;
+    public MoveCancel(EventQueue events) {
+        this.events = events;
         setIdentifier(MoveActions.MoveCancel);
     }
 
@@ -49,6 +51,7 @@ public class MoveCancel extends ScenarioAction
     }
 
     private Action moveCancelled(){
-        return new LambdaAction((subject, target) -> reporter.onMoveCancelled(subject));
+        return new LambdaAction((subject, target) ->
+            events.add(new MoveEvent(subject, MoveStatus.Cancelled)));
     }
 }

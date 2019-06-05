@@ -13,6 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.action.framework.ParallelAction;
+import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
@@ -35,8 +36,8 @@ import static com.evilbird.engine.common.function.Suppliers.increment;
  */
 public class TransferAction extends BasicAction
 {
+    private Events events;
     private ActionRecipient target;
-    private TransferObserver observer;
     private BiFunction<Float, Float, Float> modifier;
     private Supplier<Collection<ResourceQuantity>> resources;
 
@@ -44,49 +45,49 @@ public class TransferAction extends BasicAction
         ActionRecipient target,
         Supplier<Collection<ResourceQuantity>> resources,
         BiFunction<Float, Float, Float> modifier,
-        TransferObserver observer)
+        Events events)
     {
         this.target = target;
         this.resources = resources;
         this.modifier = modifier;
-        this.observer = observer;
+        this.events = events;
     }
 
-    public static Action purchase(Collection<ResourceQuantity> quantities, TransferObserver observer) {
-        return new TransferAction(Player, constant(quantities), decrement(), observer);
+    public static Action purchase(Collection<ResourceQuantity> quantities, Events events) {
+        return new TransferAction(Player, constant(quantities), decrement(), events);
     }
 
-    public static Action deposit(Collection<ResourceQuantity> quantities, TransferObserver observer) {
-        return new TransferAction(Player, constant(quantities), increment(), observer);
+    public static Action deposit(Collection<ResourceQuantity> quantities, Events events) {
+        return new TransferAction(Player, constant(quantities), increment(), events);
     }
 
-    public static Action transfer(ActionRecipient from, ActionRecipient to, TransferObserver observer) {
+    public static Action transferAll(ActionRecipient from, ActionRecipient to, Events events) {
         ParallelAction result = new ParallelAction();
         ResourceSupplier resourceSupplier = new ResourceSupplier(result, from);
-        result.add(new TransferAction(from, resourceSupplier, decrement(), observer));
-        result.add(new TransferAction(to, resourceSupplier, increment(), observer));
+        result.add(new TransferAction(from, resourceSupplier, decrement(), events));
+        result.add(new TransferAction(to, resourceSupplier, increment(), events));
         return result;
     }
 
-    public static Action transfer(
+    public static Action transferAll(
         ActionRecipient from,
         ActionRecipient to,
         ResourceQuantity quantity,
-        TransferObserver observer)
+        Events events)
     {
-        Action transferFrom = new TransferAction(from, constant(quantity), decrement(), observer);
-        Action transferTo = new TransferAction(to, constant(quantity), increment(), observer);
+        Action transferFrom = new TransferAction(from, constant(quantity), decrement(), events);
+        Action transferTo = new TransferAction(to, constant(quantity), increment(), events);
         return new ParallelAction(transferFrom, transferTo);
     }
 
-    public static Action transfer(
+    public static Action transferAll(
         ActionRecipient from,
         ActionRecipient to,
         Collection<ResourceQuantity> quantities,
-        TransferObserver observer)
+        Events events)
     {
-        Action transferFrom = new TransferAction(from, constant(quantities), decrement(), observer);
-        Action transferTo = new TransferAction(to, constant(quantities), increment(), observer);
+        Action transferFrom = new TransferAction(from, constant(quantities), decrement(), events);
+        Action transferTo = new TransferAction(to, constant(quantities), increment(), events);
         return new ParallelAction(transferFrom, transferTo);
     }
 
@@ -111,8 +112,8 @@ public class TransferAction extends BasicAction
     }
 
     private void notifyObserver(ResourceContainer container, ResourceType resource, float oldValue, float newValue) {
-        if (observer != null) {
-            observer.onTransfer(container, resource, oldValue, newValue);
+        if (events != null) {
+            events.add(new TransferEvent(container, resource, oldValue, newValue));
         }
     }
 }

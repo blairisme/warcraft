@@ -10,6 +10,8 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 
@@ -27,16 +29,16 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
  */
 public class GatherCancel extends ScenarioAction
 {
-    private GatherReporter reporter;
+    private Events events;
 
     @Inject
-    public GatherCancel(GatherReporter reporter) {
-        this.reporter = reporter;
+    public GatherCancel(EventQueue events) {
+        this.events = events;
     }
 
     @Override
     protected void steps(Identifier identifier) {
         scenario(GatherActions.GatherCancel);
-        then(animate(Idle), gatherCancelled(reporter));
+        then(animate(Idle), gatherCancelled(events));
     }
 }

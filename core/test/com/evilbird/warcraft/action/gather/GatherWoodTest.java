@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.testcase.ActionTestCase;
@@ -26,7 +27,7 @@ public class GatherWoodTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        GatherWood action = new GatherWood(Mockito.mock(GatherReporter.class));
+        GatherWood action = new GatherWood(Mockito.mock(EventQueue.class));
         action.setIdentifier(GatherActions.GatherWood);
         return action;
     }

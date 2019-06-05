@@ -36,7 +36,11 @@ public class AssignAction extends BasicAction
         this.condition = condition;
     }
 
-    public static Action assign(Action action, ActionRecipient recipient) {
+    public static Action assign(Action action) {
+        return new AssignAction(action, ActionRecipient.Subject, accept());
+    }
+
+    public static Action assign(ActionRecipient recipient, Action action) {
         return new AssignAction(action, recipient, accept());
     }
 
@@ -48,6 +52,7 @@ public class AssignAction extends BasicAction
     public boolean act(float delta) {
         Item item = ActionUtils.getRecipient(this, recipient);
         if (condition.test(item)) {
+            action.setItem(item);
             item.addAction(action);
         }
         return true;

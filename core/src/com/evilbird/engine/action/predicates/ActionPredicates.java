@@ -25,19 +25,15 @@ public class ActionPredicates
     private ActionPredicates() {
     }
 
-    public static Predicate<Action> withoutError() {
-        return (action) -> !action.hasError();
-    }
-
     public static Predicate<Action> invocationCount(int times) {
         return new InvocationCount(times);
     }
 
     public static Predicate<Action> item(Predicate<Item> condition) {
-        return (action) -> condition.test(action.getItem());
+        return action -> condition.test(action.getItem());
     }
 
     public static Predicate<Action> target(Predicate<Item> condition) {
-        return (action) -> condition.test(action.getTarget());
+        return action -> condition.test(action.getTarget());
     }
 }

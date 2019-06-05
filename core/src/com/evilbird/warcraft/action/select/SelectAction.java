@@ -13,9 +13,8 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Selectable;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
-
-import java.util.Objects;
 
 import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
 
@@ -26,31 +25,30 @@ import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
  */
 public class SelectAction extends BasicAction
 {
+    private Events events;
     private boolean selected;
     private ActionRecipient recipient;
-    private SelectObserver observer;
 
-    public SelectAction(ActionRecipient recipient, boolean selected, SelectObserver observer) {
-        Objects.requireNonNull(observer);
+    public SelectAction(ActionRecipient recipient, boolean selected, Events events) {
         this.recipient = recipient;
         this.selected = selected;
-        this.observer = observer;
+        this.events = events;
     }
 
-    public static SelectAction select(SelectObserver observer) {
-        return new SelectAction(ActionRecipient.Subject, true, observer);
+    public static SelectAction select(Events events) {
+        return new SelectAction(ActionRecipient.Subject, true, events);
     }
 
-    public static SelectAction select(ActionRecipient source, SelectObserver observer) {
-        return new SelectAction(source, true, observer);
+    public static SelectAction select(ActionRecipient source, Events events) {
+        return new SelectAction(source, true, events);
     }
 
-    public static SelectAction deselect(SelectObserver observer) {
-        return new SelectAction(ActionRecipient.Subject, false, observer);
+    public static SelectAction deselect(Events events) {
+        return new SelectAction(ActionRecipient.Subject, false, events);
     }
 
-    public static SelectAction deselect(ActionRecipient source, SelectObserver observer) {
-        return new SelectAction(source, false, observer);
+    public static SelectAction deselect(ActionRecipient source, Events events) {
+        return new SelectAction(source, false, events);
     }
 
     @Override
@@ -58,7 +56,10 @@ public class SelectAction extends BasicAction
         Selectable selectable = (Selectable)getRecipient(this, recipient);
         if (selectable.getSelected() != selected) {
             selectable.setSelected(selected);
-            observer.onSelect(selectable, selected);
+
+            if (events != null) {
+                events.add(new SelectEvent(selectable, selected));
+            }
         }
         return true;
     }

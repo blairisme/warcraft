@@ -30,7 +30,7 @@ import java.util.Queue;
  * @author Blair Butterworth
  */
 @Singleton
-public class EventQueue implements Iterable<Event>
+public class EventQueue implements Iterable<Event>, Events
 {
     private static final Logger logger = LoggerFactory.getLogger(EventQueue.class);
 

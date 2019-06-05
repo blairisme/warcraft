@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.testcase.ActionTestCase;
@@ -26,7 +27,7 @@ public class GatherGoldTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        GatherGold action = new GatherGold(Mockito.mock(GatherReporter.class));
+        GatherGold action = new GatherGold(Mockito.mock(EventQueue.class));
         action.setIdentifier(GatherActions.GatherGold);
         return action;
     }

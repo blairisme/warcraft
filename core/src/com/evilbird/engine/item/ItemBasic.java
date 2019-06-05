@@ -70,8 +70,7 @@ public class ItemBasic implements Item
     @Override
     public void addAction(Action action) {
         Validate.notNull(action);
-        action.setItem(this);
-        if (iterator != null) {
+        if (iterator != null && !(iterator instanceof EmptyIterator)) {
             iterator.add(action);
         } else {
             actions.add(action);
@@ -80,10 +79,10 @@ public class ItemBasic implements Item
 
     @Override
     public void clearActions() {
+        actions.clear();
         if (iterator != null) {
             iterator = new EmptyIterator<>();
         }
-        actions.clear();
     }
 
     @Override
@@ -305,7 +304,6 @@ public class ItemBasic implements Item
         return new EqualsBuilder()
             .append(id, item.id)
             .append(type, item.type)
-
             .append(visible, item.visible)
             .append(touchable, item.touchable)
             .append(size, item.size)

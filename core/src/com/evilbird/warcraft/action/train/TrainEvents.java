@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.train;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.LambdaAction;
+import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 /**
@@ -23,18 +24,18 @@ public class TrainEvents
     private TrainEvents() {
     }
 
-    public static Action onTrainStarted(TrainReporter reporter) {
+    public static Action onTrainStarted(Events events) {
         return new LambdaAction((item, target) ->
-            reporter.onTrainStarted((Building)item));
+            events.add(new TrainEvent((Building)item, TrainStatus.Started)));
     }
 
-    public static Action onTrainCompleted(TrainReporter reporter) {
+    public static Action onTrainCompleted(Events events) {
         return new LambdaAction((item, target) ->
-            reporter.onTrainCompleted((Building)item));
+            events.add(new TrainEvent((Building)item, TrainStatus.Complete)));
     }
 
-    public static Action onTrainCancelled(TrainReporter reporter) {
+    public static Action onTrainCancelled(Events events) {
         return new LambdaAction((item, target) ->
-            reporter.onTrainCancelled((Building)item));
+            events.add(new TrainEvent((Building)item, TrainStatus.Cancelled)));
     }
 }

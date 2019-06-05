@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -23,44 +24,21 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public class GatherEvent implements Event
 {
-    private Gatherer subject;
-    private GatherStatus status;
+    private Item subject;
     private Item recipient;
-    private ResourceType type;
-    private float value;
+    private GatherStatus status;
+    private ResourceQuantity resource;
 
-    public GatherEvent(
-        Gatherer subject,
-        GatherStatus status)
-    {
+    public GatherEvent(Item subject, GatherStatus status) {
         this.status = status;
         this.subject = subject;
     }
 
-    public GatherEvent(
-        Gatherer subject,
-        GatherStatus status,
-        Item recipient,
-        ResourceType type)
-    {
+    public GatherEvent(Item subject, Item recipient, ResourceQuantity resource, GatherStatus status) {
         this.subject = subject;
         this.status = status;
         this.recipient = recipient;
-        this.type = type;
-    }
-
-    public GatherEvent(
-        Gatherer subject,
-        GatherStatus status,
-        Item recipient,
-        ResourceType type,
-        float value)
-    {
-        this.subject = subject;
-        this.status = status;
-        this.recipient = recipient;
-        this.type = type;
-        this.value = value;
+        this.resource = resource;
     }
 
     @Override
@@ -77,11 +55,11 @@ public class GatherEvent implements Event
     }
 
     public ResourceType getType() {
-        return type;
+        return resource.getResource();
     }
 
     public float getValue() {
-        return value;
+        return resource.getValue();
     }
 
     @Override
@@ -90,8 +68,7 @@ public class GatherEvent implements Event
             .append("subject", subject.getIdentifier())
             .append("recipient", recipient.getIdentifier())
             .append("status", status)
-            .append("type", type)
-            .append("value", value)
+            .append("resource", resource)
             .toString();
     }
 }

@@ -10,6 +10,8 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
@@ -26,16 +28,16 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
  */
 public class AttackCancel extends ScenarioAction
 {
-    private AttackReporter reporter;
+    private transient Events events;
 
     @Inject
-    public AttackCancel(AttackReporter reporter) {
-        this.reporter = reporter;
+    public AttackCancel(EventQueue events) {
+        this.events = events;
     }
 
     @Override
     protected void steps(Identifier identifier) {
         scenario(AttackActions.AttackCancel);
-        then(animate(Idle), attackCancelled(reporter));
+        then(animate(Idle), attackCancelled(events));
     }
 }

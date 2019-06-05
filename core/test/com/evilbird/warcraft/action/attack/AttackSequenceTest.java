@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.test.testcase.ActionTestCase;
 import org.mockito.Mockito;
 
@@ -22,7 +23,7 @@ public class AttackSequenceTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        return new AttackSequence(Mockito.mock(AttackReporter.class));
+        return new AttackSequence(Mockito.mock(EventQueue.class));
     }
 
     @Override

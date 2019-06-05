@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.placeholder;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.data.item.TestPlaceholders;
@@ -31,11 +32,11 @@ import static com.evilbird.warcraft.item.placeholder.PlaceholderType.BarracksPla
  */
 public class PlaceholderCreateTest extends ActionTestCase
 {
-    private PlaceholderReporter reporter;
+    private EventQueue reporter;
 
     @Override
     protected Action newAction() {
-        reporter = Mockito.mock(PlaceholderReporter.class);
+        reporter = Mockito.mock(EventQueue.class);
         PlaceholderCreate action = new PlaceholderCreate(reporter);
         action.setIdentifier(PlaceholderActions.AddBarracksPlaceholder);
         return action;
@@ -59,7 +60,7 @@ public class PlaceholderCreateTest extends ActionTestCase
         Assert.assertTrue(player.getItems().stream().anyMatch(item -> item == placeholder));
 
         Assert.assertTrue(action.act(1));
-        Assert.assertEquals(placeholder, ((Gatherer)item).getConstruction());
-        Mockito.verify(reporter).onPlaceholderAdded(item, placeholder);
+        Assert.assertEquals(placeholder, ((Gatherer)item).getAssociatedItem());
+//        Mockito.verify(reporter).add(new PlaceholderEvent(item, placeholder, PlaceholderStatus.Added));
     }
 }

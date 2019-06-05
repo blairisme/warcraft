@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.move;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.device.UserInput;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
@@ -75,9 +76,9 @@ class MoveToVectorAction extends MoveAction
         destination = null;
     }
 
-    public static MoveToVectorAction moveToCause(MoveObserver observer) {
+    public static MoveToVectorAction moveToCause(Events events) {
         MoveToVectorAction result = new MoveToVectorAction();
-        result.setObserver(observer);
+        result.setObserver(events);
         return result;
     }
 }

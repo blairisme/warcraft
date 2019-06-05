@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.test.testcase.ActionTestCase;
 import org.mockito.Mockito;
 
@@ -22,7 +23,7 @@ public class ConstructSequenceTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        ConstructSequence action = new ConstructSequence(Mockito.mock(ConstructReporter.class));
+        ConstructSequence action = new ConstructSequence(Mockito.mock(EventQueue.class));
         action.setIdentifier(ConstructActions.ConstructBarracks);
         return action;
     }

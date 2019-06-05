@@ -11,6 +11,8 @@ package com.evilbird.warcraft.action.placeholder;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 
@@ -18,11 +20,11 @@ import javax.inject.Inject;
 import java.util.function.Consumer;
 
 import static com.evilbird.engine.item.utility.ItemOperations.getScreenCenter;
+import static com.evilbird.warcraft.action.common.associate.AssociateAction.associate;
 import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderEvents.placeholderAdded;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_HEIGHT;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.assignConstruction;
 
 /**
  * Instances of this class provide {@link Action Actions} that add a building
@@ -32,18 +34,18 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.assignConst
  */
 public class PlaceholderCreate extends ScenarioAction<PlaceholderActions>
 {
-    private transient PlaceholderReporter reporter;
+    private transient Events events;
 
     @Inject
-    public PlaceholderCreate(PlaceholderReporter reporter) {
-        this.reporter = reporter;
+    public PlaceholderCreate(EventQueue events) {
+        this.events = events;
     }
 
     @Override
     protected void steps(PlaceholderActions action) {
         scenario(action);
         thenUpdate(create(action.type(), properties(), observer -> {}));
-        then(assignConstruction(), placeholderAdded(reporter));
+        then(associate(), placeholderAdded(events));
     }
 
     private Consumer<Item> properties() {

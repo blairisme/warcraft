@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.testcase.ActionTestCase;
@@ -31,7 +32,7 @@ public class ConstructCancelTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        ConstructCancel action = new ConstructCancel(Mockito.mock(ConstructReporter.class));
+        ConstructCancel action = new ConstructCancel(Mockito.mock(EventQueue.class));
         action.setIdentifier(ConstructActions.ConstructBarracksCancel);
         return action;
     }
@@ -52,7 +53,7 @@ public class ConstructCancelTest extends ActionTestCase
     public void actTest(){
         Item builder = target;
         Building building = (Building)item;
-        building.setConstructor(builder);
+        building.setAssociatedItem(builder);
         Player player = (Player)building.getParent();
 
         Assert.assertTrue(building.isConstructing());
@@ -60,7 +61,7 @@ public class ConstructCancelTest extends ActionTestCase
 
         Assert.assertFalse(action.act(1));
         Assert.assertFalse(building.isConstructing());
-        Assert.assertNull(building.getConstructor());
+        Assert.assertNull(building.getAssociatedItem());
 
         /*
         Assert.assertFalse(action.act(1));

@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.testcase.ActionTestCase;
@@ -26,7 +27,7 @@ public class GatherCancelTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        GatherCancel action = new GatherCancel(Mockito.mock(GatherReporter.class));
+        GatherCancel action = new GatherCancel(Mockito.mock(EventQueue.class));
         action.setIdentifier(GatherActions.GatherCancel);
         return action;
     }

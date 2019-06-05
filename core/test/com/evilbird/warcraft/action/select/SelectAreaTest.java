@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.test.testcase.ActionTestCase;
@@ -38,7 +39,7 @@ public class SelectAreaTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        SelectArea action = new SelectArea(Mockito.mock(SelectReporter.class));
+        SelectArea action = new SelectArea(Mockito.mock(EventQueue.class));
         action.setIdentifier(SelectActions.SelectBoxBegin);
         return action;
     }

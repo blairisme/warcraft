@@ -10,6 +10,8 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
@@ -27,7 +29,7 @@ import static com.evilbird.engine.action.common.DisableAction.enable;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
-import static com.evilbird.warcraft.action.common.transfer.TransferAction.transfer;
+import static com.evilbird.warcraft.action.common.transfer.TransferAction.transferAll;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositComplete;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositStarted;
 import static com.evilbird.warcraft.action.gather.GatherEvents.obtainComplete;
@@ -60,11 +62,11 @@ public class GatherGold extends ScenarioSetAction
     private static final float GATHER_TIME = 5;
     private static final ResourceQuantity GATHER_AMOUNT =  resource(Gold, 100);
 
-    private transient GatherReporter reporter;
+    private transient Events events;
 
     @Inject
-    public GatherGold(GatherReporter reporter) {
-        this.reporter = reporter;
+    public GatherGold(EventQueue events) {
+        this.events = events;
         feature(GatherActions.GatherGold);
         reevaluate();
     }
@@ -79,12 +81,12 @@ public class GatherGold extends ScenarioSetAction
         scenario("Gather Gold")
             .given(isAlive())
             .when(noResources(Gold))
-            .then(deselect(reporter))
+            .then(deselect(events))
             .then(animate(Move))
-            .then(move(reporter))
-            .then(hide(), disable(), obtainStarted(reporter, GATHER_AMOUNT))
+            .then(move(events))
+            .then(hide(), disable(), obtainStarted(events, GATHER_AMOUNT))
             .then(delay(GATHER_TIME))
-            .then(transfer(Target, Subject, GATHER_AMOUNT, reporter), obtainComplete(reporter, GATHER_AMOUNT))
+            .then(transferAll(Target, Subject, GATHER_AMOUNT, events), obtainComplete(events, GATHER_AMOUNT))
             .then(show(), enable(), setAnimation(Move, MoveGold), setAnimation(Idle, IdleGold))
             .then(animate(Idle))
             .withTarget(closest(getGatherer(), GoldMine, getTarget()));
@@ -94,12 +96,12 @@ public class GatherGold extends ScenarioSetAction
         scenario("Deposit Wood")
             .givenItem(isAlive())
             .whenItem(hasResources(Gold))
-            .then(animate(Move), deselect(reporter))
-            .then(move(reporter))
-            .then(hide(), disable(), depositStarted(reporter, GATHER_AMOUNT))
-            .then(transfer(Subject, Player, GATHER_AMOUNT, reporter))
+            .then(animate(Move), deselect(events))
+            .then(move(events))
+            .then(hide(), disable(), depositStarted(events, GATHER_AMOUNT))
+            .then(transferAll(Subject, Player, GATHER_AMOUNT, events))
             .then(delay(DEPOSIT_TIME))
-            .then(depositComplete(reporter, GATHER_AMOUNT))
+            .then(depositComplete(events, GATHER_AMOUNT))
             .then(show(), enable(), setAnimation(Idle, IdleBasic), setAnimation(Move, MoveBasic))
             .then(animate(Idle))
             .withTarget(closest(getGatherer(), TownHall));

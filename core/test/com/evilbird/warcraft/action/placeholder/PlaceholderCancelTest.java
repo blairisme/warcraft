@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.placeholder;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.data.item.TestPlaceholders;
@@ -31,11 +32,11 @@ import org.mockito.Mockito;
 public class PlaceholderCancelTest extends ActionTestCase
 {
     private Placeholder placeholder;
-    private PlaceholderReporter reporter;
+    private EventQueue reporter;
 
     @Before
     public void setup() {
-        reporter = Mockito.mock(PlaceholderReporter.class);
+        reporter = Mockito.mock(EventQueue.class);
         placeholder = TestPlaceholders.newTestPlaceholder("placeholder");
         super.setup();
     }
@@ -52,7 +53,7 @@ public class PlaceholderCancelTest extends ActionTestCase
 
     protected Item newItem() {
         Gatherer gatherer = TestGatherers.newTestGatherer(new TextIdentifier("item"), UnitType.Peasant);
-        gatherer.setConstruction(placeholder);
+        gatherer.setAssociatedItem(placeholder);
         return gatherer;
     }
 
@@ -62,7 +63,7 @@ public class PlaceholderCancelTest extends ActionTestCase
         Assert.assertTrue(player.getItems().stream().noneMatch(item -> item == placeholder));
 
         Assert.assertTrue(action.act(1));
-        Assert.assertNull(((Gatherer)item).getConstruction());
-        Mockito.verify(reporter).onPlaceholderRemoved(item, placeholder);
+        Assert.assertNull(((Gatherer)item).getAssociatedItem());
+//        Mockito.verify(reporter).add(new PlaceholderEvent(item, placeholder, PlaceholderStatus.Removed));
     }
 }

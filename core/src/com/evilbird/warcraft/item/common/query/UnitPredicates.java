@@ -9,8 +9,7 @@
 
 package com.evilbird.warcraft.item.common.query;
 
-import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.LambdaAction;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.movement.Movable;
@@ -21,14 +20,13 @@ import com.evilbird.warcraft.item.placeholder.Placeholder;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
-import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 import static com.evilbird.engine.common.function.Predicates.not;
 import static com.evilbird.engine.item.utility.ItemOperations.isNear;
+import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
 import static com.evilbird.warcraft.action.common.path.ItemPathFinder.hasPath;
 
 /**
@@ -47,13 +45,6 @@ public class UnitPredicates
         return (item) -> {
             Unit unit = (Unit)item;
             return unit.isAlive();
-        };
-    }
-
-    public static Predicate<Item> isDead() {
-        return (item) -> {
-            Unit unit = (Unit)item;
-            return !unit.isAlive();
         };
     }
 
@@ -83,6 +74,26 @@ public class UnitPredicates
         };
     }
 
+//    public static Predicate<Item> isAdjacent(Item locus) {
+//        Objects.requireNonNull(locus);
+//        return item -> item != null && isNear(locus, locus.getWidth(), item);
+//    }
+//
+//    public static Predicate<Item> isAdjacent(Supplier<Item> locusSupplier) {
+//        return target -> {
+//            Item locus = locusSupplier.get();
+//            return isNear(locus, locus.getWidth(), target);
+//        };
+//    }
+//
+//    public static Predicate<Item> notAdjacent(Item item) {
+//        return not(isAdjacent(item));
+//    }
+//
+//    public static Predicate<Item> notAdjacent(Supplier<Item> locusSupplier) {
+//        return not(isAdjacent(locusSupplier));
+//    }
+
     public static Predicate<Item> isBuilding() {
         return (item) -> item instanceof Building;
     }
@@ -110,12 +121,7 @@ public class UnitPredicates
                 return selectable.getSelected();
             }
             return false;
-
         };
-    }
-
-    public static Predicate<Item> notSelected() {
-        return not(isSelected());
     }
 
     public static Predicate<Item> hasResources(ResourceType type) {
@@ -134,26 +140,6 @@ public class UnitPredicates
             ResourceContainer container = (ResourceContainer)item;
             return container.getResource(type) == 0;
         };
-    }
-
-    public static Predicate<Item> isAdjacent(Item locus) {
-        Objects.requireNonNull(locus);
-        return item -> item != null && isNear(locus, locus.getWidth(), item);
-    }
-
-    public static Predicate<Item> isAdjacent(Supplier<Item> locusSupplier) {
-        return target -> {
-            Item locus = locusSupplier.get();
-            return isNear(locus, locus.getWidth(), target);
-        };
-    }
-
-    public static Predicate<Item> notAdjacent(Item item) {
-        return not(isAdjacent(item));
-    }
-
-    public static Predicate<Item> notAdjacent(Supplier<Item> locusSupplier) {
-        return not(isAdjacent(locusSupplier));
     }
 
     public static Predicate<Item> inRange(Combatant combatant) {
@@ -179,16 +165,6 @@ public class UnitPredicates
         };
     }
 
-    public static Predicate<Item> isGathererConstructing() {
-        return (item) -> {
-            if (item instanceof Gatherer) {
-                Gatherer gatherer = (Gatherer)item;
-                return gatherer.isConstructing();
-            }
-            return false;
-        };
-    }
-
     public static Predicate<Item> isPlaceholderClear() {
         return item -> {
             if (item instanceof Placeholder) {
@@ -199,21 +175,18 @@ public class UnitPredicates
         };
     }
 
-    public static Action assignConstruction() {
-        return new LambdaAction((subject, target) -> {
-            if (subject instanceof Gatherer) {
-                Gatherer gatherer = (Gatherer)subject;
-                gatherer.setConstruction(target);
-            }
-        });
+    public static Predicate<Item> associatedWith(Identifier type) {
+        return associatedWith(hasType(type));
     }
 
-    public static Action unassignConstruction() {
-        return new LambdaAction((subject, target) -> {
-            if (subject instanceof Gatherer) {
-                Gatherer gatherer = (Gatherer)subject;
-                gatherer.setConstruction(null);
+    public static Predicate<Item> associatedWith(Predicate<Item> condition) {
+        return (item) -> {
+            if (item instanceof Unit) {
+                Unit unit = (Unit)item;
+                Item associated = unit.getAssociatedItem();
+                return condition.test(associated);
             }
-        });
+            return false;
+        };
     }
 }

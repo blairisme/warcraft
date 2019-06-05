@@ -38,13 +38,13 @@ public class ConfirmItem extends ScenarioAction
     private transient Identifier effectId;
 
     @Inject
-    public ConfirmItem(ConfirmReporter reporter) {
+    public ConfirmItem() {
         effectId = new RandomIdentifier();
         scenario(ConfirmTarget);
-        then(create(Confirm, properties(), reporter));
+        then(create(Confirm, properties()));
         then(play(Acknowledge));
         then(delay(0.55f));
-        then(remove(confirm(), reporter));
+        then(remove(confirm(), null));
     }
 
     @Override

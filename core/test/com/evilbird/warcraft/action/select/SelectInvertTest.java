@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Selectable;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.test.testcase.ActionTestCase;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -27,7 +28,7 @@ public class SelectInvertTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        SelectInvert action = new SelectInvert(Mockito.mock(SelectReporter.class));
+        SelectInvert action = new SelectInvert(Mockito.mock(EventQueue.class));
         action.setIdentifier(SelectActions.SelectInvert);
         return action;
     }

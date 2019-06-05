@@ -17,9 +17,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.common.control.StyledLabel;
 import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.graphics.TextureUtils;
+import com.evilbird.engine.device.Device;
+import com.evilbird.engine.device.DeviceDisplay;
 
 import javax.inject.Inject;
 
@@ -32,9 +35,11 @@ import javax.inject.Inject;
 public class ErrorScreen extends ScreenAdapter
 {
     private Stage stage;
+    private DeviceDisplay display;
 
     @Inject
-    public ErrorScreen() {
+    public ErrorScreen(Device device) {
+        display = device.getDeviceDisplay();
     }
 
     public void show() {
@@ -49,6 +54,9 @@ public class ErrorScreen extends ScreenAdapter
 
         Cell cell = container.add(label);
         cell.expandX();
+
+        ScreenViewport viewport = new ScreenViewport();
+        viewport.setUnitsPerPixel(display.getPixelUnits());
 
         stage = new Stage();
         stage.addActor(container);

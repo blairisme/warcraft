@@ -9,6 +9,8 @@
 
 package com.evilbird.warcraft.action.train;
 
+import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -38,19 +40,19 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Ready;
  */
 public class TrainSequence extends ScenarioAction<TrainActions>
 {
-    private transient TrainReporter reporter;
+    private transient Events events;
 
     /**
-     * Constructs a new instance of this class given a {@link TrainReporter}
+     * Constructs a new instance of this class given an {@link EventQueue}
      * used to report events when training begins and completes, as well as
-     * for the transfer of funds involved in training.
+     * for the transferAll of funds involved in training.
      *
-     * @param reporter  a {@code TrainReporter} instance. This parameter
+     * @param events  a {@code EventQueue} instance. This parameter
      *                  cannot be {@code null}.
      */
     @Inject
-    public TrainSequence(TrainReporter reporter) {
-        this.reporter = reporter;
+    public TrainSequence(EventQueue events) {
+        this.events = events;
     }
 
     @Override
@@ -61,10 +63,10 @@ public class TrainSequence extends ScenarioAction<TrainActions>
 
     protected void steps(UnitType unit) {
         given(isAlive());
-        then(purchase(costOf(unit), reporter), onTrainStarted(reporter));
+        then(purchase(costOf(unit), events), onTrainStarted(events));
         then(startProducing(trainProgress(unit), trainTime(unit)));
-        thenUpdate(create(unit, reporter));
-        then(moveAdjacentSubject(), onTrainCompleted(reporter), play(Target, Ready));
+        thenUpdate(create(unit, events));
+        then(moveAdjacentSubject(), onTrainCompleted(events), play(Target, Ready));
     }
 
     private float trainProgress(UnitType unit) {

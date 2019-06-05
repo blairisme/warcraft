@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 
@@ -32,11 +33,11 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 public class MoveToItemScenario extends ScenarioAction
 {
     @Inject
-    public MoveToItemScenario(MoveReporter observer) {
+    public MoveToItemScenario(EventQueue events) {
         scenario(MoveToItem);
         given(isAlive());
         then(animate(Move));
-        then(moveToItem(observer));
+        then(moveToItem(events));
         then(animate(Idle));
     }
 }

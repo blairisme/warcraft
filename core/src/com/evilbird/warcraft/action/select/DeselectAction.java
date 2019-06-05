@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.select;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Selectable;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 
@@ -29,20 +30,20 @@ import static java.util.stream.Collectors.toList;
  */
 public class DeselectAction extends BasicAction
 {
-    private SelectObserver observer;
+    private Events events;
     private Predicate<Item> condition;
 
-    public DeselectAction(Predicate<Item> condition, SelectObserver observer) {
-        this.observer = observer;
+    public DeselectAction(Predicate<Item> condition, Events events) {
+        this.events = events;
         this.condition = condition;
     }
 
-    public static DeselectAction deselectAll(SelectObserver observer) {
-        return deselectAll(isSelected(), observer);
+    public static DeselectAction deselectAll(Events events) {
+        return deselectAll(isSelected(), events);
     }
 
-    public static DeselectAction deselectAll(Predicate<Item> condition, SelectObserver observer) {
-        return new DeselectAction(both(isSelected(), condition), observer);
+    public static DeselectAction deselectAll(Predicate<Item> condition, Events events) {
+        return new DeselectAction(both(isSelected(), condition), events);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class DeselectAction extends BasicAction
     private void deselect(Selectable selectable) {
         if (selectable.getSelected()) {
             selectable.setSelected(false);
-            observer.onSelect(selectable, false);
+            events.add(new SelectEvent(selectable, false));
         }
     }
 }

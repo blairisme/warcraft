@@ -367,10 +367,8 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     }
 
     private Action create() {
-        Action result = then;
-        if (result != null) {
-            result = log(result);
-        }
+        Action result = log(then);
+
         if (when != null) {
             result = new OptionalAction(result, when);
         }
@@ -387,7 +385,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     }
 
     private Action log(Action action) {
-        ParallelAction result = new ParallelAction();
+        SequenceAction result = new SequenceAction();
         result.add(log("Action sequence started: {}", getIdentifier()));
         result.add(action);
         result.add(log("Action sequence completed: {}", getIdentifier()));

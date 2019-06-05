@@ -10,6 +10,8 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
@@ -27,7 +29,7 @@ import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
-import static com.evilbird.warcraft.action.common.transfer.TransferAction.transfer;
+import static com.evilbird.warcraft.action.common.transfer.TransferAction.transferAll;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositComplete;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositStarted;
 import static com.evilbird.warcraft.action.gather.GatherEvents.obtainComplete;
@@ -61,11 +63,11 @@ public class GatherWood extends ScenarioSetAction
     private static final float GATHER_TIME = 45;
     private static final ResourceQuantity GATHER_AMOUNT = ResourceQuantum.resource(Wood, 100);
 
-    private transient GatherReporter reporter;
+    private transient Events events;
 
     @Inject
-    public GatherWood(GatherReporter reporter) {
-        this.reporter = reporter;
+    public GatherWood(EventQueue events) {
+        this.events = events;
         feature(GatherActions.GatherWood);
         reevaluate();
     }
@@ -80,12 +82,12 @@ public class GatherWood extends ScenarioSetAction
         scenario("Gather Wood")
             .given(isAlive())
             .when(noResources(Wood))
-            .then(deselect(reporter))
+            .then(deselect(events))
             .then(animate(Move))
-            .then(move(reporter))
-            .then(animate(GatherWood), obtainStarted(reporter, GATHER_AMOUNT))
+            .then(move(events))
+            .then(animate(GatherWood), obtainStarted(events, GATHER_AMOUNT))
             .then(delay(GATHER_TIME), playRepeat(ChopWood, 40, 1))
-            .then(transfer(Target, Subject, GATHER_AMOUNT, reporter), obtainComplete(reporter, GATHER_AMOUNT))
+            .then(transferAll(Target, Subject, GATHER_AMOUNT, events), obtainComplete(events, GATHER_AMOUNT))
             .then(setAnimation(Move, MoveWood), setAnimation(Idle, IdleWood))
             .then(animate(Idle))
             .withTarget(closest(getGatherer(), Tree, getTarget()));
@@ -95,12 +97,12 @@ public class GatherWood extends ScenarioSetAction
         scenario("Deposit Wood")
             .givenItem(isAlive())
             .whenItem(hasResources(Wood))
-            .then(animate(Move), deselect(reporter))
-            .then(move(reporter))
-            .then(hide(), depositStarted(reporter, GATHER_AMOUNT))
-            .then(transfer(Subject, Player, GATHER_AMOUNT, reporter))
+            .then(animate(Move), deselect(events))
+            .then(move(events))
+            .then(hide(), depositStarted(events, GATHER_AMOUNT))
+            .then(transferAll(Subject, Player, GATHER_AMOUNT, events))
             .then(delay(DEPOSIT_TIME))
-            .then(depositComplete(reporter, GATHER_AMOUNT))
+            .then(depositComplete(events, GATHER_AMOUNT))
             .then(show(), setAnimation(Move, MoveBasic), setAnimation(Idle, IdleBasic))
             .then(animate(Idle))
             .withTarget(closest(getGatherer(), TownHall));

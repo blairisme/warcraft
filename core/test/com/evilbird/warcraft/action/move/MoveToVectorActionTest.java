@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.move;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.device.UserInput;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -41,7 +42,7 @@ public class MoveToVectorActionTest extends GameTestCase
         action = new MoveToVectorAction();
         action.setItem(item);
         action.setTarget(target);
-        action.setObserver(Mockito.mock(MoveObserver.class));
+        action.setObserver(Mockito.mock(EventQueue.class));
     }
 
     @Test

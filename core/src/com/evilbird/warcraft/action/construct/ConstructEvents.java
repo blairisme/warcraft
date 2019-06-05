@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.LambdaAction;
+import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 /**
@@ -23,18 +24,18 @@ public class ConstructEvents
     private ConstructEvents() {
     }
 
-    public static Action constructStarted(ConstructReporter reporter) {
+    public static Action constructStarted(Events events) {
         return new LambdaAction((builder, building) ->
-            reporter.onConstructionStarted(builder, (Building)building));
+            events.add(new ConstructEvent(builder, (Building)building, ConstructStatus.Started)));
     }
 
-    public static Action constructCompleted(ConstructReporter reporter) {
+    public static Action constructCompleted(Events events) {
         return new LambdaAction((builder, building) ->
-            reporter.onConstructionCompleted(builder, (Building)building));
+            events.add(new ConstructEvent(builder, (Building)building, ConstructStatus.Complete)));
     }
 
-    public static Action constructCancelled(ConstructReporter reporter) {
+    public static Action constructCancelled(Events events) {
         return new LambdaAction((building, builder) ->
-            reporter.onConstructionCancelled(builder, (Building)building));
+            events.add(new ConstructEvent(builder, (Building)building, ConstructStatus.Cancelled)));
     }
 }

@@ -14,6 +14,8 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.device.UserInput;
+import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.selection.SelectionBox;
@@ -38,11 +40,11 @@ import static com.evilbird.warcraft.item.selection.SelectionType.SelectionBox;
  */
 public class SelectArea extends BasicAction
 {
-    private transient SelectReporter reporter;
+    private transient Events events;
 
     @Inject
-    public SelectArea(SelectReporter reporter) {
-        this.reporter = reporter;
+    public SelectArea(EventQueue events) {
+        this.events = events;
     }
 
     @Override
@@ -119,7 +121,7 @@ public class SelectArea extends BasicAction
             Selectable selectable = (Selectable)item;
             if (selectable.getSelectable() && selectable.getSelected()) {
                 selectable.setSelected(false);
-                reporter.onSelect(item, false);
+                events.add(new SelectEvent(selectable, false));
             }
         }
     }
@@ -135,7 +137,7 @@ public class SelectArea extends BasicAction
             Selectable selectable = (Selectable)item;
             if (selectable.getSelectable() && !selectable.getSelected()) {
                 selectable.setSelected(true);
-                reporter.onSelect(item, true);
+                events.add(new SelectEvent(selectable, true));
             }
         }
     }

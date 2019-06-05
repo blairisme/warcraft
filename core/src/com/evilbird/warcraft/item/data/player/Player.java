@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.data.player;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
@@ -31,7 +32,7 @@ import java.util.Map;
  */
 public class Player extends ItemGroup implements ResourceContainer
 {
-    private static transient final float VOLUME = 0.3f;
+    private static final transient float VOLUME = 0.3f;
 
     private String description;
     private Map<String, Double> statistics;
@@ -160,6 +161,14 @@ public class Player extends ItemGroup implements ResourceContainer
             PlayerStyle style = skin.get("default", PlayerStyle.class);
             music = style.music;
             music.setVolume(VOLUME);
+        }
+    }
+
+    @Override
+    public void setIdentifier(Identifier identifier) {
+        super.setIdentifier(identifier);
+        if (isCorporeal() && music != null) {
+            music.play();
         }
     }
 }

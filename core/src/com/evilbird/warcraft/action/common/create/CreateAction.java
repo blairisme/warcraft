@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.common.create;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
@@ -26,28 +27,28 @@ import java.util.function.Consumer;
  */
 public class CreateAction extends BasicAction
 {
+    private Events events;
     private ItemType itemType;
     private ItemFactory itemFactory;
-    private CreateObserver observer;
     private Consumer<Item> properties;
 
-    public CreateAction(ItemType type, Consumer<Item> properties, CreateObserver observer) {
+    public CreateAction(ItemType type, Consumer<Item> properties, Events events) {
         this.itemType = type;
-        this.observer = observer;
+        this.events = events;
         this.properties = properties;
         this.itemFactory = GameService.getInstance().getItemFactory();
     }
 
-    public static CreateAction create(ItemType type, Consumer<Item> properties, CreateObserver observer) {
-        return new CreateAction(type, properties, observer);
+    public static CreateAction create(ItemType type, Consumer<Item> properties, Events events) {
+        return new CreateAction(type, properties, events);
     }
 
     public static CreateAction create(ItemType type, Consumer<Item> properties) {
-        return new CreateAction(type, properties, observer -> {});
+        return new CreateAction(type, properties, events -> {});
     }
 
-    public static CreateAction create(ItemType type, CreateObserver observer) {
-        return new CreateAction(type, item -> {}, observer);
+    public static CreateAction create(ItemType type, Events events) {
+        return new CreateAction(type, item -> {}, events);
     }
 
     @Override
@@ -84,8 +85,8 @@ public class CreateAction extends BasicAction
     }
 
     protected void notifyObserver(Item item) {
-        if (observer != null) {
-            observer.onCreate(item);
+        if (events != null) {
+            events.add(new CreateEvent(item));
         }
     }
 }

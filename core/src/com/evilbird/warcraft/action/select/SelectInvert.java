@@ -11,6 +11,8 @@ package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Selectable;
+import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 
@@ -35,13 +37,13 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
  */
 public class SelectInvert extends ScenarioSetAction
 {
-    private transient SelectReporter observer;
+    private transient Events events;
     private transient Boolean selected;
 
     @Inject
-    public SelectInvert(SelectReporter reporter) {
+    public SelectInvert(EventQueue events) {
+        this.events = events;
         feature(SelectActions.SelectInvert);
-        observer = reporter;
     }
 
     @Override
@@ -57,23 +59,23 @@ public class SelectInvert extends ScenarioSetAction
             .when(isCorporeal())
             .when(isCombatant())
             .when((item) -> !selected)
-            .then(deselectAll(notCombatant(), observer), deselectAll(isAi(), observer))
-            .then(select(observer), play(Selected));
+            .then(deselectAll(notCombatant(), events), deselectAll(isAi(), events))
+            .then(select(events), play(Selected));
 
         scenario("Select Owned Item Exclusive")
             .given(isAlive())
             .when(isCorporeal())
             .when(notCombatant())
             .when((item) -> !selected)
-            .then(deselectAll(observer))
-            .then(select(observer), play(Selected));
+            .then(deselectAll(events))
+            .then(select(events), play(Selected));
 
         scenario("Select Enemy Item Exclusive")
             .given(isAlive())
             .when(isAi())
             .when((item) -> !selected)
-            .then(deselectAll(observer))
-            .then(select(observer));
+            .then(deselectAll(events))
+            .then(select(events));
     }
 
     private void deselectFeatures() {
@@ -81,13 +83,13 @@ public class SelectInvert extends ScenarioSetAction
             .given(isAlive())
             .when(isCombatant())
             .when((item) -> selected)
-            .then(deselect(observer));
+            .then(deselect(events));
 
         scenario("Deselect Exclusive")
             .given(isAlive())
             .when(notCombatant())
             .when((item) -> selected)
-            .then(deselectAll(observer));
+            .then(deselectAll(events));
     }
 
     @Override

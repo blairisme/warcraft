@@ -162,6 +162,26 @@ public class ItemGroup extends ItemBasic implements ItemComposite
     }
 
     /**
+     * Modifies the zIndex of the given {@link Item}. The zIndex defines at
+     * items position in the rendering order and hit detection.
+     *
+     * @param item      the item whose zIndex will be modified.
+     * @param zIndex    the new zIndex of the item.
+     */
+    public void setZIndex(Item item, int zIndex) {
+        if (items.contains(item)) {
+            int index = Math.min(zIndex, items.size());
+
+            Group group = (Group) delegate;
+            group.removeActor(item.toActor());
+            group.addActorAt(index, item.toActor());
+
+            items.remove(item);
+            items.add(index, item);
+        }
+    }
+
+    /**
      * Returns the {@link Item} at the specified location in world coordinates.
      * Hit testing is performed in the order the item were inserted into the
      * group, last inserted actors being tested first, with the ItemGroup

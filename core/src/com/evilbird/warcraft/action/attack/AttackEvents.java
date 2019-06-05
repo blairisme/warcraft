@@ -11,7 +11,11 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.LambdaAction;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.engine.events.Events;
+
+import static com.evilbird.warcraft.action.attack.AttackStatus.Cancelled;
+import static com.evilbird.warcraft.action.attack.AttackStatus.Complete;
+import static com.evilbird.warcraft.action.attack.AttackStatus.Started;
 
 /**
  * Helper class for generating attack events.
@@ -23,18 +27,18 @@ public class AttackEvents
     private AttackEvents() {
     }
 
-    public static Action attackStarted(AttackReporter reporter) {
+    public static Action attackStarted(Events events) {
         return new LambdaAction((attacker, target) ->
-            reporter.onAttackStarted((Combatant)attacker, target));
+            events.add(new AttackEvent(attacker, target, Started)));
     }
 
-    public static Action attackComplete(AttackReporter reporter) {
+    public static Action attackComplete(Events events) {
         return new LambdaAction((attacker, target) ->
-            reporter.onAttackCompleted((Combatant)attacker, target));
+            events.add(new AttackEvent(attacker, target, Complete)));
     }
 
-    public static Action attackCancelled(AttackReporter reporter) {
+    public static Action attackCancelled(Events events) {
         return new LambdaAction((attacker, target) ->
-            reporter.onAttackCancelled((Combatant)attacker, target));
+            events.add(new AttackEvent(attacker, target, Cancelled)));
     }
 }

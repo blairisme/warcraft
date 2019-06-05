@@ -14,6 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.lang.Selectable;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemReference;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.engine.item.specialized.AnimatedItem;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -39,6 +42,7 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
     private float healthMaximum;
     private boolean selected;
     private boolean selectable;
+    private ItemReference association;
     private transient UnitStyle style;
 
     @Inject
@@ -55,6 +59,10 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
 
     public boolean isAlive() {
         return health > 0;
+    }
+
+    public Item getAssociatedItem() {
+        return association != null ? association.get() : null;
     }
 
     @Override
@@ -111,6 +119,10 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
         return selectable;
     }
 
+    public void setAssociatedItem(Item associate) {
+        this.association = associate != null ? new ItemReference(associate) : null;
+    }
+
     public void setDefence(int defence) {
         this.defence = defence;
     }
@@ -149,6 +161,14 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
     }
 
     @Override
+    public void setRoot(ItemRoot root) {
+        super.setRoot(root);
+        if (association != null) {
+            association.setParent(root);
+        }
+    }
+
+    @Override
     public void draw(Batch batch, float alpha) {
         if (getSelected()) {
             batch.draw(style.selection, getX(), getY(), getWidth(), getHeight());
@@ -159,14 +179,10 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .appendSuper("animated")
-            .append("name", name)
-            .append("sight", sight)
-            .append("defence", defence)
+            .append(getIdentifier())
+            .append(getType())
             .append("health", health)
-            .append("healthMaximum", healthMaximum)
             .append("selected", selected)
-            .append("selectable", selectable)
             .toString();
     }
 
@@ -186,6 +202,7 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
             .append(name, unit.name)
             .append(selected, unit.selected)
             .append(selectable, unit.selectable)
+            .append(association, unit.association)
             .isEquals();
     }
 
@@ -200,6 +217,7 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
             .append(healthMaximum)
             .append(selected)
             .append(selectable)
+            .append(association)
             .toHashCode();
     }
 }

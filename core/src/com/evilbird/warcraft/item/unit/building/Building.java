@@ -30,7 +30,6 @@ public class Building extends Unit implements ResourceContainer
 {
     private float producing;
     private float constructing;
-    private ItemReference constructor;
     private Map<String, Double> resources;
 
     public Building(Skin skin) {
@@ -48,10 +47,6 @@ public class Building extends Unit implements ResourceContainer
         return producing != 1;
     }
 
-    public Item getConstructor() {
-        return constructor != null ? constructor.get() : null;
-    }
-
     public float getConstructionProgress() {
         return constructing;
     }
@@ -64,10 +59,6 @@ public class Building extends Unit implements ResourceContainer
         return resources.getOrDefault(type.name(), 0.0).floatValue();
     }
 
-    public void setConstructor(Item constructor) {
-        this.constructor = constructor != null ? new ItemReference(constructor) : null;
-    }
-
     public void setConstructionProgress(float constructing) {
         this.constructing = constructing;
     }
@@ -78,13 +69,5 @@ public class Building extends Unit implements ResourceContainer
 
     public void setResource(ResourceType type, float value) {
         resources.put(type.name(), (double)value);
-    }
-
-    @Override
-    public void setRoot(ItemRoot root) {
-        super.setRoot(root);
-        if (constructor != null) {
-            constructor.setParent(root);
-        }
     }
 }

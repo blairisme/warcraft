@@ -13,6 +13,7 @@ import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
@@ -32,18 +33,18 @@ import java.util.Iterator;
  */
 abstract class MoveAction extends BasicAction
 {
+    private Events events;
     private ItemGraph graph;
     private ItemNode endNode;
     private ItemNode pathNode;
     private GraphPath<ItemNode> path;
     private Iterator<ItemNode> pathIterator;
-    private MoveObserver observer;
 
     MoveAction() {
     }
 
-    public void setObserver(MoveObserver observer) {
-        this.observer = observer;
+    public void setObserver(Events events) {
+        this.events = events;
     }
 
     @Override
@@ -202,15 +203,15 @@ abstract class MoveAction extends BasicAction
 
     private void error() {
         setError(new PathUnknownException(getItem()));
-        observer.onMoveFailed(getItem());
+        events.add(new MoveEvent(getItem(), MoveStatus.Failed));
     }
 
     private void complete() {
-        observer.onMoveComplete(getItem());
+        events.add(new MoveEvent(getItem(), MoveStatus.Complete));
     }
 
     private void notifyMove(ItemNode location, Item subject) {
-        observer.onMove(subject, location);
+        events.add(new MoveEvent(subject, location, MoveStatus.Updated));
     }
 
     protected abstract ItemPathFilter getPathFilter();

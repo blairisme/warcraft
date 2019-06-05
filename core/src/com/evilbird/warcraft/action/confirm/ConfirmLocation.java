@@ -41,13 +41,13 @@ public class ConfirmLocation extends ScenarioAction
     private transient Identifier effectId;
 
     @Inject
-    public ConfirmLocation(ConfirmReporter reporter) {
+    public ConfirmLocation() {
         effectId = new RandomIdentifier();
         scenario(ConfirmLocation);
-        then(create(Confirm, properties(), reporter));
+        then(create(Confirm, properties()));
         then(play(Acknowledge));
         then(delay(0.55f));
-        then(remove(confirm(), reporter));
+        then(remove(confirm(), null));
     }
 
     @Override

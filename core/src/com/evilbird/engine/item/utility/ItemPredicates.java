@@ -59,6 +59,10 @@ public class ItemPredicates
         return new IsNear(item, radius);
     }
 
+    public static Predicate<Item> isVisible() {
+        return Item::getVisible;
+    }
+
     public static class IsNear implements Predicate<Item>
     {
         private Item locus;

@@ -26,6 +26,10 @@ public class MoveEvent implements Event
     private ItemNode location;
     private MoveStatus status;
 
+    public MoveEvent(Item subject, MoveStatus status) {
+        this(subject, null, status);
+    }
+
     public MoveEvent(Item subject, ItemNode location, MoveStatus status) {
         this.subject = subject;
         this.location = location;

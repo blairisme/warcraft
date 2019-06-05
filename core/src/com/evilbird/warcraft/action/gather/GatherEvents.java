@@ -11,35 +11,47 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.LambdaAction;
+import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
-import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
+import static com.evilbird.warcraft.action.gather.GatherStatus.Cancelled;
+import static com.evilbird.warcraft.action.gather.GatherStatus.DepositComplete;
+import static com.evilbird.warcraft.action.gather.GatherStatus.DepositStarted;
+import static com.evilbird.warcraft.action.gather.GatherStatus.ObtainComplete;
+import static com.evilbird.warcraft.action.gather.GatherStatus.ObtainStarted;
+
+/**
+ * Helper class for generating gather events.
+ *
+ * @author Blair Butterworth
+ */
 public class GatherEvents
 {
     private GatherEvents() {
     }
 
-    public static Action obtainStarted(GatherReporter reporter, ResourceQuantity resource) {
+    public static Action obtainStarted(Events events, ResourceQuantity resource) {
         return new LambdaAction((gatherer, source) ->
-            reporter.onObtainStarted((Gatherer)gatherer, source, resource.getResource()));
+            events.add(new GatherEvent(gatherer, source, resource, ObtainStarted)));
     }
 
-    public static Action obtainComplete(GatherReporter reporter, ResourceQuantity resource) {
+    public static Action obtainComplete(Events events, ResourceQuantity resource) {
         return new LambdaAction((gatherer, source) ->
-            reporter.onObtainComplete((Gatherer)gatherer, source, resource.getResource(), resource.getValue()));
+            events.add(new GatherEvent(gatherer, source, resource, ObtainComplete)));
     }
 
-    public static Action depositStarted(GatherReporter reporter, ResourceQuantity resource) {
-        return new LambdaAction((gatherer, source) ->
-            reporter.onDepositStarted((Gatherer)gatherer, source, resource.getResource(), resource.getValue()));
+    public static Action depositStarted(Events events, ResourceQuantity resource) {
+        return new LambdaAction((gatherer, recipient) ->
+            events.add(new GatherEvent(gatherer, recipient, resource, DepositStarted)));
     }
 
-    public static Action depositComplete(GatherReporter reporter, ResourceQuantity resource) {
-        return new LambdaAction((gatherer, source) ->
-            reporter.onDepositComplete((Gatherer)gatherer, source, resource.getResource()));
+    public static Action depositComplete(Events events, ResourceQuantity resource) {
+        return new LambdaAction((gatherer, recipient) ->
+            events.add(new GatherEvent(gatherer, recipient, resource, DepositComplete)));
     }
 
-    public static Action gatherCancelled(GatherReporter reporter) {
-        return new LambdaAction((gatherer, source) -> reporter.onGatherCancelled((Gatherer)gatherer));
+    public static Action gatherCancelled(Events events) {
+        return new LambdaAction((gatherer, source) ->
+            events.add(new GatherEvent(gatherer, Cancelled)));
     }
 }

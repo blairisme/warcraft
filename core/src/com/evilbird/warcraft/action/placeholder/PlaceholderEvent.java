@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.placeholder;
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.placeholder.Placeholder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Instances of this {@link Event} are generated when a {@link Placeholder} is
@@ -42,5 +43,14 @@ public class PlaceholderEvent implements Event
 
     public PlaceholderStatus getStatus() {
         return status;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("builder", builder.getIdentifier())
+            .append("placeholder", placeholder.getIdentifier())
+            .append("status", status)
+            .toString();
     }
 }
