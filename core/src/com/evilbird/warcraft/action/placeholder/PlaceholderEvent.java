@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.placeholder;
 
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.placeholder.Placeholder;
+import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**

@@ -18,7 +18,7 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.item.selection.SelectionBox;
+import com.evilbird.warcraft.item.ui.selection.SelectionBox;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
@@ -30,7 +30,7 @@ import static com.evilbird.engine.item.utility.ItemPredicates.overlapping;
 import static com.evilbird.engine.item.utility.ItemPredicates.touchable;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
-import static com.evilbird.warcraft.item.selection.SelectionType.SelectionBox;
+import static com.evilbird.warcraft.item.ui.selection.SelectionType.SelectionBox;
 
 /**
  * Instances of this {@link Action} manipulate a {@link SelectionBox}, a user

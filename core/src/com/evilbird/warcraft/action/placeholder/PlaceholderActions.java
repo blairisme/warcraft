@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.placeholder;
 
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.warcraft.item.placeholder.PlaceholderType;
+import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
 
 /**
  * Defines options of specifying placeholder action varieties.

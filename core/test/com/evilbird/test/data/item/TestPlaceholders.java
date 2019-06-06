@@ -14,9 +14,9 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.item.placeholder.Placeholder;
-import com.evilbird.warcraft.item.placeholder.PlaceholderStyle;
-import com.evilbird.warcraft.item.placeholder.PlaceholderType;
+import com.evilbird.warcraft.item.ui.placement.Placeholder;
+import com.evilbird.warcraft.item.ui.placement.PlaceholderStyle;
+import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
 
 import static com.evilbird.test.data.item.TestItemRoots.newTestRoot;
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;

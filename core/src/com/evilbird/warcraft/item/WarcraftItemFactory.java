@@ -15,11 +15,11 @@ import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.item.data.DataProvider;
 import com.evilbird.warcraft.item.effect.EffectFactory;
-import com.evilbird.warcraft.item.hud.HudFactory;
-import com.evilbird.warcraft.item.hud.HudType;
 import com.evilbird.warcraft.item.layer.LayerFactory;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
-import com.evilbird.warcraft.item.placeholder.PlaceholderFactory;
+import com.evilbird.warcraft.item.ui.hud.HudFactory;
+import com.evilbird.warcraft.item.ui.hud.HudType;
+import com.evilbird.warcraft.item.ui.placement.PlaceholderFactory;
 import com.evilbird.warcraft.item.unit.UnitFactory;
 
 import javax.inject.Inject;
