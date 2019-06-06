@@ -23,7 +23,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.evilbird.test.data.device.TestDevices.newTestDevice;
-import static com.evilbird.warcraft.state.WarcraftLevel.Level1;
 
 /**
  * Instances of this unit test validate the {@link WarcraftStateAdapter} class.
@@ -65,7 +64,7 @@ public class WarcraftStateAdapterTest extends GameTestCase
 
     @Test
     public void deserializeAssetTest() {
-        resolver.respondWith(Level1.getFilePath(), "/warcraft/state/level.tmx");
+        resolver.respondWith(WarcraftLevel.Human1.getFilePath(), "/warcraft/state/level.tmx");
         FileHandle handle = resolver.resolve("/warcraft/state/level.json");
 
         JsonReader reader = new JsonReader(handle.reader());

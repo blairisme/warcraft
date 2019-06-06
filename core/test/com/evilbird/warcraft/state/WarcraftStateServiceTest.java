@@ -30,8 +30,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.evilbird.test.data.device.TestDevices.newTestDevice;
-import static com.evilbird.warcraft.state.WarcraftLevel.Level1;
-import static com.evilbird.warcraft.state.WarcraftScenario.Human1;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -81,10 +79,10 @@ public class WarcraftStateServiceTest extends GameTestCase
 
     @Test
     public void getAssetTest() throws Exception {
-        assetStorage.respondWith(Human1.getFilePath(), "/warcraft/state/level.json");
-        assetStorage.respondWith(Level1.getFilePath(), "/warcraft/state/level.tmx");
+        assetStorage.respondWith(WarcraftScenario.Human1.getFilePath(), "/warcraft/state/level.json");
+        assetStorage.respondWith(WarcraftLevel.Human1.getFilePath(), "/warcraft/state/level.tmx");
 
-        State state = service.get(Human1);
+        State state = service.get(WarcraftScenario.Human1);
         Assert.assertNotNull(state);
     }
 
