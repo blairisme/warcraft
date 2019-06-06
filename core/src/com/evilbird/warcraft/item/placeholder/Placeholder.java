@@ -23,7 +23,8 @@ import com.evilbird.engine.item.utility.ItemOperations;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
-import com.evilbird.warcraft.item.layer.LayerType;
+import com.evilbird.warcraft.item.layer.terrain.Terrain;
+import com.evilbird.warcraft.item.unit.Unit;
 
 import java.util.Collection;
 
@@ -114,9 +115,24 @@ public class Placeholder extends ItemBasic
 
     private boolean isUnoccupied(ItemNode node) {
         Collection<Item> occupants = node.getOccupants();
-        if (occupants.size() == 1) {
-            Item occupant = occupants.iterator().next();
-            return occupant.getType() == LayerType.Map;
+        if (occupants.size() > 2) {
+            return false;
+        }
+        for (Item occupant: occupants) {
+            if (! isAllowedItem(occupant)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isAllowedItem(Item item) {
+        if (item instanceof Terrain) {
+            return true;
+        }
+        if (item instanceof Unit) {
+            Unit unit = (Unit)item;
+            return unit.getAssociatedItem() == this;
         }
         return false;
     }

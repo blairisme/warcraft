@@ -10,9 +10,6 @@
 package com.evilbird.warcraft.item.unit.gatherer;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemReference;
-import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
