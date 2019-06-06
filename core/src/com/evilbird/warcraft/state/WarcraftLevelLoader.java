@@ -47,9 +47,9 @@ import java.util.Objects;
  *
  * @author Blair Butterworth
  */
-public class WarcraftStateFileLoader
+public class WarcraftLevelLoader
 {
-    private static final Logger logger = LoggerFactory.getLogger(WarcraftStateFileLoader.class);
+    private static final Logger logger = LoggerFactory.getLogger(WarcraftLevelLoader.class);
 
     private static final String ROOT_ID = "root";
     private static final String PLAYER_ID = "Player";
@@ -73,21 +73,21 @@ public class WarcraftStateFileLoader
     private TiledMapLoader mapLoader;
     private ItemFactory itemFactory;
 
-    public WarcraftStateFileLoader(ItemFactory itemFactory) {
+    public WarcraftLevelLoader(ItemFactory itemFactory) {
         this(itemFactory, new TiledMapLoader());
     }
 
-    public WarcraftStateFileLoader(ItemFactory itemFactory, FileHandleResolver fileResolver) {
+    public WarcraftLevelLoader(ItemFactory itemFactory, FileHandleResolver fileResolver) {
         this(itemFactory, new TiledMapLoader(fileResolver));
     }
 
     @Inject
-    public WarcraftStateFileLoader(ItemFactory itemFactory, TiledMapLoader mapLoader) {
+    public WarcraftLevelLoader(ItemFactory itemFactory, TiledMapLoader mapLoader) {
         this.mapLoader = mapLoader;
         this.itemFactory = itemFactory;
     }
 
-    public ItemRoot load(WarcraftStateAsset identifier) {
+    public ItemRoot load(WarcraftLevel identifier) {
         return load(identifier.getFilePath());
     }
 

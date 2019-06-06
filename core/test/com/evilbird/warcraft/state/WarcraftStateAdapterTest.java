@@ -23,7 +23,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.evilbird.test.data.device.TestDevices.newTestDevice;
-import static com.evilbird.warcraft.state.WarcraftStateAsset.Level1;
+import static com.evilbird.warcraft.state.WarcraftLevel.Level1;
 
 /**
  * Instances of this unit test validate the {@link WarcraftStateAdapter} class.
@@ -34,7 +34,7 @@ public class WarcraftStateAdapterTest extends GameTestCase
 {
     private Device device;
     private WarcraftStateAdapter adapter;
-    private WarcraftStateFileLoader assetLoader;
+    private WarcraftLevelLoader assetLoader;
     private TiledMapLoader mapLoader;
     private TestFileHandleResolver resolver;
 
@@ -44,7 +44,7 @@ public class WarcraftStateAdapterTest extends GameTestCase
         device = newTestDevice();
         resolver = new TestFileHandleResolver();
         mapLoader = new TiledMapLoader(resolver);
-        assetLoader = new WarcraftStateFileLoader(itemFactory, mapLoader);
+        assetLoader = new WarcraftLevelLoader(itemFactory, mapLoader);
         adapter = new WarcraftStateAdapter(device, itemFactory, behaviourFactory, assetLoader);
     }
 

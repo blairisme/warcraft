@@ -19,13 +19,14 @@ import com.evilbird.engine.common.serialization.SerializedType;
  * @author Blair Butterworth
  */
 @SerializedType("Scenario")
-public enum WarcraftStateAsset implements Identifier
+public enum WarcraftLevel implements Identifier
 {
-    Level1("data/levels/human/level1.tmx");
+    Human1("data/levels/human/level1.tmx"),
+    Human2("data/levels/human/level2.tmx");
 
     private String path;
 
-    WarcraftStateAsset(String path) {
+    WarcraftLevel(String path) {
         this.path = path;
     }
 

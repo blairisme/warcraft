@@ -9,6 +9,6 @@
   },
   "world": {
     "class": "Scenario",
-    "enum": "Human1"
+    "enum": "Human2"
   }
 }

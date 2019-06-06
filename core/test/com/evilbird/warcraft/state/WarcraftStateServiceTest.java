@@ -30,8 +30,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.evilbird.test.data.device.TestDevices.newTestDevice;
-import static com.evilbird.warcraft.state.WarcraftStateAsset.Level1;
-import static com.evilbird.warcraft.state.WarcraftStateScenario.Human1;
+import static com.evilbird.warcraft.state.WarcraftLevel.Level1;
+import static com.evilbird.warcraft.state.WarcraftScenario.Human1;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -46,7 +46,7 @@ public class WarcraftStateServiceTest extends GameTestCase
     private Device device;
     private DeviceStorage deviceStorage;
     private TestFileHandleResolver assetStorage;
-    private WarcraftStateFileLoader assetLoader;
+    private WarcraftLevelLoader assetLoader;
     private WarcraftStateAdapter adapter;
     private WarcraftStateService service;
 
@@ -56,7 +56,7 @@ public class WarcraftStateServiceTest extends GameTestCase
         device = newTestDevice();
         deviceStorage = Mockito.mock(DeviceStorage.class);
         assetStorage = new TestFileHandleResolver();
-        assetLoader = new WarcraftStateFileLoader(itemFactory, assetStorage);
+        assetLoader = new WarcraftLevelLoader(itemFactory, assetStorage);
         adapter = new WarcraftStateAdapter(device, itemFactory, behaviourFactory, assetLoader);
         serializer = new JsonSerializer(new WarcraftTypeRegistry(), Maps.of(WarcraftState.class, adapter));
         service = new WarcraftStateService(deviceStorage, assetStorage, serializer);
@@ -66,7 +66,7 @@ public class WarcraftStateServiceTest extends GameTestCase
     public void listAssetsTest() throws Exception  {
         List<Identifier> result = service.list(WarcraftStateType.AssetState);
         Assert.assertNotNull(result);
-        Assert.assertEquals(WarcraftStateScenario.values().length, result.size());
+        Assert.assertEquals(WarcraftScenario.values().length, result.size());
     }
 
     @Test

@@ -37,7 +37,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
-import static com.evilbird.warcraft.state.WarcraftStateScenario.Human1;
+import static com.evilbird.warcraft.state.WarcraftScenario.Human1;
 import static java.util.Arrays.asList;
 
 /**

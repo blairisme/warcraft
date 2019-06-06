@@ -84,7 +84,7 @@ public class WarcraftStateService implements StateService
     }
 
     private List<Identifier> listScenarios() {
-        return Arrays.asList(WarcraftStateScenario.values());
+        return Arrays.asList(WarcraftScenario.values());
     }
 
     private List<Identifier> listSaves() {
@@ -102,8 +102,8 @@ public class WarcraftStateService implements StateService
 
     @Override
     public State get(StateIdentifier identifier) {
-        if (identifier instanceof WarcraftStateScenario) {
-            return getScenario((WarcraftStateScenario)identifier);
+        if (identifier instanceof WarcraftScenario) {
+            return getScenario((WarcraftScenario)identifier);
         }
         if (identifier instanceof WarcraftStateIdentifier) {
             return getSave((WarcraftStateIdentifier)identifier);
@@ -111,7 +111,7 @@ public class WarcraftStateService implements StateService
         throw new UnknownEntityException(identifier);
     }
 
-    private State getScenario(WarcraftStateScenario identifier) {
+    private State getScenario(WarcraftScenario identifier) {
         try (Reader reader = assetStorage.resolve(identifier.getFilePath()).reader()) {
             return serializer.deserialize(reader, WarcraftState.class);
         }

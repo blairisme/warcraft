@@ -46,7 +46,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     private DeviceDisplay display;
     private ItemFactory itemFactory;
     private BehaviourFactory behaviourFactory;
-    private WarcraftStateFileLoader stateFileLoader;
+    private WarcraftLevelLoader stateFileLoader;
 
     @SerializedConstructor
     public WarcraftStateAdapter() {
@@ -54,7 +54,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
         this.display = service.getDevice().getDeviceDisplay();
         this.itemFactory = service.getItemFactory();
         this.behaviourFactory = service.getBehaviourFactory();
-        this.stateFileLoader = new WarcraftStateFileLoader(itemFactory);
+        this.stateFileLoader = new WarcraftLevelLoader(itemFactory);
     }
 
     @Inject
@@ -62,7 +62,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
         Device device,
         ItemFactory itemFactory,
         BehaviourFactory behaviourFactory,
-        WarcraftStateFileLoader assetLoader)
+        WarcraftLevelLoader assetLoader)
     {
         this.display = device.getDeviceDisplay();
         this.itemFactory = itemFactory;
@@ -105,7 +105,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     private ItemRoot deserializeWorld(JsonObject json, JsonDeserializationContext context) {
         JsonObject world = json.get(WORLD).getAsJsonObject();
         if (world.has("enum")) {
-            WarcraftStateAsset identifier = context.deserialize(world, Identifier.class);
+            WarcraftLevel identifier = context.deserialize(world, Identifier.class);
             return stateFileLoader.load(identifier);
         }
         return context.deserialize(world, ItemRoot.class);

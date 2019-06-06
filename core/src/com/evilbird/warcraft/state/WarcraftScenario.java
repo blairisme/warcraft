@@ -17,13 +17,14 @@ import com.evilbird.engine.state.StateIdentifier;
  *
  * @author Blair Butterworth
  */
-public enum WarcraftStateScenario implements StateIdentifier
+public enum WarcraftScenario implements StateIdentifier
 {
-    Human1("data/levels/human/level1.json");
+    Human1("data/levels/human/level1.json"),
+    Human2("data/levels/human/level2.json");
 
     private String path;
 
-    WarcraftStateScenario(String path) {
+    WarcraftScenario(String path) {
         this.path = path;
     }
 

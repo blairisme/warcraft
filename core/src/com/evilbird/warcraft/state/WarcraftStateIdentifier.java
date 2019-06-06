@@ -11,6 +11,11 @@ package com.evilbird.warcraft.state;
 
 import com.evilbird.engine.state.StateIdentifier;
 
+/**
+ * Uniquely identifiers a state in the warcraft game.
+ *
+ * @author Blair Butterworth
+ */
 public class WarcraftStateIdentifier implements StateIdentifier
 {
     private String name;
