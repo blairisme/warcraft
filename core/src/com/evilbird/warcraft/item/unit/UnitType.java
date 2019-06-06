@@ -24,6 +24,8 @@ public enum UnitType implements ItemType
     TownHall,
     Farm,
     Barracks,
+    CircleOfPower,
+    WatchTower,
 
     /* Combatant */
     Footman,
