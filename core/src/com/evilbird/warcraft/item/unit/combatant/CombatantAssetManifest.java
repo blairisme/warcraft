@@ -33,15 +33,14 @@ public class CombatantAssetManifest
         String faction = getFaction(unitType);
         String name = getName(unitType);
         String type = getAttackType(unitType);
-
-        this.base = "data/textures/" + faction + "/perennial/" + name + ".png";
-        this.icons = "data/textures/neutral/perennial/icons.png";
-        this.decompose = "data/textures/neutral/perennial/decompose.png";
         this.attack = "data/sounds/neutral/unit/attack/" + type + "/";
         this.acknowledge = "data/sounds/" + faction + "/unit/" + name + "/acknowledge/";
         this.selected = "data/sounds/" + faction + "/unit/" + name + "/selected/";
         this.ready = "data/sounds/" + faction + "/unit/" + name + "/ready/";
         this.die = "data/sounds/" + faction + "/unit/common/dead/";
+        this.base = "data/textures/" + faction + "/perennial/" + name + ".png";
+        this.icons = "data/textures/neutral/perennial/icons.png";
+        this.decompose = "data/textures/neutral/perennial/decompose.png";
     }
 
     public String getBaseTexturePath() {

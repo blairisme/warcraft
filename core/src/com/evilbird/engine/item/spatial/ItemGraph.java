@@ -204,15 +204,21 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     }
 
     public void addOccupants(Item occupant) {
-        ItemNode node = getNode(occupant.getPosition());
-        addOccupants(node, occupant);
+        if (occupant instanceof ItemGraphOccupant) {
+            ItemGraphOccupant graphOccupant = (ItemGraphOccupant)occupant;
+            addOccupants(graphOccupant.getNodes(this), occupant);
+        }
     }
 
     public void addOccupants(ItemNode node, Item occupant) {
         if (occupant instanceof ItemGraphOccupant) {
-            for (ItemNode adjacentNode : getNodes(node.getSpatialReference(), occupant.getSize())) {
-                adjacentNode.addOccupant(occupant);
-            }
+            addOccupants(getNodes(node.getSpatialReference(), occupant.getSize()), occupant);
+        }
+    }
+
+    private void addOccupants(Collection<ItemNode> nodes, Item occupant) {
+        for (ItemNode node: nodes) {
+            node.addOccupant(occupant);
         }
     }
 
@@ -223,15 +229,21 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     }
 
     public void removeOccupants(Item occupant) {
-        ItemNode node = getNode(occupant.getPosition());
-        removeOccupants(node, occupant);
+        if (occupant instanceof ItemGraphOccupant) {
+            ItemGraphOccupant graphOccupant = (ItemGraphOccupant)occupant;
+            removeOccupants(graphOccupant.getNodes(this), occupant);
+        }
     }
 
     public void removeOccupants(ItemNode node, Item occupant) {
         if (occupant instanceof ItemGraphOccupant) {
-            for (ItemNode adjacentNode : getNodes(node.getSpatialReference(), occupant.getSize())) {
-                adjacentNode.removeOccupant(occupant);
-            }
+            removeOccupants(getNodes(node.getSpatialReference(), occupant.getSize()), occupant);
+        }
+    }
+
+    private void removeOccupants(Collection<ItemNode> nodes, Item occupant) {
+        for (ItemNode node: nodes) {
+            node.removeOccupant(occupant);
         }
     }
 

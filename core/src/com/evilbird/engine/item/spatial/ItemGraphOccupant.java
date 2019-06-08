@@ -11,10 +11,16 @@ package com.evilbird.engine.item.spatial;
 
 import com.evilbird.engine.item.Item;
 
+import java.util.Collection;
+
 /**
  * Marks an {@link Item} variant as beloning to an {@link ItemGraph}.
  *
  * @author Blair Butterworth
  */
-public interface ItemGraphOccupant {
+public interface ItemGraphOccupant extends Item
+{
+    default Collection<ItemNode> getNodes(ItemGraph graph) {
+        return graph.getNodes(getPosition(), getSize());
+    }
 }
