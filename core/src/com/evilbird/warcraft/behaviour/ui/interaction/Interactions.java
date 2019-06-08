@@ -73,6 +73,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedW
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholder;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholderClear;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelectable;
 import static com.evilbird.warcraft.item.data.camera.CameraType.Camera;
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
 import static com.evilbird.warcraft.item.layer.LayerType.Tree;
@@ -320,18 +321,8 @@ public class Interactions
     }
 
     private void selectInvert() {
-        selectToggle(Grunt);
-        selectToggle(Footman);
-        selectToggle(Peasant);
-        selectToggle(GoldMine);
-        selectToggle(TownHall);
-        selectToggle(Barracks);
-        selectToggle(Farm);
-    }
-    
-    private void selectToggle(Identifier selectable) {
         interactions.addAction(SelectInvert)
-            .whenTarget(selectable)
+            .whenTarget(isSelectable())
             .appliedTo(Target)
             .appliedAs(Addition);
     }

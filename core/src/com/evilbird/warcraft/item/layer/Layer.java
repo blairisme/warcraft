@@ -12,8 +12,8 @@ package com.evilbird.warcraft.item.layer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.evilbird.engine.common.maps.TiledMapRenderer;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
@@ -28,14 +28,16 @@ public class Layer extends ItemGroup
 {
     protected transient TiledMapTileLayer layer;
     protected transient OrthographicCamera camera;
+    protected transient TiledMapRenderer renderer;
 
     public Layer() {
+        renderer = new TiledMapRenderer();
     }
 
     @Override
     public void draw(Batch batch, float alpha) {
         if (getVisible()) {
-            OrthogonalTiledMapRenderer renderer = new OrthogonalTiledMapRenderer(null, batch);
+            renderer.setBatch(batch);
             renderer.setView(getCamera());
             renderer.renderTileLayer(getLayer());
         }

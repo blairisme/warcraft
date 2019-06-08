@@ -74,26 +74,6 @@ public class UnitPredicates
         };
     }
 
-//    public static Predicate<Item> isAdjacent(Item locus) {
-//        Objects.requireNonNull(locus);
-//        return item -> item != null && isNear(locus, locus.getWidth(), item);
-//    }
-//
-//    public static Predicate<Item> isAdjacent(Supplier<Item> locusSupplier) {
-//        return target -> {
-//            Item locus = locusSupplier.get();
-//            return isNear(locus, locus.getWidth(), target);
-//        };
-//    }
-//
-//    public static Predicate<Item> notAdjacent(Item item) {
-//        return not(isAdjacent(item));
-//    }
-//
-//    public static Predicate<Item> notAdjacent(Supplier<Item> locusSupplier) {
-//        return not(isAdjacent(locusSupplier));
-//    }
-
     public static Predicate<Item> isBuilding() {
         return (item) -> item instanceof Building;
     }
@@ -122,6 +102,10 @@ public class UnitPredicates
             }
             return false;
         };
+    }
+
+    public static Predicate<Item> isSelectable() {
+        return (item) -> item instanceof Selectable;
     }
 
     public static Predicate<Item> hasResources(ResourceType type) {

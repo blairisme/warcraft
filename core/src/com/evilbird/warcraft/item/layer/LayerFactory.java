@@ -41,9 +41,10 @@ public class LayerFactory implements IdentifiedAssetProvider<Item>
     public Item get(Identifier identifier) {
         LayerIdentifier layerIdentifier = (LayerIdentifier)identifier;
         switch (layerIdentifier.getType()) {
-            case Map: return terrainFactory.get(identifier);
+            case Map:
+            case Sea: return terrainFactory.get(identifier);
             case Forest: return forestFactory.get(identifier);
-            case OpaqueFog: return fogFactory.get(identifier);
+            case OpaqueFog:
             case TransparentFog: return fogFactory.get(identifier);
             default: throw new UnknownEntityException(identifier);
         }

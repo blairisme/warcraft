@@ -93,8 +93,8 @@ public class CombatantBuilder
 
     private Map<Identifier, Animation> getSeaAnimations(Texture general, Texture decompose) {
         AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(88, 80), general);
-        builder.set(UnitAnimation.Move, AnimationSchemas.idleSchema(88, 80), general);
+        builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(80, 88), general);
+        builder.set(UnitAnimation.Move, AnimationSchemas.idleSchema(80, 88), general);
         builder.set(UnitAnimation.Death, AnimationSchemas.boatDeathSchema(), general);
         builder.set(UnitAnimation.Decompose, AnimationSchemas.boatDecomposeSchema(), decompose);
         return builder.build();

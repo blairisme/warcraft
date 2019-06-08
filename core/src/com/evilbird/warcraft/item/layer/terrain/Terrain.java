@@ -9,8 +9,9 @@
 
 package com.evilbird.warcraft.item.layer.terrain;
 
-import com.evilbird.engine.common.serialization.SerializedConstructor;
-import com.evilbird.engine.common.serialization.SerializedType;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.warcraft.item.layer.Layer;
 import com.evilbird.warcraft.item.layer.LayerAdapter;
@@ -25,12 +26,21 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-@SerializedType("Terrain")
 @JsonAdapter(LayerAdapter.class)
 public class Terrain extends Layer implements ItemGraphOccupant
 {
     @Inject
-    @SerializedConstructor
     public Terrain() {
+    }
+
+    @Override
+    public Item hit(Vector2 position, boolean touchable) {
+        if (touchable && !getTouchable()) return null;
+
+        int x = Math.round(position.x / layer.getTileWidth());
+        int y = Math.round(position.y / layer.getTileHeight());
+
+        TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+        return cell != null ? this : null;
     }
 }

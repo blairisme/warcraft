@@ -100,7 +100,7 @@ public class ItemPathFilter implements Predicate<ItemNode>
             traversableTypes.add(LayerType.Map);
         }
         else if (capability == MovementCapability.Sea) {
-            traversableTypes.add(LayerType.Map);
+            traversableTypes.add(LayerType.Sea);
         }
         else if (capability == MovementCapability.Air) {
             traversableTypes.addAll(Arrays.asList(LayerType.values()));

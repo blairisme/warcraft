@@ -131,6 +131,43 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup id="19" name="Critter">
+  <object id="38" name="Critter1" type="Critter" gid="764" x="448" y="1568" width="32" height="32">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="39" name="Critter2" type="Critter" gid="764" x="416" y="1600" width="32" height="32">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="40" name="Critter3" type="Critter" gid="764" x="608" y="1600" width="32" height="32">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="41" name="Critter4" type="Critter" gid="764" x="736" y="1600" width="32" height="32">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="42" name="Critter5" type="Critter" gid="764" x="704" y="1728" width="32" height="32">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="43" name="Critter6" type="Critter" gid="764" x="1024" y="864" width="32" height="32">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="44" name="Critter7" type="Critter" gid="764" x="1408" y="1056" width="32" height="32">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="20" name="TrollDestroyer">
   <object id="48" name="TrollDestroyer1" type="TrollDestroyer" gid="910" x="1888" y="896" width="88" height="88">
    <properties>
