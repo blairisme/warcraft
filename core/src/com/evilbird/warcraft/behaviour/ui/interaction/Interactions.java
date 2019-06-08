@@ -76,6 +76,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlacehold
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelectable;
 import static com.evilbird.warcraft.item.data.camera.CameraType.Camera;
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
+import static com.evilbird.warcraft.item.layer.LayerType.Sea;
 import static com.evilbird.warcraft.item.layer.LayerType.Tree;
 import static com.evilbird.warcraft.item.ui.hud.HudControl.MenuPane;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildAdvancedButton;
@@ -94,6 +95,8 @@ import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.BarracksPl
 import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.FarmPlaceholder;
 import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.TownHallPlaceholder;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
+import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
+import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
@@ -296,14 +299,24 @@ public class Interactions
     }
 
     private void moveInteractions() {
-        moveInteraction(Footman);
-        moveInteraction(Peasant);
+        moveOverLandInteractions();
+        moveOverWaterInteractions();
     }
 
-    private void moveInteraction(Identifier movable) {
+    private void moveOverLandInteractions() {
+        moveInteraction(Footman, Map);
+        moveInteraction(Peasant, Map);
+        moveInteraction(ElvenArcher, Map);
+    }
+
+    private void moveOverWaterInteractions() {
+        moveInteraction(ElvenDestroyer, Sea);
+    }
+
+    private void moveInteraction(Identifier movable, Identifier terrain) {
         interactions.addAction(MoveToLocation, ConfirmLocation)
             .whenSelected(movable)
-            .whenTarget(Map)
+            .whenTarget(terrain)
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
