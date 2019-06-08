@@ -43,10 +43,6 @@ public class SoundUtils
         return new SoundEffectSet(effects);
     }
 
-    public static SoundEffect newSoundEffect(AssetManager assets, String prefix, FileType type, int count) {
-        return newSoundEffect(assets, prefix, type.getFileExtension(), 1, count);
-    }
-
     public static SoundEffect newSoundEffect(AssetManager assets, String prefix, String suffix, int start, int end) {
         Collection<String> paths = new ArrayList<>();
         for (int i = start; i <= end; i++) {
@@ -54,5 +50,9 @@ public class SoundUtils
             paths.add(path);
         }
         return newSoundEffect(assets, paths);
+    }
+
+    public static SoundEffect newSoundEffect(AssetManager assets, String prefix, FileType type, int count) {
+        return newSoundEffect(assets, prefix, type.getFileExtension(), 1, count);
     }
 }

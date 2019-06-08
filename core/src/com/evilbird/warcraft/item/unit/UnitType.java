@@ -43,7 +43,7 @@ public enum UnitType implements ItemType
 
     /* Combatant - Orc*/
     Grunt,
-    TrollAxeThrower,
+    TrollAxethrower,
     TrollDestroyer,
 
     /* Combatant - Neutral*/

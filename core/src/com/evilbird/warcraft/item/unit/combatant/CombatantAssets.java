@@ -124,8 +124,7 @@ public class CombatantAssets
                 result = directory.list().length;
                 cache.put(path, result);
             }
-            result = 0;
         }
-        return result;
+        return result != null ? result : 0;
     }
 }

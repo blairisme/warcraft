@@ -9,18 +9,63 @@
 
 package com.evilbird.warcraft.item.unit.combatant.human;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.combatant.CombatantAssets;
+import com.evilbird.warcraft.item.unit.combatant.CombatantBuilder;
+
+import javax.inject.Inject;
+
+import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
+import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
+import static com.evilbird.warcraft.item.common.movement.MovementCapability.Sea;
+import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
+import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 
 public class ElvenDestroyerFactory implements AssetProvider<Item>
 {
+    private static final GridPoint2 ICON = new GridPoint2(92, 152);
+    private static final GridPoint2 SIZE = new GridPoint2(80, 88);
+
+    private CombatantAssets assets;
+    private CombatantBuilder builder;
+
+    @Inject
+    public ElvenDestroyerFactory(Device device) {
+        this(device.getAssetStorage());
+    }
+
+    public ElvenDestroyerFactory(AssetManager manager) {
+        this.assets = new CombatantAssets(manager, ElvenDestroyer, ICON, SIZE);
+        this.builder = new CombatantBuilder(assets);
+    }
+
     @Override
     public void load() {
-
+        assets.load();
     }
 
     @Override
     public Item get() {
-        return null;
+        Combatant result = builder.build();
+        result.setDefence(4);
+        result.setDamageMinimum(4);
+        result.setDamageMaximum(18);
+        result.setHealth(60);
+        result.setHealthMaximum(60);
+        result.setIdentifier(objectIdentifier("ElvenDestroyer", result));
+        result.setLevel(1);
+        result.setName("Elven Destroyer");
+        result.setMovementSpeed(80);
+        result.setMovementCapability(Sea);
+        result.setRange(TILE_WIDTH + 5);
+        result.setSight(TILE_WIDTH * 4);
+        result.setType(ElvenDestroyer);
+        return result;
     }
 }

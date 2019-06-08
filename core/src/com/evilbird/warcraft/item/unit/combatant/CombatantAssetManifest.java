@@ -84,7 +84,7 @@ public class CombatantAssetManifest
             case Seal: return "neutral";
             case Grunt:
             case TrollDestroyer:
-            case TrollAxeThrower: return "orc";
+            case TrollAxethrower: return "orc";
             default: throw new UnsupportedOperationException();
         }
     }

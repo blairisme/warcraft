@@ -23,7 +23,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
-import static com.evilbird.warcraft.item.unit.UnitType.TrollAxeThrower;
+import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
 
 /**
  * Instances of this factory create Troll Axe Throwers, Orcish entry level
@@ -45,7 +45,7 @@ public class TrollAxeThrowerFactory implements AssetProvider<Item>
     }
 
     public TrollAxeThrowerFactory(AssetManager manager) {
-        this.assets = new CombatantAssets(manager, TrollAxeThrower, ICON, SIZE);
+        this.assets = new CombatantAssets(manager, TrollAxethrower, ICON, SIZE);
         this.builder = new CombatantBuilder(assets);
     }
 
@@ -69,7 +69,7 @@ public class TrollAxeThrowerFactory implements AssetProvider<Item>
         result.setMovementCapability(Land);
         result.setRange(TILE_WIDTH + 5);
         result.setSight(TILE_WIDTH * 4);
-        result.setType(TrollAxeThrower);
+        result.setType(TrollAxethrower);
         return result;
     }
 }
