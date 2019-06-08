@@ -37,10 +37,10 @@ public class CombatantAssetManifest
         this.base = "data/textures/" + faction + "/perennial/" + name + ".png";
         this.icons = "data/textures/neutral/perennial/icons.png";
         this.decompose = "data/textures/neutral/perennial/decompose.png";
+        this.attack = "data/sounds/neutral/unit/attack/" + type + "/";
         this.acknowledge = "data/sounds/" + faction + "/unit/" + name + "/acknowledge/";
         this.selected = "data/sounds/" + faction + "/unit/" + name + "/selected/";
         this.ready = "data/sounds/" + faction + "/unit/" + name + "/ready/";
-        this.attack = "data/sounds/neutral/unit/attack/" + type + "/";
         this.die = "data/sounds/" + faction + "/unit/common/dead/";
     }
 

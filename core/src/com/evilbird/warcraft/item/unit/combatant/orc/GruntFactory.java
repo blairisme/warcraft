@@ -24,6 +24,7 @@ import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
 import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
+import static com.evilbird.warcraft.item.unit.combatant.CombatantVariety.MeleeCombatant;
 
 /**
  * Instances of this factory create Grunts, Orcish entry level melee
@@ -56,7 +57,7 @@ public class GruntFactory implements AssetProvider<Item>
 
     @Override
     public Item get() {
-        Combatant result = builder.build();
+        Combatant result = builder.build(MeleeCombatant);
         result.setDefence(4);
         result.setDamageMinimum(4);
         result.setDamageMaximum(18);

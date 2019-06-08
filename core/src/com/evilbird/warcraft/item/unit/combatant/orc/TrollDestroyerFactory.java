@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.unit.combatant.human;
+package com.evilbird.warcraft.item.unit.combatant.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.GridPoint2;
@@ -23,15 +23,15 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Sea;
-import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
+import static com.evilbird.warcraft.item.unit.UnitType.TrollDestroyer;
 import static com.evilbird.warcraft.item.unit.combatant.CombatantVariety.SeaCombatant;
 
 /**
- * Instances of this factory create Elven Destroyers, Human entry level ships.
+ * Instances of this factory create Troll Destroyers, Orcish entry level ships.
  *
  * @author Blair Butterworth
  */
-public class ElvenDestroyerFactory implements AssetProvider<Item>
+public class TrollDestroyerFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(92, 152);
     private static final GridPoint2 SIZE = new GridPoint2(80, 88);
@@ -40,12 +40,12 @@ public class ElvenDestroyerFactory implements AssetProvider<Item>
     private CombatantBuilder builder;
 
     @Inject
-    public ElvenDestroyerFactory(Device device) {
+    public TrollDestroyerFactory(Device device) {
         this(device.getAssetStorage());
     }
 
-    public ElvenDestroyerFactory(AssetManager manager) {
-        this.assets = new CombatantAssets(manager, ElvenDestroyer, ICON, SIZE);
+    public TrollDestroyerFactory(AssetManager manager) {
+        this.assets = new CombatantAssets(manager, TrollDestroyer, ICON, SIZE);
         this.builder = new CombatantBuilder(assets);
     }
 
@@ -62,14 +62,14 @@ public class ElvenDestroyerFactory implements AssetProvider<Item>
         result.setDamageMaximum(18);
         result.setHealth(60);
         result.setHealthMaximum(60);
-        result.setIdentifier(objectIdentifier("ElvenDestroyer", result));
+        result.setIdentifier(objectIdentifier("TrollDestroyer", result));
         result.setLevel(1);
-        result.setName("Elven Destroyer");
+        result.setName("Troll Destroyer");
         result.setMovementSpeed(80);
         result.setMovementCapability(Sea);
         result.setRange(TILE_WIDTH + 5);
         result.setSight(TILE_WIDTH * 4);
-        result.setType(ElvenDestroyer);
+        result.setType(TrollDestroyer);
         return result;
     }
 }

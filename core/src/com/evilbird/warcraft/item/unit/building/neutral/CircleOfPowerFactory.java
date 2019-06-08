@@ -32,7 +32,7 @@ import java.util.Map;
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 import static com.evilbird.engine.common.graphics.TextureUtils.getRectangle;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.idleSingualarSchema;
+import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.idleSingularSchema;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 
 /**
@@ -97,7 +97,7 @@ public class CircleOfPowerFactory implements AssetProvider<Item>
 
     private Map<Identifier, Animation> getAnimations() {
         AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(Idle, idleSingualarSchema(64, 64), assets.get(BASE, Texture.class));
+        builder.set(Idle, idleSingularSchema(64, 64), assets.get(BASE, Texture.class));
         return builder.build();
     }
 

@@ -14,9 +14,11 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.human.ElvenArcherFactory;
+import com.evilbird.warcraft.item.unit.combatant.human.ElvenDestroyerFactory;
 import com.evilbird.warcraft.item.unit.combatant.human.FootmanFactory;
 import com.evilbird.warcraft.item.unit.combatant.orc.GruntFactory;
 import com.evilbird.warcraft.item.unit.combatant.orc.TrollAxeThrowerFactory;
+import com.evilbird.warcraft.item.unit.combatant.orc.TrollDestroyerFactory;
 
 import javax.inject.Inject;
 
@@ -30,15 +32,18 @@ public class CombatantFactory extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
     public CombatantFactory(
-        ElvenArcherFactory elvenArcherFactory,
-        FootmanFactory footmanFactory,
-        GruntFactory gruntFactory,
-        TrollAxeThrowerFactory trollAxeThrowerFactory)
+            ElvenArcherFactory elvenArcherFactory,
+            ElvenDestroyerFactory elvenDestroyerFactory,
+            FootmanFactory footmanFactory,
+            GruntFactory gruntFactory,
+            TrollAxeThrowerFactory trollAxeThrowerFactory,
+            TrollDestroyerFactory trollDestroyerFactory)
     {
-        super();
         addProvider(UnitType.ElvenArcher, elvenArcherFactory);
+        addProvider(UnitType.ElvenDestroyer,  elvenDestroyerFactory);
         addProvider(UnitType.Footman, footmanFactory);
         addProvider(UnitType.Grunt, gruntFactory);
         addProvider(UnitType.TrollAxethrower, trollAxeThrowerFactory);
+        addProvider(UnitType.TrollDestroyer, trollDestroyerFactory);
     }
 }

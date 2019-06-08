@@ -24,6 +24,7 @@ import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
+import static com.evilbird.warcraft.item.unit.combatant.CombatantVariety.RangedCombatant;
 
 /**
  * Instances of this factory create Troll Axe Throwers, Orcish entry level
@@ -56,7 +57,7 @@ public class TrollAxeThrowerFactory implements AssetProvider<Item>
 
     @Override
     public Item get() {
-        Combatant result = builder.build();
+        Combatant result = builder.build(RangedCombatant);
         result.setDefence(4);
         result.setDamageMinimum(4);
         result.setDamageMaximum(18);

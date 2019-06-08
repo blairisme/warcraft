@@ -16,11 +16,11 @@ public class PeonFactory implements AssetProvider<Item>
 {
     @Override
     public void load() {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Item get() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 }

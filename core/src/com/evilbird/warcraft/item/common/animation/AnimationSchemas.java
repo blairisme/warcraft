@@ -38,12 +38,16 @@ public class AnimationSchemas
     }
 
     public static AnimationSchema idleSchema() {
-        List<List<Rectangle>> regions = getRegions(8, 1, 0, 0, 72, 72);
+        return idleSchema(72, 72);
+    }
+
+    public static AnimationSchema idleSchema(int width, int height) {
+        List<List<Rectangle>> regions = getRegions(8, 1, 0, 0, width, height);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
         return new AnimationSchema(frames, 0.15f, true);
     }
 
-    public static AnimationSchema idleSingualarSchema(int width, int height) {
+    public static AnimationSchema idleSingularSchema(int width, int height) {
         List<List<Rectangle>> regions = getRegions(1, 1, 0, 0, width, height);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
         return new AnimationSchema(frames, 1f, true);
@@ -105,10 +109,22 @@ public class AnimationSchemas
         return new AnimationSchema(frames, 0.15f, false);
     }
 
+    public static AnimationSchema boatDeathSchema() {
+        List<List<Rectangle>> regions = getRegions(8, 2, 0, 88, 80, 88);
+        Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
+        return new AnimationSchema(frames, 0.5f, false);
+    }
+
     public static AnimationSchema decomposeSchema() {
         List<List<Rectangle>> regions = getRegions(8, 6, 0, 0, 72, 72);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
         return new AnimationSchema(frames, 2f, false);
+    }
+
+    public static AnimationSchema boatDecomposeSchema() {
+        List<List<Rectangle>> regions = getRegions(1, 1, 0, 432, 72, 72);
+        Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
+        return new AnimationSchema(frames, 10f, false);
     }
 
     private static List<List<Rectangle>> getRegions(int xCount, int yCount, int x, int y, int width, int height) {

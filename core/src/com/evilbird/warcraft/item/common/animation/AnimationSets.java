@@ -20,7 +20,7 @@ import java.util.Map;
 
 import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.buildingDestructionScheme;
 import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.gatheringSchema;
-import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.idleSingualarSchema;
+import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.idleSingularSchema;
 
 /**
  * Used to obtain commonly used animation sequence sets. For example all of the
@@ -78,7 +78,7 @@ public class AnimationSets
             Texture general, Texture construction, Texture destruction, int width, int height)
     {
         AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(UnitAnimation.Idle, AnimationSchemas.idleSingualarSchema(width, height), general);
+        builder.set(UnitAnimation.Idle, AnimationSchemas.idleSingularSchema(width, height), general);
         builder.set(UnitAnimation.BuildingSite, AnimationSchemas.constructStaticSchema(width, height), construction);
         builder.set(UnitAnimation.Construct, Arrays.asList(
                 Pair.of(AnimationSchemas.constructBeginSchema(width, height), construction),
@@ -91,7 +91,7 @@ public class AnimationSets
             Texture general, Texture destruction)
     {
         AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(UnitAnimation.Idle, idleSingualarSchema(96, 96), general);
+        builder.set(UnitAnimation.Idle, idleSingularSchema(96, 96), general);
         builder.set(UnitAnimation.Gathering, gatheringSchema(96, 96), general);
         builder.set(UnitAnimation.Dead, buildingDestructionScheme(), destruction);
         return builder.build();

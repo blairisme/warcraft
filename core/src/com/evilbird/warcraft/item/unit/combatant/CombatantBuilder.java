@@ -39,8 +39,8 @@ public class CombatantBuilder
         this.assets = assets;
     }
 
-    public Combatant build() {
-        Combatant result = new Combatant(getSkin(assets));
+    public Combatant build(CombatantVariety variety) {
+        Combatant result = newCombatant(variety);
         result.setAnimation(UnitAnimation.Idle);
         result.setSelected(false);
         result.setSelectable(true);
@@ -49,27 +49,38 @@ public class CombatantBuilder
         return result;
     }
 
-    private Skin getSkin(CombatantAssets assets) {
+    private Combatant newCombatant(CombatantVariety variety) {
+        Skin skin = getSkin(assets, variety);
+        return new Combatant(skin);
+    }
+
+    private Skin getSkin(CombatantAssets assets, CombatantVariety variety) {
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(assets), AnimatedItemStyle.class);
+        skin.add("default", getAnimationStyle(assets, variety), AnimatedItemStyle.class);
         skin.add("default", getUnitStyle(assets), UnitStyle.class);
         return skin;
     }
 
-    private AnimatedItemStyle getAnimationStyle(CombatantAssets assets) {
+    private AnimatedItemStyle getAnimationStyle(CombatantAssets assets, CombatantVariety variety) {
         AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
-        animatedItemStyle.animations = getAnimations(assets);
+        animatedItemStyle.animations = getAnimations(assets, variety);
         animatedItemStyle.sounds = getSounds(assets);
         return animatedItemStyle;
     }
 
-    private Map<Identifier, Animation> getAnimations(CombatantAssets assets) {
+    private Map<Identifier, Animation> getAnimations(CombatantAssets assets, CombatantVariety variety) {
         Texture general = assets.getBaseTexture();
         Texture decompose = assets.getDecomposeTexture();
-        return getAnimations(general, decompose);
+
+        switch(variety) {
+            case MeleeCombatant: return getMeleeAnimations(general, decompose);
+            case SeaCombatant: return getSeaAnimations(general, decompose);
+            case RangedCombatant: return getRangedAnimations(general, decompose);
+            default: throw new UnsupportedOperationException();
+        }
     }
 
-    private Map<Identifier, Animation> getAnimations(Texture general, Texture decompose) {
+    private Map<Identifier, Animation> getMeleeAnimations(Texture general, Texture decompose) {
         AnimationSetBuilder builder = new AnimationSetBuilder();
         builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(), general);
         builder.set(UnitAnimation.Move, AnimationSchemas.moveSchema(), general);
@@ -78,6 +89,19 @@ public class CombatantBuilder
         builder.set(UnitAnimation.Death, AnimationSchemas.deathSchema(), general);
         builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decompose);
         return builder.build();
+    }
+
+    private Map<Identifier, Animation> getSeaAnimations(Texture general, Texture decompose) {
+        AnimationSetBuilder builder = new AnimationSetBuilder();
+        builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(88, 80), general);
+        builder.set(UnitAnimation.Move, AnimationSchemas.idleSchema(88, 80), general);
+        builder.set(UnitAnimation.Death, AnimationSchemas.boatDeathSchema(), general);
+        builder.set(UnitAnimation.Decompose, AnimationSchemas.boatDecomposeSchema(), decompose);
+        return builder.build();
+    }
+
+    private Map<Identifier, Animation> getRangedAnimations(Texture general, Texture decompose) {
+        return getMeleeAnimations(general, decompose);
     }
 
     private Map<Identifier, SoundEffect> getSounds(CombatantAssets assets) {
