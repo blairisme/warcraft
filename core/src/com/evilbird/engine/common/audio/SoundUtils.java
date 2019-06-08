@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Instances of this class provide common utility functions for working with
- * sound effects.
+ * Provides utility functions for working with sound effects.
  *
  * @author Blair Butterworth
  */
@@ -32,15 +31,11 @@ public class SoundUtils
         return new BasicSoundEffect(sound, path);
     }
 
-    public static SoundEffect newSoundEffect(AssetManager assets, String... paths) {
-        Collection<SoundEffect> effects = new ArrayList<>(paths.length);
-        for (String path : paths) {
-            effects.add(newSoundEffect(assets, path));
-        }
-        return new SoundEffectSet(effects);
-    }
-
     public static SoundEffect newSoundEffect(AssetManager assets, Collection<String> paths) {
+        if (paths.size() == 1) {
+            String path = paths.iterator().next();
+            return newSoundEffect(assets, path);
+        }
         Collection<SoundEffect> effects = new ArrayList<>(paths.size());
         for (String path : paths) {
             effects.add(newSoundEffect(assets, path));
@@ -55,7 +50,8 @@ public class SoundUtils
     public static SoundEffect newSoundEffect(AssetManager assets, String prefix, String suffix, int start, int end) {
         Collection<String> paths = new ArrayList<>();
         for (int i = start; i <= end; i++) {
-            paths.add(prefix + i + suffix);
+            String path = prefix + i + suffix;
+            paths.add(path);
         }
         return newSoundEffect(assets, paths);
     }

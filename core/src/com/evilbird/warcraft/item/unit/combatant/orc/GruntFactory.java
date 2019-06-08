@@ -10,10 +10,10 @@
 package com.evilbird.warcraft.item.unit.combatant.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.item.unit.combatant.CombatantBuilder;
@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
+import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
 
 /**
  * Instances of this factory create Grunts, Orcish entry level melee
@@ -32,6 +33,9 @@ import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land
  */
 public class GruntFactory implements AssetProvider<Item>
 {
+    private static final GridPoint2 ICON = new GridPoint2(138, 0);
+    private static final GridPoint2 SIZE = new GridPoint2(32, 32);
+
     private CombatantAssets assets;
     private CombatantBuilder builder;
 
@@ -41,9 +45,7 @@ public class GruntFactory implements AssetProvider<Item>
     }
 
     public GruntFactory(AssetManager manager) {
-        this.assets = new CombatantAssets(manager, "orc", "grunt", "melee");
-        this.assets.setIcon(138, 0);
-        this.assets.setSize(32, 32);
+        this.assets = new CombatantAssets(manager, Grunt, ICON, SIZE);
         this.builder = new CombatantBuilder(assets);
     }
 
@@ -67,7 +69,7 @@ public class GruntFactory implements AssetProvider<Item>
         result.setMovementCapability(Land);
         result.setRange(TILE_WIDTH + 5);
         result.setSight(TILE_WIDTH * 4);
-        result.setType(UnitType.Grunt);
+        result.setType(Grunt);
         return result;
     }
 }

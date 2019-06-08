@@ -20,27 +20,34 @@ import com.evilbird.engine.item.ItemType;
 @SerializedType("Units")
 public enum UnitType implements ItemType
 {
-    /* Building */
+    /* Building - Human */
     Barracks,
     Farm,
     LumberMill,
     TownHall,
+
+    /* Building - Orc */
     WatchTower,
 
-    /* Building - Objective */
+    /* Building - Neutral */
     CircleOfPower,
 
     /* Gatherer */
     Peasant,
     Peon,
 
-    /* Combatant */
+    /* Combatant - Human*/
     Footman,
     ElvenArcher,
     ElvenDestroyer,
+
+    /* Combatant - Orc*/
     Grunt,
     TrollAxeThrower,
     TrollDestroyer,
+
+    /* Combatant - Neutral*/
+    Seal,
 
     /* Resource */
     GoldMine,

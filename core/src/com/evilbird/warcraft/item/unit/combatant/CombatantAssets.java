@@ -10,16 +10,21 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.common.assets.AssetUtilities;
 import com.evilbird.engine.common.audio.SoundEffect;
+import com.evilbird.engine.common.audio.SoundUtils;
 import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.graphics.TextureUtils;
+import com.evilbird.warcraft.item.unit.UnitType;
 
-import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
-import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.evilbird.engine.common.file.FileType.MP3;
 
 /**
@@ -31,72 +36,56 @@ import static com.evilbird.engine.common.file.FileType.MP3;
 public class CombatantAssets
 {
     private AssetManager assets;
-    private String base;
-    private String icons;
-    private String decompose;
-    private String acknowledge;
-    private String selected;
-    private String attack;
-    private String ready;
-    private String dead;
+    private Map<String, Integer> cache;
+    private CombatantAssetManifest manifest;
     private GridPoint2 icon;
-    private GridPoint2 select;
+    private GridPoint2 size;
 
-    public CombatantAssets(AssetManager assets, String race, String name, String type) {
+    public CombatantAssets(AssetManager assets, UnitType unitType, GridPoint2 icon, GridPoint2 size) {
         this.assets = assets;
-        this.base = "data/textures/" + race + "/perennial/" + name + ".png";
-        this.icons = "data/textures/neutral/perennial/icons.png";
-        this.decompose = "data/textures/neutral/perennial/decompose.png";
-        this.acknowledge = "data/sounds/" + race + "/unit/" + name + "/acknowledge/";
-        this.selected = "data/sounds/" + race + "/unit/" + name +"/selected/";
-        this.ready = "data/sounds/" + race + "/unit/" + name +"/ready/1.mp3";
-        this.attack = "data/sounds/neutral/unit/attack/" + type + "/";
-        this.dead = "data/sounds/" + race + "/unit/common/dead/1.mp3";
+        this.cache = new HashMap<>();
+        this.manifest = new CombatantAssetManifest(unitType);
+        this.icon = icon;
+        this.size = size;
     }
 
     public Drawable getIcon() {
-        return TextureUtils.getDrawable(assets, icons, icon.x, icon.y, 46, 38);
+        String path = manifest.getIconTexturePath();
+        return TextureUtils.getDrawable(assets, path, icon.x, icon.y, 46, 38);
     }
 
     public Texture getBaseTexture() {
-        return assets.get(base, Texture.class);
+        String path = manifest.getBaseTexturePath();
+        return assets.get(path, Texture.class);
     }
 
     public Texture getDecomposeTexture() {
-        return assets.get(decompose, Texture.class);
+        String path = manifest.getDecomposeTexturePath();
+        return assets.get(path, Texture.class);
     }
 
     public Texture getSelectionTexture() {
-        return TextureUtils.getRectangle(select.x, select.y, Colours.FOREST_GREEN);
+        return TextureUtils.getRectangle(size.x, size.y, Colours.FOREST_GREEN);
     }
 
     public SoundEffect getAcknowledgeSound() {
-        return newSoundEffect(assets, acknowledge, MP3, 4);
+        return newSoundEffect(manifest.getAcknowledgeSoundEffectPath());
     }
     
     public SoundEffect getAttackSound() {
-        return newSoundEffect(assets, attack, MP3, 3);
+        return newSoundEffect(manifest.getAttackSoundEffectPath());
     }
     
     public SoundEffect getDieSound() {
-        return newSoundEffect(assets, dead);
+        return newSoundEffect(manifest.getDieSoundEffectPath());
     }
-    
+
     public SoundEffect getReadySound() {
-        return newSoundEffect(assets, ready);
+        return newSoundEffect(manifest.getReadySoundEffectPath());
     }
 
     public SoundEffect getSelectedSound() {
-        //return newSoundEffect(assets, selected, MP3, 6);
-        return newSoundEffect(assets, selected, MP3, 4);
-    }
-
-    public void setIcon(int x, int y) {
-        this.icon = new GridPoint2(x, y);
-    }
-
-    public void setSize(int x, int y) {
-        this.select = new GridPoint2(x, y);
+        return newSoundEffect(manifest.getSelectedSoundEffectPath());
     }
 
     public void load() {
@@ -105,17 +94,38 @@ public class CombatantAssets
     }
 
     private void loadTextures() {
-        assets.load(base, Texture.class);
-        assets.load(icons, Texture.class);
-        assets.load(decompose, Texture.class);
+        assets.load(manifest.getBaseTexturePath(), Texture.class);
+        assets.load(manifest.getIconTexturePath(), Texture.class);
+        assets.load(manifest.getDecomposeTexturePath(), Texture.class);
     }
 
     private void loadSounds() {
-        loadSoundSet(assets, acknowledge, MP3, 4);
-        //loadSoundSet(assets, selected, MP3, 6);
-        loadSoundSet(assets, selected, MP3, 4);
-        loadSoundSet(assets, attack, MP3, 3);
-        assets.load(dead, Sound.class);
-        assets.load(ready, Sound.class);
+        loadSoundSet(manifest.getAcknowledgeSoundEffectPath());
+        loadSoundSet(manifest.getSelectedSoundEffectPath());
+        loadSoundSet(manifest.getAttackSoundEffectPath());
+        loadSoundSet(manifest.getDieSoundEffectPath());
+        loadSoundSet(manifest.getReadySoundEffectPath());
+    }
+
+    private void loadSoundSet(String path) {
+        AssetUtilities.loadSoundSet(assets, path, MP3, getAssetCount(path));
+    }
+
+    private SoundEffect newSoundEffect(String path) {
+        return SoundUtils.newSoundEffect(assets, path, MP3, getAssetCount(path));
+    }
+
+    private int getAssetCount(String path) {
+        Integer result = cache.get(path);
+        if (result == null) {
+            FileHandleResolver resolver = assets.getFileHandleResolver();
+            if (resolver != null) {
+                FileHandle directory = resolver.resolve(path);
+                result = directory.list().length;
+                cache.put(path, result);
+            }
+            result = 0;
+        }
+        return result;
     }
 }
