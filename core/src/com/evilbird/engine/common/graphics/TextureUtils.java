@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
@@ -74,6 +75,10 @@ public class TextureUtils
         Texture texture = assets.get(path, Texture.class);
         TextureRegion region = new TextureRegion(texture);
         return new TextureRegionDrawable(region);
+    }
+
+    public static Drawable getDrawable(AssetManager assets, String path, Rectangle bounds) {
+        return getDrawable(assets, path, (int)bounds.x, (int)bounds.y, (int)bounds.width, (int)bounds.height);
     }
 
     public static Drawable getDrawable(AssetManager assets, String path, int x, int y, int width, int height) {

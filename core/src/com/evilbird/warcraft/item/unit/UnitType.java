@@ -21,16 +21,26 @@ import com.evilbird.engine.item.ItemType;
 public enum UnitType implements ItemType
 {
     /* Building */
-    TownHall,
-    Farm,
     Barracks,
-    CircleOfPower,
+    Farm,
+    LumberMill,
+    TownHall,
     WatchTower,
+
+    /* Building - Objective */
+    CircleOfPower,
+
+    /* Gatherer */
+    Peasant,
+    Peon,
 
     /* Combatant */
     Footman,
-    Peasant,
+    ElvenArcher,
+    ElvenDestroyer,
     Grunt,
+    TrollAxeThrower,
+    TrollDestroyer,
 
     /* Resource */
     GoldMine,
