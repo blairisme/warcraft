@@ -88,6 +88,10 @@ public class CombatantAssets
         return newSoundEffect(manifest.getSelectedSoundEffectPath());
     }
 
+    public GridPoint2 getSize() {
+        return size;
+    }
+
     public void load() {
         loadTextures();
         loadSounds();

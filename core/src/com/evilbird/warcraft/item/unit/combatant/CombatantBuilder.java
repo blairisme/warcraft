@@ -40,18 +40,14 @@ public class CombatantBuilder
     }
 
     public Combatant build(CombatantVariety variety) {
-        Combatant result = newCombatant(variety);
+        Skin skin = getSkin(assets, variety);
+        Combatant result = new Combatant(skin);
         result.setAnimation(UnitAnimation.Idle);
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
-        result.setSize(32, 32);
+        result.setSize(assets.getSize());
         return result;
-    }
-
-    private Combatant newCombatant(CombatantVariety variety) {
-        Skin skin = getSkin(assets, variety);
-        return new Combatant(skin);
     }
 
     private Skin getSkin(CombatantAssets assets, CombatantVariety variety) {
