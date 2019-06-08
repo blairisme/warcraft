@@ -32,22 +32,22 @@ public enum UnitType implements ItemType
     /* Building - Neutral */
     CircleOfPower,
 
-    /* Gatherer */
-    Peasant,
-    Peon,
-
-    /* Combatant - Human*/
+    /* Combatant - Human */
     Footman,
     ElvenArcher,
     ElvenDestroyer,
 
-    /* Combatant - Orc*/
+    /* Combatant - Orc */
     Grunt,
     TrollAxethrower,
     TrollDestroyer,
 
-    /* Combatant - Neutral*/
+    /* Combatant - Neutral */
     Seal,
+
+    /* Gatherer */
+    Peasant,
+    Peon,
 
     /* Resource */
     GoldMine,

@@ -18,12 +18,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.assets.AssetUtilities;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.audio.SoundUtils;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.file.FileType.MP3;
 
@@ -125,10 +128,14 @@ public class CombatantAssets
             FileHandleResolver resolver = assets.getFileHandleResolver();
             if (resolver != null) {
                 FileHandle directory = resolver.resolve(path);
-                result = directory.list().length;
+                result = CollectionUtils.testMatches(directory.list(), isMusic());
                 cache.put(path, result);
             }
         }
         return result != null ? result : 0;
+    }
+
+    private Predicate<FileHandle> isMusic() {
+        return handle -> Objects.equals(handle.extension(), MP3.getExtension());
     }
 }

@@ -26,4 +26,14 @@ public class CollectionUtils
     public static <T> T findFirst(Collection<? extends T> collection, Predicate<T> condition) {
         return collection.stream().filter(condition).findFirst().orElse(null);
     }
+
+    public static <T> int testMatches(T[] collection, Predicate<T> condition) {
+        int result = 0;
+        for (T element: collection) {
+            if (condition.test(element)) {
+                result++;
+            }
+        }
+        return result;
+    }
 }

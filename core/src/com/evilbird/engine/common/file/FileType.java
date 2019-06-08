@@ -26,4 +26,12 @@ public enum FileType
             default: throw new UnsupportedOperationException();
         }
     }
+
+    public String getExtension() {
+        switch (this) {
+            case MP3: return "mp3";
+            case JSON: return "json";
+            default: throw new UnsupportedOperationException();
+        }
+    }
 }
