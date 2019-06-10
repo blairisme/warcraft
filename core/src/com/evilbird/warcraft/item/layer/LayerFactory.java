@@ -16,6 +16,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.layer.fog.FogFactory;
 import com.evilbird.warcraft.item.layer.forest.ForestFactory;
 import com.evilbird.warcraft.item.layer.terrain.TerrainFactory;
+import com.evilbird.warcraft.item.layer.wall.WallFactory;
 
 import javax.inject.Inject;
 
@@ -29,12 +30,19 @@ public class LayerFactory implements IdentifiedAssetProvider<Item>
     private FogFactory fogFactory;
     private ForestFactory forestFactory;
     private TerrainFactory terrainFactory;
+    private WallFactory wallFactory;
 
     @Inject
-    public LayerFactory(FogFactory fogFactory, ForestFactory forestFactory, TerrainFactory terrainFactory) {
+    public LayerFactory(
+        FogFactory fogFactory,
+        ForestFactory forestFactory,
+        TerrainFactory terrainFactory,
+        WallFactory wallFactory)
+    {
         this.fogFactory = fogFactory;
         this.forestFactory = forestFactory;
         this.terrainFactory = terrainFactory;
+        this.wallFactory = wallFactory;
     }
 
     @Override
@@ -46,6 +54,7 @@ public class LayerFactory implements IdentifiedAssetProvider<Item>
             case Forest: return forestFactory.get(identifier);
             case OpaqueFog:
             case TransparentFog: return fogFactory.get(identifier);
+            case Wall: return wallFactory.get(identifier);
             default: throw new UnknownEntityException(identifier);
         }
     }
@@ -55,5 +64,6 @@ public class LayerFactory implements IdentifiedAssetProvider<Item>
         fogFactory.load();
         forestFactory.load();
         terrainFactory.load();
+        wallFactory.load();
     }
 }

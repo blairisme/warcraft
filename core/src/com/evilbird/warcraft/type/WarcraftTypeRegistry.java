@@ -19,6 +19,7 @@ import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.layer.fog.Fog;
 import com.evilbird.warcraft.item.layer.forest.Forest;
 import com.evilbird.warcraft.item.layer.terrain.Terrain;
+import com.evilbird.warcraft.item.layer.wall.Wall;
 import com.evilbird.warcraft.item.ui.hud.HudType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -70,10 +71,10 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("Fog", Fog.class);
         registerType("Forest", Forest.class);
         registerType("Terrain", Terrain.class);
+        registerType("Wall", Wall.class);
         registerType("Building", Building.class);
         registerType("Combatant", Combatant.class);
         registerType("Gatherer", Gatherer.class);
         registerType("Resource", Resource.class);
-        registerType("Terrain", Terrain.class);
     }
 }

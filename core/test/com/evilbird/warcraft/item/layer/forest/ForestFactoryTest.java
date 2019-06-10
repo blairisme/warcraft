@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.evilbird.test.data.device.TestAssets;
 import com.evilbird.test.testcase.GameTestCase;
+import com.evilbird.warcraft.item.layer.LayerGroupStyle;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerType;
 import org.junit.Assert;
@@ -51,6 +52,6 @@ public class ForestFactoryTest extends GameTestCase
 
         Assert.assertNotNull(forest);
         Assert.assertEquals(LayerType.Forest, forest.getType());
-        Assert.assertTrue(forest.getSkin().has("default", ForestStyle.class));
+        Assert.assertTrue(forest.getSkin().has("default", LayerGroupStyle.class));
     }
 }

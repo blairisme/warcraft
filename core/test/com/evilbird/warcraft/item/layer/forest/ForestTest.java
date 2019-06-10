@@ -16,6 +16,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
+import com.evilbird.warcraft.item.layer.LayerGroupStyle;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +46,7 @@ public class ForestTest extends GameTestCase
         LayerIdentifier identifier = new LayerIdentifier("data/levels/human/level1.tmx", "Map", layer);
 
         Skin skin = new Skin();
-        skin.add("default", Mockito.mock(ForestStyle.class), ForestStyle.class);
+        skin.add("default", Mockito.mock(LayerGroupStyle.class), LayerGroupStyle.class);
 
         forest = new Forest(skin);
         forest.setLayer(layer);

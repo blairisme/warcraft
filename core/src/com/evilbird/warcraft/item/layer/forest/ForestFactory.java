@@ -18,6 +18,7 @@ import com.evilbird.engine.common.collection.BitMatrix;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.warcraft.item.layer.LayerGroupStyle;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerUtils;
 import org.apache.commons.lang3.Validate;
@@ -72,15 +73,15 @@ public class ForestFactory implements IdentifiedAssetProvider<Forest>
 
     private Skin getSkin() {
         Skin skin = new Skin();
-        skin.add("default", getForestStyle());
+        skin.add("default", getStyle());
         return skin;
     }
 
-    private ForestStyle getForestStyle() {
+    private LayerGroupStyle getStyle() {
         Texture terrain = assets.get(TERRAIN, Texture.class);
-        ForestStyle forestStyle = new ForestStyle();
-        forestStyle.deforested = cell(terrain, 448, 224, 32, 32);
-        forestStyle.trees = getCellStyles(terrain);
+        LayerGroupStyle forestStyle = new LayerGroupStyle();
+        forestStyle.empty = cell(terrain, 448, 224, 32, 32);
+        forestStyle.patterns = getCellStyles(terrain);
         return forestStyle;
     }
 

@@ -1,4 +1,5 @@
 {
+  "class": "Forest",
   "type": {
     "class": "LayerId",
     "file": "data/levels/human/level1.tmx",

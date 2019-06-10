@@ -13,7 +13,7 @@ import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
 
 /**
- * Instances of this class define identifiers for items.
+ * Defines identifiers for items varieties.
  *
  * @author Blair Butterworth
  */

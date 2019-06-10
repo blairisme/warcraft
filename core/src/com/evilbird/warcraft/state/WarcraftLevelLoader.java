@@ -55,6 +55,7 @@ public class WarcraftLevelLoader
     private static final String PLAYER_ID = "Player";
     private static final String CAMERA_ID = "Camera";
     private static final String FOREST_ID = "Forest";
+    private static final String WALL_ID = "Wall";
     private static final String TERRAIN_ID = "Map";
     private static final String SEA_ID = "Sea";
     private static final String OPAQUE_FOG_ID = "OpaqueFog";
@@ -252,6 +253,7 @@ public class WarcraftLevelLoader
         return Objects.equals(layer.getName(), TERRAIN_ID)
             || Objects.equals(layer.getName(), SEA_ID)
             || Objects.equals(layer.getName(), FOREST_ID)
+            || Objects.equals(layer.getName(), WALL_ID)
             || Objects.equals(layer.getName(), OPAQUE_FOG_ID)
             || Objects.equals(layer.getName(), TRANSPARENT_FOG_ID);
     }

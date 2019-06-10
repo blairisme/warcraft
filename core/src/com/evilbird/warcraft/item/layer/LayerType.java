@@ -9,16 +9,21 @@
 
 package com.evilbird.warcraft.item.layer;
 
-import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
 
-@SerializedType("LayerType")
+/**
+ * Defines identifiers for layer varieties.
+ *
+ * @author Blair Butterworth
+ */
 public enum LayerType implements ItemType
 {
-    Map,
+    Map, //Terrain
     Sea,
     Forest,
     Tree,
     OpaqueFog,
     TransparentFog,
+    Wall,
+    WallSection
 }
