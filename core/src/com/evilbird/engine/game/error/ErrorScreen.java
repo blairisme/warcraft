@@ -60,6 +60,7 @@ public class ErrorScreen extends ScreenAdapter
 
         stage = new Stage();
         stage.addActor(container);
+        stage.setViewport(viewport);
     }
 
     public void setError(Throwable error) {

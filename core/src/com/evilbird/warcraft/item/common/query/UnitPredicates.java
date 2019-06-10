@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.common.query;
 
+import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
@@ -43,8 +44,11 @@ public class UnitPredicates
 
     public static Predicate<Item> isAlive() {
         return (item) -> {
-            Unit unit = (Unit)item;
-            return unit.isAlive();
+            if (item instanceof Destroyable) {
+                Destroyable destroyable = (Destroyable)item;
+                return destroyable.getHealth() > 0;
+            }
+            return false;
         };
     }
 

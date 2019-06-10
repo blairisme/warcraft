@@ -31,6 +31,7 @@ import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerStatistic;
+import com.evilbird.warcraft.item.layer.wall.WallSection;
 import com.evilbird.warcraft.item.ui.hud.HudControl;
 import com.evilbird.warcraft.item.ui.hud.control.actions.ActionPane;
 import com.evilbird.warcraft.item.ui.hud.control.status.StatusPane;
@@ -190,7 +191,7 @@ public class MenuBehaviour implements Behaviour
     }
 
     private PlayerStatistic getAttackStat(Item target) {
-        if (target instanceof Building || target instanceof Resource) {
+        if (target instanceof Building || target instanceof Resource || target instanceof WallSection) {
             return PlayerStatistic.Razed;
         }
         if (target instanceof Unit) {

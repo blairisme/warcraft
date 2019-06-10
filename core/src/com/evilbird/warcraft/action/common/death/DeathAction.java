@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.common.death;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.events.Events;
+import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.warcraft.item.unit.Unit;
 
@@ -50,22 +51,21 @@ public class DeathAction extends ScenarioSetAction
 
     @Override
     protected void features() {
-        Unit subject = (Unit)getItem();
-        combatantDeath(subject);
-        buildingDeath(subject);
+        combatantDeath();
+        buildingDeath();
     }
 
-    private void combatantDeath(Unit subject) {
+    private void combatantDeath() {
         scenario("Combatant death")
             .whenItem(isCombatant())
             .then(animate(Death), deselect(events), disable(), sendToBack())
             .then(play(Die), delay(1))
-            .then(deposit(reservedResources(subject), events))
+            .then(deposit(reservedResources(getItem()), events))
             .then(animate(Decompose), delay(10))
             .then(remove(events));
     }
 
-    private void buildingDeath(Unit subject) {
+    private void buildingDeath() {
         scenario("Building death")
             .whenItem(isBuilding())
             .then(animate(Dead), deselect(events), disable(), sendToBack())

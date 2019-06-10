@@ -58,10 +58,6 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
         selectable = true;
     }
 
-    public boolean isAlive() {
-        return health > 0;
-    }
-
     public Item getAssociatedItem() {
         return association != null ? association.get() : null;
     }

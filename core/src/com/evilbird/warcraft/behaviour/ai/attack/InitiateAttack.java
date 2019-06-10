@@ -116,7 +116,7 @@ public class InitiateAttack implements AiBehaviourElement
 
     private boolean isAlive(Item item) {
         Unit unit = (Unit)item;
-        return unit.isAlive();
+        return unit.getHealth() > 0;
     }
 
     private boolean isIdle(Item item) {

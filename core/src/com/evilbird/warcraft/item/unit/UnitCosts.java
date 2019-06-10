@@ -10,6 +10,8 @@
 package com.evilbird.warcraft.item.unit;
 
 import com.evilbird.engine.common.collection.Sets;
+import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 
 import java.util.Collection;
@@ -45,15 +47,17 @@ public class UnitCosts
         }
     }
 
-    public static Collection<ResourceQuantity> reservedResources(Unit unit) {
-        return reservedResources((UnitType)unit.getType());
+    public static Collection<ResourceQuantity> reservedResources(Item item) {
+        return reservedResources(item.getType());
     }
 
-    public static Collection<ResourceQuantity> reservedResources(UnitType type) {
-        switch (type) {
-            case Peasant:
-            case Footman: return Sets.of(resource(Food, 1));
-            default: return Collections.emptyList();
+    public static Collection<ResourceQuantity> reservedResources(Identifier type) {
+        if (type instanceof UnitType) {
+            switch ((UnitType)type) {
+                case Peasant:
+                case Footman: return Sets.of(resource(Food, 1));
+            }
         }
+        return Collections.emptyList();
     }
 }

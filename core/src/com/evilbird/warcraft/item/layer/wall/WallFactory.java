@@ -79,7 +79,7 @@ public class WallFactory implements IdentifiedAssetProvider<Wall>
     private LayerGroupStyle getStyle() {
         Texture terrain = assets.get(TERRAIN, Texture.class);
         LayerGroupStyle forestStyle = new LayerGroupStyle();
-        forestStyle.empty = cell(terrain, 448, 224, 32, 32);
+        forestStyle.empty = cell(terrain, 256, 128, 32, 32);
         forestStyle.patterns = getCellStyles(terrain);
         return forestStyle;
     }

@@ -9,7 +9,11 @@
 
 package com.evilbird.warcraft.item.data.player;
 
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.layer.LayerType;
+import com.evilbird.warcraft.item.layer.wall.WallSection;
+import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 /**
@@ -58,12 +62,35 @@ public class PlayerScore
      * @return      a score value following the table above.
      */
     public static int getScoreValue(Item item) {
-        UnitType type = (UnitType)item.getType();
+        Identifier identifier = item.getIdentifier();
+        if (identifier instanceof UnitType) {
+            return getUnitScore((UnitType)identifier);
+        }
+        if (identifier instanceof LayerType) {
+            return getLayerScore((LayerType)identifier);
+        }
+        return 0;
+    }
+
+    private static int getLayerScore(LayerType type) {
         switch (type) {
+            case WallSection: return 1;
+            default: return 0;
+        }
+    }
+
+    private static int getUnitScore(UnitType type) {
+        switch (type) {
+            case Seal: return 1;
             case Peasant: return 30;
-            case Farm: return 100;
             case Footman:
             case Grunt: return 50;
+            case ElvenArcher:
+            case TrollAxethrower: return 60;
+            case Farm: return 100;
+            case ElvenDestroyer:
+            case TrollDestroyer:
+            case LumberMill: return 150;
             case Barracks: return 160;
             case TownHall: return 200;
             default: return 0;
