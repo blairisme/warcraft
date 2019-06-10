@@ -11,9 +11,7 @@ package com.evilbird.warcraft.action.common.death;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
-import com.evilbird.warcraft.item.unit.Unit;
 
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AudibleAction.play;

@@ -29,6 +29,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -60,9 +61,17 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible, Direct
      * @param skin a {@code Skin} instance. This method cannot be {@code null}.
      */
     public AnimatedItem(Skin skin) {
-        this.skin = skin;
+        this();
+        setSkin(skin);
+    }
+
+    protected AnimatedItem() {
         this.direction = 0;
-        setStyle("default");
+        this.animationTime = 0;
+        this.animationId = null;
+        this.soundId = null;
+        this.animations = Collections.emptyMap();
+        this.sounds = Collections.emptyMap();
     }
 
     @Override
@@ -78,6 +87,11 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible, Direct
     @Override
     public Skin getSkin() {
         return skin;
+    }
+
+    public void setSkin(Skin skin) {
+        this.skin = skin;
+        setStyle("default");
     }
 
     @Override

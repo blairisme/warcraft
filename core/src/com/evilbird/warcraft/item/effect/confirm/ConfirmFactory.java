@@ -34,13 +34,13 @@ import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
  *
  * @author Blair Butterworth
  */
-public class ConfirmProvider implements AssetProvider<Item>
+public class ConfirmFactory implements AssetProvider<Item>
 {
     private static final String TEXTURE = "data/textures/neutral/hud/green_cross.png";
     private AssetManager assets;
 
     @Inject
-    public ConfirmProvider(Device device) {
+    public ConfirmFactory(Device device) {
         assets = device.getAssetStorage();
     }
 

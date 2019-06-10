@@ -12,8 +12,6 @@ package com.evilbird.warcraft.item.data.player;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.layer.LayerType;
-import com.evilbird.warcraft.item.layer.wall.WallSection;
-import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 /**

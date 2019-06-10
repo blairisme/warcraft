@@ -32,12 +32,12 @@ public class CombatantFactory extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
     public CombatantFactory(
-            ElvenArcherFactory elvenArcherFactory,
-            ElvenDestroyerFactory elvenDestroyerFactory,
-            FootmanFactory footmanFactory,
-            GruntFactory gruntFactory,
-            TrollAxeThrowerFactory trollAxeThrowerFactory,
-            TrollDestroyerFactory trollDestroyerFactory)
+        ElvenArcherFactory elvenArcherFactory,
+        ElvenDestroyerFactory elvenDestroyerFactory,
+        FootmanFactory footmanFactory,
+        GruntFactory gruntFactory,
+        TrollAxeThrowerFactory trollAxeThrowerFactory,
+        TrollDestroyerFactory trollDestroyerFactory)
     {
         addProvider(UnitType.ElvenArcher, elvenArcherFactory);
         addProvider(UnitType.ElvenDestroyer,  elvenDestroyerFactory);

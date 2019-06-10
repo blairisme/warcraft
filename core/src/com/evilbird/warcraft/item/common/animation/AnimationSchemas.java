@@ -127,6 +127,18 @@ public class AnimationSchemas
         return new AnimationSchema(frames, 10f, false);
     }
 
+    public static AnimationSchema projectileStaticSchema() {
+        List<List<Rectangle>> regions = getRegions(8, 1, 0, 0, 40, 40);
+        Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
+        return new AnimationSchema(frames, 10f, false);
+    }
+
+    public static AnimationSchema projectileAnimatedSchema() {
+        List<List<Rectangle>> regions = getRegions(1, 3, 0, 0, 32, 32);
+        Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
+        return new AnimationSchema(frames, 0.2f, false);
+    }
+
     private static List<List<Rectangle>> getRegions(int xCount, int yCount, int x, int y, int width, int height) {
         List<List<Rectangle>> result = new ArrayList<>(xCount);
         for (int xIndex = 0; xIndex < xCount; xIndex++) {

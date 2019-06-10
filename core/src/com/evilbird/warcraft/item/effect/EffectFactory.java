@@ -11,7 +11,7 @@ package com.evilbird.warcraft.item.effect;
 
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.effect.confirm.ConfirmProvider;
+import com.evilbird.warcraft.item.effect.confirm.ConfirmFactory;
 
 import javax.inject.Inject;
 
@@ -24,7 +24,7 @@ import javax.inject.Inject;
 public class EffectFactory extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
-    public EffectFactory(ConfirmProvider confirmProvider) {
-        addProvider(EffectType.Confirm, confirmProvider);
+    public EffectFactory(ConfirmFactory confirmFactory) {
+        addProvider(EffectType.Confirm, confirmFactory);
     }
 }
