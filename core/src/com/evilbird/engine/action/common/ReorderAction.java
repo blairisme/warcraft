@@ -39,6 +39,6 @@ public class ReorderAction extends BasicAction
         ItemGroup group = item.getParent();
         group.setZIndex(item, index);
 
-        return false;
+        return true;
     }
 }
