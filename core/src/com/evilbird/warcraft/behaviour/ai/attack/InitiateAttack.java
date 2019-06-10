@@ -17,6 +17,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.item.utility.ItemOperations;
 import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.attack.AttackEvent;
 import com.evilbird.warcraft.action.move.MoveActions;
@@ -136,9 +137,12 @@ public class InitiateAttack implements AiBehaviourElement
     }
 
     private void attack(Combatant combatant, Item target) {
-        Action action = actions.newAction(AttackActions.AttackMelee);
-        action.setTarget(target);
-        combatant.addAction(action);
+        if (!ItemOperations.hasAction(combatant, AttackActions.AttackMelee)) {
+            Action action = actions.newAction(AttackActions.AttackMelee);
+            action.setItem(combatant);
+            action.setTarget(target);
+            combatant.addAction(action);
+        }
     }
 
     private Collection<Item> getItems(ItemRoot state, Item locus, int radius) {
