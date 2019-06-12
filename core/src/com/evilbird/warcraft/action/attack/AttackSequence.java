@@ -32,6 +32,7 @@ import static com.evilbird.warcraft.action.attack.MeleeAttack.meleeAttack;
 import static com.evilbird.warcraft.action.attack.RangedAttack.rangedAttack;
 import static com.evilbird.warcraft.action.common.death.DeathAction.kill;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
+import static com.evilbird.warcraft.action.move.MoveWithinRangeAction.moveWithinRange;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.inRange;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isRanged;
@@ -74,12 +75,23 @@ public class AttackSequence extends ScenarioSetAction
 
     private void reposition(Combatant combatant) {
         scenario("Reposition for attack")
+            .whenItem(not(isRanged()))
             .whenTarget(isAlive())
             .whenTarget(notInRange(combatant))
             .givenItem(isAlive())
             .givenTarget(isAlive())
             .then(animate(Move))
             .then(move(events))
+            .then(animate(Idle));
+
+        scenario("Reposition for attack")
+            .whenItem(isRanged())
+            .whenTarget(isAlive())
+            .whenTarget(notInRange(combatant))
+            .givenItem(isAlive())
+            .givenTarget(isAlive())
+            .then(animate(Move))
+            .then(moveWithinRange(events))
             .then(animate(Idle));
     }
 

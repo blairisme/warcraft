@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.projectile;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.graphics.AnimationSchema;
@@ -72,6 +73,7 @@ public class ProjectileFactory implements IdentifiedAssetProvider<Item>
         projectile.setSkin(getSkin(type));
         projectile.setSize(getSize(type));
         projectile.setAnimation(Idle);
+        projectile.setTouchable(Touchable.disabled);
 
         return projectile;
     }

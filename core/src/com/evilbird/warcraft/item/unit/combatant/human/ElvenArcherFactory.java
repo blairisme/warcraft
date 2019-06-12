@@ -69,7 +69,7 @@ public class ElvenArcherFactory implements AssetProvider<Item>
         result.setName("Elven Archer");
         result.setMovementSpeed(80);
         result.setMovementCapability(Land);
-        result.setRange(TILE_WIDTH * 4 + 5);
+        result.setRange(TILE_WIDTH * 4);
         result.setSight(TILE_WIDTH * 5);
         result.setType(ElvenArcher);
         result.setProjectileType(Arrow);

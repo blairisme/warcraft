@@ -15,15 +15,15 @@ import com.evilbird.test.testcase.ActionTestCase;
 import org.mockito.Mockito;
 
 /**
- * Instances of this unit test validate the {@link MoveToItemScenario} class.
+ * Instances of this unit test validate the {@link MoveToItemSequence} class.
  *
  * @author Blair Butterworth
  */
-public class MoveToItemScenarioTest extends ActionTestCase
+public class MoveToItemSequenceTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        return new MoveToItemScenario(Mockito.mock(EventQueue.class));
+        return new MoveToItemSequence(Mockito.mock(EventQueue.class));
     }
 
     @Override

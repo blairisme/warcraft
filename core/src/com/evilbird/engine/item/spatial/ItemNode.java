@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.collection.Arrays;
+import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.pathing.SpatialNode;
 import com.evilbird.engine.item.Item;
@@ -67,6 +68,13 @@ public class ItemNode implements SpatialNode
 
     public Vector2 getWorldReference() {
         return worldReference;
+    }
+
+    public Vector2 getWorldReference(Alignment alignment) {
+        if (alignment == Alignment.Center) {
+            return new Vector2(worldReference.x + 16, worldReference.y + 16);
+        }
+        throw new UnsupportedOperationException();
     }
 
     public Collection<Item> getOccupants() {

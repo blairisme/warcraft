@@ -45,7 +45,7 @@ public class MainMenuFactory implements IdentifiedAssetProvider<Menu>
 {
     private static final String BUTTON = "data/textures/menu/button.png";
     private static final String BACKGROUND = "data/textures/menu/menu.png";
-    private static final String CLICK = "data/sounds/menu/click.mp3";
+    private static final String CLICK = "data/sounds/common/menu/click.mp3";
     private static final String MUSIC = "data/music/13.mp3";
 
     private AssetManager assets;

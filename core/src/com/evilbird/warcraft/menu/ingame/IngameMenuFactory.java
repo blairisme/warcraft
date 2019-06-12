@@ -77,7 +77,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
     private static final String BACKGROUND_NORMAL = "data/textures/human/menu/panel_normal.png";
     private static final String BACKGROUND_WIDE = "data/textures/human/menu/panel_wide.png";
     private static final String BACKGROUND_SMALL = "data/textures/human/menu/panel_small.png";
-    private static final String CLICK = "data/sounds/menu/click.mp3";
+    private static final String CLICK = "data/sounds/common/menu/click.mp3";
 
     private AssetManager assets;
     private StateService states;

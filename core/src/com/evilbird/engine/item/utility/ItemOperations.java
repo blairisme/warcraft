@@ -73,8 +73,14 @@ public class ItemOperations
     }
 
     public static boolean isNear(Item locus, float radius, Item target) {
-        Circle perimeter = new Circle(locus.getPosition(Alignment.Center), radius);
-        return ShapeUtilities.contains(perimeter, target.getBounds());
+        return isNear(locus, radius, target.getBounds());
+    }
+
+    public static boolean isNear(Item locus, float radius, Rectangle target) {
+        Vector2 position = locus.getPosition(Alignment.Center);
+        float size = locus.getSize().x * 0.5f + radius;
+        Circle perimeter = new Circle(position, size);
+        return ShapeUtilities.contains(perimeter, target);
     }
 
     public static boolean overlaps(Item itemA, Item itemB) {

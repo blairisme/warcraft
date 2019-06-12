@@ -31,10 +31,10 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
  *
  * @author Blair Butterworth
  */
-public class MoveToVectorScenario extends ScenarioAction
+public class MoveToVectorSequence extends ScenarioAction
 {
     @Inject
-    public MoveToVectorScenario(EventQueue events) {
+    public MoveToVectorSequence(EventQueue events) {
         scenario(MoveToLocation);
         given(isAlive());
         then(animate(Move));

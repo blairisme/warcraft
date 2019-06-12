@@ -1,52 +1,47 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.action.move;
 
-import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.item.common.movement.Movable;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
 /**
  * Instances of this {@link Action action} move an {@link Item} from its
- * current location to a given destination, specified as world position. The
- * moving item will be animated with a movement animation, as well choose a
- * path that avoids obstacles.
+ * current location to within attack range of a given target. The moving item
+ * will be animated with a movement animation, as well choosing a path that
+ * avoids obstacles.
  *
  * @author Blair Butterworth
  */
-public class MoveToVectorAction extends MoveAction
+public class MoveWithinRangeAction extends MoveAction
 {
     private ItemPathFilter filter;
     private MoveDestination destination;
 
     @Inject
-    public MoveToVectorAction() {
+    public MoveWithinRangeAction() {
         super();
     }
 
     @Override
     public MoveDestination getDestination() {
         if (destination == null) {
-            Item item = getItem();
-            ItemRoot root = item.getRoot();
-            UserInput cause = getCause();
-            Vector2 projected = cause.getPosition();
-            Vector2 position = root.unproject(projected);
-            destination = new MoveDestinationVector(position);
+            Item target = getTarget();
+            Combatant combatant = (Combatant)getItem();
+            destination = new MoveDestinationRange(target, combatant.getRange());
         }
         return destination;
     }
@@ -57,6 +52,7 @@ public class MoveToVectorAction extends MoveAction
             Movable item = (Movable)getItem();
             filter = new ItemPathFilter();
             filter.addTraversableItem(item);
+            filter.addTraversableItem(getTarget());
             filter.addTraversableCapability(item.getMovementCapability());
         }
         return filter;
@@ -76,8 +72,8 @@ public class MoveToVectorAction extends MoveAction
         destination = null;
     }
 
-    public static MoveToVectorAction moveToCause(Events events) {
-        MoveToVectorAction result = new MoveToVectorAction();
+    public static MoveWithinRangeAction moveWithinRange(Events events) {
+        MoveWithinRangeAction result = new MoveWithinRangeAction();
         result.setObserver(events);
         return result;
     }
