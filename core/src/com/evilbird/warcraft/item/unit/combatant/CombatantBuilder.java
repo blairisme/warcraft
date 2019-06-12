@@ -28,7 +28,7 @@ import java.util.Map;
 import static com.evilbird.warcraft.item.unit.combatant.CombatantVariety.MeleeCombatant;
 
 /**
- * Creates a new {@link Combatant} instances whose visual and audible
+ * Creates a new {@link Combatant} instance whose visual and audible
  * presentation is defined by the given {@link CombatantAssets}.
  *
  * @author Blair Butterworth
