@@ -1,0 +1,31 @@
+Pattern
+root / asset type / faction type / unit type / action type / specialization
+
+Root
+- data
+
+asset type
+- fonts
+- icons
+- levels
+- music
+- sounds
+- string
+- textures
+
+faction type
+- human
+- orc
+- neutral
+- common
+
+unit type
+- unit
+- building
+- menu
+
+action type
+-
+
+specialization (optional)
+- axe

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="26" nextobjectid="57">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="26" nextobjectid="58">
  <tileset firstgid="1" name="terrain_reduced" tilewidth="32" tileheight="32" tilecount="384" columns="16">
   <image source="../../textures/neutral/winter/terrain.png" width="512" height="768"/>
  </tileset>
@@ -253,6 +253,11 @@
    </properties>
   </object>
   <object id="22" name="Troll6" type="TrollAxethrower" gid="494" x="640" y="640" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Player2"/>
+   </properties>
+  </object>
+  <object id="57" name="Troll777" type="TrollAxethrower" gid="494" x="826" y="1086" width="72" height="72">
    <properties>
     <property name="Owner" value="Player2"/>
    </properties>

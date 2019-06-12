@@ -23,7 +23,9 @@ public class AttackSequenceTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        return new AttackSequence(Mockito.mock(EventQueue.class));
+        AttackSequence action = new AttackSequence(Mockito.mock(EventQueue.class));
+        action.setIdentifier(AttackActions.AttackMelee);
+        return action;
     }
 
     @Override

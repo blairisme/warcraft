@@ -96,7 +96,7 @@ public class InteractionDefinition implements Interaction
     }
 
     /**
-     * Specifies that this interaction applies when the target of the user
+     * Specifies that this interaction applies when the whileTarget of the user
      * behaviour is of the given type.
      *
      * @param identifier    an item type {@link Identifier}. This parameter
@@ -109,7 +109,7 @@ public class InteractionDefinition implements Interaction
     }
 
     /**
-     * Sets a condition applied to the target of the user behaviour, that
+     * Sets a condition applied to the whileTarget of the user behaviour, that
      * specifies the set of states this interaction applies to.
      *
      * @param condition a {@link Predicate}.
@@ -212,7 +212,7 @@ public class InteractionDefinition implements Interaction
 
     /**
      * Sets which {@link Item Items} the action resulting from this interaction
-     * will be applied to: the subject and target of the resulting
+     * will be applied to: the subject and whileTarget of the resulting
      * {@link Action}.
      *
      * @param applicability an {@link InteractionApplicability} option. This
@@ -228,13 +228,13 @@ public class InteractionDefinition implements Interaction
 
     /**
      * Sets which {@link Item Items} the action resulting from this interaction
-     * will be applied to: the subject and target of the resulting
+     * will be applied to: the subject and whileTarget of the resulting
      * {@link Action}.
      *
      * @param subjectSupplier   a {@link BiFunction} the provides the subject
      *                          for the resulting action. This parameter cannot
      *                          be {@code null}.
-     * @param targetSupplier    a {@link BiFunction} the provides the target
+     * @param targetSupplier    a {@link BiFunction} the provides the whileTarget
      *                          for the resulting action. This parameter cannot
      *                          be {@code null}.
      *

@@ -15,25 +15,25 @@ import com.evilbird.test.verifier.EqualityVerifier;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AttackActionTest
+public class MeleeAttackTest
 {
     private Item item;
     private Item target;
-    private AttackAction action;
+    private MeleeAttack action;
 
     @Before
     public void setup() {
         item = TestItems.newItem("footman");
         target = TestItems.newItem("grunt");
 
-        action = new AttackAction();
+        action = new MeleeAttack();
         action.setItem(item);
         action.setTarget(target);
     }
 
     @Test
     public void equalsTest() {
-        EqualityVerifier.forClass(AttackAction.class)
+        EqualityVerifier.forClass(MeleeAttack.class)
                 .withMockedTransientFields(Item.class)
                 .excludeTransientFields()
                 .verify();

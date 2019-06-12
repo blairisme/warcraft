@@ -17,14 +17,15 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.item.unit.combatant.CombatantBuilder;
+import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Arrow;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
-import static com.evilbird.warcraft.item.unit.combatant.CombatantVariety.RangedCombatant;
 
 /**
  * Instances of this factory create Elven Archers, Human entry level ranged
@@ -57,7 +58,7 @@ public class ElvenArcherFactory implements AssetProvider<Item>
 
     @Override
     public Item get() {
-        Combatant result = builder.build(RangedCombatant);
+        RangedCombatant result = builder.newRangedCombatant();
         result.setDefence(4);
         result.setDamageMinimum(4);
         result.setDamageMaximum(18);
@@ -68,9 +69,10 @@ public class ElvenArcherFactory implements AssetProvider<Item>
         result.setName("Elven Archer");
         result.setMovementSpeed(80);
         result.setMovementCapability(Land);
-        result.setRange(TILE_WIDTH + 5);
-        result.setSight(TILE_WIDTH * 4);
+        result.setRange(TILE_WIDTH * 4 + 5);
+        result.setSight(TILE_WIDTH * 5);
         result.setType(ElvenArcher);
+        result.setProjectileType(Arrow);
         return result;
     }
 }

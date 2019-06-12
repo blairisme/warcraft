@@ -26,6 +26,7 @@ public class CombatantAssetManifest
     private String acknowledge;
     private String selected;
     private String attack;
+    private String hit;
     private String ready;
     private String die;
 
@@ -33,7 +34,8 @@ public class CombatantAssetManifest
         String faction = getFaction(unitType);
         String name = getName(unitType);
         String type = getAttackType(unitType);
-        this.attack = "data/sounds/neutral/unit/attack/" + type + "/";
+        this.attack = "data/sounds/common/unit/attack/" + type + "/";
+        this.hit = "data/sounds/common/unit/hit/" + type + "/";
         this.acknowledge = "data/sounds/" + faction + "/unit/" + name + "/acknowledge/";
         this.selected = "data/sounds/" + faction + "/unit/" + name + "/selected/";
         this.ready = "data/sounds/" + faction + "/unit/" + name + "/ready/";
@@ -67,6 +69,10 @@ public class CombatantAssetManifest
         return attack;
     }
 
+    public String getHitSoundEffectPath() {
+        return hit;
+    }
+
     public String getReadySoundEffectPath() {
         return ready;
     }
@@ -93,6 +99,15 @@ public class CombatantAssetManifest
     }
 
     private String getAttackType(UnitType unitType) {
-        return "melee";
+        switch (unitType) {
+            case TrollAxethrower: return "axe";
+            case ElvenArcher: return "bow";
+            case ElvenDestroyer:
+            case TrollDestroyer: return "siege";
+            case Footman:
+            case Grunt:
+            case Peasant: return "sword";
+            default: throw new UnsupportedOperationException();
+        }
     }
 }

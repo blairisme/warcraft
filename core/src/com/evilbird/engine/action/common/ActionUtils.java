@@ -30,7 +30,7 @@ public class ActionUtils
      * Returns the {@link Item} indicated by the the given
      * {@link ActionRecipient} from given {@link Action}.
      *
-     * @param action    the {@code Action} whose subject, target, parent or
+     * @param action    the {@code Action} whose subject, whileTarget, parent or
      *                  root will be returned.
      * @param recipient the type of item to return.
      *

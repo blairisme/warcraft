@@ -184,7 +184,7 @@ public class InteractionBehaviour implements Behaviour
     }
 
     private void logInput(UserInput input, Item target, Item selected) {
-        logger.debug("User input - type: '{}' target: '{}' selected: '{}'",
+        logger.debug("User input - type: '{}' whileTarget: '{}' selected: '{}'",
             getType(input), getType(target), getType(selected));
     }
 

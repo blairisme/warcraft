@@ -50,8 +50,8 @@ public class TownHallFactory implements AssetProvider<Item>
     private static final String ICONS = "data/textures/neutral/perennial/icons.png";
     private static final String CONSTRUCTION = "data/textures/neutral/perennial/construction_large.png";
     private static final String DESTRUCTION = "data/textures/neutral/winter/destroyed_site.png";
-    private static final String DESTROYED = "data/sounds/neutral/building/destroyed/";
-    private static final String SELECTED = "data/sounds/neutral/building/selected/1.mp3";
+    private static final String DESTROYED = "data/sounds/common/building/destroyed/";
+    private static final String SELECTED = "data/sounds/common/building/selected/1.mp3";
 
     private AssetManager assets;
 

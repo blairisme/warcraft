@@ -52,7 +52,7 @@ public class FarmFactory implements AssetProvider<Item>
     private static final String CONSTRUCTION = "data/textures/neutral/perennial/construction.png";
     private static final String DESTRUCTION = "data/textures/neutral/winter/destroyed_site.png";
     private static final String SELECTED = "data/sounds/human/building/farm/selected/1.mp3";
-    private static final String DESTROYED = "data/sounds/neutral/building/destroyed/";
+    private static final String DESTROYED = "data/sounds/common/building/destroyed/";
 
     private AssetManager assets;
 

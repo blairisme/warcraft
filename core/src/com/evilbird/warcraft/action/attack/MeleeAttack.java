@@ -18,7 +18,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import javax.inject.Inject;
 
 /**
- * Instances of this {@link Action} reduce the health of the Actions target.
+ * Instances of this {@link Action} reduce the health of the Actions whileTarget.
  * The amount of damage inflicted will be chosen at random from between the
  * Action subjects damage {@link Combatant#getDamageMinimum() minimum} and
  * {@link Combatant#getDamageMaximum() maximum}. The Action will end when the
@@ -26,17 +26,17 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class AttackAction extends BasicAction
+public class MeleeAttack extends BasicAction
 {
     private transient RandomGenerator random;
 
     @Inject
-    public AttackAction() {
+    public MeleeAttack() {
         random = new RandomGenerator();
     }
 
-    public static AttackAction attack() {
-        return new AttackAction();
+    public static MeleeAttack meleeAttack() {
+        return new MeleeAttack();
     }
 
     @Override

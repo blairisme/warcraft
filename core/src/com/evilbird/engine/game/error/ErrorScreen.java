@@ -77,7 +77,7 @@ public class ErrorScreen extends ScreenAdapter
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, false);
+        stage.getViewport().update(width, height, true);
     }
 
     @Override

@@ -14,6 +14,7 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
+import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
@@ -23,18 +24,19 @@ import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AssignAction.assignIfAbsent;
 import static com.evilbird.engine.action.common.DirectionAction.reorient;
 import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
-import static com.evilbird.engine.action.predicates.ActionPredicates.target;
-import static com.evilbird.warcraft.action.attack.AttackAction.attack;
-import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
+import static com.evilbird.engine.action.predicates.ActionPredicates.whileTarget;
+import static com.evilbird.engine.common.function.Predicates.not;
 import static com.evilbird.warcraft.action.attack.AttackEvents.attackComplete;
 import static com.evilbird.warcraft.action.attack.AttackEvents.attackStarted;
+import static com.evilbird.warcraft.action.attack.MeleeAttack.meleeAttack;
+import static com.evilbird.warcraft.action.attack.RangedAttack.rangedAttack;
 import static com.evilbird.warcraft.action.common.death.DeathAction.kill;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.inRange;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isRanged;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.notInRange;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.MeleeAttack;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 import static com.evilbird.warcraft.item.unit.UnitSound.Attack;
 
@@ -59,7 +61,6 @@ public class AttackSequence extends ScenarioSetAction
     @Inject
     public AttackSequence(EventQueue events) {
         this.events = events;
-        feature(AttackMelee);
         reevaluate();
     }
 
@@ -67,29 +68,46 @@ public class AttackSequence extends ScenarioSetAction
     protected void features() {
         Combatant combatant = (Combatant)getItem();
         reposition(combatant);
-        engage(combatant);
+        engageMelee(combatant);
+        engageRanged(combatant);
     }
 
     private void reposition(Combatant combatant) {
-        scenario("reposition")
+        scenario("Reposition for attack")
             .whenTarget(isAlive())
             .whenTarget(notInRange(combatant))
             .givenItem(isAlive())
             .givenTarget(isAlive())
             .then(animate(Move))
             .then(move(events))
-            .then(animate(Idle), reorient());
+            .then(animate(Idle));
     }
 
-    private void engage(Combatant combatant) {
-        scenario("attack")
+    private void engageMelee(Combatant combatant) {
+        scenario("Melee attack")
+            .whenItem(not(isRanged()))
             .whenTarget(isAlive())
             .whenTarget(inRange(combatant))
             .givenItem(isAlive())
             .givenTarget(inRange(combatant))
-            .then(animate(MeleeAttack))
+            .then(animate(UnitAnimation.Attack))
             .then(attackStarted(events))
-            .then(attack(), playRepeat(Attack, target(isAlive())))
+            .then(meleeAttack(), playRepeat(Attack, whileTarget(isAlive())))
+            .then(attackComplete(events))
+            .then(animate(Idle))
+            .then(assignIfAbsent(kill(events), Target));
+    }
+
+    private void engageRanged(Combatant combatant) {
+        scenario("Ranged attack")
+            .whenItem(isRanged())
+            .whenTarget(isAlive())
+            .whenTarget(inRange(combatant))
+            .givenItem(isAlive())
+            .givenTarget(inRange(combatant))
+            .then(reorient())
+            .then(attackStarted(events))
+            .then(rangedAttack())
             .then(attackComplete(events))
             .then(animate(Idle))
             .then(assignIfAbsent(kill(events), Target));

@@ -56,6 +56,7 @@ public class UnitCosts
             switch ((UnitType)type) {
                 case Peasant:
                 case Footman: return Sets.of(resource(Food, 1));
+                default: return Collections.emptyList();
             }
         }
         return Collections.emptyList();

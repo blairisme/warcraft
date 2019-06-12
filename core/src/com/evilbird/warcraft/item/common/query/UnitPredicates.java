@@ -139,6 +139,10 @@ public class UnitPredicates
         return not(inRange(combatant));
     }
 
+    public static Predicate<Item> isRanged() {
+        return item -> UnitOperations.isRanged(item);
+    }
+
     public static Predicate<Item> isConstructing() {
         return (item) -> {
             Building building = (Building)item;

@@ -25,6 +25,8 @@ import com.evilbird.warcraft.item.unit.UnitStyle;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.evilbird.warcraft.item.unit.combatant.CombatantVariety.MeleeCombatant;
+
 /**
  * Creates a new {@link Combatant} instances whose visual and audible
  * presentation is defined by the given {@link CombatantAssets}.
@@ -39,15 +41,31 @@ public class CombatantBuilder
         this.assets = assets;
     }
 
+    public Combatant newMeleeCombatant() {
+        return build(CombatantVariety.MeleeCombatant);
+    }
+
+    public RangedCombatant newRangedCombatant() {
+        return (RangedCombatant)build(CombatantVariety.RangedCombatant);
+    }
+
+    public RangedCombatant newSeaCombatant() {
+        return (RangedCombatant)build(CombatantVariety.SeaCombatant);
+    }
+
     public Combatant build(CombatantVariety variety) {
-        Skin skin = getSkin(assets, variety);
-        Combatant result = new Combatant(skin);
+        Combatant result = newCombatant(variety);
         result.setAnimation(UnitAnimation.Idle);
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
         result.setSize(assets.getSize());
         return result;
+    }
+
+    private Combatant newCombatant(CombatantVariety variety) {
+        Skin skin = getSkin(assets, variety);
+        return variety == MeleeCombatant ? new Combatant(skin) : new RangedCombatant(skin);
     }
 
     private Skin getSkin(CombatantAssets assets, CombatantVariety variety) {
@@ -60,7 +78,7 @@ public class CombatantBuilder
     private AnimatedItemStyle getAnimationStyle(CombatantAssets assets, CombatantVariety variety) {
         AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
         animatedItemStyle.animations = getAnimations(assets, variety);
-        animatedItemStyle.sounds = getSounds(assets);
+        animatedItemStyle.sounds = getSounds(assets, variety);
         return animatedItemStyle;
     }
 
@@ -80,8 +98,7 @@ public class CombatantBuilder
         AnimationSetBuilder builder = new AnimationSetBuilder();
         builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(), general);
         builder.set(UnitAnimation.Move, AnimationSchemas.moveSchema(), general);
-        builder.set(UnitAnimation.MeleeAttack, AnimationSchemas.attackSchema(), general);
-        builder.set(UnitAnimation.Hidden, AnimationSchemas.hiddenSchema(), general);
+        builder.set(UnitAnimation.Attack, AnimationSchemas.meleeAttackSchema(), general);
         builder.set(UnitAnimation.Death, AnimationSchemas.deathSchema(), general);
         builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decompose);
         return builder.build();
@@ -97,16 +114,37 @@ public class CombatantBuilder
     }
 
     private Map<Identifier, Animation> getRangedAnimations(Texture general, Texture decompose) {
-        return getMeleeAnimations(general, decompose);
+        AnimationSetBuilder builder = new AnimationSetBuilder();
+        builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(), general);
+        builder.set(UnitAnimation.Move, AnimationSchemas.moveSchema(), general);
+        builder.set(UnitAnimation.Attack, AnimationSchemas.rangedAttackSchema(), general);
+        builder.set(UnitAnimation.Death, AnimationSchemas.deathSchema(), general);
+        builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decompose);
+        return builder.build();
     }
 
-    private Map<Identifier, SoundEffect> getSounds(CombatantAssets assets) {
+    private Map<Identifier, SoundEffect> getSounds(CombatantAssets assets, CombatantVariety variety) {
+        switch(variety) {
+            case MeleeCombatant: return getMeleeSounds(assets);
+            case SeaCombatant:
+            case RangedCombatant: return getRangedSounds(assets);
+            default: throw new UnsupportedOperationException();
+        }
+    }
+
+    private Map<Identifier, SoundEffect> getMeleeSounds(CombatantAssets assets) {
         Map<Identifier, SoundEffect> sounds = new HashMap<>();
         sounds.put(UnitSound.Acknowledge, assets.getAcknowledgeSound());
         sounds.put(UnitSound.Selected, assets.getSelectedSound());
         sounds.put(UnitSound.Attack, assets.getAttackSound());
         sounds.put(UnitSound.Die, assets.getDieSound());
         sounds.put(UnitSound.Ready, assets.getReadySound());
+        return sounds;
+    }
+
+    private Map<Identifier, SoundEffect> getRangedSounds(CombatantAssets assets) {
+        Map<Identifier, SoundEffect> sounds = getMeleeSounds(assets);
+        sounds.put(UnitSound.Hit, assets.getHitSound());
         return sounds;
     }
 

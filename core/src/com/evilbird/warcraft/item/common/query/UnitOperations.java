@@ -16,6 +16,7 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.common.movement.Movable;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -98,5 +99,9 @@ public class UnitOperations
 
     public static boolean inRange(Combatant combatant, Item target) {
         return isNear(combatant, combatant.getRange(), target);
+    }
+
+    public static boolean isRanged(Item item) {
+        return item instanceof RangedCombatant;
     }
 }

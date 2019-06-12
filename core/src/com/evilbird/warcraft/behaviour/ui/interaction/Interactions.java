@@ -104,6 +104,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
 import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
+import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
 
 /**
  * Instances of this class define the different ways the user can interact with
@@ -134,8 +135,16 @@ public class Interactions
 
     private void attackInteractions() {
         attackInteraction(Footman, Grunt);
+        attackInteraction(Footman, TrollAxethrower);
         attackInteraction(Footman, WallSection);
+
         attackInteraction(Peasant, Grunt);
+        attackInteraction(Peasant, TrollAxethrower);
+        attackInteraction(Peasant, WallSection);
+
+        attackInteraction(ElvenArcher, Grunt);
+        attackInteraction(ElvenArcher, TrollAxethrower);
+        attackInteraction(ElvenArcher, WallSection);
     }
 
     private void attackInteraction(Identifier combatant, Identifier target) {
@@ -210,7 +219,6 @@ public class Interactions
         interactions.addAction(cancelAction)
             .whenTarget(CancelButton)
             .whenSelected(both(withType(building), isConstructing()))
-//            .appliedTo(Selected);
             .appliedTo(
                 (target, selected) -> selected,
                 (target, selected) -> ((Unit)selected).getAssociatedItem());
@@ -218,7 +226,6 @@ public class Interactions
         interactions.addAction(cancelAction)
             .whenTarget(CancelButton)
             .whenSelected(both(withType(builder), associatedWith(building)))
-//            .appliedTo(Selected);
             .appliedTo(
                 (target, selected) -> ((Unit)selected).getAssociatedItem(),
                 (target, selected) -> selected);
@@ -301,17 +308,9 @@ public class Interactions
     }
 
     private void moveInteractions() {
-        moveOverLandInteractions();
-        moveOverWaterInteractions();
-    }
-
-    private void moveOverLandInteractions() {
         moveInteraction(Footman, Map);
         moveInteraction(Peasant, Map);
         moveInteraction(ElvenArcher, Map);
-    }
-
-    private void moveOverWaterInteractions() {
         moveInteraction(ElvenDestroyer, Sea);
     }
 

@@ -30,7 +30,7 @@ public class LambdaAction extends BasicAction
      * called when the action is invoked.
      *
      * @param lambda    a {@link BiConsumer} that will receive the
-     *                  current item and target when invoked. This parameter
+     *                  current item and whileTarget when invoked. This parameter
      *                  cannot be {@code null}.
      */
     public LambdaAction(BiConsumer<Item, Item> lambda) {

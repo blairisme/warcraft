@@ -16,7 +16,7 @@ import com.evilbird.engine.item.Item;
 import java.util.function.Supplier;
 
 /**
- * An {@link Action} that updates the item or target of a given {@link Action}
+ * An {@link Action} that updates the item or whileTarget of a given {@link Action}
  * action when run, before delegating execution to the Action.
  *
  * @author Blair Butterworth

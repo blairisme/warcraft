@@ -91,10 +91,16 @@ public class AnimationSchemas
         return new AnimationSchema(frames, 0.10f, true);
     }
 
-    public static AnimationSchema attackSchema() {
+    public static AnimationSchema meleeAttackSchema() {
         List<List<Rectangle>> regions = getRegions(8, 4, 0, 360, 72, 72);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
         return new AnimationSchema(frames, 0.15f, true);
+    }
+
+    public static AnimationSchema rangedAttackSchema() {
+        List<List<Rectangle>> regions = getRegions(8, 2, 0, 360, 72, 72);
+        Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
+        return new AnimationSchema(frames, 0.15f, false);
     }
 
     public static AnimationSchema buildingDestructionScheme() {

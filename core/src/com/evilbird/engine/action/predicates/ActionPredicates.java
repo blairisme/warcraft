@@ -33,7 +33,7 @@ public class ActionPredicates
         return action -> condition.test(action.getItem());
     }
 
-    public static Predicate<Action> target(Predicate<Item> condition) {
+    public static Predicate<Action> whileTarget(Predicate<Item> condition) {
         return action -> condition.test(action.getTarget());
     }
 }

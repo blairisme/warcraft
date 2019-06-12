@@ -42,9 +42,16 @@ public class AttackFactory implements ActionProvider
     public Action get(ActionIdentifier action) {
         Validate.isInstanceOf(AttackActions.class, action);
         switch ((AttackActions)action) {
-            case AttackMelee: return attackPool.obtain();
-            case AttackCancel: return cancelPool.obtain();
+            case AttackMelee:
+            case AttackRanged: return getAction(attackPool, action);
+            case AttackCancel: return getAction(cancelPool, action);
             default: throw new UnsupportedOperationException();
         }
+    }
+
+    private <T extends Action> T getAction(InjectedPool<T> pool, ActionIdentifier identifier) {
+        T result = pool.obtain();
+        result.setIdentifier(identifier);
+        return result;
     }
 }

@@ -78,6 +78,10 @@ public class CombatantAssets
     public SoundEffect getAttackSound() {
         return newSoundEffect(manifest.getAttackSoundEffectPath());
     }
+
+    public SoundEffect getHitSound() {
+        return newSoundEffect(manifest.getHitSoundEffectPath());
+    }
     
     public SoundEffect getDieSound() {
         return newSoundEffect(manifest.getDieSoundEffectPath());
@@ -110,6 +114,7 @@ public class CombatantAssets
         loadSoundSet(manifest.getAcknowledgeSoundEffectPath());
         loadSoundSet(manifest.getSelectedSoundEffectPath());
         loadSoundSet(manifest.getAttackSoundEffectPath());
+        loadSoundSet(manifest.getHitSoundEffectPath());
         loadSoundSet(manifest.getDieSoundEffectPath());
         loadSoundSet(manifest.getReadySoundEffectPath());
     }

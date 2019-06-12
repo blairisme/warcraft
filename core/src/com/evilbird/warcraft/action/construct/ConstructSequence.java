@@ -29,7 +29,7 @@ import static com.evilbird.engine.action.common.DisableAction.enable;
 import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
-import static com.evilbird.engine.action.predicates.ActionPredicates.target;
+import static com.evilbird.engine.action.predicates.ActionPredicates.whileTarget;
 import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
 import static com.evilbird.warcraft.action.common.associate.AssociateAction.associate;
 import static com.evilbird.warcraft.action.common.associate.AssociateAction.unassociate;
@@ -109,7 +109,9 @@ public class ConstructSequence extends ScenarioSetAction
             .givenItem(isAlive())
             .whenTarget(hasType(building))
             .whenTarget(isConstructing())
-            .then(construct(buildProgress(building), buildTime(building)), playRepeat(Build, target(isConstructing())))
+            .then(construct(buildProgress(building),
+                    buildTime(building)),
+                    playRepeat(Build, whileTarget(isConstructing())))
             .then(show(), enable(), animate(Idle), animate(Target, Idle), play(Complete), moveAdjacentTarget())
             .then(transferAll(Target, Player, events), unassociate())
             .then(constructCompleted(events));

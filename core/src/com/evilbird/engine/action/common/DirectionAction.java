@@ -31,7 +31,7 @@ public class DirectionAction extends BasicAction
 
     /**
      * Creates a new {@link DirectionAction}, which when invoked will reorient
-     * the actions subject towards the actions target.
+     * the actions subject towards the actions whileTarget.
      *
      * @return  a {@code DirectionAction} instance. Will not return
      *          {@code null}.

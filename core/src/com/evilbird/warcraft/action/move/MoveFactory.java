@@ -19,7 +19,7 @@ import javax.inject.Inject;
 
 /**
  * Instances of this class create {@link Action Actions} that instruct a given
- * {@link Item} to move to the given target following a path that conforms to
+ * {@link Item} to move to the given whileTarget following a path that conforms to
  * its movement capability.
  *
  * @author Blair Butterworth

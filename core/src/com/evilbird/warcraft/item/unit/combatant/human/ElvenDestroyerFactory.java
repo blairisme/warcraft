@@ -14,17 +14,17 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.item.unit.combatant.CombatantBuilder;
+import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Sea;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannon;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
-import static com.evilbird.warcraft.item.unit.combatant.CombatantVariety.SeaCombatant;
 
 /**
  * Instances of this factory create Elven Destroyers, Human entry level ships.
@@ -56,7 +56,7 @@ public class ElvenDestroyerFactory implements AssetProvider<Item>
 
     @Override
     public Item get() {
-        Combatant result = builder.build(SeaCombatant);
+        RangedCombatant result = builder.newSeaCombatant();
         result.setDefence(4);
         result.setDamageMinimum(4);
         result.setDamageMaximum(18);
@@ -70,6 +70,7 @@ public class ElvenDestroyerFactory implements AssetProvider<Item>
         result.setRange(TILE_WIDTH + 5);
         result.setSight(TILE_WIDTH * 4);
         result.setType(ElvenDestroyer);
+        result.setProjectileType(Cannon);
         return result;
     }
 }

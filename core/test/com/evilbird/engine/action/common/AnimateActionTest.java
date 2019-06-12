@@ -34,14 +34,14 @@ public class AnimateActionTest extends GameTestCase
         item = TestCombatants.newTestCombatant("animateactiontest");
         item.setAnimation(UnitAnimation.Idle);
 
-        action = new AnimateAction(UnitAnimation.MeleeAttack);
+        action = new AnimateAction(UnitAnimation.Attack);
         action.setItem(item);
     }
 
     @Test
     public void actTest() {
         Assert.assertTrue(action.act(1));
-        Assert.assertEquals(UnitAnimation.MeleeAttack, item.getAnimation());
+        Assert.assertEquals(UnitAnimation.Attack, item.getAnimation());
     }
 
     @Test

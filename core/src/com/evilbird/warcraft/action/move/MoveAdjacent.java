@@ -39,7 +39,7 @@ import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
 
 /**
  * Instances of this {@link Action} position the subject of the action in the
- * first unoccupied position adjacent to the actions target.
+ * first unoccupied position adjacent to the actions whileTarget.
  *
  * @author Blair Butterworth
  */

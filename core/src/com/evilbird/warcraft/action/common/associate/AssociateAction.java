@@ -15,7 +15,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.Unit;
 
 /**
- * Instances of this {@link Action} associate the subject and target of the
+ * Instances of this {@link Action} associate the subject and whileTarget of the
  * action with each other.
  *
  * @author Blair Butterworth

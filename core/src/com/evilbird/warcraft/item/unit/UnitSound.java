@@ -21,6 +21,7 @@ import com.evilbird.engine.common.serialization.SerializedType;
 public enum UnitSound implements Identifier
 {
     Attack,
+    Hit,
     Die,
 
     Selected,

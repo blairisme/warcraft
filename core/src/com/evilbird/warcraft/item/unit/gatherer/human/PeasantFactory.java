@@ -54,7 +54,7 @@ public class PeasantFactory implements AssetProvider<Item>
     private static final String MOVE_GOLD = "data/textures/human/perennial/peasant_move_gold.png";
     private static final String MOVE_WOOD = "data/textures/human/perennial/peasant_move_wood.png";
 
-    private static final String CHOPPING = "data/sounds/neutral/unit/chopping/";
+    private static final String CHOPPING = "data/sounds/common/unit/chopping/";
     private static final String SELECTED = "data/sounds/human/unit/peasant/selected/";
     private static final String ACKNOWLEDGE = "data/sounds/human/unit/peasant/acknowledge/";
     private static final String ATTACK = "data/sounds/human/unit/peasant/attack/1.mp3";

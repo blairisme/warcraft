@@ -17,6 +17,8 @@ import com.evilbird.warcraft.item.data.DataProvider;
 import com.evilbird.warcraft.item.effect.EffectFactory;
 import com.evilbird.warcraft.item.layer.LayerFactory;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
+import com.evilbird.warcraft.item.projectile.ProjectileFactory;
+import com.evilbird.warcraft.item.projectile.ProjectileType;
 import com.evilbird.warcraft.item.ui.hud.HudFactory;
 import com.evilbird.warcraft.item.ui.hud.HudType;
 import com.evilbird.warcraft.item.ui.placement.PlaceholderFactory;
@@ -41,7 +43,8 @@ public class WarcraftItemFactory implements ItemFactory
         UnitFactory unitFactory,
         EffectFactory effectFactory,
         HudFactory hudFactory,
-        PlaceholderFactory placeholderFactory)
+        PlaceholderFactory placeholderFactory,
+        ProjectileFactory projectileFactory)
     {
         providers = new IdentifiedAssetProviderSet<>();
         providers.addProvider(unitFactory);
@@ -50,6 +53,7 @@ public class WarcraftItemFactory implements ItemFactory
         providers.addProvider(placeholderFactory);
         providers.addProvider(HudType.class, hudFactory);
         providers.addProvider(LayerIdentifier.class, layerFactory);
+        providers.addProvider(ProjectileType.class, projectileFactory);
     }
 
     @Override

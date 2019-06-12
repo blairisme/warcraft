@@ -33,18 +33,18 @@ public class AnimationSets
     private AnimationSets() {
     }
 
-    public static Map<Identifier, Animation> combatantAnimations(
-            Texture generalTexture, Texture decomposeTexture)
-    {
-        AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(), generalTexture);
-        builder.set(UnitAnimation.Move, AnimationSchemas.moveSchema(), generalTexture);
-        builder.set(UnitAnimation.MeleeAttack, AnimationSchemas.attackSchema(), generalTexture);
-        builder.set(UnitAnimation.Hidden, AnimationSchemas.hiddenSchema(), generalTexture);
-        builder.set(UnitAnimation.Death, AnimationSchemas.deathSchema(), generalTexture);
-        builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decomposeTexture);
-        return builder.build();
-    }
+//    public static Map<Identifier, Animation> combatantAnimations(
+//            Texture generalTexture, Texture decomposeTexture)
+//    {
+//        AnimationSetBuilder builder = new AnimationSetBuilder();
+//        builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(), generalTexture);
+//        builder.set(UnitAnimation.Move, AnimationSchemas.moveSchema(), generalTexture);
+//        builder.set(UnitAnimation.Attack, AnimationSchemas.attackSchema(), generalTexture);
+//        builder.set(UnitAnimation.Hidden, AnimationSchemas.hiddenSchema(), generalTexture);
+//        builder.set(UnitAnimation.Death, AnimationSchemas.deathSchema(), generalTexture);
+//        builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decomposeTexture);
+//        return builder.build();
+//    }
 
     public static Map<Identifier, Animation> gatherAnimations(
             Texture generalTexture, Texture decomposeTexture, Texture moveGoldTexture, Texture moveWoodTexture)
@@ -58,12 +58,12 @@ public class AnimationSets
         builder.set(UnitAnimation.MoveGold, AnimationSchemas.moveSchema(), moveGoldTexture);
         builder.set(UnitAnimation.MoveWood, AnimationSchemas.moveSchema(), moveWoodTexture);
         builder.associate(UnitAnimation.Move, UnitAnimation.MoveBasic);
-        builder.set(UnitAnimation.MeleeAttack, AnimationSchemas.attackSchema(), generalTexture);
+        builder.set(UnitAnimation.Attack, AnimationSchemas.meleeAttackSchema(), generalTexture);
         builder.set(UnitAnimation.Hidden, AnimationSchemas.hiddenSchema(), generalTexture);
         builder.set(UnitAnimation.Death, AnimationSchemas.deathSchema(), generalTexture);
         builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decomposeTexture);
         builder.associate(UnitAnimation.GatherGold, UnitAnimation.Hidden);
-        builder.associate(UnitAnimation.GatherWood, UnitAnimation.MeleeAttack);
+        builder.associate(UnitAnimation.GatherWood, UnitAnimation.Attack);
         builder.associate(UnitAnimation.Build, UnitAnimation.Hidden);
         return builder.build();
     }
