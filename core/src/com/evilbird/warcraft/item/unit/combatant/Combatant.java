@@ -31,6 +31,7 @@ import static com.evilbird.warcraft.item.common.movement.MovementCapability.None
 public class Combatant extends Unit implements Movable
 {
     private int level;
+    private float attackSpeed;
     private int damageMinimum;
     private int damageMaximum;
     private int range;
@@ -40,6 +41,10 @@ public class Combatant extends Unit implements Movable
     public Combatant(Skin skin) {
         super(skin);
         movementCapability = None;
+    }
+
+    public float getAttackSpeed() {
+        return attackSpeed;
     }
 
     public int getDamageMinimum() {
@@ -72,6 +77,10 @@ public class Combatant extends Unit implements Movable
 
     public int getRangeTiles() {
         return range / TILE_WIDTH;
+    }
+
+    public void setAttackSpeed(float attackSpeed) {
+        this.attackSpeed = attackSpeed;
     }
 
     public void setDamageMinimum(int damageMinimum) {
@@ -121,6 +130,7 @@ public class Combatant extends Unit implements Movable
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(level, combatant.level)
+            .append(attackSpeed, combatant.attackSpeed)
             .append(damageMinimum, combatant.damageMinimum)
             .append(damageMaximum, combatant.damageMaximum)
             .append(range, combatant.range)
@@ -134,6 +144,7 @@ public class Combatant extends Unit implements Movable
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
             .append(level)
+            .append(attackSpeed)
             .append(damageMinimum)
             .append(damageMaximum)
             .append(range)

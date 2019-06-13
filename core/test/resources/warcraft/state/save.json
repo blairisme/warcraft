@@ -37,6 +37,7 @@
               "enum": "Footman"
             },
             "level": 0,
+            "attackSpeed": 0.0,
             "damageMinimum": 0,
             "damageMaximum": 0,
             "range": 0,
@@ -138,6 +139,7 @@
               "enum": "Footman"
             },
             "level": 0,
+            "attackSpeed": 0.0,
             "damageMinimum": 0,
             "damageMaximum": 0,
             "range": 0,

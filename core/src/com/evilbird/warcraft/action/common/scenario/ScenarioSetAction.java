@@ -48,6 +48,7 @@ public class ScenarioSetAction extends BasicAction
         scenario.setItem(getItem());
         scenario.setTarget(getTarget());
         scenario.setCause(getCause());
+        //scenario.then(new LambdaAction((subject, target) -> System.out.println(name)));
         actions.add(scenario);
         return scenario;
     }
@@ -59,7 +60,7 @@ public class ScenarioSetAction extends BasicAction
         }
         boolean result = actions.act(delta);
         if (result && repeat()) {
-            restart();
+            actions.restart();
             result = false;
         }
         return result;

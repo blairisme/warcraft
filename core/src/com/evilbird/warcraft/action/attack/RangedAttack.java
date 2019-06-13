@@ -30,9 +30,6 @@ import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
  */
 public class RangedAttack extends BasicAction
 {
-    private static final transient float PROJECTILE_SPEED = 500;
-    private static final transient float PROJECTILE_RELOAD = 1.5f;
-
     private transient RangedCombatant combatant;
     private transient Projectile projectile;
     private transient Destroyable target;
@@ -143,6 +140,7 @@ public class RangedAttack extends BasicAction
         destination = target.getPosition();
         projectile.setPosition(combatant.getPosition());
         projectile.setVisible(true);
+        combatant.resetAnimation();
         combatant.setAnimation(UnitAnimation.Attack);
         combatant.setSound(UnitSound.Attack);
     }
@@ -162,7 +160,7 @@ public class RangedAttack extends BasicAction
     private Vector2 getNextPosition(Vector2 position, Vector2 destination, float time) {
         Vector2 remaining = destination.cpy().sub(position);
         float remainingDistance = remaining.len();
-        float incrementDistance = time * PROJECTILE_SPEED;
+        float incrementDistance = time * projectile.getSpeed();
 
         if (remainingDistance > incrementDistance) {
             Vector2 direction = remaining.nor();
@@ -177,15 +175,15 @@ public class RangedAttack extends BasicAction
         target.setHealth(newHealth);
         combatant.setSound(UnitSound.Hit);
         projectile.setVisible(false);
-        reloadTime = Math.max(PROJECTILE_RELOAD - flightTime, 0);
+        reloadTime = Math.max(combatant.getAttackSpeed() - flightTime, 0);
         return newHealth == 0;
     }
 
     private float getNewHealth() {
-        int attackMin = combatant.getDamageMinimum();
-        int attackMax = combatant.getDamageMaximum();
+        int attackMin = Math.round(combatant.getDamageMinimum() * combatant.getAttackSpeed());
+        int attackMax = Math.round(combatant.getDamageMaximum() * combatant.getAttackSpeed());
         int attack = random.nextInt(attackMin, attackMax);
-        int defence = target.getDefence();
+        int defence = Math.round(target.getDefence() * combatant.getAttackSpeed());
         int damage = Math.max(0, attack - defence);
         float health = target.getHealth();
         return Math.max(0, health - damage);

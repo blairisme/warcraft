@@ -92,14 +92,16 @@ public class AnimationSchemas
     }
 
     public static AnimationSchema meleeAttackSchema() {
-        List<List<Rectangle>> regions = getRegions(8, 4, 0, 360, 72, 72);
-        Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 0.15f, true);
+        Map<Range<Float>, List<Rectangle>> attack = getFrames(getRegions(8, 4, 0, 360, 72, 72));
+        Map<Range<Float>, List<Rectangle>> idle = getFrames(getRegions(8, 1, 0, 0, 72, 72));
+        Map<Range<Float>, List<Rectangle>> frames = combineFrames(attack, idle);
+        return new AnimationSchema(frames, 0.15f, false);
     }
 
     public static AnimationSchema rangedAttackSchema() {
-        List<List<Rectangle>> regions = getRegions(8, 2, 0, 360, 72, 72);
-        Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
+        Map<Range<Float>, List<Rectangle>> attack = getFrames(getRegions(8, 2, 0, 360, 72, 72));
+        Map<Range<Float>, List<Rectangle>> idle = getFrames(getRegions(8, 1, 0, 0, 72, 72));
+        Map<Range<Float>, List<Rectangle>> frames = combineFrames(attack, idle);
         return new AnimationSchema(frames, 0.15f, false);
     }
 
@@ -181,5 +183,20 @@ public class AnimationSchemas
             return frames;
         }
         throw new UnsupportedOperationException();
+    }
+
+    private static Map<Range<Float>, List<Rectangle>> combineFrames(
+            Map<Range<Float>, List<Rectangle>> framesA,
+            Map<Range<Float>, List<Rectangle>> framesB)
+    {
+        Map<Range<Float>, List<Rectangle>> result = new HashMap<>();
+        for (Map.Entry<Range<Float>, List<Rectangle>> entry: framesA.entrySet()) {
+            Range<Float> direction = entry.getKey();
+            List<Rectangle> frames = new ArrayList<>();
+            frames.addAll(entry.getValue());
+            frames.addAll(framesB.get(direction));
+            result.put(direction, frames);
+        }
+        return result;
     }
 }

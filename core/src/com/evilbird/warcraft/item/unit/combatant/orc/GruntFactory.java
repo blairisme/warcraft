@@ -21,7 +21,7 @@ import com.evilbird.warcraft.item.unit.combatant.CombatantBuilder;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
 import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
 
@@ -57,9 +57,10 @@ public class GruntFactory implements AssetProvider<Item>
     @Override
     public Item get() {
         Combatant result = builder.newMeleeCombatant();
-        result.setDefence(4);
-        result.setDamageMinimum(4);
-        result.setDamageMaximum(18);
+        result.setAttackSpeed(1);
+        result.setDefence(2);
+        result.setDamageMinimum(2);
+        result.setDamageMaximum(9);
         result.setHealth(60);
         result.setHealthMaximum(60);
         result.setIdentifier(objectIdentifier("Grunt", result));
@@ -67,8 +68,8 @@ public class GruntFactory implements AssetProvider<Item>
         result.setName("Grunt");
         result.setMovementSpeed(80);
         result.setMovementCapability(Land);
-        result.setRange(TILE_WIDTH + 5);
-        result.setSight(TILE_WIDTH * 4);
+        result.setRange(tiles(1));
+        result.setSight(tiles(4));
         result.setType(Grunt);
         return result;
     }

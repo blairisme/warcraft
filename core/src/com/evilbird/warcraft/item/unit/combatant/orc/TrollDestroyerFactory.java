@@ -21,7 +21,7 @@ import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Sea;
 import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannon;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollDestroyer;
@@ -57,9 +57,10 @@ public class TrollDestroyerFactory implements AssetProvider<Item>
     @Override
     public Item get() {
         RangedCombatant result = builder.newSeaCombatant();
-        result.setDefence(10 * 2);
-        result.setDamageMinimum(2 * 2);
-        result.setDamageMaximum(35 * 2);
+        result.setAttackSpeed(1.5f);
+        result.setDefence(10);
+        result.setDamageMinimum(2);
+        result.setDamageMaximum(35);
         result.setHealth(100);
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("TrollDestroyer", result));
@@ -67,8 +68,8 @@ public class TrollDestroyerFactory implements AssetProvider<Item>
         result.setName("Troll Destroyer");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Sea);
-        result.setRange(TILE_WIDTH * 4);
-        result.setSight(TILE_WIDTH * 8);
+        result.setRange(tiles(4));
+        result.setSight(tiles(8));
         result.setType(TrollDestroyer);
         result.setProjectileType(Cannon);
         return result;

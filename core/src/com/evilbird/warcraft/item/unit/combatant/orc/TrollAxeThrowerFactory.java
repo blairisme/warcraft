@@ -22,7 +22,7 @@ import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
 import static com.evilbird.warcraft.item.projectile.ProjectileType.Axe;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
@@ -59,9 +59,10 @@ public class TrollAxeThrowerFactory implements AssetProvider<Item>
     @Override
     public Item get() {
         RangedCombatant result = builder.newRangedCombatant();
+        result.setAttackSpeed(1.5f);
         result.setDefence(0);
-        result.setDamageMinimum(3 * 2);
-        result.setDamageMaximum(9 * 2);
+        result.setDamageMinimum(3);
+        result.setDamageMaximum(9);
         result.setHealth(40);
         result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("TrollAxeThrower", result));
@@ -69,8 +70,8 @@ public class TrollAxeThrowerFactory implements AssetProvider<Item>
         result.setName("Troll Axe Thrower");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
-        result.setRange(TILE_WIDTH * 4);
-        result.setSight(TILE_WIDTH * 5);
+        result.setRange(tiles(4));
+        result.setSight(tiles(5));
         result.setType(TrollAxethrower);
         result.setProjectileType(Axe);
         return result;

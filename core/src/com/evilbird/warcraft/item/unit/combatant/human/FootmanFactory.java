@@ -21,7 +21,7 @@ import com.evilbird.warcraft.item.unit.combatant.CombatantBuilder;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 
@@ -57,9 +57,10 @@ public class FootmanFactory implements AssetProvider<Item>
     @Override
     public Item get() {
         Combatant result = builder.newMeleeCombatant();
-        result.setDefence(2 * 2);
-        result.setDamageMinimum(2 * 2);
-        result.setDamageMaximum(9 * 2);
+        result.setAttackSpeed(1);
+        result.setDefence(2);
+        result.setDamageMinimum(2);
+        result.setDamageMaximum(9);
         result.setHealth(60);
         result.setHealthMaximum(60);
         result.setIdentifier(objectIdentifier("Footman", result));
@@ -67,8 +68,8 @@ public class FootmanFactory implements AssetProvider<Item>
         result.setName("Footman");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
-        result.setRange(TILE_WIDTH + 5);
-        result.setSight(TILE_WIDTH * 4);
+        result.setRange(tiles(1));
+        result.setSight(tiles(4));
         result.setType(Footman);
         return result;
     }

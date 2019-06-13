@@ -71,6 +71,11 @@ public class ParallelAction extends CompositeAction
     }
 
     @Override
+    public boolean isEmpty() {
+        return actions.isEmpty() && completed.isEmpty();
+    }
+
+    @Override
     public void restart() {
         resetCompletion();
         super.restart();

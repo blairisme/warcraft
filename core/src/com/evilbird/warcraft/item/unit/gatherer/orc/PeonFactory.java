@@ -22,5 +22,12 @@ public class PeonFactory implements AssetProvider<Item>
     @Override
     public Item get() {
         throw new UnsupportedOperationException();
+
+        //armour: 0
+        //damage: 1-5
+        //range: 1
+        //sight: 4
+        //speed: 10
+        //health: 30
     }
 }

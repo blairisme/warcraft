@@ -20,7 +20,13 @@ import javax.inject.Inject;
  */
 public class Projectile extends AnimatedItem
 {
+    private static final transient int PROJECTILE_SPEED = 500;
+
     @Inject
     public Projectile() {
+    }
+
+    public int getSpeed() {
+        return PROJECTILE_SPEED;
     }
 }

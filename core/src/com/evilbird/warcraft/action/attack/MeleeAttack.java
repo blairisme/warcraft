@@ -13,6 +13,8 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.math.RandomGenerator;
+import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
@@ -29,6 +31,7 @@ import javax.inject.Inject;
 public class MeleeAttack extends BasicAction
 {
     private transient RandomGenerator random;
+    private transient float delay;
 
     @Inject
     public MeleeAttack() {
@@ -41,40 +44,53 @@ public class MeleeAttack extends BasicAction
 
     @Override
     public boolean act(float time) {
-        float defence = getDefence(time);
-        float attack = getAttack(time);
-        float damage = getDamage(attack, defence);
-        float health = setHealth(damage);
-        return isDead(health);
+        if (! readyToAttack()) {
+            reduceAttackDelay(time);
+        } else {
+            attackTarget();
+        }
+        return isTargetDead();
     }
 
-    private float getDefence(float time) {
+    private boolean readyToAttack() {
+        return delay == 0;
+    }
+
+    private void reduceAttackDelay(float time) {
+        delay = Math.max(delay - time, 0);
+    }
+
+    private void attackTarget() {
+        Combatant combatant = (Combatant)getItem();
         Destroyable target = (Destroyable)getTarget();
-        int defence = target.getDefence();
-        return time * defence;
+        setTargetHealth(combatant, target);
+        setCombatantAnimation(combatant);
+        delay = combatant.getAttackSpeed();
     }
 
-    private float getAttack(float time) {
-        Combatant attacker = (Combatant)getItem();
-        int attackMin = attacker.getDamageMinimum();
-        int attackMax = attacker.getDamageMaximum();
-        int attack = random.nextInt(attackMin, attackMax);
-        return time * attack;
+    private void setCombatantAnimation(Combatant combatant) {
+        combatant.resetAnimation();
+        combatant.setAnimation(UnitAnimation.Attack);
+        combatant.setSound(UnitSound.Attack);
     }
 
-    private float getDamage(float attack, float defence) {
-       return Math.max(0, attack - defence);
-    }
-
-    private float setHealth(float damage) {
-        Destroyable target = (Destroyable)getTarget();
-        float oldHealth = target.getHealth();
-        float newHealth = Math.max(0, oldHealth - damage);
+    private void setTargetHealth(Combatant combatant, Destroyable target) {
+        float health = target.getHealth();
+        float damage = getAttackDamage(combatant, target);
+        float newHealth = Math.max(0, health - damage);
         target.setHealth(newHealth);
-        return newHealth;
     }
 
-    private boolean isDead(float health) {
-        return health == 0f;
+    private float getAttackDamage(Combatant combatant, Destroyable target) {
+        int attackMin = Math.round(combatant.getDamageMinimum() * combatant.getAttackSpeed());
+        int attackMax = Math.round(combatant.getDamageMaximum() * combatant.getAttackSpeed());
+        int attack = random.nextInt(attackMin, attackMax);
+        int defence = Math.round(target.getDefence() * combatant.getAttackSpeed());
+        return Math.max(0, attack - defence);
+    }
+
+    private boolean isTargetDead() {
+        Destroyable target = (Destroyable)getTarget();
+        return target.getHealth() == 0;
     }
 }

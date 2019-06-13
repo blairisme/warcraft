@@ -17,7 +17,7 @@ package com.evilbird.warcraft.item.unit.combatant;
  */
 public class CombatantVisualization
 {
-    public static final int ATTACK_FACTOR = 2;
+    public static final int ATTACK_FACTOR = 1;
     public static final int MOVEMENT_FACTOR = 8;
 
     private CombatantVisualization() {

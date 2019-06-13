@@ -21,4 +21,8 @@ public class WarcraftItemConstants
 
     private WarcraftItemConstants() {
     }
+
+    public static int tiles(float count) {
+        return Math.round(count * TILE_WIDTH);
+    }
 }

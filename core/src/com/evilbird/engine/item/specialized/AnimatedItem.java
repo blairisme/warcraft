@@ -119,6 +119,10 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible, Direct
         animations.put(aliasId, animation);
     }
 
+    public void resetAnimation() {
+        animationTime = 0;
+    }
+
     @Override
     public void setSound(Identifier id) {
         if (currentSound != null) {
