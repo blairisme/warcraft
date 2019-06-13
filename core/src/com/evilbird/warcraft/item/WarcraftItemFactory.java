@@ -22,6 +22,7 @@ import com.evilbird.warcraft.item.projectile.ProjectileType;
 import com.evilbird.warcraft.item.ui.hud.HudFactory;
 import com.evilbird.warcraft.item.ui.hud.HudType;
 import com.evilbird.warcraft.item.ui.placement.PlaceholderFactory;
+import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
 import com.evilbird.warcraft.item.unit.UnitFactory;
 
 import javax.inject.Inject;
@@ -50,7 +51,7 @@ public class WarcraftItemFactory implements ItemFactory
         providers.addProvider(unitFactory);
         providers.addProvider(dataProvider);
         providers.addProvider(effectFactory);
-        providers.addProvider(placeholderFactory);
+        providers.addProvider(PlaceholderType.class, placeholderFactory);
         providers.addProvider(HudType.class, hudFactory);
         providers.addProvider(LayerIdentifier.class, layerFactory);
         providers.addProvider(ProjectileType.class, projectileFactory);

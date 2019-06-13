@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.ui.placement;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.events.Event;
@@ -80,6 +81,10 @@ public class Placeholder extends ItemBasic
     public void setRoot(ItemRoot root) {
         super.setRoot(root);
         evaluateOccupation(root);
+    }
+
+    public void setSize(GridPoint2 size) {
+        super.setSize(size.x, size.y);
     }
 
     @Override

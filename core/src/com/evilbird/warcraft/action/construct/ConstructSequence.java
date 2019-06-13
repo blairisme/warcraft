@@ -50,8 +50,8 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.BuildingSite;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Construct;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
-import static com.evilbird.warcraft.item.unit.UnitAttributes.costOf;
 import static com.evilbird.warcraft.item.unit.UnitAttributes.buildTime;
+import static com.evilbird.warcraft.item.unit.UnitAttributes.costOf;
 import static com.evilbird.warcraft.item.unit.UnitSound.Build;
 import static com.evilbird.warcraft.item.unit.UnitSound.Complete;
 
