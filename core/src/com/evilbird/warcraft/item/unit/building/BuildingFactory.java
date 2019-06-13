@@ -15,6 +15,7 @@ import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.human.BarracksFactory;
 import com.evilbird.warcraft.item.unit.building.human.FarmFactory;
+import com.evilbird.warcraft.item.unit.building.human.LumberMillFactory;
 import com.evilbird.warcraft.item.unit.building.human.TownHallFactory;
 import com.evilbird.warcraft.item.unit.building.neutral.CircleOfPowerFactory;
 import com.evilbird.warcraft.item.unit.building.orc.WatchTowerFactory;
@@ -33,16 +34,18 @@ public class BuildingFactory extends IdentifiedAssetProviderSet<Item>
     @Inject
     public BuildingFactory(
         BarracksFactory barracksFactory,
-        FarmFactory farmFactory,
-        TownHallFactory townHallFactory,
         CircleOfPowerFactory circleOfPowerFactory,
+        FarmFactory farmFactory,
+        LumberMillFactory lumberMillFactory,
+        TownHallFactory townHallFactory,
         WatchTowerFactory watchTowerFactory)
     {
         super();
         addProvider(UnitType.Barracks, barracksFactory);
-        addProvider(UnitType.Farm, farmFactory);
-        addProvider(UnitType.TownHall, townHallFactory);
         addProvider(UnitType.CircleOfPower, circleOfPowerFactory);
+        addProvider(UnitType.Farm, farmFactory);
+        addProvider(UnitType.LumberMill, lumberMillFactory);
+        addProvider(UnitType.TownHall, townHallFactory);
         addProvider(UnitType.WatchTower, watchTowerFactory);
     }
 }

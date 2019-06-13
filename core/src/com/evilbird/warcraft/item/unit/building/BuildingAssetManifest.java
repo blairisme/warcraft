@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.unit.building;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.text.CaseUtils;
 import com.evilbird.warcraft.item.unit.UnitType;
 
@@ -27,10 +28,10 @@ public class BuildingAssetManifest
     private String destroyed;
     private String selected;
     
-    public BuildingAssetManifest(UnitType unitType) {
+    public BuildingAssetManifest(UnitType unitType, GridPoint2 dimensions) {
         String faction = getFaction(unitType);
         String name = getName(unitType);
-        String size = getSize(unitType);
+        String size = getSize(dimensions);
         String season = getSeason(unitType);
         base = "data/textures/" + faction + "/" + season + "/" + name + ".png";
         icons = "data/textures/neutral/perennial/icons.png";
@@ -69,25 +70,17 @@ public class BuildingAssetManifest
     }
 
     private String getFaction(UnitType unitType) {
-        switch (unitType) {
-            case Barracks:
-            case Farm:
-            case TownHall: return "human";
-            case WatchTower: return "orc";
-            case CircleOfPower: return "neutral";
-            default: throw new UnsupportedOperationException();
-        }
+        return CaseUtils.toSnakeCase(unitType.getFaction().name());
     }
 
-    private String getSize(UnitType unitType) {
-        switch (unitType) {
-            case Farm:
-            case CircleOfPower:
-            case WatchTower: return "";
-            case Barracks: return "_medium";
-            case TownHall: return "_large";
-            default: throw new UnsupportedOperationException();
+    private String getSize(GridPoint2 dimensions) {
+        if (dimensions.x == 96) {
+            return "_medium";
         }
+        else if (dimensions.x == 128) {
+            return "_large";
+        }
+        return "";
     }
 
     private String getSeason(UnitType unitType) {

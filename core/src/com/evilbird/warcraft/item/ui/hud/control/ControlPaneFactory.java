@@ -231,6 +231,7 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
             case BuildAdvancedButton: return getDrawable(assets, ICONS, 138, 646, 46, 38);
             case BuildBarracksButton: return getDrawable(assets, ICONS, 92, 304, 46, 38);
             case BuildFarmButton: return getDrawable(assets, ICONS, 138, 266, 46, 38);
+            case BuildLumberMillButton: return getDrawable(assets, ICONS, 184, 304, 46, 38);
             case BuildTownHallButton: return getDrawable(assets, ICONS, 0, 304, 46, 38);
             case BuildStablesButton: return getDrawable(assets, ICONS, 46, 418, 46, 38);
             case TrainFootmanButton: return getDrawable(assets, ICONS, 92, 0, 46, 38);
@@ -262,6 +263,7 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
             case BuildAdvancedButton: return getDrawable(assets, ICONS_DISABLED, 138, 646, 46, 38);
             case BuildBarracksButton: return getDrawable(assets, ICONS_DISABLED, 92, 304, 46, 38);
             case BuildFarmButton: return getDrawable(assets, ICONS_DISABLED, 138, 266, 46, 38);
+            case BuildLumberMillButton: return getDrawable(assets, ICONS_DISABLED, 184, 304, 46, 38);
             case BuildTownHallButton: return getDrawable(assets, ICONS_DISABLED, 0, 304, 46, 38);
             case BuildStablesButton: return getDrawable(assets, ICONS_DISABLED, 46, 418, 46, 38);
             case TrainFootmanButton: return getDrawable(assets, ICONS_DISABLED, 92, 0, 46, 38);

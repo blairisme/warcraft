@@ -42,15 +42,10 @@ public class ConstructFactory implements ActionProvider
         Validate.isInstanceOf(ConstructActions.class, action);
         ConstructActions constructAction = (ConstructActions)action;
 
-        switch (constructAction) {
-            case ConstructBarracks:
-            case ConstructTownHall:
-            case ConstructFarm: return getConstructAction(constructAction);
-            case ConstructBarracksCancel:
-            case ConstructTownHallCancel:
-            case ConstructFarmCancel: return getCancelAction(constructAction);
-            default: throw new UnsupportedOperationException();
+        if (constructAction.name().endsWith("Cancel")) {
+            return getCancelAction(constructAction);
         }
+        return getConstructAction(constructAction);
     }
 
     private Action getConstructAction(ConstructActions action) {

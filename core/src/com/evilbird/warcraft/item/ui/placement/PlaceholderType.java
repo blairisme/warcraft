@@ -20,5 +20,6 @@ public enum PlaceholderType implements ItemType
 {
     BarracksPlaceholder,
     FarmPlaceholder,
+    LumberMillPlaceholder,
     TownHallPlaceholder
 }

@@ -257,11 +257,6 @@
     <property name="Owner" value="Player2"/>
    </properties>
   </object>
-  <object id="57" name="Troll777" type="TrollAxethrower" gid="494" x="826" y="1086" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Player2"/>
-   </properties>
-  </object>
  </objectgroup>
  <objectgroup id="8" name="Archers">
   <object id="23" name="Archer1" type="ElvenArcher" gid="590" x="128" y="128" width="72" height="72">
@@ -332,10 +327,10 @@
    <properties>
     <property name="AI" type="bool" value="false"/>
     <property name="Description" value="Nation of Azeroth"/>
-    <property name="Gold" type="float" value="0"/>
+    <property name="Gold" type="float" value="1000"/>
     <property name="Oil" type="float" value="0"/>
     <property name="Touchable" type="bool" value="false"/>
-    <property name="Wood" type="float" value="0"/>
+    <property name="Wood" type="float" value="1000"/>
     <property name="ZIndex" type="int" value="6"/>
    </properties>
   </object>

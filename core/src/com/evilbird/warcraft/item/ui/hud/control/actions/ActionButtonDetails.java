@@ -25,6 +25,7 @@ import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildBarracksButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildCancelButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildFarmButton;
+import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildLumberMillButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildSimpleButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildStablesButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildTownHallButton;
@@ -39,6 +40,7 @@ import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
+import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 import static java.util.Arrays.asList;
@@ -58,7 +60,7 @@ public class ActionButtonDetails
         GatherButton, BuildStablesButton);
 
     private static List<ActionButtonType> simpleBuildings = asList(
-        BuildFarmButton, BuildBarracksButton, BuildTownHallButton, BuildCancelButton);
+        BuildFarmButton, BuildBarracksButton, BuildLumberMillButton, BuildTownHallButton, BuildCancelButton);
 
     private static List<ActionButtonType> advancedBuildings = asList(
         BuildStablesButton, BuildCancelButton);
@@ -73,8 +75,9 @@ public class ActionButtonDetails
     private static Map<ActionButtonType, UnitType> products = Maps.of(
             TrainFootmanButton, Footman,
             TrainPeasantButton, Peasant,
-            BuildFarmButton,    Farm,
             BuildBarracksButton, Barracks,
+            BuildFarmButton, Farm,
+            BuildLumberMillButton, LumberMill,
             BuildTownHallButton, TownHall);
 
     public static List<ActionButtonType> getActionButtons(Item item) {

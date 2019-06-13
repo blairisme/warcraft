@@ -21,6 +21,7 @@ public enum PlaceholderActions implements ActionIdentifier
 {
     AddBarracksPlaceholder(PlaceholderType.BarracksPlaceholder),
     AddFarmPlaceholder(PlaceholderType.FarmPlaceholder),
+    AddLumberMillPlaceholder(PlaceholderType.LumberMillPlaceholder),
     AddTownHallPlaceholder(PlaceholderType.TownHallPlaceholder),
     PlaceholderMove,
     PlaceholderCancel;

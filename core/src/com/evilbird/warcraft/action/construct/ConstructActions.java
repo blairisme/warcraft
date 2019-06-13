@@ -14,6 +14,7 @@ import com.evilbird.warcraft.item.unit.UnitType;
 
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
+import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 
 /**
@@ -25,9 +26,11 @@ public enum ConstructActions implements ActionIdentifier
 {
     ConstructBarracks,
     ConstructFarm,
+    ConstructLumberMill,
     ConstructTownHall,
     ConstructBarracksCancel,
     ConstructFarmCancel,
+    ConstructLumberMillCancel,
     ConstructTownHallCancel;
 
     public UnitType getUnitType() {
@@ -36,6 +39,8 @@ public enum ConstructActions implements ActionIdentifier
             case ConstructBarracksCancel: return Barracks;
             case ConstructFarm:
             case ConstructFarmCancel: return Farm;
+            case ConstructLumberMill:
+            case ConstructLumberMillCancel: return LumberMill;
             case ConstructTownHall:
             case ConstructTownHallCancel: return TownHall;
             default: throw new UnsupportedOperationException();

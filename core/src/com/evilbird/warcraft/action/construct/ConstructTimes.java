@@ -25,6 +25,7 @@ public class ConstructTimes
         switch (unitType) {
             case Farm: return 30;
             case Barracks:
+            case LumberMill:
             case TownHall: return 90;
             default: throw new UnsupportedOperationException();
         }

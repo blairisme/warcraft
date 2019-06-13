@@ -13,6 +13,7 @@ import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.ui.placement.human.BarracksPlaceholderFactory;
 import com.evilbird.warcraft.item.ui.placement.human.FarmPlaceholderProvider;
+import com.evilbird.warcraft.item.ui.placement.human.LumberMillPlaceholderFactory;
 import com.evilbird.warcraft.item.ui.placement.human.TownHallPlaceholderProvider;
 
 import javax.inject.Inject;
@@ -29,10 +30,13 @@ public class PlaceholderFactory extends IdentifiedAssetProviderSet<Item>
     public PlaceholderFactory(
         BarracksPlaceholderFactory barracksBuildSiteProvider,
         FarmPlaceholderProvider farmBuildSiteProvider,
+        LumberMillPlaceholderFactory lumberMillPlaceholderFactory,
         TownHallPlaceholderProvider townHallBuildSiteProvider)
     {
         addProvider(PlaceholderType.BarracksPlaceholder, barracksBuildSiteProvider);
         addProvider(PlaceholderType.FarmPlaceholder, farmBuildSiteProvider);
+        addProvider(PlaceholderType.LumberMillPlaceholder, lumberMillPlaceholderFactory);
         addProvider(PlaceholderType.TownHallPlaceholder, townHallBuildSiteProvider);
+
     }
 }

@@ -51,5 +51,28 @@ public enum UnitType implements ItemType
 
     /* Resource */
     GoldMine,
-    OilPatch
+    OilPatch;
+
+    public UnitFaction getFaction() {
+        switch (this) {
+            case Barracks:
+            case Farm:
+            case LumberMill:
+            case TownHall:
+            case Peasant:
+            case ElvenArcher:
+            case ElvenDestroyer:
+            case Footman: return UnitFaction.Human;
+            case Peon:
+            case Grunt:
+            case TrollDestroyer:
+            case TrollAxethrower:
+            case WatchTower: return UnitFaction.Orc;
+            case CircleOfPower:
+            case GoldMine:
+            case OilPatch:
+            case Seal: return UnitFaction.Neutral;
+            default: throw new UnsupportedOperationException();
+        }
+    }
 }

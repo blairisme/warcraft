@@ -38,11 +38,12 @@ public class UnitCosts
 
     public static Collection<ResourceQuantity> costOf(UnitType type) {
         switch (type) {
-            case Farm: return Sets.of(resource(Gold, 500), resource(Wood, 250));
             case Barracks: return Sets.of(resource(Gold, 700), resource(Wood, 450));
-            case TownHall: return Sets.of(resource(Gold, 1200), resource(Wood, 800));
             case Peasant: return Sets.of(resource(Gold, 400), resource(Food, 1));
             case Footman: return Sets.of(resource(Gold, 600), resource(Food, 1));
+            case Farm: return Sets.of(resource(Gold, 500), resource(Wood, 250));
+            case LumberMill: return Sets.of(resource(Gold, 600), resource(Wood, 250));
+            case TownHall: return Sets.of(resource(Gold, 1200), resource(Wood, 800));
             default: return Collections.emptyList();
         }
     }

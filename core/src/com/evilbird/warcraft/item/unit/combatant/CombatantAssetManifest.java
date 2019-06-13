@@ -82,16 +82,7 @@ public class CombatantAssetManifest
     }
 
     private String getFaction(UnitType unitType) {
-        switch (unitType) {
-            case ElvenArcher:
-            case ElvenDestroyer:
-            case Footman: return "human";
-            case Seal: return "neutral";
-            case Grunt:
-            case TrollDestroyer:
-            case TrollAxethrower: return "orc";
-            default: throw new UnsupportedOperationException();
-        }
+        return CaseUtils.toSnakeCase(unitType.getFaction().name());
     }
 
     private String getName(UnitType unitType) {
@@ -104,10 +95,7 @@ public class CombatantAssetManifest
             case ElvenArcher: return "bow";
             case ElvenDestroyer:
             case TrollDestroyer: return "siege";
-            case Footman:
-            case Grunt:
-            case Peasant: return "sword";
-            default: throw new UnsupportedOperationException();
+            default: return "sword";
         }
     }
 }

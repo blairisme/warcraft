@@ -41,6 +41,8 @@ import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructB
 import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructBarracksCancel;
 import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructFarm;
 import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructFarmCancel;
+import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructLumberMill;
+import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructLumberMillCancel;
 import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructTownHall;
 import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructTownHallCancel;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherCancel;
@@ -54,6 +56,7 @@ import static com.evilbird.warcraft.action.move.MoveActions.MoveCancel;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveToLocation;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddBarracksPlaceholder;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddFarmPlaceholder;
+import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddLumberMillPlaceholder;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddTownHallPlaceholder;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderCancel;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderMove;
@@ -84,6 +87,7 @@ import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildBarracksButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildCancelButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildFarmButton;
+import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildLumberMillButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildSimpleButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildTownHallButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.CancelButton;
@@ -94,6 +98,7 @@ import static com.evilbird.warcraft.item.ui.hud.control.status.selection.Selecti
 import static com.evilbird.warcraft.item.ui.hud.control.status.selection.SelectionButtonType.UnselectButton;
 import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.BarracksPlaceholder;
 import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.FarmPlaceholder;
+import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.LumberMillPlaceholder;
 import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.TownHallPlaceholder;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
@@ -102,6 +107,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
 import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
+import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
@@ -171,6 +177,7 @@ public class Interactions
 
     public void addPlaceholder() {
         addPlaceholder(AddBarracksPlaceholder, BuildBarracksButton);
+        addPlaceholder(AddLumberMillPlaceholder, BuildLumberMillButton);
         addPlaceholder(AddFarmPlaceholder, BuildFarmButton);
         addPlaceholder(AddTownHallPlaceholder, BuildTownHallButton);
     }
@@ -199,6 +206,7 @@ public class Interactions
     private void beginConstruction() {
         beginConstruction(ConstructBarracks, BarracksPlaceholder);
         beginConstruction(ConstructFarm, FarmPlaceholder);
+        beginConstruction(ConstructLumberMill, LumberMillPlaceholder);
         beginConstruction(ConstructTownHall, TownHallPlaceholder);
     }
 
@@ -212,6 +220,7 @@ public class Interactions
     private void cancelConstruction() {
         cancelConstruction(ConstructBarracksCancel, Peasant, Barracks);
         cancelConstruction(ConstructFarmCancel, Peasant, Farm);
+        cancelConstruction(ConstructLumberMillCancel, Peasant, LumberMill);
         cancelConstruction(ConstructTownHallCancel, Peasant, TownHall);
     }
 

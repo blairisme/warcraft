@@ -47,7 +47,7 @@ public class BuildingAssets
     public BuildingAssets(AssetManager assets, UnitType unitType, GridPoint2 icon, GridPoint2 size) {
         this.assets = assets;
         this.cache = new HashMap<>();
-        this.manifest = new BuildingAssetManifest(unitType);
+        this.manifest = new BuildingAssetManifest(unitType, size);
         this.icon = icon;
         this.size = size;
     }
