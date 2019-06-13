@@ -34,7 +34,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
 public class ElvenDestroyerFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(92, 152);
-    private static final GridPoint2 SIZE = new GridPoint2(80, 88);
+    private static final GridPoint2 SIZE = new GridPoint2(88, 88);
 
     private CombatantAssets assets;
     private CombatantBuilder builder;
@@ -67,7 +67,7 @@ public class ElvenDestroyerFactory implements AssetProvider<Item>
         result.setName("Elven Destroyer");
         result.setMovementSpeed(80);
         result.setMovementCapability(Sea);
-        result.setRange(TILE_WIDTH + 5);
+        result.setRange(TILE_WIDTH * 5);
         result.setSight(TILE_WIDTH * 4);
         result.setType(ElvenDestroyer);
         result.setProjectileType(Cannon);

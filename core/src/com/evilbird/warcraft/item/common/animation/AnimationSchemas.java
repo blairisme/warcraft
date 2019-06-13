@@ -130,7 +130,7 @@ public class AnimationSchemas
     public static AnimationSchema boatDecomposeSchema() {
         List<List<Rectangle>> regions = getRegions(1, 1, 0, 432, 72, 72);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 10f, false);
+        return new AnimationSchema(frames, 2f, false);
     }
 
     public static AnimationSchema projectileStaticSchema() {

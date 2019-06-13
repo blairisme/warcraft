@@ -111,6 +111,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
+import static com.evilbird.warcraft.item.unit.UnitType.TrollDestroyer;
 
 /**
  * Instances of this class define the different ways the user can interact with
@@ -151,6 +152,8 @@ public class Interactions
         attackInteraction(ElvenArcher, Grunt);
         attackInteraction(ElvenArcher, TrollAxethrower);
         attackInteraction(ElvenArcher, WallSection);
+
+        attackInteraction(ElvenDestroyer, TrollDestroyer);
     }
 
     private void attackInteraction(Identifier combatant, Identifier target) {

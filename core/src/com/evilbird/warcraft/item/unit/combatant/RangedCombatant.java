@@ -11,9 +11,16 @@ package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.warcraft.item.projectile.ProjectileType;
+import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+/**
+ * Instances of this class represent a combatant specialization that can attack
+ * other items at distance.
+ *
+ * @author Blair Butterworth
+ */
 public class RangedCombatant extends Combatant
 {
     private ProjectileType projectileType;
