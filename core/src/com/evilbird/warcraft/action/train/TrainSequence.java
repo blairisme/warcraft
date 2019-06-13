@@ -27,7 +27,7 @@ import static com.evilbird.warcraft.action.train.TrainEvents.onTrainCompleted;
 import static com.evilbird.warcraft.action.train.TrainEvents.onTrainStarted;
 import static com.evilbird.warcraft.action.train.TrainTimes.trainTime;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
-import static com.evilbird.warcraft.item.unit.UnitCosts.costOf;
+import static com.evilbird.warcraft.item.unit.UnitAttributes.costOf;
 import static com.evilbird.warcraft.item.unit.UnitSound.Ready;
 
 /**

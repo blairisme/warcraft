@@ -21,7 +21,7 @@ import static com.evilbird.warcraft.action.common.transfer.TransferAction.deposi
 import static com.evilbird.warcraft.action.train.TrainAction.stopProducing;
 import static com.evilbird.warcraft.action.train.TrainEvents.onTrainCancelled;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isProducing;
-import static com.evilbird.warcraft.item.unit.UnitCosts.costOf;
+import static com.evilbird.warcraft.item.unit.UnitAttributes.costOf;
 
 /**
  * Instances of this class stop the training of an {@link Item}, refunding a

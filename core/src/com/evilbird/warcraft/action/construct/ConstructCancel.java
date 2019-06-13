@@ -28,7 +28,7 @@ import static com.evilbird.warcraft.action.construct.ConstructAction.stopConstru
 import static com.evilbird.warcraft.action.construct.ConstructEvents.constructCancelled;
 import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacentSubject;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
-import static com.evilbird.warcraft.item.unit.UnitCosts.costOf;
+import static com.evilbird.warcraft.item.unit.UnitAttributes.costOf;
 
 /**
  * Instances of this class stop the construction of a building.

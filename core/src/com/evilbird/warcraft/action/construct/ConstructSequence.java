@@ -40,7 +40,6 @@ import static com.evilbird.warcraft.action.common.transfer.TransferAction.transf
 import static com.evilbird.warcraft.action.construct.ConstructAction.construct;
 import static com.evilbird.warcraft.action.construct.ConstructEvents.constructCompleted;
 import static com.evilbird.warcraft.action.construct.ConstructEvents.constructStarted;
-import static com.evilbird.warcraft.action.construct.ConstructTimes.buildTime;
 import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacentTarget;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
@@ -51,7 +50,8 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.BuildingSite;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Construct;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
-import static com.evilbird.warcraft.item.unit.UnitCosts.costOf;
+import static com.evilbird.warcraft.item.unit.UnitAttributes.costOf;
+import static com.evilbird.warcraft.item.unit.UnitAttributes.buildTime;
 import static com.evilbird.warcraft.item.unit.UnitSound.Build;
 import static com.evilbird.warcraft.item.unit.UnitSound.Complete;
 

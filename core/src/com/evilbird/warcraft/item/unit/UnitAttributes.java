@@ -23,13 +23,27 @@ import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
 
 /**
- * Defines the resources required to create units.
+ * Defines the resources and times required to create units.
  *
  * @author Blair Butterworth
  */
-public class UnitCosts
+public class UnitAttributes
 {
-    private UnitCosts() {
+    private UnitAttributes() {
+    }
+
+    public static float buildTime(Unit unit) {
+        return buildTime((UnitType)unit.getType());
+    }
+
+    public static float buildTime(UnitType unitType) {
+        switch (unitType) {
+            case Farm: return 30;
+            case Barracks:
+            case LumberMill:
+            case TownHall: return 90;
+            default: throw new UnsupportedOperationException();
+        }
     }
 
     public static Collection<ResourceQuantity> costOf(Unit unit) {

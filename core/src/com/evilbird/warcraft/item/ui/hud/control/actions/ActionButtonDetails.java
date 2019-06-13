@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
-import com.evilbird.warcraft.item.unit.UnitCosts;
+import com.evilbird.warcraft.item.unit.UnitAttributes;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.List;
@@ -106,7 +106,7 @@ public class ActionButtonDetails
     private static boolean hasResources(ActionButtonType button, Map<ResourceType, Float> resources) {
         if (products.containsKey(button)) {
             UnitType type = products.get(button);
-            for (ResourceQuantity cost: UnitCosts.costOf(type)) {
+            for (ResourceQuantity cost: UnitAttributes.costOf(type)) {
                 if (getResource(resources, cost.getResource()) < cost.getValue()) {
                     return false;
                 }
