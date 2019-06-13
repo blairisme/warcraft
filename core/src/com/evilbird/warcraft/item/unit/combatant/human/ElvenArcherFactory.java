@@ -59,15 +59,15 @@ public class ElvenArcherFactory implements AssetProvider<Item>
     @Override
     public Item get() {
         RangedCombatant result = builder.newRangedCombatant();
-        result.setDefence(4);
-        result.setDamageMinimum(4);
-        result.setDamageMaximum(18);
-        result.setHealth(60);
-        result.setHealthMaximum(60);
+        result.setDefence(0);
+        result.setDamageMinimum(3 * 2);
+        result.setDamageMaximum(9 * 2);
+        result.setHealth(40);
+        result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("ElvenArcher", result));
         result.setLevel(1);
         result.setName("Elven Archer");
-        result.setMovementSpeed(80);
+        result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setRange(TILE_WIDTH * 4);
         result.setSight(TILE_WIDTH * 5);

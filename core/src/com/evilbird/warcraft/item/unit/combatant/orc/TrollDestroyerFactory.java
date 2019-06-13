@@ -57,18 +57,18 @@ public class TrollDestroyerFactory implements AssetProvider<Item>
     @Override
     public Item get() {
         RangedCombatant result = builder.newSeaCombatant();
-        result.setDefence(4);
-        result.setDamageMinimum(4);
-        result.setDamageMaximum(18);
-        result.setHealth(60);
-        result.setHealthMaximum(60);
+        result.setDefence(10 * 2);
+        result.setDamageMinimum(2 * 2);
+        result.setDamageMaximum(35 * 2);
+        result.setHealth(100);
+        result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("TrollDestroyer", result));
         result.setLevel(1);
         result.setName("Troll Destroyer");
-        result.setMovementSpeed(80);
+        result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Sea);
-        result.setRange(TILE_WIDTH + 5);
-        result.setSight(TILE_WIDTH * 4);
+        result.setRange(TILE_WIDTH * 4);
+        result.setSight(TILE_WIDTH * 8);
         result.setType(TrollDestroyer);
         result.setProjectileType(Cannon);
         return result;

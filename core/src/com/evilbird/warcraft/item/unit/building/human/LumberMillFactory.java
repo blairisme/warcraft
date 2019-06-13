@@ -56,8 +56,8 @@ public class LumberMillFactory implements AssetProvider<Item>
     @Override
     public Item get() {
         Building result = builder.build();
-        result.setHealth(800);
-        result.setHealthMaximum(800);
+        result.setHealth(600);
+        result.setHealthMaximum(600);
         result.setIdentifier(objectIdentifier("LumberMill", result));
         result.setName("LumberMill");
         result.setSight(TILE_WIDTH);

@@ -56,8 +56,8 @@ public class WatchTowerFactory implements AssetProvider<Item>
     @Override
     public Item get() {
         Building result = builder.build();
-        result.setHealth(500);
-        result.setHealthMaximum(500);
+        result.setHealth(100);
+        result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("WatchTower", result));
         result.setName("Watch Tower");
         result.setSight(TILE_WIDTH);
