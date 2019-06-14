@@ -13,6 +13,7 @@ import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.combatant.human.ElvenArcherCaptiveFactory;
 import com.evilbird.warcraft.item.unit.combatant.human.ElvenArcherFactory;
 import com.evilbird.warcraft.item.unit.combatant.human.ElvenDestroyerFactory;
 import com.evilbird.warcraft.item.unit.combatant.human.FootmanFactory;
@@ -33,6 +34,7 @@ public class CombatantFactory extends IdentifiedAssetProviderSet<Item>
     @Inject
     public CombatantFactory(
         ElvenArcherFactory elvenArcherFactory,
+        ElvenArcherCaptiveFactory elvenArcherCaptiveFactory,
         ElvenDestroyerFactory elvenDestroyerFactory,
         FootmanFactory footmanFactory,
         GruntFactory gruntFactory,
@@ -40,6 +42,7 @@ public class CombatantFactory extends IdentifiedAssetProviderSet<Item>
         TrollDestroyerFactory trollDestroyerFactory)
     {
         addProvider(UnitType.ElvenArcher, elvenArcherFactory);
+        addProvider(UnitType.ElvenArcherCaptive, elvenArcherCaptiveFactory);
         addProvider(UnitType.ElvenDestroyer,  elvenDestroyerFactory);
         addProvider(UnitType.Footman, footmanFactory);
         addProvider(UnitType.Grunt, gruntFactory);

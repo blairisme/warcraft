@@ -5,7 +5,7 @@
   },
   "behaviour": {
     "class": "Behaviour",
-    "enum": "Human1"
+    "enum": "Human2"
   },
   "world": {
     "class": "Scenario",

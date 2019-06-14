@@ -12,6 +12,9 @@ package com.evilbird.warcraft.item.unit.combatant;
 import com.evilbird.engine.common.text.CaseUtils;
 import com.evilbird.warcraft.item.unit.UnitType;
 
+import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
+import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
+
 /**
  * Specifies the path to assets required to display a {@link Combatant}, as well
  * as to play any sound effects used by it.
@@ -82,20 +85,31 @@ public class CombatantAssetManifest
     }
 
     private String getFaction(UnitType unitType) {
-        return CaseUtils.toSnakeCase(unitType.getFaction().name());
+        UnitType baseType = getBaseType(unitType);
+        return CaseUtils.toSnakeCase(baseType.getFaction().name());
     }
 
     private String getName(UnitType unitType) {
-        return CaseUtils.toSnakeCase(unitType.name());
+        UnitType baseType = getBaseType(unitType);
+        return CaseUtils.toSnakeCase(baseType.name());
     }
 
     private String getAttackType(UnitType unitType) {
-        switch (unitType) {
+        UnitType baseType = getBaseType(unitType);
+        switch (baseType) {
             case TrollAxethrower: return "axe";
             case ElvenArcher: return "bow";
             case ElvenDestroyer:
             case TrollDestroyer: return "siege";
             default: return "sword";
+        }
+    }
+
+    private UnitType getBaseType(UnitType unitType) {
+        switch (unitType) {
+            case ElvenArcherCaptive: return ElvenArcher;
+            case Zuljin: return TrollAxethrower;
+            default: return unitType;
         }
     }
 }

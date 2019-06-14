@@ -53,6 +53,7 @@ import static com.evilbird.warcraft.action.menu.MenuActions.BuildAdvancedMenu;
 import static com.evilbird.warcraft.action.menu.MenuActions.BuildSimpleMenu;
 import static com.evilbird.warcraft.action.menu.MenuActions.IngameMenu;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveCancel;
+import static com.evilbird.warcraft.action.move.MoveActions.MoveToItem;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveToLocation;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddBarracksPlaceholder;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddFarmPlaceholder;
@@ -101,7 +102,9 @@ import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.FarmPlaceh
 import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.LumberMillPlaceholder;
 import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.TownHallPlaceholder;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
+import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
+import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcherCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
@@ -152,6 +155,10 @@ public class Interactions
         attackInteraction(ElvenArcher, Grunt);
         attackInteraction(ElvenArcher, TrollAxethrower);
         attackInteraction(ElvenArcher, WallSection);
+
+        attackInteraction(ElvenArcherCaptive, Grunt);
+        attackInteraction(ElvenArcherCaptive, TrollAxethrower);
+        attackInteraction(ElvenArcherCaptive, WallSection);
 
         attackInteraction(ElvenDestroyer, TrollDestroyer);
     }
@@ -323,7 +330,14 @@ public class Interactions
         moveInteraction(Footman, Map);
         moveInteraction(Peasant, Map);
         moveInteraction(ElvenArcher, Map);
+        moveInteraction(ElvenArcherCaptive, Map);
         moveInteraction(ElvenDestroyer, Sea);
+
+        interactions.addAction(MoveToItem, ConfirmLocation)
+            .whenSelected(CircleOfPower)
+            .whenTarget(ElvenArcherCaptive)
+            .appliedTo(Target)
+            .appliedAs(confirmedAction());
     }
 
     private void moveInteraction(Identifier movable, Identifier terrain) {

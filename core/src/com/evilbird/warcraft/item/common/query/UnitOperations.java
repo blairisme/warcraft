@@ -33,6 +33,7 @@ import static com.evilbird.engine.item.utility.ItemPredicates.touchableWithType;
 import static com.evilbird.engine.item.utility.ItemPredicates.withClazz;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasPathTo;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlayer;
 
 /**
@@ -74,7 +75,7 @@ public class UnitOperations
     }
 
     public static Player getHumanPlayer(ItemRoot itemRoot) {
-        Predicate<Item> query = both(isPlayer(), UnitPredicates.isCorporeal());
+        Predicate<Item> query = both(isPlayer(), isCorporeal());
         return (Player)itemRoot.find(query);
     }
 

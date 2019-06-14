@@ -1,5 +1,5 @@
 Pattern
-root / asset type / faction type / unit type / action type / specialization
+root / asset type / faction type / recipient type / action type / specialization
 
 Root
 - data
@@ -19,7 +19,7 @@ faction type
 - neutral
 - common
 
-unit type
+recipient type
 - unit
 - building
 - menu

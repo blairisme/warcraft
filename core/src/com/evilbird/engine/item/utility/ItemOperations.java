@@ -17,6 +17,7 @@ import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.math.ShapeUtilities;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
 
 import java.util.function.Predicate;
@@ -44,10 +45,6 @@ public class ItemOperations
         }
         return null;
     }
-
-//    public static Item findAncestorByType(Item item, Identifier type) {
-//        return findAncestor(item, itemWithType(type));
-//    }
 
     public static Vector2 getScreenCenter(Item item) {
         return getScreenCenter(item.getRoot());
@@ -87,5 +84,21 @@ public class ItemOperations
         Rectangle rectangleA = itemA.getBounds();
         Rectangle rectangleB = itemB.getBounds();
         return rectangleA.overlaps(rectangleB);
+    }
+
+    public static boolean hasMinimum(ItemComposite composite, Predicate<Item> condition, int count) {
+        return composite.findAll(condition).size() >= count;
+    }
+
+    public static boolean hasMaximum(ItemComposite composite, Predicate<Item> condition, int count) {
+        return composite.findAll(condition).size() <= count;
+    }
+
+    public static boolean hasAny(ItemComposite composite, Predicate<Item> condition) {
+        return composite.findAll(condition).size() > 0;
+    }
+
+    public static boolean hasNone(ItemComposite composite, Predicate<Item> condition) {
+        return composite.findAll(condition).size() == 0;
     }
 }

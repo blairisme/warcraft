@@ -9,17 +9,13 @@
 
 package com.evilbird.engine.item.utility;
 
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.math.ShapeUtilities;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
 
 import java.util.function.Predicate;
 
@@ -39,6 +35,10 @@ public class ItemPredicates
         return (item) -> item != null && id.equals(item.getIdentifier());
     }
 
+    public static Predicate<Item> withId(final Identifier id) {
+        return itemWithId(id);
+    }
+
     public static Predicate<Item> itemWithType(final Identifier type) {
         return (item) -> item != null && type.equals(item.getType());
     }
@@ -55,37 +55,8 @@ public class ItemPredicates
         return item -> item != null && item.getTouchable() && type.equals(item.getType());
     }
 
-    public static Predicate<Item> isNear(Item item, float radius) {
-        return new IsNear(item, radius);
-    }
-
     public static Predicate<Item> isVisible() {
         return Item::getVisible;
-    }
-
-    public static class IsNear implements Predicate<Item>
-    {
-        private Item locus;
-        private Circle perimeter;
-
-        private IsNear(Item item, float radius) {
-            locus = item;
-            perimeter = new Circle(item.getPosition(), radius);
-        }
-
-        @Override
-        public boolean test(Item target) {
-            perimeter.setPosition(locus.getPosition(Alignment.Center));
-            return ShapeUtilities.contains(perimeter, target.getBounds());
-        }
-    }
-
-    public static Predicate<ItemRoot> hasMinimum(Predicate<Item> condition, int count) {
-        return (composite) -> composite.findAll(condition).size() >= count;
-    }
-
-    public static Predicate<ItemRoot> hasMaximum(Predicate<Item> condition, int count) {
-        return (composite) -> composite.findAll(condition).size() <= count;
     }
 
     public static Predicate<Item> hasType(Identifier type) {

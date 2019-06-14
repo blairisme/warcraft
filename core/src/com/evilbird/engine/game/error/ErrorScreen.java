@@ -73,6 +73,8 @@ public class ErrorScreen extends ScreenAdapter
 
         stage.act(delta);
         stage.draw();
+
+        pause();
     }
 
     @Override

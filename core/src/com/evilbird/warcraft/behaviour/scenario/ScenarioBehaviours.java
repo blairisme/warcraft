@@ -19,5 +19,8 @@ import com.evilbird.engine.common.lang.Identifier;
 public enum ScenarioBehaviours implements Identifier
 {
     Human1,
-    Human2
+    Human2,
+
+    Orc1,
+    Orc2
 }

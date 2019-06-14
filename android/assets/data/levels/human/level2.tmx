@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="26" nextobjectid="58">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="27" nextobjectid="58">
  <tileset firstgid="1" name="terrain_reduced" tilewidth="32" tileheight="32" tilecount="384" columns="16">
   <image source="../../textures/neutral/winter/terrain.png" width="512" height="768"/>
  </tileset>
@@ -43,7 +43,7 @@
   <image source="../../textures/human/perennial/peasant.png" width="576" height="936"/>
  </tileset>
  <tileset firstgid="882" name="Destroyer" tilewidth="80" tileheight="88" tilecount="24" columns="8">
-  <image source="../../textures/human/perennial/elven_destroyer.png" width="640" height="264"/>
+  <image source="../../textures/human/perennial/elven_destroyer.png" width="704" height="264"/>
  </tileset>
  <tileset firstgid="906" name="TrollDestroyer" tilewidth="88" tileheight="88" tilecount="24" columns="8">
   <image source="../../textures/orc/perennial/troll_destroyer.png" width="704" height="264"/>
@@ -162,28 +162,28 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="17" name="Grunt" offsetx="-64" offsety="192">
-  <object id="12" name="Grunt1" type="Grunt" gid="394" x="352" y="192" width="72" height="72">
+ <objectgroup id="17" name="Grunt">
+  <object id="12" name="Grunt1" type="Grunt" gid="394" x="306" y="368" width="72" height="72">
    <properties>
     <property name="Owner" value="Player2"/>
    </properties>
   </object>
-  <object id="13" name="Grunt2" type="Grunt" gid="394" x="192" y="1344" width="72" height="72">
+  <object id="13" name="Grunt2" type="Grunt" gid="394" x="143" y="1521" width="72" height="72">
    <properties>
     <property name="Owner" value="Player2"/>
    </properties>
   </object>
-  <object id="14" name="Grunt3" type="Grunt" gid="394" x="320" y="960" width="72" height="72">
+  <object id="14" name="Grunt3" type="Grunt" gid="394" x="273" y="1136" width="72" height="72">
    <properties>
     <property name="Owner" value="Player2"/>
    </properties>
   </object>
-  <object id="15" name="Grunt4" type="Grunt" gid="394" x="608" y="544" width="72" height="72">
+  <object id="15" name="Grunt4" type="Grunt" gid="394" x="561" y="721" width="72" height="72">
    <properties>
     <property name="Owner" value="Player2"/>
    </properties>
   </object>
-  <object id="16" name="Grunt5" type="Grunt" gid="394" x="1152" y="288" width="72" height="72">
+  <object id="16" name="Grunt5" type="Grunt" gid="394" x="1169" y="495" width="72" height="72">
    <properties>
     <property name="Owner" value="Player2"/>
    </properties>
@@ -242,12 +242,12 @@
     <property name="Owner" value="Player2"/>
    </properties>
   </object>
-  <object id="20" name="Troll4" type="TrollAxethrower" gid="494" x="512" y="768" width="72" height="72">
+  <object id="20" name="Troll4" type="TrollAxethrower" gid="494" x="530" y="751" width="72" height="72">
    <properties>
     <property name="Owner" value="Player2"/>
    </properties>
   </object>
-  <object id="21" name="Troll5" type="TrollAxethrower" gid="494" x="224" y="1120" width="72" height="72">
+  <object id="21" name="Troll5" type="TrollAxethrower" gid="494" x="243" y="1104" width="72" height="72">
    <properties>
     <property name="Owner" value="Player2"/>
    </properties>
@@ -259,44 +259,46 @@
   </object>
  </objectgroup>
  <objectgroup id="8" name="Archers">
-  <object id="23" name="Archer1" type="ElvenArcher" gid="590" x="128" y="128" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Neutral"/>
-   </properties>
-  </object>
-  <object id="24" name="Archer2" type="ElvenArcher" gid="590" x="160" y="128" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Neutral"/>
-   </properties>
-  </object>
-  <object id="25" name="Archer3" type="ElvenArcher" gid="590" x="192" y="128" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Neutral"/>
-   </properties>
-  </object>
-  <object id="26" name="Archer4" type="ElvenArcher" gid="590" x="128" y="160" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Neutral"/>
-   </properties>
-  </object>
-  <object id="27" name="Archer5" type="ElvenArcher" gid="590" x="160" y="160" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Neutral"/>
-   </properties>
-  </object>
-  <object id="28" name="Archer6" type="ElvenArcher" gid="590" x="192" y="160" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Neutral"/>
-   </properties>
-  </object>
-  <object id="29" name="Archer7" type="ElvenArcher" gid="590" x="768" y="1344" width="72" height="72">
+  <object id="29" name="Archer1" type="ElvenArcher" gid="590" x="768" y="1344" width="72" height="72">
    <properties>
     <property name="Owner" value="Player1"/>
    </properties>
   </object>
-  <object id="30" name="Archer8" type="ElvenArcher" gid="590" x="896" y="1344" width="72" height="72">
+  <object id="30" name="Archer2" type="ElvenArcher" gid="590" x="896" y="1344" width="72" height="72">
    <properties>
     <property name="Owner" value="Player1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="26" name="CapturedArchers">
+  <object id="23" name="ElvenArcherCaptive1" type="ElvenArcherCaptive" gid="590" x="128" y="128" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="24" name="ElvenArcherCaptive2" type="ElvenArcherCaptive" gid="590" x="160" y="128" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="25" name="ElvenArcherCaptive3" type="ElvenArcherCaptive" gid="590" x="192" y="128" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="26" name="ElvenArcherCaptive4" type="ElvenArcherCaptive" gid="590" x="128" y="160" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="27" name="ElvenArcherCaptive5" type="ElvenArcherCaptive" gid="590" x="160" y="160" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="28" name="ElvenArcherCaptive6" type="ElvenArcherCaptive" gid="590" x="192" y="160" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Neutral"/>
    </properties>
   </object>
  </objectgroup>

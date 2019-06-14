@@ -27,6 +27,9 @@ public enum UnitType implements ItemType
     TownHall,
 
     /* Building - Orc */
+    PigFarm,
+    OrcBarracks,
+    GreatHall,
     WatchTower,
 
     /* Building - Neutral */
@@ -37,10 +40,16 @@ public enum UnitType implements ItemType
     ElvenArcher,
     ElvenDestroyer,
 
+    /* Special Combatant - Human */
+    ElvenArcherCaptive,
+
     /* Combatant - Orc */
     Grunt,
     TrollAxethrower,
     TrollDestroyer,
+
+    /* Special Combatant - Orc */
+    Zuljin,
 
     /* Combatant - Neutral */
     Seal,
@@ -62,12 +71,14 @@ public enum UnitType implements ItemType
             case Peasant:
             case ElvenArcher:
             case ElvenDestroyer:
-            case Footman: return UnitFaction.Human;
+            case Footman:
+            case ElvenArcherCaptive: return UnitFaction.Human;
             case Peon:
             case Grunt:
             case TrollDestroyer:
             case TrollAxethrower:
-            case WatchTower: return UnitFaction.Orc;
+            case WatchTower:
+            case Zuljin: return UnitFaction.Orc;
             case CircleOfPower:
             case GoldMine:
             case OilPatch:
