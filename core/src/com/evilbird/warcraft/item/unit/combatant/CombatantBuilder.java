@@ -28,8 +28,8 @@ import java.util.Map;
 import static com.evilbird.warcraft.item.unit.combatant.CombatantVariety.MeleeCombatant;
 
 /**
- * Creates a new {@link Combatant} instance whose visual and audible
- * presentation is defined by the given {@link CombatantAssets}.
+ * Creates a new {@link Combatant} whose visual and audible presentation is
+ * defined by the given {@link CombatantAssets}.
  *
  * @author Blair Butterworth
  */
@@ -54,18 +54,14 @@ public class CombatantBuilder
     }
 
     public Combatant build(CombatantVariety variety) {
-        Combatant result = newCombatant(variety);
+        Skin skin = getSkin(assets, variety);
+        Combatant result = variety == MeleeCombatant ? new Combatant(skin) : new RangedCombatant(skin);
         result.setAnimation(UnitAnimation.Idle);
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
         result.setSize(assets.getSize());
         return result;
-    }
-
-    private Combatant newCombatant(CombatantVariety variety) {
-        Skin skin = getSkin(assets, variety);
-        return variety == MeleeCombatant ? new Combatant(skin) : new RangedCombatant(skin);
     }
 
     private Skin getSkin(CombatantAssets assets, CombatantVariety variety) {

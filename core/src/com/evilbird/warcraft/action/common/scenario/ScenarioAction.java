@@ -111,7 +111,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     }
 
     /**
-     * Adds a requirement pertaining to the Scenarios whileTarget that must be
+     * Adds a requirement pertaining to the Scenarios target that must be
      * fulfilled at all times for the Scenario to continue running. Multiple
      * given statements will be combined into a conjunction (and &).
      *
@@ -163,7 +163,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     }
 
     /**
-     * Adds a requirement pertaining to the Scenarios whileTarget that must be
+     * Adds a requirement pertaining to the Scenarios target that must be
      * fulfilled for the preceding then statements to be executed: a branch
      * condition. Multiple when statements will be combined into a conjunction
      * (and &).
@@ -224,7 +224,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * {@code true} for the duration Actions execution.
      *
      * @param lambda    a {@link BiConsumer} that will receive the
-     *                  current item and whileTarget when invoked. This parameter
+     *                  current item and target when invoked. This parameter
      *                  cannot be {@code null}.
      *
      * @return this scenario.
@@ -241,7 +241,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      * previously specified Actions, provided that all specified when
      * conditions are {@code true}and all given conditions remain
      * {@code true} for the duration Actions execution. After execution, any
-     * subsequent actions will updated to use the subject and whileTarget of the
+     * subsequent actions will updated to use the subject and target of the
      * given {@code Action}.
      *
      * @param action    an Action. This parameter cannot be {@code null}.
@@ -275,9 +275,9 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     }
 
     /**
-     * Assigns a {@link Supplier} that specifies the whileTarget of the Scenario,
+     * Assigns a {@link Supplier} that specifies the target of the Scenario,
      * an optional {@link Item} that this action will manipulate. The supplier
-     * will be asked for the whileTarget {@code Subject} once as soon as the Scenario
+     * will be asked for the target {@code Subject} once as soon as the Scenario
      * is acted upon or after its restarted or reset.
      *
      * @param supplier  an {@code Subject Supplier}. This parameter cannot be
@@ -367,7 +367,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     }
 
     private Action create() {
-        Action result = log(then);
+        Action result = then;
 
         if (when != null) {
             result = new OptionalAction(result, when);
@@ -384,15 +384,15 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         return result;
     }
 
-    private Action log(Action action) {
-        SequenceAction result = new SequenceAction();
-        result.add(log("Action sequence started: {}", getIdentifier()));
-        result.add(action);
-        result.add(log("Action sequence completed: {}", getIdentifier()));
-        return action;
-    }
-
-    private Action log(String message, Object ... values) {
-        return new LambdaAction((i, t) -> logger.debug(message, values));
-    }
+//    private Action log(Action action) {
+//        SequenceAction result = new SequenceAction();
+//        result.add(log("Action sequence started: {}", getIdentifier()));
+//        result.add(action);
+//        result.add(log("Action sequence completed: {}", getIdentifier()));
+//        return action;
+//    }
+//
+//    private Action log(String message, Object ... values) {
+//        return new LambdaAction((i, t) -> logger.debug(message, values));
+//    }
 }

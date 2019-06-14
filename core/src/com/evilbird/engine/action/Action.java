@@ -36,11 +36,6 @@ public interface Action extends Identifiable, Poolable
     boolean act(float delta);
 
     /**
-     * Stops the Action.
-     */
-    void cancel();
-
-    /**
      * Sets the state of the action so it can be run again.
      */
     void restart();
@@ -53,7 +48,7 @@ public interface Action extends Identifiable, Poolable
     Item getItem();
 
     /**
-     * Returns an optional whileTarget that the Action will manipulate.
+     * Returns an optional target that the Action will manipulate.
      *
      * @return an Item instance. May return {@code null}.
      */
@@ -92,7 +87,7 @@ public interface Action extends Identifiable, Poolable
     void setItem(Item item);
 
     /**
-     * Sets an optional whileTarget that the Action will manipulate.
+     * Sets an optional target that the Action will manipulate.
      *
      * @param target an Item instance. May be {@code null}.
      */

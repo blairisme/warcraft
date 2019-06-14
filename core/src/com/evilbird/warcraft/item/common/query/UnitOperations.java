@@ -14,6 +14,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.common.movement.Movable;
+import com.evilbird.warcraft.item.common.movement.MovementCapability;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
@@ -103,5 +104,9 @@ public class UnitOperations
 
     public static boolean isRanged(Item item) {
         return item instanceof RangedCombatant;
+    }
+
+    public static boolean isShip(Combatant combatant) {
+        return combatant.getMovementCapability() == MovementCapability.Sea;
     }
 }

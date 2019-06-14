@@ -69,13 +69,13 @@ public class InteractionContainer
     }
 
     /**
-     * Returns the first interaction that applies to the given user input, whileTarget
+     * Returns the first interaction that applies to the given user input, target
      * item and selected item. The specific matching algorithm is contained in
      * the individual {@link Interaction} implementations.
      *
      * @param input     a {@link UserInput} instance specifying the interaction
      *                  the user made with the application
-     * @param item      the whileTarget of the users interaction.
+     * @param item      the target of the users interaction.
      * @param selected  a currently selected item.
      *
      * @return the matching {@code Interaction}, if any.

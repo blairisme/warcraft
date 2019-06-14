@@ -14,7 +14,7 @@ import com.evilbird.engine.action.Action;
 import java.util.Collection;
 
 /**
- * Instances of this {@link Action} copy the subject and whileTarget of a given
+ * Instances of this {@link Action} copy the subject and target of a given
  * delegate when invoked.
  *
  * @author Blair Butterworth

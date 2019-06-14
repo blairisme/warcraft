@@ -79,6 +79,7 @@ public class ItemBasic implements Item
 
     @Override
     public void clearActions() {
+        actions.forEach(Action::reset);
         actions.clear();
         if (iterator != null) {
             iterator = new EmptyIterator<>();

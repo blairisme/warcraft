@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.attack;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.math.RandomGenerator;
 import com.evilbird.engine.game.GameService;
@@ -79,21 +80,23 @@ public class RangedAttack extends BasicAction
     @Override
     public void reset() {
         super.reset();
-        clear();
+        if (initialized()) {
+            ItemGroup parent = combatant.getParent();
+            parent.removeItem(projectile);
+            combatant = null;
+            projectile = null;
+            target = null;
+        }
     }
 
     @Override
     public void restart() {
         super.restart();
-        clear();
-    }
-
-    private void clear() {
-        combatant = null;
-        projectile = null;
-        target = null;
-        flightTime = 0;
-        reloadTime = 0;
+        if (initialized()) {
+            projectile.setVisible(false);
+            flightTime = 0;
+            reloadTime = 0;
+        }
     }
 
     private boolean initialized() {
@@ -101,10 +104,13 @@ public class RangedAttack extends BasicAction
     }
 
     private void initialize() {
+        flightTime = 0;
+        reloadTime = 0;
+
         target = (Destroyable)getTarget();
         combatant = (RangedCombatant)getItem();
         projectile = (Projectile)combatant.getAssociatedItem();
-        destination = target.getPosition();
+        destination = target.getPosition(Alignment.Center);
 
         if (projectile == null) {
             projectile = newProjectile(combatant);
@@ -137,8 +143,8 @@ public class RangedAttack extends BasicAction
 
     private void fireProjectile() {
         flightTime = 0;
-        destination = target.getPosition();
-        projectile.setPosition(combatant.getPosition());
+        destination = target.getPosition(Alignment.Center);
+        projectile.setPosition(combatant.getPosition(Alignment.Center));
         projectile.setVisible(true);
         combatant.resetAnimation();
         combatant.setAnimation(UnitAnimation.Attack);

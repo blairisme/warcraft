@@ -38,14 +38,6 @@ public abstract class BasicAction implements Action
     public BasicAction() {
     }
 
-    @Override
-    public void cancel() {
-        Item item = getItem();
-        if (item != null) {
-            item.clearActions();
-        }
-    }
-
     public void reset() {
         error = null;
     }

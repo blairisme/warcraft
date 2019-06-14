@@ -84,6 +84,18 @@ public class ScenarioSetAction extends BasicAction
         actions.setCause(cause);
     }
 
+    @Override
+    public void restart() {
+        super.restart();
+        actions.restart();
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        actions.reset();
+    }
+
     protected void features() {
     }
 

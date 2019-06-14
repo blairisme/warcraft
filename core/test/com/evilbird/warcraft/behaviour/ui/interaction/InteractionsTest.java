@@ -65,7 +65,7 @@ public class InteractionsTest
 
     private void assertInteraction(ActionIdentifier action, UserInputType input, ItemType target, ItemType selected) {
         UserInput userInput = new UserInput(input, new Vector2(1, 2), 1);
-        Item targetItem = TestItems.newItem(new TextIdentifier("test-whileTarget"), target);
+        Item targetItem = TestItems.newItem(new TextIdentifier("test-target"), target);
         Item selectedItem = selected != null ? TestItems.newItem(new TextIdentifier("test-selected"), selected) : null;
 
         InteractionDefinition result = (InteractionDefinition)interactions.getInteraction(userInput, targetItem, selectedItem);
@@ -78,7 +78,7 @@ public class InteractionsTest
 
     private void assertInteractions(Collection<ActionIdentifier> expected, UserInputType input, ItemType target, ItemType selected) {
         UserInput userInput = new UserInput(input, new Vector2(1, 2), 1);
-        Item targetItem = TestItems.newItem(new TextIdentifier("test-whileTarget"), target);
+        Item targetItem = TestItems.newItem(new TextIdentifier("test-target"), target);
         Item selectedItem = TestItems.newItem(new TextIdentifier("test-selected"), selected);
 
         InteractionDefinition result = (InteractionDefinition)interactions.getInteraction(userInput, targetItem, selectedItem);

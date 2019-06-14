@@ -21,6 +21,8 @@ import javax.inject.Inject;
 import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AssignAction.assignIfAbsent;
+import static com.evilbird.engine.action.common.Direction.Facing;
+import static com.evilbird.engine.action.common.Direction.Perpendicular;
 import static com.evilbird.engine.action.common.DirectionAction.reorient;
 import static com.evilbird.engine.common.function.Predicates.not;
 import static com.evilbird.warcraft.action.attack.AttackEvents.attackComplete;
@@ -30,6 +32,7 @@ import static com.evilbird.warcraft.action.attack.RangedAttack.rangedAttack;
 import static com.evilbird.warcraft.action.common.death.DeathAction.kill;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.move.MoveWithinRangeAction.moveWithinRange;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.isShip;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.inRange;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isRanged;
@@ -65,12 +68,13 @@ public class AttackSequence extends ScenarioSetAction
     protected void features() {
         Combatant combatant = (Combatant)getItem();
         reposition(combatant);
+        repositionRanged(combatant);
         engageMelee(combatant);
         engageRanged(combatant);
     }
 
     private void reposition(Combatant combatant) {
-        scenario("Reposition for attack")
+        scenario("Reposition melee combatant")
             .whenItem(not(isRanged()))
             .whenTarget(isAlive())
             .whenTarget(notInRange(combatant))
@@ -79,8 +83,10 @@ public class AttackSequence extends ScenarioSetAction
             .then(animate(Move))
             .then(move(events))
             .then(animate(Idle));
+    }
 
-        scenario("Reposition for attack")
+    private void repositionRanged(Combatant combatant) {
+        scenario("Reposition ranged combatant")
             .whenItem(isRanged())
             .whenTarget(isAlive())
             .whenTarget(notInRange(combatant))
@@ -113,7 +119,7 @@ public class AttackSequence extends ScenarioSetAction
             .whenTarget(inRange(combatant))
             .givenItem(isAlive())
             .givenTarget(inRange(combatant))
-            .then(reorient())
+            .then(reorient(isShip(combatant) ? Perpendicular : Facing))
             .then(attackStarted(events))
             .then(rangedAttack())
             .then(attackComplete(events))
