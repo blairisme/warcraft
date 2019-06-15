@@ -29,6 +29,7 @@ import static com.evilbird.engine.action.common.DisableAction.enable;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
+import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.warcraft.action.common.transfer.TransferAction.transferAll;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositComplete;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositStarted;
@@ -38,6 +39,8 @@ import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasResources;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDepotFor;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.noResources;
 import static com.evilbird.warcraft.item.common.query.UnitSuppliers.closest;
 import static com.evilbird.warcraft.item.common.resource.ResourceQuantum.resource;
@@ -49,7 +52,6 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.MoveBasic;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.MoveGold;
 import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
-import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 
 /**
  * Instances of this {@link Action} instruct an {@link Item} to gather gold.
@@ -93,7 +95,7 @@ public class GatherGold extends ScenarioSetAction
     }
 
     private void depositFeature() {
-        scenario("Deposit Wood")
+        scenario("Deposit Gold")
             .givenItem(isAlive())
             .whenItem(hasResources(Gold))
             .then(animate(Move), deselect(events))
@@ -104,7 +106,7 @@ public class GatherGold extends ScenarioSetAction
             .then(depositComplete(events, GATHER_AMOUNT))
             .then(show(), enable(), setAnimation(Idle, IdleBasic), setAnimation(Move, MoveBasic))
             .then(animate(Idle))
-            .withTarget(closest(getGatherer(), TownHall));
+            .withTarget(closest(getGatherer(), both(isCorporeal(), isDepotFor(Gold))));
     }
 
     public Gatherer getGatherer() {

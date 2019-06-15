@@ -24,7 +24,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimatedItemStyle;
-import com.evilbird.warcraft.item.common.animation.AnimationSets;
+import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -40,6 +40,9 @@ import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
 import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
 import static com.evilbird.engine.common.file.FileType.MP3;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
+import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.buildingDestructionScheme;
+import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.gatheringSchema;
+import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.idleSingularSchema;
 
 /**
  * Instances of this factory create Gold Mines, a {@link Resource}
@@ -119,7 +122,15 @@ public class GoldMineFactory implements AssetProvider<Item>
     private Map<Identifier, Animation> getAnimations() {
         Texture general = assets.get(BASE, Texture.class);
         Texture destruction = assets.get(DESTRUCTION, Texture.class);
-        return AnimationSets.resourceBuildingAnimations(general, destruction);
+        return getAnimations(general, destruction);
+    }
+
+    private Map<Identifier, Animation> getAnimations(Texture general, Texture destruction) {
+        AnimationSetBuilder builder = new AnimationSetBuilder();
+        builder.set(UnitAnimation.Idle, idleSingularSchema(96, 96), general);
+        builder.set(UnitAnimation.Gathering, gatheringSchema(96, 96), general);
+        builder.set(UnitAnimation.Dead, buildingDestructionScheme(), destruction);
+        return builder.build();
     }
 
     private Map<Identifier, SoundEffect> getSounds() {

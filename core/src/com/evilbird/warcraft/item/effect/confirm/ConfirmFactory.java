@@ -13,17 +13,21 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimatedItem;
 import com.evilbird.engine.item.specialized.AnimatedItemStyle;
-import com.evilbird.warcraft.item.common.animation.AnimationSets;
+import com.evilbird.warcraft.item.common.animation.AnimationLayouts;
+import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import javax.inject.Inject;
 import java.util.Collections;
+import java.util.Map;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 
@@ -68,8 +72,19 @@ public class ConfirmFactory implements AssetProvider<Item>
 
     private AnimatedItemStyle getAnimationStyle() {
         AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
-        animatedItemStyle.animations = AnimationSets.effectAnimations(assets.get(TEXTURE, Texture.class));
+        animatedItemStyle.animations = getAnimations();
         animatedItemStyle.sounds = Collections.emptyMap();
         return animatedItemStyle;
+    }
+
+    private Map<Identifier, Animation> getAnimations() {
+        Texture texture = assets.get(TEXTURE, Texture.class);
+        return getAnimations(texture);
+    }
+
+    private Map<Identifier, Animation> getAnimations(Texture texture) {
+        AnimationSetBuilder builder = new AnimationSetBuilder();
+        builder.set(UnitAnimation.Idle, AnimationLayouts.effectSchema(), texture);
+        return builder.build();
     }
 }

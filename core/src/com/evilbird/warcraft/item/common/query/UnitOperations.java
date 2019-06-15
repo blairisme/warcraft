@@ -46,13 +46,21 @@ public class UnitOperations
     private UnitOperations() {
     }
 
-    public static Item findClosest(Movable source, Identifier type) {
-        return findClosest(source, type, source);
+    public static Item findClosest(Movable movable, Identifier type) {
+        return findClosest(movable, movable, touchableWithType(type));
     }
 
-    public static Item findClosest(Movable source, Identifier type, Item locus) {
+    public static Item findClosest(Movable movable, Item locus, Identifier type) {
+        return findClosest(movable, locus, touchableWithType(type));
+    }
+
+    public static Item findClosest(Movable movable, Predicate<Item> applicability) {
+        return findClosest(movable, movable, applicability);
+    }
+
+    public static Item findClosest(Movable source, Item locus, Predicate<Item> applicability) {
         ItemComposite group = source.getRoot();
-        Collection<Item> items = group.findAll(touchableWithType(type));
+        Collection<Item> items = group.findAll(applicability);
         return findClosest(source, locus, items);
     }
 

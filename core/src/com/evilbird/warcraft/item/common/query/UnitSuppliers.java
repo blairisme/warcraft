@@ -14,6 +14,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.movement.Movable;
 import com.evilbird.warcraft.item.unit.Unit;
 
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -28,10 +29,14 @@ public class UnitSuppliers
     }
 
     public static Supplier<Item> closest(Movable source, Identifier type, Item locus) {
-        return () -> UnitOperations.findClosest(source, type, locus);
+        return () -> UnitOperations.findClosest(source, locus, type);
     }
 
     public static Supplier<Item> closest(Movable source, Identifier type) {
         return () -> UnitOperations.findClosest(source, type);
+    }
+
+    public static Supplier<Item> closest(Movable source, Predicate<Item> applicability) {
+        return () -> UnitOperations.findClosest(source, applicability);
     }
 }

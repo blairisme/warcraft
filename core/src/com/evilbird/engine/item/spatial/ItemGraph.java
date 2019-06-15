@@ -104,6 +104,10 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         return null;
     }
 
+    public Collection<ItemNode> getNodes(Item item) {
+        return getNodes(item.getPosition(), item.getSize());
+    }
+
     public Collection<ItemNode> getNodes(Vector2 worldPosition, Vector2 worldSize) {
         GridPoint2 spatialPosition = toSpatial(worldPosition);
         return getNodes(spatialPosition, worldSize);

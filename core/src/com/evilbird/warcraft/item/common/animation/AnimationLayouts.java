@@ -20,13 +20,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Instances of this class define animation frame dimensions and layouts.
+ * Defines animation frame dimensions and layouts.
  *
  * @author Blair Butterworth
  */
-public class AnimationSchemas
+public class AnimationLayouts
 {
-    private AnimationSchemas() {
+    private AnimationLayouts() {
     }
 
     public static AnimationSchema effectSchema() {
@@ -51,12 +51,6 @@ public class AnimationSchemas
         List<List<Rectangle>> regions = getRegions(1, 1, 0, 0, width, height);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
         return new AnimationSchema(frames, 1f, true);
-    }
-
-    public static AnimationSchema hiddenSchema() {
-        List<List<Rectangle>> regions = getRegions(1, 1, 0, 0, 1, 1);
-        Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 0.15f, true);
     }
 
     public static AnimationSchema constructStaticSchema(int width, int height) {
@@ -89,6 +83,11 @@ public class AnimationSchemas
         List<List<Rectangle>> regions = getRegions(8, 5, 0, 0, 72, 72);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
         return new AnimationSchema(frames, 0.10f, true);
+    }
+
+    public static AnimationSchema gatherWoodSchema() {
+        Map<Range<Float>, List<Rectangle>> frames = getFrames(getRegions(8, 4, 0, 360, 72, 72));
+        return new AnimationSchema(frames, 0.15f, true);
     }
 
     public static AnimationSchema meleeAttackSchema() {

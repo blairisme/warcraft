@@ -22,7 +22,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimatedItemStyle;
-import com.evilbird.warcraft.item.common.animation.AnimationSchemas;
+import com.evilbird.warcraft.item.common.animation.AnimationLayouts;
 import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import org.apache.commons.lang3.Validate;
 
@@ -108,9 +108,9 @@ public class ProjectileFactory implements IdentifiedAssetProvider<Item>
 
     private AnimationSchema getSchema(ProjectileType type) {
         switch (type) {
-            case Arrow: return AnimationSchemas.projectileStaticSchema();
+            case Arrow: return AnimationLayouts.projectileStaticSchema();
             case Axe:
-            case Cannon: return AnimationSchemas.projectileAnimatedSchema();
+            case Cannon: return AnimationLayouts.projectileAnimatedSchema();
             default: throw new UnsupportedOperationException();
         }
     }

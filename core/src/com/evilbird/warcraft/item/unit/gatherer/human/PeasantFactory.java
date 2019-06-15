@@ -23,7 +23,8 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimatedItemStyle;
-import com.evilbird.warcraft.item.common.animation.AnimationSets;
+import com.evilbird.warcraft.item.common.animation.AnimationLayouts;
+import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitStyle;
@@ -140,7 +141,28 @@ public class PeasantFactory implements AssetProvider<Item>
         Texture moveGold = assets.get(MOVE_GOLD, Texture.class);
         Texture moveWood = assets.get(MOVE_WOOD, Texture.class);
         Texture decompose = assets.get(DECOMPOSE, Texture.class);
-        return AnimationSets.gatherAnimations(general, decompose, moveGold, moveWood);
+        return getAnimations(general, moveGold, moveWood, decompose);
+    }
+
+    private Map<Identifier, Animation> getAnimations(Texture general, Texture gold, Texture wood, Texture decompose) {
+        AnimationSetBuilder builder = new AnimationSetBuilder();
+
+        builder.set(UnitAnimation.IdleBasic, AnimationLayouts.idleSchema(), general);
+        builder.set(UnitAnimation.IdleGold, AnimationLayouts.idleSchema(), gold);
+        builder.set(UnitAnimation.IdleWood, AnimationLayouts.idleSchema(), wood);
+        builder.associate(UnitAnimation.Idle, UnitAnimation.IdleBasic);
+
+        builder.set(UnitAnimation.MoveBasic, AnimationLayouts.moveSchema(), general);
+        builder.set(UnitAnimation.MoveGold, AnimationLayouts.moveSchema(), gold);
+        builder.set(UnitAnimation.MoveWood, AnimationLayouts.moveSchema(), wood);
+        builder.associate(UnitAnimation.Move, UnitAnimation.MoveBasic);
+
+        builder.set(UnitAnimation.Attack, AnimationLayouts.meleeAttackSchema(), general);
+        builder.set(UnitAnimation.Death, AnimationLayouts.deathSchema(), general);
+        builder.set(UnitAnimation.Decompose, AnimationLayouts.decomposeSchema(), decompose);
+        builder.set(UnitAnimation.GatherWood, AnimationLayouts.gatherWoodSchema(), general);
+
+        return builder.build();
     }
 
     private Map<Identifier, SoundEffect> getSounds() {

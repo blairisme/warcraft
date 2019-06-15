@@ -20,6 +20,7 @@ import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
@@ -97,6 +98,19 @@ public class UnitPredicates
 
     public static Predicate<Item> notCombatant() {
         return not(isCombatant());
+    }
+
+    public static Predicate<Item> isDepotFor(ResourceType resource) {
+        return item -> {
+            Identifier type = item.getType();
+            if (type == UnitType.TownHall || type == UnitType.GreatHall) {
+                return true;
+            }
+            if (resource == ResourceType.Gold && type == UnitType.LumberMill) {
+                return true;
+            }
+            return false;
+        };
     }
 
     public static Predicate<Item> isDestroyable() {

@@ -25,26 +25,30 @@ import java.util.Collection;
  */
 class MoveDestinationItem implements MoveDestination
 {
-    private Item destination;
+    private Item target;
+    private ItemNode targetNode;
 
-    public MoveDestinationItem(Item destination) {
-        this.destination = destination;
+    public MoveDestinationItem(Item target) {
+        this.target = target;
     }
 
     @Override
     public ItemNode getDestinationNode(ItemGraph graph, ItemNode node) {
-        Collection<ItemNode> nodes = graph.getNodes(destination.getPosition(), destination.getSize());
-        return SpatialUtils.getClosest(nodes, node);
+        Collection<ItemNode> nodes = graph.getNodes(target);
+        targetNode = nodes.iterator().next();
+
+        Collection<ItemNode> adjacentNodes = graph.getAdjacentNodes(target);
+        return SpatialUtils.getClosest(adjacentNodes, node);
     }
 
     @Override
     public boolean isDestinationValid(ItemGraph graph, ItemNode node) {
-        return node.hasOccupant(destination);
+        return targetNode.hasOccupant(target);
     }
 
     @Override
     public boolean isDestinationReached(ItemGraph graph, ItemNode node) {
         Collection<Item> occupants = node.getOccupants();
-        return occupants.contains(destination);
+        return occupants.contains(target);
     }
 }

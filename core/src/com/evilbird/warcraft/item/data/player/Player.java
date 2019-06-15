@@ -168,7 +168,7 @@ public class Player extends ItemGroup implements ResourceContainer
     public void setIdentifier(Identifier identifier) {
         super.setIdentifier(identifier);
         if (isCorporeal() && music != null) {
-            music.play();
+//            music.play();
         }
     }
 }

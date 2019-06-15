@@ -16,7 +16,7 @@ import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.specialized.AnimatedItemStyle;
-import com.evilbird.warcraft.item.common.animation.AnimationSchemas;
+import com.evilbird.warcraft.item.common.animation.AnimationLayouts;
 import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -92,31 +92,31 @@ public class CombatantBuilder
 
     private Map<Identifier, Animation> getMeleeAnimations(Texture general, Texture decompose) {
         AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(), general);
-        builder.set(UnitAnimation.Move, AnimationSchemas.moveSchema(), general);
-        builder.set(UnitAnimation.Attack, AnimationSchemas.meleeAttackSchema(), general);
-        builder.set(UnitAnimation.Death, AnimationSchemas.deathSchema(), general);
-        builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decompose);
+        builder.set(UnitAnimation.Idle, AnimationLayouts.idleSchema(), general);
+        builder.set(UnitAnimation.Move, AnimationLayouts.moveSchema(), general);
+        builder.set(UnitAnimation.Attack, AnimationLayouts.meleeAttackSchema(), general);
+        builder.set(UnitAnimation.Death, AnimationLayouts.deathSchema(), general);
+        builder.set(UnitAnimation.Decompose, AnimationLayouts.decomposeSchema(), decompose);
         return builder.build();
     }
 
     private Map<Identifier, Animation> getSeaAnimations(Texture general, Texture decompose) {
         AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(88, 88), general);
-        builder.set(UnitAnimation.Move, AnimationSchemas.idleSchema(88, 88), general);
-        builder.set(UnitAnimation.Attack, AnimationSchemas.idleSchema(88, 88), general);
-        builder.set(UnitAnimation.Death, AnimationSchemas.boatDeathSchema(), general);
-        builder.set(UnitAnimation.Decompose, AnimationSchemas.boatDecomposeSchema(), decompose);
+        builder.set(UnitAnimation.Idle, AnimationLayouts.idleSchema(88, 88), general);
+        builder.set(UnitAnimation.Move, AnimationLayouts.idleSchema(88, 88), general);
+        builder.set(UnitAnimation.Attack, AnimationLayouts.idleSchema(88, 88), general);
+        builder.set(UnitAnimation.Death, AnimationLayouts.boatDeathSchema(), general);
+        builder.set(UnitAnimation.Decompose, AnimationLayouts.boatDecomposeSchema(), decompose);
         return builder.build();
     }
 
     private Map<Identifier, Animation> getRangedAnimations(Texture general, Texture decompose) {
         AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(UnitAnimation.Idle, AnimationSchemas.idleSchema(), general);
-        builder.set(UnitAnimation.Move, AnimationSchemas.moveSchema(), general);
-        builder.set(UnitAnimation.Attack, AnimationSchemas.rangedAttackSchema(), general);
-        builder.set(UnitAnimation.Death, AnimationSchemas.deathSchema(), general);
-        builder.set(UnitAnimation.Decompose, AnimationSchemas.decomposeSchema(), decompose);
+        builder.set(UnitAnimation.Idle, AnimationLayouts.idleSchema(), general);
+        builder.set(UnitAnimation.Move, AnimationLayouts.moveSchema(), general);
+        builder.set(UnitAnimation.Attack, AnimationLayouts.rangedAttackSchema(), general);
+        builder.set(UnitAnimation.Death, AnimationLayouts.deathSchema(), general);
+        builder.set(UnitAnimation.Decompose, AnimationLayouts.decomposeSchema(), decompose);
         return builder.build();
     }
 

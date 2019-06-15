@@ -46,7 +46,7 @@ public class MoveToItemActionTest extends GameTestCase
         item.setMovementSpeed(10);
         item.setPosition(0, 0);
 
-        target.setPosition(32, 0);
+        target.setPosition(64, 0);
         target.getRoot().getSpatialGraph().addOccupants(target);
 
         Assert.assertFalse(action.act(1));

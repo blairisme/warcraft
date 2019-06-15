@@ -27,11 +27,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.buildingDestructionScheme;
-import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.constructBeginSchema;
-import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.constructEndSchema;
-import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.constructStaticSchema;
-import static com.evilbird.warcraft.item.common.animation.AnimationSchemas.idleSingularSchema;
+import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.buildingDestructionScheme;
+import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.constructBeginSchema;
+import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.constructEndSchema;
+import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.constructStaticSchema;
+import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.idleSingularSchema;
 
 /**
  * Creates a new {@link Building} instance whose visual and audible

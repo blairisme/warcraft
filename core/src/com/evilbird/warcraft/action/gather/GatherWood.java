@@ -25,10 +25,12 @@ import static com.evilbird.engine.action.common.ActionRecipient.Subject;
 import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AnimationAliasAction.setAnimation;
+import static com.evilbird.engine.action.common.DirectionAction.reorient;
 import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
+import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.warcraft.action.common.transfer.TransferAction.transferAll;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositComplete;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositStarted;
@@ -38,6 +40,8 @@ import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasResources;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDepotFor;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.noResources;
 import static com.evilbird.warcraft.item.common.query.UnitSuppliers.closest;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
@@ -50,7 +54,6 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.MoveBasic;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.MoveWood;
 import static com.evilbird.warcraft.item.unit.UnitSound.ChopWood;
-import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 
 /**
  * Instances of this {@link Action} instruct a given {@link Item} to gather wood.
@@ -60,7 +63,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 public class GatherWood extends ScenarioSetAction
 {
     private static final float DEPOSIT_TIME = 5;
-    private static final float GATHER_TIME = 45;
+    private static final float GATHER_TIME = 2;//45;
     private static final ResourceQuantity GATHER_AMOUNT = ResourceQuantum.resource(Wood, 100);
 
     private transient Events events;
@@ -85,6 +88,7 @@ public class GatherWood extends ScenarioSetAction
             .then(deselect(events))
             .then(animate(Move))
             .then(move(events))
+            .then(reorient())
             .then(animate(GatherWood), obtainStarted(events, GATHER_AMOUNT))
             .then(delay(GATHER_TIME), playRepeat(ChopWood, 40, 1))
             .then(transferAll(Target, Subject, GATHER_AMOUNT, events), obtainComplete(events, GATHER_AMOUNT))
@@ -105,7 +109,7 @@ public class GatherWood extends ScenarioSetAction
             .then(depositComplete(events, GATHER_AMOUNT))
             .then(show(), setAnimation(Move, MoveBasic), setAnimation(Idle, IdleBasic))
             .then(animate(Idle))
-            .withTarget(closest(getGatherer(), TownHall));
+            .withTarget(closest(getGatherer(), both(isCorporeal(), isDepotFor(Wood))));
     }
 
     public Gatherer getGatherer() {
