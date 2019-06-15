@@ -125,7 +125,7 @@ public class RangedAttack extends BasicAction
         ProjectileType type = combatant.getProjectileType();
         Projectile projectile = (Projectile)factory.newItem(type);
         projectile.setVisible(false);
-        projectile.setPosition(combatant.getPosition());
+        projectile.setPosition(combatant.getPosition(Alignment.Center));
         return projectile;
     }
 
@@ -144,22 +144,25 @@ public class RangedAttack extends BasicAction
     private void fireProjectile() {
         flightTime = 0;
         destination = target.getPosition(Alignment.Center);
+
         projectile.setPosition(combatant.getPosition(Alignment.Center));
         projectile.setVisible(true);
+        projectile.setAnimation(UnitAnimation.Idle);
+
         combatant.resetAnimation();
         combatant.setAnimation(UnitAnimation.Attack);
         combatant.setSound(UnitSound.Attack);
     }
 
     private boolean projectileReachedTarget() {
-        Vector2 position = projectile.getPosition();
+        Vector2 position = projectile.getPosition(Alignment.Center);
         return position.equals(destination);
     }
 
     private void moveProjectile(float time) {
-        Vector2 currentPosition = projectile.getPosition();
+        Vector2 currentPosition = projectile.getPosition(Alignment.Center);
         Vector2 updatedPosition = getNextPosition(currentPosition, destination, time);
-        projectile.setPosition(updatedPosition);
+        projectile.setPosition(updatedPosition, Alignment.Center);
         flightTime += time;
     }
 

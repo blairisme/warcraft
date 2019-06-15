@@ -240,7 +240,7 @@ public interface Item extends Identifiable, Categorizable, Positionable, Disabla
     void setSize(Vector2 size);
 
     /**
-     * Sets the spatial location of the Item.
+     * Sets the spatial location of the Items bottom left corner.
      *
      * @param x the new horizontal coordinate of the Item.
      * @param y the new vertical coordinate of the Item.
@@ -248,11 +248,30 @@ public interface Item extends Identifiable, Categorizable, Positionable, Disabla
     void setPosition(float x, float y);
 
     /**
-     * Sets the spatial location of the Item.
+     * Sets the spatial location of the Item using the given {@link Alignment}.
+     *
+     * @param x         the new horizontal coordinate of the Item.
+     * @param y         the new vertical coordinate of the Item.
+     * @param alignment defines which the path of the Item the given position
+     *                  refers to.
+     */
+    void setPosition(float x, float y, Alignment alignment);
+
+    /**
+     * Sets the spatial location of the Items bottom left corner.
      *
      * @param position a {@link Vector2 position}. Cannot be {@code null}.
      */
     void setPosition(Vector2 position);
+
+    /**
+     * Sets the spatial location of the Item using the given {@link Alignment}.
+     *
+     * @param position  a {@link Vector2 position}. Cannot be {@code null}.
+     * @param alignment defines which the path of the Item the given position
+     *                  refers to.
+     */
+    void setPosition(Vector2 position, Alignment alignment);
 
     /**
      * Sets the z-index of the Item. The z-index is the index into the parent's

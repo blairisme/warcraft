@@ -9,6 +9,8 @@
 
 package com.evilbird.warcraft.action.confirm;
 
+import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.RandomIdentifier;
 import com.evilbird.engine.item.Item;
@@ -55,8 +57,11 @@ public class ConfirmItem extends ScenarioAction
 
     private Consumer<Item> properties() {
         return (item) -> {
+            Item target = getTarget();
+            Vector2 position = target.getPosition(Alignment.Center);
+
             item.setIdentifier(effectId);
-            item.setPosition(getTarget().getPosition());
+            item.setPosition(position, Alignment.Center);
         };
     }
 

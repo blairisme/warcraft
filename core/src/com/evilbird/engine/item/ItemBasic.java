@@ -231,10 +231,22 @@ public class ItemBasic implements Item
     }
 
     @Override
+    public void setPosition(float x, float y, Alignment alignment) {
+        this.delegate.setPosition(x, y, alignment.toGdxAlign());
+        this.position.x = delegate.getX();
+        this.position.y = delegate.getY();
+    }
+
+    @Override
     public void setPosition(Vector2 position) {
         Validate.notNull(position);
-        this.position = position;
-        this.delegate.setPosition(position.x, position.y);
+        setPosition(position.x, position.y);
+    }
+
+    @Override
+    public void setPosition(Vector2 position, Alignment alignment) {
+        Validate.notNull(position);
+        setPosition(position.x, position.y, alignment);
     }
 
     @Override
