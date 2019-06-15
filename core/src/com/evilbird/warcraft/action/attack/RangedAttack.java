@@ -13,15 +13,21 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Destroyable;
-import com.evilbird.engine.common.math.RandomGenerator;
 import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.projectile.Projectile;
 import com.evilbird.warcraft.item.projectile.ProjectileType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
+
+import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
+import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.ArrowDamage;
+import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.AxeDamage;
+import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.CannonDamage;
 
 /**
  * Modifies the state of a {@link RangedCombatant} to attack a given item using
@@ -31,13 +37,12 @@ import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
  */
 public class RangedAttack extends BasicAction
 {
+    private transient Player player;
     private transient RangedCombatant combatant;
     private transient Projectile projectile;
     private transient Destroyable target;
     private transient Vector2 destination;
-
     private transient ItemFactory factory;
-    private transient RandomGenerator random;
 
     private transient float flightTime;
     private transient float reloadTime;
@@ -48,7 +53,6 @@ public class RangedAttack extends BasicAction
 
     public RangedAttack(ItemFactory factory) {
         this.factory = factory;
-        this.random = new RandomGenerator();
     }
 
     public static RangedAttack rangedAttack() {
@@ -107,9 +111,11 @@ public class RangedAttack extends BasicAction
         flightTime = 0;
         reloadTime = 0;
 
-        target = (Destroyable)getTarget();
         combatant = (RangedCombatant)getItem();
         projectile = (Projectile)combatant.getAssociatedItem();
+        player = getPlayer(combatant);
+
+        target = (Destroyable)getTarget();
         destination = target.getPosition(Alignment.Center);
 
         if (projectile == null) {
@@ -180,7 +186,7 @@ public class RangedAttack extends BasicAction
     }
 
     private boolean hitWithProjectile() {
-        float newHealth = getNewHealth();
+        float newHealth = getDamagedHealth(combatant, target, getAttackUpgrade());
         target.setHealth(newHealth);
         combatant.setSound(UnitSound.Hit);
         projectile.setVisible(false);
@@ -188,13 +194,12 @@ public class RangedAttack extends BasicAction
         return newHealth == 0;
     }
 
-    private float getNewHealth() {
-        int attackMin = Math.round(combatant.getDamageMinimum() * combatant.getAttackSpeed());
-        int attackMax = Math.round(combatant.getDamageMaximum() * combatant.getAttackSpeed());
-        int attack = random.nextInt(attackMin, attackMax);
-        int defence = Math.round(target.getDefence() * combatant.getAttackSpeed());
-        int damage = Math.max(0, attack - defence);
-        float health = target.getHealth();
-        return Math.max(0, health - damage);
+    private int getAttackUpgrade() {
+        switch ((ProjectileType)projectile.getType()) {
+            case Arrow: return player.getUpgrade(ArrowDamage);
+            case Axe: return player.getUpgrade(AxeDamage);
+            case Cannon: return player.getUpgrade(CannonDamage);
+            default: return 0;
+        }
     }
 }

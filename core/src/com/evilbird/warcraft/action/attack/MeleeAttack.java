@@ -12,12 +12,16 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Destroyable;
-import com.evilbird.engine.common.math.RandomGenerator;
+import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
+
+import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
+import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.SwordDamage;
 
 /**
  * Instances of this {@link Action} reduce the health of the Actions target.
@@ -30,12 +34,10 @@ import javax.inject.Inject;
  */
 public class MeleeAttack extends BasicAction
 {
-    private transient RandomGenerator random;
     private transient float delay;
 
     @Inject
     public MeleeAttack() {
-        random = new RandomGenerator();
     }
 
     public static MeleeAttack meleeAttack() {
@@ -75,18 +77,14 @@ public class MeleeAttack extends BasicAction
     }
 
     private void setTargetHealth(Combatant combatant, Destroyable target) {
-        float health = target.getHealth();
-        float damage = getAttackDamage(combatant, target);
-        float newHealth = Math.max(0, health - damage);
-        target.setHealth(newHealth);
+        int upgrade = getAttackUpgrade(combatant);
+        float health = getDamagedHealth(combatant, target, upgrade);
+        target.setHealth(health);
     }
 
-    private float getAttackDamage(Combatant combatant, Destroyable target) {
-        int attackMin = Math.round(combatant.getDamageMinimum() * combatant.getAttackSpeed());
-        int attackMax = Math.round(combatant.getDamageMaximum() * combatant.getAttackSpeed());
-        int attack = random.nextInt(attackMin, attackMax);
-        int defence = Math.round(target.getDefence() * combatant.getAttackSpeed());
-        return Math.max(0, attack - defence);
+    private int getAttackUpgrade(Combatant combatant) {
+        Player player = getPlayer(combatant);
+        return player.getUpgrade(SwordDamage);
     }
 
     private boolean isTargetDead() {

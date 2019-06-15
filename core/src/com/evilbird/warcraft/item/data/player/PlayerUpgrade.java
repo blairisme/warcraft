@@ -17,5 +17,8 @@ package com.evilbird.warcraft.item.data.player;
 public enum PlayerUpgrade
 {
     ArrowDamage,
+    AxeDamage,
+    CannonDamage,
+    SwordDamage,
     WoodProduction
 }
