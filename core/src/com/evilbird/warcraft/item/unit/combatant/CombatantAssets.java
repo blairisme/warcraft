@@ -95,6 +95,14 @@ public class CombatantAssets
         return newSoundEffect(manifest.getSelectedSoundEffectPath());
     }
 
+    public SoundEffect getCaptureSound() {
+        return newSoundEffect(manifest.getCaptureSoundEffectPath());
+    }
+
+    public SoundEffect getRescueSound() {
+        return newSoundEffect(manifest.getRescueSoundEffectPath());
+    }
+
     public GridPoint2 getSize() {
         return size;
     }
@@ -117,6 +125,8 @@ public class CombatantAssets
         loadSoundSet(manifest.getHitSoundEffectPath());
         loadSoundSet(manifest.getDieSoundEffectPath());
         loadSoundSet(manifest.getReadySoundEffectPath());
+        loadSoundSet(manifest.getCaptureSoundEffectPath());
+        loadSoundSet(manifest.getRescueSoundEffectPath());
     }
 
     private void loadSoundSet(String path) {

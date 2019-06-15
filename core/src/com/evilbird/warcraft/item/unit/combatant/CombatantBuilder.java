@@ -136,6 +136,8 @@ public class CombatantBuilder
         sounds.put(UnitSound.Attack, assets.getAttackSound());
         sounds.put(UnitSound.Die, assets.getDieSound());
         sounds.put(UnitSound.Ready, assets.getReadySound());
+        sounds.put(UnitSound.Captured, assets.getCaptureSound());
+        sounds.put(UnitSound.Rescued, assets.getRescueSound());
         return sounds;
     }
 

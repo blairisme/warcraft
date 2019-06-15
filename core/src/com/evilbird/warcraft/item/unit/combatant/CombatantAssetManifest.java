@@ -28,21 +28,33 @@ public class CombatantAssetManifest
     private String decompose;
     private String acknowledge;
     private String selected;
+    private String ready;
     private String attack;
     private String hit;
-    private String ready;
     private String die;
+    private String capture;
+    private String rescue;
 
     public CombatantAssetManifest(UnitType unitType) {
         String faction = getFaction(unitType);
         String name = getName(unitType);
         String type = getAttackType(unitType);
+        setSounds(faction, name, type);
+        setTextures(faction, name);
+    }
+
+    private void setSounds(String faction, String name, String type) {
         this.attack = "data/sounds/common/unit/attack/" + type + "/";
         this.hit = "data/sounds/common/unit/hit/" + type + "/";
         this.acknowledge = "data/sounds/" + faction + "/unit/" + name + "/acknowledge/";
         this.selected = "data/sounds/" + faction + "/unit/" + name + "/selected/";
         this.ready = "data/sounds/" + faction + "/unit/" + name + "/ready/";
         this.die = "data/sounds/" + faction + "/unit/common/dead/";
+        this.capture = "data/sounds/" + faction + "/unit/common/capture/";
+        this.rescue = "data/sounds/" + faction + "/unit/common/rescue/";
+    }
+
+    private void setTextures(String faction, String name) {
         this.base = "data/textures/" + faction + "/perennial/" + name + ".png";
         this.icons = "data/textures/neutral/perennial/icons.png";
         this.decompose = "data/textures/neutral/perennial/decompose.png";
@@ -82,6 +94,14 @@ public class CombatantAssetManifest
 
     public String getDieSoundEffectPath() {
         return die;
+    }
+
+    public String getCaptureSoundEffectPath() {
+        return capture;
+    }
+
+    public String getRescueSoundEffectPath() {
+        return rescue;
     }
 
     private String getFaction(UnitType unitType) {

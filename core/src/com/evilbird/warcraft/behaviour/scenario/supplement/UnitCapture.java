@@ -80,11 +80,12 @@ public class UnitCapture implements SupplementaryBehaviour
     }
 
     private void evaluateMovedItem(Item item, ItemNode location) {
-        for (Item capturedItem: capturableItems.getOrDefault(location, emptyList())) {
+        List<Item> capturedItems = capturableItems.getOrDefault(location, emptyList());
+        for (Item capturedItem: capturedItems) {
             setOwner(capturedItem, item);
             setSoundEffect(capturedItem);
-            capturableItems.forEach((node, items) -> items.remove(capturedItem));
         }
+        capturableItems.forEach((node, items) -> items.removeAll(capturedItems));
     }
 
     private void setOwner(Item captured, Item owner) {
