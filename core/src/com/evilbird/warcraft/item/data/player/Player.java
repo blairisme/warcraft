@@ -32,11 +32,13 @@ import java.util.Map;
  */
 public class Player extends ItemGroup implements ResourceContainer
 {
-    private static final transient float VOLUME = 0.3f;
+    private static final transient float VOLUME = 0.15f;
 
     private String description;
     private Map<String, Double> statistics;
     private Map<String, Double> resources;
+    private Map<String, Double> upgrades;
+
     private transient Skin skin;
     private transient Music music;
 
@@ -45,6 +47,7 @@ public class Player extends ItemGroup implements ResourceContainer
         this.skin = skin;
         this.resources = new LinkedHashMap<>();
         this.statistics = new LinkedHashMap<>();
+        this.upgrades = new LinkedHashMap<>();
         initialize();
     }
 
@@ -65,19 +68,15 @@ public class Player extends ItemGroup implements ResourceContainer
     }
 
     public float getResource(ResourceType type) {
-        String key = type.name();
-        if (resources.containsKey(key)){
-            return resources.get(key).floatValue();
-        }
-        return 0;
+        return resources.getOrDefault(type.name(), 0d).floatValue();
     }
 
-    public int getStatistic(PlayerStatistic type) {
-        String key = type.name();
-        if (statistics.containsKey(key)) {
-            return statistics.get(key).intValue();
-        }
-        return 0;
+    public int getStatistic(PlayerStatistic statistic) {
+        return statistics.getOrDefault(statistic.name(), 0d).intValue();
+    }
+
+    public int getUpgrade(PlayerUpgrade upgrade) {
+        return upgrades.getOrDefault(upgrade.name(), 0d).intValue();
     }
 
     public void setDescription(String description) {
@@ -86,23 +85,26 @@ public class Player extends ItemGroup implements ResourceContainer
 
     public void setResource(ResourceType type, float value) {
         String key = type.name();
-        resources.put(key, (double)value);
+        resources.put(type.name(), (double)value);
     }
 
-    public void setStatistic(PlayerStatistic type, float value) {
-        String key = type.name();
-        statistics.put(key, (double)value);
+    public void setStatistic(PlayerStatistic statistic, float value) {
+        statistics.put(statistic.name(), (double)value);
     }
 
-    public void incrementStatistic(PlayerStatistic type, float value) {
-        float current = getStatistic(type);
-        float updated = current + value;
-        setStatistic(type, updated);
+    public void setUpgrade(PlayerUpgrade upgrade, float value) {
+        statistics.put(upgrade.name(), (double)value);
     }
 
     public void decrementStatistic(PlayerStatistic type, float value) {
         float current = getStatistic(type);
         float updated = Math.max(current - value, 0);
+        setStatistic(type, updated);
+    }
+
+    public void incrementStatistic(PlayerStatistic type, float value) {
+        float current = getStatistic(type);
+        float updated = current + value;
         setStatistic(type, updated);
     }
 
@@ -134,6 +136,7 @@ public class Player extends ItemGroup implements ResourceContainer
             .append(description, player.description)
             .append(resources, player.resources)
             .append(statistics, player.statistics)
+            .append(upgrades, player.upgrades)
             .isEquals();
     }
 
@@ -144,6 +147,7 @@ public class Player extends ItemGroup implements ResourceContainer
             .append(description)
             .append(resources)
             .append(statistics)
+            .append(upgrades)
             .toHashCode();
     }
 
@@ -168,7 +172,7 @@ public class Player extends ItemGroup implements ResourceContainer
     public void setIdentifier(Identifier identifier) {
         super.setIdentifier(identifier);
         if (isCorporeal() && music != null) {
-//            music.play();
+            music.play();
         }
     }
 }

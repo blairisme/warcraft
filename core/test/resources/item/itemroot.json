@@ -19,6 +19,7 @@
         "Gold": 123.0,
         "Wood": 456.0
       },
+      "upgrades": {},
       "fill": false,
       "items": [
         {
@@ -121,6 +122,7 @@
         "Gold": 123.0,
         "Wood": 456.0
       },
+      "upgrades": {},
       "fill": false,
       "items": [
         {
