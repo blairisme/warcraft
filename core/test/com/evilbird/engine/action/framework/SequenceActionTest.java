@@ -41,7 +41,7 @@ public class SequenceActionTest
         childB.setIdentifier(MoveActions.MoveCancel);
 
         childC = new TestBasicAction();
-        childC.setIdentifier(AttackActions.AttackMelee);
+        childC.setIdentifier(AttackActions.Attack);
 
         sequence = new SequenceAction(childA, childB, childC);
     }

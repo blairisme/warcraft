@@ -22,7 +22,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.common.movement.MovementCapability.Sea;
+import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
 import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannon;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollDestroyer;
 
@@ -67,7 +67,7 @@ public class TrollDestroyerFactory implements AssetProvider<Item>
         result.setLevel(1);
         result.setName("Troll Destroyer");
         result.setMovementSpeed(8 * 10);
-        result.setMovementCapability(Sea);
+        result.setMovementCapability(Water);
         result.setRange(tiles(4));
         result.setSight(tiles(8));
         result.setType(TrollDestroyer);

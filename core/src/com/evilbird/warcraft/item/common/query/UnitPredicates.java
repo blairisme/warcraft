@@ -14,6 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.movement.Movable;
+import com.evilbird.warcraft.item.common.movement.MovementCapability;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
@@ -21,6 +22,8 @@ import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.item.unit.resource.Resource;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -54,6 +57,9 @@ public class UnitPredicates
 
     public static Predicate<Item> isAi() {
         return (item) -> {
+            if (item == null) {
+                return false;
+            }
             if (! (item instanceof Player)) {
                 item = item.getParent();
             }
@@ -67,6 +73,9 @@ public class UnitPredicates
 
     public static Predicate<Item> isCorporeal() {
         return (item) -> {
+            if (item == null) {
+                return false;
+            }
             if (! (item instanceof Player)) {
                 item = item.getParent();
             }
@@ -90,12 +99,38 @@ public class UnitPredicates
         return not(isCombatant());
     }
 
+    public static Predicate<Item> isDestroyable() {
+        return item -> item instanceof Destroyable;
+    }
+
+    public static Predicate<Item> isGatherer() {
+        return (item) -> item instanceof Gatherer;
+    }
+
+    public static Predicate<Item> isMovable() {
+        return item -> item instanceof Movable;
+    }
+
+    public static Predicate<Item> isMovableOver(MovementCapability capability) {
+        return item -> {
+            if (item instanceof Movable) {
+                Movable movable = (Movable)item;
+                return capability.equals(movable.getMovementCapability());
+            }
+            return false;
+        };
+    }
+
     public static Predicate<Item> isPlaceholder() {
         return (item) -> item instanceof Placeholder;
     }
 
     public static Predicate<Item> isPlayer() {
         return (item) -> item instanceof Player;
+    }
+
+    public static Predicate<Item> isResource() {
+        return item -> item instanceof Resource;
     }
 
     public static Predicate<Item> isSelected() {

@@ -42,8 +42,8 @@ public class ItemTest extends GameTestCase
         Mockito.when(actionFactory.newAction(MoveActions.MoveToLocation)).thenReturn(actionA);
 
         actionB = new TestBasicAction();
-        actionB.setIdentifier(AttackActions.AttackMelee);
-        Mockito.when(actionFactory.newAction(AttackActions.AttackMelee)).thenReturn(actionB);
+        actionB.setIdentifier(AttackActions.Attack);
+        Mockito.when(actionFactory.newAction(AttackActions.Attack)).thenReturn(actionB);
 
         item = TestCombatants.newTestCombatant("footman");
         item.addAction(actionA);

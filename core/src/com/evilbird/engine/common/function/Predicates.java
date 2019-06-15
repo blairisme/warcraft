@@ -47,8 +47,8 @@ public class Predicates
         return (value) -> left.test(value) || right.test(value);
     }
 
-    public static <T> Predicate<T> not(Predicate<? super T> predicate) {
-        return (value) -> !predicate.test(value);
+    public static <T> Predicate<T> not(Predicate<T> predicate) {
+        return predicate.negate();
     }
 
 //    public static <X, Y> BiPredicate<X, Y> combine(Predicate<X> left, Predicate<Y> right) {

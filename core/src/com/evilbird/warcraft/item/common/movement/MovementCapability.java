@@ -18,6 +18,6 @@ public enum MovementCapability
 {
     None,
     Land,
-    Sea,
+    Water,
     Air
 }

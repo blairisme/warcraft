@@ -43,7 +43,7 @@ public class ParallelActionTest
         childB.setIdentifier(MoveActions.MoveCancel);
 
         childC = new TestBasicAction();
-        childC.setIdentifier(AttackActions.AttackMelee);
+        childC.setIdentifier(AttackActions.Attack);
 
         parallel = new ParallelAction(childA, childB, childC);
     }

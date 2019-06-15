@@ -25,13 +25,14 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 import static com.evilbird.engine.common.function.Predicates.both;
+import static com.evilbird.engine.common.function.Predicates.not;
 import static com.evilbird.engine.device.UserInputType.Drag;
 import static com.evilbird.engine.device.UserInputType.SelectResize;
 import static com.evilbird.engine.device.UserInputType.SelectStart;
 import static com.evilbird.engine.device.UserInputType.SelectStop;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
+import static com.evilbird.warcraft.action.attack.AttackActions.Attack;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackCancel;
-import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
 import static com.evilbird.warcraft.action.camera.CameraActions.Focus;
 import static com.evilbird.warcraft.action.camera.CameraActions.Pan;
 import static com.evilbird.warcraft.action.camera.CameraActions.Zoom;
@@ -73,16 +74,25 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Singleton;
+import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
+import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDestroyable;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isGatherer;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isMovable;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isMovableOver;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholder;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholderClear;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isResource;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelectable;
 import static com.evilbird.warcraft.item.data.camera.CameraType.Camera;
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
 import static com.evilbird.warcraft.item.layer.LayerType.Sea;
 import static com.evilbird.warcraft.item.layer.LayerType.Tree;
-import static com.evilbird.warcraft.item.layer.LayerType.WallSection;
 import static com.evilbird.warcraft.item.ui.hud.HudControl.MenuPane;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildAdvancedButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildBarracksButton;
@@ -103,18 +113,12 @@ import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.LumberMill
 import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.TownHallPlaceholder;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
-import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcherCaptive;
-import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
-import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
-import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
 import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
-import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
-import static com.evilbird.warcraft.item.unit.UnitType.TrollDestroyer;
 
 /**
  * Instances of this class define the different ways the user can interact with
@@ -144,36 +148,16 @@ public class Interactions
     }
 
     private void attackInteractions() {
-        attackInteraction(Footman, Grunt);
-        attackInteraction(Footman, TrollAxethrower);
-        attackInteraction(Footman, WallSection);
-
-        attackInteraction(Peasant, Grunt);
-        attackInteraction(Peasant, TrollAxethrower);
-        attackInteraction(Peasant, WallSection);
-
-        attackInteraction(ElvenArcher, Grunt);
-        attackInteraction(ElvenArcher, TrollAxethrower);
-        attackInteraction(ElvenArcher, WallSection);
-
-        attackInteraction(ElvenArcherCaptive, Grunt);
-        attackInteraction(ElvenArcherCaptive, TrollAxethrower);
-        attackInteraction(ElvenArcherCaptive, WallSection);
-
-        attackInteraction(ElvenDestroyer, TrollDestroyer);
-    }
-
-    private void attackInteraction(Identifier combatant, Identifier target) {
-        interactions.addAction(AttackMelee, ConfirmTarget)
-            .whenSelected(combatant)
-            .whenTarget(target)
+        interactions.addAction(Attack, ConfirmTarget)
+            .whenSelected(both(isCorporeal(), isCombatant()))
+            .whenTarget(isAi().and(isDestroyable()).and(not(isResource())))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
         interactions.addAction(AttackCancel)
-            .whenSelected(combatant)
+            .whenSelected(both(isCorporeal(), isCombatant()))
             .whenTarget(CancelButton)
-            .withAction(AttackMelee)
+            .withAction(Attack)
             .appliedTo(Selected);
     }
 
@@ -228,13 +212,13 @@ public class Interactions
     }
 
     private void cancelConstruction() {
-        cancelConstruction(ConstructBarracksCancel, Peasant, Barracks);
-        cancelConstruction(ConstructFarmCancel, Peasant, Farm);
-        cancelConstruction(ConstructLumberMillCancel, Peasant, LumberMill);
-        cancelConstruction(ConstructTownHallCancel, Peasant, TownHall);
+        cancelConstruction(ConstructBarracksCancel, Barracks);
+        cancelConstruction(ConstructFarmCancel, Farm);
+        cancelConstruction(ConstructLumberMillCancel, LumberMill);
+        cancelConstruction(ConstructTownHallCancel, TownHall);
     }
 
-    private void cancelConstruction(ActionIdentifier cancelAction, UnitType builder, UnitType building) {
+    private void cancelConstruction(ActionIdentifier cancelAction, UnitType building) {
         interactions.addAction(cancelAction)
             .whenTarget(CancelButton)
             .whenSelected(both(withType(building), isConstructing()))
@@ -244,7 +228,7 @@ public class Interactions
 
         interactions.addAction(cancelAction)
             .whenTarget(CancelButton)
-            .whenSelected(both(withType(builder), associatedWith(building)))
+            .whenSelected(both(isGatherer(), associatedWith(building)))
             .appliedTo(
                 (target, selected) -> ((Unit)selected).getAssociatedItem(),
                 (target, selected) -> selected);
@@ -267,19 +251,19 @@ public class Interactions
     }
 
     private void gatherInteractions() {
-        gatherInteraction(GatherGold, Peasant, GoldMine);
-        gatherInteraction(GatherWood, Peasant, Tree);
+        gatherInteraction(GatherGold, GoldMine);
+        gatherInteraction(GatherWood, Tree);
     }
 
-    private void gatherInteraction(ActionIdentifier action, Identifier gatherer, Identifier resource) {
+    private void gatherInteraction(ActionIdentifier action, Identifier resource) {
         interactions.addAction(action, ConfirmTarget)
-            .whenSelected(gatherer)
+            .whenSelected(both(isCorporeal(), isGatherer()))
             .whenTarget(resource)
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
         interactions.addAction(GatherCancel)
-            .whenSelected(gatherer)
+            .whenSelected(both(isCorporeal(), isGatherer()))
             .whenTarget(CancelButton)
             .withAction(action)
             .appliedTo(Selected);
@@ -327,31 +311,29 @@ public class Interactions
     }
 
     private void moveInteractions() {
-        moveInteraction(Footman, Map);
-        moveInteraction(Peasant, Map);
-        moveInteraction(ElvenArcher, Map);
-        moveInteraction(ElvenArcherCaptive, Map);
-        moveInteraction(ElvenDestroyer, Sea);
+        interactions.addAction(MoveToLocation, ConfirmLocation)
+            .whenSelected(both(isCorporeal(), isMovableOver(Land)))
+            .whenTarget(Map)
+            .appliedTo(Selected)
+            .appliedAs(confirmedAction());
+
+        interactions.addAction(MoveToLocation, ConfirmLocation)
+            .whenSelected(both(isCorporeal(), isMovableOver(Water)))
+            .whenTarget(Sea)
+            .appliedTo(Selected)
+            .appliedAs(confirmedAction());
+
+        interactions.addAction(MoveCancel)
+            .whenSelected(both(isCorporeal(), isMovable()))
+            .whenTarget(StopButton)
+            .withAction(MoveToLocation)
+            .appliedTo(Selected);
 
         interactions.addAction(MoveToItem, ConfirmLocation)
             .whenSelected(CircleOfPower)
             .whenTarget(ElvenArcherCaptive)
             .appliedTo(Target)
             .appliedAs(confirmedAction());
-    }
-
-    private void moveInteraction(Identifier movable, Identifier terrain) {
-        interactions.addAction(MoveToLocation, ConfirmLocation)
-            .whenSelected(movable)
-            .whenTarget(terrain)
-            .appliedTo(Selected)
-            .appliedAs(confirmedAction());
-
-        interactions.addAction(MoveCancel)
-            .whenSelected(movable)
-            .whenTarget(StopButton)
-            .withAction(MoveToLocation)
-            .appliedTo(Selected);
     }
 
     private void selectionInteractions() {

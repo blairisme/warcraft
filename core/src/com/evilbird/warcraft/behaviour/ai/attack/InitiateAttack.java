@@ -137,8 +137,8 @@ public class InitiateAttack implements AiBehaviourElement
     }
 
     private void attack(Combatant combatant, Item target) {
-        if (!ItemOperations.hasAction(combatant, AttackActions.AttackMelee)) {
-            Action action = actions.newAction(AttackActions.AttackMelee);
+        if (!ItemOperations.hasAction(combatant, AttackActions.Attack)) {
+            Action action = actions.newAction(AttackActions.Attack);
             action.setItem(combatant);
             action.setTarget(target);
             combatant.addAction(action);

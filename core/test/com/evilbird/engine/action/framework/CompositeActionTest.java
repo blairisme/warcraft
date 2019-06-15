@@ -46,7 +46,7 @@ public class CompositeActionTest
         childC.setIdentifier(AttackActions.AttackCancel);
 
         composite = new TestCompositeAction(childA, childB, childC);
-        composite.setIdentifier(AttackActions.AttackMelee);
+        composite.setIdentifier(AttackActions.Attack);
     }
 
 //    @Test

@@ -18,7 +18,6 @@ import com.evilbird.engine.action.ActionIdentifier;
  */
 public enum AttackActions implements ActionIdentifier
 {
+    Attack,
     AttackCancel,
-    AttackMelee,
-    AttackRanged,
 }

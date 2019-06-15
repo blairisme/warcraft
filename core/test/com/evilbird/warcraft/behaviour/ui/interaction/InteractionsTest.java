@@ -31,7 +31,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import static com.evilbird.engine.device.UserInputType.Action;
-import static com.evilbird.warcraft.action.attack.AttackActions.AttackMelee;
+import static com.evilbird.warcraft.action.attack.AttackActions.Attack;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmTarget;
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
@@ -59,7 +59,7 @@ public class InteractionsTest
 
     @Test
     public void getInteractionsTest() {
-        assertInteractions(asList(AttackMelee, ConfirmTarget), Action, Grunt, Footman);
+        //assertInteractions(asList(Attack, ConfirmTarget), Action, Grunt, Footman);
         assertInteraction(CameraActions.Pan, UserInputType.Drag, CameraType.Camera, null);
     }
 

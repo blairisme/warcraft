@@ -24,12 +24,12 @@ public class AttackSequenceTest extends ActionTestCase
     @Override
     protected Action newAction() {
         AttackSequence action = new AttackSequence(Mockito.mock(EventQueue.class));
-        action.setIdentifier(AttackActions.AttackMelee);
+        action.setIdentifier(AttackActions.Attack);
         return action;
     }
 
     @Override
     protected Enum newIdentifier() {
-        return AttackActions.AttackMelee;
+        return AttackActions.Attack;
     }
 }

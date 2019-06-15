@@ -108,6 +108,6 @@ public class UnitOperations
     }
 
     public static boolean isShip(Combatant combatant) {
-        return combatant.getMovementCapability() == MovementCapability.Sea;
+        return combatant.getMovementCapability() == MovementCapability.Water;
     }
 }

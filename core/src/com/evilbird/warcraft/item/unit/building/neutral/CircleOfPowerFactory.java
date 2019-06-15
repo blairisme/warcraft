@@ -62,6 +62,7 @@ public class CircleOfPowerFactory implements AssetProvider<Item>
         result.setName("Circle of Power");
         result.setSight(TILE_WIDTH);
         result.setType(CircleOfPower);
+        result.setSelectable(false);
         return result;
     }
 }

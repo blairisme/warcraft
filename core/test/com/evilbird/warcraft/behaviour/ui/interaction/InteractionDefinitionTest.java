@@ -110,10 +110,10 @@ public class InteractionDefinitionTest extends GameTestCase
 
     @Test
     public void actionTest() {
-        definition.withAction(AttackActions.AttackMelee);
+        definition.withAction(AttackActions.Attack);
         definition.appliedTo(InteractionApplicability.Target);
 
-        assertTrue(definition.applies(null, newTestItemWithAction(AttackActions.AttackMelee), null));
+        assertTrue(definition.applies(null, newTestItemWithAction(AttackActions.Attack), null));
         assertFalse(definition.applies(null, newTestItemWithAction(ConstructActions.ConstructBarracks), null));
     }
 
@@ -128,7 +128,7 @@ public class InteractionDefinitionTest extends GameTestCase
         definition.appliedTo(InteractionApplicability.Target);
 
         assertTrue(definition.applies(null, newTestItemWithAction(ConstructActions.ConstructBarracks), null));
-        assertFalse(definition.applies(null, newTestItemWithAction(AttackActions.AttackMelee), null));
+        assertFalse(definition.applies(null, newTestItemWithAction(AttackActions.Attack), null));
     }
 
     private Item newTestItemWithAction(ActionIdentifier actionIdentifier){
