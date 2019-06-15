@@ -31,7 +31,7 @@ import static com.evilbird.test.data.device.TestDevices.newTestDevice;
 public class OutroMenuFactoryTest extends GameTestCase
 {
     private static final String BUTTON = "data/textures/menu/button.png";
-    private static final String INTRO_BUNDLE_1 = "data/strings/outro";
+    private static final String INTRO_BUNDLE_1 = "data/strings/common/menu/outro";
 
     private Device device;
     private AssetManager assets;

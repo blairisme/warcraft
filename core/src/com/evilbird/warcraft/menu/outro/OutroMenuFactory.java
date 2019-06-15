@@ -43,7 +43,7 @@ public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
     private static final String FONT = "data/fonts/philosopher.ttf";
     private static final String FONT_LARGE = "data/fonts/philosopher-large.ttf";
     private static final String BUTTON = "data/textures/menu/button.png";
-    private static final String STRINGS = "data/strings/outro";
+    private static final String STRINGS = "data/strings/common/menu/outro";
     private static final String BACKGROUND_VICTORY = "data/textures/human/menu/victory.png";
     private static final String BACKGROUND_DEFEAT = "data/textures/human/menu/defeat.png";
     private static final String PROGRESS_BACKGROUND = "data/textures/neutral/perennial/stats_progress_background.png";

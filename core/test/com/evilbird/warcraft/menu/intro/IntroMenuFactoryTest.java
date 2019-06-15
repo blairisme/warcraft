@@ -31,7 +31,7 @@ import static com.evilbird.test.data.device.TestDevices.newTestDevice;
 public class IntroMenuFactoryTest extends GameTestCase
 {
     private static final String BUTTON = "data/textures/menu/button.png";
-    private static final String INTRO_BUNDLE_1 = "data/strings/intro1";
+    private static final String INTRO_BUNDLE_1 = "data/strings/human/menu/intro1";
 
     private Device device;
     private AssetManager assets;

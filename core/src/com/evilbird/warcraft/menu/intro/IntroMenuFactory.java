@@ -38,6 +38,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 import static com.evilbird.warcraft.state.WarcraftScenario.Human1;
+import static com.evilbird.warcraft.state.WarcraftScenario.Human2;
 import static java.util.Arrays.asList;
 
 /**
@@ -54,9 +55,12 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
     private static final String BACKGROUND = "data/textures/menu/introduction.png";
     private static final String CLICK = "data/sounds/common/menu/click.mp3";
     private static final String INTRO_NARRATION_1A = "data/sounds/human/menu/intro1a.mp3";
-    private static final String INTRO_NARRATION_2B = "data/sounds/human/menu/intro1b.mp3";
+    private static final String INTRO_NARRATION_1B = "data/sounds/human/menu/intro1b.mp3";
+    private static final String INTRO_NARRATION_2A = "data/sounds/human/menu/intro2a.mp3";
+    private static final String INTRO_NARRATION_2B = "data/sounds/human/menu/intro2b.mp3";
     private static final String NARRATION_BACKGROUND = "data/music/4.mp3";
-    private static final String INTRO_BUNDLE_1 = "data/strings/intro1";
+    private static final String INTRO_BUNDLE_1 = "data/strings/human/menu/intro1";
+    private static final String INTRO_BUNDLE_2 = "data/strings/human/menu/intro2";
 
     private AssetManager assets;
     private DeviceDisplay display;
@@ -73,9 +77,10 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
         assets.load(BACKGROUND, Texture.class);
         assets.load(FONT, BitmapFont.class, fontSize(20));
         assets.load(INTRO_NARRATION_1A, Music.class);
-        assets.load(INTRO_NARRATION_2B, Music.class);
+        assets.load(INTRO_NARRATION_1B, Music.class);
         assets.load(NARRATION_BACKGROUND, Music.class);
         assets.load(INTRO_BUNDLE_1, I18NBundle.class);
+        assets.load(INTRO_BUNDLE_2, I18NBundle.class);
         assets.load(CLICK, Sound.class);
     }
 
@@ -92,8 +97,16 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
     private Menu getHumanIntro1() {
         IntroMenu menu = new IntroMenu(display, getSkin());
         addContent(menu, INTRO_BUNDLE_1);
-        addNarration(menu, INTRO_NARRATION_1A, INTRO_NARRATION_2B);
+        addNarration(menu, INTRO_NARRATION_1A, INTRO_NARRATION_1B);
         addButtonAction(menu, Human1);
+        return menu;
+    }
+
+    private Menu getHumanIntro2() {
+        IntroMenu menu = new IntroMenu(display, getSkin());
+        addContent(menu, INTRO_BUNDLE_2);
+        addNarration(menu, INTRO_NARRATION_2A, INTRO_NARRATION_2B);
+        addButtonAction(menu, Human2);
         return menu;
     }
 
