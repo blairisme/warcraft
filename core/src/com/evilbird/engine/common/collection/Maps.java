@@ -15,8 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Instances of this class provide helper functions for working with
- * Maps.
+ * This class provides utility functions that operate on {@link Map Maps}.
  *
  * @author Blair Butterworth
  */

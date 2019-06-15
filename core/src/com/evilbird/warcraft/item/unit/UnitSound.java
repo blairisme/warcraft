@@ -26,6 +26,7 @@ public enum UnitSound implements Identifier
 
     Selected,
     Acknowledge,
+    Captured,
 
     Build,
     Complete,

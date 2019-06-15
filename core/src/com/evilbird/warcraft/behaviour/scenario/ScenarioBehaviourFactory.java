@@ -21,6 +21,7 @@ import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.warcraft.behaviour.scenario.condition.PlayerDestruction.playerDestroyed;
 import static com.evilbird.warcraft.behaviour.scenario.condition.PlayerOwnership.playerOwns;
 import static com.evilbird.warcraft.behaviour.scenario.condition.UnitPositioned.unitRescued;
+import static com.evilbird.warcraft.behaviour.scenario.supplement.UnitCapture.captureUnits;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcherCaptive;
@@ -69,6 +70,7 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
         ScenarioBehaviour result = factory.get();
         result.setWinCondition(unitRescued(ElvenArcherCaptive, CircleOfPower));
         result.setLoseCondition(playerDestroyed());
+        result.addBehaviour(captureUnits(ElvenArcherCaptive));
         return result;
     }
 

@@ -15,8 +15,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Instances of this class provide helper functions for working with
- * {@link Set Sets}.
+ * This class provides utility functions that operate on {@link Set Sets}.
  *
  * @author Blair Butterworth
  */

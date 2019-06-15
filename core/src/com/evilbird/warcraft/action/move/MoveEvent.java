@@ -53,6 +53,10 @@ public class MoveEvent implements Event
         return status == MoveStatus.Complete || status == MoveStatus.Failed;
     }
 
+    public boolean isUpdate() {
+        return status == MoveStatus.Updated;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)

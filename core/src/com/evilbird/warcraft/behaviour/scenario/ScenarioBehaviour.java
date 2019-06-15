@@ -21,6 +21,7 @@ import com.evilbird.warcraft.action.menu.MenuActions;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 
 /**
@@ -36,6 +37,7 @@ public class ScenarioBehaviour implements Behaviour
     private ActionFactory actions;
     private BiPredicate<ItemRoot, EventQueue> winCondition;
     private BiPredicate<ItemRoot, EventQueue> loseCondition;
+    private BiConsumer<ItemRoot, EventQueue> supplement;
 
     @Inject
     public ScenarioBehaviour(ActionFactory actions, EventQueue events) {
@@ -51,6 +53,10 @@ public class ScenarioBehaviour implements Behaviour
         this.loseCondition = loseCondition;
     }
 
+    public void addBehaviour(BiConsumer<ItemRoot, EventQueue> supplement) {
+        this.supplement = supplement;
+    }
+
     @Override
     public void update(State state, List<UserInput> input) {
         evaluate(state.getWorld());
@@ -62,6 +68,9 @@ public class ScenarioBehaviour implements Behaviour
         }
         if (loseCondition.test(state, events)) {
             enterLoseState(state);
+        }
+        if (supplement != null) {
+            supplement.accept(state, events);
         }
     }
 
