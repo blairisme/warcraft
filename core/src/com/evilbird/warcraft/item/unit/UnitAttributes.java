@@ -13,6 +13,7 @@ import com.evilbird.engine.common.collection.Sets;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
+import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -32,10 +33,6 @@ public class UnitAttributes
     private UnitAttributes() {
     }
 
-    public static float buildTime(Unit unit) {
-        return buildTime((UnitType)unit.getType());
-    }
-
     public static float buildTime(UnitType unitType) {
         switch (unitType) {
             case Farm: return 30;
@@ -46,8 +43,14 @@ public class UnitAttributes
         }
     }
 
-    public static Collection<ResourceQuantity> costOf(Unit unit) {
-        return costOf((UnitType)unit.getType());
+    public static Collection<ResourceQuantity> costOf(Identifier identifier) {
+        if (identifier instanceof UnitType) {
+            return costOf((UnitType)identifier);
+        }
+        if (identifier instanceof PlayerUpgrade) {
+            return costOf((PlayerUpgrade)identifier);
+        }
+        throw new UnsupportedOperationException();
     }
 
     public static Collection<ResourceQuantity> costOf(UnitType type) {
@@ -58,6 +61,13 @@ public class UnitAttributes
             case Farm: return Sets.of(resource(Gold, 500), resource(Wood, 250));
             case LumberMill: return Sets.of(resource(Gold, 600), resource(Wood, 250));
             case TownHall: return Sets.of(resource(Gold, 1200), resource(Wood, 800));
+            default: return Collections.emptyList();
+        }
+    }
+
+    public static Collection<ResourceQuantity> costOf(PlayerUpgrade upgrade) {
+        switch (upgrade) {
+            case ArrowDamage: return Sets.of(resource(Gold, 400));
             default: return Collections.emptyList();
         }
     }

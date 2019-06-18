@@ -15,7 +15,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.action.construct.ConstructEvent;
-import com.evilbird.warcraft.action.train.TrainEvent;
+import com.evilbird.warcraft.action.produce.ProduceEvent;
 
 import java.util.function.Predicate;
 
@@ -54,7 +54,7 @@ public class PlayerOwnership extends PlayerCondition
         for (ConstructEvent event: queue.getEvents(ConstructEvent.class)) {
             if (event.isComplete()) { return true; }
         }
-        for (TrainEvent event: queue.getEvents(TrainEvent.class)) {
+        for (ProduceEvent event: queue.getEvents(ProduceEvent.class)) {
             if (event.isComplete()) { return true; }
         }
         return false;

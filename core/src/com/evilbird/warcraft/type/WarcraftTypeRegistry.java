@@ -7,7 +7,7 @@ import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.camera.CameraActions;
 import com.evilbird.warcraft.action.confirm.ConfirmActions;
 import com.evilbird.warcraft.action.move.MoveActions;
-import com.evilbird.warcraft.action.train.TrainActions;
+import com.evilbird.warcraft.action.produce.ProduceActions;
 import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.camera.Camera;
@@ -50,7 +50,7 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("AttackActions", AttackActions.class);
         registerType("CameraActions", CameraActions.class);
         registerType("ConfirmActions", ConfirmActions.class);
-        registerType("TrainSequence", TrainActions.class);
+        registerType("ProduceUnit", ProduceActions.class);
         registerType("MoveActions", MoveActions.class);
         registerType("Hud", HudType.class);
         registerType("LayerId", LayerIdentifier.class);

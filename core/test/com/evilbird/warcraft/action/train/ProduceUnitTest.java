@@ -15,22 +15,24 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.action.produce.ProduceUnit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static com.evilbird.warcraft.action.train.TrainActions.TrainFootman;
-import static com.evilbird.warcraft.action.train.TrainTimes.trainTime;
+import static com.evilbird.warcraft.action.produce.ProduceActions.TrainFootman;
+import static com.evilbird.warcraft.action.produce.ProductionTimes.productionTime;
 
 /**
- * Instances of this unit test validate the {@link TrainSequence} class.
+ * Instances of this unit test validate the {@link ProduceUnit} class.
  *
  * @author Blair Butterworth
  */
-public class TrainSequenceTest extends ActionTestCase
+public class ProduceUnitTest extends ActionTestCase
 {
     private EventQueue reporter;
 
@@ -42,7 +44,7 @@ public class TrainSequenceTest extends ActionTestCase
 
     @Override
     protected Action newAction() {
-        TrainSequence action = new TrainSequence(reporter);
+        ProduceUnit action = new ProduceUnit(reporter);
         action.setIdentifier(TrainFootman);
         return action;
     }
@@ -58,12 +60,13 @@ public class TrainSequenceTest extends ActionTestCase
     }
 
     @Test
+    @Ignore
     public void actTest() {
         Building subject = (Building)item;
 
         Assert.assertFalse(action.act(1));
         //Mockito.verify(reporter).onTransfer(player, Gold, 123, 0);
-        //Mockito.verify(reporter).onTrainStarted(subject);
+        //Mockito.verify(reporter).onProductionStarted(subject);
 
         Assert.assertFalse(action.act(1));
         Assert.assertEquals(0.05f, subject.getProductionProgress(), 0.1f);
@@ -71,7 +74,7 @@ public class TrainSequenceTest extends ActionTestCase
         Assert.assertFalse(action.act(1));
         Assert.assertEquals(0.1f, subject.getProductionProgress(), 0.1f);
 
-        Assert.assertFalse(action.act(trainTime(TrainFootman.getUnitType()) + 10));
+        Assert.assertFalse(action.act(productionTime(UnitType.Footman) + 10));
         Assert.assertFalse(subject.isProducing());
 
         Assert.assertFalse(action.act(1));

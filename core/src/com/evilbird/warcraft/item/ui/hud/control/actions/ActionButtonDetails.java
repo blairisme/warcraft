@@ -15,11 +15,11 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitAttributes;
-import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.List;
 import java.util.Map;
 
+import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.ArrowDamage;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.AttackButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildAdvancedButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildBarracksButton;
@@ -37,6 +37,7 @@ import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.StopButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.TrainFootmanButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.TrainPeasantButton;
+import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.UpgradeArrowDamageButton;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
@@ -70,15 +71,17 @@ public class ActionButtonDetails
         Peasant, asList(MoveButton, StopButton, AttackButton, RepairButton, GatherButton,
                         BuildSimpleButton, BuildAdvancedButton),
         Barracks, singletonList(TrainFootmanButton),
+        LumberMill, singletonList(UpgradeArrowDamageButton),
         TownHall, singletonList(TrainPeasantButton));
 
-    private static Map<ActionButtonType, UnitType> products = Maps.of(
+    private static Map<ActionButtonType, Identifier> products = Maps.of(
             TrainFootmanButton, Footman,
             TrainPeasantButton, Peasant,
             BuildBarracksButton, Barracks,
             BuildFarmButton, Farm,
             BuildLumberMillButton, LumberMill,
-            BuildTownHallButton, TownHall);
+            BuildTownHallButton, TownHall,
+            UpgradeArrowDamageButton, ArrowDamage);
 
     public static List<ActionButtonType> getActionButtons(Item item) {
         if (types.containsKey(item.getType())){
@@ -105,21 +108,14 @@ public class ActionButtonDetails
 
     private static boolean hasResources(ActionButtonType button, Map<ResourceType, Float> resources) {
         if (products.containsKey(button)) {
-            UnitType type = products.get(button);
+            Identifier type = products.get(button);
             for (ResourceQuantity cost: UnitAttributes.costOf(type)) {
-                if (getResource(resources, cost.getResource()) < cost.getValue()) {
+                if (resources.getOrDefault(cost.getResource(), 0f) < cost.getValue()) {
                     return false;
                 }
             }
         }
         return true;
-    }
-
-    private static float getResource(Map<ResourceType, Float> resources, ResourceType type) {
-        if (resources.containsKey(type)) {
-             return resources.get(type);
-        }
-        return 0;
     }
 
     private ActionButtonDetails() {

@@ -21,4 +21,5 @@ public class ProductionDetailsStyle
     public Drawable trainBackground;
     public Drawable trainFootmanIcon;
     public Drawable trainPeasantIcon;
+    public Drawable upgradeArrowDamageIcon;
 }

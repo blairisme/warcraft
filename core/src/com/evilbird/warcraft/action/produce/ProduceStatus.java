@@ -7,14 +7,14 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.train;
+package com.evilbird.warcraft.action.produce;
 
 /**
  * Specifies the set of options for the state of the training sequence.
  *
  * @author Blair Butterworth
  */
-public enum TrainStatus
+public enum ProduceStatus
 {
     Started,
     Complete,

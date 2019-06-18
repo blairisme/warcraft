@@ -9,12 +9,14 @@
 
 package com.evilbird.warcraft.item.data.player;
 
+import com.evilbird.engine.common.lang.Identifier;
+
 /**
  * Defines options for the various statistics kept about player actions.
  *
  * @author Blair Butterworth
  */
-public enum PlayerUpgrade
+public enum PlayerUpgrade implements Identifier
 {
     ArrowDamage,
     AxeDamage,

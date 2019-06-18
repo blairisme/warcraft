@@ -15,26 +15,28 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.action.produce.ProduceActions;
+import com.evilbird.warcraft.action.produce.ProduceUnitCancel;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.mockito.Mockito;
 
 /**
- * Instances of this unit test validate the {@link TrainCancel} class.
+ * Instances of this unit test validate the {@link ProduceUnitCancel} class.
  *
  * @author Blair Butterworth
  */
-public class TrainCancelTest extends ActionTestCase
+public class ProduceUnitCancelTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        TrainCancel action = new TrainCancel(Mockito.mock(EventQueue.class));
-        action.setIdentifier(TrainActions.TrainFootmanCancel);
+        ProduceUnitCancel action = new ProduceUnitCancel(Mockito.mock(EventQueue.class));
+        action.setIdentifier(ProduceActions.TrainFootmanCancel);
         return action;
     }
 
     @Override
     protected Enum newIdentifier() {
-        return TrainActions.TrainFootmanCancel;
+        return ProduceActions.TrainFootmanCancel;
     }
 
     @Override

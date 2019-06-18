@@ -22,7 +22,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.specialized.GridItem;
-import com.evilbird.warcraft.action.train.TrainActions;
+import com.evilbird.warcraft.action.produce.ProduceActions;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 /**
@@ -94,18 +94,19 @@ public class ProductionDetailsPane extends GridItem
     private Drawable getProductImage(Building building) {
         for (Action action: building.getActions()) {
             Identifier identifier = action.getIdentifier();
-            if (identifier instanceof TrainActions) {
-                return getProductImage((TrainActions)identifier);
+            if (identifier instanceof ProduceActions) {
+                return getProductImage((ProduceActions)identifier);
             }
         }
         return null;
     }
 
-    private Drawable getProductImage(TrainActions trainAction) {
+    private Drawable getProductImage(ProduceActions trainAction) {
         ProductionDetailsStyle style = getSkin().get(ProductionDetailsStyle.class);
         switch (trainAction) {
             case TrainFootman: return style.trainFootmanIcon;
             case TrainPeasant: return style.trainPeasantIcon;
+            case UpgradeArrowDamage: return style.upgradeArrowDamageIcon;
             default: return null;
         }
     }

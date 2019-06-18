@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.train;
+package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
@@ -22,10 +22,11 @@ import static com.evilbird.engine.action.common.AudibleAction.play;
 import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.common.transfer.TransferAction.purchase;
 import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacentSubject;
-import static com.evilbird.warcraft.action.train.TrainAction.startProducing;
-import static com.evilbird.warcraft.action.train.TrainEvents.onTrainCompleted;
-import static com.evilbird.warcraft.action.train.TrainEvents.onTrainStarted;
-import static com.evilbird.warcraft.action.train.TrainTimes.trainTime;
+import static com.evilbird.warcraft.action.produce.ProduceAction.startProducing;
+import static com.evilbird.warcraft.action.produce.ProduceEvents.onProductionCompleted;
+import static com.evilbird.warcraft.action.produce.ProduceEvents.onProductionStarted;
+import static com.evilbird.warcraft.action.produce.ProductionTimes.productionTime;
+import static com.evilbird.warcraft.action.produce.ProductionValues.getProduct;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.unit.UnitAttributes.costOf;
 import static com.evilbird.warcraft.item.unit.UnitSound.Ready;
@@ -38,7 +39,7 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Ready;
  *
  * @author Blair Butterworth
  */
-public class TrainSequence extends ScenarioAction<TrainActions>
+public class ProduceUnit extends ScenarioAction<ProduceActions>
 {
     private transient Events events;
 
@@ -51,28 +52,30 @@ public class TrainSequence extends ScenarioAction<TrainActions>
      *                  cannot be {@code null}.
      */
     @Inject
-    public TrainSequence(EventQueue events) {
+    public ProduceUnit(EventQueue events) {
         this.events = events;
     }
 
     @Override
-    protected void steps(TrainActions action) {
+    protected void steps(ProduceActions action) {
         scenario(action);
-        steps(action.getUnitType());
+        steps(getProduct(action));
     }
 
-    protected void steps(UnitType unit) {
+    private void steps(UnitType unit) {
         given(isAlive());
-        then(purchase(costOf(unit), events), onTrainStarted(events));
-        then(startProducing(trainProgress(unit), trainTime(unit)));
+        then(purchase(costOf(unit), events));
+        then(onProductionStarted(events));
+        then(startProducing(startTime(unit), productionTime(unit)));
         thenUpdate(create(unit, events));
-        then(moveAdjacentSubject(), onTrainCompleted(events), play(Target, Ready));
+        then(moveAdjacentSubject(), play(Target, Ready));
+        then(onProductionCompleted(events));
     }
 
-    private float trainProgress(UnitType unit) {
+    private float startTime(UnitType unit) {
         Building building = (Building)getItem();
         if (building.isProducing()) {
-            return building.getProductionProgress() * trainTime(unit);
+            return building.getProductionProgress() * productionTime(unit);
         }
         return 0;
     }

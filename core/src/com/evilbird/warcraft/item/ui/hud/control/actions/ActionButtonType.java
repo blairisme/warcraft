@@ -40,5 +40,7 @@ public enum ActionButtonType implements Identifier
     BuildStablesButton,
 
     TrainFootmanButton,
-    TrainPeasantButton
+    TrainPeasantButton,
+
+    UpgradeArrowDamageButton
 }

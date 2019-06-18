@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.train;
+package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
@@ -19,12 +19,12 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author Blair Butterworth
  */
-public class TrainEvent implements Event
+public class ProduceEvent implements Event
 {
     private Building building;
-    private TrainStatus status;
+    private ProduceStatus status;
 
-    public TrainEvent(Building building, TrainStatus status) {
+    public ProduceEvent(Building building, ProduceStatus status) {
         this.building = building;
         this.status = status;
     }
@@ -33,7 +33,7 @@ public class TrainEvent implements Event
         return building;
     }
 
-    public TrainStatus getStatus() {
+    public ProduceStatus getStatus() {
         return status;
     }
 
@@ -43,11 +43,11 @@ public class TrainEvent implements Event
     }
 
     public boolean isTraining() {
-        return status == TrainStatus.Started;
+        return status == ProduceStatus.Started;
     }
 
     public boolean isComplete() {
-        return status == TrainStatus.Complete;
+        return status == ProduceStatus.Complete;
     }
 
     @Override

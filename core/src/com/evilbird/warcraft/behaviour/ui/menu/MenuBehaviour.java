@@ -24,9 +24,9 @@ import com.evilbird.warcraft.action.gather.GatherEvent;
 import com.evilbird.warcraft.action.gather.GatherStatus;
 import com.evilbird.warcraft.action.placeholder.PlaceholderEvent;
 import com.evilbird.warcraft.action.placeholder.PlaceholderStatus;
+import com.evilbird.warcraft.action.produce.ProduceEvent;
+import com.evilbird.warcraft.action.produce.ProduceStatus;
 import com.evilbird.warcraft.action.select.SelectEvent;
-import com.evilbird.warcraft.action.train.TrainEvent;
-import com.evilbird.warcraft.action.train.TrainStatus;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
@@ -165,11 +165,11 @@ public class MenuBehaviour implements Behaviour
     }
 
     private void updateTrainingRecipients() {
-        for (TrainEvent event: events.getEvents(TrainEvent.class)) {
+        for (ProduceEvent event: events.getEvents(ProduceEvent.class)) {
             actionPane.setProducing(event.getBuilding(), event.isTraining());
             statusPane.setProducing(event.getBuilding(), event.isTraining());
 
-            if (event.getStatus() == TrainStatus.Complete) {
+            if (event.getStatus() == ProduceStatus.Complete) {
                 Player player = UnitOperations.getPlayer(event.getSubject());
                 player.incrementStatistic(PlayerStatistic.Units, 1);
             }

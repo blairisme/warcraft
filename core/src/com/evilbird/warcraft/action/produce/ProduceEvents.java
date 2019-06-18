@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.train;
+package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.LambdaAction;
@@ -15,27 +15,27 @@ import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 /**
- * Helper class for generating training events.
+ * Helper class for generating production events.
  *
  * @author Blair Butterworth
  */
-public class TrainEvents
+public class ProduceEvents
 {
-    private TrainEvents() {
+    private ProduceEvents() {
     }
 
-    public static Action onTrainStarted(Events events) {
+    public static Action onProductionStarted(Events events) {
         return new LambdaAction((item, target) ->
-            events.add(new TrainEvent((Building)item, TrainStatus.Started)));
+            events.add(new ProduceEvent((Building)item, ProduceStatus.Started)));
     }
 
-    public static Action onTrainCompleted(Events events) {
+    public static Action onProductionCompleted(Events events) {
         return new LambdaAction((item, target) ->
-            events.add(new TrainEvent((Building)item, TrainStatus.Complete)));
+            events.add(new ProduceEvent((Building)item, ProduceStatus.Complete)));
     }
 
-    public static Action onTrainCancelled(Events events) {
+    public static Action onProductionCancelled(Events events) {
         return new LambdaAction((item, target) ->
-            events.add(new TrainEvent((Building)item, TrainStatus.Cancelled)));
+            events.add(new ProduceEvent((Building)item, ProduceStatus.Cancelled)));
     }
 }

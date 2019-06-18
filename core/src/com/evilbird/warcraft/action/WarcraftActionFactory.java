@@ -29,10 +29,10 @@ import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.move.MoveFactory;
 import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
 import com.evilbird.warcraft.action.placeholder.PlaceholderFactory;
+import com.evilbird.warcraft.action.produce.ProduceActions;
+import com.evilbird.warcraft.action.produce.ProduceFactory;
 import com.evilbird.warcraft.action.select.SelectActions;
 import com.evilbird.warcraft.action.select.SelectFactory;
-import com.evilbird.warcraft.action.train.TrainActions;
-import com.evilbird.warcraft.action.train.TrainFactory;
 
 import javax.inject.Inject;
 import java.util.HashMap;
@@ -60,7 +60,7 @@ public class WarcraftActionFactory implements ActionFactory
         MenuFactory menuFactory,
         PlaceholderFactory placeholderFactory,
         SelectFactory selectFactory,
-        TrainFactory trainFactory)
+        ProduceFactory produceFactory)
     {
         actions = new HashMap<>();
 
@@ -73,7 +73,7 @@ public class WarcraftActionFactory implements ActionFactory
         registerProvider(MenuActions.values(), menuFactory);
         registerProvider(PlaceholderActions.values(), placeholderFactory);
         registerProvider(SelectActions.values(), selectFactory);
-        registerProvider(TrainActions.values(), trainFactory);
+        registerProvider(ProduceActions.values(), produceFactory);
     }
 
     @Override

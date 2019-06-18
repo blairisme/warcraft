@@ -20,7 +20,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
-import com.evilbird.warcraft.action.train.TrainEvent;
+import com.evilbird.warcraft.action.produce.ProduceEvent;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.layer.Layer;
@@ -109,9 +109,9 @@ public class Fog extends Layer
                 evaluateEvent(constructEvent.getSubject());
             }
         }
-        for (TrainEvent trainEvent: events.getEvents(TrainEvent.class)) {
-            if (trainEvent.isComplete()) {
-                evaluateEvent(trainEvent.getSubject());
+        for (ProduceEvent produceEvent : events.getEvents(ProduceEvent.class)) {
+            if (produceEvent.isComplete()) {
+                evaluateEvent(produceEvent.getSubject());
             }
         }
     }

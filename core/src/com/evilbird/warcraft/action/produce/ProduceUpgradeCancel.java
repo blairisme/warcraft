@@ -7,53 +7,54 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.train;
+package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
-import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
 
 import javax.inject.Inject;
 
 import static com.evilbird.warcraft.action.common.transfer.TransferAction.deposit;
-import static com.evilbird.warcraft.action.train.TrainAction.stopProducing;
-import static com.evilbird.warcraft.action.train.TrainEvents.onTrainCancelled;
+import static com.evilbird.warcraft.action.produce.ProduceEvents.onProductionCancelled;
+import static com.evilbird.warcraft.action.produce.ProductionValues.getUpgrade;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isProducing;
 import static com.evilbird.warcraft.item.unit.UnitAttributes.costOf;
 
 /**
- * Instances of this class stop the training of an {@link Item}, refunding a
- * proportion of the cost of training it.
+ * Instances of this class stop the production of an upgrade, refunding a
+ * proportion of the cost of producing it.
  *
  * @author Blair Butterworth
  */
-public class TrainCancel extends ScenarioAction<TrainActions>
+public class ProduceUpgradeCancel extends ScenarioAction<ProduceActions>
 {
     private transient Events events;
 
     /**
      * Constructs a new instance of this class given an {@link EventQueue}
-     * used to report the transferAll of resources involved in the refund for the
-     * partially complete train operation.
+     * used to report the transfer of resources involved in the refund for the
+     * partially complete production operation.
      *
      * @param events  a {@code EventQueue} instance. This parameter
      *                  cannot be {@code null}.
      */
     @Inject
-    public TrainCancel(EventQueue events) {
+    public ProduceUpgradeCancel(EventQueue events) {
         this.events = events;
     }
 
     @Override
-    protected void steps(TrainActions action) {
+    protected void steps(ProduceActions action) {
         scenario(action);
-        steps(action.getUnitType());
+        steps(getUpgrade(action));
     }
 
-    protected void steps(UnitType unit) {
+    private void steps(PlayerUpgrade upgrade) {
         given(isProducing());
-        then(stopProducing(), deposit(costOf(unit), events), onTrainCancelled(events));
+        then(ProduceAction.stopProducing());
+        then(deposit(costOf(upgrade), events));
+        then(onProductionCancelled(events));
     }
 }

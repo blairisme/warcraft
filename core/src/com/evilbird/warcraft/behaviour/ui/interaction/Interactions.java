@@ -62,14 +62,16 @@ import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddLum
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddTownHallPlaceholder;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderCancel;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderMove;
+import static com.evilbird.warcraft.action.produce.ProduceActions.TrainFootman;
+import static com.evilbird.warcraft.action.produce.ProduceActions.TrainFootmanCancel;
+import static com.evilbird.warcraft.action.produce.ProduceActions.TrainPeasant;
+import static com.evilbird.warcraft.action.produce.ProduceActions.TrainPeasantCancel;
+import static com.evilbird.warcraft.action.produce.ProduceActions.UpgradeArrowDamage;
+import static com.evilbird.warcraft.action.produce.ProduceActions.UpgradeArrowDamageCancel;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxBegin;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxEnd;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxResize;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectInvert;
-import static com.evilbird.warcraft.action.train.TrainActions.TrainFootman;
-import static com.evilbird.warcraft.action.train.TrainActions.TrainFootmanCancel;
-import static com.evilbird.warcraft.action.train.TrainActions.TrainPeasant;
-import static com.evilbird.warcraft.action.train.TrainActions.TrainPeasantCancel;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
@@ -105,6 +107,7 @@ import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.StopButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.TrainFootmanButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.TrainPeasantButton;
+import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.UpgradeArrowDamageButton;
 import static com.evilbird.warcraft.item.ui.hud.control.status.selection.SelectionButtonType.FocusButton;
 import static com.evilbird.warcraft.item.ui.hud.control.status.selection.SelectionButtonType.UnselectButton;
 import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.BarracksPlaceholder;
@@ -138,7 +141,7 @@ public class Interactions
         cameraInteractions();
         constructionInteractions();
         gatherInteractions();
-        trainInteractions();
+        productionInteractions();
         moveInteractions();
         selectionInteractions();
     }
@@ -287,12 +290,13 @@ public class Interactions
             .appliedTo(Target);
     }
 
-    private void trainInteractions() {
-        trainInteraction(TrainFootman, TrainFootmanCancel, TrainFootmanButton, Barracks);
-        trainInteraction(TrainPeasant, TrainPeasantCancel, TrainPeasantButton, TownHall);
+    private void productionInteractions() {
+        productionInteraction(TrainFootman, TrainFootmanCancel, TrainFootmanButton, Barracks);
+        productionInteraction(TrainPeasant, TrainPeasantCancel, TrainPeasantButton, TownHall);
+        productionInteraction(UpgradeArrowDamage, UpgradeArrowDamageCancel, UpgradeArrowDamageButton, LumberMill);
     }
 
-    private void trainInteraction(
+    private void productionInteraction(
         ActionIdentifier action,
         ActionIdentifier cancel,
         Identifier build,
