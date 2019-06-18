@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.behaviour.scenario.supplement;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.collection.Lists;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.EventQueue;
@@ -18,9 +19,11 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.action.move.MoveEvent;
+import com.evilbird.warcraft.action.select.SelectFlash;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitSound;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -80,12 +83,15 @@ public class UnitCapture implements SupplementaryBehaviour
     }
 
     private void evaluateMovedItem(Item item, ItemNode location) {
-        List<Item> capturedItems = capturableItems.getOrDefault(location, emptyList());
+        List<Item> capturedItems = new ArrayList<>(capturableItems.getOrDefault(location, emptyList()));
+        capturableItems.forEach((node, items) -> items.removeAll(capturedItems));
+        capturableItems.entrySet().removeIf(entry -> entry.getValue().isEmpty());
+
         for (Item capturedItem: capturedItems) {
             setOwner(capturedItem, item);
             setSoundEffect(capturedItem);
+            setAnimation(capturedItem);
         }
-        capturableItems.forEach((node, items) -> items.removeAll(capturedItems));
     }
 
     private void setOwner(Item captured, Item owner) {
@@ -101,5 +107,11 @@ public class UnitCapture implements SupplementaryBehaviour
             Unit unit = (Unit)item;
             unit.setSound(UnitSound.Captured);
         }
+    }
+
+    private void setAnimation(Item item) {
+        Action action = new SelectFlash();
+        action.setItem(item);
+        item.addAction(action);
     }
 }

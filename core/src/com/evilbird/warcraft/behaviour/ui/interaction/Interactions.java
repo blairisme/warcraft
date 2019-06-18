@@ -25,6 +25,7 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 import static com.evilbird.engine.common.function.Predicates.both;
+import static com.evilbird.engine.common.function.Predicates.nonNull;
 import static com.evilbird.engine.common.function.Predicates.not;
 import static com.evilbird.engine.device.UserInputType.Drag;
 import static com.evilbird.engine.device.UserInputType.SelectResize;
@@ -95,6 +96,7 @@ import static com.evilbird.warcraft.item.data.camera.CameraType.Camera;
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
 import static com.evilbird.warcraft.item.layer.LayerType.Sea;
 import static com.evilbird.warcraft.item.layer.LayerType.Tree;
+import static com.evilbird.warcraft.item.layer.LayerType.WallSection;
 import static com.evilbird.warcraft.item.ui.hud.HudControl.MenuPane;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildAdvancedButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildBarracksButton;
@@ -154,6 +156,12 @@ public class Interactions
         interactions.addAction(Attack, ConfirmTarget)
             .whenSelected(both(isCorporeal(), isCombatant()))
             .whenTarget(isAi().and(isDestroyable()).and(not(isResource())))
+            .appliedTo(Selected)
+            .appliedAs(confirmedAction());
+
+        interactions.addAction(Attack, ConfirmTarget)
+            .whenSelected(both(isCorporeal(), isCombatant()))
+            .whenTarget(WallSection)
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
@@ -356,16 +364,19 @@ public class Interactions
     private void selectArea() {
         interactions.addAction(SelectBoxBegin)
             .forInput(SelectStart)
+            .whenTarget(nonNull())
             .appliedTo(Target)
             .appliedAs(Addition);
 
         interactions.addAction(SelectBoxResize)
             .forInput(SelectResize)
+            .whenTarget(nonNull())
             .appliedTo(Target)
             .appliedAs(Addition);
 
         interactions.addAction(SelectBoxEnd)
             .forInput(SelectStop)
+            .whenTarget(nonNull())
             .appliedTo(Target)
             .appliedAs(Addition);
     }
