@@ -20,7 +20,9 @@ import com.evilbird.engine.state.StateIdentifier;
 public enum WarcraftScenario implements StateIdentifier
 {
     Human1("data/levels/human/level1.json"),
-    Human2("data/levels/human/level2.json");
+    Human2("data/levels/human/level2.json"),
+    Orc1("data/levels/orc/level1.json"),
+    Orc2("data/levels/orc/level2.json");
 
     private String path;
 

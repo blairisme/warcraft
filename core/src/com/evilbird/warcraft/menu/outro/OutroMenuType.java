@@ -11,6 +11,11 @@ package com.evilbird.warcraft.menu.outro;
 
 import com.evilbird.engine.menu.MenuIdentifier;
 
+/**
+ * Defines types of outro menus.
+ *
+ * @author Blair Butterworth
+ */
 public enum OutroMenuType implements MenuIdentifier
 {
     Victory,

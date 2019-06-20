@@ -15,7 +15,9 @@ import com.evilbird.warcraft.item.data.player.Player;
 import static com.evilbird.warcraft.menu.outro.OutroMenuType.Victory;
 
 /**
- * http://classic.battle.net/war2/basic/score.shtml
+ * A language specific bundle of strings used in outro menus.
+ *
+ * @see <a href="http://classic.battle.net/war2/basic/score.shtml">Warcraft Scoring</a>
  *
  * @author Blair Butterworth
  */

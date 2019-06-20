@@ -29,17 +29,21 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.state.StateIdentifier;
+import com.evilbird.warcraft.state.WarcraftScenario;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 import static com.evilbird.warcraft.state.WarcraftScenario.Human1;
 import static com.evilbird.warcraft.state.WarcraftScenario.Human2;
-import static java.util.Arrays.asList;
+import static com.evilbird.warcraft.state.WarcraftScenario.Orc1;
+import static com.evilbird.warcraft.state.WarcraftScenario.Orc2;
 
 /**
  * Instances of this factory create {@link IntroMenu}s, menus that introduce a
@@ -52,15 +56,22 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
     private static final Logger LOGGER = LoggerFactory.getLogger(IntroMenuFactory.class);
     private static final String FONT = "data/fonts/philosopher.ttf";
     private static final String BUTTON = "data/textures/menu/button.png";
-    private static final String BACKGROUND = "data/textures/menu/introduction.png";
     private static final String CLICK = "data/sounds/common/menu/click.mp3";
-    private static final String INTRO_NARRATION_1A = "data/sounds/human/menu/intro1a.mp3";
-    private static final String INTRO_NARRATION_1B = "data/sounds/human/menu/intro1b.mp3";
-    private static final String INTRO_NARRATION_2A = "data/sounds/human/menu/intro2a.mp3";
-    private static final String INTRO_NARRATION_2B = "data/sounds/human/menu/intro2b.mp3";
     private static final String NARRATION_BACKGROUND = "data/music/4.mp3";
-    private static final String INTRO_BUNDLE_1 = "data/strings/human/menu/intro1";
-    private static final String INTRO_BUNDLE_2 = "data/strings/human/menu/intro2";
+
+    private static final String HUMAN_NARRATION_1A = "data/sounds/human/menu/intro1a.mp3";
+    private static final String HUMAN_NARRATION_1B = "data/sounds/human/menu/intro1b.mp3";
+    private static final String HUMAN_NARRATION_2A = "data/sounds/human/menu/intro2a.mp3";
+    private static final String HUMAN_NARRATION_2B = "data/sounds/human/menu/intro2b.mp3";
+    private static final String HUMAN_BACKGROUND_1 = "data/textures/human/menu/intro1.png";
+    private static final String HUMAN_STRINGS_1 = "data/strings/human/menu/intro1";
+    private static final String HUMAN_STRINGS_2 = "data/strings/human/menu/intro2";
+
+    private static final String ORC_NARRATION_1 = "data/sounds/orc/menu/intro1.mp3";
+    private static final String ORC_NARRATION_2 = "data/sounds/orc/menu/intro2.mp3";
+    private static final String ORC_BACKGROUND_1 = "data/textures/orc/menu/intro1.png";
+    private static final String ORC_STRINGS_1 = "data/strings/orc/menu/intro1";
+    private static final String ORC_STRINGS_2 = "data/strings/orc/menu/intro2";
 
     private AssetManager assets;
     private DeviceDisplay display;
@@ -73,68 +84,97 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
 
     @Override
     public void load() {
+        loadCommonAssets();
+        loadHumanAssets();
+        loadOrcAssets();
+    }
+
+    private void loadCommonAssets() {
         assets.load(BUTTON, Texture.class);
-        assets.load(BACKGROUND, Texture.class);
         assets.load(FONT, BitmapFont.class, fontSize(20));
-        assets.load(INTRO_NARRATION_1A, Music.class);
-        assets.load(INTRO_NARRATION_1B, Music.class);
-        assets.load(NARRATION_BACKGROUND, Music.class);
-        assets.load(INTRO_BUNDLE_1, I18NBundle.class);
-        assets.load(INTRO_BUNDLE_2, I18NBundle.class);
         assets.load(CLICK, Sound.class);
+        assets.load(NARRATION_BACKGROUND, Music.class);
+    }
+
+    private void loadHumanAssets() {
+        assets.load(HUMAN_NARRATION_1A, Music.class);
+        assets.load(HUMAN_NARRATION_1B, Music.class);
+        assets.load(HUMAN_NARRATION_1A, Music.class);
+        assets.load(HUMAN_NARRATION_1B, Music.class);
+        assets.load(HUMAN_BACKGROUND_1, Texture.class);
+        assets.load(HUMAN_STRINGS_1, I18NBundle.class);
+        assets.load(HUMAN_STRINGS_2, I18NBundle.class);
+    }
+
+    private void loadOrcAssets() {
+        assets.load(ORC_NARRATION_1, Music.class);
+        assets.load(ORC_NARRATION_2, Music.class);
+        assets.load(ORC_BACKGROUND_1, Texture.class);
+        assets.load(ORC_STRINGS_1, I18NBundle.class);
+        assets.load(ORC_STRINGS_2, I18NBundle.class);
     }
 
     @Override
     public Menu get(Identifier identifier) {
         Validate.isInstanceOf(IntroMenuType.class, identifier);
-
         switch((IntroMenuType)identifier) {
             case HumanLevel1: return getHumanIntro1();
+            case HumanLevel2: return getHumanIntro2();
+            case OrcLevel1: return getOrcIntro1();
+            case OrcLevel2: return getOrcIntro2();
             default: throw new UnsupportedOperationException();
         }
     }
 
     private Menu getHumanIntro1() {
-        IntroMenu menu = new IntroMenu(display, getSkin());
-        addContent(menu, INTRO_BUNDLE_1);
-        addNarration(menu, INTRO_NARRATION_1A, INTRO_NARRATION_1B);
-        addButtonAction(menu, Human1);
-        return menu;
+        return getIntro(Human1, HUMAN_STRINGS_1, HUMAN_NARRATION_1A, HUMAN_NARRATION_1B);
     }
 
     private Menu getHumanIntro2() {
-        IntroMenu menu = new IntroMenu(display, getSkin());
-        addContent(menu, INTRO_BUNDLE_2);
-        addNarration(menu, INTRO_NARRATION_2A, INTRO_NARRATION_2B);
-        addButtonAction(menu, Human2);
+        return getIntro(Human2, HUMAN_STRINGS_2, HUMAN_NARRATION_2A, HUMAN_NARRATION_2B);
+    }
+
+    private Menu getOrcIntro1() {
+        return getIntro(Orc1, ORC_STRINGS_1, ORC_NARRATION_1);
+    }
+
+    private Menu getOrcIntro2() {
+        return getIntro(Orc2, ORC_STRINGS_2, ORC_NARRATION_2);
+    }
+
+    private Menu getIntro(WarcraftScenario scenario, String strings, String ... narration) {
+        Skin skin = getSkin(scenario);
+        IntroMenu menu = new IntroMenu(display, skin);
+        addContent(menu, strings);
+        addNarration(menu, narration);
+        addButtonAction(menu, scenario);
         return menu;
     }
 
     private void addContent(IntroMenu menu, String bundle) {
-        I18NBundle strings = assets.get(bundle, I18NBundle.class);
-        menu.setTitle(strings.get("title"));
-        menu.setDescription(strings.get("description"));
-        menu.setObjectives(strings.get("objectives"));
+        IntroMenuStrings strings = new IntroMenuStrings(assets.get(bundle, I18NBundle.class));
+        menu.setTitle(strings.getTitle());
+        menu.setDescription(strings.getDescription());
+        menu.setObjectives(strings.getObjectives());
     }
 
-    private void addNarration(IntroMenu menu, String asset1, String asset2) {
-        Music narration1 = assets.get(asset1, Music.class);
-        Music narration2 = assets.get(asset2, Music.class);
-        Music narration = new MusicSequence(asList(narration1, narration2));
+    private void addNarration(IntroMenu menu, String ... narrationAssets) {
+        List<Music> narration = new ArrayList<>(narrationAssets.length);
+        for (String narrationAsset: narrationAssets) {
+            narration.add(assets.get(narrationAsset, Music.class));
+        }
+        addNarration(menu, narration);
+    }
+
+    private void addNarration(IntroMenu menu, List<Music> narrationSequence) {
+        Music narration = new MusicSequence(narrationSequence);
+        narration.setVolume(1f);
 
         Music background = assets.get(NARRATION_BACKGROUND, Music.class);
         background.setVolume(0.7f);
 
         Music music = new MusicCombination(narration, background);
         menu.setMusic(music);
-    }
-
-    private Skin getSkin() {
-        Skin skin = new Skin();
-        addLabelStyle(skin);
-        addButtonStyle(skin);
-        addBackgroundStyle(skin);
-        return skin;
     }
 
     private void addButtonAction(IntroMenu menu, StateIdentifier level) {
@@ -149,15 +189,23 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
         });
     }
 
-    private void addBackgroundStyle(Skin skin) {
-        skin.add("intro-background", getDrawable(assets, BACKGROUND), Drawable.class);
+    private Skin getSkin(WarcraftScenario scenario) {
+        Skin skin = new Skin();
+        addLabelStyle(skin);
+        addButtonStyle(skin);
+        addBackgroundStyle(skin, scenario);
+        return skin;
+    }
+
+    private void addBackgroundStyle(Skin skin, WarcraftScenario scenario) {
+        String asset = scenario.name().startsWith("Human") ? HUMAN_BACKGROUND_1 : ORC_BACKGROUND_1;
+        skin.add("intro-background", getDrawable(assets, asset), Drawable.class);
     }
 
     private void addLabelStyle(Skin skin) {
         LabelStyle labelStyle = new LabelStyle();
         labelStyle.font = assets.get(FONT, BitmapFont.class);
         labelStyle.fontColor = Color.WHITE;
-
         skin.add("default", labelStyle);
     }
 

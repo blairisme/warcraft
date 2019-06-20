@@ -11,7 +11,17 @@ package com.evilbird.warcraft.menu.intro;
 
 import com.evilbird.engine.menu.MenuIdentifier;
 
+/**
+ * Defines types of introduction menus, one for each level in the Human and Orc
+ * campaigns.
+ *
+ * @author Blair Butterworth
+ */
 public enum IntroMenuType implements MenuIdentifier
 {
-    HumanLevel1
+    HumanLevel1,
+    HumanLevel2,
+
+    OrcLevel1,
+    OrcLevel2
 }
