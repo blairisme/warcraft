@@ -4,6 +4,7 @@
     "class": "PlayerType",
     "enum": "Corporeal"
   },
+  "level": 0,
   "statistics": {
     "Kills": 4.0,
     "Buildings": 10.0

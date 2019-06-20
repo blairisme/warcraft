@@ -34,6 +34,7 @@ public class Player extends ItemGroup implements ResourceContainer
 {
     private static final transient float VOLUME = 0.15f;
 
+    private int level;
     private String description;
     private Map<String, Double> statistics;
     private Map<String, Double> resources;
@@ -67,6 +68,10 @@ public class Player extends ItemGroup implements ResourceContainer
         return description;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
     public float getResource(ResourceType type) {
         return resources.getOrDefault(type.name(), 0d).floatValue();
     }
@@ -81,6 +86,10 @@ public class Player extends ItemGroup implements ResourceContainer
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public void setResource(ResourceType type, float value) {
@@ -134,6 +143,7 @@ public class Player extends ItemGroup implements ResourceContainer
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(description, player.description)
+            .append(level, player.level)
             .append(resources, player.resources)
             .append(statistics, player.statistics)
             .append(upgrades, player.upgrades)
@@ -145,6 +155,7 @@ public class Player extends ItemGroup implements ResourceContainer
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
             .append(description)
+            .append(level)
             .append(resources)
             .append(statistics)
             .append(upgrades)

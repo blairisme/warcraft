@@ -18,17 +18,19 @@ import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.action.menu.MenuProvider;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.ui.hud.HudControl;
+import com.evilbird.warcraft.item.ui.hud.control.actions.buttons.ButtonController;
+import com.evilbird.warcraft.item.ui.hud.control.actions.buttons.ButtonControllers;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonDetails.isEnabled;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionPaneView.Actions;
 
 /**
@@ -42,12 +44,14 @@ public class ActionPane extends GridItem implements MenuProvider
     private ActionPaneView view;
     private List<Item> selection;
     private Map<ResourceType, Float> resources;
+    private ButtonControllers buttons;
 
     public ActionPane(Skin skin) {
         super(3, 3);
         this.view = Actions;
         this.selection = new ArrayList<>();
         this.resources = new HashMap<>();
+        this.buttons = new ButtonControllers();
 
         setSkin(skin);
         setBackground("action-panel");
@@ -150,48 +154,110 @@ public class ActionPane extends GridItem implements MenuProvider
 
     private void addActionButtons() {
         setAlignment(Alignment.TopLeft);
-        List<ActionButtonType> actions = getActions(selection);
-        List<ActionButton> buttons = getButtons(actions);
+
+//        List<ActionButtonType> actions = getActions(selection);
+//        List<ActionButton> buttons = getButtons(actions);
+//        buttons.forEach(this::add);
+
+        List<ActionButton> buttons = getButtons();
         buttons.forEach(this::add);
+
     }
 
-    private List<ActionButtonType> getActions(Collection<Item> selection) {
-        switch (view) {
-            case Actions: return getItemActions(selection);
-            case SimpleBuildings: return ActionButtonDetails.getSimpleBuildingButtons();
-            case AdvancedBuildings: return ActionButtonDetails.getAdvancedBuildingButtons();
-            default: throw new UnsupportedOperationException();
+//    private List<ActionButtonType> getActions(Collection<Item> selection) {
+//        switch (view) {
+//            case Actions: return getItemActions(selection);
+//            case SimpleBuildings: return ActionButtonDetails.getSimpleBuildingButtons();
+//            case AdvancedBuildings: return ActionButtonDetails.getAdvancedBuildingButtons();
+//            default: throw new UnsupportedOperationException();
+//        }
+//    }
+
+    private List<ActionButton> getButtons() {
+        if (view  == Actions) {
+            return getButtons(view, selection);
         }
+        if (! selection.isEmpty()) {
+            return getButtons(view, selection.iterator().next());
+        }
+        return Collections.emptyList();
     }
 
-    private List<ActionButtonType> getItemActions(Collection<Item> selection) {
-        List<ActionButtonType> result = new ArrayList<>();
-        Iterator<Item> selectionIterator = selection.iterator();
+    private List<ActionButton> getButtons(ActionPaneView view, Item item) {
+        ButtonController controller = buttons.getButtonController(item, view);
+        return getButtons(controller, item);
+    }
 
-        if (selectionIterator.hasNext()) {
-            Item item = selectionIterator.next();
-            result.addAll(ActionButtonDetails.getActionButtons(item));
+    private List<ActionButton> getButtons(ActionPaneView view, Collection<Item> items) {
+        List<ActionButton> result = new ArrayList<>();
+        Iterator<Item> itemsIterator = items.iterator();
 
-            while (selectionIterator.hasNext()) {
-                item = selectionIterator.next();
-                result.retainAll(ActionButtonDetails.getActionButtons(item));
+        if (itemsIterator.hasNext()) {
+            Item item = itemsIterator.next();
+            ButtonController controller = buttons.getButtonController(item, view);
+            result.addAll(getButtons(controller, item));
+
+            while (itemsIterator.hasNext()) {
+                item = itemsIterator.next();
+                controller = buttons.getButtonController(item, view);
+                result.retainAll(getButtons(controller, item));
             }
         }
         return result;
     }
 
-    private List<ActionButton> getButtons(List<ActionButtonType> actions) {
-        List<ActionButton> result = new ArrayList<>(actions.size());
-        for (ActionButtonType action: actions){
-            result.add(getButton(action));
+    private List<ActionButton> getButtons(ButtonController controller, Item item) {
+        List<ActionButtonType> types = controller.getButtons(item);
+        List<ActionButton> buttons = new ArrayList<>(types.size());
+        for (ActionButtonType type: types){
+            buttons.add(getButton(type, controller, item));
         }
-        return result;
+        return buttons;
+    }
+
+    private ActionButton getButton(ActionButtonType type, ButtonController controller, Item item) {
+        ActionButton button = new ActionButton(getSkin());
+        button.setType(type);
+        button.setEnabled(controller.getEnabled(type, item));
+        return button;
     }
 
     private ActionButton getButton(ActionButtonType type) {
         ActionButton button = new ActionButton(getSkin());
         button.setType(type);
-        button.setEnabled(isEnabled(type, resources));
+        button.setEnabled(true);
         return button;
     }
+
+//    private List<ActionButtonType> getItemActions(Collection<Item> selection) {
+//        List<ActionButtonType> result = new ArrayList<>();
+//        Iterator<Item> selectionIterator = selection.iterator();
+//
+//        if (selectionIterator.hasNext()) {
+//            Item item = selectionIterator.next();
+//            result.addAll(ActionButtonDetails.getActionButtons(item));
+//
+//            while (selectionIterator.hasNext()) {
+//                item = selectionIterator.next();
+//                result.retainAll(ActionButtonDetails.getActionButtons(item));
+//            }
+//        }
+//        return result;
+//    }
+
+//    private List<ActionButton> getButtons(List<ActionButtonType> actions) {
+//        List<ActionButton> result = new ArrayList<>(actions.size());
+//        for (ActionButtonType action: actions){
+//            result.add(getButton(action));
+//        }
+//        return result;
+//    }
+//
+//    private ActionButton getButton(ActionButtonType type) {
+//        ActionButton button = new ActionButton(getSkin());
+//        button.setType(type);
+//        //button.setEnabled(isEnabled(type, resources));
+//        return button;
+//    }
+
 }

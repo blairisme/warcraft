@@ -13,9 +13,14 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.utility.ItemOperations;
 import com.evilbird.warcraft.item.common.movement.Movable;
 import com.evilbird.warcraft.item.common.movement.MovementCapability;
+import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
+import com.evilbird.warcraft.item.unit.UnitAttributes;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 
@@ -31,9 +36,9 @@ import static com.evilbird.engine.item.utility.ItemOperations.findAncestor;
 import static com.evilbird.engine.item.utility.ItemOperations.isNear;
 import static com.evilbird.engine.item.utility.ItemPredicates.touchableWithType;
 import static com.evilbird.engine.item.utility.ItemPredicates.withClazz;
+import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasPathTo;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlayer;
 
 /**
@@ -73,21 +78,48 @@ public class UnitOperations
         return null;
     }
 
+    public static Player getAiPlayer(ItemRoot itemRoot) {
+        Predicate<Item> query = both(isPlayer(), isAi());
+        return (Player)itemRoot.find(query);
+    }
+
     public static Player getPlayer(Item item) {
         return (Player)findAncestor(item, withClazz(Player.class));
     }
 
-    public static Player getHumanPlayer(Item worldItem) {
+    public static Player getCorporealPlayer(Item worldItem) {
         ItemRoot itemRoot = worldItem.getRoot();
-        return getHumanPlayer(itemRoot);
+        return getCorporealPlayer(itemRoot);
     }
 
-    public static Player getHumanPlayer(ItemRoot itemRoot) {
-        Predicate<Item> query = both(isPlayer(), isCorporeal());
+    public static Player getCorporealPlayer(ItemRoot itemRoot) {
+        Predicate<Item> query = both(isPlayer(), UnitPredicates.isCorporeal());
         return (Player)itemRoot.find(query);
     }
 
-    public static boolean isHuman(Item item) {
+    public static boolean hasResources(Player player, UnitType type) {
+        for (ResourceQuantity cost: UnitAttributes.costOf(type)) {
+            if (player.getResource(cost.getResource()) < cost.getValue()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean hasResources(Player player, PlayerUpgrade upgrade) {
+        for (ResourceQuantity cost: UnitAttributes.costOf(upgrade)) {
+            if (player.getResource(cost.getResource()) < cost.getValue()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean hasUnit(Player player, UnitType type) {
+        return ItemOperations.hasAny(player, withType(type));
+    }
+
+    public static boolean isCorporeal(Item item) {
         if (! (item instanceof Player)) {
             item = item.getParent();
         }
@@ -96,11 +128,6 @@ public class UnitOperations
             return player.isCorporeal();
         }
         return false;
-    }
-
-    public static Player getAiPlayer(ItemRoot itemRoot) {
-        Predicate<Item> query = both(isPlayer(), isAi());
-        return (Player)itemRoot.find(query);
     }
 
     public static boolean inSight(Combatant combatant, Item target) {

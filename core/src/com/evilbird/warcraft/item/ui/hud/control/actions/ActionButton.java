@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.TableItem;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.CancelButton;
 
@@ -26,7 +28,7 @@ import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType
  */
 public class ActionButton extends TableItem
 {
-    private ImageButton icon;
+    private transient ImageButton icon;
 
     public ActionButton(Skin skin) {
         initialize(skin);
@@ -73,6 +75,25 @@ public class ActionButton extends TableItem
             buttonStyle.imageDisabled = actionStyle.disabledIcons.get(buttonType);
         }
         return buttonStyle;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) { return false; }
+
+        ActionButton that = (ActionButton)obj;
+        return new EqualsBuilder()
+            .append(getType(), that.getType())
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .append(getType())
+            .toHashCode();
     }
 }
 

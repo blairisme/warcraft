@@ -11,6 +11,7 @@
   },
   "items": [
     {
+      "level": 0,
       "statistics": {
         "Kills": 4.0,
         "Buildings": 10.0
@@ -114,6 +115,7 @@
       "actions": []
     },
     {
+      "level": 0,
       "statistics": {
         "Kills": 4.0,
         "Buildings": 10.0

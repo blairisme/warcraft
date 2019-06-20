@@ -41,7 +41,7 @@ public abstract class PlayerCondition implements ScenarioCondition
 
     private void initialize(ItemRoot state) {
         if (player == null) {
-            player = UnitOperations.getHumanPlayer(state);
+            player = UnitOperations.getCorporealPlayer(state);
         }
     }
 }

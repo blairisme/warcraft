@@ -71,6 +71,7 @@ public class WarcraftLevelLoader
     private static final String WOOD_PROPERTY = "Wood";
     private static final String FOOD_PROPERTY = "Food";
     private static final String ZINDEX_PROPERTY = "ZIndex";
+    private static final String LEVEL_PROPERTY = "Level";
 
     private TiledMapLoader mapLoader;
     private ItemFactory itemFactory;
@@ -222,6 +223,7 @@ public class WarcraftLevelLoader
     private void setCustomAttributes(Item item, MapProperties properties) {
         if (item instanceof Player) {
             Player player = (Player)item;
+            player.setLevel(properties.get(LEVEL_PROPERTY, 1, Integer.class));
             player.setDescription(properties.get(DESCRIPTION_PROPERTY, "", String.class));
             player.setResource(ResourceType.Gold, properties.get(GOLD_PROPERTY, 0f, Float.class));
             player.setResource(ResourceType.Oil, properties.get(OIL_PROPERTY, 0f, Float.class));

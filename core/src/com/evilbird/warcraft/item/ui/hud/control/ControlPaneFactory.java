@@ -238,7 +238,8 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
             case TrainFootmanButton: return getDrawable(assets, ICONS, 92, 0, 46, 38);
             case TrainPeasantButton: return getDrawable(assets, ICONS, 0, 0, 46, 38);
             case UpgradeArrowDamageButton: return getDrawable(assets, ICONS, 184, 912, 46, 38);
-            default: throw new UnsupportedOperationException();
+            //default: throw new UnsupportedOperationException();
+            default: return null;
         }
     }
 
@@ -271,7 +272,8 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
             case TrainFootmanButton: return getDrawable(assets, ICONS_DISABLED, 92, 0, 46, 38);
             case TrainPeasantButton: return getDrawable(assets, ICONS_DISABLED, 0, 0, 46, 38);
             case UpgradeArrowDamageButton: return getDrawable(assets, ICONS_DISABLED, 184, 912, 46, 38);
-            default: throw new UnsupportedOperationException();
+            //default: throw new UnsupportedOperationException();
+            default: return null;
         }
     }
 }

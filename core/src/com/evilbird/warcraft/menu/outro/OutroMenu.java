@@ -25,6 +25,7 @@ import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.state.State;
+import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerStatistic;
 
@@ -36,7 +37,6 @@ import java.util.Map;
 
 import static com.badlogic.gdx.scenes.scene2d.ui.Value.percentHeight;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getAiPlayer;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.getHumanPlayer;
 import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Buildings;
 import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Gold;
 import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Kills;
@@ -107,7 +107,7 @@ public class OutroMenu extends Menu
 
     private void updateView(State state) {
         ItemRoot world = state.getWorld();
-        Player human = getHumanPlayer(world);
+        Player human = UnitOperations.getCorporealPlayer(world);
         Player ai = getAiPlayer(world);
 
         updateSummary(human);

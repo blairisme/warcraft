@@ -35,10 +35,17 @@ public enum ActionButtonType implements Identifier
 
     BuildBarracksButton,
     BuildFarmButton,
-    BuildLumberMillButton,
     BuildTownHallButton,
+    BuildLumberMillButton,
+    BuildBlacksmithButton,
+    BuildDockButton,
+    BuildRefinery,
     BuildStablesButton,
+    BuildChurchButton,
+    BuildMageTowerButton,
 
+    TrainElvenArcherButton,
+    TrainElvenDestroyerButton,
     TrainFootmanButton,
     TrainPeasantButton,
 

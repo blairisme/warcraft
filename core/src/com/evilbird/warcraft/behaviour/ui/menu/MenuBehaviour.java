@@ -47,7 +47,6 @@ import java.util.List;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.itemWithId;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.getHumanPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.item.data.player.PlayerScore.getScoreValue;
 import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Score;
@@ -97,7 +96,7 @@ public class MenuBehaviour implements Behaviour
 
     private boolean initialized(ItemRoot world, ItemRoot hud) {
         if (player == null) {
-            player = getHumanPlayer(world);
+            player = UnitOperations.getCorporealPlayer(world);
             resourcePane = (ResourcePane)hud.find(itemWithId(HudControl.ResourcePane));
             actionPane = (ActionPane)hud.find(itemWithId(HudControl.ActionPane));
             statusPane = (StatusPane)hud.find(itemWithId(HudControl.StatePane));

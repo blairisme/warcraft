@@ -330,6 +330,7 @@
     <property name="AI" type="bool" value="false"/>
     <property name="Description" value="Nation of Azeroth"/>
     <property name="Gold" type="float" value="1000"/>
+    <property name="Level" type="int" value="2"/>
     <property name="Oil" type="float" value="0"/>
     <property name="Touchable" type="bool" value="false"/>
     <property name="Wood" type="float" value="1000"/>

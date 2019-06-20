@@ -88,7 +88,7 @@ public class Fog extends Layer
 
     private void initialize() {
         concealItems();
-        ItemGroup player = UnitOperations.getHumanPlayer(getRoot());
+        ItemGroup player = UnitOperations.getCorporealPlayer(getRoot());
         revealItems(player.getItems());
     }
 
