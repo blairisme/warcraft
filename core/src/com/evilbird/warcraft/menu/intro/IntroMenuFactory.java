@@ -95,8 +95,8 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
     private void loadHumanAssets() {
         assets.load(HUMAN_NARRATION_1A, Music.class);
         assets.load(HUMAN_NARRATION_1B, Music.class);
-        assets.load(HUMAN_NARRATION_1A, Music.class);
-        assets.load(HUMAN_NARRATION_1B, Music.class);
+        assets.load(HUMAN_NARRATION_2A, Music.class);
+        assets.load(HUMAN_NARRATION_2B, Music.class);
         assets.load(HUMAN_BACKGROUND_1, Texture.class);
         assets.load(HUMAN_STRINGS_1, I18NBundle.class);
         assets.load(HUMAN_STRINGS_2, I18NBundle.class);
