@@ -98,7 +98,7 @@ public class ConstructSequence extends ScenarioSetAction
             .then(animate(Move), deselect(events))
             .then(move(events))
             .then(hide(), disable(), deselect(events), animate(Target, Construct))
-            .then(construct(buildProgress(building), buildTime(building)), playRepeat(Build, 3, 5))
+            .then(construct(progress(building), buildTime(building)), playRepeat(Build, 3, 5))
             .then(show(), enable(), animate(Idle), animate(Target, Idle), play(Complete), moveAdjacentTarget())
             .then(transferAll(Target, Player, events), unassociate())
             .then(constructCompleted(events));
@@ -109,9 +109,7 @@ public class ConstructSequence extends ScenarioSetAction
             .givenItem(isAlive())
             .whenTarget(hasType(building))
             .whenTarget(isConstructing())
-            .then(construct(buildProgress(building),
-                    buildTime(building)),
-                    playRepeat(Build, whileTarget(isConstructing())))
+            .then(construct(progress(building), buildTime(building)), playRepeat(Build, whileTarget(isConstructing())))
             .then(show(), enable(), animate(Idle), animate(Target, Idle), play(Complete), moveAdjacentTarget())
             .then(transferAll(Target, Player, events), unassociate())
             .then(constructCompleted(events));
@@ -129,7 +127,7 @@ public class ConstructSequence extends ScenarioSetAction
         };
     }
 
-    private float buildProgress(UnitType unit) {
+    private float progress(UnitType unit) {
         Item target = getTarget();
         if (target instanceof Building) {
             Building building = (Building)target;

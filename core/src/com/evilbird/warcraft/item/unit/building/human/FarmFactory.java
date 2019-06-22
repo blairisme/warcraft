@@ -22,6 +22,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Food;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 
 /**
@@ -62,6 +63,7 @@ public class FarmFactory implements AssetProvider<Item>
         result.setName("Farm");
         result.setSight(TILE_WIDTH);
         result.setType(Farm);
+        result.setResource(Food, 5);
         return result;
     }
 }
