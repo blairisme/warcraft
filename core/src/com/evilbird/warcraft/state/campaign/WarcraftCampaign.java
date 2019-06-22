@@ -24,8 +24,10 @@ public enum WarcraftCampaign implements WarcraftStateIdentifier, IntroducedState
 {
     Human1("data/levels/human/level1.json"),
     Human2("data/levels/human/level2.json"),
+    Human3("data/levels/human/level3.json"),
     Orc1("data/levels/orc/level1.json"),
-    Orc2("data/levels/orc/level2.json");
+    Orc2("data/levels/orc/level2.json"),
+    Orc3("data/levels/orc/level3.json");
 
     private String path;
 
@@ -42,8 +44,10 @@ public enum WarcraftCampaign implements WarcraftStateIdentifier, IntroducedState
         switch(this) {
             case Orc1: return IntroMenuType.Orc1;
             case Orc2: return IntroMenuType.Orc2;
+            case Orc3: return MainMenuType.Home;
             case Human1: return IntroMenuType.Human1;
             case Human2: return IntroMenuType.Human2;
+            case Human3: return MainMenuType.Home;
             default: return MainMenuType.Home;
         }
     }

@@ -111,7 +111,7 @@ abstract class MoveAction extends BasicAction
     private boolean loadPath() {
         if (path == null) {
             ItemNode startNode = graph.getNode(getItem().getPosition());
-            endNode = getDestination().getDestinationNode(graph, startNode);
+            endNode = getDestination().getDestinationNode(graph, startNode, getPathFilter());
             path = ItemPathFinder.findPath(graph, startNode, endNode);
 
             if (path != null && endNode != null && startNode != null) {

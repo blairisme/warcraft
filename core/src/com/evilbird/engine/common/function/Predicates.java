@@ -50,28 +50,4 @@ public class Predicates
     public static <T> Predicate<T> not(Predicate<T> predicate) {
         return predicate.negate();
     }
-
-//    public static <X, Y> BiPredicate<X, Y> combine(Predicate<X> left, Predicate<Y> right) {
-//        return (x, y) -> left.test(x) && right.test(y);
-//    }
-//
-//
-
-//    @SafeVarargs
-//    public static <T> Predicate<T> all(Predicate< T> ... conditions) {
-//        return all(asList(conditions));
-//    }
-//
-//    public static <T> Predicate<T> all(Collection<Predicate<T>> conditions) {
-//        return (value) -> conditions.stream().allMatch(predicate -> predicate.test(value));
-//    }
-//
-//    @SafeVarargs
-//    public static <X, Y> BiPredicate<X, Y> allBi(BiPredicate<X, Y> ... conditions) {
-//        return allBi(asList(conditions));
-//    }
-//
-//    public static <X, Y> BiPredicate<X, Y> allBi(Collection<BiPredicate<X, Y>> conditions) {
-//        return (x, y) -> conditions.stream().allMatch(predicate -> predicate.test(x, y));
-//    }
 }

@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 
 /**
  * Implementors of this interface provide methods that specify the end point of
@@ -20,7 +21,7 @@ import com.evilbird.engine.item.spatial.ItemNode;
  */
 interface MoveDestination
 {
-    ItemNode getDestinationNode(ItemGraph graph, ItemNode node);
+    ItemNode getDestinationNode(ItemGraph graph, ItemNode node, ItemPathFilter filter);
 
     boolean isDestinationValid(ItemGraph graph, ItemNode node);
 

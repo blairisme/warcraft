@@ -15,8 +15,11 @@ import com.evilbird.engine.common.pathing.SpatialUtils;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 
 import java.util.Collection;
+
+import static com.evilbird.engine.common.function.Predicates.not;
 
 /**
  * Instances of this {@link MoveDestination} represent a destination
@@ -36,8 +39,9 @@ class MoveDestinationRange implements MoveDestination
     }
 
     @Override
-    public ItemNode getDestinationNode(ItemGraph graph, ItemNode node) {
+    public ItemNode getDestinationNode(ItemGraph graph, ItemNode node, ItemPathFilter traversable) {
         Collection<ItemNode> nodes = graph.getNodes(target.getPosition(), target.getSize());
+        nodes.removeIf(not(traversable));
         return SpatialUtils.getClosest(nodes, node);
     }
 

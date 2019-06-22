@@ -26,11 +26,13 @@ import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AnimationAliasAction.setAnimation;
 import static com.evilbird.engine.action.common.DirectionAction.reorient;
+import static com.evilbird.engine.action.common.DisableAction.disable;
 import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
 import static com.evilbird.engine.common.function.Predicates.both;
+import static com.evilbird.engine.common.function.Predicates.nonNull;
 import static com.evilbird.warcraft.action.common.transfer.TransferAction.transferAll;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositComplete;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositStarted;
@@ -63,7 +65,7 @@ import static com.evilbird.warcraft.item.unit.UnitSound.ChopWood;
 public class GatherWood extends ScenarioSetAction
 {
     private static final float DEPOSIT_TIME = 5;
-    private static final float GATHER_TIME = 2;//45;
+    private static final float GATHER_TIME = 45;
     private static final ResourceQuantity GATHER_AMOUNT = ResourceQuantum.resource(Wood, 100);
 
     private transient Events events;
@@ -83,8 +85,9 @@ public class GatherWood extends ScenarioSetAction
 
     private void gatherFeature() {
         scenario("Gather Wood")
-            .given(isAlive())
-            .when(noResources(Wood))
+            .givenItem(isAlive())
+            .givenTarget(nonNull())
+            .whenItem(noResources(Wood))
             .then(deselect(events))
             .then(animate(Move))
             .then(move(events))
@@ -100,10 +103,12 @@ public class GatherWood extends ScenarioSetAction
     private void obtainFeature() {
         scenario("Deposit Wood")
             .givenItem(isAlive())
+            .givenTarget(nonNull())
             .whenItem(hasResources(Wood))
             .then(animate(Move), deselect(events))
             .then(move(events))
-            .then(hide(), depositStarted(events, GATHER_AMOUNT))
+            .then(hide(), disable(), deselect(events))
+            .then(depositStarted(events, GATHER_AMOUNT))
             .then(transferAll(Subject, Player, GATHER_AMOUNT, events))
             .then(delay(DEPOSIT_TIME))
             .then(depositComplete(events, GATHER_AMOUNT))

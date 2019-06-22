@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.move;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 
 import java.util.Objects;
 
@@ -31,7 +32,7 @@ class MoveDestinationVector implements MoveDestination
     }
 
     @Override
-    public ItemNode getDestinationNode(ItemGraph graph, ItemNode node) {
+    public ItemNode getDestinationNode(ItemGraph graph, ItemNode node, ItemPathFilter filter) {
         return graph.getNode(destination);
     }
 
