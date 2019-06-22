@@ -1,13 +1,13 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state;
+package com.evilbird.warcraft.state.scenario;
 
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.item.ItemRoot;
@@ -25,14 +25,14 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author Blair Butterworth
  */
-@JsonAdapter(WarcraftStateAdapter.class)
-public class WarcraftState implements State
+@JsonAdapter(WarcraftScenarioAdapter.class)
+public class WarcraftScenario implements State
 {
     private ItemRoot world;
     private ItemRoot hud;
     private Behaviour behaviour;
 
-    public WarcraftState(ItemRoot world, ItemRoot hud, Behaviour behaviour) {
+    public WarcraftScenario(ItemRoot world, ItemRoot hud, Behaviour behaviour) {
         this.world = world;
         this.hud = hud;
         this.behaviour = behaviour;
@@ -62,7 +62,7 @@ public class WarcraftState implements State
         if (obj == this) { return true; }
         if (obj.getClass() != getClass()) { return false; }
 
-        WarcraftState that = (WarcraftState)obj;
+        WarcraftScenario that = (WarcraftScenario)obj;
         return new EqualsBuilder()
             .append(world, that.world)
             .append(hud, that.hud)

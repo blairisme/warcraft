@@ -9,7 +9,9 @@
 
 package com.evilbird.engine.game;
 
+import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuIdentifier;
+import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateIdentifier;
 
 /**
@@ -20,6 +22,20 @@ import com.evilbird.engine.state.StateIdentifier;
  */
 public interface GameController
 {
+    /**
+     * Returns the currently displayed menu, if any.
+     *
+     * @return a {@link Menu} instance. This method may return {@code null}.
+     */
+    Menu getMenu();
+
+    /**
+     * Returns the currently displayed state, if any.
+     *
+     * @return a {@link State} instance. This method may return {@code null}.
+     */
+    State getState();
+
     /**
      * Shows the default menu, usually the top level menu.
      */

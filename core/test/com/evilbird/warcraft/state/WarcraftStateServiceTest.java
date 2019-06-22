@@ -20,6 +20,11 @@ import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.utils.TestFileHandleResolver;
+import com.evilbird.warcraft.state.campaign.WarcraftCampaigns;
+import com.evilbird.warcraft.state.map.WarcraftLevel;
+import com.evilbird.warcraft.state.map.WarcraftLevelLoader;
+import com.evilbird.warcraft.state.scenario.WarcraftScenario;
+import com.evilbird.warcraft.state.scenario.WarcraftScenarioAdapter;
 import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import org.junit.Assert;
 import org.junit.Before;
@@ -44,8 +49,8 @@ public class WarcraftStateServiceTest extends GameTestCase
     private Device device;
     private DeviceStorage deviceStorage;
     private TestFileHandleResolver assetStorage;
-    private WarcraftLevelLoader assetLoader;
-    private WarcraftStateAdapter adapter;
+    private com.evilbird.warcraft.state.map.WarcraftLevelLoader assetLoader;
+    private WarcraftScenarioAdapter adapter;
     private WarcraftStateService service;
 
     @Before
@@ -55,8 +60,8 @@ public class WarcraftStateServiceTest extends GameTestCase
         deviceStorage = Mockito.mock(DeviceStorage.class);
         assetStorage = new TestFileHandleResolver();
         assetLoader = new WarcraftLevelLoader(itemFactory, assetStorage);
-        adapter = new WarcraftStateAdapter(device, itemFactory, behaviourFactory, assetLoader);
-        serializer = new JsonSerializer(new WarcraftTypeRegistry(), Maps.of(WarcraftState.class, adapter));
+        adapter = new WarcraftScenarioAdapter(device, itemFactory, behaviourFactory, assetLoader);
+        serializer = new JsonSerializer(new WarcraftTypeRegistry(), Maps.of(WarcraftScenario.class, adapter));
         service = new WarcraftStateService(deviceStorage, assetStorage, serializer);
     }
 
@@ -64,7 +69,7 @@ public class WarcraftStateServiceTest extends GameTestCase
     public void listAssetsTest() throws Exception  {
         List<Identifier> result = service.list(WarcraftStateType.AssetState);
         Assert.assertNotNull(result);
-        Assert.assertEquals(WarcraftScenario.values().length, result.size());
+        Assert.assertEquals(WarcraftCampaigns.values().length, result.size());
     }
 
     @Test
@@ -79,10 +84,10 @@ public class WarcraftStateServiceTest extends GameTestCase
 
     @Test
     public void getAssetTest() throws Exception {
-        assetStorage.respondWith(WarcraftScenario.Human1.getFilePath(), "/warcraft/state/level.json");
+        assetStorage.respondWith(WarcraftCampaigns.Human1.getFilePath(), "/warcraft/state/level.json");
         assetStorage.respondWith(WarcraftLevel.Human1.getFilePath(), "/warcraft/state/level.tmx");
 
-        State state = service.get(WarcraftScenario.Human1);
+        State state = service.get(WarcraftCampaigns.Human1);
         Assert.assertNotNull(state);
     }
 

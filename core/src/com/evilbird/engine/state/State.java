@@ -19,7 +19,7 @@ import com.evilbird.engine.item.ItemRoot;
  *
  * @author Blair Butterworth
  */
-public interface State extends Disposable
+public interface State extends Disposable//, Identifiable<StateIdentifier>
 {
     ItemRoot getWorld();
 

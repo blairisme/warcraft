@@ -12,6 +12,7 @@ package com.evilbird.engine.game;
 import com.badlogic.gdx.Game;
 import com.evilbird.engine.game.error.ErrorScreen;
 import com.evilbird.engine.game.loader.LoaderScreen;
+import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.menu.MenuOverlay;
@@ -84,6 +85,12 @@ public class GameEngine extends Game implements GameController
         logger.debug("Game engine stopped");
     }
 
+    @Override
+    public Menu getMenu() {
+        return menuScreen.getMenu();
+    }
+
+    @Override
     public State getState() {
         return stateScreen.getState();
     }

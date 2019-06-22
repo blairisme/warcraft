@@ -1,13 +1,13 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state;
+package com.evilbird.warcraft.state.scenario;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.evilbird.engine.common.maps.TiledMapLoader;
@@ -15,6 +15,8 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.utils.JsonSerializerContext;
 import com.evilbird.test.utils.TestFileHandleResolver;
+import com.evilbird.warcraft.state.map.WarcraftLevel;
+import com.evilbird.warcraft.state.map.WarcraftLevelLoader;
 import com.google.gson.JsonElement;
 import com.google.gson.internal.Streams;
 import com.google.gson.stream.JsonReader;
@@ -25,15 +27,15 @@ import org.junit.Test;
 import static com.evilbird.test.data.device.TestDevices.newTestDevice;
 
 /**
- * Instances of this unit test validate the {@link WarcraftStateAdapter} class.
+ * Instances of this unit test validate the {@link WarcraftScenarioAdapter} class.
  *
  * @author Blair Butterworth
  */
-public class WarcraftStateAdapterTest extends GameTestCase
+public class WarcraftScenarioAdapterTest extends GameTestCase
 {
     private Device device;
-    private WarcraftStateAdapter adapter;
-    private WarcraftLevelLoader assetLoader;
+    private WarcraftScenarioAdapter adapter;
+    private com.evilbird.warcraft.state.map.WarcraftLevelLoader assetLoader;
     private TiledMapLoader mapLoader;
     private TestFileHandleResolver resolver;
 
@@ -44,7 +46,7 @@ public class WarcraftStateAdapterTest extends GameTestCase
         resolver = new TestFileHandleResolver();
         mapLoader = new TiledMapLoader(resolver);
         assetLoader = new WarcraftLevelLoader(itemFactory, mapLoader);
-        adapter = new WarcraftStateAdapter(device, itemFactory, behaviourFactory, assetLoader);
+        adapter = new WarcraftScenarioAdapter(device, itemFactory, behaviourFactory, assetLoader);
     }
 
     @Test
@@ -55,7 +57,7 @@ public class WarcraftStateAdapterTest extends GameTestCase
         JsonElement element = Streams.parse(reader);
         JsonSerializerContext context = new JsonSerializerContext();
 
-        WarcraftState state = adapter.deserialize(element, WarcraftState.class, context);
+        com.evilbird.warcraft.state.scenario.WarcraftScenario state = adapter.deserialize(element, com.evilbird.warcraft.state.scenario.WarcraftScenario.class, context);
         Assert.assertNotNull(state);
         Assert.assertNotNull(state.getWorld());
         Assert.assertNotNull(state.getHud());
@@ -71,7 +73,7 @@ public class WarcraftStateAdapterTest extends GameTestCase
         JsonElement element = Streams.parse(reader);
         JsonSerializerContext context = new JsonSerializerContext();
 
-        WarcraftState state = adapter.deserialize(element, WarcraftState.class, context);
+        com.evilbird.warcraft.state.scenario.WarcraftScenario state = adapter.deserialize(element, WarcraftScenario.class, context);
         Assert.assertNotNull(state);
         Assert.assertNotNull(state.getWorld());
         Assert.assertNotNull(state.getHud());

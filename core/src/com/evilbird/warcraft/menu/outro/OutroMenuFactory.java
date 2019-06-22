@@ -19,18 +19,25 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
+import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
+import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.menu.Menu;
+import com.evilbird.engine.menu.MenuIdentifier;
+import com.evilbird.engine.state.IntroducedState;
+import com.evilbird.engine.state.State;
+import com.evilbird.engine.state.StateIdentifier;
+import com.evilbird.engine.state.StateSequence;
+import com.evilbird.warcraft.menu.main.MainMenuType;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
-import static com.evilbird.warcraft.menu.main.MainMenuType.Home;
 
 /**
  * Instances of this factory create {@link OutroMenu OutroMenus}, menus shown
@@ -80,7 +87,7 @@ public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
         OutroMenu menu = new OutroMenu(display, getSkin());
         menu.setType(type);
         menu.setLabelBundle(getStrings());
-        menu.setButtonAction(() -> menu.showMenu(Home));
+        menu.setButtonAction(showNextIntro(menu));
         return menu;
     }
 
@@ -115,7 +122,7 @@ public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
         TextButtonStyle textButtonStyle = new TextButtonStyle();
         textButtonStyle.font = assets.get(FONT, BitmapFont.class);
         textButtonStyle.fontColor = Color.WHITE;
-        textButtonStyle.up = getDrawable(assets, BUTTON, 0, 0, 225, 30);;
+        textButtonStyle.up = getDrawable(assets, BUTTON, 0, 0, 225, 30);
         textButtonStyle.over = textButtonStyle.up;
         textButtonStyle.checked = textButtonStyle.up;
         textButtonStyle.checkedOver = textButtonStyle.up;
@@ -136,5 +143,37 @@ public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
     private OutroMenuStrings getStrings() {
         I18NBundle bundle = assets.get(STRINGS, I18NBundle.class);
         return new OutroMenuStrings(bundle);
+    }
+
+    private SelectListener showNextIntro(OutroMenu menu) {
+        return () -> showNextMenu(menu);
+    }
+
+    private void showNextMenu(OutroMenu menu) {
+        State currentState = getCurrentState(menu);
+        StateIdentifier nextState = getNextState(currentState);
+        MenuIdentifier nextMenu = getStateMenu(nextState);
+        menu.showMenu(nextMenu);
+    }
+
+    private State getCurrentState(OutroMenu menu) {
+        GameController controller = menu.getController();
+        return controller.getState();
+    }
+
+    private StateIdentifier getNextState(State state) {
+        if (state instanceof StateSequence) {
+            StateSequence sequence = (StateSequence)state;
+            return sequence.getNextState();
+        }
+        return null;
+    }
+
+    private MenuIdentifier getStateMenu(StateIdentifier state) {
+        if (state instanceof IntroducedState) {
+            IntroducedState narrative = (IntroducedState)state;
+            return narrative.getIntroductionMenu();
+        }
+        return MainMenuType.Home;
     }
 }

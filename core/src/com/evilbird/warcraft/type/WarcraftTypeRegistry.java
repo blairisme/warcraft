@@ -28,7 +28,7 @@ import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.item.unit.resource.Resource;
-import com.evilbird.warcraft.state.WarcraftLevel;
+import com.evilbird.warcraft.state.map.WarcraftLevel;
 
 import javax.inject.Inject;
 

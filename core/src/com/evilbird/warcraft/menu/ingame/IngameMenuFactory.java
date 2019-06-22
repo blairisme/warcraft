@@ -122,7 +122,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
         TextButtonStyle textButtonStyle = new TextButtonStyle();
         textButtonStyle.font = Fonts.ARIAL;
         textButtonStyle.fontColor = Color.WHITE;
-        textButtonStyle.up = getDrawable(assets, BUTTON_ENABLED);;
+        textButtonStyle.up = getDrawable(assets, BUTTON_ENABLED);
         textButtonStyle.over = textButtonStyle.up;
         textButtonStyle.checked = textButtonStyle.up;
         textButtonStyle.checkedOver = textButtonStyle.up;

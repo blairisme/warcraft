@@ -1,13 +1,13 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state;
+package com.evilbird.warcraft.state.scenario;
 
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.behaviour.Behaviour;
@@ -21,6 +21,8 @@ import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.ItemType;
+import com.evilbird.warcraft.state.map.WarcraftLevel;
+import com.evilbird.warcraft.state.map.WarcraftLevelLoader;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -32,12 +34,12 @@ import javax.inject.Inject;
 import java.lang.reflect.Type;
 
 /**
- * Instances of this class serialize and deserialize {@link WarcraftState}
+ * Instances of this class serialize and deserialize {@link WarcraftScenario}
  * objects.
  *
  * @author Blair Butterworth
  */
-public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, JsonDeserializer<WarcraftState>
+public class WarcraftScenarioAdapter implements JsonSerializer<WarcraftScenario>, JsonDeserializer<WarcraftScenario>
 {
     private static final String WORLD = "world";
     private static final String HUD = "hud";
@@ -46,19 +48,19 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     private DeviceDisplay display;
     private ItemFactory itemFactory;
     private BehaviourFactory behaviourFactory;
-    private WarcraftLevelLoader stateFileLoader;
+    private com.evilbird.warcraft.state.map.WarcraftLevelLoader stateFileLoader;
 
     @SerializedConstructor
-    public WarcraftStateAdapter() {
+    public WarcraftScenarioAdapter() {
         GameService service = GameService.getInstance();
         this.display = service.getDevice().getDeviceDisplay();
         this.itemFactory = service.getItemFactory();
         this.behaviourFactory = service.getBehaviourFactory();
-        this.stateFileLoader = new WarcraftLevelLoader(itemFactory);
+        this.stateFileLoader = new com.evilbird.warcraft.state.map.WarcraftLevelLoader(itemFactory);
     }
 
     @Inject
-    public WarcraftStateAdapter(
+    public WarcraftScenarioAdapter(
         Device device,
         ItemFactory itemFactory,
         BehaviourFactory behaviourFactory,
@@ -71,7 +73,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     }
 
     @Override
-    public JsonElement serialize(WarcraftState source, Type type, JsonSerializationContext context) {
+    public JsonElement serialize(WarcraftScenario source, Type type, JsonSerializationContext context) {
         JsonObject result = new JsonObject();
         serializeHud(result, context, source.getHud());
         serializeBehaviour(result, context, source.getBehaviour());
@@ -94,12 +96,12 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     }
 
     @Override
-    public WarcraftState deserialize(JsonElement element, Type type, JsonDeserializationContext context) {
+    public WarcraftScenario deserialize(JsonElement element, Type type, JsonDeserializationContext context) {
         JsonObject json = element.getAsJsonObject();
         ItemRoot world = deserializeWorld(json, context);
         ItemRoot hud = deserializeHud(json, context);
         Behaviour behaviour = deserializeBehaviour(json, context);
-        return new WarcraftState(world, hud, behaviour);
+        return new WarcraftScenario(world, hud, behaviour);
     }
 
     private ItemRoot deserializeWorld(JsonObject json, JsonDeserializationContext context) {

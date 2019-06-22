@@ -29,7 +29,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.state.StateIdentifier;
-import com.evilbird.warcraft.state.WarcraftScenario;
+import com.evilbird.warcraft.state.campaign.WarcraftCampaigns;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,10 +40,10 @@ import java.util.List;
 
 import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
-import static com.evilbird.warcraft.state.WarcraftScenario.Human1;
-import static com.evilbird.warcraft.state.WarcraftScenario.Human2;
-import static com.evilbird.warcraft.state.WarcraftScenario.Orc1;
-import static com.evilbird.warcraft.state.WarcraftScenario.Orc2;
+import static com.evilbird.warcraft.state.campaign.WarcraftCampaigns.Human1;
+import static com.evilbird.warcraft.state.campaign.WarcraftCampaigns.Human2;
+import static com.evilbird.warcraft.state.campaign.WarcraftCampaigns.Orc1;
+import static com.evilbird.warcraft.state.campaign.WarcraftCampaigns.Orc2;
 
 /**
  * Instances of this factory create {@link IntroMenu}s, menus that introduce a
@@ -142,7 +142,7 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
         return getIntro(Orc2, ORC_STRINGS_2, ORC_NARRATION_2);
     }
 
-    private Menu getIntro(WarcraftScenario scenario, String strings, String ... narration) {
+    private Menu getIntro(WarcraftCampaigns scenario, String strings, String ... narration) {
         Skin skin = getSkin(scenario);
         IntroMenu menu = new IntroMenu(display, skin);
         addContent(menu, strings);
@@ -189,7 +189,7 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
         });
     }
 
-    private Skin getSkin(WarcraftScenario scenario) {
+    private Skin getSkin(WarcraftCampaigns scenario) {
         Skin skin = new Skin();
         addLabelStyle(skin);
         addButtonStyle(skin);
@@ -197,7 +197,7 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
         return skin;
     }
 
-    private void addBackgroundStyle(Skin skin, WarcraftScenario scenario) {
+    private void addBackgroundStyle(Skin skin, WarcraftCampaigns scenario) {
         String asset = scenario.name().startsWith("Human") ? HUMAN_BACKGROUND_1 : ORC_BACKGROUND_1;
         skin.add("intro-background", getDrawable(assets, asset), Drawable.class);
     }

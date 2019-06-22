@@ -29,7 +29,7 @@ import com.evilbird.warcraft.item.ui.hud.control.actions.ActionPane;
 import com.evilbird.warcraft.item.ui.hud.control.status.StatusPane;
 import com.evilbird.warcraft.item.ui.hud.resource.ResourcePane;
 import com.evilbird.warcraft.item.ui.hud.resource.ResourcePaneStyle;
-import com.evilbird.warcraft.state.WarcraftState;
+import com.evilbird.warcraft.state.scenario.WarcraftScenario;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -78,7 +78,7 @@ public class MenuBehaviourTest extends GameTestCase
         ItemRoot world = TestItemRoots.newTestRoot(new TextIdentifier("world"), player);
         ItemRoot hud = TestItemRoots.newTestRoot(new TextIdentifier("hud"), resourcePane, actionPane, statusPane);
 
-        state = new WarcraftState(world, hud, null);
+        state = new WarcraftScenario(world, hud, null);
         events = new EventQueue();
         menuBehaviour = new MenuBehaviour(events);
     }

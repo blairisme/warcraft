@@ -23,6 +23,8 @@ import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateLoadError;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.engine.state.StateType;
+import com.evilbird.warcraft.state.campaign.WarcraftCampaigns;
+import com.evilbird.warcraft.state.scenario.WarcraftScenario;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -36,7 +38,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Instances of this {@link StateService} provide access to {@link WarcraftState
+ * Instances of this {@link StateService} provide access to {@link WarcraftScenario
  * WarcraftStates}, snapshots of all game objects and their properties at a
  * given point in time.
  *
@@ -84,7 +86,7 @@ public class WarcraftStateService implements StateService
     }
 
     private List<Identifier> listScenarios() {
-        return Arrays.asList(WarcraftScenario.values());
+        return Arrays.asList(WarcraftCampaigns.values());
     }
 
     private List<Identifier> listSaves() {
@@ -102,8 +104,8 @@ public class WarcraftStateService implements StateService
 
     @Override
     public State get(StateIdentifier identifier) {
-        if (identifier instanceof WarcraftScenario) {
-            return getScenario((WarcraftScenario)identifier);
+        if (identifier instanceof WarcraftCampaigns) {
+            return getScenario((WarcraftCampaigns)identifier);
         }
         if (identifier instanceof WarcraftStateIdentifier) {
             return getSave((WarcraftStateIdentifier)identifier);
@@ -111,9 +113,9 @@ public class WarcraftStateService implements StateService
         throw new UnknownEntityException(identifier);
     }
 
-    private State getScenario(WarcraftScenario identifier) {
+    private State getScenario(WarcraftCampaigns identifier) {
         try (Reader reader = assetStorage.resolve(identifier.getFilePath()).reader()) {
-            return serializer.deserialize(reader, WarcraftState.class);
+            return serializer.deserialize(reader, WarcraftScenario.class);
         }
         catch (IOException error){
             throw new StateLoadError(error);
@@ -122,7 +124,7 @@ public class WarcraftStateService implements StateService
 
     private State getSave(WarcraftStateIdentifier identifier) {
         try (Reader reader = deviceStorage.read(toPath(identifier))) {
-            return serializer.deserialize(reader, WarcraftState.class);
+            return serializer.deserialize(reader, WarcraftScenario.class);
         }
         catch (IOException error){
             throw new StateLoadError(error);
@@ -131,11 +133,11 @@ public class WarcraftStateService implements StateService
 
     @Override
     public void set(StateIdentifier identifier, State state) {
-        Validate.isInstanceOf(WarcraftState.class, state);
+        Validate.isInstanceOf(WarcraftScenario.class, state);
         Validate.isInstanceOf(WarcraftStateIdentifier.class, identifier);
 
         try (Writer writer = deviceStorage.write(toPath((WarcraftStateIdentifier)identifier))) {
-            serializer.serialize((WarcraftState)state, WarcraftState.class, writer);
+            serializer.serialize((WarcraftScenario)state, WarcraftScenario.class, writer);
         }
         catch (IOException error){
             throw new StateLoadError(error);

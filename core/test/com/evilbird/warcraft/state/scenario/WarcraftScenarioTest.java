@@ -1,13 +1,13 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state;
+package com.evilbird.warcraft.state.scenario;
 
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.common.lang.TextIdentifier;
@@ -29,13 +29,13 @@ import org.junit.Test;
 import java.io.IOException;
 
 /**
- * Instances of this unit test validate the {@link WarcraftState} class.
+ * Instances of this unit test validate the {@link com.evilbird.warcraft.state.scenario.WarcraftScenario} class.
  *
  * @author Blair Butterworth
  */
-public class WarcraftStateTest extends GameTestCase
+public class WarcraftScenarioTest extends GameTestCase
 {
-    private WarcraftState state;
+    private WarcraftScenario state;
     private ItemRoot world;
     private ItemRoot hud;
     private Item hudControl;
@@ -49,7 +49,7 @@ public class WarcraftStateTest extends GameTestCase
         hudControl = TestItems.newItem(new TextIdentifier("resources"), HudControl.ResourcePane);
         hud = TestItemRoots.newTestRoot(HudType.Human, hudControl);
         behaviour = TestBehaviours.newBehaviour(WarcraftBehaviour.Human1);
-        state = new WarcraftState(world, hud, behaviour);
+        state = new com.evilbird.warcraft.state.scenario.WarcraftScenario(world, hud, behaviour);
 
         respondWithItem(HudType.Human, () -> hudControl);
         respondWithBehaviour(behaviour, WarcraftBehaviour.Human1);
@@ -57,7 +57,7 @@ public class WarcraftStateTest extends GameTestCase
 
     @Test
     public void serializeSaveTest() throws IOException {
-        SerializationVerifier.forClass(WarcraftState.class)
+        SerializationVerifier.forClass(com.evilbird.warcraft.state.scenario.WarcraftScenario.class)
             .withDeserializedForm(state)
             .withSerializedResource("/warcraft/state/save.json")
             .verify();
@@ -65,7 +65,7 @@ public class WarcraftStateTest extends GameTestCase
 
     @Test
     public void equalsTest() {
-        EqualityVerifier.forClass(WarcraftState.class)
+        EqualityVerifier.forClass(WarcraftScenario.class)
             .withMockedType(ItemRoot.class)
             .withMockedTransientFields()
             .excludeTransientFields()

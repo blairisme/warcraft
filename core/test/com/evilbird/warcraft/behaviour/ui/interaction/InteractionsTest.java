@@ -30,13 +30,6 @@ import javax.inject.Provider;
 import java.util.Collection;
 import java.util.Collections;
 
-import static com.evilbird.engine.device.UserInputType.Action;
-import static com.evilbird.warcraft.action.attack.AttackActions.Attack;
-import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmTarget;
-import static com.evilbird.warcraft.item.unit.UnitType.Footman;
-import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
-import static java.util.Arrays.asList;
-
 /**
  * Instances of this unit test validate the {@link Interactions} class.
  *

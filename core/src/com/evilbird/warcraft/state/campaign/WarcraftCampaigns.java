@@ -1,13 +1,13 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state;
+package com.evilbird.warcraft.state.campaign;
 
 import com.evilbird.engine.state.StateIdentifier;
 
@@ -17,7 +17,7 @@ import com.evilbird.engine.state.StateIdentifier;
  *
  * @author Blair Butterworth
  */
-public enum WarcraftScenario implements StateIdentifier
+public enum WarcraftCampaigns implements StateIdentifier
 {
     Human1("data/levels/human/level1.json"),
     Human2("data/levels/human/level2.json"),
@@ -26,7 +26,7 @@ public enum WarcraftScenario implements StateIdentifier
 
     private String path;
 
-    WarcraftScenario(String path) {
+    WarcraftCampaigns(String path) {
         this.path = path;
     }
 
