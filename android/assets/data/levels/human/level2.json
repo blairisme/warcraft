@@ -1,14 +1,22 @@
 {
-  "hud": {
-    "class": "Hud",
-    "enum": "Human"
+  "map": {
+    "class": "Map",
+    "enum": "Human2"
+  },
+  "introduction": {
+    "class": "Introduction",
+    "enum": "Human2"
   },
   "behaviour": {
     "class": "Behaviour",
     "enum": "Human2"
   },
-  "world": {
-    "class": "Scenario",
-    "enum": "Human2"
+  "hud": {
+    "class": "Hud",
+    "enum": "Human"
+  },
+  "next": {
+    "class": "Campaign",
+    "enum": "Human3"
   }
 }

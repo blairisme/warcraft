@@ -9,9 +9,10 @@
 
 package com.evilbird.warcraft.state;
 
-import com.evilbird.engine.state.StateIdentifier;
+import com.evilbird.engine.state.State;
+import com.google.gson.annotations.JsonAdapter;
 
-public interface WarcraftStateIdentifier extends StateIdentifier
+@JsonAdapter(WarcraftStateAdapter.class)
+public interface WarcraftState extends State
 {
-    String getFilePath();
 }

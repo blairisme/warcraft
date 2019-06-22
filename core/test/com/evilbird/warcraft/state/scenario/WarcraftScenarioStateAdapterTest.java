@@ -31,7 +31,7 @@ import static com.evilbird.test.data.device.TestDevices.newTestDevice;
  *
  * @author Blair Butterworth
  */
-public class WarcraftScenarioAdapterTest extends GameTestCase
+public class WarcraftScenarioStateAdapterTest extends GameTestCase
 {
     private Device device;
     private WarcraftScenarioAdapter adapter;
@@ -57,7 +57,7 @@ public class WarcraftScenarioAdapterTest extends GameTestCase
         JsonElement element = Streams.parse(reader);
         JsonSerializerContext context = new JsonSerializerContext();
 
-        com.evilbird.warcraft.state.scenario.WarcraftScenario state = adapter.deserialize(element, com.evilbird.warcraft.state.scenario.WarcraftScenario.class, context);
+        WarcraftScenarioState state = adapter.deserialize(element, WarcraftScenarioState.class, context);
         Assert.assertNotNull(state);
         Assert.assertNotNull(state.getWorld());
         Assert.assertNotNull(state.getHud());
@@ -73,7 +73,7 @@ public class WarcraftScenarioAdapterTest extends GameTestCase
         JsonElement element = Streams.parse(reader);
         JsonSerializerContext context = new JsonSerializerContext();
 
-        com.evilbird.warcraft.state.scenario.WarcraftScenario state = adapter.deserialize(element, WarcraftScenario.class, context);
+        WarcraftScenarioState state = adapter.deserialize(element, WarcraftScenarioState.class, context);
         Assert.assertNotNull(state);
         Assert.assertNotNull(state.getWorld());
         Assert.assertNotNull(state.getHud());

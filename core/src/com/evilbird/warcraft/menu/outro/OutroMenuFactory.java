@@ -152,8 +152,8 @@ public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
     private void showNextMenu(OutroMenu menu) {
         State currentState = getCurrentState(menu);
         StateIdentifier nextState = getNextState(currentState);
-        MenuIdentifier nextMenu = getStateMenu(nextState);
-        menu.showMenu(nextMenu);
+        MenuIdentifier menuIdentifier = getNextMenu(nextState);
+        menu.showMenu(menuIdentifier);
     }
 
     private State getCurrentState(OutroMenu menu) {
@@ -169,10 +169,10 @@ public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
         return null;
     }
 
-    private MenuIdentifier getStateMenu(StateIdentifier state) {
+    private MenuIdentifier getNextMenu(StateIdentifier state) {
         if (state instanceof IntroducedState) {
-            IntroducedState narrative = (IntroducedState)state;
-            return narrative.getIntroductionMenu();
+            IntroducedState introducedState = (IntroducedState)state;
+            return introducedState.getIntroductionMenu();
         }
         return MainMenuType.Home;
     }

@@ -33,7 +33,7 @@ import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.warcraft.menu.outro.OutroMenuType;
-import com.evilbird.warcraft.state.WarcraftStateIdentifier;
+import com.evilbird.warcraft.state.WarcraftSave;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +57,7 @@ import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Root;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Save;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Sounds;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Speeds;
-import static com.evilbird.warcraft.menu.intro.IntroMenuType.HumanLevel1;
+import static com.evilbird.warcraft.menu.intro.IntroMenuType.Human1;
 import static com.evilbird.warcraft.state.WarcraftStateType.UserState;
 
 /**
@@ -226,7 +226,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
     private IngameMenu setExitLayout(IngameMenu menu) {
         menu.setLayout(Normal);
         menu.addTitle("End Scenario");
-        menu.addButton("Restart Scenario", showMenu(menu, HumanLevel1));
+        menu.addButton("Restart Scenario", showMenu(menu, Human1));
         menu.addButton("Surrender", showMenu(menu, Confirm));
         menu.addButton("Quit to Menu", showMenu(menu, Confirm));
         menu.addButton("Exit Program", shutdown());
@@ -325,7 +325,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
     private SelectListener saveState(IngameMenu menu, TextField field) {
         return () -> {
             try {
-                menu.saveState(new WarcraftStateIdentifier(field.getText()));
+                menu.saveState(new WarcraftSave(field.getText()));
             }
             catch (Throwable error) {
                 LOGGER.error("Failed to save state", error);
@@ -337,7 +337,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
     private SelectListener deleteState(IngameMenu menu, List list) {
         return () -> {
             try {
-                states.remove((WarcraftStateIdentifier)list.getSelected());
+                states.remove((WarcraftSave)list.getSelected());
             }
             catch (Throwable error) {
                 LOGGER.error("Failed to remove state", error);
@@ -349,7 +349,7 @@ public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
     private SelectListener loadState(IngameMenu menu, List list) {
         return () -> {
             try {
-                menu.showState((WarcraftStateIdentifier)list.getSelected());
+                menu.showState((WarcraftSave)list.getSelected());
             }
             catch (Throwable error) {
                 LOGGER.error("Failed to load state", error);

@@ -29,13 +29,13 @@ import org.junit.Test;
 import java.io.IOException;
 
 /**
- * Instances of this unit test validate the {@link com.evilbird.warcraft.state.scenario.WarcraftScenario} class.
+ * Instances of this unit test validate the {@link WarcraftScenarioState} class.
  *
  * @author Blair Butterworth
  */
-public class WarcraftScenarioTest extends GameTestCase
+public class WarcraftScenarioStateTest extends GameTestCase
 {
-    private WarcraftScenario state;
+    private WarcraftScenarioState state;
     private ItemRoot world;
     private ItemRoot hud;
     private Item hudControl;
@@ -49,7 +49,7 @@ public class WarcraftScenarioTest extends GameTestCase
         hudControl = TestItems.newItem(new TextIdentifier("resources"), HudControl.ResourcePane);
         hud = TestItemRoots.newTestRoot(HudType.Human, hudControl);
         behaviour = TestBehaviours.newBehaviour(WarcraftBehaviour.Human1);
-        state = new com.evilbird.warcraft.state.scenario.WarcraftScenario(world, hud, behaviour);
+        state = new WarcraftScenarioState(world, hud, behaviour);
 
         respondWithItem(HudType.Human, () -> hudControl);
         respondWithBehaviour(behaviour, WarcraftBehaviour.Human1);
@@ -57,7 +57,7 @@ public class WarcraftScenarioTest extends GameTestCase
 
     @Test
     public void serializeSaveTest() throws IOException {
-        SerializationVerifier.forClass(com.evilbird.warcraft.state.scenario.WarcraftScenario.class)
+        SerializationVerifier.forClass(WarcraftScenarioState.class)
             .withDeserializedForm(state)
             .withSerializedResource("/warcraft/state/save.json")
             .verify();
@@ -65,7 +65,7 @@ public class WarcraftScenarioTest extends GameTestCase
 
     @Test
     public void equalsTest() {
-        EqualityVerifier.forClass(WarcraftScenario.class)
+        EqualityVerifier.forClass(WarcraftScenarioState.class)
             .withMockedType(ItemRoot.class)
             .withMockedTransientFields()
             .excludeTransientFields()

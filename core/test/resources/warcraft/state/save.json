@@ -7,7 +7,7 @@
     "class": "Behaviour",
     "enum": "Human1"
   },
-  "world": {
+  "map": {
     "id": {
       "class": "Named",
       "name": "world"

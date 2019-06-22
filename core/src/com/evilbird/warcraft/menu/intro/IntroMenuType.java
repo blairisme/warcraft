@@ -19,9 +19,9 @@ import com.evilbird.engine.menu.MenuIdentifier;
  */
 public enum IntroMenuType implements MenuIdentifier
 {
-    HumanLevel1,
-    HumanLevel2,
+    Human1,
+    Human2,
 
-    OrcLevel1,
-    OrcLevel2
+    Orc1,
+    Orc2
 }

@@ -30,7 +30,7 @@ import org.apache.commons.lang3.Validate;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
-import static com.evilbird.warcraft.menu.intro.IntroMenuType.HumanLevel1;
+import static com.evilbird.warcraft.menu.intro.IntroMenuType.Human1;
 import static com.evilbird.warcraft.menu.main.MainMenuType.Campaign;
 import static com.evilbird.warcraft.menu.main.MainMenuType.CampaignNew;
 import static com.evilbird.warcraft.menu.main.MainMenuType.Home;
@@ -99,7 +99,7 @@ public class MainMenuFactory implements IdentifiedAssetProvider<Menu>
 
     private Menu getNewCampaignMenu() {
         MainMenu menu = new MainMenu(display, getSkin());
-        menu.insertButton("Human Campaign", showMenu(menu, HumanLevel1));
+        menu.insertButton("Human Campaign", showMenu(menu, Human1));
         menu.insertButton("Orc Campaign");
         menu.insertButton("Previous Menu", showMenu(menu, Campaign));
         return menu;

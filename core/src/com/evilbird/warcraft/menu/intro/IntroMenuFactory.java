@@ -29,7 +29,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.state.StateIdentifier;
-import com.evilbird.warcraft.state.campaign.WarcraftCampaigns;
+import com.evilbird.warcraft.state.campaign.WarcraftCampaign;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,10 +40,6 @@ import java.util.List;
 
 import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
-import static com.evilbird.warcraft.state.campaign.WarcraftCampaigns.Human1;
-import static com.evilbird.warcraft.state.campaign.WarcraftCampaigns.Human2;
-import static com.evilbird.warcraft.state.campaign.WarcraftCampaigns.Orc1;
-import static com.evilbird.warcraft.state.campaign.WarcraftCampaigns.Orc2;
 
 /**
  * Instances of this factory create {@link IntroMenu}s, menus that introduce a
@@ -118,31 +114,31 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
     public Menu get(Identifier identifier) {
         Validate.isInstanceOf(IntroMenuType.class, identifier);
         switch((IntroMenuType)identifier) {
-            case HumanLevel1: return getHumanIntro1();
-            case HumanLevel2: return getHumanIntro2();
-            case OrcLevel1: return getOrcIntro1();
-            case OrcLevel2: return getOrcIntro2();
+            case Human1: return getHumanIntro1();
+            case Human2: return getHumanIntro2();
+            case Orc1: return getOrcIntro1();
+            case Orc2: return getOrcIntro2();
             default: throw new UnsupportedOperationException();
         }
     }
 
     private Menu getHumanIntro1() {
-        return getIntro(Human1, HUMAN_STRINGS_1, HUMAN_NARRATION_1A, HUMAN_NARRATION_1B);
+        return getIntro(WarcraftCampaign.Human1, HUMAN_STRINGS_1, HUMAN_NARRATION_1A, HUMAN_NARRATION_1B);
     }
 
     private Menu getHumanIntro2() {
-        return getIntro(Human2, HUMAN_STRINGS_2, HUMAN_NARRATION_2A, HUMAN_NARRATION_2B);
+        return getIntro(WarcraftCampaign.Human2, HUMAN_STRINGS_2, HUMAN_NARRATION_2A, HUMAN_NARRATION_2B);
     }
 
     private Menu getOrcIntro1() {
-        return getIntro(Orc1, ORC_STRINGS_1, ORC_NARRATION_1);
+        return getIntro(WarcraftCampaign.Orc1, ORC_STRINGS_1, ORC_NARRATION_1);
     }
 
     private Menu getOrcIntro2() {
-        return getIntro(Orc2, ORC_STRINGS_2, ORC_NARRATION_2);
+        return getIntro(WarcraftCampaign.Orc2, ORC_STRINGS_2, ORC_NARRATION_2);
     }
 
-    private Menu getIntro(WarcraftCampaigns scenario, String strings, String ... narration) {
+    private Menu getIntro(WarcraftCampaign scenario, String strings, String ... narration) {
         Skin skin = getSkin(scenario);
         IntroMenu menu = new IntroMenu(display, skin);
         addContent(menu, strings);
@@ -189,7 +185,7 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
         });
     }
 
-    private Skin getSkin(WarcraftCampaigns scenario) {
+    private Skin getSkin(WarcraftCampaign scenario) {
         Skin skin = new Skin();
         addLabelStyle(skin);
         addButtonStyle(skin);
@@ -197,7 +193,7 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
         return skin;
     }
 
-    private void addBackgroundStyle(Skin skin, WarcraftCampaigns scenario) {
+    private void addBackgroundStyle(Skin skin, WarcraftCampaign scenario) {
         String asset = scenario.name().startsWith("Human") ? HUMAN_BACKGROUND_1 : ORC_BACKGROUND_1;
         skin.add("intro-background", getDrawable(assets, asset), Drawable.class);
     }
@@ -213,7 +209,7 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
         TextButtonStyle textButtonStyle = new TextButtonStyle();
         textButtonStyle.font = Fonts.ARIAL;
         textButtonStyle.fontColor = Color.WHITE;
-        textButtonStyle.up = getDrawable(assets, BUTTON, 0, 0, 225, 30);;
+        textButtonStyle.up = getDrawable(assets, BUTTON, 0, 0, 225, 30);
         textButtonStyle.over = textButtonStyle.up;
         textButtonStyle.checked = textButtonStyle.up;
         textButtonStyle.checkedOver = textButtonStyle.up;

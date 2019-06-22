@@ -14,7 +14,6 @@ import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.behaviour.BehaviourIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameService;
@@ -34,29 +33,29 @@ import javax.inject.Inject;
 import java.lang.reflect.Type;
 
 /**
- * Instances of this class serialize and deserialize {@link WarcraftScenario}
+ * Instances of this class serialize and deserialize {@link WarcraftScenarioState}
  * objects.
  *
  * @author Blair Butterworth
  */
-public class WarcraftScenarioAdapter implements JsonSerializer<WarcraftScenario>, JsonDeserializer<WarcraftScenario>
+public class WarcraftScenarioAdapter
+    implements JsonSerializer<WarcraftScenarioState>, JsonDeserializer<WarcraftScenarioState>
 {
-    private static final String WORLD = "world";
+    private static final String MAP = "map";
     private static final String HUD = "hud";
     private static final String BEHAVIOUR = "behaviour";
 
     private DeviceDisplay display;
     private ItemFactory itemFactory;
     private BehaviourFactory behaviourFactory;
-    private com.evilbird.warcraft.state.map.WarcraftLevelLoader stateFileLoader;
+    private WarcraftLevelLoader stateFileLoader;
 
-    @SerializedConstructor
     public WarcraftScenarioAdapter() {
         GameService service = GameService.getInstance();
         this.display = service.getDevice().getDeviceDisplay();
         this.itemFactory = service.getItemFactory();
         this.behaviourFactory = service.getBehaviourFactory();
-        this.stateFileLoader = new com.evilbird.warcraft.state.map.WarcraftLevelLoader(itemFactory);
+        this.stateFileLoader = new WarcraftLevelLoader(itemFactory);
     }
 
     @Inject
@@ -73,16 +72,24 @@ public class WarcraftScenarioAdapter implements JsonSerializer<WarcraftScenario>
     }
 
     @Override
-    public JsonElement serialize(WarcraftScenario source, Type type, JsonSerializationContext context) {
-        JsonObject result = new JsonObject();
-        serializeHud(result, context, source.getHud());
-        serializeBehaviour(result, context, source.getBehaviour());
-        serializeWorld(result, context, source.getWorld());
+    public JsonElement serialize(WarcraftScenarioState source, Type type, JsonSerializationContext context) {
+        JsonObject result = newSerializedInstance();
+        serialize(source, result, context);
         return result;
     }
 
+    protected JsonObject newSerializedInstance() {
+        return new JsonObject();
+    }
+
+    protected void serialize(WarcraftScenarioState state, JsonObject json, JsonSerializationContext context) {
+        serializeHud(json, context, state.getHud());
+        serializeBehaviour(json, context, state.getBehaviour());
+        serializeWorld(json, context, state.getWorld());
+    }
+
     private void serializeWorld(JsonObject json, JsonSerializationContext context, ItemRoot world) {
-        json.add(WORLD, context.serialize(world, ItemRoot.class));
+        json.add(MAP, context.serialize(world, ItemRoot.class));
     }
 
     private void serializeHud(JsonObject json, JsonSerializationContext context, ItemRoot hud) {
@@ -96,16 +103,24 @@ public class WarcraftScenarioAdapter implements JsonSerializer<WarcraftScenario>
     }
 
     @Override
-    public WarcraftScenario deserialize(JsonElement element, Type type, JsonDeserializationContext context) {
-        JsonObject json = element.getAsJsonObject();
-        ItemRoot world = deserializeWorld(json, context);
-        ItemRoot hud = deserializeHud(json, context);
-        Behaviour behaviour = deserializeBehaviour(json, context);
-        return new WarcraftScenario(world, hud, behaviour);
+    public WarcraftScenarioState deserialize(JsonElement element, Type type, JsonDeserializationContext context) {
+        WarcraftScenarioState result = newDeserializedInstance();
+        deserialize(result, element.getAsJsonObject(), context);
+        return result;
+    }
+
+    protected WarcraftScenarioState newDeserializedInstance() {
+        return new WarcraftScenarioState();
+    }
+
+    protected void deserialize(WarcraftScenarioState state, JsonObject json, JsonDeserializationContext context) {
+        state.setWorld(deserializeWorld(json, context));
+        state.setHud(deserializeHud(json, context));
+        state.setBehaviour(deserializeBehaviour(json, context));
     }
 
     private ItemRoot deserializeWorld(JsonObject json, JsonDeserializationContext context) {
-        JsonObject world = json.get(WORLD).getAsJsonObject();
+        JsonObject world = json.get(MAP).getAsJsonObject();
         if (world.has("enum")) {
             WarcraftLevel identifier = context.deserialize(world, Identifier.class);
             return stateFileLoader.load(identifier);

@@ -13,7 +13,7 @@ import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.warcraft.menu.intro.IntroMenuType;
 import com.evilbird.warcraft.menu.main.MainMenuType;
 import com.evilbird.warcraft.menu.outro.OutroMenuType;
-import com.evilbird.warcraft.state.campaign.WarcraftCampaigns;
+import com.evilbird.warcraft.state.campaign.WarcraftCampaign;
 import org.apache.commons.lang3.EnumUtils;
 import picocli.CommandLine.Option;
 
@@ -25,7 +25,7 @@ import picocli.CommandLine.Option;
 public class DesktopCommands
 {
     @Option(names={"-s", "--scenario" }, paramLabel="LEVEL", description="starts the game and shows the given scenario")
-    private WarcraftCampaigns scenario;
+    private WarcraftCampaign scenario;
 
     @Option(names={"-m", "--menu" }, paramLabel="MENU", description="starts the game and shows the given menu")
     private String menu;
@@ -34,9 +34,9 @@ public class DesktopCommands
      * The scenario to show when the game engine starts. This command line
      * option is optional and may be <code>null</code>.
      *
-     * @return a {@link WarcraftCampaigns}.
+     * @return a {@link WarcraftCampaign}.
      */
-    public WarcraftCampaigns getScenario() {
+    public WarcraftCampaign getScenario() {
         return scenario;
     }
 

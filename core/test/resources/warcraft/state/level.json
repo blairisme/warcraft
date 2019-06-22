@@ -7,8 +7,8 @@
     "class": "Behaviour",
     "enum": "Human1"
   },
-  "world": {
-    "class": "Scenario",
+  "map": {
+    "class": "Map",
     "enum": "Human1"
   }
 }

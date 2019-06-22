@@ -28,6 +28,8 @@ import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.item.unit.resource.Resource;
+import com.evilbird.warcraft.menu.intro.IntroMenuType;
+import com.evilbird.warcraft.state.campaign.WarcraftCampaign;
 import com.evilbird.warcraft.state.map.WarcraftLevel;
 
 import javax.inject.Inject;
@@ -59,8 +61,11 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("UnitSound", UnitSound.class);
         registerType("Units", UnitType.class);
         registerType("ResourceType", ResourceType.class);
-        registerType("Scenario", WarcraftLevel.class);
         registerType("Behaviour", WarcraftBehaviour.class);
+
+        registerType("Map", WarcraftLevel.class);
+        registerType("Campaign", WarcraftCampaign.class);
+        registerType("Introduction", IntroMenuType.class);
     }
 
     private void registerItems() {
