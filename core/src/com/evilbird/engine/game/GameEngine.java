@@ -109,23 +109,38 @@ public class GameEngine extends Game implements GameController
 
     @Override
     public void showMenu() {
-        menuScreen.dispose();
-        menuScreen.setMenu(menuFactory.newMenu());
-        setScreen(menuScreen);
+        try {
+            menuScreen.dispose();
+            menuScreen.setMenu(menuFactory.newMenu());
+            setScreen(menuScreen);
+        }
+        catch (Throwable error) {
+            handleError(error);
+        }
     }
 
     @Override
     public void showMenu(MenuIdentifier identifier) {
-        menuScreen.dispose();
-        menuScreen.setMenu(menuFactory.newMenu(identifier));
-        setScreen(menuScreen);
+        try {
+            menuScreen.dispose();
+            menuScreen.setMenu(menuFactory.newMenu(identifier));
+            setScreen(menuScreen);
+        }
+        catch (Throwable error) {
+            handleError(error);
+        }
     }
 
     @Override
     public void showMenuOverlay(MenuIdentifier identifier) {
-        menuScreen.dispose();
-        menuScreen.setMenu(menuFactory.newMenu(identifier));
-        setScreen(menuOverlay);
+        try {
+            menuScreen.dispose();
+            menuScreen.setMenu(menuFactory.newMenu(identifier));
+            setScreen(menuOverlay);
+        }
+        catch (Throwable error) {
+            handleError(error);
+        }
     }
 
     @Override
@@ -135,15 +150,30 @@ public class GameEngine extends Game implements GameController
 
     @Override
     public void showState(StateIdentifier identifier) {
-        stateScreen.dispose();
-        stateScreen.setState(stateService.get(identifier));
-        setScreen(stateScreen);
+        try {
+            stateScreen.dispose();
+            stateScreen.setState(stateService.get(identifier));
+            setScreen(stateScreen);
+        }
+        catch (Throwable error) {
+            handleError(error);
+        }
     }
 
     @Override
     public void saveState(StateIdentifier identifier) {
-        State state = stateScreen.getState();
-        stateService.set(identifier, state);
+        try {
+            State state = stateScreen.getState();
+            stateService.set(identifier, state);
+        }
+        catch (Throwable error) {
+            handleError(error);
+        }
+    }
+
+    private void handleError(Throwable error) {
+        logger.error(error.getMessage(), error);
+        showError(error);
     }
 
     @Override
