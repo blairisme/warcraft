@@ -31,8 +31,8 @@ import java.util.function.Predicate;
 import static com.evilbird.engine.common.file.FileType.MP3;
 
 /**
- * Defines the assets that are required to display a {@link Building}, as well
- * as any sound effects used by it.
+ * Provides access to the assets that are required to display a
+ * {@link Building}, as well as any sound effects used by it.
  *
  * @author Blair Butterworth
  */

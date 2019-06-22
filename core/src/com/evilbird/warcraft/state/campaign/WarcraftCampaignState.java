@@ -21,14 +21,16 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
+ * <p>
  * A WarcraftScenarioState specialization that specifies an introduction menu
  * and the scenario to load when the scenario is complete.
- *
+ * </p>
+ * <p>
  * WarcraftCampaignStates represent a game state, a snapshot of the all game
  * objects and their properties at a given point in time. Warcraft game state
  * is persisted for objects in the game world, but not the user interface or
  * active behaviours which are stateless.
- *
+ * </p>
  * @author Blair Butterworth
  */
 @JsonAdapter(WarcraftCampaignAdapter.class)
