@@ -47,13 +47,7 @@ public class UnitPredicates
     }
 
     public static Predicate<Item> isAlive() {
-        return (item) -> {
-            if (item instanceof Destroyable) {
-                Destroyable destroyable = (Destroyable)item;
-                return destroyable.getHealth() > 0;
-            }
-            return false;
-        };
+        return UnitOperations::isAlive;
     }
 
     public static Predicate<Item> isAi() {
@@ -189,7 +183,7 @@ public class UnitPredicates
     }
 
     public static Predicate<Item> isRanged() {
-        return item -> UnitOperations.isRanged(item);
+        return UnitOperations::isRanged;
     }
 
     public static Predicate<Item> isConstructing() {

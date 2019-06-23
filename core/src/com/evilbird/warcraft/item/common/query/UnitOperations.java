@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.common.query;
 
+import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
@@ -79,7 +80,7 @@ public class UnitOperations
     }
 
     public static Player getAiPlayer(ItemRoot itemRoot) {
-        Predicate<Item> query = both(isPlayer(), isAi());
+        Predicate<Item> query = both(UnitPredicates.isPlayer(), UnitPredicates.isAi());
         return (Player)itemRoot.find(query);
     }
 
@@ -93,7 +94,7 @@ public class UnitOperations
     }
 
     public static Player getCorporealPlayer(ItemRoot itemRoot) {
-        Predicate<Item> query = both(isPlayer(), UnitPredicates.isCorporeal());
+        Predicate<Item> query = both(UnitPredicates.isPlayer(), UnitPredicates.isCorporeal());
         return (Player)itemRoot.find(query);
     }
 
@@ -119,13 +120,47 @@ public class UnitOperations
         return ItemOperations.hasAny(player, withType(type));
     }
 
-    public static boolean isCorporeal(Item item) {
-        if (! (item instanceof Player)) {
-            item = item.getParent();
+    /**
+     * Determines if the given {@link Item} is "alive" of not. Specifically,
+     * this method tests if the given {@code Item} implements {@link Destroyable}
+     * and if it has a {@link Destroyable#getHealth() health} value more than
+     * zero.
+     *
+     * @param item a {@link Destroyable} {@link Item}.
+     *
+     * @return  {@code true} if the given {@code Item} is a {@code Destroyable}
+     *          and has a health value more than zero.
+     */
+    public static boolean isAlive(Item item) {
+        if (item instanceof Destroyable) {
+            Destroyable destroyable = (Destroyable)item;
+            return destroyable.getHealth() > 0;
         }
-        if (item instanceof Player) {
-            Player player = (Player) item;
-            return player.isCorporeal();
+        return false;
+    }
+
+    public static boolean isAi(Item item) {
+        if (item != null) {
+            if (!(item instanceof Player)) {
+                item = item.getParent();
+            }
+            if (item instanceof Player) {
+                Player player = (Player)item;
+                return !player.isCorporeal();
+            }
+        }
+        return false;
+    }
+
+    public static boolean isCorporeal(Item item) {
+        if (item != null) {
+            if (!(item instanceof Player)) {
+                item = item.getParent();
+            }
+            if (item instanceof Player) {
+                Player player = (Player)item;
+                return player.isCorporeal();
+            }
         }
         return false;
     }
