@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.unit.gatherer;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -121,10 +122,10 @@ public class GathererAssets
         loadSoundSet(assets, manifest.getSelectedSoundEffectPath(), MP3, 4);
         loadSoundSet(assets, manifest.getAcknowledgeSoundEffectPath(), MP3, 4);
 
-        assets.load(manifest.getAttackSoundEffectPath(), SoundEffect.class);
-        assets.load(manifest.getCompleteSoundEffectPath(), SoundEffect.class);
-        assets.load(manifest.getConstructSoundEffectPath(), SoundEffect.class);
-        assets.load(manifest.getReadySoundEffectPath(), SoundEffect.class);
-        assets.load(manifest.getDeadSoundEffectPath(), SoundEffect.class);
+        assets.load(manifest.getAttackSoundEffectPath(), Sound.class);
+        assets.load(manifest.getCompleteSoundEffectPath(), Sound.class);
+        assets.load(manifest.getConstructSoundEffectPath(), Sound.class);
+        assets.load(manifest.getReadySoundEffectPath(), Sound.class);
+        assets.load(manifest.getDeadSoundEffectPath(), Sound.class);
     }
 }

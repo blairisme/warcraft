@@ -42,7 +42,6 @@ public class GathererBuilder
     public Gatherer build() {
         Gatherer result = new Gatherer(getSkin());
         result.setAnimation(UnitAnimation.Idle);
-        result.setAnimation(UnitAnimation.Idle);
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
