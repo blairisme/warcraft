@@ -40,7 +40,7 @@ import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
  */
 public class ConfirmFactory implements AssetProvider<Item>
 {
-    private static final String TEXTURE = "data/textures/neutral/hud/green_cross.png";
+    private static final String TEXTURE = "data/textures/common/ui/green_cross.png";
     private AssetManager assets;
 
     @Inject

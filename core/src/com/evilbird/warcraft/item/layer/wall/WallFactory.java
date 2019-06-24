@@ -38,7 +38,7 @@ import static com.evilbird.warcraft.item.layer.LayerUtils.cell;
  */
 public class WallFactory implements IdentifiedAssetProvider<Wall>
 {
-    public static final String TERRAIN = "data/textures/neutral/winter/terrain.png";
+    public static final String TERRAIN = "data/textures/common/terrain/winter.png";
 
     private AssetManager assets;
 

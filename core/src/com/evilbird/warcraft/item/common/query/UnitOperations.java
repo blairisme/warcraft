@@ -39,8 +39,6 @@ import static com.evilbird.engine.item.utility.ItemPredicates.touchableWithType;
 import static com.evilbird.engine.item.utility.ItemPredicates.withClazz;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasPathTo;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlayer;
 
 /**
  * Instances of this class contain common operations for working with Items.

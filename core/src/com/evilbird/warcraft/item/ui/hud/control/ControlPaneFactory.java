@@ -41,24 +41,24 @@ import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
  */
 public class ControlPaneFactory implements AssetProvider<ControlPane>
 {
-    private static final String ICONS = "data/textures/neutral/perennial/icons.png";
-    private static final String ICONS_DISABLED = "data/textures/neutral/perennial/icons_disabled.png";
-    private static final String ACTION_BUTTON = "data/textures/neutral/perennial/action.png";
-    private static final String UNSELECT_BUTTON = "data/textures/neutral/perennial/unselect.png";
-    private static final String ACTION_PANEL = "data/textures/human/hud/action_panel.png";
-    private static final String DETAILS_PANEL = "data/textures/human/hud/details_panel.png";
-    private static final String MENU_PANEL = "data/textures/human/hud/menu_panel.png";
-    private static final String MINIMAP_PANEL = "data/textures/human/hud/minimap_panel.png";
-    private static final String SELECTION_PANEL = "data/textures/human/hud/selection_panel.png";
-    private static final String UNIT_PANEL = "data/textures/neutral/perennial/selection.png";
+    private static final String ICONS = "data/textures/common/menu/icons.png";
+    private static final String ICONS_DISABLED = "data/textures/common/menu/icons_disabled.png";
+    private static final String ACTION_BUTTON = "data/textures/common/menu/action.png";
+    private static final String UNSELECT_BUTTON = "data/textures/common/menu/unselect.png";
+    private static final String ACTION_PANEL = "data/textures/human/menu/action_panel.png";
+    private static final String DETAILS_PANEL = "data/textures/human/menu/details_panel.png";
+    private static final String MENU_PANEL = "data/textures/human/menu/menu_panel.png";
+    private static final String MINIMAP_PANEL = "data/textures/human/menu/minimap_panel.png";
+    private static final String SELECTION_PANEL = "data/textures/human/menu/selection_panel.png";
+    private static final String UNIT_PANEL = "data/textures/common/menu/selection.png";
     private static final String BUTTON_ENABLED = "data/textures/human/menu/button-thin-medium-normal.png";
     private static final String BUTTON_SELECTED = "data/textures/human/menu/button-thin-medium-pressed.png";
     private static final String BUTTON_DISABLED = "data/textures/human/menu/button-thin-medium-grayed.png";
-    private static final String BUILDING_FILL = "data/textures/neutral/perennial/building_progress_bar.png";
-    private static final String BUILDING_BACKGROUND="data/textures/neutral/perennial/building_progress_background.png";
-    private static final String HEALTH_PROGRESS_HIGH = "data/textures/neutral/perennial/health_bar_high.png";
-    private static final String HEALTH_PROGRESS_MEDIUM = "data/textures/neutral/perennial/health_bar_medium.png";
-    private static final String HEALTH_PROGRESS_LOW = "data/textures/neutral/perennial/health_bar_low.png";
+    private static final String BUILDING_FILL = "data/textures/common/menu/building_progress_bar.png";
+    private static final String BUILDING_BACKGROUND="data/textures/common/menu/building_progress_background.png";
+    private static final String HEALTH_PROGRESS_HIGH = "data/textures/common/menu/health_bar_high.png";
+    private static final String HEALTH_PROGRESS_MEDIUM = "data/textures/common/menu/health_bar_medium.png";
+    private static final String HEALTH_PROGRESS_LOW = "data/textures/common/menu/health_bar_low.png";
 
     private AssetManager assets;
     private DeviceControls controls;

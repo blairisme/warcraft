@@ -28,15 +28,25 @@ public class BuildingAssetManifest
     private String destroyed;
     private String selected;
     
-    public BuildingAssetManifest(UnitType unitType, GridPoint2 dimensions) {
-        String faction = getFaction(unitType);
-        String name = getName(unitType);
+    public BuildingAssetManifest(UnitType type, GridPoint2 dimensions) {
+        String name = getName(type);
+        String faction = getFaction(type);
+        String season = getSeason(type);
         String size = getSize(dimensions);
-        String season = getSeason(unitType);
-        base = "data/textures/" + faction + "/" + season + "/" + name + ".png";
-        icons = "data/textures/neutral/perennial/icons.png";
-        construction = "data/textures/neutral/perennial/construction" + size + ".png";
-        destruction = "data/textures/neutral/winter/destroyed_site.png";
+
+        setTextures(name, faction, season, size);
+        setSounds();
+    }
+
+    private void setTextures(String name, String faction, String season, String size) {
+        icons = "data/textures/common/menu/icons.png";
+        base = "data/textures/" + faction + "/building/" + season + "/" + name + ".png";
+
+        construction = "data/textures/common/building/perennial/construction" + size + ".png";
+        destruction = "data/textures/common/building/winter/destroyed_site.png";
+    }
+
+    private void setSounds() {
         destroyed = "data/sounds/common/building/destroyed/";
         selected = "data/sounds/common/building/selected/";
     }

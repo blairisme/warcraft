@@ -43,11 +43,11 @@ public class GathererAssetManifest
 
     private void setTextures(String name, UnitType type) {
         String faction = getFaction(type);
-        base = "data/textures/" + faction + "/perennial/" + name + ".png";
-        icons = "data/textures/neutral/perennial/icons.png";
-        decompose = "data/textures/neutral/perennial/decompose.png";
-        moveWithGold = "data/textures/" + faction + "/perennial/" + name + "_with_gold.png";
-        moveWithWood = "data/textures/" + faction + "/perennial/" + name + "_with_wood.png";
+        base = "data/textures/" + faction + "/unit/" + name + ".png";
+        icons = "data/textures/common/menu/icons.png";
+        decompose = "data/textures/common/unit/decompose.png";
+        moveWithGold = "data/textures/" + faction + "/unit/" + name + "_with_gold.png";
+        moveWithWood = "data/textures/" + faction + "/unit/" + name + "_with_wood.png";
     }
 
     private void setSounds(String name, UnitType type) {

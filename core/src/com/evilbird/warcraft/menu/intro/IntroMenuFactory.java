@@ -51,7 +51,7 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(IntroMenuFactory.class);
     private static final String FONT = "data/fonts/philosopher.ttf";
-    private static final String BUTTON = "data/textures/menu/button.png";
+    private static final String BUTTON = "data/textures/common/menu/button.png";
     private static final String CLICK = "data/sounds/common/menu/click.mp3";
     private static final String NARRATION_BACKGROUND = "data/music/4.mp3";
 

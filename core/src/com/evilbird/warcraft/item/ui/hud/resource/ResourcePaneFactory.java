@@ -30,8 +30,8 @@ import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
  */
 public class ResourcePaneFactory implements AssetProvider<Item>
 {
-    private static final String ICONS = "data/textures/neutral/hud/resource-icon.png";
-    private static final String BACKGROUND = "data/textures/human/hud/resource_panel.png";
+    private static final String ICONS = "data/textures/common/menu/resource_icon.png";
+    private static final String BACKGROUND = "data/textures/human/menu/resource_panel.png";
 
     private AssetManager assets;
 

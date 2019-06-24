@@ -41,7 +41,7 @@ import static com.evilbird.warcraft.item.layer.LayerUtils.cell;
  */
 public class FogFactory implements IdentifiedAssetProvider<Fog>
 {
-    public static final String TERRAIN = "data/textures/neutral/winter/terrain.png";
+    public static final String TERRAIN = "data/textures/common/terrain/winter.png";
 
     private EventQueue events;
     private AssetManager assets;

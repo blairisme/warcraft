@@ -71,15 +71,15 @@ public class WarcraftScenarioAdapter
         this.behaviourFactory = behaviourFactory;
     }
 
+    protected JsonObject newSerializedInstance() {
+        return new JsonObject();
+    }
+
     @Override
     public JsonElement serialize(WarcraftScenarioState source, Type type, JsonSerializationContext context) {
         JsonObject result = newSerializedInstance();
         serialize(source, result, context);
         return result;
-    }
-
-    protected JsonObject newSerializedInstance() {
-        return new JsonObject();
     }
 
     protected void serialize(WarcraftScenarioState state, JsonObject json, JsonSerializationContext context) {
@@ -102,15 +102,15 @@ public class WarcraftScenarioAdapter
         json.add(BEHAVIOUR, context.serialize(id, Identifier.class));
     }
 
+    protected WarcraftScenarioState newDeserializedInstance() {
+        return new WarcraftScenarioState();
+    }
+
     @Override
     public WarcraftScenarioState deserialize(JsonElement element, Type type, JsonDeserializationContext context) {
         WarcraftScenarioState result = newDeserializedInstance();
         deserialize(result, element.getAsJsonObject(), context);
         return result;
-    }
-
-    protected WarcraftScenarioState newDeserializedInstance() {
-        return new WarcraftScenarioState();
     }
 
     protected void deserialize(WarcraftScenarioState state, JsonObject json, JsonDeserializationContext context) {

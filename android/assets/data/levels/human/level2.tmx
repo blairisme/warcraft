@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="27" nextobjectid="58">
  <tileset firstgid="1" name="terrain_reduced" tilewidth="32" tileheight="32" tilecount="384" columns="16">
-  <image source="../../textures/neutral/winter/terrain.png" width="512" height="768"/>
+  <image source="../../textures/common/terrain/winter.png" width="512" height="768"/>
  </tileset>
  <tileset firstgid="385" name="Goldmine" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/neutral/winter/gold_mine.png" width="96" height="192"/>
+  <image source="../../textures/neutral/resource/winter/gold_mine.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="387" name="Farm" tilewidth="64" tileheight="64" tilecount="2" columns="1">
-  <image source="../../textures/human/winter/farm.png" width="64" height="128"/>
+  <image source="../../textures/human/building/winter/farm.png" width="64" height="128"/>
  </tileset>
  <tileset firstgid="389" name="TownHall" tilewidth="128" tileheight="128" tilecount="2" columns="1">
-  <image source="../../textures/human/winter/town_hall.png" width="128" height="256"/>
+  <image source="../../textures/human/building/winter/town_hall.png" width="128" height="256"/>
  </tileset>
  <tileset firstgid="391" name="GuardTower" tilewidth="64" tileheight="64" tilecount="2" columns="1">
-  <image source="../../textures/orc/winter/guard_tower.png" width="64" height="128"/>
+  <image source="../../textures/orc/building/winter/guard_tower.png" width="64" height="128"/>
  </tileset>
  <tileset firstgid="393" name="Circle of Power" tilewidth="64" tileheight="64" tilecount="1" columns="1">
-  <image source="../../textures/neutral/perennial/circle_of_power.png" width="64" height="64"/>
+  <image source="../../textures/neutral/building/perennial/circle_of_power.png" width="64" height="64"/>
  </tileset>
  <tileset firstgid="394" name="Grunt" tilewidth="72" tileheight="72" tilecount="96" columns="8">
   <tileoffset x="-16" y="16"/>
   <grid orientation="orthogonal" width="32" height="32"/>
-  <image source="../../textures/orc/perennial/grunt.png" width="576" height="864"/>
+  <image source="../../textures/orc/unit/grunt.png" width="576" height="864"/>
  </tileset>
  <tileset firstgid="490" name="Troll" tilewidth="72" tileheight="72" tilecount="96" columns="8">
   <tileoffset x="-16" y="16"/>
-  <image source="../../textures/orc/perennial/troll_axethrower.png" width="576" height="864"/>
+  <image source="../../textures/orc/unit/troll_axethrower.png" width="576" height="864"/>
  </tileset>
  <tileset firstgid="586" name="Archer" tilewidth="72" tileheight="72" tilecount="80" columns="8">
   <tileoffset x="-16" y="16"/>
-  <image source="../../textures/human/perennial/elven_archer.png" width="576" height="720"/>
+  <image source="../../textures/human/unit/elven_archer.png" width="576" height="720"/>
  </tileset>
  <tileset firstgid="666" name="Footman" tilewidth="72" tileheight="72" tilecount="96" columns="8">
   <tileoffset x="-16" y="16"/>
-  <image source="../../textures/human/perennial/footman.png" width="576" height="864"/>
+  <image source="../../textures/human/unit/footman.png" width="576" height="864"/>
  </tileset>
  <tileset firstgid="762" name="Critter" tilewidth="32" tileheight="32" tilecount="16" columns="8">
-  <image source="../../textures/neutral/winter/critter.png" width="256" height="64"/>
+  <image source="../../textures/neutral/unit/critter.png" width="256" height="64"/>
  </tileset>
  <tileset firstgid="778" name="Peasant" tilewidth="72" tileheight="72" tilecount="104" columns="8">
   <tileoffset x="-16" y="16"/>
-  <image source="../../textures/human/perennial/peasant.png" width="576" height="936"/>
+  <image source="../../textures/human/unit/peasant.png" width="576" height="936"/>
  </tileset>
  <tileset firstgid="882" name="Destroyer" tilewidth="80" tileheight="88" tilecount="24" columns="8">
-  <image source="../../textures/human/perennial/elven_destroyer.png" width="704" height="264"/>
+  <image source="../../textures/human/unit/elven_destroyer.png" width="704" height="264"/>
  </tileset>
  <tileset firstgid="906" name="TrollDestroyer" tilewidth="88" tileheight="88" tilecount="24" columns="8">
-  <image source="../../textures/orc/perennial/troll_destroyer.png" width="704" height="264"/>
+  <image source="../../textures/orc/unit/troll_destroyer.png" width="704" height="264"/>
  </tileset>
  <tileset firstgid="930" name="Player" tilewidth="32" tileheight="32" tilecount="1" columns="1">
-  <image source="../../textures/neutral/perennial/x_startpoint.png" width="32" height="32"/>
+  <image source="../config/x_startpoint.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="931" name="Camera" tilewidth="64" tileheight="64" tilecount="1" columns="1">
-  <image source="../../textures/neutral/perennial/camera.png" width="64" height="64"/>
+  <image source="../config/camera.png" width="64" height="64"/>
  </tileset>
  <layer id="1" name="Map" width="64" height="64" locked="1">
   <properties>

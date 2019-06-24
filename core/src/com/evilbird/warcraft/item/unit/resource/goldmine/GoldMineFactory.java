@@ -52,10 +52,10 @@ import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.idleS
  */
 public class GoldMineFactory implements AssetProvider<Item>
 {
-    private static final String BASE = "data/textures/neutral/winter/gold_mine.png";
-    private static final String ICONS = "data/textures/neutral/perennial/icons.png";
-    private static final String DESTRUCTION = "data/textures/neutral/winter/destroyed_site.png";
-    private static final String CONSTRUCTION = "data/textures/neutral/perennial/construction.png";
+    private static final String ICONS = "data/textures/common/menu/icons.png";
+    private static final String BASE = "data/textures/neutral/resource/winter/gold_mine.png";
+    private static final String DESTRUCTION = "data/textures/common/building/winter/destroyed_site.png";
+
     private static final String SELECTED = "data/sounds/neutral/resource/goldmine/selected/1.mp3";
     private static final String DESTROYED = "data/sounds/common/building/destroyed/";
 
@@ -80,7 +80,6 @@ public class GoldMineFactory implements AssetProvider<Item>
         assets.load(BASE, Texture.class);
         assets.load(ICONS, Texture.class);
         assets.load(DESTRUCTION, Texture.class);
-        assets.load(CONSTRUCTION, Texture.class);
     }
 
     private void loadSounds() {

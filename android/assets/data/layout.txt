@@ -28,4 +28,5 @@ action type
 -
 
 specialization (optional)
-- axe
+- axe/sword
+- winter/perennial

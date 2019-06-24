@@ -29,7 +29,7 @@ import javax.inject.Inject;
  */
 public class LoaderScreenModel
 {
-    private static final String TITLE = "data/textures/menu/title.png";
+    private static final String TITLE = "data/textures/common/menu/title.png";
     private static final int ANTI_FLASH_DELAY = 1;
 
     private LoaderScreen presenter;

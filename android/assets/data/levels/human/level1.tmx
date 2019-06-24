@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="49">
  <tileset firstgid="1" name="terrain" tilewidth="32" tileheight="32" tilecount="384" columns="16">
-  <image source="../../textures/neutral/winter/terrain.png" width="512" height="768"/>
+  <image source="../../textures/common/terrain/winter.png" width="512" height="768"/>
  </tileset>
  <tileset firstgid="385" name="Footman" tilewidth="72" tileheight="72" tilecount="96" columns="8">
-  <image source="../../textures/human/perennial/footman.png" width="576" height="864"/>
+  <image source="../../textures/human/unit/footman.png" width="576" height="864"/>
  </tileset>
  <tileset firstgid="481" name="Peasant" tilewidth="72" tileheight="72" tilecount="104" columns="8">
-  <image source="../../textures/human/perennial/peasant.png" width="576" height="936"/>
+  <image source="../../textures/human/unit/peasant.png" width="576" height="936"/>
  </tileset>
  <tileset firstgid="585" name="Grunt" tilewidth="72" tileheight="72" tilecount="96" columns="8">
   <grid orientation="orthogonal" width="32" height="32"/>
-  <image source="../../textures/orc/perennial/grunt.png" width="576" height="864"/>
+  <image source="../../textures/orc/unit/grunt.png" width="576" height="864"/>
  </tileset>
  <tileset firstgid="681" name="Townhall" tilewidth="128" tileheight="128" tilecount="2" columns="1">
-  <image source="../../textures/human/winter/town_hall.png" width="128" height="256"/>
+  <image source="../../textures/human/building/winter/town_hall.png" width="128" height="256"/>
  </tileset>
  <tileset firstgid="683" name="Farm" tilewidth="64" tileheight="64" tilecount="2" columns="1">
-  <image source="../../textures/human/winter/farm.png" width="64" height="128"/>
+  <image source="../../textures/human/building/winter/farm.png" width="64" height="128"/>
  </tileset>
  <tileset firstgid="685" name="Barracks" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/human/winter/barracks.png" width="96" height="192"/>
+  <image source="../../textures/human/building/winter/barracks.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="687" name="GoldMine" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/neutral/winter/gold_mine.png" width="96" height="192"/>
+  <image source="../../textures/neutral/resource/winter/gold_mine.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="689" name="Camera" tilewidth="64" tileheight="64" tilecount="1" columns="1">
-  <image source="../../textures/neutral/perennial/camera.png" width="64" height="64"/>
+  <image source="../config/camera.png" width="64" height="64"/>
  </tileset>
  <tileset firstgid="690" name="Misc" tilewidth="32" tileheight="32" tilecount="1" columns="1">
-  <image source="../../textures/neutral/perennial/x_startpoint.png" width="32" height="32"/>
+  <image source="../config/x_startpoint.png" width="32" height="32"/>
  </tileset>
  <layer id="1" name="Map" width="32" height="32">
   <properties>

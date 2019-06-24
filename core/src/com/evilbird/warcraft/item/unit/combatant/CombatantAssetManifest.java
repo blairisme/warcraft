@@ -43,9 +43,9 @@ public class CombatantAssetManifest
     }
 
     private void setTextures(String faction, String name) {
-        this.base = "data/textures/" + faction + "/perennial/" + name + ".png";
-        this.icons = "data/textures/neutral/perennial/icons.png";
-        this.decompose = "data/textures/neutral/perennial/decompose.png";
+        this.base = "data/textures/" + faction + "/unit/" + name + ".png";
+        this.icons = "data/textures/common/menu/icons.png";
+        this.decompose = "data/textures/common/unit/decompose.png";
     }
 
     private void setSounds(String faction, String name, UnitType type) {

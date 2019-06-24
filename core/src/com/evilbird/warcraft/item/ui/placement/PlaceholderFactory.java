@@ -33,12 +33,12 @@ import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
  */
 public class PlaceholderFactory implements IdentifiedAssetProvider<Item>
 {
-    private static final String BARRACKS_TEXTURE = "data/textures/human/winter/barracks.png";
-    private static final String FARM_TEXTURE = "data/textures/human/winter/farm.png";
-    private static final String LUMBER_MILL_TEXTURE = "data/textures/human/winter/lumber_mill.png";
-    private static final String TOWN_HALL_TEXTURE = "data/textures/human/winter/town_hall.png";
-    private static final String ALLOWED_TEXTURE = "data/textures/neutral/hud/building_allowed.png";
-    private static final String PROHIBITED_TEXTURE = "data/textures/neutral/hud/building_prohibited.png";
+    private static final String BARRACKS_TEXTURE = "data/textures/human/building/winter/barracks.png";
+    private static final String FARM_TEXTURE = "data/textures/human/building/winter/farm.png";
+    private static final String LUMBER_MILL_TEXTURE = "data/textures/human/building/winter/lumber_mill.png";
+    private static final String TOWN_HALL_TEXTURE = "data/textures/human/building/winter/town_hall.png";
+    private static final String ALLOWED_TEXTURE = "data/textures/common/ui/building_allowed.png";
+    private static final String PROHIBITED_TEXTURE = "data/textures/common/ui/building_prohibited.png";
 
     private AssetManager assets;
     private EventQueue events;

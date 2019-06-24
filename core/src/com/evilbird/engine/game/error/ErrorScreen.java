@@ -35,11 +35,13 @@ import javax.inject.Inject;
 public class ErrorScreen extends ScreenAdapter
 {
     private Stage stage;
+    private boolean paused;
     private DeviceDisplay display;
 
     @Inject
     public ErrorScreen(Device device) {
         display = device.getDeviceDisplay();
+        paused = false;
     }
 
     public void show() {
@@ -67,14 +69,21 @@ public class ErrorScreen extends ScreenAdapter
     }
 
     @Override
+    public void pause() {
+        super.pause();
+        this.paused = true;
+    }
+
+    @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //if (! paused) {
+            Gdx.gl.glClearColor(0, 0, 1, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        stage.act(delta);
-        stage.draw();
-
-        pause();
+            stage.act(delta);
+            stage.draw();
+            pause();
+//        }
     }
 
     @Override

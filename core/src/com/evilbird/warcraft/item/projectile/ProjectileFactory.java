@@ -39,9 +39,9 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
  */
 public class ProjectileFactory implements IdentifiedAssetProvider<Item>
 {
-    private static final String ARROW = "data/textures/neutral/projectile/arrow.png";
-    private static final String AXE = "data/textures/neutral/projectile/axe.png";
-    private static final String CANNON = "data/textures/neutral/projectile/cannon.png";
+    private static final String ARROW = "data/textures/common/projectile/arrow.png";
+    private static final String AXE = "data/textures/common/projectile/axe.png";
+    private static final String CANNON = "data/textures/common/projectile/cannon.png";
 
     private AssetManager assets;
     private InjectedPool<Projectile> pool;

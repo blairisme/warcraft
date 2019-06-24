@@ -28,7 +28,7 @@ import org.mockito.Mockito;
  */
 public class ControlPaneFactoryTest extends GameTestCase
 {
-    private static final String ACTION_BUTTON = "data/textures/neutral/perennial/action.png";
+    private static final String ACTION_BUTTON = "data/textures/common/menu/action.png";
 
     private ControlPaneFactory factory;
     private AssetManager assets;
