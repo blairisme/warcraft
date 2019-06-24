@@ -29,6 +29,6 @@ public class GathererFactory extends IdentifiedAssetProviderSet<Item>
     @Inject
     public GathererFactory(PeasantFactory peasantFactory, PeonFactory peonFactory) {
         addProvider(UnitType.Peasant, peasantFactory);
-        //addProvider(UnitType.Peon, peonFactory);
+        addProvider(UnitType.Peon, peonFactory);
     }
 }

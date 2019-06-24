@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.unit.gatherer;
 
 import com.evilbird.engine.common.text.CaseUtils;
+import com.evilbird.warcraft.item.unit.UnitFaction;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 /**
@@ -34,23 +35,40 @@ public class GathererAssetManifest
     private String ready;
     private String dead;
 
-    public GathererAssetManifest(UnitType unitType) {
-        String faction = getFaction(unitType);
-        String name = getName(unitType);
+    public GathererAssetManifest(UnitType type) {
+        String name = getName(type);
+        setTextures(name, type);
+        setSounds(name, type);
+    }
+
+    private void setTextures(String name, UnitType type) {
+        String faction = getFaction(type);
         base = "data/textures/" + faction + "/perennial/" + name + ".png";
         icons = "data/textures/neutral/perennial/icons.png";
         decompose = "data/textures/neutral/perennial/decompose.png";
-        moveWithGold = "data/textures/" + faction + "/perennial/" + name + "_move_gold.png";
-        moveWithWood = "data/textures/" + faction + "/perennial/" + name + "_move_wood.png";
-        chopping = "data/sounds/common/unit/chopping/";
-        selected = "data/sounds/" + faction + "/unit/" + name + "/selected/";
-        acknowledge = "data/sounds/" + faction + "/unit/" + name + "/acknowledge/";
-        attack = "data/sounds/" + faction + "/unit/" + name + "/attack/1.mp3";
-        complete = "data/sounds/" + faction + "/unit/" + name + "/complete/1.mp3";
-        construct = "data/sounds/" + faction + "/unit/" + name + "/construct/1.mp3";
-        ready = "data/sounds/" + faction + "/unit/" + name + "/ready/1.mp3";
-        dead = "data/sounds/" + faction + "/unit/common/dead/1.mp3";
+        moveWithGold = "data/textures/" + faction + "/perennial/" + name + "_with_gold.png";
+        moveWithWood = "data/textures/" + faction + "/perennial/" + name + "_with_wood.png";
     }
+
+    private void setSounds(String name, UnitType type) {
+        setCommonSounds();
+        setFactionSounds(name, type.getFaction());
+    }
+
+    private void setCommonSounds() {
+        chopping = "data/sounds/common/unit/chopping/";
+        attack = "data/sounds/common/unit/attack/fist/1.mp3";
+        construct = "data/sounds/common/unit/construct/1.mp3";
+    }
+
+    private void setFactionSounds(String name, UnitFaction faction) {
+        dead = "data/sounds/" + faction + "/unit/common/dead/1.mp3";
+        acknowledge = "data/sounds/" + faction + "/unit/" + name + "/acknowledge/";
+        selected = "data/sounds/" + faction + "/unit/" + name + "/selected/";
+        complete = "data/sounds/" + faction + "/unit/" + name + "/complete/1.mp3";
+        ready = "data/sounds/" + faction + "/unit/" + name + "/ready/1.mp3";
+    }
+
 
     public String getBaseTexturePath() {
         return base;

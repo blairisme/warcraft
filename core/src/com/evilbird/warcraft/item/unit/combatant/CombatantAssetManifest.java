@@ -35,29 +35,32 @@ public class CombatantAssetManifest
     private String capture;
     private String rescue;
 
-    public CombatantAssetManifest(UnitType unitType) {
-        String faction = getFaction(unitType);
-        String name = getName(unitType);
-        String type = getAttackType(unitType);
-        setSounds(faction, name, type);
+    public CombatantAssetManifest(UnitType type) {
+        String faction = getFaction(type);
+        String name = getName(type);
         setTextures(faction, name);
-    }
-
-    private void setSounds(String faction, String name, String type) {
-        this.attack = "data/sounds/common/unit/attack/" + type + "/";
-        this.hit = "data/sounds/common/unit/hit/" + type + "/";
-        this.acknowledge = "data/sounds/" + faction + "/unit/" + name + "/acknowledge/";
-        this.selected = "data/sounds/" + faction + "/unit/" + name + "/selected/";
-        this.ready = "data/sounds/" + faction + "/unit/" + name + "/ready/";
-        this.die = "data/sounds/" + faction + "/unit/common/dead/";
-        this.capture = "data/sounds/" + faction + "/unit/common/capture/";
-        this.rescue = "data/sounds/" + faction + "/unit/common/rescue/";
+        setSounds(faction, name, type);
     }
 
     private void setTextures(String faction, String name) {
         this.base = "data/textures/" + faction + "/perennial/" + name + ".png";
         this.icons = "data/textures/neutral/perennial/icons.png";
         this.decompose = "data/textures/neutral/perennial/decompose.png";
+    }
+
+    private void setSounds(String faction, String name, UnitType type) {
+        String weapon = getAttackType(type);
+
+        this.attack = "data/sounds/common/unit/attack/" + weapon + "/";
+        this.hit = "data/sounds/common/unit/hit/" + weapon + "/";
+
+        this.die = "data/sounds/" + faction + "/unit/common/dead/";
+        this.capture = "data/sounds/" + faction + "/unit/common/capture/";
+        this.rescue = "data/sounds/" + faction + "/unit/common/rescue/";
+
+        this.acknowledge = "data/sounds/" + faction + "/unit/" + name + "/acknowledge/";
+        this.selected = "data/sounds/" + faction + "/unit/" + name + "/selected/";
+        this.ready = "data/sounds/" + faction + "/unit/" + name + "/ready/";
     }
 
     public String getBaseTexturePath() {
