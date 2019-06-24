@@ -20,70 +20,114 @@ import com.evilbird.engine.item.ItemType;
 @SerializedType("Units")
 public enum UnitType implements ItemType
 {
-    /* Building - Human */
+    /* Human - Building */
     Barracks,
+    Blacksmith,
+    CannonTower,
+    Castle,
+    Church,
     Farm,
+    Foundry,
+    GnomishInventor,
+    GryphonAviary,
+    GuardTower,
+    Keep,
     LumberMill,
+    MageTower,
+    OilPlatform,
+    Refinery,
+    ScoutTower,
+    Shipyard,
+    Stables,
     TownHall,
 
-    /* Building - Orc */
-    PigFarm,
-    OrcBarracks,
-    GreatHall,
-    WatchTower,
-
-    /* Building - Neutral */
-    CircleOfPower,
-
-    /* Combatant - Human */
-    Footman,
+    /* Human - Combatant */
+    Ballista,
+    Battleship,
+    DwarvenDemolitionSquad,
     ElvenArcher,
     ElvenDestroyer,
+    Footman,
+    GnomishFlyingMachine,
+    GnomishSubmarine,
+    GryphonRider,
+    Knight,
+    Mage,
+    OilTanker,
+    Peasant,
+    Transport,
 
-    /* Special Combatant - Human */
+    /* Human - Special Combatant */
     ElvenArcherCaptive,
 
-    /* Combatant - Orc */
+    /* Orc - Building */
+    AltarOfStorms,
+    Forge,
+    Encampment,
+    BombardTower,
+    Dockyard,
+    DragonRoost,
+    Fortress,
+    Metalworks,
+    GoblinAlchemist,
+    GreatHall,
+    LookoutTower,
+    OgreMound,
+    OilRefinery,
+    OilRig,
+    PigFarm,
+    Stronghold,
+    TempleOfTheDamned,
+    TrollLumberMill,
+    WatchTower,
+
+    /* Orc - Combatant */
+    Catapult,
+    DeathKnight,
+    Dragon,
+    EyeOfKilrogg,
+    Ferry,
+    GiantTurtle,
+    GoblinSappers,
+    GoblinZeppelin,
     Grunt,
+    Ogre,
+    OgreJuggernaught,
+    Peon,
     TrollAxethrower,
     TrollDestroyer,
+    TrollTanker,
 
-    /* Special Combatant - Orc */
+    /* Orc - Special Combatant */
     Zuljin,
 
-    /* Combatant - Neutral */
+    /* Neutral - Building */
+    CircleOfPower,
+    Runestone,
+
+    /* Neutral - Combatant */
+    Pig,
     Seal,
+    Sheep,
 
-    /* Gatherer */
-    Peasant,
-    Peon,
-
-    /* Resource */
+    /* Neutral - Resource */
     GoldMine,
     OilPatch;
 
     public UnitFaction getFaction() {
-        switch (this) {
-            case Barracks:
-            case Farm:
-            case LumberMill:
-            case TownHall:
-            case Peasant:
-            case ElvenArcher:
-            case ElvenDestroyer:
-            case Footman:
-            case ElvenArcherCaptive: return UnitFaction.Human;
-            case Peon:
-            case Grunt:
-            case TrollDestroyer:
-            case TrollAxethrower:
-            case WatchTower:
-            case Zuljin: return UnitFaction.Orc;
-            case CircleOfPower:
-            case GoldMine:
-            case OilPatch:
-            case Seal: return UnitFaction.Neutral;
-            default: throw new UnsupportedOperationException();
+        if (isBetween(Barracks, ElvenArcherCaptive)) {
+            return UnitFaction.Human;
         }
+        if (isBetween(AltarOfStorms, Zuljin)) {
+            return UnitFaction.Orc;
+        }
+        if (isBetween(CircleOfPower, OilPatch)) {
+            return UnitFaction.Neutral;
+        }
+        throw new UnsupportedOperationException();
+    }
+
+    private boolean isBetween(UnitType typeA, UnitType typeB) {
+        return this.ordinal() >= typeA.ordinal() && this.ordinal() <= typeB.ordinal();
     }
 }

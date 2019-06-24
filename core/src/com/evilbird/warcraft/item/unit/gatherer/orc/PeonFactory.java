@@ -33,7 +33,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.Peon;
  */
 public class PeonFactory implements AssetProvider<Item>
 {
-    private static final GridPoint2 ICON = new GridPoint2(0, 0);
+    private static final GridPoint2 ICON = new GridPoint2(46, 0);
     private static final GridPoint2 SIZE = new GridPoint2(32, 32);
 
     private GathererAssets assets;

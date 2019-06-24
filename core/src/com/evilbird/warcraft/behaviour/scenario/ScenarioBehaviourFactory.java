@@ -25,8 +25,8 @@ import static com.evilbird.warcraft.behaviour.scenario.supplement.UnitCapture.ca
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcherCaptive;
+import static com.evilbird.warcraft.item.unit.UnitType.Encampment;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
-import static com.evilbird.warcraft.item.unit.UnitType.OrcBarracks;
 import static com.evilbird.warcraft.item.unit.UnitType.PigFarm;
 import static com.evilbird.warcraft.item.unit.UnitType.Zuljin;
 
@@ -76,7 +76,7 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
 
     private Behaviour orcLevel1() {
         ScenarioBehaviour result = factory.get();
-        result.setWinCondition(both(playerOwns(PigFarm, 4), playerOwns(OrcBarracks, 1)));
+        result.setWinCondition(both(playerOwns(PigFarm, 4), playerOwns(Encampment, 1)));
         result.setLoseCondition(playerDestroyed());
         return result;
     }
