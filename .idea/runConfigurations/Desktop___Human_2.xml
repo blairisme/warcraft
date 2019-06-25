@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Desktop - Level 2 (human)" type="Application" factoryName="Application">
+  <configuration default="false" name="Desktop - Human 2" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.evilbird.warcraft.desktop.DesktopLauncher" />
     <module name="desktop" />
     <option name="PROGRAM_PARAMETERS" value="--scenario Human2" />

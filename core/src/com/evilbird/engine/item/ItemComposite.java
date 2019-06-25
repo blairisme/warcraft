@@ -30,6 +30,13 @@ public interface ItemComposite
     void addItem(Item item);
 
     /**
+     * Adds a collection of {@link Item Items} as children of the ItemComposite.
+     *
+     * @param items  the items to add.
+     */
+    void addItems(Collection<Item> items);
+
+    /**
      * Returns a collection containing the children of the ItemComposite.
      *
      * @return the children of the ItemGroup.

@@ -39,6 +39,6 @@ public class WarcraftLevelLoaderTest extends GameTestCase
     public void loadTest() {
         ItemRoot result = assetloader.load("/warcraft/state/level.tmx");
         Assert.assertNotNull(result);
-        Assert.assertEquals(7, result.getItems().size());
+        Assert.assertEquals(6, result.getItems().size());
     }
 }

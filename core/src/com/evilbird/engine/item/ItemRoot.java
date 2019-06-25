@@ -66,6 +66,16 @@ public class ItemRoot implements ItemComposite
     }
 
     /**
+     * Adds a collection of {@link Item Items} as children of the ItemComposite.
+     *
+     * @param items  the items to add.
+     */
+    @Override
+    public void addItems(Collection<Item> items) {
+        this.group.addItems(items);
+    }
+
+    /**
      * Removes an {@link Item} from the {@code ItemRoot}.
      *
      * @param item the item to remove.

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="49">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="80">
  <tileset firstgid="1" name="terrain" tilewidth="32" tileheight="32" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/winter.png" width="512" height="768"/>
  </tileset>
  <tileset firstgid="385" name="Footman" tilewidth="72" tileheight="72" tilecount="96" columns="8">
+  <tileoffset x="-16" y="16"/>
   <image source="../../textures/human/unit/footman.png" width="576" height="864"/>
  </tileset>
  <tileset firstgid="481" name="Peasant" tilewidth="72" tileheight="72" tilecount="104" columns="8">
+  <tileoffset x="-16" y="16"/>
   <image source="../../textures/human/unit/peasant.png" width="576" height="936"/>
  </tileset>
  <tileset firstgid="585" name="Grunt" tilewidth="72" tileheight="72" tilecount="96" columns="8">
+  <tileoffset x="-16" y="16"/>
   <grid orientation="orthogonal" width="32" height="32"/>
   <image source="../../textures/orc/unit/grunt.png" width="576" height="864"/>
  </tileset>
@@ -47,121 +50,70 @@
    fgAAAH4AAAB+AAAAfgAAAIkAAAB+AAAAiQAAAH4AAACIAAAAfgAAAIgAAAB+AAAAiQAAAIkAAACJAAAAfgAAAIkAAACJAAAAiQAAAH4AAABuAAAAAAAAAAAAAAAAAAAAAAAAAIIAAACDAAAAagAAAIkAAACJAAAAiAAAAIgAAAB+AAAAfgAAAH4AAACJAAAAiQAAAIgAAAB+AAAAcAAAAIcAAABxAAAAiAAAAH4AAABwAAAAfQAAAH0AAACHAAAAfQAAAHEAAACJAAAAcAAAAIYAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAHEAAABwAAAAcQAAAIgAAACIAAAAiAAAAIkAAAB+AAAAiAAAAIgAAABwAAAAhwAAAIcAAAByAAAAgwAAAGoAAACJAAAAcAAAAIYAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAIcAAABvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAIYAAACAAAAAcQAAAIgAAACIAAAAfgAAAH4AAACJAAAAcAAAAG8AAAAAAAAAAAAAAGcAAACHAAAAfQAAAIcAAABvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAcQAAAIgAAACJAAAAcAAAAH0AAACGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABnAAAAfQAAAHAAAABvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaQAAAIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBAAAAhQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAggAAAGoAAABtAAAAbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABoAAAAiAAAAHAAAABvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIMAAACDAAAAbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGgAAACIAAAAhQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiQAAAIgAAABuAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABpAAAAagAAAHAAAACGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACIAAAAiAAAAG0AAACDAAAAbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABpAAAAgwAAAGoAAABwAAAAhgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHIAAAByAAAAcgAAAHIAAAByAAAAhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAggAAAGoAAAB+AAAAcAAAAIYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiQAAAIgAAACIAAAAfgAAAH4AAABuAAAAAAAAAGkAAABrAAAAbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIIAAABqAAAAiAAAAHAAAABvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACJAAAAiAAAAIkAAAB+AAAAiQAAAG0AAACDAAAAagAAAHAAAABvAAAAAAAAAAAAAACCAAAAawAAAGsAAACDAAAAagAAAIkAAAB+AAAAbQAAAGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH4AAABwAAAAfQAAAHEAAACIAAAAiQAAAIgAAACIAAAAhQAAAAAAAAAAAAAAAAAAAGcAAABxAAAAiQAAAIkAAAB+AAAAiQAAAIgAAAB+AAAAhQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfgAAAIUAAAAAAAAAZwAAAIcAAABxAAAAfgAAAHAAAACGAAAAAAAAAAAAAAAAAAAAAAAAAIAAAABxAAAAiAAAAIgAAACJAAAAcAAAAH0AAABvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAhgAAAAAAAAAAAAAAAAAAAIAAAACHAAAAhgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGcAAACHAAAAcQAAAHAAAACGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABnAAAAbwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIIAAABsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGkAAACDAAAAagAAAG4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgQAAAH4AAACIAAAAbgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIIAAABrAAAAhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaQAAAGsAAABqAAAAiAAAAHAAAABvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACCAAAAagAAAHAAAABvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAggAAAIMAAABqAAAAiQAAAH4AAACJAAAAbgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABpAAAAgwAAAGoAAABwAAAAhgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIIAAABqAAAAiAAAAIgAAAB+AAAAfgAAAHAAAACGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIQAAAAAAAAAAAAAAAAAAAAAAAAAaQAAAGoAAACIAAAAcAAAAG8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABpAAAAagAAAH4AAAB+AAAAfgAAAIkAAABwAAAAbwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbQAAAGsAAACEAAAAAAAAAIIAAABqAAAAiAAAAHAAAACGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEAAACJAAAAfgAAAH4AAAB+AAAAcAAAAIYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACIAAAAiAAAAG0AAABrAAAAagAAAH4AAABwAAAAhgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGkAAACDAAAAcwAAAH0AAABxAAAAiQAAAHAAAACGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH4AAAB+AAAAfgAAAH4AAABwAAAAfQAAAIYAAABpAAAAbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAIcAAACGAAAAAAAAAIAAAAB9AAAAbwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiQAAAIkAAACJAAAAiQAAAIkAAABrAAAAawAAAGoAAABtAAAAbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACJAAAAiQAAAIkAAACJAAAAiQAAAIkAAACIAAAAcAAAAIcAAACGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
   </data>
  </layer>
- <objectgroup id="3" name="Camera">
-  <object id="32" name="Camera" type="Camera" gid="689" x="432" y="365" width="64" height="64" visible="0">
+ <objectgroup id="11" name="Player1">
+  <properties>
+   <property name="AI" type="bool" value="false"/>
+   <property name="Description" value="Nation of Azeroth"/>
+   <property name="Food" type="float" value="1"/>
+   <property name="Gold" type="float" value="1000"/>
+   <property name="Level" type="int" value="1"/>
+   <property name="Type" value="Player"/>
+   <property name="Wood" type="float" value="1000"/>
+   <property name="ZIndex" type="int" value="4"/>
+  </properties>
+  <object id="49" name="TownHall1" type="TownHall" gid="681" x="384" y="512" width="128" height="128">
+   <properties>
+    <property name="Owner" value="Player1"/>
+   </properties>
+  </object>
+  <object id="50" name="Farm1" type="Farm" gid="683" x="608" y="384" width="64" height="64">
+   <properties>
+    <property name="Owner" value="Player1"/>
+   </properties>
+  </object>
+  <object id="54" name="Peasant1" type="Peasant" gid="481" x="416" y="320.333" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Player1"/>
+   </properties>
+  </object>
+  <object id="66" name="Footman1" type="Footman" gid="385" x="320" y="448" width="72" height="72"/>
+  <object id="67" name="Footman2" type="Footman" gid="385" x="544" y="256" width="72" height="72"/>
+  <object id="68" name="Footman3" type="Footman" gid="385" x="672" y="192" width="72" height="72"/>
+  <object id="55" name="Camera" type="Camera" gid="689" x="432" y="365" width="64" height="64" visible="0">
    <properties>
     <property name="Touchable" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="4" name="Footman">
-  <object id="33" name="Footman1" type="Footman" gid="385" x="512" y="288" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Player1"/>
-   </properties>
-  </object>
-  <object id="34" name="Footman2" type="Footman" gid="385" x="288" y="480" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Player1"/>
-   </properties>
-  </object>
-  <object id="35" name="Footman3" type="Footman" gid="385" x="640" y="224" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Player1"/>
-   </properties>
-  </object>
+ <objectgroup id="15" name="Player2">
+  <properties>
+   <property name="AI" type="bool" value="true"/>
+   <property name="Description" value="Blackrock Clan"/>
+   <property name="Type" value="Player"/>
+   <property name="ZIndex" type="int" value="3"/>
+  </properties>
+  <object id="76" name="Grunt1" type="Grunt" gid="585" x="96" y="864" width="72" height="72"/>
+  <object id="77" name="Grunt2" type="Grunt" gid="585" x="640" y="1024" width="72" height="72"/>
+  <object id="78" name="Grunt3" type="Grunt" gid="585" x="928" y="800" width="72" height="72"/>
+  <object id="79" name="Grunt4" type="Grunt" gid="585" x="928" y="480" width="72" height="72"/>
  </objectgroup>
- <objectgroup id="5" name="TownHall">
-  <object id="36" name="TownHall1" type="TownHall" gid="681" x="384" y="512" width="128" height="128">
-   <properties>
-    <property name="Owner" value="Player1"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup id="6" name="Peasant">
-  <object id="37" name="Peasant1" type="Peasant" gid="481" x="416" y="320.333" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Player1"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup id="7" name="Farm">
-  <object id="38" name="Farm1" type="Farm" gid="683" x="608" y="384" width="64" height="64">
-   <properties>
-    <property name="Owner" value="Player1"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup id="9" name="GoldMine">
-  <object id="40" name="GoldMine1" type="GoldMine" gid="687" x="929.333" y="1024" width="96" height="96">
-   <properties>
-    <property name="Gold" type="float" value="5000"/>
-    <property name="Owner" value="Neutral"/>
-   </properties>
-  </object>
-  <object id="41" name="GoldMine2" type="GoldMine" gid="687" x="416" y="160" width="96" height="96">
+ <objectgroup id="16" name="Neutral">
+  <properties>
+   <property name="AI" type="bool" value="true"/>
+   <property name="Description" value="Neutral"/>
+   <property name="Type" value="Player"/>
+   <property name="ZIndex" type="int" value="2"/>
+  </properties>
+  <object id="73" name="GoldMine2" type="GoldMine" gid="687" x="416" y="160" width="96" height="96">
    <properties>
     <property name="Gold" type="float" value="2500"/>
     <property name="Owner" value="Neutral"/>
    </properties>
   </object>
- </objectgroup>
- <objectgroup id="10" name="Grunt">
-  <object id="42" name="Grunt1" type="Grunt" gid="585" x="896" y="832" width="72" height="72">
+  <object id="75" name="GoldMine1" type="GoldMine" gid="687" x="929.333" y="1024" width="96" height="96">
    <properties>
-    <property name="Owner" value="Player2"/>
-   </properties>
-  </object>
-  <object id="43" name="Grunt2" type="Grunt" gid="585" x="608" y="1024" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Player2"/>
-   </properties>
-  </object>
-  <object id="44" name="Grunt3" type="Grunt" gid="585" x="896" y="480" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Player2"/>
-   </properties>
-  </object>
-  <object id="45" name="Grunt4" type="Grunt" gid="585" x="64" y="864" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Player2"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup id="11" name="Player">
-  <object id="48" name="Neutral" type="Player" gid="690" x="170" y="80" width="32" height="32">
-   <properties>
-    <property name="AI" type="bool" value="true"/>
-    <property name="Description" value="Neutral"/>
-    <property name="Gold" type="float" value="0"/>
-    <property name="Oil" type="float" value="0"/>
-    <property name="Touchable" type="bool" value="false"/>
-    <property name="Wood" type="float" value="0"/>
-    <property name="ZIndex" type="int" value="2"/>
-   </properties>
-  </object>
-  <object id="47" name="Player2" type="Player" gid="690" x="100" y="80" width="32" height="32">
-   <properties>
-    <property name="AI" type="bool" value="true"/>
-    <property name="Description" value="Blackrock Clan"/>
-    <property name="Gold" type="float" value="0"/>
-    <property name="Oil" type="float" value="0"/>
-    <property name="Touchable" type="bool" value="false"/>
-    <property name="Wood" type="float" value="0"/>
-    <property name="ZIndex" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="46" name="Player1" type="Player" gid="690" x="30" y="80" width="32" height="32">
-   <properties>
-    <property name="AI" type="bool" value="false"/>
-    <property name="Description" value="Nation of Azeroth"/>
-    <property name="Food" type="float" value="1"/>
-    <property name="Gold" type="float" value="1000"/>
-    <property name="Level" type="int" value="1"/>
-    <property name="Oil" type="float" value="0"/>
-    <property name="Touchable" type="bool" value="false"/>
-    <property name="Wood" type="float" value="1000"/>
-    <property name="ZIndex" type="int" value="4"/>
+    <property name="Gold" type="float" value="5000"/>
+    <property name="Owner" value="Neutral"/>
    </properties>
   </object>
  </objectgroup>

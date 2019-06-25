@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.data.camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.common.lang.Zoomable;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
 import com.evilbird.engine.device.Device;
@@ -59,7 +60,10 @@ public class Camera extends ItemBasic implements Zoomable
 
     @Override
     public void setRoot(ItemRoot root) {
-        root.getViewport().setCamera(camera);
+        if (root != null) {
+            Viewport viewport = root.getViewport();
+            viewport.setCamera(camera);
+        }
     }
 
     public float getZoom() {

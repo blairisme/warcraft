@@ -74,9 +74,14 @@ public class GameEngine extends Game implements GameController
 
     @Override
     public void create() {
-        logger.debug("Game engine started");
-        loaderScreen.load();
-        setScreen(loaderScreen);
+        try {
+            logger.debug("Game engine started");
+            loaderScreen.load();
+            setScreen(loaderScreen);
+        }
+        catch (Throwable error) {
+            handleError(error);
+        }
     }
 
     @Override

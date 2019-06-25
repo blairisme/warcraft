@@ -58,6 +58,18 @@ public class ItemGroup extends ItemBasic implements ItemComposite
     }
 
     /**
+     * Adds a collection of {@link Item Items} as children of the ItemComposite.
+     *
+     * @param items  the items to add.
+     */
+    @Override
+    public void addItems(Collection<Item> items) {
+        for (Item item: items) {
+            addItem(item);
+        }
+    }
+
+    /**
      * Removes an {@link Item} from this group.
      *
      * @param item the item to remove.
