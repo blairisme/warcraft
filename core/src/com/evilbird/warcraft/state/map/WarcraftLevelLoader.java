@@ -73,7 +73,6 @@ public class WarcraftLevelLoader
     private static final String ZINDEX_PROPERTY = "ZIndex";
     private static final String TYPE_PROPERTY = "type";
 
-
     private TiledMapLoader mapLoader;
     private ItemFactory itemFactory;
 
