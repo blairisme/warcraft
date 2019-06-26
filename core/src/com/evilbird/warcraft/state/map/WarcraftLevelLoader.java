@@ -131,7 +131,7 @@ public class WarcraftLevelLoader
             return getPlayerItem(layer);
         }
         else {
-            logger.warn("Unknown layer type: {}", layer);
+            logger.warn("Unknown layer type: {}", layer.getName());
             return null;
         }
     }
@@ -167,7 +167,7 @@ public class WarcraftLevelLoader
             return player;
         }
         else {
-            logger.warn("Unknown player type: {}", layer);
+            logger.warn("Unknown player type: {}", layer.getName());
             return null;
         }
     }
@@ -212,7 +212,7 @@ public class WarcraftLevelLoader
             return item;
         }
         else {
-            logger.warn("Unknown object type: {}", object);
+            logger.warn("Unknown object type: {}", object.getName());
             return null;
         }
     }

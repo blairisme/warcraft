@@ -53,8 +53,8 @@ public class ScenarioBehaviour implements Behaviour
         this.loseCondition = loseCondition;
     }
 
-    public void addBehaviour(BiConsumer<ItemRoot, EventQueue> supplement) {
-        this.supplement = supplement;
+    public void addBehaviour(BiConsumer<ItemRoot, EventQueue> behaviour) {
+        supplement = supplement == null ? behaviour : supplement.andThen(behaviour);
     }
 
     @Override

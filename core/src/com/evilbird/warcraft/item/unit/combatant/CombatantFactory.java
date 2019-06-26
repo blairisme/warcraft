@@ -18,8 +18,10 @@ import com.evilbird.warcraft.item.unit.combatant.human.ElvenArcherFactory;
 import com.evilbird.warcraft.item.unit.combatant.human.ElvenDestroyerFactory;
 import com.evilbird.warcraft.item.unit.combatant.human.FootmanFactory;
 import com.evilbird.warcraft.item.unit.combatant.orc.GruntFactory;
-import com.evilbird.warcraft.item.unit.combatant.orc.TrollAxeThrowerFactory;
+import com.evilbird.warcraft.item.unit.combatant.orc.TrollAxethrowerCaptiveFactory;
+import com.evilbird.warcraft.item.unit.combatant.orc.TrollAxethrowerFactory;
 import com.evilbird.warcraft.item.unit.combatant.orc.TrollDestroyerFactory;
+import com.evilbird.warcraft.item.unit.combatant.orc.ZuljinFactory;
 
 import javax.inject.Inject;
 
@@ -38,8 +40,10 @@ public class CombatantFactory extends IdentifiedAssetProviderSet<Item>
         ElvenDestroyerFactory elvenDestroyerFactory,
         FootmanFactory footmanFactory,
         GruntFactory gruntFactory,
-        TrollAxeThrowerFactory trollAxeThrowerFactory,
-        TrollDestroyerFactory trollDestroyerFactory)
+        TrollAxethrowerFactory trollAxeThrowerFactory,
+        TrollAxethrowerCaptiveFactory trollAxeThrowerCaptiveFactory,
+        TrollDestroyerFactory trollDestroyerFactory,
+        ZuljinFactory zuljinFactory)
     {
         addProvider(UnitType.ElvenArcher, elvenArcherFactory);
         addProvider(UnitType.ElvenArcherCaptive, elvenArcherCaptiveFactory);
@@ -47,6 +51,8 @@ public class CombatantFactory extends IdentifiedAssetProviderSet<Item>
         addProvider(UnitType.Footman, footmanFactory);
         addProvider(UnitType.Grunt, gruntFactory);
         addProvider(UnitType.TrollAxethrower, trollAxeThrowerFactory);
+        addProvider(UnitType.TrollAxethrowerCaptive, trollAxeThrowerCaptiveFactory);
         addProvider(UnitType.TrollDestroyer, trollDestroyerFactory);
+        addProvider(UnitType.Zuljin, zuljinFactory);
     }
 }

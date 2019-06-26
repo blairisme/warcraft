@@ -28,6 +28,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcherCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.Encampment;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.PigFarm;
+import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrowerCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.Zuljin;
 
 /**
@@ -85,6 +86,8 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
         ScenarioBehaviour result = factory.get();
         result.setWinCondition(unitRescued(Zuljin, CircleOfPower));
         result.setLoseCondition(playerDestroyed());
+        result.addBehaviour(captureUnits(Zuljin));
+        result.addBehaviour(captureUnits(TrollAxethrowerCaptive));
         return result;
     }
 }

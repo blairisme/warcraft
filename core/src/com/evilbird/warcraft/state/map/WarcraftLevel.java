@@ -24,7 +24,7 @@ public enum WarcraftLevel implements Identifier
     Human1("data/levels/human/level1.tmx"),
     Human2("data/levels/human/level2.tmx"),
     Orc1("data/levels/orc/level1.tmx"),
-    Orc2("data/levels/orc/level2.tmx");
+    Orc2("data/levels/orc/2.tmx");
 
     private String path;
 

@@ -33,20 +33,20 @@ import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
  *
  * @author Blair Butterworth
  */
-public class TrollAxeThrowerFactory implements AssetProvider<Item>
+public class TrollAxethrowerFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(0, 38);
     private static final GridPoint2 SIZE = new GridPoint2(32, 32);
 
-    private CombatantAssets assets;
-    private CombatantBuilder builder;
+    protected CombatantAssets assets;
+    protected CombatantBuilder builder;
 
     @Inject
-    public TrollAxeThrowerFactory(Device device) {
+    public TrollAxethrowerFactory(Device device) {
         this(device.getAssetStorage());
     }
 
-    public TrollAxeThrowerFactory(AssetManager manager) {
+    public TrollAxethrowerFactory(AssetManager manager) {
         this.assets = new CombatantAssets(manager, TrollAxethrower, ICON, SIZE);
         this.builder = new CombatantBuilder(assets);
     }
@@ -65,7 +65,7 @@ public class TrollAxeThrowerFactory implements AssetProvider<Item>
         result.setDamageMaximum(9);
         result.setHealth(40);
         result.setHealthMaximum(40);
-        result.setIdentifier(objectIdentifier("TrollAxeThrower", result));
+        result.setIdentifier(objectIdentifier("TrollAxethrower", result));
         result.setLevel(1);
         result.setName("Troll Axe Thrower");
         result.setMovementSpeed(8 * 10);

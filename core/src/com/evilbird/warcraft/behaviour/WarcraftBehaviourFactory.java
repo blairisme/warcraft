@@ -23,8 +23,11 @@ import org.apache.commons.lang3.Validate;
 import javax.inject.Inject;
 
 import static com.evilbird.warcraft.behaviour.ai.AiBehaviours.HumanEasy;
+import static com.evilbird.warcraft.behaviour.ai.AiBehaviours.OrcEasy;
 import static com.evilbird.warcraft.behaviour.scenario.ScenarioBehaviours.Human1;
 import static com.evilbird.warcraft.behaviour.scenario.ScenarioBehaviours.Human2;
+import static com.evilbird.warcraft.behaviour.scenario.ScenarioBehaviours.Orc1;
+import static com.evilbird.warcraft.behaviour.scenario.ScenarioBehaviours.Orc2;
 
 /**
  * Instances of this class defines the game logic that modifies the state of
@@ -61,6 +64,9 @@ public class WarcraftBehaviourFactory implements BehaviourFactory
         switch(type) {
             case Human1: return newLevelBehaviour(id, Human1, HumanEasy);
             case Human2: return newLevelBehaviour(id, Human2, HumanEasy);
+            case Orc1: return newLevelBehaviour(id, Orc1, OrcEasy);
+            case Orc2: return newLevelBehaviour(id, Orc2, OrcEasy);
+
             default: throw new UnsupportedOperationException();
         }
     }

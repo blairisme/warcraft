@@ -31,11 +31,13 @@ public class HumanBuildingFactory extends IdentifiedAssetProviderSet<Item>
         BarracksFactory barracksFactory,
         FarmFactory farmFactory,
         LumberMillFactory lumberMillFactory,
+        ScoutTowerFactory scoutTowerFactory,
         TownHallFactory townHallFactory)
     {
         addProvider(UnitType.Barracks, barracksFactory);
         addProvider(UnitType.Farm, farmFactory);
         addProvider(UnitType.LumberMill, lumberMillFactory);
+        addProvider(UnitType.ScoutTower, scoutTowerFactory);
         addProvider(UnitType.TownHall, townHallFactory);
     }
 }

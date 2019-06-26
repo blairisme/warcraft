@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.unit.building.orc;
+package com.evilbird.warcraft.item.unit.building.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.GridPoint2;
@@ -22,29 +22,29 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.unit.UnitType.WatchTower;
+import static com.evilbird.warcraft.item.unit.UnitType.ScoutTower;
 
 /**
- * Instances of this class create {@link Building Watch Towers}, loading the
- * necessary assets and defining the appropriate attributes.
+ * Instances of this class create {@link Building Scout Towers}, entry level
+ * attack buildings.
  *
  * @author Blair Butterworth
  */
-public class WatchTowerFactory implements AssetProvider<Item>
+public class ScoutTowerFactory implements AssetProvider<Item>
 {
-    private static final GridPoint2 ICON = new GridPoint2(46, 456);
+    private static final GridPoint2 ICON = new GridPoint2(0, 456);
     private static final GridPoint2 SIZE = new GridPoint2(64, 64);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
 
     @Inject
-    public WatchTowerFactory(Device device) {
+    public ScoutTowerFactory(Device device) {
         this(device.getAssetStorage());
     }
 
-    public WatchTowerFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, WatchTower, ICON, SIZE);
+    public ScoutTowerFactory(AssetManager manager) {
+        this.assets = new BuildingAssets(manager, ScoutTower, ICON, SIZE);
         this.builder = new BuildingBuilder(assets);
     }
 
@@ -58,10 +58,10 @@ public class WatchTowerFactory implements AssetProvider<Item>
         Building result = builder.build();
         result.setHealth(100);
         result.setHealthMaximum(100);
-        result.setIdentifier(objectIdentifier("WatchTower", result));
-        result.setName("Watch Tower");
+        result.setIdentifier(objectIdentifier("ScoutTower", result));
+        result.setName("Scout Tower");
         result.setSight(tiles(5));
-        result.setType(WatchTower);
+        result.setType(ScoutTower);
         return result;
     }
 }

@@ -99,6 +99,7 @@ public enum UnitType implements ItemType
     TrollTanker,
 
     /* Orc - Special Combatant */
+    TrollAxethrowerCaptive,
     Zuljin,
 
     /* Neutral - Building */

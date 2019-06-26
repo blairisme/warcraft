@@ -24,5 +24,5 @@ public enum WarcraftBehaviour implements BehaviourIdentifier
 
     Orc1,
     Orc2,
-    OrcHard
+    OrcEasy
 }
