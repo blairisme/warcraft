@@ -30,7 +30,8 @@ import javax.inject.Inject;
 public class LoaderScreenModel
 {
     private static final String TITLE = "data/textures/common/menu/title.png";
-    private static final int ANTI_FLASH_DELAY = 1;
+    private static final float FLASH_DELAY = 0.5f;
+    private static final int UPDATE_PERIOD = 1000;
 
     private LoaderScreen presenter;
     private AssetManager assets;
@@ -81,7 +82,7 @@ public class LoaderScreenModel
 
     public void update(float delta) {
         loadingTime += delta;
-        if (loadingTime >= ANTI_FLASH_DELAY && assets.update()) {
+        if (loadingTime >= FLASH_DELAY && assets.update(UPDATE_PERIOD)) {
             presenter.loadingComplete();
         }
     }
