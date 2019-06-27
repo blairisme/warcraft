@@ -22,29 +22,30 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.unit.UnitType.ScoutTower;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Food;
+import static com.evilbird.warcraft.item.unit.UnitType.Castle;
 
 /**
- * Instances of this class create {@link Building Scout Towers}, entry level
- * attack buildings.
+ * Instances of this class create Human Castles, the central building of the
+ * human faction and one that creates gathering units: peasants.
  *
  * @author Blair Butterworth
  */
-public class ScoutTowerFactory implements AssetProvider<Item>
+public class CastleFactory implements AssetProvider<Item>
 {
-    private static final GridPoint2 ICON = new GridPoint2(0, 456);
-    private static final GridPoint2 SIZE = new GridPoint2(64, 64);
+    private static final GridPoint2 ICON = new GridPoint2(138, 494);
+    private static final GridPoint2 SIZE = new GridPoint2(128, 128);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
 
     @Inject
-    public ScoutTowerFactory(Device device) {
+    public CastleFactory(Device device) {
         this(device.getAssetStorage());
     }
 
-    public ScoutTowerFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, ScoutTower, ICON, SIZE);
+    public CastleFactory(AssetManager manager) {
+        this.assets = new BuildingAssets(manager, Castle, ICON, SIZE);
         this.builder = new BuildingBuilder(assets);
     }
 
@@ -57,12 +58,13 @@ public class ScoutTowerFactory implements AssetProvider<Item>
     public Item get() {
         Building result = builder.build();
         result.setDefence(20);
-        result.setHealth(100);
-        result.setHealthMaximum(100);
-        result.setIdentifier(objectIdentifier("ScoutTower", result));
-        result.setName("Scout Tower");
+        result.setHealth(1600);
+        result.setHealthMaximum(1600);
+        result.setIdentifier(objectIdentifier("Castle", result));
+        result.setName("Castle");
         result.setSight(tiles(9));
-        result.setType(ScoutTower);
+        result.setType(Castle);
+        result.setResource(Food, 1);
         return result;
     }
 }

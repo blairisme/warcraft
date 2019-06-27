@@ -60,8 +60,8 @@ public class PeasantFactory implements AssetProvider<Item>
         result.setDefence(0);
         result.setDamageMinimum(1);
         result.setDamageMaximum(5);
-        result.setHealth(30f);
-        result.setHealthMaximum(30f);
+        result.setHealth(30);
+        result.setHealthMaximum(30);
         result.setIdentifier(objectIdentifier("Peasant", result));
         result.setLevel(1);
         result.setMovementSpeed(8 * 10);

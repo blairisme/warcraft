@@ -29,15 +29,43 @@ public class HumanBuildingFactory extends IdentifiedAssetProviderSet<Item>
     @Inject
     public HumanBuildingFactory(
         BarracksFactory barracksFactory,
+        BlacksmithFactory blacksmithFactory,
+        CannonTowerFactory cannonTowerFactory,
+        CastleFactory castleFactory,
+        ChurchFactory churchFactory,
         FarmFactory farmFactory,
+        FoundryFactory foundryFactory,
+        GnomishInventorFactory gnomishInventorFactory,
+        GryphonAviaryFactory gryphonAviaryFactory,
+        GuardTowerFactory guardTowerFactory,
+        KeepFactory keepFactory,
         LumberMillFactory lumberMillFactory,
+        MageTowerFactory mageTowerFactory,
+        OilPlatformFactory oilPlatformFactory,
+        RefineryFactory refineryFactory,
         ScoutTowerFactory scoutTowerFactory,
+        ShipyardFactory shipyardFactory,
+        StablesFactory stablesFactory,
         TownHallFactory townHallFactory)
     {
         addProvider(UnitType.Barracks, barracksFactory);
+        addProvider(UnitType.Blacksmith, blacksmithFactory);
+        addProvider(UnitType.CannonTower, cannonTowerFactory);
+        addProvider(UnitType.Castle, castleFactory);
+        addProvider(UnitType.Church, churchFactory);
         addProvider(UnitType.Farm, farmFactory);
+        addProvider(UnitType.Foundry, foundryFactory);
+        addProvider(UnitType.GnomishInventor, gnomishInventorFactory);
+        addProvider(UnitType.GryphonAviary, gryphonAviaryFactory);
+        addProvider(UnitType.GuardTower, guardTowerFactory);
+        addProvider(UnitType.Keep, keepFactory);
         addProvider(UnitType.LumberMill, lumberMillFactory);
+        addProvider(UnitType.MageTower, mageTowerFactory);
+        addProvider(UnitType.OilPlatform, oilPlatformFactory);
+        addProvider(UnitType.Refinery, refineryFactory);
         addProvider(UnitType.ScoutTower, scoutTowerFactory);
+        addProvider(UnitType.Shipyard, shipyardFactory);
+        addProvider(UnitType.Stables, stablesFactory);
         addProvider(UnitType.TownHall, townHallFactory);
     }
 }

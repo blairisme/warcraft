@@ -21,7 +21,7 @@ import com.evilbird.warcraft.item.unit.building.BuildingBuilder;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
 
 /**
@@ -56,11 +56,12 @@ public class LumberMillFactory implements AssetProvider<Item>
     @Override
     public Item get() {
         Building result = builder.build();
+        result.setDefence(20);
         result.setHealth(600);
         result.setHealthMaximum(600);
         result.setIdentifier(objectIdentifier("LumberMill", result));
         result.setName("LumberMill");
-        result.setSight(TILE_WIDTH);
+        result.setSight(tiles(3));
         result.setType(LumberMill);
         return result;
     }

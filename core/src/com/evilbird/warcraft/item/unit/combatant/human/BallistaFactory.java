@@ -57,7 +57,7 @@ public class BallistaFactory implements AssetProvider<Item>
     @Override
     public Item get() {
         RangedCombatant result = builder.newRangedCombatant();
-        result.setAttackSpeed(3f);
+        result.setAttackSpeed(3);
         result.setDefence(0);
         result.setDamageMinimum(25);
         result.setDamageMaximum(80);

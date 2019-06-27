@@ -58,15 +58,15 @@ public class OgreFactory implements AssetProvider<Item>
     public Item get() {
         Combatant result = builder.newMeleeCombatant();
         result.setAttackSpeed(1);
-        result.setDefence(2);
+        result.setDefence(4);
         result.setDamageMinimum(2);
-        result.setDamageMaximum(9);
-        result.setHealth(60);
-        result.setHealthMaximum(60);
+        result.setDamageMaximum(12);
+        result.setHealth(90);
+        result.setHealthMaximum(90);
         result.setIdentifier(objectIdentifier("Ogre", result));
         result.setLevel(1);
         result.setName("Ogre");
-        result.setMovementSpeed(8 * 10);
+        result.setMovementSpeed(8 * 13);
         result.setMovementCapability(Land);
         result.setRange(tiles(1));
         result.setSight(tiles(4));

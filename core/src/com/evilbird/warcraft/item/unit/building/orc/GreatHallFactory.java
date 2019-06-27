@@ -21,7 +21,8 @@ import com.evilbird.warcraft.item.unit.building.BuildingBuilder;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Food;
 import static com.evilbird.warcraft.item.unit.UnitType.GreatHall;
 
 /**
@@ -56,12 +57,14 @@ public class GreatHallFactory implements AssetProvider<Item>
     @Override
     public Item get() {
         Building result = builder.build();
+        result.setDefence(20);
         result.setHealth(1200);
         result.setHealthMaximum(1200);
         result.setIdentifier(objectIdentifier("GreatHall", result));
         result.setName("Great Hall");
-        result.setSight(TILE_WIDTH);
+        result.setSight(tiles(4));
         result.setType(GreatHall);
+        result.setResource(Food, 1);
         return result;
     }
 }

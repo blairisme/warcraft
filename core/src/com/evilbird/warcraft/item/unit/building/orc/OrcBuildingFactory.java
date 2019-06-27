@@ -28,16 +28,43 @@ public class OrcBuildingFactory extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
     public OrcBuildingFactory(
+        AltarOfStormsFactory altarOfStormsFactory,
+        BombardTowerFactory bombardTowerFactory,
+        DockyardFactory dockyardFactory,
+        DragonRoostFactory dragonRoostFactory,
         EncampmentFactory encampmentFactory,
+        ForgeFactory forgeFactory,
+        FortressFactory fortressFactory,
+        GoblinAlchemistFactory goblinAlchemistFactory,
         GreatHallFactory greatHallFactory,
+        LookoutTowerFactory lookoutTowerFactory,
+        MetalworksFactory metalworksFactory,
+        OgreMoundFactory ogreMoundFactory,
+        OilRefineryFactory oilRefineryFactory,
+        OilRigFactory oilRigFactory,
         PigFarmFactory pigFarmFactory,
+        StrongholdFactory strongholdFactory,
+        TempleOfTheDamnedFactory templeOfTheDamnedFactory,
         TrollLumberMillFactory trollLumberMillFactory,
         WatchTowerFactory watchTowerFactory)
     {
-        super();
+        addProvider(UnitType.AltarOfStorms, altarOfStormsFactory);
+        addProvider(UnitType.BombardTower, bombardTowerFactory);
+        addProvider(UnitType.Dockyard, dockyardFactory);
+        addProvider(UnitType.DragonRoost, dragonRoostFactory);
         addProvider(UnitType.Encampment, encampmentFactory);
+        addProvider(UnitType.Forge, forgeFactory);
+        addProvider(UnitType.Fortress, fortressFactory);
+        addProvider(UnitType.GoblinAlchemist, goblinAlchemistFactory);
         addProvider(UnitType.GreatHall, greatHallFactory);
+        addProvider(UnitType.LookoutTower, lookoutTowerFactory);
+        addProvider(UnitType.Metalworks, metalworksFactory);
+        addProvider(UnitType.OgreMound, ogreMoundFactory);
+        addProvider(UnitType.OilRefinery, oilRefineryFactory);
+        addProvider(UnitType.OilRig, oilRigFactory);
         addProvider(UnitType.PigFarm, pigFarmFactory);
+        addProvider(UnitType.Stronghold, strongholdFactory);
+        addProvider(UnitType.TempleOfTheDamned, templeOfTheDamnedFactory);
         addProvider(UnitType.TrollLumberMill, trollLumberMillFactory);
         addProvider(UnitType.WatchTower, watchTowerFactory);
     }

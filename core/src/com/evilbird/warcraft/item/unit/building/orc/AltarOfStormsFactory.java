@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.unit.building.human;
+package com.evilbird.warcraft.item.unit.building.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.GridPoint2;
@@ -22,29 +22,29 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.unit.UnitType.ScoutTower;
+import static com.evilbird.warcraft.item.unit.UnitType.AltarOfStorms;
 
 /**
- * Instances of this class create {@link Building Scout Towers}, entry level
- * attack buildings.
+ * Instances of this class create Orcish Altar of Storms, a building that
+ * allows for the creation of Ogre Mages.
  *
  * @author Blair Butterworth
  */
-public class ScoutTowerFactory implements AssetProvider<Item>
+public class AltarOfStormsFactory implements AssetProvider<Item>
 {
-    private static final GridPoint2 ICON = new GridPoint2(0, 456);
-    private static final GridPoint2 SIZE = new GridPoint2(64, 64);
+    private static final GridPoint2 ICON = new GridPoint2(92, 456);
+    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
 
     @Inject
-    public ScoutTowerFactory(Device device) {
+    public AltarOfStormsFactory(Device device) {
         this(device.getAssetStorage());
     }
 
-    public ScoutTowerFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, ScoutTower, ICON, SIZE);
+    public AltarOfStormsFactory(AssetManager manager) {
+        this.assets = new BuildingAssets(manager, AltarOfStorms, ICON, SIZE);
         this.builder = new BuildingBuilder(assets);
     }
 
@@ -57,12 +57,12 @@ public class ScoutTowerFactory implements AssetProvider<Item>
     public Item get() {
         Building result = builder.build();
         result.setDefence(20);
-        result.setHealth(100);
-        result.setHealthMaximum(100);
-        result.setIdentifier(objectIdentifier("ScoutTower", result));
-        result.setName("Scout Tower");
-        result.setSight(tiles(9));
-        result.setType(ScoutTower);
+        result.setHealth(700);
+        result.setHealthMaximum(700);
+        result.setIdentifier(objectIdentifier("AltarOfStorms", result));
+        result.setName("Altar of Storms");
+        result.setSight(tiles(3));
+        result.setType(AltarOfStorms);
         return result;
     }
 }

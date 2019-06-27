@@ -58,6 +58,17 @@ public class BuildingBuilder
         return result;
     }
 
+    public Fort newFort() {
+        Fort result = new Fort(getSkin(assets));
+        result.setAnimation(UnitAnimation.Idle);
+        result.setSelected(false);
+        result.setSelectable(true);
+        result.setTouchable(Touchable.enabled);
+        result.setSize(assets.getSize());
+        result.setZIndex(0);
+        return result;
+    }
+
     private Skin getSkin(BuildingAssets assets) {
         Skin skin = new Skin();
         skin.add("default", getAnimationStyle(assets), AnimatedItemStyle.class);

@@ -22,29 +22,29 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.unit.UnitType.ScoutTower;
+import static com.evilbird.warcraft.item.unit.UnitType.Refinery;
 
 /**
- * Instances of this class create {@link Building Scout Towers}, entry level
- * attack buildings.
+ * Instances of this class create Human Refinery, a building that provides
+ * access to advanced ships.
  *
  * @author Blair Butterworth
  */
-public class ScoutTowerFactory implements AssetProvider<Item>
+public class RefineryFactory implements AssetProvider<Item>
 {
-    private static final GridPoint2 ICON = new GridPoint2(0, 456);
-    private static final GridPoint2 SIZE = new GridPoint2(64, 64);
+    private static final GridPoint2 ICON = new GridPoint2(0, 380);
+    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
 
     @Inject
-    public ScoutTowerFactory(Device device) {
+    public RefineryFactory(Device device) {
         this(device.getAssetStorage());
     }
 
-    public ScoutTowerFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, ScoutTower, ICON, SIZE);
+    public RefineryFactory(AssetManager manager) {
+        this.assets = new BuildingAssets(manager, Refinery, ICON, SIZE);
         this.builder = new BuildingBuilder(assets);
     }
 
@@ -57,12 +57,12 @@ public class ScoutTowerFactory implements AssetProvider<Item>
     public Item get() {
         Building result = builder.build();
         result.setDefence(20);
-        result.setHealth(100);
-        result.setHealthMaximum(100);
-        result.setIdentifier(objectIdentifier("ScoutTower", result));
-        result.setName("Scout Tower");
-        result.setSight(tiles(9));
-        result.setType(ScoutTower);
+        result.setHealth(600);
+        result.setHealthMaximum(600);
+        result.setIdentifier(objectIdentifier("Refinery", result));
+        result.setName("Refinery");
+        result.setSight(tiles(3));
+        result.setType(Refinery);
         return result;
     }
 }

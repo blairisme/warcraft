@@ -57,19 +57,19 @@ public class CatapultFactory implements AssetProvider<Item>
     @Override
     public Item get() {
         RangedCombatant result = builder.newRangedCombatant();
-        result.setAttackSpeed(1.5f);
+        result.setAttackSpeed(3);
         result.setDefence(0);
-        result.setDamageMinimum(3);
-        result.setDamageMaximum(9);
-        result.setHealth(40);
-        result.setHealthMaximum(40);
+        result.setDamageMinimum(25);
+        result.setDamageMaximum(80);
+        result.setHealth(110);
+        result.setHealthMaximum(110);
         result.setIdentifier(objectIdentifier("Catapult", result));
         result.setLevel(1);
         result.setName("Catapult");
-        result.setMovementSpeed(8 * 10);
+        result.setMovementSpeed(8 * 5);
         result.setMovementCapability(Land);
-        result.setRange(tiles(4));
-        result.setSight(tiles(5));
+        result.setRange(tiles(8));
+        result.setSight(tiles(9));
         result.setType(Catapult);
         result.setProjectileType(Cannon);
         return result;
