@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.produce;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
+import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
@@ -20,7 +21,6 @@ import static com.evilbird.warcraft.action.common.transfer.TransferAction.deposi
 import static com.evilbird.warcraft.action.produce.ProduceEvents.onProductionCancelled;
 import static com.evilbird.warcraft.action.produce.ProductionValues.getProduct;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isProducing;
-import static com.evilbird.warcraft.item.unit.UnitAttributes.costOf;
 
 /**
  * Instances of this class stop the production of a Unit, refunding a
@@ -54,7 +54,7 @@ public class ProduceUnitCancel extends ScenarioAction<ProduceActions>
     private void steps(UnitType unit) {
         given(isProducing());
         then(ProduceAction.stopProducing());
-        then(deposit(costOf(unit), events));
+        then(deposit(UnitCosts.cost(unit), events));
         then(onProductionCancelled(events));
     }
 }

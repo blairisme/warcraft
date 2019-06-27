@@ -37,8 +37,10 @@ public class OrcCombatantFactory extends IdentifiedAssetProviderSet<Item>
         GruntFactory gruntFactory,
         OgreFactory ogreFactory,
         OgreJuggernaughtFactory ogreJuggernaughtFactory,
+        OgreMageFactory ogreMageFactory,
         TrollAxethrowerFactory trollAxeThrowerFactory,
         TrollAxethrowerCaptiveFactory trollAxeThrowerCaptiveFactory,
+        TrollBerserkerFactory trollBerserkerFactory,
         TrollDestroyerFactory trollDestroyerFactory,
         ZuljinFactory zuljinFactory)
     {
@@ -52,8 +54,10 @@ public class OrcCombatantFactory extends IdentifiedAssetProviderSet<Item>
         addProvider(UnitType.Grunt, gruntFactory);
         addProvider(UnitType.Ogre, ogreFactory);
         addProvider(UnitType.OgreJuggernaught, ogreJuggernaughtFactory);
+        addProvider(UnitType.OgreMage, ogreMageFactory);
         addProvider(UnitType.TrollAxethrower, trollAxeThrowerFactory);
         addProvider(UnitType.TrollAxethrowerCaptive, trollAxeThrowerCaptiveFactory);
+        addProvider(UnitType.TrollBerserker, trollBerserkerFactory);
         addProvider(UnitType.TrollDestroyer, trollDestroyerFactory);
         addProvider(UnitType.Zuljin, zuljinFactory);
     }

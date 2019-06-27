@@ -20,7 +20,7 @@ import static com.evilbird.warcraft.action.common.transfer.TransferAction.deposi
 import static com.evilbird.warcraft.action.produce.ProduceEvents.onProductionCancelled;
 import static com.evilbird.warcraft.action.produce.ProductionValues.getUpgrade;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isProducing;
-import static com.evilbird.warcraft.item.unit.UnitAttributes.costOf;
+import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
 
 /**
  * Instances of this class stop the production of an upgrade, refunding a
@@ -54,7 +54,7 @@ public class ProduceUpgradeCancel extends ScenarioAction<ProduceActions>
     private void steps(PlayerUpgrade upgrade) {
         given(isProducing());
         then(ProduceAction.stopProducing());
-        then(deposit(costOf(upgrade), events));
+        then(deposit(cost(upgrade), events));
         then(onProductionCancelled(events));
     }
 }

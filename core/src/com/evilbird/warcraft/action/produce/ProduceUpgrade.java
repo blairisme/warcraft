@@ -26,7 +26,7 @@ import static com.evilbird.warcraft.action.produce.ProductionTimes.productionTim
 import static com.evilbird.warcraft.action.produce.ProductionValues.getUpgrade;
 import static com.evilbird.warcraft.action.produce.ProductionValues.getUpgradeValue;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
-import static com.evilbird.warcraft.item.unit.UnitAttributes.costOf;
+import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
 
 /**
  * Instances of this action sequence research an upgrade, decrementing the
@@ -59,7 +59,7 @@ public class ProduceUpgrade extends ScenarioAction<ProduceActions>
 
     private void steps(PlayerUpgrade upgrade, int value) {
         given(isAlive());
-        then(purchase(costOf(upgrade), events));
+        then(purchase(cost(upgrade), events));
         then(onProductionStarted(events));
         then(startProducing(startTime(upgrade), productionTime(upgrade)));
         then(applyUpgrade(upgrade, value, events));

@@ -26,7 +26,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Dead;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Death;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Decompose;
-import static com.evilbird.warcraft.item.unit.UnitAttributes.reservedResources;
+import static com.evilbird.warcraft.item.unit.UnitCosts.reservedResources;
 import static com.evilbird.warcraft.item.unit.UnitSound.Die;
 
 /**

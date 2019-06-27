@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.produce;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
+import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
@@ -28,7 +29,6 @@ import static com.evilbird.warcraft.action.produce.ProduceEvents.onProductionSta
 import static com.evilbird.warcraft.action.produce.ProductionTimes.productionTime;
 import static com.evilbird.warcraft.action.produce.ProductionValues.getProduct;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
-import static com.evilbird.warcraft.item.unit.UnitAttributes.costOf;
 import static com.evilbird.warcraft.item.unit.UnitSound.Ready;
 
 /**
@@ -64,7 +64,7 @@ public class ProduceUnit extends ScenarioAction<ProduceActions>
 
     private void steps(UnitType unit) {
         given(isAlive());
-        then(purchase(costOf(unit), events));
+        then(purchase(UnitCosts.cost(unit), events));
         then(onProductionStarted(events));
         then(startProducing(startTime(unit), productionTime(unit)));
         thenUpdate(create(unit, events));

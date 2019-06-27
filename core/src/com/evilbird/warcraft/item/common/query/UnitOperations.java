@@ -20,7 +20,7 @@ import com.evilbird.warcraft.item.common.movement.MovementCapability;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
-import com.evilbird.warcraft.item.unit.UnitAttributes;
+import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
@@ -97,7 +97,7 @@ public class UnitOperations
     }
 
     public static boolean hasResources(Player player, UnitType type) {
-        for (ResourceQuantity cost: UnitAttributes.costOf(type)) {
+        for (ResourceQuantity cost: UnitCosts.cost(type)) {
             if (player.getResource(cost.getResource()) < cost.getValue()){
                 return false;
             }
@@ -106,7 +106,7 @@ public class UnitOperations
     }
 
     public static boolean hasResources(Player player, PlayerUpgrade upgrade) {
-        for (ResourceQuantity cost: UnitAttributes.costOf(upgrade)) {
+        for (ResourceQuantity cost: UnitCosts.cost(upgrade)) {
             if (player.getResource(cost.getResource()) < cost.getValue()){
                 return false;
             }

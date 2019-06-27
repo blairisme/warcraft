@@ -12,6 +12,9 @@ package com.evilbird.warcraft.item.unit;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
 
+import static com.evilbird.warcraft.item.unit.UnitFaction.Human;
+import static com.evilbird.warcraft.item.unit.UnitFaction.Orc;
+
 /**
  * Defines identifiers for items varieties.
  *
@@ -95,8 +98,10 @@ public enum UnitType implements ItemType
     Grunt,
     Ogre,
     OgreJuggernaught,
+    OgreMage,
     Peon,
     TrollAxethrower,
+    TrollBerserker,
     TrollDestroyer,
     TrollTanker,
 
@@ -119,7 +124,7 @@ public enum UnitType implements ItemType
 
     public UnitFaction getFaction() {
         if (isBetween(Barracks, ElvenArcherCaptive)) {
-            return UnitFaction.Human;
+            return Human;
         }
         if (isBetween(AltarOfStorms, Zuljin)) {
             return UnitFaction.Orc;
@@ -128,6 +133,22 @@ public enum UnitType implements ItemType
             return UnitFaction.Neutral;
         }
         throw new UnsupportedOperationException();
+    }
+
+    public boolean isBuilding() {
+        return isBetween(Barracks, TownHall) || isBetween(AltarOfStorms, WatchTower);
+    }
+
+    public boolean isCombatant() {
+        return isBetween(Ballista, ElvenArcherCaptive) || isBetween(Catapult, Zuljin);
+    }
+
+    public boolean isHuman() {
+        return getFaction() == Human;
+    }
+
+    public boolean isOrc() {
+        return getFaction() == Orc;
     }
 
     private boolean isBetween(UnitType typeA, UnitType typeB) {
