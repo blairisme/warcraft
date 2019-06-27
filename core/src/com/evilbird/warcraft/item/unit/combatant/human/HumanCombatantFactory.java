@@ -33,12 +33,14 @@ public class HumanCombatantFactory extends IdentifiedAssetProviderSet<Item>
         ElvenArcherFactory elvenArcherFactory,
         ElvenArcherCaptiveFactory elvenArcherCaptiveFactory,
         ElvenDestroyerFactory elvenDestroyerFactory,
+        ElvenRangerFactory elvenRangerFactory,
         FootmanFactory footmanFactory,
         GnomishFlyingMachineFactory gnomishFlyingMachineFactory,
         GnomishSubmarineFactory gnomishSubmarineFactory,
         GryphonRiderFactory gryphonRiderFactory,
         KnightFactory knightFactory,
         MageFactory mageFactory,
+        PaladinFactory paladinFactory,
         TransportFactory transportFactory)
     {
         addProvider(UnitType.Ballista, ballistaFactory);
@@ -47,12 +49,14 @@ public class HumanCombatantFactory extends IdentifiedAssetProviderSet<Item>
         addProvider(UnitType.ElvenArcher, elvenArcherFactory);
         addProvider(UnitType.ElvenArcherCaptive, elvenArcherCaptiveFactory);
         addProvider(UnitType.ElvenDestroyer,  elvenDestroyerFactory);
+        addProvider(UnitType.ElvenRanger, elvenRangerFactory);
         addProvider(UnitType.Footman, footmanFactory);
         addProvider(UnitType.GnomishFlyingMachine, gnomishFlyingMachineFactory);
         addProvider(UnitType.GnomishSubmarine, gnomishSubmarineFactory);
         addProvider(UnitType.GryphonRider, gryphonRiderFactory);
         addProvider(UnitType.Knight, knightFactory);
         addProvider(UnitType.Mage, mageFactory);
+        addProvider(UnitType.Paladin, paladinFactory);
         addProvider(UnitType.Transport, transportFactory);
     }
 }

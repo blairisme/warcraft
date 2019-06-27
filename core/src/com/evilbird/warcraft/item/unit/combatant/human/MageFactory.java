@@ -60,17 +60,17 @@ public class MageFactory implements AssetProvider<Item>
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(1.5f);
         result.setDefence(0);
-        result.setDamageMinimum(3);
+        result.setDamageMinimum(2);
         result.setDamageMaximum(9);
-        result.setHealth(40);
-        result.setHealthMaximum(40);
+        result.setHealth(60);
+        result.setHealthMaximum(60);
         result.setIdentifier(objectIdentifier("Mage", result));
         result.setLevel(1);
         result.setName("Mage");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
-        result.setRange(tiles(4));
-        result.setSight(tiles(5));
+        result.setRange(tiles(2));
+        result.setSight(tiles(9));
         result.setType(Mage);
         return result;
     }

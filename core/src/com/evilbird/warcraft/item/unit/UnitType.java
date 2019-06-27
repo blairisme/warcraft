@@ -47,6 +47,7 @@ public enum UnitType implements ItemType
     DwarvenDemolitionSquad,
     ElvenArcher,
     ElvenDestroyer,
+    ElvenRanger,
     Footman,
     GnomishFlyingMachine,
     GnomishSubmarine,
@@ -54,6 +55,7 @@ public enum UnitType implements ItemType
     Knight,
     Mage,
     OilTanker,
+    Paladin,
     Peasant,
     Transport,
 

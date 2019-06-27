@@ -58,15 +58,15 @@ public class DwarvenDemolitionSquadFactory implements AssetProvider<Item>
     public Item get() {
         Combatant result = builder.newMeleeCombatant();
         result.setAttackSpeed(1);
-        result.setDefence(2);
-        result.setDamageMinimum(2);
-        result.setDamageMaximum(9);
-        result.setHealth(60);
-        result.setHealthMaximum(60);
+        result.setDefence(0);
+        result.setDamageMinimum(1);
+        result.setDamageMaximum(6);
+        result.setHealth(40);
+        result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("DwarvenDemolitionSquad", result));
         result.setLevel(1);
         result.setName("Dwarven Demolition Squad");
-        result.setMovementSpeed(8 * 10);
+        result.setMovementSpeed(8 * 11);
         result.setMovementCapability(Land);
         result.setRange(tiles(1));
         result.setSight(tiles(4));

@@ -20,5 +20,7 @@ public enum ProjectileType implements ItemType
 {
     Arrow,
     Axe,
-    Cannon
+    Cannon,
+
+    Lightning
 }

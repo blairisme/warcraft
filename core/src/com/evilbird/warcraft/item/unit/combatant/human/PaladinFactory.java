@@ -17,37 +17,36 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.item.unit.combatant.CombatantBuilder;
-import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.common.movement.MovementCapability.Air;
-import static com.evilbird.warcraft.item.projectile.ProjectileType.Lightning;
-import static com.evilbird.warcraft.item.unit.UnitType.GryphonRider;
+import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
+import static com.evilbird.warcraft.item.unit.UnitType.Knight;
+import static com.evilbird.warcraft.item.unit.UnitType.Paladin;
 
 /**
- * Instances of this factory create Gryphon Riders, Human heavy flying
- * {@link Combatant Combatants}.
+ * Instances of this factory create Paladins, knights with additional attack
+ * damage and sight.
  *
  * @author Blair Butterworth
  */
-public class GryphonRiderFactory implements AssetProvider<Item>
+public class PaladinFactory implements AssetProvider<Item>
 {
-    private static final GridPoint2 ICON = new GridPoint2(0, 228);
+    private static final GridPoint2 ICON = new GridPoint2(138, 38);
     private static final GridPoint2 SIZE = new GridPoint2(32, 32);
 
     private CombatantAssets assets;
     private CombatantBuilder builder;
 
     @Inject
-    public GryphonRiderFactory(Device device) {
+    public PaladinFactory(Device device) {
         this(device.getAssetStorage());
     }
 
-    public GryphonRiderFactory(AssetManager manager) {
-        this.assets = new CombatantAssets(manager, GryphonRider, ICON, SIZE);
+    public PaladinFactory(AssetManager manager) {
+        this.assets = new CombatantAssets(manager, Knight, ICON, SIZE);
         this.builder = new CombatantBuilder(assets);
     }
 
@@ -58,22 +57,21 @@ public class GryphonRiderFactory implements AssetProvider<Item>
 
     @Override
     public Item get() {
-        RangedCombatant result = builder.newRangedCombatant();
-        result.setAttackSpeed(1.5f);
-        result.setDefence(0);
+        Combatant result = builder.newMeleeCombatant();
+        result.setAttackSpeed(1);
+        result.setDefence(4);
         result.setDamageMinimum(8);
-        result.setDamageMaximum(16);
-        result.setHealth(100);
-        result.setHealthMaximum(100);
-        result.setIdentifier(objectIdentifier("GryphonRider", result));
+        result.setDamageMaximum(12);
+        result.setHealth(90);
+        result.setHealthMaximum(90);
+        result.setIdentifier(objectIdentifier("Paladin", result));
         result.setLevel(1);
-        result.setName("Gryphon Rider");
-        result.setMovementSpeed(8 * 14);
-        result.setMovementCapability(Air);
-        result.setRange(tiles(4));
-        result.setSight(tiles(6));
-        result.setType(GryphonRider);
-        result.setProjectileType(Lightning);
+        result.setName("Paladin");
+        result.setMovementSpeed(8 * 13);
+        result.setMovementCapability(Land);
+        result.setRange(tiles(1));
+        result.setSight(tiles(5));
+        result.setType(Paladin);
         return result;
     }
 }

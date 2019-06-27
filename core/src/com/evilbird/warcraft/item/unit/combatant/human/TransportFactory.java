@@ -57,19 +57,19 @@ public class TransportFactory implements AssetProvider<Item>
     @Override
     public Item get() {
         RangedCombatant result = builder.newSeaCombatant();
-        result.setAttackSpeed(1.5f);
-        result.setDefence(10);
-        result.setDamageMinimum(2);
-        result.setDamageMaximum(35);
-        result.setHealth(100);
-        result.setHealthMaximum(100);
+        result.setAttackSpeed(0);
+        result.setDefence(0);
+        result.setDamageMinimum(0);
+        result.setDamageMaximum(0);
+        result.setHealth(150);
+        result.setHealthMaximum(150);
         result.setIdentifier(objectIdentifier("Transport", result));
         result.setLevel(1);
         result.setName("Transport");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Water);
-        result.setRange(tiles(4));
-        result.setSight(tiles(8));
+        result.setRange(tiles(1));
+        result.setSight(tiles(4));
         result.setType(Transport);
         return result;
     }
