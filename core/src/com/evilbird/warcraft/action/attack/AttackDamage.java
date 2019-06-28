@@ -14,17 +14,11 @@ import com.evilbird.engine.common.math.RandomGenerator;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 /**
- * Calculates the attack damage to be applied to a given target.
- *
- * Damage in combat is determined by subtracting the target’s Armor from the attacking unit’s
- * Basic Damage, and then adding in the attacking unit’s Piercing Damage. The attacking unit
- * has a chance of doing either full damage or half damage with each attack.
- * Example: A Footman and an Ogre are engaged in combat. If neither unit has upgraded weapons
- * or armor, the Ogre will deal (8 Basic Damage minus 2 Armor, plus 4 Piercing Damage) either
- * 5 or 10 points of damage with each attack, while the Footman will do only (6 Basic Damage
- * minus 4 Armor, plus 3 Piercing Damage) 3 or 5 points of damage with each attack. If the
- * Footman was completely upgraded, it would only take 3-6 damage per attack and would do
- * 5-9 points of damage to the Ogre with each attack.
+ * Calculates the attack damage to be applied to a given target. Damage is
+ * determined by subtracting the target’s Armor from the attacking unit’s
+ * Basic Damage, and then adding in the attacking unit’s Piercing Damage. The
+ * attacking unit has a chance of doing either full damage or half damage with
+ * each attack.
  *
  * @author Blair Butterworth
  */
