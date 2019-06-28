@@ -26,9 +26,8 @@ import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacentSubject
 import static com.evilbird.warcraft.action.produce.ProduceAction.startProducing;
 import static com.evilbird.warcraft.action.produce.ProduceEvents.onProductionCompleted;
 import static com.evilbird.warcraft.action.produce.ProduceEvents.onProductionStarted;
-import static com.evilbird.warcraft.action.produce.ProductionTimes.productionTime;
-import static com.evilbird.warcraft.action.produce.ProductionValues.getProduct;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.item.unit.UnitCosts.buildTime;
 import static com.evilbird.warcraft.item.unit.UnitSound.Ready;
 
 /**
@@ -39,7 +38,7 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Ready;
  *
  * @author Blair Butterworth
  */
-public class ProduceUnit extends ScenarioAction<ProduceActions>
+public class ProduceUnit extends ScenarioAction<ProduceUnitActions>
 {
     private transient Events events;
 
@@ -57,16 +56,16 @@ public class ProduceUnit extends ScenarioAction<ProduceActions>
     }
 
     @Override
-    protected void steps(ProduceActions action) {
+    protected void steps(ProduceUnitActions action) {
         scenario(action);
-        steps(getProduct(action));
+        steps(action.getProduct());
     }
 
     private void steps(UnitType unit) {
         given(isAlive());
         then(purchase(UnitCosts.cost(unit), events));
         then(onProductionStarted(events));
-        then(startProducing(startTime(unit), productionTime(unit)));
+        then(startProducing(startTime(unit), buildTime(unit)));
         thenUpdate(create(unit, events));
         then(moveAdjacentSubject(), play(Target, Ready));
         then(onProductionCompleted(events));
@@ -75,7 +74,7 @@ public class ProduceUnit extends ScenarioAction<ProduceActions>
     private float startTime(UnitType unit) {
         Building building = (Building)getItem();
         if (building.isProducing()) {
-            return building.getProductionProgress() * productionTime(unit);
+            return building.getProductionProgress() * buildTime(unit);
         }
         return 0;
     }

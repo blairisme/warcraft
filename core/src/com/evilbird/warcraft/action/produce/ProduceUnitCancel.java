@@ -12,15 +12,15 @@ package com.evilbird.warcraft.action.produce;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
-import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
 
 import static com.evilbird.warcraft.action.common.transfer.TransferAction.deposit;
+import static com.evilbird.warcraft.action.produce.ProduceAction.stopProducing;
 import static com.evilbird.warcraft.action.produce.ProduceEvents.onProductionCancelled;
-import static com.evilbird.warcraft.action.produce.ProductionValues.getProduct;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isProducing;
+import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
 
 /**
  * Instances of this class stop the production of a Unit, refunding a
@@ -28,7 +28,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isProducing
  *
  * @author Blair Butterworth
  */
-public class ProduceUnitCancel extends ScenarioAction<ProduceActions>
+public class ProduceUnitCancel extends ScenarioAction<ProduceUnitActions>
 {
     private transient Events events;
 
@@ -46,15 +46,15 @@ public class ProduceUnitCancel extends ScenarioAction<ProduceActions>
     }
 
     @Override
-    protected void steps(ProduceActions action) {
+    protected void steps(ProduceUnitActions action) {
         scenario(action);
-        steps(getProduct(action));
+        steps(action.getProduct());
     }
 
     private void steps(UnitType unit) {
         given(isProducing());
-        then(ProduceAction.stopProducing());
-        then(deposit(UnitCosts.cost(unit), events));
+        then(stopProducing());
+        then(deposit(cost(unit), events));
         then(onProductionCancelled(events));
     }
 }

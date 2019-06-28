@@ -51,8 +51,19 @@ public class Combatant extends Unit implements Movable
         return damageMinimum;
     }
 
+    /**
+     * The maximum amount of damage that the combatant deals with each attack.
+     */
     public int getDamageMaximum() {
         return damageMaximum;
+    }
+
+    /**
+     * How much damage the combatant always does with each attack, regardless
+     * of the opponent’s armor.
+     */
+    public int getPiercingDamage() {
+        return 0;
     }
 
     public int getLevel() {

@@ -24,12 +24,12 @@ public class UpgradeEvent implements Event
 {
     private Player player;
     private PlayerUpgrade upgrade;
-    private int value;
+    private boolean applied;
 
-    public UpgradeEvent(Player player, PlayerUpgrade upgrade, int value) {
+    public UpgradeEvent(Player player, PlayerUpgrade upgrade, boolean applied) {
         this.player = player;
         this.upgrade = upgrade;
-        this.value = value;
+        this.applied = applied;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class UpgradeEvent implements Event
         return upgrade;
     }
 
-    public int getValue() {
-        return value;
+    public boolean getApplied() {
+        return applied;
     }
 }

@@ -24,8 +24,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static com.evilbird.warcraft.action.produce.ProduceActions.TrainFootman;
-import static com.evilbird.warcraft.action.produce.ProductionTimes.productionTime;
+import static com.evilbird.warcraft.action.produce.ProduceUnitActions.TrainFootman;
+import static com.evilbird.warcraft.item.unit.UnitCosts.buildTime;
 
 /**
  * Instances of this unit test validate the {@link ProduceUnit} class.
@@ -74,7 +74,7 @@ public class ProduceUnitTest extends ActionTestCase
         Assert.assertFalse(action.act(1));
         Assert.assertEquals(0.1f, subject.getProductionProgress(), 0.1f);
 
-        Assert.assertFalse(action.act(productionTime(UnitType.Footman) + 10));
+        Assert.assertFalse(action.act(buildTime(UnitType.Footman) + 10));
         Assert.assertFalse(subject.isProducing());
 
         Assert.assertFalse(action.act(1));

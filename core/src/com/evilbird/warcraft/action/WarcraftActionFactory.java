@@ -29,8 +29,8 @@ import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.move.MoveFactory;
 import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
 import com.evilbird.warcraft.action.placeholder.PlaceholderFactory;
-import com.evilbird.warcraft.action.produce.ProduceActions;
 import com.evilbird.warcraft.action.produce.ProduceFactory;
+import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.action.select.SelectActions;
 import com.evilbird.warcraft.action.select.SelectFactory;
 
@@ -73,7 +73,7 @@ public class WarcraftActionFactory implements ActionFactory
         registerProvider(MenuActions.values(), menuFactory);
         registerProvider(PlaceholderActions.values(), placeholderFactory);
         registerProvider(SelectActions.values(), selectFactory);
-        registerProvider(ProduceActions.values(), produceFactory);
+        registerProvider(ProduceUnitActions.values(), produceFactory);
     }
 
     @Override

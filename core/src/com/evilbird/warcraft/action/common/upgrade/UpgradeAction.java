@@ -26,24 +26,22 @@ public class UpgradeAction extends BasicAction
 {
     private Events events;
     private PlayerUpgrade upgrade;
-    private int value;
 
-    public UpgradeAction(PlayerUpgrade upgrade, int value, Events events) {
+    public UpgradeAction(PlayerUpgrade upgrade, Events events) {
         this.upgrade = upgrade;
-        this.value = value;
         this.events = events;
     }
 
-    public static UpgradeAction applyUpgrade(PlayerUpgrade upgrade, int value, Events events) {
-        return new UpgradeAction(upgrade, value, events);
+    public static UpgradeAction applyUpgrade(PlayerUpgrade upgrade, Events events) {
+        return new UpgradeAction(upgrade, events);
     }
 
     @Override
     public boolean act(float delta) {
         Item item = getItem();
         Player player = UnitOperations.getPlayer(item);
-        player.setUpgrade(upgrade, value);
-        events.add(new UpgradeEvent(player, upgrade, value));
+        player.setUpgrade(upgrade, true);
+        events.add(new UpgradeEvent(player, upgrade, true));
         return true;
     }
 }

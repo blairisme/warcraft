@@ -22,7 +22,8 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.specialized.GridItem;
-import com.evilbird.warcraft.action.produce.ProduceActions;
+import com.evilbird.warcraft.action.produce.ProduceUnitActions;
+import com.evilbird.warcraft.action.produce.ProduceUpgradeActions;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 /**
@@ -94,18 +95,28 @@ public class ProductionDetailsPane extends GridItem
     private Drawable getProductImage(Building building) {
         for (Action action: building.getActions()) {
             Identifier identifier = action.getIdentifier();
-            if (identifier instanceof ProduceActions) {
-                return getProductImage((ProduceActions)identifier);
+            if (identifier instanceof ProduceUnitActions) {
+                return getProductImage((ProduceUnitActions)identifier);
+            }
+            if (identifier instanceof ProduceUpgradeActions) {
+                return getProductImage((ProduceUnitActions)identifier);
             }
         }
         return null;
     }
 
-    private Drawable getProductImage(ProduceActions trainAction) {
+    private Drawable getProductImage(ProduceUnitActions action) {
         ProductionDetailsStyle style = getSkin().get(ProductionDetailsStyle.class);
-        switch (trainAction) {
+        switch (action) {
             case TrainFootman: return style.trainFootmanIcon;
             case TrainPeasant: return style.trainPeasantIcon;
+            default: return null;
+        }
+    }
+
+    private Drawable getProductImage(ProduceUpgradeActions action) {
+        ProductionDetailsStyle style = getSkin().get(ProductionDetailsStyle.class);
+        switch (action) {
             case UpgradeArrowDamage: return style.upgradeArrowDamageIcon;
             default: return null;
         }

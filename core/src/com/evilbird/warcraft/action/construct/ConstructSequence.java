@@ -14,7 +14,6 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
-import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 
@@ -52,6 +51,7 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Construct;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 import static com.evilbird.warcraft.item.unit.UnitCosts.buildTime;
+import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
 import static com.evilbird.warcraft.item.unit.UnitSound.Build;
 import static com.evilbird.warcraft.item.unit.UnitSound.Complete;
 
@@ -92,7 +92,7 @@ public class ConstructSequence extends ScenarioSetAction
         scenario("Construct Building")
             .givenItem(isAlive())
             .whenTarget(isPlaceholder())
-            .then(remove(Target, events), purchase(UnitCosts.cost(building), events))
+            .then(remove(Target, events), purchase(cost(building), events))
             .thenUpdate(create(building, properties(), events), this)
             .then(constructStarted(events), associate())
             .then(animate(Move), deselect(events))

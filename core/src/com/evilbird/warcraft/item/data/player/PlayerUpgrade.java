@@ -19,8 +19,19 @@ import com.evilbird.engine.common.lang.Identifier;
 public enum PlayerUpgrade implements Identifier
 {
     ArrowDamage,
+    AdvancedArrowDamage,
+
     AxeDamage,
+    AdvancedAxeDamage,
+
     CannonDamage,
+    AdvancedCannonDamage,
+
+    Armour,
+    AdvancedArmour,
+
     SwordDamage,
+    AdvancedSwordDamage,
+
     WoodProduction
 }

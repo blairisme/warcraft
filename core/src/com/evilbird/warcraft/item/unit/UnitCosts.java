@@ -36,6 +36,13 @@ public class UnitCosts
     private UnitCosts() {
     }
 
+    public static float buildTime(PlayerUpgrade upgrade) {
+        switch (upgrade) {
+            case ArrowDamage: return 20;
+            default: return 0;
+        }
+    }
+
     public static float buildTime(UnitType type) {
         if (type.isHuman()) {
             if (type.isBuilding()) {

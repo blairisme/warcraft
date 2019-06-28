@@ -13,6 +13,7 @@ import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
 
 import static com.evilbird.warcraft.item.unit.UnitFaction.Human;
+import static com.evilbird.warcraft.item.unit.UnitFaction.Neutral;
 import static com.evilbird.warcraft.item.unit.UnitFaction.Orc;
 
 /**
@@ -127,10 +128,10 @@ public enum UnitType implements ItemType
             return Human;
         }
         if (isBetween(AltarOfStorms, Zuljin)) {
-            return UnitFaction.Orc;
+            return Orc;
         }
         if (isBetween(CircleOfPower, OilPatch)) {
-            return UnitFaction.Neutral;
+            return Neutral;
         }
         throw new UnsupportedOperationException();
     }

@@ -17,6 +17,7 @@ import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
 import com.evilbird.warcraft.item.projectile.Projectile;
 import com.evilbird.warcraft.item.projectile.ProjectileType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -25,6 +26,9 @@ import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 
 import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
+import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.AdvancedArrowDamage;
+import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.AdvancedAxeDamage;
+import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.AdvancedCannonDamage;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.ArrowDamage;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.AxeDamage;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.CannonDamage;
@@ -196,10 +200,17 @@ public class RangedAttack extends BasicAction
 
     private int getAttackUpgrade() {
         switch ((ProjectileType)projectile.getType()) {
-            case Arrow: return player.getUpgrade(ArrowDamage);
-            case Axe: return player.getUpgrade(AxeDamage);
-            case Cannon: return player.getUpgrade(CannonDamage);
+            case Arrow: return getAttackUpgrade(ArrowDamage, AdvancedArrowDamage);
+            case Axe: return getAttackUpgrade(AxeDamage, AdvancedAxeDamage);
+            case Cannon: return getAttackUpgrade(CannonDamage, AdvancedCannonDamage);
             default: return 0;
         }
+    }
+
+    private int getAttackUpgrade(PlayerUpgrade basicUpgrade, PlayerUpgrade advancedUpgrade) {
+        int upgrade = 0;
+        upgrade += player.hasUpgrade(basicUpgrade) ? 2 : 0;
+        upgrade += player.hasUpgrade(advancedUpgrade) ? 2 : 0;
+        return upgrade;
     }
 }

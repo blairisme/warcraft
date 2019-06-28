@@ -14,7 +14,7 @@ import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.test.testcase.ActionFactoryTestCase;
 import com.evilbird.test.utils.MockInjectedPool;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.produce.ProduceActions;
+import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.action.produce.ProduceFactory;
 import com.evilbird.warcraft.action.produce.ProduceUnit;
 import com.evilbird.warcraft.action.produce.ProduceUnitCancel;
@@ -39,6 +39,6 @@ public class ProduceFactoryTest extends ActionFactoryTestCase
 
     @Override
     protected ActionIdentifier[] getIdentifiers() {
-        return ProduceActions.values();
+        return ProduceUnitActions.values();
     }
 }

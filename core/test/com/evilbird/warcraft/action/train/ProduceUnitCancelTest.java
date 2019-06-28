@@ -15,7 +15,7 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.action.produce.ProduceActions;
+import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.action.produce.ProduceUnitCancel;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.mockito.Mockito;
@@ -30,13 +30,13 @@ public class ProduceUnitCancelTest extends ActionTestCase
     @Override
     protected Action newAction() {
         ProduceUnitCancel action = new ProduceUnitCancel(Mockito.mock(EventQueue.class));
-        action.setIdentifier(ProduceActions.TrainFootmanCancel);
+        action.setIdentifier(ProduceUnitActions.TrainFootmanCancel);
         return action;
     }
 
     @Override
     protected Enum newIdentifier() {
-        return ProduceActions.TrainFootmanCancel;
+        return ProduceUnitActions.TrainFootmanCancel;
     }
 
     @Override

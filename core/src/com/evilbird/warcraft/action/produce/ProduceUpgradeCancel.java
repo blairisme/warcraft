@@ -17,8 +17,8 @@ import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
 import javax.inject.Inject;
 
 import static com.evilbird.warcraft.action.common.transfer.TransferAction.deposit;
+import static com.evilbird.warcraft.action.produce.ProduceAction.stopProducing;
 import static com.evilbird.warcraft.action.produce.ProduceEvents.onProductionCancelled;
-import static com.evilbird.warcraft.action.produce.ProductionValues.getUpgrade;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isProducing;
 import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
 
@@ -28,7 +28,7 @@ import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
  *
  * @author Blair Butterworth
  */
-public class ProduceUpgradeCancel extends ScenarioAction<ProduceActions>
+public class ProduceUpgradeCancel extends ScenarioAction<ProduceUpgradeActions>
 {
     private transient Events events;
 
@@ -46,14 +46,14 @@ public class ProduceUpgradeCancel extends ScenarioAction<ProduceActions>
     }
 
     @Override
-    protected void steps(ProduceActions action) {
+    protected void steps(ProduceUpgradeActions action) {
         scenario(action);
-        steps(getUpgrade(action));
+        steps(action.getProduct());
     }
 
     private void steps(PlayerUpgrade upgrade) {
         given(isProducing());
-        then(ProduceAction.stopProducing());
+        then(stopProducing());
         then(deposit(cost(upgrade), events));
         then(onProductionCancelled(events));
     }

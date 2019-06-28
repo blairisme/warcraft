@@ -18,6 +18,9 @@ import com.evilbird.engine.item.Item;
  */
 public interface Destroyable extends Item
 {
+    /**
+     * Returns how much damage the item’s armor absorbs with each attack.
+     */
     int getDefence();
 
     float getHealth();

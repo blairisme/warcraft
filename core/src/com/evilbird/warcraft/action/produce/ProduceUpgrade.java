@@ -22,10 +22,8 @@ import static com.evilbird.warcraft.action.common.upgrade.UpgradeAction.applyUpg
 import static com.evilbird.warcraft.action.produce.ProduceAction.startProducing;
 import static com.evilbird.warcraft.action.produce.ProduceEvents.onProductionCompleted;
 import static com.evilbird.warcraft.action.produce.ProduceEvents.onProductionStarted;
-import static com.evilbird.warcraft.action.produce.ProductionTimes.productionTime;
-import static com.evilbird.warcraft.action.produce.ProductionValues.getUpgrade;
-import static com.evilbird.warcraft.action.produce.ProductionValues.getUpgradeValue;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.item.unit.UnitCosts.buildTime;
 import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
 
 /**
@@ -34,7 +32,7 @@ import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
  *
  * @author Blair Butterworth
  */
-public class ProduceUpgrade extends ScenarioAction<ProduceActions>
+public class ProduceUpgrade extends ScenarioAction<ProduceUpgradeActions>
 {
     private transient Events events;
 
@@ -52,24 +50,24 @@ public class ProduceUpgrade extends ScenarioAction<ProduceActions>
     }
 
     @Override
-    protected void steps(ProduceActions action) {
+    protected void steps(ProduceUpgradeActions action) {
         scenario(action);
-        steps(getUpgrade(action), getUpgradeValue(action));
+        steps(action.getProduct());
     }
 
-    private void steps(PlayerUpgrade upgrade, int value) {
+    private void steps(PlayerUpgrade upgrade) {
         given(isAlive());
         then(purchase(cost(upgrade), events));
         then(onProductionStarted(events));
-        then(startProducing(startTime(upgrade), productionTime(upgrade)));
-        then(applyUpgrade(upgrade, value, events));
+        then(startProducing(startTime(upgrade), buildTime(upgrade)));
+        then(applyUpgrade(upgrade, events));
         then(onProductionCompleted(events));
     }
 
     private float startTime(PlayerUpgrade upgrade) {
         Building building = (Building)getItem();
         if (building.isProducing()) {
-            return building.getProductionProgress() * productionTime(upgrade);
+            return building.getProductionProgress() * buildTime(upgrade);
         }
         return 0;
     }

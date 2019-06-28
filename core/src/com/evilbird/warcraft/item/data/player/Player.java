@@ -38,7 +38,7 @@ public class Player extends ItemGroup implements ResourceContainer
     private String description;
     private Map<String, Double> statistics;
     private Map<String, Double> resources;
-    private Map<String, Double> upgrades;
+    private Map<String, Boolean> upgrades;
 
     private transient Skin skin;
     private transient Music music;
@@ -80,8 +80,8 @@ public class Player extends ItemGroup implements ResourceContainer
         return statistics.getOrDefault(statistic.name(), 0d).intValue();
     }
 
-    public int getUpgrade(PlayerUpgrade upgrade) {
-        return upgrades.getOrDefault(upgrade.name(), 0d).intValue();
+    public boolean hasUpgrade(PlayerUpgrade upgrade) {
+        return upgrades.getOrDefault(upgrade.name(), Boolean.FALSE);
     }
 
     public void setDescription(String description) {
@@ -93,7 +93,6 @@ public class Player extends ItemGroup implements ResourceContainer
     }
 
     public void setResource(ResourceType type, float value) {
-        String key = type.name();
         resources.put(type.name(), (double)value);
     }
 
@@ -101,8 +100,8 @@ public class Player extends ItemGroup implements ResourceContainer
         statistics.put(statistic.name(), (double)value);
     }
 
-    public void setUpgrade(PlayerUpgrade upgrade, float value) {
-        statistics.put(upgrade.name(), (double)value);
+    public void setUpgrade(PlayerUpgrade upgrade, boolean value) {
+        upgrades.put(upgrade.name(), value);
     }
 
     public void decrementStatistic(PlayerStatistic type, float value) {

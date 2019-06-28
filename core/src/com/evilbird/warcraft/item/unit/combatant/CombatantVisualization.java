@@ -40,7 +40,7 @@ public class CombatantVisualization
     private static String getDamageUpgrade(Combatant combatant) {
         Player player = UnitOperations.getPlayer(combatant);
         PlayerUpgrade upgrade = getDamageUpgradeType(combatant);
-        int damageUpgrade = player.getUpgrade(upgrade);
+        int damageUpgrade = 0;//player.getUpgrade(upgrade);
         return damageUpgrade > 0 ? " + " + damageUpgrade : "";
     }
 
