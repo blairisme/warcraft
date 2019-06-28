@@ -55,7 +55,7 @@ public class ConstructCancel extends ScenarioSetAction
     @Override
     protected void features() {
         ConstructActions actions = (ConstructActions)getIdentifier();
-        features(actions.getUnitType());
+        features(actions.getProduct());
     }
 
     private void features(UnitType building) {

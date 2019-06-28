@@ -11,7 +11,6 @@ package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
-import com.evilbird.warcraft.item.unit.UnitType;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -35,13 +34,13 @@ public enum ProduceUpgradeActions implements ActionIdentifier
 
     private String getProductName() {
         String name = this.name();
-        name = StringUtils.removeStart(name, "Train");
+        name = StringUtils.removeStart(name, "Upgrade");
         name = StringUtils.removeEnd(name, "Cancel");
         return name;
     }
 
     private <T extends Enum<T>> T getProductValue(Class<T> type, String name) {
-        if (EnumUtils.isValidEnum(UnitType.class, name)) {
+        if (EnumUtils.isValidEnum(type, name)) {
             return Enum.valueOf(type, name);
         }
         throw new UnsupportedOperationException();

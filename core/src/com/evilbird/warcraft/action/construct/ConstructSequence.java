@@ -80,7 +80,7 @@ public class ConstructSequence extends ScenarioSetAction
     @Override
     protected void features() {
         ConstructActions action = (ConstructActions)getIdentifier();
-        features(action.getUnitType());
+        features(action.getProduct());
     }
 
     private void features(UnitType building) {

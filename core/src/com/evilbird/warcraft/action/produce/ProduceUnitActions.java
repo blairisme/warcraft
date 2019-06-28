@@ -107,7 +107,7 @@ public enum ProduceUnitActions implements ActionIdentifier
     }
 
     private <T extends Enum<T>> T getProductValue(Class<T> type, String name) {
-        if (EnumUtils.isValidEnum(UnitType.class, name)) {
+        if (EnumUtils.isValidEnum(type, name)) {
             return Enum.valueOf(type, name);
         }
         throw new UnsupportedOperationException();
