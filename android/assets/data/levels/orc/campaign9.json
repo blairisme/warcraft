@@ -1,0 +1,22 @@
+{
+  "map": {
+    "class": "Map",
+    "enum": "Orc9"
+  },
+  "introduction": {
+    "class": "Introduction",
+    "enum": "Orc9"
+  },
+  "behaviour": {
+    "class": "Behaviour",
+    "enum": "Orc9"
+  },
+  "hud": {
+    "class": "Hud",
+    "enum": "Orc"
+  },
+  "next": {
+    "class": "Campaign",
+    "enum": "Orc10"
+  }
+}

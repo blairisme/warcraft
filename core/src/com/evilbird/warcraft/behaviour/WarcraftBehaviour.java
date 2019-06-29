@@ -24,5 +24,13 @@ public enum WarcraftBehaviour implements BehaviourIdentifier
 
     Orc1,
     Orc2,
-    OrcEasy
+    OrcEasy;
+
+    public boolean isHuman() {
+        return !isOrc();
+    }
+
+    public boolean isOrc() {
+        return this.ordinal() >= Orc1.ordinal();
+    }
 }

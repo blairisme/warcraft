@@ -1,0 +1,18 @@
+{
+  "map": {
+    "class": "Map",
+    "enum": "Orc14"
+  },
+  "introduction": {
+    "class": "Introduction",
+    "enum": "Orc14"
+  },
+  "behaviour": {
+    "class": "Behaviour",
+    "enum": "Orc14"
+  },
+  "hud": {
+    "class": "Hud",
+    "enum": "Orc"
+  }
+}

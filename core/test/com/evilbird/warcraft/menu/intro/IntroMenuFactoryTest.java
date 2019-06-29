@@ -10,15 +10,12 @@
 package com.evilbird.warcraft.menu.intro;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.device.Device;
 import com.evilbird.test.testcase.GameTestCase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import static com.evilbird.test.data.device.TestDevices.newTestDevice;
 
@@ -30,9 +27,6 @@ import static com.evilbird.test.data.device.TestDevices.newTestDevice;
  */
 public class IntroMenuFactoryTest extends GameTestCase
 {
-    private static final String BUTTON = "data/textures/common/menu/button.png";
-    private static final String INTRO_BUNDLE_1 = "data/strings/human/menu/intro1";
-
     private Device device;
     private AssetManager assets;
     private IntroMenuFactory factory;
@@ -45,17 +39,10 @@ public class IntroMenuFactoryTest extends GameTestCase
     }
 
     @Test
-    public void loadTest() {
-        factory.load();
-        Mockito.verify(assets).load(BUTTON, Texture.class);
-        Mockito.verify(assets).load(INTRO_BUNDLE_1, I18NBundle.class);
-    }
-
-    @Test
     public void getTest() {
-        factory.load();
         for (IntroMenuType menuType: IntroMenuType.values()) {
             IntroMenu menu = (IntroMenu)factory.get(menuType);
+
             Assert.assertNotNull(menu);
             Assert.assertTrue(menu.getSkin().has("intro-background", Drawable.class));
         }
