@@ -9,21 +9,26 @@
 
 package com.evilbird.warcraft.behaviour.scenario.condition;
 
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 
+import static com.evilbird.engine.item.utility.ItemPredicates.withId;
+
 /**
- * Represents a {@link ScenarioCondition} that operates on the current player.
+ * Represents a {@link ScenarioCondition} that operates on a player, either the
+ * current user or an enemy combatant.
  *
  * @author Blair Butterworth
  */
 public abstract class PlayerCondition implements ScenarioCondition
 {
     protected Player player;
+    protected Identifier playerId;
 
-    public PlayerCondition() {
+    public PlayerCondition(Identifier playerId) {
+        this.playerId = playerId;
     }
 
     @Override
@@ -39,9 +44,9 @@ public abstract class PlayerCondition implements ScenarioCondition
 
     protected abstract boolean evaluate(ItemRoot state);
 
-    private void initialize(ItemRoot state) {
+    protected void initialize(ItemRoot state) {
         if (player == null) {
-            player = UnitOperations.getCorporealPlayer(state);
+            player = (Player)state.find(withId(playerId));
         }
     }
 }

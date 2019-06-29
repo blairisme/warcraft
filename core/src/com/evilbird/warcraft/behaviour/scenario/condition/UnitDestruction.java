@@ -14,29 +14,32 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
+import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.function.Predicate;
 
+import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.item.utility.ItemOperations.hasNone;
+import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 
 /**
- * Represents a {@link ScenarioCondition} that is fulfilled when all of the
- * users units have been destroyed.
+ * Represents a {@link ScenarioCondition} that is fulfilled when all of a
+ * players units of a given type have been destroyed.
  *
  * @author Blair Butterworth
  */
-public class PlayerDestruction extends PlayerCondition
+public class UnitDestruction extends PlayerCondition
 {
-    private Predicate<Item> livingUnits;
+    private Predicate<Item> unitsOfType;
 
-    public PlayerDestruction(Identifier player) {
+    public UnitDestruction(Identifier player, UnitType type) {
         super(player);
-        livingUnits = isAlive();
+        unitsOfType = both(withType(type), isAlive());
     }
 
-    public static PlayerDestruction playerDestroyed(Identifier player) {
-        return new PlayerDestruction(player);
+    public static UnitDestruction unitsDestroyed(Identifier player, UnitType type) {
+        return new UnitDestruction(player, type);
     }
 
     @Override
@@ -46,6 +49,6 @@ public class PlayerDestruction extends PlayerCondition
 
     @Override
     protected boolean evaluate(ItemRoot state) {
-        return hasNone(player, livingUnits);
+        return hasNone(player, unitsOfType);
     }
 }
