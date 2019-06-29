@@ -13,7 +13,6 @@ import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.resource.goldmine.GoldMineFactory;
 
 import javax.inject.Inject;
 
@@ -26,7 +25,8 @@ import javax.inject.Inject;
 public class ResourceFactory extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
-    public ResourceFactory(GoldMineFactory goldMineFactory) {
+    public ResourceFactory(GoldMineFactory goldMineFactory/*, OilPatchFactory oilPatchFactory*/) {
         addProvider(UnitType.GoldMine, goldMineFactory);
+        //addProvider(UnitType.OilPatch, oilPatchFactory);
     }
 }

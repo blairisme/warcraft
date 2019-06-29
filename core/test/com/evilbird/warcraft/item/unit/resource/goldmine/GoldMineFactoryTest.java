@@ -15,6 +15,7 @@ import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.testcase.FactoryTestCase;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.resource.GoldMineFactory;
 
 import java.util.Map;
 
