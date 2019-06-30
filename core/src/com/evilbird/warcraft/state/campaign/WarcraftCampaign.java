@@ -12,7 +12,6 @@ package com.evilbird.warcraft.state.campaign;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.IntroducedState;
 import com.evilbird.warcraft.menu.intro.IntroMenuType;
-import com.evilbird.warcraft.menu.main.MainMenuType;
 import com.evilbird.warcraft.state.WarcraftStateIdentifier;
 
 /**
@@ -22,33 +21,62 @@ import com.evilbird.warcraft.state.WarcraftStateIdentifier;
  */
 public enum WarcraftCampaign implements WarcraftStateIdentifier, IntroducedState
 {
-    Human1("data/levels/human/level1.json"),
-    Human2("data/levels/human/level2.json"),
-    Human3("data/levels/human/level3.json"),
-    Orc1("data/levels/orc/level1.json"),
-    Orc2("data/levels/orc/level2.json"),
-    Orc3("data/levels/orc/level3.json");
+    Human1,
+    Human2,
+    Human3,
+    Human4,
+    Human5,
+    Human6,
+    Human7,
+    Human8,
+    Human9,
+    Human10,
+    Human11,
+    Human12,
+    Human13,
+    Human14,
 
-    private String path;
+    Orc1,
+    Orc2,
+    Orc3,
+    Orc4,
+    Orc5,
+    Orc6,
+    Orc7,
+    Orc8,
+    Orc9,
+    Orc10,
+    Orc11,
+    Orc12,
+    Orc13,
+    Orc14;
 
-    WarcraftCampaign(String path) {
-        this.path = path;
-    }
-
-    public String getFilePath() {
-        return path;
-    }
+    private static final String PATH = "data/levels/%s/campaign%d.json";
+    private static final String ORC_FACTION = "orc";
+    private static final String HUMAN_FACTION = "human";
 
     @Override
     public MenuIdentifier getIntroductionMenu() {
-        switch(this) {
-            case Orc1: return IntroMenuType.Orc1;
-            case Orc2: return IntroMenuType.Orc2;
-            case Orc3: return MainMenuType.Home;
-            case Human1: return IntroMenuType.Human1;
-            case Human2: return IntroMenuType.Human2;
-            case Human3: return MainMenuType.Home;
-            default: return MainMenuType.Home;
-        }
+        return IntroMenuType.valueOf(name());
+    }
+
+    public String getFilePath() {
+        return String.format(PATH,  getFaction(), getIndex());
+    }
+
+    public String getFaction() {
+        return isHuman() ? HUMAN_FACTION : ORC_FACTION;
+    }
+
+    public int getIndex() {
+        return ordinal() >= Orc1.ordinal() ? ordinal() - Orc1.ordinal() + 1 : ordinal() + 1;
+    }
+
+    public boolean isHuman() {
+        return !isOrc();
+    }
+
+    public boolean isOrc() {
+        return this.ordinal() >= Orc1.ordinal();
     }
 }

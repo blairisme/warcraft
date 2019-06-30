@@ -64,7 +64,11 @@ public enum UnitType implements ItemType
     Transport,
 
     /* Human - Special Combatant */
+    AlteracTraitor,
     ElvenArcherCaptive,
+    MageCaptive,
+    PeasantCaptive,
+    UtherLightbringer,
 
     /* Orc - Building */
     AltarOfStorms,
@@ -107,11 +111,13 @@ public enum UnitType implements ItemType
     TrollTanker,
 
     /* Orc - Special Combatant */
+    Chogall,
     TrollAxethrowerCaptive,
     Zuljin,
 
     /* Neutral - Building */
     CircleOfPower,
+    DarkPortal,
     Runestone,
 
     /* Neutral - Combatant */
@@ -124,7 +130,7 @@ public enum UnitType implements ItemType
     OilPatch;
 
     public UnitFaction getFaction() {
-        if (isBetween(Barracks, ElvenArcherCaptive)) {
+        if (isBetween(Barracks, UtherLightbringer)) {
             return Human;
         }
         if (isBetween(AltarOfStorms, Zuljin)) {
@@ -141,7 +147,7 @@ public enum UnitType implements ItemType
     }
 
     public boolean isCombatant() {
-        return isBetween(Ballista, ElvenArcherCaptive) || isBetween(Catapult, Zuljin);
+        return isBetween(Ballista, UtherLightbringer) || isBetween(Catapult, Zuljin);
     }
 
     public boolean isHuman() {

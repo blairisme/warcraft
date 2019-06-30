@@ -9,9 +9,12 @@
 
 package com.evilbird.engine.common.function;
 
+import java.util.Collection;
 import java.util.Objects;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
+
+import static java.util.Arrays.asList;
 
 /**
  * Instances of this class contain common {@link Predicate Predicates}.
@@ -49,5 +52,17 @@ public class Predicates
 
     public static <T> Predicate<T> not(Predicate<T> predicate) {
         return predicate.negate();
+    }
+
+    @SafeVarargs
+    public static <T> Predicate<T> all(Predicate<T> ... conditions) {
+        Collection<Predicate<T>> conditionList = asList(conditions);
+        return (value) -> conditionList.stream().allMatch(predicate -> predicate.test(value));
+    }
+
+    @SafeVarargs
+    public static <X, Y> BiPredicate<X, Y> all(BiPredicate<X, Y> ... conditions) {
+        Collection<BiPredicate<X, Y>> conditionList = asList(conditions);
+        return (x, y) -> conditionList.stream().allMatch(predicate -> predicate.test(x, y));
     }
 }

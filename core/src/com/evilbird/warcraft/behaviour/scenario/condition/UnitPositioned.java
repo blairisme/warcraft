@@ -20,6 +20,7 @@ import java.util.Collection;
 
 import static com.evilbird.engine.item.utility.ItemOperations.overlaps;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
+import static com.evilbird.warcraft.item.data.player.PlayerIds.Player1;
 
 /**
  * Represents a {@link ScenarioCondition} that is fulfilled when an item of a
@@ -36,13 +37,18 @@ public class UnitPositioned extends PlayerCondition
     private Collection<Item> subjectCache;
     private Collection<Item> destinationCache;
 
-    public UnitPositioned(Identifier subjectType, Identifier destinationType) {
+    public UnitPositioned(Identifier subjectType, Identifier destinationType, int count) {
+        super(Player1);
         this.subjectType = subjectType;
         this.destinationType = destinationType;
     }
 
-    public static UnitPositioned unitRescued(ItemType subjectType, ItemType destinationType) {
-        return new UnitPositioned(subjectType, destinationType);
+    public static UnitPositioned unitRepositionedTo(ItemType subject, ItemType destination) {
+        return unitRepositionedTo(subject, destination);
+    }
+
+    public static UnitPositioned unitRepositionedTo(ItemType subject, ItemType destination, int count) {
+        return new UnitPositioned(subject, destination, count);
     }
 
     @Override

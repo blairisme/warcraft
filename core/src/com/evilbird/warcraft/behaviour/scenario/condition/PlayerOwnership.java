@@ -24,6 +24,7 @@ import static com.evilbird.engine.item.utility.ItemOperations.hasMinimum;
 import static com.evilbird.engine.item.utility.ItemPredicates.withId;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.item.data.player.PlayerIds.Player1;
 
 /**
  * Represents a {@link ScenarioCondition} that is fulfilled when the user owns
@@ -37,6 +38,7 @@ public class PlayerOwnership extends PlayerCondition
     private int count;
 
     public PlayerOwnership(Predicate<Item> condition, int count) {
+        super(Player1);
         this.condition = condition;
         this.count = count;
     }

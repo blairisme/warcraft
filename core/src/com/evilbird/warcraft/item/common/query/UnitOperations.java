@@ -86,11 +86,6 @@ public class UnitOperations
         return (Player)findAncestor(item, withClazz(Player.class));
     }
 
-    public static Player getCorporealPlayer(Item worldItem) {
-        ItemRoot itemRoot = worldItem.getRoot();
-        return getCorporealPlayer(itemRoot);
-    }
-
     public static Player getCorporealPlayer(ItemRoot itemRoot) {
         Predicate<Item> query = both(UnitPredicates.isPlayer(), UnitPredicates.isCorporeal());
         return (Player)itemRoot.find(query);

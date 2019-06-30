@@ -1,0 +1,22 @@
+{
+  "map": {
+    "class": "Map",
+    "enum": "Human7"
+  },
+  "introduction": {
+    "class": "Introduction",
+    "enum": "Human7"
+  },
+  "behaviour": {
+    "class": "Behaviour",
+    "enum": "Human7"
+  },
+  "hud": {
+    "class": "Hud",
+    "enum": "Human"
+  },
+  "next": {
+    "class": "Campaign",
+    "enum": "Human8"
+  }
+}

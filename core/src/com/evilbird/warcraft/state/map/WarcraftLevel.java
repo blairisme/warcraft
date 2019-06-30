@@ -21,18 +21,57 @@ import com.evilbird.engine.common.serialization.SerializedType;
 @SerializedType("Scenario")
 public enum WarcraftLevel implements Identifier
 {
-    Human1("data/levels/human/level1.tmx"),
-    Human2("data/levels/human/level2.tmx"),
-    Orc1("data/levels/orc/level1.tmx"),
-    Orc2("data/levels/orc/2.tmx");
+    Human1,
+    Human2,
+    Human3,
+    Human4,
+    Human5,
+    Human6,
+    Human7,
+    Human8,
+    Human9,
+    Human10,
+    Human11,
+    Human12,
+    Human13,
+    Human14,
 
-    private String path;
+    Orc1,
+    Orc2,
+    Orc3,
+    Orc4,
+    Orc5,
+    Orc6,
+    Orc7,
+    Orc8,
+    Orc9,
+    Orc10,
+    Orc11,
+    Orc12,
+    Orc13,
+    Orc14;
 
-    WarcraftLevel(String path) {
-        this.path = path;
-    }
+    private static final String PATH = "data/levels/%s/campaign%d.tmx";
+    private static final String ORC_FACTION = "orc";
+    private static final String HUMAN_FACTION = "human";
 
     public String getFilePath() {
-        return path;
+        return String.format(PATH,  getFaction(), getIndex());
+    }
+
+    public String getFaction() {
+        return isHuman() ? HUMAN_FACTION : ORC_FACTION;
+    }
+
+    public int getIndex() {
+        return ordinal() >= Orc1.ordinal() ? ordinal() - Orc1.ordinal() + 1 : ordinal() + 1;
+    }
+
+    public boolean isHuman() {
+        return !isOrc();
+    }
+
+    public boolean isOrc() {
+        return this.ordinal() >= Orc1.ordinal();
     }
 }
