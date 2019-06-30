@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.unit.resource;
+package com.evilbird.warcraft.item.unit.resource.neutral;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.GridPoint2;
@@ -16,6 +16,9 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.resource.Resource;
+import com.evilbird.warcraft.item.unit.resource.ResourceAssets;
+import com.evilbird.warcraft.item.unit.resource.ResourceBuilder;
 
 import javax.inject.Inject;
 
