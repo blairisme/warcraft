@@ -26,8 +26,18 @@ import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land
 import static com.evilbird.warcraft.item.unit.UnitType.Peon;
 
 /**
- * Instances of this factory create Peons, the land based gathering unit
- * available to the human faction.
+ * <p>
+ *   Instances of this factory create Peons, the land based gathering unit
+ *   available to the Orc faction.
+ * </p>
+ * <p>
+ *   The label of Peon denotes the lowest station amongst those in the Orcish
+ *   Horde. Inferior in all skills of import, these dogs are relegated to
+ *   menial tasks such as harvesting lumber and mining gold. Their labor is
+ *   also required for the construction and maintenance of buildings necessary
+ *   to support the vast undertakings of the Horde. Downtrodden, the Orc Peons
+ *   slave thanklessly to please their overseers.
+ * </p>
  *
  * @author Blair Butterworth
  */
@@ -56,7 +66,7 @@ public class PeonFactory implements AssetProvider<Item>
 
     @Override
     public Item get() {
-        Gatherer result = builder.build();
+        Gatherer result = builder.newLandGatherer();
         result.setDefence(0);
         result.setDamageMinimum(1);
         result.setDamageMaximum(5);

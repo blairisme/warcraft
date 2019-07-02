@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="38">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="45">
  <tileset firstgid="1" name="terrain" tilewidth="32" tileheight="32" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/winter.png" width="512" height="768"/>
  </tileset>
@@ -56,6 +56,9 @@
   <tileoffset x="-16" y="16"/>
   <image source="../../textures/orc/unit/grunt.png" width="576" height="864"/>
  </tileset>
+ <tileset firstgid="922" name="Seal" tilewidth="32" tileheight="32" tilecount="16" columns="8">
+  <image source="../../textures/neutral/unit/seal.png" width="256" height="64"/>
+ </tileset>
  <layer id="1" name="Map" width="64" height="64">
   <properties>
    <property name="ZIndex" type="int" value="0"/>
@@ -94,6 +97,13 @@
   <object id="18" name="OilPatch5" type="OilPatch" gid="388" x="160" y="1856" width="96" height="96"/>
   <object id="8" name="GoldMine1" type="GoldMine" gid="386" x="1056" y="160" width="96" height="96"/>
   <object id="9" name="GoldMine2" type="GoldMine" gid="386" x="0" y="608" width="96" height="96"/>
+  <object id="38" name="Seal1" type="Seal" gid="922" x="736" y="672" width="32" height="32"/>
+  <object id="39" name="Seal2" type="Seal" gid="922" x="768" y="640" width="32" height="32"/>
+  <object id="40" name="Seal3" type="Seal" gid="922" x="704" y="608" width="32" height="32"/>
+  <object id="41" name="Seal4" type="Seal" gid="922" x="640" y="704" width="32" height="32"/>
+  <object id="42" name="Seal5" type="Seal" gid="922" x="1312" y="512" width="32" height="32"/>
+  <object id="43" name="Seal6" type="Seal" gid="922" x="1280" y="544" width="32" height="32"/>
+  <object id="44" name="Seal7" type="Seal" gid="922" x="1312" y="576" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="5" name="Player2">
   <properties>

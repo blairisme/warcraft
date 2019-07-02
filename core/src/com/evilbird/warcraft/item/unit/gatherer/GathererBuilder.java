@@ -39,8 +39,16 @@ public class GathererBuilder
         this.assets = assets;
     }
 
-    public Gatherer build() {
-        Gatherer result = new Gatherer(getSkin());
+    public Gatherer newLandGatherer() {
+        return newGatherer(getLandGathererSkin());
+    }
+
+    public Gatherer newSeaGatherer() {
+        return newGatherer(getSeaGathererSkin());
+    }
+
+    public Gatherer newGatherer(Skin skin) {
+        Gatherer result = new Gatherer(skin);
         result.setAnimation(UnitAnimation.Idle);
         result.setSelected(false);
         result.setSelectable(true);
@@ -50,29 +58,36 @@ public class GathererBuilder
         return result;
     }
 
-    private Skin getSkin() {
+    private Skin getLandGathererSkin() {
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(), AnimatedItemStyle.class);
+        skin.add("default", getAnimationStyle(getLandAnimations()), AnimatedItemStyle.class);
         skin.add("default", getUnitStyle(), UnitStyle.class);
         return skin;
     }
 
-    private AnimatedItemStyle getAnimationStyle() {
+    private Skin getSeaGathererSkin() {
+        Skin skin = new Skin();
+        skin.add("default", getAnimationStyle(getSeaAnimations()), AnimatedItemStyle.class);
+        skin.add("default", getUnitStyle(), UnitStyle.class);
+        return skin;
+    }
+
+    private AnimatedItemStyle getAnimationStyle(Map<Identifier, Animation> animations) {
         AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
-        animatedItemStyle.animations = getAnimations();
+        animatedItemStyle.animations = animations;
         animatedItemStyle.sounds = getSounds();
         return animatedItemStyle;
     }
 
-    private Map<Identifier, Animation> getAnimations() {
+    private Map<Identifier, Animation> getLandAnimations() {
         Texture general = assets.getBaseTexture();
         Texture moveGold = assets.getMoveWithGoldTexture();
         Texture moveWood = assets.getMoveWithWoodTexture();
         Texture decompose = assets.getDecomposeTexture();
-        return getAnimations(general, moveGold, moveWood, decompose);
+        return getLandAnimations(general, moveGold, moveWood, decompose);
     }
 
-    private Map<Identifier, Animation> getAnimations(Texture general, Texture gold, Texture wood, Texture decompose) {
+    private Map<Identifier, Animation> getLandAnimations(Texture general, Texture gold, Texture wood, Texture decompose) {
         AnimationSetBuilder builder = new AnimationSetBuilder();
 
         builder.set(UnitAnimation.IdleBasic, AnimationLayouts.idleSchema(), general);
@@ -89,6 +104,24 @@ public class GathererBuilder
         builder.set(UnitAnimation.Death, AnimationLayouts.deathSchema(), general);
         builder.set(UnitAnimation.Decompose, AnimationLayouts.decomposeSchema(), decompose);
         builder.set(UnitAnimation.GatherWood, AnimationLayouts.gatherWoodSchema(), general);
+
+        return builder.build();
+    }
+
+    private Map<Identifier, Animation> getSeaAnimations() {
+        Texture general = assets.getBaseTexture();
+        Texture decompose = assets.getDecomposeTexture();
+        return getSeaAnimations(general, decompose);
+    }
+
+    private Map<Identifier, Animation> getSeaAnimations(Texture general, Texture decompose) {
+        AnimationSetBuilder builder = new AnimationSetBuilder();
+
+        builder.set(UnitAnimation.Idle, AnimationLayouts.idleSchema(88, 88), general);
+        builder.set(UnitAnimation.Move, AnimationLayouts.idleSchema(88, 88), general);
+        builder.set(UnitAnimation.Attack, AnimationLayouts.idleSchema(88, 88), general);
+        builder.set(UnitAnimation.Death, AnimationLayouts.boatDeathSchema(), general);
+        builder.set(UnitAnimation.Decompose, AnimationLayouts.boatDecomposeSchema(), decompose);
 
         return builder.build();
     }

@@ -26,8 +26,16 @@ import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 
 /**
+ * <p>
  * Instances of this factory create footman, Human entry level melee
  * {@link Combatant Combatants}.
+ *</p>
+ * <p>
+ * Footmen are the initial line of defense against the Horde. Arrayed in
+ * hardened steel armor, they courageously wield broadsword and shield in
+ * hand-to-hand combat against their vile Orcish foes. The valorous Footmen
+ * are ever prepared to heed the call to arms.
+ * </p>
  *
  * @author Blair Butterworth
  */

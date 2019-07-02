@@ -25,8 +25,19 @@ import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.unit.UnitType.OilRefinery;
 
 /**
+ * <p>
  * Instances of this class create Orcish Oil Refinery, a building that provides
  * access to advanced ships.
+ * </p>
+ * <p>
+ * These large steel-shod buildings are designed to refine raw oil for use in
+ * the construction and maintenance of the Alliance fleets as well as the
+ * creation of unconventional war machines. Like the Shipyard, a Refinery is
+ * built along the coastline so that Tankers can deliver their cargo directly
+ * to its doors. A Refinery allows oil to be processed with far greater
+ * efficiency, increasing the amount of usable oil garnered from every load of
+ * crude.
+ * </p>
  *
  * @author Blair Butterworth
  */

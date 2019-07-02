@@ -121,7 +121,7 @@ public enum UnitType implements ItemType
     Runestone,
 
     /* Neutral - Combatant */
-    Pig,
+    Boar,
     Seal,
     Sheep,
 

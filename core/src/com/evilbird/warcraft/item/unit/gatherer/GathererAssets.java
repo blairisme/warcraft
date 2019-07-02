@@ -73,11 +73,11 @@ public class GathererAssets
     }
 
     public SoundEffect getSelectedSound() {
-        return newSoundEffect(assets, manifest.getSelectedSoundEffectPath(), MP3, 4);
+        return newSoundEffect(assets, manifest.getSelectedSoundEffectPath(), MP3, 3);//land gatherer has 4
     }
 
     public SoundEffect getAcknowledgeSound() {
-        return newSoundEffect(assets, manifest.getAcknowledgeSoundEffectPath(), MP3, 4);
+        return newSoundEffect(assets, manifest.getAcknowledgeSoundEffectPath(), MP3, 1);//land gatherer has 4
     }
 
     public SoundEffect getAttackSound() {
@@ -113,14 +113,21 @@ public class GathererAssets
         assets.load(manifest.getBaseTexturePath(), Texture.class);
         assets.load(manifest.getIconTexturePath(), Texture.class);
         assets.load(manifest.getDecomposeTexturePath(), Texture.class);
-        assets.load(manifest.getMoveWithGoldTexturePath(), Texture.class);
-        assets.load(manifest.getMoveWithWoodTexturePath(), Texture.class);
+
+        if (manifest.getMoveWithGoldTexturePath() != null) {
+            assets.load(manifest.getMoveWithGoldTexturePath(), Texture.class);
+        }
+        if (manifest.getMoveWithWoodTexturePath() != null) {
+            assets.load(manifest.getMoveWithWoodTexturePath(), Texture.class);
+        }
     }
 
     private void loadSounds() {
-        loadSoundSet(assets, manifest.getChoppingSoundEffectPath(), MP3, 4);
-        loadSoundSet(assets, manifest.getSelectedSoundEffectPath(), MP3, 4);
-        loadSoundSet(assets, manifest.getAcknowledgeSoundEffectPath(), MP3, 4);
+        if (manifest.getChoppingSoundEffectPath() != null) {
+            loadSoundSet(assets, manifest.getChoppingSoundEffectPath(), MP3, 4);
+        }
+        loadSoundSet(assets, manifest.getSelectedSoundEffectPath(), MP3, 3);//land gatherer has 4
+        loadSoundSet(assets, manifest.getAcknowledgeSoundEffectPath(), MP3, 1); //land gatherer has 4
 
         assets.load(manifest.getAttackSoundEffectPath(), Sound.class);
         assets.load(manifest.getCompleteSoundEffectPath(), Sound.class);

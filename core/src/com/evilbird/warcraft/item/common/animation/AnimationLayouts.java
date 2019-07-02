@@ -122,6 +122,12 @@ public class AnimationLayouts
         return new AnimationSchema(frames, 0.5f, false);
     }
 
+    public static AnimationSchema critterDeathSchema() {
+        List<List<Rectangle>> regions = getRegions(1, 1, 0, 32, 32, 32);
+        Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
+        return new AnimationSchema(frames, 0.5f, false);
+    }
+
     public static AnimationSchema decomposeSchema() {
         List<List<Rectangle>> regions = getRegions(8, 6, 0, 0, 72, 72);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);

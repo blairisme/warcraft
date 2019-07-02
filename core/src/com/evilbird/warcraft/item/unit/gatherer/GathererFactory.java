@@ -13,8 +13,10 @@ import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.gatherer.human.OilTankerFactory;
 import com.evilbird.warcraft.item.unit.gatherer.human.PeasantFactory;
 import com.evilbird.warcraft.item.unit.gatherer.orc.PeonFactory;
+import com.evilbird.warcraft.item.unit.gatherer.orc.TrollTankerFactory;
 
 import javax.inject.Inject;
 
@@ -27,8 +29,15 @@ import javax.inject.Inject;
 public class GathererFactory extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
-    public GathererFactory(PeasantFactory peasantFactory, PeonFactory peonFactory) {
+    public GathererFactory(
+        OilTankerFactory oilTankerFactory,
+        PeasantFactory peasantFactory,
+        PeonFactory peonFactory,
+        TrollTankerFactory trollTankerFactory)
+    {
+        addProvider(UnitType.OilTanker, oilTankerFactory);
         addProvider(UnitType.Peasant, peasantFactory);
         addProvider(UnitType.Peon, peonFactory);
+        addProvider(UnitType.TrollTanker, trollTankerFactory);
     }
 }

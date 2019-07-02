@@ -13,6 +13,9 @@ import com.evilbird.engine.common.text.CaseUtils;
 import com.evilbird.warcraft.item.unit.UnitFaction;
 import com.evilbird.warcraft.item.unit.UnitType;
 
+import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
+import static com.evilbird.warcraft.item.unit.UnitType.Peon;
+
 /**
  * Specifies the paths of assets required to display a {@link Gatherer}, as
  * well as to play any sound effects used by it.
@@ -37,27 +40,41 @@ public class GathererAssetManifest
 
     public GathererAssetManifest(UnitType type) {
         String name = getName(type);
-        setTextures(name, type);
-        setSounds(name, type);
+        boolean landBased = isLandGatherer(type);
+
+        setTextures(name, type, landBased);
+        setSounds(name, type, landBased);
     }
 
-    private void setTextures(String name, UnitType type) {
+    private void setTextures(String name, UnitType type, boolean landBased) {
         String faction = getFaction(type);
         base = "data/textures/" + faction + "/unit/" + name + ".png";
         icons = "data/textures/common/menu/icons.png";
         decompose = "data/textures/common/unit/decompose.png";
-        moveWithGold = "data/textures/" + faction + "/unit/" + name + "_with_gold.png";
-        moveWithWood = "data/textures/" + faction + "/unit/" + name + "_with_wood.png";
+
+        if (landBased) {
+            moveWithGold = "data/textures/" + faction + "/unit/" + name + "_with_gold.png";
+            moveWithWood = "data/textures/" + faction + "/unit/" + name + "_with_wood.png";
+        }
     }
 
-    private void setSounds(String name, UnitType type) {
-        setCommonSounds();
+    private void setSounds(String name, UnitType type, boolean landBased) {
         setFactionSounds(name, type.getFaction());
+        if (landBased) {
+            setLandGathererSounds();
+        } else {
+            setSeaGathererSounds();
+        }
     }
 
-    private void setCommonSounds() {
+    private void setLandGathererSounds() {
         chopping = "data/sounds/common/unit/chopping/";
         attack = "data/sounds/common/unit/attack/fist/1.mp3";
+        construct = "data/sounds/common/unit/construct/1.mp3";
+    }
+
+    private void setSeaGathererSounds() {
+        attack = "data/sounds/common/unit/attack/siege/1.mp3";
         construct = "data/sounds/common/unit/construct/1.mp3";
     }
 
@@ -68,7 +85,6 @@ public class GathererAssetManifest
         complete = "data/sounds/" + faction + "/unit/" + name + "/complete/1.mp3";
         ready = "data/sounds/" + faction + "/unit/" + name + "/ready/1.mp3";
     }
-
 
     public String getBaseTexturePath() {
         return base;
@@ -128,5 +144,9 @@ public class GathererAssetManifest
 
     private String getFaction(UnitType unitType) {
         return CaseUtils.toSnakeCase(unitType.getFaction().name());
+    }
+
+    private boolean isLandGatherer(UnitType type) {
+        return type == Peasant || type == Peon;
     }
 }
