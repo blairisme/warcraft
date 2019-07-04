@@ -98,6 +98,7 @@ import static com.evilbird.warcraft.item.layer.LayerType.Sea;
 import static com.evilbird.warcraft.item.layer.LayerType.Tree;
 import static com.evilbird.warcraft.item.layer.LayerType.WallSection;
 import static com.evilbird.warcraft.item.ui.hud.HudControl.MenuPane;
+import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BasicArrowUpgradeButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildAdvancedButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildBarracksButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildCancelButton;
@@ -109,7 +110,6 @@ import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.StopButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.TrainFootmanButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.TrainPeasantButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.UpgradeArrowDamageButton;
 import static com.evilbird.warcraft.item.ui.hud.control.status.selection.SelectionButtonType.FocusButton;
 import static com.evilbird.warcraft.item.ui.hud.control.status.selection.SelectionButtonType.UnselectButton;
 import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.BarracksPlaceholder;
@@ -301,7 +301,8 @@ public class Interactions
     private void productionInteractions() {
         productionInteraction(TrainFootman, TrainFootmanCancel, TrainFootmanButton, Barracks);
         productionInteraction(TrainPeasant, TrainPeasantCancel, TrainPeasantButton, TownHall);
-        productionInteraction(UpgradeArrowDamage, UpgradeArrowDamageCancel, UpgradeArrowDamageButton, LumberMill);
+
+        productionInteraction(UpgradeArrowDamage, UpgradeArrowDamageCancel, BasicArrowUpgradeButton, LumberMill);
     }
 
     private void productionInteraction(

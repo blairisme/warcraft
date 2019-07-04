@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.ui.hud.control.actions.buttons.human;
+package com.evilbird.warcraft.item.ui.hud.control.actions.buttons.orc;
 
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
@@ -19,36 +19,36 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasResources;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildBarracksButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildCancelButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildFarmButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildLumberMillButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildTownHallButton;
-import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
-import static com.evilbird.warcraft.item.unit.UnitType.Farm;
-import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
-import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
+import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildEncampmentButton;
+import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildGreatHallButton;
+import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildPigFarmButton;
+import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildTrollLumberMillButton;
+import static com.evilbird.warcraft.item.unit.UnitType.Encampment;
+import static com.evilbird.warcraft.item.unit.UnitType.GreatHall;
+import static com.evilbird.warcraft.item.unit.UnitType.PigFarm;
+import static com.evilbird.warcraft.item.unit.UnitType.TrollLumberMill;
 import static java.util.Arrays.asList;
 
 /**
- * Controls the buttons shown when a Peasant is selected and the user navigates
+ * Controls the buttons shown when a Peon is selected and the user navigates
  * to the simple building menu.
  *
  * @author Blair Butterworth
  */
-public class PeasantSimpleBuildings implements ButtonController
+public class PeonSimpleBuildings implements ButtonController
 {
     @Override
     public List<ActionButtonType> getButtons(Item item) {
         Player player = UnitOperations.getPlayer(item);
         switch (player.getLevel()) {
             case 1: return asList(
-                    BuildFarmButton, BuildBarracksButton, BuildTownHallButton,
+                    BuildPigFarmButton, BuildEncampmentButton, BuildGreatHallButton,
                     BuildCancelButton);
             case 2:
             case 3: return asList(
-                    BuildFarmButton, BuildBarracksButton, BuildTownHallButton,
-                    BuildLumberMillButton, BuildCancelButton);
+                    BuildPigFarmButton, BuildEncampmentButton, BuildGreatHallButton,
+                    BuildTrollLumberMillButton, BuildCancelButton);
             default: return Collections.emptyList();
         }
     }
@@ -58,10 +58,10 @@ public class PeasantSimpleBuildings implements ButtonController
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
             case BuildCancelButton: return true;
-            case BuildFarmButton: return hasResources(player, Farm);
-            case BuildBarracksButton: return hasResources(player, Barracks);
-            case BuildLumberMillButton: return hasResources(player, LumberMill);
-            case BuildTownHallButton: return hasResources(player, TownHall);
+            case BuildEncampmentButton: return hasResources(player, Encampment);
+            case BuildGreatHallButton: return hasResources(player, GreatHall);
+            case BuildPigFarmButton: return hasResources(player, PigFarm);
+            case BuildTrollLumberMillButton: return hasResources(player, TrollLumberMill);
             default: return false;
         }
     }

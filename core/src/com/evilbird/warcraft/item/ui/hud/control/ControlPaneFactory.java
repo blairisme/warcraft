@@ -234,10 +234,9 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
             case BuildFarmButton: return getDrawable(assets, ICONS, 138, 266, 46, 38);
             case BuildLumberMillButton: return getDrawable(assets, ICONS, 184, 304, 46, 38);
             case BuildTownHallButton: return getDrawable(assets, ICONS, 0, 304, 46, 38);
-            case BuildStablesButton: return getDrawable(assets, ICONS, 46, 418, 46, 38);
             case TrainFootmanButton: return getDrawable(assets, ICONS, 92, 0, 46, 38);
             case TrainPeasantButton: return getDrawable(assets, ICONS, 0, 0, 46, 38);
-            case UpgradeArrowDamageButton: return getDrawable(assets, ICONS, 184, 912, 46, 38);
+            case BasicArrowUpgradeButton: return getDrawable(assets, ICONS, 184, 912, 46, 38);
             //default: throw new UnsupportedOperationException();
             default: return null;
         }
@@ -268,10 +267,9 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
             case BuildFarmButton: return getDrawable(assets, ICONS_DISABLED, 138, 266, 46, 38);
             case BuildLumberMillButton: return getDrawable(assets, ICONS_DISABLED, 184, 304, 46, 38);
             case BuildTownHallButton: return getDrawable(assets, ICONS_DISABLED, 0, 304, 46, 38);
-            case BuildStablesButton: return getDrawable(assets, ICONS_DISABLED, 46, 418, 46, 38);
             case TrainFootmanButton: return getDrawable(assets, ICONS_DISABLED, 92, 0, 46, 38);
             case TrainPeasantButton: return getDrawable(assets, ICONS_DISABLED, 0, 0, 46, 38);
-            case UpgradeArrowDamageButton: return getDrawable(assets, ICONS_DISABLED, 184, 912, 46, 38);
+            case BasicArrowUpgradeButton: return getDrawable(assets, ICONS_DISABLED, 184, 912, 46, 38);
             //default: throw new UnsupportedOperationException();
             default: return null;
         }

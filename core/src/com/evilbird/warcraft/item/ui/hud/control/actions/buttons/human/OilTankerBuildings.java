@@ -15,33 +15,25 @@ import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.ui.hud.control.actions.buttons.ButtonController;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasResources;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUnit;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildCancelButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildShipyardButton;
-import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
-import static com.evilbird.warcraft.item.unit.UnitType.Shipyard;
-import static java.util.Arrays.asList;
+import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildOilPlatformButton;
+import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
 
 /**
- * Controls the buttons shown when a Peasant is selected and the user navigates
- * to the advanced building menu.
+ * Controls the buttons shown when a Human Oil Tanker is selected and the user
+ * navigates to the simple building menu.
  *
  * @author Blair Butterworth
  */
-public class PeasantAdvancedBuildings implements ButtonController
+public class OilTankerBuildings implements ButtonController
 {
     @Override
     public List<ActionButtonType> getButtons(Item item) {
-        Player player = UnitOperations.getPlayer(item);
-        switch (player.getLevel()) {
-            case 3: return asList(
-                    BuildShipyardButton, BuildCancelButton);
-            default: return Collections.emptyList();
-        }
+        return Arrays.asList(BuildOilPlatformButton, BuildCancelButton);
     }
 
     @Override
@@ -49,7 +41,7 @@ public class PeasantAdvancedBuildings implements ButtonController
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
             case BuildCancelButton: return true;
-            case BuildShipyardButton: return hasResources(player, Shipyard) && hasUnit(player, LumberMill);
+            case BuildOilPlatformButton: return hasResources(player, OilPlatform);
             default: return false;
         }
     }

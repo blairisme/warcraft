@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.ui.hud.control.actions.buttons.human;
+package com.evilbird.warcraft.item.ui.hud.control.actions.buttons.orc;
 
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
@@ -18,27 +18,27 @@ import com.evilbird.warcraft.item.ui.hud.control.actions.buttons.ButtonControlle
 import java.util.List;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasResources;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.TrainPeasantButton;
-import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
+import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.TrainPeonButton;
+import static com.evilbird.warcraft.item.unit.UnitType.Peon;
 import static java.util.Collections.singletonList;
 
 /**
- * Controls the buttons shown when a Human Town Hall is selected.
+ * Controls the buttons shown when an Orc Great Hall is selected.
  *
  * @author Blair Butterworth
  */
-public class TownHallButtons implements ButtonController
+public class GreatHallButtons implements ButtonController
 {
     @Override
     public List<ActionButtonType> getButtons(Item item) {
-        return singletonList(TrainPeasantButton);
+        return singletonList(TrainPeonButton);
     }
 
     @Override
     public boolean getEnabled(ActionButtonType button, Item item) {
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
-            case TrainPeasantButton: return hasResources(player, Peasant);
+            case TrainPeonButton: return hasResources(player, Peon);
             default: return false;
         }
     }

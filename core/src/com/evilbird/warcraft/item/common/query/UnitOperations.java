@@ -113,6 +113,10 @@ public class UnitOperations
         return ItemOperations.hasAny(player, withType(type));
     }
 
+    public static boolean hasUpgrade(Player player, PlayerUpgrade upgrade) {
+        return player.hasUpgrade(upgrade);
+    }
+
     /**
      * Determines if the given {@link Item} is "alive" of not. Specifically,
      * this method tests if the given {@code Item} implements {@link Destroyable}

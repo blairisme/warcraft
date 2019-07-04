@@ -85,6 +85,7 @@
    <property name="AI" type="bool" value="false"/>
    <property name="Description" value="Blackrock Clan"/>
    <property name="Gold" type="float" value="0"/>
+   <property name="Level" type="int" value="1"/>
    <property name="Type" value="Player"/>
    <property name="Wood" type="float" value="0"/>
    <property name="ZIndex" type="int" value="4"/>

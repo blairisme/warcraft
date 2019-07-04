@@ -49,14 +49,14 @@ public class CombatantVisualization
             RangedCombatant rangedCombatant = (RangedCombatant)combatant;
             return getDamageUpgradeType(rangedCombatant.getProjectileType());
         }
-        return PlayerUpgrade.SwordDamage;
+        return PlayerUpgrade.BasicSwordDamage;
     }
 
     private static PlayerUpgrade getDamageUpgradeType(ProjectileType projectileType) {
         switch (projectileType) {
-            case Arrow: return PlayerUpgrade.ArrowDamage;
-            case Axe: return PlayerUpgrade.AxeDamage;
-            case Cannon: return PlayerUpgrade.CannonDamage;
+            case Arrow: return PlayerUpgrade.BasicArrowDamage;
+            case Axe: return PlayerUpgrade.BasicAxeDamage;
+            case Cannon: return PlayerUpgrade.BasicCannonDamage;
             default: throw new UnsupportedOperationException("Unknown projectile type");
         }
     }

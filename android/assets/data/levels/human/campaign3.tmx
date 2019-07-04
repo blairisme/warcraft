@@ -95,8 +95,16 @@
   <object id="5" name="OilPatch3" type="OilPatch" gid="388" x="160" y="1440" width="96" height="96"/>
   <object id="7" name="OilPatch4" type="OilPatch" gid="388" x="1824" y="1920" width="96" height="96"/>
   <object id="18" name="OilPatch5" type="OilPatch" gid="388" x="160" y="1856" width="96" height="96"/>
-  <object id="8" name="GoldMine1" type="GoldMine" gid="386" x="1056" y="160" width="96" height="96"/>
-  <object id="9" name="GoldMine2" type="GoldMine" gid="386" x="0" y="608" width="96" height="96"/>
+  <object id="8" name="GoldMine1" type="GoldMine" gid="386" x="1056" y="160" width="96" height="96">
+   <properties>
+    <property name="Gold" type="float" value="15000"/>
+   </properties>
+  </object>
+  <object id="9" name="GoldMine2" type="GoldMine" gid="386" x="0" y="608" width="96" height="96">
+   <properties>
+    <property name="Gold" type="float" value="15000"/>
+   </properties>
+  </object>
   <object id="38" name="Seal1" type="Seal" gid="922" x="736" y="672" width="32" height="32"/>
   <object id="39" name="Seal2" type="Seal" gid="922" x="768" y="640" width="32" height="32"/>
   <object id="40" name="Seal3" type="Seal" gid="922" x="704" y="608" width="32" height="32"/>
@@ -135,7 +143,8 @@
    <property name="AI" type="bool" value="false"/>
    <property name="Description" value="Nation of Azeroth"/>
    <property name="Gold" type="float" value="1000"/>
-   <property name="Oil" type="float" value="1000"/>
+   <property name="Level" type="int" value="3"/>
+   <property name="Oil" type="float" value="2000"/>
    <property name="Type" value="Player"/>
    <property name="Wood" type="float" value="1000"/>
    <property name="ZIndex" type="int" value="5"/>

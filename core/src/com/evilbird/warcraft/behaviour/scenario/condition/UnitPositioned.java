@@ -44,7 +44,7 @@ public class UnitPositioned extends PlayerCondition
     }
 
     public static UnitPositioned unitRepositionedTo(ItemType subject, ItemType destination) {
-        return unitRepositionedTo(subject, destination);
+        return new UnitPositioned(subject, destination, 1);
     }
 
     public static UnitPositioned unitRepositionedTo(ItemType subject, ItemType destination, int count) {

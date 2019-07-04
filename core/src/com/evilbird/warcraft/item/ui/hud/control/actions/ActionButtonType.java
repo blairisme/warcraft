@@ -18,6 +18,8 @@ import com.evilbird.engine.common.lang.Identifier;
  */
 public enum ActionButtonType implements Identifier
 {
+    /* Unit action buttons */
+
     CancelButton,
     MoveButton,
     StopButton,
@@ -33,21 +35,40 @@ public enum ActionButtonType implements Identifier
     BuildAdvancedButton,
     BuildCancelButton,
 
+    /* Construction buttons */
+
     BuildBarracksButton,
     BuildFarmButton,
-    BuildTownHallButton,
     BuildLumberMillButton,
-    BuildBlacksmithButton,
-    BuildDockButton,
-    BuildRefinery,
-    BuildStablesButton,
-    BuildChurchButton,
-    BuildMageTowerButton,
+    BuildOilPlatformButton,
+    BuildShipyardButton,
+    BuildTownHallButton,
+
+    BuildDockyardButton,
+    BuildEncampmentButton,
+    BuildGreatHallButton,
+    BuildOilRigButton,
+    BuildPigFarmButton,
+    BuildTrollLumberMillButton,
+
+    /* Training buttons */
 
     TrainElvenArcherButton,
     TrainElvenDestroyerButton,
     TrainFootmanButton,
+    TrainOilTankerButton,
     TrainPeasantButton,
 
-    UpgradeArrowDamageButton
+    TrainGruntButton,
+    TrainPeonButton,
+    TrainTrollAxethrowerButton,
+    TrainTrollDestroyerButton,
+    TrainTrollTankerButton,
+
+    /* Upgrade buttons */
+
+    BasicArrowUpgradeButton,
+    BasicAxeUpgradeButton,
+    AdvancedArrowUpgradeButton,
+    AdvancedAxeUpgradeButton
 }
