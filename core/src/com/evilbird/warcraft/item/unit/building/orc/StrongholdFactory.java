@@ -34,7 +34,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.Stronghold;
 public class StrongholdFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(92, 494);
-    private static final GridPoint2 SIZE = new GridPoint2(128, 128);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -45,7 +44,7 @@ public class StrongholdFactory implements AssetProvider<Item>
     }
 
     public StrongholdFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, Stronghold, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, Stronghold, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

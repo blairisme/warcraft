@@ -34,7 +34,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.PigFarm;
 public class PigFarmFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(184, 266);
-    private static final GridPoint2 SIZE = new GridPoint2(64, 64);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -45,7 +44,7 @@ public class PigFarmFactory implements AssetProvider<Item>
     }
 
     public PigFarmFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, PigFarm, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, PigFarm, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

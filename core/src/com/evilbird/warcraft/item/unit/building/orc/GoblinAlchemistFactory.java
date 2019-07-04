@@ -33,7 +33,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.GoblinAlchemist;
 public class GoblinAlchemistFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(184, 418);
-    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -44,7 +43,7 @@ public class GoblinAlchemistFactory implements AssetProvider<Item>
     }
 
     public GoblinAlchemistFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, GoblinAlchemist, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, GoblinAlchemist, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

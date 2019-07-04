@@ -33,7 +33,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.Metalworks;
 public class MetalworksFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(138, 380);
-    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -44,7 +43,7 @@ public class MetalworksFactory implements AssetProvider<Item>
     }
 
     public MetalworksFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, Metalworks, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, Metalworks, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

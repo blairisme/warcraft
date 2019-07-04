@@ -33,7 +33,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.AltarOfStorms;
 public class AltarOfStormsFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(92, 456);
-    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -44,7 +43,7 @@ public class AltarOfStormsFactory implements AssetProvider<Item>
     }
 
     public AltarOfStormsFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, AltarOfStorms, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, AltarOfStorms, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

@@ -33,7 +33,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.MageTower;
 public class MageTowerFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(184, 456);
-    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -44,7 +43,7 @@ public class MageTowerFactory implements AssetProvider<Item>
     }
 
     public MageTowerFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, MageTower, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, MageTower, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

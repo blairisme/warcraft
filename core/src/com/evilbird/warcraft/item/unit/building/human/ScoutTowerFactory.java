@@ -33,7 +33,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.ScoutTower;
 public class ScoutTowerFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(0, 456);
-    private static final GridPoint2 SIZE = new GridPoint2(64, 64);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -44,7 +43,7 @@ public class ScoutTowerFactory implements AssetProvider<Item>
     }
 
     public ScoutTowerFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, ScoutTower, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, ScoutTower, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

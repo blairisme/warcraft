@@ -117,7 +117,7 @@ public class ProductionDetailsPane extends GridItem
     private Drawable getProductImage(ProduceUpgradeActions action) {
         ProductionDetailsStyle style = getSkin().get(ProductionDetailsStyle.class);
         switch (action) {
-            case UpgradeArrowDamage: return style.upgradeArrowDamageIcon;
+            case BasicArrowDamageUpgrade: return style.upgradeArrowDamageIcon;
             default: return null;
         }
     }

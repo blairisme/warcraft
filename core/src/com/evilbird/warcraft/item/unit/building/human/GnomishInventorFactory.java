@@ -33,7 +33,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.GnomishInventor;
 public class GnomishInventorFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(138, 418);
-    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -44,7 +43,7 @@ public class GnomishInventorFactory implements AssetProvider<Item>
     }
 
     public GnomishInventorFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, GnomishInventor, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, GnomishInventor, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

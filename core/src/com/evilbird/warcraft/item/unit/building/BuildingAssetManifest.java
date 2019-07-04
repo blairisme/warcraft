@@ -41,7 +41,6 @@ public class BuildingAssetManifest
     private void setTextures(String name, String faction, String season, String size) {
         icons = "data/textures/common/menu/icons.png";
         base = "data/textures/" + faction + "/building/" + season + "/" + name + ".png";
-
         construction = "data/textures/common/building/perennial/construction" + size + ".png";
         destruction = "data/textures/common/building/winter/destroyed_site.png";
     }

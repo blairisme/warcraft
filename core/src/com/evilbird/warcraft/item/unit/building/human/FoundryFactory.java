@@ -33,7 +33,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.Foundry;
 public class FoundryFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(92, 380);
-    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -44,7 +43,7 @@ public class FoundryFactory implements AssetProvider<Item>
     }
 
     public FoundryFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, Foundry, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, Foundry, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

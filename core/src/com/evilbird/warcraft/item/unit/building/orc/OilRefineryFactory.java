@@ -44,7 +44,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.OilRefinery;
 public class OilRefineryFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(46, 380);
-    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -55,7 +54,7 @@ public class OilRefineryFactory implements AssetProvider<Item>
     }
 
     public OilRefineryFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, OilRefinery, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, OilRefinery, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

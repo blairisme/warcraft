@@ -21,11 +21,11 @@ import org.apache.commons.lang3.StringUtils;
  */
 public enum ProduceUpgradeActions implements ActionIdentifier
 {
-    UpgradeArrowDamage,
-    UpgradeArrowDamageCancel;
+    BasicArrowDamageUpgrade,
+    BasicArrowDamageUpgradeCancel;
 
     public boolean isCancel() {
-        return this.ordinal() >= UpgradeArrowDamageCancel.ordinal();
+        return this.ordinal() >= BasicArrowDamageUpgradeCancel.ordinal();
     }
 
     public PlayerUpgrade getProduct() {
@@ -34,8 +34,8 @@ public enum ProduceUpgradeActions implements ActionIdentifier
 
     private String getProductName() {
         String name = this.name();
-        name = StringUtils.removeStart(name, "Upgrade");
-        name = StringUtils.removeEnd(name, "Cancel");
+        name = StringUtils.removeEnd(name, "Upgrade");
+        name = StringUtils.removeEnd(name, "UpgradeCancel");
         return name;
     }
 

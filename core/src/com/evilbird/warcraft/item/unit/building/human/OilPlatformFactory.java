@@ -33,7 +33,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
 public class OilPlatformFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(184, 380);
-    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -44,7 +43,7 @@ public class OilPlatformFactory implements AssetProvider<Item>
     }
 
     public OilPlatformFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, OilPlatform, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, OilPlatform, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

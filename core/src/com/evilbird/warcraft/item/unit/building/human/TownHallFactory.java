@@ -34,7 +34,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 public class TownHallFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(0, 304);
-    private static final GridPoint2 SIZE = new GridPoint2(128, 128);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -45,7 +44,7 @@ public class TownHallFactory implements AssetProvider<Item>
     }
 
     public TownHallFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, TownHall, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, TownHall, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

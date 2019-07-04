@@ -34,7 +34,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.Fortress;
 public class FortressFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(184, 494);
-    private static final GridPoint2 SIZE = new GridPoint2(128, 128);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -45,7 +44,7 @@ public class FortressFactory implements AssetProvider<Item>
     }
 
     public FortressFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, Fortress, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, Fortress, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

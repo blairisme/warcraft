@@ -67,8 +67,8 @@ import static com.evilbird.warcraft.action.produce.ProduceUnitActions.TrainFootm
 import static com.evilbird.warcraft.action.produce.ProduceUnitActions.TrainFootmanCancel;
 import static com.evilbird.warcraft.action.produce.ProduceUnitActions.TrainPeasant;
 import static com.evilbird.warcraft.action.produce.ProduceUnitActions.TrainPeasantCancel;
-import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.UpgradeArrowDamage;
-import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.UpgradeArrowDamageCancel;
+import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.BasicArrowDamageUpgrade;
+import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.BasicArrowDamageUpgradeCancel;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxBegin;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxEnd;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxResize;
@@ -302,7 +302,7 @@ public class Interactions
         productionInteraction(TrainFootman, TrainFootmanCancel, TrainFootmanButton, Barracks);
         productionInteraction(TrainPeasant, TrainPeasantCancel, TrainPeasantButton, TownHall);
 
-        productionInteraction(UpgradeArrowDamage, UpgradeArrowDamageCancel, BasicArrowUpgradeButton, LumberMill);
+        productionInteraction(BasicArrowDamageUpgrade, BasicArrowDamageUpgradeCancel, BasicArrowUpgradeButton, LumberMill);
     }
 
     private void productionInteraction(

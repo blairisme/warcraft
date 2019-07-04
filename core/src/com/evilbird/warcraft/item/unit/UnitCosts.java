@@ -39,6 +39,7 @@ public class UnitCosts
     public static float buildTime(PlayerUpgrade upgrade) {
         switch (upgrade) {
             case BasicArrowDamage: return 20;
+            case AdvancedArrowDamage: return 20;
             default: return 0;
         }
     }

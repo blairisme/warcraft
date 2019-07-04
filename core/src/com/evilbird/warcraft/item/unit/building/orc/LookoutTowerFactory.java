@@ -34,7 +34,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.LookoutTower;
 public class LookoutTowerFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(92, 570);
-    private static final GridPoint2 SIZE = new GridPoint2(64, 64);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -45,7 +44,7 @@ public class LookoutTowerFactory implements AssetProvider<Item>
     }
 
     public LookoutTowerFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, LookoutTower, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, LookoutTower, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

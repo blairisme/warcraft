@@ -33,7 +33,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.Forge;
 public class ForgeFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(92, 342);
-    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -44,7 +43,7 @@ public class ForgeFactory implements AssetProvider<Item>
     }
 
     public ForgeFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, Forge, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, Forge, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

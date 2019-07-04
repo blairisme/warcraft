@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
-import com.evilbird.warcraft.item.ui.hud.common.UnitPane;
+import com.evilbird.warcraft.item.ui.hud.control.common.UnitPane;
 import com.evilbird.warcraft.item.ui.hud.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.unit.Unit;
 

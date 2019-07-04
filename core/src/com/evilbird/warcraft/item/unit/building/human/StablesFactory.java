@@ -33,7 +33,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.Stables;
 public class StablesFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(46, 418);
-    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -44,7 +43,7 @@ public class StablesFactory implements AssetProvider<Item>
     }
 
     public StablesFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, Stables, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, Stables, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

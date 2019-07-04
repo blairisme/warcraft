@@ -33,7 +33,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.TempleOfTheDamned;
 public class TempleOfTheDamnedFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(0, 494);
-    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -44,7 +43,7 @@ public class TempleOfTheDamnedFactory implements AssetProvider<Item>
     }
 
     public TempleOfTheDamnedFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, TempleOfTheDamned, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, TempleOfTheDamned, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

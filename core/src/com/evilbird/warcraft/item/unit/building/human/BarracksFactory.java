@@ -33,7 +33,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 public class BarracksFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(92, 304);
-    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -44,7 +43,7 @@ public class BarracksFactory implements AssetProvider<Item>
     }
 
     public BarracksFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, Barracks, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, Barracks, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

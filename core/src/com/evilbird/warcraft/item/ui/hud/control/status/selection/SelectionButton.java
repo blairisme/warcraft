@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.ButtonItem;
 import com.evilbird.engine.item.specialized.StackItem;
-import com.evilbird.warcraft.item.ui.hud.common.UnitPane;
+import com.evilbird.warcraft.item.ui.hud.control.common.UnitPane;
 import com.evilbird.warcraft.item.unit.Unit;
 
 import java.util.function.Supplier;

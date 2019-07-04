@@ -21,9 +21,9 @@ import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceControls;
-import com.evilbird.warcraft.item.ui.hud.common.HealthBarStyle;
 import com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonStyle;
 import com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType;
+import com.evilbird.warcraft.item.ui.hud.control.common.HealthBarStyle;
 import com.evilbird.warcraft.item.ui.hud.control.status.details.building.ProductionDetailsStyle;
 import com.evilbird.warcraft.item.ui.hud.control.status.selection.SelectionButtonStyle;
 

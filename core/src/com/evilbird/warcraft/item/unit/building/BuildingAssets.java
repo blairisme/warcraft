@@ -19,7 +19,6 @@ import com.evilbird.engine.common.assets.AssetUtilities;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.audio.SoundUtils;
 import com.evilbird.engine.common.collection.CollectionUtils;
-import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.warcraft.item.unit.UnitType;
 
@@ -29,6 +28,8 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.file.FileType.MP3;
+import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
+import static com.evilbird.engine.common.math.GridPoints.ZERO;
 
 /**
  * Provides access to the assets that are required to display a
@@ -44,12 +45,16 @@ public class BuildingAssets
     private GridPoint2 icon;
     private GridPoint2 size;
 
-    public BuildingAssets(AssetManager assets, UnitType unitType, GridPoint2 icon, GridPoint2 size) {
+    public BuildingAssets(AssetManager assets, UnitType type) {
+        this(assets, type, ZERO);
+    }
+
+    public BuildingAssets(AssetManager assets, UnitType type, GridPoint2 icon) {
         this.assets = assets;
         this.cache = new HashMap<>();
-        this.manifest = new BuildingAssetManifest(unitType, size);
+        this.size = BuildingAssetDimensions.getDimensions(type);
+        this.manifest = new BuildingAssetManifest(type, size);
         this.icon = icon;
-        this.size = size;
     }
 
     public Drawable getIcon() {
@@ -73,15 +78,17 @@ public class BuildingAssets
     }
 
     public Texture getSelectionTexture() {
-        return TextureUtils.getRectangle(size.x, size.y, Colours.FOREST_GREEN);
+        return TextureUtils.getRectangle(size.x, size.y, FOREST_GREEN);
     }
 
     public SoundEffect getDestroyedSound() {
-        return newSoundEffect(manifest.getDestroyedSoundEffectPath());
+        String path = manifest.getDestroyedSoundEffectPath();
+        return newSoundEffect(path);
     }
 
     public SoundEffect getSelectedSound() {
-        return newSoundEffect(manifest.getSelectedSoundEffectPath());
+        String path = manifest.getSelectedSoundEffectPath();
+        return newSoundEffect(path);
     }
 
     public GridPoint2 getSize() {

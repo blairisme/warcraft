@@ -34,7 +34,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.Castle;
 public class CastleFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(138, 494);
-    private static final GridPoint2 SIZE = new GridPoint2(128, 128);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -45,7 +44,7 @@ public class CastleFactory implements AssetProvider<Item>
     }
 
     public CastleFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, Castle, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, Castle, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

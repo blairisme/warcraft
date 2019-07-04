@@ -33,7 +33,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.Dockyard;
 public class DockyardFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(138, 342);
-    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -44,7 +43,7 @@ public class DockyardFactory implements AssetProvider<Item>
     }
 
     public DockyardFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, Dockyard, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, Dockyard, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

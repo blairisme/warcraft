@@ -34,7 +34,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.GuardTower;
 public class GuardTowerFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(0, 570);
-    private static final GridPoint2 SIZE = new GridPoint2(64, 64);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -45,7 +44,7 @@ public class GuardTowerFactory implements AssetProvider<Item>
     }
 
     public GuardTowerFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, GuardTower, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, GuardTower, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

@@ -33,7 +33,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.Encampment;
 public class EncampmentFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(138, 304);
-    private static final GridPoint2 SIZE = new GridPoint2(96, 96);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -44,7 +43,7 @@ public class EncampmentFactory implements AssetProvider<Item>
     }
 
     public EncampmentFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, Encampment, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, Encampment, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 

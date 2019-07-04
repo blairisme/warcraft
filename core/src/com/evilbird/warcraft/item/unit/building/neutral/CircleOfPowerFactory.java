@@ -33,7 +33,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
 public class CircleOfPowerFactory implements AssetProvider<Item>
 {
     private static final GridPoint2 ICON = new GridPoint2(46, 608);
-    private static final GridPoint2 SIZE = new GridPoint2(64, 64);
 
     private BuildingAssets assets;
     private BuildingBuilder builder;
@@ -44,7 +43,7 @@ public class CircleOfPowerFactory implements AssetProvider<Item>
     }
 
     public CircleOfPowerFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, CircleOfPower, ICON, SIZE);
+        this.assets = new BuildingAssets(manager, CircleOfPower, ICON);
         this.builder = new BuildingBuilder(assets);
     }
 
