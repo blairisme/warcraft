@@ -65,6 +65,7 @@ public enum UnitType implements ItemType
 
     /* Human - Special Combatant */
     AlteracTraitor,
+    AnduinLothar,
     ElvenArcherCaptive,
     MageCaptive,
     PeasantCaptive,
@@ -112,6 +113,7 @@ public enum UnitType implements ItemType
 
     /* Orc - Special Combatant */
     Chogall,
+    Guldan,
     TrollAxethrowerCaptive,
     Zuljin,
 
@@ -121,6 +123,7 @@ public enum UnitType implements ItemType
     Runestone,
 
     /* Neutral - Combatant */
+    Daemon,
     Boar,
     Seal,
     Sheep,

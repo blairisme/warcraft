@@ -9,12 +9,14 @@
 
 package com.evilbird.warcraft.item.unit;
 
+import com.evilbird.engine.common.lang.Identifier;
+
 /**
  * Defines identifiers for item factions.
  *
  * @author Blair Butterworth
  */
-public enum UnitFaction
+public enum UnitFaction implements Identifier
 {
     Human,
     Orc,
