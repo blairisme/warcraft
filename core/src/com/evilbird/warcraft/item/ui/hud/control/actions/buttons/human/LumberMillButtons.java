@@ -23,8 +23,8 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.hasResource
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUpgrade;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.AdvancedArrowDamage;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.BasicArrowDamage;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.AdvancedArrowUpgradeButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BasicArrowUpgradeButton;
+import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.AdvancedRangedUpgradeButton;
+import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.ImprovedRangedUpgradeButton;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
@@ -39,8 +39,8 @@ public class LumberMillButtons implements ButtonController
     public List<ActionButtonType> getButtons(Item item) {
         Player player = UnitOperations.getPlayer(item);
         switch (player.getLevel()) {
-            case 2: return singletonList(BasicArrowUpgradeButton);
-            case 3: return asList(BasicArrowUpgradeButton, AdvancedArrowUpgradeButton);
+            case 2: return singletonList(ImprovedRangedUpgradeButton);
+            case 3: return asList(ImprovedRangedUpgradeButton, AdvancedRangedUpgradeButton);
             default: return Collections.emptyList();
         }
     }
@@ -49,8 +49,8 @@ public class LumberMillButtons implements ButtonController
     public boolean getEnabled(ActionButtonType button, Item item) {
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
-            case BasicArrowUpgradeButton: return hasRequirements(player, BasicArrowDamage);
-            case AdvancedArrowUpgradeButton: return hasRequirements(player, AdvancedArrowDamage,BasicArrowDamage);
+            case ImprovedRangedUpgradeButton: return hasRequirements(player, BasicArrowDamage);
+            case AdvancedRangedUpgradeButton: return hasRequirements(player, AdvancedArrowDamage,BasicArrowDamage);
             default: return false;
         }
     }

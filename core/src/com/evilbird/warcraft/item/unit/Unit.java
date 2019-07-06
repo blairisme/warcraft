@@ -12,7 +12,6 @@ package com.evilbird.warcraft.item.unit;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
@@ -76,9 +75,9 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
         return healthMaximum;
     }
 
-    public Drawable getIcon() {
-        return style.icon;
-    }
+//    public Drawable getIcon() {
+//        return style.icon;
+//    }
 
     public String getName() {
         return name;

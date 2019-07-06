@@ -36,36 +36,32 @@ public enum PlayerUpgrade implements Identifier
     Armour,
     AdvancedArmour,
 
-//    ArmourPlating1,
-//    ArmourPlating2,
-//
-//    CannonDamage1,
-//    CannonDamage2,
-//    CannonDamage3,
-//
-//    MeleeDamage1,
-//    MeleeDamage2,
-//    MeleeDamage3,
-//
-//    MeleeDefence1,
-//    MeleeDefence2,
-//    MeleeDefence3,
-//
-//    MountedSpeed1,
-//    MountedSpeed2,
-//
-//    RangedDamage1,
-//    RangedDamage2,
-//    RangedDamage3,
-//
-//    RangedAccuracy1,
-//    RangedAccuracy2,
-//    RangedAccuracy3,
-//
-//    SiegeDamage1,
-//    SiegeDamage2,
-//
-//    GoldProduction,
-//    OilProduction,
-//    WoodProduction,
+
+
+
+    ArmourPlating,
+
+    CannonDamage1,
+    CannonDamage2,
+
+    MeleeDamage1,
+    MeleeDamage2,
+
+    MeleeDefence1,
+    MeleeDefence2,
+
+    MountedSpeed1,
+    MountedSpeed2,
+
+    RangedDamage1,
+    RangedDamage2,
+
+    RangedAccuracy1,
+    RangedAccuracy2,
+
+    SiegeDamage,
+
+    GoldProduction,
+    OilProduction,
+    WoodProduction,
 }

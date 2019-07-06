@@ -37,9 +37,13 @@ public class UnitPane extends GridItem
 
     public void setItem(Unit unit) {
         this.unit = unit;
-        this.icon.setDrawable(unit.getIcon());
+
         this.health.setRange(0, unit.getHealthMaximum());
         this.health.setValue(unit.getHealth());
+
+//        Skin skin = getSkin();
+//        UnitPaneStyle style = skin.get("default", UnitPaneStyle.class);
+//        this.icon.setDrawable(style.icons.get((UnitType)unit.getType()));
     }
 
     @Override

@@ -33,6 +33,22 @@ public enum ActionButtonType implements Identifier
     BuildAdvancedButton,
     BuildCancelButton,
 
+    /* Attack Buttons */
+    CannonAttackButton,
+    ImprovedCannonAttackButton,
+    AdvancedCannonAttackButton,
+
+    MeleeAttackButton,
+    ImprovedMeleeAttackButton,
+    AdvancedMeleeAttackButton,
+
+    RangedAttackButton,
+    ImprovedRangedAttackButton,
+    AdvancedRangedAttackButton,
+
+    SiegeAttackButton,
+    ImprovedSiegeAttackButton,
+
     /* Construction buttons */
     BuildBarracksButton,
     BuildFarmButton,
@@ -88,11 +104,9 @@ public enum ActionButtonType implements Identifier
     TrainTrollTankerButton,
 
     /* Upgrade buttons */
+    ImprovedMeleeUpgradeButton,
+    AdvancedMeleeUpgradeButton,
 
-    BasicArrowUpgradeButton,
-
-
-    BasicAxeUpgradeButton,
-    AdvancedArrowUpgradeButton,
-    AdvancedAxeUpgradeButton
+    ImprovedRangedUpgradeButton,
+    AdvancedRangedUpgradeButton,
 }

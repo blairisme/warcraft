@@ -154,24 +154,9 @@ public class ActionPane extends GridItem implements MenuProvider
 
     private void addActionButtons() {
         setAlignment(Alignment.TopLeft);
-
-//        List<ActionButtonType> actions = getActions(selection);
-//        List<ActionButton> buttons = getButtons(actions);
-//        buttons.forEach(this::add);
-
         List<ActionButton> buttons = getButtons();
         buttons.forEach(this::add);
-
     }
-
-//    private List<ActionButtonType> getActions(Collection<Item> selection) {
-//        switch (view) {
-//            case Actions: return getItemActions(selection);
-//            case SimpleBuildings: return ActionButtonDetails.getSimpleBuildingButtons();
-//            case AdvancedBuildings: return ActionButtonDetails.getAdvancedBuildingButtons();
-//            default: throw new UnsupportedOperationException();
-//        }
-//    }
 
     private List<ActionButton> getButtons() {
         if (view  == Actions) {
@@ -228,36 +213,4 @@ public class ActionPane extends GridItem implements MenuProvider
         button.setEnabled(true);
         return button;
     }
-
-//    private List<ActionButtonType> getItemActions(Collection<Item> selection) {
-//        List<ActionButtonType> result = new ArrayList<>();
-//        Iterator<Item> selectionIterator = selection.iterator();
-//
-//        if (selectionIterator.hasNext()) {
-//            Item item = selectionIterator.next();
-//            result.addAll(ActionButtonDetails.getActionButtons(item));
-//
-//            while (selectionIterator.hasNext()) {
-//                item = selectionIterator.next();
-//                result.retainAll(ActionButtonDetails.getActionButtons(item));
-//            }
-//        }
-//        return result;
-//    }
-
-//    private List<ActionButton> getButtons(List<ActionButtonType> actions) {
-//        List<ActionButton> result = new ArrayList<>(actions.size());
-//        for (ActionButtonType action: actions){
-//            result.add(getButton(action));
-//        }
-//        return result;
-//    }
-//
-//    private ActionButton getButton(ActionButtonType type) {
-//        ActionButton button = new ActionButton(getSkin());
-//        button.setType(type);
-//        //button.setEnabled(isEnabled(type, resources));
-//        return button;
-//    }
-
 }

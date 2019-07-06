@@ -19,6 +19,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.item.unit.UnitFaction.Human;
 
 /**
  * Instances of this user interface control represent a button that invokes an
@@ -69,10 +70,10 @@ public class ActionButton extends TableItem
         ImageButtonStyle buttonStyle = new ImageButtonStyle();
 
         if (actionStyle.icons != null) {
-            buttonStyle.imageUp = actionStyle.icons.get(buttonType);
+            buttonStyle.imageUp = actionStyle.icons.get(buttonType, Human);
         }
         if (actionStyle.disabledIcons != null) {
-            buttonStyle.imageDisabled = actionStyle.disabledIcons.get(buttonType);
+            buttonStyle.imageDisabled = actionStyle.disabledIcons.get(buttonType, Human);
         }
         return buttonStyle;
     }

@@ -22,14 +22,12 @@ import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceControls;
 import com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonStyle;
-import com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.ui.hud.control.common.HealthBarStyle;
+import com.evilbird.warcraft.item.ui.hud.control.common.IconSet;
 import com.evilbird.warcraft.item.ui.hud.control.status.details.building.ProductionDetailsStyle;
 import com.evilbird.warcraft.item.ui.hud.control.status.selection.SelectionButtonStyle;
 
 import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 
@@ -202,76 +200,82 @@ public class ControlPaneFactory implements AssetProvider<ControlPane>
     }
 
     private ActionButtonStyle getActionButtonStyle() {
+        Texture icons = assets.get(ICONS, Texture.class);
+        Texture disabled = assets.get(ICONS_DISABLED, Texture.class);
+        return getActionButtonStyle(icons, disabled);
+    }
+
+    private ActionButtonStyle getActionButtonStyle(Texture icons, Texture disabled) {
         ActionButtonStyle style = new ActionButtonStyle();
-        style.icons = getActionIcons();
-        style.disabledIcons = getActionDisabledIcons();
+        style.icons = new IconSet(icons);
+        style.disabledIcons = new IconSet(disabled);
         style.background = getDrawable(assets, ACTION_BUTTON);
         return style;
     }
 
-    private Map<ActionButtonType, Drawable> getActionIcons() {
-        Map<ActionButtonType, Drawable> icons = new HashMap<>();
-        for (ActionButtonType action: ActionButtonType.values()) {
-            icons.put(action, getActionIcon(action));
-        }
-        return icons;
-    }
-    
-    private Drawable getActionIcon(ActionButtonType type) {
-        switch (type) {
-            case CancelButton:
-            case BuildCancelButton: return getDrawable(assets, ICONS, 46, 684, 46, 38);
-            case MoveButton: return getDrawable(assets, ICONS, 138, 608, 46, 38);
-            case StopButton: return getDrawable(assets, ICONS, 184, 1216, 46, 38);
-            case AttackButton: return getDrawable(assets, ICONS, 46, 874, 46, 38);
-            case DefendButton: return getDrawable(assets, ICONS, 0, 1368, 46, 38);
-            case PatrolButton: return getDrawable(assets, ICONS, 138, 1330, 46, 38);
-            case RepairButton: return getDrawable(assets, ICONS, 0, 646, 46, 38);
-            case GatherButton: return getDrawable(assets, ICONS, 46, 646, 46, 38);
-            case BuildSimpleButton: return getDrawable(assets, ICONS, 92, 646, 46, 38);
-            case BuildAdvancedButton: return getDrawable(assets, ICONS, 138, 646, 46, 38);
-            case BuildBarracksButton: return getDrawable(assets, ICONS, 92, 304, 46, 38);
-            case BuildFarmButton: return getDrawable(assets, ICONS, 138, 266, 46, 38);
-            case BuildLumberMillButton: return getDrawable(assets, ICONS, 184, 304, 46, 38);
-            case BuildTownHallButton: return getDrawable(assets, ICONS, 0, 304, 46, 38);
-            case TrainFootmanButton: return getDrawable(assets, ICONS, 92, 0, 46, 38);
-            case TrainPeasantButton: return getDrawable(assets, ICONS, 0, 0, 46, 38);
-            case BasicArrowUpgradeButton: return getDrawable(assets, ICONS, 184, 912, 46, 38);
-            //default: throw new UnsupportedOperationException();
-            default: return null;
-        }
-    }
-
-    private Map<ActionButtonType, Drawable> getActionDisabledIcons() {
-        Map<ActionButtonType, Drawable> icons = new HashMap<>();
-        for (ActionButtonType action: ActionButtonType.values()) {
-            icons.put(action, getActionDisabledIcon(action));
-        }
-        return icons;
-    }
-    
-    private Drawable getActionDisabledIcon(ActionButtonType type) {
-        switch (type) {
-            case CancelButton:
-            case BuildCancelButton: return getDrawable(assets, ICONS_DISABLED, 46, 684, 46, 38);
-            case MoveButton: return getDrawable(assets, ICONS_DISABLED, 138, 608, 46, 38);
-            case StopButton: return getDrawable(assets, ICONS_DISABLED, 184, 1216, 46, 38);
-            case AttackButton: return getDrawable(assets, ICONS_DISABLED, 46, 874, 46, 38);
-            case DefendButton: return getDrawable(assets, ICONS_DISABLED, 0, 1368, 46, 38);
-            case PatrolButton: return getDrawable(assets, ICONS_DISABLED, 138, 1330, 46, 38);
-            case RepairButton: return getDrawable(assets, ICONS_DISABLED, 0, 646, 46, 38);
-            case GatherButton: return getDrawable(assets, ICONS_DISABLED, 46, 646, 46, 38);
-            case BuildSimpleButton: return getDrawable(assets, ICONS_DISABLED, 92, 646, 46, 38);
-            case BuildAdvancedButton: return getDrawable(assets, ICONS_DISABLED, 138, 646, 46, 38);
-            case BuildBarracksButton: return getDrawable(assets, ICONS_DISABLED, 92, 304, 46, 38);
-            case BuildFarmButton: return getDrawable(assets, ICONS_DISABLED, 138, 266, 46, 38);
-            case BuildLumberMillButton: return getDrawable(assets, ICONS_DISABLED, 184, 304, 46, 38);
-            case BuildTownHallButton: return getDrawable(assets, ICONS_DISABLED, 0, 304, 46, 38);
-            case TrainFootmanButton: return getDrawable(assets, ICONS_DISABLED, 92, 0, 46, 38);
-            case TrainPeasantButton: return getDrawable(assets, ICONS_DISABLED, 0, 0, 46, 38);
-            case BasicArrowUpgradeButton: return getDrawable(assets, ICONS_DISABLED, 184, 912, 46, 38);
-            //default: throw new UnsupportedOperationException();
-            default: return null;
-        }
-    }
+//    private Map<ActionButtonType, Drawable> getActionIcons() {
+//        Map<ActionButtonType, Drawable> icons = new HashMap<>();
+//        for (ActionButtonType action: ActionButtonType.values()) {
+//            icons.put(action, getActionIcon(action));
+//        }
+//        return icons;
+//    }
+//
+//    private Drawable getActionIcon(ActionButtonType type) {
+//        switch (type) {
+//            case CancelButton:
+//            case BuildCancelButton: return getDrawable(assets, ICONS, 46, 684, 46, 38);
+//            case MoveButton: return getDrawable(assets, ICONS, 138, 608, 46, 38);
+//            case StopButton: return getDrawable(assets, ICONS, 184, 1216, 46, 38);
+//            case AttackButton: return getDrawable(assets, ICONS, 46, 874, 46, 38);
+//            case DefendButton: return getDrawable(assets, ICONS, 0, 1368, 46, 38);
+//            case PatrolButton: return getDrawable(assets, ICONS, 138, 1330, 46, 38);
+//            case RepairButton: return getDrawable(assets, ICONS, 0, 646, 46, 38);
+//            case GatherButton: return getDrawable(assets, ICONS, 46, 646, 46, 38);
+//            case BuildSimpleButton: return getDrawable(assets, ICONS, 92, 646, 46, 38);
+//            case BuildAdvancedButton: return getDrawable(assets, ICONS, 138, 646, 46, 38);
+//            case BuildBarracksButton: return getDrawable(assets, ICONS, 92, 304, 46, 38);
+//            case BuildFarmButton: return getDrawable(assets, ICONS, 138, 266, 46, 38);
+//            case BuildLumberMillButton: return getDrawable(assets, ICONS, 184, 304, 46, 38);
+//            case BuildTownHallButton: return getDrawable(assets, ICONS, 0, 304, 46, 38);
+//            case TrainFootmanButton: return getDrawable(assets, ICONS, 92, 0, 46, 38);
+//            case TrainPeasantButton: return getDrawable(assets, ICONS, 0, 0, 46, 38);
+//            case ImprovedRangedUpgradeButton: return getDrawable(assets, ICONS, 184, 912, 46, 38);
+//            //default: throw new UnsupportedOperationException();
+//            default: return null;
+//        }
+//    }
+//
+//    private Map<ActionButtonType, Drawable> getActionDisabledIcons() {
+//        Map<ActionButtonType, Drawable> icons = new HashMap<>();
+//        for (ActionButtonType action: ActionButtonType.values()) {
+//            icons.put(action, getActionDisabledIcon(action));
+//        }
+//        return icons;
+//    }
+//
+//    private Drawable getActionDisabledIcon(ActionButtonType type) {
+//        switch (type) {
+//            case CancelButton:
+//            case BuildCancelButton: return getDrawable(assets, ICONS_DISABLED, 46, 684, 46, 38);
+//            case MoveButton: return getDrawable(assets, ICONS_DISABLED, 138, 608, 46, 38);
+//            case StopButton: return getDrawable(assets, ICONS_DISABLED, 184, 1216, 46, 38);
+//            case AttackButton: return getDrawable(assets, ICONS_DISABLED, 46, 874, 46, 38);
+//            case DefendButton: return getDrawable(assets, ICONS_DISABLED, 0, 1368, 46, 38);
+//            case PatrolButton: return getDrawable(assets, ICONS_DISABLED, 138, 1330, 46, 38);
+//            case RepairButton: return getDrawable(assets, ICONS_DISABLED, 0, 646, 46, 38);
+//            case GatherButton: return getDrawable(assets, ICONS_DISABLED, 46, 646, 46, 38);
+//            case BuildSimpleButton: return getDrawable(assets, ICONS_DISABLED, 92, 646, 46, 38);
+//            case BuildAdvancedButton: return getDrawable(assets, ICONS_DISABLED, 138, 646, 46, 38);
+//            case BuildBarracksButton: return getDrawable(assets, ICONS_DISABLED, 92, 304, 46, 38);
+//            case BuildFarmButton: return getDrawable(assets, ICONS_DISABLED, 138, 266, 46, 38);
+//            case BuildLumberMillButton: return getDrawable(assets, ICONS_DISABLED, 184, 304, 46, 38);
+//            case BuildTownHallButton: return getDrawable(assets, ICONS_DISABLED, 0, 304, 46, 38);
+//            case TrainFootmanButton: return getDrawable(assets, ICONS_DISABLED, 92, 0, 46, 38);
+//            case TrainPeasantButton: return getDrawable(assets, ICONS_DISABLED, 0, 0, 46, 38);
+//            case ImprovedRangedUpgradeButton: return getDrawable(assets, ICONS_DISABLED, 184, 912, 46, 38);
+//            //default: throw new UnsupportedOperationException();
+//            default: return null;
+//        }
+//    }
 }

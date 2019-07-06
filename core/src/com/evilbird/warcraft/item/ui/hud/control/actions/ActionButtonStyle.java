@@ -10,9 +10,7 @@
 package com.evilbird.warcraft.item.ui.hud.control.actions;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-
-import java.util.Collections;
-import java.util.Map;
+import com.evilbird.warcraft.item.ui.hud.control.common.IconSet;
 
 /**
  * Defines the visual and auditory presentation of an {@link ActionButton}.
@@ -22,6 +20,6 @@ import java.util.Map;
 public class ActionButtonStyle
 {
     public Drawable background;
-    public Map<ActionButtonType, Drawable> icons = Collections.emptyMap();
-    public Map<ActionButtonType, Drawable> disabledIcons = Collections.emptyMap();
+    public IconSet icons;
+    public IconSet disabledIcons;
 }

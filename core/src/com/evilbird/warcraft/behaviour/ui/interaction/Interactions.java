@@ -98,7 +98,6 @@ import static com.evilbird.warcraft.item.layer.LayerType.Sea;
 import static com.evilbird.warcraft.item.layer.LayerType.Tree;
 import static com.evilbird.warcraft.item.layer.LayerType.WallSection;
 import static com.evilbird.warcraft.item.ui.hud.HudControl.MenuPane;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BasicArrowUpgradeButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildAdvancedButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildBarracksButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildCancelButton;
@@ -107,6 +106,7 @@ import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildSimpleButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildTownHallButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.ImprovedRangedUpgradeButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.StopButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.TrainFootmanButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.TrainPeasantButton;
@@ -302,7 +302,7 @@ public class Interactions
         productionInteraction(TrainFootman, TrainFootmanCancel, TrainFootmanButton, Barracks);
         productionInteraction(TrainPeasant, TrainPeasantCancel, TrainPeasantButton, TownHall);
 
-        productionInteraction(BasicArrowDamageUpgrade, BasicArrowDamageUpgradeCancel, BasicArrowUpgradeButton, LumberMill);
+        productionInteraction(BasicArrowDamageUpgrade, BasicArrowDamageUpgradeCancel, ImprovedRangedUpgradeButton, LumberMill);
     }
 
     private void productionInteraction(
