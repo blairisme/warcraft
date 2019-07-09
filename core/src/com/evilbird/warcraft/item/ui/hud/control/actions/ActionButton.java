@@ -14,12 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.item.specialized.TableItem;
+import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.CancelButton;
-import static com.evilbird.warcraft.item.unit.UnitFaction.Human;
 
 /**
  * Instances of this user interface control represent a button that invokes an
@@ -46,6 +47,11 @@ public class ActionButton extends TableItem
         icon.setStyle(getIconStyle(buttonType));
     }
 
+    public void setType(ActionButtonType buttonType, Unit unit) {
+        super.setType(buttonType);
+        icon.setStyle(getIconStyle(buttonType, unit));
+    }
+
     private void initialize(Skin skin) {
         setSkin(skin);
         setTouchable(Touchable.enabled);
@@ -65,16 +71,24 @@ public class ActionButton extends TableItem
         return style != null ? style : new ActionButtonStyle();
     }
 
-    private ImageButtonStyle getIconStyle(ActionButtonType buttonType) {
+    private ImageButtonStyle getIconStyle(ActionButtonType button) {
         ActionButtonStyle actionStyle = getActionStyle();
-        ImageButtonStyle buttonStyle = new ImageButtonStyle();
+        Drawable normal = actionStyle.icons != null ? actionStyle.icons.get(button) : null;
+        Drawable disabled = actionStyle.disabledIcons != null ? actionStyle.disabledIcons.get(button) : null;
+        return getButtonStyle(normal, disabled);
+    }
 
-        if (actionStyle.icons != null) {
-            buttonStyle.imageUp = actionStyle.icons.get(buttonType, Human);
-        }
-        if (actionStyle.disabledIcons != null) {
-            buttonStyle.imageDisabled = actionStyle.disabledIcons.get(buttonType, Human);
-        }
+    private ImageButtonStyle getIconStyle(ActionButtonType button, Unit unit) {
+        ActionButtonStyle actionStyle = getActionStyle();
+        Drawable normal = actionStyle.icons != null ? actionStyle.icons.get(button, unit) : null;
+        Drawable disabled = actionStyle.disabledIcons != null ? actionStyle.disabledIcons.get(button, unit) : null;
+        return getButtonStyle(normal, disabled);
+    }
+
+    private ImageButtonStyle getButtonStyle(Drawable normal, Drawable disabled) {
+        ImageButtonStyle buttonStyle = new ImageButtonStyle();
+        buttonStyle.imageUp = normal;
+        buttonStyle.imageDisabled = disabled;
         return buttonStyle;
     }
 

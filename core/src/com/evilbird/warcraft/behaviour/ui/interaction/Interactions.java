@@ -302,7 +302,11 @@ public class Interactions
         productionInteraction(TrainFootman, TrainFootmanCancel, TrainFootmanButton, Barracks);
         productionInteraction(TrainPeasant, TrainPeasantCancel, TrainPeasantButton, TownHall);
 
-        productionInteraction(BasicArrowDamageUpgrade, BasicArrowDamageUpgradeCancel, ImprovedRangedUpgradeButton, LumberMill);
+        productionInteraction(
+            BasicArrowDamageUpgrade,
+            BasicArrowDamageUpgradeCancel,
+            ImprovedRangedUpgradeButton,
+            LumberMill);
     }
 
     private void productionInteraction(

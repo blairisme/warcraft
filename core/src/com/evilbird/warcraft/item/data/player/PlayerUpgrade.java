@@ -39,7 +39,8 @@ public enum PlayerUpgrade implements Identifier
 
 
 
-    ArmourPlating,
+    ArmourPlating1,
+    ArmourPlating2,
 
     CannonDamage1,
     CannonDamage2,

@@ -9,15 +9,16 @@
 
 package com.evilbird.warcraft.item.ui.hud.control.common;
 
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.common.lang.Identifier;
 
 /**
- * Specifies the graphical representation of the {@link UnitPane} control.
+ * Defines varieties of icon levels.
  *
  * @author Blair Butterworth
  */
-public class UnitPaneStyle
+public enum IconLevel implements Identifier
 {
-    public IconSet icons;
-    public Drawable background;
+    Basic,
+    Improved,
+    Advanced
 }

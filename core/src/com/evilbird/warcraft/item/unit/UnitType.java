@@ -12,6 +12,12 @@ package com.evilbird.warcraft.item.unit;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
 
+import static com.evilbird.warcraft.item.unit.UnitAttack.Magic;
+import static com.evilbird.warcraft.item.unit.UnitAttack.Melee;
+import static com.evilbird.warcraft.item.unit.UnitAttack.None;
+import static com.evilbird.warcraft.item.unit.UnitAttack.Ranged;
+import static com.evilbird.warcraft.item.unit.UnitAttack.Ship;
+import static com.evilbird.warcraft.item.unit.UnitAttack.Siege;
 import static com.evilbird.warcraft.item.unit.UnitFaction.Human;
 import static com.evilbird.warcraft.item.unit.UnitFaction.Neutral;
 import static com.evilbird.warcraft.item.unit.UnitFaction.Orc;
@@ -145,12 +151,55 @@ public enum UnitType implements ItemType
         throw new UnsupportedOperationException();
     }
 
+    public UnitAttack getAttack() {
+        if (isCombatant()) {
+            if (isShip()) {
+                return Ship;
+            }
+            if (isSiege()) {
+                return Siege;
+            }
+            if (isRanged()) {
+                return Ranged;
+            }
+            if (isMagic()) {
+                return Magic;
+            }
+            return Melee;
+        }
+        return None;
+    }
+
     public boolean isBuilding() {
         return isBetween(Barracks, TownHall) || isBetween(AltarOfStorms, WatchTower);
     }
 
     public boolean isCombatant() {
         return isBetween(Ballista, UtherLightbringer) || isBetween(Catapult, Zuljin);
+    }
+
+    public boolean isSpecial() {
+        return isBetween(AlteracTraitor, UtherLightbringer) || isBetween(Chogall, Zuljin);
+    }
+
+    public boolean isShip() {
+        return this == ElvenDestroyer || this == Battleship || this == GnomishSubmarine || this == OilTanker
+            || this == TrollDestroyer || this == OgreJuggernaught || this == GiantTurtle || this == TrollTanker;
+    }
+
+    public boolean isSiege() {
+        return this == Ballista || this == Catapult;
+    }
+
+    public boolean isRanged() {
+        return this == ElvenArcher || this == ElvenArcherCaptive || this == ElvenRanger
+            || this == TrollAxethrower || this == TrollAxethrowerCaptive || this == TrollBerserker
+            || this == GryphonRider || this == Dragon || this == Zuljin;
+    }
+
+    public boolean isMagic() {
+        return this == Mage || this == Paladin
+            || this == DeathKnight || this == OgreMage;
     }
 
     public boolean isHuman() {

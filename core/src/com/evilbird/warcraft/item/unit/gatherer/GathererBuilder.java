@@ -87,23 +87,23 @@ public class GathererBuilder
         return getLandAnimations(general, moveGold, moveWood, decompose);
     }
 
-    private Map<Identifier, Animation> getLandAnimations(Texture general, Texture gold, Texture wood, Texture decompose) {
+    private Map<Identifier, Animation> getLandAnimations(Texture base, Texture gold, Texture wood, Texture decompose) {
         AnimationSetBuilder builder = new AnimationSetBuilder();
 
-        builder.set(UnitAnimation.IdleBasic, AnimationLayouts.idleSchema(), general);
+        builder.set(UnitAnimation.IdleBasic, AnimationLayouts.idleSchema(), base);
         builder.set(UnitAnimation.IdleGold, AnimationLayouts.idleSchema(), gold);
         builder.set(UnitAnimation.IdleWood, AnimationLayouts.idleSchema(), wood);
         builder.associate(UnitAnimation.Idle, UnitAnimation.IdleBasic);
 
-        builder.set(UnitAnimation.MoveBasic, AnimationLayouts.moveSchema(), general);
+        builder.set(UnitAnimation.MoveBasic, AnimationLayouts.moveSchema(), base);
         builder.set(UnitAnimation.MoveGold, AnimationLayouts.moveSchema(), gold);
         builder.set(UnitAnimation.MoveWood, AnimationLayouts.moveSchema(), wood);
         builder.associate(UnitAnimation.Move, UnitAnimation.MoveBasic);
 
-        builder.set(UnitAnimation.Attack, AnimationLayouts.meleeAttackSchema(), general);
-        builder.set(UnitAnimation.Death, AnimationLayouts.deathSchema(), general);
+        builder.set(UnitAnimation.Attack, AnimationLayouts.meleeAttackSchema(), base);
+        builder.set(UnitAnimation.Death, AnimationLayouts.deathSchema(), base);
         builder.set(UnitAnimation.Decompose, AnimationLayouts.decomposeSchema(), decompose);
-        builder.set(UnitAnimation.GatherWood, AnimationLayouts.gatherWoodSchema(), general);
+        builder.set(UnitAnimation.GatherWood, AnimationLayouts.gatherWoodSchema(), base);
 
         return builder.build();
     }

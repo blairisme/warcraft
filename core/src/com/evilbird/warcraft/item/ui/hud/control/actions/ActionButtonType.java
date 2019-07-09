@@ -25,6 +25,7 @@ public enum ActionButtonType implements Identifier
     AttackButton,
     DetonateButton,
     DefendButton,
+    DisembarkButton,
     PatrolButton,
     RepairButton,
     GatherButton,
@@ -32,22 +33,6 @@ public enum ActionButtonType implements Identifier
     BuildSimpleButton,
     BuildAdvancedButton,
     BuildCancelButton,
-
-    /* Attack Buttons */
-    CannonAttackButton,
-    ImprovedCannonAttackButton,
-    AdvancedCannonAttackButton,
-
-    MeleeAttackButton,
-    ImprovedMeleeAttackButton,
-    AdvancedMeleeAttackButton,
-
-    RangedAttackButton,
-    ImprovedRangedAttackButton,
-    AdvancedRangedAttackButton,
-
-    SiegeAttackButton,
-    ImprovedSiegeAttackButton,
 
     /* Construction buttons */
     BuildBarracksButton,

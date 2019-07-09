@@ -20,6 +20,7 @@ import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.ui.hud.HudControl;
 import com.evilbird.warcraft.item.ui.hud.control.actions.buttons.ButtonController;
 import com.evilbird.warcraft.item.ui.hud.control.actions.buttons.ButtonControllers;
+import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
@@ -195,21 +196,21 @@ public class ActionPane extends GridItem implements MenuProvider
         List<ActionButtonType> types = controller.getButtons(item);
         List<ActionButton> buttons = new ArrayList<>(types.size());
         for (ActionButtonType type: types){
-            buttons.add(getButton(type, controller, item));
+            buttons.add(getButton(type, controller, (Unit)item));
         }
         return buttons;
     }
 
-    private ActionButton getButton(ActionButtonType type, ButtonController controller, Item item) {
+    private ActionButton getButton(ActionButtonType type, ButtonController controller, Unit unit) {
         ActionButton button = new ActionButton(getSkin());
-        button.setType(type);
-        button.setEnabled(controller.getEnabled(type, item));
+        button.setType(type, unit);
+        button.setEnabled(controller.getEnabled(type, unit));
         return button;
     }
 
-    private ActionButton getButton(ActionButtonType type) {
+    private ActionButton getButton(ActionButtonType buttonType) {
         ActionButton button = new ActionButton(getSkin());
-        button.setType(type);
+        button.setType(buttonType);
         button.setEnabled(true);
         return button;
     }

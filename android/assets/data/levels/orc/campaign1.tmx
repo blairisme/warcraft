@@ -84,10 +84,10 @@
   <properties>
    <property name="AI" type="bool" value="false"/>
    <property name="Description" value="Blackrock Clan"/>
-   <property name="Gold" type="float" value="0"/>
+   <property name="Gold" type="float" value="1000"/>
    <property name="Level" type="int" value="1"/>
    <property name="Type" value="Player"/>
-   <property name="Wood" type="float" value="0"/>
+   <property name="Wood" type="float" value="1000"/>
    <property name="ZIndex" type="int" value="4"/>
   </properties>
   <object id="3" name="Peon1" type="Peon" gid="387" x="800" y="608" width="72" height="72"/>

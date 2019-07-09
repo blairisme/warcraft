@@ -54,16 +54,16 @@ public class BuildingAssetDimensions
     }
 
     private static boolean isSmall(UnitType type) {
-        return type == CannonTower || type == BombardTower  ||
-                type == GuardTower || type == LookoutTower  ||
-                type == ScoutTower || type == WatchTower    ||
-                type == Runestone  || type == CircleOfPower ||
-                type == Farm       || type == PigFarm;
+        return type == CannonTower || type == BombardTower
+            || type == GuardTower || type == LookoutTower
+            || type == ScoutTower || type == WatchTower
+            || type == Runestone  || type == CircleOfPower
+            || type == Farm       || type == PigFarm;
     }
 
     private static boolean isLarge(UnitType type) {
-        return type == TownHall || type == GreatHall  ||
-                type == Keep    || type == Stronghold ||
-                type == Castle  || type == Fortress;
+        return type == TownHall || type == GreatHall
+            || type == Keep    || type == Stronghold
+            || type == Castle  || type == Fortress;
     }
 }

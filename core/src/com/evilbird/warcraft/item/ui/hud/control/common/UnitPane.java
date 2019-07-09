@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.unit.UnitType;
 
 /**
  * A user interface control that displays a tile containing the icon of a
@@ -41,9 +42,7 @@ public class UnitPane extends GridItem
         this.health.setRange(0, unit.getHealthMaximum());
         this.health.setValue(unit.getHealth());
 
-//        Skin skin = getSkin();
-//        UnitPaneStyle style = skin.get("default", UnitPaneStyle.class);
-//        this.icon.setDrawable(style.icons.get((UnitType)unit.getType()));
+        setIcon((UnitType)unit.getType());
     }
 
     @Override
@@ -57,8 +56,8 @@ public class UnitPane extends GridItem
         setSize(54, 52);
         setCellPadding(2);
         setCellSpacing(-2);
-        setBackground("unit-panel");
         setTouchable(Touchable.enabled);
+        setBackground();
     }
 
     private Image addIcon(Skin skin) {
@@ -81,5 +80,22 @@ public class UnitPane extends GridItem
         cell.height(5);
 
         return health;
+    }
+
+    private UnitPaneStyle getStyle() {
+        Skin skin = getSkin();
+        return skin.get("default", UnitPaneStyle.class);
+    }
+
+    private void setBackground() {
+        UnitPaneStyle style = getStyle();
+        setBackground(style.background);
+    }
+
+    private void setIcon(UnitType type) {
+        UnitPaneStyle style = getStyle();
+        if (style != null && style.icons != null) {
+            this.icon.setDrawable(style.icons.get(type));
+        }
     }
 }
