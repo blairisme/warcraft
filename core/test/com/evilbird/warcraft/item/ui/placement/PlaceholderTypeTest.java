@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.ui.placement;
 
+import com.evilbird.warcraft.item.unit.UnitType;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,6 +24,17 @@ public class PlaceholderTypeTest
     public void getBuildingTest() {
         for (PlaceholderType placeholderType: PlaceholderType.values()) {
             Assert.assertNotNull(placeholderType.getBuilding());
+        }
+    }
+
+    @Test
+    public void forBuildingTest() {
+        for (UnitType unitType: UnitType.values()) {
+            if (unitType.isBuilding()) {
+                PlaceholderType placeholderType = PlaceholderType.forBuilding(unitType);
+                Assert.assertNotNull(placeholderType);
+                Assert.assertEquals(unitType, placeholderType.getBuilding());
+            }
         }
     }
 }

@@ -15,6 +15,10 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.construct.ConstructActions;
+import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
+import com.evilbird.warcraft.action.produce.ProduceUnitActions;
+import com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -39,14 +43,6 @@ import static com.evilbird.warcraft.action.camera.CameraActions.Pan;
 import static com.evilbird.warcraft.action.camera.CameraActions.Zoom;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmLocation;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmTarget;
-import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructBarracks;
-import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructBarracksCancel;
-import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructFarm;
-import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructFarmCancel;
-import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructLumberMill;
-import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructLumberMillCancel;
-import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructTownHall;
-import static com.evilbird.warcraft.action.construct.ConstructActions.ConstructTownHallCancel;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherCancel;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherGold;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherWood;
@@ -57,16 +53,8 @@ import static com.evilbird.warcraft.action.menu.MenuActions.IngameMenu;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveCancel;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveToItem;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveToLocation;
-import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddBarracksPlaceholder;
-import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddFarmPlaceholder;
-import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddLumberMillPlaceholder;
-import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.AddTownHallPlaceholder;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderCancel;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderMove;
-import static com.evilbird.warcraft.action.produce.ProduceUnitActions.TrainFootman;
-import static com.evilbird.warcraft.action.produce.ProduceUnitActions.TrainFootmanCancel;
-import static com.evilbird.warcraft.action.produce.ProduceUnitActions.TrainPeasant;
-import static com.evilbird.warcraft.action.produce.ProduceUnitActions.TrainPeasantCancel;
 import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.BasicArrowDamageUpgrade;
 import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.BasicArrowDamageUpgradeCancel;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxBegin;
@@ -81,6 +69,7 @@ import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
@@ -99,31 +88,16 @@ import static com.evilbird.warcraft.item.layer.LayerType.Tree;
 import static com.evilbird.warcraft.item.layer.LayerType.WallSection;
 import static com.evilbird.warcraft.item.ui.hud.HudControl.MenuPane;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildAdvancedButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildBarracksButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildCancelButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildFarmButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildLumberMillButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildSimpleButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildTownHallButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.CancelButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.ImprovedRangedUpgradeButton;
 import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.StopButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.TrainFootmanButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.TrainPeasantButton;
 import static com.evilbird.warcraft.item.ui.hud.control.status.selection.SelectionButtonType.FocusButton;
 import static com.evilbird.warcraft.item.ui.hud.control.status.selection.SelectionButtonType.UnselectButton;
-import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.BarracksPlaceholder;
-import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.FarmPlaceholder;
-import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.LumberMillPlaceholder;
-import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.TownHallPlaceholder;
-import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcherCaptive;
-import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
-import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
-import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
-import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 
 /**
  * Instances of this class define the different ways the user can interact with
@@ -180,24 +154,28 @@ public class Interactions
         cancelConstruction();
     }
 
-    public void addPlaceholder() {
-        addPlaceholder(AddBarracksPlaceholder, BuildBarracksButton);
-        addPlaceholder(AddLumberMillPlaceholder, BuildLumberMillButton);
-        addPlaceholder(AddFarmPlaceholder, BuildFarmButton);
-        addPlaceholder(AddTownHallPlaceholder, BuildTownHallButton);
+    private void addPlaceholder() {
+        for (ActionButtonType button: ActionButtonType.values()) {
+            if (button.isBuildButton()) {
+                UnitType building = button.getBuildProduct();
+                PlaceholderType placeholder = PlaceholderType.forBuilding(building);
+                PlaceholderActions action = PlaceholderActions.forPlaceholder(placeholder);
+                addPlaceholder(button, action);
+            }
+        }
     }
 
-    public void addPlaceholder(ActionIdentifier placeholderType, Identifier buttonType) {
-        interactions.addAction(placeholderType)
-            .whenTarget(buttonType)
-            .whenSelected(Peasant)
+    private void addPlaceholder(ActionButtonType button, ActionIdentifier action) {
+        interactions.addAction(action)
+            .whenTarget(button)
+            .whenSelected(isGatherer())
             .appliedTo(Selected);
     }
 
     private void cancelPlaceholder() {
         interactions.addAction(PlaceholderCancel)
             .whenTarget(CancelButton)
-            .whenSelected(both(withType(Peasant), associatedWith(isPlaceholder())))
+            .whenSelected(both(isGatherer(), associatedWith(isPlaceholder())))
             .appliedTo(Selected);
     }
 
@@ -209,24 +187,26 @@ public class Interactions
     }
 
     private void beginConstruction() {
-        beginConstruction(ConstructBarracks, BarracksPlaceholder);
-        beginConstruction(ConstructFarm, FarmPlaceholder);
-        beginConstruction(ConstructLumberMill, LumberMillPlaceholder);
-        beginConstruction(ConstructTownHall, TownHallPlaceholder);
+        for (PlaceholderType placeholder: PlaceholderType.values()) {
+            UnitType building = placeholder.getBuilding();
+            ConstructActions action = ConstructActions.forProduct(building);
+            beginConstruction(placeholder, action);
+        }
     }
 
-    private void beginConstruction(ActionIdentifier construction, PlaceholderType placeholder) {
-        interactions.addAction(construction)
+    private void beginConstruction(PlaceholderType placeholder, ActionIdentifier action) {
+        interactions.addAction(action)
             .whenTarget(both(withType(placeholder), isPlaceholderClear()))
-            .whenSelected(Peasant)
+            .whenSelected(isGatherer())
             .appliedTo(Selected);
     }
 
     private void cancelConstruction() {
-        cancelConstruction(ConstructBarracksCancel, Barracks);
-        cancelConstruction(ConstructFarmCancel, Farm);
-        cancelConstruction(ConstructLumberMillCancel, LumberMill);
-        cancelConstruction(ConstructTownHallCancel, TownHall);
+        for (ConstructActions constructAction: ConstructActions.values()) {
+            if (constructAction.isCancel()) {
+                cancelConstruction(constructAction, constructAction.getProduct());
+            }
+        }
     }
 
     private void cancelConstruction(ActionIdentifier cancelAction, UnitType building) {
@@ -299,29 +279,33 @@ public class Interactions
     }
 
     private void productionInteractions() {
-        productionInteraction(TrainFootman, TrainFootmanCancel, TrainFootmanButton, Barracks);
-        productionInteraction(TrainPeasant, TrainPeasantCancel, TrainPeasantButton, TownHall);
+        for (ActionButtonType button: ActionButtonType.values()) {
+            if (button.isTrainButton()) {
+                UnitType product = button.getTrainProduct();
+                ProduceUnitActions train = ProduceUnitActions.forProduct(product);
+                ProduceUnitActions cancel = ProduceUnitActions.forProductCancel(product);
+                productionInteraction(button, train, cancel);
+            }
+        }
 
         productionInteraction(
-            BasicArrowDamageUpgrade,
-            BasicArrowDamageUpgradeCancel,
             ImprovedRangedUpgradeButton,
-            LumberMill);
+            BasicArrowDamageUpgrade,
+            BasicArrowDamageUpgradeCancel);
     }
 
     private void productionInteraction(
+        ActionButtonType button,
         ActionIdentifier action,
-        ActionIdentifier cancel,
-        Identifier build,
-        Identifier building)
+        ActionIdentifier cancel)
     {
         interactions.addAction(action)
-            .whenSelected(building)
-            .whenTarget(build)
+            .whenSelected(isBuilding())
+            .whenTarget(button)
             .appliedTo(Selected);
 
         interactions.addAction(cancel)
-            .whenSelected(building)
+            .whenSelected(isBuilding())
             .whenTarget(CancelButton)
             .withAction(action)
             .appliedTo(Selected);

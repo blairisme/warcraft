@@ -11,6 +11,9 @@ package com.evilbird.warcraft.action.placeholder;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
+import org.apache.commons.lang3.Validate;
+
+import static com.evilbird.engine.common.collection.EnumUtils.getName;
 
 /**
  * Defines options of specifying placeholder action varieties.
@@ -19,23 +22,59 @@ import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
  */
 public enum PlaceholderActions implements ActionIdentifier
 {
-    AddBarracksPlaceholder(PlaceholderType.BarracksPlaceholder),
-    AddFarmPlaceholder(PlaceholderType.FarmPlaceholder),
-    AddLumberMillPlaceholder(PlaceholderType.LumberMillPlaceholder),
-    AddTownHallPlaceholder(PlaceholderType.TownHallPlaceholder),
+    AddBarracksPlaceholder,
+    AddBlacksmithPlaceholder,
+    AddCannonTowerPlaceholder,
+    AddCastlePlaceholder,
+    AddChurchPlaceholder,
+    AddFarmPlaceholder,
+    AddFoundryPlaceholder,
+    AddGnomishInventorPlaceholder,
+    AddGryphonAviaryPlaceholder,
+    AddGuardTowerPlaceholder,
+    AddKeepPlaceholder,
+    AddLumberMillPlaceholder,
+    AddMageTowerPlaceholder,
+    AddOilPlatformPlaceholder,
+    AddRefineryPlaceholder,
+    AddScoutTowerPlaceholder,
+    AddShipyardPlaceholder,
+    AddStablesPlaceholder,
+    AddTownHallPlaceholder,
+
+    AddAltarOfStormsPlaceholder,
+    AddForgePlaceholder,
+    AddEncampmentPlaceholder,
+    AddBombardTowerPlaceholder,
+    AddDockyardPlaceholder,
+    AddDragonRoostPlaceholder,
+    AddFortressPlaceholder,
+    AddMetalworksPlaceholder,
+    AddGoblinAlchemistPlaceholder,
+    AddGreatHallPlaceholder,
+    AddLookoutTowerPlaceholder,
+    AddOgreMoundPlaceholder,
+    AddOilRefineryPlaceholder,
+    AddOilRigPlaceholder,
+    AddPigFarmPlaceholder,
+    AddStrongholdPlaceholder,
+    AddTempleOfTheDamnedPlaceholder,
+    AddTrollLumberMillPlaceholder,
+    AddWatchTowerPlaceholder,
+    
     PlaceholderMove,
     PlaceholderCancel;
 
-    private PlaceholderType placeholderType;
-
-    PlaceholderActions() {
+    public boolean isAddAction() {
+        return this != PlaceholderCancel && this != PlaceholderMove;
     }
 
-    PlaceholderActions(PlaceholderType placeholderType) {
-        this.placeholderType = placeholderType;
+    public PlaceholderType getPlaceholder() {
+        Validate.isTrue(isAddAction());
+        return PlaceholderType.valueOf(getName(this, "Add", ""));
     }
 
-    public PlaceholderType type() {
-        return placeholderType;
+    public static PlaceholderActions forPlaceholder(PlaceholderType placeholderType) {
+        return PlaceholderActions.valueOf("Add" + placeholderType.name());
     }
 }

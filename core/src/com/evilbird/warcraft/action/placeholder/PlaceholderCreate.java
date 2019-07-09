@@ -44,7 +44,7 @@ public class PlaceholderCreate extends ScenarioAction<PlaceholderActions>
     @Override
     protected void steps(PlaceholderActions action) {
         scenario(action);
-        thenUpdate(create(action.type(), properties(), observer -> {}));
+        thenUpdate(create(action.getPlaceholder(), properties(), observer -> {}));
         then(associate(), placeholderAdded(events));
     }
 

@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.unit;
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
 
+import static com.evilbird.engine.common.collection.EnumUtils.isBetween;
 import static com.evilbird.warcraft.item.unit.UnitAttack.Magic;
 import static com.evilbird.warcraft.item.unit.UnitAttack.Melee;
 import static com.evilbird.warcraft.item.unit.UnitAttack.None;
@@ -139,13 +140,13 @@ public enum UnitType implements ItemType
     OilPatch;
 
     public UnitFaction getFaction() {
-        if (isBetween(Barracks, UtherLightbringer)) {
+        if (isBetween(this, Barracks, UtherLightbringer)) {
             return Human;
         }
-        if (isBetween(AltarOfStorms, Zuljin)) {
+        if (isBetween(this, AltarOfStorms, Zuljin)) {
             return Orc;
         }
-        if (isBetween(CircleOfPower, OilPatch)) {
+        if (isBetween(this, CircleOfPower, OilPatch)) {
             return Neutral;
         }
         throw new UnsupportedOperationException();
@@ -171,15 +172,15 @@ public enum UnitType implements ItemType
     }
 
     public boolean isBuilding() {
-        return isBetween(Barracks, TownHall) || isBetween(AltarOfStorms, WatchTower);
+        return isBetween(this, Barracks, TownHall) || isBetween(this, AltarOfStorms, WatchTower);
     }
 
     public boolean isCombatant() {
-        return isBetween(Ballista, UtherLightbringer) || isBetween(Catapult, Zuljin);
+        return isBetween(this, Ballista, UtherLightbringer) || isBetween(this, Catapult, Zuljin);
     }
 
     public boolean isSpecial() {
-        return isBetween(AlteracTraitor, UtherLightbringer) || isBetween(Chogall, Zuljin);
+        return isBetween(this, AlteracTraitor, UtherLightbringer) || isBetween(this, Chogall, Zuljin);
     }
 
     public boolean isShip() {
@@ -208,9 +209,5 @@ public enum UnitType implements ItemType
 
     public boolean isOrc() {
         return getFaction() == Orc;
-    }
-
-    private boolean isBetween(UnitType typeA, UnitType typeB) {
-        return this.ordinal() >= typeA.ordinal() && this.ordinal() <= typeB.ordinal();
     }
 }

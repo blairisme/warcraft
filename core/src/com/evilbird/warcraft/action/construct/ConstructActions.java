@@ -11,8 +11,10 @@ package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.item.unit.UnitType;
-import org.apache.commons.lang3.EnumUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
+
+import static com.evilbird.engine.common.collection.EnumUtils.getName;
+import static com.evilbird.engine.common.collection.EnumUtils.isBetween;
 
 /**
  * Defines options of specifying construction action varieties.
@@ -100,22 +102,17 @@ public enum ConstructActions implements ActionIdentifier
     ConstructTempleOfTheDamnedCancel,
     ConstructTrollLumberMillCancel,
     ConstructWatchTowerCancel;
-    
+
+    public boolean isCancel() {
+        return isBetween(this, ConstructBarracksCancel, ConstructWatchTowerCancel);
+    }
+
     public UnitType getProduct() {
-        return getProductValue(UnitType.class, getProductName());
+        return UnitType.valueOf(getName(this, "Construct", "Cancel"));
     }
 
-    private String getProductName() {
-        String name = this.name();
-        name = StringUtils.removeStart(name, "Construct");
-        name = StringUtils.removeEnd(name, "Cancel");
-        return name;
-    }
-
-    private <T extends Enum<T>> T getProductValue(Class<T> type, String name) {
-        if (EnumUtils.isValidEnum(type, name)) {
-            return Enum.valueOf(type, name);
-        }
-        throw new UnsupportedOperationException();
+    public static ConstructActions forProduct(UnitType unitType) {
+        Validate.isTrue(unitType.isBuilding());
+        return ConstructActions.valueOf("Construct" + unitType.name());
     }
 }

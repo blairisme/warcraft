@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.action.construct;
 
+import com.evilbird.warcraft.item.unit.UnitType;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,9 +24,19 @@ public class ConstructActionsTest
 {
     @Test
     public void getProductTest() {
-        EnumSet<ConstructActions> actions = EnumSet.allOf(ConstructActions.class);
-        for (ConstructActions action: actions) {
+        for (ConstructActions action: ConstructActions.values()) {
             Assert.assertNotNull(action.getProduct());
+        }
+    }
+
+    @Test
+    public void forProductTest() {
+        for (UnitType unitType: UnitType.values()) {
+            if (unitType.isBuilding()) {
+                ConstructActions action = ConstructActions.forProduct(unitType);
+                Assert.assertNotNull(action);
+                Assert.assertEquals(unitType, action.getProduct());
+            }
         }
     }
 }

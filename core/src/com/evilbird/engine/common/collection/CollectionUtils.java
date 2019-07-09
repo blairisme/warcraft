@@ -13,8 +13,7 @@ import java.util.Collection;
 import java.util.function.Predicate;
 
 /**
- * Instances of this class provide helper functions for working with
- * Collections.
+ * Provides utility functions for working with Collections.
  *
  * @author Blair Butterworth
  */

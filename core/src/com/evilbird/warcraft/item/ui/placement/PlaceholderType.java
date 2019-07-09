@@ -11,7 +11,9 @@ package com.evilbird.warcraft.item.ui.placement;
 
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.item.unit.UnitType;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
+
+import static com.evilbird.engine.common.collection.EnumUtils.getName;
 
 /**
  * Defines placeholder varieties.
@@ -61,10 +63,11 @@ public enum PlaceholderType implements ItemType
     WatchTowerPlaceholder;
 
     public UnitType getBuilding() {
-        return UnitType.valueOf(getBuildingName());
+        return UnitType.valueOf(getName(this, "", "Placeholder"));
     }
 
-    private String getBuildingName() {
-        return StringUtils.remove(name(), "Placeholder");
+    public static PlaceholderType forBuilding(UnitType unitType) {
+        Validate.isTrue(unitType.isBuilding());
+        return PlaceholderType.valueOf(unitType.name() + "Placeholder");
     }
 }
