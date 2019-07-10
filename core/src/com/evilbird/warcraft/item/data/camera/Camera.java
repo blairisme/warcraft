@@ -60,6 +60,7 @@ public class Camera extends ItemBasic implements Zoomable
 
     @Override
     public void setRoot(ItemRoot root) {
+        super.setRoot(root);
         if (root != null) {
             Viewport viewport = root.getViewport();
             viewport.setCamera(camera);

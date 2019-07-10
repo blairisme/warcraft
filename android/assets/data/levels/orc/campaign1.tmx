@@ -84,6 +84,7 @@
   <properties>
    <property name="AI" type="bool" value="false"/>
    <property name="Description" value="Blackrock Clan"/>
+   <property name="Food" type="float" value="1"/>
    <property name="Gold" type="float" value="1000"/>
    <property name="Level" type="int" value="1"/>
    <property name="Type" value="Player"/>

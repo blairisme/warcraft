@@ -96,7 +96,6 @@ import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType
 import static com.evilbird.warcraft.item.ui.hud.control.status.selection.SelectionButtonType.FocusButton;
 import static com.evilbird.warcraft.item.ui.hud.control.status.selection.SelectionButtonType.UnselectButton;
 import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
-import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcherCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
 
 /**
@@ -112,14 +111,15 @@ public class Interactions
     @Inject
     public Interactions(InteractionContainer interactions) {
         this.interactions = interactions;
+        moveInteractions();
         attackInteractions();
+        gatherInteractions();
+        buildInteractions();
+        trainInteractions();
+        upgradeInteractions();
         menuInteractions();
         cameraInteractions();
-        constructionInteractions();
-        gatherInteractions();
-        productionInteractions();
-        moveInteractions();
-        selectionInteractions();
+        selectInteractions();
     }
 
     public Interaction getInteraction(UserInput input, Item item, Item selected) {
@@ -146,7 +146,7 @@ public class Interactions
             .appliedTo(Selected);
     }
 
-    private void constructionInteractions() {
+    private void buildInteractions() {
         addPlaceholder();
         cancelPlaceholder();
         dragPlaceholder();
@@ -278,7 +278,7 @@ public class Interactions
             .appliedTo(Target);
     }
 
-    private void productionInteractions() {
+    private void trainInteractions() {
         for (ActionButtonType button: ActionButtonType.values()) {
             if (button.isTrainButton()) {
                 UnitType product = button.getTrainProduct();
@@ -287,7 +287,9 @@ public class Interactions
                 productionInteraction(button, train, cancel);
             }
         }
+    }
 
+    private void upgradeInteractions() {
         productionInteraction(
             ImprovedRangedUpgradeButton,
             BasicArrowDamageUpgrade,
@@ -331,13 +333,13 @@ public class Interactions
             .appliedTo(Selected);
 
         interactions.addAction(MoveToItem, ConfirmLocation)
-            .whenSelected(CircleOfPower)
-            .whenTarget(ElvenArcherCaptive)
-            .appliedTo(Target)
+            .whenSelected(both(isCorporeal(), isMovableOver(Land)))
+            .whenTarget(CircleOfPower)
+            .appliedTo(Selected)
             .appliedAs(confirmedAction());
     }
 
-    private void selectionInteractions() {
+    private void selectInteractions() {
         selectInvert();
         selectArea();
         deselectButton();
