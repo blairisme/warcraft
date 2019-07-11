@@ -11,8 +11,9 @@ package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
-import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import static com.evilbird.engine.common.collection.EnumUtils.isBetween;
 
 /**
  * Defines options of specifying production action varieties.
@@ -25,11 +26,19 @@ public enum ProduceUpgradeActions implements ActionIdentifier
     BasicArrowDamageUpgradeCancel;
 
     public boolean isCancel() {
-        return this.ordinal() >= BasicArrowDamageUpgradeCancel.ordinal();
+        return isBetween(this, BasicArrowDamageUpgradeCancel, BasicArrowDamageUpgradeCancel);
     }
 
     public PlayerUpgrade getProduct() {
-        return getProductValue(PlayerUpgrade.class, getProductName());
+        return PlayerUpgrade.valueOf(getProductName());
+    }
+
+    public static ProduceUnitActions forProduct(PlayerUpgrade type) {
+        return ProduceUnitActions.valueOf(type.name() + "Upgrade");
+    }
+
+    public static ProduceUnitActions forProductCancel(PlayerUpgrade type) {
+        return ProduceUnitActions.valueOf(type.name() + "UpgradeCancel");
     }
 
     private String getProductName() {
@@ -37,12 +46,5 @@ public enum ProduceUpgradeActions implements ActionIdentifier
         name = StringUtils.removeEnd(name, "Upgrade");
         name = StringUtils.removeEnd(name, "UpgradeCancel");
         return name;
-    }
-
-    private <T extends Enum<T>> T getProductValue(Class<T> type, String name) {
-        if (EnumUtils.isValidEnum(type, name)) {
-            return Enum.valueOf(type, name);
-        }
-        throw new UnsupportedOperationException();
     }
 }

@@ -27,8 +27,8 @@ import static com.evilbird.warcraft.item.ui.hud.HudControl.ResourcePane;
 public class HudControlFactory extends IdentifiedAssetProviderSet<Item>
 {
     @Inject
-    public HudControlFactory(ControlPaneFactory controlPaneFactory,ResourcePaneFactory resourcePaneProvider) {
+    public HudControlFactory(ControlPaneFactory controlPaneFactory, ResourcePaneFactory resourcePaneFactory) {
         addProvider(ControlPane, controlPaneFactory);
-        addProvider(ResourcePane, resourcePaneProvider);
+        addProvider(ResourcePane, resourcePaneFactory);
     }
 }

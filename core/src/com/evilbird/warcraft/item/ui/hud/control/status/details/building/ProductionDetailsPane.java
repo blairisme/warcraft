@@ -81,7 +81,7 @@ public class ProductionDetailsPane extends GridItem
         ProductionDetailsStyle style = skin.get("default", ProductionDetailsStyle.class);
 
         Image background = new Image();
-        background.setDrawable(style.trainBackground);
+        background.setDrawable(style.background);
 
         productImage = new Image();
         productImage.setScaling(Scaling.none);
@@ -99,7 +99,7 @@ public class ProductionDetailsPane extends GridItem
                 return getProductImage((ProduceUnitActions)identifier);
             }
             if (identifier instanceof ProduceUpgradeActions) {
-                return getProductImage((ProduceUnitActions)identifier);
+                return getProductImage((ProduceUpgradeActions)identifier);
             }
         }
         return null;
@@ -107,19 +107,12 @@ public class ProductionDetailsPane extends GridItem
 
     private Drawable getProductImage(ProduceUnitActions action) {
         ProductionDetailsStyle style = getSkin().get(ProductionDetailsStyle.class);
-        switch (action) {
-            case TrainFootman: return style.trainFootmanIcon;
-            case TrainPeasant: return style.trainPeasantIcon;
-            default: return null;
-        }
+        return style.icons.get(action.getProduct());
     }
 
     private Drawable getProductImage(ProduceUpgradeActions action) {
         ProductionDetailsStyle style = getSkin().get(ProductionDetailsStyle.class);
-        switch (action) {
-            case BasicArrowDamageUpgrade: return style.upgradeArrowDamageIcon;
-            default: return null;
-        }
+        return style.icons.get(action.getProduct());
     }
 
     private ProgressBar addProductionProgress(Skin skin) {

@@ -89,6 +89,17 @@ public class IconSet
         return getIcon(type);
     }
 
+    /**
+     * Obtains the icon that represents the given {@link PlayerUpgrade}.
+     *
+     * @param upgrade   the upgrade whose icon is required.
+     * @return          a {@link Drawable} containing the required icon.
+     */
+    public Drawable get(PlayerUpgrade upgrade) {
+        Objects.requireNonNull(upgrade);
+        return getIcon(upgrade);
+    }
+
     private Drawable getIcon(Identifier type) {
         GridPoint2 size = layout.getSize(type);
         GridPoint2 location = layout.getLocation(type);

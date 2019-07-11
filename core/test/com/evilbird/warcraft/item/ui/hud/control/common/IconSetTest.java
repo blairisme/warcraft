@@ -69,4 +69,10 @@ public class IconSetTest extends GameTestCase
         Drawable actual = iconSet.get(UnitType.Footman);
         Assert.assertNotNull(actual);
     }
+
+    @Test
+    public void getUpgradeIconTest() {
+        Drawable actual = iconSet.get(PlayerUpgrade.RangedDamage1);
+        Assert.assertNotNull(actual);
+    }
 }
