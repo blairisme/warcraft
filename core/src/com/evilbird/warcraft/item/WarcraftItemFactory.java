@@ -14,7 +14,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.item.data.DataProvider;
-import com.evilbird.warcraft.item.effect.EffectFactory;
+import com.evilbird.warcraft.item.ui.effect.EffectFactory;
 import com.evilbird.warcraft.item.layer.LayerFactory;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.projectile.ProjectileFactory;

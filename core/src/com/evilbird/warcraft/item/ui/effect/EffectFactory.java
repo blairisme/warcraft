@@ -1,17 +1,17 @@
 /*
- * Blair Butterworth (c) 2018
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.effect;
+package com.evilbird.warcraft.item.ui.effect;
 
 import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.effect.confirm.ConfirmFactory;
+import com.evilbird.warcraft.item.ui.effect.confirm.ConfirmFactory;
 
 import javax.inject.Inject;
 
