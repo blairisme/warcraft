@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.ui.effect;
 
-import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
+import com.evilbird.engine.game.GameFactoryComposite;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.ui.effect.confirm.ConfirmFactory;
 
@@ -21,7 +21,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class EffectFactory extends IdentifiedAssetProviderSet<Item>
+public class EffectFactory extends GameFactoryComposite<Item>
 {
     @Inject
     public EffectFactory(ConfirmFactory confirmFactory) {

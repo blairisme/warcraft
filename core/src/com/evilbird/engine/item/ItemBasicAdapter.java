@@ -76,7 +76,7 @@ public class ItemBasicAdapter extends AbstractAdapter<Item>
     @Override
     protected Item getDeserializedInstance(JsonObject json, JsonDeserializationContext context) {
         ItemType identifier = context.deserialize(json.get(TYPE), ItemType.class);
-        return itemFactory.newItem(identifier);
+        return itemFactory.get(identifier);
     }
 
     @Override

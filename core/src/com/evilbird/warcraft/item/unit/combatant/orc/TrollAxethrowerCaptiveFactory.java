@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.item.unit.combatant.orc;
 
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
@@ -32,8 +32,8 @@ public class TrollAxethrowerCaptiveFactory extends TrollAxethrowerFactory
     }
 
     @Override
-    public Item get() {
-        Item result = super.get();
+    public Combatant get(Identifier type) {
+        Combatant result = super.get(type);
         result.setType(TrollAxethrowerCaptive);
         return result;
     }

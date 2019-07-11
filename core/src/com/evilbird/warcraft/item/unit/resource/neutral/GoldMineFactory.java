@@ -10,10 +10,9 @@
 package com.evilbird.warcraft.item.unit.resource.neutral;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.Resource;
@@ -31,10 +30,8 @@ import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
  *
  * @author Blair Butterworth
  */
-public class GoldMineFactory implements AssetProvider<Item>
+public class GoldMineFactory implements GameFactory<Resource>
 {
-    private static final GridPoint2 ICON = new GridPoint2(184, 532);
-
     private ResourceAssets assets;
     private ResourceBuilder builder;
 
@@ -44,17 +41,21 @@ public class GoldMineFactory implements AssetProvider<Item>
     }
 
     public GoldMineFactory(AssetManager manager) {
-        this.assets = new ResourceAssets(manager, GoldMine, ICON);
+        this.assets = new ResourceAssets(manager, GoldMine);
         this.builder = new ResourceBuilder(assets);
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
         assets.load();
     }
 
     @Override
-    public Item get() {
+    public void unload(Identifier context) {
+    }
+
+    @Override
+    public Resource get(Identifier type) {
         Resource result = builder.build();
         result.setHealth(2400);
         result.setHealthMaximum(2400);

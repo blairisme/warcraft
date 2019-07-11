@@ -133,7 +133,7 @@ public class RangedAttack extends BasicAction
 
     private Projectile newProjectile(RangedCombatant combatant) {
         ProjectileType type = combatant.getProjectileType();
-        Projectile projectile = (Projectile)factory.newItem(type);
+        Projectile projectile = (Projectile)factory.get(type);
         projectile.setVisible(false);
         projectile.setPosition(combatant.getPosition(Alignment.Center));
         return projectile;

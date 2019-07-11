@@ -13,8 +13,6 @@ import com.evilbird.warcraft.item.unit.UnitType;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.EnumSet;
-
 /**
  * Instances of this unit test validate the {@link ConstructActions} class.
  *

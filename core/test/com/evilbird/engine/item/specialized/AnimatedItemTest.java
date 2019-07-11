@@ -32,7 +32,7 @@ public class AnimatedItemTest extends GameTestCase
     public void setup() {
         super.setup();
         animatedItem = newAnimatedItem();
-        Mockito.when(itemFactory.newItem(Mockito.any())).thenReturn(animatedItem);
+        Mockito.when(itemFactory.get(Mockito.any())).thenReturn(animatedItem);
     }
 
     private AnimatedItem newAnimatedItem() {

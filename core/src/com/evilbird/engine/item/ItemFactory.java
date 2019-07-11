@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.item;
 
-import com.evilbird.engine.common.lang.Persisted;
+import com.evilbird.engine.game.GameFactory;
 
 /**
  * Implementors of factory interface provide methods that create {@link Item}
@@ -17,7 +17,6 @@ import com.evilbird.engine.common.lang.Persisted;
  *
  * @author Blair Butterworth
  */
-public interface ItemFactory extends Persisted
+public interface ItemFactory extends GameFactory<Item>
 {
-    Item newItem(ItemType type);
 }

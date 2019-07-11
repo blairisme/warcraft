@@ -13,7 +13,6 @@ import com.evilbird.engine.common.maps.TiledMapLoader;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.utils.TestFileHandleResolver;
-import com.evilbird.warcraft.state.map.WarcraftLevelLoader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

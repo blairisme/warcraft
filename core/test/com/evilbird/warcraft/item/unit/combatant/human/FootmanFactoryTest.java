@@ -11,10 +11,10 @@ package com.evilbird.warcraft.item.unit.combatant.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.engine.common.inject.AssetProvider;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.test.testcase.FactoryTestCase;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import java.util.Map;
 
@@ -23,10 +23,10 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-public class FootmanFactoryTest extends FactoryTestCase<Item>
+public class FootmanFactoryTest extends FactoryTestCase<Combatant>
 {
     @Override
-    protected AssetProvider<Item> newFactory(AssetManager assets) {
+    protected GameFactory<Combatant> newFactory(AssetManager assets) {
         return new FootmanFactory(assets);
     }
 

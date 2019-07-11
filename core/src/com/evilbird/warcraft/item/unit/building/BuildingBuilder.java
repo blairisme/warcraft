@@ -111,7 +111,6 @@ public class BuildingBuilder
 
     private UnitStyle getUnitStyle(BuildingAssets assets) {
         UnitStyle unitStyle = new UnitStyle();
-        unitStyle.icon = assets.getIcon();
         unitStyle.selection = assets.getSelectionTexture();
         return unitStyle;
     }

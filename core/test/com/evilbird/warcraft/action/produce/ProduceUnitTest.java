@@ -15,7 +15,6 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.action.produce.ProduceUnit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 import org.junit.Assert;

@@ -62,7 +62,7 @@ public class CreateAction extends BasicAction
     }
 
     protected Item createItem() {
-        return itemFactory.newItem(itemType);
+        return itemFactory.get(itemType);
     }
 
     protected void setParent(Item item) {

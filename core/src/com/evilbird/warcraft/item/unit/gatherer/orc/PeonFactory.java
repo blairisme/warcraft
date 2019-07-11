@@ -11,9 +11,9 @@ package com.evilbird.warcraft.item.unit.gatherer.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.item.unit.gatherer.GathererAssets;
 import com.evilbird.warcraft.item.unit.gatherer.GathererBuilder;
@@ -41,9 +41,8 @@ import static com.evilbird.warcraft.item.unit.UnitType.Peon;
  *
  * @author Blair Butterworth
  */
-public class PeonFactory implements AssetProvider<Item>
+public class PeonFactory implements GameFactory<Gatherer>
 {
-    private static final GridPoint2 ICON = new GridPoint2(46, 0);
     private static final GridPoint2 SIZE = new GridPoint2(32, 32);
 
     private GathererAssets assets;
@@ -55,17 +54,21 @@ public class PeonFactory implements AssetProvider<Item>
     }
 
     public PeonFactory(AssetManager manager) {
-        this.assets = new GathererAssets(manager, Peon, ICON, SIZE);
+        this.assets = new GathererAssets(manager, Peon, SIZE);
         this.builder = new GathererBuilder(assets);
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
         assets.load();
     }
 
     @Override
-    public Item get() {
+    public void unload(Identifier context) {
+    }
+
+    @Override
+    public Gatherer get(Identifier type) {
         Gatherer result = builder.newLandGatherer();
         result.setDefence(0);
         result.setDamageMinimum(1);

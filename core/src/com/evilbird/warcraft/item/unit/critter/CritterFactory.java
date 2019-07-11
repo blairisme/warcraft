@@ -9,8 +9,7 @@
 
 package com.evilbird.warcraft.item.unit.critter;
 
-import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactoryComposite;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.critter.neutral.BoarFactory;
 import com.evilbird.warcraft.item.unit.critter.neutral.SealFactory;
@@ -24,7 +23,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class CritterFactory extends IdentifiedAssetProviderSet<Item>
+public class CritterFactory extends GameFactoryComposite<Critter>
 {
     @Inject
     public CritterFactory(BoarFactory boarFactory, SealFactory sealFactory, SheepFactory sheepFactory) {

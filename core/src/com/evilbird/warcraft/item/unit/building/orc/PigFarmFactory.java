@@ -10,10 +10,9 @@
 package com.evilbird.warcraft.item.unit.building.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.building.BuildingAssets;
 import com.evilbird.warcraft.item.unit.building.BuildingBuilder;
@@ -31,10 +30,8 @@ import static com.evilbird.warcraft.item.unit.UnitType.PigFarm;
  *
  * @author Blair Butterworth
  */
-public class PigFarmFactory implements AssetProvider<Item>
+public class PigFarmFactory implements GameFactory<Building>
 {
-    private static final GridPoint2 ICON = new GridPoint2(184, 266);
-
     private BuildingAssets assets;
     private BuildingBuilder builder;
 
@@ -44,17 +41,21 @@ public class PigFarmFactory implements AssetProvider<Item>
     }
 
     public PigFarmFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, PigFarm, ICON);
+        this.assets = new BuildingAssets(manager, PigFarm);
         this.builder = new BuildingBuilder(assets);
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
         assets.load();
     }
 
     @Override
-    public Item get() {
+    public void unload(Identifier context) {
+    }
+
+    @Override
+    public Building get(Identifier type) {
         Building result = builder.build();
         result.setDefence(20);
         result.setHealth(400);

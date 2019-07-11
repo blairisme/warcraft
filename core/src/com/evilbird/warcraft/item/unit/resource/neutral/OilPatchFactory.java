@@ -10,10 +10,9 @@
 package com.evilbird.warcraft.item.unit.resource.neutral;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.Resource;
@@ -25,10 +24,14 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.unit.UnitType.OilPatch;
 
-public class OilPatchFactory implements AssetProvider<Item>
+/**
+ * Instances of this factory create Oil Patches, a {@link Resource}
+ * specialization from which oil can be obtained.
+ *
+ * @author Blair Butterworth
+ */
+public class OilPatchFactory implements GameFactory<Resource>
 {
-    private static final GridPoint2 ICON = new GridPoint2(184, 304);
-
     private ResourceAssets assets;
     private ResourceBuilder builder;
 
@@ -38,17 +41,21 @@ public class OilPatchFactory implements AssetProvider<Item>
     }
 
     public OilPatchFactory(AssetManager manager) {
-        this.assets = new ResourceAssets(manager, OilPatch, ICON);
+        this.assets = new ResourceAssets(manager, OilPatch);
         this.builder = new ResourceBuilder(assets);
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
         assets.load();
     }
 
     @Override
-    public Item get() {
+    public void unload(Identifier context) {
+    }
+
+    @Override
+    public Resource get(Identifier type) {
         Resource result = builder.build();
         result.setHealth(2400);
         result.setHealthMaximum(2400);

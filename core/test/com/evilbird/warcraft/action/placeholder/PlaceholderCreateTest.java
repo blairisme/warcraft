@@ -54,7 +54,7 @@ public class PlaceholderCreateTest extends ActionTestCase
     @Test
     public void actTest() {
         Placeholder placeholder = TestPlaceholders.newTestPlaceholder("placeholder");
-        Mockito.when(itemFactory.newItem(BarracksPlaceholder)).thenReturn(placeholder);
+        Mockito.when(itemFactory.get(BarracksPlaceholder)).thenReturn(placeholder);
 
         Assert.assertFalse(action.act(1));
         Assert.assertTrue(player.getItems().stream().anyMatch(item -> item == placeholder));

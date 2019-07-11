@@ -11,9 +11,9 @@ package com.evilbird.warcraft.item.unit.combatant.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.item.unit.combatant.CombatantBuilder;
@@ -33,9 +33,8 @@ import static com.evilbird.warcraft.item.unit.UnitType.Dragon;
  *
  * @author Blair Butterworth
  */
-public class DragonFactory implements AssetProvider<Item>
+public class DragonFactory implements GameFactory<Combatant>
 {
-    private static final GridPoint2 ICON = new GridPoint2(46, 228);
     private static final GridPoint2 SIZE = new GridPoint2(32, 32);
 
     private CombatantAssets assets;
@@ -47,17 +46,21 @@ public class DragonFactory implements AssetProvider<Item>
     }
 
     public DragonFactory(AssetManager manager) {
-        this.assets = new CombatantAssets(manager, Dragon, ICON, SIZE);
+        this.assets = new CombatantAssets(manager, Dragon, SIZE);
         this.builder = new CombatantBuilder(assets);
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
         assets.load();
     }
 
     @Override
-    public Item get() {
+    public void unload(Identifier context) {
+    }
+
+    @Override
+    public Combatant get(Identifier type) {
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(1.5f);
         result.setDefence(0);

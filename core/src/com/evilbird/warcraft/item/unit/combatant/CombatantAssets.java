@@ -14,7 +14,6 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.assets.AssetUtilities;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.audio.SoundUtils;
@@ -41,20 +40,13 @@ public class CombatantAssets
     private AssetManager assets;
     private Map<String, Integer> cache;
     private CombatantAssetManifest manifest;
-    private GridPoint2 icon;
     private GridPoint2 size;
 
-    public CombatantAssets(AssetManager assets, UnitType unitType, GridPoint2 icon, GridPoint2 size) {
+    public CombatantAssets(AssetManager assets, UnitType unitType, GridPoint2 size) {
         this.assets = assets;
         this.cache = new HashMap<>();
         this.manifest = new CombatantAssetManifest(unitType);
-        this.icon = icon;
         this.size = size;
-    }
-
-    public Drawable getIcon() {
-        String path = manifest.getIconTexturePath();
-        return TextureUtils.getDrawable(assets, path, icon.x, icon.y, 46, 38);
     }
 
     public Texture getBaseTexture() {
@@ -114,7 +106,6 @@ public class CombatantAssets
 
     private void loadTextures() {
         assets.load(manifest.getBaseTexturePath(), Texture.class);
-        assets.load(manifest.getIconTexturePath(), Texture.class);
         assets.load(manifest.getDecomposeTexturePath(), Texture.class);
     }
 

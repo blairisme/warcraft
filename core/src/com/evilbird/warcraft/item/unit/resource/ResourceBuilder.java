@@ -91,7 +91,6 @@ public class ResourceBuilder
 
     private UnitStyle getUnitStyle() {
         UnitStyle unitStyle = new UnitStyle();
-        unitStyle.icon = assets.getIcon();
         unitStyle.selection = assets.getSelectionTexture();
         return unitStyle;
     }

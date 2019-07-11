@@ -20,7 +20,6 @@ import com.evilbird.warcraft.item.unit.UnitType;
  */
 public class ResourceAssetManifest
 {
-    private String icons;
     private String base;
     private String destruction;
     private String destroyed;
@@ -28,15 +27,10 @@ public class ResourceAssetManifest
 
     public ResourceAssetManifest(UnitType type) {
         String name = getName(type);
-        icons = "data/textures/common/menu/icons.png";
         base = "data/textures/neutral/resource/winter/" + name + ".png";
         destruction = "data/textures/common/building/winter/destroyed_site.png";
         destroyed = "data/sounds/common/building/destroyed/";
         selected = "data/sounds/neutral/resource/" + name + "/selected/1.mp3";
-    }
-
-    public String getIconTexturePath() {
-        return icons;
     }
 
     public String getGeneralTexturePath() {

@@ -14,9 +14,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.Animation;
-import com.evilbird.engine.common.inject.AssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimatedItem;
 import com.evilbird.engine.item.specialized.AnimatedItemStyle;
@@ -38,7 +38,7 @@ import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
  *
  * @author Blair Butterworth
  */
-public class ConfirmFactory implements AssetProvider<Item>
+public class ConfirmFactory implements GameFactory<Item>
 {
     private static final String TEXTURE = "data/textures/common/ui/green_cross.png";
     private AssetManager assets;
@@ -49,12 +49,17 @@ public class ConfirmFactory implements AssetProvider<Item>
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
         assets.load(TEXTURE, Texture.class);
     }
 
     @Override
-    public Item get() {
+    public void unload(Identifier context) {
+        assets.unload(TEXTURE);
+    }
+
+    @Override
+    public Item get(Identifier type) {
         AnimatedItem result = new AnimatedItem(getSkin());
         result.setAnimation(UnitAnimation.Idle);
         result.setTouchable(Touchable.disabled);

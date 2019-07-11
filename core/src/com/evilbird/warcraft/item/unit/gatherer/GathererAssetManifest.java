@@ -25,7 +25,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.Peon;
 public class GathererAssetManifest
 {
     private String base;
-    private String icons;
     private String decompose;
     private String moveWithGold;
     private String moveWithWood;
@@ -49,7 +48,6 @@ public class GathererAssetManifest
     private void setTextures(String name, UnitType type, boolean landBased) {
         String faction = getFaction(type);
         base = "data/textures/" + faction + "/unit/" + name + ".png";
-        icons = "data/textures/common/menu/icons.png";
         decompose = "data/textures/common/unit/decompose.png";
 
         if (landBased) {
@@ -88,10 +86,6 @@ public class GathererAssetManifest
 
     public String getBaseTexturePath() {
         return base;
-    }
-
-    public String getIconTexturePath() {
-        return icons;
     }
 
     public String getDecomposeTexturePath() {

@@ -40,7 +40,7 @@ public class ForestFactoryTest extends GameTestCase
 
     @Test
     public void loadTest() {
-        factory.load();
+        factory.load(null);
         Mockito.verify(assets).load(ForestFactory.TERRAIN, Texture.class);
     }
 

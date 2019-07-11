@@ -147,7 +147,7 @@ public class WarcraftLevelLoader
     private Item getLayerItem(TiledMapFile map, MapLayer layer) {
         TiledMapTileLayer mapLayer = (TiledMapTileLayer)layer;
         LayerIdentifier identifier = new LayerIdentifier(map.getFile(), layer.getName(), mapLayer);
-        return itemFactory.newItem(identifier);
+        return itemFactory.get(identifier);
     }
 
     private Item getPlayerItem(MapLayer layer) {
@@ -155,7 +155,7 @@ public class WarcraftLevelLoader
         PlayerType type = getPlayerType(layer);
 
         if (type != null) {
-            Player player = (Player) itemFactory.newItem(type);
+            Player player = (Player) itemFactory.get(type);
             player.setIdentifier(new TextIdentifier(layer.getName()));
             player.setLevel(getInt(properties, LEVEL_PROPERTY));
             player.setDescription(getString(properties, DESCRIPTION_PROPERTY));
@@ -203,7 +203,7 @@ public class WarcraftLevelLoader
         ItemType type = getItemType(properties);
 
         if (type != null) {
-            Item item = itemFactory.newItem(type);
+            Item item = itemFactory.get(type);
             item.setIdentifier(new TextIdentifier(object.getName()));
             item.setVisible(object.isVisible());
             item.setTouchable(getTouchable(properties, TOUCHABLE_PROPERTY));

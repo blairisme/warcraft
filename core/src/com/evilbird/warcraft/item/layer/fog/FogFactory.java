@@ -18,10 +18,10 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.BitMatrix;
 import com.evilbird.engine.common.error.UnknownEntityException;
-import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.layer.LayerUtils;
@@ -39,7 +39,7 @@ import static com.evilbird.warcraft.item.layer.LayerUtils.cell;
  *
  * @author Blair Butterworth
  */
-public class FogFactory implements IdentifiedAssetProvider<Fog>
+public class FogFactory implements GameFactory<Fog>
 {
     public static final String TERRAIN = "data/textures/common/terrain/winter.png";
 
@@ -58,8 +58,12 @@ public class FogFactory implements IdentifiedAssetProvider<Fog>
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
         assets.load(TERRAIN, Texture.class);
+    }
+
+    @Override
+    public void unload(Identifier context) {
     }
 
     @Override

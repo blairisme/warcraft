@@ -10,15 +10,15 @@
 package com.evilbird.warcraft.item.ui.hud;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
-public class HudFactory implements IdentifiedAssetProvider<Item>
+public class HudFactory implements GameFactory<Item>
 {
     private HudControlFactory controlFactory;
 
@@ -44,7 +44,11 @@ public class HudFactory implements IdentifiedAssetProvider<Item>
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
         controlFactory.load();
+    }
+
+    @Override
+    public void unload(Identifier context) {
     }
 }

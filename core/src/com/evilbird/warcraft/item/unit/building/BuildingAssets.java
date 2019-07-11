@@ -14,7 +14,6 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.assets.AssetUtilities;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.audio.SoundUtils;
@@ -29,7 +28,6 @@ import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.file.FileType.MP3;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
-import static com.evilbird.engine.common.math.GridPoints.ZERO;
 
 /**
  * Provides access to the assets that are required to display a
@@ -42,24 +40,13 @@ public class BuildingAssets
     private AssetManager assets;
     private Map<String, Integer> cache;
     private BuildingAssetManifest manifest;
-    private GridPoint2 icon;
     private GridPoint2 size;
 
     public BuildingAssets(AssetManager assets, UnitType type) {
-        this(assets, type, ZERO);
-    }
-
-    public BuildingAssets(AssetManager assets, UnitType type, GridPoint2 icon) {
         this.assets = assets;
         this.cache = new HashMap<>();
         this.size = BuildingAssetDimensions.getDimensions(type);
         this.manifest = new BuildingAssetManifest(type, size);
-        this.icon = icon;
-    }
-
-    public Drawable getIcon() {
-        String path = manifest.getIconTexturePath();
-        return TextureUtils.getDrawable(assets, path, icon.x, icon.y, 46, 38);
     }
 
     public Texture getBaseTexture() {
@@ -102,7 +89,6 @@ public class BuildingAssets
 
     private void loadTextures() {
         assets.load(manifest.getBaseTexturePath(), Texture.class);
-        assets.load(manifest.getIconTexturePath(), Texture.class);
         assets.load(manifest.getConstructionTexturePath(), Texture.class);
         assets.load(manifest.getDestructionTexturePath(), Texture.class);
     }

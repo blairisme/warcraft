@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.item.layer.terrain;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerUtils;
 import org.apache.commons.lang3.Validate;
@@ -23,14 +23,18 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class TerrainFactory implements IdentifiedAssetProvider<Terrain>
+public class TerrainFactory implements GameFactory<Terrain>
 {
     @Inject
     public TerrainFactory() {
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
+    }
+
+    @Override
+    public void unload(Identifier context) {
     }
 
     @Override

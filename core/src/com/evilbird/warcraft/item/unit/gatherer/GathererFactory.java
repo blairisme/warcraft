@@ -9,8 +9,7 @@
 
 package com.evilbird.warcraft.item.unit.gatherer;
 
-import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactoryComposite;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.gatherer.human.OilTankerFactory;
@@ -26,7 +25,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class GathererFactory extends IdentifiedAssetProviderSet<Item>
+public class GathererFactory extends GameFactoryComposite<Gatherer>
 {
     @Inject
     public GathererFactory(

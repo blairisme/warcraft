@@ -9,9 +9,9 @@
 
 package com.evilbird.warcraft.item.data.camera;
 
-import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.game.GameFactory;
 
 import javax.inject.Inject;
 
@@ -20,7 +20,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class CameraFactory implements IdentifiedAssetProvider<Camera>
+public class CameraFactory implements GameFactory<Camera>
 {
     private Device device;
 
@@ -30,11 +30,15 @@ public class CameraFactory implements IdentifiedAssetProvider<Camera>
     }
 
     @Override
-    public void load() {
+    public Camera get(Identifier identifier) {
+        return new Camera(device);
     }
 
     @Override
-    public Camera get(Identifier identifier) {
-        return new Camera(device);
+    public void load(Identifier context) {
+    }
+
+    @Override
+    public void unload(Identifier context) {
     }
 }

@@ -35,7 +35,7 @@ public class CombatantTest extends GameTestCase
     public void setup() {
         super.setup();
         combatant = TestCombatants.newTestCombatant(new TextIdentifier("footman"), UnitType.Footman);
-        Mockito.when(itemFactory.newItem(UnitType.Footman)).thenReturn(combatant);
+        Mockito.when(itemFactory.get(UnitType.Footman)).thenReturn(combatant);
     }
 
     @Test

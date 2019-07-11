@@ -10,7 +10,7 @@
 package com.evilbird.test.testcase;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.game.GameFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
@@ -35,7 +35,7 @@ import static com.evilbird.test.data.device.TestAssets.newAssetManagerMock;
  */
 public abstract class FactoryTestCase<T> extends GameTestCase
 {
-    protected AssetProvider<T> factory;
+    protected GameFactory<T> factory;
     protected AssetManager assets;
 
     @Before
@@ -44,12 +44,12 @@ public abstract class FactoryTestCase<T> extends GameTestCase
         factory = newFactory(assets);
     }
 
-    protected abstract AssetProvider<T> newFactory(AssetManager assets);
+    protected abstract GameFactory<T> newFactory(AssetManager assets);
 
     @Test
     @SuppressWarnings("unchecked")
     public void loadTest() throws Exception {
-        factory.load();
+        factory.load(null);
 
         ArgumentCaptor<String> pathArguments = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<Class> typeArguments = ArgumentCaptor.forClass(Class.class);
@@ -68,7 +68,7 @@ public abstract class FactoryTestCase<T> extends GameTestCase
 
     @Test
     public void getTest() throws Exception {
-        T newObject = factory.get();
+        T newObject = factory.get(null);
         Assert.assertNotNull(newObject);
 
         for (Entry<String, Object> property: newValueProperties().entrySet()) {

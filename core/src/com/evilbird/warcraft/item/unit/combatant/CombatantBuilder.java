@@ -149,7 +149,6 @@ public class CombatantBuilder
 
     private UnitStyle getUnitStyle(CombatantAssets assets) {
         UnitStyle unitStyle = new UnitStyle();
-        unitStyle.icon = assets.getIcon();
         unitStyle.selection = assets.getSelectionTexture();
         return unitStyle;
     }

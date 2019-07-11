@@ -24,7 +24,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
 public class CombatantAssetManifest
 {
     private String base;
-    private String icons;
     private String decompose;
     private String acknowledge;
     private String selected;
@@ -44,7 +43,6 @@ public class CombatantAssetManifest
 
     private void setTextures(String faction, String name) {
         this.base = "data/textures/" + faction + "/unit/" + name + ".png";
-        this.icons = "data/textures/common/menu/icons.png";
         this.decompose = "data/textures/common/unit/decompose.png";
     }
 
@@ -65,10 +63,6 @@ public class CombatantAssetManifest
 
     public String getBaseTexturePath() {
         return base;
-    }
-
-    public String getIconTexturePath() {
-        return icons;
     }
 
     public String getDecomposeTexturePath() {

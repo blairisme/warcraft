@@ -9,16 +9,15 @@
 
 package com.evilbird.warcraft.item;
 
-import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
+import com.evilbird.engine.game.GameFactoryComposite;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemType;
-import com.evilbird.warcraft.item.data.DataProvider;
-import com.evilbird.warcraft.item.ui.effect.EffectFactory;
+import com.evilbird.warcraft.item.data.DataFactory;
 import com.evilbird.warcraft.item.layer.LayerFactory;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.projectile.ProjectileFactory;
 import com.evilbird.warcraft.item.projectile.ProjectileType;
+import com.evilbird.warcraft.item.ui.effect.EffectFactory;
 import com.evilbird.warcraft.item.ui.hud.HudFactory;
 import com.evilbird.warcraft.item.ui.hud.HudType;
 import com.evilbird.warcraft.item.ui.placement.PlaceholderFactory;
@@ -33,13 +32,11 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class WarcraftItemFactory implements ItemFactory
+public class WarcraftItemFactory extends GameFactoryComposite<Item> implements ItemFactory
 {
-    private IdentifiedAssetProviderSet<Item> providers;
-
     @Inject
     public WarcraftItemFactory(
-        DataProvider dataProvider,
+        DataFactory dataFactory,
         LayerFactory layerFactory,
         UnitFactory unitFactory,
         EffectFactory effectFactory,
@@ -47,23 +44,12 @@ public class WarcraftItemFactory implements ItemFactory
         PlaceholderFactory placeholderFactory,
         ProjectileFactory projectileFactory)
     {
-        providers = new IdentifiedAssetProviderSet<>();
-        providers.addProvider(unitFactory);
-        providers.addProvider(dataProvider);
-        providers.addProvider(effectFactory);
-        providers.addProvider(PlaceholderType.class, placeholderFactory);
-        providers.addProvider(HudType.class, hudFactory);
-        providers.addProvider(LayerIdentifier.class, layerFactory);
-        providers.addProvider(ProjectileType.class, projectileFactory);
-    }
-
-    @Override
-    public void load() {
-        providers.load();
-    }
-
-    @Override
-    public Item newItem(ItemType type) {
-        return providers.get(type);
+        addProvider(unitFactory);
+        addProvider(dataFactory);
+        addProvider(effectFactory);
+        addProvider(PlaceholderType.class, placeholderFactory);
+        addProvider(HudType.class, hudFactory);
+        addProvider(LayerIdentifier.class, layerFactory);
+        addProvider(ProjectileType.class, projectileFactory);
     }
 }

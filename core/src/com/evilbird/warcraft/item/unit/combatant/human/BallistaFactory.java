@@ -11,9 +11,10 @@ package com.evilbird.warcraft.item.unit.combatant.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactory;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.item.unit.combatant.CombatantBuilder;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
@@ -31,9 +32,8 @@ import static com.evilbird.warcraft.item.unit.UnitType.Ballista;
  *
  * @author Blair Butterworth
  */
-public class BallistaFactory implements AssetProvider<Item>
+public class BallistaFactory implements GameFactory<Combatant>
 {
-    private static final GridPoint2 ICON = new GridPoint2(46, 114);
     private static final GridPoint2 SIZE = new GridPoint2(32, 32);
 
     private CombatantAssets assets;
@@ -45,17 +45,21 @@ public class BallistaFactory implements AssetProvider<Item>
     }
 
     public BallistaFactory(AssetManager manager) {
-        this.assets = new CombatantAssets(manager, Ballista, ICON, SIZE);
+        this.assets = new CombatantAssets(manager, Ballista, SIZE);
         this.builder = new CombatantBuilder(assets);
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
         assets.load();
     }
 
     @Override
-    public Item get() {
+    public void unload(Identifier context) {
+    }
+
+    @Override
+    public Combatant get(Identifier type) {
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(3);
         result.setDefence(0);

@@ -13,11 +13,10 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.building.BuildingAssets;
 import org.apache.commons.lang3.Validate;
 
@@ -33,7 +32,7 @@ import static com.evilbird.engine.common.math.GridPoints.ZERO;
  *
  * @author Blair Butterworth
  */
-public class PlaceholderFactory implements IdentifiedAssetProvider<Item>
+public class PlaceholderFactory implements GameFactory<Placeholder>
 {
     private static final String ALLOWED_TEXTURE = "data/textures/common/ui/building_allowed.png";
     private static final String PROHIBITED_TEXTURE = "data/textures/common/ui/building_prohibited.png";
@@ -48,13 +47,17 @@ public class PlaceholderFactory implements IdentifiedAssetProvider<Item>
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
         assets.load(ALLOWED_TEXTURE, Texture.class);
         assets.load(PROHIBITED_TEXTURE, Texture.class);
     }
 
     @Override
-    public Item get(Identifier identifier) {
+    public void unload(Identifier context) {
+    }
+
+    @Override
+    public Placeholder get(Identifier identifier) {
         Validate.isInstanceOf(PlaceholderType.class, identifier);
         return getPlaceholder((PlaceholderType)identifier);
     }

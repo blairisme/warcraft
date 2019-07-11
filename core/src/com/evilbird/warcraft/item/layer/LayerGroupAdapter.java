@@ -90,7 +90,7 @@ public abstract class LayerGroupAdapter <T extends LayerGroup> implements JsonSe
     protected T deserializeInstance(JsonObject json, JsonDeserializationContext context) {
         JsonElement element = json.get(TYPE);
         ItemType itemType = context.deserialize(element, Identifier.class);
-        return (T)itemFactory.newItem(itemType);
+        return (T)itemFactory.get(itemType);
     }
 
     protected void deserializeCells(JsonObject json, JsonDeserializationContext context, T group) {

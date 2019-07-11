@@ -12,8 +12,6 @@ package com.evilbird.warcraft.item.unit.resource;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.graphics.TextureUtils;
@@ -33,17 +31,10 @@ public class ResourceAssets
 {
     private AssetManager assets;
     private ResourceAssetManifest manifest;
-    private GridPoint2 icon;
 
-    public ResourceAssets(AssetManager assets, UnitType type, GridPoint2 icon) {
+    public ResourceAssets(AssetManager assets, UnitType type) {
         this.assets = assets;
         this.manifest = new ResourceAssetManifest(type);
-        this.icon = icon;
-    }
-
-    public Drawable getIcon() {
-        String path = manifest.getIconTexturePath();
-        return TextureUtils.getDrawable(assets, path, icon.x, icon.y, 46, 38);
     }
 
     public Texture getSelectionTexture() {
@@ -73,7 +64,6 @@ public class ResourceAssets
 
     private void loadTextures() {
         assets.load(manifest.getGeneralTexturePath(), Texture.class);
-        assets.load(manifest.getIconTexturePath(), Texture.class);
         assets.load(manifest.getDestructionTexturePath(), Texture.class);
     }
 

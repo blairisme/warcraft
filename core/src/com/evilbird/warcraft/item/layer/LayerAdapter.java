@@ -45,6 +45,6 @@ public class LayerAdapter extends ItemBasicAdapter
     @Override
     protected Item getDeserializedInstance(JsonObject json, JsonDeserializationContext context) {
         ItemType identifier = context.deserialize(json.get(ID), ItemType.class);
-        return itemFactory.newItem(identifier);
+        return itemFactory.get(identifier);
     }
 }

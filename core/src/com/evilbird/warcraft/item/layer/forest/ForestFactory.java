@@ -15,9 +15,9 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.BitMatrix;
-import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.layer.LayerGroupStyle;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerUtils;
@@ -37,7 +37,7 @@ import static com.evilbird.warcraft.item.layer.LayerUtils.cell;
  *
  * @author Blair Butterworth
  */
-public class ForestFactory implements IdentifiedAssetProvider<Forest>
+public class ForestFactory implements GameFactory<Forest>
 {
     public static final String TERRAIN = "data/textures/common/terrain/winter.png";
 
@@ -53,8 +53,12 @@ public class ForestFactory implements IdentifiedAssetProvider<Forest>
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
         assets.load(TERRAIN, Texture.class);
+    }
+
+    @Override
+    public void unload(Identifier context) {
     }
 
     @Override

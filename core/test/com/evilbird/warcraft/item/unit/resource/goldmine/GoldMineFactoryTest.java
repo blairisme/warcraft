@@ -11,10 +11,10 @@ package com.evilbird.warcraft.item.unit.resource.goldmine;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.engine.common.inject.AssetProvider;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.test.testcase.FactoryTestCase;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.resource.Resource;
 import com.evilbird.warcraft.item.unit.resource.neutral.GoldMineFactory;
 
 import java.util.Map;
@@ -24,10 +24,10 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-public class GoldMineFactoryTest extends FactoryTestCase<Item>
+public class GoldMineFactoryTest extends FactoryTestCase<Resource>
 {
     @Override
-    protected AssetProvider<Item> newFactory(AssetManager assets) {
+    protected GameFactory<Resource> newFactory(AssetManager assets) {
         return new GoldMineFactory(assets);
     }
 

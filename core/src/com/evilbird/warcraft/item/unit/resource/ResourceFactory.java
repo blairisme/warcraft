@@ -9,8 +9,7 @@
 
 package com.evilbird.warcraft.item.unit.resource;
 
-import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactoryComposite;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.neutral.GoldMineFactory;
@@ -24,7 +23,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class ResourceFactory extends IdentifiedAssetProviderSet<Item>
+public class ResourceFactory extends GameFactoryComposite<Resource>
 {
     @Inject
     public ResourceFactory(GoldMineFactory goldMineFactory, OilPatchFactory oilPatchFactory) {

@@ -75,10 +75,6 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
         return healthMaximum;
     }
 
-//    public Drawable getIcon() {
-//        return style.icon;
-//    }
-
     public String getName() {
         return name;
     }

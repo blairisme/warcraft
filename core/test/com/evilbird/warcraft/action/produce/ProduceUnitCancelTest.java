@@ -15,8 +15,6 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.action.produce.ProduceUnitActions;
-import com.evilbird.warcraft.action.produce.ProduceUnitCancel;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.mockito.Mockito;
 

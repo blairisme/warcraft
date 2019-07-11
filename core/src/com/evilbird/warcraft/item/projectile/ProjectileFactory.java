@@ -16,11 +16,10 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.graphics.AnimationSchema;
-import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.item.specialized.AnimatedItemStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationLayouts;
 import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
@@ -37,7 +36,7 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
  *
  * @author Blair Butterworth
  */
-public class ProjectileFactory implements IdentifiedAssetProvider<Item>
+public class ProjectileFactory implements GameFactory<Projectile>
 {
     private static final String ARROW = "data/textures/common/projectile/arrow.png";
     private static final String AXE = "data/textures/common/projectile/axe.png";
@@ -57,14 +56,18 @@ public class ProjectileFactory implements IdentifiedAssetProvider<Item>
     }
 
     @Override
-    public void load() {
+    public void load(Identifier identifier) {
         assets.load(ARROW, Texture.class);
         assets.load(AXE, Texture.class);
         assets.load(CANNON, Texture.class);
     }
 
     @Override
-    public Item get(Identifier identifier) {
+    public void unload(Identifier context) {
+    }
+
+    @Override
+    public Projectile get(Identifier identifier) {
         Validate.isInstanceOf(ProjectileType.class, identifier);
         ProjectileType type = (ProjectileType)identifier;
 

@@ -13,7 +13,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.graphics.TextureUtils;
@@ -33,19 +32,12 @@ public class GathererAssets
 {
     private AssetManager assets;
     private GathererAssetManifest manifest;
-    private GridPoint2 icon;
     private GridPoint2 size;
 
-    public GathererAssets(AssetManager assets, UnitType unitType, GridPoint2 icon, GridPoint2 size) {
+    public GathererAssets(AssetManager assets, UnitType unitType, GridPoint2 size) {
         this.assets = assets;
         this.manifest = new GathererAssetManifest(unitType);
-        this.icon = icon;
         this.size = size;
-    }
-
-    public Drawable getIcon() {
-        String path = manifest.getIconTexturePath();
-        return TextureUtils.getDrawable(assets, path, icon.x, icon.y, 46, 38);
     }
 
     public Texture getBaseTexture() {
@@ -111,7 +103,6 @@ public class GathererAssets
 
     private void loadTextures() {
         assets.load(manifest.getBaseTexturePath(), Texture.class);
-        assets.load(manifest.getIconTexturePath(), Texture.class);
         assets.load(manifest.getDecomposeTexturePath(), Texture.class);
 
         if (manifest.getMoveWithGoldTexturePath() != null) {

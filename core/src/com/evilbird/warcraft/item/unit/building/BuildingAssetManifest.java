@@ -22,7 +22,6 @@ import com.evilbird.warcraft.item.unit.UnitType;
 public class BuildingAssetManifest
 {
     private String base;
-    private String icons;
     private String construction;
     private String destruction;
     private String destroyed;
@@ -39,7 +38,6 @@ public class BuildingAssetManifest
     }
 
     private void setTextures(String name, String faction, String season, String size) {
-        icons = "data/textures/common/menu/icons.png";
         base = "data/textures/" + faction + "/building/" + season + "/" + name + ".png";
         construction = "data/textures/common/building/perennial/construction" + size + ".png";
         destruction = "data/textures/common/building/winter/destroyed_site.png";
@@ -52,10 +50,6 @@ public class BuildingAssetManifest
 
     public String getBaseTexturePath() {
         return base;
-    }
-
-    public String getIconTexturePath() {
-        return icons;
     }
 
     public String getConstructionTexturePath() {

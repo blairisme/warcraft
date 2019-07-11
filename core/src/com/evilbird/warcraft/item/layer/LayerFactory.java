@@ -10,9 +10,8 @@
 package com.evilbird.warcraft.item.layer;
 
 import com.evilbird.engine.common.error.UnknownEntityException;
-import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.layer.fog.FogFactory;
 import com.evilbird.warcraft.item.layer.forest.ForestFactory;
 import com.evilbird.warcraft.item.layer.terrain.TerrainFactory;
@@ -25,7 +24,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class LayerFactory implements IdentifiedAssetProvider<Item>
+public class LayerFactory implements GameFactory<Layer>
 {
     private FogFactory fogFactory;
     private ForestFactory forestFactory;
@@ -46,7 +45,7 @@ public class LayerFactory implements IdentifiedAssetProvider<Item>
     }
 
     @Override
-    public Item get(Identifier identifier) {
+    public Layer get(Identifier identifier) {
         LayerIdentifier layerIdentifier = (LayerIdentifier)identifier;
         switch (layerIdentifier.getType()) {
             case Map:
@@ -60,10 +59,14 @@ public class LayerFactory implements IdentifiedAssetProvider<Item>
     }
 
     @Override
-    public void load() {
-        fogFactory.load();
-        forestFactory.load();
-        terrainFactory.load();
-        wallFactory.load();
+    public void load(Identifier context) {
+        fogFactory.load(context);
+        forestFactory.load(context);
+        terrainFactory.load(context);
+        wallFactory.load(context);
+    }
+
+    @Override
+    public void unload(Identifier context) {
     }
 }

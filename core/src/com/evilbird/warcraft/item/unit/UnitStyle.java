@@ -10,7 +10,6 @@
 package com.evilbird.warcraft.item.unit;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 /**
  * Defines the visual and auditory presentation of a {@link Unit}.
@@ -19,11 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
  */
 public class UnitStyle
 {
-    /**
-     * The graphic used to represent the {@link Unit} in the selection panel.
-     */
-    public Drawable icon;
-
     /**
      * The texture drawn below a {@link Unit} when its selected.
      */

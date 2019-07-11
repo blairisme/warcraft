@@ -142,7 +142,7 @@ public class GameTestCase
     }
 
     public void respondWithNewItem() {
-        Mockito.when(itemFactory.newItem(Mockito.any())).thenAnswer(invocation -> {
+        Mockito.when(itemFactory.get(Mockito.any())).thenAnswer(invocation -> {
             Identifier identifier = invocation.getArgument(0);
             if (identifier instanceof PlayerType) {
                 return TestPlayers.newTestPlayer("player");
@@ -161,11 +161,11 @@ public class GameTestCase
     }
 
     public void respondWithItem(Item item) {
-        Mockito.when(itemFactory.newItem(Mockito.any())).thenReturn(item);
+        Mockito.when(itemFactory.get(Mockito.any())).thenReturn(item);
     }
 
     public void respondWithItem(ItemType identifier, Supplier<Item> supplier) {
-        Mockito.when(itemFactory.newItem(identifier)).thenAnswer(invocation -> supplier.get());
+        Mockito.when(itemFactory.get(identifier)).thenAnswer(invocation -> supplier.get());
     }
 
     public void respondWithNewAction() {

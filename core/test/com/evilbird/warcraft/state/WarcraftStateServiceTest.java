@@ -11,7 +11,6 @@ package com.evilbird.warcraft.state;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.JsonSerializer;
 import com.evilbird.engine.device.Device;
@@ -23,8 +22,8 @@ import com.evilbird.test.utils.TestFileHandleResolver;
 import com.evilbird.warcraft.state.campaign.WarcraftCampaign;
 import com.evilbird.warcraft.state.map.WarcraftLevel;
 import com.evilbird.warcraft.state.map.WarcraftLevelLoader;
-import com.evilbird.warcraft.state.scenario.WarcraftScenarioState;
 import com.evilbird.warcraft.state.scenario.WarcraftScenarioAdapter;
+import com.evilbird.warcraft.state.scenario.WarcraftScenarioState;
 import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import org.junit.Assert;
 import org.junit.Before;

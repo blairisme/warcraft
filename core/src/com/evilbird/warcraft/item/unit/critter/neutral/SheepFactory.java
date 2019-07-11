@@ -10,10 +10,9 @@
 package com.evilbird.warcraft.item.unit.critter.neutral;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.critter.Critter;
 import com.evilbird.warcraft.item.unit.critter.CritterAssets;
 import com.evilbird.warcraft.item.unit.critter.CritterBuilder;
@@ -30,10 +29,8 @@ import static com.evilbird.warcraft.item.unit.UnitType.Sheep;
  *
  * @author Blair Butterworth
  */
-public class SheepFactory implements AssetProvider<Item>
+public class SheepFactory implements GameFactory<Critter>
 {
-    private static final GridPoint2 ICON = new GridPoint2(0, 874);
-
     private CritterAssets assets;
     private CritterBuilder builder;
 
@@ -43,17 +40,21 @@ public class SheepFactory implements AssetProvider<Item>
     }
 
     public SheepFactory(AssetManager manager) {
-        this.assets = new CritterAssets(manager, Sheep, ICON);
+        this.assets = new CritterAssets(manager, Sheep);
         this.builder = new CritterBuilder(assets);
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
         assets.load();
     }
 
     @Override
-    public Item get() {
+    public void unload(Identifier context) {
+    }
+
+    @Override
+    public Critter get(Identifier type) {
         Critter result = builder.build();
         result.setDefence(0);
         result.setHealth(5);

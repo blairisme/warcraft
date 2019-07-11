@@ -12,8 +12,6 @@ package com.evilbird.warcraft.item.unit.critter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.audio.SoundUtils;
 import com.evilbird.engine.common.graphics.Colours;
@@ -30,17 +28,10 @@ public class CritterAssets
 {
     private AssetManager assets;
     private CritterAssetManifest manifest;
-    private GridPoint2 icon;
 
-    public CritterAssets(AssetManager assets, UnitType unitType, GridPoint2 icon) {
+    public CritterAssets(AssetManager assets, UnitType unitType) {
         this.assets = assets;
         this.manifest = new CritterAssetManifest(unitType);
-        this.icon = icon;
-    }
-
-    public Drawable getIcon() {
-        String path = manifest.getIconTexturePath();
-        return TextureUtils.getDrawable(assets, path, icon.x, icon.y, 46, 38);
     }
 
     public Texture getBaseTexture() {
@@ -67,7 +58,6 @@ public class CritterAssets
 
     public void load() {
         assets.load(manifest.getBaseTexturePath(), Texture.class);
-        assets.load(manifest.getIconTexturePath(), Texture.class);
         assets.load(manifest.getDecomposeTexturePath(), Texture.class);
         assets.load(manifest.getSelectedSoundEffectPath(), Sound.class);
         assets.load(manifest.getDieSoundEffectPath(), Sound.class);

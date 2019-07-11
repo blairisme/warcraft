@@ -42,7 +42,7 @@ public class FogFactoryTest extends GameTestCase
 
     @Test
     public void loadTest() {
-        factory.load();
+        factory.load(null);
         Mockito.verify(assets).load(FogFactory.TERRAIN, Texture.class);
     }
 

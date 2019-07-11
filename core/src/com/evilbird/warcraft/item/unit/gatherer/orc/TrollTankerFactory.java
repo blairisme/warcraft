@@ -11,9 +11,9 @@ package com.evilbird.warcraft.item.unit.gatherer.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.item.unit.gatherer.GathererAssets;
@@ -42,10 +42,9 @@ import static com.evilbird.warcraft.item.unit.UnitType.TrollTanker;
  * </p>
  * @author Blair Butterworth
  */
-public class TrollTankerFactory implements AssetProvider<Item>
+public class TrollTankerFactory implements GameFactory<Gatherer>
 {
-    private static final GridPoint2 ICON = new GridPoint2(184, 114);
-    private static final GridPoint2 SIZE = new GridPoint2(32, 32);
+    private static final GridPoint2 SIZE = new GridPoint2(72, 72);
 
     private GathererAssets assets;
     private GathererBuilder builder;
@@ -56,17 +55,21 @@ public class TrollTankerFactory implements AssetProvider<Item>
     }
 
     public TrollTankerFactory(AssetManager manager) {
-        this.assets = new GathererAssets(manager, TrollTanker, ICON, SIZE);
+        this.assets = new GathererAssets(manager, TrollTanker, SIZE);
         this.builder = new GathererBuilder(assets);
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
         assets.load();
     }
 
     @Override
-    public Item get() {
+    public void unload(Identifier context) {
+    }
+
+    @Override
+    public Gatherer get(Identifier type) {
         Gatherer result = builder.newSeaGatherer();
         result.setDefence(0);
         result.setDamageMinimum(0);

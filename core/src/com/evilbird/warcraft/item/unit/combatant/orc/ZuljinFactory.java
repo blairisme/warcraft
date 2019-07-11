@@ -11,8 +11,8 @@ package com.evilbird.warcraft.item.unit.combatant.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.GridPoint2;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.item.unit.combatant.CombatantBuilder;
@@ -30,7 +30,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.Zuljin;
  */
 public class ZuljinFactory extends TrollAxethrowerFactory
 {
-    private static final GridPoint2 ICON = new GridPoint2(0, 266);
     private static final GridPoint2 SIZE = new GridPoint2(32, 32);
 
     protected CombatantAssets assets;
@@ -43,13 +42,13 @@ public class ZuljinFactory extends TrollAxethrowerFactory
 
     public ZuljinFactory(AssetManager manager) {
         super(manager);
-        this.assets = new CombatantAssets(manager, TrollAxethrower, ICON, SIZE);
+        this.assets = new CombatantAssets(manager, TrollAxethrower, SIZE);
         this.builder = new CombatantBuilder(assets);
     }
 
     @Override
-    public Item get() {
-        Combatant result = (Combatant)super.get();
+    public Combatant get(Identifier type) {
+        Combatant result = super.get(type);
         result.setType(Zuljin);
         result.setIdentifier(objectIdentifier("Zuljin", result));
         result.setName("Zuljin");

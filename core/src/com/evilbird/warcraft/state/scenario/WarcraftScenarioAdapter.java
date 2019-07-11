@@ -137,7 +137,7 @@ public class WarcraftScenarioAdapter
         ItemRoot result = new ItemRoot();
         result.setViewport(viewport);
         result.setIdentifier(identifier);
-        result.addItem(itemFactory.newItem(identifier));
+        result.addItem(itemFactory.get(identifier));
         return result;
     }
 
