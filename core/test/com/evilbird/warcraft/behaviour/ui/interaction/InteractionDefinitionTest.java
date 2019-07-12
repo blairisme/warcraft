@@ -140,7 +140,7 @@ public class InteractionDefinitionTest extends GameTestCase
     @Test
     public void applyTest() {
         Action action = newBasicAction();
-        Mockito.when(factory.newAction(ConstructActions.ConstructBarracks)).thenReturn(action);
+        Mockito.when(factory.get(ConstructActions.ConstructBarracks)).thenReturn(action);
 
         UserInput input = new UserInput(UserInputType.Action, Vector2.Zero, 1);
         Item target = newTestCombatant("footman");

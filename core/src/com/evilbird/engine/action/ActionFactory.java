@@ -9,9 +9,7 @@
 
 package com.evilbird.engine.action;
 
-import com.evilbird.engine.common.error.UnknownEntityException;
-import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Persisted;
+import com.evilbird.engine.game.GameFactory;
 
 /**
  * Instances of this class provide access to {@link Action Actions}, self
@@ -20,15 +18,6 @@ import com.evilbird.engine.common.lang.Persisted;
  *
  * @author Blair Butterworth
  */
-public interface ActionFactory extends Persisted
+public interface ActionFactory extends GameFactory<Action>
 {
-    /**
-     * Returns an {@link Action} with the given {@link Identifier}.
-     *
-     * @param identifier    the identifier of the desired action.
-     * @return              the desired action.
-     * @throws UnknownEntityException   thrown if an action with the given
-     *                                  identifier doesn't exist.
-     */
-    Action newAction(ActionIdentifier identifier) throws UnknownEntityException;
 }

@@ -73,7 +73,7 @@ public class LoaderScreenModel
     }
 
     public void loadAssets() {
-        actionFactory.load();
+        actionFactory.load(null);
         menuFactory.load(null);
         itemFactory.load(null);
         behaviourFactory.load(null);

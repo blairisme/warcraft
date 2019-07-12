@@ -39,11 +39,11 @@ public class ItemTest extends GameTestCase
         super.setup();
         actionA = new TestBasicAction();
         actionA.setIdentifier(MoveActions.MoveToLocation);
-        Mockito.when(actionFactory.newAction(MoveActions.MoveToLocation)).thenReturn(actionA);
+        Mockito.when(actionFactory.get(MoveActions.MoveToLocation)).thenReturn(actionA);
 
         actionB = new TestBasicAction();
         actionB.setIdentifier(AttackActions.Attack);
-        Mockito.when(actionFactory.newAction(AttackActions.Attack)).thenReturn(actionB);
+        Mockito.when(actionFactory.get(AttackActions.Attack)).thenReturn(actionB);
 
         item = TestCombatants.newTestCombatant("footman");
         item.addAction(actionA);

@@ -16,15 +16,6 @@ import com.evilbird.engine.game.GameFactory;
  *
  * @author Blair Butterworth
  */
-public interface BehaviourFactory extends GameFactory<Behaviour> //extends Persisted
+public interface BehaviourFactory extends GameFactory<Behaviour>
 {
-//    /**
-//     * Returns an {@link Behaviour} with the given {@link Identifier}.
-//     *
-//     * @param identifier    the identifier of the desired behaviour.
-//     * @return              the desired behaviour.
-//     * @throws UnknownEntityException   thrown if a behaviour with the given
-//     *                                  identifier doesn't exist.
-//     */
-//    Behaviour newBehaviour(BehaviourIdentifier identifier) throws UnknownEntityException;
 }

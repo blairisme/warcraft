@@ -315,7 +315,7 @@ public class InteractionDefinition implements Interaction
         Item recipient = recipientSupplier.apply(subject);
 
         for (ActionIdentifier actionType: actions) {
-            Action action = factory.newAction(actionType);
+            Action action = factory.get(actionType);
             application.accept(recipient, action);
 
             action.setItem(subject);

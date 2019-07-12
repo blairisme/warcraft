@@ -13,6 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.error.UnknownEntityException;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.attack.AttackFactory;
 import com.evilbird.warcraft.action.camera.CameraActions;
@@ -33,6 +34,7 @@ import com.evilbird.warcraft.action.produce.ProduceFactory;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.action.select.SelectActions;
 import com.evilbird.warcraft.action.select.SelectFactory;
+import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 import java.util.HashMap;
@@ -77,14 +79,21 @@ public class WarcraftActionFactory implements ActionFactory
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
     }
 
     @Override
-    public Action newAction(ActionIdentifier identifier) {
+    public void unload(Identifier context) {
+    }
+
+    @Override
+    public Action get(Identifier identifier) {
+        Validate.isInstanceOf(ActionIdentifier.class, identifier);
+        ActionIdentifier actionIdentifier = (ActionIdentifier)identifier;
+
         ActionProvider provider = actions.get(identifier);
         if (provider != null) {
-            return provider.get(identifier);
+            return provider.get(actionIdentifier);
         }
         throw new UnknownEntityException(identifier);
     }

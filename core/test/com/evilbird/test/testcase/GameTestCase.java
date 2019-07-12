@@ -169,11 +169,11 @@ public class GameTestCase
     }
 
     public void respondWithNewAction() {
-        Mockito.when(actionFactory.newAction(Mockito.any())).thenAnswer((invocation) -> TestActions.newAction("action"));
+        Mockito.when(actionFactory.get(Mockito.any())).thenAnswer((invocation) -> TestActions.newAction("action"));
     }
 
     public void respondWithAction(Action action) {
-        Mockito.when(actionFactory.newAction(Mockito.any())).thenReturn(action);
+        Mockito.when(actionFactory.get(Mockito.any())).thenReturn(action);
     }
 
     public void respondWithNewBehaviour() {
