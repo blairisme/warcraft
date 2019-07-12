@@ -177,14 +177,14 @@ public class GameTestCase
     }
 
     public void respondWithNewBehaviour() {
-        Mockito.when(behaviourFactory.newBehaviour(Mockito.any())).thenAnswer((invocation) -> TestBehaviours.newBehaviour("behaviour"));
+        Mockito.when(behaviourFactory.get(Mockito.any())).thenAnswer((invocation) -> TestBehaviours.newBehaviour("behaviour"));
     }
 
     public void respondWithBehaviour(Behaviour behaviour) {
-        Mockito.when(behaviourFactory.newBehaviour(Mockito.any())).thenReturn(behaviour);
+        Mockito.when(behaviourFactory.get(Mockito.any())).thenReturn(behaviour);
     }
 
     public void respondWithBehaviour(Behaviour behaviour, BehaviourIdentifier identifier) {
-        Mockito.when(behaviourFactory.newBehaviour(identifier)).thenReturn(behaviour);
+        Mockito.when(behaviourFactory.get(identifier)).thenReturn(behaviour);
     }
 }

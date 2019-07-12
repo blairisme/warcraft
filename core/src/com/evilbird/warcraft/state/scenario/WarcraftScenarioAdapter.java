@@ -12,7 +12,6 @@ package com.evilbird.warcraft.state.scenario;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
-import com.evilbird.engine.behaviour.BehaviourIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
@@ -143,6 +142,6 @@ public class WarcraftScenarioAdapter
 
     private Behaviour deserializeBehaviour(JsonObject json, JsonDeserializationContext context) {
         Identifier identifier = context.deserialize(json.get(BEHAVIOUR), Identifier.class);
-        return behaviourFactory.newBehaviour((BehaviourIdentifier)identifier);
+        return behaviourFactory.get(identifier);
     }
 }

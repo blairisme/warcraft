@@ -11,8 +11,8 @@ package com.evilbird.warcraft.behaviour;
 
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
-import com.evilbird.engine.behaviour.BehaviourIdentifier;
 import com.evilbird.engine.behaviour.CompositeBehaviour;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourFactory;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviours;
 import com.evilbird.warcraft.behaviour.scenario.ScenarioBehaviourFactory;
@@ -49,19 +49,24 @@ public class WarcraftBehaviourFactory implements BehaviourFactory
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
     }
 
     @Override
-    public Behaviour newBehaviour(BehaviourIdentifier id) {
-        Validate.isInstanceOf(WarcraftBehaviour.class, id);
-        WarcraftBehaviour type = (WarcraftBehaviour)id;
-        ScenarioBehaviours scenario = ScenarioBehaviours.valueOf(type.name());
-        AiBehaviours difficulty = type.isHuman() ? HumanEasy : OrcEasy;
-        return newLevelBehaviour(id, scenario, difficulty);
+    public void unload(Identifier context) {
     }
 
-    private Behaviour newLevelBehaviour(BehaviourIdentifier id, ScenarioBehaviours scenario, AiBehaviours ai) {
+    @Override
+    public Behaviour get(Identifier id) {
+        Validate.isInstanceOf(WarcraftBehaviour.class, id);
+        WarcraftBehaviour type = (WarcraftBehaviour)id;
+
+        ScenarioBehaviours scenario = ScenarioBehaviours.valueOf(type.name());
+        AiBehaviours difficulty = type.isHuman() ? HumanEasy : OrcEasy;
+        return newLevelBehaviour(type, scenario, difficulty);
+    }
+
+    private Behaviour newLevelBehaviour(WarcraftBehaviour id, ScenarioBehaviours scenario, AiBehaviours ai) {
         Behaviour aiBehaviour = aiBehaviours.get(ai);
         Behaviour uiBehaviour = uiBehaviours.get();
         Behaviour scenarioBehaviour = scenarioBehaviours.get(scenario);

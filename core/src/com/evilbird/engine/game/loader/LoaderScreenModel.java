@@ -76,7 +76,7 @@ public class LoaderScreenModel
         actionFactory.load();
         menuFactory.load(null);
         itemFactory.load(null);
-        behaviourFactory.load();
+        behaviourFactory.load(null);
         stateService.load();
     }
 
