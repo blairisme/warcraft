@@ -46,16 +46,16 @@ public class OutroMenuFactoryTest extends GameTestCase
 
     @Test
     public void loadTest() {
-        factory.load();
+        factory.load(null);
         Mockito.verify(assets).load(BUTTON, Texture.class);
         Mockito.verify(assets).load(INTRO_BUNDLE_1, I18NBundle.class);
     }
 
     @Test
     public void getTest() {
-        factory.load();
+        factory.load(null);
         for (OutroMenuType menuType: OutroMenuType.values()) {
-            OutroMenu menu = (OutroMenu)factory.get(menuType);
+            OutroMenu menu = factory.get(menuType);
             Assert.assertNotNull(menu);
             Assert.assertTrue(menu.getSkin().has("background-victory", Drawable.class));
         }

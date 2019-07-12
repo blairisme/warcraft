@@ -20,12 +20,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.control.SelectListener;
-import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameController;
-import com.evilbird.engine.menu.Menu;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.IntroducedState;
 import com.evilbird.engine.state.State;
@@ -45,7 +44,7 @@ import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
  *
  * @author Blair Butterworth
  */
-public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
+public class OutroMenuFactory implements GameFactory<OutroMenu>
 {
     private static final String FONT = "data/fonts/philosopher.ttf";
     private static final String FONT_LARGE = "data/fonts/philosopher-large.ttf";
@@ -66,7 +65,7 @@ public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
         assets.load(FONT, BitmapFont.class, fontSize(18));
         assets.load(FONT_LARGE, BitmapFont.class, fontSize(36));
         assets.load(BUTTON, Texture.class);
@@ -78,12 +77,16 @@ public class OutroMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     @Override
-    public Menu get(Identifier identifier) {
+    public void unload(Identifier context) {
+    }
+
+    @Override
+    public OutroMenu get(Identifier identifier) {
         Validate.isInstanceOf(OutroMenuType.class, identifier);
         return getMenu((OutroMenuType)identifier);
     }
 
-    private Menu getMenu(OutroMenuType type) {
+    private OutroMenu getMenu(OutroMenuType type) {
         OutroMenu menu = new OutroMenu(display, getSkin());
         menu.setType(type);
         menu.setLabelBundle(getStrings());

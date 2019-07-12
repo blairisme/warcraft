@@ -13,7 +13,7 @@ import com.evilbird.engine.common.text.CaseUtils;
 import com.evilbird.warcraft.item.unit.UnitFaction;
 
 /**
- * Specifies the path to assets required to display a {@link ResourcePane}.
+ * Specifies the paths of assets required to display a {@link ResourcePane}.
  *
  * @author Blair Butterworth
  */

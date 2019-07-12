@@ -17,11 +17,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.graphics.Fonts;
-import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
-import com.evilbird.engine.menu.Menu;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.warcraft.state.campaign.WarcraftCampaign;
 import org.apache.commons.lang3.Validate;
@@ -34,7 +33,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
+public class IntroMenuFactory implements GameFactory<IntroMenu>
 {
     private DeviceDisplay display;
     private AssetManager assetManager;
@@ -46,11 +45,15 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
     }
 
     @Override
-    public Menu get(Identifier identifier) {
+    public void unload(Identifier context) {
+    }
+
+    @Override
+    public IntroMenu get(Identifier identifier) {
         Validate.isInstanceOf(IntroMenuType.class, identifier);
         IntroMenuType type = (IntroMenuType)identifier;
         WarcraftCampaign campaign = WarcraftCampaign.valueOf(type.name());
@@ -64,7 +67,7 @@ public class IntroMenuFactory implements IdentifiedAssetProvider<Menu>
         return assets;
     }
 
-    private Menu getIntro(WarcraftCampaign campaign, IntroMenuAssets assets) {
+    private IntroMenu getIntro(WarcraftCampaign campaign, IntroMenuAssets assets) {
         Skin skin = getSkin(assets);
         IntroMenu menu = new IntroMenu(display, skin);
         addContent(menu, assets);

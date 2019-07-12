@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.game;
 
+import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.lang.Identifier;
 
 /**
@@ -25,8 +26,11 @@ public interface GameFactory <T>
      *
      * @param type  the type of the desired object.
      * @return      a new object. This method will not return {@code null}.
+     *
+     * @throws UnknownEntityException   thrown if a menu with the given
+     *                                  identifier doesn't exist.
      */
-    T get(Identifier type);
+    T get(Identifier type) throws UnknownEntityException;
 
     /**
      * Instructs the factory to load any persisted assets specific to the given

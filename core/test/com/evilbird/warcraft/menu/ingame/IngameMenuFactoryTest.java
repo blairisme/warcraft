@@ -47,15 +47,15 @@ public class IngameMenuFactoryTest extends GameTestCase
 
     @Test
     public void loadTest() {
-        factory.load();
+        factory.load(null);
         Mockito.verify(assets).load(BUTTON_ENABLED, Texture.class);
     }
 
     @Test
     public void getTest() {
-        factory.load();
+        factory.load(null);
         for (IngameMenuType menuType: IngameMenuType.values()) {
-            IngameMenu menu = (IngameMenu)factory.get(menuType);
+            IngameMenu menu = factory.get(menuType);
             Assert.assertNotNull(menu);
             Assert.assertTrue(menu.getSkin().has("menu-background-normal", Drawable.class));
         }

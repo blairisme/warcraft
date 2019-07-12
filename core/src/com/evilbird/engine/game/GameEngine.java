@@ -116,7 +116,7 @@ public class GameEngine extends Game implements GameController
     public void showMenu() {
         try {
             menuScreen.dispose();
-            menuScreen.setMenu(menuFactory.newMenu());
+            menuScreen.setMenu(menuFactory.get());
             setScreen(menuScreen);
         }
         catch (Throwable error) {
@@ -128,7 +128,7 @@ public class GameEngine extends Game implements GameController
     public void showMenu(MenuIdentifier identifier) {
         try {
             menuScreen.dispose();
-            menuScreen.setMenu(menuFactory.newMenu(identifier));
+            menuScreen.setMenu(menuFactory.get(identifier));
             setScreen(menuScreen);
         }
         catch (Throwable error) {
@@ -140,7 +140,7 @@ public class GameEngine extends Game implements GameController
     public void showMenuOverlay(MenuIdentifier identifier) {
         try {
             menuScreen.dispose();
-            menuScreen.setMenu(menuFactory.newMenu(identifier));
+            menuScreen.setMenu(menuFactory.get(identifier));
             setScreen(menuOverlay);
         }
         catch (Throwable error) {

@@ -11,27 +11,16 @@ package com.evilbird.warcraft.menu.ingame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
-import com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.control.SelectListener;
-import com.evilbird.engine.common.graphics.Fonts;
-import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
-import com.evilbird.engine.menu.Menu;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateService;
+import com.evilbird.warcraft.item.unit.UnitFaction;
 import com.evilbird.warcraft.menu.outro.OutroMenuType;
 import com.evilbird.warcraft.state.WarcraftSave;
 import org.apache.commons.lang3.tuple.Pair;
@@ -41,8 +30,6 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.util.Collection;
 
-import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
-import static com.evilbird.engine.common.graphics.TextureUtils.getTiledDrawable;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuLayout.Normal;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuLayout.Small;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuLayout.Wide;
@@ -67,100 +54,40 @@ import static com.evilbird.warcraft.state.WarcraftStateType.UserState;
  * @author Blair Butterworth
  */
 @SuppressWarnings("unchecked")
-public class IngameMenuFactory implements IdentifiedAssetProvider<Menu>
+public class IngameMenuFactory implements GameFactory<IngameMenu>
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(IngameMenuFactory.class);
-    private static final String BUTTON_ENABLED = "data/textures/human/menu/button-large-normal.png";
-    private static final String BUTTON_DISABLED = "data/textures/human/menu/button-large-grayed.png";
-    private static final String BUTTON_SELECTED = "data/textures/human/menu/button-large-pressed.png";
-    private static final String TEXT_PANEL_NORMAL = "data/textures/human/menu/text_panel_normal.png";
-    private static final String BACKGROUND_NORMAL = "data/textures/human/menu/panel_normal.png";
-    private static final String BACKGROUND_WIDE = "data/textures/human/menu/panel_wide.png";
-    private static final String BACKGROUND_SMALL = "data/textures/human/menu/panel_small.png";
-    private static final String CLICK = "data/sounds/common/menu/click.mp3";
 
-    private AssetManager assets;
     private StateService states;
     private DeviceDisplay display;
+    private IngameMenuAssets assets;
+    private IngameMenuBuilder builder;
 
     @Inject
     public IngameMenuFactory(Device device, StateService states) {
+        this(device, states, device.getAssetStorage());
+    }
+
+    public IngameMenuFactory(Device device, StateService states, AssetManager manager) {
         this.states = states;
-        this.assets = device.getAssetStorage();
         this.display = device.getDeviceDisplay();
+        this.assets = new IngameMenuAssets(manager, UnitFaction.Human);
+        this.builder = new IngameMenuBuilder(display, assets);
     }
 
     @Override
-    public void load() {
-        assets.load(BACKGROUND_NORMAL, Texture.class);
-        assets.load(BACKGROUND_WIDE, Texture.class);
-        assets.load(BACKGROUND_SMALL, Texture.class);
-        assets.load(BUTTON_ENABLED, Texture.class);
-        assets.load(BUTTON_DISABLED, Texture.class);
-        assets.load(BUTTON_SELECTED, Texture.class);
-        assets.load(TEXT_PANEL_NORMAL, Texture.class);
-        assets.load(CLICK, Sound.class);
+    public void load(Identifier context) {
+        assets.load();
     }
 
     @Override
-    public Menu get(Identifier identifier) {
-        IngameMenu menu = new IngameMenu(display, getSkin());
-        return setLayout(menu, identifier);
+    public void unload(Identifier context) {
     }
 
-    private Skin getSkin() {
-        Skin skin = new Skin();
-        addButtonStyle(skin);
-        addLabelStyle(skin);
-        addListStyle(skin);
-        addTextFieldStyle(skin);
-        addMenuStyle(skin);
-        return skin;
-    }
-
-    private void addButtonStyle(Skin skin) {
-        TextButtonStyle textButtonStyle = new TextButtonStyle();
-        textButtonStyle.font = Fonts.ARIAL;
-        textButtonStyle.fontColor = Color.WHITE;
-        textButtonStyle.up = getDrawable(assets, BUTTON_ENABLED);
-        textButtonStyle.over = textButtonStyle.up;
-        textButtonStyle.checked = textButtonStyle.up;
-        textButtonStyle.checkedOver = textButtonStyle.up;
-        textButtonStyle.disabled = getDrawable(assets, BUTTON_DISABLED);
-        textButtonStyle.down = getDrawable(assets, BUTTON_SELECTED);
-        skin.add("default", textButtonStyle);
-    }
-
-    private void addLabelStyle(Skin skin) {
-        LabelStyle labelStyle = new LabelStyle();
-        labelStyle.font = Fonts.ARIAL;
-        labelStyle.fontColor = Color.GOLD;
-        skin.add("default", labelStyle);
-    }
-
-    private void addListStyle(Skin skin) {
-        ListStyle listStyle = new ListStyle();
-        listStyle.font = Fonts.ARIAL;
-        listStyle.fontColorSelected = Color.GOLD;
-        listStyle.fontColorUnselected = Color.WHITE;
-        listStyle.background = getTiledDrawable(assets, TEXT_PANEL_NORMAL);
-        listStyle.selection = new BaseDrawable();
-
-        skin.add("default", listStyle);
-    }
-
-    private void addTextFieldStyle(Skin skin) {
-        TextFieldStyle textFieldStyle = new TextFieldStyle();
-        textFieldStyle.font = Fonts.ARIAL;
-        textFieldStyle.fontColor = Color.GOLD;
-        textFieldStyle.background = getDrawable(assets, TEXT_PANEL_NORMAL);
-        skin.add("default", textFieldStyle);
-    }
-
-    private void addMenuStyle(Skin skin) {
-        skin.add("menu-background-normal", getDrawable(assets, BACKGROUND_NORMAL), Drawable.class);
-        skin.add("menu-background-wide", getDrawable(assets, BACKGROUND_WIDE), Drawable.class);
-        skin.add("menu-background-small", getDrawable(assets, BACKGROUND_SMALL), Drawable.class);
+    @Override
+    public IngameMenu get(Identifier type) {
+        IngameMenu menu = builder.build();
+        return setLayout(menu, type);
     }
 
     private IngameMenu setLayout(IngameMenu menu, Identifier identifier) {

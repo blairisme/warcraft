@@ -48,7 +48,7 @@ public class MainMenuFactoryTest extends GameTestCase
 
     @Test
     public void loadTest() {
-        factory.load();
+        factory.load(null);
         Mockito.verify(assets).load(BUTTON, Texture.class);
         Mockito.verify(assets).load(BACKGROUND, Texture.class);
         Mockito.verify(assets).load(MUSIC, Music.class);
@@ -56,9 +56,9 @@ public class MainMenuFactoryTest extends GameTestCase
 
     @Test
     public void getTest() {
-        factory.load();
+        factory.load(null);
         for (MainMenuType menuType: MainMenuType.values()) {
-            MainMenu menu = (MainMenu)factory.get(menuType);
+            MainMenu menu = factory.get(menuType);
             Assert.assertNotNull(menu);
             Assert.assertTrue(menu.getSkin().has("default", MainMenuStyle.class));
             Assert.assertTrue(menu.getSkin().has("default", TextButtonStyle.class));

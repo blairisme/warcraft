@@ -74,7 +74,7 @@ public class LoaderScreenModel
 
     public void loadAssets() {
         actionFactory.load();
-        menuFactory.load();
+        menuFactory.load(null);
         itemFactory.load(null);
         behaviourFactory.load();
         stateService.load();

@@ -9,10 +9,9 @@
 
 package com.evilbird.warcraft.menu;
 
-import com.evilbird.engine.common.inject.IdentifiedAssetProviderSet;
+import com.evilbird.engine.game.GameFactoryComposite;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuFactory;
-import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.warcraft.menu.ingame.IngameMenuFactory;
 import com.evilbird.warcraft.menu.ingame.IngameMenuType;
 import com.evilbird.warcraft.menu.intro.IntroMenuFactory;
@@ -36,10 +35,8 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class WarcraftMenuFactory implements MenuFactory
+public class WarcraftMenuFactory extends GameFactoryComposite<Menu> implements MenuFactory
 {
-    private IdentifiedAssetProviderSet<Menu> factories;
-
     @Inject
     public WarcraftMenuFactory(
         MainMenuFactory mainMenuFactory,
@@ -47,25 +44,14 @@ public class WarcraftMenuFactory implements MenuFactory
         OutroMenuFactory outroMenuFactory,
         IngameMenuFactory ingameMenuFactory)
     {
-        this.factories = new IdentifiedAssetProviderSet<>();
-        this.factories.addProvider(MainMenuType.values(), mainMenuFactory);
-        this.factories.addProvider(IntroMenuType.values(), introMenuFactory);
-        this.factories.addProvider(OutroMenuType.values(), outroMenuFactory);
-        this.factories.addProvider(IngameMenuType.values(), ingameMenuFactory);
+        addProvider(MainMenuType.values(), mainMenuFactory);
+        addProvider(IntroMenuType.values(), introMenuFactory);
+        addProvider(OutroMenuType.values(), outroMenuFactory);
+        addProvider(IngameMenuType.values(), ingameMenuFactory);
     }
 
     @Override
-    public void load() {
-        factories.load();
-    }
-
-    @Override
-    public Menu newMenu() {
-        return newMenu(MainMenuType.Home);
-    }
-
-    @Override
-    public Menu newMenu(MenuIdentifier identifier) {
-        return factories.get(identifier);
+    public Menu get() {
+        return get(MainMenuType.Home);
     }
 }

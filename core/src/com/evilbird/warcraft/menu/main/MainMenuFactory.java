@@ -19,10 +19,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.graphics.Fonts;
-import com.evilbird.engine.common.inject.IdentifiedAssetProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.warcraft.menu.intro.IntroMenuType;
 import org.apache.commons.lang3.Validate;
@@ -41,7 +41,7 @@ import static com.evilbird.warcraft.menu.main.MainMenuType.Home;
  *
  * @author Blair Butterworth
  */
-public class MainMenuFactory implements IdentifiedAssetProvider<Menu>
+public class MainMenuFactory implements GameFactory<MainMenu>
 {
     private static final String BUTTON = "data/textures/common/menu/button.png";
     private static final String BACKGROUND = "data/textures/common/menu/menu.png";
@@ -58,7 +58,7 @@ public class MainMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     @Override
-    public void load() {
+    public void load(Identifier context) {
         assets.load(BUTTON, Texture.class);
         assets.load(BACKGROUND, Texture.class);
         assets.load(CLICK, Sound.class);
@@ -66,7 +66,11 @@ public class MainMenuFactory implements IdentifiedAssetProvider<Menu>
     }
 
     @Override
-    public Menu get(Identifier identifier) {
+    public void unload(Identifier context) {
+    }
+
+    @Override
+    public MainMenu get(Identifier identifier) {
         Validate.isInstanceOf(MainMenuType.class, identifier);
 
         switch((MainMenuType)identifier) {
@@ -78,7 +82,7 @@ public class MainMenuFactory implements IdentifiedAssetProvider<Menu>
         }
     }
 
-    private Menu getHomeMenu() {
+    private MainMenu getHomeMenu() {
         MainMenu menu = new MainMenu(display, getSkin());
         menu.insertButton("Single Player Game", showMenu(menu, Campaign));
         menu.insertButton("Multi Player Game");
@@ -88,7 +92,7 @@ public class MainMenuFactory implements IdentifiedAssetProvider<Menu>
         return menu;
     }
 
-    private Menu getCampaignMenu() {
+    private MainMenu getCampaignMenu() {
         MainMenu menu = new MainMenu(display, getSkin());
         menu.insertButton("New Campaign", showMenu(menu, CampaignNew));
         menu.insertButton("Load Game");
@@ -97,7 +101,7 @@ public class MainMenuFactory implements IdentifiedAssetProvider<Menu>
         return menu;
     }
 
-    private Menu getNewCampaignMenu() {
+    private MainMenu getNewCampaignMenu() {
         MainMenu menu = new MainMenu(display, getSkin());
         menu.insertButton("Human Campaign", showMenu(menu, Human1));
         menu.insertButton("Orc Campaign");
@@ -105,7 +109,7 @@ public class MainMenuFactory implements IdentifiedAssetProvider<Menu>
         return menu;
     }
 
-    private Menu getLoadCampaignMenu() {
+    private MainMenu getLoadCampaignMenu() {
         MainMenu menu = new MainMenu(display, getSkin());
         menu.insertButton("Previous Menu", showMenu(menu, Home));
         return menu;
