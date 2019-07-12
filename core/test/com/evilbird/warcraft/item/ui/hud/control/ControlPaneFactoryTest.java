@@ -41,13 +41,13 @@ public class ControlPaneFactoryTest extends GameTestCase
 
     @Test
     public void loadTest() {
-        factory.load();
+        factory.load(null);
         Mockito.verify(assets).load(ACTION_BUTTON, Texture.class);
     }
 
     @Test
     public void getTest() {
-        ControlPane controlPane = factory.get();
+        ControlPane controlPane = factory.get(null);
         Assert.assertNotNull(controlPane);
         Assert.assertEquals(HudControl.ControlPane, controlPane.getType());
         Assert.assertTrue(controlPane.getSkin().has("action-button", ActionButtonStyle.class));

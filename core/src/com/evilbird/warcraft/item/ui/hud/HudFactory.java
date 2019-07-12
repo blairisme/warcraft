@@ -14,17 +14,27 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.warcraft.item.ui.hud.control.ControlPaneFactory;
+import com.evilbird.warcraft.item.ui.hud.resource.ResourcePaneFactory;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
+/**
+ * Creates the graphical user interface shown to the user while the game plays
+ * out: the heads up display (HUD).
+ *
+ * @author Blair Butterworth
+ */
 public class HudFactory implements GameFactory<Item>
 {
-    private HudControlFactory controlFactory;
+    private ControlPaneFactory controlPaneFactory;
+    private ResourcePaneFactory resourcePaneFactory;
 
     @Inject
-    public HudFactory(HudControlFactory controlFactory) {
-        this.controlFactory = controlFactory;
+    public HudFactory(ControlPaneFactory controlPaneFactory, ResourcePaneFactory resourcePaneFactory) {
+        this.controlPaneFactory = controlPaneFactory;
+        this.resourcePaneFactory = resourcePaneFactory;
     }
 
     @Override
@@ -37,15 +47,15 @@ public class HudFactory implements GameFactory<Item>
         ItemGroup hud = new ItemGroup();
         hud.setFillParent(true);
         hud.setTouchable(Touchable.childrenOnly);
-
-        hud.addItem(controlFactory.get(HudControl.ResourcePane));
-        hud.addItem(controlFactory.get(HudControl.ControlPane));
+        hud.addItem(controlPaneFactory.get(HudControl.ResourcePane));
+        hud.addItem(resourcePaneFactory.get(HudControl.ControlPane));
         return hud;
     }
 
     @Override
     public void load(Identifier context) {
-        controlFactory.load();
+        controlPaneFactory.load(context);
+        resourcePaneFactory.load(context);
     }
 
     @Override

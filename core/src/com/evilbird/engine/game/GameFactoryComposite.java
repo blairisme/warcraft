@@ -15,7 +15,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GameFactoryComposite <V> implements GameFactory<V>
+public class GameFactoryComposite<V> implements GameFactory<V>
 {
     private Map<Object, GameFactory<? extends V>> providers;
 

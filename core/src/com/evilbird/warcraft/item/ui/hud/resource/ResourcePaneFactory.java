@@ -10,60 +10,45 @@
 package com.evilbird.warcraft.item.ui.hud.resource;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.graphics.Fonts;
-import com.evilbird.engine.common.inject.AssetProvider;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.ui.hud.HudControl;
+import com.evilbird.engine.game.GameFactory;
+import com.evilbird.warcraft.item.unit.UnitFaction;
 
 import javax.inject.Inject;
-
-import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 
 /**
  * Instances of this factory create {@link ResourcePane ResourcePanes}.
  *
  * @author Blair Butterworth
  */
-public class ResourcePaneFactory implements AssetProvider<Item>
+public class ResourcePaneFactory implements GameFactory<ResourcePane>
 {
-    private static final String ICONS = "data/textures/common/menu/resource_icon.png";
-    private static final String BACKGROUND = "data/textures/human/menu/resource_panel.png";
-
-    private AssetManager assets;
+    private ResourcePaneAssets assets;
+    private ResourcePaneBuilder builder;
 
     @Inject
     public ResourcePaneFactory(Device device) {
-        this.assets = device.getAssetStorage();
+        this(device.getAssetStorage());
+    }
+
+    public ResourcePaneFactory(AssetManager manager) {
+        assets = new ResourcePaneAssets(manager, UnitFaction.Human);
+        builder = new ResourcePaneBuilder(assets);
     }
 
     @Override
-    public void load() {
-        this.assets.load(ICONS, Texture.class);
-        this.assets.load(BACKGROUND, Texture.class);
+    public void load(Identifier context) {
+        assets.load();
     }
 
     @Override
-    public Item get() {
-        ResourcePane result = new ResourcePane(getStyle());
-        result.setIdentifier(HudControl.ResourcePane);
-        result.setType(HudControl.ResourcePane);
-        result.setTouchable(Touchable.disabled);
-        result.setVisible(true);
-        return result;
+    public void unload(Identifier context) {
     }
 
-    private ResourcePaneStyle getStyle() {
-        ResourcePaneStyle style = new ResourcePaneStyle();
-        style.font = Fonts.ARIAL;
-        style.colour = Color.WHITE;
-        style.background = getDrawable(assets, BACKGROUND);
-        style.goldIcon = getDrawable(assets, ICONS, 0, 0, 14, 14);
-        style.oilIcon = getDrawable(assets, ICONS, 0, 28, 14, 14);
-        style.woodIcon = getDrawable(assets, ICONS, 0, 14, 14, 14);
-        return style;
+    @Override
+    public ResourcePane get(Identifier type) {
+        return builder.build();
     }
+
 }
