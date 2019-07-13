@@ -15,14 +15,15 @@ import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.IntroducedState;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateSequence;
-import com.evilbird.warcraft.state.scenario.WarcraftScenarioState;
+import com.evilbird.warcraft.common.WarcraftContext;
+import com.evilbird.warcraft.state.scenario.ScenarioState;
 import com.google.gson.annotations.JsonAdapter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * <p>
- * A WarcraftScenarioState specialization that specifies an introduction menu
+ * A ScenarioState specialization that specifies an introduction menu
  * and the scenario to load when the scenario is complete.
  * </p>
  * <p>
@@ -33,23 +34,24 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * </p>
  * @author Blair Butterworth
  */
-@JsonAdapter(WarcraftCampaignAdapter.class)
-public class WarcraftCampaignState extends WarcraftScenarioState implements StateSequence, IntroducedState
+@JsonAdapter(CampaignAdapter.class)
+public class CampaignState extends ScenarioState implements StateSequence, IntroducedState
 {
     private MenuIdentifier intro;
     private StateIdentifier next;
 
-    public WarcraftCampaignState() {
+    public CampaignState() {
     }
 
-    public WarcraftCampaignState(
+    public CampaignState(
         ItemRoot world,
         ItemRoot hud,
         Behaviour behaviour,
+        WarcraftContext context,
         MenuIdentifier intro,
         StateIdentifier next)
     {
-        super(world, hud, behaviour);
+        super(world, hud, behaviour, context);
         this.intro = intro;
         this.next = next;
     }
@@ -78,7 +80,7 @@ public class WarcraftCampaignState extends WarcraftScenarioState implements Stat
         if (obj == this) { return true; }
         if (obj.getClass() != getClass()) { return false; }
 
-        WarcraftCampaignState that = (WarcraftCampaignState)obj;
+        CampaignState that = (CampaignState)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(intro, that.intro)

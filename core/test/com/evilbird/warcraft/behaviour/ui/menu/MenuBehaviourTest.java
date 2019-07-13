@@ -16,7 +16,6 @@ import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.state.State;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.data.item.TestPlayers;
@@ -29,7 +28,7 @@ import com.evilbird.warcraft.item.ui.hud.control.actions.ActionPane;
 import com.evilbird.warcraft.item.ui.hud.control.status.StatusPane;
 import com.evilbird.warcraft.item.ui.hud.resource.ResourcePane;
 import com.evilbird.warcraft.item.ui.hud.resource.ResourcePaneStyle;
-import com.evilbird.warcraft.state.scenario.WarcraftScenarioState;
+import com.evilbird.warcraft.state.scenario.ScenarioState;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,7 +49,7 @@ import static org.mockito.Mockito.when;
  */
 public class MenuBehaviourTest extends GameTestCase
 {
-    private State state;
+    private ScenarioState state;
     private Player player;
     private ActionPane actionPane;
     private StatusPane statusPane;
@@ -78,7 +77,9 @@ public class MenuBehaviourTest extends GameTestCase
         ItemRoot world = TestItemRoots.newTestRoot(new TextIdentifier("world"), player);
         ItemRoot hud = TestItemRoots.newTestRoot(new TextIdentifier("hud"), resourcePane, actionPane, statusPane);
 
-        state = new WarcraftScenarioState(world, hud, null);
+        state = new ScenarioState(); //world, hud, null, null);
+        state.setWorld(world);
+        state.setHud(hud);
         events = new EventQueue();
         menuBehaviour = new MenuBehaviour(events);
     }

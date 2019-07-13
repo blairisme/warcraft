@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.ui.hud.resource;
 
 import com.evilbird.engine.common.text.CaseUtils;
-import com.evilbird.warcraft.item.unit.UnitFaction;
+import com.evilbird.warcraft.common.WarcraftFaction;
 
 /**
  * Specifies the paths of assets required to display a {@link ResourcePane}.
@@ -22,7 +22,7 @@ public class ResourcePaneAssetManifest
     private String icons;
     private String background;
 
-    public ResourcePaneAssetManifest(UnitFaction unitFaction) {
+    public ResourcePaneAssetManifest(WarcraftFaction unitFaction) {
         String faction = CaseUtils.toSnakeCase(unitFaction.name());
         icons = "data/textures/common/menu/resource_icon.png";
         background = "data/textures/" + faction + "/menu/resource_panel.png";

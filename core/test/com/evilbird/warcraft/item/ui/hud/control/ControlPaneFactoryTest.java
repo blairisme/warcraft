@@ -14,12 +14,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.device.DeviceControls;
 import com.evilbird.test.data.device.TestAssets;
 import com.evilbird.test.testcase.GameTestCase;
+import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.ui.hud.HudControl;
+import com.evilbird.warcraft.item.ui.hud.HudType;
 import com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonStyle;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
+import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 
 /**
  * Instances of this unit test validate the {@link ControlPaneFactory} class.
@@ -41,13 +46,14 @@ public class ControlPaneFactoryTest extends GameTestCase
 
     @Test
     public void loadTest() {
-        factory.load(null);
+        factory.load(new WarcraftContext(Human, Winter));
         Mockito.verify(assets).load(ACTION_BUTTON, Texture.class);
     }
 
     @Test
     public void getTest() {
-        ControlPane controlPane = factory.get(null);
+        factory.load(new WarcraftContext(Human, Winter));
+        ControlPane controlPane = factory.get(HudType.Default);
         Assert.assertNotNull(controlPane);
         Assert.assertEquals(HudControl.ControlPane, controlPane.getType());
         Assert.assertTrue(controlPane.getSkin().has("action-button", ActionButtonStyle.class));

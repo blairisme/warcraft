@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceControls;
 import com.evilbird.engine.game.GameFactory;
-import com.evilbird.warcraft.item.unit.UnitFaction;
+import com.evilbird.warcraft.common.WarcraftContext;
 
 import javax.inject.Inject;
 
@@ -26,6 +26,7 @@ import javax.inject.Inject;
  */
 public class ControlPaneFactory implements GameFactory<ControlPane>
 {
+    private AssetManager manager;
     private ControlPaneAssets assets;
     private ControlPaneBuilder builder;
 
@@ -35,21 +36,23 @@ public class ControlPaneFactory implements GameFactory<ControlPane>
     }
 
     public ControlPaneFactory(AssetManager manager, DeviceControls controls) {
-        this.assets = new ControlPaneAssets(manager, UnitFaction.Human);
-        this.builder = new ControlPaneBuilder(assets);
-    }
-
-    @Override
-    public void load(Identifier context) {
-        assets.load();
-    }
-
-    @Override
-    public void unload(Identifier context) {
+        this.manager = manager;
     }
 
     @Override
     public ControlPane get(Identifier type) {
         return builder.newControlPane();
+    }
+
+    @Override
+    public void load(Identifier context) {
+        assets = new ControlPaneAssets(manager, (WarcraftContext)context);
+        builder = new ControlPaneBuilder(assets);
+        assets.load();
+    }
+
+    @Override
+    public void unload(Identifier context) {
+        assets.unload();
     }
 }

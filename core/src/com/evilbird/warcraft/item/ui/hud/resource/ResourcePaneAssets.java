@@ -12,7 +12,8 @@ package com.evilbird.warcraft.item.ui.hud.resource;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.warcraft.item.unit.UnitFaction;
+import com.evilbird.warcraft.common.WarcraftContext;
+import com.evilbird.warcraft.common.WarcraftFaction;
 
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 
@@ -27,7 +28,11 @@ public class ResourcePaneAssets
     private AssetManager assets;
     private ResourcePaneAssetManifest manifest;
 
-    public ResourcePaneAssets(AssetManager assets, UnitFaction faction) {
+    public ResourcePaneAssets(AssetManager assets, WarcraftContext context) {
+        this(assets, context.getFaction());
+    }
+
+    public ResourcePaneAssets(AssetManager assets, WarcraftFaction faction) {
         this.assets = assets;
         this.manifest = new ResourcePaneAssetManifest(faction);
     }
@@ -51,5 +56,10 @@ public class ResourcePaneAssets
     public void load() {
         assets.load(manifest.getIcons(), Texture.class);
         assets.load(manifest.getBackground(), Texture.class);
+    }
+
+    public void unload() {
+        assets.unload(manifest.getIcons());
+        assets.unload(manifest.getBackground());
     }
 }

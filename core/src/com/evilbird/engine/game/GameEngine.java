@@ -102,19 +102,19 @@ public class GameEngine extends Game implements GameController
         return stateScreen.getState();
     }
 
+    public void loadCoreAssets() {
+        gameLoader.loadCoreAssets();
+        //gameLoader.loadAssets(null);
+    }
+
     @Override
     public void loadAssets(GameContext context) {
-        gameLoader.load(context);
+        gameLoader.loadAssets(context);
     }
 
     @Override
-    public void unloadAssets() {
-        gameLoader.unload();
-    }
-
-    @Override
-    public boolean isLoaded() {
-        return gameLoader.isComplete();
+    public void unloadAssets(GameContext context) {
+        gameLoader.unloadAssets(context);
     }
 
     public void showInitialScreen() {

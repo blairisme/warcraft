@@ -13,7 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.GameFactory;
-import com.evilbird.warcraft.item.unit.UnitFaction;
+import com.evilbird.warcraft.common.WarcraftContext;
 
 import javax.inject.Inject;
 
@@ -24,6 +24,7 @@ import javax.inject.Inject;
  */
 public class ResourcePaneFactory implements GameFactory<ResourcePane>
 {
+    private AssetManager manager;
     private ResourcePaneAssets assets;
     private ResourcePaneBuilder builder;
 
@@ -33,17 +34,7 @@ public class ResourcePaneFactory implements GameFactory<ResourcePane>
     }
 
     public ResourcePaneFactory(AssetManager manager) {
-        assets = new ResourcePaneAssets(manager, UnitFaction.Human);
-        builder = new ResourcePaneBuilder(assets);
-    }
-
-    @Override
-    public void load(Identifier context) {
-        assets.load();
-    }
-
-    @Override
-    public void unload(Identifier context) {
+        this.manager = manager;
     }
 
     @Override
@@ -51,4 +42,15 @@ public class ResourcePaneFactory implements GameFactory<ResourcePane>
         return builder.build();
     }
 
+    @Override
+    public void load(Identifier context) {
+        assets = new ResourcePaneAssets(manager, (WarcraftContext)context);
+        builder = new ResourcePaneBuilder(assets);
+        assets.load();
+    }
+
+    @Override
+    public void unload(Identifier context) {
+        assets.unload();
+    }
 }

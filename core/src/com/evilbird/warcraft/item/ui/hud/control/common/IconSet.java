@@ -14,11 +14,11 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
 import com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitAttack;
-import com.evilbird.warcraft.item.unit.UnitFaction;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.Objects;
@@ -61,7 +61,7 @@ public class IconSet
      */
     public Drawable get(ActionButtonType button, Unit unit) {
         UnitType type = (UnitType)unit.getType();
-        UnitFaction faction = type.getFaction();
+        WarcraftFaction faction = type.getFaction();
         UnitAttack attack = type.getAttack();
         IconLevel level = IconLevel.Basic;
         return getIcon(specializations.getSpecialization(button, faction, attack, level));

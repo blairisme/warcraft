@@ -9,6 +9,8 @@ import com.evilbird.warcraft.action.confirm.ConfirmActions;
 import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
+import com.evilbird.warcraft.common.WarcraftAssetSet;
+import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.camera.Camera;
 import com.evilbird.warcraft.item.data.camera.CameraType;
@@ -29,8 +31,8 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 import com.evilbird.warcraft.menu.intro.IntroMenuType;
-import com.evilbird.warcraft.state.campaign.WarcraftCampaign;
-import com.evilbird.warcraft.state.map.WarcraftLevel;
+import com.evilbird.warcraft.state.campaign.Campaign;
+import com.evilbird.warcraft.state.map.Level;
 
 import javax.inject.Inject;
 
@@ -63,8 +65,12 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("ResourceType", ResourceType.class);
         registerType("Behaviour", WarcraftBehaviour.class);
 
-        registerType("Map", WarcraftLevel.class);
-        registerType("Campaign", WarcraftCampaign.class);
+        //registerType("Context", WarcraftGameContext.class);
+        registerType("Faction", WarcraftFaction.class);
+        registerType("Assets", WarcraftAssetSet.class);
+        registerType("Level", Level.class);
+
+        registerType("Campaign", Campaign.class);
         registerType("Introduction", IntroMenuType.class);
     }
 

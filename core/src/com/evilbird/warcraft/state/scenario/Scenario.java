@@ -17,13 +17,13 @@ import com.evilbird.warcraft.state.WarcraftStateIdentifier;
  *
  * @author Blair Butterworth
  */
-public enum WarcraftScenario implements WarcraftStateIdentifier
+public enum Scenario implements WarcraftStateIdentifier
 {
     Silverwood("data/levels/common/silverwood.json");
 
     private String path;
 
-    WarcraftScenario(String path) {
+    Scenario(String path) {
         this.path = path;
     }
 

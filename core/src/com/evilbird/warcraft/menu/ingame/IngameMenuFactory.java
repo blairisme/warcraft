@@ -20,7 +20,7 @@ import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateService;
-import com.evilbird.warcraft.item.unit.UnitFaction;
+import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.menu.outro.OutroMenuType;
 import com.evilbird.warcraft.state.WarcraftSave;
 import org.apache.commons.lang3.tuple.Pair;
@@ -30,9 +30,9 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.util.Collection;
 
-import static com.evilbird.warcraft.menu.ingame.IngameMenuLayout.Normal;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuLayout.Small;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuLayout.Wide;
+import static com.evilbird.warcraft.menu.ingame.IngameMenuDimensions.Normal;
+import static com.evilbird.warcraft.menu.ingame.IngameMenuDimensions.Small;
+import static com.evilbird.warcraft.menu.ingame.IngameMenuDimensions.Wide;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Confirm;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Defeat;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Exit;
@@ -58,6 +58,7 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(IngameMenuFactory.class);
 
+    private AssetManager manager;
     private StateService states;
     private DeviceDisplay display;
     private IngameMenuAssets assets;
@@ -71,23 +72,25 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
     public IngameMenuFactory(Device device, StateService states, AssetManager manager) {
         this.states = states;
         this.display = device.getDeviceDisplay();
-        this.assets = new IngameMenuAssets(manager, UnitFaction.Human);
-        this.builder = new IngameMenuBuilder(display, assets);
-    }
-
-    @Override
-    public void load(Identifier context) {
-        assets.load();
-    }
-
-    @Override
-    public void unload(Identifier context) {
+        this.manager = manager;
     }
 
     @Override
     public IngameMenu get(Identifier type) {
         IngameMenu menu = builder.build();
         return setLayout(menu, type);
+    }
+
+    @Override
+    public void load(Identifier context) {
+        assets = new IngameMenuAssets(manager, (WarcraftContext)context);
+        builder = new IngameMenuBuilder(display, assets);
+        assets.load();
+    }
+
+    @Override
+    public void unload(Identifier context) {
+        assets.unload();
     }
 
     private IngameMenu setLayout(IngameMenu menu, Identifier identifier) {

@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.unit.gatherer;
 
 import com.evilbird.engine.common.text.CaseUtils;
-import com.evilbird.warcraft.item.unit.UnitFaction;
+import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
@@ -76,7 +76,7 @@ public class GathererAssetManifest
         construct = "data/sounds/common/unit/construct/1.mp3";
     }
 
-    private void setFactionSounds(String name, UnitFaction faction) {
+    private void setFactionSounds(String name, WarcraftFaction faction) {
         dead = "data/sounds/" + faction + "/unit/common/dead/1.mp3";
         acknowledge = "data/sounds/" + faction + "/unit/" + name + "/acknowledge/";
         selected = "data/sounds/" + faction + "/unit/" + name + "/selected/";

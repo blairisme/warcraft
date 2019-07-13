@@ -53,9 +53,9 @@ import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
  *
  * @author Blair Butterworth
  */
-public class WarcraftLevelLoader
+public class LevelLoader
 {
-    private static final Logger logger = LoggerFactory.getLogger(WarcraftLevelLoader.class);
+    private static final Logger logger = LoggerFactory.getLogger(LevelLoader.class);
 
     private static final String CORPOREAL_PLAYER_ID = "Player1";
     private static final String ENEMY_PLAYER_ID = "Player";
@@ -76,21 +76,21 @@ public class WarcraftLevelLoader
     private TiledMapLoader mapLoader;
     private ItemFactory itemFactory;
 
-    public WarcraftLevelLoader(ItemFactory itemFactory) {
+    public LevelLoader(ItemFactory itemFactory) {
         this(itemFactory, new TiledMapLoader());
     }
 
-    public WarcraftLevelLoader(ItemFactory itemFactory, FileHandleResolver fileResolver) {
+    public LevelLoader(ItemFactory itemFactory, FileHandleResolver fileResolver) {
         this(itemFactory, new TiledMapLoader(fileResolver));
     }
 
     @Inject
-    public WarcraftLevelLoader(ItemFactory itemFactory, TiledMapLoader mapLoader) {
+    public LevelLoader(ItemFactory itemFactory, TiledMapLoader mapLoader) {
         this.mapLoader = mapLoader;
         this.itemFactory = itemFactory;
     }
 
-    public ItemRoot load(WarcraftLevel identifier) {
+    public ItemRoot load(Level identifier) {
         return load(identifier.getFilePath());
     }
 

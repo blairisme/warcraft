@@ -15,15 +15,17 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.JsonSerializer;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceStorage;
+import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.utils.TestFileHandleResolver;
-import com.evilbird.warcraft.state.campaign.WarcraftCampaign;
-import com.evilbird.warcraft.state.map.WarcraftLevel;
-import com.evilbird.warcraft.state.map.WarcraftLevelLoader;
-import com.evilbird.warcraft.state.scenario.WarcraftScenarioAdapter;
-import com.evilbird.warcraft.state.scenario.WarcraftScenarioState;
+import com.evilbird.warcraft.item.ui.hud.HudLoader;
+import com.evilbird.warcraft.state.campaign.Campaign;
+import com.evilbird.warcraft.state.map.Level;
+import com.evilbird.warcraft.state.map.LevelLoader;
+import com.evilbird.warcraft.state.scenario.ScenarioAdapter;
+import com.evilbird.warcraft.state.scenario.ScenarioState;
 import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import org.junit.Assert;
 import org.junit.Before;
@@ -45,22 +47,25 @@ import static org.mockito.Mockito.when;
 public class WarcraftStateServiceTest extends GameTestCase
 {
     private JsonSerializer serializer;
-    private Device device;
+    private HudLoader hudLoader;
+    private GameController controller;
     private DeviceStorage deviceStorage;
     private TestFileHandleResolver assetStorage;
-    private com.evilbird.warcraft.state.map.WarcraftLevelLoader assetLoader;
-    private WarcraftScenarioAdapter adapter;
+    private LevelLoader levelLoader;
+    private ScenarioAdapter adapter;
     private WarcraftStateService service;
 
     @Before
     public void setup() {
         super.setup();
         device = newTestDevice();
+        controller = Mockito.mock(GameController.class);
         deviceStorage = Mockito.mock(DeviceStorage.class);
         assetStorage = new TestFileHandleResolver();
-        assetLoader = new WarcraftLevelLoader(itemFactory, assetStorage);
-        adapter = new WarcraftScenarioAdapter(device, itemFactory, behaviourFactory, assetLoader);
-        serializer = new JsonSerializer(new WarcraftTypeRegistry(), Maps.of(WarcraftScenarioState.class, adapter));
+        levelLoader = new LevelLoader(itemFactory, assetStorage);
+        hudLoader = new HudLoader(device, itemFactory);
+        adapter = new ScenarioAdapter(controller, hudLoader, levelLoader, behaviourFactory);
+        serializer = new JsonSerializer(new WarcraftTypeRegistry(), Maps.of(ScenarioState.class, adapter));
         service = new WarcraftStateService(deviceStorage, assetStorage, serializer);
     }
 
@@ -68,7 +73,7 @@ public class WarcraftStateServiceTest extends GameTestCase
     public void listAssetsTest() throws Exception  {
         List<Identifier> result = service.list(WarcraftStateType.AssetState);
         Assert.assertNotNull(result);
-        Assert.assertEquals(WarcraftCampaign.values().length, result.size());
+        Assert.assertEquals(Campaign.values().length, result.size());
     }
 
     @Test
@@ -83,10 +88,10 @@ public class WarcraftStateServiceTest extends GameTestCase
 
     @Test
     public void getAssetTest() throws Exception {
-        assetStorage.respondWith(WarcraftCampaign.Human1.getFilePath(), "/warcraft/state/level.json");
-        assetStorage.respondWith(WarcraftLevel.Human1.getFilePath(), "/warcraft/state/level.tmx");
+        assetStorage.respondWith(Campaign.Human1.getFilePath(), "/warcraft/state/level.json");
+        assetStorage.respondWith(Level.Human1.getFilePath(), "/warcraft/state/level.tmx");
 
-        State state = service.get(WarcraftCampaign.Human1);
+        State state = service.get(Campaign.Human1);
         Assert.assertNotNull(state);
     }
 

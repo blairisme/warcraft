@@ -13,7 +13,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.warcraft.item.unit.UnitFaction;
+import com.evilbird.warcraft.common.WarcraftContext;
+import com.evilbird.warcraft.common.WarcraftFaction;
 
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 import static com.evilbird.engine.common.graphics.TextureUtils.getTiledDrawable;
@@ -29,11 +30,15 @@ public class IngameMenuAssets
     private AssetManager assets;
     private IngameMenuAssetManifest manifest;
 
-    public IngameMenuAssets(AssetManager assets, UnitFaction faction) {
+    public IngameMenuAssets(AssetManager assets, WarcraftContext context){
+        this(assets, context.getFaction());
+    }
+    
+    public IngameMenuAssets(AssetManager assets, WarcraftFaction faction) {
         this.assets = assets;
         this.manifest = new IngameMenuAssetManifest(faction);
     }
-
+    
     public Drawable getButtonEnabled() {
         return getDrawable(assets, manifest.getButtonEnabled());
     }
@@ -75,5 +80,16 @@ public class IngameMenuAssets
         assets.load(manifest.getButtonSelected(), Texture.class);
         assets.load(manifest.getTextPanelNormal(), Texture.class);
         assets.load(manifest.getButtonClick(), Sound.class);
+    }
+
+    public void unload() {
+        assets.unload(manifest.getBackgroundNormal());
+        assets.unload(manifest.getBackgroundWide());
+        assets.unload(manifest.getBackgroundSmall());
+        assets.unload(manifest.getButtonEnabled());
+        assets.unload(manifest.getButtonDisabled());
+        assets.unload(manifest.getButtonSelected());
+        assets.unload(manifest.getTextPanelNormal());
+        assets.unload(manifest.getButtonClick());
     }
 }

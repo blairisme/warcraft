@@ -22,7 +22,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.state.StateIdentifier;
-import com.evilbird.warcraft.state.campaign.WarcraftCampaign;
+import com.evilbird.warcraft.state.campaign.Campaign;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -56,7 +56,7 @@ public class IntroMenuFactory implements GameFactory<IntroMenu>
     public IntroMenu get(Identifier identifier) {
         Validate.isInstanceOf(IntroMenuType.class, identifier);
         IntroMenuType type = (IntroMenuType)identifier;
-        WarcraftCampaign campaign = WarcraftCampaign.valueOf(type.name());
+        Campaign campaign = Campaign.valueOf(type.name());
         IntroMenuAssets assets = getAssets(type);
         return getIntro(campaign, assets);
     }
@@ -67,7 +67,7 @@ public class IntroMenuFactory implements GameFactory<IntroMenu>
         return assets;
     }
 
-    private IntroMenu getIntro(WarcraftCampaign campaign, IntroMenuAssets assets) {
+    private IntroMenu getIntro(Campaign campaign, IntroMenuAssets assets) {
         Skin skin = getSkin(assets);
         IntroMenu menu = new IntroMenu(display, skin);
         addContent(menu, assets);

@@ -18,20 +18,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Instances of this unit test validate the {@link com.evilbird.warcraft.state.map.WarcraftLevelLoader} class.
+ * Instances of this unit test validate the {@link LevelLoader} class.
  *
  * @author Blair Butterworth
  */
-public class WarcraftLevelLoaderTest extends GameTestCase
+public class LevelLoaderTest extends GameTestCase
 {
     private TiledMapLoader mapLoader;
-    private com.evilbird.warcraft.state.map.WarcraftLevelLoader assetloader;
+    private LevelLoader assetloader;
 
     @Before
     public void setup() {
         super.setup();
         mapLoader = new TiledMapLoader(new TestFileHandleResolver());
-        assetloader = new WarcraftLevelLoader(itemFactory, mapLoader);
+        assetloader = new LevelLoader(itemFactory, mapLoader);
     }
 
     @Test

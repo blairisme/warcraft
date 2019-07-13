@@ -12,6 +12,7 @@ package com.evilbird.warcraft.menu;
 import com.evilbird.engine.game.GameFactoryComposite;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuFactory;
+import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.menu.ingame.IngameMenuFactory;
 import com.evilbird.warcraft.menu.ingame.IngameMenuType;
 import com.evilbird.warcraft.menu.intro.IntroMenuFactory;
@@ -22,6 +23,9 @@ import com.evilbird.warcraft.menu.outro.OutroMenuFactory;
 import com.evilbird.warcraft.menu.outro.OutroMenuType;
 
 import javax.inject.Inject;
+
+import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
+import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 
 /**
  * Instances of this factory create {@link Menu Menus} whose contents are
@@ -53,5 +57,10 @@ public class WarcraftMenuFactory extends GameFactoryComposite<Menu> implements M
     @Override
     public Menu get() {
         return get(MainMenuType.Home);
+    }
+
+    @Override
+    public void load() {
+        load(new WarcraftContext(Human, Winter));
     }
 }

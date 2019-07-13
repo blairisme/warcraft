@@ -12,8 +12,11 @@ package com.evilbird.warcraft.item.ui.hud.control;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.warcraft.common.WarcraftContext;
+import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.ui.hud.control.common.IconSet;
-import com.evilbird.warcraft.item.unit.UnitFaction;
+
+import java.util.Collection;
 
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 
@@ -28,7 +31,11 @@ public class ControlPaneAssets
     private AssetManager assets;
     private ControlPaneAssetManifest manifest;
 
-    public ControlPaneAssets(AssetManager assets, UnitFaction faction) {
+    public ControlPaneAssets(AssetManager assets, WarcraftContext context) {
+        this(assets, context.getFaction());
+    }
+
+    public ControlPaneAssets(AssetManager assets, WarcraftFaction faction) {
         this.assets = assets;
         this.manifest = new ControlPaneAssetManifest(faction);
     }
@@ -108,43 +115,12 @@ public class ControlPaneAssets
     }
 
     public void load() {
-        loadActionAssets();
-        loadPanelAssets();
-        loadButtonAssets();
-        loadBuildingAssets();
-        loadHealthAssets();
+        Collection<String> textures = manifest.getTextures();
+        textures.forEach(texture -> assets.load(texture, Texture.class));
     }
 
-    private void loadActionAssets() {
-        assets.load(manifest.getActionButton(), Texture.class);
-        assets.load(manifest.getIcons(), Texture.class);
-        assets.load(manifest.getDisabledIcons(), Texture.class);
-        assets.load(manifest.getActionPanel(), Texture.class);
-    }
-
-    private void loadPanelAssets() {
-        assets.load(manifest.getDetailsPanel(), Texture.class);
-        assets.load(manifest.getMenuPanel(), Texture.class);
-        assets.load(manifest.getMinimapPanel(), Texture.class);
-        assets.load(manifest.getSelectionPanel(), Texture.class);
-        assets.load(manifest.getUnitPanel(), Texture.class);
-    }
-
-    private void loadBuildingAssets() {
-        assets.load(manifest.getBuildingFill(), Texture.class);
-        assets.load(manifest.getBuildingBackground(), Texture.class);
-    }
-
-    private void loadHealthAssets() {
-        assets.load(manifest.getHealthProgressHigh(), Texture.class);
-        assets.load(manifest.getHealthProgressMedium(), Texture.class);
-        assets.load(manifest.getHealthProgressLow(), Texture.class);
-    }
-
-    private void loadButtonAssets() {
-        assets.load(manifest.getDeselectButton(), Texture.class);
-        assets.load(manifest.getButtonEnabled(), Texture.class);
-        assets.load(manifest.getButtonSelected(), Texture.class);
-        assets.load(manifest.getButtonDisabled(), Texture.class);
+    public void unload() {
+        Collection<String> textures = manifest.getTextures();
+        textures.forEach(texture -> assets.unload(texture));
     }
 }

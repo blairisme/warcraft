@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.unit;
+package com.evilbird.warcraft.common;
 
 import com.evilbird.engine.common.lang.Identifier;
 
@@ -16,7 +16,7 @@ import com.evilbird.engine.common.lang.Identifier;
  *
  * @author Blair Butterworth
  */
-public enum UnitFaction implements Identifier
+public enum WarcraftFaction implements Identifier
 {
     Human,
     Orc,

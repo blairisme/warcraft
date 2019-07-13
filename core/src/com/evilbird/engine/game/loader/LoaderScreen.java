@@ -11,7 +11,6 @@ package com.evilbird.engine.game.loader;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
-import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameEngine;
 
 import javax.inject.Inject;
@@ -62,12 +61,12 @@ public class LoaderScreen extends ScreenAdapter
         this.engine = engine;
     }
 
-    public void loadAssets(GameContext context) {
-        engine.loadAssets(context);
+    public void loadCoreAssets() {
+        engine.loadCoreAssets();
     }
 
     public boolean isLoaded() {
-        return engine.isLoaded();
+        return true;
     }
 
     public void showInitialScreen() {

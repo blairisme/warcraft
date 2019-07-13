@@ -40,16 +40,16 @@ public interface GameController
      * Instructs the game services to load any persisted assets pertaining to
      * the given context and to use these in their operations.
      *
-     * @param context an context identifier.
+     * @param context   a context identifier.
      */
     void loadAssets(GameContext context);
 
     /**
      * Instructs the game services to unload any previously loaded assets.
+     *
+     * @param context   a context identifier.
      */
-    void unloadAssets();
-
-    boolean isLoaded();
+    void unloadAssets(GameContext context);
 
     /**
      * Shows the default menu, usually the top level menu.

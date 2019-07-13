@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.state;
 
-import com.evilbird.warcraft.state.campaign.WarcraftCampaignState;
-import com.evilbird.warcraft.state.scenario.WarcraftScenarioState;
+import com.evilbird.warcraft.state.campaign.CampaignState;
+import com.evilbird.warcraft.state.scenario.ScenarioState;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -20,6 +20,12 @@ import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 
+/**
+ * Instances of this class serialize and deserialize {@link WarcraftState}
+ * objects.
+ *
+ * @author Blair Butterworth
+ */
 public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, JsonDeserializer<WarcraftState>
 {
     @Override
@@ -28,7 +34,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     }
 
     private Class<?> serializedType(WarcraftState state) {
-        return state instanceof WarcraftCampaignState ? WarcraftCampaignState.class : WarcraftScenarioState.class;
+        return state instanceof CampaignState ? CampaignState.class : ScenarioState.class;
     }
 
     @Override
@@ -38,6 +44,6 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     }
 
     private Class<?> deserializedType(JsonElement json) {
-        return json.getAsJsonObject().has("introduction") ? WarcraftCampaignState.class : WarcraftScenarioState.class;
+        return json.getAsJsonObject().has("introduction") ? CampaignState.class : ScenarioState.class;
     }
 }

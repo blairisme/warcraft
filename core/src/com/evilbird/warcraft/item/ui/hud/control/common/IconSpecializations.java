@@ -10,14 +10,16 @@
 package com.evilbird.warcraft.item.ui.hud.control.common;
 
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.unit.UnitAttack;
-import com.evilbird.warcraft.item.unit.UnitFaction;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.evilbird.warcraft.common.WarcraftFaction.Human;
+import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.MeleeDamage1;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.MeleeDamage2;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.RangedDamage1;
@@ -121,8 +123,6 @@ import static com.evilbird.warcraft.item.unit.UnitAttack.Melee;
 import static com.evilbird.warcraft.item.unit.UnitAttack.Ranged;
 import static com.evilbird.warcraft.item.unit.UnitAttack.Ship;
 import static com.evilbird.warcraft.item.unit.UnitAttack.Siege;
-import static com.evilbird.warcraft.item.unit.UnitFaction.Human;
-import static com.evilbird.warcraft.item.unit.UnitFaction.Orc;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.Boar;
 import static com.evilbird.warcraft.item.unit.UnitType.Dockyard;
@@ -282,7 +282,7 @@ public class IconSpecializations
 
     private static Collection<IconSpecialization> specializationsSet(IconSpecialization specialization) {
         Identifier faction = specialization.getFaction();
-        Collection<Identifier> factions = faction == Any ? asList(UnitFaction.values()) : singletonList(faction);
+        Collection<Identifier> factions = faction == Any ? asList(WarcraftFaction.values()) : singletonList(faction);
 
         Identifier attack = specialization.getAttack();
         Collection<Identifier> attacks = attack == Any ? asList(UnitAttack.values()) : singletonList(attack);

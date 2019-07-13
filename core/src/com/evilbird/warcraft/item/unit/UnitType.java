@@ -11,17 +11,18 @@ package com.evilbird.warcraft.item.unit;
 
 import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
+import com.evilbird.warcraft.common.WarcraftFaction;
 
 import static com.evilbird.engine.common.collection.EnumUtils.isBetween;
+import static com.evilbird.warcraft.common.WarcraftFaction.Human;
+import static com.evilbird.warcraft.common.WarcraftFaction.Neutral;
+import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
 import static com.evilbird.warcraft.item.unit.UnitAttack.Magic;
 import static com.evilbird.warcraft.item.unit.UnitAttack.Melee;
 import static com.evilbird.warcraft.item.unit.UnitAttack.None;
 import static com.evilbird.warcraft.item.unit.UnitAttack.Ranged;
 import static com.evilbird.warcraft.item.unit.UnitAttack.Ship;
 import static com.evilbird.warcraft.item.unit.UnitAttack.Siege;
-import static com.evilbird.warcraft.item.unit.UnitFaction.Human;
-import static com.evilbird.warcraft.item.unit.UnitFaction.Neutral;
-import static com.evilbird.warcraft.item.unit.UnitFaction.Orc;
 
 /**
  * Defines identifiers for items varieties.
@@ -139,7 +140,7 @@ public enum UnitType implements ItemType
     GoldMine,
     OilPatch;
 
-    public UnitFaction getFaction() {
+    public WarcraftFaction getFaction() {
         if (isBetween(this, Barracks, UtherLightbringer)) {
             return Human;
         }

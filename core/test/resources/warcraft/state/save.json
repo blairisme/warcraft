@@ -1,13 +1,13 @@
 {
-  "hud": {
-    "class": "Hud",
+  "faction": {
+    "class": "Faction",
     "enum": "Human"
   },
-  "behaviour": {
-    "class": "Behaviour",
-    "enum": "Human1"
+  "assets": {
+    "class": "Assets",
+    "enum": "Summer"
   },
-  "map": {
+  "level": {
     "id": {
       "class": "Named",
       "name": "world"
@@ -228,5 +228,9 @@
         "actions": []
       }
     ]
+  },
+  "behaviour": {
+    "class": "Behaviour",
+    "enum": "Human1"
   }
 }

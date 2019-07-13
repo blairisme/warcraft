@@ -11,13 +11,13 @@ package com.evilbird.warcraft.state.campaign;
 
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateIdentifier;
-import com.evilbird.warcraft.state.map.WarcraftLevelLoader;
-import com.evilbird.warcraft.state.scenario.WarcraftScenarioAdapter;
-import com.evilbird.warcraft.state.scenario.WarcraftScenarioState;
+import com.evilbird.warcraft.item.ui.hud.HudLoader;
+import com.evilbird.warcraft.state.map.LevelLoader;
+import com.evilbird.warcraft.state.scenario.ScenarioAdapter;
+import com.evilbird.warcraft.state.scenario.ScenarioState;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
@@ -26,53 +26,53 @@ import javax.inject.Inject;
 
 /**
  * Instances of this class serialize and deserialize
- * {@link WarcraftCampaignState WarcraftCampaignStates}.
+ * {@link CampaignState WarcraftCampaignStates}.
  *
  * @author Blair Butterworth
  */
-public class WarcraftCampaignAdapter extends WarcraftScenarioAdapter
+public class CampaignAdapter extends ScenarioAdapter
 {
     private static final String INTRO = "introduction";
     private static final String NEXT = "next";
 
-    public WarcraftCampaignAdapter() {
+    public CampaignAdapter() {
     }
 
     @Inject
-    public WarcraftCampaignAdapter(
-        Device device,
-        ItemFactory itemFactory,
-        BehaviourFactory behaviourFactory,
-        WarcraftLevelLoader assetLoader)
+    public CampaignAdapter(
+        GameController controller,
+        HudLoader hudLoader,
+        LevelLoader levelLoader,
+        BehaviourFactory behaviourFactory)
     {
-        super(device, itemFactory, behaviourFactory, assetLoader);
+        super(controller, hudLoader, levelLoader, behaviourFactory);
     }
 
     @Override
-    protected void serialize(WarcraftScenarioState state, JsonObject json, JsonSerializationContext context) {
+    protected void serialize(ScenarioState state, JsonObject json, JsonSerializationContext context) {
         super.serialize(state, json, context);
-        WarcraftCampaignState campaign = (WarcraftCampaignState)state;
+        CampaignState campaign = (CampaignState)state;
         serializeIntro(campaign, json, context);
         serializeNext(campaign, json, context);
     }
 
-    private void serializeIntro(WarcraftCampaignState state, JsonObject json, JsonSerializationContext context) {
+    private void serializeIntro(CampaignState state, JsonObject json, JsonSerializationContext context) {
         Identifier intro = state.getIntroductionMenu();
         json.add(INTRO, context.serialize(intro, Identifier.class));
     }
 
-    private void serializeNext(WarcraftCampaignState state, JsonObject json, JsonSerializationContext context) {
+    private void serializeNext(CampaignState state, JsonObject json, JsonSerializationContext context) {
         Identifier next = state.getNextState();
         json.add(NEXT, context.serialize(next, Identifier.class));
     }
 
-    protected WarcraftScenarioState newDeserializedInstance() {
-        return new WarcraftCampaignState();
+    protected ScenarioState newDeserializedInstance() {
+        return new CampaignState();
     }
 
-    protected void deserialize(WarcraftScenarioState state, JsonObject json, JsonDeserializationContext context) {
+    protected void deserialize(ScenarioState state, JsonObject json, JsonDeserializationContext context) {
         super.deserialize(state, json, context);
-        WarcraftCampaignState campaign = (WarcraftCampaignState)state;
+        CampaignState campaign = (CampaignState)state;
         campaign.setIntroductionMenu(deserializeIntro(json, context));
         campaign.setNextState(deserializeNext(json, context));
     }

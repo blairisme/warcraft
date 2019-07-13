@@ -18,6 +18,5 @@ import com.evilbird.engine.item.ItemType;
  */
 public enum HudType implements ItemType
 {
-    Human,
-    Orc
+    Default
 }

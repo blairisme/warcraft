@@ -21,8 +21,6 @@ import javax.inject.Inject;
 
 public class GameLoader
 {
-    private static final int UPDATE_PERIOD = 500;
-
     private AssetManager assets;
     private ActionFactory actionFactory;
     private BehaviourFactory behaviourFactory;
@@ -47,18 +45,28 @@ public class GameLoader
         this.stateService = stateService;
     }
 
-    public void load(GameContext context) {
+    public void loadCoreAssets() {
+        menuFactory.load();
+        stateService.load();
+        assets.finishLoading();
+    }
+
+    public void loadAssets(GameContext context) {
         actionFactory.load(context);
         menuFactory.load(context);
         itemFactory.load(context);
         behaviourFactory.load(context);
-        stateService.load();
+        assets.finishLoading();
     }
 
-    public void unload() {
+    public void unloadAssets(GameContext context) {
+        actionFactory.unload(context);
+        menuFactory.unload(context);
+        itemFactory.unload(context);
+        behaviourFactory.unload(context);
     }
 
-    public boolean isComplete() {
-        return assets.update(UPDATE_PERIOD);
+    public boolean loadingComplete() {
+        return assets.isFinished();
     }
 }

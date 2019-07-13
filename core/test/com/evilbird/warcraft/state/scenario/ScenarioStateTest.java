@@ -20,6 +20,8 @@ import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
 import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
+import com.evilbird.warcraft.common.WarcraftAssetSet;
+import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.ui.hud.HudControl;
 import com.evilbird.warcraft.item.ui.hud.HudType;
 import nl.jqno.equalsverifier.Warning;
@@ -28,17 +30,21 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static com.evilbird.warcraft.common.WarcraftAssetSet.Summer;
+import static com.evilbird.warcraft.common.WarcraftFaction.Human;
+
 /**
- * Instances of this unit test validate the {@link WarcraftScenarioState} class.
+ * Instances of this unit test validate the {@link ScenarioState} class.
  *
  * @author Blair Butterworth
  */
-public class WarcraftScenarioStateTest extends GameTestCase
+public class ScenarioStateTest extends GameTestCase
 {
-    private WarcraftScenarioState state;
+    private ScenarioState state;
     private ItemRoot world;
     private ItemRoot hud;
     private Item hudControl;
+    private WarcraftContext context;
     private Behaviour behaviour;
 
     @Before
@@ -47,17 +53,18 @@ public class WarcraftScenarioStateTest extends GameTestCase
 
         world = TestItemRoots.newTestRoot(new TextIdentifier("world"));
         hudControl = TestItems.newItem(new TextIdentifier("resources"), HudControl.ResourcePane);
-        hud = TestItemRoots.newTestRoot(HudType.Human, hudControl);
+        hud = TestItemRoots.newTestRoot(HudType.Default, hudControl);
         behaviour = TestBehaviours.newBehaviour(WarcraftBehaviour.Human1);
-        state = new WarcraftScenarioState(world, hud, behaviour);
+        context = new WarcraftContext(Human, Summer);
+        state = new ScenarioState(world, hud, behaviour, context);
 
-        respondWithItem(HudType.Human, () -> hudControl);
+        respondWithItem(HudType.Default, () -> hudControl);
         respondWithBehaviour(behaviour, WarcraftBehaviour.Human1);
     }
 
     @Test
     public void serializeSaveTest() throws IOException {
-        SerializationVerifier.forClass(WarcraftScenarioState.class)
+        SerializationVerifier.forClass(ScenarioState.class)
             .withDeserializedForm(state)
             .withSerializedResource("/warcraft/state/save.json")
             .verify();
@@ -65,7 +72,7 @@ public class WarcraftScenarioStateTest extends GameTestCase
 
     @Test
     public void equalsTest() {
-        EqualityVerifier.forClass(WarcraftScenarioState.class)
+        EqualityVerifier.forClass(ScenarioState.class)
             .withMockedType(ItemRoot.class)
             .withMockedTransientFields()
             .excludeTransientFields()

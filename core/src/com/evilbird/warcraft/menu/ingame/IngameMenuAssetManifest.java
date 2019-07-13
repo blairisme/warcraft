@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.menu.ingame;
 
 import com.evilbird.engine.common.text.CaseUtils;
-import com.evilbird.warcraft.item.unit.UnitFaction;
+import com.evilbird.warcraft.common.WarcraftFaction;
 
 /**
  * Specifies the paths of assets required to display a {@link IngameMenu}.
@@ -28,7 +28,7 @@ public class IngameMenuAssetManifest
     private String backgroundWide;
     private String backgroundSmall;
    
-    public IngameMenuAssetManifest(UnitFaction unitFaction) {
+    public IngameMenuAssetManifest(WarcraftFaction unitFaction) {
         String faction = CaseUtils.toSnakeCase(unitFaction.name());
         buttonEnabled = "data/textures/" + faction + "/menu/button-large-normal.png";
         buttonDisabled = "data/textures/" + faction + "/menu/button-large-grayed.png";

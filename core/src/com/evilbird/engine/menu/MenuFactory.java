@@ -24,4 +24,10 @@ public interface MenuFactory extends GameFactory<Menu>
      * @return a menu instance.
      */
     Menu get();
+
+    /**
+     * Loads the assets required to display the root menu, the home menu or
+     * "highest" level menu.
+     */
+    void load();
 }

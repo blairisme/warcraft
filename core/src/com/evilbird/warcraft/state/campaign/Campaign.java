@@ -19,7 +19,7 @@ import com.evilbird.warcraft.state.WarcraftStateIdentifier;
  *
  * @author Blair Butterworth
  */
-public enum WarcraftCampaign implements WarcraftStateIdentifier, IntroducedState
+public enum Campaign implements WarcraftStateIdentifier, IntroducedState
 {
     Human1,
     Human2,

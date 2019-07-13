@@ -15,12 +15,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.test.testcase.GameTestCase;
+import com.evilbird.warcraft.common.WarcraftContext;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import static com.evilbird.test.data.device.TestDevices.newTestDevice;
+import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
+import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 
 /**
  * Instances of this unit test validate logic in the {@link IngameMenuFactory}
@@ -47,13 +50,13 @@ public class IngameMenuFactoryTest extends GameTestCase
 
     @Test
     public void loadTest() {
-        factory.load(null);
+        factory.load(new WarcraftContext(Human, Winter));
         Mockito.verify(assets).load(BUTTON_ENABLED, Texture.class);
     }
 
     @Test
     public void getTest() {
-        factory.load(null);
+        factory.load(new WarcraftContext(Human, Winter));
         for (IngameMenuType menuType: IngameMenuType.values()) {
             IngameMenu menu = factory.get(menuType);
             Assert.assertNotNull(menu);

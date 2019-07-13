@@ -9,7 +9,12 @@
 
 package com.evilbird.warcraft.menu.ingame;
 
-public enum IngameMenuLayout
+/**
+ * Defines options for specifing the dimension of an {@link IngameMenu}.
+ *
+ * @author Blair Butterworth
+ */
+public enum IngameMenuDimensions
 {
     Normal("menu-background-normal", 256, 288),
     Wide("menu-background-wide", 384, 256),
@@ -19,7 +24,7 @@ public enum IngameMenuLayout
     private int width;
     private int height;
 
-    IngameMenuLayout(String background, int width, int height) {
+    IngameMenuDimensions(String background, int width, int height) {
         this.background = background;
         this.width = width;
         this.height = height;

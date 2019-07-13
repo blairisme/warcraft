@@ -11,6 +11,7 @@ package com.evilbird.warcraft.state.scenario;
 
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.state.WarcraftState;
 import com.google.gson.annotations.JsonAdapter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -25,26 +26,37 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author Blair Butterworth
  */
-@JsonAdapter(WarcraftScenarioAdapter.class)
-public class WarcraftScenarioState implements WarcraftState
+@JsonAdapter(ScenarioAdapter.class)
+public class ScenarioState implements WarcraftState
 {
     private ItemRoot world;
     private ItemRoot hud;
     private Behaviour behaviour;
+    private WarcraftContext context;
 
-    public WarcraftScenarioState() {
+    public ScenarioState() {
     }
 
-    public WarcraftScenarioState(ItemRoot world, ItemRoot hud, Behaviour behaviour) {
+    public ScenarioState(
+        ItemRoot world,
+        ItemRoot hud,
+        Behaviour behaviour,
+        WarcraftContext context)
+    {
         this.world = world;
         this.hud = hud;
         this.behaviour = behaviour;
+        this.context = context;
     }
 
     @Override
     public void dispose() {
         this.world.dispose();
         this.hud.dispose();
+    }
+
+    public WarcraftContext getContext() {
+        return context;
     }
 
     public Behaviour getBehaviour() {
@@ -57,6 +69,10 @@ public class WarcraftScenarioState implements WarcraftState
 
     public ItemRoot getWorld() {
         return world;
+    }
+
+    public void setContext(WarcraftContext context) {
+        this.context = context;
     }
 
     public void setBehaviour(Behaviour behaviour) {
@@ -77,8 +93,9 @@ public class WarcraftScenarioState implements WarcraftState
         if (obj == this) { return true; }
         if (obj.getClass() != getClass()) { return false; }
 
-        WarcraftScenarioState that = (WarcraftScenarioState)obj;
+        ScenarioState that = (ScenarioState)obj;
         return new EqualsBuilder()
+            .append(context, that.context)
             .append(world, that.world)
             .append(hud, that.hud)
             .append(behaviour, that.behaviour)
@@ -88,6 +105,7 @@ public class WarcraftScenarioState implements WarcraftState
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
+            .append(context)
             .append(world)
             .append(hud)
             .append(behaviour)

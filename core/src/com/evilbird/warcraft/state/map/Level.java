@@ -19,7 +19,7 @@ import com.evilbird.engine.common.serialization.SerializedType;
  * @author Blair Butterworth
  */
 @SerializedType("Scenario")
-public enum WarcraftLevel implements Identifier
+public enum Level implements Identifier
 {
     Human1,
     Human2,

@@ -22,8 +22,8 @@ import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateLoadError;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.engine.state.StateType;
-import com.evilbird.warcraft.state.campaign.WarcraftCampaign;
-import com.evilbird.warcraft.state.scenario.WarcraftScenarioState;
+import com.evilbird.warcraft.state.campaign.Campaign;
+import com.evilbird.warcraft.state.scenario.ScenarioState;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -36,7 +36,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Instances of this {@link StateService} provide access to {@link WarcraftScenarioState
+ * Instances of this {@link StateService} provide access to {@link ScenarioState
  * WarcraftStates}, snapshots of all game objects and their properties at a
  * given point in time.
  *
@@ -83,7 +83,7 @@ public class WarcraftStateService implements StateService
     }
 
     private List<Identifier> listScenarios() {
-        return Arrays.asList(WarcraftCampaign.values());
+        return Arrays.asList(Campaign.values());
     }
 
     private List<Identifier> listSaves() {
@@ -132,11 +132,11 @@ public class WarcraftStateService implements StateService
 
     @Override
     public void set(StateIdentifier identifier, State state) {
-        Validate.isInstanceOf(WarcraftScenarioState.class, state);
+        Validate.isInstanceOf(ScenarioState.class, state);
         Validate.isInstanceOf(WarcraftSave.class, identifier);
 
         try (Writer writer = deviceStorage.write(toPath((WarcraftSave)identifier))) {
-            serializer.serialize((WarcraftScenarioState)state, WarcraftScenarioState.class, writer);
+            serializer.serialize((ScenarioState)state, ScenarioState.class, writer);
         }
         catch (IOException error){
             throw new StateLoadError(error);

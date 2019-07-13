@@ -31,6 +31,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 import static com.evilbird.warcraft.menu.intro.IntroMenuType.Human1;
+import static com.evilbird.warcraft.menu.intro.IntroMenuType.Orc1;
 import static com.evilbird.warcraft.menu.main.MainMenuType.Campaign;
 import static com.evilbird.warcraft.menu.main.MainMenuType.CampaignNew;
 import static com.evilbird.warcraft.menu.main.MainMenuType.Home;
@@ -104,7 +105,7 @@ public class MainMenuFactory implements GameFactory<MainMenu>
     private MainMenu getNewCampaignMenu() {
         MainMenu menu = new MainMenu(display, getSkin());
         menu.insertButton("Human Campaign", showMenu(menu, Human1));
-        menu.insertButton("Orc Campaign");
+        menu.insertButton("Orc Campaign", showMenu(menu, Orc1));
         menu.insertButton("Previous Menu", showMenu(menu, Campaign));
         return menu;
     }

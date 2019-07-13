@@ -44,10 +44,10 @@ public class IngameMenu extends Menu
         this.container = createContainer(skin);
     }
 
-    public void setLayout(IngameMenuLayout layout) {
-        container.setBackground(layout.getBackground());
-        container.setWidth(layout.getWidth());
-        container.setHeight(layout.getHeight());
+    public void setLayout(IngameMenuDimensions dimensions) {
+        container.setBackground(dimensions.getBackground());
+        container.setWidth(dimensions.getWidth());
+        container.setHeight(dimensions.getHeight());
     }
 
     public Skin getSkin() {

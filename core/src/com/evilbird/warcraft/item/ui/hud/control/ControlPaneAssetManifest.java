@@ -10,7 +10,10 @@
 package com.evilbird.warcraft.item.ui.hud.control;
 
 import com.evilbird.engine.common.text.CaseUtils;
-import com.evilbird.warcraft.item.unit.UnitFaction;
+import com.evilbird.warcraft.common.WarcraftFaction;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Specifies the path to assets required to display a {@link ControlPane}.
@@ -37,10 +40,12 @@ public class ControlPaneAssetManifest
     private String healthProgressHigh;
     private String healthProgressMedium;
     private String healthProgressLow;
-
-    public ControlPaneAssetManifest(UnitFaction faction) {
+    private Collection<String> textures;
+    
+    public ControlPaneAssetManifest(WarcraftFaction faction) {
         setCommonTextures();
         setFactionTextures(faction);
+        setTexturesList();
     }
 
     private void setCommonTextures() {
@@ -56,7 +61,7 @@ public class ControlPaneAssetManifest
         unitPanel = "data/textures/common/menu/selection.png";
     }
 
-    private void setFactionTextures(UnitFaction unitFaction) {
+    private void setFactionTextures(WarcraftFaction unitFaction) {
         String faction = CaseUtils.toSnakeCase(unitFaction.name());
         actionPanel = "data/textures/" + faction + "/menu/action_panel.png";
         detailsPanel = "data/textures/" + faction + "/menu/details_panel.png";
@@ -66,6 +71,28 @@ public class ControlPaneAssetManifest
         buttonEnabled = "data/textures/" + faction + "/menu/button-thin-medium-normal.png";
         buttonSelected = "data/textures/" + faction + "/menu/button-thin-medium-pressed.png";
         buttonDisabled = "data/textures/" + faction + "/menu/button-thin-medium-grayed.png";
+    }
+    
+    private void setTexturesList() {
+        textures = new ArrayList<>();
+        textures.add(icons);
+        textures.add(iconsDisabled);
+        textures.add(actionButton);
+        textures.add(deselectButton);
+        textures.add(buildingFill);
+        textures.add(buildingBackground);
+        textures.add(healthProgressHigh);
+        textures.add(healthProgressMedium);
+        textures.add(healthProgressLow);
+        textures.add(unitPanel);
+        textures.add(actionPanel);
+        textures.add(detailsPanel);
+        textures.add(menuPanel);
+        textures.add(minimapPanel);
+        textures.add(selectionPanel);
+        textures.add(buttonEnabled);
+        textures.add(buttonSelected);
+        textures.add(buttonDisabled);
     }
 
     public String getIcons() {
@@ -138,5 +165,9 @@ public class ControlPaneAssetManifest
 
     public String getHealthProgressLow() {
         return healthProgressLow;
+    }
+
+    public Collection<String> getTextures() {
+        return textures;
     }
 }
