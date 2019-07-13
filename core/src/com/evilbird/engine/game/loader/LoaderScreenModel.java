@@ -11,12 +11,7 @@ package com.evilbird.engine.game.loader;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.evilbird.engine.action.ActionFactory;
-import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.menu.MenuFactory;
-import com.evilbird.engine.state.StateService;
 
 import javax.inject.Inject;
 
@@ -31,40 +26,23 @@ public class LoaderScreenModel
 {
     private static final String TITLE = "data/textures/common/menu/title.png";
     private static final float FLASH_DELAY = 0.5f;
-    private static final int UPDATE_PERIOD = 1000;
 
     private LoaderScreen presenter;
     private AssetManager assets;
-    private ActionFactory actionFactory;
-    private BehaviourFactory behaviourFactory;
-    private ItemFactory itemFactory;
-    private MenuFactory menuFactory;
-    private StateService stateService;
+
     private float loadingTime;
 
     @Inject
-    public LoaderScreenModel(
-        Device device,
-        ActionFactory actionFactory,
-        BehaviourFactory behaviourFactory,
-        ItemFactory itemFactory,
-        MenuFactory menuFactory,
-        StateService stateService)
-    {
+    public LoaderScreenModel(Device device) {
         this.loadingTime = 0;
         this.assets = device.getAssetStorage();
-        this.actionFactory = actionFactory;
-        this.behaviourFactory = behaviourFactory;
-        this.itemFactory = itemFactory;
-        this.menuFactory = menuFactory;
-        this.stateService = stateService;
     }
 
     public void setPresenter(LoaderScreen presenter) {
         this.presenter = presenter;
     }
 
-    public void loadBackground() {
+    public void show() {
         assets.load(TITLE, Texture.class);
         assets.finishLoading();
 
@@ -72,18 +50,14 @@ public class LoaderScreenModel
         presenter.setBackground(texture);
     }
 
-    public void loadAssets() {
-        actionFactory.load(null);
-        menuFactory.load(null);
-        itemFactory.load(null);
-        behaviourFactory.load(null);
-        stateService.load();
+    public void load() {
+        presenter.loadAssets(null);
     }
 
     public void update(float delta) {
         loadingTime += delta;
-        if (loadingTime >= FLASH_DELAY && assets.update(UPDATE_PERIOD)) {
-            presenter.loadingComplete();
+        if (loadingTime >= FLASH_DELAY && presenter.isLoaded()) {
+            presenter.showInitialScreen();
         }
     }
 }

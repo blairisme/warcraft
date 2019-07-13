@@ -15,6 +15,15 @@ import com.evilbird.engine.common.lang.Identifier;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A {@link GameFactory} implementation fulfilling the composite pattern,
+ * allowing multiple factories to be "combined" and made to appear as a single
+ * factory.
+ *
+ * @param <V> the type of objects produced by the {@code GameFactoryComposite}.
+ *
+ * @author Blair Butterworth
+ */
 public class GameFactoryComposite<V> implements GameFactory<V>
 {
     private Map<Object, GameFactory<? extends V>> providers;

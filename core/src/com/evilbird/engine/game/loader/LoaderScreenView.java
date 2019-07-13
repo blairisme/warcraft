@@ -36,7 +36,7 @@ public class LoaderScreenView
     public LoaderScreenView() {
     }
 
-    public void load() {
+    public void show() {
         container = new Table();
         container.setFillParent(true);
 

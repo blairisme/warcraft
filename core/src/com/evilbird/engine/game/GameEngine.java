@@ -46,6 +46,7 @@ public class GameEngine extends Game implements GameController
     private StateScreen stateScreen;
     private StateService stateService;
     private Runnable initialScreen;
+    private GameLoader gameLoader;
 
     @Inject
     public GameEngine(
@@ -53,11 +54,13 @@ public class GameEngine extends Game implements GameController
         LoaderScreen loaderScreen,
         MenuScreen menuScreen,
         MenuOverlay menuOverlay,
-        MenuFactory menuFactory,
         StateScreen stateScreen,
-        StateService stateService)
+        MenuFactory menuFactory,
+        StateService stateService,
+        GameLoader gameLoader)
     {
         this.errorScreen = errorScreen;
+        this.gameLoader = gameLoader;
         this.loaderScreen = loaderScreen;
         this.loaderScreen.setEngine(this);
         this.menuScreen = menuScreen;
@@ -76,7 +79,6 @@ public class GameEngine extends Game implements GameController
     public void create() {
         try {
             logger.debug("Game engine started");
-            loaderScreen.load();
             setScreen(loaderScreen);
         }
         catch (Throwable error) {
@@ -98,6 +100,21 @@ public class GameEngine extends Game implements GameController
     @Override
     public State getState() {
         return stateScreen.getState();
+    }
+
+    @Override
+    public void loadAssets(GameContext context) {
+        gameLoader.load(context);
+    }
+
+    @Override
+    public void unloadAssets() {
+        gameLoader.unload();
+    }
+
+    @Override
+    public boolean isLoaded() {
+        return gameLoader.isComplete();
     }
 
     public void showInitialScreen() {

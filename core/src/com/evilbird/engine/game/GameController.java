@@ -37,6 +37,21 @@ public interface GameController
     State getState();
 
     /**
+     * Instructs the game services to load any persisted assets pertaining to
+     * the given context and to use these in their operations.
+     *
+     * @param context an context identifier.
+     */
+    void loadAssets(GameContext context);
+
+    /**
+     * Instructs the game services to unload any previously loaded assets.
+     */
+    void unloadAssets();
+
+    boolean isLoaded();
+
+    /**
      * Shows the default menu, usually the top level menu.
      */
     void showMenu();
