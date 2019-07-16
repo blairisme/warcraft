@@ -20,7 +20,6 @@ import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
 import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
-import com.evilbird.warcraft.common.WarcraftAssetSet;
 import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.ui.hud.HudControl;
 import com.evilbird.warcraft.item.ui.hud.HudType;

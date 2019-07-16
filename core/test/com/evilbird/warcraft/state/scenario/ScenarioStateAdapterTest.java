@@ -11,7 +11,6 @@ package com.evilbird.warcraft.state.scenario;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.evilbird.engine.common.maps.TiledMapLoader;
-import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.GameController;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.utils.JsonSerializerContext;

@@ -12,10 +12,37 @@ package com.evilbird.test.utils;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+/**
+ * A {@link FileHandleResolver} implementation that provides access to Warcraft
+ * asset files.
+ *
+ * @author Blair Butterworth
+ */
 public class AssetFileHandleResolver implements FileHandleResolver
 {
+    private Path assets;
+
+    public AssetFileHandleResolver() {
+        Path directory = Paths.get(System.getProperty("user.dir"));
+
+        while (directory != null && !Files.exists(directory.resolve("LICENSE"))) {
+            directory = directory.getParent();
+        }
+        if (directory == null) {
+            throw new UnsupportedOperationException("Unable to locate root directory");
+        }
+        assets = directory.resolve("android/assets");
+    }
+
     @Override
     public FileHandle resolve(String fileName) {
-        return null;
+        Path path = assets.resolve(fileName);
+        File file = path.toFile();
+        return new FileHandle(file);
     }
 }

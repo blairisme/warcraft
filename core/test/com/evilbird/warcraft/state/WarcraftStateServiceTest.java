@@ -13,7 +13,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.JsonSerializer;
-import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceStorage;
 import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.state.State;
