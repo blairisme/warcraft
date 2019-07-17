@@ -10,7 +10,6 @@
 package com.evilbird.warcraft.menu.ingame;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.warcraft.common.WarcraftContext;
@@ -79,7 +78,7 @@ public class IngameMenuAssets
         assets.load(manifest.getButtonDisabled(), Texture.class);
         assets.load(manifest.getButtonSelected(), Texture.class);
         assets.load(manifest.getTextPanelNormal(), Texture.class);
-        assets.load(manifest.getButtonClick(), Sound.class);
+        //assets.load(manifest.getButtonClick(), Sound.class);
     }
 
     public void unload() {
@@ -90,6 +89,6 @@ public class IngameMenuAssets
         assets.unload(manifest.getButtonDisabled());
         assets.unload(manifest.getButtonSelected());
         assets.unload(manifest.getTextPanelNormal());
-        assets.unload(manifest.getButtonClick());
+        //assets.unload(manifest.getButtonClick());
     }
 }
