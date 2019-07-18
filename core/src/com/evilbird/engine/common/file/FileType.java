@@ -17,20 +17,20 @@ package com.evilbird.engine.common.file;
 public enum FileType
 {
     JSON,
-    MP3;
+    MP3,
+    PNG,
+    TTF;
 
     public String getFileExtension() {
-        switch (this) {
-            case MP3: return ".mp3";
-            case JSON: return ".json";
-            default: throw new UnsupportedOperationException();
-        }
+        return "." +  getExtension();
     }
 
     public String getExtension() {
         switch (this) {
             case MP3: return "mp3";
             case JSON: return "json";
+            case PNG: return "png";
+            case TTF: return "ttf";
             default: throw new UnsupportedOperationException();
         }
     }

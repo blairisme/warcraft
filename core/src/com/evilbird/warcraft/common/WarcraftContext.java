@@ -9,11 +9,12 @@
 
 package com.evilbird.warcraft.common;
 
+import com.evilbird.engine.common.function.ParameterizedSupplier;
 import com.evilbird.engine.game.GameContext;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class WarcraftContext implements GameContext
+public class WarcraftContext implements GameContext, ParameterizedSupplier<String, String>
 {
     private WarcraftFaction faction;
     private WarcraftAssetSet assets;
@@ -29,6 +30,17 @@ public class WarcraftContext implements GameContext
 
     public WarcraftAssetSet getAssetSet() {
         return assets;
+    }
+
+    @Override
+    public String get(String key) {
+        if (key.equals("faction")) {
+            return faction.name();
+        }
+        if (key.equals("assets")) {
+            return assets.name();
+        }
+        return null;
     }
 
     @Override
