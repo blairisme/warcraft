@@ -24,47 +24,47 @@ public class MainMenuStrings
         this.bundle = bundle;
     }
 
-    public String getSinglePlayerButtonText() {
+    public String getSinglePlayer() {
         return bundle.get("single-player");
     }
 
-    public String getMultiPlayerButtonText() {
+    public String getMultiPlayer() {
         return bundle.get("multi-player");
     }
 
-    public String getReplyIntroButtonText() {
+    public String getReplyIntro() {
         return bundle.get("reply");
     }
 
-    public String getShowCreditsButtonText() {
+    public String getShowCredits() {
         return bundle.get("credits");
     }
 
-    public String getExitButtonText() {
+    public String getExit() {
         return bundle.get("exit");
     }
 
-    public String getLoadButtonText() {
+    public String getLoad() {
         return bundle.get("load");
     }
 
-    public String getNewCampaignButtonText() {
+    public String getNewCampaign() {
         return bundle.get("new-campaign");
     }
 
-    public String getCustomCampaignButtonText() {
+    public String getCustomCampaign() {
         return bundle.get("custom-campaign");
     }
 
-    public String getHumanCampaignButtonText() {
+    public String getHumanCampaign() {
         return bundle.get("human-campaign");
     }
 
-    public String getOrdCampaignButtonText() {
+    public String getOrcCampaign() {
         return bundle.get("orc-campaign");
     }
 
-    public String getPreviousButtonText() {
+    public String getPrevious() {
         return bundle.get("previous-menu");
     }
 }

@@ -66,12 +66,12 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
 
     @Inject
     public IngameMenuFactory(Device device, StateService states) {
-        this(device, states, device.getAssetStorage());
+        this(device.getDeviceDisplay(), states, device.getAssetStorage());
     }
 
-    public IngameMenuFactory(Device device, StateService states, AssetManager manager) {
+    public IngameMenuFactory(DeviceDisplay display, StateService states, AssetManager manager) {
         this.states = states;
-        this.display = device.getDeviceDisplay();
+        this.display = display;
         this.manager = manager;
     }
 
@@ -112,132 +112,146 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
     }
 
     private IngameMenu setRootLayout(IngameMenu menu) {
+        IngameMenuStrings strings = assets.getStrings();
         menu.setLayout(Normal);
-        menu.addTitle("Game Menu");
-        menu.addButton("Save", showMenu(menu, Save));
-        menu.addButton("Load", showMenu(menu, Load));
-        menu.addButton("Options", showMenu(menu, Options));
-        menu.addButton("Scenario Objectives", showMenu(menu, Objectives));
-        menu.addButton("End Scenario", showMenu(menu, Exit));
+        menu.addTitle(strings.getMainTitle());
+        menu.addButton(strings.getSaveButtonText(), showMenu(menu, Save));
+        menu.addButton(strings.getLoadButtonText(), showMenu(menu, Load));
+        menu.addButton(strings.getOptionsButtonText(), showMenu(menu, Options));
+        menu.addButton(strings.getObjectivesButtonText(), showMenu(menu, Objectives));
+        menu.addButton(strings.getEndButtonText(), showMenu(menu, Exit));
         menu.addSpacer();
-        menu.addButton("Return to Game", showState(menu));
+        menu.addButton(strings.getReturnButtonText(), showState(menu));
         return menu;
     }
 
     private IngameMenu setSaveLayout(IngameMenu menu) {
+        IngameMenuStrings strings = assets.getStrings();
+
         menu.setLayout(Wide);
-        menu.addTitle("Save Game");
+        menu.addTitle(strings.getSaveTitle());
 
         TextField field = menu.addTextField("");
         List list = menu.addList();
         menu.addButtonRow(
-            Pair.of("Save", saveState(menu, field)),
-            Pair.of("Delete", deleteState(menu, list)),
-            Pair.of("Cancel", showState(menu)));
+            Pair.of(strings.getSaveButtonText(), saveState(menu, field)),
+            Pair.of(strings.getDeleteButtonText(), deleteState(menu, list)),
+            Pair.of(strings.getCancelButtonText(), showState(menu)));
 
         addStates(menu, list);
         return menu;
     }
 
     private IngameMenu setLoadLayout(IngameMenu menu) {
+        IngameMenuStrings strings = assets.getStrings();
+
         menu.setLayout(Wide);
-        menu.addTitle("Load Game");
+        menu.addTitle(strings.getLoadTitle());
 
         List list = menu.addList();
         menu.addButtonRow(
-            Pair.of("Load", loadState(menu, list)),
-            Pair.of("Delete", deleteState(menu, list)),
-            Pair.of("Cancel", showState(menu)));
+            Pair.of(strings.getLoadButtonText(), loadState(menu, list)),
+            Pair.of(strings.getDeleteButtonText(), deleteState(menu, list)),
+            Pair.of(strings.getCancelButtonText(), showState(menu)));
 
         addStates(menu, list);
         return menu;
     }
 
     private IngameMenu setExitLayout(IngameMenu menu) {
+        IngameMenuStrings strings = assets.getStrings();
         menu.setLayout(Normal);
-        menu.addTitle("End Scenario");
-        menu.addButton("Restart Scenario", showMenu(menu, Human1));
-        menu.addButton("Surrender", showMenu(menu, Confirm));
-        menu.addButton("Quit to Menu", showMenu(menu, Confirm));
-        menu.addButton("Exit Program", shutdown());
+        menu.addTitle(strings.getSurrenderTitle());
+        menu.addButton(strings.getRestartButtonText(), showMenu(menu, Human1));
+        menu.addButton(strings.getSurrenderButtonText(), showMenu(menu, Confirm));
+        menu.addButton(strings.getQuitButtonText(), showMenu(menu, Confirm));
+        menu.addButton(strings.getExitButtonText(), shutdown());
         menu.addSpacer();
-        menu.addButton("Previous", showMenu(menu, Root));
+        menu.addButton(strings.getPreviousButtonText(), showMenu(menu, Root));
         return menu;
     }
 
     private IngameMenu setConfirmLayout(IngameMenu menu) {
+        IngameMenuStrings strings = assets.getStrings();
         menu.setLayout(Normal);
-        menu.addTitle("Are you sure you want to surrender to your enemies?");
-        menu.addButton("Surrender", showMenu(menu, Defeat));
+        menu.addTitle(strings.getSurrenderTitle());
+        menu.addButton(strings.getSurrenderButtonText(), showMenu(menu, Defeat));
         menu.addSpacer();
-        menu.addButton("Cancel", showState(menu));
+        menu.addButton(strings.getCancelButtonText(), showState(menu));
         return menu;
     }
 
     private IngameMenu setOptionsLayout(IngameMenu menu) {
+        IngameMenuStrings strings = assets.getStrings();
         menu.setLayout(Normal);
-        menu.addTitle("Game Options");
-        menu.addButton("Sounds", showMenu(menu, Sounds));
-        menu.addButton("Speeds", showMenu(menu, Speeds));
-        menu.addButton("Preferences", showMenu(menu, Preferences));
+        menu.addTitle(strings.getOptionsTitle());
+        menu.addButton(strings.getSoundsButtonText(), showMenu(menu, Sounds));
+        menu.addButton(strings.getSpeedsButtonText(), showMenu(menu, Speeds));
+        menu.addButton(strings.getPreferencesButtonText(), showMenu(menu, Preferences));
         menu.addSpacer();
-        menu.addButton("Previous", showMenu(menu, Root));
+        menu.addButton(strings.getPreviousButtonText(), showMenu(menu, Root));
         return menu;
     }
 
     private IngameMenu setSoundsLayout(IngameMenu menu) {
+        IngameMenuStrings strings = assets.getStrings();
         menu.setLayout(Normal);
-        menu.addTitle("Sound Settings");
+        menu.addTitle(strings.getSoundSettingsTitle());
         menu.addSpacer();
         menu.addButtonRow(
-            Pair.of("OK", showState(menu)),
-            Pair.of("Cancel", showState(menu)));
+            Pair.of(strings.getOkButtonText(), showState(menu)),
+            Pair.of(strings.getCancelButtonText(), showState(menu)));
         return menu;
     }
 
     private IngameMenu setSpeedsLayout(IngameMenu menu) {
+        IngameMenuStrings strings = assets.getStrings();
         menu.setLayout(Normal);
-        menu.addTitle("Speed Settings");
+        menu.addTitle(strings.getSpeedSettingsTitle());
         menu.addSpacer();
         menu.addButtonRow(
-            Pair.of("OK", showState(menu)),
-            Pair.of("Cancel", showState(menu)));
+            Pair.of(strings.getOkButtonText(), showState(menu)),
+            Pair.of(strings.getCancelButtonText(), showState(menu)));
         return menu;
     }
 
     private IngameMenu setPreferencesLayout(IngameMenu menu) {
+        IngameMenuStrings strings = assets.getStrings();
         menu.setLayout(Normal);
-        menu.addTitle("Preferences");
+        menu.addTitle(strings.getPreferenceTitle());
         menu.addSpacer();
         menu.addButtonRow(
-            Pair.of("OK", showState(menu)),
-            Pair.of("Cancel", showState(menu)));
+            Pair.of(strings.getOkButtonText(), showState(menu)),
+            Pair.of(strings.getCancelButtonText(), showState(menu)));
         return menu;
     }
 
     private IngameMenu setObjectivesLayout(IngameMenu menu) {
+        IngameMenuStrings strings = assets.getStrings();
         menu.setLayout(Normal);
-        menu.addTitle("Scenario Objectives");
+        menu.addTitle(strings.getObjectivesTitle());
         menu.addLabel(" - Build four Farms");
         menu.addLabel(" - Build a Barracks");
         menu.addSpacer();
-        menu.addButton("Previous", showMenu(menu, Root));
+        menu.addButton(strings.getPreviousButtonText(), showMenu(menu, Root));
         return menu;
     }
 
     private IngameMenu setDefeatLayout(IngameMenu menu) {
+        IngameMenuStrings strings = assets.getStrings();
         menu.setLayout(Small);
-        menu.addTitle("You failed to achieve victory!");
+        menu.addTitle(strings.getDefeatTitle());
         menu.addSpacer();
-        menu.addButton("OK", showMenu(menu, OutroMenuType.Defeat));
+        menu.addButton(strings.getOkButtonText(), showMenu(menu, OutroMenuType.Defeat));
         return menu;
     }
 
     private IngameMenu setVictoryLayout(IngameMenu menu) {
+        IngameMenuStrings strings = assets.getStrings();
         menu.setLayout(Small);
-        menu.addTitle("Victory!");
+        menu.addTitle(strings.getVictoryTitle());
         menu.addSpacer();
-        menu.addButton("OK", showMenu(menu, OutroMenuType.Victory));
+        menu.addButton(strings.getOkButtonText(), showMenu(menu, OutroMenuType.Victory));
         return menu;
     }
 

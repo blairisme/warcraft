@@ -12,9 +12,13 @@ package com.evilbird.engine.common.assets;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
+import com.evilbird.engine.common.audio.LazyLoadedMusic;
 import com.evilbird.engine.common.collection.SuppliedMap;
 import com.evilbird.engine.common.function.ParameterizedSupplier;
 import com.evilbird.engine.common.graphics.TextureUtils;
@@ -76,12 +80,33 @@ public class AssetBundle
     }
 
     protected void register(String path, Class<?> type) {
-        register(FilenameUtils.getName(path), path, type, null);
+        register(FilenameUtils.getName(path), path, type);
+    }
+
+    protected void register(Object id, String path) {
+        register(id, path, AssetLoaders.getAssetLoader(path));
+    }
+
+    protected void register(Object id, String path, Class<?> type) {
+        register(id, path, type, null);
     }
 
     protected <T> void register(Object id, String path, Class<T> type, AssetLoaderParameters<T> parameters) {
         String file = resolver.replace(path);
         assets.put(id, new AssetDescriptor<>(file, type, parameters));
+    }
+
+    protected void registerOptional(Object id, String path, Class<?> type) {
+        String file = resolver.replace(path);
+        FileHandleResolver fileResolver = manager.getFileHandleResolver();
+        FileHandle fileHandle = fileResolver.resolve(file);
+        if (fileHandle.exists()) {
+            register(id, file, type);
+        }
+    }
+
+    protected boolean isRegistered(Object id) {
+        return assets.containsKey(id);
     }
 
     protected Drawable getDrawable(Object id) {
@@ -94,6 +119,11 @@ public class AssetBundle
         return TextureUtils.getDrawable(manager, asset.fileName, x, y, width, height);
     }
 
+    protected Drawable getTiledDrawable(Object id) {
+        AssetDescriptor asset = assets.get(id);
+        return TextureUtils.getTiledDrawable(manager, asset.fileName);
+    }
+
     protected BitmapFont getFont(Object id) {
         AssetDescriptor asset = assets.get(id);
         return manager.get(asset.fileName, BitmapFont.class);
@@ -102,5 +132,15 @@ public class AssetBundle
     protected I18NBundle getStrings(Object id) {
         AssetDescriptor asset = assets.get(id);
         return manager.get(asset.fileName, I18NBundle.class);
+    }
+
+    protected Music getMusic(Object id) {
+        AssetDescriptor asset = assets.get(id);
+        return manager.get(asset.fileName, Music.class);
+    }
+
+    protected Music getLazyLoadedMusic(Object id) {
+        AssetDescriptor asset = assets.get(id);
+        return manager.get(asset.fileName, LazyLoadedMusic.class);
     }
 }

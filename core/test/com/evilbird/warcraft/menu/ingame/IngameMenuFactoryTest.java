@@ -10,20 +10,21 @@
 package com.evilbird.warcraft.menu.ingame;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.device.Device;
+import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.state.StateService;
-import com.evilbird.test.testcase.GameTestCase;
+import com.evilbird.test.testcase.GameFactoryTestCase;
 import com.evilbird.warcraft.common.WarcraftContext;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 import org.mockito.Mockito;
 
-import static com.evilbird.test.data.device.TestDevices.newTestDevice;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+
 import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
+import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
 
 /**
  * Instances of this unit test validate logic in the {@link IngameMenuFactory}
@@ -31,36 +32,26 @@ import static com.evilbird.warcraft.common.WarcraftFaction.Human;
  *
  * @author Blair Butterworth
  */
-public class IngameMenuFactoryTest extends GameTestCase
+public class IngameMenuFactoryTest extends GameFactoryTestCase<IngameMenuFactory>
 {
-    private static final String BUTTON_ENABLED = "data/textures/human/menu/button-large-normal.png";
-
-    private Device device;
-    private AssetManager assets;
-    private StateService states;
-    private IngameMenuFactory factory;
-
-    @Before
-    public void setup() {
-        device = newTestDevice();
-        assets = device.getAssetStorage();
-        states = Mockito.mock(StateService.class);
-        factory = new IngameMenuFactory(device, states);
+    @Override
+    protected IngameMenuFactory newFactory(DeviceDisplay display, AssetManager assets) {
+        StateService stateService = Mockito.mock(StateService.class);
+        return new IngameMenuFactory(display, stateService, assets);
     }
 
-    @Test
-    public void loadTest() {
-        factory.load(new WarcraftContext(Human, Winter));
-        Mockito.verify(assets).load(BUTTON_ENABLED, Texture.class);
+    @Override
+    protected Collection<Identifier> getLoadContexts() {
+        return Arrays.asList(new WarcraftContext(Human, Winter), new WarcraftContext(Orc, Winter));
     }
 
-    @Test
-    public void getTest() {
-        factory.load(new WarcraftContext(Human, Winter));
-        for (IngameMenuType menuType: IngameMenuType.values()) {
-            IngameMenu menu = factory.get(menuType);
-            Assert.assertNotNull(menu);
-            Assert.assertTrue(menu.getSkin().has("menu-background-normal", Drawable.class));
-        }
+    @Override
+    protected Collection<Identifier> getValueTypes() {
+        return Arrays.asList(IngameMenuType.values());
+    }
+
+    @Override
+    protected Map<String, Object> getValueProperties() {
+        return Collections.emptyMap();
     }
 }

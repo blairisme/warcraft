@@ -10,20 +10,16 @@
 package com.evilbird.warcraft.menu.intro;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
-import com.evilbird.engine.common.audio.LazyLoadedMusic;
+import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.audio.MusicCombination;
 import com.evilbird.engine.common.audio.MusicSequence;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
-import static java.util.stream.Collectors.toList;
 
 /**
  * Defines the assets that are required to display an {@link IntroMenu}, as
@@ -31,63 +27,63 @@ import static java.util.stream.Collectors.toList;
  *
  * @author Blair Butterworth
  */
-public class IntroMenuAssets
+public class IntroMenuAssets extends AssetBundle
 {
-    private AssetManager assets;
-    private IntroMenuAssetManifest manifest;
-
-    public IntroMenuAssets(AssetManager assets, IntroMenuType type) {
-        this.assets = assets;
-        this.manifest = new IntroMenuAssetManifest(type);
+    public IntroMenuAssets(AssetManager manager, IntroMenuType context) {
+        super(manager, context);
+        register("background", "data/textures/${faction}/menu/${name}.png");
+        register("font", "data/fonts/philosopher.ttf");
+        register("button", "data/textures/common/menu/button.png");
+        register("music", "data/music/4.mp3", Music.class);
+        register("strings", "data/strings/${faction}/menu/${name}", I18NBundle.class);
+        registerOptional("narration-1", "data/sounds/${faction}/menu/${name}.mp3", Music.class);
+        registerOptional("narration-1", "data/sounds/${faction}/menu/${name}a.mp3", Music.class);
+        registerOptional("narration-2", "data/sounds/${faction}/menu/${name}b.mp3", Music.class);
     }
 
     public Drawable getBackground() {
-        return getDrawable(assets, manifest.getBackground());
+        return getDrawable("background");
     }
 
     public Drawable getButtonUp() {
-        return getDrawable(assets, manifest.getButton(), 0, 0, 225, 30);
+        return getDrawable("button", 0, 0, 225, 30);
     }
 
     public Drawable getButtonDown() {
-        return getDrawable(assets, manifest.getButton(), 0, 30, 225, 30);
+        return getDrawable("button", 0, 30, 225, 30);
     }
 
     public Drawable getButtonDisabled() {
-        return getDrawable(assets, manifest.getButton(), 0, 60, 225, 30);
+        return getDrawable("button", 0, 60, 225, 30);
     }
 
     public BitmapFont getFont() {
-        return assets.get(manifest.getFont(), BitmapFont.class);
+        return getFont("font");
+    }
+
+    public IntroMenuStrings getStrings() {
+        return new IntroMenuStrings(getStrings("strings"));
     }
 
     public Music getNarration() {
-        FileHandleResolver resolver = assets.getFileHandleResolver();
-
-        List<String> paths = manifest.getNarration();
-        List<Music> sequence = paths.stream().map(path -> new LazyLoadedMusic(resolver, path)).collect(toList());
-
-        Music narration = new MusicSequence(sequence);
+        Music narration = new MusicSequence(getNarrationSequence());
         narration.setVolume(1f);
 
-        Music background = new LazyLoadedMusic(resolver, manifest.getMusic());
+        Music background = getMusic("music");
         background.setVolume(0.7f);
 
         return new MusicCombination(narration, background);
     }
 
-    public IntroMenuStrings getStrings() {
-        I18NBundle bundle = assets.get(manifest.getStrings(), I18NBundle.class);
-        return new IntroMenuStrings(bundle);
-    }
+    private List<Music> getNarrationSequence() {
+        List<Music> sequence = new ArrayList<>();
 
-    public void load() {
-        assets.load(manifest.getBackground(), Texture.class);
-        assets.load(manifest.getButton(), Texture.class);
-        assets.load(manifest.getStrings(), I18NBundle.class);
-
-        assets.finishLoadingAsset(manifest.getBackground());
-        assets.finishLoadingAsset(manifest.getButton());
-        assets.finishLoadingAsset(manifest.getStrings());
+        if (isRegistered("narration-1")) {
+            sequence.add(getMusic("narration-1"));
+        }
+        if (isRegistered("narration-2")) {
+            sequence.add(getMusic("narration-2"));
+        }
+        return sequence;
     }
 }

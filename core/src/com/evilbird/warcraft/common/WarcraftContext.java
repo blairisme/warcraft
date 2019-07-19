@@ -14,6 +14,12 @@ import com.evilbird.engine.game.GameContext;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+/**
+ * Identifiers the context in which the game runs. E.G., a human campaign using
+ * winter graphics.
+ *
+ * @author Blair Butterworth
+ */
 public class WarcraftContext implements GameContext, ParameterizedSupplier<String, String>
 {
     private WarcraftFaction faction;

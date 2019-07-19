@@ -18,7 +18,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.assets.FontLoaderParameters;
 import com.evilbird.engine.common.collection.Arrays;
-import org.mockito.Mockito;
+import com.evilbird.engine.common.graphics.Fonts;
 
 /**
  * A mock font loader implementation, which doesn't require loading native
@@ -33,12 +33,12 @@ public class MockFontLoader extends SynchronousAssetLoader<BitmapFont, FontLoade
     }
 
     @Override
-    public BitmapFont load(AssetManager assetManager, String fileName, FileHandle file, FontLoaderParameters parameter) {
-        return Mockito.mock(BitmapFont.class);
+    public BitmapFont load(AssetManager manager, String name, FileHandle file, FontLoaderParameters parameter) {
+        return Fonts.ARIAL;
     }
 
     @Override
-    public Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, FontLoaderParameters parameter) {
+    public Array<AssetDescriptor> getDependencies(String name, FileHandle file, FontLoaderParameters parameter) {
         return Arrays.emptyArray();
     }
 }

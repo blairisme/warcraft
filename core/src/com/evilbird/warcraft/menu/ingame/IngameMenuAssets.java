@@ -10,13 +10,10 @@
 package com.evilbird.warcraft.menu.ingame;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.utils.I18NBundle;
+import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.warcraft.common.WarcraftContext;
-import com.evilbird.warcraft.common.WarcraftFaction;
-
-import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
-import static com.evilbird.engine.common.graphics.TextureUtils.getTiledDrawable;
 
 /**
  * Defines the assets that are required to display an {@link IngameMenu}, as
@@ -24,71 +21,54 @@ import static com.evilbird.engine.common.graphics.TextureUtils.getTiledDrawable;
  *
  * @author Blair Butterworth
  */
-public class IngameMenuAssets
+public class IngameMenuAssets extends AssetBundle
 {
-    private AssetManager assets;
-    private IngameMenuAssetManifest manifest;
+    public IngameMenuAssets(AssetManager assets, WarcraftContext context) {
+        super(assets, context);
+        register("data/textures/${faction}/menu/button-large-normal.png");
+        register("data/textures/${faction}/menu/button-large-grayed.png");
+        register("data/textures/${faction}/menu/button-large-pressed.png");
+        register("data/textures/${faction}/menu/text_panel_normal.png");
+        register("data/textures/${faction}/menu/panel_normal.png");
+        register("data/textures/${faction}/menu/panel_wide.png");
+        register("data/textures/${faction}/menu/panel_small.png");
+        register("data/sounds/common/menu/click.mp3");
+        register("data/strings/common/menu/ingame", I18NBundle.class);
+    }
 
-    public IngameMenuAssets(AssetManager assets, WarcraftContext context){
-        this(assets, context.getFaction());
-    }
-    
-    public IngameMenuAssets(AssetManager assets, WarcraftFaction faction) {
-        this.assets = assets;
-        this.manifest = new IngameMenuAssetManifest(faction);
-    }
-    
     public Drawable getButtonEnabled() {
-        return getDrawable(assets, manifest.getButtonEnabled());
+        return getDrawable("button-large-normal.png");
     }
 
     public Drawable getButtonDisabled() {
-        return getDrawable(assets, manifest.getButtonDisabled());
+        return getDrawable("button-large-grayed.png");
     }
 
     public Drawable getButtonSelected() {
-        return getDrawable(assets, manifest.getButtonSelected());
+        return getDrawable("button-large-pressed.png");
     }
 
     public Drawable getListBackground() {
-        return getTiledDrawable(assets, manifest.getTextPanelNormal());
+        return getTiledDrawable("text_panel_normal.png");
     }
 
     public Drawable getTextFieldBackground() {
-        return getDrawable(assets, manifest.getTextPanelNormal());
+        return getDrawable("text_panel_normal.png");
     }
 
     public Drawable getBackgroundNormal() {
-        return getDrawable(assets, manifest.getBackgroundNormal());
+        return getDrawable("panel_normal.png");
     }
 
     public Drawable getBackgroundWide() {
-        return getDrawable(assets, manifest.getBackgroundWide());
+        return getDrawable("panel_wide.png");
     }
 
     public Drawable getBackgroundSmall() {
-        return getDrawable(assets, manifest.getBackgroundSmall());
+        return getDrawable("panel_small.png");
     }
 
-    public void load() {
-        assets.load(manifest.getBackgroundNormal(), Texture.class);
-        assets.load(manifest.getBackgroundWide(), Texture.class);
-        assets.load(manifest.getBackgroundSmall(), Texture.class);
-        assets.load(manifest.getButtonEnabled(), Texture.class);
-        assets.load(manifest.getButtonDisabled(), Texture.class);
-        assets.load(manifest.getButtonSelected(), Texture.class);
-        assets.load(manifest.getTextPanelNormal(), Texture.class);
-        //assets.load(manifest.getButtonClick(), Sound.class);
-    }
-
-    public void unload() {
-        assets.unload(manifest.getBackgroundNormal());
-        assets.unload(manifest.getBackgroundWide());
-        assets.unload(manifest.getBackgroundSmall());
-        assets.unload(manifest.getButtonEnabled());
-        assets.unload(manifest.getButtonDisabled());
-        assets.unload(manifest.getButtonSelected());
-        assets.unload(manifest.getTextPanelNormal());
-        //assets.unload(manifest.getButtonClick());
+    public IngameMenuStrings getStrings() {
+        return new IngameMenuStrings(getStrings("ingame"));
     }
 }

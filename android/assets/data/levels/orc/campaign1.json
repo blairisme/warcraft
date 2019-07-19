@@ -1,12 +1,16 @@
 {
+  "id": {
+    "class": "Campaign",
+    "enum": "Orc1"
+  },
   "faction": {
     "class": "Faction",
     "enum": "Orc"
-  }, 
+  },
   "assets": {
     "class": "Assets",
     "enum": "Winter"
-  }, 
+  },
   "level": {
     "class": "Level",
     "enum": "Orc1"
