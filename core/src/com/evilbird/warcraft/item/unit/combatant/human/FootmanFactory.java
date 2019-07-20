@@ -10,13 +10,10 @@
 package com.evilbird.warcraft.item.unit.combatant.human;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
-import com.evilbird.warcraft.item.unit.combatant.CombatantAssets;
-import com.evilbird.warcraft.item.unit.combatant.CombatantBuilder;
+import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
 
 import javax.inject.Inject;
 
@@ -39,30 +36,15 @@ import static com.evilbird.warcraft.item.unit.UnitType.Footman;
  *
  * @author Blair Butterworth
  */
-public class FootmanFactory implements GameFactory<Combatant>
+public class FootmanFactory extends CombatantFactoryBase
 {
-    private static final GridPoint2 SIZE = new GridPoint2(32, 32);
-
-    private CombatantAssets assets;
-    private CombatantBuilder builder;
-
     @Inject
     public FootmanFactory(Device device) {
         this(device.getAssetStorage());
     }
 
     public FootmanFactory(AssetManager manager) {
-        this.assets = new CombatantAssets(manager, Footman, SIZE);
-        this.builder = new CombatantBuilder(assets);
-    }
-
-    @Override
-    public void load(Identifier context) {
-        assets.load();
-    }
-
-    @Override
-    public void unload(Identifier context) {
+        super(manager, Footman);
     }
 
     @Override

@@ -30,7 +30,7 @@ import static com.evilbird.warcraft.item.unit.UnitAttack.Siege;
  * @author Blair Butterworth
  */
 @SerializedType("Units")
-public enum UnitType implements ItemType//, ParameterizedSupplier<String, String>
+public enum UnitType implements ItemType
 {
     /* Human - Building */
     Barracks,
@@ -140,32 +140,6 @@ public enum UnitType implements ItemType//, ParameterizedSupplier<String, String
     GoldMine,
     OilPatch;
 
-//    public String get(String key) {
-//        if (key.equals("name")) {
-//            return CaseUtils.toSnakeCase(name());
-//        }
-//        if (key.equals("faction")) {
-//            return CaseUtils.toSnakeCase(getFaction().name());
-//        }
-//        if (key.equals("attack")) {
-//            return CaseUtils.toSnakeCase(getAttack().name());
-//        }
-//        return null;
-//    }
-
-    public WarcraftFaction getFaction() {
-        if (isBetween(this, Barracks, UtherLightbringer)) {
-            return Human;
-        }
-        if (isBetween(this, AltarOfStorms, Zuljin)) {
-            return Orc;
-        }
-        if (isBetween(this, CircleOfPower, OilPatch)) {
-            return Neutral;
-        }
-        throw new UnsupportedOperationException();
-    }
-
     public UnitAttack getAttack() {
         if (isCombatant()) {
             if (isShip()) {
@@ -185,12 +159,47 @@ public enum UnitType implements ItemType//, ParameterizedSupplier<String, String
         return None;
     }
 
+    public UnitType getBase() {
+        switch (this) {
+            case AlteracTraitor: return Footman;
+            case AnduinLothar: return Knight;
+            case ElvenArcherCaptive: return ElvenArcher;
+            case MageCaptive: return Mage;
+            case PeasantCaptive: return Peasant;
+            case UtherLightbringer: return Paladin;
+            case Chogall: return OgreMage;
+            case Guldan: return DeathKnight;
+            case TrollAxethrowerCaptive:
+            case Zuljin: return TrollAxethrower;
+            default: return this;
+        }
+    }
+
+    public WarcraftFaction getFaction() {
+        if (isBetween(this, Barracks, UtherLightbringer)) {
+            return Human;
+        }
+        if (isBetween(this, AltarOfStorms, Zuljin)) {
+            return Orc;
+        }
+        if (isBetween(this, CircleOfPower, OilPatch)) {
+            return Neutral;
+        }
+        throw new UnsupportedOperationException();
+    }
+
     public boolean isBuilding() {
-        return isBetween(this, Barracks, TownHall) || isBetween(this, AltarOfStorms, WatchTower);
+        return isBetween(this, Barracks, TownHall)
+            || isBetween(this, AltarOfStorms, WatchTower)
+            || isBetween(this, CircleOfPower, Runestone);
     }
 
     public boolean isCombatant() {
         return isBetween(this, Ballista, UtherLightbringer) || isBetween(this, Catapult, Zuljin);
+    }
+
+    public boolean isResource() {
+        return this == GoldMine || this == OilPatch;
     }
 
     public boolean isSpecial() {
@@ -223,5 +232,9 @@ public enum UnitType implements ItemType//, ParameterizedSupplier<String, String
 
     public boolean isOrc() {
         return getFaction() == Orc;
+    }
+
+    public boolean isNeutral() {
+        return getFaction() == Neutral;
     }
 }

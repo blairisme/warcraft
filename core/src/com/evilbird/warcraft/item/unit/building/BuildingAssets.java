@@ -24,8 +24,8 @@ import static com.evilbird.engine.common.assets.SyntheticTextureParameters.withC
 import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
-import static com.evilbird.warcraft.item.unit.building.BuildingDimensions.getDimensionName;
-import static com.evilbird.warcraft.item.unit.building.BuildingDimensions.getDimensions;
+import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensionName;
+import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensions;
 
 /**
  * Provides access to the assets that are required to display a

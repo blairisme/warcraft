@@ -43,7 +43,7 @@ public class OrcCombatantFactory extends GameFactoryComposite<Combatant>
         TrollDestroyerFactory trollDestroyerFactory,
         ZuljinFactory zuljinFactory)
     {
-        addProvider(UnitType.Catapult, catapultFactory);
+//        addProvider(UnitType.Catapult, catapultFactory);
         addProvider(UnitType.DeathKnight, deathKnightFactory);
         addProvider(UnitType.Dragon, dragonFactory);
         addProvider(UnitType.Ferry, ferryFactory);

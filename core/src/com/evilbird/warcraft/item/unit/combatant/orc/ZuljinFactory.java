@@ -10,17 +10,13 @@
 package com.evilbird.warcraft.item.unit.combatant.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
-import com.evilbird.warcraft.item.unit.combatant.CombatantAssets;
-import com.evilbird.warcraft.item.unit.combatant.CombatantBuilder;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
 import static com.evilbird.warcraft.item.unit.UnitType.Zuljin;
 
 /**
@@ -30,11 +26,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.Zuljin;
  */
 public class ZuljinFactory extends TrollAxethrowerFactory
 {
-    private static final GridPoint2 SIZE = new GridPoint2(32, 32);
-
-    protected CombatantAssets assets;
-    protected CombatantBuilder builder;
-
     @Inject
     public ZuljinFactory(Device device) {
         this(device.getAssetStorage());
@@ -42,8 +33,6 @@ public class ZuljinFactory extends TrollAxethrowerFactory
 
     public ZuljinFactory(AssetManager manager) {
         super(manager);
-        this.assets = new CombatantAssets(manager, TrollAxethrower, SIZE);
-        this.builder = new CombatantBuilder(assets);
     }
 
     @Override

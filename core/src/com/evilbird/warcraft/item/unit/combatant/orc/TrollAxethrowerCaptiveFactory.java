@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.unit.combatant.orc;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -29,6 +30,10 @@ public class TrollAxethrowerCaptiveFactory extends TrollAxethrowerFactory
     @Inject
     public TrollAxethrowerCaptiveFactory(Device device) {
         super(device);
+    }
+
+    public TrollAxethrowerCaptiveFactory(AssetManager manager) {
+        super(manager);
     }
 
     @Override

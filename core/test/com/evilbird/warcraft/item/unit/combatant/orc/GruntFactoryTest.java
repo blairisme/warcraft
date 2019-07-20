@@ -11,28 +11,34 @@ package com.evilbird.warcraft.item.unit.combatant.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.engine.game.GameFactory;
-import com.evilbird.test.testcase.FactoryTestCase;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryTestCase;
 
 import java.util.Map;
+
+import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
 
 /**
  * Instances of this unit test validate logic in the {@link GruntFactory} class.
  *
  * @author Blair Butterworth
  */
-public class GruntFactoryTest extends FactoryTestCase<Combatant>
+public class GruntFactoryTest extends CombatantFactoryTestCase<GruntFactory>
 {
     @Override
-    protected GameFactory<Combatant> newFactory(AssetManager assets) {
+    protected UnitType getBuildType() {
+        return Grunt;
+    }
+
+    @Override
+    protected GruntFactory newFactory(DeviceDisplay display, AssetManager assets) {
         return new GruntFactory(assets);
     }
 
     @Override
-    protected Map<String, Object> newValueProperties() {
-        return Maps.of("type", UnitType.Grunt,
+    protected Map<String, Object> getValueProperties() {
+        return Maps.of("type", Grunt,
                 "HealthMaximum", 60.0f);
     }
 }

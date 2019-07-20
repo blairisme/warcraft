@@ -14,7 +14,6 @@ import com.evilbird.test.testcase.GameFactoryTestCase;
 import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.building.human.BarracksFactory;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,7 +24,7 @@ import static com.evilbird.warcraft.common.WarcraftAssetSet.Swamp;
 import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
 
 /**
- * Instances of this unit test validate logic in the {@link BarracksFactory} class.
+ * Common reusable test case for validate logic in building factories.
  *
  * @author Blair Butterworth
  */

@@ -10,24 +10,23 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.FileHandleResolver;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.common.assets.AssetUtilities;
+import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.common.assets.SyntheticTexture;
+import com.evilbird.engine.common.audio.SilentSoundEffect;
 import com.evilbird.engine.common.audio.SoundEffect;
-import com.evilbird.engine.common.audio.SoundUtils;
-import com.evilbird.engine.common.collection.CollectionUtils;
-import com.evilbird.engine.common.graphics.Colours;
-import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.warcraft.item.unit.UnitType;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.function.Predicate;
 
-import static com.evilbird.engine.common.file.FileType.MP3;
+import static com.evilbird.engine.common.assets.SyntheticTextureParameters.withColour;
+import static com.evilbird.engine.common.collection.Maps.of;
+import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
+import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
+import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensionName;
+import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensions;
+import static com.evilbird.warcraft.item.unit.combatant.CombatantWeapons.getWeaponName;
 
 /**
  * Defines the assets that are required to display a {@link Combatant}, as well
@@ -35,113 +34,81 @@ import static com.evilbird.engine.common.file.FileType.MP3;
  *
  * @author Blair Butterworth
  */
-public class CombatantAssets
+public class CombatantAssets extends AssetBundle
 {
-    private AssetManager assets;
-    private Map<String, Integer> cache;
-    private CombatantAssetManifest manifest;
-    private GridPoint2 size;
+    private GridPoint2 dimensions;
 
-    public CombatantAssets(AssetManager assets, UnitType unitType, GridPoint2 size) {
-        this.assets = assets;
-        this.cache = new HashMap<>();
-        this.manifest = new CombatantAssetManifest(unitType);
-        this.size = size;
+    public CombatantAssets(AssetManager manager, UnitType type) {
+        super(manager, assetPathVariables(type));
+        dimensions = getDimensions(type);
+
+        register("base", "data/textures/${faction}/unit/${name}.png");
+        register("decompose", "data/textures/common/unit/decompose.png");
+        register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, dimensions));
+
+        register("dead", "data/sounds/${faction}/unit/common/dead/1.mp3");
+        register("capture", "data/sounds/${faction}/unit/common/capture/1.mp3");
+        register("rescue", "data/sounds/${faction}/unit/common/rescue/1.mp3");
+        register("ready", "data/sounds/${faction}/unit/${name}/ready/1.mp3");
+        registerOptional("hit", "data/sounds/common/unit/hit/${weapon}/1.mp3");
+
+        registerSequence("attack", "data/sounds/common/unit/attack/${weapon}/", ".mp3", 3);
+        registerSequence("acknowledge", "data/sounds/${faction}/unit/${name}/acknowledge/", ".mp3", 5);
+        registerSequence("selected", "data/sounds/${faction}/unit/${name}/selected/", ".mp3", 6);
+    }
+
+    private static Map<String, String> assetPathVariables(UnitType type) {
+        return of("name", toSnakeCase(type.getBase().name()),
+                "faction", toSnakeCase(type.getFaction().name()),
+                "weapon", getWeaponName(type.getBase()),
+                "size", getDimensionName(type));
     }
 
     public Texture getBaseTexture() {
-        String path = manifest.getBaseTexturePath();
-        return assets.get(path, Texture.class);
+        return getTexture("base");
     }
 
     public Texture getDecomposeTexture() {
-        String path = manifest.getDecomposeTexturePath();
-        return assets.get(path, Texture.class);
+        return getTexture("decompose");
     }
 
     public Texture getSelectionTexture() {
-        return TextureUtils.getTexture(size.x, size.y, Colours.FOREST_GREEN);
+        return getSyntheticTexture("selection");
     }
 
     public SoundEffect getAcknowledgeSound() {
-        return newSoundEffect(manifest.getAcknowledgeSoundEffectPath());
+        return getSoundEffectSet("acknowledge", 3);
     }
-    
+
     public SoundEffect getAttackSound() {
-        return newSoundEffect(manifest.getAttackSoundEffectPath());
+        return getSoundEffectSet("acknowledge", 3);
     }
 
     public SoundEffect getHitSound() {
-        return newSoundEffect(manifest.getHitSoundEffectPath());
+        return isRegistered("hit") ? getSoundEffect("hit") : new SilentSoundEffect();
     }
-    
+
     public SoundEffect getDieSound() {
-        return newSoundEffect(manifest.getDieSoundEffectPath());
+        return getSoundEffect("dead");
     }
 
     public SoundEffect getReadySound() {
-        return newSoundEffect(manifest.getReadySoundEffectPath());
+        return getSoundEffect("ready");
     }
 
     public SoundEffect getSelectedSound() {
-        return newSoundEffect(manifest.getSelectedSoundEffectPath());
+        return getSoundEffectSet("selected", 3);
     }
 
     public SoundEffect getCaptureSound() {
-        return newSoundEffect(manifest.getCaptureSoundEffectPath());
+        return getSoundEffect("capture");
     }
 
     public SoundEffect getRescueSound() {
-        return newSoundEffect(manifest.getRescueSoundEffectPath());
+        return getSoundEffect("rescue");
     }
 
     public GridPoint2 getSize() {
-        return size;
-    }
-
-    public void load() {
-        loadTextures();
-        loadSounds();
-    }
-
-    private void loadTextures() {
-        assets.load(manifest.getBaseTexturePath(), Texture.class);
-        assets.load(manifest.getDecomposeTexturePath(), Texture.class);
-    }
-
-    private void loadSounds() {
-        loadSoundSet(manifest.getAcknowledgeSoundEffectPath());
-        loadSoundSet(manifest.getSelectedSoundEffectPath());
-        loadSoundSet(manifest.getAttackSoundEffectPath());
-        loadSoundSet(manifest.getHitSoundEffectPath());
-        loadSoundSet(manifest.getDieSoundEffectPath());
-        loadSoundSet(manifest.getReadySoundEffectPath());
-        loadSoundSet(manifest.getCaptureSoundEffectPath());
-        loadSoundSet(manifest.getRescueSoundEffectPath());
-    }
-
-    private void loadSoundSet(String path) {
-        AssetUtilities.loadSoundSet(assets, path, MP3, getAssetCount(path));
-    }
-
-    private SoundEffect newSoundEffect(String path) {
-        return SoundUtils.newSoundEffect(assets, path, MP3, getAssetCount(path));
-    }
-
-    private int getAssetCount(String path) {
-        Integer result = cache.get(path);
-        if (result == null) {
-            FileHandleResolver resolver = assets.getFileHandleResolver();
-            if (resolver != null) {
-                FileHandle directory = resolver.resolve(path);
-                result = CollectionUtils.testMatches(directory.list(), isMusic());
-                cache.put(path, result);
-            }
-        }
-        return result != null ? result : 0;
-    }
-
-    private Predicate<FileHandle> isMusic() {
-        return handle -> Objects.equals(handle.extension(), MP3.getExtension());
+        return dimensions;
     }
 }

@@ -30,7 +30,7 @@ public class PlaceholderTypeTest
     @Test
     public void forBuildingTest() {
         for (UnitType unitType: UnitType.values()) {
-            if (unitType.isBuilding()) {
+            if (unitType.isBuilding() && !unitType.isNeutral()) {
                 PlaceholderType placeholderType = PlaceholderType.forBuilding(unitType);
                 Assert.assertNotNull(placeholderType);
                 Assert.assertEquals(unitType, placeholderType.getBuilding());

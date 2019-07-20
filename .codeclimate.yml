@@ -9,7 +9,7 @@ checks:
       threshold: 25 #default=20
   method-count:
     config:
-      threshold: 40 #default=20
+      threshold: 50 #default=20
   method-complexity:
     config:
       threshold: 10 #default=5
@@ -23,3 +23,6 @@ plugins:
     enabled: true
     config:
       file: 'config/checkstyle/checkstyle_codeclimate.xml'
+
+exclude_patterns:
+  - "tools/"

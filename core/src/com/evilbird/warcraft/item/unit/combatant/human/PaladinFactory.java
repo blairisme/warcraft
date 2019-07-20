@@ -10,13 +10,10 @@
 package com.evilbird.warcraft.item.unit.combatant.human;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
-import com.evilbird.warcraft.item.unit.combatant.CombatantAssets;
-import com.evilbird.warcraft.item.unit.combatant.CombatantBuilder;
+import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
 
 import javax.inject.Inject;
 
@@ -32,30 +29,15 @@ import static com.evilbird.warcraft.item.unit.UnitType.Paladin;
  *
  * @author Blair Butterworth
  */
-public class PaladinFactory implements GameFactory<Combatant>
+public class PaladinFactory extends CombatantFactoryBase
 {
-    private static final GridPoint2 SIZE = new GridPoint2(32, 32);
-
-    private CombatantAssets assets;
-    private CombatantBuilder builder;
-
     @Inject
     public PaladinFactory(Device device) {
         this(device.getAssetStorage());
     }
 
     public PaladinFactory(AssetManager manager) {
-        this.assets = new CombatantAssets(manager, Knight, SIZE);
-        this.builder = new CombatantBuilder(assets);
-    }
-
-    @Override
-    public void load(Identifier context) {
-        assets.load();
-    }
-
-    @Override
-    public void unload(Identifier context) {
+        super(manager, Knight);
     }
 
     @Override

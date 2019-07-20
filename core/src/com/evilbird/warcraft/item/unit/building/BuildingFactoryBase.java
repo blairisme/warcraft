@@ -16,7 +16,7 @@ import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 /**
- * Instances of this class create {@link Building Barrack's}, loading the
+ * A reusable class for creating {@link Building}s, loading the
  * necessary assets and defining the appropriate attributes.
  *
  * @author Blair Butterworth

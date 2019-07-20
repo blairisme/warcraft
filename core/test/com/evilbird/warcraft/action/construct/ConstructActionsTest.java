@@ -30,7 +30,7 @@ public class ConstructActionsTest
     @Test
     public void forProductTest() {
         for (UnitType unitType: UnitType.values()) {
-            if (unitType.isBuilding()) {
+            if (unitType.isBuilding() && !unitType.isNeutral()) {
                 ConstructActions action = ConstructActions.forProduct(unitType);
                 Assert.assertNotNull(action);
                 Assert.assertEquals(unitType, action.getProduct());

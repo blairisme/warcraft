@@ -11,28 +11,34 @@ package com.evilbird.warcraft.item.unit.combatant.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.engine.game.GameFactory;
-import com.evilbird.test.testcase.FactoryTestCase;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryTestCase;
 
 import java.util.Map;
+
+import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 
 /**
  * Instances of this unit test validate logic in the {@link FootmanFactory} class.
  *
  * @author Blair Butterworth
  */
-public class FootmanFactoryTest extends FactoryTestCase<Combatant>
+public class FootmanFactoryTest extends CombatantFactoryTestCase<FootmanFactory>
 {
     @Override
-    protected GameFactory<Combatant> newFactory(AssetManager assets) {
+    protected UnitType getBuildType() {
+        return Footman;
+    }
+
+    @Override
+    protected FootmanFactory newFactory(DeviceDisplay display, AssetManager assets) {
         return new FootmanFactory(assets);
     }
 
     @Override
-    protected Map<String, Object> newValueProperties() {
-        return Maps.of("type", UnitType.Footman,
+    protected Map<String, Object> getValueProperties() {
+        return Maps.of("type", Footman,
             "HealthMaximum", 60.0f);
     }
 }

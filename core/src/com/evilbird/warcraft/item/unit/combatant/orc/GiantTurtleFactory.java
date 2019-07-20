@@ -10,13 +10,10 @@
 package com.evilbird.warcraft.item.unit.combatant.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
-import com.evilbird.warcraft.item.unit.combatant.CombatantAssets;
-import com.evilbird.warcraft.item.unit.combatant.CombatantBuilder;
+import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 
 import javax.inject.Inject;
@@ -33,30 +30,15 @@ import static com.evilbird.warcraft.item.unit.UnitType.GiantTurtle;
  *
  * @author Blair Butterworth
  */
-public class GiantTurtleFactory implements GameFactory<Combatant>
+public class GiantTurtleFactory extends CombatantFactoryBase
 {
-    private static final GridPoint2 SIZE = new GridPoint2(88, 88);
-
-    private CombatantAssets assets;
-    private CombatantBuilder builder;
-
     @Inject
     public GiantTurtleFactory(Device device) {
         this(device.getAssetStorage());
     }
 
     public GiantTurtleFactory(AssetManager manager) {
-        this.assets = new CombatantAssets(manager, GiantTurtle, SIZE);
-        this.builder = new CombatantBuilder(assets);
-    }
-
-    @Override
-    public void load(Identifier context) {
-        assets.load();
-    }
-
-    @Override
-    public void unload(Identifier context) {
+        super(manager, GiantTurtle);
     }
 
     @Override

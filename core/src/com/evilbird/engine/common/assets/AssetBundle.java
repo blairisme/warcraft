@@ -29,11 +29,14 @@ import com.evilbird.engine.common.graphics.TextureUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.text.StringSubstitutor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static java.util.stream.Collectors.toList;
 
@@ -103,12 +106,23 @@ public class AssetBundle
         assets.put(id, new AssetDescriptor<>(file, type, parameters));
     }
 
+    protected void registerOptional(Object id, String path) {
+        registerOptional(id, path, AssetLoaders.getAssetLoader(path));
+    }
+
     protected void registerOptional(Object id, String path, Class<?> type) {
         String file = resolver.replace(path);
         FileHandleResolver fileResolver = manager.getFileHandleResolver();
         FileHandle fileHandle = fileResolver.resolve(file);
         if (fileHandle.exists()) {
             register(id, file, type);
+        }
+    }
+
+    protected void registerSequence(String idPrefix, String pathPrefix, String pathSuffix, int count) {
+        register(idPrefix + "-1", pathPrefix + "1" + pathSuffix);
+        for (int i = 2; i < count + 1; i++) {
+            registerOptional(idPrefix + "-" + i, pathPrefix + i + pathSuffix);
         }
     }
 
@@ -151,8 +165,21 @@ public class AssetBundle
         return SoundUtils.newSoundEffect(manager, asset.fileName);
     }
 
+    protected SoundEffect getSoundEffectSet(String prefix, int count) {
+        List<String> paths = new ArrayList<>();
+        for (int i = 1; i < count + 1; i++) {
+            String id = prefix + "-" + i;
+            if (assets.containsKey(id)) {
+                AssetDescriptor descriptor = assets.get(id);
+                paths.add(descriptor.fileName);
+            }
+        }
+        return SoundUtils.newSoundEffect(manager, paths);
+    }
+
     protected SoundEffect getSoundEffectSet(Object ... ids) {
         Collection<AssetDescriptor> effects = Maps.getAll(assets, Arrays.asList(ids));
+        effects.removeIf(Objects::isNull);
         Collection<String> paths = effects.stream().map(desc -> desc.fileName).collect(toList());
         return SoundUtils.newSoundEffect(manager, paths);
     }
