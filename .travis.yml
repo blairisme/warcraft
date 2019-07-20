@@ -12,7 +12,7 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - ./gradlew clean :core:build :desktop:build report
+  - ./gradlew clean :core:build :desktop:build report --stacktrace
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t $CODECOV_DEPLOY_TOKEN
