@@ -163,6 +163,11 @@ allprojects {
     plugins.withType(JavaPlugin) {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
+
+        test {
+            testLogging.showStandardStreams = true
+            testLogging.exceptionFormat = 'full'
+        }
     }
 
     plugins.withType(IdeaPlugin) {
