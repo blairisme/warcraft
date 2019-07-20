@@ -11,28 +11,43 @@ package com.evilbird.warcraft.item.unit.building.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.engine.game.GameFactory;
-import com.evilbird.test.testcase.FactoryTestCase;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.building.Building;
+import com.evilbird.warcraft.item.unit.building.BuildingFactoryTestCase;
 
 import java.util.Map;
+
+import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 
 /**
  * Instances of this unit test validate logic in the {@link TownHallFactory} class.
  *
  * @author Blair Butterworth
  */
-public class TownHallFactoryTest extends FactoryTestCase<Building>
+public class TownHallFactoryTest extends BuildingFactoryTestCase<TownHallFactory>
 {
     @Override
-    protected GameFactory<Building> newFactory(AssetManager assets) {
+    protected UnitType getBuildType() {
+        return TownHall;
+    }
+
+    @Override
+    protected TownHallFactory newFactory(DeviceDisplay display, AssetManager assets) {
         return new TownHallFactory(assets);
     }
 
     @Override
-    protected Map<String, Object> newValueProperties() {
-        return Maps.of("type", UnitType.TownHall,
-                "HealthMaximum", 1200.0f);
+    protected Map<String, Object> getValueProperties() {
+        return Maps.of(
+                "Animation", Idle,
+                "Defence", 20,
+                "Health", 1200.0f,
+                "HealthMaximum", 1200.0f,
+                "selectable", true,
+                "selected", false,
+                "sight", tiles(4),
+                "type", TownHall);
     }
 }

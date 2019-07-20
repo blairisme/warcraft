@@ -12,10 +12,8 @@ package com.evilbird.warcraft.item.unit.building.orc;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.building.Building;
-import com.evilbird.warcraft.item.unit.building.BuildingAssets;
-import com.evilbird.warcraft.item.unit.building.BuildingBuilder;
+import com.evilbird.warcraft.item.unit.building.BuildingFactoryBase;
 
 import javax.inject.Inject;
 
@@ -29,28 +27,15 @@ import static com.evilbird.warcraft.item.unit.UnitType.TempleOfTheDamned;
  *
  * @author Blair Butterworth
  */
-public class TempleOfTheDamnedFactory implements GameFactory<Building>
+public class TempleOfTheDamnedFactory extends BuildingFactoryBase
 {
-    private BuildingAssets assets;
-    private BuildingBuilder builder;
-
     @Inject
     public TempleOfTheDamnedFactory(Device device) {
         this(device.getAssetStorage());
     }
 
     public TempleOfTheDamnedFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, TempleOfTheDamned);
-        this.builder = new BuildingBuilder(assets);
-    }
-
-    @Override
-    public void load(Identifier context) {
-        assets.load();
-    }
-
-    @Override
-    public void unload(Identifier context) {
+        super(manager, TempleOfTheDamned);
     }
 
     @Override

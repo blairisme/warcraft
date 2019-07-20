@@ -45,7 +45,7 @@ public class CritterAssets
     }
 
     public Texture getSelectionTexture() {
-        return TextureUtils.getRectangle(32, 32, Colours.FOREST_GREEN);
+        return TextureUtils.getTexture(32, 32, Colours.FOREST_GREEN);
     }
 
     public SoundEffect getDieSound() {

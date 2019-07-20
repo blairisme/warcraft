@@ -36,7 +36,7 @@ public class SelectionBox extends ItemBasic
         int width = (int)getWidth();
         int height = (int)getHeight();
 
-        Texture texture = TextureUtils.getRectangle(width, height, Colours.FOREST_GREEN);
+        Texture texture = TextureUtils.getTexture(width, height, Colours.FOREST_GREEN);
         batch.draw(texture, getX(), getY(), width, height);
     }
 }

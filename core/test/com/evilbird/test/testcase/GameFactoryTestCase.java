@@ -11,12 +11,11 @@ package com.evilbird.test.testcase;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.test.utils.AssetFileHandleResolver;
-import com.evilbird.test.utils.MockFontLoader;
+import com.evilbird.test.utils.TestAssetManager;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.junit.Assert;
@@ -43,8 +42,7 @@ public abstract class GameFactoryTestCase<T extends GameFactory> extends GameTes
     @Before
     public void setup() {
         resolver = new AssetFileHandleResolver();
-        assets = new AssetManager(resolver);
-        assets.setLoader(BitmapFont.class, new MockFontLoader(resolver));
+        assets = TestAssetManager.getTestAssetManager(resolver);
         display = Mockito.mock(DeviceDisplay.class);
         factory = newFactory(display, assets);
     }

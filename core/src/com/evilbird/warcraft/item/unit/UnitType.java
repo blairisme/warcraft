@@ -30,7 +30,7 @@ import static com.evilbird.warcraft.item.unit.UnitAttack.Siege;
  * @author Blair Butterworth
  */
 @SerializedType("Units")
-public enum UnitType implements ItemType
+public enum UnitType implements ItemType//, ParameterizedSupplier<String, String>
 {
     /* Human - Building */
     Barracks,
@@ -139,6 +139,19 @@ public enum UnitType implements ItemType
     /* Neutral - Resource */
     GoldMine,
     OilPatch;
+
+//    public String get(String key) {
+//        if (key.equals("name")) {
+//            return CaseUtils.toSnakeCase(name());
+//        }
+//        if (key.equals("faction")) {
+//            return CaseUtils.toSnakeCase(getFaction().name());
+//        }
+//        if (key.equals("attack")) {
+//            return CaseUtils.toSnakeCase(getAttack().name());
+//        }
+//        return null;
+//    }
 
     public WarcraftFaction getFaction() {
         if (isBetween(this, Barracks, UtherLightbringer)) {

@@ -12,10 +12,8 @@ package com.evilbird.warcraft.item.unit.building.orc;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.building.Building;
-import com.evilbird.warcraft.item.unit.building.BuildingAssets;
-import com.evilbird.warcraft.item.unit.building.BuildingBuilder;
+import com.evilbird.warcraft.item.unit.building.BuildingFactoryBase;
 
 import javax.inject.Inject;
 
@@ -40,28 +38,15 @@ import static com.evilbird.warcraft.item.unit.UnitType.OilRefinery;
  *
  * @author Blair Butterworth
  */
-public class OilRefineryFactory implements GameFactory<Building>
+public class OilRefineryFactory extends BuildingFactoryBase
 {
-    private BuildingAssets assets;
-    private BuildingBuilder builder;
-
     @Inject
     public OilRefineryFactory(Device device) {
         this(device.getAssetStorage());
     }
 
     public OilRefineryFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, OilRefinery);
-        this.builder = new BuildingBuilder(assets);
-    }
-
-    @Override
-    public void load(Identifier context) {
-        assets.load();
-    }
-
-    @Override
-    public void unload(Identifier context) {
+        super(manager, OilRefinery);
     }
 
     @Override

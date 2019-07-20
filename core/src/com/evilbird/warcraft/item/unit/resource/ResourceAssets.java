@@ -38,7 +38,7 @@ public class ResourceAssets
     }
 
     public Texture getSelectionTexture() {
-        return TextureUtils.getRectangle(96, 96, Colours.FOREST_GREEN);
+        return TextureUtils.getTexture(96, 96, Colours.FOREST_GREEN);
     }
 
     public Texture getGeneralTexture() {

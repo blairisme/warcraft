@@ -13,12 +13,12 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.common.assets.SyntheticTexture;
 import com.evilbird.test.utils.AssetFileHandleResolver;
-import com.evilbird.test.utils.MockFontLoader;
+import com.evilbird.test.utils.TestAssetManager;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -48,9 +48,8 @@ public abstract class AssetBundleTestCase<T extends AssetBundle> extends GameTes
         currentLocale = Locale.UK;
         Locale.setDefault(currentLocale);
         resolver = new AssetFileHandleResolver();
-        assets = new AssetManager(resolver);
+        assets = TestAssetManager.getTestAssetManager(resolver);
         bundle = getAssetBundle(assets);
-        assets.setLoader(BitmapFont.class, new MockFontLoader(resolver));
     }
 
     @After
@@ -90,10 +89,12 @@ public abstract class AssetBundleTestCase<T extends AssetBundle> extends GameTes
     @Test
     public void assetExistenceTest() {
         for (AssetDescriptor asset: bundle.getAssets()) {
-            if (asset.type == I18NBundle.class) {
-                assertExists(asset.fileName + ".properties");
-            } else {
-                assertExists(asset.fileName);
+            if (asset.type != SyntheticTexture.class) {
+                if (asset.type == I18NBundle.class) {
+                    assertExists(asset.fileName + ".properties");
+                } else {
+                    assertExists(asset.fileName);
+                }
             }
         }
     }

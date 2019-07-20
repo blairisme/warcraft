@@ -34,13 +34,13 @@ import static com.evilbird.warcraft.item.unit.UnitType.WatchTower;
  *
  * @author Blair Butterworth
  */
-public class BuildingAssetDimensions
+public class BuildingDimensions
 {
     private static final GridPoint2 SMALL = new GridPoint2(64, 64);
     private static final GridPoint2 MEDIUM = new GridPoint2(96, 96);
     private static final GridPoint2 LARGE = new GridPoint2(128, 128);
 
-    private BuildingAssetDimensions() {
+    private BuildingDimensions() {
     }
 
     public static GridPoint2 getDimensions(UnitType type) {
@@ -51,6 +51,16 @@ public class BuildingAssetDimensions
             return LARGE;
         }
         return MEDIUM;
+    }
+
+    public static String getDimensionName(UnitType type) {
+        if (isSmall(type)) {
+            return "small";
+        }
+        if (isLarge(type)) {
+            return "large";
+        }
+        return "medium";
     }
 
     private static boolean isSmall(UnitType type) {

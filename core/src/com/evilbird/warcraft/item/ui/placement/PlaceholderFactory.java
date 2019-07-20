@@ -17,6 +17,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.game.GameFactory;
+import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.unit.building.BuildingAssets;
 import org.apache.commons.lang3.Validate;
 
@@ -25,6 +26,8 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.engine.common.math.GridPoints.ZERO;
+import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
+import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 
 /**
  * Instances of this factory create {@link Placeholder Placeholders}, visual
@@ -63,12 +66,12 @@ public class PlaceholderFactory implements GameFactory<Placeholder>
     }
 
     private Placeholder getPlaceholder(PlaceholderType type) {
-        BuildingAssets buildingAssets = new BuildingAssets(assets, type.getBuilding());
+        BuildingAssets foo = new BuildingAssets(assets, type.getBuilding(), new WarcraftContext(Human, Winter));
 
-        Placeholder placeholder = new Placeholder(getSkin(buildingAssets));
+        Placeholder placeholder = new Placeholder(getSkin(foo));
         placeholder.setIdentifier(objectIdentifier("Placeholder", placeholder));
         placeholder.setType(type);
-        placeholder.setSize(buildingAssets.getSize());
+        placeholder.setSize(foo.getSize());
         placeholder.setEvents(events);
         return placeholder;
     }

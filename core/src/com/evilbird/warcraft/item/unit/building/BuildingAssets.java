@@ -10,24 +10,22 @@
 package com.evilbird.warcraft.item.unit.building;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.FileHandleResolver;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.common.assets.AssetUtilities;
+import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.common.assets.SyntheticTexture;
 import com.evilbird.engine.common.audio.SoundEffect;
-import com.evilbird.engine.common.audio.SoundUtils;
-import com.evilbird.engine.common.collection.CollectionUtils;
-import com.evilbird.engine.common.graphics.TextureUtils;
+import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.unit.UnitType;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.function.Predicate;
 
-import static com.evilbird.engine.common.file.FileType.MP3;
+import static com.evilbird.engine.common.assets.SyntheticTextureParameters.withColour;
+import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
+import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
+import static com.evilbird.warcraft.item.unit.building.BuildingDimensions.getDimensionName;
+import static com.evilbird.warcraft.item.unit.building.BuildingDimensions.getDimensions;
 
 /**
  * Provides access to the assets that are required to display a
@@ -35,91 +33,57 @@ import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
  *
  * @author Blair Butterworth
  */
-public class BuildingAssets
+public class BuildingAssets extends AssetBundle
 {
-    private AssetManager assets;
-    private Map<String, Integer> cache;
-    private BuildingAssetManifest manifest;
-    private GridPoint2 size;
+    private GridPoint2 dimensions;
 
-    public BuildingAssets(AssetManager assets, UnitType type) {
-        this.assets = assets;
-        this.cache = new HashMap<>();
-        this.size = BuildingAssetDimensions.getDimensions(type);
-        this.manifest = new BuildingAssetManifest(type, size);
+    public BuildingAssets(AssetManager manager, UnitType type, WarcraftContext context) {
+        super(manager, assetPathVariables(type, context));
+        dimensions = getDimensions(type);
+
+        register("base", "data/textures/${faction}/building/${season}/${name}.png");
+        register("construction", "data/textures/common/building/perennial/construction_${size}.png");
+        register("destruction", "data/textures/common/building/winter/destroyed_site.png");
+        register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, dimensions));
+
+        register("selected", "data/sounds/common/building/selected/1.mp3");
+        register("destroyed-1", "data/sounds/common/building/destroyed/1.mp3");
+        register("destroyed-2", "data/sounds/common/building/destroyed/2.mp3");
+        register("destroyed-3", "data/sounds/common/building/destroyed/3.mp3");
+    }
+
+    private static Map<String, String> assetPathVariables(UnitType type, WarcraftContext context) {
+        return of("faction", toSnakeCase(type.getFaction().name()),
+                "season", toSnakeCase(context.getAssetSet().name()),
+                "name", toSnakeCase(type.name()),
+                "size", getDimensionName(type));
     }
 
     public Texture getBaseTexture() {
-        String path = manifest.getBaseTexturePath();
-        return assets.get(path, Texture.class);
+        return getTexture("base");
     }
 
     public Texture getConstructionTexture() {
-        String path = manifest.getConstructionTexturePath();
-        return assets.get(path, Texture.class);
+        return getTexture("construction");
     }
 
     public Texture getDestructionTexture() {
-        String path = manifest.getDestructionTexturePath();
-        return assets.get(path, Texture.class);
+        return getTexture("destruction");
     }
 
     public Texture getSelectionTexture() {
-        return TextureUtils.getRectangle(size.x, size.y, FOREST_GREEN);
+        return getSyntheticTexture("selection");
     }
 
     public SoundEffect getDestroyedSound() {
-        String path = manifest.getDestroyedSoundEffectPath();
-        return newSoundEffect(path);
+        return getSoundEffectSet("destroyed-1", "destroyed-2", "destroyed-3");
     }
 
     public SoundEffect getSelectedSound() {
-        String path = manifest.getSelectedSoundEffectPath();
-        return newSoundEffect(path);
+        return getSoundEffect("selected");
     }
 
     public GridPoint2 getSize() {
-        return size;
-    }
-
-    public void load() {
-        loadTextures();
-        loadSounds();
-    }
-
-    private void loadTextures() {
-        assets.load(manifest.getBaseTexturePath(), Texture.class);
-        assets.load(manifest.getConstructionTexturePath(), Texture.class);
-        assets.load(manifest.getDestructionTexturePath(), Texture.class);
-    }
-
-    private void loadSounds() {
-        loadSoundSet(manifest.getDestroyedSoundEffectPath());
-        loadSoundSet(manifest.getSelectedSoundEffectPath());
-    }
-
-    private void loadSoundSet(String path) {
-        AssetUtilities.loadSoundSet(assets, path, MP3, getAssetCount(path));
-    }
-
-    private SoundEffect newSoundEffect(String path) {
-        return SoundUtils.newSoundEffect(assets, path, MP3, getAssetCount(path));
-    }
-
-    private int getAssetCount(String path) {
-        Integer result = cache.get(path);
-        if (result == null) {
-            FileHandleResolver resolver = assets.getFileHandleResolver();
-            if (resolver != null) {
-                FileHandle directory = resolver.resolve(path);
-                result = CollectionUtils.testMatches(directory.list(), isMusic());
-                cache.put(path, result);
-            }
-        }
-        return result != null ? result : 0;
-    }
-
-    private Predicate<FileHandle> isMusic() {
-        return handle -> Objects.equals(handle.extension(), MP3.getExtension());
+        return dimensions;
     }
 }

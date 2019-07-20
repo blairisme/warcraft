@@ -15,20 +15,27 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.audio.LazyLoadedMusic;
+import com.evilbird.engine.common.audio.SoundEffect;
+import com.evilbird.engine.common.audio.SoundUtils;
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.collection.SuppliedMap;
 import com.evilbird.engine.common.function.ParameterizedSupplier;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.text.StringSubstitutor;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Represents a collection of assets.
@@ -129,11 +136,6 @@ public class AssetBundle
         return manager.get(asset.fileName, BitmapFont.class);
     }
 
-    protected I18NBundle getStrings(Object id) {
-        AssetDescriptor asset = assets.get(id);
-        return manager.get(asset.fileName, I18NBundle.class);
-    }
-
     protected Music getMusic(Object id) {
         AssetDescriptor asset = assets.get(id);
         return manager.get(asset.fileName, Music.class);
@@ -142,5 +144,31 @@ public class AssetBundle
     protected Music getLazyLoadedMusic(Object id) {
         AssetDescriptor asset = assets.get(id);
         return manager.get(asset.fileName, LazyLoadedMusic.class);
+    }
+
+    protected SoundEffect getSoundEffect(Object id) {
+        AssetDescriptor asset = assets.get(id);
+        return SoundUtils.newSoundEffect(manager, asset.fileName);
+    }
+
+    protected SoundEffect getSoundEffectSet(Object ... ids) {
+        Collection<AssetDescriptor> effects = Maps.getAll(assets, Arrays.asList(ids));
+        Collection<String> paths = effects.stream().map(desc -> desc.fileName).collect(toList());
+        return SoundUtils.newSoundEffect(manager, paths);
+    }
+
+    protected I18NBundle getStrings(Object id) {
+        AssetDescriptor asset = assets.get(id);
+        return manager.get(asset.fileName, I18NBundle.class);
+    }
+
+    protected Texture getTexture(Object id) {
+        AssetDescriptor asset = assets.get(id);
+        return manager.get(asset.fileName, Texture.class);
+    }
+
+    protected SyntheticTexture getSyntheticTexture(Object id) {
+        AssetDescriptor asset = assets.get(id);
+        return manager.get(asset.fileName, SyntheticTexture.class);
     }
 }

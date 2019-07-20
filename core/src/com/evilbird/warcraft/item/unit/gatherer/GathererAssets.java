@@ -57,7 +57,7 @@ public class GathererAssets
     }
 
     public Texture getSelectionTexture() {
-        return TextureUtils.getRectangle(size.x, size.y, Colours.FOREST_GREEN);
+        return TextureUtils.getTexture(size.x, size.y, Colours.FOREST_GREEN);
     }
 
     public SoundEffect getChoppingSound() {

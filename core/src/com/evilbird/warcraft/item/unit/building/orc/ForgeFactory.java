@@ -12,10 +12,8 @@ package com.evilbird.warcraft.item.unit.building.orc;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.building.Building;
-import com.evilbird.warcraft.item.unit.building.BuildingAssets;
-import com.evilbird.warcraft.item.unit.building.BuildingBuilder;
+import com.evilbird.warcraft.item.unit.building.BuildingFactoryBase;
 
 import javax.inject.Inject;
 
@@ -29,28 +27,16 @@ import static com.evilbird.warcraft.item.unit.UnitType.Forge;
  *
  * @author Blair Butterworth
  */
-public class ForgeFactory implements GameFactory<Building>
+public class ForgeFactory extends BuildingFactoryBase
 {
-    private BuildingAssets assets;
-    private BuildingBuilder builder;
-
     @Inject
     public ForgeFactory(Device device) {
         this(device.getAssetStorage());
     }
 
     public ForgeFactory(AssetManager manager) {
-        this.assets = new BuildingAssets(manager, Forge);
-        this.builder = new BuildingBuilder(assets);
-    }
+        super(manager, Forge);
 
-    @Override
-    public void load(Identifier context) {
-        assets.load();
-    }
-
-    @Override
-    public void unload(Identifier context) {
     }
 
     @Override

@@ -10,26 +10,16 @@
 package com.evilbird.warcraft.menu.outro;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.test.testcase.GameFactoryTestCase;
-import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.common.WarcraftContext;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-import static com.evilbird.test.data.device.TestDevices.newTestDevice;
 import static com.evilbird.warcraft.common.WarcraftAssetSet.Summer;
 import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;

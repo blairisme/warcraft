@@ -17,6 +17,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.evilbird.engine.common.assets.FontGeneratorLoader;
 import com.evilbird.engine.common.assets.FontLoader;
 import com.evilbird.engine.common.assets.LazyMusicLoader;
+import com.evilbird.engine.common.assets.SyntheticTexture;
+import com.evilbird.engine.common.assets.SyntheticTextureLoader;
 import com.evilbird.engine.common.audio.LazyLoadedMusic;
 
 /**
@@ -31,5 +33,6 @@ public class DesktopAssets extends AssetManager
         setLoader(BitmapFont.class, new FontLoader(getFileHandleResolver()));
         setLoader(FreeTypeFontGenerator.class, new FontGeneratorLoader(getFileHandleResolver()));
         setLoader(LazyLoadedMusic.class, new LazyMusicLoader(getFileHandleResolver()));
+        setLoader(SyntheticTexture.class, new SyntheticTextureLoader(getFileHandleResolver()));
     }
 }

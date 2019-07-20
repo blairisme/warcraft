@@ -107,17 +107,30 @@ public class TextureUtils
 
     /**
      * Generates a texture containing a 1 pixel wide rectangle of the given
+     * size
+     *
+     * @param size      the size of the resulting rectangle.
+     * @param colour    the colour of the resulting rectangle.
+     *
+     * @return a new {@link Texture}. This method will not return {@code null}.
+     */
+    public static Texture getTexture(GridPoint2 size, Color colour) {
+        return getTexture(size.x, size.y, colour);
+    }
+
+    /**
+     * Generates a texture containing a 1 pixel wide rectangle of the given
      * width and height.
      *
      * @param width     the width of the resulting rectangle.
      * @param height    the height of the resulting rectangle.
-     * @param color     the colour of the resulting rectangle.
+     * @param colour     the colour of the resulting rectangle.
      *
      * @return a new {@link Texture}. This method will not return {@code null}.
      */
-    public static Texture getRectangle(int width, int height, Color color) {
+    public static Texture getTexture(int width, int height, Color colour) {
         Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-        pixmap.setColor(color);
+        pixmap.setColor(colour);
         pixmap.drawRectangle(0, 0, pixmap.getWidth(), pixmap.getHeight());
         return new Texture(pixmap);
     }
