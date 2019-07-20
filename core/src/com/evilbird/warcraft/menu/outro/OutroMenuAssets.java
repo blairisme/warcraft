@@ -33,7 +33,7 @@ public class OutroMenuAssets extends AssetBundle
         register("data/textures/common/menu/stats_progress_background.png");
         register("data/textures/${faction}/menu/victory.png");
         register("data/textures/${faction}/menu/defeat.png");
-        register("data/Strings/common/menu/outro", I18NBundle.class);
+        register("data/strings/common/menu/outro", I18NBundle.class);
         register("font", "data/fonts/philosopher.ttf", BitmapFont.class, fontSize(18));
         register("font-large", "data/fonts/philosopher-large.ttf", BitmapFont.class, fontSize(36));
     }
