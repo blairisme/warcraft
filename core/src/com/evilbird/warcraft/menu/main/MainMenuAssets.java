@@ -29,7 +29,7 @@ public class MainMenuAssets extends AssetBundle
         register("data/textures/common/menu/menu.png");
         register("data/sounds/common/menu/click.mp3");
         register("data/music/13.mp3", Music.class);
-        register("data/Strings/common/menu/main", I18NBundle.class);
+        register("data/strings/common/menu/main", I18NBundle.class);
     }
 
     public Drawable getBackground() {

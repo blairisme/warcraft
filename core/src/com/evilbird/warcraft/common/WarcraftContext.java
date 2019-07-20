@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.common;
 
 import com.evilbird.engine.common.function.ParameterizedSupplier;
+import com.evilbird.engine.common.text.CaseUtils;
 import com.evilbird.engine.game.GameContext;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -41,10 +42,10 @@ public class WarcraftContext implements GameContext, ParameterizedSupplier<Strin
     @Override
     public String get(String key) {
         if (key.equals("faction")) {
-            return faction.name();
+            return CaseUtils.toSnakeCase(faction.name());
         }
         if (key.equals("assets")) {
-            return assets.name();
+            return CaseUtils.toSnakeCase(assets.name());
         }
         return null;
     }

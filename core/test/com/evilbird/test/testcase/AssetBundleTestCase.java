@@ -19,12 +19,14 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.test.utils.AssetFileHandleResolver;
 import com.evilbird.test.utils.MockFontLoader;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Locale;
 
 /**
  * Instances of this test case provide common validation for
@@ -37,13 +39,23 @@ public abstract class AssetBundleTestCase<T extends AssetBundle> extends GameTes
     protected T bundle;
     protected AssetManager assets;
     protected FileHandleResolver resolver;
+    protected Locale currentLocale;
+    protected Locale originalLocale;
 
     @Before
     public void setup() {
+        originalLocale = Locale.getDefault();
+        currentLocale = Locale.UK;
+        Locale.setDefault(currentLocale);
         resolver = new AssetFileHandleResolver();
         assets = new AssetManager(resolver);
         bundle = getAssetBundle(assets);
         assets.setLoader(BitmapFont.class, new MockFontLoader(resolver));
+    }
+
+    @After
+    public void teardown() {
+        Locale.setDefault(originalLocale);
     }
 
     protected abstract T getAssetBundle(AssetManager assets);
