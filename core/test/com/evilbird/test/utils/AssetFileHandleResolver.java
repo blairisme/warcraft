@@ -28,7 +28,7 @@ public class AssetFileHandleResolver implements FileHandleResolver
     private Path assets;
 
     public AssetFileHandleResolver() {
-        Path directory = Paths.get(System.getProperty("user.dir"));
+        Path directory = getWorkingDirectory();
 
         while (directory != null && !Files.exists(directory.resolve("LICENSE"))) {
             directory = directory.getParent();
@@ -37,6 +37,14 @@ public class AssetFileHandleResolver implements FileHandleResolver
             throw new UnsupportedOperationException("Unable to locate root directory");
         }
         assets = directory.resolve("android/assets");
+    }
+
+    private Path getWorkingDirectory() {
+        String result = System.getenv("TRAVIS_BUILD_DIR");
+        if (result == null) {
+            result = System.getProperty("user.dir");
+        }
+        return Paths.get(result);
     }
 
     @Override
