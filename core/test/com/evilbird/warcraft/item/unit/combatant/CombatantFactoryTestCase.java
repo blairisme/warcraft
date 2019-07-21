@@ -28,7 +28,7 @@ import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
  *
  * @author Blair Butterworth
  */
-public abstract class CombatantFactoryTestCase <T extends CombatantFactoryBase> extends GameFactoryTestCase<T>
+public abstract class CombatantFactoryTestCase<T extends CombatantFactoryBase> extends GameFactoryTestCase<T>
 {
     protected abstract UnitType getBuildType();
 

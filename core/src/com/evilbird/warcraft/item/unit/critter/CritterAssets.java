@@ -10,13 +10,20 @@
 package com.evilbird.warcraft.item.unit.critter;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.common.assets.SyntheticTexture;
 import com.evilbird.engine.common.audio.SoundEffect;
-import com.evilbird.engine.common.audio.SoundUtils;
-import com.evilbird.engine.common.graphics.Colours;
-import com.evilbird.engine.common.graphics.TextureUtils;
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.item.unit.UnitType;
+
+import java.util.Map;
+
+import static com.evilbird.engine.common.assets.SyntheticTextureParameters.withColour;
+import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
+import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
+import static com.evilbird.warcraft.item.unit.UnitDimensions.EXTRA_SMALL;
+import static com.evilbird.warcraft.item.unit.UnitDimensions.EXTRA_SMALL_NAME;
 
 /**
  * Defines the assets that are required to display a {@link Critter}, as well
@@ -24,42 +31,38 @@ import com.evilbird.warcraft.item.unit.UnitType;
  *
  * @author Blair Butterworth
  */
-public class CritterAssets
+public class CritterAssets extends AssetBundle
 {
-    private AssetManager assets;
-    private CritterAssetManifest manifest;
+    public CritterAssets(AssetManager assetManager, UnitType type) {
+        super(assetManager, assetPathVariables(type));
+        register("base", "data/textures/neutral/unit/${name}.png");
+        register("decompose", "data/textures/common/unit/decompose.png");
+        register("annoyed", "data/sounds/neutral/unit/${name}/annoyed/1.mp3");
+        register("selected", "data/sounds/neutral/unit/${name}/selected/1.mp3");
+        register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, EXTRA_SMALL));
+    }
 
-    public CritterAssets(AssetManager assets, UnitType unitType) {
-        this.assets = assets;
-        this.manifest = new CritterAssetManifest(unitType);
+    private static Map<String, String> assetPathVariables(UnitType type) {
+        return Maps.of("name", toSnakeCase(type.name()), "size", EXTRA_SMALL_NAME);
     }
 
     public Texture getBaseTexture() {
-        String path = manifest.getBaseTexturePath();
-        return assets.get(path, Texture.class);
+        return getTexture("base");
     }
 
     public Texture getDecomposeTexture() {
-        String path = manifest.getDecomposeTexturePath();
-        return assets.get(path, Texture.class);
+        return getTexture("decompose");
     }
 
     public Texture getSelectionTexture() {
-        return TextureUtils.getTexture(32, 32, Colours.FOREST_GREEN);
+        return getSyntheticTexture("selection");
     }
 
     public SoundEffect getDieSound() {
-        return SoundUtils.newSoundEffect(assets, manifest.getDieSoundEffectPath());
+        return getSoundEffect("annoyed");
     }
 
     public SoundEffect getSelectedSound() {
-        return SoundUtils.newSoundEffect(assets, manifest.getSelectedSoundEffectPath());
-    }
-
-    public void load() {
-        assets.load(manifest.getBaseTexturePath(), Texture.class);
-        assets.load(manifest.getDecomposeTexturePath(), Texture.class);
-        assets.load(manifest.getSelectedSoundEffectPath(), Sound.class);
-        assets.load(manifest.getDieSoundEffectPath(), Sound.class);
+        return getSoundEffect("selected");
     }
 }

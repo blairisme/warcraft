@@ -16,6 +16,7 @@ import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.critter.Critter;
 import com.evilbird.warcraft.item.unit.critter.CritterAssets;
 import com.evilbird.warcraft.item.unit.critter.CritterBuilder;
+import com.evilbird.warcraft.item.unit.critter.CritterFactoryBase;
 
 import javax.inject.Inject;
 
@@ -29,28 +30,15 @@ import static com.evilbird.warcraft.item.unit.UnitType.Seal;
  *
  * @author Blair Butterworth
  */
-public class SealFactory implements GameFactory<Critter>
+public class SealFactory extends CritterFactoryBase
 {
-    private CritterAssets assets;
-    private CritterBuilder builder;
-
     @Inject
     public SealFactory(Device device) {
         this(device.getAssetStorage());
     }
 
     public SealFactory(AssetManager manager) {
-        this.assets = new CritterAssets(manager, Seal);
-        this.builder = new CritterBuilder(assets);
-    }
-
-    @Override
-    public void load(Identifier context) {
-        assets.load();
-    }
-
-    @Override
-    public void unload(Identifier context) {
+        super(manager, Seal);
     }
 
     @Override
