@@ -10,14 +10,11 @@
 package com.evilbird.warcraft.item.unit.gatherer.human;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
-import com.evilbird.warcraft.item.unit.gatherer.GathererAssets;
-import com.evilbird.warcraft.item.unit.gatherer.GathererBuilder;
+import com.evilbird.warcraft.item.unit.gatherer.GathererFactoryBase;
 
 import javax.inject.Inject;
 
@@ -42,30 +39,15 @@ import static com.evilbird.warcraft.item.unit.UnitType.OilTanker;
  *
  * @author Blair Butterworth
  */
-public class OilTankerFactory implements GameFactory<Gatherer>
+public class OilTankerFactory extends GathererFactoryBase
 {
-    private static final GridPoint2 SIZE = new GridPoint2(72, 72);
-
-    private GathererAssets assets;
-    private GathererBuilder builder;
-
     @Inject
     public OilTankerFactory(Device device) {
         this(device.getAssetStorage());
     }
 
     public OilTankerFactory(AssetManager manager) {
-        this.assets = new GathererAssets(manager, OilTanker, SIZE);
-        this.builder = new GathererBuilder(assets);
-    }
-
-    @Override
-    public void load(Identifier context) {
-        assets.load();
-    }
-
-    @Override
-    public void unload(Identifier context) {
+        super(manager, OilTanker);
     }
 
     @Override

@@ -12,10 +12,7 @@ package com.evilbird.warcraft.item.unit.critter.neutral;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.critter.Critter;
-import com.evilbird.warcraft.item.unit.critter.CritterAssets;
-import com.evilbird.warcraft.item.unit.critter.CritterBuilder;
 import com.evilbird.warcraft.item.unit.critter.CritterFactoryBase;
 
 import javax.inject.Inject;

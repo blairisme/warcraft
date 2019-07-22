@@ -198,6 +198,10 @@ public enum UnitType implements ItemType
         return isBetween(this, Ballista, UtherLightbringer) || isBetween(this, Catapult, Zuljin);
     }
 
+    public boolean isGatherer() {
+        return this == Peasant || this == Peon || this == OilTanker || this == TrollTanker;
+    }
+
     public boolean isResource() {
         return this == GoldMine || this == OilPatch;
     }

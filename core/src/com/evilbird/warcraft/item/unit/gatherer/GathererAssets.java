@@ -10,17 +10,22 @@
 package com.evilbird.warcraft.item.unit.gatherer;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
+import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.common.assets.SyntheticTexture;
 import com.evilbird.engine.common.audio.SoundEffect;
-import com.evilbird.engine.common.graphics.Colours;
-import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.warcraft.item.unit.UnitType;
 
-import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
-import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
-import static com.evilbird.engine.common.file.FileType.MP3;
+import java.util.Map;
+
+import static com.evilbird.engine.common.assets.SyntheticTextureParameters.withColour;
+import static com.evilbird.engine.common.collection.Maps.of;
+import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
+import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
+import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensionName;
+import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensions;
+import static com.evilbird.warcraft.item.unit.combatant.CombatantWeapons.getWeaponName;
 
 /**
  * Provides access to the assets that are required to display a
@@ -28,102 +33,99 @@ import static com.evilbird.engine.common.file.FileType.MP3;
  *
  * @author Blair Butterworth
  */
-public class GathererAssets
+public class GathererAssets extends AssetBundle
 {
-    private AssetManager assets;
-    private GathererAssetManifest manifest;
-    private GridPoint2 size;
+    private GridPoint2 dimensions;
 
-    public GathererAssets(AssetManager assets, UnitType unitType, GridPoint2 size) {
-        this.assets = assets;
-        this.manifest = new GathererAssetManifest(unitType);
-        this.size = size;
+    public GathererAssets(AssetManager manager, UnitType type) {
+        super(manager, assetPathVariables(type));
+        dimensions = getDimensions(type);
+
+        registerTextures();
+        registerSounds();
+    }
+
+    private void registerTextures() {
+        register("base", "data/textures/${faction}/unit/${name}.png");
+        register("decompose", "data/textures/common/unit/decompose.png");
+        register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, dimensions));
+
+        registerOptional("moveWithGold", "data/textures/${faction}/unit/${name}_with_gold.png");
+        registerOptional("moveWithWood", "data/textures/${faction}/unit/${name}_with_wood.png");
+    }
+
+    private void registerSounds() {
+        register("construct", "data/sounds/common/unit/construct/1.mp3");
+        register("complete", "data/sounds/${faction}/unit/${name}/complete/1.mp3");
+        register("dead", "data/sounds/${faction}/unit/common/dead/1.mp3");
+        register("ready", "data/sounds/${faction}/unit/${name}/ready/1.mp3");
+
+        registerSequence("attack", "data/sounds/common/unit/attack/${weapon}/", ".mp3", 3);
+        registerSequence("chopping", "data/sounds/common/unit/chopping/", ".mp3", 4);
+        registerSequence("acknowledge", "data/sounds/${faction}/unit/${name}/acknowledge/", ".mp3", 4);
+        registerSequence("selected", "data/sounds/${faction}/unit/${name}/selected/", ".mp3", 6);
+    }
+
+    private static Map<String, String> assetPathVariables(UnitType type) {
+        return of("name", toSnakeCase(type.name()),
+                "faction", toSnakeCase(type.getFaction().name()),
+                "weapon", getWeaponName(type),
+                "size", getDimensionName(type));
     }
 
     public Texture getBaseTexture() {
-        return assets.get(manifest.getBaseTexturePath(), Texture.class);
+        return getTexture("base");
     }
 
     public Texture getDecomposeTexture() {
-        return assets.get(manifest.getBaseTexturePath(), Texture.class);
+        return getTexture("decompose");
     }
 
     public Texture getMoveWithGoldTexture() {
-        return assets.get(manifest.getMoveWithGoldTexturePath(), Texture.class);
+        return getOptionalTexture("moveWithGold");
     }
 
     public Texture getMoveWithWoodTexture() {
-        return assets.get(manifest.getMoveWithWoodTexturePath(), Texture.class);
+        return getOptionalTexture("moveWithWood");
     }
 
     public Texture getSelectionTexture() {
-        return TextureUtils.getTexture(size.x, size.y, Colours.FOREST_GREEN);
+        return getSyntheticTexture("selection");
     }
 
     public SoundEffect getChoppingSound() {
-        return newSoundEffect(assets, manifest.getChoppingSoundEffectPath(), MP3, 4);
+        return getSoundEffectSet("chopping", 4);
     }
 
     public SoundEffect getSelectedSound() {
-        return newSoundEffect(assets, manifest.getSelectedSoundEffectPath(), MP3, 3);//land gatherer has 4
+        return getSoundEffectSet("selected", 6);
     }
 
     public SoundEffect getAcknowledgeSound() {
-        return newSoundEffect(assets, manifest.getAcknowledgeSoundEffectPath(), MP3, 1);//land gatherer has 4
+        return getSoundEffectSet("acknowledge", 4);
     }
 
     public SoundEffect getAttackSound() {
-        return newSoundEffect(assets, manifest.getAttackSoundEffectPath());
+        return getSoundEffectSet("attack", 3);
     }
 
     public SoundEffect getCompleteSound() {
-        return newSoundEffect(assets, manifest.getCompleteSoundEffectPath());
+        return getSoundEffect("complete");
     }
 
     public SoundEffect getConstructSound() {
-        return newSoundEffect(assets, manifest.getConstructSoundEffectPath());
+        return getSoundEffect("construct");
     }
 
     public SoundEffect getReadySound() {
-        return newSoundEffect(assets, manifest.getReadySoundEffectPath());
+        return getSoundEffect("ready");
     }
 
     public SoundEffect getDeadSound() {
-        return newSoundEffect(assets, manifest.getDeadSoundEffectPath());
+        return getSoundEffect("dead");
     }
 
     public GridPoint2 getSize() {
-        return size;
-    }
-
-    public void load() {
-        loadTextures();
-        loadSounds();
-    }
-
-    private void loadTextures() {
-        assets.load(manifest.getBaseTexturePath(), Texture.class);
-        assets.load(manifest.getDecomposeTexturePath(), Texture.class);
-
-        if (manifest.getMoveWithGoldTexturePath() != null) {
-            assets.load(manifest.getMoveWithGoldTexturePath(), Texture.class);
-        }
-        if (manifest.getMoveWithWoodTexturePath() != null) {
-            assets.load(manifest.getMoveWithWoodTexturePath(), Texture.class);
-        }
-    }
-
-    private void loadSounds() {
-        if (manifest.getChoppingSoundEffectPath() != null) {
-            loadSoundSet(assets, manifest.getChoppingSoundEffectPath(), MP3, 4);
-        }
-        loadSoundSet(assets, manifest.getSelectedSoundEffectPath(), MP3, 3);//land gatherer has 4
-        loadSoundSet(assets, manifest.getAcknowledgeSoundEffectPath(), MP3, 1); //land gatherer has 4
-
-        assets.load(manifest.getAttackSoundEffectPath(), Sound.class);
-        assets.load(manifest.getCompleteSoundEffectPath(), Sound.class);
-        assets.load(manifest.getConstructSoundEffectPath(), Sound.class);
-        assets.load(manifest.getReadySoundEffectPath(), Sound.class);
-        assets.load(manifest.getDeadSoundEffectPath(), Sound.class);
+        return dimensions;
     }
 }

@@ -7,18 +7,14 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.unit.gatherer.human;
+package com.evilbird.warcraft.item.unit.gatherer.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceDisplay;
-import com.evilbird.engine.game.GameFactory;
-import com.evilbird.test.testcase.FactoryTestCase;
 import com.evilbird.test.testcase.GameFactoryTestCase;
 import com.evilbird.warcraft.common.WarcraftContext;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,38 +26,39 @@ import static com.evilbird.warcraft.common.WarcraftAssetSet.Swamp;
 import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
-import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
+import static com.evilbird.warcraft.item.unit.UnitType.TrollTanker;
+import static org.junit.Assert.*;
 
 /**
- * Instances of this unit test validate logic in the {@link PeasantFactory} class.
+ * Instances of this unit test validate logic in the {@link TrollTankerFactory} class.
  *
  * @author Blair Butterworth
  */
-public class PeasantFactoryTest extends GameFactoryTestCase<PeasantFactory>
+public class TrollTankerFactoryTest extends GameFactoryTestCase<TrollTankerFactory>
 {
     @Override
-    protected PeasantFactory newFactory(DeviceDisplay display, AssetManager assets) {
-        return new PeasantFactory(assets);
+    protected TrollTankerFactory newFactory(DeviceDisplay display, AssetManager assets) {
+        return new TrollTankerFactory(assets);
     }
 
     @Override
     protected Collection<Identifier> getLoadContexts() {
         return Arrays.asList(
-            new WarcraftContext(Human, Summer),
-            new WarcraftContext(Human, Swamp),
-            new WarcraftContext(Human, Winter),
-            new WarcraftContext(Orc, Summer),
-            new WarcraftContext(Orc, Swamp),
-            new WarcraftContext(Orc, Winter));
+                new WarcraftContext(Human, Summer),
+                new WarcraftContext(Human, Swamp),
+                new WarcraftContext(Human, Winter),
+                new WarcraftContext(Orc, Summer),
+                new WarcraftContext(Orc, Swamp),
+                new WarcraftContext(Orc, Winter));
     }
 
     @Override
     protected Collection<Identifier> getValueTypes() {
-        return Collections.singleton(Peasant);
+        return Collections.singleton(TrollTanker);
     }
 
     @Override
     protected Map<String, Object> getValueProperties() {
-        return Maps.of("type", Peasant, "HealthMaximum", 30.0f);
+        return Maps.of("type", TrollTanker, "HealthMaximum", 90.0f);
     }
 }

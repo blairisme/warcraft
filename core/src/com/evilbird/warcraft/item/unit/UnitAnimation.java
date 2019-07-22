@@ -20,7 +20,6 @@ import com.evilbird.engine.common.serialization.SerializedType;
 @SerializedType("UnitAnimation")
 public enum UnitAnimation implements Identifier
 {
-    Hidden,
     Idle,
     IdleBasic,
     IdleGold,
@@ -41,6 +40,5 @@ public enum UnitAnimation implements Identifier
     Decompose,
 
     Gathering,
-    GatherGold,
     GatherWood
 }

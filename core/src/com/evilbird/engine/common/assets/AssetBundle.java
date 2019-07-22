@@ -20,6 +20,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.audio.LazyLoadedMusic;
+import com.evilbird.engine.common.audio.SilentSoundEffect;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.audio.SoundUtils;
 import com.evilbird.engine.common.collection.Maps;
@@ -38,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.badlogic.gdx.graphics.Pixmap.Format.RGBA8888;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -120,8 +122,8 @@ public class AssetBundle
     }
 
     protected void registerSequence(String idPrefix, String pathPrefix, String pathSuffix, int count) {
-        register(idPrefix + "-1", pathPrefix + "1" + pathSuffix);
-        for (int i = 2; i < count + 1; i++) {
+        //register(idPrefix + "-1", pathPrefix + "1" + pathSuffix);
+        for (int i = 1; i < count + 1; i++) {
             registerOptional(idPrefix + "-" + i, pathPrefix + i + pathSuffix);
         }
     }
@@ -165,6 +167,10 @@ public class AssetBundle
         return SoundUtils.newSoundEffect(manager, asset.fileName);
     }
 
+    protected SoundEffect getOptionalSoundEffect(Object id) {
+        return isRegistered(id) ? getSoundEffect(id) : new SilentSoundEffect();
+    }
+
     protected SoundEffect getSoundEffectSet(String prefix, int count) {
         List<String> paths = new ArrayList<>();
         for (int i = 1; i < count + 1; i++) {
@@ -192,6 +198,10 @@ public class AssetBundle
     protected Texture getTexture(Object id) {
         AssetDescriptor asset = assets.get(id);
         return manager.get(asset.fileName, Texture.class);
+    }
+
+    protected Texture getOptionalTexture(Object id) {
+        return isRegistered(id) ? getTexture(id) : new Texture(0, 0, RGBA8888);
     }
 
     protected SyntheticTexture getSyntheticTexture(Object id) {

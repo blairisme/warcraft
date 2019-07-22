@@ -39,6 +39,9 @@ public class UnitDimensions
 {
     public static final GridPoint2 EXTRA_SMALL = new GridPoint2(32, 32);
     public static final GridPoint2 SMALL = new GridPoint2(64, 64);
+
+    public static final GridPoint2 SMALL_PLUS = new GridPoint2(72, 72);
+
     public static final GridPoint2 MEDIUM = new GridPoint2(88, 88);
     public static final GridPoint2 LARGE = new GridPoint2(96, 96);
     public static final GridPoint2 EXTRA_LARGE = new GridPoint2(128, 128);
