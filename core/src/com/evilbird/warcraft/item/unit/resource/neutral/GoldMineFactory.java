@@ -12,12 +12,10 @@ package com.evilbird.warcraft.item.unit.resource.neutral;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.Resource;
-import com.evilbird.warcraft.item.unit.resource.ResourceAssets;
-import com.evilbird.warcraft.item.unit.resource.ResourceBuilder;
+import com.evilbird.warcraft.item.unit.resource.ResourceFactoryBase;
 
 import javax.inject.Inject;
 
@@ -30,28 +28,15 @@ import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
  *
  * @author Blair Butterworth
  */
-public class GoldMineFactory implements GameFactory<Resource>
+public class GoldMineFactory extends ResourceFactoryBase
 {
-    private ResourceAssets assets;
-    private ResourceBuilder builder;
-
     @Inject
     public GoldMineFactory(Device device) {
         this(device.getAssetStorage());
     }
 
     public GoldMineFactory(AssetManager manager) {
-        this.assets = new ResourceAssets(manager, GoldMine);
-        this.builder = new ResourceBuilder(assets);
-    }
-
-    @Override
-    public void load(Identifier context) {
-        assets.load();
-    }
-
-    @Override
-    public void unload(Identifier context) {
+        super(manager, GoldMine);
     }
 
     @Override

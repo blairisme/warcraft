@@ -10,16 +10,19 @@
 package com.evilbird.warcraft.item.unit.resource;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.common.assets.SyntheticTexture;
 import com.evilbird.engine.common.audio.SoundEffect;
-import com.evilbird.engine.common.graphics.Colours;
-import com.evilbird.engine.common.graphics.TextureUtils;
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.item.unit.UnitType;
 
-import static com.evilbird.engine.common.assets.AssetUtilities.loadSoundSet;
-import static com.evilbird.engine.common.audio.SoundUtils.newSoundEffect;
-import static com.evilbird.engine.common.file.FileType.MP3;
+import java.util.Map;
+
+import static com.evilbird.engine.common.assets.SyntheticTextureParameters.withColour;
+import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
+import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
+import static com.evilbird.warcraft.item.unit.UnitDimensions.LARGE;
 
 /**
  * Provides access to the assets that are required to display a
@@ -27,48 +30,40 @@ import static com.evilbird.engine.common.file.FileType.MP3;
  *
  * @author Blair Butterworth
  */
-public class ResourceAssets
+public class ResourceAssets extends AssetBundle
 {
-    private AssetManager assets;
-    private ResourceAssetManifest manifest;
+    public ResourceAssets(AssetManager manager, UnitType type) {
+        super(manager, assetPathVariables(type));
 
-    public ResourceAssets(AssetManager assets, UnitType type) {
-        this.assets = assets;
-        this.manifest = new ResourceAssetManifest(type);
+        register("base", "data/textures/neutral/resource/winter/${name}.png");
+        register("destruction", "data/textures/common/building/winter/destroyed_site.png");
+        register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, LARGE));
+
+        register("selected", "data/sounds/neutral/resource/${name}/selected/1.mp3");
+        registerSequence("destroyed", "data/sounds/common/building/destroyed/", ".mp3", 3);
     }
 
-    public Texture getSelectionTexture() {
-        return TextureUtils.getTexture(96, 96, Colours.FOREST_GREEN);
+    private static Map<String, String> assetPathVariables(UnitType type) {
+        return Maps.of("name", toSnakeCase(type.name()), "size", LARGE);
     }
 
     public Texture getGeneralTexture() {
-        return assets.get(manifest.getGeneralTexturePath(), Texture.class);
+        return getTexture("base");
     }
 
     public Texture getDestructionTexture() {
-        return assets.get(manifest.getDestructionTexturePath(), Texture.class);
+        return getTexture("destruction");
+    }
+
+    public Texture getSelectionTexture() {
+        return getSyntheticTexture("selection");
     }
 
     public SoundEffect getDestroyedSound() {
-        return newSoundEffect(assets, manifest.getDestroyedSoundEffectPath(), MP3, 3);
+        return getSoundEffectSet("destroyed", 3);
     }
 
     public SoundEffect getSelectedSound() {
-        return newSoundEffect(assets, manifest.getSelectedSoundEffectPath());
-    }
-
-    public void load() {
-        loadTextures();
-        loadSounds();
-    }
-
-    private void loadTextures() {
-        assets.load(manifest.getGeneralTexturePath(), Texture.class);
-        assets.load(manifest.getDestructionTexturePath(), Texture.class);
-    }
-
-    private void loadSounds() {
-        assets.load(manifest.getSelectedSoundEffectPath(), Sound.class);
-        loadSoundSet(assets, manifest.getDestroyedSoundEffectPath(), MP3, 3);
+        return getSoundEffect("selected");
     }
 }

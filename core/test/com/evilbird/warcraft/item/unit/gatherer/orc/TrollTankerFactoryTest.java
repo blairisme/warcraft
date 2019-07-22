@@ -27,7 +27,6 @@ import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollTanker;
-import static org.junit.Assert.*;
 
 /**
  * Instances of this unit test validate logic in the {@link TrollTankerFactory} class.
