@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.item.unit;
 
-import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.common.WarcraftFaction;
 
@@ -29,7 +28,6 @@ import static com.evilbird.warcraft.item.unit.UnitAttack.Siege;
  *
  * @author Blair Butterworth
  */
-@SerializedType("Units")
 public enum UnitType implements ItemType
 {
     /* Human - Building */
@@ -213,6 +211,10 @@ public enum UnitType implements ItemType
     public boolean isShip() {
         return this == ElvenDestroyer || this == Battleship || this == GnomishSubmarine || this == OilTanker
             || this == TrollDestroyer || this == OgreJuggernaught || this == GiantTurtle || this == TrollTanker;
+    }
+
+    public boolean isSubmarine() {
+        return this == GnomishSubmarine || this == GiantTurtle;
     }
 
     public boolean isSiege() {

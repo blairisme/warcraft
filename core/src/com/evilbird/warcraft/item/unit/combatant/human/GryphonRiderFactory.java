@@ -21,7 +21,6 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Air;
-import static com.evilbird.warcraft.item.projectile.ProjectileType.Lightning;
 import static com.evilbird.warcraft.item.unit.UnitType.GryphonRider;
 
 /**
@@ -58,7 +57,7 @@ public class GryphonRiderFactory extends CombatantFactoryBase
         result.setRange(tiles(4));
         result.setSight(tiles(6));
         result.setType(GryphonRider);
-        result.setProjectileType(Lightning);
+        //result.setProjectileType(Lightning);
         return result;
     }
 }

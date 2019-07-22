@@ -39,15 +39,14 @@ public class UnitDimensions
 {
     public static final GridPoint2 EXTRA_SMALL = new GridPoint2(32, 32);
     public static final GridPoint2 SMALL = new GridPoint2(64, 64);
-
-    public static final GridPoint2 SMALL_PLUS = new GridPoint2(72, 72);
-
+    public static final GridPoint2 SMALLISH = new GridPoint2(72, 72);
     public static final GridPoint2 MEDIUM = new GridPoint2(88, 88);
     public static final GridPoint2 LARGE = new GridPoint2(96, 96);
     public static final GridPoint2 EXTRA_LARGE = new GridPoint2(128, 128);
 
     public static final String EXTRA_SMALL_NAME = "extra_small";
     public static final String SMALL_NAME = "small";
+    public static final String SMALLISH_NAME = "smallish";
     public static final String MEDIUM_NAME = "medium";
     public static final String LARGE_NAME = "large";
     public static final String EXTRA_LARGE_NAME = "extra_large";
@@ -83,7 +82,7 @@ public class UnitDimensions
             return SMALL;
         }
         if (type.isShip()) {
-            return MEDIUM;
+            return type.isGatherer() || type.isSubmarine() ? SMALLISH : MEDIUM;
         }
         return EXTRA_SMALL;
     }
@@ -100,6 +99,9 @@ public class UnitDimensions
         }
         if (dimensions == SMALL) {
             return SMALL_NAME;
+        }
+        if (dimensions == SMALLISH) {
+            return SMALLISH_NAME;
         }
         if (dimensions == MEDIUM) {
             return MEDIUM_NAME;
