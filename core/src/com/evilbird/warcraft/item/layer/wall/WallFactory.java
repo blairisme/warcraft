@@ -18,6 +18,7 @@ import com.evilbird.engine.common.collection.BitMatrix;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.GameFactory;
+import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.layer.LayerGroupStyle;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerUtils;
@@ -38,26 +39,32 @@ import static com.evilbird.warcraft.item.layer.LayerUtils.cell;
  */
 public class WallFactory implements GameFactory<Wall>
 {
-    public static final String TERRAIN = "data/textures/common/terrain/winter.png";
-
-    private AssetManager assets;
+    private AssetManager manager;
+    private WallAssets assets;
 
     @Inject
     public WallFactory(Device device) {
         this(device.getAssetStorage());
     }
 
-    public WallFactory(AssetManager assets) {
-        this.assets = assets;
+    public WallFactory(AssetManager manager) {
+        this.manager = manager;
     }
 
     @Override
     public void load(Identifier context) {
-        assets.load(TERRAIN, Texture.class);
+        Validate.isInstanceOf(WarcraftContext.class, context);
+        load((WarcraftContext)context);
+    }
+
+    private void load(WarcraftContext context) {
+        assets = new WallAssets(manager, context);
+        assets.load();;
     }
 
     @Override
     public void unload(Identifier context) {
+        assets.unload();
     }
 
     @Override
@@ -81,7 +88,7 @@ public class WallFactory implements GameFactory<Wall>
     }
 
     private LayerGroupStyle getStyle() {
-        Texture terrain = assets.get(TERRAIN, Texture.class);
+        Texture terrain = assets.getTerrainTexture();
         LayerGroupStyle forestStyle = new LayerGroupStyle();
         forestStyle.empty = cell(terrain, 256, 128, 32, 32);
         forestStyle.patterns = getCellStyles(terrain);

@@ -107,7 +107,7 @@ public class TextureUtils
 
     /**
      * Generates a texture containing a 1 pixel wide rectangle of the given
-     * size
+     * size.
      *
      * @param size      the size of the resulting rectangle.
      * @param colour    the colour of the resulting rectangle.

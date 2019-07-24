@@ -52,12 +52,15 @@ public class Maps
     }
 
     /**
-     * Returns a {@link Collection} containing the values associated
-     * @param map
-     * @param keys
-     * @param <K>
-     * @param <V>
-     * @return
+     * Returns a {@link Collection} containing the values associated with the
+     * given keys.
+     *
+     * @param map   a {@link Map} whose values will be returned.
+     * @param keys  the keys associated with the desired values.
+     * @param <K>       the key type.
+     * @param <V>       the value type.
+     *
+     * @return a {@link Collection} containing the desired values.
      */
     public static <K, V> List<V> getAll(Map<K, V> map, List<K> keys) {
         List<V> result = new ArrayList<>(keys.size());
