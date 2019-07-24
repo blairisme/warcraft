@@ -16,7 +16,6 @@ import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.assets.SyntheticTexture;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.common.WarcraftContext;
-import com.evilbird.warcraft.item.layer.Layer;
 
 import java.util.Map;
 
@@ -27,7 +26,7 @@ import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_SIZE;
 
 /**
- * Provides access to the assets that are required to display {@link Layer}s.
+ * Provides access to the assets that are required to display {@link Fog}.
  *
  * @author Blair Butterworth
  */

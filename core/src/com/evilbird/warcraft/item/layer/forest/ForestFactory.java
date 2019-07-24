@@ -18,6 +18,7 @@ import com.evilbird.engine.common.collection.BitMatrix;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.GameFactory;
+import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.layer.LayerGroupStyle;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerUtils;
@@ -39,37 +40,45 @@ import static com.evilbird.warcraft.item.layer.LayerUtils.cell;
  */
 public class ForestFactory implements GameFactory<Forest>
 {
-    public static final String TERRAIN = "data/textures/common/terrain/winter.png";
-
-    private AssetManager assets;
+    private AssetManager manager;
+    private ForestAssets assets;
 
     @Inject
     public ForestFactory(Device device) {
         this(device.getAssetStorage());
     }
 
-    public ForestFactory(AssetManager assets) {
-        this.assets = assets;
+    public ForestFactory(AssetManager manager) {
+        this.manager = manager;
     }
 
     @Override
     public void load(Identifier context) {
-        assets.load(TERRAIN, Texture.class);
+        Validate.isInstanceOf(WarcraftContext.class, context);
+        load((WarcraftContext)context);
+    }
+
+    private void load(WarcraftContext context) {
+        assets = new ForestAssets(manager, context);
+        assets.load();;
     }
 
     @Override
     public void unload(Identifier context) {
+        assets.unload();
     }
 
     @Override
     public Forest get(Identifier identifier) {
         Validate.isInstanceOf(LayerIdentifier.class, identifier);
-        LayerIdentifier layerIdentifier = (LayerIdentifier)identifier;
+        return get((LayerIdentifier)identifier);
+    }
 
+    private Forest get(LayerIdentifier layerType) {
         Forest forest = new Forest(getSkin());
-        forest.setIdentifier(layerIdentifier);
-        forest.setType(layerIdentifier.getType());
-        forest.setLayer(LayerUtils.getLayer(layerIdentifier));
+        forest.setIdentifier(layerType);
+        forest.setType(layerType.getType());
+        forest.setLayer(LayerUtils.getLayer(layerType));
         forest.setVisible(true);
         forest.setTouchable(Touchable.childrenOnly);
         return forest;
@@ -82,7 +91,7 @@ public class ForestFactory implements GameFactory<Forest>
     }
 
     private LayerGroupStyle getStyle() {
-        Texture terrain = assets.get(TERRAIN, Texture.class);
+        Texture terrain = assets.getTerrainTexture();
         LayerGroupStyle forestStyle = new LayerGroupStyle();
         forestStyle.empty = cell(terrain, 448, 224, 32, 32);
         forestStyle.patterns = getCellStyles(terrain);
