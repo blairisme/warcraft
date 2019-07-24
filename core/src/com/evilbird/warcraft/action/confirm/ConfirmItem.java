@@ -27,7 +27,7 @@ import static com.evilbird.engine.item.utility.ItemPredicates.itemWithId;
 import static com.evilbird.warcraft.action.common.create.CreateAction.create;
 import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmTarget;
-import static com.evilbird.warcraft.item.ui.effect.EffectType.Confirm;
+import static com.evilbird.warcraft.item.ui.confirmation.ConfirmType.Confirm;
 import static com.evilbird.warcraft.item.unit.UnitSound.Acknowledge;
 
 /**

@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.ui.effect;
+package com.evilbird.warcraft.item.ui.confirmation;
 
 import com.evilbird.engine.item.ItemType;
 
@@ -16,7 +16,7 @@ import com.evilbird.engine.item.ItemType;
  *
  * @author Blair Butterworth
  */
-public enum EffectType implements ItemType
+public enum ConfirmType implements ItemType
 {
     Confirm
 }

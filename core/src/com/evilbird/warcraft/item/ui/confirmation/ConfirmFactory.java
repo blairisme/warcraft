@@ -7,10 +7,9 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.ui.effect.confirm;
+package com.evilbird.warcraft.item.ui.confirmation;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.Animation;
@@ -22,7 +21,6 @@ import com.evilbird.engine.item.specialized.AnimatedItem;
 import com.evilbird.engine.item.specialized.AnimatedItemStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationLayouts;
 import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
-import com.evilbird.warcraft.item.ui.effect.EffectType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import javax.inject.Inject;
@@ -40,22 +38,27 @@ import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
  */
 public class ConfirmFactory implements GameFactory<Item>
 {
-    private static final String TEXTURE = "data/textures/common/ui/green_cross.png";
-    private AssetManager assets;
+    private AssetManager manager;
+    private ConfirmAssets assets;
 
     @Inject
     public ConfirmFactory(Device device) {
-        assets = device.getAssetStorage();
+        this(device.getAssetStorage());
+    }
+
+    public ConfirmFactory(AssetManager manager) {
+        this.manager = manager;
     }
 
     @Override
     public void load(Identifier context) {
-        assets.load(TEXTURE, Texture.class);
+        assets = new ConfirmAssets(manager);
+        assets.load();
     }
 
     @Override
     public void unload(Identifier context) {
-        assets.unload(TEXTURE);
+        assets.unload();
     }
 
     @Override
@@ -63,7 +66,7 @@ public class ConfirmFactory implements GameFactory<Item>
         AnimatedItem result = new AnimatedItem(getSkin());
         result.setAnimation(UnitAnimation.Idle);
         result.setTouchable(Touchable.disabled);
-        result.setType(EffectType.Confirm);
+        result.setType(ConfirmType.Confirm);
         result.setIdentifier(objectIdentifier("Confirm", result));
         result.setSize(32, 32);
         return result;
@@ -83,13 +86,8 @@ public class ConfirmFactory implements GameFactory<Item>
     }
 
     private Map<Identifier, Animation> getAnimations() {
-        Texture texture = assets.get(TEXTURE, Texture.class);
-        return getAnimations(texture);
-    }
-
-    private Map<Identifier, Animation> getAnimations(Texture texture) {
         AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(UnitAnimation.Idle, AnimationLayouts.effectSchema(), texture);
+        builder.set(UnitAnimation.Idle, AnimationLayouts.effectSchema(), assets. getGreenCross());
         return builder.build();
     }
 }

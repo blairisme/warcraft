@@ -13,9 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.warcraft.item.ui.display.HudControl;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPane;
 import com.evilbird.warcraft.item.ui.display.control.status.selection.SelectionPane;
-import com.evilbird.warcraft.item.ui.display.HudControl;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import java.util.ArrayList;

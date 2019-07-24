@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.ui.display.control.actions.buttons;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.ui.display.control.actions.ActionPaneView;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.common.CombatantButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.common.GathererButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.common.NoButtons;
@@ -27,7 +28,6 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.orc.PeonAdv
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.orc.PeonSimpleBuildings;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.orc.TrollLumberMillButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.orc.TrollTankerBuildings;
-import com.evilbird.warcraft.item.ui.display.control.actions.ActionPaneView;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.HashMap;

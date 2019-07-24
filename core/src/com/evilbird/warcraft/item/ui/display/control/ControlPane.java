@@ -16,11 +16,11 @@ import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.item.ItemBasic;
 import com.evilbird.engine.item.specialized.TableItem;
+import com.evilbird.warcraft.item.ui.display.HudControl;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionPane;
 import com.evilbird.warcraft.item.ui.display.control.menu.MenuPane;
 import com.evilbird.warcraft.item.ui.display.control.minimap.MiniMapPane;
 import com.evilbird.warcraft.item.ui.display.control.status.StatusPane;
-import com.evilbird.warcraft.item.ui.display.HudControl;
 
 /**
  * Instances of this class represent the user interface shown on the left of
