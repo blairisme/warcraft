@@ -18,7 +18,7 @@ import com.evilbird.warcraft.item.unit.building.BuildingFactoryBase;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
 
 /**
@@ -45,7 +45,7 @@ public class CircleOfPowerFactory extends BuildingFactoryBase
         result.setHealthMaximum(10000);
         result.setIdentifier(objectIdentifier("CircleOfPower", result));
         result.setName("Circle of Power");
-        result.setSight(TILE_WIDTH);
+        result.setSight(tiles(1));
         result.setType(CircleOfPower);
         result.setSelectable(false);
         return result;

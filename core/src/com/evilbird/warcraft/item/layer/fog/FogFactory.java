@@ -10,9 +10,7 @@
 package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -22,6 +20,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.game.GameFactory;
+import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.layer.LayerUtils;
@@ -41,29 +40,34 @@ import static com.evilbird.warcraft.item.layer.LayerUtils.cell;
  */
 public class FogFactory implements GameFactory<Fog>
 {
-    public static final String TERRAIN = "data/textures/common/terrain/winter.png";
-
     private EventQueue events;
-    private AssetManager assets;
+    private AssetManager manager;
+    private FogAssets assets;
 
     @Inject
     public FogFactory(Device device, EventQueue events) {
-        this.assets = device.getAssetStorage();
-        this.events = events;
+        this(device.getAssetStorage(), events);
     }
 
-    public FogFactory(AssetManager assets, EventQueue events) {
-        this.assets = assets;
+    public FogFactory(AssetManager manager, EventQueue events) {
+        this.manager = manager;
         this.events = events;
     }
 
     @Override
     public void load(Identifier context) {
-        assets.load(TERRAIN, Texture.class);
+        Validate.isInstanceOf(WarcraftContext.class, context);
+        load((WarcraftContext)context);
+    }
+
+    private void load(WarcraftContext context) {
+        assets = new FogAssets(manager, context);
+        assets.load();
     }
 
     @Override
     public void unload(Identifier context) {
+        assets.unload();
     }
 
     @Override
@@ -102,16 +106,16 @@ public class FogFactory implements GameFactory<Fog>
     private FogStyle getOpaqueStyle() {
         FogStyle result = new FogStyle();
         result.empty = null;
-        result.full = cell(getOpaqueTexture());
-        result.edges = getEdgeStyles(getTerrainTexture());
+        result.full = cell(assets.getOpaqueTexture());
+        result.edges = getEdgeStyles(assets.getTerrainTexture());
         return result;
     }
 
     private FogStyle getTransparentStyle() {
         FogStyle result = new FogStyle();
         result.empty = null;
-        result.full = cell(getTransparentTexture());
-        result.edges = getEdgeStyles(getTerrainTexture());
+        result.full = cell(assets.getTransparentTexture());
+        result.edges = getEdgeStyles(assets.getTerrainTexture());
         return result;
     }
 
@@ -209,24 +213,6 @@ public class FogFactory implements GameFactory<Fog>
         styles.put(matrix3("0,1,0,0,1,0,0,1,0"), cell(texture, 160, 0, 32, 32)); //vertical peninsula
         styles.put(matrix3("1,0,0,0,0,0,0,0,1"), cell(texture, 448, 0, 32, 32)); //forward-slash peninsula
         styles.put(matrix3("0,0,1,0,0,0,1,0,0"), cell(texture, 480, 0, 32, 32)); //back-slash peninsula
-    }
-
-    private Texture getOpaqueTexture() {
-        Pixmap pixmap = new Pixmap(32, 32, Pixmap.Format.RGBA8888);
-        pixmap.setColor(0, 0, 0, 1);
-        pixmap.fillRectangle(0, 0, 32, 32);
-        return new Texture(pixmap);
-    }
-
-    private TextureRegion getTransparentTexture() {
-        Texture texture = assets.get(TERRAIN, Texture.class);
-        return new TextureRegion(texture, 0, 0, 32, 32);
-    }
-
-    private Texture getTerrainTexture() {
-        Texture texture = assets.get(TERRAIN, Texture.class);
-        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Nearest);
-        return texture;
     }
 }
 

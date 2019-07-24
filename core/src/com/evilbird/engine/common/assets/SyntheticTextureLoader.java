@@ -19,6 +19,9 @@ import com.badlogic.gdx.utils.Array;
 
 import java.util.Objects;
 
+import static com.evilbird.engine.common.assets.SyntheticTextureType.Filled;
+import static com.evilbird.engine.common.assets.SyntheticTextureType.Outline;
+
 /**
  * Generates a {@link SyntheticTexture} whose contents are defined by a given
  * {@link SyntheticTextureParameters}.
@@ -36,8 +39,17 @@ public class SyntheticTextureLoader extends SynchronousAssetLoader<SyntheticText
         Objects.requireNonNull(para);
         Pixmap pixmap = new Pixmap(para.getWidth(), para.getHeight(), Pixmap.Format.RGBA8888);
         pixmap.setColor(para.getColour());
-        pixmap.drawRectangle(0, 0, pixmap.getWidth(), pixmap.getHeight());
+        drawContents(pixmap, para.getType());
         return new SyntheticTexture(pixmap);
+    }
+
+    private void drawContents(Pixmap pixmap, SyntheticTextureType type) {
+        if (type == Outline) {
+            pixmap.drawRectangle(0, 0, pixmap.getWidth(), pixmap.getHeight());
+        }
+        if (type == Filled) {
+            pixmap.fillRectangle(0, 0, pixmap.getWidth(), pixmap.getHeight());
+        }
     }
 
     @Override

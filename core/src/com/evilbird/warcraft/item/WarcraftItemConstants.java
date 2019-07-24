@@ -9,6 +9,8 @@
 
 package com.evilbird.warcraft.item;
 
+import com.badlogic.gdx.math.GridPoint2;
+
 /**
  * Defines constants used by Warcraft game items.
  *
@@ -18,6 +20,7 @@ public class WarcraftItemConstants
 {
     public static final int TILE_WIDTH = 32;
     public static final int TILE_HEIGHT = 32;
+    public static GridPoint2 TILE_SIZE = new GridPoint2(TILE_WIDTH, TILE_HEIGHT);
 
     private WarcraftItemConstants() {
     }

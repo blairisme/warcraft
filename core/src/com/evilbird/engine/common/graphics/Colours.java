@@ -20,6 +20,7 @@ public class Colours
 {
     public static final Color FOREST_GREEN = new Color(0x46c83cff);
     public static final Color GRAPE = new Color(0x1b2560ff);
+    public static final Color OPAQUE = new Color(0x000000ff);
 
     /**
      * Disable construction of this static utility class.

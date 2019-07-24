@@ -13,11 +13,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceDisplay;
-import com.evilbird.engine.events.EventQueue;
 import com.evilbird.test.testcase.GameFactoryTestCase;
 import com.evilbird.test.utils.MockInjectedPool;
 import com.evilbird.warcraft.common.WarcraftContext;
-import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.Collection;

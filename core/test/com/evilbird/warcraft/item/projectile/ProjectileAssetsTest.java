@@ -15,9 +15,6 @@ import com.evilbird.test.testcase.AssetBundleTestCase;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 /**
  * Instances of this unit test validate logic in the {@link ProjectileAssets}
  * class.
