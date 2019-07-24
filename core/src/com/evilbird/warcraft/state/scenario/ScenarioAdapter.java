@@ -18,7 +18,7 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.common.WarcraftAssetSet;
 import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.common.WarcraftFaction;
-import com.evilbird.warcraft.item.ui.hud.HudLoader;
+import com.evilbird.warcraft.item.ui.display.HudLoader;
 import com.evilbird.warcraft.state.map.Level;
 import com.evilbird.warcraft.state.map.LevelLoader;
 import com.google.gson.JsonDeserializationContext;

@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateIdentifier;
-import com.evilbird.warcraft.item.ui.hud.HudLoader;
+import com.evilbird.warcraft.item.ui.display.HudLoader;
 import com.evilbird.warcraft.state.map.LevelLoader;
 import com.evilbird.warcraft.state.scenario.ScenarioAdapter;
 import com.evilbird.warcraft.state.scenario.ScenarioState;

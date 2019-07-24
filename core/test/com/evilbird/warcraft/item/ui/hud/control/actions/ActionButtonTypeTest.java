@@ -9,16 +9,17 @@
 
 package com.evilbird.warcraft.item.ui.hud.control.actions;
 
+import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildAltarOfStormsButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.BuildCastleButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.RepairButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.TrainBallistaButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.TrainKnightButton;
-import static com.evilbird.warcraft.item.ui.hud.control.actions.ActionButtonType.TrainOgreButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildAltarOfStormsButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCastleButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RepairButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainBallistaButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainKnightButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainOgreButton;
 
 /**
  * Instances of this unit test validate the {@link ActionButtonType} class.

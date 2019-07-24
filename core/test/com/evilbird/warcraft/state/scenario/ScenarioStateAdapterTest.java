@@ -15,7 +15,7 @@ import com.evilbird.engine.game.GameController;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.utils.JsonSerializerContext;
 import com.evilbird.test.utils.TestFileHandleResolver;
-import com.evilbird.warcraft.item.ui.hud.HudLoader;
+import com.evilbird.warcraft.item.ui.display.HudLoader;
 import com.evilbird.warcraft.state.map.Level;
 import com.evilbird.warcraft.state.map.LevelLoader;
 import com.google.gson.JsonElement;

@@ -22,7 +22,7 @@ import com.evilbird.warcraft.item.layer.fog.Fog;
 import com.evilbird.warcraft.item.layer.forest.Forest;
 import com.evilbird.warcraft.item.layer.terrain.Terrain;
 import com.evilbird.warcraft.item.layer.wall.Wall;
-import com.evilbird.warcraft.item.ui.hud.HudType;
+import com.evilbird.warcraft.item.ui.display.HudType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitType;
