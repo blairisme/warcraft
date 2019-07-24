@@ -10,24 +10,16 @@
 package com.evilbird.warcraft.item.ui.placement;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.common.WarcraftContext;
-import com.evilbird.warcraft.item.unit.building.BuildingAssets;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.engine.common.math.GridPoints.ZERO;
-import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
-import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 
 /**
  * Instances of this factory create {@link Placeholder Placeholders}, visual
@@ -37,62 +29,50 @@ import static com.evilbird.warcraft.common.WarcraftFaction.Human;
  */
 public class PlaceholderFactory implements GameFactory<Placeholder>
 {
-    private static final String ALLOWED_TEXTURE = "data/textures/common/ui/building_allowed.png";
-    private static final String PROHIBITED_TEXTURE = "data/textures/common/ui/building_prohibited.png";
-
-    private AssetManager assets;
     private EventQueue events;
+    private AssetManager manager;
+    private PlaceholderAssets assets;
+    private PlaceholderBuilder builder;
 
     @Inject
     public PlaceholderFactory(Device device, EventQueue events) {
+        this(device.getAssetStorage(), events);
+    }
+
+    public PlaceholderFactory(AssetManager manager, EventQueue events) {
         this.events = events;
-        this.assets = device.getAssetStorage();
+        this.manager = manager;
     }
 
     @Override
     public void load(Identifier context) {
-        assets.load(ALLOWED_TEXTURE, Texture.class);
-        assets.load(PROHIBITED_TEXTURE, Texture.class);
+        Validate.isInstanceOf(WarcraftContext.class, context);
+        load((WarcraftContext)context);
+    }
+
+    private void load(WarcraftContext context) {
+        assets = new PlaceholderAssets(manager, context);
+        builder = new PlaceholderBuilder(assets);
+        assets.load();
     }
 
     @Override
     public void unload(Identifier context) {
+        assets.unload();
     }
 
     @Override
     public Placeholder get(Identifier identifier) {
         Validate.isInstanceOf(PlaceholderType.class, identifier);
-        return getPlaceholder((PlaceholderType)identifier);
+        return get((PlaceholderType)identifier);
     }
 
-    private Placeholder getPlaceholder(PlaceholderType type) {
-        BuildingAssets foo = new BuildingAssets(assets, type.getBuilding(), new WarcraftContext(Human, Winter));
-
-        Placeholder placeholder = new Placeholder(getSkin(foo));
+    private Placeholder get(PlaceholderType type) {
+        Placeholder placeholder = builder.build(type);
         placeholder.setIdentifier(objectIdentifier("Placeholder", placeholder));
         placeholder.setType(type);
-        placeholder.setSize(foo.getSize());
         placeholder.setEvents(events);
         return placeholder;
     }
 
-    private Skin getSkin(BuildingAssets buildingAssets) {
-        Skin skin = new Skin();
-        skin.add("default", getStyle(buildingAssets), PlaceholderStyle.class);
-        return skin;
-    }
-
-    private PlaceholderStyle getStyle(BuildingAssets buildingAssets) {
-        Texture texture = buildingAssets.getBaseTexture();
-        GridPoint2 size = buildingAssets.getSize();
-        return getStyle(texture, size);
-    }
-
-    private PlaceholderStyle getStyle(Texture building, GridPoint2 size) {
-        PlaceholderStyle style = new PlaceholderStyle();
-        style.building = getDrawable(building, ZERO, size);
-        style.allowed = getDrawable(assets, ALLOWED_TEXTURE, 0, 0, size.x, size.y);
-        style.prohibited = getDrawable(assets, PROHIBITED_TEXTURE, 0, 0, size.x, size.y);
-        return style;
-    }
 }

@@ -25,6 +25,9 @@ import javax.inject.Inject;
  */
 public class ProjectileFactory implements GameFactory<Projectile>
 {
+    private AssetManager manager;
+    private InjectedPool<Projectile> pool;
+
     private ProjectileAssets assets;
     private ProjectileBuilder builder;
 
@@ -34,12 +37,14 @@ public class ProjectileFactory implements GameFactory<Projectile>
     }
 
     public ProjectileFactory(AssetManager manager, InjectedPool<Projectile> pool) {
-        this.assets = new ProjectileAssets(manager);
-        this.builder = new ProjectileBuilder(assets, pool);
+        this.manager = manager;
+        this.pool = pool;
     }
 
     @Override
     public void load(Identifier identifier) {
+        assets = new ProjectileAssets(manager);
+        builder = new ProjectileBuilder(assets, pool);
         assets.load();
     }
 
