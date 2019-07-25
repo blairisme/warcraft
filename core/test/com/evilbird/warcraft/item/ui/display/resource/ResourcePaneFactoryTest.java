@@ -22,7 +22,6 @@ import java.util.Collections;
 import java.util.Map;
 
 import static com.evilbird.warcraft.common.WarcraftAssetSet.Summer;
-import static com.evilbird.warcraft.common.WarcraftAssetSet.Swamp;
 import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
@@ -43,12 +42,8 @@ public class ResourcePaneFactoryTest extends GameFactoryTestCase<ResourcePaneFac
     @Override
     protected Collection<Identifier> getLoadContexts() {
         return Arrays.asList(
-            new WarcraftContext(Human, Summer),
-            new WarcraftContext(Human, Swamp),
-            new WarcraftContext(Human, Winter),
-            new WarcraftContext(Orc, Summer),
-            new WarcraftContext(Orc, Swamp),
-            new WarcraftContext(Orc, Winter));
+                new WarcraftContext(Human, Summer),
+                new WarcraftContext(Orc, Winter));
     }
 
     @Override

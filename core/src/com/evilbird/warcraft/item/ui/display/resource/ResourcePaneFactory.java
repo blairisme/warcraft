@@ -14,6 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.common.WarcraftContext;
+import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
@@ -38,8 +39,18 @@ public class ResourcePaneFactory implements GameFactory<ResourcePane>
     }
 
     @Override
+    public ResourcePane get(Identifier type) {
+        return builder.build();
+    }
+
+    @Override
     public void load(Identifier context) {
-        assets = new ResourcePaneAssets(manager, (WarcraftContext)context);
+        Validate.isInstanceOf(WarcraftContext.class, context);
+        load((WarcraftContext)context);
+    }
+
+    private void load(WarcraftContext context) {
+        assets = new ResourcePaneAssets(manager, context);
         builder = new ResourcePaneBuilder(assets);
         assets.load();
     }
@@ -47,10 +58,5 @@ public class ResourcePaneFactory implements GameFactory<ResourcePane>
     @Override
     public void unload(Identifier context) {
         assets.unload();
-    }
-
-    @Override
-    public ResourcePane get(Identifier type) {
-        return builder.build();
     }
 }

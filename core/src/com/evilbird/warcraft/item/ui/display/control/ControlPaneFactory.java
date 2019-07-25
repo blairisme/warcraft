@@ -15,6 +15,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceControls;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.common.WarcraftContext;
+import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
@@ -27,6 +28,8 @@ import javax.inject.Inject;
 public class ControlPaneFactory implements GameFactory<ControlPane>
 {
     private AssetManager manager;
+    private DeviceControls controls;
+
     private ControlPaneAssets assets;
     private ControlPaneBuilder builder;
 
@@ -37,6 +40,7 @@ public class ControlPaneFactory implements GameFactory<ControlPane>
 
     public ControlPaneFactory(AssetManager manager, DeviceControls controls) {
         this.manager = manager;
+        this.controls = controls;
     }
 
     @Override
@@ -46,7 +50,12 @@ public class ControlPaneFactory implements GameFactory<ControlPane>
 
     @Override
     public void load(Identifier context) {
-        assets = new ControlPaneAssets(manager, (WarcraftContext)context);
+        Validate.isInstanceOf(WarcraftContext.class, context);
+        load((WarcraftContext)context);
+    }
+
+    private void load(WarcraftContext context) {
+        assets = new ControlPaneAssets(manager, context);
         builder = new ControlPaneBuilder(assets);
         assets.load();
     }

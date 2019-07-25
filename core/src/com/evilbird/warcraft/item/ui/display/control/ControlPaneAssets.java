@@ -10,15 +10,15 @@
 package com.evilbird.warcraft.item.ui.display.control;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.common.WarcraftContext;
-import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.ui.display.control.common.IconSet;
 
-import java.util.Collection;
+import java.util.Map;
 
-import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
+import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 
 /**
  * Provides access to the assets that are required to display a
@@ -26,101 +26,111 @@ import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
  *
  * @author Blair Butterworth
  */
-public class ControlPaneAssets
+public class ControlPaneAssets extends AssetBundle
 {
-    private AssetManager assets;
-    private ControlPaneAssetManifest manifest;
-
-    public ControlPaneAssets(AssetManager assets, WarcraftContext context) {
-        this(assets, context.getFaction());
+    public ControlPaneAssets(AssetManager manager, WarcraftContext context) {
+        super(manager, pathVariables(context));
+        registerCommonTextures();
+        registerFactionTextures();
     }
 
-    public ControlPaneAssets(AssetManager assets, WarcraftFaction faction) {
-        this.assets = assets;
-        this.manifest = new ControlPaneAssetManifest(faction);
+    private static Map<String, String> pathVariables(WarcraftContext context) {
+        return Maps.of("faction", toSnakeCase(context.getFaction().name()));
+    }
+    
+    private void registerCommonTextures() {
+        register("icons", "data/textures/common/menu/icons.png");
+        register("iconsDisabled", "data/textures/common/menu/icons_disabled.png");
+        register("actionButton", "data/textures/common/menu/action.png");
+        register("deselectButton", "data/textures/common/menu/unselect.png");
+        register("buildingFill", "data/textures/common/menu/building_progress_bar.png");
+        register("buildingBackground", "data/textures/common/menu/building_progress_background.png");
+        register("healthProgressHigh", "data/textures/common/menu/health_bar_high.png");
+        register("healthProgressMedium", "data/textures/common/menu/health_bar_medium.png");
+        register("healthProgressLow", "data/textures/common/menu/health_bar_low.png");
+        register("unitPanel", "data/textures/common/menu/selection.png");
+    }
+
+    private void registerFactionTextures() {
+        register("actionPanel", "data/textures/${faction}/menu/action_panel.png");
+        register("detailsPanel", "data/textures/${faction}/menu/details_panel.png");
+        register("menuPanel", "data/textures/${faction}/menu/menu_panel.png");
+        register("minimapPanel", "data/textures/${faction}/menu/minimap_panel.png");
+        register("selectionPanel", "data/textures/${faction}/menu/selection_panel.png");
+        register("buttonEnabled", "data/textures/${faction}/menu/button-thin-medium-normal.png");
+        register("buttonSelected", "data/textures/${faction}/menu/button-thin-medium-pressed.png");
+        register("buttonDisabled", "data/textures/${faction}/menu/button-thin-medium-grayed.png");
     }
 
     public IconSet getIcons() {
-        Texture texture = assets.get(manifest.getIcons(), Texture.class);
-        return new IconSet(texture);
+        return new IconSet(getTexture("icons"));
     }
 
     public IconSet getDisabledIcons() {
-        Texture texture = assets.get(manifest.getDisabledIcons(), Texture.class);
-        return new IconSet(texture);
+        return new IconSet(getTexture("iconsDisabled"));
     }
 
     public Drawable getActionButton() {
-        return getDrawable(assets, manifest.getActionButton());
+        return getDrawable("actionButton");
     }
 
     public Drawable getDeselectButton() {
-        return getDrawable(assets, manifest.getDeselectButton());
+        return getDrawable("deselectButton");
     }
 
     public Drawable getActionPanel() {
-        return getDrawable(assets, manifest.getActionPanel());
+        return getDrawable("actionPanel");
     }
 
     public Drawable getDetailsPanel() {
-        return getDrawable(assets, manifest.getDetailsPanel());
+        return getDrawable("detailsPanel");
     }
 
     public Drawable getMenuPanel() {
-        return getDrawable(assets, manifest.getMenuPanel());
+        return getDrawable("menuPanel");
     }
 
     public Drawable getMinimapPanel() {
-        return getDrawable(assets, manifest.getMinimapPanel());
+        return getDrawable("minimapPanel");
     }
 
     public Drawable getSelectionPanel() {
-        return getDrawable(assets, manifest.getSelectionPanel());
+        return getDrawable("selectionPanel");
     }
 
     public Drawable getUnitPanel() {
-        return getDrawable(assets, manifest.getUnitPanel());
+        return getDrawable("unitPanel");
     }
 
     public Drawable getButtonEnabled() {
-        return getDrawable(assets, manifest.getButtonEnabled());
+        return getDrawable("buttonEnabled");
     }
 
     public Drawable getButtonSelected() {
-        return getDrawable(assets, manifest.getButtonSelected());
+        return getDrawable("buttonSelected");
     }
 
     public Drawable getButtonDisabled() {
-        return getDrawable(assets, manifest.getButtonDisabled());
+        return getDrawable("buttonDisabled");
     }
 
     public Drawable getBuildingFill() {
-        return getDrawable(assets, manifest.getBuildingFill());
+        return getDrawable("buildingFill");
     }
 
     public Drawable getBuildingBackground() {
-        return getDrawable(assets, manifest.getBuildingBackground());
+        return getDrawable("buildingBackground");
     }
 
     public Drawable getHealthProgressHigh() {
-        return getDrawable(assets, manifest.getHealthProgressHigh());
+        return getDrawable("healthProgressHigh");
     }
 
     public Drawable getHealthProgressMedium() {
-        return getDrawable(assets, manifest.getHealthProgressMedium());
+        return getDrawable("healthProgressMedium");
     }
 
     public Drawable getHealthProgressLow() {
-        return getDrawable(assets, manifest.getHealthProgressLow());
-    }
-
-    public void load() {
-        Collection<String> textures = manifest.getTextures();
-        textures.forEach(texture -> assets.load(texture, Texture.class));
-    }
-
-    public void unload() {
-        Collection<String> textures = manifest.getTextures();
-        textures.forEach(texture -> assets.unload(texture));
+        return getDrawable("healthProgressLow");
     }
 }
