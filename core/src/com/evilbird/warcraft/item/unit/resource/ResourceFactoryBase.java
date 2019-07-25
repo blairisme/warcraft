@@ -12,7 +12,9 @@ package com.evilbird.warcraft.item.unit.resource;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.game.GameFactory;
+import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.unit.UnitType;
+import org.apache.commons.lang3.Validate;
 
 /**
  * A reusable class for creating {@link Resource}s, loading the
@@ -35,7 +37,12 @@ public abstract class ResourceFactoryBase implements GameFactory<Resource>
 
     @Override
     public void load(Identifier context) {
-        assets = new ResourceAssets(manager, type);
+        Validate.isInstanceOf(WarcraftContext.class, context);
+        load((WarcraftContext)context);
+    }
+
+    private void load(WarcraftContext context) {
+        assets = new ResourceAssets(manager, type, context);
         builder = new ResourceBuilder(assets);
         assets.load();
     }

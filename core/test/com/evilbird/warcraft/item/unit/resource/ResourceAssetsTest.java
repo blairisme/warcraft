@@ -11,8 +11,12 @@ package com.evilbird.warcraft.item.unit.resource;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.test.testcase.AssetBundleTestCase;
-import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.unit.gatherer.GathererAssets;
+
+import static com.evilbird.warcraft.common.WarcraftAssetSet.Swamp;
+import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
+import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
 
 /**
  * Instances of this unit test validate logic in the {@link GathererAssets}
@@ -24,6 +28,6 @@ public class ResourceAssetsTest extends AssetBundleTestCase<ResourceAssets>
 {
     @Override
     protected ResourceAssets getAssetBundle(AssetManager assets) {
-        return new ResourceAssets(assets, UnitType.GoldMine);
+        return new ResourceAssets(assets, GoldMine, new WarcraftContext(Orc, Swamp));
     }
 }

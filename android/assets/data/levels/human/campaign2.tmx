@@ -16,7 +16,7 @@
   <image source="../../textures/orc/building/winter/watch_tower.png" width="64" height="128"/>
  </tileset>
  <tileset firstgid="393" name="Circle of Power" tilewidth="64" tileheight="64" tilecount="1" columns="1">
-  <image source="../../textures/neutral/building/perennial/circle_of_power.png" width="64" height="64"/>
+  <image source="../../textures/neutral/building/winter/circle_of_power.png" width="64" height="64"/>
  </tileset>
  <tileset firstgid="394" name="Grunt" tilewidth="72" tileheight="72" tilecount="96" columns="8">
   <tileoffset x="-16" y="16"/>
