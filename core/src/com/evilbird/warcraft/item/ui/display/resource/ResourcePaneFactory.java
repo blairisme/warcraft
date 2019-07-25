@@ -38,11 +38,6 @@ public class ResourcePaneFactory implements GameFactory<ResourcePane>
     }
 
     @Override
-    public ResourcePane get(Identifier type) {
-        return builder.build();
-    }
-
-    @Override
     public void load(Identifier context) {
         assets = new ResourcePaneAssets(manager, (WarcraftContext)context);
         builder = new ResourcePaneBuilder(assets);
@@ -52,5 +47,10 @@ public class ResourcePaneFactory implements GameFactory<ResourcePane>
     @Override
     public void unload(Identifier context) {
         assets.unload();
+    }
+
+    @Override
+    public ResourcePane get(Identifier type) {
+        return builder.build();
     }
 }

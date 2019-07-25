@@ -10,12 +10,14 @@
 package com.evilbird.warcraft.item.ui.display.resource;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.common.WarcraftContext;
-import com.evilbird.warcraft.common.WarcraftFaction;
 
-import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
+import java.util.Map;
+
+import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 
 /**
  * Provides access to the assets that are required to display a
@@ -23,43 +25,31 @@ import static com.evilbird.engine.common.graphics.TextureUtils.getDrawable;
  *
  * @author Blair Butterworth
  */
-public class ResourcePaneAssets
+public class ResourcePaneAssets extends AssetBundle
 {
-    private AssetManager assets;
-    private ResourcePaneAssetManifest manifest;
-
-    public ResourcePaneAssets(AssetManager assets, WarcraftContext context) {
-        this(assets, context.getFaction());
+    public ResourcePaneAssets(AssetManager manager, WarcraftContext context) {
+        super(manager, assetPathVariables(context));
+        register("icons", "data/textures/common/menu/resource_icon.png");
+        register("background", "data/textures/${faction}/menu/resource_panel.png");
     }
 
-    public ResourcePaneAssets(AssetManager assets, WarcraftFaction faction) {
-        this.assets = assets;
-        this.manifest = new ResourcePaneAssetManifest(faction);
+    private static Map<String, String> assetPathVariables(WarcraftContext context) {
+        return Maps.of("faction", toSnakeCase(context.getFaction().name()));
     }
 
     public Drawable getBackground() {
-        return getDrawable(assets, manifest.getBackground());
+        return getDrawable("background");
     }
 
     public Drawable getGoldIcon() {
-        return getDrawable(assets, manifest.getIcons(), 0, 0, 14, 14);
+        return getDrawable("icons", 0, 0, 14, 14);
     }
 
     public Drawable getOilIcon() {
-        return getDrawable(assets, manifest.getIcons(), 0, 28, 14, 14);
+        return getDrawable("icons", 0, 28, 14, 14);
     }
 
     public Drawable getWoodIcon() {
-        return getDrawable(assets, manifest.getIcons(), 0, 14, 14, 14);
-    }
-
-    public void load() {
-        assets.load(manifest.getIcons(), Texture.class);
-        assets.load(manifest.getBackground(), Texture.class);
-    }
-
-    public void unload() {
-        assets.unload(manifest.getIcons());
-        assets.unload(manifest.getBackground());
+        return getDrawable("icons", 0, 14, 14, 14);
     }
 }
