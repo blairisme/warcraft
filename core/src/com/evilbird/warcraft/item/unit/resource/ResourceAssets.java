@@ -24,6 +24,7 @@ import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.LARGE;
+import static com.evilbird.warcraft.item.unit.UnitDimensions.LARGE_NAME;
 
 /**
  * Provides access to the assets that are required to display a
@@ -47,7 +48,7 @@ public class ResourceAssets extends AssetBundle
     private static Map<String, String> assetPathVariables(UnitType type, WarcraftContext context) {
         return of("name", toSnakeCase(type.name()),
                 "season", toSnakeCase(context.getAssetSet().name()),
-                "size", LARGE);
+                "size", LARGE_NAME);
     }
 
     public Texture getGeneralTexture() {

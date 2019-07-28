@@ -25,8 +25,8 @@ import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.audio.SoundUtils;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.TextureUtils;
+import com.evilbird.engine.common.text.StringSubstitutor;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.text.StringSubstitutor;
 
 import java.util.ArrayList;
 import java.util.Arrays;

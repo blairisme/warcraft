@@ -12,6 +12,11 @@ package com.evilbird.engine.common.text;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Instances of this unit test validate the {@link CaseUtils} class.
+ *
+ * @author Blair Butterworth
+ */
 public class CaseUtilsTest
 {
     @Test
