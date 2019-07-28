@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.unit.building;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.state.WarcraftContext;
@@ -34,14 +34,16 @@ public abstract class BuildingFactoryBase implements GameFactory<Building>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
         assets = new BuildingAssets(manager, type, (WarcraftContext)context);
         builder = new BuildingBuilder(assets);
         assets.load();
     }
 
     @Override
-    public void unload(Identifier context) {
-        assets.unload();
+    public void unload(GameContext context) {
+        if (assets != null) {
+            assets.unload();
+        }
     }
 }

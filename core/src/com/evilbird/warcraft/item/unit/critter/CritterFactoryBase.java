@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.unit.critter;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.UnitType;
 
@@ -31,12 +31,12 @@ public abstract class CritterFactoryBase implements GameFactory<Critter>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
         assets.load();
     }
 
     @Override
-    public void unload(Identifier context) {
+    public void unload(GameContext context) {
         assets.unload();
     }
 }

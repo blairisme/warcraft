@@ -13,6 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceControls;
 import com.evilbird.engine.device.DeviceDisplay;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
 import com.evilbird.warcraft.item.ui.display.HudControl;
 import com.evilbird.warcraft.item.ui.display.HudType;
@@ -46,7 +47,7 @@ public class ControlPaneFactoryTest extends GameFactoryTestCase<ControlPaneFacto
     }
 
     @Override
-    protected Collection<Identifier> getLoadContexts() {
+    protected Collection<GameContext> getLoadContexts() {
         return Arrays.asList(
             new WarcraftContext(Human, Summer),
             new WarcraftContext(Orc, Winter));

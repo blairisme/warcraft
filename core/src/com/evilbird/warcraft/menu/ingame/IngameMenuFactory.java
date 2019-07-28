@@ -17,6 +17,7 @@ import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateService;
@@ -82,15 +83,17 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
         assets = new IngameMenuAssets(manager, (WarcraftContext)context);
         builder = new IngameMenuBuilder(display, assets);
         assets.load();
     }
 
     @Override
-    public void unload(Identifier context) {
-        assets.unload();
+    public void unload(GameContext context) {
+        if (assets != null) {
+            assets.unload();
+        }
     }
 
     private IngameMenu setLayout(IngameMenu menu, Identifier identifier) {

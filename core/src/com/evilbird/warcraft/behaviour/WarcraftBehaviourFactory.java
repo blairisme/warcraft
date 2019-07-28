@@ -13,6 +13,7 @@ import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.behaviour.CompositeBehaviour;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourFactory;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviours;
 import com.evilbird.warcraft.behaviour.scenario.ScenarioBehaviourFactory;
@@ -49,11 +50,11 @@ public class WarcraftBehaviourFactory implements BehaviourFactory
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
     }
 
     @Override
-    public void unload(Identifier context) {
+    public void unload(GameContext context) {
     }
 
     @Override

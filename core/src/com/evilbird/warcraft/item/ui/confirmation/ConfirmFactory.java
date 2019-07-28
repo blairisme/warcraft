@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.AnimatedItem;
@@ -51,14 +52,16 @@ public class ConfirmFactory implements GameFactory<Item>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
         assets = new ConfirmAssets(manager);
         assets.load();
     }
 
     @Override
-    public void unload(Identifier context) {
-        assets.unload();
+    public void unload(GameContext context) {
+        if (assets != null) {
+            assets.unload();
+        }
     }
 
     @Override

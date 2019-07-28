@@ -13,6 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceDisplay;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
 import com.evilbird.warcraft.item.layer.LayerGroupStyle;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
@@ -45,7 +46,7 @@ public class WallFactoryTest extends GameFactoryTestCase<WallFactory>
     }
 
     @Override
-    protected Collection<Identifier> getLoadContexts() {
+    protected Collection<GameContext> getLoadContexts() {
         return Arrays.asList(
             new WarcraftContext(Human, Summer),
             new WarcraftContext(Human, Swamp),

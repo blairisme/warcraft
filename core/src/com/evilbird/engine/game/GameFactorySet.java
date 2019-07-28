@@ -62,14 +62,14 @@ public class GameFactorySet<V> implements GameFactory<V>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
         for (GameFactory<? extends V> delegate : providers.values()) {
             delegate.load(context);
         }
     }
 
     @Override
-    public void unload(Identifier context) {
+    public void unload(GameContext context) {
         for (GameFactory<? extends V> delegate : providers.values()) {
             delegate.unload(context);
         }

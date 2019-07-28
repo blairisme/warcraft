@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.unit.gatherer;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.UnitType;
 
@@ -33,14 +33,16 @@ public abstract class GathererFactoryBase implements GameFactory<Gatherer>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
         this.assets = new GathererAssets(manager, type);
         this.builder = new GathererBuilder(assets);
         assets.load();
     }
 
     @Override
-    public void unload(Identifier context) {
-        assets.unload();
+    public void unload(GameContext context) {
+        if (assets != null) {
+            assets.unload();
+        }
     }
 }

@@ -11,11 +11,36 @@ package com.evilbird.warcraft.item.ui.display.control.common;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BlizzardButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BloodlustButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildAdvancedButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildHumanWall;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildOrcWall;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildSimpleButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DeathAndDecayButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DeathCoilButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ExorcismButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.FireballButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.FlameShieldButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GatherButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HasteButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HealingButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HolyVisionButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.InvisibilityButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.LightningButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PolymorphButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RaiseDeadButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RepairButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RunesButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.SlowButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TouchOfDarknessButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.UnholyArmourButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.WhirlwindButton;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.HumanArmourPlating1;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.HumanArmourPlating2;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.HumanDefend;
@@ -176,13 +201,13 @@ public class IconLayout
         Castle,                 Fortress,           GryphonAviary,          DragonRoost,            GoldMine,
         GuardTower,             CannonTower,        LookoutTower,           BombardTower,           OilPatch,
         DarkPortal,             CircleOfPower,      Runestone,              HumanMove,              OrcMove,
-        ActionButtonType.RepairButton,           ActionButtonType.GatherButton,       ActionButtonType.BuildSimpleButton,      ActionButtonType.BuildAdvancedButton,    OrcDeposit,
-        HumanDeposit,           ActionButtonType.CancelButton,       ActionButtonType.BuildHumanWall,         ActionButtonType.BuildOrcWall,           ActionButtonType.SlowButton,
-        ActionButtonType.InvisibilityButton,     ActionButtonType.HasteButton,        ActionButtonType.RunesButton,            ActionButtonType.UnholyArmourButton,     ActionButtonType.LightningButton,
-        ActionButtonType.FlameShieldButton,      ActionButtonType.FireballButton,     ActionButtonType.TouchOfDarknessButton,  ActionButtonType.DeathAndDecayButton,    ActionButtonType.WhirlwindButton,
-        ActionButtonType.BlizzardButton,         ActionButtonType.HolyVisionButton,   ActionButtonType.HealingButton,          ActionButtonType.DeathCoilButton,        Unknown,
-        ActionButtonType.ExorcismButton,         EyeOfKilrogg,       ActionButtonType.BloodlustButton,        Unknown,                ActionButtonType.RaiseDeadButton,
-        ActionButtonType.PolymorphButton,        HumanMeleeAttack,   HumanMeleeDamage1,      Unknown,                OrcMeleeAttack,
+        RepairButton,           GatherButton,       BuildSimpleButton,      BuildAdvancedButton,    OrcDeposit,
+        HumanDeposit,           CancelButton,       BuildHumanWall,         BuildOrcWall,           SlowButton,
+        InvisibilityButton,     HasteButton,        RunesButton,            UnholyArmourButton,     LightningButton,
+        FlameShieldButton,      FireballButton,     TouchOfDarknessButton,  DeathAndDecayButton,    WhirlwindButton,
+        BlizzardButton,         HolyVisionButton,   HealingButton,          DeathCoilButton,        Unknown,
+        ExorcismButton,         EyeOfKilrogg,       BloodlustButton,        Unknown,                RaiseDeadButton,
+        PolymorphButton,        HumanMeleeAttack,   HumanMeleeDamage1,      Unknown,                OrcMeleeAttack,
         OrcMeleeDamage1,        OrcMeleeDamage2,    Unknown,                Unknown,                HumanRangedAttack,
         HumanRangedDamage1,     HumanRangedDamage2, OrcRangedAttack,        OrcRangedDamage1,       OrcRangedDamage2,
         Unknown,                Unknown,            Unknown,                Unknown,                Unknown,

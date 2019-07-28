@@ -97,8 +97,7 @@ public class WarcraftStateService implements StateService
     public GameContext context(StateIdentifier identifier) {
         FileHandle handle = resolve(identifier);
         try (Reader reader = handle.reader()) {
-            WarcraftContextNew foo = serializer.deserialize(reader, WarcraftContextNew.class);
-            return new WarcraftContext(foo.getFaction(), foo.getAssetSet());
+            return serializer.deserialize(reader, WarcraftContext.class);
         }
         catch (IOException error){
             throw new StateLoadError(error);

@@ -13,6 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceDisplay;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.test.utils.AssetFileHandleResolver;
 import com.evilbird.test.utils.TestAssetManager;
@@ -50,9 +51,19 @@ public abstract class GameFactoryTestCase<T extends GameFactory> extends GameTes
     protected abstract T newFactory(DeviceDisplay display, AssetManager assets);
 
     @Test
-    public void loadUnloadTest() {
+    public void loadTest() {
         Assert.assertEquals(0, assets.getAssetNames().size);
-        for (Identifier context: getLoadContexts()) {
+        for (GameContext context : getLoadContexts()) {
+            factory.load(context);
+            assets.finishLoading();
+            Assert.assertTrue(assets.getAssetNames().size > 0);
+        }
+    }
+
+    @Test
+    public void unloadTest() {
+        Assert.assertEquals(0, assets.getAssetNames().size);
+        for (GameContext context: getLoadContexts()) {
             factory.load(context);
             assets.finishLoading();
             Assert.assertTrue(assets.getAssetNames().size > 0);
@@ -63,21 +74,31 @@ public abstract class GameFactoryTestCase<T extends GameFactory> extends GameTes
         }
     }
 
-//    @Test
-//    public void unloadBeforeLoadTest() {
-//        Collection<Identifier> contexts = getLoadContexts();
-//        Identifier context = contexts.iterator().next();
-//
-//        factory.unload(context);
-//        factory.load(context);
-//    }
+    @Test
+    public void unloadBeforeLoadTest() {
+        Collection<GameContext> contexts = getLoadContexts();
+        GameContext context = contexts.iterator().next();
 
-    protected abstract Collection<Identifier> getLoadContexts();
+        factory.unload(context);
+        factory.load(context);
+    }
+
+    @Test
+    public void unloadAfterUnloadTest() {
+        Collection<GameContext> contexts = getLoadContexts();
+        GameContext context = contexts.iterator().next();
+
+        factory.load(context);
+        factory.unload(context);
+        factory.unload(context);
+    }
+
+    protected abstract Collection<GameContext> getLoadContexts();
 
     @Test
     public void getTest() throws Exception {
-        Collection<Identifier> contexts = getLoadContexts();
-        Identifier context = contexts.iterator().next();
+        Collection<GameContext> contexts = getLoadContexts();
+        GameContext context = contexts.iterator().next();
 
         factory.load(context);
         assets.finishLoading();

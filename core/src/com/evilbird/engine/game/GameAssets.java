@@ -88,11 +88,11 @@ public class GameAssets
     }
 
     private void unloadContext(GameContext context) {
-//        if (context != null) {
-//            actionFactory.unload(context);
-//            menuFactory.unload(context);
-//            itemFactory.unload(context);
-//            behaviourFactory.unload(context);
-//        }
+        if (context != null) {
+            actionFactory.unload(context);
+            menuFactory.unload(context);
+            itemFactory.unload(context);
+            behaviourFactory.unload(context);
+        }
     }
 }

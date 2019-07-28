@@ -22,7 +22,7 @@ import com.google.gson.JsonSerializer;
 import javax.inject.Inject;
 import java.lang.reflect.Type;
 
-public class WarcraftContextAdapter implements JsonSerializer<WarcraftContextNew>, JsonDeserializer<WarcraftContextNew>
+public class WarcraftContextAdapter implements JsonSerializer<WarcraftContext>, JsonDeserializer<WarcraftContext>
 {
     private static final String FACTION = "faction";
     private static final String ASSETS = "assets";
@@ -32,7 +32,7 @@ public class WarcraftContextAdapter implements JsonSerializer<WarcraftContextNew
     }
 
     @Override
-    public JsonElement serialize(WarcraftContextNew source, Type type, JsonSerializationContext context) {
+    public JsonElement serialize(WarcraftContext source, Type type, JsonSerializationContext context) {
         JsonObject json = new JsonObject();
         json.add(FACTION, context.serialize(source.getFaction(), Identifier.class));
         json.add(ASSETS, context.serialize(source.getAssetSet(), Identifier.class));
@@ -40,10 +40,10 @@ public class WarcraftContextAdapter implements JsonSerializer<WarcraftContextNew
     }
 
     @Override
-    public WarcraftContextNew deserialize(JsonElement element, Type type, JsonDeserializationContext context) {
+    public WarcraftContext deserialize(JsonElement element, Type type, JsonDeserializationContext context) {
         JsonObject json = element.getAsJsonObject();
         WarcraftFaction faction = context.deserialize(json.get(FACTION), Identifier.class);
         WarcraftSeason season = context.deserialize(json.get(ASSETS), Identifier.class);
-        return new WarcraftContextNew(faction, season);
+        return new WarcraftContext(faction, season);
     }
 }

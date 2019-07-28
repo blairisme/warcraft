@@ -9,8 +9,6 @@
 
 package com.evilbird.engine.game;
 
-import com.evilbird.engine.common.lang.Identifier;
-
 /**
  * Implementors of this interface define a unique game variation under which
  * the game can be run, altering the appearance and behaviour of the game in a
@@ -19,6 +17,6 @@ import com.evilbird.engine.common.lang.Identifier;
  *
  * @author Blair Butterworth
  */
-public interface GameContext extends Identifier
+public interface GameContext
 {
 }

@@ -15,6 +15,7 @@ import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.warcraft.menu.intro.IntroMenuType;
@@ -50,13 +51,12 @@ public class MainMenuFactory implements GameFactory<MainMenu>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
         assets.load();
     }
 
     @Override
-    public void unload(Identifier context) {
-        assets.unload();
+    public void unload(GameContext context) {
     }
 
     @Override

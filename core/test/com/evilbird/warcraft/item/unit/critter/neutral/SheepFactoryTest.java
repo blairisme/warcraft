@@ -13,6 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceDisplay;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.state.WarcraftContext;
@@ -40,7 +41,7 @@ public class SheepFactoryTest extends GameFactoryTestCase<SheepFactory>
     }
 
     @Override
-    protected Collection<Identifier> getLoadContexts() {
+    protected Collection<GameContext> getLoadContexts() {
         return Arrays.asList(new WarcraftContext(Human, Swamp), new WarcraftContext(Orc, Swamp));
     }
 

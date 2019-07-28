@@ -13,6 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.state.WarcraftContext;
 import org.apache.commons.lang3.Validate;
@@ -45,7 +46,7 @@ public class PlaceholderFactory implements GameFactory<Placeholder>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
         Validate.isInstanceOf(WarcraftContext.class, context);
         load((WarcraftContext)context);
     }
@@ -57,8 +58,10 @@ public class PlaceholderFactory implements GameFactory<Placeholder>
     }
 
     @Override
-    public void unload(Identifier context) {
-        assets.unload();
+    public void unload(GameContext context) {
+        if (assets != null) {
+            assets.unload();
+        }
     }
 
     @Override

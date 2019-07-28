@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="47">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="48">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/summer.png" width="512" height="768"/>
  </tileset>
@@ -58,9 +58,6 @@
  </tileset>
  <tileset firstgid="944" name="Great Hall" tilewidth="128" tileheight="128" tilecount="2" columns="1">
   <image source="../../textures/orc/building/summer/great_hall.png" width="128" height="256"/>
- </tileset>
- <tileset firstgid="946" name="Camera" tilewidth="32" tileheight="32" tilecount="1" columns="1">
-  <image source="../config/o_startpoint.png" width="32" height="32"/>
  </tileset>
  <layer id="1" name="Map" width="64" height="64">
   <data encoding="base64">
@@ -168,7 +165,6 @@
    <property name="Type" value="Player"/>
    <property name="Wood" type="float" value="1000"/>
   </properties>
-  <object id="46" name="Camera1" type="Camera" gid="946" x="608" y="1312" width="32" height="32"/>
   <object id="37" name="GreatHall1" type="GreatHall" gid="944" x="448" y="1440" width="128" height="128"/>
   <object id="38" name="PigFarm1" type="PigFarm" gid="942" x="608" y="1440" width="64" height="64"/>
   <object id="39" name="Grunt1" type="Grunt" gid="726" x="640" y="1248" width="72" height="72"/>
@@ -176,6 +172,9 @@
   <object id="41" name="Peon2" type="Peon" gid="622" x="608" y="1312" width="72" height="72"/>
   <object id="42" name="TrollAxethrower1" type="TrollAxethrower" gid="822" x="544" y="1312" width="72" height="72"/>
   <object id="43" name="TrollDestroyer1" type="TrollDestroyer" gid="918" x="416" y="1664" width="88" height="88"/>
+  <object id="47" name="Camera" type="Camera" x="608" y="1312">
+   <point/>
+  </object>
  </objectgroup>
  <layer id="7" name="OpaqueFog" width="64" height="64">
   <data encoding="base64">

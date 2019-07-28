@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 
 /**
@@ -33,10 +34,14 @@ import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
  */
 public class IntroMenuAssets extends AssetBundle
 {
-    public IntroMenuAssets(AssetManager manager, IntroMenuType context) {
-        super(manager, pathVariables(context));
+    private  IntroMenuType type;
+
+    public IntroMenuAssets(AssetManager manager, IntroMenuType type) {
+        super(manager, pathVariables(type));
+        this.type = type;
+
         register("background", "data/textures/${faction}/menu/${name}.png");
-        register("font", "data/fonts/philosopher.ttf");
+        register("font", "data/fonts/intro.ttf", BitmapFont.class, fontSize(20));
         register("button", "data/textures/common/menu/button.png");
         register("music", "data/music/4.mp3", Music.class);
         register("strings", "data/strings/${faction}/menu/${name}", I18NBundle.class);
@@ -48,6 +53,10 @@ public class IntroMenuAssets extends AssetBundle
     private static Map<String, String> pathVariables(IntroMenuType type) {
         return Maps.of("faction", toSnakeCase(type.getCampaign().getFaction().name()),
                 "name", "intro" + type.getIndex());
+    }
+
+    public IntroMenuType getType() {
+        return type;
     }
 
     public Drawable getBackground() {

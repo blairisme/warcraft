@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.layer;
 
 import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.layer.fog.FogFactory;
 import com.evilbird.warcraft.item.layer.forest.ForestFactory;
@@ -59,7 +60,7 @@ public class LayerFactory implements GameFactory<Layer>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
         fogFactory.load(context);
         forestFactory.load(context);
         terrainFactory.load(context);
@@ -67,6 +68,10 @@ public class LayerFactory implements GameFactory<Layer>
     }
 
     @Override
-    public void unload(Identifier context) {
+    public void unload(GameContext context) {
+        fogFactory.unload(context);
+        forestFactory.unload(context);
+        terrainFactory.unload(context);
+        wallFactory.unload(context);
     }
 }

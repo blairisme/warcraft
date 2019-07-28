@@ -12,8 +12,10 @@ package com.evilbird.warcraft.menu.main;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceDisplay;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
 import com.evilbird.warcraft.state.WarcraftContext;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,7 +39,7 @@ public class MainMenuFactoryTest extends GameFactoryTestCase<MainMenuFactory>
     }
 
     @Override
-    protected Collection<Identifier> getLoadContexts() {
+    protected Collection<GameContext> getLoadContexts() {
         return Collections.singletonList(new WarcraftContext(Human, Winter));
     }
 
@@ -49,5 +51,10 @@ public class MainMenuFactoryTest extends GameFactoryTestCase<MainMenuFactory>
     @Override
     protected Map<String, Object> getValueProperties() {
         return Collections.emptyMap();
+    }
+
+    @Test
+    @Override
+    public void unloadTest() {
     }
 }

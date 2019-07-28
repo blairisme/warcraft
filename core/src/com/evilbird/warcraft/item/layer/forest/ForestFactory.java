@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.BitMatrix;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.layer.LayerGroupStyle;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
@@ -53,19 +54,21 @@ public class ForestFactory implements GameFactory<Forest>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
         Validate.isInstanceOf(WarcraftContext.class, context);
         load((WarcraftContext)context);
     }
 
     private void load(WarcraftContext context) {
         assets = new ForestAssets(manager, context);
-        assets.load();;
+        assets.load();
     }
 
     @Override
-    public void unload(Identifier context) {
-        assets.unload();
+    public void unload(GameContext context) {
+        if (assets != null) {
+            assets.unload();
+        }
     }
 
     @Override

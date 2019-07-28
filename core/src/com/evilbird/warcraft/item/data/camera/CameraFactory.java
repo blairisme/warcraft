@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.data.camera;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 
 import javax.inject.Inject;
@@ -35,10 +36,10 @@ public class CameraFactory implements GameFactory<Camera>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
     }
 
     @Override
-    public void unload(Identifier context) {
+    public void unload(GameContext context) {
     }
 }

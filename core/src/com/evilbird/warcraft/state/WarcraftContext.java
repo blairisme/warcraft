@@ -9,8 +9,6 @@
 
 package com.evilbird.warcraft.state;
 
-import com.evilbird.engine.common.function.ParameterizedSupplier;
-import com.evilbird.engine.common.text.CaseUtils;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.common.WarcraftSeason;
@@ -25,7 +23,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * @author Blair Butterworth
  */
 @JsonAdapter(WarcraftContextAdapter.class)
-public class WarcraftContext implements GameContext, ParameterizedSupplier<String, String>
+public class WarcraftContext implements GameContext
 {
     private WarcraftFaction faction;
     private WarcraftSeason assets;
@@ -41,17 +39,6 @@ public class WarcraftContext implements GameContext, ParameterizedSupplier<Strin
 
     public WarcraftSeason getAssetSet() {
         return assets;
-    }
-
-    @Override
-    public String get(String key) {
-        if (key.equals("faction")) {
-            return CaseUtils.toSnakeCase(faction.name());
-        }
-        if (key.equals("assets")) {
-            return CaseUtils.toSnakeCase(assets.name());
-        }
-        return null;
     }
 
     @Override

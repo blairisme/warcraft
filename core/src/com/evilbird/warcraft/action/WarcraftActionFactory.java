@@ -14,6 +14,7 @@ import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.attack.AttackFactory;
 import com.evilbird.warcraft.action.camera.CameraActions;
@@ -79,11 +80,11 @@ public class WarcraftActionFactory implements ActionFactory
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
     }
 
     @Override
-    public void unload(Identifier context) {
+    public void unload(GameContext context) {
     }
 
     @Override

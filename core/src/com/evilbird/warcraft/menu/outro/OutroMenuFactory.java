@@ -14,6 +14,7 @@ import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.menu.MenuIdentifier;
@@ -52,15 +53,17 @@ public class OutroMenuFactory implements GameFactory<OutroMenu>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
         assets = new OutroMenuAssets(manager, (WarcraftContext)context);
         builder = new OutroMenuBuilder(display, assets);
         assets.load();
     }
 
     @Override
-    public void unload(Identifier context) {
-        assets.unload();
+    public void unload(GameContext context) {
+        if (assets != null) {
+            assets.unload();
+        }
     }
 
     @Override

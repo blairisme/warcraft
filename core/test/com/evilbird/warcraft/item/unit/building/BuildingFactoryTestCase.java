@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.unit.building;
 
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -33,7 +34,7 @@ public abstract class BuildingFactoryTestCase<T extends BuildingFactoryBase> ext
     protected abstract UnitType getBuildType();
 
     @Override
-    protected Collection<Identifier> getLoadContexts() {
+    protected Collection<GameContext> getLoadContexts() {
         UnitType type = getBuildType();
         WarcraftFaction faction = type.getFaction();
         return Arrays.asList(

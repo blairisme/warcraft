@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.UnitType;
 
@@ -33,14 +33,16 @@ public abstract class CombatantFactoryBase implements GameFactory<Combatant>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
         assets = new CombatantAssets(manager, type);
         builder = new CombatantBuilder(assets);
         assets.load();
     }
 
     @Override
-    public void unload(Identifier context) {
-        assets.unload();
+    public void unload(GameContext context) {
+        if (assets != null) {
+            assets.unload();
+        }
     }
 }

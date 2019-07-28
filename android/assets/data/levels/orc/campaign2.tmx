@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="47">
- <tileset firstgid="1" name="winter" tilewidth="32" tileheight="32" tilecount="384" columns="16">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="48">
+ <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/winter.png" width="512" height="768"/>
  </tileset>
  <tileset firstgid="385" name="Grunt" tilewidth="72" tileheight="72" tilecount="96" columns="8">
@@ -40,9 +40,6 @@
  </tileset>
  <tileset firstgid="867" name="CircleOfPower" tilewidth="64" tileheight="64" tilecount="1" columns="1">
   <image source="../../textures/neutral/building/winter/circle_of_power.png" width="64" height="64"/>
- </tileset>
- <tileset firstgid="868" name="Camera" tilewidth="32" tileheight="32" tilecount="1" columns="1">
-  <image source="../config/o_startpoint.png" width="32" height="32"/>
  </tileset>
  <layer id="1" name="Map" width="64" height="64">
   <properties>
@@ -136,7 +133,9 @@
   <object id="19" name="WatchTower1" type="WatchTower" gid="863" x="224" y="1792" width="64" height="64"/>
   <object id="20" name="WatchTower2" type="WatchTower" gid="863" x="0" y="1792" width="64" height="64"/>
   <object id="23" name="CircleOfPower1" type="CircleOfPower" gid="867" x="64" y="1344" width="64" height="64"/>
-  <object id="46" name="Camera1" type="Camera" gid="868" x="1472" y="1728" width="32" height="32"/>
+  <object id="47" name="Camera" type="Camera" x="1472" y="1728">
+   <point/>
+  </object>
  </objectgroup>
  <layer id="7" name="OpaqueFog" width="64" height="64">
   <properties>

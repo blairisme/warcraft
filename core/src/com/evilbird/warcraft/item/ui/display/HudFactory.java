@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.ui.display;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
@@ -53,12 +54,14 @@ public class HudFactory implements GameFactory<Item>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
         controlPaneFactory.load(context);
         resourcePaneFactory.load(context);
     }
 
     @Override
-    public void unload(Identifier context) {
+    public void unload(GameContext context) {
+        controlPaneFactory.unload(context);
+        resourcePaneFactory.unload(context);
     }
 }

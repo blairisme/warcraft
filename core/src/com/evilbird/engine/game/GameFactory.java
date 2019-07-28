@@ -38,7 +38,7 @@ public interface GameFactory <T>
      *
      * @param context   a context identifier.
      */
-    void load(Identifier context);
+    void load(GameContext context);
 
     /**
      * Instructs the factory to unload any previously loaded persisted assets
@@ -46,5 +46,5 @@ public interface GameFactory <T>
      *
      * @param context   a context identifier.
      */
-    void unload(Identifier context);
+    void unload(GameContext context);
 }

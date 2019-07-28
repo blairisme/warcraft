@@ -13,6 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import org.apache.commons.lang3.Validate;
 
@@ -42,15 +43,17 @@ public class ProjectileFactory implements GameFactory<Projectile>
     }
 
     @Override
-    public void load(Identifier identifier) {
+    public void load(GameContext identifier) {
         assets = new ProjectileAssets(manager);
         builder = new ProjectileBuilder(assets, pool);
         assets.load();
     }
 
     @Override
-    public void unload(Identifier context) {
-        assets.unload();
+    public void unload(GameContext context) {
+        if (assets != null) {
+            assets.unload();
+        }
     }
 
     @Override

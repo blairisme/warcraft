@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.layer.terrain;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerUtils;
@@ -30,11 +31,11 @@ public class TerrainFactory implements GameFactory<Terrain>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
     }
 
     @Override
-    public void unload(Identifier context) {
+    public void unload(GameContext context) {
     }
 
     @Override

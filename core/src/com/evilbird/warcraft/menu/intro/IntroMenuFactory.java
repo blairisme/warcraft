@@ -13,6 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
+import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.state.WarcraftCampaign;
 import org.apache.commons.lang3.Validate;
@@ -44,18 +45,26 @@ public class IntroMenuFactory implements GameFactory<IntroMenu>
     }
 
     @Override
-    public void load(Identifier context) {
+    public void load(GameContext context) {
+//        if (assets != null) {
+//            assets.load();
+//        }
     }
 
     private void load(IntroMenuType type) {
-        assets = new IntroMenuAssets(manager, type);
-        builder = new IntroMenuBuilder(display, assets);
-        assets.loadSynchronous();
+        //if (assets == null || assets.getType() != type) {
+        //    unload();
+            assets = new IntroMenuAssets(manager, type);
+            builder = new IntroMenuBuilder(display, assets);
+            assets.loadSynchronous();
+        //}
     }
 
     @Override
-    public void unload(Identifier context) {
-        assets.unload();
+    public void unload(GameContext context) {
+//        if (assets != null) {
+//            assets.unload();
+//        }
     }
 
     @Override
