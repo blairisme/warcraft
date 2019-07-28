@@ -19,7 +19,8 @@ public enum FileType
     JSON,
     MP3,
     PNG,
-    TTF;
+    TTF,
+    TMX;
 
     public String getFileExtension() {
         return "." +  getExtension();
@@ -31,6 +32,7 @@ public enum FileType
             case JSON: return "json";
             case PNG: return "png";
             case TTF: return "ttf";
+            case TMX: return "tmx";
             default: throw new UnsupportedOperationException();
         }
     }

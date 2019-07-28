@@ -22,6 +22,11 @@ import com.google.gson.JsonSerializer;
 import javax.inject.Inject;
 import java.lang.reflect.Type;
 
+/**
+ * Serializes and deserializes {@link WarcraftContext WarcraftContexts}.
+ *
+ * @author Blair Butterworth
+ */
 public class WarcraftContextAdapter implements JsonSerializer<WarcraftContext>, JsonDeserializer<WarcraftContext>
 {
     private static final String FACTION = "faction";

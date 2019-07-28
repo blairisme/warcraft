@@ -1,38 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="80">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="81">
  <tileset firstgid="1" name="terrain" tilewidth="32" tileheight="32" tilecount="384" columns="16">
-  <image source="terrain.png" width="512" height="768"/>
+  <image source="../asset/texture/terrain.png" width="512" height="768"/>
  </tileset>
  <tileset firstgid="385" name="Footman" tilewidth="72" tileheight="72" tilecount="60" columns="5">
   <tileoffset x="-16" y="16"/>
-  <image source="footman.png" width="360" height="864"/>
+  <image source="../asset/texture/footman.png" width="360" height="864"/>
  </tileset>
  <tileset firstgid="445" name="Peasant" tilewidth="72" tileheight="72" tilecount="65" columns="5">
   <tileoffset x="-16" y="16"/>
-  <image source="peasant.png" width="360" height="936"/>
+  <image source="../asset/texture/peasant.png" width="360" height="936"/>
  </tileset>
  <tileset firstgid="510" name="Grunt" tilewidth="72" tileheight="72" tilecount="60" columns="5">
   <tileoffset x="-16" y="16"/>
   <grid orientation="orthogonal" width="32" height="32"/>
-  <image source="grunt.png" width="360" height="864"/>
+  <image source="../asset/texture/grunt.png" width="360" height="864"/>
  </tileset>
  <tileset firstgid="570" name="Townhall" tilewidth="128" tileheight="128" tilecount="2" columns="1">
-  <image source="townhall.png" width="128" height="256"/>
+  <image source="../asset/texture/townhall.png" width="128" height="256"/>
  </tileset>
  <tileset firstgid="572" name="Farm" tilewidth="64" tileheight="64" tilecount="2" columns="1">
-  <image source="farm.png" width="64" height="128"/>
+  <image source="../asset/texture/farm.png" width="64" height="128"/>
  </tileset>
  <tileset firstgid="574" name="Barracks" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="barracks.png" width="96" height="192"/>
+  <image source="../asset/texture/barracks.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="576" name="GoldMine" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="gold_mine.png" width="96" height="192"/>
- </tileset>
- <tileset firstgid="578" name="Camera" tilewidth="64" tileheight="64" tilecount="1" columns="1">
-  <image source="camera.png" width="64" height="64"/>
- </tileset>
- <tileset firstgid="579" name="Misc" tilewidth="32" tileheight="32" tilecount="1" columns="1">
-  <image source="x_startpoint.png" width="32" height="32"/>
+  <image source="../asset/texture/gold_mine.png" width="96" height="192"/>
  </tileset>
  <layer id="1" name="Map" width="32" height="32">
   <properties>
@@ -79,10 +73,8 @@
   <object id="66" name="Footman1" type="Footman" gid="385" x="320" y="448" width="72" height="72"/>
   <object id="67" name="Footman2" type="Footman" gid="385" x="544" y="256" width="72" height="72"/>
   <object id="68" name="Footman3" type="Footman" gid="385" x="672" y="192" width="72" height="72"/>
-  <object id="55" name="Camera" type="Camera" gid="578" x="432" y="365" width="64" height="64" visible="0">
-   <properties>
-    <property name="Touchable" type="bool" value="true"/>
-   </properties>
+  <object id="80" name="Camera" type="Camera" x="448" y="352">
+   <point/>
   </object>
  </objectgroup>
  <objectgroup id="15" name="Player2">

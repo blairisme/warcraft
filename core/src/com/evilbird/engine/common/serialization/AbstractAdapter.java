@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.common.serialization;
 
+import com.evilbird.engine.common.reflect.ReflectionUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

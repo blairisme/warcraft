@@ -9,10 +9,11 @@
 
 package com.evilbird.warcraft.state;
 
-import com.evilbird.engine.common.file.FileType;
+import com.badlogic.gdx.files.FileHandle;
 import com.evilbird.engine.state.StateIdentifier;
 
-import java.io.File;
+import static com.evilbird.engine.common.file.FileType.JSON;
+import static org.apache.commons.io.FilenameUtils.getBaseName;
 
 /**
  * Uniquely identifiers a state in the warcraft game using a user provided
@@ -22,26 +23,28 @@ import java.io.File;
  */
 public class WarcraftSave implements StateIdentifier
 {
-    private static final String SAVES = "saves";
-    private static final String JSON = FileType.JSON.getFileExtension();
-
     private String name;
+    private String file;
 
-    public WarcraftSave(String name) {
-        this.name = name;
+    public WarcraftSave(FileHandle handle) {
+        this(handle.name());
+    }
+
+    public WarcraftSave(String path) {
+        this.name = getBaseName(path);
+        this.file = name + JSON.getFileExtension();
     }
 
     public String getName() {
         return name;
     }
 
+    public String getFileName() {
+        return file;
+    }
+
     @Override
     public String toString() {
         return name;
-    }
-
-
-    public String getFilePath() {
-        return SAVES + File.separator + name + JSON;
     }
 }

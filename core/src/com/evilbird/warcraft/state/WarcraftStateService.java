@@ -30,8 +30,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Instances of this {@link StateService} provide access to {@link WarcraftState
@@ -42,7 +44,8 @@ import java.util.List;
  */
 public class WarcraftStateService implements StateService
 {
-    private static final String SAVES = "saves";
+    private static final String SAVE_DIRECTORY = "saves";
+    private static final String ASSET_DIRECTORY = "data/levels";
 
     private Serializer serializer;
     private FileHandleResolver deviceStorage;
@@ -57,10 +60,10 @@ public class WarcraftStateService implements StateService
         this(devices.getFileHandleResolver(), assets.getFileHandleResolver(), serializer);
     }
 
-    public WarcraftStateService(FileHandleResolver devices, FileHandleResolver assets, JsonSerializer serializer) {
+    public WarcraftStateService(FileHandleResolver storage, FileHandleResolver assets, JsonSerializer serializer) {
         this.serializer = serializer;
+        this.deviceStorage = storage;
         this.assetStorage = assets;
-        this.deviceStorage = devices;
     }
 
     @Override
@@ -79,18 +82,12 @@ public class WarcraftStateService implements StateService
     }
 
     private List<Identifier> listSaves() {
-        return Collections.emptyList();
-
-//        try {
-//            List<Identifier> result = new ArrayList<>();
-//            for (String path : deviceStorage.list(SAVES)) {
-//                result.add(toState(path));
-//            }
-//            return result;
-//        }
-//        catch (IOException error){
-//            throw new StateLoadError(error);
-//        }
+        try {
+            return saveFiles().stream().map(WarcraftSave::new).collect(toList());
+        }
+        catch (Throwable error){
+            throw new StateLoadError(error);
+        }
     }
 
     @Override
@@ -140,12 +137,28 @@ public class WarcraftStateService implements StateService
     private FileHandle resolve(StateIdentifier identifier) {
         if (identifier instanceof WarcraftSave) {
             WarcraftSave save = (WarcraftSave)identifier;
-            return deviceStorage.resolve(save.getFilePath());
+            return saveFile(save.getFileName());
         }
         if (identifier instanceof WarcraftCampaign) {
             WarcraftCampaign campaign = (WarcraftCampaign)identifier;
-            return assetStorage.resolve(campaign.getFilePath());
+            return assetFile(campaign.getFactionName(), campaign.getFileName());
         }
-        throw new UnsupportedOperationException();
+        throw new IllegalArgumentException();
+    }
+
+    private Collection<FileHandle> saveFiles() {
+        FileHandle saves = deviceStorage.resolve(SAVE_DIRECTORY);
+        return Arrays.asList(saves.list());
+    }
+
+    private FileHandle saveFile(String name) {
+        FileHandle saves = deviceStorage.resolve(SAVE_DIRECTORY);
+        return saves.child(name);
+    }
+
+    private FileHandle assetFile(String parent, String name) {
+        FileHandle assets = assetStorage.resolve(ASSET_DIRECTORY);
+        FileHandle faction = assets.child(parent);
+        return faction.child(name);
     }
 }

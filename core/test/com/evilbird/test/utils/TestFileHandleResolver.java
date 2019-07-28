@@ -13,7 +13,6 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 
 import java.io.File;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
@@ -37,6 +36,11 @@ public class TestFileHandleResolver implements FileHandleResolver
         responses.put(name, handle);
     }
 
+    public String fullPath(String relativePath) {
+        FileHandle handle = resolve(relativePath);
+        return handle.path();
+    }
+
     @Override
     public FileHandle resolve(String name) {
         if (responses.containsKey(name)) {
@@ -51,8 +55,7 @@ public class TestFileHandleResolver implements FileHandleResolver
     public static FileHandle getHandle(String name) {
         try {
             URL url = TestFileHandleResolver.class.getResource(name);
-            URI uri = url.toURI();
-            File file = new File(uri);
+            File file = url != null ? new File(url.toURI()) : new File(name);
             return new FileHandle(file);
         }
         catch (URISyntaxException error) {

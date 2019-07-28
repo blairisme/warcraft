@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.state;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -77,17 +78,13 @@ public class LevelLoader
     private ItemFactory itemFactory;
 
     public LevelLoader(Device device, ItemFactory itemFactory) {
-        this(itemFactory, new TiledMapLoader(device.getAssetStorage()));
+        this(itemFactory, device.getAssetStorage());
     }
 
     @Inject
-    public LevelLoader(ItemFactory itemFactory, TiledMapLoader mapLoader) {
-        this.mapLoader = mapLoader;
+    public LevelLoader(ItemFactory itemFactory, AssetManager assetManager) {
         this.itemFactory = itemFactory;
-    }
-
-    public ItemRoot load(Level identifier) {
-        return load(identifier.getFilePath());
+        this.mapLoader = new TiledMapLoader(assetManager);
     }
 
     public ItemRoot load(String path) {

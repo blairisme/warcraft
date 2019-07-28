@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.common.serialization;
 
+import com.evilbird.engine.common.reflect.ReflectionUtils;
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.game.GameService;
 import com.google.gson.JsonDeserializationContext;

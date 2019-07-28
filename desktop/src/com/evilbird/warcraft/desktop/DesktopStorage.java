@@ -13,6 +13,7 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.evilbird.engine.common.file.RelativeFileHandleResolver;
 import com.evilbird.engine.device.DeviceStorage;
 
 import java.io.File;
@@ -44,7 +45,7 @@ public class DesktopStorage implements DeviceStorage
 
     @Override
     public FileHandleResolver getFileHandleResolver() {
-        return resolver;
+        return new RelativeFileHandleResolver(STORAGE_ROOT, resolver);
     }
 
     @Override

@@ -63,6 +63,7 @@ public class PlayerFactory implements GameFactory<Player>
         player.setIdentifier(objectIdentifier("Player", player));
         player.setPosition(0, 0);
         player.setSize(Float.MAX_VALUE, Float.MAX_VALUE);
+        player.setVisible(true);
         return player;
     }
 

@@ -15,9 +15,7 @@ import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.menu.intro.IntroMenuType;
 
-import java.util.Locale;
-
-import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
+import static com.evilbird.engine.common.file.FileType.JSON;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
 
@@ -58,22 +56,23 @@ public enum WarcraftCampaign implements StateIdentifier, IntroducedState
     Orc13,
     Orc14;
 
-    private static final String PATH = "data/levels/%s/campaign%d.json";
-
-    @Override
-    public MenuIdentifier getIntroductionMenu() {
-        return IntroMenuType.valueOf(name());
+    public WarcraftFaction getFaction() {
+        return this.ordinal() >= Orc1.ordinal() ? Orc : Human;
     }
 
-    public String getFilePath() {
-        return String.format(Locale.getDefault(), PATH, toSnakeCase(getFaction().name()), getIndex());
+    public String getFactionName() {
+        return getFaction().name().toLowerCase();
+    }
+
+    public String getFileName() {
+        return "campaign" + getIndex() + JSON.getFileExtension();
     }
 
     public int getIndex() {
         return ordinal() >= Orc1.ordinal() ? ordinal() - Orc1.ordinal() + 1 : ordinal() + 1;
     }
 
-    public WarcraftFaction getFaction() {
-        return this.ordinal() >= Orc1.ordinal() ? Orc : Human;
+    public MenuIdentifier getIntroductionMenu() {
+        return IntroMenuType.valueOf(name());
     }
 }

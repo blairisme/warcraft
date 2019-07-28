@@ -10,6 +10,11 @@
 package com.evilbird.warcraft.state;
 
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.warcraft.common.WarcraftFaction;
+
+import static com.evilbird.engine.common.file.FileType.TMX;
+import static com.evilbird.warcraft.common.WarcraftFaction.Human;
+import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
 
 /**
  * Defines states shipped in the application bundle. I.e., built in levels and
@@ -49,27 +54,23 @@ public enum Level implements Identifier
     Orc13,
     Orc14;
 
-    private static final String PATH = "data/levels/%s/campaign%d.tmx";
-    private static final String ORC_FACTION = "orc";
-    private static final String HUMAN_FACTION = "human";
-
-    public String getFilePath() {
-        return String.format(PATH,  getFaction(), getIndex());
+    public WarcraftFaction getFaction() {
+        return this.ordinal() >= Orc1.ordinal() ? Orc : Human;
     }
 
-    public String getFaction() {
-        return isHuman() ? HUMAN_FACTION : ORC_FACTION;
+    public String getFactionName() {
+        return getFaction().name().toLowerCase();
+    }
+
+    public String getFileName() {
+        return "campaign" + getIndex() + TMX.getFileExtension();
+    }
+
+    public String getFilePath() {
+        return "data/levels/" + getFactionName() + "/" + getFileName();
     }
 
     public int getIndex() {
         return ordinal() >= Orc1.ordinal() ? ordinal() - Orc1.ordinal() + 1 : ordinal() + 1;
-    }
-
-    public boolean isHuman() {
-        return !isOrc();
-    }
-
-    public boolean isOrc() {
-        return this.ordinal() >= Orc1.ordinal();
     }
 }

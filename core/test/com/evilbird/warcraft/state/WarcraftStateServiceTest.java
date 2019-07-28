@@ -1,146 +1,148 @@
-///*
-// * Blair Butterworth (c) 2019
-// *
-// * This work is licensed under the MIT License. To view a copy of this
-// * license, visit
-// *
-// *      https://opensource.org/licenses/MIT
-// */
-//
-//package com.evilbird.warcraft.state;
-//
-//import com.badlogic.gdx.files.FileHandle;
-//import com.evilbird.engine.common.collection.Maps;
-//import com.evilbird.engine.common.lang.Identifier;
-//import com.evilbird.engine.common.serialization.JsonSerializer;
-//import com.evilbird.engine.device.DeviceStorage;
-//import com.evilbird.engine.game.GameController;
-//import com.evilbird.engine.state.State;
-//import com.evilbird.engine.state.StateIdentifier;
-//import com.evilbird.test.testcase.GameTestCase;
-//import com.evilbird.test.utils.TestFileHandleResolver;
-//import com.evilbird.warcraft.item.ui.display.HudLoader;
-//import com.evilbird.warcraft.state.old.campaign.Campaign;
-//import com.evilbird.warcraft.state.old.scenario.ScenarioAdapter;
-//import com.evilbird.warcraft.state.old.scenario.ScenarioState;
-//import com.evilbird.warcraft.type.WarcraftTypeRegistry;
-//import org.junit.Assert;
-//import org.junit.Before;
-//import org.junit.Ignore;
-//import org.junit.Test;
-//import org.mockito.Mockito;
-//
-//import java.util.Arrays;
-//import java.util.List;
-//
-//import static com.evilbird.test.data.device.TestDevices.newTestDevice;
-//import static org.mockito.ArgumentMatchers.anyString;
-//import static org.mockito.Mockito.when;
-//
-///**
-// * Instances of this unit test validate the {@link WarcraftStateService} class.
-// *
-// * @author Blair Butterworth
-// */
-//public class WarcraftStateServiceTest extends GameTestCase
-//{
-//    private JsonSerializer serializer;
-//    private HudLoader hudLoader;
-//    private GameController controller;
-//    private DeviceStorage deviceStorage;
-//    private TestFileHandleResolver assetStorage;
-//    private LevelLoader levelLoader;
-//    private ScenarioAdapter adapter;
-//    private WarcraftStateService service;
-//
-//    @Before
-//    public void setup() {
-//        super.setup();
-//        device = newTestDevice();
-//        controller = Mockito.mock(GameController.class);
-//        deviceStorage = Mockito.mock(DeviceStorage.class);
-//        assetStorage = new TestFileHandleResolver();
-//        levelLoader = new LevelLoader(device, itemFactory);
-//        hudLoader = new HudLoader(device, itemFactory);
-//        adapter = new ScenarioAdapter(controller, hudLoader, levelLoader, behaviourFactory);
-//        serializer = new JsonSerializer(new WarcraftTypeRegistry(), Maps.of(ScenarioState.class, adapter));
-//        service = new WarcraftStateService(deviceStorage, assetStorage, serializer);
-//    }
-//
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
+package com.evilbird.warcraft.state;
+
+import com.badlogic.gdx.files.FileHandle;
+import com.evilbird.engine.common.collection.Maps;
+import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.serialization.JsonSerializer;
+import com.evilbird.engine.state.State;
+import com.evilbird.engine.state.StateIdentifier;
+import com.evilbird.test.utils.TestFileHandleResolver;
+import com.evilbird.warcraft.item.ui.display.HudLoader;
+import com.evilbird.warcraft.type.WarcraftTypeRegistry;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import java.util.List;
+
+import static com.evilbird.warcraft.state.WarcraftCampaign.Human1;
+import static org.mockito.Mockito.when;
+
+/**
+ * Instances of this unit test validate the {@link WarcraftStateService} class.
+ *
+ * @author Blair Butterworth
+ */
+public class WarcraftStateServiceTest extends StateTestCase
+{
+    private TestFileHandleResolver deviceResolver;
+    private FileHandle assetDirectory;
+    private FileHandle saveDirectory;
+    private HudLoader hudLoader;
+    private JsonSerializer serializer;
+    private WarcraftStateAdapter adapter;
+    private WarcraftStateService service;
+
+    @Before
+    public void setup() {
+        super.setup();
+        assetDirectory = Mockito.mock(FileHandle.class);
+        saveDirectory = Mockito.mock(FileHandle.class);
+        deviceResolver = new TestFileHandleResolver();
+        deviceResolver.respondWith("saves", saveDirectory);
+        assetResolver.respondWith("data/levels", assetDirectory);
+        hudLoader = new HudLoader(device, itemFactory);
+        adapter = new WarcraftStateAdapter(hudLoader, levelLoader, behaviourFactory);
+        serializer = new JsonSerializer(new WarcraftTypeRegistry(), Maps.of(WarcraftState.class, adapter));
+        service = new WarcraftStateService(deviceResolver, assetResolver, serializer);
+    }
+
+    @Test
+    public void listAssetsTest() {
+        List<Identifier> result = service.list(WarcraftStateType.AssetState);
+        Assert.assertNotNull(result);
+        Assert.assertEquals(WarcraftCampaign.values().length, result.size());
+    }
+
+    @Test
+    public void listSavesTest() {
+        FileHandle[] saves = new FileHandle[2];
+        saves[0] = new FileHandle("save1.json");
+        saves[1] = new FileHandle("save2.json");
+        when(saveDirectory.list()).thenReturn(saves);
+
+        List<Identifier> result = service.list(WarcraftStateType.UserState);
+        Assert.assertNotNull(result);
+        Assert.assertEquals(saves.length, result.size());
+    }
+
+    @Test
+    public void getAssetTest() {
+        loadAssets();
+
+        FileHandle scenario = assetResolver.resolve("/warcraft/state/level.json");
+        FileHandle level = assetResolver.resolve("/warcraft/state/level.tmx");
+        FileHandle faction = Mockito.mock(FileHandle.class);
+
+        when(assetDirectory.child("human")).thenReturn(faction);
+        when(faction.child("campaign1.json")).thenReturn(scenario);
+        assetResolver.respondWith("data/levels/human/campaign1.tmx", level);
+
+        State state = service.get(Human1);
+        Assert.assertNotNull(state);
+    }
+
+    @Test
+    public void getSaveTest()  {
+        FileHandle scenario = assetResolver.resolve("/warcraft/state/save.json");
+        when(saveDirectory.child("save.json")).thenReturn(scenario);
+
+        WarcraftSave identifier = new WarcraftSave("save");
+        State state = service.get(identifier);
+
+        Assert.assertNotNull(state);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void getUnknownTest()  {
+        StateIdentifier identifier = Mockito.mock(StateIdentifier.class);
+        service.get(identifier);
+    }
+
+
+
+
+
+
 //    @Test
-//    public void listAssetsTest() throws Exception  {
-//        List<Identifier> result = service.list(WarcraftStateType.AssetState);
-//        Assert.assertNotNull(result);
-//        Assert.assertEquals(Campaign.values().length, result.size());
-//    }
+//    public void setTest() throws Exception {
+//        assetResolver.respondWith(Human1.getFilePath(), "/warcraft/state/level.json");
+//        assetResolver.respondWith(Level1.getFilePath(), "/warcraft/state/level.tmx");
 //
-//    @Test
-//    public void listSavesTest() throws Exception {
-//        List<String> saves = Arrays.asList("save1", "save2", "save3");
-//        when(deviceStorage.list(anyString())).thenReturn(saves);
-//
-//        List<Identifier> result = service.list(WarcraftStateType.UserState);
-//        Assert.assertNotNull(result);
-//        Assert.assertEquals(saves.size(), result.size());
-//    }
-//
-//    @Test
-//    @Ignore
-//    public void getAssetTest() throws Exception {
-//        assetStorage.respondWith(Campaign.Human1.getFilePath(), "/warcraft/state/level.json");
-//        assetStorage.respondWith(Level.Human1.getFilePath(), "/warcraft/state/level.tmx");
-//
-//        State state = service.get(Campaign.Human1);
+//        State state = service.get(Human1);
 //        Assert.assertNotNull(state);
-//    }
 //
-//    @Test
-//    public void getSaveTest() throws Exception {
-//        TestFileHandleResolver resolver = new TestFileHandleResolver();
-//        FileHandle handle = resolver.resolve("/warcraft/state/save.json");
-//
-//        WarcraftSave identifier = new WarcraftSave("getSaveTest");
-//        when(deviceStorage.read(anyString())).thenReturn(handle.reader());
-//
-//        State state = service.get(identifier);
-//        Assert.assertNotNull(state);
+//        WarcraftSave identifier = new WarcraftSave("setTest");
+//        service
 //    }
 //
 //    @Test (expected = IllegalArgumentException.class)
-//    public void getUnknownTest() throws Exception {
-//        StateIdentifier identifier = new StateIdentifier() {};
-//        service.get(identifier);
+//    public void setUnknownIdentifierTest() {
+//
 //    }
 //
-////    @Test
-////    public void setTest() throws Exception {
-////        assetStorage.respondWith(Human1.getFilePath(), "/warcraft/state/level.json");
-////        assetStorage.respondWith(Level1.getFilePath(), "/warcraft/state/level.tmx");
-////
-////        State state = service.get(Human1);
-////        Assert.assertNotNull(state);
-////
-////        WarcraftSave identifier = new WarcraftSave("setTest");
-////        service
-////    }
-////
-////    @Test (expected = IllegalArgumentException.class)
-////    public void setUnknownIdentifierTest() {
-////
-////    }
-////
-////    @Test (expected = IllegalArgumentException.class)
-////    public void setUnknownStateTest() {
-////
-////    }
-////
-////    @Test
-////    public void removeTest() {
-////
-////    }
-////
-////    @Test (expected = IllegalArgumentException.class)
-////    public void removeUnknownIdentifierTest() {
-////
-////    }
-//}
+//    @Test (expected = IllegalArgumentException.class)
+//    public void setUnknownStateTest() {
+//
+//    }
+//
+//    @Test
+//    public void removeTest() {
+//
+//    }
+//
+//    @Test (expected = IllegalArgumentException.class)
+//    public void removeUnknownIdentifierTest() {
+//
+//    }
+}
