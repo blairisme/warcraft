@@ -28,7 +28,7 @@ import com.evilbird.warcraft.item.ui.display.control.actions.ActionPane;
 import com.evilbird.warcraft.item.ui.display.control.status.StatusPane;
 import com.evilbird.warcraft.item.ui.display.resource.ResourcePane;
 import com.evilbird.warcraft.item.ui.display.resource.ResourcePaneStyle;
-import com.evilbird.warcraft.state.scenario.ScenarioState;
+import com.evilbird.warcraft.state.WarcraftState;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,7 +49,7 @@ import static org.mockito.Mockito.when;
  */
 public class MenuBehaviourTest extends GameTestCase
 {
-    private ScenarioState state;
+    private WarcraftState state;
     private Player player;
     private ActionPane actionPane;
     private StatusPane statusPane;
@@ -77,7 +77,7 @@ public class MenuBehaviourTest extends GameTestCase
         ItemRoot world = TestItemRoots.newTestRoot(new TextIdentifier("world"), player);
         ItemRoot hud = TestItemRoots.newTestRoot(new TextIdentifier("hud"), resourcePane, actionPane, statusPane);
 
-        state = new ScenarioState(); //world, hud, null, null);
+        state = new WarcraftState(); //world, hud, null, null);
         state.setWorld(world);
         state.setHud(hud);
         events = new EventQueue();

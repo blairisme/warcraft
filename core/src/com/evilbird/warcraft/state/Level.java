@@ -7,19 +7,17 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.campaign;
+package com.evilbird.warcraft.state;
 
-import com.evilbird.engine.menu.MenuIdentifier;
-import com.evilbird.engine.state.IntroducedState;
-import com.evilbird.warcraft.menu.intro.IntroMenuType;
-import com.evilbird.warcraft.state.WarcraftStateIdentifier;
+import com.evilbird.engine.common.lang.Identifier;
 
 /**
- * An identifier for a built-in campaign scenario.
+ * Defines states shipped in the application bundle. I.e., built in levels and
+ * scenarios.
  *
  * @author Blair Butterworth
  */
-public enum Campaign implements WarcraftStateIdentifier, IntroducedState
+public enum Level implements Identifier
 {
     Human1,
     Human2,
@@ -51,14 +49,9 @@ public enum Campaign implements WarcraftStateIdentifier, IntroducedState
     Orc13,
     Orc14;
 
-    private static final String PATH = "data/levels/%s/campaign%d.json";
+    private static final String PATH = "data/levels/%s/campaign%d.tmx";
     private static final String ORC_FACTION = "orc";
     private static final String HUMAN_FACTION = "human";
-
-    @Override
-    public MenuIdentifier getIntroductionMenu() {
-        return IntroMenuType.valueOf(name());
-    }
 
     public String getFilePath() {
         return String.format(PATH,  getFaction(), getIndex());

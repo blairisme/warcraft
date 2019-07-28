@@ -10,21 +10,15 @@
 package com.evilbird.warcraft.item.ui.display.control;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceControls;
 import com.evilbird.engine.device.DeviceDisplay;
-import com.evilbird.test.data.device.TestAssets;
 import com.evilbird.test.testcase.GameFactoryTestCase;
-import com.evilbird.test.testcase.GameTestCase;
-import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.ui.display.HudControl;
 import com.evilbird.warcraft.item.ui.display.HudType;
-import com.evilbird.warcraft.item.ui.display.control.ControlPane;
-import com.evilbird.warcraft.item.ui.display.control.ControlPaneFactory;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonStyle;
+import com.evilbird.warcraft.state.WarcraftContext;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -33,11 +27,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-import static com.evilbird.warcraft.common.WarcraftAssetSet.Summer;
-import static com.evilbird.warcraft.common.WarcraftAssetSet.Swamp;
-import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
+import static com.evilbird.warcraft.common.WarcraftSeason.Summer;
+import static com.evilbird.warcraft.common.WarcraftSeason.Winter;
 
 /**
  * Instances of this unit test validate the {@link ControlPaneFactory} class.

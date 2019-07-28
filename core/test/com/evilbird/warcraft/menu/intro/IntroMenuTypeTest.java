@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.menu.intro;
 
+import com.evilbird.warcraft.state.WarcraftCampaign;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,18 +22,18 @@ import org.junit.Test;
 public class IntroMenuTypeTest
 {
     @Test
-    public void isHumanTest() {
-        Assert.assertTrue(IntroMenuType.Human1.isHuman());
-        Assert.assertTrue(IntroMenuType.Human14.isHuman());
-        Assert.assertFalse(IntroMenuType.Orc1.isHuman());
-        Assert.assertFalse(IntroMenuType.Orc14.isHuman());
-    }
-
-    @Test
     public void getSequenceIndexTest() {
         Assert.assertEquals(1, IntroMenuType.Human1.getIndex());
         Assert.assertEquals(3, IntroMenuType.Human3.getIndex());
         Assert.assertEquals(1, IntroMenuType.Orc1.getIndex());
         Assert.assertEquals(11, IntroMenuType.Orc11.getIndex());
+    }
+
+    @Test
+    public void getCampaignTest() {
+        for (IntroMenuType type: IntroMenuType.values()) {
+            WarcraftCampaign campaign = type.getCampaign();
+            Assert.assertNotNull(campaign);
+        }
     }
 }

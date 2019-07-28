@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.assets.SyntheticTexture;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.warcraft.common.WarcraftContext;
+import com.evilbird.warcraft.state.WarcraftContext;
 
 import java.util.Map;
 

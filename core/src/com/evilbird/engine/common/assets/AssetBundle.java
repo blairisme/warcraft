@@ -24,8 +24,6 @@ import com.evilbird.engine.common.audio.SilentSoundEffect;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.audio.SoundUtils;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.engine.common.collection.SuppliedMap;
-import com.evilbird.engine.common.function.ParameterizedSupplier;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.text.StringSubstitutor;
@@ -57,10 +55,6 @@ public class AssetBundle
         this(assetManager, Collections.emptyMap());
     }
 
-    public AssetBundle(AssetManager assetManager, ParameterizedSupplier<String, String> pathProperties) {
-        this(assetManager, new SuppliedMap<>(pathProperties));
-    }
-
     public AssetBundle(AssetManager assetManager, Map<String, String> pathProperties) {
         this.manager = assetManager;
         this.assets = new HashMap<>();
@@ -77,6 +71,11 @@ public class AssetBundle
                 manager.load(descriptor);
             }
         }
+    }
+
+    public void loadSynchronous() {
+        load();
+        manager.finishLoading();
     }
 
     public void unload() {
@@ -122,7 +121,6 @@ public class AssetBundle
     }
 
     protected void registerSequence(String idPrefix, String pathPrefix, String pathSuffix, int count) {
-        //register(idPrefix + "-1", pathPrefix + "1" + pathSuffix);
         for (int i = 1; i < count + 1; i++) {
             registerOptional(idPrefix + "-" + i, pathPrefix + i + pathSuffix);
         }

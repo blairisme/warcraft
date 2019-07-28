@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.game.GameFactory;
-import com.evilbird.warcraft.common.WarcraftContext;
+import com.evilbird.warcraft.state.WarcraftContext;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;

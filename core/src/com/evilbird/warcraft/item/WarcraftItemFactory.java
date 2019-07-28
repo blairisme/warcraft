@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item;
 
-import com.evilbird.engine.game.GameFactoryComposite;
+import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.item.data.DataFactory;
@@ -33,7 +33,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class WarcraftItemFactory extends GameFactoryComposite<Item> implements ItemFactory
+public class WarcraftItemFactory extends GameFactorySet<Item> implements ItemFactory
 {
     @Inject
     public WarcraftItemFactory(

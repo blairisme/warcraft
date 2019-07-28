@@ -61,8 +61,8 @@ public class LoaderScreen extends ScreenAdapter
         this.engine = engine;
     }
 
-    public void loadCoreAssets() {
-        engine.loadCoreAssets();
+    public void loadMenuAssets() {
+        engine.loadMenuAssets();
     }
 
     public boolean isLoaded() {

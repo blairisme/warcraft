@@ -18,7 +18,6 @@ import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
 import com.evilbird.warcraft.item.ui.display.control.ControlPaneFactory;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
-import com.evilbird.warcraft.item.ui.display.control.common.IconSet;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.junit.Assert;

@@ -31,6 +31,7 @@ public class StateScreen extends ScreenAdapter
     private DeviceInput input;
     private EventQueue events;
     private State state;
+    private StateIdentifier identifier;
     private ItemRoot world;
     private ItemRoot hud;
     private Behaviour behaviour;
@@ -46,13 +47,18 @@ public class StateScreen extends ScreenAdapter
         return state;
     }
 
+    public StateIdentifier getIdentifier() {
+        return identifier;
+    }
+
     public void setController(GameController controller) {
         this.controller = controller;
         updateController();
     }
 
-    public void setState(State state) {
+    public void setState(State state, StateIdentifier identifier) {
         this.state = state;
+        this.identifier = identifier;
         this.world = state.getWorld();
         this.hud = state.getHud();
         this.behaviour = state.getBehaviour();

@@ -14,9 +14,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.assets.AssetBundle;
-import com.evilbird.warcraft.common.WarcraftContext;
+import com.evilbird.engine.common.collection.Maps;
+import com.evilbird.warcraft.state.WarcraftContext;
+
+import java.util.Map;
 
 import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
+import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 
 /**
  * Provides the assets required to display an {@link OutroMenu}, as well as any
@@ -27,7 +31,7 @@ import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 public class OutroMenuAssets extends AssetBundle
 {
     public OutroMenuAssets(AssetManager assets, WarcraftContext context) {
-        super(assets, context);
+        super(assets, pathVariables(context));
         register("data/textures/common/menu/button.png");
         register("data/textures/common/menu/stats_progress_fill.png");
         register("data/textures/common/menu/stats_progress_background.png");
@@ -36,6 +40,10 @@ public class OutroMenuAssets extends AssetBundle
         register("data/strings/common/menu/outro", I18NBundle.class);
         register("font", "data/fonts/philosopher.ttf", BitmapFont.class, fontSize(18));
         register("font-large", "data/fonts/philosopher-large.ttf", BitmapFont.class, fontSize(36));
+    }
+
+    private static Map<String, String> pathVariables(WarcraftContext context) {
+        return Maps.of("faction", toSnakeCase(context.getFaction().name()));
     }
 
     public BitmapFont getFont() {

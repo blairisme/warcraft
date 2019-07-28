@@ -63,6 +63,15 @@ public abstract class GameFactoryTestCase<T extends GameFactory> extends GameTes
         }
     }
 
+//    @Test
+//    public void unloadBeforeLoadTest() {
+//        Collection<Identifier> contexts = getLoadContexts();
+//        Identifier context = contexts.iterator().next();
+//
+//        factory.unload(context);
+//        factory.load(context);
+//    }
+
     protected abstract Collection<Identifier> getLoadContexts();
 
     @Test

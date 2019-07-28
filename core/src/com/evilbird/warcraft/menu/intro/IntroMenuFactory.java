@@ -10,14 +10,11 @@
 package com.evilbird.warcraft.menu.intro;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameFactory;
-import com.evilbird.engine.state.StateIdentifier;
-import com.evilbird.warcraft.common.WarcraftContext;
-import com.evilbird.warcraft.state.campaign.Campaign;
+import com.evilbird.warcraft.state.WarcraftCampaign;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -38,8 +35,7 @@ public class IntroMenuFactory implements GameFactory<IntroMenu>
 
     @Inject
     public IntroMenuFactory(Device device) {
-        this.display = device.getDeviceDisplay();
-        this.manager = device.getAssetStorage();
+        this(device.getDeviceDisplay(), device.getAssetStorage());
     }
 
     public IntroMenuFactory(DeviceDisplay display, AssetManager manager) {
@@ -49,11 +45,12 @@ public class IntroMenuFactory implements GameFactory<IntroMenu>
 
     @Override
     public void load(Identifier context) {
-        Validate.isInstanceOf(WarcraftContext.class, context);
-        load((WarcraftContext)context);
     }
 
-    private void load(WarcraftContext context) {
+    private void load(IntroMenuType type) {
+        assets = new IntroMenuAssets(manager, type);
+        builder = new IntroMenuBuilder(display, assets);
+        assets.loadSynchronous();
     }
 
     @Override
@@ -64,38 +61,19 @@ public class IntroMenuFactory implements GameFactory<IntroMenu>
     @Override
     public IntroMenu get(Identifier identifier) {
         Validate.isInstanceOf(IntroMenuType.class, identifier);
-        IntroMenuType type = (IntroMenuType)identifier;
-
-        assets = new IntroMenuAssets(manager, type);
-        builder = new IntroMenuBuilder(display, assets);
-        assets.load();
-        manager.finishLoading();
-
-        Campaign campaign = Campaign.valueOf(type.name());
-        return getIntro(campaign);
+        return get((IntroMenuType)identifier);
     }
 
-    private IntroMenu getIntro(Campaign campaign) {
+    private IntroMenu get(IntroMenuType type) {
+        load(type);
+        return getIntro(type.getCampaign());
+    }
+
+    private IntroMenu getIntro(WarcraftCampaign campaign) {
         IntroMenu menu = builder.build();
-        addContent(menu, assets);
-        addNarration(menu, assets);
-        addButtonAction(menu, campaign);
+        menu.setCampaign(campaign);
+        menu.setText(assets.getStrings());
+        menu.setMusic(assets.getNarration());
         return menu;
-    }
-
-    private void addContent(IntroMenu menu, IntroMenuAssets assets) {
-        IntroMenuStrings strings = assets.getStrings();
-        menu.setTitle(strings.getTitle());
-        menu.setDescription(strings.getDescription());
-        menu.setObjectives(strings.getObjectives());
-    }
-
-    private void addNarration(IntroMenu menu, IntroMenuAssets assets) {
-        Music narration = assets.getNarration();
-        menu.setMusic(narration);
-    }
-
-    private void addButtonAction(IntroMenu menu, StateIdentifier level) {
-        menu.setButtonAction(() -> menu.showState(level));
     }
 }

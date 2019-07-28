@@ -12,12 +12,12 @@ package com.evilbird.warcraft.item.ui.placement;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.evilbird.test.testcase.AssetBundleTestCase;
-import com.evilbird.warcraft.common.WarcraftContext;
+import com.evilbird.warcraft.state.WarcraftContext;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
+import static com.evilbird.warcraft.common.WarcraftSeason.Winter;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;

@@ -10,7 +10,7 @@
 package com.evilbird.engine.state;
 
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Persisted;
+import com.evilbird.engine.game.GameContext;
 
 import java.util.List;
 
@@ -20,13 +20,15 @@ import java.util.List;
  *
  * @author Blair Butterworth
  */
-public interface StateService extends Persisted
+public interface StateService
 {
-    List<Identifier> list(StateType type) throws StateLoadError;
+    GameContext context(StateIdentifier identifier);
 
-    State get(StateIdentifier identifier) throws StateLoadError;
+    State get(StateIdentifier identifier);
 
-    void set(StateIdentifier identifier, State state) throws StateLoadError;
+    List<Identifier> list(StateType type);
 
-    void remove(StateIdentifier identifier) throws StateLoadError;
+    void set(StateIdentifier identifier, State state);
+
+    void remove(StateIdentifier identifier);
 }

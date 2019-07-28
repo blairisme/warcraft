@@ -21,8 +21,8 @@ import com.evilbird.engine.state.IntroducedState;
 import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateSequence;
-import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.menu.main.MainMenuType;
+import com.evilbird.warcraft.state.WarcraftContext;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;

@@ -17,9 +17,13 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.audio.MusicCombination;
 import com.evilbird.engine.common.audio.MusicSequence;
+import com.evilbird.engine.common.collection.Maps;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 
 /**
  * Defines the assets that are required to display an {@link IntroMenu}, as
@@ -30,7 +34,7 @@ import java.util.List;
 public class IntroMenuAssets extends AssetBundle
 {
     public IntroMenuAssets(AssetManager manager, IntroMenuType context) {
-        super(manager, context);
+        super(manager, pathVariables(context));
         register("background", "data/textures/${faction}/menu/${name}.png");
         register("font", "data/fonts/philosopher.ttf");
         register("button", "data/textures/common/menu/button.png");
@@ -39,6 +43,11 @@ public class IntroMenuAssets extends AssetBundle
         registerOptional("narration-1", "data/sounds/${faction}/menu/${name}.mp3", Music.class);
         registerOptional("narration-1", "data/sounds/${faction}/menu/${name}a.mp3", Music.class);
         registerOptional("narration-2", "data/sounds/${faction}/menu/${name}b.mp3", Music.class);
+    }
+
+    private static Map<String, String> pathVariables(IntroMenuType type) {
+        return Maps.of("faction", toSnakeCase(type.getCampaign().getFaction().name()),
+                "name", "intro" + type.getIndex());
     }
 
     public Drawable getBackground() {

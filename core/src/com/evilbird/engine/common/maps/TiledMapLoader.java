@@ -9,10 +9,12 @@
 
 package com.evilbird.engine.common.maps;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
-import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.evilbird.engine.device.Device;
+import com.evilbird.engine.game.GameService;
 
 import javax.inject.Inject;
 
@@ -25,13 +27,17 @@ public class TiledMapLoader
 {
     private TmxMapLoader loader;
 
-    @Inject
     public TiledMapLoader() {
-        this(new InternalFileHandleResolver());
+        this(GameService.getInstance().getDevice());
     }
 
-    public TiledMapLoader(FileHandleResolver resolver) {
-        loader = new TmxMapLoader(resolver);
+    @Inject
+    public TiledMapLoader(Device device) {
+        this(device.getAssetStorage());
+    }
+
+    public TiledMapLoader(AssetManager assets) {
+        this.loader = new TmxFileLoader(assets);
     }
 
     /**

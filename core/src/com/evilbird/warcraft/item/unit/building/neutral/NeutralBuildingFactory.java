@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.unit.building.neutral;
 
-import com.evilbird.engine.game.GameFactoryComposite;
+import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -23,7 +23,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class NeutralBuildingFactory extends GameFactoryComposite<Building>
+public class NeutralBuildingFactory extends GameFactorySet<Building>
 {
     @Inject
     public NeutralBuildingFactory(CircleOfPowerFactory circleOfPowerFactory) {

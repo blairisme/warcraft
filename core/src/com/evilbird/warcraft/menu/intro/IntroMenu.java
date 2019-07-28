@@ -17,12 +17,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.control.SelectListenerAdapter;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.menu.Menu;
+import com.evilbird.warcraft.state.WarcraftCampaign;
 
 import javax.inject.Inject;
+import java.util.concurrent.Future;
 
 import static com.badlogic.gdx.scenes.scene2d.ui.Value.percentHeight;
 import static com.badlogic.gdx.scenes.scene2d.ui.Value.percentWidth;
@@ -42,6 +43,8 @@ public class IntroMenu extends Menu
     private Label title;
     private Label description;
     private Label objectives;
+    private WarcraftCampaign campaign;
+    private Future<?> loading;
 
     @Inject
     public IntroMenu(DeviceDisplay display, Skin skin) {
@@ -54,24 +57,34 @@ public class IntroMenu extends Menu
         this.button = createButton(skin, table);
     }
 
+    @Override
+    public void show() {
+        super.show();
+        if (loading == null) {
+            loading = controller.loadState(campaign);
+        }
+    }
+
+    @Override
+    public void update(float delta) {
+        super.update(delta);
+        if (loading.isDone()) {
+            button.setDisabled(false);
+        }
+    }
+
     public Skin getSkin() {
         return skin;
     }
 
-    public void setTitle(String title) {
-        this.title.setText(title);
+    public void setCampaign(WarcraftCampaign campaign) {
+        this.campaign = campaign;
     }
 
-    public void setDescription(String description) {
-        this.description.setText(description);
-    }
-
-    public void setObjectives(String objectives) {
-        this.objectives.setText(objectives);
-    }
-
-    public void setButtonAction(SelectListener action) {
-        button.addListener(new SelectListenerAdapter(action));
+    public void setText(IntroMenuStrings strings) {
+        title.setText(strings.getTitle());
+        description.setText(strings.getDescription());
+        objectives.setText(strings.getObjectives());
     }
 
     private Table createTable(Skin skin) {
@@ -131,6 +144,8 @@ public class IntroMenu extends Menu
 
     private TextButton createButton(Skin skin, Table table) {
         TextButton result = new TextButton("Continue", skin);
+        result.setDisabled(true);
+        result.addListener(new SelectListenerAdapter(() -> showState(campaign)));
 
         Cell cell = table.add(result);
         cell.align(Align.right);

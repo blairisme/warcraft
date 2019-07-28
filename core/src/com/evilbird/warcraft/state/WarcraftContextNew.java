@@ -7,11 +7,11 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.common;
+package com.evilbird.warcraft.state;
 
-import com.evilbird.engine.common.function.ParameterizedSupplier;
-import com.evilbird.engine.common.text.CaseUtils;
-import com.evilbird.engine.game.GameContext;
+import com.evilbird.warcraft.common.WarcraftFaction;
+import com.evilbird.warcraft.common.WarcraftSeason;
+import com.google.gson.annotations.JsonAdapter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -21,12 +21,13 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  *
  * @author Blair Butterworth
  */
-public class WarcraftContext implements GameContext, ParameterizedSupplier<String, String>
+@JsonAdapter(WarcraftContextAdapter.class)
+public class WarcraftContextNew //implements GameContext
 {
     private WarcraftFaction faction;
-    private WarcraftAssetSet assets;
+    private WarcraftSeason assets;
 
-    public WarcraftContext(WarcraftFaction faction, WarcraftAssetSet assets) {
+    public WarcraftContextNew(WarcraftFaction faction, WarcraftSeason assets) {
         this.faction = faction;
         this.assets = assets;
     }
@@ -35,19 +36,8 @@ public class WarcraftContext implements GameContext, ParameterizedSupplier<Strin
         return faction;
     }
 
-    public WarcraftAssetSet getAssetSet() {
+    public WarcraftSeason getAssetSet() {
         return assets;
-    }
-
-    @Override
-    public String get(String key) {
-        if (key.equals("faction")) {
-            return CaseUtils.toSnakeCase(faction.name());
-        }
-        if (key.equals("assets")) {
-            return CaseUtils.toSnakeCase(assets.name());
-        }
-        return null;
     }
 
     @Override
@@ -56,7 +46,7 @@ public class WarcraftContext implements GameContext, ParameterizedSupplier<Strin
         if (obj == this) { return true; }
         if (obj.getClass() != getClass()) { return false; }
 
-        WarcraftContext that = (WarcraftContext)obj;
+        WarcraftContextNew that = (WarcraftContextNew)obj;
         return new EqualsBuilder()
             .append(faction, that.faction)
             .append(assets, that.assets)

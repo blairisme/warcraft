@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.unit.building.orc;
 
-import com.evilbird.engine.game.GameFactoryComposite;
+import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -23,7 +23,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class OrcBuildingFactory extends GameFactoryComposite<Building>
+public class OrcBuildingFactory extends GameFactorySet<Building>
 {
     @Inject
     public OrcBuildingFactory(

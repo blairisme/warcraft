@@ -18,7 +18,7 @@ import com.evilbird.engine.common.lang.Identifier;
  *
  * @author Blair Butterworth
  */
-public enum WarcraftAssetSet implements Identifier
+public enum WarcraftSeason implements Identifier
 {
     Summer,
     Swamp,

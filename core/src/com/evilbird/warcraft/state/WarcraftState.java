@@ -9,8 +9,13 @@
 
 package com.evilbird.warcraft.state;
 
+import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
 import com.google.gson.annotations.JsonAdapter;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Instances of class represent a snapshot of all Warcraft game
@@ -19,6 +24,97 @@ import com.google.gson.annotations.JsonAdapter;
  * @author Blair Butterworth
  */
 @JsonAdapter(WarcraftStateAdapter.class)
-public interface WarcraftState extends State
+public class WarcraftState implements State
 {
+    private ItemRoot hud;
+    private ItemRoot world;
+    private Behaviour behaviour;
+    private WarcraftContext context;
+
+    public WarcraftState() {
+    }
+
+    public WarcraftState(
+        ItemRoot world,
+        ItemRoot hud,
+        Behaviour behaviour,
+        WarcraftContext context)
+    {
+        this.world = world;
+        this.hud = hud;
+        this.behaviour = behaviour;
+        this.context = context;
+    }
+
+    @Override
+    public void dispose() {
+        this.world.dispose();
+        this.hud.dispose();
+    }
+
+    public WarcraftContext getContext() {
+        return context;
+    }
+
+    public Behaviour getBehaviour() {
+        return behaviour;
+    }
+
+    public ItemRoot getHud() {
+        return hud;
+    }
+
+    public ItemRoot getWorld() {
+        return world;
+    }
+
+    public void setContext(WarcraftContext context) {
+        this.context = context;
+    }
+
+    public void setBehaviour(Behaviour behaviour) {
+        this.behaviour = behaviour;
+    }
+
+    public void setHud(ItemRoot hud) {
+        this.hud = hud;
+    }
+
+    public void setWorld(ItemRoot world) {
+        this.world = world;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) { return false; }
+
+        WarcraftState that = (WarcraftState)obj;
+        return new EqualsBuilder()
+            .append(context, that.context)
+            .append(world, that.world)
+            .append(hud, that.hud)
+            .append(behaviour, that.behaviour)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .append(context)
+            .append(world)
+            .append(hud)
+            .append(behaviour)
+            .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("world", world)
+            .append("hud", hud)
+            .append("behaviour", behaviour)
+            .toString();
+    }
 }

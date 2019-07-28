@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.menu.intro;
 
-import com.evilbird.engine.common.function.ParameterizedSupplier;
 import com.evilbird.engine.menu.MenuIdentifier;
+import com.evilbird.warcraft.state.WarcraftCampaign;
 
 /**
  * Defines types of introduction menus, one for each level in the Human and Orc
@@ -18,7 +18,7 @@ import com.evilbird.engine.menu.MenuIdentifier;
  *
  * @author Blair Butterworth
  */
-public enum IntroMenuType implements MenuIdentifier, ParameterizedSupplier<String, String>
+public enum IntroMenuType implements MenuIdentifier
 {
     Human1,
     Human2,
@@ -54,22 +54,7 @@ public enum IntroMenuType implements MenuIdentifier, ParameterizedSupplier<Strin
         return ordinal() >= Orc1.ordinal() ? ordinal() - Orc1.ordinal() + 1 : ordinal() + 1;
     }
 
-    public boolean isHuman() {
-        return !isOrc();
-    }
-
-    public boolean isOrc() {
-        return this.ordinal() >= Orc1.ordinal();
-    }
-
-    @Override
-    public String get(String key) {
-        if (key.equals("faction")) {
-            return isHuman() ? "human" : "orc";
-        }
-        if (key.equals("name")) {
-            return "intro" + getIndex();
-        }
-        return null;
+    public WarcraftCampaign getCampaign() {
+        return WarcraftCampaign.valueOf(name());
     }
 }

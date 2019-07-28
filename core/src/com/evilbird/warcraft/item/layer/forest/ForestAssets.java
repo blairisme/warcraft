@@ -13,7 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.warcraft.common.WarcraftContext;
+import com.evilbird.warcraft.state.WarcraftContext;
 
 import java.util.Map;
 

@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft;
 
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.evilbird.engine.device.DeviceStorage;
 
 import java.io.IOException;
@@ -23,6 +24,11 @@ import java.util.List;
  */
 public class IosStorage implements DeviceStorage
 {
+    @Override
+    public FileHandleResolver getFileHandleResolver() {
+        return null;
+    }
+
     @Override
     public List<String> list(String path) throws IOException {
         throw new UnsupportedOperationException();

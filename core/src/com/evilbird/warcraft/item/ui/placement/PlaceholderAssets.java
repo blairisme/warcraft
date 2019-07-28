@@ -15,10 +15,10 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.graphics.TextureUtils;
-import com.evilbird.warcraft.common.WarcraftAssetSet;
-import com.evilbird.warcraft.common.WarcraftContext;
+import com.evilbird.warcraft.common.WarcraftSeason;
 import com.evilbird.warcraft.item.unit.UnitDimensions;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.state.WarcraftContext;
 
 import static com.evilbird.engine.common.math.GridPoints.ZERO;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
@@ -42,7 +42,7 @@ public class PlaceholderAssets extends AssetBundle
         register("prohibited", "data/textures/common/ui/building_prohibited.png");
     }
 
-    private void registerBuildingTextures(WarcraftAssetSet seasonType) {
+    private void registerBuildingTextures(WarcraftSeason seasonType) {
         for (UnitType type: UnitType.values()) {
             if (type.isBuilding() && !type.isNeutral()) {
                 String name = toSnakeCase(type.name());

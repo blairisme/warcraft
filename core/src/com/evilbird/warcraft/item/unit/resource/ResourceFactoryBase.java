@@ -12,8 +12,8 @@ package com.evilbird.warcraft.item.unit.resource;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.game.GameFactory;
-import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.state.WarcraftContext;
 import org.apache.commons.lang3.Validate;
 
 /**

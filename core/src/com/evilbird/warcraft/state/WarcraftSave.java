@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.state;
 
 import com.evilbird.engine.common.file.FileType;
+import com.evilbird.engine.state.StateIdentifier;
 
 import java.io.File;
 
@@ -19,7 +20,7 @@ import java.io.File;
  *
  * @author Blair Butterworth
  */
-public class WarcraftSave implements WarcraftStateIdentifier
+public class WarcraftSave implements StateIdentifier
 {
     private static final String SAVES = "saves";
     private static final String JSON = FileType.JSON.getFileExtension();
@@ -39,7 +40,7 @@ public class WarcraftSave implements WarcraftStateIdentifier
         return name;
     }
 
-    @Override
+
     public String getFilePath() {
         return SAVES + File.separator + name + JSON;
     }

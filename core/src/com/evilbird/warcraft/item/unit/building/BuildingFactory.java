@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.unit.building;
 
-import com.evilbird.engine.game.GameFactoryComposite;
+import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.building.human.HumanBuildingFactory;
 import com.evilbird.warcraft.item.unit.building.neutral.NeutralBuildingFactory;
@@ -24,7 +24,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class BuildingFactory extends GameFactoryComposite<Building>
+public class BuildingFactory extends GameFactorySet<Building>
 {
     @Inject
     public BuildingFactory(

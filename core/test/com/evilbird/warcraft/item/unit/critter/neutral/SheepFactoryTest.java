@@ -14,17 +14,17 @@ import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.test.testcase.GameFactoryTestCase;
-import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.state.WarcraftContext;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-import static com.evilbird.warcraft.common.WarcraftAssetSet.Swamp;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
+import static com.evilbird.warcraft.common.WarcraftSeason.Swamp;
 import static com.evilbird.warcraft.item.unit.UnitType.Sheep;
 
 /**

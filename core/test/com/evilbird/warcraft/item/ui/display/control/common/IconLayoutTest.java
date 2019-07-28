@@ -10,7 +10,6 @@
 package com.evilbird.warcraft.item.ui.display.control.common;
 
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.warcraft.item.ui.display.control.common.IconLayout;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.junit.Assert;
 import org.junit.Before;

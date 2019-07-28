@@ -13,7 +13,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.game.GameController;
 
 import javax.inject.Inject;
@@ -29,7 +29,7 @@ import java.util.Objects;
 public class MenuScreen extends ScreenAdapter
 {
     private Menu menu;
-    private Stage stage;
+    private Identifier identifier;
     private Music music;
     private GameController controller;
 
@@ -41,9 +41,13 @@ public class MenuScreen extends ScreenAdapter
         return menu;
     }
 
-    public void setMenu(Menu menu) {
+    public Identifier getIdentifier() {
+        return identifier;
+    }
+
+    public void setMenu(Menu menu, Identifier identifier) {
         this.menu = menu;
-        this.stage = menu.getStage();
+        this.identifier = identifier;
         updateMusic(menu.getMusic());
         updateController();
     }
@@ -62,13 +66,17 @@ public class MenuScreen extends ScreenAdapter
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+        if (menu != null) {
+            menu.resize(width, height);
+        }
     }
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(stage);
         startMusic();
+        if (menu != null) {
+            menu.show();
+        }
     }
 
     @Override
@@ -80,11 +88,11 @@ public class MenuScreen extends ScreenAdapter
     }
 
     public void update(float delta) {
-        stage.act(delta);
+        menu.update(delta);
     }
 
     public void draw() {
-        stage.draw();
+        menu.draw();
     }
 
     private void startMusic() {

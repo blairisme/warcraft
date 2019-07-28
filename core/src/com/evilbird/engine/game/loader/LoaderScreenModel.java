@@ -51,7 +51,7 @@ public class LoaderScreenModel
     }
 
     public void load() {
-        presenter.loadCoreAssets();
+        presenter.loadMenuAssets();
     }
 
     public void update(float delta) {

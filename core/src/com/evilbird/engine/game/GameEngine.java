@@ -10,6 +10,7 @@
 package com.evilbird.engine.game;
 
 import com.badlogic.gdx.Game;
+import com.evilbird.engine.common.concurrent.CompleteFuture;
 import com.evilbird.engine.game.error.ErrorScreen;
 import com.evilbird.engine.game.loader.LoaderScreen;
 import com.evilbird.engine.menu.Menu;
@@ -26,6 +27,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.concurrent.Future;
+
+import static com.evilbird.engine.common.lang.GenericIdentifier.Root;
 
 /**
  * Instances of this class represent the entry point into the game, which
@@ -46,7 +50,7 @@ public class GameEngine extends Game implements GameController
     private StateScreen stateScreen;
     private StateService stateService;
     private Runnable initialScreen;
-    private GameLoader gameLoader;
+    private GameAssets gameAssets;
 
     @Inject
     public GameEngine(
@@ -57,10 +61,10 @@ public class GameEngine extends Game implements GameController
         StateScreen stateScreen,
         MenuFactory menuFactory,
         StateService stateService,
-        GameLoader gameLoader)
+        GameAssets gameAssets)
     {
         this.errorScreen = errorScreen;
-        this.gameLoader = gameLoader;
+        this.gameAssets = gameAssets;
         this.loaderScreen = loaderScreen;
         this.loaderScreen.setEngine(this);
         this.menuScreen = menuScreen;
@@ -88,8 +92,14 @@ public class GameEngine extends Game implements GameController
 
     @Override
     public void dispose() {
-        super.dispose();
-        logger.debug("Game engine stopped");
+        try {
+            super.dispose();
+            logger.debug("Game engine stopped");
+        }
+        catch (Throwable error) {
+            logger.error("Unexpected error during shutdown", error);
+            System.exit(1);
+        }
     }
 
     @Override
@@ -102,19 +112,9 @@ public class GameEngine extends Game implements GameController
         return stateScreen.getState();
     }
 
-    public void loadCoreAssets() {
-        gameLoader.loadCoreAssets();
-        //gameLoader.loadAssets(null);
-    }
-
-    @Override
-    public void loadAssets(GameContext context) {
-        gameLoader.loadAssets(context);
-    }
-
-    @Override
-    public void unloadAssets(GameContext context) {
-        gameLoader.unloadAssets(context);
+    public void loadMenuAssets() {
+        gameAssets.loadMenuAssets();
+        gameAssets.finishLoading();
     }
 
     public void showInitialScreen() {
@@ -132,8 +132,10 @@ public class GameEngine extends Game implements GameController
     @Override
     public void showMenu() {
         try {
-            menuScreen.dispose();
-            menuScreen.setMenu(menuFactory.get());
+            if (menuScreen.getIdentifier() != Root) {
+                menuScreen.dispose();
+                menuScreen.setMenu(menuFactory.get(), Root);
+            }
             setScreen(menuScreen);
         }
         catch (Throwable error) {
@@ -144,8 +146,10 @@ public class GameEngine extends Game implements GameController
     @Override
     public void showMenu(MenuIdentifier identifier) {
         try {
-            menuScreen.dispose();
-            menuScreen.setMenu(menuFactory.get(identifier));
+            if (identifier != menuScreen.getIdentifier()) {
+                menuScreen.dispose();
+                menuScreen.setMenu(menuFactory.get(identifier), identifier);
+            }
             setScreen(menuScreen);
         }
         catch (Throwable error) {
@@ -156,12 +160,26 @@ public class GameEngine extends Game implements GameController
     @Override
     public void showMenuOverlay(MenuIdentifier identifier) {
         try {
-            menuScreen.dispose();
-            menuScreen.setMenu(menuFactory.get(identifier));
+            if (identifier != menuScreen.getIdentifier()) {
+                menuScreen.dispose();
+                menuScreen.setMenu(menuFactory.get(identifier), identifier);
+            }
             setScreen(menuOverlay);
         }
         catch (Throwable error) {
             handleError(error);
+        }
+    }
+
+    @Override
+    public Future<?> loadState(StateIdentifier identifier) {
+        try {
+            GameContext context = stateService.context(identifier);
+            return gameAssets.loadStateAssets(identifier, context);
+        }
+        catch (Throwable error) {
+            handleError(error);
+            return new CompleteFuture<>();
         }
     }
 
@@ -173,8 +191,16 @@ public class GameEngine extends Game implements GameController
     @Override
     public void showState(StateIdentifier identifier) {
         try {
-            stateScreen.dispose();
-            stateScreen.setState(stateService.get(identifier));
+            if (gameAssets.getLoadedState() != identifier) {
+                GameContext context = stateService.context(identifier);
+                gameAssets.loadStateAssets(identifier, context);
+                gameAssets.finishLoading();
+            }
+            if (stateScreen.getIdentifier() != identifier) {
+                State state = stateService.get(identifier);
+                stateScreen.dispose();
+                stateScreen.setState(state, identifier);
+            }
             setScreen(stateScreen);
         }
         catch (Throwable error) {

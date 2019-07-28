@@ -7,9 +7,8 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state.map;
+package com.evilbird.warcraft.state;
 
-import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -22,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.common.maps.TiledMapFile;
 import com.evilbird.engine.common.maps.TiledMapLoader;
+import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
@@ -76,12 +76,8 @@ public class LevelLoader
     private TiledMapLoader mapLoader;
     private ItemFactory itemFactory;
 
-    public LevelLoader(ItemFactory itemFactory) {
-        this(itemFactory, new TiledMapLoader());
-    }
-
-    public LevelLoader(ItemFactory itemFactory, FileHandleResolver fileResolver) {
-        this(itemFactory, new TiledMapLoader(fileResolver));
+    public LevelLoader(Device device, ItemFactory itemFactory) {
+        this(itemFactory, new TiledMapLoader(device.getAssetStorage()));
     }
 
     @Inject

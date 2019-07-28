@@ -11,11 +11,11 @@ package com.evilbird.warcraft.item.unit.resource;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.test.testcase.AssetBundleTestCase;
-import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.unit.gatherer.GathererAssets;
+import com.evilbird.warcraft.state.WarcraftContext;
 
-import static com.evilbird.warcraft.common.WarcraftAssetSet.Swamp;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
+import static com.evilbird.warcraft.common.WarcraftSeason.Swamp;
 import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
 
 /**

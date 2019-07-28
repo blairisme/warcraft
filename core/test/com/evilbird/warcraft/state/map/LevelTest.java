@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.state.map;
 
+import com.evilbird.warcraft.state.Level;
 import org.junit.Assert;
 import org.junit.Test;
 

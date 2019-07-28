@@ -13,7 +13,12 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.assets.AssetBundle;
-import com.evilbird.warcraft.common.WarcraftContext;
+import com.evilbird.engine.common.collection.Maps;
+import com.evilbird.warcraft.state.WarcraftContext;
+
+import java.util.Map;
+
+import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 
 /**
  * Defines the assets that are required to display an {@link IngameMenu}, as
@@ -24,7 +29,7 @@ import com.evilbird.warcraft.common.WarcraftContext;
 public class IngameMenuAssets extends AssetBundle
 {
     public IngameMenuAssets(AssetManager assets, WarcraftContext context) {
-        super(assets, context);
+        super(assets, pathVariables(context));
         register("data/textures/${faction}/menu/button-large-normal.png");
         register("data/textures/${faction}/menu/button-large-grayed.png");
         register("data/textures/${faction}/menu/button-large-pressed.png");
@@ -34,6 +39,10 @@ public class IngameMenuAssets extends AssetBundle
         register("data/textures/${faction}/menu/panel_small.png");
         register("data/sounds/common/menu/click.mp3");
         register("data/strings/common/menu/ingame", I18NBundle.class);
+    }
+
+    private static Map<String, String> pathVariables(WarcraftContext context) {
+        return Maps.of("faction", toSnakeCase(context.getFaction().name()));
     }
 
     public Drawable getButtonEnabled() {

@@ -43,6 +43,11 @@ public class DesktopStorage implements DeviceStorage
     }
 
     @Override
+    public FileHandleResolver getFileHandleResolver() {
+        return resolver;
+    }
+
+    @Override
     public List<String> list(String path) throws IOException {
         try {
             FileHandle handle = resolver.resolve(STORAGE_ROOT + path);

@@ -14,6 +14,8 @@ import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateIdentifier;
 
+import java.util.concurrent.Future;
+
 /**
  * Implementors of this interface are used to control what content is rendered
  * to the screen and to obtain system preferences.
@@ -37,19 +39,15 @@ public interface GameController
     State getState();
 
     /**
-     * Instructs the game services to load any persisted assets pertaining to
-     * the given context and to use these in their operations.
+     * Loads the state identified by the given identifier asynchronously.
+     * Returns a {@link Future} object which can be used to ascertain the
+     * status of the asynchronous operation.
      *
-     * @param context   a context identifier.
+     * @param identifier    a state identifier.
+     * @return              a {@code Future}, used to obtain the status of
+     *                      the load operation.
      */
-    void loadAssets(GameContext context);
-
-    /**
-     * Instructs the game services to unload any previously loaded assets.
-     *
-     * @param context   a context identifier.
-     */
-    void unloadAssets(GameContext context);
+    Future<?> loadState(StateIdentifier identifier);
 
     /**
      * Shows the default menu, usually the top level menu.

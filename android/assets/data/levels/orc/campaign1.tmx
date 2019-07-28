@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="20">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="21">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/winter.png" width="512" height="768"/>
  </tileset>
@@ -27,12 +27,6 @@
  </tileset>
  <tileset firstgid="765" name="Pig Farm" tilewidth="64" tileheight="64" tilecount="2" columns="1">
   <image source="../../textures/orc/building/winter/pig_farm.png" width="64" height="128"/>
- </tileset>
- <tileset firstgid="767" name="Player" tilewidth="32" tileheight="32" tilecount="1" columns="1">
-  <image source="../config/x_startpoint.png" width="32" height="32"/>
- </tileset>
- <tileset firstgid="768" name="Camera" tilewidth="32" tileheight="32" tilecount="1" columns="1">
-  <image source="../config/o_startpoint.png" width="32" height="32"/>
  </tileset>
  <layer id="1" name="Map" width="32" height="32">
   <properties>
@@ -97,7 +91,9 @@
   <object id="15" name="Grunt1" type="Grunt" gid="491" x="640" y="896" width="72" height="72"/>
   <object id="16" name="Grunt2" type="Grunt" gid="491" x="576" y="768" width="72" height="72"/>
   <object id="17" name="Grunt3" type="Grunt" gid="491" x="896" y="800" width="72" height="72"/>
-  <object id="19" name="Camera" type="Camera" gid="768" x="704" y="704" width="32" height="32"/>
+  <object id="20" name="Camera" type="Camera" x="704" y="704">
+   <point/>
+  </object>
  </objectgroup>
  <layer id="9" name="OpaqueFog" width="32" height="32">
   <properties>

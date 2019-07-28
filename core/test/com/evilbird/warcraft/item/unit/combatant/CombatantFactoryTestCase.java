@@ -11,17 +11,17 @@ package com.evilbird.warcraft.item.unit.combatant;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.test.testcase.GameFactoryTestCase;
-import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.state.WarcraftContext;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
-import static com.evilbird.warcraft.common.WarcraftAssetSet.Summer;
-import static com.evilbird.warcraft.common.WarcraftAssetSet.Swamp;
-import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
+import static com.evilbird.warcraft.common.WarcraftSeason.Summer;
+import static com.evilbird.warcraft.common.WarcraftSeason.Swamp;
+import static com.evilbird.warcraft.common.WarcraftSeason.Winter;
 
 /**
  * Common reusable test case for validate logic in building factories.

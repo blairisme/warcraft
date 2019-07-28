@@ -9,10 +9,9 @@
 
 package com.evilbird.warcraft.menu;
 
-import com.evilbird.engine.game.GameFactoryComposite;
+import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuFactory;
-import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.menu.ingame.IngameMenuFactory;
 import com.evilbird.warcraft.menu.ingame.IngameMenuType;
 import com.evilbird.warcraft.menu.intro.IntroMenuFactory;
@@ -21,11 +20,12 @@ import com.evilbird.warcraft.menu.main.MainMenuFactory;
 import com.evilbird.warcraft.menu.main.MainMenuType;
 import com.evilbird.warcraft.menu.outro.OutroMenuFactory;
 import com.evilbird.warcraft.menu.outro.OutroMenuType;
+import com.evilbird.warcraft.state.WarcraftContext;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
+import static com.evilbird.warcraft.common.WarcraftSeason.Winter;
 
 /**
  * Instances of this factory create {@link Menu Menus} whose contents are
@@ -39,7 +39,7 @@ import static com.evilbird.warcraft.common.WarcraftFaction.Human;
  *
  * @author Blair Butterworth
  */
-public class WarcraftMenuFactory extends GameFactoryComposite<Menu> implements MenuFactory
+public class WarcraftMenuFactory extends GameFactorySet<Menu> implements MenuFactory
 {
     @Inject
     public WarcraftMenuFactory(

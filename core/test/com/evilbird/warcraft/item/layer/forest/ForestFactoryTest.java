@@ -14,10 +14,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.test.testcase.GameFactoryTestCase;
-import com.evilbird.warcraft.common.WarcraftContext;
 import com.evilbird.warcraft.item.layer.LayerGroupStyle;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerType;
+import com.evilbird.warcraft.state.WarcraftContext;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,11 +26,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-import static com.evilbird.warcraft.common.WarcraftAssetSet.Summer;
-import static com.evilbird.warcraft.common.WarcraftAssetSet.Swamp;
-import static com.evilbird.warcraft.common.WarcraftAssetSet.Winter;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
+import static com.evilbird.warcraft.common.WarcraftSeason.Summer;
+import static com.evilbird.warcraft.common.WarcraftSeason.Swamp;
+import static com.evilbird.warcraft.common.WarcraftSeason.Winter;
 
 /**
  * Instances of this unit test validate the {@link ForestFactory} class.

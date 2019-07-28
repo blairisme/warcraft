@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.menu;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -26,9 +27,9 @@ import com.evilbird.engine.state.StateIdentifier;
  */
 public class Menu implements Disposable
 {
-    private Stage stage;
-    private Music music;
-    private GameController controller;
+    protected Stage stage;
+    protected Music music;
+    protected GameController controller;
 
     public Menu() {
         this.stage = new Stage(new ScreenViewport());
@@ -46,6 +47,23 @@ public class Menu implements Disposable
 
     public void dispose() {
         stage.dispose();
+    }
+
+
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
+    }
+
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    public void update(float delta) {
+        stage.act(delta);
+    }
+
+    public void draw() {
+        stage.draw();
     }
 
     public Stage getStage() {

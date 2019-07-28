@@ -20,15 +20,15 @@ import java.util.Map;
  * allowing multiple factories to be "combined" and made to appear as a single
  * factory.
  *
- * @param <V> the type of objects produced by the {@code GameFactoryComposite}.
+ * @param <V> the type of objects produced by the {@code GameFactorySet}.
  *
  * @author Blair Butterworth
  */
-public class GameFactoryComposite<V> implements GameFactory<V>
+public class GameFactorySet<V> implements GameFactory<V>
 {
     private Map<Object, GameFactory<? extends V>> providers;
 
-    public GameFactoryComposite() {
+    public GameFactorySet() {
         providers = new HashMap<>();
     }
 
@@ -46,7 +46,7 @@ public class GameFactoryComposite<V> implements GameFactory<V>
         }
     }
 
-    public void addProvider(GameFactoryComposite<? extends V> other) {
+    public void addProvider(GameFactorySet<? extends V> other) {
         this.providers.putAll(other.providers);
     }
 

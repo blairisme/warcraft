@@ -51,4 +51,13 @@ public class EnumUtils
     public static <T extends Enum<T>> boolean isBetween(T subject, T first, T last) {
         return subject.ordinal() >= first.ordinal() && subject.ordinal() <= last.ordinal();
     }
+
+    public static <T extends Enum<T>> boolean isAny(T subject, T ... values) {
+        for (T value: values) {
+            if (subject == value) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

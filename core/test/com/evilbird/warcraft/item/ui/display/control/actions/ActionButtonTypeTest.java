@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.item.ui.display.control.actions;
 
-import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.junit.Assert;
 import org.junit.Test;

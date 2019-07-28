@@ -9,6 +9,8 @@
 
 package com.evilbird.engine.device;
 
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -22,6 +24,8 @@ import java.util.List;
  */
 public interface DeviceStorage
 {
+    FileHandleResolver getFileHandleResolver();
+
     List<String> list(String path) throws IOException;
 
     Reader read(String path) throws IOException;
