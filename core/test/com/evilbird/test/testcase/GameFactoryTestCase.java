@@ -50,47 +50,59 @@ public abstract class GameFactoryTestCase<T extends GameFactory> extends GameTes
 
     protected abstract T newFactory(DeviceDisplay display, AssetManager assets);
 
+    protected boolean isAssetLoader() {
+        return true;
+    }
+
     @Test
     public void loadTest() {
-        Assert.assertEquals(0, assets.getAssetNames().size);
-        for (GameContext context : getLoadContexts()) {
-            factory.load(context);
-            assets.finishLoading();
-            Assert.assertTrue(assets.getAssetNames().size > 0);
+        if (isAssetLoader()) {
+            Assert.assertEquals(0, assets.getAssetNames().size);
+            for (GameContext context : getLoadContexts()) {
+                factory.load(context);
+                assets.finishLoading();
+                Assert.assertTrue(assets.getAssetNames().size > 0);
+            }
         }
     }
 
     @Test
     public void unloadTest() {
-        Assert.assertEquals(0, assets.getAssetNames().size);
-        for (GameContext context: getLoadContexts()) {
-            factory.load(context);
-            assets.finishLoading();
-            Assert.assertTrue(assets.getAssetNames().size > 0);
-
-            factory.unload(context);
-            assets.finishLoading();
+        if (isAssetLoader()) {
             Assert.assertEquals(0, assets.getAssetNames().size);
+            for (GameContext context : getLoadContexts()) {
+                factory.load(context);
+                assets.finishLoading();
+                Assert.assertTrue(assets.getAssetNames().size > 0);
+
+                factory.unload(context);
+                assets.finishLoading();
+                Assert.assertEquals(0, assets.getAssetNames().size);
+            }
         }
     }
 
     @Test
     public void unloadBeforeLoadTest() {
-        Collection<GameContext> contexts = getLoadContexts();
-        GameContext context = contexts.iterator().next();
+        if (isAssetLoader()) {
+            Collection<GameContext> contexts = getLoadContexts();
+            GameContext context = contexts.iterator().next();
 
-        factory.unload(context);
-        factory.load(context);
+            factory.unload(context);
+            factory.load(context);
+        }
     }
 
     @Test
     public void unloadAfterUnloadTest() {
-        Collection<GameContext> contexts = getLoadContexts();
-        GameContext context = contexts.iterator().next();
+        if (isAssetLoader()) {
+            Collection<GameContext> contexts = getLoadContexts();
+            GameContext context = contexts.iterator().next();
 
-        factory.load(context);
-        factory.unload(context);
-        factory.unload(context);
+            factory.load(context);
+            factory.unload(context);
+            factory.unload(context);
+        }
     }
 
     protected abstract Collection<GameContext> getLoadContexts();
