@@ -53,17 +53,17 @@ public class TrollTankerFactory extends GathererFactoryBase
     @Override
     public Gatherer get(Identifier type) {
         Gatherer result = builder.newSeaGatherer();
-        result.setDefence(0);
-        result.setDamageMinimum(0);
-        result.setDamageMaximum(0);
+        result.setArmour(0);
+        result.setAttackRange(0);
+        result.setAttackSpeed(0);
+        result.setBasicDamage(0);
+        result.setPiercingDamage(0);
         result.setHealth(90);
         result.setHealthMaximum(90);
         result.setIdentifier(objectIdentifier("TrollTanker", result));
-        result.setLevel(1);
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Water);
         result.setName("TrollTanker");
-        result.setRange(tiles(1));
         result.setSight(tiles(4));
         result.setType(TrollTanker);
         return result;

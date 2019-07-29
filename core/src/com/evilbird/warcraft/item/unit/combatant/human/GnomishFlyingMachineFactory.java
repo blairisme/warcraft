@@ -45,17 +45,16 @@ public class GnomishFlyingMachineFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(0);
-        result.setDefence(0);
-        result.setDamageMinimum(0);
-        result.setDamageMaximum(0);
+        result.setArmour(0);
+        result.setPiercingDamage(0);
+        result.setBasicDamage(0);
         result.setHealth(150);
         result.setHealthMaximum(150);
         result.setIdentifier(objectIdentifier("GnomishFlyingMachine", result));
-        result.setLevel(1);
         result.setName("Gnomish Flying Machine");
         result.setMovementSpeed(8 * 17);
         result.setMovementCapability(Air);
-        result.setRange(tiles(1));
+        result.setAttackRange(tiles(1));
         result.setSight(tiles(9));
         result.setType(GnomishFlyingMachine);
         result.setProjectileType(Arrow);

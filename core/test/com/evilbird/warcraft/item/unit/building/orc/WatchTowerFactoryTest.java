@@ -42,7 +42,7 @@ public class WatchTowerFactoryTest extends BuildingFactoryTestCase<WatchTowerFac
     protected Map<String, Object> getValueProperties() {
         return Maps.of(
                 "Animation", Idle,
-                "Defence", 20,
+                "Armour", 20,
                 "Health", 100.0f,
                 "HealthMaximum", 100.0f,
                 "selectable", true,

@@ -44,7 +44,7 @@ public class LookoutTowerFactoryTest extends BuildingFactoryTestCase<LookoutTowe
                 "Animation", Idle,
                 "damageMinimum", 4,
                 "damageMaximum", 12,
-                "Defence", 20,
+                "Armour", 20,
                 "Health", 130.0f,
                 "HealthMaximum", 130.0f,
                 "selectable", true,

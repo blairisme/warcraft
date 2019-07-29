@@ -45,17 +45,16 @@ public class ElvenArcherFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(1.5f);
-        result.setDefence(0);
-        result.setDamageMinimum(3);
-        result.setDamageMaximum(9);
+        result.setAttackRange(tiles(4));
+        result.setArmour(0);
+        result.setBasicDamage(6);
+        result.setPiercingDamage(3);
         result.setHealth(40);
         result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("ElvenArcher", result));
-        result.setLevel(1);
         result.setName("Elven Archer");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
-        result.setRange(tiles(4));
         result.setSight(tiles(5));
         result.setType(ElvenArcher);
         result.setProjectileType(Arrow);

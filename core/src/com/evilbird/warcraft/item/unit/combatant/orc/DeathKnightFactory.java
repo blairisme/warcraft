@@ -44,17 +44,17 @@ public class DeathKnightFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(1.5f);
-        result.setDefence(0);
-        result.setDamageMinimum(3);
-        result.setDamageMaximum(9);
+        result.setArmour(0);
+        result.setPiercingDamage(3);
+        result.setBasicDamage(9);
         result.setHealth(40);
         result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("DeathKnight", result));
-        result.setLevel(1);
+
         result.setName("Death Knight");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
-        result.setRange(tiles(4));
+        result.setAttackRange(tiles(4));
         result.setSight(tiles(5));
         result.setType(DeathKnight);
         return result;

@@ -41,7 +41,7 @@ public class BlacksmithFactory extends BuildingFactoryBase
     @Override
     public Building get(Identifier type) {
         Building result = builder.build();
-        result.setDefence(20);
+        result.setArmour(20);
         result.setHealth(775);
         result.setHealthMaximum(775);
         result.setIdentifier(objectIdentifier("Blacksmith", result));

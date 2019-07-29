@@ -44,17 +44,16 @@ public class GryphonRiderFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(1.5f);
-        result.setDefence(0);
-        result.setDamageMinimum(8);
-        result.setDamageMaximum(16);
+        result.setAttackRange(tiles(4));
+        result.setArmour(0);
+        result.setPiercingDamage(8);
+        result.setBasicDamage(16);
         result.setHealth(100);
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("GryphonRider", result));
-        result.setLevel(1);
         result.setName("Gryphon Rider");
         result.setMovementSpeed(8 * 14);
         result.setMovementCapability(Air);
-        result.setRange(tiles(4));
         result.setSight(tiles(6));
         result.setType(GryphonRider);
         //result.setProjectileType(Lightning);

@@ -41,7 +41,7 @@ public class MetalworksFactory extends BuildingFactoryBase
     @Override
     public Building get(Identifier type) {
         Building result = builder.build();
-        result.setDefence(20);
+        result.setArmour(20);
         result.setHealth(750);
         result.setHealthMaximum(750);
         result.setIdentifier(objectIdentifier("Metalworks", result));

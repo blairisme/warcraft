@@ -42,7 +42,7 @@ public class CircleOfPowerFactoryTest extends BuildingFactoryTestCase<CircleOfPo
     protected Map<String, Object> getValueProperties() {
         return Maps.of(
                 "Animation", Idle,
-                "Defence", 0,
+                "Armour", 0,
                 "Health", 10000.0f,
                 "HealthMaximum", 10000.0f,
                 "selectable", false,

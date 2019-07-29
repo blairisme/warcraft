@@ -44,17 +44,16 @@ public class PaladinFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         Combatant result = builder.newMeleeCombatant();
         result.setAttackSpeed(1);
-        result.setDefence(4);
-        result.setDamageMinimum(8);
-        result.setDamageMaximum(12);
+        result.setAttackRange(tiles(1));
+        result.setArmour(4);
+        result.setPiercingDamage(8);
+        result.setBasicDamage(12);
         result.setHealth(90);
         result.setHealthMaximum(90);
         result.setIdentifier(objectIdentifier("Paladin", result));
-        result.setLevel(1);
         result.setName("Paladin");
         result.setMovementSpeed(8 * 13);
         result.setMovementCapability(Land);
-        result.setRange(tiles(1));
         result.setSight(tiles(5));
         result.setType(Paladin);
         return result;

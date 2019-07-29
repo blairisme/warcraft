@@ -41,7 +41,7 @@ public class OilPlatformFactory extends BuildingFactoryBase
     @Override
     public Building get(Identifier type) {
         Building result = builder.build();
-        result.setDefence(20);
+        result.setArmour(20);
         result.setHealth(650);
         result.setHealthMaximum(650);
         result.setIdentifier(objectIdentifier("OilPlatform", result));

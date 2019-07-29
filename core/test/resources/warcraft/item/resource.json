@@ -10,7 +10,7 @@
   },
   "name": "Unknown",
   "sight": 0,
-  "defence": 0,
+  "armour": 0,
   "health": 0.0,
   "healthMaximum": 0.0,
   "selected": false,

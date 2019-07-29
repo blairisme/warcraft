@@ -44,17 +44,16 @@ public class TransportFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         RangedCombatant result = builder.newSeaCombatant();
         result.setAttackSpeed(0);
-        result.setDefence(0);
-        result.setDamageMinimum(0);
-        result.setDamageMaximum(0);
+        result.setAttackRange(tiles(1));
+        result.setArmour(0);
+        result.setPiercingDamage(0);
+        result.setBasicDamage(0);
         result.setHealth(150);
         result.setHealthMaximum(150);
         result.setIdentifier(objectIdentifier("Transport", result));
-        result.setLevel(1);
         result.setName("Transport");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Water);
-        result.setRange(tiles(1));
         result.setSight(tiles(4));
         result.setType(Transport);
         return result;

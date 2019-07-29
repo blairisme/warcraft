@@ -41,7 +41,7 @@ public class BoarFactory extends CritterFactoryBase
     @Override
     public Critter get(Identifier type) {
         Critter result = builder.build();
-        result.setDefence(0);
+        result.setArmour(0);
         result.setHealth(5);
         result.setHealthMaximum(5);
         result.setIdentifier(objectIdentifier("Boar", result));

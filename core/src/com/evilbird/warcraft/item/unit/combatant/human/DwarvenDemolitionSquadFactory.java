@@ -43,17 +43,16 @@ public class DwarvenDemolitionSquadFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         Combatant result = builder.newMeleeCombatant();
         result.setAttackSpeed(1);
-        result.setDefence(0);
-        result.setDamageMinimum(1);
-        result.setDamageMaximum(6);
+        result.setAttackRange(tiles(1));
+        result.setArmour(0);
+        result.setPiercingDamage(1);
+        result.setBasicDamage(6);
         result.setHealth(40);
         result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("DwarvenDemolitionSquad", result));
-        result.setLevel(1);
         result.setName("Dwarven Demolition Squad");
         result.setMovementSpeed(8 * 11);
         result.setMovementCapability(Land);
-        result.setRange(tiles(1));
         result.setSight(tiles(4));
         result.setType(DwarvenDemolitionSquad);
         return result;

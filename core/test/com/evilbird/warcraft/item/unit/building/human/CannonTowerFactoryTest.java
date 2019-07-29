@@ -44,7 +44,7 @@ public class CannonTowerFactoryTest extends BuildingFactoryTestCase<CannonTowerF
             "animation", Idle,
             "damageMinimum", 50,
             "damageMaximum", 50,
-            "defence", 20,
+            "armour", 20,
             "health", 160.0f,
             "healthMaximum", 160.0f,
             "selectable", true,

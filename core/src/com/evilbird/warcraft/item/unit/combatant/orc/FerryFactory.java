@@ -44,17 +44,17 @@ public class FerryFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         RangedCombatant result = builder.newSeaCombatant();
         result.setAttackSpeed(1.5f);
-        result.setDefence(10);
-        result.setDamageMinimum(2);
-        result.setDamageMaximum(35);
+        result.setArmour(10);
+        result.setPiercingDamage(2);
+        result.setBasicDamage(35);
         result.setHealth(100);
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("Ferry", result));
-        result.setLevel(1);
+
         result.setName("Ferry");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Water);
-        result.setRange(tiles(4));
+        result.setAttackRange(tiles(4));
         result.setSight(tiles(8));
         result.setType(Ferry);
         return result;

@@ -42,7 +42,7 @@ public class PigFarmFactoryTest extends BuildingFactoryTestCase<PigFarmFactory>
     protected Map<String, Object> getValueProperties() {
         return Maps.of(
                 "Animation", Idle,
-                "Defence", 20,
+                "Armour", 20,
                 "Health", 400.0f,
                 "HealthMaximum", 400.0f,
                 "selectable", true,

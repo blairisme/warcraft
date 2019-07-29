@@ -42,7 +42,7 @@ public class GryphonAviaryFactoryTest extends BuildingFactoryTestCase<GryphonAvi
     protected Map<String, Object> getValueProperties() {
         return Maps.of(
                 "Animation", Idle,
-                "Defence", 20,
+                "Armour", 20,
                 "Health", 500.0f,
                 "HealthMaximum", 500.0f,
                 "selectable", true,

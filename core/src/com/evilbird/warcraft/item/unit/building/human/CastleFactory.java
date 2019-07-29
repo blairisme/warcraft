@@ -42,7 +42,7 @@ public class CastleFactory extends BuildingFactoryBase
     @Override
     public Building get(Identifier type) {
         Building result = builder.build();
-        result.setDefence(20);
+        result.setArmour(20);
         result.setHealth(1600);
         result.setHealthMaximum(1600);
         result.setIdentifier(objectIdentifier("Castle", result));

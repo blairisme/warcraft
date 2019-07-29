@@ -44,17 +44,16 @@ public class MageFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(1.5f);
-        result.setDefence(0);
-        result.setDamageMinimum(2);
-        result.setDamageMaximum(9);
+        result.setAttackRange(tiles(2));
+        result.setArmour(0);
+        result.setPiercingDamage(2);
+        result.setBasicDamage(9);
         result.setHealth(60);
         result.setHealthMaximum(60);
         result.setIdentifier(objectIdentifier("Mage", result));
-        result.setLevel(1);
         result.setName("Mage");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
-        result.setRange(tiles(2));
         result.setSight(tiles(9));
         result.setType(Mage);
         return result;

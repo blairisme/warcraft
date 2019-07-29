@@ -52,17 +52,17 @@ public class PeonFactory extends GathererFactoryBase
     @Override
     public Gatherer get(Identifier type) {
         Gatherer result = builder.newLandGatherer();
-        result.setDefence(0);
-        result.setDamageMinimum(1);
-        result.setDamageMaximum(5);
-        result.setHealth(30f);
-        result.setHealthMaximum(30f);
+        result.setAttackSpeed(1);
+        result.setAttackRange(tiles(1));
+        result.setArmour(0);
+        result.setPiercingDamage(1);
+        result.setBasicDamage(5);
+        result.setHealth(30);
+        result.setHealthMaximum(30);
         result.setIdentifier(objectIdentifier("Peon", result));
-        result.setLevel(1);
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setName("Peon");
-        result.setRange(tiles(1));
         result.setSight(tiles(4));
         result.setType(Peon);
         return result;

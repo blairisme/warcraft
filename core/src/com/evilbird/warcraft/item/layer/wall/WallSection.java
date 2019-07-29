@@ -28,7 +28,7 @@ public class WallSection extends LayerGroupCell implements Destroyable
     }
 
     @Override
-    public int getDefence() {
+    public int getArmour() {
         return 0;
     }
 

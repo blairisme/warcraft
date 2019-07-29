@@ -44,17 +44,17 @@ public class CatapultFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(3);
-        result.setDefence(0);
-        result.setDamageMinimum(25);
-        result.setDamageMaximum(80);
+        result.setArmour(0);
+        result.setPiercingDamage(25);
+        result.setBasicDamage(80);
         result.setHealth(110);
         result.setHealthMaximum(110);
         result.setIdentifier(objectIdentifier("Catapult", result));
-        result.setLevel(1);
+
         result.setName("Catapult");
         result.setMovementSpeed(8 * 5);
         result.setMovementCapability(Land);
-        result.setRange(tiles(8));
+        result.setAttackRange(tiles(8));
         result.setSight(tiles(9));
         result.setType(Catapult);
         result.setProjectileType(Cannon);

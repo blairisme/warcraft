@@ -41,7 +41,7 @@ public class DockyardFactory extends BuildingFactoryBase
     @Override
     public Building get(Identifier type) {
         Building result = builder.build();
-        result.setDefence(20);
+        result.setArmour(20);
         result.setHealth(1100);
         result.setHealthMaximum(1100);
         result.setIdentifier(objectIdentifier("Dockyard", result));

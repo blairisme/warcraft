@@ -43,7 +43,7 @@ public class LookoutTowerFactory extends BuildingFactoryBase
     public Building get(Identifier type) {
         Fort result = builder.newFort();
         result.setAttackSpeed(1);
-        result.setDefence(20);
+        result.setArmour(20);
         result.setDamageMinimum(4);
         result.setDamageMaximum(12);
         result.setHealth(130);

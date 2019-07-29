@@ -42,7 +42,7 @@ public class FortressFactoryTest extends BuildingFactoryTestCase<FortressFactory
     protected Map<String, Object> getValueProperties() {
         return Maps.of(
                 "Animation", Idle,
-                "Defence", 20,
+                "Armour", 20,
                 "Health", 1600.0f,
                 "HealthMaximum", 1600.0f,
                 "selectable", true,

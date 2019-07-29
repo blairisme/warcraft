@@ -44,7 +44,7 @@ public class GuardTowerFactoryTest extends BuildingFactoryTestCase<GuardTowerFac
                 "animation", Idle,
                 "damageMinimum", 4,
                 "damageMaximum", 12,
-                "defence", 20,
+                "armour", 20,
                 "health", 130.0f,
                 "healthMaximum", 130.0f,
                 "selectable", true,

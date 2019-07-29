@@ -42,7 +42,7 @@ public class OilRefineryFactoryTest extends BuildingFactoryTestCase<OilRefineryF
     protected Map<String, Object> getValueProperties() {
         return Maps.of(
                 "Animation", Idle,
-                "Defence", 20,
+                "Armour", 20,
                 "Health", 600.0f,
                 "HealthMaximum", 600.0f,
                 "selectable", true,

@@ -43,17 +43,16 @@ public class OgreFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         Combatant result = builder.newMeleeCombatant();
         result.setAttackSpeed(1);
-        result.setDefence(4);
-        result.setDamageMinimum(2);
-        result.setDamageMaximum(12);
+        result.setArmour(4);
+        result.setPiercingDamage(2);
+        result.setBasicDamage(12);
         result.setHealth(90);
         result.setHealthMaximum(90);
         result.setIdentifier(objectIdentifier("Ogre", result));
-        result.setLevel(1);
         result.setName("Ogre");
         result.setMovementSpeed(8 * 13);
         result.setMovementCapability(Land);
-        result.setRange(tiles(1));
+        result.setAttackRange(tiles(1));
         result.setSight(tiles(4));
         result.setType(Ogre);
         return result;

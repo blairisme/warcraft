@@ -37,7 +37,7 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
 {
     private String name;
     private int sight;
-    private int defence;
+    private int armour;
     private float health;
     private float healthMaximum;
     private boolean selected;
@@ -50,7 +50,7 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
         super(skin);
         name = "Unknown";
         sight = 0;
-        defence = 0;
+        armour = 0;
         health = 0;
         healthMaximum = 0;
         selected = false;
@@ -62,8 +62,8 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
     }
 
     @Override
-    public int getDefence() {
-        return defence;
+    public int getArmour() {
+        return armour;
     }
 
     @Override
@@ -115,8 +115,8 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
         this.association = associate != null ? new ItemReference(associate) : null;
     }
 
-    public void setDefence(int defence) {
-        this.defence = defence;
+    public void setArmour(int armour) {
+        this.armour = armour;
     }
 
     public void setHealth(float health) {
@@ -192,7 +192,7 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(sight, unit.sight)
-            .append(defence, unit.defence)
+            .append(armour, unit.armour)
             .append(health, unit.health)
             .append(healthMaximum, unit.healthMaximum)
             .append(name, unit.name)
@@ -208,7 +208,7 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
             .appendSuper(super.hashCode())
             .append(name)
             .append(sight)
-            .append(defence)
+            .append(armour)
             .append(health)
             .append(healthMaximum)
             .append(selected)

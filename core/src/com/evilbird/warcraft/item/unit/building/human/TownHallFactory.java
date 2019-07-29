@@ -42,7 +42,7 @@ public class TownHallFactory extends BuildingFactoryBase
     @Override
     public Building get(Identifier type) {
         Building result = builder.build();
-        result.setDefence(20);
+        result.setArmour(20);
         result.setHealth(1200);
         result.setHealthMaximum(1200);
         result.setIdentifier(objectIdentifier("TownHall", result));

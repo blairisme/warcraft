@@ -43,7 +43,7 @@ public class BombardTowerFactory extends BuildingFactoryBase
     public Building get(Identifier type) {
         Fort result = builder.newFort();
         result.setAttackSpeed(1);
-        result.setDefence(20);
+        result.setArmour(20);
         result.setDamageMinimum(50);
         result.setDamageMaximum(50);
         result.setHealth(160);

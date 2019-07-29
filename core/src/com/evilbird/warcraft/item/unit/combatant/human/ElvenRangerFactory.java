@@ -46,17 +46,16 @@ public class ElvenRangerFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(1.5f);
-        result.setDefence(2);
-        result.setDamageMinimum(3);
-        result.setDamageMaximum(9);
+        result.setAttackRange(tiles(4));
+        result.setArmour(2);
+        result.setPiercingDamage(3);
+        result.setBasicDamage(9);
         result.setHealth(50);
         result.setHealthMaximum(50);
         result.setIdentifier(objectIdentifier("ElvenRanger", result));
-        result.setLevel(1);
         result.setName("Elven Ranger");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
-        result.setRange(tiles(4));
         result.setSight(tiles(6));
         result.setType(ElvenRanger);
         result.setProjectileType(Arrow);

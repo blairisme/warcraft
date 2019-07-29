@@ -41,7 +41,7 @@ public class MoveWithinRangeAction extends MoveAction
         if (destination == null) {
             Item target = getTarget();
             Combatant combatant = (Combatant)getItem();
-            destination = new MoveDestinationRange(target, combatant.getRange());
+            destination = new MoveDestinationRange(target, combatant.getAttackRange());
         }
         return destination;
     }

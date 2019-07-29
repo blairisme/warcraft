@@ -44,7 +44,7 @@ public class BombardTowerFactoryTest extends BuildingFactoryTestCase<BombardTowe
                 "Animation", Idle,
                 "damageMinimum", 50,
                 "damageMaximum", 50,
-                "Defence", 20,
+                "Armour", 20,
                 "Health", 160.0f,
                 "HealthMaximum", 160.0f,
                 "selectable", true,

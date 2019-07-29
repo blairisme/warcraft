@@ -19,12 +19,11 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.unit.combatant.CombatantVisualization.getDamageMaximum;
-import static com.evilbird.warcraft.item.unit.combatant.CombatantVisualization.getDamageMinimum;
-import static com.evilbird.warcraft.item.unit.combatant.CombatantVisualization.getDefence;
-import static com.evilbird.warcraft.item.unit.combatant.CombatantVisualization.getMovementSpeed;
-import static com.evilbird.warcraft.item.unit.combatant.CombatantVisualization.getRange;
-import static com.evilbird.warcraft.item.unit.combatant.CombatantVisualization.getSight;
+import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getArmour;
+import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getDamage;
+import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getRange;
+import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getSight;
+import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getSpeed;
 
 /**
  * Instances of this user interface show details about
@@ -64,15 +63,11 @@ public class CombatantDetailsPane extends GridItem implements DetailsPaneElement
 
     public void setItem(Item item) {
         Combatant combatant = (Combatant)item;
-        armour.setText(getText("Armour", getDefence(combatant)));
-        damage.setText(getText("Damage", getDamageMinimum(combatant), getDamageMaximum(combatant)));
+        armour.setText(getText("Armour", getArmour(combatant)));
+        damage.setText(getText("Damage", getDamage(combatant)));
         range.setText(getText("Range", getRange(combatant)));
         sight.setText(getText("Sight", getSight(combatant)));
-        speed.setText(getText("Speed", getMovementSpeed(combatant)));
-    }
-
-    private String getText(String prefix, int suffix) {
-        return getText(prefix, String.valueOf(suffix));
+        speed.setText(getText("Speed", getSpeed(combatant)));
     }
 
     private String getText(String prefix, String suffix) {
@@ -80,16 +75,6 @@ public class CombatantDetailsPane extends GridItem implements DetailsPaneElement
         stringBuilder.append(prefix);
         stringBuilder.append(": ");
         stringBuilder.append(suffix);
-        return stringBuilder.toString();
-    }
-
-    private String getText(String prefix, String suffixMin, String suffixMax) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(prefix);
-        stringBuilder.append(": ");
-        stringBuilder.append(suffixMin);
-        stringBuilder.append("-");
-        stringBuilder.append(suffixMax);
         return stringBuilder.toString();
     }
 

@@ -41,7 +41,7 @@ public class OgreMoundFactory extends BuildingFactoryBase
     @Override
     public Building get(Identifier type) {
         Building result = builder.build();
-        result.setDefence(20);
+        result.setArmour(20);
         result.setHealth(500);
         result.setHealthMaximum(500);
         result.setIdentifier(objectIdentifier("OgreMound", result));

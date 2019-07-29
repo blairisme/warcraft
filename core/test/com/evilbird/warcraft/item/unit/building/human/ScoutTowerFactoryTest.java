@@ -42,7 +42,7 @@ public class ScoutTowerFactoryTest extends BuildingFactoryTestCase<ScoutTowerFac
     protected Map<String, Object> getValueProperties() {
         return Maps.of(
                 "animation", Idle,
-                "defence", 20,
+                "armour", 20,
                 "health", 100.0f,
                 "healthMaximum", 100.0f,
                 "selectable", true,

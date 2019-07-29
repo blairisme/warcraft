@@ -10,14 +10,11 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.warcraft.item.unit.MovableUnit;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-
-import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 
 /**
  * Instances of this class define a combatant: a {@link Unit} specialization
@@ -25,82 +22,87 @@ import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
  *
  * @author Blair Butterworth
  */
-@SerializedType("Combatant")
 public class Combatant extends MovableUnit
 {
-    private int level;
     private float attackSpeed;
-    private int damageMinimum;
-    private int damageMaximum;
-    private int range;
+    private int attackRange;
+    private int basicDamage;
+    private int piercingDamage;
 
     public Combatant(Skin skin) {
         super(skin);
     }
 
+    /**
+     * Returns the rate at which the {@code Combatant} attacks.
+     */
     public float getAttackSpeed() {
         return attackSpeed;
     }
 
-    public int getDamageMinimum() {
-        return damageMinimum;
-    }
-
     /**
-     * The maximum amount of damage that the combatant deals with each attack.
+     * Returns the distance that the {@code Combatant} can reach with its
+     * attacks.
      */
-    public int getDamageMaximum() {
-        return damageMaximum;
+    public int getAttackRange() {
+        return attackRange;
     }
 
     /**
-     * How much damage the combatant always does with each attack, regardless
-     * of the opponent’s armor.
+     * Returns the maximum amount of damage that the {@code Combatant} deals
+     * with each attack.
+     */
+    public int getBasicDamage() {
+        return basicDamage;
+    }
+
+    /**
+     * Returns the damage the {@code Combatant} always does with each attack,
+     * regardless of the opponent’s armor.
      */
     public int getPiercingDamage() {
-        return 0;
+        return piercingDamage;
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public int getRange() {
-        return range;
-    }
-
-    public int getRangeTiles() {
-        return range / TILE_WIDTH;
-    }
-
+    /**
+     * Sets the rate at which the {@code Combatant} attacks.
+     */
     public void setAttackSpeed(float attackSpeed) {
         this.attackSpeed = attackSpeed;
     }
 
-    public void setDamageMinimum(int damageMinimum) {
-        this.damageMinimum = damageMinimum;
+    /**
+     * Sets the distance that the {@code Combatant} can reach with its
+     * attacks.
+     */
+    public void setAttackRange(int attackRange) {
+        this.attackRange = attackRange;
     }
 
-    public void setDamageMaximum(int damageMaximum) {
-        this.damageMaximum = damageMaximum;
+    /**
+     * Sets the maximum amount of damage that the {@code Combatant} deals
+     * with each attack.
+     */
+    public void setBasicDamage(int basicDamage) {
+        this.basicDamage = basicDamage;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public void setRange(int range) {
-        this.range = range;
+    /**
+     * Sets the damage the {@code Combatant} always does with each attack,
+     * regardless of the opponent’s armor.
+     */
+    public void setPiercingDamage(int piercingDamage) {
+        this.piercingDamage = piercingDamage;
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
             .appendSuper("unit")
-            .append("level", level)
-            .append("damageMinimum", damageMinimum)
-            .append("damageMaximum", damageMaximum)
-            .append("range", range)
+            .append("attackSpeed", attackSpeed)
+            .append("attackRange", attackRange)
+            .append("basicDamage", basicDamage)
+            .append("piercingDamage", piercingDamage)
             .toString();
     }
 
@@ -113,11 +115,10 @@ public class Combatant extends MovableUnit
         Combatant combatant = (Combatant)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
-            .append(level, combatant.level)
             .append(attackSpeed, combatant.attackSpeed)
-            .append(damageMinimum, combatant.damageMinimum)
-            .append(damageMaximum, combatant.damageMaximum)
-            .append(range, combatant.range)
+            .append(attackRange, combatant.attackRange)
+            .append(basicDamage, combatant.basicDamage)
+            .append(piercingDamage, combatant.piercingDamage)
             .isEquals();
     }
 
@@ -125,11 +126,10 @@ public class Combatant extends MovableUnit
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
-            .append(level)
             .append(attackSpeed)
-            .append(damageMinimum)
-            .append(damageMaximum)
-            .append(range)
+            .append(attackRange)
+            .append(basicDamage)
+            .append(piercingDamage)
             .toHashCode();
     }
 }

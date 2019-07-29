@@ -167,7 +167,7 @@ public class UnitOperations
     }
 
     public static boolean inRange(Combatant combatant, Item target) {
-        return isNear(combatant, combatant.getRange(), target);
+        return isNear(combatant, combatant.getAttackRange(), target);
     }
 
     public static boolean isRanged(Item item) {

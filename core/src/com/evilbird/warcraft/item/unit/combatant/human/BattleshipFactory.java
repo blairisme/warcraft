@@ -44,17 +44,16 @@ public class BattleshipFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         RangedCombatant result = builder.newSeaCombatant();
         result.setAttackSpeed(1.5f);
-        result.setDefence(0);
-        result.setDamageMinimum(10);
-        result.setDamageMaximum(50);
+        result.setAttackRange(tiles(7));
+        result.setArmour(0);
+        result.setPiercingDamage(10);
+        result.setBasicDamage(50);
         result.setHealth(60);
         result.setHealthMaximum(60);
         result.setIdentifier(objectIdentifier("Battleship", result));
-        result.setLevel(1);
         result.setName("Battleship");
         result.setMovementSpeed(8 * 7);
         result.setMovementCapability(Water);
-        result.setRange(tiles(7));
         result.setSight(tiles(5));
         result.setType(Battleship);
         result.setProjectileType(Cannon);

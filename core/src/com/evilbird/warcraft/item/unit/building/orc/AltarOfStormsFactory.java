@@ -41,7 +41,7 @@ public class AltarOfStormsFactory extends BuildingFactoryBase
     @Override
     public Building get(Identifier type) {
         Building result = builder.build();
-        result.setDefence(20);
+        result.setArmour(20);
         result.setHealth(700);
         result.setHealthMaximum(700);
         result.setIdentifier(objectIdentifier("AltarOfStorms", result));

@@ -41,7 +41,7 @@ public class WatchTowerFactory extends BuildingFactoryBase
     @Override
     public Building get(Identifier type) {
         Building result = builder.build();
-        result.setDefence(20);
+        result.setArmour(20);
         result.setHealth(100);
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("WatchTower", result));

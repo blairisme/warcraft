@@ -21,7 +21,7 @@ public interface Destroyable extends Item
     /**
      * Returns how much damage the item’s armor absorbs with each attack.
      */
-    int getDefence();
+    int getArmour();
 
     float getHealth();
 

@@ -26,10 +26,7 @@ import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.BasicSwordDam
 
 /**
  * Instances of this {@link Action} reduce the health of the Actions target.
- * The amount of damage inflicted will be chosen at random from between the
- * Action subjects damage {@link Combatant#getDamageMinimum() minimum} and
- * {@link Combatant#getDamageMaximum() maximum}. The Action will end when the
- * targets health reaches zero.
+ * The Action will end when the targets health reaches zero.
  *
  * @author Blair Butterworth
  */

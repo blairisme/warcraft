@@ -44,17 +44,16 @@ public class BallistaFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(3);
-        result.setDefence(0);
-        result.setDamageMinimum(25);
-        result.setDamageMaximum(80);
+        result.setAttackRange(tiles(8));
+        result.setArmour(0);
+        result.setPiercingDamage(25);
+        result.setBasicDamage(80);
         result.setHealth(110);
         result.setHealthMaximum(110);
         result.setIdentifier(objectIdentifier("Ballista", result));
-        result.setLevel(1);
         result.setName("Ballista");
         result.setMovementSpeed(8 * 5);
         result.setMovementCapability(Land);
-        result.setRange(tiles(8));
         result.setSight(tiles(9));
         result.setType(Ballista);
         result.setProjectileType(Cannon);

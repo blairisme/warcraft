@@ -19,6 +19,8 @@ import com.evilbird.warcraft.item.ui.display.control.common.UnitPane;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
+import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getLevel;
+
 /**
  * Represents a user interface control that displays the icon, name and level
  * of a {@link Combatant}.
@@ -44,7 +46,7 @@ public class CombatantTitlePane extends GridItem implements DetailsPaneElement
         Combatant combatant = (Combatant)item;
         icon.setItem(combatant);
         title.setText(combatant.getName());
-        level.setText("Level " + combatant.getLevel());
+        level.setText("Level " + getLevel(combatant));
     }
 
     private UnitPane addIcon(Skin skin) {

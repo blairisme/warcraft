@@ -175,7 +175,7 @@ public class UnitPredicates
 
     public static Predicate<Item> inRange(Combatant combatant) {
         Objects.requireNonNull(combatant);
-        return item -> item != null && isNear(combatant, combatant.getRange(), item);
+        return item -> item != null && isNear(combatant, combatant.getAttackRange(), item);
     }
 
     public static Predicate<Item> notInRange(Combatant combatant) {

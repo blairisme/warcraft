@@ -43,17 +43,16 @@ public class GruntFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         Combatant result = builder.newMeleeCombatant();
         result.setAttackSpeed(1);
-        result.setDefence(2);
-        result.setDamageMinimum(2);
-        result.setDamageMaximum(9);
+        result.setAttackRange(tiles(1));
+        result.setArmour(2);
+        result.setBasicDamage(7);
+        result.setPiercingDamage(2);
         result.setHealth(60);
         result.setHealthMaximum(60);
         result.setIdentifier(objectIdentifier("Grunt", result));
-        result.setLevel(1);
         result.setName("Grunt");
         result.setMovementSpeed(80);
         result.setMovementCapability(Land);
-        result.setRange(tiles(1));
         result.setSight(tiles(4));
         result.setType(Grunt);
         return result;

@@ -46,17 +46,16 @@ public class TrollBerserkerFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(1.5f);
-        result.setDefence(0);
-        result.setDamageMinimum(3);
-        result.setDamageMaximum(9);
+        result.setArmour(0);
+        result.setPiercingDamage(3);
+        result.setBasicDamage(9);
         result.setHealth(50);
         result.setHealthMaximum(50);
         result.setIdentifier(objectIdentifier("TrollBerserker", result));
-        result.setLevel(1);
         result.setName("Troll Berserker");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
-        result.setRange(tiles(4));
+        result.setAttackRange(tiles(4));
         result.setSight(tiles(6));
         result.setType(TrollBerserker);
         result.setProjectileType(Axe);

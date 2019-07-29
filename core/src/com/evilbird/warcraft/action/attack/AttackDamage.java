@@ -10,8 +10,9 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.common.lang.Destroyable;
-import com.evilbird.engine.common.math.RandomGenerator;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
+
+import java.util.Random;
 
 /**
  * Calculates the attack damage to be applied to a given target. Damage is
@@ -24,7 +25,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
  */
 public class AttackDamage
 {
-    private static RandomGenerator random = new RandomGenerator();
+    private static Random random = new Random();
 
     private AttackDamage() {
     }
@@ -36,32 +37,14 @@ public class AttackDamage
     }
 
     public static int getDamage(Combatant combatant, Destroyable target, int upgrade) {
-        int attack = getAttack(combatant, upgrade);
-        int defence = getDefense(combatant, target);
-        return Math.max(0, attack - defence);
+        int armour = target.getArmour();
+        int basic = combatant.getBasicDamage() + upgrade;
+        int piercing = combatant.getPiercingDamage();
+        return getDamage(armour, basic, piercing);
     }
 
-    private static int getAttack(Combatant combatant, int upgrade) {
-        int attackMin = getAttackMinimum(combatant);
-        int attackMax = getAttackMaximum(combatant, upgrade);
-        return random.nextInt(attackMin, attackMax);
-    }
-
-    private static int getAttackMinimum(Combatant combatant) {
-        int damage = combatant.getDamageMinimum();
-        float speed = combatant.getAttackSpeed();
-        return Math.round(damage * speed);
-    }
-
-    private static int getAttackMaximum(Combatant combatant, int upgrade) {
-        int damage = combatant.getDamageMaximum();
-        float speed = combatant.getAttackSpeed();
-        return Math.round((damage + upgrade) * speed);
-    }
-
-    private static int getDefense(Combatant combatant, Destroyable target) {
-        int defense = target.getDefence();
-        float speed = combatant.getAttackSpeed();
-        return Math.round(defense * speed);
+    private static int getDamage(int armour, int basic, int piercing) {
+        int damage = Math.max(basic - armour, 0) + piercing;
+        return random.nextBoolean() ? damage : (int)Math.ceil(damage / 2.0);
     }
 }
