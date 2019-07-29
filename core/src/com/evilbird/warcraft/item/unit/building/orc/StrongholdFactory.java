@@ -46,7 +46,6 @@ public class StrongholdFactory extends BuildingFactoryBase
         result.setHealth(1400);
         result.setHealthMaximum(1400);
         result.setIdentifier(objectIdentifier("Stronghold", result));
-        result.setName("Stronghold");
         result.setSight(tiles(6));
         result.setType(Stronghold);
         result.setResource(Food, 1);

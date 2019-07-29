@@ -50,10 +50,16 @@ public class DetailsPane extends GridItem
         resourceDetails = new ResourceDetailsPane(skin);
 
         setSkin(skin);
-        setBackground("details-panel");
         setSize(176, 176);
         setCellPadding(8);
         setTouchable(Touchable.disabled);
+    }
+
+    @Override
+    public void setSkin(Skin skin) {
+        super.setSkin(skin);
+        DetailsPaneStyle style = skin.get(DetailsPaneStyle.class);
+        setBackground(style.background);
     }
 
     public void setConstructing(Building building, boolean constructing) {

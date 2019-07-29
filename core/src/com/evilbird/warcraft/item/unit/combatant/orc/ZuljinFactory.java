@@ -40,7 +40,6 @@ public class ZuljinFactory extends TrollAxethrowerFactory
         Combatant result = super.get(type);
         result.setType(Zuljin);
         result.setIdentifier(objectIdentifier("Zuljin", result));
-        result.setName("Zuljin");
         result.setType(Zuljin);
         return result;
     }

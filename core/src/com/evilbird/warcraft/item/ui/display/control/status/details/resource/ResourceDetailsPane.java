@@ -16,6 +16,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneElement;
+import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 
@@ -30,6 +31,7 @@ public class ResourceDetailsPane extends GridItem implements DetailsPaneElement
     private Resource resource;
     private Label resourceLabel;
     private float resourceValue;
+    private DetailsPaneStyle style;
 
     public ResourceDetailsPane(Skin skin) {
         super(1, 1);
@@ -50,24 +52,27 @@ public class ResourceDetailsPane extends GridItem implements DetailsPaneElement
     }
 
     @Override
+    public void setSkin(Skin skin) {
+        super.setSkin(skin);
+        this.style = skin.get(DetailsPaneStyle.class);
+    }
+
+    @Override
     public void update(float delta) {
         super.update(delta);
         if (resource != null) {
             float newResourceValue = getResourceValue(resource);
             if (resourceValue != newResourceValue) {
                 resourceValue = newResourceValue;
-
-                String name = getResourceName(resource);
-                String amount = String.valueOf(Math.round(resourceValue));
-                resourceLabel.setText(name + amount);
+                resourceLabel.setText(getResourceLabel(resource, resourceValue));
             }
         }
     }
 
-    private String getResourceName(Resource resource) {
+    private String getResourceLabel(Resource resource, float value) {
         switch ((UnitType)resource.getType()) {
-            case GoldMine: return "Gold Left: ";
-            case OilPatch: return "Oil Left: ";
+            case GoldMine: return style.strings.getGoldRemaining(value);
+            case OilPatch: return style.strings.getOilRemaining(value);
             default: throw new UnsupportedOperationException();
         }
     }

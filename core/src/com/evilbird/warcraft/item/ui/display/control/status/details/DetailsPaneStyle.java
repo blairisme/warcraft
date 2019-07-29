@@ -7,22 +7,20 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.ui.display.control.status.details.building;
+package com.evilbird.warcraft.item.ui.display.control.status.details;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.warcraft.item.ui.display.control.common.IconSet;
 
 /**
- * Defines the visual and auditory presentation of a {@link ProductionDetailsPane}.
+ * Defines the visual presentation of a {@link DetailsPane}.
  *
  * @author Blair Butterworth
  */
-public class ProductionDetailsStyle
+public class DetailsPaneStyle
 {
-    public Drawable background;
     public IconSet icons;
-
-//    public Drawable trainFootmanIcon;
-//    public Drawable trainPeasantIcon;
-//    public Drawable upgradeArrowDamageIcon;
+    public Drawable background;
+    public Drawable productionBackground;
+    public DetailsPaneStrings strings;
 }

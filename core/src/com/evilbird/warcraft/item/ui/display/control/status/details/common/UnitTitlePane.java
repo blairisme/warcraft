@@ -17,7 +17,9 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.item.ui.display.control.common.UnitPane;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneElement;
+import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.unit.UnitType;
 
 /**
  * Represents a user interface control that displays the icon and name of a
@@ -29,9 +31,11 @@ public class UnitTitlePane extends GridItem implements DetailsPaneElement
 {
     private Label title;
     private UnitPane icon;
+    private DetailsPaneStyle style;
 
     public UnitTitlePane(Skin skin) {
         super(2, 1);
+        setSkin(skin);
         this.icon = addIcon(skin);
         this.title = addTitle(skin);
     }
@@ -39,7 +43,13 @@ public class UnitTitlePane extends GridItem implements DetailsPaneElement
     public void setItem(Item item) {
         Unit unit = (Unit)item;
         icon.setItem(unit);
-        title.setText(unit.getName());
+        title.setText(style.strings.getName((UnitType)item.getType()));
+    }
+
+    @Override
+    public void setSkin(Skin skin) {
+        super.setSkin(skin);
+        this.style = skin.get(DetailsPaneStyle.class);
     }
 
     private UnitPane addIcon(Skin skin) {

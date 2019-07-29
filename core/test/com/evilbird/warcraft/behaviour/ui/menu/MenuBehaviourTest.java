@@ -25,7 +25,10 @@ import com.evilbird.warcraft.action.select.SelectEvent;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionPane;
+import com.evilbird.warcraft.item.ui.display.control.common.IconSet;
 import com.evilbird.warcraft.item.ui.display.control.status.StatusPane;
+import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStrings;
+import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.item.ui.display.resource.ResourcePane;
 import com.evilbird.warcraft.item.ui.display.resource.ResourcePaneStyle;
 import com.evilbird.warcraft.state.WarcraftState;
@@ -36,6 +39,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
+import static com.evilbird.test.data.assets.TestStringBundles.newMockBundle;
+import static com.evilbird.test.data.assets.TestTextures.newTestDrawable;
+import static com.evilbird.test.data.assets.TestTextures.newTestTexture;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -65,9 +71,16 @@ public class MenuBehaviourTest extends GameTestCase
         ResourcePaneStyle resourceStyle = new ResourcePaneStyle();
         resourceStyle.font = Fonts.ARIAL;
 
+        DetailsPaneStyle detailsPaneStyle = new DetailsPaneStyle();
+        detailsPaneStyle.background = newTestDrawable();
+        detailsPaneStyle.productionBackground = newTestDrawable();
+        detailsPaneStyle.strings = new DetailsPaneStrings(newMockBundle(), newMockBundle());
+        detailsPaneStyle.icons = new IconSet(newTestTexture());
+
         Skin skin = mock(Skin.class);
         when(skin.get(LabelStyle.class)).thenReturn(labelStyle);
         when(skin.get(anyString(), any())).then(invocation -> mock((Class<?>)invocation.getArguments()[1]));
+        when(skin.get(DetailsPaneStyle.class)).thenReturn(detailsPaneStyle);
 
         player = TestPlayers.newTestPlayer("player");
         resourcePane = new ResourcePane(resourceStyle);
@@ -77,7 +90,7 @@ public class MenuBehaviourTest extends GameTestCase
         ItemRoot world = TestItemRoots.newTestRoot(new TextIdentifier("world"), player);
         ItemRoot hud = TestItemRoots.newTestRoot(new TextIdentifier("hud"), resourcePane, actionPane, statusPane);
 
-        state = new WarcraftState(); //world, hud, null, null);
+        state = new WarcraftState();
         state.setWorld(world);
         state.setHud(hud);
         events = new EventQueue();

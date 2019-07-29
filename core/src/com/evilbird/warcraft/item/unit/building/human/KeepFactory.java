@@ -46,7 +46,6 @@ public class KeepFactory extends BuildingFactoryBase
         result.setHealth(1400);
         result.setHealthMaximum(1400);
         result.setIdentifier(objectIdentifier("Keep", result));
-        result.setName("Keep");
         result.setSight(tiles(6));
         result.setType(Keep);
         result.setResource(Food, 1);

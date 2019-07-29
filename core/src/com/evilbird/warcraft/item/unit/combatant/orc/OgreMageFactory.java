@@ -49,7 +49,6 @@ public class OgreMageFactory extends CombatantFactoryBase
         result.setHealth(90);
         result.setHealthMaximum(90);
         result.setIdentifier(objectIdentifier("OgreMage", result));
-        result.setName("Ogre Mage");
         result.setMovementSpeed(8 * 13);
         result.setMovementCapability(Land);
         result.setAttackRange(tiles(1));

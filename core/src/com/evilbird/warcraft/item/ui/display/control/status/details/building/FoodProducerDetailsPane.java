@@ -16,36 +16,37 @@ import com.evilbird.engine.common.control.LabelProperty;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.data.player.PlayerStatistic;
+import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * Instances of this user interface show details about a Town Hall, including
- * the resources that the owning player has accumulated.
+ * Instances of this user interface show details about a farm.
  *
  * @author Blair Butterworth
  */
-public class TownHallDetailsPane extends GridItem
+public class FoodProducerDetailsPane extends GridItem
 {
     private Player player;
-    private LabelProperty gold;
-    private LabelProperty lumber;
-    private LabelProperty oil;
+    private LabelProperty grown;
+    private LabelProperty used;
+    private DetailsPaneStyle style;
 
-    public TownHallDetailsPane(Skin skin) {
-        super(1, 4);
+    public FoodProducerDetailsPane(Skin skin) {
+        super(1, 3);
 
+        setSkin(skin);
         setSize(160, 100);
         setCellSpacing(4);
         setCellWidth(160);
         setCellHeight(12);
 
-        addLabel("Production", skin);
-        gold = addLabel(skin, this::getGoldValue, this::getGoldLabel);
-        lumber = addLabel(skin, this::getLumberValue, this::getLumberLabel);
-        oil = addLabel(skin, this::getOilValue, this::getOilLabel);
+        addLabel(style.strings.getFoodUsage(), skin);
+        grown = addLabel(skin, this::getGrown, this::getGrownLabel);
+        used = addLabel(skin, this::getUsed, this::getUsedLabel);
     }
 
     public void setBuilding(Building building) {
@@ -53,11 +54,16 @@ public class TownHallDetailsPane extends GridItem
     }
 
     @Override
+    public void setSkin(Skin skin) {
+        super.setSkin(skin);
+        this.style = skin.get(DetailsPaneStyle.class);
+    }
+
+    @Override
     public void update(float delta) {
         super.update(delta);
-        gold.evaluate();
-        lumber.evaluate();
-        oil.evaluate();
+        grown.evaluate();
+        used.evaluate();
     }
 
     private LabelProperty addLabel(Skin skin, Supplier<Float> value, Function<Float, String> text) {
@@ -73,27 +79,21 @@ public class TownHallDetailsPane extends GridItem
         return result;
     }
 
-    private Float getGoldValue() {
-        return player.getResource(ResourceType.Gold);
+    private Float getGrown() {
+        return (float)player.getStatistic(PlayerStatistic.Population);
     }
 
-    private String getGoldLabel(Float value) {
-        return "Gold: " + Math.round(value);
+    private String getGrownLabel(Float value) {
+        return style.strings.getFoodGrown(value);
     }
 
-    private Float getLumberValue() {
-        return player.getResource(ResourceType.Wood);
+    private Float getUsed() {
+        float total = player.getStatistic(PlayerStatistic.Population);
+        float remaining = player.getResource(ResourceType.Food);
+        return total - remaining;
     }
 
-    private String getLumberLabel(Float value) {
-        return "Lumber: " + Math.round(value);
-    }
-
-    private Float getOilValue() {
-        return player.getResource(ResourceType.Oil);
-    }
-
-    private String getOilLabel(Float value) {
-        return "Oil: " + Math.round(value);
+    private String getUsedLabel(Float value) {
+        return style.strings.getFoodUsed(value);
     }
 }

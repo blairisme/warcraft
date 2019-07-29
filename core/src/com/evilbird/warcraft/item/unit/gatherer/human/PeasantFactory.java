@@ -65,7 +65,6 @@ public class PeasantFactory extends GathererFactoryBase
         result.setIdentifier(objectIdentifier("Peasant", result));
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
-        result.setName("Peasant");
         result.setSight(tiles(4));
         result.setType(Peasant);
         return result;

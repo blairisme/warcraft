@@ -45,7 +45,6 @@ public class FoundryFactory extends BuildingFactoryBase
         result.setHealth(750);
         result.setHealthMaximum(750);
         result.setIdentifier(objectIdentifier("Foundry", result));
-        result.setName("Foundry");
         result.setSight(tiles(3));
         result.setType(Foundry);
         return result;

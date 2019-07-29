@@ -45,7 +45,6 @@ public class GryphonAviaryFactory extends BuildingFactoryBase
         result.setHealth(500);
         result.setHealthMaximum(500);
         result.setIdentifier(objectIdentifier("GryphonAviary", result));
-        result.setName("Gryphon Aviary");
         result.setSight(tiles(3));
         result.setType(GryphonAviary);
         return result;

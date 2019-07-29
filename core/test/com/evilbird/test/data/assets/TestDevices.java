@@ -7,14 +7,14 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.test.data.device;
+package com.evilbird.test.data.assets;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
 import org.mockito.Mockito;
 
-import static com.evilbird.test.data.device.TestAssets.newAssetManagerMock;
+import static com.evilbird.test.data.assets.TestAssets.newAssetManagerMock;
 
 public class TestDevices
 {

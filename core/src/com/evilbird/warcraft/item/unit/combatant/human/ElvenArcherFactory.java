@@ -52,7 +52,6 @@ public class ElvenArcherFactory extends CombatantFactoryBase
         result.setHealth(40);
         result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("ElvenArcher", result));
-        result.setName("Elven Archer");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setSight(tiles(5));

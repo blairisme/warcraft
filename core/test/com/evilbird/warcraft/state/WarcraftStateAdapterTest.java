@@ -19,7 +19,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.evilbird.test.data.device.TestDevices.newTestDevice;
+import static com.evilbird.test.data.assets.TestDevices.newTestDevice;
 
 /**
  * Instances of this unit test validate the {@link WarcraftStateAdapter} class.

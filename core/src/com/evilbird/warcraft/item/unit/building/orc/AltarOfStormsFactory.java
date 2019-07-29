@@ -45,7 +45,6 @@ public class AltarOfStormsFactory extends BuildingFactoryBase
         result.setHealth(700);
         result.setHealthMaximum(700);
         result.setIdentifier(objectIdentifier("AltarOfStorms", result));
-        result.setName("Altar of Storms");
         result.setSight(tiles(3));
         result.setType(AltarOfStorms);
         return result;

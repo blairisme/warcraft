@@ -45,7 +45,6 @@ public class LumberMillFactory extends BuildingFactoryBase
         result.setHealth(600);
         result.setHealthMaximum(600);
         result.setIdentifier(objectIdentifier("LumberMill", result));
-        result.setName("LumberMill");
         result.setSight(tiles(3));
         result.setType(LumberMill);
         return result;

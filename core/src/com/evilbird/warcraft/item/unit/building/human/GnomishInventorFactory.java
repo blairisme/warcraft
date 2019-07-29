@@ -45,7 +45,6 @@ public class GnomishInventorFactory extends BuildingFactoryBase
         result.setHealth(500);
         result.setHealthMaximum(500);
         result.setIdentifier(objectIdentifier("GnomishInventor", result));
-        result.setName("Gnomish Inventor");
         result.setSight(tiles(3));
         result.setType(GnomishInventor);
         return result;

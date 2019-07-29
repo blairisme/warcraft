@@ -52,7 +52,6 @@ public class GiantTurtleFactory extends CombatantFactoryBase
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("GiantTurtle", result));
 
-        result.setName("Giant Turtle");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Water);
         result.setAttackRange(tiles(4));

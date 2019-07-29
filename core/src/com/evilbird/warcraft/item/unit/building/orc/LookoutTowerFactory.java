@@ -49,7 +49,6 @@ public class LookoutTowerFactory extends BuildingFactoryBase
         result.setHealth(130);
         result.setHealthMaximum(130);
         result.setIdentifier(objectIdentifier("LookoutTower", result));
-        result.setName("Lookout Tower");
         result.setSight(tiles(9));
         result.setRange(tiles(6));
         result.setType(LookoutTower);

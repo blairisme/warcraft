@@ -24,6 +24,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.action.produce.ProduceUpgradeActions;
+import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 /**
@@ -35,32 +36,37 @@ import com.evilbird.warcraft.item.unit.building.Building;
 public class ProductionDetailsPane extends GridItem
 {
     private Building building;
+    private Label productName;
     private Image productImage;
     private ProgressBar productProgress;
+    private DetailsPaneStyle style;
 
     public ProductionDetailsPane(Skin skin) {
         super(1, 2);
-        initialize(skin);
+        setSkin(skin);
+        setSize(160, 100);
+        setCellSpacing(8);
+        setAlignment(Alignment.Bottom);
         addProductDetails(skin);
-        productProgress = addProductionProgress(skin);
+        addProductionProgress(skin);
     }
 
     public void setBuilding(Building building) {
         this.building = building;
+        this.productName.setText(style.strings.getTraining(building));
         this.productImage.setDrawable(getProductImage(building));
+    }
+
+    @Override
+    public void setSkin(Skin skin) {
+        super.setSkin(skin);
+        this.style = skin.get(DetailsPaneStyle.class);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
         productProgress.setValue(building.getProductionProgress());
-    }
-
-    private void initialize(Skin skin) {
-        setSkin(skin);
-        setSize(160, 100);
-        setCellSpacing(8);
-        setAlignment(Alignment.Bottom);
     }
 
     private void addProductDetails(Skin skin) {
@@ -72,16 +78,16 @@ public class ProductionDetailsPane extends GridItem
     }
 
     private void addProductLabel(Skin skin, GridItem container) {
-        Label label = new Label("Training: ", skin);
-        Cell cell = container.add(label);
+        productName = new Label("", skin);
+        Cell cell = container.add(productName);
         cell.grow();
     }
 
     private void addProductImage(Skin skin, GridItem container) {
-        ProductionDetailsStyle style = skin.get("default", ProductionDetailsStyle.class);
+        DetailsPaneStyle style = skin.get(DetailsPaneStyle.class);
 
         Image background = new Image();
-        background.setDrawable(style.background);
+        background.setDrawable(style.productionBackground);
 
         productImage = new Image();
         productImage.setScaling(Scaling.none);
@@ -106,26 +112,24 @@ public class ProductionDetailsPane extends GridItem
     }
 
     private Drawable getProductImage(ProduceUnitActions action) {
-        ProductionDetailsStyle style = getSkin().get(ProductionDetailsStyle.class);
+        DetailsPaneStyle style = getSkin().get(DetailsPaneStyle.class);
         return style.icons.get(action.getProduct());
     }
 
     private Drawable getProductImage(ProduceUpgradeActions action) {
-        ProductionDetailsStyle style = getSkin().get(ProductionDetailsStyle.class);
+        DetailsPaneStyle style = getSkin().get(DetailsPaneStyle.class);
         return style.icons.get(action.getProduct());
     }
 
-    private ProgressBar addProductionProgress(Skin skin) {
+    private void addProductionProgress(Skin skin) {
         Stack container = new Stack();
         add(container);
 
-        ProgressBar progressBar = new ProgressBar(0, 1, 0.005f, false, skin, "building-progress");
-        container.add(progressBar);
+        productProgress = new ProgressBar(0, 1, 0.005f, false, skin, "building-progress");
+        container.add(productProgress);
 
-        Label label = new Label("% Complete", skin);
+        Label label = new Label(style.strings.getProgress(), skin);
         label.setAlignment(Align.center);
         container.add(label);
-
-        return progressBar;
     }
 }

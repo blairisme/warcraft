@@ -51,7 +51,6 @@ public class PaladinFactory extends CombatantFactoryBase
         result.setHealth(90);
         result.setHealthMaximum(90);
         result.setIdentifier(objectIdentifier("Paladin", result));
-        result.setName("Paladin");
         result.setMovementSpeed(8 * 13);
         result.setMovementCapability(Land);
         result.setSight(tiles(5));

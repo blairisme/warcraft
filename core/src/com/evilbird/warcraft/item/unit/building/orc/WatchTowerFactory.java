@@ -45,7 +45,6 @@ public class WatchTowerFactory extends BuildingFactoryBase
         result.setHealth(100);
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("WatchTower", result));
-        result.setName("Watch Tower");
         result.setSight(tiles(9));
         result.setType(WatchTower);
         return result;

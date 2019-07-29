@@ -45,7 +45,6 @@ public class OgreMoundFactory extends BuildingFactoryBase
         result.setHealth(500);
         result.setHealthMaximum(500);
         result.setIdentifier(objectIdentifier("OgreMound", result));
-        result.setName("Ogre Mound");
         result.setSight(tiles(3));
         result.setType(OgreMound);
         return result;

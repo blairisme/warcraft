@@ -46,7 +46,6 @@ public class TownHallFactory extends BuildingFactoryBase
         result.setHealth(1200);
         result.setHealthMaximum(1200);
         result.setIdentifier(objectIdentifier("TownHall", result));
-        result.setName("Town Hall");
         result.setSight(tiles(4));
         result.setType(TownHall);
         result.setResource(Food, 1);

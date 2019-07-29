@@ -63,7 +63,6 @@ public class TrollTankerFactory extends GathererFactoryBase
         result.setIdentifier(objectIdentifier("TrollTanker", result));
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Water);
-        result.setName("TrollTanker");
         result.setSight(tiles(4));
         result.setType(TrollTanker);
         return result;

@@ -51,7 +51,6 @@ public class CatapultFactory extends CombatantFactoryBase
         result.setHealthMaximum(110);
         result.setIdentifier(objectIdentifier("Catapult", result));
 
-        result.setName("Catapult");
         result.setMovementSpeed(8 * 5);
         result.setMovementCapability(Land);
         result.setAttackRange(tiles(8));

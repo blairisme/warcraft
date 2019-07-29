@@ -26,11 +26,14 @@ public class CombatantVisualization
     private CombatantVisualization() {
     }
 
-    public static String getDamage(Combatant combatant) {
+    public static int getDamageMin(Combatant combatant) {
+        return combatant.getPiercingDamage();
+    }
+
+    public static int getDamageMax(Combatant combatant) {
         int basicDamage = combatant.getBasicDamage();
         int pierceDamage = combatant.getPiercingDamage();
-        int totalDamage = basicDamage + pierceDamage;
-        return pierceDamage + "-" + totalDamage;
+        return basicDamage + pierceDamage;
     }
 
 //    private static String getDamageUpgrade(Combatant combatant) {
@@ -57,26 +60,23 @@ public class CombatantVisualization
 //        }
 //    }
 
-    public static String getArmour(Combatant combatant) {
-        return String.valueOf(combatant.getArmour());
+    public static int getArmour(Combatant combatant) {
+        return combatant.getArmour();
     }
 
-    public static String getSpeed(Combatant combatant) {
-        int value = combatant.getMovementSpeed() / MOVEMENT_FACTOR;
-        return String.valueOf(value);
+    public static int getSpeed(Combatant combatant) {
+        return combatant.getMovementSpeed() / MOVEMENT_FACTOR;
     }
 
-    public static String getRange(Combatant combatant) {
-        int value = combatant.getAttackRange() / TILE_WIDTH;
-        return String.valueOf(value);
+    public static int getRange(Combatant combatant) {
+        return combatant.getAttackRange() / TILE_WIDTH;
     }
 
-    public static String getSight(Combatant combatant) {
-        int value = combatant.getSightTiles();
-        return String.valueOf(value);
+    public static int getSight(Combatant combatant) {
+        return combatant.getSightTiles();
     }
 
-    public static String getLevel(Combatant combatant) {
-        return "1";
+    public static int getLevel(Combatant combatant) {
+        return 1;
     }
 }

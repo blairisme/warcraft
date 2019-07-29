@@ -46,7 +46,6 @@ public class FarmFactory extends BuildingFactoryBase
         result.setHealth(400);
         result.setHealthMaximum(400);
         result.setIdentifier(objectIdentifier("Farm", result));
-        result.setName("Farm");
         result.setSight(tiles(3));
         result.setType(Farm);
         result.setResource(Food, 4);

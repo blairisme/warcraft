@@ -44,7 +44,6 @@ public class CircleOfPowerFactory extends BuildingFactoryBase
         result.setHealth(10000);
         result.setHealthMaximum(10000);
         result.setIdentifier(objectIdentifier("CircleOfPower", result));
-        result.setName("Circle of Power");
         result.setSight(tiles(1));
         result.setType(CircleOfPower);
         result.setSelectable(false);

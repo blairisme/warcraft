@@ -45,7 +45,6 @@ public class TrollLumberMillFactory extends BuildingFactoryBase
         result.setHealth(600);
         result.setHealthMaximum(600);
         result.setIdentifier(objectIdentifier("TrollLumberMill", result));
-        result.setName("Troll Lumber Mill");
         result.setSight(tiles(3));
         result.setType(TrollLumberMill);
         return result;

@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static com.evilbird.test.data.device.TestAssets.newAssetManagerMock;
+import static com.evilbird.test.data.assets.TestAssets.newAssetManagerMock;
 
 /**
  * Instances of this test case provide common validation for factories.

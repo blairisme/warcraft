@@ -45,7 +45,6 @@ public class MageTowerFactory extends BuildingFactoryBase
         result.setHealth(500);
         result.setHealthMaximum(500);
         result.setIdentifier(objectIdentifier("MageTower", result));
-        result.setName("Mage Tower");
         result.setSight(tiles(3));
         result.setType(MageTower);
         return result;

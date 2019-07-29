@@ -51,7 +51,6 @@ public class BallistaFactory extends CombatantFactoryBase
         result.setHealth(110);
         result.setHealthMaximum(110);
         result.setIdentifier(objectIdentifier("Ballista", result));
-        result.setName("Ballista");
         result.setMovementSpeed(8 * 5);
         result.setMovementCapability(Land);
         result.setSight(tiles(9));

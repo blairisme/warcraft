@@ -52,7 +52,6 @@ public class TrollBerserkerFactory extends CombatantFactoryBase
         result.setHealth(50);
         result.setHealthMaximum(50);
         result.setIdentifier(objectIdentifier("TrollBerserker", result));
-        result.setName("Troll Berserker");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setAttackRange(tiles(4));

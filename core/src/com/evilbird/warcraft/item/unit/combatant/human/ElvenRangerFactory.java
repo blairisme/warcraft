@@ -53,7 +53,6 @@ public class ElvenRangerFactory extends CombatantFactoryBase
         result.setHealth(50);
         result.setHealthMaximum(50);
         result.setIdentifier(objectIdentifier("ElvenRanger", result));
-        result.setName("Elven Ranger");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setSight(tiles(6));

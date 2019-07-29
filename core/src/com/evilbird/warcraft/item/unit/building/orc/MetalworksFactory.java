@@ -45,7 +45,6 @@ public class MetalworksFactory extends BuildingFactoryBase
         result.setHealth(750);
         result.setHealthMaximum(750);
         result.setIdentifier(objectIdentifier("Metalworks", result));
-        result.setName("Metalworks");
         result.setSight(tiles(3));
         result.setType(Metalworks);
         return result;

@@ -45,7 +45,6 @@ public class SheepFactory extends CritterFactoryBase
         result.setHealth(5);
         result.setHealthMaximum(5);
         result.setIdentifier(objectIdentifier("Sheep", result));
-        result.setName("Sheep");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setSight(tiles(2));

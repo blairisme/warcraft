@@ -51,7 +51,6 @@ public class GoblinZeppelinFactory extends CombatantFactoryBase
         result.setHealth(40);
         result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("GoblinZeppelin", result));
-        result.setName("Goblin Zeppelin");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setSight(tiles(5));

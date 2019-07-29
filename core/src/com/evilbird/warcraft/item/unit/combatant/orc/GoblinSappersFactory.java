@@ -50,7 +50,6 @@ public class GoblinSappersFactory extends CombatantFactoryBase
         result.setHealthMaximum(60);
         result.setIdentifier(objectIdentifier("GoblinSappers", result));
 
-        result.setName("Goblin Sappers");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setAttackRange(tiles(1));

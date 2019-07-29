@@ -58,7 +58,6 @@ public class FootmanFactory extends CombatantFactoryBase
         result.setHealth(60);
         result.setHealthMaximum(60);
         result.setIdentifier(objectIdentifier("Footman", result));
-        result.setName("Footman");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setSight(tiles(4));

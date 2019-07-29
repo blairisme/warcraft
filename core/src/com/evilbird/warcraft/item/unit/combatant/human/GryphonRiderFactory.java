@@ -51,7 +51,6 @@ public class GryphonRiderFactory extends CombatantFactoryBase
         result.setHealth(100);
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("GryphonRider", result));
-        result.setName("Gryphon Rider");
         result.setMovementSpeed(8 * 14);
         result.setMovementCapability(Air);
         result.setSight(tiles(6));

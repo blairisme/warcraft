@@ -52,7 +52,6 @@ public class TrollAxethrowerFactory extends CombatantFactoryBase
         result.setHealth(40);
         result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("TrollAxethrower", result));
-        result.setName("Troll Axe Thrower");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setAttackRange(tiles(4));

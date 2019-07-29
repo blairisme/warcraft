@@ -50,7 +50,6 @@ public class DwarvenDemolitionSquadFactory extends CombatantFactoryBase
         result.setHealth(40);
         result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("DwarvenDemolitionSquad", result));
-        result.setName("Dwarven Demolition Squad");
         result.setMovementSpeed(8 * 11);
         result.setMovementCapability(Land);
         result.setSight(tiles(4));

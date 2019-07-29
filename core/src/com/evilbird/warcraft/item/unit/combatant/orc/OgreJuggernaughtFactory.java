@@ -51,7 +51,6 @@ public class OgreJuggernaughtFactory extends CombatantFactoryBase
         result.setHealth(100);
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("OgreJuggernaught", result));
-        result.setName("Ogre Juggernaught");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Water);
         result.setAttackRange(tiles(4));

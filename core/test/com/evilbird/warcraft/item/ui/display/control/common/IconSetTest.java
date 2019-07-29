@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.ui.display.control.common;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.test.data.device.TestTextures;
+import com.evilbird.test.data.assets.TestTextures;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
@@ -36,7 +36,7 @@ public class IconSetTest extends GameTestCase
 
     @Before
     public void setup() {
-        Texture texture = TestTextures.newTextureMock();
+        Texture texture = TestTextures.newTestTexture();
         iconSet = new IconSet(texture);
     }
 

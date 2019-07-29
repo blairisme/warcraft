@@ -15,12 +15,14 @@ import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneElement;
+import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
 import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getArmour;
-import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getDamage;
+import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getDamageMax;
+import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getDamageMin;
 import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getRange;
 import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getSight;
 import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getSpeed;
@@ -38,21 +40,23 @@ public class CombatantDetailsPane extends GridItem implements DetailsPaneElement
     private Label range;
     private Label sight;
     private Label speed;
+    private DetailsPaneStyle style;
 
     @Inject
     public CombatantDetailsPane(Skin skin) {
         super(1, 5);
 
-        armour = createLabel("Armour", skin);
-        damage = createLabel("Damage", skin);
-        range = createLabel("Range", skin);
-        sight = createLabel("Sight", skin);
-        speed = createLabel("Speed", skin);
-
+        setSkin(skin);
         setSize(160, 100);
         setCellSpacing(4);
         setCellWidth(160);
         setCellHeight(12);
+
+        armour = createLabel(skin);
+        damage = createLabel(skin);
+        range = createLabel(skin);
+        sight = createLabel(skin);
+        speed = createLabel(skin);
 
         add(armour);
         add(damage);
@@ -63,23 +67,21 @@ public class CombatantDetailsPane extends GridItem implements DetailsPaneElement
 
     public void setItem(Item item) {
         Combatant combatant = (Combatant)item;
-        armour.setText(getText("Armour", getArmour(combatant)));
-        damage.setText(getText("Damage", getDamage(combatant)));
-        range.setText(getText("Range", getRange(combatant)));
-        sight.setText(getText("Sight", getSight(combatant)));
-        speed.setText(getText("Speed", getSpeed(combatant)));
+        armour.setText(style.strings.getArmour(getArmour(combatant)));
+        damage.setText(style.strings.getDamage(getDamageMin(combatant), getDamageMax(combatant)));
+        range.setText(style.strings.getRange(getRange(combatant)));
+        sight.setText(style.strings.getSight(getSight(combatant)));
+        speed.setText(style.strings.getSpeed(getSpeed(combatant)));
     }
 
-    private String getText(String prefix, String suffix) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(prefix);
-        stringBuilder.append(": ");
-        stringBuilder.append(suffix);
-        return stringBuilder.toString();
+    @Override
+    public void setSkin(Skin skin) {
+        super.setSkin(skin);
+        this.style = skin.get(DetailsPaneStyle.class);
     }
 
-    private Label createLabel(String text, Skin skin) {
-        Label result = new Label(text, skin);
+    private Label createLabel(Skin skin) {
+        Label result = new Label("", skin);
         result.setSize(160, 12);
         result.setAlignment(Align.center);
         return result;

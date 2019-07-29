@@ -45,7 +45,6 @@ public class ScoutTowerFactory extends BuildingFactoryBase
         result.setHealth(100);
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("ScoutTower", result));
-        result.setName("Scout Tower");
         result.setSight(tiles(9));
         result.setType(ScoutTower);
         return result;

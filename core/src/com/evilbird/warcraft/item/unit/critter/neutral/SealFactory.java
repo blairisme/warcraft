@@ -45,7 +45,6 @@ public class SealFactory extends CritterFactoryBase
         result.setHealth(5);
         result.setHealthMaximum(5);
         result.setIdentifier(objectIdentifier("Seal", result));
-        result.setName("Seal");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setSight(tiles(2));

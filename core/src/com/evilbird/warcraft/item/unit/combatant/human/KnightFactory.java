@@ -50,7 +50,6 @@ public class KnightFactory extends CombatantFactoryBase
         result.setHealth(90);
         result.setHealthMaximum(90);
         result.setIdentifier(objectIdentifier("Knight", result));
-        result.setName("Knight");
         result.setMovementSpeed(8 * 13);
         result.setMovementCapability(Land);
         result.setSight(tiles(4));

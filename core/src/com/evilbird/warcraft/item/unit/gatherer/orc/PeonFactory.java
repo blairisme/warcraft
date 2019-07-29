@@ -62,7 +62,6 @@ public class PeonFactory extends GathererFactoryBase
         result.setIdentifier(objectIdentifier("Peon", result));
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
-        result.setName("Peon");
         result.setSight(tiles(4));
         result.setType(Peon);
         return result;

@@ -45,7 +45,6 @@ public class OilPlatformFactory extends BuildingFactoryBase
         result.setHealth(650);
         result.setHealthMaximum(650);
         result.setIdentifier(objectIdentifier("OilPlatform", result));
-        result.setName("Oil Platform");
         result.setSight(tiles(3));
         result.setType(OilPlatform);
         return result;

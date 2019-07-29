@@ -52,7 +52,6 @@ public class DragonFactory extends CombatantFactoryBase
         result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("Dragon", result));
 
-        result.setName("Dragon");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Air);
         result.setAttackRange(tiles(4));

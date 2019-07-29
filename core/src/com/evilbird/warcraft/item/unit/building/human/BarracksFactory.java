@@ -45,7 +45,6 @@ public class BarracksFactory extends BuildingFactoryBase
         result.setHealth(800);
         result.setHealthMaximum(800);
         result.setIdentifier(objectIdentifier("Barracks", result));
-        result.setName("Barracks");
         result.setSight(tiles(3));
         result.setType(Barracks);
         return result;

@@ -45,7 +45,6 @@ public class OilRigFactory extends BuildingFactoryBase
         result.setHealth(650);
         result.setHealthMaximum(650);
         result.setIdentifier(objectIdentifier("OilRig", result));
-        result.setName("Oil Rig");
         result.setSight(tiles(3));
         result.setType(OilRig);
         return result;

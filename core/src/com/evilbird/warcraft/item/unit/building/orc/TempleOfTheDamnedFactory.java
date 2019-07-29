@@ -45,7 +45,6 @@ public class TempleOfTheDamnedFactory extends BuildingFactoryBase
         result.setHealth(500);
         result.setHealthMaximum(500);
         result.setIdentifier(objectIdentifier("TempleOfTheDamned", result));
-        result.setName("Temple of the Damned");
         result.setSight(tiles(3));
         result.setType(TempleOfTheDamned);
         return result;

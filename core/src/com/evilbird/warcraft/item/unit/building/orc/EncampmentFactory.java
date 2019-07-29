@@ -45,7 +45,6 @@ public class EncampmentFactory extends BuildingFactoryBase
         result.setHealth(800);
         result.setHealthMaximum(800);
         result.setIdentifier(objectIdentifier("Encampment", result));
-        result.setName("Barracks");
         result.setSight(tiles(3));
         result.setType(Encampment);
         return result;

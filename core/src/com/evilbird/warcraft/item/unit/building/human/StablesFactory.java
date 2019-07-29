@@ -45,7 +45,6 @@ public class StablesFactory extends BuildingFactoryBase
         result.setHealth(500);
         result.setHealthMaximum(500);
         result.setIdentifier(objectIdentifier("Stables", result));
-        result.setName("Stables");
         result.setSight(tiles(3));
         result.setType(Stables);
         return result;

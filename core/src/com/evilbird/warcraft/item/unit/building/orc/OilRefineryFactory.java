@@ -56,7 +56,6 @@ public class OilRefineryFactory extends BuildingFactoryBase
         result.setHealth(600);
         result.setHealthMaximum(600);
         result.setIdentifier(objectIdentifier("OilRefinery", result));
-        result.setName("Oil Refinery");
         result.setSight(tiles(3));
         result.setType(OilRefinery);
         return result;

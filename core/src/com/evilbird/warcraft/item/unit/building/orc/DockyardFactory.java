@@ -45,7 +45,6 @@ public class DockyardFactory extends BuildingFactoryBase
         result.setHealth(1100);
         result.setHealthMaximum(1100);
         result.setIdentifier(objectIdentifier("Dockyard", result));
-        result.setName("Dockyard");
         result.setSight(tiles(3));
         result.setType(Dockyard);
         return result;

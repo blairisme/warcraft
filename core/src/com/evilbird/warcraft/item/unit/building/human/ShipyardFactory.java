@@ -45,7 +45,6 @@ public class ShipyardFactory extends BuildingFactoryBase
         result.setHealth(1100);
         result.setHealthMaximum(1100);
         result.setIdentifier(objectIdentifier("Shipyard", result));
-        result.setName("Shipyard");
         result.setSight(tiles(3));
         result.setType(Shipyard);
         return result;

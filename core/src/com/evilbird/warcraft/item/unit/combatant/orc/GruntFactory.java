@@ -50,7 +50,6 @@ public class GruntFactory extends CombatantFactoryBase
         result.setHealth(60);
         result.setHealthMaximum(60);
         result.setIdentifier(objectIdentifier("Grunt", result));
-        result.setName("Grunt");
         result.setMovementSpeed(80);
         result.setMovementCapability(Land);
         result.setSight(tiles(4));

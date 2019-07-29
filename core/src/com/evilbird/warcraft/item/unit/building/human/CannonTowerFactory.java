@@ -49,7 +49,6 @@ public class CannonTowerFactory extends BuildingFactoryBase
         result.setHealth(160);
         result.setHealthMaximum(160);
         result.setIdentifier(objectIdentifier("CannonTower", result));
-        result.setName("Cannon Tower");
         result.setSight(tiles(9));
         result.setRange(tiles(7));
         result.setType(CannonTower);

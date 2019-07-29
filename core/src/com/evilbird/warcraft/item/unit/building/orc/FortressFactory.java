@@ -46,7 +46,6 @@ public class FortressFactory extends BuildingFactoryBase
         result.setHealth(1600);
         result.setHealthMaximum(1600);
         result.setIdentifier(objectIdentifier("Fortress", result));
-        result.setName("Fortress");
         result.setSight(tiles(9));
         result.setType(Fortress);
         result.setResource(Food, 1);

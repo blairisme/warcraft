@@ -50,7 +50,7 @@ import org.mockito.stubbing.Answer;
 import java.nio.IntBuffer;
 import java.util.function.Supplier;
 
-import static com.evilbird.test.data.device.TestDevices.newTestDevice;
+import static com.evilbird.test.data.assets.TestDevices.newTestDevice;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 import static org.mockito.Answers.RETURNS_MOCKS;
 import static org.mockito.ArgumentMatchers.any;

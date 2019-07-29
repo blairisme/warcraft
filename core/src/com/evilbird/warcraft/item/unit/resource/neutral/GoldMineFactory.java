@@ -44,7 +44,6 @@ public class GoldMineFactory extends ResourceFactoryBase
         Resource result = builder.build();
         result.setHealth(2400);
         result.setHealthMaximum(2400);
-        result.setName("Gold Mine");
         result.setType(UnitType.GoldMine);
         result.setResource(ResourceType.Gold, 2400);
         result.setIdentifier(objectIdentifier("GoldMine", result));

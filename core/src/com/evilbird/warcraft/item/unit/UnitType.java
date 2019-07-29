@@ -232,6 +232,15 @@ public enum UnitType implements ItemType
             || this == DeathKnight || this == OgreMage;
     }
 
+    public boolean isFoodProducer() {
+        return this == Farm || this == PigFarm;
+    }
+
+    public boolean isCommandCentre() {
+        return this == TownHall || this == Keep || this == Castle
+            || this == GreatHall || this == Stronghold || this == Fortress;
+    }
+
     public boolean isHuman() {
         return getFaction() == Human;
     }

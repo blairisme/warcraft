@@ -52,7 +52,6 @@ public class GnomishSubmarineFactory extends CombatantFactoryBase
         result.setHealth(100);
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("GnomishSubmarine", result));
-        result.setName("Gnomish Submarine");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Water);
         result.setSight(tiles(8));

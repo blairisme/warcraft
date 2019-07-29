@@ -45,7 +45,6 @@ public class DragonRoostFactory extends BuildingFactoryBase
         result.setHealth(500);
         result.setHealthMaximum(500);
         result.setIdentifier(objectIdentifier("DragonRoost", result));
-        result.setName("Dragon Roost");
         result.setSight(tiles(3));
         result.setType(DragonRoost);
         return result;

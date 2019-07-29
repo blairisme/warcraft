@@ -49,7 +49,6 @@ public class BombardTowerFactory extends BuildingFactoryBase
         result.setHealth(160);
         result.setHealthMaximum(160);
         result.setIdentifier(objectIdentifier("BombardTower", result));
-        result.setName("Bombard Tower");
         result.setSight(tiles(9));
         result.setRange(tiles(7));
         result.setType(BombardTower);

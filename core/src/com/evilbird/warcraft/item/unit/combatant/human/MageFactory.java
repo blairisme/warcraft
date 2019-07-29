@@ -51,7 +51,6 @@ public class MageFactory extends CombatantFactoryBase
         result.setHealth(60);
         result.setHealthMaximum(60);
         result.setIdentifier(objectIdentifier("Mage", result));
-        result.setName("Mage");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setSight(tiles(9));

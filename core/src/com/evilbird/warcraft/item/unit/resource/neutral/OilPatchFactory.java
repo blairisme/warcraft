@@ -44,7 +44,6 @@ public class OilPatchFactory extends ResourceFactoryBase
         Resource result = builder.build();
         result.setHealth(2400);
         result.setHealthMaximum(2400);
-        result.setName("Oil Patch");
         result.setType(UnitType.OilPatch);
         result.setResource(ResourceType.Oil, 2400);
         result.setIdentifier(objectIdentifier("OilPatch", result));

@@ -45,7 +45,6 @@ public class ChurchFactory extends BuildingFactoryBase
         result.setHealth(700);
         result.setHealthMaximum(700);
         result.setIdentifier(objectIdentifier("Church", result));
-        result.setName("Church");
         result.setSight(tiles(3));
         result.setType(Church);
         return result;

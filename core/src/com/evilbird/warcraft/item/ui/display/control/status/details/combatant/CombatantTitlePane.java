@@ -17,6 +17,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
 import com.evilbird.warcraft.item.ui.display.control.common.UnitPane;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneElement;
+import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getLevel;
@@ -31,13 +32,16 @@ public class CombatantTitlePane extends GridItem implements DetailsPaneElement
 {
     private Label title;
     private Label level;
+    private GridItem labels;
     private UnitPane icon;
+    private DetailsPaneStyle style;
 
     public CombatantTitlePane(Skin skin) {
         super(2, 1);
+        setSkin(skin);
 
         this.icon = addIcon(skin);
-        GridItem labels = addContainer(skin);
+        this.labels = addContainer(skin);
         this.title = addLabel(labels, skin);
         this.level = addLabel(labels, skin);
     }
@@ -45,8 +49,14 @@ public class CombatantTitlePane extends GridItem implements DetailsPaneElement
     public void setItem(Item item) {
         Combatant combatant = (Combatant)item;
         icon.setItem(combatant);
-        title.setText(combatant.getName());
-        level.setText("Level " + getLevel(combatant));
+        title.setText(style.strings.getName(combatant));
+        level.setText(style.strings.getLevel(getLevel(combatant)));
+    }
+
+    @Override
+    public void setSkin(Skin skin) {
+        super.setSkin(skin);
+        this.style = skin.get(DetailsPaneStyle.class);
     }
 
     private UnitPane addIcon(Skin skin) {

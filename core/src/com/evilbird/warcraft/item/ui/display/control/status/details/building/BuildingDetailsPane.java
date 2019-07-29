@@ -13,10 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.TableItem;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneElement;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
-
-import static com.evilbird.warcraft.item.unit.UnitType.Farm;
-import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 
 /**
  * Instances of this user interface show details about a building, such as
@@ -28,14 +26,14 @@ public class BuildingDetailsPane extends TableItem implements DetailsPaneElement
 {
     private ConstructionDetailsPane constructionDetails;
     private ProductionDetailsPane productionDetails;
-    private TownHallDetailsPane townHallDetails;
-    private FarmDetailsPane farmDetails;
+    private CommandCentreDetailsPane townHallDetails;
+    private FoodProducerDetailsPane farmDetails;
 
     public BuildingDetailsPane(Skin skin) {
         constructionDetails = new ConstructionDetailsPane(skin);
         productionDetails = new ProductionDetailsPane(skin);
-        townHallDetails = new TownHallDetailsPane(skin);
-        farmDetails = new FarmDetailsPane(skin);
+        townHallDetails = new CommandCentreDetailsPane(skin);
+        farmDetails = new FoodProducerDetailsPane(skin);
     }
 
     public void setConstructing(Building building, boolean constructing) {
@@ -60,17 +58,19 @@ public class BuildingDetailsPane extends TableItem implements DetailsPaneElement
 
     private void updateView(Building building) {
         clearItems();
+        UnitType buildingType = (UnitType)building.getType();
+
         if (building.isConstructing()){
             showConstructionDetails(building);
         }
         else if (building.isProducing()){
             showProductionDetails(building);
         }
-        else if (building.getType().equals(Farm)){
-            showFarmDetails(building);
+        else if (buildingType.isFoodProducer()){
+            showFoodProducerDetails(building);
         }
-        else if (building.getType().equals(TownHall)){
-            showTownHallDetails(building);
+        else if (buildingType.isCommandCentre()) {
+            showCommandCentreDetails(building);
         }
     }
 
@@ -84,12 +84,12 @@ public class BuildingDetailsPane extends TableItem implements DetailsPaneElement
         showView(productionDetails);
     }
 
-    private void showFarmDetails(Building building) {
+    private void showFoodProducerDetails(Building building) {
         farmDetails.setBuilding(building);
         showView(farmDetails);
     }
 
-    private void showTownHallDetails(Building building) {
+    private void showCommandCentreDetails(Building building) {
         townHallDetails.setBuilding(building);
         showView(townHallDetails);
     }

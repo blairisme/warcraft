@@ -11,9 +11,11 @@ package com.evilbird.warcraft.item.ui.display.control;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.item.ui.display.control.common.IconSet;
+import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStrings;
 import com.evilbird.warcraft.state.WarcraftContext;
 
 import java.util.Map;
@@ -32,6 +34,7 @@ public class ControlPaneAssets extends AssetBundle
         super(manager, pathVariables(context));
         registerCommonTextures();
         registerFactionTextures();
+        registerStringBundles();
     }
 
     private static Map<String, String> pathVariables(WarcraftContext context) {
@@ -62,6 +65,11 @@ public class ControlPaneAssets extends AssetBundle
         register("buttonDisabled", "data/textures/${faction}/menu/button-thin-medium-grayed.png");
     }
 
+    private void registerStringBundles() {
+        register("detailStrings", "data/strings/common/menu/details", I18NBundle.class);
+        register("nameStrings", "data/strings/common/menu/names", I18NBundle.class);
+    }
+
     public IconSet getIcons() {
         return new IconSet(getTexture("icons"));
     }
@@ -84,6 +92,12 @@ public class ControlPaneAssets extends AssetBundle
 
     public Drawable getDetailsPanel() {
         return getDrawable("detailsPanel");
+    }
+
+    public DetailsPaneStrings getDetailsPaneStrings() {
+        I18NBundle detailsBundle = getStrings("detailStrings");
+        I18NBundle namesBundle = getStrings("nameStrings");
+        return new DetailsPaneStrings(detailsBundle, namesBundle);
     }
 
     public Drawable getMenuPanel() {

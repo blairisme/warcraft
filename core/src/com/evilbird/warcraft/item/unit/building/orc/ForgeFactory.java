@@ -46,7 +46,6 @@ public class ForgeFactory extends BuildingFactoryBase
         result.setHealth(775);
         result.setHealthMaximum(775);
         result.setIdentifier(objectIdentifier("Forge", result));
-        result.setName("Forge");
         result.setSight(tiles(3));
         result.setType(Forge);
         return result;

@@ -19,7 +19,7 @@ import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonStyle;
 import com.evilbird.warcraft.item.ui.display.control.common.HealthBarStyle;
 import com.evilbird.warcraft.item.ui.display.control.common.UnitPaneStyle;
-import com.evilbird.warcraft.item.ui.display.control.status.details.building.ProductionDetailsStyle;
+import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.item.ui.display.control.status.selection.SelectionButtonStyle;
 
 /**
@@ -51,14 +51,13 @@ public class ControlPaneBuilder
         skin.add("default", getFontStyle());
         skin.add("default", getHealthBarStyle());
         skin.add("default", getSelectionButtonStyle());
-        skin.add("default", getProductionDetailsStyle());
+        skin.add("default", getDetailsPaneStyle());
         skin.add("default", getControlPaneStyle(compact));
         skin.add("default", getUnitPaneStyle());
         skin.add("button-thin-medium", getButtonStyle());
         skin.add("building-progress", getBuildingProgressStyle());
         skin.add("action-button", getActionButtonStyle());
         skin.add("action-panel", assets.getActionPanel(), Drawable.class);
-        skin.add("details-panel", assets.getDetailsPanel(), Drawable.class);
         skin.add("menu-panel", assets.getMenuPanel(), Drawable.class);
         skin.add("minimap-panel", assets.getMinimapPanel(), Drawable.class);
         skin.add("selection-panel", assets.getSelectionPanel(), Drawable.class);
@@ -102,10 +101,12 @@ public class ControlPaneBuilder
         return style;
     }
 
-    private ProductionDetailsStyle getProductionDetailsStyle() {
-        ProductionDetailsStyle style = new ProductionDetailsStyle();
-        style.background = assets.getActionButton();
+    private DetailsPaneStyle getDetailsPaneStyle() {
+        DetailsPaneStyle style = new DetailsPaneStyle();
+        style.strings = assets.getDetailsPaneStrings();
         style.icons = assets.getIcons();
+        style.background = assets.getDetailsPanel();
+        style.productionBackground = assets.getActionButton();
         return style;
     }
 

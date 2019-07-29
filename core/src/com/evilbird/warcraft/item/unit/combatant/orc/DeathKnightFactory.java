@@ -51,7 +51,6 @@ public class DeathKnightFactory extends CombatantFactoryBase
         result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("DeathKnight", result));
 
-        result.setName("Death Knight");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setAttackRange(tiles(4));

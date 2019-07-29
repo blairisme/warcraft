@@ -45,7 +45,6 @@ public class BlacksmithFactory extends BuildingFactoryBase
         result.setHealth(775);
         result.setHealthMaximum(775);
         result.setIdentifier(objectIdentifier("Blacksmith", result));
-        result.setName("Blacksmith");
         result.setSight(tiles(3));
         result.setType(Blacksmith);
         return result;

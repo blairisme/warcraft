@@ -45,7 +45,6 @@ public class GoblinAlchemistFactory extends BuildingFactoryBase
         result.setHealth(500);
         result.setHealthMaximum(500);
         result.setIdentifier(objectIdentifier("GoblinAlchemist", result));
-        result.setName("Goblin Alchemist");
         result.setSight(tiles(3));
         result.setType(GoblinAlchemist);
         return result;

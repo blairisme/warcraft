@@ -46,7 +46,6 @@ public class PigFarmFactory extends BuildingFactoryBase
         result.setHealth(400);
         result.setHealthMaximum(400);
         result.setIdentifier(objectIdentifier("PigFarm", result));
-        result.setName("Pig Farm");
         result.setSight(tiles(3));
         result.setType(PigFarm);
         result.setResource(Food, 4);

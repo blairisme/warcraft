@@ -51,7 +51,6 @@ public class TransportFactory extends CombatantFactoryBase
         result.setHealth(150);
         result.setHealthMaximum(150);
         result.setIdentifier(objectIdentifier("Transport", result));
-        result.setName("Transport");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Water);
         result.setSight(tiles(4));

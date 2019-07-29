@@ -63,7 +63,6 @@ public class OilTankerFactory extends GathererFactoryBase
         result.setIdentifier(objectIdentifier("OilTanker", result));
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Water);
-        result.setName("OilTanker");
         result.setSight(tiles(4));
         result.setType(OilTanker);
         return result;

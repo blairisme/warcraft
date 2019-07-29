@@ -45,7 +45,6 @@ public class GreatHallFactory extends BuildingFactoryBase {
         result.setHealth(1200);
         result.setHealthMaximum(1200);
         result.setIdentifier(objectIdentifier("GreatHall", result));
-        result.setName("Great Hall");
         result.setSight(tiles(4));
         result.setType(GreatHall);
         result.setResource(Food, 1);

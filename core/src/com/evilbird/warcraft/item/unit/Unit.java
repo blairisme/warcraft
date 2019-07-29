@@ -35,7 +35,6 @@ import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
  */
 public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemGraphOccupant
 {
-    private String name;
     private int sight;
     private int armour;
     private float health;
@@ -48,7 +47,6 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
     @Inject
     public Unit(Skin skin) {
         super(skin);
-        name = "Unknown";
         sight = 0;
         armour = 0;
         health = 0;
@@ -73,10 +71,6 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
 
     public float getHealthMaximum() {
         return healthMaximum;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getSight() {
@@ -125,10 +119,6 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
 
     public void setHealthMaximum(float healthMaximum) {
         this.healthMaximum = healthMaximum;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setSight(int pixels) {
@@ -195,7 +185,6 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
             .append(armour, unit.armour)
             .append(health, unit.health)
             .append(healthMaximum, unit.healthMaximum)
-            .append(name, unit.name)
             .append(selected, unit.selected)
             .append(selectable, unit.selectable)
             .append(association, unit.association)
@@ -206,7 +195,6 @@ public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemG
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
-            .append(name)
             .append(sight)
             .append(armour)
             .append(health)

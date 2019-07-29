@@ -51,7 +51,6 @@ public class BattleshipFactory extends CombatantFactoryBase
         result.setHealth(60);
         result.setHealthMaximum(60);
         result.setIdentifier(objectIdentifier("Battleship", result));
-        result.setName("Battleship");
         result.setMovementSpeed(8 * 7);
         result.setMovementCapability(Water);
         result.setSight(tiles(5));

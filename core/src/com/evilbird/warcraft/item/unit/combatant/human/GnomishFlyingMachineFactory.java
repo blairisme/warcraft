@@ -51,7 +51,6 @@ public class GnomishFlyingMachineFactory extends CombatantFactoryBase
         result.setHealth(150);
         result.setHealthMaximum(150);
         result.setIdentifier(objectIdentifier("GnomishFlyingMachine", result));
-        result.setName("Gnomish Flying Machine");
         result.setMovementSpeed(8 * 17);
         result.setMovementCapability(Air);
         result.setAttackRange(tiles(1));

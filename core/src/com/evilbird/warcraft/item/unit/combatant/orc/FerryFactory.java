@@ -51,7 +51,6 @@ public class FerryFactory extends CombatantFactoryBase
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("Ferry", result));
 
-        result.setName("Ferry");
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Water);
         result.setAttackRange(tiles(4));

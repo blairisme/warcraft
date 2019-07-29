@@ -49,7 +49,6 @@ public class GuardTowerFactory extends BuildingFactoryBase
         result.setHealth(130);
         result.setHealthMaximum(130);
         result.setIdentifier(objectIdentifier("GuardTower", result));
-        result.setName("Guard Tower");
         result.setSight(tiles(9));
         result.setRange(tiles(6));
         result.setType(GuardTower);

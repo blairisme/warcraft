@@ -46,7 +46,6 @@ public class CastleFactory extends BuildingFactoryBase
         result.setHealth(1600);
         result.setHealthMaximum(1600);
         result.setIdentifier(objectIdentifier("Castle", result));
-        result.setName("Castle");
         result.setSight(tiles(9));
         result.setType(Castle);
         result.setResource(Food, 1);
