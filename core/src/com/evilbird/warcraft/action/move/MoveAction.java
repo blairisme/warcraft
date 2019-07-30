@@ -79,7 +79,8 @@ abstract class MoveAction extends BasicAction
     }
 
     private boolean isCompletable() {
-        return pathNode != endNode || getPathFilter().test(endNode);
+        ItemPathFilter pathFilter = getPathFilter();
+        return pathNode != endNode || pathFilter.test(endNode);
     }
 
     private boolean isValid() {
@@ -87,11 +88,13 @@ abstract class MoveAction extends BasicAction
     }
 
     private boolean isNextNodeValid() {
-         return getPathFilter().test(pathNode);
+        ItemPathFilter pathFilter = getPathFilter();
+        return pathFilter.test(pathNode);
     }
 
     private boolean isLastNodeValid() {
-        return getDestination().isDestinationValid(graph, endNode);
+        MoveDestination destination = getDestination();
+        return destination.isDestinationValid(graph, endNode);
     }
 
     private boolean load() {
@@ -168,7 +171,10 @@ abstract class MoveAction extends BasicAction
 
     private boolean incrementNode() {
         ItemNode nextNode = pathIterator.next();
-        if (!getDestination().isDestinationReached(graph, nextNode)) {
+        MoveDestination destination = getDestination();
+        ItemPathFilter pathFilter = getPathFilter();
+
+        if (!destination.isDestinationReached(graph, nextNode) && pathFilter.test(nextNode)) {
             Item item = getItem();
             graph.removeOccupants(pathNode, item);
             pathNode = nextNode;
