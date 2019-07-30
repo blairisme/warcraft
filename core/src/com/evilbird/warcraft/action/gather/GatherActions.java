@@ -19,6 +19,7 @@ import com.evilbird.engine.action.ActionIdentifier;
 public enum GatherActions implements ActionIdentifier
 {
     GatherGold,
+    GatherOil,
     GatherWood,
     GatherCancel
 }

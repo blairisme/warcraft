@@ -33,6 +33,9 @@ import static com.evilbird.engine.common.function.Predicates.not;
 import static com.evilbird.engine.item.utility.ItemOperations.isNear;
 import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
 import static com.evilbird.warcraft.action.common.path.ItemPathFinder.hasPath;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Oil;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
 
 /**
  * Defines commonly used {@link Predicate Predicates} that operate on
@@ -96,12 +99,11 @@ public class UnitPredicates
 
     public static Predicate<Item> isDepotFor(ResourceType resource) {
         return item -> {
-            Identifier type = item.getType();
-            if (type == UnitType.TownHall || type == UnitType.GreatHall) {
-                return true;
-            }
-            if (resource == ResourceType.Gold && type == UnitType.LumberMill) {
-                return true;
+            if (item instanceof Building) {
+                UnitType type = (UnitType) item.getType();
+                return (resource == Gold && type.isGoldDepot())
+                    || (resource == Oil && type.isOilDepot())
+                    || (resource == Wood && type.isWoodDepot());
             }
             return false;
         };
@@ -190,6 +192,13 @@ public class UnitPredicates
         return (item) -> {
             Building building = (Building)item;
             return building.isConstructing();
+        };
+    }
+
+    public static Predicate<Item> isGathering() {
+        return (item) -> {
+            Gatherer gatherer = (Gatherer)item;
+            return gatherer.isGathering();
         };
     }
 

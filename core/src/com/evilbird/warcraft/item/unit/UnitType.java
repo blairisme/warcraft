@@ -12,6 +12,8 @@ package com.evilbird.warcraft.item.unit;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.common.WarcraftFaction;
 
+import javax.print.Doc;
+
 import static com.evilbird.engine.common.collection.EnumUtils.isBetween;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Neutral;
@@ -239,6 +241,18 @@ public enum UnitType implements ItemType
     public boolean isCommandCentre() {
         return this == TownHall || this == Keep || this == Castle
             || this == GreatHall || this == Stronghold || this == Fortress;
+    }
+
+    public boolean isGoldDepot() {
+        return isCommandCentre();
+    }
+
+    public boolean isOilDepot() {
+        return this == Shipyard || this == Dockyard;
+    }
+
+    public boolean isWoodDepot() {
+        return isCommandCentre() || this == LumberMill || this == TrollLumberMill;
     }
 
     public boolean isHuman() {

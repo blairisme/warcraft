@@ -27,6 +27,7 @@ import java.util.Map;
  */
 public class Gatherer extends Combatant implements ResourceContainer
 {
+    private float progress;
     private Map<String, Double> resources;
 
     @Inject
@@ -35,9 +36,21 @@ public class Gatherer extends Combatant implements ResourceContainer
         resources = new LinkedHashMap<>(2);
     }
 
+    public boolean isGathering() {
+        return progress != 1;
+    }
+
+    public float getGathererProgress() {
+        return progress;
+    }
+
     @Override
     public float getResource(ResourceType type) {
         return resources.getOrDefault(type.name(), 0.0).floatValue();
+    }
+
+    public void setGathererProgress(float progress) {
+        this.progress = progress;
     }
 
     @Override
@@ -49,6 +62,7 @@ public class Gatherer extends Combatant implements ResourceContainer
     public String toString() {
         return new ToStringBuilder(this)
             .appendSuper("combatant")
+            .append("progress", progress)
             .append("resources", resources)
             .toString();
     }

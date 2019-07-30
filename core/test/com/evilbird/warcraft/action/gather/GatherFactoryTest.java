@@ -32,9 +32,10 @@ public class GatherFactoryTest extends ActionFactoryTestCase
     @Override
     protected ActionProvider newFactory() {
         InjectedPool<GatherGold> goldPool = new MockInjectedPool<>(GatherGold.class);
+        InjectedPool<GatherOil> oilPool = new MockInjectedPool<>(GatherOil.class);
         InjectedPool<GatherWood> woodPool = new MockInjectedPool<>(GatherWood.class);
         InjectedPool<GatherCancel> cancelPool = new MockInjectedPool<>(GatherCancel.class);
-        return new GatherFactory(goldPool, woodPool, cancelPool);
+        return new GatherFactory(goldPool, oilPool, woodPool, cancelPool);
     }
 
     @Override

@@ -25,16 +25,19 @@ import javax.inject.Inject;
 public class GatherFactory implements ActionProvider
 {
     private InjectedPool<GatherGold> goldPool;
+    private InjectedPool<GatherOil> oilPool;
     private InjectedPool<GatherWood> woodPool;
     private InjectedPool<GatherCancel> cancelPool;
 
     @Inject
     public GatherFactory(
         InjectedPool<GatherGold> goldPool,
+        InjectedPool<GatherOil> oilPool,
         InjectedPool<GatherWood> woodPool,
         InjectedPool<GatherCancel> cancelPool)
     {
         this.goldPool = goldPool;
+        this.oilPool = oilPool;
         this.woodPool = woodPool;
         this.cancelPool = cancelPool;
     }
@@ -46,6 +49,7 @@ public class GatherFactory implements ActionProvider
 
         switch (gatherAction) {
             case GatherGold: return goldPool.obtain();
+            case GatherOil: return oilPool.obtain();
             case GatherWood: return woodPool.obtain();
             case GatherCancel: return cancelPool.obtain();
             default: throw new UnsupportedOperationException();

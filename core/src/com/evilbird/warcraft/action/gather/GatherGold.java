@@ -31,6 +31,7 @@ import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.warcraft.action.common.transfer.TransferAction.transferAll;
+import static com.evilbird.warcraft.action.gather.GatherAction.gather;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositComplete;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositStarted;
 import static com.evilbird.warcraft.action.gather.GatherEvents.obtainComplete;
@@ -62,7 +63,7 @@ public class GatherGold extends ScenarioSetAction
 {
     private static final float DEPOSIT_TIME = 5;
     private static final float GATHER_TIME = 5;
-    private static final ResourceQuantity GATHER_AMOUNT =  resource(Gold, 100);
+    private static final ResourceQuantity GATHER_AMOUNT = resource(Gold, 100);
 
     private transient Events events;
 
@@ -88,7 +89,7 @@ public class GatherGold extends ScenarioSetAction
             .then(move(events))
             .then(hide(), disable(), deselect(events))
             .then(obtainStarted(events, GATHER_AMOUNT))
-            .then(delay(GATHER_TIME))
+            .then(gather(progress(), GATHER_TIME))
             .then(transferAll(Target, Subject, GATHER_AMOUNT, events), obtainComplete(events, GATHER_AMOUNT))
             .then(show(), enable(), setAnimation(Move, MoveGold), setAnimation(Idle, IdleGold))
             .then(animate(Idle))
@@ -113,5 +114,14 @@ public class GatherGold extends ScenarioSetAction
 
     public Gatherer getGatherer() {
         return (Gatherer)getItem();
+    }
+
+    private float progress() {
+        Item target = getTarget();
+        if (target instanceof Gatherer) {
+            Gatherer gatherer = (Gatherer)target;
+            return gatherer.getGathererProgress() * GATHER_TIME;
+        }
+        return 0;
     }
 }

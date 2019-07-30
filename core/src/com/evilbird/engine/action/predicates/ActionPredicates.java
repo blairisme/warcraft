@@ -36,4 +36,8 @@ public class ActionPredicates
     public static Predicate<Action> whileTarget(Predicate<Item> condition) {
         return action -> condition.test(action.getTarget());
     }
+
+    public static Predicate<Action> whileSubject(Predicate<Item> condition) {
+        return action -> condition.test(action.getItem());
+    }
 }
