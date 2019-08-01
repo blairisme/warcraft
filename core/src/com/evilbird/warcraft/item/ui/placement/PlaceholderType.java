@@ -72,7 +72,7 @@ public enum PlaceholderType implements ItemType
     }
 
     public boolean isLandBased() {
-        return !isShoreBased() && !isSeaBased();
+        return !isShoreBased() && !isOilPatchBased();
     }
 
     public boolean isShoreBased() {
@@ -80,7 +80,7 @@ public enum PlaceholderType implements ItemType
             || this == DockyardPlaceholder || this == OilRefineryPlaceholder || this == MetalworksPlaceholder;
     }
 
-    public boolean isSeaBased() {
+    public boolean isOilPatchBased() {
         return this == OilPlatformPlaceholder || this == OilRigPlaceholder;
     }
 }

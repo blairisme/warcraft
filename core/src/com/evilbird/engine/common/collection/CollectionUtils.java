@@ -33,6 +33,12 @@ public class CollectionUtils
         return collection.stream().allMatch(condition);
     }
 
+    public static <T> boolean containsEqual(Collection<T> collection, Predicate<T> conditionA, Predicate<T> conditionB){
+        Collection<T> matchesA = collection.stream().filter(conditionA).collect(toList());
+        Collection<T> matchesB = collection.stream().filter(conditionB).collect(toList());
+        return matchesA.size() == matchesB.size();
+    }
+
     public static <T> T findFirst(Collection<? extends T> collection, Predicate<T> condition) {
         return collection.stream().filter(condition).findFirst().orElse(null);
     }

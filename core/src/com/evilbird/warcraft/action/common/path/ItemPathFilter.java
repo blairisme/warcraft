@@ -98,10 +98,12 @@ public class ItemPathFilter implements Predicate<ItemNode>
         Objects.requireNonNull(capability);
         if (capability == MovementCapability.Land) {
             traversableTypes.add(LayerType.Map);
+            traversableTypes.add(LayerType.Shore);
             traversableTypes.add(UnitType.CircleOfPower);
         }
         else if (capability == MovementCapability.Water) {
             traversableTypes.add(LayerType.Sea);
+            traversableTypes.add(UnitType.OilPatch);
         }
         else if (capability == MovementCapability.Air) {
             traversableTypes.addAll(Arrays.asList(LayerType.values()));

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="46">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="48">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/winter.png" width="512" height="768"/>
  </tileset>
@@ -55,6 +55,12 @@
  </tileset>
  <tileset firstgid="921" name="Seal" tilewidth="32" tileheight="32" tilecount="16" columns="8">
   <image source="../../textures/neutral/unit/seal.png" width="256" height="64"/>
+ </tileset>
+ <tileset firstgid="937" name="Shipyard" tilewidth="96" tileheight="96" tilecount="2" columns="1">
+  <image source="../../textures/human/building/winter/shipyard.png" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="939" name="Oil Tanker" tilewidth="72" tileheight="72" tilecount="15" columns="5">
+  <image source="../../textures/human/unit/oil_tanker.png" width="360" height="216"/>
  </tileset>
  <layer id="1" name="Map" width="64" height="64">
   <properties>
@@ -164,6 +170,8 @@
   <object id="45" name="Camera" type="Camera" x="864" y="160">
    <point/>
   </object>
+  <object id="46" name="Shipyard1" type="Shipyard" gid="937" x="1344" y="640" width="96" height="96"/>
+  <object id="47" name="OilTanker1" type="OilTanker" gid="939" x="1504" y="608" width="72" height="72"/>
  </objectgroup>
  <layer id="8" name="OpaqueFog" width="64" height="64">
   <properties>

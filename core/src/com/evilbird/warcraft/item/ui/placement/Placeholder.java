@@ -30,12 +30,14 @@ import java.util.Collection;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.containsAll;
 import static com.evilbird.engine.common.collection.CollectionUtils.containsAny;
+import static com.evilbird.engine.common.collection.CollectionUtils.containsEqual;
 import static com.evilbird.engine.common.collection.CollectionUtils.flatten;
 import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
 import static com.evilbird.warcraft.item.layer.LayerType.Sea;
 import static com.evilbird.warcraft.item.layer.LayerType.Shore;
+import static com.evilbird.warcraft.item.unit.UnitType.OilPatch;
 
 /**
  * The visual representation of a building before construction, allowing the
@@ -134,8 +136,9 @@ public class Placeholder extends ItemBasic
     }
 
     private boolean isUnoccupied(Collection<Item> items) {
-        if (type.isSeaBased()) {
-            return containsAll(items, hasType(Sea).or(associatedWith(this)));
+        if (type.isOilPatchBased()) {
+            return containsAll(items, hasType(OilPatch, Sea).or(associatedWith(this)))
+                && containsEqual(items, hasType(OilPatch), hasType(Sea));
         }
         if (type.isShoreBased()) {
             return containsAll(items, hasType(Shore, Sea).or(associatedWith(this)))
