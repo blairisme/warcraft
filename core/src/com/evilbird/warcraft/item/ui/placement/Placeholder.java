@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
@@ -24,10 +25,17 @@ import com.evilbird.engine.item.utility.ItemOperations;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
-import com.evilbird.warcraft.item.layer.terrain.Terrain;
-import com.evilbird.warcraft.item.unit.Unit;
 
 import java.util.Collection;
+
+import static com.evilbird.engine.common.collection.CollectionUtils.containsAll;
+import static com.evilbird.engine.common.collection.CollectionUtils.containsAny;
+import static com.evilbird.engine.common.collection.CollectionUtils.flatten;
+import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
+import static com.evilbird.warcraft.item.layer.LayerType.Map;
+import static com.evilbird.warcraft.item.layer.LayerType.Sea;
+import static com.evilbird.warcraft.item.layer.LayerType.Shore;
 
 /**
  * The visual representation of a building before construction, allowing the
@@ -45,6 +53,7 @@ public class Placeholder extends ItemBasic
     private transient Drawable blocked;
     private transient boolean isClear;
     private transient EventQueue events;
+    private transient PlaceholderType type;
 
     public Placeholder(Skin skin) {
         this.skin = skin;
@@ -68,16 +77,6 @@ public class Placeholder extends ItemBasic
     }
 
     @Override
-    public void draw(Batch batch, float alpha) {
-        float x = getX();
-        float y = getY();
-        float width = getWidth();
-        float height = getHeight();
-        building.draw(batch, x, y, width, height);
-        overlay.draw(batch, x, y, width, height);
-    }
-
-    @Override
     public void setRoot(ItemRoot root) {
         super.setRoot(root);
         evaluateOccupation(root);
@@ -88,8 +87,24 @@ public class Placeholder extends ItemBasic
     }
 
     @Override
+    public void setType(Identifier type) {
+        super.setType(type);
+        this.type = (PlaceholderType)type;
+    }
+
+    @Override
     public void positionChanged() {
         evaluateOccupation(getRoot());
+    }
+
+    @Override
+    public void draw(Batch batch, float alpha) {
+        float x = getX();
+        float y = getY();
+        float width = getWidth();
+        float height = getHeight();
+        building.draw(batch, x, y, width, height);
+        overlay.draw(batch, x, y, width, height);
     }
 
     @Override
@@ -112,33 +127,20 @@ public class Placeholder extends ItemBasic
         if (root != null) {
             ItemGraph graph = root.getSpatialGraph();
             Collection<ItemNode> nodes = graph.getNodes(getPosition(), getSize());
-
-            isClear = nodes.stream().allMatch(this::isUnoccupied);
+            Collection<Item> items = flatten(nodes, ItemNode::getOccupants);
+            isClear = isUnoccupied(items);
             overlay = isClear ? allowed : blocked;
         }
     }
 
-    private boolean isUnoccupied(ItemNode node) {
-        Collection<Item> occupants = node.getOccupants();
-        if (occupants.size() > 2) {
-            return false;
+    private boolean isUnoccupied(Collection<Item> items) {
+        if (type.isSeaBased()) {
+            return containsAll(items, hasType(Sea).or(associatedWith(this)));
         }
-        for (Item occupant: occupants) {
-            if (! isAllowedItem(occupant)) {
-                return false;
-            }
+        if (type.isShoreBased()) {
+            return containsAll(items, hasType(Shore, Sea).or(associatedWith(this)))
+                && containsAny(items, hasType(Shore));
         }
-        return true;
-    }
-
-    private boolean isAllowedItem(Item item) {
-        if (item instanceof Terrain) {
-            return true;
-        }
-        if (item instanceof Unit) {
-            Unit unit = (Unit)item;
-            return unit.getAssociatedItem() == this;
-        }
-        return false;
+        return containsAll(items, hasType(Map).or(associatedWith(this)));
     }
 }

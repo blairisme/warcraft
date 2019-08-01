@@ -15,7 +15,6 @@ import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
-import com.evilbird.warcraft.item.common.resource.ResourceQuantum;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
@@ -32,7 +31,6 @@ import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
 import static com.evilbird.engine.action.predicates.ActionPredicates.whileSubject;
-import static com.evilbird.engine.action.predicates.ActionPredicates.whileTarget;
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.common.function.Predicates.nonNull;
 import static com.evilbird.warcraft.action.common.transfer.TransferAction.transferAll;

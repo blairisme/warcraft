@@ -62,12 +62,25 @@ public enum PlaceholderType implements ItemType
     TrollLumberMillPlaceholder,
     WatchTowerPlaceholder;
 
+    public static PlaceholderType forBuilding(UnitType unitType) {
+        Validate.isTrue(unitType.isBuilding());
+        return PlaceholderType.valueOf(unitType.name() + "Placeholder");
+    }
+
     public UnitType getBuilding() {
         return UnitType.valueOf(getName(this, "", "Placeholder"));
     }
 
-    public static PlaceholderType forBuilding(UnitType unitType) {
-        Validate.isTrue(unitType.isBuilding());
-        return PlaceholderType.valueOf(unitType.name() + "Placeholder");
+    public boolean isLandBased() {
+        return !isShoreBased() && !isSeaBased();
+    }
+
+    public boolean isShoreBased() {
+        return this == ShipyardPlaceholder || this == RefineryPlaceholder || this == FoundryPlaceholder
+            || this == DockyardPlaceholder || this == OilRefineryPlaceholder || this == MetalworksPlaceholder;
+    }
+
+    public boolean isSeaBased() {
+        return this == OilPlatformPlaceholder || this == OilRigPlaceholder;
     }
 }

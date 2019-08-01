@@ -50,7 +50,8 @@ public class LayerFactory implements GameFactory<Layer>
         LayerIdentifier layerIdentifier = (LayerIdentifier)identifier;
         switch (layerIdentifier.getType()) {
             case Map:
-            case Sea: return terrainFactory.get(identifier);
+            case Sea:
+            case Shore: return terrainFactory.get(identifier);
             case Forest: return forestFactory.get(identifier);
             case OpaqueFog:
             case TransparentFog: return fogFactory.get(identifier);

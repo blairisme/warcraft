@@ -16,6 +16,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.function.Predicate;
 
@@ -61,6 +62,10 @@ public class ItemPredicates
 
     public static Predicate<Item> hasType(Identifier type) {
         return item -> item != null && item.getType() == type;
+    }
+
+    public static Predicate<Item> hasType(Identifier ... types) {
+        return item -> item != null && ArrayUtils.contains(types, item.getType());
     }
 
     public static Predicate<UserInput> hasType(UserInputType type) {
