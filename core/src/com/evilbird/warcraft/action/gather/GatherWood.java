@@ -26,6 +26,7 @@ import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AnimationAliasAction.setAnimation;
 import static com.evilbird.engine.action.common.DirectionAction.reorient;
 import static com.evilbird.engine.action.common.DisableAction.disable;
+import static com.evilbird.engine.action.common.DisableAction.enable;
 import static com.evilbird.engine.action.common.RepeatedAudibleAction.playRepeat;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
@@ -115,7 +116,7 @@ public class GatherWood extends ScenarioSetAction
             .then(transferAll(Subject, Player, GATHER_AMOUNT, events))
             .then(delay(DEPOSIT_TIME))
             .then(depositComplete(events, GATHER_AMOUNT))
-            .then(show(), setAnimation(Move, MoveBasic), setAnimation(Idle, IdleBasic))
+            .then(show(), enable(), setAnimation(Move, MoveBasic), setAnimation(Idle, IdleBasic))
             .then(animate(Idle))
             .withTarget(closest(getGatherer(), both(isCorporeal(), isDepotFor(Wood))));
     }
