@@ -221,6 +221,10 @@ public class UnitPredicates
         };
     }
 
+    public static Predicate<Item> associatedWith(Item withItem) {
+        return (item) -> item instanceof Unit && ((Unit)item).getAssociatedItem() == withItem;
+    }
+
     public static Predicate<Item> associatedWith(Identifier type) {
         return associatedWith(hasType(type));
     }

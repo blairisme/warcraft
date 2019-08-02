@@ -20,6 +20,7 @@ public enum LayerType implements ItemType
 {
     Map, //Terrain
     Sea,
+    Shore,
     Forest,
     Tree,
     OpaqueFog,

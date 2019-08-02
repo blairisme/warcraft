@@ -35,6 +35,7 @@ import static com.evilbird.engine.device.UserInputType.Drag;
 import static com.evilbird.engine.device.UserInputType.SelectResize;
 import static com.evilbird.engine.device.UserInputType.SelectStart;
 import static com.evilbird.engine.device.UserInputType.SelectStop;
+import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.action.attack.AttackActions.Attack;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackCancel;
@@ -84,6 +85,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelectabl
 import static com.evilbird.warcraft.item.data.camera.CameraType.Camera;
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
 import static com.evilbird.warcraft.item.layer.LayerType.Sea;
+import static com.evilbird.warcraft.item.layer.LayerType.Shore;
 import static com.evilbird.warcraft.item.layer.LayerType.Tree;
 import static com.evilbird.warcraft.item.layer.LayerType.WallSection;
 import static com.evilbird.warcraft.item.ui.display.HudControl.MenuPane;
@@ -97,6 +99,7 @@ import static com.evilbird.warcraft.item.ui.display.control.status.selection.Sel
 import static com.evilbird.warcraft.item.ui.display.control.status.selection.SelectionButtonType.UnselectButton;
 import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
 import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
+import static com.evilbird.warcraft.item.unit.UnitType.OilPatch;
 
 /**
  * Instances of this class define the different ways the user can interact with
@@ -316,7 +319,7 @@ public class Interactions
     private void moveInteractions() {
         interactions.addAction(MoveToLocation, ConfirmLocation)
             .whenSelected(both(isCorporeal(), isMovableOver(Land)))
-            .whenTarget(Map)
+            .whenTarget(hasType(Map, Shore))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
@@ -326,17 +329,23 @@ public class Interactions
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
-        interactions.addAction(MoveCancel)
-            .whenSelected(both(isCorporeal(), isMovable()))
-            .whenTarget(StopButton)
-            .withAction(MoveToLocation)
-            .appliedTo(Selected);
-
         interactions.addAction(MoveToItem, ConfirmLocation)
             .whenSelected(both(isCorporeal(), isMovableOver(Land)))
             .whenTarget(CircleOfPower)
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
+
+        interactions.addAction(MoveToItem, ConfirmLocation)
+            .whenSelected(both(isCorporeal(), isMovableOver(Water)))
+            .whenTarget(OilPatch)
+            .appliedTo(Selected)
+            .appliedAs(confirmedAction());
+
+        interactions.addAction(MoveCancel)
+            .whenSelected(both(isCorporeal(), isMovable()))
+            .whenTarget(StopButton)
+            .withAction(MoveToLocation)
+            .appliedTo(Selected);
     }
 
     private void selectInteractions() {

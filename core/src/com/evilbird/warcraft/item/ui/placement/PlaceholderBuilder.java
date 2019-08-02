@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.ui.placement;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.warcraft.item.unit.UnitType;
 
@@ -33,6 +34,8 @@ public class PlaceholderBuilder
     private Placeholder build(UnitType building) {
         Placeholder result = new Placeholder(getSkin(building));
         result.setSize(assets.getSize(building));
+        result.setTouchable(Touchable.enabled);
+        result.setVisible(true);
         return result;
     }
 

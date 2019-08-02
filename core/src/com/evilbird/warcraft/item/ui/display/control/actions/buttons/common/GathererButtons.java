@@ -39,6 +39,6 @@ public class GathererButtons implements ButtonController
 
     @Override
     public boolean getEnabled(ActionButtonType button, Item item) {
-        return button == StopButton || button == BuildSimpleButton;
+        return button == StopButton || button == BuildSimpleButton || button == BuildAdvancedButton;
     }
 }

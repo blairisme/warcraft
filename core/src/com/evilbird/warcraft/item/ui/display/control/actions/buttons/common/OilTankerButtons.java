@@ -15,12 +15,9 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.ButtonContr
 
 import java.util.List;
 
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AttackButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildAdvancedButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildSimpleButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildOilPlatformButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GatherButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MoveButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RepairButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StopButton;
 import static java.util.Arrays.asList;
 
@@ -33,12 +30,11 @@ public class OilTankerButtons implements ButtonController
 {
     @Override
     public List<ActionButtonType> getButtons(Item item) {
-        return asList(MoveButton, StopButton, AttackButton, RepairButton, GatherButton,
-                BuildSimpleButton, BuildAdvancedButton);
+        return asList(MoveButton, StopButton, BuildOilPlatformButton, GatherButton);
     }
 
     @Override
     public boolean getEnabled(ActionButtonType button, Item item) {
-        return button == StopButton || button == BuildSimpleButton;
+        return button == StopButton || button == BuildOilPlatformButton;
     }
 }
