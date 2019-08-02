@@ -172,14 +172,16 @@ public class Interactions
         interactions.addAction(action)
             .whenTarget(button)
             .whenSelected(isGatherer())
-            .appliedTo(Selected);
+            .appliedTo(Selected)
+            .appliedAs(Addition);
     }
 
     private void cancelPlaceholder() {
         interactions.addAction(PlaceholderCancel)
             .whenTarget(CancelButton)
             .whenSelected(both(isGatherer(), associatedWith(isPlaceholder())))
-            .appliedTo(Selected);
+            .appliedTo(Selected)
+            .appliedAs(Addition);
     }
 
     private void dragPlaceholder() {
@@ -266,19 +268,23 @@ public class Interactions
     private void menuInteractions() {
         interactions.addAction(ActionsMenu)
             .whenTarget(BuildCancelButton)
-            .appliedTo(Target);
+            .appliedTo(Target)
+            .appliedAs(Addition);
 
         interactions.addAction(BuildSimpleMenu)
             .whenTarget(BuildSimpleButton)
-            .appliedTo(Target);
+            .appliedTo(Target)
+            .appliedAs(Addition);
 
         interactions.addAction(BuildAdvancedMenu)
             .whenTarget(BuildAdvancedButton)
-            .appliedTo(Target);
+            .appliedTo(Target)
+            .appliedAs(Addition);
 
         interactions.addAction(IngameMenu)
             .whenTarget(MenuPane)
-            .appliedTo(Target);
+            .appliedTo(Target)
+            .appliedAs(Addition);
     }
 
     private void trainInteractions() {
