@@ -77,13 +77,20 @@ public class UnitOperations
         return null;
     }
 
+    /**
+     * Returns the {@link Player} that the given {@link Item} belongs to.
+     *
+     * @param item  an {@code Item} owned by a {@code Player}.
+     * @return      the Player that owns the given Item, or {@code null} if
+     *              the given Item isn't owned by a Player.
+     */
+    public static Player getPlayer(Item item) {
+        return (Player)findAncestor(item, withClazz(Player.class));
+    }
+
     public static Player getAiPlayer(ItemRoot itemRoot) {
         Predicate<Item> query = both(UnitPredicates.isPlayer(), UnitPredicates.isAi());
         return (Player)itemRoot.find(query);
-    }
-
-    public static Player getPlayer(Item item) {
-        return (Player)findAncestor(item, withClazz(Player.class));
     }
 
     public static Player getCorporealPlayer(ItemRoot itemRoot) {
@@ -136,28 +143,50 @@ public class UnitOperations
         return false;
     }
 
+    /**
+     * Determines if a given {@link Item} belongs to an artificial player,
+     * inclusive of the neutral player.
+     *
+     * @param item  an {@code Item} to test.
+     * @return      {@code true} if the Item belongs to an AI player, otherwise
+     *              {@code false}.
+     */
     public static boolean isAi(Item item) {
         if (item != null) {
-            if (!(item instanceof Player)) {
-                item = item.getParent();
-            }
-            if (item instanceof Player) {
-                Player player = (Player)item;
-                return !player.isCorporeal();
-            }
+            Player player = UnitOperations.getPlayer(item);
+            return player != null && !player.isCorporeal();
         }
         return false;
     }
 
+    /**
+     * Determines if a given {@link Item} belongs to the user operating the
+     * current device.
+     *
+     * @param item  an {@code Item} to test.
+     * @return      {@code true} if the Item belongs to the user, otherwise
+     *              {@code false}.
+     */
     public static boolean isCorporeal(Item item) {
         if (item != null) {
-            if (!(item instanceof Player)) {
-                item = item.getParent();
-            }
-            if (item instanceof Player) {
-                Player player = (Player)item;
-                return player.isCorporeal();
-            }
+            Player player = UnitOperations.getPlayer(item);
+            return player != null && player.isCorporeal();
+        }
+        return false;
+    }
+
+    /**
+     * Determines if a given {@link Item} belongs to the neutral player, a
+     * special AI player that owns resources and critters.
+     *
+     * @param item  an {@code Item} to test.
+     * @return      {@code true} if the Item belongs to the neutral player,
+     *              otherwise {@code false}.
+     */
+    public static boolean isNeutral(Item item) {
+        if (item != null) {
+            Player player = UnitOperations.getPlayer(item);
+            return player != null && player.isNeutral();
         }
         return false;
     }

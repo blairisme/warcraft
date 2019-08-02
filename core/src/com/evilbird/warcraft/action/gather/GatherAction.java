@@ -12,11 +12,9 @@ package com.evilbird.warcraft.action.gather;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.DelayedAction;
-import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import static com.evilbird.engine.action.common.ActionRecipient.Subject;
-import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
 
 /**

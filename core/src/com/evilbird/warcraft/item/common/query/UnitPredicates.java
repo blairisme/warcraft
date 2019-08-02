@@ -49,40 +49,46 @@ public class UnitPredicates
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Returns a condition that determines if the given {@link Item} is "alive"
+     * of not. Specifically, this method tests if the given {@code Item}
+     * implements {@link Destroyable} and if it has a
+     * {@link Destroyable#getHealth() health} value more than zero.
+     *
+     * @return a {@link Predicate}.
+     */
     public static Predicate<Item> isAlive() {
         return UnitOperations::isAlive;
     }
 
+    /**
+     * Returns a condition that determines if a given {@link Item} belongs to
+     * an artificial player, inclusive of the neutral player.
+     *
+     * @return a {@link Predicate}.
+     */
     public static Predicate<Item> isAi() {
-        return (item) -> {
-            if (item == null) {
-                return false;
-            }
-            if (! (item instanceof Player)) {
-                item = item.getParent();
-            }
-            if (item instanceof Player) {
-                Player player = (Player) item;
-                return !player.isCorporeal();
-            }
-            return false;
-        };
+        return UnitOperations::isAi;
     }
 
+    /**
+     * Returns a condition that determines if a given {@link Item} belongs to
+     * the user operating the current device.
+     *
+     * @return a {@link Predicate}.
+     */
     public static Predicate<Item> isCorporeal() {
-        return (item) -> {
-            if (item == null) {
-                return false;
-            }
-            if (! (item instanceof Player)) {
-                item = item.getParent();
-            }
-            if (item instanceof Player) {
-                Player player = (Player) item;
-                return player.isCorporeal();
-            }
-            return false;
-        };
+        return UnitOperations::isCorporeal;
+    }
+
+    /**
+     * Returns a condition that determines if a given {@link Item} belongs to
+     * the neutral user, a special AI player that owns resources and critters.
+     *
+     * @return a {@link Predicate}.
+     */
+    public static Predicate<Item> isNeutral() {
+        return UnitOperations::isNeutral;
     }
 
     public static Predicate<Item> isBuilding() {
@@ -91,10 +97,6 @@ public class UnitPredicates
 
     public static Predicate<Item> isCombatant() {
         return (item) -> item instanceof Combatant;
-    }
-
-    public static Predicate<Item> notCombatant() {
-        return not(isCombatant());
     }
 
     public static Predicate<Item> isDepotFor(ResourceType resource) {

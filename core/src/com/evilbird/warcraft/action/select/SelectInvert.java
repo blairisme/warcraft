@@ -19,6 +19,7 @@ import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.common.AudibleAction.play;
+import static com.evilbird.engine.common.function.Predicates.not;
 import static com.evilbird.warcraft.action.select.DeselectAction.deselectAll;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.action.select.SelectAction.select;
@@ -26,7 +27,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.notCombatant;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isNeutral;
 import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
 
 /**
@@ -49,30 +50,40 @@ public class SelectInvert extends ScenarioSetAction
     @Override
     protected void features() {
         initializeSelection();
-        selectFeatures();
+        selectPlayerFeatures();
+        selectEnemyFeatures();
         deselectFeatures();
     }
 
-    private void selectFeatures() {
+    private void selectPlayerFeatures() {
         scenario("Select Owned Item Inclusive")
             .given(isAlive())
             .when(isCorporeal())
             .when(isCombatant())
             .when((item) -> !selected)
-            .then(deselectAll(notCombatant(), events), deselectAll(isAi(), events))
+            .then(deselectAll(not(isCombatant()), events), deselectAll(isAi(), events))
             .then(select(events), play(Selected));
 
         scenario("Select Owned Item Exclusive")
             .given(isAlive())
             .when(isCorporeal())
-            .when(notCombatant())
+            .when(not(isCombatant()))
+            .when((item) -> !selected)
+            .then(deselectAll(events))
+            .then(select(events), play(Selected));
+    }
+
+    private void selectEnemyFeatures() {
+        scenario("Select Neutral Item Exclusive ")
+            .given(isAlive())
+            .when(isNeutral())
             .when((item) -> !selected)
             .then(deselectAll(events))
             .then(select(events), play(Selected));
 
         scenario("Select Enemy Item Exclusive")
             .given(isAlive())
-            .when(isAi())
+            .when(isAi().and(not(isNeutral())))
             .when((item) -> !selected)
             .then(deselectAll(events))
             .then(select(events));
@@ -87,7 +98,7 @@ public class SelectInvert extends ScenarioSetAction
 
         scenario("Deselect Exclusive")
             .given(isAlive())
-            .when(notCombatant())
+            .when(not(isCombatant()))
             .when((item) -> selected)
             .then(deselectAll(events));
     }

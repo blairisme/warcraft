@@ -11,6 +11,8 @@ package com.evilbird.warcraft.item.common.query;
 
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.warcraft.item.data.player.Player;
 import org.junit.Test;
 
 import java.util.function.Predicate;
@@ -50,5 +52,158 @@ public class UnitPredicatesTest
     public void isAliveNull() {
         Predicate<Item> predicate = UnitPredicates.isAlive();
         assertFalse(predicate.test(null));
+    }
+
+    @Test
+    public void isCorporealTest() {
+        Player player = mock(Player.class);
+        when(player.isCorporeal()).thenReturn(true);
+
+        Predicate<Item> predicate = UnitPredicates.isCorporeal();
+        assertTrue(predicate.test(player));
+    }
+
+    @Test
+    public void isCorporealNullTest() {
+        Predicate<Item> predicate = UnitPredicates.isCorporeal();
+        assertFalse(predicate.test(null));
+    }
+
+    @Test
+    public void isCorporealParentTest() {
+        Player player = mock(Player.class);
+        when(player.isCorporeal()).thenReturn(true);
+
+        Item child = mock(Item.class);
+        when(child.getParent()).thenReturn(player);
+
+        Predicate<Item> predicate = UnitPredicates.isCorporeal();
+        assertTrue(predicate.test(child));
+    }
+
+    @Test
+    public void isCorporealNoParentTest() {
+        Item child = mock(Item.class);
+        when(child.getParent()).thenReturn(null);
+
+        Predicate<Item> predicate = UnitPredicates.isCorporeal();
+        assertFalse(predicate.test(child));
+    }
+
+    @Test
+    public void isCorporealHierarchyTest() {
+        Player player = mock(Player.class);
+        when(player.isCorporeal()).thenReturn(true);
+
+        ItemGroup child = mock(ItemGroup.class);
+        when(child.getParent()).thenReturn(player);
+
+        Item grandChild = mock(Item.class);
+        when(grandChild.getParent()).thenReturn(child);
+
+        Predicate<Item> predicate = UnitPredicates.isCorporeal();
+        assertTrue(predicate.test(grandChild));
+    }
+
+    @Test
+    public void isAiTest() {
+        Player player = mock(Player.class);
+        when(player.isCorporeal()).thenReturn(false);
+
+        Predicate<Item> predicate = UnitPredicates.isAi();
+        assertTrue(predicate.test(player));
+    }
+
+    @Test
+    public void isAiNullTest() {
+        Predicate<Item> predicate = UnitPredicates.isAi();
+        assertFalse(predicate.test(null));
+    }
+
+    @Test
+    public void isAiParentTest() {
+        Player player = mock(Player.class);
+        when(player.isCorporeal()).thenReturn(false);
+
+        Item child = mock(Item.class);
+        when(child.getParent()).thenReturn(player);
+
+        Predicate<Item> predicate = UnitPredicates.isAi();
+        assertTrue(predicate.test(child));
+    }
+
+    @Test
+    public void isAiNoParentTest() {
+        Item child = mock(Item.class);
+        when(child.getParent()).thenReturn(null);
+
+        Predicate<Item> predicate = UnitPredicates.isAi();
+        assertFalse(predicate.test(child));
+    }
+
+    @Test
+    public void isAiHierarchyTest() {
+        Player player = mock(Player.class);
+        when(player.isCorporeal()).thenReturn(false);
+
+        ItemGroup child = mock(ItemGroup.class);
+        when(child.getParent()).thenReturn(player);
+
+        Item grandChild = mock(Item.class);
+        when(grandChild.getParent()).thenReturn(child);
+
+        Predicate<Item> predicate = UnitPredicates.isAi();
+        assertTrue(predicate.test(grandChild));
+    }
+
+    @Test
+    public void isNeutralTest() {
+        Player player = mock(Player.class);
+        when(player.isNeutral()).thenReturn(true);
+
+        Predicate<Item> predicate = UnitPredicates.isNeutral();
+        assertTrue(predicate.test(player));
+    }
+
+    @Test
+    public void isNeutralNullTest() {
+        Predicate<Item> predicate = UnitPredicates.isNeutral();
+        assertFalse(predicate.test(null));
+    }
+
+    @Test
+    public void isNeutralParentTest() {
+        Player player = mock(Player.class);
+        when(player.isNeutral()).thenReturn(true);
+
+        Item child = mock(Item.class);
+        when(child.getParent()).thenReturn(player);
+
+        Predicate<Item> predicate = UnitPredicates.isNeutral();
+        assertTrue(predicate.test(child));
+    }
+
+    @Test
+    public void isNeutralNoParentTest() {
+        Item child = mock(Item.class);
+        when(child.getParent()).thenReturn(null);
+
+        Predicate<Item> predicate = UnitPredicates.isNeutral();
+        assertFalse(predicate.test(child));
+    }
+
+    @Test
+    public void isNeutralHierarchyTest() {
+        Player player = mock(Player.class);
+        when(player.isNeutral()).thenReturn(true);
+
+        ItemGroup child = mock(ItemGroup.class);
+        when(child.getParent()).thenReturn(player);
+
+        Item grandChild = mock(Item.class);
+        when(grandChild.getParent()).thenReturn(child);
+
+        Predicate<Item> predicate = UnitPredicates.isNeutral();
+        assertTrue(predicate.test(grandChild));
     }
 }

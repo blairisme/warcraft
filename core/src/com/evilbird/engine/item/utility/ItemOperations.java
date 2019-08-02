@@ -20,6 +20,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import static com.badlogic.gdx.Gdx.graphics;
@@ -35,8 +36,23 @@ public class ItemOperations
     private ItemOperations(){
     }
 
+    /**
+     * Searches the {@link Item} hierarchy (Items are owned other Items) for
+     * the first Item that matches the given {@link Predicate}, inclusive of
+     * the Item.
+     *
+     * @param item      an {@code Item} whose hierarchy will be tested using
+     *                  the given condition.
+     * @param predicate a {@code Predicate} to test for.
+     *
+     * @return  the first parent of the given Item that matches the specified
+     *          condition, or {@code null} if no match is found.
+     */
     public static Item findAncestor(Item item, Predicate<Item> predicate) {
-        Item parent = item.getParent();
+        Objects.requireNonNull(item);
+        Objects.requireNonNull(predicate);
+
+        Item parent = item;
         while (parent != null) {
             if (predicate.test(parent)) {
                 return parent;
