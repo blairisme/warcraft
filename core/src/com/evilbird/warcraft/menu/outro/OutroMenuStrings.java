@@ -23,74 +23,74 @@ import static com.evilbird.warcraft.menu.outro.OutroMenuType.Victory;
  */
 public class OutroMenuStrings
 {
-    private I18NBundle bundle;
+    private I18NBundle outroBundle;
+    private I18NBundle nationsBundle;
 
-    public OutroMenuStrings(I18NBundle bundle) {
-        this.bundle = bundle;
+    public OutroMenuStrings(I18NBundle outroBundle, I18NBundle nationsBundle) {
+        this.outroBundle = outroBundle;
+        this.nationsBundle = nationsBundle;
     }
 
     public String getOutcome(OutroMenuType type) {
-        return bundle.get(type == Victory ? "outcome-victory" : "outcome-defeat");
+        return outroBundle.get(type == Victory ? "outcome-victory" : "outcome-defeat");
     }
 
     public String getOutcomeLabel() {
-        return bundle.get("outcome-label");
+        return outroBundle.get("outcome-label");
     }
 
     public String getRank(int score) {
         if (score >= 0 && score <= 2000) {
-            return bundle.get("rank-first-human");
+            return outroBundle.get("rank-first-human");
         }
         else if (score >= 2001 && score <= 5000) {
-            return bundle.get("rank-second-human");
+            return outroBundle.get("rank-second-human");
         }
-        return bundle.get("rank-last-human");
+        return outroBundle.get("rank-last-human");
     }
 
     public String getRankLabel() {
-        return bundle.get("rank-label");
+        return outroBundle.get("rank-label");
     }
 
     public String getScoreLabel() {
-        return bundle.get("score-label");
+        return outroBundle.get("score-label");
     }
 
     public String getPlayerName(Player player) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(player.getDescription());
-        builder.append(bundle.get(player.isCorporeal() ? "player-you" : "player-them" ));
-        return builder.toString();
+        String nation = nationsBundle.get(player.getNation().name());
+        return outroBundle.format(player.isCorporeal() ? "player-you" : "player-them", nation);
     }
 
     public String getButtonLabel() {
-        return bundle.get("button-label");
+        return outroBundle.get("button-label");
     }
 
     public String getUnitLabel() {
-        return bundle.get("header-unit");
+        return outroBundle.get("header-unit");
     }
 
     public String getBuildingsLabel() {
-        return bundle.get("header-buildings");
+        return outroBundle.get("header-buildings");
     }
 
     public String getGoldLabel() {
-        return bundle.get("header-gold");
+        return outroBundle.get("header-gold");
     }
 
     public String getWoodLabel() {
-        return bundle.get("header-wood");
+        return outroBundle.get("header-wood");
     }
 
     public String getOilLabel() {
-        return bundle.get("header-oil");
+        return outroBundle.get("header-oil");
     }
 
     public String getKillsLabel() {
-        return bundle.get("header-kills");
+        return outroBundle.get("header-kills");
     }
 
     public String getRazedLabel() {
-        return bundle.get("header-razed");
+        return outroBundle.get("header-razed");
     }
 }

@@ -14,6 +14,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.warcraft.common.WarcraftFaction;
+import com.evilbird.warcraft.common.WarcraftNation;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -35,7 +37,8 @@ public class Player extends ItemGroup implements ResourceContainer
     private static final transient float VOLUME = 0.15f;
 
     private int level;
-    private String description;
+    private WarcraftNation nation;
+    private WarcraftFaction faction;
     private Map<String, Double> statistics;
     private Map<String, Double> resources;
     private Map<String, Boolean> upgrades;
@@ -64,8 +67,12 @@ public class Player extends ItemGroup implements ResourceContainer
         return getType() == PlayerType.Neutral;
     }
 
-    public String getDescription() {
-        return description;
+    public WarcraftNation getNation() {
+        return nation;
+    }
+
+    public WarcraftFaction getFaction() {
+        return faction;
     }
 
     public int getLevel() {
@@ -84,8 +91,12 @@ public class Player extends ItemGroup implements ResourceContainer
         return upgrades.getOrDefault(upgrade.name(), Boolean.FALSE);
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setNation(WarcraftNation nation) {
+        this.nation = nation;
+    }
+
+    public void setFaction(WarcraftFaction faction) {
+        this.faction = faction;
     }
 
     public void setLevel(int level) {
@@ -141,7 +152,8 @@ public class Player extends ItemGroup implements ResourceContainer
         Player player = (Player)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
-            .append(description, player.description)
+            .append(nation, player.nation)
+            .append(faction, player.faction)
             .append(level, player.level)
             .append(resources, player.resources)
             .append(statistics, player.statistics)
@@ -153,7 +165,8 @@ public class Player extends ItemGroup implements ResourceContainer
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
-            .append(description)
+            .append(nation)
+            .append(faction)
             .append(level)
             .append(resources)
             .append(statistics)

@@ -28,6 +28,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
+import static com.evilbird.engine.common.function.Predicates.all;
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.common.function.Predicates.nonNull;
 import static com.evilbird.engine.common.function.Predicates.not;
@@ -46,6 +47,7 @@ import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmLocatio
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmTarget;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherCancel;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherGold;
+import static com.evilbird.warcraft.action.gather.GatherActions.GatherOil;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherWood;
 import static com.evilbird.warcraft.action.menu.MenuActions.ActionsMenu;
 import static com.evilbird.warcraft.action.menu.MenuActions.BuildAdvancedMenu;
@@ -100,6 +102,7 @@ import static com.evilbird.warcraft.item.ui.display.control.status.selection.Sel
 import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
 import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
 import static com.evilbird.warcraft.item.unit.UnitType.OilPatch;
+import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
 
 /**
  * Instances of this class define the different ways the user can interact with
@@ -249,6 +252,7 @@ public class Interactions
     private void gatherInteractions() {
         gatherInteraction(GatherGold, GoldMine);
         gatherInteraction(GatherWood, Tree);
+        gatherInteraction(GatherOil, OilPlatform);
     }
 
     private void gatherInteraction(ActionIdentifier action, Identifier resource) {
@@ -262,6 +266,20 @@ public class Interactions
             .whenSelected(both(isCorporeal(), isGatherer()))
             .whenTarget(CancelButton)
             .withAction(action)
+            .appliedTo(Selected);
+    }
+
+    private void gatherOil(ActionIdentifier action, Identifier resource) {
+        interactions.addAction(action, ConfirmTarget)
+            .whenSelected(all(isCorporeal(), isGatherer()))
+            .whenTarget(resource)
+            .appliedTo(Selected)
+            .appliedAs(confirmedAction());
+
+        interactions.addAction(GatherCancel)
+            .whenSelected(both(isCorporeal(), isGatherer()))
+            .whenTarget(CancelButton)
+            .withAction(GatherOil)
             .appliedTo(Selected);
     }
 
@@ -323,6 +341,12 @@ public class Interactions
     }
 
     private void moveInteractions() {
+        moveToLocationInteractions();
+        moveToItemInteractions();
+        moveCancelInteraction();
+    }
+
+    private void moveToLocationInteractions() {
         interactions.addAction(MoveToLocation, ConfirmLocation)
             .whenSelected(both(isCorporeal(), isMovableOver(Land)))
             .whenTarget(hasType(Map, Shore))
@@ -334,7 +358,9 @@ public class Interactions
             .whenTarget(Sea)
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
+    }
 
+    private void moveToItemInteractions() {
         interactions.addAction(MoveToItem, ConfirmLocation)
             .whenSelected(both(isCorporeal(), isMovableOver(Land)))
             .whenTarget(CircleOfPower)
@@ -346,7 +372,9 @@ public class Interactions
             .whenTarget(OilPatch)
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
+    }
 
+    private void moveCancelInteraction() {
         interactions.addAction(MoveCancel)
             .whenSelected(both(isCorporeal(), isMovable()))
             .whenTarget(StopButton)

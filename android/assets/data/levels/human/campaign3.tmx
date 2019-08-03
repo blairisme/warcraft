@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="48">
- <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" tilecount="384" columns="16" margin="2" spacing="4">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="49">
+ <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/winter.png" width="576" height="864"/>
  </tileset>
  <tileset firstgid="385" name="GoldMine" tilewidth="96" tileheight="96" tilecount="2" columns="1">
@@ -59,8 +59,11 @@
  <tileset firstgid="937" name="Shipyard" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/human/building/winter/shipyard.png" width="96" height="192"/>
  </tileset>
- <tileset firstgid="939" name="Oil Tanker" tilewidth="72" tileheight="72" tilecount="15" columns="5">
-  <image source="../../textures/human/unit/oil_tanker.png" width="360" height="216"/>
+ <tileset firstgid="939" name="Oil Tanker" tilewidth="72" tileheight="72" tilecount="24" columns="8">
+  <image source="../../textures/human/unit/oil_tanker.png" width="576" height="216"/>
+ </tileset>
+ <tileset firstgid="963" name="Oil Platform" tilewidth="96" tileheight="96" tilecount="3" columns="1">
+  <image source="../../textures/human/building/winter/oil_platform.png" width="96" height="288"/>
  </tileset>
  <layer id="1" name="Map" width="64" height="64">
   <properties>
@@ -97,7 +100,8 @@
  <objectgroup id="6" name="Neutral">
   <properties>
    <property name="AI" type="bool" value="true"/>
-   <property name="Description" value="Neutral"/>
+   <property name="Faction" value="Neutral"/>
+   <property name="Nation" value="Neutral"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="4"/>
   </properties>
@@ -127,7 +131,8 @@
  <objectgroup id="5" name="Player2">
   <properties>
    <property name="AI" type="bool" value="true"/>
-   <property name="Description" value="Blackrock Clan"/>
+   <property name="Faction" value="Orc"/>
+   <property name="Nation" value="Blackrock"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="5"/>
   </properties>
@@ -152,9 +157,10 @@
  <objectgroup id="4" name="Player1">
   <properties>
    <property name="AI" type="bool" value="false"/>
-   <property name="Description" value="Nation of Azeroth"/>
+   <property name="Faction" value="Human"/>
    <property name="Gold" type="float" value="1000"/>
    <property name="Level" type="int" value="3"/>
+   <property name="Nation" value="Azeroth"/>
    <property name="Oil" type="float" value="2000"/>
    <property name="Type" value="Player"/>
    <property name="Wood" type="float" value="1000"/>
@@ -172,6 +178,7 @@
   </object>
   <object id="46" name="Shipyard1" type="Shipyard" gid="937" x="1344" y="640" width="96" height="96"/>
   <object id="47" name="OilTanker1" type="OilTanker" gid="939" x="1504" y="608" width="72" height="72"/>
+  <object id="48" name="OilPlatform1" type="OilPlatform" gid="963" x="1568" y="448" width="96" height="96"/>
  </objectgroup>
  <layer id="8" name="OpaqueFog" width="64" height="64">
   <properties>

@@ -9,8 +9,20 @@
 
 package com.evilbird.warcraft.menu.outro;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.utils.I18NBundle;
-import com.evilbird.test.testcase.StringBundleTestCase;
+import com.evilbird.test.utils.AssetFileHandleResolver;
+import com.evilbird.warcraft.common.WarcraftNation;
+import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.data.player.PlayerType;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.lang.reflect.Method;
+
+import static com.evilbird.test.data.item.TestSkin.newTestSkin;
 
 /**
  * Instances of this unit test validate logic in the {@link OutroMenuStrings}
@@ -18,15 +30,58 @@ import com.evilbird.test.testcase.StringBundleTestCase;
  *
  * @author Blair Butterworth
  */
-public class OutroMenuStringsTest extends StringBundleTestCase<OutroMenuStrings>
+public class OutroMenuStringsTest
 {
-    @Override
-    protected OutroMenuStrings getBundleWrapper(I18NBundle bundle) {
-        return new OutroMenuStrings(bundle);
+    private static final String OUTRO_BUNDLE = "data/strings/common/menu/outro";
+    private static final String NATIONS_BUNDLE = "data/strings/common/menu/nations";
+
+    private OutroMenuStrings strings;
+
+    @Before
+    public void setup() {
+        FileHandleResolver resolver = new AssetFileHandleResolver();
+        AssetManager assets = new AssetManager(resolver);
+        assets.load(OUTRO_BUNDLE, I18NBundle.class);
+        assets.load(NATIONS_BUNDLE, I18NBundle.class);
+        assets.finishLoading();
+
+        I18NBundle detailsBundle = assets.get(OUTRO_BUNDLE, I18NBundle.class);
+        I18NBundle namesBundle = assets.get(NATIONS_BUNDLE, I18NBundle.class);
+        strings = new OutroMenuStrings(detailsBundle, namesBundle);
     }
 
-    @Override
-    protected String getBundleAsset() {
-        return "data/strings/common/menu/outro";
+    @Test
+    public void getTest() throws Exception {
+        for (Method method: strings.getClass().getMethods()) {
+            if (method.getName().startsWith("get") && method.getReturnType() == String.class) {
+                String result = invoke(method);
+                Assert.assertNotNull(result);
+                Assert.assertFalse(result.isEmpty());
+            }
+        }
+    }
+
+    private String invoke(Method method) throws Exception {
+        if (method.getParameterCount() == 0) {
+            return (String)method.invoke(strings);
+        }
+        if (method.getParameterCount() == 1 && method.getParameterTypes()[0] == int.class) {
+            return (String)method.invoke(strings, 1);
+        }
+        if (method.getParameterCount() == 1 && method.getParameterTypes()[0] == Player.class) {
+            return (String)method.invoke(strings, newTestPlayer());
+        }
+        if (method.getParameterCount() == 1 && method.getParameterTypes()[0] == OutroMenuType.class) {
+            return (String)method.invoke(strings, OutroMenuType.Victory);
+        }
+        throw new UnsupportedOperationException();
+    }
+
+    private Player newTestPlayer() {
+        Player player = new Player(newTestSkin());
+        player.setType(PlayerType.Corporeal);
+        player.setNation(WarcraftNation.Azeroth);
+        return player;
     }
 }
+

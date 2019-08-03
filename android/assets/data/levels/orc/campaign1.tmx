@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="21">
- <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" tilecount="384" columns="16" margin="2" spacing="4">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="21">
+ <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/winter.png" width="576" height="864"/>
  </tileset>
  <tileset firstgid="385" name="Gold Mine" tilewidth="96" tileheight="96" tilecount="2" columns="1">
@@ -47,7 +47,8 @@
  <objectgroup id="5" name="Neutral">
   <properties>
    <property name="AI" type="bool" value="true"/>
-   <property name="Description" value="Neutral"/>
+   <property name="Faction" value="Neutral"/>
+   <property name="Nation" value="Neutral"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="2"/>
   </properties>
@@ -65,7 +66,8 @@
  <objectgroup id="7" name="Player2">
   <properties>
    <property name="AI" type="bool" value="true"/>
-   <property name="Description" value="Nation of Azeroth"/>
+   <property name="Faction" value="Human"/>
+   <property name="Nation" value="Azeroth"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="3"/>
   </properties>
@@ -77,10 +79,11 @@
  <objectgroup id="3" name="Player1">
   <properties>
    <property name="AI" type="bool" value="false"/>
-   <property name="Description" value="Blackrock Clan"/>
+   <property name="Faction" value="Orc"/>
    <property name="Food" type="float" value="1"/>
    <property name="Gold" type="float" value="1000"/>
    <property name="Level" type="int" value="1"/>
+   <property name="Nation" value="Blackrock"/>
    <property name="Type" value="Player"/>
    <property name="Wood" type="float" value="1000"/>
    <property name="ZIndex" type="int" value="4"/>

@@ -38,6 +38,7 @@ public class OutroMenuAssets extends AssetBundle
         register("data/textures/${faction}/menu/victory.png");
         register("data/textures/${faction}/menu/defeat.png");
         register("data/strings/common/menu/outro", I18NBundle.class);
+        register("data/strings/common/menu/nations", I18NBundle.class);
         register("font", "data/fonts/philosopher.ttf", BitmapFont.class, fontSize(18));
         register("font-large", "data/fonts/philosopher-large.ttf", BitmapFont.class, fontSize(36));
     }
@@ -55,7 +56,9 @@ public class OutroMenuAssets extends AssetBundle
     }
 
     public OutroMenuStrings getStrings() {
-        return new OutroMenuStrings(getStrings("outro"));
+        I18NBundle outroBundle = getStrings("outro");
+        I18NBundle nationsBundle = getStrings("nations");
+        return new OutroMenuStrings(outroBundle, nationsBundle);
     }
 
     public Drawable getButtonEnabled() {

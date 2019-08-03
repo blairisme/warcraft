@@ -28,6 +28,8 @@ import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.warcraft.common.WarcraftFaction;
+import com.evilbird.warcraft.common.WarcraftNation;
 import com.evilbird.warcraft.item.data.camera.CameraType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerType;
@@ -62,7 +64,6 @@ public class LevelLoader
     private static final String ENEMY_PLAYER_ID = "Player";
     private static final String NEUTRAL_PLAYER_ID = "Neutral";
 
-    private static final String DESCRIPTION_PROPERTY = "Description";
     private static final String TOUCHABLE_PROPERTY = "Touchable";
     private static final String X_PROPERTY = "x";
     private static final String Y_PROPERTY = "y";
@@ -73,6 +74,8 @@ public class LevelLoader
     private static final String LEVEL_PROPERTY = "Level";
     private static final String ZINDEX_PROPERTY = "ZIndex";
     private static final String TYPE_PROPERTY = "type";
+    private static final String NATION_PROPERTY = "Nation";
+    private static final String FACTION_PROPERTY = "Faction";
 
     private TiledMapLoader mapLoader;
     private ItemFactory itemFactory;
@@ -151,7 +154,8 @@ public class LevelLoader
             Player player = (Player) itemFactory.get(type);
             player.setIdentifier(new TextIdentifier(layer.getName()));
             player.setLevel(getInt(properties, LEVEL_PROPERTY));
-            player.setDescription(getString(properties, DESCRIPTION_PROPERTY));
+            player.setNation(getEnum(properties, NATION_PROPERTY, WarcraftNation.class, WarcraftNation.Unknown));
+            player.setFaction(getEnum(properties, FACTION_PROPERTY, WarcraftFaction.class, WarcraftFaction.Neutral));
             player.setResource(Gold, getFloat(properties, GOLD_PROPERTY));
             player.setResource(Oil, getFloat(properties, OIL_PROPERTY));
             player.setResource(Wood, getFloat(properties, WOOD_PROPERTY));
@@ -224,6 +228,11 @@ public class LevelLoader
 
     private int getInt(MapProperties properties, String key) {
         return properties.get(key, 0, Integer.class);
+    }
+
+    public <T extends Enum<T>> T getEnum(MapProperties properties, String key, Class<T> type, T def) {
+        String name = properties.get(key, null, String.class);
+        return name != null ? Enum.valueOf(type, name) : def;
     }
 
     private float getFloat(MapProperties properties, String key) {

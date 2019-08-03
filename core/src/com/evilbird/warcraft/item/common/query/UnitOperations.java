@@ -40,6 +40,8 @@ import static com.evilbird.engine.item.utility.ItemOperations.isNear;
 import static com.evilbird.engine.item.utility.ItemPredicates.touchableWithType;
 import static com.evilbird.engine.item.utility.ItemPredicates.withClazz;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
+import static com.evilbird.warcraft.common.WarcraftFaction.Human;
+import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasPathTo;
 
 /**
@@ -224,6 +226,30 @@ public class UnitOperations
      */
     public static boolean isCritter(Item item) {
         return item instanceof Critter;
+    }
+
+    /**
+     * Determines if the given {@link Item} belongs to the human faction/race.
+     *
+     * @param item  an {@code Item} to test.
+     * @return      {@code true} if the Item is a human, otherwise
+     *              {@code false}.
+     */
+    public static boolean isHuman(Item item) {
+        Player player = getPlayer(item);
+        return player != null && player.getFaction() == Human;
+    }
+
+    /**
+     * Determines if the given {@link Item} belongs to the orc faction/race.
+     *
+     * @param item  an {@code Item} to test.
+     * @return      {@code true} if the Item is an orc, otherwise
+     *              {@code false}.
+     */
+    public static boolean isOrc(Item item) {
+        Player player = getPlayer(item);
+        return player != null && player.getFaction() == Orc;
     }
 
     public static boolean inSight(Combatant combatant, Item target) {

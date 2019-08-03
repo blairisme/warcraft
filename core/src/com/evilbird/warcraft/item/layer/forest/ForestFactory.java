@@ -149,11 +149,11 @@ public class ForestFactory implements GameFactory<Forest>
         styles.put(matrix3("0,1,0,0,1,0,0,1,0"), unpaddedCell(texture, 320, 224, 32, 32)); //vertical peninsula
 
         styles.put(matrix3("1,1,1,0,1,0,0,0,0"), unpaddedCell(texture, 288, 224, 32, 32)); //top peninsula
-        styles.put(matrix3("0,1,1,0,1,0,0,0,0"), unpaddedCell(texture, 288, 224, 32, 32)); //top peninsula (left missing)
-        styles.put(matrix3("1,1,0,0,1,0,0,0,0"), unpaddedCell(texture, 288, 224, 32, 32)); //top peninsula (right missing)
+        styles.put(matrix3("0,1,1,0,1,0,0,0,0"), unpaddedCell(texture, 288, 224, 32, 32)); //top peninsula (no left)
+        styles.put(matrix3("1,1,0,0,1,0,0,0,0"), unpaddedCell(texture, 288, 224, 32, 32)); //top peninsula (no right)
 
         styles.put(matrix3("0,0,0,0,1,0,1,1,1"), unpaddedCell(texture, 352, 224, 32, 32)); //bottom peninsula
-        styles.put(matrix3("0,0,0,0,1,0,0,1,1"), unpaddedCell(texture, 352, 224, 32, 32)); //bottom peninsula (left missing)
-        styles.put(matrix3("0,0,0,0,1,0,1,1,0"), unpaddedCell(texture, 352, 224, 32, 32)); //bottom peninsula (right missing)
+        styles.put(matrix3("0,0,0,0,1,0,0,1,1"), unpaddedCell(texture, 352, 224, 32, 32)); //bottom peninsula (no left)
+        styles.put(matrix3("0,0,0,0,1,0,1,1,0"), unpaddedCell(texture, 352, 224, 32, 32)); //bottom peninsula (no right)
     }
 }

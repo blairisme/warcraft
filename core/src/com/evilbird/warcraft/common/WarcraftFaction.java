@@ -12,7 +12,7 @@ package com.evilbird.warcraft.common;
 import com.evilbird.engine.common.lang.Identifier;
 
 /**
- * Defines identifiers for item factions.
+ * Defines identifiers for unit factions.
  *
  * @author Blair Butterworth
  */
