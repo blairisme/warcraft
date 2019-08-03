@@ -69,7 +69,7 @@ public class OutroMenuStringsTest
             return (String)method.invoke(strings, 1);
         }
         if (method.getParameterCount() == 1 && method.getParameterTypes()[0] == Player.class) {
-            return (String)method.invoke(strings, newTestPlayer());
+            return (String)method.invoke(strings, newTestPlayer(PlayerType.Corporeal, WarcraftNation.Azeroth));
         }
         if (method.getParameterCount() == 1 && method.getParameterTypes()[0] == OutroMenuType.class) {
             return (String)method.invoke(strings, OutroMenuType.Victory);
@@ -77,11 +77,20 @@ public class OutroMenuStringsTest
         throw new UnsupportedOperationException();
     }
 
-    private Player newTestPlayer() {
+    private Player newTestPlayer(PlayerType type, WarcraftNation nation) {
         Player player = new Player(newTestSkin());
-        player.setType(PlayerType.Corporeal);
-        player.setNation(WarcraftNation.Azeroth);
+        player.setType(type);
+        player.setNation(nation);
         return player;
+    }
+
+    @Test
+    public void getPlayerNameTest() {
+        for (PlayerType type: PlayerType.values()) {
+            for (WarcraftNation nation : WarcraftNation.values()) {
+                Assert.assertNotNull(strings.getPlayerName(newTestPlayer(type, nation)));
+            }
+        }
     }
 }
 
