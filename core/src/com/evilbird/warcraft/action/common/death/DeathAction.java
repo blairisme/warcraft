@@ -23,6 +23,7 @@ import static com.evilbird.warcraft.action.common.transfer.TransferAction.deposi
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCritter;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Dead;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Death;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Decompose;
@@ -49,8 +50,18 @@ public class DeathAction extends ScenarioSetAction
 
     @Override
     protected void features() {
-        combatantDeath();
         buildingDeath();
+        combatantDeath();
+        critterDeath();
+    }
+
+    private void buildingDeath() {
+        scenario("Building death")
+            .whenItem(isBuilding())
+            .then(animate(Dead), deselect(events), disable(), sendToBack())
+            .then(play(Die), delay(1))
+            .then(delay(10))
+            .then(remove(events));
     }
 
     private void combatantDeath() {
@@ -63,12 +74,11 @@ public class DeathAction extends ScenarioSetAction
             .then(remove(events));
     }
 
-    private void buildingDeath() {
-        scenario("Building death")
-            .whenItem(isBuilding())
-            .then(animate(Dead), deselect(events), disable(), sendToBack())
-            .then(play(Die), delay(1))
-            .then(delay(10))
+    private void critterDeath() {
+        scenario("Combatant death")
+            .whenItem(isCritter())
+            .then(animate(Death), deselect(events), disable(), sendToBack())
+            .then(play(Die), delay(10))
             .then(remove(events));
     }
 }

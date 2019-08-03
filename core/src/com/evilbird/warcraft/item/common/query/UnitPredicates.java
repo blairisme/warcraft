@@ -91,12 +91,34 @@ public class UnitPredicates
         return UnitOperations::isNeutral;
     }
 
+    /**
+     * Returns a condition that determines if the given {@link Item} is a
+     * building.
+     *
+     * @return a {@link Predicate}.
+     */
     public static Predicate<Item> isBuilding() {
-        return (item) -> item instanceof Building;
+        return UnitOperations::isBuilding;
     }
 
+    /**
+     * Returns a condition that determines if the given {@link Item} is a
+     * combatant.
+     *
+     * @return a {@link Predicate}.
+     */
     public static Predicate<Item> isCombatant() {
-        return (item) -> item instanceof Combatant;
+        return UnitOperations::isCombatant;
+    }
+
+    /**
+     * Returns a condition that determines if the given {@link Item} is a
+     * critter.
+     *
+     * @return a {@link Predicate}.
+     */
+    public static Predicate<Item> isCritter() {
+        return UnitOperations::isCritter;
     }
 
     public static Predicate<Item> isDepotFor(ResourceType resource) {

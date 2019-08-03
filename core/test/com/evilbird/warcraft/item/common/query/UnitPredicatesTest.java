@@ -13,6 +13,9 @@ import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.unit.building.Building;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.critter.Critter;
 import org.junit.Test;
 
 import java.util.function.Predicate;
@@ -205,5 +208,38 @@ public class UnitPredicatesTest
 
         Predicate<Item> predicate = UnitPredicates.isNeutral();
         assertTrue(predicate.test(grandChild));
+    }
+
+    @Test
+    public void isBuildingTest() {
+        Item building = mock(Building.class);
+        Item notBuilding = mock(Combatant.class);
+
+        Predicate<Item> predicate = UnitPredicates.isBuilding();
+        assertTrue(predicate.test(building));
+        assertFalse(predicate.test(notBuilding));
+        assertFalse(predicate.test(null));
+    }
+
+    @Test
+    public void isCombatantTest() {
+        Item combatant = mock(Combatant.class);
+        Item notCombatant = mock(Building.class);
+
+        Predicate<Item> predicate = UnitPredicates.isCombatant();
+        assertTrue(predicate.test(combatant));
+        assertFalse(predicate.test(notCombatant));
+        assertFalse(predicate.test(null));
+    }
+
+    @Test
+    public void isCritterTest() {
+        Item critter = mock(Critter.class);
+        Item notCritter = mock(Building.class);
+
+        Predicate<Item> predicate = UnitPredicates.isCritter();
+        assertTrue(predicate.test(critter));
+        assertFalse(predicate.test(notCritter));
+        assertFalse(predicate.test(null));
     }
 }

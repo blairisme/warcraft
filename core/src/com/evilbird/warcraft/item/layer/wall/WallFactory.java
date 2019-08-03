@@ -29,8 +29,6 @@ import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.evilbird.warcraft.item.layer.LayerUtils.cell;
-
 /**
  * Instances of this factory create {@link Wall} instances, loading the
  * appropriate assets to display the wall and its cells in different

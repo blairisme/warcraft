@@ -22,8 +22,10 @@ import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
 import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
+import com.evilbird.warcraft.item.unit.critter.Critter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -189,6 +191,39 @@ public class UnitOperations
             return player != null && player.isNeutral();
         }
         return false;
+    }
+
+    /**
+     * Determines if the given {@link Item} is a building.
+     *
+     * @param item  an {@code Item} to test.
+     * @return      {@code true} if the Item is a building, otherwise
+     *              {@code false}.
+     */
+    public static boolean isBuilding(Item item) {
+        return item instanceof Building;
+    }
+
+    /**
+     * Determines if the given {@link Item} is a combatant.
+     *
+     * @param item  an {@code Item} to test.
+     * @return      {@code true} if the Item is a combatant, otherwise
+     *              {@code false}.
+     */
+    public static boolean isCombatant(Item item) {
+        return item instanceof Combatant;
+    }
+
+    /**
+     * Determines if the given {@link Item} is a critter.
+     *
+     * @param item  an {@code Item} to test.
+     * @return      {@code true} if the Item is a critter, otherwise
+     *              {@code false}.
+     */
+    public static boolean isCritter(Item item) {
+        return item instanceof Critter;
     }
 
     public static boolean inSight(Combatant combatant, Item target) {
