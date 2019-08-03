@@ -45,14 +45,20 @@ public class LayerUtils
         return cell(new TextureRegion(texture));
     }
 
-    public static Cell cell(Texture texture, int x, int y, int width, int height) {
-        return cell(new TextureRegion(texture, x, y, width, height));
-    }
-
     public static Cell cell(TextureRegion region) {
         TiledMapTile tile = new StaticTiledMapTile(region);
         TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
         cell.setTile(tile);
         return cell;
+    }
+
+    public static Cell unpaddedCell(Texture texture, int x, int y, int width, int height) {
+        int padding = 2;
+        int axisPadding = padding + padding;
+        int xIndex = x / width;
+        int yIndex = y / height;
+        int paddedX = x + (xIndex * axisPadding) + padding;
+        int paddedY = y + (yIndex * axisPadding) + padding;
+        return cell(new TextureRegion(texture, paddedX, paddedY, width, height));
     }
 }

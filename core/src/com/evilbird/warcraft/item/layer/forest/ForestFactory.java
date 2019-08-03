@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.evilbird.engine.common.collection.BitMatrix.matrix3;
-import static com.evilbird.warcraft.item.layer.LayerUtils.cell;
+import static com.evilbird.warcraft.item.layer.LayerUtils.unpaddedCell;
 
 /**
  * Instances of this factory create {@link Forest} instances, loading the
@@ -96,7 +96,7 @@ public class ForestFactory implements GameFactory<Forest>
     private LayerGroupStyle getStyle() {
         Texture terrain = assets.getTerrainTexture();
         LayerGroupStyle forestStyle = new LayerGroupStyle();
-        forestStyle.empty = cell(terrain, 448, 224, 32, 32);
+        forestStyle.empty = unpaddedCell(terrain, 448, 224, 32, 32);
         forestStyle.patterns = getCellStyles(terrain);
         return forestStyle;
     }
@@ -116,21 +116,21 @@ public class ForestFactory implements GameFactory<Forest>
     }
 
     private void addLeftEdge(Map<BitMatrix, TiledMapTileLayer.Cell> styles, Texture texture) {
-        TiledMapTileLayer.Cell style = cell(texture, 96, 224, 32, 32);
+        TiledMapTileLayer.Cell style = unpaddedCell(texture, 96, 224, 32, 32);
         styles.put(matrix3("0,1,1,0,1,1,0,1,1"), style); //left
         styles.put(matrix3("0,1,1,0,1,1,1,1,1"), style); //top overhang
         styles.put(matrix3("1,1,1,0,1,1,0,1,1"), style); //bottom overhang
     }
 
     private void addRightEdge(Map<BitMatrix, TiledMapTileLayer.Cell> styles, Texture texture) {
-        TiledMapTileLayer.Cell style = cell(texture, 128, 224, 32, 32);
+        TiledMapTileLayer.Cell style = unpaddedCell(texture, 128, 224, 32, 32);
         styles.put(matrix3("1,1,0,1,1,0,1,1,0"), style); //right
         styles.put(matrix3("1,1,0,1,1,0,1,1,1"), style); //top overhang
         styles.put(matrix3("1,1,1,1,1,0,1,1,0"), style); //bottom overhang
     }
 
     private void addTopEdge(Map<BitMatrix, TiledMapTileLayer.Cell> styles, Texture texture) {
-        TiledMapTileLayer.Cell style = cell(texture, 320, 192, 32, 32);
+        TiledMapTileLayer.Cell style = unpaddedCell(texture, 320, 192, 32, 32);
         styles.put(matrix3("1,1,1,1,1,1,0,0,0"), style); //top
         styles.put(matrix3("1,1,1,1,1,1,1,0,0"), style); //left overhang
         styles.put(matrix3("1,1,1,1,1,1,0,0,1"), style); //right overhang
@@ -138,7 +138,7 @@ public class ForestFactory implements GameFactory<Forest>
     }
 
     private void addBottomEdge(Map<BitMatrix, TiledMapTileLayer.Cell> styles, Texture texture) {
-        TiledMapTileLayer.Cell style = cell(texture, 384, 224, 32, 32);
+        TiledMapTileLayer.Cell style = unpaddedCell(texture, 384, 224, 32, 32);
         styles.put(matrix3("0,0,0,1,1,1,1,1,1"), style); //bottom
         styles.put(matrix3("1,0,0,1,1,1,1,1,1"), style); //left overhang
         styles.put(matrix3("0,0,1,1,1,1,1,1,1"), style); //right overhang
@@ -146,14 +146,14 @@ public class ForestFactory implements GameFactory<Forest>
     }
 
     private void addPeninsulas(Map<BitMatrix, TiledMapTileLayer.Cell> styles, Texture texture) {
-        styles.put(matrix3("0,1,0,0,1,0,0,1,0"), cell(texture, 320, 224, 32, 32)); //vertical peninsula
+        styles.put(matrix3("0,1,0,0,1,0,0,1,0"), unpaddedCell(texture, 320, 224, 32, 32)); //vertical peninsula
 
-        styles.put(matrix3("1,1,1,0,1,0,0,0,0"), cell(texture, 288, 224, 32, 32)); //top peninsula
-        styles.put(matrix3("0,1,1,0,1,0,0,0,0"), cell(texture, 288, 224, 32, 32)); //top peninsula (left missing)
-        styles.put(matrix3("1,1,0,0,1,0,0,0,0"), cell(texture, 288, 224, 32, 32)); //top peninsula (right missing)
+        styles.put(matrix3("1,1,1,0,1,0,0,0,0"), unpaddedCell(texture, 288, 224, 32, 32)); //top peninsula
+        styles.put(matrix3("0,1,1,0,1,0,0,0,0"), unpaddedCell(texture, 288, 224, 32, 32)); //top peninsula (left missing)
+        styles.put(matrix3("1,1,0,0,1,0,0,0,0"), unpaddedCell(texture, 288, 224, 32, 32)); //top peninsula (right missing)
 
-        styles.put(matrix3("0,0,0,0,1,0,1,1,1"), cell(texture, 352, 224, 32, 32)); //bottom peninsula
-        styles.put(matrix3("0,0,0,0,1,0,0,1,1"), cell(texture, 352, 224, 32, 32)); //bottom peninsula (left missing)
-        styles.put(matrix3("0,0,0,0,1,0,1,1,0"), cell(texture, 352, 224, 32, 32)); //bottom peninsula (right missing)
+        styles.put(matrix3("0,0,0,0,1,0,1,1,1"), unpaddedCell(texture, 352, 224, 32, 32)); //bottom peninsula
+        styles.put(matrix3("0,0,0,0,1,0,0,1,1"), unpaddedCell(texture, 352, 224, 32, 32)); //bottom peninsula (left missing)
+        styles.put(matrix3("0,0,0,0,1,0,1,1,0"), unpaddedCell(texture, 352, 224, 32, 32)); //bottom peninsula (right missing)
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="96" height="96" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="73">
- <tileset firstgid="1" name="terrain" tilewidth="32" tileheight="32" tilecount="384" columns="16">
-  <image source="../../textures/common/terrain/winter.png" width="512" height="768"/>
+ <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" tilecount="384" columns="16" margin="2" spacing="4">
+  <image source="../../textures/common/terrain/winter.png" width="576" height="864"/>
  </tileset>
  <tileset firstgid="385" name="Camera" tilewidth="32" tileheight="32" tilecount="1" columns="1">
   <image source="../config/x_startpoint.png" width="32" height="32"/>

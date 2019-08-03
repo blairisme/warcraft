@@ -33,6 +33,7 @@ import java.util.Map;
 
 import static com.evilbird.engine.common.collection.BitMatrix.matrix3;
 import static com.evilbird.warcraft.item.layer.LayerUtils.cell;
+import static com.evilbird.warcraft.item.layer.LayerUtils.unpaddedCell;
 
 /**
  * Instances of this factory create {@link Fog} instances.
@@ -139,38 +140,38 @@ public class FogFactory implements GameFactory<Fog>
     }
 
     private void addLeftEdge(Map<BitMatrix, Cell> styles, Texture texture) {
-        Cell style = cell(texture, 192, 0, 32, 32);
+        Cell style = unpaddedCell(texture, 192, 0, 32, 32);
         styles.put(matrix3("0,1,1,0,1,1,0,1,1"), style); //left
         styles.put(matrix3("0,1,1,0,1,1,1,1,1"), style); //top overhang
         styles.put(matrix3("1,1,1,0,1,1,0,1,1"), style); //bottom overhang
     }
 
     private void addRightEdge(Map<BitMatrix, Cell> styles, Texture texture) {
-        Cell style = cell(texture, 128, 0, 32, 32);
+        Cell style = unpaddedCell(texture, 128, 0, 32, 32);
         styles.put(matrix3("1,1,0,1,1,0,1,1,0"), style); //right
         styles.put(matrix3("1,1,0,1,1,0,1,1,1"), style); //top overhang
         styles.put(matrix3("1,1,1,1,1,0,1,1,0"), style); //bottom overhang
     }
 
     private void addTopEdge(Map<BitMatrix, Cell> styles, Texture texture) {
-        Cell style = cell(texture, 256, 0, 32, 32);
+        Cell style = unpaddedCell(texture, 256, 0, 32, 32);
         styles.put(matrix3("1,1,1,1,1,1,0,0,0"), style); //top
         styles.put(matrix3("1,1,1,1,1,1,1,0,0"), style); //left overhang
         styles.put(matrix3("1,1,1,1,1,1,0,0,1"), style); //right overhang
     }
 
     private void addBottomEdge(Map<BitMatrix, Cell> styles, Texture texture) {
-        Cell style = cell(texture, 64, 0, 32, 32);
+        Cell style = unpaddedCell(texture, 64, 0, 32, 32);
         styles.put(matrix3("0,0,0,1,1,1,1,1,1"), style); //bottom
         styles.put(matrix3("1,0,0,1,1,1,1,1,1"), style); //left overhang
         styles.put(matrix3("0,0,1,1,1,1,1,1,1"), style); //right overhang
     }
 
     private void addInternalCorners(Map<BitMatrix, Cell> styles, Texture texture) {
-        styles.put(matrix3("1,1,0,1,1,1,1,1,1"), cell(texture, 32, 0, 32, 32)); //bottom right internal
-        styles.put(matrix3("0,1,1,1,1,1,1,1,1"), cell(texture, 96, 0, 32, 32)); //bottom left internal
-        styles.put(matrix3("1,1,1,1,1,1,1,1,0"), cell(texture, 224, 0, 32, 32)); //top right internal
-        styles.put(matrix3("1,1,1,1,1,1,0,1,1"), cell(texture, 288, 0, 32, 32)); //top left internal
+        styles.put(matrix3("1,1,0,1,1,1,1,1,1"), unpaddedCell(texture, 32, 0, 32, 32)); //bottom right internal
+        styles.put(matrix3("0,1,1,1,1,1,1,1,1"), unpaddedCell(texture, 96, 0, 32, 32)); //bottom left internal
+        styles.put(matrix3("1,1,1,1,1,1,1,1,0"), unpaddedCell(texture, 224, 0, 32, 32)); //top right internal
+        styles.put(matrix3("1,1,1,1,1,1,0,1,1"), unpaddedCell(texture, 288, 0, 32, 32)); //top left internal
     }
 
     private void addExternalCorners(Map<BitMatrix, Cell> styles, Texture texture) {
@@ -181,7 +182,7 @@ public class FogFactory implements GameFactory<Fog>
     }
 
     private void addTopLeftExternalCorner(Map<BitMatrix, Cell> styles, Texture texture) {
-        Cell style = cell(texture, 416, 0, 32, 32);
+        Cell style = unpaddedCell(texture, 416, 0, 32, 32);
         styles.put(matrix3("0,1,1,0,1,1,0,0,0"), style); //top left corner
         styles.put(matrix3("1,1,1,0,1,1,0,0,0"), style); //bottom left overhang
         styles.put(matrix3("0,1,1,0,1,1,0,0,1"), style); //top right overhang
@@ -189,7 +190,7 @@ public class FogFactory implements GameFactory<Fog>
     }
 
     private void addTopRightExternalCorner(Map<BitMatrix, Cell> styles, Texture texture) {
-        Cell style = cell(texture, 384, 0, 32, 32);
+        Cell style = unpaddedCell(texture, 384, 0, 32, 32);
         styles.put(matrix3("1,1,0,1,1,0,0,0,0"), style); //top right corner
         styles.put(matrix3("1,1,1,1,1,0,0,0,0"), style); //bottom right overhang
         styles.put(matrix3("1,1,0,1,1,0,1,0,0"), style); //top left overhang
@@ -197,7 +198,7 @@ public class FogFactory implements GameFactory<Fog>
     }
 
     private void addBottomLeftExternalCorner(Map<BitMatrix, Cell> styles, Texture texture) {
-        Cell style = cell(texture, 352, 0, 32, 32);
+        Cell style = unpaddedCell(texture, 352, 0, 32, 32);
         styles.put(matrix3("0,0,0,0,1,1,0,1,1"), style); //bottom left corner
         styles.put(matrix3("0,0,0,0,1,1,1,1,1"), style); //top left overhang
         styles.put(matrix3("0,0,1,0,1,1,0,1,1"), style); //bottom right overhang
@@ -205,7 +206,7 @@ public class FogFactory implements GameFactory<Fog>
     }
 
     private void addBottomRightExternalCorner(Map<BitMatrix, Cell> styles, Texture texture) {
-        Cell style = cell(texture, 320, 0, 32, 32);
+        Cell style = unpaddedCell(texture, 320, 0, 32, 32);
         styles.put(matrix3("0,0,0,1,1,0,1,1,0"), style); //bottom right external
         styles.put(matrix3("0,0,0,1,1,0,1,1,1"), style); //top right overhang
         styles.put(matrix3("1,0,0,1,1,0,1,1,0"), style); //bottom left overhang
@@ -213,9 +214,9 @@ public class FogFactory implements GameFactory<Fog>
     }
 
     private void addPeninsulas(Map<BitMatrix, Cell> styles, Texture texture) {
-        styles.put(matrix3("0,1,0,0,1,0,0,1,0"), cell(texture, 160, 0, 32, 32)); //vertical peninsula
-        styles.put(matrix3("1,0,0,0,0,0,0,0,1"), cell(texture, 448, 0, 32, 32)); //forward-slash peninsula
-        styles.put(matrix3("0,0,1,0,0,0,1,0,0"), cell(texture, 480, 0, 32, 32)); //back-slash peninsula
+        styles.put(matrix3("0,1,0,0,1,0,0,1,0"), unpaddedCell(texture, 160, 0, 32, 32)); //vertical peninsula
+        styles.put(matrix3("1,0,0,0,0,0,0,0,1"), unpaddedCell(texture, 448, 0, 32, 32)); //forward-slash peninsula
+        styles.put(matrix3("0,0,1,0,0,0,1,0,0"), unpaddedCell(texture, 480, 0, 32, 32)); //back-slash peninsula
     }
 }
 
