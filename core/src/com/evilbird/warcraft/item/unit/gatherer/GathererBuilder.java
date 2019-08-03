@@ -117,9 +117,9 @@ public class GathererBuilder
     private Map<Identifier, Animation> getSeaAnimations(Texture general, Texture decompose) {
         AnimationSetBuilder builder = new AnimationSetBuilder();
 
-        builder.set(UnitAnimation.Idle, AnimationLayouts.idleSchema(88, 88), general);
-        builder.set(UnitAnimation.Move, AnimationLayouts.idleSchema(88, 88), general);
-        builder.set(UnitAnimation.Attack, AnimationLayouts.idleSchema(88, 88), general);
+        builder.set(UnitAnimation.Idle, AnimationLayouts.idleSchema(assets.getSize()), general);
+        builder.set(UnitAnimation.Move, AnimationLayouts.idleSchema(assets.getSize()), general);
+        builder.set(UnitAnimation.Attack, AnimationLayouts.idleSchema(assets.getSize()), general);
         builder.set(UnitAnimation.Death, AnimationLayouts.boatDeathSchema(), general);
         builder.set(UnitAnimation.Decompose, AnimationLayouts.boatDecomposeSchema(), decompose);
 

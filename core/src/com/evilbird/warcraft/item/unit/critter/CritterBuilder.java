@@ -72,7 +72,7 @@ public class CritterBuilder
         builder.set(UnitAnimation.Idle, AnimationLayouts.idleSchema(32, 32), general);
         builder.set(UnitAnimation.Move, AnimationLayouts.idleSchema(32, 32), general);
         builder.set(UnitAnimation.Death, AnimationLayouts.critterDeathSchema(), general);
-        builder.set(UnitAnimation.Decompose, AnimationLayouts.decomposeSchema(), decompose);
+        builder.set(UnitAnimation.Decompose, AnimationLayouts.critterDeathSchema(), decompose);
         return builder.build();
     }
 

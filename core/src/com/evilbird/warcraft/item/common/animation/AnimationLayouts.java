@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.common.animation;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
 import com.evilbird.engine.common.graphics.AnimationSchema;
 import org.apache.commons.lang3.Range;
@@ -39,6 +40,10 @@ public class AnimationLayouts
 
     public static AnimationSchema idleSchema() {
         return idleSchema(72, 72);
+    }
+
+    public static AnimationSchema idleSchema(GridPoint2 size) {
+        return idleSchema(size.x, size.y);
     }
 
     public static AnimationSchema idleSchema(int width, int height) {
