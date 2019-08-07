@@ -84,6 +84,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlacehold
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholderClear;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isResource;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelectable;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.item.data.camera.CameraType.Camera;
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
 import static com.evilbird.warcraft.item.layer.LayerType.Sea;
@@ -183,6 +184,12 @@ public class Interactions
         interactions.addAction(PlaceholderCancel)
             .whenTarget(CancelButton)
             .whenSelected(both(isGatherer(), associatedWith(isPlaceholder())))
+            .appliedTo(Selected)
+            .appliedAs(Addition);
+
+        interactions.addAction(PlaceholderCancel, SelectInvert)
+            .whenSelected(both(isSelected(), associatedWith(isPlaceholder())))
+            .whenTarget(isGatherer())
             .appliedTo(Selected)
             .appliedAs(Addition);
     }
