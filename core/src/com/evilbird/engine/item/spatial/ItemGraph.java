@@ -161,13 +161,29 @@ public class ItemGraph implements SpatialGraph<ItemNode>
      * @return a {@link Collection} of unique {@code ItemNodes}.
      */
     public Collection<ItemNode> getAdjacentNodes(Vector2 worldPosition, Vector2 worldSize) {
+        return getAdjacentNodes(worldPosition, worldSize, nodeWidth);
+    }
+
+    /**
+     * Returns the set of {@link ItemNode ItemNodes} directly adjacent to the
+     * given position, of the given size and offset by the given radius. All
+     * values are specified with respect to the world.
+     *
+     * @param worldPosition a position in world terms.
+     * @param worldSize     a size in world terms.
+     * @param worldRadius   a radius in world terms.
+     *
+     * @return a {@link Collection} of unique {@code ItemNodes}.
+     */
+    public Collection<ItemNode> getAdjacentNodes(Vector2 worldPosition, Vector2 worldSize, int worldRadius) {
         Objects.requireNonNull(worldPosition);
         Objects.requireNonNull(worldSize);
 
         GridPoint2 spatialPosition = toSpatial(worldPosition);
         GridPoint2 spatialSize = toSpatial(worldSize);
+        int spatialRadius = worldRadius / nodeWidth;
 
-        return getAdjacentNodes(spatialPosition, spatialSize);
+        return getAdjacentNodes(spatialPosition, spatialSize, spatialRadius);
     }
 
     /**
@@ -183,13 +199,28 @@ public class ItemGraph implements SpatialGraph<ItemNode>
      * @return a {@link Collection} of unique {@code ItemNodes}.
      */
     public Collection<ItemNode> getAdjacentNodes(GridPoint2 spatialPosition, GridPoint2 spatialSize) {
+        return getAdjacentNodes(spatialPosition, spatialSize, 1);
+    }
+
+    /**
+     * Returns the set of {@link ItemNode ItemNodes} directly adjacent to the
+     * given position, of the given size and offset by the given radius. All
+     * values are specified in spatial terms.
+     *
+     * @param spatialPosition a position in spatial terms.
+     * @param spatialSize     a size in spatial terms.
+     * @param spatialRadius   a radius in spatial terms.
+     *
+     * @return a {@link Collection} of unique {@code ItemNodes}.
+     */
+    public Collection<ItemNode> getAdjacentNodes(GridPoint2 spatialPosition, GridPoint2 spatialSize, int spatialRadius){
         Objects.requireNonNull(spatialPosition);
         Objects.requireNonNull(spatialSize);
 
-        int xCount = spatialSize.x + 2;
-        int yCount = spatialSize.y + 2;
-        int xStart = spatialPosition.x - 1;
-        int yStart = spatialPosition.y - 1;
+        int xCount = spatialSize.x + spatialRadius + 1;
+        int yCount = spatialSize.y + spatialRadius + 1;
+        int xStart = spatialPosition.x - spatialRadius;
+        int yStart = spatialPosition.y - spatialRadius;
         int xEnd = spatialPosition.x + spatialSize.x;
         int yEnd = spatialPosition.y + spatialSize.y;
 

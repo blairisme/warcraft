@@ -40,7 +40,7 @@ class MoveDestinationRange implements MoveDestination
 
     @Override
     public ItemNode getDestinationNode(ItemGraph graph, ItemNode node, ItemPathFilter traversable) {
-        Collection<ItemNode> nodes = graph.getNodes(target.getPosition(), target.getSize());
+        Collection<ItemNode> nodes = graph.getAdjacentNodes(target.getPosition(), target.getSize(), range);
         nodes.removeIf(not(traversable));
         return nodes.isEmpty() ? null : SpatialUtils.getClosest(nodes, node);
     }
