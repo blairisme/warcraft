@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.game.GameEngine;
 
 import javax.inject.Inject;
+import java.util.concurrent.Future;
 
 /**
  * Instances of this class render an image to the screen whilst the various
@@ -61,8 +62,8 @@ public class LoaderScreen extends ScreenAdapter
         this.engine = engine;
     }
 
-    public void loadMenuAssets() {
-        engine.loadMenuAssets();
+    public Future<?> loadMenuAssets() {
+        return engine.loadMenuAssets();
     }
 
     public boolean isLoaded() {

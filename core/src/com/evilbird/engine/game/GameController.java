@@ -47,7 +47,7 @@ public interface GameController
      * @return              a {@code Future}, used to obtain the status of
      *                      the load operation.
      */
-    Future<?> loadState(StateIdentifier identifier);
+    Future<?> loadStateAssets(StateIdentifier identifier);
 
     /**
      * Shows the default menu, usually the top level menu.

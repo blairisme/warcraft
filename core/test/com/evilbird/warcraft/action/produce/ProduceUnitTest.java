@@ -14,17 +14,27 @@ import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
+import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.action.common.create.CreateEvent;
+import com.evilbird.warcraft.action.common.transfer.TransferEvent;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
-import org.junit.Assert;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import static com.evilbird.warcraft.action.produce.ProduceUnitActions.TrainFootman;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Food;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.item.unit.UnitCosts.buildTime;
+import static com.evilbird.warcraft.item.unit.UnitType.Footman;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Instances of this unit test validate the {@link ProduceUnit} class.
@@ -34,11 +44,16 @@ import static com.evilbird.warcraft.item.unit.UnitCosts.buildTime;
 public class ProduceUnitTest extends ActionTestCase
 {
     private EventQueue reporter;
-
+    private Building barracks;
+    private Combatant footman;
+    
     @Before
     public void setup() {
         reporter = Mockito.mock(EventQueue.class);
         super.setup();
+        barracks = (Building)item;
+        footman = TestCombatants.newTestCombatant("footman");
+        when(itemFactory.get(Footman)).thenReturn(footman);
     }
 
     @Override
@@ -59,26 +74,34 @@ public class ProduceUnitTest extends ActionTestCase
     }
 
     @Test
-    @Ignore
     public void actTest() {
-        Building subject = (Building)item;
+        player.setResource(Food, 10);
+        player.setResource(Gold, 1000);
 
-        Assert.assertFalse(action.act(1));
-        //Mockito.verify(reporter).onTransfer(player, Gold, 123, 0);
-        //Mockito.verify(reporter).onProductionStarted(subject);
+        assertFalse(action.act(1));
+        verify(reporter).add(new TransferEvent(player, Food, 10.0f, 9.0f));
+        verify(reporter).add(new TransferEvent(player, Gold, 1000.0f, 400.0f));
 
-        Assert.assertFalse(action.act(1));
-        Assert.assertEquals(0.05f, subject.getProductionProgress(), 0.1f);
+        assertFalse(action.act(1));
+        verify(reporter).add(new ProduceEvent(barracks, ProduceStatus.Started));
+        
+        action.act(1f);
 
-        Assert.assertFalse(action.act(1));
-        Assert.assertEquals(0.1f, subject.getProductionProgress(), 0.1f);
+        assertFalse(action.act(0.05f));
+        assertEquals(0.05f, barracks.getProductionProgress(), 0.1f);
 
-        Assert.assertFalse(action.act(buildTime(UnitType.Footman) + 10));
-        Assert.assertFalse(subject.isProducing());
+        assertFalse(action.act(1));
+        assertEquals(0.1f, barracks.getProductionProgress(), 0.1f);
 
-        Assert.assertFalse(action.act(1));
-//        Mockito.verify(reporter).onCreate(Mockito.any(Combatant.class));
+        assertFalse(action.act(buildTime(Footman) + 10));
+        assertFalse(barracks.isProducing());
 
-        Assert.assertTrue(action.act(1));
+        assertFalse(action.act(1));
+        verify(reporter).add(new CreateEvent(footman));
+
+        assertFalse(action.act(1));
+        //move
+
+        assertTrue(action.act(1));
     }
 }

@@ -13,6 +13,8 @@ import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
@@ -69,5 +71,30 @@ public class TransferEvent implements Event
             .append("oldValue", oldValue)
             .append("newValue", newValue)
             .toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) { return false; }
+
+        TransferEvent that = (TransferEvent)obj;
+        return new EqualsBuilder()
+            .append(oldValue, that.oldValue)
+            .append(newValue, that.newValue)
+            .append(recipient, that.recipient)
+            .append(resource, that.resource)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .append(recipient)
+            .append(resource)
+            .append(oldValue)
+            .append(newValue)
+            .toHashCode();
     }
 }

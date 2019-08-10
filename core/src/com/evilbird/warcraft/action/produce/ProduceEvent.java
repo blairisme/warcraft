@@ -12,6 +12,8 @@ package com.evilbird.warcraft.action.produce;
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
@@ -56,5 +58,26 @@ public class ProduceEvent implements Event
             .append("building", building.getIdentifier())
             .append("status", status)
             .toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) { return false; }
+
+        ProduceEvent that = (ProduceEvent)obj;
+        return new EqualsBuilder()
+            .append(building, that.building)
+            .append(status, that.status)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .append(building)
+            .append(status)
+            .toHashCode();
     }
 }

@@ -61,7 +61,7 @@ public class IntroMenu extends Menu
     public void show() {
         super.show();
         if (loading == null) {
-            loading = controller.loadState(campaign);
+            loading = controller.loadStateAssets(campaign);
         }
     }
 

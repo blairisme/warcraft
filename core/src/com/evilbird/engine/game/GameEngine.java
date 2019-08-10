@@ -112,9 +112,26 @@ public class GameEngine extends Game implements GameController
         return stateScreen.getState();
     }
 
-    public void loadMenuAssets() {
-        gameAssets.loadMenuAssets();
-        gameAssets.finishLoading();
+    public Future<?> loadMenuAssets() {
+        try {
+            return gameAssets.loadMenuAssets();
+        }
+        catch (Throwable error) {
+            handleError(error);
+            return new CompleteFuture<>();
+        }
+    }
+
+    @Override
+    public Future<?> loadStateAssets(StateIdentifier identifier) {
+        try {
+            GameContext context = stateService.context(identifier);
+            return gameAssets.loadStateAssets(identifier, context);
+        }
+        catch (Throwable error) {
+            handleError(error);
+            return new CompleteFuture<>();
+        }
     }
 
     public void showInitialScreen() {
@@ -168,18 +185,6 @@ public class GameEngine extends Game implements GameController
         }
         catch (Throwable error) {
             handleError(error);
-        }
-    }
-
-    @Override
-    public Future<?> loadState(StateIdentifier identifier) {
-        try {
-            GameContext context = stateService.context(identifier);
-            return gameAssets.loadStateAssets(identifier, context);
-        }
-        catch (Throwable error) {
-            handleError(error);
-            return new CompleteFuture<>();
         }
     }
 

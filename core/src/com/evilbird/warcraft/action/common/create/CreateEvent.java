@@ -11,6 +11,8 @@ package com.evilbird.warcraft.action.common.create;
 
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Objects;
@@ -46,5 +48,24 @@ public class CreateEvent implements Event
         return new ToStringBuilder(this)
             .append("subject", subject.getIdentifier())
             .toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) { return false; }
+
+        CreateEvent that = (CreateEvent)obj;
+        return new EqualsBuilder()
+            .append(subject, that.subject)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .append(subject)
+            .toHashCode();
     }
 }

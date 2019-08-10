@@ -40,7 +40,6 @@ public class SelectInvertTest extends ActionTestCase
     }
 
     @Test
-    @Ignore
     public void actTest() {
         Selectable selectable = (Selectable)item;
 
@@ -49,7 +48,6 @@ public class SelectInvertTest extends ActionTestCase
         assertTrue(action.act(1));
         assertTrue(selectable.getSelected());
 
-//        assertFalse(action.act(1));
         assertTrue(action.act(1));
         assertTrue(selectable.getSelected());
 
