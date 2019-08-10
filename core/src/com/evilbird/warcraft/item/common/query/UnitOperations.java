@@ -235,6 +235,21 @@ public class UnitOperations
     }
 
     /**
+     * Determines if the given {@link Item} can do damage to other Items.
+     *
+     * @param item  an {@code Item} to test.
+     * @return      {@code true} if the Item can do damage to others, otherwise
+     *              {@code false}.
+     */
+    public static boolean isAttacker(Item item) {
+        if (item instanceof Combatant) {
+            Combatant combatant = (Combatant)item;
+            return combatant.getBasicDamage() > 0;
+        }
+        return false;
+    }
+
+    /**
      * Determines if the given {@link Item} is a critter.
      *
      * @param item  an {@code Item} to test.

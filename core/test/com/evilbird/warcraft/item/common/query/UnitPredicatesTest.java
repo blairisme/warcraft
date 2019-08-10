@@ -242,4 +242,35 @@ public class UnitPredicatesTest
         assertFalse(predicate.test(notCritter));
         assertFalse(predicate.test(null));
     }
+
+    @Test
+    public void isAttackerTest() {
+        Combatant combatant = mock(Combatant.class);
+        when(combatant.getBasicDamage()).thenReturn(10);
+
+        Predicate<Item> predicate = UnitPredicates.isAttacker();
+        assertTrue(predicate.test(combatant));
+    }
+
+    @Test
+    public void isAttackerWithoutDamageTest() {
+        Combatant combatant = mock(Combatant.class);
+        when(combatant.getBasicDamage()).thenReturn(0);
+
+        Predicate<Item> predicate = UnitPredicates.isAttacker();
+        assertFalse(predicate.test(combatant));
+    }
+
+    @Test
+    public void isAttackerNonCombatantTest() {
+        Building building = mock(Building.class);
+        Predicate<Item> predicate = UnitPredicates.isAttacker();
+        assertFalse(predicate.test(building));
+    }
+
+    @Test
+    public void isAttackerNullTest() {
+        Predicate<Item> predicate = UnitPredicates.isAttacker();
+        assertFalse(predicate.test(null));
+    }
 }

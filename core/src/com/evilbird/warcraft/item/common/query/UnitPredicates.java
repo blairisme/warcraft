@@ -111,6 +111,10 @@ public class UnitPredicates
         return UnitOperations::isCombatant;
     }
 
+    public static Predicate<Item> isAttacker() {
+        return UnitOperations::isAttacker;
+    }
+
     /**
      * Returns a condition that determines if the given {@link Item} is a
      * critter.

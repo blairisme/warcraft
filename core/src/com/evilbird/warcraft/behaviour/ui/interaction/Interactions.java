@@ -72,8 +72,8 @@ import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAttacker;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDestroyable;
@@ -135,19 +135,19 @@ public class Interactions
 
     private void attackInteractions() {
         interactions.addAction(Attack, ConfirmTarget)
-            .whenSelected(both(isCorporeal(), isCombatant()))
+            .whenSelected(both(isCorporeal(), isAttacker()))
             .whenTarget(isAi().and(isDestroyable()).and(not(isResource())))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
         interactions.addAction(Attack, ConfirmTarget)
-            .whenSelected(both(isCorporeal(), isCombatant()))
+            .whenSelected(both(isCorporeal(), isAttacker()))
             .whenTarget(WallSection)
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
         interactions.addAction(AttackCancel)
-            .whenSelected(both(isCorporeal(), isCombatant()))
+            .whenSelected(both(isCorporeal(), isAttacker()))
             .whenTarget(CancelButton)
             .withAction(Attack)
             .appliedTo(Selected);
