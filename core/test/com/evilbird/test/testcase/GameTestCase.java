@@ -33,6 +33,7 @@ import com.evilbird.test.data.action.TestActions;
 import com.evilbird.test.data.behaviour.TestBehaviours;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestCombatants;
+import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.data.item.TestResources;
@@ -152,6 +153,9 @@ public class GameTestCase
             }
             if (identifier == UnitType.Footman) {
                 return TestCombatants.newTestCombatant("footman");
+            }
+            if (identifier == UnitType.Peasant) {
+                return TestGatherers.newTestGatherer("peasant");
             }
             if (identifier == UnitType.GoldMine) {
                 return TestResources.newTestResource("goldmine");

@@ -23,11 +23,13 @@ public enum UnitAnimation implements Identifier
     Idle,
     IdleBasic,
     IdleGold,
+    IdleOil,
     IdleWood,
 
     Move,
     MoveBasic,
     MoveGold,
+    MoveOil,
     MoveWood,
 
     Attack,

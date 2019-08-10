@@ -52,6 +52,7 @@ public class GathererAssets extends AssetBundle
 
         registerOptional("moveWithGold", "data/textures/${faction}/unit/${name}_with_gold.png");
         registerOptional("moveWithWood", "data/textures/${faction}/unit/${name}_with_wood.png");
+        registerOptional("moveWithOil", "data/textures/${faction}/unit/${name}_with_oil.png");
     }
 
     private void registerSounds() {
@@ -83,6 +84,10 @@ public class GathererAssets extends AssetBundle
 
     public Texture getMoveWithGoldTexture() {
         return getOptionalTexture("moveWithGold");
+    }
+
+    public Texture getMoveWithOilTexture() {
+        return getOptionalTexture("moveWithOil");
     }
 
     public Texture getMoveWithWoodTexture() {

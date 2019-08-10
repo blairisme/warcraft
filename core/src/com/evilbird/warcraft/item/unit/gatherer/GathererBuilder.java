@@ -111,14 +111,21 @@ public class GathererBuilder
     private Map<Identifier, Animation> getSeaAnimations() {
         Texture general = assets.getBaseTexture();
         Texture decompose = assets.getDecomposeTexture();
-        return getSeaAnimations(general, decompose);
+        Texture withOil = assets.getMoveWithOilTexture();
+        return getSeaAnimations(general, decompose, withOil);
     }
 
-    private Map<Identifier, Animation> getSeaAnimations(Texture general, Texture decompose) {
+    private Map<Identifier, Animation> getSeaAnimations(Texture general, Texture decompose, Texture withOil) {
         AnimationSetBuilder builder = new AnimationSetBuilder();
 
-        builder.set(UnitAnimation.Idle, AnimationLayouts.idleSchema(assets.getSize()), general);
-        builder.set(UnitAnimation.Move, AnimationLayouts.idleSchema(assets.getSize()), general);
+        builder.set(UnitAnimation.IdleBasic, AnimationLayouts.idleSchema(assets.getSize()), general);
+        builder.set(UnitAnimation.IdleOil, AnimationLayouts.idleSchema(assets.getSize()), withOil);
+        builder.associate(UnitAnimation.Idle, UnitAnimation.IdleBasic);
+
+        builder.set(UnitAnimation.MoveBasic, AnimationLayouts.idleSchema(assets.getSize()), general);
+        builder.set(UnitAnimation.MoveOil, AnimationLayouts.idleSchema(assets.getSize()), withOil);
+        builder.associate(UnitAnimation.Move, UnitAnimation.MoveBasic);
+
         builder.set(UnitAnimation.Attack, AnimationLayouts.idleSchema(assets.getSize()), general);
         builder.set(UnitAnimation.Death, AnimationLayouts.boatDeathSchema(), general);
         builder.set(UnitAnimation.Decompose, AnimationLayouts.boatDecomposeSchema(), decompose);

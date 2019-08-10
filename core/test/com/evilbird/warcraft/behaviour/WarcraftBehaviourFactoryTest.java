@@ -17,7 +17,6 @@ import com.evilbird.test.testcase.GameFactoryTestCase;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourFactory;
 import com.evilbird.warcraft.behaviour.scenario.ScenarioBehaviourFactory;
 import com.evilbird.warcraft.behaviour.ui.UiBehaviourFactory;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.state.WarcraftContext;
 import org.mockito.Mockito;
 
@@ -30,7 +29,6 @@ import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
 import static com.evilbird.warcraft.common.WarcraftSeason.Summer;
 import static com.evilbird.warcraft.common.WarcraftSeason.Winter;
-import static org.junit.Assert.*;
 
 /**
  * Instances of this unit test validate the {@link WarcraftBehaviourFactory} class.

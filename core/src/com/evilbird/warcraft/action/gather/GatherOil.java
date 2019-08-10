@@ -13,11 +13,15 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
+import com.evilbird.warcraft.common.WarcraftFaction;
+import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
+import java.util.Objects;
 
 import static com.evilbird.engine.action.common.ActionRecipient.Player;
 import static com.evilbird.engine.action.common.ActionRecipient.Subject;
@@ -38,6 +42,7 @@ import static com.evilbird.warcraft.action.gather.GatherEvents.obtainComplete;
 import static com.evilbird.warcraft.action.gather.GatherEvents.obtainStarted;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.select.SelectAction.deselect;
+import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasResources;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
@@ -48,9 +53,12 @@ import static com.evilbird.warcraft.item.common.resource.ResourceQuantum.resourc
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Oil;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.IdleBasic;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.IdleOil;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.MoveBasic;
-import static com.evilbird.warcraft.item.unit.UnitType.OilPatch;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.MoveOil;
+import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
+import static com.evilbird.warcraft.item.unit.UnitType.OilRig;
 
 /**
  * Instances of this {@link Action} instruct an {@link Item} to gather oil.
@@ -81,6 +89,7 @@ public class GatherOil extends ScenarioSetAction
     private void gatherFeature() {
         scenario("Gather Oil")
             .given(isAlive())
+            .givenTarget(Objects::nonNull)
             .when(noResources(Oil))
             .then(deselect(events))
             .then(animate(Move))
@@ -89,14 +98,15 @@ public class GatherOil extends ScenarioSetAction
             .then(obtainStarted(events, GATHER_AMOUNT))
             .then(gather(progress(), GATHER_TIME))
             .then(transferAll(Target, Subject, GATHER_AMOUNT, events), obtainComplete(events, GATHER_AMOUNT))
-            .then(show(), enable())
+            .then(show(), enable(), setAnimation(Move, MoveOil), setAnimation(Idle, IdleOil))
             .then(animate(Idle))
-            .withTarget(closest(getGatherer(), OilPatch, getTarget()));
+            .withTarget(closest(getGatherer(), getOilPlatformType(), getTarget()));
     }
 
     private void depositFeature() {
         scenario("Deposit Oil")
             .givenItem(isAlive())
+            .givenTarget(Objects::nonNull)
             .whenItem(hasResources(Oil))
             .then(animate(Move), deselect(events))
             .then(move(events))
@@ -107,11 +117,18 @@ public class GatherOil extends ScenarioSetAction
             .then(depositComplete(events, GATHER_AMOUNT))
             .then(show(), enable(), setAnimation(Idle, IdleBasic), setAnimation(Move, MoveBasic))
             .then(animate(Idle))
+
+//            .withTarget(closest(getGatherer(), Shipyard, getTarget()));
             .withTarget(closest(getGatherer(), both(isCorporeal(), isDepotFor(Oil))));
     }
 
     public Gatherer getGatherer() {
         return (Gatherer)getItem();
+    }
+
+    public ItemType getOilPlatformType() {
+        WarcraftFaction faction = UnitOperations.getFaction(getItem());
+        return faction == Human ? OilPlatform : OilRig;
     }
 
     private float progress() {

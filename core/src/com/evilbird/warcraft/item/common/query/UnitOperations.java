@@ -15,6 +15,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.utility.ItemOperations;
+import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.common.movement.Movable;
 import com.evilbird.warcraft.item.common.movement.MovementCapability;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
@@ -100,6 +101,22 @@ public class UnitOperations
     public static Player getCorporealPlayer(ItemRoot itemRoot) {
         Predicate<Item> query = both(UnitPredicates.isPlayer(), UnitPredicates.isCorporeal());
         return (Player)itemRoot.find(query);
+    }
+
+    /**
+     * Returns the {@link WarcraftFaction} that the given {@link Item} belongs
+     * to.
+     *
+     * @param item  an {@code Item} owned by a {@code Player}.
+     * @return      the faction that the given Item belongs, or {@code null} if
+     *              the given Item isn't owned by a Player.
+     */
+    public static WarcraftFaction getFaction(Item item) {
+        Player player = getPlayer(item);
+        if (player != null) {
+            return player.getFaction();
+        }
+        return null;
     }
 
     public static boolean hasResources(Player player, UnitType type) {

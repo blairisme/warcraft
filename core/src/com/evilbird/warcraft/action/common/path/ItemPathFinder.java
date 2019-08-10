@@ -43,21 +43,6 @@ public class ItemPathFinder
         return null;
     }
 
-    public static GraphPath<ItemNode> findPath(ItemGraph graph, ItemNode start, ItemNode end, ItemPathFilter filter) {
-        return findPath(new ItemGraph(graph, filter), start, end);
-    }
-
-    public static boolean hasPath(ItemGraph graph, ItemNode start, ItemNode end) {
-        PathFinder<ItemNode> pathFinder = new IndexedAStarPathFinder<>(graph);
-        Heuristic<ItemNode> heuristic = new ManhattanHeuristic<>();
-        GraphPath<ItemNode> result = new DefaultGraphPath<>();
-        return pathFinder.searchNodePath(start, end, heuristic, result);
-    }
-
-    public static boolean hasPath(ItemGraph graph, ItemNode start, ItemNode end, ItemPathFilter filter) {
-        return hasPath(new ItemGraph(graph, filter), start, end);
-    }
-
     public static boolean hasPath(Movable fromItem, Item toItem) {
         ItemPathFilter filter = new ItemPathFilter();
         filter.addTraversableItem(fromItem);
@@ -66,9 +51,14 @@ public class ItemPathFinder
 
         ItemRoot root = fromItem.getRoot();
         ItemGraph graph = root.getSpatialGraph();
+        ItemGraph filteredGraph = new ItemGraph(graph, filter);
         ItemNode start = graph.getNode(fromItem.getPosition());
-        ItemNode end = graph.getNode(toItem.getPosition());
 
-        return hasPath(graph, start, end, filter);
+        for (ItemNode end: graph.getAdjacentNodes(toItem)) {
+            if (findPath(filteredGraph, start, end) != null) {
+                return true;
+            }
+        }
+        return false;
     }
 }

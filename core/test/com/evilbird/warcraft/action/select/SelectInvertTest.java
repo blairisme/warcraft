@@ -13,7 +13,6 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.test.testcase.ActionTestCase;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 

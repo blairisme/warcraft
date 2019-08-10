@@ -139,10 +139,27 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         return result;
     }
 
+    /**
+     * Returns the set of {@link ItemNode ItemNodes} directly adjacent to the
+     * given {@link Item}.
+     *
+     * @param item  the item whose adjacent nodes will be returned.
+     *
+     * @return a {@link Collection} of unique {@code ItemNodes}.
+     */
     public Collection<ItemNode> getAdjacentNodes(Item item) {
         return getAdjacentNodes(item.getPosition(), item.getSize());
     }
 
+    /**
+     * Returns the set of {@link ItemNode ItemNodes} directly adjacent to the
+     * given world position and size.
+     *
+     * @param worldPosition   a position in world terms.
+     * @param worldSize       a size in world terms.
+     *
+     * @return a {@link Collection} of unique {@code ItemNodes}.
+     */
     public Collection<ItemNode> getAdjacentNodes(Vector2 worldPosition, Vector2 worldSize) {
         Objects.requireNonNull(worldPosition);
         Objects.requireNonNull(worldSize);
