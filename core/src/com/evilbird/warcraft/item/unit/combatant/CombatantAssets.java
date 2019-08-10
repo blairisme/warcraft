@@ -77,11 +77,11 @@ public class CombatantAssets extends AssetBundle
     }
 
     public SoundEffect getAcknowledgeSound() {
-        return getSoundEffectSet("acknowledge", 3);
+        return getSoundEffectSet("acknowledge", 5);
     }
 
     public SoundEffect getAttackSound() {
-        return getSoundEffectSet("acknowledge", 3);
+        return getSoundEffectSet("attack", 3);
     }
 
     public SoundEffect getHitSound() {
