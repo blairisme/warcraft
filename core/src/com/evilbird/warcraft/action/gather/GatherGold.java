@@ -24,12 +24,15 @@ import static com.evilbird.engine.action.common.ActionRecipient.Subject;
 import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AnimationAliasAction.setAnimation;
+import static com.evilbird.engine.action.common.AssignAction.assign;
 import static com.evilbird.engine.action.common.DisableAction.disable;
 import static com.evilbird.engine.action.common.DisableAction.enable;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
 import static com.evilbird.engine.common.function.Predicates.both;
+import static com.evilbird.engine.common.function.Predicates.nonNull;
+import static com.evilbird.warcraft.action.common.death.DeathAction.kill;
 import static com.evilbird.warcraft.action.common.transfer.TransferAction.transferAll;
 import static com.evilbird.warcraft.action.gather.GatherAction.gather;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositComplete;
@@ -46,6 +49,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.noResources
 import static com.evilbird.warcraft.item.common.query.UnitSuppliers.closest;
 import static com.evilbird.warcraft.item.common.resource.ResourceQuantum.resource;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Gathering;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.IdleBasic;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.IdleGold;
@@ -83,22 +87,25 @@ public class GatherGold extends ScenarioSetAction
     private void gatherFeature() {
         scenario("Gather Gold")
             .given(isAlive())
+            .givenTarget(nonNull())
             .when(noResources(Gold))
             .then(deselect(events))
             .then(animate(Move))
             .then(move(events))
-            .then(hide(), disable(), deselect(events))
+            .then(hide(), disable(), deselect(events), animate(Target, Gathering))
             .then(obtainStarted(events, GATHER_AMOUNT))
             .then(gather(progress(), GATHER_TIME))
             .then(transferAll(Target, Subject, GATHER_AMOUNT, events), obtainComplete(events, GATHER_AMOUNT))
             .then(show(), enable(), setAnimation(Move, MoveGold), setAnimation(Idle, IdleGold))
-            .then(animate(Idle))
+            .then(animate(Subject, Idle), animate(Target, Idle))
+            .then(assign(kill(events), Target, noResources(Gold)))
             .withTarget(closest(getGatherer(), GoldMine, getTarget()));
     }
 
     private void depositFeature() {
         scenario("Deposit Gold")
             .givenItem(isAlive())
+            .givenTarget(nonNull())
             .whenItem(hasResources(Gold))
             .then(animate(Move), deselect(events))
             .then(move(events))

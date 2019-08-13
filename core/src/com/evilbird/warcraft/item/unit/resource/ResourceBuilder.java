@@ -77,13 +77,12 @@ public class ResourceBuilder
         AnimationSetBuilder builder = new AnimationSetBuilder();
         builder.set(UnitAnimation.Idle, idleSingularSchema(96, 96), general);
         builder.set(UnitAnimation.Gathering, gatheringSchema(96, 96), general);
-        builder.set(UnitAnimation.Dead, buildingDestructionScheme(), destruction);
+        builder.set(UnitAnimation.Death, buildingDestructionScheme(), destruction);
         return builder.build();
     }
 
     private Map<Identifier, SoundEffect> getSounds() {
         Map<Identifier, SoundEffect> sounds = new HashMap<>();
-        sounds.put(UnitSound.MineGold, new SilentSoundEffect());
         sounds.put(UnitSound.Selected, assets.getSelectedSound());
         sounds.put(UnitSound.Die, assets.getDestroyedSound());
         return sounds;

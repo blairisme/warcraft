@@ -36,22 +36,19 @@ public class AssignAction extends BasicAction
         this.condition = condition;
     }
 
-    public static Action assign(Action action) {
-        return new AssignAction(action, ActionRecipient.Subject, accept());
-    }
-
-    public static Action assign(ActionRecipient recipient, Action action) {
-        return new AssignAction(action, recipient, accept());
+    public static Action assign(Action action, ActionRecipient recipient, Predicate<Item> condition) {
+        return new AssignAction(action, recipient, condition);
     }
 
     public static Action assignIfAbsent(Action action, ActionRecipient recipient) {
-        return new AssignAction(action, recipient, not(hasAction(action.getIdentifier())));
+        return assign(action, recipient, not(hasAction(action.getIdentifier())));
     }
 
     @Override
     public boolean act(float delta) {
         Item item = ActionUtils.getRecipient(this, recipient);
         if (condition.test(item)) {
+            action.reset();
             action.setItem(item);
             item.addAction(action);
         }

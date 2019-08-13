@@ -81,7 +81,7 @@ public class AnimationLayouts
     public static AnimationSchema gatheringSchema(int width, int height) {
         List<List<Rectangle>> regions = getRegions(1, 1, 0, height, width, height);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 3f, false);
+        return new AnimationSchema(frames, 10f, false);
     }
 
     public static AnimationSchema moveSchema() {

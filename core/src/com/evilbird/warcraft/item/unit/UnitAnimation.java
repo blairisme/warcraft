@@ -38,7 +38,6 @@ public enum UnitAnimation implements Identifier
     BuildingSite,
 
     Death,
-    Dead,
     Decompose,
 
     Gathering,
