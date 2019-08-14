@@ -26,12 +26,10 @@ import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 
 import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.AdvancedArrowDamage;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.AdvancedAxeDamage;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.AdvancedCannonDamage;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.BasicArrowDamage;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.BasicAxeDamage;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.BasicCannonDamage;
+import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.CannonDamage1;
+import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.CannonDamage2;
+import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.RangedDamage1;
+import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.RangedDamage2;
 
 /**
  * Modifies the state of a {@link RangedCombatant} to attack a given item using
@@ -200,9 +198,9 @@ public class RangedAttack extends BasicAction
 
     private int getAttackUpgrade() {
         switch ((ProjectileType)projectile.getType()) {
-            case Arrow: return getAttackUpgrade(BasicArrowDamage, AdvancedArrowDamage);
-            case Axe: return getAttackUpgrade(BasicAxeDamage, AdvancedAxeDamage);
-            case Cannon: return getAttackUpgrade(BasicCannonDamage, AdvancedCannonDamage);
+            case Arrow:
+            case Axe: return getAttackUpgrade(RangedDamage1, RangedDamage2);
+            case Cannon: return getAttackUpgrade(CannonDamage1, CannonDamage2);
             default: return 0;
         }
     }

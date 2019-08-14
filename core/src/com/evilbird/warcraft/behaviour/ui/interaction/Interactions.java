@@ -59,8 +59,8 @@ import static com.evilbird.warcraft.action.move.MoveActions.MoveToItem;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveToLocation;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderCancel;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderMove;
-import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.BasicArrowDamageUpgrade;
-import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.BasicArrowDamageUpgradeCancel;
+import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.RangedDamage1Upgrade;
+import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.RangedDamage1UpgradeCancel;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxBegin;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxEnd;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxResize;
@@ -341,8 +341,8 @@ public class Interactions
     private void upgradeInteractions() {
         productionInteraction(
             ImprovedRangedUpgradeButton,
-            BasicArrowDamageUpgrade,
-            BasicArrowDamageUpgradeCancel);
+                RangedDamage1Upgrade,
+                RangedDamage1UpgradeCancel);
     }
 
     private void productionInteraction(

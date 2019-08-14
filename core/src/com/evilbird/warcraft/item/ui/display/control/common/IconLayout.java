@@ -61,6 +61,7 @@ import static com.evilbird.warcraft.item.ui.display.control.common.IconType.Huma
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.HumanShipDamage2;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.HumanShipGather;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.HumanShipMove;
+import static com.evilbird.warcraft.item.ui.display.control.common.IconType.HumanShipStop;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.HumanSiegeAttack;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.HumanSiegeDamage;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.HumanStop;
@@ -86,6 +87,7 @@ import static com.evilbird.warcraft.item.ui.display.control.common.IconType.OrcS
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.OrcShipDeposit;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.OrcShipGather;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.OrcShipMove;
+import static com.evilbird.warcraft.item.ui.display.control.common.IconType.OrcShipStop;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.OrcSiegeAttack;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.OrcSiegeDamage;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.OrcStop;
@@ -214,7 +216,7 @@ public class IconLayout
         Unknown,                Unknown,            Unknown,                OrcSiegeAttack,         OrcSiegeDamage,
         HumanSiegeAttack,       HumanSiegeDamage,   HumanDetonate,          OrcDetonate,            HumanShipAttack,
         HumanShipDamage1,       HumanShipDamage2,   OrcShipAttack,          OrcShipDamage1,         OrcShipDamage2,
-        OrcStop,                OrcArmourPlating1,  OrcArmourPlating2,      HumanStop,              HumanArmourPlating1,
+        OrcShipStop,            OrcArmourPlating1,  OrcArmourPlating2,      HumanShipStop,          HumanArmourPlating1,
         HumanArmourPlating2,    OrcShipMove,        HumanShipMove,          OrcShipDeposit,         HumanDeposit,
         OrcShipGather,          HumanShipGather,    HumanDisembark,         OrcDisembark,           HumanStop,
         HumanMeleeDefence1,     HumanMeleeDefence2, OrcStop,                OrcMeleeDefence1,       OrcMeleeDefence2,

@@ -93,11 +93,19 @@ public class IconSet
      * Obtains the icon that represents the given {@link PlayerUpgrade}.
      *
      * @param upgrade   the upgrade whose icon is required.
+     * @param unit      the unit producing the upgrade.
      * @return          a {@link Drawable} containing the required icon.
      */
-    public Drawable get(PlayerUpgrade upgrade) {
+    public Drawable get(PlayerUpgrade upgrade, Unit unit) {
         Objects.requireNonNull(upgrade);
-        return getIcon(upgrade);
+        Objects.requireNonNull(unit);
+
+        UnitType type = (UnitType)unit.getType();
+        WarcraftFaction faction = type.getFaction();
+        UnitAttack attack = UnitAttack.None;
+        IconLevel level = IconLevel.Basic;
+
+        return getIcon(specializations.getSpecialization(upgrade, faction, attack, level));
     }
 
     private Drawable getIcon(Identifier type) {

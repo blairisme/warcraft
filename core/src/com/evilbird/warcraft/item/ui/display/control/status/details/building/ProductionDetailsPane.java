@@ -118,7 +118,7 @@ public class ProductionDetailsPane extends GridItem
 
     private Drawable getProductImage(ProduceUpgradeActions action) {
         DetailsPaneStyle style = getSkin().get(DetailsPaneStyle.class);
-        return style.icons.get(action.getProduct());
+        return style.icons.get(action.getProduct(), building);
     }
 
     private void addProductionProgress(Skin skin) {

@@ -14,19 +14,20 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionPaneView;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.common.CombatantButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.common.GathererButtons;
+import com.evilbird.warcraft.item.ui.display.control.actions.buttons.common.LumberMillButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.common.NoButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.common.OilTankerButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.BarracksButtons;
-import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.LumberMillButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.OilTankerBuildings;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.PeasantAdvancedBuildings;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.PeasantSimpleBuildings;
+import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.ShipyardButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.TownHallButtons;
+import com.evilbird.warcraft.item.ui.display.control.actions.buttons.orc.DockyardButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.orc.EncampmentButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.orc.GreatHallButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.orc.PeonAdvancedBuildings;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.orc.PeonSimpleBuildings;
-import com.evilbird.warcraft.item.ui.display.control.actions.buttons.orc.TrollLumberMillButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.orc.TrollTankerBuildings;
 import com.evilbird.warcraft.item.unit.UnitType;
 
@@ -37,6 +38,7 @@ import static com.evilbird.warcraft.item.ui.display.control.actions.ActionPaneVi
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionPaneView.AdvancedBuildings;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionPaneView.SimpleBuildings;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
+import static com.evilbird.warcraft.item.unit.UnitType.Dockyard;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcherCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
@@ -50,6 +52,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.OilTanker;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
 import static com.evilbird.warcraft.item.unit.UnitType.Peon;
 import static com.evilbird.warcraft.item.unit.UnitType.PigFarm;
+import static com.evilbird.warcraft.item.unit.UnitType.Shipyard;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollDestroyer;
@@ -110,11 +113,13 @@ public class ButtonControllers
         registerController(Actions, LumberMill, new LumberMillButtons());
         registerController(Actions, TownHall, new TownHallButtons());
         registerController(Actions, Farm, new NoButtons());
+        registerController(Actions, Shipyard, new ShipyardButtons());
 
         registerController(Actions, Encampment, new EncampmentButtons());
-        registerController(Actions, TrollLumberMill, new TrollLumberMillButtons());
+        registerController(Actions, TrollLumberMill, new LumberMillButtons());
         registerController(Actions, GreatHall, new GreatHallButtons());
         registerController(Actions, PigFarm, new NoButtons());
+        registerController(Actions, Dockyard, new DockyardButtons());
     }
 
     private void registerBuildingMenus() {
