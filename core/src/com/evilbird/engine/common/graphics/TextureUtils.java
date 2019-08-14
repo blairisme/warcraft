@@ -22,7 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import org.apache.commons.lang3.Validate;
 
 /**
- * Instances of this class provide common utilities for working with textures.
+ * Instances of this class provide utility functions for working with textures.
  *
  * @author Blair Butterworth
  */

@@ -34,6 +34,7 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionAssignme
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Replacement;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Singleton;
+import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Standalone;
 
 /**
  * Instances of this class define the situations an interaction applies to and
@@ -192,6 +193,9 @@ public class InteractionDefinition implements Interaction
             }
             else if (displacement == Singleton && !ItemOperations.hasAction(subject, action.getIdentifier())) {
                 subject.addAction(action);
+            }
+            else if (displacement == Standalone) {
+                action.act(0);
             }
         });
     }

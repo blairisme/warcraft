@@ -49,13 +49,17 @@ public class Menu implements Disposable
         stage.dispose();
     }
 
-
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
     }
 
+    public void back() {
+    }
+
     public void show() {
         Gdx.input.setInputProcessor(stage);
+        Gdx.input.setCatchBackKey(true);
+        stage.addListener(new MenuInput(this));
     }
 
     public void update(float delta) {

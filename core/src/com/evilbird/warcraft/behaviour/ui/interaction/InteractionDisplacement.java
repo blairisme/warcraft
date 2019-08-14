@@ -20,5 +20,6 @@ public enum InteractionDisplacement
 {
     Addition,
     Replacement,
-    Singleton
+    Singleton,
+    Standalone
 }

@@ -71,7 +71,7 @@ public class SelectAreaTest extends ActionTestCase
         Vector2 input2 = new Vector2(50, toScreen(50));
 
         action.setIdentifier(SelectActions.SelectBoxResize);
-        action.setCause(new UserInput(UserInputType.SelectResize, input2, input1, 1));
+        action.setCause(new UserInput(UserInputType.PressDrag, input2, input1, 1));
 
         assertTrue(action.act(1));
         Item box = getSelectionBox();
@@ -94,7 +94,7 @@ public class SelectAreaTest extends ActionTestCase
         Vector2 input2 = new Vector2(50, toScreen(50));
 
         action.setIdentifier(SelectActions.SelectBoxEnd);
-        action.setCause(new UserInput(UserInputType.SelectStop, input1, input2, 1));
+        action.setCause(new UserInput(UserInputType.PressUp, input1, input2, 1));
 
         assertTrue(action.act(1));
         assertTrue(unit.getSelected());

@@ -27,6 +27,24 @@ public class GestureAnalyzer extends GestureDetector
     }
 
     @Override
+    public boolean keyDown(int keycode) {
+        boolean result = observer.keyDown(keycode);
+        if (! result) {
+            result = super.keyDown(keycode);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        boolean result = observer.keyUp(keycode);
+        if (! result) {
+            result = super.keyUp(keycode);
+        }
+        return result;
+    }
+
+    @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         boolean result = super.touchUp(screenX, screenY, pointer, button);
         observer.touchUp(screenX, screenY, pointer, button);

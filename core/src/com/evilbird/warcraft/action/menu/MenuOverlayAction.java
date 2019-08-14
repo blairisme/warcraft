@@ -33,7 +33,11 @@ public class MenuOverlayAction extends BasicAction
     @Override
     public boolean act(float delta) {
         GameController controller = getController();
-        controller.showMenuOverlay(getMenuIdentifier());
+        if (! controller.isMenuOverlayShown()) {
+            controller.showMenuOverlay(getMenuIdentifier());
+        } else {
+            controller.showState();
+        }
         return true;
     }
 

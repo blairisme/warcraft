@@ -18,10 +18,10 @@ package com.evilbird.engine.device;
 public enum UserInputType
 {
     Action,
-    Zoom,
     Drag,
-
-    SelectStart,
-    SelectResize,
-    SelectStop
+    Menu,
+    PressDown,
+    PressDrag,
+    PressUp,
+    Zoom
 }

@@ -23,9 +23,9 @@ import java.util.List;
 import static com.badlogic.gdx.math.Vector2.Zero;
 import static com.evilbird.engine.device.UserInputType.Action;
 import static com.evilbird.engine.device.UserInputType.Drag;
-import static com.evilbird.engine.device.UserInputType.SelectResize;
-import static com.evilbird.engine.device.UserInputType.SelectStart;
-import static com.evilbird.engine.device.UserInputType.SelectStop;
+import static com.evilbird.engine.device.UserInputType.PressDrag;
+import static com.evilbird.engine.device.UserInputType.PressDown;
+import static com.evilbird.engine.device.UserInputType.PressUp;
 import static com.evilbird.engine.device.UserInputType.Zoom;
 
 /**
@@ -98,7 +98,7 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
         depressedButtonX = x;
         depressedButtonY = y;
         if (button == SELECT_BUTTON) {
-            UserInput input = new UserInput(SelectStart, new Vector2(x, y), 1);
+            UserInput input = new UserInput(PressDown, new Vector2(x, y), 1);
             addInput(input);
         }
         return false;
@@ -107,7 +107,7 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
     @Override
     public boolean touchUp(int x, int y, int pointer, int button) {
         if (button == SELECT_BUTTON) {
-            UserInput input = new UserInput(SelectStop, new Vector2(x, y), 1);
+            UserInput input = new UserInput(PressUp, new Vector2(x, y), 1);
             addInput(input);
         }
         return false;
@@ -139,7 +139,7 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
     private boolean panSelection(float x, float y) {
         Vector2 origin = new Vector2(depressedButtonX, depressedButtonY);
         Vector2 size = new Vector2(x, y);
-        UserInput input = new UserInput(SelectResize, origin, size, ++panCount);
+        UserInput input = new UserInput(PressDrag, origin, size, ++panCount);
         addInput(input);
         return true;
     }

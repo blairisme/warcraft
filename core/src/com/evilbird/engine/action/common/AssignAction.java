@@ -15,7 +15,6 @@ import com.evilbird.engine.item.Item;
 
 import java.util.function.Predicate;
 
-import static com.evilbird.engine.common.function.Predicates.accept;
 import static com.evilbird.engine.common.function.Predicates.not;
 import static com.evilbird.engine.item.utility.ItemPredicates.hasAction;
 
