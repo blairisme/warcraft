@@ -10,6 +10,8 @@
 package com.evilbird.warcraft.item.ui.display.control.actions.buttons.common;
 
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.common.query.UnitOperations;
+import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.ButtonController;
 
@@ -39,6 +41,13 @@ public class GathererButtons implements ButtonController
 
     @Override
     public boolean getEnabled(ActionButtonType button, Item item) {
-        return button == StopButton || button == BuildSimpleButton || button == BuildAdvancedButton;
+        if (button == StopButton || button == BuildSimpleButton) {
+            return true;
+        }
+        if (button == BuildAdvancedButton) {
+            Player player = UnitOperations.getPlayer(item);
+            return player.getLevel() > 2;
+        }
+        return false;
     }
 }
