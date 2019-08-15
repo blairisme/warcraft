@@ -32,7 +32,7 @@ public class DeathKnightFactoryTest extends CombatantFactoryTestCase<DeathKnight
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", DeathKnight);
     }
 }

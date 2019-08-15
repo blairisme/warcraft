@@ -73,12 +73,12 @@ public class FogFactoryTest extends GameFactoryTestCase<FogFactory>
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Collections.singleton(LayerType.OpaqueFog);
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return null;
     }
 }

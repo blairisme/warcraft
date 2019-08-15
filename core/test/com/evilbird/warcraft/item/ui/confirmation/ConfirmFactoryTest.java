@@ -52,12 +52,12 @@ public class ConfirmFactoryTest extends GameFactoryTestCase<ConfirmFactory> {
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Arrays.asList(ConfirmType.values());
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Collections.emptyMap();
     }
 }

@@ -37,7 +37,7 @@ public class GnomishFlyingMachineFactoryTest extends CombatantFactoryTestCase<Gn
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", GnomishFlyingMachine);
     }
 }

@@ -71,12 +71,12 @@ public class ForestFactoryTest extends GameFactoryTestCase<ForestFactory>
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Collections.singleton(LayerType.Forest);
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return null;
     }
 }

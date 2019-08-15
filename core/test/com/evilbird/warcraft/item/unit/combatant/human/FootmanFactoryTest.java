@@ -37,7 +37,7 @@ public class FootmanFactoryTest extends CombatantFactoryTestCase<FootmanFactory>
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", Footman,
             "HealthMaximum", 60.0f);
     }

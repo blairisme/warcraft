@@ -53,12 +53,12 @@ public class GoldMineFactoryTest extends GameFactoryTestCase<GoldMineFactory>
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Collections.singleton(GoldMine);
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", GoldMine, "HealthMaximum", 2400.0f);
     }
 }

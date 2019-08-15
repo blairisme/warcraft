@@ -32,6 +32,7 @@ public enum ScenarioBehaviours implements Identifier
     Human12,
     Human13,
     Human14,
+    HumanEasy,
 
     Orc1,
     Orc2,
@@ -46,7 +47,8 @@ public enum ScenarioBehaviours implements Identifier
     Orc11,
     Orc12,
     Orc13,
-    Orc14;
+    Orc14,
+    OrcEasy;
 
     public boolean isHuman() {
         return !isOrc();

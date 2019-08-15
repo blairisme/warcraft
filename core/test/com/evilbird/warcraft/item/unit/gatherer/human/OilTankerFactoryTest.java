@@ -53,12 +53,12 @@ public class OilTankerFactoryTest extends GameFactoryTestCase<OilTankerFactory>
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Collections.singleton(OilTanker);
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", OilTanker, "HealthMaximum", 90.0f);
     }
 }

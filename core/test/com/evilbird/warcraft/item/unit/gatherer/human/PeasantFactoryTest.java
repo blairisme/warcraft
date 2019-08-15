@@ -53,12 +53,12 @@ public class PeasantFactoryTest extends GameFactoryTestCase<PeasantFactory>
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Collections.singleton(Peasant);
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", Peasant, "HealthMaximum", 30.0f);
     }
 }

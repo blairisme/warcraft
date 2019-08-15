@@ -55,12 +55,12 @@ public class ProjectileFactoryTest extends GameFactoryTestCase<ProjectileFactory
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Arrays.asList(ProjectileType.values());
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Collections.emptyMap();
     }
 }

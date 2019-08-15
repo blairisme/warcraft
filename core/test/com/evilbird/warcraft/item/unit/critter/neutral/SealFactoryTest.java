@@ -46,12 +46,12 @@ public class SealFactoryTest extends GameFactoryTestCase<SealFactory>
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Collections.singleton(UnitType.Seal);
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", Seal);
     }
 }

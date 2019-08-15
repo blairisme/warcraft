@@ -39,7 +39,7 @@ public class GryphonAviaryFactoryTest extends BuildingFactoryTestCase<GryphonAvi
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of(
                 "Animation", Idle,
                 "Armour", 20,

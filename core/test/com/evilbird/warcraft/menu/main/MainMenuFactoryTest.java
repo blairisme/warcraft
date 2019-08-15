@@ -44,12 +44,12 @@ public class MainMenuFactoryTest extends GameFactoryTestCase<MainMenuFactory>
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Arrays.asList(MainMenuType.values());
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Collections.emptyMap();
     }
 

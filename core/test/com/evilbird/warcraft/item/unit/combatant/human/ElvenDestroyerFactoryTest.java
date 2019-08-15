@@ -37,7 +37,7 @@ public class ElvenDestroyerFactoryTest extends CombatantFactoryTestCase<ElvenDes
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", ElvenDestroyer);
     }
 }

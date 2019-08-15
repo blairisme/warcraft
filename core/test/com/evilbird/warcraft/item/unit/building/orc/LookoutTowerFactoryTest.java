@@ -39,7 +39,7 @@ public class LookoutTowerFactoryTest extends BuildingFactoryTestCase<LookoutTowe
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of(
                 "Animation", Idle,
                 "damageMinimum", 4,

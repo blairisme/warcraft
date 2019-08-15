@@ -76,6 +76,7 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
 
     private Behaviour humanCampaign(ScenarioBehaviours type) {
         switch (type) {
+            case HumanEasy: return conquest();
             case Human1: return humanCampaign1();
             case Human2: return humanCampaign2();
             case Human3: return humanCampaign3();
@@ -92,6 +93,13 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
             case Human14: return humanCampaign14();
             default: throw new UnsupportedOperationException();
         }
+    }
+
+    private Behaviour conquest() {
+        ScenarioBehaviour result = factory.get();
+        result.setWinCondition(playerDestroyed(Player2));
+        result.setLoseCondition(playerDestroyed(Player1));
+        return result;
     }
 
     private Behaviour humanCampaign1() {
@@ -198,6 +206,7 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
 
     private Behaviour orcCampaign(ScenarioBehaviours type) {
         switch (type) {
+            case OrcEasy: return conquest();
             case Orc1: return orcCampaign1();
             case Orc2: return orcCampaign2();
             case Orc3: return orcCampaign3();

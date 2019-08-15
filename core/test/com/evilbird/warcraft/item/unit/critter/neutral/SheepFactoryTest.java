@@ -46,12 +46,12 @@ public class SheepFactoryTest extends GameFactoryTestCase<SheepFactory>
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Collections.singleton(UnitType.Sheep);
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", Sheep);
     }
 }

@@ -53,12 +53,12 @@ public class TrollTankerFactoryTest extends GameFactoryTestCase<TrollTankerFacto
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Collections.singleton(TrollTanker);
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", TrollTanker, "HealthMaximum", 90.0f);
     }
 }

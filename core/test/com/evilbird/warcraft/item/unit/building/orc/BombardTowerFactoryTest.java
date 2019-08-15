@@ -39,7 +39,7 @@ public class BombardTowerFactoryTest extends BuildingFactoryTestCase<BombardTowe
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of(
                 "Animation", Idle,
                 "damageMinimum", 50,

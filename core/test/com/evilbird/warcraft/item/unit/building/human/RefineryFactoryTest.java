@@ -39,7 +39,7 @@ public class RefineryFactoryTest extends BuildingFactoryTestCase<RefineryFactory
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of(
                 "Animation", Idle,
                 "Armour", 20,

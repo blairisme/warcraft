@@ -44,7 +44,7 @@ public abstract class CombatantFactoryTestCase<T extends CombatantFactoryBase> e
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         UnitType type = getBuildType();
         return Collections.singleton(type);
     }

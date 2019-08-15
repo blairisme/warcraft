@@ -71,12 +71,12 @@ public class WallFactoryTest extends GameFactoryTestCase<WallFactory>
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Collections.singleton(LayerType.Wall);
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return null;
     }
 }

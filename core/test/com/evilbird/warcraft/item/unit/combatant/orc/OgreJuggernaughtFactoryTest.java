@@ -37,7 +37,7 @@ public class OgreJuggernaughtFactoryTest extends CombatantFactoryTestCase<OgreJu
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", OgreJuggernaught);
     }
 }

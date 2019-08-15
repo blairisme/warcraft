@@ -55,12 +55,12 @@ public class PlaceholderFactoryTest extends GameFactoryTestCase<PlaceholderFacto
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Arrays.asList(PlaceholderType.values());
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Collections.emptyMap();
     }
 }

@@ -37,7 +37,7 @@ public class ElvenRangerFactoryTest extends CombatantFactoryTestCase<ElvenRanger
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", ElvenRanger);
     }
 }

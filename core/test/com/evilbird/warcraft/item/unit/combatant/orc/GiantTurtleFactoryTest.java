@@ -37,7 +37,7 @@ public class GiantTurtleFactoryTest extends CombatantFactoryTestCase<GiantTurtle
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", GiantTurtle);
     }
 }

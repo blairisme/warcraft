@@ -46,12 +46,12 @@ public class BoarFactoryTest extends GameFactoryTestCase<BoarFactory>
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Collections.singleton(UnitType.Boar);
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", Boar);
     }
 }

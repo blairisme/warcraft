@@ -44,7 +44,7 @@ public abstract class BuildingFactoryTestCase<T extends BuildingFactoryBase> ext
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         UnitType type = getBuildType();
         return Collections.singleton(type);
     }

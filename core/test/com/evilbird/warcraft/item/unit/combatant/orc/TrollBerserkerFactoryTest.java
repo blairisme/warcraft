@@ -37,7 +37,7 @@ public class TrollBerserkerFactoryTest extends CombatantFactoryTestCase<TrollBer
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", TrollBerserker);
     }
 }

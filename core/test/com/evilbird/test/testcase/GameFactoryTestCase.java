@@ -115,13 +115,17 @@ public abstract class GameFactoryTestCase<T extends GameFactory> extends GameTes
         factory.load(context);
         assets.finishLoading();
 
-        Collection<Identifier> types = getValueTypes();
-        Identifier type = types.iterator().next();
+        for (Identifier identifier: getProductIdentifiers()) {
+            Object product = factory.get(identifier);
+            Assert.assertNotNull(product);
+            validateProduct(identifier, product);
+        }
+    }
 
-        Object newObject = factory.get(type);
-        Assert.assertNotNull(newObject);
+    protected abstract Collection<Identifier> getProductIdentifiers();
 
-        for (Map.Entry<String, Object> property: getValueProperties().entrySet()) {
+    protected void validateProduct(Identifier type, Object newObject) throws Exception {
+        for (Map.Entry<String, Object> property : getProductProperties().entrySet()) {
             String name = property.getKey();
             Object expected = property.getValue();
             Object actual = MethodUtils.invokeMethod(newObject, "get" + StringUtils.capitalize(name));
@@ -129,7 +133,5 @@ public abstract class GameFactoryTestCase<T extends GameFactory> extends GameTes
         }
     }
 
-    protected abstract Collection<Identifier> getValueTypes();
-
-    protected abstract Map<String, Object> getValueProperties();
+    protected abstract Map<String, Object> getProductProperties();
 }

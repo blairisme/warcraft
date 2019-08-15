@@ -39,7 +39,7 @@ public class OilPlatformFactoryTest extends BuildingFactoryTestCase<OilPlatformF
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of(
                 "Animation", Idle,
                 "Armour", 20,

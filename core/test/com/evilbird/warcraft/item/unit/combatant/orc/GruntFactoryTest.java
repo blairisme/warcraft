@@ -37,7 +37,7 @@ public class GruntFactoryTest extends CombatantFactoryTestCase<GruntFactory>
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", Grunt,
                 "HealthMaximum", 60.0f);
     }

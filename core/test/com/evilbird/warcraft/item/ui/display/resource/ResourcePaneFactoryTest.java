@@ -48,12 +48,12 @@ public class ResourcePaneFactoryTest extends GameFactoryTestCase<ResourcePaneFac
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Collections.singleton(HudControl.ResourcePane);
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Collections.emptyMap();
     }
 }

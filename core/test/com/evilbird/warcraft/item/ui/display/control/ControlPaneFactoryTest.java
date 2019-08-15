@@ -64,12 +64,12 @@ public class ControlPaneFactoryTest extends GameFactoryTestCase<ControlPaneFacto
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Collections.singleton(HudControl.ControlPane);
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Collections.emptyMap();
     }
 }

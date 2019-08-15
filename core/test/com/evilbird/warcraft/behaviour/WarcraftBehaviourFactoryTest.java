@@ -53,12 +53,12 @@ public class WarcraftBehaviourFactoryTest extends GameFactoryTestCase<WarcraftBe
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Arrays.asList(WarcraftBehaviour.values());
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Collections.emptyMap();
     }
 

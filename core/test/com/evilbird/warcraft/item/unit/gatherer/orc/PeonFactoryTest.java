@@ -53,12 +53,12 @@ public class PeonFactoryTest extends GameFactoryTestCase<PeonFactory>
     }
 
     @Override
-    protected Collection<Identifier> getValueTypes() {
+    protected Collection<Identifier> getProductIdentifiers() {
         return Collections.singleton(Peon);
     }
 
     @Override
-    protected Map<String, Object> getValueProperties() {
+    protected Map<String, Object> getProductProperties() {
         return Maps.of("type", Peon, "HealthMaximum", 30.0f);
     }
 }
