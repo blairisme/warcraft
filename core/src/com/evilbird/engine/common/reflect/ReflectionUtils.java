@@ -15,6 +15,7 @@ import org.apache.commons.lang3.reflect.MethodUtils;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 /**
  * Contains common functions for working with reflection.
@@ -23,12 +24,33 @@ import java.lang.reflect.Method;
  */
 public class ReflectionUtils
 {
+    /**
+     * ReflectionUtils instances should NOT be constructed in standard
+     * programming. Instead, the class should be used as
+     * {@code ReflectionUtils.getInstance(cls)}.
+     */
     private ReflectionUtils() {
     }
 
-    public static Object getInstance(Class<?> type) {
+    /**
+     * Returns a new instance of the specified class using a no argument
+     * constructor. The constructor does not need to be accessible to be
+     * invoked, I.E., it can be private.
+     *
+     * @param <T> the type to be constructed.
+     * @param type the class to be constructed, not {@code null}.
+     *
+     * @return new instance of {@code cls}, not {@code null}.
+     *
+     * @throws NullPointerException if {@code type} is {@code null}.
+     * @throws ReflectionException  if a matching constructor cannot be found
+     *                              or if the invocation is not permitted by
+     *                              the current security policy.
+     */
+    public static <T> T invokeConstructor(Class<T> type) {
         try {
-            Constructor<?> constructor = type.getDeclaredConstructor();
+            Objects.requireNonNull(type);
+            Constructor<T> constructor = type.getDeclaredConstructor();
             constructor.setAccessible(true);
             return constructor.newInstance();
         }
@@ -37,16 +59,27 @@ public class ReflectionUtils
         }
     }
 
+    /**
+     * Invokes any methods belonging to the given object that have been marked
+     * with the given annotation. The annotated methods do not need to be
+     * accessible to be invoked.  I.E., they can be private.
+     *
+     * @param object        invoke method on this object.
+     * @param annotation    invoke methods marked with this annotation.
+     *
+     * @throws NullPointerException if {@code type} or {@code annotation} is
+     *                              {@code null}.
+     * @throws ReflectionException  if the invocation is not permitted by
+     *                              the current security policy.
+     */
     public static void invokeMethod(Object object, Class<? extends Annotation> annotation) {
-        for (Method method: MethodUtils.getMethodsWithAnnotation(object.getClass(), annotation, true, true)) {
-            invokeMethod(method, object);
-        }
-    }
-
-    public static void invokeMethod(Method method, Object object) {
         try {
-            method.setAccessible(true);
-            method.invoke(object);
+            Objects.requireNonNull(object);
+            Objects.requireNonNull(annotation);
+            for (Method method: MethodUtils.getMethodsWithAnnotation(object.getClass(), annotation, true, true)) {
+                method.setAccessible(true);
+                method.invoke(object);
+            }
         }
         catch (ReflectiveOperationException error) {
             throw new ReflectionException(error);

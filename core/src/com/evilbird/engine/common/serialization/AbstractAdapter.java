@@ -230,7 +230,7 @@ public abstract class AbstractAdapter<T> implements JsonSerializer<T>, JsonDeser
             JsonAdapter annotation = type.getAnnotation(JsonAdapter.class);
             if (annotation.value() != this.getClass()) {
                 Class<?> adapterType = annotation.value();
-                return ReflectionUtils.getInstance(adapterType);
+                return ReflectionUtils.invokeConstructor(adapterType);
             }
         }
         return null;

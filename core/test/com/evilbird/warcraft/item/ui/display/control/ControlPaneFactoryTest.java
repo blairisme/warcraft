@@ -42,8 +42,7 @@ public class ControlPaneFactoryTest extends GameFactoryTestCase<ControlPaneFacto
 
     @Override
     protected ControlPaneFactory newFactory(DeviceDisplay display, AssetManager assets) {
-        DeviceControls controls = Mockito.mock(DeviceControls.class);
-        return new ControlPaneFactory(assets, controls);
+        return new ControlPaneFactory(assets);
     }
 
     @Override

@@ -100,7 +100,7 @@ public class ReflectionAdapter extends AbstractAdapter<Object>
 
     private Object getObjectInstance(JsonObject json) {
         Class<?> type = getClass(json);
-        return ReflectionUtils.getInstance(type);
+        return ReflectionUtils.invokeConstructor(type);
     }
 
     private Class<?> getClass(JsonObject json) {
