@@ -22,8 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.badlogic.gdx.math.Vector2.Zero;
-import static com.evilbird.engine.device.UserInputType.SelectStart;
-import static com.evilbird.engine.device.UserInputType.SelectStop;
+import static com.evilbird.engine.device.UserInputType.Action;
+import static com.evilbird.engine.device.UserInputType.Menu;
+import static com.evilbird.engine.device.UserInputType.PressDown;
+import static com.evilbird.engine.device.UserInputType.PressUp;
 import static com.evilbird.engine.device.UserInputType.Zoom;
 
 /**
@@ -65,12 +67,14 @@ public class AndroidInput extends AbstractGestureObserver implements DeviceInput
     public void startMonitoring() {
         Input controller = getInputController();
         controller.setInputProcessor(new GestureAnalyzer(this));
+        controller.setCatchBackKey(true);
     }
 
     @Override
     public void stopMonitoring() {
         Input controller = getInputController();
         controller.setInputProcessor(null);
+        controller.setCatchBackKey(false);
     }
 
     private Input getInputController() {
@@ -92,9 +96,17 @@ public class AndroidInput extends AbstractGestureObserver implements DeviceInput
     }
 
     @Override
+    public boolean keyDown(int keycode) {
+        if (keycode == Input.Keys.BACK) {
+            addInput(new UserInput(Menu, Zero, 1));
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public boolean tap(float x, float y, int count, int button) {
-        UserInput input = new UserInput(UserInputType.Action, new Vector2(x, y), 1);
-        addInput(input);
+        addInput(new UserInput(Action, new Vector2(x, y), 1));
         return true;
     }
 
@@ -103,8 +115,7 @@ public class AndroidInput extends AbstractGestureObserver implements DeviceInput
         longPress = true;
         depressedX = x;
         depressedY = y;
-        UserInput input = new UserInput(SelectStart, new Vector2(x, y), 1);
-        addInput(input);
+        addInput(new UserInput(PressDown, new Vector2(x, y), 1));
         return false;
     }
 
@@ -126,7 +137,7 @@ public class AndroidInput extends AbstractGestureObserver implements DeviceInput
     private boolean panSelection(float x, float y) {
         Vector2 origin = new Vector2(depressedX, depressedY);
         Vector2 size = new Vector2(x, y);
-        addInput(new UserInput(UserInputType.SelectResize, origin, size, ++panCount));
+        addInput(new UserInput(UserInputType.PressDrag, origin, size, ++panCount));
         return true;
     }
 
@@ -146,7 +157,7 @@ public class AndroidInput extends AbstractGestureObserver implements DeviceInput
     private boolean panSelectionStop(float x, float y) {
         panCount = 0;
         longPress = false;
-        addInput(new UserInput(SelectStop, new Vector2(x, y), 1));
+        addInput(new UserInput(PressUp, new Vector2(x, y), 1));
         return true;
     }
 

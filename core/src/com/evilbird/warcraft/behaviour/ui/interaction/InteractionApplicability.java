@@ -20,5 +20,4 @@ public enum InteractionApplicability
     Selected,
     Target,
     TargetParent
-
 }

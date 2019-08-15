@@ -38,8 +38,8 @@ public class UnitCosts
 
     public static float buildTime(PlayerUpgrade upgrade) {
         switch (upgrade) {
-            case BasicArrowDamage: return 20;
-            case AdvancedArrowDamage: return 20;
+            case RangedDamage1: return 20;
+            case RangedDamage2: return 20;
             default: return 0;
         }
     }
@@ -160,7 +160,8 @@ public class UnitCosts
 
     public static Collection<ResourceQuantity> cost(PlayerUpgrade upgrade) {
         switch (upgrade) {
-            case BasicArrowDamage: return resources(400, 0, 0, 0);
+            case RangedDamage1: return resources(400, 0, 0, 0);
+            case RangedDamage2: return resources(600, 0, 0, 0);
             default: return Collections.emptyList();
         }
     }

@@ -25,6 +25,27 @@ import java.util.concurrent.Future;
 public interface GameController
 {
     /**
+     * Returns whether a menu is currently being shown.
+     *
+     * @return {@code true} if a menu is being shown, otherwise {@code false}.
+     */
+    boolean isMenuShown();
+
+    /**
+     * Returns whether an overlay menu is currently being shown.
+     *
+     * @return {@code true} if a menu is being shown, otherwise {@code false}.
+     */
+    boolean isMenuOverlayShown();
+
+    /**
+     * Returns whether a state is currently being shown.
+     *
+     * @return {@code true} if a state is being shown, otherwise {@code false}.
+     */
+    boolean isStateShown();
+
+    /**
      * Returns the currently displayed menu, if any.
      *
      * @return a {@link Menu} instance. This method may return {@code null}.

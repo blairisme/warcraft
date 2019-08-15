@@ -21,10 +21,7 @@ import java.util.Map;
 
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.MeleeDamage1;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.MeleeDamage2;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.RangedDamage1;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.RangedDamage2;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconLevel.Advanced;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconLevel.Basic;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconLevel.Improved;
@@ -130,11 +127,6 @@ public class IconSpecializations
 
         ActionButtonType.BuildCancelButton, ActionButtonType.CancelButton,
 
-        ActionButtonType.ImprovedMeleeUpgradeButton, MeleeDamage1,
-        ActionButtonType.AdvancedMeleeUpgradeButton, MeleeDamage2,
-        ActionButtonType.ImprovedRangedUpgradeButton, RangedDamage1,
-        ActionButtonType.AdvancedRangedUpgradeButton, RangedDamage2,
-
         ActionButtonType.BuildBarracksButton, Barracks,
         ActionButtonType.BuildFarmButton, Farm,
         ActionButtonType.BuildLumberMillButton, LumberMill,
@@ -160,6 +152,14 @@ public class IconSpecializations
         ActionButtonType.TrainTrollAxethrowerButton, TrollAxethrower,
         ActionButtonType.TrainTrollDestroyerButton, TrollDestroyer,
         ActionButtonType.TrainTrollTankerButton, TrollTanker,
+
+        special(RangedDamage1, Human, Any, Any), HumanRangedDamage1,
+        special(RangedDamage1, Orc, Any, Any), OrcRangedDamage1,
+
+        special(ActionButtonType.ImprovedRangedUpgradeButton, Human, Any, Any), HumanRangedDamage1,
+        special(ActionButtonType.ImprovedRangedUpgradeButton, Orc, Any, Any), OrcRangedDamage1,
+        special(ActionButtonType.AdvancedRangedUpgradeButton, Human, Any, Any), HumanRangedDamage2,
+        special(ActionButtonType.AdvancedRangedUpgradeButton, Orc, Any, Any), OrcRangedDamage2,
 
         special(ActionButtonType.AttackButton, Human, Melee, Basic), HumanMeleeAttack,
         special(ActionButtonType.AttackButton, Human, Melee, Improved), HumanMeleeDamage1,

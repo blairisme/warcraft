@@ -98,7 +98,7 @@ public class BuildingBuilder
         builder.set(UnitAnimation.Construct, Arrays.asList(
             Pair.of(constructBeginSchema(size.x, size.y), construction),
             Pair.of(constructEndSchema(size.x, size.y), general)));
-        builder.set(UnitAnimation.Dead, buildingDestructionScheme(), destruction);
+        builder.set(UnitAnimation.Death, buildingDestructionScheme(), destruction);
         return builder.build();
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="49">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="50">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/winter.png" width="576" height="864"/>
  </tileset>
@@ -64,6 +64,9 @@
  </tileset>
  <tileset firstgid="963" name="Oil Platform" tilewidth="96" tileheight="96" tilecount="3" columns="1">
   <image source="../../textures/human/building/winter/oil_platform.png" width="96" height="288"/>
+ </tileset>
+ <tileset firstgid="966" name="LumberMill" tilewidth="96" tileheight="96" tilecount="2" columns="1">
+  <image source="../../textures/human/building/winter/lumber_mill.png" width="96" height="192"/>
  </tileset>
  <layer id="1" name="Map" width="64" height="64">
   <properties>
@@ -179,6 +182,7 @@
   <object id="46" name="Shipyard1" type="Shipyard" gid="937" x="1344" y="640" width="96" height="96"/>
   <object id="47" name="OilTanker1" type="OilTanker" gid="939" x="1504" y="608" width="72" height="72"/>
   <object id="48" name="OilPlatform1" type="OilPlatform" gid="963" x="1568" y="448" width="96" height="96"/>
+  <object id="49" name="LumberMill1" type="LumberMill" gid="966" x="960" y="480" width="96" height="96"/>
  </objectgroup>
  <layer id="8" name="OpaqueFog" width="64" height="64">
   <properties>

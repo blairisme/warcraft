@@ -33,6 +33,7 @@ import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
 import com.evilbird.warcraft.action.placeholder.PlaceholderFactory;
 import com.evilbird.warcraft.action.produce.ProduceFactory;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
+import com.evilbird.warcraft.action.produce.ProduceUpgradeActions;
 import com.evilbird.warcraft.action.select.SelectActions;
 import com.evilbird.warcraft.action.select.SelectFactory;
 import org.apache.commons.lang3.Validate;
@@ -77,6 +78,7 @@ public class WarcraftActionFactory implements ActionFactory
         registerProvider(PlaceholderActions.values(), placeholderFactory);
         registerProvider(SelectActions.values(), selectFactory);
         registerProvider(ProduceUnitActions.values(), produceFactory);
+        registerProvider(ProduceUpgradeActions.values(), produceFactory);
     }
 
     @Override

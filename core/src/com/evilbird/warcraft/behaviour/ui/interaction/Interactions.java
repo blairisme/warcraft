@@ -33,9 +33,10 @@ import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.common.function.Predicates.nonNull;
 import static com.evilbird.engine.common.function.Predicates.not;
 import static com.evilbird.engine.device.UserInputType.Drag;
-import static com.evilbird.engine.device.UserInputType.SelectResize;
-import static com.evilbird.engine.device.UserInputType.SelectStart;
-import static com.evilbird.engine.device.UserInputType.SelectStop;
+import static com.evilbird.engine.device.UserInputType.Menu;
+import static com.evilbird.engine.device.UserInputType.PressDown;
+import static com.evilbird.engine.device.UserInputType.PressDrag;
+import static com.evilbird.engine.device.UserInputType.PressUp;
 import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.action.attack.AttackActions.Attack;
@@ -58,8 +59,8 @@ import static com.evilbird.warcraft.action.move.MoveActions.MoveToItem;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveToLocation;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderCancel;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderMove;
-import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.BasicArrowDamageUpgrade;
-import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.BasicArrowDamageUpgradeCancel;
+import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.RangedDamage1Upgrade;
+import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.RangedDamage1UpgradeCancel;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxBegin;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxEnd;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxResize;
@@ -68,6 +69,7 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Singleton;
+import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Standalone;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
@@ -291,6 +293,11 @@ public class Interactions
     }
 
     private void menuInteractions() {
+        buildMenuInteractions();
+        ingameMenuInteractions();
+    }
+
+    private void buildMenuInteractions() {
         interactions.addAction(ActionsMenu)
             .whenTarget(BuildCancelButton)
             .appliedTo(Target)
@@ -305,11 +312,19 @@ public class Interactions
             .whenTarget(BuildAdvancedButton)
             .appliedTo(Target)
             .appliedAs(Addition);
+    }
 
+    private void ingameMenuInteractions() {
         interactions.addAction(IngameMenu)
             .whenTarget(MenuPane)
             .appliedTo(Target)
             .appliedAs(Addition);
+
+        interactions.addAction(IngameMenu)
+            .forInput(Menu)
+            .assignedTo(item -> null)
+            .appliedTo((t, s) -> null, (t, s) -> null)
+            .appliedAs(Standalone);
     }
 
     private void trainInteractions() {
@@ -326,8 +341,8 @@ public class Interactions
     private void upgradeInteractions() {
         productionInteraction(
             ImprovedRangedUpgradeButton,
-            BasicArrowDamageUpgrade,
-            BasicArrowDamageUpgradeCancel);
+                RangedDamage1Upgrade,
+                RangedDamage1UpgradeCancel);
     }
 
     private void productionInteraction(
@@ -404,19 +419,19 @@ public class Interactions
 
     private void selectArea() {
         interactions.addAction(SelectBoxBegin)
-            .forInput(SelectStart)
+            .forInput(PressDown)
             .whenTarget(nonNull())
             .appliedTo(Target)
             .appliedAs(Addition);
 
         interactions.addAction(SelectBoxResize)
-            .forInput(SelectResize)
+            .forInput(PressDrag)
             .whenTarget(nonNull())
             .appliedTo(Target)
             .appliedAs(Addition);
 
         interactions.addAction(SelectBoxEnd)
-            .forInput(SelectStop)
+            .forInput(PressUp)
             .whenTarget(nonNull())
             .appliedTo(Target)
             .appliedAs(Addition);

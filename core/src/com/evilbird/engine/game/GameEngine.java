@@ -112,6 +112,21 @@ public class GameEngine extends Game implements GameController
         return stateScreen.getState();
     }
 
+    @Override
+    public boolean isMenuShown() {
+        return getScreen() == menuScreen;
+    }
+
+    @Override
+    public boolean isMenuOverlayShown() {
+        return getScreen() == menuOverlay;
+    }
+
+    @Override
+    public boolean isStateShown() {
+        return getScreen() == stateScreen;
+    }
+
     public Future<?> loadMenuAssets() {
         try {
             return gameAssets.loadMenuAssets();

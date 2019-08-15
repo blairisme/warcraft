@@ -44,6 +44,11 @@ public class IngameMenu extends Menu
         this.container = createContainer(skin);
     }
 
+    @Override
+    public void back() {
+        controller.showState();
+    }
+
     public void setLayout(IngameMenuDimensions dimensions) {
         container.setBackground(dimensions.getBackground());
         container.setWidth(dimensions.getWidth());

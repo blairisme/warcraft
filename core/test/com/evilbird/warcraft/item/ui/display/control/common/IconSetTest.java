@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.test.data.assets.TestTextures;
+import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
@@ -22,8 +23,9 @@ import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StopButton;
 
 /**
  * Instances of this unit test validate the {@link ControlPaneFactory} class.
@@ -60,9 +62,23 @@ public class IconSetTest extends GameTestCase
     }
 
     @Test
-    @Ignore
+    public void getShipStopIconTest() {
+        Unit ship = TestCombatants.newTestCombatant(new TextIdentifier("ship"), UnitType.TrollDestroyer);
+        Drawable actual = iconSet.get(StopButton, ship);
+        Assert.assertNotNull(actual);
+    }
+
+    @Test
+    public void getUpgradeProductIconTest() {
+        Unit lumberMill = TestBuildings.newTestBuilding(new TextIdentifier("LumberMill"), UnitType.LumberMill);
+        Drawable actual = iconSet.get(ActionButtonType.ImprovedRangedUpgradeButton, lumberMill);
+        Assert.assertNotNull(actual);
+    }
+
+    @Test
     public void getUpgradeIconTest() {
-        Drawable actual = iconSet.get(PlayerUpgrade.RangedDamage1);
+        Unit lumberMill = TestBuildings.newTestBuilding(new TextIdentifier("LumberMill"), UnitType.LumberMill);
+        Drawable actual = iconSet.get(PlayerUpgrade.RangedDamage1, lumberMill);
         Assert.assertNotNull(actual);
     }
 }

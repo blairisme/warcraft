@@ -21,19 +21,21 @@ import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
-import java.util.Objects;
 
 import static com.evilbird.engine.action.common.ActionRecipient.Player;
 import static com.evilbird.engine.action.common.ActionRecipient.Subject;
 import static com.evilbird.engine.action.common.ActionRecipient.Target;
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AnimationAliasAction.setAnimation;
+import static com.evilbird.engine.action.common.AssignAction.assign;
 import static com.evilbird.engine.action.common.DisableAction.disable;
 import static com.evilbird.engine.action.common.DisableAction.enable;
 import static com.evilbird.engine.action.common.VisibleAction.hide;
 import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
 import static com.evilbird.engine.common.function.Predicates.both;
+import static com.evilbird.engine.common.function.Predicates.nonNull;
+import static com.evilbird.warcraft.action.common.death.DeathAction.kill;
 import static com.evilbird.warcraft.action.common.transfer.TransferAction.transferAll;
 import static com.evilbird.warcraft.action.gather.GatherAction.gather;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositComplete;
@@ -89,7 +91,7 @@ public class GatherOil extends ScenarioSetAction
     private void gatherFeature() {
         scenario("Gather Oil")
             .given(isAlive())
-            .givenTarget(Objects::nonNull)
+            .givenTarget(nonNull())
             .when(noResources(Oil))
             .then(deselect(events))
             .then(animate(Move))
@@ -100,13 +102,14 @@ public class GatherOil extends ScenarioSetAction
             .then(transferAll(Target, Subject, GATHER_AMOUNT, events), obtainComplete(events, GATHER_AMOUNT))
             .then(show(), enable(), setAnimation(Move, MoveOil), setAnimation(Idle, IdleOil))
             .then(animate(Idle))
+            .then(assign(kill(events), Target, noResources(Oil)))
             .withTarget(closest(getGatherer(), getOilPlatformType(), getTarget()));
     }
 
     private void depositFeature() {
         scenario("Deposit Oil")
             .givenItem(isAlive())
-            .givenTarget(Objects::nonNull)
+            .givenTarget(nonNull())
             .whenItem(hasResources(Oil))
             .then(animate(Move), deselect(events))
             .then(move(events))
@@ -117,8 +120,6 @@ public class GatherOil extends ScenarioSetAction
             .then(depositComplete(events, GATHER_AMOUNT))
             .then(show(), enable(), setAnimation(Idle, IdleBasic), setAnimation(Move, MoveBasic))
             .then(animate(Idle))
-
-//            .withTarget(closest(getGatherer(), Shipyard, getTarget()));
             .withTarget(closest(getGatherer(), both(isCorporeal(), isDepotFor(Oil))));
     }
 

@@ -24,7 +24,7 @@ import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCritter;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Dead;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isResource;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Death;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Decompose;
 import static com.evilbird.warcraft.item.unit.UnitCosts.reservedResources;
@@ -38,6 +38,8 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Die;
  */
 public class DeathAction extends ScenarioSetAction
 {
+    private static final int DECOMPOSE_PERIOD = 30;
+
     private Events events;
 
     public DeathAction(Events events) {
@@ -53,14 +55,14 @@ public class DeathAction extends ScenarioSetAction
         buildingDeath();
         combatantDeath();
         critterDeath();
+        resourceDeath();
     }
 
     private void buildingDeath() {
         scenario("Building death")
             .whenItem(isBuilding())
-            .then(animate(Dead), deselect(events), disable(), sendToBack())
-            .then(play(Die), delay(1))
-            .then(delay(10))
+            .then(animate(Death), deselect(events), disable(), sendToBack())
+            .then(play(Die), delay(DECOMPOSE_PERIOD))
             .then(remove(events));
     }
 
@@ -70,15 +72,23 @@ public class DeathAction extends ScenarioSetAction
             .then(animate(Death), deselect(events), disable(), sendToBack())
             .then(play(Die), delay(1))
             .then(deposit(reservedResources(getItem()), events))
-            .then(animate(Decompose), delay(10))
+            .then(animate(Decompose), delay(DECOMPOSE_PERIOD))
             .then(remove(events));
     }
 
     private void critterDeath() {
-        scenario("Combatant death")
+        scenario("Critter death")
             .whenItem(isCritter())
             .then(animate(Death), deselect(events), disable(), sendToBack())
-            .then(play(Die), delay(10))
+            .then(play(Die), delay(DECOMPOSE_PERIOD))
+            .then(remove(events));
+    }
+
+    private void resourceDeath() {
+        scenario("Resource death")
+            .whenItem(isResource())
+            .then(animate(Death), deselect(events), disable(), sendToBack())
+            .then(play(Die), delay(DECOMPOSE_PERIOD))
             .then(remove(events));
     }
 }

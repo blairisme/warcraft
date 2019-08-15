@@ -30,6 +30,8 @@ import com.evilbird.engine.item.ItemType;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.common.WarcraftNation;
+import com.evilbird.warcraft.item.common.resource.ResourceContainer;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.camera.CameraType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerType;
@@ -201,11 +203,9 @@ public class LevelLoader
 
         if (type != null) {
             Item item = itemFactory.get(type);
-            item.setIdentifier(new TextIdentifier(object.getName()));
-            item.setVisible(object.isVisible());
-            item.setTouchable(getTouchable(properties, TOUCHABLE_PROPERTY));
-            item.setPosition(getVector(properties, X_PROPERTY, Y_PROPERTY));
-            item.setZIndex(getInt(properties, ZINDEX_PROPERTY));
+            setIdentityProperties(item, object);
+            setInteractionProperties(item, properties);
+            setResourceProperties(item, properties);
             return item;
         }
         else {
@@ -224,6 +224,33 @@ public class LevelLoader
             return EnumUtils.getEnum(UnitType.class, type);
         }
         return null;
+    }
+
+    private void setIdentityProperties(Item item, MapObject object) {
+        item.setIdentifier(new TextIdentifier(object.getName()));
+        item.setVisible(object.isVisible());
+    }
+
+    private void setInteractionProperties(Item item, MapProperties properties) {
+        item.setTouchable(getTouchable(properties, TOUCHABLE_PROPERTY));
+        item.setPosition(getVector(properties, X_PROPERTY, Y_PROPERTY));
+        item.setZIndex(getInt(properties, ZINDEX_PROPERTY));
+    }
+
+    private void setResourceProperties(Item item, MapProperties properties) {
+        if (item instanceof ResourceContainer) {
+            ResourceContainer container = (ResourceContainer)item;
+            setResource(container, Gold, properties, GOLD_PROPERTY);
+            setResource(container, Oil, properties, OIL_PROPERTY);
+            setResource(container, Wood, properties, WOOD_PROPERTY);
+            setResource(container, Food, properties, FOOD_PROPERTY);
+        }
+    }
+
+    private void setResource(ResourceContainer container, ResourceType resource, MapProperties properties, String key) {
+        if (properties.containsKey(key)) {
+            container.setResource(resource, getFloat(properties, key));
+        }
     }
 
     private int getInt(MapProperties properties, String key) {

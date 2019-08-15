@@ -21,8 +21,8 @@ import javax.inject.Inject;
 
 import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.AdvancedSwordDamage;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.BasicSwordDamage;
+import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.MeleeDamage1;
+import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.MeleeDamage2;
 
 /**
  * Instances of this {@link Action} reduce the health of the Actions target.
@@ -87,8 +87,8 @@ public class MeleeAttack extends BasicAction
 
     private int getAttackUpgrade(Player player) {
         int upgrade = 0;
-        upgrade += player.hasUpgrade(BasicSwordDamage) ? 2 : 0;
-        upgrade += player.hasUpgrade(AdvancedSwordDamage) ? 2 : 0;
+        upgrade += player.hasUpgrade(MeleeDamage1) ? 2 : 0;
+        upgrade += player.hasUpgrade(MeleeDamage2) ? 2 : 0;
         return upgrade;
     }
 
