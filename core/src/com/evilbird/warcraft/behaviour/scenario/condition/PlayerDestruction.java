@@ -30,11 +30,30 @@ public class PlayerDestruction extends PlayerCondition
 {
     private Predicate<Item> livingUnits;
 
+    /**
+     * Constructs a new instance of this class given a player identifier.
+     *
+     * @param player an {@link Identifier}.
+     *
+     * @throws NullPointerException if the given player identifier is
+     *                              {@code null}.
+     */
     public PlayerDestruction(Identifier player) {
         super(player);
         livingUnits = isAlive();
     }
 
+    /**
+     * Creates a new PlayerDestruction that will be fulfilled when all of the
+     * units belonging to the player with the given {@link Identifier} have
+     * been destroyed.
+     *
+     * @param player    an {@link Identifier}.
+     * @return          a new PlayerDestruction instance.
+     *
+     * @throws NullPointerException if the given player identifier is
+     *                              {@code null}.
+     */
     public static PlayerDestruction playerDestroyed(Identifier player) {
         return new PlayerDestruction(player);
     }

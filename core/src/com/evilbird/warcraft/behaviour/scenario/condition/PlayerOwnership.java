@@ -17,6 +17,7 @@ import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.produce.ProduceEvent;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.both;
@@ -37,18 +38,53 @@ public class PlayerOwnership extends PlayerCondition
     private Predicate<Item> condition;
     private int count;
 
-    public PlayerOwnership(Predicate<Item> condition, int count) {
+    /**
+     * Constructs a new instance of this class given a condition used to
+     * identify qualifying units owned by the player and the minimum number of
+     * units required to satisfy the condition.
+     *
+     * @param condition a {@link Predicate} used to identify qualifying units.
+     * @param minimum   the minimum number of required units.
+     *
+     * @throws NullPointerException if the given condition is
+     *                              {@code null}.
+     */
+    public PlayerOwnership(Predicate<Item> condition, int minimum) {
         super(Player1);
+        Objects.requireNonNull(condition);
+
         this.condition = condition;
-        this.count = count;
+        this.count = minimum;
     }
 
-    public static PlayerOwnership playerOwns(ItemType type, int amount) {
-        return new PlayerOwnership(both(withType(type), isAlive()), amount);
+    /**
+     * Creates a new PlayerOwnership instance the is fulfilled when the user
+     * has at least the specified minimum number of units of the given
+     * {@link ItemType type}.
+     *
+     * @param type      the type of qualifying units.
+     * @param minimum   the minimum number of required units.
+     * @return          a new PlayerOwnership instance.
+     *
+     * @throws NullPointerException if the given type is {@code null}.
+     */
+    public static PlayerOwnership playerOwns(ItemType type, int minimum) {
+        return new PlayerOwnership(both(withType(type), isAlive()), minimum);
     }
 
-    public static PlayerOwnership playerOwns(Identifier id, int amount) {
-        return new PlayerOwnership(both(withId(id), isAlive()), amount);
+    /**
+     * Creates a new PlayerOwnership instance the is fulfilled when the user
+     * has at least the specified minimum number of units with the given
+     * {@link Identifier}.
+     *
+     * @param id        the identifier of qualifying units.
+     * @param minimum   the minimum number of required units.
+     * @return          a new PlayerOwnership instance.
+     *
+     * @throws NullPointerException if the given type is {@code null}.
+     */
+    public static PlayerOwnership playerOwns(Identifier id, int minimum) {
+        return new PlayerOwnership(both(withId(id), isAlive()), minimum);
     }
 
     @Override
