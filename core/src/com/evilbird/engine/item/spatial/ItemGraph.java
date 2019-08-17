@@ -109,8 +109,14 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     }
 
     public Collection<ItemNode> getNodes(Vector2 worldPosition, Vector2 worldSize) {
+        return getNodes(worldPosition, worldSize, 0);
+    }
+
+    public Collection<ItemNode> getNodes(Vector2 worldPosition, Vector2 worldSize, int worldRadius) {
         GridPoint2 spatialPosition = toSpatial(worldPosition);
-        return getNodes(spatialPosition, worldSize);
+        GridPoint2 spatialSize = toSpatial(worldSize);
+        int spatialRadius = toSpatial(worldRadius);
+        return getNodes(spatialPosition, spatialSize, spatialRadius);
     }
 
     public Collection<ItemNode> getNodes(GridPoint2 spatialPosition, Vector2 worldSize) {
@@ -119,11 +125,15 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     }
 
     public Collection<ItemNode> getNodes(GridPoint2 spatialPosition, GridPoint2 spatialSize) {
-        int xCount = spatialSize.x;
-        int yCount = spatialSize.y;
+        return getNodes(spatialPosition, spatialSize, 0);
+    }
 
-        int xStart = spatialPosition.x;
-        int yStart = spatialPosition.y;
+    public Collection<ItemNode> getNodes(GridPoint2 spatialPosition, GridPoint2 spatialSize, int spatialRadius) {
+        int xCount = spatialSize.x + (spatialRadius * 2);
+        int yCount = spatialSize.y + (spatialRadius * 2);
+
+        int xStart = spatialPosition.x - spatialRadius;
+        int yStart = spatialPosition.y - spatialRadius;
 
         int xEnd = xStart + xCount;
         int yEnd = yStart + yCount;
@@ -392,5 +402,9 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         result.x = (int)Math.floor(vector.x / nodeWidth);
         result.y = (int)Math.floor(vector.y / nodeHeight);
         return result;
+    }
+
+    private int toSpatial(int value) {
+        return value > 0 ? (int)Math.floor(value / nodeWidth) : 0;
     }
 }

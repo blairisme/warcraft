@@ -21,6 +21,7 @@ import com.evilbird.warcraft.item.common.movement.MovementCapability;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
+import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -143,6 +144,12 @@ public class UnitOperations
 
     public static boolean hasUpgrade(Player player, PlayerUpgrade upgrade) {
         return player.hasUpgrade(upgrade);
+    }
+
+    public static boolean isAnotherTeam(Item itemA, Item itemB) {
+        Player playerA = getPlayer(itemA);
+        Player playerB = getPlayer(itemB);
+        return !playerA.isNeutral() && !playerB.isNeutral() && playerA != playerB;
     }
 
     /**
@@ -298,5 +305,9 @@ public class UnitOperations
 
     public static boolean isShip(Combatant combatant) {
         return combatant.getMovementCapability() == MovementCapability.Water;
+    }
+
+    public static boolean isUnit(Item item) {
+        return item instanceof Unit;
     }
 }

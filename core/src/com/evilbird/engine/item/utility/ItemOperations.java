@@ -20,6 +20,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
 
+import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -83,6 +84,18 @@ public class ItemOperations
 
     public static boolean isIdle(Item item) {
         return !item.hasActions();
+    }
+
+    public static boolean isIdle(Item item, Class<?> allowed) {
+        Collection<Action> actions = item.getActions();
+        if (actions.isEmpty()) {
+            return true;
+        }
+        if (actions.size() == 1) {
+            Action action = actions.iterator().next();
+            return action.getIdentifier().getClass().isAssignableFrom(allowed);
+        }
+        return false;
     }
 
     public static boolean isNear(Item locus, float radius, Item target) {

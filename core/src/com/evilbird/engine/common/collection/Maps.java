@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * This class provides utility functions that operate on {@link Map Maps}.
@@ -57,8 +58,8 @@ public class Maps
      *
      * @param map   a {@link Map} whose values will be returned.
      * @param keys  the keys associated with the desired values.
-     * @param <K>       the key type.
-     * @param <V>       the value type.
+     * @param <K>   the key type.
+     * @param <V>   the value type.
      *
      * @return a {@link Collection} containing the desired values.
      */
@@ -68,5 +69,27 @@ public class Maps
             result.add(map.get(key));
         }
         return result;
+    }
+
+    /**
+     * Returns the value to which the specified key is mapped, or uses the
+     * given {@link Supplier} to create a new value if this map contains no
+     * mapping for the key.
+     *
+     * @param map               a {@link Map} whose values will be returned.
+     * @param key               the key whose associated value is to be
+     *                          returned.
+     * @param defaultSupplier   create a new default value.
+     * @param <K>               the key type.
+     * @param <V>               the value type.
+     *
+     * @return  the value to which the specified key is mapped, or a default
+     *          value.
+     */
+    public static <K, V> V getOrDefault(Map<K, V> map, K key, Supplier<V> defaultSupplier) {
+        if (!map.containsKey(key)) {
+            return defaultSupplier.get();
+        }
+        return map.get(key);
     }
 }

@@ -13,7 +13,7 @@ import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
-import com.evilbird.warcraft.behaviour.ai.attack.InitiateAttack;
+import com.evilbird.warcraft.behaviour.ai.attack.AttackBehaviour;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -31,9 +31,9 @@ public class AiBehaviour implements Behaviour
     private Collection<AiBehaviourElement> components;
 
     @Inject
-    public AiBehaviour(InitiateAttack initiateAttack) {
+    public AiBehaviour(AttackBehaviour attackBehaviour) {
         components = new ArrayList<>();
-        components.add(initiateAttack);
+        components.add(attackBehaviour);
     }
 
     @Override

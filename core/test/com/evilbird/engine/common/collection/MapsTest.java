@@ -12,8 +12,11 @@ package com.evilbird.engine.common.collection;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Arrays;
 
 /**
  * Instances of this unit test validate the {@link Maps} class.
@@ -50,5 +53,31 @@ public class MapsTest
 
         Map<String, Integer> actual = Maps.of("1", 1, "2", 2, "3", 3);
         Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getAllTest() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("1", 1);
+        map.put("2", 2);
+        map.put("3", 3);
+
+        Collection<Integer> expected = new ArrayList<>();
+        expected.add(1);
+        expected.add(3);
+
+        Collection<Integer> actual = Maps.getAll(map, Arrays.asList("1", "3"));
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getOrDefaultTest() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("1", 1);
+        map.put("2", 2);
+        map.put("3", 3);
+
+        Assert.assertEquals(0, (int)Maps.getOrDefault(map, "0", () -> 0));
+        Assert.assertEquals(1, (int)Maps.getOrDefault(map, "1", () -> 0));
     }
 }

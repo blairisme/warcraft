@@ -49,7 +49,7 @@ public class MoveEvent implements Event
         return status;
     }
 
-    public boolean isComplete() {
+    public boolean isFinished() {
         return status == MoveStatus.Complete || status == MoveStatus.Failed;
     }
 

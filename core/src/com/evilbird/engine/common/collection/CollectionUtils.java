@@ -47,6 +47,14 @@ public class CollectionUtils
         return collection.stream().flatMap(element -> converter.apply(element).stream()).collect(toList());
     }
 
+    public static <T> Collection<T> filter(Collection<T> collection, Predicate<T> condition) {
+        return collection.stream().filter(condition).collect(toList());
+    }
+
+    public static <A, B> Collection<B> convert(Collection<A> collection, Function<A, B> converter) {
+        return collection.stream().map(converter).collect(toList());
+    }
+
     public static <T> int testMatches(T[] collection, Predicate<T> condition) {
         int result = 0;
         for (T element: collection) {
