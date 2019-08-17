@@ -14,6 +14,8 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.data.player.Player;
 
+import java.util.Objects;
+
 import static com.evilbird.engine.item.utility.ItemPredicates.withId;
 
 /**
@@ -27,8 +29,17 @@ public abstract class PlayerCondition implements ScenarioCondition
     protected Player player;
     protected Identifier playerId;
 
-    public PlayerCondition(Identifier playerId) {
-        this.playerId = playerId;
+    /**
+     * Constructs a new instance of this class given a player identifier.
+     *
+     * @param player an {@link Identifier}.
+     *
+     * @throws NullPointerException if the given player identifier is
+     *                              {@code null}.
+     */
+    public PlayerCondition(Identifier player) {
+        Objects.requireNonNull(player);
+        this.playerId = player;
     }
 
     @Override
@@ -40,13 +51,35 @@ public abstract class PlayerCondition implements ScenarioCondition
         return false;
     }
 
-    protected abstract boolean applicable(EventQueue queue);
-
-    protected abstract boolean evaluate(ItemRoot state);
-
+    /**
+     * Performs initialization logic pertinent to the condition.
+     *
+     * @param state the current game state.
+     */
     protected void initialize(ItemRoot state) {
         if (player == null) {
             player = (Player)state.find(withId(playerId));
         }
     }
+
+    /**
+     * Determines if the condition applies given the events that occurred in
+     * the last update cycle.
+     *
+     * @param queue an {@link EventQueue}.
+     *
+     * @return  {@code true} if the condition applies to the events in the event
+     *          queue.
+     */
+    protected abstract boolean applicable(EventQueue queue);
+
+    /**
+     * Determines if the condition is fulfilled by the current game state.
+     *
+     * @param state an {@link ItemRoot} containing the current game state.
+     *
+     * @return  {@code true} if the condition is fulfilled by the current game
+     *          state.
+     */
+    protected abstract boolean evaluate(ItemRoot state);
 }

@@ -33,11 +33,32 @@ public class UnitDestruction extends PlayerCondition
 {
     private Predicate<Item> unitsOfType;
 
+    /**
+     * Creates a new instance of this class that will be fulfilled when the
+     * given player no longer has any units of the given {@link UnitType type}.
+     *
+     * @param player    the {@link Identifier} of a player.
+     * @param type      the type of units whose destruction will be determined.
+     *
+     * @throws NullPointerException if the given player id or type is
+     *                              {@code null}.
+     */
     public UnitDestruction(Identifier player, UnitType type) {
         super(player);
         unitsOfType = both(withType(type), isAlive());
     }
 
+    /**
+     * Creates a new UnitDestruction instance that is fulfilled when the given
+     * player no longer has any units of the given {@link UnitType type}.
+     *
+     * @param player    the {@link Identifier} of a player.
+     * @param type      the type of units whose destruction will be determined.
+     * @return          a new UnitDestruction instance.
+     *
+     * @throws NullPointerException if the given player id or type is
+     *                              {@code null}.
+     */
     public static UnitDestruction unitsDestroyed(Identifier player, UnitType type) {
         return new UnitDestruction(player, type);
     }
