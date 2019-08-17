@@ -51,7 +51,7 @@ public class AttackBehaviour implements AiBehaviourElement
     }
 
     @Override
-    public void update(ItemRoot root) {
+    public void applyBehaviour(ItemRoot root) {
         updateGraph(root);
         assignTargets();
         assignAttackers();

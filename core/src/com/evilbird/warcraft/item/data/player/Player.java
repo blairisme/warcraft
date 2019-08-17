@@ -34,7 +34,7 @@ import java.util.Map;
  */
 public class Player extends ItemGroup implements ResourceContainer
 {
-    private static final transient float VOLUME = 0;//0.15f;
+    private static final transient float VOLUME = 0.15f;
 
     private int level;
     private WarcraftNation nation;

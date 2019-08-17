@@ -19,5 +19,5 @@ import com.evilbird.engine.item.ItemRoot;
  */
 public interface AiBehaviourElement
 {
-    void update(ItemRoot gameState);
+    void applyBehaviour(ItemRoot gameState);
 }

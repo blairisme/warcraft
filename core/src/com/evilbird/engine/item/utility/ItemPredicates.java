@@ -60,6 +60,10 @@ public class ItemPredicates
         return Item::getVisible;
     }
 
+    public static Predicate<Item> isIdle() {
+        return ItemOperations::isIdle;
+    }
+
     public static Predicate<Item> hasType(Identifier type) {
         return item -> item != null && item.getType() == type;
     }
