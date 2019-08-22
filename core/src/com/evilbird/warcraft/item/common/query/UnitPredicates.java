@@ -217,10 +217,7 @@ public class UnitPredicates
     }
 
     public static Predicate<Item> isConstructing() {
-        return (item) -> {
-            Building building = (Building)item;
-            return building.isConstructing();
-        };
+        return UnitOperations::isConstructing;
     }
 
     public static Predicate<Item> isGathering() {

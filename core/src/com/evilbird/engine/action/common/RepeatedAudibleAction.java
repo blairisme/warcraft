@@ -46,4 +46,8 @@ public class RepeatedAudibleAction extends DelegateAction
     public static RepeatedAudibleAction playRepeat(Identifier sound, Predicate<Action> condition) {
         return new RepeatedAudibleAction(sound, 1, condition);
     }
+
+    public static RepeatedAudibleAction playRepeat(Identifier sound, int delay, Predicate<Action> condition) {
+        return new RepeatedAudibleAction(sound, delay, condition);
+    }
 }

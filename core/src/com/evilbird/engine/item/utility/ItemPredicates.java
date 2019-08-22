@@ -64,6 +64,10 @@ public class ItemPredicates
         return ItemOperations::isIdle;
     }
 
+    public static Predicate<Item> isNear(Item target) {
+        return item -> ItemOperations.isNear(item, item.getWidth(), target);
+    }
+
     public static Predicate<Item> hasType(Identifier type) {
         return item -> item != null && item.getType() == type;
     }

@@ -15,9 +15,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Instances of this {@link Action} execute a set of delegate actions all at
@@ -27,7 +25,7 @@ import java.util.ListIterator;
  */
 public class ParallelAction extends CompositeAction
 {
-    private List<Action> completed;
+    private List<Action> remaining;
 
     @SerializedConstructor
     private ParallelAction() {
@@ -35,13 +33,13 @@ public class ParallelAction extends CompositeAction
 
     public ParallelAction(Action ... actions) {
         super(actions);
-        this.completed = new ArrayList<>(actions.length);
+        this.remaining = new ArrayList<>(actions.length);
         resetCompletion();
     }
 
     public ParallelAction(List<Action> actions) {
         super(actions);
-        this.completed = new ArrayList<>(actions.size());
+        this.remaining = new ArrayList<>(actions.size());
         resetCompletion();
     }
 
@@ -53,26 +51,8 @@ public class ParallelAction extends CompositeAction
 
     @Override
     public boolean act(float delta) {
-        ListIterator<Action> iterator = actions.listIterator();
-        while (iterator.hasNext()) {
-            Action action = iterator.next();
-            if (action.act(delta)) {
-                iterator.remove();
-                completed.add(action);
-            }
-        }
-        return actions.isEmpty();
-    }
-
-    public Collection<Action> getActions() {
-        Collection<Action> result = new ArrayList<>(actions);
-        result.addAll(completed);
-        return result;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return actions.isEmpty() && completed.isEmpty();
+        remaining.removeIf(action -> action.act(delta));
+        return remaining.isEmpty();
     }
 
     @Override
@@ -88,10 +68,8 @@ public class ParallelAction extends CompositeAction
     }
 
     private void resetCompletion() {
-        if (! completed.isEmpty()) {
-            actions.addAll(completed);
-        }
-        completed.clear();
+        remaining.clear();
+        remaining.addAll(actions);
     }
 
     @Override
@@ -103,7 +81,7 @@ public class ParallelAction extends CompositeAction
         ParallelAction that = (ParallelAction)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
-            .append(completed, that.completed)
+            .append(remaining, that.remaining)
             .isEquals();
     }
 
@@ -111,7 +89,7 @@ public class ParallelAction extends CompositeAction
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
-            .append(completed)
+            .append(remaining)
             .toHashCode();
     }
 }

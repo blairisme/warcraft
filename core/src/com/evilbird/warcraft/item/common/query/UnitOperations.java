@@ -230,6 +230,14 @@ public class UnitOperations
         return item instanceof Building;
     }
 
+    public static boolean isConstructing(Item item) {
+        if (item instanceof Building) {
+            Building building = (Building) item;
+            return building.isConstructing();
+        }
+        return false;
+    }
+
     /**
      * Determines if the given {@link Item} is a combatant.
      *

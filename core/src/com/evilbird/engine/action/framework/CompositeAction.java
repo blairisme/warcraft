@@ -19,6 +19,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,6 +52,10 @@ public abstract class CompositeAction extends BasicAction
 
     public boolean isEmpty() {
         return actions.isEmpty();
+    }
+
+    public Collection<Action> getActions() {
+        return Collections.unmodifiableList(actions);
     }
 
     @Override
