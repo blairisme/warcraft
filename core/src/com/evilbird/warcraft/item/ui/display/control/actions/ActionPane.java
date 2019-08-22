@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.ui.display.control.actions;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
@@ -31,6 +32,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
 
 /**
  * Instances of this class show a grid of buttons representing the actions that
@@ -138,6 +141,16 @@ public class ActionPane extends GridItem implements MenuProvider
 
     private void updateView(boolean showCancel) {
         clearItems();
+        if (onlyCorporealSelected()) {
+            populateView(showCancel);
+        }
+    }
+
+    private boolean onlyCorporealSelected() {
+        return CollectionUtils.containsAll(selection, isCorporeal());
+    }
+
+    private void populateView(boolean showCancel) {
         if (showCancel){
             addCancelButton();
         } else {

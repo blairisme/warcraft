@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.ui.display.control.status.details.building.BuildingDetailsPane;
 import com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantDetailsPane;
 import com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantTitlePane;
@@ -77,8 +78,14 @@ public class DetailsPane extends GridItem
 
     public void setItem(Item item) {
         clearItems();
+        showDetails(item);
+    }
+
+    private void showDetails(Item item) {
         setTitle(item);
-        setDetails(item);
+        if (UnitOperations.isCorporeal(item)) {
+            setDetails(item);
+        }
     }
 
     private void setTitle(Item item) {
