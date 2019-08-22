@@ -18,6 +18,7 @@ import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.common.AnimateAction.animate;
+import static com.evilbird.engine.action.predicates.ActionPredicates.withoutError;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveToLocation;
 import static com.evilbird.warcraft.action.move.MoveToVectorAction.moveToCause;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
@@ -37,8 +38,10 @@ public class MoveToVectorSequence extends ScenarioAction
     public MoveToVectorSequence(EventQueue events) {
         scenario(MoveToLocation);
         given(isAlive());
+        givenAction(withoutError());
         then(animate(Move));
         then(moveToCause(events));
         then(animate(Idle));
+        onError(animate(Idle));
     }
 }

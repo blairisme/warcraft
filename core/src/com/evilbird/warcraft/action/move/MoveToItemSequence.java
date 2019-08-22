@@ -17,6 +17,7 @@ import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.common.AnimateAction.animate;
+import static com.evilbird.engine.action.predicates.ActionPredicates.withoutError;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveToItem;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.moveToItem;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
@@ -35,9 +36,11 @@ public class MoveToItemSequence extends ScenarioAction
     @Inject
     public MoveToItemSequence(EventQueue events) {
         scenario(MoveToItem);
-        given(isAlive());
+        givenItem(isAlive());
+        givenAction(withoutError());
         then(animate(Move));
         then(moveToItem(events));
         then(animate(Idle));
+        onError(animate(Idle));
     }
 }
