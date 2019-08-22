@@ -24,12 +24,14 @@ import static com.evilbird.engine.action.common.AssignAction.assignIfAbsent;
 import static com.evilbird.engine.action.common.Direction.Facing;
 import static com.evilbird.engine.action.common.Direction.Perpendicular;
 import static com.evilbird.engine.action.common.DirectionAction.reorient;
+import static com.evilbird.engine.action.predicates.ActionPredicates.withoutError;
 import static com.evilbird.engine.common.function.Predicates.not;
 import static com.evilbird.warcraft.action.attack.AttackEvents.attackComplete;
 import static com.evilbird.warcraft.action.attack.AttackEvents.attackStarted;
 import static com.evilbird.warcraft.action.attack.MeleeAttack.meleeAttack;
 import static com.evilbird.warcraft.action.attack.RangedAttack.rangedAttack;
 import static com.evilbird.warcraft.action.common.death.DeathAction.kill;
+import static com.evilbird.warcraft.action.common.exclusion.ExcludeActions.restore;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
 import static com.evilbird.warcraft.action.move.MoveWithinRangeAction.moveWithinRange;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isShip;
@@ -80,9 +82,11 @@ public class AttackSequence extends ScenarioSetAction
             .whenTarget(notInRange(combatant))
             .givenItem(isAlive())
             .givenTarget(isAlive())
+            .givenAction(withoutError())
             .then(animate(Move))
             .then(move(events))
-            .then(animate(Idle));
+            .then(animate(Idle))
+            .onError(restore());
     }
 
     private void repositionRanged(Combatant combatant) {
@@ -92,9 +96,11 @@ public class AttackSequence extends ScenarioSetAction
             .whenTarget(notInRange(combatant))
             .givenItem(isAlive())
             .givenTarget(isAlive())
+            .givenAction(withoutError())
             .then(animate(Move))
             .then(moveWithinRange(events))
-            .then(animate(Idle));
+            .then(animate(Idle))
+            .onError(restore());
     }
 
     private void engageMelee(Combatant combatant) {

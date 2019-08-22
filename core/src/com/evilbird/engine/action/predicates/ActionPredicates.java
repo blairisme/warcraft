@@ -40,4 +40,8 @@ public class ActionPredicates
     public static Predicate<Action> whileSubject(Predicate<Item> condition) {
         return action -> condition.test(action.getItem());
     }
+
+    public static Predicate<Action> withoutError() {
+        return action -> !action.hasError();
+    }
 }

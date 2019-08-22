@@ -48,7 +48,6 @@ public class ScenarioSetAction extends BasicAction
         scenario.setItem(getItem());
         scenario.setTarget(getTarget());
         scenario.setCause(getCause());
-        //scenario.then(new LambdaAction((subject, target) -> System.out.println(name)));
         actions.add(scenario);
         return scenario;
     }

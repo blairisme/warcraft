@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.action.common.scenario;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.action.framework.CopyAction;
@@ -23,8 +24,6 @@ import com.evilbird.engine.action.predicates.ActionPredicate;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -47,9 +46,9 @@ import static java.util.Collections.singleton;
 @SuppressWarnings("unchecked")
 public class ScenarioAction<T extends Identifier> extends BasicAction
 {
-    private static final transient Logger logger = LoggerFactory.getLogger(ScenarioAction.class);
-
     private transient Action scenario;
+    private transient Action onError;
+    private transient Action onReset;
     private transient SequenceAction then;
     private transient Predicate<Action> given;
     private transient Predicate<Action> when;
@@ -104,10 +103,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      */
     public ScenarioAction givenItem(Predicate<? super Item> condition) {
         Objects.requireNonNull(condition);
-        Predicate<Action> newGiven = new ActionPredicate(condition, ActionRecipient.Subject);
-        given = given != null ? both(given, newGiven) : newGiven;
-        scenario = null;
-        return this;
+        return givenAction(new ActionPredicate(condition, ActionRecipient.Subject));
     }
 
     /**
@@ -122,8 +118,12 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      */
     public ScenarioAction givenTarget(Predicate<? super Item> condition) {
         Objects.requireNonNull(condition);
-        Predicate<Action> newGiven = new ActionPredicate(condition, ActionRecipient.Target);
-        given = given != null ? both(given, newGiven) : newGiven;
+        return givenAction(new ActionPredicate(condition, ActionRecipient.Target));
+    }
+
+    public ScenarioAction givenAction(Predicate<Action> condition) {
+        Objects.requireNonNull(condition);
+        given = given != null ? both(given, condition) : condition;
         scenario = null;
         return this;
     }
@@ -292,10 +292,46 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         return this;
     }
 
+    /**
+     * Assigns an {@link Action} that will be called if the scenario produces
+     * an error.
+     *
+     * @param action    an action.
+     * @return          this scenario.
+     *
+     * @throws NullPointerException if the given action is {@code null}.
+     */
+    public ScenarioAction onError(Action action) {
+        Objects.requireNonNull(action);
+        onError = action;
+        return this;
+    }
+
+    /**
+     * Assigns an {@link Action} that will be called when the scenario is
+     * reset. Resetting takes place outside of the action update cycle, so the
+     * given action will only be called once per reset.
+     *
+     * @param action    an action.
+     * @return          this scenario.
+     *
+     * @throws NullPointerException if the given action is {@code null}.
+     */
+    public ScenarioAction onReset(Action action) {
+        Objects.requireNonNull(action);
+        onReset = action;
+        return this;
+    }
+
     @Override
     public boolean act(float delta) {
         Action scenario = getScenario();
-        return scenario.act(delta);
+        if (! scenario.hasError()) {
+            return scenario.act(delta);
+        } else if (onError != null){
+            return onError.act(delta);
+        }
+        return true;
     }
 
     public boolean evaluate() {
@@ -313,6 +349,9 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     public void reset() {
         super.reset();
         Action scenario = getScenario();
+        if (onReset != null) {
+            onReset.act(0);
+        }
         scenario.reset();
     }
 
@@ -321,6 +360,14 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         super.restart();
         Action scenario = getScenario();
         scenario.restart();
+    }
+
+    @Override
+    public boolean hasError() {
+        if (scenario != null) {
+            return scenario.hasError();
+        }
+        return super.hasError();
     }
 
     @Override
@@ -347,23 +394,34 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         }
     }
 
+    @Override
+    public void setError(ActionException error) {
+        super.setError(error);
+        if (scenario != null) {
+            scenario.setError(error);
+        }
+    }
+
     protected void steps(T identifier) {
     }
 
     private Action getScenario() {
         if (scenario == null) {
             steps((T)getIdentifier());
-            scenario = build();
+            scenario = create();
+            setData(scenario);
+            setData(onError);
+            setData(onReset);
         }
         return scenario;
     }
 
-    private Action build() {
-        Action result = create();
-        result.setItem(getItem());
-        result.setTarget(getTarget());
-        result.setCause(getCause());
-        return result;
+    private void setData(Action action) {
+        if (action != null) {
+            action.setItem(getItem());
+            action.setTarget(getTarget());
+            action.setCause(getCause());
+        }
     }
 
     private Action create() {
@@ -383,16 +441,4 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         }
         return result;
     }
-
-//    private Action log(Action action) {
-//        SequenceAction result = new SequenceAction();
-//        result.add(log("Action sequence started: {}", getIdentifier()));
-//        result.add(action);
-//        result.add(log("Action sequence completed: {}", getIdentifier()));
-//        return action;
-//    }
-//
-//    private Action log(String message, Object ... values) {
-//        return new LambdaAction((i, t) -> logger.debug(message, values));
-//    }
 }
