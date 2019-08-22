@@ -45,6 +45,7 @@ import static com.evilbird.warcraft.action.construct.ConstructEvents.constructCo
 import static com.evilbird.warcraft.action.construct.ConstructEvents.constructStarted;
 import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacent;
 import static com.evilbird.warcraft.action.move.MoveToItemAction.move;
+import static com.evilbird.warcraft.action.select.SelectAction.deselect;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
@@ -98,6 +99,7 @@ public class ConstructSequence extends ScenarioSetAction
             .whenItem(not(isNear(getTarget())))
             .givenItem(isAlive())
             .givenAction(withoutError())
+            .then(deselect(events))
             .then(animate(Move))
             .then(move(events))
             .then(animate(Idle))

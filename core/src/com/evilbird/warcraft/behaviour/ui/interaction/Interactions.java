@@ -207,14 +207,19 @@ public class Interactions
         for (PlaceholderType placeholder: PlaceholderType.values()) {
             UnitType building = placeholder.getBuilding();
             ConstructActions action = ConstructActions.forProduct(building);
-            beginConstruction(placeholder, action);
+            beginConstruction(placeholder, action, building);
         }
     }
 
-    private void beginConstruction(PlaceholderType placeholder, ActionIdentifier action) {
+    private void beginConstruction(PlaceholderType placeholder, ConstructActions action, UnitType building) {
         interactions.addAction(action)
             .whenTarget(both(withType(placeholder), isPlaceholderClear()))
             .whenSelected(isGatherer())
+            .appliedTo(Selected);
+
+        interactions.addAction(action)
+            .whenSelected(both(isGatherer(), associatedWith(building)))
+            .whenTarget(both(isConstructing(), withType(building)))
             .appliedTo(Selected);
     }
 
