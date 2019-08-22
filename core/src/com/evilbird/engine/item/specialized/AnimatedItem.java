@@ -112,6 +112,7 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible, Direct
     public void setAnimation(Identifier id) {
         animationId = id;
         currentAnimation = null;
+        loadAnimation();
     }
 
     public void setAnimationAlias(Identifier animationId, Identifier aliasId) {

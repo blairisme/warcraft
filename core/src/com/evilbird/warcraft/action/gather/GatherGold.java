@@ -33,6 +33,7 @@ import static com.evilbird.engine.action.framework.DelayedAction.delay;
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.common.function.Predicates.nonNull;
 import static com.evilbird.warcraft.action.common.death.DeathAction.kill;
+import static com.evilbird.warcraft.action.common.exclusion.ExcludeActions.exclude;
 import static com.evilbird.warcraft.action.common.transfer.TransferAction.transferAll;
 import static com.evilbird.warcraft.action.gather.GatherAction.gather;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositComplete;
@@ -92,7 +93,7 @@ public class GatherGold extends ScenarioSetAction
             .then(deselect(events))
             .then(animate(Move))
             .then(move(events))
-            .then(hide(), disable(), deselect(events), animate(Target, Gathering))
+            .then(exclude(events), animate(Target, Gathering))
             .then(obtainStarted(events, GATHER_AMOUNT))
             .then(gather(progress(), GATHER_TIME))
             .then(transferAll(Target, Subject, GATHER_AMOUNT, events), obtainComplete(events, GATHER_AMOUNT))
