@@ -144,7 +144,6 @@ public class ConstructSequence extends ScenarioSetAction
             building.setAnimation(BuildingSite);
             building.setPosition(position);
             building.setVisible(true);
-            building.setZIndex(0);
         };
     }
 
