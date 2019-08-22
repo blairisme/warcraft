@@ -66,6 +66,7 @@ public class UnitTitlePane extends GridItem implements DetailsPaneElement
     private Label addTitle(Skin skin) {
         Label name = new Label("", skin);
         name.setAlignment(Align.center);
+        name.setWrap(true);
 
         Cell nameCell = add(name);
         nameCell.width(100);
