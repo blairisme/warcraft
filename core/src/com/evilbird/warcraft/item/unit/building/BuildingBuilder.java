@@ -48,25 +48,25 @@ public class BuildingBuilder
     }
 
     public Building build() {
-        Building result = new Building(getSkin(assets));
-        result.setAnimation(UnitAnimation.Idle);
-        result.setSelected(false);
-        result.setSelectable(true);
-        result.setTouchable(Touchable.enabled);
-        result.setSize(assets.getSize());
-        result.setZIndex(0);
-        return result;
+        return createBuilding(new Building(getSkin(assets)));
     }
 
     public Fort newFort() {
-        Fort result = new Fort(getSkin(assets));
-        result.setAnimation(UnitAnimation.Idle);
-        result.setSelected(false);
-        result.setSelectable(true);
-        result.setTouchable(Touchable.enabled);
-        result.setSize(assets.getSize());
-        result.setZIndex(0);
-        return result;
+        return createBuilding(new Fort(getSkin(assets)));
+    }
+
+    public ResourceExtractor newResourceExtractor() {
+        return createBuilding(new ResourceExtractor(getSkin(assets)));
+    }
+
+    private <T extends Building> T createBuilding(T building) {
+        building.setAnimation(UnitAnimation.Idle);
+        building.setSelected(false);
+        building.setSelectable(true);
+        building.setTouchable(Touchable.enabled);
+        building.setSize(assets.getSize());
+        building.setZIndex(0);
+        return building;
     }
 
     private Skin getSkin(BuildingAssets assets) {

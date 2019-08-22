@@ -21,6 +21,7 @@ import com.evilbird.warcraft.item.ui.display.control.status.details.common.UnitT
 import com.evilbird.warcraft.item.ui.display.control.status.details.resource.ResourceDetailsPane;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.building.Building;
+import com.evilbird.warcraft.item.unit.building.ResourceExtractor;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 
@@ -96,12 +97,12 @@ public class DetailsPane extends GridItem
     }
 
     private void setDetails(Item item) {
-        if (item instanceof Building) {
+        if (item instanceof Resource || item instanceof ResourceExtractor) {
+            setDetails(resourceDetails, item);
+        } else if (item instanceof Building) {
             setDetails(buildingDetails, item);
         } else if (item instanceof Combatant) {
             setDetails(combatantDetails, item);
-        } else if (item instanceof Resource) {
-            setDetails(resourceDetails, item);
         }
     }
 

@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.common.resource;
 
-import com.evilbird.engine.common.lang.Identifiable;
+import com.evilbird.engine.item.Item;
 
 /**
  * Implementors of this interface represent a container for the storage of
@@ -17,7 +17,7 @@ import com.evilbird.engine.common.lang.Identifiable;
  *
  * @author Blair Butterworth
  */
-public interface ResourceContainer extends Identifiable
+public interface ResourceContainer extends Item
 {
     float getResource(ResourceType resource);
 

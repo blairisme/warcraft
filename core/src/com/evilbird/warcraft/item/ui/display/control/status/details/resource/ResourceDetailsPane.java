@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
@@ -28,7 +29,7 @@ import com.evilbird.warcraft.item.unit.resource.Resource;
  */
 public class ResourceDetailsPane extends GridItem implements DetailsPaneElement
 {
-    private Resource resource;
+    private ResourceContainer resource;
     private Label resourceLabel;
     private float resourceValue;
     private DetailsPaneStyle style;
@@ -47,7 +48,7 @@ public class ResourceDetailsPane extends GridItem implements DetailsPaneElement
     }
 
     public void setItem(Item item) {
-        this.resource = (Resource)item;
+        this.resource = (ResourceContainer)item;
         this.resourceValue = -1;
     }
 
@@ -69,18 +70,22 @@ public class ResourceDetailsPane extends GridItem implements DetailsPaneElement
         }
     }
 
-    private String getResourceLabel(Resource resource, float value) {
+    private String getResourceLabel(ResourceContainer resource, float value) {
         switch ((UnitType)resource.getType()) {
             case GoldMine: return style.strings.getGoldRemaining(value);
-            case OilPatch: return style.strings.getOilRemaining(value);
+            case OilPatch:
+            case OilPlatform:
+            case OilRig: return style.strings.getOilRemaining(value);
             default: throw new UnsupportedOperationException();
         }
     }
 
-    private float getResourceValue(Resource resource) {
+    private float getResourceValue(ResourceContainer resource) {
         switch ((UnitType)resource.getType()) {
             case GoldMine: return resource.getResource(ResourceType.Gold);
-            case OilPatch: return resource.getResource(ResourceType.Oil);
+            case OilPatch:
+            case OilPlatform:
+            case OilRig: return resource.getResource(ResourceType.Oil);
             default: throw new UnsupportedOperationException();
         }
     }
