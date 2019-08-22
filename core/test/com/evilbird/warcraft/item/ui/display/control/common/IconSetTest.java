@@ -81,4 +81,10 @@ public class IconSetTest extends GameTestCase
         Drawable actual = iconSet.get(PlayerUpgrade.RangedDamage1, lumberMill);
         Assert.assertNotNull(actual);
     }
+
+    @Test
+    public void getSealIconTest() {
+        Drawable actual = iconSet.get(UnitType.Seal);
+        Assert.assertNotNull(actual);
+    }
 }

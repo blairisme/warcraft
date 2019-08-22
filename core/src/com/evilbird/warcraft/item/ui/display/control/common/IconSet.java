@@ -52,22 +52,6 @@ public class IconSet
     }
 
     /**
-     * Obtains the icon that represents the given {@link ActionButtonType},
-     * customized for the given {@link Unit}.
-     *
-     * @param button    the button type to whose icon is required.
-     * @param unit      the unit for which the icon will be shown.
-     * @return          a {@link Drawable} containing the required icon.
-     */
-    public Drawable get(ActionButtonType button, Unit unit) {
-        UnitType type = (UnitType)unit.getType();
-        WarcraftFaction faction = type.getFaction();
-        UnitAttack attack = type.getAttack();
-        IconLevel level = IconLevel.Basic;
-        return getIcon(specializations.getSpecialization(button, faction, attack, level));
-    }
-
-    /**
      * Obtains the icon that represents the given {@link ActionButtonType}.
      *
      * @param type  the button type to whose icon is required.
@@ -75,7 +59,7 @@ public class IconSet
      */
     public Drawable get(ActionButtonType type) {
         Objects.requireNonNull(type);
-        return getIcon(type);
+        return getIcon(specializations.getSpecialization(type));
     }
 
     /**
@@ -86,7 +70,27 @@ public class IconSet
      */
     public Drawable get(UnitType type) {
         Objects.requireNonNull(type);
-        return getIcon(type);
+        return getIcon(specializations.getSpecialization(type));
+    }
+
+    /**
+     * Obtains the icon that represents the given {@link ActionButtonType},
+     * customized for the given {@link Unit}.
+     *
+     * @param button    the button type to whose icon is required.
+     * @param unit      the unit for which the icon will be shown.
+     * @return          a {@link Drawable} containing the required icon.
+     */
+    public Drawable get(ActionButtonType button, Unit unit) {
+        Objects.requireNonNull(button);
+        Objects.requireNonNull(unit);
+
+        UnitType type = (UnitType)unit.getType();
+        WarcraftFaction faction = type.getFaction();
+        UnitAttack attack = type.getAttack();
+        IconLevel level = IconLevel.Basic;
+
+        return getIcon(specializations.getSpecialization(button, faction, attack, level));
     }
 
     /**

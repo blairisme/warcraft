@@ -223,6 +223,10 @@ public class IconSpecializations
         special(ActionButtonType.StopButton, Orc, Ship, Advanced), OrcArmourPlating2
     );
 
+    public Identifier getSpecialization(Identifier identifier) {
+        return specializations.getOrDefault(identifier, identifier);
+    }
+
     public Identifier getSpecialization(Identifier button, Identifier faction, Identifier attack, Identifier level) {
         Identifier alias = specializations.getOrDefault(button, button);
         return specializations.getOrDefault(special(button, faction, attack, level), alias);
