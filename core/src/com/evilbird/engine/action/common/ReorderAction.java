@@ -31,6 +31,10 @@ public class ReorderAction extends BasicAction
         return new ReorderAction(0);
     }
 
+    public static ReorderAction sendToFront() {
+        return new ReorderAction(Integer.MAX_VALUE);
+    }
+
     @Override
     public boolean act(float delta) {
         Item item = getItem();
