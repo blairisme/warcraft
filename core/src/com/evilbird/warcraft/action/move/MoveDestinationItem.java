@@ -43,7 +43,7 @@ class MoveDestinationItem implements MoveDestination
         Collection<ItemNode> adjacentNodes = graph.getAdjacentNodes(target);
         adjacentNodes.removeIf(not(traversable));
 
-        return SpatialUtils.getClosest(adjacentNodes, node);
+        return !adjacentNodes.isEmpty() ? SpatialUtils.getClosest(adjacentNodes, node) : null;
     }
 
     @Override

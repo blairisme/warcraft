@@ -42,16 +42,20 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     private int nodeHeight;
     private int nodeCountX;
     private int nodeCountY;
+    private transient Vector2 graphSize;
+    private transient Vector2 nodeSize;
     private transient ItemNode[][] nodes;
     private transient Predicate<Connection<ItemNode>> nodeFilter;
 
     public ItemGraph(ItemGraph graph, Predicate<ItemNode> nodeFilter) {
+        this.nodes = graph.nodes;
         this.nodeWidth = graph.nodeWidth;
         this.nodeHeight = graph.nodeHeight;
         this.nodeCountX = graph.nodeCountX;
         this.nodeCountY = graph.nodeCountY;
-        this.nodes = graph.nodes;
         this.nodeFilter = new ItemConnectionPredicate(nodeFilter);
+        this.nodeSize = new Vector2(nodeWidth, nodeHeight);
+        this.graphSize = new Vector2(nodeCountX * nodeWidth, nodeCountY * nodeHeight);
     }
 
     public ItemGraph(int nodeWidth, int nodeHeight, int nodeCountX, int nodeCountY) {
@@ -61,6 +65,8 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         this.nodeCountY = nodeCountY;
         this.nodeFilter = Predicates.accept();
         this.nodes = createNodeArray(nodeCountX, nodeCountY);
+        this.nodeSize = new Vector2(nodeWidth, nodeHeight);
+        this.graphSize = new Vector2(nodeCountX * nodeWidth, nodeCountY * nodeHeight);
     }
 
     @Override
@@ -88,6 +94,14 @@ public class ItemGraph implements SpatialGraph<ItemNode>
 
     public int getNodeWidth() {
         return nodeWidth;
+    }
+
+    public Vector2 getNodeSize() {
+        return nodeSize;
+    }
+
+    public Vector2 getGraphSize() {
+        return graphSize;
     }
 
     public ItemNode getNode(Vector2 worldPosition) {
