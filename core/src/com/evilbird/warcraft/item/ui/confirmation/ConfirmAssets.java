@@ -24,9 +24,14 @@ public class ConfirmAssets extends AssetBundle
     public ConfirmAssets(AssetManager assetManager) {
         super(assetManager);
         register("green-cross", "data/textures/common/ui/green_cross.png");
+        register("red-cross", "data/textures/common/ui/red_cross.png");
     }
 
     public Texture getGreenCross() {
         return getTexture("green-cross");
+    }
+
+    public Texture getRedCross() {
+        return getTexture("red-cross");
     }
 }

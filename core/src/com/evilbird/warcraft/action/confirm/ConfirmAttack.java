@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.action.confirm;
@@ -18,16 +18,17 @@ import com.evilbird.warcraft.item.ui.confirmation.ConfirmType;
 import javax.inject.Inject;
 
 /**
- * Instances of this {@link Action} show a confirmation effect over a given {@link Item}.
+ * Instances of this {@link Action} show an attack confirmation effect over a
+ * Item that's about to be attacked.
  *
  * @author Blair Butterworth
  */
-public class ConfirmItem extends ConfirmAction
+public class ConfirmAttack extends ConfirmAction
 {
     @Inject
-    public ConfirmItem() {
-        super(ConfirmType.Confirm);
-        setIdentifier(ConfirmActions.ConfirmTarget);
+    public ConfirmAttack() {
+        super(ConfirmType.Attack);
+        setIdentifier(ConfirmActions.ConfirmAttack);
     }
 
     @Override

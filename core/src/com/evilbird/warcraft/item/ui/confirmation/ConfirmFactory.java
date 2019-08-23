@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.ui.confirmation;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.Animation;
@@ -23,6 +24,7 @@ import com.evilbird.engine.item.specialized.AnimatedItemStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationLayouts;
 import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
+import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 import java.util.Collections;
@@ -66,7 +68,12 @@ public class ConfirmFactory implements GameFactory<Item>
 
     @Override
     public Item get(Identifier type) {
-        AnimatedItem result = new AnimatedItem(getSkin());
+        Validate.isInstanceOf(ConfirmType.class, type);
+        return get((ConfirmType)type);
+    }
+
+    private Item get(ConfirmType type) {
+        AnimatedItem result = new AnimatedItem(getSkin(type));
         result.setAnimation(UnitAnimation.Idle);
         result.setTouchable(Touchable.disabled);
         result.setType(ConfirmType.Confirm);
@@ -75,22 +82,30 @@ public class ConfirmFactory implements GameFactory<Item>
         return result;
     }
 
-    private Skin getSkin() {
+    private Skin getSkin(ConfirmType type) {
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(), AnimatedItemStyle.class);
+        skin.add("default", getAnimationStyle(type), AnimatedItemStyle.class);
         return skin;
     }
 
-    private AnimatedItemStyle getAnimationStyle() {
+    private AnimatedItemStyle getAnimationStyle(ConfirmType type) {
         AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
-        animatedItemStyle.animations = getAnimations();
+        animatedItemStyle.animations = getAnimations(type);
         animatedItemStyle.sounds = Collections.emptyMap();
         return animatedItemStyle;
     }
 
-    private Map<Identifier, Animation> getAnimations() {
+    private Map<Identifier, Animation> getAnimations(ConfirmType type) {
+        switch (type) {
+            case Attack: return getAnimations(assets.getRedCross());
+            case Confirm: return getAnimations(assets.getGreenCross());
+            default: throw new UnsupportedOperationException();
+        }
+    }
+
+    private Map<Identifier, Animation> getAnimations(Texture texture) {
         AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(UnitAnimation.Idle, AnimationLayouts.effectSchema(), assets. getGreenCross());
+        builder.set(UnitAnimation.Idle, AnimationLayouts.effectSchema(), texture);
         return builder.build();
     }
 }

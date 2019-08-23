@@ -18,5 +18,6 @@ import com.evilbird.engine.item.ItemType;
  */
 public enum ConfirmType implements ItemType
 {
-    Confirm
+    Confirm,
+    Attack
 }

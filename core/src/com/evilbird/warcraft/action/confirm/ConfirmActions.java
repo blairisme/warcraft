@@ -19,5 +19,6 @@ import com.evilbird.engine.action.ActionIdentifier;
 public enum ConfirmActions implements ActionIdentifier
 {
     ConfirmLocation,
-    ConfirmTarget
+    ConfirmTarget,
+    ConfirmAttack
 }

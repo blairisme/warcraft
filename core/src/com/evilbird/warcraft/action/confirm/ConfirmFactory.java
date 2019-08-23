@@ -26,14 +26,17 @@ public class ConfirmFactory implements ActionProvider
 {
     private InjectedPool<ConfirmItem> itemPool;
     private InjectedPool<ConfirmLocation> locationPool;
+    private InjectedPool<ConfirmAttack> attackPool;
 
     @Inject
     public ConfirmFactory(
         InjectedPool<ConfirmItem> itemPool,
-        InjectedPool<ConfirmLocation> locationPool)
+        InjectedPool<ConfirmLocation> locationPool,
+        InjectedPool<ConfirmAttack> attackPool)
     {
         this.itemPool = itemPool;
         this.locationPool = locationPool;
+        this.attackPool = attackPool;
     }
 
     @Override
@@ -41,6 +44,7 @@ public class ConfirmFactory implements ActionProvider
         switch ((ConfirmActions)action) {
             case ConfirmLocation: return locationPool.obtain();
             case ConfirmTarget: return itemPool.obtain();
+            case ConfirmAttack: return attackPool.obtain();
             default: throw new UnsupportedOperationException();
         }
     }

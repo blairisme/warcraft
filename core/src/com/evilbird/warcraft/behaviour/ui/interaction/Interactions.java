@@ -15,6 +15,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.confirm.ConfirmActions;
 import com.evilbird.warcraft.action.construct.ConstructActions;
 import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
@@ -44,6 +45,7 @@ import static com.evilbird.warcraft.action.attack.AttackActions.AttackCancel;
 import static com.evilbird.warcraft.action.camera.CameraActions.Focus;
 import static com.evilbird.warcraft.action.camera.CameraActions.Pan;
 import static com.evilbird.warcraft.action.camera.CameraActions.Zoom;
+import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmAttack;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmLocation;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmTarget;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherCancel;
@@ -136,13 +138,13 @@ public class Interactions
     }
 
     private void attackInteractions() {
-        interactions.addAction(Attack, ConfirmTarget)
+        interactions.addAction(Attack, ConfirmAttack)
             .whenSelected(both(isCorporeal(), isAttacker()))
             .whenTarget(isAi().and(isDestroyable()).and(not(isResource())))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
-        interactions.addAction(Attack, ConfirmTarget)
+        interactions.addAction(Attack, ConfirmAttack)
             .whenSelected(both(isCorporeal(), isAttacker()))
             .whenTarget(WallSection)
             .appliedTo(Selected)
@@ -452,7 +454,7 @@ public class Interactions
     private BiConsumer<Item, Action> confirmedAction() {
         return (subject, action) -> {
             Identifier id = action.getIdentifier();
-            if (id == ConfirmTarget || id == ConfirmLocation) {
+            if (id instanceof ConfirmActions) {
                 Item parent = subject.getParent();
                 parent.addAction(action);
             } else {
