@@ -29,7 +29,6 @@ import static com.evilbird.warcraft.item.data.player.PlayerIds.Player1;
 import static com.evilbird.warcraft.item.data.player.PlayerIds.Player2;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
-import static org.junit.Assert.*;
 
 /**
  * Instances of this unit test validate the {@link UnitDestruction} class.

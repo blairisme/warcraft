@@ -13,10 +13,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Arrays;
 
 /**
  * Instances of this unit test validate the {@link Maps} class.

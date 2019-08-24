@@ -10,16 +10,20 @@
 package com.evilbird.engine.common.math;
 
 import com.badlogic.gdx.math.GridPoint2;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- * Provides utility functions that operate on {@link GridPoint2 GridPoint2s}.
+ * Instances of this unit test validate the {@link GridPoints} class.
  *
  * @author Blair Butterworth
  */
-public class GridPoints
+public class GridPointsTest
 {
-    public static final GridPoint2 Zero = new GridPoint2(0, 0);
-
-    private GridPoints() {
+    @Test
+    public void zeroTest() {
+        GridPoint2 zero = GridPoints.Zero;
+        Assert.assertEquals(0, zero.x);
+        Assert.assertEquals(0, zero.y);
     }
 }

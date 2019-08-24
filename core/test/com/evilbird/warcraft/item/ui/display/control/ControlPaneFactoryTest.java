@@ -11,7 +11,6 @@ package com.evilbird.warcraft.item.ui.display.control;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.device.DeviceControls;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
@@ -21,7 +20,6 @@ import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonStyle;
 import com.evilbird.warcraft.state.WarcraftContext;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.Collection;

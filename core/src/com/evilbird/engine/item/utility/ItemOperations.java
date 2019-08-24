@@ -15,7 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.math.ShapeUtilities;
+import com.evilbird.engine.common.math.ShapeUtils;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
@@ -106,7 +106,7 @@ public class ItemOperations
         Vector2 position = locus.getPosition(Alignment.Center);
         float size = locus.getSize().x * 0.5f + radius;
         Circle perimeter = new Circle(position, size);
-        return ShapeUtilities.contains(perimeter, target);
+        return ShapeUtils.contains(perimeter, target);
     }
 
     public static boolean overlaps(Item itemA, Item itemB) {

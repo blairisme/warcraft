@@ -20,7 +20,7 @@ import com.evilbird.warcraft.item.unit.UnitDimensions;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.state.WarcraftContext;
 
-import static com.evilbird.engine.common.math.GridPoints.ZERO;
+import static com.evilbird.engine.common.math.GridPoints.Zero;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 
 /**
@@ -72,6 +72,6 @@ public class PlaceholderAssets extends AssetBundle
     private Drawable getDrawable(Object id, UnitType type) {
         Texture texture = getTexture(id);
         GridPoint2 dimensions = getSize(type);
-        return TextureUtils.getDrawable(texture, ZERO, dimensions);
+        return TextureUtils.getDrawable(texture, Zero, dimensions);
     }
 }
