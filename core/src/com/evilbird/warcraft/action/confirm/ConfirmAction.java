@@ -37,7 +37,7 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Acknowledge;
  */
 public abstract class ConfirmAction extends ScenarioAction
 {
-    private static transient final float ANIMATION_LIFETIME = 0.55f;
+    private static final transient float ANIMATION_LIFETIME = 0.55f;
 
     private transient ConfirmType type;
     private transient Identifier effectId;

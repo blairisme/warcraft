@@ -41,7 +41,7 @@ public class ResourceExtractor extends Building
 
     @Override
     public float getResource(ResourceType type) {
-        Resource resource = getResource();
+        Resource resource = getAssociatedResource();
         if (resource != null) {
             return resource.getResource(type);
         }
@@ -50,7 +50,7 @@ public class ResourceExtractor extends Building
 
     @Override
     public void setResource(ResourceType type, float value) {
-        Resource resource = getResource();
+        Resource resource = getAssociatedResource();
         if (resource != null) {
             resource.setResource(type, value);
             return;
@@ -58,7 +58,7 @@ public class ResourceExtractor extends Building
         super.setResource(type, value);
     }
 
-    private Resource getResource() {
+    private Resource getAssociatedResource() {
         Item association = getAssociatedItem();
         if (association == null) {
             association = getUnderlyingItem();
