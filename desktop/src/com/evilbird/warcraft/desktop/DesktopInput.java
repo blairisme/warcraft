@@ -97,6 +97,7 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
         depressedButton = button;
         depressedButtonX = x;
         depressedButtonY = y;
+
         if (button == SELECT_BUTTON) {
             UserInput input = new UserInput(PressDown, new Vector2(x, y), 1);
             addInput(input);
@@ -153,7 +154,7 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
     @Override
     public boolean scrolled(int amount) {
         float zoom = ZOOM_SENSITIVITY * amount;
-        UserInput input = new UserInput(Zoom, Zero, new Vector2(zoom, zoom), zoomCount++);
+        UserInput input = new UserInput(Zoom, Zero, new Vector2(zoom, zoom), ++zoomCount);
         addInput(input);
         return false;
     }
