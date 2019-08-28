@@ -12,6 +12,8 @@ package com.evilbird.warcraft.action.camera;
 import com.badlogic.gdx.math.MathUtils;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Zoomable;
+import com.evilbird.engine.device.Device;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.warcraft.item.data.camera.Camera;
 
@@ -27,12 +29,19 @@ import static com.evilbird.warcraft.action.camera.CameraActions.Zoom;
  */
 public class ZoomAction extends BasicAction
 {
-    private static final float ZOOM_MAX = 2f;
-    private static final float ZOOM_MIN = 0.5f;
+    private final float zoomMin;
+    private final float zoomMax;
 
     @Inject
-    public ZoomAction() {
+    public ZoomAction(Device device) {
+        this(device.getDeviceDisplay());
+    }
+
+    public ZoomAction(DeviceDisplay display) {
         setIdentifier(Zoom);
+        float scaleFactor = display.getScaleFactor();
+        zoomMin = 0.5f / scaleFactor;
+        zoomMax = 2f / scaleFactor;
     }
 
     @Override
@@ -43,7 +52,7 @@ public class ZoomAction extends BasicAction
         float current = camera.getZoom();
         float delta = input.getDelta().x;
         float scale = current + delta;
-        float zoom = MathUtils.clamp(scale, ZOOM_MIN, ZOOM_MAX);
+        float zoom = MathUtils.clamp(scale, zoomMin, zoomMax);
 
         camera.setZoom(zoom);
         return true;

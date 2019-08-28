@@ -26,7 +26,9 @@ public class ZoomActionTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        return new ZoomAction();
+        DeviceDisplay display = Mockito.mock(DeviceDisplay.class);
+        Mockito.when(display.getScaleFactor()).thenReturn(1f);
+        return new ZoomAction(display);
     }
 
     @Override

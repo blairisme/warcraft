@@ -35,4 +35,12 @@ public interface DeviceDisplay
      * Returns the screen resolution in dots-per-inch.
      */
     float getResolution();
+
+    /**
+     * Return the pixel scale factor of the Display window. When running in
+     * high DPI mode the operating system will scale the Display window to
+     * avoid the window shrinking due to high resolutions. Where high DPI mode
+     * is not available this method will return 1.0f.
+     */
+    float getScaleFactor();
 }

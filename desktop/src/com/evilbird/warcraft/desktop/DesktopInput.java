@@ -23,8 +23,8 @@ import java.util.List;
 import static com.badlogic.gdx.math.Vector2.Zero;
 import static com.evilbird.engine.device.UserInputType.Action;
 import static com.evilbird.engine.device.UserInputType.Drag;
-import static com.evilbird.engine.device.UserInputType.PressDrag;
 import static com.evilbird.engine.device.UserInputType.PressDown;
+import static com.evilbird.engine.device.UserInputType.PressDrag;
 import static com.evilbird.engine.device.UserInputType.PressUp;
 import static com.evilbird.engine.device.UserInputType.Zoom;
 

@@ -21,16 +21,21 @@ public class IosDisplay implements DeviceDisplay
 {
     @Override
     public float getDensity() {
-        return 0;
+        return 1.0f;
     }
 
     @Override
     public float getPixelUnits() {
-        return 0;
+        return 1.0f;
     }
 
     @Override
     public float getResolution() {
-        return 0;
+        return 1.0f;
+    }
+
+    @Override
+    public float getScaleFactor() {
+        return 1.0f;
     }
 }

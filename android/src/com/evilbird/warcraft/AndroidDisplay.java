@@ -35,4 +35,9 @@ public class AndroidDisplay implements DeviceDisplay
     public float getResolution() {
         return Gdx.graphics.getPpiX();
     }
+
+    @Override
+    public float getScaleFactor() {
+        return 1.0f;
+    }
 }

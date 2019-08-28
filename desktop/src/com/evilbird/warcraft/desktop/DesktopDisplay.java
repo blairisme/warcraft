@@ -12,7 +12,7 @@ package com.evilbird.warcraft.desktop;
 import com.evilbird.engine.device.DeviceDisplay;
 import org.lwjgl.opengl.Display;
 
-import java.awt.Toolkit;
+import java.awt.*;
 
 /**
  * Provides information about the current display, running on a desktop
@@ -38,5 +38,10 @@ public class DesktopDisplay implements DeviceDisplay
         float resolution = Toolkit.getDefaultToolkit().getScreenResolution();
         float scaleFactor = Display.getPixelScaleFactor();
         return resolution * scaleFactor;
+    }
+
+    @Override
+    public float getScaleFactor() {
+        return Display.getPixelScaleFactor();
     }
 }
