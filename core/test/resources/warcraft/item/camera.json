@@ -4,8 +4,8 @@
     "class": "CameraType",
     "enum": "Camera"
   },
-  "originalZoom": 0.0,
-  "currentZoom": 0.0,
+  "originalZoom": 1.0,
+  "currentZoom": 1.0,
   "id": {
     "class": "CameraType",
     "enum": "Camera"

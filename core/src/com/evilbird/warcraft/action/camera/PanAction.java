@@ -28,7 +28,7 @@ import static com.evilbird.warcraft.action.camera.CameraActions.Pan;
  */
 public class PanAction extends BasicAction
 {
-    private final float panSensitivity;
+    private transient final float panSensitivity;
 
     @Inject
     public PanAction(Device device) {

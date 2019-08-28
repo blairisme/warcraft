@@ -32,7 +32,9 @@ public class CameraTest extends GameTestCase
     @Before
     public void setup() {
         super.setup();
-        camera = new Camera(Mockito.mock(DeviceDisplay.class));
+        DeviceDisplay display = Mockito.mock(DeviceDisplay.class);
+        Mockito.when(display.getScaleFactor()).thenReturn(1f);
+        camera = new Camera(display);
         respondWithItem(camera);
     }
 

@@ -23,9 +23,10 @@ public class TestDevices
 
     public static Device newTestDevice() {
         AssetManager assets = newAssetManagerMock();
-        Device device = Mockito.mock(Device.class);
         DeviceDisplay display = Mockito.mock(DeviceDisplay.class);
+        Mockito.when(display.getScaleFactor()).thenReturn(1f);
 
+        Device device = Mockito.mock(Device.class);
         Mockito.when(device.getAssetStorage()).thenReturn(assets);
         Mockito.when(device.getDeviceDisplay()).thenReturn(display);
 
