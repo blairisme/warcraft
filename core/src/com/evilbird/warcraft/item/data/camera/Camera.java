@@ -47,7 +47,7 @@ public class Camera extends ItemBasic implements Zoomable
     public Camera(DeviceDisplay display) {
         camera = new OrthographicCamera(graphics.getWidth(), graphics.getHeight());
         camera.setToOrtho(false, 30, 20);
-        originalZoom = display.getPixelUnits();
+        originalZoom = 1 / display.getScaleFactor();
         camera.zoom = originalZoom;
         currentZoom = originalZoom;
 
