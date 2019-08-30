@@ -11,7 +11,7 @@ package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.specialized.AnimatedItem;
+import com.evilbird.engine.item.specialized.Viewable;
 
 /**
  * Instances of this class assigned an alias to a given animation identifier.
@@ -30,7 +30,7 @@ public class AnimationAliasAction extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        AnimatedItem item = (AnimatedItem)getItem();
+        Viewable item = (Viewable)getItem();
         item.setAnimationAlias(alias, id);
         return true;
     }

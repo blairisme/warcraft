@@ -10,7 +10,7 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.AnimatedItem;
+import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -27,7 +27,7 @@ import org.junit.Test;
 public class AnimateActionTest extends GameTestCase
 {
     private AnimateAction action;
-    private AnimatedItem item;
+    private Viewable item;
 
     @Before
     public void setup() {

@@ -24,7 +24,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-public class GridItem extends TableItem
+public class Grid extends Table
 {
     private int columnCount;
     private int itemMaximum;
@@ -34,7 +34,7 @@ public class GridItem extends TableItem
     private int cellWidthMinimum;
     private int cellHeightMinimum;
 
-    public GridItem(int columnCount, int rowCount) {
+    public Grid(int columnCount, int rowCount) {
         this.columnCount = columnCount;
         this.itemMaximum = columnCount * rowCount;
         setAlignment(Alignment.TopLeft);

@@ -18,7 +18,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemReference;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraphOccupant;
-import com.evilbird.engine.item.specialized.AnimatedItem;
+import com.evilbird.engine.item.specialized.Viewable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -33,7 +33,7 @@ import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
  *
  * @author Blair Butterworth
  */
-public class Unit extends AnimatedItem implements Destroyable, Selectable, ItemGraphOccupant
+public class Unit extends Viewable implements Destroyable, Selectable, ItemGraphOccupant
 {
     private int sight;
     private int armour;

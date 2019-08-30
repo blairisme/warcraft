@@ -12,7 +12,6 @@ package com.evilbird.engine.item.specialized;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.item.Item;
@@ -27,23 +26,23 @@ import java.util.Objects;
  *
  * @author Blair Butterworth
  */
-public class TableItem extends ItemGroup
+public class Table extends ItemGroup
 {
-    protected transient Table control;
+    protected transient com.badlogic.gdx.scenes.scene2d.ui.Table control;
     
-    public TableItem() {
+    public Table() {
         super();
     }
 
     /**
      * Adds a new cell to the table containing the given {@link Actor}. A
      * {@link Cell} reference will be returned, allowing the layout of the new
-     * <code>cell</code> to be customised.
+     * {@code Cell} to be customised.
      *
-     * @param actor  an <code>Actor</code> instance. This parameter cannot be
-     *              <code>null</code>.
-     * @return      a reference to the new <code>cell</code>. This method will
-     *              not return <code>null</code>.
+     * @param actor  an {@code Actor} instance. This parameter cannot be
+     *              {@code null}.
+     * @return      a reference to the new {@code Cell}. This method will
+     *              not return {@code null}.
      */
     public Cell<Actor> add(Actor actor) {
         Objects.requireNonNull(actor);
@@ -53,12 +52,12 @@ public class TableItem extends ItemGroup
     /**
      * Adds a new cell to the table containing the given {@link Item}. A
      * {@link Cell} reference will be returned, allowing the layout of the new
-     * <code>cell</code> to be customised.
+     * {@code Cell} to be customised.
      *
-     * @param item  an <code>Item</code> instance. This parameter cannot be
-     *              <code>null</code>.
-     * @return      a reference to the new <code>cell</code>. This method will
-     *              not return <code>null</code>.
+     * @param item  an {@code Item} instance. This parameter cannot be
+     *              {@code null}.
+     * @return      a reference to the new {@code Cell}. This method will
+     *              not return {@code null}.
      */
     public Cell<Actor> add(Item item) {
         Objects.requireNonNull(item);
@@ -72,8 +71,8 @@ public class TableItem extends ItemGroup
     /**
      * Adds a new cell to the table containing the given {@link Item}.
      *
-     * @param item  an <code>Item</code> instance. This parameter cannot be
-     *              <code>null</code>.
+     * @param item  an {@code Item} instance. This parameter cannot be
+     *              {@code null}.
      */
     @Override
     public void addItem(Item item) {
@@ -83,8 +82,8 @@ public class TableItem extends ItemGroup
     /**
      * Removes a cell from the Table containing the given {@link Item}.
      *
-     * @param item  an <code>Item</code> instance. This parameter cannot be
-     *              <code>null</code>.
+     * @param item  an {@code Item} instance. This parameter cannot be
+     *              {@code null}.
      */
     @Override
     public void removeItem(Item item) {

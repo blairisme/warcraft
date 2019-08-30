@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.engine.item.specialized.Grid;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 
@@ -23,7 +23,7 @@ import com.evilbird.warcraft.item.unit.UnitType;
  *
  * @author Blair Butterworth
  */
-public class UnitPane extends GridItem
+public class UnitPane extends Grid
 {
     private Unit unit;
     private Image icon;

@@ -16,18 +16,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Specified the layout of animation frames, their position and dimension,
+ * Specifies the layout of animation frames, their position and dimension,
  * within a texture.
  *
  * @author Blair Butterworth
  */
-public class AnimationSchema
+public class AnimationLayout
 {
     private float interval;
     private boolean loop;
     private Map<Range<Float>, List<Rectangle>> frames;
 
-    public AnimationSchema(Map<Range<Float>, List<Rectangle>> frames, float interval, boolean loop) {
+    public AnimationLayout(Map<Range<Float>, List<Rectangle>> frames, float interval, boolean loop) {
         this.frames = frames;
         this.interval = interval;
         this.loop = loop;

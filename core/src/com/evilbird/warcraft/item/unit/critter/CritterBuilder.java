@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.specialized.AnimatedItemStyle;
+import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationLayouts;
 import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -52,16 +52,16 @@ public class CritterBuilder
 
     private Skin getSkin(CritterAssets assets) {
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(assets), AnimatedItemStyle.class);
+        skin.add("default", getAnimationStyle(assets), ViewableStyle.class);
         skin.add("default", getUnitStyle(assets), UnitStyle.class);
         return skin;
     }
 
-    private AnimatedItemStyle getAnimationStyle(CritterAssets assets) {
-        AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
-        animatedItemStyle.animations = getAnimations(assets);
-        animatedItemStyle.sounds = getSounds(assets);
-        return animatedItemStyle;
+    private ViewableStyle getAnimationStyle(CritterAssets assets) {
+        ViewableStyle viewableStyle = new ViewableStyle();
+        viewableStyle.animations = getAnimations(assets);
+        viewableStyle.sounds = getSounds(assets);
+        return viewableStyle;
     }
 
     private Map<Identifier, Animation> getAnimations(CritterAssets assets) {

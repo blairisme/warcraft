@@ -19,21 +19,21 @@ import java.util.Map;
 import static java.util.Collections.emptyMap;
 
 /**
- * Defines the visual and auditory presentation of an {@link AnimatedItem}.
+ * Defines the visual and auditory presentation of an {@link Viewable}.
  *
  * @author Blair Butterworth
  */
-public class AnimatedItemStyle
+public class ViewableStyle
 {
     public Map<Identifier, Animation> animations;
     public Map<Identifier, SoundEffect> sounds;
 
-    public AnimatedItemStyle() {
+    public ViewableStyle() {
         animations = emptyMap();
         sounds = emptyMap();
     }
 
-    public AnimatedItemStyle(AnimatedItemStyle style) {
+    public ViewableStyle(ViewableStyle style) {
         animations = new HashMap<>(style.animations);
         sounds = new HashMap<>(style.sounds);
     }

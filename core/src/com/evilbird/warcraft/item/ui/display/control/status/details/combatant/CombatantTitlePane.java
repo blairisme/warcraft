@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.engine.item.specialized.Grid;
 import com.evilbird.warcraft.item.ui.display.control.common.UnitPane;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
@@ -28,11 +28,11 @@ import static com.evilbird.warcraft.item.ui.display.control.status.details.comba
  *
  * @author Blair Butterworth
  */
-public class CombatantTitlePane extends GridItem implements DetailsPaneElement
+public class CombatantTitlePane extends Grid implements DetailsPaneElement
 {
     private Label title;
     private Label level;
-    private GridItem labels;
+    private Grid labels;
     private UnitPane icon;
     private DetailsPaneStyle style;
 
@@ -70,8 +70,8 @@ public class CombatantTitlePane extends GridItem implements DetailsPaneElement
         return unitPane;
     }
 
-    private GridItem addContainer(Skin skin) {
-        GridItem container = new GridItem(1, 2);
+    private Grid addContainer(Skin skin) {
+        Grid container = new Grid(1, 2);
         container.setSkin(skin);
 
         Cell nameCell = add(container);
@@ -81,7 +81,7 @@ public class CombatantTitlePane extends GridItem implements DetailsPaneElement
         return container;
     }
 
-    private Label addLabel(GridItem parent, Skin skin) {
+    private Label addLabel(Grid parent, Skin skin) {
         Label name = new Label("", skin);
         name.setAlignment(Align.center);
 

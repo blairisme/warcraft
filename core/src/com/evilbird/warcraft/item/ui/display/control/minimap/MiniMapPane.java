@@ -11,7 +11,7 @@ package com.evilbird.warcraft.item.ui.display.control.minimap;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.item.specialized.TableItem;
+import com.evilbird.engine.item.specialized.Table;
 import com.evilbird.warcraft.item.ui.display.HudControl;
 
 /**
@@ -20,7 +20,7 @@ import com.evilbird.warcraft.item.ui.display.HudControl;
  *
  * @author Blair Butterworth
  */
-public class MiniMapPane extends TableItem
+public class MiniMapPane extends Table
 {
     public MiniMapPane(Skin skin) {
         setSkin(skin);

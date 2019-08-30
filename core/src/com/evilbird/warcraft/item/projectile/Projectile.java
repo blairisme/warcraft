@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.projectile;
 
-import com.evilbird.engine.item.specialized.AnimatedItem;
+import com.evilbird.engine.item.specialized.Viewable;
 
 import javax.inject.Inject;
 
@@ -18,7 +18,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class Projectile extends AnimatedItem
+public class Projectile extends Viewable
 {
     private static final transient int PROJECTILE_SPEED = 500;
 

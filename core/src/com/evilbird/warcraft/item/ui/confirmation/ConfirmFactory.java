@@ -19,8 +19,8 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.AnimatedItem;
-import com.evilbird.engine.item.specialized.AnimatedItemStyle;
+import com.evilbird.engine.item.specialized.Viewable;
+import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationLayouts;
 import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -73,7 +73,7 @@ public class ConfirmFactory implements GameFactory<Item>
     }
 
     private Item get(ConfirmType type) {
-        AnimatedItem result = new AnimatedItem(getSkin(type));
+        Viewable result = new Viewable(getSkin(type));
         result.setAnimation(UnitAnimation.Idle);
         result.setTouchable(Touchable.disabled);
         result.setType(ConfirmType.Confirm);
@@ -84,15 +84,15 @@ public class ConfirmFactory implements GameFactory<Item>
 
     private Skin getSkin(ConfirmType type) {
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(type), AnimatedItemStyle.class);
+        skin.add("default", getAnimationStyle(type), ViewableStyle.class);
         return skin;
     }
 
-    private AnimatedItemStyle getAnimationStyle(ConfirmType type) {
-        AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
-        animatedItemStyle.animations = getAnimations(type);
-        animatedItemStyle.sounds = Collections.emptyMap();
-        return animatedItemStyle;
+    private ViewableStyle getAnimationStyle(ConfirmType type) {
+        ViewableStyle viewableStyle = new ViewableStyle();
+        viewableStyle.animations = getAnimations(type);
+        viewableStyle.sounds = Collections.emptyMap();
+        return viewableStyle;
     }
 
     private Map<Identifier, Animation> getAnimations(ConfirmType type) {

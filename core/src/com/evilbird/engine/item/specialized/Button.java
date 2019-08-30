@@ -10,7 +10,6 @@
 package com.evilbird.engine.item.specialized;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.evilbird.engine.item.ItemBasic;
 import com.evilbird.engine.item.interop.ButtonDecorator;
@@ -20,11 +19,11 @@ import com.evilbird.engine.item.interop.ButtonDecorator;
  *
  * @author Blair Butterworth
  */
-public class ButtonItem extends ItemBasic
+public class Button extends ItemBasic
 {
-    private transient Button control;
+    private transient com.badlogic.gdx.scenes.scene2d.ui.Button control;
 
-    public ButtonItem(ButtonStyle style) {
+    public Button(ButtonStyle style) {
         super();
         setStyle(style);
     }

@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.engine.item.specialized.Grid;
 import com.evilbird.warcraft.item.ui.display.control.common.UnitPane;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
@@ -27,7 +27,7 @@ import com.evilbird.warcraft.item.unit.UnitType;
  *
  * @author Blair Butterworth
  */
-public class UnitTitlePane extends GridItem implements DetailsPaneElement
+public class UnitTitlePane extends Grid implements DetailsPaneElement
 {
     private Label title;
     private UnitPane icon;

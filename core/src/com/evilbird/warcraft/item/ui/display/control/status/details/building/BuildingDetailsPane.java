@@ -11,7 +11,7 @@ package com.evilbird.warcraft.item.ui.display.control.status.details.building;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.TableItem;
+import com.evilbird.engine.item.specialized.Table;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -22,7 +22,7 @@ import com.evilbird.warcraft.item.unit.building.Building;
  *
  * @author Blair Butterworth
  */
-public class BuildingDetailsPane extends TableItem implements DetailsPaneElement
+public class BuildingDetailsPane extends Table implements DetailsPaneElement
 {
     private ConstructionDetailsPane constructionDetails;
     private ProductionDetailsPane productionDetails;

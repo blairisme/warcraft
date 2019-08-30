@@ -11,10 +11,9 @@ package com.evilbird.test.data.item;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.SoundEffect;
-import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.specialized.AnimatedItemStyle;
+import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitStyle;
@@ -30,16 +29,16 @@ public class TestSkin
 
     public static Skin newTestSkin() {
         Skin skin = new Skin();
-        skin.add("default", newAnimationStyle(), AnimatedItemStyle.class);
+        skin.add("default", newAnimationStyle(), ViewableStyle.class);
         skin.add("default", new UnitStyle(), UnitStyle.class);
         return skin;
     }
 
-    private static AnimatedItemStyle newAnimationStyle() {
-        AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
-        animatedItemStyle.animations = newTestAnimations();
-        animatedItemStyle.sounds = newTestSounds();
-        return animatedItemStyle;
+    private static ViewableStyle newAnimationStyle() {
+        ViewableStyle viewableStyle = new ViewableStyle();
+        viewableStyle.animations = newTestAnimations();
+        viewableStyle.sounds = newTestSounds();
+        return viewableStyle;
     }
 
     private static Map<Identifier, Animation> newTestAnimations() {

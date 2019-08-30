@@ -14,11 +14,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.control.StyledLabel;
-import com.evilbird.engine.item.specialized.TableItem;
+import com.evilbird.engine.item.specialized.Table;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.ui.display.HudControl;
 
@@ -29,7 +28,7 @@ import com.evilbird.warcraft.item.ui.display.HudControl;
  *
  * @author Blair Butterworth
  */
-public class ResourcePane extends TableItem
+public class ResourcePane extends Table
 {
     private Label goldLabel;
     private Label oilLabel;
@@ -38,7 +37,7 @@ public class ResourcePane extends TableItem
     public ResourcePane(ResourcePaneStyle style) {
         setFillParent(true);
         setIdentifier(HudControl.ResourcePane);
-        Table container = addContainer(style.background);
+        com.badlogic.gdx.scenes.scene2d.ui.Table container = addContainer(style.background);
         goldLabel = addResource(container, style.goldIcon, style.font, style.colour);
         woodLabel = addResource(container, style.woodIcon, style.font, style.colour);
         oilLabel = addResource(container, style.oilIcon, style.font, style.colour);
@@ -73,13 +72,13 @@ public class ResourcePane extends TableItem
         }
     }
 
-    private Table addContainer(Drawable background) {
-        Table table = createTable(background);
+    private com.badlogic.gdx.scenes.scene2d.ui.Table addContainer(Drawable background) {
+        com.badlogic.gdx.scenes.scene2d.ui.Table table = createTable(background);
         insertTable(table);
         return table;
     }
 
-    private Label addResource(Table parent, Drawable icon, BitmapFont font, Color colour) {
+    private Label addResource(com.badlogic.gdx.scenes.scene2d.ui.Table parent, Drawable icon, BitmapFont font, Color colour) {
         Image image = createImage(icon);
         Label label = createLabel(font, colour);
         insertImage(parent, image);
@@ -87,8 +86,8 @@ public class ResourcePane extends TableItem
         return label;
     }
 
-    private Table createTable(Drawable background) {
-        Table table = new Table();
+    private com.badlogic.gdx.scenes.scene2d.ui.Table createTable(Drawable background) {
+        com.badlogic.gdx.scenes.scene2d.ui.Table table = new com.badlogic.gdx.scenes.scene2d.ui.Table();
         table.setBackground(background);
         return table;
     }
@@ -104,7 +103,7 @@ public class ResourcePane extends TableItem
         return label;
     }
 
-    private void insertTable(Table child) {
+    private void insertTable(com.badlogic.gdx.scenes.scene2d.ui.Table child) {
         Cell cell = add(child);
         cell.align(Align.top);
         cell.height(16);
@@ -113,7 +112,7 @@ public class ResourcePane extends TableItem
         cell.row();
     }
 
-    private void insertImage(Table table, Image image) {
+    private void insertImage(com.badlogic.gdx.scenes.scene2d.ui.Table table, Image image) {
         Cell cell = table.add(image);
         cell.width(14);
         cell.height(16);
@@ -122,7 +121,7 @@ public class ResourcePane extends TableItem
         cell.padBottom(1);
     }
 
-    private void insertLabel(Table table, Label label) {
+    private void insertLabel(com.badlogic.gdx.scenes.scene2d.ui.Table table, Label label) {
         Cell cell = table.add(label);
         cell.width(50);
         cell.height(16);

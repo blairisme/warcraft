@@ -66,6 +66,8 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Complete;
  */
 public class ConstructSequence extends ScenarioSetAction
 {
+    private static final int CONSTRUCT_SOUND_INTERVAL = 10;
+
     private transient Events events;
 
     /**
@@ -134,7 +136,7 @@ public class ConstructSequence extends ScenarioSetAction
     private Action build(UnitType building) {
         ParallelAction action = new ParallelAction();
         action.add(construct(progress(building), buildTime(building)));
-        action.add(playRepeat(Build, 5, whileTarget(isConstructing())));
+        action.add(playRepeat(Build, CONSTRUCT_SOUND_INTERVAL, whileTarget(isConstructing())));
         return action;
     }
 

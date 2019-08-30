@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.specialized.AnimatedItemStyle;
+import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationLayouts;
 import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -66,16 +66,16 @@ public class CombatantBuilder
 
     private Skin getSkin(CombatantAssets assets, CombatantVariety variety) {
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(assets, variety), AnimatedItemStyle.class);
+        skin.add("default", getAnimationStyle(assets, variety), ViewableStyle.class);
         skin.add("default", getUnitStyle(assets), UnitStyle.class);
         return skin;
     }
 
-    private AnimatedItemStyle getAnimationStyle(CombatantAssets assets, CombatantVariety variety) {
-        AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
-        animatedItemStyle.animations = getAnimations(assets, variety);
-        animatedItemStyle.sounds = getSounds(assets, variety);
-        return animatedItemStyle;
+    private ViewableStyle getAnimationStyle(CombatantAssets assets, CombatantVariety variety) {
+        ViewableStyle viewableStyle = new ViewableStyle();
+        viewableStyle.animations = getAnimations(assets, variety);
+        viewableStyle.sounds = getSounds(assets, variety);
+        return viewableStyle;
     }
 
     private Map<Identifier, Animation> getAnimations(CombatantAssets assets, CombatantVariety variety) {

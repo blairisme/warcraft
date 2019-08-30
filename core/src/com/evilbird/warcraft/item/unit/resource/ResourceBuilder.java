@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.specialized.AnimatedItemStyle;
+import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -54,16 +54,16 @@ public class ResourceBuilder
 
     private Skin getSkin() {
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(), AnimatedItemStyle.class);
+        skin.add("default", getAnimationStyle(), ViewableStyle.class);
         skin.add("default", getUnitStyle(), UnitStyle.class);
         return skin;
     }
 
-    private AnimatedItemStyle getAnimationStyle() {
-        AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
-        animatedItemStyle.animations = getAnimations();
-        animatedItemStyle.sounds = getSounds();
-        return animatedItemStyle;
+    private ViewableStyle getAnimationStyle() {
+        ViewableStyle viewableStyle = new ViewableStyle();
+        viewableStyle.animations = getAnimations();
+        viewableStyle.sounds = getSounds();
+        return viewableStyle;
     }
 
     private Map<Identifier, Animation> getAnimations() {

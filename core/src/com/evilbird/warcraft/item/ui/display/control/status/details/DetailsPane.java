@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.engine.item.specialized.Grid;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.ui.display.control.status.details.building.BuildingDetailsPane;
 import com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantDetailsPane;
@@ -34,7 +34,7 @@ import com.evilbird.warcraft.item.unit.resource.Resource;
  *
  * @author Blair Butterworth
  */
-public class DetailsPane extends GridItem
+public class DetailsPane extends Grid
 {
     private UnitTitlePane generalTitle;
     private CombatantTitlePane combatantTitle;

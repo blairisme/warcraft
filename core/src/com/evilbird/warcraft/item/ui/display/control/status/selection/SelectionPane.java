@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.ui.display.control.status.selection;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.engine.item.specialized.Grid;
 import com.evilbird.warcraft.item.ui.display.HudControl;
 import com.evilbird.warcraft.item.unit.Unit;
 
@@ -24,7 +24,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-public class SelectionPane extends GridItem
+public class SelectionPane extends Grid
 {
     private static final int SELECTION_MAX = 9;
 

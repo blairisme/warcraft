@@ -35,11 +35,13 @@ import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensions;
  */
 public class BuildingAssets extends AssetBundle
 {
+    private UnitType type;
     private GridPoint2 dimensions;
 
     public BuildingAssets(AssetManager manager, UnitType type, WarcraftContext context) {
         super(manager, assetPathVariables(type, context));
-        dimensions = getDimensions(type);
+        this.type = type;
+        this.dimensions = getDimensions(type);
 
         register("base", "data/textures/${faction}/building/${season}/${name}.png");
         register("construction", "data/textures/common/building/perennial/construction_${size}.png");
@@ -85,5 +87,9 @@ public class BuildingAssets extends AssetBundle
 
     public GridPoint2 getSize() {
         return dimensions;
+    }
+
+    public UnitType getType() {
+        return type;
     }
 }

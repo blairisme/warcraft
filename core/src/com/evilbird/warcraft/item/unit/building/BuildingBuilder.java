@@ -16,9 +16,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.specialized.AnimatedItemStyle;
+import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitStyle;
 import org.apache.commons.lang3.tuple.Pair;
@@ -71,16 +72,16 @@ public class BuildingBuilder
 
     private Skin getSkin(BuildingAssets assets) {
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(assets), AnimatedItemStyle.class);
+        skin.add("default", getAnimationStyle(assets), ViewableStyle.class);
         skin.add("default", getUnitStyle(assets), UnitStyle.class);
         return skin;
     }
 
-    private AnimatedItemStyle getAnimationStyle(BuildingAssets assets) {
-        AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
-        animatedItemStyle.animations = getAnimations(assets);
-        animatedItemStyle.sounds = getSounds(assets);
-        return animatedItemStyle;
+    private ViewableStyle getAnimationStyle(BuildingAssets assets) {
+        ViewableStyle viewableStyle = new ViewableStyle();
+        viewableStyle.animations = getAnimations(assets);
+        viewableStyle.sounds = getSounds(assets);
+        return viewableStyle;
     }
 
     private Map<Identifier, Animation> getAnimations(BuildingAssets assets) {
@@ -92,12 +93,14 @@ public class BuildingBuilder
 
     private Map<Identifier, Animation> getAnimations(Texture general, Texture construction, Texture destruction) {
         GridPoint2 size = assets.getSize();
+        float constructionTime = UnitCosts.buildTime(assets.getType()) / 2f;
+
         AnimationSetBuilder builder = new AnimationSetBuilder();
         builder.set(UnitAnimation.Idle, idleSingularSchema(size.x, size.y), general);
         builder.set(UnitAnimation.BuildingSite, constructStaticSchema(size.x, size.y), construction);
         builder.set(UnitAnimation.Construct, Arrays.asList(
-            Pair.of(constructBeginSchema(size.x, size.y), construction),
-            Pair.of(constructEndSchema(size.x, size.y), general)));
+            Pair.of(constructBeginSchema(size.x, size.y, constructionTime), construction),
+            Pair.of(constructEndSchema(size.x, size.y, constructionTime), general)));
         builder.set(UnitAnimation.Death, buildingDestructionScheme(), destruction);
         return builder.build();
     }

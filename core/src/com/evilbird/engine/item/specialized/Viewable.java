@@ -35,31 +35,31 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author Blair Butterworth
  */
-public class AnimatedItem extends ItemBasic implements Animated, Audible, Directionable, Styleable
+public class Viewable extends ItemBasic implements Animated, Audible, Directionable, Styleable
 {
     private float direction;
     private Identifier animationId;
     private Identifier soundId;
 
     private transient Skin skin;
-    private transient AnimatedItemStyle style;
+    private transient ViewableStyle style;
     private transient Animator animator;
     private transient SoundEffect sound;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
-     * an {@link AnimatedItemStyle}, specifying the visual and auditory
+     * an {@link ViewableStyle}, specifying the visual and auditory
      * presentation of the new {@code AnimatedItem}.
      *
      * @param skin a {@code Skin} instance. This method cannot be {@code null}.
      */
-    public AnimatedItem(Skin skin) {
+    public Viewable(Skin skin) {
         this();
         setSkin(skin);
     }
 
-    protected AnimatedItem() {
-        this.style = new AnimatedItemStyle();
+    protected Viewable() {
+        this.style = new ViewableStyle();
         this.animationId = null;
         this.animator = new Animator();
         this.soundId = null;
@@ -91,13 +91,13 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible, Direct
     @Override
     public void setStyle(String name) {
         Validate.validState(skin != null);
-        setStyle(skin.get(name, AnimatedItemStyle.class));
+        setStyle(skin.get(name, ViewableStyle.class));
     }
 
-    public void setStyle(AnimatedItemStyle style) {
+    public void setStyle(ViewableStyle style) {
         Validate.notNull(style.animations);
         Validate.notNull(style.sounds);
-        this.style = new AnimatedItemStyle(style);
+        this.style = new ViewableStyle(style);
     }
 
     @Override
@@ -187,7 +187,7 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible, Direct
         if (obj == this) { return true; }
         if (obj.getClass() != getClass()) { return false; }
 
-        AnimatedItem that = (AnimatedItem)obj;
+        Viewable that = (Viewable)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(direction, that.direction)

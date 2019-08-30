@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.specialized.AnimatedItemStyle;
+import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationLayouts;
 import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -60,23 +60,23 @@ public class GathererBuilder
 
     private Skin getLandGathererSkin() {
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(getLandAnimations()), AnimatedItemStyle.class);
+        skin.add("default", getAnimationStyle(getLandAnimations()), ViewableStyle.class);
         skin.add("default", getUnitStyle(), UnitStyle.class);
         return skin;
     }
 
     private Skin getSeaGathererSkin() {
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(getSeaAnimations()), AnimatedItemStyle.class);
+        skin.add("default", getAnimationStyle(getSeaAnimations()), ViewableStyle.class);
         skin.add("default", getUnitStyle(), UnitStyle.class);
         return skin;
     }
 
-    private AnimatedItemStyle getAnimationStyle(Map<Identifier, Animation> animations) {
-        AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
-        animatedItemStyle.animations = animations;
-        animatedItemStyle.sounds = getSounds();
-        return animatedItemStyle;
+    private ViewableStyle getAnimationStyle(Map<Identifier, Animation> animations) {
+        ViewableStyle viewableStyle = new ViewableStyle();
+        viewableStyle.animations = animations;
+        viewableStyle.sounds = getSounds();
+        return viewableStyle;
     }
 
     private Map<Identifier, Animation> getLandAnimations() {

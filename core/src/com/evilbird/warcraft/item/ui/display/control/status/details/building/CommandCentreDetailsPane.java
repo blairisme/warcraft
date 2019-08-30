@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.control.LabelProperty;
-import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.engine.item.specialized.Grid;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
@@ -28,7 +28,7 @@ import java.util.function.Supplier;
  *
  * @author Blair Butterworth
  */
-public class CommandCentreDetailsPane extends GridItem
+public class CommandCentreDetailsPane extends Grid
 {
     private Player player;
     private LabelProperty gold;

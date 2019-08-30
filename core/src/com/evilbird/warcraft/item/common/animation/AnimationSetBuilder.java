@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.graphics.AnimationBuilder;
-import com.evilbird.engine.common.graphics.AnimationSchema;
+import com.evilbird.engine.common.graphics.AnimationLayout;
 import com.evilbird.engine.common.graphics.BasicAnimation;
 import com.evilbird.engine.common.lang.Identifier;
 import org.apache.commons.lang3.Range;
@@ -31,7 +31,7 @@ import static com.evilbird.engine.common.collection.Arrays.union;
 public class AnimationSetBuilder
 {
     private Map<Identifier, Identifier> aliases;
-    private Map<Identifier, List<Pair<AnimationSchema, Texture>>> animations;
+    private Map<Identifier, List<Pair<AnimationLayout, Texture>>> animations;
 
     public AnimationSetBuilder() {
         aliases = new HashMap<>(2);
@@ -42,11 +42,11 @@ public class AnimationSetBuilder
         aliases.put(sourceId, targetId);
     }
 
-    public void set(Identifier id, AnimationSchema schema, Texture texture) {
+    public void set(Identifier id, AnimationLayout schema, Texture texture) {
         animations.put(id, Arrays.asList(Pair.of(schema, texture)));
     }
 
-    public void set(Identifier id, List<Pair<AnimationSchema, Texture>> data) {
+    public void set(Identifier id, List<Pair<AnimationLayout, Texture>> data) {
         animations.put(id, data);
     }
 
@@ -54,9 +54,9 @@ public class AnimationSetBuilder
         AnimationBuilder builder = new AnimationBuilder();
         Map<Identifier, Animation> result = new HashMap<>();
 
-        for (Entry<Identifier, List<Pair<AnimationSchema, Texture>>> animation : animations.entrySet()) {
+        for (Entry<Identifier, List<Pair<AnimationLayout, Texture>>> animation : animations.entrySet()) {
             BasicAnimation product = null;
-            for (Pair<AnimationSchema, Texture> schema : animation.getValue()) {
+            for (Pair<AnimationLayout, Texture> schema : animation.getValue()) {
                 builder.setSchema(schema.getKey());
                 builder.setTexture(schema.getValue());
                 product = product == null ? builder.build() : combine(product, builder.build());

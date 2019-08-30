@@ -21,7 +21,7 @@ import com.badlogic.gdx.utils.Scaling;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.engine.item.specialized.Grid;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.action.produce.ProduceUpgradeActions;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
@@ -33,7 +33,7 @@ import com.evilbird.warcraft.item.unit.building.Building;
  *
  * @author Blair Butterworth
  */
-public class ProductionDetailsPane extends GridItem
+public class ProductionDetailsPane extends Grid
 {
     private Building building;
     private Label productName;
@@ -70,20 +70,20 @@ public class ProductionDetailsPane extends GridItem
     }
 
     private void addProductDetails(Skin skin) {
-        GridItem container = new GridItem(2, 1);
+        Grid container = new Grid(2, 1);
         add(container);
 
         addProductLabel(skin, container);
         addProductImage(skin, container);
     }
 
-    private void addProductLabel(Skin skin, GridItem container) {
+    private void addProductLabel(Skin skin, Grid container) {
         productName = new Label("", skin);
         Cell cell = container.add(productName);
         cell.grow();
     }
 
-    private void addProductImage(Skin skin, GridItem container) {
+    private void addProductImage(Skin skin, Grid container) {
         DetailsPaneStyle style = skin.get(DetailsPaneStyle.class);
 
         Image background = new Image();

@@ -11,7 +11,7 @@ package com.evilbird.warcraft.item.common.animation;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
-import com.evilbird.engine.common.graphics.AnimationSchema;
+import com.evilbird.engine.common.graphics.AnimationLayout;
 import org.apache.commons.lang3.Range;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Defines animation frame dimensions and layouts.
+ * Defines common animation layouts.
  *
  * @author Blair Butterworth
  */
@@ -30,131 +30,132 @@ public class AnimationLayouts
     private AnimationLayouts() {
     }
 
-    public static AnimationSchema effectSchema() {
+    public static AnimationLayout effectSchema() {
         List<List<Rectangle>> regions = getRegions(1, 4, 0, 0, 32, 32);
         Collections.reverse(regions.get(0));
 
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 0.15f, false);
+        return new AnimationLayout(frames, 0.15f, false);
     }
 
-    public static AnimationSchema idleSchema() {
+    public static AnimationLayout idleSchema() {
         return idleSchema(72, 72);
     }
 
-    public static AnimationSchema idleSchema(GridPoint2 size) {
+    public static AnimationLayout idleSchema(GridPoint2 size) {
         return idleSchema(size.x, size.y);
     }
 
-    public static AnimationSchema idleSchema(int width, int height) {
+    public static AnimationLayout idleSchema(int width, int height) {
         List<List<Rectangle>> regions = getRegions(8, 1, 0, 0, width, height);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 0.15f, true);
+        return new AnimationLayout(frames, 0.15f, true);
     }
 
-    public static AnimationSchema idleSingularSchema(int width, int height) {
+    public static AnimationLayout idleSingularSchema(int width, int height) {
         List<List<Rectangle>> regions = getRegions(1, 1, 0, 0, width, height);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 1f, true);
+        return new AnimationLayout(frames, 1f, true);
     }
 
-    public static AnimationSchema constructStaticSchema(int width, int height) {
+    public static AnimationLayout constructStaticSchema(int width, int height) {
         List<List<Rectangle>> regions = getRegions(1, 1, 0, 0, width, height);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 1f, false);
+        return new AnimationLayout(frames, 1f, false);
     }
 
-    public static AnimationSchema constructBeginSchema(int width, int height) {
-        List<List<Rectangle>> regions = getRegions(1, 2, 0, 0, width, height);
+    public static AnimationLayout constructBeginSchema(int width, int height, float duration) {
+        int frameCount = 2;
+        List<List<Rectangle>> regions = getRegions(1, frameCount, 0, 0, width, height);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 8f, false);
+        return new AnimationLayout(frames, duration / frameCount, false);
     }
 
-    public static AnimationSchema constructEndSchema(int width, int height) {
-        List<List<Rectangle>> regions = getRegions(1, 2, 0, 0, width, height);
+    public static AnimationLayout constructEndSchema(int width, int height, float duration) {
+        int frameCount = 2;
+        List<List<Rectangle>> regions = getRegions(1, frameCount, 0, 0, width, height);
         Collections.reverse(regions.get(0));
-
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 8f, false);
+        return new AnimationLayout(frames, duration / frameCount, false);
     }
 
-    public static AnimationSchema gatheringSchema(int width, int height) {
+    public static AnimationLayout gatheringSchema(int width, int height) {
         List<List<Rectangle>> regions = getRegions(1, 1, 0, height, width, height);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 10f, false);
+        return new AnimationLayout(frames, 10f, false);
     }
 
-    public static AnimationSchema moveSchema() {
+    public static AnimationLayout moveSchema() {
         List<List<Rectangle>> regions = getRegions(8, 5, 0, 0, 72, 72);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 0.10f, true);
+        return new AnimationLayout(frames, 0.10f, true);
     }
 
-    public static AnimationSchema gatherWoodSchema() {
+    public static AnimationLayout gatherWoodSchema() {
         Map<Range<Float>, List<Rectangle>> frames = getFrames(getRegions(8, 4, 0, 360, 72, 72));
-        return new AnimationSchema(frames, 0.15f, true);
+        return new AnimationLayout(frames, 0.15f, true);
     }
 
-    public static AnimationSchema meleeAttackSchema() {
+    public static AnimationLayout meleeAttackSchema() {
         Map<Range<Float>, List<Rectangle>> attack = getFrames(getRegions(8, 4, 0, 360, 72, 72));
         Map<Range<Float>, List<Rectangle>> idle = getFrames(getRegions(8, 1, 0, 0, 72, 72));
         Map<Range<Float>, List<Rectangle>> frames = combineFrames(attack, idle);
-        return new AnimationSchema(frames, 0.15f, false);
+        return new AnimationLayout(frames, 0.15f, false);
     }
 
-    public static AnimationSchema rangedAttackSchema() {
+    public static AnimationLayout rangedAttackSchema() {
         Map<Range<Float>, List<Rectangle>> attack = getFrames(getRegions(8, 2, 0, 360, 72, 72));
         Map<Range<Float>, List<Rectangle>> idle = getFrames(getRegions(8, 1, 0, 0, 72, 72));
         Map<Range<Float>, List<Rectangle>> frames = combineFrames(attack, idle);
-        return new AnimationSchema(frames, 0.15f, false);
+        return new AnimationLayout(frames, 0.15f, false);
     }
 
-    public static AnimationSchema buildingDestructionScheme() {
+    public static AnimationLayout buildingDestructionScheme() {
         List<List<Rectangle>> regions = getRegions(1, 1, 0, 0, 64, 64);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 1f, true);
+        return new AnimationLayout(frames, 1f, true);
     }
 
-    public static AnimationSchema deathSchema() {
+    public static AnimationLayout deathSchema() {
         List<List<Rectangle>> regions = getRegions(8, 3, 0, 648, 72, 72);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 0.15f, false);
+        return new AnimationLayout(frames, 0.15f, false);
     }
 
-    public static AnimationSchema boatDeathSchema() {
+    public static AnimationLayout boatDeathSchema() {
         List<List<Rectangle>> regions = getRegions(8, 2, 0, 88, 80, 88);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 0.5f, false);
+        return new AnimationLayout(frames, 0.5f, false);
     }
 
-    public static AnimationSchema critterDeathSchema() {
+    public static AnimationLayout critterDeathSchema() {
         List<List<Rectangle>> regions = getRegions(1, 1, 0, 32, 32, 32);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 0.5f, false);
+        return new AnimationLayout(frames, 0.5f, false);
     }
 
-    public static AnimationSchema decomposeSchema() {
+    public static AnimationLayout decomposeSchema() {
         List<List<Rectangle>> regions = getRegions(8, 6, 0, 0, 72, 72);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 2f, false);
+        return new AnimationLayout(frames, 2f, false);
     }
 
-    public static AnimationSchema boatDecomposeSchema() {
+    public static AnimationLayout boatDecomposeSchema() {
         List<List<Rectangle>> regions = getRegions(1, 1, 0, 432, 72, 72);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 2f, false);
+        return new AnimationLayout(frames, 2f, false);
     }
 
-    public static AnimationSchema projectileStaticSchema() {
+    public static AnimationLayout projectileStaticSchema() {
         List<List<Rectangle>> regions = getRegions(8, 1, 0, 0, 40, 40);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 10f, false);
+        return new AnimationLayout(frames, 10f, false);
     }
 
-    public static AnimationSchema projectileAnimatedSchema() {
+    public static AnimationLayout projectileAnimatedSchema() {
         List<List<Rectangle>> regions = getRegions(1, 3, 0, 0, 32, 32);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-        return new AnimationSchema(frames, 0.2f, false);
+        return new AnimationLayout(frames, 0.2f, false);
     }
 
     private static List<List<Rectangle>> getRegions(int xCount, int yCount, int x, int y, int width, int height) {
@@ -166,7 +167,7 @@ public class AnimationLayouts
     }
 
     private static List<Rectangle> getRegions(int yCount, int x, int y, int width, int height) {
-        List<Rectangle> result = new ArrayList<Rectangle>(yCount);
+        List<Rectangle> result = new ArrayList<>(yCount);
         for (int yIndex = 0; yIndex < yCount; yIndex++) {
             result.add(new Rectangle(x, y + (yIndex * height), width, height));
         }

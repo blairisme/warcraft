@@ -14,9 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Pool;
 import com.evilbird.engine.common.graphics.Animation;
-import com.evilbird.engine.common.graphics.AnimationSchema;
+import com.evilbird.engine.common.graphics.AnimationLayout;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.specialized.AnimatedItemStyle;
+import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationLayouts;
 import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 
@@ -57,8 +57,8 @@ public class ProjectileBuilder
         return skin;
     }
 
-    private AnimatedItemStyle getStyle(ProjectileType type) {
-        AnimatedItemStyle style = new AnimatedItemStyle();
+    private ViewableStyle getStyle(ProjectileType type) {
+        ViewableStyle style = new ViewableStyle();
         style.sounds = Collections.emptyMap();
         style.animations = getAnimation(type);
         return style;
@@ -70,7 +70,7 @@ public class ProjectileBuilder
         return builder.build();
     }
 
-    private AnimationSchema getSchema(ProjectileType type) {
+    private AnimationLayout getSchema(ProjectileType type) {
         switch (type) {
             case Arrow: return AnimationLayouts.projectileStaticSchema();
             case Axe:

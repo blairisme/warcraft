@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.engine.item.specialized.Grid;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.item.unit.building.Building;
 
@@ -26,7 +26,7 @@ import static com.evilbird.engine.common.lang.Alignment.Bottom;
  *
  * @author Blair Butterworth
  */
-public class ConstructionDetailsPane extends GridItem
+public class ConstructionDetailsPane extends Grid
 {
     private Building building;
     private ProgressBar progress;

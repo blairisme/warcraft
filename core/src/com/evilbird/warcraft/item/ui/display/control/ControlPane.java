@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.item.ItemBasic;
-import com.evilbird.engine.item.specialized.TableItem;
+import com.evilbird.engine.item.specialized.Table;
 import com.evilbird.warcraft.item.ui.display.HudControl;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionPane;
 import com.evilbird.warcraft.item.ui.display.control.menu.MenuPane;
@@ -28,7 +28,7 @@ import com.evilbird.warcraft.item.ui.display.control.status.StatusPane;
  *
  * @author Blair Butterworth
  */
-public class ControlPane extends TableItem
+public class ControlPane extends Table
 {
     public ControlPane(Skin skin) {
         initialize(skin);
@@ -43,7 +43,7 @@ public class ControlPane extends TableItem
     }
 
     private void addControls(Skin skin) {
-        TableItem container = addContainer();
+        Table container = addContainer();
         ControlPaneStyle style = skin.get("default", ControlPaneStyle.class);
         if (style.showMenuButton) {
             addControl(container, new MenuPane(skin));
@@ -59,8 +59,8 @@ public class ControlPane extends TableItem
         }
     }
 
-    private TableItem addContainer() {
-        TableItem table = new TableItem();
+    private Table addContainer() {
+        Table table = new Table();
         table.setAlignment(Alignment.Top);
 
         Cell cell = add(table);
@@ -71,7 +71,7 @@ public class ControlPane extends TableItem
         return table;
     }
 
-    private void addControl(TableItem table, ItemBasic item) {
+    private void addControl(Table table, ItemBasic item) {
         Cell cell = table.add(item);
         cell.row();
     }

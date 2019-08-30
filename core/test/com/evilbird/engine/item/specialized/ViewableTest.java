@@ -25,23 +25,23 @@ import java.io.IOException;
 import static com.evilbird.test.data.item.TestSkin.newTestSkin;
 
 /**
- * Instances of this unit test validate the {@link AnimatedItem} class.
+ * Instances of this unit test validate the {@link Viewable} class.
  *
  * @author Blair Butterworth
  */
-public class AnimatedItemTest extends GameTestCase
+public class ViewableTest extends GameTestCase
 {
-    private AnimatedItem animatedItem;
+    private Viewable viewable;
 
     @Before
     public void setup() {
         super.setup();
-        animatedItem = newAnimatedItem();
-        Mockito.when(itemFactory.get(Mockito.any())).thenReturn(animatedItem);
+        viewable = newAnimatedItem();
+        Mockito.when(itemFactory.get(Mockito.any())).thenReturn(viewable);
     }
 
-    private AnimatedItem newAnimatedItem() {
-        AnimatedItem item = new AnimatedItem(newTestSkin());
+    private Viewable newAnimatedItem() {
+        Viewable item = new Viewable(newTestSkin());
         item.setType(UnitType.Footman);
         item.setSize(56, 78);
         item.setPosition(12, 34);
@@ -53,15 +53,15 @@ public class AnimatedItemTest extends GameTestCase
 
     @Test
     public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(AnimatedItem.class)
-            .withDeserializedForm(animatedItem)
+        SerializationVerifier.forClass(Viewable.class)
+            .withDeserializedForm(viewable)
             .withSerializedResource("/item/animateditem.json")
             .verify();
     }
 
     @Test
     public void equalsTest() {
-        EqualityVerifier.forClass(AnimatedItem.class)
+        EqualityVerifier.forClass(Viewable.class)
             .withMockedTransientFields()
             .excludeTransientFields()
             .verify();

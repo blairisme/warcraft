@@ -15,7 +15,7 @@ import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.GridItem;
+import com.evilbird.engine.item.specialized.Grid;
 import com.evilbird.warcraft.action.menu.MenuProvider;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.ui.display.HudControl;
@@ -41,7 +41,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal
  *
  * @author Blair Butterworth
  */
-public class ActionPane extends GridItem implements MenuProvider
+public class ActionPane extends Grid implements MenuProvider
 {
     private ActionPaneView view;
     private List<Item> selection;

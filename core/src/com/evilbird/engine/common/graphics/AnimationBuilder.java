@@ -23,7 +23,7 @@ import java.util.Map.Entry;
 
 /**
  * Instances of this class build {@link Animation Animations}. Animations are
- * built using a given {@link Texture} and a {@link AnimationSchema} which
+ * built using a given {@link Texture} and a {@link AnimationLayout} which
  * describes the layout of frames with the texture.
  *
  * @author Blair Butterworth
@@ -31,13 +31,13 @@ import java.util.Map.Entry;
 public class AnimationBuilder
 {
     private Texture texture;
-    private AnimationSchema schema;
+    private AnimationLayout schema;
 
     public void setTexture(Texture texture) {
         this.texture = texture;
     }
 
-    public void setSchema(AnimationSchema schema) {
+    public void setSchema(AnimationLayout schema) {
         this.schema = schema;
     }
 

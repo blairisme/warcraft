@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.ui.display.control.menu;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.evilbird.engine.item.specialized.TableItem;
+import com.evilbird.engine.item.specialized.Table;
 import com.evilbird.warcraft.item.ui.display.HudControl;
 
 /**
@@ -22,7 +22,7 @@ import com.evilbird.warcraft.item.ui.display.HudControl;
  *
  * @author Blair Butterworth
  */
-public class MenuPane extends TableItem
+public class MenuPane extends Table
 {
     public MenuPane(Skin skin) {
         initialize(skin);

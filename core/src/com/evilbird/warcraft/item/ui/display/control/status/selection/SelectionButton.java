@@ -12,8 +12,8 @@ package com.evilbird.warcraft.item.ui.display.control.status.selection;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.ButtonItem;
-import com.evilbird.engine.item.specialized.StackItem;
+import com.evilbird.engine.item.specialized.Button;
+import com.evilbird.engine.item.specialized.Stack;
 import com.evilbird.warcraft.item.ui.display.control.common.UnitPane;
 import com.evilbird.warcraft.item.unit.Unit;
 
@@ -26,7 +26,7 @@ import java.util.function.Supplier;
  *
  * @author Blair Butterworth
  */
-public class SelectionButton extends StackItem implements Supplier<Item>
+public class SelectionButton extends Stack implements Supplier<Item>
 {
     private Item item;
     private UnitPane icon;
@@ -38,7 +38,7 @@ public class SelectionButton extends StackItem implements Supplier<Item>
         icon.setType(SelectionButtonType.FocusButton);
         icon.setSize(54, 53);
 
-        ButtonItem button = new ButtonItem(buttonStyle(skin));
+        Button button = new Button(buttonStyle(skin));
         button.setType(SelectionButtonType.UnselectButton);
         button.setSize(18, 18);
         button.setPosition(40, 38);

@@ -21,7 +21,7 @@ import java.util.Objects;
  *
  * @author Blair Butterworth
  */
-public class StackItem extends ItemGroup
+public class Stack extends ItemGroup
 {
     public void add(Actor actor) {
         Objects.requireNonNull(actor);
