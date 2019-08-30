@@ -30,8 +30,32 @@ public interface Animated
      * Sets the currently displayed animation, identified by the given
      * animation identifier.
      *
-     * @param id    an {@link Identifier}. This methods may be {@code null},
-     *              indicating that no animation should be used.
+     * @param id    an {@link Identifier}.
+     *
+     * @throws NullPointerException if the given identifier is {@code null}.
      */
     void setAnimation(Identifier id);
+
+    /**
+     * Sets the currently displayed animation, identified by the given
+     * animation identifier, and instructs it to start rendering from the given
+     * time.
+     *
+     * @param id    an {@link Identifier}.
+     * @param time  the time at which to start the animation.
+     *
+     * @throws NullPointerException if the given identifier is {@code null}.
+     */
+    void setAnimation(Identifier id, float time);
+
+    /**
+     * Allows an animation to be referred to using an alias.
+     *
+     * @param animationId   the animation to be assigned an alias.
+     * @param aliasId       an alternative identifier for the given animation.
+     *
+     * @throws NullPointerException if either of the given identifiers is
+     *                              {@code null}.
+     */
+    void setAnimationAlias(Identifier animationId, Identifier aliasId);
 }

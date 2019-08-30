@@ -17,5 +17,6 @@ package com.evilbird.engine.common.lang;
 public enum GenericIdentifier implements Identifier
 {
     Unknown,
-    Root
+    Root,
+    None
 }

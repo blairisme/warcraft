@@ -17,6 +17,8 @@ package com.evilbird.engine.common.graphics;
  */
 public interface DirectionalAnimation extends Animation
 {
+    float getDirection();
+
     /**
      * Sets the direction of the animation, potentially altering its
      * appearance. Direction is specified in degrees.

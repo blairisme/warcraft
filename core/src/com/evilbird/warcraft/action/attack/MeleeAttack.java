@@ -33,6 +33,7 @@ import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.MeleeDamage2;
 public class MeleeAttack extends BasicAction
 {
     private transient float delay;
+    private transient boolean initialized;
 
     @Inject
     public MeleeAttack() {
@@ -44,12 +45,41 @@ public class MeleeAttack extends BasicAction
 
     @Override
     public boolean act(float time) {
+        if (! initialized()) {
+            initialize();
+        }
         if (! readyToAttack()) {
             reduceAttackDelay(time);
         } else {
             attackTarget();
         }
         return isTargetDead();
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        delay = -1;
+        initialized = false;
+    }
+
+    @Override
+    public void restart() {
+        super.restart();
+        delay = -1;
+        initialized = false;
+    }
+
+    private boolean initialized() {
+        return initialized;
+    }
+
+    private void initialize() {
+        initialized = true;
+        Combatant combatant = (Combatant)getItem();
+        combatant.setAnimation(UnitAnimation.Attack);
+        combatant.setSound(UnitSound.Attack);
+        delay = combatant.getAttackSpeed();
     }
 
     private boolean readyToAttack() {
@@ -64,14 +94,7 @@ public class MeleeAttack extends BasicAction
         Combatant combatant = (Combatant)getItem();
         Destroyable target = (Destroyable)getTarget();
         setTargetHealth(combatant, target);
-        setCombatantAnimation(combatant);
         delay = combatant.getAttackSpeed();
-    }
-
-    private void setCombatantAnimation(Combatant combatant) {
-        combatant.resetAnimation();
-        combatant.setAnimation(UnitAnimation.Attack);
-        combatant.setSound(UnitSound.Attack);
     }
 
     private void setTargetHealth(Combatant combatant, Destroyable target) {

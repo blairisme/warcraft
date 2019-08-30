@@ -12,6 +12,7 @@ package com.evilbird.engine.common.graphics;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import org.apache.commons.lang3.Range;
 
@@ -45,6 +46,11 @@ public class BasicAnimation implements DirectionalAnimation
         reset();
     }
 
+    @Override
+    public boolean isFinished(float time) {
+        return animation.isAnimationFinished(time);
+    }
+
     public Map<Range<Float>, Array<TextureRegion>> getFrames() {
         return frames;
     }
@@ -52,6 +58,12 @@ public class BasicAnimation implements DirectionalAnimation
     @Override
     public TextureRegion getFrame(float time) {
         return animation.getKeyFrame(time);
+    }
+
+    @Override
+    public Vector2 getSize() {
+        TextureRegion region = getFrame(0);
+        return new Vector2(region.getRegionWidth(), region.getRegionHeight());
     }
 
     public float getDirection() {

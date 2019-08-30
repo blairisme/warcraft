@@ -10,6 +10,7 @@
 package com.evilbird.engine.common.graphics;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Represents a sequence of images displayed in sequence. Each image of the
@@ -29,4 +30,9 @@ public interface Animation
      *              animation.
      */
     TextureRegion getFrame(float time);
+
+    Vector2 getSize();
+
+    boolean isFinished(float time);
+
 }

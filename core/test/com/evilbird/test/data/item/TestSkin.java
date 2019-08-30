@@ -13,11 +13,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.Animation;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.specialized.AnimatedItemStyle;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitStyle;
 import org.mockito.Mockito;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TestSkin
 {
@@ -33,8 +37,24 @@ public class TestSkin
 
     private static AnimatedItemStyle newAnimationStyle() {
         AnimatedItemStyle animatedItemStyle = new AnimatedItemStyle();
-        animatedItemStyle.animations = Maps.of(UnitAnimation.Build, Mockito.mock(Animation.class));
-        animatedItemStyle.sounds = Maps.of(UnitSound.Attack, Mockito.mock(SoundEffect.class));
+        animatedItemStyle.animations = newTestAnimations();
+        animatedItemStyle.sounds = newTestSounds();
         return animatedItemStyle;
+    }
+
+    private static Map<Identifier, Animation> newTestAnimations() {
+        Map<Identifier, Animation> result = new HashMap<>();
+        for (UnitAnimation animation: UnitAnimation.values()) {
+            result.put(animation, Mockito.mock(Animation.class));
+        }
+        return result;
+    }
+
+    private static Map<Identifier, SoundEffect> newTestSounds() {
+        Map<Identifier, SoundEffect> result = new HashMap<>();
+        for (UnitSound sound: UnitSound.values()) {
+            result.put(sound, Mockito.mock(SoundEffect.class));
+        }
+        return result;
     }
 }

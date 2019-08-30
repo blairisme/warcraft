@@ -10,11 +10,12 @@
 package com.evilbird.engine.item.specialized;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.audio.SilentSoundEffect;
 import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.Animation;
+import com.evilbird.engine.common.graphics.Animator;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.lang.Animated;
 import com.evilbird.engine.common.lang.Audible;
@@ -23,14 +24,10 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Styleable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemBasic;
+import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Collections;
-import java.util.Map;
 
 /**
  * Instances of this {@link Item} are drawn using a selection of given
@@ -40,18 +37,14 @@ import java.util.Map;
  */
 public class AnimatedItem extends ItemBasic implements Animated, Audible, Directionable, Styleable
 {
-    private static final transient Logger logger = LoggerFactory.getLogger(AnimatedItem.class);
-
     private float direction;
     private Identifier animationId;
     private Identifier soundId;
 
     private transient Skin skin;
-    private transient float animationTime;
-    private transient Animation currentAnimation;
-    private transient SoundEffect currentSound;
-    private transient Map<Identifier, Animation> animations;
-    private transient Map<Identifier, SoundEffect> sounds;
+    private transient AnimatedItemStyle style;
+    private transient Animator animator;
+    private transient SoundEffect sound;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
@@ -66,12 +59,11 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible, Direct
     }
 
     protected AnimatedItem() {
-        this.direction = 0;
-        this.animationTime = 0;
+        this.style = new AnimatedItemStyle();
         this.animationId = null;
+        this.animator = new Animator();
         this.soundId = null;
-        this.animations = Collections.emptyMap();
-        this.sounds = Collections.emptyMap();
+        this.sound = new SilentSoundEffect();
     }
 
     @Override
@@ -89,48 +81,56 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible, Direct
         return skin;
     }
 
+    @Override
     public void setSkin(Skin skin) {
+        Validate.notNull(skin);
         this.skin = skin;
         setStyle("default");
     }
 
     @Override
     public void setStyle(String name) {
-        AnimatedItemStyle style = skin.get(name, AnimatedItemStyle.class);
+        Validate.validState(skin != null);
+        setStyle(skin.get(name, AnimatedItemStyle.class));
+    }
 
-        this.animations = style.animations;
-        this.currentAnimation = null;
-        this.animationId = null;
-        this.animationTime = 0;
-
-        this.sounds = style.sounds;
-        this.currentSound = null;
-        this.soundId = null;
+    public void setStyle(AnimatedItemStyle style) {
+        Validate.notNull(style.animations);
+        Validate.notNull(style.sounds);
+        this.style = new AnimatedItemStyle(style);
     }
 
     @Override
     public void setAnimation(Identifier id) {
+        setAnimation(id, 0);
+    }
+
+    @Override
+    public void setAnimation(Identifier id, float startTime) {
+        Validate.notNull(id);
+        Validate.isTrue(style.animations.containsKey(id));
         animationId = id;
-        currentAnimation = null;
-        loadAnimation();
+        animator.setAnimationTime(startTime);
+        animator.setAnimation(style.animations.get(id));
+        setDirection(animator.getAnimation(), direction);
     }
 
+    @Override
     public void setAnimationAlias(Identifier animationId, Identifier aliasId) {
-        Animation animation = animations.get(animationId);
-        animations.put(aliasId, animation);
-    }
-
-    public void resetAnimation() {
-        animationTime = 0;
+        Validate.notNull(animationId);
+        Validate.notNull(aliasId);
+        Validate.isTrue(style.animations.containsKey(animationId));
+        style.animations.put(aliasId, style.animations.get(animationId));
     }
 
     @Override
     public void setSound(Identifier id) {
-        if (currentSound != null) {
-            currentSound.stop();
-        }
+        Validate.notNull(id);
+        Validate.isTrue(style.sounds.containsKey(id));
         soundId = id;
-        currentSound = null;
+        sound.stop();
+        sound = style.sounds.get(id);
+        sound.play();
     }
 
     @Override
@@ -151,13 +151,13 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible, Direct
     @Override
     public void setDirection(Vector2 normalizedDirection) {
         direction = normalizedDirection.angle();
-        setDirection(direction);
+        setDirection(animator.getAnimation(), direction);
     }
 
-    private void setDirection(float direction) {
-        if (currentAnimation instanceof DirectionalAnimation) {
-            DirectionalAnimation animation = (DirectionalAnimation)currentAnimation;
-            animation.setDirection(direction);
+    private void setDirection(Animation animation, float direction) {
+        if (animation instanceof DirectionalAnimation) {
+            DirectionalAnimation directionalAnimation = (DirectionalAnimation)animation;
+            directionalAnimation.setDirection(direction);
         }
     }
 
@@ -171,52 +171,14 @@ public class AnimatedItem extends ItemBasic implements Animated, Audible, Direct
 
     @Override
     public void draw(Batch batch, float alpha) {
-        if (currentAnimation != null) {
-            TextureRegion region = currentAnimation.getFrame(animationTime);
-            float width = region.getRegionWidth();
-            float height = region.getRegionHeight();
-            float widthHalfDelta = (width - getWidth()) * 0.5f;
-            float heightHalfDelta = (height - getHeight()) * 0.5f;
-            float x = getX() - widthHalfDelta;
-            float y = getY() - heightHalfDelta;
-            batch.draw(region, x, y, width, height);
-        }
+        super.draw(batch, alpha);
+        animator.draw(batch, getPosition(), getSize());
     }
 
     @Override
-    public void update(float delta) {
-        super.update(delta);
-        loadAnimation();
-        loadSound();
-        updateAnimation(delta);
-    }
-
-    private void loadAnimation() {
-        if (currentAnimation == null && animationId != null) {
-            if (animations.containsKey(animationId)) {
-                currentAnimation = animations.get(animationId);
-                setDirection(direction);
-            } else {
-                logger.warn("{} missing animation: {}", getType(), animationId);
-                animationId = null;
-            }
-        }
-    }
-
-    private void loadSound() {
-        if (currentSound == null && soundId != null) {
-            if (sounds.containsKey(soundId)) {
-                currentSound = sounds.get(soundId);
-                currentSound.play();
-            } else {
-                logger.warn("{} missing sound: {}", getType(), soundId);
-                soundId = null;
-            }
-        }
-    }
-
-    private void updateAnimation(float delta) {
-        animationTime += delta;
+    public void update(float time) {
+        super.update(time);
+        animator.update(time);
     }
 
     @Override

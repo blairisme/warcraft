@@ -24,6 +24,11 @@ import java.io.IOException;
 
 import static com.evilbird.test.data.item.TestSkin.newTestSkin;
 
+/**
+ * Instances of this unit test validate the {@link AnimatedItem} class.
+ *
+ * @author Blair Butterworth
+ */
 public class AnimatedItemTest extends GameTestCase
 {
     private AnimatedItem animatedItem;

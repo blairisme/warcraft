@@ -13,7 +13,10 @@ import com.evilbird.engine.common.audio.SoundEffect;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.lang.Identifier;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import static java.util.Collections.emptyMap;
 
 /**
  * Defines the visual and auditory presentation of an {@link AnimatedItem}.
@@ -23,6 +26,15 @@ import java.util.Map;
 public class AnimatedItemStyle
 {
     public Map<Identifier, Animation> animations;
-
     public Map<Identifier, SoundEffect> sounds;
+
+    public AnimatedItemStyle() {
+        animations = emptyMap();
+        sounds = emptyMap();
+    }
+
+    public AnimatedItemStyle(AnimatedItemStyle style) {
+        animations = new HashMap<>(style.animations);
+        sounds = new HashMap<>(style.sounds);
+    }
 }

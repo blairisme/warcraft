@@ -29,6 +29,17 @@ public interface Styleable
     Skin getSkin();
 
     /**
+     * Sets the Styleables skin, a bundle of named styles used to specify the
+     * visual and audible presentation of the Styleable.
+     *
+     * @param skin a {@link Skin}.
+     *
+     * @throws NullPointerException thrown if the given {@code Skin} is
+     *                              {@code null}.
+     */
+    void setSkin(Skin skin);
+
+    /**
      * Sets the currently used style, thereby altering the visual and audible
      * presentation of the Styleable.
      *

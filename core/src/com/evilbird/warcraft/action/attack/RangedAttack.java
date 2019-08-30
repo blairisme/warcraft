@@ -157,7 +157,6 @@ public class RangedAttack extends BasicAction
         projectile.setVisible(true);
         projectile.setAnimation(UnitAnimation.Idle);
 
-        combatant.resetAnimation();
         combatant.setAnimation(UnitAnimation.Attack);
         combatant.setSound(UnitSound.Attack);
     }
