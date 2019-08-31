@@ -28,16 +28,9 @@ import static com.evilbird.warcraft.action.camera.CameraActions.Pan;
  */
 public class PanAction extends BasicAction
 {
-    private transient final float panSensitivity;
-
     @Inject
-    public PanAction(Device device) {
-        this(device.getDeviceDisplay());
-    }
-
-    public PanAction(DeviceDisplay display) {
+    public PanAction() {
         setIdentifier(Pan);
-        panSensitivity = display.getScaleFactor();
     }
 
     @Override
@@ -46,8 +39,7 @@ public class PanAction extends BasicAction
         Camera camera = (Camera)getItem();
 
         Vector2 delta = cause.getDelta();
-        Vector2 zoomed = delta.scl(camera.getZoom());
-        Vector2 scaled = zoomed.scl(panSensitivity);
+        Vector2 scaled = delta.scl(camera.getZoom());
 
         Vector2 current = camera.getPosition();
         Vector2 result = current.add(scaled);

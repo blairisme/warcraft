@@ -38,6 +38,6 @@ public class AndroidDisplay implements DeviceDisplay
 
     @Override
     public float getScaleFactor() {
-        return 1.0f;
+        return getDensity();
     }
 }

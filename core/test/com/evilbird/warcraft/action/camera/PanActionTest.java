@@ -28,7 +28,7 @@ public class PanActionTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        return new PanAction(newTestDevice());
+        return new PanAction();
     }
 
     @Override
