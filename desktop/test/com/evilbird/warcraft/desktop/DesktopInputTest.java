@@ -36,6 +36,8 @@ public class DesktopInputTest
     @Before
     public void setup() {
         DeviceDisplay display = Mockito.mock(DeviceDisplay.class);
+        Mockito.when(display.getScaleFactor()).thenReturn(1f);
+
         Input gdxInput = Mockito.mock(Input.class);
         input = new DesktopInput(display, gdxInput);
     }
