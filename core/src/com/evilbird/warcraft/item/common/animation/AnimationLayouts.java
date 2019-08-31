@@ -100,7 +100,7 @@ public class AnimationLayouts
         Map<Range<Float>, List<Rectangle>> attack = getFrames(getRegions(8, 4, 0, 360, 72, 72));
         Map<Range<Float>, List<Rectangle>> idle = getFrames(getRegions(8, 1, 0, 0, 72, 72));
         Map<Range<Float>, List<Rectangle>> frames = combineFrames(attack, idle);
-        return new AnimationLayout(frames, 0.15f, false);
+        return new AnimationLayout(frames, 0.15f, true);
     }
 
     public static AnimationLayout rangedAttackSchema() {

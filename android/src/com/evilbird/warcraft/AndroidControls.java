@@ -19,7 +19,12 @@ import com.evilbird.engine.device.DeviceControls;
 public class AndroidControls implements DeviceControls
 {
     @Override
-    public boolean hasMenuButton() {
+    public boolean supportMenuOption() {
+        return true;
+    }
+
+    @Override
+    public boolean supportsPause() {
         return true;
     }
 }

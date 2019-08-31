@@ -11,6 +11,7 @@ package com.evilbird.warcraft;
 
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.LocalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.evilbird.engine.device.DeviceStorage;
@@ -29,12 +30,10 @@ import java.util.List;
  */
 public class AndroidStorage implements DeviceStorage
 {
-    private static final String STORAGE_ROOT = ".warcraft2" + File.separator;
-
     private FileHandleResolver resolver;
 
     public AndroidStorage() {
-        this(new ExternalFileHandleResolver());
+        this(new LocalFileHandleResolver());
     }
 
     public AndroidStorage(FileHandleResolver resolver) {
@@ -49,7 +48,7 @@ public class AndroidStorage implements DeviceStorage
     @Override
     public List<String> list(String path) throws IOException {
         try {
-            FileHandle handle = resolver.resolve(STORAGE_ROOT + path);
+            FileHandle handle = resolver.resolve(path);
             return convert(handle.list());
         }
         catch (GdxRuntimeException error) {
@@ -68,7 +67,7 @@ public class AndroidStorage implements DeviceStorage
     @Override
     public Reader read(String path) throws IOException {
         try {
-            FileHandle handle = resolver.resolve(STORAGE_ROOT + path);
+            FileHandle handle = resolver.resolve(path);
             return handle.reader();
         }
         catch (GdxRuntimeException error) {
@@ -79,7 +78,7 @@ public class AndroidStorage implements DeviceStorage
     @Override
     public Writer write(String path) throws IOException {
         try {
-            FileHandle handle = resolver.resolve(STORAGE_ROOT + path);
+            FileHandle handle = resolver.resolve(path);
             createDirectory(handle);
             return handle.writer(false);
         }
@@ -99,7 +98,7 @@ public class AndroidStorage implements DeviceStorage
     @Override
     public void remove(String path) throws IOException {
         try {
-            FileHandle handle = resolver.resolve(STORAGE_ROOT + path);
+            FileHandle handle = resolver.resolve(path);
             handle.delete();
         }
         catch (GdxRuntimeException error) {

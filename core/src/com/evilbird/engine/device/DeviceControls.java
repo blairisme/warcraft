@@ -17,5 +17,7 @@ package com.evilbird.engine.device;
  */
 public interface DeviceControls
 {
-    boolean hasMenuButton();
+    boolean supportMenuOption();
+
+    boolean supportsPause();
 }

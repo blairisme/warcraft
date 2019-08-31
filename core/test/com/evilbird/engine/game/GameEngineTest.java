@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.game;
 
+import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.error.ErrorScreen;
 import com.evilbird.engine.game.loader.LoaderScreen;
 import com.evilbird.engine.menu.Menu;
@@ -41,6 +42,7 @@ public class GameEngineTest extends GameTestCase
 
     @Before
     public void setup() {
+        Device device = mock(Device.class);
         ErrorScreen errorScreen = mock(ErrorScreen.class);
         LoaderScreen loaderScreen = mock(LoaderScreen.class);
         menuScreen = mock(MenuScreen.class);
@@ -49,7 +51,7 @@ public class GameEngineTest extends GameTestCase
         menuFactory = mock(MenuFactory.class);
         StateService stateService = mock(StateService.class);
         GameAssets gameAssets = mock(GameAssets.class);
-        engine = new GameEngine(
+        engine = new GameEngine(device,
             errorScreen, loaderScreen, menuScreen, menuOverlay,
             stateScreen, menuFactory, stateService, gameAssets);
     }

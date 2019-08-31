@@ -19,6 +19,7 @@ import com.evilbird.engine.common.serialization.Serializer;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceStorage;
 import com.evilbird.engine.game.GameContext;
+import com.evilbird.engine.state.ApplicationState;
 import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateLoadError;
@@ -26,6 +27,7 @@ import com.evilbird.engine.state.StateService;
 import com.evilbird.engine.state.StateType;
 
 import javax.inject.Inject;
+import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -115,6 +117,17 @@ public class WarcraftStateService implements StateService
     @Override
     public void set(StateIdentifier identifier, State state) {
         FileHandle handle = resolve(identifier);
+        try {
+            File file = handle.file();
+            if (! file.exists()) {
+                File parent = file.getParentFile();
+                parent.mkdirs();
+                file.createNewFile();
+            }
+        }
+        catch (IOException error){
+            throw new StateLoadError(error);
+        }
         try (Writer writer = handle.writer(false)) {
             serializer.serialize((WarcraftState)state, WarcraftState.class, writer);
         }
@@ -135,6 +148,10 @@ public class WarcraftStateService implements StateService
     }
 
     private FileHandle resolve(StateIdentifier identifier) {
+        if (identifier instanceof ApplicationState) {
+            WarcraftSave save = new WarcraftSave((ApplicationState)identifier);
+            return saveFile(save.getFileName());
+        }
         if (identifier instanceof WarcraftSave) {
             WarcraftSave save = (WarcraftSave)identifier;
             return saveFile(save.getFileName());

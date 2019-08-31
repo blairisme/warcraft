@@ -19,7 +19,12 @@ import com.evilbird.engine.device.DeviceControls;
 public class DesktopControls implements DeviceControls
 {
     @Override
-    public boolean hasMenuButton() {
+    public boolean supportMenuOption() {
+        return false;
+    }
+
+    @Override
+    public boolean supportsPause() {
         return false;
     }
 }

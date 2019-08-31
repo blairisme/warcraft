@@ -9,20 +9,16 @@
 
 package com.evilbird.warcraft.item.ui.display.control;
 
-import com.badlogic.gdx.Application.ApplicationType;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.engine.device.DeviceControls;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.state.WarcraftContext;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
-
-import static com.badlogic.gdx.Application.ApplicationType.Android;
-import static com.badlogic.gdx.Application.ApplicationType.iOS;
 
 /**
  * Instances of this factory create {@link ControlPane ControlPanes}, loading
@@ -33,22 +29,23 @@ import static com.badlogic.gdx.Application.ApplicationType.iOS;
 public class ControlPaneFactory implements GameFactory<ControlPane>
 {
     private AssetManager manager;
+    private DeviceControls controls;
     private ControlPaneAssets assets;
     private ControlPaneBuilder builder;
 
     @Inject
     public ControlPaneFactory(Device device) {
-        this(device.getAssetStorage());
+        this(device.getAssetStorage(), device.getDeviceControls());
     }
 
-    public ControlPaneFactory(AssetManager manager) {
+    public ControlPaneFactory(AssetManager manager, DeviceControls controls) {
         this.manager = manager;
+        this.controls = controls;
     }
 
     @Override
     public ControlPane get(Identifier type) {
-        ApplicationType applicationType = Gdx.app.getType();
-        if (applicationType == Android || applicationType == iOS) {
+        if (controls.supportMenuOption()) {
             return builder.newCompactControlPane();
         }
         return builder.newControlPane();

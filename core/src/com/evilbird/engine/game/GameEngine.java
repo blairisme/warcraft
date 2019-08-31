@@ -11,6 +11,8 @@ package com.evilbird.engine.game;
 
 import com.badlogic.gdx.Game;
 import com.evilbird.engine.common.concurrent.CompleteFuture;
+import com.evilbird.engine.device.Device;
+import com.evilbird.engine.device.DeviceControls;
 import com.evilbird.engine.game.error.ErrorScreen;
 import com.evilbird.engine.game.loader.LoaderScreen;
 import com.evilbird.engine.menu.Menu;
@@ -30,6 +32,7 @@ import javax.inject.Singleton;
 import java.util.concurrent.Future;
 
 import static com.evilbird.engine.common.lang.GenericIdentifier.Root;
+import static com.evilbird.engine.state.ApplicationState.AutoSave;
 
 /**
  * Instances of this class represent the entry point into the game, which
@@ -42,6 +45,7 @@ public class GameEngine extends Game implements GameController
 {
     private static final Logger logger = LoggerFactory.getLogger(GameEngine.class);
 
+    private Device device;
     private ErrorScreen errorScreen;
     private LoaderScreen loaderScreen;
     private MenuScreen menuScreen;
@@ -54,6 +58,7 @@ public class GameEngine extends Game implements GameController
 
     @Inject
     public GameEngine(
+        Device device,
         ErrorScreen errorScreen,
         LoaderScreen loaderScreen,
         MenuScreen menuScreen,
@@ -63,6 +68,7 @@ public class GameEngine extends Game implements GameController
         StateService stateService,
         GameAssets gameAssets)
     {
+        this.device = device;
         this.errorScreen = errorScreen;
         this.gameAssets = gameAssets;
         this.loaderScreen = loaderScreen;
@@ -146,6 +152,22 @@ public class GameEngine extends Game implements GameController
         catch (Throwable error) {
             handleError(error);
             return new CompleteFuture<>();
+        }
+    }
+
+    @Override
+    public void pause() {
+        DeviceControls controls = device.getDeviceControls();
+        if (controls.supportsPause() && isStateShown()) {
+            saveState(AutoSave);
+        }
+    }
+
+    @Override
+    public void resume() {
+        DeviceControls controls = device.getDeviceControls();
+        if (controls.supportsPause() && !stateScreen.hasState()) {
+            showState(AutoSave);
         }
     }
 

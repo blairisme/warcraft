@@ -51,6 +51,10 @@ public class StateScreen extends ScreenAdapter
         return identifier;
     }
 
+    public boolean hasState() {
+        return state != null;
+    }
+
     public void setController(GameController controller) {
         this.controller = controller;
         updateController();
