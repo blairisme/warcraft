@@ -51,9 +51,10 @@ public class GameEngineTest extends GameTestCase
         menuFactory = mock(MenuFactory.class);
         StateService stateService = mock(StateService.class);
         GameAssets gameAssets = mock(GameAssets.class);
+        GamePreferences preferences = mock(GamePreferences.class);
         engine = new GameEngine(device,
             errorScreen, loaderScreen, menuScreen, menuOverlay,
-            stateScreen, menuFactory, stateService, gameAssets);
+            stateScreen, menuFactory, stateService, gameAssets, preferences);
     }
 
     @Test

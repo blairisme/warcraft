@@ -55,6 +55,7 @@ public class GameEngine extends Game implements GameController
     private StateService stateService;
     private Runnable initialScreen;
     private GameAssets gameAssets;
+    private GamePreferences preferences;
 
     @Inject
     public GameEngine(
@@ -66,7 +67,8 @@ public class GameEngine extends Game implements GameController
         StateScreen stateScreen,
         MenuFactory menuFactory,
         StateService stateService,
-        GameAssets gameAssets)
+        GameAssets gameAssets,
+        GamePreferences preferences)
     {
         this.device = device;
         this.errorScreen = errorScreen;
@@ -83,6 +85,7 @@ public class GameEngine extends Game implements GameController
         this.menuOverlay.setMenuScreen(menuScreen);
         this.menuOverlay.setStateScreen(stateScreen);
         this.initialScreen = this::showMenu;
+        this.preferences = preferences;
     }
 
     @Override
@@ -160,13 +163,14 @@ public class GameEngine extends Game implements GameController
         DeviceControls controls = device.getDeviceControls();
         if (controls.supportsPause() && isStateShown()) {
             saveState(AutoSave);
+            preferences.setGamePaused(true);
         }
     }
 
     @Override
     public void resume() {
         DeviceControls controls = device.getDeviceControls();
-        if (controls.supportsPause() && !stateScreen.hasState()) {
+        if (controls.supportsPause() && preferences.getGamePaused()) {
             showState(AutoSave);
         }
     }
