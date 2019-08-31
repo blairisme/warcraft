@@ -112,3 +112,10 @@ idea {
 
 dependencies {
 }
+
+task installer(type: Zip) {
+    description "Generate application installer"
+    from 'build/outputs/apk/debug/android-debug.apk'
+    archiveName 'Warcraft-Android.zip'
+    destinationDir file('build/installer')
+}
