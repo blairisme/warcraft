@@ -12,6 +12,7 @@ package com.evilbird.warcraft.desktop;
 import com.evilbird.engine.device.DeviceDisplay;
 import org.lwjgl.opengl.Display;
 
+import javax.inject.Inject;
 import java.awt.*;
 
 /**
@@ -22,6 +23,13 @@ import java.awt.*;
  */
 public class DesktopDisplay implements DeviceDisplay
 {
+    private float scaleFactor;
+
+    @Inject
+    public DesktopDisplay() {
+        scaleFactor = -1;
+    }
+
     @Override
     public float getDensity() {
          return getResolution() / 160f;
@@ -42,6 +50,9 @@ public class DesktopDisplay implements DeviceDisplay
 
     @Override
     public float getScaleFactor() {
-        return Display.getPixelScaleFactor();
+        if (scaleFactor == -1) {
+            scaleFactor = Display.getPixelScaleFactor();
+        }
+        return scaleFactor;
     }
 }

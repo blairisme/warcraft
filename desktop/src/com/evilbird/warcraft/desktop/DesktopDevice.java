@@ -31,10 +31,10 @@ public class DesktopDevice implements Device
     private AssetManager assets;
 
     public DesktopDevice() {
-        this.input = new DesktopInput();
         this.assets = new DesktopAssets();
         this.storage = new DesktopStorage();
         this.display = new DesktopDisplay();
+        this.input = new DesktopInput(display);
         this.controls = new DesktopControls();
     }
 

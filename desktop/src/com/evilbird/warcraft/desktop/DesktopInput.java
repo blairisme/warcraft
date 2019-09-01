@@ -14,6 +14,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.input.AbstractGestureObserver;
 import com.evilbird.engine.common.input.GestureAnalyzer;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.device.DeviceInput;
 import com.evilbird.engine.device.UserInput;
 
@@ -39,6 +40,7 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
     private static final float ZOOM_SENSITIVITY = 0.10f;
     private static final int SELECT_BUTTON = 1;
 
+    private DeviceDisplay display;
     private Input input;
     private List<UserInput> inputs;
     private int panCount;
@@ -47,11 +49,12 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
     private float depressedButtonX;
     private float depressedButtonY;
 
-    public DesktopInput() {
-        this(Gdx.input);
+    public DesktopInput(DeviceDisplay display) {
+        this(display, Gdx.input);
     }
 
-    public DesktopInput(Input input) {
+    public DesktopInput(DeviceDisplay display, Input input) {
+        this.display = display;
         this.input = input;
         this.inputs = new ArrayList<>();
         this.panCount = 0;
@@ -99,8 +102,7 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
         depressedButtonY = y;
 
         if (button == SELECT_BUTTON) {
-            UserInput input = new UserInput(PressDown, new Vector2(x, y), 1);
-            addInput(input);
+            addInput(new UserInput(PressDown, new Vector2(x, y), 1));
         }
         return false;
     }
@@ -108,16 +110,14 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
     @Override
     public boolean touchUp(int x, int y, int pointer, int button) {
         if (button == SELECT_BUTTON) {
-            UserInput input = new UserInput(PressUp, new Vector2(x, y), 1);
-            addInput(input);
+            addInput(new UserInput(PressUp, new Vector2(x, y), 1));
         }
         return false;
     }
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
-        UserInput input = new UserInput(Action, new Vector2(x, y), 1);
-        addInput(input);
+        addInput(new UserInput(Action, new Vector2(x, y), 1));
         return true;
     }
 
@@ -132,16 +132,15 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
     private boolean panCamera(float x, float y, float deltaX, float deltaY) {
         Vector2 position = new Vector2(x, y);
         Vector2 delta = new Vector2(deltaX * -1, deltaY);
-        UserInput input = new UserInput(Drag, position, delta, ++panCount);
-        addInput(input);
+        Vector2 distance = delta.scl(display.getScaleFactor());
+        addInput(new UserInput(Drag, position, distance, ++panCount));
         return true;
     }
 
     private boolean panSelection(float x, float y) {
         Vector2 origin = new Vector2(depressedButtonX, depressedButtonY);
         Vector2 size = new Vector2(x, y);
-        UserInput input = new UserInput(PressDrag, origin, size, ++panCount);
-        addInput(input);
+        addInput(new UserInput(PressDrag, origin, size, ++panCount));
         return true;
     }
 
@@ -154,8 +153,9 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
     @Override
     public boolean scrolled(int amount) {
         float zoom = ZOOM_SENSITIVITY * amount;
-        UserInput input = new UserInput(Zoom, Zero, new Vector2(zoom, zoom), ++zoomCount);
-        addInput(input);
+        Vector2 delta = new Vector2(zoom, zoom);
+        Vector2 distance = delta.scl(1 / display.getScaleFactor());
+        addInput(new UserInput(Zoom, Zero, distance, ++zoomCount));
         return false;
     }
 }

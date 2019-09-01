@@ -126,3 +126,10 @@ idea {
 
 dependencies {
 }
+
+task installer(dependsOn: 'assembleRelease', type: Copy) {
+    description "Generate application installer"
+    from 'build/outputs/apk/release/android-release.apk'
+    into 'build/installer/'
+    rename 'android-release.apk', 'Warcraft-Android.apk'
+}

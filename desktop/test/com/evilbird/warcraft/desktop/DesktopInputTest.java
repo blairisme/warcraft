@@ -11,6 +11,7 @@ package com.evilbird.warcraft.desktop;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import org.junit.Before;
@@ -34,8 +35,11 @@ public class DesktopInputTest
 
     @Before
     public void setup() {
+        DeviceDisplay display = Mockito.mock(DeviceDisplay.class);
+        Mockito.when(display.getScaleFactor()).thenReturn(1f);
+
         Input gdxInput = Mockito.mock(Input.class);
-        input = new DesktopInput(gdxInput);
+        input = new DesktopInput(display, gdxInput);
     }
 
     @Test

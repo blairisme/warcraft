@@ -30,7 +30,9 @@ deploy:
   provider: releases
   api_key: $GITHUB_DEPLOY_OAUTH_TOKEN
   file_glob: true
-  file: $TRAVIS_BUILD_DIR/desktop/build/installer/*
+  file:
+    - "$TRAVIS_BUILD_DIR/desktop/build/installer/Warcraft-MacOS.zip"
+    - "$TRAVIS_BUILD_DIR/desktop/build/installer/Warcraft-Windows.zip"
   skip_cleanup: true
   overwrite: true
   on:

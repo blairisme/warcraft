@@ -29,8 +29,8 @@ import static com.evilbird.warcraft.action.camera.CameraActions.Zoom;
  */
 public class ZoomAction extends BasicAction
 {
-    private transient final float zoomMin;
-    private transient final float zoomMax;
+    private final transient float zoomMin;
+    private final transient float zoomMax;
 
     @Inject
     public ZoomAction(Device device) {

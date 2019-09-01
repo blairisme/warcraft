@@ -37,7 +37,7 @@ public class ResourcePane extends Table
     public ResourcePane(ResourcePaneStyle style) {
         setFillParent(true);
         setIdentifier(HudControl.ResourcePane);
-        com.badlogic.gdx.scenes.scene2d.ui.Table container = addContainer(style.background);
+        Table container = addContainer(style.background);
         goldLabel = addResource(container, style.goldIcon, style.font, style.colour);
         woodLabel = addResource(container, style.woodIcon, style.font, style.colour);
         oilLabel = addResource(container, style.oilIcon, style.font, style.colour);
@@ -72,13 +72,13 @@ public class ResourcePane extends Table
         }
     }
 
-    private com.badlogic.gdx.scenes.scene2d.ui.Table addContainer(Drawable background) {
-        com.badlogic.gdx.scenes.scene2d.ui.Table table = createTable(background);
+    private Table addContainer(Drawable background) {
+        Table table = createTable(background);
         insertTable(table);
         return table;
     }
 
-    private Label addResource(com.badlogic.gdx.scenes.scene2d.ui.Table parent, Drawable icon, BitmapFont font, Color colour) {
+    private Label addResource(Table parent, Drawable icon, BitmapFont font, Color colour) {
         Image image = createImage(icon);
         Label label = createLabel(font, colour);
         insertImage(parent, image);
@@ -86,8 +86,8 @@ public class ResourcePane extends Table
         return label;
     }
 
-    private com.badlogic.gdx.scenes.scene2d.ui.Table createTable(Drawable background) {
-        com.badlogic.gdx.scenes.scene2d.ui.Table table = new com.badlogic.gdx.scenes.scene2d.ui.Table();
+    private Table createTable(Drawable background) {
+        Table table = new Table();
         table.setBackground(background);
         return table;
     }
@@ -103,7 +103,7 @@ public class ResourcePane extends Table
         return label;
     }
 
-    private void insertTable(com.badlogic.gdx.scenes.scene2d.ui.Table child) {
+    private void insertTable(Table child) {
         Cell cell = add(child);
         cell.align(Align.top);
         cell.height(16);
@@ -112,7 +112,7 @@ public class ResourcePane extends Table
         cell.row();
     }
 
-    private void insertImage(com.badlogic.gdx.scenes.scene2d.ui.Table table, Image image) {
+    private void insertImage(Table table, Image image) {
         Cell cell = table.add(image);
         cell.width(14);
         cell.height(16);
@@ -121,7 +121,7 @@ public class ResourcePane extends Table
         cell.padBottom(1);
     }
 
-    private void insertLabel(com.badlogic.gdx.scenes.scene2d.ui.Table table, Label label) {
+    private void insertLabel(Table table, Label label) {
         Cell cell = table.add(label);
         cell.width(50);
         cell.height(16);
