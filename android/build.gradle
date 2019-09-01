@@ -27,11 +27,20 @@ def loadProperties(String propertiesPath) {
 
 android {
     signingConfigs {
-        config {
-            keyAlias project.ext.get('signing.android.key.alias')
-            keyPassword project.ext.get('signing.android.keystore.password')
-            storeFile file(project.ext.get('signing.android.keystore.file'))
-            storePassword project.ext.get('signing.android.keystore.password')
+        if (project.ext.has('signing.android.enabled')) {
+            config {
+                keyAlias project.ext.get('signing.android.key.alias')
+                keyPassword project.ext.get('signing.android.keystore.password')
+                storeFile file(project.ext.get('signing.android.keystore.file'))
+                storePassword project.ext.get('signing.android.keystore.password')
+            }
+        }
+    }
+    buildTypes {
+        if (project.ext.has('signing.android.enabled')) {
+            release {
+                signingConfig signingConfigs.config
+            }
         }
     }
     buildToolsVersion '28.0.3'
@@ -60,11 +69,31 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildTypes {
-        release {
-            signingConfig signingConfigs.config
+}
+
+idea {
+    module {
+        sourceDirs += file("src");
+        scopes = [COMPILE: [plus: [project.configurations.compile]]]
+
+        iml {
+            withXml {
+                def node = it.asNode()
+                def builder = NodeBuilder.newInstance();
+                builder.current = node;
+                builder.component(name: "FacetManager") {
+                    facet(type: "android", name: "Android") {
+                        configuration {
+                            option(name: "UPDATE_PROPERTY_FILES", value: "true")
+                        }
+                    }
+                }
+            }
         }
     }
+}
+
+dependencies {
 }
 
 // called every time gradle gets executed, takes the native dependencies of
@@ -99,32 +128,6 @@ task run(type: Exec) {
     def adb = sdk + "/platform-tools/adb"
     def launcher = 'com.evilbird.warcraft/com.evilbird.warcraft.AndroidLauncher'
     commandLine "$adb", 'shell', 'am', 'start', '-n', launcher
-}
-
-// sets up the Android Idea project, using the old Ant based build.
-idea {
-    module {
-        sourceDirs += file("src");
-        scopes = [COMPILE: [plus: [project.configurations.compile]]]
-
-        iml {
-            withXml {
-                def node = it.asNode()
-                def builder = NodeBuilder.newInstance();
-                builder.current = node;
-                builder.component(name: "FacetManager") {
-                    facet(type: "android", name: "Android") {
-                        configuration {
-                            option(name: "UPDATE_PROPERTY_FILES", value: "true")
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-dependencies {
 }
 
 task installer(dependsOn: 'assembleRelease', type: Copy) {
