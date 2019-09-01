@@ -83,7 +83,7 @@ task windowsInstaller(dependsOn: createExe, type: Zip) {
 }
 
 task installer(dependsOn: [macInstaller, windowsInstaller]) {
-    description "Generate application installers"
+    description "Generate application installer"
 }
 
 task report(dependsOn: test, type: JacocoReport) {

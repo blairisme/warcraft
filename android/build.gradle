@@ -7,7 +7,33 @@
  *      https://opensource.org/licenses/MIT
  */
 
+ext {
+    loadProperties("../local.properties")
+    loadProperties("../secure.properties")
+}
+
+def loadProperties(String propertiesPath) {
+    def propertiesFile = project.file(propertiesPath)
+    if (propertiesFile.exists()) {
+        Properties properties = new Properties()
+        propertiesFile.withInputStream { inputStream ->
+            properties.load(inputStream)
+        }
+        properties.each { property ->
+            project.ext.set(property.key, property.value)
+        }
+    }
+}
+
 android {
+    signingConfigs {
+        config {
+            keyAlias project.ext.get('signing.android.key.alias')
+            keyPassword project.ext.get('signing.android.keystore.password')
+            storeFile file(project.ext.get('signing.android.keystore.file'))
+            storePassword project.ext.get('signing.android.keystore.password')
+        }
+    }
     buildToolsVersion '28.0.3'
     compileSdkVersion 24
     sourceSets {
@@ -20,8 +46,6 @@ android {
             assets.srcDirs = ['assets']
             jniLibs.srcDirs = ['libs']
         }
-
-        //instrumentTest.setRoot('tests')
     }
     packagingOptions {
         exclude 'META-INF/robovm/ios/robovm.xml'
@@ -35,6 +59,11 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.config
+        }
     }
 }
 
@@ -66,25 +95,10 @@ task copyAndroidNatives() {
 }
 
 task run(type: Exec) {
-    def path
-    def localProperties = project.file("../local.properties")
-    if (localProperties.exists()) {
-        Properties properties = new Properties()
-        localProperties.withInputStream { instr ->
-            properties.load(instr)
-        }
-        def sdkDir = properties.getProperty('sdk.dir')
-        if (sdkDir) {
-            path = sdkDir
-        } else {
-            path = "$System.env.ANDROID_HOME"
-        }
-    } else {
-        path = "$System.env.ANDROID_HOME"
-    }
-
-    def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.evilbird.warcraft/com.evilbird.warcraft.AndroidLauncher'
+    def sdk = project.ext.get('sdk.dir')
+    def adb = sdk + "/platform-tools/adb"
+    def launcher = 'com.evilbird.warcraft/com.evilbird.warcraft.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', launcher
 }
 
 // sets up the Android Idea project, using the old Ant based build.
