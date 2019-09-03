@@ -38,9 +38,6 @@ android {
     }
     buildTypes {
         if (project.ext.has('signing.keystore.file')) {
-            debug {
-                signingConfig signingConfigs.config
-            }
             release {
                 signingConfig signingConfigs.config
             }
@@ -127,7 +124,7 @@ task copyAndroidNatives() {
 }
 
 task run(type: Exec) {
-    def sdk = project.hasProperty('sdk.dir') ? project.ext.get('sdk.dir') : System.getProperty("ANDROID_HOME")
+    def sdk = project.hasProperty('sdk.dir') ? project.ext.get('sdk.dir') : System.getProperty("ANDROID_HOME", "")
     def adb = sdk + "/platform-tools/adb"
     def launcher = 'com.evilbird.warcraft/com.evilbird.warcraft.AndroidLauncher'
     commandLine "$adb", 'shell', 'am', 'start', '-n', launcher

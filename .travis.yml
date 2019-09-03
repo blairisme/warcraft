@@ -12,7 +12,7 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - ./gradlew clean build report -Dsigning.keystore.file=$TRAVIS_BUILD_DIR/config/keystore/release.jks -Dsigning.keystore.password=$ANDROID_KEYSTORE_PASSWORD -Dsigning.key.alias=Release -Dsigning.key.password=$ANDROID_KEY_PASSWORD
+  - ./gradlew clean :core:build :desktop:build :android:assembleRelease report -Dsigning.keystore.file=$TRAVIS_BUILD_DIR/config/keystore/release.jks -Dsigning.keystore.password=$ANDROID_KEYSTORE_PASSWORD -Dsigning.key.alias=Release -Dsigning.key.password=$ANDROID_KEY_PASSWORD
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t $CODECOV_DEPLOY_TOKEN
