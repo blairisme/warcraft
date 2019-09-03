@@ -35,6 +35,35 @@
 
 An unofficial recreation of Warcraft 2, made so that this excellent game can be enjoyed by fans of the original on modern platforms. This application is a tribute to the original and as such, all copyright and legal ownership remain with the games original author, Blizzard.
 
+## Project status
+
+This project is still under active development. Significant progress has been made but the project is, conservatively, approximately 70% complete.
+
+### Completed
+
+- Human campaign levels 1-3
+- Orc Campaign levels 1-3
+- Main menu system
+- In-game menu system
+- In-game user interface
+- Game persistence
+- Game statistics
+- Installers
+
+### Under active development
+
+- Buff/Debuff/Upgrade mechanism
+- Magic units
+- Campaign AI
+- Human and Campaign levels 4-12
+
+### Planned for future development
+
+- General purpose AI
+- Scenarios
+- Multiplayer
+
+
 ## Downloads
 
 - [Windows v0.2 (PRE-ALPHA)](https://github.com/blairisme/warcraft/releases/latest/download/Warcraft-Windows.zip)
