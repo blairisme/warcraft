@@ -37,7 +37,7 @@ An unofficial recreation of Warcraft 2, made so that this excellent game can be 
 
 ## Project status
 
-This project is still under active development. Significant progress has been made but the project is, conservatively, approximately 70% complete.
+This project is still under active development. Whilst significant progress has been made the project remains approximately 70% complete.
 
 ### Completed
 
