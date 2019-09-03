@@ -19,8 +19,8 @@
         <img src="https://codecov.io/gh/blairisme/warcraft/branch/develop/graph/badge.svg?token=mJVgDaze7L"
             alt="Code Coverage"/>
     </a> -->
-    <a href="https://github.com/blairisme/warcraft/releases/tag/v0.1-alpha">
-        <img src="https://img.shields.io/badge/release-v0.1-blue.svg"
+    <a href="https://github.com/blairisme/warcraft/releases/tag/v0.2-alpha">
+        <img src="https://img.shields.io/badge/release-v0.2-blue.svg"
             alt="Build Release"/>
     </a>
     <a href="https://github.com/blairisme/warcraft/blob/develop/LICENSE">
