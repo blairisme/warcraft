@@ -37,5 +37,6 @@ An unofficial recreation of Warcraft 2, made so that this excellent game can be 
 
 ## Downloads
 
-- [Windows](https://github.com/blairisme/warcraft/releases/latest/download/Warcraft-Windows.zip)
-- [MacOS](https://github.com/blairisme/warcraft/releases/latest/download/Warcraft-MacOS.zip)
+- [Windows v0.2 (PRE-ALPHA)](https://github.com/blairisme/warcraft/releases/latest/download/Warcraft-Windows.zip)
+- [MacOS v0.2 (PRE-ALPHA)](https://github.com/blairisme/warcraft/releases/latest/download/Warcraft-MacOS.zip)
+- [Android v0.2 (PRE-ALPHA)](https://github.com/blairisme/warcraft/releases/latest/download/Warcraft-Android.apk)
