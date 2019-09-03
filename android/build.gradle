@@ -27,17 +27,20 @@ def loadProperties(String propertiesPath) {
 
 android {
     signingConfigs {
-        if (project.ext.has('signing.android.enabled')) {
+        if (project.hasProperty('signing.keystore.file')) {
             config {
-                keyAlias project.ext.get('signing.android.key.alias')
-                keyPassword project.ext.get('signing.android.keystore.password')
-                storeFile file(project.ext.get('signing.android.keystore.file'))
-                storePassword project.ext.get('signing.android.keystore.password')
+                keyAlias project.ext.get('signing.key.alias')
+                keyPassword project.ext.get('signing.key.password')
+                storeFile file(project.ext.get('signing.keystore.file'))
+                storePassword project.ext.get('signing.keystore.password')
             }
         }
     }
     buildTypes {
-        if (project.ext.has('signing.android.enabled')) {
+        if (project.ext.has('signing.keystore.file')) {
+            debug {
+                signingConfig signingConfigs.config
+            }
             release {
                 signingConfig signingConfigs.config
             }
