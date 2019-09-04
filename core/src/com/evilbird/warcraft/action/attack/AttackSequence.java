@@ -25,7 +25,9 @@ import static com.evilbird.engine.action.common.Direction.Facing;
 import static com.evilbird.engine.action.common.Direction.Perpendicular;
 import static com.evilbird.engine.action.common.DirectionAction.reorient;
 import static com.evilbird.engine.action.predicates.ActionPredicates.withoutError;
+import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.common.function.Predicates.not;
+import static com.evilbird.engine.item.utility.ItemPredicates.isVisible;
 import static com.evilbird.warcraft.action.attack.AttackEvents.attackComplete;
 import static com.evilbird.warcraft.action.attack.AttackEvents.attackStarted;
 import static com.evilbird.warcraft.action.attack.MeleeAttack.meleeAttack;
@@ -81,12 +83,13 @@ public class AttackSequence extends ScenarioSetAction
             .whenTarget(isAlive())
             .whenTarget(notInRange(combatant))
             .givenItem(isAlive())
-            .givenTarget(isAlive())
+            .givenTarget(both(isAlive(), isVisible()))
             .givenAction(withoutError())
             .then(animate(Move))
             .then(move(events))
             .then(animate(Idle))
-            .onError(restore());
+            .onFailed(animate(Idle))
+            .onError(animate(Idle));
     }
 
     private void repositionRanged(Combatant combatant) {
@@ -95,12 +98,13 @@ public class AttackSequence extends ScenarioSetAction
             .whenTarget(isAlive())
             .whenTarget(notInRange(combatant))
             .givenItem(isAlive())
-            .givenTarget(isAlive())
+            .givenTarget(both(isAlive(), isVisible()))
             .givenAction(withoutError())
             .then(animate(Move))
             .then(moveWithinRange(events))
             .then(animate(Idle))
-            .onError(restore());
+            .onFailed(animate(Idle))
+            .onError(animate(Idle));
     }
 
     private void engageMelee(Combatant combatant) {
@@ -115,7 +119,8 @@ public class AttackSequence extends ScenarioSetAction
             .then(meleeAttack())
             .then(attackComplete(events))
             .then(animate(Idle))
-            .then(assignIfAbsent(kill(events), Target));
+            .then(assignIfAbsent(kill(events), Target))
+            .onError(restore());
     }
 
     private void engageRanged(Combatant combatant) {
@@ -130,6 +135,7 @@ public class AttackSequence extends ScenarioSetAction
             .then(rangedAttack())
             .then(attackComplete(events))
             .then(animate(Idle))
-            .then(assignIfAbsent(kill(events), Target));
+            .then(assignIfAbsent(kill(events), Target))
+            .onError(restore());
     }
 }
