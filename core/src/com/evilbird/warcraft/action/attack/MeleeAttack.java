@@ -92,6 +92,7 @@ public class MeleeAttack extends BasicAction
 
     private void attackTarget() {
         Combatant combatant = (Combatant)getItem();
+        combatant.setSound(UnitSound.Attack);
         Destroyable target = (Destroyable)getTarget();
         setTargetHealth(combatant, target);
         delay = combatant.getAttackSpeed();
