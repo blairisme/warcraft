@@ -24,6 +24,9 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 
+import javax.inject.Inject;
+
+import static com.evilbird.engine.action.ActionConstants.ACTION_INCOMPLETE;
 import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.CannonDamage1;
@@ -53,6 +56,7 @@ public class RangedAttack extends BasicAction
         this(GameService.getInstance().getItemFactory());
     }
 
+    @Inject
     public RangedAttack(ItemFactory factory) {
         this.factory = factory;
     }
@@ -68,15 +72,15 @@ public class RangedAttack extends BasicAction
         }
         if (! readyToFire()) {
             reduceTimeToFire(time);
-            return false;
+            return ACTION_INCOMPLETE;
         }
         if (! projectileLaunched()) {
             fireProjectile();
-            return false;
+            return ACTION_INCOMPLETE;
         }
         if (! projectileReachedTarget()) {
             moveProjectile(time);
-            return false;
+            return ACTION_INCOMPLETE;
         }
         else {
             return hitWithProjectile();
