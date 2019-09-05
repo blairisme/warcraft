@@ -31,8 +31,8 @@ public class MoveToItemAction extends MoveAction
     private MoveDestination destination;
 
     @Inject
-    public MoveToItemAction() {
-        super();
+    public MoveToItemAction(Events events) {
+        super(events);
     }
 
     @Override
@@ -74,8 +74,6 @@ public class MoveToItemAction extends MoveAction
     }
 
     public static MoveToItemAction moveToItem(Events events) {
-        MoveToItemAction result = new MoveToItemAction();
-        result.setObserver(events);
-        return result;
+        return new MoveToItemAction(events);
     }
 }

@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.common.query;
 
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
@@ -317,5 +318,14 @@ public class UnitOperations
 
     public static boolean isUnit(Item item) {
         return item instanceof Unit;
+    }
+
+    public static void reorient(Unit item, Item target, boolean perpendicular) {
+        Vector2 itemPosition = item.getPosition();
+        Vector2 targetPosition = target.getPosition();
+        Vector2 direction = targetPosition.sub(itemPosition);
+        Vector2 normalizedDirection = direction.nor();
+        Vector2 newDirection = normalizedDirection.rotate(perpendicular ? 90 : 0);
+        item.setDirection(newDirection);
     }
 }

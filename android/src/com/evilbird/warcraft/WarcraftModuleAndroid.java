@@ -12,6 +12,8 @@ package com.evilbird.warcraft;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.common.reflect.TypeRegistry;
+import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.state.StateService;
@@ -58,4 +60,8 @@ public abstract class WarcraftModuleAndroid
     @Binds
     @Singleton
     public abstract TypeRegistry bindTypeRegistry(WarcraftTypeRegistry warcraftTypeRegistry);
+
+    @Binds
+    @Singleton
+    public abstract Events bindEvents(EventQueue events);
 }

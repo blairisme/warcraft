@@ -40,10 +40,7 @@ abstract class MoveAction extends BasicAction
     private GraphPath<ItemNode> path;
     private Iterator<ItemNode> pathIterator;
 
-    MoveAction() {
-    }
-
-    public void setObserver(Events events) {
+    MoveAction(Events events) {
         this.events = events;
     }
 

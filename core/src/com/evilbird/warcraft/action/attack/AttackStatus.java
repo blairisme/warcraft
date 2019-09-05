@@ -17,6 +17,8 @@ package com.evilbird.warcraft.action.attack;
 public enum AttackStatus
 {
     Started,
+    Stopped,
     Complete,
+    Failed,
     Cancelled
 }
