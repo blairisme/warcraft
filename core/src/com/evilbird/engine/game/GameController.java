@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.game;
 
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.State;
@@ -53,11 +54,27 @@ public interface GameController
     Menu getMenu();
 
     /**
+     * Returns the {@link MenuIdentifier} of the currently displayed menu, if
+     * any.
+     *
+     * @return an {@code MenuIdentifier}. This method may return {@code null}.
+     */
+    MenuIdentifier getMenuIdentifier();
+
+    /**
      * Returns the currently displayed state, if any.
      *
      * @return a {@link State} instance. This method may return {@code null}.
      */
     State getState();
+
+    /**
+     * Returns the {@link StateIdentifier} of the currently displayed state, if
+     * any.
+     *
+     * @return an {@code StateIdentifier}. This method may return {@code null}.
+     */
+    StateIdentifier getStateIdentifier();
 
     /**
      * Loads the state identified by the given identifier asynchronously.

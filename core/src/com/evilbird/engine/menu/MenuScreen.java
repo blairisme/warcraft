@@ -13,7 +13,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.game.GameController;
 
 import javax.inject.Inject;
@@ -29,7 +28,7 @@ import java.util.Objects;
 public class MenuScreen extends ScreenAdapter
 {
     private Menu menu;
-    private Identifier identifier;
+    private MenuIdentifier identifier;
     private Music music;
     private GameController controller;
 
@@ -41,11 +40,11 @@ public class MenuScreen extends ScreenAdapter
         return menu;
     }
 
-    public Identifier getIdentifier() {
+    public MenuIdentifier getIdentifier() {
         return identifier;
     }
 
-    public void setMenu(Menu menu, Identifier identifier) {
+    public void setMenu(Menu menu, MenuIdentifier identifier) {
         this.menu = menu;
         this.identifier = identifier;
         updateMusic(menu.getMusic());
