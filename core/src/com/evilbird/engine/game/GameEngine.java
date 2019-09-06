@@ -10,6 +10,7 @@
 package com.evilbird.engine.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.evilbird.engine.common.concurrent.CompleteFuture;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceControls;
@@ -289,6 +290,7 @@ public class GameEngine extends Game implements GameController
     @Override
     public void render() {
         try {
+            Gdx.graphics.setTitle("Warcraft - FPS: " + Gdx.graphics.getFramesPerSecond());
             super.render();
         }
         catch (Throwable error) {

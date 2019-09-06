@@ -9,15 +9,22 @@
 
 package com.evilbird.engine.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
-import static com.badlogic.gdx.Gdx.app;
-
+/**
+ * Provides access to preferences used in game engine operation.
+ *
+ * @author Blair Butterworth
+ */
+@Singleton
 public class GamePreferences
 {
-    private static final String PAUSED_PREFERENCE = "paused";
+    private static final String IDENTIFIER = "engine";
+    private static final String PAUSED = "paused";
 
     private Preferences store;
 
@@ -27,17 +34,17 @@ public class GamePreferences
 
     public boolean getGamePaused() {
         Preferences preferences = getPreferences();
-        return preferences.getBoolean(PAUSED_PREFERENCE);
+        return preferences.getBoolean(PAUSED);
     }
 
     public void setGamePaused(boolean paused) {
         Preferences preferences = getPreferences();
-        preferences.putBoolean(PAUSED_PREFERENCE, paused);
+        preferences.putBoolean(PAUSED, paused);
     }
 
     private Preferences getPreferences() {
         if (store == null) {
-            store = app.getPreferences("engine");
+            store = Gdx.app.getPreferences(IDENTIFIER);
         }
         return store;
     }

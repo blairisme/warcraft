@@ -14,7 +14,9 @@ import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.evilbird.engine.game.GameEngine;
+import com.evilbird.engine.game.GamePreferences;
 import com.evilbird.engine.game.GameService;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.desktop.DaggerDesktopInjector.Builder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import picocli.CommandLine;
@@ -48,9 +50,28 @@ public class DesktopLauncher
         new LwjglApplication(engine, configuration);
     }
 
-    private static DesktopInjector getInjector() {
-        Builder builder = DaggerDesktopInjector.builder();
-        return builder.build();
+    private static ApplicationListener getEngine(DesktopCommands commands) {
+        GameService service = getService();
+        GameEngine engine = service.getEngine();
+        configureEngine(engine, commands);
+        configureService(service, commands);
+        return engine;
+    }
+
+    private static void configureEngine(GameEngine engine, DesktopCommands commands) {
+        if (commands.getScenario() != null) {
+            engine.setInitialScreen(commands.getScenario());
+        }
+        if (commands.getMenu() != null) {
+            engine.setInitialScreen(commands.getMenu());
+        }
+    }
+
+    private static void configureService(GameService service, DesktopCommands commands) {
+        GamePreferences preferences = service.getPreferences();
+        WarcraftPreferences warcraftPreferences = (WarcraftPreferences)preferences;
+        warcraftPreferences.setFreeBuildEnabled(commands.isFreeBuildEnabled());
+        warcraftPreferences.setQuickBuildEnabled(commands.isQuickBuildEnabled());
     }
 
     private static GameService getService() {
@@ -59,16 +80,9 @@ public class DesktopLauncher
         return service;
     }
 
-    private static ApplicationListener getEngine(DesktopCommands commands) {
-        GameService service = getService();
-        GameEngine engine = service.getEngine();
-        if (commands.getScenario() != null) {
-            engine.setInitialScreen(commands.getScenario());
-        }
-        if (commands.getMenu() != null) {
-            engine.setInitialScreen(commands.getMenu());
-        }
-        return engine;
+    private static DesktopInjector getInjector() {
+        Builder builder = DaggerDesktopInjector.builder();
+        return builder.build();
     }
 
     private static LwjglApplicationConfiguration getConfiguration() {

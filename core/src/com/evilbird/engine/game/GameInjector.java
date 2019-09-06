@@ -27,6 +27,8 @@ public interface GameInjector
 
     GameEngine getEngine();
 
+    GamePreferences getPreferences();
+
     ItemFactory getItemFactory();
 
     ActionFactory getActionFactory();
