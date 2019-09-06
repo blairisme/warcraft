@@ -9,7 +9,6 @@
 
 package com.evilbird.engine.game;
 
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.State;

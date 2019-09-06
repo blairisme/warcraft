@@ -11,9 +11,12 @@ package com.evilbird.warcraft.menu.main;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.assets.AssetBundle;
+
+import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 
 /**
  * Provides the assets required to display an {@link MainMenu}, as well as any
@@ -30,6 +33,7 @@ public class MainMenuAssets extends AssetBundle
         register("data/sounds/common/menu/click.mp3");
         register("data/music/13.mp3", Music.class);
         register("data/strings/common/menu/main", I18NBundle.class);
+        register("font", "data/fonts/philosopher-medium.ttf", BitmapFont.class, fontSize(16));
     }
 
     public Drawable getBackground() {
@@ -54,5 +58,9 @@ public class MainMenuAssets extends AssetBundle
 
     public MainMenuStrings getStrings() {
         return new MainMenuStrings(getStrings("main"));
+    }
+
+    public BitmapFont getFont() {
+        return getFont("font");
     }
 }

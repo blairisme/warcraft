@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.device.DeviceDisplay;
 
 /**
@@ -53,14 +52,14 @@ public class IntroMenuBuilder
 
     private void addLabelStyle(Skin skin, IntroMenuAssets assets) {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = assets.getFont();
+        labelStyle.font = assets.getLargeFont();
         labelStyle.fontColor = Color.WHITE;
         skin.add("default", labelStyle);
     }
 
     private void addButtonStyle(Skin skin, IntroMenuAssets assets) {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = Fonts.ARIAL;
+        textButtonStyle.font = assets.getSmallFont();
         textButtonStyle.fontColor = Color.WHITE;
         textButtonStyle.up = assets.getButtonUp();
         textButtonStyle.over = textButtonStyle.up;

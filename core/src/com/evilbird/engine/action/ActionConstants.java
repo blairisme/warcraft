@@ -18,4 +18,7 @@ public class ActionConstants
 {
     public static final boolean ACTION_COMPLETE = true;
     public static final boolean ACTION_INCOMPLETE = false;
+
+    private ActionConstants() {
+    }
 }

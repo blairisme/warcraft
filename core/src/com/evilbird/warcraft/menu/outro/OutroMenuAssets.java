@@ -39,8 +39,8 @@ public class OutroMenuAssets extends AssetBundle
         register("data/textures/${faction}/menu/defeat.png");
         register("data/strings/common/menu/outro", I18NBundle.class);
         register("data/strings/common/menu/nations", I18NBundle.class);
-        register("font", "data/fonts/philosopher.ttf", BitmapFont.class, fontSize(18));
-        register("font-large", "data/fonts/philosopher-large.ttf", BitmapFont.class, fontSize(36));
+        register("font", "data/fonts/philosopher-medium.ttf", BitmapFont.class, fontSize(16));
+        register("font-large", "data/fonts/philosopher-extra-large.ttf", BitmapFont.class, fontSize(36));
     }
 
     private static Map<String, String> pathVariables(WarcraftContext context) {

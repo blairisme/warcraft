@@ -15,8 +15,6 @@ import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateSequence;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.menu.intro.IntroMenuType;
-import com.evilbird.warcraft.menu.main.MainMenu;
-import org.apache.commons.lang3.EnumUtils;
 
 import static com.evilbird.engine.common.file.FileType.JSON;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;

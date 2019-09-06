@@ -41,10 +41,12 @@ public class IntroMenuAssets extends AssetBundle
         this.type = type;
 
         register("background", "data/textures/${faction}/menu/${name}.png");
-        register("font", "data/fonts/intro.ttf", BitmapFont.class, fontSize(20));
         register("button", "data/textures/common/menu/button.png");
         register("music", "data/music/4.mp3", Music.class);
         register("strings", "data/strings/${faction}/menu/${name}", I18NBundle.class);
+        register("font-large", "data/fonts/philosopher-large.ttf", BitmapFont.class, fontSize(20));
+        register("font-small", "data/fonts/philosopher-medium.ttf", BitmapFont.class, fontSize(16));
+
         registerOptional("narration-1", "data/sounds/${faction}/menu/${name}.mp3", Music.class);
         registerOptional("narration-1", "data/sounds/${faction}/menu/${name}a.mp3", Music.class);
         registerOptional("narration-2", "data/sounds/${faction}/menu/${name}b.mp3", Music.class);
@@ -75,8 +77,12 @@ public class IntroMenuAssets extends AssetBundle
         return getDrawable("button", 0, 60, 225, 30);
     }
 
-    public BitmapFont getFont() {
-        return getFont("font");
+    public BitmapFont getLargeFont() {
+        return getFont("font-large");
+    }
+
+    public BitmapFont getSmallFont() {
+        return getFont("font-small");
     }
 
     public IntroMenuStrings getStrings() {
