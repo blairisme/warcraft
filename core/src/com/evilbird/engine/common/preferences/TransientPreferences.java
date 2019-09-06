@@ -30,25 +30,25 @@ public class TransientPreferences implements Preferences
     
     @Override
     public Preferences putBoolean(String key, boolean value) {
-        properties.put(key, Boolean.toString(value));
+        properties.put(key, value);
         return this;
     }
 
     @Override
     public Preferences putInteger(String key, int value) {
-        properties.put(key, Integer.toString(value));
+        properties.put(key, value);
         return this;
     }
 
     @Override
     public Preferences putLong(String key, long value) {
-        properties.put(key, Long.toString(value));
+        properties.put(key, value);
         return this;
     }
 
     @Override
     public Preferences putFloat(String key, float value) {
-        properties.put(key, Float.toString(value));
+        properties.put(key, value);
         return this;
     }
 

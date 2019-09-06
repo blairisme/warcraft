@@ -61,6 +61,8 @@ public class ErrorScreen extends ScreenAdapter
 
         stage.act(delta);
         stage.draw();
+
+        Gdx.graphics.setContinuousRendering(false);
     }
 
     @Override
