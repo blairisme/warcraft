@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.ui.display.HudControl;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPane;
 import com.evilbird.warcraft.item.ui.display.control.status.selection.SelectionPane;
@@ -56,6 +57,18 @@ public class StatusPane extends ItemGroup
     public void setProducing(Building building, boolean producing) {
         if (selection.contains(building) && isShown(detailsPane)) {
             detailsPane.setProducing(building, producing);
+        }
+    }
+
+    public void setPlayerResource(ResourceType resource, float value) {
+        if (isShown(detailsPane)) {
+            detailsPane.setResource(resource, value);
+        }
+    }
+
+    public void setItemResource(Item recipient, ResourceType resource, float value) {
+        if (isShown(detailsPane)) {
+            detailsPane.setResource(resource, value);
         }
     }
 

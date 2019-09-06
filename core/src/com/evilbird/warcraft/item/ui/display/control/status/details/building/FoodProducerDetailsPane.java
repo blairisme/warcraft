@@ -12,16 +12,12 @@ package com.evilbird.warcraft.item.ui.display.control.status.details.building;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.common.control.LabelProperty;
 import com.evilbird.engine.item.specialized.Grid;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerStatistic;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.item.unit.building.Building;
-
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * Instances of this user interface show details about a farm.
@@ -31,44 +27,49 @@ import java.util.function.Supplier;
 public class FoodProducerDetailsPane extends Grid
 {
     private Player player;
-    private LabelProperty grown;
-    private LabelProperty used;
+    private Label title;
+    private Label grown;
+    private Label used;
+    private Skin skin;
     private DetailsPaneStyle style;
 
     public FoodProducerDetailsPane(Skin skin) {
         super(1, 3);
-
         setSkin(skin);
         setSize(160, 100);
         setCellSpacing(4);
         setCellWidth(160);
         setCellHeight(12);
-
-        addLabel(style.strings.getFoodUsage(), skin);
-        grown = addLabel(skin, this::getGrown, this::getGrownLabel);
-        used = addLabel(skin, this::getUsed, this::getUsedLabel);
     }
 
     public void setBuilding(Building building) {
-        this.player = (Player)building.getParent();
+        player = (Player)building.getParent();
+        createView(player);
+    }
+
+    public void setResource(ResourceType resource, float value) {
+        if (resource == ResourceType.Food) {
+            updateView(player);
+        }
     }
 
     @Override
     public void setSkin(Skin skin) {
         super.setSkin(skin);
+        this.skin = skin;
         this.style = skin.get(DetailsPaneStyle.class);
     }
 
-    @Override
-    public void update(float delta) {
-        super.update(delta);
-        grown.evaluate();
-        used.evaluate();
+    private void createView(Player player) {
+        clearItems();
+        title = addLabel(getFoodUsage(), skin);
+        grown = addLabel(getFoodGrown(player), skin);
+        used = addLabel(getFoodUsed(player), skin);
     }
 
-    private LabelProperty addLabel(Skin skin, Supplier<Float> value, Function<Float, String> text) {
-        Label label = addLabel("", skin);
-        return new LabelProperty(label, value, text);
+    private void updateView(Player player) {
+        grown.setText(getFoodGrown(player));
+        used.setText(getFoodUsed(player));
     }
 
     private Label addLabel(String text, Skin skin) {
@@ -79,21 +80,19 @@ public class FoodProducerDetailsPane extends Grid
         return result;
     }
 
-    private Float getGrown() {
-        return (float)player.getStatistic(PlayerStatistic.Population);
+    private String getFoodUsage() {
+        return style.strings.getFoodUsage();
     }
 
-    private String getGrownLabel(Float value) {
-        return style.strings.getFoodGrown(value);
+    private String getFoodGrown(Player player) {
+        int grown = player.getStatistic(PlayerStatistic.Population);
+        return style.strings.getFoodGrown(grown);
     }
 
-    private Float getUsed() {
-        float total = player.getStatistic(PlayerStatistic.Population);
-        float remaining = player.getResource(ResourceType.Food);
-        return total - remaining;
-    }
-
-    private String getUsedLabel(Float value) {
-        return style.strings.getFoodUsed(value);
+    private String getFoodUsed(Player player) {
+        int total = player.getStatistic(PlayerStatistic.Population);
+        int remaining = (int)player.getResource(ResourceType.Food);
+        int used =  total - remaining;
+        return style.strings.getFoodUsed(used);
     }
 }

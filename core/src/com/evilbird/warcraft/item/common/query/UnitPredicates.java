@@ -137,6 +137,10 @@ public class UnitPredicates
         };
     }
 
+    public static Predicate<Item> isFoodProducer() {
+        return UnitOperations::isFoodProducer;
+    }
+
     public static Predicate<Item> isDestroyable() {
         return item -> item instanceof Destroyable;
     }

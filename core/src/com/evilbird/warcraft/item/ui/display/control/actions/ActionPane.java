@@ -109,7 +109,7 @@ public class ActionPane extends Grid implements MenuProvider
         return resources.get(resource);
     }
 
-    public void setResource(ResourceType resource, float value) {
+    public void setPlayerResource(ResourceType resource, float value) {
         resources.put(resource, value);
         updateView();
     }

@@ -56,7 +56,7 @@ public class ResourcePane extends Table
         return "";
     }
 
-    public void setResourceText(ResourceType resource, float value) {
+    public void setPlayerResource(ResourceType resource, float value) {
         setResourceText(resource, String.valueOf(Math.round(value)));
     }
 

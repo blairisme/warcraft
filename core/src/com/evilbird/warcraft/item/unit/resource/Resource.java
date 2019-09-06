@@ -10,7 +10,6 @@
 package com.evilbird.warcraft.item.unit.resource;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.serialization.SerializedType;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -28,7 +27,6 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-@SerializedType("Resource")
 public class Resource extends Unit implements ResourceContainer
 {
     private Map<String, Double> resources;

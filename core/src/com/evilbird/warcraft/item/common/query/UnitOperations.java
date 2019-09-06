@@ -29,6 +29,7 @@ import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 import com.evilbird.warcraft.item.unit.critter.Critter;
+import com.evilbird.warcraft.item.unit.resource.Resource;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -276,6 +277,16 @@ public class UnitOperations
         return item instanceof Critter;
     }
 
+    public static boolean isFoodProducer(Item item) {
+        if (item instanceof Unit) {
+            Unit unit = (Unit)item;
+            UnitType type = (UnitType)unit.getType();
+            return type.isFoodProducer();
+        }
+        return false;
+    }
+
+
     /**
      * Determines if the given {@link Item} belongs to the human faction/race.
      *
@@ -310,6 +321,10 @@ public class UnitOperations
 
     public static boolean isRanged(Item item) {
         return item instanceof RangedCombatant;
+    }
+
+    public static boolean isResource(Item item) {
+        return item instanceof Resource;
     }
 
     public static boolean isShip(Combatant combatant) {
