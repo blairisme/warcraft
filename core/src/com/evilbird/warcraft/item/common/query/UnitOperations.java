@@ -34,6 +34,7 @@ import com.evilbird.warcraft.item.unit.resource.Resource;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.findFirst;
@@ -86,7 +87,8 @@ public class UnitOperations
     }
 
     /**
-     * Returns the {@link Player} that the given {@link Item} belongs to.
+     * Returns the {@link Player} that the given {@link Item} belongs to, if
+     * any (Terrain items, for example, aren't owned by a player).
      *
      * @param item  an {@code Item} owned by a {@code Player}.
      * @return      the Player that owns the given Item, or {@code null} if
@@ -148,10 +150,24 @@ public class UnitOperations
         return player.hasUpgrade(upgrade);
     }
 
+    /**
+     * Determines if the given {@link Item Items} belong to different teams:
+     * the {@link Player players} that own them are different.
+     *
+     * @param itemA an {@code Item} to test.
+     * @param itemB another {@code Item} to test.
+     * @return      {@code true} if both {@code Items} are owned by the same
+     *              {@code Player}
+     *
+     * @throws NullPointerException thrown if either of the given {@code Items}
+     *                              is {@code null}.
+     */
     public static boolean isAnotherTeam(Item itemA, Item itemB) {
+        Objects.requireNonNull(itemA);
+        Objects.requireNonNull(itemB);
         Player playerA = getPlayer(itemA);
         Player playerB = getPlayer(itemB);
-        return !playerA.isNeutral() && !playerB.isNeutral() && playerA != playerB;
+        return playerA != null && playerB != null && playerA != playerB;
     }
 
     /**
