@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="31" nextobjectid="59">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="31" nextobjectid="59">
+ <properties>
+  <property name="Parent" value="Neutral"/>
+ </properties>
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/winter.png" width="576" height="864"/>
  </tileset>
@@ -74,6 +77,7 @@
  </layer>
  <layer id="5" name="Wall" width="64" height="64" locked="1">
   <properties>
+   <property name="Parent" value="Neutral"/>
    <property name="ZIndex" type="int" value="3"/>
   </properties>
   <data encoding="base64">

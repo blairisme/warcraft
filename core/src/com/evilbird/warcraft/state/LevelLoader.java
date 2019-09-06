@@ -25,6 +25,7 @@ import com.evilbird.engine.common.maps.TiledMapLoader;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.engine.item.spatial.ItemGraph;
@@ -46,6 +47,9 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Food;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
@@ -78,6 +82,7 @@ public class LevelLoader
     private static final String TYPE_PROPERTY = "type";
     private static final String NATION_PROPERTY = "Nation";
     private static final String FACTION_PROPERTY = "Faction";
+    private static final String PARENT_PROPERTY = "Parent";
 
     private TiledMapLoader mapLoader;
     private ItemFactory itemFactory;
@@ -105,20 +110,61 @@ public class LevelLoader
         result.setIdentifier(new TextIdentifier("world"));
         result.setViewport(new ScreenViewport());
         result.setSpatialGraph(new ItemGraph(tileSize.x, tileSize.y, mapSize.x, mapSize.y));
-        result.addItems(getItems(map));
+        result.addItems(assignParents(getItems(map)));
 
         return result;
     }
+    public void foo(){
 
-    private Collection<Item> getItems(TiledMapFile map) {
-        Collection<Item> result = new ArrayList<>();
-        for (MapLayer layer : map.getLayers()) {
+    }
+
+    private Map<MapLayer, Item> getItems(TiledMapFile map) {
+        Map<MapLayer, Item> result = new LinkedHashMap<>();
+        for (MapLayer layer: map.getLayers()) {
             Item item = getItem(map, layer);
             if (item != null) {
-                result.add(item);
+                result.put(layer, item);
             }
         }
         return result;
+    }
+
+    private Collection<Item> assignParents(Map<MapLayer, Item> layerItems) {
+        Map<String, Item> parents = getParents(layerItems);
+        for (Entry<MapLayer, Item> layerItem: layerItems.entrySet()) {
+            MapLayer layer = layerItem.getKey();
+            if (hasParentOverride(layer)) {
+                String parentId = getParentOverride(layer);
+                ItemGroup parent = (ItemGroup)parents.get(parentId);
+                if (parent != null) {
+                    parent.addItem(layerItem.getValue());
+                } else {
+                    logger.warn("Unknown parent: {}", parentId);
+                }
+            }
+        }
+        return parents.values();
+    }
+
+    private Map<String, Item> getParents(Map<MapLayer, Item> layerItems) {
+        Map<String, Item> result = new LinkedHashMap<>(layerItems.size());
+        for (Entry<MapLayer, Item> layerItem: layerItems.entrySet()) {
+            MapLayer layer = layerItem.getKey();
+            if (!hasParentOverride(layer)) {
+                result.put(layer.getName(), layerItem.getValue());
+            }
+        }
+        return result;
+    }
+
+    private boolean hasParentOverride(MapLayer layer) {
+        MapProperties properties = layer.getProperties();
+        return properties.containsKey(PARENT_PROPERTY);
+    }
+
+    private String getParentOverride(MapLayer layer) {
+        MapProperties properties = layer.getProperties();
+        return getString(properties, PARENT_PROPERTY);
     }
 
     private Item getItem(TiledMapFile map, MapLayer layer) {
@@ -129,7 +175,7 @@ public class LevelLoader
             return getPlayerItem(layer);
         }
         else {
-            logger.warn("Unknown layer type: {}", layer.getName());
+            logger.warn("Unknown top level type: {}", layer.getName());
             return null;
         }
     }
@@ -153,7 +199,7 @@ public class LevelLoader
         PlayerType type = getPlayerType(layer);
 
         if (type != null) {
-            Player player = (Player) itemFactory.get(type);
+            Player player = (Player)itemFactory.get(type);
             player.setIdentifier(new TextIdentifier(layer.getName()));
             player.setLevel(getInt(properties, LEVEL_PROPERTY));
             player.setNation(getEnum(properties, NATION_PROPERTY, WarcraftNation.class, WarcraftNation.Unknown));

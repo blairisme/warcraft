@@ -37,6 +37,7 @@ import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.data.item.TestResources;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.data.player.PlayerType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.type.WarcraftTypeRegistry;
@@ -115,6 +116,7 @@ public class GameTestCase
     protected ActionFactory actionFactory;
     protected BehaviourFactory behaviourFactory;
     protected TypeRegistry typeRegistry;
+    protected WarcraftPreferences preferences;
 
     @Before
     public void setup() {
@@ -129,6 +131,7 @@ public class GameTestCase
         respondWithNewItem();
 
         typeRegistry = new WarcraftTypeRegistry();
+        preferences = Mockito.mock(WarcraftPreferences.class);
 
         gameInjector = Mockito.mock(GameInjector.class);
         Mockito.when(gameInjector.getDevice()).thenReturn(device);
@@ -137,6 +140,7 @@ public class GameTestCase
         Mockito.when(gameInjector.getActionFactory()).thenReturn(actionFactory);
         Mockito.when(gameInjector.getBehaviourFactory()).thenReturn(behaviourFactory);
         Mockito.when(gameInjector.getTypeRegistry()).thenReturn(typeRegistry);
+        Mockito.when(gameInjector.getPreferences()).thenReturn(preferences);
 
         gameService = GameService.getInstance();
         gameService.setInjector(gameInjector);

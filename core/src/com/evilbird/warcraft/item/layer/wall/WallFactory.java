@@ -73,13 +73,13 @@ public class WallFactory implements GameFactory<Wall>
         Validate.isInstanceOf(LayerIdentifier.class, identifier);
         LayerIdentifier layerIdentifier = (LayerIdentifier)identifier;
 
-        Wall forest = new Wall(getSkin());
-        forest.setIdentifier(layerIdentifier);
-        forest.setType(layerIdentifier.getType());
-        forest.setLayer(LayerUtils.getLayer(layerIdentifier));
-        forest.setVisible(true);
-        forest.setTouchable(Touchable.childrenOnly);
-        return forest;
+        Wall wall = new Wall(getSkin());
+        wall.setIdentifier(layerIdentifier);
+        wall.setType(layerIdentifier.getType());
+        wall.setLayer(LayerUtils.getLayer(layerIdentifier));
+        wall.setVisible(true);
+        wall.setTouchable(Touchable.childrenOnly);
+        return wall;
     }
 
     private Skin getSkin() {
