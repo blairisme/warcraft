@@ -70,28 +70,13 @@ public class TransientPreferences implements Preferences
     }
 
     @Override
-    public int getInteger(String key) {
-        return getInteger(key, 0);
-    }
-
-    @Override
-    public long getLong(String key) {
-        return getLong(key, 0);
-    }
-
-    @Override
-    public float getFloat(String key) {
-        return getFloat(key, 0);
-    }
-
-    @Override
-    public String getString(String key) {
-        return getString(key, "");
-    }
-
-    @Override
     public boolean getBoolean(String key, boolean defValue) {
         return (boolean)properties.getOrDefault(key, defValue);
+    }
+
+    @Override
+    public int getInteger(String key) {
+        return getInteger(key, 0);
     }
 
     @Override
@@ -100,13 +85,28 @@ public class TransientPreferences implements Preferences
     }
 
     @Override
+    public long getLong(String key) {
+        return getLong(key, 0);
+    }
+
+    @Override
     public long getLong(String key, long defValue) {
         return (long)properties.getOrDefault(key, defValue);
     }
 
     @Override
+    public float getFloat(String key) {
+        return getFloat(key, 0);
+    }
+
+    @Override
     public float getFloat(String key, float defValue) {
         return (float)properties.getOrDefault(key, defValue);
+    }
+
+    @Override
+    public String getString(String key) {
+        return getString(key, "");
     }
 
     @Override

@@ -69,6 +69,7 @@ public class LevelLoader
     private static final String CORPOREAL_PLAYER_ID = "Player1";
     private static final String ENEMY_PLAYER_ID = "Player";
     private static final String NEUTRAL_PLAYER_ID = "Neutral";
+    private static final String WORLD_ID = "world";
 
     private static final String TOUCHABLE_PROPERTY = "Touchable";
     private static final String X_PROPERTY = "x";
@@ -83,7 +84,7 @@ public class LevelLoader
     private static final String NATION_PROPERTY = "Nation";
     private static final String FACTION_PROPERTY = "Faction";
     private static final String PARENT_PROPERTY = "Parent";
-
+    
     private TiledMapLoader mapLoader;
     private ItemFactory itemFactory;
 
@@ -107,15 +108,12 @@ public class LevelLoader
         GridPoint2 tileSize = map.getTileSize();
 
         ItemRoot result = new ItemRoot();
-        result.setIdentifier(new TextIdentifier("world"));
+        result.setIdentifier(new TextIdentifier(WORLD_ID));
         result.setViewport(new ScreenViewport());
         result.setSpatialGraph(new ItemGraph(tileSize.x, tileSize.y, mapSize.x, mapSize.y));
         result.addItems(assignParents(getItems(map)));
 
         return result;
-    }
-    public void foo(){
-
     }
 
     private Map<MapLayer, Item> getItems(TiledMapFile map) {
