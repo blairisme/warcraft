@@ -41,7 +41,7 @@ public class IngameMenuAssets extends AssetBundle
         register("data/textures/${faction}/menu/panel_small.png");
         register("data/sounds/common/menu/click.mp3");
         register("data/strings/common/menu/ingame", I18NBundle.class);
-        register("font", "data/fonts/philosopher-medium.ttf", BitmapFont.class, fontSize(62));
+        register("font", "data/fonts/philosopher-medium.ttf", BitmapFont.class, fontSize(16));
     }
 
     private static Map<String, String> pathVariables(WarcraftContext context) {
