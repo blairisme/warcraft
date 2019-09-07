@@ -70,13 +70,13 @@ public class AttackBehaviour implements AiBehaviourElement
     private void assignTargets() {
         for (AttackEvent event: events.getEvents(AttackEvent.class)) {
             Item attacker = event.getSubject();
-            if (event.isFinished() && isIdle(attacker, AttackActions.class)) {
+            if (event.isFinished() && isViableAttacker(attacker, AttackActions.class)) {
                 assignTarget((Combatant)attacker);
             }
         }
         for (MoveEvent event: events.getEvents(MoveEvent.class)) {
             Item attacker = event.getSubject();
-            if (event.isFinished() && isAttacker(attacker) && isIdle(attacker, MoveActions.class)) {
+            if (event.isFinished() && isAttacker(attacker) && isViableAttacker(attacker, MoveActions.class)) {
                 assignTarget((Combatant)attacker);
             }
         }
@@ -94,7 +94,7 @@ public class AttackBehaviour implements AiBehaviourElement
     private void assignAttackers() {
         for (MoveEvent event: events.getEvents(MoveEvent.class)) {
             Item subject = event.getSubject();
-            if (isUnit(subject)){
+            if (isUnit(subject)) {
                 assignAttacker(subject, event.getLocation());
             }
         }
@@ -102,10 +102,18 @@ public class AttackBehaviour implements AiBehaviourElement
 
     private void assignAttacker(Item target, ItemNode location) {
         for (Combatant attacker: graph.getAttackers(location)) {
-            if (isIdle(attacker) && isViableTarget(attacker, target)) {
+            if (isViableAttacker(attacker) && isViableTarget(attacker, target)) {
                 attack(attacker, target);
             }
         }
+    }
+
+    private boolean isViableAttacker(Item attacker) {
+        return isIdle(attacker) && !isNeutral(attacker);
+    }
+
+    private boolean isViableAttacker(Item attacker, Class<?> allowedAction) {
+        return isIdle(attacker, allowedAction) && !isNeutral(attacker);
     }
 
     private boolean isViableTarget(Item attacker, Item target) {
