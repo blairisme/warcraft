@@ -16,6 +16,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.maps.TiledMapFile;
 import com.evilbird.engine.common.maps.TiledMapLoader;
 
@@ -60,5 +62,20 @@ public class LayerUtils
         int paddedX = x + (xIndex * axisPadding) + padding;
         int paddedY = y + (yIndex * axisPadding) + padding;
         return cell(new TextureRegion(texture, paddedX, paddedY, width, height));
+    }
+
+    public static GridPoint2 toCellDimensions(TiledMapTileLayer layer, Vector2 vector) {
+        GridPoint2 result = new GridPoint2();
+        result.x = vector.x != 0 ? Math.round(vector.x / layer.getTileWidth()) : 0;
+        result.y = vector.y != 0 ? Math.round(vector.y / layer.getTileHeight()) : 0;
+        return result;
+    }
+
+    public static int toCellDimensions(TiledMapTileLayer layer, int value) {
+        return value != 0 ? Math.round(value / layer.getTileWidth()) : 0;
+    }
+
+    public static boolean withinBounds(TiledMapTileLayer layer, int x, int y) {
+        return x >= 0 && y >= 0 && x < layer.getWidth() && y < layer.getHeight();
     }
 }

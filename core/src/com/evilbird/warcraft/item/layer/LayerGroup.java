@@ -15,6 +15,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.BitMatrix;
 import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.common.maps.MapLayerIterable;
+import com.evilbird.engine.item.Item;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents a {@link Layer} made up of a number of {@link LayerGroupCell
@@ -34,16 +38,32 @@ public class LayerGroup extends Layer
     private static final transient int PATTERN_MATRIX_CENTER = 1;
     private static final transient float DEFAULT_VALUE = 100;
 
-    private transient Skin skin;
-    private transient LayerGroupStyle style;
+    protected transient Skin skin;
+    protected transient LayerGroupStyle style;
+    protected transient Map<GridPoint2, LayerGroupCell> cells;
 
     public LayerGroup(Skin skin) {
         this.skin = skin;
         this.style = skin.get(LayerGroupStyle.class);
+        this.cells = new HashMap<>();
     }
 
     public Skin getSkin() {
         return skin;
+    }
+
+    @Override
+    public void addItem(Item item) {
+        super.addItem(item);
+        LayerGroupCell cell = (LayerGroupCell)item;
+        cells.put(cell.getLocation(), cell);
+    }
+
+    @Override
+    public void removeItem(Item item) {
+        super.removeItem(item);
+        LayerGroupCell cell = (LayerGroupCell)item;
+        cells.remove(cell.getLocation());
     }
 
     @Override
@@ -56,26 +76,28 @@ public class LayerGroup extends Layer
 
     protected void addCells() {
         for (MapLayerEntry entry: new MapLayerIterable(layer)) {
-            addItem(createCell(entry));
+            LayerGroupCell groupCell = createCell(entry);
+            addItem(groupCell);
         }
     }
 
     protected LayerGroupCell createCell(MapLayerEntry entry) {
-        LayerGroupCell groupCell = new LayerGroupCell();
-        groupCell.setValue(DEFAULT_VALUE);
-        groupCell.setLocation(entry.getPosition());
-        return groupCell;
+        return new LayerGroupCell(entry.getPosition(), DEFAULT_VALUE);
     }
 
     public void setEmptyTexture(GridPoint2 tile) {
         layer.setCell(tile.x, tile.y, style.empty);
+        setAdjacentTextures(tile);
+    }
+
+    protected void setAdjacentTextures(GridPoint2 tile) {
         BitMatrix cellEdges = getCellEdges(tile.x, tile.y);
         if (! cellEdges.isEmpty()) {
             updateCellEdges(tile.x, tile.y, cellEdges);
         }
     }
 
-    private BitMatrix getCellEdges(int x, int y) {
+    protected BitMatrix getCellEdges(int x, int y) {
         BitMatrix occupation = new BitMatrix(EDGE_MATRIX_SIZE);
         for (int i = 0; i < EDGE_MATRIX_SIZE; i++) {
             for (int j = 0; j < EDGE_MATRIX_SIZE; j++) {
@@ -87,7 +109,7 @@ public class LayerGroup extends Layer
         return occupation;
     }
 
-    private void updateCellEdges(int x, int y, BitMatrix cellEdges) {
+    protected void updateCellEdges(int x, int y, BitMatrix cellEdges) {
         for (int i = 0; i < PATTERN_MATRIX_SIZE; i++) {
             for (int j = 0; j < PATTERN_MATRIX_SIZE; j++) {
                 BitMatrix edgePattern = cellEdges.subMatrix(i, j, PATTERN_MATRIX_SIZE);
@@ -102,7 +124,7 @@ public class LayerGroup extends Layer
         }
     }
 
-    private boolean isCellOccupied(int x, int y) {
+    protected boolean isCellOccupied(int x, int y) {
         if (x < 0 || x >= layer.getWidth()) { return true; }
         if (y < 0 || y >= layer.getHeight()) { return true; }
 

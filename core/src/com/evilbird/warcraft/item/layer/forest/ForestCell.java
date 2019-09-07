@@ -9,14 +9,14 @@
 
 package com.evilbird.warcraft.item.layer.forest;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.layer.LayerGroupCell;
 import com.evilbird.warcraft.item.layer.LayerType;
 import org.apache.commons.lang3.Validate;
-
-import javax.inject.Inject;
 
 /**
  * Instances of this class represent one cell in the forest layer, decorating
@@ -24,10 +24,10 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class ForestCell extends LayerGroupCell implements ResourceContainer
+public class ForestCell extends LayerGroupCell implements ResourceContainer, ItemGraphOccupant
 {
-    @Inject
-    public ForestCell() {
+    public ForestCell(GridPoint2 location, float value) {
+        super(location, value);
         setType(LayerType.Tree);
     }
 
@@ -41,5 +41,11 @@ public class ForestCell extends LayerGroupCell implements ResourceContainer
     public void setResource(ResourceType resource, float value) {
         Validate.isTrue(resource == ResourceType.Wood);
         setValue(value);
+    }
+
+    @Override
+    public void setEmpty() {
+        super.setEmpty();
+        setType(LayerType.Map);
     }
 }

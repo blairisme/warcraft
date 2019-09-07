@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.layer.terrain;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.common.maps.MapLayerIterable;
@@ -25,6 +26,8 @@ import com.google.gson.annotations.JsonAdapter;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static com.evilbird.warcraft.item.layer.LayerUtils.toCellDimensions;
 
 /**
  * Instances of this {@link Layer} represent the ground below which all land
@@ -51,11 +54,8 @@ public class Terrain extends Layer implements ItemGraphOccupant
     @Override
     public Item hit(Vector2 position, boolean touchable) {
         if (touchable && !getTouchable()) { return null; }
-
-        int x = Math.round(position.x / layer.getTileWidth());
-        int y = Math.round(position.y / layer.getTileHeight());
-
-        Cell cell = layer.getCell(x, y);
+        GridPoint2 location = toCellDimensions(layer, position);
+        Cell cell = layer.getCell(location.x, location.y);
         return cell != null ? this : null;
     }
 }

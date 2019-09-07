@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import java.lang.reflect.Method;
 
-import static com.evilbird.test.data.item.TestSkin.newTestSkin;
+import static com.evilbird.test.data.item.TestSkins.newTestSkin;
 
 /**
  * Instances of this unit test validate the {@link DetailsPaneStrings} class.

@@ -39,6 +39,10 @@ public class TestPlayers
         return newTestPlayer(identifier, newTestRoot("root"));
     }
 
+    public static Player newTestPlayer(String id, ItemRoot root) {
+        return newTestPlayer(new TextIdentifier(id), root);
+    }
+
     public static Player newTestPlayer(Identifier identifier, ItemRoot root) {
         Player player = new Player(getSkin());
         player.setIdentifier(identifier);

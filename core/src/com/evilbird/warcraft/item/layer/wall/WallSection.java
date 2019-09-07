@@ -9,21 +9,21 @@
 
 package com.evilbird.warcraft.item.layer.wall;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.lang.Destroyable;
+import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.warcraft.item.layer.LayerGroupCell;
 import com.evilbird.warcraft.item.layer.LayerType;
-
-import javax.inject.Inject;
 
 /**
  * Represents a section of a wall, typically spanning one standard tile.
  *
  * @author Blair Butterworth
  */
-public class WallSection extends LayerGroupCell implements Destroyable
+public class WallSection extends LayerGroupCell implements Destroyable, ItemGraphOccupant
 {
-    @Inject
-    public WallSection() {
+    public WallSection(GridPoint2 location, float value) {
+        super(location, value);
         setType(LayerType.WallSection);
     }
 
@@ -40,5 +40,11 @@ public class WallSection extends LayerGroupCell implements Destroyable
     @Override
     public void setHealth(float health) {
         setValue(health);
+    }
+
+    @Override
+    public void setEmpty() {
+        super.setEmpty();
+        setType(LayerType.Map);
     }
 }

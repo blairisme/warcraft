@@ -16,6 +16,7 @@ import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
+import com.evilbird.warcraft.item.layer.LayerGroupStyle;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.state.WarcraftContext;
@@ -69,7 +70,7 @@ public class FogFactoryTest extends GameFactoryTestCase<FogFactory>
 
         Assert.assertNotNull(fog);
         Assert.assertEquals(LayerType.OpaqueFog, fog.getType());
-        Assert.assertTrue(fog.getSkin().has("default", FogStyle.class));
+        Assert.assertTrue(fog.getSkin().has("default", LayerGroupStyle.class));
     }
 
     @Override

@@ -343,6 +343,10 @@ public class ItemBasic implements Item
         return delegate;
     }
 
+    public void debug() {
+        delegate.debug();
+    }
+
     protected Actor getDelegate() {
         Actor result = newDelegate();
         result.setUserObject(this);

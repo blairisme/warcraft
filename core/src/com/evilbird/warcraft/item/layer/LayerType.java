@@ -24,6 +24,7 @@ public enum LayerType implements ItemType
     Forest,
     Tree,
     OpaqueFog,
+    OpaqueFogSection,
     TransparentFog,
     Wall,
     WallSection

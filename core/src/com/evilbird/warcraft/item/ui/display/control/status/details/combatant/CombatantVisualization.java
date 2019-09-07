@@ -73,7 +73,7 @@ public class CombatantVisualization
     }
 
     public static int getSight(Combatant combatant) {
-        return combatant.getSightTiles();
+        return combatant.getSight() / TILE_WIDTH;
     }
 
     public static int getLevel(Combatant combatant) {

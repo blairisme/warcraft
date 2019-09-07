@@ -48,7 +48,7 @@ public class ItemRootAdapter implements JsonSerializer<ItemRoot>, JsonDeserializ
     }
 
     private void serializeGraph(JsonObject json, ItemRoot root, JsonSerializationContext context) {
-        com.evilbird.engine.item.spatial.ItemGraph graph = root.getSpatialGraph();
+        ItemGraph graph = root.getSpatialGraph();
         if (graph != null) {
             json.add(GRAPH, context.serialize(graph, com.evilbird.engine.item.spatial.ItemGraph.class));
         }
@@ -83,7 +83,7 @@ public class ItemRootAdapter implements JsonSerializer<ItemRoot>, JsonDeserializ
     private void deserializeGraph(ItemRoot root, JsonObject json, JsonDeserializationContext context) {
         if (json.has(GRAPH)) {
             JsonElement graphElement = json.get(GRAPH);
-            com.evilbird.engine.item.spatial.ItemGraph graph = context.deserialize(graphElement, ItemGraph.class);
+            ItemGraph graph = context.deserialize(graphElement, ItemGraph.class);
             root.setSpatialGraph(graph);
         }
     }

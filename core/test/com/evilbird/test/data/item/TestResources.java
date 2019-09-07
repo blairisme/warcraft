@@ -18,7 +18,7 @@ import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;
-import static com.evilbird.test.data.item.TestSkin.newTestSkin;
+import static com.evilbird.test.data.item.TestSkins.newTestSkin;
 
 public class TestResources
 {

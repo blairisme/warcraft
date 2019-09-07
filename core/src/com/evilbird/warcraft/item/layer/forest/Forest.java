@@ -12,7 +12,6 @@ package com.evilbird.warcraft.item.layer.forest;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.layer.LayerGroup;
 import com.evilbird.warcraft.item.layer.LayerGroupCell;
 import com.google.gson.annotations.JsonAdapter;
@@ -35,9 +34,6 @@ public class Forest extends LayerGroup
 
     @Override
     protected LayerGroupCell createCell(MapLayerEntry entry) {
-        ForestCell forestCell = new ForestCell();
-        forestCell.setResource(ResourceType.Wood, DEFAULT_WOOD);
-        forestCell.setLocation(entry.getPosition());
-        return forestCell;
+        return new ForestCell(entry.getPosition(), DEFAULT_WOOD);
     }
 }

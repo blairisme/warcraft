@@ -14,9 +14,9 @@ import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
-import com.evilbird.test.data.display.TestSkin;
 import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.data.item.TestPlayers;
+import com.evilbird.test.data.item.TestSkins;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerType;
@@ -39,7 +39,7 @@ public class OutroMenuTest extends GameTestCase
     @Before
     public void setup() {
         OutroMenuStrings bundle = Mockito.mock(OutroMenuStrings.class, RETURNS_MOCKS);
-        menu = new OutroMenu(Mockito.mock(DeviceDisplay.class), TestSkin.newTestSkin());
+        menu = new OutroMenu(Mockito.mock(DeviceDisplay.class), TestSkins.newOutroMenuSkin());
         menu.setLabelBundle(bundle);
     }
 

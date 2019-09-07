@@ -7,34 +7,34 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.layer.wall;
+package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.warcraft.item.layer.LayerGroupAdapter;
 import com.evilbird.warcraft.item.layer.LayerGroupCell;
 
 /**
- * Instances of this class serialize and deserialize {@link Wall Walls}.
+ * Instances of this class serialize and deserialize {@link Fog} objects.
  *
  * @author Blair Butterworth
  */
-public class WallAdapter extends LayerGroupAdapter<Wall>
+public class FogAdapter extends LayerGroupAdapter<Fog>
 {
-    private static final String WALLS = "walls";
-    private static final String HEALTH = "health";
+    private static final String FOG = "fog";
+    private static final String CLOUD = "cloud";
 
     @Override
     protected String getCellArrayProperty() {
-        return WALLS;
+        return FOG;
     }
 
     @Override
     protected String getValueProperty() {
-        return HEALTH;
+        return CLOUD;
     }
 
     @Override
     protected LayerGroupCell createCell(GridPoint2 location, float value) {
-        return new WallSection(location, value);
+        return new FogCell(location, value);
     }
 }

@@ -12,9 +12,12 @@ package com.evilbird.warcraft.item.layer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.item.ItemBasic;
-import com.evilbird.engine.item.spatial.ItemGraphOccupant;
+import com.evilbird.engine.item.ItemGroup;
 
 import javax.inject.Inject;
+
+import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_HEIGHT;
+import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 
 /**
  * Represents a single element in a {@link LayerGroup}. Each LayerGroupCell has
@@ -23,15 +26,17 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class LayerGroupCell extends ItemBasic implements ItemGraphOccupant
+public class LayerGroupCell extends ItemBasic
 {
     protected float value;
     protected GridPoint2 location;
 
     @Inject
-    public LayerGroupCell() {
+    public LayerGroupCell(GridPoint2 location, float value) {
         setTouchable(Touchable.enabled);
         setVisible(false);
+        setLocation(location);
+        setValue(value);
     }
 
     public GridPoint2 getLocation() {
@@ -44,21 +49,32 @@ public class LayerGroupCell extends ItemBasic implements ItemGraphOccupant
 
     public void setLocation(GridPoint2 location) {
         this.location = location;
-        setSize(32, 32); //?
-        setPosition(location.x * 32, location.y * 32);
+        setSize(TILE_WIDTH, TILE_HEIGHT);
+        setPosition(location.x * TILE_WIDTH, location.y * TILE_HEIGHT);
     }
 
     public void setValue(float value) {
         this.value = Math.max(value, 0);
+        reevaluateEmpty();
+    }
+
+    @Override
+    public void setParent(ItemGroup parent) {
+        super.setParent(parent);
+        reevaluateEmpty();
+    }
+
+    private void reevaluateEmpty() {
         if (value == 0) {
             setEmpty();
         }
     }
 
-    protected void setEmpty() {
+    public void setEmpty() {
         LayerGroup group = (LayerGroup)getParent();
-        group.setEmptyTexture(location);
-        setTouchable(Touchable.disabled);
-        setType(LayerType.Map);
+        if (group != null) {
+            group.setEmptyTexture(location);
+            setTouchable(Touchable.disabled);
+        }
     }
 }

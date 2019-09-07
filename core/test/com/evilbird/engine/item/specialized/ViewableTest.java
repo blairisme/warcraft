@@ -22,7 +22,7 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
-import static com.evilbird.test.data.item.TestSkin.newTestSkin;
+import static com.evilbird.test.data.item.TestSkins.newTestSkin;
 
 /**
  * Instances of this unit test validate the {@link Viewable} class.

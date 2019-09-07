@@ -100,13 +100,12 @@ public abstract class LayerGroupAdapter <T extends LayerGroup> implements JsonSe
     }
 
     protected void deserializeCell(JsonObject json, JsonDeserializationContext context, T group) {
-        LayerGroupCell cell = createCell();
-        group.addItem(cell);
-        cell.setLocation(context.deserialize(json.get(LOCATION), GridPoint2.class));
-        cell.setValue(json.get(getValueProperty()).getAsFloat());
+        GridPoint2 location = context.deserialize(json.get(LOCATION), GridPoint2.class);
+        float value = json.get(getValueProperty()).getAsFloat();
+        group.addItem(createCell(location, value));
     }
 
-    protected abstract LayerGroupCell createCell();
+    protected abstract LayerGroupCell createCell(GridPoint2 location, float value);
 
     protected abstract String getCellArrayProperty();
 

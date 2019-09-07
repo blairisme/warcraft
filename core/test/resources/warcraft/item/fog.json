@@ -1,25 +1,38 @@
 {
   "class": "Fog",
   "type": {
-    "class": "LayerType",
-    "enum": "OpaqueFog"
-  },
-  "fill": false,
-  "items": [],
-  "id": {
     "class": "LayerId",
     "file": "data/levels/human/level1.tmx",
     "name": "OpaqueFog"
   },
-  "visible": false,
-  "touchable": "enabled",
-  "size": {
-    "x": 64.0,
-    "y": 64.0
-  },
-  "position": {
-    "x": 0.0,
-    "y": 0.0
-  },
-  "actions": []
+  "fog": [
+    {
+      "cloud": 1.0,
+      "location": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "cloud": 1.0,
+      "location": {
+        "x": 1,
+        "y": 0
+      }
+    },
+    {
+      "cloud": 1.0,
+      "location": {
+        "x": 0,
+        "y": 1
+      }
+    },
+    {
+      "cloud": 1.0,
+      "location": {
+        "x": 1,
+        "y": 1
+      }
+    }
+  ]
 }

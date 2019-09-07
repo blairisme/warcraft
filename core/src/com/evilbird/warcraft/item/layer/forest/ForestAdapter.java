@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.layer.forest;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.warcraft.item.layer.LayerGroupAdapter;
 import com.evilbird.warcraft.item.layer.LayerGroupCell;
 
@@ -33,7 +34,7 @@ public class ForestAdapter extends LayerGroupAdapter<Forest>
     }
 
     @Override
-    protected LayerGroupCell createCell() {
-        return new ForestCell();
+    protected LayerGroupCell createCell(GridPoint2 location, float value) {
+        return new ForestCell(location, value);
     }
 }

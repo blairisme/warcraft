@@ -12,16 +12,25 @@ package com.evilbird.warcraft.item.layer.fog;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.test.data.item.TestItemRoots;
+import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
+import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.layer.LayerGroupStyle;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
+import com.evilbird.warcraft.item.layer.LayerType;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
+
+import static com.evilbird.test.data.item.TestSkins.newLayerSkin;
 
 /**
  * Instances of this unit test validate the {@link Fog} class.
@@ -31,28 +40,34 @@ import java.io.IOException;
 public class FogTest extends GameTestCase
 {
     private Fog fog;
+    private ItemRoot root;
+    private Player player;
+    private EventQueue events;
+    private TiledMapTileLayer layer;
 
     @Before
     public void setup() {
         super.setup();
 
-        TiledMapTileLayer layer = new TiledMapTileLayer(2, 2, 32, 32);
-        layer.setCell(0, 0, Mockito.mock(Cell.class));
-        layer.setCell(0, 1, Mockito.mock(Cell.class));
-        layer.setCell(1, 0, Mockito.mock(Cell.class));
-        layer.setCell(1, 1, Mockito.mock(Cell.class));
+        events = new EventQueue();
+        layer = new TiledMapTileLayer(2, 2, 32, 32);
 
-        LayerIdentifier identifier = new LayerIdentifier("data/levels/human/level1.tmx", "OpaqueFog", layer);
+        root = TestItemRoots.newTestRoot("World");
+        player = TestPlayers.newTestPlayer("Player1", root);
 
-        Skin skin = new Skin();
-        skin.add("default", Mockito.mock(FogStyle.class), FogStyle.class);
-
-        fog = new Fog(skin);
+        fog = new Fog(newLayerSkin(), events);
         fog.setLayer(layer);
-        fog.setIdentifier(identifier);
-        fog.setType(identifier.getType());
-        //fog.apply(1);
+        fog.setIdentifier(new LayerIdentifier("data/levels/human/level1.tmx", "OpaqueFog", layer));
+        fog.setType(LayerType.OpaqueFog);
 
+        root.clearItems();
+        player.clearItems();
+
+        root.addItem(player);
+        player.setRoot(root);
+        player.addItem(fog);
+
+        fog.update(1);
         respondWithItem(fog);
     }
 

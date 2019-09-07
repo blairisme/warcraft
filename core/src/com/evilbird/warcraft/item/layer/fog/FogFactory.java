@@ -1,10 +1,10 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.item.layer.fog;
@@ -21,6 +21,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
+import com.evilbird.warcraft.item.layer.LayerGroupStyle;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.layer.LayerUtils;
@@ -87,13 +88,12 @@ public class FogFactory implements GameFactory<Fog>
     }
 
     private Fog getOpaqueFog(LayerIdentifier identifier) {
-        Fog fog = new Fog(getSkin());
-        fog.setEvents(events);
+        Fog fog = new Fog(getSkin(), events);
         fog.setIdentifier(identifier);
         fog.setType(LayerType.OpaqueFog);
         fog.setLayer(LayerUtils.getLayer(identifier));
         fog.setVisible(true);
-        fog.setTouchable(Touchable.disabled);
+        fog.setTouchable(Touchable.childrenOnly);
         return fog;
     }
 
@@ -107,19 +107,19 @@ public class FogFactory implements GameFactory<Fog>
         return skin;
     }
 
-    private FogStyle getOpaqueStyle() {
-        FogStyle result = new FogStyle();
+    private LayerGroupStyle getOpaqueStyle() {
+        LayerGroupStyle result = new LayerGroupStyle();
         result.empty = null;
         result.full = cell(assets.getOpaqueTexture());
-        result.edges = getEdgeStyles(assets.getTerrainTexture());
+        result.patterns = getEdgeStyles(assets.getTerrainTexture());
         return result;
     }
 
-    private FogStyle getTransparentStyle() {
-        FogStyle result = new FogStyle();
+    private LayerGroupStyle getTransparentStyle() {
+        LayerGroupStyle result = new LayerGroupStyle();
         result.empty = null;
         result.full = cell(assets.getTransparentTexture());
-        result.edges = getEdgeStyles(assets.getTerrainTexture());
+        result.patterns = getEdgeStyles(assets.getTerrainTexture());
         return result;
     }
 

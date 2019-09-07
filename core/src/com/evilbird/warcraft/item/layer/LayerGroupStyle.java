@@ -22,5 +22,6 @@ import java.util.Map;
 public class LayerGroupStyle
 {
     public Cell empty;
+    public Cell full;
     public Map<BitMatrix, Cell> patterns;
 }

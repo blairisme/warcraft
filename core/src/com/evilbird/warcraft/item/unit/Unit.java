@@ -25,8 +25,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
-
 /**
  * Instances of this represent a game object that the user can control and
  * interact with.
@@ -75,10 +73,6 @@ public class Unit extends Viewable implements Destroyable, Selectable, ItemGraph
 
     public int getSight() {
         return sight;
-    }
-
-    public int getSightTiles() {
-        return Math.round(sight / TILE_WIDTH);
     }
 
     /**

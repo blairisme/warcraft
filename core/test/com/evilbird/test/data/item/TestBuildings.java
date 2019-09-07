@@ -18,7 +18,7 @@ import com.evilbird.warcraft.item.unit.building.Building;
 
 import static com.evilbird.test.data.item.TestItemRoots.newTestRoot;
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;
-import static com.evilbird.test.data.item.TestSkin.newTestSkin;
+import static com.evilbird.test.data.item.TestSkins.newTestSkin;
 
 public class TestBuildings
 {
