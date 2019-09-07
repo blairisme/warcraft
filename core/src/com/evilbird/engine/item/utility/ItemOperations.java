@@ -19,6 +19,7 @@ import com.evilbird.engine.common.math.ShapeUtils;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
+import org.apache.commons.lang3.Validate;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -115,15 +116,30 @@ public class ItemOperations
         return false;
     }
 
+    /**
+     * Determines if an {@link Item} is within the given radius of another
+     * {@code Item}.
+     *
+     * @param locus     the {@code Item} at the center of the radius.
+     * @param radius    the maximum distance the target can be away from the
+     *                  central item.
+     * @param target    the {@code Item} whose nearness is being tests.
+     * @return          {@code true} if the items are near each other.
+     *
+     * @throws NullPointerException     if either the locus or target items are
+     *                                  {@code null}.
+     * @throws IllegalArgumentException if the given radius is negative.
+     */
     public static boolean isNear(Item locus, float radius, Item target) {
-        return isNear(locus, radius, target.getBounds());
-    }
+        Validate.notNull(locus);
+        Validate.notNull(target);
+        Validate.isTrue(radius >= 0);
 
-    public static boolean isNear(Item locus, float radius, Rectangle target) {
+        Rectangle bounds = target.getBounds();
         Vector2 position = locus.getPosition(Alignment.Center);
-        float size = locus.getSize().x * 0.5f + radius;
-        Circle perimeter = new Circle(position, size);
-        return ShapeUtils.contains(perimeter, target);
+        Circle perimeter = new Circle(position, radius);
+
+        return ShapeUtils.contains(perimeter, bounds);
     }
 
     public static boolean overlaps(Item itemA, Item itemB) {

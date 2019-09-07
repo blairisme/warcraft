@@ -11,7 +11,11 @@ package com.evilbird.engine.item.utility;
 
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.test.data.item.TestCombatants;
+import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.withClazz;
@@ -25,7 +29,7 @@ import static org.mockito.Mockito.when;
  *
  * @author Blair Butterworth
  */
-public class ItemOperationsTest
+public class ItemOperationsTest extends GameTestCase
 {
     @Test
     public void findAncestorTest() {
@@ -87,5 +91,52 @@ public class ItemOperationsTest
     public void findAncestorNullConditionTest() {
         Player player = mock(Player.class);
         ItemOperations.findAncestor(player, null);
+    }
+
+    @Test
+    public void isNearTest() {
+        Combatant combatant1 = TestCombatants.newTestCombatant("footman");
+        Combatant combatant2 = TestCombatants.newTestCombatant("grunt");
+
+        combatant1.setSize(32, 32);
+        combatant2.setSize(32, 32);
+
+        combatant1.setPosition(100, 100);
+        combatant2.setPosition(125, 125);
+
+        Assert.assertTrue(ItemOperations.isNear(combatant1, 50, combatant2));
+    }
+
+    @Test
+    public void isNotNearTest() {
+        Combatant combatant1 = TestCombatants.newTestCombatant("footman");
+        Combatant combatant2 = TestCombatants.newTestCombatant("grunt");
+
+        combatant1.setSize(32, 32);
+        combatant2.setSize(32, 32);
+
+        combatant1.setPosition(100, 100);
+        combatant2.setPosition(155, 155);
+
+        Assert.assertFalse(ItemOperations.isNear(combatant1, 50, combatant2));
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void isNearNullLocusTest() {
+        Combatant combatant2 = TestCombatants.newTestCombatant("grunt");
+        ItemOperations.isNear(null, 50, combatant2);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void isNearNullTargetTest() {
+        Combatant combatant1 = TestCombatants.newTestCombatant("footman");
+        ItemOperations.isNear(combatant1, 50, null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void isNearNegativeRadiusTest() {
+        Combatant combatant1 = TestCombatants.newTestCombatant("footman");
+        Combatant combatant2 = TestCombatants.newTestCombatant("grunt");
+        ItemOperations.isNear(combatant1, -50, combatant2);
     }
 }
