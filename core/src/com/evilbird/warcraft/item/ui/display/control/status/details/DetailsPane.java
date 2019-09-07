@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.Grid;
-import com.evilbird.warcraft.item.common.query.UnitOperations;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.ui.display.control.status.details.building.BuildingDetailsPane;
 import com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantDetailsPane;
 import com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantTitlePane;
@@ -25,6 +25,9 @@ import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.building.ResourceExtractor;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.resource.Resource;
+
+import static com.evilbird.warcraft.item.common.query.UnitOperations.isCorporeal;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.isResource;
 
 /**
  * Represents a user interface control that displays the icon and name of an
@@ -76,6 +79,18 @@ public class DetailsPane extends Grid
         }
     }
 
+    public void setResource(ResourceType resource, float value) {
+        if (isShown(buildingDetails)) {
+            buildingDetails.setResource(resource, value);
+        }
+    }
+
+    public void setResource(Item item, ResourceType resource, float value) {
+        if (isShown(resourceDetails)) {
+            resourceDetails.setResource(item, resource, value);
+        }
+    }
+
     public void setItem(Item item) {
         clearItems();
         showDetails(item);
@@ -83,7 +98,7 @@ public class DetailsPane extends Grid
 
     private void showDetails(Item item) {
         setTitle(item);
-        if (UnitOperations.isCorporeal(item)) {
+        if (isCorporeal(item) || isResource(item)) {
             setDetails(item);
         }
     }

@@ -11,11 +11,9 @@ package com.evilbird.warcraft.action.camera;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.item.data.camera.Camera;
-import org.mockito.Mockito;
 
 import static com.evilbird.test.data.assets.TestDevices.newTestDevice;
 

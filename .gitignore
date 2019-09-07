@@ -27,6 +27,7 @@ android/libs/arm64-v8a/
 android/libs/x86/
 android/libs/x86_64/
 android/gen/
+android/release
 .idea/*.xml
 .idea/libraries
 .idea/caches
@@ -47,6 +48,7 @@ tmp/
 *.swp
 *~.nib
 local.properties
+secure.properties
 .settings/
 .loadpath
 .externalToolBuilders/
@@ -72,3 +74,4 @@ build/
 Thumbs.db
 
 design/design/
+secure.properties

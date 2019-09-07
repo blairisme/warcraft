@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.common.query;
 
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
@@ -28,10 +29,12 @@ import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 import com.evilbird.warcraft.item.unit.critter.Critter;
+import com.evilbird.warcraft.item.unit.resource.Resource;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.findFirst;
@@ -84,7 +87,8 @@ public class UnitOperations
     }
 
     /**
-     * Returns the {@link Player} that the given {@link Item} belongs to.
+     * Returns the {@link Player} that the given {@link Item} belongs to, if
+     * any (Terrain items, for example, aren't owned by a player).
      *
      * @param item  an {@code Item} owned by a {@code Player}.
      * @return      the Player that owns the given Item, or {@code null} if
@@ -146,10 +150,24 @@ public class UnitOperations
         return player.hasUpgrade(upgrade);
     }
 
+    /**
+     * Determines if the given {@link Item Items} belong to different teams:
+     * the {@link Player players} that own them are different.
+     *
+     * @param itemA an {@code Item} to test.
+     * @param itemB another {@code Item} to test.
+     * @return      {@code true} if both {@code Items} are owned by the same
+     *              {@code Player}
+     *
+     * @throws NullPointerException thrown if either of the given {@code Items}
+     *                              is {@code null}.
+     */
     public static boolean isAnotherTeam(Item itemA, Item itemB) {
+        Objects.requireNonNull(itemA);
+        Objects.requireNonNull(itemB);
         Player playerA = getPlayer(itemA);
         Player playerB = getPlayer(itemB);
-        return !playerA.isNeutral() && !playerB.isNeutral() && playerA != playerB;
+        return playerA != null && playerB != null && playerA != playerB;
     }
 
     /**
@@ -275,6 +293,16 @@ public class UnitOperations
         return item instanceof Critter;
     }
 
+    public static boolean isFoodProducer(Item item) {
+        if (item instanceof Unit) {
+            Unit unit = (Unit)item;
+            UnitType type = (UnitType)unit.getType();
+            return type.isFoodProducer();
+        }
+        return false;
+    }
+
+
     /**
      * Determines if the given {@link Item} belongs to the human faction/race.
      *
@@ -311,11 +339,24 @@ public class UnitOperations
         return item instanceof RangedCombatant;
     }
 
+    public static boolean isResource(Item item) {
+        return item instanceof Resource;
+    }
+
     public static boolean isShip(Combatant combatant) {
         return combatant.getMovementCapability() == MovementCapability.Water;
     }
 
     public static boolean isUnit(Item item) {
         return item instanceof Unit;
+    }
+
+    public static void reorient(Unit item, Item target, boolean perpendicular) {
+        Vector2 itemPosition = item.getPosition();
+        Vector2 targetPosition = target.getPosition();
+        Vector2 direction = targetPosition.sub(itemPosition);
+        Vector2 normalizedDirection = direction.nor();
+        Vector2 newDirection = normalizedDirection.rotate(perpendicular ? 90 : 0);
+        item.setDirection(newDirection);
     }
 }

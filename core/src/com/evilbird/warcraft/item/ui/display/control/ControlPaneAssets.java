@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.ui.display.control;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.assets.AssetBundle;
@@ -20,6 +21,7 @@ import com.evilbird.warcraft.state.WarcraftContext;
 
 import java.util.Map;
 
+import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 
 /**
@@ -35,6 +37,7 @@ public class ControlPaneAssets extends AssetBundle
         registerCommonTextures();
         registerFactionTextures();
         registerStringBundles();
+        registerFonts();
     }
 
     private static Map<String, String> pathVariables(WarcraftContext context) {
@@ -68,6 +71,10 @@ public class ControlPaneAssets extends AssetBundle
     private void registerStringBundles() {
         register("detailStrings", "data/strings/common/menu/details", I18NBundle.class);
         register("nameStrings", "data/strings/common/menu/names", I18NBundle.class);
+    }
+
+    private void registerFonts() {
+        register("font", "data/fonts/philosopher-medium.ttf", BitmapFont.class, fontSize(16));
     }
 
     public IconSet getIcons() {
@@ -146,5 +153,9 @@ public class ControlPaneAssets extends AssetBundle
 
     public Drawable getHealthProgressLow() {
         return getDrawable("healthProgressLow");
+    }
+
+    public BitmapFont getFont() {
+        return getFont("font");
     }
 }

@@ -7,14 +7,16 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.state;
+package com.evilbird.engine.game;
+
+import com.evilbird.engine.state.StateIdentifier;
 
 /**
  * Identifies a game state created when the game engine is paused.
  *
  * @author Blair Butterworth
  */
-public enum ApplicationState implements StateIdentifier
+public enum GameState implements StateIdentifier
 {
     AutoSave
 }

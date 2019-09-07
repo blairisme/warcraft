@@ -13,11 +13,12 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.BranchAction;
 import com.evilbird.engine.action.framework.CopyAction;
+import com.evilbird.engine.action.framework.EmptyAction;
 import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.action.framework.OptionalAction;
 import com.evilbird.engine.action.framework.ParallelAction;
-import com.evilbird.engine.action.framework.RequirementAction;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.UpdateAction;
 import com.evilbird.engine.action.predicates.ActionPredicate;
@@ -49,6 +50,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     private transient Action scenario;
     private transient Action onError;
     private transient Action onReset;
+    private transient Action onFailed;
     private transient SequenceAction then;
     private transient Predicate<Action> given;
     private transient Predicate<Action> when;
@@ -61,6 +63,9 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
      */
     public ScenarioAction() {
         then = new SequenceAction();
+        onError = new EmptyAction();
+        onReset = new EmptyAction();
+        onFailed = new EmptyAction();
     }
 
     /**
@@ -308,6 +313,21 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
     }
 
     /**
+     * Assigns an {@link Action} that will be called if the scenario
+     * {@link this#given(Predicate) requirements} are not fulfilled.
+     *
+     * @param action    an action.
+     * @return          this scenario.
+     *
+     * @throws NullPointerException if the given action is {@code null}.
+     */
+    public ScenarioAction onFailed(Action action) {
+        Objects.requireNonNull(action);
+        onFailed = action;
+        return this;
+    }
+
+    /**
      * Assigns an {@link Action} that will be called when the scenario is
      * reset. Resetting takes place outside of the action update cycle, so the
      * given action will only be called once per reset.
@@ -328,31 +348,30 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
         Action scenario = getScenario();
         if (! scenario.hasError()) {
             return scenario.act(delta);
-        } else if (onError != null){
+        } else {
             return onError.act(delta);
         }
-        return true;
     }
 
     public boolean evaluate() {
-        boolean result = false;
-        if (when != null) {
-            result = when.test(this);
-        }
-        if (given != null) {
-            result &= given.test(this);
-        }
-        return result;
+        return prerequisitesMeet() && requirementsMeet();
+    }
+
+    private boolean prerequisitesMeet() {
+        return when == null || when.test(this);
+    }
+
+    private boolean requirementsMeet() {
+        return given == null || given.test(this);
     }
 
     @Override
     public void reset() {
         super.reset();
-        Action scenario = getScenario();
-        if (onReset != null) {
-            onReset.act(0);
-        }
-        scenario.reset();
+        onReset.act(0);
+        onReset.reset();
+        onError.reset();
+        getScenario().reset();
     }
 
     @Override
@@ -412,6 +431,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
             setData(scenario);
             setData(onError);
             setData(onReset);
+            setData(onFailed);
         }
         return scenario;
     }
@@ -431,7 +451,7 @@ public class ScenarioAction<T extends Identifier> extends BasicAction
             result = new OptionalAction(result, when);
         }
         if (given != null) {
-            result = new RequirementAction(result, given);
+            result = new BranchAction(given, result, onFailed);
         }
         if (itemSupplier != null) {
             result = new UpdateAction(result, itemSupplier, ActionRecipient.Subject);

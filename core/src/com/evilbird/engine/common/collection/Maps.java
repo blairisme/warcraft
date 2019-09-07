@@ -16,7 +16,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
+
+import static java.util.stream.Collectors.toMap;
 
 /**
  * This class provides utility functions that operate on {@link Map Maps}.
@@ -91,5 +95,17 @@ public class Maps
             return defaultSupplier.get();
         }
         return map.get(key);
+    }
+
+    public static <K, V> Map<K, V> filterByKey(Map<K, V> map, Predicate<K> condition) {
+        return filter(map, entry -> condition.test(entry.getKey()));
+    }
+
+    public static <K, V> Map<K, V> filterByValue(Map<K, V> map, Predicate<V> condition) {
+        return filter(map, entry -> condition.test(entry.getValue()));
+    }
+
+    public static <K, V> Map<K, V> filter(Map<K, V> map, Predicate<Entry<K, V>> condition) {
+        return map.entrySet().stream().filter(condition).collect(toMap(Entry::getKey, Entry::getValue));
     }
 }

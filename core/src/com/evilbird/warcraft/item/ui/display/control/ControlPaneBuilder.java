@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonStyle;
 import com.evilbird.warcraft.item.ui.display.control.common.HealthBarStyle;
 import com.evilbird.warcraft.item.ui.display.control.common.UnitPaneStyle;
@@ -75,14 +74,14 @@ public class ControlPaneBuilder
 
     private Label.LabelStyle getFontStyle() {
         Label.LabelStyle style = new Label.LabelStyle();
-        style.font = Fonts.ARIAL;
+        style.font = assets.getFont();
         style.fontColor = Color.WHITE;
         return style;
     }
 
     private TextButton.TextButtonStyle getButtonStyle() {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = Fonts.ARIAL;
+        textButtonStyle.font = assets.getFont();
         textButtonStyle.fontColor = Color.WHITE;
         textButtonStyle.up = assets.getButtonEnabled();
         textButtonStyle.over = textButtonStyle.up;

@@ -32,8 +32,8 @@ public class MoveWithinRangeAction extends MoveAction
     private MoveDestination destination;
 
     @Inject
-    public MoveWithinRangeAction() {
-        super();
+    public MoveWithinRangeAction(Events events) {
+        super(events);
     }
 
     @Override
@@ -73,8 +73,6 @@ public class MoveWithinRangeAction extends MoveAction
     }
 
     public static MoveWithinRangeAction moveWithinRange(Events events) {
-        MoveWithinRangeAction result = new MoveWithinRangeAction();
-        result.setObserver(events);
-        return result;
+        return new MoveWithinRangeAction(events);
     }
 }

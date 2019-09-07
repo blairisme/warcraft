@@ -19,6 +19,8 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
+import static com.evilbird.engine.action.ActionConstants.ACTION_COMPLETE;
+import static com.evilbird.engine.action.ActionConstants.ACTION_INCOMPLETE;
 import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.MeleeDamage1;
@@ -39,21 +41,18 @@ public class MeleeAttack extends BasicAction
     public MeleeAttack() {
     }
 
-    public static MeleeAttack meleeAttack() {
-        return new MeleeAttack();
-    }
-
     @Override
     public boolean act(float time) {
         if (! initialized()) {
             initialize();
         }
         if (! readyToAttack()) {
-            reduceAttackDelay(time);
-        } else {
-            attackTarget();
+            return delayAttack(time);
         }
-        return isTargetDead();
+        if (attackTarget()) {
+            return attackComplete();
+        }
+        return ACTION_INCOMPLETE;
     }
 
     @Override
@@ -86,15 +85,20 @@ public class MeleeAttack extends BasicAction
         return delay == 0;
     }
 
-    private void reduceAttackDelay(float time) {
+    private boolean delayAttack(float time) {
         delay = Math.max(delay - time, 0);
+        return ACTION_INCOMPLETE;
     }
 
-    private void attackTarget() {
+    private boolean attackTarget() {
         Combatant combatant = (Combatant)getItem();
+        combatant.setSound(UnitSound.Attack);
+
         Destroyable target = (Destroyable)getTarget();
         setTargetHealth(combatant, target);
+
         delay = combatant.getAttackSpeed();
+        return target.getHealth() == 0;
     }
 
     private void setTargetHealth(Combatant combatant, Destroyable target) {
@@ -114,9 +118,15 @@ public class MeleeAttack extends BasicAction
         upgrade += player.hasUpgrade(MeleeDamage2) ? 2 : 0;
         return upgrade;
     }
+//
+//    private boolean isTargetDead() {
+//        Destroyable target = (Destroyable)getTarget();
+//        return target.getHealth() == 0;
+//    }
 
-    private boolean isTargetDead() {
-        Destroyable target = (Destroyable)getTarget();
-        return target.getHealth() == 0;
+    private boolean attackComplete() {
+        Combatant combatant = (Combatant)getItem();
+        combatant.setAnimation(UnitAnimation.Idle);
+        return ACTION_COMPLETE;
     }
 }

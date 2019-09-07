@@ -39,10 +39,9 @@ public class MoveToVectorActionTest extends GameTestCase
         item = TestCombatants.newTestCombatant("moved");
         target = TestCombatants.newTestCombatant("destination");
 
-        action = new MoveToVectorAction();
+        action = new MoveToVectorAction(Mockito.mock(EventQueue.class));
         action.setItem(item);
         action.setTarget(target);
-        action.setObserver(Mockito.mock(EventQueue.class));
     }
 
     @Test

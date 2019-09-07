@@ -19,6 +19,7 @@ import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemGroupObserver;
 import com.evilbird.engine.item.interop.TableDecorator;
 
+import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -101,6 +102,11 @@ public class Table extends ItemGroup
         items.clear();
         control.clear();
         observers.forEach(ItemGroupObserver::itemsCleared);
+    }
+
+    public boolean isShown(Item item) {
+        Collection<Item> items = getItems();
+        return items.contains(item);
     }
 
     public void debug() {

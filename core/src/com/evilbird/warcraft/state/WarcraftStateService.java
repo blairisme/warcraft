@@ -19,7 +19,7 @@ import com.evilbird.engine.common.serialization.Serializer;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceStorage;
 import com.evilbird.engine.game.GameContext;
-import com.evilbird.engine.state.ApplicationState;
+import com.evilbird.engine.game.GameState;
 import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateLoadError;
@@ -148,8 +148,8 @@ public class WarcraftStateService implements StateService
     }
 
     private FileHandle resolve(StateIdentifier identifier) {
-        if (identifier instanceof ApplicationState) {
-            WarcraftSave save = new WarcraftSave((ApplicationState)identifier);
+        if (identifier instanceof GameState) {
+            WarcraftSave save = new WarcraftSave((GameState)identifier);
             return saveFile(save.getFileName());
         }
         if (identifier instanceof WarcraftSave) {

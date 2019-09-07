@@ -10,8 +10,11 @@
 package com.evilbird.warcraft.action.common.death;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
+
+import javax.inject.Inject;
 
 import static com.evilbird.engine.action.common.AnimateAction.animate;
 import static com.evilbird.engine.action.common.AudibleAction.play;
@@ -42,11 +45,12 @@ public class DeathAction extends ScenarioSetAction
 
     private Events events;
 
-    public DeathAction(Events events) {
+    @Inject
+    public DeathAction(EventQueue events) {
         this.events = events;
     }
 
-    public static DeathAction kill(Events events) {
+    public static DeathAction kill(EventQueue events) {
         return new DeathAction(events);
     }
 

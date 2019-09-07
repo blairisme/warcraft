@@ -45,7 +45,9 @@ public class AttackEvent implements Event
     }
 
     public boolean isFinished() {
-        return status != AttackStatus.Started;
+        return status == AttackStatus.Complete
+            || status == AttackStatus.Failed
+            || status == AttackStatus.Cancelled;
     }
 
     @Override

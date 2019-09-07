@@ -35,7 +35,6 @@ public class FontLoader extends SynchronousAssetLoader<BitmapFont, FontLoaderPar
     public BitmapFont load(AssetManager manager, String fileName, FileHandle file, FontLoaderParameters parameters) {
         FreeTypeFontParameter style = getStyle(parameters);
         FreeTypeFontGenerator generator = manager.get(fileName + ".gen", FreeTypeFontGenerator.class);
-        generator.scaleForPixelHeight(style.size);
         return generator.generateFont(style);
     }
 

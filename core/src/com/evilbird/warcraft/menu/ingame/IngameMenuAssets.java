@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.menu.ingame;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.assets.AssetBundle;
@@ -18,6 +19,7 @@ import com.evilbird.warcraft.state.WarcraftContext;
 
 import java.util.Map;
 
+import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 
 /**
@@ -39,6 +41,7 @@ public class IngameMenuAssets extends AssetBundle
         register("data/textures/${faction}/menu/panel_small.png");
         register("data/sounds/common/menu/click.mp3");
         register("data/strings/common/menu/ingame", I18NBundle.class);
+        register("font", "data/fonts/philosopher-medium.ttf", BitmapFont.class, fontSize(16));
     }
 
     private static Map<String, String> pathVariables(WarcraftContext context) {
@@ -79,5 +82,9 @@ public class IngameMenuAssets extends AssetBundle
 
     public IngameMenuStrings getStrings() {
         return new IngameMenuStrings(getStrings("ingame"));
+    }
+
+    public BitmapFont getFont() {
+        return getFont("font");
     }
 }

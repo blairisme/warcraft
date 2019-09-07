@@ -33,6 +33,11 @@ public class Wall extends LayerGroup
     }
 
     @Override
+    public void update(float delta) {
+        super.update(delta);
+    }
+
+    @Override
     protected LayerGroupCell createCell(MapLayerEntry entry) {
         WallSection wallSection = new WallSection();
         wallSection.setHealth(DEFAULT_HEALTH);

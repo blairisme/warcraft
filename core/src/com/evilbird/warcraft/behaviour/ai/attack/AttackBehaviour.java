@@ -29,6 +29,7 @@ import static com.evilbird.engine.item.utility.ItemOperations.isIdle;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isAlive;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isAnotherTeam;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isAttacker;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.isNeutral;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isUnit;
 
 /**
@@ -83,7 +84,7 @@ public class AttackBehaviour implements AiBehaviourElement
 
     private void assignTarget(Combatant combatant) {
         for (Item target : graph.getAttackTargets(combatant)) {
-            if (isAlive(target) && isAnotherTeam(combatant, target)) {
+            if (isViableTarget(combatant, target)) {
                 attack(combatant, target);
                 return;
             }
@@ -101,10 +102,14 @@ public class AttackBehaviour implements AiBehaviourElement
 
     private void assignAttacker(Item target, ItemNode location) {
         for (Combatant attacker: graph.getAttackers(location)) {
-            if (isIdle(attacker) && isAlive(attacker) && isAnotherTeam(attacker, target)) {
+            if (isIdle(attacker) && isViableTarget(attacker, target)) {
                 attack(attacker, target);
             }
         }
+    }
+
+    private boolean isViableTarget(Item attacker, Item target) {
+        return isAlive(target) && isAnotherTeam(attacker, target) && !isNeutral(target);
     }
 
     private void attack(Combatant combatant, Item target) {

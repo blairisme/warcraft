@@ -46,7 +46,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.itemWithId;
-import static com.evilbird.engine.item.utility.ItemPredicates.withType;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isFoodProducer;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.item.data.player.PlayerScore.getScoreValue;
 import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Score;
@@ -108,8 +108,9 @@ public class MenuBehaviour implements Behaviour
     private void initializeResources() {
         for (ResourceType resourceType: ResourceType.values()) {
             float resourceValue = player.getResource(resourceType);
-            actionPane.setResource(resourceType, resourceValue);
-            resourcePane.setResourceText(resourceType, resourceValue);
+            actionPane.setPlayerResource(resourceType, resourceValue);
+            resourcePane.setPlayerResource(resourceType, resourceValue);
+            statusPane.setPlayerResource(resourceType, resourceValue);
         }
     }
 
@@ -120,7 +121,7 @@ public class MenuBehaviour implements Behaviour
     }
 
     private void initializePopulation(ItemRoot world) {
-        for (Item farm: world.findAll(withType(UnitType.Farm))){
+        for (Item farm: world.findAll(isFoodProducer())){
             player.incrementStatistic(PlayerStatistic.Population, 5);
         }
     }
@@ -134,9 +135,16 @@ public class MenuBehaviour implements Behaviour
 
     private void updateResourceRecipients() {
         for (TransferEvent event: events.getEvents(TransferEvent.class)) {
-            if (event.getSubject() == player) {
-                actionPane.setResource(event.getResource(), event.getValue());
-                resourcePane.setResourceText(event.getResource(), event.getValue());
+            Item subject = event.getSubject();
+            ResourceType resource = event.getResource();
+            float amount = event.getValue();
+
+            if (subject == player) {
+                actionPane.setPlayerResource(resource, amount);
+                resourcePane.setPlayerResource(resource, amount);
+                statusPane.setPlayerResource(resource, amount);
+            } else {
+                statusPane.setItemResource(subject, resource, amount);
             }
         }
     }
@@ -150,7 +158,8 @@ public class MenuBehaviour implements Behaviour
                 Player player = UnitOperations.getPlayer(event.getSubject());
                 player.incrementStatistic(PlayerStatistic.Buildings, 1);
 
-                if (event.getBuilding().getType() == UnitType.Farm) {
+                UnitType buildingType = (UnitType)event.getBuilding().getType();
+                if (buildingType.isFoodProducer()) {
                     player.incrementStatistic(PlayerStatistic.Population, 5);
                 }
             }

@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.ui.display.resource;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.collection.Maps;
@@ -17,6 +18,7 @@ import com.evilbird.warcraft.state.WarcraftContext;
 
 import java.util.Map;
 
+import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 
 /**
@@ -31,6 +33,7 @@ public class ResourcePaneAssets extends AssetBundle
         super(manager, assetPathVariables(context));
         register("icons", "data/textures/common/menu/resource_icon.png");
         register("background", "data/textures/${faction}/menu/resource_panel.png");
+        register("font", "data/fonts/philosopher-medium.ttf", BitmapFont.class, fontSize(16));
     }
 
     private static Map<String, String> assetPathVariables(WarcraftContext context) {
@@ -51,5 +54,9 @@ public class ResourcePaneAssets extends AssetBundle
 
     public Drawable getWoodIcon() {
         return getDrawable("icons", 0, 14, 14, 14);
+    }
+
+    public BitmapFont getFont() {
+        return getFont("font");
     }
 }

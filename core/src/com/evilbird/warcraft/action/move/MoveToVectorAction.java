@@ -34,8 +34,8 @@ public class MoveToVectorAction extends MoveAction
     private MoveDestination destination;
 
     @Inject
-    public MoveToVectorAction() {
-        super();
+    public MoveToVectorAction(Events events) {
+        super(events);
     }
 
     @Override
@@ -77,8 +77,6 @@ public class MoveToVectorAction extends MoveAction
     }
 
     public static MoveToVectorAction moveToCause(Events events) {
-        MoveToVectorAction result = new MoveToVectorAction();
-        result.setObserver(events);
-        return result;
+        return new MoveToVectorAction(events);
     }
 }

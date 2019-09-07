@@ -30,6 +30,12 @@ public class DesktopCommands
     @Option(names={"-m", "--menu" }, paramLabel="MENU", description="starts the game and shows the given menu")
     private String menu;
 
+    @Option(names={"-q", "--quick-build" }, paramLabel="QUICK BUILD", description="units are produced quickly")
+    private boolean quickBuild;
+
+    @Option(names={"-f", "--free-build" }, paramLabel="FREE BUILD", description="units are produced for free")
+    private boolean freeBuild;
+
     /**
      * The scenario to show when the game engine starts. This command line
      * option is optional and may be <code>null</code>.
@@ -60,5 +66,23 @@ public class DesktopCommands
             return OutroMenuType.valueOf(menu);
         }
         throw new IllegalArgumentException("Unknown menu type: " + menu);
+    }
+
+    /**
+     * Instructs the game engine to produce units and buildings quickly.
+     *
+     * @return {@code true} if enabled.
+     */
+    public boolean isQuickBuildEnabled() {
+        return quickBuild;
+    }
+
+    /**
+     * Instructs the game engine to produce units and buildings for free.
+     *
+     * @return {@code true} if enabled.
+     */
+    public boolean isFreeBuildEnabled() {
+        return freeBuild;
     }
 }

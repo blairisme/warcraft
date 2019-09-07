@@ -10,6 +10,7 @@
 package com.evilbird.engine.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.evilbird.engine.common.concurrent.CompleteFuture;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceControls;
@@ -31,8 +32,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.concurrent.Future;
 
-import static com.evilbird.engine.common.lang.GenericIdentifier.Root;
-import static com.evilbird.engine.state.ApplicationState.AutoSave;
+import static com.evilbird.engine.game.GameState.AutoSave;
 
 /**
  * Instances of this class represent the entry point into the game, which
@@ -117,8 +117,18 @@ public class GameEngine extends Game implements GameController
     }
 
     @Override
+    public MenuIdentifier getMenuIdentifier() {
+        return menuScreen.getIdentifier();
+    }
+
+    @Override
     public State getState() {
         return stateScreen.getState();
+    }
+
+    @Override
+    public StateIdentifier getStateIdentifier() {
+        return stateScreen.getIdentifier();
     }
 
     @Override
@@ -190,9 +200,9 @@ public class GameEngine extends Game implements GameController
     @Override
     public void showMenu() {
         try {
-            if (menuScreen.getIdentifier() != Root) {
+            if (menuScreen.getIdentifier() != GameMenu.Root) {
                 menuScreen.dispose();
-                menuScreen.setMenu(menuFactory.get(), Root);
+                menuScreen.setMenu(menuFactory.get(), GameMenu.Root);
             }
             setScreen(menuScreen);
         }
@@ -280,6 +290,7 @@ public class GameEngine extends Game implements GameController
     @Override
     public void render() {
         try {
+            Gdx.graphics.setTitle("Warcraft - FPS: " + Gdx.graphics.getFramesPerSecond());
             super.render();
         }
         catch (Throwable error) {

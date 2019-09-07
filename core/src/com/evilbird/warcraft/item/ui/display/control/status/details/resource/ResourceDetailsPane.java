@@ -30,47 +30,47 @@ import com.evilbird.warcraft.item.unit.resource.Resource;
 public class ResourceDetailsPane extends Grid implements DetailsPaneElement
 {
     private ResourceContainer resource;
-    private Label resourceLabel;
-    private float resourceValue;
+    private Label label;
+    private Skin skin;
     private DetailsPaneStyle style;
 
     public ResourceDetailsPane(Skin skin) {
         super(1, 1);
-
         setSkin(skin);
         setSize(160, 100);
         setCellSpacing(4);
         setCellWidth(160);
         setCellHeight(12);
-
-        resourceLabel = createLabel(skin);
-        add(resourceLabel);
     }
 
     public void setItem(Item item) {
-        this.resource = (ResourceContainer)item;
-        this.resourceValue = -1;
+        resource = (ResourceContainer)item;
+        createView(resource);
+    }
+
+    public void setResource(Item item, ResourceType type, float value) {
+        if (resource == item && type == getType(resource)) {
+            label.setText(getText(resource, value));
+        }
     }
 
     @Override
     public void setSkin(Skin skin) {
         super.setSkin(skin);
+        this.skin = skin;
         this.style = skin.get(DetailsPaneStyle.class);
     }
 
-    @Override
-    public void update(float delta) {
-        super.update(delta);
-        if (resource != null) {
-            float newResourceValue = getResourceValue(resource);
-            if (resourceValue != newResourceValue) {
-                resourceValue = newResourceValue;
-                resourceLabel.setText(getResourceLabel(resource, resourceValue));
-            }
-        }
+    private void createView(ResourceContainer resource) {
+        clearItems();
+        add(addLabel(getText(resource), skin));
     }
 
-    private String getResourceLabel(ResourceContainer resource, float value) {
+    private String getText(ResourceContainer container) {
+        return getText(container, getValue(container));
+    }
+
+    private String getText(ResourceContainer resource, float value) {
         switch ((UnitType)resource.getType()) {
             case GoldMine: return style.strings.getGoldRemaining(value);
             case OilPatch:
@@ -80,7 +80,17 @@ public class ResourceDetailsPane extends Grid implements DetailsPaneElement
         }
     }
 
-    private float getResourceValue(ResourceContainer resource) {
+    private ResourceType getType(ResourceContainer resource) {
+        switch ((UnitType)resource.getType()) {
+            case GoldMine: return ResourceType.Gold;
+            case OilPatch:
+            case OilPlatform:
+            case OilRig: return ResourceType.Oil;
+            default: throw new UnsupportedOperationException();
+        }
+    }
+
+    private float getValue(ResourceContainer resource) {
         switch ((UnitType)resource.getType()) {
             case GoldMine: return resource.getResource(ResourceType.Gold);
             case OilPatch:
@@ -90,10 +100,11 @@ public class ResourceDetailsPane extends Grid implements DetailsPaneElement
         }
     }
 
-    private Label createLabel(Skin skin) {
-        Label result = new Label("", skin);
+    private Label addLabel(String text, Skin skin) {
+        Label result = new Label(text, skin);
         result.setSize(160, 12);
         result.setAlignment(Align.center);
+        add(result);
         return result;
     }
 }

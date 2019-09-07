@@ -11,7 +11,6 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
@@ -70,7 +69,7 @@ public class GatherGold extends ScenarioSetAction
     private static final float GATHER_TIME = 5;
     private static final ResourceQuantity GATHER_AMOUNT = resource(Gold, 100);
 
-    private transient Events events;
+    private transient EventQueue events;
 
     @Inject
     public GatherGold(EventQueue events) {

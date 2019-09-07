@@ -19,8 +19,8 @@
         <img src="https://codecov.io/gh/blairisme/warcraft/branch/develop/graph/badge.svg?token=mJVgDaze7L"
             alt="Code Coverage"/>
     </a> -->
-    <a href="https://github.com/blairisme/warcraft/releases/tag/v0.1-alpha">
-        <img src="https://img.shields.io/badge/release-v0.1-blue.svg"
+    <a href="https://github.com/blairisme/warcraft/releases/tag/v0.2-alpha">
+        <img src="https://img.shields.io/badge/release-v0.2-blue.svg"
             alt="Build Release"/>
     </a>
     <a href="https://github.com/blairisme/warcraft/blob/develop/LICENSE">
@@ -35,7 +35,37 @@
 
 An unofficial recreation of Warcraft 2, made so that this excellent game can be enjoyed by fans of the original on modern platforms. This application is a tribute to the original and as such, all copyright and legal ownership remain with the games original author, Blizzard.
 
+## Project status
+
+This project is still under active development. Whilst significant progress has been made the project remains approximately 70% complete.
+
+### Completed
+
+- Human campaign levels 1-3
+- Orc Campaign levels 1-3
+- Main menu system
+- In-game menu system
+- In-game user interface
+- Game persistence
+- Game statistics
+- Installers
+
+### Under active development
+
+- Buff/Debuff/Upgrade mechanism
+- Magic units
+- Campaign AI
+- Human and Campaign levels 4-12
+
+### Planned for future development
+
+- General purpose AI
+- Scenarios
+- Multiplayer
+
+
 ## Downloads
 
-- [Windows](https://github.com/blairisme/warcraft/releases/latest/download/Warcraft-Windows.zip)
-- [MacOS](https://github.com/blairisme/warcraft/releases/latest/download/Warcraft-MacOS.zip)
+- [Windows v0.2 (PRE-ALPHA)](https://github.com/blairisme/warcraft/releases/latest/download/Warcraft-Windows.zip)
+- [MacOS v0.2 (PRE-ALPHA)](https://github.com/blairisme/warcraft/releases/latest/download/Warcraft-MacOS.zip)
+- [Android v0.2 (PRE-ALPHA)](https://github.com/blairisme/warcraft/releases/latest/download/Warcraft-Android.apk)

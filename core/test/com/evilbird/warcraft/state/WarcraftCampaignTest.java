@@ -63,4 +63,12 @@ public class WarcraftCampaignTest
         Assert.assertEquals(IntroMenuType.Orc1, WarcraftCampaign.Orc1.getIntroductionMenu());
         Assert.assertEquals(IntroMenuType.Orc14, WarcraftCampaign.Orc14.getIntroductionMenu());
     }
+
+    @Test
+    public void getNextStateTest() {
+        Assert.assertEquals(WarcraftCampaign.Human2, WarcraftCampaign.Human1.getNextState());
+        Assert.assertNull(WarcraftCampaign.Human14.getNextState());
+        Assert.assertEquals(WarcraftCampaign.Orc2, WarcraftCampaign.Orc1.getNextState());
+        Assert.assertNull(WarcraftCampaign.Orc14.getNextState());
+    }
 }

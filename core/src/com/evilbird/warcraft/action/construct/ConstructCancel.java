@@ -10,7 +10,6 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -37,7 +36,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstruct
  */
 public class ConstructCancel extends ScenarioSetAction
 {
-    private transient Events events;
+    private transient EventQueue events;
 
     /**
      * Constructs a new instance of this class given a {@link EventQueue}

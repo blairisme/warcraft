@@ -11,7 +11,6 @@ package com.evilbird.warcraft.item.ui.display.resource;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.warcraft.item.ui.display.HudControl;
 
 /**
@@ -39,7 +38,7 @@ public class ResourcePaneBuilder
 
     private ResourcePaneStyle getStyle() {
         ResourcePaneStyle style = new ResourcePaneStyle();
-        style.font = Fonts.ARIAL;
+        style.font = assets.getFont();
         style.colour = Color.WHITE;
         style.background = assets.getBackground();
         style.goldIcon = assets.getGoldIcon();

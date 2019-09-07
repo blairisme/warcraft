@@ -17,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.device.DeviceDisplay;
 
 /**
@@ -53,7 +52,7 @@ public class IngameMenuBuilder
 
     private void addButtonStyle(Skin skin) {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = Fonts.ARIAL;
+        textButtonStyle.font = assets.getFont();
         textButtonStyle.fontColor = Color.WHITE;
         textButtonStyle.up = assets.getButtonEnabled();
         textButtonStyle.over = textButtonStyle.up;
@@ -66,14 +65,14 @@ public class IngameMenuBuilder
 
     private void addLabelStyle(Skin skin) {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = Fonts.ARIAL;
+        labelStyle.font = assets.getFont();
         labelStyle.fontColor = Color.GOLD;
         skin.add("default", labelStyle);
     }
 
     private void addListStyle(Skin skin) {
         List.ListStyle listStyle = new List.ListStyle();
-        listStyle.font = Fonts.ARIAL;
+        listStyle.font = assets.getFont();
         listStyle.fontColorSelected = Color.GOLD;
         listStyle.fontColorUnselected = Color.WHITE;
         listStyle.background = assets.getListBackground();
@@ -84,7 +83,7 @@ public class IngameMenuBuilder
 
     private void addTextFieldStyle(Skin skin) {
         TextField.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle();
-        textFieldStyle.font = Fonts.ARIAL;
+        textFieldStyle.font = assets.getFont();
         textFieldStyle.fontColor = Color.GOLD;
         textFieldStyle.background = assets.getTextFieldBackground();
         skin.add("default", textFieldStyle);

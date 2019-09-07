@@ -136,8 +136,12 @@ public class ConstructSequence extends ScenarioSetAction
     private Action build(UnitType building) {
         ParallelAction action = new ParallelAction();
         action.add(construct(progress(building), buildTime(building)));
-        action.add(playRepeat(Build, CONSTRUCT_SOUND_INTERVAL, whileTarget(isConstructing())));
+        action.add(playRepeat(Build, audioDelay(building), whileTarget(isConstructing())));
         return action;
+    }
+
+    private float audioDelay(UnitType building) {
+        return Math.min(buildTime(building), CONSTRUCT_SOUND_INTERVAL);
     }
 
     private Consumer<Item> properties() {

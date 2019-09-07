@@ -12,15 +12,11 @@ package com.evilbird.warcraft.item.ui.display.control.status.details.building;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.common.control.LabelProperty;
 import com.evilbird.engine.item.specialized.Grid;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.item.unit.building.Building;
-
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * Instances of this user interface show details about a Town Hall, including
@@ -31,47 +27,52 @@ import java.util.function.Supplier;
 public class CommandCentreDetailsPane extends Grid
 {
     private Player player;
-    private LabelProperty gold;
-    private LabelProperty lumber;
-    private LabelProperty oil;
+    private Label title;
+    private Label gold;
+    private Label lumber;
+    private Label oil;
+    private Skin skin;
     private DetailsPaneStyle style;
 
     public CommandCentreDetailsPane(Skin skin) {
         super(1, 4);
-
         setSkin(skin);
         setSize(160, 100);
         setCellSpacing(4);
         setCellWidth(160);
         setCellHeight(12);
-
-        addLabel(style.strings.getProduction(), skin);
-        gold = addLabel(skin, this::getGoldValue, this::getGoldLabel);
-        lumber = addLabel(skin, this::getLumberValue, this::getLumberLabel);
-        oil = addLabel(skin, this::getOilValue, this::getOilLabel);
     }
 
     public void setBuilding(Building building) {
-        this.player = (Player)building.getParent();
+        player = (Player)building.getParent();
+        createView(player);
+    }
+
+    public void setResource(ResourceType resource, float value) {
+        if (resource == ResourceType.Gold) {
+            gold.setText(style.strings.getGold(value));
+        }
+        else if (resource == ResourceType.Wood) {
+            lumber.setText(style.strings.getWood(value));
+        }
+        else if (resource == ResourceType.Oil) {
+            oil.setText(style.strings.getOil(value));
+        }
     }
 
     @Override
     public void setSkin(Skin skin) {
         super.setSkin(skin);
+        this.skin = skin;
         this.style = skin.get(DetailsPaneStyle.class);
     }
 
-    @Override
-    public void update(float delta) {
-        super.update(delta);
-        gold.evaluate();
-        lumber.evaluate();
-        oil.evaluate();
-    }
-
-    private LabelProperty addLabel(Skin skin, Supplier<Float> value, Function<Float, String> text) {
-        Label label = addLabel("", skin);
-        return new LabelProperty(label, value, text);
+    private void createView(Player player) {
+        clearItems();
+        title = addLabel(getProduction(), skin);
+        gold = addLabel(getGold(), skin);
+        lumber = addLabel(getLumber(), skin);
+        oil = addLabel(getOil(), skin);
     }
 
     private Label addLabel(String text, Skin skin) {
@@ -82,27 +83,22 @@ public class CommandCentreDetailsPane extends Grid
         return result;
     }
 
-    private Float getGoldValue() {
-        return player.getResource(ResourceType.Gold);
+    private String getProduction() {
+        return style.strings.getProduction();
     }
 
-    private String getGoldLabel(Float value) {
+    private String getGold() {
+        float value = player.getResource(ResourceType.Gold);
         return style.strings.getGold(value);
     }
 
-    private Float getLumberValue() {
-        return player.getResource(ResourceType.Wood);
-    }
-
-    private String getLumberLabel(Float value) {
+    private String getLumber() {
+        float value = player.getResource(ResourceType.Wood);
         return style.strings.getWood(value);
     }
 
-    private Float getOilValue() {
-        return player.getResource(ResourceType.Oil);
-    }
-
-    private String getOilLabel(Float value) {
+    private String getOil() {
+        float value = player.getResource(ResourceType.Oil);
         return style.strings.getOil(value);
     }
 }

@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.ui.display.control.status.details.building;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.Table;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -26,14 +27,14 @@ public class BuildingDetailsPane extends Table implements DetailsPaneElement
 {
     private ConstructionDetailsPane constructionDetails;
     private ProductionDetailsPane productionDetails;
-    private CommandCentreDetailsPane townHallDetails;
-    private FoodProducerDetailsPane farmDetails;
+    private CommandCentreDetailsPane commandCentreDetails;
+    private FoodProducerDetailsPane foodProducerDetails;
 
     public BuildingDetailsPane(Skin skin) {
         constructionDetails = new ConstructionDetailsPane(skin);
         productionDetails = new ProductionDetailsPane(skin);
-        townHallDetails = new CommandCentreDetailsPane(skin);
-        farmDetails = new FoodProducerDetailsPane(skin);
+        commandCentreDetails = new CommandCentreDetailsPane(skin);
+        foodProducerDetails = new FoodProducerDetailsPane(skin);
     }
 
     public void setConstructing(Building building, boolean constructing) {
@@ -49,6 +50,15 @@ public class BuildingDetailsPane extends Table implements DetailsPaneElement
             showProductionDetails(building);
         } else {
             updateView(building);
+        }
+    }
+
+    public void setResource(ResourceType resource, float value) {
+        if (isShown(commandCentreDetails)) {
+            commandCentreDetails.setResource(resource, value);
+        }
+        if (isShown(foodProducerDetails)) {
+            foodProducerDetails.setResource(resource, value);
         }
     }
 
@@ -85,13 +95,13 @@ public class BuildingDetailsPane extends Table implements DetailsPaneElement
     }
 
     private void showFoodProducerDetails(Building building) {
-        farmDetails.setBuilding(building);
-        showView(farmDetails);
+        foodProducerDetails.setBuilding(building);
+        showView(foodProducerDetails);
     }
 
     private void showCommandCentreDetails(Building building) {
-        townHallDetails.setBuilding(building);
-        showView(townHallDetails);
+        commandCentreDetails.setBuilding(building);
+        showView(commandCentreDetails);
     }
 
     private void showView(Item view) {

@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.state;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.evilbird.engine.state.ApplicationState;
+import com.evilbird.engine.game.GameState;
 import com.evilbird.engine.state.StateIdentifier;
 
 import static com.evilbird.engine.common.file.FileType.JSON;
@@ -37,7 +37,7 @@ public class WarcraftSave implements StateIdentifier
         this.file = name + JSON.getFileExtension();
     }
 
-    public WarcraftSave(ApplicationState state) {
+    public WarcraftSave(GameState state) {
         this.name = toSnakeCase(state.name());
         this.file = name + JSON.getFileExtension();
     }

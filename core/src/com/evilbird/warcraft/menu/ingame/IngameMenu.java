@@ -12,6 +12,7 @@ package com.evilbird.warcraft.menu.ingame;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -21,7 +22,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.control.SelectListenerAdapter;
-import com.evilbird.engine.common.control.StyledLabel;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.menu.Menu;
 import org.apache.commons.lang3.tuple.Pair;
@@ -89,12 +89,18 @@ public class IngameMenu extends Menu
     }
 
     public void addTitle(String text) {
-        Cell cell = addControl(new StyledLabel(text, skin, Align.center));
+        Cell cell = addControl(createLabel(text, skin, Align.center));
         cell.padTop(12);
     }
 
     public void addLabel(String text) {
-        addControl(new StyledLabel(text, skin, Align.left));
+        addControl(createLabel(text, skin, Align.left));
+    }
+
+    private Label createLabel(String text, Skin skin, int alignment) {
+        Label result = new Label(text, skin);
+        result.setAlignment(alignment);
+        return result;
     }
 
     public List addList() {

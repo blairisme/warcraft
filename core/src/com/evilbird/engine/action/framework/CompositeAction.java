@@ -46,16 +46,20 @@ public abstract class CompositeAction extends BasicAction
         Collections.addAll(this.actions, actions);
     }
 
-    public void add(Action action) {
-        actions.add(action);
-    }
-
     public boolean isEmpty() {
         return actions.isEmpty();
     }
 
     public Collection<Action> getActions() {
         return Collections.unmodifiableList(actions);
+    }
+
+    protected void add(Action action) {
+        actions.add(action);
+    }
+
+    protected Action get(int index) {
+        return actions.get(index);
     }
 
     @Override

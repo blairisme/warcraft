@@ -19,7 +19,6 @@ import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.IntroducedState;
-import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateSequence;
 import com.evilbird.warcraft.menu.main.MainMenuType;
@@ -85,18 +84,18 @@ public class OutroMenuFactory implements GameFactory<OutroMenu>
     }
 
     private void showNextMenu(OutroMenu menu) {
-        State currentState = getCurrentState(menu);
+        StateIdentifier currentState = getCurrentState(menu);
         StateIdentifier nextState = getNextState(currentState);
         MenuIdentifier menuIdentifier = getNextMenu(nextState);
         menu.showMenu(menuIdentifier);
     }
 
-    private State getCurrentState(OutroMenu menu) {
+    private StateIdentifier getCurrentState(OutroMenu menu) {
         GameController controller = menu.getController();
-        return controller.getState();
+        return controller.getStateIdentifier();
     }
 
-    private StateIdentifier getNextState(State state) {
+    private StateIdentifier getNextState(StateIdentifier state) {
         if (state instanceof StateSequence) {
             StateSequence sequence = (StateSequence)state;
             return sequence.getNextState();

@@ -37,6 +37,15 @@ public class ItemOperations
     private ItemOperations(){
     }
 
+    public static void assignIfAbsent(Item item, Action action) {
+        Objects.requireNonNull(action);
+        if (!hasAction(item, action)) {
+            action.reset();
+            action.setItem(item);
+            item.addAction(action);
+        }
+    }
+
     /**
      * Searches the {@link Item} hierarchy (Items are owned other Items) for
      * the first Item that matches the given {@link Predicate}, inclusive of
@@ -75,11 +84,19 @@ public class ItemOperations
     }
 
     public static boolean hasAction(Item item, Predicate<Action> condition) {
-        return item != null && item.getActions().stream().anyMatch(condition);
+        Objects.requireNonNull(item);
+        Objects.requireNonNull(condition);
+        return item.getActions().stream().anyMatch(condition);
     }
 
     public static boolean hasAction(Item item, Identifier identifier) {
+        Objects.requireNonNull(identifier);
         return hasAction(item, action -> action.getIdentifier() == identifier);
+    }
+
+    public static boolean hasAction(Item item, Action action) {
+        Objects.requireNonNull(action);
+        return hasAction(item, action.getIdentifier());
     }
 
     public static boolean isIdle(Item item) {

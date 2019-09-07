@@ -11,7 +11,9 @@ package com.evilbird.warcraft.item.unit;
 
 import com.evilbird.engine.common.collection.Sets;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
 
@@ -37,6 +39,9 @@ public class UnitCosts
     }
 
     public static float buildTime(PlayerUpgrade upgrade) {
+        if (isQuickBuildEnabled()) {
+            return 0;
+        }
         switch (upgrade) {
             case RangedDamage1: return 20;
             case RangedDamage2: return 20;
@@ -45,6 +50,9 @@ public class UnitCosts
     }
 
     public static float buildTime(UnitType type) {
+        if (isQuickBuildEnabled()) {
+            return 0;
+        }
         if (type.isHuman()) {
             if (type.isBuilding()) {
                 return humanBuildingBuildTime(type);
@@ -62,6 +70,12 @@ public class UnitCosts
             }
         }
         return 0;
+    }
+
+    private static boolean isQuickBuildEnabled() {
+        GameService service = GameService.getInstance();
+        WarcraftPreferences preferences = (WarcraftPreferences)service.getPreferences();
+        return preferences.isQuickBuildEnabled();
     }
 
     private static float humanBuildingBuildTime(UnitType type) {
@@ -159,6 +173,9 @@ public class UnitCosts
     }
 
     public static Collection<ResourceQuantity> cost(PlayerUpgrade upgrade) {
+        if (isFreeBuildEnabled()) {
+            return resources(0, 0, 0, 0);
+        }
         switch (upgrade) {
             case RangedDamage1: return resources(400, 0, 0, 0);
             case RangedDamage2: return resources(600, 0, 0, 0);
@@ -167,6 +184,9 @@ public class UnitCosts
     }
 
     public static Collection<ResourceQuantity> cost(UnitType type) {
+        if (isFreeBuildEnabled()) {
+            return resources(0, 0, 0, 0);
+        }
         if (type.isHuman()) {
             if (type.isBuilding()) {
                 return humanBuildingCost(type);
@@ -184,6 +204,12 @@ public class UnitCosts
             }
         }
         return Collections.emptySet();
+    }
+
+    private static boolean isFreeBuildEnabled() {
+        GameService service = GameService.getInstance();
+        WarcraftPreferences preferences = (WarcraftPreferences)service.getPreferences();
+        return preferences.isFreeBuildEnabled();
     }
 
     private static Collection<ResourceQuantity> humanBuildingCost(UnitType type) {

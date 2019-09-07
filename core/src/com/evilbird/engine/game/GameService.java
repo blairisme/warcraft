@@ -45,6 +45,11 @@ public class GameService implements GameInjector
     }
 
     @Override
+    public GamePreferences getPreferences() {
+        return injector.getPreferences();
+    }
+
+    @Override
     public ActionFactory getActionFactory() {
         return injector.getActionFactory();
     }

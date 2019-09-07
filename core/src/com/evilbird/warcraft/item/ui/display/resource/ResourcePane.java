@@ -14,9 +14,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.common.control.StyledLabel;
 import com.evilbird.engine.item.specialized.Table;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.ui.display.HudControl;
@@ -56,7 +56,7 @@ public class ResourcePane extends Table
         return "";
     }
 
-    public void setResourceText(ResourceType resource, float value) {
+    public void setPlayerResource(ResourceType resource, float value) {
         setResourceText(resource, String.valueOf(Math.round(value)));
     }
 
@@ -97,10 +97,10 @@ public class ResourcePane extends Table
     }
 
     private Label createLabel(BitmapFont font, Color colour) {
-        StyledLabel label = new StyledLabel("0");
-        label.setFont(font);
-        label.setFontColour(colour);
-        return label;
+        LabelStyle style = new LabelStyle();
+        style.font = font;
+        style.fontColor = colour;
+        return new Label("0", style);
     }
 
     private void insertTable(Table child) {

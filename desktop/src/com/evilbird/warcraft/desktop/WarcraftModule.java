@@ -12,11 +12,15 @@ package com.evilbird.warcraft.desktop;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.common.reflect.TypeRegistry;
+import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.events.Events;
+import com.evilbird.engine.game.GamePreferences;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.warcraft.action.WarcraftActionFactory;
 import com.evilbird.warcraft.behaviour.WarcraftBehaviourFactory;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.WarcraftItemFactory;
 import com.evilbird.warcraft.menu.WarcraftMenuFactory;
 import com.evilbird.warcraft.state.WarcraftStateService;
@@ -35,6 +39,10 @@ import javax.inject.Singleton;
 @Module
 public abstract class WarcraftModule
 {
+    @Binds
+    @Singleton
+    public abstract Events bindEvents(EventQueue events);
+
     @Binds
     @Singleton
     public abstract ActionFactory bindActionFactory(WarcraftActionFactory warcraftActionFactory);
@@ -58,4 +66,8 @@ public abstract class WarcraftModule
     @Binds
     @Singleton
     public abstract TypeRegistry bindTypeRegistry(WarcraftTypeRegistry warcraftTypeRegistry);
+
+    @Binds
+    @Singleton
+    public abstract GamePreferences bindPreferences(WarcraftPreferences warcraftPreferences);
 }
