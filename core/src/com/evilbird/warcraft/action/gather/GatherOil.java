@@ -13,6 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemType;
+import com.evilbird.warcraft.action.common.death.DeathAction;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
@@ -34,7 +35,6 @@ import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.common.function.Predicates.nonNull;
-import static com.evilbird.warcraft.action.common.death.DeathAction.kill;
 import static com.evilbird.warcraft.action.common.transfer.TransferAction.transferAll;
 import static com.evilbird.warcraft.action.gather.GatherAction.gather;
 import static com.evilbird.warcraft.action.gather.GatherEvents.depositComplete;
@@ -73,10 +73,13 @@ public class GatherOil extends ScenarioSetAction
     private static final ResourceQuantity GATHER_AMOUNT = resource(Oil, 100);
 
     private transient EventQueue events;
+    private transient DeathAction death;
 
     @Inject
-    public GatherOil(EventQueue events) {
+    public GatherOil(EventQueue events, DeathAction death) {
         this.events = events;
+        this.death = death;
+
         feature(GatherActions.GatherOil);
         reevaluate();
     }
@@ -101,7 +104,7 @@ public class GatherOil extends ScenarioSetAction
             .then(transferAll(Target, Subject, GATHER_AMOUNT, events), obtainComplete(events, GATHER_AMOUNT))
             .then(show(), enable(), setAnimation(Move, MoveOil), setAnimation(Idle, IdleOil))
             .then(animate(Idle))
-            .then(assign(kill(events), Target, noResources(Oil)))
+            .then(assign(death, Target, noResources(Oil)))
             .withTarget(closest(getGatherer(), getOilPlatformType(), getTarget()));
     }
 

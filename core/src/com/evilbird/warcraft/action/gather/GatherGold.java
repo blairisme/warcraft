@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.gather;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.common.death.DeathAction;
 import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
@@ -31,7 +32,6 @@ import static com.evilbird.engine.action.common.VisibleAction.show;
 import static com.evilbird.engine.action.framework.DelayedAction.delay;
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.common.function.Predicates.nonNull;
-import static com.evilbird.warcraft.action.common.death.DeathAction.kill;
 import static com.evilbird.warcraft.action.common.exclusion.ExcludeActions.exclude;
 import static com.evilbird.warcraft.action.common.transfer.TransferAction.transferAll;
 import static com.evilbird.warcraft.action.gather.GatherAction.gather;
@@ -70,10 +70,13 @@ public class GatherGold extends ScenarioSetAction
     private static final ResourceQuantity GATHER_AMOUNT = resource(Gold, 100);
 
     private transient EventQueue events;
+    private transient DeathAction death;
 
     @Inject
-    public GatherGold(EventQueue events) {
+    public GatherGold(EventQueue events, DeathAction death) {
         this.events = events;
+        this.death = death;
+
         feature(GatherActions.GatherGold);
         reevaluate();
     }
@@ -98,7 +101,7 @@ public class GatherGold extends ScenarioSetAction
             .then(transferAll(Target, Subject, GATHER_AMOUNT, events), obtainComplete(events, GATHER_AMOUNT))
             .then(show(), enable(), setAnimation(Move, MoveGold), setAnimation(Idle, IdleGold))
             .then(animate(Subject, Idle), animate(Target, Idle))
-            .then(assign(kill(events), Target, noResources(Gold)))
+            .then(assign(death, Target, noResources(Gold)))
             .withTarget(closest(getGatherer(), GoldMine, getTarget()));
     }
 

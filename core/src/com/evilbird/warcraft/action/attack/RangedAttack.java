@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Destroyable;
-import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.data.player.Player;
@@ -52,17 +51,9 @@ public class RangedAttack extends BasicAction
     private transient float flightTime;
     private transient float reloadTime;
 
-    public RangedAttack() {
-        this(GameService.getInstance().getItemFactory());
-    }
-
     @Inject
     public RangedAttack(ItemFactory factory) {
         this.factory = factory;
-    }
-
-    public static RangedAttack rangedAttack() {
-        return new RangedAttack();
     }
 
     @Override

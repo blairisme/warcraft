@@ -9,28 +9,26 @@
 
 package com.evilbird.warcraft.action.common.death;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.events.Events;
-import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
+import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.warcraft.action.common.remove.RemoveEvent;
+import com.evilbird.warcraft.action.select.SelectEvent;
+import com.evilbird.warcraft.item.unit.Unit;
+import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.common.AnimateAction.animate;
-import static com.evilbird.engine.action.common.AudibleAction.play;
-import static com.evilbird.engine.action.common.DisableAction.disable;
-import static com.evilbird.engine.action.common.ReorderAction.sendToBack;
-import static com.evilbird.engine.action.framework.DelayedAction.delay;
-import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
-import static com.evilbird.warcraft.action.common.transfer.TransferAction.deposit;
-import static com.evilbird.warcraft.action.select.SelectAction.deselect;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCritter;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isResource;
+import static com.evilbird.engine.action.ActionConstants.ACTION_COMPLETE;
+import static com.evilbird.engine.action.ActionConstants.ACTION_INCOMPLETE;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.isCombatant;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.isRanged;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Death;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Decompose;
-import static com.evilbird.warcraft.item.unit.UnitCosts.reservedResources;
 import static com.evilbird.warcraft.item.unit.UnitSound.Die;
 
 /**
@@ -39,60 +37,113 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Die;
  *
  * @author Blair Butterworth
  */
-public class DeathAction extends ScenarioSetAction
+public class DeathAction extends BasicAction
 {
-    private static final int DECOMPOSE_PERIOD = 30;
+    private static final float DECOMPOSE_TIME = 30;
 
     private Events events;
+    private GameTimer deathTimer;
+    private GameTimer decomposeTimer;
 
     @Inject
-    public DeathAction(EventQueue events) {
+    public DeathAction(Events events) {
         this.events = events;
     }
 
-    public static DeathAction kill(EventQueue events) {
-        return new DeathAction(events);
+    @Override
+    public boolean act(float time) {
+        if (! initialized()) {
+            return initialize();
+        }
+        if (!deathTimer.complete() && deathTimer.advance(time)) {
+            return decompose();
+        }
+        else if (deathTimer.complete() && decomposeTimer.advance(time)) {
+            return remove();
+        }
+        return ACTION_INCOMPLETE;
     }
 
     @Override
-    protected void features() {
-        buildingDeath();
-        combatantDeath();
-        critterDeath();
-        resourceDeath();
+    public void reset() {
+        super.reset();
+        deathTimer = null;
+        decomposeTimer = null;
     }
 
-    private void buildingDeath() {
-        scenario("Building death")
-            .whenItem(isBuilding())
-            .then(animate(Death), deselect(events), disable(), sendToBack())
-            .then(play(Die), delay(DECOMPOSE_PERIOD))
-            .then(remove(events));
+    @Override
+    public void restart() {
+        super.restart();
+        throw new UnsupportedOperationException();
     }
 
-    private void combatantDeath() {
-        scenario("Combatant death")
-            .whenItem(isCombatant())
-            .then(animate(Death), deselect(events), disable(), sendToBack())
-            .then(play(Die), delay(1))
-            .then(deposit(reservedResources(getItem()), events))
-            .then(animate(Decompose), delay(DECOMPOSE_PERIOD))
-            .then(remove(events));
+    @Override
+    public void setItem(Item item) {
+        Validate.isInstanceOf(Unit.class, item);
+        super.setItem(item);
     }
 
-    private void critterDeath() {
-        scenario("Critter death")
-            .whenItem(isCritter())
-            .then(animate(Death), deselect(events), disable(), sendToBack())
-            .then(play(Die), delay(DECOMPOSE_PERIOD))
-            .then(remove(events));
+    private boolean initialized() {
+        return deathTimer != null;
     }
 
-    private void resourceDeath() {
-        scenario("Resource death")
-            .whenItem(isResource())
-            .then(animate(Death), deselect(events), disable(), sendToBack())
-            .then(play(Die), delay(DECOMPOSE_PERIOD))
-            .then(remove(events));
+    private boolean initialize() {
+        Unit subject = (Unit)getItem();
+        initializeVisuals(subject);
+        initializeTimers(subject);
+        initializeAssociation(subject);
+        return ACTION_INCOMPLETE;
+    }
+
+    private void initializeVisuals(Unit subject) {
+        subject.setAnimation(Death);
+        subject.setSound(Die);
+        subject.setSelected(false);
+        subject.setSelectable(false);
+        subject.setTouchable(Touchable.disabled);
+        subject.setZIndex(0);
+        events.add(new SelectEvent(subject, false));
+    }
+
+    private void initializeAssociation(Unit subject) {
+        if (isRanged(subject)) {
+            Item associatedItem = subject.getAssociatedItem();
+            if (associatedItem != null) {
+                associatedItem.setVisible(false);
+            }
+        }
+    }
+
+    private void initializeTimers(Unit subject) {
+        if (isCombatant(subject)) {
+            deathTimer = new GameTimer(1);
+            decomposeTimer = new GameTimer(DECOMPOSE_TIME);
+        } else {
+            deathTimer = new GameTimer(DECOMPOSE_TIME);
+            decomposeTimer = new GameTimer(0);
+        }
+    }
+
+    private boolean decompose() {
+        Unit subject = (Unit)getItem();
+        if (isCombatant(subject)) {
+            subject.setAnimation(Decompose);
+        }
+        return ACTION_INCOMPLETE;
+    }
+
+    private boolean remove() {
+        Unit subject = (Unit)getItem();
+        remove(subject.getAssociatedItem());
+        remove(subject);
+        return ACTION_COMPLETE;
+    }
+
+    private void remove(Item item) {
+        if (item != null) {
+            ItemGroup parent = item.getParent();
+            parent.removeItem(item);
+            events.add(new RemoveEvent(item));
+        }
     }
 }

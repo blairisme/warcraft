@@ -25,6 +25,7 @@ import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.either;
 import static com.evilbird.engine.item.utility.ItemPredicates.isIdle;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCritter;
 
@@ -65,7 +66,7 @@ public class IdleBehaviour implements AiBehaviourElement
     }
 
     private Unit getTarget(ItemRoot root) {
-        Predicate<Item> targets = either(isCombatant(), isCritter()).and(isIdle());
+        Predicate<Item> targets = either(isCombatant(), isCritter()).and(isIdle()).and(isAlive());
         List<Item> items =  new ArrayList<>(root.findAll(targets));
         return (Unit)items.get(random.nextInt(items.size()));
     }

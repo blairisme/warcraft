@@ -15,6 +15,7 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.action.common.death.DeathAction;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.mockito.Mockito;
 
@@ -27,7 +28,7 @@ public class GatherGoldTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        GatherGold action = new GatherGold(Mockito.mock(EventQueue.class));
+        GatherGold action = new GatherGold(Mockito.mock(EventQueue.class), Mockito.mock(DeathAction.class));
         action.setIdentifier(GatherActions.GatherGold);
         return action;
     }

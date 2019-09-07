@@ -29,6 +29,10 @@ public class TestBuildings
         return newTestBuilding(new TextIdentifier(id), UnitType.Barracks);
     }
 
+    public static Building newTestBuilding(String id, Identifier type) {
+        return newTestBuilding(new TextIdentifier(id), type);
+    }
+
     public static Building newTestBuilding(Identifier identifier, Identifier type) {
         return newTestBuilding(identifier, type, newTestRoot("root"), newTestPlayer("parent"));
     }

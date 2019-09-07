@@ -15,6 +15,7 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.action.common.death.DeathAction;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -32,7 +33,7 @@ public class ConstructCancelTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        ConstructCancel action = new ConstructCancel(Mockito.mock(EventQueue.class));
+        ConstructCancel action = new ConstructCancel(Mockito.mock(EventQueue.class), Mockito.mock(DeathAction.class));
         action.setIdentifier(ConstructActions.ConstructBarracksCancel);
         return action;
     }
