@@ -32,7 +32,6 @@ import java.util.Collection;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getCorporealPlayer;
 import static com.evilbird.warcraft.item.layer.LayerUtils.toCellDimensions;
-import static com.evilbird.warcraft.item.layer.LayerUtils.withinBounds;
 
 /**
  * Instances of this class represent fog of war: a layer of darkness that
@@ -48,6 +47,29 @@ public class Fog extends LayerGroup
     public Fog(Skin skin, EventQueue events) {
         super(skin);
         this.events = events;
+    }
+
+    @Override
+    public void addItem(Item item) {
+        super.addItem(item);
+        FogCell cell = (FogCell)item;
+        if (cell.isRevealed()) {
+            setAdjacentTextures(cell.getLocation());
+        }
+    }
+
+    @Override
+    public void addItems(Collection<Item> items) {
+        Collection<GridPoint2> revealed = new ArrayList<>();
+        for (Item item: items) {
+            super.addItem(item);
+
+            FogCell cell = (FogCell)item;
+            if (cell.isRevealed()) {
+                revealed.add(cell.getLocation());
+            }
+        }
+        setAdjacentTextures(revealed);
     }
 
     @Override
@@ -114,28 +136,41 @@ public class Fog extends LayerGroup
 
     private void revealItem(Item item) {
         if (item instanceof Unit) {
-            Collection<GridPoint2> revealedCells = getRevealedCells((Unit)item);
-            for (GridPoint2 revealedCell : revealedCells) {
-                FogCell cell = (FogCell)cells.get(revealedCell);
-                cell.reveal();
-            }
+            Collection<GridPoint2> locations = getRevealedLocations((Unit)item);
+            revealLocations(locations);
+            setAdjacentTextures(locations);
         }
     }
 
-    private Collection<GridPoint2> getRevealedCells(Unit item) {
-        Collection<GridPoint2> result = new ArrayList<>();
-
-        int radius = toCellDimensions(layer, item.getSight());
+    private Collection<GridPoint2> getRevealedLocations(Unit item) {
         GridPoint2 position = toCellDimensions(layer, item.getPosition());
-        GridPoint2 itemSize = toCellDimensions(layer, item.getSize());
+        GridPoint2 size = toCellDimensions(layer, item.getSize());
+        int radius = toCellDimensions(layer, item.getSight());
+        int startX = Math.max(position.x - radius, 0);
+        int startY = Math.max(position.y - radius, 0);
+        int endX = Math.min(position.x + radius + size.x, layer.getWidth() - 1);
+        int endY = Math.min(position.y + radius + size.y, layer.getHeight() - 1);
+        return getRevealedLocations(startX, startY, endX, endY);
+    }
 
-        for (int x = position.x - radius; x <= position.x + radius + itemSize.x; x++){
-            for (int y = position.y - radius; y <= position.y + radius + itemSize.x; y++){
-                if (withinBounds(layer, x, y) && isCellOccupied(x, y)){
-                    result.add(new GridPoint2(x, y));
-                }
+    private Collection<GridPoint2> getRevealedLocations(int startX, int startY, int endX, int endY) {
+        Collection<GridPoint2> result = new ArrayList<>();
+        for (int x = startX; x <= endX; x++){
+            for (int y = startY; y <= endY; y++){
+                result.add(new GridPoint2(x, y));
             }
         }
         return result;
+    }
+
+    private void revealLocations(Collection<GridPoint2> locations) {
+        for (GridPoint2 location: locations) {
+            revealLocation(location);
+        }
+    }
+
+    private void revealLocation(GridPoint2 location) {
+        FogCell cell = (FogCell)cells.get(location);
+        cell.reveal();
     }
 }

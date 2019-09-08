@@ -10,7 +10,9 @@
 package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.layer.LayerGroup;
 import com.evilbird.warcraft.item.layer.LayerGroupCell;
 import com.evilbird.warcraft.item.layer.LayerType;
 
@@ -34,7 +36,20 @@ public class FogCell extends LayerGroupCell
         setType(LayerType.OpaqueFogSection);
     }
 
+    public boolean isRevealed() {
+        return value == EMPTY_VALUE;
+    }
+
     public void reveal() {
         setValue(EMPTY_VALUE);
+    }
+
+    @Override
+    public void setEmpty() {
+        LayerGroup group = (LayerGroup)getParent();
+        if (group != null) {
+            group.setEmptyTexture(location);
+            setTouchable(Touchable.disabled);
+        }
     }
 }

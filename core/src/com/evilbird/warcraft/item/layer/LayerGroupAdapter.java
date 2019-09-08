@@ -25,6 +25,8 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Instances of this class serialize and deserialize {@link LayerGroup
@@ -82,7 +84,7 @@ public abstract class LayerGroupAdapter <T extends LayerGroup> implements JsonSe
     public T deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
         JsonObject object = json.getAsJsonObject();
         T group = deserializeInstance(object, context);
-        deserializeCells(object, context, group);
+        group.addItems(deserializeCells(object, context));
         return group;
     }
 
@@ -93,16 +95,18 @@ public abstract class LayerGroupAdapter <T extends LayerGroup> implements JsonSe
         return (T)itemFactory.get(itemType);
     }
 
-    protected void deserializeCells(JsonObject json, JsonDeserializationContext context, T group) {
+    protected Collection<Item> deserializeCells(JsonObject json, JsonDeserializationContext context){
+        Collection<Item> cells = new ArrayList<>();
         for (JsonElement cell: json.getAsJsonArray(getCellArrayProperty())) {
-            deserializeCell(cell.getAsJsonObject(), context, group);
+            cells.add(deserializeCell(cell.getAsJsonObject(), context));
         }
+        return cells;
     }
 
-    protected void deserializeCell(JsonObject json, JsonDeserializationContext context, T group) {
+    protected LayerGroupCell deserializeCell(JsonObject json, JsonDeserializationContext context) {
         GridPoint2 location = context.deserialize(json.get(LOCATION), GridPoint2.class);
         float value = json.get(getValueProperty()).getAsFloat();
-        group.addItem(createCell(location, value));
+        return createCell(location, value);
     }
 
     protected abstract LayerGroupCell createCell(GridPoint2 location, float value);

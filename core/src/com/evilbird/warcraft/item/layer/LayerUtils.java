@@ -74,8 +74,4 @@ public class LayerUtils
     public static int toCellDimensions(TiledMapTileLayer layer, int value) {
         return value != 0 ? Math.round(value / layer.getTileWidth()) : 0;
     }
-
-    public static boolean withinBounds(TiledMapTileLayer layer, int x, int y) {
-        return x >= 0 && y >= 0 && x < layer.getWidth() && y < layer.getHeight();
-    }
 }

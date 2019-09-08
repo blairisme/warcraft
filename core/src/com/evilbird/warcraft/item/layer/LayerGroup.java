@@ -16,7 +16,9 @@ import com.evilbird.engine.common.collection.BitMatrix;
 import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.common.maps.MapLayerIterable;
 import com.evilbird.engine.item.Item;
+import org.apache.commons.lang3.Validate;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,14 +56,18 @@ public class LayerGroup extends Layer
 
     @Override
     public void addItem(Item item) {
+        Validate.isAssignableFrom(LayerGroupCell.class, item.getClass());
         super.addItem(item);
+
         LayerGroupCell cell = (LayerGroupCell)item;
         cells.put(cell.getLocation(), cell);
     }
 
     @Override
     public void removeItem(Item item) {
+        Validate.isAssignableFrom(LayerGroupCell.class, item.getClass());
         super.removeItem(item);
+
         LayerGroupCell cell = (LayerGroupCell)item;
         cells.remove(cell.getLocation());
     }
@@ -87,10 +93,15 @@ public class LayerGroup extends Layer
 
     public void setEmptyTexture(GridPoint2 tile) {
         layer.setCell(tile.x, tile.y, style.empty);
-        setAdjacentTextures(tile);
     }
 
-    protected void setAdjacentTextures(GridPoint2 tile) {
+    public void setAdjacentTextures(Collection<GridPoint2> tiles) {
+        for (GridPoint2 tile: tiles) {
+            setAdjacentTextures(tile);
+        }
+    }
+
+    public void setAdjacentTextures(GridPoint2 tile) {
         BitMatrix cellEdges = getCellEdges(tile.x, tile.y);
         if (! cellEdges.isEmpty()) {
             updateCellEdges(tile.x, tile.y, cellEdges);

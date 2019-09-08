@@ -64,16 +64,17 @@ public class LayerGroupCell extends ItemBasic
         reevaluateEmpty();
     }
 
-    private void reevaluateEmpty() {
+    protected void reevaluateEmpty() {
         if (value == 0) {
             setEmpty();
         }
     }
 
-    public void setEmpty() {
+    protected void setEmpty() {
         LayerGroup group = (LayerGroup)getParent();
         if (group != null) {
             group.setEmptyTexture(location);
+            group.setAdjacentTextures(location);
             setTouchable(Touchable.disabled);
         }
     }
