@@ -58,7 +58,7 @@ public class WallFactory implements GameFactory<Wall>
 
     private void load(WarcraftContext context) {
         assets = new WallAssets(manager, context);
-        assets.load();;
+        assets.load();
     }
 
     @Override

@@ -22,6 +22,12 @@ import com.evilbird.warcraft.item.layer.LayerType;
  */
 public class WallSection extends LayerGroupCell implements Destroyable, ItemGraphOccupant
 {
+    private static final transient float DEFAULT_HEALTH = 100;
+
+    public WallSection(GridPoint2 location) {
+        this(location, DEFAULT_HEALTH);
+    }
+
     public WallSection(GridPoint2 location, float value) {
         super(location, value);
         setType(LayerType.WallSection);

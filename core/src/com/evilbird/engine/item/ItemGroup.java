@@ -131,6 +131,12 @@ public class ItemGroup extends ItemBasic implements ItemComposite
      */
     public void addObserver(ItemGroupObserver observer) {
         this.observers.add(observer);
+        for (Item item: items) {
+            if (item instanceof ItemGroup) {
+                ItemGroup group = (ItemGroup)item;
+                group.addObserver(observer);
+            }
+        }
     }
 
     /**
@@ -142,6 +148,12 @@ public class ItemGroup extends ItemBasic implements ItemComposite
      */
     public void removeObserver(ItemGroupObserver observer) {
         this.observers.remove(observer);
+        for (Item item: items) {
+            if (item instanceof ItemGroup) {
+                ItemGroup group = (ItemGroup)item;
+                group.removeObserver(observer);
+            }
+        }
     }
 
     /**

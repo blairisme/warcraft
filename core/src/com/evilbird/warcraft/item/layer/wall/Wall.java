@@ -26,14 +26,12 @@ import com.google.gson.annotations.JsonAdapter;
 @JsonAdapter(WallAdapter.class)
 public class Wall extends LayerGroup
 {
-    private static final transient float DEFAULT_HEALTH = 100;
-
     public Wall(Skin skin) {
         super(skin);
     }
 
     @Override
     protected LayerGroupCell createCell(MapLayerEntry entry) {
-        return new WallSection(entry.getPosition(), DEFAULT_HEALTH);
+        return new WallSection(entry.getPosition());
     }
 }
