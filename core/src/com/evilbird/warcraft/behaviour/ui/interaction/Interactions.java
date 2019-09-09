@@ -91,6 +91,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelectabl
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.item.data.camera.CameraType.Camera;
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
+import static com.evilbird.warcraft.item.layer.LayerType.OpaqueFogSection;
 import static com.evilbird.warcraft.item.layer.LayerType.Sea;
 import static com.evilbird.warcraft.item.layer.LayerType.Shore;
 import static com.evilbird.warcraft.item.layer.LayerType.Tree;
@@ -378,13 +379,13 @@ public class Interactions
     private void moveToLocationInteractions() {
         interactions.addAction(MoveToLocation, ConfirmLocation)
             .whenSelected(both(isCorporeal(), isMovableOver(Land)))
-            .whenTarget(hasType(Map, Shore))
+            .whenTarget(hasType(Map, Shore, OpaqueFogSection))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
         interactions.addAction(MoveToLocation, ConfirmLocation)
             .whenSelected(both(isCorporeal(), isMovableOver(Water)))
-            .whenTarget(Sea)
+            .whenTarget(hasType(Sea, OpaqueFogSection))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
     }
