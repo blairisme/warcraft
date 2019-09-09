@@ -28,6 +28,8 @@ import javax.inject.Inject;
 import static com.evilbird.engine.action.ActionConstants.ACTION_INCOMPLETE;
 import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.isShip;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.CannonDamage1;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.CannonDamage2;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.RangedDamage1;
@@ -82,8 +84,7 @@ public class RangedAttack extends BasicAction
     public void reset() {
         super.reset();
         if (initialized()) {
-            ItemGroup parent = combatant.getParent();
-            parent.removeItem(projectile);
+            projectile.setVisible(false);
             combatant = null;
             projectile = null;
             target = null;
@@ -109,27 +110,29 @@ public class RangedAttack extends BasicAction
         reloadTime = 0;
 
         combatant = (RangedCombatant)getItem();
-        projectile = (Projectile)combatant.getAssociatedItem();
         player = getPlayer(combatant);
 
         target = (Destroyable)getTarget();
         destination = target.getPosition(Alignment.Center);
 
-        if (projectile == null) {
-            projectile = newProjectile(combatant);
-            combatant.setAssociatedItem(projectile);
+        reorient(combatant, target, isShip(combatant));
 
-            ItemGroup parent = combatant.getParent();
-            parent.addItem(projectile);
-        }
+        projectile = getProjectile(combatant);
+        projectile.setVisible(false);
+        projectile.setAnimation(UnitAnimation.Idle);
+        projectile.setPosition(combatant.getPosition(Alignment.Center));
     }
 
-    private Projectile newProjectile(RangedCombatant combatant) {
-        ProjectileType type = combatant.getProjectileType();
-        Projectile projectile = (Projectile)factory.get(type);
-        projectile.setVisible(false);
-        projectile.setPosition(combatant.getPosition(Alignment.Center));
-        return projectile;
+    private Projectile getProjectile(RangedCombatant combatant) {
+        Projectile result = (Projectile)combatant.getAssociatedItem();
+        if (result == null) {
+            result = (Projectile)factory.get(combatant.getProjectileType());
+            combatant.setAssociatedItem(result);
+
+            ItemGroup parent = combatant.getParent();
+            parent.addItem(result);
+        }
+        return result;
     }
 
     private boolean readyToFire() {
@@ -148,12 +151,13 @@ public class RangedAttack extends BasicAction
         flightTime = 0;
         destination = target.getPosition(Alignment.Center);
 
-        projectile.setPosition(combatant.getPosition(Alignment.Center));
         projectile.setVisible(true);
-        projectile.setAnimation(UnitAnimation.Idle);
+        projectile.setPosition(combatant.getPosition(Alignment.Center));
 
         combatant.setAnimation(UnitAnimation.Attack);
         combatant.setSound(UnitSound.Attack);
+
+        reorient(combatant, target, isShip(combatant));
     }
 
     private boolean projectileReachedTarget() {

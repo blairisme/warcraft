@@ -71,8 +71,4 @@ public class MoveWithinRangeAction extends MoveAction
         filter = null;
         destination = null;
     }
-
-    public static MoveWithinRangeAction moveWithinRange(Events events) {
-        return new MoveWithinRangeAction(events);
-    }
 }

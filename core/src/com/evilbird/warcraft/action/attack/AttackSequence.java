@@ -16,9 +16,8 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.death.DeathAction;
-import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.action.move.MoveToItemSequence;
-import com.evilbird.warcraft.action.move.MoveWithinRangeAction;
+import com.evilbird.warcraft.action.move.MoveWithinRangeSequence;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.apache.commons.lang3.Validate;
@@ -35,8 +34,6 @@ import static com.evilbird.warcraft.action.attack.AttackEvents.attackStopped;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.inRange;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isAlive;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isRanged;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.isShip;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
 
 /**
  * Instances of this {@link Action} cause a given {@link Item} to attack
@@ -58,7 +55,7 @@ public class AttackSequence extends CompositeAction
     @Inject
     public AttackSequence(
         MoveToItemSequence meleeMove,
-        MoveWithinRangeAction rangedMove,
+        MoveWithinRangeSequence rangedMove,
         MeleeAttack meleeAttack,
         RangedAttack rangedAttack,
         DeathAction death,
@@ -79,8 +76,8 @@ public class AttackSequence extends CompositeAction
         if (! targetValid(attacker, target)) {
             return attackInvalid(attacker, target);
         }
-        if (! targetInRange(attacker, target)) {
-            return moveInRange(time, attacker, target);
+        if (moveRequired(attacker, target)) {
+            return moveAttacker(time, attacker, target);
         }
         if (attackTarget(time, attacker, target)) {
             return killTarget(attacker, target);
@@ -104,32 +101,48 @@ public class AttackSequence extends CompositeAction
         return isAlive(attacker) && isAlive(target) && target.getVisible();
     }
 
-    private boolean targetInRange(Combatant attacker, Destroyable target) {
-        return !subjectMoving() && inRange(attacker, target);
-    }
-
     private boolean attackInvalid(Combatant attacker, Destroyable target) {
-        attacker.setAnimation(UnitAnimation.Idle);
+        resetAttacker(attacker);
         attackFailed(events, attacker, target);
         return ACTION_COMPLETE;
     }
 
-    private boolean moveInRange(float time, Combatant attacker, Destroyable target) {
-        if (!subjectMoving()) {
-            current = isRanged(attacker) ? get(RANGED_MOVE) : get(MELEE_MOVE);
-
-            if (subjectAttacking()) {
-                attackStopped(events, attacker, target);
+    private boolean performCurrentAction(float time) {
+        if (current.act(time)) {
+            if (current.hasError()) {
+                return ACTION_COMPLETE;
             }
+            current = null;
         }
-        return current.act(time) && current.hasError();
+        return ACTION_INCOMPLETE;
+    }
+
+    private void assignMoveAction(Combatant attacker, Destroyable target) {
+        stopAttacking(attacker, target);
+        current = isRanged(attacker) ? get(RANGED_MOVE) : get(MELEE_MOVE);
+        current.restart();
+    }
+
+    private void assignAttackAction(Combatant attacker, Destroyable target) {
+        current = isRanged(attacker) ? get(RANGED_ATTACK) : get(MELEE_ATTACK);
+        current.restart();
+        attackStarted(events, attacker, target);
+    }
+
+    private boolean moveRequired(Combatant attacker, Destroyable target) {
+       return subjectMoving() || !inRange(attacker, target);
+    }
+
+    private boolean moveAttacker(float time, Combatant attacker, Destroyable target) {
+        if (!subjectMoving()) {
+            assignMoveAction(attacker, target);
+        }
+        return performCurrentAction(time);
     }
 
     private boolean attackTarget(float time, Combatant attacker, Destroyable target) {
         if (! subjectAttacking()) {
-            current = isRanged(attacker) ? get(RANGED_ATTACK) : get(MELEE_ATTACK);
-            attackStarted(events, attacker, target);
-            reorient(attacker, target, isShip(attacker));
+            assignAttackAction(attacker, target);
         }
         return current.act(time);
     }
@@ -140,11 +153,30 @@ public class AttackSequence extends CompositeAction
         return ACTION_COMPLETE;
     }
 
+    private void stopAttacking(Combatant attacker, Destroyable target) {
+        if (subjectAttacking()) {
+            resetAttacker(attacker);
+            attackStopped(events, attacker, target);
+        }
+    }
+
+    private void resetAttacker(Combatant attacker) {
+        attacker.setAnimation(UnitAnimation.Idle);
+        if (isRanged(attacker)) {
+            Item projectile = attacker.getAssociatedItem();
+            if (projectile != null) {
+                projectile.setVisible(false);
+            }
+        }
+    }
+
     private boolean subjectMoving() {
-        return current instanceof MoveToItemAction;
+        return current instanceof MoveToItemSequence || current instanceof MoveWithinRangeSequence;
     }
 
     private boolean subjectAttacking() {
         return current instanceof RangedAttack || current instanceof MeleeAttack;
     }
+
+    private void meh() {}
 }

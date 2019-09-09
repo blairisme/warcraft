@@ -34,7 +34,8 @@ public class MoveFactoryTest extends ActionFactoryTestCase
         InjectedPool<MoveCancel> cancelPool = new MockInjectedPool<>(MoveCancel.class);
         InjectedPool<MoveToItemSequence> moveItemPool = new MockInjectedPool<>(MoveToItemSequence.class);
         InjectedPool<MoveToVectorSequence> moveLocationPool = new MockInjectedPool<>(MoveToVectorSequence.class);
-        return new MoveFactory(cancelPool, moveItemPool, moveLocationPool);
+        InjectedPool<MoveWithinRangeSequence> moveRangePool = new MockInjectedPool<>(MoveWithinRangeSequence.class);
+        return new MoveFactory(cancelPool, moveItemPool, moveLocationPool, moveRangePool);
     }
 
     @Override

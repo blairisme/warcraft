@@ -134,7 +134,7 @@ abstract class MoveAction extends BasicAction
 
     private void setInitialNode() {
         if (path.getCount() != 0) {
-            if (path.getCount() == 1) {
+            if (path.getCount() < 2) {
                 incrementNode();
             }
             else {

@@ -23,7 +23,8 @@ public class MoveToVectorSequenceTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        return new MoveToVectorSequence(Mockito.mock(EventQueue.class));
+        MoveToVectorAction action = new MoveToVectorAction(Mockito.mock(EventQueue.class));
+        return new MoveToVectorSequence(action);
     }
 
     @Override

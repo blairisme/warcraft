@@ -38,11 +38,26 @@ public class ItemOperations
     private ItemOperations(){
     }
 
+    /**
+     * Assigns an {@link Action} to the given {@link Item} if it hasn't already
+     * been assigned. If the {@code Action} hasn't been assigned, any existing
+     * {@code Actions} will be removed prior to assigning the new
+     * {@code Action}.
+     *
+     * @param item      an {@code Item} that will receive the {@link Action}.
+     * @param action    the {@link Action} that will be assigned.
+     *
+     * @throws NullPointerException if either the given {@code Item} or
+     *                              {@code Action} is {@code null}.
+     */
     public static void assignIfAbsent(Item item, Action action) {
+        Objects.requireNonNull(item);
         Objects.requireNonNull(action);
+
         if (!hasAction(item, action)) {
             action.reset();
             action.setItem(item);
+            item.clearActions();
             item.addAction(action);
         }
     }

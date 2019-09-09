@@ -23,6 +23,7 @@ import static com.evilbird.engine.action.ActionConstants.ACTION_COMPLETE;
 import static com.evilbird.engine.action.ActionConstants.ACTION_INCOMPLETE;
 import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.MeleeDamage1;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.MeleeDamage2;
 
@@ -74,11 +75,15 @@ public class MeleeAttack extends BasicAction
     }
 
     private void initialize() {
-        initialized = true;
         Combatant combatant = (Combatant)getItem();
         combatant.setAnimation(UnitAnimation.Attack);
         combatant.setSound(UnitSound.Attack);
+
+        Destroyable target = (Destroyable)getTarget();
+        reorient(combatant, target, false);
+
         delay = combatant.getAttackSpeed();
+        initialized = true;
     }
 
     private boolean readyToAttack() {
@@ -97,6 +102,7 @@ public class MeleeAttack extends BasicAction
         Destroyable target = (Destroyable)getTarget();
         setTargetHealth(combatant, target);
 
+        reorient(combatant, target, false);
         delay = combatant.getAttackSpeed();
         return target.getHealth() == 0;
     }
@@ -118,11 +124,6 @@ public class MeleeAttack extends BasicAction
         upgrade += player.hasUpgrade(MeleeDamage2) ? 2 : 0;
         return upgrade;
     }
-//
-//    private boolean isTargetDead() {
-//        Destroyable target = (Destroyable)getTarget();
-//        return target.getHealth() == 0;
-//    }
 
     private boolean attackComplete() {
         Combatant combatant = (Combatant)getItem();

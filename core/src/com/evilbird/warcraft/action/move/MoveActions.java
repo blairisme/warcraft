@@ -20,5 +20,6 @@ public enum MoveActions implements ActionIdentifier
 {
     MoveToLocation,
     MoveToItem,
+    MoveWithRange,
     MoveCancel
 }

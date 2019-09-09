@@ -10,19 +10,9 @@
 package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 
 import javax.inject.Inject;
-
-import static com.evilbird.engine.action.common.AnimateAction.animate;
-import static com.evilbird.engine.action.predicates.ActionPredicates.withoutError;
-import static com.evilbird.warcraft.action.move.MoveActions.MoveToItem;
-import static com.evilbird.warcraft.action.move.MoveToItemAction.moveToItem;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 
 /**
  * Instances of this {@link Action action} move an {@link Item} from its
@@ -31,16 +21,11 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
  *
  * @author Blair Butterworth
  */
-public class MoveToItemSequence extends ScenarioAction
+public class MoveToItemSequence extends MoveSequence
 {
     @Inject
-    public MoveToItemSequence(Events events) {
-        scenario(MoveToItem);
-        givenItem(isAlive());
-        givenAction(withoutError());
-        then(animate(Move));
-        then(moveToItem(events));
-        then(animate(Idle));
-        onError(animate(Idle));
+    public MoveToItemSequence(MoveToItemAction move) {
+        super(move);
+        setIdentifier(MoveActions.MoveToItem);
     }
 }

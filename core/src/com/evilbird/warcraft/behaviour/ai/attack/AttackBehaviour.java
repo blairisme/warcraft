@@ -71,7 +71,7 @@ public class AttackBehaviour implements AiBehaviourElement
         for (AttackEvent event: events.getEvents(AttackEvent.class)) {
             Item attacker = event.getSubject();
             if (event.isFinished() && isViableAttacker(attacker, AttackActions.class)) {
-                assignTarget((Combatant)attacker);
+                assignTarget((Combatant)attacker, event.getTarget());
             }
         }
         for (MoveEvent event: events.getEvents(MoveEvent.class)) {
@@ -83,8 +83,12 @@ public class AttackBehaviour implements AiBehaviourElement
     }
 
     private void assignTarget(Combatant combatant) {
+        assignTarget(combatant, null);
+    }
+
+    private void assignTarget(Combatant combatant, Item excluding) {
         for (Item target : graph.getAttackTargets(combatant)) {
-            if (isViableTarget(combatant, target)) {
+            if (target != excluding && isViableTarget(combatant, target)) {
                 attack(combatant, target);
                 return;
             }

@@ -11,19 +11,9 @@ package com.evilbird.warcraft.action.move;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
 
 import javax.inject.Inject;
-
-import static com.evilbird.engine.action.common.AnimateAction.animate;
-import static com.evilbird.engine.action.predicates.ActionPredicates.withoutError;
-import static com.evilbird.warcraft.action.move.MoveActions.MoveToLocation;
-import static com.evilbird.warcraft.action.move.MoveToVectorAction.moveToCause;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 
 /**
  * Instances of this {@link Action action} move an {@link Item} from its
@@ -32,16 +22,11 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
  *
  * @author Blair Butterworth
  */
-public class MoveToVectorSequence extends ScenarioAction
+public class MoveToVectorSequence extends MoveSequence
 {
     @Inject
-    public MoveToVectorSequence(Events events) {
-        scenario(MoveToLocation);
-        given(isAlive());
-        givenAction(withoutError());
-        then(animate(Move));
-        then(moveToCause(events));
-        then(animate(Idle));
-        onError(animate(Idle));
+    public MoveToVectorSequence(MoveToVectorAction move) {
+        super(move);
+        setIdentifier(MoveActions.MoveToLocation);
     }
 }

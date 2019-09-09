@@ -34,7 +34,7 @@ public class LayerGroupCell extends ItemBasic
     @Inject
     public LayerGroupCell(GridPoint2 location, float value) {
         setTouchable(Touchable.enabled);
-        setVisible(false);
+        setVisible(true);
         setLocation(location);
         setValue(value);
     }

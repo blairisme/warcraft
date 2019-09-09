@@ -15,6 +15,7 @@ import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.common.death.DeathAction;
 import com.evilbird.warcraft.action.move.MoveToItemSequence;
 import com.evilbird.warcraft.action.move.MoveWithinRangeAction;
+import com.evilbird.warcraft.action.move.MoveWithinRangeSequence;
 import org.mockito.Mockito;
 
 /**
@@ -27,7 +28,7 @@ public class AttackSequenceTest extends ActionTestCase
     @Override
     protected Action newAction() {
         MoveToItemSequence meleeMove = Mockito.mock(MoveToItemSequence.class);
-        MoveWithinRangeAction rangedMove = Mockito.mock(MoveWithinRangeAction.class);
+        MoveWithinRangeSequence rangedMove = Mockito.mock(MoveWithinRangeSequence.class);
         MeleeAttack meleeAttack = Mockito.mock(MeleeAttack.class);
         RangedAttack rangedAttack = Mockito.mock(RangedAttack.class);
         DeathAction death = Mockito.mock(DeathAction.class);
