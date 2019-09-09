@@ -12,13 +12,20 @@ package com.evilbird.warcraft.action.common.death;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.common.lang.Destroyable;
+import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.select.SelectEvent;
 import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -79,7 +86,7 @@ public class DeathAction extends BasicAction
 
     @Override
     public void setItem(Item item) {
-        Validate.isInstanceOf(Unit.class, item);
+        Validate.isInstanceOf(Destroyable.class, item);
         super.setItem(item);
     }
 
@@ -88,33 +95,51 @@ public class DeathAction extends BasicAction
     }
 
     private boolean initialize() {
-        Unit subject = (Unit)getItem();
+        Destroyable subject = (Destroyable)getItem();
         initializeVisuals(subject);
+        initializeSelection(subject);
+        initializeGraph(subject);
         initializeTimers(subject);
         initializeAssociation(subject);
         return ACTION_INCOMPLETE;
     }
 
-    private void initializeVisuals(Unit subject) {
-        subject.setAnimation(Death);
-        subject.setSound(Die);
-        subject.setSelected(false);
-        subject.setSelectable(false);
-        subject.setTouchable(Touchable.disabled);
-        subject.setZIndex(0);
-        events.add(new SelectEvent(subject, false));
+    private void initializeVisuals(Destroyable subject) {
+        if (subject instanceof Viewable) {
+            Viewable viewable = (Viewable)subject;
+            viewable.setAnimation(Death);
+            viewable.setSound(Die);
+            viewable.setTouchable(Touchable.disabled);
+            viewable.setZIndex(0);
+        }
     }
 
-    private void initializeAssociation(Unit subject) {
+    private void initializeSelection(Destroyable subject) {
+        if (subject instanceof Selectable) {
+            Selectable selectable = (Selectable)subject;
+            selectable.setSelected(false);
+            selectable.setSelectable(false);
+            events.add(new SelectEvent(selectable, false));
+        }
+    }
+
+    private void initializeGraph(Destroyable subject) {
+        ItemRoot root = subject.getRoot();
+        ItemGraph graph = root.getSpatialGraph();
+        graph.removeOccupants(subject);
+    }
+
+    private void initializeAssociation(Destroyable subject) {
         if (isRanged(subject)) {
-            Item associatedItem = subject.getAssociatedItem();
+            RangedCombatant ranged = (RangedCombatant)subject;
+            Item associatedItem = ranged.getAssociatedItem();
             if (associatedItem != null) {
                 associatedItem.setVisible(false);
             }
         }
     }
 
-    private void initializeTimers(Unit subject) {
+    private void initializeTimers(Destroyable subject) {
         if (isCombatant(subject)) {
             deathTimer = new GameTimer(1);
             decomposeTimer = new GameTimer(DECOMPOSE_TIME);
@@ -125,17 +150,22 @@ public class DeathAction extends BasicAction
     }
 
     private boolean decompose() {
-        Unit subject = (Unit)getItem();
+        Destroyable subject = (Destroyable)getItem();
         if (isCombatant(subject)) {
-            subject.setAnimation(Decompose);
+            Combatant combatant = (Combatant)subject;
+            combatant.setAnimation(Decompose);
         }
         return ACTION_INCOMPLETE;
     }
 
     private boolean remove() {
-        Unit subject = (Unit)getItem();
-        remove(subject.getAssociatedItem());
+        Destroyable subject = (Destroyable)getItem();
         remove(subject);
+
+        if (subject instanceof Unit) {
+            Unit unit = (Unit)subject;
+            remove(unit.getAssociatedItem());
+        }
         return ACTION_COMPLETE;
     }
 
