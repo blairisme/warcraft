@@ -19,6 +19,7 @@ import com.evilbird.warcraft.action.confirm.ConfirmActions;
 import com.evilbird.warcraft.action.construct.ConstructActions;
 import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -75,11 +76,13 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplace
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasResources;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAttacker;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDepotFor;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDestroyable;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isGatherer;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isMovable;
@@ -89,6 +92,9 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlacehold
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isResource;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelectable;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Oil;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
 import static com.evilbird.warcraft.item.data.camera.CameraType.Camera;
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
 import static com.evilbird.warcraft.item.layer.LayerType.OpaqueFogSection;
@@ -267,15 +273,21 @@ public class Interactions
     }
 
     private void gatherInteractions() {
-        gatherInteraction(GatherGold, GoldMine);
-        gatherInteraction(GatherWood, Tree);
-        gatherInteraction(GatherOil, OilPlatform);
+        gatherInteraction(GatherGold, GoldMine, Gold);
+        gatherInteraction(GatherWood, Tree, Wood);
+        gatherInteraction(GatherOil, OilPlatform, Oil);
     }
 
-    private void gatherInteraction(ActionIdentifier action, Identifier resource) {
+    private void gatherInteraction(ActionIdentifier action, Identifier resource, ResourceType type) {
         interactions.addAction(action, ConfirmTarget)
             .whenSelected(both(isCorporeal(), isGatherer()))
             .whenTarget(resource)
+            .appliedTo(Selected)
+            .appliedAs(confirmedAction());
+
+        interactions.addAction(action, ConfirmTarget)
+            .whenSelected(all(isCorporeal(), isGatherer(), hasResources(type)))
+            .whenTarget(isDepotFor(type))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
