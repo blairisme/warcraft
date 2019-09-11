@@ -7,18 +7,18 @@
         <img src="https://travis-ci.com/blairisme/warcraft.svg?token=xAbCzFqN7meosKLcCcxB&branch=develop"
             alt="Build Status"/>
     </a>
+    <!-- <a href="https://codeclimate.com/github/blairisme/warcraft/test_coverage">
+        <img src="https://api.codeclimate.com/v1/badges/0c61118331b6168cb5e9/test_coverage"
+            alt="Code Coverage"/>
+    </a> -->
+    <a href="https://codecov.io/gh/blairisme/warcraft">
+        <img src="https://codecov.io/gh/blairisme/warcraft/branch/develop/graph/badge.svg?token=mJVgDaze7L"
+            alt="Code Coverage"/>
+    </a>    
     <a href="https://codeclimate.com/github/blairisme/warcraft/maintainability">
         <img src="https://api.codeclimate.com/v1/badges/0c61118331b6168cb5e9/maintainability"
             alt="Code Quality"/>
     </a>
-    <a href="https://codeclimate.com/github/blairisme/warcraft/test_coverage">
-        <img src="https://api.codeclimate.com/v1/badges/0c61118331b6168cb5e9/test_coverage"
-            alt="Code Coverage"/>
-    </a>
-    <!-- <a href="https://codecov.io/gh/blairisme/warcraft">
-        <img src="https://codecov.io/gh/blairisme/warcraft/branch/develop/graph/badge.svg?token=mJVgDaze7L"
-            alt="Code Coverage"/>
-    </a> -->
     <a href="https://github.com/blairisme/warcraft/releases/tag/v0.2-alpha">
         <img src="https://img.shields.io/badge/release-v0.2-blue.svg"
             alt="Build Release"/>
@@ -37,7 +37,7 @@ An unofficial recreation of Warcraft 2, made so that this excellent game can be 
 
 ## Project status
 
-This project is still under active development. Whilst significant progress has been made the project remains approximately 70% complete.
+This project is still under active development. Whilst significant progress has been made the project remains approximately 60% complete.
 
 ### Completed
 
