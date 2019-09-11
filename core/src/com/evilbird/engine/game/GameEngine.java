@@ -189,12 +189,19 @@ public class GameEngine extends Game implements GameController
         initialScreen.run();
     }
 
-    public void setInitialScreen(StateIdentifier identifier) {
-        initialScreen = () -> showState(identifier);
+    public void setInitialScreen(MenuIdentifier menu) {
+        initialScreen = () -> showMenu(menu);
     }
 
-    public void setInitialScreen(MenuIdentifier identifier) {
-        initialScreen = () -> showMenu(identifier);
+    public void setInitialScreen(StateIdentifier state) {
+        initialScreen = () -> showState(state);
+    }
+
+    public void setInitialScreen(MenuIdentifier menu, StateIdentifier state) {
+        initialScreen = () -> {
+            setState(state);
+            showMenu(menu);
+        };
     }
 
     @Override
@@ -246,6 +253,11 @@ public class GameEngine extends Game implements GameController
 
     @Override
     public void showState(StateIdentifier identifier) {
+        setState(identifier);
+        setScreen(stateScreen);
+    }
+
+    public void setState(StateIdentifier identifier) {
         try {
             if (gameAssets.getLoadedState() != identifier) {
                 GameContext context = stateService.context(identifier);
@@ -257,7 +269,6 @@ public class GameEngine extends Game implements GameController
                 stateScreen.dispose();
                 stateScreen.setState(state, identifier);
             }
-            setScreen(stateScreen);
         }
         catch (Throwable error) {
             handleError(error);

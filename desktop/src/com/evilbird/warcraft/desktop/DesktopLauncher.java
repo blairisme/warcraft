@@ -16,6 +16,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.game.GamePreferences;
 import com.evilbird.engine.game.GameService;
+import com.evilbird.engine.menu.MenuIdentifier;
+import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.desktop.DaggerDesktopInjector.Builder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -59,11 +61,17 @@ public class DesktopLauncher
     }
 
     private static void configureEngine(GameEngine engine, DesktopCommands commands) {
-        if (commands.getScenario() != null) {
-            engine.setInitialScreen(commands.getScenario());
+        MenuIdentifier menu = commands.getMenu();
+        StateIdentifier scenario = commands.getScenario();
+
+        if (menu != null && scenario != null) {
+            engine.setInitialScreen(menu, scenario);
         }
-        if (commands.getMenu() != null) {
-            engine.setInitialScreen(commands.getMenu());
+        else if (scenario != null) {
+            engine.setInitialScreen(scenario);
+        }
+        else if (menu != null) {
+            engine.setInitialScreen(menu);
         }
     }
 
