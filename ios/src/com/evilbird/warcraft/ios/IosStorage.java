@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft;
+package com.evilbird.warcraft.ios;
 
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.evilbird.engine.device.DeviceStorage;
