@@ -13,8 +13,13 @@ import android.os.Bundle;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.evilbird.engine.game.GameEngine;
+import com.evilbird.engine.game.GamePreferences;
 import com.evilbird.engine.game.GameService;
+import com.evilbird.engine.menu.MenuIdentifier;
+import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.warcraft.DaggerAndroidInjector.Builder;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 
 /**
  * Instances of this class represent the entry point for the Android version of
@@ -32,25 +37,51 @@ public class AndroidLauncher extends AndroidApplication
         initialize(engine, configuration);
     }
 
-    private static AndroidInjector getInjector() {
-        Builder builder = DaggerAndroidInjector.builder();
-        return builder.build();
+    private ApplicationListener getEngine() {
+        GameService service = getService();
+        GameEngine engine = service.getEngine();
+        AndroidCommands commands = new AndroidCommands(getIntent());
+        configureService(service, commands);
+        configureEngine(engine, commands);
+        return engine;
     }
 
-    private static GameService getService() {
+    private GameService getService() {
         GameService service = GameService.getInstance();
         service.setInjector(getInjector());
         return service;
     }
 
-    private static ApplicationListener getEngine() {
-        GameService service = getService();
-        return service.getEngine();
+    private AndroidInjector getInjector() {
+        Builder builder = DaggerAndroidInjector.builder();
+        return builder.build();
     }
 
-    private static AndroidApplicationConfiguration getConfiguration() {
+    private AndroidApplicationConfiguration getConfiguration() {
         AndroidApplicationConfiguration configuration = new AndroidApplicationConfiguration();
         configuration.hideStatusBar = true;
         return configuration;
+    }
+
+    private void configureEngine(GameEngine engine, AndroidCommands commands) {
+        MenuIdentifier menu = commands.getMenu();
+        StateIdentifier scenario = commands.getScenario();
+
+        if (menu != null && scenario != null) {
+            engine.setInitialScreen(menu, scenario);
+        }
+        else if (scenario != null) {
+            engine.setInitialScreen(scenario);
+        }
+        else if (menu != null) {
+            engine.setInitialScreen(menu);
+        }
+    }
+
+    private void configureService(GameService service, AndroidCommands commands) {
+        GamePreferences preferences = service.getPreferences();
+        WarcraftPreferences warcraftPreferences = (WarcraftPreferences)preferences;
+        warcraftPreferences.setFreeBuildEnabled(commands.isFreeBuildEnabled());
+        warcraftPreferences.setQuickBuildEnabled(commands.isQuickBuildEnabled());
     }
 }

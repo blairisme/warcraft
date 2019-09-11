@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Desktop - Human 1 (Cheats)" type="Application" factoryName="Application">
+  <configuration default="false" name="Desktop - Human 3 - Cheats" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.evilbird.warcraft.desktop.DesktopLauncher" />
     <module name="desktop" />
-    <option name="PROGRAM_PARAMETERS" value="--scenario Human1 --quick-build --free-build" />
+    <option name="PROGRAM_PARAMETERS" value="--scenario Human3 --quick-build --free-build" />
     <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=$ProjectFileDir$/desktop/src/resources/logback.xml" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/android/assets" />
     <method v="2">
