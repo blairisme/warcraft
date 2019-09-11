@@ -1,0 +1,30 @@
+/*
+ * Blair Butterworth (c) 2019
+ *
+ * This work is licensed under the MIT License. To view a copy of this
+ * license, visit
+ *
+ *      https://opensource.org/licenses/MIT
+ */
+
+apply plugin: "java"
+
+targetCompatibility = 1.8
+sourceCompatibility = 1.8
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.main.resources.srcDirs = ["src/resources"]
+
+sourceSets.test.java.srcDirs = [ "test/"]
+sourceSets.test.resources.srcDirs = [ "test/resources" ]
+
+task report(dependsOn: ['test', ':core:assemble'], type: JacocoReport) {
+    description = "Generates a test coverate report"
+    executionData = files(project.file("build/jacoco/test.exec"))
+    sourceDirectories = files(project.file("src"))
+    classDirectories = files(project.fileTree(dir: "../core/build/classes/java/main",
+        excludes: ['**/Dagger*', '**/*_Factory*', '**/*_ProvideDeviceFactory*']))
+}

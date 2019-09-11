@@ -11,6 +11,8 @@ package com.evilbird.engine.device;
 
 import com.badlogic.gdx.assets.AssetManager;
 
+import javax.inject.Singleton;
+
 /**
  * Implementors of this interface represent a device or system capable of
  * running the application. Methods are provided that supply access to the
@@ -18,6 +20,7 @@ import com.badlogic.gdx.assets.AssetManager;
  *
  * @author Blair Butterworth
  */
+@Singleton
 public interface Device
 {
     DeviceControls getDeviceControls();

@@ -282,7 +282,6 @@ public class GameEngine extends Game implements GameController
 
     @Override
     public void showError(Throwable error) {
-        loaderScreen.dispose();
         errorScreen.setError(error);
         setScreen(errorScreen);
     }

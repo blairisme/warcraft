@@ -44,6 +44,7 @@ public class MoveSequence extends DelegateAction
         }
         return ACTION_INCOMPLETE;
     }
+
     private boolean initialized() {
         Unit unit = (Unit)getItem();
         return unit.getAnimation() == Move;
