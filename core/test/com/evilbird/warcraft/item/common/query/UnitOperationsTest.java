@@ -105,6 +105,101 @@ public class UnitOperationsTest
     }
 
     @Test
+    public void isAiTest() {
+        Player player = mock(Player.class);
+        when(player.isCorporeal()).thenReturn(false);
+
+        boolean result = UnitOperations.isAi(player);
+        assertTrue(result);
+    }
+
+    @Test
+    public void isAiNullTest() {
+        assertFalse(UnitOperations.isAi(null));
+    }
+
+    @Test
+    public void isAiParentTest() {
+        Player player = mock(Player.class);
+        when(player.isCorporeal()).thenReturn(false);
+
+        Item child = mock(Item.class);
+        when(child.getParent()).thenReturn(player);
+
+        boolean result = UnitOperations.isAi(child);
+        assertTrue(result);
+    }
+
+    @Test
+    public void isAiNoParentTest() {
+        Item child = mock(Item.class);
+        when(child.getParent()).thenReturn(null);
+
+        boolean result = UnitOperations.isAi(child);
+        assertFalse(result);
+    }
+
+    @Test
+    public void isAiHierarchyTest() {
+        Player player = mock(Player.class);
+        when(player.isCorporeal()).thenReturn(false);
+
+        ItemGroup child = mock(ItemGroup.class);
+        when(child.getParent()).thenReturn(player);
+
+        Item grandChild = mock(Item.class);
+        when(grandChild.getParent()).thenReturn(child);
+
+        assertTrue(UnitOperations.isAi(grandChild));
+    }
+
+    @Test
+    public void isArtificialTest() {
+        Player player = mock(Player.class);
+        when(player.isArtifical()).thenReturn(true);
+
+        assertTrue(UnitOperations.isArtificial(player));
+    }
+
+    @Test
+    public void isArtificialNullTest() {
+        assertFalse(UnitOperations.isArtificial(null));
+    }
+
+    @Test
+    public void isArtificialParentTest() {
+        Player player = mock(Player.class);
+        when(player.isArtifical()).thenReturn(true);
+
+        Item child = mock(Item.class);
+        when(child.getParent()).thenReturn(player);
+
+        assertTrue(UnitOperations.isArtificial(child));
+    }
+
+    @Test
+    public void isArtificialNoParentTest() {
+        Item child = mock(Item.class);
+        when(child.getParent()).thenReturn(null);
+
+        assertFalse(UnitOperations.isArtificial(child));
+    }
+
+    @Test
+    public void isArtificialHierarchyTest() {
+        Player player = mock(Player.class);
+        when(player.isArtifical()).thenReturn(true);
+
+        ItemGroup child = mock(ItemGroup.class);
+        when(child.getParent()).thenReturn(player);
+
+        Item grandChild = mock(Item.class);
+        when(grandChild.getParent()).thenReturn(child);
+
+        assertTrue(UnitOperations.isArtificial(grandChild));
+    }
+
+    @Test
     public void isCorporealTest() {
         Player player = mock(Player.class);
         when(player.isCorporeal()).thenReturn(true);
@@ -115,8 +210,7 @@ public class UnitOperationsTest
 
     @Test
     public void isCorporealNullTest() {
-        boolean result = UnitOperations.isCorporeal(null);
-        assertFalse(result);
+        assertFalse(UnitOperations.isCorporeal(null));
     }
 
     @Test
@@ -152,57 +246,6 @@ public class UnitOperationsTest
         when(grandChild.getParent()).thenReturn(child);
 
         boolean result = UnitOperations.isCorporeal(grandChild);
-        assertTrue(result);
-    }
-
-    @Test
-    public void isAiTest() {
-        Player player = mock(Player.class);
-        when(player.isCorporeal()).thenReturn(false);
-
-        boolean result = UnitOperations.isAi(player);
-        assertTrue(result);
-    }
-
-    @Test
-    public void isAiNullTest() {
-        boolean result = UnitOperations.isAi(null);
-        assertFalse(result);
-    }
-
-    @Test
-    public void isAiParentTest() {
-        Player player = mock(Player.class);
-        when(player.isCorporeal()).thenReturn(false);
-
-        Item child = mock(Item.class);
-        when(child.getParent()).thenReturn(player);
-
-        boolean result = UnitOperations.isAi(child);
-        assertTrue(result);
-    }
-
-    @Test
-    public void isAiNoParentTest() {
-        Item child = mock(Item.class);
-        when(child.getParent()).thenReturn(null);
-
-        boolean result = UnitOperations.isAi(child);
-        assertFalse(result);
-    }
-
-    @Test
-    public void isAiHierarchyTest() {
-        Player player = mock(Player.class);
-        when(player.isCorporeal()).thenReturn(false);
-
-        ItemGroup child = mock(ItemGroup.class);
-        when(child.getParent()).thenReturn(player);
-
-        Item grandChild = mock(Item.class);
-        when(grandChild.getParent()).thenReturn(child);
-
-        boolean result = UnitOperations.isAi(grandChild);
         assertTrue(result);
     }
 

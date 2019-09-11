@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.common.query;
 
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
@@ -43,7 +44,6 @@ import static com.evilbird.engine.item.utility.ItemComparators.closestItem;
 import static com.evilbird.engine.item.utility.ItemOperations.findAncestor;
 import static com.evilbird.engine.item.utility.ItemOperations.isNear;
 import static com.evilbird.engine.item.utility.ItemPredicates.touchableWithType;
-import static com.evilbird.engine.item.utility.ItemPredicates.withClazz;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
@@ -56,11 +56,23 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasPathTo;
  */
 public class UnitOperations
 {
+    /**
+     * Disable construction of static helper class.
+     */
     private UnitOperations() {
     }
 
-    public static Item findClosest(Movable movable, Identifier type) {
-        return findClosest(movable, movable, touchableWithType(type));
+    /**
+     * Returns the {@link Item} closest to the given target that is both
+     * touchable and of the given type, if any.
+     *
+     * @param target    the locus of the search.
+     * @param type      an {@link Item#getType() item type}.
+     * @return          the closest touchable {@link Item} of the given type,
+     *                  or {@code null}.
+     */
+    public static Item findClosest(Movable target, Identifier type) {
+        return findClosest(target, target, touchableWithType(type));
     }
 
     public static Item findClosest(Movable movable, Item locus, Identifier type) {
@@ -87,25 +99,54 @@ public class UnitOperations
     }
 
     /**
+     * Returns a {@link Collection} containing all of the
+     * {@link Player#isArtifical() artifical players} owned by the given
+     * {@link ItemRoot}, if any.
+     *
+     * @param root  an {@code ItemRoot} instance.
+     * @return      a {@code Collection} of {@link Player Players}
+     *
+     * @throws NullPointerException if the given {@code ItemRoot} is
+     *                              {@code null}.
+     */
+    public static Collection<Player> getArtificialPlayers(ItemRoot root) {
+        Objects.requireNonNull(root);
+        Predicate<Item> query = both(UnitOperations::isPlayer, UnitOperations::isArtificial);
+        Collection<Item> players = root.findAll(query);
+        return CollectionUtils.convert(players, item -> (Player)item);
+    }
+
+    /**
+     * Returns the {@link Player#isCorporeal() corporeal player} owned by the
+     * given {@link ItemRoot}, if any.
+     *
+     * @param root  an {@code ItemRoot} instance.
+     * @return      a {@link Player} instance.
+     *
+     * @throws NullPointerException if the given {@code ItemRoot} is
+     *                              {@code null}.
+     */
+    public static Player getCorporealPlayer(ItemRoot root) {
+        Objects.requireNonNull(root);
+        Predicate<Item> query = both(UnitOperations::isPlayer, UnitOperations::isCorporeal);
+        return (Player)root.find(query);
+    }
+
+    /**
      * Returns the {@link Player} that the given {@link Item} belongs to, if
      * any (Terrain items, for example, aren't owned by a player).
      *
      * @param item  an {@code Item} owned by a {@code Player}.
      * @return      the Player that owns the given Item, or {@code null} if
      *              the given Item isn't owned by a Player.
+     *
+     * @throws NullPointerException if the given {@code Item} is {@code null}.
      */
     public static Player getPlayer(Item item) {
-        return (Player)findAncestor(item, withClazz(Player.class));
-    }
-
-    public static Player getAiPlayer(ItemRoot itemRoot) {
-        Predicate<Item> query = both(UnitPredicates.isPlayer(), UnitPredicates.isAi());
-        return (Player)itemRoot.find(query);
-    }
-
-    public static Player getCorporealPlayer(ItemRoot itemRoot) {
-        Predicate<Item> query = both(UnitPredicates.isPlayer(), UnitPredicates.isCorporeal());
-        return (Player)itemRoot.find(query);
+        if (item instanceof Player) {
+            return (Player)item;
+        }
+        return (Player)findAncestor(item, UnitOperations::isPlayer);
     }
 
     /**
@@ -206,6 +247,22 @@ public class UnitOperations
     }
 
     /**
+     * Determines if a given {@link Item} belongs to an artificial player,
+     * excluding the neutral player.
+     *
+     * @param item  an {@code Item} to test.
+     * @return      {@code true} if the Item belongs to an AI player, otherwise
+     *              {@code false}.
+     */
+    public static boolean isArtificial(Item item) {
+        if (item != null) {
+            Player player = UnitOperations.getPlayer(item);
+            return player != null && player.isArtifical();
+        }
+        return false;
+    }
+
+    /**
      * Determines if a given {@link Item} belongs to the user operating the
      * current device.
      *
@@ -293,6 +350,13 @@ public class UnitOperations
         return item instanceof Critter;
     }
 
+    /**
+     * Determines if the given {@link Item} produces food.
+     *
+     * @param item  an {@code Item} to test.
+     * @return      {@code true} if the Item produces food, otherwise
+     *              {@code false}.
+     */
     public static boolean isFoodProducer(Item item) {
         if (item instanceof Unit) {
             Unit unit = (Unit)item;
@@ -301,7 +365,6 @@ public class UnitOperations
         }
         return false;
     }
-
 
     /**
      * Determines if the given {@link Item} belongs to the human faction/race.
@@ -325,6 +388,10 @@ public class UnitOperations
     public static boolean isOrc(Item item) {
         Player player = getPlayer(item);
         return player != null && player.getFaction() == Orc;
+    }
+
+    public static boolean isPlayer(Item item) {
+        return item instanceof Player;
     }
 
     public static boolean inSight(Combatant combatant, Item target) {

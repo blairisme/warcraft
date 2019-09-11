@@ -73,6 +73,9 @@ public class ItemOperations
      *
      * @return  the first parent of the given Item that matches the specified
      *          condition, or {@code null} if no match is found.
+     *
+     * @throws NullPointerException if the given {@code Item} or
+     *                              {@code Predicate} is {@code null}.
      */
     public static Item findAncestor(Item item, Predicate<Item> predicate) {
         Objects.requireNonNull(item);

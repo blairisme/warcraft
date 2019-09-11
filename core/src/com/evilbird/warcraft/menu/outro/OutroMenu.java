@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
+import com.evilbird.engine.common.collection.Lists;
 import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.control.SelectListenerAdapter;
 import com.evilbird.engine.common.control.TextProgressBar;
@@ -30,13 +31,13 @@ import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerStatistic;
 
 import javax.inject.Inject;
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static com.badlogic.gdx.scenes.scene2d.ui.Value.percentHeight;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.getAiPlayer;
 import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Buildings;
 import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Gold;
 import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Kills;
@@ -46,7 +47,6 @@ import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Score;
 import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Units;
 import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Wood;
 import static com.evilbird.warcraft.menu.outro.OutroMenuType.Victory;
-import static java.util.Arrays.asList;
 
 /**
  * Represents a menu shown when a scenario is completed or failed. The menu
@@ -107,11 +107,11 @@ public class OutroMenu extends Menu
 
     private void updateView(State state) {
         ItemRoot world = state.getWorld();
-        Player human = UnitOperations.getCorporealPlayer(world);
-        Player ai = getAiPlayer(world);
+        Player corporealPlayer = UnitOperations.getCorporealPlayer(world);
+        Collection<Player> aiPlayers = UnitOperations.getArtificialPlayers(world);
 
-        updateSummary(human);
-        updateDetails(human, ai);
+        updateSummary(corporealPlayer);
+        updateDetails(corporealPlayer, aiPlayers);
     }
 
     private Table createContainer() {
@@ -177,10 +177,10 @@ public class OutroMenu extends Menu
         return details;
     }
 
-    private void updateDetails(Player human, Player ai) {
+    private void updateDetails(Player corporealPlayer, Collection<Player> aiPlayers) {
         details.clear();
         addDetailsHeaders();
-        addDetailValues(human, ai);
+        addDetailValues(corporealPlayer, aiPlayers);
     }
 
     private void addDetailsHeaders() {
@@ -204,12 +204,17 @@ public class OutroMenu extends Menu
         cell.padBottom(12);
     }
 
-    private void addDetailValues(Player human, Player ai) {
-        Map<PlayerStatistic, Float> largestValues = getLargestStatistics(asList(human, ai));
-        addDetailsValues(human, largestValues);
-        addDetailsTextLine(human);
-        addDetailsValues(ai, largestValues);
-        addDetailsTextLine(ai);
+    private void addDetailValues(Player corporealPlayer, Collection<Player> aiPlayers) {
+        List<Player> players = Lists.union(corporealPlayer, aiPlayers);
+        Map<PlayerStatistic, Float> largestValues = getLargestStatistics(players);
+
+        addDetailsValues(corporealPlayer, largestValues);
+        addDetailsTextLine(corporealPlayer);
+
+        for (Player aiPlayer: aiPlayers) {
+            addDetailsValues(aiPlayer, largestValues);
+            addDetailsTextLine(aiPlayer);
+        }
     }
 
     private EnumSet<PlayerStatistic> getDetailStatistics() {

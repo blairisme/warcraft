@@ -17,7 +17,6 @@ import com.evilbird.warcraft.item.common.movement.Movable;
 import com.evilbird.warcraft.item.common.movement.MovementCapability;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
-import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -168,7 +167,7 @@ public class UnitPredicates
     }
 
     public static Predicate<Item> isPlayer() {
-        return (item) -> item instanceof Player;
+        return UnitOperations::isPlayer;
     }
 
     public static Predicate<Item> isResource() {

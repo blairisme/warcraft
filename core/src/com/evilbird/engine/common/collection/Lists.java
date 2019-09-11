@@ -10,6 +10,7 @@
 package com.evilbird.engine.common.collection;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -52,6 +53,22 @@ public class Lists
         List<T> result = new ArrayList<>(listA.size() + listB.size());
         result.addAll(listA);
         result.addAll(listB);
+        return result;
+    }
+
+    /**
+     * Returns a new {@link List} containing the given element and collection.
+     *
+     * @param element       an element to add.
+     * @param collection    a collection to add.
+     * @param <T>           the type of the elements in the given lists.
+     *
+     * @return a new {@link List} containing the given element and collection.
+     */
+    public static <T> List<T> union(T element, Collection<T> collection) {
+        List<T> result = new ArrayList<>(collection.size() + 1);
+        result.add(element);
+        result.addAll(collection);
         return result;
     }
 }

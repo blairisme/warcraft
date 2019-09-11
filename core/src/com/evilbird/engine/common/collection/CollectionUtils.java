@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.common.collection;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -37,6 +38,13 @@ public class CollectionUtils
         Collection<T> matchesA = collection.stream().filter(conditionA).collect(toList());
         Collection<T> matchesB = collection.stream().filter(conditionB).collect(toList());
         return matchesA.size() == matchesB.size();
+    }
+
+    public static <T> Collection<T> combine(Collection<T> collectionA, Collection<T> collectionB) {
+        Collection<T> result = new ArrayList<>(collectionA.size() + collectionB.size());
+        result.addAll(collectionA);
+        result.addAll(collectionB);
+        return result;
     }
 
     public static <T> T findFirst(Collection<? extends T> collection, Predicate<T> condition) {
