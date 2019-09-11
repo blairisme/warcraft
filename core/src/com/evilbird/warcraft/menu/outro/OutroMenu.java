@@ -12,6 +12,7 @@ package com.evilbird.warcraft.menu.outro;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -129,7 +130,7 @@ public class OutroMenu extends Menu
         Cell cell = container.add(summary);
         cell.align(Align.top);
         cell.growX();
-        cell.height(percentHeight(0.45f, container));
+        cell.height(percentHeight(0.35f, container));
 
         cell.row();
         return summary;
@@ -169,11 +170,14 @@ public class OutroMenu extends Menu
 
     private Table createDetails() {
         Table details = new Table(skin);
-        Cell cell = container.add(details);
+        ScrollPane scrollPane = new ScrollPane(details);
+
+        Cell cell = container.add(scrollPane);
         cell.align(Align.top);
         cell.growX();
-        cell.height(percentHeight(0.45f, container));
+        cell.height(percentHeight(0.55f, container));
         cell.row();
+
         return details;
     }
 
@@ -247,13 +251,13 @@ public class OutroMenu extends Menu
 
         Cell cell = details.add(bar);
         cell.align(Align.center);
-        cell.width(94);
+        cell.width(80);
         cell.height(28);
-        cell.padLeft(8);
-        cell.padRight(8);
+        cell.padLeft(6);
+        cell.padRight(6);
     }
 
-    private void addDetailsTextLine(Player player){
+    private void addDetailsTextLine(Player player) {
         String playerName = strings.getPlayerName(player);
         Label textLine = new Label(playerName, skin, "font-large");
         textLine.setAlignment(Align.center);
@@ -263,7 +267,7 @@ public class OutroMenu extends Menu
         cell.expandX();
         cell.fillX();
         cell.padTop(10);
-        cell.padBottom(60);
+        cell.padBottom(40);
 
         cell.row();
     }
