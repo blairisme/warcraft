@@ -383,40 +383,18 @@ public class Interactions
     }
 
     private void moveInteractions() {
-        moveToLocationInteractions();
-        moveToItemInteractions();
-        moveCancelInteraction();
-    }
-
-    private void moveToLocationInteractions() {
         interactions.addAction(MoveToLocation, ConfirmLocation)
             .whenSelected(both(isCorporeal(), isMovableOver(Land)))
-            .whenTarget(hasType(Map, Shore, OpaqueFogSection))
+            .whenTarget(hasType(Map, Shore, OpaqueFogSection, CircleOfPower))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
         interactions.addAction(MoveToLocation, ConfirmLocation)
             .whenSelected(both(isCorporeal(), isMovableOver(Water)))
-            .whenTarget(hasType(Sea, OpaqueFogSection))
-            .appliedTo(Selected)
-            .appliedAs(confirmedAction());
-    }
-
-    private void moveToItemInteractions() {
-        interactions.addAction(MoveToItem, ConfirmLocation)
-            .whenSelected(both(isCorporeal(), isMovableOver(Land)))
-            .whenTarget(CircleOfPower)
+            .whenTarget(hasType(Sea, OilPatch, OpaqueFogSection))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
-        interactions.addAction(MoveToItem, ConfirmLocation)
-            .whenSelected(both(isCorporeal(), isMovableOver(Water)))
-            .whenTarget(OilPatch)
-            .appliedTo(Selected)
-            .appliedAs(confirmedAction());
-    }
-
-    private void moveCancelInteraction() {
         interactions.addAction(MoveCancel)
             .whenSelected(both(isCorporeal(), isMovable()))
             .whenTarget(StopButton)
