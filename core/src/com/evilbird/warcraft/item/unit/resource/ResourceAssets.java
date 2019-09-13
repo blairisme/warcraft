@@ -42,7 +42,7 @@ public class ResourceAssets extends AssetBundle
         register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, LARGE));
 
         register("selected", "data/sounds/neutral/resource/${name}/selected/1.mp3");
-        registerSequence("destroyed", "data/sounds/common/building/destroyed/", ".mp3", 3);
+        registerOptionalSequence("destroyed", "data/sounds/common/building/destroyed/", ".mp3", 3);
     }
 
     private static Map<String, String> assetPathVariables(UnitType type, WarcraftContext context) {

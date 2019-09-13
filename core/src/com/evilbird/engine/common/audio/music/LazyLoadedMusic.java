@@ -14,6 +14,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Represents a streamed audio file that's loaded at the point its played.
@@ -93,6 +94,7 @@ public class LazyLoadedMusic implements Music
 
     @Override
     public void setVolume(float volume) {
+        Validate.inclusiveBetween(0, 1, volume);
         this.volume = volume;
         if (music != null) {
             music.setVolume(volume);

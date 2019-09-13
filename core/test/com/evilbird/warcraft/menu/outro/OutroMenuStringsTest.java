@@ -22,8 +22,6 @@ import org.junit.Test;
 
 import java.lang.reflect.Method;
 
-import static com.evilbird.test.data.item.TestSkins.newTestSkin;
-
 /**
  * Instances of this unit test validate logic in the {@link OutroMenuStrings}
  * class.
@@ -78,7 +76,7 @@ public class OutroMenuStringsTest
     }
 
     private Player newTestPlayer(PlayerType type, WarcraftNation nation) {
-        Player player = new Player(newTestSkin());
+        Player player = new Player();
         player.setType(type);
         player.setNation(nation);
         return player;

@@ -20,6 +20,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.audio.music.LazyLoadedMusic;
+import com.evilbird.engine.common.audio.music.MusicSequence;
 import com.evilbird.engine.common.audio.sound.SilentSound;
 import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.audio.sound.SoundFactory;
@@ -120,9 +121,15 @@ public class AssetBundle
         }
     }
 
-    protected void registerSequence(String idPrefix, String pathPrefix, String pathSuffix, int count) {
+    protected void registerOptionalSequence(String idPrefix, String pathPrefix, String pathSuffix, int count) {
         for (int i = 1; i < count + 1; i++) {
             registerOptional(idPrefix + "-" + i, pathPrefix + i + pathSuffix);
+        }
+    }
+
+    protected void registerSequence(String idPrefix, String pathPrefix, String pathSuffix, int count, Class<?> type) {
+        for (int i = 1; i < count + 1; i++) {
+            register(idPrefix + "-" + i, pathPrefix + i + pathSuffix, type);
         }
     }
 
@@ -157,7 +164,19 @@ public class AssetBundle
 
     protected Music getLazyLoadedMusic(Object id) {
         AssetDescriptor asset = assets.get(id);
-        return manager.get(asset.fileName, LazyLoadedMusic.class);
+        FileHandleResolver resolver = manager.getFileHandleResolver();
+        return new LazyLoadedMusic(resolver, asset.fileName);
+    }
+
+    protected Music getLazyLoadedMusicSequence(String prefix, int count) {
+        List<Music> sequence = new ArrayList<>(count);
+        for (int i = 1; i < count + 1; i++) {
+            String id = prefix + "-" + i;
+            if (assets.containsKey(id)) {
+                sequence.add(getLazyLoadedMusic(id));
+            }
+        }
+        return new MusicSequence(sequence);
     }
 
     protected Sound getSoundEffect(Object id) {
@@ -170,7 +189,7 @@ public class AssetBundle
     }
 
     protected Sound getSoundEffectSet(String prefix, int count) {
-        List<String> paths = new ArrayList<>();
+        List<String> paths = new ArrayList<>(count);
         for (int i = 1; i < count + 1; i++) {
             String id = prefix + "-" + i;
             if (assets.containsKey(id)) {

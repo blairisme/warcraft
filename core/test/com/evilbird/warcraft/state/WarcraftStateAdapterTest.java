@@ -29,6 +29,7 @@ import static com.evilbird.test.data.assets.TestDevices.newTestDevice;
 public class WarcraftStateAdapterTest extends StateTestCase
 {
     private HudLoader hudLoader;
+    private WarcraftMusic musicLoader;
     private WarcraftStateAdapter adapter;
 
     @Before
@@ -36,7 +37,8 @@ public class WarcraftStateAdapterTest extends StateTestCase
         super.setup();
         device = newTestDevice();
         hudLoader = new HudLoader(device, itemFactory);
-        adapter = new WarcraftStateAdapter(hudLoader, levelLoader, behaviourFactory);
+        musicLoader = new WarcraftMusic(device);
+        adapter = new WarcraftStateAdapter(hudLoader, levelLoader, musicLoader, behaviourFactory);
         loadAssets();
     }
 

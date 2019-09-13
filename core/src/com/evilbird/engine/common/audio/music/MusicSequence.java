@@ -10,6 +10,7 @@
 package com.evilbird.engine.common.audio.music;
 
 import com.badlogic.gdx.audio.Music;
+import org.apache.commons.lang3.Validate;
 
 import java.util.Iterator;
 import java.util.List;
@@ -88,16 +89,20 @@ public class MusicSequence implements Music
 
     @Override
     public void pause() {
-        current.pause();
-        playing = false;
+        if (current != null) {
+            current.pause();
+            playing = false;
+        }
     }
 
     @Override
     public void stop() {
-        current.stop();
-        current = null;
-        iterator = null;
-        playing = false;
+        if (current != null) {
+            current.stop();
+            current = null;
+            iterator = null;
+            playing = false;
+        }
     }
 
     @Override
@@ -124,6 +129,7 @@ public class MusicSequence implements Music
 
     @Override
     public void setVolume(float volume) {
+        Validate.inclusiveBetween(0, 1, volume);
         this.volume = volume;
         for (Music music: sequence){
             music.setVolume(volume);

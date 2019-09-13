@@ -61,10 +61,10 @@ public class GathererAssets extends AssetBundle
         register("dead", "data/sounds/${faction}/unit/common/dead/1.mp3");
         register("ready", "data/sounds/${faction}/unit/${name}/ready/1.mp3");
 
-        registerSequence("attack", "data/sounds/common/unit/attack/${weapon}/", ".mp3", 3);
-        registerSequence("chopping", "data/sounds/common/unit/chopping/", ".mp3", 4);
-        registerSequence("acknowledge", "data/sounds/${faction}/unit/${name}/acknowledge/", ".mp3", 4);
-        registerSequence("selected", "data/sounds/${faction}/unit/${name}/selected/", ".mp3", 6);
+        registerOptionalSequence("attack", "data/sounds/common/unit/attack/${weapon}/", ".mp3", 3);
+        registerOptionalSequence("chopping", "data/sounds/common/unit/chopping/", ".mp3", 4);
+        registerOptionalSequence("acknowledge", "data/sounds/${faction}/unit/${name}/acknowledge/", ".mp3", 4);
+        registerOptionalSequence("selected", "data/sounds/${faction}/unit/${name}/selected/", ".mp3", 6);
     }
 
     private static Map<String, String> assetPathVariables(UnitType type) {

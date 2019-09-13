@@ -52,9 +52,9 @@ public class CombatantAssets extends AssetBundle
         register("ready", "data/sounds/${faction}/unit/${name}/ready/1.mp3");
         registerOptional("hit", "data/sounds/common/unit/hit/${weapon}/1.mp3");
 
-        registerSequence("attack", "data/sounds/common/unit/attack/${weapon}/", ".mp3", 3);
-        registerSequence("acknowledge", "data/sounds/${faction}/unit/${name}/acknowledge/", ".mp3", 5);
-        registerSequence("selected", "data/sounds/${faction}/unit/${name}/selected/", ".mp3", 6);
+        registerOptionalSequence("attack", "data/sounds/common/unit/attack/${weapon}/", ".mp3", 3);
+        registerOptionalSequence("acknowledge", "data/sounds/${faction}/unit/${name}/acknowledge/", ".mp3", 5);
+        registerOptionalSequence("selected", "data/sounds/${faction}/unit/${name}/selected/", ".mp3", 6);
     }
 
     private static Map<String, String> assetPathVariables(UnitType type) {

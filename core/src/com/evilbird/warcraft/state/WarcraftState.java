@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.state;
 
+import com.badlogic.gdx.audio.Music;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
@@ -30,6 +31,7 @@ public class WarcraftState implements State
     private ItemRoot world;
     private Behaviour behaviour;
     private WarcraftContext context;
+    private transient Music music;
 
     public WarcraftState() {
     }
@@ -38,12 +40,14 @@ public class WarcraftState implements State
         ItemRoot world,
         ItemRoot hud,
         Behaviour behaviour,
+        Music music,
         WarcraftContext context)
     {
         this.world = world;
         this.hud = hud;
         this.behaviour = behaviour;
         this.context = context;
+        this.music = music;
     }
 
     @Override
@@ -68,6 +72,10 @@ public class WarcraftState implements State
         return world;
     }
 
+    public Music getMusic() {
+        return music;
+    }
+
     public void setContext(WarcraftContext context) {
         this.context = context;
     }
@@ -82,6 +90,10 @@ public class WarcraftState implements State
 
     public void setWorld(ItemRoot world) {
         this.world = world;
+    }
+
+    public void setMusic(Music music) {
+        this.music = music;
     }
 
     @Override
