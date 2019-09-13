@@ -17,6 +17,12 @@ package com.evilbird.engine.common.graphics;
  */
 public interface DirectionalAnimation extends Animation
 {
+    /**
+     * Returns the current direction the animation is pointing, specified in
+     * degrees.
+     *
+     * @return a positive integer between 0 and 360.
+     */
     float getDirection();
 
     /**

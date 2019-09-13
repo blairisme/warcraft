@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.assets.SyntheticTexture;
-import com.evilbird.engine.common.audio.SoundEffect;
+import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.Map;
@@ -98,35 +98,35 @@ public class GathererAssets extends AssetBundle
         return getSyntheticTexture("selection");
     }
 
-    public SoundEffect getChoppingSound() {
+    public Sound getChoppingSound() {
         return getSoundEffectSet("chopping", 4);
     }
 
-    public SoundEffect getSelectedSound() {
+    public Sound getSelectedSound() {
         return getSoundEffectSet("selected", 6);
     }
 
-    public SoundEffect getAcknowledgeSound() {
+    public Sound getAcknowledgeSound() {
         return getSoundEffectSet("acknowledge", 4);
     }
 
-    public SoundEffect getAttackSound() {
+    public Sound getAttackSound() {
         return getSoundEffectSet("attack", 3);
     }
 
-    public SoundEffect getCompleteSound() {
+    public Sound getCompleteSound() {
         return getSoundEffect("complete");
     }
 
-    public SoundEffect getConstructSound() {
+    public Sound getConstructSound() {
         return getSoundEffect("construct");
     }
 
-    public SoundEffect getReadySound() {
+    public Sound getReadySound() {
         return getSoundEffect("ready");
     }
 
-    public SoundEffect getDeadSound() {
+    public Sound getDeadSound() {
         return getSoundEffect("dead");
     }
 

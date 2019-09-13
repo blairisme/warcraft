@@ -12,7 +12,7 @@ package com.evilbird.engine.common.graphics;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import org.apache.commons.lang3.Range;
 
@@ -30,6 +30,7 @@ public class BasicAnimation implements DirectionalAnimation
     private float direction;
     private float duration;
     private PlayMode mode;
+    private GridPoint2 size;
     private Animation<TextureRegion> animation;
     private Map<Range<Float>, Array<TextureRegion>> frames;
 
@@ -46,11 +47,6 @@ public class BasicAnimation implements DirectionalAnimation
         reset();
     }
 
-    @Override
-    public boolean isFinished(float time) {
-        return animation.isAnimationFinished(time);
-    }
-
     public Map<Range<Float>, Array<TextureRegion>> getFrames() {
         return frames;
     }
@@ -61,9 +57,8 @@ public class BasicAnimation implements DirectionalAnimation
     }
 
     @Override
-    public Vector2 getSize() {
-        TextureRegion region = getFrame(0);
-        return new Vector2(region.getRegionWidth(), region.getRegionHeight());
+    public GridPoint2 getSize() {
+        return size;
     }
 
     public float getDirection() {
@@ -86,6 +81,7 @@ public class BasicAnimation implements DirectionalAnimation
 
     private void reset() {
         this.animation = new Animation<>(duration, getFrameSequence(direction), mode);
+        this.size = getFrameSize(animation);
     }
 
     private Array<TextureRegion> getFrameSequence(float direction) {
@@ -95,5 +91,10 @@ public class BasicAnimation implements DirectionalAnimation
             }
         }
         return new Array<>();
+    }
+
+    private GridPoint2 getFrameSize(Animation<TextureRegion> animation) {
+        TextureRegion region = animation.getKeyFrame(0);
+        return new GridPoint2(region.getRegionWidth(), region.getRegionHeight());
     }
 }

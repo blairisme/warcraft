@@ -58,7 +58,6 @@ import static com.evilbird.warcraft.action.menu.MenuActions.BuildAdvancedMenu;
 import static com.evilbird.warcraft.action.menu.MenuActions.BuildSimpleMenu;
 import static com.evilbird.warcraft.action.menu.MenuActions.IngameMenu;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveCancel;
-import static com.evilbird.warcraft.action.move.MoveActions.MoveToItem;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveToLocation;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderCancel;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderMove;

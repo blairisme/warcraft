@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.audio;
+package com.evilbird.engine.common.audio.music;
 
 import com.badlogic.gdx.audio.Music;
 
@@ -61,7 +61,7 @@ public class MusicSequence implements Music
         }
     }
 
-    private void next() {
+    protected void next() {
         if (current != null) {
             current.stop();
         }

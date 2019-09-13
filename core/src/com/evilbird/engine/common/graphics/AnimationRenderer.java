@@ -11,6 +11,7 @@ package com.evilbird.engine.common.graphics;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -18,13 +19,13 @@ import com.badlogic.gdx.math.Vector2;
  *
  * @author Blair Butterworth
  */
-public class Animator
+public class AnimationRenderer
 {
     private Animation animation;
     private float animationTime;
     private Vector2 positionOffset;
     private Vector2 cacheSize;
-    private Vector2 animationSize;
+    private GridPoint2 animationSize;
 
     public Animation getAnimation() {
         return animation;

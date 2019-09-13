@@ -10,6 +10,8 @@
 package com.evilbird.engine.item.specialized;
 
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.common.lang.TextIdentifier;
+import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
@@ -42,7 +44,9 @@ public class ViewableTest extends GameTestCase
 
     private Viewable newAnimatedItem() {
         Viewable item = new Viewable(newTestSkin());
+        item.setRoot(TestItemRoots.newTestRoot("root"));
         item.setType(UnitType.Footman);
+        item.setIdentifier(new TextIdentifier("footman"));
         item.setSize(56, 78);
         item.setPosition(12, 34);
         item.setDirection(new Vector2(1, 1));

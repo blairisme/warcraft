@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.audio;
+package com.evilbird.engine.common.audio.music;
 
 import com.badlogic.gdx.audio.Music;
 

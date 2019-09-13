@@ -7,21 +7,33 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.audio;
+package com.evilbird.engine.common.audio.sound;
 
 /**
- * Instances of this class represent a {@link SoundEffect} that doesn't produce
+ * Instances of this class represent a {@link Sound} that doesn't produce
  * an audio output, I.E., its silent.
  *
  * @author Blair Butterworth
  */
-public class SilentSoundEffect implements SoundEffect
+public class SilentSound implements Sound
 {
     @Override
     public void play() {
     }
 
     @Override
+    public void pause() {
+    }
+
+    @Override
+    public void resume() {
+    }
+
+    @Override
     public void stop() {
+    }
+
+    @Override
+    public void setVolume(float volume) {
     }
 }

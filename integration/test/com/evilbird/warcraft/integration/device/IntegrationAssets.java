@@ -20,7 +20,7 @@ import com.evilbird.engine.common.assets.FontLoader;
 import com.evilbird.engine.common.assets.LazyMusicLoader;
 import com.evilbird.engine.common.assets.SyntheticTexture;
 import com.evilbird.engine.common.assets.SyntheticTextureLoader;
-import com.evilbird.engine.common.audio.LazyLoadedMusic;
+import com.evilbird.engine.common.audio.music.LazyLoadedMusic;
 
 /**
  * Instances of this class provide access to game assets.

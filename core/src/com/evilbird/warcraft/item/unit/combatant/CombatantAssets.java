@@ -14,8 +14,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.assets.SyntheticTexture;
-import com.evilbird.engine.common.audio.SilentSoundEffect;
-import com.evilbird.engine.common.audio.SoundEffect;
+import com.evilbird.engine.common.audio.sound.SilentSound;
+import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.Map;
@@ -76,35 +76,35 @@ public class CombatantAssets extends AssetBundle
         return getSyntheticTexture("selection");
     }
 
-    public SoundEffect getAcknowledgeSound() {
+    public Sound getAcknowledgeSound() {
         return getSoundEffectSet("acknowledge", 5);
     }
 
-    public SoundEffect getAttackSound() {
+    public Sound getAttackSound() {
         return getSoundEffectSet("attack", 3);
     }
 
-    public SoundEffect getHitSound() {
-        return isRegistered("hit") ? getSoundEffect("hit") : new SilentSoundEffect();
+    public Sound getHitSound() {
+        return isRegistered("hit") ? getSoundEffect("hit") : new SilentSound();
     }
 
-    public SoundEffect getDieSound() {
+    public Sound getDieSound() {
         return getSoundEffect("dead");
     }
 
-    public SoundEffect getReadySound() {
+    public Sound getReadySound() {
         return getSoundEffect("ready");
     }
 
-    public SoundEffect getSelectedSound() {
+    public Sound getSelectedSound() {
         return getSoundEffectSet("selected", 3);
     }
 
-    public SoundEffect getCaptureSound() {
+    public Sound getCaptureSound() {
         return getSoundEffect("capture");
     }
 
-    public SoundEffect getRescueSound() {
+    public Sound getRescueSound() {
         return getSoundEffect("rescue");
     }
 

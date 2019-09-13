@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.evilbird.engine.common.audio.SoundEffect;
+import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.lang.Identifier;
@@ -94,10 +94,10 @@ public class TestSkins
         return result;
     }
 
-    private static Map<Identifier, SoundEffect> newTestSounds() {
-        Map<Identifier, SoundEffect> result = new HashMap<>();
+    private static Map<Identifier, Sound> newTestSounds() {
+        Map<Identifier, Sound> result = new HashMap<>();
         for (UnitSound sound: UnitSound.values()) {
-            result.put(sound, Mockito.mock(SoundEffect.class));
+            result.put(sound, Mockito.mock(Sound.class));
         }
         return result;
     }

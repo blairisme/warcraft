@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.assets.SyntheticTexture;
-import com.evilbird.engine.common.audio.SoundEffect;
+import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.state.WarcraftContext;
 
@@ -77,11 +77,11 @@ public class BuildingAssets extends AssetBundle
         return getSyntheticTexture("selection");
     }
 
-    public SoundEffect getDestroyedSound() {
+    public Sound getDestroyedSound() {
         return getSoundEffectSet("destroyed-1", "destroyed-2", "destroyed-3");
     }
 
-    public SoundEffect getSelectedSound() {
+    public Sound getSelectedSound() {
         return getSoundEffect("selected");
     }
 

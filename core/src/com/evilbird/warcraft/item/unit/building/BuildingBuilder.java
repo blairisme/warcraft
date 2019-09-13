@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.audio.SoundEffect;
+import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.specialized.ViewableStyle;
@@ -105,8 +105,8 @@ public class BuildingBuilder
         return builder.build();
     }
 
-    private Map<Identifier, SoundEffect> getSounds(BuildingAssets assets) {
-        Map<Identifier, SoundEffect> sounds = new HashMap<>();
+    private Map<Identifier, Sound> getSounds(BuildingAssets assets) {
+        Map<Identifier, Sound> sounds = new HashMap<>();
         sounds.put(UnitSound.Die, assets.getDestroyedSound());
         sounds.put(UnitSound.Selected, assets.getSelectedSound());
         return sounds;

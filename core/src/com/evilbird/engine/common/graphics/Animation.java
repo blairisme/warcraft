@@ -10,7 +10,7 @@
 package com.evilbird.engine.common.graphics;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.GridPoint2;
 
 /**
  * Represents a sequence of images displayed in sequence. Each image of the
@@ -31,8 +31,11 @@ public interface Animation
      */
     TextureRegion getFrame(float time);
 
-    Vector2 getSize();
-
-    boolean isFinished(float time);
-
+    /**
+     * Returns the size of the animation, specified in pixels. Each frame in
+     * the animation will conform to this size.
+     *
+     * @return a {@link GridPoint2}.
+     */
+    GridPoint2 getSize();
 }

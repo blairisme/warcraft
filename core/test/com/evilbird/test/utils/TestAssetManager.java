@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.evilbird.engine.common.assets.LazyMusicLoader;
 import com.evilbird.engine.common.assets.SyntheticTexture;
 import com.evilbird.engine.common.assets.SyntheticTextureLoader;
-import com.evilbird.engine.common.audio.LazyLoadedMusic;
+import com.evilbird.engine.common.audio.music.LazyLoadedMusic;
 
 public class TestAssetManager
 {

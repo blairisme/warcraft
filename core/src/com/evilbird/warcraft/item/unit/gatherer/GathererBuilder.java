@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.unit.gatherer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.audio.SoundEffect;
+import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.specialized.ViewableStyle;
@@ -133,8 +133,8 @@ public class GathererBuilder
         return builder.build();
     }
 
-    private Map<Identifier, SoundEffect> getSounds() {
-        Map<Identifier, SoundEffect> sounds = new HashMap<>();
+    private Map<Identifier, Sound> getSounds() {
+        Map<Identifier, Sound> sounds = new HashMap<>();
         sounds.put(UnitSound.Selected, assets.getSelectedSound());
         sounds.put(UnitSound.Acknowledge, assets.getAcknowledgeSound());
         sounds.put(UnitSound.Build, assets.getConstructSound());

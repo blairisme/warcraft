@@ -69,7 +69,7 @@ import static com.evilbird.warcraft.item.unit.UnitSound.ChopWood;
 public class GatherWood extends ScenarioSetAction
 {
     private static final float DEPOSIT_TIME = 5;
-    private static final float GATHER_TIME = 5;//45;
+    private static final float GATHER_TIME = 45;
     private static final ResourceQuantity GATHER_AMOUNT = resource(Wood, 100);
 
     private transient Events events;
