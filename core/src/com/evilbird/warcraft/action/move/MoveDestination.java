@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.action.move;
 
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
@@ -21,6 +22,8 @@ import com.evilbird.warcraft.action.common.path.ItemPathFilter;
  */
 interface MoveDestination
 {
+    Vector2 getDestination();
+
     ItemNode getDestinationNode(ItemGraph graph, ItemNode node, ItemPathFilter filter);
 
     boolean isDestinationValid(ItemGraph graph, ItemNode node);

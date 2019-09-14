@@ -32,15 +32,12 @@ public class ItemPathFinder
     private ItemPathFinder() {
     }
 
-    public static GraphPath<ItemNode> findPath(ItemGraph graph, ItemNode start, ItemNode end) {
+    public static ItemNodePath findPath(ItemGraph graph, ItemNode start, ItemNode end) {
+        ItemNodePath result = new ItemNodePath();
         PathFinder<ItemNode> pathFinder = new IndexedAStarPathFinder<>(graph);
         Heuristic<ItemNode> heuristic = new ManhattanHeuristic<>();
-        GraphPath<ItemNode> result = new DefaultGraphPath<>();
-
-        if (pathFinder.searchNodePath(start, end, heuristic, result)) {
-            return result;
-        }
-        return null;
+        pathFinder.searchNodePath(start, end, heuristic, result);
+        return result;
     }
 
     public static boolean hasPath(Movable fromItem, Item toItem) {
@@ -55,7 +52,8 @@ public class ItemPathFinder
         ItemNode start = graph.getNode(fromItem.getPosition());
 
         for (ItemNode end: graph.getAdjacentNodes(toItem)) {
-            if (findPath(filteredGraph, start, end) != null) {
+            GraphPath<ItemNode> path = findPath(filteredGraph, start, end);
+            if (path.getCount() > 0) {
                 return true;
             }
         }

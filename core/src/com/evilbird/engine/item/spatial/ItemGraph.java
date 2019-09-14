@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.collection.Arrays;
 import com.evilbird.engine.common.function.Predicates;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.pathing.SpatialGraph;
 import com.evilbird.engine.item.Item;
 import com.google.gson.annotations.JsonAdapter;
@@ -24,10 +25,16 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
+
+import static com.evilbird.engine.common.collection.Maps.addAll;
+import static com.evilbird.engine.common.collection.Maps.removeAll;
+import static java.util.Collections.emptyList;
 
 /**
  * Instances of this class represent a graph of the game space, represented as
@@ -46,6 +53,7 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     private transient Vector2 nodeSize;
     private transient ItemNode[][] nodes;
     private transient Predicate<Connection<ItemNode>> nodeFilter;
+    private transient Map<Identifier, Collection<ItemNode>> occupiers;
 
     public ItemGraph(ItemGraph graph, Predicate<ItemNode> nodeFilter) {
         this.nodes = graph.nodes;
@@ -56,6 +64,7 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         this.nodeFilter = new ItemConnectionPredicate(nodeFilter);
         this.nodeSize = new Vector2(nodeWidth, nodeHeight);
         this.graphSize = new Vector2(nodeCountX * nodeWidth, nodeCountY * nodeHeight);
+        this.occupiers = graph.occupiers;
     }
 
     public ItemGraph(int nodeWidth, int nodeHeight, int nodeCountX, int nodeCountY) {
@@ -67,6 +76,7 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         this.nodes = createNodeArray(nodeCountX, nodeCountY);
         this.nodeSize = new Vector2(nodeWidth, nodeHeight);
         this.graphSize = new Vector2(nodeCountX * nodeWidth, nodeCountY * nodeHeight);
+        this.occupiers = new HashMap<>();
     }
 
     @Override
@@ -282,17 +292,19 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     public void addOccupants(Item occupant) {
         if (occupant instanceof ItemGraphOccupant) {
             ItemGraphOccupant graphOccupant = (ItemGraphOccupant)occupant;
-            addOccupants(graphOccupant.getNodes(this), occupant);
+            addOccupants(graphOccupant.getNodes(this), (ItemGraphOccupant)occupant);
         }
     }
 
     public void addOccupants(ItemNode node, Item occupant) {
         if (occupant instanceof ItemGraphOccupant) {
-            addOccupants(getNodes(node.getSpatialReference(), occupant.getSize()), occupant);
+            Collection<ItemNode> nodes = getNodes(node.getSpatialReference(), occupant.getSize());
+            addOccupants(nodes, (ItemGraphOccupant)occupant);
         }
     }
 
-    private void addOccupants(Collection<ItemNode> nodes, Item occupant) {
+    public void addOccupants(Collection<ItemNode> nodes, ItemGraphOccupant occupant) {
+        addAll(occupiers, occupant.getIdentifier(), nodes);
         for (ItemNode node: nodes) {
             node.addOccupant(occupant);
         }
@@ -307,28 +319,40 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     public void removeOccupants(Item occupant) {
         if (occupant instanceof ItemGraphOccupant) {
             ItemGraphOccupant graphOccupant = (ItemGraphOccupant)occupant;
-            removeOccupants(graphOccupant.getNodes(this), occupant);
+            removeOccupants(graphOccupant.getNodes(this), (ItemGraphOccupant)occupant);
         }
     }
 
     public void removeOccupants(ItemNode node, Item occupant) {
         if (occupant instanceof ItemGraphOccupant) {
-            removeOccupants(getNodes(node.getSpatialReference(), occupant.getSize()), occupant);
+            Collection<ItemNode> nodes = getNodes(node.getSpatialReference(), occupant.getSize());
+            removeOccupants(nodes, (ItemGraphOccupant)occupant);
         }
     }
 
-    private void removeOccupants(Collection<ItemNode> nodes, Item occupant) {
+    public void removeOccupants(Collection<ItemNode> nodes, ItemGraphOccupant occupant) {
+        removeAll(occupiers, occupant.getIdentifier(), nodes);
         for (ItemNode node: nodes) {
             node.removeOccupant(occupant);
         }
     }
 
     public void clearOccupants() {
+        occupiers.clear();
         for (int x = 0; x < nodeCountX; x++) {
             for (int y = 0; y < nodeCountY; y++) {
                 nodes[x][y].removeOccupants();
             }
         }
+    }
+
+    public boolean isPartiallyAligned(Item item) {
+        Vector2 position = item.getPosition();
+        return position.x % nodeWidth != 0 || position.y % nodeHeight != 0;
+    }
+
+    public Collection<ItemNode> getOccupiedNodes(Item item) {
+        return occupiers.getOrDefault(item.getIdentifier(), emptyList());
     }
 
     @Override

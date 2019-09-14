@@ -9,20 +9,27 @@
 
 package com.evilbird.warcraft.action.move;
 
-import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.common.pathing.SpatialUtils;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.warcraft.action.common.path.ItemNodePath;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.action.common.path.ItemPathFinder;
 import com.evilbird.warcraft.item.common.movement.Movable;
 
-import java.util.Iterator;
+import java.util.Collection;
+import java.util.ListIterator;
+
+import static com.evilbird.engine.action.ActionConstants.ACTION_COMPLETE;
+import static com.evilbird.engine.action.ActionConstants.ACTION_INCOMPLETE;
+import static com.evilbird.engine.common.function.Predicates.not;
 
 /**
  * Instances of this {@link Action action} move an {@link Item} from its
@@ -36,11 +43,11 @@ abstract class MoveAction extends BasicAction
     private Events events;
     private ItemGraph graph;
     private ItemNode endNode;
-    private ItemNode pathNode;
-    private GraphPath<ItemNode> path;
-    private Iterator<ItemNode> pathIterator;
+    private ItemNode waypoint;
+    private ItemNodePath path;
+    private ListIterator<ItemNode> pathIterator;
 
-    MoveAction(Events events) {
+    public MoveAction(Events events) {
         this.events = events;
     }
 
@@ -56,142 +63,126 @@ abstract class MoveAction extends BasicAction
 
     @Override
     public boolean act(float time) {
-        if (!load()) {
-            error();
-            return true;
-        }
-        if (!isCompletable()) {
-            error();
-            return true;
-        }
-        if (!update(time)) {
-            complete();
-            return true;
-        }
-        if (!isValid()) {
-            restart();
-            return false;
-        }
-        return false;
+        Item item = getItem();
+        return move(item, time);
     }
 
-    private boolean isCompletable() {
-        ItemPathFilter pathFilter = getPathFilter();
-        return pathNode != endNode || pathFilter.test(endNode);
+    public boolean move(Item item, float time) {
+        if (!initializePath(item)) {
+            return moveFailed(item);
+        }
+        if (! waypointReached(item)) {
+            return updatePosition(item, time);
+        }
+        if (destinationReached()) {
+            return moveComplete(item);
+        }
+        if (destinationInvalid() || nextWaypointOccupied()) {
+            return reinitializePath(item);
+        }
+        return updateWaypoint(item);
     }
 
-    private boolean isValid() {
-        return isNextNodeValid() && isLastNodeValid();
+    private boolean moveFailed(Item item) {
+        setError(new PathUnknownException(item));
+        events.add(new MoveEvent(item, MoveStatus.Failed));
+        return ACTION_COMPLETE;
     }
 
-    private boolean isNextNodeValid() {
-        ItemPathFilter pathFilter = getPathFilter();
-        return pathFilter.test(pathNode);
+    private boolean moveComplete(Item item) {
+        updateOccupancy(item);
+        events.add(new MoveEvent(item, MoveStatus.Complete));
+        return ACTION_COMPLETE;
     }
 
-    private boolean isLastNodeValid() {
+    private boolean reinitializePath(Item item) {
+        updateOccupancy(item);
+        restart();
+        return ACTION_INCOMPLETE;
+    }
+
+    private boolean destinationReached() {
         MoveDestination destination = getDestination();
-        return destination.isDestinationValid(graph, endNode);
+        return destination.isDestinationReached(graph, waypoint) || waypoint.equals(endNode);
     }
 
-    private boolean load() {
-        return loadGraph() && loadPath();
+    private boolean destinationInvalid() {
+        MoveDestination destination = getDestination();
+        return !destination.isDestinationValid(graph, endNode);
     }
 
-    private boolean loadGraph() {
-        if (graph == null) {
-            Item item = getItem();
-            ItemRoot root = item.getRoot();
-            ItemGraph rootGraph = root.getSpatialGraph();
-            graph = new ItemGraph(rootGraph, getPathFilter());
-        }
-        return true;
-    }
-
-    private boolean loadPath() {
-        if (path == null) {
-            ItemNode startNode = graph.getNode(getItem().getPosition());
-            endNode = getDestination().getDestinationNode(graph, startNode, getPathFilter());
-            path = ItemPathFinder.findPath(graph, startNode, endNode);
-
-            if (path != null && endNode != null && startNode != null) {
-                pathIterator = path.iterator();
-                pathNode = startNode;
-                clearAdjacentNodes();
-                setInitialNode();
-                return true;
-            }
-        }
-        return path != null;
-    }
-
-    private void clearAdjacentNodes() {
-        Item item = getItem();
-        for (ItemNode node : graph.getAdjacentNodes(item)) {
-            node.removeOccupant(item);
-        }
-    }
-
-    private void setInitialNode() {
-        if (path.getCount() != 0) {
-            if (path.getCount() < 2) {
-                incrementNode();
-            }
-            else {
-                //ignore moving to current node
-                incrementNode();
-                incrementNode();
-            }
-        }
-    }
-
-    private boolean update(float time) {
-        Item item = getItem();
+    private boolean waypointReached(Item item) {
         Vector2 position = item.getPosition();
-        return updatePath(position) && updatePosition(item, position, time);
+        Vector2 nodePosition = waypoint.getWorldReference();
+        return position.equals(nodePosition);
     }
 
-    private boolean updatePath(Vector2 targetPosition) {
-        Vector2 nodePosition = pathNode.getWorldReference();
-        if (targetPosition.equals(nodePosition)) {
-            return incrementPath();
+    private boolean nextWaypointOccupied() {
+        if (pathIterator.nextIndex() < path.getCount()) {
+            ItemNode nextNode = path.get(pathIterator.nextIndex());
+            ItemPathFilter pathFilter = getPathFilter();
+            return !pathFilter.test(nextNode);
         }
         return true;
     }
 
-    private boolean incrementPath() {
-        if (pathIterator.hasNext()) {
-            return incrementNode();
+    private boolean initializePath(Item item) {
+        if (path == null) {
+            ItemRoot root = item.getRoot();
+            graph = new ItemGraph(root.getSpatialGraph(), getPathFilter());
+
+            MoveDestination destination = getDestination();
+            waypoint = getStartNode(item, destination);
+            endNode = destination.getDestinationNode(graph, waypoint, getPathFilter());
+            path = ItemPathFinder.findPath(graph, waypoint, endNode);
+            pathIterator = path.listIterator();
+
+            if (!path.isEmpty()) {
+                updateOccupancy(item);
+                graph.addOccupants(waypoint, item);
+            }
         }
-        return false;
+        return !path.isEmpty();
     }
 
-    private boolean incrementNode() {
-        ItemNode nextNode = pathIterator.next();
-        MoveDestination destination = getDestination();
-        ItemPathFilter pathFilter = getPathFilter();
-
-        if (!destination.isDestinationReached(graph, nextNode) && pathFilter.test(nextNode)) {
-            Item item = getItem();
-            graph.removeOccupants(pathNode, item);
-            pathNode = nextNode;
-            graph.addOccupants(pathNode, item);
-            notifyMove(pathNode, item);
-            return true;
+    private ItemNode getStartNode(Item item, MoveDestination destination) {
+        if (graph.isPartiallyAligned(item)) {
+            ItemNode destinationNode = graph.getNode(destination.getDestination());
+            Collection<ItemNode> adjacentNodes = graph.getAdjacentNodes(item);
+            adjacentNodes.removeIf(not(getPathFilter()));
+            if (!adjacentNodes.isEmpty()) {
+                return SpatialUtils.getClosest(adjacentNodes, destinationNode);
+            } 
         }
-        return false;
+        return graph.getNode(item.getPosition());
     }
 
-    private boolean updatePosition(Item item, Vector2 oldPosition, float time) {
+    private void updateOccupancy(Item item) {
+        if (item instanceof ItemGraphOccupant) {
+            graph.removeOccupants(graph.getOccupiedNodes(item), (ItemGraphOccupant)item);
+            graph.addOccupants(graph.getNodes(item), (ItemGraphOccupant)item);
+        }
+    }
+
+    private boolean updateWaypoint(Item item) {
+        updateOccupancy(item);
+        events.add(new MoveEvent(item, waypoint, MoveStatus.Updated));
+        waypoint = pathIterator.next();
+        graph.addOccupants(waypoint, item);
+        return ACTION_INCOMPLETE;
+    }
+
+    private boolean updatePosition(Item item, float time) {
+        Vector2 oldPosition = item.getPosition();
         Vector2 newPosition = getNextPosition(item, oldPosition, time);
         item.setPosition(newPosition);
-        return true;
+        return ACTION_INCOMPLETE;
     }
 
     private Vector2 getNextPosition(Item item, Vector2 position, float time) {
         Movable movable = (Movable)item;
 
-        Vector2 pathNodePosition = pathNode.getWorldReference();
+        Vector2 pathNodePosition = waypoint.getWorldReference();
         Vector2 remaining = pathNodePosition.cpy().sub(position);
         float remainingDistance = remaining.len();
         float incrementDistance = time * movable.getMovementSpeed();
@@ -202,19 +193,6 @@ abstract class MoveAction extends BasicAction
             return position.cpy().add(increment);
         }
         return pathNodePosition;
-    }
-
-    private void error() {
-        setError(new PathUnknownException(getItem()));
-        events.add(new MoveEvent(getItem(), MoveStatus.Failed));
-    }
-
-    private void complete() {
-        events.add(new MoveEvent(getItem(), MoveStatus.Complete));
-    }
-
-    private void notifyMove(ItemNode location, Item subject) {
-        events.add(new MoveEvent(subject, location, MoveStatus.Updated));
     }
 
     protected abstract ItemPathFilter getPathFilter();

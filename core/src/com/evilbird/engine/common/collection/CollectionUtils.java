@@ -11,6 +11,7 @@ package com.evilbird.engine.common.collection;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -40,8 +41,8 @@ public class CollectionUtils
         return matchesA.size() == matchesB.size();
     }
 
-    public static <T> Collection<T> combine(Collection<T> collectionA, Collection<T> collectionB) {
-        Collection<T> result = new ArrayList<>(collectionA.size() + collectionB.size());
+    public static <T> List<T> combine(Collection<T> collectionA, Collection<T> collectionB) {
+        List<T> result = new ArrayList<>(collectionA.size() + collectionB.size());
         result.addAll(collectionA);
         result.addAll(collectionB);
         return result;
@@ -51,15 +52,15 @@ public class CollectionUtils
         return collection.stream().filter(condition).findFirst().orElse(null);
     }
 
-    public static <A, B> Collection<B> flatten(Collection<A> collection, Function<A, Collection<B>> converter) {
+    public static <A, B> List<B> flatten(Collection<A> collection, Function<A, Collection<B>> converter) {
         return collection.stream().flatMap(element -> converter.apply(element).stream()).collect(toList());
     }
 
-    public static <T> Collection<T> filter(Collection<T> collection, Predicate<T> condition) {
+    public static <T> List<T> filter(Collection<T> collection, Predicate<T> condition) {
         return collection.stream().filter(condition).collect(toList());
     }
 
-    public static <A, B> Collection<B> convert(Collection<A> collection, Function<A, B> converter) {
+    public static <A, B> List<B> convert(Collection<A> collection, Function<A, B> converter) {
         return collection.stream().map(converter).collect(toList());
     }
 

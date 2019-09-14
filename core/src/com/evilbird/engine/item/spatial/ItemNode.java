@@ -23,6 +23,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,8 +36,8 @@ import java.util.Map;
 public class ItemNode implements SpatialNode
 {
     private int index;
-    private Map<Identifier, Item> occupants;
-    private GridPoint2 gridReference;
+    private transient Map<Identifier, Item> occupants;
+    private transient GridPoint2 gridReference;
     private transient Vector2 worldReference;
     private transient Array<Connection<ItemNode>> connections;
 
@@ -78,22 +79,22 @@ public class ItemNode implements SpatialNode
     }
 
     public Collection<Item> getOccupants() {
-        return occupants.values();
-    }
-
-    public void addOccupant(Item occupant) {
-        occupants.put(occupant.getIdentifier(), occupant);
-    }
-
-    public void removeOccupant(Item occupant) {
-        occupants.remove(occupant.getIdentifier());
+        return Collections.unmodifiableCollection(occupants.values());
     }
 
     public boolean hasOccupant(Item occupant) {
         return occupants.containsKey(occupant.getIdentifier());
     }
 
-    public void removeOccupants() {
+    void addOccupant(Item occupant) {
+        occupants.put(occupant.getIdentifier(), occupant);
+    }
+
+    void removeOccupant(Item occupant) {
+        occupants.remove(occupant.getIdentifier());
+    }
+
+    void removeOccupants() {
         occupants.clear();
     }
 
@@ -106,8 +107,6 @@ public class ItemNode implements SpatialNode
         ItemNode itemNode = (ItemNode)obj;
         return new EqualsBuilder()
             .append(index, itemNode.index)
-            .append(occupants, itemNode.occupants)
-            .append(gridReference, itemNode.gridReference)
             .isEquals();
     }
 
@@ -115,8 +114,6 @@ public class ItemNode implements SpatialNode
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .append(index)
-            .append(occupants)
-            .append(gridReference)
             .toHashCode();
     }
 

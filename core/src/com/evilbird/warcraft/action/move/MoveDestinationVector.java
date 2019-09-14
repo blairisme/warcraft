@@ -32,6 +32,11 @@ class MoveDestinationVector implements MoveDestination
     }
 
     @Override
+    public Vector2 getDestination() {
+        return destination;
+    }
+
+    @Override
     public ItemNode getDestinationNode(ItemGraph graph, ItemNode node, ItemPathFilter filter) {
         return graph.getNode(destination);
     }

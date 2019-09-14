@@ -108,4 +108,28 @@ public class Maps
     public static <K, V> Map<K, V> filter(Map<K, V> map, Predicate<Entry<K, V>> condition) {
         return map.entrySet().stream().filter(condition).collect(toMap(Entry::getKey, Entry::getValue));
     }
+
+    public static <K, V> void add(Map<K, Collection<V>> map, K key, V element) {
+        Collection<V> values = getOrDefault(map, key, ArrayList::new);
+        values.add(element);
+        map.put(key, values);
+    }
+
+    public static <K, V> void addAll(Map<K, Collection<V>> map, K key,  Collection<V> elements) {
+        Collection<V> values = getOrDefault(map, key, ArrayList::new);
+        values.addAll(elements);
+        map.put(key, values);
+    }
+
+    public static <K, V> void remove(Map<K, Collection<V>> map, K key, V element) {
+        Collection<V> values = getOrDefault(map, key, ArrayList::new);
+        values.remove(element);
+        map.put(key, values);
+    }
+
+    public static <K, V> void removeAll(Map<K, Collection<V>> map, K key,  Collection<V> elements) {
+        Collection<V> values = getOrDefault(map, key, ArrayList::new);
+        values.removeAll(elements);
+        map.put(key, values);
+    }
 }

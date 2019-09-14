@@ -32,6 +32,7 @@ class MoveDestinationRange implements MoveDestination
 {
     private Item target;
     private int range;
+    private ItemNode targetNode;
 
     public MoveDestinationRange(Item target, int range) {
         this.target = target;
@@ -39,7 +40,15 @@ class MoveDestinationRange implements MoveDestination
     }
 
     @Override
+    public Vector2 getDestination() {
+        return target.getPosition();
+    }
+
+    @Override
     public ItemNode getDestinationNode(ItemGraph graph, ItemNode node, ItemPathFilter traversable) {
+        Collection<ItemNode> foo = graph.getNodes(target);
+        targetNode = foo.iterator().next();
+
         Collection<ItemNode> nodes = graph.getAdjacentNodes(target.getPosition(), target.getSize(), range);
         nodes.removeIf(not(traversable));
         return nodes.isEmpty() ? null : SpatialUtils.getClosest(nodes, node);
@@ -47,7 +56,7 @@ class MoveDestinationRange implements MoveDestination
 
     @Override
     public boolean isDestinationValid(ItemGraph graph, ItemNode node) {
-        return node.hasOccupant(target);
+        return targetNode.hasOccupant(target);
     }
 
     @Override

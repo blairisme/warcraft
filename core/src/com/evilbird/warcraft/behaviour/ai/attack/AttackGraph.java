@@ -19,10 +19,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.flatten;
+import static com.evilbird.warcraft.item.common.query.UnitComparators.combatantsFirst;
 
 /**
  * Represents a mapping between spatial locations and attackers sight-lines,
@@ -47,7 +49,9 @@ public class AttackGraph
 
     public Collection<Item> getAttackTargets(Combatant combatant) {
         Collection<ItemNode> nodes = graph.getNodes(combatant.getPosition(), combatant.getSize(), combatant.getSight());
-        return flatten(nodes, ItemNode::getOccupants);
+        List<Item> targets = flatten(nodes, ItemNode::getOccupants);
+        targets.sort(combatantsFirst());
+        return targets;
     }
 
     public void addAttacker(Combatant combatant) {

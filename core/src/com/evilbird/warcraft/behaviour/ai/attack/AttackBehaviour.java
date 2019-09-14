@@ -106,7 +106,7 @@ public class AttackBehaviour implements AiBehaviourElement
 
     private void assignAttacker(Item target, ItemNode location) {
         for (Combatant attacker: graph.getAttackers(location)) {
-            if (isViableAttacker(attacker) && isViableTarget(attacker, target)) {
+            if (attacker != target && isViableAttacker(attacker) && isViableTarget(attacker, target)) {
                 attack(attacker, target);
             }
         }
