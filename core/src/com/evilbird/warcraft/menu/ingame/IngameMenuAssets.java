@@ -39,9 +39,12 @@ public class IngameMenuAssets extends AssetBundle
         register("data/textures/${faction}/menu/panel_normal.png");
         register("data/textures/${faction}/menu/panel_wide.png");
         register("data/textures/${faction}/menu/panel_small.png");
+        register("data/textures/${faction}/menu/scroll_knob.png");
+        register("data/textures/${faction}/menu/scroll_horizontal.png");
+        register("data/textures/${faction}/menu/scroll_vertical.png");
         register("data/sounds/common/menu/click.mp3");
         register("data/strings/common/menu/ingame", I18NBundle.class);
-        register("font", "data/fonts/philosopher-medium.ttf", BitmapFont.class, fontSize(16));
+        register("font", "data/fonts/philosopher-small.ttf", BitmapFont.class, fontSize(14));
     }
 
     private static Map<String, String> pathVariables(WarcraftContext context) {
@@ -78,6 +81,18 @@ public class IngameMenuAssets extends AssetBundle
 
     public Drawable getBackgroundSmall() {
         return getDrawable("panel_small.png");
+    }
+
+    public Drawable getScrollKnob() {
+        return getDrawable("scroll_knob.png");
+    }
+
+    public Drawable getScrollHorizontal() {
+        return getDrawable("scroll_horizontal.png");
+    }
+
+    public Drawable getScrollVertical() {
+        return getDrawable("scroll_vertical.png");
     }
 
     public IngameMenuStrings getStrings() {

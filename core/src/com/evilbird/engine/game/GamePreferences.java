@@ -24,22 +24,49 @@ import javax.inject.Singleton;
 public class GamePreferences
 {
     private static final String IDENTIFIER = "engine";
-    private static final String PAUSED = "paused";
+    private static final String GAME_PAUSED = "game_paused";
+    private static final String MUSIC_VOLUME = "music_volume";
+    private static final String EFFECTS_VOLUME = "effects_volume";
+
+    private static final boolean GAME_PAUSED_DEFAULT = false;
+    private static final float MUSIC_VOLUME_DEFAULT = 1f;
+    private static final float EFFECTS_VOLUME_DEFAULT = 1f;
 
     private Preferences store;
 
     @Inject
     public GamePreferences() {
+        store = null;
     }
 
     public boolean getGamePaused() {
         Preferences preferences = getPreferences();
-        return preferences.getBoolean(PAUSED);
+        return preferences.getBoolean(GAME_PAUSED, GAME_PAUSED_DEFAULT);
+    }
+
+    public float getMusicVolume() {
+        Preferences preferences = getPreferences();
+        return preferences.getFloat(MUSIC_VOLUME, MUSIC_VOLUME_DEFAULT);
+    }
+
+    public float getEffectsVolume() {
+        Preferences preferences = getPreferences();
+        return preferences.getFloat(EFFECTS_VOLUME, EFFECTS_VOLUME_DEFAULT);
     }
 
     public void setGamePaused(boolean paused) {
         Preferences preferences = getPreferences();
-        preferences.putBoolean(PAUSED, paused);
+        preferences.putBoolean(GAME_PAUSED, paused);
+    }
+
+    public void setMusicVolume(float volume) {
+        Preferences preferences = getPreferences();
+        preferences.putFloat(MUSIC_VOLUME, volume);
+    }
+
+    public void setEffectsVolume(float volume) {
+        Preferences preferences = getPreferences();
+        preferences.putFloat(EFFECTS_VOLUME, volume);
     }
 
     private Preferences getPreferences() {

@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.unit.combatant;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.audio.SoundEffect;
+import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.specialized.ViewableStyle;
@@ -120,7 +120,7 @@ public class CombatantBuilder
         return builder.build();
     }
 
-    private Map<Identifier, SoundEffect> getSounds(CombatantAssets assets, CombatantVariety variety) {
+    private Map<Identifier, Sound> getSounds(CombatantAssets assets, CombatantVariety variety) {
         switch(variety) {
             case MeleeCombatant: return getMeleeSounds(assets);
             case SeaCombatant:
@@ -129,8 +129,8 @@ public class CombatantBuilder
         }
     }
 
-    private Map<Identifier, SoundEffect> getMeleeSounds(CombatantAssets assets) {
-        Map<Identifier, SoundEffect> sounds = new HashMap<>();
+    private Map<Identifier, Sound> getMeleeSounds(CombatantAssets assets) {
+        Map<Identifier, Sound> sounds = new HashMap<>();
         sounds.put(UnitSound.Acknowledge, assets.getAcknowledgeSound());
         sounds.put(UnitSound.Selected, assets.getSelectedSound());
         sounds.put(UnitSound.Attack, assets.getAttackSound());
@@ -141,8 +141,8 @@ public class CombatantBuilder
         return sounds;
     }
 
-    private Map<Identifier, SoundEffect> getRangedSounds(CombatantAssets assets) {
-        Map<Identifier, SoundEffect> sounds = getMeleeSounds(assets);
+    private Map<Identifier, Sound> getRangedSounds(CombatantAssets assets) {
+        Map<Identifier, Sound> sounds = getMeleeSounds(assets);
         sounds.put(UnitSound.Hit, assets.getHitSound());
         return sounds;
     }

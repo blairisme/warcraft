@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.item.specialized;
 
-import com.evilbird.engine.common.audio.SoundEffect;
+import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.lang.Identifier;
 
@@ -26,7 +26,7 @@ import static java.util.Collections.emptyMap;
 public class ViewableStyle
 {
     public Map<Identifier, Animation> animations;
-    public Map<Identifier, SoundEffect> sounds;
+    public Map<Identifier, Sound> sounds;
 
     public ViewableStyle() {
         animations = emptyMap();

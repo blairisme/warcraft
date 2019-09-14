@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.engine.common.audio.SoundEffectSet;
+import com.evilbird.engine.common.audio.sound.RandomSound;
 import com.evilbird.test.testcase.AssetBundleTestCase;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.junit.Assert;
@@ -34,7 +34,7 @@ public class CombatantAssetsTest extends AssetBundleTestCase<CombatantAssets>
         bundle.load();
         assets.finishLoading();
 
-        SoundEffectSet effect = (SoundEffectSet)bundle.getSelectedSound();
+        RandomSound effect = (RandomSound)bundle.getSelectedSound();
         Assert.assertEquals(3, effect.getSounds().size());
     }
 }

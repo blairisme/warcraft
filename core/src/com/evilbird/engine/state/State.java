@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.state;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Disposable;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.item.ItemRoot;
@@ -26,4 +27,6 @@ public interface State extends Disposable
     ItemRoot getHud();
 
     Behaviour getBehaviour();
+
+    Music getMusic();
 }

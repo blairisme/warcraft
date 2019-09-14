@@ -88,11 +88,11 @@ public class LevelLoader
     private TiledMapLoader mapLoader;
     private ItemFactory itemFactory;
 
+    @Inject
     public LevelLoader(Device device, ItemFactory itemFactory) {
         this(itemFactory, device.getAssetStorage());
     }
 
-    @Inject
     public LevelLoader(ItemFactory itemFactory, AssetManager assetManager) {
         this.itemFactory = itemFactory;
         this.mapLoader = new TiledMapLoader(assetManager);

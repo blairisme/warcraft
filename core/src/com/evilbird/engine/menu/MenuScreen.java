@@ -13,10 +13,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
+import com.evilbird.engine.common.audio.music.MusicService;
 import com.evilbird.engine.game.GameController;
 
 import javax.inject.Inject;
-import java.util.Objects;
 
 /**
  * Instances of this class apply and render a {@link Menu}. Menus drawn by
@@ -29,11 +29,12 @@ public class MenuScreen extends ScreenAdapter
 {
     private Menu menu;
     private MenuIdentifier identifier;
-    private Music music;
     private GameController controller;
+    private MusicService musicService;
 
     @Inject
-    public MenuScreen() {
+    public MenuScreen(MusicService musicService) {
+        this.musicService = musicService;
     }
 
     public Menu getMenu() {
@@ -47,7 +48,6 @@ public class MenuScreen extends ScreenAdapter
     public void setMenu(Menu menu, MenuIdentifier identifier) {
         this.menu = menu;
         this.identifier = identifier;
-        updateMusic(menu.getMusic());
         updateController();
     }
 
@@ -72,9 +72,9 @@ public class MenuScreen extends ScreenAdapter
 
     @Override
     public void show() {
-        startMusic();
         if (menu != null) {
             menu.show();
+            updateMusic();
         }
     }
 
@@ -94,22 +94,10 @@ public class MenuScreen extends ScreenAdapter
         menu.draw();
     }
 
-    private void startMusic() {
-        if (music != null && !music.isPlaying()) {
-            music.play();
-        }
-    }
-
-    private void pauseMusic() {
-        if (music != null && music.isPlaying()) {
-            music.pause();
-        }
-    }
-
-    private void updateMusic(Music newMusic) {
-        if (!Objects.equals(music, newMusic)) {
-            pauseMusic();
-            music = newMusic;
+    private void updateMusic() {
+        Music music = menu.getMusic();
+        if (music != null) {
+            musicService.play(music);
         }
     }
 

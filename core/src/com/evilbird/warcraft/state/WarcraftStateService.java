@@ -117,19 +117,23 @@ public class WarcraftStateService implements StateService
     @Override
     public void set(StateIdentifier identifier, State state) {
         FileHandle handle = resolve(identifier);
-        try {
-            File file = handle.file();
-            if (! file.exists()) {
-                File parent = file.getParentFile();
-                parent.mkdirs();
-                file.createNewFile();
-            }
+        createNew(handle);
+        try (Writer writer = handle.writer(false)) {
+            serializer.serialize((WarcraftState)state, WarcraftState.class, writer);
         }
         catch (IOException error){
             throw new StateLoadError(error);
         }
-        try (Writer writer = handle.writer(false)) {
-            serializer.serialize((WarcraftState)state, WarcraftState.class, writer);
+    }
+
+    protected boolean createNew(FileHandle handle) {
+        try {
+            File file = handle.file();
+            if (! file.exists()) {
+                File parent = file.getParentFile();
+                return parent.mkdirs() && file.createNewFile();
+            }
+            return true;
         }
         catch (IOException error){
             throw new StateLoadError(error);

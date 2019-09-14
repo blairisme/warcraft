@@ -7,9 +7,10 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.audio;
+package com.evilbird.engine.common.audio.music;
 
 import com.badlogic.gdx.audio.Music;
+import org.apache.commons.lang3.Validate;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.List;
  */
 public class MusicCombination implements Music
 {
+    private float volume;
     private boolean playing;
     private List<Music> combination;
 
@@ -32,6 +34,7 @@ public class MusicCombination implements Music
 
     public MusicCombination(List<Music> combination) {
         this.combination = combination;
+        this.volume = 1f;
     }
 
     @Override
@@ -40,6 +43,7 @@ public class MusicCombination implements Music
             playing = true;
             for (Music music: combination) {
                 music.play();
+                music.setVolume(volume);
             }
         }
     }
@@ -73,22 +77,26 @@ public class MusicCombination implements Music
     }
 
     @Override
+    public float getVolume() {
+        return volume;
+    }
+
+    @Override
+    public void setVolume(float volume) {
+        Validate.inclusiveBetween(0, 1, volume);
+        this.volume = volume;
+        for (Music music: combination) {
+            music.setVolume(volume);
+        }
+    }
+
+    @Override
     public void setLooping(boolean isLooping) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean isLooping() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void setVolume(float volume) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public float getVolume() {
         throw new UnsupportedOperationException();
     }
 

@@ -19,10 +19,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
-import com.evilbird.engine.common.audio.LazyLoadedMusic;
-import com.evilbird.engine.common.audio.SilentSoundEffect;
-import com.evilbird.engine.common.audio.SoundEffect;
-import com.evilbird.engine.common.audio.SoundUtils;
+import com.evilbird.engine.common.audio.music.LazyLoadedMusic;
+import com.evilbird.engine.common.audio.music.MusicSequence;
+import com.evilbird.engine.common.audio.sound.SilentSound;
+import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.engine.common.audio.sound.SoundFactory;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.text.StringSubstitutor;
@@ -120,9 +121,15 @@ public class AssetBundle
         }
     }
 
-    protected void registerSequence(String idPrefix, String pathPrefix, String pathSuffix, int count) {
+    protected void registerOptionalSequence(String idPrefix, String pathPrefix, String pathSuffix, int count) {
         for (int i = 1; i < count + 1; i++) {
             registerOptional(idPrefix + "-" + i, pathPrefix + i + pathSuffix);
+        }
+    }
+
+    protected void registerSequence(String idPrefix, String pathPrefix, String pathSuffix, int count, Class<?> type) {
+        for (int i = 1; i < count + 1; i++) {
+            register(idPrefix + "-" + i, pathPrefix + i + pathSuffix, type);
         }
     }
 
@@ -157,20 +164,32 @@ public class AssetBundle
 
     protected Music getLazyLoadedMusic(Object id) {
         AssetDescriptor asset = assets.get(id);
-        return manager.get(asset.fileName, LazyLoadedMusic.class);
+        FileHandleResolver resolver = manager.getFileHandleResolver();
+        return new LazyLoadedMusic(resolver, asset.fileName);
     }
 
-    protected SoundEffect getSoundEffect(Object id) {
+    protected Music getLazyLoadedMusicSequence(String prefix, int count) {
+        List<Music> sequence = new ArrayList<>(count);
+        for (int i = 1; i < count + 1; i++) {
+            String id = prefix + "-" + i;
+            if (assets.containsKey(id)) {
+                sequence.add(getLazyLoadedMusic(id));
+            }
+        }
+        return new MusicSequence(sequence);
+    }
+
+    protected Sound getSoundEffect(Object id) {
         AssetDescriptor asset = assets.get(id);
-        return SoundUtils.newSoundEffect(manager, asset.fileName);
+        return SoundFactory.newSound(manager, asset.fileName);
     }
 
-    protected SoundEffect getOptionalSoundEffect(Object id) {
-        return isRegistered(id) ? getSoundEffect(id) : new SilentSoundEffect();
+    protected Sound getOptionalSoundEffect(Object id) {
+        return isRegistered(id) ? getSoundEffect(id) : new SilentSound();
     }
 
-    protected SoundEffect getSoundEffectSet(String prefix, int count) {
-        List<String> paths = new ArrayList<>();
+    protected Sound getSoundEffectSet(String prefix, int count) {
+        List<String> paths = new ArrayList<>(count);
         for (int i = 1; i < count + 1; i++) {
             String id = prefix + "-" + i;
             if (assets.containsKey(id)) {
@@ -178,14 +197,14 @@ public class AssetBundle
                 paths.add(descriptor.fileName);
             }
         }
-        return SoundUtils.newSoundEffect(manager, paths);
+        return SoundFactory.newSound(manager, paths);
     }
 
-    protected SoundEffect getSoundEffectSet(Object ... ids) {
+    protected Sound getSoundEffectSet(Object ... ids) {
         Collection<AssetDescriptor> effects = Maps.getAll(assets, Arrays.asList(ids));
         effects.removeIf(Objects::isNull);
         Collection<String> paths = effects.stream().map(desc -> desc.fileName).collect(toList());
-        return SoundUtils.newSoundEffect(manager, paths);
+        return SoundFactory.newSound(manager, paths);
     }
 
     protected I18NBundle getStrings(Object id) {

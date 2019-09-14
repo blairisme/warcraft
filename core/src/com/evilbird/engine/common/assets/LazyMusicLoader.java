@@ -15,7 +15,7 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.SynchronousAssetLoader;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
-import com.evilbird.engine.common.audio.LazyLoadedMusic;
+import com.evilbird.engine.common.audio.music.LazyLoadedMusic;
 
 /**
  * Loads music assets using a wrapper which will only load music data into

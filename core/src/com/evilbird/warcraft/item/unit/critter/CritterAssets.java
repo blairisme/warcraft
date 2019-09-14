@@ -13,7 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.assets.SyntheticTexture;
-import com.evilbird.engine.common.audio.SoundEffect;
+import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.item.unit.UnitType;
 
@@ -58,11 +58,11 @@ public class CritterAssets extends AssetBundle
         return getSyntheticTexture("selection");
     }
 
-    public SoundEffect getDieSound() {
+    public Sound getDieSound() {
         return getSoundEffect("annoyed");
     }
 
-    public SoundEffect getSelectedSound() {
+    public Sound getSelectedSound() {
         return getSoundEffect("selected");
     }
 }

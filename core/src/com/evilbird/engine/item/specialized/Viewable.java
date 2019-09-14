@@ -9,13 +9,17 @@
 
 package com.evilbird.engine.item.specialized;
 
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.audio.SilentSoundEffect;
-import com.evilbird.engine.common.audio.SoundEffect;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.evilbird.engine.common.audio.sound.LocalizedSound;
+import com.evilbird.engine.common.audio.sound.SilentSound;
+import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.graphics.Animation;
-import com.evilbird.engine.common.graphics.Animator;
+import com.evilbird.engine.common.graphics.AnimationRenderer;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
 import com.evilbird.engine.common.lang.Animated;
 import com.evilbird.engine.common.lang.Audible;
@@ -24,6 +28,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Styleable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemBasic;
+import com.evilbird.engine.item.ItemRoot;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -31,7 +36,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Instances of this {@link Item} are drawn using a selection of given
- * {@link DirectionalAnimation animations} and {@link SoundEffect sounds}.
+ * {@link DirectionalAnimation animations} and {@link Sound sounds}.
  *
  * @author Blair Butterworth
  */
@@ -43,8 +48,8 @@ public class Viewable extends ItemBasic implements Animated, Audible, Directiona
 
     private transient Skin skin;
     private transient ViewableStyle style;
-    private transient Animator animator;
-    private transient SoundEffect sound;
+    private transient LocalizedSound sound;
+    private transient AnimationRenderer animation;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
@@ -61,9 +66,9 @@ public class Viewable extends ItemBasic implements Animated, Audible, Directiona
     protected Viewable() {
         this.style = new ViewableStyle();
         this.animationId = null;
-        this.animator = new Animator();
+        this.animation = new AnimationRenderer();
         this.soundId = null;
-        this.sound = new SilentSoundEffect();
+        this.sound = new LocalizedSound(new SilentSound(), this, new OrthographicCamera());
     }
 
     @Override
@@ -110,9 +115,9 @@ public class Viewable extends ItemBasic implements Animated, Audible, Directiona
         Validate.notNull(id);
         Validate.isTrue(style.animations.containsKey(id));
         animationId = id;
-        animator.setAnimationTime(startTime);
-        animator.setAnimation(style.animations.get(id));
-        setDirection(animator.getAnimation(), direction);
+        animation.setAnimationTime(startTime);
+        animation.setAnimation(style.animations.get(id));
+        setDirection(animation.getAnimation(), direction);
     }
 
     @Override
@@ -129,8 +134,14 @@ public class Viewable extends ItemBasic implements Animated, Audible, Directiona
         Validate.isTrue(style.sounds.containsKey(id));
         soundId = id;
         sound.stop();
-        sound = style.sounds.get(id);
+        sound = new LocalizedSound(style.sounds.get(id), this, getCamera());
         sound.play();
+    }
+
+    private Camera getCamera() {
+        ItemRoot root = getRoot();
+        Viewport viewport = root.getViewport();
+        return viewport.getCamera();
     }
 
     @Override
@@ -151,7 +162,7 @@ public class Viewable extends ItemBasic implements Animated, Audible, Directiona
     @Override
     public void setDirection(Vector2 normalizedDirection) {
         direction = normalizedDirection.angle();
-        setDirection(animator.getAnimation(), direction);
+        setDirection(animation.getAnimation(), direction);
     }
 
     private void setDirection(Animation animation, float direction) {
@@ -172,13 +183,14 @@ public class Viewable extends ItemBasic implements Animated, Audible, Directiona
     @Override
     public void draw(Batch batch, float alpha) {
         super.draw(batch, alpha);
-        animator.draw(batch, getPosition(), getSize());
+        animation.draw(batch, getPosition(), getSize());
     }
 
     @Override
     public void update(float time) {
         super.update(time);
-        animator.update(time);
+        animation.update(time);
+        sound.update();
     }
 
     @Override

@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.state;
 
+import com.badlogic.gdx.audio.Music;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.item.Item;
@@ -25,6 +26,7 @@ import com.evilbird.warcraft.item.ui.display.HudType;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.io.IOException;
 
@@ -44,6 +46,7 @@ public class WarcraftStateTest extends GameTestCase
     private Item hudControl;
     private WarcraftContext context;
     private Behaviour behaviour;
+    private Music music;
 
     @Before
     public void setup() {
@@ -54,7 +57,8 @@ public class WarcraftStateTest extends GameTestCase
         hud = TestItemRoots.newTestRoot(HudType.Default, hudControl);
         behaviour = TestBehaviours.newBehaviour(WarcraftBehaviour.Human1);
         context = new WarcraftContext(Human, Summer);
-        state = new WarcraftState(world, hud, behaviour, context);
+        music = Mockito.mock(Music.class);
+        state = new WarcraftState(world, hud, behaviour, music, context);
 
         respondWithItem(HudType.Default, () -> hudControl);
         respondWithBehaviour(behaviour, WarcraftBehaviour.Human1);

@@ -12,6 +12,7 @@ package com.evilbird.warcraft.menu.ingame;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -47,6 +48,7 @@ public class IngameMenuBuilder
         addListStyle(skin);
         addTextFieldStyle(skin);
         addMenuStyle(skin);
+        addScrollPaneStyle(skin);
         return skin;
     }
 
@@ -93,5 +95,14 @@ public class IngameMenuBuilder
         skin.add("menu-background-normal", assets.getBackgroundNormal(), Drawable.class);
         skin.add("menu-background-wide", assets.getBackgroundWide(), Drawable.class);
         skin.add("menu-background-small", assets.getBackgroundSmall(), Drawable.class);
+    }
+
+    private void addScrollPaneStyle(Skin skin) {
+        ScrollPaneStyle style = new ScrollPaneStyle();
+        style.hScroll = assets.getScrollHorizontal();
+        style.hScrollKnob = assets.getScrollKnob();
+        style.vScroll = assets.getScrollVertical();
+        style.vScrollKnob = style.hScrollKnob;
+        skin.add("default", style);
     }
 }

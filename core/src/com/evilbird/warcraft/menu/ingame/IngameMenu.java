@@ -105,12 +105,16 @@ public class IngameMenu extends Menu
 
     public List addList() {
         List list = new List<>(skin);
-        ScrollPane scrolled = new ScrollPane(list);
+
+        ScrollPane scrolled = new ScrollPane(list, skin);
+        scrolled.setScrollbarsVisible(true);
 
         Cell cell = container.add(scrolled);
         container.row();
+
         setPadding(cell);
-        cell.grow();
+        cell.height(250);
+        cell.growX();
 
         return list;
     }

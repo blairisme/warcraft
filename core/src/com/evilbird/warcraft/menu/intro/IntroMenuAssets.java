@@ -15,8 +15,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.assets.AssetBundle;
-import com.evilbird.engine.common.audio.MusicCombination;
-import com.evilbird.engine.common.audio.MusicSequence;
+import com.evilbird.engine.common.audio.music.MusicCombination;
+import com.evilbird.engine.common.audio.music.MusicSequence;
 import com.evilbird.engine.common.collection.Maps;
 
 import java.util.ArrayList;

@@ -13,6 +13,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.common.audio.music.MusicService;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceInput;
 import com.evilbird.engine.events.EventQueue;
@@ -35,12 +36,14 @@ public class StateScreen extends ScreenAdapter
     private ItemRoot world;
     private ItemRoot hud;
     private Behaviour behaviour;
+    private MusicService music;
     private GameController controller;
 
     @Inject
-    public StateScreen(Device device, EventQueue events) {
+    public StateScreen(Device device, EventQueue events, MusicService music) {
         this.input = device.getDeviceInput();
         this.events = events;
+        this.music = music;
     }
 
     public State getState() {
@@ -86,6 +89,7 @@ public class StateScreen extends ScreenAdapter
     @Override
     public void show() {
         input.startMonitoring();
+        music.play(state.getMusic());
     }
 
     public void resize(int width, int height) {

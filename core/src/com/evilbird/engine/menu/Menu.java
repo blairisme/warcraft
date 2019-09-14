@@ -112,28 +112,14 @@ public class Menu implements Disposable
 
     public void showState() {
         controller.showState();
-        stopMusic();
     }
 
     public void showState(StateIdentifier identifier) {
         controller.showState(identifier);
-        stopMusic();
     }
 
     public void saveState(StateIdentifier identifier) {
         controller.saveState(identifier);
         controller.showState();
-    }
-
-    protected void startMusic() {
-        if (music != null) {
-            music.play();
-        }
-    }
-
-    protected void stopMusic() {
-        if (music != null) {
-            music.stop();
-        }
     }
 }

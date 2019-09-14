@@ -9,10 +9,7 @@
 
 package com.evilbird.warcraft.item.data.player;
 
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.common.WarcraftNation;
@@ -34,8 +31,6 @@ import java.util.Map;
  */
 public class Player extends ItemGroup implements ResourceContainer
 {
-    private static final transient float VOLUME = 0.15f;
-
     private int level;
     private WarcraftNation nation;
     private WarcraftFaction faction;
@@ -43,16 +38,11 @@ public class Player extends ItemGroup implements ResourceContainer
     private Map<String, Double> resources;
     private Map<String, Boolean> upgrades;
 
-    private transient Skin skin;
-    private transient Music music;
-
     @Inject
-    public Player(Skin skin) {
-        this.skin = skin;
+    public Player() {
         this.resources = new LinkedHashMap<>();
         this.statistics = new LinkedHashMap<>();
         this.upgrades = new LinkedHashMap<>();
-        initialize();
     }
 
     public boolean isArtifical() {
@@ -181,21 +171,5 @@ public class Player extends ItemGroup implements ResourceContainer
             .append("type", getType())
             .append("resources", resources)
             .toString();
-    }
-
-    private void initialize() {
-        if (skin.has("default", PlayerStyle.class)) {
-            PlayerStyle style = skin.get("default", PlayerStyle.class);
-            music = style.music;
-            music.setVolume(VOLUME);
-        }
-    }
-
-    @Override
-    public void setIdentifier(Identifier identifier) {
-        super.setIdentifier(identifier);
-        if (isCorporeal() && music != null) {
-            music.play();
-        }
     }
 }

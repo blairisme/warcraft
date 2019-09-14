@@ -38,6 +38,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
 
     private HudLoader hudLoader;
     private LevelLoader levelLoader;
+    private WarcraftMusic musicLoader;
     private BehaviourFactory behaviourFactory;
 
     public WarcraftStateAdapter() {
@@ -45,12 +46,19 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
         this.hudLoader = new HudLoader(service.getDevice(), service.getItemFactory());
         this.levelLoader = new LevelLoader(service.getDevice(), service.getItemFactory());
         this.behaviourFactory = service.getBehaviourFactory();
+        this.musicLoader = new WarcraftMusic(service.getDevice());
     }
 
     @Inject
-    public WarcraftStateAdapter(HudLoader hudLoader, LevelLoader levelLoader, BehaviourFactory behaviourFactory) {
+    public WarcraftStateAdapter(
+        HudLoader hudLoader,
+        LevelLoader levelLoader,
+        WarcraftMusic musicLoader,
+        BehaviourFactory behaviourFactory)
+    {
         this.hudLoader = hudLoader;
         this.levelLoader = levelLoader;
+        this.musicLoader = musicLoader;
         this.behaviourFactory = behaviourFactory;
     }
 
@@ -91,6 +99,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     private WarcraftState deserializedInstance() {
         WarcraftState state = new WarcraftState();
         state.setHud(hudLoader.get());
+        state.setMusic(musicLoader.getMusic());
         return state;
     }
 

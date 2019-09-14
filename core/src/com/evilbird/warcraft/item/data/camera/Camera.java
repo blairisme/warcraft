@@ -120,7 +120,6 @@ public class Camera extends ItemBasic implements Zoomable
 
     @SerializedInitializer
     protected void updateDelegate() {
-       // super.updateDelegate();
         camera.zoom = currentZoom;
         camera.position.x = getX();
         camera.position.y = getY();

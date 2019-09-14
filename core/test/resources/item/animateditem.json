@@ -9,8 +9,8 @@
     "enum": "Attack"
   },
   "id": {
-    "class": "General",
-    "enum": "Unknown"
+    "class": "Named",
+    "name": "footman"
   },
   "type": {
     "class": "Units",

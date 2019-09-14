@@ -10,7 +10,7 @@
 package com.evilbird.engine.common.assets;
 
 import com.badlogic.gdx.assets.AssetLoaderParameters;
-import com.evilbird.engine.common.audio.LazyLoadedMusic;
+import com.evilbird.engine.common.audio.music.LazyLoadedMusic;
 
 /**
  * Defines parameters that customize the execution of the

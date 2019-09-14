@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft;
+package com.evilbird.warcraft.ios;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.device.Device;
@@ -15,6 +15,8 @@ import com.evilbird.engine.device.DeviceControls;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.device.DeviceInput;
 import com.evilbird.engine.device.DeviceStorage;
+
+import javax.inject.Inject;
 
 /**
  * Represents a device running Apple iOS devices. Methods are provided that
@@ -24,12 +26,15 @@ import com.evilbird.engine.device.DeviceStorage;
  */
 public class IosDevice implements Device
 {
+    private AssetManager assets;
     private DeviceInput input;
     private DeviceStorage storage;
     private DeviceDisplay display;
     private DeviceControls controls;
 
+    @Inject
     public IosDevice() {
+        this.assets = new IosAssets();
         this.input = new IosInput();
         this.storage = new IosStorage();
         this.display = new IosDisplay();
@@ -53,11 +58,11 @@ public class IosDevice implements Device
 
     @Override
     public DeviceStorage getDeviceStorage() {
-        throw new UnsupportedOperationException();
+        return storage;
     }
 
     @Override
     public AssetManager getAssetStorage() {
-        throw new UnsupportedOperationException();
+        return assets;
     }
 }
