@@ -11,7 +11,6 @@ package com.evilbird.warcraft.item.ui.display.control.common;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.common.WarcraftFaction;
-import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.unit.UnitAttack;
 
 import java.util.ArrayList;
@@ -22,6 +21,42 @@ import java.util.Map;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
 import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.RangedDamage1;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedRangedUpgradeButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AttackButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildBarracksButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildDockyardButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildEncampmentButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildFarmButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildGreatHallButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildLumberMillButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildOilPlatformButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildOilRigButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildPigFarmButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildShipyardButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildTownHallButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildTrollLumberMillButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DefendButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DepositButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DetonateButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DisembarkButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GatherButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedUpgradeButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MoveButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PatrolButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PolymorphButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StopButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainElvenArcherButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainElvenDestroyerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainFootmanButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainGruntButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainOilTankerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainPeasantButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainPeonButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainTrollAxethrowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainTrollDestroyerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainTrollTankerButton;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconLevel.Advanced;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconLevel.Basic;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconLevel.Improved;
@@ -87,6 +122,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.Boar;
 import static com.evilbird.warcraft.item.unit.UnitType.Dockyard;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
+import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcherCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
 import static com.evilbird.warcraft.item.unit.UnitType.Encampment;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
@@ -94,10 +130,13 @@ import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 import static com.evilbird.warcraft.item.unit.UnitType.GreatHall;
 import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
 import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
+import static com.evilbird.warcraft.item.unit.UnitType.Mage;
+import static com.evilbird.warcraft.item.unit.UnitType.MageCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
 import static com.evilbird.warcraft.item.unit.UnitType.OilRig;
 import static com.evilbird.warcraft.item.unit.UnitType.OilTanker;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
+import static com.evilbird.warcraft.item.unit.UnitType.PeasantCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.Peon;
 import static com.evilbird.warcraft.item.unit.UnitType.PigFarm;
 import static com.evilbird.warcraft.item.unit.UnitType.Seal;
@@ -121,106 +160,109 @@ import static java.util.Collections.singletonList;
 public class IconSpecializations
 {
     private static Map<Identifier, Identifier> specializations = specializations(
-        Boar, ActionButtonType.PolymorphButton,
-        Seal, ActionButtonType.PolymorphButton,
-        Sheep, ActionButtonType.PolymorphButton,
+        Boar, PolymorphButton,
+        Seal, PolymorphButton,
+        Sheep, PolymorphButton,
 
-        ActionButtonType.BuildCancelButton, ActionButtonType.CancelButton,
+        ElvenArcherCaptive, ElvenArcher,
+        MageCaptive, Mage,
+        PeasantCaptive, Peasant,
 
-        ActionButtonType.BuildBarracksButton, Barracks,
-        ActionButtonType.BuildFarmButton, Farm,
-        ActionButtonType.BuildLumberMillButton, LumberMill,
-        ActionButtonType.BuildOilPlatformButton, OilPlatform,
-        ActionButtonType.BuildShipyardButton, Shipyard,
-        ActionButtonType.BuildTownHallButton, TownHall,
+        BuildCancelButton, CancelButton,
+        BuildBarracksButton, Barracks,
+        BuildFarmButton, Farm,
+        BuildLumberMillButton, LumberMill,
+        BuildOilPlatformButton, OilPlatform,
+        BuildShipyardButton, Shipyard,
+        BuildTownHallButton, TownHall,
 
-        ActionButtonType.BuildDockyardButton, Dockyard,
-        ActionButtonType.BuildEncampmentButton, Encampment,
-        ActionButtonType.BuildGreatHallButton, GreatHall,
-        ActionButtonType.BuildOilRigButton, OilRig,
-        ActionButtonType.BuildPigFarmButton, PigFarm,
-        ActionButtonType.BuildTrollLumberMillButton, TrollLumberMill,
+        BuildDockyardButton, Dockyard,
+        BuildEncampmentButton, Encampment,
+        BuildGreatHallButton, GreatHall,
+        BuildOilRigButton, OilRig,
+        BuildPigFarmButton, PigFarm,
+        BuildTrollLumberMillButton, TrollLumberMill,
 
-        ActionButtonType.TrainElvenArcherButton, ElvenArcher,
-        ActionButtonType.TrainElvenDestroyerButton, ElvenDestroyer,
-        ActionButtonType.TrainFootmanButton, Footman,
-        ActionButtonType.TrainOilTankerButton, OilTanker,
-        ActionButtonType.TrainPeasantButton, Peasant,
+        TrainElvenArcherButton, ElvenArcher,
+        TrainElvenDestroyerButton, ElvenDestroyer,
+        TrainFootmanButton, Footman,
+        TrainOilTankerButton, OilTanker,
+        TrainPeasantButton, Peasant,
 
-        ActionButtonType.TrainGruntButton, Grunt,
-        ActionButtonType.TrainPeonButton, Peon,
-        ActionButtonType.TrainTrollAxethrowerButton, TrollAxethrower,
-        ActionButtonType.TrainTrollDestroyerButton, TrollDestroyer,
-        ActionButtonType.TrainTrollTankerButton, TrollTanker,
+        TrainGruntButton, Grunt,
+        TrainPeonButton, Peon,
+        TrainTrollAxethrowerButton, TrollAxethrower,
+        TrainTrollDestroyerButton, TrollDestroyer,
+        TrainTrollTankerButton, TrollTanker,
 
         special(RangedDamage1, Human, Any, Any), HumanRangedDamage1,
         special(RangedDamage1, Orc, Any, Any), OrcRangedDamage1,
 
-        special(ActionButtonType.ImprovedRangedUpgradeButton, Human, Any, Any), HumanRangedDamage1,
-        special(ActionButtonType.ImprovedRangedUpgradeButton, Orc, Any, Any), OrcRangedDamage1,
-        special(ActionButtonType.AdvancedRangedUpgradeButton, Human, Any, Any), HumanRangedDamage2,
-        special(ActionButtonType.AdvancedRangedUpgradeButton, Orc, Any, Any), OrcRangedDamage2,
+        special(ImprovedRangedUpgradeButton, Human, Any, Any), HumanRangedDamage1,
+        special(ImprovedRangedUpgradeButton, Orc, Any, Any), OrcRangedDamage1,
+        special(AdvancedRangedUpgradeButton, Human, Any, Any), HumanRangedDamage2,
+        special(AdvancedRangedUpgradeButton, Orc, Any, Any), OrcRangedDamage2,
 
-        special(ActionButtonType.AttackButton, Human, Melee, Basic), HumanMeleeAttack,
-        special(ActionButtonType.AttackButton, Human, Melee, Improved), HumanMeleeDamage1,
-        special(ActionButtonType.AttackButton, Human, Melee, Advanced), HumanMeleeDamage2,
-        special(ActionButtonType.AttackButton, Human, Ranged, Basic), HumanRangedAttack,
-        special(ActionButtonType.AttackButton, Human, Ranged, Improved), HumanRangedDamage1,
-        special(ActionButtonType.AttackButton, Human, Ranged, Advanced), HumanRangedDamage2,
-        special(ActionButtonType.AttackButton, Human, Ship, Basic), HumanShipAttack,
-        special(ActionButtonType.AttackButton, Human, Ship, Improved), HumanShipDamage1,
-        special(ActionButtonType.AttackButton, Human, Ship, Advanced), HumanShipDamage2,
-        special(ActionButtonType.AttackButton, Human, Siege, Basic), HumanSiegeAttack,
-        special(ActionButtonType.AttackButton, Human, Siege, Improved), HumanSiegeDamage,
-        special(ActionButtonType.AttackButton, Orc, Melee, Basic), OrcMeleeAttack,
-        special(ActionButtonType.AttackButton, Orc, Melee, Improved), OrcMeleeDamage1,
-        special(ActionButtonType.AttackButton, Orc, Melee, Advanced), OrcMeleeDamage2,
-        special(ActionButtonType.AttackButton, Orc, Ranged, Basic), OrcRangedAttack,
-        special(ActionButtonType.AttackButton, Orc, Ranged, Improved), OrcRangedDamage1,
-        special(ActionButtonType.AttackButton, Orc, Ranged, Advanced), OrcRangedDamage2,
-        special(ActionButtonType.AttackButton, Orc, Ship, Basic), OrcShipAttack,
-        special(ActionButtonType.AttackButton, Orc, Ship, Improved), OrcShipDamage1,
-        special(ActionButtonType.AttackButton, Orc, Ship, Advanced), OrcShipDamage2,
-        special(ActionButtonType.AttackButton, Orc, Siege, Basic), OrcSiegeAttack,
-        special(ActionButtonType.AttackButton, Orc, Siege, Improved), OrcSiegeDamage,
+        special(AttackButton, Human, Melee, Basic), HumanMeleeAttack,
+        special(AttackButton, Human, Melee, Improved), HumanMeleeDamage1,
+        special(AttackButton, Human, Melee, Advanced), HumanMeleeDamage2,
+        special(AttackButton, Human, Ranged, Basic), HumanRangedAttack,
+        special(AttackButton, Human, Ranged, Improved), HumanRangedDamage1,
+        special(AttackButton, Human, Ranged, Advanced), HumanRangedDamage2,
+        special(AttackButton, Human, Ship, Basic), HumanShipAttack,
+        special(AttackButton, Human, Ship, Improved), HumanShipDamage1,
+        special(AttackButton, Human, Ship, Advanced), HumanShipDamage2,
+        special(AttackButton, Human, Siege, Basic), HumanSiegeAttack,
+        special(AttackButton, Human, Siege, Improved), HumanSiegeDamage,
+        special(AttackButton, Orc, Melee, Basic), OrcMeleeAttack,
+        special(AttackButton, Orc, Melee, Improved), OrcMeleeDamage1,
+        special(AttackButton, Orc, Melee, Advanced), OrcMeleeDamage2,
+        special(AttackButton, Orc, Ranged, Basic), OrcRangedAttack,
+        special(AttackButton, Orc, Ranged, Improved), OrcRangedDamage1,
+        special(AttackButton, Orc, Ranged, Advanced), OrcRangedDamage2,
+        special(AttackButton, Orc, Ship, Basic), OrcShipAttack,
+        special(AttackButton, Orc, Ship, Improved), OrcShipDamage1,
+        special(AttackButton, Orc, Ship, Advanced), OrcShipDamage2,
+        special(AttackButton, Orc, Siege, Basic), OrcSiegeAttack,
+        special(AttackButton, Orc, Siege, Improved), OrcSiegeDamage,
 
-        special(ActionButtonType.DepositButton, Human, Any, Any), HumanDeposit,
-        special(ActionButtonType.DepositButton, Human, Ship, Any), HumanShipDeposit,
-        special(ActionButtonType.DepositButton, Orc, Any, Any), OrcDeposit,
-        special(ActionButtonType.DepositButton, Orc, Ship, Any), OrcShipDeposit,
+        special(DepositButton, Human, Any, Any), HumanDeposit,
+        special(DepositButton, Human, Ship, Any), HumanShipDeposit,
+        special(DepositButton, Orc, Any, Any), OrcDeposit,
+        special(DepositButton, Orc, Ship, Any), OrcShipDeposit,
 
-        special(ActionButtonType.DefendButton, Human, Any, Any), HumanDefend,
-        special(ActionButtonType.DefendButton, Orc, Any, Any), OrcDefend,
+        special(DefendButton, Human, Any, Any), HumanDefend,
+        special(DefendButton, Orc, Any, Any), OrcDefend,
 
-        special(ActionButtonType.DetonateButton, Human, Any, Any), HumanDetonate,
-        special(ActionButtonType.DetonateButton, Orc, Any, Any), OrcDetonate,
+        special(DetonateButton, Human, Any, Any), HumanDetonate,
+        special(DetonateButton, Orc, Any, Any), OrcDetonate,
 
-        special(ActionButtonType.DisembarkButton, Human, Any, Any), HumanDisembark,
-        special(ActionButtonType.DisembarkButton, Orc, Any, Any), OrcDisembark,
+        special(DisembarkButton, Human, Any, Any), HumanDisembark,
+        special(DisembarkButton, Orc, Any, Any), OrcDisembark,
 
-        special(ActionButtonType.GatherButton, Human, Ship, Any), HumanShipGather,
-        special(ActionButtonType.GatherButton, Orc, Ship, Any), OrcShipGather,
+        special(GatherButton, Human, Ship, Any), HumanShipGather,
+        special(GatherButton, Orc, Ship, Any), OrcShipGather,
 
-        special(ActionButtonType.MoveButton, Human, Any, Any), HumanMove,
-        special(ActionButtonType.MoveButton, Human, Ship, Any), HumanShipMove,
-        special(ActionButtonType.MoveButton, Orc, Any, Any), OrcMove,
-        special(ActionButtonType.MoveButton, Orc, Ship, Any), OrcShipMove,
+        special(MoveButton, Human, Any, Any), HumanMove,
+        special(MoveButton, Human, Ship, Any), HumanShipMove,
+        special(MoveButton, Orc, Any, Any), OrcMove,
+        special(MoveButton, Orc, Ship, Any), OrcShipMove,
 
-        special(ActionButtonType.PatrolButton, Human, Any, Any), HumanPatrol,
-        special(ActionButtonType.PatrolButton, Orc, Any, Any), OrcPatrol,
+        special(PatrolButton, Human, Any, Any), HumanPatrol,
+        special(PatrolButton, Orc, Any, Any), OrcPatrol,
 
-        special(ActionButtonType.StopButton, Human, Any, Basic), HumanStop,
-        special(ActionButtonType.StopButton, Human, Any, Improved), HumanMeleeDefence1,
-        special(ActionButtonType.StopButton, Human, Any, Advanced), HumanMeleeDefence2,
-        special(ActionButtonType.StopButton, Human, Ship, Basic), HumanShipStop,
-        special(ActionButtonType.StopButton, Human, Ship, Improved), HumanArmourPlating1,
-        special(ActionButtonType.StopButton, Human, Ship, Advanced), HumanArmourPlating2,
-        special(ActionButtonType.StopButton, Orc, Any, Basic), OrcStop,
-        special(ActionButtonType.StopButton, Orc, Any, Improved), OrcMeleeDefence1,
-        special(ActionButtonType.StopButton, Orc, Any, Advanced), OrcMeleeDefence2,
-        special(ActionButtonType.StopButton, Orc, Ship, Basic), OrcShipStop,
-        special(ActionButtonType.StopButton, Orc, Ship, Improved), OrcArmourPlating1,
-        special(ActionButtonType.StopButton, Orc, Ship, Advanced), OrcArmourPlating2
+        special(StopButton, Human, Any, Basic), HumanStop,
+        special(StopButton, Human, Any, Improved), HumanMeleeDefence1,
+        special(StopButton, Human, Any, Advanced), HumanMeleeDefence2,
+        special(StopButton, Human, Ship, Basic), HumanShipStop,
+        special(StopButton, Human, Ship, Improved), HumanArmourPlating1,
+        special(StopButton, Human, Ship, Advanced), HumanArmourPlating2,
+        special(StopButton, Orc, Any, Basic), OrcStop,
+        special(StopButton, Orc, Any, Improved), OrcMeleeDefence1,
+        special(StopButton, Orc, Any, Advanced), OrcMeleeDefence2,
+        special(StopButton, Orc, Ship, Basic), OrcShipStop,
+        special(StopButton, Orc, Ship, Improved), OrcArmourPlating1,
+        special(StopButton, Orc, Ship, Advanced), OrcArmourPlating2
     );
 
     public Identifier getSpecialization(Identifier identifier) {
