@@ -51,6 +51,7 @@ public class IntegrationAssets extends AssetManager
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public synchronized <T> T get(AssetDescriptor<T> asset) {
         IntegrationFileHandleResolver resolver = (IntegrationFileHandleResolver)getFileHandleResolver();
         AssetDescriptor<T> descriptor = new AssetDescriptor<T>(
