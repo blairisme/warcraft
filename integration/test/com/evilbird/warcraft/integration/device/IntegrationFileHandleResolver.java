@@ -58,7 +58,8 @@ public class IntegrationFileHandleResolver implements FileHandleResolver
         Path fullPath = Paths.get(filePath);
         if (fullPath.startsWith(assets)) {
             Path relativePath = assets.relativize(fullPath);
-            return relativePath.toString();
+            String path = relativePath.toString();
+            return path.replace("\\", "/");
         }
         return filePath;
     }
