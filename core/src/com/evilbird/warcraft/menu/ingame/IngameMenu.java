@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -23,6 +22,8 @@ import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.control.SelectListenerAdapter;
 import com.evilbird.engine.device.DeviceDisplay;
+import com.evilbird.engine.item.specialized.ListPane;
+import com.evilbird.engine.item.specialized.ScrollBarPane;
 import com.evilbird.engine.menu.Menu;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -103,20 +104,22 @@ public class IngameMenu extends Menu
         return result;
     }
 
-    public List addList() {
-        List list = new List<>(skin);
+    public ListPane addList() {
+        ListPane listPane = new ListPane<>(skin);
+        listPane.setItemHeight(18f);
 
-        ScrollPane scrolled = new ScrollPane(list, skin);
-        scrolled.setScrollbarsVisible(true);
+        ScrollBarPane scrollBarPane = new ScrollBarPane(listPane, skin);
+        scrollBarPane.setScrollbarsVisible(true);
+        scrollBarPane.setFadeScrollBars(false);
 
-        Cell cell = container.add(scrolled);
+        Cell cell = container.add(scrollBarPane);
         container.row();
 
         setPadding(cell);
         cell.height(250);
         cell.growX();
 
-        return list;
+        return listPane;
     }
 
     public TextField addTextField(String text) {

@@ -11,7 +11,6 @@ package com.evilbird.warcraft.menu.ingame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.lang.Identifier;
@@ -19,6 +18,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
+import com.evilbird.engine.item.specialized.ListPane;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.warcraft.menu.outro.OutroMenuType;
@@ -29,7 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import java.util.Collection;
+import java.util.List;
 
 import static com.evilbird.warcraft.menu.ingame.IngameMenuDimensions.Normal;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuDimensions.Small;
@@ -135,7 +135,7 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
         menu.addTitle(strings.getSaveTitle());
 
         TextField field = menu.addTextField("");
-        List list = menu.addList();
+        ListPane list = menu.addList();
         menu.addButtonRow(
             Pair.of(strings.getSaveButtonText(), saveState(menu, field)),
             Pair.of(strings.getDeleteButtonText(), deleteState(menu, list)),
@@ -151,7 +151,7 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
         menu.setLayout(Wide);
         menu.addTitle(strings.getLoadTitle());
 
-        List list = menu.addList();
+        ListPane list = menu.addList();
         menu.addButtonRow(
             Pair.of(strings.getLoadButtonText(), loadState(menu, list)),
             Pair.of(strings.getDeleteButtonText(), deleteState(menu, list)),
@@ -258,10 +258,13 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
         return menu;
     }
 
-    private void addStates(IngameMenu menu, List list) {
+    private void addStates(IngameMenu menu, ListPane list) {
         try {
-            Collection<Identifier> items = states.list(UserState);
-            list.setItems(items.toArray());
+            List<Identifier> items = states.list(UserState);
+            if (!items.isEmpty()) {
+                list.setItems(items.toArray());
+                list.setSelected(items.get(0));
+            }
         }
         catch (Throwable error) {
             LOGGER.error("Failed to list states", error);
@@ -281,7 +284,7 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
         };
     }
 
-    private SelectListener deleteState(IngameMenu menu, List list) {
+    private SelectListener deleteState(IngameMenu menu, ListPane list) {
         return () -> {
             try {
                 states.remove((WarcraftSave)list.getSelected());
@@ -293,7 +296,7 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
         };
     }
 
-    private SelectListener loadState(IngameMenu menu, List list) {
+    private SelectListener loadState(IngameMenu menu, ListPane list) {
         return () -> {
             try {
                 menu.showState((WarcraftSave)list.getSelected());

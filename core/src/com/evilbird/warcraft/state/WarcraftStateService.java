@@ -12,6 +12,7 @@ package com.evilbird.warcraft.state;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.JsonSerializer;
@@ -167,14 +168,23 @@ public class WarcraftStateService implements StateService
         throw new IllegalArgumentException();
     }
 
-    private Collection<FileHandle> saveFiles() {
-        FileHandle saves = deviceStorage.resolve(SAVE_DIRECTORY);
-        return Arrays.asList(saves.list());
-    }
-
     private FileHandle saveFile(String name) {
         FileHandle saves = deviceStorage.resolve(SAVE_DIRECTORY);
         return saves.child(name);
+    }
+
+    private Collection<FileHandle> saveFiles() {
+        FileHandle directory = deviceStorage.resolve(SAVE_DIRECTORY);
+        Collection<FileHandle> saves = Arrays.asList(directory.list());
+        return CollectionUtils.filter(saves, this::isValidSave);
+    }
+
+    private boolean isValidSave(FileHandle handle) {
+        if (handle != null) {
+            String extension = handle.extension();
+            return extension.equalsIgnoreCase(WarcraftSave.getExtension());
+        }
+        return false;
     }
 
     private FileHandle assetFile(String parent, String name) {

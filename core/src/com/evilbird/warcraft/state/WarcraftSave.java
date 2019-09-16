@@ -54,4 +54,8 @@ public class WarcraftSave implements StateIdentifier
     public String toString() {
         return name;
     }
+
+    public static String getExtension() {
+        return JSON.getExtension();
+    }
 }

@@ -74,7 +74,7 @@ public class IngameMenuBuilder
 
     private void addListStyle(Skin skin) {
         List.ListStyle listStyle = new List.ListStyle();
-        listStyle.font = assets.getFont();
+        listStyle.font = assets.getFontSmall();
         listStyle.fontColorSelected = Color.GOLD;
         listStyle.fontColorUnselected = Color.WHITE;
         listStyle.background = assets.getListBackground();
