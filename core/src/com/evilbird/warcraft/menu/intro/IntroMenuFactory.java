@@ -46,25 +46,16 @@ public class IntroMenuFactory implements GameFactory<IntroMenu>
 
     @Override
     public void load(GameContext context) {
-//        if (assets != null) {
-//            assets.load();
-//        }
     }
 
     private void load(IntroMenuType type) {
-        //if (assets == null || assets.getType() != type) {
-        //    unload();
-            assets = new IntroMenuAssets(manager, type);
-            builder = new IntroMenuBuilder(display, assets);
-            assets.loadSynchronous();
-        //}
+        assets = new IntroMenuAssets(manager, type);
+        builder = new IntroMenuBuilder(display, assets);
+        assets.loadSynchronous();
     }
 
     @Override
     public void unload(GameContext context) {
-//        if (assets != null) {
-//            assets.unload();
-//        }
     }
 
     @Override

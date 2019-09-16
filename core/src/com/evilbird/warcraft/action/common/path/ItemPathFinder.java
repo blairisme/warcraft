@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.action.common.path;
 
-import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.ai.pfa.PathFinder;

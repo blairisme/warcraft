@@ -22,7 +22,7 @@ public class ItemNodePath implements GraphPath<ItemNode>
 {
     public final List<ItemNode> nodes;
 
-    public ItemNodePath () {
+    public ItemNodePath() {
         nodes = new ArrayList<>();
     }
 

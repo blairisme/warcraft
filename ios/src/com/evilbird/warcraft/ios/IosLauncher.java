@@ -13,9 +13,9 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
 import com.evilbird.engine.game.GameService;
+import com.evilbird.warcraft.ios.DaggerIosInjector.Builder;
 import org.robovm.apple.foundation.NSAutoreleasePool;
 import org.robovm.apple.uikit.UIApplication;
-import com.evilbird.warcraft.ios.DaggerIosInjector.Builder;
 
 /**
  * Instances of this class represent the entry point for the iOS version of

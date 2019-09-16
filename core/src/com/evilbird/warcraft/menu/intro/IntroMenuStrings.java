@@ -23,9 +23,13 @@ public class IntroMenuStrings
     private static final String OBJECTIVES = "objectives";
 
     private I18NBundle bundle;
+    private I18NBundle objectives;
+    private IntroMenuType type;
 
-    public IntroMenuStrings(I18NBundle bundle) {
-        this.bundle = bundle;
+    public IntroMenuStrings(I18NBundle general, I18NBundle objectives, IntroMenuType type) {
+        this.type = type;
+        this.bundle = general;
+        this.objectives = objectives;
     }
 
     public String getTitle() {
@@ -37,6 +41,7 @@ public class IntroMenuStrings
     }
 
     public String getObjectives() {
-        return bundle.get(OBJECTIVES);
+        String points = objectives.get("intro" + type.getIndex());
+        return bundle.format(OBJECTIVES, points);
     }
 }

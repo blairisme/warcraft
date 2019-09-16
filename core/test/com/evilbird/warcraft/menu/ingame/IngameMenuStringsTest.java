@@ -22,7 +22,7 @@ public class IngameMenuStringsTest extends StringBundleTestCase<IngameMenuString
 {
     @Override
     protected IngameMenuStrings getBundleWrapper(I18NBundle bundle) {
-        return new IngameMenuStrings(bundle);
+        return new IngameMenuStrings(bundle, bundle);
     }
 
     @Override

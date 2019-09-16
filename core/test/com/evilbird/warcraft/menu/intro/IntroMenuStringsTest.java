@@ -22,7 +22,11 @@ public class IntroMenuStringsTest extends StringBundleTestCase<IntroMenuStrings>
 {
     @Override
     protected IntroMenuStrings getBundleWrapper(I18NBundle bundle) {
-        return new IntroMenuStrings(bundle);
+        String objectivesPath = "data/strings/human/menu/objectives";
+        assets.load(objectivesPath, I18NBundle.class);
+        assets.finishLoadingAsset(objectivesPath);
+        I18NBundle objectivesBundle = assets.get(objectivesPath, I18NBundle.class);
+        return new IntroMenuStrings(bundle, objectivesBundle, IntroMenuType.Human1);
     }
 
     @Override

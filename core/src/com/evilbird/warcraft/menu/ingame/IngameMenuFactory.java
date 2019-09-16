@@ -22,7 +22,8 @@ import com.evilbird.engine.item.specialized.ListPane;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.menu.ingame.variant.SoundOptions;
+import com.evilbird.warcraft.menu.ingame.variant.ObjectivesMenu;
+import com.evilbird.warcraft.menu.ingame.variant.SoundsMenu;
 import com.evilbird.warcraft.menu.outro.OutroMenuType;
 import com.evilbird.warcraft.state.WarcraftContext;
 import com.evilbird.warcraft.state.WarcraftSave;
@@ -42,7 +43,6 @@ import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Exit;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Load;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Objectives;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Options;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Preferences;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Root;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Save;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Sounds;
@@ -212,7 +212,7 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
     }
 
     private IngameMenu setSoundsLayout(IngameMenu menu) {
-        return new SoundOptions(menu, assets.getStrings(), preferences);
+        return new SoundsMenu(menu, assets.getStrings(), preferences);
     }
 
     private IngameMenu setSpeedsLayout(IngameMenu menu) {
@@ -238,14 +238,7 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
     }
 
     private IngameMenu setObjectivesLayout(IngameMenu menu) {
-        IngameMenuStrings strings = assets.getStrings();
-        menu.setLayout(Normal);
-        menu.addTitle(strings.getObjectivesTitle());
-        menu.addLabel(" - Build four Farms");
-        menu.addLabel(" - Build a Barracks");
-        menu.addSpacer();
-        menu.addButton(strings.getPreviousButtonText(), showMenu(menu, Root));
-        return menu;
+        return new ObjectivesMenu(menu, assets.getStrings());
     }
 
     private IngameMenu setDefeatLayout(IngameMenu menu) {

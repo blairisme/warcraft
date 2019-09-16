@@ -48,7 +48,8 @@ public class IngameMenuAssets extends AssetBundle
         register("data/textures/${faction}/menu/scroll_horizontal.png");
         register("data/textures/${faction}/menu/scroll_vertical.png");
         register("data/sounds/common/menu/click.mp3");
-        register("data/strings/common/menu/ingame", I18NBundle.class);
+        register("strings", "data/strings/common/menu/ingame", I18NBundle.class);
+        register("objectives", "data/strings/${faction}/menu/objectives", I18NBundle.class);
         register("font-medium", "data/fonts/philosopher-medium.ttf", BitmapFont.class, fontSize(16));
         register("font-small", "data/fonts/philosopher-small.ttf", BitmapFont.class, fontSize(15));
     }
@@ -121,15 +122,17 @@ public class IngameMenuAssets extends AssetBundle
         return getDrawable("scroll_vertical.png");
     }
 
-    public IngameMenuStrings getStrings() {
-        return new IngameMenuStrings(getStrings("ingame"));
-    }
-
     public BitmapFont getFont() {
         return getFont("font-medium");
     }
 
     public BitmapFont getFontSmall() {
         return getFont("font-small");
+    }
+
+    public IngameMenuStrings getStrings() {
+        I18NBundle strings = getStrings("strings");
+        I18NBundle objectives = getStrings("objectives");
+        return new IngameMenuStrings(strings, objectives);
     }
 }

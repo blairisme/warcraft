@@ -19,9 +19,11 @@ import com.badlogic.gdx.utils.I18NBundle;
 public class IngameMenuStrings
 {
     private I18NBundle bundle;
+    private I18NBundle objectives;
 
-    public IngameMenuStrings(I18NBundle bundle) {
-        this.bundle = bundle;
+    public IngameMenuStrings(I18NBundle general, I18NBundle objectives) {
+        this.bundle = general;
+        this.objectives = objectives;
     }
 
     public String getMainTitle() {
@@ -100,6 +102,10 @@ public class IngameMenuStrings
         return bundle.get("objectives");
     }
 
+    public String getObjectivesDefault() {
+        return bundle.get("objectives-default");
+    }
+
     public String getEndButtonText() {
         return bundle.get("end");
     }
@@ -154,5 +160,9 @@ public class IngameMenuStrings
 
     public String getBuildingSoundsEnabled() {
         return bundle.get("building-sounds-enabled");
+    }
+
+    public String getObjectives(int level) {
+        return objectives.get("intro" + level);
     }
 }

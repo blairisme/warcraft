@@ -29,11 +29,13 @@ import java.lang.reflect.Method;
 public abstract class StringBundleTestCase<T>
 {
     protected T strings;
+    protected AssetManager assets;
+    protected FileHandleResolver resolver;
 
     @Before
     public void setup() {
-        FileHandleResolver resolver = new AssetFileHandleResolver();
-        AssetManager assets = new AssetManager(resolver);
+        resolver = new AssetFileHandleResolver();
+        assets = new AssetManager(resolver);
         String path = getBundleAsset();
         assets.load(path, I18NBundle.class);
         assets.finishLoadingAsset(path);

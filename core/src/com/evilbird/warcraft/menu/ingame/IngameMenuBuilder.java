@@ -45,6 +45,7 @@ public class IngameMenuBuilder
     private Skin getSkin() {
         Skin skin = new Skin();
         addButtonStyle(skin);
+        addTitleStyle(skin);
         addLabelStyle(skin);
         addListStyle(skin);
         addTextFieldStyle(skin);
@@ -68,10 +69,18 @@ public class IngameMenuBuilder
         skin.add("default", textButtonStyle);
     }
 
-    private void addLabelStyle(Skin skin) {
+    private void addTitleStyle(Skin skin) {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = assets.getFont();
         labelStyle.fontColor = Color.GOLD;
+        skin.add("title", labelStyle);
+    }
+
+    private void addLabelStyle(Skin skin) {
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = assets.getFont();
+        labelStyle.fontColor = Color.WHITE;
+        skin.add("label", labelStyle);
         skin.add("default", labelStyle);
     }
 

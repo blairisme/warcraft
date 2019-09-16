@@ -48,9 +48,9 @@ import static java.util.stream.Collectors.toList;
  */
 public class AssetBundle
 {
-    private AssetManager manager;
-    private StringSubstitutor resolver;
-    private Map<Object, AssetDescriptor> assets;
+    protected AssetManager manager;
+    protected StringSubstitutor resolver;
+    protected Map<Object, AssetDescriptor> assets;
 
     public AssetBundle(AssetManager assetManager) {
         this(assetManager, Collections.emptyMap());

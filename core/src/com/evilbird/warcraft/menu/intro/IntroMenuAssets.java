@@ -34,7 +34,7 @@ import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
  */
 public class IntroMenuAssets extends AssetBundle
 {
-    private  IntroMenuType type;
+    private IntroMenuType type;
 
     public IntroMenuAssets(AssetManager manager, IntroMenuType type) {
         super(manager, pathVariables(type));
@@ -44,6 +44,7 @@ public class IntroMenuAssets extends AssetBundle
         register("button", "data/textures/common/menu/button.png");
         register("music", "data/music/4.mp3", Music.class);
         register("strings", "data/strings/${faction}/menu/${name}", I18NBundle.class);
+        register("objectives", "data/strings/${faction}/menu/objectives", I18NBundle.class);
         register("font-large", "data/fonts/philosopher-large.ttf", BitmapFont.class, fontSize(20));
         register("font-small", "data/fonts/philosopher-medium.ttf", BitmapFont.class, fontSize(16));
 
@@ -86,7 +87,9 @@ public class IntroMenuAssets extends AssetBundle
     }
 
     public IntroMenuStrings getStrings() {
-        return new IntroMenuStrings(getStrings("strings"));
+        I18NBundle general = getStrings("strings");
+        I18NBundle objectives = getStrings("objectives");
+        return new IntroMenuStrings(general, objectives, type);
     }
 
     public Music getNarration() {

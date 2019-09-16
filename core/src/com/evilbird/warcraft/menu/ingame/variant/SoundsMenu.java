@@ -25,7 +25,7 @@ import static com.evilbird.warcraft.menu.ingame.IngameMenuDimensions.Normal;
  *
  * @author Blair Butterworth
  */
-public class SoundOptions extends IngameMenu
+public class SoundsMenu extends IngameMenu
 {
     private Slider musicVolume;
     private Slider effectsVolume;
@@ -34,7 +34,7 @@ public class SoundOptions extends IngameMenu
     private CheckBox buildingSoundsOn;
     private WarcraftPreferences preferences;
 
-    public SoundOptions(IngameMenu menu, IngameMenuStrings strings, WarcraftPreferences preferences) {
+    public SoundsMenu(IngameMenu menu, IngameMenuStrings strings, WarcraftPreferences preferences) {
         super(menu);
         this.preferences = preferences;
         setLayout(Normal);

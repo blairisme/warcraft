@@ -57,30 +57,30 @@ public class IngameMenu extends Menu
         controller.showState();
     }
 
-    public void setLayout(IngameMenuDimensions dimensions) {
+    protected void setLayout(IngameMenuDimensions dimensions) {
         container.setBackground(dimensions.getBackground());
         container.setWidth(dimensions.getWidth());
         container.setHeight(dimensions.getHeight());
     }
 
-    public Skin getSkin() {
+    protected Skin getSkin() {
         return skin;
     }
 
-    public void addButton(String text) {
+    protected void addButton(String text) {
         Button button = new TextButton(text, skin);
         button.setDisabled(true);
         addControl(button);
     }
 
-    public void addButton(String text, SelectListener action) {
+    protected void addButton(String text, SelectListener action) {
         Button button = new TextButton(text, skin);
         button.addListener(new SelectListenerAdapter(action));
         addControl(button);
     }
 
     @SafeVarargs
-    public final void addButtonRow(Pair<String, SelectListener> ... buttons) {
+    protected final void addButtonRow(Pair<String, SelectListener> ... buttons) {
         Table row = addButtonRowTable();
         for (Pair<String, SelectListener> button: buttons) {
             addButtonRowCell(row, button.getKey(), button.getValue());
@@ -102,22 +102,23 @@ public class IngameMenu extends Menu
         cell.width(100);
     }
 
-    public void addTitle(String text) {
-        Cell cell = addControl(createLabel(text, skin, Align.center));
+    protected Label addTitle(String text) {
+        Label title = new Label(text, skin, "title");
+        title.setAlignment(Align.center);
+        Cell cell = addControl(title);
         cell.padTop(12);
+        cell.padBottom(12);
+        return title;
     }
 
-    public void addLabel(String text) {
-        addControl(createLabel(text, skin, Align.left));
+    protected Label addLabel(String text) {
+        Label label = new Label(text, skin, "label");
+        label.setAlignment(Align.left);
+        addControl(label);
+        return label;
     }
 
-    private Label createLabel(String text, Skin skin, int alignment) {
-        Label result = new Label(text, skin);
-        result.setAlignment(alignment);
-        return result;
-    }
-
-    public ListPane addList() {
+    protected ListPane addList() {
         ListPane listPane = new ListPane<>(skin);
         listPane.setItemHeight(18f);
 
@@ -129,30 +130,30 @@ public class IngameMenu extends Menu
         container.row();
 
         setPadding(cell);
-        cell.height(250);
+        cell.height(200);
         cell.growX();
 
         return listPane;
     }
 
-    public TextField addTextField(String text) {
+    protected TextField addTextField(String text) {
         TextField textField = new TextField(text, skin);
         addControl(textField);
         return textField;
     }
 
-    public void addSpacer() {
+    protected void addSpacer() {
         Cell cell = container.add();
         cell.expand();
         container.row();
     }
 
-    public Slider addSlider(String label, float value) {
+    protected Slider addSlider(String label, float value) {
         addLabel(label);
         return addSlider(value);
     }
 
-    public Slider addSlider(float value) {
+    protected Slider addSlider(float value) {
         Slider slider = new Slider(0f, 1f, 0.01f, false, skin);
         slider.setValue(value);
         Cell cell = addControl(slider);
@@ -160,7 +161,7 @@ public class IngameMenu extends Menu
         return slider;
     }
 
-    public CheckBox addCheckbox(String label, boolean checked) {
+    protected CheckBox addCheckbox(String label, boolean checked) {
         CheckBox checkBox = new CheckBox(label, skin);
         checkBox.setChecked(checked);
         checkBox.align(Align.left);
