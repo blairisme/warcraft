@@ -16,6 +16,7 @@ import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.menu.MenuOverlay;
 import com.evilbird.engine.menu.MenuScreen;
+import com.evilbird.engine.preferences.GamePreferences;
 import com.evilbird.engine.state.StateScreen;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.test.testcase.GameTestCase;
@@ -51,7 +52,7 @@ public class GameEngineTest extends GameTestCase
         menuFactory = mock(MenuFactory.class);
         StateService stateService = mock(StateService.class);
         GameAssets gameAssets = mock(GameAssets.class);
-        GamePreferences preferences = mock(GamePreferences.class);
+        GamePreferences preferences = mock(com.evilbird.engine.preferences.GamePreferences.class);
         engine = new GameEngine(device,
             errorScreen, loaderScreen, menuScreen, menuOverlay,
             stateScreen, menuFactory, stateService, gameAssets, preferences);

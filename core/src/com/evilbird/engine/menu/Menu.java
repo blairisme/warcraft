@@ -31,12 +31,10 @@ public class Menu implements Disposable
     protected Music music;
     protected GameController controller;
 
-    public Menu() {
-        this.stage = new Stage(new ScreenViewport());
-    }
-
-    public Menu(Stage stage) {
-        this.stage = stage;
+    public Menu(Menu menu) {
+        this.stage = menu.stage;
+        this.music = menu.music;
+        this.controller = menu.controller;
     }
 
     public Menu(DeviceDisplay display){

@@ -21,6 +21,7 @@ import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.menu.MenuOverlay;
 import com.evilbird.engine.menu.MenuScreen;
+import com.evilbird.engine.preferences.GamePreferences;
 import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateScreen;
@@ -55,7 +56,7 @@ public class GameEngine extends Game implements GameController
     private StateService stateService;
     private Runnable initialScreen;
     private GameAssets gameAssets;
-    private GamePreferences preferences;
+    private com.evilbird.engine.preferences.GamePreferences preferences;
 
     @Inject
     public GameEngine(

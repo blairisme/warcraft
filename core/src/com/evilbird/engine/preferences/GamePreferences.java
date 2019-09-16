@@ -7,13 +7,15 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.game;
+package com.evilbird.engine.preferences;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Provides access to preferences used in game engine operation.
@@ -33,10 +35,20 @@ public class GamePreferences
     private static final float EFFECTS_VOLUME_DEFAULT = 1f;
 
     private Preferences store;
+    private List<GamePreferencesObserver> observers;
 
     @Inject
     public GamePreferences() {
         store = null;
+        observers = new ArrayList<>();
+    }
+
+    public void addObserver(GamePreferencesObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(GamePreferencesObserver observer) {
+        observers.remove(observer);
     }
 
     public boolean getGamePaused() {
@@ -67,6 +79,11 @@ public class GamePreferences
     public void setEffectsVolume(float volume) {
         Preferences preferences = getPreferences();
         preferences.putFloat(EFFECTS_VOLUME, volume);
+    }
+
+    public void save() {
+        store.flush();
+        observers.forEach(observer -> observer.onPreferencesSaved(this));
     }
 
     private Preferences getPreferences() {

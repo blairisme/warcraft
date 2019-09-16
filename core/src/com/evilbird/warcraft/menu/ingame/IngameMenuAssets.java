@@ -35,6 +35,11 @@ public class IngameMenuAssets extends AssetBundle
         register("data/textures/${faction}/menu/button-large-normal.png");
         register("data/textures/${faction}/menu/button-large-grayed.png");
         register("data/textures/${faction}/menu/button-large-pressed.png");
+        register("data/textures/${faction}/menu/checkbox_disabled.png");
+        register("data/textures/${faction}/menu/checkbox_selected.png");
+        register("data/textures/${faction}/menu/checkbox_selected_pressed.png");
+        register("data/textures/${faction}/menu/checkbox_unselected.png");
+        register("data/textures/${faction}/menu/checkbox_unselected_pressed.png");
         register("data/textures/${faction}/menu/text_panel_normal.png");
         register("data/textures/${faction}/menu/panel_normal.png");
         register("data/textures/${faction}/menu/panel_wide.png");
@@ -62,6 +67,26 @@ public class IngameMenuAssets extends AssetBundle
 
     public Drawable getButtonSelected() {
         return getDrawable("button-large-pressed.png");
+    }
+
+    public Drawable getCheckboxDisabled() {
+        return getDrawable("checkbox_disabled.png");
+    }
+
+    public Drawable getCheckboxSelected() {
+        return getDrawable("checkbox_selected.png");
+    }
+
+    public Drawable getCheckboxSelectedPressed() {
+        return getDrawable("checkbox_selected_pressed.png");
+    }
+
+    public Drawable getCheckboxUnselected() {
+        return getDrawable("checkbox_unselected.png");
+    }
+
+    public Drawable getCheckboxUnselectedPressed() {
+        return getDrawable("checkbox_unselected_pressed.png");
     }
 
     public Drawable getListBackground() {

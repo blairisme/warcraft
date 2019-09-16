@@ -14,6 +14,7 @@ import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.preferences.GamePreferences;
 
 /**
  * Instances of this single provide static access to the {@link GameInjector},

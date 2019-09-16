@@ -15,6 +15,7 @@ import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.test.testcase.GameFactoryTestCase;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.state.WarcraftContext;
 import org.mockito.Mockito;
 
@@ -38,7 +39,8 @@ public class IngameMenuFactoryTest extends GameFactoryTestCase<IngameMenuFactory
     @Override
     protected IngameMenuFactory newFactory(DeviceDisplay display, AssetManager assets) {
         StateService stateService = Mockito.mock(StateService.class);
-        return new IngameMenuFactory(display, stateService, assets);
+        WarcraftPreferences preferences = Mockito.mock(WarcraftPreferences.class);
+        return new IngameMenuFactory(display, stateService, assets, preferences);
     }
 
     @Override

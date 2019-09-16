@@ -14,7 +14,7 @@ import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.evilbird.engine.game.GameEngine;
-import com.evilbird.engine.game.GamePreferences;
+import com.evilbird.engine.preferences.GamePreferences;
 import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateIdentifier;

@@ -135,4 +135,24 @@ public class IngameMenuStrings
     public String getPreferencesButtonText() {
         return bundle.get("preferences");
     }
+
+    public String getMusicVolume() {
+        return bundle.get("music-volume");
+    }
+
+    public String getEffectsVolume() {
+        return bundle.get("effects-volume");
+    }
+
+    public String getSpeechEnabled() {
+        return bundle.get("speech-enabled");
+    }
+
+    public String getAcknowledgementEnabled() {
+        return bundle.get("acknowledgement-enabled");
+    }
+
+    public String getBuildingSoundsEnabled() {
+        return bundle.get("building-sounds-enabled");
+    }
 }

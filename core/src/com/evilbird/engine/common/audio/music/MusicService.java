@@ -10,7 +10,8 @@
 package com.evilbird.engine.common.audio.music;
 
 import com.badlogic.gdx.audio.Music;
-import com.evilbird.engine.game.GamePreferences;
+import com.evilbird.engine.preferences.GamePreferences;
+import com.evilbird.engine.preferences.GamePreferencesObserver;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -26,15 +27,16 @@ import java.util.Objects;
  * @author Blair Butterworth
  */
 @Singleton
-public class MusicService
+public class MusicService implements GamePreferencesObserver
 {
     private Music music;
     private GamePreferences preferences;
 
     @Inject
     public MusicService(GamePreferences preferences) {
-        this.preferences = preferences;
         this.music = new SilentMusic();
+        this.preferences = preferences;
+        this.preferences.addObserver(this);
     }
 
     public void play(Music music) {
@@ -59,5 +61,10 @@ public class MusicService
         Validate.inclusiveBetween(0, 1, volume);
         music.setVolume(volume);
         preferences.setMusicVolume(volume);
+    }
+
+    @Override
+    public void onPreferencesSaved(GamePreferences preferences) {
+        this.music.setVolume(preferences.getMusicVolume());
     }
 }

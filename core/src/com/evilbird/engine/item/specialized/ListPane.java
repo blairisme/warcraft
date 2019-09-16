@@ -26,12 +26,12 @@ import static org.apache.commons.lang3.reflect.FieldUtils.getDeclaredField;
  *  This control also overrides the default {@link List} behaviour, allowing
  *  the height of items to be controlled.
  * </p>
- * 
+ *
  * @author Blair Butterworth
  */
 public class ListPane<T> extends List<T>
 {
-    private static final Logger logger = LoggerFactory.getLogger(ScrollBarPane.class);
+    private static final Logger logger = LoggerFactory.getLogger(ListPane.class);
 
     private Float itemHeight;
     private Field itemHeightField;

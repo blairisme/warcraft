@@ -12,9 +12,10 @@ package com.evilbird.warcraft.menu.ingame;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -39,6 +40,12 @@ public class IngameMenu extends Menu
     private Skin skin;
     private Table container;
 
+    public IngameMenu(IngameMenu menu) {
+        super(menu);
+        this.skin = menu.skin;
+        this.container = menu.container;
+    }
+
     public IngameMenu(DeviceDisplay display, Skin skin) {
         super(display);
         this.skin = skin;
@@ -58,6 +65,12 @@ public class IngameMenu extends Menu
 
     public Skin getSkin() {
         return skin;
+    }
+
+    public void addButton(String text) {
+        Button button = new TextButton(text, skin);
+        button.setDisabled(true);
+        addControl(button);
     }
 
     public void addButton(String text, SelectListener action) {
@@ -132,6 +145,27 @@ public class IngameMenu extends Menu
         Cell cell = container.add();
         cell.expand();
         container.row();
+    }
+
+    public Slider addSlider(String label, float value) {
+        addLabel(label);
+        return addSlider(value);
+    }
+
+    public Slider addSlider(float value) {
+        Slider slider = new Slider(0f, 1f, 0.01f, false, skin);
+        slider.setValue(value);
+        Cell cell = addControl(slider);
+        cell.align(Align.left);
+        return slider;
+    }
+
+    public CheckBox addCheckbox(String label, boolean checked) {
+        CheckBox checkBox = new CheckBox(label, skin);
+        checkBox.setChecked(checked);
+        checkBox.align(Align.left);
+        addControl(checkBox);
+        return checkBox;
     }
 
     private Table createContainer(Skin skin) {

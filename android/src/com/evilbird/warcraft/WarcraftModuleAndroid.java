@@ -14,7 +14,7 @@ import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.game.GamePreferences;
+import com.evilbird.engine.preferences.GamePreferences;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.state.StateService;

@@ -14,7 +14,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.evilbird.engine.game.GameEngine;
-import com.evilbird.engine.game.GamePreferences;
+import com.evilbird.engine.preferences.GamePreferences;
 import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateIdentifier;

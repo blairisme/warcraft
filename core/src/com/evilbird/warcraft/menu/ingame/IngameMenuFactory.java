@@ -21,6 +21,8 @@ import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.item.specialized.ListPane;
 import com.evilbird.engine.menu.MenuIdentifier;
 import com.evilbird.engine.state.StateService;
+import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.menu.ingame.variant.SoundOptions;
 import com.evilbird.warcraft.menu.outro.OutroMenuType;
 import com.evilbird.warcraft.state.WarcraftContext;
 import com.evilbird.warcraft.state.WarcraftSave;
@@ -44,7 +46,6 @@ import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Preferences;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Root;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Save;
 import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Sounds;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Speeds;
 import static com.evilbird.warcraft.menu.intro.IntroMenuType.Human1;
 import static com.evilbird.warcraft.state.WarcraftStateType.UserState;
 
@@ -64,16 +65,30 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
     private DeviceDisplay display;
     private IngameMenuAssets assets;
     private IngameMenuBuilder builder;
+    private WarcraftPreferences preferences;
 
     @Inject
-    public IngameMenuFactory(Device device, StateService states) {
-        this(device.getDeviceDisplay(), states, device.getAssetStorage());
+    public IngameMenuFactory(
+        Device device,
+        StateService states,
+        WarcraftPreferences preferences)
+    {
+        this(device.getDeviceDisplay(),
+            states,
+            device.getAssetStorage(),
+            preferences);
     }
 
-    public IngameMenuFactory(DeviceDisplay display, StateService states, AssetManager manager) {
+    public IngameMenuFactory(
+        DeviceDisplay display,
+        StateService states,
+        AssetManager manager,
+        WarcraftPreferences preferences)
+    {
         this.states = states;
         this.display = display;
         this.manager = manager;
+        this.preferences = preferences;
     }
 
     @Override
@@ -189,22 +204,15 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
         menu.setLayout(Normal);
         menu.addTitle(strings.getOptionsTitle());
         menu.addButton(strings.getSoundsButtonText(), showMenu(menu, Sounds));
-        menu.addButton(strings.getSpeedsButtonText(), showMenu(menu, Speeds));
-        menu.addButton(strings.getPreferencesButtonText(), showMenu(menu, Preferences));
+        menu.addButton(strings.getSpeedsButtonText());
+        menu.addButton(strings.getPreferencesButtonText());
         menu.addSpacer();
         menu.addButton(strings.getPreviousButtonText(), showMenu(menu, Root));
         return menu;
     }
 
     private IngameMenu setSoundsLayout(IngameMenu menu) {
-        IngameMenuStrings strings = assets.getStrings();
-        menu.setLayout(Normal);
-        menu.addTitle(strings.getSoundSettingsTitle());
-        menu.addSpacer();
-        menu.addButtonRow(
-            Pair.of(strings.getOkButtonText(), showState(menu)),
-            Pair.of(strings.getCancelButtonText(), showState(menu)));
-        return menu;
+        return new SoundOptions(menu, assets.getStrings(), preferences);
     }
 
     private IngameMenu setSpeedsLayout(IngameMenu menu) {

@@ -10,10 +10,12 @@
 package com.evilbird.warcraft.menu.ingame;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox.CheckBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
@@ -37,8 +39,7 @@ public class IngameMenuBuilder
     }
 
     public IngameMenu build() {
-        Skin skin = getSkin();
-        return new IngameMenu(display, skin);
+        return new IngameMenu(display, getSkin());
     }
 
     private Skin getSkin() {
@@ -49,6 +50,8 @@ public class IngameMenuBuilder
         addTextFieldStyle(skin);
         addMenuStyle(skin);
         addScrollPaneStyle(skin);
+        addSliderStyle(skin);
+        addCheckBoxStyle(skin);
         return skin;
     }
 
@@ -103,6 +106,26 @@ public class IngameMenuBuilder
         style.hScrollKnob = assets.getScrollKnob();
         style.vScroll = assets.getScrollVertical();
         style.vScrollKnob = style.hScrollKnob;
+        skin.add("default", style);
+    }
+
+    private void addSliderStyle(Skin skin) {
+        SliderStyle style = new SliderStyle();
+        style.background = assets.getScrollHorizontal();
+        style.knob = assets.getScrollKnob();
+        skin.add("default-horizontal", style);
+    }
+
+    private void addCheckBoxStyle(Skin skin) {
+        CheckBoxStyle style = new CheckBoxStyle();
+        style.font = assets.getFont();
+        style.fontColor = Color.WHITE;
+        style.checkboxOn = assets.getCheckboxSelected();
+        style.checkboxOnOver = assets.getCheckboxSelectedPressed();
+        style.checkboxOnDisabled = assets.getCheckboxDisabled();
+        style.checkboxOff = assets.getCheckboxUnselected();
+        style.checkboxOver = assets.getCheckboxUnselectedPressed();
+        style.checkboxOffDisabled = assets.getCheckboxDisabled();
         skin.add("default", style);
     }
 }
