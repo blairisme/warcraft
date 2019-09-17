@@ -19,6 +19,8 @@ import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.state.StateIdentifier;
 
+import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Root;
+
 /**
  * Represents a user interface consisting of a number of selectable options.
  * Menus are generally used to load or save game states.
@@ -106,6 +108,10 @@ public class Menu implements Disposable
 
     public void showMenuOverlay(MenuIdentifier identifier) {
         controller.showMenuOverlay(identifier);
+    }
+
+    public void showRootMenu() {
+        showMenuOverlay(Root);
     }
 
     public void showState() {

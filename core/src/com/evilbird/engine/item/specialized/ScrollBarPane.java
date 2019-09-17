@@ -9,11 +9,17 @@
 
 package com.evilbird.engine.item.specialized;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
+import com.badlogic.gdx.utils.Disposable;
+import com.evilbird.engine.common.graphics.TextureUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,17 +42,42 @@ import static org.apache.commons.lang3.reflect.FieldUtils.getDeclaredField;
  *
  * @author Blair Butterworth
  */
-public class ScrollBarPane extends ScrollPane
+public class ScrollBarPane extends ScrollPane implements Disposable
 {
     private static final Logger logger = LoggerFactory.getLogger(ScrollBarPane.class);
 
+    private Skin skin;
+    private ScrollBarPaneStyle style;
+    private boolean inFocus;
+    private Color borderColour;
+    private Drawable borderDrawable;
+    private Texture borderTexture;
     private Rectangle horizontalKnobBounds;
     private Rectangle verticalKnobBounds;
 
     public ScrollBarPane(Actor widget, Skin skin) {
         super(widget, skin);
-        horizontalKnobBounds = getPrivateField("hKnobBounds");
-        verticalKnobBounds = getPrivateField("vKnobBounds");
+        this.skin = skin;
+        this.horizontalKnobBounds = getPrivateField("hKnobBounds");
+        this.verticalKnobBounds = getPrivateField("vKnobBounds");
+        setStyle(skin.get("default", ScrollBarPaneStyle.class));
+        addListener(new FocusObserver());
+    }
+
+    @Override
+    public void dispose() {
+        if (borderTexture != null) {
+            borderTexture.dispose();
+            borderDrawable = null;
+        }
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+        if (borderDrawable != null) {
+            borderDrawable.draw(batch, getX(), getY(), getWidth(), getHeight());
+        }
     }
 
     @Override
@@ -56,6 +87,17 @@ public class ScrollBarPane extends ScrollPane
         setHorizontalKnobSize(style);
         setVerticalKnobSize(style);
     }
+
+    public void setStyle(String name) {
+        setStyle(skin.get(name, ScrollBarPaneStyle.class));
+    }
+
+    public void setStyle(ScrollPaneStyle style) {
+        super.setStyle(style);
+        updateStyle((ScrollBarPaneStyle)style);
+    }
+
+
 
     private void setHorizontalKnobSize(ScrollPaneStyle style) {
         if (style.hScrollKnob != null) {
@@ -81,6 +123,35 @@ public class ScrollBarPane extends ScrollPane
         catch (IllegalArgumentException | IllegalAccessException e) {
             logger.error("Unable to access " + name, e);
             return new Rectangle();
+        }
+    }
+
+    private void updateBorder() {
+        dispose();
+        if (borderColour != null) {
+            borderTexture = TextureUtils.getTexture((int)getWidth(), (int)getHeight(), borderColour);
+            borderDrawable = TextureUtils.getDrawable(borderTexture);
+        }
+    }
+
+    private void updateBorderColour() {
+        if (style != null) {
+            this.borderColour = inFocus ? style.borderColourFocused : style.borderColour;
+            updateBorder();
+        }
+    }
+
+    private void updateStyle(ScrollBarPaneStyle style) {
+        this.style = style;
+        updateBorderColour();
+    }
+
+    private class FocusObserver extends FocusListener
+    {
+        @Override
+        public void keyboardFocusChanged(FocusEvent event, Actor actor, boolean focused) {
+            inFocus = focused;
+            updateBorderColour();
         }
     }
 }

@@ -26,7 +26,7 @@ public interface StateService
 
     State get(StateIdentifier identifier);
 
-    List<Identifier> list(StateType type);
+    List<StateIdentifier> list(StateType type);
 
     void set(StateIdentifier identifier, State state);
 

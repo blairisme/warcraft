@@ -18,13 +18,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.control.SelectListenerAdapter;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.item.specialized.ListPane;
 import com.evilbird.engine.item.specialized.ScrollBarPane;
+import com.evilbird.engine.item.specialized.TextInput;
 import com.evilbird.engine.menu.Menu;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -118,8 +118,19 @@ public class IngameMenu extends Menu
         return label;
     }
 
-    protected ListPane addList() {
-        ListPane listPane = new ListPane<>(skin);
+    protected Cell<Label> addErrorLabel() {
+        Label label = new Label("", skin, "error");
+        label.setAlignment(Align.left);
+        label.setWrap(true);
+
+        Cell cell = addControl(label);
+        cell.height(0);
+        cell.padBottom(0);
+        return cell;
+    }
+
+    protected <T> ListPane<T> addList() {
+        ListPane<T> listPane = new ListPane<>(skin);
         listPane.setItemHeight(18f);
 
         ScrollBarPane scrollBarPane = new ScrollBarPane(listPane, skin);
@@ -136,8 +147,8 @@ public class IngameMenu extends Menu
         return listPane;
     }
 
-    protected TextField addTextField(String text) {
-        TextField textField = new TextField(text, skin);
+    protected TextInput addTextField() {
+        TextInput textField = new TextInput("", skin);
         addControl(textField);
         return textField;
     }
@@ -192,11 +203,10 @@ public class IngameMenu extends Menu
         return table;
     }
 
-    private Cell addControl(Actor control) {
-        Cell cell = container.add(control);
+    private <T extends Actor> Cell<T> addControl(T control) {
+        Cell<T> cell = container.add(control);
         cell.expandX();
         cell.fill();
-        cell.height(28);
         setPadding(cell);
         container.row();
         return cell;

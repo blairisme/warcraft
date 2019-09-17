@@ -165,4 +165,28 @@ public class IngameMenuStrings
     public String getObjectives(int level) {
         return objectives.get("intro" + level);
     }
+
+    public String getNewSaveFailed() {
+        return bundle.get("save-new-failed");
+    }
+
+    public String getListSavesFailed() {
+        return bundle.get("save-list-failed");
+    }
+
+    public String getRemoveSaveFailed() {
+        return bundle.get("save-delete-failed");
+    }
+
+    public String getSaveNotSelectedError() {
+        return bundle.get("save-not-selected");
+    }
+
+    public String getSaveMissingNameError() {
+        return bundle.get("save-missing-name");
+    }
+
+    public String getSaveInvalidNameError() {
+        return bundle.get("save-invalid-name");
+    }
 }

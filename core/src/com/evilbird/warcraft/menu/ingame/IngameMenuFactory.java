@@ -20,9 +20,11 @@ import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.engine.item.specialized.ListPane;
 import com.evilbird.engine.menu.MenuIdentifier;
+import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.menu.ingame.variant.ObjectivesMenu;
+import com.evilbird.warcraft.menu.ingame.variant.SaveMenu;
 import com.evilbird.warcraft.menu.ingame.variant.SoundsMenu;
 import com.evilbird.warcraft.menu.outro.OutroMenuType;
 import com.evilbird.warcraft.state.WarcraftContext;
@@ -145,19 +147,7 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
 
     private IngameMenu setSaveLayout(IngameMenu menu) {
         IngameMenuStrings strings = assets.getStrings();
-
-        menu.setLayout(Wide);
-        menu.addTitle(strings.getSaveTitle());
-
-        TextField field = menu.addTextField("");
-        ListPane list = menu.addList();
-        menu.addButtonRow(
-            Pair.of(strings.getSaveButtonText(), saveState(menu, field)),
-            Pair.of(strings.getDeleteButtonText(), deleteState(menu, list)),
-            Pair.of(strings.getCancelButtonText(), showState(menu)));
-
-        addStates(menu, list);
-        return menu;
+        return new SaveMenu(menu, strings, states);
     }
 
     private IngameMenu setLoadLayout(IngameMenu menu) {
@@ -261,7 +251,7 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
 
     private void addStates(IngameMenu menu, ListPane list) {
         try {
-            List<Identifier> items = states.list(UserState);
+            List<StateIdentifier> items = states.list(UserState);
             if (!items.isEmpty()) {
                 list.setItems(items.toArray());
                 list.setSelected(items.get(0));

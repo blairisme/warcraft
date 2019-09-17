@@ -61,7 +61,7 @@ public class WarcraftStateServiceTest extends StateTestCase
 
     @Test
     public void listAssetsTest() {
-        List<Identifier> result = service.list(WarcraftStateType.AssetState);
+        List<StateIdentifier> result = service.list(WarcraftStateType.AssetState);
         Assert.assertNotNull(result);
         Assert.assertEquals(WarcraftCampaign.values().length, result.size());
     }
@@ -73,7 +73,7 @@ public class WarcraftStateServiceTest extends StateTestCase
         saves[1] = new FileHandle("save2.json");
         when(saveDirectory.list()).thenReturn(saves);
 
-        List<Identifier> result = service.list(WarcraftStateType.UserState);
+        List<StateIdentifier> result = service.list(WarcraftStateType.UserState);
         Assert.assertNotNull(result);
         Assert.assertEquals(saves.length, result.size());
     }

@@ -19,7 +19,6 @@ import com.evilbird.warcraft.menu.ingame.IngameMenuStrings;
 import com.evilbird.warcraft.menu.intro.IntroMenuType;
 
 import static com.evilbird.warcraft.menu.ingame.IngameMenuDimensions.Normal;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Root;
 
 /**
  * Represents a user interface element that displays the objectives of the
@@ -48,7 +47,7 @@ public class ObjectivesMenu extends IngameMenu
 
     private void addButtons(IngameMenuStrings strings) {
         addSpacer();
-        addButton(strings.getPreviousButtonText(), () -> showMenuOverlay(Root));
+        addButton(strings.getPreviousButtonText(), this::showRootMenu);
     }
 
     @Override

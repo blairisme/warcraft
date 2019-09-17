@@ -51,7 +51,8 @@ public class IngameMenuAssets extends AssetBundle
         register("strings", "data/strings/common/menu/ingame", I18NBundle.class);
         register("objectives", "data/strings/${faction}/menu/objectives", I18NBundle.class);
         register("font-medium", "data/fonts/philosopher-medium.ttf", BitmapFont.class, fontSize(16));
-        register("font-small", "data/fonts/philosopher-small.ttf", BitmapFont.class, fontSize(15));
+        register("font-small", "data/fonts/philosopher-small.ttf", BitmapFont.class, fontSize(14));
+        register("font-tiny", "data/fonts/philosopher-tiny.ttf", BitmapFont.class, fontSize(12));
     }
 
     private static Map<String, String> pathVariables(WarcraftContext context) {
@@ -128,6 +129,10 @@ public class IngameMenuAssets extends AssetBundle
 
     public BitmapFont getFontSmall() {
         return getFont("font-small");
+    }
+
+    public BitmapFont getFontTiny() {
+        return getFont("font-tiny");
     }
 
     public IngameMenuStrings getStrings() {

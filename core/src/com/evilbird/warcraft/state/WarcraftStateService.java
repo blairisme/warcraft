@@ -14,7 +14,6 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.error.UnknownEntityException;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.JsonSerializer;
 import com.evilbird.engine.common.serialization.Serializer;
 import com.evilbird.engine.device.Device;
@@ -35,8 +34,6 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 /**
  * Instances of this {@link StateService} provide access to {@link WarcraftState
@@ -70,7 +67,7 @@ public class WarcraftStateService implements StateService
     }
 
     @Override
-    public List<Identifier> list(StateType type) {
+    public List<StateIdentifier> list(StateType type) {
         if (type == WarcraftStateType.AssetState) {
             return listScenarios();
         }
@@ -80,13 +77,13 @@ public class WarcraftStateService implements StateService
         throw new UnknownEntityException(type);
     }
 
-    private List<Identifier> listScenarios() {
+    private List<StateIdentifier> listScenarios() {
         return Arrays.asList(WarcraftCampaign.values());
     }
 
-    private List<Identifier> listSaves() {
+    private List<StateIdentifier> listSaves() {
         try {
-            return saveFiles().stream().map(WarcraftSave::new).collect(toList());
+            return CollectionUtils.convert(saveFiles(), WarcraftSave::new);
         }
         catch (Throwable error){
             throw new StateLoadError(error);

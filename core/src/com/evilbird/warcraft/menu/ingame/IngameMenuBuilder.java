@@ -17,10 +17,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.device.DeviceDisplay;
+import com.evilbird.engine.item.specialized.ScrollBarPaneStyle;
+import com.evilbird.engine.item.specialized.TextInputStyle;
 
 /**
  * Creates a new {@link IngameMenu} instance whose visual presentation is
@@ -77,11 +80,16 @@ public class IngameMenuBuilder
     }
 
     private void addLabelStyle(Skin skin) {
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = assets.getFont();
-        labelStyle.fontColor = Color.WHITE;
-        skin.add("label", labelStyle);
-        skin.add("default", labelStyle);
+        Label.LabelStyle defaultStyle = new Label.LabelStyle();
+        defaultStyle.font = assets.getFont();
+        defaultStyle.fontColor = Color.WHITE;
+        skin.add("label", defaultStyle);
+        skin.add("default", defaultStyle);
+
+        Label.LabelStyle errorStyle = new Label.LabelStyle();
+        errorStyle.font = assets.getFontSmall();
+        errorStyle.fontColor = Color.RED;
+        skin.add("error", errorStyle);
     }
 
     private void addListStyle(Skin skin) {
@@ -91,16 +99,29 @@ public class IngameMenuBuilder
         listStyle.fontColorUnselected = Color.WHITE;
         listStyle.background = assets.getListBackground();
         listStyle.selection = new BaseDrawable();
-
         skin.add("default", listStyle);
     }
 
     private void addTextFieldStyle(Skin skin) {
-        TextField.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle();
-        textFieldStyle.font = assets.getFont();
-        textFieldStyle.fontColor = Color.GOLD;
-        textFieldStyle.background = assets.getTextFieldBackground();
-        skin.add("default", textFieldStyle);
+        TextInputStyle defaultStyle = new TextInputStyle();
+        defaultStyle.font = assets.getFont();
+        defaultStyle.fontColor = Color.WHITE;
+        defaultStyle.cursor = TextureUtils.getDrawable(2, 20, Color.WHITE);
+        defaultStyle.background = assets.getTextFieldBackground();
+        defaultStyle.borderColour = null;
+        defaultStyle.borderColourFocused = Color.GOLD;
+        skin.add("default", defaultStyle, TextFieldStyle.class);
+        skin.add("default", defaultStyle, TextInputStyle.class);
+
+        TextInputStyle errorStyle = new TextInputStyle();
+        errorStyle.font = assets.getFont();
+        errorStyle.fontColor = Color.WHITE;
+        errorStyle.cursor = TextureUtils.getDrawable(2, 20, Color.WHITE);
+        errorStyle.background = assets.getTextFieldBackground();
+        errorStyle.borderColour = Color.RED;
+        errorStyle.borderColourFocused = Color.RED;
+        skin.add("error", errorStyle, TextFieldStyle.class);
+        skin.add("error", errorStyle, TextInputStyle.class);
     }
 
     private void addMenuStyle(Skin skin) {
@@ -110,12 +131,25 @@ public class IngameMenuBuilder
     }
 
     private void addScrollPaneStyle(Skin skin) {
-        ScrollPaneStyle style = new ScrollPaneStyle();
-        style.hScroll = assets.getScrollHorizontal();
-        style.hScrollKnob = assets.getScrollKnob();
-        style.vScroll = assets.getScrollVertical();
-        style.vScrollKnob = style.hScrollKnob;
-        skin.add("default", style);
+        ScrollBarPaneStyle defaultStyle = new ScrollBarPaneStyle();
+        defaultStyle.hScroll = assets.getScrollHorizontal();
+        defaultStyle.hScrollKnob = assets.getScrollKnob();
+        defaultStyle.vScroll = assets.getScrollVertical();
+        defaultStyle.vScrollKnob = defaultStyle.hScrollKnob;
+        defaultStyle.borderColour = null;
+        defaultStyle.borderColourFocused = Color.GOLD;
+        skin.add("default", defaultStyle, ScrollPaneStyle.class);
+        skin.add("default", defaultStyle, ScrollBarPaneStyle.class);
+
+        ScrollBarPaneStyle errorStyle = new ScrollBarPaneStyle();
+        errorStyle.hScroll = assets.getScrollHorizontal();
+        errorStyle.hScrollKnob = assets.getScrollKnob();
+        errorStyle.vScroll = assets.getScrollVertical();
+        errorStyle.vScrollKnob = defaultStyle.hScrollKnob;
+        errorStyle.borderColour = Color.RED;
+        errorStyle.borderColourFocused = Color.RED;
+        skin.add("error", errorStyle, ScrollPaneStyle.class);
+        skin.add("error", errorStyle, ScrollBarPaneStyle.class);
     }
 
     private void addSliderStyle(Skin skin) {

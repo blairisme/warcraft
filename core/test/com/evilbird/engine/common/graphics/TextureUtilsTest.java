@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.common.graphics;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.test.testcase.GameTestCase;
 import org.junit.Assert;
@@ -30,6 +31,6 @@ public class TextureUtilsTest extends GameTestCase
 
     @Test (expected = NullPointerException.class)
     public void getDrawableColorNullTest() {
-        TextureUtils.getDrawable(null);
+        TextureUtils.getDrawable((Color)null);
     }
 }

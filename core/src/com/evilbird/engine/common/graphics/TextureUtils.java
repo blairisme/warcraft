@@ -134,4 +134,13 @@ public class TextureUtils
         pixmap.drawRectangle(0, 0, pixmap.getWidth(), pixmap.getHeight());
         return new Texture(pixmap);
     }
+
+    public static Drawable getDrawable(Texture texture) {
+        TextureRegion region = new TextureRegion(texture);
+        return new TextureRegionDrawable(region);
+    }
+
+    public static Drawable getDrawable(int width, int height, Color colour) {
+        return getDrawable(getTexture(width, height, colour));
+    }
 }
