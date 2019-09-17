@@ -169,6 +169,14 @@ public class GameEngine extends Game implements GameController
         }
     }
 
+    private void loadStateAssetsAsync(StateIdentifier identifier) {
+        if (gameAssets.getLoadedState() != identifier) {
+            GameContext context = stateService.context(identifier);
+            gameAssets.loadStateAssets(identifier, context);
+            gameAssets.finishLoading();
+        }
+    }
+
     @Override
     public void pause() {
         DeviceControls controls = device.getDeviceControls();
@@ -260,16 +268,10 @@ public class GameEngine extends Game implements GameController
 
     public void setState(StateIdentifier identifier) {
         try {
-            if (gameAssets.getLoadedState() != identifier) {
-                GameContext context = stateService.context(identifier);
-                gameAssets.loadStateAssets(identifier, context);
-                gameAssets.finishLoading();
-            }
-            if (stateScreen.getIdentifier() != identifier) {
-                State state = stateService.get(identifier);
-                stateScreen.dispose();
-                stateScreen.setState(state, identifier);
-            }
+            loadStateAssetsAsync(identifier);
+            State state = stateService.get(identifier);
+            stateScreen.dispose();
+            stateScreen.setState(state, identifier);
         }
         catch (Throwable error) {
             handleError(error);
