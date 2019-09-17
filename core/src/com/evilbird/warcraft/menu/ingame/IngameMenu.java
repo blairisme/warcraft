@@ -104,7 +104,9 @@ public class IngameMenu extends Menu
 
     protected Label addTitle(String text) {
         Label title = new Label(text, skin, "title");
+        title.setWrap(true);
         title.setAlignment(Align.center);
+
         Cell cell = addControl(title);
         cell.padTop(12);
         cell.padBottom(12);

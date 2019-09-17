@@ -17,6 +17,7 @@ import com.evilbird.warcraft.menu.ingame.IngameMenuStrings;
 import org.apache.commons.lang3.tuple.Pair;
 
 import static com.evilbird.warcraft.menu.ingame.IngameMenuDimensions.Normal;
+import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Options;
 
 /**
  * Represents the sound settings in-game menu. Controls are provided to set the
@@ -46,7 +47,6 @@ public class SoundsMenu extends IngameMenu
 
     private void addTitle(IngameMenuStrings strings) {
         addTitle(strings.getSoundSettingsTitle());
-        addSpacer();
     }
 
     private void addVolumeSettings(IngameMenuStrings strings, WarcraftPreferences preferences) {
@@ -61,9 +61,10 @@ public class SoundsMenu extends IngameMenu
     }
 
     private void addButtons(IngameMenuStrings strings) {
+        addSpacer();
         addButtonRow(
             Pair.of(strings.getOkButtonText(), this::onSave),
-            Pair.of(strings.getCancelButtonText(), this::onCancel));
+            Pair.of(strings.getCancelButtonText(), () -> showMenuOverlay(Options)));
     }
 
     private void onSave() {
@@ -73,10 +74,6 @@ public class SoundsMenu extends IngameMenu
         preferences.setAcknowledgementEnabled(acknowledgementOn.isChecked());
         preferences.setBuildingSoundsEnabled(buildingSoundsOn.isChecked());
         preferences.save();
-        showState();
-    }
-
-    private void onCancel() {
         showState();
     }
 }

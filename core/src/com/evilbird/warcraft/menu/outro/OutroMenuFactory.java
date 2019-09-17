@@ -75,7 +75,11 @@ public class OutroMenuFactory implements GameFactory<OutroMenu>
         OutroMenu menu = builder.build();
         menu.setType(type);
         menu.setLabelBundle(assets.getStrings());
-        menu.setButtonAction(showNextIntro(menu));
+        if (type == OutroMenuType.Victory) {
+            menu.setButtonAction(showNextIntro(menu));
+        } else {
+            menu.setButtonAction(() -> menu.showMenu());
+        }
         return menu;
     }
 

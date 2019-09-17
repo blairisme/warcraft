@@ -174,6 +174,10 @@ public class IngameMenuStrings
         return bundle.get("save-list-failed");
     }
 
+    public String getLoadSaveFailed() {
+        return bundle.get("save-load-failed");
+    }
+
     public String getRemoveSaveFailed() {
         return bundle.get("save-delete-failed");
     }

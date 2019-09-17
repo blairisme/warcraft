@@ -25,8 +25,6 @@ public enum IngameMenuType implements MenuIdentifier
     Confirm,
     Options,
     Sounds,
-    Speeds,
-    Preferences,
     Objectives,
     Defeat,
     Victory

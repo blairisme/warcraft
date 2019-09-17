@@ -9,47 +9,27 @@
 
 package com.evilbird.warcraft.menu.ingame;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
-import com.evilbird.engine.item.specialized.ListPane;
-import com.evilbird.engine.menu.MenuIdentifier;
-import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.menu.ingame.variant.DefeatMenu;
+import com.evilbird.warcraft.menu.ingame.variant.LoadMenu;
 import com.evilbird.warcraft.menu.ingame.variant.ObjectivesMenu;
+import com.evilbird.warcraft.menu.ingame.variant.OptionsMenu;
+import com.evilbird.warcraft.menu.ingame.variant.QuitMenu;
+import com.evilbird.warcraft.menu.ingame.variant.RootMenu;
 import com.evilbird.warcraft.menu.ingame.variant.SaveMenu;
 import com.evilbird.warcraft.menu.ingame.variant.SoundsMenu;
-import com.evilbird.warcraft.menu.outro.OutroMenuType;
+import com.evilbird.warcraft.menu.ingame.variant.SurrenderMenu;
+import com.evilbird.warcraft.menu.ingame.variant.VictoryMenu;
 import com.evilbird.warcraft.state.WarcraftContext;
-import com.evilbird.warcraft.state.WarcraftSave;
-import org.apache.commons.lang3.tuple.Pair;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import java.util.List;
-
-import static com.evilbird.warcraft.menu.ingame.IngameMenuDimensions.Normal;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuDimensions.Small;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuDimensions.Wide;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Confirm;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Defeat;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Exit;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Load;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Objectives;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Options;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Root;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Save;
-import static com.evilbird.warcraft.menu.ingame.IngameMenuType.Sounds;
-import static com.evilbird.warcraft.menu.intro.IntroMenuType.Human1;
-import static com.evilbird.warcraft.state.WarcraftStateType.UserState;
 
 /**
  * Instances of this factory create {@link IngameMenu} instances, menus
@@ -60,8 +40,6 @@ import static com.evilbird.warcraft.state.WarcraftStateType.UserState;
 @SuppressWarnings("unchecked")
 public class IngameMenuFactory implements GameFactory<IngameMenu>
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(IngameMenuFactory.class);
-
     private AssetManager manager;
     private StateService states;
     private DeviceDisplay display;
@@ -115,203 +93,17 @@ public class IngameMenuFactory implements GameFactory<IngameMenu>
 
     private IngameMenu setLayout(IngameMenu menu, Identifier identifier) {
         switch ((IngameMenuType)identifier) {
-            case Root: return setRootLayout(menu);
-            case Save: return setSaveLayout(menu);
-            case Load: return setLoadLayout(menu);
-            case Exit: return setExitLayout(menu);
-            case Confirm: return setConfirmLayout(menu);
-            case Options: return setOptionsLayout(menu);
-            case Sounds: return setSoundsLayout(menu);
-            case Speeds: return setSpeedsLayout(menu);
-            case Preferences: return setPreferencesLayout(menu);
-            case Objectives: return setObjectivesLayout(menu);
-            case Defeat: return setDefeatLayout(menu);
-            case Victory: return setVictoryLayout(menu);
+            case Root: return new RootMenu(menu, assets.getStrings());
+            case Save: return new SaveMenu(menu, assets.getStrings(), states);
+            case Load: return new LoadMenu(menu, assets.getStrings(), states);
+            case Exit: return new QuitMenu(menu, assets.getStrings());
+            case Confirm: return new SurrenderMenu(menu, assets.getStrings());
+            case Options: return new OptionsMenu(menu, assets.getStrings());
+            case Sounds: return new SoundsMenu(menu, assets.getStrings(), preferences);
+            case Objectives: return new ObjectivesMenu(menu, assets.getStrings());
+            case Defeat: return new DefeatMenu(menu, assets.getStrings());
+            case Victory: return new VictoryMenu(menu, assets.getStrings());
             default: throw new UnsupportedOperationException();
         }
-    }
-
-    private IngameMenu setRootLayout(IngameMenu menu) {
-        IngameMenuStrings strings = assets.getStrings();
-        menu.setLayout(Normal);
-        menu.addTitle(strings.getMainTitle());
-        menu.addButton(strings.getSaveButtonText(), showMenu(menu, Save));
-        menu.addButton(strings.getLoadButtonText(), showMenu(menu, Load));
-        menu.addButton(strings.getOptionsButtonText(), showMenu(menu, Options));
-        menu.addButton(strings.getObjectivesButtonText(), showMenu(menu, Objectives));
-        menu.addButton(strings.getEndButtonText(), showMenu(menu, Exit));
-        menu.addSpacer();
-        menu.addButton(strings.getReturnButtonText(), showState(menu));
-        return menu;
-    }
-
-    private IngameMenu setSaveLayout(IngameMenu menu) {
-        IngameMenuStrings strings = assets.getStrings();
-        return new SaveMenu(menu, strings, states);
-    }
-
-    private IngameMenu setLoadLayout(IngameMenu menu) {
-        IngameMenuStrings strings = assets.getStrings();
-
-        menu.setLayout(Wide);
-        menu.addTitle(strings.getLoadTitle());
-
-        ListPane list = menu.addList();
-        menu.addButtonRow(
-            Pair.of(strings.getLoadButtonText(), loadState(menu, list)),
-            Pair.of(strings.getDeleteButtonText(), deleteState(menu, list)),
-            Pair.of(strings.getCancelButtonText(), showState(menu)));
-
-        addStates(menu, list);
-        return menu;
-    }
-
-    private IngameMenu setExitLayout(IngameMenu menu) {
-        IngameMenuStrings strings = assets.getStrings();
-        menu.setLayout(Normal);
-        menu.addTitle(strings.getSurrenderTitle());
-        menu.addButton(strings.getRestartButtonText(), showMenu(menu, Human1));
-        menu.addButton(strings.getSurrenderButtonText(), showMenu(menu, Confirm));
-        menu.addButton(strings.getQuitButtonText(), showMenu(menu, Confirm));
-        menu.addButton(strings.getExitButtonText(), shutdown());
-        menu.addSpacer();
-        menu.addButton(strings.getPreviousButtonText(), showMenu(menu, Root));
-        return menu;
-    }
-
-    private IngameMenu setConfirmLayout(IngameMenu menu) {
-        IngameMenuStrings strings = assets.getStrings();
-        menu.setLayout(Normal);
-        menu.addTitle(strings.getSurrenderTitle());
-        menu.addButton(strings.getSurrenderButtonText(), showMenu(menu, Defeat));
-        menu.addSpacer();
-        menu.addButton(strings.getCancelButtonText(), showState(menu));
-        return menu;
-    }
-
-    private IngameMenu setOptionsLayout(IngameMenu menu) {
-        IngameMenuStrings strings = assets.getStrings();
-        menu.setLayout(Normal);
-        menu.addTitle(strings.getOptionsTitle());
-        menu.addButton(strings.getSoundsButtonText(), showMenu(menu, Sounds));
-        menu.addButton(strings.getSpeedsButtonText());
-        menu.addButton(strings.getPreferencesButtonText());
-        menu.addSpacer();
-        menu.addButton(strings.getPreviousButtonText(), showMenu(menu, Root));
-        return menu;
-    }
-
-    private IngameMenu setSoundsLayout(IngameMenu menu) {
-        return new SoundsMenu(menu, assets.getStrings(), preferences);
-    }
-
-    private IngameMenu setSpeedsLayout(IngameMenu menu) {
-        IngameMenuStrings strings = assets.getStrings();
-        menu.setLayout(Normal);
-        menu.addTitle(strings.getSpeedSettingsTitle());
-        menu.addSpacer();
-        menu.addButtonRow(
-            Pair.of(strings.getOkButtonText(), showState(menu)),
-            Pair.of(strings.getCancelButtonText(), showState(menu)));
-        return menu;
-    }
-
-    private IngameMenu setPreferencesLayout(IngameMenu menu) {
-        IngameMenuStrings strings = assets.getStrings();
-        menu.setLayout(Normal);
-        menu.addTitle(strings.getPreferenceTitle());
-        menu.addSpacer();
-        menu.addButtonRow(
-            Pair.of(strings.getOkButtonText(), showState(menu)),
-            Pair.of(strings.getCancelButtonText(), showState(menu)));
-        return menu;
-    }
-
-    private IngameMenu setObjectivesLayout(IngameMenu menu) {
-        return new ObjectivesMenu(menu, assets.getStrings());
-    }
-
-    private IngameMenu setDefeatLayout(IngameMenu menu) {
-        IngameMenuStrings strings = assets.getStrings();
-        menu.setLayout(Small);
-        menu.addTitle(strings.getDefeatTitle());
-        menu.addSpacer();
-        menu.addButton(strings.getOkButtonText(), showMenu(menu, OutroMenuType.Defeat));
-        return menu;
-    }
-
-    private IngameMenu setVictoryLayout(IngameMenu menu) {
-        IngameMenuStrings strings = assets.getStrings();
-        menu.setLayout(Small);
-        menu.addTitle(strings.getVictoryTitle());
-        menu.addSpacer();
-        menu.addButton(strings.getOkButtonText(), showMenu(menu, OutroMenuType.Victory));
-        return menu;
-    }
-
-    private void addStates(IngameMenu menu, ListPane list) {
-        try {
-            List<StateIdentifier> items = states.list(UserState);
-            if (!items.isEmpty()) {
-                list.setItems(items.toArray());
-                list.setSelected(items.get(0));
-            }
-        }
-        catch (Throwable error) {
-            LOGGER.error("Failed to list states", error);
-            menu.showError(error);
-        }
-    }
-
-    private SelectListener saveState(IngameMenu menu, TextField field) {
-        return () -> {
-            try {
-                menu.saveState(new WarcraftSave(field.getText()));
-            }
-            catch (Throwable error) {
-                LOGGER.error("Failed to save state", error);
-                menu.showError(error);
-            }
-        };
-    }
-
-    private SelectListener deleteState(IngameMenu menu, ListPane list) {
-        return () -> {
-            try {
-                states.remove((WarcraftSave)list.getSelected());
-            }
-            catch (Throwable error) {
-                LOGGER.error("Failed to remove state", error);
-                menu.showError(error);
-            }
-        };
-    }
-
-    private SelectListener loadState(IngameMenu menu, ListPane list) {
-        return () -> {
-            try {
-                menu.showState((WarcraftSave)list.getSelected());
-            }
-            catch (Throwable error) {
-                LOGGER.error("Failed to load state", error);
-                menu.showError(error);
-            }
-        };
-    }
-
-    private SelectListener showState(IngameMenu menu) {
-        return menu::showState;
-    }
-
-    private SelectListener showMenu(IngameMenu menu, IngameMenuType type) {
-        return () -> menu.showMenuOverlay(type);
-    }
-
-    private SelectListener showMenu(IngameMenu menu, MenuIdentifier type) {
-        return () -> menu.showMenu(type);
-    }
-
-    private SelectListener shutdown() {
-        return () -> Gdx.app.exit();
     }
 }

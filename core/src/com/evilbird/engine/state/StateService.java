@@ -9,7 +9,6 @@
 
 package com.evilbird.engine.state;
 
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.game.GameContext;
 
 import java.util.List;
