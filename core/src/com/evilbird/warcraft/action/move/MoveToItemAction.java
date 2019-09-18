@@ -40,6 +40,7 @@ public class MoveToItemAction extends MoveAction
     @Inject
     public MoveToItemAction(Events events) {
         super(events);
+        setIdentifier(MoveActions.MoveToItem);
     }
 
     @Override
@@ -70,7 +71,7 @@ public class MoveToItemAction extends MoveAction
     }
 
     @Override
-    public boolean isDestinationReached(ItemNode node) {
+    public boolean destinationReached(ItemNode node) {
         Item target = getTarget();
         Collection<Item> occupants = node.getOccupants();
         return occupants.contains(target);

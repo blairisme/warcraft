@@ -38,6 +38,7 @@ public class MoveToVectorAction extends MoveAction
     @Inject
     public MoveToVectorAction(Events events) {
         super(events);
+        setIdentifier(MoveActions.MoveToLocation);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class MoveToVectorAction extends MoveAction
     }
 
     @Override
-    public boolean isDestinationReached(ItemNode node) {
+    public boolean destinationReached(ItemNode node) {
         Vector2 destination = getDestination();
         return Objects.equals(node.getWorldReference(), destination);
     }

@@ -12,24 +12,26 @@ package com.evilbird.warcraft.action.move;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.pathing.SpatialUtils;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.warcraft.action.common.path.ItemNodePath;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.action.common.path.ItemPathFinder;
 import com.evilbird.warcraft.item.common.movement.Movable;
+import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import java.util.Collection;
 import java.util.ListIterator;
 
 import static com.evilbird.engine.action.ActionConstants.ACTION_COMPLETE;
 import static com.evilbird.engine.action.ActionConstants.ACTION_INCOMPLETE;
-import static com.evilbird.engine.common.function.Predicates.not;
+import static com.evilbird.engine.common.collection.CollectionUtils.filter;
+import static com.evilbird.engine.common.pathing.SpatialUtils.getClosest;
 
 /**
  * Instances of this {@link Action action} move an {@link Item} from its
@@ -42,8 +44,8 @@ abstract class MoveAction extends BasicAction
 {
     protected Events events;
     protected ItemGraph graph;
-    protected ItemNode endNode;
     protected ItemNode waypoint;
+    protected ItemNode endpoint;
     protected ItemNodePath path;
     protected ListIterator<ItemNode> pathIterator;
 
@@ -68,16 +70,16 @@ abstract class MoveAction extends BasicAction
     }
 
     public boolean move(Item item, float time) {
-        if (!initializePath(item)) {
+        if (!initialize(item)) {
             return moveFailed(item);
         }
         if (! waypointReached(item)) {
             return updatePosition(item, time);
         }
-        if (destinationReached()) {
+        if (destinationReached() || lastWaypointReached()) {
             return moveComplete(item);
         }
-        if (!destinationValid() || nextWaypointOccupied()) {
+        if (!destinationValid() || !nextWaypointValid()) {
             return reinitializePath(item);
         }
         return updateWaypoint(item);
@@ -90,26 +92,40 @@ abstract class MoveAction extends BasicAction
     }
 
     private boolean moveComplete(Item item) {
-        updateOccupancy(item);
+        resetItem(item);
         events.add(new MoveEvent(item, MoveStatus.Complete));
         return ACTION_COMPLETE;
     }
 
     private boolean reinitializePath(Item item) {
-        updateOccupancy(item);
+        resetItem(item);
         restart();
         return ACTION_INCOMPLETE;
     }
 
+    private void resetItem(Item item) {
+        updateOccupancy(item);
+        if (item instanceof Viewable) {
+            Viewable viewable = (Viewable)item;
+            viewable.setAnimation(UnitAnimation.Idle);
+        }
+    }
+
     private boolean destinationReached() {
-        return isDestinationReached(waypoint) || waypoint.equals(endNode);
+        return destinationReached(waypoint);
+    }
+
+    protected boolean destinationReached(ItemNode node) {
+        return true;
     }
 
     protected boolean destinationValid() {
         return true;
     }
 
-    protected abstract boolean isDestinationReached(ItemNode node);
+    protected boolean lastWaypointReached() {
+        return waypoint.equals(endpoint);
+    }
 
     private boolean waypointReached(Item item) {
         Vector2 position = item.getPosition();
@@ -117,26 +133,62 @@ abstract class MoveAction extends BasicAction
         return position.equals(nodePosition);
     }
 
-    private boolean nextWaypointOccupied() {
+    private boolean nextWaypointValid() {
         if (pathIterator.nextIndex() < path.getCount()) {
             ItemNode nextNode = path.get(pathIterator.nextIndex());
             ItemPathFilter pathFilter = getPathFilter();
-            return !pathFilter.test(nextNode);
+            return pathFilter.test(nextNode);
         }
-        return true;
+        return false;
     }
 
     protected abstract ItemPathFilter getPathFilter();
 
     protected abstract Vector2 getDestination();
 
-    protected boolean initializePath(Item item) {
+    protected boolean initialize(Item item) {
         if (path == null) {
+            return initializeGraph(item)
+                && initializeStartNode(item)
+                && initializePath(item)
+                && initializeItem(item);
+        }
+        return true;
+    }
+
+    protected boolean initializeGraph(Item item) {
+        if (graph == null) {
             ItemRoot root = item.getRoot();
             graph = new ItemGraph(root.getSpatialGraph(), getPathFilter());
+        }
+        return true;
+    }
+
+    protected boolean initializeStartNode(Item item) {
+        if (waypoint == null) {
             waypoint = getStartNode(item);
-            endNode = getEndNode(waypoint);
-            path = ItemPathFinder.findPath(graph, waypoint, endNode);
+        }
+        return waypoint != null;
+    }
+
+    protected ItemNode getStartNode(Item item) {
+        if (graph.isPartiallyAligned(item)) {
+            return getAdjacentNode(item);
+        }
+        return graph.getNode(item.getPosition());
+    }
+
+    private ItemNode getAdjacentNode(Item item) {
+        ItemNode destinationNode = graph.getNode(getDestination());
+        Collection<ItemNode> adjacentNodes = graph.getAdjacentNodes(item);
+        Collection<ItemNode> traversableNodes = filter(adjacentNodes, getPathFilter());
+        return !traversableNodes.isEmpty() ? getClosest(traversableNodes, destinationNode) : null;
+    }
+
+    protected boolean initializePath(Item item) {
+        if (path == null) {
+            endpoint = getEndNode(waypoint);
+            path = ItemPathFinder.findPath(graph, waypoint, endpoint);
             pathIterator = path.listIterator();
 
             if (!path.isEmpty()) {
@@ -147,21 +199,17 @@ abstract class MoveAction extends BasicAction
         return !path.isEmpty();
     }
 
-    protected ItemNode getStartNode(Item item) {
-        if (graph.isPartiallyAligned(item)) {
-            ItemNode destinationNode = graph.getNode(getDestination());
-            Collection<ItemNode> adjacentNodes = graph.getAdjacentNodes(item);
-            adjacentNodes.removeIf(not(getPathFilter()));
-            if (!adjacentNodes.isEmpty()) {
-                return SpatialUtils.getClosest(adjacentNodes, destinationNode);
-            } 
-        }
-        return graph.getNode(item.getPosition());
-    }
-
     protected ItemNode getEndNode(ItemNode node) {
         Vector2 destination = getDestination();
         return graph.getNode(destination);
+    }
+
+    private boolean initializeItem(Item item) {
+        if (item instanceof Viewable) {
+            Viewable viewable = (Viewable)item;
+            viewable.setAnimation(UnitAnimation.Move);
+        }
+        return true;
     }
 
     private void updateOccupancy(Item item) {

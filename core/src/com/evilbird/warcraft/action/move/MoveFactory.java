@@ -27,16 +27,16 @@ import javax.inject.Inject;
 public class MoveFactory implements ActionProvider
 {
     private InjectedPool<MoveCancel> cancelPool;
-    private InjectedPool<MoveToItemSequence> moveItemPool;
-    private InjectedPool<MoveToVectorSequence> moveLocationPool;
-    private InjectedPool<MoveWithinRangeSequence> moveRangePool;
+    private InjectedPool<MoveToItemAction> moveItemPool;
+    private InjectedPool<MoveToVectorAction> moveLocationPool;
+    private InjectedPool<MoveWithinRangeAction> moveRangePool;
 
     @Inject
     public MoveFactory(
         InjectedPool<MoveCancel> cancelPool,
-        InjectedPool<MoveToItemSequence> moveItemPool,
-        InjectedPool<MoveToVectorSequence> moveLocationPool,
-        InjectedPool<MoveWithinRangeSequence> moveRangePool)
+        InjectedPool<MoveToItemAction> moveItemPool,
+        InjectedPool<MoveToVectorAction> moveLocationPool,
+        InjectedPool<MoveWithinRangeAction> moveRangePool)
     {
         this.cancelPool = cancelPool;
         this.moveItemPool = moveItemPool;

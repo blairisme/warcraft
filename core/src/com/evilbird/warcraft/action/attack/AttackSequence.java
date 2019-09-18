@@ -16,8 +16,8 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.common.death.DeathAction;
-import com.evilbird.warcraft.action.move.MoveToItemSequence;
-import com.evilbird.warcraft.action.move.MoveWithinRangeSequence;
+import com.evilbird.warcraft.action.move.MoveToItemAction;
+import com.evilbird.warcraft.action.move.MoveWithinRangeAction;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.apache.commons.lang3.Validate;
@@ -54,8 +54,8 @@ public class AttackSequence extends CompositeAction
 
     @Inject
     public AttackSequence(
-        MoveToItemSequence meleeMove,
-        MoveWithinRangeSequence rangedMove,
+        MoveToItemAction meleeMove,
+        MoveWithinRangeAction rangedMove,
         MeleeAttack meleeAttack,
         RangedAttack rangedAttack,
         DeathAction death,
@@ -171,7 +171,7 @@ public class AttackSequence extends CompositeAction
     }
 
     private boolean subjectMoving() {
-        return current instanceof MoveToItemSequence || current instanceof MoveWithinRangeSequence;
+        return current instanceof MoveToItemAction || current instanceof MoveWithinRangeAction;
     }
 
     private boolean subjectAttacking() {

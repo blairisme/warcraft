@@ -123,4 +123,16 @@ public class ItemPathFilter implements Predicate<ItemNode>
         }
         return true;
     }
+
+    public boolean test(ItemNode node, Item except) {
+        for (Item occupant : node.getOccupants()) {
+            if (occupant != except && traversableItems.contains(occupant)) {
+                return true;
+            }
+            if (!traversableTypes.contains(occupant.getType())) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

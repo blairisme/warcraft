@@ -42,6 +42,7 @@ public class MoveWithinRangeAction extends MoveAction
     @Inject
     public MoveWithinRangeAction(Events events) {
         super(events);
+        setIdentifier(MoveActions.MoveWithRange);
     }
 
     @Override
@@ -74,7 +75,7 @@ public class MoveWithinRangeAction extends MoveAction
     }
 
     @Override
-    public boolean isDestinationReached(ItemNode node) {
+    public boolean destinationReached(ItemNode node) {
         Item target = getTarget();
         Combatant combatant = (Combatant)getItem();
         Vector2 targetPosition = target.getPosition(Alignment.Center);
