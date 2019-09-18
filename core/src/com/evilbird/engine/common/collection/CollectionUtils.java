@@ -56,6 +56,10 @@ public class CollectionUtils
         return collection.stream().flatMap(element -> converter.apply(element).stream()).collect(toList());
     }
 
+    /**
+     * Returns a list consisting of the elements of the given collection that
+     * match the given predicate.
+     */
     public static <T> List<T> filter(Collection<T> collection, Predicate<T> condition) {
         return collection.stream().filter(condition).collect(toList());
     }

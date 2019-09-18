@@ -9,13 +9,19 @@
 
 package com.evilbird.warcraft.action.move;
 
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.item.common.movement.Movable;
 
 import javax.inject.Inject;
+import java.util.Collection;
+
+import static com.evilbird.engine.common.collection.CollectionUtils.filter;
+import static com.evilbird.engine.common.pathing.SpatialUtils.getClosest;
 
 /**
  * Instances of this {@link Action action} move an {@link Item} from its
@@ -27,8 +33,9 @@ import javax.inject.Inject;
  */
 public class MoveToItemAction extends MoveAction
 {
+    private ItemNode endNode;
+    private ItemNode targetNode;
     private ItemPathFilter filter;
-    private MoveDestination destination;
 
     @Inject
     public MoveToItemAction(Events events) {
@@ -36,11 +43,37 @@ public class MoveToItemAction extends MoveAction
     }
 
     @Override
-    public MoveDestination getDestination() {
-        if (destination == null) {
-            destination = new MoveDestinationItem(getTarget());
+    public Vector2 getDestination() {
+        Item target = getTarget();
+        return target.getPosition();
+    }
+
+    @Override
+    public ItemNode getEndNode(ItemNode node) {
+        if (endNode == null) {
+            Item target = getTarget();
+            Collection<ItemNode> adjacentNodes = graph.getAdjacentNodes(target);
+            Collection<ItemNode> traversableNodes = filter(adjacentNodes, getPathFilter());
+            endNode = !traversableNodes.isEmpty() ? getClosest(traversableNodes, node) : null;
         }
-        return destination;
+        return endNode;
+    }
+
+    @Override
+    public boolean destinationValid() {
+        Item target = getTarget();
+        if (targetNode == null) {
+            Collection<ItemNode> nodes = graph.getNodes(target);
+            targetNode = nodes.iterator().next();
+        }
+        return targetNode.hasOccupant(target);
+    }
+
+    @Override
+    public boolean isDestinationReached(ItemNode node) {
+        Item target = getTarget();
+        Collection<Item> occupants = node.getOccupants();
+        return occupants.contains(target);
     }
 
     @Override
@@ -59,14 +92,16 @@ public class MoveToItemAction extends MoveAction
     public void reset() {
         super.reset();
         filter = null;
-        destination = null;
+        endNode = null;
+        targetNode = null;
     }
 
     @Override
     public void restart() {
         super.restart();
         filter = null;
-        destination = null;
+        endNode = null;
+        targetNode = null;
     }
 
     public static MoveToItemAction move(Events events) {

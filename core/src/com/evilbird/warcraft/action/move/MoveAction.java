@@ -40,12 +40,12 @@ import static com.evilbird.engine.common.function.Predicates.not;
  */
 abstract class MoveAction extends BasicAction
 {
-    private Events events;
-    private ItemGraph graph;
-    private ItemNode endNode;
-    private ItemNode waypoint;
-    private ItemNodePath path;
-    private ListIterator<ItemNode> pathIterator;
+    protected Events events;
+    protected ItemGraph graph;
+    protected ItemNode endNode;
+    protected ItemNode waypoint;
+    protected ItemNodePath path;
+    protected ListIterator<ItemNode> pathIterator;
 
     public MoveAction(Events events) {
         this.events = events;
@@ -77,7 +77,7 @@ abstract class MoveAction extends BasicAction
         if (destinationReached()) {
             return moveComplete(item);
         }
-        if (destinationInvalid() || nextWaypointOccupied()) {
+        if (!destinationValid() || nextWaypointOccupied()) {
             return reinitializePath(item);
         }
         return updateWaypoint(item);
@@ -102,14 +102,14 @@ abstract class MoveAction extends BasicAction
     }
 
     private boolean destinationReached() {
-        MoveDestination destination = getDestination();
-        return destination.isDestinationReached(graph, waypoint) || waypoint.equals(endNode);
+        return isDestinationReached(waypoint) || waypoint.equals(endNode);
     }
 
-    private boolean destinationInvalid() {
-        MoveDestination destination = getDestination();
-        return !destination.isDestinationValid(graph, endNode);
+    protected boolean destinationValid() {
+        return true;
     }
+
+    protected abstract boolean isDestinationReached(ItemNode node);
 
     private boolean waypointReached(Item item) {
         Vector2 position = item.getPosition();
@@ -126,14 +126,16 @@ abstract class MoveAction extends BasicAction
         return true;
     }
 
-    private boolean initializePath(Item item) {
+    protected abstract ItemPathFilter getPathFilter();
+
+    protected abstract Vector2 getDestination();
+
+    protected boolean initializePath(Item item) {
         if (path == null) {
             ItemRoot root = item.getRoot();
             graph = new ItemGraph(root.getSpatialGraph(), getPathFilter());
-
-            MoveDestination destination = getDestination();
-            waypoint = getStartNode(item, destination);
-            endNode = destination.getDestinationNode(graph, waypoint, getPathFilter());
+            waypoint = getStartNode(item);
+            endNode = getEndNode(waypoint);
             path = ItemPathFinder.findPath(graph, waypoint, endNode);
             pathIterator = path.listIterator();
 
@@ -145,9 +147,9 @@ abstract class MoveAction extends BasicAction
         return !path.isEmpty();
     }
 
-    private ItemNode getStartNode(Item item, MoveDestination destination) {
+    protected ItemNode getStartNode(Item item) {
         if (graph.isPartiallyAligned(item)) {
-            ItemNode destinationNode = graph.getNode(destination.getDestination());
+            ItemNode destinationNode = graph.getNode(getDestination());
             Collection<ItemNode> adjacentNodes = graph.getAdjacentNodes(item);
             adjacentNodes.removeIf(not(getPathFilter()));
             if (!adjacentNodes.isEmpty()) {
@@ -155,6 +157,11 @@ abstract class MoveAction extends BasicAction
             } 
         }
         return graph.getNode(item.getPosition());
+    }
+
+    protected ItemNode getEndNode(ItemNode node) {
+        Vector2 destination = getDestination();
+        return graph.getNode(destination);
     }
 
     private void updateOccupancy(Item item) {
@@ -199,8 +206,4 @@ abstract class MoveAction extends BasicAction
         }
         return pathNodePosition;
     }
-
-    protected abstract ItemPathFilter getPathFilter();
-
-    protected abstract MoveDestination getDestination();
 }

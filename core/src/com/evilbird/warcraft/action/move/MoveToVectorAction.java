@@ -15,10 +15,12 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.item.common.movement.Movable;
 
 import javax.inject.Inject;
+import java.util.Objects;
 
 /**
  * Instances of this {@link Action action} move an {@link Item} from its
@@ -31,7 +33,7 @@ import javax.inject.Inject;
 public class MoveToVectorAction extends MoveAction
 {
     private ItemPathFilter filter;
-    private MoveDestination destination;
+    private Vector2 destination;
 
     @Inject
     public MoveToVectorAction(Events events) {
@@ -39,16 +41,21 @@ public class MoveToVectorAction extends MoveAction
     }
 
     @Override
-    public MoveDestination getDestination() {
+    public Vector2 getDestination() {
         if (destination == null) {
             Item item = getItem();
             ItemRoot root = item.getRoot();
             UserInput cause = getCause();
             Vector2 projected = cause.getPosition();
-            Vector2 position = root.unproject(projected);
-            destination = new MoveDestinationVector(position);
+            destination = root.unproject(projected);
         }
         return destination;
+    }
+
+    @Override
+    public boolean isDestinationReached(ItemNode node) {
+        Vector2 destination = getDestination();
+        return Objects.equals(node.getWorldReference(), destination);
     }
 
     @Override
@@ -74,9 +81,5 @@ public class MoveToVectorAction extends MoveAction
         super.restart();
         filter = null;
         destination = null;
-    }
-
-    public static MoveToVectorAction moveToCause(Events events) {
-        return new MoveToVectorAction(events);
     }
 }

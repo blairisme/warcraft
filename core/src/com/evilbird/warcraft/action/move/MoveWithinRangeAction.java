@@ -9,14 +9,21 @@
 
 package com.evilbird.warcraft.action.move;
 
+import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.common.lang.Alignment;
+import com.evilbird.engine.common.pathing.SpatialUtils;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.item.common.movement.Movable;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
+import java.util.Collection;
+
+import static com.evilbird.engine.common.collection.CollectionUtils.filter;
 
 /**
  * Instances of this {@link Action action} move an {@link Item} from its
@@ -28,8 +35,9 @@ import javax.inject.Inject;
  */
 public class MoveWithinRangeAction extends MoveAction
 {
+    private ItemNode endNode;
+    private ItemNode targetNode;
     private ItemPathFilter filter;
-    private MoveDestination destination;
 
     @Inject
     public MoveWithinRangeAction(Events events) {
@@ -37,13 +45,42 @@ public class MoveWithinRangeAction extends MoveAction
     }
 
     @Override
-    public MoveDestination getDestination() {
-        if (destination == null) {
+    public Vector2 getDestination() {
+        Item target = getTarget();
+        return target.getPosition();
+    }
+
+    @Override
+    public ItemNode getEndNode(ItemNode node) {
+        if (endNode == null) {
             Item target = getTarget();
             Combatant combatant = (Combatant)getItem();
-            destination = new MoveDestinationRange(target, combatant.getAttackRange());
+            int range = combatant.getAttackRange();
+            Collection<ItemNode> adjacentNodes = graph.getAdjacentNodes(target.getPosition(), target.getSize(), range);
+            Collection<ItemNode> traversableNodes = filter(adjacentNodes, getPathFilter());
+            endNode = !traversableNodes.isEmpty() ? SpatialUtils.getClosest(traversableNodes, node) : null;
         }
-        return destination;
+        return endNode;
+    }
+
+    @Override
+    public boolean destinationValid() {
+        Item target = getTarget();
+        if (targetNode == null) {
+            Collection<ItemNode> nodes = graph.getNodes(target);
+            targetNode = nodes.iterator().next();
+        }
+        return targetNode.hasOccupant(target);
+    }
+
+    @Override
+    public boolean isDestinationReached(ItemNode node) {
+        Item target = getTarget();
+        Combatant combatant = (Combatant)getItem();
+        Vector2 targetPosition = target.getPosition(Alignment.Center);
+        Vector2 nodePosition = node.getWorldReference(Alignment.Center);
+        float distance = targetPosition.dst(nodePosition);
+        return distance < combatant.getAttackRange();
     }
 
     @Override
@@ -62,13 +99,15 @@ public class MoveWithinRangeAction extends MoveAction
     public void reset() {
         super.reset();
         filter = null;
-        destination = null;
+        endNode = null;
+        targetNode = null;
     }
 
     @Override
     public void restart() {
         super.restart();
         filter = null;
-        destination = null;
+        endNode = null;
+        targetNode = null;
     }
 }
