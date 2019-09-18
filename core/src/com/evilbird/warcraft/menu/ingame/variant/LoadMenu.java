@@ -70,7 +70,6 @@ public class LoadMenu extends IngameMenu
     private void initializeButtons() {
         addButtonRow(
             Pair.of(strings.getLoadButtonText(), this::loadSave),
-            Pair.of(strings.getDeleteButtonText(), this::deleteState),
             Pair.of(strings.getCancelButtonText(), this::showRootMenu));
     }
 
@@ -101,33 +100,10 @@ public class LoadMenu extends IngameMenu
         }
     }
 
-    private void deleteState() {
-        try {
-            StateIdentifier save = list.getSelected();
-            if (save == null) {
-                showError(strings.getSaveNotSelectedError());
-            } else {
-                states.remove(save);
-                list.removeItem(save);
-            }
-        }
-        catch (Throwable error) {
-            LOGGER.error("Failed to remove state", error);
-            showError(strings.getRemoveSaveFailed());
-        }
-    }
-
     private void showError(String text) {
         listError.getActor().setText(text);
         listError.height(20);
         listError.padBottom(6);
         listContainer.setStyle("error");
-    }
-
-    private void hideError() {
-        listError.getActor().setText("");
-        listError.height(0);
-        listError.padBottom(0);
-        listContainer.setStyle("default");
     }
 }
