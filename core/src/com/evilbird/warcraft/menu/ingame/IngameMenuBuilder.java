@@ -72,6 +72,7 @@ public class IngameMenuBuilder
         defaultStyle.down = assets.getButtonSelected();
         defaultStyle.borderColour = null;
         defaultStyle.borderColourFocused = Color.GOLD;
+        defaultStyle.clickSound = assets.getButtonClick();
         skin.add("default", defaultStyle, TextButtonStyle.class);
         skin.add("default", defaultStyle, LabelButtonStyle.class);
 

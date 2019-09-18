@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 import com.badlogic.gdx.utils.Disposable;
@@ -41,8 +42,13 @@ public class LabelButton extends TextButton implements Disposable
     private boolean inFocus;
 
     public LabelButton(String text, Skin skin) {
-        super(text, skin);
+        this(text, skin, "default");
+    }
+
+    public LabelButton(String text, Skin skin, String style) {
+        super(text, skin, style);
         this.skin = skin;
+        addListener(new ClickObserver());
         addListener(new FocusObserver());
     }
 
@@ -64,6 +70,17 @@ public class LabelButton extends TextButton implements Disposable
         if (borderDrawable != null) {
             borderDrawable.draw(batch, getX(), getY(), getWidth(), getHeight());
         }
+    }
+
+    public void onClick() {
+        if (style != null && style.clickSound != null) {
+            style.clickSound.play();
+        }
+    }
+
+    public void onFocus(boolean focused) {
+        inFocus = focused;
+        updateBorderColour();
     }
 
     public void setStyle(String name) {
@@ -95,7 +112,7 @@ public class LabelButton extends TextButton implements Disposable
 
     private void updateBorderColour() {
         if (style != null) {
-            this.borderColour = inFocus ? style.borderColourFocused : style.borderColour;
+            borderColour = inFocus ? style.borderColourFocused : style.borderColour;
             updateBorder();
         }
     }
@@ -103,8 +120,14 @@ public class LabelButton extends TextButton implements Disposable
     private class FocusObserver extends FocusListener {
         @Override
         public void keyboardFocusChanged(FocusEvent event, Actor actor, boolean focused) {
-            inFocus = focused;
-            updateBorderColour();
+            onFocus(focused);
+        }
+    }
+
+    private class ClickObserver extends ChangeListener {
+        @Override
+        public void changed(ChangeEvent event, Actor actor) {
+            onClick();
         }
     }
 }

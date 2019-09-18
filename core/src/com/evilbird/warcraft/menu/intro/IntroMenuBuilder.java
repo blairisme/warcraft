@@ -10,10 +10,11 @@
 package com.evilbird.warcraft.menu.intro;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.common.control.LabelButtonStyle;
 import com.evilbird.engine.device.DeviceDisplay;
 
 /**
@@ -51,22 +52,24 @@ public class IntroMenuBuilder
     }
 
     private void addLabelStyle(Skin skin, IntroMenuAssets assets) {
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        LabelStyle labelStyle = new LabelStyle();
         labelStyle.font = assets.getLargeFont();
         labelStyle.fontColor = Color.WHITE;
         skin.add("default", labelStyle);
     }
 
     private void addButtonStyle(Skin skin, IntroMenuAssets assets) {
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = assets.getSmallFont();
-        textButtonStyle.fontColor = Color.WHITE;
-        textButtonStyle.up = assets.getButtonUp();
-        textButtonStyle.over = textButtonStyle.up;
-        textButtonStyle.checked = textButtonStyle.up;
-        textButtonStyle.checkedOver = textButtonStyle.up;
-        textButtonStyle.disabled = assets.getButtonDisabled();
-        textButtonStyle.down = assets.getButtonDown();
-        skin.add("default", textButtonStyle);
+        LabelButtonStyle defaultStyle = new LabelButtonStyle();
+        defaultStyle.font = assets.getSmallFont();
+        defaultStyle.fontColor = Color.WHITE;
+        defaultStyle.up = assets.getButtonUp();
+        defaultStyle.over = defaultStyle.up;
+        defaultStyle.checked = defaultStyle.up;
+        defaultStyle.checkedOver = defaultStyle.up;
+        defaultStyle.disabled = assets.getButtonDisabled();
+        defaultStyle.down = assets.getButtonDown();
+        defaultStyle.clickSound = assets.getButtonClick();
+        skin.add("default", defaultStyle, TextButtonStyle.class);
+        skin.add("default", defaultStyle, LabelButtonStyle.class);
     }
 }

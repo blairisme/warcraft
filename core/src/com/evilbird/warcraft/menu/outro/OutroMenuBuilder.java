@@ -10,11 +10,12 @@
 package com.evilbird.warcraft.menu.outro;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.common.control.LabelButtonStyle;
 import com.evilbird.engine.device.DeviceDisplay;
 
 /**
@@ -53,33 +54,35 @@ public class OutroMenuBuilder
     }
 
     private void addLabelStyle(Skin skin) {
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        LabelStyle labelStyle = new LabelStyle();
         labelStyle.font = assets.getFont();
         labelStyle.fontColor = Color.WHITE;
         skin.add("default", labelStyle);
         skin.add("progress-outro", labelStyle);
 
-        Label.LabelStyle largeStyle = new Label.LabelStyle();
+        LabelStyle largeStyle = new LabelStyle();
         largeStyle.font = assets.getFontLarge();
         largeStyle.fontColor = Color.WHITE;
         skin.add("font-large", largeStyle);
     }
 
     private void addButtonStyle(Skin skin) {
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = assets.getFont();
-        textButtonStyle.fontColor = Color.WHITE;
-        textButtonStyle.up = assets.getButtonEnabled();
-        textButtonStyle.over = textButtonStyle.up;
-        textButtonStyle.checked = textButtonStyle.up;
-        textButtonStyle.checkedOver = textButtonStyle.up;
-        textButtonStyle.disabled = assets.getButtonDisabled();
-        textButtonStyle.down = assets.getButtonSelected();
-        skin.add("default", textButtonStyle);
+        LabelButtonStyle defaultStyle = new LabelButtonStyle();
+        defaultStyle.font = assets.getFont();
+        defaultStyle.fontColor = Color.WHITE;
+        defaultStyle.up = assets.getButtonEnabled();
+        defaultStyle.over = defaultStyle.up;
+        defaultStyle.checked = defaultStyle.up;
+        defaultStyle.checkedOver = defaultStyle.up;
+        defaultStyle.disabled = assets.getButtonDisabled();
+        defaultStyle.down = assets.getButtonSelected();
+        defaultStyle.clickSound = assets.getButtonClick();
+        skin.add("default", defaultStyle, TextButtonStyle.class);
+        skin.add("default", defaultStyle, LabelButtonStyle.class);
     }
 
     private void addProgressBarStyle(Skin skin) {
-        ProgressBar.ProgressBarStyle style = new ProgressBar.ProgressBarStyle();
+        ProgressBarStyle style = new ProgressBarStyle();
         style.background = assets.getProgressBackground();
         style.knob = assets.getProgressFill();
         style.knobBefore = style.knob;

@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.evilbird.engine.common.control.LabelButton;
 import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.device.DeviceDisplay;
@@ -46,12 +45,12 @@ public class MainMenu extends Menu
     }
 
     public void insertButton(String text) {
-        TextButton button = createButton(text);
+        LabelButton button = createButton(text);
         addButton(table, button);
     }
 
     public void insertButton(String text, SelectListener action) {
-        TextButton button = createButton(text, action);
+        LabelButton button = createButton(text, action);
         addButton(table, button);
     }
 
@@ -73,11 +72,11 @@ public class MainMenu extends Menu
         return table;
     }
 
-    private TextButton createButton(String text) {
+    private LabelButton createButton(String text) {
         return createButton(text, null);
     }
 
-    private TextButton createButton(String text, SelectListener action) {
+    private LabelButton createButton(String text, SelectListener action) {
         LabelButton button = new LabelButton(text, skin);
         button.setDisabled(true);
 
@@ -88,7 +87,7 @@ public class MainMenu extends Menu
         return button;
     }
 
-    private void addButton(Table table, TextButton button) {
+    private void addButton(Table table, LabelButton button) {
         Cell cell = table.add(button);
         cell.width(336);
         cell.height(28);

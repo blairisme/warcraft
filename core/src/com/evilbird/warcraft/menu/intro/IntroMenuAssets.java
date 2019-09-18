@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.audio.music.MusicCombination;
 import com.evilbird.engine.common.audio.music.MusicSequence;
+import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.collection.Maps;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class IntroMenuAssets extends AssetBundle
 
         register("background", "data/textures/${faction}/menu/${name}.png");
         register("button", "data/textures/common/menu/button.png");
+        register("button-click", "data/sounds/common/menu/click.mp3");
         register("music", "data/music/4.mp3", Music.class);
         register("strings", "data/strings/${faction}/menu/${name}", I18NBundle.class);
         register("objectives", "data/strings/${faction}/menu/objectives", I18NBundle.class);
@@ -64,6 +66,10 @@ public class IntroMenuAssets extends AssetBundle
 
     public Drawable getBackground() {
         return getDrawable("background");
+    }
+
+    public Sound getButtonClick() {
+        return getSoundEffect("button-click");
     }
 
     public Drawable getButtonUp() {

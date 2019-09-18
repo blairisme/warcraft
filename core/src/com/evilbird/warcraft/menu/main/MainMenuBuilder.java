@@ -11,7 +11,8 @@ package com.evilbird.warcraft.menu.main;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.evilbird.engine.common.control.LabelButtonStyle;
 import com.evilbird.engine.device.DeviceDisplay;
 
 /**
@@ -37,28 +38,30 @@ public class MainMenuBuilder
 
     private Skin getSkin() {
         Skin skin = new Skin();
-        skin.add("default", getMainMenuStyle(), MainMenuStyle.class);
-        skin.add("default", getTextButtonStyle(), TextButton.TextButtonStyle.class);
+        addMainMenuStyle(skin);
+        addTextButtonStyle(skin);
         return skin;
     }
 
-    private MainMenuStyle getMainMenuStyle() {
+    private void addMainMenuStyle(Skin skin) {
         MainMenuStyle mainMenuStyle = new MainMenuStyle();
         mainMenuStyle.background = assets.getBackground();
         mainMenuStyle.music = assets.getMusic();
-        return mainMenuStyle;
+        skin.add("default", mainMenuStyle, MainMenuStyle.class);
     }
 
-    private TextButton.TextButtonStyle getTextButtonStyle() {
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = assets.getFont();
-        textButtonStyle.fontColor = Color.WHITE;
-        textButtonStyle.up = assets.getButtonEnabled();
-        textButtonStyle.over = textButtonStyle.up;
-        textButtonStyle.checked = textButtonStyle.up;
-        textButtonStyle.checkedOver = textButtonStyle.up;
-        textButtonStyle.disabled = assets.getButtonDisabled();
-        textButtonStyle.down = assets.getButtonSelected();
-        return textButtonStyle;
+    private void addTextButtonStyle(Skin skin) {
+        LabelButtonStyle defaultStyle = new LabelButtonStyle();
+        defaultStyle.font = assets.getFont();
+        defaultStyle.fontColor = Color.WHITE;
+        defaultStyle.up = assets.getButtonEnabled();
+        defaultStyle.over = defaultStyle.up;
+        defaultStyle.checked = defaultStyle.up;
+        defaultStyle.checkedOver = defaultStyle.up;
+        defaultStyle.disabled = assets.getButtonDisabled();
+        defaultStyle.down = assets.getButtonSelected();
+        defaultStyle.clickSound = assets.getButtonClick();
+        skin.add("default", defaultStyle, TextButtonStyle.class);
+        skin.add("default", defaultStyle, LabelButtonStyle.class);
     }
 }

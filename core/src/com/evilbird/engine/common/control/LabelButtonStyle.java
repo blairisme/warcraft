@@ -11,6 +11,7 @@ package com.evilbird.engine.common.control;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.evilbird.engine.common.audio.sound.Sound;
 
 /**
  * Defines the visual presentation of a {@link LabelButton} control.
@@ -21,6 +22,7 @@ public class LabelButtonStyle extends TextButtonStyle
 {
     public Color borderColour;
     public Color borderColourFocused;
+    public Sound clickSound;
     
     public LabelButtonStyle() {
         super();
@@ -30,5 +32,6 @@ public class LabelButtonStyle extends TextButtonStyle
         super(style);
         this.borderColour = style.borderColour;
         this.borderColourFocused = style.borderColourFocused;
+        this.clickSound = style.clickSound;
     }
 }
