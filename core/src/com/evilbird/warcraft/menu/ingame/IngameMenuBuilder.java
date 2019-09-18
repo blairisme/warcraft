@@ -22,8 +22,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.device.DeviceDisplay;
-import com.evilbird.engine.item.specialized.ScrollBarPaneStyle;
-import com.evilbird.engine.item.specialized.TextInputStyle;
+import com.evilbird.engine.common.control.ScrollBarPaneStyle;
+import com.evilbird.engine.common.control.TextInputStyle;
 
 /**
  * Creates a new {@link IngameMenu} instance whose visual presentation is

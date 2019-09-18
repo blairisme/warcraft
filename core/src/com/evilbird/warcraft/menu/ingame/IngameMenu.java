@@ -22,9 +22,9 @@ import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.control.SelectListener;
 import com.evilbird.engine.common.control.SelectListenerAdapter;
 import com.evilbird.engine.device.DeviceDisplay;
-import com.evilbird.engine.item.specialized.ListPane;
-import com.evilbird.engine.item.specialized.ScrollBarPane;
-import com.evilbird.engine.item.specialized.TextInput;
+import com.evilbird.engine.common.control.ListPane;
+import com.evilbird.engine.common.control.ScrollBarPane;
+import com.evilbird.engine.common.control.TextInput;
 import com.evilbird.engine.menu.Menu;
 import org.apache.commons.lang3.tuple.Pair;
 

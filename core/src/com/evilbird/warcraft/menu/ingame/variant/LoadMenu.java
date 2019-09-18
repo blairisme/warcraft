@@ -11,8 +11,8 @@ package com.evilbird.warcraft.menu.ingame.variant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.evilbird.engine.item.specialized.ListPane;
-import com.evilbird.engine.item.specialized.ScrollBarPane;
+import com.evilbird.engine.common.control.ListPane;
+import com.evilbird.engine.common.control.ScrollBarPane;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.warcraft.menu.ingame.IngameMenu;
