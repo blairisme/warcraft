@@ -13,6 +13,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.item.ItemType;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.ui.confirmation.ConfirmType;
 
 import javax.inject.Inject;
@@ -26,9 +29,14 @@ import javax.inject.Inject;
 public class ConfirmAttack extends ConfirmAction
 {
     @Inject
-    public ConfirmAttack() {
-        super(ConfirmType.Attack);
+    public ConfirmAttack(ItemFactory factory, WarcraftPreferences preferences) {
+        super(factory, preferences);
         setIdentifier(ConfirmActions.ConfirmAttack);
+    }
+
+    @Override
+    protected ItemType getEffectType() {
+        return ConfirmType.Attack;
     }
 
     @Override

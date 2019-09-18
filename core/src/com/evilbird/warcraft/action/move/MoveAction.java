@@ -85,25 +85,25 @@ abstract class MoveAction extends BasicAction
         return updateWaypoint(item);
     }
 
-    private boolean moveFailed(Item item) {
+    protected boolean moveFailed(Item item) {
         setError(new PathUnknownException(item));
         events.add(new MoveEvent(item, MoveStatus.Failed));
         return ACTION_COMPLETE;
     }
 
-    private boolean moveComplete(Item item) {
+    protected boolean moveComplete(Item item) {
         resetItem(item);
         events.add(new MoveEvent(item, MoveStatus.Complete));
         return ACTION_COMPLETE;
     }
 
-    private boolean reinitializePath(Item item) {
+    protected boolean reinitializePath(Item item) {
         resetItem(item);
         restart();
         return ACTION_INCOMPLETE;
     }
 
-    private void resetItem(Item item) {
+    protected void resetItem(Item item) {
         updateOccupancy(item);
         if (item instanceof Viewable) {
             Viewable viewable = (Viewable)item;
@@ -127,13 +127,13 @@ abstract class MoveAction extends BasicAction
         return waypoint.equals(endpoint);
     }
 
-    private boolean waypointReached(Item item) {
+    protected boolean waypointReached(Item item) {
         Vector2 position = item.getPosition();
         Vector2 nodePosition = waypoint.getWorldReference();
         return position.equals(nodePosition);
     }
 
-    private boolean nextWaypointValid() {
+    protected boolean nextWaypointValid() {
         if (pathIterator.nextIndex() < path.getCount()) {
             ItemNode nextNode = path.get(pathIterator.nextIndex());
             ItemPathFilter pathFilter = getPathFilter();
@@ -178,7 +178,7 @@ abstract class MoveAction extends BasicAction
         return graph.getNode(item.getPosition());
     }
 
-    private ItemNode getAdjacentNode(Item item) {
+    protected ItemNode getAdjacentNode(Item item) {
         ItemNode destinationNode = graph.getNode(getDestination());
         Collection<ItemNode> adjacentNodes = graph.getAdjacentNodes(item);
         Collection<ItemNode> traversableNodes = filter(adjacentNodes, getPathFilter());
@@ -204,7 +204,7 @@ abstract class MoveAction extends BasicAction
         return graph.getNode(destination);
     }
 
-    private boolean initializeItem(Item item) {
+    protected boolean initializeItem(Item item) {
         if (item instanceof Viewable) {
             Viewable viewable = (Viewable)item;
             viewable.setAnimation(UnitAnimation.Move);
@@ -212,7 +212,7 @@ abstract class MoveAction extends BasicAction
         return true;
     }
 
-    private void updateOccupancy(Item item) {
+    protected void updateOccupancy(Item item) {
         if (item instanceof ItemGraphOccupant) {
             ItemGraphOccupant occupant = (ItemGraphOccupant)item;
 
@@ -224,7 +224,7 @@ abstract class MoveAction extends BasicAction
         }
     }
 
-    private boolean updateWaypoint(Item item) {
+    protected boolean updateWaypoint(Item item) {
         updateOccupancy(item);
         events.add(new MoveEvent(item, waypoint, MoveStatus.Updated));
         waypoint = pathIterator.next();
@@ -232,14 +232,14 @@ abstract class MoveAction extends BasicAction
         return ACTION_INCOMPLETE;
     }
 
-    private boolean updatePosition(Item item, float time) {
+    protected boolean updatePosition(Item item, float time) {
         Vector2 oldPosition = item.getPosition();
         Vector2 newPosition = getNextPosition(item, oldPosition, time);
         item.setPosition(newPosition);
         return ACTION_INCOMPLETE;
     }
 
-    private Vector2 getNextPosition(Item item, Vector2 position, float time) {
+    protected Vector2 getNextPosition(Item item, Vector2 position, float time) {
         Movable movable = (Movable)item;
 
         Vector2 pathNodePosition = waypoint.getWorldReference();

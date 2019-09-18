@@ -177,6 +177,4 @@ public class AttackSequence extends CompositeAction
     private boolean subjectAttacking() {
         return current instanceof RangedAttack || current instanceof MeleeAttack;
     }
-
-    private void meh() {}
 }

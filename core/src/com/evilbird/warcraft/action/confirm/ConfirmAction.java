@@ -11,22 +11,19 @@ package com.evilbird.warcraft.action.confirm;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Alignment;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.Audible;
 import com.evilbird.engine.common.lang.RandomIdentifier;
+import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemComposite;
-import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
-import com.evilbird.warcraft.item.ui.confirmation.ConfirmType;
+import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.item.ItemType;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
-import static com.evilbird.engine.action.common.AudibleAction.play;
-import static com.evilbird.engine.action.framework.DelayedAction.delay;
-import static com.evilbird.engine.item.utility.ItemPredicates.itemWithId;
-import static com.evilbird.warcraft.action.common.create.CreateAction.create;
-import static com.evilbird.warcraft.action.common.remove.RemoveAction.remove;
+import static com.evilbird.engine.action.ActionConstants.ACTION_COMPLETE;
+import static com.evilbird.engine.action.ActionConstants.ACTION_INCOMPLETE;
 import static com.evilbird.warcraft.item.unit.UnitSound.Acknowledge;
 
 /**
@@ -35,51 +32,74 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Acknowledge;
  *
  * @author Blair Butterworth
  */
-public abstract class ConfirmAction extends ScenarioAction
+abstract class ConfirmAction extends BasicAction
 {
     private static final transient float ANIMATION_LIFETIME = 0.55f;
 
-    private transient ConfirmType type;
-    private transient Identifier effectId;
+    private transient Item animation;
+    private transient GameTimer timer;
+    private transient ItemFactory factory;
+    private transient WarcraftPreferences preferences;
 
-    public ConfirmAction(ConfirmType type) {
-        this.type = type;
-        initialize();
+    public ConfirmAction(ItemFactory factory, WarcraftPreferences preferences) {
+        this.factory = factory;
+        this.preferences = preferences;
     }
 
     @Override
-    protected void steps(Identifier identifier) {
-        then(create(type, properties()));
-        then(play(Acknowledge));
-        then(delay(ANIMATION_LIFETIME));
-        then(remove(confirm(), null));
+    public boolean act(float time) {
+        if (! initialized()) {
+            return initialize();
+        }
+        if (timer.advance(time)) {
+            return removeAnimation();
+        }
+        return ACTION_INCOMPLETE;
     }
 
-    @Override
-    public void reset() {
-        super.reset();
-        initialize();
+    protected boolean initialized() {
+        return animation != null;
     }
 
-    protected void initialize() {
-        effectId = new RandomIdentifier();
+    protected boolean initialize() {
+        createTimer();
+        createAnimation();
+        playAcknowledgement();
+        return ACTION_INCOMPLETE;
     }
 
-    protected Supplier<Item> confirm() {
-        return () -> {
-            ItemComposite parent = getItem().getParent();
-            return parent.find(itemWithId(effectId));
-        };
+    protected void createTimer() {
+        timer = new GameTimer(ANIMATION_LIFETIME);
     }
 
-    protected Consumer<Item> properties() {
-        return (item) -> {
-            item.setIdentifier(effectId);
-            item.setPosition(getPosition(), getAlignment());
-        };
+    protected void playAcknowledgement() {
+        if (preferences.isAcknowledgementEnabled()) {
+            Audible audible = (Audible)getItem();
+            audible.setSound(Acknowledge);
+        }
+    }
+
+    protected void createAnimation() {
+        animation = factory.get(getEffectType());
+        animation.setIdentifier(new RandomIdentifier());
+        animation.setPosition(getPosition(), getAlignment());
+
+        Item item = getItem();
+        ItemGroup parent = item.getParent();
+        parent.addItem(animation);
+    }
+
+    protected boolean removeAnimation() {
+        Item item = getItem();
+        ItemGroup parent = item.getParent();
+        parent.removeItem(animation);
+        animation = null;
+        return ACTION_COMPLETE;
     }
 
     protected abstract Vector2 getPosition();
 
     protected abstract Alignment getAlignment();
+
+    protected abstract ItemType getEffectType();
 }
