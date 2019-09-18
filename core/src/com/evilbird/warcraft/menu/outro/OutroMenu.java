@@ -15,11 +15,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.collection.Lists;
+import com.evilbird.engine.common.control.LabelButton;
 import com.evilbird.engine.common.control.SelectListener;
-import com.evilbird.engine.common.control.SelectListenerAdapter;
 import com.evilbird.engine.common.control.TextProgressBar;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameController;
@@ -64,7 +63,7 @@ public class OutroMenu extends Menu
     private Table container;
     private Table summary;
     private Table details;
-    private TextButton button;
+    private LabelButton button;
 
     @Inject
     public OutroMenu(DeviceDisplay display, Skin skin) {
@@ -91,7 +90,7 @@ public class OutroMenu extends Menu
     }
 
     public void setButtonAction(SelectListener action) {
-        this.button.addListener(new SelectListenerAdapter(action));
+        this.button.addSelectListener(action);
     }
 
     @Override
@@ -272,8 +271,8 @@ public class OutroMenu extends Menu
         cell.row();
     }
 
-    private TextButton createButton() {
-        TextButton result = new TextButton("", skin);
+    private LabelButton createButton() {
+        LabelButton result = new LabelButton("", skin);
 
         Cell cell = container.add(result);
         cell.align(Align.right);

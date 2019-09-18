@@ -14,8 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.evilbird.engine.common.control.LabelButton;
 import com.evilbird.engine.common.control.SelectListener;
-import com.evilbird.engine.common.control.SelectListenerAdapter;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.menu.Menu;
 
@@ -78,12 +78,12 @@ public class MainMenu extends Menu
     }
 
     private TextButton createButton(String text, SelectListener action) {
-        TextButton button = new TextButton(text, skin);
+        LabelButton button = new LabelButton(text, skin);
         button.setDisabled(true);
 
         if (action != null) {
             button.setDisabled(false);
-            button.addListener(new SelectListenerAdapter(action));
+            button.addSelectListener(action);
         }
         return button;
     }

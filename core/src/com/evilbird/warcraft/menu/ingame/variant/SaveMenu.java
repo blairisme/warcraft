@@ -11,10 +11,11 @@ package com.evilbird.warcraft.menu.ingame.variant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.evilbird.engine.common.file.FileNameValidator;
+import com.evilbird.engine.common.control.LabelButton;
 import com.evilbird.engine.common.control.ListPane;
 import com.evilbird.engine.common.control.ScrollBarPane;
 import com.evilbird.engine.common.control.TextInput;
+import com.evilbird.engine.common.file.FileNameValidator;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.warcraft.menu.ingame.IngameMenu;
@@ -48,6 +49,8 @@ public class SaveMenu extends IngameMenu
     private TextInput nameField;
     private ScrollBarPane saveContainer;
     private ListPane<StateIdentifier> saveList;
+    private LabelButton saveButton;
+    private LabelButton deleteButton;
 
     public SaveMenu(IngameMenu menu, IngameMenuStrings strings, StateService states) {
         super(menu);
@@ -82,10 +85,12 @@ public class SaveMenu extends IngameMenu
     }
 
     private void initializeButtons() {
-        addButtonRow(
+        List<LabelButton> buttons = addButtonRow(
             Pair.of(strings.getSaveButtonText(), this::createSave),
             Pair.of(strings.getDeleteButtonText(), this::deleteState),
             Pair.of(strings.getCancelButtonText(), this::showRootMenu));
+        saveButton = buttons.get(0);
+        deleteButton = buttons.get(1);
     }
 
     private void saveSelected(StateIdentifier save) {
@@ -123,7 +128,7 @@ public class SaveMenu extends IngameMenu
         }
         catch (Throwable error) {
             LOGGER.error("Failed to save state", error);
-            showListError(strings.getNewSaveFailed());
+            showSaveError(strings.getNewSaveFailed());
         }
     }
 
@@ -139,7 +144,7 @@ public class SaveMenu extends IngameMenu
         }
         catch (Throwable error) {
             LOGGER.error("Failed to remove state", error);
-            showListError(strings.getRemoveSaveFailed());
+            showDeleteError(strings.getRemoveSaveFailed());
         }
     }
 
@@ -147,7 +152,7 @@ public class SaveMenu extends IngameMenu
         hideError(listError);
         showError(nameError, text);
 
-        nameField.setStyle("error");
+        resetErrorStyles();
         saveContainer.setStyle("default");
     }
 
@@ -155,8 +160,24 @@ public class SaveMenu extends IngameMenu
         hideError(nameError);
         showError(listError, text);
 
-        nameField.setStyle("default");
+        resetErrorStyles();
         saveContainer.setStyle("error");
+    }
+
+    private void showSaveError(String text) {
+        hideError(nameError);
+        showError(listError, text);
+
+        resetErrorStyles();
+        saveButton.setStyle("error");
+    }
+
+    private void showDeleteError(String text) {
+        hideError(nameError);
+        showError(listError, text);
+
+        resetErrorStyles();
+        deleteButton.setStyle("error");
     }
 
     private void showError(Cell<Label> label, String text) {
@@ -169,5 +190,12 @@ public class SaveMenu extends IngameMenu
         label.getActor().setText("");
         label.height(0);
         label.padBottom(0);
+    }
+
+    private void resetErrorStyles() {
+        nameField.setStyle("default");
+        saveContainer.setStyle("default");
+        saveButton.setStyle("default");
+        deleteButton.setStyle("default");
     }
 }

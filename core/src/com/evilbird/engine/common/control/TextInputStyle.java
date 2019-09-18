@@ -21,4 +21,14 @@ public class TextInputStyle extends TextFieldStyle
 {
     public Color borderColour;
     public Color borderColourFocused;
+
+    public TextInputStyle() {
+        super();
+    }
+
+    public TextInputStyle(TextInputStyle style) {
+        super(style);
+        this.borderColour = style.borderColour;
+        this.borderColourFocused = style.borderColourFocused;
+    }
 }

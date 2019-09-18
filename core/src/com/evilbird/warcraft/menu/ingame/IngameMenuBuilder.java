@@ -11,19 +11,20 @@ package com.evilbird.warcraft.menu.ingame;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox.CheckBoxStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.common.graphics.TextureUtils;
-import com.evilbird.engine.device.DeviceDisplay;
+import com.evilbird.engine.common.control.LabelButtonStyle;
 import com.evilbird.engine.common.control.ScrollBarPaneStyle;
 import com.evilbird.engine.common.control.TextInputStyle;
+import com.evilbird.engine.common.graphics.TextureUtils;
+import com.evilbird.engine.device.DeviceDisplay;
 
 /**
  * Creates a new {@link IngameMenu} instance whose visual presentation is
@@ -60,33 +61,42 @@ public class IngameMenuBuilder
     }
 
     private void addButtonStyle(Skin skin) {
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = assets.getFont();
-        textButtonStyle.fontColor = Color.WHITE;
-        textButtonStyle.up = assets.getButtonEnabled();
-        textButtonStyle.over = textButtonStyle.up;
-        textButtonStyle.checked = textButtonStyle.up;
-        textButtonStyle.checkedOver = textButtonStyle.up;
-        textButtonStyle.disabled = assets.getButtonDisabled();
-        textButtonStyle.down = assets.getButtonSelected();
-        skin.add("default", textButtonStyle);
+        LabelButtonStyle defaultStyle = new LabelButtonStyle();
+        defaultStyle.font = assets.getFont();
+        defaultStyle.fontColor = Color.WHITE;
+        defaultStyle.up = assets.getButtonEnabled();
+        defaultStyle.over = defaultStyle.up;
+        defaultStyle.checked = defaultStyle.up;
+        defaultStyle.checkedOver = defaultStyle.up;
+        defaultStyle.disabled = assets.getButtonDisabled();
+        defaultStyle.down = assets.getButtonSelected();
+        defaultStyle.borderColour = null;
+        defaultStyle.borderColourFocused = Color.GOLD;
+        skin.add("default", defaultStyle, TextButtonStyle.class);
+        skin.add("default", defaultStyle, LabelButtonStyle.class);
+
+        LabelButtonStyle errorStyle = new LabelButtonStyle(defaultStyle);
+        errorStyle.borderColour = Color.RED;
+        errorStyle.borderColourFocused = Color.RED;
+        skin.add("error", errorStyle, TextButtonStyle.class);
+        skin.add("error", errorStyle, LabelButtonStyle.class);
     }
 
     private void addTitleStyle(Skin skin) {
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        LabelStyle labelStyle = new LabelStyle();
         labelStyle.font = assets.getFont();
         labelStyle.fontColor = Color.GOLD;
         skin.add("title", labelStyle);
     }
 
     private void addLabelStyle(Skin skin) {
-        Label.LabelStyle defaultStyle = new Label.LabelStyle();
+        LabelStyle defaultStyle = new LabelStyle();
         defaultStyle.font = assets.getFont();
         defaultStyle.fontColor = Color.WHITE;
         skin.add("label", defaultStyle);
         skin.add("default", defaultStyle);
 
-        Label.LabelStyle errorStyle = new Label.LabelStyle();
+        LabelStyle errorStyle = new LabelStyle();
         errorStyle.font = assets.getFontSmall();
         errorStyle.fontColor = Color.RED;
         skin.add("error", errorStyle);
@@ -113,11 +123,7 @@ public class IngameMenuBuilder
         skin.add("default", defaultStyle, TextFieldStyle.class);
         skin.add("default", defaultStyle, TextInputStyle.class);
 
-        TextInputStyle errorStyle = new TextInputStyle();
-        errorStyle.font = assets.getFont();
-        errorStyle.fontColor = Color.WHITE;
-        errorStyle.cursor = TextureUtils.getDrawable(2, 20, Color.WHITE);
-        errorStyle.background = assets.getTextFieldBackground();
+        TextInputStyle errorStyle = new TextInputStyle(defaultStyle);
         errorStyle.borderColour = Color.RED;
         errorStyle.borderColourFocused = Color.RED;
         skin.add("error", errorStyle, TextFieldStyle.class);
@@ -141,11 +147,7 @@ public class IngameMenuBuilder
         skin.add("default", defaultStyle, ScrollPaneStyle.class);
         skin.add("default", defaultStyle, ScrollBarPaneStyle.class);
 
-        ScrollBarPaneStyle errorStyle = new ScrollBarPaneStyle();
-        errorStyle.hScroll = assets.getScrollHorizontal();
-        errorStyle.hScrollKnob = assets.getScrollKnob();
-        errorStyle.vScroll = assets.getScrollVertical();
-        errorStyle.vScrollKnob = defaultStyle.hScrollKnob;
+        ScrollBarPaneStyle errorStyle = new ScrollBarPaneStyle(defaultStyle);
         errorStyle.borderColour = Color.RED;
         errorStyle.borderColourFocused = Color.RED;
         skin.add("error", errorStyle, ScrollPaneStyle.class);
