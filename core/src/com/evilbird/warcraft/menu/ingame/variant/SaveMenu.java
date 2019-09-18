@@ -118,7 +118,7 @@ public class SaveMenu extends IngameMenu
             } else if (!nameValidator.isValidName(name)) {
                 showNameError(strings.getSaveInvalidNameError());
             } else {
-                saveState(new WarcraftSave(name));
+                states.set(new WarcraftSave(name), controller.getState());
             }
         }
         catch (Throwable error) {
