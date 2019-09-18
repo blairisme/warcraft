@@ -304,10 +304,10 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     }
 
     public void addOccupants(Collection<ItemNode> nodes, ItemGraphOccupant occupant) {
-        addAll(occupiers, occupant.getIdentifier(), nodes);
         for (ItemNode node: nodes) {
             node.addOccupant(occupant);
         }
+        addAll(occupiers, occupant.getIdentifier(), nodes);
     }
 
     public void removeOccupants(Collection<Item> occupants) {
@@ -331,19 +331,19 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     }
 
     public void removeOccupants(Collection<ItemNode> nodes, ItemGraphOccupant occupant) {
-        removeAll(occupiers, occupant.getIdentifier(), nodes);
         for (ItemNode node: nodes) {
             node.removeOccupant(occupant);
         }
+        removeAll(occupiers, occupant.getIdentifier(), nodes);
     }
 
     public void clearOccupants() {
-        occupiers.clear();
         for (int x = 0; x < nodeCountX; x++) {
             for (int y = 0; y < nodeCountY; y++) {
                 nodes[x][y].removeOccupants();
             }
         }
+        occupiers.clear();
     }
 
     public boolean isPartiallyAligned(Item item) {

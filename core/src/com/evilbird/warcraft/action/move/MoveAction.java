@@ -159,8 +159,13 @@ abstract class MoveAction extends BasicAction
 
     private void updateOccupancy(Item item) {
         if (item instanceof ItemGraphOccupant) {
-            graph.removeOccupants(graph.getOccupiedNodes(item), (ItemGraphOccupant)item);
-            graph.addOccupants(graph.getNodes(item), (ItemGraphOccupant)item);
+            ItemGraphOccupant occupant = (ItemGraphOccupant)item;
+
+            Collection<ItemNode> previouslyOccupiedNodes = graph.getOccupiedNodes(occupant);
+            graph.removeOccupants(previouslyOccupiedNodes, occupant);
+
+            Collection<ItemNode> currentlyOccupiedNodes = graph.getNodes(occupant);
+            graph.addOccupants(currentlyOccupiedNodes, occupant);
         }
     }
 
