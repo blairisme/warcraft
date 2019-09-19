@@ -28,24 +28,4 @@ public class IosStorage implements DeviceStorage
     public FileHandleResolver getFileHandleResolver() {
         return null;
     }
-
-    @Override
-    public List<String> list(String path) throws IOException {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Reader read(String path) throws IOException {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Writer write(String path) throws IOException {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void remove(String path) throws IOException {
-        throw new UnsupportedOperationException();
-    }
 }
