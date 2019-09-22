@@ -25,7 +25,7 @@ public class DelayedAction extends BasicAction
     private float duration;
     private float total;
 
-    private DelayedAction() {
+    protected DelayedAction() {
     }
 
     /**
@@ -73,6 +73,18 @@ public class DelayedAction extends BasicAction
      */
     public static DelayedAction delay(float start, float duration) {
         return new DelayedAction(start, duration);
+    }
+
+    protected float getDuration() {
+        return duration;
+    }
+
+    protected void setDuration(float duration) {
+        this.duration = duration;
+    }
+
+    protected void setProgress(float progress) {
+        this.total = progress;
     }
 
     @Override

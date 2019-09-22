@@ -34,6 +34,7 @@ public class Gatherer extends Combatant implements ResourceContainer
     public Gatherer(Skin skin) {
         super(skin);
         resources = new LinkedHashMap<>(2);
+        progress = 1;
     }
 
     public boolean isGathering() {
@@ -44,9 +45,21 @@ public class Gatherer extends Combatant implements ResourceContainer
         return progress;
     }
 
+    public void clearResources() {
+        resources.clear();
+    }
+
     @Override
     public float getResource(ResourceType type) {
         return resources.getOrDefault(type.name(), 0.0).floatValue();
+    }
+
+    public boolean hasResource(ResourceType type) {
+        return resources.containsKey(type.name());
+    }
+
+    public boolean hasOtherResource(ResourceType type) {
+        return !resources.isEmpty() && !resources.containsKey(type.name());
     }
 
     public void setGathererProgress(float progress) {

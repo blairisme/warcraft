@@ -16,8 +16,8 @@ package com.evilbird.engine.action;
  */
 public class ActionConstants
 {
-    public static final boolean ACTION_COMPLETE = true;
-    public static final boolean ACTION_INCOMPLETE = false;
+    public static final boolean ActionComplete = true;
+    public static final boolean ActionIncomplete = false;
 
     private ActionConstants() {
     }

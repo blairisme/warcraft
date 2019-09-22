@@ -54,8 +54,9 @@ public abstract class CompositeAction extends BasicAction
         return Collections.unmodifiableList(actions);
     }
 
-    protected void add(Action action) {
+    protected Action add(Action action) {
         actions.add(action);
+        return action;
     }
 
     protected Action get(int index) {

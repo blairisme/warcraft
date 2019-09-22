@@ -9,35 +9,34 @@
 
 package com.evilbird.warcraft.action.construct;
 
+import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.warcraft.action.common.death.DeathAction;
-import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
+import com.evilbird.warcraft.action.death.DeathAction;
+import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
+import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.building.Building;
+import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
+import java.util.Collection;
 
-import static com.evilbird.engine.action.common.ActionRecipient.Target;
-import static com.evilbird.engine.action.framework.ClearAction.clear;
-import static com.evilbird.engine.common.function.Predicates.not;
-import static com.evilbird.engine.item.utility.ItemPredicates.isVisible;
-import static com.evilbird.warcraft.action.common.associate.AssociateAction.unassociate;
-import static com.evilbird.warcraft.action.common.exclusion.ExcludeActions.restore;
-import static com.evilbird.warcraft.action.common.transfer.TransferAction.deposit;
-import static com.evilbird.warcraft.action.construct.ConstructAction.stopConstructing;
-import static com.evilbird.warcraft.action.construct.ConstructEvents.constructCancelled;
-import static com.evilbird.warcraft.action.move.MoveAdjacent.moveAdjacentSubject;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
+import static com.evilbird.warcraft.action.common.exclusion.Exclusion.restore;
+import static com.evilbird.warcraft.action.common.transfer.TransferOperations.setResources;
+import static com.evilbird.warcraft.action.construct.ConstructEvents.notifyConstructCancelled;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.moveAdjacent;
 
 /**
  * Instances of this class stop the construction of a building.
  *
  * @author Blair Butterworth
  */
-public class ConstructCancel extends ScenarioSetAction
+public class ConstructCancel extends DelegateAction
 {
     private transient EventQueue events;
-    private transient DeathAction kill;
+    private transient boolean cancelled;
 
     /**
      * Creates a new instance of this class given a {@link EventQueue}
@@ -51,43 +50,64 @@ public class ConstructCancel extends ScenarioSetAction
      */
     @Inject
     public ConstructCancel(EventQueue events, DeathAction death) {
+        super(death);
         this.events = events;
-        this.kill = death;
+        this.cancelled = false;
     }
 
     @Override
-    protected void features() {
-        ConstructActions actions = (ConstructActions)getIdentifier();
-        features(actions.getProduct());
+    public boolean act(float delta) {
+        if (! cancelled) {
+            cancelled = true;
+            cancel();
+        }
+        return super.act(delta);
     }
 
-    private void features(UnitType building) {
-        cancelPreConstruction(building);
-        cancelDuringConstruction(building);
+    @Override
+    public void reset() {
+        super.reset();
+        cancelled = false;
     }
 
-    private void cancelPreConstruction(UnitType building) {
-        scenario("Cancel pre-construction")
-            .whenItem(isConstructing())
-            .whenTarget(isVisible())
-            .then(stopConstructing(), unassociate())
-            .then(restore(Target))
-            .then(deposit(UnitCosts.cost(building), events))
-            .then(constructCancelled(events))
-            .then(clear(Target))
-            .then(kill);
+    private void cancel() {
+        Building building = (Building)getItem();
+        Gatherer builder = (Gatherer)getTarget();
+
+        configureBuilding(building);
+        configureBuilder(builder, building);
+        configurePlayer(building);
+
+        notifyConstructCancelled(events, builder, building);
     }
 
-    private void cancelDuringConstruction(UnitType building) {
-        scenario("Cancel during construction")
-            .whenItem(isConstructing())
-            .whenTarget(not(isVisible()))
-            .then(stopConstructing(), unassociate())
-            .then(moveAdjacentSubject())
-            .then(restore(Target))
-            .then(deposit(UnitCosts.cost(building), events))
-            .then(constructCancelled(events))
-            .then(clear(Target))
-            .then(kill);
+    private void configureBuilding(Building building) {
+        building.setAssociatedItem(null);
+        building.setConstructionProgress(1);
+        building.setHealth(0);
+    }
+
+    private void configureBuilder(Gatherer builder, Building building) {
+        builder.setAssociatedItem(null);
+        builder.clearActions();
+
+        if (!builder.getVisible()) {
+            restore(builder);
+            moveAdjacent(builder, building);
+        }
+    }
+
+    private void configurePlayer(Building building) {
+        Player player = getPlayer(building);
+        setResources(player, getBuildingCost(), events);
+    }
+
+    private Collection<ResourceQuantity> getBuildingCost() {
+        return UnitCosts.cost(getBuildingType());
+    }
+
+    private UnitType getBuildingType() {
+        ConstructActions constructAction = (ConstructActions)getIdentifier();
+        return constructAction.getProduct();
     }
 }

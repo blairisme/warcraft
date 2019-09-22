@@ -22,7 +22,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.evilbird.warcraft.item.common.resource.ResourceQuantum.resource;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Food;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Oil;
@@ -47,6 +46,10 @@ public class UnitCosts
             case RangedDamage2: return 20;
             default: return 0;
         }
+    }
+
+    public static float buildTime(Unit unit) {
+        return buildTime((UnitType)unit.getType());
     }
 
     public static float buildTime(UnitType type) {
@@ -183,6 +186,10 @@ public class UnitCosts
         }
     }
 
+    public static Collection<ResourceQuantity> cost(Unit unit) {
+        return cost((UnitType)unit.getType());
+    }
+
     public static Collection<ResourceQuantity> cost(UnitType type) {
         if (isFreeBuildEnabled()) {
             return resources(0, 0, 0, 0);
@@ -309,16 +316,16 @@ public class UnitCosts
     private static Collection<ResourceQuantity> resources(int gold, int wood, int oil, int food) {
         Set<ResourceQuantity> result = new HashSet<>();
         if (gold > 0) {
-            result.add(resource(Gold, gold));
+            result.add(new ResourceQuantity(Gold, gold));
         }
         if (wood > 0) {
-            result.add(resource(Wood, wood));
+            result.add(new ResourceQuantity(Wood, wood));
         }
         if (oil > 0) {
-            result.add(resource(Oil, oil));
+            result.add(new ResourceQuantity(Oil, oil));
         }
         if (food > 0) {
-            result.add(resource(Food, food));
+            result.add(new ResourceQuantity(Food, food));
         }
         return result;
     }
@@ -331,7 +338,7 @@ public class UnitCosts
         if (type instanceof UnitType) {
             UnitType unitType = (UnitType)type;
             if (unitType.isCombatant()) {
-                return Sets.of(resource(Food, 1));
+                return Sets.of(new ResourceQuantity(Food, 1));
             }
         }
         return Collections.emptyList();

@@ -25,7 +25,7 @@ import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ACTION_INCOMPLETE;
+import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isShip;
@@ -65,15 +65,15 @@ public class RangedAttack extends BasicAction
         }
         if (! readyToFire()) {
             reduceTimeToFire(time);
-            return ACTION_INCOMPLETE;
+            return ActionIncomplete;
         }
         if (! projectileLaunched()) {
             fireProjectile();
-            return ACTION_INCOMPLETE;
+            return ActionIncomplete;
         }
         if (! projectileReachedTarget()) {
             moveProjectile(time);
-            return ACTION_INCOMPLETE;
+            return ActionIncomplete;
         }
         else {
             return hitWithProjectile();

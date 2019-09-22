@@ -22,8 +22,8 @@ import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 
-import static com.evilbird.engine.action.ActionConstants.ACTION_COMPLETE;
-import static com.evilbird.engine.action.ActionConstants.ACTION_INCOMPLETE;
+import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.item.unit.UnitSound.Acknowledge;
 
 /**
@@ -54,7 +54,7 @@ abstract class ConfirmAction extends BasicAction
         if (timer.advance(time)) {
             return removeAnimation();
         }
-        return ACTION_INCOMPLETE;
+        return ActionIncomplete;
     }
 
     protected boolean initialized() {
@@ -65,7 +65,7 @@ abstract class ConfirmAction extends BasicAction
         createTimer();
         createAnimation();
         playAcknowledgement();
-        return ACTION_INCOMPLETE;
+        return ActionIncomplete;
     }
 
     protected void createTimer() {
@@ -94,7 +94,7 @@ abstract class ConfirmAction extends BasicAction
         ItemGroup parent = item.getParent();
         parent.removeItem(animation);
         animation = null;
-        return ACTION_COMPLETE;
+        return ActionComplete;
     }
 
     protected abstract Vector2 getPosition();

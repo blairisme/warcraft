@@ -10,8 +10,14 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.events.EventQueue;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.action.common.associate.AssociateAction;
+import com.evilbird.warcraft.action.common.create.CreateAction;
+import com.evilbird.warcraft.action.common.remove.RemoveOccluding;
+import com.evilbird.warcraft.action.common.remove.RemoveTarget;
+import com.evilbird.warcraft.action.common.transfer.TransferAction;
+import com.evilbird.warcraft.action.move.MoveToItemAction;
+import com.evilbird.warcraft.action.select.DeselectAction;
 import org.mockito.Mockito;
 
 /**
@@ -23,7 +29,19 @@ public class ConstructSequenceTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        ConstructSequence action = new ConstructSequence(Mockito.mock(EventQueue.class));
+        AssociateAction associate = Mockito.mock(AssociateAction.class);
+        ConstructAction construct = Mockito.mock(ConstructAction.class);
+        CreateAction create = Mockito.mock(CreateAction.class);
+        DeselectAction deselect = Mockito.mock(DeselectAction.class);
+        MoveToItemAction move = Mockito.mock(MoveToItemAction.class);
+        RemoveOccluding removeCorpses = Mockito.mock(RemoveOccluding.class);
+        RemoveTarget removePlaceholder = Mockito.mock(RemoveTarget.class);
+        TransferAction purchase = Mockito.mock(TransferAction.class);
+        TransferAction transfer = Mockito.mock(TransferAction.class);
+
+        ConstructSequence action = new ConstructSequence(
+            associate, construct, create, deselect, move,
+            removeCorpses, removePlaceholder, purchase, transfer);
         action.setIdentifier(ConstructActions.ConstructBarracks);
         return action;
     }

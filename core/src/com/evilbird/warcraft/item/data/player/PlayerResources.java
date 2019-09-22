@@ -20,7 +20,7 @@ public class PlayerResources
 
     public static boolean hasResources(Player player, Collection<ResourceQuantity> resourceQuantities) {
         for (ResourceQuantity resourceQuantity: resourceQuantities) {
-            if (player.getResource(resourceQuantity.getResource()) < resourceQuantity.getValue()){
+            if (player.getResource(resourceQuantity.getType()) < resourceQuantity.getValue()){
                 return false;
             }
         }

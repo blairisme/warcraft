@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.action.common.death.DeathAction;
+import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.action.move.MoveWithinRangeAction;
 import org.mockito.Mockito;

@@ -28,8 +28,8 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
 import java.util.Collection;
 import java.util.ListIterator;
 
-import static com.evilbird.engine.action.ActionConstants.ACTION_COMPLETE;
-import static com.evilbird.engine.action.ActionConstants.ACTION_INCOMPLETE;
+import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.common.collection.CollectionUtils.filter;
 import static com.evilbird.engine.common.pathing.SpatialUtils.getClosest;
 
@@ -88,19 +88,19 @@ abstract class MoveAction extends BasicAction
     protected boolean moveFailed(Item item) {
         setError(new PathUnknownException(item));
         events.add(new MoveEvent(item, MoveStatus.Failed));
-        return ACTION_COMPLETE;
+        return ActionComplete;
     }
 
     protected boolean moveComplete(Item item) {
         resetItem(item);
         events.add(new MoveEvent(item, MoveStatus.Complete));
-        return ACTION_COMPLETE;
+        return ActionComplete;
     }
 
     protected boolean reinitializePath(Item item) {
         resetItem(item);
         restart();
-        return ACTION_INCOMPLETE;
+        return ActionIncomplete;
     }
 
     protected void resetItem(Item item) {
@@ -229,14 +229,14 @@ abstract class MoveAction extends BasicAction
         events.add(new MoveEvent(item, waypoint, MoveStatus.Updated));
         waypoint = pathIterator.next();
         graph.addOccupants(waypoint, item);
-        return ACTION_INCOMPLETE;
+        return ActionIncomplete;
     }
 
     protected boolean updatePosition(Item item, float time) {
         Vector2 oldPosition = item.getPosition();
         Vector2 newPosition = getNextPosition(item, oldPosition, time);
         item.setPosition(newPosition);
-        return ACTION_INCOMPLETE;
+        return ActionIncomplete;
     }
 
     protected Vector2 getNextPosition(Item item, Vector2 position, float time) {

@@ -18,15 +18,41 @@
 
 package com.evilbird.warcraft.item.common.resource;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * Implementors of this interface represent an object with an associated
  * resource cost.
  *
  * @author Blair Butterworth
  */
-public interface ResourceQuantity
+public class ResourceQuantity
 {
-    ResourceType getResource();
+    private float value;
+    private ResourceType type;
 
-    float getValue();
+    public ResourceQuantity(ResourceType type, float value) {
+        this.value = value;
+        this.type = type;
+    }
+
+    public ResourceType getType() {
+        return type;
+    }
+
+    public float getValue() {
+        return value;
+    }
+
+    public ResourceQuantity negate() {
+        return new ResourceQuantity(type, value * -1);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("type", type)
+            .append("value", value)
+            .toString();
+    }
 }

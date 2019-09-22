@@ -42,9 +42,10 @@ public class SequenceAction extends CompositeAction
     }
 
     @Override
-    public void add(Action action) {
-        super.add(action);
+    public Action add(Action action) {
+        Action result = super.add(action);
         resetIndex();
+        return result;
     }
 
     @Override

@@ -113,7 +113,7 @@ public class Viewable extends ItemBasic implements Animated, Audible, Directiona
     @Override
     public void setAnimation(Identifier id, float startTime) {
         Validate.notNull(id);
-        Validate.isTrue(style.animations.containsKey(id));
+        Validate.isTrue(style.animations.containsKey(id) ,"%s is missing animation %s", getIdentifier(), id);
         animationId = id;
         animation.setAnimationTime(startTime);
         animation.setAnimation(style.animations.get(id));
@@ -121,17 +121,17 @@ public class Viewable extends ItemBasic implements Animated, Audible, Directiona
     }
 
     @Override
-    public void setAnimationAlias(Identifier animationId, Identifier aliasId) {
-        Validate.notNull(animationId);
-        Validate.notNull(aliasId);
-        Validate.isTrue(style.animations.containsKey(animationId));
-        style.animations.put(aliasId, style.animations.get(animationId));
+    public void setAnimationAlias(Identifier id, Identifier alias) {
+        Validate.notNull(id);
+        Validate.notNull(alias);
+        Validate.isTrue(style.animations.containsKey(id), "%s is missing sound %s", getIdentifier(), id);
+        style.animations.put(alias, style.animations.get(id));
     }
 
     @Override
     public void setSound(Identifier id) {
         Validate.notNull(id);
-        Validate.isTrue(style.sounds.containsKey(id));
+        Validate.isTrue(style.sounds.containsKey(id), "%s is missing sound %s", getIdentifier(), id);
         soundId = id;
         sound.stop();
         sound = new LocalizedSound(style.sounds.get(id), this, getCamera());

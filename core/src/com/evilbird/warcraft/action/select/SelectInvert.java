@@ -10,24 +10,27 @@
 package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.common.scenario.ScenarioSetAction;
+import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.specialized.Viewable;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 
 import javax.inject.Inject;
+import java.util.function.Predicate;
 
-import static com.evilbird.engine.action.common.AudibleAction.play;
-import static com.evilbird.engine.common.function.Predicates.not;
-import static com.evilbird.warcraft.action.select.DeselectAction.deselectAll;
-import static com.evilbird.warcraft.action.select.SelectAction.deselect;
-import static com.evilbird.warcraft.action.select.SelectAction.select;
+import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.engine.common.function.Predicates.either;
+import static com.evilbird.warcraft.action.select.SelectEvents.notifySelected;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.isCombatant;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.isCorporeal;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.isNeutral;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isNeutral;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isNonCombatant;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
 
 /**
@@ -36,93 +39,74 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
  *
  * @author Blair Butterworth
  */
-public class SelectInvert extends ScenarioSetAction
+public class SelectInvert extends BasicAction
 {
     private transient Events events;
-    private transient Boolean selected;
+    private transient WarcraftPreferences preferences;
 
     @Inject
-    public SelectInvert(EventQueue events) {
+    public SelectInvert(EventQueue events, WarcraftPreferences preferences) {
         this.events = events;
-        feature(SelectActions.SelectInvert);
+        this.preferences = preferences;
     }
 
     @Override
-    protected void features() {
-        initializeSelection();
-        selectPlayerFeatures();
-        selectEnemyFeatures();
-        deselectFeatures();
+    public boolean act(float delta) {
+        Selectable item = (Selectable) getItem();
+        if (item.getSelected()) {
+            deselect(item);
+        } else {
+            select(item);
+        }
+        return ActionComplete;
     }
 
-    private void selectPlayerFeatures() {
-        scenario("Select Owned Item Inclusive")
-            .given(isAlive())
-            .when(isCorporeal())
-            .when(isCombatant())
-            .when((item) -> !selected)
-            .then(deselectAll(not(isCombatant()), events), deselectAll(isAi(), events))
-            .then(select(events), play(Selected));
-
-        scenario("Select Owned Item Exclusive")
-            .given(isAlive())
-            .when(isCorporeal())
-            .when(not(isCombatant()))
-            .when((item) -> !selected)
-            .then(deselectAll(events))
-            .then(select(events), play(Selected));
+    private void select(Selectable entity) {
+        updateSelected(entity);
+        updateSound(entity);
+        setSelected(entity, true);
     }
 
-    private void selectEnemyFeatures() {
-        scenario("Select Neutral Item Exclusive ")
-            .given(isAlive())
-            .when(isNeutral())
-            .when((item) -> !selected)
-            .then(deselectAll(events))
-            .then(select(events), play(Selected));
-
-        scenario("Select Enemy Item Exclusive")
-            .given(isAlive())
-            .when(isAi().and(not(isNeutral())))
-            .when((item) -> !selected)
-            .then(deselectAll(events))
-            .then(select(events));
-    }
-
-    private void deselectFeatures() {
-        scenario("Deselect Inclusive")
-            .given(isAlive())
-            .when(isCombatant())
-            .when((item) -> selected)
-            .then(deselect(events));
-
-        scenario("Deselect Exclusive")
-            .given(isAlive())
-            .when(not(isCombatant()))
-            .when((item) -> selected)
-            .then(deselectAll(events));
-    }
-
-    @Override
-    public void restart() {
-        super.restart();
-        updateSelection();
-    }
-
-    @Override
-    public void reset() {
-        super.reset();
-        updateSelection();
-    }
-
-    private void initializeSelection() {
-        if (selected == null) {
-            updateSelection();
+    private void updateSelected(Selectable entity) {
+        ItemRoot root = entity.getRoot();
+        if (isCorporeal(entity) && isCombatant(entity)) {
+            setSelected(root, either(isNonCombatant(), isAi()), false);
+        } else {
+            setSelected(root, isSelected(), false);
         }
     }
 
-    private void updateSelection() {
-        Selectable selectable = (Selectable)getItem();
-        selected = selectable.getSelected();
+    private void updateSound(Selectable entity) {
+        if (isCorporeal(entity) || isNeutral(entity)) {
+            setSelectedSound(entity);
+        }
+    }
+
+    private void deselect(Selectable entity) {
+        if (isCombatant(entity)) {
+            setSelected(entity, false);
+        } else {
+            setSelected(entity.getRoot(), isSelected(), false);
+        }
+    }
+
+    private void setSelectedSound(Item entity) {
+        if (entity instanceof Viewable && preferences.isAcknowledgementEnabled()) {
+            Viewable viewable = (Viewable)entity;
+            viewable.setSound(Selected);
+        }
+    }
+
+    private void setSelected(ItemRoot root, Predicate<Item> condition, boolean selected) {
+        for (Item item: root.findAll(condition)) {
+            if (item instanceof Selectable) {
+                setSelected((Selectable)item, selected);
+            }
+        }
+    }
+
+    private void setSelected(Selectable selectable, boolean selected) {
+        selectable.setSelected(selected);
+        notifySelected(events, selectable, selected);
     }
 }

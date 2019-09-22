@@ -134,6 +134,10 @@ public class ItemOperations
         return false;
     }
 
+    public static boolean isNear(Item locus, Item target) {
+        return isNear(locus, locus.getWidth(), target);
+    }
+
     /**
      * Determines if an {@link Item} is within the given radius of another
      * {@code Item}.
@@ -164,6 +168,11 @@ public class ItemOperations
         Rectangle rectangleA = itemA.getBounds();
         Rectangle rectangleB = itemB.getBounds();
         return rectangleA.overlaps(rectangleB);
+    }
+
+    public static boolean overlaps(Item item, Rectangle bounds) {
+        Rectangle itemBounds = item.getBounds();
+        return itemBounds.overlaps(bounds);
     }
 
     public static boolean hasMinimum(ItemComposite composite, Predicate<Item> condition, int count) {

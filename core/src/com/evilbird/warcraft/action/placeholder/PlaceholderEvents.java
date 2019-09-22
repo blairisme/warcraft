@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.placeholder;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.events.Events;
+import com.evilbird.engine.item.Item;
 
 import static com.evilbird.warcraft.action.placeholder.PlaceholderStatus.Added;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderStatus.Removed;
@@ -26,13 +27,23 @@ public class PlaceholderEvents
     private PlaceholderEvents() {
     }
 
+    @Deprecated
     public static Action placeholderAdded(Events events) {
         return new LambdaAction((builder, placeholder) ->
             events.add(new PlaceholderEvent(builder, placeholder, Added)));
     }
 
+    public static void notifyPlaceholderAdded(Events events, Item builder, Item placeholder) {
+        events.add(new PlaceholderEvent(builder, placeholder, Added));
+    }
+
+    @Deprecated
     public static Action placeholderRemoved(Events events) {
         return new LambdaAction((builder, placeholder) ->
             events.add(new PlaceholderEvent(builder, placeholder, Removed)));
+    }
+
+    public static void notifyPlaceholderRemoved(Events events, Item builder, Item placeholder) {
+        events.add(new PlaceholderEvent(builder, placeholder, Removed));
     }
 }

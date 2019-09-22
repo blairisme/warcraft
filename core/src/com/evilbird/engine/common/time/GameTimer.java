@@ -33,6 +33,10 @@ public class GameTimer
         return progress >= duration;
     }
 
+    public float duration() {
+        return duration;
+    }
+
     public void reset() {
         progress = 0;
     }

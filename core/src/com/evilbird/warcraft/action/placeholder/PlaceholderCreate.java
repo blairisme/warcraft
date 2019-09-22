@@ -1,28 +1,29 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
 package com.evilbird.warcraft.action.placeholder;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
+import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.item.ItemType;
+import com.evilbird.warcraft.action.common.create.CreateAction;
+import com.evilbird.warcraft.item.unit.Unit;
 
 import javax.inject.Inject;
-import java.util.function.Consumer;
 
+import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.item.utility.ItemOperations.getScreenCenter;
-import static com.evilbird.warcraft.action.common.associate.AssociateAction.associate;
-import static com.evilbird.warcraft.action.common.create.CreateAction.create;
-import static com.evilbird.warcraft.action.placeholder.PlaceholderEvents.placeholderAdded;
+import static com.evilbird.warcraft.action.placeholder.PlaceholderEvents.notifyPlaceholderAdded;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_HEIGHT;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 
@@ -32,28 +33,43 @@ import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
  *
  * @author Blair Butterworth
  */
-public class PlaceholderCreate extends ScenarioAction<PlaceholderActions>
+public class PlaceholderCreate extends CreateAction
 {
-    private transient Events events;
-
     @Inject
-    public PlaceholderCreate(EventQueue events) {
-        this.events = events;
+    public PlaceholderCreate(Events events, ItemFactory factory) {
+        super(events, factory);
+        type = this::getPlaceholderType;
+        properties = this::setPlaceholderPosition;
+        recipient = this::setTarget;
     }
 
     @Override
-    protected void steps(PlaceholderActions action) {
-        scenario(action);
-        thenUpdate(create(action.getPlaceholder(), properties(), observer -> {}));
-        then(associate(), placeholderAdded(events));
+    public boolean act(float time) {
+        if (super.act(time)) {
+            return complete();
+        }
+        return ActionIncomplete;
     }
 
-    private Consumer<Item> properties() {
-        return (created) -> {
-            Vector2 screenCenter = getScreenCenter(getItem());
-            screenCenter.x = Math.round(screenCenter.x/TILE_WIDTH) * TILE_WIDTH;
-            screenCenter.y = Math.round(screenCenter.y/TILE_HEIGHT) * TILE_HEIGHT;
-            created.setPosition(screenCenter);
-        };
+    private boolean complete() {
+        Unit builder = (Unit)getItem();
+        Item placeholder = getTarget();
+
+        builder.setAssociatedItem(placeholder);
+        notifyPlaceholderAdded(events, builder, placeholder);
+
+        return ActionComplete;
+    }
+
+    private ItemType getPlaceholderType() {
+        PlaceholderActions placeholderAction = (PlaceholderActions)getIdentifier();
+        return placeholderAction.getPlaceholder();
+    }
+
+    private void setPlaceholderPosition(Item item) {
+        Vector2 screenCenter = getScreenCenter(getItem());
+        screenCenter.x = Math.round(screenCenter.x/TILE_WIDTH) * TILE_WIDTH;
+        screenCenter.y = Math.round(screenCenter.y/TILE_HEIGHT) * TILE_HEIGHT;
+        item.setPosition(screenCenter);
     }
 }

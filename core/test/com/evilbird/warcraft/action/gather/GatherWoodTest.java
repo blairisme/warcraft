@@ -15,6 +15,7 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.mockito.Mockito;
 
@@ -27,7 +28,12 @@ public class GatherWoodTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        GatherWood action = new GatherWood(Mockito.mock(EventQueue.class));
+        GatherDeposit deposit = Mockito.mock(GatherDeposit.class);
+        GatherObtainWood gather = Mockito.mock(GatherObtainWood.class);
+        MoveToItemAction moveToDepot = Mockito.mock(MoveToItemAction.class);
+        MoveToItemAction moveToResource = Mockito.mock(MoveToItemAction.class);
+
+        GatherWood action = new GatherWood(deposit, gather, moveToDepot, moveToResource);
         action.setIdentifier(GatherActions.GatherWood);
         return action;
     }

@@ -55,7 +55,7 @@ public class GatherEvent implements Event
     }
 
     public ResourceType getType() {
-        return resource.getResource();
+        return resource.getType();
     }
 
     public float getValue() {

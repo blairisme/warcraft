@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.common.death;
+package com.evilbird.warcraft.action.death;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
@@ -30,8 +30,8 @@ import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ACTION_COMPLETE;
-import static com.evilbird.engine.action.ActionConstants.ACTION_INCOMPLETE;
+import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isCombatant;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isRanged;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Death;
@@ -68,7 +68,7 @@ public class DeathAction extends BasicAction
         else if (deathTimer.complete() && decomposeTimer.advance(time)) {
             return remove();
         }
-        return ACTION_INCOMPLETE;
+        return ActionIncomplete;
     }
 
     @Override
@@ -101,7 +101,7 @@ public class DeathAction extends BasicAction
         initializeGraph(subject);
         initializeTimers(subject);
         initializeAssociation(subject);
-        return ACTION_INCOMPLETE;
+        return ActionIncomplete;
     }
 
     private void initializeVisuals(Destroyable subject) {
@@ -155,7 +155,7 @@ public class DeathAction extends BasicAction
             Combatant combatant = (Combatant)subject;
             combatant.setAnimation(Decompose);
         }
-        return ACTION_INCOMPLETE;
+        return ActionIncomplete;
     }
 
     private boolean remove() {
@@ -166,7 +166,7 @@ public class DeathAction extends BasicAction
             Unit unit = (Unit)subject;
             remove(unit.getAssociatedItem());
         }
-        return ACTION_COMPLETE;
+        return ActionComplete;
     }
 
     private void remove(Item item) {

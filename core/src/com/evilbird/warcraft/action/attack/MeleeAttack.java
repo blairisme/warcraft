@@ -19,8 +19,8 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ACTION_COMPLETE;
-import static com.evilbird.engine.action.ActionConstants.ACTION_INCOMPLETE;
+import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
@@ -53,7 +53,7 @@ public class MeleeAttack extends BasicAction
         if (attackTarget()) {
             return attackComplete();
         }
-        return ACTION_INCOMPLETE;
+        return ActionIncomplete;
     }
 
     @Override
@@ -92,7 +92,7 @@ public class MeleeAttack extends BasicAction
 
     private boolean delayAttack(float time) {
         delay = Math.max(delay - time, 0);
-        return ACTION_INCOMPLETE;
+        return ActionIncomplete;
     }
 
     private boolean attackTarget() {
@@ -128,6 +128,6 @@ public class MeleeAttack extends BasicAction
     private boolean attackComplete() {
         Combatant combatant = (Combatant)getItem();
         combatant.setAnimation(UnitAnimation.Idle);
-        return ACTION_COMPLETE;
+        return ActionComplete;
     }
 }

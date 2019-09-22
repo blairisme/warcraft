@@ -19,7 +19,7 @@ import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ACTION_COMPLETE;
+import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.warcraft.action.attack.AttackEvents.attackCancelled;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 
@@ -46,7 +46,7 @@ public class AttackCancel extends BasicAction
         attacker.setAnimation(Idle);
         attackCancelled(events, attacker, target);
 
-        return ACTION_COMPLETE;
+        return ActionComplete;
     }
 
     @Override

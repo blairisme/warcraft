@@ -13,6 +13,7 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
+import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -27,13 +28,13 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.item.unit.UnitSound.Ready;
 
 /**
- * Instances of this unit test validate the {@link DeathAction} class.
+ * Instances of this unit test validate the {@link com.evilbird.warcraft.action.death.DeathAction} class.
  *
  * @author Blair Butterworth
  */
 public class DeathActionTest extends GameTestCase
 {
-    private DeathAction action;
+    private com.evilbird.warcraft.action.death.DeathAction action;
     private EventQueue events;
 
     @Before

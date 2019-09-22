@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.item.common.movement.Movable;
@@ -63,11 +64,14 @@ public class MoveToItemAction extends MoveAction
     @Override
     public boolean destinationValid() {
         Item target = getTarget();
-        if (targetNode == null) {
-            Collection<ItemNode> nodes = graph.getNodes(target);
-            targetNode = nodes.iterator().next();
+        if (target instanceof ItemGraphOccupant) {
+            if (targetNode == null) {
+                Collection<ItemNode> nodes = graph.getNodes(target);
+                targetNode = nodes.iterator().next();
+            }
+            return targetNode.hasOccupant(target);
         }
-        return targetNode.hasOccupant(target);
+        return true;
     }
 
     @Override

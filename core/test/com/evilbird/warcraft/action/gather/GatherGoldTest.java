@@ -11,11 +11,10 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.action.common.death.DeathAction;
+import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.mockito.Mockito;
 
@@ -28,7 +27,12 @@ public class GatherGoldTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        GatherGold action = new GatherGold(Mockito.mock(EventQueue.class), Mockito.mock(DeathAction.class));
+        GatherDeposit deposit = Mockito.mock(GatherDeposit.class);
+        GatherObtainGold gather = Mockito.mock(GatherObtainGold.class);
+        MoveToItemAction moveToDepot = Mockito.mock(MoveToItemAction.class);
+        MoveToItemAction moveToResource = Mockito.mock(MoveToItemAction.class);
+
+        GatherGold action = new GatherGold(deposit, gather, moveToDepot, moveToResource);
         action.setIdentifier(GatherActions.GatherGold);
         return action;
     }

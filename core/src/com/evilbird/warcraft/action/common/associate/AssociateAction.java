@@ -14,6 +14,8 @@ import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.Unit;
 
+import javax.inject.Inject;
+
 /**
  * Instances of this {@link Action} associate the subject and target of the
  * action with each other.
@@ -24,16 +26,9 @@ public class AssociateAction extends BasicAction
 {
     private boolean associate;
 
-    public AssociateAction(boolean associate) {
-        this.associate = associate;
-    }
-
-    public static AssociateAction associate() {
-        return new AssociateAction(true);
-    }
-
-    public static AssociateAction unassociate() {
-        return new AssociateAction(false);
+    @Inject
+    public AssociateAction() {
+        associate = true;
     }
 
     @Override

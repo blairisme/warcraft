@@ -15,7 +15,7 @@ import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.common.death.DeathAction;
+import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.action.move.MoveWithinRangeAction;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -24,8 +24,8 @@ import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ACTION_COMPLETE;
-import static com.evilbird.engine.action.ActionConstants.ACTION_INCOMPLETE;
+import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.item.utility.ItemOperations.assignIfAbsent;
 import static com.evilbird.warcraft.action.attack.AttackEvents.attackComplete;
 import static com.evilbird.warcraft.action.attack.AttackEvents.attackFailed;
@@ -82,7 +82,7 @@ public class AttackSequence extends CompositeAction
         if (attackTarget(time, attacker, target)) {
             return killTarget(attacker, target);
         }
-        return ACTION_INCOMPLETE;
+        return ActionIncomplete;
     }
 
     @Override
@@ -104,17 +104,17 @@ public class AttackSequence extends CompositeAction
     private boolean attackInvalid(Combatant attacker, Destroyable target) {
         resetAttacker(attacker);
         attackFailed(events, attacker, target);
-        return ACTION_COMPLETE;
+        return ActionComplete;
     }
 
     private boolean performCurrentAction(float time) {
         if (current.act(time)) {
             if (current.hasError()) {
-                return ACTION_COMPLETE;
+                return ActionComplete;
             }
             current = null;
         }
-        return ACTION_INCOMPLETE;
+        return ActionIncomplete;
     }
 
     private void assignMoveAction(Combatant attacker, Destroyable target) {
@@ -150,7 +150,7 @@ public class AttackSequence extends CompositeAction
     private boolean killTarget(Combatant attacker, Destroyable target) {
         assignIfAbsent(target, get(DEATH_ACTION));
         attackComplete(events, attacker, target);
-        return ACTION_COMPLETE;
+        return ActionComplete;
     }
 
     private void stopAttacking(Combatant attacker, Destroyable target) {

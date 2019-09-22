@@ -14,8 +14,9 @@ import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
+import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.action.common.death.DeathAction;
+import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -48,6 +49,11 @@ public class ConstructCancelTest extends ActionTestCase
         Building building = TestBuildings.newTestBuilding(new TextIdentifier("item"), UnitType.Barracks);
         building.setConstructionProgress(0.5f);
         return building;
+    }
+
+    @Override
+    protected Item newTarget() {
+        return TestGatherers.newTestGatherer("target");
     }
 
     @Test

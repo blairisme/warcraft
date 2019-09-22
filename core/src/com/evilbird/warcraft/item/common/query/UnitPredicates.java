@@ -60,6 +60,10 @@ public class UnitPredicates
         return UnitOperations::isAlive;
     }
 
+    public static Predicate<Item> isDead() {
+        return UnitOperations::isDead;
+    }
+
     /**
      * Returns a condition that determines if a given {@link Item} belongs to
      * an artificial player, inclusive of the neutral player.
@@ -108,6 +112,10 @@ public class UnitPredicates
      */
     public static Predicate<Item> isCombatant() {
         return UnitOperations::isCombatant;
+    }
+
+    public static Predicate<Item> isNonCombatant() {
+        return not(isCombatant());
     }
 
     public static Predicate<Item> isAttacker() {

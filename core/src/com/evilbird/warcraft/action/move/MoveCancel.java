@@ -9,17 +9,16 @@
 
 package com.evilbird.warcraft.action.move;
 
-import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.LambdaAction;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
+import com.evilbird.warcraft.item.unit.Unit;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.common.AnimateAction.animate;
+import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.warcraft.action.move.MoveEvents.notifyMoveCancelled;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 
 /**
@@ -28,7 +27,8 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
  *
  * @author Blair Butterworth
  */
-public class MoveCancel extends ScenarioAction
+@Deprecated
+public class MoveCancel extends BasicAction
 {
     private transient Events events;
 
@@ -46,12 +46,10 @@ public class MoveCancel extends ScenarioAction
     }
 
     @Override
-    protected void steps(Identifier identifier) {
-        then(animate(Idle), moveCancelled());
-    }
-
-    private Action moveCancelled(){
-        return new LambdaAction((subject, target) ->
-            events.add(new MoveEvent(subject, MoveStatus.Cancelled)));
+    public boolean act(float delta) {
+        Unit unit = (Unit)getItem();
+        unit.setAnimation(Idle);
+        notifyMoveCancelled(events, unit);
+        return ActionComplete;
     }
 }

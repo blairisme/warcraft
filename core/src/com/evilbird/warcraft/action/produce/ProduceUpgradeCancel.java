@@ -9,17 +9,18 @@
 
 package com.evilbird.warcraft.action.produce;
 
-import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.events.Events;
-import com.evilbird.warcraft.action.common.scenario.ScenarioAction;
+import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
+import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.action.common.transfer.TransferAction.deposit;
-import static com.evilbird.warcraft.action.produce.ProduceAction.stopProducing;
-import static com.evilbird.warcraft.action.produce.ProduceEvents.onProductionCancelled;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isProducing;
+import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.warcraft.action.common.transfer.TransferOperations.setResources;
+import static com.evilbird.warcraft.action.produce.ProduceEvents.notifyProductionCancelled;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
 
 /**
@@ -28,12 +29,12 @@ import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
  *
  * @author Blair Butterworth
  */
-public class ProduceUpgradeCancel extends ScenarioAction<ProduceUpgradeActions>
+public class ProduceUpgradeCancel extends BasicAction
 {
     private transient Events events;
 
     /**
-     * Constructs a new instance of this class given an {@link EventQueue}
+     * Constructs a new instance of this class given an {@link Events} queue
      * used to report the transfer of resources involved in the refund for the
      * partially complete production operation.
      *
@@ -41,20 +42,24 @@ public class ProduceUpgradeCancel extends ScenarioAction<ProduceUpgradeActions>
      *                  cannot be {@code null}.
      */
     @Inject
-    public ProduceUpgradeCancel(EventQueue events) {
+    public ProduceUpgradeCancel(Events events) {
         this.events = events;
     }
 
     @Override
-    protected void steps(ProduceUpgradeActions action) {
-        scenario(action);
-        steps(action.getProduct());
+    public boolean act(float delta) {
+        Building building = (Building)getItem();
+        building.setProductionProgress(1);
+
+        Player player = getPlayer(building);
+        setResources(player, cost(getProduct()), events);
+
+        notifyProductionCancelled(events, building);
+        return ActionComplete;
     }
 
-    private void steps(PlayerUpgrade upgrade) {
-        given(isProducing());
-        then(stopProducing());
-        then(deposit(cost(upgrade), events));
-        then(onProductionCancelled(events));
+    private PlayerUpgrade getProduct() {
+        ProduceUpgradeActions identifier = (ProduceUpgradeActions)getIdentifier();
+        return identifier.getProduct();
     }
 }

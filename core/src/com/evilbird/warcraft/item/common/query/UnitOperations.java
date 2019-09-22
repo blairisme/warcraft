@@ -16,13 +16,19 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.engine.item.utility.ItemOperations;
+import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.common.movement.Movable;
 import com.evilbird.warcraft.item.common.movement.MovementCapability;
+import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
+import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -36,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.findFirst;
@@ -167,7 +174,7 @@ public class UnitOperations
 
     public static boolean hasResources(Player player, UnitType type) {
         for (ResourceQuantity cost: UnitCosts.cost(type)) {
-            if (player.getResource(cost.getResource()) < cost.getValue()){
+            if (player.getResource(cost.getType()) < cost.getValue()){
                 return false;
             }
         }
@@ -176,11 +183,19 @@ public class UnitOperations
 
     public static boolean hasResources(Player player, PlayerUpgrade upgrade) {
         for (ResourceQuantity cost: UnitCosts.cost(upgrade)) {
-            if (player.getResource(cost.getResource()) < cost.getValue()){
+            if (player.getResource(cost.getType()) < cost.getValue()){
                 return false;
             }
         }
         return true;
+    }
+
+    public static boolean hasResources(Item item, ResourceType type) {
+        if (item instanceof ResourceContainer) {
+            ResourceContainer container = (ResourceContainer)item;
+            return container.getResource(type) > 0;
+        }
+        return false;
     }
 
     public static boolean hasUnit(Player player, UnitType type) {
@@ -228,6 +243,10 @@ public class UnitOperations
             return destroyable.getHealth() > 0;
         }
         return false;
+    }
+
+    public static boolean isDead(Item item) {
+        return !isAlive(item);
     }
 
     /**
@@ -303,6 +322,10 @@ public class UnitOperations
      */
     public static boolean isBuilding(Item item) {
         return item instanceof Building;
+    }
+
+    public static boolean isBuildingPlaceholder(Item item) {
+        return item instanceof Placeholder;
     }
 
     public static boolean isConstructing(Item item) {
@@ -425,5 +448,23 @@ public class UnitOperations
         Vector2 normalizedDirection = direction.nor();
         Vector2 newDirection = normalizedDirection.rotate(perpendicular ? 90 : 0);
         item.setDirection(newDirection);
+    }
+
+    public static void moveAdjacent(Movable subject, Item target) {
+        ItemRoot root = target.getRoot();
+        ItemGraph graph = root.getSpatialGraph();
+
+        ItemPathFilter capability = new ItemPathFilter();
+        capability.addTraversableCapability(subject.getMovementCapability());
+
+        Collection<ItemNode> adjacent = graph.getAdjacentNodes(target.getPosition(), target.getSize());
+        Optional<ItemNode> unoccupied = adjacent.stream().filter(capability).findFirst();
+
+        if (unoccupied.isPresent()) {
+            graph.removeOccupants(subject);
+            ItemNode destination = unoccupied.get();
+            subject.setPosition(destination.getWorldReference());
+            graph.addOccupants(subject);
+        }
     }
 }

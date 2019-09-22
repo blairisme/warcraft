@@ -9,65 +9,112 @@
 
 package com.evilbird.warcraft.action.construct;
 
-import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.DelayedAction;
+import com.evilbird.engine.common.time.GameTimer;
+import com.evilbird.engine.events.Events;
+import com.evilbird.warcraft.action.common.exclusion.Exclusion;
+import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.building.Building;
+import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
-import static com.evilbird.engine.action.common.ActionRecipient.Subject;
-import static com.evilbird.engine.action.common.ActionRecipient.Target;
-import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
+import javax.inject.Inject;
+
+import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
+import static com.evilbird.warcraft.action.construct.ConstructEvents.notifyConstructComplete;
+import static com.evilbird.warcraft.action.construct.ConstructEvents.notifyConstructStarted;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.moveAdjacent;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Construct;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.item.unit.UnitCosts.buildTime;
+import static com.evilbird.warcraft.item.unit.UnitSound.Build;
+import static com.evilbird.warcraft.item.unit.UnitSound.Complete;
 
 /**
- * Represents an {@link Action} that indicates a building is under construction
- * and its progress towards construction.
- *
  * @author Blair Butterworth
  */
 public class ConstructAction extends DelayedAction
 {
-    private ActionRecipient building;
+    private static final int BUILDING_SOUND_INTERVAL = 10;
+    private static final int UNINITIALIZED_DURATION = -1;
 
-    /**
-     * Constructs a new instance of this class given a {@link ActionRecipient}
-     * describing the subject of the action (the building being constructed)
-     * and the time it will take for construction to complete.
-     *
-     * @param building  an {@link ActionRecipient} indicating the building
-     *                  under construction. This parameter cannot be {@code null}.
-     * @param start     the starting point of the construct action, if
-     *                  construction is partially complete.
-     * @param duration  the time it will take for construction to complete,
-     *                  specified in seconds.
-     */
-    public ConstructAction(ActionRecipient building, float start, float duration) {
-        super(start, duration);
-        this.building = building;
-    }
+    private transient Events events;
+    private transient GameTimer timer;
+    private transient WarcraftPreferences preferences;
 
-    public static ConstructAction construct(float duration){
-        return new ConstructAction(Target, 0, duration);
-    }
-
-    public static ConstructAction construct(float start, float duration){
-        return new ConstructAction(Target, start, duration);
-    }
-
-    public static ConstructAction stopConstructing() {
-        return new ConstructAction(Subject, 0, 0);
+    @Inject
+    public ConstructAction(Events events, WarcraftPreferences preferences) {
+        super(UNINITIALIZED_DURATION);
+        this.events = events;
+        this.preferences = preferences;
+        this.timer = new GameTimer(BUILDING_SOUND_INTERVAL);
     }
 
     @Override
-    public boolean act(float delta) {
-        super.act(delta);
-        Building building = (Building)getRecipient(this, this.building);
-        if (! isComplete()) {
-            building.setConstructionProgress(getProgress());
-            return false;
+    public boolean act(float time) {
+        if (! initialized()) {
+            return initialize();
         }
-        else {
-            building.setConstructionProgress(1);
-            return true;
+        if (super.act(time)) {
+            return complete();
+        }
+        return update(time);
+    }
+
+    @Override
+    public void reset() {
+        setDuration(UNINITIALIZED_DURATION);
+    }
+
+    private boolean initialized() {
+        return getDuration() != UNINITIALIZED_DURATION;
+    }
+
+    private boolean initialize() {
+        Unit builder = (Unit)getItem();
+        Exclusion.disable(builder, events);
+
+        Building building = (Building)getTarget();
+        building.setAnimation(Construct);
+
+        setDuration(buildTime(building));
+        setProgress(building.getConstructionProgress() * buildTime(building));
+
+        notifyConstructStarted(events, builder, building);
+        return ActionIncomplete;
+    }
+
+    private boolean complete() {
+        Building building = (Building)getTarget();
+        building.setConstructionProgress(1);
+        building.setAnimation(Idle);
+
+        Gatherer builder = (Gatherer)getItem();
+        Exclusion.restore(builder);
+        builder.setAssociatedItem(null);
+        builder.setAnimation(Idle);
+        builder.setSound(Complete);
+        moveAdjacent(builder, building);
+
+        notifyConstructComplete(events, builder, building);
+        return ActionComplete;
+    }
+
+    private boolean update(float time) {
+        Building building = (Building)getTarget();
+        building.setConstructionProgress(getProgress());
+
+        Gatherer builder = (Gatherer)getItem();
+        playSound(builder, time);
+
+        return ActionIncomplete;
+    }
+
+    private void playSound(Gatherer builder, float time) {
+        if (preferences.isBuildingSoundsEnabled() && timer.advance(time)) {
+            timer.reset();
+            builder.setSound(Build);
         }
     }
 }
