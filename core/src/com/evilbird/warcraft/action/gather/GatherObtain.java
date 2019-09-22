@@ -34,12 +34,12 @@ class GatherObtain extends BasicAction
     protected transient DeathAction death;
     protected transient GatherEvents events;
     protected transient ResourceType resource;
-    protected transient ResourceTransfer transferer;
+    protected transient ResourceTransfer resources;
 
-    public GatherObtain(GatherEvents events, DeathAction death, ResourceTransfer transferer) {
+    public GatherObtain(GatherEvents events, DeathAction death, ResourceTransfer resources) {
         this.events = events;
         this.death = death;
-        this.transferer = transferer;
+        this.resources = resources;
     }
 
     @Override
@@ -111,7 +111,7 @@ class GatherObtain extends BasicAction
 
         ResourceQuantity quantity = new ResourceQuantity(resource, gatherer.getGatherCapacity(resource));
         ResourceContainer container = (ResourceContainer)getTarget();
-        transferer.transfer(container, gatherer, quantity);
+        resources.transfer(container, gatherer, quantity);
         resourceEmpty(container);
 
         events.notifyObtainComplete(gatherer, container, quantity);

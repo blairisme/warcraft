@@ -57,9 +57,11 @@ public class GatherGold extends StateTransitionAction
 
     private Action nextAction(Gatherer gatherer, Item target) {
         if (hasResources(gatherer, Gold)) {
+//            deposit.setItem(gatherer);
             deposit.setTarget(getNearestDepot(gatherer));
             return deposit;
         } else {
+//            gather.setItem(gatherer);
             gather.setTarget(getNearestResource(gatherer, target));
             return gather;
         }

@@ -108,12 +108,4 @@ public class MoveToItemAction extends MoveAction
         endNode = null;
         targetNode = null;
     }
-
-    public static MoveToItemAction move(Events events) {
-        return moveToItem(events);
-    }
-
-    public static MoveToItemAction moveToItem(Events events) {
-        return new MoveToItemAction(events);
-    }
 }

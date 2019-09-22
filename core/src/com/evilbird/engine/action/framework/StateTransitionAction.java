@@ -10,9 +10,6 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.common.lang.Identifier;
-
-import java.util.Objects;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
@@ -25,7 +22,6 @@ import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
  */
 public abstract class StateTransitionAction extends CompositeAction
 {
-    private Identifier currentId;
     private transient Action current;
     private transient Action previous;
 
@@ -39,7 +35,7 @@ public abstract class StateTransitionAction extends CompositeAction
     @Override
     public boolean act(float time) {
         if (current == null) {
-            current = nextAction();
+            current = nextAction(previous);
             if (current == null) {
                 return ActionComplete;
             }
@@ -51,26 +47,9 @@ public abstract class StateTransitionAction extends CompositeAction
             current.restart();
             previous = current;
             current = null;
-            currentId = null;
         }
         return ActionIncomplete;
     }
 
     protected abstract Action nextAction(Action previous);
-
-    private Action nextAction() {
-       if (currentId != null) {
-           return loadAction(currentId);
-       }
-       return nextAction(previous);
-    }
-
-    private Action loadAction(Identifier identifier) {
-        for (Action action: getActions()) {
-            if (Objects.equals(action.getIdentifier(), identifier)) {
-                return action;
-            }
-        }
-        return null;
-    }
 }

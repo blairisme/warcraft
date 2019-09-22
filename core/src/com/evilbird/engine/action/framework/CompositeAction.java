@@ -11,8 +11,10 @@ package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
+import com.evilbird.engine.common.serialization.SerializedInitializer;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemReference;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public abstract class CompositeAction extends BasicAction
 {
-    protected List<Action> actions;
+    protected transient List<Action> actions;
 
     public CompositeAction() {
         actions = new ArrayList<>();
@@ -141,33 +143,28 @@ public abstract class CompositeAction extends BasicAction
             }
         }
     }
-    
+
+    @SerializedInitializer
+    protected void initialize() {
+        for (Action action: actions) {
+            if (action instanceof BasicAction) {
+                BasicAction basic = (BasicAction)action;
+                basic.item = this.item;
+                basic.target = this.target;
+            }
+        }
+    }
+
+    @Override
+    public void setRoot(ItemComposite root) {
+        super.setRoot(root);
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
             .appendSuper("base")
             .append("actions", actions)
             .toString();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) { return false; }
-        if (obj == this) { return true; }
-        if (obj.getClass() != getClass()) { return false; }
-
-        CompositeAction that = (CompositeAction)obj;
-        return new EqualsBuilder()
-            .appendSuper(super.equals(obj))
-            .append(actions, that.actions)
-            .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-            .appendSuper(super.hashCode())
-            .append(actions)
-            .toHashCode();
     }
 }
