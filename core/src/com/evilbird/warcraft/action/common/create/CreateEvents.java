@@ -12,12 +12,18 @@ package com.evilbird.warcraft.action.common.create;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 
+import javax.inject.Inject;
+
 public class CreateEvents
 {
-    private CreateEvents() {
+    private Events events;
+
+    @Inject
+    public CreateEvents(Events events) {
+        this.events = events;
     }
 
-    public static void notifyItemCreated(Events events, Item item) {
+    public void notifyCreate(Item item) {
         events.add(new CreateEvent(item));
     }
 }

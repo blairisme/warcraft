@@ -28,7 +28,7 @@ public class ProduceUnitCancelTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        Events events = Mockito.mock(Events.class);
+        ProduceEvents events = Mockito.mock(ProduceEvents.class);
         ResourceTransfer resources = Mockito.mock(ResourceTransfer.class);
         ProduceUnitCancel action = new ProduceUnitCancel(events, resources);
         action.setIdentifier(ProduceUnitActions.TrainFootmanCancel);

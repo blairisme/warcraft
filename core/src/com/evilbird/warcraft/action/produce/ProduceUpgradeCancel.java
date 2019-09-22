@@ -19,7 +19,6 @@ import com.evilbird.warcraft.item.unit.building.Building;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.warcraft.action.produce.ProduceEvents.notifyProductionCancelled;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
 
@@ -31,7 +30,7 @@ import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
  */
 public class ProduceUpgradeCancel extends BasicAction
 {
-    private transient Events events;
+    private transient ProduceEvents events;
     private transient ResourceTransfer resources;
 
     /**
@@ -43,7 +42,7 @@ public class ProduceUpgradeCancel extends BasicAction
      *                  cannot be {@code null}.
      */
     @Inject
-    public ProduceUpgradeCancel(Events events, ResourceTransfer resources) {
+    public ProduceUpgradeCancel(ProduceEvents events, ResourceTransfer resources) {
         this.events = events;
         this.resources = resources;
     }
@@ -56,7 +55,7 @@ public class ProduceUpgradeCancel extends BasicAction
         Player player = getPlayer(building);
         resources.setResources(player, cost(getProduct()));
 
-        notifyProductionCancelled(events, building);
+        events.notifyProductionCancelled(building);
         return ActionComplete;
     }
 

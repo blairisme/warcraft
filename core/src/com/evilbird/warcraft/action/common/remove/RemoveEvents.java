@@ -12,6 +12,8 @@ package com.evilbird.warcraft.action.common.remove;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 
+import javax.inject.Inject;
+
 /**
  * Helper class for generating removal events.
  *
@@ -19,13 +21,14 @@ import com.evilbird.engine.item.Item;
  */
 public class RemoveEvents
 {
-    /**
-     * Disable construction of static helper class.
-     */
-    private RemoveEvents() {
+    private Events events;
+
+    @Inject
+    public RemoveEvents(Events events) {
+        this.events = events;
     }
 
-    public static void notifyRemove(Events events, Item item) {
+    public void notifyRemove(Item item) {
         events.add(new RemoveEvent(item));
     }
 }

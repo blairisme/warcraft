@@ -10,8 +10,6 @@
 package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.action.framework.TemporalAction;
-import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.item.common.resource.ResourceSet;
 import com.evilbird.warcraft.item.data.player.Player;
@@ -22,8 +20,6 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
-import static com.evilbird.warcraft.action.produce.ProduceEvents.notifyProductionCompleted;
-import static com.evilbird.warcraft.action.produce.ProduceEvents.notifyProductionStarted;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.unit.UnitCosts.buildTime;
 import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
@@ -36,19 +32,19 @@ import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
  */
 public class ProduceUpgrade extends TemporalAction
 {
-    private transient Events events;
+    private transient ProduceEvents events;
     private transient ResourceTransfer resources;
 
     /**
-     * Constructs a new instance of this class given an {@link EventQueue}
+     * Constructs a new instance of this class given an {@link ProduceEvents}
      * used to report events when production begins and completes, as well as
      * for the transfer of funds involved in production.
      *
-     * @param events  a {@code EventQueue} instance. This parameter
+     * @param events  an {@code ProduceEvents} instance. This parameter
      *                  cannot be {@code null}.
      */
     @Inject
-    public ProduceUpgrade(Events events, ResourceTransfer resources) {
+    public ProduceUpgrade(ProduceEvents events, ResourceTransfer resources) {
         this.events = events;
         this.resources = resources;
     }
@@ -82,7 +78,7 @@ public class ProduceUpgrade extends TemporalAction
         setDuration(buildTime(product));
         setProgress(building.getProductionProgress() * getDuration());
 
-        notifyProductionStarted(events, building);
+        events.notifyProductionStarted(building);
         return ActionIncomplete;
     }
 
@@ -91,7 +87,7 @@ public class ProduceUpgrade extends TemporalAction
         Player player = getPlayer(building);
 
         player.setUpgrade(getProduct(), true);
-        notifyProductionCompleted(events, building);
+        events.notifyProductionCompleted(building);
 
         return ActionComplete;
     }

@@ -9,10 +9,13 @@
 
 package com.evilbird.warcraft.action.construct;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.TemporalAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
+import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
@@ -21,6 +24,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.moveAdjacent;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Construct;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
@@ -29,7 +33,9 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Build;
 import static com.evilbird.warcraft.item.unit.UnitSound.Complete;
 
 /**
- * Represents an {@link Action} that
+ * An {@link Action} that constructs a building.
+ *
+ * @author Blair Butterworth
  */
 public class ConstructAction extends TemporalAction
 {
@@ -40,13 +46,20 @@ public class ConstructAction extends TemporalAction
     private transient ConstructEvents events;
     private transient ItemExclusion exclusion;
     private transient WarcraftPreferences preferences;
+    private transient ResourceTransfer resources;
 
     @Inject
-    public ConstructAction(ConstructEvents events, WarcraftPreferences preferences, ItemExclusion exclusion) {
+    public ConstructAction(
+        ConstructEvents events,
+        WarcraftPreferences preferences,
+        ItemExclusion exclusion,
+        ResourceTransfer resources)
+    {
         super(UNINITIALIZED_DURATION);
         this.events = events;
         this.preferences = preferences;
         this.exclusion = exclusion;
+        this.resources = resources;
         this.timer = new GameTimer(BUILDING_SOUND_INTERVAL);
     }
 
@@ -94,6 +107,9 @@ public class ConstructAction extends TemporalAction
         builder.setAnimation(Idle);
         exclusion.restore(builder);
         moveAdjacent(builder, building);
+
+        Player player = getPlayer(building);
+        resources.transfer(building, player);
 
         if (preferences.isSpeechEnabled()) {
             builder.setSound(Complete);

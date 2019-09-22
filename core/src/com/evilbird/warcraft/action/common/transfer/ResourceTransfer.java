@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.common.transfer;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.item.common.resource.ResourceUtils;
 
 import javax.inject.Inject;
 
@@ -22,6 +23,14 @@ public class ResourceTransfer
     @Inject
     public ResourceTransfer(TransferEvents events) {
         this.events = events;
+    }
+
+    public void transfer(ResourceContainer from, ResourceContainer to) {
+        transfer(from, to, ResourceUtils.getResources(from));
+    }
+
+    public void transfer(ResourceContainer from, ResourceContainer to, Iterable<ResourceQuantity> quantities) {
+        quantities.forEach(quantity -> transfer(from, to, quantity));
     }
 
     public void transfer(ResourceContainer from, ResourceContainer to, ResourceQuantity quantity) {

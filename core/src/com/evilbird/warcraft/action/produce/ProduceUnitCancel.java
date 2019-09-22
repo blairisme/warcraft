@@ -10,8 +10,6 @@
 package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -20,7 +18,6 @@ import com.evilbird.warcraft.item.unit.building.Building;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.warcraft.action.produce.ProduceEvents.notifyProductionCancelled;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
 
@@ -32,19 +29,19 @@ import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
  */
 public class ProduceUnitCancel extends BasicAction
 {
-    private transient Events events;
+    private transient ProduceEvents events;
     private transient ResourceTransfer resources;
 
     /**
-     * Constructs a new instance of this class given an {@link EventQueue}
+     * Constructs a new instance of this class given an {@link ProduceEvents}
      * used to report the transferAll of resources involved in the refund for the
      * partially complete train operation.
      *
-     * @param events  a {@code EventQueue} instance. This parameter
+     * @param events  a {@code ProduceEvents} instance. This parameter
      *                  cannot be {@code null}.
      */
     @Inject
-    public ProduceUnitCancel(Events events, ResourceTransfer resources) {
+    public ProduceUnitCancel(ProduceEvents events, ResourceTransfer resources) {
         this.events = events;
         this.resources = resources;
     }
@@ -57,7 +54,7 @@ public class ProduceUnitCancel extends BasicAction
         Player player = getPlayer(building);
         resources.setResources(player, cost(getProduct()));
 
-        notifyProductionCancelled(events, building);
+        events.notifyProductionCancelled(building);
         return ActionComplete;
     }
 
