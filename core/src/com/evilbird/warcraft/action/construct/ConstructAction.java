@@ -94,9 +94,11 @@ public class ConstructAction extends DelayedAction
         Exclusion.restore(builder);
         builder.setAssociatedItem(null);
         builder.setAnimation(Idle);
-        builder.setSound(Complete);
         moveAdjacent(builder, building);
 
+        if (preferences.isSpeechEnabled()) {
+            builder.setSound(Complete);
+        }
         notifyConstructComplete(events, builder, building);
         return ActionComplete;
     }
@@ -106,15 +108,10 @@ public class ConstructAction extends DelayedAction
         building.setConstructionProgress(getProgress());
 
         Gatherer builder = (Gatherer)getItem();
-        playSound(builder, time);
-
-        return ActionIncomplete;
-    }
-
-    private void playSound(Gatherer builder, float time) {
         if (preferences.isBuildingSoundsEnabled() && timer.advance(time)) {
             timer.reset();
             builder.setSound(Build);
         }
+        return ActionIncomplete;
     }
 }
