@@ -37,6 +37,10 @@ public class GameTimer
         return duration;
     }
 
+    public float completion() {
+        return progress / duration;
+    }
+
     public void reset() {
         progress = 0;
     }

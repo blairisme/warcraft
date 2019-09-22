@@ -27,24 +27,21 @@ public class TransferEvent implements Event
 {
     private ResourceContainer recipient;
     private ResourceType resource;
-    private float oldValue;
-    private float newValue;
+    private float value;
 
     public TransferEvent(
         ResourceContainer recipient,
         ResourceType resource,
-        float oldValue,
-        float newValue)
+        float value)
     {
         this.recipient = recipient;
         this.resource = resource;
-        this.oldValue = oldValue;
-        this.newValue = newValue;
+        this.value = value;
     }
 
     @Override
     public Item getSubject() {
-        return (Item)recipient;
+        return recipient;
     }
 
     public ResourceContainer getContainer() {
@@ -56,11 +53,7 @@ public class TransferEvent implements Event
     }
 
     public float getValue() {
-        return newValue;
-    }
-
-    public float getOldValue() {
-        return oldValue;
+        return value;
     }
 
     @Override
@@ -68,8 +61,7 @@ public class TransferEvent implements Event
         return new ToStringBuilder(this)
             .append("recipient", recipient.getIdentifier())
             .append("resource", resource)
-            .append("oldValue", oldValue)
-            .append("newValue", newValue)
+            .append("value", value)
             .toString();
     }
 
@@ -81,8 +73,7 @@ public class TransferEvent implements Event
 
         TransferEvent that = (TransferEvent)obj;
         return new EqualsBuilder()
-            .append(oldValue, that.oldValue)
-            .append(newValue, that.newValue)
+            .append(value, that.value)
             .append(recipient, that.recipient)
             .append(resource, that.resource)
             .isEquals();
@@ -93,8 +84,7 @@ public class TransferEvent implements Event
         return new HashCodeBuilder(17, 37)
             .append(recipient)
             .append(resource)
-            .append(oldValue)
-            .append(newValue)
+            .append(value)
             .toHashCode();
     }
 }

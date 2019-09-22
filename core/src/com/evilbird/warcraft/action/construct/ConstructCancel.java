@@ -10,7 +10,8 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.framework.DelegateAction;
-import com.evilbird.engine.events.EventQueue;
+import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
+import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.data.player.Player;
@@ -22,9 +23,6 @@ import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import javax.inject.Inject;
 import java.util.Collection;
 
-import static com.evilbird.warcraft.action.common.exclusion.Exclusion.restore;
-import static com.evilbird.warcraft.action.common.transfer.TransferOperations.setResources;
-import static com.evilbird.warcraft.action.construct.ConstructEvents.notifyConstructCancelled;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.moveAdjacent;
 
@@ -35,24 +33,23 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.moveAdjacen
  */
 public class ConstructCancel extends DelegateAction
 {
-    private transient EventQueue events;
     private transient boolean cancelled;
+    private transient ConstructEvents events;
+    private transient ItemExclusion exclusion;
+    private transient ResourceTransfer resources;
 
-    /**
-     * Creates a new instance of this class given a {@link EventQueue}
-     * used to report the transferAll of resources involved in the refund for the
-     * partially complete train operation.
-     *
-     * @param events    a {@code EventQueue} instance. This parameter
-     *                  cannot be {@code null}.
-     * @param death     an action that will be used to destroy the construction
-     *                  site.
-     */
     @Inject
-    public ConstructCancel(EventQueue events, DeathAction death) {
+    public ConstructCancel(
+        ConstructEvents events,
+        DeathAction death,
+        ItemExclusion exclusion,
+        ResourceTransfer resources)
+    {
         super(death);
         this.events = events;
         this.cancelled = false;
+        this.exclusion = exclusion;
+        this.resources = resources;
     }
 
     @Override
@@ -78,7 +75,7 @@ public class ConstructCancel extends DelegateAction
         configureBuilder(builder, building);
         configurePlayer(building);
 
-        notifyConstructCancelled(events, builder, building);
+        events.notifyConstructCancelled(builder, building);
     }
 
     private void configureBuilding(Building building) {
@@ -92,14 +89,14 @@ public class ConstructCancel extends DelegateAction
         builder.clearActions();
 
         if (!builder.getVisible()) {
-            restore(builder);
+            exclusion.restore(builder);
             moveAdjacent(builder, building);
         }
     }
 
     private void configurePlayer(Building building) {
         Player player = getPlayer(building);
-        setResources(player, getBuildingCost(), events);
+        resources.setResources(player, getBuildingCost());
     }
 
     private Collection<ResourceQuantity> getBuildingCost() {

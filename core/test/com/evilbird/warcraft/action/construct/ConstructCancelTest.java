@@ -11,11 +11,12 @@ package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
+import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
@@ -34,7 +35,11 @@ public class ConstructCancelTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        ConstructCancel action = new ConstructCancel(Mockito.mock(EventQueue.class), Mockito.mock(DeathAction.class));
+        ConstructEvents events = Mockito.mock(ConstructEvents.class);
+        DeathAction death = Mockito.mock(DeathAction.class);
+        ItemExclusion exclusion = Mockito.mock(ItemExclusion.class);
+        ResourceTransfer resources = Mockito.mock(ResourceTransfer.class);
+        ConstructCancel action = new ConstructCancel(events, death, exclusion, resources);
         action.setIdentifier(ConstructActions.ConstructBarracksCancel);
         return action;
     }

@@ -9,9 +9,10 @@
 
 package com.evilbird.warcraft.action.produce;
 
-import com.evilbird.engine.action.framework.DelayedAction;
+import com.evilbird.engine.action.framework.TemporalAction;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
+import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.item.common.resource.ResourceSet;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
@@ -21,7 +22,6 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
-import static com.evilbird.warcraft.action.common.transfer.TransferOperations.setResources;
 import static com.evilbird.warcraft.action.produce.ProduceEvents.notifyProductionCompleted;
 import static com.evilbird.warcraft.action.produce.ProduceEvents.notifyProductionStarted;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
@@ -34,9 +34,10 @@ import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
  *
  * @author Blair Butterworth
  */
-public class ProduceUpgrade extends DelayedAction
+public class ProduceUpgrade extends TemporalAction
 {
     private transient Events events;
+    private transient ResourceTransfer resources;
 
     /**
      * Constructs a new instance of this class given an {@link EventQueue}
@@ -47,8 +48,9 @@ public class ProduceUpgrade extends DelayedAction
      *                  cannot be {@code null}.
      */
     @Inject
-    public ProduceUpgrade(EventQueue events) {
+    public ProduceUpgrade(Events events, ResourceTransfer resources) {
         this.events = events;
+        this.resources = resources;
     }
 
     @Override
@@ -59,7 +61,7 @@ public class ProduceUpgrade extends DelayedAction
         if (super.act(time)) {
             return complete();
         }
-        return update(time);
+        return update();
     }
 
     private boolean initialized() {
@@ -75,7 +77,7 @@ public class ProduceUpgrade extends DelayedAction
         PlayerUpgrade product = getProduct();
 
         ResourceSet cost = new ResourceSet(cost(product));
-        setResources(player, cost.negate(), events);
+        resources.setResources(player, cost.negate());
 
         setDuration(buildTime(product));
         setProgress(building.getProductionProgress() * getDuration());
@@ -94,7 +96,7 @@ public class ProduceUpgrade extends DelayedAction
         return ActionComplete;
     }
 
-    private boolean update(float time) {
+    private boolean update() {
         Building building = (Building)getItem();
         building.setProductionProgress(getProgress());
         return ActionIncomplete;

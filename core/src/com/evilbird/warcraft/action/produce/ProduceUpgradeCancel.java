@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.events.Events;
+import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -18,7 +19,6 @@ import com.evilbird.warcraft.item.unit.building.Building;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.warcraft.action.common.transfer.TransferOperations.setResources;
 import static com.evilbird.warcraft.action.produce.ProduceEvents.notifyProductionCancelled;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
@@ -32,6 +32,7 @@ import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
 public class ProduceUpgradeCancel extends BasicAction
 {
     private transient Events events;
+    private transient ResourceTransfer resources;
 
     /**
      * Constructs a new instance of this class given an {@link Events} queue
@@ -42,8 +43,9 @@ public class ProduceUpgradeCancel extends BasicAction
      *                  cannot be {@code null}.
      */
     @Inject
-    public ProduceUpgradeCancel(Events events) {
+    public ProduceUpgradeCancel(Events events, ResourceTransfer resources) {
         this.events = events;
+        this.resources = resources;
     }
 
     @Override
@@ -52,7 +54,7 @@ public class ProduceUpgradeCancel extends BasicAction
         building.setProductionProgress(1);
 
         Player player = getPlayer(building);
-        setResources(player, cost(getProduct()), events);
+        resources.setResources(player, cost(getProduct()));
 
         notifyProductionCancelled(events, building);
         return ActionComplete;

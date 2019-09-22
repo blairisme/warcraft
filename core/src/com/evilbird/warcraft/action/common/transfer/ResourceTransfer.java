@@ -9,22 +9,31 @@
 
 package com.evilbird.warcraft.action.common.transfer;
 
-import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 
-import static com.evilbird.warcraft.action.common.transfer.TransferEvents.notifyTransfer;
+import javax.inject.Inject;
 
-public class TransferOperations
+public class ResourceTransfer
 {
-    public static void setResources(ResourceContainer container, Iterable<ResourceQuantity> resources, Events events) {
-        for (ResourceQuantity resource: resources) {
-            setResources(container, resource, events);
-        }
+    private TransferEvents events;
+
+    @Inject
+    public ResourceTransfer(TransferEvents events) {
+        this.events = events;
     }
 
-    public static void setResources(ResourceContainer container, ResourceQuantity quantity, Events events) {
+    public void transfer(ResourceContainer from, ResourceContainer to, ResourceQuantity quantity) {
+        setResources(from, quantity.negate());
+        setResources(to, quantity);
+    }
+
+    public void setResources(ResourceContainer container, Iterable<ResourceQuantity> quantities) {
+        quantities.forEach(quantity -> setResources(container, quantity));
+    }
+
+    public void setResources(ResourceContainer container, ResourceQuantity quantity) {
         ResourceType resource = quantity.getType();
         float delta = quantity.getValue();
 
@@ -33,7 +42,7 @@ public class TransferOperations
             float newValue = oldValue + delta;
 
             container.setResource(resource, newValue);
-            notifyTransfer(events, container, resource, oldValue, newValue);
+            events.notifyTransfer(container, resource, newValue);
         }
     }
 }

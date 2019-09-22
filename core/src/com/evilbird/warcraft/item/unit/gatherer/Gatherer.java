@@ -45,6 +45,14 @@ public class Gatherer extends Combatant implements ResourceContainer
         return progress;
     }
 
+    public float getGatherCapacity(ResourceType resource) {
+        return 100; //TODO
+    }
+
+    public float getGatherDuration(ResourceType resource) {
+        return 5; //TODO
+    }
+
     public void clearResources() {
         resources.clear();
     }

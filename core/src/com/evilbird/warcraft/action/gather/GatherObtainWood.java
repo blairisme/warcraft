@@ -9,28 +9,37 @@
 
 package com.evilbird.warcraft.action.gather;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.time.GameTimer;
-import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
+import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.IdleWood;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.MoveWood;
 import static com.evilbird.warcraft.item.unit.UnitSound.ChopWood;
 
+/**
+ * An {@link Action} that instructs a {@link Gatherer} to obtain wood from a
+ * forest.
+ *
+ * @author Blair Butterworth
+ */
 public class GatherObtainWood extends GatherObtain
 {
-    private GameTimer timer;
+    private transient GameTimer timer;
 
     @Inject
-    public GatherObtainWood(Events events) {
-        super(events, null);
+    public GatherObtainWood(GatherEvents events, ResourceTransfer transferer) {
+        super(events, null, transferer);
+        setResource(Wood);
     }
 
     @Override
@@ -41,10 +50,14 @@ public class GatherObtainWood extends GatherObtain
         Item tree = getTarget();
         reorient(gatherer, tree, false);
 
+        return super.initialize();
+    }
+
+    @Override
+    protected boolean load() {
         timer = new GameTimer(1);
         timer.advance(timer.duration());
-
-        return super.initialize();
+        return super.load();
     }
 
     @Override

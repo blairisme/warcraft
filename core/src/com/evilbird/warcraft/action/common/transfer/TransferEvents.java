@@ -13,26 +13,25 @@ import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 
+import javax.inject.Inject;
+
 /**
+ * Notifies the system event observers about resource transfers.
+ *
  * Helper class for generating transfer events.
  *
  * @author Blair Butterworth
  */
 public class TransferEvents
 {
-    /**
-     * Disable construction of static helper class.
-     */
-    private TransferEvents() {
+    private Events events;
+
+    @Inject
+    public TransferEvents(Events events) {
+        this.events = events;
     }
 
-    public static void notifyTransfer(
-        Events events,
-        ResourceContainer subject,
-        ResourceType resource,
-        float oldValue,
-        float newValue)
-    {
-        events.add(new TransferEvent(subject, resource, oldValue, newValue));
+    public void notifyTransfer(ResourceContainer subject, ResourceType resource, float value) {
+        events.add(new TransferEvent(subject, resource, value));
     }
 }

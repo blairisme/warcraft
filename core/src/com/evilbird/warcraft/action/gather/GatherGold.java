@@ -14,7 +14,6 @@ import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.StateTransitionAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
-import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
@@ -34,12 +33,8 @@ import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
  */
 public class GatherGold extends StateTransitionAction
 {
-    private static final float DEPOSIT_TIME = 5;
-    private static final float GATHER_TIME = 5;
-    private static final ResourceQuantity RESOURCE = new ResourceQuantity(Gold, 100);
-
-    private Action gather;
-    private Action deposit;
+    private transient Action gather;
+    private transient Action deposit;
 
     @Inject
     public GatherGold(
@@ -48,14 +43,11 @@ public class GatherGold extends StateTransitionAction
         MoveToItemAction moveToDepot,
         MoveToItemAction moveToResource)
     {
+        setIdentifier(GatherActions.GatherGold);
+        gather.setResource(Gold);
+        deposit.setResource(Gold);
         this.deposit = add(new SequenceAction(moveToDepot, deposit));
         this.gather = add(new SequenceAction(moveToResource, gather));
-
-        gather.setResource(RESOURCE);
-        gather.setDuration(GATHER_TIME);
-
-        deposit.setResource(RESOURCE);
-        deposit.setDuration(DEPOSIT_TIME);
     }
 
     @Override

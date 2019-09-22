@@ -12,7 +12,6 @@ package com.evilbird.warcraft.action.common.transfer;
 import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.common.ActionUtils;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 
@@ -29,14 +28,15 @@ import java.util.function.Supplier;
  */
 public class TransferAction extends BasicAction
 {
-    private Events events;
+
     private ActionRecipient from;
     private ActionRecipient to;
+    private ResourceTransfer transferer;
     private Supplier<Collection<ResourceQuantity>> resources;
 
     @Inject
-    public TransferAction(Events events) {
-        this.events = events;
+    public TransferAction(ResourceTransfer transferer) {
+        this.transferer = transferer;
         this.resources = Collections::emptyList;
     }
 
@@ -60,11 +60,11 @@ public class TransferAction extends BasicAction
     private void setResources(ResourceQuantity quantity) {
         if (from != null) {
             ResourceContainer supplier = (ResourceContainer)ActionUtils.getRecipient(this, from);
-            TransferOperations.setResources(supplier, quantity.negate(), events);
+            transferer.setResources(supplier, quantity.negate());
         }
         if (to != null) {
             ResourceContainer recipient = (ResourceContainer)ActionUtils.getRecipient(this, to);
-            TransferOperations.setResources(recipient, quantity, events);
+            transferer.setResources(recipient, quantity);
         }
     }
 }

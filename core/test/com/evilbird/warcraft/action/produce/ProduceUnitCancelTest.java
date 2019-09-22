@@ -11,10 +11,11 @@ package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.mockito.Mockito;
 
@@ -27,7 +28,9 @@ public class ProduceUnitCancelTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        ProduceUnitCancel action = new ProduceUnitCancel(Mockito.mock(EventQueue.class));
+        Events events = Mockito.mock(Events.class);
+        ResourceTransfer resources = Mockito.mock(ResourceTransfer.class);
+        ProduceUnitCancel action = new ProduceUnitCancel(events, resources);
         action.setIdentifier(ProduceUnitActions.TrainFootmanCancel);
         return action;
     }

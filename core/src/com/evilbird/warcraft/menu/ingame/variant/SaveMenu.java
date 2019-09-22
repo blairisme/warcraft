@@ -124,6 +124,7 @@ public class SaveMenu extends IngameMenu
                 showNameError(strings.getSaveInvalidNameError());
             } else {
                 states.set(new WarcraftSave(name), controller.getState());
+                showState();
             }
         }
         catch (Throwable error) {

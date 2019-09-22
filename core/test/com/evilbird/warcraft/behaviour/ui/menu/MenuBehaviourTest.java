@@ -117,7 +117,7 @@ public class MenuBehaviourTest extends GameTestCase
     }
 
     private void resourceUpdateTest(ResourceType resource, float value) {
-        events.add(new TransferEvent(player, resource, 100f, value));
+        events.add(new TransferEvent(player, resource, value));
         menuBehaviour.update(state, Collections.emptyList());
 
         assertEquals(String.valueOf(Math.round(value)), resourcePane.getResourceText(resource));

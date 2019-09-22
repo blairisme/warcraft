@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.action.common.ActionRecipient;
-import com.evilbird.engine.action.framework.DelayedAction;
+import com.evilbird.engine.action.framework.TemporalAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
 
@@ -23,7 +23,7 @@ import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
  *
  * @author Blair Butterworth
  */
-public class ProduceAction extends DelayedAction
+public class ProduceAction extends TemporalAction
 {
     private ActionRecipient recipient;
 

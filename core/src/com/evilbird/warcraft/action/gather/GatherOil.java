@@ -16,7 +16,6 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
-import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
@@ -39,12 +38,8 @@ import static com.evilbird.warcraft.item.unit.UnitType.OilRig;
  */
 public class GatherOil extends StateTransitionAction
 {
-    private static final float DEPOSIT_TIME = 5;
-    private static final float GATHER_TIME = 5;
-    private static final ResourceQuantity RESOURCE = new ResourceQuantity(Oil, 100);
-
-    private Action gather;
-    private Action deposit;
+    private transient Action gather;
+    private transient Action deposit;
 
     @Inject
     public GatherOil(
@@ -53,14 +48,11 @@ public class GatherOil extends StateTransitionAction
         MoveToItemAction moveToDepot,
         MoveToItemAction moveToResource)
     {
+        setIdentifier(GatherActions.GatherOil);
+        gather.setResource(Oil);
+        deposit.setResource(Oil);
         this.deposit = add(new SequenceAction(moveToDepot, deposit));
         this.gather = add(new SequenceAction(moveToResource, gather));
-
-        gather.setResource(RESOURCE);
-        gather.setDuration(GATHER_TIME);
-
-        deposit.setResource(RESOURCE);
-        deposit.setDuration(DEPOSIT_TIME);
     }
 
     @Override

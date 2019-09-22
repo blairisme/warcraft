@@ -12,9 +12,6 @@ package com.evilbird.warcraft.action.common.create;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 
-/**
- * @author Blair Butterworth
- */
 public class CreateEvents
 {
     private CreateEvents() {

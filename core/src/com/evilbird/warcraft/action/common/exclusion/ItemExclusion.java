@@ -15,15 +15,25 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.warcraft.item.unit.Unit;
 
+import javax.inject.Inject;
+
 import static com.evilbird.warcraft.action.select.SelectEvents.notifySelected;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 
-public class Exclusion
+/**
+ * Instances of this class remove an item from the game world, visually and
+ * interactively, although the item still remains part of the item hierarchy.
+ */
+public class ItemExclusion
 {
-    private Exclusion() {
+    private Events events;
+
+    @Inject
+    public ItemExclusion(Events events) {
+        this.events = events;
     }
 
-    public static void restore(Unit item) {
+    public void restore(Unit item) {
         item.setVisible(true);
         item.setAnimation(Idle);
         item.setSelectable(true);
@@ -34,7 +44,7 @@ public class Exclusion
         graph.addOccupants(item);
     }
 
-    public static void disable(Unit item, Events events) {
+    public void disable(Unit item) {
         if (item.getSelected()) {
             item.setSelected(false);
             notifySelected(events, item, false);
