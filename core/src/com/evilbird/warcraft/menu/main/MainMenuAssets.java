@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.common.audio.sound.Sound;
 
 import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
 
@@ -38,6 +39,10 @@ public class MainMenuAssets extends AssetBundle
 
     public Drawable getBackground() {
         return getDrawable("menu.png");
+    }
+
+    public Sound getButtonClick() {
+        return getSoundEffect("click.mp3");
     }
 
     public Drawable getButtonEnabled() {

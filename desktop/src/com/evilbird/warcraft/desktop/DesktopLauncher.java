@@ -23,6 +23,7 @@ import com.evilbird.warcraft.desktop.DaggerDesktopInjector.Builder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import picocli.CommandLine;
 
+import static com.evilbird.warcraft.desktop.DesktopStorage.STORAGE_ROOT;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 /**
@@ -95,12 +96,13 @@ public class DesktopLauncher
 
     private static LwjglApplicationConfiguration getConfiguration() {
         LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
+        configuration.title = "Warcraft II";
         configuration.height = 768;
         configuration.width = 1024;
         configuration.useHDPI = true;
-        //configuration.foregroundFPS = 30;
         configuration.vSyncEnabled = true;
-        configuration.title = "Warcraft II";
+        configuration.preferencesDirectory = STORAGE_ROOT + "prefs";
+        configuration.preferencesFileType = Files.FileType.External;
         configuration.addIcon("data/icons/WarcraftIcon.png", Files.FileType.Internal);
         return configuration;
     }

@@ -94,10 +94,6 @@ public class Menu implements Disposable
         this.music = music;
     }
 
-    public void showError(Throwable error) {
-        controller.showError(error);
-    }
-
     public void showMenu() {
         controller.showMenu();
     }
@@ -120,10 +116,5 @@ public class Menu implements Disposable
 
     public void showState(StateIdentifier identifier) {
         controller.showState(identifier);
-    }
-
-    public void saveState(StateIdentifier identifier) {
-        controller.saveState(identifier);
-        controller.showState();
     }
 }

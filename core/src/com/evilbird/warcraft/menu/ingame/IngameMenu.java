@@ -19,14 +19,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
+import com.evilbird.engine.common.control.LabelButton;
+import com.evilbird.engine.common.control.ListPane;
+import com.evilbird.engine.common.control.ScrollBarPane;
 import com.evilbird.engine.common.control.SelectListener;
-import com.evilbird.engine.common.control.SelectListenerAdapter;
+import com.evilbird.engine.common.control.TextInput;
 import com.evilbird.engine.device.DeviceDisplay;
-import com.evilbird.engine.item.specialized.ListPane;
-import com.evilbird.engine.item.specialized.ScrollBarPane;
-import com.evilbird.engine.item.specialized.TextInput;
 import com.evilbird.engine.menu.Menu;
 import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Instances of this {@link Menu} user interface are shown as the user plays
@@ -74,17 +77,19 @@ public class IngameMenu extends Menu
     }
 
     protected void addButton(String text, SelectListener action) {
-        Button button = new TextButton(text, skin);
-        button.addListener(new SelectListenerAdapter(action));
+        LabelButton button = new LabelButton(text, skin);
+        button.addSelectListener(action);
         addControl(button);
     }
 
     @SafeVarargs
-    protected final void addButtonRow(Pair<String, SelectListener> ... buttons) {
+    protected final List<LabelButton> addButtonRow(Pair<String, SelectListener> ... buttons) {
         Table row = addButtonRowTable();
+        List<LabelButton> result = new ArrayList<>(buttons.length);
         for (Pair<String, SelectListener> button: buttons) {
-            addButtonRowCell(row, button.getKey(), button.getValue());
+            result.add(addButtonRowCell(row, button.getKey(), button.getValue()));
         }
+        return result;
     }
 
     private Table addButtonRowTable() {
@@ -93,13 +98,15 @@ public class IngameMenu extends Menu
         return row;
     }
 
-    private void addButtonRowCell(Table row, String text, SelectListener action) {
-        Button button = new TextButton(text, skin);
-        button.addListener(new SelectListenerAdapter(action));
+    private LabelButton addButtonRowCell(Table row, String text, SelectListener action) {
+        LabelButton button = new LabelButton(text, skin);
+        button.addSelectListener(action);
 
         Cell cell = row.add(button);
         setPadding(cell);
         cell.width(100);
+
+        return button;
     }
 
     protected Label addTitle(String text) {

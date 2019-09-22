@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.state.WarcraftContext;
 
@@ -33,6 +34,7 @@ public class OutroMenuAssets extends AssetBundle
     public OutroMenuAssets(AssetManager assets, WarcraftContext context) {
         super(assets, pathVariables(context));
         register("data/textures/common/menu/button.png");
+        register("data/sounds/common/menu/click.mp3");
         register("data/textures/common/menu/stats_progress_fill.png");
         register("data/textures/common/menu/stats_progress_background.png");
         register("data/textures/${faction}/menu/victory.png");
@@ -59,6 +61,10 @@ public class OutroMenuAssets extends AssetBundle
         I18NBundle outroBundle = getStrings("outro");
         I18NBundle nationsBundle = getStrings("nations");
         return new OutroMenuStrings(outroBundle, nationsBundle);
+    }
+
+    public Sound getButtonClick() {
+        return getSoundEffect("click.mp3");
     }
 
     public Drawable getButtonEnabled() {

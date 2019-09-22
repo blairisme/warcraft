@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.item.specialized;
+package com.evilbird.engine.common.control;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
@@ -21,4 +21,14 @@ public class ScrollBarPaneStyle extends ScrollPaneStyle
 {
     public Color borderColour;
     public Color borderColourFocused;
+
+    public ScrollBarPaneStyle() {
+        super();
+    }
+
+    public ScrollBarPaneStyle(ScrollBarPaneStyle style) {
+        super(style);
+        this.borderColour = style.borderColour;
+        this.borderColourFocused = style.borderColourFocused;
+    }
 }

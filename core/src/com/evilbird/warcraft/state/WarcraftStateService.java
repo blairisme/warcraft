@@ -25,6 +25,7 @@ import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateLoadError;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.engine.state.StateType;
+import org.apache.commons.io.FileUtils;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -114,26 +115,12 @@ public class WarcraftStateService implements StateService
 
     @Override
     public void set(StateIdentifier identifier, State state) {
-        FileHandle handle = resolve(identifier);
-        createNew(handle);
+        FileHandle handle = create(identifier);
         try (Writer writer = handle.writer(false)) {
             serializer.serialize((WarcraftState)state, WarcraftState.class, writer);
         }
-        catch (IOException error){
-            throw new StateLoadError(error);
-        }
-    }
-
-    protected boolean createNew(FileHandle handle) {
-        try {
-            File file = handle.file();
-            if (! file.exists()) {
-                File parent = file.getParentFile();
-                return parent.mkdirs() && file.createNewFile();
-            }
-            return true;
-        }
-        catch (IOException error){
+        catch (IOException error) {
+            FileUtils.deleteQuietly(handle.file());
             throw new StateLoadError(error);
         }
     }
@@ -149,7 +136,27 @@ public class WarcraftStateService implements StateService
         }
     }
 
-    private FileHandle resolve(StateIdentifier identifier) {
+    protected FileHandle create(StateIdentifier identifier) {
+        FileHandle handle = resolve(identifier);
+        create(handle);
+        return handle;
+    }
+
+    protected boolean create(FileHandle handle) {
+        try {
+            File file = handle.file();
+            if (! file.exists()) {
+                File parent = file.getParentFile();
+                return parent.mkdirs() && file.createNewFile();
+            }
+            return true;
+        }
+        catch (IOException error){
+            throw new StateLoadError(error);
+        }
+    }
+
+    protected FileHandle resolve(StateIdentifier identifier) {
         if (identifier instanceof GameState) {
             WarcraftSave save = new WarcraftSave((GameState)identifier);
             return saveFile(save.getFileName());
@@ -165,18 +172,18 @@ public class WarcraftStateService implements StateService
         throw new IllegalArgumentException();
     }
 
-    private FileHandle saveFile(String name) {
+    protected FileHandle saveFile(String name) {
         FileHandle saves = deviceStorage.resolve(SAVE_DIRECTORY);
         return saves.child(name);
     }
 
-    private Collection<FileHandle> saveFiles() {
+    protected Collection<FileHandle> saveFiles() {
         FileHandle directory = deviceStorage.resolve(SAVE_DIRECTORY);
         Collection<FileHandle> saves = Arrays.asList(directory.list());
         return CollectionUtils.filter(saves, this::isValidSave);
     }
 
-    private boolean isValidSave(FileHandle handle) {
+    protected boolean isValidSave(FileHandle handle) {
         if (handle != null) {
             String extension = handle.extension();
             return extension.equalsIgnoreCase(WarcraftSave.getExtension());
@@ -184,7 +191,7 @@ public class WarcraftStateService implements StateService
         return false;
     }
 
-    private FileHandle assetFile(String parent, String name) {
+    protected FileHandle assetFile(String parent, String name) {
         FileHandle assets = assetStorage.resolve(ASSET_DIRECTORY);
         FileHandle faction = assets.child(parent);
         return faction.child(name);

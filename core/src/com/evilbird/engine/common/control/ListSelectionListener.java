@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.item.specialized;
+package com.evilbird.engine.common.control;
 
 /**
  * Implementors of this interface provide a method that is called when items in

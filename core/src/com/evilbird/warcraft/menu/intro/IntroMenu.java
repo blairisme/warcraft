@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.common.control.SelectListenerAdapter;
+import com.evilbird.engine.common.control.LabelButton;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.warcraft.state.WarcraftCampaign;
@@ -143,9 +143,9 @@ public class IntroMenu extends Menu
     }
 
     private TextButton createButton(Skin skin, Table table) {
-        TextButton result = new TextButton("Continue", skin);
+        LabelButton result = new LabelButton("Continue", skin);
         result.setDisabled(true);
-        result.addListener(new SelectListenerAdapter(() -> showState(campaign)));
+        result.addSelectListener(() -> showState(campaign));
 
         Cell cell = table.add(result);
         cell.align(Align.right);
