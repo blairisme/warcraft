@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Destroyable;
+import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -35,8 +36,7 @@ import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.MeleeDamage2;
  */
 public class MeleeAttack extends BasicAction
 {
-    private transient float delay;
-    private transient boolean initialized;
+    private transient GameTimer delay;
 
     @Inject
     public MeleeAttack() {
@@ -59,19 +59,17 @@ public class MeleeAttack extends BasicAction
     @Override
     public void reset() {
         super.reset();
-        delay = -1;
-        initialized = false;
+        delay = null;
     }
 
     @Override
     public void restart() {
         super.restart();
-        delay = -1;
-        initialized = false;
+        delay = null;
     }
 
     private boolean initialized() {
-        return initialized;
+        return delay != null;
     }
 
     private void initialize() {
@@ -82,16 +80,15 @@ public class MeleeAttack extends BasicAction
         Destroyable target = (Destroyable)getTarget();
         reorient(combatant, target, false);
 
-        delay = combatant.getAttackSpeed();
-        initialized = true;
+        delay = new GameTimer(combatant.getAttackSpeed());
     }
 
     private boolean readyToAttack() {
-        return delay == 0;
+        return delay.complete();
     }
 
     private boolean delayAttack(float time) {
-        delay = Math.max(delay - time, 0);
+        delay.advance(time);
         return ActionIncomplete;
     }
 
@@ -103,7 +100,8 @@ public class MeleeAttack extends BasicAction
         setTargetHealth(combatant, target);
 
         reorient(combatant, target, false);
-        delay = combatant.getAttackSpeed();
+        delay.reset();
+
         return target.getHealth() == 0;
     }
 
@@ -131,3 +129,4 @@ public class MeleeAttack extends BasicAction
         return ActionComplete;
     }
 }
+
