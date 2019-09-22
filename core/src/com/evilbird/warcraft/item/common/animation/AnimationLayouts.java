@@ -85,6 +85,12 @@ public class AnimationLayouts
         return new AnimationLayout(frames, 10f, false);
     }
 
+    public static AnimationLayout gatheringOilSchema(int width, int height) {
+        List<List<Rectangle>> regions = getRegions(1, 1, 0, height + height, width, height);
+        Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
+        return new AnimationLayout(frames, 10f, false);
+    }
+
     public static AnimationLayout moveSchema() {
         List<List<Rectangle>> regions = getRegions(8, 5, 0, 0, 72, 72);
         Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);

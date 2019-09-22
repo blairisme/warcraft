@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.assets.SyntheticTexture;
 import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.state.WarcraftContext;
 
@@ -45,6 +46,7 @@ public class BuildingAssets extends AssetBundle
 
         register("base", "data/textures/${faction}/building/${season}/${name}.png");
         register("construction", "data/textures/common/building/perennial/construction_${size}.png");
+        registerOptional("construction", "data/textures/common/building/perennial/${name}_construction_site.png");
         register("destruction", "data/textures/common/building/winter/destroyed_site.png");
         register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, dimensions));
 
@@ -87,6 +89,10 @@ public class BuildingAssets extends AssetBundle
 
     public GridPoint2 getSize() {
         return dimensions;
+    }
+
+    public float getConstructionAnimationDuration() {
+        return UnitCosts.buildTime(type);
     }
 
     public UnitType getType() {

@@ -19,7 +19,6 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
-import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitStyle;
 import org.apache.commons.lang3.tuple.Pair;
@@ -32,6 +31,7 @@ import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.build
 import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.constructBeginSchema;
 import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.constructEndSchema;
 import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.constructStaticSchema;
+import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.gatheringOilSchema;
 import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.idleSingularSchema;
 
 /**
@@ -57,7 +57,7 @@ public class BuildingBuilder
     }
 
     public ResourceExtractor newResourceExtractor() {
-        return createBuilding(new ResourceExtractor(getSkin(assets)));
+        return createBuilding(new ResourceExtractor(getExtractorSkin(assets)));
     }
 
     private <T extends Building> T createBuilding(T building) {
@@ -77,9 +77,23 @@ public class BuildingBuilder
         return skin;
     }
 
+    private Skin getExtractorSkin(BuildingAssets assets) {
+        Skin skin = new Skin();
+        skin.add("default", getExtractorAnimationStyle(assets), ViewableStyle.class);
+        skin.add("default", getUnitStyle(assets), UnitStyle.class);
+        return skin;
+    }
+
     private ViewableStyle getAnimationStyle(BuildingAssets assets) {
         ViewableStyle viewableStyle = new ViewableStyle();
         viewableStyle.animations = getAnimations(assets);
+        viewableStyle.sounds = getSounds(assets);
+        return viewableStyle;
+    }
+
+    private ViewableStyle getExtractorAnimationStyle(BuildingAssets assets) {
+        ViewableStyle viewableStyle = new ViewableStyle();
+        viewableStyle.animations = getExtractorAnimations(assets);
         viewableStyle.sounds = getSounds(assets);
         return viewableStyle;
     }
@@ -91,18 +105,45 @@ public class BuildingBuilder
         return getAnimations(general, construction, destruction);
     }
 
-    private Map<Identifier, Animation> getAnimations(Texture general, Texture construction, Texture destruction) {
+    private Map<Identifier, Animation> getAnimations(Texture general, Texture build, Texture destroy) {
         GridPoint2 size = assets.getSize();
-        float constructionTime = UnitCosts.buildTime(assets.getType()) / 2f;
-
         AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(UnitAnimation.Idle, idleSingularSchema(size.x, size.y), general);
-        builder.set(UnitAnimation.BuildingSite, constructStaticSchema(size.x, size.y), construction);
-        builder.set(UnitAnimation.Construct, Arrays.asList(
-            Pair.of(constructBeginSchema(size.x, size.y, constructionTime), construction),
-            Pair.of(constructEndSchema(size.x, size.y, constructionTime), general)));
-        builder.set(UnitAnimation.Death, buildingDestructionScheme(), destruction);
+        addGeneralAnimations(builder, general, destroy, size);
+        addBuildingAnimation(builder, general, build, size);
         return builder.build();
+    }
+
+    private Map<Identifier, Animation> getExtractorAnimations(BuildingAssets assets) {
+        Texture general = assets.getBaseTexture();
+        Texture construction = assets.getConstructionTexture();
+        Texture destruction = assets.getDestructionTexture();
+        return getExtractorAnimations(general, construction, destruction);
+    }
+
+    private Map<Identifier, Animation> getExtractorAnimations(Texture general, Texture build, Texture destroy) {
+        GridPoint2 size = assets.getSize();
+        AnimationSetBuilder builder = new AnimationSetBuilder();
+        addGeneralAnimations(builder, general, destroy, size);
+        addBuildingAnimation(builder, general, build, size);
+        addGatheringAnimation(builder, general, size);
+        return builder.build();
+    }
+
+    private void addGeneralAnimations(AnimationSetBuilder builder, Texture general, Texture destroy, GridPoint2 size) {
+        builder.set(UnitAnimation.Idle, idleSingularSchema(size.x, size.y), general);
+        builder.set(UnitAnimation.Death, buildingDestructionScheme(), destroy);
+    }
+
+    private void addBuildingAnimation(AnimationSetBuilder builder, Texture general, Texture build, GridPoint2 size) {
+        float duration = assets.getConstructionAnimationDuration() / 2f;
+        builder.set(UnitAnimation.BuildingSite, constructStaticSchema(size.x, size.y), build);
+        builder.set(UnitAnimation.Construct, Arrays.asList(
+            Pair.of(constructBeginSchema(size.x, size.y, duration), build),
+            Pair.of(constructEndSchema(size.x, size.y, duration), general)));
+    }
+
+    private void addGatheringAnimation(AnimationSetBuilder builder, Texture general, GridPoint2 size) {
+        builder.set(UnitAnimation.Gathering, gatheringOilSchema(size.x, size.y), general);
     }
 
     private Map<Identifier, Sound> getSounds(BuildingAssets assets) {
