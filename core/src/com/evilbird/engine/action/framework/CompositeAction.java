@@ -16,8 +16,6 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemReference;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
@@ -117,10 +115,10 @@ public abstract class CompositeAction extends BasicAction
     @Override
     public void setItemReference(ItemReference reference) {
         super.setItemReference(reference);
-        for (Action delegate: actions) {
-            if (delegate instanceof BasicAction) {
-                BasicAction basicDelegate = (BasicAction)delegate;
-                basicDelegate.setItemReference(reference);
+        for (Action action: actions) {
+            if (action instanceof BasicAction) {
+                BasicAction basic = (BasicAction)action;
+                basic.setItemReference(reference);
             }
         }
     }
@@ -136,10 +134,21 @@ public abstract class CompositeAction extends BasicAction
     @Override
     public void setTargetReference(ItemReference reference) {
         super.setTargetReference(reference);
-        for (Action delegate: actions) {
-            if (delegate instanceof BasicAction) {
-                BasicAction basicDelegate = (BasicAction)delegate;
-                basicDelegate.setTargetReference(reference);
+        for (Action action: actions) {
+            if (action instanceof BasicAction) {
+                BasicAction basic = (BasicAction)action;
+                basic.setTargetReference(reference);
+            }
+        }
+    }
+
+    @Override
+    public void setRoot(ItemComposite root) {
+        super.setRoot(root);
+        for (Action action: actions) {
+            if (action instanceof BasicAction) {
+                BasicAction basic = (BasicAction)action;
+                basic.setRoot(root);
             }
         }
     }
@@ -149,15 +158,10 @@ public abstract class CompositeAction extends BasicAction
         for (Action action: actions) {
             if (action instanceof BasicAction) {
                 BasicAction basic = (BasicAction)action;
-                basic.item = this.item;
-                basic.target = this.target;
+                basic.setItemReference(this.getItemReference());
+                basic.setTargetReference(this.getTargetReference());
             }
         }
-    }
-
-    @Override
-    public void setRoot(ItemComposite root) {
-        super.setRoot(root);
     }
 
     @Override
