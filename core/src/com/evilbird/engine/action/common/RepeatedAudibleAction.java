@@ -10,10 +10,10 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.DelayedAction;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.action.framework.RepeatedAction;
 import com.evilbird.engine.action.framework.SequenceAction;
+import com.evilbird.engine.action.framework.TemporalAction;
 import com.evilbird.engine.common.lang.Identifier;
 
 import java.util.function.Predicate;
@@ -30,7 +30,7 @@ public class RepeatedAudibleAction extends DelegateAction
 {
     public RepeatedAudibleAction(Identifier sound, float delay, Predicate<Action> repeat) {
         Action audible = new AudibleAction(sound);
-        Action buffer = new DelayedAction(delay);
+        Action buffer = new TemporalAction(delay);
         Action soundBuffer = new SequenceAction(audible, buffer);
         delegate = new RepeatedAction(soundBuffer, repeat);
     }

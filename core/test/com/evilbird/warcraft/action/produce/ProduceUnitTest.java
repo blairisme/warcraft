@@ -17,6 +17,8 @@ import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
+import com.evilbird.warcraft.action.common.create.CreateEvents;
+import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.common.transfer.TransferEvent;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -59,7 +61,10 @@ public class ProduceUnitTest extends ActionTestCase
 
     @Override
     protected Action newAction() {
-        ProduceUnit action = new ProduceUnit(reporter, itemFactory, preferences);
+        CreateEvents createEvents = new CreateEvents(reporter);
+        ProduceEvents produceEvents = new ProduceEvents(reporter);
+        ResourceTransfer resources = Mockito.mock(ResourceTransfer.class);
+        ProduceUnit action = new ProduceUnit(createEvents, produceEvents, itemFactory, preferences, resources);
         action.setIdentifier(TrainFootman);
         return action;
     }
@@ -81,8 +86,8 @@ public class ProduceUnitTest extends ActionTestCase
         player.setResource(Gold, 1000);
 
         assertFalse(action.act(1));
-        verify(reporter).add(new TransferEvent(player, Food, 10.0f, 9.0f));
-        verify(reporter).add(new TransferEvent(player, Gold, 1000.0f, 400.0f));
+        verify(reporter).add(new TransferEvent(player, Food, 9.0f));
+        verify(reporter).add(new TransferEvent(player, Gold, 400.0f));
 
         assertFalse(action.act(1));
         verify(reporter).add(new ProduceEvent(barracks, ProduceStatus.Started));

@@ -10,37 +10,36 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.DelayedAction;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Destroyable;
-import com.evilbird.engine.events.Events;
+import com.evilbird.engine.common.time.GameTimer;
+import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
-
-import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
-import static com.evilbird.warcraft.action.common.transfer.TransferOperations.setResources;
-import static com.evilbird.warcraft.action.gather.GatherEvents.notifyObtainComplete;
-import static com.evilbird.warcraft.action.gather.GatherEvents.notifyObtainStarted;
 
 /**
- * An {@link Action} that gathers resources from a resource.
+ * An {@link Action} that obtains resources from a resource.
  *
  * @author Blair Butterworth
  */
-public class GatherObtain extends DelayedAction
+class GatherObtain extends BasicAction
 {
-    protected Events events;
-    protected DeathAction death;
-    protected ResourceQuantity quantity;
+    protected transient GameTimer timer;
+    protected transient DeathAction death;
+    protected transient GatherEvents events;
+    protected transient ResourceType resource;
+    protected transient ResourceTransfer resources;
 
-    @Inject
-    public GatherObtain(Events events, DeathAction death) {
+    public GatherObtain(GatherEvents events, DeathAction death, ResourceTransfer resources) {
         this.events = events;
         this.death = death;
+        this.resources = resources;
     }
 
     @Override
@@ -48,34 +47,61 @@ public class GatherObtain extends DelayedAction
         if (! initialized()) {
             return initialize();
         }
-        if (super.act(time)) {
+        if (! loaded()) {
+            return load();
+        }
+        if (timer.advance(time)) {
             return complete();
         }
         return update(time);
     }
 
-    public void setDuration(float duration) {
-        super.setDuration(duration);
+    @Override
+    public void reset() {
+        super.reset();
+        timer = null;
     }
 
-    public void setResource(ResourceQuantity quantity) {
-        this.quantity = quantity;
+    @Override
+    public void restart() {
+        super.restart();
+        timer = null;
+    }
+
+    public void setResource(ResourceType resource) {
+        this.resource = resource;
     }
 
     protected boolean initialized() {
         Gatherer gatherer = (Gatherer)getItem();
-        return gatherer.isGathering() && !gatherer.hasOtherResource(quantity.getType());
+        return gatherer.isGathering() && !gatherer.hasOtherResource(resource);
     }
 
     protected boolean initialize() {
         Gatherer gatherer = (Gatherer)getItem();
         gatherer.clearResources();
         gatherer.setGathererProgress(0);
-        setProgress(gatherer.getGathererProgress() * getDuration());
 
-        ResourceContainer resource = (ResourceContainer)getTarget();
-        notifyObtainStarted(events, gatherer, resource, quantity);
+        ResourceQuantity quantity = new ResourceQuantity(resource, gatherer.getGatherCapacity(resource));
+        events.notifyObtainStarted(gatherer, getTarget(), quantity);
 
+        return ActionIncomplete;
+    }
+
+    protected boolean loaded() {
+        return timer != null;
+    }
+
+    protected boolean load() {
+        Gatherer gatherer = (Gatherer)getItem();
+        timer = new GameTimer(gatherer.getGatherDuration(resource));
+        timer.advance(gatherer.getGathererProgress() * timer.duration());
+        return ActionIncomplete;
+    }
+
+    protected boolean update(float time) {
+        Gatherer gatherer = (Gatherer)getItem();
+        gatherer.setGathererProgress(timer.completion());
         return ActionIncomplete;
     }
 
@@ -83,25 +109,19 @@ public class GatherObtain extends DelayedAction
         Gatherer gatherer = (Gatherer)getItem();
         gatherer.setGathererProgress(1);
 
-        ResourceContainer resource = (ResourceContainer)getTarget();
-        setResources(gatherer, quantity, events);
-        setResources(resource, quantity.negate(), events);
-        resourceEmpty(resource);
+        ResourceQuantity quantity = new ResourceQuantity(resource, gatherer.getGatherCapacity(resource));
+        ResourceContainer container = (ResourceContainer)getTarget();
+        resources.transfer(container, gatherer, quantity);
+        resourceEmpty(container);
 
-        notifyObtainComplete(events, gatherer, resource, quantity);
+        events.notifyObtainComplete(gatherer, container, quantity);
         return ActionComplete;
     }
 
-    protected boolean update(float time) {
-        Gatherer gatherer = (Gatherer)getItem();
-        gatherer.setGathererProgress(getProgress());
-        return ActionIncomplete;
-    }
-
-    protected void resourceEmpty(ResourceContainer resource) {
-        if (resource instanceof Destroyable && resource.getResource(quantity.getType()) == 0) {
-            death.setItem(resource);
-            resource.addAction(death);
+    protected void resourceEmpty(ResourceContainer container) {
+        if (container instanceof Destroyable && container.getResource(resource) == 0) {
+            death.setItem(container);
+            container.addAction(death);
         }
     }
 }

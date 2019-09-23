@@ -29,11 +29,11 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public abstract class BasicAction implements Action
 {
-    private Identifier identifier;
-    private ActionException error;
-    private UserInput cause;
-    private ItemReference item;
-    private ItemReference target;
+    protected Identifier identifier;
+    protected ActionException error;
+    protected UserInput cause;
+    protected ItemReference item;
+    protected ItemReference target;
 
     public BasicAction() {
     }

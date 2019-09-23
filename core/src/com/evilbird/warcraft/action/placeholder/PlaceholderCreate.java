@@ -11,21 +11,20 @@ package com.evilbird.warcraft.action.placeholder;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.events.Events;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemType;
-import com.evilbird.warcraft.action.common.create.CreateAction;
+import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.Unit;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.item.utility.ItemOperations.getScreenCenter;
-import static com.evilbird.warcraft.action.placeholder.PlaceholderEvents.notifyPlaceholderAdded;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_HEIGHT;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 
 /**
  * Instances of this class provide {@link Action Actions} that add a building
@@ -33,30 +32,28 @@ import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
  *
  * @author Blair Butterworth
  */
-public class PlaceholderCreate extends CreateAction
+public class PlaceholderCreate extends BasicAction
 {
+    private ItemFactory factory;
+    private PlaceholderEvents events;
+
     @Inject
-    public PlaceholderCreate(Events events, ItemFactory factory) {
-        super(events, factory);
-        type = this::getPlaceholderType;
-        properties = this::setPlaceholderPosition;
-        recipient = this::setTarget;
+    public PlaceholderCreate(PlaceholderEvents events, ItemFactory factory) {
+        this.events = events;
+        this.factory = factory;
     }
 
     @Override
     public boolean act(float time) {
-        if (super.act(time)) {
-            return complete();
-        }
-        return ActionIncomplete;
-    }
-
-    private boolean complete() {
         Unit builder = (Unit)getItem();
-        Item placeholder = getTarget();
+        Player player = getPlayer(builder);
+
+        Item placeholder = factory.get(getPlaceholderType());
+        placeholder.setPosition(getPlaceholderPosition(builder));
+        player.addItem(placeholder);
 
         builder.setAssociatedItem(placeholder);
-        notifyPlaceholderAdded(events, builder, placeholder);
+        events.notifyPlaceholderAdded(builder, placeholder);
 
         return ActionComplete;
     }
@@ -66,10 +63,10 @@ public class PlaceholderCreate extends CreateAction
         return placeholderAction.getPlaceholder();
     }
 
-    private void setPlaceholderPosition(Item item) {
-        Vector2 screenCenter = getScreenCenter(getItem());
+    private Vector2 getPlaceholderPosition(Item builder) {
+        Vector2 screenCenter = getScreenCenter(builder);
         screenCenter.x = Math.round(screenCenter.x/TILE_WIDTH) * TILE_WIDTH;
         screenCenter.y = Math.round(screenCenter.y/TILE_HEIGHT) * TILE_HEIGHT;
-        item.setPosition(screenCenter);
+        return screenCenter;
     }
 }

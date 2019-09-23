@@ -14,13 +14,13 @@ import com.evilbird.test.verifier.EqualityVerifier;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DelayedActionTest
+public class TemporalActionTest
 {
-    private DelayedAction action;
+    private TemporalAction action;
 
     @Before
     public void setup() {
-        action = new DelayedAction(123);
+        action = new TemporalAction(123);
     }
 
 //    @Test
@@ -33,7 +33,7 @@ public class DelayedActionTest
 
     @Test
     public void equalsTest() {
-        EqualityVerifier.forClass(DelayedAction.class)
+        EqualityVerifier.forClass(TemporalAction.class)
                 .withMockedTransientFields(Item.class)
                 .excludeTransientFields()
                 .verify();

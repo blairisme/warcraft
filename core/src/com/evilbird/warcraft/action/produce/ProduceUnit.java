@@ -9,10 +9,10 @@
 
 package com.evilbird.warcraft.action.produce;
 
-import com.evilbird.engine.action.framework.DelayedAction;
-import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.events.Events;
+import com.evilbird.engine.action.framework.TemporalAction;
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.warcraft.action.common.create.CreateEvents;
+import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.movement.Movable;
 import com.evilbird.warcraft.item.common.resource.ResourceSet;
@@ -25,10 +25,6 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
-import static com.evilbird.warcraft.action.common.create.CreateEvents.notifyItemCreated;
-import static com.evilbird.warcraft.action.common.transfer.TransferOperations.setResources;
-import static com.evilbird.warcraft.action.produce.ProduceEvents.notifyProductionCompleted;
-import static com.evilbird.warcraft.action.produce.ProduceEvents.notifyProductionStarted;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.moveAdjacent;
 import static com.evilbird.warcraft.item.unit.UnitCosts.buildTime;
@@ -43,17 +39,28 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Ready;
  *
  * @author Blair Butterworth
  */
-public class ProduceUnit extends DelayedAction
+public class ProduceUnit extends TemporalAction
 {
-    private transient Events events;
+
     private transient ItemFactory factory;
+    private transient ResourceTransfer resources;
     private transient WarcraftPreferences preferences;
+    private transient ProduceEvents produceEvents;
+    private transient CreateEvents createEvents;
 
     @Inject
-    public ProduceUnit(EventQueue events, ItemFactory factory, WarcraftPreferences preferences) {
-        this.events = events;
+    public ProduceUnit(
+        CreateEvents createEvents,
+        ProduceEvents produceEvents,
+        ItemFactory factory,
+        WarcraftPreferences preferences,
+        ResourceTransfer resources)
+    {
         this.factory = factory;
+        this.resources = resources;
         this.preferences = preferences;
+        this.createEvents = createEvents;
+        this.produceEvents = produceEvents;
     }
 
     @Override
@@ -64,7 +71,7 @@ public class ProduceUnit extends DelayedAction
         if (super.act(time)) {
             return complete();
         }
-        return update(time);
+        return update();
     }
 
     private boolean initialized() {
@@ -80,12 +87,12 @@ public class ProduceUnit extends DelayedAction
         UnitType product = getProduct();
 
         ResourceSet cost = new ResourceSet(cost(product));
-        setResources(player, cost.negate(), events);
+        resources.setResources(player, cost.negate());
 
         setDuration(buildTime(product));
         setProgress(building.getProductionProgress() * getDuration());
 
-        notifyProductionStarted(events, building);
+        produceEvents.notifyProductionStarted(building);
         return ActionIncomplete;
     }
 
@@ -101,12 +108,12 @@ public class ProduceUnit extends DelayedAction
         Player player = getPlayer(building);
         player.addItem(player);
 
-        notifyItemCreated(events, product);
-        notifyProductionCompleted(events, building);
+        createEvents.notifyCreate(product);
+        produceEvents.notifyProductionCompleted(building);
         return ActionComplete;
     }
 
-    private boolean update(float time) {
+    private boolean update() {
         Building building = (Building)getItem();
         building.setProductionProgress(getProgress());
         return ActionIncomplete;

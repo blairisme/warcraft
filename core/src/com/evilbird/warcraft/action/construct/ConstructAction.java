@@ -9,11 +9,13 @@
 
 package com.evilbird.warcraft.action.construct;
 
-import com.evilbird.engine.action.framework.DelayedAction;
+import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.framework.TemporalAction;
 import com.evilbird.engine.common.time.GameTimer;
-import com.evilbird.engine.events.Events;
-import com.evilbird.warcraft.action.common.exclusion.Exclusion;
+import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
+import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
@@ -22,8 +24,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
-import static com.evilbird.warcraft.action.construct.ConstructEvents.notifyConstructComplete;
-import static com.evilbird.warcraft.action.construct.ConstructEvents.notifyConstructStarted;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.moveAdjacent;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Construct;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
@@ -32,22 +33,33 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Build;
 import static com.evilbird.warcraft.item.unit.UnitSound.Complete;
 
 /**
+ * An {@link Action} that constructs a building.
+ *
  * @author Blair Butterworth
  */
-public class ConstructAction extends DelayedAction
+public class ConstructAction extends TemporalAction
 {
     private static final int BUILDING_SOUND_INTERVAL = 10;
     private static final int UNINITIALIZED_DURATION = -1;
 
-    private transient Events events;
     private transient GameTimer timer;
+    private transient ConstructEvents events;
+    private transient ItemExclusion exclusion;
     private transient WarcraftPreferences preferences;
+    private transient ResourceTransfer resources;
 
     @Inject
-    public ConstructAction(Events events, WarcraftPreferences preferences) {
+    public ConstructAction(
+        ConstructEvents events,
+        WarcraftPreferences preferences,
+        ItemExclusion exclusion,
+        ResourceTransfer resources)
+    {
         super(UNINITIALIZED_DURATION);
         this.events = events;
         this.preferences = preferences;
+        this.exclusion = exclusion;
+        this.resources = resources;
         this.timer = new GameTimer(BUILDING_SOUND_INTERVAL);
     }
 
@@ -73,7 +85,7 @@ public class ConstructAction extends DelayedAction
 
     private boolean initialize() {
         Unit builder = (Unit)getItem();
-        Exclusion.disable(builder, events);
+        exclusion.disable(builder);
 
         Building building = (Building)getTarget();
         building.setAnimation(Construct);
@@ -81,7 +93,7 @@ public class ConstructAction extends DelayedAction
         setDuration(buildTime(building));
         setProgress(building.getConstructionProgress() * buildTime(building));
 
-        notifyConstructStarted(events, builder, building);
+        events.notifyConstructStarted(builder, building);
         return ActionIncomplete;
     }
 
@@ -91,13 +103,18 @@ public class ConstructAction extends DelayedAction
         building.setAnimation(Idle);
 
         Gatherer builder = (Gatherer)getItem();
-        Exclusion.restore(builder);
         builder.setAssociatedItem(null);
         builder.setAnimation(Idle);
-        builder.setSound(Complete);
+        exclusion.restore(builder);
         moveAdjacent(builder, building);
 
-        notifyConstructComplete(events, builder, building);
+        Player player = getPlayer(building);
+        resources.transfer(building, player);
+
+        if (preferences.isSpeechEnabled()) {
+            builder.setSound(Complete);
+        }
+        events.notifyConstructComplete(builder, building);
         return ActionComplete;
     }
 
@@ -106,15 +123,10 @@ public class ConstructAction extends DelayedAction
         building.setConstructionProgress(getProgress());
 
         Gatherer builder = (Gatherer)getItem();
-        playSound(builder, time);
-
-        return ActionIncomplete;
-    }
-
-    private void playSound(Gatherer builder, float time) {
         if (preferences.isBuildingSoundsEnabled() && timer.advance(time)) {
             timer.reset();
             builder.setSound(Build);
         }
+        return ActionIncomplete;
     }
 }

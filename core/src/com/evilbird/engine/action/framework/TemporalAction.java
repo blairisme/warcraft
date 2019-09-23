@@ -20,12 +20,12 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author Blair Butterworth
  */
-public class DelayedAction extends BasicAction
+public class TemporalAction extends BasicAction
 {
     private float duration;
     private float total;
 
-    protected DelayedAction() {
+    protected TemporalAction() {
     }
 
     /**
@@ -33,7 +33,7 @@ public class DelayedAction extends BasicAction
      *
      * @param duration  the length of the delay, in seconds.
      */
-    public DelayedAction(float duration) {
+    public TemporalAction(float duration) {
         this.total = 0;
         this.duration = duration;
     }
@@ -46,33 +46,9 @@ public class DelayedAction extends BasicAction
      *                  partially complete.
      * @param duration  the length of the delay, in seconds.
      */
-    public DelayedAction(float start, float duration) {
+    public TemporalAction(float start, float duration) {
         this.total = start;
         this.duration = duration;
-    }
-
-    /**
-     * Returns a delay action lasting the given time.
-     *
-     * @param duration  the length of the delay, in seconds.
-     *
-     * @return a new DelayedAction.
-     */
-    public static DelayedAction delay(float duration) {
-        return new DelayedAction(duration);
-    }
-
-    /**
-     * Returns a delay action starting and lasting the given times.
-     *
-     * @param start     that starting point of the delay, if the delay is
-     *                  partially complete.
-     * @param duration  the length of the delay, in seconds.
-     *
-     * @return a new DelayedAction.
-     */
-    public static DelayedAction delay(float start, float duration) {
-        return new DelayedAction(start, duration);
     }
 
     protected float getDuration() {
@@ -132,7 +108,7 @@ public class DelayedAction extends BasicAction
         if (obj == this) { return true; }
         if (obj.getClass() != getClass()) { return false; }
 
-        DelayedAction that = (DelayedAction)obj;
+        TemporalAction that = (TemporalAction)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(duration, that.duration)

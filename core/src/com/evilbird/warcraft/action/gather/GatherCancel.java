@@ -10,15 +10,12 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.warcraft.action.gather.GatherEvents.notifyGatherCancelled;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 
 /**
@@ -29,10 +26,10 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
  */
 public class GatherCancel extends BasicAction
 {
-    private Events events;
+    private transient GatherEvents events;
 
     @Inject
-    public GatherCancel(EventQueue events) {
+    public GatherCancel(GatherEvents events) {
         this.events = events;
     }
 
@@ -40,7 +37,7 @@ public class GatherCancel extends BasicAction
     public boolean act(float delta) {
         Gatherer gatherer = (Gatherer)getItem();
         gatherer.setAnimation(Idle);
-        notifyGatherCancelled(events, gatherer);
+        events.notifyGatherCancelled(gatherer);
         return ActionComplete;
     }
 }

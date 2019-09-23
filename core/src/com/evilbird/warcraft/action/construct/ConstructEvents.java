@@ -9,11 +9,11 @@
 
 package com.evilbird.warcraft.action.construct;
 
-import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.LambdaAction;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
+
+import javax.inject.Inject;
 
 /**
  * Helper class for generating construction events.
@@ -22,33 +22,26 @@ import com.evilbird.warcraft.item.unit.building.Building;
  */
 public class ConstructEvents
 {
-    private ConstructEvents() {
+    private Events events;
+
+    @Inject
+    public ConstructEvents(Events events) {
+        this.events = events;
     }
 
-    public static Action constructStarted(Events events) {
-        return new LambdaAction((builder, building) ->
-            events.add(new ConstructEvent(builder, (Building)building, ConstructStatus.Started)));
+    public void notifyConstructStarted(Item builder, Building building) {
+        addEvent(builder, building, ConstructStatus.Started);
     }
 
-    public static void notifyConstructStarted(Events events, Item builder, Building building) {
-        events.add(new ConstructEvent(builder, building, ConstructStatus.Started));
+    public void notifyConstructComplete(Item builder, Building building) {
+        addEvent(builder, building, ConstructStatus.Complete);
     }
 
-    public static Action constructCompleted(Events events) {
-        return new LambdaAction((builder, building) ->
-            events.add(new ConstructEvent(builder, (Building)building, ConstructStatus.Complete)));
+    public void notifyConstructCancelled(Item builder, Building building) {
+        addEvent(builder, building, ConstructStatus.Cancelled);
     }
 
-    public static void notifyConstructComplete(Events events, Item builder, Building building) {
-        events.add(new ConstructEvent(builder, building, ConstructStatus.Complete));
-    }
-
-    public static Action constructCancelled(Events events) {
-        return new LambdaAction((building, builder) ->
-            events.add(new ConstructEvent(builder, (Building)building, ConstructStatus.Cancelled)));
-    }
-
-    public static void notifyConstructCancelled(Events events, Item builder, Building building) {
-        events.add(new ConstructEvent(builder, building, ConstructStatus.Cancelled));
+    private void addEvent(Item builder, Building building, ConstructStatus status) {
+        events.add(new ConstructEvent(builder, building, status));
     }
 }

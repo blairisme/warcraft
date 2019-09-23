@@ -33,11 +33,11 @@ import org.mockito.Mockito;
 public class PlaceholderCancelTest extends ActionTestCase
 {
     private Placeholder placeholder;
-    private EventQueue reporter;
+    private PlaceholderEvents reporter;
 
     @Before
     public void setup() {
-        reporter = Mockito.mock(EventQueue.class);
+        reporter = Mockito.mock(PlaceholderEvents.class);
         placeholder = TestPlaceholders.newTestPlaceholder("placeholder");
         super.setup();
     }

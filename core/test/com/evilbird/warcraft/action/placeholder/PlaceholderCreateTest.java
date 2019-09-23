@@ -33,11 +33,11 @@ import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.BarracksPl
  */
 public class PlaceholderCreateTest extends ActionTestCase
 {
-    private EventQueue reporter;
+    private PlaceholderEvents reporter;
 
     @Override
     protected Action newAction() {
-        reporter = Mockito.mock(EventQueue.class);
+        reporter = Mockito.mock(PlaceholderEvents.class);
         PlaceholderCreate action = new PlaceholderCreate(reporter, itemFactory);
         action.setIdentifier(PlaceholderActions.AddBarracksPlaceholder);
         return action;

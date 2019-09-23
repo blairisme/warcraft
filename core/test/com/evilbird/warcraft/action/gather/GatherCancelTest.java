@@ -27,7 +27,7 @@ public class GatherCancelTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        GatherCancel action = new GatherCancel(Mockito.mock(EventQueue.class));
+        GatherCancel action = new GatherCancel(Mockito.mock(GatherEvents.class));
         action.setIdentifier(GatherActions.GatherCancel);
         return action;
     }
