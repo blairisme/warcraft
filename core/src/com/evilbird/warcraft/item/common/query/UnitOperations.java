@@ -15,7 +15,6 @@ import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
-import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
@@ -28,8 +27,6 @@ import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeSeries;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -173,17 +170,6 @@ public class UnitOperations
             return player.getFaction();
         }
         return null;
-    }
-
-    public static UpgradeRank getPlayerUpgrade(Unit unit, UpgradeSeries upgradeSeries) {
-        ItemGroup parent = unit.getParent();
-        if (parent != null) {
-            Player player = getPlayer(parent);
-            if (player != null) {
-                return player.getUpgradeRank(upgradeSeries);
-            }
-        }
-        return UpgradeRank.None;
     }
 
     public static boolean hasResources(Player player, UnitType type) {
@@ -371,7 +357,7 @@ public class UnitOperations
     public static boolean isAttacker(Item item) {
         if (item instanceof Combatant) {
             Combatant combatant = (Combatant)item;
-            return combatant.getBasicDamage() > 0;
+            return combatant.getAttackSpeed() > 0;
         }
         return false;
     }

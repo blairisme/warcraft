@@ -12,6 +12,8 @@ package com.evilbird.warcraft.item.unit.combatant.human;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeSeries;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
@@ -21,6 +23,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.SeaDamage;
 import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannon;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
 
@@ -47,7 +50,7 @@ public class ElvenDestroyerFactory extends CombatantFactoryBase
         result.setAttackRange(tiles(4));
         result.setArmour(10);
         result.setPiercingDamage(2);
-        result.setBasicDamage(35);
+        result.setBasicDamage(new UpgradableValue(UpgradeSeries.SeaDamage, 35, 37, 39));
         result.setHealth(100);
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("ElvenDestroyer", result));

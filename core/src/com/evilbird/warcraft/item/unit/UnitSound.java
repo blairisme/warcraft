@@ -17,7 +17,6 @@ import com.evilbird.engine.common.serialization.SerializedType;
  *
  * @author Blair Butterworth
  */
-@SerializedType("UnitSound")
 public enum UnitSound implements Identifier
 {
     Attack,

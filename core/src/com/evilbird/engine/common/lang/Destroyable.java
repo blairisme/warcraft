@@ -23,7 +23,13 @@ public interface Destroyable extends Item
      */
     int getArmour();
 
+    /**
+     * Returns the health of the item.
+     */
     float getHealth();
 
+    /**
+     * Sets the health of the item.
+     */
     void setHealth(float health);
 }

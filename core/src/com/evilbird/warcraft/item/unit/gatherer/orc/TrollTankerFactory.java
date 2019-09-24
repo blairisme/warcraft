@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.unit.gatherer.orc;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.item.unit.gatherer.GathererFactoryBase;
@@ -21,6 +22,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.OilProduction;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollTanker;
 
 /**
@@ -53,6 +55,14 @@ public class TrollTankerFactory extends GathererFactoryBase
     @Override
     public Gatherer get(Identifier type) {
         Gatherer result = builder.newSeaGatherer();
+        setAttackAttributes(result);
+        setGatheringAttributes(result);
+        setIdentityAttributes(result);
+        setMovementAttributes(result);
+        return result;
+    }
+
+    private void setAttackAttributes(Gatherer result) {
         result.setArmour(0);
         result.setAttackRange(0);
         result.setAttackSpeed(0);
@@ -60,11 +70,25 @@ public class TrollTankerFactory extends GathererFactoryBase
         result.setPiercingDamage(0);
         result.setHealth(90);
         result.setHealthMaximum(90);
+    }
+
+    private void setGatheringAttributes(Gatherer result) {
+        result.setGoldGatherSpeed(0);
+        result.setGoldCapacity(UpgradableValue.Zero);
+        result.setWoodGatherSpeed(0);
+        result.setWoodCapacity(UpgradableValue.Zero);
+        result.setOilGatherSpeed(5);
+        result.setOilCapacity(new UpgradableValue(OilProduction, 100, 110, 125));
+    }
+
+    private void setIdentityAttributes(Gatherer result) {
         result.setIdentifier(objectIdentifier("TrollTanker", result));
+        result.setType(TrollTanker);
+    }
+
+    private void setMovementAttributes(Gatherer result) {
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Water);
         result.setSight(tiles(4));
-        result.setType(TrollTanker);
-        return result;
     }
 }

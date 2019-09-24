@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.unit.combatant.orc;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
 
@@ -20,6 +21,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.MeleeDamage;
 import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
 
 /**
@@ -45,7 +47,7 @@ public class GruntFactory extends CombatantFactoryBase
         result.setAttackSpeed(1);
         result.setAttackRange(tiles(1));
         result.setArmour(2);
-        result.setBasicDamage(7);
+        result.setBasicDamage(new UpgradableValue(MeleeDamage, 7, 9, 11));
         result.setPiercingDamage(2);
         result.setHealth(60);
         result.setHealthMaximum(60);

@@ -17,7 +17,6 @@ import com.evilbird.engine.common.serialization.SerializedType;
  *
  * @author Blair Butterworth
  */
-@SerializedType("UnitAnimation")
 public enum UnitAnimation implements Identifier
 {
     Idle,

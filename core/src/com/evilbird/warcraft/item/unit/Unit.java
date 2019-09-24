@@ -20,8 +20,8 @@ import com.evilbird.engine.item.ItemReference;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.engine.item.specialized.Viewable;
+import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
 import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeSeries;
 import com.evilbird.warcraft.item.data.player.Player;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -203,12 +203,13 @@ public class Unit extends Viewable implements Destroyable, Selectable, ItemGraph
             .toHashCode();
     }
 
-    protected UpgradeRank getPlayerUpgrade(UpgradeSeries series) {
+    protected float getUpgradeValue(UpgradableValue value) {
         ItemGroup parent = getParent();
         if (parent instanceof Player) {
             Player player = (Player)parent;
-            return player.getUpgradeRank(series);
+            UpgradeRank rank = player.getUpgradeRank(value.getSeries());
+            return value.getValue(rank);
         }
-        return UpgradeRank.None;
+        return value.getValue(UpgradeRank.None);
     }
 }

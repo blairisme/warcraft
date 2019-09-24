@@ -11,11 +11,14 @@ package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.ViewableStyle;
+import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
 import com.evilbird.warcraft.item.unit.MovableUnit;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
 
 /**
  * Instances of this class define a combatant: a {@link Unit} specialization
@@ -27,8 +30,8 @@ public class Combatant extends MovableUnit
 {
     private float attackSpeed;
     private int attackRange;
-    private int basicDamage;
     private int piercingDamage;
+    private UpgradableValue basicDamage;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} describing
@@ -61,7 +64,7 @@ public class Combatant extends MovableUnit
      * with each attack.
      */
     public int getBasicDamage() {
-        return basicDamage;
+        return (int)getUpgradeValue(basicDamage);
     }
 
     /**
@@ -91,8 +94,16 @@ public class Combatant extends MovableUnit
      * Sets the maximum amount of damage that the {@code Combatant} deals
      * with each attack.
      */
-    public void setBasicDamage(int basicDamage) {
+    public void setBasicDamage(UpgradableValue basicDamage) {
         this.basicDamage = basicDamage;
+    }
+
+    /**
+     * Sets the maximum amount of damage that the {@code Combatant} deals
+     * with each attack.
+     */
+    public void setBasicDamage(int basicDamage) {
+        this.basicDamage = new UpgradableValue(None, basicDamage);
     }
 
     /**
