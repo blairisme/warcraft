@@ -12,11 +12,6 @@ package com.evilbird.warcraft.ios;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.evilbird.engine.device.DeviceStorage;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-import java.util.List;
-
 /**
  * Provides access to device persistence.
  *
