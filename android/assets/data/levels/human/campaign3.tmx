@@ -171,12 +171,12 @@
   </properties>
   <object id="10" name="TownHall1" type="TownHall" gid="390" x="768" y="416" width="128" height="128"/>
   <object id="11" name="Farm1" type="Farm" gid="388" x="736" y="64" width="64" height="64"/>
-  <object id="22" name="ElvenDestroyer1" type="ElvenDestroyer" gid="681" x="1312" y="448" width="88" height="88"/>
+  <object id="22" name="ElvenDestroyer1" type="ElvenDestroyer" gid="681" x="1344" y="416" width="88" height="88"/>
   <object id="34" name="Footman1" type="Footman" gid="401" x="960" y="320" width="72" height="72"/>
   <object id="35" name="Footman2" type="Footman" gid="401" x="736" y="288" width="72" height="72"/>
   <object id="36" name="Peasant1" type="Peasant" gid="577" x="896" y="224" width="72" height="72"/>
   <object id="37" name="ElvenArcher1" type="ElvenArcher" gid="497" x="672" y="192" width="72" height="72"/>
-  <object id="45" name="Camera" type="Camera" x="864" y="160">
+  <object id="45" name="Camera" type="Camera" x="896" y="352">
    <point/>
   </object>
   <object id="46" name="Shipyard1" type="Shipyard" gid="937" x="1344" y="640" width="96" height="96"/>
