@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.unit.combatant;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
 import com.evilbird.warcraft.item.unit.MovableUnit;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -60,11 +61,21 @@ public class Combatant extends MovableUnit
     }
 
     /**
-     * Returns the maximum amount of damage that the {@code Combatant} deals
-     * with each attack.
+     * Returns the amount of damage that the {@code Combatant} deals
+     * with each attack. If the {@code Combatant} belongs to a {@code Player},
+     * then the upgrades applied to player will use to determine the resulting
+     * value.
      */
     public int getBasicDamage() {
         return (int)getUpgradeValue(basicDamage);
+    }
+
+    /**
+     * Returns the amount of damage that the {@code Combatant} deals
+     * with each attack, given the damage
+     */
+    public int getBasicDamage(UpgradeRank rank) {
+        return (int)basicDamage.getValue(rank);
     }
 
     /**

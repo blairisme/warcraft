@@ -10,7 +10,6 @@
 package com.evilbird.warcraft.item.unit;
 
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.serialization.SerializedType;
 
 /**
  * Defines options of specifying unit animation varieties.

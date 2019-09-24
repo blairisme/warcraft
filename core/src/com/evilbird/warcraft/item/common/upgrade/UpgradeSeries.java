@@ -14,7 +14,24 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static com.evilbird.warcraft.item.common.upgrade.Upgrade.*;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.GoldProduction1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.GoldProduction2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeDamage1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeDamage2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeDefence1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeDefence2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.OilProduction1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.OilProduction2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.SeaDamage1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.SeaDamage2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.SeaDefence1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.SeaDefence2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.SiegeDamage1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.SiegeDamage2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.WoodProduction1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.WoodProduction2;
 
 /**
  * Defines a grouping of {@link Upgrade upgrades}, where each

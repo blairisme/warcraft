@@ -22,12 +22,16 @@ import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
 import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeSeries;
 import com.evilbird.warcraft.item.data.player.Player;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.inject.Inject;
+
+import static com.evilbird.warcraft.item.common.upgrade.UpgradableValue.Zero;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
 
 /**
  * Instances of this represent a game object that the user can control and
@@ -38,11 +42,11 @@ import javax.inject.Inject;
 public class Unit extends Viewable implements Destroyable, Selectable, ItemGraphOccupant
 {
     private int sight;
-    private int armour;
     private float health;
     private float healthMaximum;
     private boolean selected;
     private boolean selectable;
+    private UpgradableValue armour;
     private ItemReference association;
     private transient UnitStyle style;
 
@@ -50,7 +54,7 @@ public class Unit extends Viewable implements Destroyable, Selectable, ItemGraph
     public Unit(Skin skin) {
         super(skin);
         sight = 0;
-        armour = 0;
+        armour = Zero;
         health = 0;
         healthMaximum = 0;
         selected = false;
@@ -63,7 +67,11 @@ public class Unit extends Viewable implements Destroyable, Selectable, ItemGraph
 
     @Override
     public int getArmour() {
-        return armour;
+        return (int)getUpgradeValue(armour);
+    }
+
+    public int getArmour(UpgradeRank rank) {
+        return (int)armour.getValue(rank);
     }
 
     @Override
@@ -107,8 +115,12 @@ public class Unit extends Viewable implements Destroyable, Selectable, ItemGraph
         this.association = associate != null ? new ItemReference(associate) : null;
     }
 
-    public void setArmour(int armour) {
+    public void setArmour(UpgradableValue armour) {
         this.armour = armour;
+    }
+
+    public void setArmour(int armour) {
+        this.armour = new UpgradableValue(None, armour);
     }
 
     public void setHealth(float health) {
@@ -204,11 +216,14 @@ public class Unit extends Viewable implements Destroyable, Selectable, ItemGraph
     }
 
     protected float getUpgradeValue(UpgradableValue value) {
-        ItemGroup parent = getParent();
-        if (parent instanceof Player) {
-            Player player = (Player)parent;
-            UpgradeRank rank = player.getUpgradeRank(value.getSeries());
-            return value.getValue(rank);
+        UpgradeSeries series = value.getSeries();
+        if (series != None) {
+            ItemGroup parent = getParent();
+            if (parent instanceof Player) {
+                Player player = (Player) parent;
+                UpgradeRank rank = player.getUpgradeRank(series);
+                return value.getValue(rank);
+            }
         }
         return value.getValue(UpgradeRank.None);
     }

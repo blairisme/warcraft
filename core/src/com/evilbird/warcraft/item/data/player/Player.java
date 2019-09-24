@@ -24,6 +24,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.inject.Inject;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 /**
@@ -81,7 +83,11 @@ public class Player extends ItemGroup implements ResourceContainer
     }
 
     public UpgradeRank getUpgradeRank(UpgradeSeries series) {
-        for (Upgrade upgrade: series.getUpgrades()) {
+        List<Upgrade> upgrades = series.getUpgrades();
+        ListIterator<Upgrade> iterator = upgrades.listIterator();
+
+        while (iterator.hasPrevious()) {
+            Upgrade upgrade = iterator.previous();
             if (hasUpgrade(upgrade)) {
                 return upgrade.getRank();
             }

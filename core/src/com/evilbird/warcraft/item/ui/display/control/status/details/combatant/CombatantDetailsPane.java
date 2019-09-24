@@ -20,13 +20,6 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getArmour;
-import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getDamageMax;
-import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getDamageMin;
-import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getRange;
-import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getSight;
-import static com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantVisualization.getSpeed;
-
 /**
  * Instances of this user interface show details about
  * {@link Combatant Combatants}.
@@ -67,11 +60,11 @@ public class CombatantDetailsPane extends Grid implements DetailsPaneElement
 
     public void setItem(Item item) {
         Combatant combatant = (Combatant)item;
-        armour.setText(style.strings.getArmour(getArmour(combatant)));
-        damage.setText(style.strings.getDamage(getDamageMin(combatant), getDamageMax(combatant)));
-        range.setText(style.strings.getRange(getRange(combatant)));
-        sight.setText(style.strings.getSight(getSight(combatant)));
-        speed.setText(style.strings.getSpeed(getSpeed(combatant)));
+        setArmourText(combatant);
+        setDamageText(combatant);
+        setRangeText(combatant);
+        setSightText(combatant);
+        setSpeedText(combatant);
     }
 
     @Override
@@ -85,5 +78,33 @@ public class CombatantDetailsPane extends Grid implements DetailsPaneElement
         result.setSize(160, 12);
         result.setAlignment(Align.center);
         return result;
+    }
+
+    private void setArmourText(Combatant combatant) {
+        int basic = CombatantVisualization.getArmour(combatant);
+        int upgraded = CombatantVisualization.getArmourUpgrade(combatant);
+        armour.setText(style.strings.getArmour(basic, upgraded));
+    }
+
+    private void setDamageText(Combatant combatant) {
+        int damageMin = CombatantVisualization.getDamageMin(combatant);
+        int damageMax = CombatantVisualization.getDamageMax(combatant);
+        int damageUpgrade = CombatantVisualization.getDamageUpgrade(combatant);
+        damage.setText(style.strings.getDamage(damageMin, damageMax, damageUpgrade));
+    }
+
+    private void setRangeText(Combatant combatant) {
+        int value = CombatantVisualization.getRange(combatant);
+        range.setText(style.strings.getRange(value));
+    }
+
+    private void setSightText(Combatant combatant) {
+        int value = CombatantVisualization.getSight(combatant);
+        sight.setText(style.strings.getSight(value));
+    }
+
+    private void setSpeedText(Combatant combatant) {
+        int value = CombatantVisualization.getSpeed(combatant);
+        speed.setText(style.strings.getSpeed(value));
     }
 }

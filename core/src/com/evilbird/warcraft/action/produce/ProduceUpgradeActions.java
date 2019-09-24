@@ -23,10 +23,13 @@ import static com.evilbird.engine.common.collection.EnumUtils.isBetween;
 public enum ProduceUpgradeActions implements ActionIdentifier
 {
     RangedDamage1Upgrade,
-    RangedDamage1UpgradeCancel;
+    RangedDamage2Upgrade,
+
+    RangedDamage1UpgradeCancel,
+    RangedDamage2UpgradeCancel;
 
     public boolean isCancel() {
-        return isBetween(this, RangedDamage1UpgradeCancel, RangedDamage1UpgradeCancel);
+        return isBetween(this, RangedDamage1UpgradeCancel, RangedDamage2UpgradeCancel);
     }
 
     public Upgrade getProduct() {

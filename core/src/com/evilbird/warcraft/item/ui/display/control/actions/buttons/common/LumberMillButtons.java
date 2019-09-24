@@ -36,18 +36,27 @@ public class LumberMillButtons implements ButtonController
     @Override
     public List<ActionButtonType> getButtons(Item item) {
         Player player = UnitOperations.getPlayer(item);
-        int level = player.getLevel();
-        if (level == 1) {
-            return ! hasUpgrade(player, RangedDamage1)
-                ? singletonList(AdvancedRangedUpgradeButton)
-                : emptyList();
+        if (player.getLevel() == 1) {
+            return getEarlyLevelButtons(player);
         }
-        if (level > 1) {
-            return ! hasUpgrade(player, RangedDamage1)
-                ? singletonList(ImprovedRangedUpgradeButton)
-                : singletonList(AdvancedRangedUpgradeButton);
+        return getAdvancedLevelButtons(player);
+    }
+
+    private List<ActionButtonType> getEarlyLevelButtons(Player player) {
+        if (! hasUpgrade(player, RangedDamage1)) {
+            return singletonList(ImprovedRangedUpgradeButton);
         }
         return emptyList();
+    }
+
+    private List<ActionButtonType> getAdvancedLevelButtons(Player player) {
+        if (hasUpgrade(player, RangedDamage2)){
+            return emptyList();
+        } else if (hasUpgrade(player, RangedDamage1)){
+            return singletonList(AdvancedRangedUpgradeButton);
+        } else {
+            return singletonList(ImprovedRangedUpgradeButton);
+        }
     }
 
     @Override

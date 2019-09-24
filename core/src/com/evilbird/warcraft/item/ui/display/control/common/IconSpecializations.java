@@ -21,6 +21,7 @@ import java.util.Map;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage2;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedRangedUpgradeButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AttackButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildBarracksButton;
@@ -197,6 +198,8 @@ public class IconSpecializations
 
         special(RangedDamage1, Human, Any, Any), HumanRangedDamage1,
         special(RangedDamage1, Orc, Any, Any), OrcRangedDamage1,
+        special(RangedDamage2, Human, Any, Any), HumanRangedDamage2,
+        special(RangedDamage2, Orc, Any, Any), OrcRangedDamage2,
 
         special(ImprovedRangedUpgradeButton, Human, Any, Any), HumanRangedDamage1,
         special(ImprovedRangedUpgradeButton, Orc, Any, Any), OrcRangedDamage1,

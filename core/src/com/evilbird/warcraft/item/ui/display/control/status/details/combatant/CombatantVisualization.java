@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.ui.display.control.status.details.combatant;
 
+import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
@@ -36,32 +37,20 @@ public class CombatantVisualization
         return basicDamage + pierceDamage;
     }
 
-//    private static String getDamageUpgrade(Combatant combatant) {
-//        Player player = UnitOperations.getPlayer(combatant);
-//        PlayerUpgrade upgrade = getDamageUpgradeType(combatant);
-//        int damageUpgrade = 0;//player.getUpgrade(upgrade);
-//        return damageUpgrade > 0 ? " + " + damageUpgrade : "";
-//    }
-//
-//    private static PlayerUpgrade getDamageUpgradeType(Combatant combatant) {
-//        if (combatant instanceof RangedCombatant) {
-//            RangedCombatant rangedCombatant = (RangedCombatant)combatant;
-//            return getDamageUpgradeType(rangedCombatant.getProjectileType());
-//        }
-//        return PlayerUpgrade.BasicSwordDamage;
-//    }
-//
-//    private static PlayerUpgrade getDamageUpgradeType(ProjectileType projectileType) {
-//        switch (projectileType) {
-//            case Arrow: return PlayerUpgrade.BasicArrowDamage;
-//            case Axe: return PlayerUpgrade.BasicAxeDamage;
-//            case Cannon: return PlayerUpgrade.BasicCannonDamage;
-//            default: throw new UnsupportedOperationException("Unknown projectile type");
-//        }
-//    }
+    public static int getDamageUpgrade(Combatant combatant) {
+        int basic = combatant.getBasicDamage(UpgradeRank.None);
+        int upgraded = combatant.getBasicDamage();
+        return upgraded - basic;
+    }
 
     public static int getArmour(Combatant combatant) {
         return combatant.getArmour();
+    }
+
+    public static int getArmourUpgrade(Combatant combatant) {
+        int basic = combatant.getArmour(UpgradeRank.None);
+        int upgraded = combatant.getArmour();
+        return upgraded - basic;
     }
 
     public static int getSpeed(Combatant combatant) {

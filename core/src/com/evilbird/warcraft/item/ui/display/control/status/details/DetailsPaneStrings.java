@@ -72,9 +72,12 @@ public class DetailsPaneStrings
         return detailsBundle.format("production");
     }
 
-    public String getTraining(Unit unit) {
-        String name = getName(unit);
-        return detailsBundle.format("training", name);
+    public String getTraining() {
+        return detailsBundle.get("training");
+    }
+
+    public String getUpgrading() {
+        return detailsBundle.get("upgrading");
     }
 
     public String getProgress() {
@@ -85,12 +88,20 @@ public class DetailsPaneStrings
         return detailsBundle.format("level", level);
     }
 
-    public String getArmour(int armour) {
-        return detailsBundle.format("armour", armour);
+    public String getArmour(int armour, int armourUpgrade) {
+        if (armourUpgrade == 0) {
+            return detailsBundle.format("armour", armour);
+        } else {
+            return detailsBundle.format("armour-upgraded", armour, armourUpgrade);
+        }
     }
 
-    public String getDamage(int damageMin, int damageMax) {
-        return detailsBundle.format("damage", damageMin, damageMax);
+    public String getDamage(int damageMin, int damageMax, int damageUpgrade) {
+        if (damageUpgrade == 0) {
+            return detailsBundle.format("damage", damageMin, damageMax);
+        } else {
+            return detailsBundle.format("damage-upgraded", damageMin, damageMax, damageUpgrade);
+        }
     }
 
     public String getRange(int range) {

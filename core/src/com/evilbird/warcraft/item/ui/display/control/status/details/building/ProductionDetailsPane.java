@@ -22,6 +22,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.specialized.Grid;
+import com.evilbird.engine.item.utility.ItemOperations;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.action.produce.ProduceUpgradeActions;
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
@@ -53,8 +54,8 @@ public class ProductionDetailsPane extends Grid
 
     public void setBuilding(Building building) {
         this.building = building;
-        this.productName.setText(style.strings.getTraining(building));
-        this.productImage.setDrawable(getProductImage(building));
+        updateProductName(building);
+        updateProductImage(building);
     }
 
     @Override
@@ -98,29 +99,6 @@ public class ProductionDetailsPane extends Grid
         container.add(stack);
     }
 
-    private Drawable getProductImage(Building building) {
-        for (Action action: building.getActions()) {
-            Identifier identifier = action.getIdentifier();
-            if (identifier instanceof ProduceUnitActions) {
-                return getProductImage((ProduceUnitActions)identifier);
-            }
-            if (identifier instanceof ProduceUpgradeActions) {
-                return getProductImage((ProduceUpgradeActions)identifier);
-            }
-        }
-        return null;
-    }
-
-    private Drawable getProductImage(ProduceUnitActions action) {
-        DetailsPaneStyle style = getSkin().get(DetailsPaneStyle.class);
-        return style.icons.get(action.getProduct());
-    }
-
-    private Drawable getProductImage(ProduceUpgradeActions action) {
-        DetailsPaneStyle style = getSkin().get(DetailsPaneStyle.class);
-        return style.icons.get(action.getProduct(), building);
-    }
-
     private void addProductionProgress(Skin skin) {
         Stack container = new Stack();
         add(container);
@@ -131,5 +109,50 @@ public class ProductionDetailsPane extends Grid
         Label label = new Label(style.strings.getProgress(), skin);
         label.setAlignment(Align.center);
         container.add(label);
+    }
+
+    private boolean isProducingUnit(Building building) {
+        return ItemOperations.hasAction(building, ProduceUnitActions.values());
+    }
+
+    private boolean isProducingUpgrade(Building building) {
+        return ItemOperations.hasAction(building, ProduceUpgradeActions.values());
+    }
+
+    private void updateProductName(Building building) {
+        if (isProducingUnit(building)) {
+            productName.setText(style.strings.getTraining());
+        }
+        else if (isProducingUpgrade(building)) {
+            productName.setText(style.strings.getUpgrading());
+        }
+    }
+
+    private void updateProductImage(Building building) {
+        Drawable productIcon = getProductIcon(building);
+        productImage.setDrawable(productIcon);
+    }
+
+    private Drawable getProductIcon(Building building) {
+        for (Action action: building.getActions()) {
+            Identifier identifier = action.getIdentifier();
+            if (identifier instanceof ProduceUnitActions) {
+                return getProductIcon((ProduceUnitActions)identifier);
+            }
+            if (identifier instanceof ProduceUpgradeActions) {
+                return getProductIcon((ProduceUpgradeActions)identifier);
+            }
+        }
+        return null;
+    }
+
+    private Drawable getProductIcon(ProduceUnitActions action) {
+        DetailsPaneStyle style = getSkin().get(DetailsPaneStyle.class);
+        return style.icons.get(action.getProduct());
+    }
+
+    private Drawable getProductIcon(ProduceUpgradeActions action) {
+        DetailsPaneStyle style = getSkin().get(DetailsPaneStyle.class);
+        return style.icons.get(action.getProduct(), building);
     }
 }

@@ -23,7 +23,6 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.SeaDamage;
 import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannon;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollDestroyer;
 

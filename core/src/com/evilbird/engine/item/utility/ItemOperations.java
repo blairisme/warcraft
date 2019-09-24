@@ -21,6 +21,7 @@ import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
 import org.apache.commons.lang3.Validate;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -111,6 +112,16 @@ public class ItemOperations
     public static boolean hasAction(Item item, Identifier identifier) {
         Objects.requireNonNull(identifier);
         return hasAction(item, action -> action.getIdentifier() == identifier);
+    }
+
+    public static boolean hasAction(Item item, Collection<Identifier> identifiers) {
+        Objects.requireNonNull(identifiers);
+        return hasAction(item, action -> identifiers.contains(action.getIdentifier()));
+    }
+
+    public static boolean hasAction(Item item, Identifier[] identifiers) {
+        Objects.requireNonNull(identifiers);
+        return hasAction(item, Arrays.asList(identifiers));
     }
 
     public static boolean hasAction(Item item, Action action) {

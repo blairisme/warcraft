@@ -63,6 +63,8 @@ import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.Placeh
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderMove;
 import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.RangedDamage1Upgrade;
 import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.RangedDamage1UpgradeCancel;
+import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.RangedDamage2Upgrade;
+import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.RangedDamage2UpgradeCancel;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxBegin;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxEnd;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxResize;
@@ -102,6 +104,7 @@ import static com.evilbird.warcraft.item.layer.LayerType.Shore;
 import static com.evilbird.warcraft.item.layer.LayerType.Tree;
 import static com.evilbird.warcraft.item.layer.LayerType.WallSection;
 import static com.evilbird.warcraft.item.ui.display.HudControl.MenuPane;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedRangedUpgradeButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildAdvancedButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildSimpleButton;
@@ -360,8 +363,13 @@ public class Interactions
     private void upgradeInteractions() {
         productionInteraction(
             ImprovedRangedUpgradeButton,
-                RangedDamage1Upgrade,
-                RangedDamage1UpgradeCancel);
+            RangedDamage1Upgrade,
+            RangedDamage1UpgradeCancel);
+
+        productionInteraction(
+            AdvancedRangedUpgradeButton,
+            RangedDamage2Upgrade,
+            RangedDamage2UpgradeCancel);
     }
 
     private void productionInteraction(
