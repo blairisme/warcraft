@@ -20,6 +20,8 @@ import javax.inject.Inject;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static com.evilbird.warcraft.item.common.upgrade.UpgradableValue.Zero;
+
 /**
  * Instances of this class represent a gatherer: a {@link Combatant}
  * specialization that can both fight and collect resources.
@@ -40,8 +42,14 @@ public class Gatherer extends Combatant implements ResourceContainer
     @Inject
     public Gatherer(Skin skin) {
         super(skin);
-        resources = new LinkedHashMap<>(2);
-        progress = 1;
+        this.resources = new LinkedHashMap<>(2);
+        this.progress = 1;
+        this.goldGatherSpeed = 0;
+        this.oilGatherSpeed = 0;
+        this.woodGatherSpeed = 0;
+        this.goldCapacity = Zero;
+        this.oilCapacity = Zero;
+        this.woodCapacity = Zero;
     }
 
     public void clearResources() {

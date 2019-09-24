@@ -246,7 +246,7 @@ public class UnitPredicatesTest
     @Test
     public void isAttackerTest() {
         Combatant combatant = mock(Combatant.class);
-        when(combatant.getBasicDamage()).thenReturn(10);
+        when(combatant.getAttackSpeed()).thenReturn(10f);
 
         Predicate<Item> predicate = UnitPredicates.isAttacker();
         assertTrue(predicate.test(combatant));
@@ -255,7 +255,7 @@ public class UnitPredicatesTest
     @Test
     public void isAttackerWithoutDamageTest() {
         Combatant combatant = mock(Combatant.class);
-        when(combatant.getBasicDamage()).thenReturn(0);
+        when(combatant.getAttackSpeed()).thenReturn(0f);
 
         Predicate<Item> predicate = UnitPredicates.isAttacker();
         assertFalse(predicate.test(combatant));

@@ -19,6 +19,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import static com.evilbird.warcraft.item.common.upgrade.UpgradableValue.Zero;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
 
 /**
@@ -43,6 +44,10 @@ public class Combatant extends MovableUnit
      */
     public Combatant(Skin skin) {
         super(skin);
+        this.attackSpeed = 0;
+        this.attackRange = 0;
+        this.piercingDamage = 0;
+        this.basicDamage = Zero;
     }
 
     /**

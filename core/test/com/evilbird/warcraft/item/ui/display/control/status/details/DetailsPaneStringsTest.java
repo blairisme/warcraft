@@ -80,7 +80,13 @@ public class DetailsPaneStringsTest
             && method.getParameterTypes()[1] == int.class) {
             return (String)method.invoke(strings, 1, 1);
         }
-        throw new UnsupportedOperationException();
+        if (method.getParameterCount() == 3
+            && method.getParameterTypes()[0] == int.class
+            && method.getParameterTypes()[1] == int.class
+            && method.getParameterTypes()[1] == int.class) {
+            return (String)method.invoke(strings, 1, 1, 1);
+        }
+        throw new UnsupportedOperationException(method.getName());
     }
 
     private Unit newTestUnit() {

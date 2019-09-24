@@ -333,14 +333,14 @@ public class UnitOperationsTest
     @Test
     public void isAttackerTest() {
         Combatant combatant = mock(Combatant.class);
-        when(combatant.getBasicDamage()).thenReturn(10);
+        when(combatant.getAttackSpeed()).thenReturn(10f);
         assertTrue(UnitOperations.isAttacker(combatant));
     }
 
     @Test
     public void isAttackerWithoutDamageTest() {
         Combatant combatant = mock(Combatant.class);
-        when(combatant.getBasicDamage()).thenReturn(0);
+        when(combatant.getAttackSpeed()).thenReturn(0f);
         assertFalse(UnitOperations.isAttacker(combatant));
     }
 
