@@ -12,8 +12,8 @@ package com.evilbird.warcraft.action.produce;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
+import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
@@ -59,7 +59,7 @@ public class ProduceUpgradeCancel extends BasicAction
         return ActionComplete;
     }
 
-    private PlayerUpgrade getProduct() {
+    private Upgrade getProduct() {
         ProduceUpgradeActions identifier = (ProduceUpgradeActions)getIdentifier();
         return identifier.getProduct();
     }

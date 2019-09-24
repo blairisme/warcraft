@@ -156,7 +156,7 @@ public class UnitOperationsTest
     @Test
     public void isArtificialTest() {
         Player player = mock(Player.class);
-        when(player.isArtifical()).thenReturn(true);
+        when(player.isArtificial()).thenReturn(true);
 
         assertTrue(UnitOperations.isArtificial(player));
     }
@@ -169,7 +169,7 @@ public class UnitOperationsTest
     @Test
     public void isArtificialParentTest() {
         Player player = mock(Player.class);
-        when(player.isArtifical()).thenReturn(true);
+        when(player.isArtificial()).thenReturn(true);
 
         Item child = mock(Item.class);
         when(child.getParent()).thenReturn(player);
@@ -188,7 +188,7 @@ public class UnitOperationsTest
     @Test
     public void isArtificialHierarchyTest() {
         Player player = mock(Player.class);
-        when(player.isArtifical()).thenReturn(true);
+        when(player.isArtificial()).thenReturn(true);
 
         ItemGroup child = mock(ItemGroup.class);
         when(child.getParent()).thenReturn(player);

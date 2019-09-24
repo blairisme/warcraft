@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.unit.MovableUnit;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -29,6 +30,13 @@ public class Combatant extends MovableUnit
     private int basicDamage;
     private int piercingDamage;
 
+    /**
+     * Constructs a new instance of this class given a {@link Skin} describing
+     * it visual and auditory presentation.
+     *
+     * @param skin  a {@link Skin} instance containing, amongst others, a
+     *              {@link ViewableStyle}.
+     */
     public Combatant(Skin skin) {
         super(skin);
     }

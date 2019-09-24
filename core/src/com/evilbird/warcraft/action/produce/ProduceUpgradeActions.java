@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
+import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import org.apache.commons.lang3.StringUtils;
 
 import static com.evilbird.engine.common.collection.EnumUtils.isBetween;
@@ -29,15 +29,15 @@ public enum ProduceUpgradeActions implements ActionIdentifier
         return isBetween(this, RangedDamage1UpgradeCancel, RangedDamage1UpgradeCancel);
     }
 
-    public PlayerUpgrade getProduct() {
-        return PlayerUpgrade.valueOf(getProductName());
+    public Upgrade getProduct() {
+        return Upgrade.valueOf(getProductName());
     }
 
-    public static ProduceUnitActions forProduct(PlayerUpgrade type) {
+    public static ProduceUnitActions forProduct(Upgrade type) {
         return ProduceUnitActions.valueOf(type.name() + "Upgrade");
     }
 
-    public static ProduceUnitActions forProductCancel(PlayerUpgrade type) {
+    public static ProduceUnitActions forProductCancel(Upgrade type) {
         return ProduceUnitActions.valueOf(type.name() + "UpgradeCancel");
     }
 

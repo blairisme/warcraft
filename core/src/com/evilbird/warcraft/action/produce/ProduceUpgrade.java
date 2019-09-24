@@ -12,8 +12,8 @@ package com.evilbird.warcraft.action.produce;
 import com.evilbird.engine.action.framework.TemporalAction;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.item.common.resource.ResourceSet;
+import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
@@ -70,7 +70,7 @@ public class ProduceUpgrade extends TemporalAction
         building.setProductionProgress(0);
 
         Player player = getPlayer(building);
-        PlayerUpgrade product = getProduct();
+        Upgrade product = getProduct();
 
         ResourceSet cost = new ResourceSet(cost(product));
         resources.setResources(player, cost.negate());
@@ -98,7 +98,7 @@ public class ProduceUpgrade extends TemporalAction
         return ActionIncomplete;
     }
 
-    private PlayerUpgrade getProduct() {
+    private Upgrade getProduct() {
         ProduceUpgradeActions identifier = (ProduceUpgradeActions)getIdentifier();
         return identifier.getProduct();
     }

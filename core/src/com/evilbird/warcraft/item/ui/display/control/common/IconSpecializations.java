@@ -20,7 +20,7 @@ import java.util.Map;
 
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.RangedDamage1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage1;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedRangedUpgradeButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AttackButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildBarracksButton;

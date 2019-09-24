@@ -13,7 +13,6 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.time.GameTimer;
-import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -23,10 +22,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.MeleeDamage1;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.MeleeDamage2;
 
 /**
  * Instances of this {@link Action} reduce the health of the Actions target.
@@ -97,30 +93,12 @@ public class MeleeAttack extends BasicAction
         combatant.setSound(UnitSound.Attack);
 
         Destroyable target = (Destroyable)getTarget();
-        setTargetHealth(combatant, target);
+        target.setHealth(getDamagedHealth(combatant, target));
 
         reorient(combatant, target, false);
         delay.reset();
 
         return target.getHealth() == 0;
-    }
-
-    private void setTargetHealth(Combatant combatant, Destroyable target) {
-        int upgrade = getAttackUpgrade(combatant);
-        float health = getDamagedHealth(combatant, target, upgrade);
-        target.setHealth(health);
-    }
-
-    private int getAttackUpgrade(Combatant combatant) {
-        Player player = getPlayer(combatant);
-        return getAttackUpgrade(player);
-    }
-
-    private int getAttackUpgrade(Player player) {
-        int upgrade = 0;
-        upgrade += player.hasUpgrade(MeleeDamage1) ? 2 : 0;
-        upgrade += player.hasUpgrade(MeleeDamage2) ? 2 : 0;
-        return upgrade;
     }
 
     private boolean attackComplete() {

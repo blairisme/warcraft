@@ -15,6 +15,7 @@ import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
+import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
@@ -26,8 +27,10 @@ import com.evilbird.warcraft.item.common.movement.MovementCapability;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.item.common.upgrade.Upgrade;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeSeries;
 import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
 import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitCosts;
@@ -107,7 +110,7 @@ public class UnitOperations
 
     /**
      * Returns a {@link Collection} containing all of the
-     * {@link Player#isArtifical() artifical players} owned by the given
+     * {@link Player#isArtificial() artifical players} owned by the given
      * {@link ItemRoot}, if any.
      *
      * @param root  an {@code ItemRoot} instance.
@@ -172,6 +175,17 @@ public class UnitOperations
         return null;
     }
 
+    public static UpgradeRank getPlayerUpgrade(Unit unit, UpgradeSeries upgradeSeries) {
+        ItemGroup parent = unit.getParent();
+        if (parent != null) {
+            Player player = getPlayer(parent);
+            if (player != null) {
+                return player.getUpgradeRank(upgradeSeries);
+            }
+        }
+        return UpgradeRank.None;
+    }
+
     public static boolean hasResources(Player player, UnitType type) {
         for (ResourceQuantity cost: UnitCosts.cost(type)) {
             if (player.getResource(cost.getType()) < cost.getValue()){
@@ -181,7 +195,7 @@ public class UnitOperations
         return true;
     }
 
-    public static boolean hasResources(Player player, PlayerUpgrade upgrade) {
+    public static boolean hasResources(Player player, Upgrade upgrade) {
         for (ResourceQuantity cost: UnitCosts.cost(upgrade)) {
             if (player.getResource(cost.getType()) < cost.getValue()){
                 return false;
@@ -202,7 +216,7 @@ public class UnitOperations
         return ItemOperations.hasAny(player, withType(type));
     }
 
-    public static boolean hasUpgrade(Player player, PlayerUpgrade upgrade) {
+    public static boolean hasUpgrade(Player player, Upgrade upgrade) {
         return player.hasUpgrade(upgrade);
     }
 
@@ -276,7 +290,7 @@ public class UnitOperations
     public static boolean isArtificial(Item item) {
         if (item != null) {
             Player player = UnitOperations.getPlayer(item);
-            return player != null && player.isArtifical();
+            return player != null && player.isArtificial();
         }
         return false;
     }

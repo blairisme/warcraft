@@ -15,6 +15,9 @@ import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.common.WarcraftNation;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.item.common.upgrade.Upgrade;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeSeries;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -45,7 +48,7 @@ public class Player extends ItemGroup implements ResourceContainer
         this.upgrades = new LinkedHashMap<>();
     }
 
-    public boolean isArtifical() {
+    public boolean isArtificial() {
         return getType() == PlayerType.Artificial;
     }
 
@@ -77,7 +80,16 @@ public class Player extends ItemGroup implements ResourceContainer
         return statistics.getOrDefault(statistic.name(), 0d).intValue();
     }
 
-    public boolean hasUpgrade(PlayerUpgrade upgrade) {
+    public UpgradeRank getUpgradeRank(UpgradeSeries series) {
+        for (Upgrade upgrade: series.getUpgrades()) {
+            if (hasUpgrade(upgrade)) {
+                return upgrade.getRank();
+            }
+        }
+        return UpgradeRank.None;
+    }
+
+    public boolean hasUpgrade(Upgrade upgrade) {
         return upgrades.getOrDefault(upgrade.name(), Boolean.FALSE);
     }
 
@@ -101,7 +113,7 @@ public class Player extends ItemGroup implements ResourceContainer
         statistics.put(statistic.name(), (double)value);
     }
 
-    public void setUpgrade(PlayerUpgrade upgrade, boolean value) {
+    public void setUpgrade(Upgrade upgrade, boolean value) {
         upgrades.put(upgrade.name(), value);
     }
 

@@ -12,6 +12,7 @@ package com.evilbird.warcraft.type;
 import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.common.reflect.BasicTypeRegistry;
+import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.camera.CameraActions;
 import com.evilbird.warcraft.action.confirm.ConfirmActions;
@@ -40,6 +41,7 @@ import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.building.ResourceExtractor;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
+import com.evilbird.warcraft.item.unit.critter.Critter;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 import com.evilbird.warcraft.menu.intro.IntroMenuType;
@@ -48,6 +50,12 @@ import com.evilbird.warcraft.state.WarcraftCampaign;
 
 import javax.inject.Inject;
 
+/**
+ * A {@link TypeRegistry} implementation, that binds types used by the Warcraft
+ * game to unique identifiers.
+ *
+ * @author Blair Butterworth
+ */
 public class WarcraftTypeRegistry extends BasicTypeRegistry
 {
     @Inject
@@ -97,6 +105,7 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("Units", UnitType.class);
         registerType("Combatant", Combatant.class);
         registerType("RangedCombatant", RangedCombatant.class);
+        registerType("Critter", Critter.class);
         registerType("Gatherer", Gatherer.class);
         registerType("Resource", Resource.class);
         registerType("ResourceType", ResourceType.class);

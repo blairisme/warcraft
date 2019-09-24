@@ -12,12 +12,18 @@ package com.evilbird.warcraft.item.unit.gatherer;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.inject.Inject;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.GoldProduction;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.OilProduction;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.WoodProduction;
 
 /**
  * Instances of this class represent a gatherer: a {@link Combatant}
@@ -28,6 +34,12 @@ import java.util.Map;
 public class Gatherer extends Combatant implements ResourceContainer
 {
     private float progress;
+    private float goldGatherSpeed;
+    private float oilGatherSpeed;
+    private float woodGatherSpeed;
+    private UpgradableValue goldCapacity;
+    private UpgradableValue oilCapacity;
+    private UpgradableValue woodCapacity;
     private Map<String, Double> resources;
 
     @Inject
@@ -35,6 +47,10 @@ public class Gatherer extends Combatant implements ResourceContainer
         super(skin);
         resources = new LinkedHashMap<>(2);
         progress = 1;
+    }
+
+    public void clearResources() {
+        resources.clear();
     }
 
     public boolean isGathering() {
@@ -45,16 +61,40 @@ public class Gatherer extends Combatant implements ResourceContainer
         return progress;
     }
 
-    public float getGatherCapacity(ResourceType resource) {
-        return 100; //TODO
+    public float getGoldCapacity() {
+        return getGoldCapacity(getPlayerUpgrade(GoldProduction));
     }
 
-    public float getGatherDuration(ResourceType resource) {
-        return 5; //TODO
+    public float getGoldCapacity(UpgradeRank rank) {
+        return goldCapacity.getValue(rank);
     }
 
-    public void clearResources() {
-        resources.clear();
+    public float getOilCapacity() {
+        return getOilCapacity(getPlayerUpgrade(OilProduction));
+    }
+
+    public float getOilCapacity(UpgradeRank rank) {
+        return oilCapacity.getValue(rank);
+    }
+
+    public float getWoodCapacity() {
+        return getWoodCapacity(getPlayerUpgrade(WoodProduction));
+    }
+
+    public float getWoodCapacity(UpgradeRank rank) {
+        return woodCapacity.getValue(rank);
+    }
+
+    public float getGoldGatherSpeed() {
+        return goldGatherSpeed;
+    }
+
+    public float getOilGatherSpeed() {
+        return oilGatherSpeed;
+    }
+
+    public float getWoodGatherSpeed() {
+        return woodGatherSpeed;
     }
 
     @Override
@@ -72,6 +112,30 @@ public class Gatherer extends Combatant implements ResourceContainer
 
     public void setGathererProgress(float progress) {
         this.progress = progress;
+    }
+
+    public void setGoldCapacity(UpgradableValue goldCapacity) {
+        this.goldCapacity = goldCapacity;
+    }
+
+    public void setGoldGatherSpeed(float goldGatherSpeed) {
+        this.goldGatherSpeed = goldGatherSpeed;
+    }
+
+    public void setOilCapacity(UpgradableValue oilCapacity) {
+        this.oilCapacity = oilCapacity;
+    }
+
+    public void setOilGatherSpeed(float oilGatherSpeed) {
+        this.oilGatherSpeed = oilGatherSpeed;
+    }
+
+    public void setWoodCapacity(UpgradableValue woodCapacity) {
+        this.woodCapacity = woodCapacity;
+    }
+
+    public void setWoodGatherSpeed(float woodGatherSpeed) {
+        this.woodGatherSpeed = woodGatherSpeed;
     }
 
     @Override

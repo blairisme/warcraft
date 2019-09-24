@@ -27,18 +27,30 @@ public class AttackDamage
 {
     private static Random random = new Random();
 
+    /**
+     * Disable construction of static helper class.
+     */
     private AttackDamage() {
     }
 
-    public static float getDamagedHealth(Combatant combatant, Destroyable target, int upgrade) {
-        int damage = getDamage(combatant, target, upgrade);
+    /**
+     * Determines the health of the given target after a the given attacker has
+     * attacked it.
+     *
+     * @param attacker  the attacking unit.
+     * @param target    the target of the attacker.
+     * @return          the targets health minus the attack damage inflicted by
+     *                  the attacker.
+     */
+    public static float getDamagedHealth(Combatant attacker, Destroyable target) {
+        int damage = getDamage(attacker, target);
         float health = target.getHealth();
         return Math.max(0, health - damage);
     }
 
-    public static int getDamage(Combatant combatant, Destroyable target, int upgrade) {
+    private static int getDamage(Combatant combatant, Destroyable target) {
         int armour = target.getArmour();
-        int basic = combatant.getBasicDamage() + upgrade;
+        int basic = combatant.getBasicDamage();
         int piercing = combatant.getPiercingDamage();
         return getDamage(armour, basic, piercing);
     }

@@ -41,13 +41,13 @@ public class GatherDeposit extends BasicAction
     private transient GatherEvents events;
     private transient ResourceType resource;
     private transient ItemExclusion exclusion;
-    private transient ResourceTransfer transferer;
+    private transient ResourceTransfer resources;
 
     @Inject
-    public GatherDeposit(GatherEvents events, ItemExclusion exclusion, ResourceTransfer transferer) {
+    public GatherDeposit(GatherEvents events, ItemExclusion exclusion, ResourceTransfer resources) {
         this.events = events;
         this.exclusion = exclusion;
-        this.transferer = transferer;
+        this.resources = resources;
     }
 
     @Override
@@ -91,7 +91,7 @@ public class GatherDeposit extends BasicAction
         exclusion.disable(gatherer);
 
         Building depot = (Building)getTarget();
-        ResourceQuantity quantity = new ResourceQuantity(resource, gatherer.getGatherCapacity(resource));
+        ResourceQuantity quantity = new ResourceQuantity(resource, getGatherCapacity(gatherer));
 
         events.notifyDepositStarted(gatherer, depot, quantity);
         return ActionIncomplete;
@@ -103,7 +103,7 @@ public class GatherDeposit extends BasicAction
 
     protected boolean load() {
         Gatherer gatherer = (Gatherer)getItem();
-        timer = new GameTimer(gatherer.getGatherDuration(resource));
+        timer = new GameTimer(getGatherSpeed(gatherer));
         timer.advance(gatherer.getGathererProgress() * timer.duration());
         return ActionIncomplete;
     }
@@ -123,10 +123,28 @@ public class GatherDeposit extends BasicAction
 
         Building depot = (Building)getTarget();
         Player player = getPlayer(depot);
-        ResourceQuantity quantity = new ResourceQuantity(resource, gatherer.getGatherCapacity(resource));
-        transferer.transfer(gatherer, player, quantity);
+        ResourceQuantity quantity = new ResourceQuantity(resource, getGatherCapacity(gatherer));
+        resources.transfer(gatherer, player, quantity);
 
         events.notifyDepositComplete(gatherer, depot, quantity);
         return ActionComplete;
+    }
+
+    private float getGatherCapacity(Gatherer gatherer) {
+        switch (resource) {
+            case Gold: return gatherer.getGoldCapacity();
+            case Oil: return gatherer.getOilCapacity();
+            case Wood: return gatherer.getWoodCapacity();
+            default: throw new UnsupportedOperationException();
+        }
+    }
+
+    private float getGatherSpeed(Gatherer gatherer) {
+        switch (resource) {
+            case Gold: return gatherer.getGoldGatherSpeed();
+            case Oil: return gatherer.getOilGatherSpeed();
+            case Wood: return gatherer.getWoodGatherSpeed();
+            default: throw new UnsupportedOperationException();
+        }
     }
 }

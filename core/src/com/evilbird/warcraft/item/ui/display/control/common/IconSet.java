@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.common.WarcraftFaction;
-import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
+import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitAttack;
@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * Represents an icon file, a formatted texture containing a variety of icons
  * Icons can be obtained by {@link ActionButtonType}, {@link UnitType} or
- * {@link PlayerUpgrade}. Some icons come in faction specific variants, attack
+ * {@link Upgrade}. Some icons come in faction specific variants, attack
  * capability specific variants and upgraded variants.
  *
  * @author Blair Butterworth
@@ -94,13 +94,13 @@ public class IconSet
     }
 
     /**
-     * Obtains the icon that represents the given {@link PlayerUpgrade}.
+     * Obtains the icon that represents the given {@link Upgrade}.
      *
      * @param upgrade   the upgrade whose icon is required.
      * @param unit      the unit producing the upgrade.
      * @return          a {@link Drawable} containing the required icon.
      */
-    public Drawable get(PlayerUpgrade upgrade, Unit unit) {
+    public Drawable get(Upgrade upgrade, Unit unit) {
         Objects.requireNonNull(upgrade);
         Objects.requireNonNull(unit);
 

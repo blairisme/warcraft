@@ -16,7 +16,7 @@ import com.evilbird.test.data.assets.TestTextures;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
-import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
+import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.ui.display.control.ControlPaneFactory;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -78,7 +78,7 @@ public class IconSetTest extends GameTestCase
     @Test
     public void getUpgradeIconTest() {
         Unit lumberMill = TestBuildings.newTestBuilding(new TextIdentifier("LumberMill"), UnitType.LumberMill);
-        Drawable actual = iconSet.get(PlayerUpgrade.RangedDamage1, lumberMill);
+        Drawable actual = iconSet.get(Upgrade.RangedDamage1, lumberMill);
         Assert.assertNotNull(actual);
     }
 

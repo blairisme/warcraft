@@ -15,7 +15,7 @@ import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
-import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
+import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -37,7 +37,7 @@ public class UnitCosts
     private UnitCosts() {
     }
 
-    public static float buildTime(PlayerUpgrade upgrade) {
+    public static float buildTime(Upgrade upgrade) {
         if (isQuickBuildEnabled()) {
             return 0;
         }
@@ -175,7 +175,7 @@ public class UnitCosts
         }
     }
 
-    public static Collection<ResourceQuantity> cost(PlayerUpgrade upgrade) {
+    public static Collection<ResourceQuantity> cost(Upgrade upgrade) {
         if (isFreeBuildEnabled()) {
             return resources(0, 0, 0, 0);
         }

@@ -19,8 +19,8 @@ import java.util.List;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasResources;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUpgrade;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.RangedDamage1;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.RangedDamage2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage2;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedRangedUpgradeButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedUpgradeButton;
 import static java.util.Collections.emptyList;

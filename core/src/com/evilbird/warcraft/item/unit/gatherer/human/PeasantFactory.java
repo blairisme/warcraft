@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.unit.gatherer.human;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.item.unit.gatherer.GathererFactoryBase;
 
@@ -55,6 +56,14 @@ public class PeasantFactory extends GathererFactoryBase
     @Override
     public Gatherer get(Identifier type) {
         Gatherer result = builder.newLandGatherer();
+        setAttackAttributes(result);
+        setGatheringAttributes(result);
+        setIdentityAttributes(result);
+        setMovementAttributes(result);
+        return result;
+    }
+
+    private void setAttackAttributes(Gatherer result) {
         result.setAttackSpeed(1);
         result.setAttackRange(tiles(1));
         result.setArmour(0);
@@ -62,11 +71,27 @@ public class PeasantFactory extends GathererFactoryBase
         result.setBasicDamage(5);
         result.setHealth(30);
         result.setHealthMaximum(30);
+    }
+
+    private void setGatheringAttributes(Gatherer result) {
+        result.setGoldGatherSpeed(5);
+        result.setGoldCapacity(new UpgradableValue(100, 110, 125));
+
+        result.setWoodGatherSpeed(45);
+        result.setWoodCapacity(new UpgradableValue(100, 110, 125));
+
+        result.setOilGatherSpeed(0);
+        result.setOilCapacity(UpgradableValue.Zero);
+    }
+
+    private void setIdentityAttributes(Gatherer result) {
         result.setIdentifier(objectIdentifier("Peasant", result));
+        result.setType(Peasant);
+    }
+
+    private void setMovementAttributes(Gatherer result) {
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setSight(tiles(4));
-        result.setType(Peasant);
-        return result;
     }
 }

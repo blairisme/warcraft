@@ -17,6 +17,7 @@ public class ResourceUtils
     private ResourceUtils() {
     }
 
+    // TODO: Move into ResourceContainer interface
     public static Collection<ResourceQuantity> getResources(ResourceContainer container) {
         Collection<ResourceQuantity> resources = new ArrayList<>();
         for (ResourceType resource: ResourceType.values()) {

@@ -82,7 +82,7 @@ class GatherObtain extends BasicAction
         gatherer.clearResources();
         gatherer.setGathererProgress(0);
 
-        ResourceQuantity quantity = new ResourceQuantity(resource, gatherer.getGatherCapacity(resource));
+        ResourceQuantity quantity = new ResourceQuantity(resource, getGatherCapacity(gatherer));
         events.notifyObtainStarted(gatherer, getTarget(), quantity);
 
         return ActionIncomplete;
@@ -94,7 +94,7 @@ class GatherObtain extends BasicAction
 
     protected boolean load() {
         Gatherer gatherer = (Gatherer)getItem();
-        timer = new GameTimer(gatherer.getGatherDuration(resource));
+        timer = new GameTimer(getGatherSpeed(gatherer));
         timer.advance(gatherer.getGathererProgress() * timer.duration());
         return ActionIncomplete;
     }
@@ -109,7 +109,7 @@ class GatherObtain extends BasicAction
         Gatherer gatherer = (Gatherer)getItem();
         gatherer.setGathererProgress(1);
 
-        ResourceQuantity quantity = new ResourceQuantity(resource, gatherer.getGatherCapacity(resource));
+        ResourceQuantity quantity = new ResourceQuantity(resource, getGatherCapacity(gatherer));
         ResourceContainer container = (ResourceContainer)getTarget();
         resources.transfer(container, gatherer, quantity);
         resourceEmpty(container);
@@ -122,6 +122,24 @@ class GatherObtain extends BasicAction
         if (container instanceof Destroyable && container.getResource(resource) == 0) {
             death.setItem(container);
             container.addAction(death);
+        }
+    }
+
+    private float getGatherCapacity(Gatherer gatherer) {
+        switch (resource) {
+            case Gold: return gatherer.getGoldCapacity();
+            case Oil: return gatherer.getOilCapacity();
+            case Wood: return gatherer.getWoodCapacity();
+            default: throw new UnsupportedOperationException();
+        }
+    }
+
+    private float getGatherSpeed(Gatherer gatherer) {
+        switch (resource) {
+            case Gold: return gatherer.getGoldGatherSpeed();
+            case Oil: return gatherer.getOilGatherSpeed();
+            case Wood: return gatherer.getWoodGatherSpeed();
+            default: throw new UnsupportedOperationException();
         }
     }
 }

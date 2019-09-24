@@ -15,10 +15,7 @@ import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.data.player.PlayerUpgrade;
 import com.evilbird.warcraft.item.projectile.Projectile;
-import com.evilbird.warcraft.item.projectile.ProjectileType;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
@@ -27,13 +24,8 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isShip;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.CannonDamage1;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.CannonDamage2;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.RangedDamage1;
-import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.RangedDamage2;
 
 /**
  * Modifies the state of a {@link RangedCombatant} to attack a given item using
@@ -43,7 +35,6 @@ import static com.evilbird.warcraft.item.data.player.PlayerUpgrade.RangedDamage2
  */
 public class RangedAttack extends BasicAction
 {
-    private transient Player player;
     private transient RangedCombatant combatant;
     private transient Projectile projectile;
     private transient Destroyable target;
@@ -109,12 +100,10 @@ public class RangedAttack extends BasicAction
         flightTime = 0;
         reloadTime = 0;
 
-        combatant = (RangedCombatant)getItem();
-        player = getPlayer(combatant);
-
         target = (Destroyable)getTarget();
         destination = target.getPosition(Alignment.Center);
 
+        combatant = (RangedCombatant)getItem();
         reorient(combatant, target, isShip(combatant));
 
         projectile = getProjectile(combatant);
@@ -186,27 +175,11 @@ public class RangedAttack extends BasicAction
     }
 
     private boolean hitWithProjectile() {
-        float newHealth = getDamagedHealth(combatant, target, getAttackUpgrade());
+        float newHealth = getDamagedHealth(combatant, target);
         target.setHealth(newHealth);
         combatant.setSound(UnitSound.Hit);
         projectile.setVisible(false);
         reloadTime = Math.max(combatant.getAttackSpeed() - flightTime, 0);
         return newHealth == 0;
-    }
-
-    private int getAttackUpgrade() {
-        switch ((ProjectileType)projectile.getType()) {
-            case Arrow:
-            case Axe: return getAttackUpgrade(RangedDamage1, RangedDamage2);
-            case Cannon: return getAttackUpgrade(CannonDamage1, CannonDamage2);
-            default: return 0;
-        }
-    }
-
-    private int getAttackUpgrade(PlayerUpgrade basicUpgrade, PlayerUpgrade advancedUpgrade) {
-        int upgrade = 0;
-        upgrade += player.hasUpgrade(basicUpgrade) ? 2 : 0;
-        upgrade += player.hasUpgrade(advancedUpgrade) ? 2 : 0;
-        return upgrade;
     }
 }

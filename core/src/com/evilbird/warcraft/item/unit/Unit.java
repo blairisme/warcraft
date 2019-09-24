@@ -15,10 +15,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemReference;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.engine.item.specialized.Viewable;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeSeries;
+import com.evilbird.warcraft.item.data.player.Player;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -197,5 +201,14 @@ public class Unit extends Viewable implements Destroyable, Selectable, ItemGraph
             .append(selectable)
             .append(association)
             .toHashCode();
+    }
+
+    protected UpgradeRank getPlayerUpgrade(UpgradeSeries series) {
+        ItemGroup parent = getParent();
+        if (parent instanceof Player) {
+            Player player = (Player)parent;
+            return player.getUpgradeRank(series);
+        }
+        return UpgradeRank.None;
     }
 }
