@@ -19,6 +19,7 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.remove.RemoveEvents;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
+import com.evilbird.warcraft.item.common.production.ProductionCosts;
 import com.evilbird.warcraft.item.common.resource.ResourceSet;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.placement.Placeholder;
@@ -38,7 +39,6 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDead;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.BuildingSite;
-import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
 
 /**
  * An {@link Action} that replaces a {@link Placeholder} with the
@@ -53,18 +53,21 @@ public class ConstructPlaceholder extends BasicAction
     private RemoveEvents removeEvents;
     private CreateEvents createEvents;
     private Consumer<Item> recipient;
+    private ProductionCosts production;
 
     @Inject
     public ConstructPlaceholder(
         ItemFactory factory,
         ResourceTransfer resources,
         RemoveEvents removeEvents,
-        CreateEvents createEvents)
+        CreateEvents createEvents,
+        ProductionCosts production)
     {
         this.factory = factory;
         this.resources = resources;
         this.removeEvents = removeEvents;
         this.createEvents = createEvents;
+        this.production = production;
     }
 
     public void setRecipient(Consumer<Item> recipient) {
@@ -89,7 +92,7 @@ public class ConstructPlaceholder extends BasicAction
     }
 
     private void purchase(UnitType building, Player player) {
-        ResourceSet cost = new ResourceSet(cost(building));
+        ResourceSet cost = new ResourceSet(production.costOf(building));
         resources.setResources(player, cost.negate());
     }
 

@@ -13,9 +13,9 @@ import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.DeathAction;
+import com.evilbird.warcraft.item.common.production.ProductionCosts;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
@@ -37,15 +37,18 @@ public class ConstructCancel extends DelegateAction
     private transient ConstructEvents events;
     private transient ItemExclusion exclusion;
     private transient ResourceTransfer resources;
+    private transient ProductionCosts costs;
 
     @Inject
     public ConstructCancel(
         ConstructEvents events,
         DeathAction death,
         ItemExclusion exclusion,
-        ResourceTransfer resources)
+        ResourceTransfer resources,
+        ProductionCosts costs)
     {
         super(death);
+        this.costs = costs;
         this.events = events;
         this.cancelled = false;
         this.exclusion = exclusion;
@@ -100,7 +103,7 @@ public class ConstructCancel extends DelegateAction
     }
 
     private Collection<ResourceQuantity> getBuildingCost() {
-        return UnitCosts.cost(getBuildingType());
+        return costs.costOf(getBuildingType());
     }
 
     private UnitType getBuildingType() {

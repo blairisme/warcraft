@@ -24,13 +24,11 @@ import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.common.movement.Movable;
 import com.evilbird.warcraft.item.common.movement.MovementCapability;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
-import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import com.evilbird.warcraft.item.unit.Unit;
-import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -170,24 +168,6 @@ public class UnitOperations
             return player.getFaction();
         }
         return null;
-    }
-
-    public static boolean hasResources(Player player, UnitType type) {
-        for (ResourceQuantity cost: UnitCosts.cost(type)) {
-            if (player.getResource(cost.getType()) < cost.getValue()){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static boolean hasResources(Player player, Upgrade upgrade) {
-        for (ResourceQuantity cost: UnitCosts.cost(upgrade)) {
-            if (player.getResource(cost.getType()) < cost.getValue()){
-                return false;
-            }
-        }
-        return true;
     }
 
     public static boolean hasResources(Item item, ResourceType type) {

@@ -13,11 +13,10 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
-import com.evilbird.warcraft.item.ui.display.control.actions.buttons.ButtonController;
+import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButtonController;
 
 import java.util.List;
 
-import static com.evilbird.warcraft.item.common.query.UnitOperations.hasResources;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUpgrade;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage2;
@@ -31,7 +30,7 @@ import static java.util.Collections.singletonList;
  *
  * @author Blair Butterworth
  */
-public class LumberMillButtons implements ButtonController
+public class LumberMillButtons extends BasicButtonController
 {
     @Override
     public List<ActionButtonType> getButtons(Item item) {

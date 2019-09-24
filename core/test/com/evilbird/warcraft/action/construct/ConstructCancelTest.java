@@ -18,6 +18,7 @@ import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.DeathAction;
+import com.evilbird.warcraft.item.common.production.ProductionCosts;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -39,7 +40,8 @@ public class ConstructCancelTest extends ActionTestCase
         DeathAction death = Mockito.mock(DeathAction.class);
         ItemExclusion exclusion = Mockito.mock(ItemExclusion.class);
         ResourceTransfer resources = Mockito.mock(ResourceTransfer.class);
-        ConstructCancel action = new ConstructCancel(events, death, exclusion, resources);
+        ProductionCosts costs = Mockito.mock(ProductionCosts.class);
+        ConstructCancel action = new ConstructCancel(events, death, exclusion, resources, costs);
         action.setIdentifier(ConstructActions.ConstructBarracksCancel);
         return action;
     }

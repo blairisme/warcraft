@@ -20,6 +20,8 @@ import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.common.transfer.TransferEvent;
+import com.evilbird.warcraft.item.common.production.ProductionCosts;
+import com.evilbird.warcraft.item.common.production.ProductionTimes;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -31,7 +33,6 @@ import org.mockito.Mockito;
 import static com.evilbird.warcraft.action.produce.ProduceUnitActions.TrainFootman;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Food;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
-import static com.evilbird.warcraft.item.unit.UnitCosts.buildTime;
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -64,7 +65,10 @@ public class ProduceUnitTest extends ActionTestCase
         CreateEvents createEvents = new CreateEvents(reporter);
         ProduceEvents produceEvents = new ProduceEvents(reporter);
         ResourceTransfer resources = Mockito.mock(ResourceTransfer.class);
-        ProduceUnit action = new ProduceUnit(createEvents, produceEvents, itemFactory, preferences, resources);
+        ProductionTimes times = Mockito.mock(ProductionTimes.class);
+        ProductionCosts costs = Mockito.mock(ProductionCosts.class);
+        ProduceUnit action = new ProduceUnit(
+            createEvents, produceEvents, itemFactory, preferences, resources, costs, times);
         action.setIdentifier(TrainFootman);
         return action;
     }
@@ -100,7 +104,7 @@ public class ProduceUnitTest extends ActionTestCase
         assertFalse(action.act(1));
         assertEquals(0.1f, barracks.getProductionProgress(), 0.1f);
 
-        assertFalse(action.act(buildTime(Footman) + 10));
+        assertFalse(action.act(60  + 10));
         assertFalse(barracks.isProducing());
 
         assertFalse(action.act(1));

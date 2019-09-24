@@ -12,6 +12,8 @@ package com.evilbird.warcraft.action.produce;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
+import com.evilbird.warcraft.item.common.production.ProductionCosts;
+import com.evilbird.warcraft.item.common.production.ProductionTimes;
 import com.evilbird.warcraft.item.common.resource.ResourceSet;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.data.player.Player;
@@ -22,8 +24,6 @@ import javax.inject.Inject;
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
-import static com.evilbird.warcraft.item.unit.UnitCosts.buildTime;
-import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
 
 /**
  * Instances of this action sequence research an upgrade, decrementing the
@@ -36,19 +36,20 @@ public class ProduceUpgrade extends BasicAction
     private transient GameTimer timer;
     private transient ProduceEvents events;
     private transient ResourceTransfer resources;
+    private transient ProductionCosts productionCosts;
+    private transient ProductionTimes productionTimes;
 
-    /**
-     * Constructs a new instance of this class given an {@link ProduceEvents}
-     * used to report events when production begins and completes, as well as
-     * for the transfer of funds involved in production.
-     *
-     * @param events  an {@code ProduceEvents} instance. This parameter
-     *                  cannot be {@code null}.
-     */
     @Inject
-    public ProduceUpgrade(ProduceEvents events, ResourceTransfer resources) {
+    public ProduceUpgrade(
+        ProduceEvents events,
+        ResourceTransfer resources,
+        ProductionCosts productionCosts,
+        ProductionTimes productionTimes)
+    {
         this.events = events;
         this.resources = resources;
+        this.productionCosts = productionCosts;
+        this.productionTimes = productionTimes;
     }
 
     @Override
@@ -89,7 +90,7 @@ public class ProduceUpgrade extends BasicAction
         Player player = getPlayer(building);
         Upgrade product = getProduct();
 
-        ResourceSet cost = new ResourceSet(cost(product));
+        ResourceSet cost = new ResourceSet(productionCosts.costOf(product));
         resources.setResources(player, cost.negate());
 
         events.notifyProductionStarted(building);
@@ -103,7 +104,7 @@ public class ProduceUpgrade extends BasicAction
     protected boolean load() {
         Building building = (Building)getItem();
         Upgrade product = getProduct();
-        timer = new GameTimer(buildTime(product));
+        timer = new GameTimer(productionTimes.buildTime(product));
         timer.advance(building.getProductionProgress() * timer.duration());
         return ActionIncomplete;
     }

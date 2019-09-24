@@ -16,6 +16,8 @@ import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.movement.Movable;
+import com.evilbird.warcraft.item.common.production.ProductionCosts;
+import com.evilbird.warcraft.item.common.production.ProductionTimes;
 import com.evilbird.warcraft.item.common.resource.ResourceSet;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -28,8 +30,6 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.moveAdjacent;
-import static com.evilbird.warcraft.item.unit.UnitCosts.buildTime;
-import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
 import static com.evilbird.warcraft.item.unit.UnitSound.Ready;
 
 /**
@@ -48,6 +48,8 @@ public class ProduceUnit extends BasicAction
     private transient WarcraftPreferences preferences;
     private transient ProduceEvents produceEvents;
     private transient CreateEvents createEvents;
+    private transient ProductionCosts productionCosts;
+    private transient ProductionTimes productionTimes;
 
     @Inject
     public ProduceUnit(
@@ -55,13 +57,17 @@ public class ProduceUnit extends BasicAction
         ProduceEvents produceEvents,
         ItemFactory factory,
         WarcraftPreferences preferences,
-        ResourceTransfer resources)
+        ResourceTransfer resources,
+        ProductionCosts productionCosts,
+        ProductionTimes productionTimes)
     {
         this.factory = factory;
         this.resources = resources;
         this.preferences = preferences;
         this.createEvents = createEvents;
         this.produceEvents = produceEvents;
+        this.productionCosts = productionCosts;
+        this.productionTimes = productionTimes;
     }
 
     @Override
@@ -102,7 +108,7 @@ public class ProduceUnit extends BasicAction
         Player player = getPlayer(building);
         UnitType product = getProduct();
 
-        ResourceSet cost = new ResourceSet(cost(product));
+        ResourceSet cost = new ResourceSet(productionCosts.costOf(product));
         resources.setResources(player, cost.negate());
 
         produceEvents.notifyProductionStarted(building);
@@ -116,7 +122,7 @@ public class ProduceUnit extends BasicAction
     protected boolean load() {
         Building building = (Building)getItem();
         UnitType product = getProduct();
-        timer = new GameTimer(buildTime(product));
+        timer = new GameTimer(productionTimes.buildTime(product));
         timer.advance(building.getProductionProgress() * timer.duration());
         return ActionIncomplete;
     }

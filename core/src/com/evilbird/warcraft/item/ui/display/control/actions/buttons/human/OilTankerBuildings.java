@@ -13,12 +13,11 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
-import com.evilbird.warcraft.item.ui.display.control.actions.buttons.ButtonController;
+import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButtonController;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static com.evilbird.warcraft.item.common.query.UnitOperations.hasResources;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildOilPlatformButton;
 import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
@@ -29,7 +28,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
  *
  * @author Blair Butterworth
  */
-public class OilTankerBuildings implements ButtonController
+public class OilTankerBuildings extends BasicButtonController
 {
     @Override
     public List<ActionButtonType> getButtons(Item item) {

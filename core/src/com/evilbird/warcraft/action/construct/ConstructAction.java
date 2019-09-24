@@ -15,6 +15,7 @@ import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.item.common.production.ProductionTimes;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -28,7 +29,6 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.moveAdjacent;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Construct;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
-import static com.evilbird.warcraft.item.unit.UnitCosts.buildTime;
 import static com.evilbird.warcraft.item.unit.UnitSound.Build;
 import static com.evilbird.warcraft.item.unit.UnitSound.Complete;
 
@@ -47,19 +47,22 @@ public class ConstructAction extends TemporalAction
     private transient ItemExclusion exclusion;
     private transient WarcraftPreferences preferences;
     private transient ResourceTransfer resources;
+    private transient ProductionTimes production;
 
     @Inject
     public ConstructAction(
         ConstructEvents events,
         WarcraftPreferences preferences,
         ItemExclusion exclusion,
-        ResourceTransfer resources)
+        ResourceTransfer resources,
+        ProductionTimes times)
     {
         super(UNINITIALIZED_DURATION);
         this.events = events;
         this.preferences = preferences;
         this.exclusion = exclusion;
         this.resources = resources;
+        this.production = times;
         this.timer = new GameTimer(BUILDING_SOUND_INTERVAL);
     }
 
@@ -90,10 +93,22 @@ public class ConstructAction extends TemporalAction
         Building building = (Building)getTarget();
         building.setAnimation(Construct);
 
-        setDuration(buildTime(building));
-        setProgress(building.getConstructionProgress() * buildTime(building));
+        setDuration(production.buildTime(building));
+        setProgress(building.getConstructionProgress() * getDuration());
 
         events.notifyConstructStarted(builder, building);
+        return ActionIncomplete;
+    }
+
+    private boolean update(float time) {
+        Building building = (Building)getTarget();
+        building.setConstructionProgress(getProgress());
+
+        Gatherer builder = (Gatherer)getItem();
+        if (preferences.isBuildingSoundsEnabled() && timer.advance(time)) {
+            timer.reset();
+            builder.setSound(Build);
+        }
         return ActionIncomplete;
     }
 
@@ -116,17 +131,5 @@ public class ConstructAction extends TemporalAction
         }
         events.notifyConstructComplete(builder, building);
         return ActionComplete;
-    }
-
-    private boolean update(float time) {
-        Building building = (Building)getTarget();
-        building.setConstructionProgress(getProgress());
-
-        Gatherer builder = (Gatherer)getItem();
-        if (preferences.isBuildingSoundsEnabled() && timer.advance(time)) {
-            timer.reset();
-            builder.setSound(Build);
-        }
-        return ActionIncomplete;
     }
 }

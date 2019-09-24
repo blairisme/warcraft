@@ -18,6 +18,7 @@ import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
+import com.evilbird.warcraft.item.common.production.ProductionTimes;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitStyle;
@@ -43,9 +44,11 @@ import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.idleS
 public class BuildingBuilder
 {
     private BuildingAssets assets;
+    private ProductionTimes times;
 
-    public BuildingBuilder(BuildingAssets assets) {
+    public BuildingBuilder(BuildingAssets assets, ProductionTimes times) {
         this.assets = assets;
+        this.times = times;
     }
 
     public Building build() {
@@ -135,7 +138,7 @@ public class BuildingBuilder
     }
 
     private void addBuildingAnimation(AnimationSetBuilder builder, Texture general, Texture build, GridPoint2 size) {
-        float duration = assets.getConstructionAnimationDuration() / 2f;
+        float duration = times.buildTime(assets.getType()) / 2f;
         builder.set(UnitAnimation.BuildingSite, constructStaticSchema(size.x, size.y), build);
         builder.set(UnitAnimation.Construct, Arrays.asList(
             Pair.of(constructBeginSchema(size.x, size.y, duration), build),

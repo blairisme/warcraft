@@ -15,7 +15,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.assets.SyntheticTexture;
 import com.evilbird.engine.common.audio.sound.Sound;
-import com.evilbird.warcraft.item.unit.UnitCosts;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.state.WarcraftContext;
 
@@ -89,10 +88,6 @@ public class BuildingAssets extends AssetBundle
 
     public GridPoint2 getSize() {
         return dimensions;
-    }
-
-    public float getConstructionAnimationDuration() {
-        return UnitCosts.buildTime(type);
     }
 
     public UnitType getType() {

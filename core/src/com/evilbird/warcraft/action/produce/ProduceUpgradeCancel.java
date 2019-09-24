@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
+import com.evilbird.warcraft.item.common.production.ProductionCosts;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -20,7 +20,6 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
-import static com.evilbird.warcraft.item.unit.UnitCosts.cost;
 
 /**
  * Instances of this class stop the production of an upgrade, refunding a
@@ -32,19 +31,17 @@ public class ProduceUpgradeCancel extends BasicAction
 {
     private transient ProduceEvents events;
     private transient ResourceTransfer resources;
+    private transient ProductionCosts costs;
 
-    /**
-     * Constructs a new instance of this class given an {@link Events} queue
-     * used to report the transfer of resources involved in the refund for the
-     * partially complete production operation.
-     *
-     * @param events  a {@code EventQueue} instance. This parameter
-     *                  cannot be {@code null}.
-     */
     @Inject
-    public ProduceUpgradeCancel(ProduceEvents events, ResourceTransfer resources) {
+    public ProduceUpgradeCancel(
+        ProduceEvents events,
+        ResourceTransfer resources,
+        ProductionCosts costs)
+    {
         this.events = events;
         this.resources = resources;
+        this.costs = costs;
     }
 
     @Override
@@ -53,7 +50,7 @@ public class ProduceUpgradeCancel extends BasicAction
         building.setProductionProgress(1);
 
         Player player = getPlayer(building);
-        resources.setResources(player, cost(getProduct()));
+        resources.setResources(player, costs.costOf(getProduct()));
 
         events.notifyProductionCancelled(building);
         return ActionComplete;

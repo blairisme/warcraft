@@ -13,13 +13,12 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
-import com.evilbird.warcraft.item.ui.display.control.actions.buttons.ButtonController;
+import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButtonController;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.Collections;
 import java.util.List;
 
-import static com.evilbird.warcraft.item.common.query.UnitOperations.hasResources;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUnit;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainGruntButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainTrollAxethrowerButton;
@@ -34,7 +33,7 @@ import static java.util.Collections.singletonList;
  *
  * @author Blair Butterworth
  */
-public class EncampmentButtons implements ButtonController
+public class EncampmentButtons extends BasicButtonController
 {
     @Override
     public List<ActionButtonType> getButtons(Item item) {
