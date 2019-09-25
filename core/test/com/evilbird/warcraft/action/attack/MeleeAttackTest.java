@@ -12,21 +12,25 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.verifier.EqualityVerifier;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class MeleeAttackTest
 {
     private Item item;
     private Item target;
     private MeleeAttack action;
+    private WarcraftPreferences preferences;
 
     @Before
     public void setup() {
         item = TestItems.newItem("footman");
         target = TestItems.newItem("grunt");
+        preferences = Mockito.mock(WarcraftPreferences.class);
 
-        action = new MeleeAttack();
+        action = new MeleeAttack(preferences);
         action.setItem(item);
         action.setTarget(target);
     }

@@ -93,7 +93,7 @@ public class SelectInvert extends BasicAction
     private void setSelectedSound(Item entity) {
         if (entity instanceof Viewable && preferences.isAcknowledgementEnabled()) {
             Viewable viewable = (Viewable)entity;
-            viewable.setSound(Selected);
+            viewable.setSound(Selected, preferences.getEffectsVolume());
         }
     }
 

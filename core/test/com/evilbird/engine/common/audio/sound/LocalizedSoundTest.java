@@ -9,7 +9,6 @@
 
 package com.evilbird.engine.common.audio.sound;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.item.Item;
 import org.junit.Before;
@@ -27,30 +26,23 @@ public class LocalizedSoundTest
 {
     private Sound delegate;
     private Item owner;
-    private Camera camera;
     private LocalizedSoundExtension sound;
 
     @Before
     public void setup() {
         delegate = mock(Sound.class);
         owner = mock(Item.class);
-        camera = mock(Camera.class);
-        sound = new LocalizedSoundExtension(delegate, owner, camera);
+        sound = new LocalizedSoundExtension(delegate, owner);
     }
 
     @Test(expected=NullPointerException.class)
     public void constructNullSoundTest() {
-        new LocalizedSound(null, owner, camera);
+        new LocalizedSound(null, owner);
     }
 
     @Test(expected=NullPointerException.class)
     public void constructOwnerSoundTest() {
-        new LocalizedSound(delegate, null, camera);
-    }
-
-    @Test(expected=NullPointerException.class)
-    public void constructCameraSoundTest() {
-        new LocalizedSound(delegate, owner, null);
+        new LocalizedSound(delegate, null);
     }
 
     @Test
@@ -99,8 +91,8 @@ public class LocalizedSoundTest
     private static class LocalizedSoundExtension extends LocalizedSound {
         private boolean onCamera;
 
-        public LocalizedSoundExtension(Sound sound, Item owner, Camera camera) {
-            super(sound, owner, camera);
+        public LocalizedSoundExtension(Sound sound, Item owner) {
+            super(sound, owner);
         }
 
         @Override

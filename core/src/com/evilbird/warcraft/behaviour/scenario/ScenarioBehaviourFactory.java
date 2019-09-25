@@ -12,6 +12,9 @@ package com.evilbird.warcraft.behaviour.scenario;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.common.inject.IdentifiedProvider;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.warcraft.behaviour.scenario.supplement.SupplementaryBehaviour;
+import com.evilbird.warcraft.behaviour.scenario.supplement.UnitCapture;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -23,7 +26,6 @@ import static com.evilbird.warcraft.behaviour.scenario.condition.PlayerDestructi
 import static com.evilbird.warcraft.behaviour.scenario.condition.PlayerOwnership.playerOwns;
 import static com.evilbird.warcraft.behaviour.scenario.condition.UnitDestruction.unitsDestroyed;
 import static com.evilbird.warcraft.behaviour.scenario.condition.UnitPositioned.unitRepositionedTo;
-import static com.evilbird.warcraft.behaviour.scenario.supplement.UnitCapture.captureUnits;
 import static com.evilbird.warcraft.item.data.player.PlayerIds.Neutral;
 import static com.evilbird.warcraft.item.data.player.PlayerIds.Player1;
 import static com.evilbird.warcraft.item.data.player.PlayerIds.Player2;
@@ -61,10 +63,15 @@ import static com.evilbird.warcraft.item.unit.UnitType.Zuljin;
 public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
 {
     private Provider<ScenarioBehaviour> factory;
+    private WarcraftPreferences preferences;
 
     @Inject
-    public ScenarioBehaviourFactory(Provider<ScenarioBehaviour> factory) {
+    public ScenarioBehaviourFactory(
+        Provider<ScenarioBehaviour> factory,
+        WarcraftPreferences preferences)
+    {
         this.factory = factory;
+        this.preferences = preferences;
     }
 
     @Override
@@ -326,5 +333,11 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
         result.setWinCondition(playerDestroyed(Player2));
         result.setLoseCondition(playerDestroyed(Player1));
         return result;
+    }
+
+    private SupplementaryBehaviour captureUnits(Identifier capturableType) {
+        UnitCapture unitCapture = new UnitCapture(preferences);
+        unitCapture.setCapturableType(capturableType);
+        return unitCapture;
     }
 }

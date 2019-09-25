@@ -20,9 +20,10 @@ import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.action.select.SelectFlash;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.unit.Unit;
-import com.evilbird.warcraft.item.unit.UnitSound;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
+import static com.evilbird.warcraft.item.unit.UnitSound.Captured;
 import static java.util.Collections.emptyList;
 
 /**
@@ -42,13 +44,15 @@ public class UnitCapture implements SupplementaryBehaviour
 {
     private Identifier capturableType;
     private Map<ItemNode, List<Item>> capturableItems;
+    private WarcraftPreferences preferences;
 
-    public UnitCapture(Identifier capturableType) {
-        this.capturableType = capturableType;
+    @Inject
+    public UnitCapture(WarcraftPreferences preferences) {
+        this.preferences = preferences;
     }
 
-    public static UnitCapture captureUnits(Identifier capturableType) {
-        return new UnitCapture(capturableType);
+    public void setCapturableType(Identifier capturableType) {
+        this.capturableType = capturableType;
     }
 
     @Override
@@ -105,7 +109,7 @@ public class UnitCapture implements SupplementaryBehaviour
     private void setSoundEffect(Item item) {
         if (item instanceof Unit) {
             Unit unit = (Unit)item;
-            unit.setSound(UnitSound.Captured);
+            unit.setSound(Captured, preferences.getEffectsVolume());
         }
     }
 

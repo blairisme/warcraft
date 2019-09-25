@@ -45,9 +45,9 @@ public class ConstructAction extends TemporalAction
     private transient GameTimer timer;
     private transient ConstructEvents events;
     private transient ItemExclusion exclusion;
-    private transient WarcraftPreferences preferences;
     private transient ResourceTransfer resources;
     private transient ProductionTimes production;
+    private transient WarcraftPreferences preferences;
 
     @Inject
     public ConstructAction(
@@ -107,7 +107,7 @@ public class ConstructAction extends TemporalAction
         Gatherer builder = (Gatherer)getItem();
         if (preferences.isBuildingSoundsEnabled() && timer.advance(time)) {
             timer.reset();
-            builder.setSound(Build);
+            builder.setSound(Build, preferences.getEffectsVolume());
         }
         return ActionIncomplete;
     }
@@ -134,10 +134,12 @@ public class ConstructAction extends TemporalAction
     private void finalizeBuilder(Gatherer builder, Building building) {
         builder.setAssociatedItem(null);
         builder.setAnimation(Idle);
+
         exclusion.restore(builder);
         moveAdjacent(builder, building);
+
         if (preferences.isSpeechEnabled()) {
-            builder.setSound(Complete);
+            builder.setSound(Complete, preferences.getEffectsVolume());
         }
     }
 

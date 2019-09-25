@@ -15,6 +15,7 @@ import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.projectile.Projectile;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -40,13 +41,15 @@ public class RangedAttack extends BasicAction
     private transient Destroyable target;
     private transient Vector2 destination;
     private transient ItemFactory factory;
+    private transient WarcraftPreferences preferences;
 
     private transient float flightTime;
     private transient float reloadTime;
 
     @Inject
-    public RangedAttack(ItemFactory factory) {
+    public RangedAttack(ItemFactory factory, WarcraftPreferences preferences) {
         this.factory = factory;
+        this.preferences = preferences;
     }
 
     @Override
@@ -144,7 +147,7 @@ public class RangedAttack extends BasicAction
         projectile.setPosition(combatant.getPosition(Alignment.Center));
 
         combatant.setAnimation(UnitAnimation.Attack);
-        combatant.setSound(UnitSound.Attack);
+        combatant.setSound(UnitSound.Attack, preferences.getEffectsVolume());
 
         reorient(combatant, target, isShip(combatant));
     }
@@ -177,7 +180,7 @@ public class RangedAttack extends BasicAction
     private boolean hitWithProjectile() {
         float newHealth = getDamagedHealth(combatant, target);
         target.setHealth(newHealth);
-        combatant.setSound(UnitSound.Hit);
+        combatant.setSound(UnitSound.Hit, preferences.getEffectsVolume());
         projectile.setVisible(false);
         reloadTime = Math.max(combatant.getAttackSpeed() - flightTime, 0);
         return newHealth == 0;

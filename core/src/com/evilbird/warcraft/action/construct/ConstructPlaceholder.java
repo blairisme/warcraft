@@ -19,6 +19,7 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.remove.RemoveEvents;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.production.ProductionCosts;
 import com.evilbird.warcraft.item.common.resource.ResourceSet;
 import com.evilbird.warcraft.item.data.player.Player;
@@ -55,6 +56,7 @@ public class ConstructPlaceholder extends BasicAction
     private CreateEvents createEvents;
     private Consumer<Item> recipient;
     private ProductionCosts production;
+    private WarcraftPreferences preferences;
 
     @Inject
     public ConstructPlaceholder(
@@ -62,13 +64,15 @@ public class ConstructPlaceholder extends BasicAction
         ResourceTransfer resources,
         RemoveEvents removeEvents,
         CreateEvents createEvents,
-        ProductionCosts production)
+        ProductionCosts production,
+        WarcraftPreferences preferences)
     {
         this.factory = factory;
         this.resources = resources;
         this.removeEvents = removeEvents;
         this.createEvents = createEvents;
         this.production = production;
+        this.preferences = preferences;
     }
 
     public void setRecipient(Consumer<Item> recipient) {
@@ -98,16 +102,38 @@ public class ConstructPlaceholder extends BasicAction
     }
 
     private void create(UnitType type, Player player, Placeholder placeholder, Gatherer builder) {
+        Building building = newBuilding(player, type);
+        setAttributes(building, placeholder);
+        setAssociations(builder, building);
+        setPlacementSound(building);
+        notifyCreationObservers(building);
+    }
+
+    private Building newBuilding(Player player, UnitType type) {
         Building building = (Building)factory.get(type);
+        player.addItem(building);
+        return building;
+    }
+
+    private void setAttributes(Building building, Placeholder placeholder) {
         building.setConstructionProgress(0);
         building.setAnimation(BuildingSite);
-        building.setSound(Placement);
         building.setPosition(placeholder.getPosition());
         building.setVisible(true);
+    }
+
+    private void setAssociations(Gatherer builder, Building building) {
         builder.setAssociatedItem(building);
         building.setAssociatedItem(builder);
-        player.addItem(building);
+    }
 
+    private void setPlacementSound(Building building) {
+        if (preferences.isBuildingSoundsEnabled()) {
+            building.setSound(Placement, preferences.getEffectsVolume());
+        }
+    }
+
+    private void notifyCreationObservers(Building building) {
         createEvents.notifyCreate(building);
         recipient.accept(building);
     }

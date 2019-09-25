@@ -30,8 +30,9 @@ public interface Audible
      * Sets the currently playing sound, identified by the given sound
      * identifier.
      *
-     * @param id    an {@link Identifier}. This methods may be {@code null},
-     *              indicating that no sound should be used.
+     * @param id        an {@link Identifier}. This methods may be {@code null}
+     *                  indicating that no sound should be used.
+     * @param volume    the volume of the new sound.
      */
-    void setSound(Identifier id);
+    void setSound(Identifier id, float volume);
 }

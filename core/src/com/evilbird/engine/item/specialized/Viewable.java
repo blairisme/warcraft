@@ -125,12 +125,13 @@ public class Viewable extends ItemBasic implements Animated, Audible, Directiona
     }
 
     @Override
-    public void setSound(Identifier id) {
+    public void setSound(Identifier id, float volume) {
         Validate.notNull(id);
         Validate.isTrue(style.sounds.containsKey(id), "%s is missing sound %s", getIdentifier(), id);
         soundId = id;
         sound.stop();
         sound = new LocalizedSound(style.sounds.get(id), this);
+        sound.setVolume(volume);
         sound.play();
     }
 

@@ -13,6 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.time.GameTimer;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -33,9 +34,11 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
 public class MeleeAttack extends BasicAction
 {
     private transient GameTimer delay;
+    private transient WarcraftPreferences preferences;
 
     @Inject
-    public MeleeAttack() {
+    public MeleeAttack(WarcraftPreferences preferences) {
+        this.preferences = preferences;
     }
 
     @Override
@@ -71,7 +74,7 @@ public class MeleeAttack extends BasicAction
     private void initialize() {
         Combatant combatant = (Combatant)getItem();
         combatant.setAnimation(UnitAnimation.Attack);
-        combatant.setSound(UnitSound.Attack);
+        combatant.setSound(UnitSound.Attack, preferences.getEffectsVolume());
 
         Destroyable target = (Destroyable)getTarget();
         reorient(combatant, target, false);
@@ -90,7 +93,7 @@ public class MeleeAttack extends BasicAction
 
     private boolean attackTarget() {
         Combatant combatant = (Combatant)getItem();
-        combatant.setSound(UnitSound.Attack);
+        combatant.setSound(UnitSound.Attack, preferences.getEffectsVolume());
 
         Destroyable target = (Destroyable)getTarget();
         target.setHealth(getDamagedHealth(combatant, target));

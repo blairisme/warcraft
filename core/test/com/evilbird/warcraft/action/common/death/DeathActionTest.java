@@ -14,6 +14,7 @@ import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.action.death.DeathAction;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -23,6 +24,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.item.unit.UnitSound.Ready;
@@ -34,13 +36,15 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Ready;
  */
 public class DeathActionTest extends GameTestCase
 {
-    private com.evilbird.warcraft.action.death.DeathAction action;
+    private DeathAction action;
     private EventQueue events;
+    private WarcraftPreferences preferences;
 
     @Before
     public void setup() {
+        preferences = Mockito.mock(WarcraftPreferences.class);
         events = new EventQueue();
-        action = new DeathAction(events);
+        action = new DeathAction(events, preferences);
     }
 
     @Test
@@ -53,7 +57,7 @@ public class DeathActionTest extends GameTestCase
         action.setItem(item);
 
         item.setAnimation(Idle);
-        item.setSound(Ready);
+        item.setSound(Ready, 1);
         item.setSelected(true);
         item.setSelectable(true);
 
@@ -80,7 +84,7 @@ public class DeathActionTest extends GameTestCase
         action.setItem(item);
 
         item.setAnimation(Idle);
-        item.setSound(Ready);
+        item.setSound(Ready, 1);
         item.setSelected(true);
         item.setSelectable(true);
 

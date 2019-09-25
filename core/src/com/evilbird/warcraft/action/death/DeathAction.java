@@ -23,6 +23,7 @@ import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.select.SelectEvent;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
@@ -51,10 +52,12 @@ public class DeathAction extends BasicAction
     private Events events;
     private GameTimer deathTimer;
     private GameTimer decomposeTimer;
+    private WarcraftPreferences preferences;
 
     @Inject
-    public DeathAction(Events events) {
+    public DeathAction(Events events, WarcraftPreferences preferences) {
         this.events = events;
+        this.preferences = preferences;
     }
 
     @Override
@@ -108,7 +111,7 @@ public class DeathAction extends BasicAction
         if (subject instanceof Viewable) {
             Viewable viewable = (Viewable)subject;
             viewable.setAnimation(Death);
-            viewable.setSound(Die);
+            viewable.setSound(Die, preferences.getEffectsVolume());
             viewable.setTouchable(Touchable.disabled);
             viewable.setZIndex(0);
         }
