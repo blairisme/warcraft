@@ -9,13 +9,11 @@
 
 package com.evilbird.engine.item.utility;
 
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.math.ShapeUtils;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
@@ -168,11 +166,17 @@ public class ItemOperations
         Validate.notNull(target);
         Validate.isTrue(radius >= 0);
 
-        Rectangle bounds = target.getBounds();
-        Vector2 position = locus.getPosition(Alignment.Center);
-        Circle perimeter = new Circle(position, radius);
+        Vector2 locusPosition = locus.getPosition(Alignment.Center);
+        Vector2 targetPosition = target.getPosition(Alignment.Center);
 
-        return ShapeUtils.contains(perimeter, bounds);
+        Vector2 targetDirection = targetPosition.sub(locusPosition);
+        Vector2 targetDirectionNormalized = targetDirection.nor();
+
+        Vector2 directionRadialLength = targetDirectionNormalized.scl(radius);
+        Vector2 pointClosestToTarget = directionRadialLength.add(locusPosition);
+
+        Rectangle targetBounds = target.getBounds();
+        return targetBounds.contains(pointClosestToTarget);
     }
 
     public static boolean overlaps(Item itemA, Item itemB) {
