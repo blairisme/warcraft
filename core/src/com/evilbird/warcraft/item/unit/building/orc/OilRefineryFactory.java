@@ -19,11 +19,12 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.OilProduction1;
 import static com.evilbird.warcraft.item.unit.UnitType.OilRefinery;
 
 /**
  * <p>
- * Instances of this class create Orcish Oil Refinery, a building that provides
+ * Instances of this class create Orcish Oil Refineries, a building that provides
  * access to advanced ships.
  * </p>
  * <p>
@@ -58,6 +59,7 @@ public class OilRefineryFactory extends BuildingFactoryBase
         result.setIdentifier(objectIdentifier("OilRefinery", result));
         result.setSight(tiles(3));
         result.setType(OilRefinery);
+        result.setUpgrade(OilProduction1);
         return result;
     }
 }

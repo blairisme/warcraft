@@ -37,6 +37,8 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.MoveBasic;
  */
 public class GatherDeposit extends BasicAction
 {
+    private static final float DEPOSIT_DURATION = 5;
+
     private transient GameTimer timer;
     private transient GatherEvents events;
     private transient ResourceType resource;
@@ -103,7 +105,7 @@ public class GatherDeposit extends BasicAction
 
     protected boolean load() {
         Gatherer gatherer = (Gatherer)getItem();
-        timer = new GameTimer(getGatherSpeed(gatherer));
+        timer = new GameTimer(DEPOSIT_DURATION);
         timer.advance(gatherer.getGathererProgress() * timer.duration());
         return ActionIncomplete;
     }
@@ -135,15 +137,6 @@ public class GatherDeposit extends BasicAction
             case Gold: return gatherer.getGoldCapacity();
             case Oil: return gatherer.getOilCapacity();
             case Wood: return gatherer.getWoodCapacity();
-            default: throw new UnsupportedOperationException();
-        }
-    }
-
-    private float getGatherSpeed(Gatherer gatherer) {
-        switch (resource) {
-            case Gold: return gatherer.getGoldGatherSpeed();
-            case Oil: return gatherer.getOilGatherSpeed();
-            case Wood: return gatherer.getWoodGatherSpeed();
             default: throw new UnsupportedOperationException();
         }
     }

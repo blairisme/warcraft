@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Food;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.GoldProduction1;
 import static com.evilbird.warcraft.item.unit.UnitType.Stronghold;
 
 /**
@@ -49,6 +50,7 @@ public class StrongholdFactory extends BuildingFactoryBase
         result.setSight(tiles(6));
         result.setType(Stronghold);
         result.setResource(Food, 1);
+        result.setUpgrade(GoldProduction1);
         return result;
     }
 }

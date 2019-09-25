@@ -12,8 +12,13 @@ package com.evilbird.warcraft.item.unit.building;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.item.common.upgrade.Upgrade;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeContainer;
 import com.evilbird.warcraft.item.unit.Unit;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -23,17 +28,23 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-public class Building extends Unit implements ResourceContainer
+public class Building extends Unit implements ResourceContainer, UpgradeContainer
 {
     private float producing;
     private float constructing;
+    private Collection<Upgrade> upgrades;
     private Map<String, Double> resources;
 
     public Building(Skin skin) {
         super(skin);
         producing = 1;
         constructing = 1;
+        upgrades = Collections.emptyList();
         resources = new LinkedHashMap<>(2);
+    }
+
+    public void clearUpgrades() {
+        upgrades.clear();
     }
 
     public boolean isConstructing() {
@@ -56,6 +67,10 @@ public class Building extends Unit implements ResourceContainer
         return resources.getOrDefault(type.name(), 0.0).floatValue();
     }
 
+    public Collection<Upgrade> getUpgrades() {
+        return upgrades;
+    }
+
     public void setConstructionProgress(float constructing) {
         this.constructing = constructing;
     }
@@ -65,6 +80,15 @@ public class Building extends Unit implements ResourceContainer
     }
 
     public void setResource(ResourceType type, float value) {
-        resources.put(type.name(), (double)value);
+        this.resources.put(type.name(), (double)value);
+    }
+
+    public void setUpgrade(Upgrade upgrade) {
+        this.upgrades = new ArrayList<>();
+        this.upgrades.add(upgrade);
+    }
+
+    public void setUpgrades(Collection<Upgrade> upgrades) {
+        this.upgrades = upgrades;
     }
 }

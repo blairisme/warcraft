@@ -63,6 +63,7 @@
     {
       "producing": 1.0,
       "constructing": 1.0,
+      "upgrades": [],
       "resources": {},
       "sight": 0,
       "health": 100.0,

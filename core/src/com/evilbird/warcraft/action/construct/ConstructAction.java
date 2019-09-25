@@ -114,22 +114,43 @@ public class ConstructAction extends TemporalAction
 
     private boolean complete() {
         Building building = (Building)getTarget();
+        Gatherer builder = (Gatherer)getItem();
+        Player player = getPlayer(building);
+
+        finalizeBuilding(building);
+        finalizeBuilder(builder, building);
+        transferResources(building, player);
+        transferUpgrades(building, player);
+        notifyBuildingComplete(builder, building);
+
+        return ActionComplete;
+    }
+
+    private void finalizeBuilding(Building building) {
         building.setConstructionProgress(1);
         building.setAnimation(Idle);
+    }
 
-        Gatherer builder = (Gatherer)getItem();
+    private void finalizeBuilder(Gatherer builder, Building building) {
         builder.setAssociatedItem(null);
         builder.setAnimation(Idle);
         exclusion.restore(builder);
         moveAdjacent(builder, building);
-
-        Player player = getPlayer(building);
-        resources.transfer(building, player);
-
         if (preferences.isSpeechEnabled()) {
             builder.setSound(Complete);
         }
+    }
+
+    private void transferResources(Building building, Player player) {
+        resources.transfer(building, player);
+    }
+
+    private void transferUpgrades(Building building, Player player) {
+        player.setUpgrades(building.getUpgrades(), true);
+        building.clearUpgrades();
+    }
+
+    private void notifyBuildingComplete(Gatherer builder, Building building) {
         events.notifyConstructComplete(builder, building);
-        return ActionComplete;
     }
 }

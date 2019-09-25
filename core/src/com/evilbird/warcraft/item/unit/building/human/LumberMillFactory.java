@@ -19,6 +19,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.WoodProduction1;
 import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
 
 /**
@@ -47,6 +48,7 @@ public class LumberMillFactory extends BuildingFactoryBase
         result.setIdentifier(objectIdentifier("LumberMill", result));
         result.setSight(tiles(3));
         result.setType(LumberMill);
+        result.setUpgrade(WoodProduction1);
         return result;
     }
 }

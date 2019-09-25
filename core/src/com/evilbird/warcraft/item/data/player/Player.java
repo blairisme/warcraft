@@ -23,6 +23,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.inject.Inject;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
@@ -121,6 +122,10 @@ public class Player extends ItemGroup implements ResourceContainer
 
     public void setUpgrade(Upgrade upgrade, boolean value) {
         upgrades.put(upgrade.name(), value);
+    }
+
+    public void setUpgrades(Collection<Upgrade> upgrades, boolean value) {
+        upgrades.forEach(upgrade -> setUpgrade(upgrade, value));
     }
 
     public void decrementStatistic(PlayerStatistic type, float value) {

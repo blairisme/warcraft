@@ -19,6 +19,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.OilProduction1;
 import static com.evilbird.warcraft.item.unit.UnitType.Refinery;
 
 /**
@@ -47,6 +48,7 @@ public class RefineryFactory extends BuildingFactoryBase
         result.setIdentifier(objectIdentifier("Refinery", result));
         result.setSight(tiles(3));
         result.setType(Refinery);
+        result.setUpgrade(OilProduction1);
         return result;
     }
 }
