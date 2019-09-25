@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -187,19 +186,24 @@ public class ActionPane extends Grid implements MenuProvider
 
     private List<ActionButton> getButtons(ActionPaneView view, Collection<Item> items) {
         List<ActionButton> result = new ArrayList<>();
-        Iterator<Item> itemsIterator = items.iterator();
-
-        if (itemsIterator.hasNext()) {
-            Item item = itemsIterator.next();
+        if (items.size() == 1) {
+            Item item = items.iterator().next();
             ButtonController controller = buttons.getButtonController(item, view);
-            result.addAll(getButtons(controller, item));
-
-            while (itemsIterator.hasNext()) {
-                item = itemsIterator.next();
-                controller = buttons.getButtonController(item, view);
-                result.retainAll(getButtons(controller, item));
-            }
+            return getButtons(controller, item);
         }
+
+//        Iterator<Item> itemsIterator = items.iterator();
+//        if (itemsIterator.hasNext()) {
+//            Item item = itemsIterator.next();
+//            ButtonController controller = buttons.getButtonController(item, view);
+//            result.addAll(getButtons(controller, item));
+//
+//            while (itemsIterator.hasNext()) {
+//                item = itemsIterator.next();
+//                controller = buttons.getButtonController(item, view);
+//                result.retainAll(getButtons(controller, item));
+//            }
+//        }
         return result;
     }
 
