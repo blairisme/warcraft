@@ -57,31 +57,39 @@ public class DesktopInputTest
 
     @Test
     public void panTest() {
+        input.touchDown(50, 50, 1, 0);
         input.pan(100, 200, 50, 50);
         input.pan(124, 124, 10, 10);
 
         List<UserInput> inputs = input.getInput();
-        assertEquals(2, inputs.size());
+        assertEquals(3, inputs.size());
 
-        UserInput expected1 = new UserInput(UserInputType.Drag, new Vector2(100, 200), new Vector2(-50, 50), 1);
-        UserInput expected2 = new UserInput(UserInputType.Drag, new Vector2(124, 124), new Vector2(-10, 10), 2);
+        UserInput expected1 = new UserInput(UserInputType.Drag, new Vector2(50, 50), new Vector2(0, 0), 1);
+        UserInput expected2 = new UserInput(UserInputType.Drag, new Vector2(100, 200), new Vector2(-50, 50), 2);
+        UserInput expected3 = new UserInput(UserInputType.Drag, new Vector2(124, 124), new Vector2(-10, 10), 3);
 
         UserInput actual1 = inputs.get(0);
         UserInput actual2 = inputs.get(1);
+        UserInput actual3 = inputs.get(2);
 
         assertEquals(expected1, actual1);
         assertEquals(expected2, actual2);
+        assertEquals(expected3, actual3);
 
         input.panStop(45, 56, 22, 33);
+        input.touchDown(450, 450, 1, 0);
         input.pan(500, 500, 17, 17);
 
         List<UserInput> inputs2 = input.getInput();
-        assertEquals(1, inputs2.size());
+        assertEquals(2, inputs2.size());
 
-        UserInput expected3 = new UserInput(UserInputType.Drag, new Vector2(500, 500), new Vector2(-17, 17), 1);
-        UserInput actual3 = inputs2.get(0);
+        UserInput expected4 = new UserInput(UserInputType.Drag, new Vector2(450, 450), new Vector2(0, 0), 1);
+        UserInput expected5 = new UserInput(UserInputType.Drag, new Vector2(500, 500), new Vector2(-17, 17), 2);
+        UserInput actual4 = inputs2.get(0);
+        UserInput actual5 = inputs2.get(1);
 
-        assertEquals(expected3, actual3);
+        assertEquals(expected4, actual4);
+        assertEquals(expected5, actual5);
     }
 
     @Test
