@@ -36,7 +36,6 @@ public class ForgeFactory extends BuildingFactoryBase
 
     public ForgeFactory(AssetManager manager) {
         super(manager, Forge);
-
     }
 
     @Override
