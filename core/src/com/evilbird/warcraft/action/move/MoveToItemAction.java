@@ -87,7 +87,6 @@ public class MoveToItemAction extends MoveAction
             Movable item = (Movable)getItem();
             filter = new ItemPathFilter();
             filter.addTraversableItem(item);
-            filter.addTraversableItem(getTarget());
             filter.addTraversableCapability(item.getMovementCapability());
         }
         return filter;
