@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.badlogic.gdx.math.Vector2.Zero;
+import static com.evilbird.engine.device.DeviceInputConstants.InputConsumed;
+import static com.evilbird.engine.device.DeviceInputConstants.InputNotConsumed;
 import static com.evilbird.engine.device.UserInputType.Action;
 import static com.evilbird.engine.device.UserInputType.Drag;
 import static com.evilbird.engine.device.UserInputType.PressDown;
@@ -41,13 +43,17 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
     private static final int SELECT_BUTTON = 1;
 
     private DeviceDisplay display;
+    private float displayScale;
+    private float displayScaleFactor;
+
     private Input input;
     private List<UserInput> inputs;
+
     private int panCount;
     private int zoomCount;
-    private int depressedButton;
-    private float depressedButtonX;
-    private float depressedButtonY;
+
+    private int touchButton;
+    private Vector2 touchPosition;
 
     public DesktopInput(DeviceDisplay display) {
         this(display, Gdx.input);
@@ -55,19 +61,24 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
 
     public DesktopInput(DeviceDisplay display, Input input) {
         this.display = display;
+        this.displayScale = 1;
+        this.displayScaleFactor = 1;
+
         this.input = input;
         this.inputs = new ArrayList<>();
+
         this.panCount = 0;
         this.zoomCount = 0;
-        this.depressedButton = 0;
-        this.depressedButtonX = 0;
-        this.depressedButtonY = 0;
+
+        this.touchButton = 0;
+        this.touchPosition = Zero;
     }
 
     @Override
     public void startMonitoring() {
         Input controller = getInputController();
         controller.setInputProcessor(new GestureAnalyzer(this));
+        initializeDisplayScale();
     }
 
     @Override
@@ -83,6 +94,11 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
         return input;
     }
 
+    private void initializeDisplayScale() {
+        this.displayScale = display.getScaleFactor();
+        this.displayScaleFactor = 1 / displayScale;
+    }
+
     @Override
     public List<UserInput> getInput() {
         List<UserInput> result = new ArrayList<>(inputs);
@@ -96,15 +112,21 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        zoomCount = 0;
-        depressedButton = button;
-        depressedButtonX = x;
-        depressedButtonY = y;
+        resetZoomGesture();
+        updateButtonState(x, y, button);
+        addSelectionGesture(x, y, button);
+        return InputNotConsumed;
+    }
 
+    private void updateButtonState(float x, float y, int button) {
+        touchButton = button;
+        touchPosition = new Vector2(x, y);
+    }
+
+    private void addSelectionGesture(float x, float y, int button) {
         if (button == SELECT_BUTTON) {
             addInput(new UserInput(PressDown, new Vector2(x, y), 1));
         }
-        return false;
     }
 
     @Override
@@ -112,50 +134,69 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
         if (button == SELECT_BUTTON) {
             addInput(new UserInput(PressUp, new Vector2(x, y), 1));
         }
-        return false;
+        return InputNotConsumed;
     }
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
         addInput(new UserInput(Action, new Vector2(x, y), 1));
-        return true;
+        return InputConsumed;
     }
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        if (depressedButton == SELECT_BUTTON) {
-            return panSelection(x, y);
+        if (touchButton == SELECT_BUTTON) {
+            return dragSelectGesture(x, y);
+        } else {
+            return dragCameraGesture(x, y, deltaX, deltaY);
         }
-        return panCamera(x, y, deltaX, deltaY);
     }
 
-    private boolean panCamera(float x, float y, float deltaX, float deltaY) {
+    private boolean dragCameraGesture(float x, float y, float deltaX, float deltaY) {
+        addDragGestureOrigin();
+        addDragGestureCurrent(x, y, deltaX, deltaY);
+        return InputConsumed;
+    }
+
+    private void addDragGestureOrigin() {
+        if (panCount == 0) {
+            addInput(new UserInput(Drag, touchPosition, Zero, ++panCount));
+        }
+    }
+
+    private void addDragGestureCurrent(float x, float y, float deltaX, float deltaY) {
         Vector2 position = new Vector2(x, y);
         Vector2 delta = new Vector2(deltaX * -1, deltaY);
-        Vector2 distance = delta.scl(display.getScaleFactor());
+        Vector2 distance = delta.scl(displayScale);
         addInput(new UserInput(Drag, position, distance, ++panCount));
-        return true;
     }
 
-    private boolean panSelection(float x, float y) {
-        Vector2 origin = new Vector2(depressedButtonX, depressedButtonY);
+    private boolean dragSelectGesture(float x, float y) {
         Vector2 size = new Vector2(x, y);
-        addInput(new UserInput(PressDrag, origin, size, ++panCount));
-        return true;
+        addInput(new UserInput(PressDrag, touchPosition, size, ++panCount));
+        return InputConsumed;
     }
 
     @Override
     public boolean panStop(float x, float y, int pointer, int button) {
-        panCount = 0;
-        return false;
+        resetPan();
+        return InputNotConsumed;
     }
 
     @Override
     public boolean scrolled(int amount) {
         float zoom = ZOOM_SENSITIVITY * amount;
-        Vector2 delta = new Vector2(zoom, zoom);
-        Vector2 distance = delta.scl(1 / display.getScaleFactor());
-        addInput(new UserInput(Zoom, Zero, distance, ++zoomCount));
-        return false;
+        float scaled = zoom * displayScaleFactor;
+        Vector2 delta = new Vector2(scaled, scaled);
+        addInput(new UserInput(Zoom, Zero, delta, ++zoomCount));
+        return InputNotConsumed;
+    }
+
+    private void resetPan() {
+        panCount = 0;
+    }
+
+    private void resetZoomGesture() {
+        zoomCount = 0;
     }
 }

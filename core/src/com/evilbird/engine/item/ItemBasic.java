@@ -290,7 +290,7 @@ public class ItemBasic implements Item
 
     @Override
     public Vector2 parentToLocalCoordinates(Vector2 coordinates) {
-        Vector2 result = new Vector2(coordinates);
+        Vector2 result = coordinates.cpy();
         return delegate.parentToLocalCoordinates(result);
     }
 
