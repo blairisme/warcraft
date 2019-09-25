@@ -50,6 +50,7 @@ public class BuildingAssets extends AssetBundle
         register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, dimensions));
 
         register("selected", "data/sounds/common/building/selected/1.mp3");
+        register("placement", "data/sounds/common/building/placement/1.mp3");
         register("destroyed-1", "data/sounds/common/building/destroyed/1.mp3");
         register("destroyed-2", "data/sounds/common/building/destroyed/2.mp3");
         register("destroyed-3", "data/sounds/common/building/destroyed/3.mp3");
@@ -84,6 +85,10 @@ public class BuildingAssets extends AssetBundle
 
     public Sound getSelectedSound() {
         return getSoundEffect("selected");
+    }
+
+    public Sound getPlacementSound() {
+        return getSoundEffect("placement");
     }
 
     public GridPoint2 getSize() {

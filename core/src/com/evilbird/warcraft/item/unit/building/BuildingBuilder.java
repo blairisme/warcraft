@@ -153,6 +153,7 @@ public class BuildingBuilder
         Map<Identifier, Sound> sounds = new HashMap<>();
         sounds.put(UnitSound.Die, assets.getDestroyedSound());
         sounds.put(UnitSound.Selected, assets.getSelectedSound());
+        sounds.put(UnitSound.Placement, assets.getPlacementSound());
         return sounds;
     }
 

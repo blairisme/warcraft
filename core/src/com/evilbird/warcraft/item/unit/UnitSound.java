@@ -28,6 +28,7 @@ public enum UnitSound implements Identifier
     Captured,
     Rescued,
 
+    Placement,
     Build,
     Complete,
     Ready,

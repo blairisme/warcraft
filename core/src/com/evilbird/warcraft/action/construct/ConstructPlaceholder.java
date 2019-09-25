@@ -39,6 +39,7 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDead;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.BuildingSite;
+import static com.evilbird.warcraft.item.unit.UnitSound.Placement;
 
 /**
  * An {@link Action} that replaces a {@link Placeholder} with the
@@ -100,11 +101,13 @@ public class ConstructPlaceholder extends BasicAction
         Building building = (Building)factory.get(type);
         building.setConstructionProgress(0);
         building.setAnimation(BuildingSite);
+        building.setSound(Placement);
         building.setPosition(placeholder.getPosition());
         building.setVisible(true);
         builder.setAssociatedItem(building);
         building.setAssociatedItem(builder);
         player.addItem(building);
+
         createEvents.notifyCreate(building);
         recipient.accept(building);
     }

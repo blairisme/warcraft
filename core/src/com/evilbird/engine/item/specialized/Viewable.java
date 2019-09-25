@@ -9,12 +9,9 @@
 
 package com.evilbird.engine.item.specialized;
 
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.common.audio.sound.LocalizedSound;
 import com.evilbird.engine.common.audio.sound.SilentSound;
 import com.evilbird.engine.common.audio.sound.Sound;
@@ -28,7 +25,6 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Styleable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemBasic;
-import com.evilbird.engine.item.ItemRoot;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -68,7 +64,7 @@ public class Viewable extends ItemBasic implements Animated, Audible, Directiona
         this.animationId = null;
         this.animation = new AnimationRenderer();
         this.soundId = null;
-        this.sound = new LocalizedSound(new SilentSound(), this, new OrthographicCamera());
+        this.sound = new LocalizedSound(new SilentSound(), this);
     }
 
     @Override
@@ -134,14 +130,8 @@ public class Viewable extends ItemBasic implements Animated, Audible, Directiona
         Validate.isTrue(style.sounds.containsKey(id), "%s is missing sound %s", getIdentifier(), id);
         soundId = id;
         sound.stop();
-        sound = new LocalizedSound(style.sounds.get(id), this, getCamera());
+        sound = new LocalizedSound(style.sounds.get(id), this);
         sound.play();
-    }
-
-    private Camera getCamera() {
-        ItemRoot root = getRoot();
-        Viewport viewport = root.getViewport();
-        return viewport.getCamera();
     }
 
     @Override

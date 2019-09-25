@@ -50,11 +50,11 @@ public class ConstructSequence extends StateTransitionAction
     }
 
     private Action nextAction(Item builder, Item building) {
-        if (!ItemOperations.isNear(builder, builder.getWidth(), building)) {
-            return reposition;
-        }
         if (UnitOperations.isBuildingPlaceholder(building)) {
             return initialize;
+        }
+        if (!ItemOperations.isNear(builder, builder.getWidth(), building)) {
+            return reposition;
         }
         if (UnitOperations.isConstructing(building)) {
             return construct;

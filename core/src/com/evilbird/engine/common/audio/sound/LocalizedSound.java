@@ -11,7 +11,9 @@ package com.evilbird.engine.common.audio.sound;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemRoot;
 
 import java.util.Objects;
 
@@ -36,20 +38,16 @@ public class LocalizedSound implements Sound
      *
      * @param sound     a {@code Sound}.
      * @param owner     an {@code Item} that owns the sound.
-     * @param camera    a {@link Camera} that determines what is shown on
-     *                  screen.
      *
-     * @throws NullPointerException if the given sound, owner or camera are
+     * @throws NullPointerException if the given sound or owner are
      *                              {@code null}.
      */
-    public LocalizedSound(Sound sound, Item owner, Camera camera) {
+    public LocalizedSound(Sound sound, Item owner) {
         Objects.requireNonNull(sound);
         Objects.requireNonNull(owner);
-        Objects.requireNonNull(camera);
 
         this.sound = sound;
         this.owner = owner;
-        this.camera = camera;
         this.volume = 1;
     }
 
@@ -98,6 +96,23 @@ public class LocalizedSound implements Sound
     }
 
     protected boolean onCamera(Vector2 position) {
-        return camera.frustum.pointInFrustum(position.x, position.y, 0);
+        if (camera == null) {
+            camera = getCamera(owner);
+        }
+        if (camera != null) {
+            return camera.frustum.pointInFrustum(position.x, position.y, 0);
+        }
+        return true;
+    }
+
+    protected Camera getCamera(Item item) {
+        ItemRoot root = item.getRoot();
+        if (root != null) {
+            Viewport viewport = root.getViewport();
+            return viewport.getCamera();
+        }
+        return null;
     }
 }
+
+
