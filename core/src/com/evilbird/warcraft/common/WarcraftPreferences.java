@@ -29,12 +29,14 @@ public class WarcraftPreferences extends GamePreferences
     private static final String IDENTIFIER = "warcraft";
     private static final String FREE_BUILD = "freeBuild";
     private static final String QUICK_BUILD = "quickBuild";
+    private static final String DEBUG_CONTROL = "debugControl";
     private static final String SPEECH_ENABLED = "speechEnabled";
     private static final String ACKNOWLEDGEMENT_ENABLED = "acknowledgementEnabled";
     private static final String BUILDING_SOUNDS_ENABLED = "buildingSoundsEnabled";
 
     private static final boolean FREE_BUILD_DEFAULT = false;
     private static final boolean QUICK_BUILD_DEFAULT = false;
+    private static final boolean DEBUG_CONTROL_DEFAULT = false;
     private static final boolean SPEECH_ENABLED_DEFAULT = true;
     private static final boolean ACKNOWLEDGEMENT_ENABLED_DEFAULT = true;
     private static final boolean BUILDING_SOUNDS_ENABLED_DEFAULT = true;
@@ -44,6 +46,11 @@ public class WarcraftPreferences extends GamePreferences
 
     @Inject
     public WarcraftPreferences() {
+    }
+
+    public boolean isDebugControlEnabled() {
+        Preferences preferences = getTransientPreferences();
+        return preferences.getBoolean(DEBUG_CONTROL, DEBUG_CONTROL_DEFAULT);
     }
 
     public boolean isQuickBuildEnabled() {
@@ -69,6 +76,11 @@ public class WarcraftPreferences extends GamePreferences
     public boolean isBuildingSoundsEnabled() {
         Preferences preferences = getPersistedPreferences();
         return preferences.getBoolean(BUILDING_SOUNDS_ENABLED, BUILDING_SOUNDS_ENABLED_DEFAULT);
+    }
+
+    public void setDebugControlEnabled(boolean enabled) {
+        Preferences preferences = getTransientPreferences();
+        preferences.putBoolean(DEBUG_CONTROL, enabled);
     }
 
     public void setFreeBuildEnabled(boolean enabled) {

@@ -67,7 +67,6 @@ public class LazyLoadedMusic implements Music
     public void stop() {
         if (music != null) {
             music.stop();
-            dispose();
         }
     }
 
