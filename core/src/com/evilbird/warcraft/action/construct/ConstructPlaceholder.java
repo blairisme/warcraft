@@ -102,17 +102,12 @@ public class ConstructPlaceholder extends BasicAction
     }
 
     private void create(UnitType type, Player player, Placeholder placeholder, Gatherer builder) {
-        Building building = newBuilding(player, type);
+        Building building = (Building)factory.get(type);
         setAttributes(building, placeholder);
         setAssociations(builder, building);
         setPlacementSound(building);
-        notifyCreationObservers(building);
-    }
-
-    private Building newBuilding(Player player, UnitType type) {
-        Building building = (Building)factory.get(type);
         player.addItem(building);
-        return building;
+        notifyCreationObservers(building);
     }
 
     private void setAttributes(Building building, Placeholder placeholder) {
