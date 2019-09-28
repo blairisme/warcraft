@@ -74,7 +74,7 @@ public class LabelButton extends TextButton implements Disposable
 
     public void onClick() {
         if (style != null && style.clickSound != null) {
-            style.clickSound.play();
+            //style.clickSound.play();
         }
     }
 

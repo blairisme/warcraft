@@ -86,7 +86,6 @@ public class LazyLoadedMusicTest
         lazyMusic.play();
         lazyMusic.stop();
         verify(music, times(1)).stop();
-        verify(music, times(1)).dispose();
     }
 
     @Test

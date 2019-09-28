@@ -19,9 +19,10 @@ public enum UserInputType
 {
     Action,
     Drag,
+    Key,
     Menu,
     PressDown,
     PressDrag,
     PressUp,
-    Zoom
+    Zoom,
 }

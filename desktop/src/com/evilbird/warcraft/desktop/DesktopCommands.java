@@ -24,17 +24,25 @@ import picocli.CommandLine.Option;
  */
 public class DesktopCommands
 {
-    @Option(names={"-s", "--scenario" }, paramLabel="LEVEL", description="starts the game and shows the given scenario")
+    @Option(names={"-s", "--scenario" }, paramLabel="LEVEL",
+        description="starts the game and shows the given scenario")
     private WarcraftCampaign scenario;
 
-    @Option(names={"-m", "--menu" }, paramLabel="MENU", description="starts the game and shows the given menu")
+    @Option(names={"-m", "--menu" }, paramLabel="MENU",
+        description="starts the game and shows the given menu")
     private String menu;
 
-    @Option(names={"-q", "--quick-build" }, paramLabel="QUICK BUILD", description="units are produced quickly")
+    @Option(names={"-q", "--quick-build" }, paramLabel="QUICK BUILD",
+        description="units are produced quickly")
     private boolean quickBuild;
 
-    @Option(names={"-f", "--free-build" }, paramLabel="FREE BUILD", description="units are produced for free")
+    @Option(names={"-f", "--free-build" }, paramLabel="FREE BUILD",
+        description="units are produced for free")
     private boolean freeBuild;
+
+    @Option(names={"-d", "--debug-control" }, paramLabel="DEBUG CONTROL",
+        description="game behaviour can be controlled via certain keys")
+    private boolean debugControl;
 
     /**
      * The scenario to show when the game engine starts. This command line
@@ -84,5 +92,15 @@ public class DesktopCommands
      */
     public boolean isFreeBuildEnabled() {
         return freeBuild;
+    }
+
+    /**
+     * Instructs the game engine to do certain things in response to various
+     * key combinations.
+     *
+     * @return {@code true} if enabled.
+     */
+    public boolean isDebugControlEnabled() {
+        return debugControl;
     }
 }

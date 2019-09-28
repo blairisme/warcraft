@@ -76,7 +76,7 @@ public class CombatantTitlePane extends Grid implements DetailsPaneElement
 
         Cell nameCell = add(container);
         nameCell.width(100);
-        nameCell.height(50);
+        nameCell.expandY();
 
         return container;
     }
@@ -84,10 +84,11 @@ public class CombatantTitlePane extends Grid implements DetailsPaneElement
     private Label addLabel(Grid parent, Skin skin) {
         Label name = new Label("", skin);
         name.setAlignment(Align.center);
+        name.setWrap(true);
 
         Cell nameCell = parent.add(name);
         nameCell.width(100);
-        nameCell.height(15);
+        nameCell.expandY();
 
         return name;
     }

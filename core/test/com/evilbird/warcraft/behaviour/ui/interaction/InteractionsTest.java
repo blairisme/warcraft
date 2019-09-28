@@ -20,6 +20,7 @@ import com.evilbird.engine.item.ItemType;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.utils.MockProvider;
 import com.evilbird.warcraft.action.camera.CameraActions;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.data.camera.CameraType;
 import org.junit.Assert;
 import org.junit.Before;
@@ -41,13 +42,15 @@ public class InteractionsTest
     private InteractionContainer container;
     private ActionFactory actions;
     private Provider<InteractionDefinition> definitions;
+    private WarcraftPreferences preferences;
 
     @Before
     public void setup() {
         actions = Mockito.mock(ActionFactory.class);
         definitions = new MockProvider<>(() -> new InteractionDefinition(actions));
         container = new InteractionContainer(definitions);
-        interactions = new Interactions(container);
+        preferences = Mockito.mock(WarcraftPreferences.class);
+        interactions = new Interactions(container, preferences);
     }
 
     @Test

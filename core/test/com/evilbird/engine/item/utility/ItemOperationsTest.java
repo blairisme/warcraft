@@ -108,6 +108,20 @@ public class ItemOperationsTest extends GameTestCase
     }
 
     @Test
+    public void isNearWithRadiusTest() {
+        Combatant combatant1 = TestCombatants.newTestCombatant("footman");
+        Combatant combatant2 = TestCombatants.newTestCombatant("grunt");
+
+        combatant1.setSize(10, 10);
+        combatant2.setSize(10, 10);
+
+        combatant1.setPosition(0, 0);
+        combatant2.setPosition(20, 20);
+
+        Assert.assertTrue(ItemOperations.isNear(combatant1, 50, combatant2));
+    }
+
+    @Test
     public void isNotNearTest() {
         Combatant combatant1 = TestCombatants.newTestCombatant("footman");
         Combatant combatant2 = TestCombatants.newTestCombatant("grunt");

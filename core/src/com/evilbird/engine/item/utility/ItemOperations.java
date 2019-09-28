@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.item.utility;
 
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
@@ -165,18 +166,33 @@ public class ItemOperations
         Validate.notNull(locus);
         Validate.notNull(target);
         Validate.isTrue(radius >= 0);
+        return isNearCircular(locus, radius, target);
+    }
+
+    private static boolean isNearCircular(Item locus, float radius, Item target) {
+        Vector2 targetSize = target.getSize();
+
+        float targetDimension = Math.max(targetSize.x, targetSize.y);
+        float targetRadius = targetDimension / 2;
 
         Vector2 locusPosition = locus.getPosition(Alignment.Center);
         Vector2 targetPosition = target.getPosition(Alignment.Center);
 
-        Vector2 targetDirection = targetPosition.sub(locusPosition);
-        Vector2 targetDirectionNormalized = targetDirection.nor();
+        Circle locusPerimeter = new Circle(locusPosition.x, locusPosition.y, radius);
+        Circle targetPerimeter = new Circle(targetPosition.x, targetPosition.y, targetRadius);
 
-        Vector2 directionRadialLength = targetDirectionNormalized.scl(radius);
-        Vector2 pointClosestToTarget = directionRadialLength.add(locusPosition);
+        return locusPerimeter.overlaps(targetPerimeter);
+    }
+
+    private static boolean isNearRectangular(Item locus, float radius, Item target) {
+        float diameter = (radius * 2) + 5;
+        Vector2 locusPosition = locus.getPosition();
+
+        Rectangle locusBounds = new Rectangle(locusPosition.x, locusPosition.y, diameter, diameter);
+        locusBounds.setCenter(locus.getPosition());
 
         Rectangle targetBounds = target.getBounds();
-        return targetBounds.contains(pointClosestToTarget);
+        return locusBounds.overlaps(targetBounds);
     }
 
     public static boolean overlaps(Item itemA, Item itemB) {

@@ -26,6 +26,7 @@ import static com.evilbird.engine.device.DeviceInputConstants.InputConsumed;
 import static com.evilbird.engine.device.DeviceInputConstants.InputNotConsumed;
 import static com.evilbird.engine.device.UserInputType.Action;
 import static com.evilbird.engine.device.UserInputType.Drag;
+import static com.evilbird.engine.device.UserInputType.Key;
 import static com.evilbird.engine.device.UserInputType.PressDown;
 import static com.evilbird.engine.device.UserInputType.PressDrag;
 import static com.evilbird.engine.device.UserInputType.PressUp;
@@ -54,6 +55,7 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
 
     private int touchButton;
     private Vector2 touchPosition;
+
 
     public DesktopInput(DeviceDisplay display) {
         this(display, Gdx.input);
@@ -108,6 +110,12 @@ public class DesktopInput extends AbstractGestureObserver implements DeviceInput
 
     private synchronized void addInput(UserInput userInput) {
         inputs.add(userInput);
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        addInput(new UserInput(Key, keycode));
+        return InputNotConsumed;
     }
 
     @Override

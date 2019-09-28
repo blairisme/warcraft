@@ -158,8 +158,9 @@ public class AssetBundle
     }
 
     protected Music getMusic(Object id) {
-        AssetDescriptor asset = assets.get(id);
-        return manager.get(asset.fileName, Music.class);
+//        AssetDescriptor asset = assets.get(id);
+//        return manager.get(asset.fileName, Music.class);
+        return getLazyLoadedMusic(id);
     }
 
     protected Music getLazyLoadedMusic(Object id) {

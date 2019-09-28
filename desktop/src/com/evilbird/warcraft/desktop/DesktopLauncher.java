@@ -81,6 +81,7 @@ public class DesktopLauncher
         WarcraftPreferences warcraftPreferences = (WarcraftPreferences)preferences;
         warcraftPreferences.setFreeBuildEnabled(commands.isFreeBuildEnabled());
         warcraftPreferences.setQuickBuildEnabled(commands.isQuickBuildEnabled());
+        warcraftPreferences.setDebugControlEnabled(commands.isDebugControlEnabled());
     }
 
     private static GameService getService() {

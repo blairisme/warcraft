@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.behaviour.ui.interaction;
 
+import com.badlogic.gdx.Input;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
@@ -19,6 +20,7 @@ import com.evilbird.warcraft.action.confirm.ConfirmActions;
 import com.evilbird.warcraft.action.construct.ConstructActions;
 import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
@@ -35,6 +37,7 @@ import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.common.function.Predicates.nonNull;
 import static com.evilbird.engine.common.function.Predicates.not;
 import static com.evilbird.engine.device.UserInputType.Drag;
+import static com.evilbird.engine.device.UserInputType.Key;
 import static com.evilbird.engine.device.UserInputType.Menu;
 import static com.evilbird.engine.device.UserInputType.PressDown;
 import static com.evilbird.engine.device.UserInputType.PressDrag;
@@ -57,6 +60,7 @@ import static com.evilbird.warcraft.action.menu.MenuActions.ActionsMenu;
 import static com.evilbird.warcraft.action.menu.MenuActions.BuildAdvancedMenu;
 import static com.evilbird.warcraft.action.menu.MenuActions.BuildSimpleMenu;
 import static com.evilbird.warcraft.action.menu.MenuActions.IngameMenu;
+import static com.evilbird.warcraft.action.menu.MenuActions.VictoryMenu;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveCancel;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveToLocation;
 import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderCancel;
@@ -127,10 +131,15 @@ import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
 public class Interactions
 {
     private InteractionContainer interactions;
+    private WarcraftPreferences preferences;
 
     @Inject
-    public Interactions(InteractionContainer interactions) {
+    public Interactions(
+        InteractionContainer interactions,
+        WarcraftPreferences preferences)
+    {
         this.interactions = interactions;
+        this.preferences = preferences;
         moveInteractions();
         attackInteractions();
         gatherInteractions();
@@ -347,6 +356,14 @@ public class Interactions
             .assignedTo(item -> null)
             .appliedTo((t, s) -> null, (t, s) -> null)
             .appliedAs(Standalone);
+
+        if (preferences.isDebugControlEnabled()) {
+            interactions.addAction(VictoryMenu)
+                .forInput(input -> input.getType() == Key && input.getKey() == Input.Keys.V)
+                .assignedTo(item -> null)
+                .appliedTo((t, s) -> null, (t, s) -> null)
+                .appliedAs(Standalone);
+        }
     }
 
     private void trainInteractions() {
