@@ -18,7 +18,6 @@
  <tileset firstgid="392" name="Oil Refinery" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/orc/building/winter/oil_refinery.png" width="96" height="192"/>
  </tileset>
- <tileset firstgid="394" source="../../../../../../../Downloads/Dockyard.tsx"/>
  <tileset firstgid="396" name="MetalWorks" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/orc/building/winter/metalworks.png" width="96" height="192"/>
  </tileset>
