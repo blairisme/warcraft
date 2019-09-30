@@ -209,8 +209,10 @@ public enum UnitType implements ItemType
     }
 
     public boolean isShip() {
-        return this == ElvenDestroyer || this == Battleship || this == GnomishSubmarine || this == OilTanker
-            || this == TrollDestroyer || this == OgreJuggernaught || this == GiantTurtle || this == TrollTanker;
+        return this == ElvenDestroyer || this == Battleship || this == GnomishSubmarine
+            || this == OilTanker || this == Transport
+            || this == TrollDestroyer || this == OgreJuggernaught || this == GiantTurtle
+            || this == TrollTanker || this == Ferry;
     }
 
     public boolean isSubmarine() {

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="109">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="109">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/summer.png" width="576" height="864"/>
  </tileset>
  <tileset firstgid="385" name="Oil Patch" tilewidth="96" tileheight="96" tilecount="1" columns="1">
-  <image source="../../textures/neutral/resource/winter/oil_patch.png" width="96" height="96"/>
+  <image source="../../textures/neutral/resource/summer/oil_patch.png" width="96" height="96"/>
  </tileset>
  <tileset firstgid="386" name="Gold Mine" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/neutral/resource/summer/gold_mine.png" width="96" height="192"/>
@@ -158,6 +158,13 @@
   </data>
  </layer>
  <objectgroup id="2" name="Neutral">
+  <properties>
+   <property name="AI" type="bool" value="true"/>
+   <property name="Faction" value="Neutral"/>
+   <property name="Nation" value="Neutral"/>
+   <property name="Type" value="Player"/>
+   <property name="ZIndex" type="int" value="4"/>
+  </properties>
   <object id="12" name="GoldMine1" type="GoldMine" gid="386" x="3712" y="128" width="96" height="96"/>
   <object id="13" name="GoldMine2" type="GoldMine" gid="386" x="3200" y="704" width="96" height="96"/>
   <object id="14" name="GoldMine3" type="GoldMine" gid="386" x="2432" y="2176" width="96" height="96"/>
@@ -255,6 +262,17 @@
   <object id="46" name="Peasant12" type="Peasant" gid="549" x="3552" y="3552" width="72" height="72"/>
  </objectgroup>
  <objectgroup id="4" name="Player1">
+  <properties>
+   <property name="AI" type="bool" value="false"/>
+   <property name="Faction" value="Human"/>
+   <property name="Gold" type="float" value="0"/>
+   <property name="Level" type="int" value="3"/>
+   <property name="Nation" value="Azeroth"/>
+   <property name="Oil" type="float" value="0"/>
+   <property name="Type" value="Player"/>
+   <property name="Wood" type="float" value="0"/>
+   <property name="ZIndex" type="int" value="6"/>
+  </properties>
   <object id="1" name="TownHall1" type="TownHall" gid="390" x="3488" y="800" width="128" height="128"/>
   <object id="2" name="Farm1" type="Farm" gid="388" x="3392" y="576" width="64" height="64"/>
   <object id="3" name="Farm2" type="Farm" gid="388" x="3648" y="576" width="64" height="64"/>

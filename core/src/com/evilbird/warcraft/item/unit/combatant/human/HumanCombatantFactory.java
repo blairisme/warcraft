@@ -42,7 +42,7 @@ public class HumanCombatantFactory extends GameFactorySet<Combatant>
         PaladinFactory paladinFactory,
         TransportFactory transportFactory)
     {
-//        addProvider(UnitType.Ballista, ballistaFactory);
+        addProvider(UnitType.Ballista, ballistaFactory);
         addProvider(UnitType.Battleship, battleshipFactory);
         addProvider(UnitType.DwarvenDemolitionSquad, dwarvenDemolitionSquadFactory);
         addProvider(UnitType.ElvenArcher, elvenArcherFactory);

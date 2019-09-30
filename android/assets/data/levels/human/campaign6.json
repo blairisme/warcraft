@@ -1,6 +1,14 @@
 {
-  "map": {
-    "class": "Map",
+  "faction": {
+    "class": "Faction",
+    "enum": "Human"
+  },
+  "assets": {
+    "class": "Assets",
+    "enum": "Swamp"
+  },
+  "level": {
+    "class": "Level",
     "enum": "Human6"
   },
   "introduction": {
@@ -10,10 +18,6 @@
   "behaviour": {
     "class": "Behaviour",
     "enum": "Human6"
-  },
-  "hud": {
-    "class": "Hud",
-    "enum": "Human"
   },
   "next": {
     "class": "Campaign",

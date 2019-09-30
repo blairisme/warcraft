@@ -22,6 +22,7 @@ public enum LayerType implements ItemType
     Sea,
     Shore,
     Forest,
+    Mountain,
     Tree,
     OpaqueFog,
     OpaqueFogSection,
