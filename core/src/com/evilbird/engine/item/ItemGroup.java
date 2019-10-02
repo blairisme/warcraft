@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.item;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -307,6 +308,12 @@ public class ItemGroup extends ItemBasic implements ItemComposite
             }
         }
         return result;
+    }
+
+    public void drawChildrenBegin(Batch batch, float alpha) {
+    }
+
+    public void drawChildrenEnd(Batch batch, float alpha) {
     }
 
     @Override
