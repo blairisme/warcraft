@@ -39,6 +39,7 @@
         "advanced": 0.0,
         "series": "None"
       },
+      "associations": [],
       "direction": 70.55996,
       "id": {
         "class": "Named",
@@ -76,6 +77,7 @@
         "advanced": 0.0,
         "series": "None"
       },
+      "associations": [],
       "direction": 70.55996,
       "id": {
         "class": "Named",

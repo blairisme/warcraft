@@ -10,14 +10,12 @@
 package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.specialized.Viewable;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.warcraft.action.move.MoveEvents.notifyMoveCancelled;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 
 /**
@@ -28,17 +26,17 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
  */
 public class MoveCancel extends BasicAction
 {
-    private transient Events events;
+    private transient MoveEvents events;
 
     /**
-     * Constructs a new instance of this class given a {@link Events} queue
+     * Constructs a new instance of this class given a {@link MoveEvents} queue
      * used to report the cancellation of the move operation.
      *
-     * @param events  an {@code Events} instance. This parameter
+     * @param events  an {@code MoveEvents} instance. This parameter
      *                  cannot be {@code null}.
      */
     @Inject
-    public MoveCancel(Events events) {
+    public MoveCancel(MoveEvents events) {
         this.events = events;
         setIdentifier(MoveActions.MoveCancel);
     }
@@ -47,7 +45,7 @@ public class MoveCancel extends BasicAction
     public boolean act(float delta) {
         Viewable item = (Viewable)getItem();
         item.setAnimation(Idle);
-        notifyMoveCancelled(events, item);
+        events.notifyMoveCancelled(item);
         return ActionComplete;
     }
 }

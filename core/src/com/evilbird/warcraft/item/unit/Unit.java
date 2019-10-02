@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.unit;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
@@ -29,6 +30,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import static com.evilbird.warcraft.item.common.upgrade.UpgradableValue.Zero;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
@@ -47,7 +51,8 @@ public class Unit extends Viewable implements Destroyable, Selectable, ItemGraph
     private boolean selected;
     private boolean selectable;
     private UpgradableValue armour;
-    private ItemReference association;
+    private List<ItemReference> associations;
+
     private transient UnitStyle style;
 
     @Inject
@@ -59,10 +64,23 @@ public class Unit extends Viewable implements Destroyable, Selectable, ItemGraph
         healthMaximum = 0;
         selected = false;
         selectable = true;
+        associations = new ArrayList<>(1);
+    }
+
+    public void addAssociatedItem(Item associate) {
+        associations.add(new ItemReference(associate));
     }
 
     public Item getAssociatedItem() {
-        return association != null ? association.get() : null;
+        if (!associations.isEmpty()) {
+            ItemReference reference = associations.get(0);
+            return reference.get();
+        }
+        return null;
+    }
+
+    public Collection<Item> getAssociatedItems() {
+        return CollectionUtils.convert(associations, ItemReference::get);
     }
 
     @Override
@@ -111,8 +129,23 @@ public class Unit extends Viewable implements Destroyable, Selectable, ItemGraph
         return selectable;
     }
 
+    public boolean hasAssociatedItem(Item associate) {
+        return associations.contains(new ItemReference(associate));
+    }
+
+    public boolean hasAssociatedItems() {
+        return !associations.isEmpty();
+    }
+
+    public void removeAssociatedItem(Item associate) {
+        associations.remove(new ItemReference(associate));
+    }
+
     public void setAssociatedItem(Item associate) {
-        this.association = associate != null ? new ItemReference(associate) : null;
+        associations.clear();
+        if (associate != null) {
+            addAssociatedItem(associate);
+        }
     }
 
     public void setArmour(UpgradableValue armour) {
@@ -159,7 +192,7 @@ public class Unit extends Viewable implements Destroyable, Selectable, ItemGraph
     @Override
     public void setRoot(ItemRoot root) {
         super.setRoot(root);
-        if (association != null) {
+        for (ItemReference association: associations) {
             association.setParent(root);
         }
     }
@@ -197,7 +230,7 @@ public class Unit extends Viewable implements Destroyable, Selectable, ItemGraph
             .append(healthMaximum, unit.healthMaximum)
             .append(selected, unit.selected)
             .append(selectable, unit.selectable)
-            .append(association, unit.association)
+            .append(associations, unit.associations)
             .isEquals();
     }
 
@@ -211,7 +244,7 @@ public class Unit extends Viewable implements Destroyable, Selectable, ItemGraph
             .append(healthMaximum)
             .append(selected)
             .append(selectable)
-            .append(association)
+            .append(associations)
             .toHashCode();
     }
 
