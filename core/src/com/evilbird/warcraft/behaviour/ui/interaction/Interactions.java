@@ -78,6 +78,7 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Singleton;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Standalone;
+import static com.evilbird.warcraft.item.common.movement.MovementCapability.Air;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
@@ -416,6 +417,11 @@ public class Interactions
         interactions.addAction(MoveToLocation, ConfirmLocation)
             .whenSelected(both(isCorporeal(), isMovableOver(Water)))
             .whenTarget(hasType(Sea, OilPatch, OpaqueFogSection))
+            .appliedTo(Selected)
+            .appliedAs(confirmedAction());
+
+        interactions.addAction(MoveToLocation, ConfirmLocation)
+            .whenSelected(both(isCorporeal(), isMovableOver(Air)))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
