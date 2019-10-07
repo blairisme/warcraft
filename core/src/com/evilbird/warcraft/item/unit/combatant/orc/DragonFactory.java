@@ -22,6 +22,7 @@ import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Air;
 import static com.evilbird.warcraft.item.projectile.ProjectileType.Arrow;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Fireball;
 import static com.evilbird.warcraft.item.unit.UnitType.Dragon;
 
 /**
@@ -51,13 +52,12 @@ public class DragonFactory extends CombatantFactoryBase
         result.setHealth(40);
         result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("Dragon", result));
-
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Air);
         result.setAttackRange(tiles(4));
         result.setSight(tiles(5));
         result.setType(Dragon);
-        result.setProjectileType(Arrow);
+        result.setProjectileType(Fireball);
         return result;
     }
 }

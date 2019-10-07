@@ -14,49 +14,46 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
-import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Air;
-import static com.evilbird.warcraft.item.projectile.ProjectileType.DaemonFire;
-import static com.evilbird.warcraft.item.unit.UnitType.Daemon;
+import static com.evilbird.warcraft.item.unit.UnitType.EyeOfKilrogg;
 
 /**
- * Instances of this factory create daemons, neutral flying creatures that are
- * conjured by magic users.
+ * Instances of this factory create eyes of Kilrogg, neutral creatures
+ * that are conjured by magic users.
  *
  * @author Blair Butterworth
  */
-public class DaemonFactory extends CombatantFactoryBase
+public class EyeOfKilroggFactory extends CombatantFactoryBase
 {
     @Inject
-    public DaemonFactory(Device device) {
+    public EyeOfKilroggFactory(Device device) {
         this(device.getAssetStorage());
     }
 
-    public DaemonFactory(AssetManager manager) {
-        super(manager, Daemon);
+    public EyeOfKilroggFactory(AssetManager manager) {
+        super(manager, EyeOfKilrogg);
     }
 
     @Override
     public Combatant get(Identifier type) {
-        RangedCombatant result = builder.newRangedCombatant();
-        result.setAttackSpeed(1.5f);
-        result.setAttackRange(tiles(4));
+        Combatant result = builder.newMeleeCombatant();
+        result.setAttackSpeed(0);
+        result.setAttackRange(0);
         result.setArmour(0);
-        result.setPiercingDamage(8);
-        result.setBasicDamage(16);
+        result.setPiercingDamage(0);
+        result.setBasicDamage(0);
         result.setHealth(100);
         result.setHealthMaximum(100);
-        result.setIdentifier(objectIdentifier("Daemon", result));
+        result.setIdentifier(objectIdentifier("EyeOfKilrogg", result));
         result.setMovementSpeed(8 * 14);
         result.setMovementCapability(Air);
         result.setSight(tiles(6));
-        result.setType(Daemon);
-        result.setProjectileType(DaemonFire);
+        result.setType(EyeOfKilrogg);
         return result;
     }
 }

@@ -237,7 +237,7 @@ public enum UnitType implements ItemType
     }
 
     public boolean isFlyingAssault() {
-        return this == GryphonRider || this == Dragon;
+        return this == GryphonRider || this == Dragon || this == Daemon;
     }
 
     public boolean isFlyingScout() {

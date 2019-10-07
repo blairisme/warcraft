@@ -46,7 +46,7 @@ public class CombatantAssets extends AssetBundle
         register("decompose", "data/textures/common/unit/decompose.png");
         register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, dimensions));
 
-        register("dead", "data/sounds/${faction}/unit/common/dead/1.mp3");
+        registerOptional("dead", "data/sounds/${faction}/unit/common/dead/1.mp3");
         registerOptional("capture", "data/sounds/${faction}/unit/common/capture/1.mp3");
         registerOptional("rescue", "data/sounds/${faction}/unit/common/rescue/1.mp3");
         registerOptional("hit", "data/sounds/common/unit/hit/${weapon}/1.mp3");

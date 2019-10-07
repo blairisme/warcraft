@@ -32,7 +32,7 @@ public class CannonballProjectileAnimation extends AnimationCatalog
             .withTexture(texture)
             .withSequence(0, 4)
             .withSize(SIZE)
-            .withInterval(0.25f)
-            .notLooping();
+            .withInterval(0.2f)
+            .looping();
     }
 }

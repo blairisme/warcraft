@@ -27,9 +27,11 @@ public class NeutralCombatantFactory extends GameFactorySet<Combatant>
     @Inject
     public NeutralCombatantFactory(
         DaemonFactory daemonFactory,
+        EyeOfKilroggFactory eyeOfKilroggFactory,
         SkeletonFactory skeletonFactory)
     {
         addProvider(UnitType.Daemon, daemonFactory);
+        addProvider(UnitType.EyeOfKilrogg, eyeOfKilroggFactory);
         addProvider(UnitType.Skeleton, skeletonFactory);
     }
 }

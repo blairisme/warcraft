@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.unit.combatant.human;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.warcraft.item.projectile.ProjectileType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
@@ -21,6 +22,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Air;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.GryphonHammer;
 import static com.evilbird.warcraft.item.unit.UnitType.GryphonRider;
 
 /**
@@ -55,7 +57,7 @@ public class GryphonRiderFactory extends CombatantFactoryBase
         result.setMovementCapability(Air);
         result.setSight(tiles(6));
         result.setType(GryphonRider);
-        //result.setProjectileType(Lightning);
+        result.setProjectileType(GryphonHammer);
         return result;
     }
 }

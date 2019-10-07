@@ -23,6 +23,7 @@ import com.evilbird.warcraft.item.unit.combatant.animations.RangedAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.ScoutAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.SiegeAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.SubmarineAnimations;
+import com.evilbird.warcraft.item.unit.combatant.sounds.ConjuredSounds;
 import com.evilbird.warcraft.item.unit.combatant.sounds.MeleeSounds;
 import com.evilbird.warcraft.item.unit.combatant.sounds.RangedSounds;
 
@@ -98,8 +99,10 @@ public class CombatantBuilder
 
     private AnimationCatalog newAnimations(CombatantAssets assets, CombatantVariety variety) {
         switch(variety) {
-            case FlyingCombatant: return new FlyingAnimations(assets);
+            case ConjuredCombatant:
             case MeleeCombatant: return new MeleeAnimations(assets);
+            case ConjuredFlyingCombatant:
+            case FlyingCombatant: return new FlyingAnimations(assets);
             case NavalCombatant: return new NavalAnimations(assets);
             case RangedCombatant: return new RangedAnimations(assets);
             case ScoutCombatant: return new ScoutAnimations(assets);
@@ -118,6 +121,8 @@ public class CombatantBuilder
 
     private SoundCatalog newSounds(CombatantAssets assets, CombatantVariety variety) {
         switch(variety) {
+            case ConjuredCombatant:
+            case ConjuredFlyingCombatant: return new ConjuredSounds(assets);
             case FlyingCombatant:
             case ScoutCombatant:
             case MeleeCombatant: return new MeleeSounds(assets);

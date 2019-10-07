@@ -19,6 +19,8 @@ import com.evilbird.warcraft.item.unit.UnitType;
  */
 public enum CombatantVariety
 {
+    ConjuredCombatant,
+    ConjuredFlyingCombatant,
     FlyingCombatant,
     MeleeCombatant,
     RangedCombatant,
@@ -28,6 +30,9 @@ public enum CombatantVariety
     SubmarineCombatant;
 
     public static CombatantVariety forType(UnitType type) {
+        if (type.isNeutral()) {
+            return type.isFlying() ? ConjuredFlyingCombatant : ConjuredCombatant;
+        }
         if (type.isFlyingAssault()) {
             return FlyingCombatant;
         }

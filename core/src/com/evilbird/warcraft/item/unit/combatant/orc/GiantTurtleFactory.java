@@ -22,6 +22,7 @@ import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
 import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannonball;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Torpedo;
 import static com.evilbird.warcraft.item.unit.UnitType.GiantTurtle;
 
 /**
@@ -56,7 +57,7 @@ public class GiantTurtleFactory extends CombatantFactoryBase
         result.setAttackRange(tiles(4));
         result.setSight(tiles(8));
         result.setType(GiantTurtle);
-        result.setProjectileType(Cannonball);
+        result.setProjectileType(Torpedo);
         return result;
     }
 }

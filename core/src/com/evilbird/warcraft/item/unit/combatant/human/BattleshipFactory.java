@@ -22,6 +22,7 @@ import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
 import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannonball;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.FlamingCannonball;
 import static com.evilbird.warcraft.item.unit.UnitType.Battleship;
 
 /**
@@ -55,7 +56,7 @@ public class BattleshipFactory extends CombatantFactoryBase
         result.setMovementCapability(Water);
         result.setSight(tiles(5));
         result.setType(Battleship);
-        result.setProjectileType(Cannonball);
+        result.setProjectileType(FlamingCannonball);
         return result;
     }
 }

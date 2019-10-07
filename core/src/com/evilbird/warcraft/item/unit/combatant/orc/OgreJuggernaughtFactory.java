@@ -22,6 +22,7 @@ import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
 import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannonball;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.FlamingCannonball;
 import static com.evilbird.warcraft.item.unit.UnitType.OgreJuggernaught;
 
 /**
@@ -56,7 +57,7 @@ public class OgreJuggernaughtFactory extends CombatantFactoryBase
         result.setAttackRange(tiles(4));
         result.setSight(tiles(8));
         result.setType(OgreJuggernaught);
-        result.setProjectileType(Cannonball);
+        result.setProjectileType(FlamingCannonball);
         return result;
     }
 }
