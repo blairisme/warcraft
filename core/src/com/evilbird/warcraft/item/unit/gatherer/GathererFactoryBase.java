@@ -35,7 +35,7 @@ public abstract class GathererFactoryBase implements GameFactory<Gatherer>
     @Override
     public void load(GameContext context) {
         this.assets = new GathererAssets(manager, type);
-        this.builder = new GathererBuilder(assets);
+        this.builder = new GathererBuilder(assets, type);
         assets.load();
     }
 

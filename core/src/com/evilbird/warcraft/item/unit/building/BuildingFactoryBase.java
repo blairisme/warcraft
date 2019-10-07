@@ -33,13 +33,13 @@ public abstract class BuildingFactoryBase implements GameFactory<Building>
     public BuildingFactoryBase(AssetManager manager, UnitType type) {
         this.type = type;
         this.manager = manager;
-        this.times = new ProductionTimes(); //TODO
+        this.times = new ProductionTimes();
     }
 
     @Override
     public void load(GameContext context) {
         assets = new BuildingAssets(manager, type, (WarcraftContext)context);
-        builder = new BuildingBuilder(assets, times);
+        builder = new BuildingBuilder(assets, times, type);
         assets.load();
     }
 

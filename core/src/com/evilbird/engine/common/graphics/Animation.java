@@ -21,6 +21,13 @@ import com.badlogic.gdx.math.GridPoint2;
 public interface Animation
 {
     /**
+     * Returns a copy of the Animation that can be used independently.
+     *
+     * @return a new Animation
+     */
+    Animation copy();
+
+    /**
      * Returns the next image of the animation, based on the given time. This
      * is the amount of seconds an object has spent in the state this Animation
      * instance represents.

@@ -204,6 +204,10 @@ public enum UnitType implements ItemType
         return this == GoldMine || this == OilPatch;
     }
 
+    public boolean isResourceExtractor() {
+        return this == OilRig || this == OilPlatform;
+    }
+
     public boolean isSpecial() {
         return isBetween(this, AlteracTraitor, UtherLightbringer) || isBetween(this, Chogall, Zuljin);
     }
@@ -219,8 +223,24 @@ public enum UnitType implements ItemType
         return this == GnomishSubmarine || this == GiantTurtle;
     }
 
+    public boolean isTransport() {
+        return this == Transport || this == Ferry;
+    }
+
     public boolean isSiege() {
         return this == Ballista || this == Catapult;
+    }
+
+    public boolean isFlying() {
+        return isFlyingAssault() || isFlyingScout();
+    }
+
+    public boolean isFlyingAssault() {
+        return this == GryphonRider || this == Dragon;
+    }
+
+    public boolean isFlyingScout() {
+        return this == GnomishFlyingMachine || this == GoblinZeppelin;
     }
 
     public boolean isRanged() {

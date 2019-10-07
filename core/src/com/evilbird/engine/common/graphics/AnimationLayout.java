@@ -33,7 +33,7 @@ public class AnimationLayout
         this.loop = loop;
     }
 
-    public float getFrameInterval() {
+    public float getInterval() {
         return interval;
     }
 

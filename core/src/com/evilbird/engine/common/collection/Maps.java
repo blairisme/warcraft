@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -107,6 +108,16 @@ public class Maps
 
     public static <K, V> Map<K, V> filter(Map<K, V> map, Predicate<Entry<K, V>> condition) {
         return map.entrySet().stream().filter(condition).collect(toMap(Entry::getKey, Entry::getValue));
+    }
+
+    public static <K1, V1, K2, V2> Map<K2, V2> convert(Map<K1, V1> map, Function<K1, K2> kMap, Function<V1, V2> vMap) {
+        return map.entrySet().stream().collect(toMap(
+            entry -> kMap.apply(entry.getKey()),
+            entry -> vMap.apply(entry.getValue())));
+    }
+
+    public static <K, V, C> Map<K, C> convert(Map<K, V> map, Function<V, C> valueMapper) {
+        return map.entrySet().stream().collect(toMap(Entry::getKey, entry -> valueMapper.apply(entry.getValue())));
     }
 
     public static <K, V> void add(Map<K, Collection<V>> map, K key, V element) {

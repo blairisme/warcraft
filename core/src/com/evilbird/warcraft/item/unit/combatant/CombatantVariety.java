@@ -9,6 +9,8 @@
 
 package com.evilbird.warcraft.item.unit.combatant;
 
+import com.evilbird.warcraft.item.unit.UnitType;
+
 /**
  * Defines {@link Combatant} varieties, primarily differentiated by attack and
  * mobility differences.
@@ -17,7 +19,33 @@ package com.evilbird.warcraft.item.unit.combatant;
  */
 public enum CombatantVariety
 {
+    FlyingCombatant,
     MeleeCombatant,
     RangedCombatant,
-    SeaCombatant
+    NavalCombatant,
+    ScoutCombatant,
+    SiegeCombatant,
+    SubmarineCombatant;
+
+    public static CombatantVariety forType(UnitType type) {
+        if (type.isFlyingAssault()) {
+            return FlyingCombatant;
+        }
+        if (type.isFlyingScout()) {
+            return ScoutCombatant;
+        }
+        if (type.isRanged()) {
+            return RangedCombatant;
+        }
+        if (type.isShip()) {
+            return NavalCombatant;
+        }
+        if (type.isSiege()) {
+            return SiegeCombatant;
+        }
+        if (type.isSubmarine()) {
+            return SubmarineCombatant;
+        }
+        return MeleeCombatant;
+    }
 }

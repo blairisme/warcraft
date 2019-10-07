@@ -9,21 +9,13 @@
 
 package com.evilbird.warcraft.item.unit.critter;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.audio.sound.Sound;
-import com.evilbird.engine.common.graphics.Animation;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.specialized.ViewableStyle;
-import com.evilbird.warcraft.item.common.animation.AnimationLayouts;
-import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
-import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitStyle;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.evilbird.warcraft.item.unit.critter.animations.CritterAnimations;
+import com.evilbird.warcraft.item.unit.critter.sounds.CritterSounds;
 
 /**
  * Creates a new {@link Critter} whose visual and audible presentation is
@@ -34,14 +26,15 @@ import java.util.Map;
 public class CritterBuilder
 {
     private CritterAssets assets;
+    private com.evilbird.warcraft.item.unit.critter.animations.CritterAnimations animations;
+    private com.evilbird.warcraft.item.unit.critter.sounds.CritterSounds sounds;
 
     public CritterBuilder(CritterAssets assets) {
         this.assets = assets;
     }
 
     public Critter build() {
-        Skin skin = getSkin(assets);
-        Critter result = new Critter(skin);
+        Critter result = new Critter(getSkin());
         result.setAnimation(UnitAnimation.Idle);
         result.setSelected(false);
         result.setSelectable(true);
@@ -50,42 +43,40 @@ public class CritterBuilder
         return result;
     }
 
-    private Skin getSkin(CritterAssets assets) {
+    private Skin getSkin() {
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(assets), ViewableStyle.class);
-        skin.add("default", getUnitStyle(assets), UnitStyle.class);
+        skin.add("default", getAnimationStyle(), ViewableStyle.class);
+        skin.add("default", getUnitStyle(), UnitStyle.class);
         return skin;
     }
 
-    private ViewableStyle getAnimationStyle(CritterAssets assets) {
+    private ViewableStyle getAnimationStyle() {
+        com.evilbird.warcraft.item.unit.critter.sounds.CritterSounds sounds = getSounds();
+        com.evilbird.warcraft.item.unit.critter.animations.CritterAnimations animations = getAnimations();
+
         ViewableStyle viewableStyle = new ViewableStyle();
-        viewableStyle.animations = getAnimations(assets);
-        viewableStyle.sounds = getSounds(assets);
+        viewableStyle.animations = animations.get();
+        viewableStyle.sounds = sounds.get();
         return viewableStyle;
     }
 
-    private Map<Identifier, Animation> getAnimations(CritterAssets assets) {
-        Texture general = assets.getBaseTexture();
-        Texture decompose = assets.getDecomposeTexture();
-
-        AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(UnitAnimation.Idle, AnimationLayouts.idleSchema(32, 32), general);
-        builder.set(UnitAnimation.Move, AnimationLayouts.idleSchema(32, 32), general);
-        builder.set(UnitAnimation.Death, AnimationLayouts.critterDeathSchema(), general);
-        builder.set(UnitAnimation.Decompose, AnimationLayouts.critterDeathSchema(), decompose);
-        return builder.build();
-    }
-
-    private Map<Identifier, Sound> getSounds(CritterAssets assets) {
-        Map<Identifier, Sound> sounds = new HashMap<>();
-        sounds.put(UnitSound.Selected, assets.getSelectedSound());
-        sounds.put(UnitSound.Die, assets.getDieSound());
-        return sounds;
-    }
-
-    private UnitStyle getUnitStyle(CritterAssets assets) {
+    private UnitStyle getUnitStyle() {
         UnitStyle unitStyle = new UnitStyle();
         unitStyle.selection = assets.getSelectionTexture();
         return unitStyle;
+    }
+
+    private com.evilbird.warcraft.item.unit.critter.animations.CritterAnimations getAnimations() {
+        if (animations == null) {
+            animations = new CritterAnimations(assets);
+        }
+        return animations;
+    }
+
+    private com.evilbird.warcraft.item.unit.critter.sounds.CritterSounds getSounds() {
+        if (sounds == null) {
+            sounds = new CritterSounds(assets);
+        }
+        return sounds;
     }
 }

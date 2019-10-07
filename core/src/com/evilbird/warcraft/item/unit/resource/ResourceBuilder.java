@@ -9,24 +9,11 @@
 
 package com.evilbird.warcraft.item.unit.resource;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.audio.sound.Sound;
-import com.evilbird.engine.common.graphics.Animation;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.specialized.ViewableStyle;
-import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
-import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitStyle;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.buildingDestructionScheme;
-import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.gatheringSchema;
-import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.idleSingularSchema;
 
 /**
  * Creates a new {@link Resource} instance whose visual and audible
@@ -37,6 +24,8 @@ import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.idleS
 public class ResourceBuilder
 {
     private ResourceAssets assets;
+    private ResourceAnimations animations;
+    private ResourceSounds sounds;
 
     public ResourceBuilder(ResourceAssets assets) {
         this.assets = assets;
@@ -60,36 +49,32 @@ public class ResourceBuilder
     }
 
     private ViewableStyle getAnimationStyle() {
+        ResourceSounds sounds = getSounds();
+        ResourceAnimations animations = getAnimations();
+
         ViewableStyle viewableStyle = new ViewableStyle();
-        viewableStyle.animations = getAnimations();
-        viewableStyle.sounds = getSounds();
+        viewableStyle.animations = animations.get();
+        viewableStyle.sounds = sounds.get();
         return viewableStyle;
-    }
-
-    private Map<Identifier, Animation> getAnimations() {
-        Texture general = assets.getGeneralTexture();
-        Texture destruction = assets.getDestructionTexture();
-        return getAnimations(general, destruction);
-    }
-
-    private Map<Identifier, Animation> getAnimations(Texture general, Texture destruction) {
-        AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(UnitAnimation.Idle, idleSingularSchema(96, 96), general);
-        builder.set(UnitAnimation.Gathering, gatheringSchema(96, 96), general);
-        builder.set(UnitAnimation.Death, buildingDestructionScheme(), destruction);
-        return builder.build();
-    }
-
-    private Map<Identifier, Sound> getSounds() {
-        Map<Identifier, Sound> sounds = new HashMap<>();
-        sounds.put(UnitSound.Selected, assets.getSelectedSound());
-        sounds.put(UnitSound.Die, assets.getDestroyedSound());
-        return sounds;
     }
 
     private UnitStyle getUnitStyle() {
         UnitStyle unitStyle = new UnitStyle();
         unitStyle.selection = assets.getSelectionTexture();
         return unitStyle;
+    }
+
+    private ResourceAnimations getAnimations() {
+        if (animations == null) {
+            animations = new ResourceAnimations(assets);
+        }
+        return animations;
+    }
+
+    private ResourceSounds getSounds() {
+        if (sounds == null) {
+            sounds = new ResourceSounds(assets);
+        }
+        return sounds;
     }
 }

@@ -55,7 +55,7 @@ public class PeonFactory extends GathererFactoryBase
 
     @Override
     public Gatherer get(Identifier type) {
-        Gatherer result = builder.newLandGatherer();
+        Gatherer result = builder.build();
         setAttackAttributes(result);
         setGatheringAttributes(result);
         setIdentityAttributes(result);

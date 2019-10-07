@@ -18,7 +18,7 @@ import com.evilbird.engine.common.lang.Identifier;
  */
 public enum UnitAnimation implements Identifier
 {
-    Idle,
+    Idle, //TODO: Rename to default?
     IdleBasic,
     IdleGold,
     IdleOil,
@@ -38,6 +38,6 @@ public enum UnitAnimation implements Identifier
     Death,
     Decompose,
 
-    Gathering,
+    Gathering, //TODO: Change to GatherWood + GatherOil
     GatherWood
 }

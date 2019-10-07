@@ -13,6 +13,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * Represents a collection of {@link ResourceQuantity ResourceQuantities}.
+ *
+ * @author Blair Butterworth
+ */
 public class ResourceSet implements Iterable<ResourceQuantity>
 {
     private Collection<ResourceQuantity> resources;

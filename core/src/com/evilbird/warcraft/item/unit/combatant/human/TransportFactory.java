@@ -42,7 +42,7 @@ public class TransportFactory extends CombatantFactoryBase
 
     @Override
     public Combatant get(Identifier type) {
-        RangedCombatant result = builder.newSeaCombatant();
+        RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(0);
         result.setAttackRange(tiles(1));
         result.setArmour(0);

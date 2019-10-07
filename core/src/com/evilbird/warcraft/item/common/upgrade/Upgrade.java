@@ -60,20 +60,6 @@ public enum Upgrade implements Identifier
     WoodProduction1 (WoodProduction, Improved),
     WoodProduction2 (WoodProduction, Advanced);
 
-//    ArmourPlating1,
-//    ArmourPlating2,
-//
-//    CannonDamage1,
-//    CannonDamage2,
-//
-//    MountedSpeed1,
-//    MountedSpeed2,
-//
-//    RangedAccuracy1,
-//    RangedAccuracy2,
-//
-//    SiegeDamage;
-
     private UpgradeRank rank;
     private UpgradeSeries series;
 

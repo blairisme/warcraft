@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
-import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannon;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannonball;
 import static com.evilbird.warcraft.item.unit.UnitType.OgreJuggernaught;
 
 /**
@@ -43,7 +43,7 @@ public class OgreJuggernaughtFactory extends CombatantFactoryBase
 
     @Override
     public Combatant get(Identifier type) {
-        RangedCombatant result = builder.newSeaCombatant();
+        RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(1.5f);
         result.setArmour(10);
         result.setPiercingDamage(2);
@@ -56,7 +56,7 @@ public class OgreJuggernaughtFactory extends CombatantFactoryBase
         result.setAttackRange(tiles(4));
         result.setSight(tiles(8));
         result.setType(OgreJuggernaught);
-        result.setProjectileType(Cannon);
+        result.setProjectileType(Cannonball);
         return result;
     }
 }

@@ -25,7 +25,6 @@ import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.select.SelectEvent;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.unit.Unit;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 import org.apache.commons.lang3.Validate;
 
@@ -143,6 +142,13 @@ public class DeathAction extends BasicAction
     }
 
     private void initializeTimers(Destroyable subject) {
+//        if (isFlying(subject)) {
+//            deathTimer = new GameTimer(1);
+//            decomposeTimer = new GameTimer(0);
+//        } else
+
+
+
         if (isCombatant(subject)) {
             deathTimer = new GameTimer(1);
             decomposeTimer = new GameTimer(DECOMPOSE_TIME);
@@ -153,10 +159,12 @@ public class DeathAction extends BasicAction
     }
 
     private boolean decompose() {
-        Destroyable subject = (Destroyable)getItem();
-        if (isCombatant(subject)) {
-            Combatant combatant = (Combatant)subject;
-            combatant.setAnimation(Decompose);
+        Item item = getItem();
+        if (item instanceof Viewable) {
+            Viewable viewable = (Viewable)item;
+            if (viewable.hasAnimation(Decompose)) {
+                viewable.setAnimation(Decompose);
+            }
         }
         return ActionIncomplete;
     }

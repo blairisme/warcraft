@@ -9,56 +9,69 @@
 
 package com.evilbird.warcraft.item.projectile;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.engine.common.inject.InjectedPool;
-import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.device.Device;
-import com.evilbird.engine.game.GameContext;
-import com.evilbird.engine.game.GameFactory;
-import org.apache.commons.lang3.Validate;
+import com.evilbird.engine.game.GameFactorySet;
+import com.evilbird.warcraft.item.projectile.projectiles.ArrowFactory;
+import com.evilbird.warcraft.item.projectile.projectiles.AxeFactory;
+import com.evilbird.warcraft.item.projectile.projectiles.BoltFactory;
+import com.evilbird.warcraft.item.projectile.projectiles.CannonballFactory;
+import com.evilbird.warcraft.item.projectile.projectiles.DaemonFireFactory;
+import com.evilbird.warcraft.item.projectile.projectiles.FireballFactory;
+import com.evilbird.warcraft.item.projectile.projectiles.FlamingCannonballFactory;
+import com.evilbird.warcraft.item.projectile.projectiles.FlamingRockFactory;
+import com.evilbird.warcraft.item.projectile.projectiles.GryphonHammerFactory;
+import com.evilbird.warcraft.item.projectile.projectiles.LightningFactory;
+import com.evilbird.warcraft.item.projectile.projectiles.TorpedoFactory;
+import com.evilbird.warcraft.item.projectile.projectiles.TouchOfDeathFactory;
 
 import javax.inject.Inject;
 
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Arrow;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Axe;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Bolt;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannonball;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.DaemonFire;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Fireball;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.FlamingCannonball;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.FlamingRock;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.GryphonHammer;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Lightning;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Torpedo;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.TouchOfDeath;
+
 /**
- * Creates {@link Projectile} instances of a given {@link ProjectileType type}.
+ * A factory for the creation of {@link Projectile Projectiles}, loading the
+ * necessary assets and generating new game objects.
  *
  * @author Blair Butterworth
  */
-public class ProjectileFactory implements GameFactory<Projectile>
+public class ProjectileFactory extends GameFactorySet<Projectile>
 {
-    private AssetManager manager;
-    private InjectedPool<Projectile> pool;
-
-    private ProjectileAssets assets;
-    private ProjectileBuilder builder;
-
     @Inject
-    public ProjectileFactory(Device device, InjectedPool<Projectile> pool) {
-        this(device.getAssetStorage(), pool);
-    }
-
-    public ProjectileFactory(AssetManager manager, InjectedPool<Projectile> pool) {
-        this.manager = manager;
-        this.pool = pool;
-    }
-
-    @Override
-    public void load(GameContext identifier) {
-        assets = new ProjectileAssets(manager);
-        builder = new ProjectileBuilder(assets, pool);
-        assets.load();
-    }
-
-    @Override
-    public void unload(GameContext context) {
-        if (assets != null) {
-            assets.unload();
-        }
-    }
-
-    @Override
-    public Projectile get(Identifier identifier) {
-        Validate.isInstanceOf(ProjectileType.class, identifier);
-        return builder.build((ProjectileType)identifier);
+    public ProjectileFactory(
+        ArrowFactory arrowFactory,
+        AxeFactory axeFactory,
+        BoltFactory boltFactory,
+        CannonballFactory cannonballFactory,
+        DaemonFireFactory daemonFireFactory,
+        FireballFactory fireballFactory,
+        FlamingCannonballFactory flamingCannonballFactory,
+        FlamingRockFactory flamingRockFactory,
+        GryphonHammerFactory gryphonHammerFactory,
+        LightningFactory lightningFactory,
+        TorpedoFactory torpedoFactory,
+        TouchOfDeathFactory touchOfDeathFactory)
+    {
+        addProvider(Arrow, arrowFactory);
+        addProvider(Axe, axeFactory);
+        addProvider(Bolt, boltFactory);
+        addProvider(Cannonball, cannonballFactory);
+        addProvider(DaemonFire, daemonFireFactory);
+        addProvider(Fireball, fireballFactory);
+        addProvider(FlamingCannonball, flamingCannonballFactory);
+        addProvider(FlamingRock, flamingRockFactory);
+        addProvider(GryphonHammer, gryphonHammerFactory);
+        addProvider(Lightning, lightningFactory);
+        addProvider(Torpedo, torpedoFactory);
+        addProvider(TouchOfDeath, touchOfDeathFactory);
     }
 }

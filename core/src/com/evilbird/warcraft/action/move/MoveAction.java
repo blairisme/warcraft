@@ -180,9 +180,14 @@ abstract class MoveAction extends BasicAction
 
     protected ItemNode getAdjacentNode(Item item) {
         ItemNode destinationNode = graph.getNode(getDestination());
-        Collection<ItemNode> adjacentNodes = graph.getAdjacentNodes(item);
-        Collection<ItemNode> traversableNodes = filter(adjacentNodes, getPathFilter());
-        return !traversableNodes.isEmpty() ? getClosest(traversableNodes, destinationNode) : null;
+        if (destinationNode != null) {
+            Collection<ItemNode> adjacentNodes = graph.getAdjacentNodes(item);
+            Collection<ItemNode> traversableNodes = filter(adjacentNodes, getPathFilter());
+            if (!traversableNodes.isEmpty()) {
+                return getClosest(traversableNodes, destinationNode);
+            }
+        }
+        return null;
     }
 
     protected boolean initializePath(Item item) {

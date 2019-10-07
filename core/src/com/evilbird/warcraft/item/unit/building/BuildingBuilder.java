@@ -9,31 +9,19 @@
 
 package com.evilbird.warcraft.item.unit.building;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.audio.sound.Sound;
-import com.evilbird.engine.common.graphics.Animation;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.audio.sound.SoundCatalog;
+import com.evilbird.engine.common.graphics.AnimationCatalog;
 import com.evilbird.engine.item.specialized.ViewableStyle;
-import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.common.production.ProductionTimes;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
-import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitStyle;
-import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.buildingDestructionScheme;
-import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.constructBeginSchema;
-import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.constructEndSchema;
-import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.constructStaticSchema;
-import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.gatheringOilSchema;
-import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.idleSingularSchema;
+import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.building.animations.BuildingAnimations;
+import com.evilbird.warcraft.item.unit.building.animations.ExtractorAnimations;
+import com.evilbird.warcraft.item.unit.building.sounds.BuildingSounds;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Creates a new {@link Building} instance whose visual and audible
@@ -43,24 +31,33 @@ import static com.evilbird.warcraft.item.common.animation.AnimationLayouts.idleS
  */
 public class BuildingBuilder
 {
+    private UnitType type;
     private BuildingAssets assets;
     private ProductionTimes times;
+    private AnimationCatalog animations;
+    private SoundCatalog sounds;
 
-    public BuildingBuilder(BuildingAssets assets, ProductionTimes times) {
+    public BuildingBuilder(BuildingAssets assets, ProductionTimes times, UnitType type) {
+        Validate.notNull(assets);
+        Validate.notNull(times);
+        Validate.notNull(type);
+        Validate.isTrue(type.isBuilding());
+
+        this.type = type;
         this.assets = assets;
         this.times = times;
     }
 
     public Building build() {
-        return createBuilding(new Building(getSkin(assets)));
+        return createBuilding(new Building(getSkin()));
     }
 
-    public Fort newFort() {
-        return createBuilding(new Fort(getSkin(assets)));
+    public Fort buildFort() {
+        return createBuilding(new Fort(getSkin()));
     }
 
-    public ResourceExtractor newResourceExtractor() {
-        return createBuilding(new ResourceExtractor(getExtractorSkin(assets)));
+    public ResourceExtractor buildExtractor() {
+        return createBuilding(new ResourceExtractor(getSkin()));
     }
 
     private <T extends Building> T createBuilding(T building) {
@@ -73,93 +70,42 @@ public class BuildingBuilder
         return building;
     }
 
-    private Skin getSkin(BuildingAssets assets) {
+    private Skin getSkin() {
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(assets), ViewableStyle.class);
-        skin.add("default", getUnitStyle(assets), UnitStyle.class);
+        skin.add("default", getAnimationStyle(), ViewableStyle.class);
+        skin.add("default", getUnitStyle(), UnitStyle.class);
         return skin;
     }
 
-    private Skin getExtractorSkin(BuildingAssets assets) {
-        Skin skin = new Skin();
-        skin.add("default", getExtractorAnimationStyle(assets), ViewableStyle.class);
-        skin.add("default", getUnitStyle(assets), UnitStyle.class);
-        return skin;
-    }
+    private ViewableStyle getAnimationStyle() {
+        SoundCatalog sounds = getSounds();
+        AnimationCatalog animations = getAnimations();
 
-    private ViewableStyle getAnimationStyle(BuildingAssets assets) {
         ViewableStyle viewableStyle = new ViewableStyle();
-        viewableStyle.animations = getAnimations(assets);
-        viewableStyle.sounds = getSounds(assets);
+        viewableStyle.animations = animations.get();
+        viewableStyle.sounds = sounds.get();
         return viewableStyle;
     }
 
-    private ViewableStyle getExtractorAnimationStyle(BuildingAssets assets) {
-        ViewableStyle viewableStyle = new ViewableStyle();
-        viewableStyle.animations = getExtractorAnimations(assets);
-        viewableStyle.sounds = getSounds(assets);
-        return viewableStyle;
-    }
-
-    private Map<Identifier, Animation> getAnimations(BuildingAssets assets) {
-        Texture general = assets.getBaseTexture();
-        Texture construction = assets.getConstructionTexture();
-        Texture destruction = assets.getDestructionTexture();
-        return getAnimations(general, construction, destruction);
-    }
-
-    private Map<Identifier, Animation> getAnimations(Texture general, Texture build, Texture destroy) {
-        GridPoint2 size = assets.getSize();
-        AnimationSetBuilder builder = new AnimationSetBuilder();
-        addGeneralAnimations(builder, general, destroy, size);
-        addBuildingAnimation(builder, general, build, size);
-        return builder.build();
-    }
-
-    private Map<Identifier, Animation> getExtractorAnimations(BuildingAssets assets) {
-        Texture general = assets.getBaseTexture();
-        Texture construction = assets.getConstructionTexture();
-        Texture destruction = assets.getDestructionTexture();
-        return getExtractorAnimations(general, construction, destruction);
-    }
-
-    private Map<Identifier, Animation> getExtractorAnimations(Texture general, Texture build, Texture destroy) {
-        GridPoint2 size = assets.getSize();
-        AnimationSetBuilder builder = new AnimationSetBuilder();
-        addGeneralAnimations(builder, general, destroy, size);
-        addBuildingAnimation(builder, general, build, size);
-        addGatheringAnimation(builder, general, size);
-        return builder.build();
-    }
-
-    private void addGeneralAnimations(AnimationSetBuilder builder, Texture general, Texture destroy, GridPoint2 size) {
-        builder.set(UnitAnimation.Idle, idleSingularSchema(size.x, size.y), general);
-        builder.set(UnitAnimation.Death, buildingDestructionScheme(), destroy);
-    }
-
-    private void addBuildingAnimation(AnimationSetBuilder builder, Texture general, Texture build, GridPoint2 size) {
-        float duration = times.buildTime(assets.getType()) / 2f;
-        builder.set(UnitAnimation.BuildingSite, constructStaticSchema(size.x, size.y), build);
-        builder.set(UnitAnimation.Construct, Arrays.asList(
-            Pair.of(constructBeginSchema(size.x, size.y, duration), build),
-            Pair.of(constructEndSchema(size.x, size.y, duration), general)));
-    }
-
-    private void addGatheringAnimation(AnimationSetBuilder builder, Texture general, GridPoint2 size) {
-        builder.set(UnitAnimation.Gathering, gatheringOilSchema(size.x, size.y), general);
-    }
-
-    private Map<Identifier, Sound> getSounds(BuildingAssets assets) {
-        Map<Identifier, Sound> sounds = new HashMap<>();
-        sounds.put(UnitSound.Die, assets.getDestroyedSound());
-        sounds.put(UnitSound.Selected, assets.getSelectedSound());
-        sounds.put(UnitSound.Placement, assets.getPlacementSound());
-        return sounds;
-    }
-
-    private UnitStyle getUnitStyle(BuildingAssets assets) {
+    private UnitStyle getUnitStyle() {
         UnitStyle unitStyle = new UnitStyle();
         unitStyle.selection = assets.getSelectionTexture();
         return unitStyle;
+    }
+
+    private AnimationCatalog getAnimations() {
+        if (animations == null) {
+            animations = type.isResourceExtractor()
+                ? new ExtractorAnimations(assets, times)
+                : new BuildingAnimations(assets, times);
+        }
+        return animations;
+    }
+
+    private SoundCatalog getSounds() {
+        if (sounds == null) {
+            sounds = new BuildingSounds(assets);
+        }
+        return sounds;
     }
 }

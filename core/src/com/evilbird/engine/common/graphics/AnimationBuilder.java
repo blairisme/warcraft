@@ -15,7 +15,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import org.apache.commons.lang3.Range;
+import org.apache.commons.lang3.Validate;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,21 +33,33 @@ import java.util.Map.Entry;
 public class AnimationBuilder
 {
     private Texture texture;
-    private AnimationLayout schema;
+    private AnimationLayout layout;
+
+    @Inject
+    public AnimationBuilder() {
+        texture = null;
+        layout = null;
+    }
 
     public void setTexture(Texture texture) {
+        Validate.notNull(texture);
         this.texture = texture;
     }
 
-    public void setSchema(AnimationLayout schema) {
-        this.schema = schema;
+    public void setLayout(AnimationLayout layout) {
+        Validate.notNull(layout);
+        this.layout = layout;
     }
 
     public BasicAnimation build() {
-        Map<Range<Float>, List<Rectangle>> regions = schema.getFrameRegions();
+        Validate.validState(layout != null, "Layout required");
+        Validate.validState(texture != null, "Texture required");
+
+        Map<Range<Float>, List<Rectangle>> regions = layout.getFrameRegions();
         Map<Range<Float>, Array<TextureRegion>> frames = getFrames(regions);
-        PlayMode mode = schema.getLoop() ? PlayMode.LOOP : PlayMode.NORMAL;
-        return new BasicAnimation(0f, schema.getFrameInterval(), frames, mode);
+        PlayMode mode = layout.getLoop() ? PlayMode.LOOP : PlayMode.NORMAL;
+
+        return new BasicAnimation(0f, layout.getInterval(), frames, mode);
     }
 
     private Map<Range<Float>, Array<TextureRegion>> getFrames(Map<Range<Float>, List<Rectangle>> regions) {

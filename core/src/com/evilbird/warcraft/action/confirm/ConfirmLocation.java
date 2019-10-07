@@ -18,7 +18,7 @@ import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.ui.confirmation.ConfirmType;
+import com.evilbird.warcraft.item.effect.EffectType;
 
 import javax.inject.Inject;
 
@@ -38,7 +38,7 @@ public class ConfirmLocation extends ConfirmAction
 
     @Override
     protected ItemType getEffectType() {
-        return ConfirmType.Confirm;
+        return EffectType.Confirm;
     }
 
     @Override

@@ -23,7 +23,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
-import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannon;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannonball;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
 
 /**
@@ -44,7 +44,7 @@ public class ElvenDestroyerFactory extends CombatantFactoryBase
 
     @Override
     public Combatant get(Identifier type) {
-        RangedCombatant result = builder.newSeaCombatant();
+        RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(1.5f);
         result.setAttackRange(tiles(4));
         result.setArmour(10);
@@ -57,7 +57,7 @@ public class ElvenDestroyerFactory extends CombatantFactoryBase
         result.setMovementCapability(Water);
         result.setSight(tiles(8));
         result.setType(ElvenDestroyer);
-        result.setProjectileType(Cannon);
+        result.setProjectileType(Cannonball);
         return result;
     }
 }

@@ -9,23 +9,22 @@
 
 package com.evilbird.warcraft.item.unit.combatant;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.audio.sound.Sound;
-import com.evilbird.engine.common.graphics.Animation;
-import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.audio.sound.SoundCatalog;
+import com.evilbird.engine.common.graphics.AnimationCatalog;
 import com.evilbird.engine.item.specialized.ViewableStyle;
-import com.evilbird.warcraft.item.common.animation.AnimationLayouts;
-import com.evilbird.warcraft.item.common.animation.AnimationSetBuilder;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
-import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.UnitStyle;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.evilbird.warcraft.item.unit.combatant.CombatantVariety.MeleeCombatant;
+import com.evilbird.warcraft.item.unit.combatant.animations.FlyingAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.MeleeAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.NavalAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.RangedAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.ScoutAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.SiegeAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.SubmarineAnimations;
+import com.evilbird.warcraft.item.unit.combatant.sounds.MeleeSounds;
+import com.evilbird.warcraft.item.unit.combatant.sounds.RangedSounds;
 
 /**
  * Creates a new {@link Combatant} whose visual and audible presentation is
@@ -36,26 +35,19 @@ import static com.evilbird.warcraft.item.unit.combatant.CombatantVariety.MeleeCo
 public class CombatantBuilder
 {
     private CombatantAssets assets;
+    private CombatantVariety type;
+    private SoundCatalog sounds;
+    private AnimationCatalog animations;
 
-    public CombatantBuilder(CombatantAssets assets) {
+    public CombatantBuilder(CombatantAssets assets, CombatantVariety type) {
         this.assets = assets;
+        this.type = type;
+        this.sounds = null;
+        this.animations = null;
     }
 
     public Combatant newMeleeCombatant() {
-        return build(CombatantVariety.MeleeCombatant);
-    }
-
-    public RangedCombatant newRangedCombatant() {
-        return (RangedCombatant)build(CombatantVariety.RangedCombatant);
-    }
-
-    public RangedCombatant newSeaCombatant() {
-        return (RangedCombatant)build(CombatantVariety.SeaCombatant);
-    }
-
-    public Combatant build(CombatantVariety variety) {
-        Skin skin = getSkin(assets, variety);
-        Combatant result = variety == MeleeCombatant ? new Combatant(skin) : new RangedCombatant(skin);
+        Combatant result = new Combatant(getSkin());
         result.setAnimation(UnitAnimation.Idle);
         result.setSelected(false);
         result.setSelectable(true);
@@ -64,92 +56,76 @@ public class CombatantBuilder
         return result;
     }
 
-    private Skin getSkin(CombatantAssets assets, CombatantVariety variety) {
+    public RangedCombatant newRangedCombatant() {
+        RangedCombatant result = new RangedCombatant(getSkin());
+        result.setAnimation(UnitAnimation.Idle);
+        result.setSelected(false);
+        result.setSelectable(true);
+        result.setTouchable(Touchable.enabled);
+        result.setSize(assets.getSize());
+        return result;
+    }
+
+    private Skin getSkin() {
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(assets, variety), ViewableStyle.class);
-        skin.add("default", getUnitStyle(assets), UnitStyle.class);
+        skin.add("default", getAnimationStyle(), ViewableStyle.class);
+        skin.add("default", getUnitStyle(), UnitStyle.class);
         return skin;
     }
 
-    private ViewableStyle getAnimationStyle(CombatantAssets assets, CombatantVariety variety) {
+    private ViewableStyle getAnimationStyle() {
+        SoundCatalog sounds = getSounds();
+        AnimationCatalog animations = getAnimations();
+
         ViewableStyle viewableStyle = new ViewableStyle();
-        viewableStyle.animations = getAnimations(assets, variety);
-        viewableStyle.sounds = getSounds(assets, variety);
+        viewableStyle.animations = animations.get();
+        viewableStyle.sounds = sounds.get();
         return viewableStyle;
     }
 
-    private Map<Identifier, Animation> getAnimations(CombatantAssets assets, CombatantVariety variety) {
-        Texture general = assets.getBaseTexture();
-        Texture decompose = assets.getDecomposeTexture();
-
-        switch(variety) {
-            case MeleeCombatant: return getMeleeAnimations(general, decompose);
-            case SeaCombatant: return getSeaAnimations(general, decompose);
-            case RangedCombatant: return getRangedAnimations(general, decompose);
-            default: throw new UnsupportedOperationException();
-        }
-    }
-
-    private Map<Identifier, Animation> getMeleeAnimations(Texture general, Texture decompose) {
-        AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(UnitAnimation.Idle, AnimationLayouts.idleSchema(), general);
-        builder.set(UnitAnimation.Move, AnimationLayouts.moveSchema(), general);
-        builder.set(UnitAnimation.Attack, AnimationLayouts.meleeAttackSchema(), general);
-        builder.set(UnitAnimation.Death, AnimationLayouts.deathSchema(), general);
-        builder.set(UnitAnimation.Decompose, AnimationLayouts.decomposeSchema(), decompose);
-        return builder.build();
-    }
-
-    private Map<Identifier, Animation> getSeaAnimations(Texture general, Texture decompose) {
-        AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(UnitAnimation.Idle, AnimationLayouts.idleSchema(assets.getSize()), general);
-        builder.set(UnitAnimation.Move, AnimationLayouts.idleSchema(assets.getSize()), general);
-        builder.set(UnitAnimation.Attack, AnimationLayouts.idleSchema(assets.getSize()), general);
-        builder.set(UnitAnimation.Death, AnimationLayouts.boatDeathSchema(), general);
-        builder.set(UnitAnimation.Decompose, AnimationLayouts.boatDecomposeSchema(), decompose);
-        return builder.build();
-    }
-
-    private Map<Identifier, Animation> getRangedAnimations(Texture general, Texture decompose) {
-        AnimationSetBuilder builder = new AnimationSetBuilder();
-        builder.set(UnitAnimation.Idle, AnimationLayouts.idleSchema(), general);
-        builder.set(UnitAnimation.Move, AnimationLayouts.moveSchema(), general);
-        builder.set(UnitAnimation.Attack, AnimationLayouts.rangedAttackSchema(), general);
-        builder.set(UnitAnimation.Death, AnimationLayouts.deathSchema(), general);
-        builder.set(UnitAnimation.Decompose, AnimationLayouts.decomposeSchema(), decompose);
-        return builder.build();
-    }
-
-    private Map<Identifier, Sound> getSounds(CombatantAssets assets, CombatantVariety variety) {
-        switch(variety) {
-            case MeleeCombatant: return getMeleeSounds(assets);
-            case SeaCombatant:
-            case RangedCombatant: return getRangedSounds(assets);
-            default: throw new UnsupportedOperationException();
-        }
-    }
-
-    private Map<Identifier, Sound> getMeleeSounds(CombatantAssets assets) {
-        Map<Identifier, Sound> sounds = new HashMap<>();
-        sounds.put(UnitSound.Acknowledge, assets.getAcknowledgeSound());
-        sounds.put(UnitSound.Selected, assets.getSelectedSound());
-        sounds.put(UnitSound.Attack, assets.getAttackSound());
-        sounds.put(UnitSound.Die, assets.getDieSound());
-        sounds.put(UnitSound.Ready, assets.getReadySound());
-        sounds.put(UnitSound.Captured, assets.getCaptureSound());
-        sounds.put(UnitSound.Rescued, assets.getRescueSound());
-        return sounds;
-    }
-
-    private Map<Identifier, Sound> getRangedSounds(CombatantAssets assets) {
-        Map<Identifier, Sound> sounds = getMeleeSounds(assets);
-        sounds.put(UnitSound.Hit, assets.getHitSound());
-        return sounds;
-    }
-
-    private UnitStyle getUnitStyle(CombatantAssets assets) {
+    private UnitStyle getUnitStyle() {
         UnitStyle unitStyle = new UnitStyle();
         unitStyle.selection = assets.getSelectionTexture();
         return unitStyle;
+    }
+
+    private AnimationCatalog getAnimations() {
+        if (animations == null) {
+            animations = newAnimations(assets, type);
+        }
+        return animations;
+    }
+
+    private AnimationCatalog newAnimations(CombatantAssets assets, CombatantVariety variety) {
+        switch(variety) {
+            case FlyingCombatant: return new FlyingAnimations(assets);
+            case MeleeCombatant: return new MeleeAnimations(assets);
+            case NavalCombatant: return new NavalAnimations(assets);
+            case RangedCombatant: return new RangedAnimations(assets);
+            case ScoutCombatant: return new ScoutAnimations(assets);
+            case SiegeCombatant: return new SiegeAnimations(assets);
+            case SubmarineCombatant: return new SubmarineAnimations(assets);
+            default: throw new UnsupportedOperationException(variety.name());
+        }
+    }
+
+    private SoundCatalog getSounds() {
+        if (sounds == null) {
+            sounds = newSounds(assets, type);
+        }
+        return sounds;
+    }
+
+    private SoundCatalog newSounds(CombatantAssets assets, CombatantVariety variety) {
+        switch(variety) {
+            case FlyingCombatant:
+            case ScoutCombatant:
+            case MeleeCombatant: return new MeleeSounds(assets);
+            case NavalCombatant:
+            case SiegeCombatant:
+            case SubmarineCombatant:
+            case RangedCombatant: return new RangedSounds(assets);
+            default: throw new UnsupportedOperationException(variety.name());
+        }
     }
 }

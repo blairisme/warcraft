@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
-import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannon;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannonball;
 import static com.evilbird.warcraft.item.unit.UnitType.GiantTurtle;
 
 /**
@@ -43,7 +43,7 @@ public class GiantTurtleFactory extends CombatantFactoryBase
 
     @Override
     public Combatant get(Identifier type) {
-        RangedCombatant result = builder.newSeaCombatant();
+        RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(1.5f);
         result.setArmour(10);
         result.setPiercingDamage(2);
@@ -51,13 +51,12 @@ public class GiantTurtleFactory extends CombatantFactoryBase
         result.setHealth(100);
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("GiantTurtle", result));
-
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Water);
         result.setAttackRange(tiles(4));
         result.setSight(tiles(8));
         result.setType(GiantTurtle);
-        result.setProjectileType(Cannon);
+        result.setProjectileType(Cannonball);
         return result;
     }
 }

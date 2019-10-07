@@ -13,12 +13,12 @@ import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.item.data.DataFactory;
+import com.evilbird.warcraft.item.effect.EffectFactory;
 import com.evilbird.warcraft.item.layer.LayerFactory;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.projectile.ProjectileFactory;
 import com.evilbird.warcraft.item.projectile.ProjectileType;
-import com.evilbird.warcraft.item.ui.confirmation.ConfirmFactory;
-import com.evilbird.warcraft.item.ui.confirmation.ConfirmType;
+import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.ui.display.HudFactory;
 import com.evilbird.warcraft.item.ui.display.HudType;
 import com.evilbird.warcraft.item.ui.placement.PlaceholderFactory;
@@ -40,14 +40,14 @@ public class WarcraftItemFactory extends GameFactorySet<Item> implements ItemFac
         DataFactory dataFactory,
         LayerFactory layerFactory,
         UnitFactory unitFactory,
-        ConfirmFactory confirmFactory,
+        EffectFactory effectFactory,
         HudFactory hudFactory,
         PlaceholderFactory placeholderFactory,
         ProjectileFactory projectileFactory)
     {
         addProvider(unitFactory);
         addProvider(dataFactory);
-        addProvider(ConfirmType.class, confirmFactory);
+        addProvider(EffectType.class, effectFactory);
         addProvider(PlaceholderType.class, placeholderFactory);
         addProvider(HudType.class, hudFactory);
         addProvider(LayerIdentifier.class, layerFactory);

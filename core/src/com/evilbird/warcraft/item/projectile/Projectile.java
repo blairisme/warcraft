@@ -9,9 +9,8 @@
 
 package com.evilbird.warcraft.item.projectile;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.Viewable;
-
-import javax.inject.Inject;
 
 /**
  * Represents an object that can be propelled towards an enemy to cause damage.
@@ -22,8 +21,8 @@ public class Projectile extends Viewable
 {
     private static final transient int PROJECTILE_SPEED = 500;
 
-    @Inject
-    public Projectile() {
+    public Projectile(Skin skin) {
+        super(skin);
     }
 
     public int getSpeed() {

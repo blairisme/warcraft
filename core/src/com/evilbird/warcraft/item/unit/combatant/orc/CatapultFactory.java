@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
-import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannon;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannonball;
 import static com.evilbird.warcraft.item.unit.UnitType.Catapult;
 
 /**
@@ -56,7 +56,7 @@ public class CatapultFactory extends CombatantFactoryBase
         result.setAttackRange(tiles(8));
         result.setSight(tiles(9));
         result.setType(Catapult);
-        result.setProjectileType(Cannon);
+        result.setProjectileType(Cannonball);
         return result;
     }
 }

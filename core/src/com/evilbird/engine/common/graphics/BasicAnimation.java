@@ -34,6 +34,10 @@ public class BasicAnimation implements DirectionalAnimation
     private Animation<TextureRegion> animation;
     private Map<Range<Float>, Array<TextureRegion>> frames;
 
+    public BasicAnimation(BasicAnimation another) {
+        this(another.direction, another.duration, another.frames, another.mode);
+    }
+
     public BasicAnimation(
         float direction,
         float duration,
@@ -45,6 +49,10 @@ public class BasicAnimation implements DirectionalAnimation
         this.mode = mode;
         this.frames = frames;
         reset();
+    }
+
+    public BasicAnimation copy() {
+        return new BasicAnimation(this);
     }
 
     public Map<Range<Float>, Array<TextureRegion>> getFrames() {

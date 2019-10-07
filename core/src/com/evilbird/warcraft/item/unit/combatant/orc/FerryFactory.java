@@ -42,7 +42,7 @@ public class FerryFactory extends CombatantFactoryBase
 
     @Override
     public Combatant get(Identifier type) {
-        RangedCombatant result = builder.newSeaCombatant();
+        RangedCombatant result = builder.newRangedCombatant();
         result.setAttackRange(tiles(1));
         result.setAttackSpeed(0);
         result.setArmour(0);

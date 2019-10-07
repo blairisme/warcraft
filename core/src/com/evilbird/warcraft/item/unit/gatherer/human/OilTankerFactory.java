@@ -54,7 +54,7 @@ public class OilTankerFactory extends GathererFactoryBase
 
     @Override
     public Gatherer get(Identifier type) {
-        Gatherer result = builder.newSeaGatherer();
+        Gatherer result = builder.build();
         setAttackAttributes(result);
         setGatheringAttributes(result);
         setIdentityAttributes(result);

@@ -40,7 +40,7 @@ public class OilRigFactory extends BuildingFactoryBase
 
     @Override
     public Building get(Identifier type) {
-        Building result = builder.newResourceExtractor();
+        Building result = builder.buildExtractor();
         result.setArmour(20);
         result.setHealth(650);
         result.setHealthMaximum(650);

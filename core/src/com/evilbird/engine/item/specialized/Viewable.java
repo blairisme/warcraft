@@ -82,6 +82,10 @@ public class Viewable extends ItemBasic implements Animated, Audible, Directiona
         return skin;
     }
 
+    public boolean hasAnimation(Identifier id) {
+        return style.animations.containsKey(id);
+    }
+
     @Override
     public void setSkin(Skin skin) {
         Validate.notNull(skin);

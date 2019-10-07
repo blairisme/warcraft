@@ -81,8 +81,11 @@ public class UnitDimensions
         if (type.isSiege()) {
             return SMALL;
         }
+        if (type.isFlying()) {
+            return new GridPoint2(80, 80); //REmove
+        }
         if (type.isShip()) {
-            return type.isGatherer() || type.isSubmarine() ? SMALLISH : MEDIUM;
+            return type.isGatherer() || type.isSubmarine() || type.isTransport() ? SMALLISH : MEDIUM;
         }
         return EXTRA_SMALL;
     }
