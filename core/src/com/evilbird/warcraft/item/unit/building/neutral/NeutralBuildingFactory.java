@@ -26,7 +26,11 @@ import javax.inject.Inject;
 public class NeutralBuildingFactory extends GameFactorySet<Building>
 {
     @Inject
-    public NeutralBuildingFactory(CircleOfPowerFactory circleOfPowerFactory) {
+    public NeutralBuildingFactory(
+        CircleOfPowerFactory circleOfPowerFactory,
+        DarkPortalFactory darkPortalFactory)
+    {
         addProvider(UnitType.CircleOfPower, circleOfPowerFactory);
+        addProvider(UnitType.DarkPortal, darkPortalFactory);
     }
 }

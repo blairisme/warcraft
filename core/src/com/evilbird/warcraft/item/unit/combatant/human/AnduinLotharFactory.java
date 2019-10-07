@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.unit.combatant.orc;
+package com.evilbird.warcraft.item.unit.combatant.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
@@ -17,29 +17,29 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.item.unit.UnitType.Zuljin;
+import static com.evilbird.warcraft.item.unit.UnitType.AnduinLothar;
 
 /**
- * Instances of this factory create the Troll Axethrower hero Zuljin.
+ * Instances of this factory create the Human hero Anduin Lothar.
  *
  * @author Blair Butterworth
  */
-public class ZuljinFactory extends TrollAxethrowerFactory
+public class AnduinLotharFactory extends KnightFactory
 {
     @Inject
-    public ZuljinFactory(Device device) {
+    public AnduinLotharFactory(Device device) {
         this(device.getAssetStorage());
     }
 
-    public ZuljinFactory(AssetManager manager) {
+    public AnduinLotharFactory(AssetManager manager) {
         super(manager);
     }
 
     @Override
     public Combatant get(Identifier type) {
         Combatant result = super.get(type);
-        result.setIdentifier(objectIdentifier("Zuljin", result));
-        result.setType(Zuljin);
+        result.setIdentifier(objectIdentifier("AnduinLothar", result));
+        result.setType(AnduinLothar);
         return result;
     }
 }

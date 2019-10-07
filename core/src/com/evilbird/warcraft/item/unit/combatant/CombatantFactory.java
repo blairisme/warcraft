@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.unit.combatant;
 import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.combatant.human.HumanCombatantFactory;
+import com.evilbird.warcraft.item.unit.combatant.neutral.NeutralCombatantFactory;
 import com.evilbird.warcraft.item.unit.combatant.orc.OrcCombatantFactory;
 
 import javax.inject.Inject;
@@ -27,9 +28,11 @@ public class CombatantFactory extends GameFactorySet<Combatant>
     @Inject
     public CombatantFactory(
         HumanCombatantFactory humanCombatantFactory,
+        NeutralCombatantFactory neutralCombatantFactory,
         OrcCombatantFactory orcCombatantFactory)
     {
         addProvider(humanCombatantFactory);
+        addProvider(neutralCombatantFactory);
         addProvider(orcCombatantFactory);
     }
 }

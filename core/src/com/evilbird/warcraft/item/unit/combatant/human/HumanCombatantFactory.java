@@ -26,6 +26,7 @@ public class HumanCombatantFactory extends GameFactorySet<Combatant>
 {
     @Inject
     public HumanCombatantFactory(
+        AnduinLotharFactory anduinLotharFactory,
         BallistaFactory ballistaFactory,
         BattleshipFactory battleshipFactory,
         DwarvenDemolitionSquadFactory dwarvenDemolitionSquadFactory,
@@ -42,6 +43,7 @@ public class HumanCombatantFactory extends GameFactorySet<Combatant>
         PaladinFactory paladinFactory,
         TransportFactory transportFactory)
     {
+        addProvider(UnitType.AnduinLothar, anduinLotharFactory);
         addProvider(UnitType.Ballista, ballistaFactory);
         addProvider(UnitType.Battleship, battleshipFactory);
         addProvider(UnitType.DwarvenDemolitionSquad, dwarvenDemolitionSquadFactory);

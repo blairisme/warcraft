@@ -133,6 +133,7 @@ public enum UnitType implements ItemType
     Boar,
     Seal,
     Sheep,
+    Skeleton,
 
     /* Neutral - Resource */
     GoldMine,
