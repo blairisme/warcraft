@@ -19,7 +19,7 @@ import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import javax.inject.Inject;
 
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Oil;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Gathering;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.ExtractOil;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.IdleOil;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
@@ -53,7 +53,7 @@ public class GatherObtainOil extends GatherObtain
         exclusion.disable(gatherer);
 
         ResourceExtractor resource = (ResourceExtractor)getTarget();
-        resource.setAnimation(Gathering);
+        resource.setAnimation(ExtractOil);
         resource.setAssociatedItem(gatherer);
 
         return super.initialize();

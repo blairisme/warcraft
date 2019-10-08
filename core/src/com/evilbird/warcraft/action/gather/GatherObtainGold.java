@@ -19,7 +19,7 @@ import com.evilbird.warcraft.item.unit.resource.Resource;
 import javax.inject.Inject;
 
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Gathering;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.ExtractGold;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.IdleGold;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
@@ -53,7 +53,7 @@ public class GatherObtainGold extends GatherObtain
         exclusion.disable(gatherer);
 
         Resource resource = (Resource)getTarget();
-        resource.setAnimation(Gathering);
+        resource.setAnimation(ExtractGold);
         resource.setAssociatedItem(gatherer);
 
         return super.initialize();

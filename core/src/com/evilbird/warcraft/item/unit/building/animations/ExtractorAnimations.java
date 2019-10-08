@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.warcraft.item.common.production.ProductionTimes;
 import com.evilbird.warcraft.item.unit.building.BuildingAssets;
 
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Gathering;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.ExtractOil;
 
 /**
  * Defines a catalog of animations as laid out in resource extractor building
@@ -31,7 +31,7 @@ public class ExtractorAnimations extends BuildingAnimations
     }
 
     private void gatherOil(Texture base, GridPoint2 size) {
-        animation(Gathering)
+        animation(ExtractOil)
             .withTexture(base)
             .withSequence(size.y * 2, 1)
             .withSize(size)

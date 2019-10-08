@@ -86,7 +86,7 @@ public class DragonAnimations extends AnimationCatalog
             .withTexture(base)
             .withSequence(0, 4)
             .withSize(size)
-            .withInterval(0.12f)
+            .withInterval(0.14f)
             .looping();
     }
 }

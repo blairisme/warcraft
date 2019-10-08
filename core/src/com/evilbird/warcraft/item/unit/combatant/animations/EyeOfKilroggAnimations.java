@@ -15,6 +15,7 @@ import com.evilbird.engine.common.graphics.AnimationCatalog;
 import com.evilbird.warcraft.item.unit.combatant.CombatantAssets;
 
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 
 /**
  * Defines Eye of Kilrogg animations as laid out in Eye of Kilrogg texture
@@ -31,8 +32,9 @@ public class EyeOfKilroggAnimations extends AnimationCatalog
     }
 
     public EyeOfKilroggAnimations(Texture texture) {
-        super(1);
+        super(2);
 
+        alias(Move, Idle);
         animation(Idle)
             .withTexture(texture)
             .withSequence(0, 1)

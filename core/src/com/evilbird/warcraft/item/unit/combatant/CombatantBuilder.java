@@ -18,7 +18,6 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitStyle;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.animations.DaemonAnimations;
-import com.evilbird.warcraft.item.unit.combatant.animations.SpellCasterAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.DragonAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.EyeOfKilroggAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.GryphonAnimations;
@@ -27,10 +26,13 @@ import com.evilbird.warcraft.item.unit.combatant.animations.NavalAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.RangedAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.ScoutAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.SiegeAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.SpellCasterAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.SubmarineAnimations;
 import com.evilbird.warcraft.item.unit.combatant.sounds.ConjuredSounds;
 import com.evilbird.warcraft.item.unit.combatant.sounds.MeleeSounds;
 import com.evilbird.warcraft.item.unit.combatant.sounds.RangedSounds;
+
+import java.util.Random;
 
 import static com.evilbird.warcraft.item.unit.UnitType.Daemon;
 import static com.evilbird.warcraft.item.unit.UnitType.Dragon;
@@ -45,8 +47,9 @@ import static com.evilbird.warcraft.item.unit.UnitType.GryphonRider;
  */
 public class CombatantBuilder
 {
-    private CombatantAssets assets;
+    private Random random;
     private UnitType type;
+    private CombatantAssets assets;
     private SoundCatalog sounds;
     private AnimationCatalog animations;
 
@@ -55,11 +58,12 @@ public class CombatantBuilder
         this.type = type;
         this.sounds = null;
         this.animations = null;
+        this.random = new Random();
     }
 
     public Combatant newMeleeCombatant() {
         Combatant result = new Combatant(getSkin());
-        result.setAnimation(UnitAnimation.Idle);
+        result.setAnimation(UnitAnimation.Idle, random.nextFloat());
         result.setSelected(false);
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);

@@ -12,10 +12,9 @@ package com.evilbird.warcraft.item.unit.resource;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.graphics.AnimationCatalog;
-import com.evilbird.warcraft.item.unit.resource.ResourceAssets;
 
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Death;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Gathering;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.ExtractGold;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static java.util.Objects.requireNonNull;
 
@@ -81,7 +80,7 @@ public class ResourceAnimations extends AnimationCatalog
     }
 
     private void gathering(Texture base, GridPoint2 size) {
-        animation(Gathering)
+        animation(ExtractGold)
             .withTexture(base)
             .withSequence(size.y, 1)
             .withSize(size)

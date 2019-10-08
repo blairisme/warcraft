@@ -11,7 +11,6 @@ package com.evilbird.warcraft.item.unit.resource;
 
 import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
-import com.evilbird.warcraft.item.unit.resource.ResourceAssets;
 
 import static com.evilbird.warcraft.item.unit.UnitSound.Die;
 import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
