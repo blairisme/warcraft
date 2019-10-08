@@ -36,6 +36,8 @@ import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.action.produce.ProduceUpgradeActions;
 import com.evilbird.warcraft.action.select.SelectActions;
 import com.evilbird.warcraft.action.select.SelectFactory;
+import com.evilbird.warcraft.action.transport.TransportActions;
+import com.evilbird.warcraft.action.transport.TransportFactory;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -64,7 +66,8 @@ public class WarcraftActionFactory implements ActionFactory
         MenuFactory menuFactory,
         PlaceholderFactory placeholderFactory,
         SelectFactory selectFactory,
-        ProduceFactory produceFactory)
+        ProduceFactory produceFactory,
+        TransportFactory transportFactory)
     {
         actions = new HashMap<>();
 
@@ -79,6 +82,7 @@ public class WarcraftActionFactory implements ActionFactory
         registerProvider(SelectActions.values(), selectFactory);
         registerProvider(ProduceUnitActions.values(), produceFactory);
         registerProvider(ProduceUpgradeActions.values(), produceFactory);
+        registerProvider(TransportActions.values(), transportFactory);
     }
 
     @Override

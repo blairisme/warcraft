@@ -39,13 +39,16 @@ public class TransportUnload extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Unit vessel = (Unit)getTarget();
+        Unit vessel = (Unit)getItem();
         for (Item associate: vessel.getAssociatedItems()) {
-            MovableUnit disembarkee = (MovableUnit)associate;
-            vessel.removeAssociatedItem(disembarkee);
-
-            movement.reposition(disembarkee, vessel);
-            exclusion.restore(disembarkee);
+            MovableUnit unit = (MovableUnit)associate;
+            if (movement.reposition(unit, vessel)) {
+                vessel.removeAssociatedItem(unit);
+                exclusion.restore(unit);
+            }
+        }
+        if (vessel.hasAssociatedItems()) {
+            setError(new TransportFailed("Unable to offload all units"));
         }
         return ActionComplete;
     }

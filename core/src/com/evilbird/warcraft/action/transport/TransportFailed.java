@@ -9,15 +9,16 @@
 
 package com.evilbird.warcraft.action.transport;
 
-import com.evilbird.engine.action.ActionIdentifier;
+import com.evilbird.engine.action.ActionException;
 
 /**
- * Defines options of specifying transport action varieties.
+ * Thrown when transportation fails.
  *
  * @author Blair Butterworth
  */
-public enum TransportActions implements ActionIdentifier
+public class TransportFailed extends ActionException
 {
-    TransportEmbark,
-    TransportDisembark
+    public TransportFailed(String message) {
+        super(message);
+    }
 }

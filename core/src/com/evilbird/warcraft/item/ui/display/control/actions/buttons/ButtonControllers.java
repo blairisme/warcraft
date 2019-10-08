@@ -17,6 +17,7 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.common.Gath
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.common.LumberMillButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.common.NoButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.common.OilTankerButtons;
+import com.evilbird.warcraft.item.ui.display.control.actions.buttons.common.TransportButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.BarracksButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.OilTankerBuildings;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.PeasantAdvancedBuildings;
@@ -44,6 +45,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcherCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
 import static com.evilbird.warcraft.item.unit.UnitType.Encampment;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
+import static com.evilbird.warcraft.item.unit.UnitType.Ferry;
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 import static com.evilbird.warcraft.item.unit.UnitType.GreatHall;
 import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
@@ -54,6 +56,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.Peon;
 import static com.evilbird.warcraft.item.unit.UnitType.PigFarm;
 import static com.evilbird.warcraft.item.unit.UnitType.Shipyard;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
+import static com.evilbird.warcraft.item.unit.UnitType.Transport;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollDestroyer;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollLumberMill;
@@ -77,6 +80,7 @@ public class ButtonControllers
         registerBuildingMenus();
         registerCombatantButtons();
         registerGathererButtons();
+        registerTransportButtons();
     }
 
     public ButtonController getButtonController(Item item, ActionPaneView view) {
@@ -131,6 +135,12 @@ public class ButtonControllers
 
         registerController(SimpleBuildings, OilTanker, new OilTankerBuildings());
         registerController(SimpleBuildings, TrollTanker, new TrollTankerBuildings());
+    }
+
+    private void registerTransportButtons() {
+        TransportButtons transportButtons = new TransportButtons();
+        registerController(Actions, Transport, transportButtons);
+        registerController(Actions, Ferry, transportButtons);
     }
 
     private void registerController(ActionPaneView view, UnitType type, ButtonController controller) {

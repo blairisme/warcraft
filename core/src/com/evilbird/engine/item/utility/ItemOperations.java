@@ -173,7 +173,7 @@ public class ItemOperations
         Vector2 targetSize = target.getSize();
 
         float targetDimension = Math.max(targetSize.x, targetSize.y);
-        float targetRadius = targetDimension / 2;
+        float targetRadius = targetDimension / 1.5f; //targetDimension / 2;
 
         Vector2 locusPosition = locus.getPosition(Alignment.Center);
         Vector2 targetPosition = target.getPosition(Alignment.Center);

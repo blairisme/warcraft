@@ -21,6 +21,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.TouchOfDeath;
 import static com.evilbird.warcraft.item.unit.UnitType.DeathKnight;
 
 /**
@@ -50,12 +51,12 @@ public class DeathKnightFactory extends CombatantFactoryBase
         result.setHealth(40);
         result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("DeathKnight", result));
-
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setAttackRange(tiles(4));
         result.setSight(tiles(5));
         result.setType(DeathKnight);
+        result.setProjectileType(TouchOfDeath);
         return result;
     }
 }

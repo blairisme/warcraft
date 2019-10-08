@@ -21,6 +21,7 @@ import com.evilbird.warcraft.action.construct.ConstructActions;
 import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.item.common.movement.MovementCapability;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
@@ -73,6 +74,8 @@ import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxBegin;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxEnd;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectBoxResize;
 import static com.evilbird.warcraft.action.select.SelectActions.SelectInvert;
+import static com.evilbird.warcraft.action.transport.TransportActions.TransportDisembark;
+import static com.evilbird.warcraft.action.transport.TransportActions.TransportEmbark;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
@@ -80,6 +83,7 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplace
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Standalone;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Air;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
+import static com.evilbird.warcraft.item.common.movement.MovementCapability.ShallowWater;
 import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasResources;
@@ -98,6 +102,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlacehold
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isResource;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelectable;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isTransport;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Oil;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
@@ -114,6 +119,7 @@ import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButton
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildSimpleButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DisembarkButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedUpgradeButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StopButton;
 import static com.evilbird.warcraft.item.ui.display.control.status.selection.SelectionButtonType.FocusButton;
@@ -146,6 +152,7 @@ public class Interactions
         gatherInteractions();
         buildInteractions();
         trainInteractions();
+        transportInteractions();
         upgradeInteractions();
         menuInteractions();
         cameraInteractions();
@@ -421,6 +428,12 @@ public class Interactions
             .appliedAs(confirmedAction());
 
         interactions.addAction(MoveToLocation, ConfirmLocation)
+            .whenSelected(both(isCorporeal(), isMovableOver(ShallowWater)))
+            .whenTarget(hasType(Sea, Shore, OilPatch, OpaqueFogSection))
+            .appliedTo(Selected)
+            .appliedAs(confirmedAction());
+
+        interactions.addAction(MoveToLocation, ConfirmLocation)
             .whenSelected(both(isCorporeal(), isMovableOver(Air)))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
@@ -429,6 +442,19 @@ public class Interactions
             .whenSelected(both(isCorporeal(), isMovable()))
             .whenTarget(StopButton)
             .withAction(MoveToLocation)
+            .appliedTo(Selected);
+    }
+
+    private void transportInteractions() {
+        interactions.addAction(TransportEmbark, ConfirmLocation)
+            .whenSelected(both(isCorporeal(), isMovableOver(Land)))
+            .whenTarget(isTransport())
+            .appliedTo(Selected)
+            .appliedAs(confirmedAction());
+
+        interactions.addAction(TransportDisembark)
+            .whenTarget(DisembarkButton)
+            .whenSelected(isTransport())
             .appliedTo(Selected);
     }
 

@@ -342,6 +342,8 @@ public class UnitOperations
         return false;
     }
 
+
+
     /**
      * Determines if the given {@link Item} is a critter.
      *
@@ -365,6 +367,15 @@ public class UnitOperations
             Unit unit = (Unit)item;
             UnitType type = (UnitType)unit.getType();
             return type.isFoodProducer();
+        }
+        return false;
+    }
+
+    public static boolean isTransport(Item item) {
+        if (item instanceof Unit) {
+            Unit unit = (Unit)item;
+            UnitType type = (UnitType)unit.getType();
+            return type.isTransport();
         }
         return false;
     }

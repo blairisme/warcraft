@@ -19,5 +19,6 @@ public enum MovementCapability
     None,
     Land,
     Water,
+    ShallowWater,
     Air
 }

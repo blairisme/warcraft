@@ -122,6 +122,10 @@ public class UnitPredicates
         return UnitOperations::isAttacker;
     }
 
+    public static Predicate<Item> isTransport() {
+        return UnitOperations::isTransport;
+    }
+
     /**
      * Returns a condition that determines if the given {@link Item} is a
      * critter.

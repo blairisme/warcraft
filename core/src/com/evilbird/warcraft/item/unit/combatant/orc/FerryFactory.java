@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
+import static com.evilbird.warcraft.item.common.movement.MovementCapability.ShallowWater;
 import static com.evilbird.warcraft.item.unit.UnitType.Ferry;
 
 /**
@@ -52,7 +52,7 @@ public class FerryFactory extends CombatantFactoryBase
         result.setHealthMaximum(150);
         result.setIdentifier(objectIdentifier("Ferry", result));
         result.setMovementSpeed(8 * 10);
-        result.setMovementCapability(Water);
+        result.setMovementCapability(ShallowWater);
         result.setSight(tiles(8));
         result.setType(Ferry);
         return result;

@@ -41,8 +41,8 @@ public class TransportFactory implements ActionProvider
     public Action get(ActionIdentifier identifier) {
         Validate.isInstanceOf(TransportActions.class, identifier);
         switch ((TransportActions)identifier) {
-            case Embark: return getAction(loadPool, identifier);
-            case Disembark: return getAction(unloadPool, identifier);
+            case TransportEmbark: return getAction(loadPool, identifier);
+            case TransportDisembark: return getAction(unloadPool, identifier);
             default: throw new UnsupportedOperationException();
         }
     }

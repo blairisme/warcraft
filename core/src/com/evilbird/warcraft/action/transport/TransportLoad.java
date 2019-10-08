@@ -33,6 +33,7 @@ public class TransportLoad extends StateTransitionAction
         MoveToItemAction reposition,
         TransportEmbark embark)
     {
+        super(reposition, embark);
         this.reposition = reposition;
         this.embark = embark;
     }
