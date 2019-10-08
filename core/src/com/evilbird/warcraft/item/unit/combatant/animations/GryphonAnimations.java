@@ -21,37 +21,36 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Defines a catalog of animations as laid out in attacking flying unit
- * texture atlas files.
+ * Defines a catalog of animations as laid out in Gryphon texture atlas files.
  *
  * @author Blair Butterworth
  */
-public class FlyingAnimations extends AnimationCatalog
+public class GryphonAnimations extends AnimationCatalog
 {
     /**
      * Creates a new instance of this class given a {@link CombatantAssets}
      * bundle, containing the {@link CombatantAssets#getBaseTexture() base}
-     * texture required by flying combatant animations. Animations contained
+     * texture required by Gryphon animations. Animations contained
      * in this catalog will use the size specified by the asset bundle.
      *
      * @param assets an asset bundle, which must contain a valid base texture.
      *
      * @throws NullPointerException if the given asset bundle is {@code null}.
      */
-    public FlyingAnimations(CombatantAssets assets) {
+    public GryphonAnimations(CombatantAssets assets) {
         this(assets.getBaseTexture(), assets.getSize());
     }
 
     /**
      * Creates a new instance of this class given the texture that will used to
-     * display flying combatant animations.
+     * display Gryphon animations.
      *
      * @param base  a texture used for idle, movement and death animations.
      * @param size  the dimensions of the flying unit.
      *
      * @throws NullPointerException if the given asset bundle is {@code null}.
      */
-    public FlyingAnimations(Texture base, GridPoint2 size) {
+    public GryphonAnimations(Texture base, GridPoint2 size) {
         super(4);
 
         requireNonNull(base);
@@ -87,7 +86,7 @@ public class FlyingAnimations extends AnimationCatalog
             .withTexture(base)
             .withSequence(0, 4)
             .withSize(size)
-            .withInterval(0.10f)
+            .withInterval(0.20f)
             .looping();
     }
 }

@@ -63,19 +63,19 @@
   <tileoffset x="-16" y="16"/>
   <image source="../../textures/orc/unit/peon.png" width="576" height="936"/>
  </tileset>
- <tileset firstgid="1029" name="Ferry" tilewidth="80" tileheight="80" tilecount="8" columns="4">
-  <image source="../../textures/orc/unit/ferry.png" width="360" height="216"/>
+ <tileset firstgid="1029" name="Ferry" tilewidth="80" tileheight="80" tilecount="14" columns="7">
+  <image source="../../textures/orc/unit/ferry.png" width="576" height="216"/>
  </tileset>
- <tileset firstgid="1037" name="Watch Tower" tilewidth="64" tileheight="64" tilecount="2" columns="1">
+ <tileset firstgid="1043" name="Watch Tower" tilewidth="64" tileheight="64" tilecount="2" columns="1">
   <image source="../../textures/orc/building/winter/watch_tower.png" width="64" height="128"/>
  </tileset>
- <tileset firstgid="1039" name="Seal" tilewidth="32" tileheight="32" tilecount="16" columns="8">
+ <tileset firstgid="1045" name="Seal" tilewidth="32" tileheight="32" tilecount="16" columns="8">
   <image source="../../textures/neutral/unit/seal.png" width="256" height="64"/>
  </tileset>
- <tileset firstgid="1055" name="Encampment" tilewidth="96" tileheight="96" tilecount="2" columns="1">
+ <tileset firstgid="1061" name="Encampment" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/orc/building/winter/encampment.png" width="96" height="192"/>
  </tileset>
- <tileset firstgid="1057" name="Dockyard" tilewidth="96" tileheight="96" tilecount="2" columns="1">
+ <tileset firstgid="1063" name="Dockyard" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/orc/building/winter/dockyard.png" width="96" height="192"/>
  </tileset>
  <layer id="1" name="Map" width="96" height="96">
@@ -127,22 +127,22 @@
   <object id="15" name="OilPatch3" type="OilPatch" gid="385" x="1696" y="3008" width="96" height="96"/>
   <object id="16" name="OilPatch4" type="OilPatch" gid="385" x="672" y="1728" width="96" height="96"/>
   <object id="17" name="OilPatch5" type="OilPatch" gid="385" x="1440" y="2176" width="96" height="96"/>
-  <object id="20" name="Seal1" type="Seal" gid="1039" x="384" y="1472" width="32" height="32"/>
-  <object id="21" name="Seal2" type="Seal" gid="1039" x="448" y="1440" width="32" height="32"/>
-  <object id="22" name="Seal3" type="Seal" gid="1039" x="1184" y="640" width="32" height="32"/>
-  <object id="23" name="Seal4" type="Seal" gid="1039" x="1248" y="576" width="32" height="32"/>
-  <object id="26" name="Seal5" type="Seal" gid="1039" x="1888" y="1440" width="32" height="32"/>
-  <object id="27" name="Seal6" type="Seal" gid="1039" x="2016" y="1440" width="32" height="32"/>
-  <object id="28" name="Seal7" type="Seal" gid="1039" x="1824" y="1664" width="32" height="32"/>
-  <object id="29" name="Seal8" type="Seal" gid="1039" x="1824" y="1728" width="32" height="32"/>
-  <object id="30" name="Seal9" type="Seal" gid="1039" x="1696" y="1664" width="32" height="32"/>
-  <object id="31" name="Seal10" type="Seal" gid="1039" x="1696" y="1600" width="32" height="32"/>
-  <object id="32" name="Seal11" type="Seal" gid="1039" x="1952" y="1632" width="32" height="32"/>
-  <object id="33" name="Seal12" type="Seal" gid="1039" x="1952" y="1760" width="32" height="32"/>
-  <object id="34" name="Seal13" type="Seal" gid="1039" x="1472" y="2752" width="32" height="32"/>
-  <object id="35" name="Seal14" type="Seal" gid="1039" x="1376" y="2624" width="32" height="32"/>
-  <object id="36" name="Seal15" type="Seal" gid="1039" x="1376" y="2528" width="32" height="32"/>
-  <object id="37" name="Seal15" type="Seal" gid="1039" x="1280" y="2560" width="32" height="32"/>
+  <object id="20" name="Seal1" type="Seal" gid="1045" x="384" y="1472" width="32" height="32"/>
+  <object id="21" name="Seal2" type="Seal" gid="1045" x="448" y="1440" width="32" height="32"/>
+  <object id="22" name="Seal3" type="Seal" gid="1045" x="1184" y="640" width="32" height="32"/>
+  <object id="23" name="Seal4" type="Seal" gid="1045" x="1248" y="576" width="32" height="32"/>
+  <object id="26" name="Seal5" type="Seal" gid="1045" x="1888" y="1440" width="32" height="32"/>
+  <object id="27" name="Seal6" type="Seal" gid="1045" x="2016" y="1440" width="32" height="32"/>
+  <object id="28" name="Seal7" type="Seal" gid="1045" x="1824" y="1664" width="32" height="32"/>
+  <object id="29" name="Seal8" type="Seal" gid="1045" x="1824" y="1728" width="32" height="32"/>
+  <object id="30" name="Seal9" type="Seal" gid="1045" x="1696" y="1664" width="32" height="32"/>
+  <object id="31" name="Seal10" type="Seal" gid="1045" x="1696" y="1600" width="32" height="32"/>
+  <object id="32" name="Seal11" type="Seal" gid="1045" x="1952" y="1632" width="32" height="32"/>
+  <object id="33" name="Seal12" type="Seal" gid="1045" x="1952" y="1760" width="32" height="32"/>
+  <object id="34" name="Seal13" type="Seal" gid="1045" x="1472" y="2752" width="32" height="32"/>
+  <object id="35" name="Seal14" type="Seal" gid="1045" x="1376" y="2624" width="32" height="32"/>
+  <object id="36" name="Seal15" type="Seal" gid="1045" x="1376" y="2528" width="32" height="32"/>
+  <object id="37" name="Seal15" type="Seal" gid="1045" x="1280" y="2560" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="4" name="Player2">
   <properties>
@@ -161,10 +161,10 @@
   <object id="45" name="PigFarm6" type="PigFarm" gid="400" x="2560" y="2432" width="64" height="64"/>
   <object id="46" name="PigFarm7" type="PigFarm" gid="400" x="2432" y="2752" width="64" height="64"/>
   <object id="47" name="TrollLumberMill1" type="TrollLumberMill" gid="398" x="2464" y="2560" width="96" height="96"/>
-  <object id="48" name="Encampment1" type="Encampment" gid="1055" x="2848" y="2912" width="96" height="96"/>
+  <object id="48" name="Encampment1" type="Encampment" gid="1061" x="2848" y="2912" width="96" height="96"/>
   <object id="49" name="Metalworks1" type="Metalworks" gid="394" x="2560" y="3008" width="96" height="96"/>
   <object id="51" name="OilRefinery1" type="OilRefinery" gid="392" x="1952" y="2912" width="96" height="96"/>
-  <object id="52" name="WatchTower1" type="WatchTower" gid="1037" x="1952" y="2752" width="64" height="64"/>
+  <object id="52" name="WatchTower1" type="WatchTower" gid="1043" x="1952" y="2752" width="64" height="64"/>
   <object id="53" name="OilRig1" type="OilRig" gid="402" x="1696" y="3008" width="96" height="96"/>
   <object id="54" name="OilRig2" type="OilRig" gid="402" x="1440" y="2176" width="96" height="96"/>
   <object id="55" name="Grunt1" type="Grunt" gid="733" x="2784" y="3040" width="72" height="72"/>
@@ -185,7 +185,7 @@
   <object id="68" name="TrollDestroyer6" type="TrollDestroyer" gid="429" x="2464" y="1408" width="88" height="88"/>
   <object id="69" name="TrollDestroyer7" type="TrollDestroyer" gid="429" x="2656" y="192" width="88" height="88"/>
   <object id="72" name="Ferry1" type="Ferry" gid="1029" x="2144" y="2880" width="80" height="80"/>
-  <object id="74" name="Dockyard1" type="Dockyard" gid="1057" x="2336" y="2944" width="96" height="96"/>
+  <object id="74" name="Dockyard1" type="Dockyard" gid="1063" x="2336" y="2944" width="96" height="96"/>
  </objectgroup>
  <objectgroup id="5" name="Player1">
   <properties>

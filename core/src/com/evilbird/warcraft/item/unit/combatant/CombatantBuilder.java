@@ -16,7 +16,12 @@ import com.evilbird.engine.common.graphics.AnimationCatalog;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitStyle;
-import com.evilbird.warcraft.item.unit.combatant.animations.FlyingAnimations;
+import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.combatant.animations.DaemonAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.SpellCasterAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.DragonAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.EyeOfKilroggAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.GryphonAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.MeleeAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.NavalAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.RangedAnimations;
@@ -27,6 +32,11 @@ import com.evilbird.warcraft.item.unit.combatant.sounds.ConjuredSounds;
 import com.evilbird.warcraft.item.unit.combatant.sounds.MeleeSounds;
 import com.evilbird.warcraft.item.unit.combatant.sounds.RangedSounds;
 
+import static com.evilbird.warcraft.item.unit.UnitType.Daemon;
+import static com.evilbird.warcraft.item.unit.UnitType.Dragon;
+import static com.evilbird.warcraft.item.unit.UnitType.EyeOfKilrogg;
+import static com.evilbird.warcraft.item.unit.UnitType.GryphonRider;
+
 /**
  * Creates a new {@link Combatant} whose visual and audible presentation is
  * defined by the given {@link CombatantAssets}.
@@ -36,11 +46,11 @@ import com.evilbird.warcraft.item.unit.combatant.sounds.RangedSounds;
 public class CombatantBuilder
 {
     private CombatantAssets assets;
-    private CombatantVariety type;
+    private UnitType type;
     private SoundCatalog sounds;
     private AnimationCatalog animations;
 
-    public CombatantBuilder(CombatantAssets assets, CombatantVariety type) {
+    public CombatantBuilder(CombatantAssets assets, UnitType type) {
         this.assets = assets;
         this.type = type;
         this.sounds = null;
@@ -92,45 +102,68 @@ public class CombatantBuilder
 
     private AnimationCatalog getAnimations() {
         if (animations == null) {
-            animations = newAnimations(assets, type);
+            animations = newAnimations();
         }
         return animations;
     }
 
-    private AnimationCatalog newAnimations(CombatantAssets assets, CombatantVariety variety) {
-        switch(variety) {
-            case ConjuredCombatant:
-            case MeleeCombatant: return new MeleeAnimations(assets);
-            case ConjuredFlyingCombatant:
-            case FlyingCombatant: return new FlyingAnimations(assets);
-            case NavalCombatant: return new NavalAnimations(assets);
-            case RangedCombatant: return new RangedAnimations(assets);
-            case ScoutCombatant: return new ScoutAnimations(assets);
-            case SiegeCombatant: return new SiegeAnimations(assets);
-            case SubmarineCombatant: return new SubmarineAnimations(assets);
-            default: throw new UnsupportedOperationException(variety.name());
+    private AnimationCatalog newAnimations() {
+        AnimationCatalog customAnimations = newCustomAnimations();
+
+        if (customAnimations != null) {
+            return customAnimations;
         }
+        if (type.isSpellCaster()) {
+            return new SpellCasterAnimations(assets);
+        }
+        if (type.isScout()) {
+            return new ScoutAnimations(assets);
+        }
+        if (type.isRanged()) {
+            return new RangedAnimations(assets);
+        }
+        if (type.isNaval()) {
+            return new NavalAnimations(assets);
+        }
+        if (type.isSiege()) {
+            return new SiegeAnimations(assets);
+        }
+        if (type.isSubmarine()) {
+            return new SubmarineAnimations(assets);
+        }
+        return new MeleeAnimations(assets);
+    }
+
+    private AnimationCatalog newCustomAnimations() {
+        if (type == Daemon) {
+            return new DaemonAnimations(assets);
+        }
+        if (type == Dragon) {
+            return new DragonAnimations(assets);
+        }
+        if (type == EyeOfKilrogg) {
+            return new EyeOfKilroggAnimations(assets);
+        }
+        if (type == GryphonRider) {
+            return new GryphonAnimations(assets);
+        }
+        return null;
     }
 
     private SoundCatalog getSounds() {
         if (sounds == null) {
-            sounds = newSounds(assets, type);
+            sounds = newSounds();
         }
         return sounds;
     }
 
-    private SoundCatalog newSounds(CombatantAssets assets, CombatantVariety variety) {
-        switch(variety) {
-            case ConjuredCombatant:
-            case ConjuredFlyingCombatant: return new ConjuredSounds(assets);
-            case FlyingCombatant:
-            case ScoutCombatant:
-            case MeleeCombatant: return new MeleeSounds(assets);
-            case NavalCombatant:
-            case SiegeCombatant:
-            case SubmarineCombatant:
-            case RangedCombatant: return new RangedSounds(assets);
-            default: throw new UnsupportedOperationException(variety.name());
+    private SoundCatalog newSounds() {
+        if (type.isConjured()) {
+            return new ConjuredSounds(assets);
         }
+        if (type.isRanged() || type.isNaval()) {
+            return new RangedSounds(assets);
+        }
+        return new MeleeSounds(assets);
     }
 }

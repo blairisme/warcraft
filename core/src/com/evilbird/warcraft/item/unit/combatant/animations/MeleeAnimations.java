@@ -86,11 +86,11 @@ public class MeleeAnimations extends AnimationCatalog
         requireNonNull(decompose);
         requireNonNull(size);
 
+        attack(base, size);
+        death(base, size);
         idle(base, size);
         move(base, size);
-        death(base, size);
         decompose(decompose, size);
-        attack(base, size);
     }
 
     private void attack(Texture base, GridPoint2 size) {
@@ -124,7 +124,7 @@ public class MeleeAnimations extends AnimationCatalog
     private void death(Texture base, GridPoint2 size) {
         animation(Death)
             .withTexture(base)
-            .withSequence(size.y * 9, 3)
+            .withSequence(size.y * 9, (base.getHeight() / size.y) - 9)
             .withSize(size)
             .withInterval(0.15f)
             .notLooping();

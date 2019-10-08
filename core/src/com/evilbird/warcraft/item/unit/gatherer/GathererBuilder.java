@@ -81,7 +81,7 @@ public class GathererBuilder
 
     private AnimationCatalog getAnimations() {
         if (animations == null) {
-            animations = type.isShip()
+            animations = type.isNaval()
                 ? new SeaGathererAnimations(assets)
                 : new LandGathererAnimations(assets);
         }
@@ -90,7 +90,7 @@ public class GathererBuilder
 
     private SoundCatalog getSounds() {
         if (sounds == null) {
-            sounds = type.isShip()
+            sounds = type.isNaval()
                 ? new SeaGathererSounds(assets)
                 : new LandGathererSounds(assets);
         }

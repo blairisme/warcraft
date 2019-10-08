@@ -141,7 +141,7 @@ public enum UnitType implements ItemType
 
     public UnitAttack getAttack() {
         if (isCombatant()) {
-            if (isShip()) {
+            if (isNaval()) {
                 return Ship;
             }
             if (isSiege()) {
@@ -150,7 +150,7 @@ public enum UnitType implements ItemType
             if (isRanged()) {
                 return Ranged;
             }
-            if (isMagic()) {
+            if (isSpellCaster()) {
                 return Magic;
             }
             return Melee;
@@ -213,7 +213,7 @@ public enum UnitType implements ItemType
         return isBetween(this, AlteracTraitor, UtherLightbringer) || isBetween(this, Chogall, Zuljin);
     }
 
-    public boolean isShip() {
+    public boolean isNaval() {
         return this == ElvenDestroyer || this == Battleship || this == GnomishSubmarine
             || this == OilTanker || this == Transport
             || this == TrollDestroyer || this == OgreJuggernaught || this == GiantTurtle
@@ -233,26 +233,29 @@ public enum UnitType implements ItemType
     }
 
     public boolean isFlying() {
-        return isFlyingAssault() || isFlyingScout();
+        return isFlyingAssault() || isScout();
     }
 
     public boolean isFlyingAssault() {
         return this == GryphonRider || this == Dragon || this == Daemon;
     }
 
-    public boolean isFlyingScout() {
+    public boolean isScout() {
         return this == GnomishFlyingMachine || this == GoblinZeppelin;
     }
 
     public boolean isRanged() {
         return this == ElvenArcher || this == ElvenArcherCaptive || this == ElvenRanger
             || this == TrollAxethrower || this == TrollAxethrowerCaptive || this == TrollBerserker
-            || this == GryphonRider || this == Dragon || this == Zuljin;
+            || this == GryphonRider || this == Dragon || this == Daemon || this == Zuljin;
     }
 
-    public boolean isMagic() {
-        return this == Mage || this == Paladin
-            || this == DeathKnight || this == OgreMage;
+    public boolean isSpellCaster() {
+        return this == Mage || this == DeathKnight || this == OgreMage;
+    }
+
+    public boolean isConjured() {
+        return this == Daemon || this == Skeleton || this == EyeOfKilrogg;
     }
 
     public boolean isFoodProducer() {

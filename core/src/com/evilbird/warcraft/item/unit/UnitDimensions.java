@@ -16,7 +16,9 @@ import static com.evilbird.warcraft.item.unit.UnitType.BombardTower;
 import static com.evilbird.warcraft.item.unit.UnitType.CannonTower;
 import static com.evilbird.warcraft.item.unit.UnitType.Castle;
 import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
+import static com.evilbird.warcraft.item.unit.UnitType.Daemon;
 import static com.evilbird.warcraft.item.unit.UnitType.DarkPortal;
+import static com.evilbird.warcraft.item.unit.UnitType.Dragon;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.Fortress;
 import static com.evilbird.warcraft.item.unit.UnitType.GreatHall;
@@ -82,9 +84,15 @@ public class UnitDimensions
             return SMALL;
         }
         if (type.isFlying()) {
-            return new GridPoint2(80, 80); //REmove
+            if (type == Daemon) {
+                return SMALLISH;
+            }
+            if (type == Dragon) {
+                return MEDIUM;
+            }
+            return new GridPoint2(80, 80); //Remove
         }
-        if (type.isShip()) {
+        if (type.isNaval()) {
             return type.isGatherer() || type.isSubmarine() || type.isTransport() ? SMALLISH : MEDIUM;
         }
         return EXTRA_SMALL;

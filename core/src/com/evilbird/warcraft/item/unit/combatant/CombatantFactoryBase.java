@@ -35,7 +35,7 @@ public abstract class CombatantFactoryBase implements GameFactory<Combatant>
     @Override
     public void load(GameContext context) {
         assets = new CombatantAssets(manager, type);
-        builder = new CombatantBuilder(assets, CombatantVariety.forType(type));
+        builder = new CombatantBuilder(assets, type);
         assets.load();
     }
 

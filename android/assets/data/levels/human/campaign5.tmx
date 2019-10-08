@@ -63,52 +63,52 @@
   <tileoffset x="-16" y="16"/>
   <image source="../../textures/orc/unit/peon.png" width="576" height="936"/>
  </tileset>
- <tileset firstgid="1029" name="Ferry" tilewidth="80" tileheight="80" tilecount="8" columns="4">
-  <image source="../../textures/orc/unit/ferry.png" width="360" height="216"/>
+ <tileset firstgid="1029" name="Ferry" tilewidth="80" tileheight="80" tilecount="14" columns="7">
+  <image source="../../textures/orc/unit/ferry.png" width="576" height="216"/>
  </tileset>
- <tileset firstgid="1037" name="Watch Tower" tilewidth="64" tileheight="64" tilecount="2" columns="1">
+ <tileset firstgid="1043" name="Watch Tower" tilewidth="64" tileheight="64" tilecount="2" columns="1">
   <image source="../../textures/orc/building/swamp/watch_tower.png" width="64" height="128"/>
  </tileset>
- <tileset firstgid="1039" name="Seal" tilewidth="32" tileheight="32" tilecount="16" columns="8">
+ <tileset firstgid="1045" name="Seal" tilewidth="32" tileheight="32" tilecount="16" columns="8">
   <image source="../../textures/neutral/unit/seal.png" width="256" height="64"/>
  </tileset>
- <tileset firstgid="1055" name="Encampment" tilewidth="96" tileheight="96" tilecount="2" columns="1">
+ <tileset firstgid="1061" name="Encampment" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/orc/building/swamp/encampment.png" width="96" height="192"/>
  </tileset>
- <tileset firstgid="1057" name="Barracks" tilewidth="96" tileheight="96" tilecount="2" columns="1">
+ <tileset firstgid="1063" name="Barracks" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/human/building/swamp/barracks.png" width="96" height="192"/>
  </tileset>
- <tileset firstgid="1059" name="Elven Lumber Mill" tilewidth="96" tileheight="96" tilecount="2" columns="1">
+ <tileset firstgid="1065" name="Elven Lumber Mill" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/human/building/swamp/lumber_mill.png" width="96" height="192"/>
  </tileset>
- <tileset firstgid="1061" name="Blacksmith" tilewidth="96" tileheight="96" tilecount="2" columns="1">
+ <tileset firstgid="1067" name="Blacksmith" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/human/building/swamp/blacksmith.png" width="96" height="192"/>
  </tileset>
- <tileset firstgid="1063" name="Gnomish Flying Machine" tilewidth="80" tileheight="80" tilecount="32" columns="8">
+ <tileset firstgid="1069" name="Gnomish Flying Machine" tilewidth="80" tileheight="80" tilecount="32" columns="8">
   <image source="../../textures/human/unit/gnomish_flying_machine.png" width="640" height="320"/>
  </tileset>
- <tileset firstgid="1095" name="Forge" tilewidth="96" tileheight="96" tilecount="2" columns="1">
+ <tileset firstgid="1101" name="Forge" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/orc/building/swamp/forge.png" width="96" height="192"/>
  </tileset>
- <tileset firstgid="1097" name="Lookout Tower" tilewidth="64" tileheight="64" tilecount="2" columns="1">
+ <tileset firstgid="1103" name="Lookout Tower" tilewidth="64" tileheight="64" tilecount="2" columns="1">
   <image source="../../textures/orc/building/swamp/lookout_tower.png" width="64" height="128"/>
  </tileset>
- <tileset firstgid="1099" name="Dockyard" tilewidth="96" tileheight="96" tilecount="2" columns="1">
+ <tileset firstgid="1105" name="Dockyard" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/orc/building/swamp/dockyard.png" width="96" height="192"/>
  </tileset>
- <tileset firstgid="1101" name="Ogre" tilewidth="72" tileheight="72" tilecount="70" columns="5">
+ <tileset firstgid="1107" name="Ogre" tilewidth="72" tileheight="72" tilecount="70" columns="5">
   <image source="../../textures/orc/unit/ogre.png" width="360" height="1008"/>
  </tileset>
- <tileset firstgid="1171" name="Goblin Zeppelin" tilewidth="72" tileheight="72" tilecount="10" columns="5">
-  <image source="../../textures/orc/unit/goblin_zeppelin.png" width="360" height="144"/>
+ <tileset firstgid="1177" name="Goblin Zeppelin" tilewidth="72" tileheight="72" tilecount="16" columns="8">
+  <image source="../../textures/orc/unit/goblin_zeppelin.png" width="576" height="144"/>
  </tileset>
- <tileset firstgid="1181" name="Boar" tilewidth="32" tileheight="32" tilecount="16" columns="8">
+ <tileset firstgid="1193" name="Boar" tilewidth="32" tileheight="32" tilecount="16" columns="8">
   <image source="../../textures/neutral/unit/boar.png" width="256" height="64"/>
  </tileset>
- <tileset firstgid="1197" name="Transport" tilewidth="72" tileheight="72" tilecount="24" columns="8">
+ <tileset firstgid="1209" name="Transport" tilewidth="72" tileheight="72" tilecount="24" columns="8">
   <image source="../../textures/human/unit/transport.png" width="576" height="216"/>
  </tileset>
- <tileset firstgid="1221" name="Oil Tanker" tilewidth="72" tileheight="72" tilecount="24" columns="8">
+ <tileset firstgid="1233" name="Oil Tanker" tilewidth="72" tileheight="72" tilecount="24" columns="8">
   <image source="../../textures/human/unit/oil_tanker.png" width="576" height="216"/>
  </tileset>
  <layer id="1" name="Map" width="128" height="128">
@@ -155,26 +155,26 @@
   <object id="59" name="GoldMine2" type="GoldMine" gid="386" x="3200" y="1824" width="96" height="96"/>
   <object id="60" name="GoldMine3" type="GoldMine" gid="386" x="2624" y="96" width="96" height="96"/>
   <object id="61" name="GoldMine4" type="GoldMine" gid="386" x="1568" y="1824" width="96" height="96"/>
-  <object id="62" name="Boar1" type="Boar" gid="1181" x="3104" y="2368" width="32" height="32"/>
-  <object id="63" name="Boar2" type="Boar" gid="1181" x="2976" y="2240" width="32" height="32"/>
-  <object id="64" name="Boar3" type="Boar" gid="1181" x="3104" y="2176" width="32" height="32"/>
-  <object id="65" name="Boar4" type="Boar" gid="1181" x="2688" y="1920" width="32" height="32"/>
-  <object id="66" name="Boar5" type="Boar" gid="1181" x="2592" y="1920" width="32" height="32"/>
-  <object id="67" name="Boar6" type="Boar" gid="1181" x="2656" y="1856" width="32" height="32"/>
-  <object id="68" name="Boar7" type="Boar" gid="1181" x="2656" y="1824" width="32" height="32"/>
-  <object id="69" name="Boar8" type="Boar" gid="1181" x="3296" y="352" width="32" height="32"/>
-  <object id="70" name="Boar9" type="Boar" gid="1181" x="3200" y="352" width="32" height="32"/>
-  <object id="71" name="Boar10" type="Boar" gid="1181" x="3136" y="288" width="32" height="32"/>
-  <object id="72" name="Boar11" type="Boar" gid="1181" x="3104" y="256" width="32" height="32"/>
-  <object id="73" name="Boar12" type="Boar" gid="1181" x="2496" y="288" width="32" height="32"/>
-  <object id="74" name="Boar13" type="Boar" gid="1181" x="2368" y="384" width="32" height="32"/>
-  <object id="75" name="Boar14" type="Boar" gid="1181" x="2432" y="448" width="32" height="32"/>
-  <object id="76" name="Boar15" type="Boar" gid="1181" x="1792" y="1824" width="32" height="32"/>
-  <object id="77" name="Boar16" type="Boar" gid="1181" x="1824" y="1888" width="32" height="32"/>
-  <object id="78" name="Boar17" type="Boar" gid="1181" x="1760" y="1920" width="32" height="32"/>
-  <object id="79" name="Boar18" type="Boar" gid="1181" x="3616" y="3168" width="32" height="32"/>
-  <object id="80" name="Boar19" type="Boar" gid="1181" x="3520" y="3200" width="32" height="32"/>
-  <object id="81" name="Boar20" type="Boar" gid="1181" x="3584" y="3328" width="32" height="32"/>
+  <object id="62" name="Boar1" type="Boar" gid="1193" x="3104" y="2368" width="32" height="32"/>
+  <object id="63" name="Boar2" type="Boar" gid="1193" x="2976" y="2240" width="32" height="32"/>
+  <object id="64" name="Boar3" type="Boar" gid="1193" x="3104" y="2176" width="32" height="32"/>
+  <object id="65" name="Boar4" type="Boar" gid="1193" x="2688" y="1920" width="32" height="32"/>
+  <object id="66" name="Boar5" type="Boar" gid="1193" x="2592" y="1920" width="32" height="32"/>
+  <object id="67" name="Boar6" type="Boar" gid="1193" x="2656" y="1856" width="32" height="32"/>
+  <object id="68" name="Boar7" type="Boar" gid="1193" x="2656" y="1824" width="32" height="32"/>
+  <object id="69" name="Boar8" type="Boar" gid="1193" x="3296" y="352" width="32" height="32"/>
+  <object id="70" name="Boar9" type="Boar" gid="1193" x="3200" y="352" width="32" height="32"/>
+  <object id="71" name="Boar10" type="Boar" gid="1193" x="3136" y="288" width="32" height="32"/>
+  <object id="72" name="Boar11" type="Boar" gid="1193" x="3104" y="256" width="32" height="32"/>
+  <object id="73" name="Boar12" type="Boar" gid="1193" x="2496" y="288" width="32" height="32"/>
+  <object id="74" name="Boar13" type="Boar" gid="1193" x="2368" y="384" width="32" height="32"/>
+  <object id="75" name="Boar14" type="Boar" gid="1193" x="2432" y="448" width="32" height="32"/>
+  <object id="76" name="Boar15" type="Boar" gid="1193" x="1792" y="1824" width="32" height="32"/>
+  <object id="77" name="Boar16" type="Boar" gid="1193" x="1824" y="1888" width="32" height="32"/>
+  <object id="78" name="Boar17" type="Boar" gid="1193" x="1760" y="1920" width="32" height="32"/>
+  <object id="79" name="Boar18" type="Boar" gid="1193" x="3616" y="3168" width="32" height="32"/>
+  <object id="80" name="Boar19" type="Boar" gid="1193" x="3520" y="3200" width="32" height="32"/>
+  <object id="81" name="Boar20" type="Boar" gid="1193" x="3584" y="3328" width="32" height="32"/>
   <object id="112" name="OilPatch1" type="OilPatch" gid="385" x="2656" y="960" width="96" height="96"/>
   <object id="113" name="OilPatch2" type="OilPatch" gid="385" x="3808" y="2368" width="96" height="96"/>
   <object id="114" name="OilPatch3" type="OilPatch" gid="385" x="2144" y="3584" width="96" height="96"/>
@@ -205,15 +205,15 @@
   <object id="40" name="PigFarm10" type="PigFarm" gid="400" x="3328" y="1728" width="64" height="64"/>
   <object id="41" name="PigFarm11" type="PigFarm" gid="400" x="3392" y="1824" width="64" height="64"/>
   <object id="42" name="PigFarm12" type="PigFarm" gid="400" x="3360" y="1920" width="64" height="64"/>
-  <object id="29" name="Encampment1" type="Encampment" gid="1055" x="3488" y="1248" width="96" height="96"/>
-  <object id="30" name="Forge1" type="Forge" gid="1095" x="3616" y="1152" width="96" height="96"/>
+  <object id="29" name="Encampment1" type="Encampment" gid="1061" x="3488" y="1248" width="96" height="96"/>
+  <object id="30" name="Forge1" type="Forge" gid="1101" x="3616" y="1152" width="96" height="96"/>
   <object id="31" name="TrollLumberMill1" type="TrollLumberMill" gid="398" x="3680" y="1024" width="96" height="96"/>
-  <object id="32" name="LockoutTower1" type="LockoutTower" gid="1097" x="3616" y="864" width="64" height="64"/>
-  <object id="33" name="LockoutTower2" type="LockoutTower" gid="1097" x="3456" y="1088" width="64" height="64"/>
-  <object id="34" name="LockoutTower3" type="LockoutTower" gid="1097" x="3328" y="1248" width="64" height="64"/>
-  <object id="35" name="LockoutTower4" type="LockoutTower" gid="1097" x="3552" y="1568" width="64" height="64"/>
-  <object id="36" name="LockoutTower5" type="LockoutTower" gid="1097" x="3712" y="1376" width="64" height="64"/>
-  <object id="37" name="Dockyard1" type="Dockyard" gid="1099" x="3840" y="1536" width="96" height="96"/>
+  <object id="32" name="LockoutTower1" type="LockoutTower" gid="1103" x="3616" y="864" width="64" height="64"/>
+  <object id="33" name="LockoutTower2" type="LockoutTower" gid="1103" x="3456" y="1088" width="64" height="64"/>
+  <object id="34" name="LockoutTower3" type="LockoutTower" gid="1103" x="3328" y="1248" width="64" height="64"/>
+  <object id="35" name="LockoutTower4" type="LockoutTower" gid="1103" x="3552" y="1568" width="64" height="64"/>
+  <object id="36" name="LockoutTower5" type="LockoutTower" gid="1103" x="3712" y="1376" width="64" height="64"/>
+  <object id="37" name="Dockyard1" type="Dockyard" gid="1105" x="3840" y="1536" width="96" height="96"/>
   <object id="38" name="MetalWorks1" type="MetalWorks" gid="394" x="3680" y="1696" width="96" height="96"/>
   <object id="43" name="OilRefinery1" type="OilRefinery" gid="392" x="3040" y="1248" width="96" height="96"/>
   <object id="45" name="Peon1" type="Peon" gid="925" x="3456" y="1376" width="72" height="72"/>
@@ -229,9 +229,9 @@
   <object id="51" name="TrollAxethrower2" type="TrollAxethrower" gid="829" x="3424" y="1216" width="72" height="72"/>
   <object id="52" name="TrollAxethrower3" type="TrollAxethrower" gid="829" x="1568" y="2848" width="72" height="72"/>
   <object id="53" name="TrollAxethrower4" type="TrollAxethrower" gid="829" x="1600" y="2880" width="72" height="72"/>
-  <object id="58" name="GoblinZeppelin1" type="GoblinZeppelin" gid="1171" x="3008" y="1984" width="72" height="72"/>
-  <object id="82" name="Ogre1" type="Ogre" gid="1101" x="3616" y="1248" width="72" height="72"/>
-  <object id="83" name="Ogre2" type="Ogre" gid="1101" x="3680" y="1280" width="72" height="72"/>
+  <object id="58" name="GoblinZeppelin1" type="GoblinZeppelin" gid="1177" x="3008" y="1984" width="72" height="72"/>
+  <object id="82" name="Ogre1" type="Ogre" gid="1107" x="3616" y="1248" width="72" height="72"/>
+  <object id="83" name="Ogre2" type="Ogre" gid="1107" x="3680" y="1280" width="72" height="72"/>
   <object id="84" name="Ferry1" type="Ferry" gid="1029" x="3936" y="1728" width="80" height="80"/>
   <object id="85" name="TrollDestroyer1" type="TrollDestroyer" gid="429" x="4000" y="1856" width="88" height="88"/>
   <object id="86" name="TrollDestroyer2" type="TrollDestroyer" gid="429" x="3744" y="1856" width="88" height="88"/>
@@ -254,13 +254,13 @@
    <property name="ZIndex" type="int" value="6"/>
   </properties>
   <object id="2" name="TownHall1" type="TownHall" gid="390" x="1280" y="3200" width="128" height="128"/>
-  <object id="3" name="Barracks1" type="Barracks" gid="1057" x="1472" y="3040" width="96" height="96"/>
+  <object id="3" name="Barracks1" type="Barracks" gid="1063" x="1472" y="3040" width="96" height="96"/>
   <object id="4" name="Farm1" type="Farm" gid="388" x="1312" y="3040" width="64" height="64"/>
   <object id="5" name="Farm2" type="Farm" gid="388" x="1152" y="3104" width="64" height="64"/>
   <object id="6" name="Farm3" type="Farm" gid="388" x="1088" y="3136" width="64" height="64"/>
   <object id="7" name="Farm4" type="Farm" gid="388" x="960" y="3456" width="64" height="64"/>
-  <object id="8" name="Blacksmith1" type="Blacksmith" gid="1061" x="1184" y="3456" width="96" height="96"/>
-  <object id="9" name="LumberMill1" type="LumberMill" gid="1059" x="1088" y="3584" width="96" height="96"/>
+  <object id="8" name="Blacksmith1" type="Blacksmith" gid="1067" x="1184" y="3456" width="96" height="96"/>
+  <object id="9" name="LumberMill1" type="LumberMill" gid="1065" x="1088" y="3584" width="96" height="96"/>
   <object id="11" name="Peasant1" type="Peasant" gid="549" x="1056" y="3232" width="72" height="72"/>
   <object id="12" name="Peasant2" type="Peasant" gid="549" x="992" y="3296" width="72" height="72"/>
   <object id="13" name="Peasant3" type="Peasant" gid="549" x="1120" y="3328" width="72" height="72"/>
@@ -268,7 +268,7 @@
   <object id="15" name="Footman1" type="Footman" gid="453" x="1216" y="3136" width="72" height="72"/>
   <object id="16" name="Footman2" type="Footman" gid="453" x="1152" y="3168" width="72" height="72"/>
   <object id="17" name="ElvenArcher1" type="ElvenArcher" gid="653" x="1216" y="3264" width="72" height="72"/>
-  <object id="18" name="GnomishFlyingMachine1" type="GnomishFlyingMachine" gid="1063" x="1248" y="3200" width="80" height="80"/>
+  <object id="18" name="GnomishFlyingMachine1" type="GnomishFlyingMachine" gid="1069" x="1248" y="3200" width="80" height="80"/>
  </objectgroup>
  <objectgroup id="6" name="Player1">
   <properties>
@@ -294,11 +294,11 @@
   <object id="101" name="Footman4" type="Footman" gid="453" x="224" y="3904" width="72" height="72"/>
   <object id="102" name="Footman5" type="Footman" gid="453" x="128" y="3872" width="72" height="72"/>
   <object id="103" name="Footman6" type="Footman" gid="453" x="64" y="3840" width="72" height="72"/>
-  <object id="106" name="Transport1" type="Transport" gid="1197" x="288" y="3808" width="72" height="72"/>
-  <object id="107" name="Transport2" type="Transport" gid="1197" x="192" y="3808" width="72" height="72"/>
+  <object id="106" name="Transport1" type="Transport" gid="1209" x="288" y="3808" width="72" height="72"/>
+  <object id="107" name="Transport2" type="Transport" gid="1209" x="192" y="3808" width="72" height="72"/>
   <object id="108" name="ElvenDestroyer1" type="ElvenDestroyer" gid="405" x="224" y="3712" width="88" height="88"/>
   <object id="109" name="ElvenDestroyer2" type="ElvenDestroyer" gid="405" x="352" y="3744" width="88" height="88"/>
-  <object id="110" name="OilTanker1" type="OilTanker" gid="1221" x="416" y="3808" width="72" height="72"/>
+  <object id="110" name="OilTanker1" type="OilTanker" gid="1233" x="416" y="3808" width="72" height="72"/>
   <object id="111" name="Camera" type="Camera" x="192" y="3968">
    <point/>
   </object>

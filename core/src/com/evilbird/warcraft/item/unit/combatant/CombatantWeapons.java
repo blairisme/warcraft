@@ -26,7 +26,7 @@ public class CombatantWeapons
         if (type.isRanged()) {
             return type.isOrc() ? "axe" : "bow";
         }
-        if (type.isSiege() || type.isShip()) {
+        if (type.isSiege() || type.isNaval()) {
             return "siege";
         }
         if (type.isGatherer()) {
