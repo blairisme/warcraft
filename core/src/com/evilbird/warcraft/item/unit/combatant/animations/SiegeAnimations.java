@@ -39,6 +39,7 @@ public class SiegeAnimations extends AnimationCatalog
 
         attack(base, size);
         idle(base, size);
+        move(base, size);
     }
 
     private void attack(Texture base, GridPoint2 size) {
@@ -51,12 +52,20 @@ public class SiegeAnimations extends AnimationCatalog
     }
 
     private void idle(Texture base, GridPoint2 size) {
-        alias(Move, Idle);
         animation(Idle)
             .withTexture(base)
             .withSequence(0, 1)
             .withSize(size)
             .withInterval(1f)
+            .looping();
+    }
+
+    private void move(Texture base, GridPoint2 size) {
+        animation(Move)
+            .withTexture(base)
+            .withSequence(0, 2)
+            .withSize(size)
+            .withInterval(0.15f)
             .looping();
     }
 }
