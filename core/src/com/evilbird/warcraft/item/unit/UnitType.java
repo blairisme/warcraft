@@ -244,14 +244,19 @@ public enum UnitType implements ItemType
         return this == GnomishFlyingMachine || this == GoblinZeppelin;
     }
 
+    public boolean isMelee() {
+        return this == Footman || this == Knight || this == Paladin || this == Peasant
+            || this == Grunt || this == Ogre || this == OgreMage || this == Peon;
+    }
+
     public boolean isRanged() {
         return this == ElvenArcher || this == ElvenArcherCaptive || this == ElvenRanger
-            || this == TrollAxethrower || this == TrollAxethrowerCaptive || this == TrollBerserker
-            || this == GryphonRider || this == Dragon || this == Daemon || this == Zuljin;
+            || this == TrollAxethrower || this == TrollAxethrowerCaptive || this == TrollBerserker;
     }
 
     public boolean isSpellCaster() {
-        return this == Mage || this == DeathKnight || this == OgreMage;
+        return this == Mage || this == DeathKnight
+            || this == Paladin || this == OgreMage;
     }
 
     public boolean isConjured() {
@@ -272,7 +277,8 @@ public enum UnitType implements ItemType
     }
 
     public boolean isOilDepot() {
-        return this == Shipyard || this == Dockyard;
+        return this == Shipyard || this == Dockyard
+            || this == Refinery || this == OilRefinery;
     }
 
     public boolean isWoodDepot() {

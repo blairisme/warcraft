@@ -150,6 +150,7 @@ public class RangedAttack extends BasicAction
         combatant.setSound(UnitSound.Attack, preferences.getEffectsVolume());
 
         reorient(combatant, target, isShip(combatant));
+        reorient(projectile, target, false);
     }
 
     private boolean projectileReachedTarget() {

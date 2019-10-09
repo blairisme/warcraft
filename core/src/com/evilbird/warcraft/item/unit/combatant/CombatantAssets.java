@@ -26,7 +26,6 @@ import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensionName;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensions;
-import static com.evilbird.warcraft.item.unit.combatant.CombatantWeapons.getWeaponName;
 
 /**
  * Defines the assets that are required to display a {@link Combatant}, as well
@@ -62,6 +61,19 @@ public class CombatantAssets extends AssetBundle
                 "faction", toSnakeCase(type.getFaction().name()),
                 "weapon", getWeaponName(type.getBase()),
                 "size", getDimensionName(type));
+    }
+
+    private static String getWeaponName(UnitType type) {
+        if (type.isRanged()) {
+            return type.isOrc() ? "axe" : "bow";
+        }
+        if (type.isSiege() || type.isNaval()) {
+            return "siege";
+        }
+        if (type.isGatherer()) {
+            return "fist";
+        }
+        return "sword";
     }
 
     public Texture getBaseTexture() {

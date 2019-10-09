@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.action.death;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
@@ -17,6 +18,7 @@ import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
@@ -25,15 +27,19 @@ import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.select.SelectEvent;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
+import java.util.Collection;
+import java.util.Collections;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.isCombatant;
+import static com.evilbird.engine.common.lang.Alignment.Center;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isRanged;
+import static com.evilbird.warcraft.item.effect.EffectType.Explosion;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Death;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Decompose;
 import static com.evilbird.warcraft.item.unit.UnitSound.Die;
@@ -46,16 +52,23 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Die;
  */
 public class DeathAction extends BasicAction
 {
+    private static final float DEATH_TIME = 1;
     private static final float DECOMPOSE_TIME = 30;
 
     private Events events;
     private GameTimer deathTimer;
     private GameTimer decomposeTimer;
+    private ItemFactory factory;
     private WarcraftPreferences preferences;
 
     @Inject
-    public DeathAction(Events events, WarcraftPreferences preferences) {
+    public DeathAction(
+        Events events,
+        ItemFactory factory,
+        WarcraftPreferences preferences)
+    {
         this.events = events;
+        this.factory = factory;
         this.preferences = preferences;
     }
 
@@ -108,12 +121,40 @@ public class DeathAction extends BasicAction
 
     private void initializeVisuals(Destroyable subject) {
         if (subject instanceof Viewable) {
-            Viewable viewable = (Viewable)subject;
-            viewable.setAnimation(Death);
-            viewable.setSound(Die, preferences.getEffectsVolume());
-            viewable.setTouchable(Touchable.disabled);
-            viewable.setZIndex(0);
+            assignDeathAnimation((Viewable)subject);
         }
+        if (isFabricated(subject)) {
+            assignExplosionEffect(subject);
+        }
+    }
+
+    private boolean isFabricated(Item subject) {
+        if (subject instanceof Unit) {
+            Unit unit = (Unit)subject;
+            UnitType type = (UnitType)unit.getType();
+            return type.isSiege() || type.isBuilding();
+        }
+        return false;
+    }
+    
+    private void assignDeathAnimation(Viewable subject) {
+        if (subject.hasAnimation(Death)) {
+            subject.setAnimation(Death);
+            subject.setSound(Die, preferences.getEffectsVolume());
+            subject.setTouchable(Touchable.disabled);
+            subject.setZIndex(0);
+        }
+    }
+
+    private void assignExplosionEffect(Destroyable subject) {
+        Item explosion = factory.get(Explosion);
+        setTarget(explosion);
+
+        Vector2 position = subject.getPosition(Center);
+        explosion.setPosition(position, Center);
+
+        ItemGroup parent = subject.getParent();
+        parent.addItem(explosion);
     }
 
     private void initializeSelection(Destroyable subject) {
@@ -142,42 +183,77 @@ public class DeathAction extends BasicAction
     }
 
     private void initializeTimers(Destroyable subject) {
-//        if (isFlying(subject)) {
-//            deathTimer = new GameTimer(1);
-//            decomposeTimer = new GameTimer(0);
-//        } else
-
-
-
-        if (isCombatant(subject)) {
-            deathTimer = new GameTimer(1);
-            decomposeTimer = new GameTimer(DECOMPOSE_TIME);
-        } else {
-            deathTimer = new GameTimer(DECOMPOSE_TIME);
+        if (isInstantlyDestroyable(subject)) {
+            deathTimer = new GameTimer(DEATH_TIME);
             decomposeTimer = new GameTimer(0);
         }
+        else  {
+            deathTimer = new GameTimer(DEATH_TIME);
+            decomposeTimer = new GameTimer(DECOMPOSE_TIME);
+        }
+
+//        else if (isDecomposable(subject)) {
+//            deathTimer = new GameTimer(DEATH_TIME);
+//            decomposeTimer = new GameTimer(DECOMPOSE_TIME);
+//        }
+//        else {
+//            deathTimer = new GameTimer(DECOMPOSE_TIME);
+//            decomposeTimer = new GameTimer(0);
+//        }
+    }
+
+    private boolean isInstantlyDestroyable(Item subject) {
+        if (subject instanceof Unit) {
+            Unit unit = (Unit)subject;
+            UnitType type = (UnitType)unit.getType();
+            return type.isFlying() || type.isSiege() || type.isSpellCaster();
+        }
+        return false;
     }
 
     private boolean decompose() {
         Item item = getItem();
-        if (item instanceof Viewable) {
-            Viewable viewable = (Viewable)item;
-            if (viewable.hasAnimation(Decompose)) {
-                viewable.setAnimation(Decompose);
-            }
+        if (isDecomposable(item)) {
+            Unit unit = (Unit)item;
+            unit.setAnimation(Decompose);
         }
         return ActionIncomplete;
     }
 
-    private boolean remove() {
-        Destroyable subject = (Destroyable)getItem();
-        remove(subject);
-
+    private boolean isDecomposable(Item subject) {
         if (subject instanceof Unit) {
             Unit unit = (Unit)subject;
-            remove(unit.getAssociatedItem());
+            UnitType type = (UnitType)unit.getType();
+            return type.isMelee() || type.isRanged();
         }
+        return false;
+    }
+
+    private boolean remove() {
+        Item subject = getItem();
+        remove(subject);
+
+        Item explosion = getTarget();
+        remove(explosion);
+
+        Collection<Item> associations = getAssociations(subject);
+        remove(associations);
+
         return ActionComplete;
+    }
+
+    private Collection<Item> getAssociations(Item item) {
+        if (item instanceof Unit) {
+            Unit unit = (Unit)item;
+            return unit.getAssociatedItems();
+        }
+        return Collections.emptyList();
+    }
+
+    private void remove(Collection<Item> items) {
+        for (Item item: items) {
+            remove(item);
+        }
     }
 
     private void remove(Item item) {

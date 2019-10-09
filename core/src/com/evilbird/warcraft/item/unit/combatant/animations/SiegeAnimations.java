@@ -48,7 +48,7 @@ public class SiegeAnimations extends AnimationCatalog
             .withSequence(size.y, 3)
             .withSize(size)
             .withInterval(0.15f)
-            .looping();
+            .notLooping();
     }
 
     private void idle(Texture base, GridPoint2 size) {

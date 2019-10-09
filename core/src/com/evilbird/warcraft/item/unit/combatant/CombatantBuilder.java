@@ -165,7 +165,7 @@ public class CombatantBuilder
         if (type.isConjured()) {
             return new ConjuredSounds(assets);
         }
-        if (type.isRanged() || type.isNaval()) {
+        if (type.isRanged() || type.isNaval() || type.isSiege()) {
             return new RangedSounds(assets);
         }
         return new MeleeSounds(assets);

@@ -18,6 +18,7 @@ import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.engine.item.utility.ItemOperations;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.common.WarcraftFaction;
@@ -432,7 +433,7 @@ public class UnitOperations
         return item instanceof Unit;
     }
 
-    public static void reorient(Unit item, Item target, boolean perpendicular) {
+    public static void reorient(Viewable item, Item target, boolean perpendicular) {
         Vector2 itemPosition = item.getPosition();
         Vector2 targetPosition = target.getPosition();
         Vector2 direction = targetPosition.sub(itemPosition);

@@ -25,7 +25,6 @@ import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensionName;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensions;
-import static com.evilbird.warcraft.item.unit.combatant.CombatantWeapons.getWeaponName;
 
 /**
  * Provides access to the assets that are required to display a
@@ -61,7 +60,7 @@ public class GathererAssets extends AssetBundle
         register("dead", "data/sounds/${faction}/unit/common/dead/1.mp3");
         register("ready", "data/sounds/${faction}/unit/${name}/ready/1.mp3");
 
-        registerOptionalSequence("attack", "data/sounds/common/unit/attack/${weapon}/", ".mp3", 3);
+        registerOptionalSequence("attack", "data/sounds/common/unit/attack/sword/", ".mp3", 3);
         registerOptionalSequence("chopping", "data/sounds/common/unit/chopping/", ".mp3", 4);
         registerOptionalSequence("acknowledge", "data/sounds/${faction}/unit/${name}/acknowledge/", ".mp3", 4);
         registerOptionalSequence("selected", "data/sounds/${faction}/unit/${name}/selected/", ".mp3", 6);
@@ -70,7 +69,6 @@ public class GathererAssets extends AssetBundle
     private static Map<String, String> assetPathVariables(UnitType type) {
         return of("name", toSnakeCase(type.name()),
                 "faction", toSnakeCase(type.getFaction().name()),
-                "weapon", getWeaponName(type),
                 "size", getDimensionName(type));
     }
 
