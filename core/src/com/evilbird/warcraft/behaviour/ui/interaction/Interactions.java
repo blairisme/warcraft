@@ -21,7 +21,6 @@ import com.evilbird.warcraft.action.construct.ConstructActions;
 import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.common.movement.MovementCapability;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.ui.placement.PlaceholderType;

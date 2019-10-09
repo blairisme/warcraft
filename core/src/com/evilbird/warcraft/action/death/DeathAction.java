@@ -136,7 +136,7 @@ public class DeathAction extends BasicAction
         }
         return false;
     }
-    
+
     private void assignDeathAnimation(Viewable subject) {
         if (subject.hasAnimation(Death)) {
             subject.setAnimation(Death);

@@ -42,9 +42,10 @@ public class DeathActionTest extends GameTestCase
 
     @Before
     public void setup() {
+        super.setup();
         preferences = Mockito.mock(WarcraftPreferences.class);
         events = new EventQueue();
-        action = new DeathAction(events, preferences);
+        action = new DeathAction(events, itemFactory, preferences);
     }
 
     @Test
@@ -67,10 +68,10 @@ public class DeathActionTest extends GameTestCase
         Assert.assertFalse(item.getSelected());
         Assert.assertFalse(item.getSelectable());
 
-        action.act(30);
+        action.act(1);
         Assert.assertTrue(parent.containsItem(item));
 
-        action.act(1);
+        action.act(30);
         Assert.assertFalse(parent.containsItem(item));
     }
 
