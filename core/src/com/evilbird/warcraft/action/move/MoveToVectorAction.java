@@ -17,7 +17,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
-import com.evilbird.warcraft.item.common.movement.Movable;
+import com.evilbird.warcraft.item.common.state.MovableObject;
 
 import javax.inject.Inject;
 import java.util.Objects;
@@ -62,7 +62,7 @@ public class MoveToVectorAction extends MoveAction
     @Override
     public ItemPathFilter getPathFilter() {
         if (filter == null) {
-            Movable item = (Movable)getItem();
+            MovableObject item = (MovableObject)getItem();
             filter = new ItemPathFilter();
             filter.addTraversableItem(item);
             filter.addTraversableCapability(item.getMovementCapability());

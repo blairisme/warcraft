@@ -18,7 +18,6 @@
   "items": [
     {
       "attackSpeed": 0.0,
-      "attackRange": 0,
       "piercingDamage": 0,
       "basicDamage": {
         "basic": 0.0,

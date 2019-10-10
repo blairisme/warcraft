@@ -42,15 +42,15 @@ public class CannonTowerFactoryTest extends BuildingFactoryTestCase<CannonTowerF
     protected Map<String, Object> getProductProperties() {
         return Maps.of(
             "animation", Idle,
-            "damageMinimum", 50,
-            "damageMaximum", 50,
+            "basicDamage", 50,
+            "piercingDamage", 0,
             "armour", 20,
             "health", 160.0f,
             "healthMaximum", 160.0f,
             "selectable", true,
             "selected", false,
             "sight", tiles(9),
-            "range", tiles(7),
+            "attackRange", tiles(7),
             "type", CannonTower);
     }
 }

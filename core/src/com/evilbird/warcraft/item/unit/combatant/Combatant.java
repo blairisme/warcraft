@@ -11,14 +11,17 @@ package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.ViewableStyle;
+import com.evilbird.warcraft.item.common.state.MovableObject;
+import com.evilbird.warcraft.item.common.state.MovementCapability;
+import com.evilbird.warcraft.item.common.state.OffensiveObject;
 import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
 import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
-import com.evilbird.warcraft.item.unit.MovableUnit;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradableValue.Zero;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
 
@@ -28,12 +31,13 @@ import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
  *
  * @author Blair Butterworth
  */
-public class Combatant extends MovableUnit
+public class Combatant extends Unit implements MovableObject, OffensiveObject
 {
     private float attackSpeed;
-    private int attackRange;
     private int piercingDamage;
     private UpgradableValue basicDamage;
+    private int movementSpeed;
+    private MovementCapability movementCapability;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} describing
@@ -45,9 +49,10 @@ public class Combatant extends MovableUnit
     public Combatant(Skin skin) {
         super(skin);
         this.attackSpeed = 0;
-        this.attackRange = 0;
         this.piercingDamage = 0;
         this.basicDamage = Zero;
+        this.movementSpeed = 0;
+        this.movementCapability = MovementCapability.None;
     }
 
     /**
@@ -62,7 +67,7 @@ public class Combatant extends MovableUnit
      * attacks.
      */
     public int getAttackRange() {
-        return attackRange;
+        return tiles(1);
     }
 
     /**
@@ -92,18 +97,27 @@ public class Combatant extends MovableUnit
     }
 
     /**
+     * Returns the {@link MovementCapability movement capability} of the
+     * {@code Combatant}, those types of terrain the {@code Combatant} can
+     * traverse across.
+     */
+    public MovementCapability getMovementCapability() {
+        return movementCapability;
+    }
+
+    /**
+     * Returns the movement speed of the {@code Combatant}, specified in pixels
+     * per second.
+     */
+    public int getMovementSpeed() {
+        return movementSpeed;
+    }
+
+    /**
      * Sets the rate at which the {@code Combatant} attacks.
      */
     public void setAttackSpeed(float attackSpeed) {
         this.attackSpeed = attackSpeed;
-    }
-
-    /**
-     * Sets the distance that the {@code Combatant} can reach with its
-     * attacks.
-     */
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
     }
 
     /**
@@ -130,14 +144,27 @@ public class Combatant extends MovableUnit
         this.piercingDamage = piercingDamage;
     }
 
+    /**
+     * Sets the {@link MovementCapability movement capability} of the
+     * {@code Combatant}, those types of terrain the {@code Combatant} can
+     * traverse across.
+     */
+    public void setMovementCapability(MovementCapability capability) {
+        this.movementCapability = capability;
+    }
+
+    /**
+     * Sets the movement speed of the {@code Combatant}, specified in pixels
+     * per second.
+     */
+    public void setMovementSpeed(int movementSpeed) {
+        this.movementSpeed = movementSpeed;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .appendSuper("unit")
-            .append("attackSpeed", attackSpeed)
-            .append("attackRange", attackRange)
-            .append("basicDamage", basicDamage)
-            .append("piercingDamage", piercingDamage)
+            .append("identifier", getIdentifier())
             .toString();
     }
 
@@ -151,9 +178,10 @@ public class Combatant extends MovableUnit
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(attackSpeed, combatant.attackSpeed)
-            .append(attackRange, combatant.attackRange)
             .append(basicDamage, combatant.basicDamage)
             .append(piercingDamage, combatant.piercingDamage)
+            .append(movementSpeed, combatant.movementSpeed)
+            .append(movementCapability, combatant.movementCapability)
             .isEquals();
     }
 
@@ -162,9 +190,10 @@ public class Combatant extends MovableUnit
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
             .append(attackSpeed)
-            .append(attackRange)
             .append(basicDamage)
             .append(piercingDamage)
+            .append(movementSpeed)
+            .append(movementCapability)
             .toHashCode();
     }
 }

@@ -7,17 +7,20 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.common.movement;
+package com.evilbird.warcraft.item.common.state;
 
+import com.evilbird.engine.common.lang.Animated;
+import com.evilbird.engine.common.lang.Audible;
+import com.evilbird.engine.common.lang.Directionable;
 import com.evilbird.engine.item.Item;
 
 /**
  * Implementors of this interface provide methods that define a movable object,
- * an item that can showMenu around the game world.
+ * an item that can be moved around the game world.
  *
  * @author Blair Butterworth
  */
-public interface Movable extends Item
+public interface MovableObject extends Item, Animated, Audible, Directionable
 {
     /**
      * Return the speed of the movable.

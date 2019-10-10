@@ -19,7 +19,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.common.movement.MovementCapability.Air;
+import static com.evilbird.warcraft.item.common.state.MovementCapability.Air;
 import static com.evilbird.warcraft.item.unit.UnitType.EyeOfKilrogg;
 
 /**
@@ -43,7 +43,6 @@ public class EyeOfKilroggFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         Combatant result = builder.newMeleeCombatant();
         result.setAttackSpeed(0);
-        result.setAttackRange(0);
         result.setArmour(0);
         result.setPiercingDamage(0);
         result.setBasicDamage(0);

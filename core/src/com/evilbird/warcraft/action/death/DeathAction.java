@@ -13,8 +13,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Destroyable;
-import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
@@ -26,6 +24,8 @@ import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.select.SelectEvent;
 import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
+import com.evilbird.warcraft.item.common.state.SelectableObject;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
@@ -101,7 +101,7 @@ public class DeathAction extends BasicAction
 
     @Override
     public void setItem(Item item) {
-        Validate.isInstanceOf(Destroyable.class, item);
+        Validate.isInstanceOf(PerishableObject.class, item);
         super.setItem(item);
     }
 
@@ -110,7 +110,7 @@ public class DeathAction extends BasicAction
     }
 
     private boolean initialize() {
-        Destroyable subject = (Destroyable)getItem();
+        PerishableObject subject = (PerishableObject)getItem();
         initializeVisuals(subject);
         initializeSelection(subject);
         initializeGraph(subject);
@@ -119,7 +119,7 @@ public class DeathAction extends BasicAction
         return ActionIncomplete;
     }
 
-    private void initializeVisuals(Destroyable subject) {
+    private void initializeVisuals(PerishableObject subject) {
         if (subject instanceof Viewable) {
             assignDeathAnimation((Viewable)subject);
         }
@@ -146,7 +146,7 @@ public class DeathAction extends BasicAction
         }
     }
 
-    private void assignExplosionEffect(Destroyable subject) {
+    private void assignExplosionEffect(PerishableObject subject) {
         Item explosion = factory.get(Explosion);
         setTarget(explosion);
 
@@ -157,22 +157,22 @@ public class DeathAction extends BasicAction
         parent.addItem(explosion);
     }
 
-    private void initializeSelection(Destroyable subject) {
-        if (subject instanceof Selectable) {
-            Selectable selectable = (Selectable)subject;
+    private void initializeSelection(PerishableObject subject) {
+        if (subject instanceof SelectableObject) {
+            SelectableObject selectable = (SelectableObject)subject;
             selectable.setSelected(false);
             selectable.setSelectable(false);
             events.add(new SelectEvent(selectable, false));
         }
     }
 
-    private void initializeGraph(Destroyable subject) {
+    private void initializeGraph(PerishableObject subject) {
         ItemRoot root = subject.getRoot();
         ItemGraph graph = root.getSpatialGraph();
         graph.removeOccupants(subject);
     }
 
-    private void initializeAssociation(Destroyable subject) {
+    private void initializeAssociation(PerishableObject subject) {
         if (isRanged(subject)) {
             RangedCombatant ranged = (RangedCombatant)subject;
             Item associatedItem = ranged.getAssociatedItem();
@@ -182,7 +182,7 @@ public class DeathAction extends BasicAction
         }
     }
 
-    private void initializeTimers(Destroyable subject) {
+    private void initializeTimers(PerishableObject subject) {
         if (isInstantlyDestroyable(subject)) {
             deathTimer = new GameTimer(DEATH_TIME);
             decomposeTimer = new GameTimer(0);

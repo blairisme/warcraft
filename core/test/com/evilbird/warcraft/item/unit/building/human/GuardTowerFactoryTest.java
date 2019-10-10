@@ -42,15 +42,15 @@ public class GuardTowerFactoryTest extends BuildingFactoryTestCase<GuardTowerFac
     protected Map<String, Object> getProductProperties() {
         return Maps.of(
                 "animation", Idle,
-                "damageMinimum", 4,
-                "damageMaximum", 12,
+                "basicDamage", 8,
+                "piercingDamage", 4,
                 "armour", 20,
                 "health", 130.0f,
                 "healthMaximum", 130.0f,
                 "selectable", true,
                 "selected", false,
                 "sight", tiles(9),
-                "range", tiles(6),
+                "attackRange", tiles(6),
                 "type", GuardTower);
     }
 }

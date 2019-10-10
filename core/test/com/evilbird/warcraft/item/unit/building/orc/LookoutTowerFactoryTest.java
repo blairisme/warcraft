@@ -42,15 +42,15 @@ public class LookoutTowerFactoryTest extends BuildingFactoryTestCase<LookoutTowe
     protected Map<String, Object> getProductProperties() {
         return Maps.of(
                 "Animation", Idle,
-                "damageMinimum", 4,
-                "damageMaximum", 12,
+                "basicDamage", 8,
+                "piercingDamage", 4,
                 "Armour", 20,
                 "Health", 130.0f,
                 "HealthMaximum", 130.0f,
                 "selectable", true,
                 "selected", false,
                 "sight", tiles(9),
-                "range", tiles(6),
+                "attackRange", tiles(6),
                 "type", LookoutTower);
     }
 }

@@ -11,9 +11,11 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.item.common.state.MovableObject;
+import com.evilbird.warcraft.item.common.state.OffensiveObject;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -72,14 +74,15 @@ public class MeleeAttack extends BasicAction
     }
 
     private void initialize() {
-        Combatant combatant = (Combatant)getItem();
-        combatant.setAnimation(UnitAnimation.Attack);
-        combatant.setSound(UnitSound.Attack, preferences.getEffectsVolume());
+        OffensiveObject attacker = (OffensiveObject)getItem();
+        attacker.setAnimation(UnitAnimation.Attack);
+        attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
 
-        Destroyable target = (Destroyable)getTarget();
-        reorient(combatant, target, false);
-
-        delay = new GameTimer(combatant.getAttackSpeed());
+        if (attacker instanceof MovableObject) {
+            PerishableObject target = (PerishableObject)getTarget();
+            reorient((MovableObject)attacker, target, false);
+        }
+        delay = new GameTimer(attacker.getAttackSpeed());
     }
 
     private boolean readyToAttack() {
@@ -92,20 +95,21 @@ public class MeleeAttack extends BasicAction
     }
 
     private boolean attackTarget() {
-        Combatant combatant = (Combatant)getItem();
-        combatant.setSound(UnitSound.Attack, preferences.getEffectsVolume());
+        OffensiveObject attacker = (OffensiveObject)getItem();
+        attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
 
-        Destroyable target = (Destroyable)getTarget();
-        target.setHealth(getDamagedHealth(combatant, target));
+        PerishableObject target = (PerishableObject)getTarget();
+        target.setHealth(getDamagedHealth(attacker, target));
 
-        reorient(combatant, target, false);
+        if (attacker instanceof MovableObject) {
+            reorient((MovableObject)attacker, target, false);
+        }
         delay.reset();
-
         return target.getHealth() == 0;
     }
 
     private boolean attackComplete() {
-        Combatant combatant = (Combatant)getItem();
+        OffensiveObject combatant = (Combatant)getItem();
         combatant.setAnimation(UnitAnimation.Idle);
         return ActionComplete;
     }

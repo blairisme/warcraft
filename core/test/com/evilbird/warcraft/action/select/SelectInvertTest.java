@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.common.lang.Selectable;
+import com.evilbird.warcraft.item.common.state.SelectableObject;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.common.WarcraftPreferences;
@@ -45,7 +45,7 @@ public class SelectInvertTest extends ActionTestCase
     @Test
     @Ignore
     public void actTest() {
-        Selectable selectable = (Selectable)item;
+        SelectableObject selectable = (SelectableObject)item;
 
         assertFalse(selectable.getSelected());
         assertFalse(action.act(1));

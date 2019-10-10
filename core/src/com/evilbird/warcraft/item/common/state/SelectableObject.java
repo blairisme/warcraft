@@ -1,13 +1,13 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.lang;
+package com.evilbird.warcraft.item.common.state;
 
 import com.evilbird.engine.item.Item;
 
@@ -18,7 +18,7 @@ import com.evilbird.engine.item.Item;
  *
  * @author Blair Butterworth
  */
-public interface Selectable extends Item
+public interface SelectableObject extends Item
 {
     /**
      * Returns whether the game object has been selected by the user.

@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
-import com.evilbird.engine.common.lang.Categorizable;
 import com.evilbird.engine.common.lang.Disablable;
 import com.evilbird.engine.common.lang.Identifiable;
 import com.evilbird.engine.common.lang.Identifier;
@@ -32,7 +31,7 @@ import java.util.Collection;
  * @author Blair Butterworth
  */
 @JsonAdapter(ItemBasicAdapter.class)
-public interface Item extends Identifiable, Categorizable, Positionable, Disablable, Visible
+public interface Item extends Identifiable, Positionable, Disablable, Visible
 {
     /**
      * Assigns an {@link Action} to the Item, a "bundle" of behaviour that

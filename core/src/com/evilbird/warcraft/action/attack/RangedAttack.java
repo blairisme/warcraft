@@ -12,10 +12,12 @@ package com.evilbird.warcraft.action.attack;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Alignment;
-import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.item.common.state.MovableObject;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
+import com.evilbird.warcraft.item.common.state.RangedOffensiveObject;
 import com.evilbird.warcraft.item.projectile.Projectile;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -36,9 +38,9 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
  */
 public class RangedAttack extends BasicAction
 {
-    private transient RangedCombatant combatant;
+    private transient RangedOffensiveObject combatant;
     private transient Projectile projectile;
-    private transient Destroyable target;
+    private transient PerishableObject target;
     private transient Vector2 destination;
     private transient ItemFactory factory;
     private transient WarcraftPreferences preferences;
@@ -103,11 +105,11 @@ public class RangedAttack extends BasicAction
         flightTime = 0;
         reloadTime = 0;
 
-        target = (Destroyable)getTarget();
+        target = (PerishableObject)getTarget();
         destination = target.getPosition(Alignment.Center);
 
-        combatant = (RangedCombatant)getItem();
-        reorient(combatant, target, isShip(combatant));
+        combatant = (RangedOffensiveObject)getItem();
+        reorientTowardsTarget();
 
         projectile = getProjectile(combatant);
         projectile.setVisible(false);
@@ -115,11 +117,11 @@ public class RangedAttack extends BasicAction
         projectile.setPosition(combatant.getPosition(Alignment.Center));
     }
 
-    private Projectile getProjectile(RangedCombatant combatant) {
-        Projectile result = (Projectile)combatant.getAssociatedItem();
+    private Projectile getProjectile(RangedOffensiveObject combatant) {
+        Projectile result = combatant.getProjectile();
         if (result == null) {
             result = (Projectile)factory.get(combatant.getProjectileType());
-            combatant.setAssociatedItem(result);
+            combatant.setProjectile(result);
 
             ItemGroup parent = combatant.getParent();
             parent.addItem(result);
@@ -149,7 +151,7 @@ public class RangedAttack extends BasicAction
         combatant.setAnimation(UnitAnimation.Attack);
         combatant.setSound(UnitSound.Attack, preferences.getEffectsVolume());
 
-        reorient(combatant, target, isShip(combatant));
+        reorientTowardsTarget();
         reorient(projectile, target, false);
     }
 
@@ -168,7 +170,7 @@ public class RangedAttack extends BasicAction
     private Vector2 getNextPosition(Vector2 position, Vector2 destination, float time) {
         Vector2 remaining = destination.cpy().sub(position);
         float remainingDistance = remaining.len();
-        float incrementDistance = time * projectile.getSpeed();
+        float incrementDistance = time * projectile.getMovementSpeed();
 
         if (remainingDistance > incrementDistance) {
             Vector2 direction = remaining.nor();
@@ -185,5 +187,11 @@ public class RangedAttack extends BasicAction
         projectile.setVisible(false);
         reloadTime = Math.max(combatant.getAttackSpeed() - flightTime, 0);
         return newHealth == 0;
+    }
+
+    private void reorientTowardsTarget() {
+        if (combatant instanceof MovableObject) {
+            reorient((MovableObject)combatant, target, isShip(combatant));
+        }
     }
 }

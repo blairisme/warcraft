@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.integration.steps;
 
-import com.evilbird.engine.common.lang.Selectable;
+import com.evilbird.warcraft.item.common.state.SelectableObject;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.item.Item;
@@ -42,7 +42,7 @@ public class SelectSteps
         State state = engine.getState();
         ItemRoot world = state.getWorld();
         Item item = world.find(withId(new TextIdentifier(identifier)));
-        Selectable selectable = (Selectable)item;
+        SelectableObject selectable = (SelectableObject)item;
         Assert.assertEquals(selected.equals("selected"), selectable.getSelected());
     }
 }

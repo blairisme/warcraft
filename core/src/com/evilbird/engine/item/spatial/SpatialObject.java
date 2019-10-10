@@ -14,11 +14,12 @@ import com.evilbird.engine.item.Item;
 import java.util.Collection;
 
 /**
- * Marks an {@link Item} variant as beloning to an {@link ItemGraph}.
+ * Implementors of this interface represent a game object that occupies space
+ * in the game world, and thus marks it as belonging to an {@link ItemGraph}.
  *
  * @author Blair Butterworth
  */
-public interface ItemGraphOccupant extends Item
+public interface SpatialObject extends Item
 {
     default Collection<ItemNode> getNodes(ItemGraph graph) {
         return graph.getNodes(getPosition(), getSize());

@@ -11,13 +11,13 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
@@ -119,7 +119,7 @@ class GatherObtain extends BasicAction
     }
 
     protected void resourceEmpty(ResourceContainer container) {
-        if (container instanceof Destroyable && container.getResource(resource) == 0) {
+        if (container instanceof PerishableObject && container.getResource(resource) == 0) {
             death.setItem(container);
             container.addAction(death);
         }

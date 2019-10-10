@@ -19,7 +19,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
+import static com.evilbird.warcraft.item.common.state.MovementCapability.Land;
 import static com.evilbird.warcraft.item.unit.UnitType.Ogre;
 import static com.evilbird.warcraft.item.unit.UnitType.OgreMage;
 
@@ -51,7 +51,6 @@ public class OgreMageFactory extends CombatantFactoryBase
         result.setIdentifier(objectIdentifier("OgreMage", result));
         result.setMovementSpeed(8 * 13);
         result.setMovementCapability(Land);
-        result.setAttackRange(tiles(1));
         result.setSight(tiles(5));
         result.setType(OgreMage);
         return result;

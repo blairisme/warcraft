@@ -14,12 +14,13 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.building.BuildingFactoryBase;
-import com.evilbird.warcraft.item.unit.building.Fort;
+import com.evilbird.warcraft.item.unit.building.OffensiveBuilding;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Arrow;
 import static com.evilbird.warcraft.item.unit.UnitType.GuardTower;
 
 /**
@@ -41,17 +42,18 @@ public class GuardTowerFactory extends BuildingFactoryBase
 
     @Override
     public Building get(Identifier type) {
-        Fort result = builder.buildFort();
-        result.setAttackSpeed(1);
+        OffensiveBuilding result = builder.buildOffensiveBuilding();
+        result.setAttackSpeed(3);
+        result.setAttackRange(tiles(6));
         result.setArmour(20);
-        result.setDamageMinimum(4);
-        result.setDamageMaximum(12);
+        result.setBasicDamage(8);
+        result.setPiercingDamage(4);
         result.setHealth(130);
         result.setHealthMaximum(130);
         result.setIdentifier(objectIdentifier("GuardTower", result));
         result.setSight(tiles(9));
-        result.setRange(tiles(6));
         result.setType(GuardTower);
+        result.setProjectileType(Arrow);
         return result;
     }
 }

@@ -14,12 +14,13 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.building.BuildingFactoryBase;
-import com.evilbird.warcraft.item.unit.building.Fort;
+import com.evilbird.warcraft.item.unit.building.OffensiveBuilding;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Cannonball;
 import static com.evilbird.warcraft.item.unit.UnitType.CannonTower;
 
 /**
@@ -41,17 +42,18 @@ public class CannonTowerFactory extends BuildingFactoryBase
 
     @Override
     public Building get(Identifier type) {
-        Fort result = builder.buildFort();
-        result.setAttackSpeed(1);
+        OffensiveBuilding result = builder.buildOffensiveBuilding();
+        result.setAttackSpeed(3);
+        result.setAttackRange(tiles(7));
         result.setArmour(20);
-        result.setDamageMinimum(50);
-        result.setDamageMaximum(50);
+        result.setBasicDamage(50);
+        result.setPiercingDamage(0);
         result.setHealth(160);
         result.setHealthMaximum(160);
         result.setIdentifier(objectIdentifier("CannonTower", result));
         result.setSight(tiles(9));
-        result.setRange(tiles(7));
         result.setType(CannonTower);
+        result.setProjectileType(Cannonball);
         return result;
     }
 }

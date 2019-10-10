@@ -16,8 +16,8 @@ import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.common.maps.MapLayerIterable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.spatial.ItemGraph;
-import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.item.spatial.SpatialObject;
 import com.evilbird.warcraft.item.layer.Layer;
 import com.evilbird.warcraft.item.layer.LayerAdapter;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -36,7 +36,7 @@ import static com.evilbird.warcraft.item.layer.LayerUtils.toCellDimensions;
  * @author Blair Butterworth
  */
 @JsonAdapter(LayerAdapter.class)
-public class Terrain extends Layer implements ItemGraphOccupant
+public class Terrain extends Layer implements SpatialObject
 {
     @Inject
     public Terrain() {

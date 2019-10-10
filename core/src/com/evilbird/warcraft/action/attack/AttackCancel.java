@@ -10,10 +10,10 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.apache.commons.lang3.Validate;
 
@@ -41,7 +41,7 @@ public class AttackCancel extends BasicAction
     @Override
     public boolean act(float delta) {
         Combatant attacker = (Combatant)getItem();
-        Destroyable target = (Destroyable)getTarget();
+        PerishableObject target = (PerishableObject)getTarget();
 
         attacker.setAnimation(Idle);
         attackCancelled(events, attacker, target);
@@ -57,7 +57,7 @@ public class AttackCancel extends BasicAction
 
     @Override
     public void setTarget(Item target) {
-        Validate.isAssignableFrom(Destroyable.class, target.getClass());
+        Validate.isAssignableFrom(PerishableObject.class, target.getClass());
         super.setTarget(target);
     }
 }

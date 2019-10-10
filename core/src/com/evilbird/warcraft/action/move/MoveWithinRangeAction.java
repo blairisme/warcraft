@@ -17,7 +17,7 @@ import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
-import com.evilbird.warcraft.item.common.movement.Movable;
+import com.evilbird.warcraft.item.common.state.MovableObject;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
@@ -87,7 +87,7 @@ public class MoveWithinRangeAction extends MoveAction
     @Override
     public ItemPathFilter getPathFilter() {
         if (filter == null) {
-            Movable item = (Movable)getItem();
+            MovableObject item = (MovableObject)getItem();
             filter = new ItemPathFilter();
             filter.addTraversableItem(item);
             filter.addTraversableCapability(item.getMovementCapability());

@@ -52,8 +52,8 @@ public class BuildingBuilder
         return createBuilding(new Building(getSkin()));
     }
 
-    public Fort buildFort() {
-        return createBuilding(new Fort(getSkin()));
+    public OffensiveBuilding buildOffensiveBuilding() {
+        return createBuilding(new OffensiveBuilding(getSkin()));
     }
 
     public ResourceExtractor buildExtractor() {

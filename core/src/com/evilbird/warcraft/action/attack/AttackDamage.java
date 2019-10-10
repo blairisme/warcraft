@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.action.attack;
 
-import com.evilbird.engine.common.lang.Destroyable;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.common.state.OffensiveObject;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
 
 import java.util.Random;
 
@@ -42,13 +42,13 @@ public class AttackDamage
      * @return          the targets health minus the attack damage inflicted by
      *                  the attacker.
      */
-    public static float getDamagedHealth(Combatant attacker, Destroyable target) {
+    public static float getDamagedHealth(OffensiveObject attacker, PerishableObject target) {
         int damage = getDamage(attacker, target);
         float health = target.getHealth();
         return Math.max(0, health - damage);
     }
 
-    private static int getDamage(Combatant combatant, Destroyable target) {
+    private static int getDamage(OffensiveObject combatant, PerishableObject target) {
         int armour = target.getArmour();
         int basic = combatant.getBasicDamage();
         int piercing = combatant.getPiercingDamage();

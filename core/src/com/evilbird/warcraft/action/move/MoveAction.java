@@ -16,13 +16,13 @@ import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
-import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.item.spatial.SpatialObject;
 import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.warcraft.action.common.path.ItemNodePath;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.action.common.path.ItemPathFinder;
-import com.evilbird.warcraft.item.common.movement.Movable;
+import com.evilbird.warcraft.item.common.state.MovableObject;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import java.util.Collection;
@@ -218,8 +218,8 @@ abstract class MoveAction extends BasicAction
     }
 
     protected void updateOccupancy(Item item) {
-        if (item instanceof ItemGraphOccupant) {
-            ItemGraphOccupant occupant = (ItemGraphOccupant)item;
+        if (item instanceof SpatialObject) {
+            SpatialObject occupant = (SpatialObject)item;
 
             Collection<ItemNode> previouslyOccupiedNodes = graph.getOccupiedNodes(occupant);
             graph.removeOccupants(previouslyOccupiedNodes, occupant);
@@ -245,7 +245,7 @@ abstract class MoveAction extends BasicAction
     }
 
     protected Vector2 getNextPosition(Item item, Vector2 position, float time) {
-        Movable movable = (Movable)item;
+        MovableObject movable = (MovableObject)item;
 
         Vector2 pathNodePosition = waypoint.getWorldReference();
         Vector2 remaining = pathNodePosition.cpy().sub(position);

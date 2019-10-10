@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.item.layer.wall;
 
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.common.lang.Destroyable;
-import com.evilbird.engine.item.spatial.ItemGraphOccupant;
+import com.evilbird.engine.item.spatial.SpatialObject;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.warcraft.item.layer.LayerGroupCell;
 import com.evilbird.warcraft.item.layer.LayerType;
 
@@ -20,7 +20,7 @@ import com.evilbird.warcraft.item.layer.LayerType;
  *
  * @author Blair Butterworth
  */
-public class WallSection extends LayerGroupCell implements Destroyable, ItemGraphOccupant
+public class WallSection extends LayerGroupCell implements PerishableObject, SpatialObject
 {
     private static final transient float DEFAULT_HEALTH = 100;
 

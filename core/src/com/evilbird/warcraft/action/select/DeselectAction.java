@@ -11,8 +11,8 @@ package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.events.Events;
+import com.evilbird.warcraft.item.common.state.SelectableObject;
 
 import javax.inject.Inject;
 
@@ -32,7 +32,7 @@ public class DeselectAction extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Selectable selectable = (Selectable)getItem();
+        SelectableObject selectable = (SelectableObject)getItem();
         if (selectable.getSelected()) {
             selectable.setSelected(false);
             events.add(new SelectEvent(selectable, false));

@@ -11,21 +11,20 @@ package com.evilbird.warcraft.item.common.query;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.collection.CollectionUtils;
-import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemComposite;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
-import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.engine.item.utility.ItemOperations;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.common.WarcraftFaction;
-import com.evilbird.warcraft.item.common.movement.Movable;
-import com.evilbird.warcraft.item.common.movement.MovementCapability;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.item.common.state.MovableObject;
+import com.evilbird.warcraft.item.common.state.OffensiveObject;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.placement.Placeholder;
@@ -77,25 +76,25 @@ public class UnitOperations
      * @return          the closest touchable {@link Item} of the given type,
      *                  or {@code null}.
      */
-    public static Item findClosest(Movable target, Identifier type) {
+    public static Item findClosest(MovableObject target, Identifier type) {
         return findClosest(target, target, touchableWithType(type));
     }
 
-    public static Item findClosest(Movable movable, Item locus, Identifier type) {
+    public static Item findClosest(MovableObject movable, Item locus, Identifier type) {
         return findClosest(movable, locus, touchableWithType(type));
     }
 
-    public static Item findClosest(Movable movable, Predicate<Item> applicability) {
+    public static Item findClosest(MovableObject movable, Predicate<Item> applicability) {
         return findClosest(movable, movable, applicability);
     }
 
-    public static Item findClosest(Movable source, Item locus, Predicate<Item> applicability) {
+    public static Item findClosest(MovableObject source, Item locus, Predicate<Item> applicability) {
         ItemComposite group = source.getRoot();
         Collection<Item> items = group.findAll(applicability);
         return findClosest(source, locus, items);
     }
 
-    public static Item findClosest(Movable source, Item locus, Collection<Item> items) {
+    public static Item findClosest(MovableObject source, Item locus, Collection<Item> items) {
         if (! items.isEmpty()) {
             List<Item> closest = new ArrayList<>(items);
             closest.sort(closestItem(locus));
@@ -209,18 +208,18 @@ public class UnitOperations
 
     /**
      * Determines if the given {@link Item} is "alive" of not. Specifically,
-     * this method tests if the given {@code Item} implements {@link Destroyable}
-     * and if it has a {@link Destroyable#getHealth() health} value more than
+     * this method tests if the given {@code Item} implements {@link PerishableObject}
+     * and if it has a {@link PerishableObject#getHealth() health} value more than
      * zero.
      *
-     * @param item a {@link Destroyable} {@link Item}.
+     * @param item a {@link PerishableObject} {@link Item}.
      *
      * @return  {@code true} if the given {@code Item} is a {@code Destroyable}
      *          and has a health value more than zero.
      */
     public static boolean isAlive(Item item) {
-        if (item instanceof Destroyable) {
-            Destroyable destroyable = (Destroyable)item;
+        if (item instanceof PerishableObject) {
+            PerishableObject destroyable = (PerishableObject)item;
             return destroyable.getHealth() > 0;
         }
         return false;
@@ -336,14 +335,12 @@ public class UnitOperations
      *              {@code false}.
      */
     public static boolean isAttacker(Item item) {
-        if (item instanceof Combatant) {
-            Combatant combatant = (Combatant)item;
+        if (item instanceof OffensiveObject) {
+            OffensiveObject combatant = (OffensiveObject)item;
             return combatant.getAttackSpeed() > 0;
         }
         return false;
     }
-
-
 
     /**
      * Determines if the given {@link Item} is a critter.
@@ -425,24 +422,29 @@ public class UnitOperations
         return item instanceof Resource;
     }
 
-    public static boolean isShip(Combatant combatant) {
-        return combatant.getMovementCapability() == MovementCapability.Water;
+    public static boolean isShip(Item item) {
+        if (item instanceof Unit) {
+            Unit unit = (Unit)item;
+            UnitType type = (UnitType)unit.getType();
+            return type.isNaval();
+        }
+        return false;
     }
 
     public static boolean isUnit(Item item) {
         return item instanceof Unit;
     }
 
-    public static void reorient(Viewable item, Item target, boolean perpendicular) {
-        Vector2 itemPosition = item.getPosition();
+    public static void reorient(MovableObject subject, Item target, boolean perpendicular) {
+        Vector2 itemPosition = subject.getPosition();
         Vector2 targetPosition = target.getPosition();
         Vector2 direction = targetPosition.sub(itemPosition);
         Vector2 normalizedDirection = direction.nor();
         Vector2 newDirection = normalizedDirection.rotate(perpendicular ? 90 : 0);
-        item.setDirection(newDirection);
+        subject.setDirection(newDirection);
     }
 
-    public static void moveAdjacent(Movable subject, Item target) {
+    public static void moveAdjacent(MovableObject subject, Item target) {
         ItemRoot root = target.getRoot();
         ItemGraph graph = root.getSpatialGraph();
 

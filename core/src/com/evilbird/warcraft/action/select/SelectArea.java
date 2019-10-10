@@ -12,12 +12,12 @@ package com.evilbird.warcraft.action.select;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.item.common.state.SelectableObject;
 import com.evilbird.warcraft.item.ui.selection.SelectionBox;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
@@ -117,8 +117,8 @@ public class SelectArea extends BasicAction
     }
 
     private void deselect(Item item) {
-        if (item instanceof Selectable) {
-            Selectable selectable = (Selectable)item;
+        if (item instanceof SelectableObject) {
+            SelectableObject selectable = (SelectableObject)item;
             if (selectable.getSelectable() && selectable.getSelected()) {
                 selectable.setSelected(false);
                 events.add(new SelectEvent(selectable, false));
@@ -134,7 +134,7 @@ public class SelectArea extends BasicAction
 
     private void select(Item item) {
         if (item instanceof Combatant) {
-            Selectable selectable = (Selectable)item;
+            Combatant selectable = (Combatant)item;
             if (selectable.getSelectable() && !selectable.getSelected()) {
                 selectable.setSelected(true);
                 events.add(new SelectEvent(selectable, true));

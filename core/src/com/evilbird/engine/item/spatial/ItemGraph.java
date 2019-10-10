@@ -290,20 +290,20 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     }
 
     public void addOccupants(Item occupant) {
-        if (occupant instanceof ItemGraphOccupant) {
-            ItemGraphOccupant graphOccupant = (ItemGraphOccupant)occupant;
-            addOccupants(graphOccupant.getNodes(this), (ItemGraphOccupant)occupant);
+        if (occupant instanceof SpatialObject) {
+            SpatialObject graphOccupant = (SpatialObject)occupant;
+            addOccupants(graphOccupant.getNodes(this), (SpatialObject)occupant);
         }
     }
 
     public void addOccupants(ItemNode node, Item occupant) {
-        if (occupant instanceof ItemGraphOccupant) {
+        if (occupant instanceof SpatialObject) {
             Collection<ItemNode> nodes = getNodes(node.getSpatialReference(), occupant.getSize());
-            addOccupants(nodes, (ItemGraphOccupant)occupant);
+            addOccupants(nodes, (SpatialObject)occupant);
         }
     }
 
-    public void addOccupants(Collection<ItemNode> nodes, ItemGraphOccupant occupant) {
+    public void addOccupants(Collection<ItemNode> nodes, SpatialObject occupant) {
         for (ItemNode node: nodes) {
             node.addOccupant(occupant);
         }
@@ -317,20 +317,20 @@ public class ItemGraph implements SpatialGraph<ItemNode>
     }
 
     public void removeOccupants(Item occupant) {
-        if (occupant instanceof ItemGraphOccupant) {
-            ItemGraphOccupant graphOccupant = (ItemGraphOccupant)occupant;
-            removeOccupants(graphOccupant.getNodes(this), (ItemGraphOccupant)occupant);
+        if (occupant instanceof SpatialObject) {
+            SpatialObject graphOccupant = (SpatialObject)occupant;
+            removeOccupants(graphOccupant.getNodes(this), (SpatialObject)occupant);
         }
     }
 
     public void removeOccupants(ItemNode node, Item occupant) {
-        if (occupant instanceof ItemGraphOccupant) {
+        if (occupant instanceof SpatialObject) {
             Collection<ItemNode> nodes = getNodes(node.getSpatialReference(), occupant.getSize());
-            removeOccupants(nodes, (ItemGraphOccupant)occupant);
+            removeOccupants(nodes, (SpatialObject)occupant);
         }
     }
 
-    public void removeOccupants(Collection<ItemNode> nodes, ItemGraphOccupant occupant) {
+    public void removeOccupants(Collection<ItemNode> nodes, SpatialObject occupant) {
         for (ItemNode node: nodes) {
             node.removeOccupant(occupant);
         }

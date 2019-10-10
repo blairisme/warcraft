@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
+import static com.evilbird.warcraft.item.common.state.MovementCapability.Land;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.GoldProduction;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.MeleeDamage;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.WoodProduction;
@@ -65,7 +65,6 @@ public class PeonFactory extends GathererFactoryBase
 
     private void setAttackAttributes(Gatherer result) {
         result.setAttackSpeed(1);
-        result.setAttackRange(tiles(1));
         result.setArmour(0);
         result.setPiercingDamage(1);
         result.setBasicDamage(new UpgradableValue(MeleeDamage, 5, 7, 9));

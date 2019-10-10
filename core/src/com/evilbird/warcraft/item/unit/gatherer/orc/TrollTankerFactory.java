@@ -21,7 +21,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
+import static com.evilbird.warcraft.item.common.state.MovementCapability.Water;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.OilProduction;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollTanker;
 
@@ -64,7 +64,6 @@ public class TrollTankerFactory extends GathererFactoryBase
 
     private void setAttackAttributes(Gatherer result) {
         result.setArmour(0);
-        result.setAttackRange(0);
         result.setAttackSpeed(0);
         result.setBasicDamage(0);
         result.setPiercingDamage(0);

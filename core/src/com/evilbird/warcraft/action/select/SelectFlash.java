@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Selectable;
+import com.evilbird.warcraft.item.common.state.SelectableObject;
 
 import javax.inject.Inject;
 
@@ -43,7 +43,7 @@ public class SelectFlash extends BasicAction
     public boolean act(float delta) {
         time = Math.max(time - delta, 0);
         if (time == 0) {
-            Selectable selectable = (Selectable)getItem();
+            SelectableObject selectable = (SelectableObject)getItem();
             selectable.setSelected(!selectable.getSelected());
 
             count += 1;

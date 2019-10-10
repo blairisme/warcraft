@@ -80,10 +80,6 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Singleton;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Standalone;
-import static com.evilbird.warcraft.item.common.movement.MovementCapability.Air;
-import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
-import static com.evilbird.warcraft.item.common.movement.MovementCapability.ShallowWater;
-import static com.evilbird.warcraft.item.common.movement.MovementCapability.Water;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasResources;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
@@ -105,6 +101,10 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isTransport
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Oil;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
+import static com.evilbird.warcraft.item.common.state.MovementCapability.Air;
+import static com.evilbird.warcraft.item.common.state.MovementCapability.Land;
+import static com.evilbird.warcraft.item.common.state.MovementCapability.ShallowWater;
+import static com.evilbird.warcraft.item.common.state.MovementCapability.Water;
 import static com.evilbird.warcraft.item.data.camera.CameraType.Camera;
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
 import static com.evilbird.warcraft.item.layer.LayerType.OpaqueFogSection;

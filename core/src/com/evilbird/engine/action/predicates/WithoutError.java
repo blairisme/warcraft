@@ -10,7 +10,8 @@
 package com.evilbird.engine.action.predicates;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.common.function.ResettablePredicate;
+
+import java.util.function.Predicate;
 
 /**
  * Instances of this class determine if a given {@link Action} is free of
@@ -18,7 +19,7 @@ import com.evilbird.engine.common.function.ResettablePredicate;
  *
  * @author Blair Butterworth
  */
-public class WithoutError implements ResettablePredicate<Action>
+public class WithoutError implements Predicate<Action>
 {
     public WithoutError() {
     }
@@ -26,9 +27,5 @@ public class WithoutError implements ResettablePredicate<Action>
     @Override
     public boolean test(Action value) {
         return !value.hasError();
-    }
-
-    @Override
-    public void reset() {
     }
 }

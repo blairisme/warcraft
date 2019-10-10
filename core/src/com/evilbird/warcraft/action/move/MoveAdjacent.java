@@ -23,7 +23,7 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
-import com.evilbird.warcraft.item.common.movement.Movable;
+import com.evilbird.warcraft.item.common.state.MovableObject;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -38,7 +38,7 @@ public class MoveAdjacent
         this.events = events;
     }
 
-    public boolean reposition(Movable subject, Item target) {
+    public boolean reposition(MovableObject subject, Item target) {
         ItemRoot root = target.getRoot();
         ItemGraph graph = root.getSpatialGraph();
 

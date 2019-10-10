@@ -19,7 +19,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.common.movement.MovementCapability.Land;
+import static com.evilbird.warcraft.item.common.state.MovementCapability.Land;
 import static com.evilbird.warcraft.item.unit.UnitType.Knight;
 import static com.evilbird.warcraft.item.unit.UnitType.Paladin;
 
@@ -44,7 +44,6 @@ public class PaladinFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         Combatant result = builder.newMeleeCombatant();
         result.setAttackSpeed(1);
-        result.setAttackRange(tiles(1));
         result.setArmour(4);
         result.setPiercingDamage(8);
         result.setBasicDamage(12);

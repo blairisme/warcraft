@@ -11,13 +11,13 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.CompositeAction;
-import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.action.move.MoveWithinRangeAction;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.apache.commons.lang3.Validate;
@@ -68,11 +68,11 @@ public class AttackSequence extends CompositeAction
     @Override
     public boolean act(float time) {
         Combatant attacker = (Combatant)getItem();
-        Destroyable target = (Destroyable)getTarget();
+        PerishableObject target = (PerishableObject)getTarget();
         return act(time, attacker, target);
     }
 
-    private boolean act(float time, Combatant attacker, Destroyable target) {
+    private boolean act(float time, Combatant attacker, PerishableObject target) {
         if (! targetValid(attacker, target)) {
             return attackInvalid(attacker, target);
         }
@@ -93,15 +93,15 @@ public class AttackSequence extends CompositeAction
 
     @Override
     public void setTarget(Item target) {
-        Validate.isAssignableFrom(Destroyable.class, target.getClass());
+        Validate.isAssignableFrom(PerishableObject.class, target.getClass());
         super.setTarget(target);
     }
 
-    private boolean targetValid(Combatant attacker, Destroyable target) {
+    private boolean targetValid(Combatant attacker, PerishableObject target) {
         return isAlive(attacker) && isAlive(target) && target.getVisible();
     }
 
-    private boolean attackInvalid(Combatant attacker, Destroyable target) {
+    private boolean attackInvalid(Combatant attacker, PerishableObject target) {
         resetAttacker(attacker);
         attackFailed(events, attacker, target);
         return ActionComplete;
@@ -117,43 +117,43 @@ public class AttackSequence extends CompositeAction
         return ActionIncomplete;
     }
 
-    private void assignMoveAction(Combatant attacker, Destroyable target) {
+    private void assignMoveAction(Combatant attacker, PerishableObject target) {
         stopAttacking(attacker, target);
         current = isRanged(attacker) ? get(RANGED_MOVE) : get(MELEE_MOVE);
         current.restart();
     }
 
-    private void assignAttackAction(Combatant attacker, Destroyable target) {
+    private void assignAttackAction(Combatant attacker, PerishableObject target) {
         current = isRanged(attacker) ? get(RANGED_ATTACK) : get(MELEE_ATTACK);
         current.restart();
         attackStarted(events, attacker, target);
     }
 
-    private boolean moveRequired(Combatant attacker, Destroyable target) {
+    private boolean moveRequired(Combatant attacker, PerishableObject target) {
        return subjectMoving() || !inRange(attacker, target);
     }
 
-    private boolean moveAttacker(float time, Combatant attacker, Destroyable target) {
+    private boolean moveAttacker(float time, Combatant attacker, PerishableObject target) {
         if (!subjectMoving()) {
             assignMoveAction(attacker, target);
         }
         return performCurrentAction(time);
     }
 
-    private boolean attackTarget(float time, Combatant attacker, Destroyable target) {
+    private boolean attackTarget(float time, Combatant attacker, PerishableObject target) {
         if (! subjectAttacking()) {
             assignAttackAction(attacker, target);
         }
         return current.act(time);
     }
 
-    private boolean killTarget(Combatant attacker, Destroyable target) {
+    private boolean killTarget(Combatant attacker, PerishableObject target) {
         assignIfAbsent(target, get(DEATH_ACTION));
         attackComplete(events, attacker, target);
         return ActionComplete;
     }
 
-    private void stopAttacking(Combatant attacker, Destroyable target) {
+    private void stopAttacking(Combatant attacker, PerishableObject target) {
         if (subjectAttacking()) {
             resetAttacker(attacker);
             attackStopped(events, attacker, target);

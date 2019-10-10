@@ -13,10 +13,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.spatial.ItemGraphOccupant;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.item.spatial.SpatialObject;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
-import com.evilbird.warcraft.item.common.movement.Movable;
+import com.evilbird.warcraft.item.common.state.MovableObject;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -64,7 +64,7 @@ public class MoveToItemAction extends MoveAction
     @Override
     public boolean destinationValid() {
         Item target = getTarget();
-        if (target instanceof ItemGraphOccupant) {
+        if (target instanceof SpatialObject) {
             if (targetNode == null) {
                 Collection<ItemNode> nodes = graph.getNodes(target);
                 targetNode = nodes.iterator().next();
@@ -84,7 +84,7 @@ public class MoveToItemAction extends MoveAction
     @Override
     public ItemPathFilter getPathFilter() {
         if (filter == null) {
-            Movable item = (Movable)getItem();
+            MovableObject item = (MovableObject)getItem();
             filter = new ItemPathFilter();
             filter.addTraversableItem(item);
             filter.addTraversableCapability(item.getMovementCapability());

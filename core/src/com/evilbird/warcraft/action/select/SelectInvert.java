@@ -11,13 +11,13 @@ package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.item.common.state.SelectableObject;
 
 import javax.inject.Inject;
 import java.util.function.Predicate;
@@ -52,7 +52,7 @@ public class SelectInvert extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Selectable item = (Selectable) getItem();
+        SelectableObject item = (SelectableObject) getItem();
         if (item.getSelected()) {
             deselect(item);
         } else {
@@ -61,13 +61,13 @@ public class SelectInvert extends BasicAction
         return ActionComplete;
     }
 
-    private void select(Selectable entity) {
+    private void select(SelectableObject entity) {
         updateSelected(entity);
         updateSound(entity);
         setSelected(entity, true);
     }
 
-    private void updateSelected(Selectable entity) {
+    private void updateSelected(SelectableObject entity) {
         ItemRoot root = entity.getRoot();
         if (isCorporeal(entity) && isCombatant(entity)) {
             setSelected(root, either(isNonCombatant(), isAi()), false);
@@ -76,13 +76,13 @@ public class SelectInvert extends BasicAction
         }
     }
 
-    private void updateSound(Selectable entity) {
+    private void updateSound(SelectableObject entity) {
         if (isCorporeal(entity) || isNeutral(entity)) {
             setSelectedSound(entity);
         }
     }
 
-    private void deselect(Selectable entity) {
+    private void deselect(SelectableObject entity) {
         if (isCombatant(entity)) {
             setSelected(entity, false);
         } else {
@@ -99,13 +99,13 @@ public class SelectInvert extends BasicAction
 
     private void setSelected(ItemRoot root, Predicate<Item> condition, boolean selected) {
         for (Item item: root.findAll(condition)) {
-            if (item instanceof Selectable) {
-                setSelected((Selectable)item, selected);
+            if (item instanceof SelectableObject) {
+                setSelected((SelectableObject)item, selected);
             }
         }
     }
 
-    private void setSelected(Selectable selectable, boolean selected) {
+    private void setSelected(SelectableObject selectable, boolean selected) {
         if (selectable.getSelected() != selected) {
             selectable.setSelected(selected);
             notifySelected(events, selectable, selected);

@@ -12,9 +12,9 @@ package com.evilbird.warcraft.action.select;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.common.state.SelectableObject;
 
 import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
 
@@ -53,7 +53,7 @@ public class SelectAction extends BasicAction
 
     @Override
     public boolean act(float time) {
-        Selectable selectable = (Selectable)getRecipient(this, recipient);
+        SelectableObject selectable = (SelectableObject)getRecipient(this, recipient);
         if (selectable.getSelected() != selected) {
             selectable.setSelected(selected);
 

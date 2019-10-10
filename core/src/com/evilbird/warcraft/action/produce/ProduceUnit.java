@@ -15,10 +15,10 @@ import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.common.movement.Movable;
 import com.evilbird.warcraft.item.common.production.ProductionCosts;
 import com.evilbird.warcraft.item.common.production.ProductionTimes;
 import com.evilbird.warcraft.item.common.resource.ResourceSet;
+import com.evilbird.warcraft.item.common.state.MovableObject;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -155,7 +155,7 @@ public class ProduceUnit extends BasicAction
 
     private void finalizeBuilding(Building building, Unit product) {
         building.setProductionProgress(1);
-        moveAdjacent((Movable)product, building);
+        moveAdjacent((MovableObject)product, building);
     }
 
     private void notifyObservers(Building building, Unit product) {

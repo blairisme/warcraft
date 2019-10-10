@@ -42,15 +42,15 @@ public class BombardTowerFactoryTest extends BuildingFactoryTestCase<BombardTowe
     protected Map<String, Object> getProductProperties() {
         return Maps.of(
                 "Animation", Idle,
-                "damageMinimum", 50,
-                "damageMaximum", 50,
+                "basicDamage", 50,
+                "piercingDamage", 0,
                 "Armour", 20,
                 "Health", 160.0f,
                 "HealthMaximum", 160.0f,
                 "selectable", true,
                 "selected", false,
                 "sight", tiles(9),
-                "range", tiles(7),
+                "attackRange", tiles(7),
                 "type", BombardTower);
     }
 }

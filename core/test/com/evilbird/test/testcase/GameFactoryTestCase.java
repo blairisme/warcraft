@@ -42,6 +42,7 @@ public abstract class GameFactoryTestCase<T extends GameFactory> extends GameTes
 
     @Before
     public void setup() {
+        super.setup();
         resolver = new AssetFileHandleResolver();
         assets = TestAssetManager.getTestAssetManager(resolver);
         display = Mockito.mock(DeviceDisplay.class);

@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.common.movement.MovementCapability.ShallowWater;
+import static com.evilbird.warcraft.item.common.state.MovementCapability.ShallowWater;
 import static com.evilbird.warcraft.item.unit.UnitType.Transport;
 
 /**

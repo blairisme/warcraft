@@ -11,7 +11,7 @@ package com.evilbird.warcraft.item.layer.forest;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.spatial.ItemGraphOccupant;
+import com.evilbird.engine.item.spatial.SpatialObject;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.layer.LayerGroupCell;
@@ -24,7 +24,7 @@ import org.apache.commons.lang3.Validate;
  *
  * @author Blair Butterworth
  */
-public class ForestCell extends LayerGroupCell implements ResourceContainer, ItemGraphOccupant
+public class ForestCell extends LayerGroupCell implements ResourceContainer, SpatialObject
 {
     public ForestCell(GridPoint2 location, float value) {
         super(location, value);

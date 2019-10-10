@@ -13,14 +13,14 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.CollectionUtils;
-import com.evilbird.engine.common.lang.Destroyable;
-import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemReference;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.ItemGraphOccupant;
+import com.evilbird.engine.item.spatial.SpatialObject;
 import com.evilbird.engine.item.specialized.Viewable;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
+import com.evilbird.warcraft.item.common.state.SelectableObject;
 import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
 import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
 import com.evilbird.warcraft.item.common.upgrade.UpgradeSeries;
@@ -43,7 +43,7 @@ import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
  *
  * @author Blair Butterworth
  */
-public class Unit extends Viewable implements Destroyable, Selectable, ItemGraphOccupant
+public class Unit extends Viewable implements PerishableObject, SelectableObject, SpatialObject
 {
     private int sight;
     private float health;

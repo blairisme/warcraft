@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.common.query;
 
-import com.evilbird.engine.common.lang.Destroyable;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.data.player.Player;
@@ -84,7 +84,7 @@ public class UnitOperationsTest
 
     @Test
     public void isAlive() {
-        Destroyable item = mock(Destroyable.class);
+        PerishableObject item = mock(PerishableObject.class);
 
         when(item.getHealth()).thenReturn(40f);
         assertTrue(UnitOperations.isAlive(item));

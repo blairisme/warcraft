@@ -10,9 +10,15 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.item.specialized.ViewableStyle;
+import com.evilbird.warcraft.item.common.state.RangedOffensiveObject;
+import com.evilbird.warcraft.item.projectile.Projectile;
 import com.evilbird.warcraft.item.projectile.ProjectileType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import static com.evilbird.warcraft.item.projectile.ProjectileType.Arrow;
 
 /**
  * Instances of this class represent a combatant specialization that can attack
@@ -20,20 +26,72 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  *
  * @author Blair Butterworth
  */
-public class RangedCombatant extends Combatant
+public class RangedCombatant extends Combatant implements RangedOffensiveObject
 {
+    private int attackRange;
     private ProjectileType projectileType;
 
+    /**
+     * Constructs a new instance of this class given a {@link Skin} describing
+     * it visual and auditory presentation.
+     *
+     * @param skin  a {@link Skin} instance containing, amongst others, a
+     *              {@link ViewableStyle}.
+     */
     public RangedCombatant(Skin skin) {
         super(skin);
+        this.attackRange = 0;
+        this.projectileType = Arrow;
     }
 
+    /**
+     * Returns the distance that the {@code Combatant} can reach with its
+     * attacks.
+     */
+    @Override
+    public int getAttackRange() {
+        return attackRange;
+    }
+
+    /**
+     * Returns the objects current projectile, if any.
+     */
+    @Override
+    public Projectile getProjectile() {
+        return (Projectile)getAssociatedItem();
+    }
+
+    /**
+     * Returns the type of projectile used when the ranged offensive unit
+     * attacks.
+     */
+    @Override
     public ProjectileType getProjectileType() {
         return projectileType;
     }
 
+    /**
+     * Sets the distance that the {@code Combatant} can reach with its
+     * attacks.
+     */
+    public void setAttackRange(int attackRange) {
+        this.attackRange = attackRange;
+    }
+
+    /**
+     * Sets the type of projectile used when the ranged offensive unit
+     * attacks.
+     */
     public void setProjectileType(ProjectileType projectileType) {
         this.projectileType = projectileType;
+    }
+
+    /**
+     * Sets the projectile to be used by the ranged object.
+     */
+    @Override
+    public void setProjectile(Projectile projectile) {
+        setAssociatedItem(projectile);
     }
 
     @Override
@@ -45,6 +103,7 @@ public class RangedCombatant extends Combatant
         RangedCombatant that = (RangedCombatant)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
+            .append(attackRange, this.attackRange)
             .append(projectileType, that.projectileType)
             .isEquals();
     }
@@ -53,7 +112,15 @@ public class RangedCombatant extends Combatant
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
+            .append(attackRange)
             .append(projectileType)
             .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("identifier", getIdentifier())
+            .toString();
     }
 }

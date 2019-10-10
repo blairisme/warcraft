@@ -9,14 +9,14 @@
 
 package com.evilbird.warcraft.item.common.query;
 
-import com.evilbird.engine.common.lang.Destroyable;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.Selectable;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.common.movement.Movable;
-import com.evilbird.warcraft.item.common.movement.MovementCapability;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.item.common.state.MovableObject;
+import com.evilbird.warcraft.item.common.state.MovementCapability;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
+import com.evilbird.warcraft.item.common.state.SelectableObject;
 import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -51,8 +51,8 @@ public class UnitPredicates
     /**
      * Returns a condition that determines if the given {@link Item} is "alive"
      * of not. Specifically, this method tests if the given {@code Item}
-     * implements {@link Destroyable} and if it has a
-     * {@link Destroyable#getHealth() health} value more than zero.
+     * implements {@link PerishableObject} and if it has a
+     * {@link PerishableObject#getHealth() health} value more than zero.
      *
      * @return a {@link Predicate}.
      */
@@ -153,7 +153,7 @@ public class UnitPredicates
     }
 
     public static Predicate<Item> isDestroyable() {
-        return item -> item instanceof Destroyable;
+        return item -> item instanceof PerishableObject;
     }
 
     public static Predicate<Item> isGatherer() {
@@ -161,13 +161,13 @@ public class UnitPredicates
     }
 
     public static Predicate<Item> isMovable() {
-        return item -> item instanceof Movable;
+        return item -> item instanceof MovableObject;
     }
 
     public static Predicate<Item> isMovableOver(MovementCapability capability) {
         return item -> {
-            if (item instanceof Movable) {
-                Movable movable = (Movable)item;
+            if (item instanceof MovableObject) {
+                MovableObject movable = (MovableObject)item;
                 return capability.equals(movable.getMovementCapability());
             }
             return false;
@@ -188,8 +188,8 @@ public class UnitPredicates
 
     public static Predicate<Item> isSelected() {
         return (item) -> {
-            if (item instanceof Selectable) {
-                Selectable selectable = (Selectable)item;
+            if (item instanceof SelectableObject) {
+                SelectableObject selectable = (SelectableObject)item;
                 return selectable.getSelected();
             }
             return false;
@@ -197,7 +197,7 @@ public class UnitPredicates
     }
 
     public static Predicate<Item> isSelectable() {
-        return (item) -> item instanceof Selectable;
+        return (item) -> item instanceof SelectableObject;
     }
 
     public static Predicate<Item> hasResources(ResourceType type) {
@@ -207,7 +207,7 @@ public class UnitPredicates
         };
     }
 
-    public static Predicate<Item> hasPathTo(Movable source) {
+    public static Predicate<Item> hasPathTo(MovableObject source) {
         return destination -> hasPath(source, destination);
     }
 
