@@ -219,8 +219,8 @@ public class UnitOperations
      */
     public static boolean isAlive(Item item) {
         if (item instanceof PerishableObject) {
-            PerishableObject destroyable = (PerishableObject)item;
-            return destroyable.getHealth() > 0;
+            PerishableObject perishable = (PerishableObject)item;
+            return perishable.getHealth() > 0;
         }
         return false;
     }
@@ -406,11 +406,11 @@ public class UnitOperations
         return item instanceof Player;
     }
 
-    public static boolean inSight(Combatant combatant, Item target) {
+    public static boolean inSight(OffensiveObject combatant, Item target) {
         return isNear(combatant, combatant.getSight(), target);
     }
 
-    public static boolean inRange(Combatant combatant, Item target) {
+    public static boolean inRange(OffensiveObject combatant, Item target) {
         return isNear(combatant, combatant.getAttackRange(), target);
     }
 

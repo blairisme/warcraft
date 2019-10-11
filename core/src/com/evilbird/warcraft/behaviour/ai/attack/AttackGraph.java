@@ -10,21 +10,22 @@
 package com.evilbird.warcraft.behaviour.ai.attack;
 
 import com.evilbird.engine.common.collection.Maps;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
+import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.action.common.create.CreateEvent;
+import com.evilbird.warcraft.action.common.remove.RemoveEvent;
+import com.evilbird.warcraft.action.move.MoveEvent;
+import com.evilbird.warcraft.item.common.state.OffensiveObject;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import static com.evilbird.engine.common.collection.CollectionUtils.flatten;
-import static com.evilbird.warcraft.item.common.query.UnitComparators.combatantsFirst;
 
 /**
  * Represents a mapping between spatial locations and attackers sight-lines,
@@ -35,49 +36,94 @@ import static com.evilbird.warcraft.item.common.query.UnitComparators.combatants
  */
 public class AttackGraph
 {
+    private Events events;
     private ItemGraph graph;
-    private Map<ItemNode, Collection<Combatant>> attackers;
+    private Map<ItemNode, List<OffensiveObject>> attackers;
 
-    public AttackGraph(ItemGraph graph) {
+    public AttackGraph(ItemGraph graph, Events events) {
+        this.events = events;
         this.graph = graph;
         this.attackers = new HashMap<>();
     }
 
-    public Collection<Combatant> getAttackers(ItemNode node) {
-        return attackers.getOrDefault(node, Collections.emptyList());
+    public List<OffensiveObject> getAttackers(PerishableObject target) {
+        List<OffensiveObject> result = new ArrayList<>();
+        for (ItemNode node: graph.getNodes(target)) {
+            List<OffensiveObject> attackersWithinRange = attackers.get(node);
+            if (attackersWithinRange != null) {
+                result.addAll(attackersWithinRange);
+            }
+        }
+        return result;
     }
 
-    public Collection<Item> getAttackTargets(Combatant combatant) {
-        Collection<ItemNode> nodes = graph.getNodes(combatant.getPosition(), combatant.getSize(), combatant.getSight());
-        List<Item> targets = flatten(nodes, ItemNode::getOccupants);
-        targets.sort(combatantsFirst());
-        return targets;
+    public List<PerishableObject> getTargets(OffensiveObject attacker) {
+        List<PerishableObject> result = new ArrayList<>();
+        for (ItemNode node: graph.getNodes(attacker.getPosition(), attacker.getSize(), attacker.getSight())) {
+            for (Item occupant: node.getOccupants()) {
+                if (occupant instanceof PerishableObject) {
+                    result.add((PerishableObject)occupant);
+                }
+            }
+        }
+        return result;
     }
 
-    public void addAttacker(Combatant combatant) {
-        for (ItemNode node: getAttackRangeNodes(combatant)) {
-            Collection<Combatant> occupants = Maps.getOrDefault(attackers, node, ArrayList::new);
-            occupants.add(combatant);
+    public void initialize(ItemRoot state) {
+        for (Item item: state.findAll(OffensiveObject.class::isInstance)) {
+            addAttacker((OffensiveObject)item);
+        }
+    }
+
+    public void update() {
+        evaluateCreateEvents();
+        evaluateRemoveEvents();
+        evaluateMoveEvents();
+    }
+
+    private void evaluateCreateEvents() {
+        for (CreateEvent event: events.getEvents(CreateEvent.class)) {
+            Item subject = event.getSubject();
+            if (subject instanceof OffensiveObject) {
+                addAttacker((OffensiveObject)subject);
+            }
+        }
+    }
+
+    private void evaluateRemoveEvents() {
+        for (RemoveEvent event: events.getEvents(RemoveEvent.class)) {
+            Item subject = event.getSubject();
+            if (subject instanceof OffensiveObject) {
+                removeAttacker((OffensiveObject)subject);
+            }
+        }
+    }
+
+    private void evaluateMoveEvents() {
+        for (MoveEvent event: events.getEvents(MoveEvent.class)) {
+            Item subject = event.getSubject();
+            if (subject instanceof OffensiveObject){
+                updateAttacker((OffensiveObject)subject);
+            }
+        }
+    }
+
+    private void addAttacker(OffensiveObject attacker) {
+        for (ItemNode node: graph.getNodes(attacker.getPosition(), attacker.getSize(), attacker.getSight())) {
+            List<OffensiveObject> occupants = Maps.getOrDefault(attackers, node, ArrayList::new);
+            occupants.add(attacker);
             attackers.put(node, occupants);
         }
     }
 
-    public void addAttackers(Collection<Combatant> combatants) {
-        combatants.forEach(this::addAttacker);
-    }
-
-    public void removeAttacker(Combatant combatant) {
-        for (Entry<ItemNode, Collection<Combatant>> entry: attackers.entrySet()) {
+    private void removeAttacker(OffensiveObject combatant) {
+        for (Entry<ItemNode, List<OffensiveObject>> entry: attackers.entrySet()) {
             entry.getValue().remove(combatant);
         }
     }
 
-    public void updateAttacker(Combatant combatant) {
+    private void updateAttacker(OffensiveObject combatant) {
         removeAttacker(combatant);
         addAttacker(combatant);
-    }
-
-    private Collection<ItemNode> getAttackRangeNodes(Combatant combatant) {
-        return graph.getNodes(combatant.getPosition(), combatant.getSize(), combatant.getSight());
     }
 }
