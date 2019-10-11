@@ -17,9 +17,11 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.action.move.MoveWithinRangeAction;
+import com.evilbird.warcraft.item.common.state.OffensiveObject;
 import com.evilbird.warcraft.item.common.state.PerishableObject;
+import com.evilbird.warcraft.item.common.state.RangedOffensiveObject;
+import com.evilbird.warcraft.item.projectile.Projectile;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -67,12 +69,12 @@ public class AttackSequence extends CompositeAction
 
     @Override
     public boolean act(float time) {
-        Combatant attacker = (Combatant)getItem();
+        OffensiveObject attacker = (OffensiveObject)getItem();
         PerishableObject target = (PerishableObject)getTarget();
         return act(time, attacker, target);
     }
 
-    private boolean act(float time, Combatant attacker, PerishableObject target) {
+    private boolean act(float time, OffensiveObject attacker, PerishableObject target) {
         if (! targetValid(attacker, target)) {
             return attackInvalid(attacker, target);
         }
@@ -87,21 +89,21 @@ public class AttackSequence extends CompositeAction
 
     @Override
     public void setItem(Item item) {
-        Validate.isInstanceOf(Combatant.class, item);
+        Validate.isInstanceOf(OffensiveObject.class, item);
         super.setItem(item);
     }
 
     @Override
     public void setTarget(Item target) {
-        Validate.isAssignableFrom(PerishableObject.class, target.getClass());
+        Validate.isInstanceOf(PerishableObject.class, target);
         super.setTarget(target);
     }
 
-    private boolean targetValid(Combatant attacker, PerishableObject target) {
+    private boolean targetValid(OffensiveObject attacker, PerishableObject target) {
         return isAlive(attacker) && isAlive(target) && target.getVisible();
     }
 
-    private boolean attackInvalid(Combatant attacker, PerishableObject target) {
+    private boolean attackInvalid(OffensiveObject attacker, PerishableObject target) {
         resetAttacker(attacker);
         attackFailed(events, attacker, target);
         return ActionComplete;
@@ -117,53 +119,54 @@ public class AttackSequence extends CompositeAction
         return ActionIncomplete;
     }
 
-    private void assignMoveAction(Combatant attacker, PerishableObject target) {
+    private void assignMoveAction(OffensiveObject attacker, PerishableObject target) {
         stopAttacking(attacker, target);
         current = isRanged(attacker) ? get(RANGED_MOVE) : get(MELEE_MOVE);
         current.restart();
     }
 
-    private void assignAttackAction(Combatant attacker, PerishableObject target) {
+    private void assignAttackAction(OffensiveObject attacker, PerishableObject target) {
         current = isRanged(attacker) ? get(RANGED_ATTACK) : get(MELEE_ATTACK);
         current.restart();
         attackStarted(events, attacker, target);
     }
 
-    private boolean moveRequired(Combatant attacker, PerishableObject target) {
+    private boolean moveRequired(OffensiveObject attacker, PerishableObject target) {
        return subjectMoving() || !inRange(attacker, target);
     }
 
-    private boolean moveAttacker(float time, Combatant attacker, PerishableObject target) {
+    private boolean moveAttacker(float time, OffensiveObject attacker, PerishableObject target) {
         if (!subjectMoving()) {
             assignMoveAction(attacker, target);
         }
         return performCurrentAction(time);
     }
 
-    private boolean attackTarget(float time, Combatant attacker, PerishableObject target) {
+    private boolean attackTarget(float time, OffensiveObject attacker, PerishableObject target) {
         if (! subjectAttacking()) {
             assignAttackAction(attacker, target);
         }
         return current.act(time);
     }
 
-    private boolean killTarget(Combatant attacker, PerishableObject target) {
+    private boolean killTarget(OffensiveObject attacker, PerishableObject target) {
         assignIfAbsent(target, get(DEATH_ACTION));
         attackComplete(events, attacker, target);
         return ActionComplete;
     }
 
-    private void stopAttacking(Combatant attacker, PerishableObject target) {
+    private void stopAttacking(OffensiveObject attacker, PerishableObject target) {
         if (subjectAttacking()) {
             resetAttacker(attacker);
             attackStopped(events, attacker, target);
         }
     }
 
-    private void resetAttacker(Combatant attacker) {
+    private void resetAttacker(OffensiveObject attacker) {
         attacker.setAnimation(UnitAnimation.Idle);
-        if (isRanged(attacker)) {
-            Item projectile = attacker.getAssociatedItem();
+        if (attacker instanceof RangedOffensiveObject) {
+            RangedOffensiveObject rangedAttacker = (RangedOffensiveObject)attacker;
+            Projectile projectile = rangedAttacker.getProjectile();
             if (projectile != null) {
                 projectile.setVisible(false);
             }

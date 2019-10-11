@@ -21,7 +21,6 @@ import com.evilbird.warcraft.item.common.state.RangedOffensiveObject;
 import com.evilbird.warcraft.item.projectile.Projectile;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
-import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
 
 import javax.inject.Inject;
 
@@ -31,8 +30,8 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.isShip;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
 
 /**
- * Modifies the state of a {@link RangedCombatant} to attack a given item using
- * a projectile fired from distance.
+ * Modifies the state of a {@link RangedOffensiveObject} to attack a given item
+ * using a projectile fired from distance.
  *
  * @author Blair Butterworth
  */

@@ -18,7 +18,6 @@ import com.evilbird.warcraft.item.common.state.OffensiveObject;
 import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
@@ -109,7 +108,7 @@ public class MeleeAttack extends BasicAction
     }
 
     private boolean attackComplete() {
-        OffensiveObject combatant = (Combatant)getItem();
+        OffensiveObject combatant = (OffensiveObject)getItem();
         combatant.setAnimation(UnitAnimation.Idle);
         return ActionComplete;
     }

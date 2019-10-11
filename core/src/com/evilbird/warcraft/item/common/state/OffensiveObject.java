@@ -47,4 +47,10 @@ public interface OffensiveObject extends Item, Animated, Audible
      * in health points per attack.
      */
     int getPiercingDamage();
+
+    /**
+     * Returns the distance that the {@code OffensiveObject} can detect
+     * targets, specified in world units.
+     */
+    int getSight();
 }
