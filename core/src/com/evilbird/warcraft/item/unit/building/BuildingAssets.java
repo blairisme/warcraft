@@ -26,6 +26,10 @@ import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensionName;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensions;
+import static com.evilbird.warcraft.item.unit.UnitType.BombardTower;
+import static com.evilbird.warcraft.item.unit.UnitType.CannonTower;
+import static com.evilbird.warcraft.item.unit.UnitType.GuardTower;
+import static com.evilbird.warcraft.item.unit.UnitType.LookoutTower;
 
 /**
  * Provides access to the assets that are required to display a
@@ -54,13 +58,27 @@ public class BuildingAssets extends AssetBundle
         register("destroyed-1", "data/sounds/common/building/destroyed/1.mp3");
         register("destroyed-2", "data/sounds/common/building/destroyed/2.mp3");
         register("destroyed-3", "data/sounds/common/building/destroyed/3.mp3");
+        registerOptional("attack", "data/sounds/common/unit/attack/${weapon}/1.mp3");
     }
 
     private static Map<String, String> assetPathVariables(UnitType type, WarcraftContext context) {
         return of("faction", toSnakeCase(type.getFaction().name()),
                 "season", toSnakeCase(context.getAssetSet().name()),
                 "name", toSnakeCase(type.name()),
-                "size", getDimensionName(type));
+                "size", getDimensionName(type),
+                "weapon", getWeaponName(type));
+    }
+
+    private static String getWeaponName(UnitType type) {
+        if (type.isOffensiveTower()) {
+            if (type == GuardTower || type == LookoutTower) {
+                return "Bow";
+            }
+            if (type == CannonTower || type == BombardTower) {
+                return "siege";
+            }
+        }
+        return "none";
     }
 
     public Texture getBaseTexture() {
@@ -89,6 +107,10 @@ public class BuildingAssets extends AssetBundle
 
     public Sound getPlacementSound() {
         return getSoundEffect("placement");
+    }
+
+    public Sound getAttackSound() {
+        return getOptionalSoundEffect("attack");
     }
 
     public GridPoint2 getSize() {

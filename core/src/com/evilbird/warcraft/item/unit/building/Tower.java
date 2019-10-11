@@ -25,7 +25,7 @@ import static com.evilbird.warcraft.item.projectile.ProjectileType.Arrow;
  *
  * @author Blair Butterworth
  */
-public class OffensiveBuilding extends Building implements RangedOffensiveObject
+public class Tower extends Building implements RangedOffensiveObject
 {
     private float attackSpeed;
     private int attackRange;
@@ -33,7 +33,7 @@ public class OffensiveBuilding extends Building implements RangedOffensiveObject
     private int piercingDamage;
     private ProjectileType projectileType;
 
-    public OffensiveBuilding(Skin skin) {
+    public Tower(Skin skin) {
         super(skin);
         attackRange = 0;
         attackSpeed = 0;
@@ -156,7 +156,7 @@ public class OffensiveBuilding extends Building implements RangedOffensiveObject
         if (obj == this) { return true; }
         if (obj.getClass() != getClass()) { return false; }
 
-        OffensiveBuilding combatant = (OffensiveBuilding)obj;
+        Tower combatant = (Tower)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(attackSpeed, combatant.attackSpeed)

@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.building.BuildingFactoryBase;
-import com.evilbird.warcraft.item.unit.building.OffensiveBuilding;
+import com.evilbird.warcraft.item.unit.building.Tower;
 
 import javax.inject.Inject;
 
@@ -42,7 +42,7 @@ public class GuardTowerFactory extends BuildingFactoryBase
 
     @Override
     public Building get(Identifier type) {
-        OffensiveBuilding result = builder.buildOffensiveBuilding();
+        Tower result = builder.buildOffensiveBuilding();
         result.setAttackSpeed(3);
         result.setAttackRange(tiles(6));
         result.setArmour(20);

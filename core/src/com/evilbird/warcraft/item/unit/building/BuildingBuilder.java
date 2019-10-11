@@ -20,7 +20,9 @@ import com.evilbird.warcraft.item.unit.UnitStyle;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.animations.BuildingAnimations;
 import com.evilbird.warcraft.item.unit.building.animations.ExtractorAnimations;
+import com.evilbird.warcraft.item.unit.building.animations.TowerAnimations;
 import com.evilbird.warcraft.item.unit.building.sounds.BuildingSounds;
+import com.evilbird.warcraft.item.unit.building.sounds.TowerSounds;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -52,8 +54,8 @@ public class BuildingBuilder
         return createBuilding(new Building(getSkin()));
     }
 
-    public OffensiveBuilding buildOffensiveBuilding() {
-        return createBuilding(new OffensiveBuilding(getSkin()));
+    public Tower buildOffensiveBuilding() {
+        return createBuilding(new Tower(getSkin()));
     }
 
     public ResourceExtractor buildExtractor() {
@@ -95,17 +97,32 @@ public class BuildingBuilder
 
     private AnimationCatalog getAnimations() {
         if (animations == null) {
-            animations = type.isResourceExtractor()
-                ? new ExtractorAnimations(assets, times)
-                : new BuildingAnimations(assets, times);
+            animations = newAnimations();
         }
         return animations;
     }
 
+    private AnimationCatalog newAnimations() {
+        if (type.isResourceExtractor()) {
+            return new ExtractorAnimations(assets, times);
+        }
+        if (type.isOffensiveTower()) {
+            return new TowerAnimations(assets, times);
+        }
+        return new BuildingAnimations(assets, times);
+    }
+
     private SoundCatalog getSounds() {
         if (sounds == null) {
-            sounds = new BuildingSounds(assets);
+            sounds = newSounds();
         }
         return sounds;
+    }
+
+    private SoundCatalog newSounds() {
+        if (type.isOffensiveTower()) {
+            return new TowerSounds(assets);
+        }
+        return new BuildingSounds(assets);
     }
 }

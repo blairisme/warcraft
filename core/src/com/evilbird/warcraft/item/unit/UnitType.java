@@ -193,6 +193,16 @@ public enum UnitType implements ItemType
             || isBetween(this, CircleOfPower, Runestone);
     }
 
+    public boolean isTower() {
+        return this == ScoutTower || this == GuardTower || this == CannonTower
+            || this == WatchTower || this == LookoutTower || this == BombardTower;
+    }
+
+    public boolean isOffensiveTower() {
+        return this == GuardTower || this == CannonTower
+            || this == LookoutTower || this == BombardTower;
+    }
+
     public boolean isCombatant() {
         return isBetween(this, Ballista, UtherLightbringer) || isBetween(this, Catapult, Zuljin);
     }
