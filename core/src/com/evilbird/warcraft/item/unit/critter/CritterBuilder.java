@@ -26,8 +26,8 @@ import com.evilbird.warcraft.item.unit.critter.sounds.CritterSounds;
 public class CritterBuilder
 {
     private CritterAssets assets;
-    private com.evilbird.warcraft.item.unit.critter.animations.CritterAnimations animations;
-    private com.evilbird.warcraft.item.unit.critter.sounds.CritterSounds sounds;
+    private CritterAnimations animations;
+    private CritterSounds sounds;
 
     public CritterBuilder(CritterAssets assets) {
         this.assets = assets;
@@ -44,36 +44,32 @@ public class CritterBuilder
     }
 
     private Skin getSkin() {
+        UnitStyle style = getStyle();
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(), ViewableStyle.class);
-        skin.add("default", getUnitStyle(), UnitStyle.class);
+        skin.add("default", style, ViewableStyle.class);
+        skin.add("default", style, UnitStyle.class);
         return skin;
     }
 
-    private ViewableStyle getAnimationStyle() {
-        com.evilbird.warcraft.item.unit.critter.sounds.CritterSounds sounds = getSounds();
-        com.evilbird.warcraft.item.unit.critter.animations.CritterAnimations animations = getAnimations();
+    private UnitStyle getStyle() {
+        CritterSounds sounds = getSounds();
+        CritterAnimations animations = getAnimations();
 
-        ViewableStyle viewableStyle = new ViewableStyle();
-        viewableStyle.animations = animations.get();
-        viewableStyle.sounds = sounds.get();
-        return viewableStyle;
+        UnitStyle style = new UnitStyle();
+        style.animations = animations.get();
+        style.sounds = sounds.get();
+        style.selection = assets.getSelectionTexture();
+        return style;
     }
 
-    private UnitStyle getUnitStyle() {
-        UnitStyle unitStyle = new UnitStyle();
-        unitStyle.selection = assets.getSelectionTexture();
-        return unitStyle;
-    }
-
-    private com.evilbird.warcraft.item.unit.critter.animations.CritterAnimations getAnimations() {
+    private CritterAnimations getAnimations() {
         if (animations == null) {
             animations = new CritterAnimations(assets);
         }
         return animations;
     }
 
-    private com.evilbird.warcraft.item.unit.critter.sounds.CritterSounds getSounds() {
+    private CritterSounds getSounds() {
         if (sounds == null) {
             sounds = new CritterSounds(assets);
         }

@@ -9,7 +9,6 @@
 
 package com.evilbird.engine.common.graphics;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import org.apache.commons.lang3.Range;
 
@@ -39,7 +38,8 @@ public class AnimationCatalogSequence implements AnimationCatalogProvider
         Animation animation = null;
         for (AnimationCatalogProvider entry: sequence) {
             Animation current = entry.getAnimation();
-            animation = animation == null ? current : combine((BasicAnimation)animation, (BasicAnimation)current);
+            animation = animation == null ? current : combine(
+                (DirectionalAnimation)animation, (DirectionalAnimation)current);
         }
         return animation;
     }
@@ -50,17 +50,17 @@ public class AnimationCatalogSequence implements AnimationCatalogProvider
         return definition;
     }
 
-    private BasicAnimation combine(BasicAnimation source, BasicAnimation target) {
-        Map<Range<Float>, Array<TextureRegion>> sourceFrameSet = source.getFrames();
-        Map<Range<Float>, Array<TextureRegion>> targetFrameSet = target.getFrames();
-        Map<Range<Float>, Array<TextureRegion>> combinedFrames = new HashMap<>(sourceFrameSet.size());
+    private BasicAnimation combine(DirectionalAnimation source, DirectionalAnimation target) {
+        Map<Range<Float>, Array<AnimationFrame>> sourceFrameSet = source.getFrameRanges();
+        Map<Range<Float>, Array<AnimationFrame>> targetFrameSet = target.getFrameRanges();
+        Map<Range<Float>, Array<AnimationFrame>> combinedFrames = new HashMap<>(sourceFrameSet.size());
 
-        for (Map.Entry<Range<Float>, Array<TextureRegion>> sourceFrameEntry : sourceFrameSet.entrySet()) {
+        for (Map.Entry<Range<Float>, Array<AnimationFrame>> sourceFrameEntry : sourceFrameSet.entrySet()) {
             Range<Float> range = sourceFrameEntry.getKey();
-            Array<TextureRegion> sourceFrames = sourceFrameEntry.getValue();
-            Array<TextureRegion> targetFrames = targetFrameSet.get(range);
+            Array<AnimationFrame> sourceFrames = sourceFrameEntry.getValue();
+            Array<AnimationFrame> targetFrames = targetFrameSet.get(range);
             combinedFrames.put(range, union(sourceFrames, targetFrames));
         }
-        return new BasicAnimation(source.getDirection(), source.getDuration(), combinedFrames, source.getMode());
+        return new BasicAnimation(combinedFrames, source.getInterval(), source.getLooping());
     }
 }

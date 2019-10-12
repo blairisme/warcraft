@@ -9,7 +9,10 @@
 
 package com.evilbird.engine.common.collection;
 
+import com.badlogic.gdx.utils.Array;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
@@ -54,6 +57,10 @@ public class CollectionUtils
 
     public static <A, B> List<B> flatten(Collection<A> collection, Function<A, Collection<B>> converter) {
         return collection.stream().flatMap(element -> converter.apply(element).stream()).collect(toList());
+    }
+
+    public static <A> List<A> flatten(Collection<Array<A>> collection) {
+        return collection.stream().flatMap(array -> Arrays.stream(array.items)).collect(toList());
     }
 
     /**

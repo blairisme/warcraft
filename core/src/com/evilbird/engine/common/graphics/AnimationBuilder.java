@@ -10,7 +10,6 @@
 package com.evilbird.engine.common.graphics;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
@@ -56,34 +55,34 @@ public class AnimationBuilder
         Validate.validState(texture != null, "Texture required");
 
         Map<Range<Float>, List<Rectangle>> regions = layout.getFrameRegions();
-        Map<Range<Float>, Array<TextureRegion>> frames = getFrames(regions);
-        PlayMode mode = layout.getLoop() ? PlayMode.LOOP : PlayMode.NORMAL;
+        Map<Range<Float>, Array<AnimationFrame>> frames = getFrames(regions);
 
-        return new BasicAnimation(0f, layout.getInterval(), frames, mode);
+        return new BasicAnimation(frames, layout.getInterval(), layout.getLoop());
     }
 
-    private Map<Range<Float>, Array<TextureRegion>> getFrames(Map<Range<Float>, List<Rectangle>> regions) {
-        Map<Range<Float>, Array<TextureRegion>> result = new HashMap<>(regions.size());
+    private Map<Range<Float>, Array<AnimationFrame>> getFrames(Map<Range<Float>, List<Rectangle>> regions) {
+        Map<Range<Float>, Array<AnimationFrame>> result = new HashMap<>(regions.size());
         for (Entry<Range<Float>, List<Rectangle>> region : regions.entrySet()) {
             result.put(region.getKey(), getFrames(region.getValue()));
         }
         return result;
     }
 
-    private Array<TextureRegion> getFrames(List<Rectangle> regions) {
-        Array<TextureRegion> result = new Array<>(regions.size());
+    private Array<AnimationFrame> getFrames(List<Rectangle> regions) {
+        Array<AnimationFrame> result = new Array<>(regions.size());
         for (Rectangle region : regions) {
             result.add(getFrame(region));
         }
         return result;
     }
 
-    private TextureRegion getFrame(Rectangle region) {
-        return new TextureRegion(
+    private AnimationFrame getFrame(Rectangle bounds) {
+        TextureRegion region = new TextureRegion(
             texture,
-            (int) region.getX(),
-            (int) region.getY(),
-            (int) region.getWidth(),
-            (int) region.getHeight());
+            (int) bounds.getX(),
+            (int) bounds.getY(),
+            (int) bounds.getWidth(),
+            (int) bounds.getHeight());
+        return new AnimationFrame(region);
     }
 }

@@ -82,27 +82,12 @@ public class Viewable extends ItemBasic implements Animated, Audible, Directiona
         return skin;
     }
 
+    public ViewableStyle getStyle() {
+        return style;
+    }
+
     public boolean hasAnimation(Identifier id) {
         return style.animations.containsKey(id);
-    }
-
-    @Override
-    public void setSkin(Skin skin) {
-        Validate.notNull(skin);
-        this.skin = skin;
-        setStyle("default");
-    }
-
-    @Override
-    public void setStyle(String name) {
-        Validate.validState(skin != null);
-        setStyle(skin.get(name, ViewableStyle.class));
-    }
-
-    public void setStyle(ViewableStyle style) {
-        Validate.notNull(style.animations);
-        Validate.notNull(style.sounds);
-        this.style = new ViewableStyle(style);
     }
 
     @Override
@@ -137,6 +122,25 @@ public class Viewable extends ItemBasic implements Animated, Audible, Directiona
         sound = new LocalizedSound(style.sounds.get(id), this);
         sound.setVolume(volume);
         sound.play();
+    }
+
+    @Override
+    public void setSkin(Skin skin) {
+        Validate.notNull(skin);
+        this.skin = skin;
+        setStyle("default");
+    }
+
+    @Override
+    public void setStyle(String name) {
+        Validate.validState(skin != null);
+        setStyle(skin.get(name, ViewableStyle.class));
+    }
+
+    public void setStyle(ViewableStyle style) {
+        Validate.notNull(style.animations);
+        Validate.notNull(style.sounds);
+        this.style = new ViewableStyle(style);
     }
 
     @Override

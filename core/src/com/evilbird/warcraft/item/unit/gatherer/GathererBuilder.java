@@ -57,26 +57,22 @@ public class GathererBuilder
     }
 
     private Skin getSkin() {
+        UnitStyle style = getStyle();
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(), ViewableStyle.class);
-        skin.add("default", getUnitStyle(), UnitStyle.class);
+        skin.add("default", style, ViewableStyle.class);
+        skin.add("default", style, UnitStyle.class);
         return skin;
     }
 
-    private ViewableStyle getAnimationStyle() {
+    private UnitStyle getStyle() {
         SoundCatalog sounds = getSounds();
         AnimationCatalog animations = getAnimations();
 
-        ViewableStyle viewableStyle = new ViewableStyle();
-        viewableStyle.animations = animations.get();
-        viewableStyle.sounds = sounds.get();
-        return viewableStyle;
-    }
-
-    private UnitStyle getUnitStyle() {
-        UnitStyle unitStyle = new UnitStyle();
-        unitStyle.selection = assets.getSelectionTexture();
-        return unitStyle;
+        UnitStyle style = new UnitStyle();
+        style.animations = animations.get();
+        style.sounds = sounds.get();
+        style.selection = assets.getSelectionTexture();
+        return style;
     }
 
     private AnimationCatalog getAnimations() {

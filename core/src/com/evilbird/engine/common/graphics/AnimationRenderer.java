@@ -10,7 +10,6 @@
 package com.evilbird.engine.common.graphics;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 
@@ -46,9 +45,9 @@ public class AnimationRenderer
 
     public void draw(Batch batch, Vector2 position, Vector2 size) {
         if (animation != null) {
-            TextureRegion frame = animation.getFrame(animationTime);
+            AnimationFrame frame = animation.getFrame(animationTime);
             Vector2 frameOffset = getPositionOffset(size);
-            batch.draw(frame,
+            frame.draw(batch,
                 position.x - frameOffset.x,
                 position.y - frameOffset.y,
                 animationSize.x,
