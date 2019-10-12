@@ -11,7 +11,6 @@ package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.testcase.ActionTestCase;

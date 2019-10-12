@@ -12,6 +12,8 @@ package com.evilbird.warcraft.action.select;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 
+import javax.inject.Inject;
+
 /**
  * Helper class for generating selection events.
  *
@@ -19,10 +21,14 @@ import com.evilbird.engine.item.Item;
  */
 public class SelectEvents
 {
-    private SelectEvents() {
+    private Events events;
+
+    @Inject
+    public SelectEvents(Events events) {
+        this.events = events;
     }
 
-    public static void notifySelected(Events events, Item item, boolean selected) {
+    public void notifySelected(Item item, boolean selected) {
         events.add(new SelectEvent(item, selected));
     }
 }

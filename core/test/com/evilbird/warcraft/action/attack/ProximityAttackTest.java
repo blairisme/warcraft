@@ -17,11 +17,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class MeleeAttackTest
+public class ProximityAttackTest
 {
     private Item item;
     private Item target;
-    private MeleeAttack action;
+    private ProximityAttack action;
     private WarcraftPreferences preferences;
 
     @Before
@@ -30,14 +30,14 @@ public class MeleeAttackTest
         target = TestItems.newItem("grunt");
         preferences = Mockito.mock(WarcraftPreferences.class);
 
-        action = new MeleeAttack(preferences);
+        action = new ProximityAttack(preferences);
         action.setItem(item);
         action.setTarget(target);
     }
 
     @Test
     public void equalsTest() {
-        EqualityVerifier.forClass(MeleeAttack.class)
+        EqualityVerifier.forClass(ProximityAttack.class)
                 .withMockedTransientFields(Item.class)
                 .excludeTransientFields()
                 .verify();

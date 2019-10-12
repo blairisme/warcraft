@@ -12,6 +12,8 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 
+import javax.inject.Inject;
+
 import static com.evilbird.warcraft.action.attack.AttackStatus.Cancelled;
 import static com.evilbird.warcraft.action.attack.AttackStatus.Complete;
 import static com.evilbird.warcraft.action.attack.AttackStatus.Failed;
@@ -25,30 +27,34 @@ import static com.evilbird.warcraft.action.attack.AttackStatus.Stopped;
  */
 public class AttackEvents
 {
-    private AttackEvents() {
+    private Events events;
+
+    @Inject
+    public AttackEvents(Events events) {
+        this.events = events;
     }
 
-    public static void attackStarted(Events events, Item attacker, Item target) {
-        addEvent(events, attacker, target, Started);
+    public void attackStarted(Item attacker, Item target) {
+        addEvent(attacker, target, Started);
     }
 
-    public static void attackStopped(Events events, Item attacker, Item target) {
-        addEvent(events, attacker, target, Stopped);
+    public void attackStopped(Item attacker, Item target) {
+        addEvent(attacker, target, Stopped);
     }
 
-    public static void attackComplete(Events events, Item attacker, Item target) {
-        addEvent(events, attacker, target, Complete);
+    public void attackComplete(Item attacker, Item target) {
+        addEvent(attacker, target, Complete);
     }
 
-    public static void attackFailed(Events events, Item attacker, Item target) {
-        addEvent(events, attacker, target, Failed);
+    public void attackFailed(Item attacker, Item target) {
+        addEvent(attacker, target, Failed);
     }
 
-    public static void attackCancelled(Events events, Item attacker, Item target) {
-        addEvent(events, attacker, target, Cancelled);
+    public void attackCancelled(Item attacker, Item target) {
+        addEvent(attacker, target, Cancelled);
     }
 
-    public static void addEvent(Events events, Item attacker, Item target, AttackStatus status) {
+    public void addEvent(Item attacker, Item target, AttackStatus status) {
         events.add(new AttackEvent(attacker, target, status));
     }
 }

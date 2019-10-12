@@ -10,14 +10,13 @@
 package com.evilbird.warcraft.action.common.exclusion;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.warcraft.action.select.SelectEvents;
 import com.evilbird.warcraft.item.unit.Unit;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.action.select.SelectEvents.notifySelected;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 
 /**
@@ -26,10 +25,10 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
  */
 public class ItemExclusion
 {
-    private Events events;
+    private SelectEvents events;
 
     @Inject
-    public ItemExclusion(Events events) {
+    public ItemExclusion(SelectEvents events) {
         this.events = events;
     }
 
@@ -47,7 +46,7 @@ public class ItemExclusion
     public void disable(Unit item) {
         if (item.getSelected()) {
             item.setSelected(false);
-            notifySelected(events, item, false);
+            events.notifySelected(item, false);
         }
         item.setVisible(false);
         item.setSelectable(false);

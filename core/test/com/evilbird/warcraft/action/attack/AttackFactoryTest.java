@@ -31,7 +31,7 @@ public class AttackFactoryTest extends ActionFactoryTestCase
 
     @Override
     protected ActionProvider newFactory() {
-        InjectedPool<AttackSequence> attackPool = new MockInjectedPool<>(AttackSequence.class);
+        InjectedPool<AttackAction> attackPool = new MockInjectedPool<>(AttackAction.class);
         InjectedPool<AttackCancel> cancelPool = new MockInjectedPool<>(AttackCancel.class);
         return new AttackFactory(attackPool, cancelPool);
     }

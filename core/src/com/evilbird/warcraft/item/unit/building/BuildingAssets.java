@@ -58,7 +58,9 @@ public class BuildingAssets extends AssetBundle
         register("destroyed-1", "data/sounds/common/building/destroyed/1.mp3");
         register("destroyed-2", "data/sounds/common/building/destroyed/2.mp3");
         register("destroyed-3", "data/sounds/common/building/destroyed/3.mp3");
+
         registerOptional("attack", "data/sounds/common/unit/attack/${weapon}/1.mp3");
+        registerOptional("hit", "data/sounds/common/unit/hit/${weapon}/1.mp3");
     }
 
     private static Map<String, String> assetPathVariables(UnitType type, WarcraftContext context) {
@@ -111,6 +113,10 @@ public class BuildingAssets extends AssetBundle
 
     public Sound getAttackSound() {
         return getOptionalSoundEffect("attack");
+    }
+
+    public Sound getHitSound() {
+        return getOptionalSoundEffect("hit");
     }
 
     public GridPoint2 getSize() {

@@ -10,10 +10,9 @@
 package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.warcraft.item.common.state.SelectableObject;
-import com.evilbird.engine.events.EventQueue;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.item.common.state.SelectableObject;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -30,7 +29,7 @@ public class SelectInvertTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        EventQueue events = Mockito.mock(EventQueue.class);
+        SelectEvents events = Mockito.mock(SelectEvents.class);
         WarcraftPreferences preferences = Mockito.mock(WarcraftPreferences.class);
         SelectInvert action = new SelectInvert(events, preferences);
         action.setIdentifier(SelectActions.SelectInvert);

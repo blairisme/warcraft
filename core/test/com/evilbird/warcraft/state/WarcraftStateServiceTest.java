@@ -11,7 +11,6 @@ package com.evilbird.warcraft.state;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.JsonSerializer;
 import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateIdentifier;

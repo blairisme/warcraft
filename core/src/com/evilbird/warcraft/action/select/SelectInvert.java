@@ -11,8 +11,6 @@ package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.specialized.Viewable;
@@ -24,7 +22,6 @@ import java.util.function.Predicate;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.common.function.Predicates.either;
-import static com.evilbird.warcraft.action.select.SelectEvents.notifySelected;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isCombatant;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isCorporeal;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isNeutral;
@@ -41,11 +38,11 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
  */
 public class SelectInvert extends BasicAction
 {
-    private transient Events events;
+    private transient SelectEvents events;
     private transient WarcraftPreferences preferences;
 
     @Inject
-    public SelectInvert(EventQueue events, WarcraftPreferences preferences) {
+    public SelectInvert(SelectEvents events, WarcraftPreferences preferences) {
         this.events = events;
         this.preferences = preferences;
     }
@@ -108,7 +105,7 @@ public class SelectInvert extends BasicAction
     private void setSelected(SelectableObject selectable, boolean selected) {
         if (selectable.getSelected() != selected) {
             selectable.setSelected(selected);
-            notifySelected(events, selectable, selected);
+            events.notifySelected(selectable, selected);
         }
     }
 }

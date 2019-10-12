@@ -11,7 +11,6 @@ package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.events.Events;
 import com.evilbird.warcraft.item.common.state.SelectableObject;
 
 import javax.inject.Inject;
@@ -23,10 +22,10 @@ import javax.inject.Inject;
  */
 public class DeselectAction extends BasicAction
 {
-    private Events events;
+    private SelectEvents events;
 
     @Inject
-    public DeselectAction(Events events) {
+    public DeselectAction(SelectEvents events) {
         this.events = events;
     }
 
@@ -35,7 +34,7 @@ public class DeselectAction extends BasicAction
         SelectableObject selectable = (SelectableObject)getItem();
         if (selectable.getSelected()) {
             selectable.setSelected(false);
-            events.add(new SelectEvent(selectable, false));
+            events.notifySelected(selectable, false);
         }
         return true;
     }

@@ -11,6 +11,8 @@ package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
 
+import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+
 /**
  * An {@link Action} that doesn't do anything; its empty.
  *
@@ -20,6 +22,6 @@ public class EmptyAction extends BasicAction
 {
     @Override
     public boolean act(float delta) {
-        return true;
+        return ActionComplete;
     }
 }

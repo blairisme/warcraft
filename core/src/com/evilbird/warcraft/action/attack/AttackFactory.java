@@ -26,12 +26,12 @@ import javax.inject.Inject;
  */
 public class AttackFactory implements ActionProvider
 {
-    private InjectedPool<AttackSequence> attackPool;
+    private InjectedPool<AttackAction> attackPool;
     private InjectedPool<AttackCancel> cancelPool;
 
     @Inject
     public AttackFactory(
-        InjectedPool<AttackSequence> attackPool,
+        InjectedPool<AttackAction> attackPool,
         InjectedPool<AttackCancel> cancelPool)
     {
         this.attackPool = attackPool;
