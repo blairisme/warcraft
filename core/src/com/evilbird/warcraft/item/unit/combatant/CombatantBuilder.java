@@ -18,6 +18,7 @@ import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitStyle;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.animations.DaemonAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.DemolitionAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.DragonAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.EyeOfKilroggAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.GryphonAnimations;
@@ -134,6 +135,9 @@ public class CombatantBuilder
         }
         if (type.isSubmarine()) {
             return new SubmarineAnimations(assets);
+        }
+        if (type.isDemoTeam()) {
+            return new DemolitionAnimations(assets);
         }
         return new MeleeAnimations(assets);
     }
