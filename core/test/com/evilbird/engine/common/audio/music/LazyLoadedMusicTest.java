@@ -14,7 +14,6 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Music.OnCompletionListener;
 import com.badlogic.gdx.files.FileHandle;
-import com.evilbird.engine.common.audio.music.LazyLoadedMusic;
 import org.junit.Before;
 import org.junit.Test;
 

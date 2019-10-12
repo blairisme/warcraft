@@ -10,12 +10,10 @@
 package com.evilbird.warcraft.item.projectile;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
-import com.evilbird.test.utils.MockInjectedPool;
 import com.evilbird.warcraft.item.projectile.projectiles.ArrowFactory;
 import com.evilbird.warcraft.item.projectile.projectiles.AxeFactory;
 import com.evilbird.warcraft.item.projectile.projectiles.BoltFactory;
@@ -30,7 +28,6 @@ import com.evilbird.warcraft.item.projectile.projectiles.TorpedoFactory;
 import com.evilbird.warcraft.item.projectile.projectiles.TouchOfDeathFactory;
 import com.evilbird.warcraft.state.WarcraftContext;
 import org.junit.Ignore;
-import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.Collection;
