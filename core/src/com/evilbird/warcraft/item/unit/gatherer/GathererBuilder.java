@@ -9,9 +9,11 @@
 
 package com.evilbird.warcraft.item.unit.gatherer;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.AnimationCatalog;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -22,6 +24,8 @@ import com.evilbird.warcraft.item.unit.gatherer.animations.SeaGathererAnimations
 import com.evilbird.warcraft.item.unit.gatherer.sounds.LandGathererSounds;
 import com.evilbird.warcraft.item.unit.gatherer.sounds.SeaGathererSounds;
 import org.apache.commons.lang3.Validate;
+
+import java.util.Map;
 
 /**
  * Creates a new {@link Gatherer} instance whose visual and audible
@@ -72,6 +76,10 @@ public class GathererBuilder
         style.animations = animations.get();
         style.sounds = sounds.get();
         style.selection = assets.getSelectionTexture();
+
+        if (type.isHuman()) {
+            style.masks = getMasks();
+        }
         return style;
     }
 
@@ -91,5 +99,9 @@ public class GathererBuilder
                 : new LandGathererSounds(assets);
         }
         return sounds;
+    }
+
+    private Map<Texture, Texture> getMasks() {
+        return Maps.of(assets.getBaseTexture(), assets.getMaskTexture());
     }
 }

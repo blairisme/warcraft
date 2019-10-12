@@ -29,6 +29,7 @@ import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.ItemType;
 import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.warcraft.common.TeamColour;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.common.WarcraftNation;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
@@ -84,6 +85,8 @@ public class LevelLoader
     private static final String NATION_PROPERTY = "Nation";
     private static final String FACTION_PROPERTY = "Faction";
     private static final String PARENT_PROPERTY = "Parent";
+    private static final String TEAM_PROPERTY = "Team";
+    private static final String COLOUR_PROPERTY = "Colour";
     
     private TiledMapLoader mapLoader;
     private ItemFactory itemFactory;
@@ -200,6 +203,8 @@ public class LevelLoader
             Player player = (Player)itemFactory.get(type);
             player.setIdentifier(new TextIdentifier(layer.getName()));
             player.setLevel(getInt(properties, LEVEL_PROPERTY));
+            player.setTeam(getInt(properties, TEAM_PROPERTY));
+            player.setColour(getEnum(properties, COLOUR_PROPERTY, TeamColour.class, TeamColour.None));
             player.setNation(getEnum(properties, NATION_PROPERTY, WarcraftNation.class, WarcraftNation.Unknown));
             player.setFaction(getEnum(properties, FACTION_PROPERTY, WarcraftFaction.class, WarcraftFaction.Neutral));
             player.setResource(Gold, getFloat(properties, GOLD_PROPERTY));

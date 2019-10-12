@@ -10,7 +10,9 @@
 package com.evilbird.warcraft.item.data.player;
 
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.warcraft.common.TeamColour;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.common.WarcraftNation;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
@@ -18,6 +20,7 @@ import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
 import com.evilbird.warcraft.item.common.upgrade.UpgradeSeries;
+import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -29,6 +32,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import static com.evilbird.warcraft.common.WarcraftNation.Neutral;
+
 /**
  * Instances of this class represent a player, either real or artificial.
  * Player items own other units as well as storing accumulated resources.
@@ -38,6 +43,8 @@ import java.util.Map;
 public class Player extends ItemGroup implements ResourceContainer
 {
     private int level;
+    private int team;
+    private TeamColour colour;
     private WarcraftNation nation;
     private WarcraftFaction faction;
     private Map<String, Double> statistics;
@@ -46,9 +53,28 @@ public class Player extends ItemGroup implements ResourceContainer
 
     @Inject
     public Player() {
+        this.level = 1;
+        this.team = 0;
+        this.colour = TeamColour.None;
+        this.nation = Neutral;
+        this.faction = WarcraftFaction.Neutral;
         this.resources = new LinkedHashMap<>();
         this.statistics = new LinkedHashMap<>();
         this.upgrades = new LinkedHashMap<>();
+    }
+
+    /**
+     * Adds an {@link Item} as a child of this Group.
+     *
+     * @param item the item to set.
+     */
+    @Override
+    public void addItem(Item item) {
+        super.addItem(item);
+        if (item instanceof Unit) {
+            Unit unit = (Unit)item;
+            unit.setTeamColour(colour);
+        }
     }
 
     public boolean isArtificial() {
@@ -98,6 +124,14 @@ public class Player extends ItemGroup implements ResourceContainer
 
     public boolean hasUpgrade(Upgrade upgrade) {
         return upgrades.getOrDefault(upgrade.name(), Boolean.FALSE);
+    }
+
+    public void setColour(TeamColour colour) {
+        this.colour = colour;
+    }
+
+    public void setTeam(int team) {
+        this.team = team;
     }
 
     public void setNation(WarcraftNation nation) {
@@ -165,6 +199,8 @@ public class Player extends ItemGroup implements ResourceContainer
         Player player = (Player)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
+            .append(colour, player.colour)
+            .append(team, player.team)
             .append(nation, player.nation)
             .append(faction, player.faction)
             .append(level, player.level)
@@ -178,6 +214,8 @@ public class Player extends ItemGroup implements ResourceContainer
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
+            .append(colour)
+            .append(team)
             .append(nation)
             .append(faction)
             .append(level)

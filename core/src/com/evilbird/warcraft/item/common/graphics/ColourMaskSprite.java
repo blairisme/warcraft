@@ -18,13 +18,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import static com.badlogic.gdx.graphics.Color.WHITE;
 
-public class ColouredMaskDrawable implements Drawable
+/**
+ * Represents a sprite that can have a coloured mask applied to it, altering
+ * the colours of specific regions of the sprite.
+ *
+ * @author Blair Butterworth
+ */
+public class ColourMaskSprite implements Drawable
 {
     private Color colour;
     private Drawable base;
     private Drawable mask;
 
-    public ColouredMaskDrawable(TextureRegion base, Texture mask, Color color) {
+    public ColourMaskSprite(TextureRegion base, Texture mask, Color color) {
         TextureRegion maskRegion = new TextureRegion();
         maskRegion.setRegion(base);
         maskRegion.setTexture(mask);
@@ -34,7 +40,7 @@ public class ColouredMaskDrawable implements Drawable
         this.colour = color;
     }
 
-    public ColouredMaskDrawable(TextureRegion base, TextureRegion mask, Color colour) {
+    public ColourMaskSprite(TextureRegion base, TextureRegion mask, Color colour) {
         this.base = new TextureRegionDrawable(base);
         this.mask = new TextureRegionDrawable(mask);
         this.colour = colour;

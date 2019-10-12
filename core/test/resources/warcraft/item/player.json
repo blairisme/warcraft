@@ -4,7 +4,14 @@
     "class": "PlayerType",
     "enum": "Corporeal"
   },
-  "level": 0,
+  "level": 1,
+  "team": 0,
+  "colour": "None",
+  "nation": "Neutral",
+  "faction": {
+    "class": "Faction",
+    "enum": "Neutral"
+  },
   "statistics": {
     "Kills": 4.0,
     "Buildings": 10.0

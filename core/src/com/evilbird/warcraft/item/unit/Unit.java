@@ -27,7 +27,8 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.SpatialObject;
 import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.engine.item.specialized.ViewableStyle;
-import com.evilbird.warcraft.item.common.graphics.ColouredMaskDrawable;
+import com.evilbird.warcraft.common.TeamColour;
+import com.evilbird.warcraft.item.common.graphics.ColourMaskSprite;
 import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.warcraft.item.common.state.SelectableObject;
 import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
@@ -234,11 +235,9 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * Sets a colour used to visually identify the unit as belonging to a
      * specific team. The colour is used to change the colour of certain
      */
-    public void setTeamColour(Color colour) {
-        for (Animation animation: style.animations.values()) {
-            for (AnimationFrame frame: animation.getFrames()) {
-                setColour(frame, colour);
-            }
+    public void setTeamColour(TeamColour colour) {
+        if (colour != TeamColour.None) {
+            setColour(colour.getGdxColour());
         }
     }
 
@@ -356,11 +355,19 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
         return value.getValue(UpgradeRank.None);
     }
 
+    private void setColour(Color colour) {
+        for (Animation animation : style.animations.values()) {
+            for (AnimationFrame frame : animation.getFrames()) {
+                setColour(frame, colour);
+            }
+        }
+    }
+
     private void setColour(AnimationFrame frame, Color colour) {
         Drawable drawable = frame.getDrawable();
 
-        if (drawable instanceof ColouredMaskDrawable) {
-            ColouredMaskDrawable colouredDrawable = (ColouredMaskDrawable)drawable;
+        if (drawable instanceof ColourMaskSprite) {
+            ColourMaskSprite colouredDrawable = (ColourMaskSprite)drawable;
             colouredDrawable.setColour(colour);
         }
         if (drawable instanceof TextureRegionDrawable) {
@@ -374,7 +381,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
         Texture mask = style.masks.get(texture);
 
         if (mask != null) {
-            ColouredMaskDrawable drawable = new ColouredMaskDrawable(region, mask, colour);
+            ColourMaskSprite drawable = new ColourMaskSprite(region, mask, colour);
             frame.setDrawable(drawable);
         }
     }

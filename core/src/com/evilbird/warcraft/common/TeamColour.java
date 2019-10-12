@@ -9,12 +9,22 @@
 
 package com.evilbird.warcraft.common;
 
+import com.badlogic.gdx.graphics.Color;
+
 public enum TeamColour
 {
-    Blue,
     None,
+    Blue,
     Orange,
     Purple,
     Red,
-    White,
+    White;
+
+    public Color getGdxColour() {
+        switch (this) {
+            case Red: return Color.RED;
+            case Blue: return Color.BLUE;
+            default: throw new UnsupportedOperationException();
+        }
+    }
 }

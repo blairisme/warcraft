@@ -46,6 +46,7 @@ public class GathererAssets extends AssetBundle
 
     private void registerTextures() {
         register("base", "data/textures/${faction}/unit/${name}.png");
+        registerOptional("mask", "data/textures/${faction}/unit/${name}_mask.png");
         register("decompose", "data/textures/common/unit/decompose.png");
         register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, dimensions));
 
@@ -74,6 +75,10 @@ public class GathererAssets extends AssetBundle
 
     public Texture getBaseTexture() {
         return getTexture("base");
+    }
+
+    public Texture getMaskTexture() {
+        return getOptionalTexture("mask");
     }
 
     public Texture getDecomposeTexture() {
