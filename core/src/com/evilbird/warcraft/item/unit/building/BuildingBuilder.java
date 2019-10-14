@@ -9,9 +9,11 @@
 
 package com.evilbird.warcraft.item.unit.building;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.AnimationCatalog;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.common.production.ProductionTimes;
@@ -24,6 +26,8 @@ import com.evilbird.warcraft.item.unit.building.animations.TowerAnimations;
 import com.evilbird.warcraft.item.unit.building.sounds.BuildingSounds;
 import com.evilbird.warcraft.item.unit.building.sounds.TowerSounds;
 import org.apache.commons.lang3.Validate;
+
+import java.util.Map;
 
 /**
  * Creates a new {@link Building} instance whose visual and audible
@@ -88,6 +92,11 @@ public class BuildingBuilder
         style.animations = animations.get();
         style.sounds = sounds.get();
         style.selection = assets.getSelectionTexture();
+
+        if (type.isHuman()) {
+            style.masks = getMasks();
+        }
+
         return style;
     }
 
@@ -120,5 +129,9 @@ public class BuildingBuilder
             return new TowerSounds(assets);
         }
         return new BuildingSounds(assets);
+    }
+
+    private Map<Texture, Texture> getMasks() {
+        return Maps.of(assets.getBaseTexture(), assets.getMaskTexture());
     }
 }

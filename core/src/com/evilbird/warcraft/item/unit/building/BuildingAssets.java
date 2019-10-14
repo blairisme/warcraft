@@ -48,6 +48,7 @@ public class BuildingAssets extends AssetBundle
         this.dimensions = getDimensions(type);
 
         register("base", "data/textures/${faction}/building/${season}/${name}.png");
+        registerOptional("mask", "data/textures/${faction}/building/${season}/${name}_mask.png");
         register("construction", "data/textures/common/building/perennial/construction_${size}.png");
         registerOptional("construction", "data/textures/common/building/perennial/${name}_construction_site.png");
         register("destruction", "data/textures/common/building/winter/destroyed_site.png");
@@ -85,6 +86,10 @@ public class BuildingAssets extends AssetBundle
 
     public Texture getBaseTexture() {
         return getTexture("base");
+    }
+
+    public Texture getMaskTexture() {
+        return getOptionalTexture("mask");
     }
 
     public Texture getConstructionTexture() {
