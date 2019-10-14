@@ -35,6 +35,7 @@ import com.evilbird.warcraft.item.unit.combatant.sounds.ConjuredSounds;
 import com.evilbird.warcraft.item.unit.combatant.sounds.MeleeSounds;
 import com.evilbird.warcraft.item.unit.combatant.sounds.RangedSounds;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Random;
 
@@ -101,10 +102,7 @@ public class CombatantBuilder
         style.animations = animations.get();
         style.sounds = sounds.get();
         style.selection = assets.getSelectionTexture();
-
-        if (type.isHuman()) {
-            style.masks = getMasks();
-        }
+        style.masks = getMasks();
         return style;
     }
 
@@ -179,6 +177,9 @@ public class CombatantBuilder
     }
 
     private Map<Texture, Texture> getMasks() {
-        return Maps.of(assets.getBaseTexture(), assets.getMaskTexture());
+        if (! type.isNeutral()) {
+            return Maps.of(assets.getBaseTexture(), assets.getMaskTexture());
+        }
+        return Collections.emptyMap();
     }
 }
