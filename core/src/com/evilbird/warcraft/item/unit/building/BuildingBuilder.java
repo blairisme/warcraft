@@ -27,6 +27,7 @@ import com.evilbird.warcraft.item.unit.building.sounds.BuildingSounds;
 import com.evilbird.warcraft.item.unit.building.sounds.TowerSounds;
 import org.apache.commons.lang3.Validate;
 
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -92,11 +93,7 @@ public class BuildingBuilder
         style.animations = animations.get();
         style.sounds = sounds.get();
         style.selection = assets.getSelectionTexture();
-
-        if (type.isHuman()) {
-            style.masks = getMasks();
-        }
-
+        style.masks = getMasks();
         return style;
     }
 
@@ -132,6 +129,9 @@ public class BuildingBuilder
     }
 
     private Map<Texture, Texture> getMasks() {
-        return Maps.of(assets.getBaseTexture(), assets.getMaskTexture());
+        if (! type.isNeutral()) {
+            return Maps.of(assets.getBaseTexture(), assets.getMaskTexture());
+        }
+        return Collections.emptyMap();
     }
 }

@@ -25,6 +25,7 @@ import com.evilbird.warcraft.item.unit.gatherer.sounds.LandGathererSounds;
 import com.evilbird.warcraft.item.unit.gatherer.sounds.SeaGathererSounds;
 import org.apache.commons.lang3.Validate;
 
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -76,10 +77,7 @@ public class GathererBuilder
         style.animations = animations.get();
         style.sounds = sounds.get();
         style.selection = assets.getSelectionTexture();
-
-        if (type.isHuman()) {
-            style.masks = getMasks();
-        }
+        style.masks = getMasks();
         return style;
     }
 
@@ -102,6 +100,9 @@ public class GathererBuilder
     }
 
     private Map<Texture, Texture> getMasks() {
-        return Maps.of(assets.getBaseTexture(), assets.getMaskTexture());
+        if (! type.isNeutral()) {
+            return Maps.of(assets.getBaseTexture(), assets.getMaskTexture());
+        }
+        return Collections.emptyMap();
     }
 }
