@@ -16,8 +16,12 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
+import com.evilbird.warcraft.item.common.query.UnitOperations;
+import com.evilbird.warcraft.item.common.state.OffensiveCapability;
 import com.evilbird.warcraft.item.common.state.OffensiveObject;
 import com.evilbird.warcraft.item.common.state.PerishableObject;
+import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -150,7 +154,30 @@ public class AttackController
         addTarget(target);
     }
 
-    private boolean isAttackable(Item attacker, Item target) {
-        return isAlive(target) && isAnotherTeam(attacker, target) && !isNeutral(target);
+    private boolean isAttackable(OffensiveObject attacker, PerishableObject target) {
+        return isAlive(target) && isAttackableTarget(attacker, target) && isAttackableTeam(attacker, target);
+    }
+
+    private boolean isAttackableTeam(OffensiveObject attacker, PerishableObject target) {
+        Player attackingPlayer = UnitOperations.getPlayer(attacker);
+        Player targetPlayer = UnitOperations.getPlayer(target);
+        return isAnotherTeam(attackingPlayer, targetPlayer) && !isNeutral(targetPlayer);
+    }
+
+    private boolean isAttackableTarget(OffensiveObject attacker, PerishableObject target) {
+        Identifier type = target.getType();
+        if (type instanceof UnitType) {
+            return isAttackableTarget(attacker.getAttackCapability(), (UnitType)type);
+        }
+        return false;
+    }
+
+    private boolean isAttackableTarget(OffensiveCapability capability, UnitType target) {
+        switch (capability) {
+            case Air: return true;
+            case Proximity: return !target.isFlying() && !target.isSubmarine();
+            case Water: return target.isNaval();
+            default: return false;
+        }
     }
 }

@@ -64,9 +64,9 @@ public class Player extends ItemGroup implements ResourceContainer
     }
 
     /**
-     * Adds an {@link Item} as a child of this Group.
-     *
-     * @param item the item to set.
+     * Assigns an {@link Item} to the Player. If the given {@code Item} is a
+     * {@link Unit} then the Units team colour will be set to that of the
+     * Players colour.
      */
     @Override
     public void addItem(Item item) {
@@ -77,36 +77,48 @@ public class Player extends ItemGroup implements ResourceContainer
         }
     }
 
-    public boolean isArtificial() {
-        return getType() == PlayerType.Artificial;
-    }
-
-    public boolean isCorporeal() {
-        return getType() == PlayerType.Corporeal;
-    }
-
-    public boolean isNeutral() {
-        return getType() == PlayerType.Neutral;
-    }
-
+    /**
+     * Returns the players {@link WarcraftNation nation}, a distinct group
+     * within the players {@link Player#faction}.
+     */
     public WarcraftNation getNation() {
         return nation;
     }
 
+    /**
+     * Returns the players {@link WarcraftFaction faction}.
+     */
     public WarcraftFaction getFaction() {
         return faction;
     }
 
+    /**
+     * A value indicating the technological attainment of the Player. This is
+     * commonly used to restrict the buildings or units available to the user.
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     * Returns the amount of the given {@link ResourceType resource} owned by
+     * the player.
+     */
     public float getResource(ResourceType type) {
         return resources.getOrDefault(type.name(), 0d).floatValue();
     }
 
     public int getStatistic(PlayerStatistic statistic) {
         return statistics.getOrDefault(statistic.name(), 0d).intValue();
+    }
+
+    /**
+     * Returns the Players team number. If different players are allies they
+     * will share the same team number. Conversely, enemies will have different
+     * team numbers.
+     */
+    public int getTeam() {
+        return team;
     }
 
     public UpgradeRank getUpgradeRank(UpgradeSeries series) {
@@ -124,6 +136,29 @@ public class Player extends ItemGroup implements ResourceContainer
 
     public boolean hasUpgrade(Upgrade upgrade) {
         return upgrades.getOrDefault(upgrade.name(), Boolean.FALSE);
+    }
+
+    /**
+     * Returns whether or not the player is owned by an artificial player,
+     * excluding the neutral player.
+     */
+    public boolean isArtificial() {
+        return getType() == PlayerType.Artificial;
+    }
+
+    /**
+     * Returns whether or not the player is owned by the user.
+     */
+    public boolean isCorporeal() {
+        return getType() == PlayerType.Corporeal;
+    }
+
+    /**
+     * Returns whether or not the player is the neutral player, a special
+     * player that owns all critters and natural resources.
+     */
+    public boolean isNeutral() {
+        return getType() == PlayerType.Neutral;
     }
 
     public void setColour(TeamColour colour) {

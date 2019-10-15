@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="96" height="96" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="173">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="96" height="96" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="173">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/summer.png" width="576" height="864"/>
  </tileset>
@@ -216,6 +216,7 @@
  <objectgroup id="6" name="Neutral">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="None"/>
    <property name="Faction" value="Neutral"/>
    <property name="Nation" value="Neutral"/>
    <property name="Team" type="int" value="0"/>
@@ -257,6 +258,7 @@
  <objectgroup id="5" name="Player4">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="Blue"/>
    <property name="Faction" value="Orc"/>
    <property name="Nation" value="BlackToothGrin"/>
    <property name="Team" type="int" value="2"/>
@@ -283,6 +285,7 @@
  <objectgroup id="4" name="Player3">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="Orange"/>
    <property name="Faction" value="Human"/>
    <property name="Nation" value="Alterac"/>
    <property name="Team" type="int" value="2"/>
@@ -373,6 +376,7 @@
  <objectgroup id="3" name="Player2">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="Purple"/>
    <property name="Faction" value="Human"/>
    <property name="Nation" value="Dalaran"/>
    <property name="Team" type="int" value="1"/>
@@ -392,6 +396,7 @@
  <objectgroup id="2" name="Player1">
   <properties>
    <property name="AI" type="bool" value="false"/>
+   <property name="Colour" value="Silver"/>
    <property name="Faction" value="Human"/>
    <property name="Gold" type="float" value="0"/>
    <property name="Level" type="int" value="3"/>

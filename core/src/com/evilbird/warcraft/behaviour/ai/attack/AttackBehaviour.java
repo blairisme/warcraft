@@ -64,6 +64,9 @@ public class AttackBehaviour implements AiBehaviourElement
             controller = new AttackController(events, graph);
             controller.initialize(state);
         }
+        for (Item attacker: state.findAll(OffensiveObject.class::isInstance)) {
+            assignTarget((OffensiveObject)attacker);
+        }
     }
 
     private void update() {

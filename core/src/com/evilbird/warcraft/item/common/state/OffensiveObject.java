@@ -22,6 +22,11 @@ import com.evilbird.engine.item.Item;
 public interface OffensiveObject extends Item, Animated, Audible
 {
     /**
+     * Returns the attack capability of the {@code OffensiveObject}.
+     */
+    OffensiveCapability getAttackCapability();
+
+    /**
      * Returns the distance that the {@code OffensiveObject} can reach with its
      * attacks, specified in world units.
      */

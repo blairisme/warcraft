@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="109">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="109">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/summer.png" width="576" height="864"/>
  </tileset>
@@ -203,8 +203,10 @@
  <objectgroup id="2" name="Neutral">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="None"/>
    <property name="Faction" value="Neutral"/>
    <property name="Nation" value="Neutral"/>
+   <property name="Team" type="int" value="3"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="6"/>
   </properties>
@@ -235,8 +237,10 @@
  <objectgroup id="6" name="Player4">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="Red"/>
    <property name="Faction" value="Orc"/>
    <property name="Nation" value="TwilightsHammer"/>
+   <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="7"/>
   </properties>
@@ -279,8 +283,10 @@
  <objectgroup id="5" name="Player3">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="Blue"/>
    <property name="Faction" value="Orc"/>
    <property name="Nation" value="BlackToothGrin"/>
+   <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="8"/>
   </properties>
@@ -308,11 +314,13 @@
   <object id="92" name="TrollAxethrower1" type="TrollAxethrower" gid="829" x="224" y="288" width="72" height="72"/>
   <object id="108" name="OilTanker1" type="OilTanker" gid="1505" x="832" y="96" width="72" height="72"/>
  </objectgroup>
- <objectgroup id="3" name="Player2" visible="0">
+ <objectgroup id="3" name="Player2">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="Orange"/>
    <property name="Faction" value="Human"/>
    <property name="Nation" value="KulTiras"/>
+   <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="9"/>
   </properties>
@@ -325,14 +333,16 @@
   <object id="45" name="Peasant11" type="Peasant" gid="549" x="3520" y="3552" width="72" height="72"/>
   <object id="46" name="Peasant12" type="Peasant" gid="549" x="3552" y="3552" width="72" height="72"/>
  </objectgroup>
- <objectgroup id="4" name="Player1" visible="0">
+ <objectgroup id="4" name="Player1">
   <properties>
    <property name="AI" type="bool" value="false"/>
+   <property name="Colour" value="Silver"/>
    <property name="Faction" value="Human"/>
    <property name="Gold" type="float" value="0"/>
    <property name="Level" type="int" value="3"/>
    <property name="Nation" value="Azeroth"/>
    <property name="Oil" type="float" value="0"/>
+   <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
    <property name="Wood" type="float" value="0"/>
    <property name="ZIndex" type="int" value="10"/>

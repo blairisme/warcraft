@@ -141,7 +141,7 @@ public enum UnitType implements ItemType
 
     public UnitAttack getAttack() {
         if (isCombatant()) {
-            if (isNaval()) {
+            if (isNavalUnit()) {
                 return Ship;
             }
             if (isSiege()) {
@@ -228,6 +228,15 @@ public enum UnitType implements ItemType
     }
 
     public boolean isNaval() {
+        return isNavalBuilding() || isNavalUnit();
+    }
+
+    public boolean isNavalBuilding() {
+        return this == Shipyard || this == OilPlatform || this == OilRefinery || this == Foundry
+                || this == Dockyard || this== OilRig || this == Refinery || this == Metalworks;
+    }
+
+    public boolean isNavalUnit() {
         return this == ElvenDestroyer || this == Battleship || this == GnomishSubmarine
             || this == OilTanker || this == Transport
             || this == TrollDestroyer || this == OgreJuggernaught || this == GiantTurtle

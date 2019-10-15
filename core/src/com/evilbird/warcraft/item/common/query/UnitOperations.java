@@ -188,7 +188,7 @@ public class UnitOperations
 
     /**
      * Determines if the given {@link Item Items} belong to different teams:
-     * the {@link Player players} that own them are different.
+     * the both {@link Player#getTeam() players teams} are different.
      *
      * @param itemA an {@code Item} to test.
      * @param itemB another {@code Item} to test.
@@ -201,9 +201,17 @@ public class UnitOperations
     public static boolean isAnotherTeam(Item itemA, Item itemB) {
         Objects.requireNonNull(itemA);
         Objects.requireNonNull(itemB);
+
         Player playerA = getPlayer(itemA);
         Player playerB = getPlayer(itemB);
-        return playerA != null && playerB != null && playerA != playerB;
+
+        return isAnotherTeam(playerA, playerB);
+    }
+
+    public static boolean isAnotherTeam(Player playerA, Player playerB) {
+        int teamA = playerA != null ? playerA.getTeam() : -1;
+        int teamB = playerB != null ? playerB.getTeam() : -1;
+        return teamA != teamB;
     }
 
     /**
@@ -219,10 +227,13 @@ public class UnitOperations
      */
     public static boolean isAlive(Item item) {
         if (item instanceof PerishableObject) {
-            PerishableObject perishable = (PerishableObject)item;
-            return perishable.getHealth() > 0;
+            return isAlive((PerishableObject)item);
         }
         return false;
+    }
+
+    private static boolean isAlive(PerishableObject object) {
+        return object.getHealth() > 0;
     }
 
     public static boolean isDead(Item item) {
@@ -426,7 +437,7 @@ public class UnitOperations
         if (item instanceof Unit) {
             Unit unit = (Unit)item;
             UnitType type = (UnitType)unit.getType();
-            return type.isNaval();
+            return type.isNavalUnit();
         }
         return false;
     }

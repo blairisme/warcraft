@@ -69,21 +69,29 @@ public class CombatantBuilder
     public Combatant newMeleeCombatant() {
         Combatant result = new Combatant(getSkin());
         result.setAnimation(UnitAnimation.Idle, random.nextFloat());
-        result.setSelected(false);
-        result.setSelectable(true);
-        result.setTouchable(Touchable.enabled);
-        result.setSize(assets.getSize());
+        setCommonAttributes(result);
         return result;
     }
 
     public RangedCombatant newRangedCombatant() {
         RangedCombatant result = new RangedCombatant(getSkin());
         result.setAnimation(UnitAnimation.Idle);
-        result.setSelected(false);
-        result.setSelectable(true);
-        result.setTouchable(Touchable.enabled);
-        result.setSize(assets.getSize());
+        setCommonAttributes(result);
         return result;
+    }
+
+    public Submarine newSubmarine() {
+        Submarine result = new Submarine(getSkin());
+        result.setAnimation(UnitAnimation.Idle);
+        setCommonAttributes(result);
+        return result;
+    }
+
+    private void setCommonAttributes(Combatant combatant) {
+        combatant.setSelected(false);
+        combatant.setSelectable(true);
+        combatant.setTouchable(Touchable.enabled);
+        combatant.setSize(assets.getSize());
     }
 
     private Skin getSkin() {
@@ -128,7 +136,7 @@ public class CombatantBuilder
         if (type.isRanged()) {
             return new RangedAnimations(assets);
         }
-        if (type.isNaval()) {
+        if (type.isNavalUnit()) {
             return new NavalAnimations(assets);
         }
         if (type.isSiege()) {
@@ -170,7 +178,7 @@ public class CombatantBuilder
         if (type.isConjured()) {
             return new ConjuredSounds(assets);
         }
-        if (type.isRanged() || type.isNaval() || type.isSiege()) {
+        if (type.isRanged() || type.isNavalUnit() || type.isSiege()) {
             return new RangedSounds(assets);
         }
         return new MeleeSounds(assets);

@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.common.state.MovableObject;
 import com.evilbird.warcraft.item.common.state.MovementCapability;
+import com.evilbird.warcraft.item.common.state.OffensiveCapability;
 import com.evilbird.warcraft.item.common.state.OffensiveObject;
 import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
 import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
@@ -22,6 +23,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
+import static com.evilbird.warcraft.item.common.state.OffensiveCapability.Proximity;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradableValue.Zero;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
 
@@ -41,7 +43,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
 
     /**
      * Constructs a new instance of this class given a {@link Skin} describing
-     * it visual and auditory presentation.
+     * its visual and auditory presentation.
      *
      * @param skin  a {@link Skin} instance containing, amongst others, a
      *              {@link ViewableStyle}.
@@ -56,8 +58,17 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
     }
 
     /**
+     * Returns the attack capability of the {@code Combatant}.
+     */
+    @Override
+    public OffensiveCapability getAttackCapability() {
+        return Proximity;
+    }
+
+    /**
      * Returns the rate at which the {@code Combatant} attacks.
      */
+    @Override
     public float getAttackSpeed() {
         return attackSpeed;
     }
@@ -66,6 +77,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      * Returns the distance that the {@code Combatant} can reach with its
      * attacks.
      */
+    @Override
     public int getAttackRange() {
         return tiles(1);
     }
@@ -76,6 +88,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      * then the upgrades applied to player will use to determine the resulting
      * value.
      */
+    @Override
     public int getBasicDamage() {
         return (int)getUpgradeValue(basicDamage);
     }
@@ -92,6 +105,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      * Returns the damage the {@code Combatant} always does with each attack,
      * regardless of the opponent’s armor.
      */
+    @Override
     public int getPiercingDamage() {
         return piercingDamage;
     }
@@ -101,6 +115,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      * {@code Combatant}, those types of terrain the {@code Combatant} can
      * traverse across.
      */
+    @Override
     public MovementCapability getMovementCapability() {
         return movementCapability;
     }
@@ -109,6 +124,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      * Returns the movement speed of the {@code Combatant}, specified in pixels
      * per second.
      */
+    @Override
     public int getMovementSpeed() {
         return movementSpeed;
     }

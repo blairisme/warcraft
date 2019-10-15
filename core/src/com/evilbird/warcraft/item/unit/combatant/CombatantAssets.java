@@ -68,7 +68,7 @@ public class CombatantAssets extends AssetBundle
         if (type.isRanged()) {
             return type.isOrc() ? "axe" : "bow";
         }
-        if (type.isSiege() || type.isNaval()) {
+        if (type.isSiege() || type.isNavalUnit()) {
             return "siege";
         }
         if (type.isGatherer()) {

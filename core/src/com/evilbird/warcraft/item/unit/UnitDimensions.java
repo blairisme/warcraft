@@ -92,7 +92,7 @@ public class UnitDimensions
             }
             return new GridPoint2(80, 80); //Remove
         }
-        if (type.isNaval()) {
+        if (type.isNavalUnit()) {
             return type.isGatherer() || type.isSubmarine() || type.isTransport() ? SMALLISH : MEDIUM;
         }
         return EXTRA_SMALL;

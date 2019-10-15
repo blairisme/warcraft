@@ -224,7 +224,7 @@ public class DeathAction extends BasicAction
         if (subject instanceof Unit) {
             Unit unit = (Unit)subject;
             UnitType type = (UnitType)unit.getType();
-            return type.isMelee() || type.isRanged() || type.isNaval();
+            return type.isMelee() || type.isRanged() || type.isNavalUnit();
         }
         return false;
     }

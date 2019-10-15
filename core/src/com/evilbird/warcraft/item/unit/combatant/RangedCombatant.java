@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.ViewableStyle;
+import com.evilbird.warcraft.item.common.state.OffensiveCapability;
 import com.evilbird.warcraft.item.common.state.RangedOffensiveObject;
 import com.evilbird.warcraft.item.projectile.Projectile;
 import com.evilbird.warcraft.item.projectile.ProjectileType;
@@ -18,11 +19,12 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import static com.evilbird.warcraft.item.common.state.OffensiveCapability.Air;
 import static com.evilbird.warcraft.item.projectile.ProjectileType.Arrow;
 
 /**
- * Instances of this class represent a combatant specialization that can attack
- * other items at distance.
+ * Represents a combatant specialization that can attack other items at
+ * distance.
  *
  * @author Blair Butterworth
  */
@@ -33,7 +35,7 @@ public class RangedCombatant extends Combatant implements RangedOffensiveObject
 
     /**
      * Constructs a new instance of this class given a {@link Skin} describing
-     * it visual and auditory presentation.
+     * its visual and auditory presentation.
      *
      * @param skin  a {@link Skin} instance containing, amongst others, a
      *              {@link ViewableStyle}.
@@ -45,7 +47,15 @@ public class RangedCombatant extends Combatant implements RangedOffensiveObject
     }
 
     /**
-     * Returns the distance that the {@code Combatant} can reach with its
+     * Returns the attack capability of the {@code RangedCombatant}.
+     */
+    @Override
+    public OffensiveCapability getAttackCapability() {
+        return Air;
+    }
+
+    /**
+     * Returns the distance that the {@code RangedCombatant} can reach with its
      * attacks.
      */
     @Override
@@ -71,7 +81,7 @@ public class RangedCombatant extends Combatant implements RangedOffensiveObject
     }
 
     /**
-     * Sets the distance that the {@code Combatant} can reach with its
+     * Sets the distance that the {@code RangedCombatant} can reach with its
      * attacks.
      */
     public void setAttackRange(int attackRange) {
@@ -79,7 +89,7 @@ public class RangedCombatant extends Combatant implements RangedOffensiveObject
     }
 
     /**
-     * Sets the type of projectile used when the ranged offensive unit
+     * Sets the type of projectile used when the {@code RangedCombatant}
      * attacks.
      */
     public void setProjectileType(ProjectileType projectileType) {
@@ -87,7 +97,7 @@ public class RangedCombatant extends Combatant implements RangedOffensiveObject
     }
 
     /**
-     * Sets the projectile to be used by the ranged object.
+     * Sets the projectile to be used by the {@code RangedCombatant}.
      */
     @Override
     public void setProjectile(Projectile projectile) {

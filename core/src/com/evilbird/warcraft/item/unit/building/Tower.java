@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.unit.building;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.warcraft.item.common.state.OffensiveCapability;
 import com.evilbird.warcraft.item.common.state.RangedOffensiveObject;
 import com.evilbird.warcraft.item.projectile.Projectile;
 import com.evilbird.warcraft.item.projectile.ProjectileType;
@@ -17,6 +18,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import static com.evilbird.warcraft.item.common.state.OffensiveCapability.Air;
 import static com.evilbird.warcraft.item.projectile.ProjectileType.Arrow;
 
 /**
@@ -43,7 +45,15 @@ public class Tower extends Building implements RangedOffensiveObject
     }
 
     /**
-     * Returns the distance that the {@code OffensiveBuilding} can reach with its
+     * Returns the attack capability of the {@code Tower}.
+     */
+    @Override
+    public OffensiveCapability getAttackCapability() {
+        return Air;
+    }
+
+    /**
+     * Returns the distance that the {@code Tower} can reach with its
      * attacks.
      */
     @Override
@@ -52,7 +62,7 @@ public class Tower extends Building implements RangedOffensiveObject
     }
 
     /**
-     * Returns the rate at which the {@code OffensiveBuilding} attacks.
+     * Returns the rate at which the {@code Tower} attacks.
      */
     @Override
     public float getAttackSpeed() {
@@ -60,8 +70,8 @@ public class Tower extends Building implements RangedOffensiveObject
     }
 
     /**
-     * Returns the amount of damage that the {@code OffensiveBuilding} deals
-     * with each attack. If the {@code OffensiveBuilding} belongs to a {@code Player},
+     * Returns the amount of damage that the {@code Tower} deals
+     * with each attack. If the {@code Tower} belongs to a {@code Player},
      * then the upgrades applied to player will use to determine the resulting
      * value.
      */
@@ -71,7 +81,7 @@ public class Tower extends Building implements RangedOffensiveObject
     }
 
     /**
-     * Returns the damage the {@code OffensiveBuilding} always does with each attack,
+     * Returns the damage the {@code Tower} always does with each attack,
      * regardless of the opponent’s armor.
      */
     @Override
@@ -97,14 +107,14 @@ public class Tower extends Building implements RangedOffensiveObject
     }
 
     /**
-     * Sets the rate at which the {@code OffensiveBuilding} attacks.
+     * Sets the rate at which the {@code Tower} attacks.
      */
     public void setAttackSpeed(float attackSpeed) {
         this.attackSpeed = attackSpeed;
     }
 
     /**
-     * Sets the distance that the {@code OffensiveBuilding} can reach with its
+     * Sets the distance that the {@code Tower} can reach with its
      * attacks.
      */
     public void setAttackRange(int attackRange) {
@@ -112,7 +122,7 @@ public class Tower extends Building implements RangedOffensiveObject
     }
     
     /**
-     * Sets the maximum amount of damage that the {@code OffensiveBuilding} deals
+     * Sets the maximum amount of damage that the {@code Tower} deals
      * with each attack.
      */
     public void setBasicDamage(int basicDamage) {
@@ -120,7 +130,7 @@ public class Tower extends Building implements RangedOffensiveObject
     }
 
     /**
-     * Sets the damage the {@code OffensiveBuilding} always does with each attack,
+     * Sets the damage the {@code Tower} always does with each attack,
      * regardless of the opponent’s armor.
      */
     public void setPiercingDamage(int piercingDamage) {

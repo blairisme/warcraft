@@ -15,6 +15,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
+import com.evilbird.warcraft.item.unit.combatant.Submarine;
 
 import javax.inject.Inject;
 
@@ -43,7 +44,7 @@ public class GnomishSubmarineFactory extends CombatantFactoryBase
 
     @Override
     public Combatant get(Identifier type) {
-        RangedCombatant result = builder.newRangedCombatant();
+        Submarine result = builder.newSubmarine();
         result.setAttackSpeed(1.5f);
         result.setAttackRange(tiles(4));
         result.setArmour(10);
