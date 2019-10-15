@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="96" height="96" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="123">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="96" height="96" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="123">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/summer.png" width="576" height="864"/>
  </tileset>
@@ -200,8 +200,10 @@
  <objectgroup id="2" name="Neutral">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="None"/>
    <property name="Faction" value="Neutral"/>
    <property name="Nation" value="Neutral"/>
+   <property name="Team" type="int" value="3"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="6"/>
   </properties>
@@ -213,8 +215,10 @@
  <objectgroup id="3" name="Player3">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="Blue"/>
    <property name="Faction" value="Orc"/>
    <property name="Nation" value="TwilightsHammer"/>
+   <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="7"/>
   </properties>
@@ -285,28 +289,27 @@
  <objectgroup id="4" name="Player2">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="Orange"/>
    <property name="Faction" value="Orc"/>
    <property name="Nation" value="BlackToothGrin"/>
+   <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="8"/>
   </properties>
   <object id="47" name="Battleship4" type="Battleship" gid="1547" x="2400" y="2304" width="88" height="88"/>
   <object id="48" name="ElvenDestroyer6" type="ElvenDestroyer" gid="405" x="2656" y="2112" width="88" height="88"/>
   <object id="49" name="ElvenDestroyer7" type="ElvenDestroyer" gid="405" x="2528" y="2048" width="88" height="88"/>
-  <object id="50" name="Farm1" type="Farm" gid="388" x="2848" y="2816" width="64" height="64"/>
-  <object id="51" name="Farm2" type="Farm" gid="388" x="2976" y="2848" width="64" height="64"/>
-  <object id="52" name="Farm3" type="Farm" gid="388" x="2944" y="3008" width="64" height="64"/>
-  <object id="53" name="LumberMill1" type="LumberMill" gid="1065" x="2720" y="2976" width="96" height="96"/>
-  <object id="54" name="Blacksmith1" type="Blacksmith" gid="1067" x="2944" y="2752" width="96" height="96"/>
  </objectgroup>
  <objectgroup id="5" name="Player1">
   <properties>
    <property name="AI" type="bool" value="false"/>
+   <property name="Colour" value="Silver"/>
    <property name="Faction" value="Human"/>
    <property name="Gold" type="float" value="0"/>
    <property name="Level" type="int" value="3"/>
    <property name="Nation" value="Azeroth"/>
    <property name="Oil" type="float" value="0"/>
+   <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
    <property name="Wood" type="float" value="0"/>
    <property name="ZIndex" type="int" value="9"/>
@@ -353,6 +356,11 @@
   <object id="56" name="Camera" type="Camera" x="2720" y="576">
    <point/>
   </object>
+  <object id="50" name="Farm1" type="Farm" gid="388" x="2848" y="2816" width="64" height="64"/>
+  <object id="51" name="Farm2" type="Farm" gid="388" x="2976" y="2848" width="64" height="64"/>
+  <object id="52" name="Farm3" type="Farm" gid="388" x="2944" y="3008" width="64" height="64"/>
+  <object id="53" name="LumberMill1" type="LumberMill" gid="1065" x="2720" y="2976" width="96" height="96"/>
+  <object id="54" name="Blacksmith1" type="Blacksmith" gid="1067" x="2944" y="2752" width="96" height="96"/>
  </objectgroup>
  <layer id="11" name="OpaqueFog" width="96" height="96">
   <properties>

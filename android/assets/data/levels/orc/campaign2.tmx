@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="48">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="48">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/winter.png" width="576" height="864"/>
  </tileset>
@@ -76,28 +76,27 @@
  <objectgroup id="5" name="Neutral">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="None"/>
    <property name="Faction" value="Neutral"/>
    <property name="Nation" value="Neutral"/>
+   <property name="Team" type="int" value="3"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="4"/>
   </properties>
-  <object id="39" name="TrollAxethrowerCaptive1" type="TrollAxethrowerCaptive" gid="585" x="1600" y="512" width="72" height="72"/>
-  <object id="40" name="TrollAxethrowerCaptive2" type="TrollAxethrowerCaptive" gid="585" x="1632" y="512" width="72" height="72"/>
-  <object id="41" name="TrollAxethrowerCaptive3" type="TrollAxethrowerCaptive" gid="585" x="1664" y="512" width="72" height="72"/>
-  <object id="42" name="TrollAxethrowerCaptive4" type="TrollAxethrowerCaptive" gid="585" x="1600" y="480" width="72" height="72"/>
-  <object id="44" name="TrollAxethrowerCaptive5" type="TrollAxethrowerCaptive" gid="585" x="1664" y="480" width="72" height="72"/>
-  <object id="43" name="Zuljin1" type="Zuljin" gid="585" x="1632" y="480" width="72" height="72"/>
   <object id="45" name="GoldMine1" type="GoldMine" gid="865" x="1728" y="1792" width="96" height="96">
    <properties>
     <property name="Gold" type="float" value="30000"/>
    </properties>
   </object>
+  <object id="23" name="CircleOfPower1" type="CircleOfPower" gid="867" x="64" y="1344" width="64" height="64"/>
  </objectgroup>
- <objectgroup id="4" name="Player2">
+ <objectgroup id="4" name="Player4">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="Blue"/>
    <property name="Faction" value="Human"/>
    <property name="Nation" value="Azeroth"/>
+   <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="5"/>
   </properties>
@@ -114,14 +113,38 @@
   <object id="36" name="ElvenArcher4" type="ElvenArcher" gid="783" x="96" y="800" width="72" height="72"/>
   <object id="37" name="ScoutTower1" type="ScoutTower" gid="685" x="1760" y="608" width="64" height="64"/>
  </objectgroup>
+ <objectgroup id="11" name="Player3">
+  <properties>
+   <property name="Colour" value="Green"/>
+   <property name="Team" type="int" value="1"/>
+  </properties>
+  <object id="43" name="Zuljin1" type="Zuljin" gid="585" x="1632" y="480" width="72" height="72"/>
+ </objectgroup>
+ <objectgroup id="10" name="Player2">
+  <properties>
+   <property name="Colour" value="Black"/>
+   <property name="Team" type="int" value="1"/>
+  </properties>
+  <object id="39" name="TrollAxethrowerCaptive1" type="TrollAxethrowerCaptive" gid="585" x="1600" y="512" width="72" height="72"/>
+  <object id="40" name="TrollAxethrowerCaptive2" type="TrollAxethrowerCaptive" gid="585" x="1632" y="512" width="72" height="72"/>
+  <object id="41" name="TrollAxethrowerCaptive3" type="TrollAxethrowerCaptive" gid="585" x="1664" y="512" width="72" height="72"/>
+  <object id="42" name="TrollAxethrowerCaptive4" type="TrollAxethrowerCaptive" gid="585" x="1600" y="480" width="72" height="72"/>
+  <object id="44" name="TrollAxethrowerCaptive5" type="TrollAxethrowerCaptive" gid="585" x="1664" y="480" width="72" height="72"/>
+  <object id="17" name="PigFarm3" type="PigFarm" gid="683" x="128" y="1504" width="64" height="64"/>
+  <object id="18" name="PigFarm4" type="PigFarm" gid="683" x="0" y="1248" width="64" height="64"/>
+  <object id="19" name="WatchTower1" type="WatchTower" gid="863" x="224" y="1792" width="64" height="64"/>
+  <object id="20" name="WatchTower2" type="WatchTower" gid="863" x="0" y="1792" width="64" height="64"/>
+ </objectgroup>
  <objectgroup id="3" name="Player1">
   <properties>
    <property name="AI" type="bool" value="false"/>
+   <property name="Colour" value="Red"/>
    <property name="Faction" value="Orc"/>
    <property name="Food" type="float" value="1"/>
    <property name="Gold" type="float" value="1000"/>
    <property name="Level" type="int" value="2"/>
    <property name="Nation" value="Blackrock"/>
+   <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
    <property name="Wood" type="float" value="1000"/>
    <property name="ZIndex" type="int" value="6"/>
@@ -139,11 +162,6 @@
   <object id="14" name="GreatHall1" type="GreatHall" gid="681" x="1312" y="1920" width="128" height="128"/>
   <object id="15" name="PigFarm1" type="PigFarm" gid="683" x="1248" y="1792" width="64" height="64"/>
   <object id="16" name="PigFarm2" type="PigFarm" gid="683" x="1536" y="1792" width="64" height="64"/>
-  <object id="17" name="PigFarm3" type="PigFarm" gid="683" x="128" y="1504" width="64" height="64"/>
-  <object id="18" name="PigFarm4" type="PigFarm" gid="683" x="0" y="1248" width="64" height="64"/>
-  <object id="19" name="WatchTower1" type="WatchTower" gid="863" x="224" y="1792" width="64" height="64"/>
-  <object id="20" name="WatchTower2" type="WatchTower" gid="863" x="0" y="1792" width="64" height="64"/>
-  <object id="23" name="CircleOfPower1" type="CircleOfPower" gid="867" x="64" y="1344" width="64" height="64"/>
   <object id="47" name="Camera" type="Camera" x="1472" y="1728">
    <point/>
   </object>

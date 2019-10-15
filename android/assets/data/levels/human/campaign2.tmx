@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="31" nextobjectid="59">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="32" nextobjectid="59">
  <properties>
   <property name="Parent" value="Neutral"/>
  </properties>
@@ -95,41 +95,13 @@
  <objectgroup id="29" name="Neutral">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="None"/>
    <property name="Faction" value="Neutral"/>
    <property name="Nation" value="Neutral"/>
+   <property name="Team" type="int" value="3"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="5"/>
   </properties>
-  <object id="23" name="ElvenArcherCaptive1" type="ElvenArcherCaptive" gid="590" x="128" y="128" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Neutral"/>
-   </properties>
-  </object>
-  <object id="24" name="ElvenArcherCaptive2" type="ElvenArcherCaptive" gid="590" x="160" y="128" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Neutral"/>
-   </properties>
-  </object>
-  <object id="25" name="ElvenArcherCaptive3" type="ElvenArcherCaptive" gid="590" x="192" y="128" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Neutral"/>
-   </properties>
-  </object>
-  <object id="26" name="ElvenArcherCaptive4" type="ElvenArcherCaptive" gid="590" x="128" y="160" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Neutral"/>
-   </properties>
-  </object>
-  <object id="27" name="ElvenArcherCaptive5" type="ElvenArcherCaptive" gid="590" x="160" y="160" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Neutral"/>
-   </properties>
-  </object>
-  <object id="28" name="ElvenArcherCaptive6" type="ElvenArcherCaptive" gid="590" x="192" y="160" width="72" height="72">
-   <properties>
-    <property name="Owner" value="Neutral"/>
-   </properties>
-  </object>
   <object id="1" name="GoldMine1" type="GoldMine" gid="385" x="608" y="1568" width="96" height="96">
    <properties>
     <property name="Gold" type="float" value="10000"/>
@@ -142,11 +114,13 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="28" name="Player2">
+ <objectgroup id="28" name="Player3">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="Red"/>
    <property name="Faction" value="Orc"/>
    <property name="Nation" value="Blackrock"/>
+   <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="6"/>
   </properties>
@@ -221,13 +195,56 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup id="31" name="Player2">
+  <properties>
+   <property name="AI" type="bool" value="true"/>
+   <property name="Colour" value="Silver"/>
+   <property name="Faction" value="Human"/>
+   <property name="Nation" value="Azeroth"/>
+   <property name="Team" type="int" value="1"/>
+   <property name="Type" value="Player"/>
+   <property name="ZIndex" type="int" value="6"/>
+  </properties>
+  <object id="23" name="ElvenArcherCaptive1" type="ElvenArcherCaptive" gid="590" x="128" y="128" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="24" name="ElvenArcherCaptive2" type="ElvenArcherCaptive" gid="590" x="160" y="128" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="25" name="ElvenArcherCaptive3" type="ElvenArcherCaptive" gid="590" x="192" y="128" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="26" name="ElvenArcherCaptive4" type="ElvenArcherCaptive" gid="590" x="128" y="160" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="27" name="ElvenArcherCaptive5" type="ElvenArcherCaptive" gid="590" x="160" y="160" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+  <object id="28" name="ElvenArcherCaptive6" type="ElvenArcherCaptive" gid="590" x="192" y="160" width="72" height="72">
+   <properties>
+    <property name="Owner" value="Neutral"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="27" name="Player1">
   <properties>
    <property name="AI" type="bool" value="false"/>
+   <property name="Colour" value="Blue"/>
    <property name="Faction" value="Human"/>
    <property name="Gold" type="float" value="1000"/>
    <property name="Level" type="int" value="2"/>
    <property name="Nation" value="Azeroth"/>
+   <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
    <property name="Wood" type="float" value="1000"/>
    <property name="ZIndex" type="int" value="7"/>

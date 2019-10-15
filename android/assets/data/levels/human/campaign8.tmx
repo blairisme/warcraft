@@ -238,7 +238,7 @@
   <object id="106" name="TrollAxethrower14" type="TrollAxethrower" gid="829" x="416" y="2944" width="72" height="72"/>
   <object id="107" name="TrollAxethrower15" type="TrollAxethrower" gid="829" x="480" y="2912" width="72" height="72"/>
   <object id="108" name="TrollAxethrower16" type="TrollAxethrower" gid="829" x="544" y="2880" width="72" height="72"/>
-  <object id="115" name="Orge9" type="Orge" gid="1107" x="288" y="2240" width="72" height="72"/>
+  <object id="115" name="Ogre9" type="Ogre" gid="1107" x="288" y="2240" width="72" height="72"/>
   <object id="121" name="Catapult6" type="Catapult" gid="1447" x="384" y="2848" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="7" name="Player5">
@@ -272,16 +272,16 @@
   <object id="100" name="TrollAxethrower9" type="TrollAxethrower" gid="829" x="1120" y="1120" width="72" height="72"/>
   <object id="101" name="TrollAxethrower10" type="TrollAxethrower" gid="829" x="1152" y="1088" width="72" height="72"/>
   <object id="102" name="TrollAxethrower11" type="TrollAxethrower" gid="829" x="1184" y="1056" width="72" height="72"/>
-  <object id="110" name="Orge2" type="Orge" gid="1107" x="768" y="704" width="72" height="72"/>
-  <object id="111" name="Orge3" type="Orge" gid="1107" x="352" y="864" width="72" height="72"/>
-  <object id="112" name="Orge4" type="Orge" gid="1107" x="288" y="1216" width="72" height="72"/>
-  <object id="113" name="Orge5" type="Orge" gid="1107" x="1216" y="1216" width="72" height="72"/>
-  <object id="114" name="Orge6" type="Orge" gid="1107" x="1248" y="1184" width="72" height="72"/>
+  <object id="110" name="Ogre2" type="Ogre" gid="1107" x="768" y="704" width="72" height="72"/>
+  <object id="111" name="Ogre3" type="Ogre" gid="1107" x="352" y="864" width="72" height="72"/>
+  <object id="112" name="Ogre4" type="Ogre" gid="1107" x="288" y="1216" width="72" height="72"/>
+  <object id="113" name="Ogre5" type="Ogre" gid="1107" x="1216" y="1216" width="72" height="72"/>
+  <object id="114" name="Ogre6" type="Ogre" gid="1107" x="1248" y="1184" width="72" height="72"/>
   <object id="118" name="Catapult3" type="Catapult" gid="1447" x="224" y="896" width="64" height="64"/>
   <object id="119" name="Catapult4" type="Catapult" gid="1447" x="448" y="896" width="64" height="64"/>
   <object id="120" name="Catapult5" type="Catapult" gid="1447" x="1088" y="1056" width="64" height="64"/>
-  <object id="122" name="Orge7" type="Orge" gid="1107" x="1344" y="224" width="72" height="72"/>
-  <object id="123" name="Orge8" type="Orge" gid="1107" x="1312" y="160" width="72" height="72"/>
+  <object id="122" name="Ogre7" type="Ogre" gid="1107" x="1344" y="224" width="72" height="72"/>
+  <object id="123" name="Ogre8" type="Ogre" gid="1107" x="1312" y="160" width="72" height="72"/>
  </objectgroup>
  <objectgroup id="6" name="Player4">
   <properties>
@@ -311,7 +311,7 @@
   <object id="93" name="TrollAxethrower2" type="TrollAxethrower" gid="829" x="2528" y="864" width="72" height="72"/>
   <object id="94" name="TrollAxethrower3" type="TrollAxethrower" gid="829" x="2272" y="864" width="72" height="72"/>
   <object id="95" name="TrollAxethrower4" type="TrollAxethrower" gid="829" x="2176" y="864" width="72" height="72"/>
-  <object id="109" name="Orge1" type="Orge" gid="1107" x="2240" y="992" width="72" height="72"/>
+  <object id="109" name="Ogre1" type="Ogre" gid="1107" x="2240" y="992" width="72" height="72"/>
   <object id="116" name="Catapult1" type="Catapult" gid="1447" x="2464" y="800" width="64" height="64"/>
   <object id="117" name="Catapult2" type="Catapult" gid="1447" x="2208" y="800" width="64" height="64"/>
  </objectgroup>
