@@ -30,7 +30,8 @@ import java.util.List;
 import java.util.Map;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.filter;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.isAlive;
+import static com.evilbird.engine.common.function.Predicates.not;
+import static com.evilbird.engine.item.utility.ItemPredicates.isIdle;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isAnotherTeam;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isNeutral;
 
@@ -63,8 +64,9 @@ public class AttackController
     }
 
     public Collection<OffensiveObject> getAttackers(PerishableObject target) {
-        List<OffensiveObject> potentialAttackers =  attackers.remove(target.getIdentifier());
+        List<OffensiveObject> potentialAttackers = attackers.remove(target.getIdentifier());
         if (potentialAttackers != null) {
+            potentialAttackers.removeIf(not(isIdle()));
             return potentialAttackers;
         }
         return Collections.emptyList();
@@ -155,7 +157,7 @@ public class AttackController
     }
 
     private boolean isAttackable(OffensiveObject attacker, PerishableObject target) {
-        return isAlive(target) && isAttackableTarget(attacker, target) && isAttackableTeam(attacker, target);
+        return isAttackableTarget(attacker, target) && isAttackableTeam(attacker, target);
     }
 
     private boolean isAttackableTeam(OffensiveObject attacker, PerishableObject target) {

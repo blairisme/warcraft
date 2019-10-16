@@ -21,11 +21,11 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.item.utility.ItemOperations.assignIfAbsent;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.inRange;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.isAlive;
 
 /**
- * Instances of this {@link Action} cause a given {@link Item} to attack
- * another, after first moving within attack range.
+ * An {@link Action} that causes a given {@link OffensiveObject} to attack a
+ * {@link PerishableObject}, after first moving within attack range, if
+ * applicable.
  *
  * @author Blair Butterworth
  */
@@ -53,16 +53,19 @@ public abstract class AttackSequence extends CompositeAction
     }
 
     private boolean act(float time, OffensiveObject attacker, PerishableObject target) {
-        if (! targetValid(attacker, target)) {
-            return attackInvalid(attacker, target);
+        if (targetInvalid(attacker, target)) {
+            return attackFailed(attacker, target);
         }
         if (moveRequired(attacker, target)) {
             return moveAttacker(time, attacker, target);
         }
-        if (attackTarget(time, attacker, target)) {
+        if (attackRequired(attacker, target)) {
+            return attackTarget(time, attacker, target);
+        }
+        if (killRequired(attacker, target)) {
             return killTarget(attacker, target);
         }
-        return ActionIncomplete;
+        return ActionComplete;
     }
 
     @Override
@@ -77,11 +80,11 @@ public abstract class AttackSequence extends CompositeAction
         super.setTarget(target);
     }
 
-    protected boolean targetValid(OffensiveObject attacker, PerishableObject target) {
-        return isAlive(attacker) && isAlive(target) && target.getVisible();
+    protected boolean targetInvalid(OffensiveObject attacker, PerishableObject target) {
+        return !target.getTouchable() || !target.getVisible();
     }
 
-    protected boolean attackInvalid(OffensiveObject attacker, PerishableObject target) {
+    protected boolean attackFailed(OffensiveObject attacker, PerishableObject target) {
         resetAttacker(attacker);
         events.attackFailed(attacker, target);
         return ActionComplete;
@@ -93,13 +96,23 @@ public abstract class AttackSequence extends CompositeAction
     }
 
     protected boolean moveAttacker(float time, OffensiveObject attacker, PerishableObject target) {
+        if (current == attack) {
+            events.attackStopped(attacker, target);
+        }
         if (current != move) {
-            stopAttacking(attacker, target);
             current = move;
             current.restart();
+            current.setError(null);
         }
-//        return current.act(time);
-        return performCurrentAction(time);
+        if (current.act(time)) {
+            current = null;
+            resetAttacker(attacker);
+        }
+        return move.hasError() ? ActionComplete : ActionIncomplete;
+    }
+
+    protected boolean attackRequired(OffensiveObject attacker, PerishableObject target) {
+        return target.getHealth() > 0;
     }
 
     protected boolean attackTarget(float time, OffensiveObject attacker, PerishableObject target) {
@@ -107,32 +120,24 @@ public abstract class AttackSequence extends CompositeAction
             events.attackStarted(attacker, target);
             current = attack;
             current.restart();
+            current.setError(null);
         }
-        return current.act(time);
+        if (current.act(time)) {
+            current = null;
+            resetAttacker(attacker);
+            events.attackFinished(attacker, target, attack.hasError());
+        }
+        return attack.hasError() ? ActionComplete : ActionIncomplete;
     }
 
-//    //TODO: Remove
-    private boolean performCurrentAction(float time) {
-        if (current.act(time)) {
-            if (current.hasError()) {
-                return ActionComplete;
-            }
-            current = null;
-        }
-        return ActionIncomplete;
+    protected boolean killRequired(OffensiveObject attacker, PerishableObject target) {
+        return target.getHealth() == 0;
     }
 
     protected boolean killTarget(OffensiveObject attacker, PerishableObject target) {
+        resetAttacker(attacker);
         assignIfAbsent(target, death);
-        events.attackComplete(attacker, target);
         return ActionComplete;
-    }
-
-    protected void stopAttacking(OffensiveObject attacker, PerishableObject target) {
-        if (current == attack) {
-            resetAttacker(attacker);
-            events.attackStopped(attacker, target);
-        }
     }
 
     protected void resetAttacker(OffensiveObject attacker) {

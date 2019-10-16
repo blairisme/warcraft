@@ -72,7 +72,7 @@ public class ProximityAttack extends BasicAction
         return delay != null;
     }
 
-    private void initialize() {
+    protected void initialize() {
         OffensiveObject attacker = (OffensiveObject)getItem();
         attacker.setAnimation(UnitAnimation.Attack);
         attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
@@ -88,12 +88,12 @@ public class ProximityAttack extends BasicAction
         return delay.complete();
     }
 
-    private boolean delayAttack(float time) {
+    protected boolean delayAttack(float time) {
         delay.advance(time);
         return ActionIncomplete;
     }
 
-    private boolean attackTarget() {
+    protected boolean attackTarget() {
         OffensiveObject attacker = (OffensiveObject)getItem();
         attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
 

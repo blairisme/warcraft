@@ -54,6 +54,14 @@ public class AttackEvents
         addEvent(attacker, target, Cancelled);
     }
 
+    public void attackFinished(Item attacker, Item target, boolean failed) {
+        if (failed) {
+            attackFailed(attacker, target);
+        } else {
+            attackComplete(attacker, target);
+        }
+    }
+
     public void addEvent(Item attacker, Item target, AttackStatus status) {
         events.add(new AttackEvent(attacker, target, status));
     }
