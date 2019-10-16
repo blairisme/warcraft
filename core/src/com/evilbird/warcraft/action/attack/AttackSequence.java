@@ -90,7 +90,6 @@ public abstract class AttackSequence extends CompositeAction
         return ActionComplete;
     }
 
-    //TODO: Don't range check on each update
     protected boolean moveRequired(OffensiveObject attacker, PerishableObject target) {
        return current == move || !inRange(attacker, target);
     }
