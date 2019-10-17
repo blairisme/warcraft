@@ -17,6 +17,7 @@ import com.evilbird.warcraft.item.common.state.MovableObject;
 import com.evilbird.warcraft.item.common.state.MovementCapability;
 import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.warcraft.item.common.state.SelectableObject;
+import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -82,6 +83,15 @@ public class UnitPredicates
      */
     public static Predicate<Item> isCorporeal() {
         return UnitOperations::isCorporeal;
+    }
+
+    /**
+     * Returns a condition that determines if a given {@link Item} belongs to
+     * the corporeal player, the user, or to a {@link Player#isControllable()
+     * controllable player}.
+     */
+    public static Predicate<Item> isControllable() {
+        return UnitOperations::isControllable;
     }
 
     /**

@@ -31,6 +31,8 @@ import static com.evilbird.warcraft.item.data.player.PlayerIds.Player1;
 import static com.evilbird.warcraft.item.data.player.PlayerIds.Player2;
 import static com.evilbird.warcraft.item.data.player.PlayerIds.Player3;
 import static com.evilbird.warcraft.item.data.player.PlayerIds.Player4;
+import static com.evilbird.warcraft.item.data.player.PlayerIds.Player5;
+import static com.evilbird.warcraft.item.data.player.PlayerIds.Player6;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.Castle;
 import static com.evilbird.warcraft.item.unit.UnitType.Chogall;
@@ -152,14 +154,20 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
 
     private Behaviour humanCampaign7() {
         ScenarioBehaviour result = factory.get();
-        result.setWinCondition(unitsDestroyed(Player2, OilRefinery));
+        result.setWinCondition(unitsDestroyed(Player3, OilRefinery));
         result.setLoseCondition(playerDestroyed(Player1));
         return result;
     }
 
     private Behaviour humanCampaign8() {
         ScenarioBehaviour result = factory.get();
-        result.setWinCondition(both(playerOwns(Castle, 1), playerDestroyed(Player2)));
+        result.setWinCondition(
+            playerOwns(Castle, 1)
+            .and(playerCaptured(Player2))
+            .and(playerDestroyed(Player3))
+            .and(playerDestroyed(Player4))
+            .and(playerDestroyed(Player5))
+            .and(playerDestroyed(Player6)));
         result.setLoseCondition(playerDestroyed(Player1));
         result.addBehaviour(new UnitCapture(preferences));
         return result;

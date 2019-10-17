@@ -86,7 +86,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAttacker;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isControllable;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDepotFor;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDestroyable;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isGatherer;
@@ -164,19 +164,19 @@ public class Interactions
 
     private void attackInteractions() {
         interactions.addAction(Attack, ConfirmAttack)
-            .whenSelected(both(isCorporeal(), isAttacker()))
+            .whenSelected(both(isControllable(), isAttacker()))
             .whenTarget(isAi().and(isDestroyable()).and(not(isResource())))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
         interactions.addAction(Attack, ConfirmAttack)
-            .whenSelected(both(isCorporeal(), isAttacker()))
+            .whenSelected(both(isControllable(), isAttacker()))
             .whenTarget(WallSection)
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
         interactions.addAction(AttackCancel)
-            .whenSelected(both(isCorporeal(), isAttacker()))
+            .whenSelected(both(isControllable(), isAttacker()))
             .whenTarget(CancelButton)
             .withAction(Attack)
             .appliedTo(Selected);
@@ -298,19 +298,19 @@ public class Interactions
 
     private void gatherInteraction(ActionIdentifier action, Identifier resource, ResourceType type) {
         interactions.addAction(action, ConfirmTarget)
-            .whenSelected(both(isCorporeal(), isGatherer()))
+            .whenSelected(both(isControllable(), isGatherer()))
             .whenTarget(resource)
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
         interactions.addAction(action, ConfirmTarget)
-            .whenSelected(all(isCorporeal(), isGatherer(), hasResources(type)))
+            .whenSelected(all(isControllable(), isGatherer(), hasResources(type)))
             .whenTarget(isDepotFor(type))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
         interactions.addAction(GatherCancel)
-            .whenSelected(both(isCorporeal(), isGatherer()))
+            .whenSelected(both(isControllable(), isGatherer()))
             .whenTarget(CancelButton)
             .withAction(action)
             .appliedTo(Selected);
@@ -318,13 +318,13 @@ public class Interactions
 
     private void gatherOil(ActionIdentifier action, Identifier resource) {
         interactions.addAction(action, ConfirmTarget)
-            .whenSelected(all(isCorporeal(), isGatherer()))
+            .whenSelected(all(isControllable(), isGatherer()))
             .whenTarget(resource)
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
         interactions.addAction(GatherCancel)
-            .whenSelected(both(isCorporeal(), isGatherer()))
+            .whenSelected(both(isControllable(), isGatherer()))
             .whenTarget(CancelButton)
             .withAction(GatherOil)
             .appliedTo(Selected);
@@ -415,30 +415,30 @@ public class Interactions
 
     private void moveInteractions() {
         interactions.addAction(MoveToLocation, ConfirmLocation)
-            .whenSelected(both(isCorporeal(), isMovableOver(Land)))
+            .whenSelected(both(isControllable(), isMovableOver(Land)))
             .whenTarget(hasType(Map, Shore, OpaqueFogSection, CircleOfPower))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
         interactions.addAction(MoveToLocation, ConfirmLocation)
-            .whenSelected(both(isCorporeal(), isMovableOver(Water)))
+            .whenSelected(both(isControllable(), isMovableOver(Water)))
             .whenTarget(hasType(Sea, OilPatch, OpaqueFogSection))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
         interactions.addAction(MoveToLocation, ConfirmLocation)
-            .whenSelected(both(isCorporeal(), isMovableOver(ShallowWater)))
+            .whenSelected(both(isControllable(), isMovableOver(ShallowWater)))
             .whenTarget(hasType(Sea, Shore, OilPatch, OpaqueFogSection))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
         interactions.addAction(MoveToLocation, ConfirmLocation)
-            .whenSelected(both(isCorporeal(), isMovableOver(Air)))
+            .whenSelected(both(isControllable(), isMovableOver(Air)))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
 
         interactions.addAction(MoveCancel)
-            .whenSelected(both(isCorporeal(), isMovable()))
+            .whenSelected(both(isControllable(), isMovable()))
             .whenTarget(StopButton)
             .withAction(MoveToLocation)
             .appliedTo(Selected);
@@ -446,7 +446,7 @@ public class Interactions
 
     private void transportInteractions() {
         interactions.addAction(TransportEmbark, ConfirmLocation)
-            .whenSelected(both(isCorporeal(), isMovableOver(Land)))
+            .whenSelected(both(isControllable(), isMovableOver(Land)))
             .whenTarget(isTransport())
             .appliedTo(Selected)
             .appliedAs(confirmedAction());

@@ -200,10 +200,12 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Capturable" type="bool" value="true"/>
    <property name="Colour" value="Silver"/>
+   <property name="Controllable" type="bool" value="false"/>
    <property name="Faction" value="Human"/>
    <property name="Nation" value="Azeroth"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
+   <property name="Viewable" type="bool" value="true"/>
    <property name="ZIndex" type="int" value="6"/>
   </properties>
   <object id="23" name="ElvenArcherCaptive1" type="ElvenArcher" gid="590" x="128" y="128" width="72" height="72">

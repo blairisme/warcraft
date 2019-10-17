@@ -378,10 +378,12 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Capturable" type="bool" value="true"/>
    <property name="Colour" value="Purple"/>
+   <property name="Controllable" type="bool" value="false"/>
    <property name="Faction" value="Human"/>
    <property name="Nation" value="Dalaran"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
+   <property name="Viewable" type="bool" value="true"/>
    <property name="ZIndex" type="int" value="7"/>
   </properties>
   <object id="108" name="Peasant1" type="Peasant" gid="549" x="896" y="128" width="72" height="72"/>

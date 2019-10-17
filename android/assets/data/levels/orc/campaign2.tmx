@@ -118,10 +118,12 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Capturable" type="bool" value="true"/>
    <property name="Colour" value="Green"/>
+   <property name="Controllable" type="bool" value="false"/>
    <property name="Faction" value="Orc"/>
    <property name="Nation" value="Blackrock"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
+   <property name="Viewable" type="bool" value="true"/>
    <property name="ZIndex" type="int" value="6"/>
   </properties>
   <object id="43" name="Zuljin1" type="Zuljin" gid="585" x="1632" y="480" width="72" height="72"/>
@@ -131,10 +133,12 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Capturable" type="bool" value="true"/>
    <property name="Colour" value="Black"/>
+   <property name="Controllable" type="bool" value="false"/>
    <property name="Faction" value="Orc"/>
    <property name="Nation" value="Blackrock"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
+   <property name="Viewable" type="bool" value="true"/>
    <property name="ZIndex" type="int" value="7"/>
   </properties>
   <object id="39" name="TrollAxethrowerCaptive1" type="TrollAxethrower" gid="585" x="1600" y="512" width="72" height="72"/>

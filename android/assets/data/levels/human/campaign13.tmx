@@ -462,10 +462,12 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Capturable" type="bool" value="true"/>
    <property name="Colour" value="Purple"/>
+   <property name="Controllable" type="bool" value="false"/>
    <property name="Faction" value="Human"/>
    <property name="Nation" value="Azeroth"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
+   <property name="Viewable" type="bool" value="true"/>
    <property name="ZIndex" type="int" value="9"/>
   </properties>
   <object id="60" name="AnduinLothar" type="AnduinLothar" gid="1299" x="3936" y="928" width="72" height="72"/>

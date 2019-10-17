@@ -318,10 +318,12 @@
   <properties>
    <property name="AI" type="bool" value="true"/>
    <property name="Colour" value="Orange"/>
+   <property name="Controllable" type="bool" value="true"/>
    <property name="Faction" value="Human"/>
    <property name="Nation" value="KulTiras"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
+   <property name="Viewable" type="bool" value="true"/>
    <property name="ZIndex" type="int" value="9"/>
   </properties>
   <object id="39" name="Peasant5" type="Peasant" gid="549" x="3520" y="3648" width="72" height="72"/>

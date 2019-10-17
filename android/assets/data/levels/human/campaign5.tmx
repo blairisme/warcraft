@@ -250,10 +250,12 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Capturable" type="bool" value="true"/>
    <property name="Colour" value="Red"/>
+   <property name="Controllable" type="bool" value="false"/>
    <property name="Faction" value="Human"/>
    <property name="Nation" value="Stormgarde"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
+   <property name="Viewable" type="bool" value="true"/>
    <property name="ZIndex" type="int" value="6"/>
   </properties>
   <object id="2" name="TownHall1" type="TownHall" gid="390" x="1280" y="3200" width="128" height="128"/>

@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getCorporealPlayer;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.getViewablePlayers;
 import static com.evilbird.warcraft.item.layer.LayerUtils.toCellDimensions;
 
 /**
@@ -117,14 +118,24 @@ public class Fog extends LayerGroup
 
     private void evaluateEvent(Item item) {
         Player player = UnitOperations.getPlayer(item);
-        if (player.isCorporeal()) {
+        if (player.isCorporeal() || player.isViewable()) {
             revealItem(item);
         }
     }
 
     private void revealItems() {
         ItemRoot root = getRoot();
-        ItemGroup player = getCorporealPlayer(root);
+        revealPlayer(getCorporealPlayer(root));
+        revealPlayers(getViewablePlayers(root));
+    }
+
+    private void revealPlayers(Collection<Player> players) {
+        for (Player player: players) {
+            revealPlayer(player);
+        }
+    }
+
+    private void revealPlayer(Player player) {
         revealItems(player.getItems());
     }
 
