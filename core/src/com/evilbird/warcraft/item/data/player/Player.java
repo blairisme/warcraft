@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import static com.evilbird.warcraft.common.TeamColour.None;
 import static com.evilbird.warcraft.common.WarcraftNation.Neutral;
 
 /**
@@ -44,6 +45,7 @@ public class Player extends ItemGroup implements ResourceContainer
 {
     private int level;
     private int team;
+    private boolean capturable;
     private TeamColour colour;
     private WarcraftNation nation;
     private WarcraftFaction faction;
@@ -55,8 +57,9 @@ public class Player extends ItemGroup implements ResourceContainer
     public Player() {
         this.level = 1;
         this.team = 0;
-        this.colour = TeamColour.None;
+        this.colour = None;
         this.nation = Neutral;
+        this.capturable = false;
         this.faction = WarcraftFaction.Neutral;
         this.resources = new LinkedHashMap<>();
         this.statistics = new LinkedHashMap<>();
@@ -108,6 +111,9 @@ public class Player extends ItemGroup implements ResourceContainer
         return resources.getOrDefault(type.name(), 0d).floatValue();
     }
 
+    /**
+     * Returns the value of a statistic kept about Player actions.
+     */
     public int getStatistic(PlayerStatistic statistic) {
         return statistics.getOrDefault(statistic.name(), 0d).intValue();
     }
@@ -134,6 +140,9 @@ public class Player extends ItemGroup implements ResourceContainer
         return UpgradeRank.None;
     }
 
+    /**
+     * Returns whether or not the Player has the given {@link Upgrade}.
+     */
     public boolean hasUpgrade(Upgrade upgrade) {
         return upgrades.getOrDefault(upgrade.name(), Boolean.FALSE);
     }
@@ -144,6 +153,14 @@ public class Player extends ItemGroup implements ResourceContainer
      */
     public boolean isArtificial() {
         return getType() == PlayerType.Artificial;
+    }
+
+    /**
+     * Returns whether or not the players children, units and buildings, can be
+     * captured by the corporeal player: the user.
+     */
+    public boolean isCapturable() {
+        return capturable;
     }
 
     /**
@@ -159,6 +176,10 @@ public class Player extends ItemGroup implements ResourceContainer
      */
     public boolean isNeutral() {
         return getType() == PlayerType.Neutral;
+    }
+
+    public void setCapturable(boolean capturable) {
+        this.capturable = capturable;
     }
 
     public void setColour(TeamColour colour) {
@@ -236,6 +257,7 @@ public class Player extends ItemGroup implements ResourceContainer
             .appendSuper(super.equals(obj))
             .append(colour, player.colour)
             .append(team, player.team)
+            .append(capturable, player.capturable)
             .append(nation, player.nation)
             .append(faction, player.faction)
             .append(level, player.level)
@@ -251,6 +273,7 @@ public class Player extends ItemGroup implements ResourceContainer
             .appendSuper(super.hashCode())
             .append(colour)
             .append(team)
+            .append(capturable)
             .append(nation)
             .append(faction)
             .append(level)

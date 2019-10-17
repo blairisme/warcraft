@@ -6,6 +6,7 @@
   },
   "level": 1,
   "team": 0,
+  "capturable": false,
   "colour": "None",
   "nation": "Neutral",
   "faction": {

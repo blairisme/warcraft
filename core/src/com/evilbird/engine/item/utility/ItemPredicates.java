@@ -20,6 +20,8 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.function.Predicate;
 
+import static com.evilbird.engine.item.utility.ItemOperations.hasIdStartingWith;
+
 /**
  * Defines commonly used {@link Predicate Predicates} that operate on
  * {@link Item Items}.
@@ -30,6 +32,10 @@ public class ItemPredicates
 {
     private ItemPredicates() {
         throw new UnsupportedOperationException();
+    }
+
+    public static Predicate<Item> withIdStartingWith(String id) {
+        return (item) -> item != null && hasIdStartingWith(item, id);
     }
 
     public static Predicate<Item> itemWithId(final Identifier id) {

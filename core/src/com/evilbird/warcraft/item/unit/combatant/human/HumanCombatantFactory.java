@@ -31,7 +31,6 @@ public class HumanCombatantFactory extends GameFactorySet<Combatant>
         BattleshipFactory battleshipFactory,
         DwarvenDemolitionSquadFactory dwarvenDemolitionSquadFactory,
         ElvenArcherFactory elvenArcherFactory,
-        ElvenArcherCaptiveFactory elvenArcherCaptiveFactory,
         ElvenDestroyerFactory elvenDestroyerFactory,
         ElvenRangerFactory elvenRangerFactory,
         FootmanFactory footmanFactory,
@@ -48,7 +47,6 @@ public class HumanCombatantFactory extends GameFactorySet<Combatant>
         addProvider(UnitType.Battleship, battleshipFactory);
         addProvider(UnitType.DwarvenDemolitionSquad, dwarvenDemolitionSquadFactory);
         addProvider(UnitType.ElvenArcher, elvenArcherFactory);
-        addProvider(UnitType.ElvenArcherCaptive, elvenArcherCaptiveFactory);
         addProvider(UnitType.ElvenDestroyer,  elvenDestroyerFactory);
         addProvider(UnitType.ElvenRanger, elvenRangerFactory);
         addProvider(UnitType.Footman, footmanFactory);

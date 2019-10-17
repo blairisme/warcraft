@@ -87,7 +87,8 @@ public class LevelLoader
     private static final String PARENT_PROPERTY = "Parent";
     private static final String TEAM_PROPERTY = "Team";
     private static final String COLOUR_PROPERTY = "Colour";
-    
+    private static final String CAPTURABLE = "Capturable";
+
     private TiledMapLoader mapLoader;
     private ItemFactory itemFactory;
 
@@ -204,6 +205,7 @@ public class LevelLoader
             player.setIdentifier(new TextIdentifier(layer.getName()));
             player.setLevel(getInt(properties, LEVEL_PROPERTY));
             player.setTeam(getInt(properties, TEAM_PROPERTY));
+            player.setCapturable(getBoolean(properties, CAPTURABLE));
             player.setColour(getEnum(properties, COLOUR_PROPERTY, TeamColour.class, TeamColour.None));
             player.setNation(getEnum(properties, NATION_PROPERTY, WarcraftNation.class, WarcraftNation.Unknown));
             player.setFaction(getEnum(properties, FACTION_PROPERTY, WarcraftFaction.class, WarcraftFaction.Neutral));
@@ -300,6 +302,10 @@ public class LevelLoader
         if (properties.containsKey(key)) {
             container.setResource(resource, getFloat(properties, key));
         }
+    }
+
+    private boolean getBoolean(MapProperties properties, String key) {
+        return properties.get(key, false, Boolean.class);
     }
 
     private int getInt(MapProperties properties, String key) {

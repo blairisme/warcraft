@@ -198,6 +198,7 @@
  <objectgroup id="31" name="Player2">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Capturable" type="bool" value="true"/>
    <property name="Colour" value="Silver"/>
    <property name="Faction" value="Human"/>
    <property name="Nation" value="Azeroth"/>
@@ -205,32 +206,32 @@
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="6"/>
   </properties>
-  <object id="23" name="ElvenArcherCaptive1" type="ElvenArcherCaptive" gid="590" x="128" y="128" width="72" height="72">
+  <object id="23" name="ElvenArcherCaptive1" type="ElvenArcher" gid="590" x="128" y="128" width="72" height="72">
    <properties>
     <property name="Owner" value="Neutral"/>
    </properties>
   </object>
-  <object id="24" name="ElvenArcherCaptive2" type="ElvenArcherCaptive" gid="590" x="160" y="128" width="72" height="72">
+  <object id="24" name="ElvenArcherCaptive2" type="ElvenArcher" gid="590" x="160" y="128" width="72" height="72">
    <properties>
     <property name="Owner" value="Neutral"/>
    </properties>
   </object>
-  <object id="25" name="ElvenArcherCaptive3" type="ElvenArcherCaptive" gid="590" x="192" y="128" width="72" height="72">
+  <object id="25" name="ElvenArcherCaptive3" type="ElvenArcher" gid="590" x="192" y="128" width="72" height="72">
    <properties>
     <property name="Owner" value="Neutral"/>
    </properties>
   </object>
-  <object id="26" name="ElvenArcherCaptive4" type="ElvenArcherCaptive" gid="590" x="128" y="160" width="72" height="72">
+  <object id="26" name="ElvenArcherCaptive4" type="ElvenArcher" gid="590" x="128" y="160" width="72" height="72">
    <properties>
     <property name="Owner" value="Neutral"/>
    </properties>
   </object>
-  <object id="27" name="ElvenArcherCaptive5" type="ElvenArcherCaptive" gid="590" x="160" y="160" width="72" height="72">
+  <object id="27" name="ElvenArcherCaptive5" type="ElvenArcher" gid="590" x="160" y="160" width="72" height="72">
    <properties>
     <property name="Owner" value="Neutral"/>
    </properties>
   </object>
-  <object id="28" name="ElvenArcherCaptive6" type="ElvenArcherCaptive" gid="590" x="192" y="160" width="72" height="72">
+  <object id="28" name="ElvenArcherCaptive6" type="ElvenArcher" gid="590" x="192" y="160" width="72" height="72">
    <properties>
     <property name="Owner" value="Neutral"/>
    </properties>

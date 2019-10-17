@@ -41,7 +41,6 @@ import static com.evilbird.warcraft.item.ui.display.control.actions.ActionPaneVi
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.Dockyard;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
-import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcherCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
 import static com.evilbird.warcraft.item.unit.UnitType.Encampment;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
@@ -92,7 +91,6 @@ public class ButtonControllers
         CombatantButtons combatantButtons = new CombatantButtons();
 
         registerController(Actions, ElvenArcher, combatantButtons);
-        registerController(Actions, ElvenArcherCaptive, combatantButtons);
         registerController(Actions, ElvenDestroyer, combatantButtons);
         registerController(Actions, Footman, combatantButtons);
 

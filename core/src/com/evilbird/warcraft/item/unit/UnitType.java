@@ -70,11 +70,7 @@ public enum UnitType implements ItemType
     Transport,
 
     /* Human - Special Combatant */
-    AlteracTraitor,
     AnduinLothar,
-    ElvenArcherCaptive,
-    MageCaptive,
-    PeasantCaptive,
     UtherLightbringer,
 
     /* Orc - Building */
@@ -120,7 +116,6 @@ public enum UnitType implements ItemType
     /* Orc - Special Combatant */
     Chogall,
     Guldan,
-    TrollAxethrowerCaptive,
     Zuljin,
 
     /* Neutral - Building */
@@ -160,15 +155,10 @@ public enum UnitType implements ItemType
 
     public UnitType getBase() {
         switch (this) {
-            case AlteracTraitor: return Footman;
             case AnduinLothar: return Knight;
-            case ElvenArcherCaptive: return ElvenArcher;
-            case MageCaptive: return Mage;
-            case PeasantCaptive: return Peasant;
             case UtherLightbringer: return Paladin;
             case Chogall: return OgreMage;
             case Guldan: return DeathKnight;
-            case TrollAxethrowerCaptive:
             case Zuljin: return TrollAxethrower;
             default: return this;
         }
@@ -224,7 +214,7 @@ public enum UnitType implements ItemType
     }
 
     public boolean isSpecial() {
-        return isBetween(this, AlteracTraitor, UtherLightbringer) || isBetween(this, Chogall, Zuljin);
+        return isBetween(this, AnduinLothar, UtherLightbringer) || isBetween(this, Chogall, Zuljin);
     }
 
     public boolean isNaval() {
@@ -269,12 +259,14 @@ public enum UnitType implements ItemType
 
     public boolean isMelee() {
         return this == Footman || this == Knight || this == Paladin || this == Peasant
-            || this == Grunt || this == Ogre || this == OgreMage || this == Peon;
+            || this == Grunt || this == Ogre || this == OgreMage || this == Peon
+            || this == AnduinLothar || this == UtherLightbringer;
     }
 
     public boolean isRanged() {
-        return this == ElvenArcher || this == ElvenArcherCaptive || this == ElvenRanger
-            || this == TrollAxethrower || this == TrollAxethrowerCaptive || this == TrollBerserker;
+        return this == ElvenArcher || this == ElvenRanger
+            || this == TrollAxethrower || this == TrollBerserker
+            || this == Zuljin;
     }
 
     public boolean isSpellCaster() {

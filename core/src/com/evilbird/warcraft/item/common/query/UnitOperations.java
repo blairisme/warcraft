@@ -154,6 +154,16 @@ public class UnitOperations
         return (Player)findAncestor(item, UnitOperations::isPlayer);
     }
 
+    public static Collection<Player> getPlayers(ItemRoot state) {
+        Collection<Player> players = new ArrayList<>();
+        for (Item item: state.getItems()) {
+            if (item instanceof Player) {
+                players.add((Player)item);
+            }
+        }
+        return players;
+    }
+
     /**
      * Returns the {@link WarcraftFaction} that the given {@link Item} belongs
      * to.

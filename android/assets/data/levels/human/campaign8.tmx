@@ -336,6 +336,7 @@
  <objectgroup id="3" name="Player2">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Capturable" type="bool" value="true"/>
    <property name="Colour" value="Green"/>
    <property name="Faction" value="Human"/>
    <property name="Nation" value="Azeroth"/>

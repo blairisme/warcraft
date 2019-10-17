@@ -38,7 +38,6 @@ public class OrcCombatantFactory extends GameFactorySet<Combatant>
         OgreJuggernaughtFactory ogreJuggernaughtFactory,
         OgreMageFactory ogreMageFactory,
         TrollAxethrowerFactory trollAxeThrowerFactory,
-        TrollAxethrowerCaptiveFactory trollAxeThrowerCaptiveFactory,
         TrollBerserkerFactory trollBerserkerFactory,
         TrollDestroyerFactory trollDestroyerFactory,
         ZuljinFactory zuljinFactory)
@@ -55,7 +54,6 @@ public class OrcCombatantFactory extends GameFactorySet<Combatant>
         addProvider(UnitType.OgreJuggernaught, ogreJuggernaughtFactory);
         addProvider(UnitType.OgreMage, ogreMageFactory);
         addProvider(UnitType.TrollAxethrower, trollAxeThrowerFactory);
-        addProvider(UnitType.TrollAxethrowerCaptive, trollAxeThrowerCaptiveFactory);
         addProvider(UnitType.TrollBerserker, trollBerserkerFactory);
         addProvider(UnitType.TrollDestroyer, trollDestroyerFactory);
         addProvider(UnitType.Zuljin, zuljinFactory);
