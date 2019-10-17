@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import static com.evilbird.warcraft.common.TeamColour.None;
 import static com.evilbird.warcraft.common.WarcraftNation.Neutral;
 
 /**
@@ -44,6 +45,9 @@ public class Player extends ItemGroup implements ResourceContainer
 {
     private int level;
     private int team;
+    private boolean capturable;
+    private boolean controllable;
+    private boolean viewable;
     private TeamColour colour;
     private WarcraftNation nation;
     private WarcraftFaction faction;
@@ -55,8 +59,9 @@ public class Player extends ItemGroup implements ResourceContainer
     public Player() {
         this.level = 1;
         this.team = 0;
-        this.colour = TeamColour.None;
+        this.colour = None;
         this.nation = Neutral;
+        this.capturable = false;
         this.faction = WarcraftFaction.Neutral;
         this.resources = new LinkedHashMap<>();
         this.statistics = new LinkedHashMap<>();
@@ -108,6 +113,9 @@ public class Player extends ItemGroup implements ResourceContainer
         return resources.getOrDefault(type.name(), 0d).floatValue();
     }
 
+    /**
+     * Returns the value of a {@link PlayerStatistic} kept about Player actions.
+     */
     public int getStatistic(PlayerStatistic statistic) {
         return statistics.getOrDefault(statistic.name(), 0d).intValue();
     }
@@ -134,6 +142,9 @@ public class Player extends ItemGroup implements ResourceContainer
         return UpgradeRank.None;
     }
 
+    /**
+     * Returns whether or not the Player has the given {@link Upgrade}.
+     */
     public boolean hasUpgrade(Upgrade upgrade) {
         return upgrades.getOrDefault(upgrade.name(), Boolean.FALSE);
     }
@@ -144,6 +155,22 @@ public class Player extends ItemGroup implements ResourceContainer
      */
     public boolean isArtificial() {
         return getType() == PlayerType.Artificial;
+    }
+
+    /**
+     * Returns whether or not the players children, units and buildings, can be
+     * captured by the corporeal player: the user.
+     */
+    public boolean isCapturable() {
+        return capturable;
+    }
+
+    /**
+     * Returns whether or not the players children, units and buildings, can be
+     * controlled by the corporeal player: the user.
+     */
+    public boolean isControllable() {
+        return controllable;
     }
 
     /**
@@ -161,40 +188,12 @@ public class Player extends ItemGroup implements ResourceContainer
         return getType() == PlayerType.Neutral;
     }
 
-    public void setColour(TeamColour colour) {
-        this.colour = colour;
-    }
-
-    public void setTeam(int team) {
-        this.team = team;
-    }
-
-    public void setNation(WarcraftNation nation) {
-        this.nation = nation;
-    }
-
-    public void setFaction(WarcraftFaction faction) {
-        this.faction = faction;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public void setResource(ResourceType type, float value) {
-        resources.put(type.name(), (double)value);
-    }
-
-    public void setStatistic(PlayerStatistic statistic, float value) {
-        statistics.put(statistic.name(), (double)value);
-    }
-
-    public void setUpgrade(Upgrade upgrade, boolean value) {
-        upgrades.put(upgrade.name(), value);
-    }
-
-    public void setUpgrades(Collection<Upgrade> upgrades, boolean value) {
-        upgrades.forEach(upgrade -> setUpgrade(upgrade, value));
+    /**
+     * Returns whether or not the players children, units and buildings, can be
+     * seen by the corporeal player, the user, through the fog of war.
+     */
+    public boolean isViewable() {
+        return viewable;
     }
 
     public void decrementStatistic(PlayerStatistic type, float value) {
@@ -209,18 +208,128 @@ public class Player extends ItemGroup implements ResourceContainer
         setStatistic(type, updated);
     }
 
+    /**
+     * Sets whether or not the players children, units and buildings, can be
+     * captured by the corporeal player: the user.
+     */
+    public void setCapturable(boolean capturable) {
+        this.capturable = capturable;
+    }
+
+    /**
+     * Sets the colour of the players children, unit and buildings, visually
+     * denoting those game objects owned by the player.
+     */
+    public void setColour(TeamColour colour) {
+        this.colour = colour;
+    }
+
+    /**
+     * Sets whether or not the players children, units and buildings, can be
+     * controlled by the corporeal player: the user.
+     */
+    public void setControllable(boolean controllable) {
+        this.controllable = controllable;
+    }
+
+    /**
+     * Sets the players {@link WarcraftNation nation}, a distinct group
+     * within the players {@link Player#faction}.
+     */
+    public void setNation(WarcraftNation nation) {
+        this.nation = nation;
+    }
+
+    /**
+     * Sets the players {@link WarcraftFaction faction}.
+     */
+    public void setFaction(WarcraftFaction faction) {
+        this.faction = faction;
+    }
+
+    /**
+     * Sets the players level: a value indicating the technological attainment
+     * of the Player. This is commonly used to restrict the buildings or units
+     * available to the user.
+     */
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    /**
+     * Sets the amount of the given {@link ResourceType resource} owned by
+     * the player.
+     */
+    public void setResource(ResourceType type, float value) {
+        resources.put(type.name(), (double)value);
+    }
+
+    /**
+     * Sets the value of a {@link PlayerStatistic} kept about Player actions.
+     */
+    public void setStatistic(PlayerStatistic statistic, float value) {
+        statistics.put(statistic.name(), (double)value);
+    }
+
+    /**
+     * Sets the Players team number. If different players are allies they
+     * will share the same team number. Conversely, enemies will have different
+     * team numbers.
+     */
+    public void setTeam(int team) {
+        this.team = team;
+    }
+
+    /**
+     * Sets whether or not the Player has the given {@link Upgrade}.
+     */
+    public void setUpgrade(Upgrade upgrade, boolean value) {
+        upgrades.put(upgrade.name(), value);
+    }
+
+    /**
+     * Sets whether or not the Player has the given {@link Upgrade}.
+     */
+    public void setUpgrades(Collection<Upgrade> upgrades, boolean value) {
+        upgrades.forEach(upgrade -> setUpgrade(upgrade, value));
+    }
+
+    /**
+     * Sets whether or not the players children, units and buildings, can be
+     * seen by the corporeal player, the user, through the fog of war.
+     */
+    public void setViewable(boolean viewable) {
+        this.viewable = viewable;
+    }
+
+    /**
+     * Calling this method will have no effect, as players do not have an
+     * intrinsic size.
+     */
     @Override
     public void setSize(Vector2 size) {
     }
 
+    /**
+     * Calling this method will have no effect, as players do not have an
+     * intrinsic size.
+     */
     @Override
     public void setSize(float width, float height) {
     }
 
+    /**
+     * Calling this method will have no effect, as players do not have an
+     * intrinsic position.
+     */
     @Override
     public void setPosition(Vector2 position) {
     }
 
+    /**
+     * Calling this method will have no effect, as players do not have an
+     * intrinsic position.
+     */
     @Override
     public void setPosition(float x, float y) {
     }
@@ -236,6 +345,9 @@ public class Player extends ItemGroup implements ResourceContainer
             .appendSuper(super.equals(obj))
             .append(colour, player.colour)
             .append(team, player.team)
+            .append(capturable, player.capturable)
+            .append(controllable, player.controllable)
+            .append(viewable, player.viewable)
             .append(nation, player.nation)
             .append(faction, player.faction)
             .append(level, player.level)
@@ -251,6 +363,9 @@ public class Player extends ItemGroup implements ResourceContainer
             .appendSuper(super.hashCode())
             .append(colour)
             .append(team)
+            .append(capturable)
+            .append(controllable)
+            .append(viewable)
             .append(nation)
             .append(faction)
             .append(level)

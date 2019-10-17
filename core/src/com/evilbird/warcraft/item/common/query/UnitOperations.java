@@ -137,6 +137,13 @@ public class UnitOperations
         return (Player)root.find(query);
     }
 
+    public static Collection<Player> getViewablePlayers(ItemRoot state) {
+        Objects.requireNonNull(state);
+        Predicate<Item> query = both(UnitOperations::isPlayer, UnitOperations::isViewable);
+        Collection<Item> result = state.findAll(query);
+        return CollectionUtils.convert(result, Player.class::cast);
+    }
+
     /**
      * Returns the {@link Player} that the given {@link Item} belongs to, if
      * any (Terrain items, for example, aren't owned by a player).
@@ -152,6 +159,16 @@ public class UnitOperations
             return (Player)item;
         }
         return (Player)findAncestor(item, UnitOperations::isPlayer);
+    }
+
+    public static Collection<Player> getPlayers(ItemRoot state) {
+        Collection<Player> players = new ArrayList<>();
+        for (Item item: state.getItems()) {
+            if (item instanceof Player) {
+                players.add((Player)item);
+            }
+        }
+        return players;
     }
 
     /**
@@ -284,6 +301,32 @@ public class UnitOperations
         if (item != null) {
             Player player = UnitOperations.getPlayer(item);
             return player != null && player.isCorporeal();
+        }
+        return false;
+    }
+
+    /**
+     * Determines if a given {@link Item} belongs to the corporeal player, the
+     * user, or to a {@link Player#isControllable() controllable player}.
+     */
+    public static boolean isControllable(Item item) {
+        if (item != null) {
+            Player player = UnitOperations.getPlayer(item);
+            if (player != null) {
+                return player.isCorporeal() || player.isControllable();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Determines if a given {@link Item} belongs to a
+     * {@link Player#isViewable() () viewable player}.
+     */
+    public static boolean isViewable(Item item) {
+        if (item != null) {
+            Player player = UnitOperations.getPlayer(item);
+            return player != null && player.isViewable();
         }
         return false;
     }

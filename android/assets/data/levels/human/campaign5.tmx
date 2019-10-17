@@ -248,15 +248,14 @@
  <objectgroup id="3" name="Player2">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Capturable" type="bool" value="true"/>
    <property name="Colour" value="Red"/>
+   <property name="Controllable" type="bool" value="false"/>
    <property name="Faction" value="Human"/>
-   <property name="Gold" type="float" value="0"/>
-   <property name="Level" type="int" value="0"/>
    <property name="Nation" value="Stormgarde"/>
-   <property name="Oil" type="float" value="0"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
-   <property name="Wood" type="float" value="0"/>
+   <property name="Viewable" type="bool" value="true"/>
    <property name="ZIndex" type="int" value="6"/>
   </properties>
   <object id="2" name="TownHall1" type="TownHall" gid="390" x="1280" y="3200" width="128" height="128"/>

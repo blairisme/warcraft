@@ -336,11 +336,14 @@
  <objectgroup id="3" name="Player2">
   <properties>
    <property name="AI" type="bool" value="true"/>
+   <property name="Capturable" type="bool" value="true"/>
    <property name="Colour" value="Green"/>
+   <property name="Controllable" type="bool" value="false"/>
    <property name="Faction" value="Human"/>
    <property name="Nation" value="Azeroth"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
+   <property name="Viewable" type="bool" value="true"/>
    <property name="ZIndex" type="int" value="6"/>
   </properties>
   <object id="9" name="TownHall1" type="TownHall" gid="390" x="2368" y="2432" width="128" height="128"/>

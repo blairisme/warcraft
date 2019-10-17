@@ -123,7 +123,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.Boar;
 import static com.evilbird.warcraft.item.unit.UnitType.Dockyard;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
-import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcherCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
 import static com.evilbird.warcraft.item.unit.UnitType.Encampment;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
@@ -131,13 +130,10 @@ import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 import static com.evilbird.warcraft.item.unit.UnitType.GreatHall;
 import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
 import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
-import static com.evilbird.warcraft.item.unit.UnitType.Mage;
-import static com.evilbird.warcraft.item.unit.UnitType.MageCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
 import static com.evilbird.warcraft.item.unit.UnitType.OilRig;
 import static com.evilbird.warcraft.item.unit.UnitType.OilTanker;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
-import static com.evilbird.warcraft.item.unit.UnitType.PeasantCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.Peon;
 import static com.evilbird.warcraft.item.unit.UnitType.PigFarm;
 import static com.evilbird.warcraft.item.unit.UnitType.Seal;
@@ -164,10 +160,6 @@ public class IconSpecializations
         Boar, PolymorphButton,
         Seal, PolymorphButton,
         Sheep, PolymorphButton,
-
-        ElvenArcherCaptive, ElvenArcher,
-        MageCaptive, Mage,
-        PeasantCaptive, Peasant,
 
         BuildCancelButton, CancelButton,
         BuildBarracksButton, Barracks,

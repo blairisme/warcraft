@@ -9,15 +9,21 @@
 
 package com.evilbird.warcraft.action.attack;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.action.move.MoveWithinRangeAction;
 import com.evilbird.warcraft.item.common.state.OffensiveObject;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.warcraft.item.common.state.RangedOffensiveObject;
 import com.evilbird.warcraft.item.projectile.Projectile;
 
 import javax.inject.Inject;
 
 /**
+ * An {@link Action} that causes a given {@link RangedOffensiveObject} to
+ * attack a {@link PerishableObject} over a distance, after first moving within
+ * attack range.
+ *
  * @author Blair Butterworth
  */
 public class RangedAttack extends AttackSequence
@@ -29,6 +35,7 @@ public class RangedAttack extends AttackSequence
 
     @Override
     protected void resetAttacker(OffensiveObject attacker) {
+        super.resetAttacker(attacker);
         RangedOffensiveObject rangedAttacker = (RangedOffensiveObject)attacker;
         Projectile projectile = rangedAttacker.getProjectile();
         if (projectile != null) {

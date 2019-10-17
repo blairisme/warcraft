@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.behaviour.scenario.condition;
 
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
@@ -17,8 +16,10 @@ import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.action.move.MoveEvent;
 
 import java.util.Collection;
+import java.util.function.Predicate;
 
 import static com.evilbird.engine.item.utility.ItemOperations.overlaps;
+import static com.evilbird.engine.item.utility.ItemPredicates.withIdStartingWith;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.item.data.player.PlayerIds.Player1;
 
@@ -32,23 +33,28 @@ import static com.evilbird.warcraft.item.data.player.PlayerIds.Player1;
  */
 public class UnitPositioned extends PlayerCondition
 {
-    private Identifier subjectType;
-    private Identifier destinationType;
+    private Predicate<Item> subjectCondition;
+    private Predicate<Item> destinationCondition;
+
     private Collection<Item> subjectCache;
     private Collection<Item> destinationCache;
 
-    public UnitPositioned(Identifier subjectType, Identifier destinationType, int count) {
+    public UnitPositioned(Predicate<Item> subjectCondition, Predicate<Item> destinationCondition) {
         super(Player1);
-        this.subjectType = subjectType;
-        this.destinationType = destinationType;
+        this.subjectCondition = subjectCondition;
+        this.destinationCondition = destinationCondition;
     }
 
-    public static UnitPositioned unitRepositionedTo(ItemType subject, ItemType destination) {
-        return new UnitPositioned(subject, destination, 1);
+    public static UnitPositioned unitRepositionedTo(String subjectId, ItemType destinationType) {
+        return new UnitPositioned(withIdStartingWith(subjectId), withType(destinationType));
     }
 
-    public static UnitPositioned unitRepositionedTo(ItemType subject, ItemType destination, int count) {
-        return new UnitPositioned(subject, destination, count);
+    public static UnitPositioned unitRepositionedTo(ItemType subjectType, ItemType destinationType) {
+        return new UnitPositioned(withType(subjectType), withType(destinationType));
+    }
+
+    public static UnitPositioned unitRepositionedTo(String subjectId, ItemType destinationType, int count) {
+        return new UnitPositioned(withIdStartingWith(subjectId), withType(destinationType));
     }
 
     @Override
@@ -70,14 +76,14 @@ public class UnitPositioned extends PlayerCondition
 
     private Collection<Item> getDestinations(ItemRoot state) {
         if (destinationCache == null) {
-            destinationCache = state.findAll(withType(destinationType));
+            destinationCache = state.findAll(destinationCondition);
         }
         return destinationCache;
     }
 
     private Collection<Item> getSubjects(ItemRoot state) {
         if (subjectCache == null) {
-            subjectCache = state.findAll(withType(subjectType));
+            subjectCache = state.findAll(subjectCondition);
         }
         return subjectCache;
     }

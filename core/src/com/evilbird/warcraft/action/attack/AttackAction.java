@@ -12,12 +12,21 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.item.common.state.OffensiveObject;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
+/**
+ * An {@link Action} that causes a given {@link OffensiveObject} to attack a
+ * {@link PerishableObject}, after first moving within attack range, if
+ * applicable.
+ *
+ * @author Blair Butterworth
+ */
 public class AttackAction extends DelegateAction
 {
     private BuildingAttack buildingAttack;

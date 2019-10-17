@@ -58,6 +58,22 @@ public class PlayerDestruction extends PlayerCondition
         return new PlayerDestruction(player);
     }
 
+    /**
+     * Creates a new PlayerDestruction that will be fulfilled when all of the
+     * units belonging to the player with the given {@link Identifier} have
+     * been captured. Functionally this is the same as destruction, but with a
+     * nomenclature that tries to avoid confusion.
+     *
+     * @param player    an {@link Identifier}.
+     * @return          a new PlayerDestruction instance.
+     *
+     * @throws NullPointerException if the given player identifier is
+     *                              {@code null}.
+     */
+    public static PlayerDestruction playerCaptured(Identifier player) {
+        return new PlayerDestruction(player);
+    }
+
     @Override
     protected boolean applicable(EventQueue queue) {
         return queue.hasEvents(RemoveEvent.class);

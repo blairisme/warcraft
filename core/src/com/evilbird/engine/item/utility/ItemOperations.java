@@ -128,6 +128,14 @@ public class ItemOperations
         return hasAction(item, action.getIdentifier());
     }
 
+    public static boolean hasIdStartingWith(Item item, String id) {
+        Identifier identifier = item.getIdentifier();
+        if (identifier != null) {
+            return identifier.toString().startsWith(id);
+        }
+        return false;
+    }
+
     public static boolean isIdle(Item item) {
         return !item.hasActions();
     }

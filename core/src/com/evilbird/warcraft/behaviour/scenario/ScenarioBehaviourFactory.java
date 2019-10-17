@@ -12,7 +12,6 @@ package com.evilbird.warcraft.behaviour.scenario;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.common.inject.IdentifiedProvider;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.warcraft.behaviour.scenario.supplement.SupplementaryBehaviour;
 import com.evilbird.warcraft.behaviour.scenario.supplement.UnitCapture;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import org.apache.commons.lang3.Validate;
@@ -22,6 +21,7 @@ import javax.inject.Provider;
 
 import static com.evilbird.engine.common.function.Predicates.all;
 import static com.evilbird.engine.common.function.Predicates.both;
+import static com.evilbird.warcraft.behaviour.scenario.condition.PlayerDestruction.playerCaptured;
 import static com.evilbird.warcraft.behaviour.scenario.condition.PlayerDestruction.playerDestroyed;
 import static com.evilbird.warcraft.behaviour.scenario.condition.PlayerOwnership.playerOwns;
 import static com.evilbird.warcraft.behaviour.scenario.condition.UnitDestruction.unitsDestroyed;
@@ -30,19 +30,19 @@ import static com.evilbird.warcraft.item.data.player.PlayerIds.Neutral;
 import static com.evilbird.warcraft.item.data.player.PlayerIds.Player1;
 import static com.evilbird.warcraft.item.data.player.PlayerIds.Player2;
 import static com.evilbird.warcraft.item.data.player.PlayerIds.Player3;
-import static com.evilbird.warcraft.item.unit.UnitType.AlteracTraitor;
+import static com.evilbird.warcraft.item.data.player.PlayerIds.Player4;
+import static com.evilbird.warcraft.item.data.player.PlayerIds.Player5;
+import static com.evilbird.warcraft.item.data.player.PlayerIds.Player6;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.Castle;
 import static com.evilbird.warcraft.item.unit.UnitType.Chogall;
 import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
 import static com.evilbird.warcraft.item.unit.UnitType.DarkPortal;
 import static com.evilbird.warcraft.item.unit.UnitType.Dockyard;
-import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcherCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.Encampment;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.Ferry;
 import static com.evilbird.warcraft.item.unit.UnitType.Fortress;
-import static com.evilbird.warcraft.item.unit.UnitType.MageCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
 import static com.evilbird.warcraft.item.unit.UnitType.OilRefinery;
 import static com.evilbird.warcraft.item.unit.UnitType.OilRig;
@@ -50,7 +50,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.PigFarm;
 import static com.evilbird.warcraft.item.unit.UnitType.Refinery;
 import static com.evilbird.warcraft.item.unit.UnitType.Runestone;
 import static com.evilbird.warcraft.item.unit.UnitType.Shipyard;
-import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrowerCaptive;
 import static com.evilbird.warcraft.item.unit.UnitType.UtherLightbringer;
 import static com.evilbird.warcraft.item.unit.UnitType.Zuljin;
 
@@ -118,9 +117,9 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
 
     private Behaviour humanCampaign2() {
         ScenarioBehaviour result = factory.get();
-        result.setWinCondition(unitRepositionedTo(ElvenArcherCaptive, CircleOfPower));
+        result.setWinCondition(unitRepositionedTo("ElvenArcherCaptive", CircleOfPower));
         result.setLoseCondition(playerDestroyed(Player1));
-        result.addBehaviour(captureUnits(ElvenArcherCaptive));
+        result.addBehaviour(new UnitCapture(preferences));
         return result;
     }
 
@@ -142,6 +141,7 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
         ScenarioBehaviour result = factory.get();
         result.setWinCondition(playerDestroyed(Player2));
         result.setLoseCondition(playerDestroyed(Player1));
+        result.addBehaviour(new UnitCapture(preferences));
         return result;
     }
 
@@ -154,15 +154,22 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
 
     private Behaviour humanCampaign7() {
         ScenarioBehaviour result = factory.get();
-        result.setWinCondition(unitsDestroyed(Player2, OilRefinery));
+        result.setWinCondition(unitsDestroyed(Player3, OilRefinery));
         result.setLoseCondition(playerDestroyed(Player1));
         return result;
     }
 
     private Behaviour humanCampaign8() {
         ScenarioBehaviour result = factory.get();
-        result.setWinCondition(both(playerOwns(Castle, 1), playerDestroyed(Player2)));
+        result.setWinCondition(
+            playerOwns(Castle, 1)
+            .and(playerCaptured(Player2))
+            .and(playerDestroyed(Player3))
+            .and(playerDestroyed(Player4))
+            .and(playerDestroyed(Player5))
+            .and(playerDestroyed(Player6)));
         result.setLoseCondition(playerDestroyed(Player1));
+        result.addBehaviour(new UnitCapture(preferences));
         return result;
     }
 
@@ -175,15 +182,19 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
 
     private Behaviour humanCampaign10() {
         ScenarioBehaviour result = factory.get();
-        result.setWinCondition(unitRepositionedTo(AlteracTraitor, CircleOfPower, 4));
+        result.setWinCondition(unitRepositionedTo("AlteracTraitor", CircleOfPower, 4));
         result.setLoseCondition(playerDestroyed(Player1));
         return result;
     }
 
     private Behaviour humanCampaign11() {
         ScenarioBehaviour result = factory.get();
-        result.setWinCondition(both(playerOwns(MageCaptive, 1), playerDestroyed(Player2)));
+        result.setWinCondition(
+            playerCaptured(Player2)
+            .and(playerDestroyed(Player3))
+            .and(playerDestroyed(Player4)));
         result.setLoseCondition(playerDestroyed(Player1));
+        result.addBehaviour(new UnitCapture(preferences));
         return result;
     }
 
@@ -199,8 +210,9 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
 
     private Behaviour humanCampaign13() {
         ScenarioBehaviour result = factory.get();
-        result.setWinCondition(playerDestroyed(Player2));
+        result.setWinCondition(playerDestroyed(Player3));
         result.setLoseCondition(playerDestroyed(Player1));
+        result.addBehaviour(new UnitCapture(preferences));
         return result;
     }
 
@@ -243,8 +255,7 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
         ScenarioBehaviour result = factory.get();
         result.setWinCondition(unitRepositionedTo(Zuljin, CircleOfPower));
         result.setLoseCondition(playerDestroyed(Player1));
-        result.addBehaviour(captureUnits(Zuljin));
-        result.addBehaviour(captureUnits(TrollAxethrowerCaptive));
+        result.addBehaviour(new UnitCapture(preferences));
         return result;
     }
 
@@ -333,11 +344,5 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
         result.setWinCondition(playerDestroyed(Player2));
         result.setLoseCondition(playerDestroyed(Player1));
         return result;
-    }
-
-    private SupplementaryBehaviour captureUnits(Identifier capturableType) {
-        UnitCapture unitCapture = new UnitCapture(preferences);
-        unitCapture.setCapturableType(capturableType);
-        return unitCapture;
     }
 }

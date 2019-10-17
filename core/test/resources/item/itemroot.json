@@ -13,6 +13,9 @@
     {
       "level": 1,
       "team": 0,
+      "capturable": false,
+      "controllable": false,
+      "viewable": false,
       "colour": "None",
       "nation": "Neutral",
       "faction": {
@@ -138,6 +141,9 @@
     {
       "level": 1,
       "team": 0,
+      "capturable": false,
+      "controllable": false,
+      "viewable": false,
       "colour": "None",
       "nation": "Neutral",
       "faction": {
