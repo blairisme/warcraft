@@ -112,7 +112,7 @@
    <property name="Nation" value="Neutral"/>
    <property name="Team" type="int" value="3"/>
    <property name="Type" value="Player"/>
-   <property name="ZIndex" type="int" value="5"/>
+   <property name="ZIndex" type="int" value="1"/>
   </properties>
   <object id="31" name="GoldMine1" type="GoldMine" gid="385" x="3392" y="1440" width="96" height="96"/>
   <object id="32" name="GoldMine2" type="GoldMine" gid="385" x="2624" y="96" width="96" height="96"/>
