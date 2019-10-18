@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.unit.gatherer.human;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeSequence;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.item.unit.gatherer.GathererFactoryBase;
@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.state.MovementCapability.Water;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.ZeroInt;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.OilProduction;
 import static com.evilbird.warcraft.item.unit.UnitType.OilTanker;
 
@@ -73,11 +74,11 @@ public class OilTankerFactory extends GathererFactoryBase
 
     private void setGatheringAttributes(Gatherer result) {
         result.setGoldGatherSpeed(0);
-        result.setGoldCapacity(UpgradableValue.Zero);
+        result.setGoldCapacity(ZeroInt);
         result.setWoodGatherSpeed(0);
-        result.setWoodCapacity(UpgradableValue.Zero);
+        result.setWoodCapacity(ZeroInt);
         result.setOilGatherSpeed(5);
-        result.setOilCapacity(new UpgradableValue(OilProduction, 100, 110, 125));
+        result.setOilCapacity(new UpgradeSequence<>(OilProduction, 100, 110, 125));
     }
 
     private void setIdentityAttributes(Gatherer result) {

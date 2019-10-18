@@ -18,8 +18,6 @@ import com.evilbird.warcraft.common.WarcraftNation;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeSeries;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -28,8 +26,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import javax.inject.Inject;
 import java.util.Collection;
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 import static com.evilbird.warcraft.common.TeamColour.None;
@@ -127,19 +123,6 @@ public class Player extends ItemGroup implements ResourceContainer
      */
     public int getTeam() {
         return team;
-    }
-
-    public UpgradeRank getUpgradeRank(UpgradeSeries series) {
-        List<Upgrade> upgrades = series.getUpgrades();
-        ListIterator<Upgrade> iterator = upgrades.listIterator();
-
-        while (iterator.hasPrevious()) {
-            Upgrade upgrade = iterator.previous();
-            if (hasUpgrade(upgrade)) {
-                return upgrade.getRank();
-            }
-        }
-        return UpgradeRank.None;
     }
 
     /**

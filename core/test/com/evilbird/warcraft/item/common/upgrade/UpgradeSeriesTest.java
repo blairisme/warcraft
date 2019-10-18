@@ -13,6 +13,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Instances of this unit test validate the {@link UpgradeSeries} class.
@@ -25,10 +26,10 @@ public class UpgradeSeriesTest
     public void getUpgradesTest() {
         for (UpgradeSeries series: UpgradeSeries.values()) {
             if (series != UpgradeSeries.None) {
-                List<Upgrade> upgrades = series.getUpgrades();
-                //Assert.assertEquals(2, upgrades.size());
-                Assert.assertNotNull(upgrades.get(0));
-                //Assert.assertNotNull(upgrades.get(1));
+                Set<Upgrade> upgrades = series.getUpgrades();
+                Assert.assertNotNull(upgrades);
+                Assert.assertFalse(upgrades.isEmpty());
+                Assert.assertNotNull(upgrades.iterator().next());
             }
         }
     }

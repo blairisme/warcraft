@@ -13,6 +13,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.Set;
+
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
 
 /**
@@ -20,13 +22,14 @@ import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
  *
  * @author Blair Butterworth
  */
-public class UpgradableValue
+public class UpgradeSequence<T> implements UpgradeValue<T>
 {
-    public static final UpgradableValue Zero = new UpgradableValue(None, 0);
+    public static final UpgradeSequence<Integer> ZeroInt = new UpgradeSequence<>(None, 0);
+    public static final UpgradeSequence<Float> ZeroFloat = new UpgradeSequence<>(None, 0f);
 
-    private float basic;
-    private float improved;
-    private float advanced;
+    private T basic;
+    private T improved;
+    private T advanced;
     private UpgradeSeries series;
 
     /**
@@ -34,7 +37,7 @@ public class UpgradableValue
      * for all upgrade ranks. This is equivalent to a value not being
      * upgradable.
      */
-    public UpgradableValue(UpgradeSeries series, float value) {
+    public UpgradeSequence(UpgradeSeries series, T value) {
         this(series, value, value, value);
     }
 
@@ -42,7 +45,15 @@ public class UpgradableValue
      * Constructs a new instance of this class given the values that map to
      * ranks of the upgrade series.
      */
-    public UpgradableValue(UpgradeSeries series, float none, float improved, float advanced) {
+    public UpgradeSequence(UpgradeSeries series, T none, T improved) {
+        this(series, none, improved, improved);
+    }
+
+    /**
+     * Constructs a new instance of this class given the values that map to
+     * ranks of the upgrade series.
+     */
+    public UpgradeSequence(UpgradeSeries series, T none, T improved, T advanced) {
         this.series = series;
         this.basic = none;
         this.improved = improved;
@@ -53,7 +64,17 @@ public class UpgradableValue
         return series;
     }
 
-    public float getValue(UpgradeRank rank) {
+    @Override
+    public Set<Upgrade> getUpgrades() {
+       return series.getUpgrades();
+    }
+
+    @Override
+    public T getBaseValue() {
+        return basic;
+    }
+
+    public T getValue(UpgradeRank rank) {
         switch (rank) {
             case None: return basic;
             case Improved: return improved;
@@ -63,12 +84,24 @@ public class UpgradableValue
     }
 
     @Override
+    public T getValue(Set<Upgrade> researched) {
+        UpgradeRank highestRank = UpgradeRank.None;
+        for (Upgrade upgrade: researched) {
+            UpgradeRank rank = upgrade.getRank();
+            if (rank.ordinal() > highestRank.ordinal()) {
+                highestRank = rank;
+            }
+        }
+        return getValue(highestRank);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj == null) { return false; }
         if (obj == this) { return true; }
         if (obj.getClass() != getClass()) { return false; }
 
-        UpgradableValue that = (UpgradableValue)obj;
+        UpgradeSequence that = (UpgradeSequence)obj;
         return new EqualsBuilder()
             .append(basic, that.basic)
             .append(improved, that.improved)

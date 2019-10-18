@@ -22,28 +22,61 @@ import static com.evilbird.engine.common.collection.EnumUtils.isBetween;
  */
 public enum ProduceUpgradeActions implements ActionIdentifier
 {
+    MeleeDamage1Upgrade,
+    MeleeDamage2Upgrade,
+    MeleeDefence1Upgrade,
+    MeleeDefence2Upgrade,
+    MeleeType1Upgrade,
     RangedDamage1Upgrade,
     RangedDamage2Upgrade,
+    RangedAccuracy1Upgrade,
+    RangedSight1Upgrade,
+    RangedType1Upgrade,
+    RangedWeapon1Upgrade,
+    NavalDamage1Upgrade,
+    NavalDamage2Upgrade,
+    NavalDefence1Upgrade,
+    NavalDefence2Upgrade,
+    SiegeDamage1Upgrade,
+    SiegeDamage2Upgrade,
+    GoldProduction1Upgrade,
+    GoldProduction2Upgrade,
+    OilProduction1Upgrade,
+    OilProduction2Upgrade,
+    WoodProduction1Upgrade,
+    WoodProduction2Upgrade,
 
+    MeleeDamage1UpgradeCancel,
+    MeleeDamage2UpgradeCancel,
+    MeleeDefence1UpgradeCancel,
+    MeleeDefence2UpgradeCancel,
+    MeleeType1UpgradeCancel,
     RangedDamage1UpgradeCancel,
-    RangedDamage2UpgradeCancel;
+    RangedDamage2UpgradeCancel,
+    RangedAccuracy1UpgradeCancel,
+    RangedSight1UpgradeCancel,
+    RangedType1UpgradeCancel,
+    RangedWeapon1UpgradeCancel,
+    NavalDamage1UpgradeCancel,
+    NavalDamage2UpgradeCancel,
+    NavalDefence1UpgradeCancel,
+    NavalDefence2UpgradeCancel,
+    SiegeDamage1UpgradeCancel,
+    SiegeDamage2UpgradeCancel,
+    GoldProduction1UpgradeCancel,
+    GoldProduction2UpgradeCancel,
+    OilProduction1UpgradeCancel,
+    OilProduction2UpgradeCancel,
+    WoodProduction1UpgradeCancel,
+    WoodProduction2UpgradeCancel;
 
     public boolean isCancel() {
-        return isBetween(this, RangedDamage1UpgradeCancel, RangedDamage2UpgradeCancel);
+        return isBetween(this, MeleeDamage1UpgradeCancel, WoodProduction2UpgradeCancel);
     }
 
     public Upgrade getProduct() {
         return Upgrade.valueOf(getProductName());
     }
-
-    public static ProduceUnitActions forProduct(Upgrade type) {
-        return ProduceUnitActions.valueOf(type.name() + "Upgrade");
-    }
-
-    public static ProduceUnitActions forProductCancel(Upgrade type) {
-        return ProduceUnitActions.valueOf(type.name() + "UpgradeCancel");
-    }
-
     private String getProductName() {
         String name = this.name();
         name = StringUtils.removeEnd(name, "Upgrade");

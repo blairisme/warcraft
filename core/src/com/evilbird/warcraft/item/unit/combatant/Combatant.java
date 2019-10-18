@@ -15,8 +15,8 @@ import com.evilbird.warcraft.item.common.state.MovableObject;
 import com.evilbird.warcraft.item.common.state.MovementCapability;
 import com.evilbird.warcraft.item.common.state.OffensiveCapability;
 import com.evilbird.warcraft.item.common.state.OffensiveObject;
-import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeSequence;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeValue;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -24,7 +24,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.state.OffensiveCapability.Proximity;
-import static com.evilbird.warcraft.item.common.upgrade.UpgradableValue.Zero;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.ZeroInt;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
 
 /**
@@ -37,7 +37,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
 {
     private float attackSpeed;
     private int piercingDamage;
-    private UpgradableValue basicDamage;
+    private UpgradeValue<Integer> basicDamage;
     private int movementSpeed;
     private MovementCapability movementCapability;
 
@@ -52,7 +52,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
         super(skin);
         this.attackSpeed = 0;
         this.piercingDamage = 0;
-        this.basicDamage = Zero;
+        this.basicDamage = ZeroInt;
         this.movementSpeed = 0;
         this.movementCapability = MovementCapability.None;
     }
@@ -90,15 +90,15 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      */
     @Override
     public int getBasicDamage() {
-        return (int)getUpgradeValue(basicDamage);
+        return getUpgradeValue(basicDamage);
     }
 
     /**
      * Returns the amount of damage that the {@code Combatant} deals
-     * with each attack, given the damage
+     * with each attack, without having been upgraded.
      */
-    public int getBasicDamage(UpgradeRank rank) {
-        return (int)basicDamage.getValue(rank);
+    public int getBasicDamageBaseValue() {
+        return basicDamage.getBaseValue();
     }
 
     /**
@@ -140,16 +140,16 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      * Sets the maximum amount of damage that the {@code Combatant} deals
      * with each attack.
      */
-    public void setBasicDamage(UpgradableValue basicDamage) {
-        this.basicDamage = basicDamage;
+    public void setBasicDamage(int basicDamage) {
+        this.basicDamage = new UpgradeSequence<>(None, basicDamage);
     }
 
     /**
      * Sets the maximum amount of damage that the {@code Combatant} deals
      * with each attack.
      */
-    public void setBasicDamage(int basicDamage) {
-        this.basicDamage = new UpgradableValue(None, basicDamage);
+    public void setBasicDamage(UpgradeValue<Integer> basicDamage) {
+        this.basicDamage = basicDamage;
     }
 
     /**

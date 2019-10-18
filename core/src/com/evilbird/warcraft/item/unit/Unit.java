@@ -31,9 +31,9 @@ import com.evilbird.warcraft.common.TeamColour;
 import com.evilbird.warcraft.item.common.graphics.ColourMaskSprite;
 import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.warcraft.item.common.state.SelectableObject;
-import com.evilbird.warcraft.item.common.upgrade.UpgradableValue;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeSeries;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeSequence;
+import com.evilbird.warcraft.item.common.upgrade.Upgrade;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeValue;
 import com.evilbird.warcraft.item.data.player.Player;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -42,9 +42,11 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import static com.evilbird.warcraft.item.common.upgrade.UpgradableValue.Zero;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.ZeroInt;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
 
 /**
@@ -55,12 +57,12 @@ import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
  */
 public class Unit extends Viewable implements PerishableObject, SelectableObject, SpatialObject
 {
-    private int sight;
     private float health;
     private float healthMaximum;
     private boolean selected;
     private boolean selectable;
-    private UpgradableValue armour;
+    private UpgradeValue<Integer> sight;
+    private UpgradeValue<Integer> armour;
     private List<ItemReference> associations;
     private transient UnitStyle style;
 
@@ -77,8 +79,8 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     @Inject
     public Unit(Skin skin) {
         super(skin);
-        sight = 0;
-        armour = Zero;
+        sight = ZeroInt;
+        armour = ZeroInt;
         health = 0;
         healthMaximum = 0;
         selected = false;
@@ -117,14 +119,15 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * Returns how much damage the units armor absorbs with each attack.
      */
     public int getArmour() {
-        return (int)getUpgradeValue(armour);
+        return getUpgradeValue(armour);
     }
 
     /**
-     * Returns how much damage the units armor absorbs with each attack.
+     * Returns how much damage the units armor absorbs with each attack,
+     * excluding upgrades.
      */
-    public int getArmour(UpgradeRank rank) {
-        return (int)armour.getValue(rank);
+    public int getArmourBaseValue() {
+        return armour.getBaseValue();
     }
 
     /**
@@ -146,7 +149,15 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * world units.
      */
     public int getSight() {
-        return sight;
+        return getUpgradeValue(sight);
+    }
+
+    /**
+     * Returns the distance that the unit can detect other units, specified in
+     * world units, excluding upgrades.
+     */
+    public int getSightBaseValue() {
+        return sight.getBaseValue();
     }
 
     /**
@@ -196,6 +207,10 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
         associations.remove(new ItemReference(associate));
     }
 
+    /**
+     * Sets an association between the unit and the given {@link Item}. Any
+     * existing associations will be removed.
+     */
     public void setAssociatedItem(Item associate) {
         associations.clear();
         if (associate != null) {
@@ -206,15 +221,15 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     /**
      * Sets the amount of damage the Unit can absorb with each attack.
      */
-    public void setArmour(UpgradableValue armour) {
-        this.armour = armour;
+    public void setArmour(int armour) {
+        this.armour = new UpgradeSequence<>(None, armour);
     }
 
     /**
      * Sets the amount of damage the Unit can absorb with each attack.
      */
-    public void setArmour(int armour) {
-        this.armour = new UpgradableValue(None, armour);
+    public void setArmour(UpgradeValue<Integer> armour) {
+        this.armour = armour;
     }
 
     /**
@@ -245,8 +260,16 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * Sets the distance that the unit can detect other units, specified in
      * world units.
      */
-    public void setSight(int pixels) {
-        this.sight = pixels;
+    public void setSight(int sight) {
+        this.sight = new UpgradeSequence<>(None, sight);
+    }
+
+    /**
+     * Sets the distance that the unit can detect other units, specified in
+     * world units.
+     */
+    public void setSight(UpgradeValue<Integer> sight) {
+        this.sight = sight;
     }
 
     /**
@@ -342,17 +365,22 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
             .toHashCode();
     }
 
-    protected float getUpgradeValue(UpgradableValue value) {
-        UpgradeSeries series = value.getSeries();
-        if (series != None) {
-            ItemGroup parent = getParent();
-            if (parent instanceof Player) {
-                Player player = (Player) parent;
-                UpgradeRank rank = player.getUpgradeRank(series);
-                return value.getValue(rank);
+    protected <T> T getUpgradeValue(UpgradeValue<T> value) {
+        ItemGroup parent = getParent();
+        if (parent instanceof Player) {
+            return getUpgradeValue((Player)parent, value);
+        }
+        return value.getBaseValue();
+    }
+
+    protected <T> T getUpgradeValue(Player player, UpgradeValue<T> value) {
+        Set<Upgrade> ownedUpgrades = new HashSet<>();
+        for (Upgrade upgrade: value.getUpgrades()) {
+            if (player.hasUpgrade(upgrade)) {
+                ownedUpgrades.add(upgrade);
             }
         }
-        return value.getValue(UpgradeRank.None);
+        return value.getValue(ownedUpgrades);
     }
 
     private void setColour(Color colour) {

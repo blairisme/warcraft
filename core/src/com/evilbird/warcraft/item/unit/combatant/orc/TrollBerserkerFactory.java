@@ -31,7 +31,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.TrollBerserker;
  *
  * @author Blair Butterworth
  */
-public class TrollBerserkerFactory extends CombatantFactoryBase
+public class TrollBerserkerFactory extends TrollAxethrowerFactory
 {
     @Inject
     public TrollBerserkerFactory(Device device) {
@@ -39,25 +39,17 @@ public class TrollBerserkerFactory extends CombatantFactoryBase
     }
 
     public TrollBerserkerFactory(AssetManager manager) {
-        super(manager, TrollAxethrower);
+        super(manager);
     }
 
     @Override
     public Combatant get(Identifier type) {
-        RangedCombatant result = builder.newRangedCombatant();
-        result.setAttackSpeed(1.5f);
-        result.setArmour(0);
-        result.setPiercingDamage(3);
-        result.setBasicDamage(9);
+        RangedCombatant result = (RangedCombatant)super.get(type);
         result.setHealth(50);
         result.setHealthMaximum(50);
         result.setIdentifier(objectIdentifier("TrollBerserker", result));
-        result.setMovementSpeed(8 * 10);
-        result.setMovementCapability(Land);
-        result.setAttackRange(tiles(4));
         result.setSight(tiles(6));
         result.setType(TrollBerserker);
-        result.setProjectileType(Axe);
         return result;
     }
 }

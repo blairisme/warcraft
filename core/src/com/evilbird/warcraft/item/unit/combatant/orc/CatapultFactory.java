@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.unit.combatant.orc;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeSequence;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
@@ -21,6 +22,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.state.MovementCapability.Land;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.SiegeDamage;
 import static com.evilbird.warcraft.item.projectile.ProjectileType.FlamingRock;
 import static com.evilbird.warcraft.item.unit.UnitType.Catapult;
 
@@ -45,8 +47,8 @@ public class CatapultFactory extends CombatantFactoryBase
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(3);
         result.setArmour(0);
+        result.setBasicDamage(new UpgradeSequence<>(SiegeDamage, 80, 95, 110));
         result.setPiercingDamage(25);
-        result.setBasicDamage(80);
         result.setHealth(110);
         result.setHealthMaximum(110);
         result.setIdentifier(objectIdentifier("Catapult", result));

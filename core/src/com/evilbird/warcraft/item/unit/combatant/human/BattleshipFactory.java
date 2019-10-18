@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.unit.combatant.human;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeSequence;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
@@ -21,6 +22,8 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.state.MovementCapability.Water;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.NavalDamage;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.NavalDefence;
 import static com.evilbird.warcraft.item.projectile.ProjectileType.FlamingCannonball;
 import static com.evilbird.warcraft.item.unit.UnitType.Battleship;
 
@@ -45,9 +48,9 @@ public class BattleshipFactory extends CombatantFactoryBase
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(1.5f);
         result.setAttackRange(tiles(7));
-        result.setArmour(0);
+        result.setArmour(new UpgradeSequence<>(NavalDefence, 10, 20, 30));
+        result.setBasicDamage(new UpgradeSequence<>(NavalDamage, 50, 60, 70));
         result.setPiercingDamage(10);
-        result.setBasicDamage(50);
         result.setHealth(60);
         result.setHealthMaximum(60);
         result.setIdentifier(objectIdentifier("Battleship", result));

@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.item.ui.display.control.status.details.combatant;
 
-import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
@@ -38,7 +37,7 @@ public class CombatantVisualization
     }
 
     public static int getDamageUpgrade(Combatant combatant) {
-        int basic = combatant.getBasicDamage(UpgradeRank.None);
+        int basic = combatant.getBasicDamageBaseValue();
         int upgraded = combatant.getBasicDamage();
         return upgraded - basic;
     }
@@ -48,7 +47,7 @@ public class CombatantVisualization
     }
 
     public static int getArmourUpgrade(Combatant combatant) {
-        int basic = combatant.getArmour(UpgradeRank.None);
+        int basic = combatant.getArmourBaseValue();
         int upgraded = combatant.getArmour();
         return upgraded - basic;
     }
