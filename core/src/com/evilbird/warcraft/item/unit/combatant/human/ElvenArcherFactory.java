@@ -41,8 +41,8 @@ import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
 public class ElvenArcherFactory extends CombatantFactoryBase
 {
     private static final Map<Upgrade, Integer> DAMAGE_UPGRADES = Maps.of(
-        RangedDamage1, 2f, RangedDamage2, 2f,
-        RangedAccuracy1, 3f, RangedWeapon1, 1f);
+        RangedDamage1, 2, RangedDamage2, 2,
+        RangedAccuracy1, 3, RangedWeapon1, 1);
 
     @Inject
     public ElvenArcherFactory(Device device) {
