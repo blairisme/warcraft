@@ -29,13 +29,13 @@ import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.Placeh
  */
 public class PlaceholderFactory implements ActionProvider
 {
-    private InjectedPool<com.evilbird.warcraft.action.placeholder.PlaceholderCancel> cancelPool;
+    private InjectedPool<PlaceholderCancel> cancelPool;
     private InjectedPool<PlaceholderCreate> createPool;
     private InjectedPool<PlaceholderMove> movePool;
 
     @Inject
     public PlaceholderFactory(
-        InjectedPool<com.evilbird.warcraft.action.placeholder.PlaceholderCancel> cancelPool,
+        InjectedPool<PlaceholderCancel> cancelPool,
         InjectedPool<PlaceholderCreate> createPool,
         InjectedPool<PlaceholderMove> movePool)
     {

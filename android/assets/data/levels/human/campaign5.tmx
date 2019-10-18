@@ -281,7 +281,7 @@
    <property name="Colour" value="Blue"/>
    <property name="Faction" value="Human"/>
    <property name="Gold" type="float" value="1000"/>
-   <property name="Level" type="int" value="3"/>
+   <property name="Level" type="int" value="5"/>
    <property name="Nation" value="Azeroth"/>
    <property name="Oil" type="float" value="2000"/>
    <property name="Team" type="int" value="1"/>
