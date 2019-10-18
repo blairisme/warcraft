@@ -18,11 +18,14 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButton
 import java.util.List;
 
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildBarracksButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildBlacksmithButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildFarmButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildLumberMillButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildScoutTowerButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildTownHallButton;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
+import static com.evilbird.warcraft.item.unit.UnitType.Blacksmith;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
 import static com.evilbird.warcraft.item.unit.UnitType.ScoutTower;
@@ -47,7 +50,8 @@ public class PeasantSimpleBuildings extends BasicButtonController
 
     private static final List<ActionButtonType> ADVANCED_BUTTONS =
         asList(BuildFarmButton, BuildBarracksButton, BuildTownHallButton,
-            BuildLumberMillButton, BuildCancelButton);
+            BuildLumberMillButton, BuildBlacksmithButton, BuildScoutTowerButton,
+            BuildCancelButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {
@@ -74,6 +78,7 @@ public class PeasantSimpleBuildings extends BasicButtonController
             case BuildBarracksButton: return hasResources(player, Barracks);
             case BuildLumberMillButton: return hasResources(player, LumberMill);
             case BuildTownHallButton: return hasResources(player, TownHall);
+            case BuildBlacksmithButton: return hasResources(player, Blacksmith);
             case BuildScoutTowerButton: return hasResources(player, ScoutTower);
             default: return false;
         }
