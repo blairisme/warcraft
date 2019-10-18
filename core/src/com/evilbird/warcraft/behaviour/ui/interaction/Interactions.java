@@ -113,13 +113,13 @@ import static com.evilbird.warcraft.item.layer.LayerType.Shore;
 import static com.evilbird.warcraft.item.layer.LayerType.Tree;
 import static com.evilbird.warcraft.item.layer.LayerType.WallSection;
 import static com.evilbird.warcraft.item.ui.display.HudControl.MenuPane;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedRangedUpgradeButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedRangedDamageButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildAdvancedButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildSimpleButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.CancelButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DisembarkButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedUpgradeButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedDamageButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StopButton;
 import static com.evilbird.warcraft.item.ui.display.control.status.selection.SelectionButtonType.FocusButton;
 import static com.evilbird.warcraft.item.ui.display.control.status.selection.SelectionButtonType.UnselectButton;
@@ -386,12 +386,12 @@ public class Interactions
 
     private void upgradeInteractions() {
         productionInteraction(
-            ImprovedRangedUpgradeButton,
+                ImprovedRangedDamageButton,
             RangedDamage1Upgrade,
             RangedDamage1UpgradeCancel);
 
         productionInteraction(
-            AdvancedRangedUpgradeButton,
+                AdvancedRangedDamageButton,
             RangedDamage2Upgrade,
             RangedDamage2UpgradeCancel);
     }

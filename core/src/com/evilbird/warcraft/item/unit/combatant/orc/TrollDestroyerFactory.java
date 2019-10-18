@@ -48,7 +48,7 @@ public class TrollDestroyerFactory extends CombatantFactoryBase
         result.setAttackSpeed(1.5f);
         result.setArmour(10);
         result.setPiercingDamage(2);
-        result.setBasicDamage(new UpgradableValue(UpgradeSeries.SeaDamage, 35, 37, 39));
+        result.setBasicDamage(new UpgradableValue(UpgradeSeries.NavalDamage, 35, 37, 39));
         result.setHealth(100);
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("TrollDestroyer", result));

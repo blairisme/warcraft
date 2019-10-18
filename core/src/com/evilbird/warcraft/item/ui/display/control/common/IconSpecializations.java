@@ -22,7 +22,7 @@ import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage2;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedRangedUpgradeButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedRangedDamageButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AttackButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildBarracksButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
@@ -43,7 +43,7 @@ import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButton
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DetonateButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DisembarkButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GatherButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedUpgradeButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedDamageButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MoveButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PatrolButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PolymorphButton;
@@ -193,10 +193,10 @@ public class IconSpecializations
         special(RangedDamage2, Human, Any, Any), HumanRangedDamage2,
         special(RangedDamage2, Orc, Any, Any), OrcRangedDamage2,
 
-        special(ImprovedRangedUpgradeButton, Human, Any, Any), HumanRangedDamage1,
-        special(ImprovedRangedUpgradeButton, Orc, Any, Any), OrcRangedDamage1,
-        special(AdvancedRangedUpgradeButton, Human, Any, Any), HumanRangedDamage2,
-        special(AdvancedRangedUpgradeButton, Orc, Any, Any), OrcRangedDamage2,
+        special(ImprovedRangedDamageButton, Human, Any, Any), HumanRangedDamage1,
+        special(ImprovedRangedDamageButton, Orc, Any, Any), OrcRangedDamage1,
+        special(AdvancedRangedDamageButton, Human, Any, Any), HumanRangedDamage2,
+        special(AdvancedRangedDamageButton, Orc, Any, Any), OrcRangedDamage2,
 
         special(AttackButton, Human, Melee, Basic), HumanMeleeAttack,
         special(AttackButton, Human, Melee, Improved), HumanMeleeDamage1,

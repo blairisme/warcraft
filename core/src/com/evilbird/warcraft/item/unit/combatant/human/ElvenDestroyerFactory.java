@@ -49,7 +49,7 @@ public class ElvenDestroyerFactory extends CombatantFactoryBase
         result.setAttackRange(tiles(4));
         result.setArmour(10);
         result.setPiercingDamage(2);
-        result.setBasicDamage(new UpgradableValue(UpgradeSeries.SeaDamage, 35, 37, 39));
+        result.setBasicDamage(new UpgradableValue(UpgradeSeries.NavalDamage, 35, 37, 39));
         result.setHealth(100);
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("ElvenDestroyer", result));

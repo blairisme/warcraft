@@ -71,7 +71,7 @@ public class IconSetTest extends GameTestCase
     @Test
     public void getUpgradeProductIconTest() {
         Unit lumberMill = TestBuildings.newTestBuilding(new TextIdentifier("LumberMill"), UnitType.LumberMill);
-        Drawable actual = iconSet.get(ActionButtonType.ImprovedRangedUpgradeButton, lumberMill);
+        Drawable actual = iconSet.get(ActionButtonType.ImprovedRangedDamageButton, lumberMill);
         Assert.assertNotNull(actual);
     }
 

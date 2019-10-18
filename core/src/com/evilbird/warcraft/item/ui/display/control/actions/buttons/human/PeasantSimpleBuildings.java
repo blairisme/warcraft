@@ -15,7 +15,6 @@ import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButtonController;
 
-import java.util.Collections;
 import java.util.List;
 
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildBarracksButton;
@@ -26,6 +25,7 @@ import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButton
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
+import static com.evilbird.warcraft.item.unit.UnitType.ScoutTower;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 import static java.util.Arrays.asList;
 
@@ -37,19 +37,32 @@ import static java.util.Arrays.asList;
  */
 public class PeasantSimpleBuildings extends BasicButtonController
 {
+    private static final List<ActionButtonType> BASIC_BUTTONS =
+        asList(BuildFarmButton, BuildBarracksButton, BuildTownHallButton,
+            BuildCancelButton);
+
+    private static final List<ActionButtonType> INTERMEDIATE_BUTTONS =
+        asList(BuildFarmButton, BuildBarracksButton, BuildTownHallButton,
+            BuildLumberMillButton, BuildCancelButton);
+
+    private static final List<ActionButtonType> ADVANCED_BUTTONS =
+        asList(BuildFarmButton, BuildBarracksButton, BuildTownHallButton,
+            BuildLumberMillButton, BuildCancelButton);
+
     @Override
     public List<ActionButtonType> getButtons(Item item) {
         Player player = UnitOperations.getPlayer(item);
-        switch (player.getLevel()) {
-            case 1: return asList(
-                    BuildFarmButton, BuildBarracksButton, BuildTownHallButton,
-                    BuildCancelButton);
-            case 2:
-            case 3: return asList(
-                    BuildFarmButton, BuildBarracksButton, BuildTownHallButton,
-                    BuildLumberMillButton, BuildCancelButton);
-            default: return Collections.emptyList();
+        return getButtons(player.getLevel());
+    }
+
+    private List<ActionButtonType> getButtons(int level) {
+        if (level == 1) {
+            return BASIC_BUTTONS;
         }
+        if (level == 2 || level == 3) {
+            return INTERMEDIATE_BUTTONS;
+        }
+        return ADVANCED_BUTTONS;
     }
 
     @Override
@@ -61,6 +74,7 @@ public class PeasantSimpleBuildings extends BasicButtonController
             case BuildBarracksButton: return hasResources(player, Barracks);
             case BuildLumberMillButton: return hasResources(player, LumberMill);
             case BuildTownHallButton: return hasResources(player, TownHall);
+            case BuildScoutTowerButton: return hasResources(player, ScoutTower);
             default: return false;
         }
     }

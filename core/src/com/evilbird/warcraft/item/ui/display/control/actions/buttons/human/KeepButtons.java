@@ -17,41 +17,46 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButton
 
 import java.util.List;
 
-import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUnit;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildKeepButton;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUnits;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCastleButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainPeasantButton;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
-import static com.evilbird.warcraft.item.unit.UnitType.Keep;
+import static com.evilbird.warcraft.item.unit.UnitType.Blacksmith;
+import static com.evilbird.warcraft.item.unit.UnitType.Castle;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
+import static com.evilbird.warcraft.item.unit.UnitType.Stables;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
 /**
- * Controls the buttons shown when a Human Town Hall is selected.
+ * Controls the buttons shown when a Human Keep is selected.
  *
  * @author Blair Butterworth
  */
-public class TownHallButtons extends BasicButtonController
+public class KeepButtons extends BasicButtonController
 {
     private static final List<ActionButtonType> BASIC_BUTTONS =
         singletonList(TrainPeasantButton);
 
     private static final List<ActionButtonType> ADVANCED_BUTTONS =
-        asList(TrainPeasantButton, BuildKeepButton);
+        asList(TrainPeasantButton, BuildCastleButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {
         Player player = UnitOperations.getPlayer(item);
-        return player.getLevel() <= 5 ? BASIC_BUTTONS : ADVANCED_BUTTONS;
+        return player.getLevel() <= 10 ? BASIC_BUTTONS : ADVANCED_BUTTONS;
     }
 
     @Override
     public boolean getEnabled(ActionButtonType button, Item item) {
         Player player = UnitOperations.getPlayer(item);
-        switch (button) {
-            case TrainPeasantButton: return hasResources(player, Peasant);
-            case BuildKeepButton: return hasResources(player, Keep) && hasUnit(player, Barracks);
-            default: return false;
+
+        if (button == TrainPeasantButton) {
+            return hasResources(player, Peasant);
         }
+        if (button == BuildCastleButton) {
+            return hasResources(player, Castle) && hasUnits(player, Barracks, Blacksmith, Stables);
+        }
+        return false;
     }
 }

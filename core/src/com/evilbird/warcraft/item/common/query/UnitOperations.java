@@ -48,6 +48,7 @@ import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.item.utility.ItemComparators.closestItem;
 import static com.evilbird.engine.item.utility.ItemOperations.findAncestor;
 import static com.evilbird.engine.item.utility.ItemOperations.isNear;
+import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
 import static com.evilbird.engine.item.utility.ItemPredicates.touchableWithType;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
@@ -196,7 +197,16 @@ public class UnitOperations
     }
 
     public static boolean hasUnit(Player player, UnitType type) {
-        return ItemOperations.hasAny(player, withType(type));
+        return ItemOperations.hasAny(player, hasType(type));
+    }
+
+    public static boolean hasUnits(Player player, UnitType ... types) {
+        for (UnitType type: types) {
+            if (! hasUnit(player, type)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static boolean hasUpgrade(Player player, Upgrade upgrade) {

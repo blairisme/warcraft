@@ -17,21 +17,18 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButton
 
 import java.util.List;
 
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildOilPlatformButton;
-import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
-import static java.util.Arrays.asList;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainGryphonRiderButton;
+import static com.evilbird.warcraft.item.unit.UnitType.GryphonRider;
+import static java.util.Collections.singletonList;
 
 /**
- * Controls the buttons shown when a Human Oil Tanker is selected and the user
- * navigates to the simple building menu.
+ * Controls the buttons shown when a Human Gryphon Aviary is selected.
  *
  * @author Blair Butterworth
  */
-public class OilTankerBuildings extends BasicButtonController
+public class GryphonAviaryButtons extends BasicButtonController
 {
-    private static final List<ActionButtonType> BUTTONS =
-        asList(BuildOilPlatformButton, BuildCancelButton);
+    private static final List<ActionButtonType> BUTTONS = singletonList(TrainGryphonRiderButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {
@@ -41,13 +38,6 @@ public class OilTankerBuildings extends BasicButtonController
     @Override
     public boolean getEnabled(ActionButtonType button, Item item) {
         Player player = UnitOperations.getPlayer(item);
-
-        if (button == BuildCancelButton) {
-            return true;
-        }
-        if (button == BuildOilPlatformButton) {
-            return hasResources(player, OilPlatform);
-        }
-        return false;
+        return hasResources(player, GryphonRider);
     }
 }

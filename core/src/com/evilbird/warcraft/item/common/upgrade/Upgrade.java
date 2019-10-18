@@ -16,10 +16,15 @@ import static com.evilbird.warcraft.item.common.upgrade.UpgradeRank.Improved;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.GoldProduction;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.MeleeDamage;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.MeleeDefence;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.MeleeType;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.OilProduction;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.RangedAccuracy;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.RangedDamage;
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.SeaDamage;
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.SeaDefence;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.RangedSight;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.RangedType;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.NavalDamage;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.NavalDefence;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.RangedWeapon;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.SiegeDamage;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.WoodProduction;
 
@@ -33,32 +38,39 @@ import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.WoodProduc
  */
 public enum Upgrade implements Identifier
 {
-    MeleeDamage1 (MeleeDamage, Improved),
-    MeleeDamage2 (MeleeDamage, Advanced),
+    MeleeDamage1(MeleeDamage, Improved),
+    MeleeDamage2(MeleeDamage, Advanced),
 
-    RangedDamage1 (RangedDamage, Improved),
-    RangedDamage2 (RangedDamage, Advanced),
+    MeleeDefence1(MeleeDefence, Improved),
+    MeleeDefence2(MeleeDefence, Advanced),
 
-    SeaDamage1 (SeaDamage, Improved),
-    SeaDamage2 (SeaDamage, Advanced),
+    MeleeType1(MeleeType, Advanced),
 
-    SiegeDamage1 (SiegeDamage, Improved),
-    SiegeDamage2 (SiegeDamage, Advanced),
+    RangedDamage1(RangedDamage, Improved),
+    RangedDamage2(RangedDamage, Advanced),
 
-    MeleeDefence1 (MeleeDefence, Improved),
-    MeleeDefence2 (MeleeDefence, Advanced),
+    RangedAccuracy1(RangedAccuracy, Improved),
+    RangedSight1(RangedSight, Improved),
+    RangedType1(RangedType, Improved),
+    RangedWeapon1(RangedWeapon, Improved),
 
-    SeaDefence1 (SeaDefence, Improved),
-    SeaDefence2 (SeaDefence, Advanced),
+    NavalDamage1(NavalDamage, Improved),
+    NavalDamage2(NavalDamage, Advanced),
 
-    GoldProduction1 (GoldProduction, Improved),
-    GoldProduction2 (GoldProduction, Advanced),
+    NavalDefence1(NavalDefence, Improved),
+    NavalDefence2(NavalDefence, Advanced),
 
-    OilProduction1 (OilProduction, Improved),
-    OilProduction2 (OilProduction, Advanced),
+    SiegeDamage1(SiegeDamage, Improved),
+    SiegeDamage2(SiegeDamage, Advanced),
 
-    WoodProduction1 (WoodProduction, Improved),
-    WoodProduction2 (WoodProduction, Advanced);
+    GoldProduction1(GoldProduction, Improved),
+    GoldProduction2(GoldProduction, Advanced),
+
+    OilProduction1(OilProduction, Improved),
+    OilProduction2(OilProduction, Advanced),
+
+    WoodProduction1(WoodProduction, Improved),
+    WoodProduction2(WoodProduction, Advanced);
 
     private UpgradeRank rank;
     private UpgradeSeries series;

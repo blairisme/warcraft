@@ -9,6 +9,8 @@
 
 package com.evilbird.engine.common.collection;
 
+import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -70,5 +72,14 @@ public class Lists
         result.add(element);
         result.addAll(collection);
         return result;
+    }
+
+    public static <T> List<T> replace(List<T> list, T target, T replacement) {
+        int index = list.indexOf(target);
+        if (index != -1) {
+            list.remove(index);
+            list.add(index, replacement);
+        }
+        return list;
     }
 }

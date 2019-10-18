@@ -143,11 +143,26 @@ public enum ActionButtonType implements Identifier
     TrainTrollTankerButton,
 
     /* Upgrade buttons */
-    ImprovedMeleeUpgradeButton,
-    AdvancedMeleeUpgradeButton,
+    ImprovedMeleeDamageButton,
+    AdvancedMeleeDamageButton,
+    ImprovedRangedAccuracyButton,
+    ImprovedRangedDamageButton,
+    AdvancedRangedDamageButton,
+    ImprovedRangedSightButton,
+    ImprovedRangedWeaponButton,
+    ImprovedMeleeDefenceButton,
+    AdvancedMeleeDefenceButton,
+    ImprovedSiegeDamageButton,
+    AdvancedSiegeDamageButton,
+    ImprovedNavalDamageButton,
+    AdvancedNavalDamageButton,
+    ImprovedNavalDefenceButton,
+    AdvancedNavalDefenceButton,
 
-    ImprovedRangedUpgradeButton,
-    AdvancedRangedUpgradeButton;
+    BerserkerUpgradeButton,
+    OgreMageUpgradeButton,
+    PaladinUpgradeButton,
+    RangerUpgradeButton;
 
     public UnitType getBuildProduct() {
         Validate.isTrue(isBuildButton());
@@ -165,5 +180,9 @@ public enum ActionButtonType implements Identifier
 
     public boolean isTrainButton() {
         return isBetween(this, TrainBallistaButton, TrainTrollTankerButton);
+    }
+
+    public boolean isUpgradeButton() {
+        return isBetween(this, ImprovedMeleeDamageButton, RangerUpgradeButton);
     }
 }
