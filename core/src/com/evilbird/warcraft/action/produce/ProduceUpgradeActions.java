@@ -77,10 +77,25 @@ public enum ProduceUpgradeActions implements ActionIdentifier
     public Upgrade getProduct() {
         return Upgrade.valueOf(getProductName());
     }
-    private String getProductName() {
+
+    public String getProductName() {
         String name = this.name();
         name = StringUtils.removeEnd(name, "Upgrade");
         name = StringUtils.removeEnd(name, "UpgradeCancel");
         return name;
+    }
+
+    public static ProduceUpgradeActions forProduct(Upgrade upgrade) {
+        if (upgrade != Upgrade.None) {
+            return ProduceUpgradeActions.valueOf(upgrade.name() + "Upgrade");
+        }
+        throw new IllegalArgumentException("Upgrade.None");
+    }
+
+    public static ProduceUpgradeActions forProductCancel(Upgrade upgrade) {
+        if (upgrade != Upgrade.None) {
+            return ProduceUpgradeActions.valueOf(upgrade.name() + "UpgradeCancel");
+        }
+        throw new IllegalArgumentException("Upgrade.None");
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="96" height="96" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="81">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="96" height="96" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="81">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/swamp.png" width="576" height="864"/>
  </tileset>
@@ -204,7 +204,7 @@
    <property name="ZIndex" type="int" value="5"/>
   </properties>
   <object id="17" name="Stronghold1" type="Stronghold" gid="1443" x="544" y="2816" width="128" height="128"/>
-  <object id="18" name="OgreMount1" type="OgreMount" gid="1445" x="800" y="2720" width="96" height="96"/>
+  <object id="18" name="OgreMound1" type="OgreMound" gid="1445" x="800" y="2720" width="96" height="96"/>
   <object id="19" name="TrollLumberMill1" type="TrollLumberMill" gid="398" x="736" y="2944" width="96" height="96"/>
   <object id="34" name="Forge1" type="Forge" gid="1101" x="416" y="2752" width="96" height="96"/>
   <object id="20" name="Encampment1" type="Encampment" gid="1061" x="512" y="2272" width="96" height="96"/>
@@ -230,21 +230,21 @@
   <object id="42" name="Grunt4" type="Grunt" gid="733" x="448" y="2368" width="72" height="72"/>
   <object id="43" name="Grunt5" type="Grunt" gid="733" x="480" y="160" width="72" height="72"/>
   <object id="44" name="Grunt6" type="Grunt" gid="733" x="640" y="64" width="72" height="72"/>
-  <object id="45" name="TrollAxthrower1" type="TrollAxthrower" gid="829" x="224" y="2400" width="72" height="72"/>
-  <object id="46" name="TrollAxthrower2" type="TrollAxthrower" gid="829" x="224" y="2368" width="72" height="72"/>
-  <object id="47" name="TrollAxthrower3" type="TrollAxthrower" gid="829" x="640" y="2432" width="72" height="72"/>
-  <object id="48" name="TrollAxthrower4" type="TrollAxthrower" gid="829" x="672" y="2528" width="72" height="72"/>
-  <object id="49" name="TrollAxthrower5" type="TrollAxthrower" gid="829" x="640" y="2208" width="72" height="72"/>
-  <object id="50" name="TrollAxthrower6" type="TrollAxthrower" gid="829" x="288" y="1376" width="72" height="72"/>
-  <object id="51" name="TrollAxthrower7" type="TrollAxthrower" gid="829" x="1344" y="2016" width="72" height="72"/>
-  <object id="52" name="TrollAxthrower8" type="TrollAxthrower" gid="829" x="1408" y="2016" width="72" height="72"/>
-  <object id="53" name="TrollAxthrower9" type="TrollAxthrower" gid="829" x="1472" y="2048" width="72" height="72"/>
-  <object id="54" name="TrollAxthrower10" type="TrollAxthrower" gid="829" x="2432" y="2144" width="72" height="72"/>
-  <object id="55" name="TrollAxthrower11" type="TrollAxthrower" gid="829" x="2624" y="2112" width="72" height="72"/>
-  <object id="56" name="TrollAxthrower12" type="TrollAxthrower" gid="829" x="1088" y="640" width="72" height="72"/>
-  <object id="57" name="TrollAxthrower13" type="TrollAxthrower" gid="829" x="1184" y="640" width="72" height="72"/>
-  <object id="58" name="TrollAxthrower14" type="TrollAxthrower" gid="829" x="1120" y="576" width="72" height="72"/>
-  <object id="59" name="TrollAxthrower15" type="TrollAxthrower" gid="1107" x="768" y="2144" width="72" height="72"/>
+  <object id="45" name="TrollAxethrower1" type="TrollAxethrower" gid="829" x="224" y="2400" width="72" height="72"/>
+  <object id="46" name="TrollAxethrower2" type="TrollAxethrower" gid="829" x="224" y="2368" width="72" height="72"/>
+  <object id="47" name="TrollAxethrower3" type="TrollAxethrower" gid="829" x="640" y="2432" width="72" height="72"/>
+  <object id="48" name="TrollAxethrower4" type="TrollAxethrower" gid="829" x="672" y="2528" width="72" height="72"/>
+  <object id="49" name="TrollAxethrower5" type="TrollAxethrower" gid="829" x="640" y="2208" width="72" height="72"/>
+  <object id="50" name="TrollAxethrower6" type="TrollAxethrower" gid="829" x="288" y="1376" width="72" height="72"/>
+  <object id="51" name="TrollAxethrower7" type="TrollAxethrower" gid="829" x="1344" y="2016" width="72" height="72"/>
+  <object id="52" name="TrollAxethrower8" type="TrollAxethrower" gid="829" x="1408" y="2016" width="72" height="72"/>
+  <object id="53" name="TrollAxethrower8" type="TrollAxethrower" gid="829" x="1472" y="2048" width="72" height="72"/>
+  <object id="54" name="TrollAxethrower10" type="TrollAxethrower" gid="829" x="2432" y="2144" width="72" height="72"/>
+  <object id="55" name="TrollAxethrower11" type="TrollAxethrower" gid="829" x="2624" y="2112" width="72" height="72"/>
+  <object id="56" name="TrollAxethrower12" type="TrollAxethrower" gid="829" x="1088" y="640" width="72" height="72"/>
+  <object id="57" name="TrollAxethrower13" type="TrollAxethrower" gid="829" x="1184" y="640" width="72" height="72"/>
+  <object id="58" name="TrollAxethrower14" type="TrollAxethrower" gid="829" x="1120" y="576" width="72" height="72"/>
+  <object id="59" name="TrollAxethrower15" type="TrollAxethrower" gid="1107" x="768" y="2144" width="72" height="72"/>
   <object id="60" name="Ogre1" type="Ogre" gid="1107" x="864" y="2144" width="72" height="72"/>
   <object id="61" name="Ogre2" type="Ogre" gid="1107" x="448" y="1440" width="72" height="72"/>
   <object id="62" name="Ogre3" type="Ogre" gid="1107" x="2528" y="2112" width="72" height="72"/>
@@ -266,7 +266,7 @@
    <property name="ZIndex" type="int" value="6"/>
   </properties>
   <object id="1" name="TownHall1" type="TownHall" gid="390" x="2624" y="256" width="128" height="128"/>
-  <object id="2" name="Barracks" type="Barracks1" gid="1063" x="2816" y="256" width="96" height="96"/>
+  <object id="2" name="Barracks1" type="Barracks" gid="1063" x="2816" y="256" width="96" height="96"/>
   <object id="3" name="LumberMill1" type="LumberMill" gid="1065" x="2432" y="352" width="96" height="96"/>
   <object id="4" name="Farm1" type="Farm" gid="388" x="2912" y="128" width="64" height="64"/>
   <object id="5" name="Farm2" type="Farm" gid="388" x="2848" y="96" width="64" height="64"/>

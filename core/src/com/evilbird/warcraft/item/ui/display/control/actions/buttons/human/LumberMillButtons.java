@@ -30,7 +30,7 @@ import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButton
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedDamageButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedSightButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedWeaponButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RangerUpgradeButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedTypeButton;
 
 /**
  * Controls the buttons shown when a Human Lumber Mill is selected.
@@ -75,7 +75,7 @@ public class LumberMillButtons extends BasicButtonController
 
     private List<ActionButtonType> getBasicRangerButtons(Player player) {
         List<ActionButtonType> buttons = getAdvancedArcherButtons(player);
-        buttons.add(RangerUpgradeButton);
+        buttons.add(ImprovedRangedTypeButton);
         return buttons;
     }
 
@@ -93,7 +93,7 @@ public class LumberMillButtons extends BasicButtonController
         switch (button) {
             case ImprovedRangedDamageButton: return hasResources(player, RangedDamage1);
             case AdvancedRangedDamageButton: return hasResources(player, RangedDamage2);
-            case RangerUpgradeButton: return hasResources(player, RangedType1);
+            case ImprovedRangedTypeButton: return hasResources(player, RangedType1);
             case ImprovedRangedSightButton: return hasResources(player, RangedSight1);
             case ImprovedRangedAccuracyButton: return hasResources(player, RangedWeapon1);
             case ImprovedRangedWeaponButton: return hasResources(player, RangedAccuracy1);

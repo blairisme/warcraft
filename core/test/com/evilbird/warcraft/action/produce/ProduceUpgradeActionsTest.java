@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.action.produce;
 
+import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,6 +27,24 @@ public class ProduceUpgradeActionsTest
         EnumSet<ProduceUpgradeActions> actions = EnumSet.allOf(ProduceUpgradeActions.class);
         for (ProduceUpgradeActions action: actions) {
             Assert.assertNotNull(action.getProduct());
+        }
+    }
+
+    @Test
+    public void forProductTest() {
+        for (Upgrade upgrade: Upgrade.values()) {
+            if (upgrade != Upgrade.None) {
+                Assert.assertNotNull(ProduceUpgradeActions.forProduct(upgrade));
+            }
+        }
+    }
+
+    @Test
+    public void forProductCancelTest() {
+        for (Upgrade upgrade: Upgrade.values()) {
+            if (upgrade != Upgrade.None) {
+                Assert.assertNotNull(ProduceUpgradeActions.forProductCancel(upgrade));
+            }
         }
     }
 }

@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.ui.display.control.actions;
 
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.apache.commons.lang3.Validate;
 
@@ -148,24 +149,21 @@ public enum ActionButtonType implements Identifier
     /* Upgrade buttons */
     ImprovedMeleeDamageButton,
     AdvancedMeleeDamageButton,
+    ImprovedMeleeDefenceButton,
+    AdvancedMeleeDefenceButton,
+    ImprovedMeleeTypeButton,
     ImprovedRangedAccuracyButton,
     ImprovedRangedDamageButton,
     AdvancedRangedDamageButton,
     ImprovedRangedSightButton,
     ImprovedRangedWeaponButton,
-    ImprovedMeleeDefenceButton,
-    AdvancedMeleeDefenceButton,
+    ImprovedRangedTypeButton,
     ImprovedSiegeDamageButton,
     AdvancedSiegeDamageButton,
     ImprovedNavalDamageButton,
     AdvancedNavalDamageButton,
     ImprovedNavalDefenceButton,
-    AdvancedNavalDefenceButton,
-
-    BerserkerUpgradeButton,
-    OgreMageUpgradeButton,
-    PaladinUpgradeButton,
-    RangerUpgradeButton;
+    AdvancedNavalDefenceButton;
 
     public UnitType getBuildProduct() {
         Validate.isTrue(isBuildButton() || isBuildingUpgradeButton());
@@ -175,6 +173,17 @@ public enum ActionButtonType implements Identifier
     public UnitType getTrainProduct() {
         Validate.isTrue(isTrainButton());
         return UnitType.valueOf(getName(this, "Train", "Button"));
+    }
+
+    public Upgrade getUpgradeProduct() {
+        Validate.isTrue(isUpgradeButton());
+        if (name().startsWith("Improved")) {
+            return Upgrade.valueOf(getName(this, "Improved", "Button") + "1");
+        }
+        if (name().startsWith("Advanced")) {
+            return Upgrade.valueOf(getName(this, "Advanced", "Button") + "2");
+        }
+        throw new UnsupportedOperationException();
     }
 
     public boolean isBuildButton() {
@@ -190,6 +199,6 @@ public enum ActionButtonType implements Identifier
     }
 
     public boolean isUpgradeButton() {
-        return isBetween(this, ImprovedMeleeDamageButton, RangerUpgradeButton);
+        return isBetween(this, ImprovedMeleeDamageButton, AdvancedNavalDefenceButton);
     }
 }

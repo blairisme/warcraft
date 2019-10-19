@@ -11,21 +11,17 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
+import com.evilbird.warcraft.action.produce.ProduceUpgradeActions;
+import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.RangedDamage1Upgrade;
-import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.RangedDamage1UpgradeCancel;
-import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.RangedDamage2Upgrade;
-import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.RangedDamage2UpgradeCancel;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedRangedDamageButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.CancelButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedDamageButton;
 
 /**
  * Defines user interactions that result in the creation of new game
@@ -51,23 +47,22 @@ public class ProduceInteractions extends InteractionContainer
         for (ActionButtonType button: ActionButtonType.values()) {
             if (button.isTrainButton()) {
                 UnitType product = button.getTrainProduct();
-                ProduceUnitActions train = ProduceUnitActions.forProduct(product);
+                ProduceUnitActions action = ProduceUnitActions.forProduct(product);
                 ProduceUnitActions cancel = ProduceUnitActions.forProductCancel(product);
-                produce(button, train, cancel);
+                produce(button, action, cancel);
             }
         }
     }
 
     private void produceUpgrades() {
-        produce(
-            ImprovedRangedDamageButton,
-            RangedDamage1Upgrade,
-            RangedDamage1UpgradeCancel);
-
-        produce(
-            AdvancedRangedDamageButton,
-            RangedDamage2Upgrade,
-            RangedDamage2UpgradeCancel);
+        for (ActionButtonType button: ActionButtonType.values()) {
+            if (button.isUpgradeButton()) {
+                Upgrade upgrade = button.getUpgradeProduct();
+                ProduceUpgradeActions action = ProduceUpgradeActions.forProduct(upgrade);
+                ProduceUpgradeActions cancel = ProduceUpgradeActions.forProductCancel(upgrade);
+                produce(button, action, cancel);
+            }
+        }
     }
 
     private void produce(

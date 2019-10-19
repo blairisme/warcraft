@@ -18,7 +18,7 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButton
 import java.util.List;
 
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeType1;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PaladinUpgradeButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedMeleeTypeButton;
 import static java.util.Collections.singletonList;
 
 /**
@@ -28,7 +28,7 @@ import static java.util.Collections.singletonList;
  */
 public class ChurchButtons extends BasicButtonController
 {
-    private static final List<ActionButtonType> BUTTONS = singletonList(PaladinUpgradeButton);
+    private static final List<ActionButtonType> BUTTONS = singletonList(ImprovedMeleeTypeButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {

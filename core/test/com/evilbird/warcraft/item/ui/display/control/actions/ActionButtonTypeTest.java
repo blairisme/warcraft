@@ -9,10 +9,12 @@
 
 package com.evilbird.warcraft.item.ui.display.control.actions;
 
+import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedNavalDamageButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildAltarOfStormsButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCastleButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RepairButton;
@@ -62,6 +64,20 @@ public class ActionButtonTypeTest
         for (ActionButtonType button: ActionButtonType.values()) {
             if (button.isTrainButton()) {
                 UnitType type = button.getTrainProduct();
+                Assert.assertNotNull(type);
+            }
+        }
+    }
+
+    @Test
+    public void getUpgradeProductTest() {
+        Upgrade expected = Upgrade.NavalDamage2;
+        Upgrade actual = AdvancedNavalDamageButton.getUpgradeProduct();
+        Assert.assertEquals(expected, actual);
+
+        for (ActionButtonType button: ActionButtonType.values()) {
+            if (button.isUpgradeButton()) {
+                Upgrade type = button.getUpgradeProduct();
                 Assert.assertNotNull(type);
             }
         }

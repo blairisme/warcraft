@@ -41,8 +41,23 @@ public class ProductionTimes
             return 0;
         }
         switch (upgrade) {
+            case MeleeDamage1: return 20;
+            case MeleeDamage2: return 20;
+            case MeleeDefence1: return 20;
+            case MeleeDefence2: return 20;
+            case MeleeType1: return 20;
             case RangedDamage1: return 20;
             case RangedDamage2: return 20;
+            case RangedAccuracy1: return 20;
+            case RangedSight1: return 20;
+            case RangedType1: return 20;
+            case RangedWeapon1: return 20;
+            case NavalDamage1: return 20;
+            case NavalDamage2: return 20;
+            case NavalDefence1: return 20;
+            case NavalDefence2: return 20;
+            case SiegeDamage1: return 20;
+            case SiegeDamage2: return 20;
             default: throw new UnsupportedOperationException();
         }
     }

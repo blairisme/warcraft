@@ -13,7 +13,6 @@ import com.evilbird.engine.game.GameService;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
-import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
@@ -51,14 +50,25 @@ public class ProductionCosts
             return resources(0, 0, 0, 0);
         }
         switch (upgrade) {
+            case MeleeDamage1: return resources(0, 0, 0, 0);
+            case MeleeDamage2: return resources(0, 0, 0, 0);
+            case MeleeDefence1: return resources(0, 0, 0, 0);
+            case MeleeDefence2: return resources(0, 0, 0, 0);
+            case MeleeType1: return resources(0, 0, 0, 0);
             case RangedDamage1: return resources(400, 0, 0, 0);
             case RangedDamage2: return resources(600, 0, 0, 0);
+            case RangedAccuracy1: return resources(0, 0, 0, 0);
+            case RangedSight1: return resources(0, 0, 0, 0);
+            case RangedType1: return resources(0, 0, 0, 0);
+            case RangedWeapon1: return resources(0, 0, 0, 0);
+            case NavalDamage1: return resources(0, 0, 0, 0);
+            case NavalDamage2: return resources(0, 0, 0, 0);
+            case NavalDefence1: return resources(0, 0, 0, 0);
+            case NavalDefence2: return resources(0, 0, 0, 0);
+            case SiegeDamage1: return resources(0, 0, 0, 0);
+            case SiegeDamage2: return resources(0, 0, 0, 0);
             default: throw new UnsupportedOperationException();
         }
-    }
-
-    public Collection<ResourceQuantity> costOf(Unit unit) {
-        return costOf((UnitType)unit.getType());
     }
 
     public Collection<ResourceQuantity> costOf(UnitType type) {
