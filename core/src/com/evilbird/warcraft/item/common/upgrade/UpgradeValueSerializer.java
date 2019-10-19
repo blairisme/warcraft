@@ -60,7 +60,7 @@ public class UpgradeValueSerializer implements JsonSerializer<UpgradeValue>, Jso
     @Override
     public UpgradeValue deserialize(JsonElement source, Type type, JsonDeserializationContext context) {
         JsonObject json = source.getAsJsonObject();
-        if (json.has("none")) {
+        if (json.has("None")) {
             return deserializeCombination(json);
         }
         if (json.has("series")) {
