@@ -28,9 +28,11 @@ public class NeutralBuildingFactory extends GameFactorySet<Building>
     @Inject
     public NeutralBuildingFactory(
         CircleOfPowerFactory circleOfPowerFactory,
-        DarkPortalFactory darkPortalFactory)
+        DarkPortalFactory darkPortalFactory,
+        RunestoneFactory runestoneFactory)
     {
         addProvider(UnitType.CircleOfPower, circleOfPowerFactory);
         addProvider(UnitType.DarkPortal, darkPortalFactory);
+        addProvider(UnitType.Runestone, runestoneFactory);
     }
 }

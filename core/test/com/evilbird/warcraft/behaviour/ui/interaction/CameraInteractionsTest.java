@@ -20,7 +20,6 @@ import com.evilbird.engine.item.ItemType;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.utils.MockProvider;
 import com.evilbird.warcraft.action.camera.CameraActions;
-import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.data.camera.CameraType;
 import org.junit.Assert;
 import org.junit.Before;
@@ -36,26 +35,21 @@ import java.util.Collections;
  *
  * @author Blair Butterworth
  */
-public class InteractionsTest
+public class CameraInteractionsTest
 {
-    private Interactions interactions;
-    private InteractionContainer container;
+    private CameraInteractions interactions;
     private ActionFactory actions;
-    private Provider<InteractionDefinition> definitions;
-    private WarcraftPreferences preferences;
+    private Provider<InteractionDefinition> factory;
 
     @Before
     public void setup() {
         actions = Mockito.mock(ActionFactory.class);
-        definitions = new MockProvider<>(() -> new InteractionDefinition(actions));
-        container = new InteractionContainer(definitions);
-        preferences = Mockito.mock(WarcraftPreferences.class);
-        interactions = new Interactions(container, preferences);
+        factory = new MockProvider<>(() -> new InteractionDefinition(actions));
+        interactions = new CameraInteractions(factory);
     }
 
     @Test
     public void getInteractionsTest() {
-        //assertInteractions(asList(Attack, ConfirmTarget), Action, Grunt, Footman);
         assertInteraction(CameraActions.Pan, UserInputType.Drag, CameraType.Camera, null);
     }
 

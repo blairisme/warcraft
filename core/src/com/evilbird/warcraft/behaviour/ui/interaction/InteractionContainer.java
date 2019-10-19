@@ -9,16 +9,23 @@
 
 package com.evilbird.warcraft.behaviour.ui.interaction;
 
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionIdentifier;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.confirm.ConfirmActions;
+import com.evilbird.warcraft.item.unit.Unit;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 /**
  * Instances of this class contain a set of {@link Interaction Interactions},
@@ -69,6 +76,18 @@ public class InteractionContainer
     }
 
     /**
+     * Adds the interactions contained in the given interaction container to
+     * this container. Subsequent changes made to the given container will not
+     * be reflected in this container.
+     *
+     * @param container an {@link InteractionContainer}.
+     */
+    public void addActions(InteractionContainer container) {
+        Objects.requireNonNull(container);
+        interactions.addAll(container.interactions);
+    }
+
+    /**
      * Returns the first interaction that applies to the given user input, target
      * item and selected item. The specific matching algorithm is contained in
      * the individual {@link Interaction} implementations.
@@ -87,5 +106,40 @@ public class InteractionContainer
             }
         }
         return null;
+    }
+
+    protected BiConsumer<Item, Action> confirmedAction() {
+        return (subject, action) -> {
+            Identifier id = action.getIdentifier();
+            if (id instanceof ConfirmActions) {
+                Item parent = subject.getParent();
+                parent.addAction(action);
+            } else {
+                subject.clearActions();
+                subject.addAction(action);
+            }
+        };
+    }
+
+    protected BiFunction<Item, Item, Item> targetParentItem() {
+        return (target, selected) -> {
+            Item parent = target.getParent();
+            if (parent instanceof Supplier) {
+                Supplier supplier = (Supplier)parent;
+                Object recipient = supplier.get();
+                if (recipient instanceof Item) {
+                    return (Item)recipient;
+                }
+            }
+            return target;
+        };
+    }
+
+    protected BiFunction<Item, Item, Item> selectedItem() {
+        return (target, selected) -> selected;
+    }
+
+    protected BiFunction<Item, Item, Item> associatedItem() {
+        return (target, selected) -> ((Unit)selected).getAssociatedItem();
     }
 }
