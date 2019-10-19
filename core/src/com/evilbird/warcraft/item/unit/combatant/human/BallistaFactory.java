@@ -49,7 +49,7 @@ public class BallistaFactory extends CombatantFactoryBase
         result.setAttackRange(tiles(8));
         result.setArmour(0);
         result.setPiercingDamage(25);
-        result.setBasicDamage(new UpgradeSequence<>(SiegeDamage, 80, 95, 110));
+        result.setBasicDamage(new UpgradeSequence(SiegeDamage, 80, 95, 110));
         result.setHealth(110);
         result.setHealthMaximum(110);
         result.setIdentifier(objectIdentifier("Ballista", result));

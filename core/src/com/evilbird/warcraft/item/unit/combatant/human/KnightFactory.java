@@ -46,8 +46,8 @@ public class KnightFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         Combatant result = builder.newMeleeCombatant();
         result.setAttackSpeed(1);
-        result.setArmour(new UpgradeSequence<>(MeleeDefence, 4, 6, 8));
-        result.setBasicDamage(new UpgradeSequence<>(MeleeDamage, 12, 14, 16));
+        result.setArmour(new UpgradeSequence(MeleeDefence, 4, 6, 8));
+        result.setBasicDamage(new UpgradeSequence(MeleeDamage, 12, 14, 16));
         result.setPiercingDamage(2);
         result.setHealth(90);
         result.setHealthMaximum(90);

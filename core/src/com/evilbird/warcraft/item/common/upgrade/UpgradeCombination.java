@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.common.upgrade;
 
+import com.google.gson.annotations.JsonAdapter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -25,12 +26,13 @@ import java.util.Set;
  *
  * @author Blair Butterworth
  */
+@JsonAdapter(UpgradeValueSerializer.class)
 public class UpgradeCombination implements UpgradeValue<Integer>
 {
     public static final UpgradeCombination Zero = new UpgradeCombination(0, Collections.emptyMap());
 
-    private int base;
-    private Map<Upgrade, Integer> upgrades;
+    protected int base;
+    protected Map<Upgrade, Integer> upgrades;
 
     public UpgradeCombination(int base, Map<Upgrade, Integer> upgrades) {
         this.base = base;

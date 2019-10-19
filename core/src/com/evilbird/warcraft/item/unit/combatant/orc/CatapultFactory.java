@@ -47,7 +47,7 @@ public class CatapultFactory extends CombatantFactoryBase
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(3);
         result.setArmour(0);
-        result.setBasicDamage(new UpgradeSequence<>(SiegeDamage, 80, 95, 110));
+        result.setBasicDamage(new UpgradeSequence(SiegeDamage, 80, 95, 110));
         result.setPiercingDamage(25);
         result.setHealth(110);
         result.setHealthMaximum(110);

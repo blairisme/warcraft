@@ -34,6 +34,7 @@ public enum UnitAnimation implements Identifier
     Build,
     Construct,
     BuildingSite,
+    BuildingUpgrade,
 
     Death,
     Decompose,

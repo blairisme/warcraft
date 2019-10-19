@@ -26,7 +26,9 @@ public class ConstructFactoryTest extends ActionFactoryTestCase
     protected ActionProvider newFactory() {
         InjectedPool<ConstructSequence> constructPool = new MockInjectedPool<>(ConstructSequence.class);
         InjectedPool<ConstructCancel> cancelPool = new MockInjectedPool<>(ConstructCancel.class);
-        return new ConstructFactory(constructPool, cancelPool);
+        InjectedPool<ConstructUpgrade> upgradePool = new MockInjectedPool<>(ConstructUpgrade.class);
+        InjectedPool<ConstructUpgradeCancel> upgradeCancelPool = new MockInjectedPool<>(ConstructUpgradeCancel.class);
+        return new ConstructFactory(constructPool, cancelPool, upgradePool, upgradeCancelPool);
     }
 
     @Override

@@ -48,8 +48,8 @@ public class BattleshipFactory extends CombatantFactoryBase
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(1.5f);
         result.setAttackRange(tiles(7));
-        result.setArmour(new UpgradeSequence<>(NavalDefence, 10, 20, 30));
-        result.setBasicDamage(new UpgradeSequence<>(NavalDamage, 50, 60, 70));
+        result.setArmour(new UpgradeSequence(NavalDefence, 10, 20, 30));
+        result.setBasicDamage(new UpgradeSequence(NavalDamage, 50, 60, 70));
         result.setPiercingDamage(10);
         result.setHealth(60);
         result.setHealthMaximum(60);

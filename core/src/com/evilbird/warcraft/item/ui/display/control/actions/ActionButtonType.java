@@ -42,15 +42,11 @@ public enum ActionButtonType implements Identifier
     /* Construction buttons */
     BuildBarracksButton,
     BuildBlacksmithButton,
-    BuildCannonTowerButton,
-    BuildCastleButton,
     BuildChurchButton,
     BuildFarmButton,
     BuildFoundryButton,
     BuildGnomishInventorButton,
     BuildGryphonAviaryButton,
-    BuildGuardTowerButton,
-    BuildKeepButton,
     BuildLumberMillButton,
     BuildMageTowerButton,
     BuildOilPlatformButton,
@@ -63,25 +59,32 @@ public enum ActionButtonType implements Identifier
     BuildAltarOfStormsButton,
     BuildForgeButton,
     BuildEncampmentButton,
-    BuildBombardTowerButton,
     BuildDockyardButton,
     BuildDragonRoostButton,
-    BuildFortressButton,
     BuildMetalworksButton,
     BuildGoblinAlchemistButton,
     BuildGreatHallButton,
-    BuildLookoutTowerButton,
     BuildOgreMoundButton,
     BuildOilRefineryButton,
     BuildOilRigButton,
     BuildPigFarmButton,
-    BuildStrongholdButton,
     BuildTempleOfTheDamnedButton,
     BuildTrollLumberMillButton,
     BuildWatchTowerButton,
 
     BuildHumanWall,
     BuildOrcWall,
+
+    /* Building upgrade buttons */
+    BuildCannonTowerButton,
+    BuildCastleButton,
+    BuildGuardTowerButton,
+    BuildKeepButton,
+
+    BuildBombardTowerButton,
+    BuildFortressButton,
+    BuildLookoutTowerButton,
+    BuildStrongholdButton,
 
     /* Spell buttons */
     BlizzardButton,
@@ -165,7 +168,7 @@ public enum ActionButtonType implements Identifier
     RangerUpgradeButton;
 
     public UnitType getBuildProduct() {
-        Validate.isTrue(isBuildButton());
+        Validate.isTrue(isBuildButton() || isBuildingUpgradeButton());
         return UnitType.valueOf(getName(this, "Build", "Button"));
     }
 
@@ -176,6 +179,10 @@ public enum ActionButtonType implements Identifier
 
     public boolean isBuildButton() {
         return isBetween(this, BuildBarracksButton, BuildWatchTowerButton);
+    }
+
+    public boolean isBuildingUpgradeButton() {
+        return isBetween(this, BuildCannonTowerButton, BuildStrongholdButton);
     }
 
     public boolean isTrainButton() {

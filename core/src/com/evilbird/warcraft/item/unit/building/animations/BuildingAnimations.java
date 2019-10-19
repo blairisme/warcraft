@@ -16,6 +16,7 @@ import com.evilbird.warcraft.item.common.production.ProductionTimes;
 import com.evilbird.warcraft.item.unit.building.BuildingAssets;
 
 import static com.evilbird.warcraft.item.unit.UnitAnimation.BuildingSite;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.BuildingUpgrade;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Construct;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Death;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
@@ -45,7 +46,7 @@ public class BuildingAnimations extends AnimationCatalog
         GridPoint2 size,
         float time)
     {
-        super(4);
+        super(5);
 
         requireNonNull(base);
         requireNonNull(construction);
@@ -54,6 +55,7 @@ public class BuildingAnimations extends AnimationCatalog
 
         idle(base, size);
         buildingSite(construction, size);
+        buildingUpgrade(base, size);
         construction(base, construction, size, time);
         destruction(destruction, size);
     }
@@ -72,6 +74,16 @@ public class BuildingAnimations extends AnimationCatalog
         animation(BuildingSite)
             .withTexture(construction)
             .withSequence(0, 1)
+            .withSize(size)
+            .withInterval(10f)
+            .singleDirection()
+            .looping();
+    }
+
+    private void buildingUpgrade(Texture base, GridPoint2 size) {
+        animation(BuildingUpgrade)
+            .withTexture(base)
+            .withSequence(size.y, 1)
             .withSize(size)
             .withInterval(10f)
             .singleDirection()

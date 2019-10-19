@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.ZeroInt;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.Zero;
 
 /**
  * Instances of this class represent a gatherer: a {@link Combatant}
@@ -47,9 +47,9 @@ public class Gatherer extends Combatant implements ResourceContainer
         this.goldGatherSpeed = 0;
         this.oilGatherSpeed = 0;
         this.woodGatherSpeed = 0;
-        this.goldCapacity = ZeroInt;
-        this.oilCapacity = ZeroInt;
-        this.woodCapacity = ZeroInt;
+        this.goldCapacity = Zero;
+        this.oilCapacity = Zero;
+        this.woodCapacity = Zero;
     }
 
     public void clearResources() {

@@ -70,7 +70,9 @@ public enum Upgrade implements Identifier
     OilProduction2(OilProduction, Advanced),
 
     WoodProduction1(WoodProduction, Improved),
-    WoodProduction2(WoodProduction, Advanced);
+    WoodProduction2(WoodProduction, Advanced),
+
+    None(UpgradeSeries.None, UpgradeRank.None);
 
     private UpgradeRank rank;
     private UpgradeSeries series;

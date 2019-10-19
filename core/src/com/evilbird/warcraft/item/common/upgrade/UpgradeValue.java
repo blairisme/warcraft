@@ -9,6 +9,8 @@
 
 package com.evilbird.warcraft.item.common.upgrade;
 
+import com.google.gson.annotations.JsonAdapter;
+
 import java.util.Set;
 
 /**
@@ -19,6 +21,7 @@ import java.util.Set;
  *
  * @author Blair Butterworth
  */
+@JsonAdapter(UpgradeValueSerializer.class)
 public interface UpgradeValue<T>
 {
     Set<Upgrade> getUpgrades();

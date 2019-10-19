@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.state.MovementCapability.Water;
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.ZeroInt;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.Zero;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.OilProduction;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollTanker;
 
@@ -74,11 +74,11 @@ public class TrollTankerFactory extends GathererFactoryBase
 
     private void setGatheringAttributes(Gatherer result) {
         result.setGoldGatherSpeed(0);
-        result.setGoldCapacity(ZeroInt);
+        result.setGoldCapacity(Zero);
         result.setWoodGatherSpeed(0);
-        result.setWoodCapacity(ZeroInt);
+        result.setWoodCapacity(Zero);
         result.setOilGatherSpeed(5);
-        result.setOilCapacity(new UpgradeSequence<>(OilProduction, 100, 110, 125));
+        result.setOilCapacity(new UpgradeSequence(OilProduction, 100, 110, 125));
     }
 
     private void setIdentityAttributes(Gatherer result) {

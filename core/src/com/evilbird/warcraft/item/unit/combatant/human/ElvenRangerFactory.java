@@ -46,7 +46,7 @@ public class ElvenRangerFactory extends ElvenArcherFactory
         result.setHealthMaximum(50);
         result.setIdentifier(objectIdentifier("ElvenRanger", result));
         result.setType(ElvenRanger);
-        result.setSight(new UpgradeSequence<>(RangedSight, tiles(5), tiles(9)));
+        result.setSight(new UpgradeSequence(RangedSight, tiles(5), tiles(9)));
         return result;
     }
 }

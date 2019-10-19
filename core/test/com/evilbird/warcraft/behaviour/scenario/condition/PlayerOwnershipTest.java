@@ -82,11 +82,11 @@ public class PlayerOwnershipTest extends GameTestCase
         condition.initialize(root);
 
         EventQueue queue = new EventQueue();
-        queue.add(new ConstructEvent(builder, building, ConstructStatus.Started));
+        queue.add(new ConstructEvent(building, ConstructStatus.Started));
         Assert.assertFalse(condition.applicable(queue));
 
         queue.clear();
-        queue.add(new ConstructEvent(builder, building, ConstructStatus.Complete));
+        queue.add(new ConstructEvent(building, ConstructStatus.Complete));
         Assert.assertTrue(condition.applicable(queue));
     }
 

@@ -54,8 +54,8 @@ public class FootmanFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         Combatant result = builder.newMeleeCombatant();
         result.setAttackSpeed(1);
-        result.setArmour(new UpgradeSequence<>(MeleeDefence, 2, 4, 6));
-        result.setBasicDamage(new UpgradeSequence<>(MeleeDamage, 7, 9, 11));
+        result.setArmour(new UpgradeSequence(MeleeDefence, 2, 4, 6));
+        result.setBasicDamage(new UpgradeSequence(MeleeDamage, 7, 9, 11));
         result.setPiercingDamage(2);
         result.setHealth(60);
         result.setHealthMaximum(60);

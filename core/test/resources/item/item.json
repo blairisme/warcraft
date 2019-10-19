@@ -7,22 +7,27 @@
   "attackSpeed": 0.0,
   "piercingDamage": 0,
   "basicDamage": {
-    "basic": 0.0,
-    "improved": 0.0,
-    "advanced": 0.0,
+    "basic": 0,
+    "improved": 0,
+    "advanced": 0,
     "series": "None"
   },
   "movementSpeed": 0,
   "movementCapability": "Land",
-  "sight": 0,
   "health": 100.0,
   "healthMaximum": 100.0,
   "selected": false,
   "selectable": true,
+  "sight": {
+    "basic": 0,
+    "improved": 0,
+    "advanced": 0,
+    "series": "None"
+  },
   "armour": {
-    "basic": 0.0,
-    "improved": 0.0,
-    "advanced": 0.0,
+    "basic": 0,
+    "improved": 0,
+    "advanced": 0,
     "series": "None"
   },
   "associations": [],

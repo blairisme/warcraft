@@ -46,7 +46,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.ZeroInt;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.Zero;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
 
 /**
@@ -79,8 +79,8 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     @Inject
     public Unit(Skin skin) {
         super(skin);
-        sight = ZeroInt;
-        armour = ZeroInt;
+        sight = Zero;
+        armour = Zero;
         health = 0;
         healthMaximum = 0;
         selected = false;
@@ -222,7 +222,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * Sets the amount of damage the Unit can absorb with each attack.
      */
     public void setArmour(int armour) {
-        this.armour = new UpgradeSequence<>(None, armour);
+        this.armour = new UpgradeSequence(None, armour);
     }
 
     /**
@@ -261,7 +261,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * world units.
      */
     public void setSight(int sight) {
-        this.sight = new UpgradeSequence<>(None, sight);
+        this.sight = new UpgradeSequence(None, sight);
     }
 
     /**

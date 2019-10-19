@@ -24,7 +24,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.state.OffensiveCapability.Proximity;
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.ZeroInt;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.Zero;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
 
 /**
@@ -52,7 +52,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
         super(skin);
         this.attackSpeed = 0;
         this.piercingDamage = 0;
-        this.basicDamage = ZeroInt;
+        this.basicDamage = Zero;
         this.movementSpeed = 0;
         this.movementCapability = MovementCapability.None;
     }
@@ -141,7 +141,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      * with each attack.
      */
     public void setBasicDamage(int basicDamage) {
-        this.basicDamage = new UpgradeSequence<>(None, basicDamage);
+        this.basicDamage = new UpgradeSequence(None, basicDamage);
     }
 
     /**

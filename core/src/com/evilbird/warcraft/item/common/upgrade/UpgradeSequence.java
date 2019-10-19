@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.common.upgrade;
 
+import com.google.gson.annotations.JsonAdapter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -22,22 +23,22 @@ import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
  *
  * @author Blair Butterworth
  */
-public class UpgradeSequence<T> implements UpgradeValue<T>
+@JsonAdapter(UpgradeValueSerializer.class)
+public class UpgradeSequence implements UpgradeValue<Integer>
 {
-    public static final UpgradeSequence<Integer> ZeroInt = new UpgradeSequence<>(None, 0);
-    public static final UpgradeSequence<Float> ZeroFloat = new UpgradeSequence<>(None, 0f);
+    public static final UpgradeSequence Zero = new UpgradeSequence(None, 0);
 
-    private T basic;
-    private T improved;
-    private T advanced;
-    private UpgradeSeries series;
+    protected int basic;
+    protected int improved;
+    protected int advanced;
+    protected UpgradeSeries series;
 
     /**
      * Constructs a new instance of this class given a single value to be used
      * for all upgrade ranks. This is equivalent to a value not being
      * upgradable.
      */
-    public UpgradeSequence(UpgradeSeries series, T value) {
+    public UpgradeSequence(UpgradeSeries series, int value) {
         this(series, value, value, value);
     }
 
@@ -45,7 +46,7 @@ public class UpgradeSequence<T> implements UpgradeValue<T>
      * Constructs a new instance of this class given the values that map to
      * ranks of the upgrade series.
      */
-    public UpgradeSequence(UpgradeSeries series, T none, T improved) {
+    public UpgradeSequence(UpgradeSeries series, int none, int improved) {
         this(series, none, improved, improved);
     }
 
@@ -53,7 +54,7 @@ public class UpgradeSequence<T> implements UpgradeValue<T>
      * Constructs a new instance of this class given the values that map to
      * ranks of the upgrade series.
      */
-    public UpgradeSequence(UpgradeSeries series, T none, T improved, T advanced) {
+    public UpgradeSequence(UpgradeSeries series, int none, int improved, int advanced) {
         this.series = series;
         this.basic = none;
         this.improved = improved;
@@ -70,11 +71,11 @@ public class UpgradeSequence<T> implements UpgradeValue<T>
     }
 
     @Override
-    public T getBaseValue() {
+    public Integer getBaseValue() {
         return basic;
     }
 
-    public T getValue(UpgradeRank rank) {
+    public int getValue(UpgradeRank rank) {
         switch (rank) {
             case None: return basic;
             case Improved: return improved;
@@ -84,7 +85,7 @@ public class UpgradeSequence<T> implements UpgradeValue<T>
     }
 
     @Override
-    public T getValue(Set<Upgrade> researched) {
+    public Integer getValue(Set<Upgrade> researched) {
         UpgradeRank highestRank = UpgradeRank.None;
         for (Upgrade upgrade: researched) {
             UpgradeRank rank = upgrade.getRank();

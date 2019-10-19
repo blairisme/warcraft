@@ -47,8 +47,8 @@ public class TrollDestroyerFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(1.5f);
-        result.setArmour(new UpgradeSequence<>(NavalDefence, 10, 20, 30));
-        result.setBasicDamage(new UpgradeSequence<>(UpgradeSeries.NavalDamage, 35, 37, 39));
+        result.setArmour(new UpgradeSequence(NavalDefence, 10, 20, 30));
+        result.setBasicDamage(new UpgradeSequence(UpgradeSeries.NavalDamage, 35, 37, 39));
         result.setPiercingDamage(2);
         result.setHealth(100);
         result.setHealthMaximum(100);

@@ -25,16 +25,29 @@ import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage2;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedRangedDamageButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AttackButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildBarracksButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildBlacksmithButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCannonTowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCastleButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildChurchButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildDockyardButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildEncampmentButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildFarmButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildFoundryButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildGnomishInventorButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildGreatHallButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildGryphonAviaryButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildGuardTowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildKeepButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildLumberMillButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildMageTowerButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildOilPlatformButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildOilRigButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildPigFarmButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildRefineryButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildScoutTowerButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildShipyardButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildStablesButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildTownHallButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildTrollLumberMillButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.CancelButton;
@@ -120,25 +133,38 @@ import static com.evilbird.warcraft.item.unit.UnitAttack.Ranged;
 import static com.evilbird.warcraft.item.unit.UnitAttack.Ship;
 import static com.evilbird.warcraft.item.unit.UnitAttack.Siege;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
+import static com.evilbird.warcraft.item.unit.UnitType.Blacksmith;
 import static com.evilbird.warcraft.item.unit.UnitType.Boar;
+import static com.evilbird.warcraft.item.unit.UnitType.CannonTower;
+import static com.evilbird.warcraft.item.unit.UnitType.Castle;
+import static com.evilbird.warcraft.item.unit.UnitType.Church;
 import static com.evilbird.warcraft.item.unit.UnitType.Dockyard;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
 import static com.evilbird.warcraft.item.unit.UnitType.Encampment;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
+import static com.evilbird.warcraft.item.unit.UnitType.Foundry;
+import static com.evilbird.warcraft.item.unit.UnitType.GnomishInventor;
 import static com.evilbird.warcraft.item.unit.UnitType.GreatHall;
 import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
+import static com.evilbird.warcraft.item.unit.UnitType.GryphonAviary;
+import static com.evilbird.warcraft.item.unit.UnitType.GuardTower;
+import static com.evilbird.warcraft.item.unit.UnitType.Keep;
 import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
+import static com.evilbird.warcraft.item.unit.UnitType.MageTower;
 import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
 import static com.evilbird.warcraft.item.unit.UnitType.OilRig;
 import static com.evilbird.warcraft.item.unit.UnitType.OilTanker;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
 import static com.evilbird.warcraft.item.unit.UnitType.Peon;
 import static com.evilbird.warcraft.item.unit.UnitType.PigFarm;
+import static com.evilbird.warcraft.item.unit.UnitType.Refinery;
+import static com.evilbird.warcraft.item.unit.UnitType.ScoutTower;
 import static com.evilbird.warcraft.item.unit.UnitType.Seal;
 import static com.evilbird.warcraft.item.unit.UnitType.Sheep;
 import static com.evilbird.warcraft.item.unit.UnitType.Shipyard;
+import static com.evilbird.warcraft.item.unit.UnitType.Stables;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollDestroyer;
@@ -162,11 +188,25 @@ public class IconSpecializations
         Sheep, PolymorphButton,
 
         BuildCancelButton, CancelButton,
+
         BuildBarracksButton, Barracks,
+        BuildBlacksmithButton, Blacksmith,
+        BuildCannonTowerButton, CannonTower,
+        BuildCastleButton, Castle,
+        BuildChurchButton, Church,
         BuildFarmButton, Farm,
+        BuildFoundryButton, Foundry,
+        BuildGnomishInventorButton, GnomishInventor,
+        BuildGryphonAviaryButton, GryphonAviary,
+        BuildGuardTowerButton, GuardTower,
+        BuildKeepButton, Keep,
         BuildLumberMillButton, LumberMill,
+        BuildMageTowerButton, MageTower,
         BuildOilPlatformButton, OilPlatform,
+        BuildRefineryButton, Refinery,
+        BuildScoutTowerButton, ScoutTower,
         BuildShipyardButton, Shipyard,
+        BuildStablesButton, Stables,
         BuildTownHallButton, TownHall,
 
         BuildDockyardButton, Dockyard,

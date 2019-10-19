@@ -49,7 +49,7 @@ public class TrollAxethrowerFactory extends CombatantFactoryBase
         result.setAttackSpeed(1.5f);
         result.setArmour(0);
         result.setArmour(0);
-        result.setBasicDamage(new UpgradeSequence<>(RangedDamage, 6, 8, 10));
+        result.setBasicDamage(new UpgradeSequence(RangedDamage, 6, 8, 10));
         result.setPiercingDamage(3);
         result.setHealth(40);
         result.setHealthMaximum(40);
