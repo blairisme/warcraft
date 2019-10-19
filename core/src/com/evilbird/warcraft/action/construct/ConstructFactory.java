@@ -26,37 +26,39 @@ import javax.inject.Inject;
 public class ConstructFactory implements ActionProvider
 {
     private InjectedPool<ConstructSequence> constructPool;
-    private InjectedPool<ConstructCancel> cancelPool;
+    private InjectedPool<ConstructCancel> constructCancelPool;
+    private InjectedPool<ConstructUpgrade> upgradePool;
+    private InjectedPool<ConstructUpgradeCancel> upgradeCancelPool;
 
     @Inject
     public ConstructFactory(
         InjectedPool<ConstructSequence> constructPool,
-        InjectedPool<ConstructCancel> cancelPool)
+        InjectedPool<ConstructCancel> constructCancelPool,
+        InjectedPool<ConstructUpgrade> upgradePool,
+        InjectedPool<ConstructUpgradeCancel> upgradeCancelPool)
     {
         this.constructPool = constructPool;
-        this.cancelPool = cancelPool;
+        this.upgradePool = upgradePool;
+        this.constructCancelPool = constructCancelPool;
+        this.upgradeCancelPool = upgradeCancelPool;
     }
 
     @Override
-    public Action get(ActionIdentifier action) {
-        Validate.isInstanceOf(ConstructActions.class, action);
-        ConstructActions constructAction = (ConstructActions)action;
-
-        if (constructAction.name().endsWith("Cancel")) {
-            return getCancelAction(constructAction);
-        }
-        return getConstructAction(constructAction);
+    public Action get(ActionIdentifier id) {
+        Validate.isInstanceOf(ConstructActions.class, id);
+        ConstructActions action = (ConstructActions)id;
+        return action.isCancel() ? getConstructCancelAction(action) : getConstructAction(action);
     }
 
     private Action getConstructAction(ConstructActions action) {
-        ConstructSequence constructAction = constructPool.obtain();
-        constructAction.setIdentifier(action);
-        return constructAction;
+        Action result = action.isUpgrade() ? upgradePool.obtain() : constructPool.obtain();
+        result.setIdentifier(action);
+        return result;
     }
 
-    private Action getCancelAction(ConstructActions action) {
-        ConstructCancel constructCancel = cancelPool.obtain();
-        constructCancel.setIdentifier(action);
-        return constructCancel;
+    private Action getConstructCancelAction(ConstructActions action) {
+        Action result = action.isUpgrade() ? upgradeCancelPool.obtain() : constructCancelPool.obtain();
+        result.setIdentifier(action);
+        return result;
     }
 }

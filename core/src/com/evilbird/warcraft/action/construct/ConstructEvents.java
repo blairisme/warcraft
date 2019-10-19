@@ -10,7 +10,6 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.building.Building;
 
 import javax.inject.Inject;
@@ -29,19 +28,23 @@ public class ConstructEvents
         this.events = events;
     }
 
-    public void notifyConstructStarted(Item builder, Building building) {
-        addEvent(builder, building, ConstructStatus.Started);
+    public void notifyConstructStarted(Building building) {
+        addEvent(building, ConstructStatus.Started);
     }
 
-    public void notifyConstructComplete(Item builder, Building building) {
-        addEvent(builder, building, ConstructStatus.Complete);
+    public void notifyConstructUpgrade(Building building) {
+        addEvent(building, ConstructStatus.Upgrading);
     }
 
-    public void notifyConstructCancelled(Item builder, Building building) {
-        addEvent(builder, building, ConstructStatus.Cancelled);
+    public void notifyConstructComplete(Building building) {
+        addEvent(building, ConstructStatus.Complete);
     }
 
-    private void addEvent(Item builder, Building building, ConstructStatus status) {
-        events.add(new ConstructEvent(builder, building, status));
+    public void notifyConstructCancelled(Building building) {
+        addEvent(building, ConstructStatus.Cancelled);
+    }
+
+    private void addEvent(Building building, ConstructStatus status) {
+        events.add(new ConstructEvent(building, status));
     }
 }

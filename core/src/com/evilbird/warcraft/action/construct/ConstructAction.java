@@ -96,7 +96,7 @@ public class ConstructAction extends TemporalAction
         setDuration(production.buildTime(building));
         setProgress(building.getConstructionProgress() * getDuration());
 
-        events.notifyConstructStarted(builder, building);
+        events.notifyConstructStarted(building);
         return ActionIncomplete;
     }
 
@@ -121,7 +121,7 @@ public class ConstructAction extends TemporalAction
         finalizeBuilder(builder, building);
         transferResources(building, player);
         transferUpgrades(building, player);
-        notifyBuildingComplete(builder, building);
+        notifyBuildingComplete(building);
 
         return ActionComplete;
     }
@@ -152,7 +152,7 @@ public class ConstructAction extends TemporalAction
         building.clearUpgrades();
     }
 
-    private void notifyBuildingComplete(Gatherer builder, Building building) {
-        events.notifyConstructComplete(builder, building);
+    private void notifyBuildingComplete(Building building) {
+        events.notifyConstructComplete(building);
     }
 }

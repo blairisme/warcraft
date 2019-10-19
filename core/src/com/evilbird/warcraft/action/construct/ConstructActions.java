@@ -107,6 +107,13 @@ public enum ConstructActions implements ActionIdentifier
         return isBetween(this, ConstructBarracksCancel, ConstructWatchTowerCancel);
     }
 
+    public boolean isUpgrade() {
+        return this == ConstructKeep || this == ConstructCastle
+            || this == ConstructStronghold || this == ConstructFortress
+            || this == ConstructGuardTower || this == ConstructCannonTower
+            || this == ConstructLookoutTower || this == ConstructBombardTower;
+    }
+
     public UnitType getProduct() {
         return UnitType.valueOf(getName(this, "Construct", "Cancel"));
     }

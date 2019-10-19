@@ -78,7 +78,7 @@ public class ConstructCancel extends DelegateAction
         configureBuilder(builder, building);
         configurePlayer(building);
 
-        events.notifyConstructCancelled(builder, building);
+        events.notifyConstructCancelled(building);
     }
 
     private void configureBuilding(Building building) {

@@ -24,22 +24,15 @@ import java.util.Objects;
  */
 public class ConstructEvent implements Event
 {
-    private Item builder;
     private Building building;
     private ConstructStatus status;
 
-    public ConstructEvent(Item builder, Building building, ConstructStatus status) {
-        Objects.requireNonNull(builder);
+    public ConstructEvent(Building building, ConstructStatus status) {
         Objects.requireNonNull(building);
         Objects.requireNonNull(status);
 
-        this.builder = builder;
         this.building = building;
         this.status = status;
-    }
-
-    public Item getBuilder() {
-        return builder;
     }
 
     public Building getBuilding() {
@@ -56,7 +49,7 @@ public class ConstructEvent implements Event
     }
 
     public boolean isConstructing() {
-        return status == ConstructStatus.Started;
+        return status == ConstructStatus.Started || status == ConstructStatus.Upgrading;
     }
 
     public boolean isComplete() {
@@ -70,7 +63,6 @@ public class ConstructEvent implements Event
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .append("builder", builder.getIdentifier())
             .append("building", building.getIdentifier())
             .append("status", status)
             .toString();

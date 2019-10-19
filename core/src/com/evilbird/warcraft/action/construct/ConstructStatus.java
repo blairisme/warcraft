@@ -16,7 +16,8 @@ package com.evilbird.warcraft.action.construct;
  */
 public enum ConstructStatus
 {
-    Started,
+    Cancelled,
     Complete,
-    Cancelled
+    Started,
+    Upgrading
 }
