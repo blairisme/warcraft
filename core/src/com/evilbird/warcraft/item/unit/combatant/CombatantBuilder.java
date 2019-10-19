@@ -126,26 +126,19 @@ public class CombatantBuilder
 
         if (customAnimations != null) {
             return customAnimations;
-        }
-        if (type.isSpellCaster()) {
+        } else if (type.isSpellCaster()) {
             return new SpellCasterAnimations(assets);
-        }
-        if (type.isScout()) {
+        } else if (type.isScout()) {
             return new ScoutAnimations(assets);
-        }
-        if (type.isRanged()) {
+        } else if (type.isRanged()) {
             return new RangedAnimations(assets);
-        }
-        if (type.isNavalUnit()) {
+        } else if (type.isNavalUnit()) {
             return new NavalAnimations(assets);
-        }
-        if (type.isSiege()) {
+        } else if (type.isSiege()) {
             return new SiegeAnimations(assets);
-        }
-        if (type.isSubmarine()) {
+        } else if (type.isSubmarine()) {
             return new SubmarineAnimations(assets);
-        }
-        if (type.isDemoTeam()) {
+        } else if (type.isDemoTeam()) {
             return new DemolitionAnimations(assets);
         }
         return new MeleeAnimations(assets);
@@ -154,14 +147,11 @@ public class CombatantBuilder
     private AnimationCatalog newCustomAnimations() {
         if (type == Daemon) {
             return new DaemonAnimations(assets);
-        }
-        if (type == Dragon) {
+        } else if (type == Dragon) {
             return new DragonAnimations(assets);
-        }
-        if (type == EyeOfKilrogg) {
+        } else if (type == EyeOfKilrogg) {
             return new EyeOfKilroggAnimations(assets);
-        }
-        if (type == GryphonRider) {
+        } else if (type == GryphonRider) {
             return new GryphonAnimations(assets);
         }
         return null;

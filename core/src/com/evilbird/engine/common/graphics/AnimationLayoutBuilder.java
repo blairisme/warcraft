@@ -9,7 +9,6 @@
 
 package com.evilbird.engine.common.graphics;
 
-
 import com.badlogic.gdx.math.Rectangle;
 import org.apache.commons.lang3.Range;
 
@@ -20,6 +19,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * Builds {@link AnimationLayout AnimationLayouts}.
+ */
 public class AnimationLayoutBuilder
 {
     private int width;
@@ -124,7 +126,9 @@ public class AnimationLayoutBuilder
         return result;
     }
 
-    private List<List<Rectangle>> getRegions(int xCount, int yCount, int x, int y, int width, int height, boolean reversed) {
+    private List<List<Rectangle>> getRegions(
+        int xCount, int yCount, int x, int y, int width, int height, boolean reversed)
+    {
         List<List<Rectangle>> result = new ArrayList<>(xCount);
         for (int xIndex = 0; xIndex < xCount; xIndex++) {
             result.add(reversed

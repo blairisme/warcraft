@@ -86,15 +86,15 @@ public class DemolitionAttack extends AttackSequence
         return ActionComplete;
     }
 
-    private void killAttacker(OffensiveObject attacker) {
-        ItemGroup parent = attacker.getParent();
-        parent.removeItem(attacker);
-        removeEvents.notifyRemove(attacker);
-    }
-
     private void killTarget(PerishableObject target) {
         if (target.getHealth() == 0) {
             assignIfAbsent(target, deathAction);
         }
+    }
+
+    private void killAttacker(OffensiveObject attacker) {
+        ItemGroup parent = attacker.getParent();
+        parent.removeItem(attacker);
+        removeEvents.notifyRemove(attacker);
     }
 }

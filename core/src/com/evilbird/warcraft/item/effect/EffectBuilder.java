@@ -60,8 +60,7 @@ public class EffectBuilder
     }
 
     /**
-     * Creates a new
-     * @return
+     * Creates a new {@link Effect}.
      */
     public Effect build() {
         Effect result = new Effect(getSkin());

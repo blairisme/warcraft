@@ -75,7 +75,7 @@ public class Fog extends LayerGroup
     @Override
     protected void addCells() {
         super.addCells();
-        revealItems();
+        revealPlayers();
     }
 
     @Override
@@ -122,7 +122,7 @@ public class Fog extends LayerGroup
         }
     }
 
-    private void revealItems() {
+    private void revealPlayers() {
         ItemRoot root = getRoot();
         revealPlayer(getCorporealPlayer(root));
         revealPlayers(getViewablePlayers(root));

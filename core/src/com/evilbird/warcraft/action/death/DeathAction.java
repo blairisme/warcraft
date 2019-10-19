@@ -191,15 +191,6 @@ public class DeathAction extends BasicAction
             deathTimer = new GameTimer(DEATH_TIME);
             decomposeTimer = new GameTimer(DECOMPOSE_TIME);
         }
-
-//        else if (isDecomposable(subject)) {
-//            deathTimer = new GameTimer(DEATH_TIME);
-//            decomposeTimer = new GameTimer(DECOMPOSE_TIME);
-//        }
-//        else {
-//            deathTimer = new GameTimer(DECOMPOSE_TIME);
-//            decomposeTimer = new GameTimer(0);
-//        }
     }
 
     private boolean isInstantlyDestroyable(Item subject) {
@@ -241,15 +232,7 @@ public class DeathAction extends BasicAction
 
         return ActionComplete;
     }
-
-    private Collection<Item> getAssociations(Item item) {
-        if (item instanceof Unit) {
-            Unit unit = (Unit)item;
-            return unit.getAssociatedItems();
-        }
-        return Collections.emptyList();
-    }
-
+    
     private void remove(Collection<Item> items) {
         for (Item item: items) {
             remove(item);
@@ -263,4 +246,13 @@ public class DeathAction extends BasicAction
             events.add(new RemoveEvent(item));
         }
     }
+
+    private Collection<Item> getAssociations(Item item) {
+        if (item instanceof Unit) {
+            Unit unit = (Unit)item;
+            return unit.getAssociatedItems();
+        }
+        return Collections.emptyList();
+    }
+
 }

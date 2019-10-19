@@ -199,31 +199,34 @@ public class LevelLoader
     }
 
     private Item getPlayerItem(MapLayer layer) {
-        MapProperties properties = layer.getProperties();
         PlayerType type = getPlayerType(layer);
-
         if (type != null) {
-            Player player = (Player)itemFactory.get(type);
-            player.setIdentifier(new TextIdentifier(layer.getName()));
-            player.setLevel(getInt(properties, LEVEL_PROPERTY));
-            player.setTeam(getInt(properties, TEAM_PROPERTY));
-            player.setCapturable(getBoolean(properties, CAPTURABLE));
-            player.setControllable(getBoolean(properties, CONTROLLABLE));
-            player.setViewable(getBoolean(properties, VIEWABLE));
-            player.setColour(getEnum(properties, COLOUR_PROPERTY, TeamColour.class, TeamColour.None));
-            player.setNation(getEnum(properties, NATION_PROPERTY, WarcraftNation.class, WarcraftNation.Unknown));
-            player.setFaction(getEnum(properties, FACTION_PROPERTY, WarcraftFaction.class, WarcraftFaction.Neutral));
-            player.setResource(Gold, getFloat(properties, GOLD_PROPERTY));
-            player.setResource(Oil, getFloat(properties, OIL_PROPERTY));
-            player.setResource(Wood, getFloat(properties, WOOD_PROPERTY));
-            player.setResource(Food, getFloat(properties, FOOD_PROPERTY));
-            player.addItems(getObjectItems(layer.getObjects()));
-            return player;
+            return getPlayerItem(type, layer);
         }
         else {
             logger.warn("Unknown player type: {}", layer.getName());
             return null;
         }
+    }
+
+    private Player getPlayerItem(PlayerType type, MapLayer layer) {
+        MapProperties properties = layer.getProperties();
+        Player player = (Player)itemFactory.get(type);
+        player.setIdentifier(new TextIdentifier(layer.getName()));
+        player.setLevel(getInt(properties, LEVEL_PROPERTY));
+        player.setTeam(getInt(properties, TEAM_PROPERTY));
+        player.setCapturable(getBoolean(properties, CAPTURABLE));
+        player.setControllable(getBoolean(properties, CONTROLLABLE));
+        player.setViewable(getBoolean(properties, VIEWABLE));
+        player.setColour(getEnum(properties, COLOUR_PROPERTY, TeamColour.class, TeamColour.None));
+        player.setNation(getEnum(properties, NATION_PROPERTY, WarcraftNation.class, WarcraftNation.Unknown));
+        player.setFaction(getEnum(properties, FACTION_PROPERTY, WarcraftFaction.class, WarcraftFaction.Neutral));
+        player.setResource(Gold, getFloat(properties, GOLD_PROPERTY));
+        player.setResource(Oil, getFloat(properties, OIL_PROPERTY));
+        player.setResource(Wood, getFloat(properties, WOOD_PROPERTY));
+        player.setResource(Food, getFloat(properties, FOOD_PROPERTY));
+        player.addItems(getObjectItems(layer.getObjects()));
+        return player;
     }
 
     private PlayerType getPlayerType(MapLayer layer) {

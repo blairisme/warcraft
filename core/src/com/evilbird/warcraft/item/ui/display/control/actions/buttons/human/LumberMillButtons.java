@@ -29,8 +29,8 @@ import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButton
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedAccuracyButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedDamageButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedSightButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedWeaponButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedTypeButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedWeaponButton;
 
 /**
  * Controls the buttons shown when a Human Lumber Mill is selected.

@@ -15,7 +15,7 @@ import com.evilbird.engine.item.Item;
 
 /**
  * Implementors of this interface represent a game object that can attack a
- * perishable game object
+ * perishable game object.
  *
  * @author Blair Butterworth
  */

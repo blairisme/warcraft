@@ -18,8 +18,6 @@ import javax.inject.Inject;
 /**
  * Notifies the system event observers about resource transfers.
  *
- * Helper class for generating transfer events.
- *
  * @author Blair Butterworth
  */
 public class TransferEvents

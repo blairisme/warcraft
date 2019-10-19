@@ -20,9 +20,7 @@ import java.util.Set;
 
 /**
  * Represents a numerical value that can be improved by a {@link Set} of
- * {@link Upgrade Upgrades}, each with ank
- *
- * part of the overall value.
+ * {@link Upgrade Upgrades}, each constituting part of the overall value.
  *
  * @author Blair Butterworth
  */

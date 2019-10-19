@@ -24,8 +24,8 @@ public class Effect extends Viewable
 {
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
-     * a {@link ViewableStyle}, specifying the visual and auditory
-     * presentation of the effect
+     * a {@link ViewableStyle}, specifying the visual and auditory presentation
+     * of the effect.
      *
      * @param skin a {@code Skin} instance.
      */
