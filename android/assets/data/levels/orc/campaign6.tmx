@@ -260,7 +260,6 @@
    <property name="Colour" value="Green"/>
    <property name="Controllable" type="bool" value="true"/>
    <property name="Faction" value="Orc"/>
-   <property name="Level" type="int" value="3"/>
    <property name="Nation" value="Blackrock"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
@@ -281,7 +280,6 @@
    <property name="Colour" value="Pink"/>
    <property name="Controllable" type="bool" value="true"/>
    <property name="Faction" value="Orc"/>
-   <property name="Level" type="int" value="3"/>
    <property name="Nation" value="Blackrock"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
@@ -296,7 +294,7 @@
    <property name="Colour" value="Black"/>
    <property name="Faction" value="Orc"/>
    <property name="Gold" type="float" value="0"/>
-   <property name="Level" type="int" value="3"/>
+   <property name="Level" type="int" value="6"/>
    <property name="Nation" value="Blackrock"/>
    <property name="Oil" type="float" value="0"/>
    <property name="Team" type="int" value="1"/>
