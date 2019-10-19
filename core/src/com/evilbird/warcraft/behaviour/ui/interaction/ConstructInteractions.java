@@ -29,6 +29,7 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
+import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isGatherer;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholder;
@@ -57,6 +58,7 @@ public class ConstructInteractions extends InteractionContainer
         dragPlaceholder();
         beginConstruction();
         cancelConstruction();
+        constructUpgrades();
     }
 
     private void addPlaceholder() {
@@ -137,5 +139,19 @@ public class ConstructInteractions extends InteractionContainer
             .whenTarget(CancelButton)
             .whenSelected(both(isGatherer(), associatedWith(building)))
             .appliedTo(associatedItem(), selectedItem());
+    }
+
+    private void constructUpgrades() {
+        for (ActionButtonType button: ActionButtonType.values()) {
+            if (button.isBuildingUpgradeButton()) {
+                UnitType building = button.getBuildProduct();
+                ConstructActions action = ConstructActions.forProduct(building);
+
+                addAction(action)
+                    .whenTarget(button)
+                    .whenSelected(isBuilding())
+                    .appliedTo(Selected);
+            }
+        }
     }
 }

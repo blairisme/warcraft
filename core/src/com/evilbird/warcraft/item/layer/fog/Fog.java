@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;

@@ -50,7 +50,6 @@ import static com.evilbird.engine.item.utility.ItemOperations.findAncestor;
 import static com.evilbird.engine.item.utility.ItemOperations.isNear;
 import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
 import static com.evilbird.engine.item.utility.ItemPredicates.touchableWithType;
-import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasPathTo;

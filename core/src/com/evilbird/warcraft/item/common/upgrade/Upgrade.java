@@ -17,13 +17,13 @@ import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.GoldProduc
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.MeleeDamage;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.MeleeDefence;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.MeleeType;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.NavalDamage;
+import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.NavalDefence;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.OilProduction;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.RangedAccuracy;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.RangedDamage;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.RangedSight;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.RangedType;
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.NavalDamage;
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.NavalDefence;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.RangedWeapon;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.SiegeDamage;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.WoodProduction;

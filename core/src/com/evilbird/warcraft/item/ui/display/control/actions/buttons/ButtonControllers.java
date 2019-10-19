@@ -41,7 +41,6 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.orc.PeonAdv
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.orc.PeonSimpleBuildings;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.orc.TrollTankerBuildings;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.building.human.StablesFactory;
 
 import java.util.HashMap;
 import java.util.Map;

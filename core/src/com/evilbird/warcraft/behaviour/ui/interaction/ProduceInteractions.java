@@ -23,9 +23,9 @@ import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.RangedD
 import static com.evilbird.warcraft.action.produce.ProduceUpgradeActions.RangedDamage2UpgradeCancel;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedRangedUpgradeButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedRangedDamageButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.CancelButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedUpgradeButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedDamageButton;
 
 /**
  * Defines user interactions that result in the creation of new game
@@ -60,12 +60,12 @@ public class ProduceInteractions extends InteractionContainer
 
     private void produceUpgrades() {
         produce(
-            ImprovedRangedUpgradeButton,
+            ImprovedRangedDamageButton,
             RangedDamage1Upgrade,
             RangedDamage1UpgradeCancel);
 
         produce(
-            AdvancedRangedUpgradeButton,
+            AdvancedRangedDamageButton,
             RangedDamage2Upgrade,
             RangedDamage2UpgradeCancel);
     }
