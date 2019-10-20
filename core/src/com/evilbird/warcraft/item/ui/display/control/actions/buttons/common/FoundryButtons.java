@@ -22,10 +22,10 @@ import static com.evilbird.warcraft.item.common.upgrade.Upgrade.NavalDamage1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.NavalDamage2;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.NavalDefence1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.NavalDefence2;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedNavalDamageButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedNavalDefenceButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedNavalDamageButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedNavalDefenceButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.NavalDamage2Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.NavalDefence2Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.NavalDamage1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.NavalDefence1Button;
 
 /**
  * Controls the buttons shown when a Human Foundry is selected.
@@ -42,15 +42,15 @@ public class FoundryButtons extends BasicButtonController
 
     private List<ActionButtonType> getBasicUpgrades(Player player) {
         List<ActionButtonType> buttons = new ArrayList<>();
-        addUpgradeButton(player, buttons, ImprovedNavalDamageButton, NavalDamage1);
-        addUpgradeButton(player, buttons, ImprovedNavalDefenceButton, NavalDefence1);
+        addUpgradeButton(player, buttons, NavalDamage1Button, NavalDamage1);
+        addUpgradeButton(player, buttons, NavalDefence1Button, NavalDefence1);
         return buttons;
     }
 
     private List<ActionButtonType> getAdvancedUpgrades(Player player) {
         List<ActionButtonType> buttons = getBasicUpgrades(player);
-        addUpgradeButton(player, buttons, AdvancedNavalDamageButton, NavalDamage1, NavalDamage2);
-        addUpgradeButton(player, buttons, AdvancedNavalDefenceButton, NavalDefence1, NavalDefence2);
+        addUpgradeButton(player, buttons, NavalDamage2Button, NavalDamage1, NavalDamage2);
+        addUpgradeButton(player, buttons, NavalDefence2Button, NavalDefence1, NavalDefence2);
         return buttons;
     }
 
@@ -58,10 +58,10 @@ public class FoundryButtons extends BasicButtonController
     public boolean getEnabled(ActionButtonType button, Item item) {
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
-            case ImprovedNavalDamageButton: return hasResources(player, NavalDamage1);
-            case AdvancedNavalDamageButton: return hasResources(player, NavalDamage2);
-            case ImprovedNavalDefenceButton: return hasResources(player, NavalDefence1);
-            case AdvancedNavalDefenceButton: return hasResources(player, NavalDefence2);
+            case NavalDamage1Button: return hasResources(player, NavalDamage1);
+            case NavalDamage2Button: return hasResources(player, NavalDamage2);
+            case NavalDefence1Button: return hasResources(player, NavalDefence1);
+            case NavalDefence2Button: return hasResources(player, NavalDefence2);
             default: return false;
         }
     }

@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.ui.display.control.common;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -84,7 +85,9 @@ import static com.evilbird.warcraft.item.unit.UnitType.PigFarm;
 import static com.evilbird.warcraft.item.unit.UnitType.Refinery;
 import static com.evilbird.warcraft.item.unit.UnitType.Runestone;
 import static com.evilbird.warcraft.item.unit.UnitType.ScoutTower;
+import static com.evilbird.warcraft.item.unit.UnitType.Seal;
 import static com.evilbird.warcraft.item.unit.UnitType.Shipyard;
+import static com.evilbird.warcraft.item.unit.UnitType.Skeleton;
 import static com.evilbird.warcraft.item.unit.UnitType.Stables;
 import static com.evilbird.warcraft.item.unit.UnitType.Stronghold;
 import static com.evilbird.warcraft.item.unit.UnitType.TempleOfTheDamned;
@@ -107,16 +110,19 @@ import static com.evilbird.warcraft.item.unit.UnitType.Zuljin;
  */
 public class UnitIconLayout
 {
-    private static final GridPoint2 size = new GridPoint2(46, 38);
+    private final GridPoint2 size;
+    private final Map<Identifier, GridPoint2> locations;
 
-    private static final Map<Identifier, GridPoint2> icons = layout(
+    public UnitIconLayout() {
+        size = new GridPoint2(46, 38);
+        locations = layout(
             Peasant,                Peon,               Footman,                Grunt,                  ElvenArcher,
             TrollAxethrower,        ElvenRanger,        TrollBerserker,         Knight,                 Ogre,
             Paladin,                OgreMage,           DwarvenDemolitionSquad, GoblinSappers,          Mage,
             DeathKnight,            Ballista,           Catapult,               OilTanker,              TrollTanker,
             Transport,              Ferry,              ElvenDestroyer,         TrollDestroyer,         Battleship,
             OgreJuggernaught,       GnomishSubmarine,   GiantTurtle,            GnomishFlyingMachine,   GoblinZeppelin,
-            GryphonRider,           Dragon,             AnduinLothar,           Guldan,                 UtherLightbringer,
+            GryphonRider,           Dragon,             AnduinLothar,           Guldan,               UtherLightbringer,
             Zuljin,                 Chogall,            Daemon,                 Farm,                   PigFarm,
             TownHall,               GreatHall,          Barracks,               Encampment,             LumberMill,
             TrollLumberMill,        Blacksmith,         Forge,                  Shipyard,               Dockyard,
@@ -132,17 +138,18 @@ public class UnitIconLayout
             Unknown,                Unknown,            Unknown,                Unknown,                Unknown,
             Unknown,                Unknown,            Unknown,                Unknown,                Unknown,
             Unknown,                Unknown,            Unknown,                Unknown,                Unknown,
-            Unknown,                EyeOfKilrogg,       Unknown,                Unknown,                Unknown
-    );
+            Unknown,                EyeOfKilrogg,       Unknown,                Unknown,                Skeleton,
+            Seal,                   Unknown,            Unknown,                Unknown,                Unknown
+        );
+    }
 
     /**
-     * Returns the size of the icon with the given {@link Identifier}. Icons
-     * exist for all units, upgrades, spells and icon types.
+     * Returns the size of the icon with the given {@link UnitType}.
      *
      * @param type  an icon identifier.
      * @return      the size of icon within an icon texture.
      */
-    public GridPoint2 getSize(Identifier type) {
+    public GridPoint2 getSize(UnitType type) {
         return size;
     }
 
@@ -153,11 +160,14 @@ public class UnitIconLayout
      * @param type  an icon identifier.
      * @return      the location of icon within an icon texture.
      */
-    public GridPoint2 getLocation(Identifier type) {
-        return icons.get(type);
+    public GridPoint2 getLocation(UnitType type) {
+        if (type.isCritter()) {
+            type = Seal;
+        }
+        return locations.get(type);
     }
 
-    private static Map<Identifier, GridPoint2> layout(Identifier ... types) {
+    private Map<Identifier, GridPoint2> layout(Identifier ... types) {
         Map<Identifier, GridPoint2> result = new HashMap<>();
         for (int index = 0; index < types.length; ++index) {
             int column = (index % 5) * size.x;

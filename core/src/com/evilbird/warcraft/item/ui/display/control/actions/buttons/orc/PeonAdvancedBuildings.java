@@ -20,7 +20,7 @@ import java.util.List;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUnit;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildDockyardButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DockyardButton;
 import static com.evilbird.warcraft.item.unit.UnitType.Dockyard;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollLumberMill;
 import static java.util.Arrays.asList;
@@ -38,7 +38,7 @@ public class PeonAdvancedBuildings extends BasicButtonController
         Player player = UnitOperations.getPlayer(item);
         switch (player.getLevel()) {
             case 3: return asList(
-                    BuildDockyardButton, BuildCancelButton);
+                    DockyardButton, BuildCancelButton);
             default: return Collections.emptyList();
         }
     }
@@ -48,7 +48,7 @@ public class PeonAdvancedBuildings extends BasicButtonController
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
             case BuildCancelButton: return true;
-            case BuildDockyardButton: return hasResources(player, Dockyard) && hasUnit(player, TrollLumberMill);
+            case DockyardButton: return hasResources(player, Dockyard) && hasUnit(player, TrollLumberMill);
             default: return false;
         }
     }

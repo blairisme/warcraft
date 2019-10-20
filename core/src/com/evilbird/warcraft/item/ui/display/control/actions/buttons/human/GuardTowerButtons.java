@@ -17,7 +17,7 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButton
 
 import java.util.List;
 
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCannonTowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.CannonTowerButton;
 import static com.evilbird.warcraft.item.unit.UnitType.CannonTower;
 import static java.util.Collections.singletonList;
 
@@ -28,7 +28,7 @@ import static java.util.Collections.singletonList;
  */
 public class GuardTowerButtons extends BasicButtonController
 {
-    private static final List<ActionButtonType> BUTTONS = singletonList(BuildCannonTowerButton);
+    private static final List<ActionButtonType> BUTTONS = singletonList(CannonTowerButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {

@@ -17,13 +17,13 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButton
 
 import java.util.List;
 
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildBarracksButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildBlacksmithButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BarracksButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BlacksmithButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildFarmButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildLumberMillButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildScoutTowerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildTownHallButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.FarmButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.LumberMillButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ScoutTowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TownHallButton;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.Blacksmith;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
@@ -41,16 +41,16 @@ import static java.util.Arrays.asList;
 public class PeasantSimpleBuildings extends BasicButtonController
 {
     private static final List<ActionButtonType> BASIC_BUTTONS =
-        asList(BuildFarmButton, BuildBarracksButton, BuildTownHallButton,
+        asList(FarmButton, BarracksButton, TownHallButton,
             BuildCancelButton);
 
     private static final List<ActionButtonType> INTERMEDIATE_BUTTONS =
-        asList(BuildFarmButton, BuildBarracksButton, BuildTownHallButton,
-            BuildLumberMillButton, BuildCancelButton);
+        asList(FarmButton, BarracksButton, TownHallButton,
+                LumberMillButton, BuildCancelButton);
 
     private static final List<ActionButtonType> ADVANCED_BUTTONS =
-        asList(BuildFarmButton, BuildBarracksButton, BuildTownHallButton,
-            BuildLumberMillButton, BuildBlacksmithButton, BuildScoutTowerButton,
+        asList(FarmButton, BarracksButton, TownHallButton,
+                LumberMillButton, BlacksmithButton, ScoutTowerButton,
             BuildCancelButton);
 
     @Override
@@ -74,12 +74,12 @@ public class PeasantSimpleBuildings extends BasicButtonController
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
             case BuildCancelButton: return true;
-            case BuildFarmButton: return hasResources(player, Farm);
-            case BuildBarracksButton: return hasResources(player, Barracks);
-            case BuildLumberMillButton: return hasResources(player, LumberMill);
-            case BuildTownHallButton: return hasResources(player, TownHall);
-            case BuildBlacksmithButton: return hasResources(player, Blacksmith);
-            case BuildScoutTowerButton: return hasResources(player, ScoutTower);
+            case FarmButton: return hasResources(player, Farm);
+            case BarracksButton: return hasResources(player, Barracks);
+            case LumberMillButton: return hasResources(player, LumberMill);
+            case TownHallButton: return hasResources(player, TownHall);
+            case BlacksmithButton: return hasResources(player, Blacksmith);
+            case ScoutTowerButton: return hasResources(player, ScoutTower);
             default: return false;
         }
     }

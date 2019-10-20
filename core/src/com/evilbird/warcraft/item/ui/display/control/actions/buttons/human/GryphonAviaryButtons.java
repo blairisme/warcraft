@@ -17,7 +17,7 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButton
 
 import java.util.List;
 
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainGryphonRiderButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GryphonRiderButton;
 import static com.evilbird.warcraft.item.unit.UnitType.GryphonRider;
 import static java.util.Collections.singletonList;
 
@@ -28,7 +28,7 @@ import static java.util.Collections.singletonList;
  */
 public class GryphonAviaryButtons extends BasicButtonController
 {
-    private static final List<ActionButtonType> BUTTONS = singletonList(TrainGryphonRiderButton);
+    private static final List<ActionButtonType> BUTTONS = singletonList(GryphonRiderButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {

@@ -23,6 +23,7 @@ import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StopButton;
@@ -50,8 +51,9 @@ public class IconSetTest extends GameTestCase
     }
 
     @Test
-    public void getActionButtonIconTest() {
-        Drawable actual = iconSet.get(ActionButtonType.CancelButton);
+    public void getActionButtonPartialCustomTest() {
+        Unit unit = TestCombatants.newTestCombatant(new TextIdentifier("ElvenArcher"), UnitType.ElvenArcher);
+        Drawable actual = iconSet.get(ActionButtonType.DepositButton, unit);
         Assert.assertNotNull(actual);
     }
 
@@ -71,7 +73,7 @@ public class IconSetTest extends GameTestCase
     @Test
     public void getUpgradeProductIconTest() {
         Unit lumberMill = TestBuildings.newTestBuilding(new TextIdentifier("LumberMill"), UnitType.LumberMill);
-        Drawable actual = iconSet.get(ActionButtonType.ImprovedRangedDamageButton, lumberMill);
+        Drawable actual = iconSet.get(ActionButtonType.RangedDamage1Button, lumberMill);
         Assert.assertNotNull(actual);
     }
 
@@ -86,5 +88,23 @@ public class IconSetTest extends GameTestCase
     public void getSealIconTest() {
         Drawable actual = iconSet.get(UnitType.Seal);
         Assert.assertNotNull(actual);
+    }
+
+    @Test
+    public void getUnitIconTest() {
+        for (UnitType unitType: UnitType.values()) {
+            Drawable icon = iconSet.get(unitType);
+            Assert.assertNotNull(unitType.name(), icon);
+        }
+    }
+
+    @Test
+    @Ignore
+    public void getActionButtonIconTest() {
+        Unit unit = TestCombatants.newTestCombatant(new TextIdentifier("ElvenArcher"), UnitType.ElvenArcher);
+        for (ActionButtonType actionButtonType: ActionButtonType.values()) {
+            Drawable icon = iconSet.get(actionButtonType, unit);
+            Assert.assertNotNull(actionButtonType.name(), icon);
+        }
     }
 }

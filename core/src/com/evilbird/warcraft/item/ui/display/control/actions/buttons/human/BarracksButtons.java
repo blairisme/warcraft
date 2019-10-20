@@ -23,12 +23,12 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUnits;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUpgrade;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeType1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedType1;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainBallistaButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainElvenArcherButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainElvenRangerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainFootmanButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainKnightButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainPaladinButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BallistaButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ElvenArcherButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ElvenRangerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.FootmanButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.KnightButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PaladinButton;
 import static com.evilbird.warcraft.item.unit.UnitType.Ballista;
 import static com.evilbird.warcraft.item.unit.UnitType.Blacksmith;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
@@ -49,16 +49,16 @@ import static java.util.Collections.singletonList;
 public class BarracksButtons extends BasicButtonController
 {
     private static final List<ActionButtonType> BASIC_BUTTONS =
-        singletonList(TrainFootmanButton);
+        singletonList(FootmanButton);
 
     private static final List<ActionButtonType> IMPROVED_BUTTONS =
-        asList(TrainFootmanButton, TrainElvenArcherButton);
+        asList(FootmanButton, ElvenArcherButton);
 
     private static final List<ActionButtonType> ADVANCED_BUTTONS =
-        asList(TrainFootmanButton, TrainElvenArcherButton, TrainBallistaButton);
+        asList(FootmanButton, ElvenArcherButton, BallistaButton);
 
     private static final List<ActionButtonType> ALL_BUTTONS =
-        asList(TrainFootmanButton, TrainElvenArcherButton, TrainBallistaButton, TrainKnightButton);
+        asList(FootmanButton, ElvenArcherButton, BallistaButton, KnightButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {
@@ -66,10 +66,10 @@ public class BarracksButtons extends BasicButtonController
         List<ActionButtonType> buttons = getButtons(player.getLevel());
 
         if (hasUpgrade(player, RangedType1)) {
-            Lists.replace(buttons, TrainElvenArcherButton, TrainElvenRangerButton);
+            Lists.replace(buttons, ElvenArcherButton, ElvenRangerButton);
         }
         if (hasUpgrade(player, MeleeType1)) {
-            Lists.replace(buttons, TrainKnightButton, TrainPaladinButton);
+            Lists.replace(buttons, KnightButton, PaladinButton);
         }
         return buttons;
     }
@@ -91,12 +91,12 @@ public class BarracksButtons extends BasicButtonController
     public boolean getEnabled(ActionButtonType button, Item item) {
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
-            case TrainFootmanButton: return hasResources(player, Footman);
-            case TrainElvenArcherButton: return hasResources(player, ElvenArcher) && hasUnit(player, LumberMill);
-            case TrainElvenRangerButton: return hasResources(player, ElvenRanger) && hasUnit(player, LumberMill);
-            case TrainKnightButton: return hasResources(player, Knight) && hasUnits(player, LumberMill, Stables);
-            case TrainPaladinButton: return hasResources(player, Paladin) && hasUnits(player, LumberMill, Stables);
-            case TrainBallistaButton: return hasResources(player, Ballista) && hasUnits(player, LumberMill, Blacksmith);
+            case FootmanButton: return hasResources(player, Footman);
+            case ElvenArcherButton: return hasResources(player, ElvenArcher) && hasUnit(player, LumberMill);
+            case ElvenRangerButton: return hasResources(player, ElvenRanger) && hasUnit(player, LumberMill);
+            case KnightButton: return hasResources(player, Knight) && hasUnits(player, LumberMill, Stables);
+            case PaladinButton: return hasResources(player, Paladin) && hasUnits(player, LumberMill, Stables);
+            case BallistaButton: return hasResources(player, Ballista) && hasUnits(player, LumberMill, Blacksmith);
             default: return false;
         }
     }

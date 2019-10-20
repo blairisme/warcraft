@@ -18,7 +18,7 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButton
 import java.util.List;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUnit;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildGuardTowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GuardTowerButton;
 import static com.evilbird.warcraft.item.unit.UnitType.GuardTower;
 import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
 import static java.util.Collections.singletonList;
@@ -30,7 +30,7 @@ import static java.util.Collections.singletonList;
  */
 public class ScoutTowerButtons extends BasicButtonController
 {
-    private static final List<ActionButtonType> BUTTONS = singletonList(BuildGuardTowerButton);
+    private static final List<ActionButtonType> BUTTONS = singletonList(GuardTowerButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {

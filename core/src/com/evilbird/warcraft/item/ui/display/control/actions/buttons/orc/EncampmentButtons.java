@@ -20,8 +20,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUnit;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainGruntButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainTrollAxethrowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GruntButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrollAxethrowerButton;
 import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollLumberMill;
@@ -40,8 +40,8 @@ public class EncampmentButtons extends BasicButtonController
         Player player = UnitOperations.getPlayer(item);
         switch (player.getLevel()) {
             case 1:
-            case 2: return singletonList(TrainGruntButton);
-            case 3: return asList(TrainGruntButton, TrainTrollAxethrowerButton);
+            case 2: return singletonList(GruntButton);
+            case 3: return asList(GruntButton, TrollAxethrowerButton);
             default: return Collections.emptyList();
         }
     }
@@ -50,8 +50,8 @@ public class EncampmentButtons extends BasicButtonController
     public boolean getEnabled(ActionButtonType button, Item item) {
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
-            case TrainGruntButton: return hasRequirements(player, Grunt);
-            case TrainTrollAxethrowerButton: return hasRequirements(player, TrollAxethrower, TrollLumberMill);
+            case GruntButton: return hasRequirements(player, Grunt);
+            case TrollAxethrowerButton: return hasRequirements(player, TrollAxethrower, TrollLumberMill);
             default: return false;
         }
     }

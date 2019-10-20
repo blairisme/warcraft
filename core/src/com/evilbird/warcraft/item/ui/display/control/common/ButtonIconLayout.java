@@ -10,59 +10,71 @@
 package com.evilbird.warcraft.item.ui.display.control.common;
 
 import com.badlogic.gdx.math.GridPoint2;
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.lang.IdentifierPair;
+import com.evilbird.warcraft.common.WarcraftFaction;
+import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
+import com.evilbird.warcraft.item.unit.UnitAttack;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedMeleeDamageButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedMeleeDefenceButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedNavalDamageButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedNavalDefenceButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedRangedDamageButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HumanWallButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MeleeDamage2Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MeleeDefence2Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MeleeType1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.NavalDamage2Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.NavalDefence2Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.OrcWallButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RangedDamage2Button;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AttackButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BlizzardButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BloodlustButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildAdvancedButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildAltarOfStormsButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildBarracksButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildBlacksmithButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildBombardTowerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCannonTowerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCastleButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildChurchButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildDockyardButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildDragonRoostButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildEncampmentButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildFarmButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildForgeButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildFortressButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildFoundryButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildGnomishInventorButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildGoblinAlchemistButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildGreatHallButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildGryphonAviaryButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildGuardTowerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildKeepButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildLookoutTowerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildLumberMillButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildMageTowerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildMetalworksButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildOgreMoundButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildOilPlatformButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildOilRefineryButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildOilRigButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildPigFarmButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildRefineryButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildScoutTowerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildShipyardButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AltarOfStormsButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BarracksButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BlacksmithButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BombardTowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.CannonTowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.CastleButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ChurchButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DockyardButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DragonRoostButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.EncampmentButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.FarmButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ForgeButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.FortressButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.FoundryButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GnomishInventorButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GoblinAlchemistButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GreatHallButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GryphonAviaryButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GuardTowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.KeepButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.LookoutTowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.LumberMillButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MageTowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MetalworksButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.OgreMoundButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.OilPlatformButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.OilRefineryButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.OilRigButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PigFarmButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RangedType1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RefineryButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ScoutTowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ShipyardButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildSimpleButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildStablesButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildStrongholdButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildTempleOfTheDamnedButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildTownHallButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildTrollLumberMillButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildWatchTowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StablesButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StrongholdButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TempleOfTheDamnedButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TownHallButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrollLumberMillButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.WatchTowerButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.CancelButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DeathAndDecayButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DeathCoilButton;
@@ -78,15 +90,15 @@ import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButton
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HasteButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HealingButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HolyVisionButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedMeleeDamageButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedMeleeDefenceButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedNavalDamageButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedNavalDefenceButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedAccuracyButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedDamageButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedSightButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedWeaponButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedSiegeDamageButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MeleeDamage1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MeleeDefence1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.NavalDamage1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.NavalDefence1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RangedAccuracy1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RangedDamage1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RangedSight1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RangedWeapon1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.SiegeDamage1Button;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.InvisibilityButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.LightningButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MoveButton;
@@ -98,42 +110,41 @@ import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButton
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.SlowButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StopButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TouchOfDarknessButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainBallistaButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainBattleshipButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainCatapultButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainDeathKnightButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainDragonButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainDwarvenDemolitionSquadButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainElvenArcherButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainElvenDestroyerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainElvenRangerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainFerryButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainFootmanButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainGiantTurtleButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainGnomishFlyingMachineButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainGnomishSubmarineButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainGoblinSappersButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainGoblinZeppelinButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainGruntButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainGryphonRiderButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainKnightButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainMageButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainOgreButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainOgreJuggernaughtButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainOgreMageButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainOilTankerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainPaladinButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainPeasantButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainPeonButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainTransportButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainTrollAxethrowerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainTrollBerserkerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainTrollDestroyerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainTrollTankerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BallistaButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BattleshipButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.CatapultButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DeathKnightButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DragonButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DwarvenDemolitionSquadButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ElvenArcherButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ElvenDestroyerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ElvenRangerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.FerryButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.FootmanButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GiantTurtleButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GnomishFlyingMachineButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GnomishSubmarineButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GoblinSappersButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GoblinZeppelinButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GruntButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GryphonRiderButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.KnightButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MageButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.OgreButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.OgreJuggernaughtButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.OgreMageButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.OilTankerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PaladinButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PeasantButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PeonButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TransportButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrollAxethrowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrollBerserkerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrollDestroyerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrollTankerButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.UnholyArmourButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.WhirlwindButton;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.Unknown;
-
 
 /**
  * Defines the layout of an icon file: a texture containing a set of icons in a
@@ -143,95 +154,113 @@ import static com.evilbird.warcraft.item.ui.display.control.common.IconType.Unkn
  */
 public class ButtonIconLayout
 {
-    private static final GridPoint2 size = new GridPoint2(46, 38);
+    private final GridPoint2 size;
+    private final Map<Identifier, GridPoint2> icons;
+    private final Map<Identifier, Identifier> specializations;
 
-    private static final Map<Identifier, GridPoint2> icons = layout(
-        TrainPeasantButton,                 TrainPeonButton,                    TrainFootmanButton,                 TrainGruntButton,                  TrainElvenArcherButton,
-        TrainTrollAxethrowerButton,         TrainElvenRangerButton,             TrainTrollBerserkerButton,          TrainKnightButton,                 TrainOgreButton,
-        TrainPaladinButton,                 TrainOgreMageButton,                TrainDwarvenDemolitionSquadButton,  TrainGoblinSappersButton,          TrainMageButton,
-        TrainDeathKnightButton,             TrainBallistaButton,                TrainCatapultButton,                TrainOilTankerButton,              TrainTrollTankerButton,
-        TrainTransportButton,               TrainFerryButton,                   TrainElvenDestroyerButton,          TrainTrollDestroyerButton,         TrainBattleshipButton,
-        TrainOgreJuggernaughtButton,        TrainGnomishSubmarineButton,        TrainGiantTurtleButton,             TrainGnomishFlyingMachineButton,   TrainGoblinZeppelinButton,
-        TrainGryphonRiderButton,            TrainDragonButton,                  Unknown,                            Unknown,                           Unknown,
-        Unknown,                            Unknown,                            Unknown,                            BuildFarmButton,                   BuildPigFarmButton,
-        BuildTownHallButton,                BuildGreatHallButton,               BuildBarracksButton,                BuildEncampmentButton,             BuildLumberMillButton,
-        BuildTrollLumberMillButton,         BuildBlacksmithButton,              BuildForgeButton,                   BuildShipyardButton,               BuildDockyardButton,
-        BuildRefineryButton,                BuildOilRefineryButton,             BuildFoundryButton,                 BuildMetalworksButton,             BuildOilPlatformButton,
-        BuildOilRigButton,                  BuildStablesButton,                 BuildOgreMoundButton,               BuildGnomishInventorButton,        BuildGoblinAlchemistButton,
-        BuildScoutTowerButton,              BuildWatchTowerButton,              BuildChurchButton,                  BuildAltarOfStormsButton,          BuildMageTowerButton,
-        BuildTempleOfTheDamnedButton,       BuildKeepButton,                    BuildStrongholdButton,              BuildCastleButton,                 BuildFortressButton,
-        BuildCastleButton,                  BuildFortressButton,                BuildGryphonAviaryButton,           BuildDragonRoostButton,            Unknown,
-        BuildGuardTowerButton,              BuildCannonTowerButton,             BuildLookoutTowerButton,            BuildBombardTowerButton,           Unknown,
-        Unknown,                            Unknown,                            Unknown,                            Unknown,                           Unknown,
-        RepairButton,                       GatherButton,                       BuildSimpleButton,                  BuildAdvancedButton,               orc(DepositButton),
-        human(DepositButton),               CancelButton,                       Unknown,                            Unknown,                           SlowButton,
-        InvisibilityButton,                 HasteButton,                        RunesButton,                        UnholyArmourButton,                LightningButton,
-        FlameShieldButton,                  FireballButton,                     TouchOfDarknessButton,              DeathAndDecayButton,               WhirlwindButton,
-        BlizzardButton,                     HolyVisionButton,                   HealingButton,                      DeathCoilButton,                   Unknown,
-        ExorcismButton,                     EyeOfKilroggButton,                 BloodlustButton,                    Unknown,                           RaiseDeadButton,
-        PolymorphButton,                    human(melee(AttackButton)),         human(ImprovedMeleeDamageButton),   human(AdvancedMeleeDamageButton),  orc(melee(AttackButton)),
-        orc(ImprovedMeleeDamageButton),     orc(AdvancedMeleeDamageButton),     Unknown,                            Unknown,                           human(ranged(AttackButton)),
-        human(ImprovedRangedDamageButton),  human(AdvancedRangedDamageButton),  orc(ranged(AttackButton)),          orc(ImprovedRangedDamageButton),   orc(AdvancedRangedDamageButton),
-        Unknown,                            Unknown,                            human(ImprovedRangedWeaponButton),  human(ImprovedRangedSightButton),  human(ImprovedRangedAccuracyButton),
-        orc(ImprovedRangedWeaponButton),    orc(ImprovedRangedSightButton),     orc(ImprovedRangedAccuracyButton),  orc(siege(AttackButton)),          orc(ImprovedSiegeDamageButton),
-        human(siege(AttackButton)),         human(ImprovedSiegeDamageButton),   human(DetonateButton),              orc(DetonateButton),               human(naval(AttackButton)),
-        human(ImprovedNavalDamageButton),   human(AdvancedNavalDamageButton),   orc(naval(AttackButton)),           orc(ImprovedNavalDamageButton),    orc(AdvancedNavalDamageButton),
-        orc(naval(StopButton)),             orc(ImprovedNavalDefenceButton),    orc(AdvancedNavalDefenceButton),    human(naval(StopButton)),          human(ImprovedNavalDefenceButton),
-        human(AdvancedNavalDefenceButton),  orc(naval(MoveButton)),             human(naval(MoveButton)),           orc(naval(DepositButton)),         human(naval(DepositButton)),
-        orc(naval(GatherButton)),           human(naval(GatherButton)),         human(DisembarkButton),             orc(DisembarkButton),              human(StopButton),
-        human(ImprovedMeleeDefenceButton),  human(AdvancedMeleeDefenceButton),  orc(StopButton),                    orc(ImprovedMeleeDefenceButton),   orc(AdvancedMeleeDefenceButton),
-        Unknown,                            Unknown,                            Unknown,                            Unknown,                           Unknown,
-        Unknown,                            Unknown,                            Unknown,                            human(PatrolButton),               orc(PatrolButton),
-        human(DefendButton),                orc(DefendButton),                  Unknown,                            Unknown,                           Unknown
-    );
-
-    private static Identifier orc(Identifier id) {
-        return id;
-    }
-    
-    private static Identifier human(Identifier id) {
-        return id;
-    }
-
-    private static Identifier melee(Identifier id) {
-        return id;
-    }
-
-    private static Identifier ranged(Identifier id) {
-        return id;
+    public ButtonIconLayout() {
+        size = new GridPoint2(46, 38);
+        icons = layout(
+            PeasantButton,              PeonButton,                 FootmanButton,              GruntButton,                ElvenArcherButton,
+            TrollAxethrowerButton,      ElvenRangerButton,          TrollBerserkerButton,       KnightButton,               OgreButton,
+            PaladinButton,              OgreMageButton,             DwarvenDemolitionSquadButton,GoblinSappersButton,       MageButton,
+            DeathKnightButton,          BallistaButton,             CatapultButton,             OilTankerButton,            TrollTankerButton,
+            TransportButton,            FerryButton,                ElvenDestroyerButton,       TrollDestroyerButton,       BattleshipButton,
+            OgreJuggernaughtButton,     GnomishSubmarineButton,     GiantTurtleButton,          GnomishFlyingMachineButton, GoblinZeppelinButton,
+            GryphonRiderButton,         DragonButton,               Unknown,                    Unknown,                    Unknown,
+            Unknown,                    Unknown,                    Unknown,                    FarmButton,                 PigFarmButton,
+            TownHallButton,             GreatHallButton,            BarracksButton,             EncampmentButton,           LumberMillButton,
+            TrollLumberMillButton,      BlacksmithButton,           ForgeButton,                ShipyardButton,             DockyardButton,
+            RefineryButton,             OilRefineryButton,          FoundryButton,              MetalworksButton,           OilPlatformButton,
+            OilRigButton,               StablesButton,              OgreMoundButton,            GnomishInventorButton,      GoblinAlchemistButton,
+            ScoutTowerButton,           WatchTowerButton,           ChurchButton,               AltarOfStormsButton,        MageTowerButton,
+            TempleOfTheDamnedButton,    KeepButton,                 StrongholdButton,           CastleButton,               FortressButton,
+            CastleButton,               FortressButton,             GryphonAviaryButton,        DragonRoostButton,          Unknown,
+            GuardTowerButton,           CannonTowerButton,          LookoutTowerButton,         BombardTowerButton,         Unknown,
+            Unknown,                    Unknown,                    Unknown,                    human(MoveButton),          orc(MoveButton),
+            RepairButton,               GatherButton,               BuildSimpleButton,          BuildAdvancedButton,        orc(DepositButton),
+            human(DepositButton),       CancelButton,               HumanWallButton,            OrcWallButton,              SlowButton,
+            InvisibilityButton,         HasteButton,                RunesButton,                UnholyArmourButton,         LightningButton,
+            FlameShieldButton,          FireballButton,             TouchOfDarknessButton,      DeathAndDecayButton,        WhirlwindButton,
+            BlizzardButton,             HolyVisionButton,           HealingButton,              DeathCoilButton,            Unknown,
+            ExorcismButton,             EyeOfKilroggButton,         BloodlustButton,            Unknown,                    RaiseDeadButton,
+            PolymorphButton,            human(melee(AttackButton)), human(MeleeDamage1Button),  human(MeleeDamage2Button),  orc(melee(AttackButton)),
+            orc(MeleeDamage1Button),    orc(MeleeDamage2Button),    Unknown,                    Unknown,                    human(ranged(AttackButton)),
+            human(RangedDamage1Button), human(RangedDamage2Button), orc(ranged(AttackButton)),  orc(RangedDamage1Button),   orc(RangedDamage2Button),
+            Unknown,                    Unknown,                    human(RangedWeapon1Button), human(RangedSight1Button),  human(RangedAccuracy1Button),
+            orc(RangedWeapon1Button),   orc(RangedSight1Button),    orc(RangedAccuracy1Button), orc(siege(AttackButton)),   orc(SiegeDamage1Button),
+            human(siege(AttackButton)), human(SiegeDamage1Button),  human(DetonateButton),      orc(DetonateButton),        human(naval(AttackButton)),
+            human(NavalDamage1Button),  human(NavalDamage2Button),  orc(naval(AttackButton)),   orc(NavalDamage1Button),    orc(NavalDamage2Button),
+            orc(naval(StopButton)),     orc(NavalDefence1Button),   orc(NavalDefence2Button),   human(naval(StopButton)),   human(NavalDefence1Button),
+            human(NavalDefence2Button), orc(naval(MoveButton)),     human(naval(MoveButton)),   orc(naval(DepositButton)),  human(naval(DepositButton)),
+            orc(naval(GatherButton)),   human(naval(GatherButton)), human(DisembarkButton),     orc(DisembarkButton),       human(StopButton),
+            human(MeleeDefence1Button), human(MeleeDefence2Button), orc(StopButton),            orc(MeleeDefence1Button),   orc(MeleeDefence2Button),
+            Unknown,                    Unknown,                    Unknown,                    Unknown,                    Unknown,
+            Unknown,                    Unknown,                    Unknown,                    human(PatrolButton),        orc(PatrolButton),
+            human(DefendButton),        orc(DefendButton),          Unknown,                    Unknown,                    Unknown
+        );
+        specializations = Maps.of(
+            BuildCancelButton,          CancelButton,
+            human(MeleeType1Button),    PaladinButton,
+            human(RangedType1Button),   ElvenRangerButton,
+            orc(MeleeType1Button),      OgreMageButton,
+            orc(RangedType1Button),     TrollBerserkerButton);
     }
 
-    private static Identifier siege(Identifier id) {
-        return id;
-    }
-
-    private static Identifier naval(Identifier id) {
-        return id;
-    }
-    
     /**
-     * Returns the size of the icon with the given {@link Identifier}. Icons
-     * exist for all unitsButton, upgradesButton, spells and icon types.
-     *
-     * @param type  an icon identifier.
-     * @return      the size of icon within an icon texture.
+     * Returns the size of the icon with the given {@link ActionButtonType}
+     * within an icon texture file.
      */
-    public GridPoint2 getSize(Identifier type) {
+    public GridPoint2 getSize(ActionButtonType type) {
         return size;
     }
 
     /**
-     * Returns the icon with the given {@link Identifier}. Icons exist for all
-     * unitsButton, upgradesButton, spells and icon types.
-     *
-     * @param type  an icon identifier.
-     * @return      the location of icon within an icon texture.
+     * Returns the size of the icon with the given {@link ActionButtonType}
+     * within an icon texture file. If an icon specialization exists for the
+     * given faction and attack type then this will be returned.
      */
-    public GridPoint2 getLocation(Identifier type) {
+    public GridPoint2 getSize(ActionButtonType type, WarcraftFaction faction, UnitAttack attack) {
+        return size;
+    }
+
+    /**
+     * Returns the location of the icon with the given {@link ActionButtonType}
+     * within an icon texture file.
+     */
+    public GridPoint2 getLocation(ActionButtonType type) {
         return icons.get(type);
     }
 
-    private static Map<Identifier, GridPoint2> layout(Identifier ... types) {
+    /**
+     * Returns the location of the icon with the given {@link ActionButtonType}
+     * within an icon texture file. If an icon specialization exists for the
+     * given faction and attack type then this will be returned.
+     */
+    public GridPoint2 getLocation(ActionButtonType button, WarcraftFaction faction, UnitAttack attack) {
+        GridPoint2 combinedLocation = getLocationImpl(combination(faction, combination(attack, button)));
+        if (combinedLocation != null) {
+            return combinedLocation;
+        }
+        GridPoint2 attackLocation = getLocationImpl(combination(attack, button));
+        if (attackLocation != null) {
+            return attackLocation;
+        }
+        GridPoint2 factionLocation = getLocationImpl(combination(faction, button));
+        if (factionLocation != null) {
+            return factionLocation;
+        }
+        return getLocationImpl(button);
+    }
+
+    private GridPoint2 getLocationImpl(Identifier identifier) {
+        if (specializations.containsKey(identifier)) {
+            identifier = specializations.get(identifier);
+        }
+        return icons.get(identifier);
+    }
+
+    private Map<Identifier, GridPoint2> layout(Identifier ... types) {
         Map<Identifier, GridPoint2> result = new HashMap<>();
         for (int index = 0; index < types.length; ++index) {
             int column = (index % 5) * size.x;
@@ -239,5 +268,37 @@ public class ButtonIconLayout
             result.put(types[index], new GridPoint2(column, row));
         }
         return result;
+    }
+
+    private Identifier human(Identifier id) {
+        return combination(WarcraftFaction.Human, id);
+    }
+
+    private Identifier orc(Identifier id) {
+        return combination(WarcraftFaction.Orc, id);
+    }
+
+    private Identifier melee(Identifier id) {
+        return combination(UnitAttack.Melee, id);
+    }
+
+    private Identifier ranged(Identifier id) {
+        return combination(UnitAttack.Ranged, id);
+    }
+
+    private Identifier siege(Identifier id) {
+        return combination(UnitAttack.Siege, id);
+    }
+
+    private Identifier naval(Identifier id) {
+        return combination(UnitAttack.Ship, id);
+    }
+
+    private Identifier combination(UnitAttack attack, Identifier id) {
+        return new IdentifierPair(attack, id);
+    }
+
+    private Identifier combination(WarcraftFaction faction, Identifier id) {
+        return new IdentifierPair(faction, id);
     }
 }

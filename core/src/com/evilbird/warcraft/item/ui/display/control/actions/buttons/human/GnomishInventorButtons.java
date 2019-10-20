@@ -17,7 +17,7 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButton
 
 import java.util.List;
 
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainGnomishFlyingMachineButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GnomishFlyingMachineButton;
 import static com.evilbird.warcraft.item.unit.UnitType.GnomishFlyingMachine;
 import static java.util.Collections.singletonList;
 
@@ -28,7 +28,7 @@ import static java.util.Collections.singletonList;
  */
 public class GnomishInventorButtons extends BasicButtonController
 {
-    private static final List<ActionButtonType> BUTTONS = singletonList(TrainGnomishFlyingMachineButton);
+    private static final List<ActionButtonType> BUTTONS = singletonList(GnomishFlyingMachineButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {

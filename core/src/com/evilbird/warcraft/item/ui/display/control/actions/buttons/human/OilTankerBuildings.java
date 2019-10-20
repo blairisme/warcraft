@@ -18,7 +18,7 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButton
 import java.util.List;
 
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildOilPlatformButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.OilPlatformButton;
 import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
 import static java.util.Arrays.asList;
 
@@ -31,7 +31,7 @@ import static java.util.Arrays.asList;
 public class OilTankerBuildings extends BasicButtonController
 {
     private static final List<ActionButtonType> BUTTONS =
-        asList(BuildOilPlatformButton, BuildCancelButton);
+        asList(OilPlatformButton, BuildCancelButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {
@@ -45,7 +45,7 @@ public class OilTankerBuildings extends BasicButtonController
         if (button == BuildCancelButton) {
             return true;
         }
-        if (button == BuildOilPlatformButton) {
+        if (button == OilPlatformButton) {
             return hasResources(player, OilPlatform);
         }
         return false;

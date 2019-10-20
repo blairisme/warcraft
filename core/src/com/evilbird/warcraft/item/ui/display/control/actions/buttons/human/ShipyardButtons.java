@@ -19,11 +19,11 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUnit;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainBattleshipButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainElvenDestroyerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainGnomishSubmarineButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainOilTankerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainTransportButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BattleshipButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ElvenDestroyerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GnomishSubmarineButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.OilTankerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TransportButton;
 import static com.evilbird.warcraft.item.unit.UnitType.Battleship;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
 import static com.evilbird.warcraft.item.unit.UnitType.Foundry;
@@ -40,14 +40,14 @@ import static java.util.Arrays.asList;
 public class ShipyardButtons extends BasicButtonController
 {
     private static final List<ActionButtonType> BASIC_BUTTONS =
-        asList(TrainOilTankerButton, TrainElvenDestroyerButton);
+        asList(OilTankerButton, ElvenDestroyerButton);
 
     private static final List<ActionButtonType> INTERMEDIATE_BUTTONS =
-        asList(TrainOilTankerButton, TrainElvenDestroyerButton, TrainTransportButton);
+        asList(OilTankerButton, ElvenDestroyerButton, TransportButton);
 
     private static final List<ActionButtonType> ADVANCED_BUTTONS =
-        asList(TrainOilTankerButton, TrainElvenDestroyerButton, TrainTransportButton,
-            TrainBattleshipButton, TrainGnomishSubmarineButton);
+        asList(OilTankerButton, ElvenDestroyerButton, TransportButton,
+                BattleshipButton, GnomishSubmarineButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {
@@ -72,11 +72,11 @@ public class ShipyardButtons extends BasicButtonController
     public boolean getEnabled(ActionButtonType button, Item item) {
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
-            case TrainOilTankerButton: return hasResources(player, OilTanker);
-            case TrainElvenDestroyerButton: return hasResources(player, ElvenDestroyer);
-            case TrainTransportButton: return hasResources(player, Transport) && hasUnit(player, Foundry);
-            case TrainBattleshipButton: return hasResources(player, Battleship) && hasUnit(player, Foundry);
-            case TrainGnomishSubmarineButton: return hasResources(player,Battleship) && hasUnit(player,GnomishInventor);
+            case OilTankerButton: return hasResources(player, OilTanker);
+            case ElvenDestroyerButton: return hasResources(player, ElvenDestroyer);
+            case TransportButton: return hasResources(player, Transport) && hasUnit(player, Foundry);
+            case BattleshipButton: return hasResources(player, Battleship) && hasUnit(player, Foundry);
+            case GnomishSubmarineButton: return hasResources(player,Battleship) && hasUnit(player,GnomishInventor);
             default: return false;
         }
     }

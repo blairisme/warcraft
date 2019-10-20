@@ -17,7 +17,7 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButton
 
 import java.util.List;
 
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainMageButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MageButton;
 import static com.evilbird.warcraft.item.unit.UnitType.Mage;
 import static java.util.Collections.singletonList;
 
@@ -28,7 +28,7 @@ import static java.util.Collections.singletonList;
  */
 public class MageTowerButtons extends BasicButtonController
 {
-    private static final List<ActionButtonType> BUTTONS = singletonList(TrainMageButton);
+    private static final List<ActionButtonType> BUTTONS = singletonList(MageButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {

@@ -19,10 +19,10 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildEncampmentButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildGreatHallButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildPigFarmButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildTrollLumberMillButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.EncampmentButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GreatHallButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PigFarmButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrollLumberMillButton;
 import static com.evilbird.warcraft.item.unit.UnitType.Encampment;
 import static com.evilbird.warcraft.item.unit.UnitType.GreatHall;
 import static com.evilbird.warcraft.item.unit.UnitType.PigFarm;
@@ -42,12 +42,12 @@ public class PeonSimpleBuildings extends BasicButtonController
         Player player = UnitOperations.getPlayer(item);
         switch (player.getLevel()) {
             case 1: return asList(
-                    BuildPigFarmButton, BuildEncampmentButton, BuildGreatHallButton,
+                    PigFarmButton, EncampmentButton, GreatHallButton,
                     BuildCancelButton);
             case 2:
             case 3: return asList(
-                    BuildPigFarmButton, BuildEncampmentButton, BuildGreatHallButton,
-                    BuildTrollLumberMillButton, BuildCancelButton);
+                    PigFarmButton, EncampmentButton, GreatHallButton,
+                    TrollLumberMillButton, BuildCancelButton);
             default: return Collections.emptyList();
         }
     }
@@ -57,10 +57,10 @@ public class PeonSimpleBuildings extends BasicButtonController
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
             case BuildCancelButton: return true;
-            case BuildEncampmentButton: return hasResources(player, Encampment);
-            case BuildGreatHallButton: return hasResources(player, GreatHall);
-            case BuildPigFarmButton: return hasResources(player, PigFarm);
-            case BuildTrollLumberMillButton: return hasResources(player, TrollLumberMill);
+            case EncampmentButton: return hasResources(player, Encampment);
+            case GreatHallButton: return hasResources(player, GreatHall);
+            case PigFarmButton: return hasResources(player, PigFarm);
+            case TrollLumberMillButton: return hasResources(player, TrollLumberMill);
             default: return false;
         }
     }

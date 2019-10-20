@@ -41,51 +41,51 @@ public enum ActionButtonType implements Identifier
     BuildCancelButton,
 
     /* Construction buttons */
-    BuildBarracksButton,
-    BuildBlacksmithButton,
-    BuildChurchButton,
-    BuildFarmButton,
-    BuildFoundryButton,
-    BuildGnomishInventorButton,
-    BuildGryphonAviaryButton,
-    BuildLumberMillButton,
-    BuildMageTowerButton,
-    BuildOilPlatformButton,
-    BuildRefineryButton,
-    BuildScoutTowerButton,
-    BuildShipyardButton,
-    BuildStablesButton,
-    BuildTownHallButton,
+    BarracksButton,
+    BlacksmithButton,
+    ChurchButton,
+    FarmButton,
+    FoundryButton,
+    GnomishInventorButton,
+    GryphonAviaryButton,
+    LumberMillButton,
+    MageTowerButton,
+    OilPlatformButton,
+    RefineryButton,
+    ScoutTowerButton,
+    ShipyardButton,
+    StablesButton,
+    TownHallButton,
 
-    BuildAltarOfStormsButton,
-    BuildForgeButton,
-    BuildEncampmentButton,
-    BuildDockyardButton,
-    BuildDragonRoostButton,
-    BuildMetalworksButton,
-    BuildGoblinAlchemistButton,
-    BuildGreatHallButton,
-    BuildOgreMoundButton,
-    BuildOilRefineryButton,
-    BuildOilRigButton,
-    BuildPigFarmButton,
-    BuildTempleOfTheDamnedButton,
-    BuildTrollLumberMillButton,
-    BuildWatchTowerButton,
+    AltarOfStormsButton,
+    ForgeButton,
+    EncampmentButton,
+    DockyardButton,
+    DragonRoostButton,
+    MetalworksButton,
+    GoblinAlchemistButton,
+    GreatHallButton,
+    OgreMoundButton,
+    OilRefineryButton,
+    OilRigButton,
+    PigFarmButton,
+    TempleOfTheDamnedButton,
+    TrollLumberMillButton,
+    WatchTowerButton,
 
-    BuildHumanWall,
-    BuildOrcWall,
+    HumanWallButton,
+    OrcWallButton,
 
     /* Building upgrade buttons */
-    BuildCannonTowerButton,
-    BuildCastleButton,
-    BuildGuardTowerButton,
-    BuildKeepButton,
+    CannonTowerButton,
+    CastleButton,
+    GuardTowerButton,
+    KeepButton,
 
-    BuildBombardTowerButton,
-    BuildFortressButton,
-    BuildLookoutTowerButton,
-    BuildStrongholdButton,
+    BombardTowerButton,
+    FortressButton,
+    LookoutTowerButton,
+    StrongholdButton,
 
     /* Spell buttons */
     BlizzardButton,
@@ -111,94 +111,87 @@ public enum ActionButtonType implements Identifier
     WhirlwindButton,
 
     /* Training buttons */
-    TrainBallistaButton,
-    TrainBattleshipButton,
-    TrainDwarvenDemolitionSquadButton,
-    TrainElvenArcherButton,
-    TrainElvenDestroyerButton,
-    TrainElvenRangerButton,
-    TrainFootmanButton,
-    TrainGnomishFlyingMachineButton,
-    TrainGnomishSubmarineButton,
-    TrainGryphonRiderButton,
-    TrainKnightButton,
-    TrainMageButton,
-    TrainOilTankerButton,
-    TrainPaladinButton,
-    TrainPeasantButton,
-    TrainTransportButton,
+    BallistaButton,
+    BattleshipButton,
+    DwarvenDemolitionSquadButton,
+    ElvenArcherButton,
+    ElvenDestroyerButton,
+    ElvenRangerButton,
+    FootmanButton,
+    GnomishFlyingMachineButton,
+    GnomishSubmarineButton,
+    GryphonRiderButton,
+    KnightButton,
+    MageButton,
+    OilTankerButton,
+    PaladinButton,
+    PeasantButton,
+    TransportButton,
 
-    TrainCatapultButton,
-    TrainDeathKnightButton,
-    TrainDragonButton,
-    TrainEyeOfKilroggButton,
-    TrainFerryButton,
-    TrainGiantTurtleButton,
-    TrainGoblinSappersButton,
-    TrainGoblinZeppelinButton,
-    TrainGruntButton,
-    TrainOgreButton,
-    TrainOgreJuggernaughtButton,
-    TrainOgreMageButton,
-    TrainPeonButton,
-    TrainTrollAxethrowerButton,
-    TrainTrollBerserkerButton,
-    TrainTrollDestroyerButton,
-    TrainTrollTankerButton,
+    CatapultButton,
+    DeathKnightButton,
+    DragonButton,
+    FerryButton,
+    GiantTurtleButton,
+    GoblinSappersButton,
+    GoblinZeppelinButton,
+    GruntButton,
+    OgreButton,
+    OgreJuggernaughtButton,
+    OgreMageButton,
+    PeonButton,
+    TrollAxethrowerButton,
+    TrollBerserkerButton,
+    TrollDestroyerButton,
+    TrollTankerButton,
 
     /* Upgrade buttons */
-    ImprovedMeleeDamageButton,
-    AdvancedMeleeDamageButton,
-    ImprovedMeleeDefenceButton,
-    AdvancedMeleeDefenceButton,
-    ImprovedMeleeTypeButton,
-    ImprovedRangedAccuracyButton,
-    ImprovedRangedDamageButton,
-    AdvancedRangedDamageButton,
-    ImprovedRangedSightButton,
-    ImprovedRangedWeaponButton,
-    ImprovedRangedTypeButton,
-    ImprovedSiegeDamageButton,
-    AdvancedSiegeDamageButton,
-    ImprovedNavalDamageButton,
-    AdvancedNavalDamageButton,
-    ImprovedNavalDefenceButton,
-    AdvancedNavalDefenceButton;
+    MeleeDamage1Button,
+    MeleeDamage2Button,
+    MeleeDefence1Button,
+    MeleeDefence2Button,
+    MeleeType1Button,
+    RangedAccuracy1Button,
+    RangedDamage1Button,
+    RangedDamage2Button,
+    RangedSight1Button,
+    RangedWeapon1Button,
+    RangedType1Button,
+    SiegeDamage1Button,
+    SiegeDamage2Button,
+    NavalDamage1Button,
+    NavalDamage2Button,
+    NavalDefence1Button,
+    NavalDefence2Button;
 
     public UnitType getBuildProduct() {
         Validate.isTrue(isBuildButton() || isBuildingUpgradeButton());
-        return UnitType.valueOf(getName(this, "Build", "Button"));
+        return UnitType.valueOf(getName(this, "", "Button"));
     }
 
     public UnitType getTrainProduct() {
         Validate.isTrue(isTrainButton());
-        return UnitType.valueOf(getName(this, "Train", "Button"));
+        return UnitType.valueOf(getName(this, "", "Button"));
     }
 
     public Upgrade getUpgradeProduct() {
         Validate.isTrue(isUpgradeButton());
-        if (name().startsWith("Improved")) {
-            return Upgrade.valueOf(getName(this, "Improved", "Button") + "1");
-        }
-        if (name().startsWith("Advanced")) {
-            return Upgrade.valueOf(getName(this, "Advanced", "Button") + "2");
-        }
-        throw new UnsupportedOperationException();
+        return Upgrade.valueOf(getName(this, "", "Button"));
     }
 
     public boolean isBuildButton() {
-        return isBetween(this, BuildBarracksButton, BuildWatchTowerButton);
+        return isBetween(this, BarracksButton, WatchTowerButton);
     }
 
     public boolean isBuildingUpgradeButton() {
-        return isBetween(this, BuildCannonTowerButton, BuildStrongholdButton);
+        return isBetween(this, CannonTowerButton, StrongholdButton);
     }
 
     public boolean isTrainButton() {
-        return isBetween(this, TrainBallistaButton, TrainTrollTankerButton);
+        return isBetween(this, BallistaButton, TrollTankerButton);
     }
 
     public boolean isUpgradeButton() {
-        return isBetween(this, ImprovedMeleeDamageButton, AdvancedNavalDefenceButton);
+        return isBetween(this, MeleeDamage1Button, NavalDefence2Button);
     }
 }

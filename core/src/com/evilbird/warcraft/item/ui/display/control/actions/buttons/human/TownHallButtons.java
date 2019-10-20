@@ -18,8 +18,8 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButton
 import java.util.List;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUnit;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildKeepButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainPeasantButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.KeepButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PeasantButton;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.Keep;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
@@ -34,10 +34,10 @@ import static java.util.Collections.singletonList;
 public class TownHallButtons extends BasicButtonController
 {
     private static final List<ActionButtonType> BASIC_BUTTONS =
-        singletonList(TrainPeasantButton);
+        singletonList(PeasantButton);
 
     private static final List<ActionButtonType> ADVANCED_BUTTONS =
-        asList(TrainPeasantButton, BuildKeepButton);
+        asList(PeasantButton, KeepButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {
@@ -49,8 +49,8 @@ public class TownHallButtons extends BasicButtonController
     public boolean getEnabled(ActionButtonType button, Item item) {
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
-            case TrainPeasantButton: return hasResources(player, Peasant);
-            case BuildKeepButton: return hasResources(player, Keep) && hasUnit(player, Barracks);
+            case PeasantButton: return hasResources(player, Peasant);
+            case KeepButton: return hasResources(player, Keep) && hasUnit(player, Barracks);
             default: return false;
         }
     }

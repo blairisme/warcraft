@@ -18,8 +18,8 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButton
 import java.util.Collections;
 import java.util.List;
 
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainTrollDestroyerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainTrollTankerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrollDestroyerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrollTankerButton;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollDestroyer;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollTanker;
 import static java.util.Arrays.asList;
@@ -35,7 +35,7 @@ public class DockyardButtons extends BasicButtonController
     public List<ActionButtonType> getButtons(Item item) {
         Player player = UnitOperations.getPlayer(item);
         switch (player.getLevel()) {
-            case 3: return asList(TrainTrollTankerButton, TrainTrollDestroyerButton);
+            case 3: return asList(TrollTankerButton, TrollDestroyerButton);
             default: return Collections.emptyList();
         }
     }
@@ -44,8 +44,8 @@ public class DockyardButtons extends BasicButtonController
     public boolean getEnabled(ActionButtonType button, Item item) {
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
-            case TrainTrollTankerButton: return hasResources(player, TrollTanker);
-            case TrainTrollDestroyerButton: return hasResources(player, TrollDestroyer);
+            case TrollTankerButton: return hasResources(player, TrollTanker);
+            case TrollDestroyerButton: return hasResources(player, TrollDestroyer);
             default: return false;
         }
     }

@@ -12,7 +12,6 @@ package com.evilbird.warcraft.item.common.upgrade;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.List;
 import java.util.Set;
 
 /**

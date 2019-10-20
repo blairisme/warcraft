@@ -300,6 +300,10 @@ public enum UnitType implements ItemType
         return isCommandCentre() || this == LumberMill || this == TrollLumberMill;
     }
 
+    public boolean isCritter() {
+        return this == Boar || this == Seal || this == Sheep;
+    }
+
     public boolean isHuman() {
         return getFaction() == Human;
     }

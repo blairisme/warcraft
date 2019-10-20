@@ -17,7 +17,7 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButton
 
 import java.util.List;
 
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainPeasantButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PeasantButton;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
 import static java.util.Collections.singletonList;
 
@@ -29,7 +29,7 @@ import static java.util.Collections.singletonList;
 public class CastleButtons extends BasicButtonController
 {
     private static final List<ActionButtonType> BUTTONS =
-        singletonList(TrainPeasantButton);
+        singletonList(PeasantButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {

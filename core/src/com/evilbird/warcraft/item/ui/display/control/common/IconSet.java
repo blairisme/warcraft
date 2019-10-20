@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.graphics.TextureUtils;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
@@ -33,9 +32,11 @@ import java.util.Objects;
  */
 public class IconSet
 {
+    private final static ButtonIconLayout buttonIconLayout = new ButtonIconLayout();
+    private final static UpgradeIconLayout upgradeIconLayout = new UpgradeIconLayout();
+    private final static UnitIconLayout unitIconLayout = new UnitIconLayout();
+
     private Texture texture;
-    private IconLayout layout;
-    private IconSpecializations specializations;
 
     /**
      * Constructs a new instances of this class given a {@link Texture}
@@ -47,30 +48,21 @@ public class IconSet
     public IconSet(Texture texture) {
         Objects.requireNonNull(texture);
         this.texture = texture;
-        this.layout = new IconLayout();
-        this.specializations = new IconSpecializations();
     }
 
     /**
      * Obtains the icon that represents the given {@link ActionButtonType}.
      *
-     * @param type  the button type to whose icon is required.
+     * @param button  the button type to whose icon is required.
      * @return      a {@link Drawable} containing the required icon.
      */
-    public Drawable get(ActionButtonType type) {
-        Objects.requireNonNull(type);
-        return getIcon(specializations.getSpecialization(type));
-    }
+    public Drawable get(ActionButtonType button) {
+        Objects.requireNonNull(button);
 
-    /**
-     * Obtains the icon that represents the given {@link UnitType}.
-     *
-     * @param type  the unit type to whose icon is required.
-     * @return      a {@link Drawable} containing the required icon.
-     */
-    public Drawable get(UnitType type) {
-        Objects.requireNonNull(type);
-        return getIcon(specializations.getSpecialization(type));
+        GridPoint2 size = buttonIconLayout.getSize(button);
+        GridPoint2 location = buttonIconLayout.getLocation(button);
+
+        return location != null ? TextureUtils.getDrawable(texture, location, size) : null;
     }
 
     /**
@@ -88,9 +80,26 @@ public class IconSet
         UnitType type = (UnitType)unit.getType();
         WarcraftFaction faction = type.getFaction();
         UnitAttack attack = type.getAttack();
-        IconLevel level = IconLevel.Basic;
 
-        return getIcon(specializations.getSpecialization(button, faction, attack, level));
+        GridPoint2 size = buttonIconLayout.getSize(button, faction, attack);
+        GridPoint2 location = buttonIconLayout.getLocation(button, faction, attack);
+
+        return location != null ? TextureUtils.getDrawable(texture, location, size) : null;
+    }
+
+    /**
+     * Obtains the icon that represents the given {@link UnitType}.
+     *
+     * @param type  the unit type to whose icon is required.
+     * @return      a {@link Drawable} containing the required icon.
+     */
+    public Drawable get(UnitType type) {
+        Objects.requireNonNull(type);
+
+        GridPoint2 size = unitIconLayout.getSize(type);
+        GridPoint2 location = unitIconLayout.getLocation(type);
+
+        return location != null ? TextureUtils.getDrawable(texture, location, size) : null;
     }
 
     /**
@@ -101,20 +110,13 @@ public class IconSet
      * @return          a {@link Drawable} containing the required icon.
      */
     public Drawable get(Upgrade upgrade, Unit unit) {
-        Objects.requireNonNull(upgrade);
-        Objects.requireNonNull(unit);
-
         UnitType type = (UnitType)unit.getType();
         WarcraftFaction faction = type.getFaction();
-        UnitAttack attack = UnitAttack.None;
-        IconLevel level = IconLevel.Basic;
+        UnitAttack attack = type.getAttack();
 
-        return getIcon(specializations.getSpecialization(upgrade, faction, attack, level));
-    }
+        GridPoint2 size = upgradeIconLayout.getSize(upgrade, faction, attack);
+        GridPoint2 location = upgradeIconLayout.getLocation(upgrade, faction, attack);
 
-    private Drawable getIcon(Identifier type) {
-        GridPoint2 size = layout.getSize(type);
-        GridPoint2 location = layout.getLocation(type);
         return location != null ? TextureUtils.getDrawable(texture, location, size) : null;
     }
 }

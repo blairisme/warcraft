@@ -25,12 +25,12 @@ import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage2;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedSight1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedType1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedWeapon1;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AdvancedRangedDamageButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedAccuracyButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedDamageButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedSightButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedTypeButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ImprovedRangedWeaponButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RangedDamage2Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RangedAccuracy1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RangedDamage1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RangedSight1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RangedType1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RangedWeapon1Button;
 
 /**
  * Controls the buttons shown when a Human Lumber Mill is selected.
@@ -59,13 +59,13 @@ public class LumberMillButtons extends BasicButtonController
 
     private List<ActionButtonType> getBasicArcherButtons(Player player) {
         List<ActionButtonType> buttons = new ArrayList<>();
-        addUpgradeButton(player, buttons, ImprovedRangedDamageButton, RangedDamage1);
+        addUpgradeButton(player, buttons, RangedDamage1Button, RangedDamage1);
         return buttons;
     }
 
     private List<ActionButtonType> getAdvancedArcherButtons(Player player) {
         List<ActionButtonType> buttons = getBasicArcherButtons(player);
-        addUpgradeButton(player, buttons, AdvancedRangedDamageButton, RangedDamage1, RangedDamage2);
+        addUpgradeButton(player, buttons, RangedDamage2Button, RangedDamage1, RangedDamage2);
         return buttons;
     }
 
@@ -75,15 +75,15 @@ public class LumberMillButtons extends BasicButtonController
 
     private List<ActionButtonType> getBasicRangerButtons(Player player) {
         List<ActionButtonType> buttons = getAdvancedArcherButtons(player);
-        buttons.add(ImprovedRangedTypeButton);
+        buttons.add(RangedType1Button);
         return buttons;
     }
 
     private List<ActionButtonType> getAdvancedRangerButtons(Player player) {
         List<ActionButtonType> buttons = getAdvancedArcherButtons(player);
-        addUpgradeButton(player, buttons, ImprovedRangedSightButton, RangedSight1);
-        addUpgradeButton(player, buttons, ImprovedRangedWeaponButton, RangedWeapon1);
-        addUpgradeButton(player, buttons, ImprovedRangedAccuracyButton, RangedAccuracy1);
+        addUpgradeButton(player, buttons, RangedSight1Button, RangedSight1);
+        addUpgradeButton(player, buttons, RangedWeapon1Button, RangedWeapon1);
+        addUpgradeButton(player, buttons, RangedAccuracy1Button, RangedAccuracy1);
         return buttons;
     }
 
@@ -91,12 +91,12 @@ public class LumberMillButtons extends BasicButtonController
     public boolean getEnabled(ActionButtonType button, Item item) {
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
-            case ImprovedRangedDamageButton: return hasResources(player, RangedDamage1);
-            case AdvancedRangedDamageButton: return hasResources(player, RangedDamage2);
-            case ImprovedRangedTypeButton: return hasResources(player, RangedType1);
-            case ImprovedRangedSightButton: return hasResources(player, RangedSight1);
-            case ImprovedRangedAccuracyButton: return hasResources(player, RangedWeapon1);
-            case ImprovedRangedWeaponButton: return hasResources(player, RangedAccuracy1);
+            case RangedDamage1Button: return hasResources(player, RangedDamage1);
+            case RangedDamage2Button: return hasResources(player, RangedDamage2);
+            case RangedType1Button: return hasResources(player, RangedType1);
+            case RangedSight1Button: return hasResources(player, RangedSight1);
+            case RangedAccuracy1Button: return hasResources(player, RangedWeapon1);
+            case RangedWeapon1Button: return hasResources(player, RangedAccuracy1);
             default: return false;
         }
     }

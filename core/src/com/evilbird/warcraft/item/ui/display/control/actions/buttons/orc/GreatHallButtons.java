@@ -17,7 +17,7 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButton
 
 import java.util.List;
 
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TrainPeonButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PeonButton;
 import static com.evilbird.warcraft.item.unit.UnitType.Peon;
 import static java.util.Collections.singletonList;
 
@@ -30,14 +30,14 @@ public class GreatHallButtons extends BasicButtonController
 {
     @Override
     public List<ActionButtonType> getButtons(Item item) {
-        return singletonList(TrainPeonButton);
+        return singletonList(PeonButton);
     }
 
     @Override
     public boolean getEnabled(ActionButtonType button, Item item) {
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
-            case TrainPeonButton: return hasResources(player, Peon);
+            case PeonButton: return hasResources(player, Peon);
             default: return false;
         }
     }

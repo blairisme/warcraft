@@ -20,14 +20,14 @@ import java.util.List;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUnit;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildChurchButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildFoundryButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildGnomishInventorButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildGryphonAviaryButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildMageTowerButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildRefineryButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildShipyardButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildStablesButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ChurchButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.FoundryButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GnomishInventorButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GryphonAviaryButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MageTowerButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.RefineryButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ShipyardButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StablesButton;
 import static com.evilbird.warcraft.item.unit.UnitType.Castle;
 import static com.evilbird.warcraft.item.unit.UnitType.Church;
 import static com.evilbird.warcraft.item.unit.UnitType.Foundry;
@@ -50,19 +50,19 @@ import static java.util.Arrays.asList;
 public class PeasantAdvancedBuildings extends BasicButtonController
 {
     private static final List<ActionButtonType> BASIC_BUTTONS =
-        asList(BuildShipyardButton, BuildCancelButton);
+        asList(ShipyardButton, BuildCancelButton);
 
     private static final List<ActionButtonType> ADVANCED_SHIP_BUTTONS =
-        asList(BuildShipyardButton, BuildFoundryButton, BuildRefineryButton, BuildCancelButton);
+        asList(ShipyardButton, FoundryButton, RefineryButton, BuildCancelButton);
 
     private static final List<ActionButtonType> ADVANCED_MELEE_BUTTONS =
-        asList(BuildShipyardButton, BuildFoundryButton, BuildRefineryButton,
-               BuildGnomishInventorButton, BuildStablesButton, BuildCancelButton);
+        asList(ShipyardButton, FoundryButton, RefineryButton,
+                GnomishInventorButton, StablesButton, BuildCancelButton);
 
     private static final List<ActionButtonType> SPELL_CASTER_BUTTONS =
-            asList(BuildShipyardButton, BuildFoundryButton, BuildRefineryButton,
-                    BuildGnomishInventorButton, BuildStablesButton, BuildChurchButton,
-                    BuildGryphonAviaryButton, BuildMageTowerButton, BuildCancelButton);
+            asList(ShipyardButton, FoundryButton, RefineryButton,
+                    GnomishInventorButton, StablesButton, ChurchButton,
+                    GryphonAviaryButton, MageTowerButton, BuildCancelButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {
@@ -91,14 +91,14 @@ public class PeasantAdvancedBuildings extends BasicButtonController
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
             case BuildCancelButton: return true;
-            case BuildShipyardButton: return hasResources(player, Shipyard) && hasUnit(player, LumberMill);
-            case BuildFoundryButton: return hasResources(player, Foundry) && hasUnit(player, Shipyard);
-            case BuildRefineryButton: return hasResources(player, Refinery) && hasUnit(player, Shipyard);
-            case BuildStablesButton: return hasResources(player, Stables) && hasUnit(player, Keep);
-            case BuildGnomishInventorButton: return hasResources(player, GnomishInventor) && hasUnit(player, Keep);
-            case BuildChurchButton: return hasResources(player, Church) && hasUnit(player, Castle);
-            case BuildGryphonAviaryButton: return hasResources(player, GryphonAviary) && hasUnit(player, Castle);
-            case BuildMageTowerButton: return hasResources(player, MageTower) && hasUnit(player, Castle);
+            case ShipyardButton: return hasResources(player, Shipyard) && hasUnit(player, LumberMill);
+            case FoundryButton: return hasResources(player, Foundry) && hasUnit(player, Shipyard);
+            case RefineryButton: return hasResources(player, Refinery) && hasUnit(player, Shipyard);
+            case StablesButton: return hasResources(player, Stables) && hasUnit(player, Keep);
+            case GnomishInventorButton: return hasResources(player, GnomishInventor) && hasUnit(player, Keep);
+            case ChurchButton: return hasResources(player, Church) && hasUnit(player, Castle);
+            case GryphonAviaryButton: return hasResources(player, GryphonAviary) && hasUnit(player, Castle);
+            case MageTowerButton: return hasResources(player, MageTower) && hasUnit(player, Castle);
             default: return false;
         }
     }

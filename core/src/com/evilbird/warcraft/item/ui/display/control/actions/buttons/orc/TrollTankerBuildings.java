@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildOilRigButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.OilRigButton;
 import static com.evilbird.warcraft.item.unit.UnitType.OilRig;
 
 /**
@@ -32,7 +32,7 @@ public class TrollTankerBuildings extends BasicButtonController
 {
     @Override
     public List<ActionButtonType> getButtons(Item item) {
-        return Arrays.asList(BuildOilRigButton, BuildCancelButton);
+        return Arrays.asList(OilRigButton, BuildCancelButton);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class TrollTankerBuildings extends BasicButtonController
         Player player = UnitOperations.getPlayer(item);
         switch (button) {
             case BuildCancelButton: return true;
-            case BuildOilRigButton: return hasResources(player, OilRig);
+            case OilRigButton: return hasResources(player, OilRig);
             default: return false;
         }
     }
