@@ -24,7 +24,6 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.Castl
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.ChurchButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.GnomishInventorButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.GryphonAviaryButtons;
-import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.GuardTowerButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.KeepButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.LumberMillButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.MageTowerButtons;
@@ -67,7 +66,6 @@ import static com.evilbird.warcraft.item.unit.UnitType.GnomishInventor;
 import static com.evilbird.warcraft.item.unit.UnitType.GreatHall;
 import static com.evilbird.warcraft.item.unit.UnitType.Grunt;
 import static com.evilbird.warcraft.item.unit.UnitType.GryphonAviary;
-import static com.evilbird.warcraft.item.unit.UnitType.GuardTower;
 import static com.evilbird.warcraft.item.unit.UnitType.Keep;
 import static com.evilbird.warcraft.item.unit.UnitType.Knight;
 import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
@@ -159,7 +157,6 @@ public class ButtonControllers
         registerController(Actions, Foundry, new FoundryButtons());
         registerController(Actions, GnomishInventor, new GnomishInventorButtons());
         registerController(Actions, GryphonAviary, new GryphonAviaryButtons());
-        registerController(Actions, GuardTower, new GuardTowerButtons());
         registerController(Actions, Keep, new KeepButtons());
         registerController(Actions, LumberMill, new LumberMillButtons());
         registerController(Actions, MageTower, new MageTowerButtons());

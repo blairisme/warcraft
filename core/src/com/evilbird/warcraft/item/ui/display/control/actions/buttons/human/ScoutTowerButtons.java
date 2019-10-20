@@ -15,13 +15,16 @@ import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButtonController;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUnit;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.CannonTowerButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GuardTowerButton;
+import static com.evilbird.warcraft.item.unit.UnitType.Blacksmith;
+import static com.evilbird.warcraft.item.unit.UnitType.CannonTower;
 import static com.evilbird.warcraft.item.unit.UnitType.GuardTower;
 import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
-import static java.util.Collections.singletonList;
 
 /**
  * Controls the buttons shown when a Human Scout Tower is selected.
@@ -30,7 +33,8 @@ import static java.util.Collections.singletonList;
  */
 public class ScoutTowerButtons extends BasicButtonController
 {
-    private static final List<ActionButtonType> BUTTONS = singletonList(GuardTowerButton);
+    private static final List<ActionButtonType> BUTTONS =
+        Arrays.asList(GuardTowerButton, CannonTowerButton);
 
     @Override
     public List<ActionButtonType> getButtons(Item item) {
@@ -40,6 +44,10 @@ public class ScoutTowerButtons extends BasicButtonController
     @Override
     public boolean getEnabled(ActionButtonType button, Item item) {
         Player player = UnitOperations.getPlayer(item);
-        return hasResources(player, GuardTower) && hasUnit(player, LumberMill);
+        switch (button) {
+            case GuardTowerButton: return hasResources(player, GuardTower) && hasUnit(player, LumberMill);
+            case CannonTowerButton: return hasResources(player, CannonTower) && hasUnit(player, Blacksmith);
+            default: return false;
+        }
     }
 }
