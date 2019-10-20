@@ -13,6 +13,7 @@ import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
+import com.evilbird.warcraft.action.select.SelectEvents;
 import com.evilbird.warcraft.item.common.production.ProductionCosts;
 import com.evilbird.warcraft.item.common.production.ProductionTimes;
 import com.evilbird.warcraft.item.common.resource.ResourceSet;
@@ -39,6 +40,7 @@ public class ConstructUpgrade extends BasicAction
     private transient GameTimer timer;
     private transient ItemFactory factory;
     private transient ResourceTransfer resources;
+    private transient SelectEvents selectEvents;
     private transient ConstructEvents constructEvents;
     private transient ProductionCosts productionCosts;
     private transient ProductionTimes productionTimes;
@@ -47,12 +49,14 @@ public class ConstructUpgrade extends BasicAction
     public ConstructUpgrade(
         ItemFactory factory,
         ConstructEvents constructEvents,
+        SelectEvents selectEvents,
         ResourceTransfer resources,
         ProductionCosts productionCosts,
         ProductionTimes productionTimes)
     {
         this.factory = factory;
         this.resources = resources;
+        this.selectEvents = selectEvents;
         this.constructEvents = constructEvents;
         this.productionCosts = productionCosts;
         this.productionTimes = productionTimes;
@@ -130,8 +134,17 @@ public class ConstructUpgrade extends BasicAction
         player.removeItem(building);
         player.addItem(improvement);
         player.setUpgrades(building.getUpgrades(), true);
+
+        improvement.setPosition(building.getPosition());
         improvement.clearUpgrades();
 
+        if (building.getSelected()) {
+            building.setSelected(false);
+            improvement.setSelected(true);
+
+            selectEvents.notifySelected(building, false);
+            selectEvents.notifySelected(improvement, true);
+        }
         constructEvents.notifyConstructComplete(improvement);
         return ActionComplete;
     }
