@@ -23,7 +23,6 @@ import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StopButton;
@@ -99,7 +98,6 @@ public class IconSetTest extends GameTestCase
     }
 
     @Test
-    @Ignore
     public void getActionButtonIconTest() {
         Unit unit = TestCombatants.newTestCombatant(new TextIdentifier("ElvenArcher"), UnitType.ElvenArcher);
         for (ActionButtonType actionButtonType: ActionButtonType.values()) {

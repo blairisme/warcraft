@@ -16,8 +16,6 @@ import com.evilbird.engine.common.lang.IdentifierPair;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.unit.UnitAttack;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -69,6 +67,7 @@ import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButton
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ScoutTowerButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ShipyardButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildSimpleButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.SiegeDamage2Button;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StablesButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StrongholdButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.TempleOfTheDamnedButton;
@@ -155,12 +154,12 @@ import static com.evilbird.warcraft.item.ui.display.control.common.IconType.Unkn
 public class ButtonIconLayout
 {
     private final GridPoint2 size;
-    private final Map<Identifier, GridPoint2> icons;
-    private final Map<Identifier, Identifier> specializations;
+    private final Map<Identifier, GridPoint2> locations;
+    private final Map<Identifier, Identifier> aliases;
 
     public ButtonIconLayout() {
         size = new GridPoint2(46, 38);
-        icons = layout(
+        locations = layout(
             PeasantButton,              PeonButton,                 FootmanButton,              GruntButton,                ElvenArcherButton,
             TrollAxethrowerButton,      ElvenRangerButton,          TrollBerserkerButton,       KnightButton,               OgreButton,
             PaladinButton,              OgreMageButton,             DwarvenDemolitionSquadButton,GoblinSappersButton,       MageButton,
@@ -184,12 +183,12 @@ public class ButtonIconLayout
             FlameShieldButton,          FireballButton,             TouchOfDarknessButton,      DeathAndDecayButton,        WhirlwindButton,
             BlizzardButton,             HolyVisionButton,           HealingButton,              DeathCoilButton,            Unknown,
             ExorcismButton,             EyeOfKilroggButton,         BloodlustButton,            Unknown,                    RaiseDeadButton,
-            PolymorphButton,            human(melee(AttackButton)), human(MeleeDamage1Button),  human(MeleeDamage2Button),  orc(melee(AttackButton)),
+            PolymorphButton,            human(AttackButton),        human(MeleeDamage1Button),  human(MeleeDamage2Button),  orc(AttackButton),
             orc(MeleeDamage1Button),    orc(MeleeDamage2Button),    Unknown,                    Unknown,                    human(ranged(AttackButton)),
             human(RangedDamage1Button), human(RangedDamage2Button), orc(ranged(AttackButton)),  orc(RangedDamage1Button),   orc(RangedDamage2Button),
             Unknown,                    Unknown,                    human(RangedWeapon1Button), human(RangedSight1Button),  human(RangedAccuracy1Button),
-            orc(RangedWeapon1Button),   orc(RangedSight1Button),    orc(RangedAccuracy1Button), orc(siege(AttackButton)),   orc(SiegeDamage1Button),
-            human(siege(AttackButton)), human(SiegeDamage1Button),  human(DetonateButton),      orc(DetonateButton),        human(naval(AttackButton)),
+            orc(RangedWeapon1Button),   orc(RangedSight1Button),    orc(RangedAccuracy1Button), orc(SiegeDamage1Button),    orc(SiegeDamage2Button),
+            human(SiegeDamage1Button),  human(SiegeDamage2Button),  human(DetonateButton),      orc(DetonateButton),        human(naval(AttackButton)),
             human(NavalDamage1Button),  human(NavalDamage2Button),  orc(naval(AttackButton)),   orc(NavalDamage1Button),    orc(NavalDamage2Button),
             orc(naval(StopButton)),     orc(NavalDefence1Button),   orc(NavalDefence2Button),   human(naval(StopButton)),   human(NavalDefence1Button),
             human(NavalDefence2Button), orc(naval(MoveButton)),     human(naval(MoveButton)),   orc(naval(DepositButton)),  human(naval(DepositButton)),
@@ -199,7 +198,7 @@ public class ButtonIconLayout
             Unknown,                    Unknown,                    Unknown,                    human(PatrolButton),        orc(PatrolButton),
             human(DefendButton),        orc(DefendButton),          Unknown,                    Unknown,                    Unknown
         );
-        specializations = Maps.of(
+        aliases = Maps.of(
             BuildCancelButton,          CancelButton,
             human(MeleeType1Button),    PaladinButton,
             human(RangedType1Button),   ElvenRangerButton,
@@ -229,7 +228,7 @@ public class ButtonIconLayout
      * within an icon texture file.
      */
     public GridPoint2 getLocation(ActionButtonType type) {
-        return icons.get(type);
+        return locations.get(type);
     }
 
     /**
@@ -254,10 +253,10 @@ public class ButtonIconLayout
     }
 
     private GridPoint2 getLocationImpl(Identifier identifier) {
-        if (specializations.containsKey(identifier)) {
-            identifier = specializations.get(identifier);
+        if (aliases.containsKey(identifier)) {
+            identifier = aliases.get(identifier);
         }
-        return icons.get(identifier);
+        return locations.get(identifier);
     }
 
     private Map<Identifier, GridPoint2> layout(Identifier ... types) {
@@ -278,16 +277,8 @@ public class ButtonIconLayout
         return combination(WarcraftFaction.Orc, id);
     }
 
-    private Identifier melee(Identifier id) {
-        return combination(UnitAttack.Melee, id);
-    }
-
     private Identifier ranged(Identifier id) {
         return combination(UnitAttack.Ranged, id);
-    }
-
-    private Identifier siege(Identifier id) {
-        return combination(UnitAttack.Siege, id);
     }
 
     private Identifier naval(Identifier id) {
