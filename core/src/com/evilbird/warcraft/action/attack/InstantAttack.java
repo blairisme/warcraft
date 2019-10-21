@@ -12,7 +12,6 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.common.state.MovableObject;
 import com.evilbird.warcraft.item.common.state.OffensiveObject;
 import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -23,7 +22,6 @@ import javax.inject.Inject;
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
 
 /**
  * A {@link ProximityAttack} that only attacks once.

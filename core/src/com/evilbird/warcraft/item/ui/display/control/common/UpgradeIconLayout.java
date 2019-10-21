@@ -14,14 +14,25 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.IdentifierPair;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
-import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.unit.UnitAttack;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.evilbird.warcraft.item.common.upgrade.Upgrade.*;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeDamage1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeDamage2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeDefence1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeDefence2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.NavalDamage1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.NavalDamage2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.NavalDefence1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.NavalDefence2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedAccuracy1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedSight1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedWeapon1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.SiegeDamage1;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.Unknown;
 
 /**

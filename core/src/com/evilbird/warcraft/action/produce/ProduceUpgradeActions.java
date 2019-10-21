@@ -46,6 +46,9 @@ public enum ProduceUpgradeActions implements ActionIdentifier
     WoodProduction1Upgrade,
     WoodProduction2Upgrade,
 
+    ExorcismUpgrade,
+    HealingUpgrade,
+
     MeleeDamage1UpgradeCancel,
     MeleeDamage2UpgradeCancel,
     MeleeDefence1UpgradeCancel,
@@ -68,10 +71,13 @@ public enum ProduceUpgradeActions implements ActionIdentifier
     OilProduction1UpgradeCancel,
     OilProduction2UpgradeCancel,
     WoodProduction1UpgradeCancel,
-    WoodProduction2UpgradeCancel;
+    WoodProduction2UpgradeCancel,
+
+    ExorcismUpgradeCancel,
+    HealingUpgradeCancel;
 
     public boolean isCancel() {
-        return isBetween(this, MeleeDamage1UpgradeCancel, WoodProduction2UpgradeCancel);
+        return isBetween(this, MeleeDamage1UpgradeCancel, HealingUpgradeCancel);
     }
 
     public Upgrade getProduct() {
@@ -87,15 +93,23 @@ public enum ProduceUpgradeActions implements ActionIdentifier
 
     public static ProduceUpgradeActions forProduct(Upgrade upgrade) {
         if (upgrade != Upgrade.None) {
-            return ProduceUpgradeActions.valueOf(upgrade.name() + "Upgrade");
+            return ProduceUpgradeActions.valueOf(getUpgradeName(upgrade));
         }
         throw new IllegalArgumentException("Upgrade.None");
     }
 
     public static ProduceUpgradeActions forProductCancel(Upgrade upgrade) {
         if (upgrade != Upgrade.None) {
-            return ProduceUpgradeActions.valueOf(upgrade.name() + "UpgradeCancel");
+            return ProduceUpgradeActions.valueOf(getUpgradeName(upgrade) + "Cancel");
         }
         throw new IllegalArgumentException("Upgrade.None");
+    }
+
+    private static String getUpgradeName(Upgrade upgrade) {
+        String name = upgrade.name();
+        if (!name.endsWith("Upgrade")) {
+            name += "Upgrade";
+        }
+        return name;
     }
 }

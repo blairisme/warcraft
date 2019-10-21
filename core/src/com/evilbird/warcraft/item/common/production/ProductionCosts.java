@@ -67,6 +67,8 @@ public class ProductionCosts
             case NavalDefence2: return resources(0, 0, 0, 0);
             case SiegeDamage1: return resources(0, 0, 0, 0);
             case SiegeDamage2: return resources(0, 0, 0, 0);
+            case ExorcismUpgrade: return resources(0, 0, 0, 0);
+            case HealingUpgrade: return resources(0, 0, 0, 0);
             default: throw new UnsupportedOperationException();
         }
     }

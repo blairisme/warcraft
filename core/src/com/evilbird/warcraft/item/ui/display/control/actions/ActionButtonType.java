@@ -162,7 +162,10 @@ public enum ActionButtonType implements Identifier
     NavalDamage1Button,
     NavalDamage2Button,
     NavalDefence1Button,
-    NavalDefence2Button;
+    NavalDefence2Button,
+
+    ExorcismUpgradeButton,
+    HealingUpgradeButton;
 
     public UnitType getBuildProduct() {
         Validate.isTrue(isBuildButton() || isBuildingUpgradeButton());
@@ -192,6 +195,6 @@ public enum ActionButtonType implements Identifier
     }
 
     public boolean isUpgradeButton() {
-        return isBetween(this, MeleeDamage1Button, NavalDefence2Button);
+        return isBetween(this, MeleeDamage1Button, HealingUpgradeButton);
     }
 }

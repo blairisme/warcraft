@@ -77,13 +77,6 @@ public class IconSetTest extends GameTestCase
     }
 
     @Test
-    public void getUpgradeIconTest() {
-        Unit lumberMill = TestBuildings.newTestBuilding(new TextIdentifier("LumberMill"), UnitType.LumberMill);
-        Drawable actual = iconSet.get(Upgrade.RangedDamage1, lumberMill);
-        Assert.assertNotNull(actual);
-    }
-
-    @Test
     public void getSealIconTest() {
         Drawable actual = iconSet.get(UnitType.Seal);
         Assert.assertNotNull(actual);
@@ -103,6 +96,15 @@ public class IconSetTest extends GameTestCase
         for (ActionButtonType actionButtonType: ActionButtonType.values()) {
             Drawable icon = iconSet.get(actionButtonType, unit);
             Assert.assertNotNull(actionButtonType.name(), icon);
+        }
+    }
+
+    @Test
+    public void getUpgradeIconTest() {
+        Unit lumberMill = TestBuildings.newTestBuilding(new TextIdentifier("LumberMill"), UnitType.LumberMill);
+        for (Upgrade upgrade: Upgrade.values()) {
+            Drawable icon = iconSet.get(upgrade, lumberMill);
+            Assert.assertNotNull(upgrade.name(), icon);
         }
     }
 }

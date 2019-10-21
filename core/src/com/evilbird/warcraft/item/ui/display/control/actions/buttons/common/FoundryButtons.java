@@ -22,10 +22,10 @@ import static com.evilbird.warcraft.item.common.upgrade.Upgrade.NavalDamage1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.NavalDamage2;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.NavalDefence1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.NavalDefence2;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.NavalDamage2Button;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.NavalDefence2Button;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.NavalDamage1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.NavalDamage2Button;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.NavalDefence1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.NavalDefence2Button;
 
 /**
  * Controls the buttons shown when a Human Foundry is selected.

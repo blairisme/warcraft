@@ -24,12 +24,12 @@ import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeDefence1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeDefence2;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.SiegeDamage1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.SiegeDamage2;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MeleeDamage2Button;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MeleeDefence2Button;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.SiegeDamage2Button;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MeleeDamage1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MeleeDamage2Button;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MeleeDefence1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MeleeDefence2Button;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.SiegeDamage1Button;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.SiegeDamage2Button;
 
 /**
  * Controls the buttons shown when a Human Blacksmith is selected.
