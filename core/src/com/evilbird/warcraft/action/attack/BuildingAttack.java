@@ -34,7 +34,7 @@ public class BuildingAttack extends AttackSequence
     }
 
     @Override
-    protected boolean moveAttacker(float time, OffensiveObject attacker, PerishableObject target) {
+    protected boolean move(float time, OffensiveObject attacker, PerishableObject target) {
         return ActionComplete;
     }
 }

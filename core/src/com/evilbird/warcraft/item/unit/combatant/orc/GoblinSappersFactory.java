@@ -42,10 +42,10 @@ public class GoblinSappersFactory extends CombatantFactoryBase
     @Override
     public Combatant get(Identifier type) {
         Combatant result = builder.newMeleeCombatant();
-        result.setAttackSpeed(1);
+        result.setAttackSpeed(0.9f);
         result.setArmour(2);
-        result.setPiercingDamage(2);
-        result.setBasicDamage(9);
+        result.setBasicDamage(50);
+        result.setPiercingDamage(50);
         result.setHealth(60);
         result.setHealthMaximum(60);
         result.setIdentifier(objectIdentifier("GoblinSappers", result));

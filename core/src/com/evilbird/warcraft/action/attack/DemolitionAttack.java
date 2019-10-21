@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.action.attack;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.action.common.remove.RemoveEvents;
@@ -33,6 +34,7 @@ import static com.evilbird.engine.item.utility.ItemOperations.assignIfAbsent;
  */
 public class DemolitionAttack extends AttackSequence
 {
+    private transient boolean attackStarted;
     private transient SelectEvents selectEvents;
     private transient RemoveEvents removeEvents;
     private transient InstantAttack attackAction;
@@ -55,23 +57,36 @@ public class DemolitionAttack extends AttackSequence
     }
 
     @Override
-    protected boolean attackRequired(OffensiveObject attacker, PerishableObject target) {
-        return !attackAction.isComplete() && super.attackRequired(attacker, target);
+    public void reset() {
+        super.reset();
+        attackStarted = false;
     }
 
     @Override
-    protected boolean attackTarget(float time, OffensiveObject attacker, PerishableObject target) {
-        disableAttacker(attacker);
-        return super.attackTarget(time, attacker, target);
+    public void restart() {
+        super.restart();
+        attackStarted = false;
     }
 
-    protected void disableAttacker(OffensiveObject attacker) {
-        Combatant combatant = (Combatant)attacker;
-        if (combatant.getSelectable()) {
-            combatant.setSelected(false);
-            combatant.setSelectable(false);
-            selectEvents.notifySelected(combatant, false);
+    @Override
+    protected boolean attackFailed(OffensiveObject attacker, PerishableObject target) {
+        return !attackStarted && super.attackFailed(attacker, target);
+    }
+
+    @Override
+    protected boolean attackRequired(OffensiveObject attacker, PerishableObject target) {
+        return !attackStarted ? super.attackRequired(attacker, target) : !attackAction.isComplete();
+    }
+
+    @Override
+    protected boolean attack(float time, OffensiveObject attacker, PerishableObject target) {
+        boolean result = super.attack(time, attacker, target);
+        if (!attackStarted) {
+            attackStarted = true;
+            disableAttacker(attacker);
+            killTarget(target);
         }
+        return result;
     }
 
     @Override
@@ -80,9 +95,8 @@ public class DemolitionAttack extends AttackSequence
     }
 
     @Override
-    protected boolean killTarget(OffensiveObject attacker, PerishableObject target) {
+    protected boolean kill(OffensiveObject attacker, PerishableObject target) {
         killAttacker(attacker);
-        killTarget(target);
         return ActionComplete;
     }
 
@@ -96,5 +110,15 @@ public class DemolitionAttack extends AttackSequence
         ItemGroup parent = attacker.getParent();
         parent.removeItem(attacker);
         removeEvents.notifyRemove(attacker);
+    }
+
+    protected void disableAttacker(OffensiveObject attacker) {
+        Combatant combatant = (Combatant)attacker;
+        if (combatant.getSelectable()) {
+            combatant.setSelected(false);
+            combatant.setSelectable(false);
+            combatant.setTouchable(Touchable.disabled);
+            selectEvents.notifySelected(combatant, false);
+        }
     }
 }

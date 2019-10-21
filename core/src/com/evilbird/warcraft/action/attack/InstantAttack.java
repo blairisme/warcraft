@@ -9,46 +9,81 @@
 
 package com.evilbird.warcraft.action.attack;
 
+import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.item.common.state.MovableObject;
+import com.evilbird.warcraft.item.common.state.OffensiveObject;
+import com.evilbird.warcraft.item.common.state.PerishableObject;
+import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.warcraft.item.unit.UnitSound;
 
 import javax.inject.Inject;
+
+import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
+import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
 
 /**
  * A {@link ProximityAttack} that only attacks once.
  *
  * @author Blair Butterworth
  */
-public class InstantAttack extends ProximityAttack
+public class InstantAttack extends BasicAction
 {
-    private transient boolean complete;
+    private transient GameTimer delay;
+    private transient WarcraftPreferences preferences;
 
     @Inject
     public InstantAttack(WarcraftPreferences preferences) {
-        super(preferences);
-        complete = false;
-    }
-
-    public boolean isComplete() {
-        return complete;
+        this.preferences = preferences;
     }
 
     @Override
-    protected boolean attackTarget() {
-        super.attackTarget();
-        complete = true;
-        return true;
+    public boolean act(float time) {
+        if (! targetAttacked()) {
+            attackTarget();
+        }
+        if (! isComplete()) {
+            return waitForComplete(time);
+        }
+        return ActionComplete;
     }
 
     @Override
     public void reset() {
         super.reset();
-        complete = false;
+        delay = null;
     }
 
     @Override
     public void restart() {
         super.restart();
-        complete = false;
+        delay = null;
+    }
+
+    private boolean targetAttacked() {
+        return delay != null;
+    }
+
+    protected void attackTarget() {
+        OffensiveObject attacker = (OffensiveObject)getItem();
+        attacker.setAnimation(UnitAnimation.Attack);
+        attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
+
+        PerishableObject target = (PerishableObject)getTarget();
+        target.setHealth(getDamagedHealth(attacker, target));
+
+        delay = new GameTimer(attacker.getAttackSpeed());
+    }
+
+    public boolean isComplete() {
+        return delay != null && delay.complete();
+    }
+
+    protected boolean waitForComplete(float time) {
+        delay.advance(time);
+        return ActionIncomplete;
     }
 }
-

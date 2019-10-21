@@ -53,17 +53,17 @@ public abstract class AttackSequence extends CompositeAction
     }
 
     private boolean act(float time, OffensiveObject attacker, PerishableObject target) {
-        if (targetInvalid(attacker, target)) {
-            return attackFailed(attacker, target);
+        if (attackFailed(attacker, target)) {
+            return failed(attacker, target);
         }
         if (moveRequired(attacker, target)) {
-            return moveAttacker(time, attacker, target);
+            return move(time, attacker, target);
         }
         if (attackRequired(attacker, target)) {
-            return attackTarget(time, attacker, target);
+            return attack(time, attacker, target);
         }
         if (killRequired(attacker, target)) {
-            return killTarget(attacker, target);
+            return kill(attacker, target);
         }
         return ActionComplete;
     }
@@ -80,11 +80,11 @@ public abstract class AttackSequence extends CompositeAction
         super.setTarget(target);
     }
 
-    protected boolean targetInvalid(OffensiveObject attacker, PerishableObject target) {
+    protected boolean attackFailed(OffensiveObject attacker, PerishableObject target) {
         return !target.getTouchable() || !target.getVisible();
     }
 
-    protected boolean attackFailed(OffensiveObject attacker, PerishableObject target) {
+    protected boolean failed(OffensiveObject attacker, PerishableObject target) {
         resetAttacker(attacker);
         events.attackFailed(attacker, target);
         return ActionComplete;
@@ -94,7 +94,7 @@ public abstract class AttackSequence extends CompositeAction
        return current == move || !inRange(attacker, target);
     }
 
-    protected boolean moveAttacker(float time, OffensiveObject attacker, PerishableObject target) {
+    protected boolean move(float time, OffensiveObject attacker, PerishableObject target) {
         if (current == attack) {
             events.attackStopped(attacker, target);
         }
@@ -114,7 +114,7 @@ public abstract class AttackSequence extends CompositeAction
         return target.getHealth() > 0;
     }
 
-    protected boolean attackTarget(float time, OffensiveObject attacker, PerishableObject target) {
+    protected boolean attack(float time, OffensiveObject attacker, PerishableObject target) {
         if (current != attack) {
             events.attackStarted(attacker, target);
             current = attack;
@@ -133,7 +133,7 @@ public abstract class AttackSequence extends CompositeAction
         return target.getHealth() == 0;
     }
 
-    protected boolean killTarget(OffensiveObject attacker, PerishableObject target) {
+    protected boolean kill(OffensiveObject attacker, PerishableObject target) {
         resetAttacker(attacker);
         assignIfAbsent(target, death);
         return ActionComplete;
