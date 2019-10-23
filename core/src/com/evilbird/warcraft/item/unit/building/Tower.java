@@ -10,15 +10,15 @@
 package com.evilbird.warcraft.item.unit.building;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.warcraft.item.common.state.OffensiveCapability;
-import com.evilbird.warcraft.item.common.state.RangedOffensiveObject;
+import com.evilbird.warcraft.item.common.capability.OffensiveCapability;
+import com.evilbird.warcraft.item.common.capability.RangedOffensiveObject;
 import com.evilbird.warcraft.item.projectile.Projectile;
 import com.evilbird.warcraft.item.projectile.ProjectileType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import static com.evilbird.warcraft.item.common.state.OffensiveCapability.Air;
+import static com.evilbird.warcraft.item.common.capability.OffensiveCapability.Air;
 import static com.evilbird.warcraft.item.projectile.ProjectileType.Arrow;
 
 /**

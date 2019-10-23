@@ -18,7 +18,7 @@ import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.production.ProductionCosts;
 import com.evilbird.warcraft.item.common.production.ProductionTimes;
 import com.evilbird.warcraft.item.common.resource.ResourceSet;
-import com.evilbird.warcraft.item.common.state.MovableObject;
+import com.evilbird.warcraft.item.common.capability.MovableObject;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;

@@ -11,10 +11,10 @@ package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.ViewableStyle;
-import com.evilbird.warcraft.item.common.state.MovableObject;
-import com.evilbird.warcraft.item.common.state.MovementCapability;
-import com.evilbird.warcraft.item.common.state.OffensiveCapability;
-import com.evilbird.warcraft.item.common.state.OffensiveObject;
+import com.evilbird.warcraft.item.common.capability.MovableObject;
+import com.evilbird.warcraft.item.common.capability.MovementCapability;
+import com.evilbird.warcraft.item.common.capability.OffensiveCapability;
+import com.evilbird.warcraft.item.common.capability.OffensiveObject;
 import com.evilbird.warcraft.item.common.upgrade.UpgradeSequence;
 import com.evilbird.warcraft.item.common.upgrade.UpgradeValue;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -23,7 +23,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.common.state.OffensiveCapability.Proximity;
+import static com.evilbird.warcraft.item.common.capability.OffensiveCapability.Proximity;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.Zero;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
 

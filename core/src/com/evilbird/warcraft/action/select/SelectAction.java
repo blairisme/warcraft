@@ -14,7 +14,7 @@ import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.common.state.SelectableObject;
+import com.evilbird.warcraft.item.common.capability.SelectableObject;
 
 import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
 

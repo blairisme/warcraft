@@ -17,7 +17,7 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.item.common.state.SelectableObject;
+import com.evilbird.warcraft.item.common.capability.SelectableObject;
 import com.evilbird.warcraft.item.ui.selection.SelectionBox;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 

@@ -20,8 +20,8 @@ import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourElement;
-import com.evilbird.warcraft.item.common.state.OffensiveObject;
-import com.evilbird.warcraft.item.common.state.PerishableObject;
+import com.evilbird.warcraft.item.common.capability.OffensiveObject;
+import com.evilbird.warcraft.item.common.capability.PerishableObject;
 
 import javax.inject.Inject;
 

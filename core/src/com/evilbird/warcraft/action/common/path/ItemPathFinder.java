@@ -18,7 +18,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
-import com.evilbird.warcraft.item.common.state.MovableObject;
+import com.evilbird.warcraft.item.common.capability.MovableObject;
 
 /**
  * Instances of this class calculate {@link GraphPath path} between {@link Item

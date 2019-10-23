@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.common.path;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.spatial.ItemNode;
-import com.evilbird.warcraft.item.common.state.MovementCapability;
+import com.evilbird.warcraft.item.common.capability.MovementCapability;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitType;
 

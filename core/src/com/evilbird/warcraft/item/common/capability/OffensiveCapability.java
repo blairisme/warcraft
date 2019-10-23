@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.common.state;
+package com.evilbird.warcraft.item.common.capability;
 
 /**
  * Defines options for offensive capability: an offensive objects ability to

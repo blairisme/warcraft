@@ -15,7 +15,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.common.state.SelectableObject;
+import com.evilbird.warcraft.item.common.capability.SelectableObject;
 
 import javax.inject.Inject;
 import java.util.function.Predicate;

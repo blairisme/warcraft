@@ -21,7 +21,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.common.state.MovementCapability.Water;
+import static com.evilbird.warcraft.item.common.capability.MovementCapability.Water;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.Zero;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.OilProduction;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollTanker;

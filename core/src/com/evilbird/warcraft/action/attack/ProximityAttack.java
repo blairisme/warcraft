@@ -13,9 +13,9 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.common.state.MovableObject;
-import com.evilbird.warcraft.item.common.state.OffensiveObject;
-import com.evilbird.warcraft.item.common.state.PerishableObject;
+import com.evilbird.warcraft.item.common.capability.MovableObject;
+import com.evilbird.warcraft.item.common.capability.OffensiveObject;
+import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
 

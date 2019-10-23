@@ -17,7 +17,7 @@ import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
-import com.evilbird.warcraft.item.common.state.PerishableObject;
+import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;

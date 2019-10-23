@@ -20,7 +20,7 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isControllable;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isMovableOver;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isTransport;
-import static com.evilbird.warcraft.item.common.state.MovementCapability.Land;
+import static com.evilbird.warcraft.item.common.capability.MovementCapability.Land;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DisembarkButton;
 
 /**

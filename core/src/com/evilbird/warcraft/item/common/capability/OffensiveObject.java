@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.common.state;
+package com.evilbird.warcraft.item.common.capability;
 
 import com.evilbird.engine.common.lang.Animated;
 import com.evilbird.engine.common.lang.Audible;
