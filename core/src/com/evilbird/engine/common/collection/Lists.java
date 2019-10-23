@@ -75,7 +75,6 @@ public class Lists
     public static <T> List<T> replace(List<T> list, T target, T replacement) {
         int index = list.indexOf(target);
         if (index != -1) {
-            list = new ArrayList<>(list);
             list.remove(index);
             list.add(index, replacement);
         }

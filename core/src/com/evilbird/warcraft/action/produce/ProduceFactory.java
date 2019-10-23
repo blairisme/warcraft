@@ -24,20 +24,23 @@ import javax.inject.Inject;
  */
 public class ProduceFactory implements ActionProvider
 {
-    private InjectedPool<ProduceUnit> produceUnitPool;
-    private InjectedPool<ProduceUpgrade> produceUpgradePool;
+    private InjectedPool<ProduceUnit> unitPool;
+    private InjectedPool<ProduceUpgrade> upgradePool;
+    private InjectedPool<ProduceUpgradeType> typeUpgradePool;
     private InjectedPool<ProduceUnitCancel> cancelUnitPool;
     private InjectedPool<ProduceUpgradeCancel> cancelUpgradePool;
 
     @Inject
     public ProduceFactory(
-        InjectedPool<ProduceUnit> produceUnitPool,
-        InjectedPool<ProduceUpgrade> produceUpgradePool,
+        InjectedPool<ProduceUnit> unitPool,
+        InjectedPool<ProduceUpgrade> upgradePool,
+        InjectedPool<ProduceUpgradeType> typeUpgradePool,
         InjectedPool<ProduceUnitCancel> cancelUnitPool,
         InjectedPool<ProduceUpgradeCancel> cancelUpgradePool)
     {
-        this.produceUnitPool = produceUnitPool;
-        this.produceUpgradePool = produceUpgradePool;
+        this.unitPool = unitPool;
+        this.upgradePool = upgradePool;
+        this.typeUpgradePool = typeUpgradePool;
         this.cancelUnitPool = cancelUnitPool;
         this.cancelUpgradePool = cancelUpgradePool;
     }
@@ -59,7 +62,7 @@ public class ProduceFactory implements ActionProvider
         if (produceUnit.isCancel()) {
             return getAction(cancelUnitPool, produceUnit);
         }
-        return getAction(produceUnitPool, produceUnit);
+        return getAction(unitPool, produceUnit);
     }
 
     private Action getUpgradeAction(ActionIdentifier action) {
@@ -68,7 +71,10 @@ public class ProduceFactory implements ActionProvider
         if (produceUpgrade.isCancel()) {
             return getAction(cancelUpgradePool, produceUpgrade);
         }
-        return getAction(produceUpgradePool, produceUpgrade);
+        if (produceUpgrade.isTypeUpgrade()) {
+            return getAction(typeUpgradePool, produceUpgrade);
+        }
+        return getAction(upgradePool, produceUpgrade);
     }
 
     private <T extends Action> T getAction(InjectedPool<T> pool, ActionIdentifier identifier) {

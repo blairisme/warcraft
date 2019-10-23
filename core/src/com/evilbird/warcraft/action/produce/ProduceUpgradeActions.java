@@ -80,11 +80,28 @@ public enum ProduceUpgradeActions implements ActionIdentifier
         return isBetween(this, MeleeDamage1UpgradeCancel, HealingUpgradeCancel);
     }
 
+    public boolean isTypeUpgrade() {
+        return this == MeleeType1Upgrade || this == RangedType1Upgrade;
+    }
+
+    public boolean isSpellUpgrade() {
+        return isBetween(this, ExorcismUpgrade, HealingUpgrade)
+            || isBetween(this, ExorcismUpgradeCancel, HealingUpgradeCancel);
+    }
+
     public Upgrade getProduct() {
         return Upgrade.valueOf(getProductName());
     }
 
     public String getProductName() {
+        return isSpellUpgrade() ? getSpellUpgradeName() : getPropertyUpgradeName();
+    }
+
+    private String getSpellUpgradeName() {
+        return StringUtils.removeEnd(name(), "Cancel");
+    }
+
+    private String getPropertyUpgradeName() {
         String name = this.name();
         name = StringUtils.removeEnd(name, "Upgrade");
         name = StringUtils.removeEnd(name, "UpgradeCancel");

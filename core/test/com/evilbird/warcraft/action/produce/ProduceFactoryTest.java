@@ -26,9 +26,10 @@ public class ProduceFactoryTest extends ActionFactoryTestCase
     protected ActionProvider newFactory() {
         InjectedPool<ProduceUnit> unitPool = new MockInjectedPool<>(ProduceUnit.class);
         InjectedPool<ProduceUpgrade> upgradePool = new MockInjectedPool<>(ProduceUpgrade.class);
+        InjectedPool<ProduceUpgradeType> typePool = new MockInjectedPool<>(ProduceUpgradeType.class);
         InjectedPool<ProduceUnitCancel> cancelUnitPool = new MockInjectedPool<>(ProduceUnitCancel.class);
         InjectedPool<ProduceUpgradeCancel> cancelUpgradePool = new MockInjectedPool<>(ProduceUpgradeCancel.class);
-        return new ProduceFactory(unitPool, upgradePool, cancelUnitPool, cancelUpgradePool);
+        return new ProduceFactory(unitPool, upgradePool, typePool, cancelUnitPool, cancelUpgradePool);
     }
 
     @Override

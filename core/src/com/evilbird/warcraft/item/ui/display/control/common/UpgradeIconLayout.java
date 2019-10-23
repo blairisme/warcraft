@@ -19,10 +19,13 @@ import com.evilbird.warcraft.item.unit.UnitAttack;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.ExorcismUpgrade;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.HealingUpgrade;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeDamage1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeDamage2;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeDefence1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeDefence2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeType1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.NavalDamage1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.NavalDamage2;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.NavalDefence1;
@@ -31,8 +34,10 @@ import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedAccuracy1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedDamage2;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedSight1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedType1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedWeapon1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.SiegeDamage1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.SiegeDamage2;
 import static com.evilbird.warcraft.item.ui.display.control.common.IconType.Unknown;
 
 /**
@@ -49,35 +54,35 @@ public class UpgradeIconLayout
     public UpgradeIconLayout() {
         size = new GridPoint2(46, 38);
         icons = layout(
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
-            Unknown, Unknown, Unknown, Unknown, Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            h(RangedType1),     o(RangedType1),     Unknown,            Unknown,
+            h(MeleeType1),      o(MeleeType1),      Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            HealingUpgrade,     Unknown,            Unknown,
+            ExorcismUpgrade,    Unknown,            Unknown,            Unknown,            Unknown,
             Unknown,            Unknown,            h(MeleeDamage1),    h(MeleeDamage2),    Unknown,
             o(MeleeDamage1),    o(MeleeDamage2),    Unknown,            Unknown,            Unknown,
             h(RangedDamage1),   h(RangedDamage2),   Unknown,            o(RangedDamage1),   o(RangedDamage2),
             Unknown,            Unknown,            h(RangedWeapon1),   h(RangedSight1),    h(RangedAccuracy1),
-            o(RangedWeapon1),   o(RangedSight1),    o(RangedAccuracy1), Unknown,            o(SiegeDamage1),
-            Unknown,            h(SiegeDamage1),    Unknown,            Unknown,            Unknown,
+            o(RangedWeapon1),   o(RangedSight1),    o(RangedAccuracy1), o(SiegeDamage1),    o(SiegeDamage2),
+            h(SiegeDamage1),    h(SiegeDamage2),    Unknown,            Unknown,            Unknown,
             h(NavalDamage1),    h(NavalDamage2),    Unknown,            o(NavalDamage1),    o(NavalDamage2),
             Unknown,            o(NavalDefence1),   o(NavalDefence2),   Unknown,            h(NavalDefence1),
             h(NavalDefence2),   Unknown,            Unknown,            Unknown,            Unknown,
