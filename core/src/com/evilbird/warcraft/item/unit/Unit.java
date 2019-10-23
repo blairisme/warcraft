@@ -161,6 +161,14 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     }
 
     /**
+     * Returns the distance that the unit can detect other units, specified as
+     * an {@link UpgradeValue}.
+     */
+    public UpgradeValue<Integer> getSightUpgrade() {
+        return sight;
+    }
+
+    /**
      * Returns whether the Unit has been selected by the user: a process that aids
      * the user by allowing them to issue commands to multiple Items at the
      * same time.
