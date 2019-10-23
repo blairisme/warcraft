@@ -28,7 +28,7 @@ import com.evilbird.engine.item.spatial.SpatialObject;
 import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.common.TeamColour;
-import com.evilbird.warcraft.item.common.graphics.ColourMaskSprite;
+import com.evilbird.engine.common.graphics.ColourMaskSprite;
 import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.warcraft.item.common.state.SelectableObject;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
