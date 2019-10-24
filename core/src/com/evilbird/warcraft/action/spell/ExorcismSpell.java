@@ -20,7 +20,8 @@ import static com.evilbird.engine.item.utility.ItemOperations.assignIfAbsent;
 import static com.evilbird.warcraft.item.common.spell.Spell.Exorcism;
 
 /**
- * A spell that degrades the health of a given game object.
+ * A spell that degrades the health of a given game object. Damage is dealt
+ * instantaneously.
  *
  * @author Blair Butterworth
  */

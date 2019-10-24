@@ -18,9 +18,23 @@ import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
  */
 public enum Spell
 {
+    Blizzard,
+    Bloodlust,
+    DeathAndDecay,
+    DeathCoil,
     Exorcism,
+    EyeOfKilrogg,
+    FlameShield,
+    Haste,
     Heal,
-    HolyVision;
+    HolyVision,
+    Invisibility,
+    Polymorph,
+    RaiseDead,
+    Runes,
+    Slow,
+    UnholyArmour,
+    Whirlwind;
 
     public int getManaCost() {
         switch (this) {

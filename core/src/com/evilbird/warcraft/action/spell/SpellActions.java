@@ -18,7 +18,21 @@ import com.evilbird.engine.action.ActionIdentifier;
  */
 public enum SpellActions implements ActionIdentifier
 {
+    BlizzardSpell,
+    BloodlustSpell,
+    DeathAndDecaySpell,
+    DeathCoilSpell,
     ExorcismSpell,
+    EyeOfKilroggSpell,
+    FlameShieldSpell,
+    HasteSpell,
     HealSpell,
-    HolyVisionSpell
+    HolyVisionSpell,
+    InvisibilitySpell,
+    PolymorphSpell,
+    RaiseDeadSpell,
+    RunesSpell,
+    SlowSpell,
+    UnholyArmourSpell,
+    WhirlwindSpell
 }

@@ -36,6 +36,8 @@ import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.action.produce.ProduceUpgradeActions;
 import com.evilbird.warcraft.action.select.SelectActions;
 import com.evilbird.warcraft.action.select.SelectFactory;
+import com.evilbird.warcraft.action.spell.SpellActions;
+import com.evilbird.warcraft.action.spell.SpellFactory;
 import com.evilbird.warcraft.action.transport.TransportActions;
 import com.evilbird.warcraft.action.transport.TransportFactory;
 import org.apache.commons.lang3.Validate;
@@ -66,6 +68,7 @@ public class WarcraftActionFactory implements ActionFactory
         MenuFactory menuFactory,
         PlaceholderFactory placeholderFactory,
         SelectFactory selectFactory,
+        SpellFactory spellFactory,
         ProduceFactory produceFactory,
         TransportFactory transportFactory)
     {
@@ -80,6 +83,7 @@ public class WarcraftActionFactory implements ActionFactory
         registerProvider(MenuActions.values(), menuFactory);
         registerProvider(PlaceholderActions.values(), placeholderFactory);
         registerProvider(SelectActions.values(), selectFactory);
+        registerProvider(SpellActions.values(), spellFactory);
         registerProvider(ProduceUnitActions.values(), produceFactory);
         registerProvider(ProduceUpgradeActions.values(), produceFactory);
         registerProvider(TransportActions.values(), transportFactory);
