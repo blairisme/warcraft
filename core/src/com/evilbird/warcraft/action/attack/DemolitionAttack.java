@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.action.common.remove.RemoveEvents;
-import com.evilbird.warcraft.action.death.DeathAction;
+import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.action.select.SelectEvents;
 import com.evilbird.warcraft.item.common.capability.OffensiveObject;

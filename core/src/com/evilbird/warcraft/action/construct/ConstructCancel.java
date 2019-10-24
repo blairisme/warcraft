@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.construct;
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
-import com.evilbird.warcraft.action.death.DeathAction;
+import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.item.common.production.ProductionCosts;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.data.player.Player;
