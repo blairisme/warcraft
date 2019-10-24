@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.ViewableStyle;
+import com.evilbird.warcraft.item.effect.Effect;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -25,6 +26,7 @@ public class SpellCaster extends RangedCombatant
 {
     private float mana;
     private float manaMaximum;
+    private float castProgress;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} describing
@@ -35,6 +37,10 @@ public class SpellCaster extends RangedCombatant
      */
     public SpellCaster(Skin skin) {
         super(skin);
+    }
+
+    public float getCastProgress() {
+        return castProgress;
     }
 
     /**
@@ -53,6 +59,18 @@ public class SpellCaster extends RangedCombatant
         return manaMaximum;
     }
 
+    public Effect getSpell() {
+        return (Effect)getAssociatedItem();
+    }
+
+    public boolean isCasting() {
+        return castProgress != 1;
+    }
+
+    public void setCastProgress(float castProgress) {
+        this.castProgress = castProgress;
+    }
+
     /**
      * Sets the SpellCasters current mana, the pool of magic consumed when
      * casting spells.
@@ -69,6 +87,10 @@ public class SpellCaster extends RangedCombatant
         this.manaMaximum = manaMaximum;
     }
 
+    public void setSpell(Effect spell) {
+        setAssociatedItem(spell);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) { return false; }
@@ -78,6 +100,7 @@ public class SpellCaster extends RangedCombatant
         SpellCaster that = (SpellCaster)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
+            .append(castProgress, this.castProgress)
             .append(mana, this.mana)
             .append(manaMaximum, that.manaMaximum)
             .isEquals();
@@ -87,6 +110,7 @@ public class SpellCaster extends RangedCombatant
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
+            .append(castProgress)
             .append(mana)
             .append(manaMaximum)
             .toHashCode();

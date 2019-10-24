@@ -31,6 +31,8 @@ public enum UnitAnimation implements Identifier
     MoveWood,
 
     Attack,
+    CastSpell,
+
     Build,
     Construct,
     BuildingSite,
