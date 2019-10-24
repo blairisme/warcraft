@@ -4,16 +4,16 @@
   <image source="../../textures/common/terrain/winter.png" width="576" height="864"/>
  </tileset>
  <tileset firstgid="385" name="Gold Mine" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/neutral/resource/swamp/gold_mine.png" width="96" height="192"/>
+  <image source="../../textures/neutral/resource/winter/gold_mine.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="387" name="Sheep" tilewidth="32" tileheight="32" tilecount="16" columns="8">
   <image source="../../textures/neutral/unit/sheep.png" width="256" height="64"/>
  </tileset>
  <tileset firstgid="403" name="Farm" tilewidth="64" tileheight="64" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/farm.png" width="64" height="128"/>
+  <image source="../../textures/human/building/winter/farm.png" width="64" height="128"/>
  </tileset>
  <tileset firstgid="405" name="Oil Platform" tilewidth="96" tileheight="96" tilecount="3" columns="1">
-  <image source="../../textures/human/building/swamp/oil_platform.png" width="96" height="288"/>
+  <image source="../../textures/human/building/winter/oil_platform.png" width="96" height="288"/>
  </tileset>
  <tileset firstgid="408" name="Oil Tanker" tilewidth="72" tileheight="72" tilecount="24" columns="8">
   <image source="../../textures/human/unit/oil_tanker.png" width="576" height="216"/>
@@ -42,26 +42,26 @@
   <image source="../../textures/orc/unit/troll_destroyer.png" width="704" height="264"/>
  </tileset>
  <tileset firstgid="928" name="Pig Farm" tilewidth="64" tileheight="64" tilecount="2" columns="1">
-  <image source="../../textures/orc/building/swamp/pig_farm.png" width="64" height="128"/>
+  <image source="../../textures/orc/building/winter/pig_farm.png" width="64" height="128"/>
  </tileset>
  <tileset firstgid="930" name="Great Hall" tilewidth="128" tileheight="128" tilecount="2" columns="1">
-  <image source="../../textures/orc/building/swamp/great_hall.png" width="128" height="256"/>
+  <image source="../../textures/orc/building/winter/great_hall.png" width="128" height="256"/>
  </tileset>
  <tileset firstgid="932" name="Elven Lumber Mill" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/lumber_mill.png" width="96" height="192"/>
+  <image source="../../textures/human/building/winter/lumber_mill.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="934" name="Barracks" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/barracks.png" width="96" height="192"/>
+  <image source="../../textures/human/building/winter/barracks.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="936" name="Town Hall" tilewidth="128" tileheight="128" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/town_hall.png" width="128" height="256"/>
+  <image source="../../textures/human/building/winter/town_hall.png" width="128" height="256"/>
  </tileset>
  <tileset firstgid="938" name="Peasant" tilewidth="72" tileheight="72" tilecount="104" columns="8">
   <tileoffset x="-16" y="16"/>
   <image source="../../textures/human/unit/peasant.png" width="576" height="936"/>
  </tileset>
  <tileset firstgid="1042" name="Shipyard" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/shipyard.png" width="96" height="192"/>
+  <image source="../../textures/human/building/winter/shipyard.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="1044" name="Elven Destroyer" tilewidth="88" tileheight="88" tilecount="24" columns="8">
   <image source="../../textures/human/unit/elven_destroyer.png" width="704" height="264"/>
@@ -70,13 +70,13 @@
   <image source="../../textures/human/unit/transport.png" width="576" height="216"/>
  </tileset>
  <tileset firstgid="1092" name="Foundry" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/foundry.png" width="96" height="192"/>
+  <image source="../../textures/human/building/winter/foundry.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="1094" name="Scout Tower" tilewidth="64" tileheight="64" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/scout_tower.png" width="64" height="128"/>
+  <image source="../../textures/human/building/winter/scout_tower.png" width="64" height="128"/>
  </tileset>
  <tileset firstgid="1096" name="Oil Patch" tilewidth="96" tileheight="96" tilecount="1" columns="1">
-  <image source="../../textures/neutral/resource/swamp/oil_patch.png" width="96" height="96"/>
+  <image source="../../textures/neutral/resource/winter/oil_patch.png" width="96" height="96"/>
  </tileset>
  <tileset firstgid="1097" name="Seal" tilewidth="32" tileheight="32" tilecount="16" columns="8">
   <image source="../../textures/neutral/unit/seal.png" width="256" height="64"/>
@@ -88,7 +88,7 @@
   <image source="../../textures/orc/unit/goblin_zeppelin.png" width="576" height="144"/>
  </tileset>
  <tileset firstgid="1161" name="Refinery" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/refinery.png" width="96" height="192"/>
+  <image source="../../textures/human/building/winter/refinery.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="1163" name="Ballista" tilewidth="64" tileheight="64" tilecount="32" columns="8">
   <image source="../../textures/human/unit/ballista.png" width="512" height="256"/>
@@ -100,23 +100,23 @@
   <image source="../../textures/neutral/unit/boar.png" width="256" height="64"/>
  </tileset>
  <tileset firstgid="1243" name="Bombard Tower" tilewidth="64" tileheight="64" tilecount="2" columns="1">
-  <image source="../../textures/orc/building/swamp/bombard_tower.png" width="64" height="128"/>
+  <image source="../../textures/orc/building/winter/bombard_tower.png" width="64" height="128"/>
  </tileset>
  <tileset firstgid="1245" name="Stronghold" tilewidth="128" tileheight="128" tilecount="2" columns="1">
-  <image source="../../textures/orc/building/swamp/stronghold.png" width="128" height="256"/>
+  <image source="../../textures/orc/building/winter/stronghold.png" width="128" height="256"/>
  </tileset>
  <tileset firstgid="1247" name="Troll Lumber Mill" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/orc/building/swamp/troll_lumber_mill.png" width="96" height="192"/>
+  <image source="../../textures/orc/building/winter/troll_lumber_mill.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="1249" name="Encampment" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/orc/building/swamp/encampment.png" width="96" height="192"/>
+  <image source="../../textures/orc/building/winter/encampment.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="1251" name="Ogre" tilewidth="72" tileheight="72" tilecount="112" columns="8">
   <tileoffset x="-16" y="16"/>
   <image source="../../textures/orc/unit/ogre.png" width="576" height="1008"/>
  </tileset>
  <tileset firstgid="1363" name="Circle of Power" tilewidth="64" tileheight="64" tilecount="1" columns="1">
-  <image source="../../textures/neutral/building/swamp/circle_of_power.png" width="64" height="64"/>
+  <image source="../../textures/neutral/building/winter/circle_of_power.png" width="64" height="64"/>
  </tileset>
  <tileset firstgid="1364" name="Knight" tilewidth="72" tileheight="72" tilecount="112" columns="8">
   <tileoffset x="-16" y="16"/>
@@ -126,40 +126,40 @@
   <image source="../../textures/orc/unit/ferry.png" width="576" height="216"/>
  </tileset>
  <tileset firstgid="1490" name="Keep" tilewidth="128" tileheight="128" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/keep.png" width="128" height="256"/>
+  <image source="../../textures/human/building/winter/keep.png" width="128" height="256"/>
  </tileset>
  <tileset firstgid="1492" name="Blacksmith" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/blacksmith.png" width="96" height="192"/>
+  <image source="../../textures/human/building/winter/blacksmith.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="1494" name="Stables" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/stables.png" width="96" height="192"/>
+  <image source="../../textures/human/building/winter/stables.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="1496" name="Guard Tower" tilewidth="64" tileheight="64" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/guard_tower.png" width="64" height="128"/>
+  <image source="../../textures/human/building/winter/guard_tower.png" width="64" height="128"/>
  </tileset>
  <tileset firstgid="1498" name="Cannon Tower" tilewidth="64" tileheight="64" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/cannon_tower.png" width="64" height="128"/>
+  <image source="../../textures/human/building/winter/cannon_tower.png" width="64" height="128"/>
  </tileset>
  <tileset firstgid="1500" name="Forge" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/orc/building/swamp/forge.png" width="96" height="192"/>
+  <image source="../../textures/orc/building/winter/forge.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="1502" name="Dockyard" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/orc/building/swamp/dockyard.png" width="96" height="192"/>
+  <image source="../../textures/orc/building/winter/dockyard.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="1504" name="Ogre Juggernaught" tilewidth="88" tileheight="88" tilecount="24" columns="8">
   <image source="../../textures/orc/unit/ogre_juggernaught.png" width="704" height="264"/>
  </tileset>
  <tileset firstgid="1528" name="Watch Tower" tilewidth="64" tileheight="64" tilecount="2" columns="1">
-  <image source="../../textures/orc/building/swamp/watch_tower.png" width="64" height="128"/>
+  <image source="../../textures/orc/building/winter/watch_tower.png" width="64" height="128"/>
  </tileset>
  <tileset firstgid="1530" name="Lookout Tower" tilewidth="64" tileheight="64" tilecount="2" columns="1">
-  <image source="../../textures/orc/building/swamp/lookout_tower.png" width="64" height="128"/>
+  <image source="../../textures/orc/building/winter/lookout_tower.png" width="64" height="128"/>
  </tileset>
  <tileset firstgid="1532" name="Castle" tilewidth="128" tileheight="128" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/castle.png" width="128" height="256"/>
+  <image source="../../textures/human/building/winter/castle.png" width="128" height="256"/>
  </tileset>
  <tileset firstgid="1534" name="Church" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/church.png" width="96" height="192"/>
+  <image source="../../textures/human/building/winter/church.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="1536" name="Gnomish Inventor" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/human/building/winter/gnomish_inventor.png" width="96" height="192"/>
