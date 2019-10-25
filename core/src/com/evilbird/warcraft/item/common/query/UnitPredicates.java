@@ -11,12 +11,12 @@ package com.evilbird.warcraft.item.common.query;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.common.resource.ResourceContainer;
-import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.common.capability.MovableObject;
 import com.evilbird.warcraft.item.common.capability.MovementCapability;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;
+import com.evilbird.warcraft.item.common.resource.ResourceContainer;
+import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import com.evilbird.warcraft.item.unit.Unit;

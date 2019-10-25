@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.unit.gatherer;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeValue;
+import com.evilbird.warcraft.item.common.value.Value;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.Zero;
+import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
 
 /**
  * Instances of this class represent a gatherer: a {@link Combatant}
@@ -34,9 +34,9 @@ public class Gatherer extends Combatant implements ResourceContainer
     private float goldGatherSpeed;
     private float oilGatherSpeed;
     private float woodGatherSpeed;
-    private UpgradeValue<Integer> goldCapacity;
-    private UpgradeValue<Integer> oilCapacity;
-    private UpgradeValue<Integer> woodCapacity;
+    private Value goldCapacity;
+    private Value oilCapacity;
+    private Value woodCapacity;
     private Map<String, Double> resources;
 
     @Inject
@@ -65,15 +65,15 @@ public class Gatherer extends Combatant implements ResourceContainer
     }
 
     public float getGoldCapacity() {
-        return getUpgradeValue(goldCapacity);
+        return goldCapacity.getValue(this);
     }
 
     public float getOilCapacity() {
-        return getUpgradeValue(oilCapacity);
+        return oilCapacity.getValue(this);
     }
 
     public float getWoodCapacity() {
-        return getUpgradeValue(woodCapacity);
+        return woodCapacity.getValue(this);
     }
 
     public float getGoldGatherSpeed() {
@@ -105,7 +105,7 @@ public class Gatherer extends Combatant implements ResourceContainer
         this.progress = progress;
     }
 
-    public void setGoldCapacity(UpgradeValue<Integer> goldCapacity) {
+    public void setGoldCapacity(Value goldCapacity) {
         this.goldCapacity = goldCapacity;
     }
 
@@ -113,7 +113,7 @@ public class Gatherer extends Combatant implements ResourceContainer
         this.goldGatherSpeed = goldGatherSpeed;
     }
 
-    public void setOilCapacity(UpgradeValue<Integer> oilCapacity) {
+    public void setOilCapacity(Value oilCapacity) {
         this.oilCapacity = oilCapacity;
     }
 
@@ -121,7 +121,7 @@ public class Gatherer extends Combatant implements ResourceContainer
         this.oilGatherSpeed = oilGatherSpeed;
     }
 
-    public void setWoodCapacity(UpgradeValue<Integer> woodCapacity) {
+    public void setWoodCapacity(Value woodCapacity) {
         this.woodCapacity = woodCapacity;
     }
 

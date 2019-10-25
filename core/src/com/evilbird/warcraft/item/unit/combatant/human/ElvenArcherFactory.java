@@ -14,7 +14,7 @@ import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeCombination;
+import com.evilbird.warcraft.item.common.value.UpgradeValue;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
@@ -59,7 +59,7 @@ public class ElvenArcherFactory extends CombatantFactoryBase
         result.setAttackSpeed(1.5f);
         result.setAttackRange(tiles(4));
         result.setArmour(0);
-        result.setBasicDamage(new UpgradeCombination(6, DAMAGE_UPGRADES));
+        result.setBasicDamage(new UpgradeValue(6, DAMAGE_UPGRADES));
         result.setPiercingDamage(3);
         result.setHealth(40);
         result.setHealthMaximum(40);

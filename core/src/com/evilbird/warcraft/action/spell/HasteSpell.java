@@ -21,7 +21,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class HasteSpell extends SpellAction
+public class HasteSpell extends BuffSpellAction
 {
     @Inject
     public HasteSpell(ItemFactory factory) {

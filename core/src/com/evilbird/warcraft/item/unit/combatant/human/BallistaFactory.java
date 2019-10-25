@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.unit.combatant.human;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeSequence;
+import com.evilbird.warcraft.item.common.value.UpgradeValue;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
@@ -49,7 +49,7 @@ public class BallistaFactory extends CombatantFactoryBase
         result.setAttackRange(tiles(8));
         result.setArmour(0);
         result.setPiercingDamage(25);
-        result.setBasicDamage(new UpgradeSequence(SiegeDamage, 80, 95, 110));
+        result.setBasicDamage(new UpgradeValue(SiegeDamage, 80, 95, 110));
         result.setHealth(110);
         result.setHealthMaximum(110);
         result.setIdentifier(objectIdentifier("Ballista", result));

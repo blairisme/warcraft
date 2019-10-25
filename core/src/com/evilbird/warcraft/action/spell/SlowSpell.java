@@ -22,7 +22,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class SlowSpell extends SpellAction
+public class SlowSpell extends BuffSpellAction
 {
     @Inject
     public SlowSpell(ItemFactory factory) {

@@ -7,8 +7,10 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.common.upgrade;
+package com.evilbird.warcraft.item.common.value;
 
+import com.evilbird.warcraft.item.common.upgrade.Upgrade;
+import com.evilbird.warcraft.item.common.upgrade.UpgradeSeries;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -21,10 +21,16 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class BloodlustSpell extends SpellAction
+public class BloodlustSpell extends BuffSpellAction
 {
     @Inject
     public BloodlustSpell(ItemFactory factory) {
         super(Spell.Bloodlust, EffectType.Spell, factory);
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+        addAttackDamageBuff();
     }
 }

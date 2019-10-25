@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.unit.combatant.human;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeSequence;
+import com.evilbird.warcraft.item.common.value.UpgradeValue;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
@@ -46,7 +46,7 @@ public class ElvenRangerFactory extends ElvenArcherFactory
         result.setHealthMaximum(50);
         result.setIdentifier(objectIdentifier("ElvenRanger", result));
         result.setType(ElvenRanger);
-        result.setSight(new UpgradeSequence(RangedSight, tiles(5), tiles(9)));
+        result.setSight(new UpgradeValue(RangedSight, tiles(5), tiles(9)));
         return result;
     }
 }

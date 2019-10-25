@@ -103,6 +103,6 @@ public class ProduceUpgradeType extends ProduceUpgrade
         obsolete.setType(upgrade.getType());
         obsolete.setHealth(upgrade.getHealth());
         obsolete.setHealthMaximum(upgrade.getHealthMaximum());
-        obsolete.setSight(upgrade.getSightUpgrade());
+        obsolete.setSight(upgrade.getSightValue());
     }
  }

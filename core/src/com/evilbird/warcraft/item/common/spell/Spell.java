@@ -47,6 +47,7 @@ public enum Spell
 
     public int getValue() {
         switch (this) {
+            case Bloodlust: return 2;
             case Exorcism: return 20;
             case Heal: return 40;
             case HolyVision: return tiles(5);
@@ -56,6 +57,7 @@ public enum Spell
 
     public float getCastTime() {
         switch (this) {
+            case Bloodlust:
             case Exorcism: return 1f;
             case Heal: return 1.5f;
             case HolyVision: return 5f;

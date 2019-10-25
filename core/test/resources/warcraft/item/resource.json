@@ -13,16 +13,10 @@
   "selected": false,
   "selectable": true,
   "sight": {
-    "basic": 0,
-    "improved": 0,
-    "advanced": 0,
-    "series": "None"
+    "value": 0
   },
   "armour": {
-    "basic": 0,
-    "improved": 0,
-    "advanced": 0,
-    "series": "None"
+    "value": 0
   },
   "associations": [],
   "direction": 70.55996,

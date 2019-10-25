@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.unit.gatherer.human;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeSequence;
+import com.evilbird.warcraft.item.common.value.UpgradeValue;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.item.unit.gatherer.GathererFactoryBase;
 
@@ -21,11 +21,11 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.capability.MovementCapability.Land;
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.Zero;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.GoldProduction;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.MeleeDamage;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.MeleeDefence;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.WoodProduction;
+import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
 
 /**
@@ -70,8 +70,8 @@ public class PeasantFactory extends GathererFactoryBase
 
     private void setAttackAttributes(Gatherer result) {
         result.setAttackSpeed(1);
-        result.setArmour(new UpgradeSequence(MeleeDefence, 0, 2, 4));
-        result.setBasicDamage(new UpgradeSequence(MeleeDamage, 5, 7, 9));
+        result.setArmour(new UpgradeValue(MeleeDefence, 0, 2, 4));
+        result.setBasicDamage(new UpgradeValue(MeleeDamage, 5, 7, 9));
         result.setPiercingDamage(1);
         result.setHealth(30);
         result.setHealthMaximum(30);
@@ -79,10 +79,10 @@ public class PeasantFactory extends GathererFactoryBase
 
     private void setGatheringAttributes(Gatherer result) {
         result.setGoldGatherSpeed(5);
-        result.setGoldCapacity(new UpgradeSequence(GoldProduction, 100, 110, 125));
+        result.setGoldCapacity(new UpgradeValue(GoldProduction, 100, 110, 125));
 
         result.setWoodGatherSpeed(45);
-        result.setWoodCapacity(new UpgradeSequence(WoodProduction, 100, 110, 125));
+        result.setWoodCapacity(new UpgradeValue(WoodProduction, 100, 110, 125));
 
         result.setOilGatherSpeed(0);
         result.setOilCapacity(Zero);

@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.unit.combatant.orc;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeSequence;
+import com.evilbird.warcraft.item.common.value.UpgradeValue;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
@@ -48,8 +48,8 @@ public class OgreJuggernaughtFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         RangedCombatant result = builder.newRangedCombatant();
         result.setAttackSpeed(1.5f);
-        result.setArmour(new UpgradeSequence(NavalDefence, 10, 20, 30));
-        result.setBasicDamage(new UpgradeSequence(NavalDamage, 50, 60, 70));
+        result.setArmour(new UpgradeValue(NavalDefence, 10, 20, 30));
+        result.setBasicDamage(new UpgradeValue(NavalDamage, 50, 60, 70));
         result.setPiercingDamage(2);
         result.setHealth(100);
         result.setHealthMaximum(100);

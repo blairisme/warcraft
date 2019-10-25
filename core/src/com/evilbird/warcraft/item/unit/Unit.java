@@ -20,21 +20,18 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.graphics.AnimationFrame;
+import com.evilbird.engine.common.graphics.ColourMaskSprite;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemReference;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.SpatialObject;
 import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.common.TeamColour;
-import com.evilbird.engine.common.graphics.ColourMaskSprite;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;
-import com.evilbird.warcraft.item.common.upgrade.Upgrade;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeSequence;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeValue;
-import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.common.value.FixedValue;
+import com.evilbird.warcraft.item.common.value.Value;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -42,12 +39,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.Zero;
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
+import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
 
 /**
  * Instances of this represent a game object that the user can control and
@@ -61,8 +55,8 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     private float healthMaximum;
     private boolean selected;
     private boolean selectable;
-    private UpgradeValue<Integer> sight;
-    private UpgradeValue<Integer> armour;
+    private Value sight;
+    private Value armour;
     private List<ItemReference> associations;
     private transient UnitStyle style;
 
@@ -119,15 +113,15 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * Returns how much damage the units armor absorbs with each attack.
      */
     public int getArmour() {
-        return getUpgradeValue(armour);
+        return armour.getValue(this);
     }
 
     /**
      * Returns how much damage the units armor absorbs with each attack,
      * excluding upgrades.
      */
-    public int getArmourBaseValue() {
-        return armour.getBaseValue();
+    public Value getArmourValue() {
+        return armour;
     }
 
     /**
@@ -149,22 +143,14 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * world units.
      */
     public int getSight() {
-        return getUpgradeValue(sight);
+        return sight.getValue(this);
     }
 
     /**
      * Returns the distance that the unit can detect other units, specified in
      * world units, excluding upgrades.
      */
-    public int getSightBaseValue() {
-        return sight.getBaseValue();
-    }
-
-    /**
-     * Returns the distance that the unit can detect other units, specified as
-     * an {@link UpgradeValue}.
-     */
-    public UpgradeValue<Integer> getSightUpgrade() {
+    public Value getSightValue() {
         return sight;
     }
 
@@ -230,13 +216,13 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * Sets the amount of damage the Unit can absorb with each attack.
      */
     public void setArmour(int armour) {
-        this.armour = new UpgradeSequence(None, armour);
+        this.armour = new FixedValue(armour);
     }
 
     /**
      * Sets the amount of damage the Unit can absorb with each attack.
      */
-    public void setArmour(UpgradeValue<Integer> armour) {
+    public void setArmour(Value armour) {
         this.armour = armour;
     }
 
@@ -269,14 +255,14 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * world units.
      */
     public void setSight(int sight) {
-        this.sight = new UpgradeSequence(None, sight);
+        this.sight = new FixedValue(sight);
     }
 
     /**
      * Sets the distance that the unit can detect other units, specified in
      * world units.
      */
-    public void setSight(UpgradeValue<Integer> sight) {
+    public void setSight(Value sight) {
         this.sight = sight;
     }
 
@@ -371,24 +357,6 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
             .append(selectable)
             .append(associations)
             .toHashCode();
-    }
-
-    protected <T> T getUpgradeValue(UpgradeValue<T> value) {
-        ItemGroup parent = getParent();
-        if (parent instanceof Player) {
-            return getUpgradeValue((Player)parent, value);
-        }
-        return value.getBaseValue();
-    }
-
-    protected <T> T getUpgradeValue(Player player, UpgradeValue<T> value) {
-        Set<Upgrade> ownedUpgrades = new HashSet<>();
-        for (Upgrade upgrade: value.getUpgrades()) {
-            if (player.hasUpgrade(upgrade)) {
-                ownedUpgrades.add(upgrade);
-            }
-        }
-        return value.getValue(ownedUpgrades);
     }
 
     private void setColour(Color colour) {

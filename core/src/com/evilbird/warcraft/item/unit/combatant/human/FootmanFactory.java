@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.unit.combatant.human;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeSequence;
+import com.evilbird.warcraft.item.common.value.UpgradeValue;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
 
@@ -54,8 +54,8 @@ public class FootmanFactory extends CombatantFactoryBase
     public Combatant get(Identifier type) {
         Combatant result = builder.newMeleeCombatant();
         result.setAttackSpeed(1);
-        result.setArmour(new UpgradeSequence(MeleeDefence, 2, 4, 6));
-        result.setBasicDamage(new UpgradeSequence(MeleeDamage, 7, 9, 11));
+        result.setArmour(new UpgradeValue(MeleeDefence, 2, 4, 6));
+        result.setBasicDamage(new UpgradeValue(MeleeDamage, 7, 9, 11));
         result.setPiercingDamage(2);
         result.setHealth(60);
         result.setHealthMaximum(60);
