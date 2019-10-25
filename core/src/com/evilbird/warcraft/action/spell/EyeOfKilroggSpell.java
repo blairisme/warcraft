@@ -9,11 +9,18 @@
 
 package com.evilbird.warcraft.action.spell;
 
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.warcraft.item.common.capability.MovableObject;
+import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.common.spell.Spell;
+import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.effect.EffectType;
+import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
+
+import static com.evilbird.warcraft.item.common.query.UnitOperations.moveAdjacent;
 
 /**
  * A spell that creates an creature, an eye of kilrogg, that an move about the
@@ -27,5 +34,18 @@ public class EyeOfKilroggSpell extends SpellAction
     @Inject
     public EyeOfKilroggSpell(ItemFactory factory) {
         super(Spell.EyeOfKilrogg, EffectType.Spell, factory);
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+
+        Item caster = getItem();
+        Player player = UnitOperations.getPlayer(caster);
+
+        Item creature = factory.get(UnitType.EyeOfKilrogg);
+        player.addItem(creature);
+        
+        moveAdjacent((MovableObject)creature, caster);
     }
 }

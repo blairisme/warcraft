@@ -355,6 +355,18 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         return occupiers.getOrDefault(item.getIdentifier(), emptyList());
     }
 
+    public Collection<Item> getOccupants(Item item) {
+        return getOccupants(item, 0);
+    }
+
+    public Collection<Item> getOccupants(Item item, int radius) {
+        Collection<Item> occupants = new ArrayList<>();
+        for (ItemNode node: getNodes(item.getPosition(), item.getSize(), radius)) {
+            occupants.addAll(node.getOccupants());
+        }
+        return occupants;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)

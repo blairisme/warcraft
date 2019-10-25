@@ -34,10 +34,10 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.CastSpell;
  */
 public abstract class SpellAction extends BasicAction
 {
-    private transient Spell spell;
-    private transient EffectType effect;
-    private transient GameTimer timer;
-    private transient ItemFactory factory;
+    protected transient Spell spell;
+    protected transient EffectType effect;
+    protected transient GameTimer timer;
+    protected transient ItemFactory factory;
 
     public SpellAction(Spell spell, EffectType effect, ItemFactory factory) {
         this.spell = spell;
