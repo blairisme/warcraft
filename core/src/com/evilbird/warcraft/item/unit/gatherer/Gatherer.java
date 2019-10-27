@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.unit.gatherer;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.item.common.value.FixedValue;
 import com.evilbird.warcraft.item.common.value.Value;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -31,9 +32,9 @@ import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
 public class Gatherer extends Combatant implements ResourceContainer
 {
     private float progress;
-    private float goldGatherSpeed;
-    private float oilGatherSpeed;
-    private float woodGatherSpeed;
+    private Value goldGatherSpeed;
+    private Value oilGatherSpeed;
+    private Value woodGatherSpeed;
     private Value goldCapacity;
     private Value oilCapacity;
     private Value woodCapacity;
@@ -44,47 +45,95 @@ public class Gatherer extends Combatant implements ResourceContainer
         super(skin);
         this.resources = new LinkedHashMap<>(2);
         this.progress = 1;
-        this.goldGatherSpeed = 0;
-        this.oilGatherSpeed = 0;
-        this.woodGatherSpeed = 0;
+        this.goldGatherSpeed = Zero;
+        this.oilGatherSpeed = Zero;
+        this.woodGatherSpeed = Zero;
         this.goldCapacity = Zero;
         this.oilCapacity = Zero;
         this.woodCapacity = Zero;
     }
 
+    /**
+     * Removes all resources held by the Gatherer.
+     */
     public void clearResources() {
         resources.clear();
     }
 
+    /**
+     * Returns whether or not the gatherer is currently gathering resources.
+     */
     public boolean isGathering() {
         return progress != 1;
     }
 
+    /**
+     * Returns the gatherers current progress gathering resources.
+     */
     public float getGathererProgress() {
         return progress;
     }
 
+    /**
+     * Returns the gathers maximum gold carrying capacity.
+     */
     public float getGoldCapacity() {
         return goldCapacity.getValue(this);
     }
 
+    /**
+     * Returns the gathers maximum oil carrying capacity.
+     */
     public float getOilCapacity() {
         return oilCapacity.getValue(this);
     }
 
+    /**
+     * Returns the gathers maximum wood carrying capacity.
+     */
     public float getWoodCapacity() {
         return woodCapacity.getValue(this);
     }
 
+    /**
+     * Returns the gathers gold gathering speed.
+     */
     public float getGoldGatherSpeed() {
+        return goldGatherSpeed.getValue(this);
+    }
+
+    /**
+     * Returns the gathers gold gathering speed.
+     */
+    public Value getGoldGatherSpeedValue() {
         return goldGatherSpeed;
     }
 
+    /**
+     * Returns the gathers oil gathering speed.
+     */
     public float getOilGatherSpeed() {
+        return oilGatherSpeed.getValue(this);
+    }
+
+    /**
+     * Returns the gathers oil gathering speed.
+     */
+    public Value getOilGatherSpeedValue() {
         return oilGatherSpeed;
     }
 
+    /**
+     * Returns the gathers wood gathering speed.
+     */
     public float getWoodGatherSpeed() {
+        return woodGatherSpeed.getValue(this);
+    }
+
+    /**
+     * Returns the gathers wood gathering speed.
+     */
+    public Value getWoodGatherSpeedValue() {
         return woodGatherSpeed;
     }
 
@@ -105,27 +154,71 @@ public class Gatherer extends Combatant implements ResourceContainer
         this.progress = progress;
     }
 
+    /**
+     * Sets the gathers maximum gold carrying capacity.
+     */
     public void setGoldCapacity(Value goldCapacity) {
         this.goldCapacity = goldCapacity;
     }
 
+    /**
+     * Sets the gathers gold gathering speed, specified in resources per
+     * second.
+     */
     public void setGoldGatherSpeed(float goldGatherSpeed) {
+        this.goldGatherSpeed = new FixedValue(goldGatherSpeed);
+    }
+
+    /**
+     * Sets the gathers gold gathering speed, specified in resources per
+     * second.
+     */
+    public void setGoldGatherSpeed(Value goldGatherSpeed) {
         this.goldGatherSpeed = goldGatherSpeed;
     }
 
+    /**
+     * Sets the gathers maximum oil carrying capacity.
+     */
     public void setOilCapacity(Value oilCapacity) {
         this.oilCapacity = oilCapacity;
     }
 
+    /**
+     * Sets the gathers oil gathering speed, specified in resources per second.
+     */
     public void setOilGatherSpeed(float oilGatherSpeed) {
+        this.oilGatherSpeed = new FixedValue(oilGatherSpeed);
+    }
+
+    /**
+     * Sets the gathers oil gathering speed, specified in resources per
+     * second.
+     */
+    public void setOilGatherSpeed(Value oilGatherSpeed) {
         this.oilGatherSpeed = oilGatherSpeed;
     }
 
+    /**
+     * Sets the gathers maximum wood carrying capacity.
+     */
     public void setWoodCapacity(Value woodCapacity) {
         this.woodCapacity = woodCapacity;
     }
 
+    /**
+     * Sets the gathers wood gathering speed, specified in resources per
+     * second.
+     */
     public void setWoodGatherSpeed(float woodGatherSpeed) {
+        this.woodGatherSpeed = new FixedValue(woodGatherSpeed);
+    }
+
+    /**
+     * Sets the gathers wood gathering speed, specified in resources per
+     * second.
+     */
+    public void setWoodGatherSpeed(Value woodGatherSpeed) {
         this.woodGatherSpeed = woodGatherSpeed;
     }
 

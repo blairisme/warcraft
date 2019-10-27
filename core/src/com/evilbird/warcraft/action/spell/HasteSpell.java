@@ -27,4 +27,12 @@ public class HasteSpell extends BuffSpellAction
     public HasteSpell(ItemFactory factory) {
         super(Spell.Haste, EffectType.Spell, factory);
     }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+        addAttackSpeedBuff();
+        addMovementSpeedBuff();
+        addGatherSpeedBuff();
+    }
 }

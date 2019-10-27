@@ -28,4 +28,12 @@ public class SlowSpell extends BuffSpellAction
     public SlowSpell(ItemFactory factory) {
         super(Spell.Slow, EffectType.Spell, factory);
     }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+        addAttackSpeedBuff();
+        addMovementSpeedBuff();
+        addGatherSpeedBuff();
+    }
 }

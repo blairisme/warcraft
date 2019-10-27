@@ -73,6 +73,13 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
     }
 
     /**
+     * Returns the rate at which the {@code Combatant} attacks.
+     */
+    public Value getAttackSpeedValue() {
+        return attackSpeed;
+    }
+
+    /**
      * Returns the distance that the {@code Combatant} can reach with its
      * attacks.
      */
@@ -110,6 +117,14 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
     }
 
     /**
+     * Returns the damage the {@code Combatant} always does with each attack,
+     * regardless of the opponent’s armor.
+     */
+    public Value getPiercingDamageValue() {
+        return piercingDamage;
+    }
+
+    /**
      * Returns the {@link MovementCapability movement capability} of the
      * {@code Combatant}, those types of terrain the {@code Combatant} can
      * traverse across.
@@ -126,6 +141,14 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
     @Override
     public int getMovementSpeed() {
         return (int)movementSpeed.getValue(this);
+    }
+
+    /**
+     * Returns the movement speed of the {@code Combatant}, specified in pixels
+     * per second.
+     */
+    public Value getMovementSpeedValue() {
+        return movementSpeed;
     }
 
     /**
