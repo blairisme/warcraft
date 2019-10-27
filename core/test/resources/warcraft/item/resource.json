@@ -12,12 +12,8 @@
   "healthMaximum": 0.0,
   "selected": false,
   "selectable": true,
-  "sight": {
-    "value": 0
-  },
-  "armour": {
-    "value": 0
-  },
+  "sight": 0.0,
+  "armour": 0.0,
   "associations": [],
   "direction": 70.55996,
   "id": {

@@ -34,10 +34,10 @@ import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
  */
 public class Combatant extends Unit implements MovableObject, OffensiveObject
 {
-    private float attackSpeed;
-    private int piercingDamage;
     private Value basicDamage;
-    private int movementSpeed;
+    private Value piercingDamage;
+    private Value attackSpeed;
+    private Value movementSpeed;
     private MovementCapability movementCapability;
 
     /**
@@ -49,10 +49,10 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      */
     public Combatant(Skin skin) {
         super(skin);
-        this.attackSpeed = 0;
-        this.piercingDamage = 0;
+        this.attackSpeed = Zero;
+        this.piercingDamage = Zero;
         this.basicDamage = Zero;
-        this.movementSpeed = 0;
+        this.movementSpeed = Zero;
         this.movementCapability = MovementCapability.None;
     }
 
@@ -69,7 +69,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      */
     @Override
     public float getAttackSpeed() {
-        return attackSpeed;
+        return attackSpeed.getValue(this);
     }
 
     /**
@@ -89,7 +89,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      */
     @Override
     public int getBasicDamage() {
-        return basicDamage.getValue(this);
+        return (int)basicDamage.getValue(this);
     }
 
     /**
@@ -106,7 +106,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      */
     @Override
     public int getPiercingDamage() {
-        return piercingDamage;
+        return (int)piercingDamage.getValue(this);
     }
 
     /**
@@ -125,13 +125,20 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      */
     @Override
     public int getMovementSpeed() {
-        return movementSpeed;
+        return (int)movementSpeed.getValue(this);
     }
 
     /**
      * Sets the rate at which the {@code Combatant} attacks.
      */
     public void setAttackSpeed(float attackSpeed) {
+        this.attackSpeed = new FixedValue(attackSpeed);
+    }
+
+    /**
+     * Sets the rate at which the {@code Combatant} attacks.
+     */
+    public void setAttackSpeed(Value attackSpeed) {
         this.attackSpeed = attackSpeed;
     }
 
@@ -156,6 +163,14 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      * regardless of the opponent’s armor.
      */
     public void setPiercingDamage(int piercingDamage) {
+        this.piercingDamage = new FixedValue(piercingDamage);
+    }
+
+    /**
+     * Sets the damage the {@code Combatant} always does with each attack,
+     * regardless of the opponent’s armor.
+     */
+    public void setPiercingDamage(Value piercingDamage) {
         this.piercingDamage = piercingDamage;
     }
 
@@ -173,6 +188,14 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      * per second.
      */
     public void setMovementSpeed(int movementSpeed) {
+        this.movementSpeed = new FixedValue(movementSpeed);
+    }
+
+    /**
+     * Sets the movement speed of the {@code Combatant}, specified in pixels
+     * per second.
+     */
+    public void setMovementSpeed(Value movementSpeed) {
         this.movementSpeed = movementSpeed;
     }
 

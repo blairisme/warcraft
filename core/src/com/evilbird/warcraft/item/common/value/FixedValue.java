@@ -25,18 +25,18 @@ public class FixedValue implements Value
 {
     public static final Value Zero = new FixedValue(0);
 
-    private int value;
+    private float value;
 
-    public FixedValue(int value) {
+    public FixedValue(float value) {
         this.value = value;
     }
 
     @Override
-    public int getValue(Unit unit) {
+    public float getValue(Unit unit) {
         return value;
     }
 
-    public int getValue() {
+    public float getValue() {
         return value;
     }
 

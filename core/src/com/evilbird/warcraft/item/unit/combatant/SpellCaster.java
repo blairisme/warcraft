@@ -39,6 +39,10 @@ public class SpellCaster extends RangedCombatant
         super(skin);
     }
 
+    /**
+     * Returns the progress the spell caster has made casting the current
+     * spell, specified as a percentage from 0 to 1.
+     */
     public float getCastProgress() {
         return castProgress;
     }
@@ -59,14 +63,24 @@ public class SpellCaster extends RangedCombatant
         return manaMaximum;
     }
 
+    /**
+     * Returns the effect shown for the last spell cast by the spell caster.
+     */
     public Effect getSpell() {
         return (Effect)getAssociatedItem();
     }
 
+    /**
+     * Determines whether or not the spell caster is currently casting a spell.
+     */
     public boolean isCasting() {
         return castProgress != 1;
     }
 
+    /**
+     * Sets the progress the spell caster has made casting the current
+     * spell, specified as a percentage from 0 to 1.
+     */
     public void setCastProgress(float castProgress) {
         this.castProgress = castProgress;
     }
@@ -87,6 +101,9 @@ public class SpellCaster extends RangedCombatant
         this.manaMaximum = manaMaximum;
     }
 
+    /**
+     * Sets the effect shown for the last spell cast by the spell caster.
+     */
     public void setSpell(Effect spell) {
         setAssociatedItem(spell);
     }

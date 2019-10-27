@@ -14,6 +14,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
@@ -31,7 +32,6 @@ import java.util.Map.Entry;
 public class ValueSerializer implements JsonSerializer<Value>, JsonDeserializer<Value>
 {
     private static final String BUFF = "buff";
-    private static final String FIXED = "value";
     private static final String ORIGINAL = "original";
 
     @Inject
@@ -60,15 +60,13 @@ public class ValueSerializer implements JsonSerializer<Value>, JsonDeserializer<
     }
 
     private JsonElement serializeFixed(FixedValue source) {
-        JsonObject json = new JsonObject();
-        json.addProperty(FIXED, source.getValue());
-        return json;
+        return new JsonPrimitive(source.getValue());
     }
 
     private JsonElement serializeUpgrade(UpgradeValue source) {
         JsonObject json = new JsonObject();
         json.addProperty(Upgrade.None.name(), source.base);
-        for (Entry<Upgrade, Integer> entry: source.upgrades.entrySet()) {
+        for (Entry<Upgrade, Float> entry: source.upgrades.entrySet()) {
             json.addProperty(entry.getKey().name(), entry.getValue());
         }
         return json;
@@ -76,12 +74,13 @@ public class ValueSerializer implements JsonSerializer<Value>, JsonDeserializer<
 
     @Override
     public Value deserialize(JsonElement source, Type type, JsonDeserializationContext context) {
+        if (source.isJsonPrimitive()) {
+            return deserializeFixed(source);
+        }
         JsonObject json = source.getAsJsonObject();
+
         if (json.has(BUFF)) {
             return deserializeBuff(json, context);
-        }
-        if (json.has(FIXED)) {
-            return deserializeFixed(json);
         }
         if (json.has(Upgrade.None.name())) {
             return deserializeUpgrade(json);
@@ -90,22 +89,22 @@ public class ValueSerializer implements JsonSerializer<Value>, JsonDeserializer<
     }
 
     private Value deserializeBuff(JsonObject json, JsonDeserializationContext context) {
-        int buff = json.get(BUFF).getAsInt();
+        float buff = json.get(BUFF).getAsFloat();
         Value original = context.deserialize(json.get(ORIGINAL), Value.class);
         return new BuffValue(buff, original);
     }
 
-    private Value deserializeFixed(JsonObject json) {
-        int value = json.get(FIXED).getAsInt();
+    private Value deserializeFixed(JsonElement json) {
+        float value = json.getAsFloat();
         return new FixedValue(value);
     }
 
     private Value deserializeUpgrade(JsonObject json) {
-        Map<Upgrade, Integer> upgrades = new HashMap<>();
+        Map<Upgrade, Float> upgrades = new HashMap<>();
         for (String key: json.keySet()) {
             JsonElement element = json.get(key);
             Upgrade upgrade = Upgrade.valueOf(key);
-            Integer value = element.getAsInt();
+            Float value = element.getAsFloat();
             upgrades.put(upgrade, value);
         }
         return new UpgradeValue(upgrades.remove(Upgrade.None), upgrades);

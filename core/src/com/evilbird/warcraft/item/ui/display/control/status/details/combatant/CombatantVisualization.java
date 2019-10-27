@@ -71,7 +71,7 @@ public class CombatantVisualization
     private static int getModifiedValue(Value value, Combatant combatant) {
         if (value instanceof ModifiedValue) {
             ModifiedValue modified = (ModifiedValue)value;
-            return modified.getValue(combatant) - modified.getBaseValue(combatant);
+            return (int)(modified.getValue(combatant) - modified.getBaseValue(combatant));
         }
         return 0;
     }

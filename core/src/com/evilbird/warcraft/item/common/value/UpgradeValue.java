@@ -39,33 +39,33 @@ public class UpgradeValue implements ModifiedValue
 {
     public static final UpgradeValue Zero = new UpgradeValue(0, Collections.emptyMap());
 
-    protected int base;
-    protected Map<Upgrade, Integer> upgrades;
+    protected float base;
+    protected Map<Upgrade, Float> upgrades;
 
-    public UpgradeValue(UpgradeSeries series, int base, int improved) {
+    public UpgradeValue(UpgradeSeries series, float base, float improved) {
         this(series, base, improved, improved);
     }
 
-    public UpgradeValue(UpgradeSeries series, int base, int improved, int advanced) {
+    public UpgradeValue(UpgradeSeries series, float base, float improved, float advanced) {
         this(base, getUpgrades(series, base, improved, advanced));
     }
 
-    public UpgradeValue(int base, Map<Upgrade, Integer> upgrades) {
+    public UpgradeValue(float base, Map<Upgrade, Float> upgrades) {
         this.base = base;
         this.upgrades = upgrades;
     }
 
     @Override
-    public int getValue(Unit unit) {
-        int result = base;
+    public float getValue(Unit unit) {
+        float result = base;
         for (Upgrade upgrade: getOwnedUpgrades(unit)) {
-            result += upgrades.getOrDefault(upgrade, 0);
+            result += upgrades.getOrDefault(upgrade, 0f);
         }
         return result;
     }
 
     @Override
-    public int getBaseValue(Unit unit) {
+    public float getBaseValue(Unit unit) {
         return base;
     }
 
@@ -98,8 +98,8 @@ public class UpgradeValue implements ModifiedValue
             .toString();
     }
 
-    private static Map<Upgrade, Integer> getUpgrades(UpgradeSeries series, int base, int improved, int advanced) {
-        Map<Upgrade, Integer> upgrades = new HashMap<>(2);
+    private static Map<Upgrade, Float> getUpgrades(UpgradeSeries series, float base, float improved, float advanced) {
+        Map<Upgrade, Float> upgrades = new HashMap<>(2);
         for (Upgrade upgrade: series.getUpgrades()) {
             UpgradeRank rank = upgrade.getRank();
 

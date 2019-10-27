@@ -113,7 +113,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * Returns how much damage the units armor absorbs with each attack.
      */
     public int getArmour() {
-        return armour.getValue(this);
+        return (int)armour.getValue(this);
     }
 
     /**
@@ -143,7 +143,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * world units.
      */
     public int getSight() {
-        return sight.getValue(this);
+        return (int)sight.getValue(this);
     }
 
     /**

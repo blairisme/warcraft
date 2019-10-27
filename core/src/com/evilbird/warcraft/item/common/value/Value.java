@@ -20,5 +20,5 @@ import com.google.gson.annotations.JsonAdapter;
 @JsonAdapter(ValueSerializer.class)
 public interface Value
 {
-    int getValue(Unit unit);
+    float getValue(Unit unit);
 }

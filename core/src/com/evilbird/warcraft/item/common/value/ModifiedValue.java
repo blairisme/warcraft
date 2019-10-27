@@ -19,5 +19,5 @@ import com.evilbird.warcraft.item.unit.Unit;
  */
 public interface ModifiedValue extends Value
 {
-    int getBaseValue(Unit unit);
+    float getBaseValue(Unit unit);
 }

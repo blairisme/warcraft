@@ -39,23 +39,17 @@
             "class": "Units",
             "enum": "Footman"
           },
+          "basicDamage": 0.0,
+          "piercingDamage": 0.0,
           "attackSpeed": 0.0,
-          "piercingDamage": 0,
-          "basicDamage": {
-            "value": 0
-          },
-          "movementSpeed": 0,
+          "movementSpeed": 0.0,
           "movementCapability": "Land",
           "health": 100.0,
           "healthMaximum": 100.0,
           "selected": false,
           "selectable": true,
-          "sight": {
-            "value": 0
-          },
-          "armour": {
-            "value": 0
-          },
+          "sight": 0.0,
+          "armour": 0.0,
           "associations": [],
           "direction": 70.55996,
           "id": {
@@ -88,12 +82,8 @@
           "healthMaximum": 100.0,
           "selected": false,
           "selectable": true,
-          "sight": {
-            "value": 0
-          },
-          "armour": {
-            "value": 0
-          },
+          "sight": 0.0,
+          "armour": 0.0,
           "associations": [],
           "direction": 70.55996,
           "id": {
@@ -162,23 +152,17 @@
             "class": "Units",
             "enum": "Footman"
           },
+          "basicDamage": 0.0,
+          "piercingDamage": 0.0,
           "attackSpeed": 0.0,
-          "piercingDamage": 0,
-          "basicDamage": {
-            "value": 0
-          },
-          "movementSpeed": 0,
+          "movementSpeed": 0.0,
           "movementCapability": "Land",
           "health": 100.0,
           "healthMaximum": 100.0,
           "selected": false,
           "selectable": true,
-          "sight": {
-            "value": 0
-          },
-          "armour": {
-            "value": 0
-          },
+          "sight": 0.0,
+          "armour": 0.0,
           "associations": [],
           "direction": 70.55996,
           "id": {
@@ -211,12 +195,8 @@
           "healthMaximum": 100.0,
           "selected": false,
           "selectable": true,
-          "sight": {
-            "value": 0
-          },
-          "armour": {
-            "value": 0
-          },
+          "sight": 0.0,
+          "armour": 0.0,
           "associations": [],
           "direction": 70.55996,
           "id": {

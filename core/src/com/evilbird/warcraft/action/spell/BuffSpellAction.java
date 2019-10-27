@@ -27,11 +27,26 @@ public abstract class BuffSpellAction extends SpellAction
         super(spell, effect, factory);
     }
 
+    protected void addAttackSpeedBuff() {
+//        Combatant target = (Combatant)getTarget();
+//        Value oldDamage = target.getAttackSpeedValue();
+//        Value newDamage = nonStackingBuff(spell, oldDamage);
+//        target.setAttackSpeed(newDamage);
+    }
+
     protected void addAttackDamageBuff() {
         Combatant target = (Combatant)getTarget();
         Value oldDamage = target.getBasicDamageValue();
         Value newDamage = nonStackingBuff(spell, oldDamage);
         target.setBasicDamage(newDamage);
+    }
+
+    protected void addMovementSpeedBuff() {
+
+    }
+
+    protected void addGatherSpeedBuff() {
+
     }
 
     protected Value nonStackingBuff(Spell spell, Value base) {

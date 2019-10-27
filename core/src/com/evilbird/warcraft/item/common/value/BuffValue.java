@@ -24,21 +24,21 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @JsonAdapter(ValueSerializer.class)
 public class BuffValue implements ModifiedValue
 {
-    private int buff;
+    private float buff;
     private Value base;
 
-    public BuffValue(int buff, Value base) {
+    public BuffValue(float buff, Value base) {
         this.buff = buff;
         this.base = base;
     }
 
     @Override
-    public int getValue(Unit unit) {
+    public float getValue(Unit unit) {
         return base.getValue(unit) + buff;
     }
 
     @Override
-    public int getBaseValue(Unit unit) {
+    public float getBaseValue(Unit unit) {
         if (base instanceof ModifiedValue) {
             ModifiedValue modified = (ModifiedValue)base;
             return modified.getBaseValue(unit);
@@ -50,7 +50,7 @@ public class BuffValue implements ModifiedValue
         return base;
     }
 
-    public int getModifier() {
+    public float getModifier() {
         return buff;
     }
 
