@@ -7,10 +7,11 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.spell;
+package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.common.value.BuffValue;
 import com.evilbird.warcraft.item.common.value.Value;

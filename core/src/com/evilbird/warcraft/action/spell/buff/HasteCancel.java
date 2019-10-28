@@ -7,12 +7,9 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.spell;
+package com.evilbird.warcraft.action.spell.buff;
 
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.common.value.ValueProperty;
-import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
@@ -21,17 +18,14 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * A spell that slows a given targets movement and attack speeds for a period
- * of time. The spell is cast instantaneously and won't be repeated until cast
- * again.
+ * A spell that removes the effects of the haste spell.
  *
  * @author Blair Butterworth
  */
-public class SlowSpell extends BuffSpellAction
+public class HasteCancel extends BuffSpellCancel
 {
     @Inject
-    public SlowSpell(ItemFactory factory, SlowCancel cancel) {
-        super(Spell.Slow, EffectType.Spell, factory, cancel);
+    public HasteCancel() {
     }
 
     @Override

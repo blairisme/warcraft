@@ -7,12 +7,13 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.spell;
+package com.evilbird.warcraft.action.spell.power;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.layer.fog.Fog;

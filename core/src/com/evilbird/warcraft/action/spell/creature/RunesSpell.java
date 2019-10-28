@@ -7,25 +7,25 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.spell;
+package com.evilbird.warcraft.action.spell.creature;
 
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.EffectType;
 
 import javax.inject.Inject;
 
 /**
- * A spell that renders its target invisible to enemy players. The target
- * remains invisible until it moves or attacks. The spell is cast
- * instantaneously and won't be repeated until cast again.
+ * A spell that creates a magical explosive trap that explodes when any type of
+ * game object approaches it. The trap will eventually exploded it unused.
  *
  * @author Blair Butterworth
  */
-public class InvisibilitySpell extends SpellAction
+public class RunesSpell extends SpellAction
 {
     @Inject
-    public InvisibilitySpell(ItemFactory factory) {
-        super(Spell.Invisibility, EffectType.Spell, factory);
+    public RunesSpell(ItemFactory factory) {
+        super(Spell.Runes, EffectType.Rune, factory);
     }
 }

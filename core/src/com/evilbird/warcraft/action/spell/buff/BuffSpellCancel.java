@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.spell;
+package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.item.common.value.BuffValue;

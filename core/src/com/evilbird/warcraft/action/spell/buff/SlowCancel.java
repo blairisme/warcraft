@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.spell;
+package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.warcraft.item.common.value.ValueProperty;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -18,14 +18,14 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * A spell that removes the effects of the haste spell.
+ * A spell that removes the effects of the slow spell.
  *
  * @author Blair Butterworth
  */
-public class HasteCancel extends BuffSpellCancel
+public class SlowCancel extends BuffSpellCancel
 {
     @Inject
-    public HasteCancel() {
+    public SlowCancel() {
     }
 
     @Override

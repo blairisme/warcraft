@@ -7,10 +7,11 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.spell;
+package com.evilbird.warcraft.action.spell.attack;
 
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.action.common.remove.DeathAction;
+import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.Unit;
 

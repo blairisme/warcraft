@@ -7,9 +7,12 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.spell;
+package com.evilbird.warcraft.action.spell.buff;
 
+import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.common.value.ValueProperty;
+import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
@@ -18,14 +21,17 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * A spell that removes the effects of the slow spell.
+ * A spell that slows a given targets movement and attack speeds for a period
+ * of time. The spell is cast instantaneously and won't be repeated until cast
+ * again.
  *
  * @author Blair Butterworth
  */
-public class SlowCancel extends BuffSpellCancel
+public class SlowSpell extends BuffSpellAction
 {
     @Inject
-    public SlowCancel() {
+    public SlowSpell(ItemFactory factory, SlowCancel cancel) {
+        super(Spell.Slow, EffectType.Spell, factory, cancel);
     }
 
     @Override

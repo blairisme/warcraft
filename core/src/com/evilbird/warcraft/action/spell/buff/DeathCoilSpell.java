@@ -7,34 +7,29 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.spell;
+package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.EffectType;
-import com.evilbird.warcraft.item.unit.Unit;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.common.spell.Spell.Heal;
-
 /**
- * A spell that improves the health of a given game object.
+ * A spell that "transfers" health its target to the caster.
  *
  * @author Blair Butterworth
  */
-public class HealSpell extends SpellAction
+public class DeathCoilSpell extends SpellAction
 {
     @Inject
-    public HealSpell(ItemFactory factory) {
-        super(Spell.Heal, EffectType.Heal, factory);
+    public DeathCoilSpell(ItemFactory factory) {
+        super(Spell.DeathCoil, EffectType.Spell, factory);
     }
 
     @Override
     protected void initialize() {
         super.initialize();
-
-        Unit target = (Unit)getTarget();
-        target.setHealth(Math.min(target.getHealthMaximum(), target.getHealth() + Heal.getValue()));
     }
 }
