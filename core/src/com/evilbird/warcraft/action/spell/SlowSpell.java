@@ -11,9 +11,14 @@ package com.evilbird.warcraft.action.spell;
 
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.item.common.spell.Spell;
+import com.evilbird.warcraft.item.common.value.ValueProperty;
 import com.evilbird.warcraft.item.effect.EffectType;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * A spell that slows a given targets movement and attack speeds for a period
@@ -25,15 +30,18 @@ import javax.inject.Inject;
 public class SlowSpell extends BuffSpellAction
 {
     @Inject
-    public SlowSpell(ItemFactory factory) {
-        super(Spell.Slow, EffectType.Spell, factory);
+    public SlowSpell(ItemFactory factory, SlowCancel cancel) {
+        super(Spell.Slow, EffectType.Spell, factory, cancel);
     }
 
     @Override
-    protected void initialize() {
-        super.initialize();
-        addAttackSpeedBuff();
-        addMovementSpeedBuff();
-        addGatherSpeedBuff();
+    protected Collection<ValueProperty> buffedProperties(Combatant target) {
+        Gatherer gatherer = (Gatherer)target;
+        return Arrays.asList(
+            gatherer.getAttackSpeedProperty(),
+            gatherer.getMovementSpeedProperty(),
+            gatherer.getGoldGatherSpeedProperty(),
+            gatherer.getOilGatherSpeedProperty(),
+            gatherer.getWoodGatherSpeedProperty());
     }
 }

@@ -17,6 +17,7 @@ import com.evilbird.warcraft.item.common.capability.OffensiveCapability;
 import com.evilbird.warcraft.item.common.capability.OffensiveObject;
 import com.evilbird.warcraft.item.common.value.FixedValue;
 import com.evilbird.warcraft.item.common.value.Value;
+import com.evilbird.warcraft.item.common.value.ValueProperty;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -80,6 +81,13 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
     }
 
     /**
+     * Returns the rate at which the {@code Combatant} attacks.
+     */
+    public ValueProperty getAttackSpeedProperty() {
+        return new ValueProperty(this::getAttackSpeedValue, this::setAttackSpeed);
+    }
+
+    /**
      * Returns the distance that the {@code Combatant} can reach with its
      * attacks.
      */
@@ -108,6 +116,14 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
     }
 
     /**
+     * Returns the amount of damage that the {@code Combatant} deals
+     * with each attack, without having been upgraded.
+     */
+    public ValueProperty getBasicDamageProperty() {
+        return new ValueProperty(this::getBasicDamageValue, this::setBasicDamage);
+    }
+
+    /**
      * Returns the damage the {@code Combatant} always does with each attack,
      * regardless of the opponent’s armor.
      */
@@ -122,6 +138,14 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      */
     public Value getPiercingDamageValue() {
         return piercingDamage;
+    }
+
+    /**
+     * Returns the damage the {@code Combatant} always does with each attack,
+     * regardless of the opponent’s armor.
+     */
+    public ValueProperty getPiercingDamageProperty() {
+        return new ValueProperty(this::getPiercingDamageValue, this::setPiercingDamage);
     }
 
     /**
@@ -149,6 +173,14 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      */
     public Value getMovementSpeedValue() {
         return movementSpeed;
+    }
+
+    /**
+     * Returns the movement speed of the {@code Combatant}, specified in pixels
+     * per second.
+     */
+    public ValueProperty getMovementSpeedProperty() {
+        return new ValueProperty(this::getMovementSpeedValue, this::setMovementSpeed);
     }
 
     /**

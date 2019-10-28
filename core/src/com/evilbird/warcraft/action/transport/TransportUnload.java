@@ -40,7 +40,7 @@ public class TransportUnload extends BasicAction
     @Override
     public boolean act(float delta) {
         Unit vessel = (Unit)getItem();
-        for (Item associate: vessel.getAssociatedItems()) {
+        for (Item associate: vessel.getAssociatedObjects()) {
             Unit unit = (Unit)associate;
             if (movement.reposition((MovableObject)unit, vessel)) {
                 vessel.removeAssociatedItem(unit);

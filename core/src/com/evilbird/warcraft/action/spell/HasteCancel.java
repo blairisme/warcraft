@@ -9,10 +9,7 @@
 
 package com.evilbird.warcraft.action.spell;
 
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.common.value.ValueProperty;
-import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
@@ -21,16 +18,14 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * A spell that increases the speed for a given targets movement and attack.
- * The spell is cast instantaneously and wears off after a period of time.
+ * A spell that removes the effects of the haste spell.
  *
  * @author Blair Butterworth
  */
-public class HasteSpell extends BuffSpellAction
+public class HasteCancel extends BuffSpellCancel
 {
     @Inject
-    public HasteSpell(ItemFactory factory, HasteCancel cancel) {
-        super(Spell.Haste, EffectType.Spell, factory, cancel);
+    public HasteCancel() {
     }
 
     @Override

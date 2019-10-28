@@ -249,7 +249,7 @@ public class DeathAction extends BasicAction
     private Collection<Item> getAssociations(Item item) {
         if (item instanceof Unit) {
             Unit unit = (Unit)item;
-            return unit.getAssociatedItems();
+            return unit.getAssociatedObjects();
         }
         return Collections.emptyList();
     }

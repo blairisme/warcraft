@@ -64,4 +64,8 @@ public enum Spell
             default: throw new UnsupportedOperationException();
         }
     }
+
+    public float getEffectDuration() {
+        return 1;
+    }
 }

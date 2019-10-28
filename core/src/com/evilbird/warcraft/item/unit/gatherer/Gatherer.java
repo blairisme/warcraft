@@ -14,6 +14,7 @@ import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.common.value.FixedValue;
 import com.evilbird.warcraft.item.common.value.Value;
+import com.evilbird.warcraft.item.common.value.ValueProperty;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -75,66 +76,87 @@ public class Gatherer extends Combatant implements ResourceContainer
     }
 
     /**
-     * Returns the gathers maximum gold carrying capacity.
+     * Returns the gatherers maximum gold carrying capacity.
      */
     public float getGoldCapacity() {
         return goldCapacity.getValue(this);
     }
 
     /**
-     * Returns the gathers maximum oil carrying capacity.
+     * Returns the gatherers maximum oil carrying capacity.
      */
     public float getOilCapacity() {
         return oilCapacity.getValue(this);
     }
 
     /**
-     * Returns the gathers maximum wood carrying capacity.
+     * Returns the gatherers maximum wood carrying capacity.
      */
     public float getWoodCapacity() {
         return woodCapacity.getValue(this);
     }
 
     /**
-     * Returns the gathers gold gathering speed.
+     * Returns the gatherers gold gathering speed.
      */
     public float getGoldGatherSpeed() {
         return goldGatherSpeed.getValue(this);
     }
 
     /**
-     * Returns the gathers gold gathering speed.
+     * Returns the gatherers gold gathering speed.
      */
     public Value getGoldGatherSpeedValue() {
         return goldGatherSpeed;
     }
 
     /**
-     * Returns the gathers oil gathering speed.
+     * Returns the gatherers gold gathering speed.
+     */
+    public ValueProperty getGoldGatherSpeedProperty() {
+        return new ValueProperty(this::getGoldGatherSpeedValue, this::setGoldGatherSpeed);
+    }
+
+    /**
+     * Returns the gatherers oil gathering speed.
      */
     public float getOilGatherSpeed() {
         return oilGatherSpeed.getValue(this);
     }
 
     /**
-     * Returns the gathers oil gathering speed.
+     * Returns the gatherers oil gathering speed.
      */
     public Value getOilGatherSpeedValue() {
         return oilGatherSpeed;
     }
 
     /**
-     * Returns the gathers wood gathering speed.
+     * Returns the gatherers oil gathering speed.
+     */
+    public ValueProperty getOilGatherSpeedProperty() {
+        return new ValueProperty(this::getOilGatherSpeedValue, this::setOilGatherSpeed);
+    }
+
+    /**
+     * Returns the gatherers wood gathering speed.
      */
     public float getWoodGatherSpeed() {
         return woodGatherSpeed.getValue(this);
     }
 
     /**
-     * Returns the gathers wood gathering speed.
+     * Returns the gatherers wood gathering speed.
      */
     public Value getWoodGatherSpeedValue() {
         return woodGatherSpeed;
+    }
+
+    /**
+     * Returns the gatherers wood gathering speed.
+     */
+    public ValueProperty getWoodGatherSpeedProperty() {
+        return new ValueProperty(this::getWoodGatherSpeedValue, this::setWoodGatherSpeed);
     }
 
     @Override

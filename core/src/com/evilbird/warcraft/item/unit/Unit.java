@@ -17,10 +17,12 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.graphics.AnimationFrame;
 import com.evilbird.engine.common.graphics.ColourMaskSprite;
+import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemReference;
 import com.evilbird.engine.item.ItemRoot;
@@ -39,7 +41,11 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
 
@@ -51,13 +57,15 @@ import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
  */
 public class Unit extends Viewable implements PerishableObject, SelectableObject, SpatialObject
 {
+    private Value armour;
     private float health;
     private float healthMaximum;
+    private Value sight;
     private boolean selected;
     private boolean selectable;
-    private Value sight;
-    private Value armour;
-    private List<ItemReference> associations;
+    private List<ItemReference> associatedObjects;
+    private Map<Action, GameTimer> pendingActions;
+
     private transient UnitStyle style;
 
     /**
@@ -79,14 +87,23 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
         healthMaximum = 0;
         selected = false;
         selectable = true;
-        associations = new ArrayList<>(1);
+        pendingActions = new HashMap<>();
+        associatedObjects = new ArrayList<>(1);
+    }
+
+    /**
+     * Assigns an {@link Action} to the Item to be executed after the given
+     * delay.
+     */
+    public void addAction(Action action, GameTimer delay) {
+        pendingActions.put(action, delay);
     }
 
     /**
      * Associates the given {@link Item} with the Unit.
      */
     public void addAssociatedItem(Item associate) {
-        associations.add(new ItemReference(associate));
+        associatedObjects.add(new ItemReference(associate));
     }
 
     /**
@@ -95,8 +112,8 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * associated will be returned.
      */
     public Item getAssociatedItem() {
-        if (!associations.isEmpty()) {
-            ItemReference reference = associations.get(0);
+        if (!associatedObjects.isEmpty()) {
+            ItemReference reference = associatedObjects.get(0);
             return reference.get();
         }
         return null;
@@ -105,8 +122,8 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     /**
      * Returns the set of {@link Item Items} associated with the Unit, if any.
      */
-    public Collection<Item> getAssociatedItems() {
-        return CollectionUtils.convert(associations, ItemReference::get);
+    public Collection<Item> getAssociatedObjects() {
+        return CollectionUtils.convert(associatedObjects, ItemReference::get);
     }
 
     /**
@@ -183,7 +200,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * Unit.
      */
     public boolean hasAssociatedItem(Item associate) {
-        return associations.contains(new ItemReference(associate));
+        return associatedObjects.contains(new ItemReference(associate));
     }
 
     /**
@@ -191,14 +208,14 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * with the Unit.
      */
     public boolean hasAssociatedItems() {
-        return !associations.isEmpty();
+        return !associatedObjects.isEmpty();
     }
 
     /**
      * Removes the association between the unit and the given {@link Item}.
      */
     public void removeAssociatedItem(Item associate) {
-        associations.remove(new ItemReference(associate));
+        associatedObjects.remove(new ItemReference(associate));
     }
 
     /**
@@ -206,7 +223,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * existing associations will be removed.
      */
     public void setAssociatedItem(Item associate) {
-        associations.clear();
+        associatedObjects.clear();
         if (associate != null) {
             addAssociatedItem(associate);
         }
@@ -303,7 +320,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     @Override
     public void setRoot(ItemRoot root) {
         super.setRoot(root);
-        for (ItemReference association: associations) {
+        for (ItemReference association: associatedObjects) {
             association.setParent(root);
         }
     }
@@ -314,6 +331,20 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
             batch.draw(style.selection, getX(), getY(), getWidth(), getHeight());
         }
         super.draw(batch, alpha);
+    }
+
+    @Override
+    public void update(float delta) {
+        Set<Entry<Action, GameTimer>> pending = pendingActions.entrySet();
+        pending.removeIf(entry -> update(entry.getKey(), entry.getValue(), delta));
+        super.update(delta);
+    }
+
+    private boolean update(Action action, GameTimer delay, float time) {
+        if (delay.advance(time)) {
+            addAction(action);
+        }
+        return delay.complete();
     }
 
     @Override
@@ -341,7 +372,8 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
             .append(healthMaximum, unit.healthMaximum)
             .append(selected, unit.selected)
             .append(selectable, unit.selectable)
-            .append(associations, unit.associations)
+            .append(associatedObjects, unit.associatedObjects)
+            .append(pendingActions, unit.pendingActions)
             .isEquals();
     }
 
@@ -355,7 +387,8 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
             .append(healthMaximum)
             .append(selected)
             .append(selectable)
-            .append(associations)
+            .append(associatedObjects)
+            .append(pendingActions)
             .toHashCode();
     }
 

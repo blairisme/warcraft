@@ -26,4 +26,9 @@ public class DeathCoilSpell extends SpellAction
     public DeathCoilSpell(ItemFactory factory) {
         super(Spell.DeathCoil, EffectType.Spell, factory);
     }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+    }
 }
