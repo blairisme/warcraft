@@ -9,14 +9,12 @@
 
 package com.evilbird.warcraft.action.spell.creature;
 
-import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
-import com.evilbird.warcraft.action.spell.SpellAction;
+import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.item.common.spell.Spell;
-import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -24,8 +22,8 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import javax.inject.Inject;
 import java.util.Collection;
 
+import static com.evilbird.engine.common.collection.CollectionUtils.filter;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 
 /**
  * A spell that converts nearby corpses into skeleton warriors that fight for
@@ -33,29 +31,30 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
  *
  * @author Blair Butterworth
  */
-public class RaiseDeadSpell extends SpellAction
+public class RaiseDeadSpell extends CreatureSpellAction
 {
     private static final int RADIUS = tiles(5);
 
     @Inject
-    public RaiseDeadSpell(ItemFactory factory) {
-        super(Spell.RaiseDead, EffectType.Spell, factory);
+    public RaiseDeadSpell(ItemFactory factory, CreateEvents events) {
+        super(Spell.RaiseDead, EffectType.Spell, UnitType.Skeleton, factory, events, null);
     }
 
     @Override
-    protected void initialize() {
-        super.initialize();
-        Item caster = getItem();
-        Player player = getPlayer(caster);
-        Collection<Item> corpses = getNearbyCorpses(caster);
-        createSkeletons(player, corpses);
+    protected Combatant addCreature() {
+        for (Item corpse: nearbyCorpses()) {
+            Combatant creature = super.addCreature();
+            creature.setPosition(corpse.getPosition());
+        }
+        return null;
     }
 
-    private Collection<Item> getNearbyCorpses(Item caster) {
+    private Collection<Item> nearbyCorpses() {
+        Item caster = getItem();
         ItemRoot state = caster.getRoot();
         ItemGraph graph = state.getSpatialGraph();
         Collection<Item> corpses = graph.getOccupants(caster, RADIUS);
-        return CollectionUtils.filter(corpses, this::isDeadCombatant);
+        return filter(corpses, this::isDeadCombatant);
     }
 
     private boolean isDeadCombatant(Item item) {
@@ -64,13 +63,5 @@ public class RaiseDeadSpell extends SpellAction
             return combatant.getHealth() == 0;
         }
         return false;
-    }
-
-    private void createSkeletons(Player player, Collection<Item> corpses) {
-        for (Item corpse: corpses) {
-            Item creature = factory.get(UnitType.Skeleton);
-            creature.setPosition(corpse.getPosition());
-            player.addItem(creature);
-        }
     }
 }

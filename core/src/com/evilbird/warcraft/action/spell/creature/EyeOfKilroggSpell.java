@@ -9,44 +9,35 @@
 
 package com.evilbird.warcraft.action.spell.creature;
 
-import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.warcraft.action.spell.SpellAction;
-import com.evilbird.warcraft.item.common.capability.MovableObject;
-import com.evilbird.warcraft.item.common.query.UnitOperations;
+import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.item.common.spell.Spell;
-import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.moveAdjacent;
 
 /**
- * A spell that creates an creature, an eye of kilrogg, that an move about the
+ * A spell that creates an creature, an eye of kilrogg, that can move about the
  * world acting as a scout. The creature is temporary and will be disappear
  * after a period of time.
  *
  * @author Blair Butterworth
  */
-public class EyeOfKilroggSpell extends SpellAction
+public class EyeOfKilroggSpell extends CreatureSpellAction
 {
     @Inject
-    public EyeOfKilroggSpell(ItemFactory factory) {
-        super(Spell.EyeOfKilrogg, EffectType.Spell, factory);
+    public EyeOfKilroggSpell(ItemFactory factory, CreateEvents events, CreatureSpellCancel cancel) {
+        super(Spell.EyeOfKilrogg, EffectType.Spell, UnitType.EyeOfKilrogg, factory, events, cancel);
     }
 
     @Override
-    protected void initialize() {
-        super.initialize();
-
-        Item caster = getItem();
-        Player player = UnitOperations.getPlayer(caster);
-
-        Item creature = factory.get(UnitType.EyeOfKilrogg);
-        player.addItem(creature);
-        
-        moveAdjacent((MovableObject)creature, caster);
+    protected Combatant addCreature() {
+        Combatant creature = super.addCreature();
+        moveAdjacent(creature, getItem());
+        return creature;
     }
 }

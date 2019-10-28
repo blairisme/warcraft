@@ -12,6 +12,11 @@ package com.evilbird.warcraft.item.common.value;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+/**
+ * Provides read and write access to a value.
+ *
+ * @author Blair Butterworth
+ */
 public class ValueProperty
 {
     private Supplier<Value> getter;

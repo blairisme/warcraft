@@ -9,19 +9,16 @@
 
 package com.evilbird.warcraft.action.spell.creature;
 
-import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
-import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.spell.Spell;
-import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
-
-import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
-import static com.evilbird.warcraft.item.unit.UnitType.Sheep;
 
 /**
  * A spell that transforms a given target into a critter, rendering it unable
@@ -29,28 +26,28 @@ import static com.evilbird.warcraft.item.unit.UnitType.Sheep;
  *
  * @author Blair Butterworth
  */
-public class PolymorphSpell extends SpellAction
+public class PolymorphSpell extends CreatureSpellAction
 {
     private ItemExclusion exclusion;
 
     @Inject
-    public PolymorphSpell(ItemFactory factory, ItemExclusion exclusion) {
-        super(Spell.Polymorph, EffectType.Spell, factory);
+    public PolymorphSpell(ItemFactory factory, ItemExclusion exclusion, CreateEvents events, PolymorphCancel cancel) {
+        super(Spell.Polymorph, EffectType.Spell, UnitType.Sheep, factory, events, cancel);
         this.exclusion = exclusion;
     }
 
     @Override
     protected void initialize() {
         super.initialize();
+        exclusion.disable((Unit)getTarget());
+    }
 
-        Unit target = (Unit)getTarget();
-        exclusion.disable(target);
-
-        Item sheep = factory.get(Sheep);
-        sheep.setPosition(target.getPosition());
-
-        Item caster = getItem();
-        Player player = getPlayer(caster);
-        player.addItem(sheep);
+    @Override
+    protected Combatant addCreature() {
+        Combatant target = (Combatant)getTarget();
+        Combatant creature = super.addCreature();
+        creature.setPosition(target.getPosition());
+        creature.setAssociatedItem(target);
+        return creature;
     }
 }

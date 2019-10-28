@@ -95,6 +95,14 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * Assigns an {@link Action} to the Item to be executed after the given
      * delay.
      */
+    public void addAction(Action action, float delay) {
+        pendingActions.put(action, new GameTimer(delay));
+    }
+
+    /**
+     * Assigns an {@link Action} to the Item to be executed after the given
+     * delay.
+     */
     public void addAction(Action action, GameTimer delay) {
         pendingActions.put(action, delay);
     }
