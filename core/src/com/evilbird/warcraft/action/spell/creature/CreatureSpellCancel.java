@@ -14,6 +14,8 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.action.common.remove.RemoveEvents;
 
+import javax.inject.Inject;
+
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 
 /**
@@ -25,6 +27,7 @@ public class CreatureSpellCancel extends BasicAction
 {
     private RemoveEvents removeEvents;
 
+    @Inject
     public CreatureSpellCancel(RemoveEvents removeEvents) {
         this.removeEvents = removeEvents;
     }

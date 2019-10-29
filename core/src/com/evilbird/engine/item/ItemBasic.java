@@ -19,7 +19,6 @@ import com.evilbird.engine.common.collection.EmptyIterator;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
-import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.item.interop.ActorDecorator;
 import com.google.gson.annotations.JsonAdapter;
 import org.apache.commons.lang3.Validate;
@@ -30,10 +29,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
 
 import static com.badlogic.gdx.scenes.scene2d.Touchable.enabled;
 import static com.evilbird.engine.common.lang.GenericIdentifier.Unknown;

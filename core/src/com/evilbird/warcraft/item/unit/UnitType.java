@@ -130,7 +130,7 @@ public enum UnitType implements ItemType
 
     /* Conjured - Combatant */
     EyeOfKilrogg,
-    //RuneTrap,
+    RuneTrap,
     Skeleton,
 
     /* Neutral - Resource */

@@ -83,6 +83,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
 import static com.evilbird.warcraft.item.unit.UnitType.Peon;
 import static com.evilbird.warcraft.item.unit.UnitType.PigFarm;
 import static com.evilbird.warcraft.item.unit.UnitType.Refinery;
+import static com.evilbird.warcraft.item.unit.UnitType.RuneTrap;
 import static com.evilbird.warcraft.item.unit.UnitType.Runestone;
 import static com.evilbird.warcraft.item.unit.UnitType.ScoutTower;
 import static com.evilbird.warcraft.item.unit.UnitType.Seal;
@@ -135,7 +136,7 @@ public class UnitIconLayout
             DarkPortal,             CircleOfPower,      Runestone,              Unknown,                Unknown,
             Unknown,                Unknown,            Unknown,                Unknown,                Unknown,
             Unknown,                Unknown,            Unknown,                Unknown,                Unknown,
-            Unknown,                Unknown,            Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,            RuneTrap,               Unknown,                Unknown,
             Unknown,                Unknown,            Unknown,                Unknown,                Unknown,
             Unknown,                Unknown,            Unknown,                Unknown,                Unknown,
             Unknown,                EyeOfKilrogg,       Unknown,                Unknown,                Skeleton,
