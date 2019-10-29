@@ -99,8 +99,7 @@ public class AttackBehaviour implements AiBehaviourElement
     }
 
     private void assignTarget(OffensiveObject attacker) {
-        PerishableObject target = controller.getTarget(attacker);
-        if (target != null) {
+        for (PerishableObject target: controller.getTargets(attacker)) {
             attack(attacker, target);
         }
     }

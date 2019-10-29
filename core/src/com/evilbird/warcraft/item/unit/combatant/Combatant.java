@@ -15,6 +15,7 @@ import com.evilbird.warcraft.item.common.capability.MovableObject;
 import com.evilbird.warcraft.item.common.capability.MovementCapability;
 import com.evilbird.warcraft.item.common.capability.OffensiveCapability;
 import com.evilbird.warcraft.item.common.capability.OffensiveObject;
+import com.evilbird.warcraft.item.common.capability.OffensivePlurality;
 import com.evilbird.warcraft.item.common.value.FixedValue;
 import com.evilbird.warcraft.item.common.value.Value;
 import com.evilbird.warcraft.item.common.value.ValueProperty;
@@ -25,6 +26,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.capability.OffensiveCapability.Proximity;
+import static com.evilbird.warcraft.item.common.capability.OffensivePlurality.Individual;
 import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
 
 /**
@@ -63,6 +65,15 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
     @Override
     public OffensiveCapability getAttackCapability() {
         return Proximity;
+    }
+
+    /**
+     * Returns whether the number of targets the {@code Combatant} can
+     * attack in a given instant.
+     */
+    @Override
+    public OffensivePlurality getAttackPlurality() {
+        return Individual;
     }
 
     /**

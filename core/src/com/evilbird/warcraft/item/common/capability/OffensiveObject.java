@@ -27,6 +27,12 @@ public interface OffensiveObject extends Item, Animated, Audible
     OffensiveCapability getAttackCapability();
 
     /**
+     * Returns whether the number of targets the {@code OffensiveObject} can
+     * attack in a given instant.
+     */
+    OffensivePlurality getAttackPlurality();
+
+    /**
      * Returns the distance that the {@code OffensiveObject} can reach with its
      * attacks, specified in world units.
      */

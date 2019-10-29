@@ -12,12 +12,14 @@ package com.evilbird.warcraft.item.unit.conjured;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.warcraft.item.common.capability.OffensiveCapability;
 import com.evilbird.warcraft.item.common.capability.OffensiveObject;
+import com.evilbird.warcraft.item.common.capability.OffensivePlurality;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import static com.evilbird.warcraft.item.common.capability.OffensiveCapability.Air;
+import static com.evilbird.warcraft.item.common.capability.OffensivePlurality.Multiple;
 
 /**
  * Represents a magically conjured game object that has offensive capabilities:
@@ -46,6 +48,15 @@ public class ConjuredObject extends Unit implements OffensiveObject
     @Override
     public OffensiveCapability getAttackCapability() {
         return Air;
+    }
+
+    /**
+     * Returns whether the number of targets the {@code OffensiveObject} can
+     * attack in a given instant.
+     */
+    @Override
+    public OffensivePlurality getAttackPlurality() {
+        return Multiple;
     }
 
     /**
