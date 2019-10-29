@@ -13,6 +13,8 @@ import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.remove.RemoveEvents;
 import com.evilbird.warcraft.item.unit.Unit;
 
+import javax.inject.Inject;
+
 /**
  * An action that restores a polymorphed game object to default state.
  *
@@ -22,6 +24,7 @@ public class PolymorphCancel extends CreatureSpellCancel
 {
     private ItemExclusion exclusion;
 
+    @Inject
     public PolymorphCancel(RemoveEvents removeEvents, ItemExclusion exclusion) {
         super(removeEvents);
         this.exclusion = exclusion;
