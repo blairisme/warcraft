@@ -11,9 +11,9 @@ package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.ViewableStyle;
-import com.evilbird.warcraft.item.common.state.OffensiveCapability;
+import com.evilbird.warcraft.item.common.capability.OffensiveCapability;
 
-import static com.evilbird.warcraft.item.common.state.OffensiveCapability.Water;
+import static com.evilbird.warcraft.item.common.capability.OffensiveCapability.Water;
 
 /**
  * Represents a ranged combatant specialization that can traverse and attack

@@ -15,9 +15,9 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.ButtonContr
 
 import java.util.List;
 
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.OilPlatformButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GatherButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MoveButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.OilPlatformButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StopButton;
 import static java.util.Arrays.asList;
 

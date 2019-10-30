@@ -9,6 +9,8 @@
 
 package com.evilbird.warcraft.item.ui.display.control.status.details.combatant;
 
+import com.evilbird.warcraft.item.common.value.ModifiedValue;
+import com.evilbird.warcraft.item.common.value.Value;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
@@ -37,9 +39,8 @@ public class CombatantVisualization
     }
 
     public static int getDamageUpgrade(Combatant combatant) {
-        int basic = combatant.getBasicDamageBaseValue();
-        int upgraded = combatant.getBasicDamage();
-        return upgraded - basic;
+        Value value = combatant.getBasicDamageValue();
+        return getModifiedValue(value, combatant);
     }
 
     public static int getArmour(Combatant combatant) {
@@ -47,9 +48,8 @@ public class CombatantVisualization
     }
 
     public static int getArmourUpgrade(Combatant combatant) {
-        int basic = combatant.getArmourBaseValue();
-        int upgraded = combatant.getArmour();
-        return upgraded - basic;
+        Value value = combatant.getArmourValue();
+        return getModifiedValue(value, combatant);
     }
 
     public static int getSpeed(Combatant combatant) {
@@ -66,5 +66,13 @@ public class CombatantVisualization
 
     public static int getLevel(Combatant combatant) {
         return 1;
+    }
+
+    private static int getModifiedValue(Value value, Combatant combatant) {
+        if (value instanceof ModifiedValue) {
+            ModifiedValue modified = (ModifiedValue)value;
+            return (int)(modified.getValue(combatant) - modified.getBaseValue(combatant));
+        }
+        return 0;
     }
 }

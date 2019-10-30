@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.select;
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.common.state.SelectableObject;
+import com.evilbird.warcraft.item.common.capability.SelectableObject;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;

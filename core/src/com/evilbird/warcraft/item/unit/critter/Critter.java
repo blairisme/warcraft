@@ -10,14 +10,14 @@
 package com.evilbird.warcraft.item.unit.critter;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.warcraft.item.common.state.MovableObject;
-import com.evilbird.warcraft.item.common.state.MovementCapability;
+import com.evilbird.warcraft.item.common.capability.MovableObject;
+import com.evilbird.warcraft.item.common.capability.MovementCapability;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import static com.evilbird.warcraft.item.common.state.MovementCapability.None;
+import static com.evilbird.warcraft.item.common.capability.MovementCapability.None;
 
 /**
  * Represents a critter, an animal that inhabits the game world. Critters can

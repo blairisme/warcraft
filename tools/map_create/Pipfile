@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 networkx = "<2.0.0"
-pillow = "<3.0.0"
+pillow = "<7.0.0"
 imagehash = "*"
 
 [requires]

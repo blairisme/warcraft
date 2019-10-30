@@ -16,10 +16,10 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
+import com.evilbird.warcraft.item.common.capability.OffensiveCapability;
+import com.evilbird.warcraft.item.common.capability.OffensiveObject;
+import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
-import com.evilbird.warcraft.item.common.state.OffensiveCapability;
-import com.evilbird.warcraft.item.common.state.OffensiveObject;
-import com.evilbird.warcraft.item.common.state.PerishableObject;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitType;
 

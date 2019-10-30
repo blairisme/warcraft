@@ -33,11 +33,11 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
  */
 public class ProduceUpgrade extends BasicAction
 {
-    private transient GameTimer timer;
-    private transient ProduceEvents events;
-    private transient ResourceTransfer resources;
-    private transient ProductionCosts productionCosts;
-    private transient ProductionTimes productionTimes;
+    protected transient GameTimer timer;
+    protected transient ProduceEvents events;
+    protected transient ResourceTransfer resources;
+    protected transient ProductionCosts productionCosts;
+    protected transient ProductionTimes productionTimes;
 
     @Inject
     public ProduceUpgrade(
@@ -83,7 +83,7 @@ public class ProduceUpgrade extends BasicAction
         return building.isProducing();
     }
 
-    private boolean initialize() {
+    protected boolean initialize() {
         Building building = (Building)getItem();
         building.setProductionProgress(0);
 
@@ -97,7 +97,7 @@ public class ProduceUpgrade extends BasicAction
         return ActionIncomplete;
     }
 
-    protected boolean loaded() {
+    private boolean loaded() {
         return timer != null;
     }
 
@@ -109,13 +109,13 @@ public class ProduceUpgrade extends BasicAction
         return ActionIncomplete;
     }
 
-    private boolean update() {
+    protected boolean update() {
         Building building = (Building)getItem();
         building.setProductionProgress(timer.completion());
         return ActionIncomplete;
     }
 
-    private boolean complete() {
+    protected boolean complete() {
         Building building = (Building)getItem();
         building.setProductionProgress(1);
         Player player = getPlayer(building);
@@ -126,7 +126,7 @@ public class ProduceUpgrade extends BasicAction
         return ActionComplete;
     }
 
-    private Upgrade getProduct() {
+    protected Upgrade getProduct() {
         ProduceUpgradeActions identifier = (ProduceUpgradeActions)getIdentifier();
         return identifier.getProduct();
     }

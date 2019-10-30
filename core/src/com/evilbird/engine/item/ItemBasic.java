@@ -46,6 +46,7 @@ public class ItemBasic implements Item
     transient Actor delegate;
     transient ItemRoot root;
     transient ItemGroup parent;
+
     private Identifier id;
     private Identifier type;
     private boolean visible;
@@ -53,6 +54,7 @@ public class ItemBasic implements Item
     private Vector2 size;
     private Vector2 position;
     private List<Action> actions;
+
     private transient int index;
     private transient ListIterator<Action> iterator;
 

@@ -11,21 +11,21 @@ package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.ViewableStyle;
-import com.evilbird.warcraft.item.common.state.MovableObject;
-import com.evilbird.warcraft.item.common.state.MovementCapability;
-import com.evilbird.warcraft.item.common.state.OffensiveCapability;
-import com.evilbird.warcraft.item.common.state.OffensiveObject;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeSequence;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeValue;
+import com.evilbird.warcraft.item.common.capability.MovableObject;
+import com.evilbird.warcraft.item.common.capability.MovementCapability;
+import com.evilbird.warcraft.item.common.capability.OffensiveCapability;
+import com.evilbird.warcraft.item.common.capability.OffensiveObject;
+import com.evilbird.warcraft.item.common.value.FixedValue;
+import com.evilbird.warcraft.item.common.value.Value;
+import com.evilbird.warcraft.item.common.value.ValueProperty;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.common.state.OffensiveCapability.Proximity;
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.Zero;
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
+import static com.evilbird.warcraft.item.common.capability.OffensiveCapability.Proximity;
+import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
 
 /**
  * Instances of this class define a combatant: a {@link Unit} specialization
@@ -35,10 +35,10 @@ import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
  */
 public class Combatant extends Unit implements MovableObject, OffensiveObject
 {
-    private float attackSpeed;
-    private int piercingDamage;
-    private UpgradeValue<Integer> basicDamage;
-    private int movementSpeed;
+    private Value basicDamage;
+    private Value piercingDamage;
+    private Value attackSpeed;
+    private Value movementSpeed;
     private MovementCapability movementCapability;
 
     /**
@@ -50,10 +50,10 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      */
     public Combatant(Skin skin) {
         super(skin);
-        this.attackSpeed = 0;
-        this.piercingDamage = 0;
+        this.attackSpeed = Zero;
+        this.piercingDamage = Zero;
         this.basicDamage = Zero;
-        this.movementSpeed = 0;
+        this.movementSpeed = Zero;
         this.movementCapability = MovementCapability.None;
     }
 
@@ -70,7 +70,21 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      */
     @Override
     public float getAttackSpeed() {
+        return attackSpeed.getValue(this);
+    }
+
+    /**
+     * Returns the rate at which the {@code Combatant} attacks.
+     */
+    public Value getAttackSpeedValue() {
         return attackSpeed;
+    }
+
+    /**
+     * Returns the rate at which the {@code Combatant} attacks.
+     */
+    public ValueProperty getAttackSpeedProperty() {
+        return new ValueProperty(this::getAttackSpeedValue, this::setAttackSpeed);
     }
 
     /**
@@ -90,15 +104,23 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      */
     @Override
     public int getBasicDamage() {
-        return getUpgradeValue(basicDamage);
+        return (int)basicDamage.getValue(this);
     }
 
     /**
      * Returns the amount of damage that the {@code Combatant} deals
      * with each attack, without having been upgraded.
      */
-    public int getBasicDamageBaseValue() {
-        return basicDamage.getBaseValue();
+    public Value getBasicDamageValue() {
+        return basicDamage;
+    }
+
+    /**
+     * Returns the amount of damage that the {@code Combatant} deals
+     * with each attack, without having been upgraded.
+     */
+    public ValueProperty getBasicDamageProperty() {
+        return new ValueProperty(this::getBasicDamageValue, this::setBasicDamage);
     }
 
     /**
@@ -107,7 +129,23 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      */
     @Override
     public int getPiercingDamage() {
+        return (int)piercingDamage.getValue(this);
+    }
+
+    /**
+     * Returns the damage the {@code Combatant} always does with each attack,
+     * regardless of the opponent’s armor.
+     */
+    public Value getPiercingDamageValue() {
         return piercingDamage;
+    }
+
+    /**
+     * Returns the damage the {@code Combatant} always does with each attack,
+     * regardless of the opponent’s armor.
+     */
+    public ValueProperty getPiercingDamageProperty() {
+        return new ValueProperty(this::getPiercingDamageValue, this::setPiercingDamage);
     }
 
     /**
@@ -126,13 +164,36 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      */
     @Override
     public int getMovementSpeed() {
+        return (int)movementSpeed.getValue(this);
+    }
+
+    /**
+     * Returns the movement speed of the {@code Combatant}, specified in pixels
+     * per second.
+     */
+    public Value getMovementSpeedValue() {
         return movementSpeed;
+    }
+
+    /**
+     * Returns the movement speed of the {@code Combatant}, specified in pixels
+     * per second.
+     */
+    public ValueProperty getMovementSpeedProperty() {
+        return new ValueProperty(this::getMovementSpeedValue, this::setMovementSpeed);
     }
 
     /**
      * Sets the rate at which the {@code Combatant} attacks.
      */
     public void setAttackSpeed(float attackSpeed) {
+        this.attackSpeed = new FixedValue(attackSpeed);
+    }
+
+    /**
+     * Sets the rate at which the {@code Combatant} attacks.
+     */
+    public void setAttackSpeed(Value attackSpeed) {
         this.attackSpeed = attackSpeed;
     }
 
@@ -141,14 +202,14 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      * with each attack.
      */
     public void setBasicDamage(int basicDamage) {
-        this.basicDamage = new UpgradeSequence(None, basicDamage);
+        this.basicDamage = new FixedValue(basicDamage);
     }
 
     /**
      * Sets the maximum amount of damage that the {@code Combatant} deals
      * with each attack.
      */
-    public void setBasicDamage(UpgradeValue<Integer> basicDamage) {
+    public void setBasicDamage(Value basicDamage) {
         this.basicDamage = basicDamage;
     }
 
@@ -157,6 +218,14 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      * regardless of the opponent’s armor.
      */
     public void setPiercingDamage(int piercingDamage) {
+        this.piercingDamage = new FixedValue(piercingDamage);
+    }
+
+    /**
+     * Sets the damage the {@code Combatant} always does with each attack,
+     * regardless of the opponent’s armor.
+     */
+    public void setPiercingDamage(Value piercingDamage) {
         this.piercingDamage = piercingDamage;
     }
 
@@ -174,6 +243,14 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      * per second.
      */
     public void setMovementSpeed(int movementSpeed) {
+        this.movementSpeed = new FixedValue(movementSpeed);
+    }
+
+    /**
+     * Sets the movement speed of the {@code Combatant}, specified in pixels
+     * per second.
+     */
+    public void setMovementSpeed(Value movementSpeed) {
         this.movementSpeed = movementSpeed;
     }
 

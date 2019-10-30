@@ -29,9 +29,12 @@ import static java.util.Arrays.asList;
  */
 public class CombatantButtons implements ButtonController
 {
+    private static final List<ActionButtonType> BUTTONS =
+        asList(MoveButton, StopButton, AttackButton, PatrolButton, DefendButton);
+
     @Override
     public List<ActionButtonType> getButtons(Item item) {
-        return asList(MoveButton, StopButton, AttackButton, PatrolButton, DefendButton);
+        return BUTTONS;
     }
 
     @Override

@@ -22,7 +22,7 @@ import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.warcraft.action.common.path.ItemNodePath;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.action.common.path.ItemPathFinder;
-import com.evilbird.warcraft.item.common.state.MovableObject;
+import com.evilbird.warcraft.item.common.capability.MovableObject;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 
 import java.util.Collection;

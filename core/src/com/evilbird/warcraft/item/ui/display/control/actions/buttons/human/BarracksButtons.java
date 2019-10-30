@@ -16,6 +16,7 @@ import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.BasicButtonController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.hasUnit;
@@ -63,7 +64,7 @@ public class BarracksButtons extends BasicButtonController
     @Override
     public List<ActionButtonType> getButtons(Item item) {
         Player player = UnitOperations.getPlayer(item);
-        List<ActionButtonType> buttons = getButtons(player.getLevel());
+        List<ActionButtonType> buttons = new ArrayList<>(getButtons(player.getLevel()));
 
         if (hasUpgrade(player, RangedType1)) {
             Lists.replace(buttons, ElvenArcherButton, ElvenRangerButton);

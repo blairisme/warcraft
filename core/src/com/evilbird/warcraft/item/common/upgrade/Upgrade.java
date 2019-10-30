@@ -38,6 +38,8 @@ import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.WoodProduc
  */
 public enum Upgrade implements Identifier
 {
+    None,
+
     MeleeDamage1(MeleeDamage, Improved),
     MeleeDamage2(MeleeDamage, Advanced),
 
@@ -72,10 +74,16 @@ public enum Upgrade implements Identifier
     WoodProduction1(WoodProduction, Improved),
     WoodProduction2(WoodProduction, Advanced),
 
-    None(UpgradeSeries.None, UpgradeRank.None);
+    ExorcismUpgrade,
+    HealingUpgrade;
 
     private UpgradeRank rank;
     private UpgradeSeries series;
+
+    Upgrade() {
+        rank = UpgradeRank.None;
+        series = UpgradeSeries.None;
+    }
 
     Upgrade(UpgradeSeries series, UpgradeRank rank) {
         this.series = series;

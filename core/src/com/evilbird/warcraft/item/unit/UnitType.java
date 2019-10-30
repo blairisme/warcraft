@@ -98,7 +98,6 @@ public enum UnitType implements ItemType
     Catapult,
     DeathKnight,
     Dragon,
-    EyeOfKilrogg,
     Ferry,
     GiantTurtle,
     GoblinSappers,
@@ -128,6 +127,10 @@ public enum UnitType implements ItemType
     Boar,
     Seal,
     Sheep,
+
+    /* Conjured - Combatant */
+    EyeOfKilrogg,
+    RuneTrap,
     Skeleton,
 
     /* Neutral - Resource */

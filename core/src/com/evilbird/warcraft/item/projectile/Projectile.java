@@ -11,8 +11,8 @@ package com.evilbird.warcraft.item.projectile;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.Viewable;
-import com.evilbird.warcraft.item.common.state.MovableObject;
-import com.evilbird.warcraft.item.common.state.MovementCapability;
+import com.evilbird.warcraft.item.common.capability.MovableObject;
+import com.evilbird.warcraft.item.common.capability.MovementCapability;
 
 /**
  * Represents an object that can be propelled towards an enemy to cause damage.

@@ -17,24 +17,23 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.graphics.AnimationFrame;
+import com.evilbird.engine.common.graphics.ColourMaskSprite;
+import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemReference;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.SpatialObject;
 import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.common.TeamColour;
-import com.evilbird.warcraft.item.common.graphics.ColourMaskSprite;
-import com.evilbird.warcraft.item.common.state.PerishableObject;
-import com.evilbird.warcraft.item.common.state.SelectableObject;
-import com.evilbird.warcraft.item.common.upgrade.Upgrade;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeSequence;
-import com.evilbird.warcraft.item.common.upgrade.UpgradeValue;
-import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.common.capability.PerishableObject;
+import com.evilbird.warcraft.item.common.capability.SelectableObject;
+import com.evilbird.warcraft.item.common.value.FixedValue;
+import com.evilbird.warcraft.item.common.value.Value;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -42,12 +41,13 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSequence.Zero;
-import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
+import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
 
 /**
  * Instances of this represent a game object that the user can control and
@@ -57,13 +57,15 @@ import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.None;
  */
 public class Unit extends Viewable implements PerishableObject, SelectableObject, SpatialObject
 {
+    private Value armour;
     private float health;
     private float healthMaximum;
+    private Value sight;
     private boolean selected;
     private boolean selectable;
-    private UpgradeValue<Integer> sight;
-    private UpgradeValue<Integer> armour;
-    private List<ItemReference> associations;
+    private List<ItemReference> associatedObjects;
+    private Map<Action, GameTimer> pendingActions;
+
     private transient UnitStyle style;
 
     /**
@@ -85,14 +87,31 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
         healthMaximum = 0;
         selected = false;
         selectable = true;
-        associations = new ArrayList<>(1);
+        pendingActions = new HashMap<>();
+        associatedObjects = new ArrayList<>(1);
+    }
+
+    /**
+     * Assigns an {@link Action} to the Item to be executed after the given
+     * delay.
+     */
+    public void addAction(Action action, float delay) {
+        pendingActions.put(action, new GameTimer(delay));
+    }
+
+    /**
+     * Assigns an {@link Action} to the Item to be executed after the given
+     * delay.
+     */
+    public void addAction(Action action, GameTimer delay) {
+        pendingActions.put(action, delay);
     }
 
     /**
      * Associates the given {@link Item} with the Unit.
      */
     public void addAssociatedItem(Item associate) {
-        associations.add(new ItemReference(associate));
+        associatedObjects.add(new ItemReference(associate));
     }
 
     /**
@@ -101,8 +120,8 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * associated will be returned.
      */
     public Item getAssociatedItem() {
-        if (!associations.isEmpty()) {
-            ItemReference reference = associations.get(0);
+        if (!associatedObjects.isEmpty()) {
+            ItemReference reference = associatedObjects.get(0);
             return reference.get();
         }
         return null;
@@ -111,23 +130,23 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     /**
      * Returns the set of {@link Item Items} associated with the Unit, if any.
      */
-    public Collection<Item> getAssociatedItems() {
-        return CollectionUtils.convert(associations, ItemReference::get);
+    public Collection<Item> getAssociatedObjects() {
+        return CollectionUtils.convert(associatedObjects, ItemReference::get);
     }
 
     /**
      * Returns how much damage the units armor absorbs with each attack.
      */
     public int getArmour() {
-        return getUpgradeValue(armour);
+        return (int)armour.getValue(this);
     }
 
     /**
      * Returns how much damage the units armor absorbs with each attack,
      * excluding upgrades.
      */
-    public int getArmourBaseValue() {
-        return armour.getBaseValue();
+    public Value getArmourValue() {
+        return armour;
     }
 
     /**
@@ -149,15 +168,15 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * world units.
      */
     public int getSight() {
-        return getUpgradeValue(sight);
+        return (int)sight.getValue(this);
     }
 
     /**
      * Returns the distance that the unit can detect other units, specified in
      * world units, excluding upgrades.
      */
-    public int getSightBaseValue() {
-        return sight.getBaseValue();
+    public Value getSightValue() {
+        return sight;
     }
 
     /**
@@ -189,7 +208,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * Unit.
      */
     public boolean hasAssociatedItem(Item associate) {
-        return associations.contains(new ItemReference(associate));
+        return associatedObjects.contains(new ItemReference(associate));
     }
 
     /**
@@ -197,14 +216,14 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * with the Unit.
      */
     public boolean hasAssociatedItems() {
-        return !associations.isEmpty();
+        return !associatedObjects.isEmpty();
     }
 
     /**
      * Removes the association between the unit and the given {@link Item}.
      */
     public void removeAssociatedItem(Item associate) {
-        associations.remove(new ItemReference(associate));
+        associatedObjects.remove(new ItemReference(associate));
     }
 
     /**
@@ -212,7 +231,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * existing associations will be removed.
      */
     public void setAssociatedItem(Item associate) {
-        associations.clear();
+        associatedObjects.clear();
         if (associate != null) {
             addAssociatedItem(associate);
         }
@@ -222,13 +241,13 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * Sets the amount of damage the Unit can absorb with each attack.
      */
     public void setArmour(int armour) {
-        this.armour = new UpgradeSequence(None, armour);
+        this.armour = new FixedValue(armour);
     }
 
     /**
      * Sets the amount of damage the Unit can absorb with each attack.
      */
-    public void setArmour(UpgradeValue<Integer> armour) {
+    public void setArmour(Value armour) {
         this.armour = armour;
     }
 
@@ -261,14 +280,14 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      * world units.
      */
     public void setSight(int sight) {
-        this.sight = new UpgradeSequence(None, sight);
+        this.sight = new FixedValue(sight);
     }
 
     /**
      * Sets the distance that the unit can detect other units, specified in
      * world units.
      */
-    public void setSight(UpgradeValue<Integer> sight) {
+    public void setSight(Value sight) {
         this.sight = sight;
     }
 
@@ -309,7 +328,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     @Override
     public void setRoot(ItemRoot root) {
         super.setRoot(root);
-        for (ItemReference association: associations) {
+        for (ItemReference association: associatedObjects) {
             association.setParent(root);
         }
     }
@@ -320,6 +339,20 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
             batch.draw(style.selection, getX(), getY(), getWidth(), getHeight());
         }
         super.draw(batch, alpha);
+    }
+
+    @Override
+    public void update(float delta) {
+        Set<Entry<Action, GameTimer>> pending = pendingActions.entrySet();
+        pending.removeIf(entry -> update(entry.getKey(), entry.getValue(), delta));
+        super.update(delta);
+    }
+
+    private boolean update(Action action, GameTimer delay, float time) {
+        if (delay.advance(time)) {
+            addAction(action);
+        }
+        return delay.complete();
     }
 
     @Override
@@ -347,7 +380,8 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
             .append(healthMaximum, unit.healthMaximum)
             .append(selected, unit.selected)
             .append(selectable, unit.selectable)
-            .append(associations, unit.associations)
+            .append(associatedObjects, unit.associatedObjects)
+            .append(pendingActions, unit.pendingActions)
             .isEquals();
     }
 
@@ -361,26 +395,9 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
             .append(healthMaximum)
             .append(selected)
             .append(selectable)
-            .append(associations)
+            .append(associatedObjects)
+            .append(pendingActions)
             .toHashCode();
-    }
-
-    protected <T> T getUpgradeValue(UpgradeValue<T> value) {
-        ItemGroup parent = getParent();
-        if (parent instanceof Player) {
-            return getUpgradeValue((Player)parent, value);
-        }
-        return value.getBaseValue();
-    }
-
-    protected <T> T getUpgradeValue(Player player, UpgradeValue<T> value) {
-        Set<Upgrade> ownedUpgrades = new HashSet<>();
-        for (Upgrade upgrade: value.getUpgrades()) {
-            if (player.hasUpgrade(upgrade)) {
-                ownedUpgrades.add(upgrade);
-            }
-        }
-        return value.getValue(ownedUpgrades);
     }
 
     private void setColour(Color colour) {

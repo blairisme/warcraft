@@ -16,7 +16,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.engine.item.spatial.SpatialObject;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
-import com.evilbird.warcraft.item.common.state.MovableObject;
+import com.evilbird.warcraft.item.common.capability.MovableObject;
 
 import javax.inject.Inject;
 import java.util.Collection;

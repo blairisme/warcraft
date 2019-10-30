@@ -25,6 +25,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.GoldProduction1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.GoldProduction2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.None;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.OilProduction1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.OilProduction2;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.WoodProduction1;
+import static com.evilbird.warcraft.item.common.upgrade.Upgrade.WoodProduction2;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StopButton;
 
 /**
@@ -77,13 +84,6 @@ public class IconSetTest extends GameTestCase
     }
 
     @Test
-    public void getUpgradeIconTest() {
-        Unit lumberMill = TestBuildings.newTestBuilding(new TextIdentifier("LumberMill"), UnitType.LumberMill);
-        Drawable actual = iconSet.get(Upgrade.RangedDamage1, lumberMill);
-        Assert.assertNotNull(actual);
-    }
-
-    @Test
     public void getSealIconTest() {
         Drawable actual = iconSet.get(UnitType.Seal);
         Assert.assertNotNull(actual);
@@ -103,6 +103,21 @@ public class IconSetTest extends GameTestCase
         for (ActionButtonType actionButtonType: ActionButtonType.values()) {
             Drawable icon = iconSet.get(actionButtonType, unit);
             Assert.assertNotNull(actionButtonType.name(), icon);
+        }
+    }
+
+    @Test
+    public void getUpgradeIconTest() {
+        Unit lumberMill = TestBuildings.newTestBuilding(new TextIdentifier("LumberMill"), UnitType.LumberMill);
+        for (Upgrade upgrade: Upgrade.values()) {
+            if (upgrade != None
+                && upgrade != GoldProduction1 && upgrade != GoldProduction2
+                && upgrade != WoodProduction1 && upgrade != WoodProduction2
+                && upgrade != OilProduction1 && upgrade != OilProduction2)
+            {
+                Drawable icon = iconSet.get(upgrade, lumberMill);
+                Assert.assertNotNull(upgrade.name(), icon);
+            }
         }
     }
 }

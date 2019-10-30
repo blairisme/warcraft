@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.events.EventQueue;
@@ -128,34 +129,54 @@ public class Fog extends LayerGroup
         revealPlayers(getViewablePlayers(root));
     }
 
-    private void revealPlayers(Collection<Player> players) {
+    public void revealPlayers(Collection<Player> players) {
         for (Player player: players) {
             revealPlayer(player);
         }
     }
 
-    private void revealPlayer(Player player) {
+    public void revealPlayer(Player player) {
         revealItems(player.getItems());
     }
 
-    private void revealItems(Collection<Item> items) {
+    public void revealItems(Collection<Item> items) {
         for (Item item: items) {
             revealItem(item);
         }
     }
 
-    private void revealItem(Item item) {
+    public void revealItem(Item item) {
         if (item instanceof Unit) {
-            Collection<GridPoint2> locations = getRevealedLocations((Unit)item);
-            revealLocations(locations);
-            setAdjacentTextures(locations);
+            Unit unit = (Unit)item;
+            revealItem(unit, unit.getSight());
         }
     }
 
-    private Collection<GridPoint2> getRevealedLocations(Unit item) {
-        GridPoint2 position = toCellDimensions(layer, item.getPosition());
-        GridPoint2 size = toCellDimensions(layer, item.getSize());
-        int radius = toCellDimensions(layer, item.getSight());
+    public void revealItem(Item item, int radius) {
+        revealLocations(item.getPosition(), item.getSize(), radius);
+    }
+
+    public void revealLocations(Vector2 location, Vector2 size, int radius) {
+        Collection<GridPoint2> locations = getRevealedLocations(location, size, radius);
+        revealLocations(locations);
+        setAdjacentTextures(locations);
+    }
+
+    private void revealLocations(Collection<GridPoint2> locations) {
+        for (GridPoint2 location: locations) {
+            revealLocation(location);
+        }
+    }
+
+    private void revealLocation(GridPoint2 location) {
+        FogCell cell = (FogCell)cells.get(location);
+        cell.reveal();
+    }
+
+    private Collection<GridPoint2> getRevealedLocations(Vector2 worldPosition, Vector2 worldSize, int worldRadius) {
+        GridPoint2 position = toCellDimensions(layer, worldPosition);
+        GridPoint2 size = toCellDimensions(layer, worldSize);
+        int radius = toCellDimensions(layer, worldRadius);
         int startX = Math.max(position.x - radius, 0);
         int startY = Math.max(position.y - radius, 0);
         int endX = Math.min(position.x + radius + size.x, layer.getWidth() - 1);
@@ -171,16 +192,5 @@ public class Fog extends LayerGroup
             }
         }
         return result;
-    }
-
-    private void revealLocations(Collection<GridPoint2> locations) {
-        for (GridPoint2 location: locations) {
-            revealLocation(location);
-        }
-    }
-
-    private void revealLocation(GridPoint2 location) {
-        FogCell cell = (FogCell)cells.get(location);
-        cell.reveal();
     }
 }
