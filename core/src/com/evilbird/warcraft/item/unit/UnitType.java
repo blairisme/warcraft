@@ -129,9 +129,12 @@ public enum UnitType implements ItemType
     Sheep,
 
     /* Conjured - Combatant */
+    Blizzard,
+    DeathAndDecay,
     EyeOfKilrogg,
     RuneTrap,
     Skeleton,
+    Whirlwind,
 
     /* Neutral - Resource */
     GoldMine,

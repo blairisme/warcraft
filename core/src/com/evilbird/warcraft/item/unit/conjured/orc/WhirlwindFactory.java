@@ -17,25 +17,25 @@ import com.evilbird.warcraft.item.unit.conjured.ConjuredObject;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.unit.UnitType.RuneTrap;
+import static com.evilbird.warcraft.item.unit.UnitType.DeathAndDecay;
+import static com.evilbird.warcraft.item.unit.UnitType.Whirlwind;
 
 /**
- * Instances of this class create {@link ConjuredObject Rune Traps}, loading the
- * necessary assets and defining the appropriate attributes.
+ * Instances of this class create a Whirlwind {@link ConjuredObject},
+ * loading the necessary assets and defining the appropriate attributes.
  *
  * @author Blair Butterworth
  */
-public class RuneTrapFactory extends ConjuredFactoryBase
+public class WhirlwindFactory extends ConjuredFactoryBase
 {
     @Inject
-    public RuneTrapFactory(Device device) {
+    public WhirlwindFactory(Device device) {
         this(device.getAssetStorage());
     }
 
-    public RuneTrapFactory(AssetManager manager) {
-        super(manager, RuneTrap);
+    public WhirlwindFactory(AssetManager manager) {
+        super(manager, Whirlwind);
     }
 
     @Override

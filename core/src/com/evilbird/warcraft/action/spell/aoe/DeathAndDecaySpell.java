@@ -10,9 +10,9 @@
 package com.evilbird.warcraft.action.spell.aoe;
 
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.EffectType;
+import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
 
@@ -21,10 +21,10 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class DeathAndDecaySpell extends SpellAction
+public class DeathAndDecaySpell extends AoeSpellAction
 {
     @Inject
-    public DeathAndDecaySpell(ItemFactory factory) {
-        super(Spell.DeathAndDecay, EffectType.DeathAndDecay, factory);
+    public DeathAndDecaySpell(ItemFactory factory, AoeSpellCancel cancel) {
+        super(Spell.DeathAndDecay, EffectType.DeathAndDecay, UnitType.DeathAndDecay, factory, cancel);
     }
 }

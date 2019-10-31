@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.unit.conjured.orc;
+package com.evilbird.warcraft.item.unit.conjured.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
@@ -19,23 +19,24 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
+import static com.evilbird.warcraft.item.unit.UnitType.Blizzard;
 import static com.evilbird.warcraft.item.unit.UnitType.RuneTrap;
 
 /**
- * Instances of this class create {@link ConjuredObject Rune Traps}, loading the
+ * Instances of this class create a Blizzard {@link ConjuredObject}, loading the
  * necessary assets and defining the appropriate attributes.
  *
  * @author Blair Butterworth
  */
-public class RuneTrapFactory extends ConjuredFactoryBase
+public class BlizzardFactory extends ConjuredFactoryBase
 {
     @Inject
-    public RuneTrapFactory(Device device) {
+    public BlizzardFactory(Device device) {
         this(device.getAssetStorage());
     }
 
-    public RuneTrapFactory(AssetManager manager) {
-        super(manager, RuneTrap);
+    public BlizzardFactory(AssetManager manager) {
+        super(manager, Blizzard);
     }
 
     @Override

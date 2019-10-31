@@ -17,8 +17,15 @@ import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitStyle;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.conjured.animations.ConjuredAnimations;
+import com.evilbird.warcraft.item.unit.conjured.sounds.ConjuredSounds;
+
+import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 
 /**
+ * Creates a new {@link ConjuredObject} instance whose visual and audible
+ * presentation is defined by the given {@link ConjuredAssets}.
+ *
  * @author Blair Butterworth
  */
 public class ConjuredBuilder
@@ -36,10 +43,15 @@ public class ConjuredBuilder
     public ConjuredObject build() {
         ConjuredObject result = new ConjuredObject(getSkin());
         result.setAnimation(UnitAnimation.Idle);
+        result.setHealth(1);
+        result.setHealthMaximum(1);
+        result.setIdentifier(objectIdentifier(type.name(), result));
         result.setSelected(false);
         result.setSelectable(false);
-        result.setTouchable(Touchable.enabled);
+        result.setSight(0);
         result.setSize(32, 32);
+        result.setTouchable(Touchable.enabled);
+        result.setType(type);
         result.setZIndex(0);
         return result;
     }
@@ -71,7 +83,10 @@ public class ConjuredBuilder
 
     private AnimationCatalog newAnimations() {
         switch (type) {
+            case Blizzard: return new ConjuredAnimations(assets.getBlizzard());
+            case DeathAndDecay: return new ConjuredAnimations(assets.getDeathAndDecay());
             case RuneTrap: return new ConjuredAnimations(assets.getRune());
+            case Whirlwind: return new ConjuredAnimations(assets.getTornado());
             default: throw new UnsupportedOperationException();
         }
     }

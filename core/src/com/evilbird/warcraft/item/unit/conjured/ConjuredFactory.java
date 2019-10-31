@@ -12,17 +12,30 @@ package com.evilbird.warcraft.item.unit.conjured;
 import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.conjured.human.BlizzardFactory;
+import com.evilbird.warcraft.item.unit.conjured.orc.DeathAndDecayFactory;
 import com.evilbird.warcraft.item.unit.conjured.orc.RuneTrapFactory;
+import com.evilbird.warcraft.item.unit.conjured.orc.WhirlwindFactory;
 
 import javax.inject.Inject;
 
 /**
+ * A factory that creates {@link ConjuredObject ConjuredObjects}.
+ *
  * @author Blair Butterworth
  */
 public class ConjuredFactory extends GameFactorySet<Item>
 {
     @Inject
-    public ConjuredFactory(RuneTrapFactory runeTrapFactory) {
+    public ConjuredFactory(
+        BlizzardFactory blizzardFactory,
+        DeathAndDecayFactory deathAndDecayFactory,
+        RuneTrapFactory runeTrapFactory,
+        WhirlwindFactory whirlwindFactory)
+    {
+        addProvider(UnitType.Blizzard, blizzardFactory);
+        addProvider(UnitType.DeathAndDecay, deathAndDecayFactory);
         addProvider(UnitType.RuneTrap, runeTrapFactory);
+        addProvider(UnitType.Whirlwind, whirlwindFactory);
     }
 }
