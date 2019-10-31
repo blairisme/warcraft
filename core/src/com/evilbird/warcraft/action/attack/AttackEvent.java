@@ -44,10 +44,15 @@ public class AttackEvent implements Event
         return status;
     }
 
+    public boolean isStarting() {
+        return status == AttackStatus.Started;
+    }
+
     public boolean isFinished() {
         return status == AttackStatus.Complete
             || status == AttackStatus.Failed
-            || status == AttackStatus.Cancelled;
+            || status == AttackStatus.Cancelled
+            || status == AttackStatus.Stopped;
     }
 
     @Override

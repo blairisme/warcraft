@@ -15,6 +15,9 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.item.utility.ItemOperations;
+import com.evilbird.warcraft.action.attack.AttackActions;
+import com.evilbird.warcraft.action.attack.AttackEvent;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
@@ -44,6 +47,7 @@ public class SubmarineBehaviour implements AiBehaviourElement
 {
     private Events events;
     private ItemGraph graph;
+    private Collection<Item> subsAttacking;
     private Map<ItemNode, Collection<Item>> subLocations;
     private Map<ItemNode, Collection<Item>> flyerLocations;
 
@@ -76,14 +80,21 @@ public class SubmarineBehaviour implements AiBehaviourElement
 
     private void initializeSubmarines(ItemRoot state) {
         subLocations = new HashMap<>(5);
+        subsAttacking = new ArrayList<>();
+
         for (Item submarine: state.findAll(UnitOperations::isSubmarine)) {
             addSubmarineLocations(submarine);
             setSubmarineVisible(submarine, false);
+
+            if (ItemOperations.hasAction(submarine, AttackActions.values())) {
+                subsAttacking.add(submarine);
+            }
         }
     }
 
     private void initializeFlyers(ItemRoot state) {
         flyerLocations = new HashMap<>(5);
+        
         for (Item flyer: state.findAll(UnitOperations::isFlying)) {
             Collection<ItemNode> locations = addFlyerLocation((Unit)flyer);
             evaluateSubmarineVisibility(locations);
@@ -94,6 +105,7 @@ public class SubmarineBehaviour implements AiBehaviourElement
         evaluateCreateEvents();
         evaluateRemoveEvents();
         evaluateMoveEvents();
+        evaluateAttackEvents();
     }
 
     private void evaluateCreateEvents() {
@@ -133,6 +145,22 @@ public class SubmarineBehaviour implements AiBehaviourElement
             else if (isFlying(subject)) {
                 Collection<ItemNode> locations = updateFlyerLocations((Unit)subject);
                 evaluateSubmarineVisibility(locations);
+            }
+        }
+    }
+
+    private void evaluateAttackEvents() {
+        for (AttackEvent attackEvent: events.getEvents(AttackEvent.class)) {
+            Item subject = attackEvent.getSubject();
+            if (isSubmarine(subject)) {
+                if (attackEvent.isStarting()) {
+                    subsAttacking.add(subject);
+                    setSubmarineVisible(subject, true);
+                }
+                else if (attackEvent.isFinished()) {
+                    subsAttacking.remove(subject);
+                    evaluateSubmarineVisibility(subject);
+                }
             }
         }
     }
@@ -188,6 +216,11 @@ public class SubmarineBehaviour implements AiBehaviourElement
         return nodes;
     }
 
+    private void evaluateSubmarineVisibility(Item submarine) {
+        Collection<ItemNode> locations = graph.getNodes(submarine);
+        evaluateSubmarineVisibility(locations);
+    }
+
     private void evaluateSubmarineVisibility(Collection<ItemNode> locations) {
         for (ItemNode location: locations) {
             Collection<Item> subs = subLocations.getOrDefault(location, Collections.emptyList());
@@ -206,6 +239,7 @@ public class SubmarineBehaviour implements AiBehaviourElement
     }
 
     private void setSubmarineVisible(Item item, boolean visible) {
+        visible = subsAttacking.contains(item) || visible;
         Submarine submarine = (Submarine)item;
         submarine.setAttackable(visible);
         submarine.setVisible(UnitOperations.isCorporeal(submarine) || visible);
