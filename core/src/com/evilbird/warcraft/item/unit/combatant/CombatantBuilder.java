@@ -23,14 +23,15 @@ import com.evilbird.warcraft.item.unit.combatant.animations.DaemonAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.DemolitionAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.DragonAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.EyeOfKilroggAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.FlyingMachineAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.GryphonAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.MeleeAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.NavalAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.RangedAnimations;
-import com.evilbird.warcraft.item.unit.combatant.animations.ScoutAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.SiegeAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.SpellCasterAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.SubmarineAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.ZeppelinAnimations;
 import com.evilbird.warcraft.item.unit.combatant.sounds.ConjuredSounds;
 import com.evilbird.warcraft.item.unit.combatant.sounds.MeleeSounds;
 import com.evilbird.warcraft.item.unit.combatant.sounds.RangedSounds;
@@ -42,6 +43,8 @@ import java.util.Random;
 import static com.evilbird.warcraft.item.unit.UnitType.Daemon;
 import static com.evilbird.warcraft.item.unit.UnitType.Dragon;
 import static com.evilbird.warcraft.item.unit.UnitType.EyeOfKilrogg;
+import static com.evilbird.warcraft.item.unit.UnitType.GnomishFlyingMachine;
+import static com.evilbird.warcraft.item.unit.UnitType.GoblinZeppelin;
 import static com.evilbird.warcraft.item.unit.UnitType.GryphonRider;
 
 /**
@@ -128,8 +131,6 @@ public class CombatantBuilder
             return customAnimations;
         } else if (type.isSpellCaster()) {
             return new SpellCasterAnimations(assets);
-        } else if (type.isScout()) {
-            return new ScoutAnimations(assets);
         } else if (type.isRanged()) {
             return new RangedAnimations(assets);
         } else if (type.isNavalUnit()) {
@@ -153,6 +154,10 @@ public class CombatantBuilder
             return new EyeOfKilroggAnimations(assets);
         } else if (type == GryphonRider) {
             return new GryphonAnimations(assets);
+        } else if (type == GnomishFlyingMachine) {
+            return new FlyingMachineAnimations(assets);
+        } else if (type == GoblinZeppelin) {
+            return new ZeppelinAnimations(assets);
         }
         return null;
     }
