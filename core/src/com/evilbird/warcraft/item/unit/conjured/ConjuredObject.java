@@ -77,6 +77,15 @@ public class ConjuredObject extends Unit implements OffensiveObject
     }
 
     /**
+     * Returns whether the {@code OffensiveObject} is visible to potential
+     * attackers.
+     */
+    @Override
+    public boolean isAttackable() {
+        return true;
+    }
+
+    /**
      * Returns the amount of damage that the {@code Tower} deals
      * with each attack. If the {@code Tower} belongs to a {@code Player},
      * then the upgrades applied to player will use to determine the resulting

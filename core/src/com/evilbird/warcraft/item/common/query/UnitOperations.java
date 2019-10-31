@@ -33,6 +33,7 @@ import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
+import com.evilbird.warcraft.item.unit.combatant.Submarine;
 import com.evilbird.warcraft.item.unit.critter.Critter;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 
@@ -328,7 +329,7 @@ public class UnitOperations
 
     /**
      * Determines if a given {@link Item} belongs to a
-     * {@link Player#isViewable() () viewable player}.
+     * {@link Player#isViewable() viewable player}.
      */
     public static boolean isViewable(Item item) {
         if (item != null) {
@@ -464,6 +465,19 @@ public class UnitOperations
             Unit unit = (Unit)item;
             UnitType type = (UnitType)unit.getType();
             return type.isNavalUnit();
+        }
+        return false;
+    }
+
+    public static boolean isSubmarine(Item item) {
+        return item instanceof Submarine;
+    }
+
+    public static boolean isFlying(Item item) {
+        if (item instanceof Unit) {
+            Unit unit = (Unit)item;
+            UnitType type = (UnitType)unit.getType();
+            return type.isFlying();
         }
         return false;
     }

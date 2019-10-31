@@ -137,6 +137,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     /**
      * Returns how much damage the units armor absorbs with each attack.
      */
+    @Override
     public int getArmour() {
         return (int)armour.getValue(this);
     }
@@ -150,8 +151,18 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     }
 
     /**
+     * Returns whether the {@code PerishableObject} is visible to potential
+     * attackers.
+     */
+    @Override
+    public boolean isAttackable() {
+        return true;
+    }
+
+    /**
      * Returns the current health of the unit.
      */
+    @Override
     public float getHealth() {
         return health;
     }

@@ -33,16 +33,34 @@ public class WallSection extends LayerGroupCell implements PerishableObject, Spa
         setType(LayerType.WallSection);
     }
 
+    /**
+     * Returns how much damage the {@code WallSection} absorbs with each attack.
+     */
     @Override
     public int getArmour() {
         return 0;
     }
 
+    /**
+     * Returns whether the {@code WallSection} is visible to potential
+     * attackers.
+     */
+    @Override
+    public boolean isAttackable() {
+        return true;
+    }
+
+    /**
+     * Returns the health of the {@code WallSection}.
+     */
     @Override
     public float getHealth() {
         return getValue();
     }
 
+    /**
+     * Sets the health of the {@code WallSection}.
+     */
     @Override
     public void setHealth(float health) {
         setValue(health);

@@ -15,6 +15,7 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.behaviour.ai.attack.AttackBehaviour;
 import com.evilbird.warcraft.behaviour.ai.idle.IdleBehaviour;
+import com.evilbird.warcraft.behaviour.ai.submarine.SubmarineBehaviour;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -32,10 +33,15 @@ public class AiBehaviour implements Behaviour
     private Collection<AiBehaviourElement> components;
 
     @Inject
-    public AiBehaviour(AttackBehaviour attackBehaviour, IdleBehaviour idleBehaviour) {
+    public AiBehaviour(
+        AttackBehaviour attackBehaviour,
+        IdleBehaviour idleBehaviour,
+        SubmarineBehaviour submarineBehaviour)
+    {
         components = new ArrayList<>();
         components.add(attackBehaviour);
         components.add(idleBehaviour);
+        components.add(submarineBehaviour);
     }
 
     @Override

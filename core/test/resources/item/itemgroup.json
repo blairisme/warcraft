@@ -27,9 +27,10 @@
   "fill": false,
   "items": [
     {
+      "attackable": true,
+      "attackSpeed": 0.0,
       "basicDamage": 0.0,
       "piercingDamage": 0.0,
-      "attackSpeed": 0.0,
       "movementSpeed": 0.0,
       "movementCapability": "Land",
       "armour": 0.0,

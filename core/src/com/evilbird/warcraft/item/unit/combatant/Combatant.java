@@ -37,9 +37,10 @@ import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
  */
 public class Combatant extends Unit implements MovableObject, OffensiveObject
 {
+    private boolean attackable;
+    private Value attackSpeed;
     private Value basicDamage;
     private Value piercingDamage;
-    private Value attackSpeed;
     private Value movementSpeed;
     private MovementCapability movementCapability;
 
@@ -56,6 +57,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
         this.piercingDamage = Zero;
         this.basicDamage = Zero;
         this.movementSpeed = Zero;
+        this.attackable = true;
         this.movementCapability = MovementCapability.None;
     }
 
@@ -89,6 +91,15 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      */
     public Value getAttackSpeedValue() {
         return attackSpeed;
+    }
+
+    /**
+     * Returns whether the {@code OffensiveObject} is visible to potential
+     * attackers.
+     */
+    @Override
+    public boolean isAttackable() {
+        return attackable;
     }
 
     /**
@@ -209,6 +220,14 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
     }
 
     /**
+     * Sets whether the {@code OffensiveObject} is visible to potential
+     * attackers.
+     */
+    public void setAttackable(boolean attackVisibility) {
+        this.attackable = attackVisibility;
+    }
+
+    /**
      * Sets the maximum amount of damage that the {@code Combatant} deals
      * with each attack.
      */
@@ -281,6 +300,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
         Combatant combatant = (Combatant)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
+            .append(attackable, combatant.attackable)
             .append(attackSpeed, combatant.attackSpeed)
             .append(basicDamage, combatant.basicDamage)
             .append(piercingDamage, combatant.piercingDamage)
@@ -293,6 +313,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
+            .append(attackable)
             .append(attackSpeed)
             .append(basicDamage)
             .append(piercingDamage)

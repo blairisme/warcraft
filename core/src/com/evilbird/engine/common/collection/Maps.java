@@ -126,7 +126,7 @@ public class Maps
         map.put(key, values);
     }
 
-    public static <K, V> void addAll(Map<K, Collection<V>> map, K key,  Collection<V> elements) {
+    public static <K, V> void addAll(Map<K, Collection<V>> map, K key, Collection<V> elements) {
         Collection<V> values = getOrDefault(map, key, ArrayList::new);
         values.addAll(elements);
         map.put(key, values);
@@ -138,7 +138,7 @@ public class Maps
         map.put(key, values);
     }
 
-    public static <K, V> void removeAll(Map<K, Collection<V>> map, K key,  Collection<V> elements) {
+    public static <K, V> void removeAll(Map<K, Collection<V>> map, K key, Collection<V> elements) {
         Collection<V> values = getOrDefault(map, key, ArrayList::new);
         values.removeAll(elements);
         map.put(key, values);

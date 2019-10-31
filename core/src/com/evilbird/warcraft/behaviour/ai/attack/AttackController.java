@@ -185,9 +185,11 @@ public class AttackController
     }
 
     private boolean isAttackableTarget(OffensiveObject attacker, PerishableObject target) {
-        Identifier type = target.getType();
-        if (type instanceof UnitType) {
-            return isAttackableTarget(attacker.getAttackCapability(), (UnitType)type);
+        if (target.isAttackable()) {
+            Identifier type = target.getType();
+            if (type instanceof UnitType) {
+                return isAttackableTarget(attacker.getAttackCapability(), (UnitType) type);
+            }
         }
         return false;
     }
