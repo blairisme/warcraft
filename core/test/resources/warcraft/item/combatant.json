@@ -13,6 +13,7 @@
   "armour": 0.0,
   "health": 100.0,
   "healthMaximum": 100.0,
+  "highlighted": false,
   "sight": 0.0,
   "selected": false,
   "selectable": true,

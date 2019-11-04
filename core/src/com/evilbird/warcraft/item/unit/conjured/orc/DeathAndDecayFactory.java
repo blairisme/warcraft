@@ -19,7 +19,6 @@ import javax.inject.Inject;
 
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.unit.UnitType.DeathAndDecay;
-import static com.evilbird.warcraft.item.unit.UnitType.RuneTrap;
 
 /**
  * Instances of this class create a Death and Decay {@link ConjuredObject},

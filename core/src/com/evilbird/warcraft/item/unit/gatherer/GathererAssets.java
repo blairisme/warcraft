@@ -22,6 +22,7 @@ import java.util.Map;
 import static com.evilbird.engine.common.assets.SyntheticTextureParameters.withColour;
 import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
+import static com.evilbird.engine.common.graphics.Colours.LIGHT_BLUE;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensionName;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensions;
@@ -49,6 +50,7 @@ public class GathererAssets extends AssetBundle
         registerOptional("mask", "data/textures/${faction}/unit/${name}_mask.png");
         register("decompose", "data/textures/common/unit/decompose.png");
         register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, dimensions));
+        register("highlight", "highlight_${size}", SyntheticTexture.class, withColour(LIGHT_BLUE, dimensions));
 
         registerOptional("moveWithGold", "data/textures/${faction}/unit/${name}_with_gold.png");
         registerOptional("moveWithWood", "data/textures/${faction}/unit/${name}_with_wood.png");
@@ -99,6 +101,10 @@ public class GathererAssets extends AssetBundle
 
     public Texture getSelectionTexture() {
         return getSyntheticTexture("selection");
+    }
+
+    public Texture getHighlightTexture() {
+        return getSyntheticTexture("highlight");
     }
 
     public Sound getChoppingSound() {

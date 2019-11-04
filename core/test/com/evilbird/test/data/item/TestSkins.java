@@ -73,17 +73,19 @@ public class TestSkins
     }
 
     public static Skin newTestSkin() {
+        UnitStyle style = newUnitStyle();
+
         Skin skin = new Skin();
-        skin.add("default", newAnimationStyle(), ViewableStyle.class);
-        skin.add("default", new UnitStyle(), UnitStyle.class);
+        skin.add("default", style, ViewableStyle.class);
+        skin.add("default", style, UnitStyle.class);
         return skin;
     }
 
-    private static ViewableStyle newAnimationStyle() {
-        ViewableStyle viewableStyle = new ViewableStyle();
-        viewableStyle.animations = newTestAnimations();
-        viewableStyle.sounds = newTestSounds();
-        return viewableStyle;
+    private static UnitStyle newUnitStyle() {
+        UnitStyle unitStyle = new UnitStyle();
+        unitStyle.animations = newTestAnimations();
+        unitStyle.sounds = newTestSounds();
+        return unitStyle;
     }
 
     private static Map<Identifier, Animation> newTestAnimations() {

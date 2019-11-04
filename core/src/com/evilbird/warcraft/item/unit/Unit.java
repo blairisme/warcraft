@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -22,6 +23,7 @@ import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.graphics.AnimationFrame;
 import com.evilbird.engine.common.graphics.ColourMaskSprite;
+import com.evilbird.engine.common.graphics.Renderable;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemReference;
@@ -47,6 +49,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import static com.evilbird.engine.common.graphics.EmptyRenderable.BlankRenderable;
 import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
 
 /**
@@ -60,6 +63,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     private Value armour;
     private float health;
     private float healthMaximum;
+    private boolean highlighted;
     private Value sight;
     private boolean selected;
     private boolean selectable;
@@ -67,6 +71,9 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     private Map<Action, GameTimer> pendingActions;
 
     private transient UnitStyle style;
+    private transient Renderable effect;
+    private transient Renderable highlight;
+    private transient Renderable selection;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
@@ -87,6 +94,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
         healthMaximum = 0;
         selected = false;
         selectable = true;
+        effect = BlankRenderable;
         pendingActions = new HashMap<>();
         associatedObjects = new ArrayList<>(1);
     }
@@ -112,6 +120,13 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      */
     public void addAssociatedItem(Item associate) {
         associatedObjects.add(new ItemReference(associate));
+    }
+
+    /**
+     * Clears the effect sprite drawn under the unit.
+     */
+    public void clearEffect() {
+        effect = BlankRenderable;
     }
 
     /**
@@ -172,6 +187,14 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      */
     public float getHealthMaximum() {
         return healthMaximum;
+    }
+
+    /**
+     * Returns whether the unit should be highlighted to the user, usually to
+     * indicate the unit can be a recipient of a subsequent user action.
+     */
+    public boolean getHighlighted() {
+        return highlighted;
     }
 
     /**
@@ -263,6 +286,18 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     }
 
     /**
+     * Sets an {@link Renderable effect} drawn under the unit.
+     */
+    public void setEffect(Renderable effect) {
+        Vector2 position = getPosition();
+        Vector2 size = getSize();
+
+        this.effect = effect;
+        this.effect.setPosition(position.x, position.y);
+        this.effect.setSize(size.x, size.y);
+    }
+
+    /**
      * Sets the current health of the unit.
      */
     public void setHealth(float health) {
@@ -274,6 +309,36 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
      */
     public void setHealthMaximum(float healthMaximum) {
         this.healthMaximum = healthMaximum;
+    }
+
+    /**
+     * Sets whether the unit should be highlighted to the user, usually to
+     * indicate the unit can be a recipient of a subsequent user action.
+     */
+    public void setHighlighted(boolean highlighted) {
+        this.highlighted = highlighted;
+    }
+
+    /**
+     * Sets the spatial location of the Items bottom left corner.
+     */
+    @Override
+    public void setPosition(Vector2 position) {
+        super.setPosition(position);
+        effect.setPosition(position.x, position.y);
+        selection.setPosition(position.x, position.y);
+        highlight.setPosition(position.x, position.y);
+    }
+
+    /**
+     * Sets the spatial location of the Items bottom left corner.
+     */
+    @Override
+    public void setPosition(float x, float y) {
+        super.setPosition(x, y);
+        effect.setPosition(x, y);
+        selection.setPosition(x, y);
+        highlight.setPosition(x, y);
     }
 
     /**
@@ -329,11 +394,49 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
         setSize(size.x, size.y);
     }
 
+    /**
+     * Sets the spatial dimensions of the Item.
+     */
+    @Override
+    public void setSize(Vector2 size) {
+        super.setSize(size);
+        effect.setSize(size.x, size.y);
+        selection.setSize(size.x, size.y);
+        highlight.setSize(size.x, size.y);
+    }
+
+    /**
+     * Sets the spatial dimensions of the Item.
+     */
+    @Override
+    public void setSize(float width, float height) {
+        super.setSize(width, height);
+        effect.setSize(width, height);
+        selection.setSize(width, height);
+        highlight.setSize(width, height);
+    }
+
     @Override
     public void setStyle(String name) {
         super.setStyle(name);
         Skin skin = getSkin();
-        style = skin.get(name, UnitStyle.class);
+        setStyle(skin.get(name, UnitStyle.class));
+    }
+
+    public void setStyle(UnitStyle style) {
+        super.setStyle(style);
+        this.style = style;
+
+        Vector2 size = getSize();
+        Vector2 position = getPosition();
+
+        this.selection = style.selection;
+        this.selection.setSize(size.x, size.y);
+        this.selection.setPosition(position.x, position.y);
+
+        this.highlight = style.highlight;
+        this.highlight.setSize(size.x, size.y);
+        this.highlight.setPosition(position.x, position.y);
     }
 
     @Override
@@ -347,19 +450,34 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     @Override
     public void draw(Batch batch, float alpha) {
         if (getSelected()) {
-            batch.draw(style.selection, getX(), getY(), getWidth(), getHeight());
+            selection.draw(batch);
         }
+        if (getHighlighted()) {
+            highlight.draw(batch);
+        }
+        effect.draw(batch);
         super.draw(batch, alpha);
     }
 
     @Override
-    public void update(float delta) {
-        Set<Entry<Action, GameTimer>> pending = pendingActions.entrySet();
-        pending.removeIf(entry -> update(entry.getKey(), entry.getValue(), delta));
-        super.update(delta);
+    public void update(float time) {
+        updateRenderables(time);
+        schedulePendingActions(time);
+        super.update(time);
     }
 
-    private boolean update(Action action, GameTimer delay, float time) {
+    private void updateRenderables(float time) {
+        effect.update(time);
+        highlight.update(time);
+        selection.update(time);
+    }
+
+    private void schedulePendingActions(float time) {
+        Set<Entry<Action, GameTimer>> pending = pendingActions.entrySet();
+        pending.removeIf(entry -> schedulePendingAction(entry.getKey(), entry.getValue(), time));
+    }
+
+    private boolean schedulePendingAction(Action action, GameTimer delay, float time) {
         if (delay.advance(time)) {
             addAction(action);
         }
@@ -389,6 +507,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
             .append(armour, unit.armour)
             .append(health, unit.health)
             .append(healthMaximum, unit.healthMaximum)
+            .append(highlighted, unit.highlighted)
             .append(selected, unit.selected)
             .append(selectable, unit.selectable)
             .append(associatedObjects, unit.associatedObjects)
@@ -404,6 +523,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
             .append(armour)
             .append(health)
             .append(healthMaximum)
+            .append(highlighted)
             .append(selected)
             .append(selectable)
             .append(associatedObjects)

@@ -18,7 +18,6 @@ import com.evilbird.warcraft.item.unit.conjured.ConjuredObject;
 import javax.inject.Inject;
 
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
-import static com.evilbird.warcraft.item.unit.UnitType.DeathAndDecay;
 import static com.evilbird.warcraft.item.unit.UnitType.Whirlwind;
 
 /**

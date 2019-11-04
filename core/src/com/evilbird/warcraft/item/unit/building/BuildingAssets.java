@@ -23,6 +23,7 @@ import java.util.Map;
 import static com.evilbird.engine.common.assets.SyntheticTextureParameters.withColour;
 import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
+import static com.evilbird.engine.common.graphics.Colours.LIGHT_BLUE;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensionName;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensions;
@@ -53,6 +54,7 @@ public class BuildingAssets extends AssetBundle
         registerOptional("construction", "data/textures/common/building/perennial/${name}_construction_site.png");
         register("destruction", "data/textures/common/building/winter/destroyed_site.png");
         register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, dimensions));
+        register("highlight", "highlight_${size}", SyntheticTexture.class, withColour(LIGHT_BLUE, dimensions));
 
         register("selected", "data/sounds/common/building/selected/1.mp3");
         register("placement", "data/sounds/common/building/placement/1.mp3");
@@ -102,6 +104,10 @@ public class BuildingAssets extends AssetBundle
 
     public Texture getSelectionTexture() {
         return getSyntheticTexture("selection");
+    }
+
+    public Texture getHighlightTexture() {
+        return getSyntheticTexture("highlight");
     }
 
     public Sound getDestroyedSound() {

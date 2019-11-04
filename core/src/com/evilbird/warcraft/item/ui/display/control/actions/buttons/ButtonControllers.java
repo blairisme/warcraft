@@ -28,6 +28,7 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.KeepB
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.LumberMillButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.MageTowerButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.OilTankerBuildings;
+import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.PaladinButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.PeasantAdvancedBuildings;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.PeasantSimpleBuildings;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.ScoutTowerButtons;
@@ -74,6 +75,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.Ogre;
 import static com.evilbird.warcraft.item.unit.UnitType.OgreJuggernaught;
 import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
 import static com.evilbird.warcraft.item.unit.UnitType.OilTanker;
+import static com.evilbird.warcraft.item.unit.UnitType.Paladin;
 import static com.evilbird.warcraft.item.unit.UnitType.Peasant;
 import static com.evilbird.warcraft.item.unit.UnitType.Peon;
 import static com.evilbird.warcraft.item.unit.UnitType.PigFarm;
@@ -105,6 +107,7 @@ public class ButtonControllers
         registerBuildingButtons();
         registerBuildingMenus();
         registerCombatantButtons();
+        registerSpellCasterButtons();
         registerGathererButtons();
         registerTransportButtons();
     }
@@ -131,6 +134,10 @@ public class ButtonControllers
         registerController(Actions, TrollAxethrower, combatantButtons);
         registerController(Actions, TrollDestroyer, combatantButtons);
         registerController(Actions, Zuljin, combatantButtons);
+    }
+
+    private void registerSpellCasterButtons() {
+        registerController(Actions, Paladin, new PaladinButtons());
     }
 
     private void registerGathererButtons() {

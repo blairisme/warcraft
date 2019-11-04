@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.AnimationCatalog;
+import com.evilbird.engine.common.graphics.FlashingRenderable;
+import com.evilbird.engine.common.graphics.SpriteRenderable;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitStyle;
@@ -76,7 +78,8 @@ public class GathererBuilder
         UnitStyle style = new UnitStyle();
         style.animations = animations.get();
         style.sounds = sounds.get();
-        style.selection = assets.getSelectionTexture();
+        style.selection = new SpriteRenderable(assets.getSelectionTexture());
+        style.highlight = new FlashingRenderable(assets.getHighlightTexture());
         style.masks = getMasks();
         return style;
     }

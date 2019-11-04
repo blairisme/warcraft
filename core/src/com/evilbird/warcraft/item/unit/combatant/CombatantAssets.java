@@ -23,6 +23,7 @@ import java.util.Map;
 import static com.evilbird.engine.common.assets.SyntheticTextureParameters.withColour;
 import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
+import static com.evilbird.engine.common.graphics.Colours.LIGHT_BLUE;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensionName;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.getDimensions;
@@ -46,6 +47,7 @@ public class CombatantAssets extends AssetBundle
         register("decompose", "data/textures/common/unit/decompose.png");
         register("explosion", "data/textures/common/explosion/explosion.png");
         register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, dimensions));
+        register("highlight", "highlight_${size}", SyntheticTexture.class, withColour(LIGHT_BLUE, dimensions));
 
         registerOptional("dead", "data/sounds/${faction}/unit/common/dead/1.mp3");
         registerOptional("capture", "data/sounds/${faction}/unit/common/capture/1.mp3");
@@ -96,6 +98,10 @@ public class CombatantAssets extends AssetBundle
 
     public Texture getSelectionTexture() {
         return getSyntheticTexture("selection");
+    }
+
+    public Texture getHighlightTexture() {
+        return getSyntheticTexture("highlight");
     }
 
     public Sound getAcknowledgeSound() {

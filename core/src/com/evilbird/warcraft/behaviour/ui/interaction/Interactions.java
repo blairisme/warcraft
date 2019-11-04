@@ -42,6 +42,7 @@ public class Interactions
         MoveInteractions moveInteractions,
         ProduceInteractions produceInteractions,
         SelectInteractions selectInteractions,
+        SpellInteractions spellInteractions,
         TransportInteractions transportInteractions)
     {
         this.interactions = interactions;
@@ -52,6 +53,7 @@ public class Interactions
         this.interactions.addActions(produceInteractions);
         this.interactions.addActions(transportInteractions);
         this.interactions.addActions(menuInteractions);
+        this.interactions.addActions(spellInteractions);
         this.interactions.addActions(cameraInteractions);
         this.interactions.addActions(selectInteractions);
         this.interactions.addActions(cheatInteractions);

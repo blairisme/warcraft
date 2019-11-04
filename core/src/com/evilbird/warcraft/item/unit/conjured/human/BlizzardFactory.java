@@ -17,10 +17,8 @@ import com.evilbird.warcraft.item.unit.conjured.ConjuredObject;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.unit.UnitType.Blizzard;
-import static com.evilbird.warcraft.item.unit.UnitType.RuneTrap;
 
 /**
  * Instances of this class create a Blizzard {@link ConjuredObject}, loading the

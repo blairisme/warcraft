@@ -22,6 +22,7 @@ import java.util.Map;
 import static com.evilbird.engine.common.assets.SyntheticTextureParameters.withColour;
 import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
+import static com.evilbird.engine.common.graphics.Colours.LIGHT_BLUE;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.LARGE;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.LARGE_NAME;
@@ -40,6 +41,7 @@ public class ResourceAssets extends AssetBundle
         register("base", "data/textures/neutral/resource/${season}/${name}.png");
         register("destruction", "data/textures/common/building/${season}/destroyed_site.png");
         register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, LARGE));
+        register("highlight", "highlight_${size}", SyntheticTexture.class, withColour(LIGHT_BLUE, LARGE));
 
         register("selected", "data/sounds/neutral/resource/${name}/selected/1.mp3");
         registerOptionalSequence("destroyed", "data/sounds/common/building/destroyed/", ".mp3", 3);
@@ -61,6 +63,10 @@ public class ResourceAssets extends AssetBundle
 
     public Texture getSelectionTexture() {
         return getSyntheticTexture("selection");
+    }
+
+    public Texture getHighlightTexture() {
+        return getSyntheticTexture("highlight");
     }
 
     public Sound getDestroyedSound() {

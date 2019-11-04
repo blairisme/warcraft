@@ -35,10 +35,6 @@ public class SelectFlash extends BasicAction
     public SelectFlash() {
     }
 
-    public static SelectFlash selectionFlash() {
-        return new SelectFlash();
-    }
-
     @Override
     public boolean act(float delta) {
         time = Math.max(time - delta, 0);

@@ -21,6 +21,7 @@ import java.util.Map;
 
 import static com.evilbird.engine.common.assets.SyntheticTextureParameters.withColour;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
+import static com.evilbird.engine.common.graphics.Colours.LIGHT_BLUE;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.EXTRA_SMALL;
 import static com.evilbird.warcraft.item.unit.UnitDimensions.EXTRA_SMALL_NAME;
@@ -40,6 +41,7 @@ public class CritterAssets extends AssetBundle
         register("annoyed", "data/sounds/neutral/unit/${name}/annoyed/1.mp3");
         register("selected", "data/sounds/neutral/unit/${name}/selected/1.mp3");
         register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, EXTRA_SMALL));
+        register("highlight", "highlight_${size}", SyntheticTexture.class, withColour(LIGHT_BLUE, EXTRA_SMALL));
     }
 
     private static Map<String, String> assetPathVariables(UnitType type) {
@@ -56,6 +58,10 @@ public class CritterAssets extends AssetBundle
 
     public Texture getSelectionTexture() {
         return getSyntheticTexture("selection");
+    }
+
+    public Texture getHighlightTexture() {
+        return getSyntheticTexture("highlight");
     }
 
     public Sound getDieSound() {

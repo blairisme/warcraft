@@ -26,6 +26,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Predicate;
 
 /**
@@ -113,7 +114,7 @@ public class ItemRoot implements ItemComposite
      * @return the children of the ItemGroup.
      */
     @Override
-    public Collection<Item> getItems() {
+    public List<Item> getItems() {
         return this.group.getItems();
     }
 
