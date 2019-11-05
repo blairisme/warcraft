@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.ViewableStyle;
+import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.Effect;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -26,7 +27,8 @@ public class SpellCaster extends RangedCombatant
 {
     private float mana;
     private float manaMaximum;
-    private float castProgress;
+    private float castingProgress;
+    private Spell castingSpell;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} describing
@@ -37,14 +39,25 @@ public class SpellCaster extends RangedCombatant
      */
     public SpellCaster(Skin skin) {
         super(skin);
+        mana = 0;
+        manaMaximum = 0;
+        castingProgress = 1;
+        castingSpell = null;
     }
 
     /**
      * Returns the progress the spell caster has made casting the current
      * spell, specified as a percentage from 0 to 1.
      */
-    public float getCastProgress() {
-        return castProgress;
+    public float getCastingProgress() {
+        return castingProgress;
+    }
+
+    /**
+     * Returns the spell the spell caster is currently performing.
+     */
+    public Spell getCastingSpell() {
+        return castingSpell;
     }
 
     /**
@@ -66,7 +79,7 @@ public class SpellCaster extends RangedCombatant
     /**
      * Returns the effect shown for the last spell cast by the spell caster.
      */
-    public Effect getSpell() {
+    public Effect getSpellEffect() {
         return (Effect)getAssociatedItem();
     }
 
@@ -74,15 +87,22 @@ public class SpellCaster extends RangedCombatant
      * Determines whether or not the spell caster is currently casting a spell.
      */
     public boolean isCasting() {
-        return castProgress != 1;
+        return castingProgress != 1;
     }
 
     /**
      * Sets the progress the spell caster has made casting the current
      * spell, specified as a percentage from 0 to 1.
      */
-    public void setCastProgress(float castProgress) {
-        this.castProgress = castProgress;
+    public void setCastingProgress(float castingProgress) {
+        this.castingProgress = castingProgress;
+    }
+
+    /**
+     * Sets the spell the spell caster is currently performing.
+     */
+    public void setCastingSpell(Spell castingSpell) {
+        this.castingSpell = castingSpell;
     }
 
     /**
@@ -104,7 +124,7 @@ public class SpellCaster extends RangedCombatant
     /**
      * Sets the effect shown for the last spell cast by the spell caster.
      */
-    public void setSpell(Effect spell) {
+    public void setSpellEffect(Effect spell) {
         setAssociatedItem(spell);
     }
 
@@ -117,8 +137,9 @@ public class SpellCaster extends RangedCombatant
         SpellCaster that = (SpellCaster)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
-            .append(castProgress, this.castProgress)
-            .append(mana, this.mana)
+            .append(castingProgress, that.castingProgress)
+            .append(castingSpell, that.castingSpell)
+            .append(mana, that.mana)
             .append(manaMaximum, that.manaMaximum)
             .isEquals();
     }
@@ -127,7 +148,8 @@ public class SpellCaster extends RangedCombatant
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
-            .append(castProgress)
+            .append(castingProgress)
+            .append(castingSpell)
             .append(mana)
             .append(manaMaximum)
             .toHashCode();

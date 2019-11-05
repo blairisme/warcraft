@@ -7,17 +7,18 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.highlight;
+package com.evilbird.warcraft.action.spell;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
 
 import javax.inject.Inject;
 import java.util.Collection;
-import java.util.function.Predicate;
 
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 
@@ -26,37 +27,26 @@ import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
  *
  * @author Blair Butterworth
  */
-public class HighlightCancel extends BasicAction
+public class SpellDeselect extends BasicAction
 {
     @Inject
-    public HighlightCancel() {
-        setIdentifier(HighlightActions.HighlightCancel);
+    public SpellDeselect() {
     }
 
     @Override
     public boolean act(float time) {
-        setUnhighlighted(getTargets());
+        removeCastingSpell();
+        setUnhighlighted();
         return ActionIncomplete;
     }
 
-    private Collection<Item> getTargets() {
-        Item item = getItem();
-        ItemRoot root = item.getRoot();
-        return root.findAll(isHighlighted());
+    private void removeCastingSpell() {
+        SpellCaster spellCaster = (SpellCaster)getItem();
+        spellCaster.setCastingSpell(null);
     }
 
-    private Predicate<Item> isHighlighted() {
-        return item -> {
-            if (item instanceof Unit) {
-                Unit unit = (Unit)item;
-                return unit.getHighlighted();
-            }
-            return false;
-        };
-    }
-
-    private void setUnhighlighted(Collection<Item> targets) {
-        for (Item target: targets) {
+    private void setUnhighlighted() {
+        for (Item target: getTargets()) {
             setUnhighlighted(target);
         }
     }
@@ -64,5 +54,11 @@ public class HighlightCancel extends BasicAction
     private void setUnhighlighted(Item target) {
         Unit unit = (Unit)target;
         unit.setHighlighted(false);
+    }
+
+    private Collection<Item> getTargets() {
+        Item item = getItem();
+        ItemRoot root = item.getRoot();
+        return root.findAll(UnitOperations::isHighlighted);
     }
 }

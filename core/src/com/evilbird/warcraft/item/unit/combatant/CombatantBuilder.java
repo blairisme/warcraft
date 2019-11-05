@@ -85,6 +85,13 @@ public class CombatantBuilder
         return result;
     }
 
+    public SpellCaster newSpellCaster() {
+        SpellCaster result = new SpellCaster(getSkin());
+        result.setAnimation(UnitAnimation.Idle);
+        setCommonAttributes(result);
+        return result;
+    }
+
     public Submarine newSubmarine() {
         Submarine result = new Submarine(getSkin());
         result.setAnimation(UnitAnimation.Idle);

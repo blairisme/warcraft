@@ -77,7 +77,7 @@ import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButton
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GryphonRiderButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.GuardTowerButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HasteButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HealingButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HealButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HealingUpgradeButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HolyVisionButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HumanWallButton;
@@ -183,7 +183,7 @@ public class ButtonIconLayout
             human(DepositButton),       CancelButton,               HumanWallButton,            OrcWallButton,              SlowButton,
             InvisibilityButton,         HasteButton,                RunesButton,                UnholyArmourButton,         LightningButton,
             FlameShieldButton,          FireballButton,             TouchOfDarknessButton,      DeathAndDecayButton,        WhirlwindButton,
-            BlizzardButton,             HolyVisionButton,           HealingButton,              DeathCoilButton,            Unknown,
+            BlizzardButton,             HolyVisionButton, HealButton,              DeathCoilButton,            Unknown,
             ExorcismButton,             EyeOfKilroggButton,         BloodlustButton,            Unknown,                    RaiseDeadButton,
             PolymorphButton,            human(AttackButton),        human(MeleeDamage1Button),  human(MeleeDamage2Button),  orc(AttackButton),
             orc(MeleeDamage1Button),    orc(MeleeDamage2Button),    Unknown,                    Unknown,                    human(ranged(AttackButton)),
@@ -203,7 +203,7 @@ public class ButtonIconLayout
         aliases = Maps.of(
             BuildCancelButton,          CancelButton,
             ExorcismUpgradeButton,      ExorcismButton,
-            HealingUpgradeButton,       HealingButton,
+            HealingUpgradeButton, HealButton,
             human(MeleeType1Button),    PaladinButton,
             human(RangedType1Button),   ElvenRangerButton,
             orc(MeleeType1Button),      OgreMageButton,

@@ -14,6 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
+import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
 
 import javax.inject.Inject;
 
@@ -36,12 +37,12 @@ public class OgreMageFactory extends CombatantFactoryBase
     }
 
     public OgreMageFactory(AssetManager manager) {
-        super(manager, Ogre);
+        super(manager, Ogre, OgreMage);
     }
 
     @Override
     public Combatant get(Identifier type) {
-        Combatant result = builder.newMeleeCombatant();
+        SpellCaster result = builder.newSpellCaster();
         result.setAttackSpeed(1);
         result.setArmour(4);
         result.setPiercingDamage(8);

@@ -7,12 +7,14 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.highlight;
+package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
+import com.evilbird.warcraft.action.spell.SpellSelect;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
+import com.evilbird.warcraft.item.common.spell.Spell;
 
 import javax.inject.Inject;
 import java.util.function.Predicate;
@@ -20,20 +22,18 @@ import java.util.function.Predicate;
 import static com.evilbird.engine.common.function.Predicates.both;
 
 /**
- * An {@link Action} that highlights enemy combatants.
+ * An {@link Action} that highlights combatants belonging to the user to be the
+ * recipient of the healing spell.
  *
  * @author Blair Butterworth
  */
-public class HighlightEnemyCombatant extends HighlightAction
+public class HealSelect extends SpellSelect
 {
-    @Inject
-    public HighlightEnemyCombatant(Events events) {
-        super(events);
-        setIdentifier(HighlightActions.HighlightEnemyCombatant);
-    }
+    private static final Predicate<Item> CONDITION =
+        both(UnitOperations::isControllable, UnitOperations::isCombatant);
 
-    @Override
-    protected Predicate<Item> getCondition() {
-        return both(UnitOperations::isCombatant, UnitOperations::isArtificial);
+    @Inject
+    public HealSelect(Events events) {
+        super(events, Spell.Heal, CONDITION);
     }
 }

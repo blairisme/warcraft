@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
-import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
+import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
 
 import javax.inject.Inject;
 
@@ -43,7 +43,7 @@ public class DeathKnightFactory extends CombatantFactoryBase
 
     @Override
     public Combatant get(Identifier type) {
-        RangedCombatant result = builder.newRangedCombatant();
+        SpellCaster result = builder.newSpellCaster();
         result.setAttackSpeed(1.5f);
         result.setArmour(0);
         result.setPiercingDamage(3);

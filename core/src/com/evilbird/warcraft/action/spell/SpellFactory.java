@@ -22,6 +22,7 @@ import com.evilbird.warcraft.action.spell.attack.UnholyArmourSpell;
 import com.evilbird.warcraft.action.spell.buff.BloodlustSpell;
 import com.evilbird.warcraft.action.spell.buff.DeathCoilSpell;
 import com.evilbird.warcraft.action.spell.buff.HasteSpell;
+import com.evilbird.warcraft.action.spell.buff.HealSelect;
 import com.evilbird.warcraft.action.spell.buff.HealSpell;
 import com.evilbird.warcraft.action.spell.buff.InvisibilitySpell;
 import com.evilbird.warcraft.action.spell.buff.SlowSpell;
@@ -50,6 +51,7 @@ public class SpellFactory implements ActionProvider
     private InjectedPool<FlameShieldSpell> flameShieldPool;
     private InjectedPool<HasteSpell> hastePool;
     private InjectedPool<HealSpell> healPool;
+    private InjectedPool<HealSelect> healSelection;
     private InjectedPool<HolyVisionSpell> holyVisionPool;
     private InjectedPool<InvisibilitySpell> invisibilityPool;
     private InjectedPool<PolymorphSpell> polymorphPool;
@@ -58,6 +60,7 @@ public class SpellFactory implements ActionProvider
     private InjectedPool<SlowSpell> slowPool;
     private InjectedPool<UnholyArmourSpell> unholyArmourPool;
     private InjectedPool<WhirlwindSpell> whirlwindPool;
+    private InjectedPool<SpellDeselect> deselectPool;
 
     @Inject
     public SpellFactory(
@@ -70,6 +73,7 @@ public class SpellFactory implements ActionProvider
         InjectedPool<FlameShieldSpell> flameShieldPool,
         InjectedPool<HasteSpell> hastePool,
         InjectedPool<HealSpell> healPool,
+        InjectedPool<HealSelect> healSelection,
         InjectedPool<HolyVisionSpell> holyVisionPool,
         InjectedPool<InvisibilitySpell> invisibilityPool,
         InjectedPool<PolymorphSpell> polymorphPool,
@@ -77,7 +81,8 @@ public class SpellFactory implements ActionProvider
         InjectedPool<RunesSpell> runesPool,
         InjectedPool<SlowSpell> slowPool,
         InjectedPool<UnholyArmourSpell> unholyArmourPool,
-        InjectedPool<WhirlwindSpell> whirlwindPool)
+        InjectedPool<WhirlwindSpell> whirlwindPool,
+        InjectedPool<SpellDeselect> deselectPool)
     {
         this.blizzardPool = blizzardPool;
         this.bloodlustPool = bloodlustPool;
@@ -88,6 +93,7 @@ public class SpellFactory implements ActionProvider
         this.flameShieldPool = flameShieldPool;
         this.hastePool = hastePool;
         this.healPool = healPool;
+        this.healSelection = healSelection;
         this.holyVisionPool = holyVisionPool;
         this.invisibilityPool = invisibilityPool;
         this.polymorphPool = polymorphPool;
@@ -96,30 +102,34 @@ public class SpellFactory implements ActionProvider
         this.slowPool = slowPool;
         this.unholyArmourPool = unholyArmourPool;
         this.whirlwindPool = whirlwindPool;
+        this.deselectPool = deselectPool;
     }
 
     @Override
-    public Action get(ActionIdentifier action) {
-        Validate.isInstanceOf(SpellActions.class, action);
-        switch ((SpellActions)action) {
-            case BlizzardSpell: getAction(blizzardPool, action);
-            case BloodlustSpell: getAction(bloodlustPool, action);
-            case DeathAndDecaySpell: getAction(deathAndDecayPool, action);
-            case DeathCoilSpell: getAction(deathCoilPool, action);
-            case ExorcismSpell: getAction(exorcismPool, action);
-            case EyeOfKilroggSpell: getAction(eyeOfKilroggPool, action);
-            case FlameShieldSpell: getAction(flameShieldPool, action);
-            case HasteSpell: getAction(hastePool, action);
-            case HealSpell: getAction(healPool, action);
-            case HolyVisionSpell: getAction(holyVisionPool, action);
-            case InvisibilitySpell: getAction(invisibilityPool, action);
-            case PolymorphSpell: getAction(polymorphPool, action);
-            case RaiseDeadSpell: getAction(raiseDeadPool, action);
-            case RunesSpell: getAction(runesPool, action);
-            case SlowSpell: getAction(slowPool, action);
-            case UnholyArmourSpell: getAction(unholyArmourPool, action);
-            case WhirlwindSpell: getAction(whirlwindPool, action);
-            default: throw new UnsupportedOperationException();
+    public Action get(ActionIdentifier identifier) {
+        Validate.isInstanceOf(SpellActions.class, identifier);
+        SpellActions action = (SpellActions)identifier;
+        switch (action) {
+            case BlizzardSpell: return getAction(blizzardPool, action);
+            case BloodlustSpell: return getAction(bloodlustPool, action);
+            case DeathAndDecaySpell: return getAction(deathAndDecayPool, action);
+            case DeathCoilSpell: return getAction(deathCoilPool, action);
+            case ExorcismSpell: return getAction(exorcismPool, action);
+            case EyeOfKilroggSpell: return getAction(eyeOfKilroggPool, action);
+            case FlameShieldSpell: return getAction(flameShieldPool, action);
+            case HasteSpell: return getAction(hastePool, action);
+            case HealSpell: return getAction(healPool, action);
+            case HealSelection: return getAction(healSelection, action);
+            case HolyVisionSpell: return getAction(holyVisionPool, action);
+            case InvisibilitySpell: return getAction(invisibilityPool, action);
+            case PolymorphSpell: return getAction(polymorphPool, action);
+            case RaiseDeadSpell: return getAction(raiseDeadPool, action);
+            case RunesSpell: return getAction(runesPool, action);
+            case SlowSpell: return getAction(slowPool, action);
+            case UnholyArmourSpell: return getAction(unholyArmourPool, action);
+            case WhirlwindSpell: return getAction(whirlwindPool, action);
+            case SpellDeselect: return getAction(deselectPool, action);
+            default: throw new UnsupportedOperationException(action.name());
         }
     }
 

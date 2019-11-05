@@ -23,7 +23,7 @@ import static com.evilbird.warcraft.item.common.upgrade.Upgrade.HealingUpgrade;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.AttackButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DefendButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.ExorcismButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HealingButton;
+import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HealButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.HolyVisionButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.MoveButton;
 import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.PatrolButton;
@@ -45,7 +45,7 @@ public class PaladinButtons extends BasicButtonController
         Player player = UnitOperations.getPlayer(item);
         List<ActionButtonType> buttons = new ArrayList<>(BUTTONS);
         addUpgradeButton(player, buttons, ExorcismButton, ExorcismUpgrade);
-        addUpgradeButton(player, buttons, HealingButton, HealingUpgrade);
+        addUpgradeButton(player, buttons, HealButton, HealingUpgrade);
         return buttons;
     }
 

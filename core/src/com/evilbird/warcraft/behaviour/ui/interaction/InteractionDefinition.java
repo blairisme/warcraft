@@ -19,6 +19,7 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.utility.ItemOperations;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
@@ -53,7 +54,7 @@ public class InteractionDefinition implements Interaction
     private BiFunction<Item, Item, Item> subjectSupplier;
     private BiFunction<Item, Item, Item> targetSupplier;
     private Function<Item, Item> recipientSupplier;
-    private BiConsumer<Item, Action> application;
+    private BiConsumer<Item, Collection<Action>> application;
 
     @Inject
     public InteractionDefinition(ActionFactory factory) {
@@ -183,19 +184,29 @@ public class InteractionDefinition implements Interaction
      */
     public InteractionDefinition appliedAs(InteractionDisplacement displacement) {
         Objects.requireNonNull(displacement);
-        return appliedAs((subject, action) -> {
+        return appliedAs((subject, actions) -> {
             if (displacement == Replacement) {
                 subject.clearActions();
-                subject.addAction(action);
+                for (Action action: actions) {
+                    subject.addAction(action);
+                }
             }
             else if (displacement == Addition) {
-                subject.addAction(action);
+                for (Action action: actions) {
+                    subject.addAction(action);
+                }
             }
-            else if (displacement == Singleton && !ItemOperations.hasAction(subject, action.getIdentifier())) {
-                subject.addAction(action);
+            else if (displacement == Singleton) {
+                for (Action action: actions) {
+                    if (!ItemOperations.hasAction(subject, action.getIdentifier())){
+                        subject.addAction(action);
+                    }
+                }
             }
             else if (displacement == Standalone) {
-                action.act(0);
+                for (Action action: actions) {
+                    action.act(0);
+                }
             }
         });
     }
@@ -208,7 +219,7 @@ public class InteractionDefinition implements Interaction
      *                  should be applied to.
      * @return          the interaction
      */
-    public InteractionDefinition appliedAs(BiConsumer<Item, Action> consumer) {
+    public InteractionDefinition appliedAs(BiConsumer<Item, Collection<Action>> consumer) {
         Objects.requireNonNull(consumer);
         application = consumer;
         return this;
@@ -318,14 +329,15 @@ public class InteractionDefinition implements Interaction
         Item target = targetSupplier.apply(item, selected);
         Item recipient = recipientSupplier.apply(subject);
 
+        Collection<Action> results = new ArrayList<>(actions.size());
         for (ActionIdentifier actionType: actions) {
             Action action = factory.get(actionType);
-            application.accept(recipient, action);
-
             action.setItem(subject);
             action.setTarget(target);
             action.setCause(input);
+            results.add(action);
         }
+        application.accept(recipient, results);
     }
 }
 

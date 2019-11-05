@@ -14,6 +14,7 @@ import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.Effect;
@@ -23,6 +24,7 @@ import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.common.lang.Alignment.Center;
+import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.CastSpell;
 
 /**
@@ -82,13 +84,15 @@ public abstract class SpellAction extends BasicAction
         caster.setAnimation(CastSpell);
 
         Effect spellEffect = (Effect)factory.get(effect);
-        caster.setSpell(spellEffect);
+        caster.setSpellEffect(spellEffect);
 
         Item target = getTarget();
         spellEffect.setPosition(target.getPosition(Center), Center);
 
         ItemRoot parent = caster.getRoot();
         parent.addItem(spellEffect);
+
+        reorient(caster, target, false);
     }
 
     private boolean isLoaded() {
@@ -98,7 +102,7 @@ public abstract class SpellAction extends BasicAction
     protected void load() {
         SpellCaster caster = (SpellCaster)getItem();
         timer = new GameTimer(spell.getCastTime());
-        timer.advance(caster.getCastProgress() * timer.duration());
+        timer.advance(caster.getCastingProgress() * timer.duration());
     }
 
     private boolean isComplete(float time) {
@@ -107,18 +111,20 @@ public abstract class SpellAction extends BasicAction
 
     protected boolean update() {
         SpellCaster caster = (SpellCaster)getItem();
-        caster.setCastProgress(timer.completion());
+        caster.setCastingProgress(timer.completion());
         return ActionIncomplete;
     }
 
     protected boolean complete() {
         SpellCaster caster = (SpellCaster)getItem();
-        caster.setCastProgress(1);
+        caster.setCastingProgress(1);
 
-        ItemRoot parent = caster.getRoot();
-        parent.removeItem(caster.getSpell());
-        caster.setSpell(null);
-
+        Effect effect = caster.getSpellEffect();
+        if (effect != null) {
+            ItemGroup parent = effect.getParent();
+            parent.removeItem(caster.getSpellEffect());
+            caster.setSpellEffect(null);
+        }
         return ActionComplete;
     }
 }

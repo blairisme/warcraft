@@ -90,7 +90,7 @@ public enum ActionButtonType implements Identifier
     /* Spell buttons */
     BlizzardButton,
     ExorcismButton,
-    HealingButton,
+    HealButton,
     HolyVisionButton,
     FireballButton,
     FlameShieldButton,

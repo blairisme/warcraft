@@ -27,6 +27,7 @@ public enum SpellActions implements ActionIdentifier
     FlameShieldSpell,
     HasteSpell,
     HealSpell,
+    HealSelection,
     HolyVisionSpell,
     InvisibilitySpell,
     PolymorphSpell,
@@ -34,5 +35,6 @@ public enum SpellActions implements ActionIdentifier
     RunesSpell,
     SlowSpell,
     UnholyArmourSpell,
-    WhirlwindSpell
+    WhirlwindSpell,
+    SpellDeselect
 }
