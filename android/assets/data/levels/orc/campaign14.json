@@ -1,6 +1,14 @@
 {
-  "map": {
-    "class": "Map",
+  "faction": {
+    "class": "Faction",
+    "enum": "Orc"
+  },
+  "assets": {
+    "class": "Assets",
+    "enum": "Summer"
+  },
+  "level": {
+    "class": "Level",
     "enum": "Orc14"
   },
   "introduction": {
@@ -10,9 +18,5 @@
   "behaviour": {
     "class": "Behaviour",
     "enum": "Orc14"
-  },
-  "hud": {
-    "class": "Hud",
-    "enum": "Orc"
   }
 }

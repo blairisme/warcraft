@@ -1,6 +1,14 @@
 {
-  "map": {
-    "class": "Map",
+  "faction": {
+    "class": "Faction",
+    "enum": "Orc"
+  },
+  "assets": {
+    "class": "Assets",
+    "enum": "Winter"
+  },
+  "level": {
+    "class": "Level",
     "enum": "Orc4"
   },
   "introduction": {
@@ -10,10 +18,6 @@
   "behaviour": {
     "class": "Behaviour",
     "enum": "Orc4"
-  },
-  "hud": {
-    "class": "Hud",
-    "enum": "Orc"
   },
   "next": {
     "class": "Campaign",
