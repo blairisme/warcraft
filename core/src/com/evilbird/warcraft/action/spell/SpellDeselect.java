@@ -21,7 +21,6 @@ import javax.inject.Inject;
 import java.util.Collection;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 
 /**
  * An {@link Action} that unhighlights highlighted units.

@@ -14,7 +14,7 @@ import com.evilbird.warcraft.item.common.query.UnitOperations;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-import static com.evilbird.warcraft.action.spell.SpellActions.HealSelection;
+import static com.evilbird.warcraft.action.spell.SpellActions.HealSelect;
 import static com.evilbird.warcraft.action.spell.SpellActions.HealSpell;
 import static com.evilbird.warcraft.action.spell.SpellActions.SpellDeselect;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
@@ -40,7 +40,7 @@ public class SpellInteractions extends InteractionContainer
     }
 
     private void healSpell() {
-        addAction(HealSelection)
+        addAction(HealSelect)
             .whenTarget(HealButton)
             .whenSelected(Paladin)
             .appliedTo(Selected)

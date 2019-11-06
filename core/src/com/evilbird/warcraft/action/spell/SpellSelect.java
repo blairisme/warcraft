@@ -53,12 +53,16 @@ public abstract class SpellSelect extends BasicAction
     @Override
     public void reset() {
         super.reset();
-        initialized = false;
+        clear();
     }
 
     @Override
     public void restart() {
         super.restart();
+        clear();
+    }
+
+    protected void clear() {
         initialized = false;
     }
 
@@ -66,13 +70,13 @@ public abstract class SpellSelect extends BasicAction
         return initialized;
     }
 
-    private void initialize() {
+    protected void initialize() {
         initialized = true;
         setCastingSpell();
         setHighlighted(getTargets());
     }
 
-    private boolean update() {
+    protected boolean update() {
         for (CreateEvent event: events.getEvents(CreateEvent.class)) {
             Item subject = event.getSubject();
             if (condition.test(subject)) {
@@ -82,23 +86,23 @@ public abstract class SpellSelect extends BasicAction
         return ActionIncomplete;
     }
 
-    private void setCastingSpell() {
+    protected void setCastingSpell() {
         SpellCaster spellCaster = (SpellCaster)getItem();
         spellCaster.setCastingSpell(spell);
     }
 
-    private void setHighlighted(Collection<Item> targets) {
+    protected void setHighlighted(Collection<Item> targets) {
         for (Item target: targets) {
             setHighlighted(target);
         }
     }
 
-    private void setHighlighted(Item target) {
+    protected void setHighlighted(Item target) {
         Unit unit = (Unit)target;
         unit.setHighlighted(true);
     }
 
-    private Collection<Item> getTargets() {
+    protected Collection<Item> getTargets() {
         Item item = getItem();
         ItemRoot root = item.getRoot();
         return root.findAll(condition);
