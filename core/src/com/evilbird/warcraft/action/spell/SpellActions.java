@@ -25,8 +25,10 @@ public enum SpellActions implements ActionIdentifier
     DeathCoilSpell,
     DeathCoilSelect,
     ExorcismSpell,
+    ExorcismSelect,
     EyeOfKilroggSpell,
     FlameShieldSpell,
+    FlameShieldSelect,
     HasteSpell,
     HasteSelect,
     HealSpell,
@@ -41,6 +43,7 @@ public enum SpellActions implements ActionIdentifier
     SlowSpell,
     SlowSelect,
     UnholyArmourSpell,
+    UnholyArmourSelect,
     WhirlwindSpell,
     SpellDeselect
 }
