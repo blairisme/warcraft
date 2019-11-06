@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="165">
+ <properties>
+  <property name="Level" type="int" value="10"/>
+ </properties>
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/winter.png" width="576" height="864"/>
  </tileset>
@@ -421,7 +424,7 @@
    <property name="Colour" value="Red"/>
    <property name="Faction" value="Orc"/>
    <property name="Gold" type="float" value="0"/>
-   <property name="Level" type="int" value="7"/>
+   <property name="Level" type="int" value="10"/>
    <property name="Nation" value="Blackrock"/>
    <property name="Oil" type="float" value="0"/>
    <property name="Team" type="int" value="1"/>
