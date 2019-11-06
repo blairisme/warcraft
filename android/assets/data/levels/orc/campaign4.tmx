@@ -57,20 +57,20 @@
   <image source="../../textures/orc/building/winter/great_hall.png" width="128" height="256"/>
  </tileset>
  <tileset firstgid="936" name="Elven Lumber Mill" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/lumber_mill.png" width="96" height="192"/>
+  <image source="../../textures/human/building/winter/lumber_mill.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="938" name="Barracks" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/barracks.png" width="96" height="192"/>
+  <image source="../../textures/human/building/winter/barracks.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="940" name="Town Hall" tilewidth="128" tileheight="128" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/town_hall.png" width="128" height="256"/>
+  <image source="../../textures/human/building/winter/town_hall.png" width="128" height="256"/>
  </tileset>
  <tileset firstgid="942" name="Peasant" tilewidth="72" tileheight="72" tilecount="104" columns="8">
   <tileoffset x="-16" y="16"/>
   <image source="../../textures/human/unit/peasant.png" width="576" height="936"/>
  </tileset>
  <tileset firstgid="1046" name="Shipyard" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/shipyard.png" width="96" height="192"/>
+  <image source="../../textures/human/building/winter/shipyard.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="1048" name="Elven Destroyer" tilewidth="88" tileheight="88" tilecount="24" columns="8">
   <image source="../../textures/human/unit/elven_destroyer.png" width="704" height="264"/>

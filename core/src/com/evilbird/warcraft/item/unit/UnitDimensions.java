@@ -21,6 +21,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.DarkPortal;
 import static com.evilbird.warcraft.item.unit.UnitType.Dragon;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.Fortress;
+import static com.evilbird.warcraft.item.unit.UnitType.GoblinZeppelin;
 import static com.evilbird.warcraft.item.unit.UnitType.GreatHall;
 import static com.evilbird.warcraft.item.unit.UnitType.GuardTower;
 import static com.evilbird.warcraft.item.unit.UnitType.Keep;
@@ -84,7 +85,7 @@ public class UnitDimensions
             return SMALL;
         }
         if (type.isFlying()) {
-            if (type == Daemon) {
+            if (type == Daemon || type == GoblinZeppelin) {
                 return SMALLISH;
             }
             if (type == Dragon) {

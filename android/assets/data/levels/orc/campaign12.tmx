@@ -294,14 +294,6 @@
   <object id="55" name="Boar8" type="Boar" gid="1227" x="2464" y="2976" width="32" height="32"/>
   <object id="56" name="Boar9" type="Boar" gid="1227" x="2432" y="2880" width="32" height="32"/>
   <object id="57" name="Boar10" type="Boar" gid="1227" x="2496" y="2624" width="32" height="32"/>
-  <object id="175" name="Daemon1" type="Daemon" gid="1857" x="2176" y="608" width="72" height="72"/>
-  <object id="176" name="Daemon2" type="Daemon" gid="1857" x="2304" y="608" width="72" height="72"/>
-  <object id="177" name="Daemon3" type="Daemon" gid="1857" x="2432" y="608" width="72" height="72"/>
-  <object id="178" name="Daemon4" type="Daemon" gid="1857" x="2496" y="736" width="72" height="72"/>
-  <object id="179" name="Daemon5" type="Daemon" gid="1857" x="2432" y="800" width="72" height="72"/>
-  <object id="180" name="Daemon6" type="Daemon" gid="1857" x="2304" y="864" width="72" height="72"/>
-  <object id="181" name="Daemon7" type="Daemon" gid="1857" x="2176" y="800" width="72" height="72"/>
-  <object id="182" name="Daemon8" type="Daemon" gid="1857" x="2112" y="736" width="72" height="72"/>
  </objectgroup>
  <objectgroup id="5" name="Player3">
   <properties>
@@ -369,6 +361,14 @@
   <object id="171" name="OgreJuggernaught2" type="OgreJuggernaught" gid="1504" x="1440" y="2112" width="88" height="88"/>
   <object id="172" name="GiantTurtle5" type="GiantTurtle" gid="1833" x="1216" y="1888" width="72" height="72"/>
   <object id="173" name="GiantTurtle6" type="GiantTurtle" gid="1833" x="1024" y="928" width="72" height="72"/>
+  <object id="175" name="Daemon1" type="Daemon" gid="1857" x="2176" y="608" width="72" height="72"/>
+  <object id="176" name="Daemon2" type="Daemon" gid="1857" x="2304" y="608" width="72" height="72"/>
+  <object id="177" name="Daemon3" type="Daemon" gid="1857" x="2432" y="608" width="72" height="72"/>
+  <object id="178" name="Daemon4" type="Daemon" gid="1857" x="2496" y="736" width="72" height="72"/>
+  <object id="179" name="Daemon5" type="Daemon" gid="1857" x="2432" y="800" width="72" height="72"/>
+  <object id="180" name="Daemon6" type="Daemon" gid="1857" x="2304" y="864" width="72" height="72"/>
+  <object id="181" name="Daemon7" type="Daemon" gid="1857" x="2176" y="800" width="72" height="72"/>
+  <object id="182" name="Daemon8" type="Daemon" gid="1857" x="2112" y="736" width="72" height="72"/>
  </objectgroup>
  <objectgroup id="3" name="Player2">
   <properties>

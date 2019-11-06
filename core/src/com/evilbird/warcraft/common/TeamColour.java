@@ -25,6 +25,7 @@ public enum TeamColour
     Blue,
     Green,
     Orange,
+    Pink,
     Purple,
     Red,
     Silver;
@@ -36,6 +37,7 @@ public enum TeamColour
             case Blue: return Colours.ROYAL_BLUE;
             case Green: return Colours.TURQUOISE;
             case Orange: return Colours.CORAL;
+            case Pink: return Colours.LAVENDER;
             case Purple: return Colours.FUCHSIA;
             case Red: return Colours.SCARLET;
             case Silver: return Colours.SILVER;

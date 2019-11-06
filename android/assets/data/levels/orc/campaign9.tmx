@@ -380,7 +380,7 @@
   <object id="17" name="Catapult2" type="Catapult" gid="1113" x="1408" y="2816" width="64" height="64"/>
   <object id="18" name="TrollDestroyer1" type="TrollDestroyer" gid="904" x="1632" y="2656" width="88" height="88"/>
   <object id="19" name="OgreJuggernaught1" type="OgreJuggernaught" gid="1504" x="1376" y="2496" width="88" height="88"/>
-  <object id="128" name="Camera" type="Camerar" x="1152" y="2784">
+  <object id="128" name="Camera" type="Camera" x="1152" y="2784">
    <point/>
   </object>
  </objectgroup>

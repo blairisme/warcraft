@@ -182,7 +182,7 @@
   <image source="../../textures/orc/unit/goblin_sappers.png" width="576" height="1080"/>
  </tileset>
  <tileset firstgid="1707" name="Mage Tower" tilewidth="96" tileheight="96" tilecount="2" columns="1">
-  <image source="../../textures/human/building/swamp/mage_tower.png" width="96" height="192"/>
+  <image source="../../textures/human/building/winter/mage_tower.png" width="96" height="192"/>
  </tileset>
  <tileset firstgid="1709" name="Goblin Alchemist" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/orc/building/winter/goblin_alchemist.png" width="96" height="192"/>

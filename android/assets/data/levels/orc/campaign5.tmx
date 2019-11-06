@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="90">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="91">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/swamp.png" width="576" height="864"/>
  </tileset>
@@ -190,7 +190,7 @@
   <object id="53" name="Farm9" type="Farm" gid="403" x="992" y="3616" width="64" height="64"/>
   <object id="54" name="Farm10" type="Farm" gid="403" x="960" y="3808" width="64" height="64"/>
   <object id="55" name="Shipyard1" type="Shipyard" gid="1042" x="1376" y="3424" width="96" height="96"/>
-  <object id="56" name="Foundary1" type="Foundary" gid="1092" x="928" y="3968" width="96" height="96"/>
+  <object id="56" name="Foundry1" type="Foundry" gid="1092" x="928" y="3968" width="96" height="96"/>
   <object id="57" name="Refinery1" type="Refinery" gid="1161" x="1632" y="3136" width="96" height="96"/>
   <object id="58" name="Peasant1" type="Peasant" gid="938" x="1184" y="3232" width="72" height="72"/>
   <object id="59" name="Peasant2" type="Peasant" gid="938" x="1120" y="3232" width="72" height="72"/>
@@ -265,7 +265,7 @@
   <object id="15" name="TrollDestroyer2" type="TrollDestroyer" gid="904" x="3744" y="192" width="88" height="88"/>
   <object id="16" name="Catapult1" type="Catapult" gid="1113" x="3872" y="288" width="64" height="64"/>
   <object id="17" name="GoblinZeppelin1" type="GoblinZeppelin" gid="1145" x="3968" y="384" width="72" height="72"/>
-  <object id="89" name="Camera" type="Camera" x="1184" y="3296">
+  <object id="90" name="Camera" type="Camera" x="3936" y="192">
    <point/>
   </object>
  </objectgroup>
