@@ -47,13 +47,15 @@ public class PaladinFactory extends CombatantFactoryBase
     @Override
     public Combatant get(Identifier type) {
         SpellCaster result = builder.newSpellCaster();
-        result.setAttackSpeed(1);
+        result.setAttackSpeed(1f);
         result.setArmour(new UpgradeValue(MeleeDefence, 4, 6, 8));
         result.setBasicDamage(new UpgradeValue(MeleeDamage, 10, 12, 14));
         result.setPiercingDamage(2);
-        result.setHealth(90);
-        result.setHealthMaximum(90);
+        result.setHealth(90f);
+        result.setHealthMaximum(90f);
         result.setIdentifier(objectIdentifier("Paladin", result));
+        result.setMana(200f);
+        result.setManaMaximum(200f);
         result.setMovementSpeed(8 * 13);
         result.setMovementCapability(Land);
         result.setSight(tiles(4));
