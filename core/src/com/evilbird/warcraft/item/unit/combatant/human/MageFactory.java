@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
-import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
+import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
 
 import javax.inject.Inject;
 
@@ -43,7 +43,7 @@ public class MageFactory extends CombatantFactoryBase
 
     @Override
     public Combatant get(Identifier type) {
-        RangedCombatant result = builder.newRangedCombatant();
+        SpellCaster result = builder.newSpellCaster();
         result.setAttackSpeed(1.5f);
         result.setAttackRange(tiles(2));
         result.setArmour(0);
@@ -52,6 +52,8 @@ public class MageFactory extends CombatantFactoryBase
         result.setHealth(60);
         result.setHealthMaximum(60);
         result.setIdentifier(objectIdentifier("Mage", result));
+        result.setMana(200f);
+        result.setManaMaximum(200f);
         result.setMovementSpeed(8 * 10);
         result.setMovementCapability(Land);
         result.setSight(tiles(9));

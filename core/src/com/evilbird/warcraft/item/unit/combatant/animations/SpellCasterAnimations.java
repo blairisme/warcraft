@@ -15,6 +15,7 @@ import com.evilbird.engine.common.graphics.AnimationCatalog;
 import com.evilbird.warcraft.item.unit.combatant.CombatantAssets;
 
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Attack;
+import static com.evilbird.warcraft.item.unit.UnitAnimation.CastSpell;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Death;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
@@ -39,7 +40,7 @@ public class SpellCasterAnimations extends AnimationCatalog
     }
 
     public SpellCasterAnimations(Texture base, Texture decompose, GridPoint2 size) {
-        super(4);
+        super(5);
 
         requireNonNull(base);
         requireNonNull(decompose);
@@ -52,6 +53,7 @@ public class SpellCasterAnimations extends AnimationCatalog
     }
 
     private void attack(Texture base, GridPoint2 size) {
+        alias(CastSpell, Attack);
         animation(Attack)
             .withTexture(base)
             .withSequence(size.y * 5, 5)

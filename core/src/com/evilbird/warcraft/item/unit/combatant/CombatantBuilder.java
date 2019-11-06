@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.AnimationCatalog;
+import com.evilbird.engine.common.graphics.FlashingRenderable;
+import com.evilbird.engine.common.graphics.SpriteRenderable;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitStyle;
@@ -23,14 +25,15 @@ import com.evilbird.warcraft.item.unit.combatant.animations.DaemonAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.DemolitionAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.DragonAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.EyeOfKilroggAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.FlyingMachineAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.GryphonAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.MeleeAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.NavalAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.RangedAnimations;
-import com.evilbird.warcraft.item.unit.combatant.animations.ScoutAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.SiegeAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.SpellCasterAnimations;
 import com.evilbird.warcraft.item.unit.combatant.animations.SubmarineAnimations;
+import com.evilbird.warcraft.item.unit.combatant.animations.ZeppelinAnimations;
 import com.evilbird.warcraft.item.unit.combatant.sounds.ConjuredSounds;
 import com.evilbird.warcraft.item.unit.combatant.sounds.MeleeSounds;
 import com.evilbird.warcraft.item.unit.combatant.sounds.RangedSounds;
@@ -42,6 +45,8 @@ import java.util.Random;
 import static com.evilbird.warcraft.item.unit.UnitType.Daemon;
 import static com.evilbird.warcraft.item.unit.UnitType.Dragon;
 import static com.evilbird.warcraft.item.unit.UnitType.EyeOfKilrogg;
+import static com.evilbird.warcraft.item.unit.UnitType.GnomishFlyingMachine;
+import static com.evilbird.warcraft.item.unit.UnitType.GoblinZeppelin;
 import static com.evilbird.warcraft.item.unit.UnitType.GryphonRider;
 
 /**
@@ -80,6 +85,13 @@ public class CombatantBuilder
         return result;
     }
 
+    public SpellCaster newSpellCaster() {
+        SpellCaster result = new SpellCaster(getSkin());
+        result.setAnimation(UnitAnimation.Idle);
+        setCommonAttributes(result);
+        return result;
+    }
+
     public Submarine newSubmarine() {
         Submarine result = new Submarine(getSkin());
         result.setAnimation(UnitAnimation.Idle);
@@ -109,7 +121,8 @@ public class CombatantBuilder
         UnitStyle style = new UnitStyle();
         style.animations = animations.get();
         style.sounds = sounds.get();
-        style.selection = assets.getSelectionTexture();
+        style.selection = new SpriteRenderable(assets.getSelectionTexture());
+        style.highlight = new FlashingRenderable(assets.getHighlightTexture());
         style.masks = getMasks();
         return style;
     }
@@ -128,8 +141,6 @@ public class CombatantBuilder
             return customAnimations;
         } else if (type.isSpellCaster()) {
             return new SpellCasterAnimations(assets);
-        } else if (type.isScout()) {
-            return new ScoutAnimations(assets);
         } else if (type.isRanged()) {
             return new RangedAnimations(assets);
         } else if (type.isNavalUnit()) {
@@ -153,6 +164,10 @@ public class CombatantBuilder
             return new EyeOfKilroggAnimations(assets);
         } else if (type == GryphonRider) {
             return new GryphonAnimations(assets);
+        } else if (type == GnomishFlyingMachine) {
+            return new FlyingMachineAnimations(assets);
+        } else if (type == GoblinZeppelin) {
+            return new ZeppelinAnimations(assets);
         }
         return null;
     }

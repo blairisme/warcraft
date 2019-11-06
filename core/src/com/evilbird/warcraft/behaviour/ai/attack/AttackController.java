@@ -9,10 +9,12 @@
 
 package com.evilbird.warcraft.behaviour.ai.attack;
 
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.item.utility.ItemOperations;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
@@ -24,16 +26,16 @@ import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.filter;
-import static com.evilbird.engine.common.function.Predicates.not;
-import static com.evilbird.engine.item.utility.ItemPredicates.isIdle;
+import static com.evilbird.warcraft.item.common.capability.OffensivePlurality.Individual;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isAnotherTeam;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isNeutral;
+import static java.util.Collections.emptyList;
+import static java.util.Collections.singletonList;
 
 /**
  * Instances of this class are used to obtain attackable targets within range
@@ -48,6 +50,11 @@ public class AttackController
     private Map<Identifier, List<OffensiveObject>> attackers;
     private Map<Identifier, List<PerishableObject>> targets;
 
+    /**
+     * Creates a new instance of this class given an {@link Events} instance,
+     * used to monitor pertinent game phenomena, and an {@link AttackGraph}
+     * used to determine potential targets.
+     */
     public AttackController(Events events, AttackGraph graph) {
         this.events = events;
         this.graph = graph;
@@ -55,23 +62,35 @@ public class AttackController
         this.attackers = new HashMap<>();
     }
 
-    public PerishableObject getTarget(OffensiveObject attacker) {
-        List<PerishableObject> potentialTargets = targets.get(attacker.getIdentifier());
-        if (potentialTargets != null && !potentialTargets.isEmpty()) {
-            return potentialTargets.remove(0);
+    /**
+     * Returns a collection of targets the given attacker can attack at the
+     * current time. The targets all belong to an opposing team and are within
+     * the attackers capability to attack.
+     */
+    public Collection<PerishableObject> getTargets(OffensiveObject attacker) {
+        List<PerishableObject> potentialTargets = targets.getOrDefault(attacker.getIdentifier(), emptyList());
+        potentialTargets.removeIf(UnitOperations::isDead);
+
+        if (attacker.getAttackPlurality() == Individual) {
+            return !potentialTargets.isEmpty() ? singletonList(potentialTargets.get(0)) : emptyList();
         }
-        return null;
+        return potentialTargets;
     }
 
+    /**
+     * Returns a collection of attackers that are within range or the given
+     * target and are not currently attacking another target, or have the
+     * ability to attack multiple targets at the same time.
+     */
     public Collection<OffensiveObject> getAttackers(PerishableObject target) {
-        List<OffensiveObject> potentialAttackers = attackers.remove(target.getIdentifier());
-        if (potentialAttackers != null) {
-            potentialAttackers.removeIf(not(isIdle()));
-            return potentialAttackers;
-        }
-        return Collections.emptyList();
+        List<OffensiveObject> potentialAttackers = attackers.getOrDefault(target.getIdentifier(), emptyList());
+        return CollectionUtils.filter(potentialAttackers, this::isIdleAttacker);
     }
 
+    /**
+     * Initializes the attack controller using the given state, which is used
+     * to lookup attackers and potential targets.
+     */
     public void initialize(ItemRoot state) {
         for (Item attacker: state.findAll(OffensiveObject.class::isInstance)) {
             addAttacker((OffensiveObject)attacker);
@@ -81,6 +100,10 @@ public class AttackController
         }
     }
 
+    /**
+     * Updates the attack controller, using the events system to maintain an
+     * accurate list of attackers and potential targets.
+     */
     public void update() {
         evaluateMovedObjects();
         evaluateCreatedObjects();
@@ -157,7 +180,27 @@ public class AttackController
     }
 
     private boolean isAttackable(OffensiveObject attacker, PerishableObject target) {
-        return isAttackableTarget(attacker, target) && isAttackableTeam(attacker, target);
+        return isAttackableTarget(attacker, target)
+            && isAttackableTeam(attacker, target);
+    }
+
+    private boolean isAttackableTarget(OffensiveObject attacker, PerishableObject target) {
+        if (target.isAttackable()) {
+            Identifier type = target.getType();
+            if (type instanceof UnitType) {
+                return isAttackableTarget(attacker.getAttackCapability(), (UnitType) type);
+            }
+        }
+        return false;
+    }
+
+    private boolean isAttackableTarget(OffensiveCapability capability, UnitType target) {
+        switch (capability) {
+            case Air: return true;
+            case Water: return target.isNaval();
+            case Proximity: return !target.isFlying() && !target.isSubmarine();
+            default: return false;
+        }
     }
 
     private boolean isAttackableTeam(OffensiveObject attacker, PerishableObject target) {
@@ -166,20 +209,7 @@ public class AttackController
         return isAnotherTeam(attackingPlayer, targetPlayer) && !isNeutral(targetPlayer);
     }
 
-    private boolean isAttackableTarget(OffensiveObject attacker, PerishableObject target) {
-        Identifier type = target.getType();
-        if (type instanceof UnitType) {
-            return isAttackableTarget(attacker.getAttackCapability(), (UnitType)type);
-        }
-        return false;
-    }
-
-    private boolean isAttackableTarget(OffensiveCapability capability, UnitType target) {
-        switch (capability) {
-            case Air: return true;
-            case Proximity: return !target.isFlying() && !target.isSubmarine();
-            case Water: return target.isNaval();
-            default: return false;
-        }
+    private boolean isIdleAttacker(OffensiveObject attacker) {
+        return attacker.getAttackPlurality() != Individual || ItemOperations.isIdle(attacker);
     }
 }

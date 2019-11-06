@@ -14,6 +14,7 @@ import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
 
 import javax.inject.Inject;
 
@@ -26,16 +27,41 @@ import static com.evilbird.warcraft.item.common.spell.Spell.Heal;
  */
 public class HealSpell extends SpellAction
 {
+    private float healAmount;
+    private float manaCost;
+
     @Inject
     public HealSpell(ItemFactory factory) {
         super(Spell.Heal, EffectType.Heal, factory);
     }
 
     @Override
-    protected void initialize() {
-        super.initialize();
+    protected void clear() {
+        super.clear();
+        this.healAmount = 0;
+        this.manaCost = 0;
+    }
 
-        Unit target = (Unit)getTarget();
-        target.setHealth(Math.min(target.getHealthMaximum(), target.getHealth() + Heal.getValue()));
+    @Override
+    protected void initialize(SpellCaster caster, Unit target) {
+        this.healAmount = getHealAmount(caster, target);
+        this.manaCost = healAmount * Heal.getManaCost();
+        super.initialize(caster, target);
+    }
+
+    @Override
+    protected void initializeMana(SpellCaster caster, Unit target, Spell spell) {
+        caster.setMana(Math.max(0, caster.getMana() - manaCost));
+    }
+
+    @Override
+    protected void initializeTarget(SpellCaster caster, Unit target) {
+        target.setHealth(Math.min(target.getHealthMaximum(), target.getHealth() + healAmount));
+    }
+
+    private float getHealAmount(SpellCaster caster, Unit target) {
+        float possible = Math.round(caster.getMana() / Heal.getManaCost());
+        float remaining = target.getHealthMaximum() - target.getHealth();
+        return Math.min(possible, remaining);
     }
 }

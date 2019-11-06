@@ -1,6 +1,7 @@
 <component name="ProjectDictionaryState">
   <dictionary name="blair">
     <words>
+      <w>attackable</w>
       <w>axethrower</w>
       <w>azeroth</w>
       <w>ballista</w>
@@ -11,6 +12,8 @@
       <w>deserialized</w>
       <w>deserializes</w>
       <w>dwarven</w>
+      <w>flyer</w>
+      <w>flyers</w>
       <w>gryphon</w>
       <w>juggernaught</w>
       <w>kilrogg</w>
@@ -20,8 +23,10 @@
       <w>metalworks</w>
       <w>orcish</w>
       <w>polymorph</w>
+      <w>renderable</w>
       <w>runestone</w>
       <w>traversable</w>
+      <w>unhighlighted</w>
       <w>warcraft</w>
       <w>waypoint</w>
     </words>

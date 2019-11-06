@@ -17,6 +17,7 @@ import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -182,6 +183,10 @@ public class UnitPredicates
             }
             return false;
         };
+    }
+
+    public static Predicate<Item> isCastingSpell(Spell spell) {
+        return item -> UnitOperations.isCastingSpell(item, spell);
     }
 
     public static Predicate<Item> isPlaceholder() {

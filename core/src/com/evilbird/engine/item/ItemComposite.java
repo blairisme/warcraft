@@ -12,6 +12,7 @@ package com.evilbird.engine.item;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Predicate;
 
 /**
@@ -41,7 +42,7 @@ public interface ItemComposite
      *
      * @return the children of the ItemGroup.
      */
-    Collection<Item> getItems();
+    List<Item> getItems();
 
     /**
      * Determines whether the given {@link Item} is contained in the {@code

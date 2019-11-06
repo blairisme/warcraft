@@ -108,15 +108,17 @@ public class InteractionContainer
         return null;
     }
 
-    protected BiConsumer<Item, Action> confirmedAction() {
-        return (subject, action) -> {
-            Identifier id = action.getIdentifier();
-            if (id instanceof ConfirmActions) {
-                Item parent = subject.getParent();
-                parent.addAction(action);
-            } else {
-                subject.clearActions();
-                subject.addAction(action);
+    protected BiConsumer<Item, Collection<Action>> confirmedAction() {
+        return (subject, actions) -> {
+            for (Action action: actions) {
+                Identifier id = action.getIdentifier();
+                if (id instanceof ConfirmActions) {
+                    Item parent = subject.getParent();
+                    parent.addAction(action);
+                } else {
+                    subject.clearActions();
+                    subject.addAction(action);
+                }
             }
         };
     }

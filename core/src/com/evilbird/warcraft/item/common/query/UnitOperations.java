@@ -25,6 +25,7 @@ import com.evilbird.warcraft.item.common.capability.OffensiveObject;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.placement.Placeholder;
@@ -33,6 +34,8 @@ import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
+import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
+import com.evilbird.warcraft.item.unit.combatant.Submarine;
 import com.evilbird.warcraft.item.unit.critter.Critter;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 
@@ -328,7 +331,7 @@ public class UnitOperations
 
     /**
      * Determines if a given {@link Item} belongs to a
-     * {@link Player#isViewable() () viewable player}.
+     * {@link Player#isViewable() viewable player}.
      */
     public static boolean isViewable(Item item) {
         if (item != null) {
@@ -443,6 +446,22 @@ public class UnitOperations
         return item instanceof Player;
     }
 
+    public static boolean isHighlighted(Item item) {
+        if (item instanceof Unit) {
+            Unit unit = (Unit)item;
+            return unit.getHighlighted();
+        }
+        return false;
+    }
+
+    public static boolean isCastingSpell(Item item, Spell spell) {
+        if (item instanceof SpellCaster) {
+            SpellCaster spellCaster = (SpellCaster)item;
+            return spellCaster.getCastingSpell() == spell;
+        }
+        return false;
+    }
+
     public static boolean inSight(OffensiveObject combatant, Item target) {
         return isNear(combatant, combatant.getSight(), target);
     }
@@ -464,6 +483,19 @@ public class UnitOperations
             Unit unit = (Unit)item;
             UnitType type = (UnitType)unit.getType();
             return type.isNavalUnit();
+        }
+        return false;
+    }
+
+    public static boolean isSubmarine(Item item) {
+        return item instanceof Submarine;
+    }
+
+    public static boolean isFlying(Item item) {
+        if (item instanceof Unit) {
+            Unit unit = (Unit)item;
+            UnitType type = (UnitType)unit.getType();
+            return type.isFlying();
         }
         return false;
     }

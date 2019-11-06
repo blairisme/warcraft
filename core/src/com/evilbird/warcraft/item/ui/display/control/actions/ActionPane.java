@@ -179,32 +179,17 @@ public class ActionPane extends Grid implements MenuProvider
         return Collections.emptyList();
     }
 
-    private List<ActionButton> getButtons(ActionPaneView view, Item item) {
-        ButtonController controller = buttons.getButtonController(item, view);
-        return getButtons(controller, item);
-    }
-
     private List<ActionButton> getButtons(ActionPaneView view, Collection<Item> items) {
         List<ActionButton> result = new ArrayList<>();
         if (items.size() == 1) {
-            Item item = items.iterator().next();
-            ButtonController controller = buttons.getButtonController(item, view);
-            return getButtons(controller, item);
+            return getButtons(view, items.iterator().next());
         }
-
-//        Iterator<Item> itemsIterator = items.iterator();
-//        if (itemsIterator.hasNext()) {
-//            Item item = itemsIterator.next();
-//            ButtonController controller = buttons.getButtonController(item, view);
-//            result.addAll(getButtons(controller, item));
-//
-//            while (itemsIterator.hasNext()) {
-//                item = itemsIterator.next();
-//                controller = buttons.getButtonController(item, view);
-//                result.retainAll(getButtons(controller, item));
-//            }
-//        }
         return result;
+    }
+
+    private List<ActionButton> getButtons(ActionPaneView view, Item item) {
+        ButtonController controller = buttons.getButtonController(item, view);
+        return getButtons(controller, item);
     }
 
     private List<ActionButton> getButtons(ButtonController controller, Item item) {

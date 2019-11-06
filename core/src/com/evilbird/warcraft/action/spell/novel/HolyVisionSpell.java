@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.spell.power;
+package com.evilbird.warcraft.action.spell.novel;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.item.Item;

@@ -15,6 +15,9 @@ import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 /**
+ * A reusable class for creating {@link ConjuredObject ConjuredObjects},
+ * loading the necessary assets and defining the appropriate attributes.
+ *
  * @author Blair Butterworth
  */
 public abstract class ConjuredFactoryBase implements GameFactory<ConjuredObject>

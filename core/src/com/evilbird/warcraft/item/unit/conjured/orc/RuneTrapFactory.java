@@ -17,7 +17,6 @@ import com.evilbird.warcraft.item.unit.conjured.ConjuredObject;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.unit.UnitType.RuneTrap;
 
@@ -45,11 +44,6 @@ public class RuneTrapFactory extends ConjuredFactoryBase
         result.setAttackRange(tiles(2));
         result.setBasicDamage(20);
         result.setPiercingDamage(5);
-        result.setHealth(1);
-        result.setHealthMaximum(1);
-        result.setIdentifier(objectIdentifier("RuneTrap", result));
-        result.setSight(tiles(4));
-        result.setType(RuneTrap);
         return result;
     }
 }

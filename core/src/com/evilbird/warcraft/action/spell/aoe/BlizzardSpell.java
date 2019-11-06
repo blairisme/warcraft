@@ -10,9 +10,9 @@
 package com.evilbird.warcraft.action.spell.aoe;
 
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.EffectType;
+import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
 
@@ -21,10 +21,10 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class BlizzardSpell extends SpellAction
+public class BlizzardSpell extends AoeSpellAction
 {
     @Inject
-    public BlizzardSpell(ItemFactory factory) {
-        super(Spell.Blizzard, EffectType.Blizzard, factory);
+    public BlizzardSpell(ItemFactory factory, AoeSpellCancel cancel) {
+        super(Spell.Blizzard, EffectType.Blizzard, UnitType.Blizzard, factory, cancel);
     }
 }

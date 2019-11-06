@@ -11,6 +11,7 @@ package com.evilbird.warcraft.item.unit.building;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.warcraft.item.common.capability.OffensiveCapability;
+import com.evilbird.warcraft.item.common.capability.OffensivePlurality;
 import com.evilbird.warcraft.item.common.capability.RangedOffensiveObject;
 import com.evilbird.warcraft.item.projectile.Projectile;
 import com.evilbird.warcraft.item.projectile.ProjectileType;
@@ -19,6 +20,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import static com.evilbird.warcraft.item.common.capability.OffensiveCapability.Air;
+import static com.evilbird.warcraft.item.common.capability.OffensivePlurality.Individual;
 import static com.evilbird.warcraft.item.projectile.ProjectileType.Arrow;
 
 /**
@@ -53,6 +55,15 @@ public class Tower extends Building implements RangedOffensiveObject
     }
 
     /**
+     * Returns whether the number of targets the {@code Tower} can
+     * attack in a given instant.
+     */
+    @Override
+    public OffensivePlurality getAttackPlurality() {
+        return Individual;
+    }
+
+    /**
      * Returns the distance that the {@code Tower} can reach with its
      * attacks.
      */
@@ -67,6 +78,15 @@ public class Tower extends Building implements RangedOffensiveObject
     @Override
     public float getAttackSpeed() {
         return attackSpeed;
+    }
+
+    /**
+     * Returns whether the {@code OffensiveObject} is visible to potential
+     * attackers.
+     */
+    @Override
+    public boolean isAttackable() {
+        return true;
     }
 
     /**

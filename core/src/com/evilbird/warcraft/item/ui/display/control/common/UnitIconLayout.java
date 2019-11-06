@@ -23,6 +23,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.Ballista;
 import static com.evilbird.warcraft.item.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.item.unit.UnitType.Battleship;
 import static com.evilbird.warcraft.item.unit.UnitType.Blacksmith;
+import static com.evilbird.warcraft.item.unit.UnitType.Blizzard;
 import static com.evilbird.warcraft.item.unit.UnitType.BombardTower;
 import static com.evilbird.warcraft.item.unit.UnitType.CannonTower;
 import static com.evilbird.warcraft.item.unit.UnitType.Castle;
@@ -32,6 +33,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.Church;
 import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
 import static com.evilbird.warcraft.item.unit.UnitType.Daemon;
 import static com.evilbird.warcraft.item.unit.UnitType.DarkPortal;
+import static com.evilbird.warcraft.item.unit.UnitType.DeathAndDecay;
 import static com.evilbird.warcraft.item.unit.UnitType.DeathKnight;
 import static com.evilbird.warcraft.item.unit.UnitType.Dockyard;
 import static com.evilbird.warcraft.item.unit.UnitType.Dragon;
@@ -101,6 +103,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.TrollLumberMill;
 import static com.evilbird.warcraft.item.unit.UnitType.TrollTanker;
 import static com.evilbird.warcraft.item.unit.UnitType.UtherLightbringer;
 import static com.evilbird.warcraft.item.unit.UnitType.WatchTower;
+import static com.evilbird.warcraft.item.unit.UnitType.Whirlwind;
 import static com.evilbird.warcraft.item.unit.UnitType.Zuljin;
 
 /**
@@ -137,8 +140,8 @@ public class UnitIconLayout
             Unknown,                Unknown,            Unknown,                Unknown,                Unknown,
             Unknown,                Unknown,            Unknown,                Unknown,                Unknown,
             Unknown,                Unknown,            RuneTrap,               Unknown,                Unknown,
-            Unknown,                Unknown,            Unknown,                Unknown,                Unknown,
-            Unknown,                Unknown,            Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,            Unknown,                DeathAndDecay,          Whirlwind,
+            Blizzard,               Unknown,            Unknown,                Unknown,                Unknown,
             Unknown,                EyeOfKilrogg,       Unknown,                Unknown,                Skeleton,
             Seal,                   Unknown,            Unknown,                Unknown,                Unknown
         );

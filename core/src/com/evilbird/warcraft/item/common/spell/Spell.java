@@ -58,8 +58,8 @@ public enum Spell
     public float getCastTime() {
         switch (this) {
             case Bloodlust:
-            case Exorcism: return 1f;
-            case Heal: return 1.5f;
+            case Exorcism:
+            case Heal: return 1f;
             case HolyVision: return 5f;
             default: throw new UnsupportedOperationException();
         }

@@ -20,33 +20,33 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Defines a catalog of animations as laid out in non-attacking flying unit
- * texture atlas files.
+ * Defines a catalog of animations as laid out in Goblin Zeppelin texture atlas
+ * files.
  *
  * @author Blair Butterworth
  */
-public class ScoutAnimations extends AnimationCatalog
+public class ZeppelinAnimations extends AnimationCatalog
 {
-    public ScoutAnimations(CombatantAssets assets) {
-        this(assets.getBaseTexture(), assets.getSize());
+    public ZeppelinAnimations(CombatantAssets assets) {
+        this(assets.getBaseTexture(), assets.getExplosionTexture(), assets.getSize());
     }
 
-    public ScoutAnimations(Texture base, GridPoint2 size) {
+    public ZeppelinAnimations(Texture base, Texture explosion, GridPoint2 size) {
         super(3);
 
         requireNonNull(base);
         requireNonNull(size);
 
-        death(base, size);
+        death(explosion);
         idleAndMove(base, size);
     }
 
-    private void death(Texture base, GridPoint2 size) {
+    private void death(Texture explosion) {
         animation(Death)
-            .withTexture(base)
-            .withSequence(size.y * 2, 2)
-            .withSize(size)
-            .withInterval(0.5f)
+            .withTexture(explosion)
+            .withSequence(0, 16)
+            .withSize(64, 64)
+            .withInterval(0.10f)
             .notLooping();
     }
 

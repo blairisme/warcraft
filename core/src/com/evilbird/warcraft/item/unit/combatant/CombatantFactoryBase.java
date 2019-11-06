@@ -22,20 +22,26 @@ import com.evilbird.warcraft.item.unit.UnitType;
  */
 public abstract class CombatantFactoryBase implements GameFactory<Combatant>
 {
-    protected UnitType type;
     protected AssetManager manager;
     protected CombatantAssets assets;
     protected CombatantBuilder builder;
+    protected UnitType assetType;
+    protected UnitType buildType;
 
     public CombatantFactoryBase(AssetManager manager, UnitType type) {
+        this(manager, type, type);
+    }
+
+    public CombatantFactoryBase(AssetManager manager, UnitType assetType, UnitType buildType) {
         this.manager = manager;
-        this.type = type;
+        this.assetType = assetType;
+        this.buildType = buildType;
     }
 
     @Override
     public void load(GameContext context) {
-        assets = new CombatantAssets(manager, type);
-        builder = new CombatantBuilder(assets, type);
+        assets = new CombatantAssets(manager, assetType);
+        builder = new CombatantBuilder(assets, buildType);
         assets.load();
     }
 

@@ -29,7 +29,7 @@ import java.util.Collections;
 public class BloodlustSpell extends BuffSpellAction
 {
     @Inject
-    public BloodlustSpell(ItemFactory factory, BloodlustSpellCancel cancel) {
+    public BloodlustSpell(ItemFactory factory, BloodlustCancel cancel) {
         super(Spell.Bloodlust, EffectType.Spell, factory, cancel);
     }
 

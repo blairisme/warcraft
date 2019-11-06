@@ -10,10 +10,13 @@
 package com.evilbird.warcraft.item.unit;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.evilbird.engine.common.graphics.Renderable;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 
 import java.util.Collections;
 import java.util.Map;
+
+import static com.evilbird.engine.common.graphics.EmptyRenderable.BlankRenderable;
 
 /**
  * Defines the visual and auditory presentation of a {@link Unit}.
@@ -23,10 +26,19 @@ import java.util.Map;
 public class UnitStyle extends ViewableStyle
 {
     /**
-     * The texture drawn below a {@link Unit} when its selected.
+     * The {@link Renderable} drawn below a {@link Unit} when its highlighted.
      */
-    public Texture selection;
+    public Renderable highlight;
 
+    /**
+     * The {@link Renderable} drawn below a {@link Unit} when its selected.
+     */
+    public Renderable selection;
+
+    /**
+     * A map of {@link Texture Textures} used to associate highlight masks with
+     * {@link Unit} {@code Textures}.
+     */
     public Map<Texture, Texture> masks;
 
     /**
@@ -35,7 +47,8 @@ public class UnitStyle extends ViewableStyle
      */
     public UnitStyle() {
         super();
-        selection = null;
+        selection = BlankRenderable;
+        highlight = BlankRenderable;
         masks = Collections.emptyMap();
     }
 
@@ -51,6 +64,7 @@ public class UnitStyle extends ViewableStyle
      */
     public UnitStyle(UnitStyle style) {
         super(style);
+        highlight = style.highlight;
         selection = style.selection;
         masks = style.masks;
     }

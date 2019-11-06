@@ -11,10 +11,12 @@ package com.evilbird.warcraft.item.ui.display.control.actions.buttons;
 
 import com.evilbird.warcraft.item.common.production.ProductionCosts;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
+import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
 
 import java.util.List;
 
@@ -73,5 +75,9 @@ public abstract class BasicButtonController implements ButtonController
             }
         }
         return true;
+    }
+
+    protected boolean hasMana(SpellCaster caster, Spell spell) {
+        return caster.getMana() >= spell.getManaCost();
     }
 }

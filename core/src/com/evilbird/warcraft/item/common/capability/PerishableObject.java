@@ -19,17 +19,24 @@ import com.evilbird.engine.item.Item;
 public interface PerishableObject extends Item
 {
     /**
-     * Returns how much damage the item’s armor absorbs with each attack.
+     * Returns how much damage the {@code PerishableObject PerishableObjects}
+     * armour absorbs with each attack.
      */
     int getArmour();
 
     /**
-     * Returns the health of the item.
+     * Returns the health of the {@code PerishableObject}.
      */
     float getHealth();
 
     /**
-     * Sets the health of the item.
+     * Returns whether the {@code PerishableObject} is visible to potential
+     * attackers.
+     */
+    boolean isAttackable();
+
+    /**
+     * Sets the health of the {@code PerishableObject}.
      */
     void setHealth(float health);
 }

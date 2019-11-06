@@ -11,6 +11,8 @@ package com.evilbird.warcraft.item.unit.resource;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.graphics.FlashingRenderable;
+import com.evilbird.engine.common.graphics.SpriteRenderable;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitStyle;
@@ -56,7 +58,8 @@ public class ResourceBuilder
         UnitStyle style = new UnitStyle();
         style.animations = animations.get();
         style.sounds = sounds.get();
-        style.selection = assets.getSelectionTexture();
+        style.selection = new SpriteRenderable(assets.getSelectionTexture());
+        style.highlight = new FlashingRenderable(assets.getHighlightTexture());
         return style;
     }
 

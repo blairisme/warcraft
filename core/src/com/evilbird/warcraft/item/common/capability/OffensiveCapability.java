@@ -18,7 +18,7 @@ package com.evilbird.warcraft.item.common.capability;
 public enum OffensiveCapability
 {
     /**
-     * Indicate that an object has no offensive capability.
+     * Indicates that an object has no offensive capability.
      */
     None,
 

@@ -21,10 +21,10 @@ import java.util.Collections;
  *
  * @author Blair Butterworth
  */
-public class BloodlustSpellCancel extends BuffSpellCancel
+public class BloodlustCancel extends BuffSpellCancel
 {
     @Inject
-    public BloodlustSpellCancel() {
+    public BloodlustCancel() {
     }
 
     @Override

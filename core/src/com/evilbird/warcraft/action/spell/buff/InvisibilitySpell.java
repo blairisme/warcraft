@@ -9,10 +9,12 @@
 
 package com.evilbird.warcraft.action.spell.buff;
 
+import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.EffectType;
+import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
@@ -25,8 +27,24 @@ import javax.inject.Inject;
  */
 public class InvisibilitySpell extends SpellAction
 {
+    private InvisibilityCancel cancel;
+
     @Inject
-    public InvisibilitySpell(ItemFactory factory) {
+    public InvisibilitySpell(ItemFactory factory, InvisibilityCancel cancel) {
         super(Spell.Invisibility, EffectType.Spell, factory);
+        this.cancel = cancel;
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+
+        Combatant target = (Combatant)getTarget();
+
+        cancel.setItem(getItem());
+        cancel.setTarget(target);
+
+        target.setAttackable(false);
+        target.addAction(cancel, new GameTimer(spell.getEffectDuration()));
     }
 }

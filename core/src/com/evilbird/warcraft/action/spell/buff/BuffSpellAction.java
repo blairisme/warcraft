@@ -23,7 +23,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import java.util.Collection;
 
 /**
- * A base class for spells that modify the attributes of a given game object.
+ * A base class for spells that modifies the attributes of a given game object.
  *
  * @author Blair Butterworth
  */
@@ -68,63 +68,4 @@ public abstract class BuffSpellAction extends SpellAction
         cancel.setTarget(target);
         target.addAction(cancel, new GameTimer(spell.getEffectDuration()));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //    protected void addAttackSpeedBuff() {
-//        Combatant target = (Combatant)getTarget();
-//        Value oldValue = target.getAttackSpeedValue();
-//        Value newValue = addBuff(spell, oldValue);
-//        target.setAttackSpeed(newValue);
-//    }
-//
-//    protected void addMovementSpeedBuff() {
-//        Combatant target = (Combatant)getTarget();
-//        Value oldValue = target.getMovementSpeedValue();
-//        Value newValue = addBuff(spell, oldValue);
-//        target.setMovementSpeed(newValue);
-//    }
-//
-//    protected void addGatherSpeedBuff() {
-//        addGatherGoldSpeedBuff();
-//        addGatherOilSpeedBuff();
-//        addGatherWoodSpeedBuff();
-//    }
-//
-//    private void addGatherGoldSpeedBuff() {
-//        Gatherer target = (Gatherer)getTarget();
-//        Value oldValue = target.getGoldGatherSpeedValue();
-//        Value newValue = addBuff(spell, oldValue);
-//        target.setGoldGatherSpeed(newValue);
-//    }
-//
-//    private void addGatherOilSpeedBuff() {
-//        Gatherer target = (Gatherer)getTarget();
-//        Value oldValue = target.getOilGatherSpeedValue();
-//        Value newValue = addBuff(spell, oldValue);
-//        target.setOilGatherSpeed(newValue);
-//    }
-//
-//    private void addGatherWoodSpeedBuff() {
-//        Gatherer target = (Gatherer)getTarget();
-//        Value oldValue = target.getWoodGatherSpeedValue();
-//        Value newValue = addBuff(spell, oldValue);
-//        target.setWoodGatherSpeed(newValue);
-//    }
 }

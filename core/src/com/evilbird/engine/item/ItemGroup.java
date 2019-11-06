@@ -96,7 +96,7 @@ public class ItemGroup extends ItemBasic implements ItemComposite
      *
      * @return the children of the ItemGroup.
      */
-    public Collection<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
