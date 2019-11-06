@@ -66,6 +66,7 @@ public class EffectBuilder
         Effect result = new Effect(getSkin());
         result.setAnimation(UnitAnimation.Idle);
         result.setTouchable(Touchable.disabled);
+        result.setVisible(true);
         result.setSize(32, 32);
         return result;
     }

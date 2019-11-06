@@ -20,6 +20,7 @@ import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
 import javax.inject.Inject;
 import java.util.Collection;
 
+import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 
 /**
@@ -37,7 +38,7 @@ public class SpellDeselect extends BasicAction
     public boolean act(float time) {
         removeCastingSpell();
         setUnhighlighted();
-        return ActionIncomplete;
+        return ActionComplete;
     }
 
     private void removeCastingSpell() {

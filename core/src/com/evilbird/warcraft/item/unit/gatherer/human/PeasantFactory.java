@@ -73,7 +73,7 @@ public class PeasantFactory extends GathererFactoryBase
         result.setArmour(new UpgradeValue(MeleeDefence, 0, 2, 4));
         result.setBasicDamage(new UpgradeValue(MeleeDamage, 5, 7, 9));
         result.setPiercingDamage(1);
-        result.setHealth(15);
+        result.setHealth(30);
         result.setHealthMaximum(30);
     }
 

@@ -52,10 +52,10 @@ public class SpellInteractions extends InteractionContainer
             .appliedTo(Selected)
             .appliedAs(Replacement);
 
-        addAction(SpellDeselect)
-            .whenSelected(isCastingSpell(Heal))
-            .whenTarget(CancelButton)
-            .appliedTo(Selected)
-            .appliedAs(Addition);
+//        addAction(SpellDeselect)
+//            .whenSelected(isCastingSpell(Heal))
+//            .whenTarget(CancelButton)
+//            .appliedTo(Selected)
+//            .appliedAs(Addition);
     }
 }

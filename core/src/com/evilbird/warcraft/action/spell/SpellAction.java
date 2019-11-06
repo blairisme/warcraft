@@ -15,7 +15,6 @@ import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.Effect;
 import com.evilbird.warcraft.item.effect.EffectType;
@@ -79,20 +78,20 @@ public abstract class SpellAction extends BasicAction
     }
 
     protected void initialize() {
+        Item target = getTarget();
+
+        Effect spellEffect = (Effect)factory.get(effect);
+        spellEffect.setPosition(target.getPosition(Center), Center);
+
         SpellCaster caster = (SpellCaster)getItem();
         caster.setMana(Math.max(0, caster.getMana() - spell.getManaCost()));
         caster.setAnimation(CastSpell);
-
-        Effect spellEffect = (Effect)factory.get(effect);
         caster.setSpellEffect(spellEffect);
-
-        Item target = getTarget();
-        spellEffect.setPosition(target.getPosition(Center), Center);
-
-        ItemRoot parent = caster.getRoot();
-        parent.addItem(spellEffect);
-
+        caster.setCastingProgress(0f);
         reorient(caster, target, false);
+
+        ItemGroup parent = caster.getParent();
+        parent.addItem(spellEffect);
     }
 
     private boolean isLoaded() {
