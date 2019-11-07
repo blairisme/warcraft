@@ -368,7 +368,7 @@
    <property name="Colour" value="Red"/>
    <property name="Faction" value="Orc"/>
    <property name="Gold" type="float" value="0"/>
-   <property name="Level" type="int" value="7"/>
+   <property name="Level" type="int" value="8"/>
    <property name="Nation" value="Blackrock"/>
    <property name="Oil" type="float" value="0"/>
    <property name="Team" type="int" value="1"/>

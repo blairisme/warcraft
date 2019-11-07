@@ -54,9 +54,9 @@ public class ZeppelinAnimations extends AnimationCatalog
         alias(Move, Idle);
         animation(Idle)
             .withTexture(base)
-            .withSequence(0, 2)
+            .withSequence(0, 1)
             .withSize(size)
-            .withInterval(0.10f)
+            .withInterval(10f)
             .looping();
     }
 }

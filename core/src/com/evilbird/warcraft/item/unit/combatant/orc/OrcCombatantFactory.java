@@ -27,6 +27,7 @@ public class OrcCombatantFactory extends GameFactorySet<Combatant>
     @Inject
     public OrcCombatantFactory(
         CatapultFactory catapultFactory,
+        ChogallFactory chogallFactory,
         DeathKnightFactory deathKnightFactory,
         DragonFactory dragonFactory,
         FerryFactory ferryFactory,
@@ -43,6 +44,7 @@ public class OrcCombatantFactory extends GameFactorySet<Combatant>
         ZuljinFactory zuljinFactory)
     {
         addProvider(UnitType.Catapult, catapultFactory);
+        addProvider(UnitType.Chogall, chogallFactory);
         addProvider(UnitType.DeathKnight, deathKnightFactory);
         addProvider(UnitType.Dragon, dragonFactory);
         addProvider(UnitType.Ferry, ferryFactory);
