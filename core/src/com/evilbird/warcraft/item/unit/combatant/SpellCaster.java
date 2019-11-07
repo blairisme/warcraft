@@ -27,6 +27,7 @@ public class SpellCaster extends RangedCombatant
 {
     private float mana;
     private float manaMaximum;
+    private float manaRegeneration;
     private float castingProgress;
     private Spell castingSpell;
 
@@ -41,6 +42,7 @@ public class SpellCaster extends RangedCombatant
         super(skin);
         mana = 0;
         manaMaximum = 0;
+        manaRegeneration = 0;
         castingProgress = 1;
         castingSpell = null;
     }
@@ -74,6 +76,13 @@ public class SpellCaster extends RangedCombatant
      */
     public float getManaMaximum() {
         return manaMaximum;
+    }
+
+    /**
+     * Returns the rate at which this spell casters mana regeneration rate.
+     */
+    public float getManaRegeneration() {
+        return manaRegeneration;
     }
 
     /**
@@ -122,10 +131,25 @@ public class SpellCaster extends RangedCombatant
     }
 
     /**
+     * Sets the rate at which this spell casters mana regeneration rate.
+     */
+    public void setManaRegeneration(float manaRegeneration) {
+        this.manaRegeneration = manaRegeneration;
+    }
+
+    /**
      * Sets the effect shown for the last spell cast by the spell caster.
      */
     public void setSpellEffect(Effect spell) {
         setAssociatedItem(spell);
+    }
+
+    @Override
+    public void update(float time) {
+        super.update(time);
+        if (mana < manaMaximum) {
+            mana = Math.min(manaMaximum, mana + (manaRegeneration * time));
+        }
     }
 
     @Override
@@ -141,6 +165,7 @@ public class SpellCaster extends RangedCombatant
             .append(castingSpell, that.castingSpell)
             .append(mana, that.mana)
             .append(manaMaximum, that.manaMaximum)
+            .append(manaRegeneration, that.manaRegeneration)
             .isEquals();
     }
 
@@ -152,6 +177,7 @@ public class SpellCaster extends RangedCombatant
             .append(castingSpell)
             .append(mana)
             .append(manaMaximum)
+            .append(manaRegeneration)
             .toHashCode();
     }
 

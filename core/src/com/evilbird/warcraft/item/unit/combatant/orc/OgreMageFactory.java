@@ -52,6 +52,7 @@ public class OgreMageFactory extends CombatantFactoryBase
         result.setIdentifier(objectIdentifier("OgreMage", result));
         result.setMana(200f);
         result.setManaMaximum(200f);
+        result.setManaRegeneration(4f);
         result.setMovementSpeed(8 * 13);
         result.setMovementCapability(Land);
         result.setSight(tiles(5));
