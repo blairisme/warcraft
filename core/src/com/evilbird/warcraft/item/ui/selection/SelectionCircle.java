@@ -19,19 +19,16 @@ import com.evilbird.engine.item.ItemBasic;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
 
 /**
- * Instances of this class represent a selection box, a user defined area
- * denoting those items that should be selected.
- *
  * @author Blair Butterworth
  */
-public class SelectionBox extends ItemBasic implements Disposable
+public class SelectionCircle extends ItemBasic implements Disposable
 {
     private Texture texture;
 
-    public SelectionBox() {
+    public SelectionCircle() {
         setIdentifier(SelectionType.SelectionBox);
         setType(SelectionType.SelectionBox);
-        setTouchable(Touchable.disabled);
+        setTouchable(Touchable.enabled);
         setVisible(true);
     }
 
@@ -42,7 +39,7 @@ public class SelectionBox extends ItemBasic implements Disposable
 
     private Texture getTexture() {
         if (texture == null) {
-            texture = TextureUtils.getRectangle((int)getWidth(), (int)getHeight(), FOREST_GREEN);
+            texture = TextureUtils.getCircle((int)getWidth(), FOREST_GREEN);
         }
         return texture;
     }

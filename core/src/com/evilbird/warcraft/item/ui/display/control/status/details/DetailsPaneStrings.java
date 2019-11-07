@@ -117,6 +117,6 @@ public class DetailsPaneStrings
     }
 
     public String getMagic() {
-        return detailsBundle.get("magic");
+        return detailsBundle.format("magic");
     }
 }

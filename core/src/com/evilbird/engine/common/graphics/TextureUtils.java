@@ -102,7 +102,7 @@ public class TextureUtils
     }
 
     public static Drawable getDrawable(int width, int height, Color colour) {
-        return getDrawable(getTexture(width, height, colour));
+        return getDrawable(getRectangle(width, height, colour));
     }
 
     public static Drawable getTiledDrawable(AssetManager assets, String path) {
@@ -123,8 +123,8 @@ public class TextureUtils
      *
      * @return a new {@link Texture}. This method will not return {@code null}.
      */
-    public static Texture getTexture(GridPoint2 size, Color colour) {
-        return getTexture(size.x, size.y, colour);
+    public static Texture getRectangle(GridPoint2 size, Color colour) {
+        return getRectangle(size.x, size.y, colour);
     }
 
     /**
@@ -137,10 +137,17 @@ public class TextureUtils
      *
      * @return a new {@link Texture}. This method will not return {@code null}.
      */
-    public static Texture getTexture(int width, int height, Color colour) {
+    public static Texture getRectangle(int width, int height, Color colour) {
         Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
         pixmap.setColor(colour);
         pixmap.drawRectangle(0, 0, pixmap.getWidth(), pixmap.getHeight());
+        return new Texture(pixmap);
+    }
+
+    public static Texture getCircle(int radius, Color colour) {
+        Pixmap pixmap = new Pixmap(radius * 2, radius * 2, Pixmap.Format.RGBA8888);
+        pixmap.setColor(colour);
+        pixmap.drawCircle(radius, radius, radius);
         return new Texture(pixmap);
     }
 }

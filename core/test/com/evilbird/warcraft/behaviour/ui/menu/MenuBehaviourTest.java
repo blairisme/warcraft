@@ -65,6 +65,8 @@ public class MenuBehaviourTest extends GameTestCase
 
     @Before
     public void setup() {
+        super.setup();
+
         LabelStyle labelStyle = new LabelStyle();
         labelStyle.font = Fonts.ARIAL;
 
@@ -80,6 +82,8 @@ public class MenuBehaviourTest extends GameTestCase
         Skin skin = mock(Skin.class);
         when(skin.get(LabelStyle.class)).thenReturn(labelStyle);
         when(skin.get(anyString(), any())).then(invocation -> mock((Class<?>)invocation.getArguments()[1]));
+        when(skin.get("default", LabelStyle.class)).thenReturn(labelStyle);
+        when(skin.get("mana-bar", LabelStyle.class)).thenReturn(labelStyle);
         when(skin.get(DetailsPaneStyle.class)).thenReturn(detailsPaneStyle);
 
         player = TestPlayers.newTestPlayer("player");

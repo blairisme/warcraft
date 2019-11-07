@@ -32,6 +32,7 @@ import java.util.Map.Entry;
 public class ValueSerializer implements JsonSerializer<Value>, JsonDeserializer<Value>
 {
     private static final String BUFF = "buff";
+    private static final String ABSOLUTE = "absolute";
     private static final String ORIGINAL = "original";
 
     @Inject
@@ -42,6 +43,9 @@ public class ValueSerializer implements JsonSerializer<Value>, JsonDeserializer<
     public JsonElement serialize(Value source, Type type, JsonSerializationContext context) {
         if (source instanceof BuffValue) {
             return serializeBuff((BuffValue)source, context);
+        }
+        if (source instanceof AbsoluteBuffValue) {
+            return serializeAbsolute((AbsoluteBuffValue)source, context);
         }
         if (source instanceof FixedValue) {
             return serializeFixed((FixedValue)source);
@@ -55,6 +59,13 @@ public class ValueSerializer implements JsonSerializer<Value>, JsonDeserializer<
     private JsonElement serializeBuff(BuffValue source, JsonSerializationContext context) {
         JsonObject json = new JsonObject();
         json.addProperty(BUFF, source.getModifier());
+        json.add(ORIGINAL, context.serialize(source.getOriginal()));
+        return json;
+    }
+
+    private JsonElement serializeAbsolute(AbsoluteBuffValue source, JsonSerializationContext context) {
+        JsonObject json = new JsonObject();
+        json.addProperty(ABSOLUTE, source.getModified());
         json.add(ORIGINAL, context.serialize(source.getOriginal()));
         return json;
     }
@@ -82,6 +93,9 @@ public class ValueSerializer implements JsonSerializer<Value>, JsonDeserializer<
         if (json.has(BUFF)) {
             return deserializeBuff(json, context);
         }
+        if (json.has(ABSOLUTE)) {
+            return deserializeAbsolute(json, context);
+        }
         if (json.has(Upgrade.None.name())) {
             return deserializeUpgrade(json);
         }
@@ -92,6 +106,12 @@ public class ValueSerializer implements JsonSerializer<Value>, JsonDeserializer<
         float buff = json.get(BUFF).getAsFloat();
         Value original = context.deserialize(json.get(ORIGINAL), Value.class);
         return new BuffValue(buff, original);
+    }
+
+    private Value deserializeAbsolute(JsonObject json, JsonDeserializationContext context) {
+        float buff = json.get(ABSOLUTE).getAsFloat();
+        Value original = context.deserialize(json.get(ORIGINAL), Value.class);
+        return new AbsoluteBuffValue(buff, original);
     }
 
     private Value deserializeFixed(JsonElement json) {

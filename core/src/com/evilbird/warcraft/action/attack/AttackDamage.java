@@ -43,9 +43,13 @@ public class AttackDamage
      *                  the attacker.
      */
     public static float getDamagedHealth(OffensiveObject attacker, PerishableObject target) {
-        int damage = getDamage(attacker, target);
+        int damage = vulnerable(target) ? getDamage(attacker, target) : 0;
         float health = target.getHealth();
         return Math.max(0, health - damage);
+    }
+
+    private static boolean vulnerable(PerishableObject target) {
+        return target.getArmour() != Integer.MAX_VALUE;
     }
 
     private static int getDamage(OffensiveObject combatant, PerishableObject target) {

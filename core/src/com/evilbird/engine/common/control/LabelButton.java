@@ -105,7 +105,7 @@ public class LabelButton extends TextButton implements Disposable
     private void updateBorder() {
         dispose();
         if (borderColour != null) {
-            borderTexture = TextureUtils.getTexture((int)getWidth(), (int)getHeight(), borderColour);
+            borderTexture = TextureUtils.getRectangle((int)getWidth(), (int)getHeight(), borderColour);
             borderDrawable = TextureUtils.getDrawable(borderTexture);
         }
     }

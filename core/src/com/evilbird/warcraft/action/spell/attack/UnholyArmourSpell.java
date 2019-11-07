@@ -10,11 +10,17 @@
 package com.evilbird.warcraft.action.spell.attack;
 
 import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.action.spell.SpellAction;
-import com.evilbird.warcraft.item.common.spell.Spell;
+import com.evilbird.warcraft.item.common.value.AbsoluteBuffValue;
+import com.evilbird.warcraft.item.common.value.Value;
 import com.evilbird.warcraft.item.effect.EffectType;
+import com.evilbird.warcraft.item.unit.Unit;
 
 import javax.inject.Inject;
+
+import static com.evilbird.engine.item.utility.ItemOperations.assignIfAbsent;
+import static com.evilbird.warcraft.item.common.spell.Spell.UnholyArmour;
 
 /**
  * A spell that surrounds a target with a unholy armour, making it invulnerable
@@ -25,8 +31,40 @@ import javax.inject.Inject;
  */
 public class UnholyArmourSpell extends SpellAction
 {
+    private transient DeathAction death;
+    private transient UnholyArmourSpell cancel;
+
     @Inject
-    public UnholyArmourSpell(ItemFactory factory) {
-        super(Spell.UnholyArmour, EffectType.Spell, factory);
+    public UnholyArmourSpell(ItemFactory factory, DeathAction death, UnholyArmourSpell cancel) {
+        super(UnholyArmour, EffectType.Spell, factory);
+        this.death = death;
+        this.cancel = cancel;
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+        Unit target = (Unit)getTarget();
+        setHealth(target);
+        setBuff(target);
+        setNextAction(target);
+    }
+
+    private void setHealth(Unit target) {
+        target.setHealth(Math.max(0, target.getHealth() - spell.getValue()));
+    }
+
+    private void setBuff(Unit target) {
+        Value oldValue = target.getArmourValue();
+        AbsoluteBuffValue newValue = new AbsoluteBuffValue(Integer.MAX_VALUE, oldValue);
+        target.setArmour(newValue);
+    }
+
+    private void setNextAction(Unit target) {
+        if (target.getHealth() == 0) {
+            assignIfAbsent(target, death);
+        } else {
+            target.addAction(cancel, spell.getEffectDuration());
+        }
     }
 }
