@@ -18,8 +18,6 @@ import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneE
 import com.evilbird.warcraft.item.ui.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
-import javax.inject.Inject;
-
 /**
  * Instances of this user interface show details about
  * {@link Combatant Combatants}.
@@ -35,7 +33,6 @@ public class CombatantDetailsPane extends Grid implements DetailsPaneElement
     private Label speed;
     private DetailsPaneStyle style;
 
-    @Inject
     public CombatantDetailsPane(Skin skin) {
         super(1, 5);
 
@@ -73,7 +70,7 @@ public class CombatantDetailsPane extends Grid implements DetailsPaneElement
         this.style = skin.get(DetailsPaneStyle.class);
     }
 
-    private Label createLabel(Skin skin) {
+    protected Label createLabel(Skin skin) {
         Label result = new Label("", skin);
         result.setSize(160, 12);
         result.setAlignment(Align.center);

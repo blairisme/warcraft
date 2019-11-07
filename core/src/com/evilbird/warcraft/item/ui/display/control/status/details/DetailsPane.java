@@ -18,12 +18,14 @@ import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.ui.display.control.status.details.building.BuildingDetailsPane;
 import com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantDetailsPane;
 import com.evilbird.warcraft.item.ui.display.control.status.details.combatant.CombatantTitlePane;
+import com.evilbird.warcraft.item.ui.display.control.status.details.combatant.SpellCasterDetailsPane;
 import com.evilbird.warcraft.item.ui.display.control.status.details.common.UnitTitlePane;
 import com.evilbird.warcraft.item.ui.display.control.status.details.resource.ResourceDetailsPane;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.building.ResourceExtractor;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 
 import static com.evilbird.warcraft.item.common.query.UnitOperations.isCorporeal;
@@ -43,6 +45,7 @@ public class DetailsPane extends Grid
     private CombatantTitlePane combatantTitle;
     private BuildingDetailsPane buildingDetails;
     private CombatantDetailsPane combatantDetails;
+    private SpellCasterDetailsPane spellCasterDetails;
     private ResourceDetailsPane resourceDetails;
 
     public DetailsPane(Skin skin) {
@@ -52,6 +55,7 @@ public class DetailsPane extends Grid
         combatantTitle = new CombatantTitlePane(skin);
         buildingDetails = new BuildingDetailsPane(skin);
         combatantDetails = new CombatantDetailsPane(skin);
+        spellCasterDetails = new SpellCasterDetailsPane(skin);
         resourceDetails = new ResourceDetailsPane(skin);
 
         setSkin(skin);
@@ -123,6 +127,8 @@ public class DetailsPane extends Grid
             setDetails(resourceDetails, item);
         } else if (item instanceof Building) {
             setDetails(buildingDetails, item);
+        } else if (item instanceof SpellCaster) {
+            setDetails(spellCasterDetails, item);
         } else if (item instanceof Combatant) {
             setDetails(combatantDetails, item);
         }

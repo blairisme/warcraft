@@ -10,10 +10,10 @@
 package com.evilbird.warcraft.item.ui.display.control;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonStyle;
 import com.evilbird.warcraft.item.ui.display.control.common.HealthBarStyle;
@@ -60,6 +60,7 @@ public class ControlPaneBuilder
         skin.add("menu-panel", assets.getMenuPanel(), Drawable.class);
         skin.add("minimap-panel", assets.getMinimapPanel(), Drawable.class);
         skin.add("selection-panel", assets.getSelectionPanel(), Drawable.class);
+        addManaBarStyle(skin);
         return skin;
     }
 
@@ -72,15 +73,15 @@ public class ControlPaneBuilder
         return style;
     }
 
-    private Label.LabelStyle getFontStyle() {
-        Label.LabelStyle style = new Label.LabelStyle();
+    private LabelStyle getFontStyle() {
+        LabelStyle style = new LabelStyle();
         style.font = assets.getFont();
         style.fontColor = Color.WHITE;
         return style;
     }
 
-    private TextButton.TextButtonStyle getButtonStyle() {
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+    private TextButtonStyle getButtonStyle() {
+        TextButtonStyle textButtonStyle = new TextButtonStyle();
         textButtonStyle.font = assets.getFont();
         textButtonStyle.fontColor = Color.WHITE;
         textButtonStyle.up = assets.getButtonEnabled();
@@ -92,12 +93,25 @@ public class ControlPaneBuilder
         return textButtonStyle;
     }
 
-    private ProgressBar.ProgressBarStyle getBuildingProgressStyle() {
-        ProgressBar.ProgressBarStyle style = new ProgressBar.ProgressBarStyle();
+    private ProgressBarStyle getBuildingProgressStyle() {
+        ProgressBarStyle style = new ProgressBarStyle();
         style.background = assets.getBuildingBackground();
         style.knob = assets.getBuildingFill();
         style.knobBefore = style.knob;
         return style;
+    }
+
+    private void addManaBarStyle(Skin skin) {
+        ProgressBarStyle progressBarStyle = new ProgressBarStyle();
+        progressBarStyle.background = assets.getManaBackground();
+        progressBarStyle.knob = assets.getManaFill();
+        progressBarStyle.knobBefore = progressBarStyle.knob;
+        skin.add("mana-bar", progressBarStyle, ProgressBarStyle.class);
+
+        LabelStyle labelStyle = new LabelStyle();
+        labelStyle.font = assets.getFont();
+        labelStyle.fontColor = Color.WHITE;
+        skin.add("mana-bar", labelStyle, LabelStyle.class);
     }
 
     private DetailsPaneStyle getDetailsPaneStyle() {

@@ -51,6 +51,8 @@ public class ControlPaneAssets extends AssetBundle
         register("deselectButton", "data/textures/common/menu/unselect.png");
         register("buildingFill", "data/textures/common/menu/building_progress_bar.png");
         register("buildingBackground", "data/textures/common/menu/building_progress_background.png");
+        register("manaFill", "data/textures/common/menu/mana_progress_bar.png");
+        register("manaBackground", "data/textures/common/menu/mana_progress_background.png");
         register("healthProgressHigh", "data/textures/common/menu/health_bar_high.png");
         register("healthProgressMedium", "data/textures/common/menu/health_bar_medium.png");
         register("healthProgressLow", "data/textures/common/menu/health_bar_low.png");
@@ -74,7 +76,7 @@ public class ControlPaneAssets extends AssetBundle
     }
 
     private void registerFonts() {
-        register("font", "data/fonts/philosopher-medium.ttf", BitmapFont.class, fontSize(16));
+        register("font", "data/fonts/philosopher-small.ttf", BitmapFont.class, fontSize(14));
     }
 
     public IconSet getIcons() {
@@ -141,6 +143,14 @@ public class ControlPaneAssets extends AssetBundle
 
     public Drawable getBuildingBackground() {
         return getDrawable("buildingBackground");
+    }
+
+    public Drawable getManaFill() {
+        return getDrawable("manaFill");
+    }
+
+    public Drawable getManaBackground() {
+        return getDrawable("manaBackground");
     }
 
     public Drawable getHealthProgressHigh() {

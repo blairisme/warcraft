@@ -115,4 +115,8 @@ public class DetailsPaneStrings
     public String getSpeed(int speed) {
         return detailsBundle.format("speed", speed);
     }
+
+    public String getMagic() {
+        return detailsBundle.get("magic");
+    }
 }

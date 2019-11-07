@@ -32,8 +32,8 @@ public class TextProgressBar extends Stack
         this(min, max, stepSize, text, skin, "default");
     }
 
-    public TextProgressBar(float min, float max, float stepSize, String text, Skin skin, String style) {
-        progressBar = new ProgressBar(min, max, stepSize, false, skin, style);
+    public TextProgressBar(float min, float max, float increment, String text, Skin skin, String style) {
+        progressBar = new ProgressBar(min, max, increment, false, skin, style);
         outline = new Image(skin.get(style, ProgressBarStyle.class).background);
 
         label = new Label(text, skin, style);
@@ -42,6 +42,14 @@ public class TextProgressBar extends Stack
         add(progressBar);
         add(outline);
         add(label);
+    }
+
+    public void setMaxValue(float maxValue) {
+        progressBar.setRange(progressBar.getMinValue(), maxValue);
+    }
+
+    public void setMinValue(float minValue) {
+        progressBar.setRange(minValue, progressBar.getMaxValue());
     }
 
     public void setValue(float value) {
