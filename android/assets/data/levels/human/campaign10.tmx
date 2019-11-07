@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="109">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="109">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/summer.png" width="576" height="864"/>
  </tileset>
@@ -211,7 +211,11 @@
    <property name="ZIndex" type="int" value="6"/>
   </properties>
   <object id="12" name="GoldMine1" type="GoldMine" gid="386" x="3712" y="128" width="96" height="96"/>
-  <object id="13" name="GoldMine2" type="GoldMine" gid="386" x="3200" y="704" width="96" height="96"/>
+  <object id="13" name="GoldMine2" type="GoldMine" gid="386" x="3200" y="704" width="96" height="96">
+   <properties>
+    <property name="Gold" type="float" value="30000"/>
+   </properties>
+  </object>
   <object id="14" name="GoldMine3" type="GoldMine" gid="386" x="2432" y="2176" width="96" height="96"/>
   <object id="15" name="GoldMine4" type="GoldMine" gid="386" x="0" y="576" width="96" height="96"/>
   <object id="16" name="Sheep1" type="Sheep" gid="1529" x="3104" y="192" width="32" height="32"/>
@@ -239,7 +243,7 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Colour" value="Red"/>
    <property name="Faction" value="Orc"/>
-   <property name="Nation" value="TwilightsHammer"/>
+   <property name="Nation" value="Blackrock"/>
    <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="7"/>
@@ -285,7 +289,7 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Colour" value="Blue"/>
    <property name="Faction" value="Orc"/>
-   <property name="Nation" value="BlackToothGrin"/>
+   <property name="Nation" value="Stormreaver"/>
    <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="8"/>
@@ -320,7 +324,7 @@
    <property name="Colour" value="Orange"/>
    <property name="Controllable" type="bool" value="true"/>
    <property name="Faction" value="Human"/>
-   <property name="Nation" value="KulTiras"/>
+   <property name="Nation" value="Alterac"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
    <property name="Viewable" type="bool" value="true"/>
@@ -340,13 +344,13 @@
    <property name="AI" type="bool" value="false"/>
    <property name="Colour" value="Silver"/>
    <property name="Faction" value="Human"/>
-   <property name="Gold" type="float" value="0"/>
+   <property name="Gold" type="float" value="1000"/>
    <property name="Level" type="int" value="10"/>
-   <property name="Nation" value="Azeroth"/>
-   <property name="Oil" type="float" value="0"/>
+   <property name="Nation" value="Lordaeron"/>
+   <property name="Oil" type="float" value="1000"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
-   <property name="Wood" type="float" value="0"/>
+   <property name="Wood" type="float" value="1000"/>
    <property name="ZIndex" type="int" value="10"/>
   </properties>
   <object id="1" name="TownHall1" type="TownHall" gid="390" x="3488" y="800" width="128" height="128"/>

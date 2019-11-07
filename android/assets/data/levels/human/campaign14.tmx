@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="190">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="190">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/swamp.png" width="576" height="864"/>
  </tileset>
@@ -270,7 +270,11 @@
   <object id="38" name="GoldMine2" type="GoldMine" gid="386" x="0" y="3776" width="96" height="96"/>
   <object id="39" name="GoldMine3" type="GoldMine" gid="386" x="0" y="2208" width="96" height="96"/>
   <object id="40" name="GoldMine4" type="GoldMine" gid="386" x="1536" y="1920" width="96" height="96"/>
-  <object id="41" name="GoldMine5" type="GoldMine" gid="386" x="160" y="2816" width="96" height="96"/>
+  <object id="41" name="GoldMine5" type="GoldMine" gid="386" x="160" y="2816" width="96" height="96">
+   <properties>
+    <property name="Gold" type="float" value="65000"/>
+   </properties>
+  </object>
   <object id="42" name="Boar1" type="Boar" gid="1235" x="2656" y="3904" width="32" height="32"/>
   <object id="43" name="Boar2" type="Boar" gid="1235" x="2752" y="4064" width="32" height="32"/>
   <object id="44" name="Boar3" type="Boar" gid="1235" x="2496" y="4064" width="32" height="32"/>
@@ -296,7 +300,7 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Colour" value="Silver"/>
    <property name="Faction" value="Orc"/>
-   <property name="Nation" value="Blackrock"/>
+   <property name="Nation" value="Dragonmaw"/>
    <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="6"/>
@@ -351,7 +355,7 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Colour" value="Black"/>
    <property name="Faction" value="Orc"/>
-   <property name="Nation" value="Blackrock"/>
+   <property name="Nation" value="BlackToothGrin"/>
    <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="7"/>
@@ -381,7 +385,7 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Colour" value="Orange"/>
    <property name="Faction" value="Orc"/>
-   <property name="Nation" value="Blackrock"/>
+   <property name="Nation" value="BurningBlade"/>
    <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="8"/>
@@ -453,13 +457,13 @@
    <property name="AI" type="bool" value="false"/>
    <property name="Colour" value="Blue"/>
    <property name="Faction" value="Human"/>
-   <property name="Gold" type="float" value="0"/>
+   <property name="Gold" type="float" value="3000"/>
    <property name="Level" type="int" value="10"/>
    <property name="Nation" value="Azeroth"/>
-   <property name="Oil" type="float" value="0"/>
+   <property name="Oil" type="float" value="1000"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
-   <property name="Wood" type="float" value="0"/>
+   <property name="Wood" type="float" value="4000"/>
    <property name="ZIndex" type="int" value="9"/>
   </properties>
   <object id="1" name="Peasant1" type="Peasant" gid="549" x="2432" y="3840" width="72" height="72"/>
