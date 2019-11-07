@@ -229,7 +229,11 @@
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="7"/>
   </properties>
-  <object id="22" name="GoldMine1" type="GoldMine" gid="385" x="1120" y="96" width="96" height="96"/>
+  <object id="22" name="GoldMine1" type="GoldMine" gid="385" x="1120" y="96" width="96" height="96">
+   <properties>
+    <property name="Gold" type="float" value="62500"/>
+   </properties>
+  </object>
   <object id="23" name="GoldMine2" type="GoldMine" gid="385" x="1568" y="768" width="96" height="96"/>
   <object id="54" name="GoldMine3" type="GoldMine" gid="385" x="448" y="2304" width="96" height="96"/>
   <object id="24" name="GoldMine4" type="GoldMine" gid="385" x="256" y="3776" width="96" height="96"/>
@@ -269,7 +273,7 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Colour" value="Blue"/>
    <property name="Faction" value="Human"/>
-   <property name="Nation" value="Lordaeron"/>
+   <property name="Nation" value="Azeroth"/>
    <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="8"/>

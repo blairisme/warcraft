@@ -171,7 +171,7 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Colour" value="Red"/>
    <property name="Faction" value="Human"/>
-   <property name="Nation" value="Lordaeron"/>
+   <property name="Nation" value="Stormgarde"/>
    <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="6"/>
@@ -239,13 +239,13 @@
    <property name="AI" type="bool" value="false"/>
    <property name="Colour" value="Black"/>
    <property name="Faction" value="Orc"/>
-   <property name="Gold" type="float" value="0"/>
+   <property name="Gold" type="float" value="2000"/>
    <property name="Level" type="int" value="5"/>
-   <property name="Nation" value="Blackrock"/>
-   <property name="Oil" type="float" value="0"/>
+   <property name="Nation" value="BlackToothGrin"/>
+   <property name="Oil" type="float" value="2000"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
-   <property name="Wood" type="float" value="0"/>
+   <property name="Wood" type="float" value="1500"/>
    <property name="ZIndex" type="int" value="8"/>
   </properties>
   <object id="1" name="Peon1" type="Peon" gid="608" x="4000" y="32" width="72" height="72"/>

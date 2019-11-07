@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="48">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="48">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/winter.png" width="576" height="864"/>
  </tileset>
@@ -157,12 +157,13 @@
    <property name="Colour" value="Red"/>
    <property name="Faction" value="Orc"/>
    <property name="Food" type="float" value="1"/>
-   <property name="Gold" type="float" value="1000"/>
+   <property name="Gold" type="float" value="800"/>
    <property name="Level" type="int" value="2"/>
    <property name="Nation" value="Blackrock"/>
+   <property name="Oil" type="int" value="0"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
-   <property name="Wood" type="float" value="1000"/>
+   <property name="Wood" type="float" value="400"/>
    <property name="ZIndex" type="int" value="8"/>
   </properties>
   <object id="1" name="Grunt1" type="Grunt" gid="385" x="1344" y="1632" width="72" height="72"/>
