@@ -14,6 +14,7 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.behaviour.ai.attack.AttackBehaviour;
+import com.evilbird.warcraft.behaviour.ai.critter.WanderBehaviour;
 import com.evilbird.warcraft.behaviour.ai.idle.IdleBehaviour;
 import com.evilbird.warcraft.behaviour.ai.submarine.SubmarineBehaviour;
 
@@ -36,12 +37,14 @@ public class AiBehaviour implements Behaviour
     public AiBehaviour(
         AttackBehaviour attackBehaviour,
         IdleBehaviour idleBehaviour,
-        SubmarineBehaviour submarineBehaviour)
+        SubmarineBehaviour submarineBehaviour,
+        WanderBehaviour wanderBehaviour)
     {
         components = new ArrayList<>();
         components.add(attackBehaviour);
         components.add(idleBehaviour);
         components.add(submarineBehaviour);
+        components.add(wanderBehaviour);
     }
 
     @Override

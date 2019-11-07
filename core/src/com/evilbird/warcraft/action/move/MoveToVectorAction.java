@@ -42,7 +42,18 @@ public class MoveToVectorAction extends MoveAction
     }
 
     @Override
-    public Vector2 getDestination() {
+    public void reset() {
+        super.reset();
+        filter = null;
+        destination = null;
+    }
+
+    public void setDestination(Vector2 destination) {
+        this.destination = destination;
+    }
+
+    @Override
+    protected Vector2 getDestination() {
         if (destination == null) {
             Item item = getItem();
             ItemRoot root = item.getRoot();
@@ -54,13 +65,13 @@ public class MoveToVectorAction extends MoveAction
     }
 
     @Override
-    public boolean destinationReached(ItemNode node) {
+    protected boolean destinationReached(ItemNode node) {
         Vector2 destination = getDestination();
         return Objects.equals(node.getWorldReference(), destination);
     }
 
     @Override
-    public ItemPathFilter getPathFilter() {
+    protected ItemPathFilter getPathFilter() {
         if (filter == null) {
             MovableObject item = (MovableObject)getItem();
             filter = new ItemPathFilter();
@@ -68,19 +79,5 @@ public class MoveToVectorAction extends MoveAction
             filter.addTraversableCapability(item.getMovementCapability());
         }
         return filter;
-    }
-
-    @Override
-    public void reset() {
-        super.reset();
-        filter = null;
-        destination = null;
-    }
-
-    @Override
-    public void restart() {
-        super.restart();
-        filter = null;
-        destination = null;
     }
 }

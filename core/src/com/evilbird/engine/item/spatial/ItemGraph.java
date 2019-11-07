@@ -187,6 +187,19 @@ public class ItemGraph implements SpatialGraph<ItemNode>
 
     /**
      * Returns the set of {@link ItemNode ItemNodes} directly adjacent to the
+     * given {@link Item} and offset by the given radius.
+     *
+     * @param item          the item whose adjacent nodes will be returned.
+     * @param worldRadius   a radius in world terms.
+     *
+     * @return a {@link Collection} of unique {@code ItemNodes}.
+     */
+    public Collection<ItemNode> getAdjacentNodes(Item item, int worldRadius) {
+        return getAdjacentNodes(item.getPosition(), item.getSize(), worldRadius);
+    }
+
+    /**
+     * Returns the set of {@link ItemNode ItemNodes} directly adjacent to the
      * given world position and size.
      *
      * @param worldPosition   a position in world terms.
@@ -278,6 +291,12 @@ public class ItemGraph implements SpatialGraph<ItemNode>
         return result;
     }
 
+    /**
+     * Returns the unique index of the given node.
+     *
+     * @param node  the node whose index will be returned
+     * @return      the unique index of the given node.
+     */
     @Override
     public int getIndex(ItemNode node) {
         return node.getIndex();

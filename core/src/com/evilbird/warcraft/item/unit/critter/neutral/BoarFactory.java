@@ -45,7 +45,7 @@ public class BoarFactory extends CritterFactoryBase
         result.setHealth(5);
         result.setHealthMaximum(5);
         result.setIdentifier(objectIdentifier("Boar", result));
-        result.setMovementSpeed(8 * 10);
+        result.setMovementSpeed(7 * 10);
         result.setMovementCapability(Land);
         result.setSight(tiles(2));
         result.setType(Boar);
