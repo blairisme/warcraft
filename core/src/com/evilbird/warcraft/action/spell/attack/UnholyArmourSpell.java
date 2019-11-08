@@ -32,10 +32,10 @@ import static com.evilbird.warcraft.item.common.spell.Spell.UnholyArmour;
 public class UnholyArmourSpell extends SpellAction
 {
     private transient DeathAction death;
-    private transient UnholyArmourSpell cancel;
+    private transient UnholyArmourCancel cancel;
 
     @Inject
-    public UnholyArmourSpell(ItemFactory factory, DeathAction death, UnholyArmourSpell cancel) {
+    public UnholyArmourSpell(ItemFactory factory, DeathAction death, UnholyArmourCancel cancel) {
         super(UnholyArmour, EffectType.Spell, factory);
         this.death = death;
         this.cancel = cancel;
