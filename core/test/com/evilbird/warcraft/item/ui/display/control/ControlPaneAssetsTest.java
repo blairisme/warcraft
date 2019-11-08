@@ -11,7 +11,8 @@ package com.evilbird.warcraft.item.ui.display.control;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.test.testcase.AssetBundleTestCase;
-import com.evilbird.warcraft.item.ui.display.resource.ResourcePaneAssets;
+import com.evilbird.warcraft.item.display.control.ControlPaneAssets;
+import com.evilbird.warcraft.item.display.resource.ResourcePaneAssets;
 import com.evilbird.warcraft.state.WarcraftContext;
 
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
@@ -23,10 +24,10 @@ import static com.evilbird.warcraft.common.WarcraftSeason.Winter;
  *
  * @author Blair Butterworth
  */
-public class ControlPaneAssetsTest extends AssetBundleTestCase<ControlPaneAssets>
+public class ControlPaneAssetsTest extends AssetBundleTestCase<com.evilbird.warcraft.item.display.control.ControlPaneAssets>
 {
     @Override
-    protected ControlPaneAssets getAssetBundle(AssetManager assets) {
+    protected com.evilbird.warcraft.item.display.control.ControlPaneAssets getAssetBundle(AssetManager assets) {
         return new ControlPaneAssets(assets, new WarcraftContext(Human, Winter));
     }
 }

@@ -28,7 +28,7 @@ import static com.evilbird.warcraft.item.layer.LayerType.Map;
 import static com.evilbird.warcraft.item.layer.LayerType.OpaqueFogSection;
 import static com.evilbird.warcraft.item.layer.LayerType.Sea;
 import static com.evilbird.warcraft.item.layer.LayerType.Shore;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StopButton;
+import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.StopButton;
 import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
 import static com.evilbird.warcraft.item.unit.UnitType.OilPatch;
 

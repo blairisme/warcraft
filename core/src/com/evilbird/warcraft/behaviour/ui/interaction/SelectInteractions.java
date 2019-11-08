@@ -24,7 +24,7 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Singleton;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelectable;
-import static com.evilbird.warcraft.item.ui.display.control.status.selection.SelectionButtonType.UnselectButton;
+import static com.evilbird.warcraft.item.display.control.status.selection.SelectionButtonType.UnselectButton;
 
 /**
  * Defines user interactions that result in game object selection.

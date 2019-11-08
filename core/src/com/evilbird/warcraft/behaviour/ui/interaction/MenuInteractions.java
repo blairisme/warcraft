@@ -20,10 +20,10 @@ import static com.evilbird.warcraft.action.menu.MenuActions.IngameMenu;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Standalone;
-import static com.evilbird.warcraft.item.ui.display.HudControl.MenuPane;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildAdvancedButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildCancelButton;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.BuildSimpleButton;
+import static com.evilbird.warcraft.item.display.HudControl.MenuPane;
+import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.BuildAdvancedButton;
+import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.BuildCancelButton;
+import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.BuildSimpleButton;
 
 /**
  * Defines user interactions that result in manipulation of the menu user

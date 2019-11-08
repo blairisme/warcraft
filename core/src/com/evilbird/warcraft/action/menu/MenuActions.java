@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.menu;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.warcraft.item.ui.display.control.actions.ActionPaneView;
+import com.evilbird.warcraft.item.display.control.actions.ActionPaneView;
 import com.evilbird.warcraft.menu.ingame.IngameMenuType;
 
 /**

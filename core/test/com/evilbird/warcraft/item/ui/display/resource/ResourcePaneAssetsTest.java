@@ -11,21 +11,22 @@ package com.evilbird.warcraft.item.ui.display.resource;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.test.testcase.AssetBundleTestCase;
+import com.evilbird.warcraft.item.display.resource.ResourcePaneAssets;
 import com.evilbird.warcraft.state.WarcraftContext;
 
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftSeason.Winter;
 
 /**
- * Instances of this unit test validate logic in the {@link ResourcePaneAssets}
+ * Instances of this unit test validate logic in the {@link com.evilbird.warcraft.item.display.resource.ResourcePaneAssets}
  * class.
  *
  * @author Blair Butterworth
  */
-public class ResourcePaneAssetsTest extends AssetBundleTestCase<ResourcePaneAssets>
+public class ResourcePaneAssetsTest extends AssetBundleTestCase<com.evilbird.warcraft.item.display.resource.ResourcePaneAssets>
 {
     @Override
-    protected ResourcePaneAssets getAssetBundle(AssetManager assets) {
+    protected com.evilbird.warcraft.item.display.resource.ResourcePaneAssets getAssetBundle(AssetManager assets) {
         return new ResourcePaneAssets(assets, new WarcraftContext(Human, Winter));
     }
 }

@@ -24,7 +24,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isControlla
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDestroyable;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isResource;
 import static com.evilbird.warcraft.item.layer.LayerType.WallSection;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.CancelButton;
 
 /**
  * Defines user interactions that result in attacking game objects.

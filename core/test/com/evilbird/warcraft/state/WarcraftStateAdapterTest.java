@@ -11,7 +11,7 @@ package com.evilbird.warcraft.state;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.evilbird.test.utils.JsonSerializerContext;
-import com.evilbird.warcraft.item.ui.display.HudLoader;
+import com.evilbird.warcraft.item.display.HudLoader;
 import com.google.gson.JsonElement;
 import com.google.gson.internal.Streams;
 import com.google.gson.stream.JsonReader;

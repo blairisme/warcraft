@@ -17,8 +17,9 @@ import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
-import com.evilbird.warcraft.item.ui.display.control.ControlPaneFactory;
-import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
+import com.evilbird.warcraft.item.display.control.ControlPaneFactory;
+import com.evilbird.warcraft.item.display.control.actions.ActionButtonType;
+import com.evilbird.warcraft.item.display.control.common.IconSet;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.junit.Assert;
@@ -32,7 +33,7 @@ import static com.evilbird.warcraft.item.common.upgrade.Upgrade.OilProduction1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.OilProduction2;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.WoodProduction1;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.WoodProduction2;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.StopButton;
+import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.StopButton;
 
 /**
  * Instances of this unit test validate the {@link ControlPaneFactory} class.
@@ -41,7 +42,7 @@ import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButton
  */
 public class IconSetTest extends GameTestCase
 {
-    private IconSet iconSet;
+    private com.evilbird.warcraft.item.display.control.common.IconSet iconSet;
 
     @Before
     public void setup() {

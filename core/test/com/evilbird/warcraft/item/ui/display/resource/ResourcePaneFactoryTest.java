@@ -14,7 +14,9 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
-import com.evilbird.warcraft.item.ui.display.HudControl;
+import com.evilbird.warcraft.item.display.HudControl;
+import com.evilbird.warcraft.item.display.resource.ResourcePaneAssets;
+import com.evilbird.warcraft.item.display.resource.ResourcePaneFactory;
 import com.evilbird.warcraft.state.WarcraftContext;
 
 import java.util.Arrays;
@@ -33,10 +35,10 @@ import static com.evilbird.warcraft.common.WarcraftSeason.Winter;
  *
  * @author Blair Butterworth
  */
-public class ResourcePaneFactoryTest extends GameFactoryTestCase<ResourcePaneFactory>
+public class ResourcePaneFactoryTest extends GameFactoryTestCase<com.evilbird.warcraft.item.display.resource.ResourcePaneFactory>
 {
     @Override
-    protected ResourcePaneFactory newFactory(DeviceDisplay display, AssetManager assets) {
+    protected com.evilbird.warcraft.item.display.resource.ResourcePaneFactory newFactory(DeviceDisplay display, AssetManager assets) {
         return new ResourcePaneFactory(assets);
     }
 

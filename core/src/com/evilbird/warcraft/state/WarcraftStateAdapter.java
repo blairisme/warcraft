@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializerUtils;
 import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.item.ui.display.HudLoader;
+import com.evilbird.warcraft.item.display.HudLoader;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;

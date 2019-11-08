@@ -21,7 +21,7 @@ import static com.evilbird.warcraft.item.common.capability.MovementCapability.La
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isControllable;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isMovableOver;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isTransport;
-import static com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType.DisembarkButton;
+import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.DisembarkButton;
 
 /**
  * Defines user interactions that result in the transportation of game objects

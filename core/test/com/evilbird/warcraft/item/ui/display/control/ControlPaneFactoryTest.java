@@ -15,9 +15,11 @@ import com.evilbird.engine.device.DeviceControls;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
-import com.evilbird.warcraft.item.ui.display.HudControl;
-import com.evilbird.warcraft.item.ui.display.HudType;
-import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonStyle;
+import com.evilbird.warcraft.item.display.HudControl;
+import com.evilbird.warcraft.item.display.HudType;
+import com.evilbird.warcraft.item.display.control.ControlPane;
+import com.evilbird.warcraft.item.display.control.ControlPaneFactory;
+import com.evilbird.warcraft.item.display.control.actions.ActionButtonStyle;
 import com.evilbird.warcraft.state.WarcraftContext;
 import org.junit.Assert;
 import org.junit.Test;
@@ -34,14 +36,14 @@ import static com.evilbird.warcraft.common.WarcraftSeason.Summer;
 import static com.evilbird.warcraft.common.WarcraftSeason.Winter;
 
 /**
- * Instances of this unit test validate the {@link ControlPaneFactory} class.
+ * Instances of this unit test validate the {@link com.evilbird.warcraft.item.display.control.ControlPaneFactory} class.
  *
  * @author Blair Butterworth
  */
-public class ControlPaneFactoryTest extends GameFactoryTestCase<ControlPaneFactory> {
+public class ControlPaneFactoryTest extends GameFactoryTestCase<com.evilbird.warcraft.item.display.control.ControlPaneFactory> {
 
     @Override
-    protected ControlPaneFactory newFactory(DeviceDisplay display, AssetManager assets) {
+    protected com.evilbird.warcraft.item.display.control.ControlPaneFactory newFactory(DeviceDisplay display, AssetManager assets) {
         return new ControlPaneFactory(assets, Mockito.mock(DeviceControls.class));
     }
 
@@ -57,7 +59,7 @@ public class ControlPaneFactoryTest extends GameFactoryTestCase<ControlPaneFacto
         factory.load(new WarcraftContext(Human, Winter));
         assets.finishLoading();
 
-        ControlPane controlPane = (ControlPane)factory.get(HudType.Default);
+        com.evilbird.warcraft.item.display.control.ControlPane controlPane = (ControlPane)factory.get(HudType.Default);
         Assert.assertNotNull(controlPane);
         Assert.assertEquals(HudControl.ControlPane, controlPane.getType());
         Assert.assertTrue(controlPane.getSkin().has("action-button", ActionButtonStyle.class));
