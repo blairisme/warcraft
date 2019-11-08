@@ -227,7 +227,11 @@
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="6"/>
   </properties>
-  <object id="10" name="GoldMine1" type="GoldMine" gid="385" x="1600" y="3008" width="96" height="96"/>
+  <object id="10" name="GoldMine1" type="GoldMine" gid="385" x="1600" y="3008" width="96" height="96">
+   <properties>
+    <property name="Gold" type="float" value="55000"/>
+   </properties>
+  </object>
   <object id="20" name="GoldMine2" type="GoldMine" gid="385" x="416" y="1984" width="96" height="96"/>
   <object id="21" name="GoldMine3" type="GoldMine" gid="385" x="2944" y="128" width="96" height="96"/>
   <object id="22" name="OilPatch1" type="OilPatch" gid="1096" x="736" y="640" width="96" height="96"/>
@@ -246,7 +250,7 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Colour" value="Blue"/>
    <property name="Faction" value="Human"/>
-   <property name="Nation" value="Lordaeron"/>
+   <property name="Nation" value="Stormgarde"/>
    <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="7"/>
@@ -353,13 +357,13 @@
    <property name="AI" type="bool" value="false"/>
    <property name="Colour" value="Red"/>
    <property name="Faction" value="Orc"/>
-   <property name="Gold" type="float" value="0"/>
+   <property name="Gold" type="float" value="1000"/>
    <property name="Level" type="int" value="9"/>
-   <property name="Nation" value="Blackrock"/>
-   <property name="Oil" type="float" value="0"/>
+   <property name="Nation" value="BlackToothGrin"/>
+   <property name="Oil" type="float" value="1000"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
-   <property name="Wood" type="float" value="0"/>
+   <property name="Wood" type="float" value="1000"/>
    <property name="ZIndex" type="int" value="8"/>
   </properties>
   <object id="1" name="GreatHall1" type="GreatHall" gid="930" x="1184" y="2880" width="128" height="128"/>

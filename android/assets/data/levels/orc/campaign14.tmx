@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="174">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="174">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/summer.png" width="576" height="864"/>
  </tileset>
@@ -285,8 +285,16 @@
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="6"/>
   </properties>
-  <object id="21" name="GoldMine1" type="GoldMine" gid="386" x="416" y="3616" width="96" height="96"/>
-  <object id="22" name="GoldMine2" type="GoldMine" gid="386" x="2784" y="3264" width="96" height="96"/>
+  <object id="21" name="GoldMine1" type="GoldMine" gid="386" x="416" y="3616" width="96" height="96">
+   <properties>
+    <property name="Gold" type="float" value="105000"/>
+   </properties>
+  </object>
+  <object id="22" name="GoldMine2" type="GoldMine" gid="386" x="2784" y="3264" width="96" height="96">
+   <properties>
+    <property name="Gold" type="float" value="90000"/>
+   </properties>
+  </object>
   <object id="23" name="GoldMine3" type="GoldMine" gid="386" x="2272" y="224" width="96" height="96"/>
   <object id="24" name="OilPatch1" type="OilPatch" gid="385" x="3936" y="128" width="96" height="96"/>
   <object id="25" name="OilPatch2" type="OilPatch" gid="385" x="3232" y="1920" width="96" height="96"/>
@@ -362,7 +370,7 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Colour" value="Green"/>
    <property name="Faction" value="Human"/>
-   <property name="Nation" value="Azeroth"/>
+   <property name="Nation" value="KulTiras"/>
    <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="8"/>
@@ -389,9 +397,12 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Colour" value="Silver"/>
    <property name="Faction" value="Human"/>
-   <property name="Nation" value="Azeroth"/>
+   <property name="Gold" type="float" value="2500"/>
+   <property name="Nation" value="Lordaeron"/>
+   <property name="Oil" type="float" value="0"/>
    <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
+   <property name="Wood" type="float" value="0"/>
    <property name="ZIndex" type="int" value="9"/>
   </properties>
   <object id="50" name="Castle1" type="Castle" gid="1578" x="1984" y="352" width="128" height="128"/>
@@ -462,13 +473,13 @@
    <property name="AI" type="bool" value="false"/>
    <property name="Colour" value="Red"/>
    <property name="Faction" value="Orc"/>
-   <property name="Gold" type="float" value="0"/>
+   <property name="Gold" type="float" value="3000"/>
    <property name="Level" type="int" value="10"/>
    <property name="Nation" value="Blackrock"/>
-   <property name="Oil" type="float" value="0"/>
+   <property name="Oil" type="float" value="3000"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
-   <property name="Wood" type="float" value="0"/>
+   <property name="Wood" type="float" value="3000"/>
    <property name="ZIndex" type="int" value="10"/>
   </properties>
   <object id="1" name="GreatHall1" type="GreatHall" gid="396" x="288" y="3840" width="128" height="128"/>

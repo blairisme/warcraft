@@ -294,9 +294,12 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Colour" value="Pink"/>
    <property name="Faction" value="Human"/>
+   <property name="Gold" type="float" value="1000"/>
    <property name="Nation" value="Dalaran"/>
+   <property name="Oil" type="float" value="0"/>
    <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
+   <property name="Wood" type="float" value="0"/>
    <property name="ZIndex" type="int" value="8"/>
   </properties>
   <object id="33" name="Castle1" type="Castle" gid="1532" x="1888" y="1920" width="128" height="128"/>
@@ -418,13 +421,13 @@
    <property name="AI" type="bool" value="false"/>
    <property name="Colour" value="Red"/>
    <property name="Faction" value="Orc"/>
-   <property name="Gold" type="float" value="0"/>
+   <property name="Gold" type="float" value="3500"/>
    <property name="Level" type="int" value="7"/>
    <property name="Nation" value="Blackrock"/>
-   <property name="Oil" type="float" value="0"/>
+   <property name="Oil" type="float" value="1000"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
-   <property name="Wood" type="float" value="0"/>
+   <property name="Wood" type="float" value="1500"/>
    <property name="ZIndex" type="int" value="9"/>
   </properties>
   <object id="1" name="Peon1" type="Peon" gid="608" x="160" y="160" width="72" height="72"/>

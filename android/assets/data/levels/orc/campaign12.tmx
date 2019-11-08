@@ -300,9 +300,12 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Colour" value="Blue"/>
    <property name="Faction" value="Orc"/>
-   <property name="Nation" value="Blackrock"/>
+   <property name="Gold" type="float" value="1500"/>
+   <property name="Nation" value="Stormreaver"/>
+   <property name="Oil" type="float" value="0"/>
    <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
+   <property name="Wood" type="float" value="0"/>
    <property name="ZIndex" type="int" value="8"/>
   </properties>
   <object id="119" name="GreatHall1" type="GreatHall" gid="930" x="1824" y="1760" width="128" height="128"/>
@@ -375,9 +378,12 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Colour" value="Purple"/>
    <property name="Faction" value="Orc"/>
-   <property name="Nation" value="Blackrock"/>
+   <property name="Gold" type="float" value="1200"/>
+   <property name="Nation" value="TwilightsHammer"/>
+   <property name="Oil" type="float" value="0"/>
    <property name="Team" type="int" value="2"/>
    <property name="Type" value="Player"/>
+   <property name="Wood" type="float" value="0"/>
    <property name="ZIndex" type="int" value="9"/>
   </properties>
   <object id="65" name="Stronghold1" type="Stronghold" gid="1245" x="2816" y="1408" width="128" height="128"/>
@@ -446,13 +452,13 @@
    <property name="AI" type="bool" value="false"/>
    <property name="Colour" value="Red"/>
    <property name="Faction" value="Orc"/>
-   <property name="Gold" type="float" value="0"/>
+   <property name="Gold" type="float" value="2500"/>
    <property name="Level" type="int" value="7"/>
    <property name="Nation" value="Blackrock"/>
-   <property name="Oil" type="float" value="0"/>
+   <property name="Oil" type="float" value="1000"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
-   <property name="Wood" type="float" value="0"/>
+   <property name="Wood" type="float" value="2000"/>
    <property name="ZIndex" type="int" value="10"/>
   </properties>
   <object id="1" name="Peon1" type="Peon" gid="608" x="448" y="3936" width="72" height="72"/>
