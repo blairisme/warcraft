@@ -21,7 +21,7 @@ import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.action.common.transfer.TransferEvent;
-import com.evilbird.warcraft.action.select.SelectEvent;
+import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionPane;

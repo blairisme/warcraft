@@ -18,7 +18,7 @@ import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.spatial.ItemNode;
 import com.evilbird.warcraft.action.move.MoveEvent;
-import com.evilbird.warcraft.action.select.SelectFlash;
+import com.evilbird.warcraft.action.selection.SelectFlash;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;

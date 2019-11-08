@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.placeholder;
+package com.evilbird.warcraft.action.selector;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
@@ -19,19 +19,19 @@ import javax.inject.Inject;
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 
 /**
- * Instances of this class stop the use of a placeholder, removing it from the
+ * Instances of this class stop the use of a selector, removing it from the
  * game.
  *
  * @author Blair Butterworth
  */
-public class PlaceholderCancel extends BasicAction
+public class SelectorCancel extends BasicAction
 {
-    private PlaceholderEvents events;
+    private SelectorEvents events;
 
     @Inject
-    public PlaceholderCancel(PlaceholderEvents events) {
+    public SelectorCancel(SelectorEvents events) {
         this.events = events;
-        setIdentifier(PlaceholderActions.PlaceholderCancel);
+        setIdentifier(SelectorActions.SelectorCancel);
     }
 
     @Override

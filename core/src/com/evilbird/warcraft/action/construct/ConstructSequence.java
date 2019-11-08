@@ -15,7 +15,7 @@ import com.evilbird.engine.action.framework.StateTransitionAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.utility.ItemOperations;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
-import com.evilbird.warcraft.action.select.DeselectAction;
+import com.evilbird.warcraft.action.selection.DeselectAction;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 
 import javax.inject.Inject;

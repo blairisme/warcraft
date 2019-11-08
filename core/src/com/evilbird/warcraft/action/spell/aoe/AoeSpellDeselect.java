@@ -12,8 +12,6 @@ package com.evilbird.warcraft.action.spell.aoe;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
-import com.evilbird.warcraft.action.placeholder.PlaceholderEvents;
 import com.evilbird.warcraft.item.unit.Unit;
 
 import javax.inject.Inject;

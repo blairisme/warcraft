@@ -15,6 +15,9 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.data.item.TestPlaceholders;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.action.selector.SelectorActions;
+import com.evilbird.warcraft.action.selector.SelectorCreate;
+import com.evilbird.warcraft.action.selector.SelectorEvents;
 import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
@@ -26,25 +29,25 @@ import org.mockito.Mockito;
 import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.BarracksPlaceholder;
 
 /**
- * Instances of this unit test validate the {@link PlaceholderCreate} class.
+ * Instances of this unit test validate the {@link SelectorCreate} class.
  *
  * @author Blair Butterworth
  */
-public class PlaceholderCreateTest extends ActionTestCase
+public class SelectorCreateTest extends ActionTestCase
 {
-    private PlaceholderEvents reporter;
+    private SelectorEvents reporter;
 
     @Override
     protected Action newAction() {
-        reporter = Mockito.mock(PlaceholderEvents.class);
-        PlaceholderCreate action = new PlaceholderCreate(reporter, itemFactory);
-        action.setIdentifier(PlaceholderActions.AddBarracksPlaceholder);
+        reporter = Mockito.mock(SelectorEvents.class);
+        SelectorCreate action = new SelectorCreate(reporter, itemFactory);
+        action.setIdentifier(SelectorActions.BarracksSelector);
         return action;
     }
 
     @Override
     protected Enum newIdentifier() {
-        return PlaceholderActions.AddBarracksPlaceholder;
+        return SelectorActions.BarracksSelector;
     }
 
     protected Item newItem() {

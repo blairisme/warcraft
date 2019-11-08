@@ -15,7 +15,7 @@ import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.action.common.remove.RemoveEvents;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
-import com.evilbird.warcraft.action.select.SelectEvents;
+import com.evilbird.warcraft.action.selection.SelectEvents;
 import com.evilbird.warcraft.item.common.capability.OffensiveObject;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;

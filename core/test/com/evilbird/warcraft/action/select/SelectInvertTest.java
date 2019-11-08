@@ -11,6 +11,9 @@ package com.evilbird.warcraft.action.select;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.action.selection.SelectActions;
+import com.evilbird.warcraft.action.selection.SelectEvents;
+import com.evilbird.warcraft.action.selection.SelectInvert;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;
 import org.junit.Ignore;
@@ -21,7 +24,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Instances of this unit test validate the {@link SelectInvert} class.
+ * Instances of this unit test validate the {@link com.evilbird.warcraft.action.selection.SelectInvert} class.
  *
  * @author Blair Butterworth
  */
@@ -29,10 +32,10 @@ public class SelectInvertTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        SelectEvents events = Mockito.mock(SelectEvents.class);
+        com.evilbird.warcraft.action.selection.SelectEvents events = Mockito.mock(SelectEvents.class);
         WarcraftPreferences preferences = Mockito.mock(WarcraftPreferences.class);
-        SelectInvert action = new SelectInvert(events, preferences);
-        action.setIdentifier(SelectActions.SelectInvert);
+        com.evilbird.warcraft.action.selection.SelectInvert action = new SelectInvert(events, preferences);
+        action.setIdentifier(com.evilbird.warcraft.action.selection.SelectActions.SelectInvert);
         return action;
     }
 

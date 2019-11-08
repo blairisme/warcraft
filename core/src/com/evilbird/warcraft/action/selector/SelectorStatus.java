@@ -7,14 +7,14 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.placeholder;
+package com.evilbird.warcraft.action.selector;
 
 /**
- * Specifies the set of options for placeholder event state.
+ * Specifies the set of options for selector event state.
  *
  * @author Blair Butterworth
  */
-public enum PlaceholderStatus
+public enum SelectorStatus
 {
     Added,
     Removed

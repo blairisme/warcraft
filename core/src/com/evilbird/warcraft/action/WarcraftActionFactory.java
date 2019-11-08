@@ -29,13 +29,13 @@ import com.evilbird.warcraft.action.menu.MenuActions;
 import com.evilbird.warcraft.action.menu.MenuFactory;
 import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.move.MoveFactory;
-import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
-import com.evilbird.warcraft.action.placeholder.PlaceholderFactory;
+import com.evilbird.warcraft.action.selector.SelectorActions;
+import com.evilbird.warcraft.action.selector.SelectorFactory;
 import com.evilbird.warcraft.action.produce.ProduceFactory;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.action.produce.ProduceUpgradeActions;
-import com.evilbird.warcraft.action.select.SelectActions;
-import com.evilbird.warcraft.action.select.SelectFactory;
+import com.evilbird.warcraft.action.selection.SelectActions;
+import com.evilbird.warcraft.action.selection.SelectFactory;
 import com.evilbird.warcraft.action.spell.SpellActions;
 import com.evilbird.warcraft.action.spell.SpellFactory;
 import com.evilbird.warcraft.action.transport.TransportActions;
@@ -66,7 +66,7 @@ public class WarcraftActionFactory implements ActionFactory
         GatherFactory gatherFactory,
         MoveFactory moveFactory,
         MenuFactory menuFactory,
-        PlaceholderFactory placeholderFactory,
+        SelectorFactory selectorFactory,
         SelectFactory selectFactory,
         SpellFactory spellFactory,
         ProduceFactory produceFactory,
@@ -81,7 +81,7 @@ public class WarcraftActionFactory implements ActionFactory
         registerProvider(GatherActions.values(), gatherFactory);
         registerProvider(MoveActions.values(), moveFactory);
         registerProvider(MenuActions.values(), menuFactory);
-        registerProvider(PlaceholderActions.values(), placeholderFactory);
+        registerProvider(SelectorActions.values(), selectorFactory);
         registerProvider(SelectActions.values(), selectFactory);
         registerProvider(SpellActions.values(), spellFactory);
         registerProvider(ProduceUnitActions.values(), produceFactory);

@@ -11,7 +11,7 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.action.construct.ConstructActions;
-import com.evilbird.warcraft.action.placeholder.PlaceholderActions;
+import com.evilbird.warcraft.action.selector.SelectorActions;
 import com.evilbird.warcraft.item.ui.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -22,9 +22,9 @@ import javax.inject.Provider;
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.device.UserInputType.Drag;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
-import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderCancel;
-import static com.evilbird.warcraft.action.placeholder.PlaceholderActions.PlaceholderMove;
-import static com.evilbird.warcraft.action.select.SelectActions.SelectInvert;
+import static com.evilbird.warcraft.action.selector.SelectorActions.SelectorCancel;
+import static com.evilbird.warcraft.action.selector.SelectorActions.SelectorMove;
+import static com.evilbird.warcraft.action.selection.SelectActions.SelectInvert;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
@@ -66,7 +66,7 @@ public class ConstructInteractions extends InteractionContainer
             if (button.isBuildButton()) {
                 UnitType building = button.getBuildProduct();
                 PlaceholderType placeholder = PlaceholderType.forBuilding(building);
-                PlaceholderActions action = PlaceholderActions.forPlaceholder(placeholder);
+                SelectorActions action = SelectorActions.forPlaceholder(placeholder);
                 addPlaceholder(button, action);
             }
         }
@@ -81,13 +81,13 @@ public class ConstructInteractions extends InteractionContainer
     }
 
     private void cancelPlaceholder() {
-       addAction(PlaceholderCancel)
+       addAction(SelectorCancel)
             .whenTarget(CancelButton)
             .whenSelected(both(isGatherer(), associatedWith(isPlaceholder())))
             .appliedTo(Selected)
             .appliedAs(Addition);
 
-        addAction(PlaceholderCancel, SelectInvert)
+        addAction(SelectorCancel, SelectInvert)
             .whenSelected(both(isSelected(), associatedWith(isPlaceholder())))
             .whenTarget(isGatherer())
             .appliedTo(Selected)
@@ -95,7 +95,7 @@ public class ConstructInteractions extends InteractionContainer
     }
 
     private void dragPlaceholder() {
-        addAction(PlaceholderMove)
+        addAction(SelectorMove)
             .forInput(Drag)
             .whenTarget(isPlaceholder())
             .appliedTo(Target);

@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.placeholder;
+package com.evilbird.warcraft.action.selector;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
@@ -32,13 +32,13 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
  *
  * @author Blair Butterworth
  */
-public class PlaceholderCreate extends BasicAction
+public class SelectorCreate extends BasicAction
 {
     private ItemFactory factory;
-    private PlaceholderEvents events;
+    private SelectorEvents events;
 
     @Inject
-    public PlaceholderCreate(PlaceholderEvents events, ItemFactory factory) {
+    public SelectorCreate(SelectorEvents events, ItemFactory factory) {
         this.events = events;
         this.factory = factory;
     }
@@ -59,7 +59,7 @@ public class PlaceholderCreate extends BasicAction
     }
 
     private ItemType getPlaceholderType() {
-        PlaceholderActions placeholderAction = (PlaceholderActions)getIdentifier();
+        SelectorActions placeholderAction = (SelectorActions)getIdentifier();
         return placeholderAction.getPlaceholder();
     }
 

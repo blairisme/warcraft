@@ -22,11 +22,11 @@ import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.construct.ConstructStatus;
 import com.evilbird.warcraft.action.gather.GatherEvent;
 import com.evilbird.warcraft.action.gather.GatherStatus;
-import com.evilbird.warcraft.action.placeholder.PlaceholderEvent;
-import com.evilbird.warcraft.action.placeholder.PlaceholderStatus;
+import com.evilbird.warcraft.action.selector.SelectorEvent;
+import com.evilbird.warcraft.action.selector.SelectorStatus;
 import com.evilbird.warcraft.action.produce.ProduceEvent;
 import com.evilbird.warcraft.action.produce.ProduceStatus;
-import com.evilbird.warcraft.action.select.SelectEvent;
+import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
@@ -167,8 +167,8 @@ public class MenuBehaviour implements Behaviour
     }
 
     private void updatePlaceholderRecipients() {
-        for (PlaceholderEvent event: events.getEvents(PlaceholderEvent.class)) {
-            actionPane.setPlaceholder(event.getBuilder(), event.getStatus() == PlaceholderStatus.Added);
+        for (SelectorEvent event: events.getEvents(SelectorEvent.class)) {
+            actionPane.setPlaceholder(event.getBuilder(), event.getStatus() == SelectorStatus.Added);
         }
     }
 

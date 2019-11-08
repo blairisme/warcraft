@@ -15,6 +15,9 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.data.item.TestPlaceholders;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.action.selector.SelectorActions;
+import com.evilbird.warcraft.action.selector.SelectorCancel;
+import com.evilbird.warcraft.action.selector.SelectorEvents;
 import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
@@ -25,30 +28,30 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Instances of this unit test validate the {@link PlaceholderCancel} class.
+ * Instances of this unit test validate the {@link SelectorCancel} class.
  *
  * @author Blair Butterworth
  */
-public class PlaceholderCancelTest extends ActionTestCase
+public class SelectorCancelTest extends ActionTestCase
 {
     private Placeholder placeholder;
-    private PlaceholderEvents reporter;
+    private SelectorEvents reporter;
 
     @Before
     public void setup() {
-        reporter = Mockito.mock(PlaceholderEvents.class);
+        reporter = Mockito.mock(SelectorEvents.class);
         placeholder = TestPlaceholders.newTestPlaceholder("placeholder");
         super.setup();
     }
 
     @Override
     protected Action newAction() {
-        return new PlaceholderCancel(reporter);
+        return new SelectorCancel(reporter);
     }
 
     @Override
     protected Enum newIdentifier() {
-        return PlaceholderActions.PlaceholderCancel;
+        return SelectorActions.SelectorCancel;
     }
 
     protected Item newItem() {

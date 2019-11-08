@@ -1,13 +1,13 @@
 /*
- * Blair Butterworth (c) 2018
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.select;
+package com.evilbird.warcraft.action.selection;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionIdentifier;
@@ -24,8 +24,8 @@ import javax.inject.Inject;
  */
 public class SelectFactory implements ActionProvider
 {
-    private InjectedPool<SelectArea> selectAreaPool;
-    private InjectedPool<SelectInvert> selectInvertPool;
+    private InjectedPool<com.evilbird.warcraft.action.selection.SelectArea> selectAreaPool;
+    private InjectedPool<com.evilbird.warcraft.action.selection.SelectInvert> selectInvertPool;
 
     @Inject
     public SelectFactory(
@@ -38,7 +38,7 @@ public class SelectFactory implements ActionProvider
 
     @Override
     public Action get(ActionIdentifier identifier) {
-        Validate.isInstanceOf(SelectActions.class, identifier);
+        Validate.isInstanceOf(com.evilbird.warcraft.action.selection.SelectActions.class, identifier);
         switch ((SelectActions)identifier) {
             case SelectBoxBegin:
             case SelectBoxResize:

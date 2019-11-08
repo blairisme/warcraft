@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.construct;
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
-import com.evilbird.warcraft.action.select.DeselectAction;
+import com.evilbird.warcraft.action.selection.DeselectAction;
 import org.mockito.Mockito;
 
 /**

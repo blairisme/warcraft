@@ -72,7 +72,7 @@ public class WanderBehaviour implements AiBehaviourElement
     }
 
     private void update(ItemRoot state) {
-        if (timer.getTime(SECONDS) >= MOVE_PERIOD) {
+        if (! critters.isEmpty() && timer.getTime(SECONDS) >= MOVE_PERIOD) {
             timer.reset();
             move(state);
             timer.start();

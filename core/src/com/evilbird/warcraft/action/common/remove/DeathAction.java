@@ -21,7 +21,7 @@ import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
 import com.evilbird.engine.item.specialized.Viewable;
-import com.evilbird.warcraft.action.select.SelectEvent;
+import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;

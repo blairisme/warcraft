@@ -26,26 +26,27 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestPlaceholders;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
+import com.evilbird.warcraft.action.selector.SelectorMove;
 import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Instances of this unit test validate the {@link PlaceholderMove} class.
+ * Instances of this unit test validate the {@link SelectorMove} class.
  *
  * @author Blair Butterworth
  */
-public class PlaceholderMoveTest extends GameTestCase
+public class SelectorMoveTest extends GameTestCase
 {
-    private PlaceholderMove action;
+    private SelectorMove action;
     private Placeholder placeholder;
     private UserInput userInput;
 
     @Before
     public void setup() {
         placeholder = TestPlaceholders.newTestPlaceholder("repositionaction");
-        action = new PlaceholderMove();
+        action = new SelectorMove();
         action.setItem(placeholder);
         action.setCause(userInput);
     }
@@ -70,7 +71,7 @@ public class PlaceholderMoveTest extends GameTestCase
 
     @Test
     public void equalsTest() {
-        EqualityVerifier.forClass(PlaceholderMove.class)
+        EqualityVerifier.forClass(SelectorMove.class)
             .withMockedTransientFields(Item.class)
             .excludeTransientFields()
             .verify();

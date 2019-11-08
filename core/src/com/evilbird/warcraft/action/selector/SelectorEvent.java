@@ -7,26 +7,25 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.placeholder;
+package com.evilbird.warcraft.action.selector;
 
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.item.Item;
-import com.evilbird.warcraft.item.ui.placement.Placeholder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
- * Instances of this {@link Event} are generated when a {@link Placeholder} is
+ * Instances of this {@link Event} are generated when a selector is
  * added or removed.
  *
  * @author Blair Butterworth
  */
-public class PlaceholderEvent implements Event
+public class SelectorEvent implements Event
 {
     private Item builder;
     private Item placeholder;
-    private PlaceholderStatus status;
+    private SelectorStatus status;
 
-    public PlaceholderEvent(Item builder, Item placeholder, PlaceholderStatus status) {
+    public SelectorEvent(Item builder, Item placeholder, SelectorStatus status) {
         this.builder = builder;
         this.placeholder = placeholder;
         this.status = status;
@@ -41,7 +40,7 @@ public class PlaceholderEvent implements Event
         return builder;
     }
 
-    public PlaceholderStatus getStatus() {
+    public SelectorStatus getStatus() {
         return status;
     }
 

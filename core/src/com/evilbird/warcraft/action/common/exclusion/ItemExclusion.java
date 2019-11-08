@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.common.exclusion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.item.spatial.ItemGraph;
-import com.evilbird.warcraft.action.select.SelectEvents;
+import com.evilbird.warcraft.action.selection.SelectEvents;
 import com.evilbird.warcraft.item.unit.Unit;
 
 import javax.inject.Inject;

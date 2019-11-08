@@ -1,13 +1,13 @@
 /*
- * Blair Butterworth (c) 2018
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.placeholder;
+package com.evilbird.warcraft.action.selector;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
@@ -24,16 +24,16 @@ import static com.evilbird.engine.common.math.VectorUtils.round;
 import static com.evilbird.engine.common.math.VectorUtils.subtract;
 
 /**
- * Instances of this class reposition a given placeholder to the location of
+ * Instances of this class reposition a given selector to the location of
  * the given input.
  *
  * @author Blair Butterworth
  */
-public class PlaceholderMove extends BasicAction
+public class SelectorMove extends BasicAction
 {
     @Inject
-    public PlaceholderMove() {
-        setIdentifier(PlaceholderActions.PlaceholderMove);
+    public SelectorMove() {
+        setIdentifier(SelectorActions.SelectorMove);
     }
 
     @Override

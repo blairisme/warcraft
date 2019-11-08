@@ -18,7 +18,7 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.state.State;
-import com.evilbird.warcraft.action.select.SelectEvent;
+import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.item.data.camera.Camera;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

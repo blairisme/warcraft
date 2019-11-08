@@ -19,6 +19,8 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.action.selection.SelectActions;
+import com.evilbird.warcraft.action.selection.SelectArea;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -31,7 +33,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Instances of this unit test validate the {@link SelectArea} class.
+ * Instances of this unit test validate the {@link com.evilbird.warcraft.action.selection.SelectArea} class.
  *
  * @author Blair Butterworth
  */
@@ -39,14 +41,14 @@ public class SelectAreaTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        SelectArea action = new SelectArea(Mockito.mock(EventQueue.class));
-        action.setIdentifier(SelectActions.SelectBoxBegin);
+        com.evilbird.warcraft.action.selection.SelectArea action = new SelectArea(Mockito.mock(EventQueue.class));
+        action.setIdentifier(com.evilbird.warcraft.action.selection.SelectActions.SelectBoxBegin);
         return action;
     }
 
     @Override
     protected Enum newIdentifier() {
-        return SelectActions.SelectBoxBegin;
+        return com.evilbird.warcraft.action.selection.SelectActions.SelectBoxBegin;
     }
 
     @Test
@@ -54,7 +56,7 @@ public class SelectAreaTest extends ActionTestCase
         Item box = getSelectionBox();
         assertNull(box);
 
-        action.setIdentifier(SelectActions.SelectBoxBegin);
+        action.setIdentifier(com.evilbird.warcraft.action.selection.SelectActions.SelectBoxBegin);
         assertTrue(action.act(1));
 
         box = getSelectionBox();
@@ -70,7 +72,7 @@ public class SelectAreaTest extends ActionTestCase
         Vector2 input1 = new Vector2(20, toScreen(20));
         Vector2 input2 = new Vector2(50, toScreen(50));
 
-        action.setIdentifier(SelectActions.SelectBoxResize);
+        action.setIdentifier(com.evilbird.warcraft.action.selection.SelectActions.SelectBoxResize);
         action.setCause(new UserInput(UserInputType.PressDrag, input2, input1, 1));
 
         assertTrue(action.act(1));
