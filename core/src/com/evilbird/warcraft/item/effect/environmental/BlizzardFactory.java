@@ -34,10 +34,10 @@ public class BlizzardFactory extends EffectFactoryBase
 
     @Override
     public Effect get(Identifier type) {
-        Effect result = builder.build();
+        Effect result = builder.buildBlizzard();
         result.setType(EffectType.Blizzard);
         result.setIdentifier(objectIdentifier("Blizzard", result));
-        result.setSize(48, 48);
+        result.setSize(128, 128);
         return result;
     }
 }

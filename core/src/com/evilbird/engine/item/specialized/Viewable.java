@@ -38,14 +38,14 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public class Viewable extends ItemBasic implements Animated, Audible, Directionable, Styleable
 {
-    private float direction;
-    private Identifier animationId;
-    private Identifier soundId;
+    protected float direction;
+    protected Identifier animationId;
+    protected Identifier soundId;
 
-    private transient Skin skin;
-    private transient ViewableStyle style;
-    private transient LocalizedSound sound;
-    private transient AnimationRenderer animation;
+    protected transient Skin skin;
+    protected transient ViewableStyle style;
+    protected transient LocalizedSound sound;
+    protected transient AnimationRenderer animation;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing

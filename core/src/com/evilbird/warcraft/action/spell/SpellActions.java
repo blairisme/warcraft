@@ -18,6 +18,7 @@ import com.evilbird.engine.action.ActionIdentifier;
  */
 public enum SpellActions implements ActionIdentifier
 {
+    BlizzardSelect,
     BlizzardSpell,
     BloodlustSpell,
     BloodlustSelect,

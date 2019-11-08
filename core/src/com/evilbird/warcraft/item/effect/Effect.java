@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.item.effect;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.item.specialized.Viewable;
 import com.evilbird.engine.item.specialized.ViewableStyle;
@@ -32,10 +31,5 @@ public class Effect extends Viewable
      */
     public Effect(Skin skin) {
         super(skin);
-    }
-
-    @Override
-    public void draw(Batch batch, float alpha) {
-        super.draw(batch, alpha);
     }
 }

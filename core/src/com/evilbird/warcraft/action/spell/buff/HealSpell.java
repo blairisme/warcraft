@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.action.spell.buff;
 
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.spell.Spell;
@@ -43,19 +44,20 @@ public class HealSpell extends SpellAction
     }
 
     @Override
-    protected void initialize(SpellCaster caster, Unit target) {
-        this.healAmount = getHealAmount(caster, target);
+    protected void initialize(SpellCaster caster, Item target) {
+        this.healAmount = getHealAmount(caster, (Unit)target);
         this.manaCost = healAmount * Heal.getManaCost();
         super.initialize(caster, target);
     }
 
     @Override
-    protected void initializeMana(SpellCaster caster, Unit target, Spell spell) {
+    protected void initializeMana(SpellCaster caster, Item target, Spell spell) {
         caster.setMana(Math.max(0, caster.getMana() - manaCost));
     }
 
     @Override
-    protected void initializeTarget(SpellCaster caster, Unit target) {
+    protected void initializeTarget(SpellCaster caster, Item item) {
+        Unit target = (Unit)item;
         target.setHealth(Math.min(target.getHealthMaximum(), target.getHealth() + healAmount));
     }
 

@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.spell;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
+import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.common.spell.Spell;
@@ -83,27 +84,27 @@ public abstract class SpellAction extends BasicAction
 
     protected void initialize() {
         SpellCaster caster = (SpellCaster) getItem();
-        Unit target = (Unit) getTarget();
+        Item target = getTarget();
         initialize(caster, target);
     }
 
-    protected void initialize(SpellCaster caster, Unit target) {
+    protected void initialize(SpellCaster caster, Item target) {
         initializeCaster(caster, target);
         initializeMana(caster, target, spell);
         initializeTarget(caster, target);
         initializeEffect(caster, target);
     }
 
-    protected void initializeCaster(SpellCaster caster, Unit target) {
+    protected void initializeCaster(SpellCaster caster, Item target) {
         caster.setAnimation(CastSpell);
         caster.setCastingProgress(0f);
         reorient(caster, target, false);
     }
 
-    protected void initializeTarget(SpellCaster caster, Unit target) {
+    protected void initializeTarget(SpellCaster caster, Item target) {
     }
 
-    protected void initializeEffect(SpellCaster caster, Unit target) {
+    protected void initializeEffect(SpellCaster caster, Item target) {
         Effect spellEffect = (Effect)factory.get(effect);
         spellEffect.setPosition(target.getPosition(Center), Center);
 
@@ -113,7 +114,7 @@ public abstract class SpellAction extends BasicAction
         caster.setSpellEffect(spellEffect);
     }
 
-    protected void initializeMana(SpellCaster caster, Unit target, Spell spell) {
+    protected void initializeMana(SpellCaster caster, Item target, Spell spell) {
         caster.setMana(Math.max(0, caster.getMana() - spell.getManaCost()));
     }
 

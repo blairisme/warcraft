@@ -24,7 +24,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class ConjuredFactory extends GameFactorySet<Item>
+public class ConjuredFactory extends GameFactorySet<ConjuredObject>
 {
     @Inject
     public ConjuredFactory(

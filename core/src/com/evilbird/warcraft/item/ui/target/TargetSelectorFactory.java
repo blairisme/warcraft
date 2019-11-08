@@ -7,12 +7,11 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.ui.placement;
+package com.evilbird.warcraft.item.ui.target;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
 import com.evilbird.warcraft.state.WarcraftContext;
@@ -23,25 +22,23 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 
 /**
- * Instances of this factory create {@link Placeholder Placeholders}, visual
- * representations of buildings before their construction.
+ * A factory that creates {@link TargetSelector} objects, visual guides used
+ * to select locations within the game world for use by subsequent actions.
  *
  * @author Blair Butterworth
  */
-public class PlaceholderFactory implements GameFactory<Placeholder>
+public class TargetSelectorFactory implements GameFactory<TargetSelector>
 {
-    private EventQueue events;
     private AssetManager manager;
-    private PlaceholderAssets assets;
-    private PlaceholderBuilder builder;
+    private TargetSelectorAssets assets;
+    private TargetSelectorBuilder builder;
 
     @Inject
-    public PlaceholderFactory(Device device, EventQueue events) {
-        this(device.getAssetStorage(), events);
+    public TargetSelectorFactory(Device device) {
+        this(device.getAssetStorage());
     }
 
-    public PlaceholderFactory(AssetManager manager, EventQueue events) {
-        this.events = events;
+    public TargetSelectorFactory(AssetManager manager) {
         this.manager = manager;
     }
 
@@ -52,8 +49,8 @@ public class PlaceholderFactory implements GameFactory<Placeholder>
     }
 
     private void load(WarcraftContext context) {
-        assets = new PlaceholderAssets(manager, context);
-        builder = new PlaceholderBuilder(assets);
+        assets = new TargetSelectorAssets(manager);
+        builder = new TargetSelectorBuilder(assets);
         assets.load();
     }
 
@@ -65,16 +62,15 @@ public class PlaceholderFactory implements GameFactory<Placeholder>
     }
 
     @Override
-    public Placeholder get(Identifier identifier) {
-        Validate.isInstanceOf(PlaceholderType.class, identifier);
-        return get((PlaceholderType)identifier);
+    public TargetSelector get(Identifier identifier) {
+        Validate.isInstanceOf(TargetSelectorType.class, identifier);
+        return get((TargetSelectorType)identifier);
     }
 
-    private Placeholder get(PlaceholderType type) {
-        Placeholder placeholder = builder.build(type);
-        placeholder.setIdentifier(objectIdentifier("Placeholder", placeholder));
+    private TargetSelector get(TargetSelectorType type) {
+        TargetSelector placeholder = builder.build();
+        placeholder.setIdentifier(objectIdentifier("TargetSelector", placeholder));
         placeholder.setType(type);
-        placeholder.setEvents(events);
         return placeholder;
     }
 }

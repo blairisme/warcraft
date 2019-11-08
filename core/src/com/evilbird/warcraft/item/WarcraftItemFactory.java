@@ -23,6 +23,8 @@ import com.evilbird.warcraft.item.ui.display.HudFactory;
 import com.evilbird.warcraft.item.ui.display.HudType;
 import com.evilbird.warcraft.item.ui.placement.PlaceholderFactory;
 import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
+import com.evilbird.warcraft.item.ui.target.TargetSelectorFactory;
+import com.evilbird.warcraft.item.ui.target.TargetSelectorType;
 import com.evilbird.warcraft.item.unit.UnitFactory;
 
 import javax.inject.Inject;
@@ -43,7 +45,8 @@ public class WarcraftItemFactory extends GameFactorySet<Item> implements ItemFac
         EffectFactory effectFactory,
         HudFactory hudFactory,
         PlaceholderFactory placeholderFactory,
-        ProjectileFactory projectileFactory)
+        ProjectileFactory projectileFactory,
+        TargetSelectorFactory targetSelectorFactory)
     {
         addProvider(unitFactory);
         addProvider(dataFactory);
@@ -52,5 +55,6 @@ public class WarcraftItemFactory extends GameFactorySet<Item> implements ItemFac
         addProvider(HudType.class, hudFactory);
         addProvider(LayerIdentifier.class, layerFactory);
         addProvider(ProjectileType.class, projectileFactory);
+        addProvider(TargetSelectorType.class, targetSelectorFactory);
     }
 }

@@ -35,6 +35,7 @@ public class PlaceholderAssets extends AssetBundle
         super(assetManager);
         registerOverlayTextures();
         registerBuildingTextures(context.getAssetSet());
+        registerSelectTextures();
     }
 
     private void registerOverlayTextures() {
@@ -53,12 +54,20 @@ public class PlaceholderAssets extends AssetBundle
         }
     }
 
+    private void registerSelectTextures() {
+        register("rune_select", "data/textures/common/menu/rune_select.png");
+    }
+
     public Drawable getAllowed(UnitType type) {
         return getDrawable("allowed", type);
     }
 
     public Drawable getProhibited(UnitType type) {
         return getDrawable("prohibited", type);
+    }
+
+    public Drawable getRuneSelect() {
+        return getDrawable("rune_select");
     }
 
     public Drawable getBuilding(UnitType type) {

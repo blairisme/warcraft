@@ -26,6 +26,7 @@ import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.Gnomi
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.GryphonAviaryButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.KeepButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.LumberMillButtons;
+import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.MageButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.MageTowerButtons;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.OilTankerBuildings;
 import com.evilbird.warcraft.item.ui.display.control.actions.buttons.human.PaladinButtons;
@@ -70,6 +71,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.GryphonAviary;
 import static com.evilbird.warcraft.item.unit.UnitType.Keep;
 import static com.evilbird.warcraft.item.unit.UnitType.Knight;
 import static com.evilbird.warcraft.item.unit.UnitType.LumberMill;
+import static com.evilbird.warcraft.item.unit.UnitType.Mage;
 import static com.evilbird.warcraft.item.unit.UnitType.MageTower;
 import static com.evilbird.warcraft.item.unit.UnitType.Ogre;
 import static com.evilbird.warcraft.item.unit.UnitType.OgreJuggernaught;
@@ -137,6 +139,7 @@ public class ButtonControllers
     }
 
     private void registerSpellCasterButtons() {
+        registerController(Actions, Mage, new MageButtons());
         registerController(Actions, Paladin, new PaladinButtons());
     }
 

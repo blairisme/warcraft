@@ -14,8 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 /**
- * Creates a new {@link Placeholder} instance whose visual and audible
- * presentation is defined by the given {@link PlaceholderAssets}.
+ * Creates new {@link Placeholder} objects, whose visual and audible
+ * presentation are defined by the given {@link PlaceholderAssets}.
  *
  * @author Blair Butterworth
  */

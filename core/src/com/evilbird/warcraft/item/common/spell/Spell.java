@@ -38,6 +38,7 @@ public enum Spell
 
     public int getManaCost() {
         switch (this) {
+            case Blizzard: return 0;
             case Exorcism: return 4;
             case Heal: return 6;
             case HolyVision: return 70;
@@ -47,6 +48,7 @@ public enum Spell
 
     public int getValue() {
         switch (this) {
+            case Blizzard: return 0;
             case Bloodlust: return 2;
             case Exorcism: return 20;
             case Heal: return 40;
@@ -61,6 +63,7 @@ public enum Spell
             case Exorcism:
             case Heal: return 1f;
             case HolyVision: return 5f;
+            case Blizzard: return 10f;
             default: throw new UnsupportedOperationException();
         }
     }

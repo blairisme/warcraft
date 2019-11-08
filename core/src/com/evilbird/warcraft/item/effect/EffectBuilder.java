@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.AnimationCatalog;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.effect.confirmation.ConfirmationAnimations;
+import com.evilbird.warcraft.item.effect.environmental.Blizzard;
 import com.evilbird.warcraft.item.effect.environmental.EnvironmentalAnimations;
 import com.evilbird.warcraft.item.effect.environmental.FireAnimations;
 import com.evilbird.warcraft.item.effect.environmental.FlameAnimations;
@@ -64,6 +65,15 @@ public class EffectBuilder
      */
     public Effect build() {
         Effect result = new Effect(getSkin());
+        result.setAnimation(UnitAnimation.Idle);
+        result.setTouchable(Touchable.disabled);
+        result.setVisible(true);
+        result.setSize(32, 32);
+        return result;
+    }
+
+    public Effect buildBlizzard() {
+        Blizzard result = new Blizzard(getSkin());
         result.setAnimation(UnitAnimation.Idle);
         result.setTouchable(Touchable.disabled);
         result.setVisible(true);
