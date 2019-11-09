@@ -19,6 +19,7 @@ import com.evilbird.warcraft.item.unit.UnitType;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
+import static com.evilbird.warcraft.action.selector.SelectorActions.HideSelector;
 import static com.evilbird.warcraft.action.spell.SpellActions.BlizzardSpell;
 import static com.evilbird.warcraft.action.spell.SpellActions.BloodlustSelect;
 import static com.evilbird.warcraft.action.spell.SpellActions.BloodlustSpell;
@@ -174,7 +175,7 @@ public class SpellInteractions extends InteractionContainer
         SelectorType selector,
         SpellActions action)
     {
-        addAction(action)
+        addAction(HideSelector, action)
             .whenTarget(selector)
             .whenSelected(caster)
             .appliedTo(Selected)
