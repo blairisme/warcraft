@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.selection;
+package com.evilbird.warcraft.action.selector;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
@@ -17,6 +17,7 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;
 import com.evilbird.warcraft.item.selector.selection.SelectionBox;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -38,12 +39,12 @@ import static com.evilbird.warcraft.item.selector.SelectorType.AreaSelector;
  *
  * @author Blair Butterworth
  */
-public class SelectArea extends BasicAction
+public class SelectorArea extends BasicAction
 {
     private transient Events events;
 
     @Inject
-    public SelectArea(EventQueue events) {
+    public SelectorArea(EventQueue events) {
         this.events = events;
     }
 
@@ -52,10 +53,10 @@ public class SelectArea extends BasicAction
         Item item = getItem();
         ItemRoot root = item.getRoot();
 
-        switch((SelectActions)getIdentifier()) {
-            case SelectBoxBegin: return addBox(root);
-            case SelectBoxResize: return updateBox(root);
-            case SelectBoxEnd: return removeBox(root);
+        switch((SelectorActions)getIdentifier()) {
+            case ShowAreaSelector: return addBox(root);
+            case ResizeAreaSelector: return updateBox(root);
+            case HideAreaSelector: return removeBox(root);
             default: throw new UnsupportedOperationException();
         }
     }

@@ -114,18 +114,4 @@ public enum SelectorType implements ItemType
     public boolean isTargetSelector() {
         return isTargetSelector(this);
     }
-
-//
-//    public boolean isLandBased() {
-//        return !isShoreBased() && !isOilPatchBased();
-//    }
-//
-//    public boolean isShoreBased() {
-//        return this == ShipyardSelector || this == RefinerySelector || this == FoundrySelector
-//            || this == DockyardSelector || this == OilRefinerySelector || this == MetalworksSelector;
-//    }
-//
-//    public boolean isOilPatchBased() {
-//        return this == OilPlatformSelector || this == OilRigSelector;
-//    }
 }

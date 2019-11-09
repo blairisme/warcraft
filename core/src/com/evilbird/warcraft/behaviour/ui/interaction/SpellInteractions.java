@@ -19,7 +19,6 @@ import com.evilbird.warcraft.item.unit.UnitType;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-import static com.evilbird.warcraft.action.spell.SpellActions.BlizzardSelect;
 import static com.evilbird.warcraft.action.spell.SpellActions.BlizzardSpell;
 import static com.evilbird.warcraft.action.spell.SpellActions.BloodlustSelect;
 import static com.evilbird.warcraft.action.spell.SpellActions.BloodlustSpell;
@@ -48,7 +47,6 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Replacement;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCastingSpell;
-import static com.evilbird.warcraft.item.common.spell.Spell.Blizzard;
 import static com.evilbird.warcraft.item.common.spell.Spell.Bloodlust;
 import static com.evilbird.warcraft.item.common.spell.Spell.DeathCoil;
 import static com.evilbird.warcraft.item.common.spell.Spell.Exorcism;
@@ -59,7 +57,6 @@ import static com.evilbird.warcraft.item.common.spell.Spell.Invisibility;
 import static com.evilbird.warcraft.item.common.spell.Spell.Polymorph;
 import static com.evilbird.warcraft.item.common.spell.Spell.Slow;
 import static com.evilbird.warcraft.item.common.spell.Spell.UnholyArmour;
-import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.BlizzardButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.BloodlustButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.CancelButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.DeathCoilButton;
@@ -73,6 +70,7 @@ import static com.evilbird.warcraft.item.display.control.actions.ActionButtonTyp
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.RaiseDeadButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.SlowButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.UnholyArmourButton;
+import static com.evilbird.warcraft.item.selector.SelectorType.BlizzardSelector;
 import static com.evilbird.warcraft.item.unit.UnitType.DeathKnight;
 import static com.evilbird.warcraft.item.unit.UnitType.Mage;
 import static com.evilbird.warcraft.item.unit.UnitType.OgreMage;
@@ -95,7 +93,7 @@ public class SpellInteractions extends InteractionContainer
     }
 
     private void mageSpells() {
-        locationSpell(Mage, Blizzard, BlizzardButton, BlizzardSelect, BlizzardSpell);
+        selectorSpell(Mage, BlizzardSelector, BlizzardSpell);
 
         targetSpell(Mage, FlameShield, FlameShieldButton, FlameShieldSelect, FlameShieldSpell);
         targetSpell(Mage, Polymorph, PolymorphButton, PolymorphSelect, PolymorphSpell);
@@ -162,35 +160,15 @@ public class SpellInteractions extends InteractionContainer
             .appliedAs(Addition);
     }
 
-    private void locationSpell(
+    private void selectorSpell(
         UnitType caster,
-        Spell spell,
-        ActionButtonType button,
-        SpellActions select,
+        SelectorType selector,
         SpellActions action)
     {
-        addAction(select)
-            .whenTarget(button)
+        addAction(action)
+            .whenTarget(selector)
             .whenSelected(caster)
             .appliedTo(Selected)
             .appliedAs(Addition);
-
-        addAction(action)
-            .whenTarget(SelectorType.BlizzardSelector)
-            .whenSelected(Mage)
-            .appliedTo(Selected)
-            .appliedAs(Replacement);
-
-//        addAction(action, SpellDeselect)
-//            .whenTarget(UnitOperations::isHighlighted)
-//            .whenSelected(isCastingSpell(spell))
-//            .appliedTo(Selected)
-//            .appliedAs(Replacement);
-
-//        addAction(SpellDeselect)
-//            .whenSelected(isCastingSpell(spell))
-//            .whenTarget(CancelButton)
-//            .appliedTo(Selected)
-//            .appliedAs(Addition);
     }
 }

@@ -17,8 +17,8 @@ import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.action.selector.SelectorActions.SelectorCancel;
-import static com.evilbird.warcraft.action.selector.SelectorActions.SelectorMove;
+import static com.evilbird.warcraft.action.selector.SelectorActions.HideSelector;
+import static com.evilbird.warcraft.action.selector.SelectorActions.MoveSelector;
 
 /**
  * Instances of this factory create {@link Action Actions} related to
@@ -29,16 +29,19 @@ import static com.evilbird.warcraft.action.selector.SelectorActions.SelectorMove
  */
 public class SelectorFactory implements ActionProvider
 {
+    private InjectedPool<SelectorArea> areaPool;
     private InjectedPool<SelectorCancel> cancelPool;
     private InjectedPool<SelectorCreate> createPool;
     private InjectedPool<SelectorMove> movePool;
 
     @Inject
     public SelectorFactory(
+        InjectedPool<SelectorArea> areaPool,
         InjectedPool<SelectorCancel> cancelPool,
         InjectedPool<SelectorCreate> createPool,
         InjectedPool<SelectorMove> movePool)
     {
+        this.areaPool = areaPool;
         this.cancelPool = cancelPool;
         this.createPool = createPool;
         this.movePool = movePool;
@@ -50,8 +53,11 @@ public class SelectorFactory implements ActionProvider
         SelectorActions identifier = (SelectorActions)action;
 
         switch (identifier) {
-            case SelectorMove: return getAction(movePool, SelectorMove);
-            case SelectorCancel: return getAction(cancelPool, SelectorCancel);
+            case ShowAreaSelector:
+            case ResizeAreaSelector:
+            case HideAreaSelector: return getAction(areaPool, identifier);
+            case MoveSelector: return getAction(movePool, MoveSelector);
+            case HideSelector: return getAction(cancelPool, HideSelector);
             default: return getAction(createPool, identifier);
         }
     }

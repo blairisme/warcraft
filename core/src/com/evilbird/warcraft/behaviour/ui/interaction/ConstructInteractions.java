@@ -11,7 +11,6 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.action.construct.ConstructActions;
-import com.evilbird.warcraft.action.selector.SelectorActions;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.selector.SelectorType;
@@ -21,20 +20,12 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 import static com.evilbird.engine.common.function.Predicates.both;
-import static com.evilbird.engine.device.UserInputType.Drag;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
-import static com.evilbird.warcraft.action.selection.SelectActions.SelectInvert;
-import static com.evilbird.warcraft.action.selector.SelectorActions.SelectorCancel;
-import static com.evilbird.warcraft.action.selector.SelectorActions.SelectorMove;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
-import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
-import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isGatherer;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholder;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.CancelButton;
 
 /**
@@ -53,52 +44,9 @@ public class ConstructInteractions extends InteractionContainer
     @Inject
     public ConstructInteractions(Provider<InteractionDefinition> factory) {
         super(factory);
-        addPlaceholder();
-        cancelPlaceholder();
-        dragPlaceholder();
         beginConstruction();
         cancelConstruction();
         constructUpgrades();
-    }
-
-    private void addPlaceholder() {
-        for (ActionButtonType button: ActionButtonType.values()) {
-            if (button.isBuildButton()) {
-                UnitType building = button.getBuildProduct();
-                SelectorType selector = SelectorType.forBuilding(building);
-                SelectorActions action = SelectorActions.forSelector(selector);
-                addPlaceholder(button, action);
-            }
-        }
-    }
-
-    private void addPlaceholder(ActionButtonType button, ActionIdentifier action) {
-        addAction(action)
-            .whenTarget(button)
-            .whenSelected(isGatherer())
-            .appliedTo(Selected)
-            .appliedAs(Addition);
-    }
-
-    private void cancelPlaceholder() {
-       addAction(SelectorCancel)
-            .whenTarget(CancelButton)
-            .whenSelected(both(isGatherer(), associatedWith(isPlaceholder())))
-            .appliedTo(Selected)
-            .appliedAs(Addition);
-
-        addAction(SelectorCancel, SelectInvert)
-            .whenSelected(both(isSelected(), associatedWith(isPlaceholder())))
-            .whenTarget(isGatherer())
-            .appliedTo(Selected)
-            .appliedAs(Addition);
-    }
-
-    private void dragPlaceholder() {
-        addAction(SelectorMove)
-            .forInput(Drag)
-            .whenTarget(isPlaceholder())
-            .appliedTo(Target);
     }
 
     private void beginConstruction() {
@@ -111,7 +59,7 @@ public class ConstructInteractions extends InteractionContainer
 
     private void beginConstruction(SelectorType selector, ConstructActions action, UnitType building) {
         addAction(action)
-            .whenTarget(both(withType(selector), UnitOperations::isBuildingSelectorClear))
+            .whenTarget(both(withType(selector), UnitOperations::isSelectorClear))
             .whenSelected(isGatherer())
             .appliedTo(Selected);
 

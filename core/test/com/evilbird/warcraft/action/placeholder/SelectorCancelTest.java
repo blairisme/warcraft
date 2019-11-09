@@ -51,7 +51,7 @@ public class SelectorCancelTest extends ActionTestCase
 
     @Override
     protected Enum newIdentifier() {
-        return SelectorActions.SelectorCancel;
+        return SelectorActions.HideSelector;
     }
 
     protected Item newItem() {

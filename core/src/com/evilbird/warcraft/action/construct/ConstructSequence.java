@@ -50,7 +50,7 @@ public class ConstructSequence extends StateTransitionAction
     }
 
     private Action nextAction(Item builder, Item building) {
-        if (UnitOperations.isBuildingSelector(building)) {
+        if (UnitOperations.isSelector(building)) {
             return initialize;
         }
         if (!ItemOperations.isNear(builder, builder.getWidth(), building)) {

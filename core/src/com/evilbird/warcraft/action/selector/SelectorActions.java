@@ -72,13 +72,15 @@ public enum SelectorActions implements ActionIdentifier
 
     /* Area Selector */
     ShowAreaSelector,
+    ResizeAreaSelector,
+    HideAreaSelector,
 
     /* Common Selectors Actions */
-    SelectorMove,
-    SelectorCancel;
+    MoveSelector,
+    HideSelector;
 
     public boolean isShowAction() {
-        return this != SelectorCancel && this != SelectorMove;
+        return EnumUtils.isBetween(this, ShowBarracksSelector, ShowAreaSelector);
     }
 
     public SelectorType getSelector() {

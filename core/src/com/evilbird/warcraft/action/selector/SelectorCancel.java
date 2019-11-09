@@ -31,7 +31,7 @@ public class SelectorCancel extends BasicAction
     @Inject
     public SelectorCancel(SelectorEvents events) {
         this.events = events;
-        setIdentifier(SelectorActions.SelectorCancel);
+        setIdentifier(SelectorActions.HideSelector);
     }
 
     @Override

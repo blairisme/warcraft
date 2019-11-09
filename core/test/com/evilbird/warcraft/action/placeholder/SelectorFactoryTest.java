@@ -15,6 +15,7 @@ import com.evilbird.test.testcase.ActionFactoryTestCase;
 import com.evilbird.test.utils.MockInjectedPool;
 import com.evilbird.warcraft.action.ActionProvider;
 import com.evilbird.warcraft.action.selector.SelectorActions;
+import com.evilbird.warcraft.action.selector.SelectorArea;
 import com.evilbird.warcraft.action.selector.SelectorCancel;
 import com.evilbird.warcraft.action.selector.SelectorCreate;
 import com.evilbird.warcraft.action.selector.SelectorFactory;
@@ -29,10 +30,11 @@ public class SelectorFactoryTest extends ActionFactoryTestCase
 {
     @Override
     protected ActionProvider newFactory() {
+        InjectedPool<SelectorArea> area = new MockInjectedPool<>(SelectorArea.class);
         InjectedPool<SelectorCancel> cancelPool = new MockInjectedPool<>(SelectorCancel.class);
         InjectedPool<SelectorCreate> createPool = new MockInjectedPool<>(SelectorCreate.class);
         InjectedPool<SelectorMove> movePool = new MockInjectedPool<>(SelectorMove.class);
-        return new SelectorFactory(cancelPool, createPool, movePool);
+        return new SelectorFactory(area, cancelPool, createPool, movePool);
     }
 
     @Override

@@ -19,15 +19,15 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.action.selection.SelectActions;
-import com.evilbird.warcraft.action.selection.SelectArea;
+import com.evilbird.warcraft.action.selector.SelectorActions;
+import com.evilbird.warcraft.action.selector.SelectorArea;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
-import static com.evilbird.warcraft.action.selection.SelectActions.SelectBoxBegin;
-import static com.evilbird.warcraft.action.selection.SelectActions.SelectBoxResize;
+import static com.evilbird.warcraft.action.selector.SelectorActions.ResizeAreaSelector;
+import static com.evilbird.warcraft.action.selector.SelectorActions.ShowAreaSelector;
 import static com.evilbird.warcraft.item.selector.SelectorType.AreaSelector;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -35,22 +35,22 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Instances of this unit test validate the {@link SelectArea} class.
+ * Instances of this unit test validate the {@link SelectorArea} class.
  *
  * @author Blair Butterworth
  */
-public class SelectAreaTest extends ActionTestCase
+public class SelectorAreaTest extends ActionTestCase
 {
     @Override
     protected Action newAction() {
-        SelectArea action = new SelectArea(Mockito.mock(EventQueue.class));
-        action.setIdentifier(SelectBoxBegin);
+        SelectorArea action = new SelectorArea(Mockito.mock(EventQueue.class));
+        action.setIdentifier(ShowAreaSelector);
         return action;
     }
 
     @Override
     protected Enum newIdentifier() {
-        return SelectBoxBegin;
+        return ShowAreaSelector;
     }
 
     @Test
@@ -58,7 +58,7 @@ public class SelectAreaTest extends ActionTestCase
         Item box = getSelectionBox();
         assertNull(box);
 
-        action.setIdentifier(SelectBoxBegin);
+        action.setIdentifier(ShowAreaSelector);
         assertTrue(action.act(1));
 
         box = getSelectionBox();
@@ -74,7 +74,7 @@ public class SelectAreaTest extends ActionTestCase
         Vector2 input1 = new Vector2(20, toScreen(20));
         Vector2 input2 = new Vector2(50, toScreen(50));
 
-        action.setIdentifier(SelectBoxResize);
+        action.setIdentifier(ResizeAreaSelector);
         action.setCause(new UserInput(UserInputType.PressDrag, input2, input1, 1));
 
         assertTrue(action.act(1));
@@ -97,7 +97,7 @@ public class SelectAreaTest extends ActionTestCase
         Vector2 input1 = new Vector2(35, toScreen(35));
         Vector2 input2 = new Vector2(50, toScreen(50));
 
-        action.setIdentifier(SelectActions.SelectBoxEnd);
+        action.setIdentifier(SelectorActions.HideAreaSelector);
         action.setCause(new UserInput(UserInputType.PressUp, input1, input2, 1));
 
         assertTrue(action.act(1));

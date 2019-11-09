@@ -17,6 +17,9 @@ import com.evilbird.warcraft.item.selector.target.TargetSelectorFactory;
 import javax.inject.Inject;
 
 /**
+ * A factory for visual guides used by the user to select items and locations
+ * in the game world.
+ *
  * @author Blair Butterworth
  */
 public class SelectorFactory extends GameFactorySet<Item>

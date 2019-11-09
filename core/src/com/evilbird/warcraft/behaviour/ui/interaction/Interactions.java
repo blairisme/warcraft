@@ -41,7 +41,8 @@ public class Interactions
         MenuInteractions menuInteractions,
         MoveInteractions moveInteractions,
         ProduceInteractions produceInteractions,
-        SelectInteractions selectInteractions,
+        SelectionInteractions selectionInteractions,
+        SelectorInteractions selectorInteractions,
         SpellInteractions spellInteractions,
         TransportInteractions transportInteractions)
     {
@@ -55,7 +56,8 @@ public class Interactions
         this.interactions.addActions(menuInteractions);
         this.interactions.addActions(spellInteractions);
         this.interactions.addActions(cameraInteractions);
-        this.interactions.addActions(selectInteractions);
+        this.interactions.addActions(selectorInteractions);
+        this.interactions.addActions(selectionInteractions);
         this.interactions.addActions(cheatInteractions);
         this.cache = Caffeine.newBuilder().maximumSize(100).build();
     }

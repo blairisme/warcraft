@@ -24,26 +24,28 @@ import javax.inject.Inject;
  */
 public class SelectFactory implements ActionProvider
 {
-    private InjectedPool<SelectArea> selectAreaPool;
-    private InjectedPool<SelectInvert> selectInvertPool;
+    private InjectedPool<DeselectAction> deselectPool;
+    private InjectedPool<SelectInvert> invertPool;
+    private InjectedPool<SelectFlash> flashPool;
 
     @Inject
     public SelectFactory(
-        InjectedPool<SelectArea> selectAreaPool,
-        InjectedPool<SelectInvert> selectInvertPool)
+        InjectedPool<DeselectAction> deselectPool,
+        InjectedPool<SelectInvert> invertPool,
+        InjectedPool<SelectFlash> flashPool)
     {
-        this.selectAreaPool = selectAreaPool;
-        this.selectInvertPool = selectInvertPool;
+        this.deselectPool = deselectPool;
+        this.invertPool = invertPool;
+        this.flashPool = flashPool;
     }
 
     @Override
     public Action get(ActionIdentifier identifier) {
         Validate.isInstanceOf(SelectActions.class, identifier);
         switch ((SelectActions)identifier) {
-            case SelectBoxBegin:
-            case SelectBoxResize:
-            case SelectBoxEnd: return getAction(selectAreaPool, identifier);
-            case SelectInvert: return getAction(selectInvertPool, identifier);
+            case SelectDeselect: return getAction(deselectPool, identifier);
+            case SelectInvert: return getAction(invertPool, identifier);
+            case SelectFlash: return getAction(flashPool, identifier);
             default: throw new UnsupportedOperationException();
         }
     }

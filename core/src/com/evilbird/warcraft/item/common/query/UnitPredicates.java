@@ -19,7 +19,6 @@ import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.selector.building.BuildingSelector;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -186,8 +185,8 @@ public class UnitPredicates
         return item -> UnitOperations.isCastingSpell(item, spell);
     }
 
-    public static Predicate<Item> isPlaceholder() {
-        return (item) -> item instanceof BuildingSelector;
+    public static Predicate<Item> isSelector() {
+        return UnitOperations::isSelector;
     }
 
     public static Predicate<Item> isResource() {

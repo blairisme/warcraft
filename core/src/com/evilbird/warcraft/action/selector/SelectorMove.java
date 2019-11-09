@@ -33,7 +33,7 @@ public class SelectorMove extends BasicAction
 {
     @Inject
     public SelectorMove() {
-        setIdentifier(SelectorActions.SelectorMove);
+        setIdentifier(SelectorActions.MoveSelector);
     }
 
     @Override

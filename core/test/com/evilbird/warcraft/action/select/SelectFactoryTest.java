@@ -14,13 +14,14 @@ import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.test.testcase.ActionFactoryTestCase;
 import com.evilbird.test.utils.MockInjectedPool;
 import com.evilbird.warcraft.action.ActionProvider;
+import com.evilbird.warcraft.action.selection.DeselectAction;
 import com.evilbird.warcraft.action.selection.SelectActions;
-import com.evilbird.warcraft.action.selection.SelectArea;
 import com.evilbird.warcraft.action.selection.SelectFactory;
+import com.evilbird.warcraft.action.selection.SelectFlash;
 import com.evilbird.warcraft.action.selection.SelectInvert;
 
 /**
- * Instances of this unit test validate the {@link com.evilbird.warcraft.action.selection.SelectFactory} class.
+ * Instances of this unit test validate the {@link SelectFactory} class.
  *
  * @author Blair Butterworth
  */
@@ -28,9 +29,10 @@ public class SelectFactoryTest extends ActionFactoryTestCase
 {
     @Override
     protected ActionProvider newFactory() {
-        InjectedPool<com.evilbird.warcraft.action.selection.SelectArea> areaPool = new MockInjectedPool<>(SelectArea.class);
-        InjectedPool<com.evilbird.warcraft.action.selection.SelectInvert> selectInvertPool = new MockInjectedPool<>(SelectInvert.class);
-        return new SelectFactory(areaPool, selectInvertPool);
+        InjectedPool<DeselectAction> deselectPool = new MockInjectedPool<>(DeselectAction.class);
+        InjectedPool<SelectInvert> invertPool = new MockInjectedPool<>(SelectInvert.class);
+        InjectedPool<SelectFlash> flashPool = new MockInjectedPool<>(SelectFlash.class);
+        return new SelectFactory(deselectPool, invertPool, flashPool);
     }
 
     @Override

@@ -22,21 +22,21 @@ import org.junit.Test;
 public class SelectorActionsTest
 {
     @Test
-    public void getPlaceholderTest() {
+    public void getSelectorTest() {
         for (SelectorActions action: SelectorActions.values()) {
-            if (action != SelectorActions.SelectorCancel && action != SelectorActions.SelectorMove) {
+            if (action.isShowAction()) {
                 Assert.assertNotNull(action.getSelector());
             }
         }
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getPlaceholderInvalidTest() {
-        SelectorActions.SelectorCancel.getSelector();
+    public void getSelectorInvalidTest() {
+        SelectorActions.HideSelector.getSelector();
     }
 
     @Test
-    public void forPlaceholderTest() {
+    public void forSelector() {
         for (SelectorType buildingSelectorType : SelectorType.values()) {
             SelectorActions placeholderAction = SelectorActions.forSelector(buildingSelectorType);
             Assert.assertNotNull(placeholderAction);
