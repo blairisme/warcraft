@@ -31,8 +31,8 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isGatherer;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Oil;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
-import static com.evilbird.warcraft.item.layer.LayerType.Tree;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.item.layer.LayerType.Tree;
 import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
 import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
 

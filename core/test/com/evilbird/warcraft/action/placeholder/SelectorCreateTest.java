@@ -18,7 +18,7 @@ import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.selector.SelectorActions;
 import com.evilbird.warcraft.action.selector.SelectorCreate;
 import com.evilbird.warcraft.action.selector.SelectorEvents;
-import com.evilbird.warcraft.item.ui.placement.Placeholder;
+import com.evilbird.warcraft.item.selector.building.BuildingSelector;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import org.junit.Assert;
@@ -26,7 +26,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static com.evilbird.warcraft.item.ui.placement.PlaceholderType.BarracksPlaceholder;
+import static com.evilbird.warcraft.item.selector.SelectorType.BarracksSelector;
 
 /**
  * Instances of this unit test validate the {@link SelectorCreate} class.
@@ -41,13 +41,13 @@ public class SelectorCreateTest extends ActionTestCase
     protected Action newAction() {
         reporter = Mockito.mock(SelectorEvents.class);
         SelectorCreate action = new SelectorCreate(reporter, itemFactory);
-        action.setIdentifier(SelectorActions.BarracksSelector);
+        action.setIdentifier(SelectorActions.ShowBarracksSelector);
         return action;
     }
 
     @Override
     protected Enum newIdentifier() {
-        return SelectorActions.BarracksSelector;
+        return SelectorActions.ShowBarracksSelector;
     }
 
     protected Item newItem() {
@@ -57,14 +57,14 @@ public class SelectorCreateTest extends ActionTestCase
     @Test
     @Ignore
     public void actTest() {
-        Placeholder placeholder = TestPlaceholders.newTestPlaceholder("placeholder");
-        Mockito.when(itemFactory.get(BarracksPlaceholder)).thenReturn(placeholder);
+        BuildingSelector selector = TestPlaceholders.newTestPlaceholder("placeholder");
+        Mockito.when(itemFactory.get(BarracksSelector)).thenReturn(selector);
 
         Assert.assertFalse(action.act(1));
-        Assert.assertTrue(player.getItems().stream().anyMatch(item -> item == placeholder));
+        Assert.assertTrue(player.getItems().stream().anyMatch(item -> item == selector));
 
         Assert.assertTrue(action.act(1));
-        Assert.assertEquals(placeholder, ((Gatherer)item).getAssociatedItem());
+        Assert.assertEquals(selector, ((Gatherer)item).getAssociatedItem());
 //        Mockito.verify(reporter).add(new PlaceholderEvent(item, placeholder, PlaceholderStatus.Added));
     }
 }

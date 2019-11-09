@@ -22,21 +22,21 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class SelectorEvent implements Event
 {
     private Item builder;
-    private Item placeholder;
+    private Item owner;
     private SelectorStatus status;
 
-    public SelectorEvent(Item builder, Item placeholder, SelectorStatus status) {
+    public SelectorEvent(Item builder, Item owner, SelectorStatus status) {
         this.builder = builder;
-        this.placeholder = placeholder;
+        this.owner = owner;
         this.status = status;
     }
 
     @Override
     public Item getSubject() {
-        return placeholder;
+        return owner;
     }
 
-    public Item getBuilder() {
+    public Item getOwner() {
         return builder;
     }
 
@@ -48,7 +48,7 @@ public class SelectorEvent implements Event
     public String toString() {
         return new ToStringBuilder(this)
             .append("builder", builder.getIdentifier())
-            .append("placeholder", placeholder.getIdentifier())
+            .append("owner", owner.getIdentifier())
             .append("status", status)
             .toString();
     }

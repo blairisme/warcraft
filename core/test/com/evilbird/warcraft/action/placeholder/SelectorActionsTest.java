@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.placeholder;
 
 import com.evilbird.warcraft.action.selector.SelectorActions;
-import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
+import com.evilbird.warcraft.item.selector.SelectorType;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -25,22 +25,22 @@ public class SelectorActionsTest
     public void getPlaceholderTest() {
         for (SelectorActions action: SelectorActions.values()) {
             if (action != SelectorActions.SelectorCancel && action != SelectorActions.SelectorMove) {
-                Assert.assertNotNull(action.getPlaceholder());
+                Assert.assertNotNull(action.getSelector());
             }
         }
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void getPlaceholderInvalidTest() {
-        SelectorActions.SelectorCancel.getPlaceholder();
+        SelectorActions.SelectorCancel.getSelector();
     }
 
     @Test
     public void forPlaceholderTest() {
-        for (PlaceholderType placeholderType: PlaceholderType.values()) {
-            SelectorActions placeholderAction = SelectorActions.forPlaceholder(placeholderType);
+        for (SelectorType buildingSelectorType : SelectorType.values()) {
+            SelectorActions placeholderAction = SelectorActions.forSelector(buildingSelectorType);
             Assert.assertNotNull(placeholderAction);
-            Assert.assertEquals(placeholderType, placeholderAction.getPlaceholder());
+            Assert.assertEquals(buildingSelectorType, placeholderAction.getSelector());
         }
     }
 }

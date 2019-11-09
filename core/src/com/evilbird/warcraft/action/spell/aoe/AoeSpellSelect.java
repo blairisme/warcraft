@@ -14,7 +14,7 @@ import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.ui.target.TargetSelectorType;
+import com.evilbird.warcraft.item.selector.SelectorType;
 import com.evilbird.warcraft.item.unit.Unit;
 
 import javax.inject.Inject;
@@ -31,12 +31,12 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 public class AoeSpellSelect extends BasicAction
 {
     private ItemFactory factory;
-    private TargetSelectorType type;
+    private SelectorType type;
 
     @Inject
     public AoeSpellSelect(ItemFactory factory) {
         this.factory = factory;
-        this.type = TargetSelectorType.BlizzardSelector;
+        this.type = SelectorType.BlizzardSelector;
     }
 
     @Override

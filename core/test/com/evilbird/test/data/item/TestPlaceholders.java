@@ -14,9 +14,9 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.warcraft.item.ui.placement.Placeholder;
-import com.evilbird.warcraft.item.ui.placement.PlaceholderStyle;
-import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
+import com.evilbird.warcraft.item.selector.SelectorType;
+import com.evilbird.warcraft.item.selector.building.BuildingSelector;
+import com.evilbird.warcraft.item.selector.building.BuildingSelectorStyle;
 
 import static com.evilbird.test.data.item.TestItemRoots.newTestRoot;
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;
@@ -26,16 +26,16 @@ public class TestPlaceholders
     private TestPlaceholders() {
     }
 
-    public static Placeholder newTestPlaceholder(String id) {
-        return newTestPlaceholder(new TextIdentifier(id), PlaceholderType.FarmPlaceholder);
+    public static BuildingSelector newTestPlaceholder(String id) {
+        return newTestPlaceholder(new TextIdentifier(id), SelectorType.FarmSelector);
     }
 
-    public static Placeholder newTestPlaceholder(Identifier identifier, Identifier type) {
+    public static BuildingSelector newTestPlaceholder(Identifier identifier, Identifier type) {
         return newTestPlaceholder(identifier, type, newTestRoot("root"), newTestPlayer("parent"));
     }
 
-    public static Placeholder newTestPlaceholder(Identifier identifier, Identifier type, ItemRoot root, ItemGroup parent) {
-        Placeholder item = new Placeholder(getSkin());
+    public static BuildingSelector newTestPlaceholder(Identifier identifier, Identifier type, ItemRoot root, ItemGroup parent) {
+        BuildingSelector item = new BuildingSelector(getSkin());
         item.setIdentifier(identifier);
         item.setType(type);
         item.setRoot(root);
@@ -47,7 +47,7 @@ public class TestPlaceholders
 
     private static Skin getSkin() {
         Skin skin = new Skin();
-        skin.add("default", new PlaceholderStyle(), PlaceholderStyle.class);
+        skin.add("default", new BuildingSelectorStyle(), BuildingSelectorStyle.class);
         return skin;
     }
 }

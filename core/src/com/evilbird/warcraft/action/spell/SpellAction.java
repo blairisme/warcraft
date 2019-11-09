@@ -18,7 +18,6 @@ import com.evilbird.engine.item.ItemGroup;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.Effect;
 import com.evilbird.warcraft.item.effect.EffectType;
-import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;

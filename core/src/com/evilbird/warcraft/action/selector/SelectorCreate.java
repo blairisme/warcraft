@@ -14,8 +14,8 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemType;
 import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.item.selector.SelectorType;
 import com.evilbird.warcraft.item.unit.Unit;
 
 import javax.inject.Inject;
@@ -27,8 +27,7 @@ import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 
 /**
- * Instances of this class provide {@link Action Actions} that add a building
- * placeholder.
+ * An {@link Action} that adds a selector to the game world.
  *
  * @author Blair Butterworth
  */
@@ -45,25 +44,25 @@ public class SelectorCreate extends BasicAction
 
     @Override
     public boolean act(float time) {
-        Unit builder = (Unit)getItem();
-        Player player = getPlayer(builder);
+        Unit subject = (Unit)getItem();
+        Player player = getPlayer(subject);
 
-        Item placeholder = factory.get(getPlaceholderType());
-        placeholder.setPosition(getPlaceholderPosition(builder));
-        player.addItem(placeholder);
+        Item selector = factory.get(selectorType());
+        selector.setPosition(selectorPosition(subject));
+        player.addItem(selector);
 
-        builder.setAssociatedItem(placeholder);
-        events.notifyPlaceholderAdded(builder, placeholder);
+        subject.setAssociatedItem(selector);
+        events.notifySelectorAdded(subject, selector);
 
         return ActionComplete;
     }
 
-    private ItemType getPlaceholderType() {
-        SelectorActions placeholderAction = (SelectorActions)getIdentifier();
-        return placeholderAction.getPlaceholder();
+    private SelectorType selectorType() {
+        SelectorActions action = (SelectorActions)getIdentifier();
+        return action.getSelector();
     }
 
-    private Vector2 getPlaceholderPosition(Item builder) {
+    private Vector2 selectorPosition(Item builder) {
         Vector2 screenCenter = getScreenCenter(builder);
         screenCenter.x = Math.round(screenCenter.x/TILE_WIDTH) * TILE_WIDTH;
         screenCenter.y = Math.round(screenCenter.y/TILE_HEIGHT) * TILE_HEIGHT;

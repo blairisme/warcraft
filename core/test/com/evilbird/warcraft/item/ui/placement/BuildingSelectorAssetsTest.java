@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.ui.placement;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.evilbird.test.testcase.AssetBundleTestCase;
+import com.evilbird.warcraft.item.selector.building.BuildingSelectorAssets;
 import com.evilbird.warcraft.state.WarcraftContext;
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,16 +24,16 @@ import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
 
 /**
- * Instances of this unit test validate logic in the {@link PlaceholderAssets}
+ * Instances of this unit test validate logic in the {@link BuildingSelectorAssets}
  * class.
  *
  * @author Blair Butterworth
  */
-public class PlaceholderAssetsTest extends AssetBundleTestCase<PlaceholderAssets>
+public class BuildingSelectorAssetsTest extends AssetBundleTestCase<BuildingSelectorAssets>
 {
     @Override
-    protected PlaceholderAssets getAssetBundle(AssetManager assets) {
-        return new PlaceholderAssets(assets, new WarcraftContext(Human, Winter));
+    protected BuildingSelectorAssets getAssetBundle(AssetManager assets) {
+        return new BuildingSelectorAssets(assets, new WarcraftContext(Human, Winter));
     }
 
     @Test

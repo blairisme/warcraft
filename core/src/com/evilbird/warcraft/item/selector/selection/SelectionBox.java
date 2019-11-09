@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.ui.selection;
+package com.evilbird.warcraft.item.selector.selection;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Disposable;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.item.ItemBasic;
+import com.evilbird.warcraft.item.selector.SelectorType;
 
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
 
@@ -29,8 +30,8 @@ public class SelectionBox extends ItemBasic implements Disposable
     private Texture texture;
 
     public SelectionBox() {
-        setIdentifier(SelectionType.SelectionBox);
-        setType(SelectionType.SelectionBox);
+        setIdentifier(SelectorType.AreaSelector);
+        setType(SelectorType.AreaSelector);
         setTouchable(Touchable.disabled);
         setVisible(true);
     }

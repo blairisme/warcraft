@@ -18,7 +18,7 @@ import com.evilbird.engine.events.Events;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;
-import com.evilbird.warcraft.item.ui.selection.SelectionBox;
+import com.evilbird.warcraft.item.selector.selection.SelectionBox;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
@@ -30,7 +30,7 @@ import static com.evilbird.engine.item.utility.ItemPredicates.overlapping;
 import static com.evilbird.engine.item.utility.ItemPredicates.touchable;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
-import static com.evilbird.warcraft.item.ui.selection.SelectionType.SelectionBox;
+import static com.evilbird.warcraft.item.selector.SelectorType.AreaSelector;
 
 /**
  * Instances of this {@link Action} manipulate a {@link SelectionBox}, a user
@@ -66,7 +66,7 @@ public class SelectArea extends BasicAction
     }
 
     public Item getBox(ItemRoot root) {
-        Item box = root.find(withType(SelectionBox));
+        Item box = root.find(withType(AreaSelector));
         if (box == null) {
             UserInput input = getCause();
             box = new SelectionBox();

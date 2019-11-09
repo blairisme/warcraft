@@ -13,7 +13,7 @@ import com.evilbird.warcraft.action.spell.SpellActions;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.display.control.actions.ActionButtonType;
-import com.evilbird.warcraft.item.ui.target.TargetSelectorType;
+import com.evilbird.warcraft.item.selector.SelectorType;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
@@ -176,7 +176,7 @@ public class SpellInteractions extends InteractionContainer
             .appliedAs(Addition);
 
         addAction(action)
-            .whenTarget(TargetSelectorType.BlizzardSelector)
+            .whenTarget(SelectorType.BlizzardSelector)
             .whenSelected(Mage)
             .appliedTo(Selected)
             .appliedAs(Replacement);

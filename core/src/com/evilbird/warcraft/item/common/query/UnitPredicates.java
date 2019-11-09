@@ -19,19 +19,16 @@ import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.ui.placement.Placeholder;
+import com.evilbird.warcraft.item.selector.building.BuildingSelector;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.item.unit.resource.Resource;
 
-import java.util.Objects;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.not;
-import static com.evilbird.engine.item.utility.ItemOperations.isNear;
 import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
 import static com.evilbird.warcraft.action.common.path.ItemPathFinder.hasPath;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
@@ -190,11 +187,7 @@ public class UnitPredicates
     }
 
     public static Predicate<Item> isPlaceholder() {
-        return (item) -> item instanceof Placeholder;
-    }
-
-    public static Predicate<Item> isPlayer() {
-        return UnitOperations::isPlayer;
+        return (item) -> item instanceof BuildingSelector;
     }
 
     public static Predicate<Item> isResource() {
@@ -226,52 +219,8 @@ public class UnitPredicates
         return destination -> hasPath(source, destination);
     }
 
-    public static Predicate<Item> noResources(ResourceType type) {
-        return (item) -> {
-            ResourceContainer container = (ResourceContainer)item;
-            return container.getResource(type) == 0;
-        };
-    }
-
-    public static Predicate<Item> inRange(Combatant combatant) {
-        Objects.requireNonNull(combatant);
-        return item -> item != null && isNear(combatant, combatant.getAttackRange(), item);
-    }
-
-    public static Predicate<Item> notInRange(Combatant combatant) {
-        return not(inRange(combatant));
-    }
-
-    public static Predicate<Item> isRanged() {
-        return UnitOperations::isRanged;
-    }
-
     public static Predicate<Item> isConstructing() {
         return UnitOperations::isConstructing;
-    }
-
-    public static Predicate<Item> isGathering() {
-        return (item) -> {
-            Gatherer gatherer = (Gatherer)item;
-            return gatherer.isGathering();
-        };
-    }
-
-    public static Predicate<Item> isProducing() {
-        return (item) -> {
-            Building building = (Building)item;
-            return building.isProducing();
-        };
-    }
-
-    public static Predicate<Item> isPlaceholderClear() {
-        return item -> {
-            if (item instanceof Placeholder) {
-                Placeholder placeholder = (Placeholder)item;
-                return placeholder.isClear();
-            }
-            return false;
-        };
     }
 
     public static Predicate<Item> associatedWith(Item withItem) {

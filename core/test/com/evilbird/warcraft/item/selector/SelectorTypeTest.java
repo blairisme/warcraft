@@ -7,23 +7,23 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.ui.placement;
+package com.evilbird.warcraft.item.selector;
 
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Instances of this unit test validate the {@link PlaceholderType} class.
+ * Instances of this unit test validate the {@link SelectorType} class.
  *
  * @author Blair Butterworth
  */
-public class PlaceholderTypeTest
+public class SelectorTypeTest
 {
     @Test
     public void getBuildingTest() {
-        for (PlaceholderType placeholderType: PlaceholderType.values()) {
-            Assert.assertNotNull(placeholderType.getBuilding());
+        for (SelectorType buildingSelectorType : SelectorType.buildingSelectors()) {
+            Assert.assertNotNull(buildingSelectorType.getBuilding());
         }
     }
 
@@ -31,9 +31,9 @@ public class PlaceholderTypeTest
     public void forBuildingTest() {
         for (UnitType unitType: UnitType.values()) {
             if (unitType.isBuilding() && !unitType.isNeutral()) {
-                PlaceholderType placeholderType = PlaceholderType.forBuilding(unitType);
-                Assert.assertNotNull(placeholderType);
-                Assert.assertEquals(unitType, placeholderType.getBuilding());
+                SelectorType buildingSelectorType = SelectorType.forBuilding(unitType);
+                Assert.assertNotNull(buildingSelectorType);
+                Assert.assertEquals(unitType, buildingSelectorType.getBuilding());
             }
         }
     }

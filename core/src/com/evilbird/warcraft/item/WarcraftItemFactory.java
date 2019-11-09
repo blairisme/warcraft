@@ -13,18 +13,16 @@ import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
 import com.evilbird.warcraft.item.data.DataFactory;
+import com.evilbird.warcraft.item.display.HudFactory;
+import com.evilbird.warcraft.item.display.HudType;
 import com.evilbird.warcraft.item.effect.EffectFactory;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.layer.LayerFactory;
 import com.evilbird.warcraft.item.layer.LayerIdentifier;
 import com.evilbird.warcraft.item.projectile.ProjectileFactory;
 import com.evilbird.warcraft.item.projectile.ProjectileType;
-import com.evilbird.warcraft.item.display.HudFactory;
-import com.evilbird.warcraft.item.display.HudType;
-import com.evilbird.warcraft.item.ui.placement.PlaceholderFactory;
-import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
-import com.evilbird.warcraft.item.ui.target.TargetSelectorFactory;
-import com.evilbird.warcraft.item.ui.target.TargetSelectorType;
+import com.evilbird.warcraft.item.selector.SelectorFactory;
+import com.evilbird.warcraft.item.selector.SelectorType;
 import com.evilbird.warcraft.item.unit.UnitFactory;
 
 import javax.inject.Inject;
@@ -44,17 +42,15 @@ public class WarcraftItemFactory extends GameFactorySet<Item> implements ItemFac
         UnitFactory unitFactory,
         EffectFactory effectFactory,
         HudFactory hudFactory,
-        PlaceholderFactory placeholderFactory,
         ProjectileFactory projectileFactory,
-        TargetSelectorFactory targetSelectorFactory)
+        SelectorFactory selectorFactory)
     {
         addProvider(unitFactory);
         addProvider(dataFactory);
         addProvider(EffectType.class, effectFactory);
-        addProvider(PlaceholderType.class, placeholderFactory);
         addProvider(HudType.class, hudFactory);
         addProvider(LayerIdentifier.class, layerFactory);
         addProvider(ProjectileType.class, projectileFactory);
-        addProvider(TargetSelectorType.class, targetSelectorFactory);
+        addProvider(SelectorType.class, selectorFactory);
     }
 }

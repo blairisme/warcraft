@@ -12,8 +12,9 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.action.construct.ConstructActions;
 import com.evilbird.warcraft.action.selector.SelectorActions;
+import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.display.control.actions.ActionButtonType;
-import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
+import com.evilbird.warcraft.item.selector.SelectorType;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import javax.inject.Inject;
@@ -22,9 +23,9 @@ import javax.inject.Provider;
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.device.UserInputType.Drag;
 import static com.evilbird.engine.item.utility.ItemPredicates.withType;
+import static com.evilbird.warcraft.action.selection.SelectActions.SelectInvert;
 import static com.evilbird.warcraft.action.selector.SelectorActions.SelectorCancel;
 import static com.evilbird.warcraft.action.selector.SelectorActions.SelectorMove;
-import static com.evilbird.warcraft.action.selection.SelectActions.SelectInvert;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
@@ -33,7 +34,6 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isGatherer;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholder;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isPlaceholderClear;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.CancelButton;
 
@@ -65,8 +65,8 @@ public class ConstructInteractions extends InteractionContainer
         for (ActionButtonType button: ActionButtonType.values()) {
             if (button.isBuildButton()) {
                 UnitType building = button.getBuildProduct();
-                PlaceholderType placeholder = PlaceholderType.forBuilding(building);
-                SelectorActions action = SelectorActions.forPlaceholder(placeholder);
+                SelectorType selector = SelectorType.forBuilding(building);
+                SelectorActions action = SelectorActions.forSelector(selector);
                 addPlaceholder(button, action);
             }
         }
@@ -102,16 +102,16 @@ public class ConstructInteractions extends InteractionContainer
     }
 
     private void beginConstruction() {
-        for (PlaceholderType placeholder: PlaceholderType.values()) {
-            UnitType building = placeholder.getBuilding();
+        for (SelectorType buildingSelector: SelectorType.buildingSelectors()) {
+            UnitType building = buildingSelector.getBuilding();
             ConstructActions action = ConstructActions.forProduct(building);
-            beginConstruction(placeholder, action, building);
+            beginConstruction(buildingSelector, action, building);
         }
     }
 
-    private void beginConstruction(PlaceholderType placeholder, ConstructActions action, UnitType building) {
+    private void beginConstruction(SelectorType selector, ConstructActions action, UnitType building) {
         addAction(action)
-            .whenTarget(both(withType(placeholder), isPlaceholderClear()))
+            .whenTarget(both(withType(selector), UnitOperations::isBuildingSelectorClear))
             .whenSelected(isGatherer())
             .appliedTo(Selected);
 

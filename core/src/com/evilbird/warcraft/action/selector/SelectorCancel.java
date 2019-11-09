@@ -36,14 +36,14 @@ public class SelectorCancel extends BasicAction
 
     @Override
     public boolean act(float time) {
-        Unit builder = (Unit)getItem();
-        Item building = builder.getAssociatedItem();
+        Unit subject = (Unit)getItem();
+        Item selector = subject.getAssociatedItem();
 
-        ItemGroup player = building.getParent();
-        player.removeItem(building);
+        ItemGroup parent = selector.getParent();
+        parent.removeItem(selector);
 
-        builder.setAssociatedItem(null);
-        events.notifyPlaceholderRemoved(builder, building);
+        subject.setAssociatedItem(null);
+        events.notifySelectorRemoved(subject, selector);
 
         return ActionComplete;
     }

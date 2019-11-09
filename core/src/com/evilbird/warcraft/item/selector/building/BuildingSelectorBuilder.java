@@ -7,32 +7,33 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.ui.placement;
+package com.evilbird.warcraft.item.selector.building;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.warcraft.item.selector.SelectorType;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 /**
- * Creates new {@link Placeholder} objects, whose visual and audible
- * presentation are defined by the given {@link PlaceholderAssets}.
+ * Creates new {@link BuildingSelector} objects, whose visual and audible
+ * presentation are defined by the given {@link BuildingSelectorAssets}.
  *
  * @author Blair Butterworth
  */
-public class PlaceholderBuilder
+public class BuildingSelectorBuilder
 {
-    private PlaceholderAssets assets;
+    private BuildingSelectorAssets assets;
 
-    public PlaceholderBuilder(PlaceholderAssets assets) {
+    public BuildingSelectorBuilder(BuildingSelectorAssets assets) {
         this.assets = assets;
     }
 
-    public Placeholder build(PlaceholderType type) {
+    public BuildingSelector build(SelectorType type) {
         return build(type.getBuilding());
     }
 
-    private Placeholder build(UnitType building) {
-        Placeholder result = new Placeholder(getSkin(building));
+    private BuildingSelector build(UnitType building) {
+        BuildingSelector result = new BuildingSelector(getSkin(building));
         result.setSize(assets.getSize(building));
         result.setTouchable(Touchable.enabled);
         result.setVisible(true);
@@ -41,12 +42,12 @@ public class PlaceholderBuilder
 
     private Skin getSkin(UnitType type) {
         Skin skin = new Skin();
-        skin.add("default", getStyle(type), PlaceholderStyle.class);
+        skin.add("default", getStyle(type), BuildingSelectorStyle.class);
         return skin;
     }
 
-    private PlaceholderStyle getStyle(UnitType type) {
-        PlaceholderStyle style = new PlaceholderStyle();
+    private BuildingSelectorStyle getStyle(UnitType type) {
+        BuildingSelectorStyle style = new BuildingSelectorStyle();
         style.building = assets.getBuilding(type);
         style.allowed = assets.getAllowed(type);
         style.prohibited = assets.getProhibited(type);

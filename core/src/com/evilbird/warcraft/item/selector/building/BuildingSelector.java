@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.ui.placement;
+package com.evilbird.warcraft.item.selector.building;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.GridPoint2;
@@ -25,6 +25,7 @@ import com.evilbird.engine.item.utility.ItemOperations;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
+import com.evilbird.warcraft.item.selector.SelectorType;
 
 import java.util.Collection;
 
@@ -37,6 +38,14 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedW
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
 import static com.evilbird.warcraft.item.layer.LayerType.Sea;
 import static com.evilbird.warcraft.item.layer.LayerType.Shore;
+import static com.evilbird.warcraft.item.selector.SelectorType.DockyardSelector;
+import static com.evilbird.warcraft.item.selector.SelectorType.FoundrySelector;
+import static com.evilbird.warcraft.item.selector.SelectorType.MetalworksSelector;
+import static com.evilbird.warcraft.item.selector.SelectorType.OilPlatformSelector;
+import static com.evilbird.warcraft.item.selector.SelectorType.OilRefinerySelector;
+import static com.evilbird.warcraft.item.selector.SelectorType.OilRigSelector;
+import static com.evilbird.warcraft.item.selector.SelectorType.RefinerySelector;
+import static com.evilbird.warcraft.item.selector.SelectorType.ShipyardSelector;
 import static com.evilbird.warcraft.item.unit.UnitType.OilPatch;
 
 /**
@@ -46,7 +55,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.OilPatch;
  *
  * @author Blair Butterworth
  */
-public class Placeholder extends ItemBasic
+public class BuildingSelector extends ItemBasic
 {
     private transient Skin skin;
     private transient Drawable building;
@@ -55,9 +64,9 @@ public class Placeholder extends ItemBasic
     private transient Drawable blocked;
     private transient boolean isClear;
     private transient EventQueue events;
-    private transient PlaceholderType type;
+    private transient SelectorType type;
 
-    public Placeholder(Skin skin) {
+    public BuildingSelector(Skin skin) {
         this.skin = skin;
         setStyle("default");
     }
@@ -71,7 +80,7 @@ public class Placeholder extends ItemBasic
     }
 
     public void setStyle(String name) {
-        PlaceholderStyle style = skin.get(name, PlaceholderStyle.class);
+        BuildingSelectorStyle style = skin.get(name, BuildingSelectorStyle.class);
         building = style.building;
         allowed = style.allowed;
         blocked = style.prohibited;
@@ -91,7 +100,7 @@ public class Placeholder extends ItemBasic
     @Override
     public void setType(Identifier type) {
         super.setType(type);
-        this.type = (PlaceholderType)type;
+        this.type = (SelectorType)type;
     }
 
     @Override
@@ -136,14 +145,24 @@ public class Placeholder extends ItemBasic
     }
 
     private boolean isUnoccupied(Collection<Item> items) {
-        if (type.isOilPatchBased()) {
+        if (isOilPatchBased(type)) {
             return containsAll(items, hasType(OilPatch, Sea).or(associatedWith(this)))
                 && containsEqual(items, hasType(OilPatch), hasType(Sea));
         }
-        if (type.isShoreBased()) {
+        if (isShoreBased(type)) {
             return containsAll(items, hasType(Shore, Sea).or(associatedWith(this)))
                 && containsAny(items, hasType(Shore));
         }
         return containsAll(items, hasType(Map).or(associatedWith(this)));
     }
+
+    private boolean isShoreBased(SelectorType type) {
+        return type == ShipyardSelector || type == RefinerySelector || type == FoundrySelector
+            || type == DockyardSelector || type == OilRefinerySelector || type == MetalworksSelector;
+    }
+
+    private boolean isOilPatchBased(SelectorType type) {
+        return type == OilPlatformSelector || type == OilRigSelector;
+    }
+    
 }

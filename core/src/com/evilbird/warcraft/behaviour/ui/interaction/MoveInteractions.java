@@ -24,11 +24,11 @@ import static com.evilbird.warcraft.item.common.capability.MovementCapability.Wa
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isControllable;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isMovable;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isMovableOver;
+import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.StopButton;
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
 import static com.evilbird.warcraft.item.layer.LayerType.OpaqueFogSection;
 import static com.evilbird.warcraft.item.layer.LayerType.Sea;
 import static com.evilbird.warcraft.item.layer.LayerType.Shore;
-import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.StopButton;
 import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
 import static com.evilbird.warcraft.item.unit.UnitType.OilPatch;
 

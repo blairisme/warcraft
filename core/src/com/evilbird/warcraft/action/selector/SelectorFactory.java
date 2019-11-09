@@ -31,13 +31,13 @@ public class SelectorFactory implements ActionProvider
 {
     private InjectedPool<SelectorCancel> cancelPool;
     private InjectedPool<SelectorCreate> createPool;
-    private InjectedPool<com.evilbird.warcraft.action.selector.SelectorMove> movePool;
+    private InjectedPool<SelectorMove> movePool;
 
     @Inject
     public SelectorFactory(
         InjectedPool<SelectorCancel> cancelPool,
         InjectedPool<SelectorCreate> createPool,
-        InjectedPool<com.evilbird.warcraft.action.selector.SelectorMove> movePool)
+        InjectedPool<SelectorMove> movePool)
     {
         this.cancelPool = cancelPool;
         this.createPool = createPool;

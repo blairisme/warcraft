@@ -27,7 +27,7 @@ import com.evilbird.test.data.item.TestPlaceholders;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.warcraft.action.selector.SelectorMove;
-import com.evilbird.warcraft.item.ui.placement.Placeholder;
+import com.evilbird.warcraft.item.selector.building.BuildingSelector;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,33 +40,33 @@ import org.junit.Test;
 public class SelectorMoveTest extends GameTestCase
 {
     private SelectorMove action;
-    private Placeholder placeholder;
+    private BuildingSelector selector;
     private UserInput userInput;
 
     @Before
     public void setup() {
-        placeholder = TestPlaceholders.newTestPlaceholder("repositionaction");
+        selector = TestPlaceholders.newTestPlaceholder("repositionaction");
         action = new SelectorMove();
-        action.setItem(placeholder);
+        action.setItem(selector);
         action.setCause(userInput);
     }
 
     @Test
     public void actTest() {
-        placeholder.setPosition(0, 0);
-        placeholder.setSize(32, 32);
+        selector.setPosition(0, 0);
+        selector.setSize(32, 32);
 
         userInput = userInput(40, 40);
         action.setCause(userInput);
 
         action.act(1);
-        Assert.assertEquals(new Vector2(32, 32), placeholder.getPosition());
+        Assert.assertEquals(new Vector2(32, 32), selector.getPosition());
 
         userInput = userInput(70, 70);
         action.setCause(userInput);
 
         action.act(1);
-        Assert.assertEquals(new Vector2(64, 64), placeholder.getPosition());
+        Assert.assertEquals(new Vector2(64, 64), selector.getPosition());
     }
 
     @Test

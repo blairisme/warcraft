@@ -24,8 +24,8 @@ import javax.inject.Inject;
  */
 public class SelectFactory implements ActionProvider
 {
-    private InjectedPool<com.evilbird.warcraft.action.selection.SelectArea> selectAreaPool;
-    private InjectedPool<com.evilbird.warcraft.action.selection.SelectInvert> selectInvertPool;
+    private InjectedPool<SelectArea> selectAreaPool;
+    private InjectedPool<SelectInvert> selectInvertPool;
 
     @Inject
     public SelectFactory(
@@ -38,7 +38,7 @@ public class SelectFactory implements ActionProvider
 
     @Override
     public Action get(ActionIdentifier identifier) {
-        Validate.isInstanceOf(com.evilbird.warcraft.action.selection.SelectActions.class, identifier);
+        Validate.isInstanceOf(SelectActions.class, identifier);
         switch ((SelectActions)identifier) {
             case SelectBoxBegin:
             case SelectBoxResize:

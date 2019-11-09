@@ -7,16 +7,16 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.ui.placement;
+package com.evilbird.warcraft.item.selector.building;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 /**
- * Defines the visual and auditory presentation of a {@link Placeholder}.
+ * Defines the visual and auditory presentation of a {@link BuildingSelector}.
  *
  * @author Blair Butterworth
  */
-public class PlaceholderStyle
+public class BuildingSelectorStyle
 {
     public transient Drawable building;
     public transient Drawable allowed;

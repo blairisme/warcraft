@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.ui.placement;
+package com.evilbird.warcraft.item.selector.building;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -25,13 +25,13 @@ import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 
 /**
  * Provides access to the assets that are required to display a
- * {@link Placeholder}.
+ * {@link BuildingSelector}.
  *
  * @author Blair Butterworth
  */
-public class PlaceholderAssets extends AssetBundle
+public class BuildingSelectorAssets extends AssetBundle
 {
-    public PlaceholderAssets(AssetManager assetManager, WarcraftContext context) {
+    public BuildingSelectorAssets(AssetManager assetManager, WarcraftContext context) {
         super(assetManager);
         registerOverlayTextures();
         registerBuildingTextures(context.getAssetSet());

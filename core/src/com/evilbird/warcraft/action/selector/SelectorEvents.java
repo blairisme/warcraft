@@ -31,11 +31,11 @@ public class SelectorEvents
         this.events = events;
     }
 
-    public void notifyPlaceholderAdded(Item builder, Item selector) {
+    public void notifySelectorAdded(Item builder, Item selector) {
         events.add(new SelectorEvent(builder, selector, Added));
     }
 
-    public void notifyPlaceholderRemoved(Item builder, Item selector) {
+    public void notifySelectorRemoved(Item builder, Item selector) {
         events.add(new SelectorEvent(builder, selector, Removed));
     }
 }

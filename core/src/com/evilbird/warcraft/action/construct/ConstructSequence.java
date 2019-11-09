@@ -34,7 +34,7 @@ public class ConstructSequence extends StateTransitionAction
     @Inject
     public ConstructSequence(
         ConstructAction construct,
-        ConstructPlaceholder initialize,
+        ConstructBuilding initialize,
         DeselectAction deselect,
         MoveToItemAction move)
     {
@@ -50,7 +50,7 @@ public class ConstructSequence extends StateTransitionAction
     }
 
     private Action nextAction(Item builder, Item building) {
-        if (UnitOperations.isBuildingPlaceholder(building)) {
+        if (UnitOperations.isBuildingSelector(building)) {
             return initialize;
         }
         if (!ItemOperations.isNear(builder, builder.getWidth(), building)) {

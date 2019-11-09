@@ -17,10 +17,10 @@ import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.item.ItemBasic;
 import com.evilbird.engine.item.specialized.Table;
 import com.evilbird.warcraft.item.display.HudControl;
+import com.evilbird.warcraft.item.display.control.actions.ActionPane;
 import com.evilbird.warcraft.item.display.control.menu.MenuPane;
 import com.evilbird.warcraft.item.display.control.minimap.MiniMapPane;
 import com.evilbird.warcraft.item.display.control.status.StatusPane;
-import com.evilbird.warcraft.item.display.control.actions.ActionPane;
 
 /**
  * Instances of this class represent the user interface shown on the left of

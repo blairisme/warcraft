@@ -12,6 +12,7 @@ package com.evilbird.engine.game;
 import com.evilbird.engine.common.error.UnknownEntityException;
 import com.evilbird.engine.common.lang.Identifier;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +39,10 @@ public class GameFactorySet<V> implements GameFactory<V>
 
     public void addProvider(Class<?> key, GameFactory<? extends V> provider) {
         providers.put(key, provider);
+    }
+
+    public void addProvider(EnumSet<? extends Identifier> keys, GameFactory<? extends V> provider) {
+        addProvider(keys.toArray(new Identifier[0]), provider);
     }
 
     public void addProvider(Identifier[] keys, GameFactory<? extends V> provider) {

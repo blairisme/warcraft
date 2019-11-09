@@ -28,7 +28,7 @@ import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.ui.placement.Placeholder;
+import com.evilbird.warcraft.item.selector.building.BuildingSelector;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -368,8 +368,16 @@ public class UnitOperations
         return item instanceof Building;
     }
 
-    public static boolean isBuildingPlaceholder(Item item) {
-        return item instanceof Placeholder;
+    public static boolean isBuildingSelector(Item item) {
+        return item instanceof BuildingSelector;
+    }
+
+    public static boolean isBuildingSelectorClear(Item item) {
+        if (item instanceof BuildingSelector) {
+            BuildingSelector selector = (BuildingSelector)item;
+            return selector.isClear();
+        }
+        return false;
     }
 
     public static boolean isConstructing(Item item) {

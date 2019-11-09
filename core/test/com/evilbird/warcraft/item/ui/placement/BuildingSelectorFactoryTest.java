@@ -15,9 +15,12 @@ import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
+import com.evilbird.warcraft.item.selector.SelectorType;
+import com.evilbird.warcraft.item.selector.building.BuildingSelectorFactory;
 import com.evilbird.warcraft.state.WarcraftContext;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -30,17 +33,17 @@ import static com.evilbird.warcraft.common.WarcraftSeason.Swamp;
 import static com.evilbird.warcraft.common.WarcraftSeason.Winter;
 
 /**
- * Instances of this unit test validate logic in the {@link PlaceholderFactory}
+ * Instances of this unit test validate logic in the {@link BuildingSelectorFactory}
  * class.
  *
  * @author Blair Butterworth
  */
-public class PlaceholderFactoryTest extends GameFactoryTestCase<PlaceholderFactory>
+public class BuildingSelectorFactoryTest extends GameFactoryTestCase<BuildingSelectorFactory>
 {
     @Override
-    protected PlaceholderFactory newFactory(DeviceDisplay display, AssetManager assets) {
+    protected BuildingSelectorFactory newFactory(DeviceDisplay display, AssetManager assets) {
         EventQueue events = Mockito.mock(EventQueue.class);
-        return new PlaceholderFactory(assets, events);
+        return new BuildingSelectorFactory(assets, events);
     }
 
     @Override
@@ -56,7 +59,7 @@ public class PlaceholderFactoryTest extends GameFactoryTestCase<PlaceholderFacto
 
     @Override
     protected Collection<Identifier> getProductIdentifiers() {
-        return Arrays.asList(PlaceholderType.values());
+        return new ArrayList<>(SelectorType.buildingSelectors());
     }
 
     @Override

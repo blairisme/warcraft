@@ -23,8 +23,8 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAttacker;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isControllable;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDestroyable;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isResource;
-import static com.evilbird.warcraft.item.layer.LayerType.WallSection;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.item.layer.LayerType.WallSection;
 
 /**
  * Defines user interactions that result in attacking game objects.

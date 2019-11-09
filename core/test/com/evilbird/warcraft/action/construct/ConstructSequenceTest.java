@@ -25,7 +25,7 @@ public class ConstructSequenceTest extends ActionTestCase
     @Override
     protected Action newAction() {
         ConstructAction construct = Mockito.mock(ConstructAction.class);
-        ConstructPlaceholder initialize = Mockito.mock(ConstructPlaceholder.class);
+        ConstructBuilding initialize = Mockito.mock(ConstructBuilding.class);
         DeselectAction deselect = Mockito.mock(DeselectAction.class);
         MoveToItemAction move = Mockito.mock(MoveToItemAction.class);
 

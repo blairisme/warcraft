@@ -10,7 +10,6 @@
 package com.evilbird.warcraft.item.unit.conjured;
 
 import com.evilbird.engine.game.GameFactorySet;
-import com.evilbird.engine.item.Item;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.conjured.human.BlizzardFactory;
 import com.evilbird.warcraft.item.unit.conjured.orc.DeathAndDecayFactory;

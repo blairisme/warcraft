@@ -23,8 +23,7 @@ import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.production.ProductionCosts;
 import com.evilbird.warcraft.item.common.resource.ResourceSet;
 import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.ui.placement.Placeholder;
-import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
+import com.evilbird.warcraft.item.selector.SelectorType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
@@ -43,12 +42,12 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.BuildingSite;
 import static com.evilbird.warcraft.item.unit.UnitSound.Placement;
 
 /**
- * An {@link Action} that replaces a {@link Placeholder} with the
+ * An {@link Action} that replaces a selector with the
  * {@link Building} it represents.
  *
  * @author Blair Butterworth
  */
-public class ConstructPlaceholder extends BasicAction
+public class ConstructBuilding extends BasicAction
 {
     private ItemFactory factory;
     private ResourceTransfer resources;
@@ -59,7 +58,7 @@ public class ConstructPlaceholder extends BasicAction
     private WarcraftPreferences preferences;
 
     @Inject
-    public ConstructPlaceholder(
+    public ConstructBuilding(
         ItemFactory factory,
         ResourceTransfer resources,
         RemoveEvents removeEvents,
@@ -82,17 +81,17 @@ public class ConstructPlaceholder extends BasicAction
     @Override
     public boolean act(float delta) {
         Gatherer builder = (Gatherer)getItem();
-        Placeholder placeholder = (Placeholder)getTarget();
-        UnitType building = getBuilding(placeholder);
+        Item selector = getTarget();
+        UnitType building = getBuilding(selector);
         Player player = getPlayer(builder);
-        return construct(builder, placeholder, building, player);
+        return construct(builder, selector, building, player);
     }
 
-    private boolean construct(Gatherer builder, Placeholder placeholder, UnitType building, Player player) {
+    private boolean construct(Gatherer builder, Item selector, UnitType building, Player player) {
         purchase(building, player);
-        create(building, player, placeholder, builder);
-        removeOccluding(placeholder);
-        removePlaceholder(placeholder);
+        create(building, player, selector, builder);
+        removeOccluding(selector);
+        removePlaceholder(selector);
         return ActionComplete;
     }
 
@@ -101,19 +100,19 @@ public class ConstructPlaceholder extends BasicAction
         resources.setResources(player, cost.negate());
     }
 
-    private void create(UnitType type, Player player, Placeholder placeholder, Gatherer builder) {
+    private void create(UnitType type, Player player, Item selector, Gatherer builder) {
         Building building = (Building)factory.get(type);
-        setAttributes(building, placeholder);
+        setAttributes(building, selector);
         setAssociations(builder, building);
         setPlacementSound(building);
         player.addItem(building);
         notifyCreationObservers(building);
     }
 
-    private void setAttributes(Building building, Placeholder placeholder) {
+    private void setAttributes(Building building, Item selector) {
         building.setConstructionProgress(0);
         building.setAnimation(BuildingSite);
-        building.setPosition(placeholder.getPosition());
+        building.setPosition(selector.getPosition());
         building.setVisible(true);
     }
 
@@ -133,13 +132,13 @@ public class ConstructPlaceholder extends BasicAction
         recipient.accept(building);
     }
 
-    private void removePlaceholder(Placeholder placeholder) {
-        removeItem(placeholder);
+    private void removePlaceholder(Item selector) {
+        removeItem(selector);
     }
 
-    private void removeOccluding(Placeholder placeholder) {
-        ItemRoot root = placeholder.getRoot();
-        Rectangle bounds = placeholder.getBounds();
+    private void removeOccluding(Item selector) {
+        ItemRoot root = selector.getRoot();
+        Rectangle bounds = selector.getBounds();
         removeItems(root.findAll(all(isBuilding(), isDead(), overlapping(bounds))));
     }
 
@@ -155,8 +154,8 @@ public class ConstructPlaceholder extends BasicAction
         removeEvents.notifyRemove(item);
     }
 
-    private UnitType getBuilding(Placeholder placeholder) {
-        PlaceholderType type = (PlaceholderType)placeholder.getType();
+    private UnitType getBuilding(Item selector) {
+        SelectorType type = (SelectorType)selector.getType();
         return type.getBuilding();
     }
 }

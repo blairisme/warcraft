@@ -10,10 +10,9 @@
 package com.evilbird.warcraft.action.selector;
 
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.warcraft.item.ui.placement.PlaceholderType;
+import com.evilbird.engine.common.collection.EnumUtils;
+import com.evilbird.warcraft.item.selector.SelectorType;
 import org.apache.commons.lang3.Validate;
-
-import static com.evilbird.engine.common.collection.EnumUtils.getName;
 
 /**
  * Defines options of specifying selector varieties.
@@ -22,63 +21,72 @@ import static com.evilbird.engine.common.collection.EnumUtils.getName;
  */
 public enum SelectorActions implements ActionIdentifier
 {
-    BarracksSelector,
-    BlacksmithSelector,
-    CannonTowerSelector,
-    CastleSelector,
-    ChurchSelector,
-    FarmSelector,
-    FoundrySelector,
-    GnomishInventorSelector,
-    GryphonAviarySelector,
-    GuardTowerSelector,
-    KeepSelector,
-    LumberMillSelector,
-    MageTowerSelector,
-    OilPlatformSelector,
-    RefinerySelector,
-    ScoutTowerSelector,
-    ShipyardSelector,
-    StablesSelector,
-    TownHallSelector,
+    /* Human Building Selectors */
+    ShowBarracksSelector,
+    ShowBlacksmithSelector,
+    ShowCannonTowerSelector,
+    ShowCastleSelector,
+    ShowChurchSelector,
+    ShowFarmSelector,
+    ShowFoundrySelector,
+    ShowGnomishInventorSelector,
+    ShowGryphonAviarySelector,
+    ShowGuardTowerSelector,
+    ShowKeepSelector,
+    ShowLumberMillSelector,
+    ShowMageTowerSelector,
+    ShowOilPlatformSelector,
+    ShowRefinerySelector,
+    ShowScoutTowerSelector,
+    ShowShipyardSelector,
+    ShowStablesSelector,
+    ShowTownHallSelector,
 
-    AltarOfStormsSelector,
-    ForgeSelector,
-    EncampmentSelector,
-    BombardTowerSelector,
-    DockyardSelector,
-    DragonRoostSelector,
-    FortressSelector,
-    MetalworksSelector,
-    GoblinAlchemistSelector,
-    GreatHallSelector,
-    LookoutTowerSelector,
-    OgreMoundSelector,
-    OilRefinerySelector,
-    OilRigSelector,
-    PigFarmSelector,
-    StrongholdSelector,
-    TempleOfTheDamnedSelector,
-    TrollLumberMillSelector,
-    WatchTowerSelector,
-    
+    /* Orc Building Selectors */
+    ShowAltarOfStormsSelector,
+    ShowForgeSelector,
+    ShowEncampmentSelector,
+    ShowBombardTowerSelector,
+    ShowDockyardSelector,
+    ShowDragonRoostSelector,
+    ShowFortressSelector,
+    ShowMetalworksSelector,
+    ShowGoblinAlchemistSelector,
+    ShowGreatHallSelector,
+    ShowLookoutTowerSelector,
+    ShowOgreMoundSelector,
+    ShowOilRefinerySelector,
+    ShowOilRigSelector,
+    ShowPigFarmSelector,
+    ShowStrongholdSelector,
+    ShowTempleOfTheDamnedSelector,
+    ShowTrollLumberMillSelector,
+    ShowWatchTowerSelector,
+
+    /* Target Selectors */
+    ShowBlizzardSelector,
+    ShowDemolitionSelector,
+    ShowFireballSelector,
+    ShowRuneTrapSelector,
+    ShowWhirlwindSelector,
+
+    /* Area Selector */
+    ShowAreaSelector,
+
+    /* Common Selectors Actions */
     SelectorMove,
     SelectorCancel;
 
-    public boolean isAddAction() {
+    public boolean isShowAction() {
         return this != SelectorCancel && this != SelectorMove;
     }
 
-    public PlaceholderType getPlaceholder() {
-        Validate.isTrue(isAddAction());
-        String name = name();
-        String placeholder = name.replace("Selector", "Placeholder");
-        return PlaceholderType.valueOf(placeholder);
+    public SelectorType getSelector() {
+        Validate.isTrue(isShowAction());
+        return SelectorType.valueOf(EnumUtils.getName(this, "Show", ""));
     }
 
-    public static SelectorActions forPlaceholder(PlaceholderType placeholderType) {
-        String name = placeholderType.name();
-        String selector = name.replace("Placeholder", "Selector");
-        return SelectorActions.valueOf(selector);
+    public static SelectorActions forSelector(SelectorType selector) {
+        return SelectorActions.valueOf("Show" + selector.name());
     }
 }

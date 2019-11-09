@@ -22,20 +22,20 @@ import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.construct.ConstructStatus;
 import com.evilbird.warcraft.action.gather.GatherEvent;
 import com.evilbird.warcraft.action.gather.GatherStatus;
-import com.evilbird.warcraft.action.selector.SelectorEvent;
-import com.evilbird.warcraft.action.selector.SelectorStatus;
 import com.evilbird.warcraft.action.produce.ProduceEvent;
 import com.evilbird.warcraft.action.produce.ProduceStatus;
 import com.evilbird.warcraft.action.selection.SelectEvent;
+import com.evilbird.warcraft.action.selector.SelectorEvent;
+import com.evilbird.warcraft.action.selector.SelectorStatus;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerStatistic;
-import com.evilbird.warcraft.item.layer.wall.WallSection;
 import com.evilbird.warcraft.item.display.HudControl;
 import com.evilbird.warcraft.item.display.control.actions.ActionPane;
 import com.evilbird.warcraft.item.display.control.status.StatusPane;
 import com.evilbird.warcraft.item.display.resource.ResourcePane;
+import com.evilbird.warcraft.item.layer.wall.WallSection;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -168,7 +168,7 @@ public class MenuBehaviour implements Behaviour
 
     private void updatePlaceholderRecipients() {
         for (SelectorEvent event: events.getEvents(SelectorEvent.class)) {
-            actionPane.setPlaceholder(event.getBuilder(), event.getStatus() == SelectorStatus.Added);
+            actionPane.setPlaceholder(event.getOwner(), event.getStatus() == SelectorStatus.Added);
         }
     }
 
