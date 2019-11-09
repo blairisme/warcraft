@@ -29,6 +29,7 @@ import static com.evilbird.warcraft.action.selector.SelectorActions.MoveSelector
 import static com.evilbird.warcraft.action.selector.SelectorActions.ResizeAreaSelector;
 import static com.evilbird.warcraft.action.selector.SelectorActions.ShowAreaSelector;
 import static com.evilbird.warcraft.action.selector.SelectorActions.ShowBlizzardSelector;
+import static com.evilbird.warcraft.action.selector.SelectorActions.ShowDeathAndDecaySelector;
 import static com.evilbird.warcraft.action.selector.SelectorActions.ShowDemolitionSelector;
 import static com.evilbird.warcraft.action.selector.SelectorActions.ShowFireballSelector;
 import static com.evilbird.warcraft.action.selector.SelectorActions.ShowRuneTrapSelector;
@@ -40,6 +41,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedW
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelector;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.BlizzardButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.DeathAndDecayButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.DetonateButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.FireballButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.RunesButton;
@@ -93,6 +95,7 @@ public class SelectorInteractions extends InteractionContainer
 
     private void showTargetSelectors() {
         showSelector(BlizzardButton, ShowBlizzardSelector);
+        showSelector(DeathAndDecayButton, ShowDeathAndDecaySelector);
         showSelector(DetonateButton, ShowDemolitionSelector);
         showSelector(FireballButton, ShowFireballSelector);
         showSelector(RunesButton, ShowRuneTrapSelector);

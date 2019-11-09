@@ -66,6 +66,7 @@ public enum SelectorType implements ItemType
     WatchTowerSelector,
 
     BlizzardSelector,
+    DeathAndDecaySelector,
     DemolitionSelector,
     FireballSelector,
     RuneTrapSelector,

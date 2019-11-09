@@ -22,6 +22,7 @@ import javax.inject.Provider;
 import static com.evilbird.warcraft.action.spell.SpellActions.BlizzardSpell;
 import static com.evilbird.warcraft.action.spell.SpellActions.BloodlustSelect;
 import static com.evilbird.warcraft.action.spell.SpellActions.BloodlustSpell;
+import static com.evilbird.warcraft.action.spell.SpellActions.DeathAndDecaySpell;
 import static com.evilbird.warcraft.action.spell.SpellActions.DeathCoilSelect;
 import static com.evilbird.warcraft.action.spell.SpellActions.DeathCoilSpell;
 import static com.evilbird.warcraft.action.spell.SpellActions.ExorcismSelect;
@@ -38,11 +39,13 @@ import static com.evilbird.warcraft.action.spell.SpellActions.InvisibilitySpell;
 import static com.evilbird.warcraft.action.spell.SpellActions.PolymorphSelect;
 import static com.evilbird.warcraft.action.spell.SpellActions.PolymorphSpell;
 import static com.evilbird.warcraft.action.spell.SpellActions.RaiseDeadSpell;
+import static com.evilbird.warcraft.action.spell.SpellActions.RunesSpell;
 import static com.evilbird.warcraft.action.spell.SpellActions.SlowSelect;
 import static com.evilbird.warcraft.action.spell.SpellActions.SlowSpell;
 import static com.evilbird.warcraft.action.spell.SpellActions.SpellDeselect;
 import static com.evilbird.warcraft.action.spell.SpellActions.UnholyArmourSelect;
 import static com.evilbird.warcraft.action.spell.SpellActions.UnholyArmourSpell;
+import static com.evilbird.warcraft.action.spell.SpellActions.WhirlwindSpell;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Replacement;
@@ -71,6 +74,9 @@ import static com.evilbird.warcraft.item.display.control.actions.ActionButtonTyp
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.SlowButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.UnholyArmourButton;
 import static com.evilbird.warcraft.item.selector.SelectorType.BlizzardSelector;
+import static com.evilbird.warcraft.item.selector.SelectorType.DeathAndDecaySelector;
+import static com.evilbird.warcraft.item.selector.SelectorType.RuneTrapSelector;
+import static com.evilbird.warcraft.item.selector.SelectorType.WhirlwindSelector;
 import static com.evilbird.warcraft.item.unit.UnitType.DeathKnight;
 import static com.evilbird.warcraft.item.unit.UnitType.Mage;
 import static com.evilbird.warcraft.item.unit.UnitType.OgreMage;
@@ -95,31 +101,34 @@ public class SpellInteractions extends InteractionContainer
     private void mageSpells() {
         selectorSpell(Mage, BlizzardSelector, BlizzardSpell);
 
-        targetSpell(Mage, FlameShield, FlameShieldButton, FlameShieldSelect, FlameShieldSpell);
-        targetSpell(Mage, Polymorph, PolymorphButton, PolymorphSelect, PolymorphSpell);
-        targetSpell(Mage, Slow, SlowButton, SlowSelect, SlowSpell);
-        targetSpell(Mage, Invisibility, InvisibilityButton, InvisibilitySelect, InvisibilitySpell);
+        highlightSpell(Mage, FlameShield, FlameShieldButton, FlameShieldSelect, FlameShieldSpell);
+        highlightSpell(Mage, Polymorph, PolymorphButton, PolymorphSelect, PolymorphSpell);
+        highlightSpell(Mage, Slow, SlowButton, SlowSelect, SlowSpell);
+        highlightSpell(Mage, Invisibility, InvisibilityButton, InvisibilitySelect, InvisibilitySpell);
     }
 
     private void paladinSpells() {
-        targetSpell(Paladin, Exorcism, ExorcismButton, ExorcismSelect, ExorcismSpell);
-        targetSpell(Paladin, Heal, HealButton, HealSelect, HealSpell);
+        highlightSpell(Paladin, Exorcism, ExorcismButton, ExorcismSelect, ExorcismSpell);
+        highlightSpell(Paladin, Heal, HealButton, HealSelect, HealSpell);
         //buffSpell(Paladin, HolyVision, HolyVisionButton, HolyVisionSelect, HolyVisionSpell);
     }
 
     private void deathKnightSpells() {
-        targetSpell(DeathKnight, DeathCoil, DeathCoilButton, DeathCoilSelect, DeathCoilSpell);
-        targetSpell(DeathKnight, Haste, HasteButton, HasteSelect, HasteSpell);
-        targetSpell(DeathKnight, UnholyArmour, UnholyArmourButton, UnholyArmourSelect, UnholyArmourSpell);
-        //targetedSpell(DeathKnight, DeathAndDecay, DeathAndDecayButton, DeathAndDecaySelect, DeathAndDecaySpell);
-        //targetedSpell(DeathKnight, Whirlwind, WhirlwindButton, WhirlwindSelect, WhirlwindSpell);
+        highlightSpell(DeathKnight, DeathCoil, DeathCoilButton, DeathCoilSelect, DeathCoilSpell);
+        highlightSpell(DeathKnight, Haste, HasteButton, HasteSelect, HasteSpell);
+        highlightSpell(DeathKnight, UnholyArmour, UnholyArmourButton, UnholyArmourSelect, UnholyArmourSpell);
+
+        selectorSpell(DeathKnight, DeathAndDecaySelector, DeathAndDecaySpell);
+        selectorSpell(DeathKnight, WhirlwindSelector, WhirlwindSpell);
+
         instantSpell(DeathKnight, RaiseDeadButton, RaiseDeadSpell);
     }
 
     private void ogreMageSpells() {
         instantSpell(OgreMage, EyeOfKilroggButton, EyeOfKilroggSpell);
-        targetSpell(OgreMage, Bloodlust, BloodlustButton, BloodlustSelect, BloodlustSpell);
-        //targetedSpell(OgreMage, Runes, RunesButton, RunesSelect, RunesSpell);
+        highlightSpell(OgreMage, Bloodlust, BloodlustButton, BloodlustSelect, BloodlustSpell);
+
+        selectorSpell(OgreMage, RuneTrapSelector, RunesSpell);
     }
 
     private void instantSpell(
@@ -134,7 +143,7 @@ public class SpellInteractions extends InteractionContainer
             .appliedAs(Addition);
     }
 
-    private void targetSpell(
+    private void highlightSpell(
         UnitType caster,
         Spell spell,
         ActionButtonType button,

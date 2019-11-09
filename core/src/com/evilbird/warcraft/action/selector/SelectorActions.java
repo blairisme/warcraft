@@ -65,6 +65,7 @@ public enum SelectorActions implements ActionIdentifier
 
     /* Target Selectors */
     ShowBlizzardSelector,
+    ShowDeathAndDecaySelector,
     ShowDemolitionSelector,
     ShowFireballSelector,
     ShowRuneTrapSelector,
