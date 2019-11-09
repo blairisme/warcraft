@@ -46,6 +46,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.Encampment;
 import static com.evilbird.warcraft.item.unit.UnitType.EyeOfKilrogg;
 import static com.evilbird.warcraft.item.unit.UnitType.Farm;
 import static com.evilbird.warcraft.item.unit.UnitType.Ferry;
+import static com.evilbird.warcraft.item.unit.UnitType.FlameShield;
 import static com.evilbird.warcraft.item.unit.UnitType.Footman;
 import static com.evilbird.warcraft.item.unit.UnitType.Forge;
 import static com.evilbird.warcraft.item.unit.UnitType.Fortress;
@@ -140,7 +141,7 @@ public class UnitIconLayout
             Unknown,                Unknown,            Unknown,                Unknown,                Unknown,
             Unknown,                Unknown,            Unknown,                Unknown,                Unknown,
             Unknown,                Unknown,            RuneTrap,               Unknown,                Unknown,
-            Unknown,                Unknown,            Unknown,                DeathAndDecay,          Whirlwind,
+            FlameShield,            Unknown,            Unknown,                DeathAndDecay,          Whirlwind,
             Blizzard,               Unknown,            Unknown,                Unknown,                Unknown,
             Unknown,                EyeOfKilrogg,       Unknown,                Unknown,                Skeleton,
             Seal,                   Unknown,            Unknown,                Unknown,                Unknown

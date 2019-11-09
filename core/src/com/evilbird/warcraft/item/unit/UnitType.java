@@ -132,6 +132,7 @@ public enum UnitType implements ItemType
     Blizzard,
     DeathAndDecay,
     EyeOfKilrogg,
+    FlameShield,
     RuneTrap,
     Skeleton,
     Whirlwind,

@@ -15,16 +15,13 @@ import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.display.control.actions.buttons.BasicButtonController;
 import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
-import com.evilbird.warcraft.item.unit.conjured.rune.RuneTrap;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.evilbird.warcraft.item.common.spell.Spell.DeathAndDecay;
 import static com.evilbird.warcraft.item.common.spell.Spell.Runes;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.AttackButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.CancelButton;
-import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.DeathAndDecayButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.MoveButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.RunesButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.StopButton;

@@ -19,11 +19,9 @@ import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.evilbird.warcraft.item.common.spell.Spell.Blizzard;
 import static com.evilbird.warcraft.item.common.spell.Spell.DeathAndDecay;
 import static com.evilbird.warcraft.item.common.spell.Spell.Whirlwind;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.AttackButton;
-import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.BlizzardButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.CancelButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.DeathAndDecayButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.MoveButton;

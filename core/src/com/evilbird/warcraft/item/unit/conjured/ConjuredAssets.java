@@ -27,6 +27,7 @@ public class ConjuredAssets extends AssetBundle
         register("data/textures/common/environmental/rune.png");
         register("data/textures/common/environmental/whirlwind.png");
         register("data/textures/common/spell/death_and_decay.png");
+        register("data/textures/common/spell/flame_shield.png");
     }
 
     public Texture getBlizzard() {
@@ -35,6 +36,10 @@ public class ConjuredAssets extends AssetBundle
 
     public Texture getDeathAndDecay() {
         return getTexture("death_and_decay.png");
+    }
+
+    public Texture getFlameShield() {
+        return getTexture("flame_shield.png");
     }
 
     public Texture getRune() {
