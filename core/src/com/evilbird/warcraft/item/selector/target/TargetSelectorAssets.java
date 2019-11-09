@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.selector.target;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.assets.AssetBundle;
 
@@ -25,7 +26,7 @@ public class TargetSelectorAssets extends AssetBundle
         register("rune_select", "data/textures/common/menu/rune_select.png");;
     }
 
-    public Drawable getRuneSelect() {
-        return getDrawable("rune_select");
+    public Texture getRuneSelect() {
+        return getTexture("rune_select");
     }
 }
