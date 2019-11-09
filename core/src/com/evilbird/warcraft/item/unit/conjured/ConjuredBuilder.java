@@ -16,11 +16,6 @@ import com.evilbird.engine.common.graphics.AnimationCatalog;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitStyle;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.conjured.animations.ConjuredAnimations;
-import com.evilbird.warcraft.item.unit.conjured.sounds.ConjuredSounds;
-
-import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 
 /**
  * Creates a new {@link ConjuredObject} instance whose visual and audible
@@ -28,35 +23,32 @@ import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
  *
  * @author Blair Butterworth
  */
-public class ConjuredBuilder
+public abstract class ConjuredBuilder
 {
-    private UnitType type;
     private ConjuredAssets assets;
     private AnimationCatalog animations;
     private SoundCatalog sounds;
 
-    public ConjuredBuilder(ConjuredAssets assets, UnitType type) {
+    public ConjuredBuilder(ConjuredAssets assets) {
         this.assets = assets;
-        this.type = type;
     }
 
     public ConjuredObject build() {
-        ConjuredObject result = new ConjuredObject(getSkin());
+        ConjuredObject result = newObject(getSkin());
         result.setAnimation(UnitAnimation.Idle);
         result.setHealth(1);
         result.setHealthMaximum(1);
-        result.setIdentifier(objectIdentifier(type.name(), result));
         result.setSelected(false);
         result.setSelectable(false);
         result.setSight(0);
-        result.setSize(32, 32);
         result.setTouchable(Touchable.enabled);
-        result.setType(type);
         result.setZIndex(0);
         return result;
     }
 
-    private Skin getSkin() {
+    protected abstract ConjuredObject newObject(Skin skin);
+
+    protected Skin getSkin() {
         UnitStyle style = getStyle();
         Skin skin = new Skin();
         skin.add("default", style, ViewableStyle.class);
@@ -64,7 +56,7 @@ public class ConjuredBuilder
         return skin;
     }
 
-    private UnitStyle getStyle() {
+    protected UnitStyle getStyle() {
         SoundCatalog sounds = getSounds();
         AnimationCatalog animations = getAnimations();
 
@@ -74,27 +66,21 @@ public class ConjuredBuilder
         return style;
     }
 
-    private AnimationCatalog getAnimations() {
+    protected AnimationCatalog getAnimations() {
         if (animations == null) {
-            animations = newAnimations();
+            animations = newAnimations(assets);
         }
         return animations;
     }
 
-    private AnimationCatalog newAnimations() {
-        switch (type) {
-            case Blizzard: return new ConjuredAnimations(assets.getBlizzard());
-            case DeathAndDecay: return new ConjuredAnimations(assets.getDeathAndDecay());
-            case RuneTrap: return new ConjuredAnimations(assets.getRune());
-            case Whirlwind: return new ConjuredAnimations(assets.getTornado());
-            default: throw new UnsupportedOperationException();
-        }
-    }
+    protected abstract AnimationCatalog newAnimations(ConjuredAssets assets);
 
-    private SoundCatalog getSounds() {
+    protected SoundCatalog getSounds() {
         if (sounds == null) {
-            sounds = new ConjuredSounds(assets);
+            sounds = newSounds(assets);
         }
         return sounds;
     }
+
+    protected abstract SoundCatalog newSounds(ConjuredAssets assets);
 }

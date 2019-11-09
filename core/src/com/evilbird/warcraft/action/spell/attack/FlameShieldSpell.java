@@ -27,6 +27,6 @@ public class FlameShieldSpell extends SpellAction
 {
     @Inject
     public FlameShieldSpell(ItemFactory factory) {
-        super(Spell.FlameShield, EffectType.FlameShield, factory);
+        super(Spell.FlameShield, EffectType.Spell, factory);
     }
 }

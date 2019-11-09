@@ -14,14 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.AnimationCatalog;
 import com.evilbird.engine.item.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.effect.confirmation.ConfirmationAnimations;
-import com.evilbird.warcraft.item.effect.environmental.Blizzard;
-import com.evilbird.warcraft.item.effect.environmental.EnvironmentalAnimations;
 import com.evilbird.warcraft.item.effect.environmental.FireAnimations;
 import com.evilbird.warcraft.item.effect.environmental.FlameAnimations;
+import com.evilbird.warcraft.item.effect.environmental.RuneAnimations;
 import com.evilbird.warcraft.item.effect.explosion.BallistaExplosionAnimations;
 import com.evilbird.warcraft.item.effect.explosion.CannonExplosionAnimations;
 import com.evilbird.warcraft.item.effect.explosion.ExplosionAnimations;
-import com.evilbird.warcraft.item.effect.spell.LongSpellAnimations;
 import com.evilbird.warcraft.item.effect.spell.SmallSpellAnimations;
 import com.evilbird.warcraft.item.effect.spell.SpellAnimations;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -72,15 +70,6 @@ public class EffectBuilder
         return result;
     }
 
-    public Effect buildBlizzard() {
-        Blizzard result = new Blizzard(getSkin());
-        result.setAnimation(UnitAnimation.Idle);
-        result.setTouchable(Touchable.disabled);
-        result.setVisible(true);
-        result.setSize(32, 32);
-        return result;
-    }
-
     private Skin getSkin() {
         Skin skin = new Skin();
         skin.add("default", getAnimationStyle(), ViewableStyle.class);
@@ -111,16 +100,12 @@ public class EffectBuilder
             case TowerExplosion: return new CannonExplosionAnimations(assets.getTowerExplosion());
             case Explosion: return new ExplosionAnimations(assets.getExplosion());
 
-            case Blizzard: return new EnvironmentalAnimations(assets.getBlizzard());
             case Fire: return new FireAnimations(assets.getFire());
             case Flame: return new FlameAnimations(assets.getFlame());
-            case Rune: return new EnvironmentalAnimations(assets.getRune());
-            case Tornado: return new EnvironmentalAnimations(assets.getTornado());
 
-            case DeathAndDecay: return new LongSpellAnimations(assets.getDeathAndDecay());
             case Exorcism: return new SpellAnimations(assets.getExorcism());
-            case FlameShield: return new SpellAnimations(assets.getFlameShield());
             case Heal: return new SpellAnimations(assets.getHeal());
+            case Rune: return new RuneAnimations(assets.getRune());
             case Spell: return new SmallSpellAnimations(assets.getSpell());
 
             default: throw new UnsupportedOperationException();

@@ -41,7 +41,7 @@ public class ConjuredAssets extends AssetBundle
         return getTexture("rune.png");
     }
 
-    public Texture getTornado() {
+    public Texture getWhirlwind() {
         return getTexture("tornado.png");
     }
 }

@@ -69,6 +69,6 @@ public enum Spell
     }
 
     public float getEffectDuration() {
-        return 1;
+        return 20;
     }
 }

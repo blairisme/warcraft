@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.action.spell.aoe;
 
-import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.item.Item;
 import com.evilbird.engine.item.ItemFactory;
@@ -17,7 +16,6 @@ import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.effect.Effect;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.conjured.ConjuredObject;
@@ -34,12 +32,12 @@ public class AoeSpellAction extends SpellAction
 
     public AoeSpellAction(
         Spell spell,
-        EffectType effect,
+        EffectType castEffect,
         UnitType aoeType,
         ItemFactory factory,
         AoeSpellCancel cancelAction)
     {
-        super(spell, effect, factory);
+        super(spell, castEffect, factory);
         this.aoeType = aoeType;
         this.cancelAction = cancelAction;
     }
@@ -54,16 +52,10 @@ public class AoeSpellAction extends SpellAction
         Item caster = getItem();
         Item selector = getTarget();
 
-        Vector2 position = selector.getPosition(Alignment.Center);
-
-        Effect effect = (Effect)factory.get(EffectType.Blizzard);
-        effect.setPosition(position, Alignment.Center);
-
-        ConjuredObject aoe = (ConjuredObject)factory.get(UnitType.Blizzard);
-        aoe.setPosition(position, Alignment.Center);
+        ConjuredObject aoe = (ConjuredObject)factory.get(aoeType);
+        aoe.setPosition(selector.getPosition(Alignment.Center), Alignment.Center);
 
         Player player = UnitOperations.getPlayer(caster);
-        player.addItem(effect);
         player.addItem(aoe);
 
         cancelAction.setItem(caster);

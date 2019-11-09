@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.effect.environmental;
+package com.evilbird.warcraft.item.unit.conjured;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
@@ -16,16 +16,16 @@ import com.evilbird.engine.common.graphics.AnimationCatalog;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 
 /**
- * Defines environmental animations as laid out in environmental texture atlas
+ * Defines rune trap animations as laid out in rune trap texture atlas
  * files.
  *
  * @author Blair Butterworth
  */
-public class EnvironmentalAnimations extends AnimationCatalog
+public class ConjuredAnimations extends AnimationCatalog
 {
     private static final GridPoint2 SIZE = new GridPoint2(32, 32);
 
-    public EnvironmentalAnimations(Texture texture) {
+    public ConjuredAnimations(Texture texture) {
         super(1);
 
         animation(Idle)
@@ -34,6 +34,6 @@ public class EnvironmentalAnimations extends AnimationCatalog
             .withSize(SIZE)
             .withInterval(0.15f)
             .singleDirection()
-            .notLooping();
+            .looping();
     }
 }

@@ -24,16 +24,12 @@ public class EnvironmentalEffects extends GameFactorySet<Effect>
 {
     @Inject
     public EnvironmentalEffects(
-        BlizzardFactory blizzardFactory,
         FireFactory fireFactory,
         FlameFactory flameFactory,
-        RuneFactory runeFactory,
-        TornadoFactory tornadoFactory)
+        RuneFactory runeFactory)
     {
-        addProvider(EffectType.Blizzard, blizzardFactory);
         addProvider(EffectType.Fire, fireFactory);
         addProvider(EffectType.Flame, flameFactory);
         addProvider(EffectType.Rune, runeFactory);
-        addProvider(EffectType.Tornado, tornadoFactory);
     }
 }

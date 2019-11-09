@@ -23,11 +23,8 @@ public enum EffectType implements ItemType
     Confirm,
 
     /* Environmental */
-    Blizzard,
     Fire,
     Flame,
-    Rune,
-    Tornado,
 
     /* Explosion */
     BallistaExplosion,
@@ -36,9 +33,8 @@ public enum EffectType implements ItemType
     Explosion,
 
     /* Spell */
-    DeathAndDecay,
     Exorcism,
-    FlameShield,
     Heal,
+    Rune,
     Spell
 }

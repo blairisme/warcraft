@@ -7,11 +7,10 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.unit.conjured.sounds;
+package com.evilbird.warcraft.item.unit.conjured;
 
 import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
-import com.evilbird.warcraft.item.unit.conjured.ConjuredAssets;
 
 /**
  * Defines a catalog of {@link Sound Sounds} used by traps.

@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.item.effect.environmental;
+package com.evilbird.warcraft.item.unit.conjured.blizzard;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
@@ -17,7 +17,7 @@ import com.evilbird.engine.common.graphics.AnimationFrame;
 import com.evilbird.engine.common.graphics.AnimationRenderer;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.item.specialized.ViewableStyle;
-import com.evilbird.warcraft.item.effect.Effect;
+import com.evilbird.warcraft.item.unit.conjured.ConjuredObject;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.HashMap;
@@ -30,7 +30,7 @@ import java.util.Map.Entry;
  *
  * @author Blair Butterworth
  */
-public class Blizzard extends Effect
+public class Blizzard extends ConjuredObject
 {
     private static transient final int HALE_COUNT_MIN = 3;
     private static transient final int HALE_COUNT_MAX = 10;

@@ -24,15 +24,11 @@ public class SpellEffects extends GameFactorySet<Effect>
 {
     @Inject
     public SpellEffects(
-        DeathAndDecayFactory deathAndDecayFactory,
         ExorcismFactory exorcismFactory,
-        FlameShieldFactory flameShieldFactory,
         GeneralSpellFactory generalSpellFactory,
         HealFactory healFactory)
     {
-        addProvider(EffectType.DeathAndDecay, deathAndDecayFactory);
         addProvider(EffectType.Exorcism, exorcismFactory);
-        addProvider(EffectType.FlameShield, flameShieldFactory);
         addProvider(EffectType.Spell, generalSpellFactory);
         addProvider(EffectType.Heal, healFactory);
     }

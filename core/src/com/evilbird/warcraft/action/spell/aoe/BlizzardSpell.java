@@ -25,6 +25,6 @@ public class BlizzardSpell extends AoeSpellAction
 {
     @Inject
     public BlizzardSpell(ItemFactory factory, AoeSpellCancel cancel) {
-        super(Spell.Blizzard, EffectType.Blizzard, UnitType.Blizzard, factory, cancel);
+        super(Spell.Blizzard, EffectType.Spell, UnitType.Blizzard, factory, cancel);
     }
 }

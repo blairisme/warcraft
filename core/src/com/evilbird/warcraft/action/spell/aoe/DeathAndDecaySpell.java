@@ -25,6 +25,6 @@ public class DeathAndDecaySpell extends AoeSpellAction
 {
     @Inject
     public DeathAndDecaySpell(ItemFactory factory, AoeSpellCancel cancel) {
-        super(Spell.DeathAndDecay, EffectType.DeathAndDecay, UnitType.DeathAndDecay, factory, cancel);
+        super(Spell.DeathAndDecay, EffectType.Spell, UnitType.DeathAndDecay, factory, cancel);
     }
 }

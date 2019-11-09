@@ -18,7 +18,6 @@ import static com.evilbird.warcraft.action.spell.SpellActions.EyeOfKilroggSpell;
 import static com.evilbird.warcraft.action.spell.SpellActions.PolymorphSelect;
 import static com.evilbird.warcraft.action.spell.SpellActions.PolymorphSpell;
 import static com.evilbird.warcraft.action.spell.SpellActions.RaiseDeadSpell;
-import static com.evilbird.warcraft.action.spell.SpellActions.RunesSpell;
 
 /**
  * A factory that creates creature spell actions.
@@ -32,13 +31,11 @@ public class CreatureSpellFactory extends SpellProvider
         InjectedPool<EyeOfKilroggSpell> eyeOfKilroggSpell,
         InjectedPool<PolymorphSpell> polymorphSpell,
         InjectedPool<PolymorphSelect> polymorphSelect,
-        InjectedPool<RaiseDeadSpell> raiseDeadSpell,
-        InjectedPool<RunesSpell> runesSpell)
+        InjectedPool<RaiseDeadSpell> raiseDeadSpell)
     {
         addActionPool(EyeOfKilroggSpell, eyeOfKilroggSpell);
         addActionPool(PolymorphSpell, polymorphSpell);
         addActionPool(PolymorphSelect, polymorphSelect);
         addActionPool(RaiseDeadSpell, raiseDeadSpell);
-        addActionPool(RunesSpell, runesSpell);
     }
 }

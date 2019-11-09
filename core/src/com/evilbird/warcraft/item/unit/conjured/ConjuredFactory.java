@@ -11,10 +11,10 @@ package com.evilbird.warcraft.item.unit.conjured;
 
 import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.conjured.human.BlizzardFactory;
-import com.evilbird.warcraft.item.unit.conjured.orc.DeathAndDecayFactory;
-import com.evilbird.warcraft.item.unit.conjured.orc.RuneTrapFactory;
-import com.evilbird.warcraft.item.unit.conjured.orc.WhirlwindFactory;
+import com.evilbird.warcraft.item.unit.conjured.blizzard.BlizzardFactory;
+import com.evilbird.warcraft.item.unit.conjured.decay.DeathAndDecayFactory;
+import com.evilbird.warcraft.item.unit.conjured.rune.RuneTrapFactory;
+import com.evilbird.warcraft.item.unit.conjured.whirlwind.WhirlwindFactory;
 
 import javax.inject.Inject;
 

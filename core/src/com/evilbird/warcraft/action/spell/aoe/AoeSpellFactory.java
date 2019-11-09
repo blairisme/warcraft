@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.warcraft.action.spell.SpellActions.BlizzardSpell;
 import static com.evilbird.warcraft.action.spell.SpellActions.DeathAndDecaySpell;
+import static com.evilbird.warcraft.action.spell.SpellActions.RunesSpell;
 import static com.evilbird.warcraft.action.spell.SpellActions.WhirlwindSpell;
 
 /**
@@ -29,10 +30,12 @@ public class AoeSpellFactory extends SpellProvider
     public AoeSpellFactory(
         InjectedPool<BlizzardSpell> blizzardSpell,
         InjectedPool<DeathAndDecaySpell> deathAndDecayPool,
-        InjectedPool<WhirlwindSpell> whirlwindPool)
+        InjectedPool<WhirlwindSpell> whirlwindPool,
+        InjectedPool<RunesSpell> runePool)
     {
         addActionPool(BlizzardSpell, blizzardSpell);
         addActionPool(DeathAndDecaySpell, deathAndDecayPool);
         addActionPool(WhirlwindSpell, whirlwindPool);
+        addActionPool(RunesSpell, runePool);
     }
 }
