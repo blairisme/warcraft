@@ -10,13 +10,9 @@
 package com.evilbird.warcraft.action.spell.aoe;
 
 import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.warcraft.action.common.create.CreateEvents;
-import com.evilbird.warcraft.action.spell.creature.CreatureSpellAction;
-import com.evilbird.warcraft.action.spell.creature.CreatureSpellCancel;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
@@ -26,17 +22,10 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class RunesSpell extends CreatureSpellAction
+public class RunesSpell extends AoeSpellAction
 {
     @Inject
-    public RunesSpell(ItemFactory factory, CreateEvents events, CreatureSpellCancel cancel) {
-        super(Spell.Runes, EffectType.Rune, UnitType.RuneTrap, factory, events, cancel);
-    }
-
-    @Override
-    protected Combatant addCreature() {
-        Combatant creature = super.addCreature();
-        creature.setPosition(getTarget().getPosition());
-        return creature;
+    public RunesSpell(ItemFactory factory, AoeSpellCancel cancel) {
+        super(Spell.Runes, EffectType.Spell, UnitType.RuneTrap, factory, cancel);
     }
 }

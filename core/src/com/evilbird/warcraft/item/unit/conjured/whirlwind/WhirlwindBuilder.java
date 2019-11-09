@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.item.unit.conjured.whirlwind;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.graphics.AnimationCatalog;
@@ -26,6 +27,8 @@ import com.evilbird.warcraft.item.unit.conjured.ConjuredSounds;
  */
 public class WhirlwindBuilder extends ConjuredBuilder
 {
+    private static final GridPoint2 SIZE = new GridPoint2(56, 56);
+
     public WhirlwindBuilder(ConjuredAssets assets) {
         super(assets);
     }
@@ -37,7 +40,7 @@ public class WhirlwindBuilder extends ConjuredBuilder
 
     @Override
     protected AnimationCatalog newAnimations(ConjuredAssets assets) {
-        return new ConjuredAnimations(assets.getWhirlwind());
+        return new ConjuredAnimations(assets.getWhirlwind(), SIZE);
     }
 
     @Override

@@ -38,10 +38,24 @@ public enum Spell
 
     public int getManaCost() {
         switch (this) {
-            case Blizzard: return 0;
+            case Blizzard: return 25;
+            case Bloodlust: return 50;
+            case DeathAndDecay: return 200;
+            case DeathCoil: return 6;
             case Exorcism: return 4;
+            case EyeOfKilrogg: return 70;
+            //case Fireball: : return 100;
+            case FlameShield: return 80;
+            case Haste: return 50;
             case Heal: return 6;
             case HolyVision: return 70;
+            case Invisibility: return 200;
+            case Polymorph: return 200;
+            case RaiseDead: return 200;
+            case Runes: return 200;
+            case Slow: return 50;
+            case UnholyArmour: return 80;
+            case Whirlwind: return 200;
             default: throw new UnsupportedOperationException();
         }
     }
@@ -53,19 +67,12 @@ public enum Spell
             case Exorcism: return 20;
             case Heal: return 40;
             case HolyVision: return tiles(5);
-            default: throw new UnsupportedOperationException();
+            default: return 20;
         }
     }
 
     public float getCastTime() {
-        switch (this) {
-            case Bloodlust:
-            case Exorcism:
-            case Heal: return 1f;
-            case HolyVision: return 5f;
-            case Blizzard: return 10f;
-            default: throw new UnsupportedOperationException();
-        }
+        return 1f;
     }
 
     public float getEffectDuration() {

@@ -33,12 +33,16 @@ public class GameTimer
         return progress >= duration;
     }
 
+    public float completion() {
+        return progress / duration;
+    }
+
     public float duration() {
         return duration;
     }
 
-    public float completion() {
-        return progress / duration;
+    public void end() {
+        progress = Float.MAX_VALUE;
     }
 
     public void reset() {

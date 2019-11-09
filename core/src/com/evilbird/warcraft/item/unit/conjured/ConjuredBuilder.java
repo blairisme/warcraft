@@ -41,7 +41,7 @@ public abstract class ConjuredBuilder
         result.setSelected(false);
         result.setSelectable(false);
         result.setSight(0);
-        result.setTouchable(Touchable.enabled);
+        result.setTouchable(Touchable.disabled);
         result.setZIndex(0);
         return result;
     }

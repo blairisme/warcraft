@@ -42,9 +42,9 @@ public class Blizzard extends ConjuredObject
     private static transient final float HALE_ORIGIN_OFFSET_X = -70;
     private static transient final float HALE_ORIGIN_OFFSET_Y = 150;
 
-    private GameTimer timer;
-    private Map<Vector2, Float> haleTimers;
-    private Map<Vector2, Vector2> halePositions;
+    private transient GameTimer timer;
+    private transient Map<Vector2, Float> haleTimers;
+    private transient Map<Vector2, Vector2> halePositions;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing

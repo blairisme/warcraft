@@ -35,11 +35,9 @@ public class EffectAssets extends AssetBundle
     }
 
     private void registerEnvironmentalTextures() {
-        register("data/textures/common/environmental/blizzard.png");
         register("data/textures/common/environmental/fire.png");
         register("data/textures/common/environmental/flame.png");
         register("data/textures/common/environmental/rune.png");
-        register("data/textures/common/environmental/tornado.png");
     }
 
     private void registerExplosionTextures() {
@@ -50,7 +48,6 @@ public class EffectAssets extends AssetBundle
     }
 
     private void registerSpellTextures() {
-        register("data/textures/common/spell/death_and_decay.png");
         register("data/textures/common/spell/exorcism.png");
         register("data/textures/common/spell/flame_shield.png");
         register("data/textures/common/spell/heal.png");
@@ -81,10 +78,6 @@ public class EffectAssets extends AssetBundle
         return getTexture("explosion.png");
     }
 
-    public Texture getBlizzard() {
-        return getTexture("blizzard.png");
-    }
-
     public Texture getFlame() {
         return getTexture("flame.png");
     }
@@ -95,14 +88,6 @@ public class EffectAssets extends AssetBundle
 
     public Texture getRune() {
         return getTexture("rune.png");
-    }
-
-    public Texture getTornado() {
-        return getTexture("tornado.png");
-    }
-
-    public Texture getDeathAndDecay() {
-        return getTexture("death_and_decay.png");
     }
 
     public Texture getExorcism() {

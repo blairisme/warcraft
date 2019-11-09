@@ -23,15 +23,13 @@ import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
  */
 public class ConjuredAnimations extends AnimationCatalog
 {
-    private static final GridPoint2 SIZE = new GridPoint2(32, 32);
-
-    public ConjuredAnimations(Texture texture) {
+    public ConjuredAnimations(Texture texture, GridPoint2 size) {
         super(1);
 
         animation(Idle)
             .withTexture(texture)
             .withSequence(0, 4)
-            .withSize(SIZE)
+            .withSize(size)
             .withInterval(0.15f)
             .singleDirection()
             .looping();

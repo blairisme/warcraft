@@ -25,7 +25,7 @@ public class ConjuredAssets extends AssetBundle
         super(assetManager);
         register("data/textures/common/environmental/blizzard.png");
         register("data/textures/common/environmental/rune.png");
-        register("data/textures/common/environmental/tornado.png");
+        register("data/textures/common/environmental/whirlwind.png");
         register("data/textures/common/spell/death_and_decay.png");
     }
 
@@ -42,6 +42,6 @@ public class ConjuredAssets extends AssetBundle
     }
 
     public Texture getWhirlwind() {
-        return getTexture("tornado.png");
+        return getTexture("whirlwind.png");
     }
 }

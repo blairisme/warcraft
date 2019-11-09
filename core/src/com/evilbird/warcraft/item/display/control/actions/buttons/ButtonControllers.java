@@ -16,6 +16,7 @@ import com.evilbird.warcraft.item.display.control.actions.buttons.common.Blacksm
 import com.evilbird.warcraft.item.display.control.actions.buttons.common.CombatantButtons;
 import com.evilbird.warcraft.item.display.control.actions.buttons.common.FoundryButtons;
 import com.evilbird.warcraft.item.display.control.actions.buttons.common.GathererButtons;
+import com.evilbird.warcraft.item.display.control.actions.buttons.common.NoButtons;
 import com.evilbird.warcraft.item.display.control.actions.buttons.common.OilTankerButtons;
 import com.evilbird.warcraft.item.display.control.actions.buttons.common.TransportButtons;
 import com.evilbird.warcraft.item.display.control.actions.buttons.human.BarracksButtons;
@@ -34,9 +35,11 @@ import com.evilbird.warcraft.item.display.control.actions.buttons.human.PeasantS
 import com.evilbird.warcraft.item.display.control.actions.buttons.human.ScoutTowerButtons;
 import com.evilbird.warcraft.item.display.control.actions.buttons.human.ShipyardButtons;
 import com.evilbird.warcraft.item.display.control.actions.buttons.human.TownHallButtons;
+import com.evilbird.warcraft.item.display.control.actions.buttons.orc.DeathKnightButtons;
 import com.evilbird.warcraft.item.display.control.actions.buttons.orc.DockyardButtons;
 import com.evilbird.warcraft.item.display.control.actions.buttons.orc.EncampmentButtons;
 import com.evilbird.warcraft.item.display.control.actions.buttons.orc.GreatHallButtons;
+import com.evilbird.warcraft.item.display.control.actions.buttons.orc.OgreMageButtons;
 import com.evilbird.warcraft.item.display.control.actions.buttons.orc.PeonAdvancedBuildings;
 import com.evilbird.warcraft.item.display.control.actions.buttons.orc.PeonSimpleBuildings;
 import com.evilbird.warcraft.item.display.control.actions.buttons.orc.TrollTankerBuildings;
@@ -54,6 +57,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.Battleship;
 import static com.evilbird.warcraft.item.unit.UnitType.Blacksmith;
 import static com.evilbird.warcraft.item.unit.UnitType.Castle;
 import static com.evilbird.warcraft.item.unit.UnitType.Church;
+import static com.evilbird.warcraft.item.unit.UnitType.DeathKnight;
 import static com.evilbird.warcraft.item.unit.UnitType.Dockyard;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
 import static com.evilbird.warcraft.item.unit.UnitType.ElvenDestroyer;
@@ -73,6 +77,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.Mage;
 import static com.evilbird.warcraft.item.unit.UnitType.MageTower;
 import static com.evilbird.warcraft.item.unit.UnitType.Ogre;
 import static com.evilbird.warcraft.item.unit.UnitType.OgreJuggernaught;
+import static com.evilbird.warcraft.item.unit.UnitType.OgreMage;
 import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
 import static com.evilbird.warcraft.item.unit.UnitType.OilTanker;
 import static com.evilbird.warcraft.item.unit.UnitType.Paladin;
@@ -114,11 +119,11 @@ public class ButtonControllers
 
     public ButtonController getButtonController(Item item, ActionPaneView view) {
         Identifier type = item.getType();
-        return controllers.getOrDefault(view, emptyMap()).getOrDefault(type, com.evilbird.warcraft.item.display.control.actions.buttons.common.NoButtons.emptyButtons());
+        return controllers.getOrDefault(view, emptyMap()).getOrDefault(type, NoButtons.emptyButtons());
     }
 
     private void registerCombatantButtons() {
-        com.evilbird.warcraft.item.display.control.actions.buttons.common.CombatantButtons combatantButtons = new CombatantButtons();
+        CombatantButtons combatantButtons = new CombatantButtons();
 
         registerController(Actions, Battleship, combatantButtons);
         registerController(Actions, ElvenArcher, combatantButtons);
@@ -139,14 +144,17 @@ public class ButtonControllers
     private void registerSpellCasterButtons() {
         registerController(Actions, Mage, new MageButtons());
         registerController(Actions, Paladin, new PaladinButtons());
+
+        registerController(Actions, DeathKnight, new DeathKnightButtons());
+        registerController(Actions, OgreMage, new OgreMageButtons());
     }
 
     private void registerGathererButtons() {
-        com.evilbird.warcraft.item.display.control.actions.buttons.common.GathererButtons gathererButtons = new GathererButtons();
+        GathererButtons gathererButtons = new GathererButtons();
         registerController(Actions, Peasant, gathererButtons);
         registerController(Actions, Peon, gathererButtons);
 
-        com.evilbird.warcraft.item.display.control.actions.buttons.common.OilTankerButtons tankerButtons = new OilTankerButtons();
+        OilTankerButtons tankerButtons = new OilTankerButtons();
         registerController(Actions, OilTanker, tankerButtons);
         registerController(Actions, TrollTanker, tankerButtons);
     }
@@ -161,18 +169,18 @@ public class ButtonControllers
         registerController(Actions, Blacksmith, new BlacksmithButtons());
         registerController(Actions, Castle, new CastleButtons());
         registerController(Actions, Church, new ChurchButtons());
-        registerController(Actions, Farm, com.evilbird.warcraft.item.display.control.actions.buttons.common.NoButtons.emptyButtons());
+        registerController(Actions, Farm, NoButtons.emptyButtons());
         registerController(Actions, Foundry, new FoundryButtons());
         registerController(Actions, GnomishInventor, new GnomishInventorButtons());
         registerController(Actions, GryphonAviary, new GryphonAviaryButtons());
         registerController(Actions, Keep, new KeepButtons());
         registerController(Actions, LumberMill, new LumberMillButtons());
         registerController(Actions, MageTower, new MageTowerButtons());
-        registerController(Actions, OilPlatform, com.evilbird.warcraft.item.display.control.actions.buttons.common.NoButtons.emptyButtons());
-        registerController(Actions, Refinery, com.evilbird.warcraft.item.display.control.actions.buttons.common.NoButtons.emptyButtons());
+        registerController(Actions, OilPlatform, NoButtons.emptyButtons());
+        registerController(Actions, Refinery, NoButtons.emptyButtons());
         registerController(Actions, ScoutTower, new ScoutTowerButtons());
         registerController(Actions, Shipyard, new ShipyardButtons());
-        registerController(Actions, Stables, com.evilbird.warcraft.item.display.control.actions.buttons.common.NoButtons.emptyButtons());
+        registerController(Actions, Stables, NoButtons.emptyButtons());
         registerController(Actions, TownHall, new TownHallButtons());
     }
 
@@ -180,7 +188,7 @@ public class ButtonControllers
         registerController(Actions, Encampment, new EncampmentButtons());
         //registerController(Actions, TrollLumberMill, new LumberMillButtons());
         registerController(Actions, GreatHall, new GreatHallButtons());
-        registerController(Actions, PigFarm, new com.evilbird.warcraft.item.display.control.actions.buttons.common.NoButtons());
+        registerController(Actions, PigFarm, new NoButtons());
         registerController(Actions, Dockyard, new DockyardButtons());
     }
 
@@ -196,7 +204,7 @@ public class ButtonControllers
     }
 
     private void registerTransportButtons() {
-        com.evilbird.warcraft.item.display.control.actions.buttons.common.TransportButtons transportButtons = new TransportButtons();
+        TransportButtons transportButtons = new TransportButtons();
         registerController(Actions, Transport, transportButtons);
         registerController(Actions, Ferry, transportButtons);
     }

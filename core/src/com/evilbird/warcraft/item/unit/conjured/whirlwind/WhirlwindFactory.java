@@ -14,10 +14,12 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
+import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.conjured.ConjuredAssets;
 
 import javax.inject.Inject;
 
+import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 
 /**
@@ -44,11 +46,13 @@ public class WhirlwindFactory implements GameFactory<Whirlwind>
     @Override
     public Whirlwind get(Identifier type) {
         Whirlwind result = (Whirlwind)builder.build();
-        result.setSize(160, 160);
         result.setAttackSpeed(3);
         result.setAttackRange(tiles(2));
         result.setBasicDamage(20);
         result.setPiercingDamage(5);
+        result.setIdentifier(objectIdentifier("Whirlwind", result));
+        result.setType(UnitType.Whirlwind);
+        result.setSize(64, 64);
         return result;
     }
 

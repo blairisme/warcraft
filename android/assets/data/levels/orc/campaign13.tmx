@@ -444,7 +444,7 @@
   <object id="12" name="GoblinSappers1" type="GoblinSappers" gid="1587" x="64" y="544" width="72" height="72"/>
   <object id="13" name="GoblinSappers2" type="GoblinSappers" gid="1587" x="96" y="544" width="72" height="72"/>
   <object id="14" name="Catapult1" type="Catapult" gid="1113" x="0" y="96" width="64" height="64"/>
-  <object id="28" name="Ogre1" type="Ogre" gid="1251" x="128" y="864" width="72" height="72"/>
+  <object id="28" name="OgreMage1" type="OgreMage" gid="1251" x="128" y="864" width="72" height="72"/>
   <object id="29" name="Ogre2" type="Ogre" gid="1251" x="64" y="864" width="72" height="72"/>
   <object id="30" name="Ogre3" type="Ogre" gid="1251" x="64" y="832" width="72" height="72"/>
   <object id="31" name="Ogre4" type="Ogre" gid="1251" x="32" y="832" width="72" height="72"/>
