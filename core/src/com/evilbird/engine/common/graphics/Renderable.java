@@ -19,7 +19,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  */
 public interface Renderable
 {
-    void draw(Batch batch);
+    void draw(Batch batch, float alpha);
 
     void setPosition(float x, float y);
 

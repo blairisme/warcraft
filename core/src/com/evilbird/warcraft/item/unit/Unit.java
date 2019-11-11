@@ -58,7 +58,7 @@ import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
  *
  * @author Blair Butterworth
  */
-public class Unit extends Viewable implements PerishableObject, SelectableObject, SpatialObject
+public class Unit extends Viewable implements PerishableObject, SelectableObject, SpatialObject, Renderable
 {
     private Value armour;
     private float health;
@@ -450,13 +450,13 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     @Override
     public void draw(Batch batch, float alpha) {
         if (getSelected()) {
-            selection.draw(batch);
+            selection.draw(batch, alpha);
         }
         if (getHighlighted()) {
-            highlight.draw(batch);
+            highlight.draw(batch, alpha);
         }
-        effect.draw(batch);
         super.draw(batch, alpha);
+        effect.draw(batch, alpha);
     }
 
     @Override

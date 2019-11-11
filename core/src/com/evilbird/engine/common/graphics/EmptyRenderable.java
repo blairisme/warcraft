@@ -21,7 +21,7 @@ public class EmptyRenderable implements Renderable
     public static final EmptyRenderable BlankRenderable = new EmptyRenderable();
 
     @Override
-    public void draw(Batch batch) {
+    public void draw(Batch batch, float alpha) {
     }
 
     @Override
