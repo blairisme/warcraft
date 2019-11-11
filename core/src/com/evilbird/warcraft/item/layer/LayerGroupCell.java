@@ -16,9 +16,6 @@ import com.evilbird.engine.object.GameObjectGroup;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_HEIGHT;
-import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
-
 /**
  * Represents a single element in a {@link LayerGroup}. Each LayerGroupCell has
  * a value, which when it reaches zero will cause it to ask its parent group to
@@ -28,6 +25,9 @@ import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
  */
 public class LayerGroupCell extends BasicGameObject
 {
+    private static final int TILE_WIDTH = 32;
+    private static final int TILE_HEIGHT = 32;
+
     protected float value;
     protected GridPoint2 location;
 

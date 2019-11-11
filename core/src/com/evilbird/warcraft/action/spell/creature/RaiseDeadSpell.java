@@ -23,7 +23,7 @@ import javax.inject.Inject;
 import java.util.Collection;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.filter;
-import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
+import static com.evilbird.warcraft.item.common.query.GameObjectUtils.tiles;
 
 /**
  * A spell that converts nearby corpses into skeleton warriors that fight for
