@@ -11,9 +11,9 @@ package com.evilbird.warcraft.action.selector;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
 
 import javax.inject.Inject;
 
@@ -38,13 +38,13 @@ public class SelectorMove extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Item item = getItem();
-        ItemRoot root = item.getRoot();
-        ItemGraph graph = root.getSpatialGraph();
+        GameObject gameObject = getSubject();
+        GameObjectContainer root = gameObject.getRoot();
+        GameObjectGraph graph = root.getSpatialGraph();
 
         Vector2 graphSize = graph.getGraphSize();
         Vector2 nodeSize = graph.getNodeSize();
-        Vector2 itemSize = item.getSize();
+        Vector2 itemSize = gameObject.getSize();
         Vector2 itemSizeCenter = multiply(itemSize, 0.5f);
         Vector2 mapSize = subtract(graphSize, itemSize);
 
@@ -53,7 +53,7 @@ public class SelectorMove extends BasicAction
         position = round(position, nodeSize);
         position = clamp(position, Zero, mapSize);
 
-        item.setPosition(position);
+        gameObject.setPosition(position);
         return true;
     }
 }

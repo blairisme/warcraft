@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.spell.creature;
 
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.item.common.spell.Spell;
@@ -31,7 +31,7 @@ public class PolymorphSpell extends CreatureSpellAction
     private ItemExclusion exclusion;
 
     @Inject
-    public PolymorphSpell(ItemFactory factory, ItemExclusion exclusion, CreateEvents events, PolymorphCancel cancel) {
+    public PolymorphSpell(GameObjectFactory factory, ItemExclusion exclusion, CreateEvents events, PolymorphCancel cancel) {
         super(Spell.Polymorph, EffectType.Spell, UnitType.Sheep, factory, events, cancel);
         this.exclusion = exclusion;
     }

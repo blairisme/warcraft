@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.events.Event;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
@@ -24,17 +24,17 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public class GatherEvent implements Event
 {
-    private Item subject;
-    private Item recipient;
+    private GameObject subject;
+    private GameObject recipient;
     private GatherStatus status;
     private ResourceQuantity resource;
 
-    public GatherEvent(Item subject, GatherStatus status) {
+    public GatherEvent(GameObject subject, GatherStatus status) {
         this.status = status;
         this.subject = subject;
     }
 
-    public GatherEvent(Item subject, Item recipient, ResourceQuantity resource, GatherStatus status) {
+    public GatherEvent(GameObject subject, GameObject recipient, ResourceQuantity resource, GatherStatus status) {
         this.subject = subject;
         this.status = status;
         this.recipient = recipient;
@@ -42,7 +42,7 @@ public class GatherEvent implements Event
     }
 
     @Override
-    public Item getSubject() {
+    public GameObject getSubject() {
         return subject;
     }
 
@@ -50,7 +50,7 @@ public class GatherEvent implements Event
         return status;
     }
 
-    public Item getRecipient() {
+    public GameObject getRecipient() {
         return recipient;
     }
 

@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.attack;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.action.common.remove.RemoveEvents;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
@@ -23,7 +23,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.item.utility.ItemOperations.assignIfAbsent;
+import static com.evilbird.engine.object.utility.GameObjectOperations.assignIfAbsent;
 
 /**
  * An {@link Action} that causes a given {@link OffensiveObject demolition
@@ -107,8 +107,8 @@ public class DemolitionAttack extends AttackSequence
     }
 
     private void killAttacker(OffensiveObject attacker) {
-        ItemGroup parent = attacker.getParent();
-        parent.removeItem(attacker);
+        GameObjectGroup parent = attacker.getParent();
+        parent.removeObject(attacker);
         removeEvents.notifyRemove(attacker);
     }
 

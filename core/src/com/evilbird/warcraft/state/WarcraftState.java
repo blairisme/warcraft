@@ -11,7 +11,7 @@ package com.evilbird.warcraft.state;
 
 import com.badlogic.gdx.audio.Music;
 import com.evilbird.engine.behaviour.Behaviour;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.google.gson.annotations.JsonAdapter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -27,8 +27,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @JsonAdapter(WarcraftStateAdapter.class)
 public class WarcraftState implements State
 {
-    private ItemRoot hud;
-    private ItemRoot world;
+    private GameObjectContainer hud;
+    private GameObjectContainer world;
     private Behaviour behaviour;
     private WarcraftContext context;
     private transient Music music;
@@ -37,8 +37,8 @@ public class WarcraftState implements State
     }
 
     public WarcraftState(
-        ItemRoot world,
-        ItemRoot hud,
+        GameObjectContainer world,
+        GameObjectContainer hud,
         Behaviour behaviour,
         Music music,
         WarcraftContext context)
@@ -64,11 +64,11 @@ public class WarcraftState implements State
         return behaviour;
     }
 
-    public ItemRoot getHud() {
+    public GameObjectContainer getHud() {
         return hud;
     }
 
-    public ItemRoot getWorld() {
+    public GameObjectContainer getWorld() {
         return world;
     }
 
@@ -84,11 +84,11 @@ public class WarcraftState implements State
         this.behaviour = behaviour;
     }
 
-    public void setHud(ItemRoot hud) {
+    public void setHud(GameObjectContainer hud) {
         this.hud = hud;
     }
 
-    public void setWorld(ItemRoot world) {
+    public void setWorld(GameObjectContainer world) {
         this.world = world;
     }
 

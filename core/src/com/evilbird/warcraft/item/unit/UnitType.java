@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.unit;
 
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObjectType;
 import com.evilbird.warcraft.common.WarcraftFaction;
 
 import static com.evilbird.engine.common.collection.EnumUtils.isBetween;
@@ -28,7 +28,7 @@ import static com.evilbird.warcraft.item.unit.UnitAttack.Siege;
  *
  * @author Blair Butterworth
  */
-public enum UnitType implements ItemType
+public enum UnitType implements GameObjectType
 {
     /* Human - Building */
     Barracks,

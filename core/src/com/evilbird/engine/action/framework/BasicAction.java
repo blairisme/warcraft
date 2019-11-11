@@ -14,9 +14,9 @@ import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemComposite;
-import com.evilbird.engine.item.ItemReference;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectComposite;
+import com.evilbird.engine.object.GameObjectReference;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -32,8 +32,8 @@ public abstract class BasicAction implements Action
     private Identifier identifier;
     private ActionException error;
     private UserInput cause;
-    private ItemReference item;
-    private ItemReference target;
+    private GameObjectReference item;
+    private GameObjectReference target;
 
     public BasicAction() {
     }
@@ -48,20 +48,20 @@ public abstract class BasicAction implements Action
     }
 
     @Override
-    public Item getItem() {
+    public GameObject getSubject() {
         return item != null ? item.get() : null;
     }
 
-    public ItemReference getItemReference() {
+    public GameObjectReference getItemReference() {
         return item;
     }
 
     @Override
-    public Item getTarget() {
+    public GameObject getTarget() {
         return target != null ? target.get() : null;
     }
 
-    public ItemReference getTargetReference() {
+    public GameObjectReference getTargetReference() {
         return target;
     }
 
@@ -94,25 +94,25 @@ public abstract class BasicAction implements Action
     }
 
     @Override
-    public void setItem(Item item) {
-        this.item = item != null ? new ItemReference(item) : null;
+    public void setItem(GameObject gameObject) {
+        this.item = gameObject != null ? new GameObjectReference(gameObject) : null;
     }
 
-    public void setItemReference(ItemReference reference) {
+    public void setItemReference(GameObjectReference reference) {
         this.item = reference;
     }
 
     @Override
-    public void setTarget(Item target) {
-        this.target = target != null ? new ItemReference(target) : null;
+    public void setTarget(GameObject target) {
+        this.target = target != null ? new GameObjectReference(target) : null;
     }
 
-    public void setTargetReference(ItemReference reference) {
+    public void setTargetReference(GameObjectReference reference) {
         this.target = reference;
     }
 
     @Override
-    public void setRoot(ItemComposite root) {
+    public void setRoot(GameObjectComposite root) {
         if (item != null) {
             item.setParent(root);
         }

@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.behaviour.ai;
 
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 
 /**
  * Implementors of this interface provide a method that updates the game state
@@ -19,5 +19,5 @@ import com.evilbird.engine.item.ItemRoot;
  */
 public interface AiBehaviourElement
 {
-    void applyBehaviour(ItemRoot gameState);
+    void applyBehaviour(GameObjectContainer gameState);
 }

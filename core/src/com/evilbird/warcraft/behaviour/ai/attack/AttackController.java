@@ -12,9 +12,9 @@ package com.evilbird.warcraft.behaviour.ai.attack;
 import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.utility.ItemOperations;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
@@ -91,11 +91,11 @@ public class AttackController
      * Initializes the attack controller using the given state, which is used
      * to lookup attackers and potential targets.
      */
-    public void initialize(ItemRoot state) {
-        for (Item attacker: state.findAll(OffensiveObject.class::isInstance)) {
+    public void initialize(GameObjectContainer state) {
+        for (GameObject attacker: state.findAll(OffensiveObject.class::isInstance)) {
             addAttacker((OffensiveObject)attacker);
         }
-        for (Item target: state.findAll(PerishableObject.class::isInstance)) {
+        for (GameObject target: state.findAll(PerishableObject.class::isInstance)) {
             addTarget((PerishableObject) target);
         }
     }
@@ -112,7 +112,7 @@ public class AttackController
 
     private void evaluateCreatedObjects() {
         for (CreateEvent event: events.getEvents(CreateEvent.class)) {
-            Item subject = event.getSubject();
+            GameObject subject = event.getSubject();
 
             if (subject instanceof OffensiveObject) {
                 addAttacker((OffensiveObject)subject);
@@ -125,7 +125,7 @@ public class AttackController
 
     private void evaluateMovedObjects() {
         for (MoveEvent event: events.getEvents(MoveEvent.class)) {
-            Item subject = event.getSubject();
+            GameObject subject = event.getSubject();
 
             if (subject instanceof OffensiveObject) {
                 updateAttacker((OffensiveObject)subject);
@@ -138,7 +138,7 @@ public class AttackController
 
     private void evaluateRemovedObjects() {
         for (RemoveEvent event: events.getEvents(RemoveEvent.class)) {
-            Item subject = event.getSubject();
+            GameObject subject = event.getSubject();
 
             if (subject instanceof OffensiveObject) {
                 removeAttacker((OffensiveObject)subject);
@@ -210,6 +210,6 @@ public class AttackController
     }
 
     private boolean isIdleAttacker(OffensiveObject attacker) {
-        return attacker.getAttackPlurality() != Individual || ItemOperations.isIdle(attacker);
+        return attacker.getAttackPlurality() != Individual || GameObjectOperations.isIdle(attacker);
     }
 }

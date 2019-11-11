@@ -11,11 +11,11 @@ package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectGroup;
 
 /**
- * Instances of this {@link Action} modify an {@link Item Items} zIndex.
+ * Instances of this {@link Action} modify an {@link GameObject Items} zIndex.
  *
  * @author Blair Butterworth
  */
@@ -37,11 +37,11 @@ public class ReorderAction extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Item item = getItem();
-        item.setZIndex(index);
+        GameObject gameObject = getSubject();
+        gameObject.setZIndex(index);
 
-        ItemGroup group = item.getParent();
-        group.setZIndex(item, index);
+        GameObjectGroup group = gameObject.getParent();
+        group.setZIndex(gameObject, index);
 
         return true;
     }

@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.data.player;
 
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitType;
 
@@ -29,7 +29,7 @@ public class PlayerScore
     }
 
     /**
-     * Obtains the score value associated with the given {@link Item},
+     * Obtains the score value associated with the given {@link GameObject},
      * presumably a victim of a players actions. Score values are
      * returned as noted in the table below.
      *
@@ -56,11 +56,11 @@ public class PlayerScore
      * Battleship/Juggernaut    300     Castle/Fortress         1500
      * </pre>
      *
-     * @param item  the {@code Item} whose score will be returned.
+     * @param gameObject  the {@code Item} whose score will be returned.
      * @return      a score value following the table above.
      */
-    public static int getScoreValue(Item item) {
-        Identifier identifier = item.getIdentifier();
+    public static int getScoreValue(GameObject gameObject) {
+        Identifier identifier = gameObject.getIdentifier();
         if (identifier instanceof UnitType) {
             return getUnitScore((UnitType)identifier);
         }

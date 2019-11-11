@@ -9,14 +9,14 @@
 
 package com.evilbird.warcraft.item.display;
 
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObjectType;
 
 /**
  * Defines options for specifying interface control types.
  *
  * @author Blair Butterworth
  */
-public enum HudControl implements ItemType
+public enum HudControl implements GameObjectType
 {
     ActionPane,
     ControlPane,

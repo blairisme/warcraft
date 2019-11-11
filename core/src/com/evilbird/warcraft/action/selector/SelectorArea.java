@@ -15,8 +15,8 @@ import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;
 import com.evilbird.warcraft.item.selector.selection.SelectionBox;
@@ -27,9 +27,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import static com.evilbird.engine.common.function.Predicates.both;
-import static com.evilbird.engine.item.utility.ItemPredicates.overlapping;
-import static com.evilbird.engine.item.utility.ItemPredicates.touchable;
-import static com.evilbird.engine.item.utility.ItemPredicates.withType;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.overlapping;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.touchable;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.item.selector.SelectorType.AreaSelector;
 
@@ -50,8 +50,8 @@ public class SelectorArea extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Item item = getItem();
-        ItemRoot root = item.getRoot();
+        GameObject gameObject = getSubject();
+        GameObjectContainer root = gameObject.getRoot();
 
         switch((SelectorActions)getIdentifier()) {
             case ShowAreaSelector: return addBox(root);
@@ -61,25 +61,25 @@ public class SelectorArea extends BasicAction
         }
     }
 
-    private boolean addBox(ItemRoot root) {
+    private boolean addBox(GameObjectContainer root) {
         getBox(root);
         return true;
     }
 
-    public Item getBox(ItemRoot root) {
-        Item box = root.find(withType(AreaSelector));
+    public GameObject getBox(GameObjectContainer root) {
+        GameObject box = root.find(withType(AreaSelector));
         if (box == null) {
             UserInput input = getCause();
             box = new SelectionBox();
             box.setPosition(root.unproject(input.getPosition()));
             box.setSize(new Vector2(1, 1));
-            root.addItem(box);
+            root.addObject(box);
         }
         return box;
     }
 
-    private boolean updateBox(ItemRoot root) {
-        Item box = getBox(root);
+    private boolean updateBox(GameObjectContainer root) {
+        GameObject box = getBox(root);
         UserInput input = getCause();
 
         Vector2 point1 = root.unproject(input.getPosition());
@@ -94,13 +94,13 @@ public class SelectorArea extends BasicAction
         return true;
     }
 
-    private boolean removeBox(ItemRoot root) {
-        Item box = getBox(root);
-        root.removeItem(box);
+    private boolean removeBox(GameObjectContainer root) {
+        GameObject box = getBox(root);
+        root.removeObject(box);
 
-        Collection<Item> overlapping = root.findAll(both(touchable(), overlapping(box)));
-        Collection<Item> oldSelection = root.findAll(isSelected());
-        Collection<Item> newSelection = new ArrayList<>(overlapping);
+        Collection<GameObject> overlapping = root.findAll(both(touchable(), overlapping(box)));
+        Collection<GameObject> oldSelection = root.findAll(isSelected());
+        Collection<GameObject> newSelection = new ArrayList<>(overlapping);
 
         newSelection.removeAll(oldSelection);
         oldSelection.removeAll(overlapping);
@@ -111,15 +111,15 @@ public class SelectorArea extends BasicAction
         return true;
     }
 
-    private void deselect(Collection<Item> items) {
-        for (Item item: items) {
-            deselect(item);
+    private void deselect(Collection<GameObject> gameObjects) {
+        for (GameObject gameObject : gameObjects) {
+            deselect(gameObject);
         }
     }
 
-    private void deselect(Item item) {
-        if (item instanceof SelectableObject) {
-            SelectableObject selectable = (SelectableObject)item;
+    private void deselect(GameObject gameObject) {
+        if (gameObject instanceof SelectableObject) {
+            SelectableObject selectable = (SelectableObject) gameObject;
             if (selectable.getSelectable() && selectable.getSelected()) {
                 selectable.setSelected(false);
                 events.add(new SelectEvent(selectable, false));
@@ -127,15 +127,15 @@ public class SelectorArea extends BasicAction
         }
     }
 
-    private void select(Collection<Item> items) {
-        for (Item item: items) {
-            select(item);
+    private void select(Collection<GameObject> gameObjects) {
+        for (GameObject gameObject : gameObjects) {
+            select(gameObject);
         }
     }
 
-    private void select(Item item) {
-        if (item instanceof Combatant) {
-            Combatant selectable = (Combatant)item;
+    private void select(GameObject gameObject) {
+        if (gameObject instanceof Combatant) {
+            Combatant selectable = (Combatant) gameObject;
             if (selectable.getSelectable() && !selectable.getSelected()) {
                 selectable.setSelected(true);
                 events.add(new SelectEvent(selectable, true));

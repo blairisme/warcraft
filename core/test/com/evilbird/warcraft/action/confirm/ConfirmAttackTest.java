@@ -24,7 +24,7 @@ public class ConfirmAttackTest extends ActionTestCase
     @Override
     protected Action newAction() {
         WarcraftPreferences preferences = Mockito.mock(WarcraftPreferences.class);
-        return new ConfirmAttack(itemFactory, preferences);
+        return new ConfirmAttack(objectFactory, preferences);
     }
 
     @Override

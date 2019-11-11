@@ -36,7 +36,7 @@ public class WarcraftStateAdapterTest extends StateTestCase
     public void setup() {
         super.setup();
         device = newTestDevice();
-        hudLoader = new HudLoader(device, itemFactory);
+        hudLoader = new HudLoader(device, objectFactory);
         musicLoader = new WarcraftMusic(device);
         adapter = new WarcraftStateAdapter(hudLoader, levelLoader, musicLoader, behaviourFactory);
         loadAssets();

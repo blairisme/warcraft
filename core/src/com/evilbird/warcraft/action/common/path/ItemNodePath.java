@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.common.path;
 
 import com.badlogic.gdx.ai.pfa.GraphPath;
-import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.object.spatial.GameObjectNode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,9 +18,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class ItemNodePath implements GraphPath<ItemNode>
+public class ItemNodePath implements GraphPath<GameObjectNode>
 {
-    public final List<ItemNode> nodes;
+    public final List<GameObjectNode> nodes;
 
     public ItemNodePath() {
         nodes = new ArrayList<>();
@@ -41,12 +41,12 @@ public class ItemNodePath implements GraphPath<ItemNode>
     }
 
     @Override
-    public void add(ItemNode node) {
+    public void add(GameObjectNode node) {
         nodes.add(node);
     }
 
     @Override
-    public ItemNode get(int index) {
+    public GameObjectNode get(int index) {
         return nodes.get(index);
     }
 
@@ -56,11 +56,11 @@ public class ItemNodePath implements GraphPath<ItemNode>
     }
 
     @Override
-    public Iterator<ItemNode> iterator() {
+    public Iterator<GameObjectNode> iterator() {
         return nodes.iterator();
     }
 
-    public ListIterator<ItemNode> listIterator() {
+    public ListIterator<GameObjectNode> listIterator() {
         return nodes.listIterator();
     }
 }

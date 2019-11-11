@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.action.common.exclusion;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.warcraft.action.selection.SelectEvents;
 import com.evilbird.warcraft.item.unit.Unit;
 
@@ -38,8 +38,8 @@ public class ItemExclusion
         item.setSelectable(true);
         item.setTouchable(Touchable.enabled);
 
-        ItemRoot root = item.getRoot();
-        ItemGraph graph = root.getSpatialGraph();
+        GameObjectContainer root = item.getRoot();
+        GameObjectGraph graph = root.getSpatialGraph();
         graph.addOccupants(item);
     }
 
@@ -52,8 +52,8 @@ public class ItemExclusion
         item.setSelectable(false);
         item.setTouchable(Touchable.disabled);
 
-        ItemRoot root = item.getRoot();
-        ItemGraph graph = root.getSpatialGraph();
+        GameObjectContainer root = item.getRoot();
+        GameObjectGraph graph = root.getSpatialGraph();
         graph.removeOccupants(item);
     }
 }

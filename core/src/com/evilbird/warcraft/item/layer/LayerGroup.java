@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.BitMatrix;
 import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.common.maps.MapLayerIterable;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import org.apache.commons.lang3.Validate;
 
 import java.util.Collection;
@@ -55,27 +55,27 @@ public class LayerGroup extends Layer
     }
 
     @Override
-    public void addItem(Item item) {
-        Validate.isAssignableFrom(LayerGroupCell.class, item.getClass());
-        super.addItem(item);
+    public void addObject(GameObject object) {
+        Validate.isAssignableFrom(LayerGroupCell.class, object.getClass());
+        super.addObject(object);
 
-        LayerGroupCell cell = (LayerGroupCell)item;
+        LayerGroupCell cell = (LayerGroupCell) object;
         cells.put(cell.getLocation(), cell);
     }
 
     @Override
-    public void removeItem(Item item) {
-        Validate.isAssignableFrom(LayerGroupCell.class, item.getClass());
-        super.removeItem(item);
+    public void removeObject(GameObject object) {
+        Validate.isAssignableFrom(LayerGroupCell.class, object.getClass());
+        super.removeObject(object);
 
-        LayerGroupCell cell = (LayerGroupCell)item;
+        LayerGroupCell cell = (LayerGroupCell) object;
         cells.remove(cell.getLocation());
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-        if (!hasItems()) {
+        if (!hasObjects()) {
             addCells();
         }
     }
@@ -83,7 +83,7 @@ public class LayerGroup extends Layer
     protected void addCells() {
         for (MapLayerEntry entry: new MapLayerIterable(layer)) {
             LayerGroupCell groupCell = createCell(entry);
-            addItem(groupCell);
+            addObject(groupCell);
         }
     }
 

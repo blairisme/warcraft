@@ -16,7 +16,7 @@ import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.construct.ConstructActions;
@@ -26,7 +26,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import static com.evilbird.engine.common.lang.GenericIdentifier.Unknown;
-import static com.evilbird.engine.item.utility.ItemPredicates.withClazz;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.withClazz;
 import static com.evilbird.test.data.action.TestBasicActions.newBasicAction;
 import static com.evilbird.test.data.item.TestBuildings.newTestBuilding;
 import static com.evilbird.test.data.item.TestCombatants.newTestCombatant;
@@ -131,8 +131,8 @@ public class InteractionDefinitionTest extends GameTestCase
         assertFalse(definition.applies(null, newTestItemWithAction(AttackActions.Attack), null));
     }
 
-    private Item newTestItemWithAction(ActionIdentifier actionIdentifier){
-        Item result = newTestCombatant(Unknown, Footman);
+    private GameObject newTestItemWithAction(ActionIdentifier actionIdentifier){
+        GameObject result = newTestCombatant(Unknown, Footman);
         result.addAction(newBasicAction(actionIdentifier));
         return result;
     }
@@ -143,8 +143,8 @@ public class InteractionDefinitionTest extends GameTestCase
         Mockito.when(factory.get(ConstructActions.ConstructBarracks)).thenReturn(action);
 
         UserInput input = new UserInput(UserInputType.Action, Vector2.Zero, 1);
-        Item target = newTestCombatant("footman");
-        Item selected = newTestBuilding("farm");
+        GameObject target = newTestCombatant("footman");
+        GameObject selected = newTestBuilding("farm");
 
         definition.forAction(ConstructActions.ConstructBarracks);
         definition.appliedTo(InteractionApplicability.Target);

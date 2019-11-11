@@ -13,9 +13,9 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemComposite;
-import com.evilbird.engine.item.ItemReference;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectComposite;
+import com.evilbird.engine.object.GameObjectReference;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
@@ -105,15 +105,15 @@ public abstract class CompositeAction extends BasicAction
     }
 
     @Override
-    public void setItem(Item item) {
-        super.setItem(item);
+    public void setItem(GameObject gameObject) {
+        super.setItem(gameObject);
         for (Action delegate: actions) {
-            delegate.setItem(item);
+            delegate.setItem(gameObject);
         }
     }
 
     @Override
-    public void setItemReference(ItemReference reference) {
+    public void setItemReference(GameObjectReference reference) {
         super.setItemReference(reference);
         for (Action action: actions) {
             if (action instanceof BasicAction) {
@@ -124,7 +124,7 @@ public abstract class CompositeAction extends BasicAction
     }
 
     @Override
-    public void setTarget(Item target) {
+    public void setTarget(GameObject target) {
         super.setTarget(target);
         for (Action delegate: actions) {
             delegate.setTarget(target);
@@ -132,7 +132,7 @@ public abstract class CompositeAction extends BasicAction
     }
 
     @Override
-    public void setTargetReference(ItemReference reference) {
+    public void setTargetReference(GameObjectReference reference) {
         super.setTargetReference(reference);
         for (Action action: actions) {
             if (action instanceof BasicAction) {
@@ -143,7 +143,7 @@ public abstract class CompositeAction extends BasicAction
     }
 
     @Override
-    public void setRoot(ItemComposite root) {
+    public void setRoot(GameObjectComposite root) {
         super.setRoot(root);
         for (Action action: actions) {
             if (action instanceof BasicAction) {

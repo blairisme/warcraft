@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.item.display.control.status.details.building;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.Table;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.specialized.Table;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.display.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -62,12 +62,12 @@ public class BuildingDetailsPane extends Table implements DetailsPaneElement
         }
     }
 
-    public void setItem(Item item) {
-        updateView((Building)item);
+    public void setItem(GameObject gameObject) {
+        updateView((Building) gameObject);
     }
 
     private void updateView(Building building) {
-        clearItems();
+        clearObjects();
         UnitType buildingType = (UnitType)building.getType();
 
         if (building.isConstructing()){
@@ -104,8 +104,8 @@ public class BuildingDetailsPane extends Table implements DetailsPaneElement
         showView(commandCentreDetails);
     }
 
-    private void showView(Item view) {
-        clearItems();
+    private void showView(GameObject view) {
+        clearObjects();
         add(view);
     }
 }

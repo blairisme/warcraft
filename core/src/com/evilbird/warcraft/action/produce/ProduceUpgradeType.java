@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.common.production.ProductionCosts;
@@ -24,7 +24,7 @@ import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.hasType;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeType1;
@@ -46,7 +46,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.TrollBerserker;
  */
 public class ProduceUpgradeType extends ProduceUpgrade
 {
-    private ItemFactory itemFactory;
+    private GameObjectFactory objectFactory;
 
     @Inject
     public ProduceUpgradeType(
@@ -54,15 +54,15 @@ public class ProduceUpgradeType extends ProduceUpgrade
         ResourceTransfer resources,
         ProductionCosts productionCosts,
         ProductionTimes productionTimes,
-        ItemFactory itemFactory)
+        GameObjectFactory objectFactory)
     {
         super(events, resources, productionCosts, productionTimes);
-        this.itemFactory = itemFactory;
+        this.objectFactory = objectFactory;
     }
 
     @Override
     protected boolean complete() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         UnitType type = (UnitType)building.getType();
         WarcraftFaction faction = type.getFaction();
 
@@ -70,10 +70,10 @@ public class ProduceUpgradeType extends ProduceUpgrade
         Identifier obsoleteType = getObsoleteType(upgradeType, faction);
         Identifier upgradedType = getUpgradedType(upgradeType, faction);
 
-        Combatant upgrade = (Combatant)itemFactory.get(upgradedType);
+        Combatant upgrade = (Combatant) objectFactory.get(upgradedType);
         Player player = getPlayer(building);
 
-        for (Item obsolete: player.findAll(hasType(obsoleteType))) {
+        for (GameObject obsolete: player.findAll(hasType(obsoleteType))) {
             updateAttributes((Combatant)obsolete, upgrade);
         }
         return super.complete();

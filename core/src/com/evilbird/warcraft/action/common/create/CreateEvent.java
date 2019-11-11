@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.common.create;
 
 import com.evilbird.engine.events.Event;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -18,28 +18,28 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.util.Objects;
 
 /**
- * Instances of this {@link Event} are produced when a new {@link Item} is
+ * Instances of this {@link Event} are produced when a new {@link GameObject} is
  * created.
  *
  * @author Blair Butterworth
  */
 public class CreateEvent implements Event
 {
-    private Item subject;
+    private GameObject subject;
 
     /**
-     * constructs a new instance of this class given an {@link Item} that has
+     * constructs a new instance of this class given an {@link GameObject} that has
      * just been created.
      *
-     * @param newItem an {@code Item}. This parameter cannot be {@code null}.
+     * @param newGameObject an {@code Item}. This parameter cannot be {@code null}.
      */
-    public CreateEvent(Item newItem) {
-        Objects.requireNonNull(newItem);
-        this.subject = newItem;
+    public CreateEvent(GameObject newGameObject) {
+        Objects.requireNonNull(newGameObject);
+        this.subject = newGameObject;
     }
 
     @Override
-    public Item getSubject() {
+    public GameObject getSubject() {
         return subject;
     }
 

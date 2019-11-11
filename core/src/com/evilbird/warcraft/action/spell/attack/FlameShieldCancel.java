@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.action.spell.attack;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectGroup;
 
 import javax.inject.Inject;
 
@@ -30,9 +30,9 @@ public class FlameShieldCancel extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Item flameShield = getTarget();
-        ItemGroup parent = flameShield.getParent();
-        parent.removeItem(flameShield);
+        GameObject flameShield = getTarget();
+        GameObjectGroup parent = flameShield.getParent();
+        parent.removeObject(flameShield);
         return ActionComplete;
     }
 }

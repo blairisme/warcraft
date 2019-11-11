@@ -10,34 +10,34 @@
 package com.evilbird.warcraft.action.common.remove;
 
 import com.evilbird.engine.events.Event;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Objects;
 
 /**
- * Instances of this {@link Event} are produced when an {@link Item} is
+ * Instances of this {@link Event} are produced when an {@link GameObject} is
  * removed.
  *
  * @author Blair Butterworth
  */
 public class RemoveEvent implements Event
 {
-    private Item subject;
+    private GameObject subject;
 
     /**
-     * Constructs a new instance of this class given an {@link Item} that has
+     * Constructs a new instance of this class given an {@link GameObject} that has
      * just been removed.
      *
-     * @param newItem an {@code Item}. This parameter cannot be {@code null}.
+     * @param newGameObject an {@code Item}. This parameter cannot be {@code null}.
      */
-    public RemoveEvent(Item newItem) {
-        Objects.requireNonNull(newItem);
-        this.subject = newItem;
+    public RemoveEvent(GameObject newGameObject) {
+        Objects.requireNonNull(newGameObject);
+        this.subject = newGameObject;
     }
 
     @Override
-    public Item getSubject() {
+    public GameObject getSubject() {
         return subject;
     }
 

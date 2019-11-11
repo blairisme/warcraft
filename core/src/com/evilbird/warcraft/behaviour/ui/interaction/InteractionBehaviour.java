@@ -15,8 +15,8 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.item.data.camera.Camera;
@@ -30,7 +30,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import static com.evilbird.engine.item.utility.ItemPredicates.withClazz;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.withClazz;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 
 /**
@@ -42,10 +42,10 @@ public class InteractionBehaviour implements Behaviour
 {
     private static final Logger logger = LoggerFactory.getLogger(InteractionBehaviour.class);
 
-    private Item camera;
-    private Collection<Item> selected;
+    private GameObject camera;
+    private Collection<GameObject> selected;
 
-    private Item target;
+    private GameObject target;
     private Collection<Interaction> previous;
 
     private EventQueue events;
@@ -73,14 +73,14 @@ public class InteractionBehaviour implements Behaviour
     }
 
     private void initializeCache(State state) {
-        ItemRoot world = state.getWorld();
+        GameObjectContainer world = state.getWorld();
         camera = world.find(withClazz(Camera.class));
         selected = world.findAll(isSelected());
     }
 
     private void synchronizeCache() {
         for (SelectEvent event: events.getEvents(SelectEvent.class)) {
-            Item subject = event.getSubject();
+            GameObject subject = event.getSubject();
             if (event.getSelected()) {
                 selected.add(subject);
             } else {
@@ -91,8 +91,8 @@ public class InteractionBehaviour implements Behaviour
 
     private void evaluateInputs(State state, List<UserInput> inputs) {
         if (! inputs.isEmpty()) {
-            ItemRoot world = state.getWorld();
-            ItemRoot hud = state.getHud();
+            GameObjectContainer world = state.getWorld();
+            GameObjectContainer hud = state.getHud();
 
             for (UserInput input : inputs) {
                 if (input.getCount() == 1) {
@@ -104,7 +104,7 @@ public class InteractionBehaviour implements Behaviour
         }
     }
 
-    private void evaluateInput(UserInput input, ItemRoot world, ItemRoot hud, Collection<Item> selected) {
+    private void evaluateInput(UserInput input, GameObjectContainer world, GameObjectContainer hud, Collection<GameObject> selected) {
         target = getTargets(world, hud, input);
         previous = evaluateSelection(input, target, selected);
         if (previous.isEmpty()) {
@@ -113,15 +113,15 @@ public class InteractionBehaviour implements Behaviour
         }
     }
 
-    private void applyPrevious(UserInput input, Collection<Item> selected) {
+    private void applyPrevious(UserInput input, Collection<GameObject> selected) {
         if (selected.isEmpty()) {
-            apply(previous, input, target, (Item)null);
+            apply(previous, input, target, (GameObject)null);
         } else {
             apply(previous, input, target, selected);
         }
     }
 
-    private Collection<Interaction> evaluateSelection(UserInput input, Item target, Collection<Item> selected) {
+    private Collection<Interaction> evaluateSelection(UserInput input, GameObject target, Collection<GameObject> selected) {
         Collection<Interaction> result = new ArrayList<>();
         if (selected.isEmpty()) {
             result.add(evaluateInteractions(input, target, null));
@@ -130,67 +130,67 @@ public class InteractionBehaviour implements Behaviour
             result.add(evaluateInteractions(input, target, target));
         }
         else {
-            for (Item selectedItem: selected) {
-                result.add(evaluateInteractions(input, target, selectedItem));
+            for (GameObject selectedGameObject : selected) {
+                result.add(evaluateInteractions(input, target, selectedGameObject));
             }
         }
         result.removeIf(Objects::isNull);
         return result;
     }
 
-    private Interaction evaluateInteractions(UserInput input, Item target, Item selected) {
+    private Interaction evaluateInteractions(UserInput input, GameObject target, GameObject selected) {
         logInput(input, target, selected);
         Interaction interaction = interactions.getInteraction(input, target, selected);
         apply(interaction, input, target, selected);
         return interaction;
     }
 
-    private void apply(Collection<Interaction> interactions, UserInput input, Item target, Collection<Item> selected) {
-        for (Item selectedItem : selected) {
-            apply(interactions, input, target, selectedItem);
+    private void apply(Collection<Interaction> interactions, UserInput input, GameObject target, Collection<GameObject> selected) {
+        for (GameObject selectedGameObject : selected) {
+            apply(interactions, input, target, selectedGameObject);
         }
     }
 
-    private void apply(Collection<Interaction> interactions, UserInput input, Item target, Item selected) {
+    private void apply(Collection<Interaction> interactions, UserInput input, GameObject target, GameObject selected) {
         for (Interaction interaction: interactions) {
             apply(interaction, input, target, selected);
         }
     }
 
-    private void apply(Interaction interaction, UserInput input, Item target, Item selected) {
+    private void apply(Interaction interaction, UserInput input, GameObject target, GameObject selected) {
         if (interaction != null) {
             interaction.apply(input, target, selected);
         }
     }
 
-    private Item getTargets(ItemRoot world, ItemRoot hud, UserInput input) {
-        Item result = getHudTarget(hud, input);
+    private GameObject getTargets(GameObjectContainer world, GameObjectContainer hud, UserInput input) {
+        GameObject result = getHudTarget(hud, input);
         if (result == null) {
             result = getWorldTarget(world, input);
         }
         return result;
     }
 
-    private Item getHudTarget(ItemRoot hud, UserInput userInput) {
+    private GameObject getHudTarget(GameObjectContainer hud, UserInput userInput) {
         Vector2 position = userInput.getPosition();
         Vector2 hudPosition = hud.unproject(position);
         return hud.hit(hudPosition, true);
     }
 
-    private Item getWorldTarget(ItemRoot world, UserInput userInput) {
+    private GameObject getWorldTarget(GameObjectContainer world, UserInput userInput) {
         Vector2 position = userInput.getPosition();
         Vector2 worldPosition = world.unproject(position);
         return world.hit(worldPosition, true);
     }
 
-    private void logInput(UserInput input, Item target, Item selected) {
+    private void logInput(UserInput input, GameObject target, GameObject selected) {
         logger.debug("User input - type: '{}' target: '{}' selected: '{}'",
             getType(input), getType(target), getType(selected));
     }
 
-    private Identifier getType(Item item) {
-        if (item != null) {
-            return item.getType();
+    private Identifier getType(GameObject gameObject) {
+        if (gameObject != null) {
+            return gameObject.getType();
         }
         return null;
     }

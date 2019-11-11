@@ -11,7 +11,7 @@ package com.evilbird.test.data.item;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
@@ -32,7 +32,7 @@ public class TestGatherers
         return newTestGatherer(identifier, type, TestItemRoots.newTestRoot("root"), newTestPlayer("parent"));
     }
 
-    public static Gatherer newTestGatherer(Identifier identifier, Identifier type, ItemRoot root, Player parent) {
+    public static Gatherer newTestGatherer(Identifier identifier, Identifier type, GameObjectContainer root, Player parent) {
         Gatherer item = new Gatherer(newTestSkin());
         item.setIdentifier(identifier);
         item.setType(type);

@@ -39,7 +39,7 @@ public class SelectFlash extends BasicAction
     public boolean act(float delta) {
         time = Math.max(time - delta, 0);
         if (time == 0) {
-            SelectableObject selectable = (SelectableObject)getItem();
+            SelectableObject selectable = (SelectableObject) getSubject();
             selectable.setSelected(!selectable.getSelected());
 
             count += 1;

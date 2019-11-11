@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.data.camera;
 
 import com.evilbird.engine.device.DeviceDisplay;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
@@ -40,7 +40,7 @@ public class CameraTest extends GameTestCase
 
     @Test
     public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(Item.class)
+        SerializationVerifier.forClass(GameObject.class)
             .withDeserializedForm(camera)
             .withSerializedResource("/warcraft/item/camera.json")
             .verify();

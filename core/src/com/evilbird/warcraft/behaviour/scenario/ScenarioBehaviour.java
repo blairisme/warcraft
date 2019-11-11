@@ -14,8 +14,8 @@ import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.action.menu.MenuActions;
 
@@ -35,9 +35,9 @@ public class ScenarioBehaviour implements Behaviour
 {
     private EventQueue events;
     private ActionFactory actions;
-    private BiPredicate<ItemRoot, EventQueue> winCondition;
-    private BiPredicate<ItemRoot, EventQueue> loseCondition;
-    private BiConsumer<ItemRoot, EventQueue> supplement;
+    private BiPredicate<GameObjectContainer, EventQueue> winCondition;
+    private BiPredicate<GameObjectContainer, EventQueue> loseCondition;
+    private BiConsumer<GameObjectContainer, EventQueue> supplement;
 
     @Inject
     public ScenarioBehaviour(ActionFactory actions, EventQueue events) {
@@ -45,15 +45,15 @@ public class ScenarioBehaviour implements Behaviour
         this.actions = actions;
     }
 
-    public void setWinCondition(BiPredicate<ItemRoot, EventQueue> winCondition) {
+    public void setWinCondition(BiPredicate<GameObjectContainer, EventQueue> winCondition) {
         this.winCondition = winCondition;
     }
 
-    public void setLoseCondition(BiPredicate<ItemRoot, EventQueue> loseCondition) {
+    public void setLoseCondition(BiPredicate<GameObjectContainer, EventQueue> loseCondition) {
         this.loseCondition = loseCondition;
     }
 
-    public void addBehaviour(BiConsumer<ItemRoot, EventQueue> behaviour) {
+    public void addBehaviour(BiConsumer<GameObjectContainer, EventQueue> behaviour) {
         supplement = supplement == null ? behaviour : supplement.andThen(behaviour);
     }
 
@@ -62,7 +62,7 @@ public class ScenarioBehaviour implements Behaviour
         evaluate(state.getWorld());
     }
 
-    private void evaluate(ItemRoot state) {
+    private void evaluate(GameObjectContainer state) {
         if (winCondition.test(state, events)) {
             enterWinState(state);
         }
@@ -74,15 +74,15 @@ public class ScenarioBehaviour implements Behaviour
         }
     }
 
-    private void enterWinState(ItemRoot state) {
-        Item group = state.getBaseGroup();
+    private void enterWinState(GameObjectContainer state) {
+        GameObject group = state.getBaseGroup();
         Action action = actions.get(MenuActions.VictoryMenu);
         action.setItem(group);
         group.addAction(action);
     }
 
-    private void enterLoseState(ItemRoot state) {
-        Item group = state.getBaseGroup();
+    private void enterLoseState(GameObjectContainer state) {
+        GameObject group = state.getBaseGroup();
         Action action = actions.get(MenuActions.FailureMenu);
         action.setItem(group);
         group.addAction(action);

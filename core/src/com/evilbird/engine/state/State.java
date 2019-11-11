@@ -12,7 +12,7 @@ package com.evilbird.engine.state;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Disposable;
 import com.evilbird.engine.behaviour.Behaviour;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 
 /**
  * Instances of class represent the game state, a snapshot of the all game
@@ -22,9 +22,9 @@ import com.evilbird.engine.item.ItemRoot;
  */
 public interface State extends Disposable
 {
-    ItemRoot getWorld();
+    GameObjectContainer getWorld();
 
-    ItemRoot getHud();
+    GameObjectContainer getHud();
 
     Behaviour getBehaviour();
 

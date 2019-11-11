@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.selector;
 
 import com.evilbird.engine.common.collection.EnumUtils;
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObjectType;
 import com.evilbird.warcraft.item.unit.UnitType;
 import org.apache.commons.lang3.Validate;
 
@@ -23,7 +23,7 @@ import static com.evilbird.engine.common.collection.EnumUtils.getName;
  *
  * @author Blair Butterworth
  */
-public enum SelectorType implements ItemType
+public enum SelectorType implements GameObjectType
 {
     BarracksSelector,
     BlacksmithSelector,

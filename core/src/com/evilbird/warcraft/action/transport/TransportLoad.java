@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.transport;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.StateTransitionAction;
-import com.evilbird.engine.item.utility.ItemOperations;
+import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.item.unit.Unit;
 
@@ -40,13 +40,13 @@ public class TransportLoad extends StateTransitionAction
 
     @Override
     protected Action nextAction(Action previous) {
-        Unit embarkee = (Unit)getItem();
+        Unit embarkee = (Unit) getSubject();
         Unit vessel = (Unit)getTarget();
         return nextAction(embarkee, vessel);
     }
 
     protected Action nextAction(Unit embarkee, Unit vessel) {
-        if (!ItemOperations.isNear(embarkee, embarkee.getWidth(), vessel)) {
+        if (!GameObjectOperations.isNear(embarkee, embarkee.getWidth(), vessel)) {
             return reposition;
         }
         if (!vessel.hasAssociatedItem(embarkee)) {

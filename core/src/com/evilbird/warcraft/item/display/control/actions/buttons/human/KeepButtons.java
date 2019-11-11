@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.display.control.actions.buttons.human;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.display.control.actions.buttons.BasicButtonController;
@@ -39,14 +39,14 @@ public class KeepButtons extends BasicButtonController
         asList(com.evilbird.warcraft.item.display.control.actions.ActionButtonType.PeasantButton, com.evilbird.warcraft.item.display.control.actions.ActionButtonType.CastleButton);
 
     @Override
-    public List<com.evilbird.warcraft.item.display.control.actions.ActionButtonType> getButtons(Item item) {
-        Player player = UnitOperations.getPlayer(item);
+    public List<com.evilbird.warcraft.item.display.control.actions.ActionButtonType> getButtons(GameObject gameObject) {
+        Player player = UnitOperations.getPlayer(gameObject);
         return player.getLevel() <= 10 ? BASIC_BUTTONS : ADVANCED_BUTTONS;
     }
 
     @Override
-    public boolean getEnabled(com.evilbird.warcraft.item.display.control.actions.ActionButtonType button, Item item) {
-        Player player = UnitOperations.getPlayer(item);
+    public boolean getEnabled(com.evilbird.warcraft.item.display.control.actions.ActionButtonType button, GameObject gameObject) {
+        Player player = UnitOperations.getPlayer(gameObject);
 
         if (button == com.evilbird.warcraft.item.display.control.actions.ActionButtonType.PeasantButton) {
             return hasResources(player, Peasant);

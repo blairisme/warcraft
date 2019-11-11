@@ -35,7 +35,7 @@ public class TransportEmbark extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Unit embarkee = (Unit)getItem();
+        Unit embarkee = (Unit) getSubject();
         exclusion.disable(embarkee);
 
         Unit vessel = (Unit)getTarget();

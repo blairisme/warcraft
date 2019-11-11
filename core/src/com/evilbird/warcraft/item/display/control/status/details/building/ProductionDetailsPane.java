@@ -21,8 +21,8 @@ import com.badlogic.gdx.utils.Scaling;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.specialized.Grid;
-import com.evilbird.engine.item.utility.ItemOperations;
+import com.evilbird.engine.object.specialized.Grid;
+import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.action.produce.ProduceUpgradeActions;
 import com.evilbird.warcraft.item.display.control.status.details.DetailsPaneStyle;
@@ -112,11 +112,11 @@ public class ProductionDetailsPane extends Grid
     }
 
     private boolean isProducingUnit(Building building) {
-        return ItemOperations.hasAction(building, ProduceUnitActions.values());
+        return GameObjectOperations.hasAction(building, ProduceUnitActions.values());
     }
 
     private boolean isProducingUpgrade(Building building) {
-        return ItemOperations.hasAction(building, ProduceUpgradeActions.values());
+        return GameObjectOperations.hasAction(building, ProduceUpgradeActions.values());
     }
 
     private void updateProductName(Building building) {

@@ -87,7 +87,7 @@ public class ConstructAction extends TemporalAction
     }
 
     private boolean initialize() {
-        Unit builder = (Unit)getItem();
+        Unit builder = (Unit) getSubject();
         exclusion.disable(builder);
 
         Building building = (Building)getTarget();
@@ -104,7 +104,7 @@ public class ConstructAction extends TemporalAction
         Building building = (Building)getTarget();
         building.setConstructionProgress(getProgress());
 
-        Gatherer builder = (Gatherer)getItem();
+        Gatherer builder = (Gatherer) getSubject();
         if (preferences.isBuildingSoundsEnabled() && timer.advance(time)) {
             timer.reset();
             builder.setSound(Build, preferences.getEffectsVolume());
@@ -114,7 +114,7 @@ public class ConstructAction extends TemporalAction
 
     private boolean complete() {
         Building building = (Building)getTarget();
-        Gatherer builder = (Gatherer)getItem();
+        Gatherer builder = (Gatherer) getSubject();
         Player player = getPlayer(building);
 
         finalizeBuilding(building);

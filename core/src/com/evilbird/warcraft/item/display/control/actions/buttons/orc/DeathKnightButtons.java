@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.display.control.actions.buttons.orc;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.display.control.actions.ActionButtonType;
@@ -44,16 +44,16 @@ public class DeathKnightButtons extends BasicButtonController
         singletonList(CancelButton);
 
     @Override
-    public List<ActionButtonType> getButtons(Item item) {
-        SpellCaster caster = (SpellCaster)item;
+    public List<ActionButtonType> getButtons(GameObject gameObject) {
+        SpellCaster caster = (SpellCaster) gameObject;
         if (caster.getCastingSpell() != null) {
             return CASTING_BUTTONS;
         }
-        return getActionButtons(item);
+        return getActionButtons(gameObject);
     }
 
-    private List<ActionButtonType> getActionButtons(Item item) {
-        Player player = UnitOperations.getPlayer(item);
+    private List<ActionButtonType> getActionButtons(GameObject gameObject) {
+        Player player = UnitOperations.getPlayer(gameObject);
         List<ActionButtonType> buttons = new ArrayList<>(BASIC_BUTTONS);
 //        addUpgradeButton(player, buttons, ExorcismButton, ExorcismUpgrade);
 //        addUpgradeButton(player, buttons, HealButton, HealingUpgrade);
@@ -61,8 +61,8 @@ public class DeathKnightButtons extends BasicButtonController
     }
 
     @Override
-    public boolean getEnabled(ActionButtonType button, Item item) {
-        SpellCaster caster = (SpellCaster)item;
+    public boolean getEnabled(ActionButtonType button, GameObject gameObject) {
+        SpellCaster caster = (SpellCaster) gameObject;
         switch (button) {
             case DeathAndDecayButton: return hasMana(caster, DeathAndDecay);
             case WhirlwindButton: return hasMana(caster, Whirlwind);

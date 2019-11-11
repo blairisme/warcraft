@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.action.spell.aoe;
 
 import com.evilbird.engine.common.lang.Alignment;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.common.spell.Spell;
@@ -34,7 +34,7 @@ public class AoeSpellAction extends SpellAction
         Spell spell,
         EffectType castEffect,
         UnitType aoeType,
-        ItemFactory factory,
+        GameObjectFactory factory,
         AoeSpellCancel cancelAction)
     {
         super(spell, castEffect, factory);
@@ -49,14 +49,14 @@ public class AoeSpellAction extends SpellAction
     }
 
     protected ConjuredObject addAoeEffect() {
-        Item caster = getItem();
-        Item selector = getTarget();
+        GameObject caster = getSubject();
+        GameObject selector = getTarget();
 
         ConjuredObject aoe = (ConjuredObject)factory.get(aoeType);
         aoe.setPosition(selector.getPosition(Alignment.Center), Alignment.Center);
 
         Player player = UnitOperations.getPlayer(caster);
-        player.addItem(aoe);
+        player.addObject(aoe);
 
         cancelAction.setItem(caster);
         cancelAction.setTarget(aoe);

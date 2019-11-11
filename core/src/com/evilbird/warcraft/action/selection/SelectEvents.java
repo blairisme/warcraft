@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.selection;
 
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 import javax.inject.Inject;
 
@@ -28,7 +28,7 @@ public class SelectEvents
         this.events = events;
     }
 
-    public void notifySelected(Item item, boolean selected) {
-        events.add(new SelectEvent(item, selected));
+    public void notifySelected(GameObject gameObject, boolean selected) {
+        events.add(new SelectEvent(gameObject, selected));
     }
 }

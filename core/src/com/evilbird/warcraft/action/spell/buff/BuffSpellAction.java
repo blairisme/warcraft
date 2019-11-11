@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.engine.common.time.GameTimer;
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.common.value.BuffValue;
@@ -31,7 +31,7 @@ public abstract class BuffSpellAction extends SpellAction
 {
     private BuffSpellCancel cancel;
 
-    public BuffSpellAction(Spell spell, EffectType effect, ItemFactory factory, BuffSpellCancel cancel) {
+    public BuffSpellAction(Spell spell, EffectType effect, GameObjectFactory factory, BuffSpellCancel cancel) {
         super(spell, effect, factory);
         this.cancel = cancel;
     }
@@ -61,7 +61,7 @@ public abstract class BuffSpellAction extends SpellAction
     }
 
     protected void setBuffCancel() {
-        Unit caster = (Unit)getItem();
+        Unit caster = (Unit) getSubject();
         Unit target = (Unit)getTarget();
 
         cancel.setItem(caster);

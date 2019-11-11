@@ -11,16 +11,16 @@ package com.evilbird.warcraft.behaviour.scenario.condition;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.both;
-import static com.evilbird.engine.item.utility.ItemOperations.hasNone;
-import static com.evilbird.engine.item.utility.ItemPredicates.withType;
+import static com.evilbird.engine.object.utility.GameObjectOperations.hasNone;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 
 /**
@@ -31,7 +31,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
  */
 public class UnitDestruction extends PlayerCondition
 {
-    private Predicate<Item> unitsOfType;
+    private Predicate<GameObject> unitsOfType;
 
     /**
      * Creates a new instance of this class that will be fulfilled when the
@@ -69,7 +69,7 @@ public class UnitDestruction extends PlayerCondition
     }
 
     @Override
-    protected boolean evaluate(ItemRoot state) {
+    protected boolean evaluate(GameObjectContainer state) {
         return hasNone(player, unitsOfType);
     }
 }

@@ -11,7 +11,7 @@ package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.function.Predicates;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.verifier.EqualityVerifier;
 import org.junit.Before;
@@ -51,7 +51,7 @@ public class BranchActionTest
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(BranchAction.class)
-            .withMockedTransientFields(Item.class)
+            .withMockedTransientFields(GameObject.class)
             .excludeTransientFields()
             .verify();
     }

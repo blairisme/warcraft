@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.display.control.actions.buttons.human;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.display.control.actions.buttons.BasicButtonController;
@@ -33,8 +33,8 @@ public class ChurchButtons extends BasicButtonController
     private static final List<com.evilbird.warcraft.item.display.control.actions.ActionButtonType> basicButtons = singletonList(com.evilbird.warcraft.item.display.control.actions.ActionButtonType.MeleeType1Button);
 
     @Override
-    public List<com.evilbird.warcraft.item.display.control.actions.ActionButtonType> getButtons(Item item) {
-        Player player = UnitOperations.getPlayer(item);
+    public List<com.evilbird.warcraft.item.display.control.actions.ActionButtonType> getButtons(GameObject gameObject) {
+        Player player = UnitOperations.getPlayer(gameObject);
         return !hasUpgrade(player, MeleeType1) ? basicButtons : getAdvancedButtons(player);
     }
 
@@ -46,8 +46,8 @@ public class ChurchButtons extends BasicButtonController
     }
 
     @Override
-    public boolean getEnabled(com.evilbird.warcraft.item.display.control.actions.ActionButtonType button, Item item) {
-        Player player = UnitOperations.getPlayer(item);
+    public boolean getEnabled(com.evilbird.warcraft.item.display.control.actions.ActionButtonType button, GameObject gameObject) {
+        Player player = UnitOperations.getPlayer(gameObject);
         switch (button) {
             case MeleeType1Button: return hasResources(player, MeleeType1);
             case ExorcismUpgradeButton: return hasResources(player, ExorcismUpgrade);

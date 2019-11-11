@@ -47,7 +47,7 @@ public class ZoomAction extends BasicAction
     @Override
     public boolean act(float time) {
         UserInput input = getCause();
-        Camera camera = (Camera)getItem();
+        Camera camera = (Camera) getSubject();
 
         float current = camera.getZoom();
         float delta = input.getDelta().x;

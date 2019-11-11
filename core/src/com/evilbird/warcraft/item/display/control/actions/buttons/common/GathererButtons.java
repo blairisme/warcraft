@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.display.control.actions.buttons.common;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.display.control.actions.ActionButtonType;
@@ -34,18 +34,18 @@ import static java.util.Arrays.asList;
 public class GathererButtons implements ButtonController
 {
     @Override
-    public List<ActionButtonType> getButtons(Item item) {
+    public List<ActionButtonType> getButtons(GameObject gameObject) {
         return asList(MoveButton, StopButton, AttackButton, RepairButton, GatherButton,
             BuildSimpleButton, BuildAdvancedButton);
     }
 
     @Override
-    public boolean getEnabled(ActionButtonType button, Item item) {
+    public boolean getEnabled(ActionButtonType button, GameObject gameObject) {
         if (button == StopButton || button == BuildSimpleButton) {
             return true;
         }
         if (button == BuildAdvancedButton) {
-            Player player = UnitOperations.getPlayer(item);
+            Player player = UnitOperations.getPlayer(gameObject);
             return player.getLevel() > 2;
         }
         return false;

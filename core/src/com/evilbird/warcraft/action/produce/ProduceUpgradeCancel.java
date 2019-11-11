@@ -46,7 +46,7 @@ public class ProduceUpgradeCancel extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         building.setProductionProgress(1);
 
         Player player = getPlayer(building);

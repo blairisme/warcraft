@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.data.player;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -36,7 +36,7 @@ public class PlayerTest extends GameTestCase
 
     @Test
     public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(Item.class)
+        SerializationVerifier.forClass(GameObject.class)
             .withDeserializedForm(player)
             .withSerializedResource("/warcraft/item/player.json")
             .verify();

@@ -13,7 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.verifier.EqualityVerifier;
 import org.junit.Assert;
@@ -48,25 +48,25 @@ public class DelegateActionTest
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(DelegateAction.class)
-            .withMockedTransientFields(Item.class)
+            .withMockedTransientFields(GameObject.class)
             .excludeTransientFields()
             .verify();
     }
 
     @Test
     public void itemTest() {
-        Assert.assertNull(delegateAction.getItem());
-        Item actor = Mockito.mock(Item.class);
+        Assert.assertNull(delegateAction.getSubject());
+        GameObject actor = Mockito.mock(GameObject.class);
 
         delegateAction.setItem(actor);
-        Assert.assertEquals(actor, underlyingAction.getItem());
-        Assert.assertEquals(actor, delegateAction.getItem());
+        Assert.assertEquals(actor, underlyingAction.getSubject());
+        Assert.assertEquals(actor, delegateAction.getSubject());
     }
 
     @Test
     public void targetTest() {
         Assert.assertNull(delegateAction.getTarget());
-        Item target = Mockito.mock(Item.class);
+        GameObject target = Mockito.mock(GameObject.class);
 
         delegateAction.setTarget(target);
         Assert.assertEquals(target, underlyingAction.getTarget());

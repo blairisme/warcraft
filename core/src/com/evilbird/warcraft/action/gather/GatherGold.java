@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.gather;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.StateTransitionAction;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
@@ -27,7 +27,7 @@ import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.item.unit.UnitType.GoldMine;
 
 /**
- * Instances of this {@link Action} instruct an {@link Item} to gather gold.
+ * Instances of this {@link Action} instruct an {@link GameObject} to gather gold.
  *
  * @author Blair Butterworth
  */
@@ -52,10 +52,10 @@ public class GatherGold extends StateTransitionAction
 
     @Override
     protected Action nextAction(Action previous) {
-        return nextAction((Gatherer)getItem(), getTarget());
+        return nextAction((Gatherer) getSubject(), getTarget());
     }
 
-    private Action nextAction(Gatherer gatherer, Item target) {
+    private Action nextAction(Gatherer gatherer, GameObject target) {
         
         if (hasResources(gatherer, Gold)) {
             deposit.setTarget(getNearestDepot(gatherer));
@@ -66,11 +66,11 @@ public class GatherGold extends StateTransitionAction
         }
     }
 
-    private Item getNearestDepot(Gatherer gatherer) {
+    private GameObject getNearestDepot(Gatherer gatherer) {
         return findClosest(gatherer, both(isCorporeal(), isDepotFor(Gold)));
     }
 
-    private Item getNearestResource(Gatherer gatherer, Item target) {
+    private GameObject getNearestResource(Gatherer gatherer, GameObject target) {
         return findClosest(gatherer, target, GoldMine);
     }
 }

@@ -12,35 +12,35 @@ package com.evilbird.warcraft.action.confirm;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectType;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.effect.EffectType;
 
 import javax.inject.Inject;
 
 /**
- * Instances of this {@link Action} show a confirmation effect over a given {@link Item}.
+ * Instances of this {@link Action} show a confirmation effect over a given {@link GameObject}.
  *
  * @author Blair Butterworth
  */
 public class ConfirmItem extends ConfirmAction
 {
     @Inject
-    public ConfirmItem(ItemFactory factory, WarcraftPreferences preferences) {
+    public ConfirmItem(GameObjectFactory factory, WarcraftPreferences preferences) {
         super(factory, preferences);
         setIdentifier(ConfirmActions.ConfirmTarget);
     }
 
     @Override
-    protected ItemType getEffectType() {
+    protected GameObjectType getEffectType() {
         return EffectType.Confirm;
     }
 
     @Override
     protected Vector2 getPosition() {
-        Item target = getTarget();
+        GameObject target = getTarget();
         return target.getPosition(Alignment.Center);
     }
 

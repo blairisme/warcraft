@@ -13,10 +13,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectType;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.effect.EffectType;
 
@@ -31,20 +31,20 @@ import javax.inject.Inject;
 public class ConfirmLocation extends ConfirmAction
 {
     @Inject
-    public ConfirmLocation(ItemFactory factory, WarcraftPreferences preferences) {
+    public ConfirmLocation(GameObjectFactory factory, WarcraftPreferences preferences) {
         super(factory, preferences);
         setIdentifier(ConfirmActions.ConfirmLocation);
     }
 
     @Override
-    protected ItemType getEffectType() {
+    protected GameObjectType getEffectType() {
         return EffectType.Confirm;
     }
 
     @Override
     protected Vector2 getPosition() {
-        Item item = getItem();
-        ItemRoot root = item.getRoot();
+        GameObject gameObject = getSubject();
+        GameObjectContainer root = gameObject.getRoot();
         UserInput cause = getCause();
         Vector2 position = root.unproject(cause.getPosition());
         return new Vector2(position.x - 16, position.y - 16);

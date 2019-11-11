@@ -43,9 +43,9 @@ public class MenuNavigateAction extends BasicAction
 
     private MenuProvider getMenuProvider() {
         switch (source) {
-            case Subject: return (MenuProvider)getItem();
+            case Subject: return (MenuProvider) getSubject();
             case Target: return (MenuProvider)getTarget();
-            case Parent: return (MenuProvider)getItem().getParent();
+            case Parent: return (MenuProvider) getSubject().getParent();
             default: throw new UnsupportedOperationException();
         }
     }

@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.display.control.actions.buttons;
 
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.display.control.actions.ActionPaneView;
 import com.evilbird.warcraft.item.display.control.actions.buttons.common.BlacksmithButtons;
 import com.evilbird.warcraft.item.display.control.actions.buttons.common.CombatantButtons;
@@ -98,7 +98,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.Zuljin;
 import static java.util.Collections.emptyMap;
 
 /**
- * Defines which {@link ButtonController} is applicable to which {@link Item}
+ * Defines which {@link ButtonController} is applicable to which {@link GameObject}
  * and {@link ActionPaneView} types.
  *
  * @author Blair Butterworth
@@ -117,8 +117,8 @@ public class ButtonControllers
         registerTransportButtons();
     }
 
-    public ButtonController getButtonController(Item item, ActionPaneView view) {
-        Identifier type = item.getType();
+    public ButtonController getButtonController(GameObject gameObject, ActionPaneView view) {
+        Identifier type = gameObject.getType();
         return controllers.getOrDefault(view, emptyMap()).getOrDefault(type, NoButtons.emptyButtons());
     }
 

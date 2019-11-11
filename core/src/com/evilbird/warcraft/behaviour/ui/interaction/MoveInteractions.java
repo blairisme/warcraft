@@ -12,7 +12,7 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.hasType;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmLocation;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveCancel;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveToLocation;

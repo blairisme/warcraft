@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.display.control.actions.buttons;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.display.control.actions.ActionButton;
 import com.evilbird.warcraft.item.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.display.control.actions.ActionPane;
@@ -25,24 +25,24 @@ import java.util.List;
 public interface ButtonController
 {
     /**
-     * Returns the buttons that should be shown for the given {@link Item}.
+     * Returns the buttons that should be shown for the given {@link GameObject}.
      * Buttons will be displayed in the returned order.
      *
-     * @param item  the selected {@link Item}, whose attributes will be used
+     * @param gameObject  the selected {@link GameObject}, whose attributes will be used
      *              to determine which buttons should be displayed.
      *
      * @return an ordered {@link List} of {@link ActionButtonType buttons}.
      */
-    List<ActionButtonType> getButtons(Item item);
+    List<ActionButtonType> getButtons(GameObject gameObject);
 
     /**
      * Determines if buttons of the given type should be enabled or not.
      *
      * @param button    the {@link ActionButtonType type} of the button to test.
-     * @param item      the selected {@link Item}, whose attributes will be
+     * @param gameObject      the selected {@link GameObject}, whose attributes will be
      *                  used to determine if the button should be enabled.
      *
      * @return {@code true} if the button should be enabled.
      */
-    boolean getEnabled(ActionButtonType button, Item item);
+    boolean getEnabled(ActionButtonType button, GameObject gameObject);
 }

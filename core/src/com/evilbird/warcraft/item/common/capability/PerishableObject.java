@@ -9,14 +9,14 @@
 
 package com.evilbird.warcraft.item.common.capability;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 /**
  * Implementors of this interface represent an object that can be destroyed.
  *
  * @author Blair Butterworth
  */
-public interface PerishableObject extends Item
+public interface PerishableObject extends GameObject
 {
     /**
      * Returns how much damage the {@code PerishableObject PerishableObjects}

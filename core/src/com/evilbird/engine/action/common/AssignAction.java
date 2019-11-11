@@ -11,12 +11,12 @@ package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.not;
-import static com.evilbird.engine.item.utility.ItemPredicates.hasAction;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.hasAction;
 
 /**
  * Instances of this {@link Action} assign an action to a specified item.
@@ -27,15 +27,15 @@ public class AssignAction extends BasicAction
 {
     private Action action;
     private ActionRecipient recipient;
-    private Predicate<Item> condition;
+    private Predicate<GameObject> condition;
 
-    public AssignAction(Action action, ActionRecipient recipient, Predicate<Item> condition) {
+    public AssignAction(Action action, ActionRecipient recipient, Predicate<GameObject> condition) {
         this.action = action;
         this.recipient = recipient;
         this.condition = condition;
     }
 
-    public static Action assign(Action action, ActionRecipient recipient, Predicate<Item> condition) {
+    public static Action assign(Action action, ActionRecipient recipient, Predicate<GameObject> condition) {
         return new AssignAction(action, recipient, condition);
     }
 
@@ -45,11 +45,11 @@ public class AssignAction extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Item item = ActionUtils.getRecipient(this, recipient);
-        if (condition.test(item)) {
+        GameObject gameObject = ActionUtils.getRecipient(this, recipient);
+        if (condition.test(gameObject)) {
             action.reset();
-            action.setItem(item);
-            item.addAction(action);
+            action.setItem(gameObject);
+            gameObject.addAction(action);
         }
         return true;
     }

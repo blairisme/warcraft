@@ -9,14 +9,14 @@
 
 package com.evilbird.warcraft.item.effect;
 
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObjectType;
 
 /**
  * Defines options of specifying effect varieties.
  *
  * @author Blair Butterworth
  */
-public enum EffectType implements ItemType
+public enum EffectType implements GameObjectType
 {
     /* Confirmation */
     Attack,

@@ -9,14 +9,14 @@
 
 package com.evilbird.warcraft.item.data.player;
 
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObjectType;
 
 /**
  * Defines options of specifying player varieties.
  *
  * @author Blair Butterworth
  */
-public enum PlayerType implements ItemType
+public enum PlayerType implements GameObjectType
 {
     Corporeal,
     Artificial,

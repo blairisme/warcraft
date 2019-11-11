@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.selector;
 
 import com.evilbird.engine.events.Event;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
@@ -21,22 +21,22 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public class SelectorEvent implements Event
 {
-    private Item builder;
-    private Item owner;
+    private GameObject builder;
+    private GameObject owner;
     private SelectorStatus status;
 
-    public SelectorEvent(Item builder, Item owner, SelectorStatus status) {
+    public SelectorEvent(GameObject builder, GameObject owner, SelectorStatus status) {
         this.builder = builder;
         this.owner = owner;
         this.status = status;
     }
 
     @Override
-    public Item getSubject() {
+    public GameObject getSubject() {
         return owner;
     }
 
-    public Item getOwner() {
+    public GameObject getOwner() {
         return builder;
     }
 

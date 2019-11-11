@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.attack;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.warcraft.common.WarcraftPreferences;
@@ -19,26 +19,26 @@ import org.mockito.Mockito;
 
 public class ProximityAttackTest
 {
-    private Item item;
-    private Item target;
+    private GameObject gameObject;
+    private GameObject target;
     private ProximityAttack action;
     private WarcraftPreferences preferences;
 
     @Before
     public void setup() {
-        item = TestItems.newItem("footman");
+        gameObject = TestItems.newItem("footman");
         target = TestItems.newItem("grunt");
         preferences = Mockito.mock(WarcraftPreferences.class);
 
         action = new ProximityAttack(preferences);
-        action.setItem(item);
+        action.setItem(gameObject);
         action.setTarget(target);
     }
 
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(ProximityAttack.class)
-                .withMockedTransientFields(Item.class)
+                .withMockedTransientFields(GameObject.class)
                 .excludeTransientFields()
                 .verify();
     }

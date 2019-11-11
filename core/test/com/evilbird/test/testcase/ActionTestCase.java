@@ -15,8 +15,8 @@ import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.utils.TestUtils;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -37,9 +37,9 @@ import java.io.IOException;
  */
 public abstract class ActionTestCase extends GameTestCase
 {
-    protected ItemRoot root;
-    protected Item item;
-    protected Item target;
+    protected GameObjectContainer root;
+    protected GameObject gameObject;
+    protected GameObject target;
     protected UserInput cause;
     protected Action action;
     protected Player player;
@@ -50,13 +50,13 @@ public abstract class ActionTestCase extends GameTestCase
         super.setup();
 
         types = new WarcraftTypeRegistry();
-        item = newItem();
+        gameObject = newItem();
         target = newTarget();
         cause = newCause();
-        player = (Player)item.getParent();
+        player = (Player) gameObject.getParent();
 
         action = newAction();
-        action.setItem(item);
+        action.setItem(gameObject);
         action.setTarget(target);
         action.setCause(cause);
 
@@ -66,7 +66,7 @@ public abstract class ActionTestCase extends GameTestCase
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(Action.class)
-            .withMockedTransientFields(Item.class)
+            .withMockedTransientFields(GameObject.class)
             .excludeTransientFields()
             .verify();
     }
@@ -96,11 +96,11 @@ public abstract class ActionTestCase extends GameTestCase
 
     protected abstract Enum newIdentifier();
 
-    protected Item newItem() {
+    protected GameObject newItem() {
         return TestCombatants.newTestCombatant(new TextIdentifier("item"), UnitType.Footman);
     }
 
-    protected Item newTarget() {
+    protected GameObject newTarget() {
         return TestCombatants.newTestCombatant(new TextIdentifier("target"), UnitType.Grunt);
     }
 

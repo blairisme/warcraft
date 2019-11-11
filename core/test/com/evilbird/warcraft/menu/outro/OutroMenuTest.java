@@ -12,7 +12,7 @@ package com.evilbird.warcraft.menu.outro;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameEngine;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.data.item.TestPlayers;
@@ -45,15 +45,15 @@ public class OutroMenuTest extends GameTestCase
 
     @Test
     public void setControllerTest() {
-        ItemRoot world = TestItemRoots.newTestRoot("world");
+        GameObjectContainer world = TestItemRoots.newTestRoot("world");
 
         Player humanPlayer = TestPlayers.newTestPlayer(new TextIdentifier("human"), world);
         humanPlayer.setType(PlayerType.Corporeal);
-        world.addItem(humanPlayer);
+        world.addObject(humanPlayer);
 
         Player aiPlayer = TestPlayers.newTestPlayer(new TextIdentifier("ai"), world);
         aiPlayer.setType(PlayerType.Artificial);
-        world.addItem(aiPlayer);
+        world.addObject(aiPlayer);
 
         State state = Mockito.mock(State.class);
         Mockito.when(state.getWorld()).thenReturn(world);

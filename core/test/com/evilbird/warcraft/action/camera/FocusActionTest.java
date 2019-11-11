@@ -12,8 +12,8 @@ package com.evilbird.warcraft.action.camera;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.device.DeviceDisplay;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.item.data.camera.Camera;
@@ -45,22 +45,22 @@ public class FocusActionTest extends ActionTestCase
     }
 
     @Override
-    protected Item newItem() {
+    protected GameObject newItem() {
         Combatant combatant = TestCombatants.newTestCombatant("item");
 
         camera = new Camera(Mockito.mock(DeviceDisplay.class));
         camera.setType(CameraType.Camera);
 
-        ItemRoot root = combatant.getRoot();
-        root.addItem(camera);
+        GameObjectContainer root = combatant.getRoot();
+        root.addObject(camera);
 
         return combatant;
     }
 
     @Test
     public void actTest() {
-        item.setPosition(100, 100);
-        item.setSize(32, 32);
+        gameObject.setPosition(100, 100);
+        gameObject.setSize(32, 32);
 
         assertTrue(action.act(1));
         assertEquals(new Vector2(84, 84), camera.getPosition());

@@ -9,14 +9,14 @@
 
 package com.evilbird.warcraft.item.projectile;
 
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObjectType;
 
 /**
  * Defines identifiers for projectile varieties.
  *
  * @author Blair Butterworth
  */
-public enum ProjectileType implements ItemType
+public enum ProjectileType implements GameObjectType
 {
     Arrow,
     Axe,

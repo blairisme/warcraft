@@ -10,27 +10,27 @@
 package com.evilbird.warcraft.action.selection;
 
 import com.evilbird.engine.events.Event;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
- * Instances of this {@link Event} are produced when an {@link Item} is
+ * Instances of this {@link Event} are produced when an {@link GameObject} is
  * selected or unselected.
  *
  * @author Blair Butterworth
  */
 public class SelectEvent implements Event
 {
-    private Item subject;
+    private GameObject subject;
     private boolean selected;
 
-    public SelectEvent(Item subject, boolean selected) {
+    public SelectEvent(GameObject subject, boolean selected) {
         this.subject = subject;
         this.selected = selected;
     }
 
     @Override
-    public Item getSubject() {
+    public GameObject getSubject() {
         return subject;
     }
 

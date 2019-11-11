@@ -11,7 +11,7 @@ package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionRecipient;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 import java.util.function.Supplier;
 
@@ -25,9 +25,9 @@ public class UpdateAction extends DelegateAction
 {
     private boolean applied;
     private ActionRecipient type;
-    private Supplier<Item> supplier;
+    private Supplier<GameObject> supplier;
 
-    public UpdateAction(Action client, Supplier<Item> supplier, ActionRecipient type) {
+    public UpdateAction(Action client, Supplier<GameObject> supplier, ActionRecipient type) {
         super(client);
         this.applied = false;
         this.type = type;

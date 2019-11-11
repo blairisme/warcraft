@@ -47,7 +47,7 @@ public class SelectInvertTest extends ActionTestCase
     @Test
     @Ignore
     public void actTest() {
-        SelectableObject selectable = (SelectableObject)item;
+        SelectableObject selectable = (SelectableObject) gameObject;
 
         assertFalse(selectable.getSelected());
         assertFalse(action.act(1));

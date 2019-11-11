@@ -10,7 +10,7 @@
 package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 
 /**
@@ -27,7 +27,7 @@ public class ActionUtils
     }
 
     /**
-     * Returns the {@link Item} indicated by the the given
+     * Returns the {@link GameObject} indicated by the the given
      * {@link ActionRecipient} from given {@link Action}.
      *
      * @param action    the {@code Action} whose subject, target, parent or
@@ -36,12 +36,12 @@ public class ActionUtils
      *
      * @return an {@code Item}. This method may return {@code null}.
      */
-    public static Item getRecipient(Action action, ActionRecipient recipient) {
+    public static GameObject getRecipient(Action action, ActionRecipient recipient) {
         switch (recipient) {
-            case Subject: return action.getItem();
+            case Subject: return action.getSubject();
             case Target: return action.getTarget();
-            case Parent: return action.getItem().getParent();
-            case Player: return UnitOperations.getPlayer(action.getItem());
+            case Parent: return action.getSubject().getParent();
+            case Player: return UnitOperations.getPlayer(action.getSubject());
             default: throw new UnsupportedOperationException();
         }
     }

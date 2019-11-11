@@ -13,9 +13,9 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.game.GameService;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectType;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -40,17 +40,17 @@ public abstract class LayerGroupAdapter <T extends LayerGroup> implements JsonSe
     private static final String TYPE = "type";
     private static final String LOCATION = "location";
 
-    private ItemFactory itemFactory;
+    private GameObjectFactory objectFactory;
     protected TypeRegistry typeRegistry;
 
     public LayerGroupAdapter() {
         GameService service = GameService.getInstance();
-        this.itemFactory = service.getItemFactory();
+        this.objectFactory = service.getItemFactory();
         this.typeRegistry = service.getTypeRegistry();
     }
 
-    public LayerGroupAdapter(ItemFactory itemFactory, TypeRegistry typeRegistry) {
-        this.itemFactory = itemFactory;
+    public LayerGroupAdapter(GameObjectFactory objectFactory, TypeRegistry typeRegistry) {
+        this.objectFactory = objectFactory;
         this.typeRegistry = typeRegistry;
     }
 
@@ -65,8 +65,8 @@ public abstract class LayerGroupAdapter <T extends LayerGroup> implements JsonSe
 
     protected JsonElement serializeCells(T source, JsonSerializationContext context) {
         JsonArray result = new JsonArray();
-        for (Item item: source.getItems()) {
-            LayerGroupCell tree = (LayerGroupCell)item;
+        for (GameObject gameObject : source.getObjects()) {
+            LayerGroupCell tree = (LayerGroupCell) gameObject;
             JsonElement element = serializeCell(tree, context);
             result.add(element);
         }
@@ -84,19 +84,19 @@ public abstract class LayerGroupAdapter <T extends LayerGroup> implements JsonSe
     public T deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
         JsonObject object = json.getAsJsonObject();
         T group = deserializeInstance(object, context);
-        group.addItems(deserializeCells(object, context));
+        group.addObjects(deserializeCells(object, context));
         return group;
     }
 
     @SuppressWarnings("unchecked")
     protected T deserializeInstance(JsonObject json, JsonDeserializationContext context) {
         JsonElement element = json.get(TYPE);
-        ItemType itemType = context.deserialize(element, Identifier.class);
-        return (T)itemFactory.get(itemType);
+        GameObjectType type = context.deserialize(element, Identifier.class);
+        return (T) objectFactory.get(type);
     }
 
-    protected Collection<Item> deserializeCells(JsonObject json, JsonDeserializationContext context){
-        Collection<Item> cells = new ArrayList<>();
+    protected Collection<GameObject> deserializeCells(JsonObject json, JsonDeserializationContext context){
+        Collection<GameObject> cells = new ArrayList<>();
         for (JsonElement cell: json.getAsJsonArray(getCellArrayProperty())) {
             cells.add(deserializeCell(cell.getAsJsonObject(), context));
         }

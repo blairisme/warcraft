@@ -13,8 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.Grid;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.specialized.Grid;
 import com.evilbird.warcraft.item.display.control.common.UnitPane;
 import com.evilbird.warcraft.item.display.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.display.control.status.details.DetailsPaneStyle;
@@ -40,10 +40,10 @@ public class UnitTitlePane extends Grid implements DetailsPaneElement
         this.title = addTitle(skin);
     }
 
-    public void setItem(Item item) {
-        Unit unit = (Unit)item;
+    public void setItem(GameObject gameObject) {
+        Unit unit = (Unit) gameObject;
         icon.setItem(unit);
-        title.setText(style.strings.getName((UnitType)item.getType()));
+        title.setText(style.strings.getName((UnitType) gameObject.getType()));
     }
 
     @Override

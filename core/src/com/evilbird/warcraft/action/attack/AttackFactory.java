@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.inject.InjectedPool;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.ActionProvider;
 import org.apache.commons.lang3.Validate;
 
@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 /**
  * Instances of this factory create {@link Action Actions} that cause a given
- * {@link Item} to attack another, after first moving within attack range.
+ * {@link GameObject} to attack another, after first moving within attack range.
  *
  * @author Blair Butterworth
  */

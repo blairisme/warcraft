@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.common.transfer;
 
 import com.evilbird.engine.events.Event;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -40,7 +40,7 @@ public class TransferEvent implements Event
     }
 
     @Override
-    public Item getSubject() {
+    public GameObject getSubject() {
         return recipient;
     }
 

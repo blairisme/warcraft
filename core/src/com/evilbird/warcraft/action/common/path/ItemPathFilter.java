@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.action.common.path;
 
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.item.common.capability.MovementCapability;
 import com.evilbird.warcraft.item.layer.LayerType;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -28,46 +28,46 @@ import java.util.function.Predicate;
  *
  * @author Blair Butterworth
  */
-public class ItemPathFilter implements Predicate<ItemNode>
+public class ItemPathFilter implements Predicate<GameObjectNode>
 {
-    private Collection<Item> traversableItems;
+    private Collection<GameObject> traversableGameObjects;
     private Collection<Identifier> traversableTypes;
 
     /**
      * Constructs a new ItemPathFilter that filters all path content.
      */
     public ItemPathFilter() {
-        traversableItems = new ArrayList<>();
+        traversableGameObjects = new ArrayList<>();
         traversableTypes = new ArrayList<>();
     }
 
     /**
      * Specifies that the path to which the filter is applied can contain the
-     * given {@link Item}.
+     * given {@link GameObject}.
      *
-     * @param item an {@code Item} that can be traversed. This parameter cannot
+     * @param gameObject an {@code Item} that can be traversed. This parameter cannot
      *             be {@code null}.
      */
-    public void addTraversableItem(Item item) {
-        Objects.requireNonNull(item);
-        traversableItems.add(item);
+    public void addTraversableItem(GameObject gameObject) {
+        Objects.requireNonNull(gameObject);
+        traversableGameObjects.add(gameObject);
     }
 
     /**
      * Specifies that the path to which the filter is applied can contain the
-     * given {@link Item} {@link Collection}.
+     * given {@link GameObject} {@link Collection}.
      *
-     * @param items a {@code Collection} of {@code Items} that can be traversed.
+     * @param gameObjects a {@code Collection} of {@code Items} that can be traversed.
      *             This parameter cannot be {@code null}.
      */
-    public void addTraversableItems(Collection<Item> items) {
-        Objects.requireNonNull(items);
-        traversableItems.addAll(items);
+    public void addTraversableItems(Collection<GameObject> gameObjects) {
+        Objects.requireNonNull(gameObjects);
+        traversableGameObjects.addAll(gameObjects);
     }
 
     /**
      * Specifies that the path to which the filter is applied can contain
-     * {@link Item Items} of the given type.
+     * {@link GameObject Items} of the given type.
      *
      * @param type an {@code Item} type. This parameter cannot be {@code null}.
      */
@@ -78,7 +78,7 @@ public class ItemPathFilter implements Predicate<ItemNode>
 
     /**
      * Specifies that the path to which the filter is applied can contain
-     * {@link Item Items} of the given types.
+     * {@link GameObject Items} of the given types.
      *
      * @param types a {@code Collection} of {@code Item} type. This parameter
      *              cannot be {@code null}.
@@ -90,7 +90,7 @@ public class ItemPathFilter implements Predicate<ItemNode>
 
     /**
      * Specifies that the path to the filter is applied can contain
-     * {@link Item Items} that grouped by the given movement capability.
+     * {@link GameObject Items} that grouped by the given movement capability.
      *
      * @param capability a MovementCapability.
      */
@@ -117,9 +117,9 @@ public class ItemPathFilter implements Predicate<ItemNode>
     }
 
     @Override
-    public boolean test(ItemNode node) {
-        for (Item occupant : node.getOccupants()) {
-            if (traversableItems.contains(occupant)) {
+    public boolean test(GameObjectNode node) {
+        for (GameObject occupant : node.getOccupants()) {
+            if (traversableGameObjects.contains(occupant)) {
                 return true;
             }
             if (!traversableTypes.contains(occupant.getType())) {
@@ -129,9 +129,9 @@ public class ItemPathFilter implements Predicate<ItemNode>
         return true;
     }
 
-    public boolean test(ItemNode node, Item except) {
-        for (Item occupant : node.getOccupants()) {
-            if (occupant != except && traversableItems.contains(occupant)) {
+    public boolean test(GameObjectNode node, GameObject except) {
+        for (GameObject occupant : node.getOccupants()) {
+            if (occupant != except && traversableGameObjects.contains(occupant)) {
                 return true;
             }
             if (!traversableTypes.contains(occupant.getType())) {

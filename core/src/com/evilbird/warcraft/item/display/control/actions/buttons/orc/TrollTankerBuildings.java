@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.display.control.actions.buttons.orc;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.display.control.actions.ActionButtonType;
@@ -31,13 +31,13 @@ import static com.evilbird.warcraft.item.unit.UnitType.OilRig;
 public class TrollTankerBuildings extends BasicButtonController
 {
     @Override
-    public List<ActionButtonType> getButtons(Item item) {
+    public List<ActionButtonType> getButtons(GameObject gameObject) {
         return Arrays.asList(OilRigButton, BuildCancelButton);
     }
 
     @Override
-    public boolean getEnabled(ActionButtonType button, Item item) {
-        Player player = UnitOperations.getPlayer(item);
+    public boolean getEnabled(ActionButtonType button, GameObject gameObject) {
+        Player player = UnitOperations.getPlayer(gameObject);
         switch (button) {
             case BuildCancelButton: return true;
             case OilRigButton: return hasResources(player, OilRig);

@@ -11,13 +11,13 @@ package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.layer.LayerGroup;
 import com.evilbird.warcraft.item.layer.LayerGroupCell;
 import com.evilbird.warcraft.item.layer.LayerType;
 
 /**
- * Represents one cell in the fog layer, decorating it as an {@link Item} and
+ * Represents one cell in the fog layer, decorating it as an {@link GameObject} and
  * storing whether or not it has been revealed.
  *
  * @author Blair Butterworth

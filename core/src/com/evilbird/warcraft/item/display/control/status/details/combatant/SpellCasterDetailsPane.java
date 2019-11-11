@@ -14,8 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.control.TextProgressBar;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.Grid;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.specialized.Grid;
 import com.evilbird.warcraft.item.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
 
@@ -38,9 +38,9 @@ public class SpellCasterDetailsPane extends CombatantDetailsPane
     }
 
     @Override
-    public void setItem(Item item) {
-        super.setItem(item);
-        spellCaster = (SpellCaster)item;
+    public void setItem(GameObject gameObject) {
+        super.setItem(gameObject);
+        spellCaster = (SpellCaster) gameObject;
         updateManaBar(spellCaster.getMana());
     }
 

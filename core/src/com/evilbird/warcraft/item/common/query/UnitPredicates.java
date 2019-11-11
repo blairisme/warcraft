@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.common.query;
 
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.capability.MovableObject;
 import com.evilbird.warcraft.item.common.capability.MovementCapability;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
@@ -28,7 +28,7 @@ import com.evilbird.warcraft.item.unit.resource.Resource;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.not;
-import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.hasType;
 import static com.evilbird.warcraft.action.common.path.ItemPathFinder.hasPath;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.item.common.resource.ResourceType.Oil;
@@ -47,103 +47,103 @@ public class UnitPredicates
     }
 
     /**
-     * Returns a condition that determines if the given {@link Item} is "alive"
+     * Returns a condition that determines if the given {@link GameObject} is "alive"
      * of not. Specifically, this method tests if the given {@code Item}
      * implements {@link PerishableObject} and if it has a
      * {@link PerishableObject#getHealth() health} value more than zero.
      *
      * @return a {@link Predicate}.
      */
-    public static Predicate<Item> isAlive() {
+    public static Predicate<GameObject> isAlive() {
         return UnitOperations::isAlive;
     }
 
-    public static Predicate<Item> isDead() {
+    public static Predicate<GameObject> isDead() {
         return UnitOperations::isDead;
     }
 
     /**
-     * Returns a condition that determines if a given {@link Item} belongs to
+     * Returns a condition that determines if a given {@link GameObject} belongs to
      * an artificial player, inclusive of the neutral player.
      *
      * @return a {@link Predicate}.
      */
-    public static Predicate<Item> isAi() {
+    public static Predicate<GameObject> isAi() {
         return UnitOperations::isAi;
     }
 
     /**
-     * Returns a condition that determines if a given {@link Item} belongs to
+     * Returns a condition that determines if a given {@link GameObject} belongs to
      * the user operating the current device.
      *
      * @return a {@link Predicate}.
      */
-    public static Predicate<Item> isCorporeal() {
+    public static Predicate<GameObject> isCorporeal() {
         return UnitOperations::isCorporeal;
     }
 
     /**
-     * Returns a condition that determines if a given {@link Item} belongs to
+     * Returns a condition that determines if a given {@link GameObject} belongs to
      * the corporeal player, the user, or to a {@link Player#isControllable()
      * controllable player}.
      */
-    public static Predicate<Item> isControllable() {
+    public static Predicate<GameObject> isControllable() {
         return UnitOperations::isControllable;
     }
 
     /**
-     * Returns a condition that determines if a given {@link Item} belongs to
+     * Returns a condition that determines if a given {@link GameObject} belongs to
      * the neutral user, a special AI player that owns resources and critters.
      *
      * @return a {@link Predicate}.
      */
-    public static Predicate<Item> isNeutral() {
+    public static Predicate<GameObject> isNeutral() {
         return UnitOperations::isNeutral;
     }
 
     /**
-     * Returns a condition that determines if the given {@link Item} is a
+     * Returns a condition that determines if the given {@link GameObject} is a
      * building.
      *
      * @return a {@link Predicate}.
      */
-    public static Predicate<Item> isBuilding() {
+    public static Predicate<GameObject> isBuilding() {
         return UnitOperations::isBuilding;
     }
 
     /**
-     * Returns a condition that determines if the given {@link Item} is a
+     * Returns a condition that determines if the given {@link GameObject} is a
      * combatant.
      *
      * @return a {@link Predicate}.
      */
-    public static Predicate<Item> isCombatant() {
+    public static Predicate<GameObject> isCombatant() {
         return UnitOperations::isCombatant;
     }
 
-    public static Predicate<Item> isNonCombatant() {
+    public static Predicate<GameObject> isNonCombatant() {
         return not(isCombatant());
     }
 
-    public static Predicate<Item> isAttacker() {
+    public static Predicate<GameObject> isAttacker() {
         return UnitOperations::isAttacker;
     }
 
-    public static Predicate<Item> isTransport() {
+    public static Predicate<GameObject> isTransport() {
         return UnitOperations::isTransport;
     }
 
     /**
-     * Returns a condition that determines if the given {@link Item} is a
+     * Returns a condition that determines if the given {@link GameObject} is a
      * critter.
      *
      * @return a {@link Predicate}.
      */
-    public static Predicate<Item> isCritter() {
+    public static Predicate<GameObject> isCritter() {
         return UnitOperations::isCritter;
     }
 
-    public static Predicate<Item> isDepotFor(ResourceType resource) {
+    public static Predicate<GameObject> isDepotFor(ResourceType resource) {
         return item -> {
             if (item instanceof Building) {
                 UnitType type = (UnitType) item.getType();
@@ -155,23 +155,23 @@ public class UnitPredicates
         };
     }
 
-    public static Predicate<Item> isFoodProducer() {
+    public static Predicate<GameObject> isFoodProducer() {
         return UnitOperations::isFoodProducer;
     }
 
-    public static Predicate<Item> isDestroyable() {
+    public static Predicate<GameObject> isDestroyable() {
         return item -> item instanceof PerishableObject;
     }
 
-    public static Predicate<Item> isGatherer() {
+    public static Predicate<GameObject> isGatherer() {
         return (item) -> item instanceof Gatherer;
     }
 
-    public static Predicate<Item> isMovable() {
+    public static Predicate<GameObject> isMovable() {
         return item -> item instanceof MovableObject;
     }
 
-    public static Predicate<Item> isMovableOver(MovementCapability capability) {
+    public static Predicate<GameObject> isMovableOver(MovementCapability capability) {
         return item -> {
             if (item instanceof MovableObject) {
                 MovableObject movable = (MovableObject)item;
@@ -181,19 +181,19 @@ public class UnitPredicates
         };
     }
 
-    public static Predicate<Item> isCastingSpell(Spell spell) {
+    public static Predicate<GameObject> isCastingSpell(Spell spell) {
         return item -> UnitOperations.isCastingSpell(item, spell);
     }
 
-    public static Predicate<Item> isSelector() {
+    public static Predicate<GameObject> isSelector() {
         return UnitOperations::isSelector;
     }
 
-    public static Predicate<Item> isResource() {
+    public static Predicate<GameObject> isResource() {
         return item -> item instanceof Resource;
     }
 
-    public static Predicate<Item> isSelected() {
+    public static Predicate<GameObject> isSelected() {
         return (item) -> {
             if (item instanceof SelectableObject) {
                 SelectableObject selectable = (SelectableObject)item;
@@ -203,38 +203,38 @@ public class UnitPredicates
         };
     }
 
-    public static Predicate<Item> isSelectable() {
+    public static Predicate<GameObject> isSelectable() {
         return (item) -> item instanceof SelectableObject;
     }
 
-    public static Predicate<Item> hasResources(ResourceType type) {
+    public static Predicate<GameObject> hasResources(ResourceType type) {
         return (item) -> {
             ResourceContainer container = (ResourceContainer)item;
             return container.getResource(type) > 0;
         };
     }
 
-    public static Predicate<Item> hasPathTo(MovableObject source) {
+    public static Predicate<GameObject> hasPathTo(MovableObject source) {
         return destination -> hasPath(source, destination);
     }
 
-    public static Predicate<Item> isConstructing() {
+    public static Predicate<GameObject> isConstructing() {
         return UnitOperations::isConstructing;
     }
 
-    public static Predicate<Item> associatedWith(Item withItem) {
-        return (item) -> item instanceof Unit && ((Unit)item).getAssociatedItem() == withItem;
+    public static Predicate<GameObject> associatedWith(GameObject withGameObject) {
+        return (item) -> item instanceof Unit && ((Unit)item).getAssociatedItem() == withGameObject;
     }
 
-    public static Predicate<Item> associatedWith(Identifier type) {
+    public static Predicate<GameObject> associatedWith(Identifier type) {
         return associatedWith(hasType(type));
     }
 
-    public static Predicate<Item> associatedWith(Predicate<Item> condition) {
+    public static Predicate<GameObject> associatedWith(Predicate<GameObject> condition) {
         return (item) -> {
             if (item instanceof Unit) {
                 Unit unit = (Unit)item;
-                Item associated = unit.getAssociatedItem();
+                GameObject associated = unit.getAssociatedItem();
                 return condition.test(associated);
             }
             return false;

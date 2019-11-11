@@ -10,9 +10,9 @@
 package com.evilbird.warcraft.action.spell.novel;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.EffectType;
@@ -21,7 +21,7 @@ import com.evilbird.warcraft.item.layer.fog.Fog;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.Alignment.Center;
-import static com.evilbird.engine.item.utility.ItemPredicates.withType;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
 import static com.evilbird.warcraft.item.layer.LayerType.OpaqueFog;
 
 /**
@@ -32,7 +32,7 @@ import static com.evilbird.warcraft.item.layer.LayerType.OpaqueFog;
 public class HolyVisionSpell extends SpellAction
 {
     @Inject
-    public HolyVisionSpell(ItemFactory factory) {
+    public HolyVisionSpell(GameObjectFactory factory) {
         super(Spell.HolyVision, EffectType.Spell, factory);
     }
 
@@ -40,10 +40,10 @@ public class HolyVisionSpell extends SpellAction
     protected void initialize() {
         super.initialize();
 
-        Item spellCaster = getItem();
-        ItemRoot world = spellCaster.getRoot();
+        GameObject spellCaster = getSubject();
+        GameObjectContainer world = spellCaster.getRoot();
 
-        Item target = getTarget();
+        GameObject target = getTarget();
         Vector2 location = target.getPosition(Center);
 
         Fog fog = (Fog)world.find(withType(OpaqueFog));

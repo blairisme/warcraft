@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.CompositeAction;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.capability.OffensiveObject;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -19,7 +19,7 @@ import org.apache.commons.lang3.Validate;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
-import static com.evilbird.engine.item.utility.ItemOperations.assignIfAbsent;
+import static com.evilbird.engine.object.utility.GameObjectOperations.assignIfAbsent;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.inRange;
 
 /**
@@ -47,7 +47,7 @@ public abstract class AttackSequence extends CompositeAction
 
     @Override
     public boolean act(float time) {
-        OffensiveObject attacker = (OffensiveObject)getItem();
+        OffensiveObject attacker = (OffensiveObject) getSubject();
         PerishableObject target = (PerishableObject)getTarget();
         return act(time, attacker, target);
     }
@@ -69,13 +69,13 @@ public abstract class AttackSequence extends CompositeAction
     }
 
     @Override
-    public void setItem(Item item) {
-        Validate.isInstanceOf(OffensiveObject.class, item);
-        super.setItem(item);
+    public void setItem(GameObject gameObject) {
+        Validate.isInstanceOf(OffensiveObject.class, gameObject);
+        super.setItem(gameObject);
     }
 
     @Override
-    public void setTarget(Item target) {
+    public void setTarget(GameObject target) {
         Validate.isInstanceOf(PerishableObject.class, target);
         super.setTarget(target);
     }

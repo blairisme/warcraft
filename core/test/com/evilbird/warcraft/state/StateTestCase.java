@@ -29,7 +29,7 @@ public class StateTestCase extends GameTestCase
         super.setup();
         assetResolver = new TestFileHandleResolver();
         assetManager = TestAssetManager.getTestAssetManager(assetResolver);
-        levelLoader = new LevelLoader(itemFactory, assetManager);
+        levelLoader = new LevelLoader(objectFactory, assetManager);
         when(device.getAssetStorage()).thenReturn(assetManager);
     }
 

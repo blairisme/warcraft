@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.selector;
 
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 import javax.inject.Inject;
 
@@ -31,11 +31,11 @@ public class SelectorEvents
         this.events = events;
     }
 
-    public void notifySelectorAdded(Item builder, Item selector) {
+    public void notifySelectorAdded(GameObject builder, GameObject selector) {
         events.add(new SelectorEvent(builder, selector, Added));
     }
 
-    public void notifySelectorRemoved(Item builder, Item selector) {
+    public void notifySelectorRemoved(GameObject builder, GameObject selector) {
         events.add(new SelectorEvent(builder, selector, Removed));
     }
 }

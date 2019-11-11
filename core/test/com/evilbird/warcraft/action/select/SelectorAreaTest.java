@@ -16,8 +16,8 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.selector.SelectorActions;
 import com.evilbird.warcraft.action.selector.SelectorArea;
@@ -25,7 +25,7 @@ import com.evilbird.warcraft.item.unit.Unit;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static com.evilbird.engine.item.utility.ItemPredicates.withType;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
 import static com.evilbird.warcraft.action.selector.SelectorActions.ResizeAreaSelector;
 import static com.evilbird.warcraft.action.selector.SelectorActions.ShowAreaSelector;
 import static com.evilbird.warcraft.item.selector.SelectorType.AreaSelector;
@@ -55,7 +55,7 @@ public class SelectorAreaTest extends ActionTestCase
 
     @Test
     public void beginTest() {
-        Item box = getSelectionBox();
+        GameObject box = getSelectionBox();
         assertNull(box);
 
         action.setIdentifier(ShowAreaSelector);
@@ -78,7 +78,7 @@ public class SelectorAreaTest extends ActionTestCase
         action.setCause(new UserInput(UserInputType.PressDrag, input2, input1, 1));
 
         assertTrue(action.act(1));
-        Item box = getSelectionBox();
+        GameObject box = getSelectionBox();
 
         assertEquals(new Vector2(20, 20), box.getPosition());
         assertEquals(new Vector2(30, 30), box.getSize());
@@ -86,13 +86,13 @@ public class SelectorAreaTest extends ActionTestCase
 
     @Test
     public void removeTest() {
-        Unit unit = (Unit)item;
+        Unit unit = (Unit) gameObject;
         unit.setPosition(30, 30);
         unit.setSize(10, 10);
         unit.setSelected(false);
         unit.setSelectable(true);
         unit.setTouchable(Touchable.enabled);
-        item.getRoot().addItem(item);
+        gameObject.getRoot().addObject(gameObject);
 
         Vector2 input1 = new Vector2(35, toScreen(35));
         Vector2 input2 = new Vector2(50, toScreen(50));
@@ -104,8 +104,8 @@ public class SelectorAreaTest extends ActionTestCase
         assertTrue(unit.getSelected());
     }
 
-    private Item getSelectionBox() {
-        ItemRoot root = item.getRoot();
+    private GameObject getSelectionBox() {
+        GameObjectContainer root = gameObject.getRoot();
         return root.find(withType(AreaSelector));
     }
 }

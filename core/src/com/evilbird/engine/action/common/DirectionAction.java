@@ -65,7 +65,7 @@ public class DirectionAction extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Directionable item = (Directionable)getItem();
+        Directionable item = (Directionable) getSubject();
         Positionable target = getTarget();
 
         Vector2 itemPosition = item.getPosition();

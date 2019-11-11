@@ -11,8 +11,8 @@ package com.evilbird.warcraft.item.display.control.status;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.display.HudControl;
 import com.evilbird.warcraft.item.display.control.status.details.DetailsPane;
@@ -30,11 +30,11 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-public class StatusPane extends ItemGroup
+public class StatusPane extends GameObjectGroup
 {
     private com.evilbird.warcraft.item.display.control.status.details.DetailsPane detailsPane;
     private SelectionPane selectionPane;
-    private Collection<Item> selection;
+    private Collection<GameObject> selection;
 
     public StatusPane(Skin skin) {
         this.selection = new ArrayList<>();
@@ -45,7 +45,7 @@ public class StatusPane extends ItemGroup
         setType(com.evilbird.warcraft.item.display.HudControl.StatePane);
         setIdentifier(HudControl.StatePane);
         setTouchable(Touchable.enabled);
-        addItem(selectionPane);
+        addObject(selectionPane);
     }
 
     public void setConstructing(Building building, boolean constructing) {
@@ -66,33 +66,33 @@ public class StatusPane extends ItemGroup
         }
     }
 
-    public void setItemResource(Item recipient, ResourceType resource, float value) {
+    public void setItemResource(GameObject recipient, ResourceType resource, float value) {
         if (isShown(detailsPane)) {
             detailsPane.setResource(resource, value);
         }
     }
 
-    public Collection<Item> getSelected() {
+    public Collection<GameObject> getSelected() {
         return selection;
     }
 
-    public void setSelected(Item item, boolean selected) {
+    public void setSelected(GameObject gameObject, boolean selected) {
         if (selected) {
-            selection.add(item);
+            selection.add(gameObject);
         } else {
-            selection.remove(item);
+            selection.remove(gameObject);
         }
         updateDisplay();
     }
 
-    public void setSelected(Collection<Item> selected) {
+    public void setSelected(Collection<GameObject> selected) {
         selection.clear();
         selection.addAll(selected);
         updateDisplay();
     }
 
     private void updateDisplay() {
-        clearItems();
+        clearObjects();
         if (selection.size() == 1) {
             showDetails(selection);
         } else {
@@ -100,18 +100,18 @@ public class StatusPane extends ItemGroup
         }
     }
 
-    private void showDetails(Collection<Item> selection) {
+    private void showDetails(Collection<GameObject> selection) {
         detailsPane.setItem(selection.iterator().next());
-        addItem(detailsPane);
+        addObject(detailsPane);
     }
 
-    private void showSelection(Collection<Item> selection) {
+    private void showSelection(Collection<GameObject> selection) {
         selectionPane.setItems(selection);
-        addItem(selectionPane);
+        addObject(selectionPane);
     }
 
-    private boolean isShown(Item item) {
-        Collection<Item> items = getItems();
-        return items.contains(item);
+    private boolean isShown(GameObject gameObject) {
+        Collection<GameObject> gameObjects = getObjects();
+        return gameObjects.contains(gameObject);
     }
 }

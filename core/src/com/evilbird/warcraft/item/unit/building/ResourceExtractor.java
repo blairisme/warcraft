@@ -12,10 +12,10 @@ package com.evilbird.warcraft.item.unit.building;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Alignment;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.ItemGraph;
-import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
+import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -29,7 +29,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isResource;
  * Instances of this class represent a {@link Building} that is used to extract
  * resources from a {@link Resource}. Specifically, this class delegates
  * {@link ResourceContainer} behaviour to an
- * {@link Unit#setAssociatedItem(Item) associated resource}.
+ * {@link Unit#setAssociatedItem(GameObject) associated resource}.
  *
  * @author Blair Butterworth
  */
@@ -59,7 +59,7 @@ public class ResourceExtractor extends Building
     }
 
     private Resource getAssociatedResource() {
-        Item association = getAssociatedItem();
+        GameObject association = getAssociatedItem();
         if (association == null) {
             association = getUnderlyingItem();
             setAssociatedItem(association);
@@ -70,11 +70,11 @@ public class ResourceExtractor extends Building
         return null;
     }
 
-    private Item getUnderlyingItem() {
-        ItemRoot root = getRoot();
-        ItemGraph graph = root.getSpatialGraph();
-        ItemNode node = graph.getNode(getPosition(Alignment.Center));
-        Collection<Item> occupants = node.getOccupants();
+    private GameObject getUnderlyingItem() {
+        GameObjectContainer root = getRoot();
+        GameObjectGraph graph = root.getSpatialGraph();
+        GameObjectNode node = graph.getNode(getPosition(Alignment.Center));
+        Collection<GameObject> occupants = node.getOccupants();
         return CollectionUtils.findFirst(occupants, isResource());
     }
 }

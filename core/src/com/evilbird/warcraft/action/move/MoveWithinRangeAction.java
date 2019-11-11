@@ -14,8 +14,8 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.pathing.SpatialUtils;
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.item.common.capability.MovableObject;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -26,7 +26,7 @@ import java.util.Collection;
 import static com.evilbird.engine.common.collection.CollectionUtils.filter;
 
 /**
- * Instances of this {@link Action action} move an {@link Item} from its
+ * Instances of this {@link Action action} move an {@link GameObject} from its
  * current location to within attack range of a given target. The moving item
  * will be animated with a movement animation, as well choosing a path that
  * avoids obstacles.
@@ -35,8 +35,8 @@ import static com.evilbird.engine.common.collection.CollectionUtils.filter;
  */
 public class MoveWithinRangeAction extends MoveAction
 {
-    private ItemNode endNode;
-    private ItemNode targetNode;
+    private GameObjectNode endNode;
+    private GameObjectNode targetNode;
     private ItemPathFilter filter;
 
     @Inject
@@ -47,18 +47,18 @@ public class MoveWithinRangeAction extends MoveAction
 
     @Override
     public Vector2 getDestination() {
-        Item target = getTarget();
+        GameObject target = getTarget();
         return target.getPosition();
     }
 
     @Override
-    public ItemNode getEndNode(ItemNode node) {
+    public GameObjectNode getEndNode(GameObjectNode node) {
         if (endNode == null) {
-            Item target = getTarget();
-            Combatant combatant = (Combatant)getItem();
+            GameObject target = getTarget();
+            Combatant combatant = (Combatant) getSubject();
             int range = combatant.getAttackRange();
-            Collection<ItemNode> adjacentNodes = graph.getAdjacentNodes(target.getPosition(), target.getSize(), range);
-            Collection<ItemNode> traversableNodes = filter(adjacentNodes, getPathFilter());
+            Collection<GameObjectNode> adjacentNodes = graph.getAdjacentNodes(target.getPosition(), target.getSize(), range);
+            Collection<GameObjectNode> traversableNodes = filter(adjacentNodes, getPathFilter());
             endNode = !traversableNodes.isEmpty() ? SpatialUtils.getClosest(traversableNodes, node) : null;
         }
         return endNode;
@@ -66,18 +66,18 @@ public class MoveWithinRangeAction extends MoveAction
 
     @Override
     public boolean destinationValid() {
-        Item target = getTarget();
+        GameObject target = getTarget();
         if (targetNode == null) {
-            Collection<ItemNode> nodes = graph.getNodes(target);
+            Collection<GameObjectNode> nodes = graph.getNodes(target);
             targetNode = nodes.iterator().next();
         }
         return targetNode.hasOccupant(target);
     }
 
     @Override
-    public boolean destinationReached(ItemNode node) {
-        Item target = getTarget();
-        Combatant combatant = (Combatant)getItem();
+    public boolean destinationReached(GameObjectNode node) {
+        GameObject target = getTarget();
+        Combatant combatant = (Combatant) getSubject();
         Vector2 targetPosition = target.getPosition(Alignment.Center);
         Vector2 nodePosition = node.getWorldReference(Alignment.Center);
         float distance = targetPosition.dst(nodePosition);
@@ -87,7 +87,7 @@ public class MoveWithinRangeAction extends MoveAction
     @Override
     public ItemPathFilter getPathFilter() {
         if (filter == null) {
-            MovableObject item = (MovableObject)getItem();
+            MovableObject item = (MovableObject) getSubject();
             filter = new ItemPathFilter();
             filter.addTraversableItem(item);
             filter.addTraversableCapability(item.getMovementCapability());

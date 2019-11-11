@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.action.spell.creature;
 
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
@@ -35,7 +35,7 @@ public class CreatureSpellAction extends SpellAction
         Spell spell,
         EffectType effect,
         UnitType creature,
-        ItemFactory factory,
+        GameObjectFactory factory,
         CreateEvents createEvents,
         CreatureSpellCancel cancelAction)
     {
@@ -52,7 +52,7 @@ public class CreatureSpellAction extends SpellAction
     }
 
     protected Combatant addCreature() {
-        Item caster = getItem();
+        GameObject caster = getSubject();
         Player player = UnitOperations.getPlayer(caster);
 
         Combatant creature = (Combatant)factory.get(creatureType);
@@ -63,7 +63,7 @@ public class CreatureSpellAction extends SpellAction
             creature.addAction(cancelAction, spell.getEffectDuration());
         }
 
-        player.addItem(creature);
+        player.addObject(creature);
         createEvents.notifyCreate(creature);
 
         return creature;

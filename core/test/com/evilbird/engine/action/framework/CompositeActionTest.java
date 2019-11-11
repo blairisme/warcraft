@@ -11,7 +11,7 @@ package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.data.action.TestCompositeAction;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -60,25 +60,25 @@ public class CompositeActionTest
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(TestCompositeAction.class)
-            .withMockedTransientFields(Item.class)
+            .withMockedTransientFields(GameObject.class)
             .excludeTransientFields()
             .verify();
     }
 
     @Test
     public void itemTest() {
-        Assert.assertNull(composite.getItem());
-        Assert.assertNull(childA.getItem());
-        Assert.assertNull(childB.getItem());
-        Assert.assertNull(childC.getItem());
+        Assert.assertNull(composite.getSubject());
+        Assert.assertNull(childA.getSubject());
+        Assert.assertNull(childB.getSubject());
+        Assert.assertNull(childC.getSubject());
 
-        Item actor = Mockito.mock(Item.class);
+        GameObject actor = Mockito.mock(GameObject.class);
         composite.setItem(actor);
 
-        Assert.assertEquals(actor, composite.getItem());
-        Assert.assertEquals(actor, childA.getItem());
-        Assert.assertEquals(actor, childB.getItem());
-        Assert.assertEquals(actor, childC.getItem());
+        Assert.assertEquals(actor, composite.getSubject());
+        Assert.assertEquals(actor, childA.getSubject());
+        Assert.assertEquals(actor, childB.getSubject());
+        Assert.assertEquals(actor, childC.getSubject());
     }
 
     @Test

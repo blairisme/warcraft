@@ -15,8 +15,8 @@ import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectType;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.utils.MockProvider;
 import com.evilbird.warcraft.action.camera.CameraActions;
@@ -53,12 +53,12 @@ public class CameraInteractionsTest
         assertInteraction(CameraActions.Pan, UserInputType.Drag, CameraType.Camera, null);
     }
 
-    private void assertInteraction(ActionIdentifier action, UserInputType input, ItemType target, ItemType selected) {
+    private void assertInteraction(ActionIdentifier action, UserInputType input, GameObjectType target, GameObjectType selected) {
         UserInput userInput = new UserInput(input, new Vector2(1, 2), 1);
-        Item targetItem = TestItems.newItem(new TextIdentifier("test-target"), target);
-        Item selectedItem = selected != null ? TestItems.newItem(new TextIdentifier("test-selected"), selected) : null;
+        GameObject targetGameObject = TestItems.newItem(new TextIdentifier("test-target"), target);
+        GameObject selectedGameObject = selected != null ? TestItems.newItem(new TextIdentifier("test-selected"), selected) : null;
 
-        InteractionDefinition result = (InteractionDefinition)interactions.getInteraction(userInput, targetItem, selectedItem);
+        InteractionDefinition result = (InteractionDefinition)interactions.getInteraction(userInput, targetGameObject, selectedGameObject);
         Assert.assertNotNull(result);
 
         Collection<ActionIdentifier> actual = result.getActions();
@@ -66,12 +66,12 @@ public class CameraInteractionsTest
         Assert.assertTrue(actual.contains(action));
     }
 
-    private void assertInteractions(Collection<ActionIdentifier> expected, UserInputType input, ItemType target, ItemType selected) {
+    private void assertInteractions(Collection<ActionIdentifier> expected, UserInputType input, GameObjectType target, GameObjectType selected) {
         UserInput userInput = new UserInput(input, new Vector2(1, 2), 1);
-        Item targetItem = TestItems.newItem(new TextIdentifier("test-target"), target);
-        Item selectedItem = TestItems.newItem(new TextIdentifier("test-selected"), selected);
+        GameObject targetGameObject = TestItems.newItem(new TextIdentifier("test-target"), target);
+        GameObject selectedGameObject = TestItems.newItem(new TextIdentifier("test-selected"), selected);
 
-        InteractionDefinition result = (InteractionDefinition)interactions.getInteraction(userInput, targetItem, selectedItem);
+        InteractionDefinition result = (InteractionDefinition)interactions.getInteraction(userInput, targetGameObject, selectedGameObject);
         Collection<ActionIdentifier> actual = result != null ? result.getActions() : Collections.emptyList();
 
         Assert.assertEquals(expected.size(), actual.size());

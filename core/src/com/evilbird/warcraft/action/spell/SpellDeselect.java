@@ -11,8 +11,8 @@ package com.evilbird.warcraft.action.spell;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
@@ -41,24 +41,24 @@ public class SpellDeselect extends BasicAction
     }
 
     private void removeCastingSpell() {
-        SpellCaster spellCaster = (SpellCaster)getItem();
+        SpellCaster spellCaster = (SpellCaster) getSubject();
         spellCaster.setCastingSpell(null);
     }
 
     private void setUnhighlighted() {
-        for (Item target: getTargets()) {
+        for (GameObject target: getTargets()) {
             setUnhighlighted(target);
         }
     }
 
-    private void setUnhighlighted(Item target) {
+    private void setUnhighlighted(GameObject target) {
         Unit unit = (Unit)target;
         unit.setHighlighted(false);
     }
 
-    private Collection<Item> getTargets() {
-        Item item = getItem();
-        ItemRoot root = item.getRoot();
+    private Collection<GameObject> getTargets() {
+        GameObject gameObject = getSubject();
+        GameObjectContainer root = gameObject.getRoot();
         return root.findAll(UnitOperations::isHighlighted);
     }
 }

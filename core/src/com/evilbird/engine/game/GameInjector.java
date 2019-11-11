@@ -13,7 +13,7 @@ import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.preferences.GamePreferences;
 
 /**
@@ -30,7 +30,7 @@ public interface GameInjector
 
     GamePreferences getPreferences();
 
-    ItemFactory getItemFactory();
+    GameObjectFactory getItemFactory();
 
     ActionFactory getActionFactory();
 

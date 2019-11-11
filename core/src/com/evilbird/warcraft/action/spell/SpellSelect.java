@@ -12,8 +12,8 @@ package com.evilbird.warcraft.action.spell;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -34,9 +34,9 @@ public abstract class SpellSelect extends BasicAction
     private transient Spell spell;
     private transient Events events;
     private transient boolean initialized;
-    private transient Predicate<Item> condition;
+    private transient Predicate<GameObject> condition;
 
-    public SpellSelect(Events events, Spell spell, Predicate<Item> condition) {
+    public SpellSelect(Events events, Spell spell, Predicate<GameObject> condition) {
         this.spell = spell;
         this.events = events;
         this.condition = condition;
@@ -78,7 +78,7 @@ public abstract class SpellSelect extends BasicAction
 
     protected boolean update() {
         for (CreateEvent event: events.getEvents(CreateEvent.class)) {
-            Item subject = event.getSubject();
+            GameObject subject = event.getSubject();
             if (condition.test(subject)) {
                 setHighlighted(subject);
             }
@@ -87,24 +87,24 @@ public abstract class SpellSelect extends BasicAction
     }
 
     protected void setCastingSpell() {
-        SpellCaster spellCaster = (SpellCaster)getItem();
+        SpellCaster spellCaster = (SpellCaster) getSubject();
         spellCaster.setCastingSpell(spell);
     }
 
-    protected void setHighlighted(Collection<Item> targets) {
-        for (Item target: targets) {
+    protected void setHighlighted(Collection<GameObject> targets) {
+        for (GameObject target: targets) {
             setHighlighted(target);
         }
     }
 
-    protected void setHighlighted(Item target) {
+    protected void setHighlighted(GameObject target) {
         Unit unit = (Unit)target;
         unit.setHighlighted(true);
     }
 
-    protected Collection<Item> getTargets() {
-        Item item = getItem();
-        ItemRoot root = item.getRoot();
+    protected Collection<GameObject> getTargets() {
+        GameObject gameObject = getSubject();
+        GameObjectContainer root = gameObject.getRoot();
         return root.findAll(condition);
     }
 }

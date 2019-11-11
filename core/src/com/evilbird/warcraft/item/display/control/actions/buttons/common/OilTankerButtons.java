@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.display.control.actions.buttons.common;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.display.control.actions.buttons.ButtonController;
 
@@ -29,12 +29,12 @@ import static java.util.Arrays.asList;
 public class OilTankerButtons implements ButtonController
 {
     @Override
-    public List<ActionButtonType> getButtons(Item item) {
+    public List<ActionButtonType> getButtons(GameObject gameObject) {
         return asList(MoveButton, StopButton, OilPlatformButton, GatherButton);
     }
 
     @Override
-    public boolean getEnabled(ActionButtonType button, Item item) {
+    public boolean getEnabled(ActionButtonType button, GameObject gameObject) {
         return button == StopButton || button == OilPlatformButton;
     }
 }

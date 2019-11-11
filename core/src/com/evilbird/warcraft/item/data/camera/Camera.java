@@ -17,9 +17,9 @@ import com.evilbird.engine.common.lang.Zoomable;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemBasic;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.BasicGameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -33,7 +33,7 @@ import static com.badlogic.gdx.Gdx.graphics;
  *
  * @author Blair Butterworth
  */
-public class Camera extends ItemBasic implements Zoomable
+public class Camera extends BasicGameObject implements Zoomable
 {
     private float originalZoom;
     private float currentZoom;
@@ -59,7 +59,7 @@ public class Camera extends ItemBasic implements Zoomable
     }
 
     @Override
-    public void setRoot(ItemRoot root) {
+    public void setRoot(GameObjectContainer root) {
         super.setRoot(root);
         if (root != null) {
             Viewport viewport = root.getViewport();
@@ -85,7 +85,7 @@ public class Camera extends ItemBasic implements Zoomable
     }
 
     @Override
-    public Item hit(Vector2 position, boolean touchable) {
+    public GameObject hit(Vector2 position, boolean touchable) {
         return null;
     }
 

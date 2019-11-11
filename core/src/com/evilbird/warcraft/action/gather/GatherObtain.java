@@ -73,12 +73,12 @@ class GatherObtain extends BasicAction
     }
 
     protected boolean initialized() {
-        Gatherer gatherer = (Gatherer)getItem();
+        Gatherer gatherer = (Gatherer) getSubject();
         return gatherer.isGathering() && !gatherer.hasOtherResource(resource);
     }
 
     protected boolean initialize() {
-        Gatherer gatherer = (Gatherer)getItem();
+        Gatherer gatherer = (Gatherer) getSubject();
         gatherer.clearResources();
         gatherer.setGathererProgress(0);
 
@@ -93,20 +93,20 @@ class GatherObtain extends BasicAction
     }
 
     protected boolean load() {
-        Gatherer gatherer = (Gatherer)getItem();
+        Gatherer gatherer = (Gatherer) getSubject();
         timer = new GameTimer(getGatherSpeed(gatherer));
         timer.advance(gatherer.getGathererProgress() * timer.duration());
         return ActionIncomplete;
     }
 
     protected boolean update(float time) {
-        Gatherer gatherer = (Gatherer)getItem();
+        Gatherer gatherer = (Gatherer) getSubject();
         gatherer.setGathererProgress(timer.completion());
         return ActionIncomplete;
     }
 
     protected boolean complete() {
-        Gatherer gatherer = (Gatherer)getItem();
+        Gatherer gatherer = (Gatherer) getSubject();
         gatherer.setGathererProgress(1);
 
         ResourceQuantity quantity = new ResourceQuantity(resource, getGatherCapacity(gatherer));

@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.projectile;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.item.specialized.Viewable;
+import com.evilbird.engine.object.specialized.Viewable;
 import com.evilbird.warcraft.item.common.capability.MovableObject;
 import com.evilbird.warcraft.item.common.capability.MovementCapability;
 

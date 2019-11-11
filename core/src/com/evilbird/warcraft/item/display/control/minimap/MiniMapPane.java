@@ -11,7 +11,7 @@ package com.evilbird.warcraft.item.display.control.minimap;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.item.specialized.Table;
+import com.evilbird.engine.object.specialized.Table;
 import com.evilbird.warcraft.item.display.HudControl;
 
 /**

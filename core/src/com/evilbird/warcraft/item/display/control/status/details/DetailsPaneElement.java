@@ -9,9 +9,9 @@
 
 package com.evilbird.warcraft.item.display.control.status.details;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
-public interface DetailsPaneElement extends Item
+public interface DetailsPaneElement extends GameObject
 {
-    void setItem(Item item);
+    void setItem(GameObject gameObject);
 }

@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.spell.buff;
 
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.common.value.ValueProperty;
 import com.evilbird.warcraft.item.effect.EffectType;
@@ -30,7 +30,7 @@ import java.util.Collection;
 public class SlowSpell extends BuffSpellAction
 {
     @Inject
-    public SlowSpell(ItemFactory factory, SlowCancel cancel) {
+    public SlowSpell(GameObjectFactory factory, SlowCancel cancel) {
         super(Spell.Slow, EffectType.Spell, factory, cancel);
     }
 

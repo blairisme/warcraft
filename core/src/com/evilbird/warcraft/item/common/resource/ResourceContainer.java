@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.common.resource;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,7 +20,7 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-public interface ResourceContainer extends Item
+public interface ResourceContainer extends GameObject
 {
     float getResource(ResourceType resource);
 

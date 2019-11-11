@@ -12,8 +12,8 @@ package com.evilbird.test.data.item;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectGroup;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.item.selector.SelectorType;
 import com.evilbird.warcraft.item.selector.building.BuildingSelector;
 import com.evilbird.warcraft.item.selector.building.BuildingSelectorStyle;
@@ -34,7 +34,7 @@ public class TestPlaceholders
         return newTestPlaceholder(identifier, type, newTestRoot("root"), newTestPlayer("parent"));
     }
 
-    public static BuildingSelector newTestPlaceholder(Identifier identifier, Identifier type, ItemRoot root, ItemGroup parent) {
+    public static BuildingSelector newTestPlaceholder(Identifier identifier, Identifier type, GameObjectContainer root, GameObjectGroup parent) {
         BuildingSelector item = new BuildingSelector(getSkin());
         item.setIdentifier(identifier);
         item.setType(type);

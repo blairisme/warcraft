@@ -13,36 +13,36 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameService;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectContainer;
 
 import javax.inject.Inject;
 
 public class HudLoader
 {
     private DeviceDisplay display;
-    private ItemFactory itemFactory;
+    private GameObjectFactory objectFactory;
 
     public HudLoader() {
         GameService service = GameService.getInstance();
         this.display = service.getDevice().getDeviceDisplay();
-        this.itemFactory = service.getItemFactory();
+        this.objectFactory = service.getItemFactory();
     }
 
     @Inject
-    public HudLoader(Device device, ItemFactory itemFactory) {
+    public HudLoader(Device device, GameObjectFactory objectFactory) {
         this.display = device.getDeviceDisplay();
-        this.itemFactory = itemFactory;
+        this.objectFactory = objectFactory;
     }
 
-    public ItemRoot get() {
+    public GameObjectContainer get() {
         ScreenViewport viewport = new ScreenViewport();
         viewport.setUnitsPerPixel(display.getPixelUnits());
 
-        ItemRoot result = new ItemRoot();
+        GameObjectContainer result = new GameObjectContainer();
         result.setViewport(viewport);
         result.setIdentifier(HudType.Default);
-        result.addItem(itemFactory.get(HudType.Default));
+        result.addObject(objectFactory.get(HudType.Default));
         return result;
     }
 }

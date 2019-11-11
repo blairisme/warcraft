@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.placeholder;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.data.item.TestPlaceholders;
 import com.evilbird.test.testcase.ActionTestCase;
@@ -54,7 +54,7 @@ public class SelectorCancelTest extends ActionTestCase
         return SelectorActions.HideSelector;
     }
 
-    protected Item newItem() {
+    protected GameObject newItem() {
         Gatherer gatherer = TestGatherers.newTestGatherer(new TextIdentifier("item"), UnitType.Peasant);
         gatherer.setAssociatedItem(selector);
         return gatherer;
@@ -64,10 +64,10 @@ public class SelectorCancelTest extends ActionTestCase
     @Ignore
     public void actTest() {
         Assert.assertFalse(action.act(1));
-        Assert.assertTrue(player.getItems().stream().noneMatch(item -> item == selector));
+        Assert.assertTrue(player.getObjects().stream().noneMatch(item -> item == selector));
 
         Assert.assertTrue(action.act(1));
-        Assert.assertNull(((Gatherer)item).getAssociatedItem());
+        Assert.assertNull(((Gatherer) gameObject).getAssociatedItem());
 //        Mockito.verify(reporter).add(new PlaceholderEvent(item, placeholder, PlaceholderStatus.Removed));
     }
 }

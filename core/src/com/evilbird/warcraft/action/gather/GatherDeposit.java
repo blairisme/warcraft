@@ -83,12 +83,12 @@ public class GatherDeposit extends BasicAction
     }
 
     private boolean initialized() {
-        Gatherer gatherer = (Gatherer)getItem();
+        Gatherer gatherer = (Gatherer) getSubject();
         return gatherer.isGathering();
     }
 
     private boolean initialize() {
-        Gatherer gatherer = (Gatherer)getItem();
+        Gatherer gatherer = (Gatherer) getSubject();
         gatherer.setGathererProgress(0);
         exclusion.disable(gatherer);
 
@@ -104,20 +104,20 @@ public class GatherDeposit extends BasicAction
     }
 
     protected boolean load() {
-        Gatherer gatherer = (Gatherer)getItem();
+        Gatherer gatherer = (Gatherer) getSubject();
         timer = new GameTimer(DEPOSIT_DURATION);
         timer.advance(gatherer.getGathererProgress() * timer.duration());
         return ActionIncomplete;
     }
 
     private boolean update() {
-        Gatherer gatherer = (Gatherer)getItem();
+        Gatherer gatherer = (Gatherer) getSubject();
         gatherer.setGathererProgress(timer.completion());
         return ActionIncomplete;
     }
 
     private boolean complete() {
-        Gatherer gatherer = (Gatherer)getItem();
+        Gatherer gatherer = (Gatherer) getSubject();
         gatherer.setGathererProgress(1);
         gatherer.setAnimationAlias(IdleBasic, Idle);
         gatherer.setAnimationAlias(MoveBasic, Move);

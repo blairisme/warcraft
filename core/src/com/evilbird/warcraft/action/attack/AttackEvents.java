@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 import javax.inject.Inject;
 
@@ -34,27 +34,27 @@ public class AttackEvents
         this.events = events;
     }
 
-    public void attackStarted(Item attacker, Item target) {
+    public void attackStarted(GameObject attacker, GameObject target) {
         addEvent(attacker, target, Started);
     }
 
-    public void attackStopped(Item attacker, Item target) {
+    public void attackStopped(GameObject attacker, GameObject target) {
         addEvent(attacker, target, Stopped);
     }
 
-    public void attackComplete(Item attacker, Item target) {
+    public void attackComplete(GameObject attacker, GameObject target) {
         addEvent(attacker, target, Complete);
     }
 
-    public void attackFailed(Item attacker, Item target) {
+    public void attackFailed(GameObject attacker, GameObject target) {
         addEvent(attacker, target, Failed);
     }
 
-    public void attackCancelled(Item attacker, Item target) {
+    public void attackCancelled(GameObject attacker, GameObject target) {
         addEvent(attacker, target, Cancelled);
     }
 
-    public void attackFinished(Item attacker, Item target, boolean failed) {
+    public void attackFinished(GameObject attacker, GameObject target, boolean failed) {
         if (failed) {
             attackFailed(attacker, target);
         } else {
@@ -62,7 +62,7 @@ public class AttackEvents
         }
     }
 
-    public void addEvent(Item attacker, Item target, AttackStatus status) {
+    public void addEvent(GameObject attacker, GameObject target, AttackStatus status) {
         events.add(new AttackEvent(attacker, target, status));
     }
 }

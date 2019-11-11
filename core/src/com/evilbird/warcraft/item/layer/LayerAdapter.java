@@ -11,10 +11,10 @@ package com.evilbird.warcraft.item.layer;
 
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemBasicAdapter;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectSerializer;
+import com.evilbird.engine.object.GameObjectType;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 
@@ -22,19 +22,19 @@ import javax.inject.Inject;
 
 /**
  * Instances of this class serialize and deserialize {@link Layer} objects.
- * The adapter uses the same approach as {@link ItemBasicAdapter}, creating a new
- * object instance using the {@link ItemFactory}, however while ItemBasicAdapter
+ * The adapter uses the same approach as {@link GameObjectSerializer}, creating a new
+ * object instance using the {@link GameObjectFactory}, however while ItemBasicAdapter
  * does this using the Items type, LayerAdapter uses the Layers identifier.
  *
  * @author Blair Butterworth
  */
-public class LayerAdapter extends ItemBasicAdapter
+public class LayerAdapter extends GameObjectSerializer
 {
     protected static final String ID = "id";
 
     @Inject
-    public LayerAdapter(ItemFactory itemFactory, TypeRegistry typeRegistry) {
-        super(itemFactory, typeRegistry);
+    public LayerAdapter(GameObjectFactory objectFactory, TypeRegistry typeRegistry) {
+        super(objectFactory, typeRegistry);
     }
 
     @SerializedConstructor
@@ -43,8 +43,8 @@ public class LayerAdapter extends ItemBasicAdapter
     }
 
     @Override
-    protected Item getDeserializedInstance(JsonObject json, JsonDeserializationContext context) {
-        ItemType identifier = context.deserialize(json.get(ID), ItemType.class);
-        return itemFactory.get(identifier);
+    protected GameObject getDeserializedInstance(JsonObject json, JsonDeserializationContext context) {
+        GameObjectType identifier = context.deserialize(json.get(ID), GameObjectType.class);
+        return objectFactory.get(identifier);
     }
 }

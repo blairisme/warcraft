@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.transport;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.move.MoveAdjacent;
 import com.evilbird.warcraft.item.common.capability.MovableObject;
@@ -39,8 +39,8 @@ public class TransportUnload extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Unit vessel = (Unit)getItem();
-        for (Item associate: vessel.getAssociatedObjects()) {
+        Unit vessel = (Unit) getSubject();
+        for (GameObject associate: vessel.getAssociatedObjects()) {
             Unit unit = (Unit)associate;
             if (movement.reposition((MovableObject)unit, vessel)) {
                 vessel.removeAssociatedItem(unit);

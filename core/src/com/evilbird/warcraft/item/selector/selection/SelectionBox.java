@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Disposable;
 import com.evilbird.engine.common.graphics.TextureUtils;
-import com.evilbird.engine.item.ItemBasic;
+import com.evilbird.engine.object.BasicGameObject;
 import com.evilbird.warcraft.item.selector.SelectorType;
 
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
@@ -25,7 +25,7 @@ import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
  *
  * @author Blair Butterworth
  */
-public class SelectionBox extends ItemBasic implements Disposable
+public class SelectionBox extends BasicGameObject implements Disposable
 {
     private Texture texture;
 

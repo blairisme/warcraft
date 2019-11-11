@@ -49,7 +49,7 @@ public class GatherObtainOil extends GatherObtain
 
     @Override
     protected boolean initialize() {
-        Gatherer gatherer = (Gatherer)getItem();
+        Gatherer gatherer = (Gatherer) getSubject();
         exclusion.disable(gatherer);
 
         ResourceExtractor resource = (ResourceExtractor)getTarget();
@@ -61,7 +61,7 @@ public class GatherObtainOil extends GatherObtain
 
     @Override
     protected boolean complete() {
-        Gatherer gatherer = (Gatherer)getItem();
+        Gatherer gatherer = (Gatherer) getSubject();
         gatherer.setAnimationAlias(IdleOil, Idle);
         gatherer.setAnimationAlias(MoveOil, Move);
         exclusion.restore(gatherer);

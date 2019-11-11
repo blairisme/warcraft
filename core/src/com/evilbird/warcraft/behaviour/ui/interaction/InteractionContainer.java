@@ -14,7 +14,7 @@ import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.confirm.ConfirmActions;
 import com.evilbird.warcraft.item.unit.Unit;
 
@@ -94,26 +94,26 @@ public class InteractionContainer
      *
      * @param input     a {@link UserInput} instance specifying the interaction
      *                  the user made with the application
-     * @param item      the target of the users interaction.
+     * @param gameObject      the target of the users interaction.
      * @param selected  a currently selected item.
      *
      * @return the matching {@code Interaction}, if any.
      */
-    public Interaction getInteraction(UserInput input, Item item, Item selected) {
+    public Interaction getInteraction(UserInput input, GameObject gameObject, GameObject selected) {
         for (Interaction interaction: interactions) {
-            if (interaction.applies(input, item, selected)) {
+            if (interaction.applies(input, gameObject, selected)) {
                 return interaction;
             }
         }
         return null;
     }
 
-    protected BiConsumer<Item, Collection<Action>> confirmedAction() {
+    protected BiConsumer<GameObject, Collection<Action>> confirmedAction() {
         return (subject, actions) -> {
             for (Action action: actions) {
                 Identifier id = action.getIdentifier();
                 if (id instanceof ConfirmActions) {
-                    Item parent = subject.getParent();
+                    GameObject parent = subject.getParent();
                     parent.addAction(action);
                 } else {
                     subject.clearActions();
@@ -123,25 +123,25 @@ public class InteractionContainer
         };
     }
 
-    protected BiFunction<Item, Item, Item> targetParentItem() {
+    protected BiFunction<GameObject, GameObject, GameObject> targetParentItem() {
         return (target, selected) -> {
-            Item parent = target.getParent();
+            GameObject parent = target.getParent();
             if (parent instanceof Supplier) {
                 Supplier supplier = (Supplier)parent;
                 Object recipient = supplier.get();
-                if (recipient instanceof Item) {
-                    return (Item)recipient;
+                if (recipient instanceof GameObject) {
+                    return (GameObject)recipient;
                 }
             }
             return target;
         };
     }
 
-    protected BiFunction<Item, Item, Item> selectedItem() {
+    protected BiFunction<GameObject, GameObject, GameObject> selectedItem() {
         return (target, selected) -> selected;
     }
 
-    protected BiFunction<Item, Item, Item> associatedItem() {
+    protected BiFunction<GameObject, GameObject, GameObject> associatedItem() {
         return (target, selected) -> ((Unit)selected).getAssociatedItem();
     }
 }

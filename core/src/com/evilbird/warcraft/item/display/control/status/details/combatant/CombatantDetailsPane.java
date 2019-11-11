@@ -12,8 +12,8 @@ package com.evilbird.warcraft.item.display.control.status.details.combatant;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.Grid;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.specialized.Grid;
 import com.evilbird.warcraft.item.display.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -55,8 +55,8 @@ public class CombatantDetailsPane extends Grid implements DetailsPaneElement
         add(speed);
     }
 
-    public void setItem(Item item) {
-        Combatant combatant = (Combatant)item;
+    public void setItem(GameObject gameObject) {
+        Combatant combatant = (Combatant) gameObject;
         setArmourText(combatant);
         setDamageText(combatant);
         setRangeText(combatant);

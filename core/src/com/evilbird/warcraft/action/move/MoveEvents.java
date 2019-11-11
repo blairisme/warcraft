@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 import javax.inject.Inject;
 
@@ -23,24 +23,24 @@ public class MoveEvents
         this.events = events;
     }
 
-    public void notifyMove(Item subject) {
+    public void notifyMove(GameObject subject) {
         notifyMoveUpdated(subject);
         notifyMoveComplete(subject);
     }
 
-    public void notifyMoveCancelled(Item subject) {
+    public void notifyMoveCancelled(GameObject subject) {
         events.add(new MoveEvent(subject, MoveStatus.Cancelled));
     }
 
-    public void notifyMoveComplete(Item subject) {
+    public void notifyMoveComplete(GameObject subject) {
         events.add(new MoveEvent(subject, MoveStatus.Complete));
     }
 
-    public void notifyMoveFailed(Item subject) {
+    public void notifyMoveFailed(GameObject subject) {
         events.add(new MoveEvent(subject, MoveStatus.Failed));
     }
 
-    public void notifyMoveUpdated(Item subject) {
+    public void notifyMoveUpdated(GameObject subject) {
         events.add(new MoveEvent(subject, MoveStatus.Updated));
     }
 }

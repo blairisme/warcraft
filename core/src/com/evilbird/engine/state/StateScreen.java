@@ -18,7 +18,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceInput;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.game.GameController;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 
 import javax.inject.Inject;
 
@@ -33,8 +33,8 @@ public class StateScreen extends ScreenAdapter
     private EventQueue events;
     private State state;
     private StateIdentifier identifier;
-    private ItemRoot world;
-    private ItemRoot hud;
+    private GameObjectContainer world;
+    private GameObjectContainer hud;
     private Behaviour behaviour;
     private MusicService music;
     private GameController controller;

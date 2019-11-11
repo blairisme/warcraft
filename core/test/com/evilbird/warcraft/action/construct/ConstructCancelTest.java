@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.testcase.ActionTestCase;
@@ -52,21 +52,21 @@ public class ConstructCancelTest extends ActionTestCase
     }
 
     @Override
-    protected Item newItem() {
+    protected GameObject newItem() {
         Building building = TestBuildings.newTestBuilding(new TextIdentifier("item"), UnitType.Barracks);
         building.setConstructionProgress(0.5f);
         return building;
     }
 
     @Override
-    protected Item newTarget() {
+    protected GameObject newTarget() {
         return TestGatherers.newTestGatherer("target");
     }
 
     @Test
     public void actTest(){
-        Item builder = target;
-        Building building = (Building)item;
+        GameObject builder = target;
+        Building building = (Building) gameObject;
         building.setAssociatedItem(builder);
         Player player = (Player)building.getParent();
 

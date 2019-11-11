@@ -12,8 +12,8 @@ package com.evilbird.warcraft.item.display.control.status.details.resource;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.Grid;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.specialized.Grid;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.display.control.status.details.DetailsPaneElement;
@@ -43,13 +43,13 @@ public class ResourceDetailsPane extends Grid implements DetailsPaneElement
         setCellHeight(12);
     }
 
-    public void setItem(Item item) {
-        resource = (ResourceContainer)item;
+    public void setItem(GameObject gameObject) {
+        resource = (ResourceContainer) gameObject;
         createView(resource);
     }
 
-    public void setResource(Item item, ResourceType type, float value) {
-        if (resource == item && type == getType(resource)) {
+    public void setResource(GameObject gameObject, ResourceType type, float value) {
+        if (resource == gameObject && type == getType(resource)) {
             label.setText(getText(resource, value));
         }
     }
@@ -62,7 +62,7 @@ public class ResourceDetailsPane extends Grid implements DetailsPaneElement
     }
 
     private void createView(ResourceContainer resource) {
-        clearItems();
+        clearObjects();
         add(addLabel(getText(resource), skin));
     }
 

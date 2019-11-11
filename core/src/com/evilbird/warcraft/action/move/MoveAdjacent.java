@@ -18,10 +18,10 @@
 
 package com.evilbird.warcraft.action.move;
 
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.ItemGraph;
-import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
+import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.item.common.capability.MovableObject;
 
@@ -38,19 +38,19 @@ public class MoveAdjacent
         this.events = events;
     }
 
-    public boolean reposition(MovableObject subject, Item target) {
-        ItemRoot root = target.getRoot();
-        ItemGraph graph = root.getSpatialGraph();
+    public boolean reposition(MovableObject subject, GameObject target) {
+        GameObjectContainer root = target.getRoot();
+        GameObjectGraph graph = root.getSpatialGraph();
 
         ItemPathFilter capability = new ItemPathFilter();
         capability.addTraversableCapability(subject.getMovementCapability());
 
-        Collection<ItemNode> adjacent = graph.getAdjacentNodes(target.getPosition(), target.getSize());
-        Optional<ItemNode> unoccupied = adjacent.stream().filter(capability).findFirst();
+        Collection<GameObjectNode> adjacent = graph.getAdjacentNodes(target.getPosition(), target.getSize());
+        Optional<GameObjectNode> unoccupied = adjacent.stream().filter(capability).findFirst();
 
         if (unoccupied.isPresent()) {
             graph.removeOccupants(subject);
-            ItemNode destination = unoccupied.get();
+            GameObjectNode destination = unoccupied.get();
             subject.setPosition(destination.getWorldReference());
             graph.addOccupants(subject);
             events.notifyMove(subject);

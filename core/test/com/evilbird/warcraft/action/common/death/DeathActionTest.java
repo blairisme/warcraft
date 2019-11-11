@@ -45,7 +45,7 @@ public class DeathActionTest extends GameTestCase
         super.setup();
         preferences = Mockito.mock(WarcraftPreferences.class);
         events = new EventQueue();
-        action = new DeathAction(events, itemFactory, preferences);
+        action = new DeathAction(events, objectFactory, preferences);
     }
 
     @Test
@@ -53,8 +53,8 @@ public class DeathActionTest extends GameTestCase
         Building item = TestBuildings.newTestBuilding("barracks", UnitType.Barracks);
         Player parent = (Player)item.getParent();
 
-        parent.clearItems();
-        parent.addItem(item);
+        parent.clearObjects();
+        parent.addObject(item);
         action.setItem(item);
 
         item.setAnimation(Idle);
@@ -69,10 +69,10 @@ public class DeathActionTest extends GameTestCase
         Assert.assertFalse(item.getSelectable());
 
         action.act(1);
-        Assert.assertTrue(parent.containsItem(item));
+        Assert.assertTrue(parent.containsObject(item));
 
         action.act(30);
-        Assert.assertFalse(parent.containsItem(item));
+        Assert.assertFalse(parent.containsObject(item));
     }
 
     @Test
@@ -80,8 +80,8 @@ public class DeathActionTest extends GameTestCase
         Combatant item = TestCombatants.newTestCombatant("footman");
         Player parent = (Player)item.getParent();
 
-        parent.clearItems();
-        parent.addItem(item);
+        parent.clearObjects();
+        parent.addObject(item);
         action.setItem(item);
 
         item.setAnimation(Idle);
@@ -97,10 +97,10 @@ public class DeathActionTest extends GameTestCase
 
         action.act(1);
         Assert.assertEquals(UnitAnimation.Decompose, item.getAnimation());
-        Assert.assertTrue(parent.containsItem(item));
+        Assert.assertTrue(parent.containsObject(item));
 
         action.act(30);
-        Assert.assertFalse(parent.containsItem(item));
+        Assert.assertFalse(parent.containsObject(item));
     }
 
     @Test

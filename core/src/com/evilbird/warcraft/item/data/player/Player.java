@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.item.data.player;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.common.TeamColour;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.common.WarcraftNation;
@@ -37,7 +37,7 @@ import static com.evilbird.warcraft.common.WarcraftNation.Neutral;
  *
  * @author Blair Butterworth
  */
-public class Player extends ItemGroup implements ResourceContainer
+public class Player extends GameObjectGroup implements ResourceContainer
 {
     private int level;
     private int team;
@@ -65,15 +65,15 @@ public class Player extends ItemGroup implements ResourceContainer
     }
 
     /**
-     * Assigns an {@link Item} to the Player. If the given {@code Item} is a
+     * Assigns an {@link GameObject} to the Player. If the given {@code Item} is a
      * {@link Unit} then the Units team colour will be set to that of the
      * Players colour.
      */
     @Override
-    public void addItem(Item item) {
-        super.addItem(item);
-        if (item instanceof Unit) {
-            Unit unit = (Unit)item;
+    public void addObject(GameObject object) {
+        super.addObject(object);
+        if (object instanceof Unit) {
+            Unit unit = (Unit) object;
             unit.setTeamColour(colour);
         }
     }

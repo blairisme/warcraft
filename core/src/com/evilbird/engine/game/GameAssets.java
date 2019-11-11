@@ -15,7 +15,7 @@ import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.common.assets.AssetManagerFuture;
 import com.evilbird.engine.common.concurrent.CompleteFuture;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.menu.MenuFactory;
 import com.evilbird.engine.state.StateIdentifier;
 
@@ -32,7 +32,7 @@ public class GameAssets
     private AssetManager assets;
     private ActionFactory actionFactory;
     private BehaviourFactory behaviourFactory;
-    private ItemFactory itemFactory;
+    private GameObjectFactory objectFactory;
     private MenuFactory menuFactory;
     private GameContext loadedContext;
     private StateIdentifier loadedState;
@@ -42,13 +42,13 @@ public class GameAssets
         Device device,
         ActionFactory actionFactory,
         BehaviourFactory behaviourFactory,
-        ItemFactory itemFactory,
+        GameObjectFactory objectFactory,
         MenuFactory menuFactory)
     {
         this.assets = device.getAssetStorage();
         this.actionFactory = actionFactory;
         this.behaviourFactory = behaviourFactory;
-        this.itemFactory = itemFactory;
+        this.objectFactory = objectFactory;
         this.menuFactory = menuFactory;
     }
 
@@ -83,7 +83,7 @@ public class GameAssets
     private void loadContext(GameContext context) {
         actionFactory.load(context);
         menuFactory.load(context);
-        itemFactory.load(context);
+        objectFactory.load(context);
         behaviourFactory.load(context);
     }
 
@@ -91,7 +91,7 @@ public class GameAssets
         if (context != null) {
             actionFactory.unload(context);
             menuFactory.unload(context);
-            itemFactory.unload(context);
+            objectFactory.unload(context);
             behaviourFactory.unload(context);
         }
     }

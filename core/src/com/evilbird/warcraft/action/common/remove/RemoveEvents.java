@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.common.remove;
 
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 import javax.inject.Inject;
 
@@ -28,7 +28,7 @@ public class RemoveEvents
         this.events = events;
     }
 
-    public void notifyRemove(Item item) {
-        events.add(new RemoveEvent(item));
+    public void notifyRemove(GameObject gameObject) {
+        events.add(new RemoveEvent(gameObject));
     }
 }

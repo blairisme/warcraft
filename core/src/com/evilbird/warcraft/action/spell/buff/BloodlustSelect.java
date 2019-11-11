@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.spell.SpellSelect;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.common.spell.Spell;
@@ -29,7 +29,7 @@ import static com.evilbird.engine.common.function.Predicates.both;
  */
 public class BloodlustSelect extends SpellSelect
 {
-    private static final Predicate<Item> CONDITION =
+    private static final Predicate<GameObject> CONDITION =
         both(UnitOperations::isControllable, UnitOperations::isCombatant);
 
     @Inject

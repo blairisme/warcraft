@@ -15,8 +15,8 @@ import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.utility.ItemOperations;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.utility.GameObjectOperations;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -28,8 +28,8 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import static com.evilbird.engine.item.utility.ItemPredicates.hasAction;
-import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.hasAction;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.hasType;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionAssignment.Parent;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
@@ -47,14 +47,14 @@ public class InteractionDefinition implements Interaction
 {
     private ActionFactory factory;
     private Collection<ActionIdentifier> actions;
-    private Predicate<Item> touchedCondition;
-    private Predicate<Item> selectedCondition;
-    private Predicate<Item> actionCondition;
+    private Predicate<GameObject> touchedCondition;
+    private Predicate<GameObject> selectedCondition;
+    private Predicate<GameObject> actionCondition;
     private Predicate<UserInput> inputCondition;
-    private BiFunction<Item, Item, Item> subjectSupplier;
-    private BiFunction<Item, Item, Item> targetSupplier;
-    private Function<Item, Item> recipientSupplier;
-    private BiConsumer<Item, Collection<Action>> application;
+    private BiFunction<GameObject, GameObject, GameObject> subjectSupplier;
+    private BiFunction<GameObject, GameObject, GameObject> targetSupplier;
+    private Function<GameObject, GameObject> recipientSupplier;
+    private BiConsumer<GameObject, Collection<Action>> application;
 
     @Inject
     public InteractionDefinition(ActionFactory factory) {
@@ -117,7 +117,7 @@ public class InteractionDefinition implements Interaction
      * @param condition a {@link Predicate}.
      * @return          the interaction.
      */
-    public InteractionDefinition whenTarget(Predicate<Item> condition) {
+    public InteractionDefinition whenTarget(Predicate<GameObject> condition) {
         touchedCondition = condition;
         return this;
     }
@@ -142,13 +142,13 @@ public class InteractionDefinition implements Interaction
      * @param condition a {@link Predicate}.
      * @return the interaction.
      */
-    public InteractionDefinition whenSelected(Predicate<Item> condition) {
+    public InteractionDefinition whenSelected(Predicate<GameObject> condition) {
         selectedCondition = condition;
         return this;
     }
 
     /**
-     * Specifies that this interaction applies when the {@link Item} that will
+     * Specifies that this interaction applies when the {@link GameObject} that will
      * be the recipient of the interaction already has an {@link Action} of the
      * given type.
      *
@@ -198,7 +198,7 @@ public class InteractionDefinition implements Interaction
             }
             else if (displacement == Singleton) {
                 for (Action action: actions) {
-                    if (!ItemOperations.hasAction(subject, action.getIdentifier())){
+                    if (!GameObjectOperations.hasAction(subject, action.getIdentifier())){
                         subject.addAction(action);
                     }
                 }
@@ -219,14 +219,14 @@ public class InteractionDefinition implements Interaction
      *                  should be applied to.
      * @return          the interaction
      */
-    public InteractionDefinition appliedAs(BiConsumer<Item, Collection<Action>> consumer) {
+    public InteractionDefinition appliedAs(BiConsumer<GameObject, Collection<Action>> consumer) {
         Objects.requireNonNull(consumer);
         application = consumer;
         return this;
     }
 
     /**
-     * Sets which {@link Item Items} the action resulting from this interaction
+     * Sets which {@link GameObject Items} the action resulting from this interaction
      * will be applied to: the subject and target of the resulting
      * {@link Action}.
      *
@@ -242,7 +242,7 @@ public class InteractionDefinition implements Interaction
     }
 
     /**
-     * Sets which {@link Item Items} the action resulting from this interaction
+     * Sets which {@link GameObject Items} the action resulting from this interaction
      * will be applied to: the subject and target of the resulting
      * {@link Action}.
      *
@@ -256,8 +256,8 @@ public class InteractionDefinition implements Interaction
      * @return the interaction
      */
     public InteractionDefinition appliedTo(
-        BiFunction<Item, Item, Item> subjectSupplier,
-        BiFunction<Item, Item, Item> targetSupplier)
+        BiFunction<GameObject, GameObject, GameObject> subjectSupplier,
+        BiFunction<GameObject, GameObject, GameObject> targetSupplier)
     {
         Objects.requireNonNull(subjectSupplier);
         Objects.requireNonNull(targetSupplier);
@@ -267,7 +267,7 @@ public class InteractionDefinition implements Interaction
     }
 
     /**
-     * Sets which {@link Item} the action resulting from this interaction will
+     * Sets which {@link GameObject} the action resulting from this interaction will
      * be assigned to: the recipient of the resulting {@link Action}.
      *
      * @param assignment    an {@link InteractionAssignment} option. This
@@ -281,7 +281,7 @@ public class InteractionDefinition implements Interaction
     }
 
     /**
-     * Sets which {@link Item} the action resulting from this interaction will
+     * Sets which {@link GameObject} the action resulting from this interaction will
      * be assigned to: the recipient of the resulting {@link Action}.
      *
      * @param recipientSupplier a {@link Function} the provides the recipient
@@ -290,7 +290,7 @@ public class InteractionDefinition implements Interaction
      *
      * @return the interaction
      */
-    public InteractionDefinition assignedTo(Function<Item, Item> recipientSupplier) {
+    public InteractionDefinition assignedTo(Function<GameObject, GameObject> recipientSupplier) {
         Objects.requireNonNull(recipientSupplier);
         this.recipientSupplier = recipientSupplier;
         return this;
@@ -307,7 +307,7 @@ public class InteractionDefinition implements Interaction
     }
 
     @Override
-    public boolean applies(UserInput input, Item touched, Item selected) {
+    public boolean applies(UserInput input, GameObject touched, GameObject selected) {
         if (inputCondition != null && !inputCondition.test(input)) {
             return false;
         }
@@ -324,10 +324,10 @@ public class InteractionDefinition implements Interaction
     }
 
     @Override
-    public void apply(UserInput input, Item item, Item selected) {
-        Item subject = subjectSupplier.apply(item, selected);
-        Item target = targetSupplier.apply(item, selected);
-        Item recipient = recipientSupplier.apply(subject);
+    public void apply(UserInput input, GameObject gameObject, GameObject selected) {
+        GameObject subject = subjectSupplier.apply(gameObject, selected);
+        GameObject target = targetSupplier.apply(gameObject, selected);
+        GameObject recipient = recipientSupplier.apply(subject);
 
         Collection<Action> results = new ArrayList<>(actions.size());
         for (ActionIdentifier actionType: actions) {

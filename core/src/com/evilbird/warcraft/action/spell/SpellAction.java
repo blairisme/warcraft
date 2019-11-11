@@ -12,9 +12,9 @@ package com.evilbird.warcraft.action.spell;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.Effect;
 import com.evilbird.warcraft.item.effect.EffectType;
@@ -38,9 +38,9 @@ public abstract class SpellAction extends BasicAction
     protected transient Spell spell;
     protected transient EffectType effect;
     protected transient GameTimer timer;
-    protected transient ItemFactory factory;
+    protected transient GameObjectFactory factory;
 
-    public SpellAction(Spell spell, EffectType effect, ItemFactory factory) {
+    public SpellAction(Spell spell, EffectType effect, GameObjectFactory factory) {
         this.spell = spell;
         this.effect = effect;
         this.factory = factory;
@@ -77,43 +77,43 @@ public abstract class SpellAction extends BasicAction
     }
 
     private boolean initialized() {
-        SpellCaster caster = (SpellCaster)getItem();
+        SpellCaster caster = (SpellCaster) getSubject();
         return caster.isCasting();
     }
 
     protected void initialize() {
-        SpellCaster caster = (SpellCaster) getItem();
-        Item target = getTarget();
+        SpellCaster caster = (SpellCaster) getSubject();
+        GameObject target = getTarget();
         initialize(caster, target);
     }
 
-    protected void initialize(SpellCaster caster, Item target) {
+    protected void initialize(SpellCaster caster, GameObject target) {
         initializeCaster(caster, target);
         initializeMana(caster, target, spell);
         initializeTarget(caster, target);
         initializeEffect(caster, target);
     }
 
-    protected void initializeCaster(SpellCaster caster, Item target) {
+    protected void initializeCaster(SpellCaster caster, GameObject target) {
         caster.setAnimation(CastSpell);
         caster.setCastingProgress(0f);
         reorient(caster, target, false);
     }
 
-    protected void initializeTarget(SpellCaster caster, Item target) {
+    protected void initializeTarget(SpellCaster caster, GameObject target) {
     }
 
-    protected void initializeEffect(SpellCaster caster, Item target) {
+    protected void initializeEffect(SpellCaster caster, GameObject target) {
         Effect spellEffect = (Effect)factory.get(effect);
         spellEffect.setPosition(target.getPosition(Center), Center);
 
-        ItemGroup parent = caster.getParent();
-        parent.addItem(spellEffect);
+        GameObjectGroup parent = caster.getParent();
+        parent.addObject(spellEffect);
 
         caster.setSpellEffect(spellEffect);
     }
 
-    protected void initializeMana(SpellCaster caster, Item target, Spell spell) {
+    protected void initializeMana(SpellCaster caster, GameObject target, Spell spell) {
         caster.setMana(Math.max(0, caster.getMana() - spell.getManaCost()));
     }
 
@@ -122,7 +122,7 @@ public abstract class SpellAction extends BasicAction
     }
 
     protected void load() {
-        SpellCaster caster = (SpellCaster)getItem();
+        SpellCaster caster = (SpellCaster) getSubject();
         timer = new GameTimer(spell.getCastTime());
         timer.advance(caster.getCastingProgress() * timer.duration());
     }
@@ -132,19 +132,19 @@ public abstract class SpellAction extends BasicAction
     }
 
     protected boolean update() {
-        SpellCaster caster = (SpellCaster)getItem();
+        SpellCaster caster = (SpellCaster) getSubject();
         caster.setCastingProgress(timer.completion());
         return ActionIncomplete;
     }
 
     protected boolean complete() {
-        SpellCaster caster = (SpellCaster)getItem();
+        SpellCaster caster = (SpellCaster) getSubject();
         caster.setCastingProgress(1);
 
         Effect effect = caster.getSpellEffect();
         if (effect != null) {
-            ItemGroup parent = effect.getParent();
-            parent.removeItem(caster.getSpellEffect());
+            GameObjectGroup parent = effect.getParent();
+            parent.removeObject(caster.getSpellEffect());
             caster.setSpellEffect(null);
         }
         return ActionComplete;

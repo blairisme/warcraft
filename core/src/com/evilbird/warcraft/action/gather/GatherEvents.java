@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
@@ -36,19 +36,19 @@ public class GatherEvents
         this.events = events;
     }
 
-    public void notifyObtainStarted(Item gatherer, Item resource, ResourceQuantity quantity) {
+    public void notifyObtainStarted(GameObject gatherer, GameObject resource, ResourceQuantity quantity) {
         events.add(new GatherEvent(gatherer, resource, quantity, ObtainStarted));
     }
 
-    public void notifyObtainComplete(Item gatherer, Item resource, ResourceQuantity quantity) {
+    public void notifyObtainComplete(GameObject gatherer, GameObject resource, ResourceQuantity quantity) {
         events.add(new GatherEvent(gatherer, resource, quantity, ObtainComplete));
     }
 
-    public void notifyDepositStarted(Item gatherer, Item depot, ResourceQuantity quantity) {
+    public void notifyDepositStarted(GameObject gatherer, GameObject depot, ResourceQuantity quantity) {
         events.add(new GatherEvent(gatherer, depot, quantity, DepositStarted));
     }
 
-    public void notifyDepositComplete(Item gatherer, Item depot, ResourceQuantity quantity) {
+    public void notifyDepositComplete(GameObject gatherer, GameObject depot, ResourceQuantity quantity) {
         events.add(new GatherEvent(gatherer, depot, quantity, DepositComplete));
     }
 

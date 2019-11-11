@@ -11,8 +11,8 @@ package com.evilbird.warcraft.item.layer;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.item.ItemBasic;
-import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.object.BasicGameObject;
+import com.evilbird.engine.object.GameObjectGroup;
 
 import javax.inject.Inject;
 
@@ -26,7 +26,7 @@ import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
  *
  * @author Blair Butterworth
  */
-public class LayerGroupCell extends ItemBasic
+public class LayerGroupCell extends BasicGameObject
 {
     protected float value;
     protected GridPoint2 location;
@@ -59,7 +59,7 @@ public class LayerGroupCell extends ItemBasic
     }
 
     @Override
-    public void setParent(ItemGroup parent) {
+    public void setParent(GameObjectGroup parent) {
         super.setParent(parent);
         reevaluateEmpty();
     }

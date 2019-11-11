@@ -12,11 +12,11 @@ package com.evilbird.warcraft.behaviour.scenario.supplement;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.collection.Lists;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemComposite;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.ItemGraph;
-import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectComposite;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
+import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.action.selection.SelectFlash;
 import com.evilbird.warcraft.common.WarcraftPreferences;
@@ -41,7 +41,7 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Captured;
 public class UnitCapture implements SupplementaryBehaviour
 {
     private WarcraftPreferences preferences;
-    private Map<ItemNode, List<Item>> capturableItems;
+    private Map<GameObjectNode, List<GameObject>> capturableItems;
 
     @Inject
     public UnitCapture(WarcraftPreferences preferences) {
@@ -49,34 +49,34 @@ public class UnitCapture implements SupplementaryBehaviour
     }
 
     @Override
-    public void accept(ItemRoot state, EventQueue events) {
+    public void accept(GameObjectContainer state, EventQueue events) {
         initializeCapturableItems(state);
         evaluateMovedItems(events);
     }
 
-    private void initializeCapturableItems(ItemRoot state) {
+    private void initializeCapturableItems(GameObjectContainer state) {
         if (capturableItems == null) {
             capturableItems = getCapturableItems(state, state.getSpatialGraph());
         }
     }
 
-    private Map<ItemNode, List<Item>> getCapturableItems(ItemRoot state, ItemGraph graph) {
-        Map<ItemNode, List<Item>> result = new HashMap<>();
+    private Map<GameObjectNode, List<GameObject>> getCapturableItems(GameObjectContainer state, GameObjectGraph graph) {
+        Map<GameObjectNode, List<GameObject>> result = new HashMap<>();
 
         for (Player player: UnitOperations.getPlayers(state)) {
             if (player.isCapturable()) {
-                Collection<Item> units = player.getItems();
+                Collection<GameObject> units = player.getObjects();
                 result.putAll(getAdjacentNodes(units, graph));
             }
         }
         return result;
     }
 
-    private Map<ItemNode, List<Item>> getAdjacentNodes(Collection<Item> items, ItemGraph graph) {
-        Map<ItemNode, List<Item>> result = new HashMap<>(items.size());
-        for (Item item: items) {
-            for (ItemNode node: graph.getAdjacentNodes(item)) {
-                result.merge(node, Lists.asList(item), Lists::union);
+    private Map<GameObjectNode, List<GameObject>> getAdjacentNodes(Collection<GameObject> gameObjects, GameObjectGraph graph) {
+        Map<GameObjectNode, List<GameObject>> result = new HashMap<>(gameObjects.size());
+        for (GameObject gameObject : gameObjects) {
+            for (GameObjectNode node: graph.getAdjacentNodes(gameObject)) {
+                result.merge(node, Lists.asList(gameObject), Lists::union);
             }
         }
         return result;
@@ -90,46 +90,46 @@ public class UnitCapture implements SupplementaryBehaviour
         }
     }
 
-    private void evaluateMovedItem(ItemNode location, Item owner) {
+    private void evaluateMovedItem(GameObjectNode location, GameObject owner) {
         if (capturableItems.containsKey(location)) {
-            List<Item> captured = capturableItems.remove(location);
+            List<GameObject> captured = capturableItems.remove(location);
             captureItems(captured, owner);
         }
     }
 
-    private void captureItems(Collection<Item> captured, Item owner) {
+    private void captureItems(Collection<GameObject> captured, GameObject owner) {
         capturableItems.values().forEach(items -> items.removeAll(captured));
         capturableItems.values().removeIf(Collection::isEmpty);
 
-        for (Item captive: captured) {
+        for (GameObject captive: captured) {
             captureItem(captive, owner);
         }
     }
 
-    private void captureItem(Item captured, Item owner) {
+    private void captureItem(GameObject captured, GameObject owner) {
         setOwner(captured, owner);
         setSoundEffect(captured);
         setAnimation(captured);
     }
 
-    private void setOwner(Item captured, Item owner) {
-        ItemComposite oldParent = captured.getParent();
-        ItemComposite newParent = owner.getParent();
+    private void setOwner(GameObject captured, GameObject owner) {
+        GameObjectComposite oldParent = captured.getParent();
+        GameObjectComposite newParent = owner.getParent();
 
-        oldParent.removeItem(captured);
-        newParent.addItem(captured);
+        oldParent.removeObject(captured);
+        newParent.addObject(captured);
     }
 
-    private void setSoundEffect(Item item) {
-        if (item instanceof Unit) {
-            Unit unit = (Unit)item;
+    private void setSoundEffect(GameObject gameObject) {
+        if (gameObject instanceof Unit) {
+            Unit unit = (Unit) gameObject;
             unit.setSound(Captured, preferences.getEffectsVolume());
         }
     }
 
-    private void setAnimation(Item item) {
+    private void setAnimation(GameObject gameObject) {
         Action action = new SelectFlash();
-        action.setItem(item);
-        item.addAction(action);
+        action.setItem(gameObject);
+        gameObject.addAction(action);
     }
 }

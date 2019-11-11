@@ -9,14 +9,14 @@
 
 package com.evilbird.warcraft.item.display;
 
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObjectType;
 
 /**
  * Defines options of specifying hud presentation varieties.
  *
  * @author Blair Butterworth
  */
-public enum HudType implements ItemType
+public enum HudType implements GameObjectType
 {
     Default
 }

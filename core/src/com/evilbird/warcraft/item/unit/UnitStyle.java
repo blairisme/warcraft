@@ -11,7 +11,7 @@ package com.evilbird.warcraft.item.unit;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.common.graphics.Renderable;
-import com.evilbird.engine.item.specialized.ViewableStyle;
+import com.evilbird.engine.object.specialized.ViewableStyle;
 
 import java.util.Collections;
 import java.util.Map;

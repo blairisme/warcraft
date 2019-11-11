@@ -12,8 +12,8 @@ package com.evilbird.warcraft.action.construct;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.ParallelAction;
 import com.evilbird.engine.action.framework.StateTransitionAction;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.utility.ItemOperations;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.action.selection.DeselectAction;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
@@ -46,14 +46,14 @@ public class ConstructSequence extends StateTransitionAction
 
     @Override
     protected Action nextAction(Action previous) {
-        return nextAction(getItem(), getTarget());
+        return nextAction(getSubject(), getTarget());
     }
 
-    private Action nextAction(Item builder, Item building) {
+    private Action nextAction(GameObject builder, GameObject building) {
         if (UnitOperations.isSelector(building)) {
             return initialize;
         }
-        if (!ItemOperations.isNear(builder, builder.getWidth(), building)) {
+        if (!GameObjectOperations.isNear(builder, builder.getWidth(), building)) {
             return reposition;
         }
         if (UnitOperations.isConstructing(building)) {

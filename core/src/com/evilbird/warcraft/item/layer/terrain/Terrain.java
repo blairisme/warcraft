@@ -14,10 +14,10 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.common.maps.MapLayerIterable;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.spatial.ItemGraph;
-import com.evilbird.engine.item.spatial.ItemNode;
-import com.evilbird.engine.item.spatial.SpatialObject;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
+import com.evilbird.engine.object.spatial.GameObjectNode;
+import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.item.layer.Layer;
 import com.evilbird.warcraft.item.layer.LayerAdapter;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -43,8 +43,8 @@ public class Terrain extends Layer implements SpatialObject
     }
 
     @Override
-    public Collection<ItemNode> getNodes(ItemGraph graph) {
-        Collection<ItemNode> nodes = new ArrayList<>(layer.getWidth() * layer.getHeight());
+    public Collection<GameObjectNode> getNodes(GameObjectGraph graph) {
+        Collection<GameObjectNode> nodes = new ArrayList<>(layer.getWidth() * layer.getHeight());
         for (MapLayerEntry entry: new MapLayerIterable(layer)) {
             nodes.add(graph.getNode(entry.getPosition()));
         }
@@ -52,7 +52,7 @@ public class Terrain extends Layer implements SpatialObject
     }
 
     @Override
-    public Item hit(Vector2 position, boolean touchable) {
+    public GameObject hit(Vector2 position, boolean touchable) {
         if (touchable && !getTouchable()) { return null; }
         GridPoint2 location = toCellDimensions(layer, position);
         Cell cell = layer.getCell(location.x, location.y);

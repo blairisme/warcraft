@@ -11,12 +11,12 @@ package com.evilbird.warcraft.behaviour.scenario.condition;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.item.data.player.Player;
 
 import java.util.Objects;
 
-import static com.evilbird.engine.item.utility.ItemPredicates.withId;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.withId;
 
 /**
  * Represents a {@link ScenarioCondition} that operates on a player, either the
@@ -43,7 +43,7 @@ public abstract class PlayerCondition implements ScenarioCondition
     }
 
     @Override
-    public boolean test(ItemRoot state, EventQueue events) {
+    public boolean test(GameObjectContainer state, EventQueue events) {
         initialize(state);
         if (applicable(events)) {
             return evaluate(state);
@@ -56,7 +56,7 @@ public abstract class PlayerCondition implements ScenarioCondition
      *
      * @param state the current game state.
      */
-    protected void initialize(ItemRoot state) {
+    protected void initialize(GameObjectContainer state) {
         if (player == null) {
             player = (Player)state.find(withId(playerId));
         }
@@ -76,10 +76,10 @@ public abstract class PlayerCondition implements ScenarioCondition
     /**
      * Determines if the condition is fulfilled by the current game state.
      *
-     * @param state an {@link ItemRoot} containing the current game state.
+     * @param state an {@link GameObjectContainer} containing the current game state.
      *
      * @return  {@code true} if the condition is fulfilled by the current game
      *          state.
      */
-    protected abstract boolean evaluate(ItemRoot state);
+    protected abstract boolean evaluate(GameObjectContainer state);
 }

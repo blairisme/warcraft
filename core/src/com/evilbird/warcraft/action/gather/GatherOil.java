@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.gather;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.StateTransitionAction;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
@@ -32,7 +32,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
 import static com.evilbird.warcraft.item.unit.UnitType.OilRig;
 
 /**
- * Instances of this {@link Action} instruct an {@link Item} to gather gold.
+ * Instances of this {@link Action} instruct an {@link GameObject} to gather gold.
  *
  * @author Blair Butterworth
  */
@@ -57,10 +57,10 @@ public class GatherOil extends StateTransitionAction
 
     @Override
     protected Action nextAction(Action previous) {
-        return nextAction((Gatherer)getItem(), getTarget());
+        return nextAction((Gatherer) getSubject(), getTarget());
     }
 
-    private Action nextAction(Gatherer gatherer, Item target) {
+    private Action nextAction(Gatherer gatherer, GameObject target) {
         if (hasResources(gatherer, Oil)) {
             deposit.setTarget(getNearestDepot(gatherer));
             return deposit;
@@ -70,11 +70,11 @@ public class GatherOil extends StateTransitionAction
         }
     }
 
-    private Item getNearestDepot(Gatherer gatherer) {
+    private GameObject getNearestDepot(Gatherer gatherer) {
         return findClosest(gatherer, both(isCorporeal(), isDepotFor(Oil)));
     }
 
-    private Item getNearestResource(Gatherer gatherer, Item target) {
+    private GameObject getNearestResource(Gatherer gatherer, GameObject target) {
         WarcraftFaction faction = UnitOperations.getFaction(gatherer);
         UnitType oilExtractor = faction == Human ? OilPlatform : OilRig;
         return findClosest(gatherer, target, oilExtractor);

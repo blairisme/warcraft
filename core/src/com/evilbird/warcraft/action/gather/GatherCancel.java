@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
@@ -19,7 +19,7 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 
 /**
- * Instances of this class stop a given {@link Item} from gathering, retaining
+ * Instances of this class stop a given {@link GameObject} from gathering, retaining
  * resources from the partially completed gathering process.
  *
  * @author Blair Butterworth
@@ -35,7 +35,7 @@ public class GatherCancel extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Gatherer gatherer = (Gatherer)getItem();
+        Gatherer gatherer = (Gatherer) getSubject();
         gatherer.setAnimation(Idle);
         events.notifyGatherCancelled(gatherer);
         return ActionComplete;
