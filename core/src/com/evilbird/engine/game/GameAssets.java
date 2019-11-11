@@ -15,8 +15,8 @@ import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.common.assets.AssetManagerFuture;
 import com.evilbird.engine.common.concurrent.CompleteFuture;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.menu.MenuFactory;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.state.StateIdentifier;
 
 import javax.inject.Inject;

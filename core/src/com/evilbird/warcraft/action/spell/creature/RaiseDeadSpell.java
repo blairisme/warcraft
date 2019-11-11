@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.action.spell.creature;
 
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.item.common.spell.Spell;

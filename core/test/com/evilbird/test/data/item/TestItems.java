@@ -11,8 +11,8 @@ package com.evilbird.test.data.item;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.BasicGameObject;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.unit.UnitType;
 
 public class TestItems

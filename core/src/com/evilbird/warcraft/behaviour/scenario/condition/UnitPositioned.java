@@ -11,8 +11,8 @@ package com.evilbird.warcraft.behaviour.scenario.condition;
 
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.GameObjectType;
 import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectType;
 import com.evilbird.warcraft.action.move.MoveEvent;
 
 import java.util.Collection;

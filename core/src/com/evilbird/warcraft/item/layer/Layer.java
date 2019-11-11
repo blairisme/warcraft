@@ -15,8 +15,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.common.maps.TiledMapRenderer;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectGroup;
 
 /**
  * Instances of this class represent a rendered {@link GameObject} that spans the

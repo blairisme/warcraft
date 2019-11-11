@@ -24,9 +24,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import static com.evilbird.warcraft.item.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.item.common.capability.OffensiveCapability.Proximity;
 import static com.evilbird.warcraft.item.common.capability.OffensivePlurality.Individual;
+import static com.evilbird.warcraft.item.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
 
 /**

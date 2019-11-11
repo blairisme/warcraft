@@ -254,22 +254,22 @@ public class GameObjectGraph implements SpatialGraph<GameObjectNode>
      * given position, of the given size and offset by the given radius. All
      * values are specified in spatial terms.
      *
-     * @param spatialPosition a position in spatial terms.
-     * @param spatialSize     a size in spatial terms.
-     * @param spatialRadius   a radius in spatial terms.
+     * @param position a position in spatial terms.
+     * @param size     a size in spatial terms.
+     * @param radius   a radius in spatial terms.
      *
      * @return a {@link Collection} of unique {@code ItemNodes}.
      */
-    public Collection<GameObjectNode> getAdjacentNodes(GridPoint2 spatialPosition, GridPoint2 spatialSize, int spatialRadius){
-        Objects.requireNonNull(spatialPosition);
-        Objects.requireNonNull(spatialSize);
+    public Collection<GameObjectNode> getAdjacentNodes(GridPoint2 position, GridPoint2 size, int radius) {
+        Objects.requireNonNull(position);
+        Objects.requireNonNull(size);
 
-        int xCount = spatialSize.x + spatialRadius + 1;
-        int yCount = spatialSize.y + spatialRadius + 1;
-        int xStart = spatialPosition.x - spatialRadius;
-        int yStart = spatialPosition.y - spatialRadius;
-        int xEnd = spatialPosition.x + spatialSize.x;
-        int yEnd = spatialPosition.y + spatialSize.y;
+        int xCount = size.x + radius + 1;
+        int yCount = size.y + radius + 1;
+        int xStart = position.x - radius;
+        int yStart = position.y - radius;
+        int xEnd = position.x + size.x;
+        int yEnd = position.y + size.y;
 
         Set<GameObjectNode> result = new LinkedHashSet<>();
         result.addAll(getNodeSequence(xStart, 1, yStart, yCount)); //left
