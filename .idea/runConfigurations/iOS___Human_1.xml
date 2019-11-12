@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="iOS - Human 1" type="com.robovm.idea.running.RoboVmIOSConfigurationType" factoryName="RoboVM iOS">
+    <module name="ios" />
+    <option name="moduleName" value="ios" />
+    <option name="targetType" value="Simulator" />
+    <option name="deviceArch" value="thumbv7" />
+    <option name="signingIdentity" value="Auto (matches 'iPhone Developer|iOS Development')" />
+    <option name="provisioningProfile" value="Auto" />
+    <option name="simArch" value="x86_64" />
+    <option name="simulatorName" value="iPad Pro (9.7-inch)" />
+    <option name="simulatorSdk" value="852480" />
+    <option name="arguments" value="" />
+    <option name="workingDir" value="" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

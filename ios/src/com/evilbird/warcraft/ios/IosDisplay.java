@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.ios;
 
+import com.badlogic.gdx.Gdx;
 import com.evilbird.engine.device.DeviceDisplay;
 
 /**
@@ -21,21 +22,22 @@ public class IosDisplay implements DeviceDisplay
 {
     @Override
     public float getDensity() {
-        return 1.0f;
+        return Gdx.graphics.getDensity();
     }
 
     @Override
     public float getPixelUnits() {
-        return 1.0f;
+        float density = getDensity();
+        return 1f / density;
     }
 
     @Override
     public float getResolution() {
-        return 1.0f;
+        return Gdx.graphics.getPpiX();
     }
 
     @Override
     public float getScaleFactor() {
-        return 1.0f;
+        return getDensity();
     }
 }

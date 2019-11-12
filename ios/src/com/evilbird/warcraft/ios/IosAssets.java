@@ -16,10 +16,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.evilbird.engine.common.assets.FontGeneratorLoader;
 import com.evilbird.engine.common.assets.FontLoader;
-import com.evilbird.engine.common.assets.LazyMusicLoader;
 import com.evilbird.engine.common.assets.SyntheticTexture;
 import com.evilbird.engine.common.assets.SyntheticTextureLoader;
-import com.evilbird.engine.common.audio.music.LazyLoadedMusic;
 
 /**
  * Instances of this class provide access to game assets.
@@ -32,7 +30,6 @@ public class IosAssets extends AssetManager
         setLoader(TiledMap.class, new TmxMapLoader(getFileHandleResolver()));
         setLoader(BitmapFont.class, new FontLoader(getFileHandleResolver()));
         setLoader(FreeTypeFontGenerator.class, new FontGeneratorLoader(getFileHandleResolver()));
-        setLoader(LazyLoadedMusic.class, new LazyMusicLoader(getFileHandleResolver()));
         setLoader(SyntheticTexture.class, new SyntheticTextureLoader(getFileHandleResolver()));
     }
 }

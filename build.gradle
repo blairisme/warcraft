@@ -11,13 +11,14 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         jcenter()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
-        classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.2.0'
+        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.7'
     }
 }
 
@@ -33,7 +34,7 @@ allprojects {
     ext {
         appName = "Warcraft"
         gdxVersion = '1.9.9'
-        roboVMVersion = '2.2.0'
+        roboVMVersion = '2.3.7'
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
