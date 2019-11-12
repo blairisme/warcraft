@@ -12,9 +12,9 @@ package com.evilbird.warcraft.action.menu;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.game.GameService;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.menu.MenuIdentifier;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 
 import javax.inject.Inject;
 
@@ -47,15 +47,15 @@ public class MenuOverlayAction extends BasicAction
     }
 
     private GameController getController() {
-        Item item = getItem();
-        if (item == null) {
+        GameObject gameObject = getSubject();
+        if (gameObject == null) {
             return getSingletonController();
         }
-        return getItemController(item);
+        return getItemController(gameObject);
     }
 
-    private GameController getItemController(Item item) {
-        ItemRoot root = item.getRoot();
+    private GameController getItemController(GameObject gameObject) {
+        GameObjectContainer root = gameObject.getRoot();
         return root.getController();
     }
 

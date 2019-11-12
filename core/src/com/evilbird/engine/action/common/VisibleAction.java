@@ -11,7 +11,7 @@ package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Visible;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
 
 /**
- * Instances of this {@link BasicAction Action} modify an {@link Item Items}
+ * Instances of this {@link BasicAction Action} modify an {@link GameObject Items}
  * visibility: whether its rendered or not.
  *
  * @author Blair Butterworth

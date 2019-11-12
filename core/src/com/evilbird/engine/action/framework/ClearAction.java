@@ -12,7 +12,7 @@ package com.evilbird.engine.action.framework;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.common.ActionUtils;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 import java.util.Collection;
 import java.util.function.Predicate;
@@ -50,13 +50,13 @@ public class ClearAction extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Item item = ActionUtils.getRecipient(this, recipient);
+        GameObject gameObject = ActionUtils.getRecipient(this, recipient);
 
-        Collection<Action> oldActions = item.getActions();
+        Collection<Action> oldActions = gameObject.getActions();
         Collection<Action> newActions = oldActions.stream().filter(condition).collect(toList());
 
-        item.clearActions();
-        newActions.forEach(item::addAction);
+        gameObject.clearActions();
+        newActions.forEach(gameObject::addAction);
 
         return true;
     }

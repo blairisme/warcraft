@@ -10,38 +10,38 @@
 package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.events.Event;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.spatial.GameObjectNode;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
- * Instances of this {@link Event} are produced when an {@link Item} moves from
- * one {@link ItemNode} to another.
+ * Instances of this {@link Event} are produced when an {@link GameObject} moves from
+ * one {@link GameObjectNode} to another.
  *
  * @author Blair Butterworth
  */
 public class MoveEvent implements Event
 {
-    private Item subject;
-    private ItemNode location;
+    private GameObject subject;
+    private GameObjectNode location;
     private MoveStatus status;
 
-    public MoveEvent(Item subject, MoveStatus status) {
+    public MoveEvent(GameObject subject, MoveStatus status) {
         this(subject, null, status);
     }
 
-    public MoveEvent(Item subject, ItemNode location, MoveStatus status) {
+    public MoveEvent(GameObject subject, GameObjectNode location, MoveStatus status) {
         this.subject = subject;
         this.location = location;
         this.status = status;
     }
 
     @Override
-    public Item getSubject() {
+    public GameObject getSubject() {
         return subject;
     }
 
-    public ItemNode getLocation() {
+    public GameObjectNode getLocation() {
         return location;
     }
 

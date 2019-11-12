@@ -10,7 +10,7 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.ActionException;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.warcraft.action.attack.AttackActions;
@@ -68,7 +68,7 @@ public class ParallelActionTest
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(ParallelAction.class)
-                .withMockedTransientFields(Item.class)
+                .withMockedTransientFields(GameObject.class)
                 .excludeTransientFields()
                 .verify();
     }
@@ -88,18 +88,18 @@ public class ParallelActionTest
 
     @Test
     public void itemTest() {
-        Assert.assertNull(parallel.getItem());
-        Assert.assertNull(childA.getItem());
-        Assert.assertNull(childB.getItem());
-        Assert.assertNull(childC.getItem());
+        Assert.assertNull(parallel.getSubject());
+        Assert.assertNull(childA.getSubject());
+        Assert.assertNull(childB.getSubject());
+        Assert.assertNull(childC.getSubject());
 
-        Item actor = Mockito.mock(Item.class);
+        GameObject actor = Mockito.mock(GameObject.class);
         parallel.setItem(actor);
 
-        Assert.assertEquals(actor, parallel.getItem());
-        Assert.assertEquals(actor, childA.getItem());
-        Assert.assertEquals(actor, childB.getItem());
-        Assert.assertEquals(actor, childC.getItem());
+        Assert.assertEquals(actor, parallel.getSubject());
+        Assert.assertEquals(actor, childA.getSubject());
+        Assert.assertEquals(actor, childB.getSubject());
+        Assert.assertEquals(actor, childC.getSubject());
     }
 
     @Test

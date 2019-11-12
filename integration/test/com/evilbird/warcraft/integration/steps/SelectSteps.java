@@ -9,18 +9,18 @@
 
 package com.evilbird.warcraft.integration.steps;
 
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.game.GameEngine;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.integration.device.IntegrationApplication;
 import com.evilbird.warcraft.integration.device.IntegrationContext;
 import cucumber.api.java.en.Then;
 import org.junit.Assert;
 
-import static com.evilbird.engine.item.utility.ItemPredicates.withId;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.withId;
 
 /**
  * @author Blair Butterworth
@@ -40,9 +40,9 @@ public class SelectSteps
 
         GameEngine engine = context.getEngine();
         State state = engine.getState();
-        ItemRoot world = state.getWorld();
-        Item item = world.find(withId(new TextIdentifier(identifier)));
-        SelectableObject selectable = (SelectableObject)item;
+        GameObjectContainer world = state.getWorld();
+        GameObject gameObject = world.find(withId(new TextIdentifier(identifier)));
+        SelectableObject selectable = (SelectableObject) gameObject;
         Assert.assertEquals(selected.equals("selected"), selectable.getSelected());
     }
 }

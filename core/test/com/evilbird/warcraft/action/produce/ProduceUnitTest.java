@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.produce;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.ActionTestCase;
@@ -55,9 +55,9 @@ public class ProduceUnitTest extends ActionTestCase
     public void setup() {
         reporter = Mockito.mock(EventQueue.class);
         super.setup();
-        barracks = (Building)item;
+        barracks = (Building) gameObject;
         footman = TestCombatants.newTestCombatant("footman");
-        when(itemFactory.get(Footman)).thenReturn(footman);
+        when(objectFactory.get(Footman)).thenReturn(footman);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class ProduceUnitTest extends ActionTestCase
         ProductionTimes times = Mockito.mock(ProductionTimes.class);
         ProductionCosts costs = Mockito.mock(ProductionCosts.class);
         ProduceUnit action = new ProduceUnit(
-            createEvents, produceEvents, itemFactory, preferences, resources, costs, times);
+            createEvents, produceEvents, objectFactory, preferences, resources, costs, times);
         action.setIdentifier(TrainFootman);
         return action;
     }
@@ -79,7 +79,7 @@ public class ProduceUnitTest extends ActionTestCase
     }
 
     @Override
-    protected Item newItem() {
+    protected GameObject newItem() {
         return TestBuildings.newTestBuilding(new TextIdentifier("item"), UnitType.Barracks);
     }
 

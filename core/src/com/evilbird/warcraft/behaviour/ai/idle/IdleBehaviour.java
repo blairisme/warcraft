@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.behaviour.ai.idle;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourElement;
 import com.evilbird.warcraft.item.unit.Unit;
 import org.apache.commons.lang3.time.StopWatch;
@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.either;
-import static com.evilbird.engine.item.utility.ItemPredicates.isIdle;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.isIdle;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCritter;
@@ -50,7 +50,7 @@ public class IdleBehaviour implements AiBehaviourElement
     }
 
     @Override
-    public void applyBehaviour(ItemRoot root) {
+    public void applyBehaviour(GameObjectContainer root) {
         if (stopWatch.getTime(TimeUnit.SECONDS) >= PERIOD) {
             stopWatch.reset();
             reorient(root);
@@ -58,17 +58,17 @@ public class IdleBehaviour implements AiBehaviourElement
         }
     }
 
-    private void reorient(ItemRoot root) {
+    private void reorient(GameObjectContainer root) {
         for (int i = 0; i < REORIENT_MIN + random.nextInt(REORIENT_MAX); i++) {
             Unit target = getTarget(root);
             target.setDirection(getDirection());
         }
     }
 
-    private Unit getTarget(ItemRoot root) {
-        Predicate<Item> targets = either(isCombatant(), isCritter()).and(isIdle()).and(isAlive());
-        List<Item> items =  new ArrayList<>(root.findAll(targets));
-        return (Unit)items.get(random.nextInt(items.size()));
+    private Unit getTarget(GameObjectContainer root) {
+        Predicate<GameObject> targets = either(isCombatant(), isCritter()).and(isIdle()).and(isAlive());
+        List<GameObject> gameObjects =  new ArrayList<>(root.findAll(targets));
+        return (Unit) gameObjects.get(random.nextInt(gameObjects.size()));
     }
 
     private Vector2 getDirection() {

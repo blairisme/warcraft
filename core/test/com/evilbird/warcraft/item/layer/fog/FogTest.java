@@ -11,8 +11,8 @@ package com.evilbird.warcraft.item.layer.fog;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.testcase.GameTestCase;
@@ -36,7 +36,7 @@ import static com.evilbird.test.data.item.TestSkins.newLayerSkin;
 public class FogTest extends GameTestCase
 {
     private Fog fog;
-    private ItemRoot root;
+    private GameObjectContainer root;
     private Player player;
     private EventQueue events;
     private TiledMapTileLayer layer;
@@ -56,12 +56,12 @@ public class FogTest extends GameTestCase
         fog.setIdentifier(new LayerIdentifier("data/levels/human/level1.tmx", "OpaqueFog", layer));
         fog.setType(LayerType.OpaqueFog);
 
-        root.clearItems();
-        player.clearItems();
+        root.clearObjects();
+        player.clearObjects();
 
-        root.addItem(player);
+        root.addObject(player);
         player.setRoot(root);
-        player.addItem(fog);
+        player.addObject(fog);
 
         fog.update(1);
         respondWithItem(fog);
@@ -69,7 +69,7 @@ public class FogTest extends GameTestCase
 
     @Test
     public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(Item.class)
+        SerializationVerifier.forClass(GameObject.class)
             .withDeserializedForm(fog)
             .withSerializedResource("/warcraft/item/fog.json")
             .verify();

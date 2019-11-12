@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.spell.buff;
 
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.EffectType;
@@ -24,7 +24,7 @@ import javax.inject.Inject;
 public class DeathCoilSpell extends SpellAction
 {
     @Inject
-    public DeathCoilSpell(ItemFactory factory) {
+    public DeathCoilSpell(GameObjectFactory factory) {
         super(Spell.DeathCoil, EffectType.Spell, factory);
     }
 

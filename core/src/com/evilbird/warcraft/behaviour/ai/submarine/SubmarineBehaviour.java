@@ -11,11 +11,11 @@ package com.evilbird.warcraft.behaviour.ai.submarine;
 
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.ItemGraph;
-import com.evilbird.engine.item.spatial.ItemNode;
-import com.evilbird.engine.item.utility.ItemOperations;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
+import com.evilbird.engine.object.spatial.GameObjectNode;
+import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.attack.AttackEvent;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
@@ -46,10 +46,10 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.isSubmarine
 public class SubmarineBehaviour implements AiBehaviourElement
 {
     private Events events;
-    private ItemGraph graph;
-    private Collection<Item> subsAttacking;
-    private Map<ItemNode, Collection<Item>> subLocations;
-    private Map<ItemNode, Collection<Item>> flyerLocations;
+    private GameObjectGraph graph;
+    private Collection<GameObject> subsAttacking;
+    private Map<GameObjectNode, Collection<GameObject>> subLocations;
+    private Map<GameObjectNode, Collection<GameObject>> flyerLocations;
 
     @Inject
     public SubmarineBehaviour(Events events) {
@@ -57,7 +57,7 @@ public class SubmarineBehaviour implements AiBehaviourElement
     }
 
     @Override
-    public void applyBehaviour(ItemRoot state) {
+    public void applyBehaviour(GameObjectContainer state) {
         if (!initialized()) {
             initialize(state);
         }
@@ -68,35 +68,35 @@ public class SubmarineBehaviour implements AiBehaviourElement
         return subLocations != null;
     }
 
-    private void initialize(ItemRoot state) {
+    private void initialize(GameObjectContainer state) {
         initializeGraph(state);
         initializeSubmarines(state);
         initializeFlyers(state);
     }
 
-    private void initializeGraph(ItemRoot state) {
+    private void initializeGraph(GameObjectContainer state) {
         graph = state.getSpatialGraph();
     }
 
-    private void initializeSubmarines(ItemRoot state) {
+    private void initializeSubmarines(GameObjectContainer state) {
         subLocations = new HashMap<>(5);
         subsAttacking = new ArrayList<>();
 
-        for (Item submarine: state.findAll(UnitOperations::isSubmarine)) {
+        for (GameObject submarine: state.findAll(UnitOperations::isSubmarine)) {
             addSubmarineLocations(submarine);
             setSubmarineVisible(submarine, false);
 
-            if (ItemOperations.hasAction(submarine, AttackActions.values())) {
+            if (GameObjectOperations.hasAction(submarine, AttackActions.values())) {
                 subsAttacking.add(submarine);
             }
         }
     }
 
-    private void initializeFlyers(ItemRoot state) {
+    private void initializeFlyers(GameObjectContainer state) {
         flyerLocations = new HashMap<>(5);
         
-        for (Item flyer: state.findAll(UnitOperations::isFlying)) {
-            Collection<ItemNode> locations = addFlyerLocation((Unit)flyer);
+        for (GameObject flyer: state.findAll(UnitOperations::isFlying)) {
+            Collection<GameObjectNode> locations = addFlyerLocation((Unit)flyer);
             evaluateSubmarineVisibility(locations);
         }
     }
@@ -110,13 +110,13 @@ public class SubmarineBehaviour implements AiBehaviourElement
 
     private void evaluateCreateEvents() {
         for (CreateEvent createEvent: events.getEvents(CreateEvent.class)) {
-            Item subject = createEvent.getSubject();
+            GameObject subject = createEvent.getSubject();
             if (isSubmarine(subject)) {
-                Collection<ItemNode> locations = addSubmarineLocations(subject);
+                Collection<GameObjectNode> locations = addSubmarineLocations(subject);
                 evaluateSubmarineVisibility(locations);
             }
             else if (isFlying(subject)) {
-                Collection<ItemNode> locations = addFlyerLocation((Unit)subject);
+                Collection<GameObjectNode> locations = addFlyerLocation((Unit)subject);
                 evaluateSubmarineVisibility(locations);
             }
         }
@@ -124,12 +124,12 @@ public class SubmarineBehaviour implements AiBehaviourElement
 
     private void evaluateRemoveEvents() {
         for (RemoveEvent removeEvent: events.getEvents(RemoveEvent.class)) {
-            Item subject = removeEvent.getSubject();
+            GameObject subject = removeEvent.getSubject();
             if (isSubmarine(subject)) {
                 removeSubmarineLocations(subject);
             }
             else if (isFlying(subject)) {
-                Collection<ItemNode> locations = removeFlyerLocation((Unit)subject);
+                Collection<GameObjectNode> locations = removeFlyerLocation((Unit)subject);
                 evaluateSubmarineVisibility(locations);
             }
         }
@@ -137,13 +137,13 @@ public class SubmarineBehaviour implements AiBehaviourElement
 
     private void evaluateMoveEvents() {
         for (MoveEvent moveEvent: events.getEvents(MoveEvent.class)) {
-            Item subject = moveEvent.getSubject();
+            GameObject subject = moveEvent.getSubject();
             if (isSubmarine(subject)) {
-                Collection<ItemNode> locations = updateSubmarineLocations(subject);
+                Collection<GameObjectNode> locations = updateSubmarineLocations(subject);
                 evaluateSubmarineVisibility(locations);
             }
             else if (isFlying(subject)) {
-                Collection<ItemNode> locations = updateFlyerLocations((Unit)subject);
+                Collection<GameObjectNode> locations = updateFlyerLocations((Unit)subject);
                 evaluateSubmarineVisibility(locations);
             }
         }
@@ -151,7 +151,7 @@ public class SubmarineBehaviour implements AiBehaviourElement
 
     private void evaluateAttackEvents() {
         for (AttackEvent attackEvent: events.getEvents(AttackEvent.class)) {
-            Item subject = attackEvent.getSubject();
+            GameObject subject = attackEvent.getSubject();
             if (isSubmarine(subject)) {
                 if (attackEvent.isStarting()) {
                     subsAttacking.add(subject);
@@ -165,50 +165,50 @@ public class SubmarineBehaviour implements AiBehaviourElement
         }
     }
 
-    private Collection<ItemNode> addSubmarineLocations(Item submarine) {
-        Collection<ItemNode> locations = graph.getNodes(submarine);
+    private Collection<GameObjectNode> addSubmarineLocations(GameObject submarine) {
+        Collection<GameObjectNode> locations = graph.getNodes(submarine);
         return addCache(subLocations, locations, submarine);
     }
 
-    private Collection<ItemNode> removeSubmarineLocations(Item submarine) {
+    private Collection<GameObjectNode> removeSubmarineLocations(GameObject submarine) {
         return removeCache(subLocations, submarine);
     }
 
-    private Collection<ItemNode> updateSubmarineLocations(Item submarine) {
-        Collection<ItemNode> invalidated = new ArrayList<>();
+    private Collection<GameObjectNode> updateSubmarineLocations(GameObject submarine) {
+        Collection<GameObjectNode> invalidated = new ArrayList<>();
         invalidated.addAll(removeSubmarineLocations(submarine));
         invalidated.addAll(addSubmarineLocations(submarine));
         return invalidated;
     }
 
-    private Collection<ItemNode> addFlyerLocation(Unit flyer) {
-        Collection<ItemNode> locations = graph.getNodes(flyer.getPosition(), flyer.getSize(), flyer.getSight());
+    private Collection<GameObjectNode> addFlyerLocation(Unit flyer) {
+        Collection<GameObjectNode> locations = graph.getNodes(flyer.getPosition(), flyer.getSize(), flyer.getSight());
         return addCache(flyerLocations, locations, flyer);
     }
 
-    private Collection<ItemNode> removeFlyerLocation(Unit flyer) {
+    private Collection<GameObjectNode> removeFlyerLocation(Unit flyer) {
         return removeCache(flyerLocations, flyer);
     }
 
-    private Collection<ItemNode> updateFlyerLocations(Unit flyer) {
-        Collection<ItemNode> invalidated = new ArrayList<>();
+    private Collection<GameObjectNode> updateFlyerLocations(Unit flyer) {
+        Collection<GameObjectNode> invalidated = new ArrayList<>();
         invalidated.addAll(removeFlyerLocation(flyer));
         invalidated.addAll(addFlyerLocation(flyer));
         return invalidated;
     }
 
-    private Collection<ItemNode> addCache(Map<ItemNode, Collection<Item>> cache, Collection<ItemNode> nodes,Item entry){
-        for (ItemNode node: nodes) {
-            Collection<Item> entries = Maps.getOrDefault(cache, node, ArrayList::new);
+    private Collection<GameObjectNode> addCache(Map<GameObjectNode, Collection<GameObject>> cache, Collection<GameObjectNode> nodes, GameObject entry){
+        for (GameObjectNode node: nodes) {
+            Collection<GameObject> entries = Maps.getOrDefault(cache, node, ArrayList::new);
             entries.add(entry);
             cache.put(node, entries);
         }
         return nodes;
     }
 
-    private Collection<ItemNode> removeCache(Map<ItemNode, Collection<Item>> cache, Item element) {
-        Collection<ItemNode> nodes = new ArrayList<>();
-        for (Entry<ItemNode, Collection<Item>> entry: cache.entrySet()) {
+    private Collection<GameObjectNode> removeCache(Map<GameObjectNode, Collection<GameObject>> cache, GameObject element) {
+        Collection<GameObjectNode> nodes = new ArrayList<>();
+        for (Entry<GameObjectNode, Collection<GameObject>> entry: cache.entrySet()) {
             if (entry.getValue().remove(element)) {
                 nodes.add(entry.getKey());
             }
@@ -216,15 +216,15 @@ public class SubmarineBehaviour implements AiBehaviourElement
         return nodes;
     }
 
-    private void evaluateSubmarineVisibility(Item submarine) {
-        Collection<ItemNode> locations = graph.getNodes(submarine);
+    private void evaluateSubmarineVisibility(GameObject submarine) {
+        Collection<GameObjectNode> locations = graph.getNodes(submarine);
         evaluateSubmarineVisibility(locations);
     }
 
-    private void evaluateSubmarineVisibility(Collection<ItemNode> locations) {
-        for (ItemNode location: locations) {
-            Collection<Item> subs = subLocations.getOrDefault(location, Collections.emptyList());
-            Collection<Item> flyers = flyerLocations.getOrDefault(location, Collections.emptyList());
+    private void evaluateSubmarineVisibility(Collection<GameObjectNode> locations) {
+        for (GameObjectNode location: locations) {
+            Collection<GameObject> subs = subLocations.getOrDefault(location, Collections.emptyList());
+            Collection<GameObject> flyers = flyerLocations.getOrDefault(location, Collections.emptyList());
 
             if (!subs.isEmpty()) {
                 setSubmarinesVisible(subs, !flyers.isEmpty());
@@ -232,15 +232,15 @@ public class SubmarineBehaviour implements AiBehaviourElement
         }
     }
 
-    private void setSubmarinesVisible(Collection<Item> submarines, boolean visible) {
-        for (Item submarine: submarines) {
+    private void setSubmarinesVisible(Collection<GameObject> submarines, boolean visible) {
+        for (GameObject submarine: submarines) {
             setSubmarineVisible(submarine, visible);
         }
     }
 
-    private void setSubmarineVisible(Item item, boolean visible) {
-        visible = subsAttacking.contains(item) || visible;
-        Submarine submarine = (Submarine)item;
+    private void setSubmarineVisible(GameObject gameObject, boolean visible) {
+        visible = subsAttacking.contains(gameObject) || visible;
+        Submarine submarine = (Submarine) gameObject;
         submarine.setAttackable(visible);
         submarine.setVisible(UnitOperations.isCorporeal(submarine) || visible);
     }

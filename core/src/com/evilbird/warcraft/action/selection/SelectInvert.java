@@ -11,9 +11,9 @@ package com.evilbird.warcraft.action.selection;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.specialized.Viewable;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.specialized.Viewable;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;
 
@@ -32,7 +32,7 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
 
 /**
  * Instances of this {@link Action} invert the selected status of a given
- * {@link Item} in conjunction with deselecting all currently selected items.
+ * {@link GameObject} in conjunction with deselecting all currently selected items.
  *
  * @author Blair Butterworth
  */
@@ -49,7 +49,7 @@ public class SelectInvert extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        SelectableObject item = (SelectableObject) getItem();
+        SelectableObject item = (SelectableObject) getSubject();
         if (item.getSelected()) {
             deselect(item);
         } else {
@@ -65,7 +65,7 @@ public class SelectInvert extends BasicAction
     }
 
     private void updateSelected(SelectableObject entity) {
-        ItemRoot root = entity.getRoot();
+        GameObjectContainer root = entity.getRoot();
         if (isCorporeal(entity) && isCombatant(entity)) {
             setSelected(root, either(isNonCombatant(), isAi()), false);
         } else {
@@ -87,17 +87,17 @@ public class SelectInvert extends BasicAction
         }
     }
 
-    private void setSelectedSound(Item entity) {
+    private void setSelectedSound(GameObject entity) {
         if (entity instanceof Viewable && preferences.isAcknowledgementEnabled()) {
             Viewable viewable = (Viewable)entity;
             viewable.setSound(Selected, preferences.getEffectsVolume());
         }
     }
 
-    private void setSelected(ItemRoot root, Predicate<Item> condition, boolean selected) {
-        for (Item item: root.findAll(condition)) {
-            if (item instanceof SelectableObject) {
-                setSelected((SelectableObject)item, selected);
+    private void setSelected(GameObjectContainer root, Predicate<GameObject> condition, boolean selected) {
+        for (GameObject gameObject : root.findAll(condition)) {
+            if (gameObject instanceof SelectableObject) {
+                setSelected((SelectableObject) gameObject, selected);
             }
         }
     }

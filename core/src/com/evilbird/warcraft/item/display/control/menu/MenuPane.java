@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.display.control.menu;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.evilbird.engine.item.specialized.Table;
+import com.evilbird.engine.object.specialized.Table;
 
 import static com.evilbird.warcraft.item.display.HudControl.MenuPane;
 

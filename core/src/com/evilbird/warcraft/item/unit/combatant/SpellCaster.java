@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.item.specialized.ViewableStyle;
+import com.evilbird.engine.object.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.Effect;
 import org.apache.commons.lang3.builder.EqualsBuilder;

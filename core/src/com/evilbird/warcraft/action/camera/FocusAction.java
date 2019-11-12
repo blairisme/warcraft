@@ -11,12 +11,12 @@ package com.evilbird.warcraft.action.camera;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.item.utility.ItemPredicates.withType;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
 import static com.evilbird.warcraft.action.camera.CameraActions.Focus;
 import static com.evilbird.warcraft.item.data.camera.CameraType.Camera;
 
@@ -35,16 +35,16 @@ public class FocusAction extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Item item = getItem();
-        ItemRoot root = item.getRoot();
+        GameObject gameObject = getSubject();
+        GameObjectContainer root = gameObject.getRoot();
 
-        Vector2 size = item.getSize();
-        Vector2 position = item.getPosition();
+        Vector2 size = gameObject.getSize();
+        Vector2 position = gameObject.getPosition();
 
         position.x -= size.x / 2;
         position.y -= size.y / 2;
 
-        Item camera = root.find(withType(Camera));
+        GameObject camera = root.find(withType(Camera));
         camera.setPosition(position);
 
         return true;

@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.spell.creature;
 
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.EffectType;
@@ -30,14 +30,14 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.moveAdjacen
 public class EyeOfKilroggSpell extends CreatureSpellAction
 {
     @Inject
-    public EyeOfKilroggSpell(ItemFactory factory, CreateEvents events, CreatureSpellCancel cancel) {
+    public EyeOfKilroggSpell(GameObjectFactory factory, CreateEvents events, CreatureSpellCancel cancel) {
         super(Spell.EyeOfKilrogg, EffectType.Spell, UnitType.EyeOfKilrogg, factory, events, cancel);
     }
 
     @Override
     protected Combatant addCreature() {
         Combatant creature = super.addCreature();
-        moveAdjacent(creature, getItem());
+        moveAdjacent(creature, getSubject());
         return creature;
     }
 }

@@ -12,7 +12,7 @@ package com.evilbird.warcraft.behaviour.scenario;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.testcase.GameTestCase;
@@ -33,7 +33,7 @@ import static java.util.Collections.emptyList;
 public class ScenarioBehaviourTest extends GameTestCase
 {
     private State state;
-    private ItemRoot root;
+    private GameObjectContainer root;
     private Action winAction;
     private Action loseAction;
     private ActionFactory actions;

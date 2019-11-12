@@ -12,9 +12,9 @@ package com.evilbird.warcraft.item.unit.conjured.whirlwind;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.time.GameTimer;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.ItemGraph;
-import com.evilbird.engine.item.specialized.ViewableStyle;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
+import com.evilbird.engine.object.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.unit.conjured.ConjuredObject;
 
 import static org.apache.commons.lang3.RandomUtils.nextFloat;
@@ -53,8 +53,8 @@ public class Whirlwind extends ConjuredObject
 
     private void updateDestination(float time) {
         if (timer.advance(time)) {
-            ItemRoot root = getRoot();
-            ItemGraph graph = root.getSpatialGraph();
+            GameObjectContainer root = getRoot();
+            GameObjectGraph graph = root.getSpatialGraph();
 
             Vector2 worldSize = graph.getGraphSize();
             Vector2 position = getPosition();

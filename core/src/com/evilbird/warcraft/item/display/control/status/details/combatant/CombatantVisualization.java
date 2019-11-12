@@ -9,11 +9,11 @@
 
 package com.evilbird.warcraft.item.display.control.status.details.combatant;
 
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.warcraft.item.common.value.ModifiedValue;
 import com.evilbird.warcraft.item.common.value.Value;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
-
-import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
 
 /**
  * Provides methods that dictate how {@link Combatant} attributes are
@@ -57,11 +57,15 @@ public class CombatantVisualization
     }
 
     public static int getRange(Combatant combatant) {
-        return combatant.getAttackRange() / TILE_WIDTH;
+        GameObjectContainer container = combatant.getRoot();
+        GameObjectGraph graph = container.getSpatialGraph();
+        return combatant.getAttackRange() / graph.getNodeWidth();
     }
 
     public static int getSight(Combatant combatant) {
-        return combatant.getSight() / TILE_WIDTH;
+        GameObjectContainer container = combatant.getRoot();
+        GameObjectGraph graph = container.getSpatialGraph();
+        return combatant.getSight() / graph.getNodeWidth();
     }
 
     public static int getLevel(Combatant combatant) {

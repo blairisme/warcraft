@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.display.control.actions.buttons.human;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.display.control.actions.buttons.BasicButtonController;
@@ -30,13 +30,13 @@ public class CastleButtons extends BasicButtonController
         singletonList(com.evilbird.warcraft.item.display.control.actions.ActionButtonType.PeasantButton);
 
     @Override
-    public List<com.evilbird.warcraft.item.display.control.actions.ActionButtonType> getButtons(Item item) {
+    public List<com.evilbird.warcraft.item.display.control.actions.ActionButtonType> getButtons(GameObject gameObject) {
         return BUTTONS;
     }
 
     @Override
-    public boolean getEnabled(com.evilbird.warcraft.item.display.control.actions.ActionButtonType button, Item item) {
-        Player player = UnitOperations.getPlayer(item);
+    public boolean getEnabled(com.evilbird.warcraft.item.display.control.actions.ActionButtonType button, GameObject gameObject) {
+        Player player = UnitOperations.getPlayer(gameObject);
         return hasResources(player, Peasant);
     }
 }

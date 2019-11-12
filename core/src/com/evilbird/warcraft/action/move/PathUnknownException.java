@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.ActionException;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 /**
  * Instances of this error are produced when a {@link MoveAction} is unable
@@ -20,7 +20,7 @@ import com.evilbird.engine.item.Item;
  */
 public class PathUnknownException extends ActionException
 {
-    public PathUnknownException(Item item) {
-        super("Unable to determine path to " + item.getIdentifier());
+    public PathUnknownException(GameObject gameObject) {
+        super("Unable to determine path to " + gameObject.getIdentifier());
     }
 }

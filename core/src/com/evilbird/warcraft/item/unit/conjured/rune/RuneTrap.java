@@ -16,7 +16,7 @@ import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.graphics.AnimationFrame;
 import com.evilbird.engine.common.graphics.AnimationRenderer;
 import com.evilbird.engine.common.time.GameTimer;
-import com.evilbird.engine.item.specialized.ViewableStyle;
+import com.evilbird.engine.object.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.unit.conjured.ConjuredObject;
 
 import java.util.HashMap;

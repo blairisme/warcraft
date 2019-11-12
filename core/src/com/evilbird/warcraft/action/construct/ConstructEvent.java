@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.events.Event;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.unit.building.Building;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -44,7 +44,7 @@ public class ConstructEvent implements Event
     }
 
     @Override
-    public Item getSubject() {
+    public GameObject getSubject() {
         return building;
     }
 

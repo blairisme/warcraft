@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.selector;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.data.item.TestPlaceholders;
 import com.evilbird.test.testcase.ActionTestCase;
@@ -37,7 +37,7 @@ public class SelectorCreateTest extends ActionTestCase
     @Override
     protected Action newAction() {
         reporter = Mockito.mock(SelectorEvents.class);
-        SelectorCreate action = new SelectorCreate(reporter, itemFactory);
+        SelectorCreate action = new SelectorCreate(reporter, objectFactory);
         action.setIdentifier(SelectorActions.ShowBarracksSelector);
         return action;
     }
@@ -47,7 +47,7 @@ public class SelectorCreateTest extends ActionTestCase
         return SelectorActions.ShowBarracksSelector;
     }
 
-    protected Item newItem() {
+    protected GameObject newItem() {
         return TestGatherers.newTestGatherer(new TextIdentifier("item"), UnitType.Peasant);
     }
 
@@ -55,13 +55,13 @@ public class SelectorCreateTest extends ActionTestCase
     @Ignore
     public void actTest() {
         BuildingSelector selector = TestPlaceholders.newTestPlaceholder("placeholder");
-        Mockito.when(itemFactory.get(BarracksSelector)).thenReturn(selector);
+        Mockito.when(objectFactory.get(BarracksSelector)).thenReturn(selector);
 
         Assert.assertFalse(action.act(1));
-        Assert.assertTrue(player.getItems().stream().anyMatch(item -> item == selector));
+        Assert.assertTrue(player.getObjects().stream().anyMatch(item -> item == selector));
 
         Assert.assertTrue(action.act(1));
-        Assert.assertEquals(selector, ((Gatherer)item).getAssociatedItem());
+        Assert.assertEquals(selector, ((Gatherer) gameObject).getAssociatedItem());
 //        Mockito.verify(reporter).add(new PlaceholderEvent(item, placeholder, PlaceholderStatus.Added));
     }
 }

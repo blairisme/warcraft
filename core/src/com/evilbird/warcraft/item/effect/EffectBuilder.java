@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.effect;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.AnimationCatalog;
-import com.evilbird.engine.item.specialized.ViewableStyle;
+import com.evilbird.engine.object.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.effect.confirmation.ConfirmationAnimations;
 import com.evilbird.warcraft.item.effect.environmental.FireAnimations;
 import com.evilbird.warcraft.item.effect.environmental.FlameAnimations;

@@ -23,12 +23,12 @@ import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.common.maps.TiledMapFile;
 import com.evilbird.engine.common.maps.TiledMapLoader;
 import com.evilbird.engine.device.Device;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.ItemType;
-import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectGroup;
+import com.evilbird.engine.object.GameObjectType;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.warcraft.common.TeamColour;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.common.WarcraftNation;
@@ -92,56 +92,56 @@ public class LevelLoader
     private static final String VIEWABLE = "Viewable";
 
     private TiledMapLoader mapLoader;
-    private ItemFactory itemFactory;
+    private GameObjectFactory objectFactory;
 
     @Inject
-    public LevelLoader(Device device, ItemFactory itemFactory) {
-        this(itemFactory, device.getAssetStorage());
+    public LevelLoader(Device device, GameObjectFactory objectFactory) {
+        this(objectFactory, device.getAssetStorage());
     }
 
-    public LevelLoader(ItemFactory itemFactory, AssetManager assetManager) {
-        this.itemFactory = itemFactory;
+    public LevelLoader(GameObjectFactory objectFactory, AssetManager assetManager) {
+        this.objectFactory = objectFactory;
         this.mapLoader = new TiledMapLoader(assetManager);
     }
 
-    public ItemRoot load(String path) {
+    public GameObjectContainer load(String path) {
         TiledMapFile level = mapLoader.load(path);
         return load(level);
     }
 
-    private ItemRoot load(TiledMapFile map) {
+    private GameObjectContainer load(TiledMapFile map) {
         GridPoint2 mapSize = map.getMapSize();
         GridPoint2 tileSize = map.getTileSize();
 
-        ItemRoot result = new ItemRoot();
+        GameObjectContainer result = new GameObjectContainer();
         result.setIdentifier(new TextIdentifier(WORLD_ID));
         result.setViewport(new ScreenViewport());
-        result.setSpatialGraph(new ItemGraph(tileSize.x, tileSize.y, mapSize.x, mapSize.y));
-        result.addItems(assignParents(getItems(map)));
+        result.setSpatialGraph(new GameObjectGraph(tileSize.x, tileSize.y, mapSize.x, mapSize.y));
+        result.addObjects(assignParents(getItems(map)));
 
         return result;
     }
 
-    private Map<MapLayer, Item> getItems(TiledMapFile map) {
-        Map<MapLayer, Item> result = new LinkedHashMap<>();
+    private Map<MapLayer, GameObject> getItems(TiledMapFile map) {
+        Map<MapLayer, GameObject> result = new LinkedHashMap<>();
         for (MapLayer layer: map.getLayers()) {
-            Item item = getItem(map, layer);
-            if (item != null) {
-                result.put(layer, item);
+            GameObject gameObject = getItem(map, layer);
+            if (gameObject != null) {
+                result.put(layer, gameObject);
             }
         }
         return result;
     }
 
-    private Collection<Item> assignParents(Map<MapLayer, Item> layerItems) {
-        Map<String, Item> parents = getParents(layerItems);
-        for (Entry<MapLayer, Item> layerItem: layerItems.entrySet()) {
+    private Collection<GameObject> assignParents(Map<MapLayer, GameObject> layerItems) {
+        Map<String, GameObject> parents = getParents(layerItems);
+        for (Entry<MapLayer, GameObject> layerItem: layerItems.entrySet()) {
             MapLayer layer = layerItem.getKey();
             if (hasParentOverride(layer)) {
                 String parentId = getParentOverride(layer);
-                ItemGroup parent = (ItemGroup)parents.get(parentId);
+                GameObjectGroup parent = (GameObjectGroup)parents.get(parentId);
                 if (parent != null) {
-                    parent.addItem(layerItem.getValue());
+                    parent.addObject(layerItem.getValue());
                 } else {
                     logger.warn("Unknown parent: {}", parentId);
                 }
@@ -150,9 +150,9 @@ public class LevelLoader
         return parents.values();
     }
 
-    private Map<String, Item> getParents(Map<MapLayer, Item> layerItems) {
-        Map<String, Item> result = new LinkedHashMap<>(layerItems.size());
-        for (Entry<MapLayer, Item> layerItem: layerItems.entrySet()) {
+    private Map<String, GameObject> getParents(Map<MapLayer, GameObject> layerItems) {
+        Map<String, GameObject> result = new LinkedHashMap<>(layerItems.size());
+        for (Entry<MapLayer, GameObject> layerItem: layerItems.entrySet()) {
             MapLayer layer = layerItem.getKey();
             if (!hasParentOverride(layer)) {
                 result.put(layer.getName(), layerItem.getValue());
@@ -171,7 +171,7 @@ public class LevelLoader
         return getString(properties, PARENT_PROPERTY);
     }
 
-    private Item getItem(TiledMapFile map, MapLayer layer) {
+    private GameObject getItem(TiledMapFile map, MapLayer layer) {
         if (isLayerItem(layer)) {
             return getLayerItem(map, layer);
         }
@@ -192,13 +192,13 @@ public class LevelLoader
         return getPlayerType(layer) != null;
     }
 
-    private Item getLayerItem(TiledMapFile map, MapLayer layer) {
+    private GameObject getLayerItem(TiledMapFile map, MapLayer layer) {
         TiledMapTileLayer mapLayer = (TiledMapTileLayer)layer;
         LayerIdentifier identifier = new LayerIdentifier(map.getFile(), layer.getName(), mapLayer);
-        return itemFactory.get(identifier);
+        return objectFactory.get(identifier);
     }
 
-    private Item getPlayerItem(MapLayer layer) {
+    private GameObject getPlayerItem(MapLayer layer) {
         PlayerType type = getPlayerType(layer);
         if (type != null) {
             return getPlayerItem(type, layer);
@@ -211,7 +211,7 @@ public class LevelLoader
 
     private Player getPlayerItem(PlayerType type, MapLayer layer) {
         MapProperties properties = layer.getProperties();
-        Player player = (Player)itemFactory.get(type);
+        Player player = (Player) objectFactory.get(type);
         player.setIdentifier(new TextIdentifier(layer.getName()));
         player.setLevel(getInt(properties, LEVEL_PROPERTY));
         player.setTeam(getInt(properties, TEAM_PROPERTY));
@@ -225,7 +225,7 @@ public class LevelLoader
         player.setResource(Oil, getFloat(properties, OIL_PROPERTY));
         player.setResource(Wood, getFloat(properties, WOOD_PROPERTY));
         player.setResource(Food, getFloat(properties, FOOD_PROPERTY));
-        player.addItems(getObjectItems(layer.getObjects()));
+        player.addObjects(getObjectItems(layer.getObjects()));
         return player;
     }
 
@@ -244,27 +244,27 @@ public class LevelLoader
         return null;
     }
 
-    private Collection<Item> getObjectItems(MapObjects objects) {
-        Collection<Item> result = new ArrayList<>();
+    private Collection<GameObject> getObjectItems(MapObjects objects) {
+        Collection<GameObject> result = new ArrayList<>();
         for (MapObject object: objects) {
-            Item item = getObjectItem(object);
-            if (item != null) {
-                result.add(item);
+            GameObject gameObject = getObjectItem(object);
+            if (gameObject != null) {
+                result.add(gameObject);
             }
         }
         return result;
     }
 
-    private Item getObjectItem(MapObject object) {
+    private GameObject getObjectItem(MapObject object) {
         MapProperties properties = object.getProperties();
-        ItemType type = getItemType(properties);
+        GameObjectType type = getItemType(properties);
 
         if (type != null) {
-            Item item = itemFactory.get(type);
-            setIdentityProperties(item, object);
-            setInteractionProperties(item, properties);
-            setResourceProperties(item, properties);
-            return item;
+            GameObject gameObject = objectFactory.get(type);
+            setIdentityProperties(gameObject, object);
+            setInteractionProperties(gameObject, properties);
+            setResourceProperties(gameObject, properties);
+            return gameObject;
         }
         else {
             logger.warn("Unknown object type: {}", object.getName());
@@ -272,7 +272,7 @@ public class LevelLoader
         }
     }
 
-    private ItemType getItemType(MapProperties properties) {
+    private GameObjectType getItemType(MapProperties properties) {
         String type = properties.get(TYPE_PROPERTY, "", String.class);
 
         if (EnumUtils.isValidEnumIgnoreCase(CameraType.class, type)) {
@@ -284,20 +284,20 @@ public class LevelLoader
         return null;
     }
 
-    private void setIdentityProperties(Item item, MapObject object) {
-        item.setIdentifier(new TextIdentifier(object.getName()));
-        item.setVisible(object.isVisible());
+    private void setIdentityProperties(GameObject gameObject, MapObject object) {
+        gameObject.setIdentifier(new TextIdentifier(object.getName()));
+        gameObject.setVisible(object.isVisible());
     }
 
-    private void setInteractionProperties(Item item, MapProperties properties) {
-        item.setTouchable(getTouchable(properties, TOUCHABLE_PROPERTY));
-        item.setPosition(getVector(properties, X_PROPERTY, Y_PROPERTY));
-        item.setZIndex(getInt(properties, ZINDEX_PROPERTY));
+    private void setInteractionProperties(GameObject gameObject, MapProperties properties) {
+        gameObject.setTouchable(getTouchable(properties, TOUCHABLE_PROPERTY));
+        gameObject.setPosition(getVector(properties, X_PROPERTY, Y_PROPERTY));
+        gameObject.setZIndex(getInt(properties, ZINDEX_PROPERTY));
     }
 
-    private void setResourceProperties(Item item, MapProperties properties) {
-        if (item instanceof ResourceContainer) {
-            ResourceContainer container = (ResourceContainer)item;
+    private void setResourceProperties(GameObject gameObject, MapProperties properties) {
+        if (gameObject instanceof ResourceContainer) {
+            ResourceContainer container = (ResourceContainer) gameObject;
             setResource(container, Gold, properties, GOLD_PROPERTY);
             setResource(container, Oil, properties, OIL_PROPERTY);
             setResource(container, Wood, properties, WOOD_PROPERTY);

@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.display.control.actions.buttons.human;
 
 import com.evilbird.engine.common.collection.Lists;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.display.control.actions.ActionButtonType;
@@ -62,8 +62,8 @@ public class BarracksButtons extends BasicButtonController
         asList(FootmanButton, ElvenArcherButton, BallistaButton, KnightButton);
 
     @Override
-    public List<ActionButtonType> getButtons(Item item) {
-        Player player = UnitOperations.getPlayer(item);
+    public List<ActionButtonType> getButtons(GameObject gameObject) {
+        Player player = UnitOperations.getPlayer(gameObject);
         List<ActionButtonType> buttons = new ArrayList<>(getButtons(player.getLevel()));
 
         if (hasUpgrade(player, RangedType1)) {
@@ -89,8 +89,8 @@ public class BarracksButtons extends BasicButtonController
     }
 
     @Override
-    public boolean getEnabled(ActionButtonType button, Item item) {
-        Player player = UnitOperations.getPlayer(item);
+    public boolean getEnabled(ActionButtonType button, GameObject gameObject) {
+        Player player = UnitOperations.getPlayer(gameObject);
         switch (button) {
             case FootmanButton: return hasResources(player, Footman);
             case ElvenArcherButton: return hasResources(player, ElvenArcher) && hasUnit(player, LumberMill);

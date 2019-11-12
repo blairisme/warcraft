@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
@@ -43,7 +43,7 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Ready;
 public class ProduceUnit extends BasicAction
 {
     private transient GameTimer timer;
-    private transient ItemFactory factory;
+    private transient GameObjectFactory factory;
     private transient ResourceTransfer resources;
     private transient WarcraftPreferences preferences;
     private transient ProduceEvents produceEvents;
@@ -55,7 +55,7 @@ public class ProduceUnit extends BasicAction
     public ProduceUnit(
         CreateEvents createEvents,
         ProduceEvents produceEvents,
-        ItemFactory factory,
+        GameObjectFactory factory,
         WarcraftPreferences preferences,
         ResourceTransfer resources,
         ProductionCosts productionCosts,
@@ -97,12 +97,12 @@ public class ProduceUnit extends BasicAction
     }
 
     private boolean initialized() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         return building.isProducing();
     }
 
     private boolean initialize() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         building.setProductionProgress(0);
 
         Player player = getPlayer(building);
@@ -120,7 +120,7 @@ public class ProduceUnit extends BasicAction
     }
 
     protected boolean load() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         UnitType product = getProduct();
         timer = new GameTimer(productionTimes.buildTime(product));
         timer.advance(building.getProductionProgress() * timer.duration());
@@ -128,14 +128,14 @@ public class ProduceUnit extends BasicAction
     }
 
     private boolean update() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         building.setProductionProgress(timer.completion());
         return ActionIncomplete;
     }
 
     private boolean complete() {
         Unit product = (Unit)factory.get(getProduct());
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
 
         finalizeProduct(building, product);
         finalizeBuilding(building, product);
@@ -146,7 +146,7 @@ public class ProduceUnit extends BasicAction
 
     private void finalizeProduct(Building building, Unit product) {
         Player player = getPlayer(building);
-        player.addItem(product);
+        player.addObject(product);
 
         if (preferences.isSpeechEnabled()) {
             product.setSound(Ready, preferences.getEffectsVolume());

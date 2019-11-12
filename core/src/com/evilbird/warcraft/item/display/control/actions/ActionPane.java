@@ -14,8 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.Grid;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.specialized.Grid;
 import com.evilbird.warcraft.action.menu.MenuProvider;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.display.HudControl;
@@ -43,7 +43,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal
 public class ActionPane extends Grid implements MenuProvider
 {
     private ActionPaneView view;
-    private List<Item> selection;
+    private List<GameObject> selection;
     private Map<ResourceType, Float> resources;
     private com.evilbird.warcraft.item.display.control.actions.buttons.ButtonControllers buttons;
 
@@ -77,29 +77,29 @@ public class ActionPane extends Grid implements MenuProvider
         }
     }
 
-    public void setPlaceholder(Item builder, boolean added) {
+    public void setPlaceholder(GameObject builder, boolean added) {
         if (selection.contains(builder)) {
             updateView(added);
         }
     }
 
-    public Collection<Item> getSelected() {
+    public Collection<GameObject> getSelected() {
         return selection;
     }
 
-    public void setSelected(Collection<Item> newSelection) {
+    public void setSelected(Collection<GameObject> newSelection) {
         view = ActionPaneView.Actions;
         selection.clear();
         selection.addAll(newSelection);
         updateView();
     }
 
-    public void setSelected(Item item, boolean selected) {
+    public void setSelected(GameObject gameObject, boolean selected) {
         view = ActionPaneView.Actions;
         if (selected) {
-            selection.add(item);
+            selection.add(gameObject);
         } else {
-            selection.remove(item);
+            selection.remove(gameObject);
         }
         updateView();
     }
@@ -121,7 +121,7 @@ public class ActionPane extends Grid implements MenuProvider
 
     private boolean showCancel() {
         if (selection.size() == 1) {
-            Item selected = selection.get(0);
+            GameObject selected = selection.get(0);
             if (selected instanceof Building) {
                 Building building = (Building)selected;
                 return building.isProducing() || building.isConstructing();
@@ -139,7 +139,7 @@ public class ActionPane extends Grid implements MenuProvider
     }
 
     private void updateView(boolean showCancel) {
-        clearItems();
+        clearObjects();
         if (onlyCorporealSelected()) {
             populateView(showCancel);
         }
@@ -179,24 +179,24 @@ public class ActionPane extends Grid implements MenuProvider
         return Collections.emptyList();
     }
 
-    private List<ActionButton> getButtons(ActionPaneView view, Collection<Item> items) {
+    private List<ActionButton> getButtons(ActionPaneView view, Collection<GameObject> gameObjects) {
         List<ActionButton> result = new ArrayList<>();
-        if (items.size() == 1) {
-            return getButtons(view, items.iterator().next());
+        if (gameObjects.size() == 1) {
+            return getButtons(view, gameObjects.iterator().next());
         }
         return result;
     }
 
-    private List<ActionButton> getButtons(ActionPaneView view, Item item) {
-        com.evilbird.warcraft.item.display.control.actions.buttons.ButtonController controller = buttons.getButtonController(item, view);
-        return getButtons(controller, item);
+    private List<ActionButton> getButtons(ActionPaneView view, GameObject gameObject) {
+        com.evilbird.warcraft.item.display.control.actions.buttons.ButtonController controller = buttons.getButtonController(gameObject, view);
+        return getButtons(controller, gameObject);
     }
 
-    private List<ActionButton> getButtons(com.evilbird.warcraft.item.display.control.actions.buttons.ButtonController controller, Item item) {
-        List<ActionButtonType> types = controller.getButtons(item);
+    private List<ActionButton> getButtons(com.evilbird.warcraft.item.display.control.actions.buttons.ButtonController controller, GameObject gameObject) {
+        List<ActionButtonType> types = controller.getButtons(gameObject);
         List<ActionButton> buttons = new ArrayList<>(types.size());
         for (ActionButtonType type: types){
-            buttons.add(getButton(type, controller, (Unit)item));
+            buttons.add(getButton(type, controller, (Unit) gameObject));
         }
         return buttons;
     }

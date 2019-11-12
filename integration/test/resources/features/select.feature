@@ -1,5 +1,5 @@
 Feature: Select
-    This feature allows users to indicate which item they wish to comply
+    This feature allows users to indicate which gameObject they wish to comply
     with subsequent instructions.
 
 Scenario: Select unselected unit

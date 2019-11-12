@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -35,12 +35,12 @@ public class CombatantTest extends GameTestCase
     public void setup() {
         super.setup();
         combatant = TestCombatants.newTestCombatant(new TextIdentifier("footman"), UnitType.Footman);
-        Mockito.when(itemFactory.get(UnitType.Footman)).thenReturn(combatant);
+        Mockito.when(objectFactory.get(UnitType.Footman)).thenReturn(combatant);
     }
 
     @Test
     public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(Item.class)
+        SerializationVerifier.forClass(GameObject.class)
             .withDeserializedForm(combatant)
             .withSerializedResource("/warcraft/item/combatant.json")
             .verify();

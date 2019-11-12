@@ -11,7 +11,7 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -69,16 +69,16 @@ public class Interactions
      *
      * @param input     a {@link UserInput} instance specifying the interaction
      *                  the user made with the application
-     * @param item      the target of the users interaction.
+     * @param gameObject      the target of the users interaction.
      * @param selected  a currently selected item.
      *
      * @return the matching {@code Interaction}, if any.
      */
-    public Interaction getInteraction(UserInput input, Item item, Item selected) {
-        InteractionQuery query = new InteractionQuery(input, item, selected);
+    public Interaction getInteraction(UserInput input, GameObject gameObject, GameObject selected) {
+        InteractionQuery query = new InteractionQuery(input, gameObject, selected);
         InteractionQueryResult result = cache.getIfPresent(query);
         if (result == null) {
-            Interaction interaction = interactions.getInteraction(input, item, selected);
+            Interaction interaction = interactions.getInteraction(input, gameObject, selected);
             result = new InteractionQueryResult(interaction);
             cache.put(query, result);
         }
@@ -99,10 +99,10 @@ public class Interactions
 
     private static class InteractionQuery {
         private UserInputType type;
-        private Item target;
-        private Item selected;
+        private GameObject target;
+        private GameObject selected;
 
-        public InteractionQuery(UserInput input, Item target, Item selected) {
+        public InteractionQuery(UserInput input, GameObject target, GameObject selected) {
             this.type = input.getType();
             this.target = target;
             this.selected = selected;

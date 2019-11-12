@@ -12,8 +12,8 @@ package com.evilbird.warcraft.item.display.control.status.details;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.Grid;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.specialized.Grid;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.display.control.status.details.building.BuildingDetailsPane;
 import com.evilbird.warcraft.item.display.control.status.details.combatant.CombatantDetailsPane;
@@ -33,7 +33,7 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.isResource;
 
 /**
  * Represents a user interface control that displays the icon and name of an
- * {@link Item}. For some Items a selection of pertinent details is also
+ * {@link GameObject}. For some Items a selection of pertinent details is also
  * shown. For example the gold remaining in a gold mine or the attack strength
  * of a footman.
  *
@@ -89,53 +89,53 @@ public class DetailsPane extends Grid
         }
     }
 
-    public void setResource(Item item, ResourceType resource, float value) {
+    public void setResource(GameObject gameObject, ResourceType resource, float value) {
         if (isShown(resourceDetails)) {
-            resourceDetails.setResource(item, resource, value);
+            resourceDetails.setResource(gameObject, resource, value);
         }
     }
 
-    public void setItem(Item item) {
-        clearItems();
-        showDetails(item);
+    public void setItem(GameObject gameObject) {
+        clearObjects();
+        showDetails(gameObject);
     }
 
-    private void showDetails(Item item) {
-        setTitle(item);
-        if (isCorporeal(item) || isResource(item)) {
-            setDetails(item);
+    private void showDetails(GameObject gameObject) {
+        setTitle(gameObject);
+        if (isCorporeal(gameObject) || isResource(gameObject)) {
+            setDetails(gameObject);
         }
     }
 
-    private void setTitle(Item item) {
-        if (item instanceof Combatant) {
-            setTitle(combatantTitle, item);
-        } else if (item instanceof Unit) {
-            setTitle(generalTitle, item);
+    private void setTitle(GameObject gameObject) {
+        if (gameObject instanceof Combatant) {
+            setTitle(combatantTitle, gameObject);
+        } else if (gameObject instanceof Unit) {
+            setTitle(generalTitle, gameObject);
         }
     }
 
-    private void setTitle(DetailsPaneElement view, Item item) {
-        view.setItem(item);
+    private void setTitle(DetailsPaneElement view, GameObject gameObject) {
+        view.setItem(gameObject);
         Cell cell = add(view);
         cell.expandX();
         cell.fillX();
     }
 
-    private void setDetails(Item item) {
-        if (item instanceof Resource || item instanceof ResourceExtractor) {
-            setDetails(resourceDetails, item);
-        } else if (item instanceof Building) {
-            setDetails(buildingDetails, item);
-        } else if (item instanceof SpellCaster) {
-            setDetails(spellCasterDetails, item);
-        } else if (item instanceof Combatant) {
-            setDetails(combatantDetails, item);
+    private void setDetails(GameObject gameObject) {
+        if (gameObject instanceof Resource || gameObject instanceof ResourceExtractor) {
+            setDetails(resourceDetails, gameObject);
+        } else if (gameObject instanceof Building) {
+            setDetails(buildingDetails, gameObject);
+        } else if (gameObject instanceof SpellCaster) {
+            setDetails(spellCasterDetails, gameObject);
+        } else if (gameObject instanceof Combatant) {
+            setDetails(combatantDetails, gameObject);
         }
     }
 
-    private void setDetails(DetailsPaneElement view, Item item) {
-        view.setItem(item);
+    private void setDetails(DetailsPaneElement view, GameObject gameObject) {
+        view.setItem(gameObject);
         view.setSize(160, 100);
         add(view);
     }

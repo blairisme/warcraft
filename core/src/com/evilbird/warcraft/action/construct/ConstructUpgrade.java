@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.selection.SelectEvents;
 import com.evilbird.warcraft.item.common.production.ProductionCosts;
@@ -38,7 +38,7 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 public class ConstructUpgrade extends BasicAction
 {
     private transient GameTimer timer;
-    private transient ItemFactory factory;
+    private transient GameObjectFactory factory;
     private transient ResourceTransfer resources;
     private transient SelectEvents selectEvents;
     private transient ConstructEvents constructEvents;
@@ -47,7 +47,7 @@ public class ConstructUpgrade extends BasicAction
 
     @Inject
     public ConstructUpgrade(
-        ItemFactory factory,
+        GameObjectFactory factory,
         ConstructEvents constructEvents,
         SelectEvents selectEvents,
         ResourceTransfer resources,
@@ -89,12 +89,12 @@ public class ConstructUpgrade extends BasicAction
     }
 
     private boolean initialized() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         return building.isConstructing();
     }
 
     private boolean initialize() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         building.setConstructionProgress(0);
         building.setAnimation(UnitAnimation.BuildingUpgrade);
 
@@ -113,7 +113,7 @@ public class ConstructUpgrade extends BasicAction
     }
 
     protected boolean load() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         UnitType product = getProduct();
         timer = new GameTimer(productionTimes.buildTime(product));
         timer.advance(building.getConstructionProgress() * timer.duration());
@@ -121,18 +121,18 @@ public class ConstructUpgrade extends BasicAction
     }
 
     private boolean update() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         building.setConstructionProgress(timer.completion());
         return ActionIncomplete;
     }
 
     private boolean complete() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         Building improvement = (Building)factory.get(getProduct());
 
         Player player = getPlayer(building);
-        player.removeItem(building);
-        player.addItem(improvement);
+        player.removeObject(building);
+        player.addObject(improvement);
         player.setUpgrades(building.getUpgrades(), true);
 
         improvement.setPosition(building.getPosition());

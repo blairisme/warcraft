@@ -10,7 +10,7 @@
 package com.evilbird.engine.common.audio.sound;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,13 +25,13 @@ import static org.mockito.Mockito.verify;
 public class LocalizedSoundTest
 {
     private Sound delegate;
-    private Item owner;
+    private GameObject owner;
     private LocalizedSoundExtension sound;
 
     @Before
     public void setup() {
         delegate = mock(Sound.class);
-        owner = mock(Item.class);
+        owner = mock(GameObject.class);
         sound = new LocalizedSoundExtension(delegate, owner);
     }
 
@@ -91,7 +91,7 @@ public class LocalizedSoundTest
     private static class LocalizedSoundExtension extends LocalizedSound {
         private boolean onCamera;
 
-        public LocalizedSoundExtension(Sound sound, Item owner) {
+        public LocalizedSoundExtension(Sound sound, GameObject owner) {
             super(sound, owner);
         }
 

@@ -71,7 +71,7 @@ public class ConstructCancel extends DelegateAction
     }
 
     private void cancel() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         Gatherer builder = (Gatherer)getTarget();
 
         configureBuilding(building);

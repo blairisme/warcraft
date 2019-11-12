@@ -11,9 +11,9 @@ package com.evilbird.engine.action.common;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -23,7 +23,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.action.common.ActionUtils.getRecipient;
 
 /**
- * Instances of this class apply the disabled status of an {@link Item}.
+ * Instances of this class apply the disabled status of an {@link GameObject}.
  *
  * @author Blair Butterworth
  */
@@ -64,15 +64,15 @@ public class DisableAction extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Item subject = getRecipient(this, recipient);
+        GameObject subject = getRecipient(this, recipient);
         setSpatial(subject, disabled);
         setEnablement(subject, disabled);
         return true;
     }
 
-    private void setSpatial(Item subject, boolean disabled) {
-        ItemRoot root = subject.getRoot();
-        ItemGraph graph = root.getSpatialGraph();
+    private void setSpatial(GameObject subject, boolean disabled) {
+        GameObjectContainer root = subject.getRoot();
+        GameObjectGraph graph = root.getSpatialGraph();
 
         if (disabled) {
             graph.removeOccupants(subject);
@@ -81,7 +81,7 @@ public class DisableAction extends BasicAction
         }
     }
 
-    private void setEnablement(Item subject, boolean disabled) {
+    private void setEnablement(GameObject subject, boolean disabled) {
         SelectableObject selectable = (SelectableObject)subject;
         selectable.setSelectable(!disabled);
         subject.setTouchable(disabled ? Touchable.disabled : Touchable.enabled);

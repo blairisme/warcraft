@@ -11,13 +11,13 @@ package com.evilbird.warcraft.behaviour.scenario.condition;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 
 import java.util.function.Predicate;
 
-import static com.evilbird.engine.item.utility.ItemOperations.hasNone;
+import static com.evilbird.engine.object.utility.GameObjectOperations.hasNone;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 
 /**
@@ -28,7 +28,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
  */
 public class PlayerDestruction extends PlayerCondition
 {
-    private Predicate<Item> livingUnits;
+    private Predicate<GameObject> livingUnits;
 
     /**
      * Constructs a new instance of this class given a player identifier.
@@ -80,7 +80,7 @@ public class PlayerDestruction extends PlayerCondition
     }
 
     @Override
-    protected boolean evaluate(ItemRoot state) {
+    protected boolean evaluate(GameObjectContainer state) {
         return hasNone(player, livingUnits);
     }
 }

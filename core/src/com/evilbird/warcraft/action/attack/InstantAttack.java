@@ -66,7 +66,7 @@ public class InstantAttack extends BasicAction
     }
 
     protected void attackTarget() {
-        OffensiveObject attacker = (OffensiveObject)getItem();
+        OffensiveObject attacker = (OffensiveObject) getSubject();
         attacker.setAnimation(UnitAnimation.Attack);
         attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
 

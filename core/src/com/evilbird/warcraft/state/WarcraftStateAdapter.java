@@ -13,7 +13,7 @@ import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializerUtils;
 import com.evilbird.engine.game.GameService;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.item.display.HudLoader;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -77,7 +77,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     }
 
     private void serializeLevel(WarcraftState source, JsonSerializationContext context, JsonObject json) {
-        JsonElement serializedLevel = context.serialize(source.getWorld(), ItemRoot.class);
+        JsonElement serializedLevel = context.serialize(source.getWorld(), GameObjectContainer.class);
         json.add(LEVEL, serializedLevel);
     }
 
@@ -114,17 +114,17 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     }
 
     private void deserializeLevel(JsonObject json, JsonDeserializationContext context,  WarcraftState state) {
-        ItemRoot deserializedLevel = deserializeLevel(json.get(LEVEL), context);
+        GameObjectContainer deserializedLevel = deserializeLevel(json.get(LEVEL), context);
         state.setWorld(deserializedLevel);
     }
 
-    private ItemRoot deserializeLevel(JsonElement element, JsonDeserializationContext context) {
+    private GameObjectContainer deserializeLevel(JsonElement element, JsonDeserializationContext context) {
         JsonObject json = element.getAsJsonObject();
         if (isEmbedded(json)) {
             Level level = context.deserialize(json, Identifier.class);
             return levelLoader.load(level.getFilePath());
         }
-        return context.deserialize(json, ItemRoot.class);
+        return context.deserialize(json, GameObjectContainer.class);
     }
 
     private boolean isEmbedded(JsonObject json) {

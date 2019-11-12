@@ -11,9 +11,9 @@ package com.evilbird.warcraft.item.display.control.status.selection;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.Button;
-import com.evilbird.engine.item.specialized.Stack;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.specialized.Button;
+import com.evilbird.engine.object.specialized.Stack;
 import com.evilbird.warcraft.item.display.control.common.UnitPane;
 import com.evilbird.warcraft.item.unit.Unit;
 
@@ -26,9 +26,9 @@ import java.util.function.Supplier;
  *
  * @author Blair Butterworth
  */
-public class SelectionButton extends Stack implements Supplier<Item>
+public class SelectionButton extends Stack implements Supplier<GameObject>
 {
-    private Item item;
+    private GameObject gameObject;
     private com.evilbird.warcraft.item.display.control.common.UnitPane icon;
 
     public SelectionButton(Skin skin) {
@@ -43,17 +43,17 @@ public class SelectionButton extends Stack implements Supplier<Item>
         button.setSize(18, 18);
         button.setPosition(40, 38);
 
-        addItem(icon);
-        addItem(button);
+        addObject(icon);
+        addObject(button);
     }
 
-    public Item get() {
-        return item;
+    public GameObject get() {
+        return gameObject;
     }
 
-    public void set(Item item) {
-        this.item = item;
-        this.icon.setItem((Unit)item);
+    public void set(GameObject gameObject) {
+        this.gameObject = gameObject;
+        this.icon.setItem((Unit) gameObject);
     }
 
     private ButtonStyle buttonStyle(Skin skin) {

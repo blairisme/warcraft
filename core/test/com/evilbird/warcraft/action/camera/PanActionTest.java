@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.camera;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.item.data.camera.Camera;
 
@@ -35,7 +35,7 @@ public class PanActionTest extends ActionTestCase
     }
 
     @Override
-    protected Item newItem() {
+    protected GameObject newItem() {
         Camera camera = new Camera(newTestDevice());
         camera.setIdentifier(new TextIdentifier("item"));
         return camera;

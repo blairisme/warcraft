@@ -12,14 +12,14 @@ package com.evilbird.warcraft.action.move;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.inject.InjectedPool;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.ActionProvider;
 
 import javax.inject.Inject;
 
 /**
  * Instances of this class create {@link Action Actions} that instruct a given
- * {@link Item} to move to the given target following a path that conforms to
+ * {@link GameObject} to move to the given target following a path that conforms to
  * its movement capability.
  *
  * @author Blair Butterworth

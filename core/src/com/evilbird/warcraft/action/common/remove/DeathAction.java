@@ -15,12 +15,12 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.ItemGraph;
-import com.evilbird.engine.item.specialized.Viewable;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectGroup;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
+import com.evilbird.engine.object.specialized.Viewable;
 import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
@@ -57,13 +57,13 @@ public class DeathAction extends BasicAction
     private Events events;
     private GameTimer deathTimer;
     private GameTimer decomposeTimer;
-    private ItemFactory factory;
+    private GameObjectFactory factory;
     private WarcraftPreferences preferences;
 
     @Inject
     public DeathAction(
         Events events,
-        ItemFactory factory,
+        GameObjectFactory factory,
         WarcraftPreferences preferences)
     {
         this.events = events;
@@ -99,9 +99,9 @@ public class DeathAction extends BasicAction
     }
 
     @Override
-    public void setItem(Item item) {
-        Validate.isInstanceOf(PerishableObject.class, item);
-        super.setItem(item);
+    public void setItem(GameObject gameObject) {
+        Validate.isInstanceOf(PerishableObject.class, gameObject);
+        super.setItem(gameObject);
     }
 
     private boolean initialized() {
@@ -109,7 +109,7 @@ public class DeathAction extends BasicAction
     }
 
     private boolean initialize() {
-        PerishableObject subject = (PerishableObject)getItem();
+        PerishableObject subject = (PerishableObject) getSubject();
         initializeVisuals(subject);
         initializeSelection(subject);
         initializeGraph(subject);
@@ -127,7 +127,7 @@ public class DeathAction extends BasicAction
         }
     }
 
-    private boolean isFabricated(Item subject) {
+    private boolean isFabricated(GameObject subject) {
         if (subject instanceof Unit) {
             Unit unit = (Unit)subject;
             UnitType type = (UnitType)unit.getType();
@@ -146,14 +146,14 @@ public class DeathAction extends BasicAction
     }
 
     private void assignExplosionEffect(PerishableObject subject) {
-        Item explosion = factory.get(Explosion);
+        GameObject explosion = factory.get(Explosion);
         setTarget(explosion);
 
         Vector2 position = subject.getPosition(Center);
         explosion.setPosition(position, Center);
 
-        ItemGroup parent = subject.getParent();
-        parent.addItem(explosion);
+        GameObjectGroup parent = subject.getParent();
+        parent.addObject(explosion);
     }
 
     private void initializeSelection(PerishableObject subject) {
@@ -166,17 +166,17 @@ public class DeathAction extends BasicAction
     }
 
     private void initializeGraph(PerishableObject subject) {
-        ItemRoot root = subject.getRoot();
-        ItemGraph graph = root.getSpatialGraph();
+        GameObjectContainer root = subject.getRoot();
+        GameObjectGraph graph = root.getSpatialGraph();
         graph.removeOccupants(subject);
     }
 
     private void initializeAssociation(PerishableObject subject) {
         if (isRanged(subject)) {
             RangedCombatant ranged = (RangedCombatant)subject;
-            Item associatedItem = ranged.getAssociatedItem();
-            if (associatedItem != null) {
-                associatedItem.setVisible(false);
+            GameObject associatedGameObject = ranged.getAssociatedItem();
+            if (associatedGameObject != null) {
+                associatedGameObject.setVisible(false);
             }
         }
     }
@@ -192,7 +192,7 @@ public class DeathAction extends BasicAction
         }
     }
 
-    private boolean isInstantlyDestroyable(Item subject) {
+    private boolean isInstantlyDestroyable(GameObject subject) {
         if (subject instanceof Unit) {
             Unit unit = (Unit)subject;
             UnitType type = (UnitType)unit.getType();
@@ -202,15 +202,15 @@ public class DeathAction extends BasicAction
     }
 
     private boolean decompose() {
-        Item item = getItem();
-        if (isDecomposable(item)) {
-            Unit unit = (Unit)item;
+        GameObject gameObject = getSubject();
+        if (isDecomposable(gameObject)) {
+            Unit unit = (Unit) gameObject;
             unit.setAnimation(Decompose);
         }
         return ActionIncomplete;
     }
 
-    private boolean isDecomposable(Item subject) {
+    private boolean isDecomposable(GameObject subject) {
         if (subject instanceof Unit) {
             Unit unit = (Unit)subject;
             UnitType type = (UnitType)unit.getType();
@@ -220,35 +220,35 @@ public class DeathAction extends BasicAction
     }
 
     private boolean remove() {
-        Item subject = getItem();
+        GameObject subject = getSubject();
         remove(subject);
 
-        Item explosion = getTarget();
+        GameObject explosion = getTarget();
         remove(explosion);
 
-        Collection<Item> associations = getAssociations(subject);
+        Collection<GameObject> associations = getAssociations(subject);
         remove(associations);
 
         return ActionComplete;
     }
     
-    private void remove(Collection<Item> items) {
-        for (Item item: items) {
-            remove(item);
+    private void remove(Collection<GameObject> gameObjects) {
+        for (GameObject gameObject : gameObjects) {
+            remove(gameObject);
         }
     }
 
-    private void remove(Item item) {
-        if (item != null) {
-            ItemGroup parent = item.getParent();
-            parent.removeItem(item);
-            events.add(new RemoveEvent(item));
+    private void remove(GameObject gameObject) {
+        if (gameObject != null) {
+            GameObjectGroup parent = gameObject.getParent();
+            parent.removeObject(gameObject);
+            events.add(new RemoveEvent(gameObject));
         }
     }
 
-    private Collection<Item> getAssociations(Item item) {
-        if (item instanceof Unit) {
-            Unit unit = (Unit)item;
+    private Collection<GameObject> getAssociations(GameObject gameObject) {
+        if (gameObject instanceof Unit) {
+            Unit unit = (Unit) gameObject;
             return unit.getAssociatedObjects();
         }
         return Collections.emptyList();

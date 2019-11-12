@@ -12,8 +12,8 @@ package com.evilbird.warcraft.state;
 import com.badlogic.gdx.audio.Music;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.test.data.behaviour.TestBehaviours;
 import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.data.item.TestItems;
@@ -41,9 +41,9 @@ import static com.evilbird.warcraft.common.WarcraftSeason.Summer;
 public class WarcraftStateTest extends GameTestCase
 {
     private WarcraftState state;
-    private ItemRoot world;
-    private ItemRoot hud;
-    private Item hudControl;
+    private GameObjectContainer world;
+    private GameObjectContainer hud;
+    private GameObject hudControl;
     private WarcraftContext context;
     private Behaviour behaviour;
     private Music music;
@@ -75,7 +75,7 @@ public class WarcraftStateTest extends GameTestCase
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(WarcraftState.class)
-            .withMockedType(ItemRoot.class)
+            .withMockedType(GameObjectContainer.class)
             .withMockedTransientFields()
             .excludeTransientFields()
             .suppress(Warning.REFERENCE_EQUALITY)

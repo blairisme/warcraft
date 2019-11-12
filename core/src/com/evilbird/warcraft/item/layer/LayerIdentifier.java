@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.layer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.engine.common.serialization.SerializedType;
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObjectType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -27,7 +27,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * @author Blair Butterworth
  */
 @SerializedType("LayerId")
-public class LayerIdentifier implements ItemType
+public class LayerIdentifier implements GameObjectType
 {
     private String file;
     private String name;

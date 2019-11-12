@@ -11,7 +11,7 @@ package com.evilbird.test.data.item;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -33,7 +33,7 @@ public class TestResources
         return newTestResource(identifier, type, TestItemRoots.newTestRoot("root"), newTestPlayer("parent"));
     }
 
-    public static Resource newTestResource(Identifier identifier, Identifier type, ItemRoot root, Player parent) {
+    public static Resource newTestResource(Identifier identifier, Identifier type, GameObjectContainer root, Player parent) {
         Resource resource = new Resource(newTestSkin());
         resource.setIdentifier(identifier);
         resource.setType(type);

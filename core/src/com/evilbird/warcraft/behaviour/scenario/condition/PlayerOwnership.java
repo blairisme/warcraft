@@ -11,9 +11,9 @@ package com.evilbird.warcraft.behaviour.scenario.condition;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectType;
 import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.produce.ProduceEvent;
 
@@ -21,9 +21,9 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.both;
-import static com.evilbird.engine.item.utility.ItemOperations.hasMinimum;
-import static com.evilbird.engine.item.utility.ItemPredicates.withId;
-import static com.evilbird.engine.item.utility.ItemPredicates.withType;
+import static com.evilbird.engine.object.utility.GameObjectOperations.hasMinimum;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.withId;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
 import static com.evilbird.warcraft.item.data.player.PlayerIds.Player1;
 
@@ -35,7 +35,7 @@ import static com.evilbird.warcraft.item.data.player.PlayerIds.Player1;
  */
 public class PlayerOwnership extends PlayerCondition
 {
-    private Predicate<Item> condition;
+    private Predicate<GameObject> condition;
     private int count;
 
     /**
@@ -49,7 +49,7 @@ public class PlayerOwnership extends PlayerCondition
      * @throws NullPointerException if the given condition is
      *                              {@code null}.
      */
-    public PlayerOwnership(Predicate<Item> condition, int minimum) {
+    public PlayerOwnership(Predicate<GameObject> condition, int minimum) {
         super(Player1);
         Objects.requireNonNull(condition);
 
@@ -60,7 +60,7 @@ public class PlayerOwnership extends PlayerCondition
     /**
      * Creates a new PlayerOwnership instance the is fulfilled when the user
      * has at least the specified minimum number of units of the given
-     * {@link ItemType type}.
+     * {@link GameObjectType type}.
      *
      * @param type      the type of qualifying units.
      * @param minimum   the minimum number of required units.
@@ -68,7 +68,7 @@ public class PlayerOwnership extends PlayerCondition
      *
      * @throws NullPointerException if the given type is {@code null}.
      */
-    public static PlayerOwnership playerOwns(ItemType type, int minimum) {
+    public static PlayerOwnership playerOwns(GameObjectType type, int minimum) {
         return new PlayerOwnership(both(withType(type), isAlive()), minimum);
     }
 
@@ -99,7 +99,7 @@ public class PlayerOwnership extends PlayerCondition
     }
 
     @Override
-    protected boolean evaluate(ItemRoot state) {
+    protected boolean evaluate(GameObjectContainer state) {
         return hasMinimum(player, condition, count);
     }
 }

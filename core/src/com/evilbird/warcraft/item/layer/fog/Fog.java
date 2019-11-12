@@ -15,8 +15,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.action.produce.ProduceEvent;
@@ -51,21 +51,21 @@ public class Fog extends LayerGroup
     }
 
     @Override
-    public void addItem(Item item) {
-        super.addItem(item);
-        FogCell cell = (FogCell)item;
+    public void addObject(GameObject object) {
+        super.addObject(object);
+        FogCell cell = (FogCell) object;
         if (cell.isRevealed()) {
             setAdjacentTextures(cell.getLocation());
         }
     }
 
     @Override
-    public void addItems(Collection<Item> items) {
+    public void addObjects(Collection<GameObject> gameObjects) {
         Collection<GridPoint2> revealed = new ArrayList<>();
-        for (Item item: items) {
-            super.addItem(item);
+        for (GameObject gameObject : gameObjects) {
+            super.addObject(gameObject);
 
-            FogCell cell = (FogCell)item;
+            FogCell cell = (FogCell) gameObject;
             if (cell.isRevealed()) {
                 revealed.add(cell.getLocation());
             }
@@ -116,15 +116,15 @@ public class Fog extends LayerGroup
         }
     }
 
-    private void evaluateEvent(Item item) {
-        Player player = UnitOperations.getPlayer(item);
+    private void evaluateEvent(GameObject gameObject) {
+        Player player = UnitOperations.getPlayer(gameObject);
         if (player.isCorporeal() || player.isViewable()) {
-            revealItem(item);
+            revealItem(gameObject);
         }
     }
 
     private void revealPlayers() {
-        ItemRoot root = getRoot();
+        GameObjectContainer root = getRoot();
         revealPlayer(getCorporealPlayer(root));
         revealPlayers(getViewablePlayers(root));
     }
@@ -136,24 +136,24 @@ public class Fog extends LayerGroup
     }
 
     public void revealPlayer(Player player) {
-        revealItems(player.getItems());
+        revealItems(player.getObjects());
     }
 
-    public void revealItems(Collection<Item> items) {
-        for (Item item: items) {
-            revealItem(item);
+    public void revealItems(Collection<GameObject> gameObjects) {
+        for (GameObject gameObject : gameObjects) {
+            revealItem(gameObject);
         }
     }
 
-    public void revealItem(Item item) {
-        if (item instanceof Unit) {
-            Unit unit = (Unit)item;
+    public void revealItem(GameObject gameObject) {
+        if (gameObject instanceof Unit) {
+            Unit unit = (Unit) gameObject;
             revealItem(unit, unit.getSight());
         }
     }
 
-    public void revealItem(Item item, int radius) {
-        revealLocations(item.getPosition(), item.getSize(), radius);
+    public void revealItem(GameObject gameObject, int radius) {
+        revealLocations(gameObject.getPosition(), gameObject.getSize(), radius);
     }
 
     public void revealLocations(Vector2 location, Vector2 size, int radius) {

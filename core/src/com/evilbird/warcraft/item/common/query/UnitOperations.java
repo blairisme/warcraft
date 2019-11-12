@@ -12,12 +12,12 @@ package com.evilbird.warcraft.item.common.query;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemComposite;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.ItemGraph;
-import com.evilbird.engine.item.spatial.ItemNode;
-import com.evilbird.engine.item.utility.ItemOperations;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectComposite;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
+import com.evilbird.engine.object.spatial.GameObjectNode;
+import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.item.common.capability.MovableObject;
@@ -49,11 +49,11 @@ import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.findFirst;
 import static com.evilbird.engine.common.function.Predicates.both;
-import static com.evilbird.engine.item.utility.ItemComparators.closestItem;
-import static com.evilbird.engine.item.utility.ItemOperations.findAncestor;
-import static com.evilbird.engine.item.utility.ItemOperations.isNear;
-import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
-import static com.evilbird.engine.item.utility.ItemPredicates.touchableWithType;
+import static com.evilbird.engine.object.utility.GameObjectComparators.closestItem;
+import static com.evilbird.engine.object.utility.GameObjectOperations.findAncestor;
+import static com.evilbird.engine.object.utility.GameObjectOperations.isNear;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.hasType;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.touchableWithType;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.hasPathTo;
 
 /**
@@ -70,35 +70,35 @@ public class UnitOperations
     }
 
     /**
-     * Returns the {@link Item} closest to the given target that is both
+     * Returns the {@link GameObject} closest to the given target that is both
      * touchable and of the given type, if any.
      *
      * @param target    the locus of the search.
-     * @param type      an {@link Item#getType() item type}.
-     * @return          the closest touchable {@link Item} of the given type,
+     * @param type      an {@link GameObject#getType() item type}.
+     * @return          the closest touchable {@link GameObject} of the given type,
      *                  or {@code null}.
      */
-    public static Item findClosest(MovableObject target, Identifier type) {
+    public static GameObject findClosest(MovableObject target, Identifier type) {
         return findClosest(target, target, touchableWithType(type));
     }
 
-    public static Item findClosest(MovableObject movable, Item locus, Identifier type) {
+    public static GameObject findClosest(MovableObject movable, GameObject locus, Identifier type) {
         return findClosest(movable, locus, touchableWithType(type));
     }
 
-    public static Item findClosest(MovableObject movable, Predicate<Item> applicability) {
+    public static GameObject findClosest(MovableObject movable, Predicate<GameObject> applicability) {
         return findClosest(movable, movable, applicability);
     }
 
-    public static Item findClosest(MovableObject source, Item locus, Predicate<Item> applicability) {
-        ItemComposite group = source.getRoot();
-        Collection<Item> items = group.findAll(applicability);
-        return findClosest(source, locus, items);
+    public static GameObject findClosest(MovableObject source, GameObject locus, Predicate<GameObject> applicability) {
+        GameObjectComposite group = source.getRoot();
+        Collection<GameObject> gameObjects = group.findAll(applicability);
+        return findClosest(source, locus, gameObjects);
     }
 
-    public static Item findClosest(MovableObject source, Item locus, Collection<Item> items) {
-        if (! items.isEmpty()) {
-            List<Item> closest = new ArrayList<>(items);
+    public static GameObject findClosest(MovableObject source, GameObject locus, Collection<GameObject> gameObjects) {
+        if (! gameObjects.isEmpty()) {
+            List<GameObject> closest = new ArrayList<>(gameObjects);
             closest.sort(closestItem(locus));
             return findFirst(closest, hasPathTo(source));
         }
@@ -108,7 +108,7 @@ public class UnitOperations
     /**
      * Returns a {@link Collection} containing all of the
      * {@link Player#isArtificial() artifical players} owned by the given
-     * {@link ItemRoot}, if any.
+     * {@link GameObjectContainer}, if any.
      *
      * @param root  an {@code ItemRoot} instance.
      * @return      a {@code Collection} of {@link Player Players}
@@ -116,16 +116,16 @@ public class UnitOperations
      * @throws NullPointerException if the given {@code ItemRoot} is
      *                              {@code null}.
      */
-    public static Collection<Player> getArtificialPlayers(ItemRoot root) {
+    public static Collection<Player> getArtificialPlayers(GameObjectContainer root) {
         Objects.requireNonNull(root);
-        Predicate<Item> query = both(UnitOperations::isPlayer, UnitOperations::isArtificial);
-        Collection<Item> players = root.findAll(query);
+        Predicate<GameObject> query = both(UnitOperations::isPlayer, UnitOperations::isArtificial);
+        Collection<GameObject> players = root.findAll(query);
         return CollectionUtils.convert(players, item -> (Player)item);
     }
 
     /**
      * Returns the {@link Player#isCorporeal() corporeal player} owned by the
-     * given {@link ItemRoot}, if any.
+     * given {@link GameObjectContainer}, if any.
      *
      * @param root  an {@code ItemRoot} instance.
      * @return      a {@link Player} instance.
@@ -133,72 +133,72 @@ public class UnitOperations
      * @throws NullPointerException if the given {@code ItemRoot} is
      *                              {@code null}.
      */
-    public static Player getCorporealPlayer(ItemRoot root) {
+    public static Player getCorporealPlayer(GameObjectContainer root) {
         Objects.requireNonNull(root);
-        Predicate<Item> query = both(UnitOperations::isPlayer, UnitOperations::isCorporeal);
+        Predicate<GameObject> query = both(UnitOperations::isPlayer, UnitOperations::isCorporeal);
         return (Player)root.find(query);
     }
 
-    public static Collection<Player> getViewablePlayers(ItemRoot state) {
+    public static Collection<Player> getViewablePlayers(GameObjectContainer state) {
         Objects.requireNonNull(state);
-        Predicate<Item> query = both(UnitOperations::isPlayer, UnitOperations::isViewable);
-        Collection<Item> result = state.findAll(query);
+        Predicate<GameObject> query = both(UnitOperations::isPlayer, UnitOperations::isViewable);
+        Collection<GameObject> result = state.findAll(query);
         return CollectionUtils.convert(result, Player.class::cast);
     }
 
     /**
-     * Returns the {@link Player} that the given {@link Item} belongs to, if
+     * Returns the {@link Player} that the given {@link GameObject} belongs to, if
      * any (Terrain items, for example, aren't owned by a player).
      *
-     * @param item  an {@code Item} owned by a {@code Player}.
+     * @param gameObject  an {@code Item} owned by a {@code Player}.
      * @return      the Player that owns the given Item, or {@code null} if
      *              the given Item isn't owned by a Player.
      *
      * @throws NullPointerException if the given {@code Item} is {@code null}.
      */
-    public static Player getPlayer(Item item) {
-        if (item instanceof Player) {
-            return (Player)item;
+    public static Player getPlayer(GameObject gameObject) {
+        if (gameObject instanceof Player) {
+            return (Player) gameObject;
         }
-        return (Player)findAncestor(item, UnitOperations::isPlayer);
+        return (Player)findAncestor(gameObject, UnitOperations::isPlayer);
     }
 
-    public static Collection<Player> getPlayers(ItemRoot state) {
+    public static Collection<Player> getPlayers(GameObjectContainer state) {
         Collection<Player> players = new ArrayList<>();
-        for (Item item: state.getItems()) {
-            if (item instanceof Player) {
-                players.add((Player)item);
+        for (GameObject gameObject : state.getObjects()) {
+            if (gameObject instanceof Player) {
+                players.add((Player) gameObject);
             }
         }
         return players;
     }
 
     /**
-     * Returns the {@link WarcraftFaction} that the given {@link Item} belongs
+     * Returns the {@link WarcraftFaction} that the given {@link GameObject} belongs
      * to.
      *
-     * @param item  an {@code Item} owned by a {@code Player}.
+     * @param gameObject  an {@code Item} owned by a {@code Player}.
      * @return      the faction that the given Item belongs, or {@code null} if
      *              the given Item isn't owned by a Player.
      */
-    public static WarcraftFaction getFaction(Item item) {
-        Player player = getPlayer(item);
+    public static WarcraftFaction getFaction(GameObject gameObject) {
+        Player player = getPlayer(gameObject);
         if (player != null) {
             return player.getFaction();
         }
         return null;
     }
 
-    public static boolean hasResources(Item item, ResourceType type) {
-        if (item instanceof ResourceContainer) {
-            ResourceContainer container = (ResourceContainer)item;
+    public static boolean hasResources(GameObject gameObject, ResourceType type) {
+        if (gameObject instanceof ResourceContainer) {
+            ResourceContainer container = (ResourceContainer) gameObject;
             return container.getResource(type) > 0;
         }
         return false;
     }
 
     public static boolean hasUnit(Player player, UnitType type) {
-        return ItemOperations.hasAny(player, hasType(type));
+        return GameObjectOperations.hasAny(player, hasType(type));
     }
 
     public static boolean hasUnits(Player player, UnitType ... types) {
@@ -215,23 +215,23 @@ public class UnitOperations
     }
 
     /**
-     * Determines if the given {@link Item Items} belong to different teams:
+     * Determines if the given {@link GameObject Items} belong to different teams:
      * the both {@link Player#getTeam() players teams} are different.
      *
-     * @param itemA an {@code Item} to test.
-     * @param itemB another {@code Item} to test.
+     * @param gameObjectA an {@code Item} to test.
+     * @param gameObjectB another {@code Item} to test.
      * @return      {@code true} if both {@code Items} are owned by the same
      *              {@code Player}
      *
      * @throws NullPointerException thrown if either of the given {@code Items}
      *                              is {@code null}.
      */
-    public static boolean isAnotherTeam(Item itemA, Item itemB) {
-        Objects.requireNonNull(itemA);
-        Objects.requireNonNull(itemB);
+    public static boolean isAnotherTeam(GameObject gameObjectA, GameObject gameObjectB) {
+        Objects.requireNonNull(gameObjectA);
+        Objects.requireNonNull(gameObjectB);
 
-        Player playerA = getPlayer(itemA);
-        Player playerB = getPlayer(itemB);
+        Player playerA = getPlayer(gameObjectA);
+        Player playerB = getPlayer(gameObjectB);
 
         return isAnotherTeam(playerA, playerB);
     }
@@ -243,19 +243,19 @@ public class UnitOperations
     }
 
     /**
-     * Determines if the given {@link Item} is "alive" of not. Specifically,
+     * Determines if the given {@link GameObject} is "alive" of not. Specifically,
      * this method tests if the given {@code Item} implements {@link PerishableObject}
      * and if it has a {@link PerishableObject#getHealth() health} value more than
      * zero.
      *
-     * @param item a {@link PerishableObject} {@link Item}.
+     * @param gameObject a {@link PerishableObject} {@link GameObject}.
      *
      * @return  {@code true} if the given {@code Item} is a {@code Destroyable}
      *          and has a health value more than zero.
      */
-    public static boolean isAlive(Item item) {
-        if (item instanceof PerishableObject) {
-            return isAlive((PerishableObject)item);
+    public static boolean isAlive(GameObject gameObject) {
+        if (gameObject instanceof PerishableObject) {
+            return isAlive((PerishableObject) gameObject);
         }
         return false;
     }
@@ -264,65 +264,65 @@ public class UnitOperations
         return object.getHealth() > 0;
     }
 
-    public static boolean isDead(Item item) {
-        return !isAlive(item);
+    public static boolean isDead(GameObject gameObject) {
+        return !isAlive(gameObject);
     }
 
     /**
-     * Determines if a given {@link Item} belongs to an artificial player,
+     * Determines if a given {@link GameObject} belongs to an artificial player,
      * inclusive of the neutral player.
      *
-     * @param item  an {@code Item} to test.
+     * @param gameObject  an {@code Item} to test.
      * @return      {@code true} if the Item belongs to an AI player, otherwise
      *              {@code false}.
      */
-    public static boolean isAi(Item item) {
-        if (item != null) {
-            Player player = UnitOperations.getPlayer(item);
+    public static boolean isAi(GameObject gameObject) {
+        if (gameObject != null) {
+            Player player = UnitOperations.getPlayer(gameObject);
             return player != null && !player.isCorporeal();
         }
         return false;
     }
 
     /**
-     * Determines if a given {@link Item} belongs to an artificial player,
+     * Determines if a given {@link GameObject} belongs to an artificial player,
      * excluding the neutral player.
      *
-     * @param item  an {@code Item} to test.
+     * @param gameObject  an {@code Item} to test.
      * @return      {@code true} if the Item belongs to an AI player, otherwise
      *              {@code false}.
      */
-    public static boolean isArtificial(Item item) {
-        if (item != null) {
-            Player player = UnitOperations.getPlayer(item);
+    public static boolean isArtificial(GameObject gameObject) {
+        if (gameObject != null) {
+            Player player = UnitOperations.getPlayer(gameObject);
             return player != null && player.isArtificial();
         }
         return false;
     }
 
     /**
-     * Determines if a given {@link Item} belongs to the user operating the
+     * Determines if a given {@link GameObject} belongs to the user operating the
      * current device.
      *
-     * @param item  an {@code Item} to test.
+     * @param gameObject  an {@code Item} to test.
      * @return      {@code true} if the Item belongs to the user, otherwise
      *              {@code false}.
      */
-    public static boolean isCorporeal(Item item) {
-        if (item != null) {
-            Player player = UnitOperations.getPlayer(item);
+    public static boolean isCorporeal(GameObject gameObject) {
+        if (gameObject != null) {
+            Player player = UnitOperations.getPlayer(gameObject);
             return player != null && player.isCorporeal();
         }
         return false;
     }
 
     /**
-     * Determines if a given {@link Item} belongs to the corporeal player, the
+     * Determines if a given {@link GameObject} belongs to the corporeal player, the
      * user, or to a {@link Player#isControllable() controllable player}.
      */
-    public static boolean isControllable(Item item) {
-        if (item != null) {
-            Player player = UnitOperations.getPlayer(item);
+    public static boolean isControllable(GameObject gameObject) {
+        if (gameObject != null) {
+            Player player = UnitOperations.getPlayer(gameObject);
             if (player != null) {
                 return player.isCorporeal() || player.isControllable();
             }
@@ -331,185 +331,185 @@ public class UnitOperations
     }
 
     /**
-     * Determines if a given {@link Item} belongs to a
+     * Determines if a given {@link GameObject} belongs to a
      * {@link Player#isViewable() viewable player}.
      */
-    public static boolean isViewable(Item item) {
-        if (item != null) {
-            Player player = UnitOperations.getPlayer(item);
+    public static boolean isViewable(GameObject gameObject) {
+        if (gameObject != null) {
+            Player player = UnitOperations.getPlayer(gameObject);
             return player != null && player.isViewable();
         }
         return false;
     }
 
     /**
-     * Determines if a given {@link Item} belongs to the neutral player, a
+     * Determines if a given {@link GameObject} belongs to the neutral player, a
      * special AI player that owns resources and critters.
      *
-     * @param item  an {@code Item} to test.
+     * @param gameObject  an {@code Item} to test.
      * @return      {@code true} if the Item belongs to the neutral player,
      *              otherwise {@code false}.
      */
-    public static boolean isNeutral(Item item) {
-        if (item != null) {
-            Player player = UnitOperations.getPlayer(item);
+    public static boolean isNeutral(GameObject gameObject) {
+        if (gameObject != null) {
+            Player player = UnitOperations.getPlayer(gameObject);
             return player != null && player.isNeutral();
         }
         return false;
     }
 
     /**
-     * Determines if the given {@link Item} is a building.
+     * Determines if the given {@link GameObject} is a building.
      *
-     * @param item  an {@code Item} to test.
+     * @param gameObject  an {@code Item} to test.
      * @return      {@code true} if the Item is a building, otherwise
      *              {@code false}.
      */
-    public static boolean isBuilding(Item item) {
-        return item instanceof Building;
+    public static boolean isBuilding(GameObject gameObject) {
+        return gameObject instanceof Building;
     }
 
-    public static boolean isSelector(Item item) {
-        return item instanceof BuildingSelector || item instanceof TargetSelector;
+    public static boolean isSelector(GameObject gameObject) {
+        return gameObject instanceof BuildingSelector || gameObject instanceof TargetSelector;
     }
 
-    public static boolean isSelectorClear(Item item) {
-        if (item instanceof BuildingSelector) {
-            BuildingSelector selector = (BuildingSelector)item;
+    public static boolean isSelectorClear(GameObject gameObject) {
+        if (gameObject instanceof BuildingSelector) {
+            BuildingSelector selector = (BuildingSelector) gameObject;
             return selector.isClear();
         }
         return false;
     }
 
-    public static boolean isConstructing(Item item) {
-        if (item instanceof Building) {
-            Building building = (Building) item;
+    public static boolean isConstructing(GameObject gameObject) {
+        if (gameObject instanceof Building) {
+            Building building = (Building) gameObject;
             return building.isConstructing();
         }
         return false;
     }
 
     /**
-     * Determines if the given {@link Item} is a combatant.
+     * Determines if the given {@link GameObject} is a combatant.
      *
-     * @param item  an {@code Item} to test.
+     * @param gameObject  an {@code Item} to test.
      * @return      {@code true} if the Item is a combatant, otherwise
      *              {@code false}.
      */
-    public static boolean isCombatant(Item item) {
-        return item instanceof Combatant;
+    public static boolean isCombatant(GameObject gameObject) {
+        return gameObject instanceof Combatant;
     }
 
     /**
-     * Determines if the given {@link Item} can do damage to other Items.
+     * Determines if the given {@link GameObject} can do damage to other Items.
      *
-     * @param item  an {@code Item} to test.
+     * @param gameObject  an {@code Item} to test.
      * @return      {@code true} if the Item can do damage to others, otherwise
      *              {@code false}.
      */
-    public static boolean isAttacker(Item item) {
-        if (item instanceof OffensiveObject) {
-            OffensiveObject combatant = (OffensiveObject)item;
+    public static boolean isAttacker(GameObject gameObject) {
+        if (gameObject instanceof OffensiveObject) {
+            OffensiveObject combatant = (OffensiveObject) gameObject;
             return combatant.getAttackSpeed() > 0;
         }
         return false;
     }
 
     /**
-     * Determines if the given {@link Item} is a critter.
+     * Determines if the given {@link GameObject} is a critter.
      *
-     * @param item  an {@code Item} to test.
+     * @param gameObject  an {@code Item} to test.
      * @return      {@code true} if the Item is a critter, otherwise
      *              {@code false}.
      */
-    public static boolean isCritter(Item item) {
-        return item instanceof Critter;
+    public static boolean isCritter(GameObject gameObject) {
+        return gameObject instanceof Critter;
     }
 
     /**
-     * Determines if the given {@link Item} produces food.
+     * Determines if the given {@link GameObject} produces food.
      *
-     * @param item  an {@code Item} to test.
+     * @param gameObject  an {@code Item} to test.
      * @return      {@code true} if the Item produces food, otherwise
      *              {@code false}.
      */
-    public static boolean isFoodProducer(Item item) {
-        if (item instanceof Unit) {
-            Unit unit = (Unit)item;
+    public static boolean isFoodProducer(GameObject gameObject) {
+        if (gameObject instanceof Unit) {
+            Unit unit = (Unit) gameObject;
             UnitType type = (UnitType)unit.getType();
             return type.isFoodProducer();
         }
         return false;
     }
 
-    public static boolean isTransport(Item item) {
-        if (item instanceof Unit) {
-            Unit unit = (Unit)item;
+    public static boolean isTransport(GameObject gameObject) {
+        if (gameObject instanceof Unit) {
+            Unit unit = (Unit) gameObject;
             UnitType type = (UnitType)unit.getType();
             return type.isTransport();
         }
         return false;
     }
 
-    public static boolean isPlayer(Item item) {
-        return item instanceof Player;
+    public static boolean isPlayer(GameObject gameObject) {
+        return gameObject instanceof Player;
     }
 
-    public static boolean isHighlighted(Item item) {
-        if (item instanceof Unit) {
-            Unit unit = (Unit)item;
+    public static boolean isHighlighted(GameObject gameObject) {
+        if (gameObject instanceof Unit) {
+            Unit unit = (Unit) gameObject;
             return unit.getHighlighted();
         }
         return false;
     }
 
-    public static boolean isCastingSpell(Item item, Spell spell) {
-        if (item instanceof SpellCaster) {
-            SpellCaster spellCaster = (SpellCaster)item;
+    public static boolean isCastingSpell(GameObject gameObject, Spell spell) {
+        if (gameObject instanceof SpellCaster) {
+            SpellCaster spellCaster = (SpellCaster) gameObject;
             return spellCaster.getCastingSpell() == spell;
         }
         return false;
     }
 
-    public static boolean inSight(OffensiveObject combatant, Item target) {
+    public static boolean inSight(OffensiveObject combatant, GameObject target) {
         return isNear(combatant, combatant.getSight(), target);
     }
 
-    public static boolean inRange(OffensiveObject combatant, Item target) {
+    public static boolean inRange(OffensiveObject combatant, GameObject target) {
         return isNear(combatant, combatant.getAttackRange(), target);
     }
 
-    public static boolean isRanged(Item item) {
-        return item instanceof RangedCombatant;
+    public static boolean isRanged(GameObject gameObject) {
+        return gameObject instanceof RangedCombatant;
     }
 
-    public static boolean isResource(Item item) {
-        return item instanceof Resource;
+    public static boolean isResource(GameObject gameObject) {
+        return gameObject instanceof Resource;
     }
 
-    public static boolean isShip(Item item) {
-        if (item instanceof Unit) {
-            Unit unit = (Unit)item;
+    public static boolean isShip(GameObject gameObject) {
+        if (gameObject instanceof Unit) {
+            Unit unit = (Unit) gameObject;
             UnitType type = (UnitType)unit.getType();
             return type.isNavalUnit();
         }
         return false;
     }
 
-    public static boolean isSubmarine(Item item) {
-        return item instanceof Submarine;
+    public static boolean isSubmarine(GameObject gameObject) {
+        return gameObject instanceof Submarine;
     }
 
-    public static boolean isFlying(Item item) {
-        if (item instanceof Unit) {
-            Unit unit = (Unit)item;
+    public static boolean isFlying(GameObject gameObject) {
+        if (gameObject instanceof Unit) {
+            Unit unit = (Unit) gameObject;
             UnitType type = (UnitType)unit.getType();
             return type.isFlying();
         }
         return false;
     }
 
-    public static void reorient(MovableObject subject, Item target, boolean perpendicular) {
+    public static void reorient(MovableObject subject, GameObject target, boolean perpendicular) {
         Vector2 itemPosition = subject.getPosition();
         Vector2 targetPosition = target.getPosition();
         Vector2 direction = targetPosition.sub(itemPosition);
@@ -518,19 +518,19 @@ public class UnitOperations
         subject.setDirection(newDirection);
     }
 
-    public static void moveAdjacent(MovableObject subject, Item target) {
-        ItemRoot root = target.getRoot();
-        ItemGraph graph = root.getSpatialGraph();
+    public static void moveAdjacent(MovableObject subject, GameObject target) {
+        GameObjectContainer root = target.getRoot();
+        GameObjectGraph graph = root.getSpatialGraph();
 
         ItemPathFilter capability = new ItemPathFilter();
         capability.addTraversableCapability(subject.getMovementCapability());
 
-        Collection<ItemNode> adjacent = graph.getAdjacentNodes(target.getPosition(), target.getSize());
-        Optional<ItemNode> unoccupied = adjacent.stream().filter(capability).findFirst();
+        Collection<GameObjectNode> adjacent = graph.getAdjacentNodes(target.getPosition(), target.getSize());
+        Optional<GameObjectNode> unoccupied = adjacent.stream().filter(capability).findFirst();
 
         if (unoccupied.isPresent()) {
             graph.removeOccupants(subject);
-            ItemNode destination = unoccupied.get();
+            GameObjectNode destination = unoccupied.get();
             subject.setPosition(destination.getWorldReference());
             graph.addOccupants(subject);
         }

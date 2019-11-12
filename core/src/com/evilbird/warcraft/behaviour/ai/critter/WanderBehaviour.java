@@ -12,11 +12,11 @@ package com.evilbird.warcraft.behaviour.ai.critter;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.ItemGraph;
-import com.evilbird.engine.item.spatial.ItemNode;
-import com.evilbird.engine.item.utility.ItemOperations;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
+import com.evilbird.engine.object.spatial.GameObjectNode;
+import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.action.move.MoveToVectorAction;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourElement;
@@ -47,7 +47,7 @@ public class WanderBehaviour implements AiBehaviourElement
     private Events events;
     private Random random;
     private StopWatch timer;
-    private List<Item> critters;
+    private List<GameObject> critters;
     private int distance;
 
     @Inject
@@ -58,12 +58,12 @@ public class WanderBehaviour implements AiBehaviourElement
     }
 
     @Override
-    public void applyBehaviour(ItemRoot state) {
+    public void applyBehaviour(GameObjectContainer state) {
         initialize(state);
         update(state);
     }
 
-    private void initialize(ItemRoot state) {
+    private void initialize(GameObjectContainer state) {
         if (critters == null) {
             timer.start();
             critters = new ArrayList<>(state.findAll(UnitOperations::isCritter));
@@ -71,7 +71,7 @@ public class WanderBehaviour implements AiBehaviourElement
         }
     }
 
-    private void update(ItemRoot state) {
+    private void update(GameObjectContainer state) {
         if (! critters.isEmpty() && timer.getTime(SECONDS) >= MOVE_PERIOD) {
             timer.reset();
             move(state);
@@ -79,25 +79,25 @@ public class WanderBehaviour implements AiBehaviourElement
         }
     }
 
-    private void move(ItemRoot state) {
-        ItemGraph graph = state.getSpatialGraph();
+    private void move(GameObjectContainer state) {
+        GameObjectGraph graph = state.getSpatialGraph();
         for (int i = 0; i < MOVE_MIN + random.nextInt(MOVE_MAX); i++) {
-            Item critter = critters.get(random.nextInt(critters.size()));
-            if (ItemOperations.isIdle(critter)) {
+            GameObject critter = critters.get(random.nextInt(critters.size()));
+            if (GameObjectOperations.isIdle(critter)) {
                 move((Critter)critter, graph);
             }
         }
     }
 
-    private void move(Critter critter, ItemGraph graph) {
+    private void move(Critter critter, GameObjectGraph graph) {
         ItemPathFilter capability = new ItemPathFilter();
         capability.addTraversableCapability(critter.getMovementCapability());
 
-        Collection<ItemNode> adjacent = graph.getAdjacentNodes(critter, distance);
-        List<ItemNode> destinations = CollectionUtils.filter(adjacent, capability);
+        Collection<GameObjectNode> adjacent = graph.getAdjacentNodes(critter, distance);
+        List<GameObjectNode> destinations = CollectionUtils.filter(adjacent, capability);
 
         if (! destinations.isEmpty()) {
-            ItemNode destination = destinations.get(random.nextInt(destinations.size()));
+            GameObjectNode destination = destinations.get(random.nextInt(destinations.size()));
             move(critter, destination.getWorldReference());
         }
     }

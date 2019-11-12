@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.common.spell;
 
-import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
+import static com.evilbird.warcraft.item.common.query.GameObjectUtils.tiles;
 
 /**
  * Defines spells available to spell casting game objects.

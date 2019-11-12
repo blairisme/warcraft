@@ -12,8 +12,8 @@ package com.evilbird.engine.common.audio.sound;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 
 import java.util.Objects;
 
@@ -27,13 +27,13 @@ import java.util.Objects;
 public class LocalizedSound implements Sound
 {
     private Sound sound;
-    private Item owner;
+    private GameObject owner;
     private Camera camera;
     private float volume;
 
     /**
      * Constructs a new instance of this class given the {@link Sound} that
-     * will be played when the {@link Item} that owns it is displayed on
+     * will be played when the {@link GameObject} that owns it is displayed on
      * screen.
      *
      * @param sound     a {@code Sound}.
@@ -42,7 +42,7 @@ public class LocalizedSound implements Sound
      * @throws NullPointerException if the given sound or owner are
      *                              {@code null}.
      */
-    public LocalizedSound(Sound sound, Item owner) {
+    public LocalizedSound(Sound sound, GameObject owner) {
         Objects.requireNonNull(sound);
         Objects.requireNonNull(owner);
 
@@ -105,8 +105,8 @@ public class LocalizedSound implements Sound
         return true;
     }
 
-    protected Camera getCamera(Item item) {
-        ItemRoot root = item.getRoot();
+    protected Camera getCamera(GameObject gameObject) {
+        GameObjectContainer root = gameObject.getRoot();
         if (root != null) {
             Viewport viewport = root.getViewport();
             return viewport.getCamera();

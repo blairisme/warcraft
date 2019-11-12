@@ -12,8 +12,8 @@ package com.evilbird.warcraft.behaviour.ai.attack;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.attack.AttackEvent;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
@@ -25,8 +25,8 @@ import com.evilbird.warcraft.item.common.capability.PerishableObject;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.item.utility.ItemOperations.hasAction;
-import static com.evilbird.engine.item.utility.ItemOperations.isIdle;
+import static com.evilbird.engine.object.utility.GameObjectOperations.hasAction;
+import static com.evilbird.engine.object.utility.GameObjectOperations.isIdle;
 
 /**
  * Instances of this {@link AiBehaviourElement} instruct combatants to attack an
@@ -48,14 +48,14 @@ public class AttackBehaviour implements AiBehaviourElement
     }
 
     @Override
-    public void applyBehaviour(ItemRoot state) {
+    public void applyBehaviour(GameObjectContainer state) {
         initialize(state);
         update();
         assignTargets();
         assignAttackers();
     }
 
-    private void initialize(ItemRoot state) {
+    private void initialize(GameObjectContainer state) {
         if (graph == null) {
             graph = new AttackGraph(state.getSpatialGraph(), events);
             graph.initialize(state);
@@ -64,7 +64,7 @@ public class AttackBehaviour implements AiBehaviourElement
             controller = new AttackController(events, graph);
             controller.initialize(state);
         }
-        for (Item attacker: state.findAll(OffensiveObject.class::isInstance)) {
+        for (GameObject attacker: state.findAll(OffensiveObject.class::isInstance)) {
             assignTarget((OffensiveObject)attacker);
         }
     }
@@ -76,13 +76,13 @@ public class AttackBehaviour implements AiBehaviourElement
 
     private void assignTargets() {
         for (AttackEvent event: events.getEvents(AttackEvent.class)) {
-            Item attacker = event.getSubject();
+            GameObject attacker = event.getSubject();
             if (event.isFinished() && isIdle(attacker, AttackActions.class)) {
                 assignTarget(attacker);
             }
         }
         for (MoveEvent event: events.getEvents(MoveEvent.class)) {
-            Item attacker = event.getSubject();
+            GameObject attacker = event.getSubject();
             if (event.isFinished() && isIdle(attacker, MoveActions.class)) {
                 assignTarget(attacker);
             }
@@ -92,9 +92,9 @@ public class AttackBehaviour implements AiBehaviourElement
         }
     }
 
-    private void assignTarget(Item item) {
-        if (item instanceof OffensiveObject) {
-            assignTarget((OffensiveObject)item);
+    private void assignTarget(GameObject gameObject) {
+        if (gameObject instanceof OffensiveObject) {
+            assignTarget((OffensiveObject) gameObject);
         }
     }
 
@@ -110,7 +110,7 @@ public class AttackBehaviour implements AiBehaviourElement
         }
     }
 
-    private void assignAttacker(Item target) {
+    private void assignAttacker(GameObject target) {
         if (target instanceof PerishableObject) {
             assignAttacker((PerishableObject)target);
         }

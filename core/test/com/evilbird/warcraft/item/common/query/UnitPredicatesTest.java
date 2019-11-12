@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.item.common.query;
 
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -34,7 +34,7 @@ public class UnitPredicatesTest
 {
     @Test
     public void isAlive() {
-        Predicate<Item> predicate = UnitPredicates.isAlive();
+        Predicate<GameObject> predicate = UnitPredicates.isAlive();
         PerishableObject item = mock(PerishableObject.class);
 
         when(item.getHealth()).thenReturn(40f);
@@ -46,14 +46,14 @@ public class UnitPredicatesTest
 
     @Test
     public void isAliveNonUnit() {
-        Predicate<Item> predicate = UnitPredicates.isAlive();
-        Item item = mock(Item.class);
-        assertFalse(predicate.test(item));
+        Predicate<GameObject> predicate = UnitPredicates.isAlive();
+        GameObject gameObject = mock(GameObject.class);
+        assertFalse(predicate.test(gameObject));
     }
 
     @Test
     public void isAliveNull() {
-        Predicate<Item> predicate = UnitPredicates.isAlive();
+        Predicate<GameObject> predicate = UnitPredicates.isAlive();
         assertFalse(predicate.test(null));
     }
 
@@ -62,13 +62,13 @@ public class UnitPredicatesTest
         Player player = mock(Player.class);
         when(player.isCorporeal()).thenReturn(true);
 
-        Predicate<Item> predicate = UnitPredicates.isCorporeal();
+        Predicate<GameObject> predicate = UnitPredicates.isCorporeal();
         assertTrue(predicate.test(player));
     }
 
     @Test
     public void isCorporealNullTest() {
-        Predicate<Item> predicate = UnitPredicates.isCorporeal();
+        Predicate<GameObject> predicate = UnitPredicates.isCorporeal();
         assertFalse(predicate.test(null));
     }
 
@@ -77,19 +77,19 @@ public class UnitPredicatesTest
         Player player = mock(Player.class);
         when(player.isCorporeal()).thenReturn(true);
 
-        Item child = mock(Item.class);
+        GameObject child = mock(GameObject.class);
         when(child.getParent()).thenReturn(player);
 
-        Predicate<Item> predicate = UnitPredicates.isCorporeal();
+        Predicate<GameObject> predicate = UnitPredicates.isCorporeal();
         assertTrue(predicate.test(child));
     }
 
     @Test
     public void isCorporealNoParentTest() {
-        Item child = mock(Item.class);
+        GameObject child = mock(GameObject.class);
         when(child.getParent()).thenReturn(null);
 
-        Predicate<Item> predicate = UnitPredicates.isCorporeal();
+        Predicate<GameObject> predicate = UnitPredicates.isCorporeal();
         assertFalse(predicate.test(child));
     }
 
@@ -98,13 +98,13 @@ public class UnitPredicatesTest
         Player player = mock(Player.class);
         when(player.isCorporeal()).thenReturn(true);
 
-        ItemGroup child = mock(ItemGroup.class);
+        GameObjectGroup child = mock(GameObjectGroup.class);
         when(child.getParent()).thenReturn(player);
 
-        Item grandChild = mock(Item.class);
+        GameObject grandChild = mock(GameObject.class);
         when(grandChild.getParent()).thenReturn(child);
 
-        Predicate<Item> predicate = UnitPredicates.isCorporeal();
+        Predicate<GameObject> predicate = UnitPredicates.isCorporeal();
         assertTrue(predicate.test(grandChild));
     }
 
@@ -113,13 +113,13 @@ public class UnitPredicatesTest
         Player player = mock(Player.class);
         when(player.isCorporeal()).thenReturn(false);
 
-        Predicate<Item> predicate = UnitPredicates.isAi();
+        Predicate<GameObject> predicate = UnitPredicates.isAi();
         assertTrue(predicate.test(player));
     }
 
     @Test
     public void isAiNullTest() {
-        Predicate<Item> predicate = UnitPredicates.isAi();
+        Predicate<GameObject> predicate = UnitPredicates.isAi();
         assertFalse(predicate.test(null));
     }
 
@@ -128,19 +128,19 @@ public class UnitPredicatesTest
         Player player = mock(Player.class);
         when(player.isCorporeal()).thenReturn(false);
 
-        Item child = mock(Item.class);
+        GameObject child = mock(GameObject.class);
         when(child.getParent()).thenReturn(player);
 
-        Predicate<Item> predicate = UnitPredicates.isAi();
+        Predicate<GameObject> predicate = UnitPredicates.isAi();
         assertTrue(predicate.test(child));
     }
 
     @Test
     public void isAiNoParentTest() {
-        Item child = mock(Item.class);
+        GameObject child = mock(GameObject.class);
         when(child.getParent()).thenReturn(null);
 
-        Predicate<Item> predicate = UnitPredicates.isAi();
+        Predicate<GameObject> predicate = UnitPredicates.isAi();
         assertFalse(predicate.test(child));
     }
 
@@ -149,13 +149,13 @@ public class UnitPredicatesTest
         Player player = mock(Player.class);
         when(player.isCorporeal()).thenReturn(false);
 
-        ItemGroup child = mock(ItemGroup.class);
+        GameObjectGroup child = mock(GameObjectGroup.class);
         when(child.getParent()).thenReturn(player);
 
-        Item grandChild = mock(Item.class);
+        GameObject grandChild = mock(GameObject.class);
         when(grandChild.getParent()).thenReturn(child);
 
-        Predicate<Item> predicate = UnitPredicates.isAi();
+        Predicate<GameObject> predicate = UnitPredicates.isAi();
         assertTrue(predicate.test(grandChild));
     }
 
@@ -164,13 +164,13 @@ public class UnitPredicatesTest
         Player player = mock(Player.class);
         when(player.isNeutral()).thenReturn(true);
 
-        Predicate<Item> predicate = UnitPredicates.isNeutral();
+        Predicate<GameObject> predicate = UnitPredicates.isNeutral();
         assertTrue(predicate.test(player));
     }
 
     @Test
     public void isNeutralNullTest() {
-        Predicate<Item> predicate = UnitPredicates.isNeutral();
+        Predicate<GameObject> predicate = UnitPredicates.isNeutral();
         assertFalse(predicate.test(null));
     }
 
@@ -179,19 +179,19 @@ public class UnitPredicatesTest
         Player player = mock(Player.class);
         when(player.isNeutral()).thenReturn(true);
 
-        Item child = mock(Item.class);
+        GameObject child = mock(GameObject.class);
         when(child.getParent()).thenReturn(player);
 
-        Predicate<Item> predicate = UnitPredicates.isNeutral();
+        Predicate<GameObject> predicate = UnitPredicates.isNeutral();
         assertTrue(predicate.test(child));
     }
 
     @Test
     public void isNeutralNoParentTest() {
-        Item child = mock(Item.class);
+        GameObject child = mock(GameObject.class);
         when(child.getParent()).thenReturn(null);
 
-        Predicate<Item> predicate = UnitPredicates.isNeutral();
+        Predicate<GameObject> predicate = UnitPredicates.isNeutral();
         assertFalse(predicate.test(child));
     }
 
@@ -200,22 +200,22 @@ public class UnitPredicatesTest
         Player player = mock(Player.class);
         when(player.isNeutral()).thenReturn(true);
 
-        ItemGroup child = mock(ItemGroup.class);
+        GameObjectGroup child = mock(GameObjectGroup.class);
         when(child.getParent()).thenReturn(player);
 
-        Item grandChild = mock(Item.class);
+        GameObject grandChild = mock(GameObject.class);
         when(grandChild.getParent()).thenReturn(child);
 
-        Predicate<Item> predicate = UnitPredicates.isNeutral();
+        Predicate<GameObject> predicate = UnitPredicates.isNeutral();
         assertTrue(predicate.test(grandChild));
     }
 
     @Test
     public void isBuildingTest() {
-        Item building = mock(Building.class);
-        Item notBuilding = mock(Combatant.class);
+        GameObject building = mock(Building.class);
+        GameObject notBuilding = mock(Combatant.class);
 
-        Predicate<Item> predicate = UnitPredicates.isBuilding();
+        Predicate<GameObject> predicate = UnitPredicates.isBuilding();
         assertTrue(predicate.test(building));
         assertFalse(predicate.test(notBuilding));
         assertFalse(predicate.test(null));
@@ -223,10 +223,10 @@ public class UnitPredicatesTest
 
     @Test
     public void isCombatantTest() {
-        Item combatant = mock(Combatant.class);
-        Item notCombatant = mock(Building.class);
+        GameObject combatant = mock(Combatant.class);
+        GameObject notCombatant = mock(Building.class);
 
-        Predicate<Item> predicate = UnitPredicates.isCombatant();
+        Predicate<GameObject> predicate = UnitPredicates.isCombatant();
         assertTrue(predicate.test(combatant));
         assertFalse(predicate.test(notCombatant));
         assertFalse(predicate.test(null));
@@ -234,10 +234,10 @@ public class UnitPredicatesTest
 
     @Test
     public void isCritterTest() {
-        Item critter = mock(Critter.class);
-        Item notCritter = mock(Building.class);
+        GameObject critter = mock(Critter.class);
+        GameObject notCritter = mock(Building.class);
 
-        Predicate<Item> predicate = UnitPredicates.isCritter();
+        Predicate<GameObject> predicate = UnitPredicates.isCritter();
         assertTrue(predicate.test(critter));
         assertFalse(predicate.test(notCritter));
         assertFalse(predicate.test(null));
@@ -248,7 +248,7 @@ public class UnitPredicatesTest
         Combatant combatant = mock(Combatant.class);
         when(combatant.getAttackSpeed()).thenReturn(10f);
 
-        Predicate<Item> predicate = UnitPredicates.isAttacker();
+        Predicate<GameObject> predicate = UnitPredicates.isAttacker();
         assertTrue(predicate.test(combatant));
     }
 
@@ -257,20 +257,20 @@ public class UnitPredicatesTest
         Combatant combatant = mock(Combatant.class);
         when(combatant.getAttackSpeed()).thenReturn(0f);
 
-        Predicate<Item> predicate = UnitPredicates.isAttacker();
+        Predicate<GameObject> predicate = UnitPredicates.isAttacker();
         assertFalse(predicate.test(combatant));
     }
 
     @Test
     public void isAttackerNonCombatantTest() {
         Building building = mock(Building.class);
-        Predicate<Item> predicate = UnitPredicates.isAttacker();
+        Predicate<GameObject> predicate = UnitPredicates.isAttacker();
         assertFalse(predicate.test(building));
     }
 
     @Test
     public void isAttackerNullTest() {
-        Predicate<Item> predicate = UnitPredicates.isAttacker();
+        Predicate<GameObject> predicate = UnitPredicates.isAttacker();
         assertFalse(predicate.test(null));
     }
 }

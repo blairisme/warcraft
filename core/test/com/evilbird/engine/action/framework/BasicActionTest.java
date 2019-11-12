@@ -10,7 +10,7 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.data.action.TestBasicActions;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -42,7 +42,7 @@ public class BasicActionTest
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(TestBasicAction.class)
-            .withMockedTransientFields(Item.class)
+            .withMockedTransientFields(GameObject.class)
             .excludeTransientFields()
             .verify();
     }

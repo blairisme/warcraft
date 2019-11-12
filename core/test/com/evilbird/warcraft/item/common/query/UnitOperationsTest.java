@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.item.common.query;
 
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -37,10 +37,10 @@ public class UnitOperationsTest
         Player player = mock(Player.class);
         when(player.isCorporeal()).thenReturn(true);
 
-        ItemGroup child = mock(ItemGroup.class);
+        GameObjectGroup child = mock(GameObjectGroup.class);
         when(child.getParent()).thenReturn(player);
 
-        Item grandChild = mock(Item.class);
+        GameObject grandChild = mock(GameObject.class);
         when(grandChild.getParent()).thenReturn(child);
 
         Player actual = UnitOperations.getPlayer(grandChild);
@@ -52,7 +52,7 @@ public class UnitOperationsTest
         Player player = mock(Player.class);
         when(player.isCorporeal()).thenReturn(true);
 
-        ItemGroup child = mock(ItemGroup.class);
+        GameObjectGroup child = mock(GameObjectGroup.class);
         when(child.getParent()).thenReturn(player);
 
         Player actual = UnitOperations.getPlayer(child);
@@ -70,7 +70,7 @@ public class UnitOperationsTest
 
     @Test
     public void getPlayerUnownedTest() {
-        ItemGroup child = mock(ItemGroup.class);
+        GameObjectGroup child = mock(GameObjectGroup.class);
         when(child.getParent()).thenReturn(null);
 
         Player player = UnitOperations.getPlayer(child);
@@ -95,8 +95,8 @@ public class UnitOperationsTest
 
     @Test
     public void isAliveNonUnit() {
-        Item item = mock(Item.class);
-        assertFalse(UnitOperations.isAlive(item));
+        GameObject gameObject = mock(GameObject.class);
+        assertFalse(UnitOperations.isAlive(gameObject));
     }
 
     @Test
@@ -123,7 +123,7 @@ public class UnitOperationsTest
         Player player = mock(Player.class);
         when(player.isCorporeal()).thenReturn(false);
 
-        Item child = mock(Item.class);
+        GameObject child = mock(GameObject.class);
         when(child.getParent()).thenReturn(player);
 
         boolean result = UnitOperations.isAi(child);
@@ -132,7 +132,7 @@ public class UnitOperationsTest
 
     @Test
     public void isAiNoParentTest() {
-        Item child = mock(Item.class);
+        GameObject child = mock(GameObject.class);
         when(child.getParent()).thenReturn(null);
 
         boolean result = UnitOperations.isAi(child);
@@ -144,10 +144,10 @@ public class UnitOperationsTest
         Player player = mock(Player.class);
         when(player.isCorporeal()).thenReturn(false);
 
-        ItemGroup child = mock(ItemGroup.class);
+        GameObjectGroup child = mock(GameObjectGroup.class);
         when(child.getParent()).thenReturn(player);
 
-        Item grandChild = mock(Item.class);
+        GameObject grandChild = mock(GameObject.class);
         when(grandChild.getParent()).thenReturn(child);
 
         assertTrue(UnitOperations.isAi(grandChild));
@@ -171,7 +171,7 @@ public class UnitOperationsTest
         Player player = mock(Player.class);
         when(player.isArtificial()).thenReturn(true);
 
-        Item child = mock(Item.class);
+        GameObject child = mock(GameObject.class);
         when(child.getParent()).thenReturn(player);
 
         assertTrue(UnitOperations.isArtificial(child));
@@ -179,7 +179,7 @@ public class UnitOperationsTest
 
     @Test
     public void isArtificialNoParentTest() {
-        Item child = mock(Item.class);
+        GameObject child = mock(GameObject.class);
         when(child.getParent()).thenReturn(null);
 
         assertFalse(UnitOperations.isArtificial(child));
@@ -190,10 +190,10 @@ public class UnitOperationsTest
         Player player = mock(Player.class);
         when(player.isArtificial()).thenReturn(true);
 
-        ItemGroup child = mock(ItemGroup.class);
+        GameObjectGroup child = mock(GameObjectGroup.class);
         when(child.getParent()).thenReturn(player);
 
-        Item grandChild = mock(Item.class);
+        GameObject grandChild = mock(GameObject.class);
         when(grandChild.getParent()).thenReturn(child);
 
         assertTrue(UnitOperations.isArtificial(grandChild));
@@ -218,7 +218,7 @@ public class UnitOperationsTest
         Player player = mock(Player.class);
         when(player.isCorporeal()).thenReturn(true);
 
-        Item child = mock(Item.class);
+        GameObject child = mock(GameObject.class);
         when(child.getParent()).thenReturn(player);
 
         boolean result = UnitOperations.isCorporeal(child);
@@ -227,7 +227,7 @@ public class UnitOperationsTest
 
     @Test
     public void isCorporealNoParentTest() {
-        Item child = mock(Item.class);
+        GameObject child = mock(GameObject.class);
         when(child.getParent()).thenReturn(null);
 
         boolean result = UnitOperations.isCorporeal(child);
@@ -239,10 +239,10 @@ public class UnitOperationsTest
         Player player = mock(Player.class);
         when(player.isCorporeal()).thenReturn(true);
 
-        ItemGroup child = mock(ItemGroup.class);
+        GameObjectGroup child = mock(GameObjectGroup.class);
         when(child.getParent()).thenReturn(player);
 
-        Item grandChild = mock(Item.class);
+        GameObject grandChild = mock(GameObject.class);
         when(grandChild.getParent()).thenReturn(child);
 
         boolean result = UnitOperations.isCorporeal(grandChild);
@@ -269,7 +269,7 @@ public class UnitOperationsTest
         Player player = mock(Player.class);
         when(player.isNeutral()).thenReturn(true);
 
-        Item child = mock(Item.class);
+        GameObject child = mock(GameObject.class);
         when(child.getParent()).thenReturn(player);
 
         boolean result = UnitOperations.isNeutral(child);
@@ -278,7 +278,7 @@ public class UnitOperationsTest
 
     @Test
     public void isNeutralNoParentTest() {
-        Item child = mock(Item.class);
+        GameObject child = mock(GameObject.class);
         when(child.getParent()).thenReturn(null);
 
         boolean result = UnitOperations.isNeutral(child);
@@ -290,10 +290,10 @@ public class UnitOperationsTest
         Player player = mock(Player.class);
         when(player.isNeutral()).thenReturn(true);
 
-        ItemGroup child = mock(ItemGroup.class);
+        GameObjectGroup child = mock(GameObjectGroup.class);
         when(child.getParent()).thenReturn(player);
 
-        Item grandChild = mock(Item.class);
+        GameObject grandChild = mock(GameObject.class);
         when(grandChild.getParent()).thenReturn(child);
 
         boolean result = UnitOperations.isNeutral(grandChild);
@@ -302,8 +302,8 @@ public class UnitOperationsTest
     
     @Test
     public void isBuildingTest() {
-        Item building = mock(Building.class);
-        Item notBuilding = mock(Combatant.class);
+        GameObject building = mock(Building.class);
+        GameObject notBuilding = mock(Combatant.class);
 
         assertTrue(UnitOperations.isBuilding(building));
         assertFalse(UnitOperations.isBuilding(notBuilding));
@@ -312,8 +312,8 @@ public class UnitOperationsTest
 
     @Test
     public void isCombatantTest() {
-        Item combatant = mock(Combatant.class);
-        Item notCombatant = mock(Building.class);
+        GameObject combatant = mock(Combatant.class);
+        GameObject notCombatant = mock(Building.class);
 
         assertTrue(UnitOperations.isCombatant(combatant));
         assertFalse(UnitOperations.isCombatant(notCombatant));
@@ -322,8 +322,8 @@ public class UnitOperationsTest
 
     @Test
     public void isCritterTest() {
-        Item critter = mock(Critter.class);
-        Item notCritter = mock(Building.class);
+        GameObject critter = mock(Critter.class);
+        GameObject notCritter = mock(Building.class);
 
         assertTrue(UnitOperations.isCritter(critter));
         assertFalse(UnitOperations.isCritter(notCritter));

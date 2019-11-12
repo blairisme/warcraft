@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.state;
 
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,9 +23,9 @@ public class LevelLoaderTest extends StateTestCase
     @Test
     public void loadTest() {
         loadAssets();
-        ItemRoot result = levelLoader.load("/warcraft/state/level.tmx");
+        GameObjectContainer result = levelLoader.load("/warcraft/state/level.tmx");
 
         Assert.assertNotNull(result);
-        Assert.assertEquals(6, result.getItems().size());
+        Assert.assertEquals(6, result.getObjects().size());
     }
 }

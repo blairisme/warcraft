@@ -11,7 +11,7 @@ package com.evilbird.test.data.item;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.data.player.PlayerStatistic;
@@ -35,11 +35,11 @@ public class TestPlayers
         return newTestPlayer(identifier, newTestRoot("root"));
     }
 
-    public static Player newTestPlayer(String id, ItemRoot root) {
+    public static Player newTestPlayer(String id, GameObjectContainer root) {
         return newTestPlayer(new TextIdentifier(id), root);
     }
 
-    public static Player newTestPlayer(Identifier identifier, ItemRoot root) {
+    public static Player newTestPlayer(Identifier identifier, GameObjectContainer root) {
         Player player = new Player();
         player.setIdentifier(identifier);
         player.setType(PlayerType.Corporeal);
@@ -47,8 +47,8 @@ public class TestPlayers
         player.setResource(ResourceType.Wood, 456);
         player.setStatistic(PlayerStatistic.Kills, 4);
         player.setStatistic(PlayerStatistic.Buildings, 10);
-        player.addItem(newTestCombatant(new TextIdentifier("footman"), UnitType.Footman, root, player));
-        player.addItem(newTestBuilding(new TextIdentifier("barracks"), UnitType.Barracks, root, player));
+        player.addObject(newTestCombatant(new TextIdentifier("footman"), UnitType.Footman, root, player));
+        player.addObject(newTestBuilding(new TextIdentifier("barracks"), UnitType.Barracks, root, player));
         player.setRoot(root);
         player.setParent(root.getBaseGroup());
         return player;

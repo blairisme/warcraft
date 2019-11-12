@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.common.capability;
 import com.evilbird.engine.common.lang.Animated;
 import com.evilbird.engine.common.lang.Audible;
 import com.evilbird.engine.common.lang.Directionable;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 /**
  * Implementors of this interface provide methods that define a movable object,
@@ -20,7 +20,7 @@ import com.evilbird.engine.item.Item;
  *
  * @author Blair Butterworth
  */
-public interface MovableObject extends Item, Animated, Audible, Directionable
+public interface MovableObject extends GameObject, Animated, Audible, Directionable
 {
     /**
      * Return the speed of the movable.

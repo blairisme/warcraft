@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.display.control.status.details.building;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
-import com.evilbird.engine.item.specialized.Grid;
+import com.evilbird.engine.object.specialized.Grid;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.display.control.status.details.DetailsPaneStyle;
@@ -68,7 +68,7 @@ public class CommandCentreDetailsPane extends Grid
     }
 
     private void createView(Player player) {
-        clearItems();
+        clearObjects();
         title = addLabel(getProduction(), skin);
         gold = addLabel(getGold(), skin);
         lumber = addLabel(getLumber(), skin);

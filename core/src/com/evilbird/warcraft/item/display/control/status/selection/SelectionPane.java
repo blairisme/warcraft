@@ -11,8 +11,8 @@ package com.evilbird.warcraft.item.display.control.status.selection;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.Grid;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.specialized.Grid;
 import com.evilbird.warcraft.item.display.HudControl;
 import com.evilbird.warcraft.item.unit.Unit;
 
@@ -41,16 +41,16 @@ public class SelectionPane extends Grid
         setTouchable(Touchable.childrenOnly);
     }
 
-    public void setItems(Collection<Item> selection) {
-        clearItems();
-        addItems(getUnitPanes(selection));
+    public void setItems(Collection<GameObject> selection) {
+        clearObjects();
+        addObjects(getUnitPanes(selection));
     }
 
-    private Collection<Item> getUnitPanes(Collection<Item> items) {
-        Collection<Item> result = new ArrayList<>(items.size());
-        for (Item item : items) {
-            if (item instanceof Unit) {
-                result.add(getSelectionButton(item));
+    private Collection<GameObject> getUnitPanes(Collection<GameObject> gameObjects) {
+        Collection<GameObject> result = new ArrayList<>(gameObjects.size());
+        for (GameObject gameObject : gameObjects) {
+            if (gameObject instanceof Unit) {
+                result.add(getSelectionButton(gameObject));
             }
             if (result.size() == SELECTION_MAX) {
                 break;
@@ -59,9 +59,9 @@ public class SelectionPane extends Grid
         return result;
     }
 
-    private SelectionButton getSelectionButton(Item item) {
+    private SelectionButton getSelectionButton(GameObject gameObject) {
         SelectionButton result = new SelectionButton(getSkin());
-        result.set(item);
+        result.set(gameObject);
         return result;
     }
 }

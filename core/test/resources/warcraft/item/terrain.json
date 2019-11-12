@@ -5,7 +5,7 @@
     "enum": "Map"
   },
   "fill": false,
-  "items": [],
+  "objects": [],
   "id": {
     "class": "LayerId",
     "file": "data/levels/human/level1.tmx",

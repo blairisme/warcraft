@@ -10,7 +10,7 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 import java.util.Objects;
 import java.util.function.BiConsumer;
@@ -23,7 +23,7 @@ import java.util.function.BiConsumer;
  */
 public class LambdaAction extends BasicAction
 {
-    private BiConsumer<Item, Item> lambda;
+    private BiConsumer<GameObject, GameObject> lambda;
 
     /**
      * Constructs a new instance of this class given the lambda that will be
@@ -33,14 +33,14 @@ public class LambdaAction extends BasicAction
      *                  current item and target when invoked. This parameter
      *                  cannot be {@code null}.
      */
-    public LambdaAction(BiConsumer<Item, Item> lambda) {
+    public LambdaAction(BiConsumer<GameObject, GameObject> lambda) {
         Objects.requireNonNull(lambda);
         this.lambda = lambda;
     }
 
     @Override
     public boolean act(float delta) {
-        lambda.accept(getItem(), getTarget());
+        lambda.accept(getSubject(), getTarget());
         return true;
     }
 }

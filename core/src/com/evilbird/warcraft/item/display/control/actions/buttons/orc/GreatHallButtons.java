@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.display.control.actions.buttons.orc;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.display.control.actions.ActionButtonType;
@@ -29,13 +29,13 @@ import static java.util.Collections.singletonList;
 public class GreatHallButtons extends BasicButtonController
 {
     @Override
-    public List<ActionButtonType> getButtons(Item item) {
+    public List<ActionButtonType> getButtons(GameObject gameObject) {
         return singletonList(PeonButton);
     }
 
     @Override
-    public boolean getEnabled(ActionButtonType button, Item item) {
-        Player player = UnitOperations.getPlayer(item);
+    public boolean getEnabled(ActionButtonType button, GameObject gameObject) {
+        Player player = UnitOperations.getPlayer(gameObject);
         switch (button) {
             case PeonButton: return hasResources(player, Peon);
             default: return false;

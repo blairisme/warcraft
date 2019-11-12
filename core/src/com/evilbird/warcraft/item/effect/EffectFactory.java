@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.effect;
 
 import com.evilbird.engine.game.GameFactorySet;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.effect.confirmation.ConfirmationEffects;
 import com.evilbird.warcraft.item.effect.environmental.EnvironmentalEffects;
 import com.evilbird.warcraft.item.effect.explosion.ExplosionEffects;
@@ -25,7 +25,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class EffectFactory extends GameFactorySet<Item>
+public class EffectFactory extends GameFactorySet<GameObject>
 {
     @Inject
     public EffectFactory(

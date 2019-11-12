@@ -16,12 +16,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemBasic;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.ItemGraph;
-import com.evilbird.engine.item.spatial.ItemNode;
-import com.evilbird.engine.item.utility.ItemOperations;
+import com.evilbird.engine.object.BasicGameObject;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
+import com.evilbird.engine.object.spatial.GameObjectNode;
+import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
@@ -33,7 +33,7 @@ import static com.evilbird.engine.common.collection.CollectionUtils.containsAll;
 import static com.evilbird.engine.common.collection.CollectionUtils.containsAny;
 import static com.evilbird.engine.common.collection.CollectionUtils.containsEqual;
 import static com.evilbird.engine.common.collection.CollectionUtils.flatten;
-import static com.evilbird.engine.item.utility.ItemPredicates.hasType;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.hasType;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
 import static com.evilbird.warcraft.item.layer.LayerType.Map;
 import static com.evilbird.warcraft.item.layer.LayerType.Sea;
@@ -55,7 +55,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.OilPatch;
  *
  * @author Blair Butterworth
  */
-public class BuildingSelector extends ItemBasic
+public class BuildingSelector extends BasicGameObject
 {
     private transient Skin skin;
     private transient Drawable building;
@@ -88,7 +88,7 @@ public class BuildingSelector extends ItemBasic
     }
 
     @Override
-    public void setRoot(ItemRoot root) {
+    public void setRoot(GameObjectContainer root) {
         super.setRoot(root);
         evaluateOccupation(root);
     }
@@ -128,32 +128,32 @@ public class BuildingSelector extends ItemBasic
 
     private void evaluateEvents(Collection<? extends Event> events) {
         for (Event event: events) {
-            if (ItemOperations.overlaps(this, event.getSubject())) {
+            if (GameObjectOperations.overlaps(this, event.getSubject())) {
                 evaluateOccupation(getRoot());
             }
         }
     }
 
-    private void evaluateOccupation(ItemRoot root) {
+    private void evaluateOccupation(GameObjectContainer root) {
         if (root != null) {
-            ItemGraph graph = root.getSpatialGraph();
-            Collection<ItemNode> nodes = graph.getNodes(getPosition(), getSize());
-            Collection<Item> items = flatten(nodes, ItemNode::getOccupants);
-            isClear = isUnoccupied(items);
+            GameObjectGraph graph = root.getSpatialGraph();
+            Collection<GameObjectNode> nodes = graph.getNodes(getPosition(), getSize());
+            Collection<GameObject> gameObjects = flatten(nodes, GameObjectNode::getOccupants);
+            isClear = isUnoccupied(gameObjects);
             overlay = isClear ? allowed : blocked;
         }
     }
 
-    private boolean isUnoccupied(Collection<Item> items) {
+    private boolean isUnoccupied(Collection<GameObject> gameObjects) {
         if (isOilPatchBased(type)) {
-            return containsAll(items, hasType(OilPatch, Sea).or(associatedWith(this)))
-                && containsEqual(items, hasType(OilPatch), hasType(Sea));
+            return containsAll(gameObjects, hasType(OilPatch, Sea).or(associatedWith(this)))
+                && containsEqual(gameObjects, hasType(OilPatch), hasType(Sea));
         }
         if (isShoreBased(type)) {
-            return containsAll(items, hasType(Shore, Sea).or(associatedWith(this)))
-                && containsAny(items, hasType(Shore));
+            return containsAll(gameObjects, hasType(Shore, Sea).or(associatedWith(this)))
+                && containsAny(gameObjects, hasType(Shore));
         }
-        return containsAll(items, hasType(Map).or(associatedWith(this)));
+        return containsAll(gameObjects, hasType(Map).or(associatedWith(this)));
     }
 
     private boolean isShoreBased(SelectorType type) {

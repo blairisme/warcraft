@@ -11,7 +11,7 @@ package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.data.lang.TestPredicate;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -58,7 +58,7 @@ public class PrerequisiteActionTest
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(PrerequisiteAction.class)
-                .withMockedTransientFields(Item.class)
+                .withMockedTransientFields(GameObject.class)
                 .excludeTransientFields()
                 .verify();
     }
@@ -103,16 +103,16 @@ public class PrerequisiteActionTest
 
     @Test
     public void actorTest() {
-        Assert.assertNull(primary.getItem());
-        Assert.assertNull(prerequisite.getItem());
-        Assert.assertNull(action.getItem());
+        Assert.assertNull(primary.getSubject());
+        Assert.assertNull(prerequisite.getSubject());
+        Assert.assertNull(action.getSubject());
 
-        Item actor = Mockito.mock(Item.class);
+        GameObject actor = Mockito.mock(GameObject.class);
         action.setItem(actor);
 
-        Assert.assertEquals(actor, primary.getItem());
-        Assert.assertEquals(actor, prerequisite.getItem());
-        Assert.assertEquals(actor, action.getItem());
+        Assert.assertEquals(actor, primary.getSubject());
+        Assert.assertEquals(actor, prerequisite.getSubject());
+        Assert.assertEquals(actor, action.getSubject());
     }
 
     @Test

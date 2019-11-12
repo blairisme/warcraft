@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.item.ItemBasic;
+import com.evilbird.engine.object.BasicGameObject;
 
 /**
  * Represents a visual guide used to select game world locations for use by
@@ -22,7 +22,7 @@ import com.evilbird.engine.item.ItemBasic;
  *
  * @author Blair Butterworth
  */
-public class TargetSelector extends ItemBasic
+public class TargetSelector extends BasicGameObject
 {
     private static transient final float SPEED = 10f;
 

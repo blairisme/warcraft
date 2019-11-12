@@ -9,8 +9,8 @@
 
 package com.evilbird.engine.action.common;
 
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.Viewable;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.specialized.Viewable;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -47,7 +47,7 @@ public class AnimateActionTest extends GameTestCase
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(AnimateAction.class)
-                .withMockedTransientFields(Item.class)
+                .withMockedTransientFields(GameObject.class)
                 .excludeTransientFields()
                 .verify();
     }

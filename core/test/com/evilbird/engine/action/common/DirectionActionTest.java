@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.action.common;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.verifier.EqualityVerifier;
 import org.junit.Before;
@@ -33,7 +33,7 @@ public class DirectionActionTest
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(DirectionAction.class)
-                .withMockedTransientFields(Item.class)
+                .withMockedTransientFields(GameObject.class)
                 .excludeTransientFields()
                 .verify();
     }

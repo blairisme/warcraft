@@ -12,8 +12,8 @@ package com.evilbird.warcraft.behaviour.scenario.condition;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.data.item.TestGatherers;
@@ -45,7 +45,7 @@ import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
  */
 public class PlayerOwnershipTest extends GameTestCase
 {
-    private ItemRoot root;
+    private GameObjectContainer root;
     private Player player1;
     private Player player2;
     private Combatant combatant1;
@@ -58,19 +58,19 @@ public class PlayerOwnershipTest extends GameTestCase
         player1 = TestPlayers.newTestPlayer(Player1, root);
         player2 = TestPlayers.newTestPlayer(Player2, root);
 
-        root.clearItems();
-        root.addItem(player1);
-        root.addItem(player2);
+        root.clearObjects();
+        root.addObject(player1);
+        root.addObject(player2);
 
         combatant1 = TestCombatants.newTestCombatant(new TextIdentifier("test1"), Footman, root, player1);
         combatant2 = TestCombatants.newTestCombatant(new TextIdentifier("test2"), Footman, root, player1);
         combatant3 = TestCombatants.newTestCombatant(new TextIdentifier("test3"), Footman, root, player2);
 
-        player1.clearItems();
-        player2.clearItems();
-        player1.addItem(combatant1);
-        player1.addItem(combatant2);
-        player2.addItem(combatant3);
+        player1.clearObjects();
+        player2.clearObjects();
+        player1.addObject(combatant1);
+        player1.addObject(combatant2);
+        player2.addObject(combatant3);
     }
 
     @Test
@@ -108,7 +108,7 @@ public class PlayerOwnershipTest extends GameTestCase
 
     @Test
     public void notApplicableTest() {
-        Item subject = TestCombatants.newTestCombatant("footman");
+        GameObject subject = TestCombatants.newTestCombatant("footman");
         Event event = new RemoveEvent(subject);
 
         EventQueue queue = new EventQueue();

@@ -9,14 +9,14 @@
 
 package com.evilbird.warcraft.item.layer;
 
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObjectType;
 
 /**
  * Defines identifiers for layer varieties.
  *
  * @author Blair Butterworth
  */
-public enum LayerType implements ItemType
+public enum LayerType implements GameObjectType
 {
     Map, //Terrain
     Sea,

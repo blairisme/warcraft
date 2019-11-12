@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.behaviour.scenario.supplement;
 
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 
 import java.util.function.BiConsumer;
 
@@ -19,6 +19,6 @@ import java.util.function.BiConsumer;
  *
  * @author Blair Butterworth
  */
-public interface SupplementaryBehaviour extends BiConsumer<ItemRoot, EventQueue>
+public interface SupplementaryBehaviour extends BiConsumer<GameObjectContainer, EventQueue>
 {
 }

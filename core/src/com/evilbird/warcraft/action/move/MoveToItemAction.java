@@ -12,9 +12,9 @@ package com.evilbird.warcraft.action.move;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.spatial.ItemNode;
-import com.evilbird.engine.item.spatial.SpatialObject;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.spatial.GameObjectNode;
+import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.item.common.capability.MovableObject;
 
@@ -25,7 +25,7 @@ import static com.evilbird.engine.common.collection.CollectionUtils.filter;
 import static com.evilbird.engine.common.pathing.SpatialUtils.getClosest;
 
 /**
- * Instances of this {@link Action action} move an {@link Item} from its
+ * Instances of this {@link Action action} move an {@link GameObject} from its
  * current location to a given destination, specified as an Item. The moving
  * item will be animated with a movement animation, as well choose a path that
  * avoids obstacles.
@@ -34,8 +34,8 @@ import static com.evilbird.engine.common.pathing.SpatialUtils.getClosest;
  */
 public class MoveToItemAction extends MoveAction
 {
-    private ItemNode endNode;
-    private ItemNode targetNode;
+    private GameObjectNode endNode;
+    private GameObjectNode targetNode;
     private ItemPathFilter filter;
 
     @Inject
@@ -46,16 +46,16 @@ public class MoveToItemAction extends MoveAction
 
     @Override
     public Vector2 getDestination() {
-        Item target = getTarget();
+        GameObject target = getTarget();
         return target.getPosition();
     }
 
     @Override
-    public ItemNode getEndNode(ItemNode node) {
+    public GameObjectNode getEndNode(GameObjectNode node) {
         if (endNode == null) {
-            Item target = getTarget();
-            Collection<ItemNode> adjacentNodes = graph.getAdjacentNodes(target);
-            Collection<ItemNode> traversableNodes = filter(adjacentNodes, getPathFilter());
+            GameObject target = getTarget();
+            Collection<GameObjectNode> adjacentNodes = graph.getAdjacentNodes(target);
+            Collection<GameObjectNode> traversableNodes = filter(adjacentNodes, getPathFilter());
             endNode = !traversableNodes.isEmpty() ? getClosest(traversableNodes, node) : null;
         }
         return endNode;
@@ -63,10 +63,10 @@ public class MoveToItemAction extends MoveAction
 
     @Override
     public boolean destinationValid() {
-        Item target = getTarget();
+        GameObject target = getTarget();
         if (target instanceof SpatialObject) {
             if (targetNode == null) {
-                Collection<ItemNode> nodes = graph.getNodes(target);
+                Collection<GameObjectNode> nodes = graph.getNodes(target);
                 targetNode = nodes.iterator().next();
             }
             return targetNode.hasOccupant(target);
@@ -75,16 +75,16 @@ public class MoveToItemAction extends MoveAction
     }
 
     @Override
-    public boolean destinationReached(ItemNode node) {
-        Item target = getTarget();
-        Collection<Item> occupants = node.getOccupants();
+    public boolean destinationReached(GameObjectNode node) {
+        GameObject target = getTarget();
+        Collection<GameObject> occupants = node.getOccupants();
         return occupants.contains(target);
     }
 
     @Override
     public ItemPathFilter getPathFilter() {
         if (filter == null) {
-            MovableObject item = (MovableObject)getItem();
+            MovableObject item = (MovableObject) getSubject();
             filter = new ItemPathFilter();
             filter.addTraversableItem(item);
             filter.addTraversableCapability(item.getMovementCapability());

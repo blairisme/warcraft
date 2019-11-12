@@ -16,10 +16,10 @@ import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Audible;
 import com.evilbird.engine.common.lang.RandomIdentifier;
 import com.evilbird.engine.common.time.GameTimer;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectGroup;
+import com.evilbird.engine.object.GameObjectType;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
@@ -36,12 +36,12 @@ abstract class ConfirmAction extends BasicAction
 {
     private static final transient float ANIMATION_LIFETIME = 0.55f;
 
-    private transient Item animation;
+    private transient GameObject animation;
     private transient GameTimer timer;
-    private transient ItemFactory factory;
+    private transient GameObjectFactory factory;
     private transient WarcraftPreferences preferences;
 
-    public ConfirmAction(ItemFactory factory, WarcraftPreferences preferences) {
+    public ConfirmAction(GameObjectFactory factory, WarcraftPreferences preferences) {
         this.factory = factory;
         this.preferences = preferences;
     }
@@ -74,7 +74,7 @@ abstract class ConfirmAction extends BasicAction
 
     protected void playAcknowledgement() {
         if (preferences.isAcknowledgementEnabled()) {
-            Audible audible = (Audible)getItem();
+            Audible audible = (Audible) getSubject();
             audible.setSound(Acknowledge, preferences.getEffectsVolume());
         }
     }
@@ -84,15 +84,15 @@ abstract class ConfirmAction extends BasicAction
         animation.setIdentifier(new RandomIdentifier());
         animation.setPosition(getPosition(), getAlignment());
 
-        Item item = getItem();
-        ItemGroup parent = item.getParent();
-        parent.addItem(animation);
+        GameObject gameObject = getSubject();
+        GameObjectGroup parent = gameObject.getParent();
+        parent.addObject(animation);
     }
 
     protected boolean removeAnimation() {
-        Item item = getItem();
-        ItemGroup parent = item.getParent();
-        parent.removeItem(animation);
+        GameObject gameObject = getSubject();
+        GameObjectGroup parent = gameObject.getParent();
+        parent.removeObject(animation);
         animation = null;
         return ActionComplete;
     }
@@ -101,5 +101,5 @@ abstract class ConfirmAction extends BasicAction
 
     protected abstract Alignment getAlignment();
 
-    protected abstract ItemType getEffectType();
+    protected abstract GameObjectType getEffectType();
 }

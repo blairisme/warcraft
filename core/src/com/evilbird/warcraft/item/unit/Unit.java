@@ -25,12 +25,12 @@ import com.evilbird.engine.common.graphics.AnimationFrame;
 import com.evilbird.engine.common.graphics.ColourMaskSprite;
 import com.evilbird.engine.common.graphics.Renderable;
 import com.evilbird.engine.common.time.GameTimer;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemReference;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.SpatialObject;
-import com.evilbird.engine.item.specialized.Viewable;
-import com.evilbird.engine.item.specialized.ViewableStyle;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectReference;
+import com.evilbird.engine.object.spatial.SpatialObject;
+import com.evilbird.engine.object.specialized.Viewable;
+import com.evilbird.engine.object.specialized.ViewableStyle;
 import com.evilbird.warcraft.common.TeamColour;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;
@@ -58,7 +58,7 @@ import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
  *
  * @author Blair Butterworth
  */
-public class Unit extends Viewable implements PerishableObject, SelectableObject, SpatialObject
+public class Unit extends Viewable implements PerishableObject, SelectableObject, SpatialObject, Renderable
 {
     private Value armour;
     private float health;
@@ -67,7 +67,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     private Value sight;
     private boolean selected;
     private boolean selectable;
-    private List<ItemReference> associatedObjects;
+    private List<GameObjectReference> associatedObjects;
     private Map<Action, GameTimer> pendingActions;
 
     private transient UnitStyle style;
@@ -116,10 +116,10 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     }
 
     /**
-     * Associates the given {@link Item} with the Unit.
+     * Associates the given {@link GameObject} with the Unit.
      */
-    public void addAssociatedItem(Item associate) {
-        associatedObjects.add(new ItemReference(associate));
+    public void addAssociatedItem(GameObject associate) {
+        associatedObjects.add(new GameObjectReference(associate));
     }
 
     /**
@@ -130,23 +130,23 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     }
 
     /**
-     * Returns the {@link Item} associated with the Unit, if any. If multiple
+     * Returns the {@link GameObject} associated with the Unit, if any. If multiple
      * {@code Items} are associated with the Unit, then the first Item to be
      * associated will be returned.
      */
-    public Item getAssociatedItem() {
+    public GameObject getAssociatedItem() {
         if (!associatedObjects.isEmpty()) {
-            ItemReference reference = associatedObjects.get(0);
+            GameObjectReference reference = associatedObjects.get(0);
             return reference.get();
         }
         return null;
     }
 
     /**
-     * Returns the set of {@link Item Items} associated with the Unit, if any.
+     * Returns the set of {@link GameObject Items} associated with the Unit, if any.
      */
-    public Collection<Item> getAssociatedObjects() {
-        return CollectionUtils.convert(associatedObjects, ItemReference::get);
+    public Collection<GameObject> getAssociatedObjects() {
+        return CollectionUtils.convert(associatedObjects, GameObjectReference::get);
     }
 
     /**
@@ -238,15 +238,15 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     }
 
     /**
-     * Returns whether or not the given {@link Item} is associated with the
+     * Returns whether or not the given {@link GameObject} is associated with the
      * Unit.
      */
-    public boolean hasAssociatedItem(Item associate) {
-        return associatedObjects.contains(new ItemReference(associate));
+    public boolean hasAssociatedItem(GameObject associate) {
+        return associatedObjects.contains(new GameObjectReference(associate));
     }
 
     /**
-     * Returns whether or not the any {@link Item Items} have been associated
+     * Returns whether or not the any {@link GameObject Items} have been associated
      * with the Unit.
      */
     public boolean hasAssociatedItems() {
@@ -254,17 +254,17 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     }
 
     /**
-     * Removes the association between the unit and the given {@link Item}.
+     * Removes the association between the unit and the given {@link GameObject}.
      */
-    public void removeAssociatedItem(Item associate) {
-        associatedObjects.remove(new ItemReference(associate));
+    public void removeAssociatedItem(GameObject associate) {
+        associatedObjects.remove(new GameObjectReference(associate));
     }
 
     /**
-     * Sets an association between the unit and the given {@link Item}. Any
+     * Sets an association between the unit and the given {@link GameObject}. Any
      * existing associations will be removed.
      */
-    public void setAssociatedItem(Item associate) {
+    public void setAssociatedItem(GameObject associate) {
         associatedObjects.clear();
         if (associate != null) {
             addAssociatedItem(associate);
@@ -440,9 +440,9 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     }
 
     @Override
-    public void setRoot(ItemRoot root) {
+    public void setRoot(GameObjectContainer root) {
         super.setRoot(root);
-        for (ItemReference association: associatedObjects) {
+        for (GameObjectReference association: associatedObjects) {
             association.setParent(root);
         }
     }
@@ -450,13 +450,13 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
     @Override
     public void draw(Batch batch, float alpha) {
         if (getSelected()) {
-            selection.draw(batch);
+            selection.draw(batch, alpha);
         }
         if (getHighlighted()) {
-            highlight.draw(batch);
+            highlight.draw(batch, alpha);
         }
-        effect.draw(batch);
         super.draw(batch, alpha);
+        effect.draw(batch, alpha);
     }
 
     @Override

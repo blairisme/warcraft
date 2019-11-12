@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.common.capability;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 /**
  * Implementors of this interface provide methods that mark a game object as
@@ -18,7 +18,7 @@ import com.evilbird.engine.item.Item;
  *
  * @author Blair Butterworth
  */
-public interface SelectableObject extends Item
+public interface SelectableObject extends GameObject
 {
     /**
      * Returns whether the game object has been selected by the user.

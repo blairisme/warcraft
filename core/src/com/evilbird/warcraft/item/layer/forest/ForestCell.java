@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.item.layer.forest;
 
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.spatial.SpatialObject;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.item.common.resource.ResourceContainer;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.layer.LayerGroupCell;
@@ -20,7 +20,7 @@ import org.apache.commons.lang3.Validate;
 
 /**
  * Instances of this class represent one cell in the forest layer, decorating
- * it as an {@link Item} capable of storing resources, in this case wood.
+ * it as an {@link GameObject} capable of storing resources, in this case wood.
  *
  * @author Blair Butterworth
  */

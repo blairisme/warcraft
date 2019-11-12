@@ -12,8 +12,10 @@ package com.evilbird.warcraft.action.selector;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.selector.SelectorType;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -21,9 +23,7 @@ import com.evilbird.warcraft.item.unit.Unit;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.item.utility.ItemOperations.getScreenCenter;
-import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_HEIGHT;
-import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_WIDTH;
+import static com.evilbird.engine.object.utility.GameObjectOperations.getScreenCenter;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 
 /**
@@ -33,23 +33,23 @@ import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
  */
 public class SelectorCreate extends BasicAction
 {
-    private ItemFactory factory;
+    private GameObjectFactory factory;
     private SelectorEvents events;
 
     @Inject
-    public SelectorCreate(SelectorEvents events, ItemFactory factory) {
+    public SelectorCreate(SelectorEvents events, GameObjectFactory factory) {
         this.events = events;
         this.factory = factory;
     }
 
     @Override
     public boolean act(float time) {
-        Unit subject = (Unit)getItem();
+        Unit subject = (Unit) getSubject();
         Player player = getPlayer(subject);
 
-        Item selector = factory.get(selectorType());
+        GameObject selector = factory.get(selectorType());
         selector.setPosition(selectorPosition(subject));
-        player.addItem(selector);
+        player.addObject(selector);
 
         subject.setAssociatedItem(selector);
         events.notifySelectorAdded(subject, selector);
@@ -62,10 +62,14 @@ public class SelectorCreate extends BasicAction
         return action.getSelector();
     }
 
-    private Vector2 selectorPosition(Item builder) {
+    private Vector2 selectorPosition(GameObject builder) {
+        GameObjectContainer container = builder.getRoot();
+        GameObjectGraph graph = container.getSpatialGraph();
+        Vector2 tileSize = graph.getNodeSize();
+
         Vector2 screenCenter = getScreenCenter(builder);
-        screenCenter.x = Math.round(screenCenter.x/TILE_WIDTH) * TILE_WIDTH;
-        screenCenter.y = Math.round(screenCenter.y/TILE_HEIGHT) * TILE_HEIGHT;
+        screenCenter.x = Math.round(screenCenter.x/tileSize.x) * tileSize.x;
+        screenCenter.y = Math.round(screenCenter.y/tileSize.y) * tileSize.y;
         return screenCenter;
     }
 }

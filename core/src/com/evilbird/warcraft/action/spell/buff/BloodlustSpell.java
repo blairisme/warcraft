@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.spell.buff;
 
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.common.value.ValueProperty;
 import com.evilbird.warcraft.item.effect.EffectType;
@@ -29,7 +29,7 @@ import java.util.Collections;
 public class BloodlustSpell extends BuffSpellAction
 {
     @Inject
-    public BloodlustSpell(ItemFactory factory, BloodlustCancel cancel) {
+    public BloodlustSpell(GameObjectFactory factory, BloodlustCancel cancel) {
         super(Spell.Bloodlust, EffectType.Spell, factory, cancel);
     }
 

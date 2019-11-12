@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.time.GameTimer;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
@@ -51,10 +51,10 @@ public class GatherObtainWood extends GatherObtain
 
     @Override
     protected boolean initialize() {
-        Gatherer gatherer = (Gatherer)getItem();
+        Gatherer gatherer = (Gatherer) getSubject();
         gatherer.setAnimation(UnitAnimation.GatherWood);
 
-        Item tree = getTarget();
+        GameObject tree = getTarget();
         reorient(gatherer, tree, false);
 
         return super.initialize();
@@ -69,7 +69,7 @@ public class GatherObtainWood extends GatherObtain
 
     @Override
     protected boolean complete() {
-        Gatherer gatherer = (Gatherer)getItem();
+        Gatherer gatherer = (Gatherer) getSubject();
         gatherer.setAnimationAlias(IdleWood, Idle);
         gatherer.setAnimationAlias(MoveWood, Move);
         gatherer.setAnimation(Idle);
@@ -80,7 +80,7 @@ public class GatherObtainWood extends GatherObtain
     protected boolean update(float time) {
         if (timer.advance(time)) {
             timer.reset();
-            Gatherer gatherer = (Gatherer)getItem();
+            Gatherer gatherer = (Gatherer) getSubject();
             gatherer.setSound(ChopWood, preferences.getEffectsVolume());
         }
         return super.update(time);

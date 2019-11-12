@@ -11,7 +11,7 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.utils.MockProvider;
 import com.evilbird.warcraft.action.move.MoveActions;
 import org.junit.Assert;
@@ -54,8 +54,8 @@ public class InteractionContainerTest
         InteractionDefinition interaction3 = container.addAction(MoveActions.MoveCancel);
 
         UserInput input = Mockito.mock(UserInput.class);
-        Item target = Mockito.mock(Item.class);
-        Item selected = Mockito.mock(Item.class);
+        GameObject target = Mockito.mock(GameObject.class);
+        GameObject selected = Mockito.mock(GameObject.class);
 
         Mockito.when(interaction1.applies(input, target, selected)).thenReturn(false);
         Mockito.when(interaction2.applies(input, target, selected)).thenReturn(true);

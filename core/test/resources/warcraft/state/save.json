@@ -18,7 +18,7 @@
       "nodeCountX": 128,
       "nodeCountY": 128
     },
-    "items": [
+    "objects": [
       {
         "level": 1,
         "team": 0,
@@ -41,7 +41,7 @@
         },
         "upgrades": {},
         "fill": false,
-        "items": [
+        "objects": [
           {
             "class": "Combatant",
             "type": {
@@ -159,7 +159,7 @@
         },
         "upgrades": {},
         "fill": false,
-        "items": [
+        "objects": [
           {
             "class": "Combatant",
             "type": {

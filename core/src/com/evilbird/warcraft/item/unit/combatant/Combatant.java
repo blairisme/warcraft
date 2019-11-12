@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.item.specialized.ViewableStyle;
+import com.evilbird.engine.object.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.common.capability.MovableObject;
 import com.evilbird.warcraft.item.common.capability.MovementCapability;
 import com.evilbird.warcraft.item.common.capability.OffensiveCapability;
@@ -24,9 +24,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.capability.OffensiveCapability.Proximity;
 import static com.evilbird.warcraft.item.common.capability.OffensivePlurality.Individual;
+import static com.evilbird.warcraft.item.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
 
 /**

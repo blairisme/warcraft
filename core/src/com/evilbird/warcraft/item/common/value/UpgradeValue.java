@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.common.value;
 
-import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.item.common.upgrade.Upgrade;
 import com.evilbird.warcraft.item.common.upgrade.UpgradeRank;
 import com.evilbird.warcraft.item.common.upgrade.UpgradeSeries;
@@ -113,7 +113,7 @@ public class UpgradeValue implements ModifiedValue
     }
 
     private Collection<Upgrade> getOwnedUpgrades(Unit unit) {
-        ItemGroup parent = unit.getParent();
+        GameObjectGroup parent = unit.getParent();
         if (parent instanceof Player) {
             return getOwnedUpgrades((Player)parent);
         }

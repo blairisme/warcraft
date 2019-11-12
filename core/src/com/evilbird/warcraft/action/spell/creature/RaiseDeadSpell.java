@@ -9,10 +9,10 @@
 
 package com.evilbird.warcraft.action.spell.creature;
 
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.ItemGraph;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.EffectType;
@@ -23,7 +23,7 @@ import javax.inject.Inject;
 import java.util.Collection;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.filter;
-import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
+import static com.evilbird.warcraft.item.common.query.GameObjectUtils.tiles;
 
 /**
  * A spell that converts nearby corpses into skeleton warriors that fight for
@@ -36,30 +36,30 @@ public class RaiseDeadSpell extends CreatureSpellAction
     private static final int RADIUS = tiles(5);
 
     @Inject
-    public RaiseDeadSpell(ItemFactory factory, CreateEvents events) {
+    public RaiseDeadSpell(GameObjectFactory factory, CreateEvents events) {
         super(Spell.RaiseDead, EffectType.Spell, UnitType.Skeleton, factory, events, null);
     }
 
     @Override
     protected Combatant addCreature() {
-        for (Item corpse: nearbyCorpses()) {
+        for (GameObject corpse: nearbyCorpses()) {
             Combatant creature = super.addCreature();
             creature.setPosition(corpse.getPosition());
         }
         return null;
     }
 
-    private Collection<Item> nearbyCorpses() {
-        Item caster = getItem();
-        ItemRoot state = caster.getRoot();
-        ItemGraph graph = state.getSpatialGraph();
-        Collection<Item> corpses = graph.getOccupants(caster, RADIUS);
+    private Collection<GameObject> nearbyCorpses() {
+        GameObject caster = getSubject();
+        GameObjectContainer state = caster.getRoot();
+        GameObjectGraph graph = state.getSpatialGraph();
+        Collection<GameObject> corpses = graph.getOccupants(caster, RADIUS);
         return filter(corpses, this::isDeadCombatant);
     }
 
-    private boolean isDeadCombatant(Item item) {
-        if (item instanceof Combatant) {
-            Combatant combatant = (Combatant)item;
+    private boolean isDeadCombatant(GameObject gameObject) {
+        if (gameObject instanceof Combatant) {
+            Combatant combatant = (Combatant) gameObject;
             return combatant.getHealth() == 0;
         }
         return false;

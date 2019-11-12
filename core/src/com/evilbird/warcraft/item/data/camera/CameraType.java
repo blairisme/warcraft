@@ -9,14 +9,14 @@
 
 package com.evilbird.warcraft.item.data.camera;
 
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObjectType;
 
 /**
  * Defines options of specifying camera varieties.
  *
  * @author Blair Butterworth
  */
-public enum CameraType implements ItemType
+public enum CameraType implements GameObjectType
 {
     Camera
 }

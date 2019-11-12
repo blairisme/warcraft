@@ -11,7 +11,7 @@ package com.evilbird.warcraft.item.layer.forest;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.maps.MapLayerEntry;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.layer.LayerGroup;
 import com.evilbird.warcraft.item.layer.LayerGroupCell;
 import com.google.gson.annotations.JsonAdapter;
@@ -19,7 +19,7 @@ import com.google.gson.annotations.JsonAdapter;
 /**
  * Instances of this class represent a forest layer. Forests consist of
  * individual cells, trees, which although represented and obtainable as
- * {@link Item Items}, are actually drawn by the forest.
+ * {@link GameObject Items}, are actually drawn by the forest.
  *
  * @author Blair Butterworth
  */

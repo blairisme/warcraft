@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.display.control.actions.buttons.human;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.display.control.actions.buttons.BasicButtonController;
@@ -34,13 +34,13 @@ public class ScoutTowerButtons extends BasicButtonController
         Arrays.asList(com.evilbird.warcraft.item.display.control.actions.ActionButtonType.GuardTowerButton, com.evilbird.warcraft.item.display.control.actions.ActionButtonType.CannonTowerButton);
 
     @Override
-    public List<com.evilbird.warcraft.item.display.control.actions.ActionButtonType> getButtons(Item item) {
+    public List<com.evilbird.warcraft.item.display.control.actions.ActionButtonType> getButtons(GameObject gameObject) {
         return BUTTONS;
     }
 
     @Override
-    public boolean getEnabled(com.evilbird.warcraft.item.display.control.actions.ActionButtonType button, Item item) {
-        Player player = UnitOperations.getPlayer(item);
+    public boolean getEnabled(com.evilbird.warcraft.item.display.control.actions.ActionButtonType button, GameObject gameObject) {
+        Player player = UnitOperations.getPlayer(gameObject);
         switch (button) {
             case GuardTowerButton: return hasResources(player, GuardTower) && hasUnit(player, LumberMill);
             case CannonTowerButton: return hasResources(player, CannonTower) && hasUnit(player, Blacksmith);

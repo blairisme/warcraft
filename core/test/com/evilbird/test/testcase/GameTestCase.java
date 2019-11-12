@@ -26,9 +26,9 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.game.GameInjector;
 import com.evilbird.engine.game.GameService;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemType;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectType;
 import com.evilbird.test.data.action.TestActions;
 import com.evilbird.test.data.behaviour.TestBehaviours;
 import com.evilbird.test.data.item.TestBuildings;
@@ -112,7 +112,7 @@ public class GameTestCase
     protected GameInjector gameInjector;
     protected GameService gameService;
     protected GameEngine gameEngine;
-    protected ItemFactory itemFactory;
+    protected GameObjectFactory objectFactory;
     protected ActionFactory actionFactory;
     protected BehaviourFactory behaviourFactory;
     protected TypeRegistry typeRegistry;
@@ -127,7 +127,7 @@ public class GameTestCase
         behaviourFactory = Mockito.mock(BehaviourFactory.class);
         respondWithNewBehaviour();
 
-        itemFactory = Mockito.mock(ItemFactory.class);
+        objectFactory = Mockito.mock(GameObjectFactory.class);
         respondWithNewItem();
 
         typeRegistry = new WarcraftTypeRegistry();
@@ -136,7 +136,7 @@ public class GameTestCase
         gameInjector = Mockito.mock(GameInjector.class);
         Mockito.when(gameInjector.getDevice()).thenReturn(device);
         Mockito.when(gameInjector.getEngine()).thenReturn(gameEngine);
-        Mockito.when(gameInjector.getItemFactory()).thenReturn(itemFactory);
+        Mockito.when(gameInjector.getItemFactory()).thenReturn(objectFactory);
         Mockito.when(gameInjector.getActionFactory()).thenReturn(actionFactory);
         Mockito.when(gameInjector.getBehaviourFactory()).thenReturn(behaviourFactory);
         Mockito.when(gameInjector.getTypeRegistry()).thenReturn(typeRegistry);
@@ -147,7 +147,7 @@ public class GameTestCase
     }
 
     public void respondWithNewItem() {
-        Mockito.when(itemFactory.get(Mockito.any())).thenAnswer(invocation -> {
+        Mockito.when(objectFactory.get(Mockito.any())).thenAnswer(invocation -> {
             Identifier identifier = invocation.getArgument(0);
             if (identifier instanceof PlayerType) {
                 return TestPlayers.newTestPlayer("player");
@@ -168,12 +168,12 @@ public class GameTestCase
         });
     }
 
-    public void respondWithItem(Item item) {
-        Mockito.when(itemFactory.get(Mockito.any())).thenReturn(item);
+    public void respondWithItem(GameObject gameObject) {
+        Mockito.when(objectFactory.get(Mockito.any())).thenReturn(gameObject);
     }
 
-    public void respondWithItem(ItemType identifier, Supplier<Item> supplier) {
-        Mockito.when(itemFactory.get(identifier)).thenAnswer(invocation -> supplier.get());
+    public void respondWithItem(GameObjectType identifier, Supplier<GameObject> supplier) {
+        Mockito.when(objectFactory.get(identifier)).thenAnswer(invocation -> supplier.get());
     }
 
     public void respondWithNewAction() {

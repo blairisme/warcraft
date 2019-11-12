@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.display.control.actions.buttons.common;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.display.control.actions.buttons.BasicButtonController;
@@ -32,8 +32,8 @@ import static com.evilbird.warcraft.item.common.upgrade.Upgrade.SiegeDamage2;
 public class BlacksmithButtons extends BasicButtonController
 {
     @Override
-    public List<com.evilbird.warcraft.item.display.control.actions.ActionButtonType> getButtons(Item item) {
-        Player player = UnitOperations.getPlayer(item);
+    public List<com.evilbird.warcraft.item.display.control.actions.ActionButtonType> getButtons(GameObject gameObject) {
+        Player player = UnitOperations.getPlayer(gameObject);
         return player.getLevel() <= 5 ? getBasicUpgrades(player) : getAdvancedUpgrades(player);
     }
 
@@ -54,8 +54,8 @@ public class BlacksmithButtons extends BasicButtonController
     }
 
     @Override
-    public boolean getEnabled(com.evilbird.warcraft.item.display.control.actions.ActionButtonType button, Item item) {
-        Player player = UnitOperations.getPlayer(item);
+    public boolean getEnabled(com.evilbird.warcraft.item.display.control.actions.ActionButtonType button, GameObject gameObject) {
+        Player player = UnitOperations.getPlayer(gameObject);
         switch (button) {
             case MeleeDamage1Button: return hasResources(player, MeleeDamage1);
             case MeleeDamage2Button: return hasResources(player, MeleeDamage2);

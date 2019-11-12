@@ -31,7 +31,7 @@ public class DeselectAction extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        SelectableObject selectable = (SelectableObject)getItem();
+        SelectableObject selectable = (SelectableObject) getSubject();
         if (selectable.getSelected()) {
             selectable.setSelected(false);
             events.notifySelected(selectable, false);

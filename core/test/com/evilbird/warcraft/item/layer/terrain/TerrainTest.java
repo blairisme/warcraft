@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.layer.terrain;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
@@ -52,7 +52,7 @@ public class TerrainTest extends GameTestCase
 
     @Test
     public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(Item.class)
+        SerializationVerifier.forClass(GameObject.class)
             .withDeserializedForm(terrain)
             .withSerializedResource("/warcraft/item/terrain.json")
             .verify();

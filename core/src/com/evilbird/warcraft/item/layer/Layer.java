@@ -14,17 +14,17 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.common.maps.TiledMapRenderer;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectGroup;
 
 /**
- * Instances of this class represent a rendered {@link Item} that spans the
+ * Instances of this class represent a rendered {@link GameObject} that spans the
  * game space. Usually layers are composed of a collection of smaller entities.
  *
  * @author Blair Butterworth
  */
-public class Layer extends ItemGroup
+public class Layer extends GameObjectGroup
 {
     protected transient TiledMapTileLayer layer;
     protected transient OrthographicCamera camera;
@@ -56,7 +56,7 @@ public class Layer extends ItemGroup
 
     protected OrthographicCamera getCamera() {
         if (camera == null){
-            ItemRoot root = getRoot();
+            GameObjectContainer root = getRoot();
             Viewport viewport = root.getViewport();
             camera = (OrthographicCamera)viewport.getCamera();
         }

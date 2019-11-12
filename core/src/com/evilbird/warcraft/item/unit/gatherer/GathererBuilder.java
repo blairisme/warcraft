@@ -17,7 +17,7 @@ import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.AnimationCatalog;
 import com.evilbird.engine.common.graphics.FlashingRenderable;
 import com.evilbird.engine.common.graphics.SpriteRenderable;
-import com.evilbird.engine.item.specialized.ViewableStyle;
+import com.evilbird.engine.object.specialized.ViewableStyle;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitStyle;
 import com.evilbird.warcraft.item.unit.UnitType;

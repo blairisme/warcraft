@@ -12,8 +12,8 @@ package com.evilbird.warcraft.behaviour.ui.menu;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.action.attack.AttackEvent;
 import com.evilbird.warcraft.action.attack.AttackStatus;
@@ -45,7 +45,7 @@ import javax.inject.Inject;
 import java.util.Collection;
 import java.util.List;
 
-import static com.evilbird.engine.item.utility.ItemPredicates.itemWithId;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.itemWithId;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isFoodProducer;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.item.data.player.PlayerScore.getScoreValue;
@@ -75,8 +75,8 @@ public class MenuBehaviour implements Behaviour
 
     @Override
     public void update(State state, List<UserInput> inputs) {
-        ItemRoot world = state.getWorld();
-        ItemRoot hud = state.getHud();
+        GameObjectContainer world = state.getWorld();
+        GameObjectContainer hud = state.getHud();
 
         if (initialized(world, hud)) {
             updateResourceRecipients();
@@ -94,7 +94,7 @@ public class MenuBehaviour implements Behaviour
         }
     }
 
-    private boolean initialized(ItemRoot world, ItemRoot hud) {
+    private boolean initialized(GameObjectContainer world, GameObjectContainer hud) {
         if (player == null) {
             player = UnitOperations.getCorporealPlayer(world);
             resourcePane = (ResourcePane)hud.find(itemWithId(HudControl.ResourcePane));
@@ -114,14 +114,14 @@ public class MenuBehaviour implements Behaviour
         }
     }
 
-    private void initializeSelection(ItemRoot world) {
-        Collection<Item> selection = world.findAll(isSelected());
+    private void initializeSelection(GameObjectContainer world) {
+        Collection<GameObject> selection = world.findAll(isSelected());
         actionPane.setSelected(selection);
         statusPane.setSelected(selection);
     }
 
-    private void initializePopulation(ItemRoot world) {
-        for (Item farm: world.findAll(isFoodProducer())){
+    private void initializePopulation(GameObjectContainer world) {
+        for (GameObject farm: world.findAll(isFoodProducer())){
             player.incrementStatistic(PlayerStatistic.Population, 5);
         }
     }
@@ -135,7 +135,7 @@ public class MenuBehaviour implements Behaviour
 
     private void updateResourceRecipients() {
         for (TransferEvent event: events.getEvents(TransferEvent.class)) {
-            Item subject = event.getSubject();
+            GameObject subject = event.getSubject();
             ResourceType resource = event.getResource();
             float amount = event.getValue();
 
@@ -198,7 +198,7 @@ public class MenuBehaviour implements Behaviour
         }
     }
 
-    private PlayerStatistic getAttackStat(Item target) {
+    private PlayerStatistic getAttackStat(GameObject target) {
         if (target instanceof Building || target instanceof Resource || target instanceof WallSection) {
             return PlayerStatistic.Razed;
         }

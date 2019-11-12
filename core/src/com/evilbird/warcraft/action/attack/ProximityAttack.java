@@ -73,7 +73,7 @@ public class ProximityAttack extends BasicAction
     }
 
     protected void initialize() {
-        OffensiveObject attacker = (OffensiveObject)getItem();
+        OffensiveObject attacker = (OffensiveObject) getSubject();
         attacker.setAnimation(UnitAnimation.Attack);
         attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
 
@@ -94,7 +94,7 @@ public class ProximityAttack extends BasicAction
     }
 
     protected boolean attackTarget() {
-        OffensiveObject attacker = (OffensiveObject)getItem();
+        OffensiveObject attacker = (OffensiveObject) getSubject();
         attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
 
         PerishableObject target = (PerishableObject)getTarget();
@@ -108,7 +108,7 @@ public class ProximityAttack extends BasicAction
     }
 
     private boolean attackComplete() {
-        OffensiveObject combatant = (OffensiveObject)getItem();
+        OffensiveObject combatant = (OffensiveObject) getSubject();
         combatant.setAnimation(UnitAnimation.Idle);
         return ActionComplete;
     }

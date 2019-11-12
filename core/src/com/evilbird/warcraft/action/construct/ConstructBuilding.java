@@ -12,10 +12,10 @@ package com.evilbird.warcraft.action.construct;
 import com.badlogic.gdx.math.Rectangle;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemGroup;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.remove.RemoveEvents;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
@@ -34,7 +34,7 @@ import java.util.function.Consumer;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.common.function.Predicates.all;
-import static com.evilbird.engine.item.utility.ItemPredicates.overlapping;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.overlapping;
 import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDead;
@@ -49,17 +49,17 @@ import static com.evilbird.warcraft.item.unit.UnitSound.Placement;
  */
 public class ConstructBuilding extends BasicAction
 {
-    private ItemFactory factory;
+    private GameObjectFactory factory;
     private ResourceTransfer resources;
     private RemoveEvents removeEvents;
     private CreateEvents createEvents;
-    private Consumer<Item> recipient;
+    private Consumer<GameObject> recipient;
     private ProductionCosts production;
     private WarcraftPreferences preferences;
 
     @Inject
     public ConstructBuilding(
-        ItemFactory factory,
+        GameObjectFactory factory,
         ResourceTransfer resources,
         RemoveEvents removeEvents,
         CreateEvents createEvents,
@@ -74,20 +74,20 @@ public class ConstructBuilding extends BasicAction
         this.preferences = preferences;
     }
 
-    public void setRecipient(Consumer<Item> recipient) {
+    public void setRecipient(Consumer<GameObject> recipient) {
         this.recipient = recipient;
     }
 
     @Override
     public boolean act(float delta) {
-        Gatherer builder = (Gatherer)getItem();
-        Item selector = getTarget();
+        Gatherer builder = (Gatherer) getSubject();
+        GameObject selector = getTarget();
         UnitType building = getBuilding(selector);
         Player player = getPlayer(builder);
         return construct(builder, selector, building, player);
     }
 
-    private boolean construct(Gatherer builder, Item selector, UnitType building, Player player) {
+    private boolean construct(Gatherer builder, GameObject selector, UnitType building, Player player) {
         purchase(building, player);
         create(building, player, selector, builder);
         removeOccluding(selector);
@@ -100,16 +100,16 @@ public class ConstructBuilding extends BasicAction
         resources.setResources(player, cost.negate());
     }
 
-    private void create(UnitType type, Player player, Item selector, Gatherer builder) {
+    private void create(UnitType type, Player player, GameObject selector, Gatherer builder) {
         Building building = (Building)factory.get(type);
         setAttributes(building, selector);
         setAssociations(builder, building);
         setPlacementSound(building);
-        player.addItem(building);
+        player.addObject(building);
         notifyCreationObservers(building);
     }
 
-    private void setAttributes(Building building, Item selector) {
+    private void setAttributes(Building building, GameObject selector) {
         building.setConstructionProgress(0);
         building.setAnimation(BuildingSite);
         building.setPosition(selector.getPosition());
@@ -132,29 +132,29 @@ public class ConstructBuilding extends BasicAction
         recipient.accept(building);
     }
 
-    private void removePlaceholder(Item selector) {
+    private void removePlaceholder(GameObject selector) {
         removeItem(selector);
     }
 
-    private void removeOccluding(Item selector) {
-        ItemRoot root = selector.getRoot();
+    private void removeOccluding(GameObject selector) {
+        GameObjectContainer root = selector.getRoot();
         Rectangle bounds = selector.getBounds();
         removeItems(root.findAll(all(isBuilding(), isDead(), overlapping(bounds))));
     }
 
-    private void removeItems(Collection<Item> items) {
-        for (Item item: items) {
-            removeItem(item);
+    private void removeItems(Collection<GameObject> gameObjects) {
+        for (GameObject gameObject : gameObjects) {
+            removeItem(gameObject);
         }
     }
 
-    private void removeItem(Item item) {
-        ItemGroup parent = item.getParent();
-        parent.removeItem(item);
-        removeEvents.notifyRemove(item);
+    private void removeItem(GameObject gameObject) {
+        GameObjectGroup parent = gameObject.getParent();
+        parent.removeObject(gameObject);
+        removeEvents.notifyRemove(gameObject);
     }
 
-    private UnitType getBuilding(Item selector) {
+    private UnitType getBuilding(GameObject selector) {
         SelectorType type = (SelectorType)selector.getType();
         return type.getBuilding();
     }

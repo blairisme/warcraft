@@ -47,7 +47,7 @@ public class ConstructUpgradeCancel extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         building.setAnimation(UnitAnimation.Idle);
         building.setProductionProgress(1);
 

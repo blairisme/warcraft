@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.data.lang.TestPredicate;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -45,7 +45,7 @@ public class RequirementActionTest
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(RequirementAction.class)
-                .withMockedTransientFields(Item.class)
+                .withMockedTransientFields(GameObject.class)
                 .excludeTransientFields()
                 .verify();
     }

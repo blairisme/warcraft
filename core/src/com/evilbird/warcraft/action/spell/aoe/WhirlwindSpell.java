@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.spell.aoe;
 
-import com.evilbird.engine.item.ItemFactory;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -25,7 +25,7 @@ import javax.inject.Inject;
 public class WhirlwindSpell extends AoeSpellAction
 {
     @Inject
-    public WhirlwindSpell(ItemFactory factory, AoeSpellCancel cancel) {
+    public WhirlwindSpell(GameObjectFactory factory, AoeSpellCancel cancel) {
         super(Spell.Whirlwind, EffectType.Spell, UnitType.Whirlwind, factory, cancel);
     }
 }

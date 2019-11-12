@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.events;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 /**
  * Implementors of this interface represent an instance of a note worthy
@@ -20,9 +20,9 @@ import com.evilbird.engine.item.Item;
 public interface Event
 {
     /**
-     * The {@link Item} involved in the event.
+     * The {@link GameObject} involved in the event.
      *
      * @return an {@code Item}.
      */
-    Item getSubject();
+    GameObject getSubject();
 }

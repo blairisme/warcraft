@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.specialized.Viewable;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.specialized.Viewable;
 
 import javax.inject.Inject;
 
@@ -19,7 +19,7 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
 
 /**
- * Instances of this class stop a moving {@link Item}, returning it to an idle
+ * Instances of this class stop a moving {@link GameObject}, returning it to an idle
  * state.
  *
  * @author Blair Butterworth
@@ -43,7 +43,7 @@ public class MoveCancel extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Viewable item = (Viewable)getItem();
+        Viewable item = (Viewable) getSubject();
         item.setAnimation(Idle);
         events.notifyMoveCancelled(item);
         return ActionComplete;

@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.behaviour.scenario.condition;
 
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 
 import java.util.function.BiPredicate;
 
@@ -20,6 +20,6 @@ import java.util.function.BiPredicate;
  *
  * @author Blair Butterworth
  */
-public interface ScenarioCondition extends BiPredicate<ItemRoot, EventQueue>
+public interface ScenarioCondition extends BiPredicate<GameObjectContainer, EventQueue>
 {
 }

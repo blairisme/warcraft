@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 import org.apache.commons.lang3.Validate;
@@ -37,7 +37,7 @@ public class AttackCancel extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Combatant attacker = (Combatant)getItem();
+        Combatant attacker = (Combatant) getSubject();
         PerishableObject target = (PerishableObject)getTarget();
 
         attacker.setAnimation(Idle);
@@ -47,13 +47,13 @@ public class AttackCancel extends BasicAction
     }
 
     @Override
-    public void setItem(Item item) {
-        Validate.isInstanceOf(Combatant.class, item);
-        super.setItem(item);
+    public void setItem(GameObject gameObject) {
+        Validate.isInstanceOf(Combatant.class, gameObject);
+        super.setItem(gameObject);
     }
 
     @Override
-    public void setTarget(Item target) {
+    public void setTarget(GameObject target) {
         Validate.isAssignableFrom(PerishableObject.class, target.getClass());
         super.setTarget(target);
     }

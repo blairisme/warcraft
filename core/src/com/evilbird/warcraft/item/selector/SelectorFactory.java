@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.selector;
 
 import com.evilbird.engine.game.GameFactorySet;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.selector.building.BuildingSelectorFactory;
 import com.evilbird.warcraft.item.selector.target.TargetSelectorFactory;
 
@@ -22,7 +22,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class SelectorFactory extends GameFactorySet<Item>
+public class SelectorFactory extends GameFactorySet<GameObject>
 {
     @Inject
     public SelectorFactory(

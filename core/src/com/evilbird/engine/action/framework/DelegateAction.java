@@ -14,7 +14,7 @@ import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -69,15 +69,15 @@ public class DelegateAction extends BasicAction
     }
 
     @Override
-    public void setItem(Item item) {
-        super.setItem(item);
+    public void setItem(GameObject gameObject) {
+        super.setItem(gameObject);
         if (delegate != null) {
-            delegate.setItem(item);
+            delegate.setItem(gameObject);
         }
     }
 
     @Override
-    public void setTarget(Item target) {
+    public void setTarget(GameObject target) {
         super.setTarget(target);
         if (delegate != null) {
             delegate.setTarget(target);
@@ -142,7 +142,7 @@ public class DelegateAction extends BasicAction
 
         } else {
             delegate.setTarget(getTarget());
-            delegate.setItem(getItem());
+            delegate.setItem(getSubject());
         }
     }
 }

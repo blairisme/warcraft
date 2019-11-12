@@ -14,15 +14,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.game.GameService;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.integration.device.IntegrationApplication;
 import com.evilbird.warcraft.integration.device.IntegrationContext;
 import com.evilbird.warcraft.integration.device.IntegrationInput;
 import cucumber.api.java.en.Given;
 
-import static com.evilbird.engine.item.utility.ItemPredicates.withType;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
 import static com.evilbird.warcraft.item.data.camera.CameraType.Camera;
 
 /**
@@ -43,8 +43,8 @@ public class InputSteps
 
         GameEngine engine = context.getEngine();
         State state = engine.getState();
-        ItemRoot world = state.getWorld();
-        Item camera = world.find(withType(Camera));
+        GameObjectContainer world = state.getWorld();
+        GameObject camera = world.find(withType(Camera));
         Vector2 screen = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Vector2 size = screen.scl(0.5f);
         Vector2 position = new Vector2(x + size.x, y + size.y);

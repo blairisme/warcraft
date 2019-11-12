@@ -11,10 +11,10 @@ package com.evilbird.warcraft.behaviour.ai.attack;
 
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
-import com.evilbird.engine.item.spatial.ItemGraph;
-import com.evilbird.engine.item.spatial.ItemNode;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
+import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
@@ -37,10 +37,10 @@ import java.util.Map.Entry;
 public class AttackGraph
 {
     private Events events;
-    private ItemGraph graph;
-    private Map<ItemNode, List<OffensiveObject>> attackers;
+    private GameObjectGraph graph;
+    private Map<GameObjectNode, List<OffensiveObject>> attackers;
 
-    public AttackGraph(ItemGraph graph, Events events) {
+    public AttackGraph(GameObjectGraph graph, Events events) {
         this.events = events;
         this.graph = graph;
         this.attackers = new HashMap<>();
@@ -48,7 +48,7 @@ public class AttackGraph
 
     public List<OffensiveObject> getAttackers(PerishableObject target) {
         List<OffensiveObject> result = new ArrayList<>();
-        for (ItemNode node: graph.getNodes(target)) {
+        for (GameObjectNode node: graph.getNodes(target)) {
             List<OffensiveObject> attackersWithinRange = attackers.get(node);
             if (attackersWithinRange != null) {
                 result.addAll(attackersWithinRange);
@@ -59,8 +59,8 @@ public class AttackGraph
 
     public List<PerishableObject> getTargets(OffensiveObject attacker) {
         List<PerishableObject> result = new ArrayList<>();
-        for (ItemNode node: graph.getNodes(attacker.getPosition(), attacker.getSize(), attacker.getSight())) {
-            for (Item occupant: node.getOccupants()) {
+        for (GameObjectNode node: graph.getNodes(attacker.getPosition(), attacker.getSize(), attacker.getSight())) {
+            for (GameObject occupant: node.getOccupants()) {
                 if (occupant instanceof PerishableObject) {
                     result.add((PerishableObject)occupant);
                 }
@@ -69,9 +69,9 @@ public class AttackGraph
         return result;
     }
 
-    public void initialize(ItemRoot state) {
-        for (Item item: state.findAll(OffensiveObject.class::isInstance)) {
-            addAttacker((OffensiveObject)item);
+    public void initialize(GameObjectContainer state) {
+        for (GameObject gameObject : state.findAll(OffensiveObject.class::isInstance)) {
+            addAttacker((OffensiveObject) gameObject);
         }
     }
 
@@ -83,7 +83,7 @@ public class AttackGraph
 
     private void evaluateCreateEvents() {
         for (CreateEvent event: events.getEvents(CreateEvent.class)) {
-            Item subject = event.getSubject();
+            GameObject subject = event.getSubject();
             if (subject instanceof OffensiveObject) {
                 addAttacker((OffensiveObject)subject);
             }
@@ -92,7 +92,7 @@ public class AttackGraph
 
     private void evaluateRemoveEvents() {
         for (RemoveEvent event: events.getEvents(RemoveEvent.class)) {
-            Item subject = event.getSubject();
+            GameObject subject = event.getSubject();
             if (subject instanceof OffensiveObject) {
                 removeAttacker((OffensiveObject)subject);
             }
@@ -101,7 +101,7 @@ public class AttackGraph
 
     private void evaluateMoveEvents() {
         for (MoveEvent event: events.getEvents(MoveEvent.class)) {
-            Item subject = event.getSubject();
+            GameObject subject = event.getSubject();
             if (subject instanceof OffensiveObject){
                 updateAttacker((OffensiveObject)subject);
             }
@@ -109,7 +109,7 @@ public class AttackGraph
     }
 
     private void addAttacker(OffensiveObject attacker) {
-        for (ItemNode node: graph.getNodes(attacker.getPosition(), attacker.getSize(), attacker.getSight())) {
+        for (GameObjectNode node: graph.getNodes(attacker.getPosition(), attacker.getSize(), attacker.getSight())) {
             List<OffensiveObject> occupants = Maps.getOrDefault(attackers, node, ArrayList::new);
             occupants.add(attacker);
             attackers.put(node, occupants);
@@ -117,7 +117,7 @@ public class AttackGraph
     }
 
     private void removeAttacker(OffensiveObject combatant) {
-        for (Entry<ItemNode, List<OffensiveObject>> entry: attackers.entrySet()) {
+        for (Entry<GameObjectNode, List<OffensiveObject>> entry: attackers.entrySet()) {
             entry.getValue().remove(combatant);
         }
     }

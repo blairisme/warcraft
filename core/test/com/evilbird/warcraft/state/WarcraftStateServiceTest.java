@@ -51,7 +51,7 @@ public class WarcraftStateServiceTest extends StateTestCase
         deviceResolver = new TestFileHandleResolver();
         deviceResolver.respondWith("saves", saveDirectory);
         assetResolver.respondWith("data/levels", assetDirectory);
-        hudLoader = new HudLoader(device, itemFactory);
+        hudLoader = new HudLoader(device, objectFactory);
         musicLoader = new WarcraftMusic(device);
         adapter = new WarcraftStateAdapter(hudLoader, levelLoader, musicLoader, behaviourFactory);
         serializer = new JsonSerializer(new WarcraftTypeRegistry(), Maps.of(WarcraftState.class, adapter));

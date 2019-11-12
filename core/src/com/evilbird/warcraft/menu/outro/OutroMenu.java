@@ -23,8 +23,8 @@ import com.evilbird.engine.common.control.TextProgressBar;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.game.GameEngine;
-import com.evilbird.engine.item.ItemRoot;
 import com.evilbird.engine.menu.Menu;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.data.player.Player;
@@ -106,7 +106,7 @@ public class OutroMenu extends Menu
     }
 
     private void updateView(State state) {
-        ItemRoot world = state.getWorld();
+        GameObjectContainer world = state.getWorld();
         Player corporealPlayer = UnitOperations.getCorporealPlayer(world);
         Collection<Player> aiPlayers = UnitOperations.getArtificialPlayers(world);
 

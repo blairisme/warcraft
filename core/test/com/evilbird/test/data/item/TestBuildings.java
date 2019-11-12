@@ -11,7 +11,7 @@ package com.evilbird.test.data.item;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.building.Building;
@@ -37,7 +37,7 @@ public class TestBuildings
         return newTestBuilding(identifier, type, newTestRoot("root"), newTestPlayer("parent"));
     }
 
-    public static Building newTestBuilding(Identifier identifier, Identifier type, ItemRoot root, Player parent) {
+    public static Building newTestBuilding(Identifier identifier, Identifier type, GameObjectContainer root, Player parent) {
         Building item = new Building(newTestSkin());
         item.setIdentifier(identifier);
         item.setType(type);

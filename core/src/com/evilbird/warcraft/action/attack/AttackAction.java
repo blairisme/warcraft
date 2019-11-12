@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.DelegateAction;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.item.common.capability.OffensiveObject;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.unit.Unit;
@@ -48,10 +48,10 @@ public class AttackAction extends DelegateAction
     }
 
     @Override
-    public void setItem(Item item) {
-        Validate.isInstanceOf(Unit.class, item);
-        delegate = getAttackAction((Unit)item);
-        super.setItem(item);
+    public void setItem(GameObject gameObject) {
+        Validate.isInstanceOf(Unit.class, gameObject);
+        delegate = getAttackAction((Unit) gameObject);
+        super.setItem(gameObject);
     }
 
     private Action getAttackAction(Unit unit) {

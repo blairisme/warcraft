@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.layer.wall;
 
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.item.spatial.SpatialObject;
+import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.layer.LayerGroupCell;
 import com.evilbird.warcraft.item.layer.LayerType;

@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.common.create;
 
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 import javax.inject.Inject;
 
@@ -23,7 +23,7 @@ public class CreateEvents
         this.events = events;
     }
 
-    public void notifyCreate(Item item) {
-        events.add(new CreateEvent(item));
+    public void notifyCreate(GameObject gameObject) {
+        events.add(new CreateEvent(gameObject));
     }
 }

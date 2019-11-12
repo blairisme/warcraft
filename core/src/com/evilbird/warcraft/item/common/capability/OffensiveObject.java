@@ -11,7 +11,7 @@ package com.evilbird.warcraft.item.common.capability;
 
 import com.evilbird.engine.common.lang.Animated;
 import com.evilbird.engine.common.lang.Audible;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 /**
  * Implementors of this interface represent a game object that can attack a
@@ -19,7 +19,7 @@ import com.evilbird.engine.item.Item;
  *
  * @author Blair Butterworth
  */
-public interface OffensiveObject extends Item, Animated, Audible
+public interface OffensiveObject extends GameObject, Animated, Audible
 {
     /**
      * Returns the attack capability of the {@code OffensiveObject}.

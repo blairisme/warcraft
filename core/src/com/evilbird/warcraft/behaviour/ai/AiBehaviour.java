@@ -11,7 +11,7 @@ package com.evilbird.warcraft.behaviour.ai;
 
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.behaviour.ai.attack.AttackBehaviour;
 import com.evilbird.warcraft.behaviour.ai.critter.WanderBehaviour;
@@ -49,7 +49,7 @@ public class AiBehaviour implements Behaviour
 
     @Override
     public void update(State state, List<UserInput> input) {
-        ItemRoot world = state.getWorld();
+        GameObjectContainer world = state.getWorld();
         for (AiBehaviourElement component: components) {
             component.applyBehaviour(world);
         }

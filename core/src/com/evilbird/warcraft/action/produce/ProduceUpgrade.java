@@ -79,12 +79,12 @@ public class ProduceUpgrade extends BasicAction
     }
 
     private boolean initialized() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         return building.isProducing();
     }
 
     protected boolean initialize() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         building.setProductionProgress(0);
 
         Player player = getPlayer(building);
@@ -102,7 +102,7 @@ public class ProduceUpgrade extends BasicAction
     }
 
     protected boolean load() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         Upgrade product = getProduct();
         timer = new GameTimer(productionTimes.buildTime(product));
         timer.advance(building.getProductionProgress() * timer.duration());
@@ -110,13 +110,13 @@ public class ProduceUpgrade extends BasicAction
     }
 
     protected boolean update() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         building.setProductionProgress(timer.completion());
         return ActionIncomplete;
     }
 
     protected boolean complete() {
-        Building building = (Building)getItem();
+        Building building = (Building) getSubject();
         building.setProductionProgress(1);
         Player player = getPlayer(building);
 

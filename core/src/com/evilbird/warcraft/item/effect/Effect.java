@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.item.effect;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.item.specialized.Viewable;
-import com.evilbird.engine.item.specialized.ViewableStyle;
+import com.evilbird.engine.object.specialized.Viewable;
+import com.evilbird.engine.object.specialized.ViewableStyle;
 
 /**
  * A game object that represents an effect, a visual entity that conveys the

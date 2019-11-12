@@ -12,6 +12,7 @@ package com.evilbird.warcraft.item.layer.fog;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.assets.SyntheticTexture;
 import com.evilbird.engine.common.collection.Maps;
@@ -23,7 +24,6 @@ import static com.evilbird.engine.common.assets.SyntheticTextureParameters.with;
 import static com.evilbird.engine.common.assets.SyntheticTextureType.Filled;
 import static com.evilbird.engine.common.graphics.Colours.OPAQUE;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
-import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_SIZE;
 
 /**
  * Provides access to the assets that are required to display {@link Fog}.
@@ -32,6 +32,8 @@ import static com.evilbird.warcraft.item.WarcraftItemConstants.TILE_SIZE;
  */
 public class FogAssets extends AssetBundle
 {
+    private static GridPoint2 TILE_SIZE = new GridPoint2(32, 32);
+
     public FogAssets(AssetManager manager, WarcraftContext context) {
         super(manager, assetPathVariables(context));
         register("terrain", "data/textures/common/terrain/${season}.png");

@@ -19,8 +19,8 @@ import com.evilbird.warcraft.item.unit.combatant.CombatantFactoryBase;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.item.WarcraftItemConstants.tiles;
 import static com.evilbird.warcraft.item.common.capability.MovementCapability.Land;
+import static com.evilbird.warcraft.item.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.MeleeDamage;
 import static com.evilbird.warcraft.item.common.upgrade.UpgradeSeries.MeleeDefence;
 import static com.evilbird.warcraft.item.unit.UnitType.Grunt;

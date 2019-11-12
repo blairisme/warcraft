@@ -12,8 +12,8 @@ package com.evilbird.warcraft.action.attack;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Alignment;
-import com.evilbird.engine.item.ItemFactory;
-import com.evilbird.engine.item.ItemGroup;
+import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.capability.MovableObject;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
@@ -41,14 +41,14 @@ public class ProjectileAttack extends BasicAction
     private transient Projectile projectile;
     private transient PerishableObject target;
     private transient Vector2 destination;
-    private transient ItemFactory factory;
+    private transient GameObjectFactory factory;
     private transient WarcraftPreferences preferences;
 
     private transient float flightTime;
     private transient float reloadTime;
 
     @Inject
-    public ProjectileAttack(ItemFactory factory, WarcraftPreferences preferences) {
+    public ProjectileAttack(GameObjectFactory factory, WarcraftPreferences preferences) {
         this.factory = factory;
         this.preferences = preferences;
     }
@@ -107,7 +107,7 @@ public class ProjectileAttack extends BasicAction
         target = (PerishableObject)getTarget();
         destination = target.getPosition(Alignment.Center);
 
-        combatant = (RangedOffensiveObject)getItem();
+        combatant = (RangedOffensiveObject) getSubject();
         reorientTowardsTarget();
 
         projectile = getProjectile(combatant);
@@ -122,8 +122,8 @@ public class ProjectileAttack extends BasicAction
             result = (Projectile)factory.get(combatant.getProjectileType());
             combatant.setProjectile(result);
 
-            ItemGroup parent = combatant.getParent();
-            parent.addItem(result);
+            GameObjectGroup parent = combatant.getParent();
+            parent.addObject(result);
         }
         return result;
     }

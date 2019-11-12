@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.item.common.query;
 
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 import java.util.Comparator;
 
@@ -20,7 +20,7 @@ public class UnitComparators
     private UnitComparators() {
     }
 
-    public static Comparator<Item> combatantsFirst() {
+    public static Comparator<GameObject> combatantsFirst() {
         return (itemA, itemB) -> {
             if (isCombatant(itemA)) {
                 return -1;

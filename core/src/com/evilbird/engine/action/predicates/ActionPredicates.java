@@ -10,7 +10,7 @@
 package com.evilbird.engine.action.predicates;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.item.Item;
+import com.evilbird.engine.object.GameObject;
 
 import java.util.function.Predicate;
 
@@ -25,7 +25,7 @@ public class ActionPredicates
     private ActionPredicates() {
     }
 
-    public static Predicate<Action> item(Predicate<Item> condition) {
-        return action -> condition.test(action.getItem());
+    public static Predicate<Action> item(Predicate<GameObject> condition) {
+        return action -> condition.test(action.getSubject());
     }
 }

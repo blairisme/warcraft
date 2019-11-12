@@ -14,8 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.item.Item;
-import com.evilbird.engine.item.ItemRoot;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.data.item.TestPlayers;
@@ -91,8 +91,8 @@ public class MenuBehaviourTest extends GameTestCase
         actionPane = new ActionPane(skin);
         statusPane = new StatusPane(skin);
 
-        ItemRoot world = TestItemRoots.newTestRoot(new TextIdentifier("world"), player);
-        ItemRoot hud = TestItemRoots.newTestRoot(new TextIdentifier("hud"), resourcePane, actionPane, statusPane);
+        GameObjectContainer world = TestItemRoots.newTestRoot(new TextIdentifier("world"), player);
+        GameObjectContainer hud = TestItemRoots.newTestRoot(new TextIdentifier("hud"), resourcePane, actionPane, statusPane);
 
         state = new WarcraftState();
         state.setWorld(world);
@@ -132,21 +132,21 @@ public class MenuBehaviourTest extends GameTestCase
     public void selectionUpdateTest() {
         menuBehaviour.update(state, Collections.emptyList());
 
-        Item item1 = TestCombatants.newTestCombatant("item");
-        Item item2 = TestCombatants.newTestCombatant("item");
-        events.add(new SelectEvent(item1, true));
-        events.add(new SelectEvent(item2, true));
+        GameObject gameObject1 = TestCombatants.newTestCombatant("item");
+        GameObject gameObject2 = TestCombatants.newTestCombatant("item");
+        events.add(new SelectEvent(gameObject1, true));
+        events.add(new SelectEvent(gameObject2, true));
         menuBehaviour.update(state, Collections.emptyList());
 
-        Collection<Item> expected1 = Arrays.asList(item1, item2);
+        Collection<GameObject> expected1 = Arrays.asList(gameObject1, gameObject2);
         assertEquals(expected1, actionPane.getSelected());
         assertEquals(expected1, statusPane.getSelected());
 
         events.clear();
-        events.add(new SelectEvent(item1, false));
+        events.add(new SelectEvent(gameObject1, false));
         menuBehaviour.update(state, Collections.emptyList());
 
-        Collection<Item> expected2 = Arrays.asList(item2);
+        Collection<GameObject> expected2 = Arrays.asList(gameObject2);
         assertEquals(expected2, actionPane.getSelected());
         assertEquals(expected2, statusPane.getSelected());
     }
