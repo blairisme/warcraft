@@ -1,16 +1,17 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.object.specialized;
+package com.evilbird.engine.object.control;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.lang.TextIdentifier;
+import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -27,23 +28,23 @@ import java.io.IOException;
 import static com.evilbird.test.data.item.TestSkins.newTestSkin;
 
 /**
- * Instances of this unit test validate the {@link Viewable} class.
+ * Instances of this unit test validate the {@link AnimatedObject} class.
  *
  * @author Blair Butterworth
  */
-public class ViewableTest extends GameTestCase
+public class AnimatedObjectTest extends GameTestCase
 {
-    private Viewable viewable;
+    private AnimatedObject animatedObject;
 
     @Before
     public void setup() {
         super.setup();
-        viewable = newAnimatedItem();
-        Mockito.when(objectFactory.get(Mockito.any())).thenReturn(viewable);
+        animatedObject = newAnimatedItem();
+        Mockito.when(objectFactory.get(Mockito.any())).thenReturn(animatedObject);
     }
 
-    private Viewable newAnimatedItem() {
-        Viewable item = new Viewable(newTestSkin());
+    private AnimatedObject newAnimatedItem() {
+        AnimatedObject item = new AnimatedObject(newTestSkin());
         item.setRoot(TestItemRoots.newTestRoot("root"));
         item.setType(UnitType.Footman);
         item.setIdentifier(new TextIdentifier("footman"));
@@ -57,15 +58,15 @@ public class ViewableTest extends GameTestCase
 
     @Test
     public void serializeTest() throws IOException {
-        SerializationVerifier.forClass(Viewable.class)
-            .withDeserializedForm(viewable)
+        SerializationVerifier.forClass(AnimatedObject.class)
+            .withDeserializedForm(animatedObject)
             .withSerializedResource("/item/animateditem.json")
             .verify();
     }
 
     @Test
     public void equalsTest() {
-        EqualityVerifier.forClass(Viewable.class)
+        EqualityVerifier.forClass(AnimatedObject.class)
             .withMockedTransientFields()
             .excludeTransientFields()
             .verify();

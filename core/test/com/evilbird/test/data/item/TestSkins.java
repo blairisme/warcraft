@@ -18,7 +18,7 @@ import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.object.specialized.ViewableStyle;
+import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.item.layer.LayerGroupStyle;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitSound;
@@ -76,7 +76,7 @@ public class TestSkins
         UnitStyle style = newUnitStyle();
 
         Skin skin = new Skin();
-        skin.add("default", style, ViewableStyle.class);
+        skin.add("default", style, AnimatedObjectStyle.class);
         skin.add("default", style, UnitStyle.class);
         return skin;
     }

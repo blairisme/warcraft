@@ -29,8 +29,8 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectReference;
 import com.evilbird.engine.object.spatial.SpatialObject;
-import com.evilbird.engine.object.specialized.Viewable;
-import com.evilbird.engine.object.specialized.ViewableStyle;
+import com.evilbird.engine.object.AnimatedObject;
+import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.common.TeamColour;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;
@@ -58,7 +58,7 @@ import static com.evilbird.warcraft.item.common.value.FixedValue.Zero;
  *
  * @author Blair Butterworth
  */
-public class Unit extends Viewable implements PerishableObject, SelectableObject, SpatialObject, Renderable
+public class Unit extends AnimatedObject implements PerishableObject, SelectableObject, SpatialObject, Renderable
 {
     private Value armour;
     private float health;
@@ -77,7 +77,7 @@ public class Unit extends Viewable implements PerishableObject, SelectableObject
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
-     * an {@link ViewableStyle}, specifying the visual and auditory
+     * an {@link AnimatedObjectStyle}, specifying the visual and auditory
      * presentation of the new Unit.
      *
      * @param skin a {@code Skin} instance containing a {@code ViewableStyle}.

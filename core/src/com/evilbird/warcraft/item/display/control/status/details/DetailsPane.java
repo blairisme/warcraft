@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.specialized.Grid;
+import com.evilbird.engine.object.control.Grid;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.display.control.status.details.building.BuildingDetailsPane;
 import com.evilbird.warcraft.item.display.control.status.details.combatant.CombatantDetailsPane;

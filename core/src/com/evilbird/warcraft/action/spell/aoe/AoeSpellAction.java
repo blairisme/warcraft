@@ -45,10 +45,7 @@ public class AoeSpellAction extends SpellAction
     @Override
     protected void initialize() {
         super.initialize();
-        addAoeEffect();
-    }
 
-    protected ConjuredObject addAoeEffect() {
         GameObject caster = getSubject();
         GameObject selector = getTarget();
 
@@ -61,7 +58,5 @@ public class AoeSpellAction extends SpellAction
         cancelAction.setItem(caster);
         cancelAction.setTarget(aoe);
         aoe.addAction(cancelAction, spell.getEffectDuration());
-
-        return aoe;
     }
 }

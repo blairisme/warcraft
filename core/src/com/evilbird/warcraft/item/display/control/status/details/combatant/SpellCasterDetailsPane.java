@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.control.TextProgressBar;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.specialized.Grid;
+import com.evilbird.engine.object.control.Grid;
 import com.evilbird.warcraft.item.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
 

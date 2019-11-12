@@ -18,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.graphics.AnimationFrame;
 import com.evilbird.engine.common.graphics.AnimationRenderer;
-import com.evilbird.engine.object.specialized.ViewableStyle;
+import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.item.unit.conjured.ConjuredObject;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class FlameShield extends ConjuredObject
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
-     * a {@link ViewableStyle}, specifying the visual and auditory presentation
+     * a {@link AnimatedObjectStyle}, specifying the visual and auditory presentation
      * of the Flame Shield object.
      */
     public FlameShield(Skin skin) {

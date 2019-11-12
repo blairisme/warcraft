@@ -18,7 +18,7 @@ import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.engine.object.spatial.SpatialObject;
-import com.evilbird.engine.object.specialized.Viewable;
+import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.warcraft.action.common.path.ItemNodePath;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.action.common.path.ItemPathFinder;
@@ -105,9 +105,9 @@ abstract class MoveAction extends BasicAction
 
     protected void resetItem(GameObject gameObject) {
         updateOccupancy(gameObject);
-        if (gameObject instanceof Viewable) {
-            Viewable viewable = (Viewable) gameObject;
-            viewable.setAnimation(UnitAnimation.Idle);
+        if (gameObject instanceof AnimatedObject) {
+            AnimatedObject animatedObject = (AnimatedObject) gameObject;
+            animatedObject.setAnimation(UnitAnimation.Idle);
         }
     }
 
@@ -210,9 +210,9 @@ abstract class MoveAction extends BasicAction
     }
 
     protected boolean initializeItem(GameObject gameObject) {
-        if (gameObject instanceof Viewable) {
-            Viewable viewable = (Viewable) gameObject;
-            viewable.setAnimation(UnitAnimation.Move);
+        if (gameObject instanceof AnimatedObject) {
+            AnimatedObject animatedObject = (AnimatedObject) gameObject;
+            animatedObject.setAnimation(UnitAnimation.Move);
         }
         return true;
     }

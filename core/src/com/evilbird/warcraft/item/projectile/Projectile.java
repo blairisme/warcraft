@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.projectile;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.object.specialized.Viewable;
+import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.warcraft.item.common.capability.MovableObject;
 import com.evilbird.warcraft.item.common.capability.MovementCapability;
 
@@ -19,7 +19,7 @@ import com.evilbird.warcraft.item.common.capability.MovementCapability;
  *
  * @author Blair Butterworth
  */
-public class Projectile extends Viewable implements MovableObject
+public class Projectile extends AnimatedObject implements MovableObject
 {
     private static final transient int PROJECTILE_SPEED = 500;
 

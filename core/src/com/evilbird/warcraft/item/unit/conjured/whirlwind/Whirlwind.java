@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
-import com.evilbird.engine.object.specialized.ViewableStyle;
+import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.item.unit.conjured.ConjuredObject;
 
 import static org.apache.commons.lang3.RandomUtils.nextFloat;
@@ -36,7 +36,7 @@ public class Whirlwind extends ConjuredObject
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
-     * a {@link ViewableStyle}, specifying the visual and auditory presentation
+     * a {@link AnimatedObjectStyle}, specifying the visual and auditory presentation
      * of the Whirlwind object.
      */
     public Whirlwind(Skin skin) {

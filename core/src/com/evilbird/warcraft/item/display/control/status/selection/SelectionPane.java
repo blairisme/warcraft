@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.display.control.status.selection;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.specialized.Grid;
+import com.evilbird.engine.object.control.Grid;
 import com.evilbird.warcraft.item.display.HudControl;
 import com.evilbird.warcraft.item.unit.Unit;
 

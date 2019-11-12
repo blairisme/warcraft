@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.specialized.Viewable;
+import com.evilbird.engine.object.AnimatedObject;
 
 import javax.inject.Inject;
 
@@ -43,7 +43,7 @@ public class MoveCancel extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Viewable item = (Viewable) getSubject();
+        AnimatedObject item = (AnimatedObject) getSubject();
         item.setAnimation(Idle);
         events.notifyMoveCancelled(item);
         return ActionComplete;

@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.specialized.Grid;
+import com.evilbird.engine.object.control.Grid;
 import com.evilbird.warcraft.item.display.control.common.UnitPane;
 import com.evilbird.warcraft.item.display.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.display.control.status.details.DetailsPaneStyle;

@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.item.unit.conjured;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.graphics.Renderable;
 import com.evilbird.warcraft.item.common.capability.OffensiveCapability;
 import com.evilbird.warcraft.item.common.capability.OffensiveObject;
 import com.evilbird.warcraft.item.common.capability.OffensivePlurality;
@@ -27,7 +28,7 @@ import static com.evilbird.warcraft.item.common.capability.OffensivePlurality.Mu
  *
  * @author Blair Butterworth
  */
-public class ConjuredObject extends Unit implements OffensiveObject
+public class ConjuredObject extends Unit implements OffensiveObject, Renderable
 {
     private float attackSpeed;
     private int attackRange;

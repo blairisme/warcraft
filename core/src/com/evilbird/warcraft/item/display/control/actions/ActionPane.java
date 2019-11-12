@@ -15,7 +15,7 @@ import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.specialized.Grid;
+import com.evilbird.engine.object.control.Grid;
 import com.evilbird.warcraft.action.menu.MenuProvider;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.display.HudControl;

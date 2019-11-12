@@ -21,7 +21,7 @@ import com.badlogic.gdx.utils.Scaling;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.object.specialized.Grid;
+import com.evilbird.engine.object.control.Grid;
 import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.action.produce.ProduceUpgradeActions;

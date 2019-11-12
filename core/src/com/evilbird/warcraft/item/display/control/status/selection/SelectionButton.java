@@ -12,8 +12,8 @@ package com.evilbird.warcraft.item.display.control.status.selection;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.specialized.Button;
-import com.evilbird.engine.object.specialized.Stack;
+import com.evilbird.engine.object.control.Button;
+import com.evilbird.engine.object.control.Stack;
 import com.evilbird.warcraft.item.display.control.common.UnitPane;
 import com.evilbird.warcraft.item.unit.Unit;
 

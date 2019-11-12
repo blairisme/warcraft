@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.object.specialized;
+package com.evilbird.engine.object;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
@@ -23,8 +23,6 @@ import com.evilbird.engine.common.lang.Audible;
 import com.evilbird.engine.common.lang.Directionable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Styleable;
-import com.evilbird.engine.object.BasicGameObject;
-import com.evilbird.engine.object.GameObject;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -36,31 +34,31 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author Blair Butterworth
  */
-public class Viewable extends BasicGameObject implements Animated, Audible, Directionable, Styleable
+public class AnimatedObject extends BasicGameObject implements Animated, Audible, Directionable, Styleable
 {
     protected float direction;
     protected Identifier animationId;
     protected Identifier soundId;
 
     protected transient Skin skin;
-    protected transient ViewableStyle style;
+    protected transient AnimatedObjectStyle style;
     protected transient LocalizedSound sound;
     protected transient AnimationRenderer animation;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
-     * an {@link ViewableStyle}, specifying the visual and auditory
+     * an {@link AnimatedObjectStyle}, specifying the visual and auditory
      * presentation of the new {@code AnimatedItem}.
      *
      * @param skin a {@code Skin} instance. This method cannot be {@code null}.
      */
-    public Viewable(Skin skin) {
+    public AnimatedObject(Skin skin) {
         this();
         setSkin(skin);
     }
 
-    protected Viewable() {
-        this.style = new ViewableStyle();
+    protected AnimatedObject() {
+        this.style = new AnimatedObjectStyle();
         this.animationId = null;
         this.animation = new AnimationRenderer();
         this.soundId = null;
@@ -82,7 +80,7 @@ public class Viewable extends BasicGameObject implements Animated, Audible, Dire
         return skin;
     }
 
-    public ViewableStyle getStyle() {
+    public AnimatedObjectStyle getStyle() {
         return style;
     }
 
@@ -134,13 +132,13 @@ public class Viewable extends BasicGameObject implements Animated, Audible, Dire
     @Override
     public void setStyle(String name) {
         Validate.validState(skin != null);
-        setStyle(skin.get(name, ViewableStyle.class));
+        setStyle(skin.get(name, AnimatedObjectStyle.class));
     }
 
-    public void setStyle(ViewableStyle style) {
+    public void setStyle(AnimatedObjectStyle style) {
         Validate.notNull(style.animations);
         Validate.notNull(style.sounds);
-        this.style = new ViewableStyle(style);
+        this.style = new AnimatedObjectStyle(style);
     }
 
     @Override
@@ -198,7 +196,7 @@ public class Viewable extends BasicGameObject implements Animated, Audible, Dire
         if (obj == this) { return true; }
         if (obj.getClass() != getClass()) { return false; }
 
-        Viewable that = (Viewable)obj;
+        AnimatedObject that = (AnimatedObject)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
             .append(direction, that.direction)

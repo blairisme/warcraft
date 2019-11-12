@@ -30,9 +30,9 @@ public class AoeSpellCancel extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        GameObject creature = getTarget();
-        GameObjectGroup parent = creature.getParent();
-        parent.removeObject(creature);
+        GameObject aoe = getTarget();
+        GameObjectGroup parent = aoe.getParent();
+        parent.removeObject(aoe);
         return ActionComplete;
     }
 }

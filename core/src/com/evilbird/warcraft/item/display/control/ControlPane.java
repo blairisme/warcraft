@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.object.BasicGameObject;
-import com.evilbird.engine.object.specialized.Table;
+import com.evilbird.engine.object.control.Table;
 import com.evilbird.warcraft.item.display.HudControl;
 import com.evilbird.warcraft.item.display.control.actions.ActionPane;
 import com.evilbird.warcraft.item.display.control.menu.MenuPane;

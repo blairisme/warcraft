@@ -12,7 +12,7 @@ package com.evilbird.warcraft.item.effect;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.AnimationCatalog;
-import com.evilbird.engine.object.specialized.ViewableStyle;
+import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.item.effect.confirmation.ConfirmationAnimations;
 import com.evilbird.warcraft.item.effect.environmental.FireAnimations;
 import com.evilbird.warcraft.item.effect.environmental.FlameAnimations;
@@ -72,15 +72,15 @@ public class EffectBuilder
 
     private Skin getSkin() {
         Skin skin = new Skin();
-        skin.add("default", getAnimationStyle(), ViewableStyle.class);
+        skin.add("default", getAnimationStyle(), AnimatedObjectStyle.class);
         return skin;
     }
 
-    private ViewableStyle getAnimationStyle() {
+    private AnimatedObjectStyle getAnimationStyle() {
         AnimationCatalog animations = getAnimations();
-        ViewableStyle viewableStyle = new ViewableStyle();
-        viewableStyle.animations = animations.get();
-        return viewableStyle;
+        AnimatedObjectStyle style = new AnimatedObjectStyle();
+        style.animations = animations.get();
+        return style;
     }
 
     private AnimationCatalog getAnimations() {

@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.FlashingRenderable;
 import com.evilbird.engine.common.graphics.SpriteRenderable;
-import com.evilbird.engine.object.specialized.ViewableStyle;
+import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.item.unit.UnitAnimation;
 import com.evilbird.warcraft.item.unit.UnitStyle;
 
@@ -46,7 +46,7 @@ public class ResourceBuilder
     private Skin getSkin() {
         UnitStyle style = getStyle();
         Skin skin = new Skin();
-        skin.add("default", style, ViewableStyle.class);
+        skin.add("default", style, AnimatedObjectStyle.class);
         skin.add("default", style, UnitStyle.class);
         return skin;
     }

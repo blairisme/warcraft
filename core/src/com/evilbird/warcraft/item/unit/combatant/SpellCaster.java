@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.object.specialized.ViewableStyle;
+import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.Effect;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -36,7 +36,7 @@ public class SpellCaster extends RangedCombatant
      * its visual and auditory presentation.
      *
      * @param skin a {@link Skin} instance containing, amongst others, a
-     *             {@link ViewableStyle}.
+     *             {@link AnimatedObjectStyle}.
      */
     public SpellCaster(Skin skin) {
         super(skin);

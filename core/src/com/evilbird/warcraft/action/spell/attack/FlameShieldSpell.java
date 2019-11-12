@@ -9,14 +9,12 @@
 
 package com.evilbird.warcraft.action.spell.attack;
 
-import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;
-import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.common.spell.Spell;
-import com.evilbird.warcraft.item.data.player.Player;
 import com.evilbird.warcraft.item.effect.EffectType;
+import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.conjured.ConjuredObject;
 
@@ -47,13 +45,10 @@ public class FlameShieldSpell extends SpellAction
 
     private void addEffect() {
         GameObject caster = getSubject();
-        GameObject selector = getTarget();
+        Unit target = (Unit)getTarget();
 
         ConjuredObject flameShield = (ConjuredObject)factory.get(UnitType.FlameShield);
-        flameShield.setPosition(selector.getPosition(Alignment.Center), Alignment.Center);
-
-        Player player = UnitOperations.getPlayer(caster);
-        player.addObject(flameShield);
+        target.setEffect(flameShield);
 
         cancelAction.setItem(caster);
         cancelAction.setTarget(flameShield);

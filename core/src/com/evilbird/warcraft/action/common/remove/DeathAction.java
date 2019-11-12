@@ -20,7 +20,7 @@ import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
-import com.evilbird.engine.object.specialized.Viewable;
+import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.capability.PerishableObject;
@@ -119,8 +119,8 @@ public class DeathAction extends BasicAction
     }
 
     private void initializeVisuals(PerishableObject subject) {
-        if (subject instanceof Viewable) {
-            assignDeathAnimation((Viewable)subject);
+        if (subject instanceof AnimatedObject) {
+            assignDeathAnimation((AnimatedObject)subject);
         }
         if (isFabricated(subject)) {
             assignExplosionEffect(subject);
@@ -136,7 +136,7 @@ public class DeathAction extends BasicAction
         return false;
     }
 
-    private void assignDeathAnimation(Viewable subject) {
+    private void assignDeathAnimation(AnimatedObject subject) {
         if (subject.hasAnimation(Death)) {
             subject.setAnimation(Death);
             subject.setSound(Die, preferences.getEffectsVolume());

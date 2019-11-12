@@ -11,7 +11,7 @@ package com.evilbird.warcraft.item.display.control.status.details.building;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.specialized.Table;
+import com.evilbird.engine.object.control.Table;
 import com.evilbird.warcraft.item.common.resource.ResourceType;
 import com.evilbird.warcraft.item.display.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.item.unit.UnitType;

@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.item.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.object.specialized.ViewableStyle;
+import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.item.common.capability.OffensiveCapability;
 
 import static com.evilbird.warcraft.item.common.capability.OffensiveCapability.Water;
@@ -28,7 +28,7 @@ public class Submarine extends RangedCombatant
      * its visual and auditory presentation.
      *
      * @param skin a {@link Skin} instance containing, amongst others, a
-     *             {@link ViewableStyle}.
+     *             {@link AnimatedObjectStyle}.
      */
     public Submarine(Skin skin) {
         super(skin);

@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.item.effect;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.object.specialized.Viewable;
-import com.evilbird.engine.object.specialized.ViewableStyle;
+import com.evilbird.engine.object.AnimatedObject;
+import com.evilbird.engine.object.AnimatedObjectStyle;
 
 /**
  * A game object that represents an effect, a visual entity that conveys the
@@ -20,11 +20,11 @@ import com.evilbird.engine.object.specialized.ViewableStyle;
  *
  * @author Blair Butterworth
  */
-public class Effect extends Viewable
+public class Effect extends AnimatedObject
 {
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
-     * a {@link ViewableStyle}, specifying the visual and auditory presentation
+     * a {@link AnimatedObjectStyle}, specifying the visual and auditory presentation
      * of the effect.
      *
      * @param skin a {@code Skin} instance.

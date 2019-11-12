@@ -32,8 +32,8 @@ public class AttackSpellFactory extends SpellProvider
     public AttackSpellFactory(
         InjectedPool<ExorcismSpell> exorcismSpell,
         InjectedPool<ExorcismSelect> exorcismSelect,
-        InjectedPool<com.evilbird.warcraft.action.spell.attack.FlameShieldSpell> flameShieldSpell,
-        InjectedPool<com.evilbird.warcraft.action.spell.attack.FlameShieldSelect> flameShieldSelect,
+        InjectedPool<FlameShieldSpell> flameShieldSpell,
+        InjectedPool<FlameShieldSelect> flameShieldSelect,
         InjectedPool<UnholyArmourSpell> unholyArmourSpell,
         InjectedPool<UnholyArmourSelect> unholyArmourSelect)
     {

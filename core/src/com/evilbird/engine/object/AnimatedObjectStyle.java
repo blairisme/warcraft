@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.object.specialized;
+package com.evilbird.engine.object;
 
 import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.graphics.Animation;
@@ -20,11 +20,11 @@ import java.util.Objects;
 import static java.util.Collections.emptyMap;
 
 /**
- * Defines the visual and auditory presentation of an {@link Viewable}.
+ * Defines the visual and auditory presentation of an {@link AnimatedObject}.
  *
  * @author Blair Butterworth
  */
-public class ViewableStyle
+public class AnimatedObjectStyle
 {
     public Map<Identifier, Animation> animations;
     public Map<Identifier, Sound> sounds;
@@ -32,7 +32,7 @@ public class ViewableStyle
     /**
      * Creates a new instance of this class with no animations or sounds.
      */
-    public ViewableStyle() {
+    public AnimatedObjectStyle() {
         animations = emptyMap();
         sounds = emptyMap();
     }
@@ -42,12 +42,12 @@ public class ViewableStyle
      * attributes will be copied into the new style. Subsequent changes to the
      * new style will not be reflected in the style it was copied from.
      *
-     * @param style a {@link ViewableStyle} whose style attributes will be
+     * @param style a {@link AnimatedObjectStyle} whose style attributes will be
      *              copied.
      *
      * @throws NullPointerException thrown if the given style is {@code null}.
      */
-    public ViewableStyle(ViewableStyle style) {
+    public AnimatedObjectStyle(AnimatedObjectStyle style) {
         Objects.requireNonNull(style);
         animations = new HashMap<>(style.animations);
         sounds = new HashMap<>(style.sounds);

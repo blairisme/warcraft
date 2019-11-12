@@ -13,7 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
-import com.evilbird.engine.object.specialized.Viewable;
+import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;
 
@@ -88,9 +88,9 @@ public class SelectInvert extends BasicAction
     }
 
     private void setSelectedSound(GameObject entity) {
-        if (entity instanceof Viewable && preferences.isAcknowledgementEnabled()) {
-            Viewable viewable = (Viewable)entity;
-            viewable.setSound(Selected, preferences.getEffectsVolume());
+        if (entity instanceof AnimatedObject && preferences.isAcknowledgementEnabled()) {
+            AnimatedObject animatedObject = (AnimatedObject)entity;
+            animatedObject.setSound(Selected, preferences.getEffectsVolume());
         }
     }
 
