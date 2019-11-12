@@ -25,11 +25,11 @@ import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
  *
  * @author Blair Butterworth
  */
-public class SelectionBox extends BasicGameObject implements Disposable
+public class AreaSelector extends BasicGameObject implements Disposable
 {
     private Texture texture;
 
-    public SelectionBox() {
+    public AreaSelector() {
         setIdentifier(SelectorType.AreaSelector);
         setType(SelectorType.AreaSelector);
         setTouchable(Touchable.disabled);

@@ -19,7 +19,7 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;
-import com.evilbird.warcraft.item.selector.selection.SelectionBox;
+import com.evilbird.warcraft.item.selector.selection.AreaSelector;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
 
 import javax.inject.Inject;
@@ -34,7 +34,7 @@ import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.item.selector.SelectorType.AreaSelector;
 
 /**
- * Instances of this {@link Action} manipulate a {@link SelectionBox}, a user
+ * Instances of this {@link Action} manipulate a {@link com.evilbird.warcraft.item.selector.selection.AreaSelector}, a user
  * define graphical area that denotes the items the user wishes to select.
  *
  * @author Blair Butterworth
@@ -70,7 +70,7 @@ public class SelectorArea extends BasicAction
         GameObject box = root.find(withType(AreaSelector));
         if (box == null) {
             UserInput input = getCause();
-            box = new SelectionBox();
+            box = new AreaSelector();
             box.setPosition(root.unproject(input.getPosition()));
             box.setSize(new Vector2(1, 1));
             root.addObject(box);
