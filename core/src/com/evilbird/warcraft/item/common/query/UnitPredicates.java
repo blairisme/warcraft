@@ -185,10 +185,6 @@ public class UnitPredicates
         return item -> UnitOperations.isCastingSpell(item, spell);
     }
 
-    public static Predicate<Item> isSelector() {
-        return UnitOperations::isSelector;
-    }
-
     public static Predicate<Item> isResource() {
         return item -> item instanceof Resource;
     }

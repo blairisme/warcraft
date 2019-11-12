@@ -7,18 +7,13 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.select;
+package com.evilbird.warcraft.action.selection;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.test.testcase.ActionFactoryTestCase;
 import com.evilbird.test.utils.MockInjectedPool;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.selection.DeselectAction;
-import com.evilbird.warcraft.action.selection.SelectActions;
-import com.evilbird.warcraft.action.selection.SelectFactory;
-import com.evilbird.warcraft.action.selection.SelectFlash;
-import com.evilbird.warcraft.action.selection.SelectInvert;
 
 /**
  * Instances of this unit test validate the {@link SelectFactory} class.

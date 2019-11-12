@@ -7,13 +7,10 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.select;
+package com.evilbird.warcraft.action.selection;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.action.selection.SelectActions;
-import com.evilbird.warcraft.action.selection.SelectEvents;
-import com.evilbird.warcraft.action.selection.SelectInvert;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.item.common.capability.SelectableObject;
 import org.junit.Ignore;

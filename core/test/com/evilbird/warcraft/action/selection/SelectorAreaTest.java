@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.select;
+package com.evilbird.warcraft.action.selection;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;

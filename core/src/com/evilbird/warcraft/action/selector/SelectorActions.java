@@ -15,7 +15,7 @@ import com.evilbird.warcraft.item.selector.SelectorType;
 import org.apache.commons.lang3.Validate;
 
 /**
- * Defines options of specifying selector varieties.
+ * Defines options of specifying selector actions.
  *
  * @author Blair Butterworth
  */

@@ -51,7 +51,7 @@ public class DeathKnightFactory extends CombatantFactoryBase
         result.setHealth(40);
         result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("DeathKnight", result));
-        result.setMana(100f);
+        result.setMana(255f);
         result.setManaMaximum(255f);
         result.setManaRegeneration(1f);
         result.setMovementSpeed(8 * 10);

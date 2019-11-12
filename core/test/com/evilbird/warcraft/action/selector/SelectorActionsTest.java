@@ -7,9 +7,8 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.placeholder;
+package com.evilbird.warcraft.action.selector;
 
-import com.evilbird.warcraft.action.selector.SelectorActions;
 import com.evilbird.warcraft.item.selector.SelectorType;
 import org.junit.Assert;
 import org.junit.Test;

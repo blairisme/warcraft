@@ -7,7 +7,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.placeholder;
+package com.evilbird.warcraft.action.selector;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
@@ -15,9 +15,6 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.data.item.TestPlaceholders;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.action.selector.SelectorActions;
-import com.evilbird.warcraft.action.selector.SelectorCreate;
-import com.evilbird.warcraft.action.selector.SelectorEvents;
 import com.evilbird.warcraft.item.selector.building.BuildingSelector;
 import com.evilbird.warcraft.item.unit.UnitType;
 import com.evilbird.warcraft.item.unit.gatherer.Gatherer;

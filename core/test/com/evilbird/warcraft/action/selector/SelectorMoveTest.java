@@ -16,7 +16,7 @@
  *      https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.placeholder;
+package com.evilbird.warcraft.action.selector;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
@@ -26,7 +26,6 @@ import com.evilbird.engine.item.Item;
 import com.evilbird.test.data.item.TestPlaceholders;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
-import com.evilbird.warcraft.action.selector.SelectorMove;
 import com.evilbird.warcraft.item.selector.building.BuildingSelector;
 import org.junit.Assert;
 import org.junit.Before;

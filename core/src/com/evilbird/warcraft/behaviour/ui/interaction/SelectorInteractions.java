@@ -11,6 +11,7 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.action.selector.SelectorActions;
+import com.evilbird.warcraft.item.common.query.UnitOperations;
 import com.evilbird.warcraft.item.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.item.selector.SelectorType;
 import com.evilbird.warcraft.item.unit.UnitType;
@@ -38,7 +39,6 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelector;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.BlizzardButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.CancelButton;
 import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.DeathAndDecayButton;
@@ -119,21 +119,15 @@ public class SelectorInteractions extends InteractionContainer
 
         addAction(HideSelector)
             .whenTarget(CancelButton)
-            .whenSelected(associatedWith(isSelector()))
+            .whenSelected(associatedWith(UnitOperations::isSelector))
             .appliedTo(Selected)
             .appliedAs(Addition);
-
-//        addAction(SelectorCancel, SelectInvert)
-//            .whenSelected(both(isSelected(), associatedWith(isSelector())))
-//            .whenTarget(isGatherer())
-//            .appliedTo(Selected)
-//            .appliedAs(Addition);
     }
 
     private void moveSelectors() {
         addAction(MoveSelector)
             .forInput(Drag)
-            .whenTarget(isSelector())
+            .whenTarget(UnitOperations::isSelector)
             .appliedTo(Target);
     }
 

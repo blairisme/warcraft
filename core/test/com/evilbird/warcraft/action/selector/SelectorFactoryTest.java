@@ -7,19 +7,13 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.placeholder;
+package com.evilbird.warcraft.action.selector;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.test.testcase.ActionFactoryTestCase;
 import com.evilbird.test.utils.MockInjectedPool;
 import com.evilbird.warcraft.action.ActionProvider;
-import com.evilbird.warcraft.action.selector.SelectorActions;
-import com.evilbird.warcraft.action.selector.SelectorArea;
-import com.evilbird.warcraft.action.selector.SelectorCancel;
-import com.evilbird.warcraft.action.selector.SelectorCreate;
-import com.evilbird.warcraft.action.selector.SelectorFactory;
-import com.evilbird.warcraft.action.selector.SelectorMove;
 
 /**
  * Instances of this unit test validate the {@link SelectorFactory} class.
