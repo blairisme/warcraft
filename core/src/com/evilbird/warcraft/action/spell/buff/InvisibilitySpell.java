@@ -9,9 +9,11 @@
 
 package com.evilbird.warcraft.action.spell.buff;
 
+import com.evilbird.engine.common.graphics.Renderable;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;
+import com.evilbird.warcraft.item.badge.BadgeType;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.effect.EffectType;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
@@ -40,6 +42,7 @@ public class InvisibilitySpell extends SpellAction
         super.initialize();
 
         Combatant target = (Combatant)getTarget();
+        target.setEffect((Renderable)factory.get(BadgeType.InvisibilityBadge));
 
         cancel.setItem(getSubject());
         cancel.setTarget(target);

@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.warcraft.item.badge.BadgeType;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.common.value.ValueProperty;
 import com.evilbird.warcraft.item.effect.EffectType;
@@ -31,7 +32,7 @@ public class SlowSpell extends BuffSpellAction
 {
     @Inject
     public SlowSpell(GameObjectFactory factory, SlowCancel cancel) {
-        super(Spell.Slow, EffectType.Spell, factory, cancel);
+        super(Spell.Slow, EffectType.Spell, BadgeType.SlowBadge, factory, cancel);
     }
 
     @Override

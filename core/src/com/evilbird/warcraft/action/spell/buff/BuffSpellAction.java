@@ -9,16 +9,18 @@
 
 package com.evilbird.warcraft.action.spell.buff;
 
+import com.evilbird.engine.common.graphics.Renderable;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;
+import com.evilbird.warcraft.item.badge.BadgeType;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.common.value.BuffValue;
 import com.evilbird.warcraft.item.common.value.Value;
 import com.evilbird.warcraft.item.common.value.ValueProperty;
 import com.evilbird.warcraft.item.effect.EffectType;
-import com.evilbird.warcraft.item.unit.Unit;
 import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
 
 import java.util.Collection;
 
@@ -29,24 +31,41 @@ import java.util.Collection;
  */
 public abstract class BuffSpellAction extends SpellAction
 {
+    private BadgeType badge;
     private BuffSpellCancel cancel;
 
-    public BuffSpellAction(Spell spell, EffectType effect, GameObjectFactory factory, BuffSpellCancel cancel) {
+    public BuffSpellAction(
+        Spell spell,
+        EffectType effect,
+        BadgeType badge,
+        GameObjectFactory factory,
+        BuffSpellCancel cancel)
+    {
         super(spell, effect, factory);
+        this.badge = badge;
         this.cancel = cancel;
     }
 
     @Override
     protected void initialize() {
         super.initialize();
-        setBuff();
-        setBuffCancel();
+        SpellCaster caster = (SpellCaster)getSubject();
+        Combatant target = (Combatant)getTarget();
+        setBadge(target);
+        setBuff(target);
+        setBuffCancel(caster, target);
+    }
+
+    protected void setBadge(Combatant target) {
+        if (badge != null) {
+            target.setEffect((Renderable)factory.get(badge));
+        }
     }
 
     protected abstract Collection<ValueProperty> buffedProperties(Combatant target);
 
-    protected void setBuff() {
-        for (ValueProperty property: buffedProperties((Combatant)getTarget())) {
+    protected void setBuff(Combatant target) {
+        for (ValueProperty property: buffedProperties(target)) {
             Value oldValue = property.getValue();
             Value newValue = setBuff(spell, oldValue);
             property.setValue(newValue);
@@ -60,10 +79,7 @@ public abstract class BuffSpellAction extends SpellAction
         return value;
     }
 
-    protected void setBuffCancel() {
-        Unit caster = (Unit) getSubject();
-        Unit target = (Unit)getTarget();
-
+    protected void setBuffCancel(SpellCaster caster, Combatant target) {
         cancel.setItem(caster);
         cancel.setTarget(target);
         target.addAction(cancel, new GameTimer(spell.getEffectDuration()));

@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.warcraft.item.badge.BadgeType;
 import com.evilbird.warcraft.item.common.spell.Spell;
 import com.evilbird.warcraft.item.common.value.ValueProperty;
 import com.evilbird.warcraft.item.effect.EffectType;
@@ -30,7 +31,7 @@ public class BloodlustSpell extends BuffSpellAction
 {
     @Inject
     public BloodlustSpell(GameObjectFactory factory, BloodlustCancel cancel) {
-        super(Spell.Bloodlust, EffectType.Spell, factory, cancel);
+        super(Spell.Bloodlust, EffectType.Spell, BadgeType.BloodlustBadge, factory, cancel);
     }
 
     @Override

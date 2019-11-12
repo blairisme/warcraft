@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.common.assets.AssetBundle;
 
 /**
- * Provides access to the assets that are required to display a effect game
+ * Provides access to the assets that are required to display effect game
  * objects.
  *
  * @author Blair Butterworth

@@ -30,12 +30,18 @@ public abstract class BuffSpellCancel extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        removeBuff();
+        Combatant target = (Combatant)getTarget();
+        removeBadge(target);
+        removeBuff(target);
         return ActionComplete;
     }
 
-    protected void removeBuff() {
-        for (ValueProperty property: buffedProperties((Combatant)getTarget())) {
+    protected void removeBadge(Combatant target) {
+        target.clearEffect();
+    }
+
+    protected void removeBuff(Combatant target) {
+        for (ValueProperty property: buffedProperties(target)) {
             Value oldValue = property.getValue();
             Value newValue = removeBuff(oldValue);
             property.setValue(newValue);

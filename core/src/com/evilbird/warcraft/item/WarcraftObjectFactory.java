@@ -12,6 +12,8 @@ package com.evilbird.warcraft.item;
 import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.warcraft.item.badge.BadgeFactory;
+import com.evilbird.warcraft.item.badge.BadgeType;
 import com.evilbird.warcraft.item.data.DataFactory;
 import com.evilbird.warcraft.item.display.HudFactory;
 import com.evilbird.warcraft.item.display.HudType;
@@ -37,16 +39,18 @@ public class WarcraftObjectFactory extends GameFactorySet<GameObject> implements
 {
     @Inject
     public WarcraftObjectFactory(
+        BadgeFactory badgeFactory,
         DataFactory dataFactory,
-        LayerFactory layerFactory,
-        UnitFactory unitFactory,
         EffectFactory effectFactory,
         HudFactory hudFactory,
+        LayerFactory layerFactory,
         ProjectileFactory projectileFactory,
-        SelectorFactory selectorFactory)
+        SelectorFactory selectorFactory,
+        UnitFactory unitFactory)
     {
         addProvider(unitFactory);
         addProvider(dataFactory);
+        addProvider(BadgeType.class, badgeFactory);
         addProvider(EffectType.class, effectFactory);
         addProvider(HudType.class, hudFactory);
         addProvider(LayerIdentifier.class, layerFactory);
