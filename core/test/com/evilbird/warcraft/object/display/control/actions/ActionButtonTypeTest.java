@@ -7,10 +7,9 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.ui.display.control.actions;
+package com.evilbird.warcraft.object.display.control.actions;
 
 import com.evilbird.warcraft.object.common.upgrade.Upgrade;
-import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.unit.UnitType;
 import org.junit.Assert;
 import org.junit.Test;

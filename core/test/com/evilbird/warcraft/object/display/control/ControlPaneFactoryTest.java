@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.ui.display.control;
+package com.evilbird.warcraft.object.display.control;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
@@ -17,8 +17,6 @@ import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
 import com.evilbird.warcraft.object.display.HudControl;
 import com.evilbird.warcraft.object.display.HudType;
-import com.evilbird.warcraft.object.display.control.ControlPane;
-import com.evilbird.warcraft.object.display.control.ControlPaneFactory;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonStyle;
 import com.evilbird.warcraft.state.WarcraftContext;
 import org.junit.Assert;

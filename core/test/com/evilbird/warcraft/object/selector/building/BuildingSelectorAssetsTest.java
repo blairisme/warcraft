@@ -7,12 +7,11 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.ui.placement;
+package com.evilbird.warcraft.object.selector.building;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.evilbird.test.testcase.AssetBundleTestCase;
-import com.evilbird.warcraft.object.selector.building.BuildingSelectorAssets;
 import com.evilbird.warcraft.state.WarcraftContext;
 import org.junit.Assert;
 import org.junit.Test;

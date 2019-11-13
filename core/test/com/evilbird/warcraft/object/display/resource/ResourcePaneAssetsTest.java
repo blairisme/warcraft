@@ -7,11 +7,10 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.ui.display.resource;
+package com.evilbird.warcraft.object.display.resource;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.test.testcase.AssetBundleTestCase;
-import com.evilbird.warcraft.object.display.resource.ResourcePaneAssets;
 import com.evilbird.warcraft.state.WarcraftContext;
 
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;

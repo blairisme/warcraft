@@ -7,13 +7,12 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.ui.display.control.status.details;
+package com.evilbird.warcraft.object.display.control.status.details;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.test.utils.AssetFileHandleResolver;
-import com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStrings;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
 import org.junit.Assert;
