@@ -16,9 +16,12 @@ import com.evilbird.engine.common.graphics.Renderable;
 import com.evilbird.engine.object.BasicGameObject;
 
 import javax.inject.Inject;
+import java.util.Objects;
 
 /**
  * A visual icon applied to a game object to denote a change in its state.
+ * Badges icons are rendered in the top right hand corner of the size assigned
+ * to the badge object.
  *
  * @author Blair Butterworth
  */
@@ -40,6 +43,14 @@ public class Badge extends BasicGameObject implements Renderable
     @Override
     public void draw(Batch batch, float alpha) {
         badge.draw(batch, badgePosition.x, badgePosition.y, badgeSize.x, badgeSize.y);
+    }
+
+    public void setIcon(Drawable badge) {
+        Objects.requireNonNull(badge);
+        this.badge = badge;
+        this.badgeSize = new Vector2(16, 16);
+        this.badgeOffset = new Vector2(8, 8);
+        updateBadgePosition();
     }
 
     @Override
@@ -67,13 +78,6 @@ public class Badge extends BasicGameObject implements Renderable
     public void setSize(Vector2 size) {
         super.setSize(size);
         this.size.set(size);
-        updateBadgePosition();
-    }
-
-    public void setIcon(Drawable badge) {
-        this.badge = badge;
-        this.badgeSize = new Vector2(16, 16);
-        this.badgeOffset = new Vector2(8, 8);
         updateBadgePosition();
     }
 
