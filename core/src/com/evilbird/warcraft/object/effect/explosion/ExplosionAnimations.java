@@ -33,6 +33,6 @@ public class ExplosionAnimations extends AnimationCatalog
             .withSize(SIZE)
             .withInterval(0.15f)
             .singleDirection()
-            .looping();
+            .notLooping();
     }
 }
