@@ -11,7 +11,7 @@ package com.evilbird.engine.action.common;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.item.common.query.UnitOperations;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
 
 /**
  * Provides common functions for working with {@link Action Actions}.

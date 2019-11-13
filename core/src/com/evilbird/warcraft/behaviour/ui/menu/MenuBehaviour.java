@@ -27,29 +27,29 @@ import com.evilbird.warcraft.action.produce.ProduceStatus;
 import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.action.selector.SelectorEvent;
 import com.evilbird.warcraft.action.selector.SelectorStatus;
-import com.evilbird.warcraft.item.common.query.UnitOperations;
-import com.evilbird.warcraft.item.common.resource.ResourceType;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.data.player.PlayerStatistic;
-import com.evilbird.warcraft.item.display.HudControl;
-import com.evilbird.warcraft.item.display.control.actions.ActionPane;
-import com.evilbird.warcraft.item.display.control.status.StatusPane;
-import com.evilbird.warcraft.item.display.resource.ResourcePane;
-import com.evilbird.warcraft.item.layer.wall.WallSection;
-import com.evilbird.warcraft.item.unit.Unit;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.building.Building;
-import com.evilbird.warcraft.item.unit.resource.Resource;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
+import com.evilbird.warcraft.object.common.resource.ResourceType;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.data.player.PlayerStatistic;
+import com.evilbird.warcraft.object.display.HudControl;
+import com.evilbird.warcraft.object.display.control.actions.ActionPane;
+import com.evilbird.warcraft.object.display.control.status.StatusPane;
+import com.evilbird.warcraft.object.display.resource.ResourcePane;
+import com.evilbird.warcraft.object.layer.wall.WallSection;
+import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.building.Building;
+import com.evilbird.warcraft.object.unit.resource.Resource;
 
 import javax.inject.Inject;
 import java.util.Collection;
 import java.util.List;
 
 import static com.evilbird.engine.object.utility.GameObjectPredicates.itemWithId;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isFoodProducer;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
-import static com.evilbird.warcraft.item.data.player.PlayerScore.getScoreValue;
-import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Score;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isFoodProducer;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isSelected;
+import static com.evilbird.warcraft.object.data.player.PlayerScore.getScoreValue;
+import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Score;
 
 /**
  * Instances of this behaviour apply the user interface based on game state

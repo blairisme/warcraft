@@ -26,9 +26,9 @@ import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.menu.Menu;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
-import com.evilbird.warcraft.item.common.query.UnitOperations;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.data.player.PlayerStatistic;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.data.player.PlayerStatistic;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -38,14 +38,14 @@ import java.util.List;
 import java.util.Map;
 
 import static com.badlogic.gdx.scenes.scene2d.ui.Value.percentHeight;
-import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Buildings;
-import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Gold;
-import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Kills;
-import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Oil;
-import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Razed;
-import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Score;
-import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Units;
-import static com.evilbird.warcraft.item.data.player.PlayerStatistic.Wood;
+import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Buildings;
+import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Gold;
+import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Kills;
+import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Oil;
+import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Razed;
+import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Score;
+import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Units;
+import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Wood;
 import static com.evilbird.warcraft.menu.outro.OutroMenuType.Victory;
 
 /**

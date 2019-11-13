@@ -13,7 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.StateTransitionAction;
 import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
-import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.object.unit.Unit;
 
 import javax.inject.Inject;
 

@@ -20,7 +20,7 @@ import com.evilbird.engine.object.GameObjectType;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.utils.MockProvider;
 import com.evilbird.warcraft.action.camera.CameraActions;
-import com.evilbird.warcraft.item.data.camera.CameraType;
+import com.evilbird.warcraft.object.data.camera.CameraType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

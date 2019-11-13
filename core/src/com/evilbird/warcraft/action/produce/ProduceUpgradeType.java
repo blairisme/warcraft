@@ -14,29 +14,29 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftFaction;
-import com.evilbird.warcraft.item.common.production.ProductionCosts;
-import com.evilbird.warcraft.item.common.production.ProductionTimes;
-import com.evilbird.warcraft.item.common.upgrade.Upgrade;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.building.Building;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.common.production.ProductionCosts;
+import com.evilbird.warcraft.object.common.production.ProductionTimes;
+import com.evilbird.warcraft.object.common.upgrade.Upgrade;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.building.Building;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.object.utility.GameObjectPredicates.hasType;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
-import static com.evilbird.warcraft.item.common.upgrade.Upgrade.MeleeType1;
-import static com.evilbird.warcraft.item.common.upgrade.Upgrade.RangedType1;
-import static com.evilbird.warcraft.item.unit.UnitType.ElvenArcher;
-import static com.evilbird.warcraft.item.unit.UnitType.ElvenRanger;
-import static com.evilbird.warcraft.item.unit.UnitType.Knight;
-import static com.evilbird.warcraft.item.unit.UnitType.Ogre;
-import static com.evilbird.warcraft.item.unit.UnitType.OgreMage;
-import static com.evilbird.warcraft.item.unit.UnitType.Paladin;
-import static com.evilbird.warcraft.item.unit.UnitType.TrollAxethrower;
-import static com.evilbird.warcraft.item.unit.UnitType.TrollBerserker;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.MeleeType1;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedType1;
+import static com.evilbird.warcraft.object.unit.UnitType.ElvenArcher;
+import static com.evilbird.warcraft.object.unit.UnitType.ElvenRanger;
+import static com.evilbird.warcraft.object.unit.UnitType.Knight;
+import static com.evilbird.warcraft.object.unit.UnitType.Ogre;
+import static com.evilbird.warcraft.object.unit.UnitType.OgreMage;
+import static com.evilbird.warcraft.object.unit.UnitType.Paladin;
+import static com.evilbird.warcraft.object.unit.UnitType.TrollAxethrower;
+import static com.evilbird.warcraft.object.unit.UnitType.TrollBerserker;
 
 /**
  * Instances of this action sequence research an upgrade that converts one type

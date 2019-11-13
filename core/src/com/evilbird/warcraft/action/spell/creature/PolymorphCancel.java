@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.spell.creature;
 
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.remove.RemoveEvents;
-import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.object.unit.Unit;
 
 import javax.inject.Inject;
 

@@ -19,10 +19,10 @@ import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.AnimatedObjectStyle;
-import com.evilbird.warcraft.item.layer.LayerGroupStyle;
-import com.evilbird.warcraft.item.unit.UnitAnimation;
-import com.evilbird.warcraft.item.unit.UnitSound;
-import com.evilbird.warcraft.item.unit.UnitStyle;
+import com.evilbird.warcraft.object.layer.LayerGroupStyle;
+import com.evilbird.warcraft.object.unit.UnitAnimation;
+import com.evilbird.warcraft.object.unit.UnitSound;
+import com.evilbird.warcraft.object.unit.UnitStyle;
 import org.mockito.Mockito;
 
 import java.util.Collections;

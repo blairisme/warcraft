@@ -26,7 +26,7 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.item.TestPlaceholders;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
-import com.evilbird.warcraft.item.selector.building.BuildingSelector;
+import com.evilbird.warcraft.object.selector.building.BuildingSelector;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

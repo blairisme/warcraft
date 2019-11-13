@@ -22,9 +22,9 @@ import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourElement;
-import com.evilbird.warcraft.item.common.query.UnitOperations;
-import com.evilbird.warcraft.item.unit.Unit;
-import com.evilbird.warcraft.item.unit.combatant.Submarine;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
+import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.combatant.Submarine;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -34,8 +34,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static com.evilbird.warcraft.item.common.query.UnitOperations.isFlying;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.isSubmarine;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.isFlying;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.isSubmarine;
 
 /**
  * An {@link AiBehaviourElement} that exposes submarines to enemy players when

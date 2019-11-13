@@ -14,17 +14,17 @@ import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.StateTransitionAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
-import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.function.Predicates.both;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.findClosest;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.hasResources;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDepotFor;
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
-import static com.evilbird.warcraft.item.layer.LayerType.Tree;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.findClosest;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.hasResources;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isCorporeal;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isDepotFor;
+import static com.evilbird.warcraft.object.common.resource.ResourceType.Wood;
+import static com.evilbird.warcraft.object.layer.LayerType.Tree;
 
 /**
  * Instances of this {@link Action} instruct an {@link GameObject} to gather gold.

@@ -12,11 +12,11 @@ package com.evilbird.warcraft.action.spell.attack;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;
-import com.evilbird.warcraft.item.common.spell.Spell;
-import com.evilbird.warcraft.item.effect.EffectType;
-import com.evilbird.warcraft.item.unit.Unit;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.conjured.ConjuredObject;
+import com.evilbird.warcraft.object.common.spell.Spell;
+import com.evilbird.warcraft.object.effect.EffectType;
+import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.conjured.ConjuredObject;
 
 import javax.inject.Inject;
 

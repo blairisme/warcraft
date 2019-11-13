@@ -12,10 +12,10 @@ package com.evilbird.test.data.item;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.object.GameObjectContainer;
-import com.evilbird.warcraft.item.common.capability.MovementCapability;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.common.capability.MovementCapability;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
 import static com.evilbird.test.data.item.TestItemRoots.newTestRoot;
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;

@@ -12,14 +12,14 @@ package com.evilbird.warcraft.action.spell.buff;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;
-import com.evilbird.warcraft.item.common.spell.Spell;
-import com.evilbird.warcraft.item.effect.EffectType;
-import com.evilbird.warcraft.item.unit.Unit;
-import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
+import com.evilbird.warcraft.object.common.spell.Spell;
+import com.evilbird.warcraft.object.effect.EffectType;
+import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.combatant.SpellCaster;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.common.spell.Spell.Heal;
+import static com.evilbird.warcraft.object.common.spell.Spell.Heal;
 
 /**
  * A spell that improves the health of a given game object.

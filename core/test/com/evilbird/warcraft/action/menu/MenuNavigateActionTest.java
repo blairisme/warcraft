@@ -15,7 +15,7 @@ import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.item.display.control.actions.ActionPane;
+import com.evilbird.warcraft.object.display.control.actions.ActionPane;
 import org.mockito.Mockito;
 
 /**

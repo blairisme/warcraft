@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.action.spell.buff;
 
-import com.evilbird.warcraft.item.common.value.ValueProperty;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.common.value.ValueProperty;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 import java.util.Collection;

@@ -14,7 +14,7 @@ import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
-import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.warcraft.object.unit.UnitAnimation;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

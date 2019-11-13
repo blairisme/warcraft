@@ -14,14 +14,14 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
-import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.object.unit.UnitType;
 
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.object.utility.GameObjectOperations.hasNone;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isAlive;
 
 /**
  * Represents a {@link ScenarioCondition} that is fulfilled when all of a

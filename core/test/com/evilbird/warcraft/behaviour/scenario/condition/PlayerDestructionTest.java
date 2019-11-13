@@ -19,15 +19,15 @@ import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.evilbird.warcraft.item.data.player.PlayerIds.Player1;
-import static com.evilbird.warcraft.item.data.player.PlayerIds.Player2;
-import static com.evilbird.warcraft.item.unit.UnitType.Footman;
+import static com.evilbird.warcraft.object.data.player.PlayerIds.Player1;
+import static com.evilbird.warcraft.object.data.player.PlayerIds.Player2;
+import static com.evilbird.warcraft.object.unit.UnitType.Footman;
 
 /**
  * Instances of this unit test validate the {@link PlayerDestruction} class.

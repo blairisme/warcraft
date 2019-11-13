@@ -15,7 +15,7 @@ import com.evilbird.engine.common.lang.Zoomable;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.warcraft.item.data.camera.Camera;
+import com.evilbird.warcraft.object.data.camera.Camera;
 
 import javax.inject.Inject;
 

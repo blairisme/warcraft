@@ -12,9 +12,9 @@ package com.evilbird.warcraft.action.common.path;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.spatial.GameObjectNode;
-import com.evilbird.warcraft.item.common.capability.MovementCapability;
-import com.evilbird.warcraft.item.layer.LayerType;
-import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.object.common.capability.MovementCapability;
+import com.evilbird.warcraft.object.layer.LayerType;
+import com.evilbird.warcraft.object.unit.UnitType;
 
 import java.util.ArrayList;
 import java.util.Arrays;

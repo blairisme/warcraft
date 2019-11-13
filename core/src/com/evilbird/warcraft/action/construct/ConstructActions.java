@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.object.unit.UnitType;
 import org.apache.commons.lang3.Validate;
 
 import static com.evilbird.engine.common.collection.EnumUtils.getName;

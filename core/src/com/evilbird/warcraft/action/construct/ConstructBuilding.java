@@ -20,13 +20,13 @@ import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.remove.RemoveEvents;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.common.production.ProductionCosts;
-import com.evilbird.warcraft.item.common.resource.ResourceSet;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.selector.SelectorType;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.building.Building;
-import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.common.production.ProductionCosts;
+import com.evilbird.warcraft.object.common.resource.ResourceSet;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.selector.SelectorType;
+import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.building.Building;
+import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -35,11 +35,11 @@ import java.util.function.Consumer;
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.common.function.Predicates.all;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.overlapping;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDead;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.BuildingSite;
-import static com.evilbird.warcraft.item.unit.UnitSound.Placement;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isBuilding;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isDead;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.BuildingSite;
+import static com.evilbird.warcraft.object.unit.UnitSound.Placement;
 
 /**
  * An {@link Action} that replaces a selector with the

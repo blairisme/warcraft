@@ -13,18 +13,18 @@ import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
-import com.evilbird.warcraft.item.common.production.ProductionCosts;
-import com.evilbird.warcraft.item.common.resource.ResourceQuantity;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.building.Building;
-import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.common.production.ProductionCosts;
+import com.evilbird.warcraft.object.common.resource.ResourceQuantity;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.building.Building;
+import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
 import java.util.Collection;
 
-import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.moveAdjacent;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.moveAdjacent;
 
 /**
  * Instances of this class stop the construction of a building.

@@ -17,8 +17,8 @@ import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
-import com.evilbird.warcraft.item.common.capability.MovableObject;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.common.capability.MovableObject;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 import java.util.Collection;

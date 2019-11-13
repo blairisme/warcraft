@@ -13,8 +13,8 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import org.junit.Assert;
 import org.junit.Test;
 

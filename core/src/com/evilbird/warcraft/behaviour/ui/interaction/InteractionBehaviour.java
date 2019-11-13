@@ -19,7 +19,7 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.action.selection.SelectEvent;
-import com.evilbird.warcraft.item.data.camera.Camera;
+import com.evilbird.warcraft.object.data.camera.Camera;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withClazz;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isSelected;
 
 /**
  * Instances of this class modify the game state based on user input.

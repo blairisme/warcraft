@@ -13,14 +13,14 @@ import com.evilbird.engine.common.graphics.Renderable;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;
-import com.evilbird.warcraft.item.badge.BadgeType;
-import com.evilbird.warcraft.item.common.spell.Spell;
-import com.evilbird.warcraft.item.common.value.BuffValue;
-import com.evilbird.warcraft.item.common.value.Value;
-import com.evilbird.warcraft.item.common.value.ValueProperty;
-import com.evilbird.warcraft.item.effect.EffectType;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
-import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
+import com.evilbird.warcraft.object.badge.BadgeType;
+import com.evilbird.warcraft.object.common.spell.Spell;
+import com.evilbird.warcraft.object.common.value.BuffValue;
+import com.evilbird.warcraft.object.common.value.Value;
+import com.evilbird.warcraft.object.common.value.ValueProperty;
+import com.evilbird.warcraft.object.effect.EffectType;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.unit.combatant.SpellCaster;
 
 import java.util.Collection;
 

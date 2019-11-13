@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.integration.steps;
 
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.item.common.capability.SelectableObject;
+import com.evilbird.warcraft.object.common.capability.SelectableObject;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.game.GameEngine;
 import com.evilbird.engine.object.GameObjectContainer;

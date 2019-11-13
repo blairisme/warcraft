@@ -18,7 +18,7 @@ import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.object.utility.GameObjectOperations.hasNone;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isAlive;
 
 /**
  * Represents a {@link ScenarioCondition} that is fulfilled when all of the

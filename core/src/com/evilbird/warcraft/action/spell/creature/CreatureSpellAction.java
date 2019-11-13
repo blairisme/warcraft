@@ -13,12 +13,12 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.spell.SpellAction;
-import com.evilbird.warcraft.item.common.query.UnitOperations;
-import com.evilbird.warcraft.item.common.spell.Spell;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.effect.EffectType;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
+import com.evilbird.warcraft.object.common.spell.Spell;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.effect.EffectType;
+import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
 /**
  * A spell that creates a conjured creature.

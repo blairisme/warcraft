@@ -12,15 +12,15 @@ package com.evilbird.warcraft.action.spell.attack;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.action.spell.SpellAction;
-import com.evilbird.warcraft.item.common.value.AbsoluteBuffValue;
-import com.evilbird.warcraft.item.common.value.Value;
-import com.evilbird.warcraft.item.effect.EffectType;
-import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.object.common.value.AbsoluteBuffValue;
+import com.evilbird.warcraft.object.common.value.Value;
+import com.evilbird.warcraft.object.effect.EffectType;
+import com.evilbird.warcraft.object.unit.Unit;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.object.utility.GameObjectOperations.assignIfAbsent;
-import static com.evilbird.warcraft.item.common.spell.Spell.UnholyArmour;
+import static com.evilbird.warcraft.object.common.spell.Spell.UnholyArmour;
 
 /**
  * A spell that surrounds a target with a unholy armour, making it invulnerable

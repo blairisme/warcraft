@@ -22,7 +22,7 @@ import com.evilbird.engine.state.StateService;
 import com.evilbird.warcraft.action.WarcraftActionFactory;
 import com.evilbird.warcraft.behaviour.WarcraftBehaviourFactory;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.WarcraftObjectFactory;
+import com.evilbird.warcraft.object.WarcraftObjectFactory;
 import com.evilbird.warcraft.menu.WarcraftMenuFactory;
 import com.evilbird.warcraft.state.WarcraftStateService;
 import com.evilbird.warcraft.type.WarcraftTypeRegistry;

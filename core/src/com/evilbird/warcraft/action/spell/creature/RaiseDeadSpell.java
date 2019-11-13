@@ -14,16 +14,16 @@ import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
-import com.evilbird.warcraft.item.common.spell.Spell;
-import com.evilbird.warcraft.item.effect.EffectType;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.common.spell.Spell;
+import com.evilbird.warcraft.object.effect.EffectType;
+import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 import java.util.Collection;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.filter;
-import static com.evilbird.warcraft.item.common.query.GameObjectUtils.tiles;
+import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 
 /**
  * A spell that converts nearby corpses into skeleton warriors that fight for

@@ -21,14 +21,14 @@ import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.selector.SelectorActions;
 import com.evilbird.warcraft.action.selector.SelectorArea;
-import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.object.unit.Unit;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
 import static com.evilbird.warcraft.action.selector.SelectorActions.ResizeAreaSelector;
 import static com.evilbird.warcraft.action.selector.SelectorActions.ShowAreaSelector;
-import static com.evilbird.warcraft.item.selector.SelectorType.AreaSelector;
+import static com.evilbird.warcraft.object.selector.SelectorType.AreaSelector;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;

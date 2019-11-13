@@ -15,15 +15,15 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.data.item.TestPlaceholders;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.item.selector.building.BuildingSelector;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.selector.building.BuildingSelector;
+import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static com.evilbird.warcraft.item.selector.SelectorType.BarracksSelector;
+import static com.evilbird.warcraft.object.selector.SelectorType.BarracksSelector;
 
 /**
  * Instances of this unit test validate the {@link SelectorCreate} class.

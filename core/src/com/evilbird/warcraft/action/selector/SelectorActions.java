@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.selector;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.collection.EnumUtils;
-import com.evilbird.warcraft.item.selector.SelectorType;
+import com.evilbird.warcraft.object.selector.SelectorType;
 import org.apache.commons.lang3.Validate;
 
 /**

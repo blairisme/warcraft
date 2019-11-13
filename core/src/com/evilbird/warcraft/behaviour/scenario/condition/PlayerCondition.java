@@ -12,7 +12,7 @@ package com.evilbird.warcraft.behaviour.scenario.condition;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.object.GameObjectContainer;
-import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.object.data.player.Player;
 
 import java.util.Objects;
 

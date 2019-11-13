@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.menu.outro;
 
 import com.badlogic.gdx.utils.I18NBundle;
-import com.evilbird.warcraft.item.data.player.Player;
+import com.evilbird.warcraft.object.data.player.Player;
 
 import static com.evilbird.warcraft.menu.outro.OutroMenuType.Victory;
 

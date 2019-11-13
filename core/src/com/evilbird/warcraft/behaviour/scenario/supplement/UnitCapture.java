@@ -20,9 +20,9 @@ import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.action.selection.SelectFlash;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.common.query.UnitOperations;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.unit.Unit;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.evilbird.warcraft.item.unit.UnitSound.Captured;
+import static com.evilbird.warcraft.object.unit.UnitSound.Captured;
 
 /**
  * Defines additional scenario behaviour allowing units of a given type to be

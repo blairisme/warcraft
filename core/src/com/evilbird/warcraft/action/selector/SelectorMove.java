@@ -14,7 +14,7 @@ import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
-import com.evilbird.warcraft.item.selector.SelectorType;
+import com.evilbird.warcraft.object.selector.SelectorType;
 
 import javax.inject.Inject;
 

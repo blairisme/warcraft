@@ -24,7 +24,7 @@ import com.evilbird.warcraft.common.WarcraftPreferences;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
-import static com.evilbird.warcraft.item.unit.UnitSound.Acknowledge;
+import static com.evilbird.warcraft.object.unit.UnitSound.Acknowledge;
 
 /**
  * Instances of this {@link Action} provide the basic implementation required

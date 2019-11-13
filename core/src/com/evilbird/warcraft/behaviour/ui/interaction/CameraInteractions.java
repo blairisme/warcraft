@@ -19,8 +19,8 @@ import static com.evilbird.warcraft.action.camera.CameraActions.Focus;
 import static com.evilbird.warcraft.action.camera.CameraActions.Pan;
 import static com.evilbird.warcraft.action.camera.CameraActions.Zoom;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
-import static com.evilbird.warcraft.item.data.camera.CameraType.Camera;
-import static com.evilbird.warcraft.item.display.control.status.selection.SelectionButtonType.FocusButton;
+import static com.evilbird.warcraft.object.data.camera.CameraType.Camera;
+import static com.evilbird.warcraft.object.display.control.status.selection.SelectionButtonType.FocusButton;
 
 /**
  * Defines user interactions that result in manipulation of the game camera.

@@ -15,20 +15,20 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.common.capability.SelectableObject;
+import com.evilbird.warcraft.object.common.capability.SelectableObject;
 
 import javax.inject.Inject;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.common.function.Predicates.either;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.isCombatant;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.isCorporeal;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.isNeutral;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isNonCombatant;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
-import static com.evilbird.warcraft.item.unit.UnitSound.Selected;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.isCombatant;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.isCorporeal;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.isNeutral;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isAi;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isNonCombatant;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isSelected;
+import static com.evilbird.warcraft.object.unit.UnitSound.Selected;
 
 /**
  * Instances of this {@link Action} invert the selected status of a given

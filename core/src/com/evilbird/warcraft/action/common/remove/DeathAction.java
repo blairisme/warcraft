@@ -23,11 +23,11 @@ import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.common.capability.PerishableObject;
-import com.evilbird.warcraft.item.common.capability.SelectableObject;
-import com.evilbird.warcraft.item.unit.Unit;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.combatant.RangedCombatant;
+import com.evilbird.warcraft.object.common.capability.PerishableObject;
+import com.evilbird.warcraft.object.common.capability.SelectableObject;
+import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -37,11 +37,11 @@ import java.util.Collections;
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.common.lang.Alignment.Center;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.isRanged;
-import static com.evilbird.warcraft.item.effect.EffectType.Explosion;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Death;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Decompose;
-import static com.evilbird.warcraft.item.unit.UnitSound.Die;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.isRanged;
+import static com.evilbird.warcraft.object.effect.EffectType.Explosion;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Death;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Decompose;
+import static com.evilbird.warcraft.object.unit.UnitSound.Die;
 
 /**
  * Instances of this {@link Action} animate and remove an item after its been

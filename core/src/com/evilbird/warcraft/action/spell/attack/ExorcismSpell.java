@@ -12,13 +12,13 @@ package com.evilbird.warcraft.action.spell.attack;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.action.spell.SpellAction;
-import com.evilbird.warcraft.item.effect.EffectType;
-import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.object.effect.EffectType;
+import com.evilbird.warcraft.object.unit.Unit;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.object.utility.GameObjectOperations.assignIfAbsent;
-import static com.evilbird.warcraft.item.common.spell.Spell.Exorcism;
+import static com.evilbird.warcraft.object.common.spell.Spell.Exorcism;
 
 /**
  * A spell that degrades the health of a given game object. Damage is dealt

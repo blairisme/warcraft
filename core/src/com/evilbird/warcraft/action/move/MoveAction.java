@@ -22,8 +22,8 @@ import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.warcraft.action.common.path.ItemNodePath;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.action.common.path.ItemPathFinder;
-import com.evilbird.warcraft.item.common.capability.MovableObject;
-import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.warcraft.object.common.capability.MovableObject;
+import com.evilbird.warcraft.object.unit.UnitAnimation;
 
 import java.util.Collection;
 import java.util.ListIterator;

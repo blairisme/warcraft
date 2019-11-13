@@ -16,7 +16,7 @@ import com.evilbird.engine.object.AnimatedObject;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 
 /**
  * Instances of this class stop a moving {@link GameObject}, returning it to an idle

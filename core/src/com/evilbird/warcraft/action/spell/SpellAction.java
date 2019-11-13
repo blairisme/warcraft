@@ -15,16 +15,16 @@ import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.GameObjectGroup;
-import com.evilbird.warcraft.item.common.spell.Spell;
-import com.evilbird.warcraft.item.effect.Effect;
-import com.evilbird.warcraft.item.effect.EffectType;
-import com.evilbird.warcraft.item.unit.combatant.SpellCaster;
+import com.evilbird.warcraft.object.common.spell.Spell;
+import com.evilbird.warcraft.object.effect.Effect;
+import com.evilbird.warcraft.object.effect.EffectType;
+import com.evilbird.warcraft.object.unit.combatant.SpellCaster;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.common.lang.Alignment.Center;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.CastSpell;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.CastSpell;
 
 /**
  * A base class for {@link Action Actions} involving spells. Sets the spell

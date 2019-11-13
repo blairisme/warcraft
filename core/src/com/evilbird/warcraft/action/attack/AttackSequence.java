@@ -12,15 +12,15 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.CompositeAction;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.item.common.capability.OffensiveObject;
-import com.evilbird.warcraft.item.common.capability.PerishableObject;
-import com.evilbird.warcraft.item.unit.UnitAnimation;
+import com.evilbird.warcraft.object.common.capability.OffensiveObject;
+import com.evilbird.warcraft.object.common.capability.PerishableObject;
+import com.evilbird.warcraft.object.unit.UnitAnimation;
 import org.apache.commons.lang3.Validate;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.object.utility.GameObjectOperations.assignIfAbsent;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.inRange;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.inRange;
 
 /**
  * An {@link Action} that causes a given {@link OffensiveObject} to attack a

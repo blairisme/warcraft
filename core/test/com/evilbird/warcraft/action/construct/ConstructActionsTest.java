@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.construct;
 
-import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.object.unit.UnitType;
 import org.junit.Assert;
 import org.junit.Test;
 

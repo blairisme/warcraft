@@ -16,8 +16,8 @@ import static com.evilbird.warcraft.action.selection.SelectActions.SelectInvert;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Singleton;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelectable;
-import static com.evilbird.warcraft.item.display.control.status.selection.SelectionButtonType.UnselectButton;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isSelectable;
+import static com.evilbird.warcraft.object.display.control.status.selection.SelectionButtonType.UnselectButton;
 
 /**
  * Defines user interactions that result in game object selection.

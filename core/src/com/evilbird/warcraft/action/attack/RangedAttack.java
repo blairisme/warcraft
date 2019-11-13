@@ -12,10 +12,10 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.action.Action;
 import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.action.move.MoveWithinRangeAction;
-import com.evilbird.warcraft.item.common.capability.OffensiveObject;
-import com.evilbird.warcraft.item.common.capability.PerishableObject;
-import com.evilbird.warcraft.item.common.capability.RangedOffensiveObject;
-import com.evilbird.warcraft.item.projectile.Projectile;
+import com.evilbird.warcraft.object.common.capability.OffensiveObject;
+import com.evilbird.warcraft.object.common.capability.PerishableObject;
+import com.evilbird.warcraft.object.common.capability.RangedOffensiveObject;
+import com.evilbird.warcraft.object.projectile.Projectile;
 
 import javax.inject.Inject;
 

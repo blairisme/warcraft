@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 import static com.evilbird.engine.object.utility.GameObjectOperations.overlaps;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withIdStartingWith;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
-import static com.evilbird.warcraft.item.data.player.PlayerIds.Player1;
+import static com.evilbird.warcraft.object.data.player.PlayerIds.Player1;
 
 /**
  * Represents a {@link ScenarioCondition} that is fulfilled when an item of a

@@ -18,12 +18,12 @@ import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
-import com.evilbird.warcraft.item.common.capability.OffensiveCapability;
-import com.evilbird.warcraft.item.common.capability.OffensiveObject;
-import com.evilbird.warcraft.item.common.capability.PerishableObject;
-import com.evilbird.warcraft.item.common.query.UnitOperations;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.object.common.capability.OffensiveCapability;
+import com.evilbird.warcraft.object.common.capability.OffensiveObject;
+import com.evilbird.warcraft.object.common.capability.PerishableObject;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.unit.UnitType;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,9 +31,9 @@ import java.util.List;
 import java.util.Map;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.filter;
-import static com.evilbird.warcraft.item.common.capability.OffensivePlurality.Individual;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.isAnotherTeam;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.isNeutral;
+import static com.evilbird.warcraft.object.common.capability.OffensivePlurality.Individual;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.isAnotherTeam;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.isNeutral;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 

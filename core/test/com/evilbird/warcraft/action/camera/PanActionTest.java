@@ -13,7 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.item.data.camera.Camera;
+import com.evilbird.warcraft.object.data.camera.Camera;
 
 import static com.evilbird.test.data.assets.TestDevices.newTestDevice;
 

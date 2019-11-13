@@ -18,8 +18,8 @@ import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
-import com.evilbird.warcraft.item.common.capability.OffensiveObject;
-import com.evilbird.warcraft.item.common.capability.PerishableObject;
+import com.evilbird.warcraft.object.common.capability.OffensiveObject;
+import com.evilbird.warcraft.object.common.capability.PerishableObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;

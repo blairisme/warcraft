@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.object.unit.UnitType;
 import org.mockito.Mockito;
 
 /**

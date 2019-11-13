@@ -14,9 +14,9 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectGroup;
-import com.evilbird.warcraft.item.selector.SelectorType;
-import com.evilbird.warcraft.item.selector.building.BuildingSelector;
-import com.evilbird.warcraft.item.selector.building.BuildingSelectorStyle;
+import com.evilbird.warcraft.object.selector.SelectorType;
+import com.evilbird.warcraft.object.selector.building.BuildingSelector;
+import com.evilbird.warcraft.object.selector.building.BuildingSelectorStyle;
 
 import static com.evilbird.test.data.item.TestItemRoots.newTestRoot;
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;

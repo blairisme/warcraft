@@ -11,14 +11,14 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.item.common.capability.PerishableObject;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.common.capability.PerishableObject;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 
 /**
  * Instances of this class stop a {@link Combatant} from attacking.

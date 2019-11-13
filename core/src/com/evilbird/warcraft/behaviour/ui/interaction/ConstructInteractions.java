@@ -11,10 +11,10 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.action.construct.ConstructActions;
-import com.evilbird.warcraft.item.common.query.UnitOperations;
-import com.evilbird.warcraft.item.display.control.actions.ActionButtonType;
-import com.evilbird.warcraft.item.selector.SelectorType;
-import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
+import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
+import com.evilbird.warcraft.object.selector.SelectorType;
+import com.evilbird.warcraft.object.unit.UnitType;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -22,11 +22,11 @@ import javax.inject.Provider;
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.associatedWith;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isBuilding;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isConstructing;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isGatherer;
-import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.associatedWith;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isBuilding;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isConstructing;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isGatherer;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;
 
 /**
  * Defines user interactions that result in construction of building game

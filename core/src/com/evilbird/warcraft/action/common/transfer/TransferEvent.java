@@ -11,8 +11,8 @@ package com.evilbird.warcraft.action.common.transfer;
 
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.item.common.resource.ResourceContainer;
-import com.evilbird.warcraft.item.common.resource.ResourceType;
+import com.evilbird.warcraft.object.common.resource.ResourceContainer;
+import com.evilbird.warcraft.object.common.resource.ResourceType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;

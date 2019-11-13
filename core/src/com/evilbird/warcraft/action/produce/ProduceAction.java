@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.produce;
 import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.TemporalAction;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.item.unit.building.Building;
+import com.evilbird.warcraft.object.unit.building.Building;
 
 import static com.evilbird.engine.action.common.ActionRecipient.Subject;
 import static com.evilbird.engine.action.common.ActionUtils.getRecipient;

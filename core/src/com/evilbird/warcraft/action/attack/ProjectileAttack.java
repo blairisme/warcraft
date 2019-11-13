@@ -15,19 +15,19 @@ import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.common.capability.MovableObject;
-import com.evilbird.warcraft.item.common.capability.PerishableObject;
-import com.evilbird.warcraft.item.common.capability.RangedOffensiveObject;
-import com.evilbird.warcraft.item.projectile.Projectile;
-import com.evilbird.warcraft.item.unit.UnitAnimation;
-import com.evilbird.warcraft.item.unit.UnitSound;
+import com.evilbird.warcraft.object.common.capability.MovableObject;
+import com.evilbird.warcraft.object.common.capability.PerishableObject;
+import com.evilbird.warcraft.object.common.capability.RangedOffensiveObject;
+import com.evilbird.warcraft.object.projectile.Projectile;
+import com.evilbird.warcraft.object.unit.UnitAnimation;
+import com.evilbird.warcraft.object.unit.UnitSound;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.isShip;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.isShip;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
 
 /**
  * Modifies the state of a {@link RangedOffensiveObject} to attack a given item

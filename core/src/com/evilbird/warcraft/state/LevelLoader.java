@@ -32,14 +32,14 @@ import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.warcraft.common.TeamColour;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.common.WarcraftNation;
-import com.evilbird.warcraft.item.common.resource.ResourceContainer;
-import com.evilbird.warcraft.item.common.resource.ResourceType;
-import com.evilbird.warcraft.item.data.camera.CameraType;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.data.player.PlayerType;
-import com.evilbird.warcraft.item.layer.LayerIdentifier;
-import com.evilbird.warcraft.item.layer.LayerType;
-import com.evilbird.warcraft.item.unit.UnitType;
+import com.evilbird.warcraft.object.common.resource.ResourceContainer;
+import com.evilbird.warcraft.object.common.resource.ResourceType;
+import com.evilbird.warcraft.object.data.camera.CameraType;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.data.player.PlayerType;
+import com.evilbird.warcraft.object.layer.LayerIdentifier;
+import com.evilbird.warcraft.object.layer.LayerType;
+import com.evilbird.warcraft.object.unit.UnitType;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -52,10 +52,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Food;
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Oil;
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
+import static com.evilbird.warcraft.object.common.resource.ResourceType.Food;
+import static com.evilbird.warcraft.object.common.resource.ResourceType.Gold;
+import static com.evilbird.warcraft.object.common.resource.ResourceType.Oil;
+import static com.evilbird.warcraft.object.common.resource.ResourceType.Wood;
 
 /**
  * Instances of this class load persisted game state from files. Game state is

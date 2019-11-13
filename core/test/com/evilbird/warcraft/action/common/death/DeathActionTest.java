@@ -15,19 +15,19 @@ import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.unit.UnitAnimation;
-import com.evilbird.warcraft.item.unit.UnitSound;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.building.Building;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.unit.UnitAnimation;
+import com.evilbird.warcraft.object.unit.UnitSound;
+import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.building.Building;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
-import static com.evilbird.warcraft.item.unit.UnitSound.Ready;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.object.unit.UnitSound.Ready;
 
 /**
  * Instances of this unit test validate the {@link DeathAction} class.

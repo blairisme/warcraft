@@ -18,7 +18,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
 import static com.evilbird.warcraft.action.camera.CameraActions.Focus;
-import static com.evilbird.warcraft.item.data.camera.CameraType.Camera;
+import static com.evilbird.warcraft.object.data.camera.CameraType.Camera;
 
 /**
  * Represents an action that when invoked will center the camera on the actions

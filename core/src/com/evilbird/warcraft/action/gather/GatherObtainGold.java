@@ -13,17 +13,17 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
-import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
-import com.evilbird.warcraft.item.unit.resource.Resource;
+import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.resource.Resource;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Gold;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.ExtractGold;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.IdleGold;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.MoveGold;
+import static com.evilbird.warcraft.object.common.resource.ResourceType.Gold;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.ExtractGold;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.IdleGold;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.MoveGold;
 
 /**
  * An {@link Action} that instructs a {@link Gatherer} to obtain Gold from a

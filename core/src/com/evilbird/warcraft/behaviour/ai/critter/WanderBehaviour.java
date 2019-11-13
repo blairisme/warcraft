@@ -20,8 +20,8 @@ import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.action.move.MoveToVectorAction;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourElement;
-import com.evilbird.warcraft.item.common.query.UnitOperations;
-import com.evilbird.warcraft.item.unit.critter.Critter;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
+import com.evilbird.warcraft.object.unit.critter.Critter;
 import org.apache.commons.lang3.time.StopWatch;
 
 import javax.inject.Inject;

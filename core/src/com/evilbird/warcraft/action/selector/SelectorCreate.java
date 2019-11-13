@@ -16,15 +16,15 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.selector.SelectorType;
-import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.selector.SelectorType;
+import com.evilbird.warcraft.object.unit.Unit;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.object.utility.GameObjectOperations.getScreenCenter;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
 
 /**
  * An {@link Action} that adds a selector to the game world.

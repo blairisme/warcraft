@@ -18,9 +18,9 @@ import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.action.selection.SelectEvent;
-import com.evilbird.warcraft.item.common.capability.SelectableObject;
-import com.evilbird.warcraft.item.selector.selection.AreaSelector;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.common.capability.SelectableObject;
+import com.evilbird.warcraft.object.selector.selection.AreaSelector;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -30,11 +30,11 @@ import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.overlapping;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.touchable;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isSelected;
-import static com.evilbird.warcraft.item.selector.SelectorType.AreaSelector;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isSelected;
+import static com.evilbird.warcraft.object.selector.SelectorType.AreaSelector;
 
 /**
- * Instances of this {@link Action} manipulate a {@link com.evilbird.warcraft.item.selector.selection.AreaSelector}, a user
+ * Instances of this {@link Action} manipulate a {@link com.evilbird.warcraft.object.selector.selection.AreaSelector}, a user
  * define graphical area that denotes the items the user wishes to select.
  *
  * @author Blair Butterworth

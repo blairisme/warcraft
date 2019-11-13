@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.selector;
 
-import com.evilbird.warcraft.item.selector.SelectorType;
+import com.evilbird.warcraft.object.selector.SelectorType;
 import org.junit.Assert;
 import org.junit.Test;
 

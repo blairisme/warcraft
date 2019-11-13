@@ -14,15 +14,15 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;
-import com.evilbird.warcraft.item.common.spell.Spell;
-import com.evilbird.warcraft.item.effect.EffectType;
-import com.evilbird.warcraft.item.layer.fog.Fog;
+import com.evilbird.warcraft.object.common.spell.Spell;
+import com.evilbird.warcraft.object.effect.EffectType;
+import com.evilbird.warcraft.object.layer.fog.Fog;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.Alignment.Center;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
-import static com.evilbird.warcraft.item.layer.LayerType.OpaqueFog;
+import static com.evilbird.warcraft.object.layer.LayerType.OpaqueFog;
 
 /**
  * A spell that reveals a portions of the map for a period of time.

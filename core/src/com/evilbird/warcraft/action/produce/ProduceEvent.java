@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.item.unit.building.Building;
+import com.evilbird.warcraft.object.unit.building.Building;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;

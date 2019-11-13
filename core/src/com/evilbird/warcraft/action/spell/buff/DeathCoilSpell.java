@@ -11,8 +11,8 @@ package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;
-import com.evilbird.warcraft.item.common.spell.Spell;
-import com.evilbird.warcraft.item.effect.EffectType;
+import com.evilbird.warcraft.object.common.spell.Spell;
+import com.evilbird.warcraft.object.effect.EffectType;
 
 import javax.inject.Inject;
 

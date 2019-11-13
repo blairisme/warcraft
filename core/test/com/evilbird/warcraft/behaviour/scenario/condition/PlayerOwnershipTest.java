@@ -25,18 +25,18 @@ import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.construct.ConstructStatus;
 import com.evilbird.warcraft.action.produce.ProduceEvent;
 import com.evilbird.warcraft.action.produce.ProduceStatus;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.unit.building.Building;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
-import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.unit.building.Building;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.evilbird.warcraft.item.data.player.PlayerIds.Player1;
-import static com.evilbird.warcraft.item.data.player.PlayerIds.Player2;
-import static com.evilbird.warcraft.item.unit.UnitType.Footman;
-import static com.evilbird.warcraft.item.unit.UnitType.TownHall;
+import static com.evilbird.warcraft.object.data.player.PlayerIds.Player1;
+import static com.evilbird.warcraft.object.data.player.PlayerIds.Player2;
+import static com.evilbird.warcraft.object.unit.UnitType.Footman;
+import static com.evilbird.warcraft.object.unit.UnitType.TownHall;
 
 /**
  * Instances of this unit test validate the {@link PlayerOwnership} class.

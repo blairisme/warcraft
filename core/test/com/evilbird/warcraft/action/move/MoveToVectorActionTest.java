@@ -15,7 +15,7 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;

@@ -15,21 +15,21 @@ import com.evilbird.engine.action.framework.StateTransitionAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.common.WarcraftFaction;
-import com.evilbird.warcraft.item.common.query.UnitOperations;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
+import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.findClosest;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.hasResources;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCorporeal;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDepotFor;
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Oil;
-import static com.evilbird.warcraft.item.unit.UnitType.OilPlatform;
-import static com.evilbird.warcraft.item.unit.UnitType.OilRig;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.findClosest;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.hasResources;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isCorporeal;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isDepotFor;
+import static com.evilbird.warcraft.object.common.resource.ResourceType.Oil;
+import static com.evilbird.warcraft.object.unit.UnitType.OilPlatform;
+import static com.evilbird.warcraft.object.unit.UnitType.OilRig;
 
 /**
  * Instances of this {@link Action} instruct an {@link GameObject} to gather gold.

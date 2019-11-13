@@ -12,8 +12,8 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.EmptyAction;
 import com.evilbird.warcraft.action.common.remove.DeathAction;
-import com.evilbird.warcraft.item.common.capability.OffensiveObject;
-import com.evilbird.warcraft.item.common.capability.PerishableObject;
+import com.evilbird.warcraft.object.common.capability.OffensiveObject;
+import com.evilbird.warcraft.object.common.capability.PerishableObject;
 
 import javax.inject.Inject;
 

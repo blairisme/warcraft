@@ -10,11 +10,11 @@
 package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.engine.object.GameObjectFactory;
-import com.evilbird.warcraft.item.badge.BadgeType;
-import com.evilbird.warcraft.item.common.spell.Spell;
-import com.evilbird.warcraft.item.common.value.ValueProperty;
-import com.evilbird.warcraft.item.effect.EffectType;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.badge.BadgeType;
+import com.evilbird.warcraft.object.common.spell.Spell;
+import com.evilbird.warcraft.object.common.value.ValueProperty;
+import com.evilbird.warcraft.object.effect.EffectType;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 import java.util.Collection;

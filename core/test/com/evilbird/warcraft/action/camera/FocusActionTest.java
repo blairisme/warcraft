@@ -16,9 +16,9 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.item.data.camera.Camera;
-import com.evilbird.warcraft.item.data.camera.CameraType;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.data.camera.Camera;
+import com.evilbird.warcraft.object.data.camera.CameraType;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import org.junit.Test;
 import org.mockito.Mockito;
 

@@ -24,8 +24,8 @@ import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.object.utility.GameObjectOperations.hasMinimum;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withId;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
-import static com.evilbird.warcraft.item.data.player.PlayerIds.Player1;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.object.data.player.PlayerIds.Player1;
 
 /**
  * Represents a {@link ScenarioCondition} that is fulfilled when the user owns

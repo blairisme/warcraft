@@ -16,7 +16,7 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.action.selection.DeselectAction;
-import com.evilbird.warcraft.item.common.query.UnitOperations;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
 
 import javax.inject.Inject;
 

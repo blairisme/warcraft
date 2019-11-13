@@ -15,22 +15,22 @@ import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.common.production.ProductionTimes;
-import com.evilbird.warcraft.item.data.player.Player;
-import com.evilbird.warcraft.item.unit.Unit;
-import com.evilbird.warcraft.item.unit.building.Building;
-import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.common.production.ProductionTimes;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.building.Building;
+import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.getPlayer;
-import static com.evilbird.warcraft.item.common.query.UnitOperations.moveAdjacent;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Construct;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
-import static com.evilbird.warcraft.item.unit.UnitSound.Build;
-import static com.evilbird.warcraft.item.unit.UnitSound.Complete;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.moveAdjacent;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Construct;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.object.unit.UnitSound.Build;
+import static com.evilbird.warcraft.object.unit.UnitSound.Complete;
 
 /**
  * An {@link Action} that constructs a building.

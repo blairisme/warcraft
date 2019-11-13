@@ -16,7 +16,7 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.GameObjectType;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.effect.EffectType;
+import com.evilbird.warcraft.object.effect.EffectType;
 
 import javax.inject.Inject;
 

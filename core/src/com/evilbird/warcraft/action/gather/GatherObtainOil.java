@@ -13,17 +13,17 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
-import com.evilbird.warcraft.item.unit.building.ResourceExtractor;
-import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.building.ResourceExtractor;
+import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Oil;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.ExtractOil;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.IdleOil;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.MoveOil;
+import static com.evilbird.warcraft.object.common.resource.ResourceType.Oil;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.ExtractOil;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.IdleOil;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.MoveOil;
 
 /**
  * An {@link Action} that instructs a {@link Gatherer} to obtain Oil from a

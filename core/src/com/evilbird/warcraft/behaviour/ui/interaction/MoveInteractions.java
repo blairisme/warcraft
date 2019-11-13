@@ -17,20 +17,20 @@ import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmLocatio
 import static com.evilbird.warcraft.action.move.MoveActions.MoveCancel;
 import static com.evilbird.warcraft.action.move.MoveActions.MoveToLocation;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
-import static com.evilbird.warcraft.item.common.capability.MovementCapability.Air;
-import static com.evilbird.warcraft.item.common.capability.MovementCapability.Land;
-import static com.evilbird.warcraft.item.common.capability.MovementCapability.ShallowWater;
-import static com.evilbird.warcraft.item.common.capability.MovementCapability.Water;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isControllable;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isMovable;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isMovableOver;
-import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.StopButton;
-import static com.evilbird.warcraft.item.layer.LayerType.Map;
-import static com.evilbird.warcraft.item.layer.LayerType.OpaqueFogSection;
-import static com.evilbird.warcraft.item.layer.LayerType.Sea;
-import static com.evilbird.warcraft.item.layer.LayerType.Shore;
-import static com.evilbird.warcraft.item.unit.UnitType.CircleOfPower;
-import static com.evilbird.warcraft.item.unit.UnitType.OilPatch;
+import static com.evilbird.warcraft.object.common.capability.MovementCapability.Air;
+import static com.evilbird.warcraft.object.common.capability.MovementCapability.Land;
+import static com.evilbird.warcraft.object.common.capability.MovementCapability.ShallowWater;
+import static com.evilbird.warcraft.object.common.capability.MovementCapability.Water;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isControllable;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isMovable;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isMovableOver;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.StopButton;
+import static com.evilbird.warcraft.object.layer.LayerType.Map;
+import static com.evilbird.warcraft.object.layer.LayerType.OpaqueFogSection;
+import static com.evilbird.warcraft.object.layer.LayerType.Sea;
+import static com.evilbird.warcraft.object.layer.LayerType.Shore;
+import static com.evilbird.warcraft.object.unit.UnitType.CircleOfPower;
+import static com.evilbird.warcraft.object.unit.UnitType.OilPatch;
 
 /**
  * Defines user interactions that result in moving game objects.

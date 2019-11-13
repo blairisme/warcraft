@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.events.Events;
-import com.evilbird.warcraft.item.unit.building.Building;
+import com.evilbird.warcraft.object.unit.building.Building;
 
 import javax.inject.Inject;
 

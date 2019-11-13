@@ -18,13 +18,13 @@ import static com.evilbird.warcraft.action.attack.AttackActions.Attack;
 import static com.evilbird.warcraft.action.attack.AttackActions.AttackCancel;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmAttack;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAi;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAttacker;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isControllable;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isDestroyable;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isResource;
-import static com.evilbird.warcraft.item.display.control.actions.ActionButtonType.CancelButton;
-import static com.evilbird.warcraft.item.layer.LayerType.WallSection;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isAi;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isAttacker;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isControllable;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isDestroyable;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isResource;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.object.layer.LayerType.WallSection;
 
 /**
  * Defines user interactions that result in attacking game objects.

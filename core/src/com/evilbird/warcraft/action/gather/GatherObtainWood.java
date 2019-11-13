@@ -14,18 +14,18 @@ import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.item.unit.UnitAnimation;
-import com.evilbird.warcraft.item.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.UnitAnimation;
+import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.common.query.UnitOperations.reorient;
-import static com.evilbird.warcraft.item.common.resource.ResourceType.Wood;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.IdleWood;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Move;
-import static com.evilbird.warcraft.item.unit.UnitAnimation.MoveWood;
-import static com.evilbird.warcraft.item.unit.UnitSound.ChopWood;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
+import static com.evilbird.warcraft.object.common.resource.ResourceType.Wood;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.IdleWood;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.MoveWood;
+import static com.evilbird.warcraft.object.unit.UnitSound.ChopWood;
 
 /**
  * An {@link Action} that instructs a {@link Gatherer} to obtain wood from a

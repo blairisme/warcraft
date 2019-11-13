@@ -10,9 +10,9 @@
 package com.evilbird.warcraft.action.spell.attack;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.warcraft.item.common.value.AbsoluteBuffValue;
-import com.evilbird.warcraft.item.common.value.Value;
-import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.object.common.value.AbsoluteBuffValue;
+import com.evilbird.warcraft.object.common.value.Value;
+import com.evilbird.warcraft.object.unit.Unit;
 
 import javax.inject.Inject;
 

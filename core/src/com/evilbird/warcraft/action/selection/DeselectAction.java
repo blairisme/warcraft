@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.selection;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.warcraft.item.common.capability.SelectableObject;
+import com.evilbird.warcraft.object.common.capability.SelectableObject;
 
 import javax.inject.Inject;
 

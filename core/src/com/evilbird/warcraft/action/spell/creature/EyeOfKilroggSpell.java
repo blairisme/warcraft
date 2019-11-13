@@ -11,14 +11,14 @@ package com.evilbird.warcraft.action.spell.creature;
 
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
-import com.evilbird.warcraft.item.common.spell.Spell;
-import com.evilbird.warcraft.item.effect.EffectType;
-import com.evilbird.warcraft.item.unit.UnitType;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.common.spell.Spell;
+import com.evilbird.warcraft.object.effect.EffectType;
+import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.common.query.UnitOperations.moveAdjacent;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.moveAdjacent;
 
 /**
  * A spell that creates an creature, an eye of kilrogg, that can move about the

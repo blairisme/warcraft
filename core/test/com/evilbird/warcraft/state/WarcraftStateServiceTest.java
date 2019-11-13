@@ -15,7 +15,7 @@ import com.evilbird.engine.common.serialization.JsonSerializer;
 import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.test.utils.TestFileHandleResolver;
-import com.evilbird.warcraft.item.display.HudLoader;
+import com.evilbird.warcraft.object.display.HudLoader;
 import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import org.junit.Assert;
 import org.junit.Before;

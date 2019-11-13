@@ -13,11 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.warcraft.action.selection.SelectEvents;
-import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.object.unit.Unit;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.item.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 
 /**
  * Instances of this class remove an item from the game world, visually and

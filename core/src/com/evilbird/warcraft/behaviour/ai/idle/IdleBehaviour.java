@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourElement;
-import com.evilbird.warcraft.item.unit.Unit;
+import com.evilbird.warcraft.object.unit.Unit;
 import org.apache.commons.lang3.time.StopWatch;
 
 import javax.inject.Inject;
@@ -25,9 +25,9 @@ import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.either;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.isIdle;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isAlive;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCombatant;
-import static com.evilbird.warcraft.item.common.query.UnitPredicates.isCritter;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isAlive;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isCombatant;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isCritter;
 
 /**
  * Behaviour that randomly re-orients idle units.

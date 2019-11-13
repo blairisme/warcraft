@@ -10,10 +10,10 @@
 package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.warcraft.item.common.value.BuffValue;
-import com.evilbird.warcraft.item.common.value.Value;
-import com.evilbird.warcraft.item.common.value.ValueProperty;
-import com.evilbird.warcraft.item.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.common.value.BuffValue;
+import com.evilbird.warcraft.object.common.value.Value;
+import com.evilbird.warcraft.object.common.value.ValueProperty;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
 import java.util.Collection;
 
