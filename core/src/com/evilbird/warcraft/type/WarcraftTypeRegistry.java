@@ -22,6 +22,7 @@ import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.common.WarcraftSeason;
+import com.evilbird.warcraft.menu.intro.IntroMenuType;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
 import com.evilbird.warcraft.object.data.camera.Camera;
 import com.evilbird.warcraft.object.data.camera.CameraType;
@@ -44,7 +45,6 @@ import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
 import com.evilbird.warcraft.object.unit.critter.Critter;
 import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.object.unit.resource.Resource;
-import com.evilbird.warcraft.menu.intro.IntroMenuType;
 import com.evilbird.warcraft.state.Level;
 import com.evilbird.warcraft.state.WarcraftCampaign;
 

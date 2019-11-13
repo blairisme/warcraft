@@ -24,13 +24,14 @@ import com.evilbird.engine.common.graphics.Animation;
 import com.evilbird.engine.common.graphics.AnimationFrame;
 import com.evilbird.engine.common.graphics.ColourMaskSprite;
 import com.evilbird.engine.common.graphics.Renderable;
+import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.time.GameTimer;
+import com.evilbird.engine.object.AnimatedObject;
+import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectReference;
 import com.evilbird.engine.object.spatial.SpatialObject;
-import com.evilbird.engine.object.AnimatedObject;
-import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.common.TeamColour;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
@@ -40,7 +41,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -80,12 +80,12 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
      * an {@link AnimatedObjectStyle}, specifying the visual and auditory
      * presentation of the new Unit.
      *
-     * @param skin a {@code Skin} instance containing a {@code ViewableStyle}.
+     * @param skin  a {@code Skin} instance containing a
+     *              {@code AnimatedObjectStyle}.
      *
      * @throws NullPointerException if the given skin is {@code null} or
      *                              doesn't contain a {@code ViewableStyle}.
      */
-    @Inject
     public Unit(Skin skin) {
         super(skin);
         sight = Zero;
@@ -320,22 +320,44 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     }
 
     /**
-     * Sets the spatial location of the Items bottom left corner.
+     * Sets the spatial location of the Units bottom left corner.
      */
     @Override
     public void setPosition(Vector2 position) {
         super.setPosition(position);
-        effect.setPosition(position.x, position.y);
-        selection.setPosition(position.x, position.y);
-        highlight.setPosition(position.x, position.y);
+        setEffectPosition(position.x, position.y);
     }
 
     /**
-     * Sets the spatial location of the Items bottom left corner.
+     * Sets the spatial location of the Unit, aligned using the given alignment.
+     */
+    @Override
+    public void setPosition(Vector2 position, Alignment alignment) {
+        super.setPosition(position, alignment);
+        Vector2 current = getPosition();
+        setEffectPosition(current.x, current.y);
+    }
+
+    /**
+     * Sets the spatial location of the Units bottom left corner.
      */
     @Override
     public void setPosition(float x, float y) {
         super.setPosition(x, y);
+        setEffectPosition(x, y);
+    }
+
+    /**
+     * Sets the spatial location of the Unit, aligned using the given alignment.
+     */
+    @Override
+    public void setPosition(float x, float y, Alignment alignment) {
+        super.setPosition(x, y, alignment);
+        Vector2 current = getPosition();
+        setEffectPosition(current.x, current.y);
+    }
+
+    private void setEffectPosition(float x, float y) {
         effect.setPosition(x, y);
         selection.setPosition(x, y);
         highlight.setPosition(x, y);
@@ -424,7 +446,6 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     }
 
     public void setStyle(UnitStyle style) {
-        super.setStyle(style);
         this.style = style;
 
         Vector2 size = getSize();

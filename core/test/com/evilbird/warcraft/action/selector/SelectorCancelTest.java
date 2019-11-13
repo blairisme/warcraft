@@ -20,7 +20,6 @@ import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -58,13 +57,9 @@ public class SelectorCancelTest extends ActionTestCase
     }
 
     @Test
-    @Ignore
     public void actTest() {
-        Assert.assertFalse(action.act(1));
-        Assert.assertTrue(player.getObjects().stream().noneMatch(item -> item == selector));
-
         Assert.assertTrue(action.act(1));
+        Assert.assertTrue(player.getObjects().stream().noneMatch(item -> item == selector));
         Assert.assertNull(((Gatherer) gameObject).getAssociatedItem());
-//        Mockito.verify(reporter).add(new PlaceholderEvent(item, placeholder, PlaceholderStatus.Removed));
     }
 }

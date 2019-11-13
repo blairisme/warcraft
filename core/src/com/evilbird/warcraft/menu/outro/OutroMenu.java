@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.badlogic.gdx.scenes.scene2d.ui.Value.percentHeight;
+import static com.evilbird.warcraft.menu.outro.OutroMenuType.Victory;
 import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Buildings;
 import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Gold;
 import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Kills;
@@ -46,7 +47,6 @@ import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Razed;
 import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Score;
 import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Units;
 import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Wood;
-import static com.evilbird.warcraft.menu.outro.OutroMenuType.Victory;
 
 /**
  * Represents a menu shown when a scenario is completed or failed. The menu

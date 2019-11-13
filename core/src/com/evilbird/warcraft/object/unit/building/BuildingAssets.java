@@ -53,6 +53,8 @@ public class BuildingAssets extends AssetBundle
         register("construction", "data/textures/common/building/perennial/construction_${size}.png");
         registerOptional("construction", "data/textures/common/building/perennial/${name}_construction_site.png");
         register("destruction", "data/textures/common/building/winter/destroyed_site.png");
+        register("fire", "data/textures/common/environmental/fire.png");
+        register("flame", "data/textures/common/environmental/flame.png");
         register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, dimensions));
         register("highlight", "highlight_${size}", SyntheticTexture.class, withColour(LIGHT_BLUE, dimensions));
 
@@ -108,6 +110,14 @@ public class BuildingAssets extends AssetBundle
 
     public Texture getHighlightTexture() {
         return getSyntheticTexture("highlight");
+    }
+
+    public Texture getLightDamageTexture() {
+        return getTexture("flame");
+    }
+
+    public Texture getHeavyDamageTexture() {
+        return getTexture("fire");
     }
 
     public Sound getDestroyedSound() {

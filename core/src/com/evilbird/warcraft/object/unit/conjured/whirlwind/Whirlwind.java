@@ -12,9 +12,9 @@ package com.evilbird.warcraft.object.unit.conjured.whirlwind;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.time.GameTimer;
+import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
-import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredObject;
 
 import static org.apache.commons.lang3.RandomUtils.nextFloat;

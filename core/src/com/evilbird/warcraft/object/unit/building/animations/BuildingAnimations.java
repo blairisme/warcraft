@@ -19,7 +19,9 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.BuildingSite;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.BuildingUpgrade;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Construct;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Death;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.HeavyDamage;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.LightDamage;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -35,6 +37,8 @@ public class BuildingAnimations extends AnimationCatalog
         this(assets.getBaseTexture(),
             assets.getConstructionTexture(),
             assets.getDestructionTexture(),
+            assets.getLightDamageTexture(),
+            assets.getHeavyDamageTexture(),
             assets.getSize(),
             production.buildTime(assets.getType()));
     }
@@ -43,10 +47,12 @@ public class BuildingAnimations extends AnimationCatalog
         Texture base,
         Texture construction,
         Texture destruction,
+        Texture lightDamage,
+        Texture heavyDamage,
         GridPoint2 size,
         float time)
     {
-        super(5);
+        super(7);
 
         requireNonNull(base);
         requireNonNull(construction);
@@ -58,6 +64,7 @@ public class BuildingAnimations extends AnimationCatalog
         buildingUpgrade(base, size);
         construction(base, construction, size, time);
         destruction(destruction, size);
+        damage(lightDamage, heavyDamage);
     }
 
     private void idle(Texture base, GridPoint2 size) {
@@ -118,5 +125,23 @@ public class BuildingAnimations extends AnimationCatalog
             .withInterval(10f)
             .singleDirection()
             .notLooping();
+    }
+
+    private void damage(Texture lightDamage, Texture heavyDamage) {
+        animation(LightDamage)
+            .withTexture(lightDamage)
+            .withSequence(0, 6)
+            .withSize(lightDamage.getWidth(), lightDamage.getWidth())
+            .withInterval(0.06f)
+            .singleDirection()
+            .looping();
+
+        animation(HeavyDamage)
+            .withTexture(heavyDamage)
+            .withSequence(0, 10)
+            .withSize(heavyDamage.getWidth(), heavyDamage.getWidth())
+            .withInterval(0.06f)
+            .singleDirection()
+            .looping();
     }
 }

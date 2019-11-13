@@ -40,6 +40,8 @@ public enum UnitAnimation implements Identifier
 
     Death,
     Decompose,
+    LightDamage,
+    HeavyDamage,
 
     GatherWood,
     ExtractGold,

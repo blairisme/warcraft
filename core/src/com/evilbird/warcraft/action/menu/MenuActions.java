@@ -11,8 +11,8 @@ package com.evilbird.warcraft.action.menu;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.warcraft.object.display.control.actions.ActionPaneView;
 import com.evilbird.warcraft.menu.ingame.IngameMenuType;
+import com.evilbird.warcraft.object.display.control.actions.ActionPaneView;
 
 /**
  * Defines options of specifying hud menu navigation action varieties.

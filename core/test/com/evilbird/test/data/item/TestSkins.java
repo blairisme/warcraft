@@ -23,6 +23,7 @@ import com.evilbird.warcraft.object.layer.LayerGroupStyle;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitSound;
 import com.evilbird.warcraft.object.unit.UnitStyle;
+import com.evilbird.warcraft.object.unit.building.BuildingStyle;
 import org.mockito.Mockito;
 
 import java.util.Collections;
@@ -73,18 +74,21 @@ public class TestSkins
     }
 
     public static Skin newTestSkin() {
-        UnitStyle style = newUnitStyle();
+        BuildingStyle style = newBuildingStyle();
 
         Skin skin = new Skin();
         skin.add("default", style, AnimatedObjectStyle.class);
         skin.add("default", style, UnitStyle.class);
+        skin.add("default", style, BuildingStyle.class);
         return skin;
     }
 
-    private static UnitStyle newUnitStyle() {
-        UnitStyle unitStyle = new UnitStyle();
+    private static BuildingStyle newBuildingStyle() {
+        BuildingStyle unitStyle = new BuildingStyle();
         unitStyle.animations = newTestAnimations();
         unitStyle.sounds = newTestSounds();
+        unitStyle.lightDamage = Mockito.mock(Animation.class);
+        unitStyle.heavyDamage = Mockito.mock(Animation.class);
         return unitStyle;
     }
 

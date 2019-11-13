@@ -16,8 +16,9 @@ import com.evilbird.engine.common.audio.sound.LocalizedSound;
 import com.evilbird.engine.common.audio.sound.SilentSound;
 import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.graphics.Animation;
-import com.evilbird.engine.common.graphics.AnimationRenderer;
+import com.evilbird.engine.common.graphics.AnimationRenderable;
 import com.evilbird.engine.common.graphics.DirectionalAnimation;
+import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Animated;
 import com.evilbird.engine.common.lang.Audible;
 import com.evilbird.engine.common.lang.Directionable;
@@ -43,7 +44,7 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
     protected transient Skin skin;
     protected transient AnimatedObjectStyle style;
     protected transient LocalizedSound sound;
-    protected transient AnimationRenderer animation;
+    protected transient AnimationRenderable animation;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
@@ -60,7 +61,7 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
     protected AnimatedObject() {
         this.style = new AnimatedObjectStyle();
         this.animationId = null;
-        this.animation = new AnimationRenderer();
+        this.animation = new AnimationRenderable();
         this.soundId = null;
         this.sound = new LocalizedSound(new SilentSound(), this);
     }
@@ -142,18 +143,38 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
     }
 
     @Override
-    public void setPosition(float newX, float newY) {
-        float previousX = getX();
-        float previousY = getY();
-        super.setPosition(newX, newY);
-        this.setDirection(previousX, previousY, newX, newY);
+    public void setPosition(float x, float y) {
+        Vector2 previous = getPosition();
+        super.setPosition(x, y);
+        setPositionImpl(previous.x, previous.y, x, y);
+    }
+
+    @Override
+    public void setPosition(float x, float y, Alignment alignment) {
+        Vector2 previous = getPosition();
+        super.setPosition(x, y, alignment);
+        Vector2 current = getPosition();
+        setPositionImpl(previous.x, previous.y, current.x, current.y);
     }
 
     @Override
     public void setPosition(Vector2 position) {
         Vector2 previous = getPosition();
         super.setPosition(position);
-        this.setDirection(previous.x, previous.y, position.x, position.y);
+        setPositionImpl(previous.x, previous.y, position.x, position.y);
+    }
+
+    @Override
+    public void setPosition(Vector2 position, Alignment alignment) {
+        Vector2 previous = getPosition();
+        super.setPosition(position, alignment);
+        Vector2 current = getPosition();
+        setPositionImpl(previous.x, previous.y, current.x, current.y);
+    }
+
+    private void setPositionImpl(float oldX, float oldY, float newX, float newY) {
+        setDirection(oldX, oldY, newX, newY);
+        animation.setPosition(newX, newY);
     }
 
     @Override
@@ -177,10 +198,28 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
         setDirection(normalizedDirection);
     }
 
+    /**
+     * Sets the spatial dimensions of the Item.
+     */
+    @Override
+    public void setSize(Vector2 size) {
+        super.setSize(size);
+        this.animation.setSize(size.x, size.y);
+    }
+
+    /**
+     * Sets the spatial dimensions of the Item.
+     */
+    @Override
+    public void setSize(float width, float height) {
+        super.setSize(width, height);
+        this.animation.setSize(width, height);
+    }
+
     @Override
     public void draw(Batch batch, float alpha) {
         super.draw(batch, alpha);
-        animation.draw(batch, getPosition(), getSize());
+        animation.draw(batch, alpha);
     }
 
     @Override

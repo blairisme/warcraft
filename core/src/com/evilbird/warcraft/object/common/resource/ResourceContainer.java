@@ -22,6 +22,9 @@ import java.util.Collection;
  */
 public interface ResourceContainer extends GameObject
 {
+    /**
+     * Returns the value of a resource held in the {@code ResourceContainer}.
+     */
     float getResource(ResourceType resource);
 
     default Collection<ResourceQuantity> getResources() {
@@ -41,6 +44,9 @@ public interface ResourceContainer extends GameObject
         return true;
     }
 
+    /**
+     * Sets the value of a resource held in the {@code ResourceContainer}.
+     */
     void setResource(ResourceType resource, float value);
 
     default void setResources(Iterable<ResourceQuantity> resources) {

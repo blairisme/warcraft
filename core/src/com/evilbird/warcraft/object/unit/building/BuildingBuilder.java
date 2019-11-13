@@ -32,6 +32,9 @@ import org.apache.commons.lang3.Validate;
 import java.util.Collections;
 import java.util.Map;
 
+import static com.evilbird.warcraft.object.unit.UnitAnimation.HeavyDamage;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.LightDamage;
+
 /**
  * Creates a new {@link Building} instance whose visual and audible
  * presentation is defined by the given {@link BuildingAssets}.
@@ -43,8 +46,9 @@ public class BuildingBuilder
     private UnitType type;
     private BuildingAssets assets;
     private ProductionTimes times;
-    private AnimationCatalog animations;
     private SoundCatalog sounds;
+    private AnimationCatalog animations;
+    private Map<Texture, Texture> masks;
 
     public BuildingBuilder(BuildingAssets assets, ProductionTimes times, UnitType type) {
         Validate.notNull(assets);
@@ -80,23 +84,26 @@ public class BuildingBuilder
     }
 
     private Skin getSkin() {
-        UnitStyle style = getStyle();
+        BuildingStyle style = getStyle();
         Skin skin = new Skin();
         skin.add("default", style, AnimatedObjectStyle.class);
         skin.add("default", style, UnitStyle.class);
+        skin.add("default", style, BuildingStyle.class);
         return skin;
     }
 
-    private UnitStyle getStyle() {
+    private BuildingStyle getStyle() {
         SoundCatalog sounds = getSounds();
         AnimationCatalog animations = getAnimations();
 
-        UnitStyle style = new UnitStyle();
+        BuildingStyle style = new BuildingStyle();
         style.animations = animations.get();
+        style.masks = getMasks();
         style.sounds = sounds.get();
         style.selection = new SpriteRenderable(assets.getSelectionTexture());
         style.highlight = new FlashingRenderable(assets.getHighlightTexture());
-        style.masks = getMasks();
+        style.lightDamage = style.animations.get(LightDamage);
+        style.heavyDamage = style.animations.get(HeavyDamage);
         return style;
     }
 
@@ -132,9 +139,13 @@ public class BuildingBuilder
     }
 
     private Map<Texture, Texture> getMasks() {
-        if (! type.isNeutral()) {
-            return Maps.of(assets.getBaseTexture(), assets.getMaskTexture());
+        if (masks == null) {
+            if (!type.isNeutral()) {
+                masks = Maps.of(assets.getBaseTexture(), assets.getMaskTexture());
+            } else {
+                masks = Collections.emptyMap();
+            }
         }
-        return Collections.emptyMap();
+        return masks;
     }
 }

@@ -38,7 +38,7 @@ public class AnimatedObjectStyle
     }
 
     /**
-     * Creates a new instance of this class with given another style whose
+     * Creates a new instance of this class given another style whose
      * attributes will be copied into the new style. Subsequent changes to the
      * new style will not be reflected in the style it was copied from.
      *

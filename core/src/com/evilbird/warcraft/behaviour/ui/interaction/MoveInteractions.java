@@ -55,7 +55,7 @@ public class MoveInteractions extends InteractionContainer
     }
 
     private void moveOverLand() {
-        addAction(MoveToLocation, ConfirmLocation)
+        addAction(ConfirmLocation, MoveToLocation)
             .whenSelected(isControllable().and(isMovableOver(Land)))
             .whenTarget(hasType(Map, Shore, OpaqueFogSection, CircleOfPower))
             .appliedTo(Selected)
@@ -63,7 +63,7 @@ public class MoveInteractions extends InteractionContainer
     }
 
     private void moveThroughWater() {
-        addAction(MoveToLocation, ConfirmLocation)
+        addAction(ConfirmLocation, MoveToLocation)
             .whenSelected(isControllable().and(isMovableOver(Water)))
             .whenTarget(hasType(Sea, OilPatch, OpaqueFogSection))
             .appliedTo(Selected)
@@ -71,7 +71,7 @@ public class MoveInteractions extends InteractionContainer
     }
 
     private void moveThroughShallows() {
-        addAction(MoveToLocation, ConfirmLocation)
+        addAction(ConfirmLocation, MoveToLocation)
             .whenSelected(isControllable().and(isMovableOver(ShallowWater)))
             .whenTarget(hasType(Sea, Shore, OilPatch, OpaqueFogSection))
             .appliedTo(Selected)
@@ -79,7 +79,7 @@ public class MoveInteractions extends InteractionContainer
     }
 
     private void moveThroughAir() {
-        addAction(MoveToLocation, ConfirmLocation)
+        addAction(ConfirmLocation, MoveToLocation)
             .whenSelected(isControllable().and(isMovableOver(Air)))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
