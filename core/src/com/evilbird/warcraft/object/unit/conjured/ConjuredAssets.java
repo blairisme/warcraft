@@ -40,7 +40,7 @@ public class ConjuredAssets extends AssetBundle
     }
 
     public Texture getFireball() {
-        return getTexture("fireball.png");
+        return getTexture("flame.png");
     }
 
     public Texture getFlameShield() {

@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
-import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.AnimationCatalog;
 import com.evilbird.engine.common.graphics.FlashingRenderable;
 import com.evilbird.engine.common.graphics.SpriteRenderable;
@@ -27,7 +26,7 @@ import com.evilbird.warcraft.object.unit.gatherer.sounds.LandGathererSounds;
 import com.evilbird.warcraft.object.unit.gatherer.sounds.SeaGathererSounds;
 import org.apache.commons.lang3.Validate;
 
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -42,6 +41,7 @@ public class GathererBuilder
     private GathererAssets assets;
     private AnimationCatalog animations;
     private SoundCatalog sounds;
+    private Map<Texture, Texture> masks;
 
     public GathererBuilder(GathererAssets assets, UnitType type) {
         Validate.notNull(assets);
@@ -103,9 +103,17 @@ public class GathererBuilder
     }
 
     private Map<Texture, Texture> getMasks() {
-        if (! type.isNeutral()) {
-            return Maps.of(assets.getBaseTexture(), assets.getMaskTexture());
+        if (masks == null) {
+            masks = new HashMap<>();
+            masks.put(assets.getBaseTexture(), assets.getMaskTexture());
+
+            if (type.isNaval()) {
+                masks.put(assets.getMoveWithOilTexture(), assets.getMoveWithOilMask());
+            } else {
+                masks.put(assets.getMoveWithGoldTexture(), assets.getMoveWithGoldMask());
+                masks.put(assets.getMoveWithWoodTexture(), assets.getMoveWithWoodMask());
+            }
         }
-        return Collections.emptyMap();
+        return masks;
     }
 }
