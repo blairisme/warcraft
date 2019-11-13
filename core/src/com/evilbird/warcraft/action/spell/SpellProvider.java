@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * A factory that provides spell actions.
+ *
  * @author Blair Butterworth
  */
 public class SpellProvider

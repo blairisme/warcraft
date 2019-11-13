@@ -34,7 +34,7 @@ import static com.evilbird.warcraft.object.common.query.UnitPredicates.isSelecte
 import static com.evilbird.warcraft.object.selector.SelectorType.AreaSelector;
 
 /**
- * Instances of this {@link Action} manipulate a {@link com.evilbird.warcraft.object.selector.selection.AreaSelector}, a user
+ * Instances of this {@link Action} manipulate a {@link AreaSelector}, a user
  * define graphical area that denotes the items the user wishes to select.
  *
  * @author Blair Butterworth

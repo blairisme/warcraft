@@ -45,7 +45,7 @@ public class ActionPane extends Grid implements MenuProvider
     private ActionPaneView view;
     private List<GameObject> selection;
     private Map<ResourceType, Float> resources;
-    private com.evilbird.warcraft.object.display.control.actions.buttons.ButtonControllers buttons;
+    private ButtonControllers buttons;
 
     public ActionPane(Skin skin) {
         super(3, 3);
@@ -60,7 +60,7 @@ public class ActionPane extends Grid implements MenuProvider
         setCellPadding(1);
         setCellWidth(54);
         setCellHeight(46);
-        setIdentifier(com.evilbird.warcraft.object.display.HudControl.ActionPane);
+        setIdentifier(HudControl.ActionPane);
         setType(HudControl.ActionPane);
         setTouchable(Touchable.enabled);
     }
@@ -188,11 +188,11 @@ public class ActionPane extends Grid implements MenuProvider
     }
 
     private List<ActionButton> getButtons(ActionPaneView view, GameObject gameObject) {
-        com.evilbird.warcraft.object.display.control.actions.buttons.ButtonController controller = buttons.getButtonController(gameObject, view);
+        ButtonController controller = buttons.getButtonController(gameObject, view);
         return getButtons(controller, gameObject);
     }
 
-    private List<ActionButton> getButtons(com.evilbird.warcraft.object.display.control.actions.buttons.ButtonController controller, GameObject gameObject) {
+    private List<ActionButton> getButtons(ButtonController controller, GameObject gameObject) {
         List<ActionButtonType> types = controller.getButtons(gameObject);
         List<ActionButton> buttons = new ArrayList<>(types.size());
         for (ActionButtonType type: types){

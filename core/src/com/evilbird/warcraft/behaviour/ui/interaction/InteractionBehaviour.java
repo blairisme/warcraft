@@ -104,7 +104,12 @@ public class InteractionBehaviour implements Behaviour
         }
     }
 
-    private void evaluateInput(UserInput input, GameObjectContainer world, GameObjectContainer hud, Collection<GameObject> selected) {
+    private void evaluateInput(
+        UserInput input,
+        GameObjectContainer world,
+        GameObjectContainer hud,
+        Collection<GameObject> selected)
+    {
         target = getTargets(world, hud, input);
         previous = evaluateSelection(input, target, selected);
         if (previous.isEmpty()) {
@@ -121,7 +126,11 @@ public class InteractionBehaviour implements Behaviour
         }
     }
 
-    private Collection<Interaction> evaluateSelection(UserInput input, GameObject target, Collection<GameObject> selected) {
+    private Collection<Interaction> evaluateSelection(
+        UserInput input,
+        GameObject target,
+        Collection<GameObject> selected)
+    {
         Collection<Interaction> result = new ArrayList<>();
         if (selected.isEmpty()) {
             result.add(evaluateInteractions(input, target, null));
@@ -145,7 +154,12 @@ public class InteractionBehaviour implements Behaviour
         return interaction;
     }
 
-    private void apply(Collection<Interaction> interactions, UserInput input, GameObject target, Collection<GameObject> selected) {
+    private void apply(
+        Collection<Interaction> interactions,
+        UserInput input,
+        GameObject target,
+        Collection<GameObject> selected)
+    {
         for (GameObject selectedGameObject : selected) {
             apply(interactions, input, target, selectedGameObject);
         }

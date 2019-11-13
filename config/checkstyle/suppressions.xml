@@ -5,4 +5,5 @@
 
 <suppressions>
     <suppress checks=".*" files=".*Test.*"/>
+    <suppress checks="LineLength" files=".*ButtonIconLayout.*"/>
 </suppressions>

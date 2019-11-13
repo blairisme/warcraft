@@ -32,9 +32,9 @@ import java.util.Objects;
  */
 public class IconSet
 {
-    private final static ButtonIconLayout buttonIconLayout = new ButtonIconLayout();
-    private final static UpgradeIconLayout upgradeIconLayout = new UpgradeIconLayout();
-    private final static UnitIconLayout unitIconLayout = new UnitIconLayout();
+    private static final ButtonIconLayout buttonIconLayout = new ButtonIconLayout();
+    private static final UpgradeIconLayout upgradeIconLayout = new UpgradeIconLayout();
+    private static final UnitIconLayout unitIconLayout = new UnitIconLayout();
 
     private Texture texture;
 

@@ -30,11 +30,11 @@ import java.util.Map.Entry;
  */
 public class RuneTrap extends ConjuredObject
 {
-    private static transient final float RUNE_DURATION = 0.6f;
-    private static transient final float RUNE_INTERVAL = 4f;
-    private static transient final float RUNE_PADDING = 30f;
-    private static transient final float RUNE_WIDTH = 16f;
-    private static transient final float RUNE_HEIGHT = 16f;
+    private static final transient float RUNE_DURATION = 0.6f;
+    private static final transient float RUNE_INTERVAL = 4f;
+    private static final transient float RUNE_PADDING = 30f;
+    private static final transient float RUNE_WIDTH = 16f;
+    private static final transient float RUNE_HEIGHT = 16f;
 
     private transient GameTimer timer;
     private transient Map<Vector2, Float> effects;

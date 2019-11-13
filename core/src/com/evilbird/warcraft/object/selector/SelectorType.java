@@ -86,8 +86,16 @@ public enum SelectorType implements GameObjectType
         return EnumSet.range(BlizzardSelector, WhirlwindSelector);
     }
 
+    public boolean isBuildingSelector() {
+        return isBuildingSelector(this);
+    }
+
     public static boolean isBuildingSelector(SelectorType selectorType) {
         return EnumUtils.isBetween(selectorType, BarracksSelector, WatchTowerSelector);
+    }
+
+    public boolean isTargetSelector() {
+        return isTargetSelector(this);
     }
 
     public static boolean isTargetSelector(SelectorType selectorType) {
@@ -106,13 +114,5 @@ public enum SelectorType implements GameObjectType
 
     public UnitType getBuilding() {
         return getBuilding(this);
-    }
-
-    public boolean isBuildingSelector() {
-        return isBuildingSelector(this);
-    }
-
-    public boolean isTargetSelector() {
-        return isTargetSelector(this);
     }
 }

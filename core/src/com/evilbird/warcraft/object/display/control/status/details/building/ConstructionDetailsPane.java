@@ -57,7 +57,7 @@ public class ConstructionDetailsPane extends Grid
         progress = new ProgressBar(0, 1, 0.005f, false, skin, "building-progress");
         container.add(progress);
 
-        com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle style = skin.get(DetailsPaneStyle.class);
+        DetailsPaneStyle style = skin.get(DetailsPaneStyle.class);
         Label label = new Label(style.strings.getProgress(), skin);
         label.setAlignment(Align.center);
         container.add(label);

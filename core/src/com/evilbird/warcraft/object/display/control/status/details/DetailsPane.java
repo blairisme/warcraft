@@ -41,9 +41,9 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.isResourc
  */
 public class DetailsPane extends Grid
 {
-    private com.evilbird.warcraft.object.display.control.status.details.common.UnitTitlePane generalTitle;
+    private UnitTitlePane generalTitle;
     private CombatantTitlePane combatantTitle;
-    private com.evilbird.warcraft.object.display.control.status.details.building.BuildingDetailsPane buildingDetails;
+    private BuildingDetailsPane buildingDetails;
     private CombatantDetailsPane combatantDetails;
     private SpellCasterDetailsPane spellCasterDetails;
     private ResourceDetailsPane resourceDetails;
@@ -67,7 +67,7 @@ public class DetailsPane extends Grid
     @Override
     public void setSkin(Skin skin) {
         super.setSkin(skin);
-        com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle style = skin.get(DetailsPaneStyle.class);
+        DetailsPaneStyle style = skin.get(DetailsPaneStyle.class);
         setBackground(style.background);
     }
 

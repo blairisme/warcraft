@@ -31,10 +31,10 @@ import java.util.List;
  */
 public class FlameShield extends ConjuredObject
 {
-    private static transient final int COUNT = 5;
-    private static transient final float SPEED = 90f;
-    private static transient final float WIDTH = 16f;
-    private static transient final float HEIGHT = 16f;
+    private static final transient int COUNT = 5;
+    private static final transient float SPEED = 90f;
+    private static final transient float WIDTH = 16f;
+    private static final transient float HEIGHT = 16f;
 
     private transient List<Vector2> positions;
     private transient List<Float> rotations;

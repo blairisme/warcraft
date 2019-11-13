@@ -29,7 +29,7 @@ import java.util.function.Supplier;
 public class SelectionButton extends Stack implements Supplier<GameObject>
 {
     private GameObject gameObject;
-    private com.evilbird.warcraft.object.display.control.common.UnitPane icon;
+    private UnitPane icon;
 
     public SelectionButton(Skin skin) {
         setSize(56, 56);
@@ -57,7 +57,7 @@ public class SelectionButton extends Stack implements Supplier<GameObject>
     }
 
     private ButtonStyle buttonStyle(Skin skin) {
-        com.evilbird.warcraft.object.display.control.status.selection.SelectionButtonStyle selectionStyle = skin.get("default", SelectionButtonStyle.class);
+        SelectionButtonStyle selectionStyle = skin.get("default", SelectionButtonStyle.class);
         ButtonStyle buttonStyle = new ButtonStyle();
         buttonStyle.up = selectionStyle.closeButtonEnabled;
         buttonStyle.down = selectionStyle.closeButtonSelected;

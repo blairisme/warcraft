@@ -197,7 +197,11 @@ public class SubmarineBehaviour implements AiBehaviourElement
         return invalidated;
     }
 
-    private Collection<GameObjectNode> addCache(Map<GameObjectNode, Collection<GameObject>> cache, Collection<GameObjectNode> nodes, GameObject entry){
+    private Collection<GameObjectNode> addCache(
+        Map<GameObjectNode, Collection<GameObject>> cache,
+        Collection<GameObjectNode> nodes,
+        GameObject entry)
+    {
         for (GameObjectNode node: nodes) {
             Collection<GameObject> entries = Maps.getOrDefault(cache, node, ArrayList::new);
             entries.add(entry);
@@ -206,7 +210,10 @@ public class SubmarineBehaviour implements AiBehaviourElement
         return nodes;
     }
 
-    private Collection<GameObjectNode> removeCache(Map<GameObjectNode, Collection<GameObject>> cache, GameObject element) {
+    private Collection<GameObjectNode> removeCache(
+        Map<GameObjectNode, Collection<GameObject>> cache,
+        GameObject element)
+    {
         Collection<GameObjectNode> nodes = new ArrayList<>();
         for (Entry<GameObjectNode, Collection<GameObject>> entry: cache.entrySet()) {
             if (entry.getValue().remove(element)) {

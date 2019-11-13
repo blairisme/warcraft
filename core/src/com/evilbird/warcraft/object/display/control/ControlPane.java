@@ -44,7 +44,7 @@ public class ControlPane extends Table
 
     private void addControls(Skin skin) {
         Table container = addContainer();
-        com.evilbird.warcraft.object.display.control.ControlPaneStyle style = skin.get("default", ControlPaneStyle.class);
+        ControlPaneStyle style = skin.get("default", ControlPaneStyle.class);
         if (style.showMenuButton) {
             addControl(container, new MenuPane(skin));
         }

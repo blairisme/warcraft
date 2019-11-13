@@ -60,7 +60,9 @@ public class UnitCapture implements SupplementaryBehaviour
         }
     }
 
-    private Map<GameObjectNode, List<GameObject>> getCapturableItems(GameObjectContainer state, GameObjectGraph graph) {
+    private Map<GameObjectNode, List<GameObject>> getCapturableItems(
+        GameObjectContainer state, GameObjectGraph graph)
+    {
         Map<GameObjectNode, List<GameObject>> result = new HashMap<>();
 
         for (Player player: UnitOperations.getPlayers(state)) {
@@ -72,7 +74,9 @@ public class UnitCapture implements SupplementaryBehaviour
         return result;
     }
 
-    private Map<GameObjectNode, List<GameObject>> getAdjacentNodes(Collection<GameObject> gameObjects, GameObjectGraph graph) {
+    private Map<GameObjectNode, List<GameObject>> getAdjacentNodes(
+        Collection<GameObject> gameObjects, GameObjectGraph graph)
+    {
         Map<GameObjectNode, List<GameObject>> result = new HashMap<>(gameObjects.size());
         for (GameObject gameObject : gameObjects) {
             for (GameObjectNode node: graph.getAdjacentNodes(gameObject)) {
