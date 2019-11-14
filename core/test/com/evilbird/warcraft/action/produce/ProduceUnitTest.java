@@ -16,17 +16,14 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
-import com.evilbird.warcraft.action.common.transfer.TransferEvent;
 import com.evilbird.warcraft.object.common.production.ProductionCosts;
 import com.evilbird.warcraft.object.common.production.ProductionTimes;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -84,35 +81,19 @@ public class ProduceUnitTest extends ActionTestCase
     }
 
     @Test
-    @Ignore
     public void actTest() {
         player.setResource(Food, 10);
         player.setResource(Gold, 1000);
 
         assertFalse(action.act(1));
-        verify(reporter).add(new TransferEvent(player, Food, 9.0f));
-        verify(reporter).add(new TransferEvent(player, Gold, 400.0f));
-
-        assertFalse(action.act(1));
+        assertTrue(barracks.isProducing());
         verify(reporter).add(new ProduceEvent(barracks, ProduceStatus.Started));
-        
-        action.act(1f);
-
-        assertFalse(action.act(0.05f));
-        assertEquals(0.05f, barracks.getProductionProgress(), 0.1f);
 
         assertFalse(action.act(1));
         assertEquals(0.1f, barracks.getProductionProgress(), 0.1f);
 
-        assertFalse(action.act(60  + 10));
+        assertTrue(action.act(1f));
         assertFalse(barracks.isProducing());
-
-        assertFalse(action.act(1));
-        verify(reporter).add(new CreateEvent(footman));
-
-        assertFalse(action.act(1));
-        //move
-
-        assertTrue(action.act(1));
+        verify(reporter).add(new ProduceEvent(barracks, ProduceStatus.Complete));
     }
 }
