@@ -19,7 +19,6 @@ import com.evilbird.warcraft.object.selector.building.BuildingSelector;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -52,16 +51,12 @@ public class SelectorCreateTest extends ActionTestCase
     }
 
     @Test
-    @Ignore
     public void actTest() {
         BuildingSelector selector = TestPlaceholders.newTestPlaceholder("placeholder");
         Mockito.when(objectFactory.get(BarracksSelector)).thenReturn(selector);
 
-        Assert.assertFalse(action.act(1));
-        Assert.assertTrue(player.getObjects().stream().anyMatch(item -> item == selector));
-
         Assert.assertTrue(action.act(1));
+        Assert.assertTrue(player.getObjects().stream().anyMatch(item -> item == selector));
         Assert.assertEquals(selector, ((Gatherer) gameObject).getAssociatedItem());
-//        Mockito.verify(reporter).add(new PlaceholderEvent(item, placeholder, PlaceholderStatus.Added));
     }
 }

@@ -25,10 +25,10 @@ import com.evilbird.warcraft.object.unit.building.Building;
  */
 public class BuildingDetailsPane extends Table implements DetailsPaneElement
 {
-    private com.evilbird.warcraft.object.display.control.status.details.building.ConstructionDetailsPane constructionDetails;
-    private com.evilbird.warcraft.object.display.control.status.details.building.ProductionDetailsPane productionDetails;
-    private com.evilbird.warcraft.object.display.control.status.details.building.CommandCentreDetailsPane commandCentreDetails;
-    private com.evilbird.warcraft.object.display.control.status.details.building.FoodProducerDetailsPane foodProducerDetails;
+    private ConstructionDetailsPane constructionDetails;
+    private ProductionDetailsPane productionDetails;
+    private CommandCentreDetailsPane commandCentreDetails;
+    private FoodProducerDetailsPane foodProducerDetails;
 
     public BuildingDetailsPane(Skin skin) {
         constructionDetails = new ConstructionDetailsPane(skin);

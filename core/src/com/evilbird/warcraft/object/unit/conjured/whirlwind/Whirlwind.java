@@ -26,10 +26,10 @@ import static org.apache.commons.lang3.RandomUtils.nextFloat;
  */
 public class Whirlwind extends ConjuredObject
 {
-    private static transient final float WHIRLWIND_SPEED = 32f;
-    private static transient final float REPOSITION_RADIUS = 128f;
-    private static transient final float REPOSITION_INTERVAL_MIN = 1f;
-    private static transient final float REPOSITION_INTERVAL_MAX = 4f;
+    private static final transient float WHIRLWIND_SPEED = 32f;
+    private static final transient float REPOSITION_RADIUS = 128f;
+    private static final transient float REPOSITION_INTERVAL_MIN = 1f;
+    private static final transient float REPOSITION_INTERVAL_MAX = 4f;
 
     private transient GameTimer timer;
     private transient Vector2 destination;

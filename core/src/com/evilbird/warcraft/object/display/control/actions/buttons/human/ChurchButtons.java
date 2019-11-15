@@ -12,6 +12,7 @@ package com.evilbird.warcraft.object.display.control.actions.buttons.human;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonController;
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.hasUpgrad
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.ExorcismUpgrade;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.HealingUpgrade;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.MeleeType1;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.ExorcismUpgradeButton;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.HealingUpgradeButton;
 import static java.util.Collections.singletonList;
 
 /**
@@ -30,23 +33,23 @@ import static java.util.Collections.singletonList;
  */
 public class ChurchButtons extends BasicButtonController
 {
-    private static final List<com.evilbird.warcraft.object.display.control.actions.ActionButtonType> basicButtons = singletonList(com.evilbird.warcraft.object.display.control.actions.ActionButtonType.MeleeType1Button);
+    private static final List<ActionButtonType> basicButtons = singletonList(ActionButtonType.MeleeType1Button);
 
     @Override
-    public List<com.evilbird.warcraft.object.display.control.actions.ActionButtonType> getButtons(GameObject gameObject) {
+    public List<ActionButtonType> getButtons(GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
         return !hasUpgrade(player, MeleeType1) ? basicButtons : getAdvancedButtons(player);
     }
 
-    private List<com.evilbird.warcraft.object.display.control.actions.ActionButtonType> getAdvancedButtons(Player player) {
-        List<com.evilbird.warcraft.object.display.control.actions.ActionButtonType> buttons = new ArrayList<>();
-        addUpgradeButton(player, buttons, com.evilbird.warcraft.object.display.control.actions.ActionButtonType.ExorcismUpgradeButton, ExorcismUpgrade);
-        addUpgradeButton(player, buttons, com.evilbird.warcraft.object.display.control.actions.ActionButtonType.HealingUpgradeButton, HealingUpgrade);
+    private List<ActionButtonType> getAdvancedButtons(Player player) {
+        List<ActionButtonType> buttons = new ArrayList<>();
+        addUpgradeButton(player, buttons, ExorcismUpgradeButton, ExorcismUpgrade);
+        addUpgradeButton(player, buttons, HealingUpgradeButton, HealingUpgrade);
         return buttons;
     }
 
     @Override
-    public boolean getEnabled(com.evilbird.warcraft.object.display.control.actions.ActionButtonType button, GameObject gameObject) {
+    public boolean getEnabled(ActionButtonType button, GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
         switch (button) {
             case MeleeType1Button: return hasResources(player, MeleeType1);

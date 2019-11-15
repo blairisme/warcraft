@@ -30,13 +30,13 @@ import java.util.Map;
  */
 public class DeathAndDecay extends ConjuredObject
 {
-    private static transient final int DECAY_COUNT_MIN = 3;
-    private static transient final int DECAY_COUNT_MAX = 10;
-    private static transient final float DECAY_INTERVAL_MIN = 0.5f;
-    private static transient final float DECAY_INTERVAL_MAX = 1.5f;
-    private static transient final float DECAY_DURATION = 1.5f;
-    private static transient final float DECAY_WIDTH = 16f;
-    private static transient final float DECAY_HEIGHT = 16f;
+    private static final transient int DECAY_COUNT_MIN = 3;
+    private static final transient int DECAY_COUNT_MAX = 10;
+    private static final transient float DECAY_INTERVAL_MIN = 0.5f;
+    private static final transient float DECAY_INTERVAL_MAX = 1.5f;
+    private static final transient float DECAY_DURATION = 1.5f;
+    private static final transient float DECAY_WIDTH = 16f;
+    private static final transient float DECAY_HEIGHT = 16f;
 
     private transient GameTimer timer;
     private transient Map<Vector2, Float> effects;

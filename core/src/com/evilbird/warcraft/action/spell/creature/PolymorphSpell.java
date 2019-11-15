@@ -31,7 +31,12 @@ public class PolymorphSpell extends CreatureSpellAction
     private ItemExclusion exclusion;
 
     @Inject
-    public PolymorphSpell(GameObjectFactory factory, ItemExclusion exclusion, CreateEvents events, PolymorphCancel cancel) {
+    public PolymorphSpell(
+        GameObjectFactory factory,
+        ItemExclusion exclusion,
+        CreateEvents events,
+        PolymorphCancel cancel)
+    {
         super(Spell.Polymorph, EffectType.Spell, UnitType.Sheep, factory, events, cancel);
         this.exclusion = exclusion;
     }

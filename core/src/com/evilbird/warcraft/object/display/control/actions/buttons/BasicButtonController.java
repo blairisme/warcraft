@@ -38,8 +38,8 @@ public abstract class BasicButtonController implements ButtonController
 
     protected void addUpgradeButton(
         Player player,
-        List<com.evilbird.warcraft.object.display.control.actions.ActionButtonType> buttons,
-        com.evilbird.warcraft.object.display.control.actions.ActionButtonType button,
+        List<ActionButtonType> buttons,
+        ActionButtonType button,
         Upgrade upgrade)
     {
         if (!hasUpgrade(player, upgrade)) {
@@ -49,7 +49,7 @@ public abstract class BasicButtonController implements ButtonController
 
     protected void addUpgradeButton(
         Player player,
-        List<com.evilbird.warcraft.object.display.control.actions.ActionButtonType> buttons,
+        List<ActionButtonType> buttons,
         ActionButtonType button,
         Upgrade basicUpgrade,
         Upgrade advancedUpgrade)

@@ -254,7 +254,7 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
     }
 
     private void setDamageAnimation(float health) {
-        if (health < heavyDamageThreshold) {
+        if (health > 0 && health < heavyDamageThreshold) {
             damage.setAnimation(style.heavyDamage);
         } else if (health >= heavyDamageThreshold && health < lightDamageThreshold) {
             damage.setAnimation(style.lightDamage);

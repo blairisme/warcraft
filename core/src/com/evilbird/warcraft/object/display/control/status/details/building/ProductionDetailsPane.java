@@ -40,7 +40,7 @@ public class ProductionDetailsPane extends Grid
     private Label productName;
     private Image productImage;
     private ProgressBar productProgress;
-    private com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle style;
+    private DetailsPaneStyle style;
 
     public ProductionDetailsPane(Skin skin) {
         super(1, 2);
@@ -61,7 +61,7 @@ public class ProductionDetailsPane extends Grid
     @Override
     public void setSkin(Skin skin) {
         super.setSkin(skin);
-        this.style = skin.get(com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle.class);
+        this.style = skin.get(DetailsPaneStyle.class);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class ProductionDetailsPane extends Grid
     }
 
     private void addProductImage(Skin skin, Grid container) {
-        com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle style = skin.get(com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle.class);
+        DetailsPaneStyle style = skin.get(DetailsPaneStyle.class);
 
         Image background = new Image();
         background.setDrawable(style.productionBackground);
@@ -147,12 +147,12 @@ public class ProductionDetailsPane extends Grid
     }
 
     private Drawable getProductIcon(ProduceUnitActions action) {
-        com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle style = getSkin().get(com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle.class);
+        DetailsPaneStyle style = getSkin().get(DetailsPaneStyle.class);
         return style.icons.get(action.getProduct());
     }
 
     private Drawable getProductIcon(ProduceUpgradeActions action) {
-        com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle style = getSkin().get(DetailsPaneStyle.class);
+        DetailsPaneStyle style = getSkin().get(DetailsPaneStyle.class);
         return style.icons.get(action.getProduct(), building);
     }
 }

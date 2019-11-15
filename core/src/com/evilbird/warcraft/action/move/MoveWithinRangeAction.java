@@ -57,9 +57,9 @@ public class MoveWithinRangeAction extends MoveAction
             GameObject target = getTarget();
             Combatant combatant = (Combatant) getSubject();
             int range = combatant.getAttackRange();
-            Collection<GameObjectNode> adjacentNodes = graph.getAdjacentNodes(target.getPosition(), target.getSize(), range);
-            Collection<GameObjectNode> traversableNodes = filter(adjacentNodes, getPathFilter());
-            endNode = !traversableNodes.isEmpty() ? SpatialUtils.getClosest(traversableNodes, node) : null;
+            Collection<GameObjectNode> nodes = graph.getAdjacentNodes(target.getPosition(), target.getSize(), range);
+            Collection<GameObjectNode> traversable = filter(nodes, getPathFilter());
+            endNode = !traversable.isEmpty() ? SpatialUtils.getClosest(traversable, node) : null;
         }
         return endNode;
     }

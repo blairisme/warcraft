@@ -32,15 +32,15 @@ import java.util.Map.Entry;
  */
 public class Blizzard extends ConjuredObject
 {
-    private static transient final int HALE_COUNT_MIN = 3;
-    private static transient final int HALE_COUNT_MAX = 10;
-    private static transient final float HALE_INTERVAL_MIN = 0.5f;
-    private static transient final float HALE_INTERVAL_MAX = 1.5f;
-    private static transient final int HALE_SPEED = 256;
-    private static transient final float HALE_WIDTH = 32;
-    private static transient final float HALE_HEIGHT = 32;
-    private static transient final float HALE_ORIGIN_OFFSET_X = -70;
-    private static transient final float HALE_ORIGIN_OFFSET_Y = 150;
+    private static final transient int HALE_COUNT_MIN = 3;
+    private static final transient int HALE_COUNT_MAX = 10;
+    private static final transient float HALE_INTERVAL_MIN = 0.5f;
+    private static final transient float HALE_INTERVAL_MAX = 1.5f;
+    private static final transient int HALE_SPEED = 256;
+    private static final transient float HALE_WIDTH = 32;
+    private static final transient float HALE_HEIGHT = 32;
+    private static final transient float HALE_ORIGIN_OFFSET_X = -70;
+    private static final transient float HALE_ORIGIN_OFFSET_Y = 150;
 
     private transient GameTimer timer;
     private transient Map<Vector2, Float> haleTimers;

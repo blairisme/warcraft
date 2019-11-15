@@ -64,13 +64,13 @@ public class ActionButton extends Table
         return icon;
     }
 
-    private com.evilbird.warcraft.object.display.control.actions.ActionButtonStyle getActionStyle() {
-        com.evilbird.warcraft.object.display.control.actions.ActionButtonStyle style = getSkin().get("action-button", com.evilbird.warcraft.object.display.control.actions.ActionButtonStyle.class);
-        return style != null ? style : new com.evilbird.warcraft.object.display.control.actions.ActionButtonStyle();
+    private ActionButtonStyle getActionStyle() {
+        ActionButtonStyle style = getSkin().get("action-button", ActionButtonStyle.class);
+        return style != null ? style : new ActionButtonStyle();
     }
 
     private ImageButtonStyle getIconStyle(ActionButtonType button) {
-        com.evilbird.warcraft.object.display.control.actions.ActionButtonStyle actionStyle = getActionStyle();
+        ActionButtonStyle actionStyle = getActionStyle();
         Drawable normal = actionStyle.icons != null ? actionStyle.icons.get(button) : null;
         Drawable disabled = actionStyle.disabledIcons != null ? actionStyle.disabledIcons.get(button) : null;
         return getButtonStyle(normal, disabled);

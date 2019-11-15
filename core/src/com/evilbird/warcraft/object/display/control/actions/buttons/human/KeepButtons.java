@@ -12,11 +12,14 @@ package com.evilbird.warcraft.object.display.control.actions.buttons.human;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonController;
 
 import java.util.List;
 
 import static com.evilbird.warcraft.object.common.query.UnitOperations.hasUnits;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CastleButton;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.PeasantButton;
 import static com.evilbird.warcraft.object.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.object.unit.UnitType.Blacksmith;
 import static com.evilbird.warcraft.object.unit.UnitType.Castle;
@@ -32,26 +35,26 @@ import static java.util.Collections.singletonList;
  */
 public class KeepButtons extends BasicButtonController
 {
-    private static final List<com.evilbird.warcraft.object.display.control.actions.ActionButtonType> BASIC_BUTTONS =
-        singletonList(com.evilbird.warcraft.object.display.control.actions.ActionButtonType.PeasantButton);
+    private static final List<ActionButtonType> BASIC_BUTTONS =
+        singletonList(PeasantButton);
 
-    private static final List<com.evilbird.warcraft.object.display.control.actions.ActionButtonType> ADVANCED_BUTTONS =
-        asList(com.evilbird.warcraft.object.display.control.actions.ActionButtonType.PeasantButton, com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CastleButton);
+    private static final List<ActionButtonType> ADVANCED_BUTTONS =
+        asList(PeasantButton, CastleButton);
 
     @Override
-    public List<com.evilbird.warcraft.object.display.control.actions.ActionButtonType> getButtons(GameObject gameObject) {
+    public List<ActionButtonType> getButtons(GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
         return player.getLevel() <= 10 ? BASIC_BUTTONS : ADVANCED_BUTTONS;
     }
 
     @Override
-    public boolean getEnabled(com.evilbird.warcraft.object.display.control.actions.ActionButtonType button, GameObject gameObject) {
+    public boolean getEnabled(ActionButtonType button, GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
 
-        if (button == com.evilbird.warcraft.object.display.control.actions.ActionButtonType.PeasantButton) {
+        if (button == PeasantButton) {
             return hasResources(player, Peasant);
         }
-        if (button == com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CastleButton) {
+        if (button == CastleButton) {
             return hasResources(player, Castle) && hasUnits(player, Barracks, Blacksmith, Stables);
         }
         return false;

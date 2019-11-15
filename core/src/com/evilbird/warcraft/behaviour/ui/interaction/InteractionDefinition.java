@@ -187,14 +187,10 @@ public class InteractionDefinition implements Interaction
         return appliedAs((subject, actions) -> {
             if (displacement == Replacement) {
                 subject.clearActions();
-                for (Action action: actions) {
-                    subject.addAction(action);
-                }
+                actions.forEach(subject::addAction);
             }
             else if (displacement == Addition) {
-                for (Action action: actions) {
-                    subject.addAction(action);
-                }
+                actions.forEach(subject::addAction);
             }
             else if (displacement == Singleton) {
                 for (Action action: actions) {
@@ -204,9 +200,7 @@ public class InteractionDefinition implements Interaction
                 }
             }
             else if (displacement == Standalone) {
-                for (Action action: actions) {
-                    action.act(0);
-                }
+                actions.forEach(action -> action.act(0));
             }
         });
     }

@@ -24,7 +24,7 @@ import com.evilbird.engine.object.BasicGameObject;
  */
 public class TargetSelector extends BasicGameObject
 {
-    private static transient final float SPEED = 10f;
+    private static final transient float SPEED = 10f;
 
     private transient TextureRegion region;
     private transient Vector2 center;
