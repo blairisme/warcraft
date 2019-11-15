@@ -21,33 +21,9 @@ import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitStyle;
 import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.combatant.animations.DaemonAnimations;
-import com.evilbird.warcraft.object.unit.combatant.animations.DemolitionAnimations;
-import com.evilbird.warcraft.object.unit.combatant.animations.DragonAnimations;
-import com.evilbird.warcraft.object.unit.combatant.animations.EyeOfKilroggAnimations;
-import com.evilbird.warcraft.object.unit.combatant.animations.FlyingMachineAnimations;
-import com.evilbird.warcraft.object.unit.combatant.animations.GryphonAnimations;
-import com.evilbird.warcraft.object.unit.combatant.animations.MeleeAnimations;
-import com.evilbird.warcraft.object.unit.combatant.animations.NavalAnimations;
-import com.evilbird.warcraft.object.unit.combatant.animations.RangedAnimations;
-import com.evilbird.warcraft.object.unit.combatant.animations.SiegeAnimations;
-import com.evilbird.warcraft.object.unit.combatant.animations.SpellCasterAnimations;
-import com.evilbird.warcraft.object.unit.combatant.animations.SubmarineAnimations;
-import com.evilbird.warcraft.object.unit.combatant.animations.ZeppelinAnimations;
-import com.evilbird.warcraft.object.unit.combatant.sounds.ConjuredSounds;
-import com.evilbird.warcraft.object.unit.combatant.sounds.MeleeSounds;
-import com.evilbird.warcraft.object.unit.combatant.sounds.RangedSounds;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.Random;
-
-import static com.evilbird.warcraft.object.unit.UnitType.Daemon;
-import static com.evilbird.warcraft.object.unit.UnitType.Dragon;
-import static com.evilbird.warcraft.object.unit.UnitType.EyeOfKilrogg;
-import static com.evilbird.warcraft.object.unit.UnitType.GnomishFlyingMachine;
-import static com.evilbird.warcraft.object.unit.UnitType.GoblinZeppelin;
-import static com.evilbird.warcraft.object.unit.UnitType.GryphonRider;
 
 /**
  * Creates a new {@link Combatant} whose visual and audible presentation is
@@ -55,58 +31,33 @@ import static com.evilbird.warcraft.object.unit.UnitType.GryphonRider;
  *
  * @author Blair Butterworth
  */
-public class CombatantBuilder
+public abstract class CombatantBuilder<T extends Combatant>
 {
-    private Random random;
     private UnitType type;
     private CombatantAssets assets;
     private SoundCatalog sounds;
     private AnimationCatalog animations;
 
     public CombatantBuilder(CombatantAssets assets, UnitType type) {
-        this.assets = assets;
         this.type = type;
+        this.assets = assets;
         this.sounds = null;
         this.animations = null;
-        this.random = new Random();
     }
 
-    public Combatant newMeleeCombatant() {
-        Combatant result = new Combatant(getSkin());
-        result.setAnimation(UnitAnimation.Idle, random.nextFloat());
-        setCommonAttributes(result);
-        return result;
-    }
-
-    public RangedCombatant newRangedCombatant() {
-        RangedCombatant result = new RangedCombatant(getSkin());
+    public T build() {
+        T result = newCombatant(getSkin());
         result.setAnimation(UnitAnimation.Idle);
-        setCommonAttributes(result);
+        result.setSelected(false);
+        result.setSelectable(true);
+        result.setTouchable(Touchable.enabled);
+        result.setSize(assets.getSize());
         return result;
     }
 
-    public SpellCaster newSpellCaster() {
-        SpellCaster result = new SpellCaster(getSkin());
-        result.setAnimation(UnitAnimation.Idle);
-        setCommonAttributes(result);
-        return result;
-    }
+    protected abstract T newCombatant(Skin skin);
 
-    public Submarine newSubmarine() {
-        Submarine result = new Submarine(getSkin());
-        result.setAnimation(UnitAnimation.Idle);
-        setCommonAttributes(result);
-        return result;
-    }
-
-    private void setCommonAttributes(Combatant combatant) {
-        combatant.setSelected(false);
-        combatant.setSelectable(true);
-        combatant.setTouchable(Touchable.enabled);
-        combatant.setSize(assets.getSize());
-    }
-
-    private Skin getSkin() {
+    protected Skin getSkin() {
         UnitStyle style = getStyle();
         Skin skin = new Skin();
         skin.add("default", style, AnimatedObjectStyle.class);
@@ -114,10 +65,13 @@ public class CombatantBuilder
         return skin;
     }
 
-    private UnitStyle getStyle() {
+    protected UnitStyle getStyle() {
         SoundCatalog sounds = getSounds();
         AnimationCatalog animations = getAnimations();
+        return newStyle(animations, sounds);
+    }
 
+    protected UnitStyle newStyle(AnimationCatalog animations, SoundCatalog sounds) {
         UnitStyle style = new UnitStyle();
         style.animations = animations.get();
         style.sounds = sounds.get();
@@ -127,50 +81,14 @@ public class CombatantBuilder
         return style;
     }
 
-    private AnimationCatalog getAnimations() {
+    protected AnimationCatalog getAnimations() {
         if (animations == null) {
             animations = newAnimations();
         }
         return animations;
     }
 
-    private AnimationCatalog newAnimations() {
-        AnimationCatalog customAnimations = newCustomAnimations();
-
-        if (customAnimations != null) {
-            return customAnimations;
-        } else if (type.isSpellCaster()) {
-            return new SpellCasterAnimations(assets);
-        } else if (type.isRanged()) {
-            return new RangedAnimations(assets);
-        } else if (type.isNavalUnit()) {
-            return new NavalAnimations(assets);
-        } else if (type.isSiege()) {
-            return new SiegeAnimations(assets);
-        } else if (type.isSubmarine()) {
-            return new SubmarineAnimations(assets);
-        } else if (type.isDemoTeam()) {
-            return new DemolitionAnimations(assets);
-        }
-        return new MeleeAnimations(assets);
-    }
-
-    private AnimationCatalog newCustomAnimations() {
-        if (type == Daemon) {
-            return new DaemonAnimations(assets);
-        } else if (type == Dragon) {
-            return new DragonAnimations(assets);
-        } else if (type == EyeOfKilrogg) {
-            return new EyeOfKilroggAnimations(assets);
-        } else if (type == GryphonRider) {
-            return new GryphonAnimations(assets);
-        } else if (type == GnomishFlyingMachine) {
-            return new FlyingMachineAnimations(assets);
-        } else if (type == GoblinZeppelin) {
-            return new ZeppelinAnimations(assets);
-        }
-        return null;
-    }
+    protected abstract AnimationCatalog newAnimations();
 
     private SoundCatalog getSounds() {
         if (sounds == null) {
@@ -179,15 +97,7 @@ public class CombatantBuilder
         return sounds;
     }
 
-    private SoundCatalog newSounds() {
-        if (type.isConjured()) {
-            return new ConjuredSounds(assets);
-        }
-        if (type.isRanged() || type.isNavalUnit() || type.isSiege()) {
-            return new RangedSounds(assets);
-        }
-        return new MeleeSounds(assets);
-    }
+    protected abstract SoundCatalog newSounds();
 
     private Map<Texture, Texture> getMasks() {
         if (! type.isNeutral()) {

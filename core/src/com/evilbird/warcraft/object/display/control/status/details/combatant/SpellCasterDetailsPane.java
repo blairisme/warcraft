@@ -17,7 +17,7 @@ import com.evilbird.engine.common.control.TextProgressBar;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.control.Grid;
 import com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle;
-import com.evilbird.warcraft.object.unit.combatant.SpellCaster;
+import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 
 /**
  * A user interface control that displays spell caster attributes.

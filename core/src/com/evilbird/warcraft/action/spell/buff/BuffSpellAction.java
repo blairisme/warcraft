@@ -20,7 +20,7 @@ import com.evilbird.warcraft.object.common.value.Value;
 import com.evilbird.warcraft.object.common.value.ValueProperty;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
-import com.evilbird.warcraft.object.unit.combatant.SpellCaster;
+import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 
 import java.util.Collection;
 

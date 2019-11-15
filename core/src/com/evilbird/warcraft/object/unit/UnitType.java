@@ -221,10 +221,6 @@ public enum UnitType implements GameObjectType
         return this == OilRig || this == OilPlatform;
     }
 
-    public boolean isSpecial() {
-        return isBetween(this, AnduinLothar, UtherLightbringer) || isBetween(this, Chogall, Zuljin);
-    }
-
     public boolean isNaval() {
         return isNavalBuilding() || isNavalUnit();
     }

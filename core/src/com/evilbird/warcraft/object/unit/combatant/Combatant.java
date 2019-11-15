@@ -10,7 +10,6 @@
 package com.evilbird.warcraft.object.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.common.capability.MovementCapability;
 import com.evilbird.warcraft.object.common.capability.OffensiveCapability;
@@ -20,6 +19,7 @@ import com.evilbird.warcraft.object.common.value.FixedValue;
 import com.evilbird.warcraft.object.common.value.Value;
 import com.evilbird.warcraft.object.common.value.ValueProperty;
 import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.UnitStyle;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -49,7 +49,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
      * its visual and auditory presentation.
      *
      * @param skin  a {@link Skin} instance containing, amongst others, a
-     *              {@link AnimatedObjectStyle}.
+     *              {@link UnitStyle}.
      */
     public Combatant(Skin skin) {
         super(skin);

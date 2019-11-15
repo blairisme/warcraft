@@ -11,6 +11,7 @@ package com.evilbird.warcraft.object.unit.combatant;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.game.GameContext;
+import com.evilbird.engine.game.GameFactory;
 import com.evilbird.test.testcase.GameFactoryTestCase;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.object.unit.UnitType;
@@ -29,7 +30,7 @@ import static com.evilbird.warcraft.common.WarcraftSeason.Winter;
  *
  * @author Blair Butterworth
  */
-public abstract class CombatantFactoryTestCase<T extends CombatantFactoryBase> extends GameFactoryTestCase<T>
+public abstract class CombatantFactoryTestCase<T extends GameFactory> extends GameFactoryTestCase<T>
 {
     protected abstract UnitType getBuildType();
 

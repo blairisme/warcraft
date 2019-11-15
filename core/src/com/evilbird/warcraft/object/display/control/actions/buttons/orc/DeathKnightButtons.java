@@ -14,7 +14,7 @@ import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonController;
-import com.evilbird.warcraft.object.unit.combatant.SpellCaster;
+import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 
 import java.util.ArrayList;
 import java.util.List;

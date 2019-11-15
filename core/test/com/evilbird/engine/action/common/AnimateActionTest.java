@@ -9,8 +9,8 @@
 
 package com.evilbird.engine.action.common;
 
-import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.AnimatedObject;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;

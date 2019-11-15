@@ -24,7 +24,7 @@ import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourElement;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.unit.Unit;
-import com.evilbird.warcraft.object.unit.combatant.Submarine;
+import com.evilbird.warcraft.object.unit.combatant.naval.Submarine;
 
 import javax.inject.Inject;
 import java.util.ArrayList;

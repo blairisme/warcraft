@@ -60,8 +60,10 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
 
     protected AnimatedObject() {
         this.style = new AnimatedObjectStyle();
+
         this.animationId = null;
         this.animation = new AnimationRenderable();
+
         this.soundId = null;
         this.sound = new LocalizedSound(new SilentSound(), this);
     }
@@ -146,7 +148,7 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
     public void setPosition(float x, float y) {
         Vector2 previous = getPosition();
         super.setPosition(x, y);
-        setPositionImpl(previous.x, previous.y, x, y);
+        setAnimationPosition(previous.x, previous.y, x, y);
     }
 
     @Override
@@ -154,14 +156,14 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
         Vector2 previous = getPosition();
         super.setPosition(x, y, alignment);
         Vector2 current = getPosition();
-        setPositionImpl(previous.x, previous.y, current.x, current.y);
+        setAnimationPosition(previous.x, previous.y, current.x, current.y);
     }
 
     @Override
     public void setPosition(Vector2 position) {
         Vector2 previous = getPosition();
         super.setPosition(position);
-        setPositionImpl(previous.x, previous.y, position.x, position.y);
+        setAnimationPosition(previous.x, previous.y, position.x, position.y);
     }
 
     @Override
@@ -169,14 +171,18 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
         Vector2 previous = getPosition();
         super.setPosition(position, alignment);
         Vector2 current = getPosition();
-        setPositionImpl(previous.x, previous.y, current.x, current.y);
+        setAnimationPosition(previous.x, previous.y, current.x, current.y);
     }
 
-    private void setPositionImpl(float oldX, float oldY, float newX, float newY) {
+    private void setAnimationPosition(float oldX, float oldY, float newX, float newY) {
         setDirection(oldX, oldY, newX, newY);
         animation.setPosition(newX, newY);
     }
 
+    /**
+     * Sets the direction of the object, specified as a normalised direction
+     * vector.
+     */
     @Override
     public void setDirection(Vector2 normalizedDirection) {
         direction = normalizedDirection.angle();
@@ -199,7 +205,7 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
     }
 
     /**
-     * Sets the spatial dimensions of the Item.
+     * Sets the spatial dimensions of the animated object.
      */
     @Override
     public void setSize(Vector2 size) {
@@ -208,7 +214,7 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
     }
 
     /**
-     * Sets the spatial dimensions of the Item.
+     * Sets the spatial dimensions of the animated object.
      */
     @Override
     public void setSize(float width, float height) {

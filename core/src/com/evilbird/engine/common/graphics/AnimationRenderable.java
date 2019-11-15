@@ -44,6 +44,10 @@ public class AnimationRenderable implements Renderable
         return animation;
     }
 
+    public float getOffset() {
+        return 0;
+    }
+
     @Override
     public void draw(Batch batch, float alpha) {
         if (animation != null) {
@@ -65,6 +69,10 @@ public class AnimationRenderable implements Renderable
         this.animationTime = time;
     }
 
+    public void setOffset(float offset) {
+
+    }
+
     @Override
     public void setPosition(float x, float y) {
         position.set(x, y);
@@ -84,7 +92,7 @@ public class AnimationRenderable implements Renderable
     private void calculateLayout() {
         if (animation != null) {
             animationSize = animation.getSize();
-            animationSize = animationSize == null ? Zero : animationSize;
+            animationSize = animationSize != null ? animationSize : Zero;
             frameOffset.x = (animationSize.x - size.x) * 0.5f;
             frameOffset.y = (animationSize.y - size.y) * 0.5f;
         }

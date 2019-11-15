@@ -35,8 +35,8 @@ import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
-import com.evilbird.warcraft.object.unit.combatant.SpellCaster;
-import com.evilbird.warcraft.object.unit.combatant.Submarine;
+import com.evilbird.warcraft.object.unit.combatant.naval.Submarine;
+import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 import com.evilbird.warcraft.object.unit.critter.Critter;
 import com.evilbird.warcraft.object.unit.resource.Resource;
 

@@ -27,6 +27,8 @@ import com.evilbird.engine.common.audio.sound.SoundFactory;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.text.StringSubstitutor;
+import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.combatant.spellcaster.orc.OgreMageFactory;
 import org.apache.commons.io.FilenameUtils;
 
 import java.util.ArrayList;
@@ -52,20 +54,49 @@ public class AssetBundle
     protected StringSubstitutor resolver;
     protected Map<Object, AssetDescriptor> assets;
 
-    public AssetBundle(AssetManager assetManager) {
-        this(assetManager, Collections.emptyMap());
+    /**
+     * Constructs a new instance of this class given an {@link AssetManager}
+     * from which assets will be loaded and loaded.
+     *
+     * @param manager   an asset manager used to load and unload assets.
+     *
+     * @throws IllegalArgumentException if the given asset manager is
+     *                                  {@code null}.
+     */
+    public AssetBundle(AssetManager manager) {
+        this(manager, Collections.emptyMap());
     }
 
-    public AssetBundle(AssetManager assetManager, Map<String, String> pathProperties) {
-        this.manager = assetManager;
+    /**
+     * Constructs a new instance of this class given an {@link AssetManager},
+     * from which assets will be obtained, and a map of properties, whose
+     * values will be substituted for tokens found in registered asset paths.
+     *
+     * @param manager       an asset manager used to load and unload assets.
+     * @param properties    a map of key value pairs.
+     *
+     * @throws IllegalArgumentException if either the given asset manager or
+     *                                  property map is {@code null}.
+     */
+    public AssetBundle(AssetManager manager, Map<String, String> properties) {
+        Objects.requireNonNull(manager);
+        Objects.requireNonNull(properties);
+
+        this.manager = manager;
         this.assets = new HashMap<>();
-        this.resolver = new StringSubstitutor(pathProperties);
+        this.resolver = new StringSubstitutor(properties);
     }
 
+    /**
+     * Returns a collection of all registered assets.
+     */
     public Collection<AssetDescriptor> getAssets() {
         return Collections.unmodifiableCollection(assets.values());
     }
 
+    /**
+     * Asynchronously loads all registered assets.
+     */
     public void load() {
         for (AssetDescriptor descriptor: assets.values()) {
             if (!manager.isLoaded(descriptor)){
@@ -74,11 +105,17 @@ public class AssetBundle
         }
     }
 
+    /**
+     * Synchronously loads all registered assets.
+     */
     public void loadSynchronous() {
         load();
         manager.finishLoading();
     }
 
+    /**
+     * Synchronously unloads all loaded assets.
+     */
     public void unload() {
         for (AssetDescriptor descriptor: assets.values()) {
             if (manager.isLoaded(descriptor)) {

@@ -38,21 +38,32 @@ public class CombatantAssets extends AssetBundle
 {
     private GridPoint2 dimensions;
 
+    /**
+     * Constructs a new instance of this class given an {@link AssetManager}
+     * from which assets will be obtained and the {@link UnitType} whose assets
+     * will be obtained.
+     *
+     * @param manager   an asset manager used to load and unload assets.
+     * @param type      the type of unit whose assets will be loaded and
+     *                  unloaded.
+     *
+     * @throws IllegalArgumentException if either the given asset manager or
+     *                                  unit type is {@code null}.
+     */
     public CombatantAssets(AssetManager manager, UnitType type) {
         super(manager, assetPathVariables(type));
         dimensions = getDimensions(type);
 
         register("base", "data/textures/${faction}/unit/${name}.png");
-        registerOptional("mask", "data/textures/${faction}/unit/${name}_mask.png");
         register("decompose", "data/textures/common/unit/decompose.png");
-        register("explosion", "data/textures/common/explosion/explosion.png");
+        registerOptional("mask", "data/textures/${faction}/unit/${name}_mask.png");
+
         register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, dimensions));
         register("highlight", "highlight_${size}", SyntheticTexture.class, withColour(LIGHT_BLUE, dimensions));
 
         registerOptional("dead", "data/sounds/${faction}/unit/common/dead/1.mp3");
         registerOptional("capture", "data/sounds/${faction}/unit/common/capture/1.mp3");
         registerOptional("rescue", "data/sounds/${faction}/unit/common/rescue/1.mp3");
-        registerOptional("hit", "data/sounds/common/unit/hit/${weapon}/1.mp3");
 
         registerOptional("ready", "data/sounds/${faction}/unit/${name}/ready/1.mp3");
         registerOptionalSequence("attack", "data/sounds/common/unit/attack/${weapon}/", ".mp3", 3);
@@ -92,10 +103,6 @@ public class CombatantAssets extends AssetBundle
         return getTexture("decompose");
     }
 
-    public Texture getExplosionTexture() {
-        return getTexture("explosion");
-    }
-
     public Texture getSelectionTexture() {
         return getSyntheticTexture("selection");
     }
@@ -112,12 +119,8 @@ public class CombatantAssets extends AssetBundle
         return getSoundEffectSet("attack", 3);
     }
 
-    public Sound getHitSound() {
-        return isRegistered("hit") ? getSoundEffect("hit") : new SilentSound();
-    }
-
     public Sound getDieSound() {
-        return getSoundEffect("dead");
+        return isRegistered("Dead") ? getSoundEffect("dead") : new SilentSound();
     }
 
     public Sound getReadySound() {

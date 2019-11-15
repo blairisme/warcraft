@@ -19,10 +19,8 @@ import com.badlogic.gdx.math.Vector2;
 public interface Directionable extends Positionable
 {
     /**
-     * Sets the direction of the object.
-     *
-     * @param direction a normalised direction vector. This parameter cannot be
-     *                  {@code null}.
+     * Sets the direction of the object, specified as a normalised direction
+     * vector.
      */
     void setDirection(Vector2 direction);
 }

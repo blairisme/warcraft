@@ -15,7 +15,7 @@ import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.object.common.spell.Spell;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.Unit;
-import com.evilbird.warcraft.object.unit.combatant.SpellCaster;
+import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 
 import javax.inject.Inject;
 

@@ -16,7 +16,7 @@ import com.evilbird.warcraft.object.common.upgrade.Upgrade;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.combatant.SpellCaster;
+import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 
 import java.util.List;
 

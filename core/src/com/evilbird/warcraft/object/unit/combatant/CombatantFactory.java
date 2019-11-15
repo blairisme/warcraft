@@ -9,30 +9,53 @@
 
 package com.evilbird.warcraft.object.unit.combatant;
 
-import com.evilbird.engine.game.GameFactorySet;
-import com.evilbird.warcraft.object.unit.Unit;
-import com.evilbird.warcraft.object.unit.combatant.human.HumanCombatantFactory;
-import com.evilbird.warcraft.object.unit.combatant.neutral.NeutralCombatantFactory;
-import com.evilbird.warcraft.object.unit.combatant.orc.OrcCombatantFactory;
-
-import javax.inject.Inject;
+import com.badlogic.gdx.assets.AssetManager;
+import com.evilbird.engine.game.GameContext;
+import com.evilbird.engine.game.GameFactory;
+import com.evilbird.warcraft.object.unit.UnitType;
 
 /**
- * Instances of this factory create {@link Combatant Combatants}, a
- * {@link Unit} specialization that can move and attack other Units.
+ * A reusable class for creating {@link Combatant Combatants}, loading the
+ * necessary assets and defining the appropriate attributes.
  *
  * @author Blair Butterworth
  */
-public class CombatantFactory extends GameFactorySet<Combatant>
+public abstract class CombatantFactory<A extends CombatantAssets, B extends CombatantBuilder<T>, T extends Combatant>
+    implements GameFactory<T>
 {
-    @Inject
-    public CombatantFactory(
-        HumanCombatantFactory humanCombatantFactory,
-        NeutralCombatantFactory neutralCombatantFactory,
-        OrcCombatantFactory orcCombatantFactory)
-    {
-        addProvider(humanCombatantFactory);
-        addProvider(neutralCombatantFactory);
-        addProvider(orcCombatantFactory);
+    protected A assets;
+    protected B builder;
+    protected AssetManager manager;
+    protected UnitType assetType;
+    protected UnitType buildType;
+
+    /**
+     * Creates a new instance of this class given an {@link AssetManager}, used
+     * to obtain assets for the the objects created by the factory, and a pair
+     * of {@link UnitType UnitTypes}, representing the type of assets and
+     * resulting type of objects created by the factory.
+     */
+    public CombatantFactory(AssetManager manager, UnitType assetType, UnitType buildType) {
+        this.manager = manager;
+        this.assetType = assetType;
+        this.buildType = buildType;
     }
+
+    @Override
+    public void load(GameContext context) {
+        assets = newAssets(manager, assetType);
+        builder = newBuilder(assets, buildType);
+        assets.load();
+    }
+
+    @Override
+    public void unload(GameContext context) {
+        if (assets != null) {
+            assets.unload();
+        }
+    }
+
+    protected abstract A newAssets(AssetManager manager, UnitType type);
+
+    protected abstract B newBuilder(A assets, UnitType type);
 }

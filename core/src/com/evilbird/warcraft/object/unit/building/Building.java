@@ -60,7 +60,6 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
         constructing = 1;
         upgrades = Collections.emptyList();
         resources = new LinkedHashMap<>(2);
-        damage = new AnimationRenderable();
     }
 
     /**
@@ -232,6 +231,10 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
 
     public void setStyle(BuildingStyle style) {
         this.style = style;
+        this.damage = new AnimationRenderable();
+        setDamageSize();
+        setDamagePosition();
+        setDamageAnimation();
     }
 
     @Override
@@ -265,8 +268,18 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
         heavyDamageThreshold = healthMaximum * 0.33f;
     }
 
+    private void setDamagePosition() {
+        Vector2 position = getPosition();
+        damage.setPosition(position.x, position.y);
+    }
+
     private void setDamagePosition(float x, float y) {
         damage.setPosition(x, y);
+    }
+
+    private void setDamageSize() {
+        Vector2 size = getSize();
+        damage.setSize(size.x, size.y);
     }
 
     private void setDamageSize(float width, float height) {

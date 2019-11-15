@@ -25,7 +25,7 @@ import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.building.ResourceExtractor;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
-import com.evilbird.warcraft.object.unit.combatant.SpellCaster;
+import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 import com.evilbird.warcraft.object.unit.resource.Resource;
 
 import static com.evilbird.warcraft.object.common.query.UnitOperations.isCorporeal;

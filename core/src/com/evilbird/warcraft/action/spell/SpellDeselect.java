@@ -15,7 +15,7 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.unit.Unit;
-import com.evilbird.warcraft.object.unit.combatant.SpellCaster;
+import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 
 import javax.inject.Inject;
 import java.util.Collection;
