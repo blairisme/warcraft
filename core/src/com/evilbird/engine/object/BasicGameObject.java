@@ -15,7 +15,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.common.collection.EmptyIterator;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
@@ -30,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.ListIterator;
 
 import static com.badlogic.gdx.scenes.scene2d.Touchable.enabled;
 import static com.evilbird.engine.common.lang.GenericIdentifier.Unknown;
@@ -56,7 +54,6 @@ public class BasicGameObject implements GameObject
     protected List<Action> actions;
 
     private transient int index;
-    private transient ListIterator<Action> iterator;
 
     public BasicGameObject() {
         id = Unknown;
@@ -72,20 +69,13 @@ public class BasicGameObject implements GameObject
     @Override
     public void addAction(Action action) {
         Validate.notNull(action);
-        if (iterator != null && !(iterator instanceof EmptyIterator)) {
-            iterator.add(action);
-        } else {
-            actions.add(action);
-        }
+        actions.add(action);
     }
 
     @Override
     public void clearActions() {
         actions.forEach(Action::reset);
         actions.clear();
-        if (iterator != null) {
-            iterator = new EmptyIterator<>();
-        }
     }
 
     @Override
@@ -263,14 +253,7 @@ public class BasicGameObject implements GameObject
 
     @Override
     public void update(float delta) {
-        iterator = actions.listIterator();
-        while (iterator.hasNext()) {
-            Action action = iterator.next();
-            if (action.act(delta)) {
-                iterator.remove();
-            }
-        }
-        iterator = null;
+        actions.removeIf(action -> action.act(delta));
     }
 
     @Override
