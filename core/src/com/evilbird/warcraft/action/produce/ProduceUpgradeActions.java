@@ -46,8 +46,13 @@ public enum ProduceUpgradeActions implements ActionIdentifier
     WoodProduction1Upgrade,
     WoodProduction2Upgrade,
 
+    BlizzardUpgrade,
     ExorcismUpgrade,
+    FlameShieldUpgrade,
     HealingUpgrade,
+    InvisibilityUpgrade,
+    PolymorphUpgrade,
+    SlowUpgrade,
 
     MeleeDamage1UpgradeCancel,
     MeleeDamage2UpgradeCancel,
@@ -73,8 +78,13 @@ public enum ProduceUpgradeActions implements ActionIdentifier
     WoodProduction1UpgradeCancel,
     WoodProduction2UpgradeCancel,
 
+    BlizzardUpgradeCancel,
     ExorcismUpgradeCancel,
-    HealingUpgradeCancel;
+    FlameShieldUpgradeCancel,
+    HealingUpgradeCancel,
+    InvisibilityUpgradeCancel,
+    PolymorphUpgradeCancel,
+    SlowUpgradeCancel;
 
     public boolean isCancel() {
         return isBetween(this, MeleeDamage1UpgradeCancel, HealingUpgradeCancel);
@@ -85,8 +95,8 @@ public enum ProduceUpgradeActions implements ActionIdentifier
     }
 
     public boolean isSpellUpgrade() {
-        return isBetween(this, ExorcismUpgrade, HealingUpgrade)
-            || isBetween(this, ExorcismUpgradeCancel, HealingUpgradeCancel);
+        return isBetween(this, BlizzardUpgrade, SlowUpgrade)
+            || isBetween(this, BlizzardUpgradeCancel, SlowUpgradeCancel);
     }
 
     public Upgrade getProduct() {

@@ -49,26 +49,47 @@ public class ProductionCosts
         if (preferences.isFreeBuildEnabled()) {
             return resources(0, 0, 0, 0);
         }
+        if (upgrade.isAttributeUpgrade()) {
+            return attributeUpgradeCost(upgrade);
+        }
+        if (upgrade.isFeatureUpgrade()) {
+            return featureUpgradeCost(upgrade);
+        }
+        throw new UnsupportedOperationException();
+    }
+
+    private Collection<ResourceQuantity> attributeUpgradeCost(Upgrade upgrade) {
         switch (upgrade) {
-            case MeleeDamage1: return resources(0, 0, 0, 0);
-            case MeleeDamage2: return resources(0, 0, 0, 0);
-            case MeleeDefence1: return resources(0, 0, 0, 0);
-            case MeleeDefence2: return resources(0, 0, 0, 0);
-            case MeleeType1: return resources(0, 0, 0, 0);
-            case RangedDamage1: return resources(400, 0, 0, 0);
+            case MeleeDamage1: return resources(800, 0, 0, 0);
+            case MeleeDamage2: return resources(2400, 0, 0, 0);
+            case MeleeDefence1: return resources(300, 300, 0, 0);
+            case MeleeDefence2: return resources(900, 500, 0, 0);
+            case MeleeType1: return resources(1000, 0, 0, 0);
+            case RangedDamage1: return resources(300, 300, 0, 0);
             case RangedDamage2: return resources(600, 0, 0, 0);
-            case RangedAccuracy1: return resources(0, 0, 0, 0);
-            case RangedSight1: return resources(0, 0, 0, 0);
-            case RangedType1: return resources(0, 0, 0, 0);
-            case RangedWeapon1: return resources(0, 0, 0, 0);
-            case NavalDamage1: return resources(0, 0, 0, 0);
-            case NavalDamage2: return resources(0, 0, 0, 0);
-            case NavalDefence1: return resources(0, 0, 0, 0);
-            case NavalDefence2: return resources(0, 0, 0, 0);
-            case SiegeDamage1: return resources(0, 0, 0, 0);
-            case SiegeDamage2: return resources(0, 0, 0, 0);
-            case ExorcismUpgrade: return resources(0, 0, 0, 0);
-            case HealingUpgrade: return resources(0, 0, 0, 0);
+            case RangedAccuracy1: return resources(2500, 0, 0, 0);
+            case RangedSight1: return resources(1500, 0, 0, 0);
+            case RangedType1: return resources(1500, 0, 0, 0);
+            case RangedWeapon1: return resources(2000, 0, 0, 0);
+            case NavalDamage1: return resources(700, 100, 1000, 0);
+            case NavalDamage2: return resources(2000, 250, 3000, 0);
+            case NavalDefence1: return resources(500, 500, 0, 0);
+            case NavalDefence2: return resources(1500, 900, 0, 0);
+            case SiegeDamage1: return resources(1500, 0, 0, 0);
+            case SiegeDamage2: return resources(4000, 0, 0, 0);
+            default: throw new UnsupportedOperationException();
+        }
+    }
+
+    private Collection<ResourceQuantity> featureUpgradeCost(Upgrade upgrade) {
+        switch (upgrade) {
+            case BlizzardUpgrade: return resources(2000, 0, 0, 0);
+            case ExorcismUpgrade: return resources(2000, 0, 0, 0);
+            case FlameShieldUpgrade: return resources(1000, 0, 0, 0);
+            case HealingUpgrade: return resources(1000, 0, 0, 0);
+            case InvisibilityUpgrade: return resources(2500, 0, 0, 0);
+            case PolymorphUpgrade: return resources(2000, 0, 0, 0);
+            case SlowUpgrade: return resources(500, 0, 0, 0);
             default: throw new UnsupportedOperationException();
         }
     }

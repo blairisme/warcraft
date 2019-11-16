@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.object.common.upgrade;
 
+import com.evilbird.engine.common.collection.EnumUtils;
 import com.evilbird.engine.common.lang.Identifier;
 
 import static com.evilbird.warcraft.object.common.upgrade.UpgradeRank.Advanced;
@@ -74,8 +75,13 @@ public enum Upgrade implements Identifier
     WoodProduction1(WoodProduction, Improved),
     WoodProduction2(WoodProduction, Advanced),
 
+    BlizzardUpgrade,
     ExorcismUpgrade,
-    HealingUpgrade;
+    FlameShieldUpgrade,
+    HealingUpgrade,
+    InvisibilityUpgrade,
+    PolymorphUpgrade,
+    SlowUpgrade;
 
     private UpgradeRank rank;
     private UpgradeSeries series;
@@ -112,5 +118,13 @@ public enum Upgrade implements Identifier
      */
     public UpgradeRank getRank() {
         return rank;
+    }
+
+    public boolean isAttributeUpgrade() {
+        return EnumUtils.isBetween(this, MeleeDamage1, WoodProduction2);
+    }
+
+    public boolean isFeatureUpgrade() {
+        return EnumUtils.isBetween(this, BlizzardUpgrade, SlowUpgrade);
     }
 }

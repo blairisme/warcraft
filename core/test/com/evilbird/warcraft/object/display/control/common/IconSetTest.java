@@ -41,7 +41,7 @@ import static com.evilbird.warcraft.object.display.control.actions.ActionButtonT
  */
 public class IconSetTest extends GameTestCase
 {
-    private com.evilbird.warcraft.object.display.control.common.IconSet iconSet;
+    private IconSet iconSet;
 
     @Before
     public void setup() {
