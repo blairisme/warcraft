@@ -14,6 +14,8 @@ import com.evilbird.engine.action.framework.EmptyAction;
 import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
+import com.evilbird.warcraft.object.common.capability.RangedOffensiveObject;
+import com.evilbird.warcraft.object.projectile.Projectile;
 
 import javax.inject.Inject;
 
@@ -36,5 +38,15 @@ public class BuildingAttack extends AttackSequence
     @Override
     protected boolean move(float time, OffensiveObject attacker, PerishableObject target) {
         return ActionComplete;
+    }
+
+    @Override
+    protected void resetAttacker(OffensiveObject attacker) {
+        super.resetAttacker(attacker);
+        RangedOffensiveObject rangedAttacker = (RangedOffensiveObject)attacker;
+        Projectile projectile = rangedAttacker.getProjectile();
+        if (projectile != null) {
+            projectile.setVisible(false);
+        }
     }
 }

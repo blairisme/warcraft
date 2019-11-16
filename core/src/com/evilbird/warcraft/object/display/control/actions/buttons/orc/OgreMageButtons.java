@@ -19,9 +19,15 @@ import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.evilbird.warcraft.object.common.spell.Spell.Bloodlust;
+import static com.evilbird.warcraft.object.common.spell.Spell.EyeOfKilrogg;
 import static com.evilbird.warcraft.object.common.spell.Spell.Runes;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.BloodlustUpgrade;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RunesUpgrade;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.AttackButton;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BloodlustButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.EyeOfKilroggButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.MoveButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.RunesButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.StopButton;
@@ -36,7 +42,7 @@ import static java.util.Collections.singletonList;
 public class OgreMageButtons extends BasicButtonController
 {
     private static final List<ActionButtonType> BASIC_BUTTONS =
-        asList(MoveButton, StopButton, AttackButton, RunesButton);
+        asList(MoveButton, StopButton, AttackButton, EyeOfKilroggButton);
 
     private static final List<ActionButtonType> CASTING_BUTTONS =
         singletonList(CancelButton);
@@ -53,8 +59,8 @@ public class OgreMageButtons extends BasicButtonController
     private List<ActionButtonType> getActionButtons(GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
         List<ActionButtonType> buttons = new ArrayList<>(BASIC_BUTTONS);
-//        addUpgradeButton(player, buttons, ExorcismButton, ExorcismUpgrade);
-//        addUpgradeButton(player, buttons, HealButton, HealingUpgrade);
+        addUpgradeDependentButton(player, buttons, BloodlustButton, BloodlustUpgrade);
+        addUpgradeDependentButton(player, buttons, RunesButton, RunesUpgrade);
         return buttons;
     }
 
@@ -62,6 +68,8 @@ public class OgreMageButtons extends BasicButtonController
     public boolean getEnabled(ActionButtonType button, GameObject gameObject) {
         SpellCaster caster = (SpellCaster) gameObject;
         switch (button) {
+            case BloodlustButton: return hasMana(caster, Bloodlust);
+            case EyeOfKilroggButton: return hasMana(caster, EyeOfKilrogg);
             case RunesButton: return hasMana(caster, Runes);
             default: return true;
         }

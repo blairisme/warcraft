@@ -13,7 +13,6 @@ import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.conjured.blizzard.BlizzardFactory;
 import com.evilbird.warcraft.object.unit.conjured.decay.DeathAndDecayFactory;
-import com.evilbird.warcraft.object.unit.conjured.fireball.FireballFactory;
 import com.evilbird.warcraft.object.unit.conjured.flameshield.FlameShieldFactory;
 import com.evilbird.warcraft.object.unit.conjured.rune.RuneTrapFactory;
 import com.evilbird.warcraft.object.unit.conjured.whirlwind.WhirlwindFactory;
@@ -31,14 +30,12 @@ public class ConjuredFactory extends GameFactorySet<ConjuredObject>
     public ConjuredFactory(
         BlizzardFactory blizzardFactory,
         DeathAndDecayFactory deathAndDecayFactory,
-        FireballFactory fireballFactory,
         FlameShieldFactory flameShieldFactory,
         RuneTrapFactory runeTrapFactory,
         WhirlwindFactory whirlwindFactory)
     {
         addProvider(UnitType.Blizzard, blizzardFactory);
         addProvider(UnitType.DeathAndDecay, deathAndDecayFactory);
-        addProvider(UnitType.Fireball, fireballFactory);
         addProvider(UnitType.FlameShield, flameShieldFactory);
         addProvider(UnitType.RuneTrap, runeTrapFactory);
         addProvider(UnitType.Whirlwind, whirlwindFactory);

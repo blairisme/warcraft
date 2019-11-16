@@ -76,12 +76,19 @@ public enum Upgrade implements Identifier
     WoodProduction2(WoodProduction, Advanced),
 
     BlizzardUpgrade,
+    BloodlustUpgrade,
+    DeathAndDecayUpgrade,
     ExorcismUpgrade,
     FlameShieldUpgrade,
+    HasteUpgrade,
     HealingUpgrade,
     InvisibilityUpgrade,
     PolymorphUpgrade,
-    SlowUpgrade;
+    RaiseTheDeadUpgrade,
+    RunesUpgrade,
+    SlowUpgrade,
+    UnholyArmourUpgrade,
+    WhirlwindUpgrade;
 
     private UpgradeRank rank;
     private UpgradeSeries series;
@@ -125,6 +132,6 @@ public enum Upgrade implements Identifier
     }
 
     public boolean isFeatureUpgrade() {
-        return EnumUtils.isBetween(this, BlizzardUpgrade, SlowUpgrade);
+        return EnumUtils.isBetween(this, BlizzardUpgrade, WhirlwindUpgrade);
     }
 }

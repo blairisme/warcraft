@@ -28,6 +28,7 @@ import static com.evilbird.warcraft.object.unit.UnitType.Battleship;
 import static com.evilbird.warcraft.object.unit.UnitType.ElvenDestroyer;
 import static com.evilbird.warcraft.object.unit.UnitType.Foundry;
 import static com.evilbird.warcraft.object.unit.UnitType.GnomishInventor;
+import static com.evilbird.warcraft.object.unit.UnitType.GnomishSubmarine;
 import static com.evilbird.warcraft.object.unit.UnitType.OilTanker;
 import static com.evilbird.warcraft.object.unit.UnitType.Transport;
 import static java.util.Arrays.asList;
@@ -76,7 +77,7 @@ public class ShipyardButtons extends BasicButtonController
             case ElvenDestroyerButton: return hasResources(player, ElvenDestroyer);
             case TransportButton: return hasResources(player, Transport) && hasUnit(player, Foundry);
             case BattleshipButton: return hasResources(player, Battleship) && hasUnit(player, Foundry);
-            case GnomishSubmarineButton: return hasResources(player,Battleship) && hasUnit(player,GnomishInventor);
+            case GnomishSubmarineButton:return hasResources(player,GnomishSubmarine) && hasUnit(player,GnomishInventor);
             default: return false;
         }
     }

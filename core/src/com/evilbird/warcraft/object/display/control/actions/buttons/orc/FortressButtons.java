@@ -1,9 +1,9 @@
 /*
  * Copyright (c) 2019, Blair Butterworth
- *
+ *  
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
- *
+ *  
  *        https://opensource.org/licenses/MIT
  */
 
@@ -17,21 +17,18 @@ import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonC
 
 import java.util.List;
 
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BuildCancelButton;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.OilRigButton;
-import static com.evilbird.warcraft.object.unit.UnitType.OilRig;
-import static java.util.Arrays.asList;
+import static com.evilbird.warcraft.object.unit.UnitType.Peon;
+import static java.util.Collections.singletonList;
 
 /**
- * Controls the buttons shown when an Orc Troll Tanker (Oil Tanker) is selected
- * and the user navigates to the simple building menu.
+ * Controls the buttons shown when a Orc Fortress is selected.
  *
  * @author Blair Butterworth
  */
-public class TrollTankerBuildings extends BasicButtonController
+public class FortressButtons extends BasicButtonController
 {
     private static final List<ActionButtonType> BUTTONS =
-            asList(OilRigButton, BuildCancelButton);
+        singletonList(ActionButtonType.PeonButton);
 
     @Override
     public List<ActionButtonType> getButtons(GameObject gameObject) {
@@ -41,13 +38,6 @@ public class TrollTankerBuildings extends BasicButtonController
     @Override
     public boolean getEnabled(ActionButtonType button, GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
-
-        if (button == BuildCancelButton) {
-            return true;
-        }
-        if (button == OilRigButton) {
-            return hasResources(player, OilRig);
-        }
-        return false;
+        return hasResources(player, Peon);
     }
 }

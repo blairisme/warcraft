@@ -20,8 +20,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.BlizzardUpgrade;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.BloodlustUpgrade;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.DeathAndDecayUpgrade;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.ExorcismUpgrade;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.FlameShieldUpgrade;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.HasteUpgrade;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.HealingUpgrade;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.InvisibilityUpgrade;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.MeleeDamage1;
@@ -34,15 +37,19 @@ import static com.evilbird.warcraft.object.common.upgrade.Upgrade.NavalDamage2;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.NavalDefence1;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.NavalDefence2;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.PolymorphUpgrade;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RaiseTheDeadUpgrade;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedAccuracy1;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedDamage1;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedDamage2;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedSight1;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedType1;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedWeapon1;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RunesUpgrade;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.SiegeDamage1;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.SiegeDamage2;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.SlowUpgrade;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.UnholyArmourUpgrade;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.WhirlwindUpgrade;
 import static com.evilbird.warcraft.object.display.control.common.IconType.Unknown;
 
 /**
@@ -77,11 +84,11 @@ public class UpgradeIconLayout
             Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
             Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
             Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            InvisibilityUpgrade,SlowUpgrade,        Unknown,            Unknown,            Unknown,
-            FlameShieldUpgrade, Unknown,            Unknown,            Unknown,            Unknown,
+            Unknown,            Unknown,            Unknown,            Unknown,            HasteUpgrade,
+            InvisibilityUpgrade,SlowUpgrade,        RunesUpgrade,       UnholyArmourUpgrade,Unknown,
+            FlameShieldUpgrade, Unknown,            Unknown,            DeathAndDecayUpgrade,WhirlwindUpgrade,
             BlizzardUpgrade,    Unknown,            HealingUpgrade,     Unknown,            Unknown,
-            ExorcismUpgrade,    Unknown,            Unknown,            Unknown,            Unknown,
+            ExorcismUpgrade,    Unknown,            BloodlustUpgrade,   Unknown,            RaiseTheDeadUpgrade,
             PolymorphUpgrade,   Unknown,            h(MeleeDamage1),    h(MeleeDamage2),    Unknown,
             o(MeleeDamage1),    o(MeleeDamage2),    Unknown,            Unknown,            Unknown,
             h(RangedDamage1),   h(RangedDamage2),   Unknown,            o(RangedDamage1),   o(RangedDamage2),

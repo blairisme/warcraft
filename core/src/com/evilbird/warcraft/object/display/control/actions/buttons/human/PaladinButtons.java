@@ -61,8 +61,8 @@ public class PaladinButtons extends BasicButtonController
     private List<ActionButtonType> getActionButtons(GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
         List<ActionButtonType> buttons = new ArrayList<>(BASIC_BUTTONS);
-        addUpgradeButton(player, buttons, ExorcismButton, ExorcismUpgrade);
-        addUpgradeButton(player, buttons, HealButton, HealingUpgrade);
+        addUpgradeDependentButton(player, buttons, ExorcismButton, ExorcismUpgrade);
+        addUpgradeDependentButton(player, buttons, HealButton, HealingUpgrade);
         return buttons;
     }
 

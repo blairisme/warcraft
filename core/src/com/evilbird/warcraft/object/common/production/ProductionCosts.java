@@ -83,6 +83,14 @@ public class ProductionCosts
 
     private Collection<ResourceQuantity> featureUpgradeCost(Upgrade upgrade) {
         switch (upgrade) {
+            case HasteUpgrade: return resources(500, 0, 0, 0);
+            case RaiseTheDeadUpgrade: return resources(1500, 0, 0, 0);
+            case WhirlwindUpgrade: return resources(1500, 0, 0, 0);
+            case DeathAndDecayUpgrade: return resources(2000, 0, 0, 0);
+            case UnholyArmourUpgrade: return resources(2500, 0, 0, 0);
+            case BloodlustUpgrade: return resources(1000, 0, 0, 0);
+            case RunesUpgrade: return resources(1000, 0, 0, 0);
+
             case BlizzardUpgrade: return resources(2000, 0, 0, 0);
             case ExorcismUpgrade: return resources(2000, 0, 0, 0);
             case FlameShieldUpgrade: return resources(1000, 0, 0, 0);

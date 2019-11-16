@@ -15,18 +15,21 @@ import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonController;
 
-import java.util.Collections;
 import java.util.List;
 
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BuildCancelButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.EncampmentButton;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.ForgeButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.GreatHallButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.PigFarmButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.TrollLumberMillButton;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.WatchTowerButton;
 import static com.evilbird.warcraft.object.unit.UnitType.Encampment;
+import static com.evilbird.warcraft.object.unit.UnitType.Forge;
 import static com.evilbird.warcraft.object.unit.UnitType.GreatHall;
 import static com.evilbird.warcraft.object.unit.UnitType.PigFarm;
 import static com.evilbird.warcraft.object.unit.UnitType.TrollLumberMill;
+import static com.evilbird.warcraft.object.unit.UnitType.WatchTower;
 import static java.util.Arrays.asList;
 
 /**
@@ -37,19 +40,33 @@ import static java.util.Arrays.asList;
  */
 public class PeonSimpleBuildings extends BasicButtonController
 {
+    private static final List<ActionButtonType> BASIC_BUTTONS =
+        asList(PigFarmButton, EncampmentButton, GreatHallButton,
+                BuildCancelButton);
+
+    private static final List<ActionButtonType> INTERMEDIATE_BUTTONS =
+        asList(PigFarmButton, EncampmentButton, GreatHallButton,
+                TrollLumberMillButton, BuildCancelButton);
+
+    private static final List<ActionButtonType> ADVANCED_BUTTONS =
+        asList(PigFarmButton, EncampmentButton, GreatHallButton,
+                TrollLumberMillButton, ForgeButton, WatchTowerButton,
+                BuildCancelButton);
+
     @Override
     public List<ActionButtonType> getButtons(GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
-        switch (player.getLevel()) {
-            case 1: return asList(
-                    PigFarmButton, EncampmentButton, GreatHallButton,
-                    BuildCancelButton);
-            case 2:
-            case 3: return asList(
-                    PigFarmButton, EncampmentButton, GreatHallButton,
-                    TrollLumberMillButton, BuildCancelButton);
-            default: return Collections.emptyList();
+        return getButtons(player.getLevel());
+    }
+
+    private List<ActionButtonType> getButtons(int level) {
+        if (level == 1) {
+            return BASIC_BUTTONS;
         }
+        if (level == 2 || level == 3) {
+            return INTERMEDIATE_BUTTONS;
+        }
+        return ADVANCED_BUTTONS;
     }
 
     @Override
@@ -57,10 +74,12 @@ public class PeonSimpleBuildings extends BasicButtonController
         Player player = UnitOperations.getPlayer(gameObject);
         switch (button) {
             case BuildCancelButton: return true;
-            case EncampmentButton: return hasResources(player, Encampment);
-            case GreatHallButton: return hasResources(player, GreatHall);
             case PigFarmButton: return hasResources(player, PigFarm);
+            case EncampmentButton: return hasResources(player, Encampment);
             case TrollLumberMillButton: return hasResources(player, TrollLumberMill);
+            case GreatHallButton: return hasResources(player, GreatHall);
+            case ForgeButton: return hasResources(player, Forge);
+            case WatchTowerButton: return hasResources(player, WatchTower);
             default: return false;
         }
     }

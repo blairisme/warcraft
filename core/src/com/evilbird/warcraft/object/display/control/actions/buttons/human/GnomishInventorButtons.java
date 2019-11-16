@@ -15,11 +15,13 @@ import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonController;
 
+import java.util.Arrays;
 import java.util.List;
 
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.DwarvenDemolitionSquadButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.GnomishFlyingMachineButton;
+import static com.evilbird.warcraft.object.unit.UnitType.DwarvenDemolitionSquad;
 import static com.evilbird.warcraft.object.unit.UnitType.GnomishFlyingMachine;
-import static java.util.Collections.singletonList;
 
 /**
  * Controls the buttons shown when a Human Gnomish Inventor is selected.
@@ -28,7 +30,8 @@ import static java.util.Collections.singletonList;
  */
 public class GnomishInventorButtons extends BasicButtonController
 {
-    private static final List<ActionButtonType> BUTTONS = singletonList(GnomishFlyingMachineButton);
+    private static final List<ActionButtonType> BUTTONS =
+        Arrays.asList(GnomishFlyingMachineButton, DwarvenDemolitionSquadButton);
 
     @Override
     public List<ActionButtonType> getButtons(GameObject gameObject) {
@@ -38,6 +41,10 @@ public class GnomishInventorButtons extends BasicButtonController
     @Override
     public boolean getEnabled(ActionButtonType button, GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
-        return hasResources(player, GnomishFlyingMachine);
+        switch (button) {
+            case GnomishFlyingMachineButton: hasResources(player, GnomishFlyingMachine);
+            case DwarvenDemolitionSquadButton: hasResources(player, DwarvenDemolitionSquad);
+            default: return true;
+        }
     }
 }

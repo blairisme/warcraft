@@ -45,5 +45,8 @@ public enum UnitAnimation implements Identifier
 
     GatherWood,
     ExtractGold,
-    ExtractOil
+    ExtractOil,
+
+    ProjectileFlight,
+    ProjectileHit
 }

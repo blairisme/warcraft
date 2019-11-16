@@ -165,12 +165,19 @@ public enum ActionButtonType implements Identifier
     NavalDefence2Button,
 
     BlizzardUpgradeButton,
+    BloodlustUpgradeButton,
+    DeathAndDecayUpgradeButton,
     ExorcismUpgradeButton,
     FlameShieldUpgradeButton,
+    HasteUpgradeButton,
     HealingUpgradeButton,
     InvisibilityUpgradeButton,
     PolymorphUpgradeButton,
-    SlowUpgradeButton;
+    RaiseTheDeadUpgradeButton,
+    RunesUpgradeButton,
+    SlowUpgradeButton,
+    UnholyArmourUpgradeButton,
+    WhirlwindUpgradeButton;
 
     public UnitType getBuildProduct() {
         Validate.isTrue(isBuildButton() || isBuildingUpgradeButton());
@@ -200,6 +207,6 @@ public enum ActionButtonType implements Identifier
     }
 
     public boolean isUpgradeButton() {
-        return isBetween(this, MeleeDamage1Button, SlowUpgradeButton);
+        return isBetween(this, MeleeDamage1Button, WhirlwindUpgradeButton);
     }
 }

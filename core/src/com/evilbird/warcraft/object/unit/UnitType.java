@@ -132,7 +132,6 @@ public enum UnitType implements GameObjectType
     Blizzard,
     DeathAndDecay,
     EyeOfKilrogg,
-    Fireball,
     FlameShield,
     RuneTrap,
     Skeleton,

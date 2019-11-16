@@ -35,6 +35,7 @@ public enum Spell
     RaiseDead,
     Runes,
     Slow,
+    TouchOfDarkness,
     UnholyArmour,
     Whirlwind;
 
@@ -43,7 +44,7 @@ public enum Spell
             case Blizzard: return 25;
             case Bloodlust: return 50;
             case DeathAndDecay: return 200;
-            case DeathCoil: return 6;
+            case DeathCoil: return 100;
             case Exorcism: return 4;
             case EyeOfKilrogg: return 70;
             case Fireball: return 100;
@@ -52,10 +53,11 @@ public enum Spell
             case Heal: return 6;
             case HolyVision: return 70;
             case Invisibility: return 200;
-            case Lightning: return 20;
+            case Lightning: return 0;
             case Polymorph: return 200;
             case RaiseDead: return 200;
             case Runes: return 200;
+            case TouchOfDarkness: return 0;
             case Slow: return 50;
             case UnholyArmour: return 80;
             case Whirlwind: return 200;

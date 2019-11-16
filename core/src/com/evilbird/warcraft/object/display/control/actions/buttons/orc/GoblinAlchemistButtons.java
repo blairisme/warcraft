@@ -15,23 +15,23 @@ import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonController;
 
+import java.util.Arrays;
 import java.util.List;
 
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BuildCancelButton;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.OilRigButton;
-import static com.evilbird.warcraft.object.unit.UnitType.OilRig;
-import static java.util.Arrays.asList;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.GoblinSappersButton;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.GoblinZeppelinButton;
+import static com.evilbird.warcraft.object.unit.UnitType.GoblinSappers;
+import static com.evilbird.warcraft.object.unit.UnitType.GoblinZeppelin;
 
 /**
- * Controls the buttons shown when an Orc Troll Tanker (Oil Tanker) is selected
- * and the user navigates to the simple building menu.
+ * Controls the buttons shown when a Human Gnomish Inventor is selected.
  *
  * @author Blair Butterworth
  */
-public class TrollTankerBuildings extends BasicButtonController
+public class GoblinAlchemistButtons extends BasicButtonController
 {
     private static final List<ActionButtonType> BUTTONS =
-            asList(OilRigButton, BuildCancelButton);
+        Arrays.asList(GoblinZeppelinButton, GoblinSappersButton);
 
     @Override
     public List<ActionButtonType> getButtons(GameObject gameObject) {
@@ -41,13 +41,10 @@ public class TrollTankerBuildings extends BasicButtonController
     @Override
     public boolean getEnabled(ActionButtonType button, GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
-
-        if (button == BuildCancelButton) {
-            return true;
+        switch (button) {
+            case GoblinZeppelinButton: hasResources(player, GoblinZeppelin);
+            case GoblinSappersButton: hasResources(player, GoblinSappers);
+            default: return true;
         }
-        if (button == OilRigButton) {
-            return hasResources(player, OilRig);
-        }
-        return false;
     }
 }
