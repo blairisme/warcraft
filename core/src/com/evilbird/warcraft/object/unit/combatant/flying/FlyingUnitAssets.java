@@ -11,6 +11,8 @@ package com.evilbird.warcraft.object.unit.combatant.flying;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 
@@ -37,9 +39,14 @@ public class FlyingUnitAssets extends CombatantAssets
     public FlyingUnitAssets(AssetManager manager, UnitType type) {
         super(manager, type);
         register("explosion", "data/textures/common/explosion/explosion.png");
+        register("shadow", "data/textures/common/unit/shadow.png");
     }
 
     public Texture getExplosionTexture() {
         return getTexture("explosion");
+    }
+
+    public TextureRegion getShadowTexture() {
+        return getTexture("shadow", 0, 64, 32, 32);
     }
 }

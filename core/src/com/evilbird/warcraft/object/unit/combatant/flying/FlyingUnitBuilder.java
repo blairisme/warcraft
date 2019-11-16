@@ -12,6 +12,7 @@ package com.evilbird.warcraft.object.unit.combatant.flying;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.graphics.AnimationCatalog;
+import com.evilbird.engine.common.graphics.SpriteRenderable;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitStyle;
 import com.evilbird.warcraft.object.unit.UnitType;
@@ -27,8 +28,6 @@ import com.evilbird.warcraft.object.unit.combatant.flying.orc.DragonAnimations;
 import com.evilbird.warcraft.object.unit.combatant.flying.orc.GoblinZeppelinAnimations;
 
 import java.util.Random;
-
-import static com.evilbird.engine.common.graphics.EmptyRenderable.BlankRenderable;
 
 /**
  * Creates a new {@link FlyingUnit FlyingUnits} whose visual and audible
@@ -66,7 +65,7 @@ public class FlyingUnitBuilder extends CombatantBuilder<FlyingUnit>
     @Override
     protected UnitStyle newStyle(AnimationCatalog animations, SoundCatalog sounds) {
         FlyingUnitStyle style = new FlyingUnitStyle(super.newStyle(animations, sounds));
-        style.shadow = BlankRenderable;
+        style.shadow = new SpriteRenderable(assets.getShadowTexture());
         return style;
     }
 

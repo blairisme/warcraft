@@ -11,6 +11,7 @@ package com.evilbird.engine.common.graphics;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * A {@link Renderable} implementation that renders a {@link Sprite}.
@@ -24,6 +25,10 @@ public class SpriteRenderable extends Sprite implements Renderable
     }
 
     public SpriteRenderable(Texture texture) {
+        super(texture);
+    }
+
+    public SpriteRenderable(TextureRegion texture) {
         super(texture);
     }
 

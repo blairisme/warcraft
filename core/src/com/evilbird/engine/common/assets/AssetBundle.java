@@ -17,6 +17,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.evilbird.engine.common.audio.music.LazyLoadedMusic;
@@ -27,8 +28,6 @@ import com.evilbird.engine.common.audio.sound.SoundFactory;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.text.StringSubstitutor;
-import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.combatant.spellcaster.orc.OgreMageFactory;
 import org.apache.commons.io.FilenameUtils;
 
 import java.util.ArrayList;
@@ -195,8 +194,6 @@ public class AssetBundle
     }
 
     protected Music getMusic(Object id) {
-//        AssetDescriptor asset = assets.get(id);
-//        return manager.get(asset.fileName, Music.class);
         return getLazyLoadedMusic(id);
     }
 
@@ -253,6 +250,11 @@ public class AssetBundle
     protected Texture getTexture(Object id) {
         AssetDescriptor asset = assets.get(id);
         return manager.get(asset.fileName, Texture.class);
+    }
+
+    protected TextureRegion getTexture(Object id, int x, int y, int width, int height) {
+        Texture texture = getTexture(id);
+        return new TextureRegion(texture, x, y, width, height);
     }
 
     protected Texture getOptionalTexture(Object id) {
