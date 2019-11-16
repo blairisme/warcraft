@@ -17,7 +17,7 @@ import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 import com.evilbird.engine.common.graphics.renderable.AnimationRenderable;
 import com.evilbird.engine.common.graphics.renderable.FlashingRenderable;
-import com.evilbird.engine.common.graphics.renderable.SpriteRenderable;
+import com.evilbird.engine.common.graphics.renderable.TextureRenderable;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.common.production.ProductionTimes;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
@@ -101,7 +101,7 @@ public class BuildingBuilder
         style.animations = animations.get();
         style.masks = getMasks();
         style.sounds = sounds.get();
-        style.selection = new SpriteRenderable(assets.getSelectionTexture());
+        style.selection = new TextureRenderable(assets.getSelectionTexture());
         style.highlight = new FlashingRenderable(assets.getHighlightTexture());
         style.lightDamage = new AnimationRenderable(style.animations.get(LightDamage));
         style.heavyDamage = new AnimationRenderable(style.animations.get(HeavyDamage));

@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.common.graphics.renderable;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
@@ -20,12 +20,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
  */
 public class SpriteRenderable extends SpriteDrawable implements Renderable
 {
-    public SpriteRenderable(Texture texture) {
-        this(new Sprite(texture));
-    }
-
     public SpriteRenderable(Sprite sprite) {
         super(sprite);
+    }
+
+    @Override
+    public void draw(Batch batch, float x, float y, float width, float height) {
+        super.draw(batch, x, y, width, height);
     }
 
     @Override

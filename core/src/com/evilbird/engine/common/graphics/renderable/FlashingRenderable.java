@@ -27,7 +27,7 @@ public class FlashingRenderable extends SpriteRenderable
     private float modifier;
 
     public FlashingRenderable(Texture texture) {
-        super(texture);
+        super(new Sprite(texture));
         this.modifier = 0.05f;
         this.timer = new GameTimer(0.04f);
     }

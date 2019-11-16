@@ -12,7 +12,7 @@ package com.evilbird.warcraft.object.unit.critter;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.renderable.FlashingRenderable;
-import com.evilbird.engine.common.graphics.renderable.SpriteRenderable;
+import com.evilbird.engine.common.graphics.renderable.TextureRenderable;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitStyle;
@@ -60,7 +60,7 @@ public class CritterBuilder
         UnitStyle style = new UnitStyle();
         style.animations = animations.get();
         style.sounds = sounds.get();
-        style.selection = new SpriteRenderable(assets.getSelectionTexture());
+        style.selection = new TextureRenderable(assets.getSelectionTexture());
         style.highlight = new FlashingRenderable(assets.getHighlightTexture());
         return style;
     }

@@ -11,8 +11,11 @@ package com.evilbird.warcraft.object.unit.combatant.flying;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.graphics.renderable.AlignedRenderable;
 import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.warcraft.object.unit.combatant.CombatantVessel;
+
+import static com.evilbird.engine.common.graphics.renderable.Alignment.BottomCenter;
 
 /**
  * A {@link CombatantVessel} specialization representing a flying unit.
@@ -39,7 +42,7 @@ public class FlyingUnit extends CombatantVessel
         super.setStyle(name);
         Skin skin = getSkin();
         FlyingUnitStyle style = skin.get(name, FlyingUnitStyle.class);
-        this.shadow = style.shadow;
+        this.shadow = new AlignedRenderable(style.shadow, BottomCenter);
     }
 
     @Override

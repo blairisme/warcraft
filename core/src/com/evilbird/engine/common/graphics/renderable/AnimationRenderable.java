@@ -42,6 +42,7 @@ public class AnimationRenderable extends BaseRenderable
         this.animationSize = animation.getSize();
         this.animationTime = 0;
         this.cacheSize = new Vector2(0, 0);
+        this.positionOffset = new Vector2(0, 0);
     }
 
     public Animation getAnimation() {
@@ -82,9 +83,9 @@ public class AnimationRenderable extends BaseRenderable
     }
 
     private Vector2 getPositionOffset(float width, float height) {
-        if (cacheSize.x != width || cacheSize.y != height || positionOffset == null) {
-            cacheSize.set(width, height);
-            positionOffset = new Vector2();
+        if (cacheSize.x != width || cacheSize.y != height) {
+            cacheSize.x = width;
+            cacheSize.y = height;
             positionOffset.x = (animationSize.x - width) * 0.5f;
             positionOffset.y = (animationSize.y - height) * 0.5f;
         }
