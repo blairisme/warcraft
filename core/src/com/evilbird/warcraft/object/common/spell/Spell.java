@@ -24,11 +24,13 @@ public enum Spell
     DeathCoil,
     Exorcism,
     EyeOfKilrogg,
+    Fireball,
     FlameShield,
     Haste,
     Heal,
     HolyVision,
     Invisibility,
+    Lightning,
     Polymorph,
     RaiseDead,
     Runes,
@@ -44,12 +46,13 @@ public enum Spell
             case DeathCoil: return 6;
             case Exorcism: return 4;
             case EyeOfKilrogg: return 70;
-            //case Fireball: : return 100;
+            case Fireball: return 100;
             case FlameShield: return 80;
             case Haste: return 50;
             case Heal: return 6;
             case HolyVision: return 70;
             case Invisibility: return 200;
+            case Lightning: return 20;
             case Polymorph: return 200;
             case RaiseDead: return 200;
             case Runes: return 200;

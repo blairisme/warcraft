@@ -20,16 +20,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.evilbird.warcraft.object.common.spell.Spell.Blizzard;
+import static com.evilbird.warcraft.object.common.spell.Spell.Fireball;
 import static com.evilbird.warcraft.object.common.spell.Spell.FlameShield;
 import static com.evilbird.warcraft.object.common.spell.Spell.Invisibility;
+import static com.evilbird.warcraft.object.common.spell.Spell.Lightning;
 import static com.evilbird.warcraft.object.common.spell.Spell.Polymorph;
 import static com.evilbird.warcraft.object.common.spell.Spell.Slow;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.AttackButton;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.BlizzardUpgrade;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.FlameShieldUpgrade;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.InvisibilityUpgrade;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.PolymorphUpgrade;
+import static com.evilbird.warcraft.object.common.upgrade.Upgrade.SlowUpgrade;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BlizzardButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.FireballButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.FlameShieldButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.InvisibilityButton;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.LightningButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.MoveButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.PolymorphButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.SlowButton;
@@ -44,13 +51,8 @@ import static java.util.Collections.singletonList;
  */
 public class MageButtons extends BasicButtonController
 {
-//    private static final List<ActionButtonType> BASIC_BUTTONS =
-//            asList(MoveButton, StopButton, AttackButton, FireballButton);
-
     private static final List<ActionButtonType> BASIC_BUTTONS =
-        asList(MoveButton, StopButton, AttackButton,
-                FireballButton, SlowButton, FlameShieldButton,
-                InvisibilityButton, PolymorphButton, BlizzardButton);
+        asList(MoveButton, StopButton, LightningButton, FireballButton);
 
     private static final List<ActionButtonType> CASTING_BUTTONS =
         singletonList(CancelButton);
@@ -67,11 +69,11 @@ public class MageButtons extends BasicButtonController
     private List<ActionButtonType> getActionButtons(GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
         List<ActionButtonType> buttons = new ArrayList<>(BASIC_BUTTONS);
-//        addUpgradeButton(player, buttons, SlowButton, SlowUpgrade);
-//        addUpgradeButton(player, buttons, FlameShieldButton, FlameShieldUpgrade);
-//        addUpgradeButton(player, buttons, InvisibilityButton, InvisibilityUpgrade);
-//        addUpgradeButton(player, buttons, PolymorphButton, PolymorphUpgrade);
-//        addUpgradeButton(player, buttons, BlizzardButton, BlizzardUpgrade);
+        addUpgradeDependentButton(player, buttons, SlowButton, SlowUpgrade);
+        addUpgradeDependentButton(player, buttons, FlameShieldButton, FlameShieldUpgrade);
+        addUpgradeDependentButton(player, buttons, InvisibilityButton, InvisibilityUpgrade);
+        addUpgradeDependentButton(player, buttons, PolymorphButton, PolymorphUpgrade);
+        addUpgradeDependentButton(player, buttons, BlizzardButton, BlizzardUpgrade);
         return buttons;
     }
 
@@ -80,9 +82,10 @@ public class MageButtons extends BasicButtonController
         SpellCaster mage = (SpellCaster) gameObject;
         switch (button) {
             case BlizzardButton: return hasMana(mage, Blizzard);
-//            case FireballButton: return hasMana(mage, Fireball);
+            case FireballButton: return hasMana(mage, Fireball);
             case FlameShieldButton: return hasMana(mage, FlameShield);
             case InvisibilityButton: return hasMana(mage, Invisibility);
+            case LightningButton: return hasMana(mage, Lightning);
             case PolymorphButton: return hasMana(mage, Polymorph);
             case SlowButton: return hasMana(mage, Slow);
             default: return true;

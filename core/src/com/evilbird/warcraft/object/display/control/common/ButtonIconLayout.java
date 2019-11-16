@@ -27,6 +27,7 @@ import static com.evilbird.warcraft.object.display.control.actions.ActionButtonT
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BattleshipButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BlacksmithButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BlizzardButton;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BlizzardUpgradeButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BloodlustButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BombardTowerButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BuildAdvancedButton;
@@ -59,6 +60,7 @@ import static com.evilbird.warcraft.object.display.control.actions.ActionButtonT
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.FerryButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.FireballButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.FlameShieldButton;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.FlameShieldUpgradeButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.FootmanButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.ForgeButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.FortressButton;
@@ -82,6 +84,7 @@ import static com.evilbird.warcraft.object.display.control.actions.ActionButtonT
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.HolyVisionButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.HumanWallButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.InvisibilityButton;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.InvisibilityUpgradeButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.KeepButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.KnightButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.LightningButton;
@@ -115,6 +118,7 @@ import static com.evilbird.warcraft.object.display.control.actions.ActionButtonT
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.PeonButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.PigFarmButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.PolymorphButton;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.PolymorphUpgradeButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.RaiseDeadButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.RangedAccuracy1Button;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.RangedDamage1Button;
@@ -130,6 +134,7 @@ import static com.evilbird.warcraft.object.display.control.actions.ActionButtonT
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.SiegeDamage1Button;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.SiegeDamage2Button;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.SlowButton;
+import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.SlowUpgradeButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.StablesButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.StopButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.StrongholdButton;
@@ -202,8 +207,13 @@ public class ButtonIconLayout
         );
         aliases = Maps.of(
             BuildCancelButton,          CancelButton,
+            BlizzardUpgradeButton,      BlizzardButton,
             ExorcismUpgradeButton,      ExorcismButton,
+            FlameShieldUpgradeButton,   FlameShieldButton,
             HealingUpgradeButton,       HealButton,
+            InvisibilityUpgradeButton,  InvisibilityButton,
+            PolymorphUpgradeButton,     PolymorphButton,
+            SlowUpgradeButton,          SlowButton,
             human(MeleeType1Button),    PaladinButton,
             human(RangedType1Button),   ElvenRangerButton,
             orc(MeleeType1Button),      OgreMageButton,

@@ -59,6 +59,17 @@ public abstract class BasicButtonController implements ButtonController
         }
     }
 
+    protected void addUpgradeDependentButton(
+        Player player,
+        List<ActionButtonType> buttons,
+        ActionButtonType button,
+        Upgrade dependentUpgrade)
+    {
+        if (hasUpgrade(player, dependentUpgrade)) {
+            buttons.add(button);
+        }
+    }
+
     protected boolean hasResources(Player player, UnitType type) {
         for (ResourceQuantity cost: productionCosts.costOf(type)) {
             if (player.getResource(cost.getType()) < cost.getValue()){
