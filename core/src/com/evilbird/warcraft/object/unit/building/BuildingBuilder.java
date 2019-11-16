@@ -25,6 +25,7 @@ import com.evilbird.warcraft.object.unit.UnitStyle;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.animations.BuildingAnimations;
 import com.evilbird.warcraft.object.unit.building.animations.ExtractorAnimations;
+import com.evilbird.warcraft.object.unit.building.animations.GoblinAlchemistAnimations;
 import com.evilbird.warcraft.object.unit.building.animations.TowerAnimations;
 import com.evilbird.warcraft.object.unit.building.sounds.BuildingSounds;
 import com.evilbird.warcraft.object.unit.building.sounds.TowerSounds;
@@ -121,6 +122,9 @@ public class BuildingBuilder
         }
         if (type.isOffensiveTower()) {
             return new TowerAnimations(assets, times);
+        }
+        if (type == UnitType.GoblinAlchemist) {
+            return new GoblinAlchemistAnimations(assets, times);
         }
         return new BuildingAnimations(assets, times);
     }
