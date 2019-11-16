@@ -14,7 +14,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.AnimationFrame;
-import com.evilbird.engine.common.graphics.renderable.AnimationRenderable;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredObject;
@@ -99,9 +98,7 @@ public class Blizzard extends ConjuredObject
     }
 
     private void drawHale(Batch batch) {
-        AnimationRenderable renderer = super.animation;
-        Animation animation = renderer.getAnimation();
-
+        Animation animation = super.directionable;
         for (Entry<Vector2, Vector2> entry: halePositions.entrySet()) {
             Vector2 position = entry.getValue();
             Float time = haleTimers.get(entry.getKey());

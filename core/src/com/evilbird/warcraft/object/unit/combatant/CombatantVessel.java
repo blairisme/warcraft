@@ -10,8 +10,11 @@
 package com.evilbird.warcraft.object.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.graphics.renderable.OffsetRenderable;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.object.unit.UnitStyle;
+import org.apache.commons.lang3.RandomUtils;
 
 /**
  * A {@link Combatant} specialization representing a craft, either floating or
@@ -25,9 +28,11 @@ import com.evilbird.warcraft.object.unit.UnitStyle;
 public class CombatantVessel extends RangedCombatant
 {
     private static transient final float INTERVAL = 1f;
-    private static transient final float OFFSET = 2f;
+    private static transient final float OFFSET = 3f;
 
     private transient GameTimer timer;
+    private transient float offset;
+    private transient OffsetRenderable offsetRenderable;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} describing
@@ -38,7 +43,16 @@ public class CombatantVessel extends RangedCombatant
      */
     public CombatantVessel(Skin skin) {
         super(skin);
+        offset = 0f;
         timer = new GameTimer(INTERVAL);
+        timer.advance(RandomUtils.nextFloat(0f, INTERVAL));
+    }
+
+    @Override
+    public void setAnimation(Identifier id, float time) {
+        super.setAnimation(id, time);
+        this.offsetRenderable = new OffsetRenderable(this.renderable);
+        super.renderable = offsetRenderable;
     }
 
     @Override
@@ -46,7 +60,8 @@ public class CombatantVessel extends RangedCombatant
         super.update(time);
         if (timer.advance(time)) {
             timer.reset();
-            animation.setOffset(animation.getOffset() == 0 ? OFFSET : 0);
+            offset = offset == 0 ? OFFSET : 0;
+            offsetRenderable.setOffset(0, offset);
         }
     }
 }

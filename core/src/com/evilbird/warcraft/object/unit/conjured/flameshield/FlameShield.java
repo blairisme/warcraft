@@ -17,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.AnimationFrame;
-import com.evilbird.engine.common.graphics.renderable.AnimationRenderable;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredObject;
 
@@ -79,9 +78,7 @@ public class FlameShield extends ConjuredObject
     private void initializeAnimation() {
         Vector2 size = getSize();
         center = size.scl(0.5f);
-
-        AnimationRenderable renderer = super.animation;
-        animation = renderer.getAnimation();
+        animation = super.directionable;
     }
 
     private void initializePositions() {

@@ -15,8 +15,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.AnimationFrame;
 
-import static com.evilbird.engine.common.math.GridPoints.Zero;
-
 /**
  * Instances of this class render {@link Animation Animations}.
  *
@@ -30,17 +28,14 @@ public class AnimationRenderable extends BaseRenderable
     private Vector2 cacheSize;
     private GridPoint2 animationSize;
 
-    public AnimationRenderable() {
-        this.animation = null;
-        this.animationSize = Zero;
-        this.animationTime = 0;
-        this.cacheSize = new Vector2(0, 0);
+    public AnimationRenderable(Animation animation) {
+        this(animation, 0);
     }
 
-    public AnimationRenderable(Animation animation) {
+    public AnimationRenderable(Animation animation, float animationTime) {
         this.animation = animation;
         this.animationSize = animation.getSize();
-        this.animationTime = 0;
+        this.animationTime = animationTime;
         this.cacheSize = new Vector2(0, 0);
         this.positionOffset = new Vector2(0, 0);
     }
@@ -49,23 +44,7 @@ public class AnimationRenderable extends BaseRenderable
         return animation;
     }
 
-    public float getOffset() {
-        return 0;
-    }
-
-    public void setAnimation(Animation animation) {
-        this.animation = animation;
-        this.animationSize = animation.getSize();
-    }
-
-    public void setAnimationTime(float time) {
-        this.animationTime = time;
-    }
-
-    public void setOffset(float offset) {
-
-    }
-
+    @Override
     public void draw (Batch batch, float x, float y, float width, float height) {
         if (animation != null) {
             AnimationFrame frame = animation.getFrame(animationTime);
@@ -78,6 +57,7 @@ public class AnimationRenderable extends BaseRenderable
         }
     }
 
+    @Override
     public void update(float delta) {
         animationTime += delta;
     }

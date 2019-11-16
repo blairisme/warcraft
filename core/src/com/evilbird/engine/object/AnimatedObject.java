@@ -18,10 +18,10 @@ import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.DirectionalAnimation;
 import com.evilbird.engine.common.graphics.renderable.AnimationRenderable;
+import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Animated;
 import com.evilbird.engine.common.lang.Audible;
-import com.evilbird.engine.common.lang.Directionable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Styleable;
 import org.apache.commons.lang3.Validate;
@@ -29,13 +29,15 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import static com.evilbird.engine.common.graphics.renderable.EmptyRenderable.BlankRenderable;
+
 /**
  * Instances of this {@link GameObject} are drawn using a selection of given
  * {@link DirectionalAnimation animations} and {@link Sound sounds}.
  *
  * @author Blair Butterworth
  */
-public class AnimatedObject extends BasicGameObject implements Animated, Audible, Directionable, Styleable
+public class AnimatedObject extends BasicGameObject implements Animated, Audible, Styleable
 {
     protected float direction;
     protected Identifier animationId;
@@ -44,7 +46,8 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
     protected transient Skin skin;
     protected transient AnimatedObjectStyle style;
     protected transient LocalizedSound sound;
-    protected transient AnimationRenderable animation;
+    protected transient Renderable renderable;
+    protected transient Animation directionable;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
@@ -60,10 +63,8 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
 
     protected AnimatedObject() {
         this.style = new AnimatedObjectStyle();
-
         this.animationId = null;
-        this.animation = new AnimationRenderable();
-
+        this.renderable = BlankRenderable;
         this.soundId = null;
         this.sound = new LocalizedSound(new SilentSound(), this);
     }
@@ -100,10 +101,12 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
     public void setAnimation(Identifier id, float startTime) {
         Validate.notNull(id);
         Validate.isTrue(style.animations.containsKey(id) ,"%s is missing animation %s", getIdentifier(), id);
-        animationId = id;
-        animation = new AnimationRenderable(style.animations.get(id));
-        animation.setAnimationTime(startTime);
-        setDirection(animation.getAnimation(), direction);
+
+        this.directionable = style.animations.get(id);
+        this.animationId = id;
+        this.renderable = new AnimationRenderable(directionable, startTime);
+
+        setDirection(directionable, direction);
     }
 
     @Override
@@ -174,20 +177,19 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
         setDirection(previous.x, previous.y, current.x, current.y);
     }
 
-    @Override
     public void setDirection(Vector2 normalizedDirection) {
         direction = normalizedDirection.angle();
-        setDirection(animation.getAnimation(), direction);
+        setDirection(directionable, direction);
     }
 
-    private void setDirection(Animation animation, float direction) {
+    protected void setDirection(Animation animation, float direction) {
         if (animation instanceof DirectionalAnimation) {
             DirectionalAnimation directionalAnimation = (DirectionalAnimation)animation;
             directionalAnimation.setDirection(direction);
         }
     }
 
-    private void setDirection(float previousX, float previousY, float newX, float newY) {
+    protected void setDirection(float previousX, float previousY, float newX, float newY) {
         Vector2 destination = new Vector2(newX, newY);
         Vector2 position = new Vector2(previousX, previousY);
         Vector2 directionVector = destination.sub(position);
@@ -198,13 +200,13 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
     @Override
     public void draw(Batch batch, float alpha) {
         super.draw(batch, alpha);
-        animation.draw(batch, position, size);
+        renderable.draw(batch, position, size);
     }
 
     @Override
     public void update(float time) {
         super.update(time);
-        animation.update(time);
+        renderable.update(time);
         sound.update();
     }
 

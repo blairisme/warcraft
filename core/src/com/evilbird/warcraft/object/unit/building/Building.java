@@ -11,7 +11,6 @@ package com.evilbird.warcraft.object.unit.building;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.graphics.renderable.AnimationRenderable;
 import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.warcraft.object.common.resource.ResourceContainer;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
@@ -176,7 +175,6 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
 
     public void setStyle(BuildingStyle style) {
         this.style = style;
-        this.damage = new AnimationRenderable();
         setDamageAnimation();
     }
 
