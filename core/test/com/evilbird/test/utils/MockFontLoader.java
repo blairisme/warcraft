@@ -18,7 +18,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.assets.FontLoaderParameters;
 import com.evilbird.engine.common.collection.Arrays;
-import com.evilbird.engine.common.graphics.Fonts;
+import com.evilbird.engine.common.text.Fonts;
 
 /**
  * A mock font loader implementation, which doesn't require loading native

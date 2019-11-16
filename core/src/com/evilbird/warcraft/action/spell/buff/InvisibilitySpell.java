@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.spell.buff;
 
-import com.evilbird.engine.common.graphics.Renderable;
+import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;

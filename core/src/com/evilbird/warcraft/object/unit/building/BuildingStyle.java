@@ -9,8 +9,7 @@
 
 package com.evilbird.warcraft.object.unit.building;
 
-import com.evilbird.engine.common.graphics.Animation;
-import com.evilbird.engine.common.graphics.Renderable;
+import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.warcraft.object.unit.UnitStyle;
 
 /**
@@ -24,13 +23,13 @@ public class BuildingStyle extends UnitStyle
      * A {@link Renderable} drawn on top of the {@link Building} when it has
      * been lightly damaged.
      */
-    public Animation lightDamage;
+    public Renderable lightDamage;
 
     /**
      * A {@link Renderable} drawn on top of the {@link Building} when it has
      * been heavily damaged.
      */
-    public Animation heavyDamage;
+    public Renderable heavyDamage;
 
     /**
      * Creates a new instance of this class with no animations, sounds or

@@ -7,9 +7,11 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.graphics;
+package com.evilbird.engine.common.graphics.renderable;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 /**
  * A renderable knows how to draw itself into a given area, defined by provided
@@ -17,13 +19,11 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  *
  * @author Blair Butterworth
  */
-public interface Renderable
+public interface Renderable extends Drawable
 {
-    void draw(Batch batch, float alpha);
-
-    void setPosition(float x, float y);
-
-    void setSize(float x, float y);
+    default void draw(Batch batch, Vector2 position, Vector2 size) {
+        draw(batch, position.x, position.y, size.x, size.y);
+    }
 
     void update(float time);
 }

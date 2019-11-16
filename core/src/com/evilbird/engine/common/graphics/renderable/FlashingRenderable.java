@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.graphics;
+package com.evilbird.engine.common.graphics.renderable;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,7 +21,7 @@ import com.evilbird.engine.common.time.GameTimer;
  *
  * @author Blair Butterworth
  */
-public class FlashingRenderable extends Sprite implements Renderable
+public class FlashingRenderable extends SpriteRenderable
 {
     private GameTimer timer;
     private float modifier;
@@ -37,10 +37,11 @@ public class FlashingRenderable extends Sprite implements Renderable
         if (timer.advance(time)) {
             timer.reset();
 
-            Color tint = getColor();
+            Sprite sprite = getSprite();
+            Color tint = sprite.getColor();
             tint.a += modifier;
             tint.a = MathUtils.clamp(tint.a, 0, 1);
-            setColor(tint);
+            sprite.setColor(tint);
 
             if (tint.a == 0 || tint.a == 1f) {
                 modifier *= -1;

@@ -12,7 +12,7 @@ package com.evilbird.warcraft.object.unit.conjured;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
-import com.evilbird.engine.common.graphics.AnimationCatalog;
+import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitStyle;

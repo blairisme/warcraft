@@ -11,8 +11,8 @@ package com.evilbird.warcraft.object.unit.critter;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.graphics.FlashingRenderable;
-import com.evilbird.engine.common.graphics.SpriteRenderable;
+import com.evilbird.engine.common.graphics.renderable.FlashingRenderable;
+import com.evilbird.engine.common.graphics.renderable.SpriteRenderable;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitStyle;

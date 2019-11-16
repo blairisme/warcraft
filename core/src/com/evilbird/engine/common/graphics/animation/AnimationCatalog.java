@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.graphics;
+package com.evilbird.engine.common.graphics.animation;
 
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.lang.Identifier;

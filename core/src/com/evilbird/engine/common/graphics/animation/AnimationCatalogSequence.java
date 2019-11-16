@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.graphics;
+package com.evilbird.engine.common.graphics.animation;
 
 import com.badlogic.gdx.utils.Array;
 import org.apache.commons.lang3.Range;

@@ -15,9 +15,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.evilbird.engine.common.graphics.Animation;
-import com.evilbird.engine.common.graphics.AnimationFrame;
-import com.evilbird.engine.common.graphics.AnimationRenderable;
+import com.evilbird.engine.common.graphics.animation.Animation;
+import com.evilbird.engine.common.graphics.animation.AnimationFrame;
+import com.evilbird.engine.common.graphics.renderable.AnimationRenderable;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredObject;
 

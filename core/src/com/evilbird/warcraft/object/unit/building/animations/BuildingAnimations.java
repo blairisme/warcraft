@@ -11,7 +11,7 @@ package com.evilbird.warcraft.object.unit.building.animations;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.common.graphics.AnimationCatalog;
+import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 import com.evilbird.warcraft.object.common.production.ProductionTimes;
 import com.evilbird.warcraft.object.unit.building.BuildingAssets;
 

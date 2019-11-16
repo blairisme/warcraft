@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.graphics;
+package com.evilbird.engine.common.graphics.renderable;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -16,20 +16,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  *
  * @author Blair Butterworth
  */
-public class EmptyRenderable implements Renderable
+public class EmptyRenderable extends BaseRenderable
 {
     public static final EmptyRenderable BlankRenderable = new EmptyRenderable();
 
     @Override
-    public void draw(Batch batch, float alpha) {
-    }
-
-    @Override
-    public void setPosition(float x, float y) {
-    }
-
-    @Override
-    public void setSize(float x, float y) {
+    public void draw(Batch batch, float x, float y, float width, float height) {
     }
 
     @Override

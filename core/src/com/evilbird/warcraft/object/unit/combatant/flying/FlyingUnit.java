@@ -11,7 +11,7 @@ package com.evilbird.warcraft.object.unit.combatant.flying;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.graphics.Renderable;
+import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.warcraft.object.unit.combatant.CombatantVessel;
 
 /**
@@ -44,8 +44,8 @@ public class FlyingUnit extends CombatantVessel
 
     @Override
     public void draw(Batch batch, float alpha) {
+        shadow.draw(batch, position, size);
         super.draw(batch, alpha);
-        shadow.draw(batch, alpha);
     }
 
     @Override

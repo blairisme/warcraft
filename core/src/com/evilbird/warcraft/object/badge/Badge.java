@@ -12,7 +12,6 @@ package com.evilbird.warcraft.object.badge;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.common.graphics.Renderable;
 import com.evilbird.engine.object.BasicGameObject;
 
 import javax.inject.Inject;
@@ -25,7 +24,7 @@ import java.util.Objects;
  *
  * @author Blair Butterworth
  */
-public class Badge extends BasicGameObject implements Renderable
+public class Badge extends BasicGameObject
 {
     private transient Drawable badge;
     private transient Vector2 size;

@@ -14,17 +14,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.collection.CollectionUtils;
-import com.evilbird.engine.common.graphics.Animation;
-import com.evilbird.engine.common.graphics.AnimationFrame;
 import com.evilbird.engine.common.graphics.ColourMaskSprite;
-import com.evilbird.engine.common.graphics.Renderable;
-import com.evilbird.engine.common.lang.Alignment;
+import com.evilbird.engine.common.graphics.animation.Animation;
+import com.evilbird.engine.common.graphics.animation.AnimationFrame;
+import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.engine.object.AnimatedObjectStyle;
@@ -49,7 +47,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import static com.evilbird.engine.common.graphics.EmptyRenderable.BlankRenderable;
 import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;
 
 /**
@@ -58,7 +55,7 @@ import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;
  *
  * @author Blair Butterworth
  */
-public class Unit extends AnimatedObject implements PerishableObject, SelectableObject, SpatialObject, Renderable
+public class Unit extends AnimatedObject implements PerishableObject, SelectableObject, SpatialObject
 {
     private Value armour;
     private float health;
@@ -71,7 +68,6 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     private Map<Action, GameTimer> pendingActions;
 
     private transient UnitStyle style;
-    private transient Renderable effect;
     private transient Renderable highlight;
     private transient Renderable selection;
 
@@ -94,7 +90,6 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
         healthMaximum = 0;
         selected = false;
         selectable = true;
-        effect = BlankRenderable;
         pendingActions = new HashMap<>();
         associatedObjects = new ArrayList<>(1);
     }
@@ -122,11 +117,8 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
         associatedObjects.add(new GameObjectReference(associate));
     }
 
-    /**
-     * Clears the effect sprite drawn under the unit.
-     */
     public void clearEffect() {
-        effect = BlankRenderable;
+        //TODO
     }
 
     /**
@@ -285,16 +277,8 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
         this.armour = armour;
     }
 
-    /**
-     * Sets an {@link Renderable effect} drawn under the unit.
-     */
-    public void setEffect(Renderable effect) {
-        Vector2 position = getPosition();
-        Vector2 size = getSize();
-
-        this.effect = effect;
-        this.effect.setPosition(position.x, position.y);
-        this.effect.setSize(size.x, size.y);
+    public void setEffect(Object object) {
+        //TODO
     }
 
     /**
@@ -317,50 +301,6 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
      */
     public void setHighlighted(boolean highlighted) {
         this.highlighted = highlighted;
-    }
-
-    /**
-     * Sets the spatial location of the Units bottom left corner.
-     */
-    @Override
-    public void setPosition(Vector2 position) {
-        super.setPosition(position);
-        setEffectPosition(position.x, position.y);
-    }
-
-    /**
-     * Sets the spatial location of the Unit, aligned using the given alignment.
-     */
-    @Override
-    public void setPosition(Vector2 position, Alignment alignment) {
-        super.setPosition(position, alignment);
-        Vector2 current = getPosition();
-        setEffectPosition(current.x, current.y);
-    }
-
-    /**
-     * Sets the spatial location of the Units bottom left corner.
-     */
-    @Override
-    public void setPosition(float x, float y) {
-        super.setPosition(x, y);
-        setEffectPosition(x, y);
-    }
-
-    /**
-     * Sets the spatial location of the Unit, aligned using the given alignment.
-     */
-    @Override
-    public void setPosition(float x, float y, Alignment alignment) {
-        super.setPosition(x, y, alignment);
-        Vector2 current = getPosition();
-        setEffectPosition(current.x, current.y);
-    }
-
-    private void setEffectPosition(float x, float y) {
-        effect.setPosition(x, y);
-        selection.setPosition(x, y);
-        highlight.setPosition(x, y);
     }
 
     /**
@@ -416,28 +356,6 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
         setSize(size.x, size.y);
     }
 
-    /**
-     * Sets the spatial dimensions of the Item.
-     */
-    @Override
-    public void setSize(Vector2 size) {
-        super.setSize(size);
-        effect.setSize(size.x, size.y);
-        selection.setSize(size.x, size.y);
-        highlight.setSize(size.x, size.y);
-    }
-
-    /**
-     * Sets the spatial dimensions of the Item.
-     */
-    @Override
-    public void setSize(float width, float height) {
-        super.setSize(width, height);
-        effect.setSize(width, height);
-        selection.setSize(width, height);
-        highlight.setSize(width, height);
-    }
-
     @Override
     public void setStyle(String name) {
         super.setStyle(name);
@@ -447,17 +365,8 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
 
     public void setStyle(UnitStyle style) {
         this.style = style;
-
-        Vector2 size = getSize();
-        Vector2 position = getPosition();
-
         this.selection = style.selection;
-        this.selection.setSize(size.x, size.y);
-        this.selection.setPosition(position.x, position.y);
-
         this.highlight = style.highlight;
-        this.highlight.setSize(size.x, size.y);
-        this.highlight.setPosition(position.x, position.y);
     }
 
     @Override
@@ -471,13 +380,13 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     @Override
     public void draw(Batch batch, float alpha) {
         if (getSelected()) {
-            selection.draw(batch, alpha);
+            selection.draw(batch, position, size);
         }
         if (getHighlighted()) {
-            highlight.draw(batch, alpha);
+            highlight.draw(batch, position, size);
         }
         super.draw(batch, alpha);
-        effect.draw(batch, alpha);
+        //effect.draw(batch,  position, size);
     }
 
     @Override
@@ -488,7 +397,7 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     }
 
     private void updateRenderables(float time) {
-        effect.update(time);
+        //effect.update(time);
         highlight.update(time);
         selection.update(time);
     }

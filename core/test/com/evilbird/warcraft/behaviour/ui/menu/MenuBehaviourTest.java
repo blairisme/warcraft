@@ -11,7 +11,7 @@ package com.evilbird.warcraft.behaviour.ui.menu;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.graphics.Fonts;
+import com.evilbird.engine.common.text.Fonts;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.object.GameObject;

@@ -15,8 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.evilbird.engine.common.audio.sound.Sound;
-import com.evilbird.engine.common.graphics.Animation;
-import com.evilbird.engine.common.graphics.Fonts;
+import com.evilbird.engine.common.graphics.animation.Animation;
+import com.evilbird.engine.common.text.Fonts;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.layer.LayerGroupStyle;
@@ -29,6 +29,8 @@ import org.mockito.Mockito;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.evilbird.engine.common.graphics.renderable.EmptyRenderable.BlankRenderable;
 
 /**
  * Provides {@link Skin Skin} test data.
@@ -87,8 +89,8 @@ public class TestSkins
         BuildingStyle unitStyle = new BuildingStyle();
         unitStyle.animations = newTestAnimations();
         unitStyle.sounds = newTestSounds();
-        unitStyle.lightDamage = Mockito.mock(Animation.class);
-        unitStyle.heavyDamage = Mockito.mock(Animation.class);
+        unitStyle.lightDamage = BlankRenderable;
+        unitStyle.heavyDamage = BlankRenderable;
         return unitStyle;
     }
 

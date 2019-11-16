@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.graphics;
+package com.evilbird.engine.common.graphics.animation;
 
 /**
  * Implementors of this interface provide {@link Animation Animations} for

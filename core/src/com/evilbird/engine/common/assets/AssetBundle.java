@@ -27,8 +27,6 @@ import com.evilbird.engine.common.audio.sound.SoundFactory;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.text.StringSubstitutor;
-import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.combatant.spellcaster.orc.OgreMageFactory;
 import org.apache.commons.io.FilenameUtils;
 
 import java.util.ArrayList;

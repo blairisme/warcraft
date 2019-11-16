@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.graphics;
+package com.evilbird.engine.common.graphics.animation;
 
 import com.badlogic.gdx.math.Rectangle;
 import org.apache.commons.lang3.Range;
@@ -21,6 +21,8 @@ import java.util.Map.Entry;
 
 /**
  * Builds {@link AnimationLayout AnimationLayouts}.
+ *
+ * @author Blair Butterworth
  */
 public class AnimationLayoutBuilder
 {

@@ -11,7 +11,7 @@ package com.evilbird.warcraft.object.unit.conjured;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.common.graphics.AnimationCatalog;
+import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 

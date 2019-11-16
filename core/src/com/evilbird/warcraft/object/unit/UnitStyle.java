@@ -10,13 +10,13 @@
 package com.evilbird.warcraft.object.unit;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.evilbird.engine.common.graphics.Renderable;
+import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 
 import java.util.Collections;
 import java.util.Map;
 
-import static com.evilbird.engine.common.graphics.EmptyRenderable.BlankRenderable;
+import static com.evilbird.engine.common.graphics.renderable.EmptyRenderable.BlankRenderable;
 
 /**
  * Defines the visual and auditory presentation of a {@link Unit}.

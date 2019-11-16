@@ -11,7 +11,7 @@ package com.evilbird.warcraft.object.unit.combatant.flying;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
-import com.evilbird.engine.common.graphics.AnimationCatalog;
+import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitStyle;
 import com.evilbird.warcraft.object.unit.UnitType;
@@ -28,7 +28,7 @@ import com.evilbird.warcraft.object.unit.combatant.flying.orc.GoblinZeppelinAnim
 
 import java.util.Random;
 
-import static com.evilbird.engine.common.graphics.EmptyRenderable.BlankRenderable;
+import static com.evilbird.engine.common.graphics.renderable.EmptyRenderable.BlankRenderable;
 
 /**
  * Creates a new {@link FlyingUnit FlyingUnits} whose visual and audible

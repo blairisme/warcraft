@@ -10,10 +10,9 @@
 package com.evilbird.warcraft.object.unit.building;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.graphics.AnimationRenderable;
-import com.evilbird.engine.common.lang.Alignment;
+import com.evilbird.engine.common.graphics.renderable.AnimationRenderable;
+import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.warcraft.object.common.resource.ResourceContainer;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
 import com.evilbird.warcraft.object.common.upgrade.Upgrade;
@@ -25,6 +24,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static com.evilbird.engine.common.graphics.renderable.EmptyRenderable.BlankRenderable;
 
 /**
  * Instances of this class represent a building, a {@link Unit} specialization
@@ -40,7 +41,7 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
     private Map<String, Double> resources;
 
     private transient BuildingStyle style;
-    private transient AnimationRenderable damage;
+    private transient Renderable damage;
     private transient float lightDamageThreshold;
     private transient float heavyDamageThreshold;
 
@@ -144,66 +145,10 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
     }
 
     /**
-     * Sets the spatial location of the buildings bottom left corner.
-     */
-    @Override
-    public void setPosition(Vector2 position) {
-        super.setPosition(position);
-        setDamagePosition(position.x, position.y);
-    }
-
-    /**
-     * Sets the spatial location of the building, aligned using the given alignment.
-     */
-    @Override
-    public void setPosition(Vector2 position, Alignment alignment) {
-        super.setPosition(position, alignment);
-        Vector2 aligned = getPosition();
-        setDamagePosition(aligned.x, aligned.y);
-    }
-
-    /**
-     * Sets the spatial location of the buildings bottom left corner.
-     */
-    @Override
-    public void setPosition(float x, float y) {
-        super.setPosition(x, y);
-        setDamagePosition(x, y);
-    }
-
-    /**
-     * Sets the spatial location of the building, aligned using the given alignment.
-     */
-    @Override
-    public void setPosition(float x, float y, Alignment alignment) {
-        super.setPosition(x, y, alignment);
-        Vector2 aligned = getPosition();
-        setDamagePosition(aligned.x, aligned.y);
-    }
-
-    /**
      * Sets the value of a resource held in the building.
      */
     public void setResource(ResourceType type, float value) {
         this.resources.put(type.name(), (double)value);
-    }
-
-    /**
-     * Sets the spatial dimensions of the Item.
-     */
-    @Override
-    public void setSize(Vector2 size) {
-        super.setSize(size);
-        setDamageSize(size.x, size.y);
-    }
-
-    /**
-     * Sets the spatial dimensions of the Item.
-     */
-    @Override
-    public void setSize(float width, float height) {
-        super.setSize(width, height);
-        setDamageSize(width, height);
     }
 
     /**
@@ -232,15 +177,13 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
     public void setStyle(BuildingStyle style) {
         this.style = style;
         this.damage = new AnimationRenderable();
-        setDamageSize();
-        setDamagePosition();
         setDamageAnimation();
     }
 
     @Override
     public void draw(Batch batch, float alpha) {
         super.draw(batch, alpha);
-        damage.draw(batch, alpha);
+        damage.draw(batch, position, size);
     }
 
     @Override
@@ -255,34 +198,16 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
 
     private void setDamageAnimation(float health) {
         if (health > 0 && health < heavyDamageThreshold) {
-            damage.setAnimation(style.heavyDamage);
+            damage = style.heavyDamage;
         } else if (health >= heavyDamageThreshold && health < lightDamageThreshold) {
-            damage.setAnimation(style.lightDamage);
+            damage = style.lightDamage;
         } else {
-            damage.setAnimation(null);
+            damage = BlankRenderable;
         }
     }
 
     private void setDamageThreshold(float healthMaximum) {
         lightDamageThreshold = healthMaximum * 0.66f;
         heavyDamageThreshold = healthMaximum * 0.33f;
-    }
-
-    private void setDamagePosition() {
-        Vector2 position = getPosition();
-        damage.setPosition(position.x, position.y);
-    }
-
-    private void setDamagePosition(float x, float y) {
-        damage.setPosition(x, y);
-    }
-
-    private void setDamageSize() {
-        Vector2 size = getSize();
-        damage.setSize(size.x, size.y);
-    }
-
-    private void setDamageSize(float width, float height) {
-        damage.setSize(width, height);
     }
 }

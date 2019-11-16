@@ -47,13 +47,13 @@ public class BasicGameObject implements GameObject
     transient GameObjectContainer root;
     transient GameObjectGroup parent;
 
-    private Identifier id;
-    private Identifier type;
-    private boolean visible;
-    private Touchable touchable;
-    private Vector2 size;
-    private Vector2 position;
-    private List<Action> actions;
+    protected Identifier id;
+    protected Identifier type;
+    protected boolean visible;
+    protected Touchable touchable;
+    protected Vector2 size;
+    protected Vector2 position;
+    protected List<Action> actions;
 
     private transient int index;
     private transient ListIterator<Action> iterator;

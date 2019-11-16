@@ -12,7 +12,7 @@ package com.evilbird.warcraft.object.unit.conjured.rune;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
-import com.evilbird.engine.common.graphics.AnimationCatalog;
+import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredAnimations;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredAssets;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredBuilder;

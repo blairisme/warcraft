@@ -14,9 +14,10 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.engine.common.graphics.AnimationCatalog;
-import com.evilbird.engine.common.graphics.FlashingRenderable;
-import com.evilbird.engine.common.graphics.SpriteRenderable;
+import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
+import com.evilbird.engine.common.graphics.renderable.AnimationRenderable;
+import com.evilbird.engine.common.graphics.renderable.FlashingRenderable;
+import com.evilbird.engine.common.graphics.renderable.SpriteRenderable;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.common.production.ProductionTimes;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
@@ -102,8 +103,8 @@ public class BuildingBuilder
         style.sounds = sounds.get();
         style.selection = new SpriteRenderable(assets.getSelectionTexture());
         style.highlight = new FlashingRenderable(assets.getHighlightTexture());
-        style.lightDamage = style.animations.get(LightDamage);
-        style.heavyDamage = style.animations.get(HeavyDamage);
+        style.lightDamage = new AnimationRenderable(style.animations.get(LightDamage));
+        style.heavyDamage = new AnimationRenderable(style.animations.get(HeavyDamage));
         return style;
     }
 

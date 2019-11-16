@@ -22,8 +22,8 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.common.graphics.Colours;
-import com.evilbird.engine.common.graphics.Fonts;
 import com.evilbird.engine.common.graphics.TextureUtils;
+import com.evilbird.engine.common.text.Fonts;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
 

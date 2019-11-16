@@ -143,11 +143,4 @@ public class TextureUtils
         pixmap.drawRectangle(0, 0, pixmap.getWidth(), pixmap.getHeight());
         return new Texture(pixmap);
     }
-
-    public static Texture getCircle(int radius, Color colour) {
-        Pixmap pixmap = new Pixmap(radius * 2, radius * 2, Pixmap.Format.RGBA8888);
-        pixmap.setColor(colour);
-        pixmap.drawCircle(radius, radius, radius);
-        return new Texture(pixmap);
-    }
 }

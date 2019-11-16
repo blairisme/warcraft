@@ -9,11 +9,11 @@
 
 package com.evilbird.warcraft.object.unit.combatant.flying;
 
-import com.evilbird.engine.common.graphics.Renderable;
+import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitStyle;
 
-import static com.evilbird.engine.common.graphics.EmptyRenderable.BlankRenderable;
+import static com.evilbird.engine.common.graphics.renderable.EmptyRenderable.BlankRenderable;
 
 /**
  * Defines the visual and auditory presentation of a {@link Unit}.

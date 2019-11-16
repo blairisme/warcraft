@@ -7,24 +7,25 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.engine.common.graphics;
+package com.evilbird.engine.common.graphics.renderable;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 /**
  * A {@link Renderable} implementation that renders a {@link Sprite}.
  *
  * @author Blair Butterworth
  */
-public class SpriteRenderable extends Sprite implements Renderable
+public class SpriteRenderable extends SpriteDrawable implements Renderable
 {
-    public SpriteRenderable(SpriteRenderable sprite) {
-        this(sprite.getTexture());
+    public SpriteRenderable(Texture texture) {
+        this(new Sprite(texture));
     }
 
-    public SpriteRenderable(Texture texture) {
-        super(texture);
+    public SpriteRenderable(Sprite sprite) {
+        super(sprite);
     }
 
     @Override
