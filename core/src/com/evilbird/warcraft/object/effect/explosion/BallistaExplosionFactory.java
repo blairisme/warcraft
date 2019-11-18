@@ -13,11 +13,11 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.object.effect.Effect;
 import com.evilbird.warcraft.object.effect.EffectFactoryBase;
-import com.evilbird.warcraft.object.effect.EffectType;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
+import static com.evilbird.warcraft.object.effect.EffectType.SiegeExplosion;
 
 /**
  * A factory for the creation of ballista explosion effects, loading the
@@ -29,13 +29,13 @@ public class BallistaExplosionFactory extends EffectFactoryBase
 {
     @Inject
     public BallistaExplosionFactory(Device device) {
-        super(device.getAssetStorage(), EffectType.BallistaExplosion);
+        super(device.getAssetStorage(), SiegeExplosion);
     }
 
     @Override
     public Effect get(Identifier type) {
         Effect result = builder.build();
-        result.setType(EffectType.BallistaExplosion);
+        result.setType(SiegeExplosion);
         result.setIdentifier(objectIdentifier("BallistaExplosion", result));
         result.setSize(48, 48);
         return result;

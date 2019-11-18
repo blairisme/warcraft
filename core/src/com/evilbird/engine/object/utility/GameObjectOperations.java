@@ -56,7 +56,7 @@ public class GameObjectOperations
 
         if (!hasAction(gameObject, action)) {
             action.reset();
-            action.setItem(gameObject);
+            action.setSubject(gameObject);
             gameObject.clearActions();
             gameObject.addAction(action);
         }

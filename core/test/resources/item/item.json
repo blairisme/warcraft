@@ -18,7 +18,6 @@
   "selected": false,
   "selectable": true,
   "associatedObjects": [],
-  "pendingActions": {},
   "direction": 70.55996,
   "id": {
     "class": "Named",
@@ -40,11 +39,19 @@
         "class": "MoveActions",
         "enum": "MoveToLocation"
       }
-    },
+    }
+  ],
+  "pendingActions": [
     {
-      "identifier": {
-        "class": "AttackActions",
-        "enum": "Attack"
+      "action": {
+        "identifier": {
+          "class": "AttackActions",
+          "enum": "Attack"
+        }
+      },
+      "timer": {
+        "duration": 10.0,
+        "progress": 0.0
       }
     }
   ]

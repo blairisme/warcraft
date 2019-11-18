@@ -29,7 +29,7 @@ public class TestBasicActions
 
     public static Action newBasicAction(Identifier identifier) {
         Action action = new TestBasicAction();
-        action.setItem(TestItems.newItem("1"));
+        action.setSubject(TestItems.newItem("1"));
         action.setTarget(TestItems.newItem("2"));
         action.setCause(new UserInput(UserInputType.Action, Vector2.Zero, 1));
         action.setError(new ActionException("An error has occurred"));

@@ -57,7 +57,7 @@ public class UpdateAction extends DelegateAction
 
     private void update() {
         if (type == ActionRecipient.Subject) {
-            setItem(supplier.get());
+            setSubject(supplier.get());
         }
         else if (type == ActionRecipient.Target) {
             setTarget(supplier.get());

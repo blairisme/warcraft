@@ -69,9 +69,9 @@ public abstract class AttackSequence extends CompositeAction
     }
 
     @Override
-    public void setItem(GameObject gameObject) {
+    public void setSubject(GameObject gameObject) {
         Validate.isInstanceOf(OffensiveObject.class, gameObject);
-        super.setItem(gameObject);
+        super.setSubject(gameObject);
     }
 
     @Override

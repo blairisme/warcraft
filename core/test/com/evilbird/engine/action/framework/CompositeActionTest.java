@@ -73,7 +73,7 @@ public class CompositeActionTest
         Assert.assertNull(childC.getSubject());
 
         GameObject actor = Mockito.mock(GameObject.class);
-        composite.setItem(actor);
+        composite.setSubject(actor);
 
         Assert.assertEquals(actor, composite.getSubject());
         Assert.assertEquals(actor, childA.getSubject());

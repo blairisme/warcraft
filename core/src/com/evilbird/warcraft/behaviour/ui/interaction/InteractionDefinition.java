@@ -326,7 +326,7 @@ public class InteractionDefinition implements Interaction
         Collection<Action> results = new ArrayList<>(actions.size());
         for (ActionIdentifier actionType: actions) {
             Action action = factory.get(actionType);
-            action.setItem(subject);
+            action.setSubject(subject);
             action.setTarget(target);
             action.setCause(input);
             results.add(action);

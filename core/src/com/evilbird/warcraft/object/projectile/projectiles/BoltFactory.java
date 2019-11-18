@@ -17,6 +17,7 @@ import com.evilbird.warcraft.object.projectile.ProjectileFactoryBase;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
+import static com.evilbird.warcraft.object.effect.EffectType.SiegeExplosion;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Bolt;
 
 /**
@@ -38,6 +39,7 @@ public class BoltFactory extends ProjectileFactoryBase
         projectile.setType(Bolt);
         projectile.setIdentifier(objectIdentifier("Bolt", projectile));
         projectile.setSize(64, 64);
+        projectile.setExplosionEffect(SiegeExplosion);
         return projectile;
     }
 }

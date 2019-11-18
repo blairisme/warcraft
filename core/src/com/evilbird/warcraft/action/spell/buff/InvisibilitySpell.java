@@ -44,7 +44,7 @@ public class InvisibilitySpell extends SpellAction
         Combatant target = (Combatant)getTarget();
         target.setEffect((Renderable)factory.get(BadgeType.InvisibilityBadge));
 
-        cancel.setItem(getSubject());
+        cancel.setSubject(getSubject());
         cancel.setTarget(target);
 
         target.setAttackable(false);

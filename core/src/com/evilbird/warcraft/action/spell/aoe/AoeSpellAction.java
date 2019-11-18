@@ -55,7 +55,7 @@ public class AoeSpellAction extends SpellAction
         Player player = UnitOperations.getPlayer(caster);
         player.addObject(aoe);
 
-        cancelAction.setItem(caster);
+        cancelAction.setSubject(caster);
         cancelAction.setTarget(aoe);
         aoe.addAction(cancelAction, spell.getEffectDuration());
     }

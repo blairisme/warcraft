@@ -15,9 +15,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.framework.PendingAction;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
+import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.interop.ActorDecorator;
 import com.google.gson.annotations.JsonAdapter;
 import org.apache.commons.lang3.Validate;
@@ -52,6 +54,7 @@ public class BasicGameObject implements GameObject
     protected Vector2 size;
     protected Vector2 position;
     protected List<Action> actions;
+    protected List<PendingAction> pendingActions;
 
     private transient int index;
 
@@ -61,15 +64,27 @@ public class BasicGameObject implements GameObject
         touchable = enabled;
         size = new Vector2(1, 1);
         position = new Vector2(0, 0);
-        actions = new ArrayList<>();
-        delegate = getDelegate();
         index = Integer.MAX_VALUE;
+        actions = new ArrayList<>(1);
+        pendingActions = new ArrayList<>(1);
+        delegate = getDelegate();
     }
 
     @Override
     public void addAction(Action action) {
         Validate.notNull(action);
         actions.add(action);
+    }
+
+    @Override
+    public void addAction(Action action, float delay) {
+        addAction(action, new GameTimer(delay));
+    }
+
+    public void addAction(Action action, GameTimer delay) {
+        Validate.notNull(action);
+        Validate.notNull(delay);
+        pendingActions.add(new PendingAction(action, delay));
     }
 
     @Override
@@ -252,8 +267,17 @@ public class BasicGameObject implements GameObject
     }
 
     @Override
-    public void update(float delta) {
-        actions.removeIf(action -> action.act(delta));
+    public void update(float time) {
+        pendingActions.removeIf(pending -> schedule(pending, time));
+        actions.removeIf(action -> action.act(time));
+    }
+
+    private boolean schedule(PendingAction pending, float time) {
+        GameTimer timer = pending.getTimer();
+        if (timer.advance(time)) {
+            addAction(pending.getAction());
+        }
+        return timer.complete();
     }
 
     @Override
@@ -289,6 +313,7 @@ public class BasicGameObject implements GameObject
             .append("size", size)
             .append("position", position)
             .append("actions", actions)
+            .append("pendingActions", pendingActions)
             .toString();
     }
 
@@ -298,15 +323,16 @@ public class BasicGameObject implements GameObject
         if (obj == this) { return true; }
         if (obj.getClass() != getClass()) { return false; }
 
-        BasicGameObject item = (BasicGameObject)obj;
+        BasicGameObject that = (BasicGameObject)obj;
         return new EqualsBuilder()
-            .append(id, item.id)
-            .append(type, item.type)
-            .append(visible, item.visible)
-            .append(touchable, item.touchable)
-            .append(size, item.size)
-            .append(position, item.position)
-            .append(actions, item.actions)
+            .append(this.id, that.id)
+            .append(this.type, that.type)
+            .append(this.visible, that.visible)
+            .append(this.touchable, that.touchable)
+            .append(this.size, that.size)
+            .append(this.position, that.position)
+            .append(this.actions, that.actions)
+            .append(this.pendingActions, that.pendingActions)
             .isEquals();
     }
 
@@ -320,6 +346,7 @@ public class BasicGameObject implements GameObject
             .append(size)
             .append(position)
             .append(actions)
+            .append(pendingActions)
             .toHashCode();
     }
 

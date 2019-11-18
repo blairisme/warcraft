@@ -27,7 +27,7 @@ public class DisableActionTest
     @Before
     public void setup() {
         action = new DisableAction(true);
-        action.setItem(TestItems.newItem("disableaction"));
+        action.setSubject(TestItems.newItem("disableaction"));
     }
 
     @Test

@@ -133,7 +133,7 @@ public class UnitCapture implements SupplementaryBehaviour
 
     private void setAnimation(GameObject gameObject) {
         Action action = new SelectFlash();
-        action.setItem(gameObject);
+        action.setSubject(gameObject);
         gameObject.addAction(action);
     }
 }

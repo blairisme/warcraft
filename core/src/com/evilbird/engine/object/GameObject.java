@@ -42,6 +42,12 @@ public interface GameObject extends Identifiable, Positionable, Disablable, Visi
     void addAction(Action action);
 
     /**
+     * Assigns an {@link Action} to the Item to be executed after the given
+     * delay, specified in seconds.
+     */
+    void addAction(Action action, float delay);
+
+    /**
      * Removes the {@link Action Actions} assigned to the game object.
      */
     void clearActions();

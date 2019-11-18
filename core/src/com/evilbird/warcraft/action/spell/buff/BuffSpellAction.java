@@ -80,7 +80,7 @@ public abstract class BuffSpellAction extends SpellAction
     }
 
     protected void setBuffCancel(SpellCaster caster, Combatant target) {
-        cancel.setItem(caster);
+        cancel.setSubject(caster);
         cancel.setTarget(target);
         target.addAction(cancel, new GameTimer(spell.getEffectDuration()));
     }

@@ -48,7 +48,7 @@ public class AssignAction extends BasicAction
         GameObject gameObject = ActionUtils.getRecipient(this, recipient);
         if (condition.test(gameObject)) {
             action.reset();
-            action.setItem(gameObject);
+            action.setSubject(gameObject);
             gameObject.addAction(action);
         }
         return true;

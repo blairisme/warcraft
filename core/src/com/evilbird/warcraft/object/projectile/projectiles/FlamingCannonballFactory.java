@@ -17,6 +17,7 @@ import com.evilbird.warcraft.object.projectile.ProjectileFactoryBase;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
+import static com.evilbird.warcraft.object.effect.EffectType.CannonExplosion;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.FlamingCannonball;
 
 /**
@@ -38,6 +39,7 @@ public class FlamingCannonballFactory extends ProjectileFactoryBase
         projectile.setType(FlamingCannonball);
         projectile.setIdentifier(objectIdentifier("FlamingCannonball", projectile));
         projectile.setSize(16, 16);
+        projectile.setExplosionEffect(CannonExplosion);
         return projectile;
     }
 }

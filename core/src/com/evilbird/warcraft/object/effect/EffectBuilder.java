@@ -95,7 +95,7 @@ public class EffectBuilder
             case Attack: return new ConfirmationAnimations(assets.getRedCross());
             case Confirm: return new ConfirmationAnimations(assets.getGreenCross());
 
-            case BallistaExplosion: return new BallistaExplosionAnimations(assets.getBallistaExplosion());
+            case SiegeExplosion: return new BallistaExplosionAnimations(assets.getBallistaExplosion());
             case CannonExplosion: return new CannonExplosionAnimations(assets.getCannonExplosion());
             case TowerExplosion: return new CannonExplosionAnimations(assets.getTowerExplosion());
             case Explosion: return new ExplosionAnimations(assets.getExplosion());

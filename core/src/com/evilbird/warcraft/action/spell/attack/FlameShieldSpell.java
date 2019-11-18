@@ -50,7 +50,7 @@ public class FlameShieldSpell extends SpellAction
         ConjuredObject flameShield = (ConjuredObject)factory.get(UnitType.FlameShield);
         target.setEffect(flameShield);
 
-        cancelAction.setItem(caster);
+        cancelAction.setSubject(caster);
         cancelAction.setTarget(flameShield);
         flameShield.addAction(cancelAction, spell.getEffectDuration());
     }

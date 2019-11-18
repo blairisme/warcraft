@@ -47,7 +47,7 @@ public class GameObjectTest extends GameTestCase
 
         gameObject = TestCombatants.newTestCombatant("footman");
         gameObject.addAction(actionA);
-        gameObject.addAction(actionB);
+        gameObject.addAction(actionB, 10f);
     }
 
     @Test

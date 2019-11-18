@@ -29,7 +29,7 @@ public class ExplosionEffects extends GameFactorySet<Effect>
         GeneralExplosionFactory generalExplosionFactory,
         TowerExplosionFactory towerExplosionFactory)
     {
-        addProvider(EffectType.BallistaExplosion, ballistaExplosionFactory);
+        addProvider(EffectType.SiegeExplosion, ballistaExplosionFactory);
         addProvider(EffectType.CannonExplosion, cannonExplosionFactory);
         addProvider(EffectType.Explosion, generalExplosionFactory);
         addProvider(EffectType.TowerExplosion, towerExplosionFactory);

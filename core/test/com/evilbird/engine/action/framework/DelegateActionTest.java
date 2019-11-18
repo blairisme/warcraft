@@ -58,7 +58,7 @@ public class DelegateActionTest
         Assert.assertNull(delegateAction.getSubject());
         GameObject actor = Mockito.mock(GameObject.class);
 
-        delegateAction.setItem(actor);
+        delegateAction.setSubject(actor);
         Assert.assertEquals(actor, underlyingAction.getSubject());
         Assert.assertEquals(actor, delegateAction.getSubject());
     }

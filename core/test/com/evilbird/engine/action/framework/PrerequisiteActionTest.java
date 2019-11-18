@@ -108,7 +108,7 @@ public class PrerequisiteActionTest
         Assert.assertNull(action.getSubject());
 
         GameObject actor = Mockito.mock(GameObject.class);
-        action.setItem(actor);
+        action.setSubject(actor);
 
         Assert.assertEquals(actor, primary.getSubject());
         Assert.assertEquals(actor, prerequisite.getSubject());

@@ -48,10 +48,10 @@ public class AttackAction extends DelegateAction
     }
 
     @Override
-    public void setItem(GameObject gameObject) {
+    public void setSubject(GameObject gameObject) {
         Validate.isInstanceOf(Unit.class, gameObject);
         delegate = getAttackAction((Unit) gameObject);
-        super.setItem(gameObject);
+        super.setSubject(gameObject);
     }
 
     private Action getAttackAction(Unit unit) {

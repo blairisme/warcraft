@@ -86,7 +86,7 @@ public class DeathAndDecay extends ConjuredObject
     }
 
     private void drawEffects(Batch batch) {
-        Animation animation = super.directionable;
+        Animation animation = super.animation;
         for (Map.Entry<Vector2, Float> entry: effects.entrySet()) {
             Vector2 position = entry.getKey();
             AnimationFrame frame = animation.getFrame(entry.getValue());

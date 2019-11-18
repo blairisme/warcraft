@@ -17,6 +17,7 @@ import com.evilbird.warcraft.object.projectile.ProjectileFactoryBase;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
+import static com.evilbird.warcraft.object.effect.EffectType.SiegeExplosion;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.FlamingRock;
 
 /**
@@ -38,6 +39,7 @@ public class FlamingRockFactory extends ProjectileFactoryBase
         projectile.setType(FlamingRock);
         projectile.setIdentifier(objectIdentifier("FlamingRock", projectile));
         projectile.setSize(32, 32);
+        projectile.setExplosionEffect(SiegeExplosion);
         return projectile;
     }
 }

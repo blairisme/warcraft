@@ -120,7 +120,7 @@ class GatherObtain extends BasicAction
 
     protected void resourceEmpty(ResourceContainer container) {
         if (container instanceof PerishableObject && container.getResource(resource) == 0) {
-            death.setItem(container);
+            death.setSubject(container);
             container.addAction(death);
         }
     }

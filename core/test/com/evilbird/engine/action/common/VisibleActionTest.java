@@ -27,7 +27,7 @@ public class VisibleActionTest
     @Before
     public void setup() {
         action = new VisibleAction(true);
-        action.setItem(TestItems.newItem("visibleaction"));
+        action.setSubject(TestItems.newItem("visibleaction"));
     }
 
     @Test

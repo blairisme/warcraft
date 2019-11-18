@@ -44,7 +44,7 @@ public class ActionDecorator extends com.badlogic.gdx.scenes.scene2d.Action
     @Override
     public void setActor(Actor actor) {
         GameObject gameObject = actor != null ? (GameObject)actor.getUserObject() : null;
-        delegate.setItem(gameObject);
+        delegate.setSubject(gameObject);
     }
 
     @Override

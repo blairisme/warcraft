@@ -94,11 +94,11 @@ public abstract class BasicAction implements Action
     }
 
     @Override
-    public void setItem(GameObject gameObject) {
+    public void setSubject(GameObject gameObject) {
         this.item = gameObject != null ? new GameObjectReference(gameObject) : null;
     }
 
-    public void setItemReference(GameObjectReference reference) {
+    public void setSubjectReference(GameObjectReference reference) {
         this.item = reference;
     }
 

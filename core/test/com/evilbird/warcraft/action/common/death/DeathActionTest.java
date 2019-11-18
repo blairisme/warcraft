@@ -55,7 +55,7 @@ public class DeathActionTest extends GameTestCase
 
         parent.clearObjects();
         parent.addObject(item);
-        action.setItem(item);
+        action.setSubject(item);
 
         item.setAnimation(Idle);
         item.setSound(Ready, 1);
@@ -82,7 +82,7 @@ public class DeathActionTest extends GameTestCase
 
         parent.clearObjects();
         parent.addObject(item);
-        action.setItem(item);
+        action.setSubject(item);
 
         item.setAnimation(Idle);
         item.setSound(Ready, 1);

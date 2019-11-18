@@ -20,5 +20,6 @@
     "x": 15.0,
     "y": 10.0
   },
-  "actions": []
+  "actions": [],
+  "pendingActions": []
 }

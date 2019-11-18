@@ -88,7 +88,7 @@ public class SequenceActionTest
         Assert.assertNull(childC.getSubject());
 
         GameObject actor = Mockito.mock(GameObject.class);
-        sequence.setItem(actor);
+        sequence.setSubject(actor);
 
         Assert.assertEquals(actor, sequence.getSubject());
         Assert.assertEquals(actor, childA.getSubject());

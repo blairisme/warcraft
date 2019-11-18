@@ -94,7 +94,7 @@ public class ParallelActionTest
         Assert.assertNull(childC.getSubject());
 
         GameObject actor = Mockito.mock(GameObject.class);
-        parallel.setItem(actor);
+        parallel.setSubject(actor);
 
         Assert.assertEquals(actor, parallel.getSubject());
         Assert.assertEquals(actor, childA.getSubject());

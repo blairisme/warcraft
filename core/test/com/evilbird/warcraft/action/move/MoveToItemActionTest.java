@@ -49,7 +49,7 @@ public class MoveToItemActionTest extends GameTestCase
         target = TestCombatants.newTestCombatant(new TextIdentifier("destination"), UnitType.Footman, root, player);
 
         action = new MoveToItemAction(Mockito.mock(EventQueue.class));
-        action.setItem(item);
+        action.setSubject(item);
         action.setTarget(target);
     }
 

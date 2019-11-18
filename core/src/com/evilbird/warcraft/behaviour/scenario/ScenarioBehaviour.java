@@ -77,14 +77,14 @@ public class ScenarioBehaviour implements Behaviour
     private void enterWinState(GameObjectContainer state) {
         GameObject group = state.getBaseGroup();
         Action action = actions.get(MenuActions.VictoryMenu);
-        action.setItem(group);
+        action.setSubject(group);
         group.addAction(action);
     }
 
     private void enterLoseState(GameObjectContainer state) {
         GameObject group = state.getBaseGroup();
         Action action = actions.get(MenuActions.FailureMenu);
-        action.setItem(group);
+        action.setSubject(group);
         group.addAction(action);
     }
 }

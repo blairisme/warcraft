@@ -9,6 +9,9 @@
 
 package com.evilbird.engine.common.time;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 /**
  * A simple timer that counts the time elapsed by successive game loop updates.
  *
@@ -47,5 +50,26 @@ public class GameTimer
 
     public void reset() {
         progress = 0;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) { return false; }
+
+        GameTimer gameTimer = (GameTimer)obj;
+        return new EqualsBuilder()
+            .append(duration, gameTimer.duration)
+            .append(progress, gameTimer.progress)
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .append(duration)
+            .append(progress)
+            .toHashCode();
     }
 }

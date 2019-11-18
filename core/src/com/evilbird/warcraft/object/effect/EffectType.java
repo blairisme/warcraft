@@ -27,7 +27,7 @@ public enum EffectType implements GameObjectType
     Flame,
 
     /* Explosion */
-    BallistaExplosion,
+    SiegeExplosion,
     CannonExplosion,
     TowerExplosion,
     Explosion,

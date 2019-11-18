@@ -35,7 +35,7 @@ public class AnimateActionTest extends GameTestCase
         item.setAnimation(UnitAnimation.Idle);
 
         action = new AnimateAction(UnitAnimation.Build);
-        action.setItem(item);
+        action.setSubject(item);
     }
 
     @Test

@@ -17,6 +17,7 @@ import com.evilbird.warcraft.object.projectile.ProjectileFactoryBase;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
+import static com.evilbird.warcraft.object.effect.EffectType.CannonExplosion;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Cannonball;
 
 /**
@@ -38,6 +39,7 @@ public class CannonballFactory extends ProjectileFactoryBase
         projectile.setType(Cannonball);
         projectile.setIdentifier(objectIdentifier("Cannonball", projectile));
         projectile.setSize(32, 32);
+        projectile.setExplosionEffect(CannonExplosion);
         return projectile;
     }
 }

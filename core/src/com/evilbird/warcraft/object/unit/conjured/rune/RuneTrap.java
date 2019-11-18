@@ -79,7 +79,7 @@ public class RuneTrap extends ConjuredObject
     }
 
     private void drawEffects(Batch batch) {
-        Animation animation = super.directionable;
+        Animation animation = super.animation;
         for (Entry<Vector2, Float> entry: effects.entrySet()) {
             Vector2 position = entry.getKey();
             AnimationFrame frame = animation.getFrame(entry.getValue());

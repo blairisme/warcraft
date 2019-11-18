@@ -47,9 +47,9 @@ public class AttackCancel extends BasicAction
     }
 
     @Override
-    public void setItem(GameObject gameObject) {
+    public void setSubject(GameObject gameObject) {
         Validate.isInstanceOf(Combatant.class, gameObject);
-        super.setItem(gameObject);
+        super.setSubject(gameObject);
     }
 
     @Override

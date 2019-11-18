@@ -125,7 +125,7 @@ public class AttackBehaviour implements AiBehaviourElement
     private void attack(OffensiveObject attacker, PerishableObject target) {
         if (!hasAction(attacker, AttackActions.Attack)) {
             Action action = actions.get(AttackActions.Attack);
-            action.setItem(attacker);
+            action.setSubject(attacker);
             action.setTarget(target);
             attacker.addAction(action);
         }

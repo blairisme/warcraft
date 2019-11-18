@@ -104,7 +104,7 @@ public class WanderBehaviour implements AiBehaviourElement
 
     private void move(Critter critter, Vector2 destination) {
         MoveToVectorAction moveAction = new MoveToVectorAction(events);
-        moveAction.setItem(critter);
+        moveAction.setSubject(critter);
         moveAction.setDestination(destination);
         critter.addAction(moveAction);
     }

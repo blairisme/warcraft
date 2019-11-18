@@ -98,7 +98,7 @@ public class Blizzard extends ConjuredObject
     }
 
     private void drawHale(Batch batch) {
-        Animation animation = super.directionable;
+        Animation animation = super.animation;
         for (Entry<Vector2, Vector2> entry: halePositions.entrySet()) {
             Vector2 position = entry.getValue();
             Float time = haleTimers.get(entry.getKey());

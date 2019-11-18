@@ -46,7 +46,7 @@ public class SelectorMoveTest extends GameTestCase
     public void setup() {
         selector = TestPlaceholders.newTestPlaceholder("repositionaction");
         action = new SelectorMove();
-        action.setItem(selector);
+        action.setSubject(selector);
         action.setCause(userInput);
     }
 

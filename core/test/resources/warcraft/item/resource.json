@@ -16,7 +16,6 @@
   "selected": false,
   "selectable": true,
   "associatedObjects": [],
-  "pendingActions": {},
   "direction": 70.55996,
   "id": {
     "class": "Named",
@@ -32,5 +31,6 @@
     "x": 12.0,
     "y": 34.0
   },
-  "actions": []
+  "actions": [],
+  "pendingActions": []
 }

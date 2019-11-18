@@ -69,10 +69,10 @@ public class DelegateAction extends BasicAction
     }
 
     @Override
-    public void setItem(GameObject gameObject) {
-        super.setItem(gameObject);
+    public void setSubject(GameObject gameObject) {
+        super.setSubject(gameObject);
         if (delegate != null) {
-            delegate.setItem(gameObject);
+            delegate.setSubject(gameObject);
         }
     }
 
@@ -137,12 +137,12 @@ public class DelegateAction extends BasicAction
 
         if (delegate instanceof BasicAction) {
             BasicAction basicDelegate = (BasicAction)delegate;
-            basicDelegate.setItemReference(getItemReference());
+            basicDelegate.setSubjectReference(getItemReference());
             basicDelegate.setTargetReference(getTargetReference());
 
         } else {
             delegate.setTarget(getTarget());
-            delegate.setItem(getSubject());
+            delegate.setSubject(getSubject());
         }
     }
 }

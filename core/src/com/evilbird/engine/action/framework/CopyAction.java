@@ -31,7 +31,7 @@ public class CopyAction extends DelegateAction
     @Override
     public boolean act(float delta) {
         boolean result = delegate.act(delta);
-        receivers.forEach(receiver -> receiver.setItem(delegate.getSubject()));
+        receivers.forEach(receiver -> receiver.setSubject(delegate.getSubject()));
         receivers.forEach(receiver -> receiver.setTarget(delegate.getTarget()));
         return result;
     }

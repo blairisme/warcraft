@@ -17,13 +17,11 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.graphics.ColourMaskSprite;
 import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.AnimationFrame;
 import com.evilbird.engine.common.graphics.renderable.Renderable;
-import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.engine.object.GameObject;
@@ -41,11 +39,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;
 
@@ -65,7 +59,6 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     private boolean selected;
     private boolean selectable;
     private List<GameObjectReference> associatedObjects;
-    private Map<Action, GameTimer> pendingActions;
 
     private transient UnitStyle style;
     private transient Renderable highlight;
@@ -90,24 +83,7 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
         healthMaximum = 0;
         selected = false;
         selectable = true;
-        pendingActions = new HashMap<>();
         associatedObjects = new ArrayList<>(1);
-    }
-
-    /**
-     * Assigns an {@link Action} to the Item to be executed after the given
-     * delay.
-     */
-    public void addAction(Action action, float delay) {
-        pendingActions.put(action, new GameTimer(delay));
-    }
-
-    /**
-     * Assigns an {@link Action} to the Item to be executed after the given
-     * delay.
-     */
-    public void addAction(Action action, GameTimer delay) {
-        pendingActions.put(action, delay);
     }
 
     /**
@@ -392,7 +368,6 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     @Override
     public void update(float time) {
         updateRenderables(time);
-        schedulePendingActions(time);
         super.update(time);
     }
 
@@ -400,18 +375,6 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
         //effect.update(time);
         highlight.update(time);
         selection.update(time);
-    }
-
-    private void schedulePendingActions(float time) {
-        Set<Entry<Action, GameTimer>> pending = pendingActions.entrySet();
-        pending.removeIf(entry -> schedulePendingAction(entry.getKey(), entry.getValue(), time));
-    }
-
-    private boolean schedulePendingAction(Action action, GameTimer delay, float time) {
-        if (delay.advance(time)) {
-            addAction(action);
-        }
-        return delay.complete();
     }
 
     @Override
@@ -441,7 +404,6 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
             .append(selected, unit.selected)
             .append(selectable, unit.selectable)
             .append(associatedObjects, unit.associatedObjects)
-            .append(pendingActions, unit.pendingActions)
             .isEquals();
     }
 
@@ -457,7 +419,6 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
             .append(selected)
             .append(selectable)
             .append(associatedObjects)
-            .append(pendingActions)
             .toHashCode();
     }
 

@@ -15,7 +15,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.AnimationFrame;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredObject;
@@ -39,7 +38,6 @@ public class FlameShield extends ConjuredObject
     private transient List<Float> rotations;
     private transient List<Float> times;
     private transient Vector2 center;
-    private transient Animation animation;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
@@ -78,7 +76,6 @@ public class FlameShield extends ConjuredObject
     private void initializeAnimation() {
         Vector2 size = getSize();
         center = size.scl(0.5f);
-        animation = super.directionable;
     }
 
     private void initializePositions() {

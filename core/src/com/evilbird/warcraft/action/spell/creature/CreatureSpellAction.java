@@ -58,7 +58,7 @@ public class CreatureSpellAction extends SpellAction
         Combatant creature = (Combatant)factory.get(creatureType);
 
         if (cancelAction != null) {
-            cancelAction.setItem(caster);
+            cancelAction.setSubject(caster);
             cancelAction.setTarget(creature);
             creature.addAction(cancelAction, spell.getEffectDuration());
         }

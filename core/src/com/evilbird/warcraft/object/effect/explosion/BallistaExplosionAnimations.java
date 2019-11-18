@@ -32,7 +32,7 @@ public class BallistaExplosionAnimations extends AnimationCatalog
             .withTexture(texture)
             .withSequence(0, 6)
             .withSize(SIZE)
-            .withInterval(0.15f)
+            .withInterval(0.10f)
             .singleDirection()
             .looping();
     }

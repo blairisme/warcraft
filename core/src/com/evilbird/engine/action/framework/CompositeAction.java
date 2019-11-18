@@ -105,20 +105,20 @@ public abstract class CompositeAction extends BasicAction
     }
 
     @Override
-    public void setItem(GameObject gameObject) {
-        super.setItem(gameObject);
+    public void setSubject(GameObject gameObject) {
+        super.setSubject(gameObject);
         for (Action delegate: actions) {
-            delegate.setItem(gameObject);
+            delegate.setSubject(gameObject);
         }
     }
 
     @Override
-    public void setItemReference(GameObjectReference reference) {
-        super.setItemReference(reference);
+    public void setSubjectReference(GameObjectReference reference) {
+        super.setSubjectReference(reference);
         for (Action action: actions) {
             if (action instanceof BasicAction) {
                 BasicAction basic = (BasicAction)action;
-                basic.setItemReference(reference);
+                basic.setSubjectReference(reference);
             }
         }
     }
@@ -158,7 +158,7 @@ public abstract class CompositeAction extends BasicAction
         for (Action action: actions) {
             if (action instanceof BasicAction) {
                 BasicAction basic = (BasicAction)action;
-                basic.setItemReference(this.getItemReference());
+                basic.setSubjectReference(this.getItemReference());
                 basic.setTargetReference(this.getTargetReference());
             }
         }

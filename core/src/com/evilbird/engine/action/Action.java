@@ -84,7 +84,7 @@ public interface Action extends Identifiable, Poolable
      *
      * @param gameObject an Item instance. Cannot be {@code null}.
      */
-    void setItem(GameObject gameObject);
+    void setSubject(GameObject gameObject);
 
     /**
      * Sets an optional target that the Action will manipulate.

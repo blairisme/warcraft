@@ -47,7 +47,7 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
     protected transient AnimatedObjectStyle style;
     protected transient LocalizedSound sound;
     protected transient Renderable renderable;
-    protected transient Animation directionable;
+    protected transient Animation animation;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
@@ -102,11 +102,11 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
         Validate.notNull(id);
         Validate.isTrue(style.animations.containsKey(id) ,"%s is missing animation %s", getIdentifier(), id);
 
-        this.directionable = style.animations.get(id);
+        this.animation = style.animations.get(id);
         this.animationId = id;
-        this.renderable = new AnimationRenderable(directionable, startTime);
+        this.renderable = new AnimationRenderable(animation, startTime);
 
-        setDirection(directionable, direction);
+        setDirection(animation, direction);
     }
 
     @Override
@@ -179,7 +179,7 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
 
     public void setDirection(Vector2 normalizedDirection) {
         direction = normalizedDirection.angle();
-        setDirection(directionable, direction);
+        setDirection(animation, direction);
     }
 
     protected void setDirection(Animation animation, float direction) {

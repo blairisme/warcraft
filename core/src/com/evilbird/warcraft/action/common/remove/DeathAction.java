@@ -99,9 +99,9 @@ public class DeathAction extends BasicAction
     }
 
     @Override
-    public void setItem(GameObject gameObject) {
+    public void setSubject(GameObject gameObject) {
         Validate.isInstanceOf(PerishableObject.class, gameObject);
-        super.setItem(gameObject);
+        super.setSubject(gameObject);
     }
 
     private boolean initialized() {

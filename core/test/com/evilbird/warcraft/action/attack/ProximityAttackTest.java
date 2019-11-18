@@ -31,7 +31,7 @@ public class ProximityAttackTest
         preferences = Mockito.mock(WarcraftPreferences.class);
 
         action = new ProximityAttack(preferences);
-        action.setItem(gameObject);
+        action.setSubject(gameObject);
         action.setTarget(target);
     }
 

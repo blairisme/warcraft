@@ -17,6 +17,7 @@ import com.evilbird.warcraft.object.projectile.ProjectileFactoryBase;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
+import static com.evilbird.warcraft.object.effect.EffectType.Explosion;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Fireball;
 
 /**
@@ -38,6 +39,7 @@ public class FireballFactory extends ProjectileFactoryBase
         projectile.setType(Fireball);
         projectile.setIdentifier(objectIdentifier("Fireball", projectile));
         projectile.setSize(32, 32);
+        projectile.setExplosionEffect(Explosion);
         return projectile;
     }
 }

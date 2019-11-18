@@ -10,8 +10,11 @@
 package com.evilbird.warcraft.object.effect;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.engine.object.AnimatedObjectStyle;
+
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 
 /**
  * A game object that represents an effect, a visual entity that conveys the
@@ -22,6 +25,8 @@ import com.evilbird.engine.object.AnimatedObjectStyle;
  */
 public class Effect extends AnimatedObject
 {
+    private transient float duration;
+
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
      * a {@link AnimatedObjectStyle}, specifying the visual and auditory presentation
@@ -31,5 +36,20 @@ public class Effect extends AnimatedObject
      */
     public Effect(Skin skin) {
         super(skin);
+        duration = -1;
+    }
+
+    public float getDuration() {
+        if (duration == -1) {
+            Animation animation = style.animations.get(Idle);
+            float frameCount = animation.getFrames().size();
+            float frameInterval = animation.getInterval();
+            duration = frameCount * frameInterval;
+        }
+        return duration;
+    }
+
+    public void setDuration(float duration) {
+        this.duration = duration;
     }
 }
