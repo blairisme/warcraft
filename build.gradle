@@ -18,7 +18,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.2'
-        classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.7'
+        classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.8'
     }
 }
 
@@ -34,7 +34,7 @@ allprojects {
     ext {
         appName = "Warcraft"
         gdxVersion = '1.9.9'
-        roboVMVersion = '2.3.7'
+        roboVMVersion = '2.3.8'
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
