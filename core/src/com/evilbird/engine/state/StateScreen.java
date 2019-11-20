@@ -89,7 +89,7 @@ public class StateScreen extends ScreenAdapter
     @Override
     public void show() {
         input.startMonitoring();
-        music.play(state.getMusic());
+        //music.play(state.getMusic());
     }
 
     public void resize(int width, int height) {

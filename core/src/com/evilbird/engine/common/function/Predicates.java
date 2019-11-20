@@ -9,12 +9,8 @@
 
 package com.evilbird.engine.common.function;
 
-import java.util.Collection;
-import java.util.Objects;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
-
-import static java.util.Arrays.asList;
 
 /**
  * Instances of this class contain common {@link Predicate Predicates}.
@@ -26,8 +22,12 @@ public class Predicates
     private Predicates() {
     }
 
+    public static <T> Predicate<T> isNull() {
+        return (value) -> value == null;
+    }
+
     public static <T> Predicate<T> nonNull() {
-        return Objects::nonNull;
+        return (value) -> value != null;
     }
 
     public static <T> Predicate<T> accept() {
@@ -55,14 +55,26 @@ public class Predicates
     }
 
     @SafeVarargs
-    public static <T> Predicate<T> all(Predicate<T> ... conditions) {
-        Collection<Predicate<T>> conditionList = asList(conditions);
-        return (value) -> conditionList.stream().allMatch(predicate -> predicate.test(value));
+    public static <T> Predicate<T> all(final Predicate<T> ... conditions) {
+        return value -> {
+            for (Predicate<T> condition: conditions) {
+                if (! condition.test(value)) {
+                    return false;
+                }
+            }
+            return true;
+        };
     }
 
     @SafeVarargs
     public static <X, Y> BiPredicate<X, Y> all(BiPredicate<X, Y> ... conditions) {
-        Collection<BiPredicate<X, Y>> conditionList = asList(conditions);
-        return (x, y) -> conditionList.stream().allMatch(predicate -> predicate.test(x, y));
+        return (a, b) -> {
+            for (BiPredicate<X, Y> condition: conditions) {
+                if (! condition.test(a, b)) {
+                    return false;
+                }
+            }
+            return true;
+        };
     }
 }

@@ -11,6 +11,7 @@ package com.evilbird.warcraft.object.common.query;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.collection.CollectionUtils;
+import com.evilbird.engine.common.collection.Lists;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectComposite;
@@ -44,7 +45,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.findFirst;
@@ -99,7 +99,7 @@ public class UnitOperations
     public static GameObject findClosest(MovableObject source, GameObject locus, Collection<GameObject> gameObjects) {
         if (! gameObjects.isEmpty()) {
             List<GameObject> closest = new ArrayList<>(gameObjects);
-            closest.sort(closestItem(locus));
+            Lists.sort(closest, closestItem(locus));
             return findFirst(closest, hasPathTo(source));
         }
         return null;
@@ -526,12 +526,11 @@ public class UnitOperations
         capability.addTraversableCapability(subject.getMovementCapability());
 
         Collection<GameObjectNode> adjacent = graph.getAdjacentNodes(target.getPosition(), target.getSize());
-        Optional<GameObjectNode> unoccupied = adjacent.stream().filter(capability).findFirst();
+        GameObjectNode unoccupied = CollectionUtils.findFirst(adjacent, capability);
 
-        if (unoccupied.isPresent()) {
+        if (unoccupied != null) {
             graph.removeOccupants(subject);
-            GameObjectNode destination = unoccupied.get();
-            subject.setPosition(destination.getWorldReference());
+            subject.setPosition(unoccupied.getWorldReference());
             graph.addOccupants(subject);
         }
     }

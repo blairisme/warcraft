@@ -10,6 +10,7 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.serialization.SerializedConstructor;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -52,7 +53,7 @@ public class ParallelAction extends CompositeAction
 
     @Override
     public boolean act(float delta) {
-        remaining.removeIf(action -> action.act(delta));
+        CollectionUtils.removeIf(remaining, action -> action.act(delta));
         return remaining.isEmpty();
     }
 

@@ -12,6 +12,7 @@ package com.evilbird.warcraft.object.unit.conjured.decay;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.AnimationFrame;
 import com.evilbird.engine.common.time.GameTimer;
@@ -95,10 +96,10 @@ public class DeathAndDecay extends ConjuredObject
     }
 
     private void pruneEffects() {
-        effects.entrySet().removeIf(entry -> entry.getValue() >= DECAY_DURATION);
+        CollectionUtils.removeIf(effects.entrySet(), entry -> entry.getValue() >= DECAY_DURATION);
     }
 
     private void updateEffects(float time) {
-        effects.entrySet().forEach(entry -> entry.setValue(entry.getValue() + time));
+        CollectionUtils.forEach(effects.entrySet(), entry -> entry.setValue(entry.getValue() + time));
     }
 }

@@ -18,6 +18,7 @@
 
 package com.evilbird.warcraft.action.move;
 
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
@@ -27,7 +28,6 @@ import com.evilbird.warcraft.object.common.capability.MovableObject;
 
 import javax.inject.Inject;
 import java.util.Collection;
-import java.util.Optional;
 
 public class MoveAdjacent
 {
@@ -46,12 +46,11 @@ public class MoveAdjacent
         capability.addTraversableCapability(subject.getMovementCapability());
 
         Collection<GameObjectNode> adjacent = graph.getAdjacentNodes(target.getPosition(), target.getSize());
-        Optional<GameObjectNode> unoccupied = adjacent.stream().filter(capability).findFirst();
+        GameObjectNode unoccupied = CollectionUtils.findFirst(adjacent, capability);
 
-        if (unoccupied.isPresent()) {
+        if (unoccupied != null) {
             graph.removeOccupants(subject);
-            GameObjectNode destination = unoccupied.get();
-            subject.setPosition(destination.getWorldReference());
+            subject.setPosition(unoccupied.getWorldReference());
             graph.addOccupants(subject);
             events.notifyMove(subject);
             return true;

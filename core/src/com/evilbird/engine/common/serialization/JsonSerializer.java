@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.common.serialization;
 
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.google.gson.Gson;
@@ -45,7 +46,7 @@ public class JsonSerializer implements Serializer
         gsonBuilder.enableComplexMapKeySerialization();
         gsonBuilder.registerTypeHierarchyAdapter(Predicate.class, new ReflectionAdapter(typeRegistry));
         gsonBuilder.registerTypeHierarchyAdapter(Identifier.class, new ReflectionAdapter(typeRegistry));
-        adapters.forEach(gsonBuilder::registerTypeHierarchyAdapter);
+        Maps.forEach(adapters, gsonBuilder::registerTypeHierarchyAdapter);
         gson = gsonBuilder.create();
     }
 

@@ -11,6 +11,7 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
@@ -28,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withClazz;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isSelected;
@@ -143,7 +143,7 @@ public class InteractionBehaviour implements Behaviour
                 result.add(evaluateInteractions(input, target, selectedGameObject));
             }
         }
-        result.removeIf(Objects::isNull);
+        CollectionUtils.removeIf(result, it -> it == null);
         return result;
     }
 

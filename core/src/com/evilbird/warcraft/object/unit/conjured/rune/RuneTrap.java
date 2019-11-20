@@ -12,6 +12,7 @@ package com.evilbird.warcraft.object.unit.conjured.rune;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.AnimationFrame;
 import com.evilbird.engine.common.time.GameTimer;
@@ -88,14 +89,14 @@ public class RuneTrap extends ConjuredObject
     }
 
     private void updateEffects(float time) {
-        effects.entrySet().forEach(entry -> entry.setValue(entry.getValue() + time));
+        CollectionUtils.forEach(effects.entrySet(), entry -> entry.setValue(entry.getValue() + time));
     }
 
     private void updateVisibility(float time) {
         if (timer.advance(time)) {
             timer = new GameTimer(timer.duration() == RUNE_DURATION ? RUNE_INTERVAL : RUNE_DURATION);
             setVisible(! getVisible());
-            effects.entrySet().forEach(entry -> entry.setValue(0f));
+            CollectionUtils.forEach(effects.entrySet(), entry -> entry.setValue(0f));
         }
     }
 }

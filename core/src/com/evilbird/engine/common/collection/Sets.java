@@ -9,11 +9,10 @@
 
 package com.evilbird.engine.common.collection;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
+//import java.util.stream.Collectors;
 
 /**
  * This class provides utility functions that operate on {@link Set Sets}.
@@ -29,15 +28,19 @@ public class Sets
     }
 
     /**
-     * Returns a new {@link Sets} containing the given values.
+     * Returns a new {@link Set} containing the given values.
      *
      * @param elements  an array of values.
      * @param <T>       the type of elements in the set.
      *
-     * @return a new {@code Sets} containing the given values.
+     * @return a new {@code Set} containing the given values.
      */
     public static <T> Set<T> of(T ... elements) {
         Objects.requireNonNull(elements);
-        return Arrays.stream(elements).collect(Collectors.toCollection(HashSet::new));
+        Set<T> set = new HashSet<>();
+        for (T element: elements) {
+            set.add(element);
+        }
+        return set;
     }
 }

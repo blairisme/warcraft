@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.object.display.control.actions.buttons;
 
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.display.control.actions.ActionPaneView;
@@ -152,7 +153,8 @@ public class ButtonControllers
 
     public ButtonController getButtonController(GameObject gameObject, ActionPaneView view) {
         Identifier type = gameObject.getType();
-        return controllers.getOrDefault(view, emptyMap()).getOrDefault(type, NoButtons.emptyButtons());
+        Map<Identifier, ButtonController> viewControllers = Maps.getOrDefault(controllers, view, emptyMap());
+        return Maps.getOrDefault(viewControllers, type, NoButtons.emptyButtons());
     }
 
     private void registerCombatantButtons() {
@@ -272,7 +274,7 @@ public class ButtonControllers
     }
 
     private void registerController(ActionPaneView view, UnitType type, ButtonController controller) {
-        Map<Identifier, ButtonController> viewControllers = controllers.computeIfAbsent(view, key -> new HashMap<>());
-        viewControllers.put(type, controller);
+        Map<Identifier, ButtonController> viewControls =Maps.computeIfAbsent(controllers, view, key -> new HashMap<>());
+        viewControls.put(type, controller);
     }
 }

@@ -14,6 +14,7 @@ import com.evilbird.warcraft.object.common.capability.OffensiveCapability;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.OffensivePlurality;
 import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.UnitStyle;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -34,6 +35,16 @@ public class ConjuredObject extends Unit implements OffensiveObject
     private int basicDamage;
     private int piercingDamage;
 
+    /**
+     * Constructs a new instance of this class given a {@link Skin} containing
+     * an {@link UnitStyle}, specifying the visual and auditory
+     * presentation of the new ConjuredObject.
+     *
+     * @param skin a {@code Skin} instance containing a {@code UnitStyle}.
+     *
+     * @throws NullPointerException if the given skin is {@code null} or
+     *                              doesn't contain a {@code UnitStyle}.
+     */
     public ConjuredObject(Skin skin) {
         super(skin);
         attackRange = 0;

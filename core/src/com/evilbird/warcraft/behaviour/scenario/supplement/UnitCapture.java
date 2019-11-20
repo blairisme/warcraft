@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.behaviour.scenario.supplement;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.collection.Lists;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.object.GameObject;
@@ -102,8 +103,8 @@ public class UnitCapture implements SupplementaryBehaviour
     }
 
     private void captureItems(Collection<GameObject> captured, GameObject owner) {
-        capturableItems.values().forEach(items -> items.removeAll(captured));
-        capturableItems.values().removeIf(Collection::isEmpty);
+        CollectionUtils.forEach(capturableItems.values(), items -> items.removeAll(captured));
+        CollectionUtils.removeIf(capturableItems.values(), Collection::isEmpty);
 
         for (GameObject captive: captured) {
             captureItem(captive, owner);

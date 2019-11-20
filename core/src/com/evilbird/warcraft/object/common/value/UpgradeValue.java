@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.object.common.value;
 
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.object.common.upgrade.Upgrade;
 import com.evilbird.warcraft.object.common.upgrade.UpgradeRank;
@@ -59,7 +60,7 @@ public class UpgradeValue implements ModifiedValue
     public float getValue(Unit unit) {
         float result = base;
         for (Upgrade upgrade: getOwnedUpgrades(unit)) {
-            result += upgrades.getOrDefault(upgrade, 0f);
+            result += Maps.getOrDefault(upgrades, upgrade, 0f);
         }
         return result;
     }

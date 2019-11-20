@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;
@@ -105,7 +106,7 @@ public class GameObjectOperations
     public static boolean hasAction(GameObject gameObject, Predicate<Action> condition) {
         Objects.requireNonNull(gameObject);
         Objects.requireNonNull(condition);
-        return gameObject.getActions().stream().anyMatch(condition);
+        return CollectionUtils.containsAny(gameObject.getActions(), condition);
     }
 
     public static boolean hasAction(GameObject gameObject, Identifier identifier) {

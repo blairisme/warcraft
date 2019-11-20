@@ -34,7 +34,7 @@ public class IosLauncher extends IOSApplication.Delegate
     @Override
     protected IOSApplication createApplication() {
         ApplicationListener delegate = getEngine();
-        IOSApplicationConfiguration configuration = new IOSApplicationConfiguration();
+        IOSApplicationConfiguration configuration = getConfiguration();
         return new IOSApplication(delegate, configuration);
     }
 
@@ -52,5 +52,13 @@ public class IosLauncher extends IOSApplication.Delegate
     private static IosInjector getInjector() {
         Builder builder = DaggerIosInjector.builder();
         return builder.build();
+    }
+
+    private static IOSApplicationConfiguration getConfiguration() {
+        IOSApplicationConfiguration configuration = new IOSApplicationConfiguration();
+        configuration.orientationLandscape = true;
+        configuration.preventScreenDimming = true;
+        configuration.hideHomeIndicator = true;
+        return configuration;
     }
 }

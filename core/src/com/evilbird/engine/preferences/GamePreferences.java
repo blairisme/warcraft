@@ -11,6 +11,7 @@ package com.evilbird.engine.preferences;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.evilbird.engine.common.collection.CollectionUtils;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -83,7 +84,7 @@ public class GamePreferences
 
     public void save() {
         store.flush();
-        observers.forEach(observer -> observer.onPreferencesSaved(this));
+        CollectionUtils.forEach(observers, observer -> observer.onPreferencesSaved(this));
     }
 
     private Preferences getPreferences() {

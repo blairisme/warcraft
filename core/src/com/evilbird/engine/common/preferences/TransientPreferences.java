@@ -10,6 +10,7 @@
 package com.evilbird.engine.common.preferences;
 
 import com.badlogic.gdx.Preferences;
+import com.evilbird.engine.common.collection.Maps;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -71,7 +72,7 @@ public class TransientPreferences implements Preferences
 
     @Override
     public boolean getBoolean(String key, boolean defValue) {
-        return (boolean)properties.getOrDefault(key, defValue);
+        return (boolean)Maps.getOrDefault(properties, key, defValue);
     }
 
     @Override
@@ -81,7 +82,7 @@ public class TransientPreferences implements Preferences
 
     @Override
     public int getInteger(String key, int defValue) {
-        return (int)properties.getOrDefault(key, defValue);
+        return (int)Maps.getOrDefault(properties, key, defValue);
     }
 
     @Override
@@ -91,7 +92,7 @@ public class TransientPreferences implements Preferences
 
     @Override
     public long getLong(String key, long defValue) {
-        return (long)properties.getOrDefault(key, defValue);
+        return (long)Maps.getOrDefault(properties, key, defValue);
     }
 
     @Override
@@ -101,7 +102,7 @@ public class TransientPreferences implements Preferences
 
     @Override
     public float getFloat(String key, float defValue) {
-        return (float)properties.getOrDefault(key, defValue);
+        return (float)Maps.getOrDefault(properties, key, defValue);
     }
 
     @Override
@@ -111,7 +112,7 @@ public class TransientPreferences implements Preferences
 
     @Override
     public String getString(String key, String defValue) {
-        return (String)properties.getOrDefault(key, defValue);
+        return (String)Maps.getOrDefault(properties, key, defValue);
     }
 
     @Override

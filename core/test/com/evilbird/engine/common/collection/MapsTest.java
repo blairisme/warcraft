@@ -77,7 +77,7 @@ public class MapsTest
         map.put("2", 2);
         map.put("3", 3);
 
-        Assert.assertEquals(0, (int)Maps.getOrDefault(map, "0", () -> 0));
-        Assert.assertEquals(1, (int)Maps.getOrDefault(map, "1", () -> 0));
+        Assert.assertEquals(0, (int)Maps.getOrDefaultSupplied(map, "0", () -> 0));
+        Assert.assertEquals(1, (int)Maps.getOrDefaultSupplied(map, "1", () -> 0));
     }
 }

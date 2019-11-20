@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.PendingAction;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
@@ -89,7 +90,7 @@ public class BasicGameObject implements GameObject
 
     @Override
     public void clearActions() {
-        actions.forEach(Action::reset);
+        CollectionUtils.forEach(actions, Action::reset);
         actions.clear();
     }
 
@@ -201,7 +202,7 @@ public class BasicGameObject implements GameObject
     @Override
     public void setRoot(GameObjectContainer root) {
         this.root = root;
-        actions.forEach(action -> action.setRoot(root));
+        CollectionUtils.forEach(actions, action -> action.setRoot(root));
     }
 
     @Override
@@ -268,8 +269,8 @@ public class BasicGameObject implements GameObject
 
     @Override
     public void update(float time) {
-        pendingActions.removeIf(pending -> schedule(pending, time));
-        actions.removeIf(action -> action.act(time));
+        CollectionUtils.removeIf(pendingActions, pending -> schedule(pending, time));
+        CollectionUtils.removeIf(actions, action -> action.act(time));
     }
 
     private boolean schedule(PendingAction pending, float time) {

@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
 import com.evilbird.engine.object.interop.GroupDecorator;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -54,7 +55,7 @@ public class GameObjectGroup extends BasicGameObject implements GameObjectCompos
         object.setParent(this);
         object.setRoot(getRoot());
         objects.add(index, object);
-        observers.forEach(it -> it.objectAdded(object));
+        CollectionUtils.forEach(observers, it -> it.objectAdded(object));
     }
 
     /**
@@ -78,7 +79,7 @@ public class GameObjectGroup extends BasicGameObject implements GameObjectCompos
     public void removeObject(GameObject object) {
         object.toActor().remove();
         objects.remove(object);
-        observers.forEach(it -> it.objectRemoved(object));
+        CollectionUtils.forEach(observers, it -> it.objectRemoved(object));
     }
 
     /**
@@ -88,7 +89,7 @@ public class GameObjectGroup extends BasicGameObject implements GameObjectCompos
         Group group = (Group)delegate;
         group.clearChildren();
         objects.clear();
-        observers.forEach(GameObjectGroupObserver::objectsCleared);
+        CollectionUtils.forEach(observers, GameObjectGroupObserver::objectsCleared);
     }
 
     /**
@@ -171,7 +172,7 @@ public class GameObjectGroup extends BasicGameObject implements GameObjectCompos
     @Override
     public void setRoot(GameObjectContainer root) {
         super.setRoot(root);
-        objects.forEach(objects -> objects.setRoot(root));
+        CollectionUtils.forEach(objects, objects -> objects.setRoot(root));
     }
 
     /**

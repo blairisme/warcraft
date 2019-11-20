@@ -166,7 +166,7 @@ public class ActionPane extends Grid implements MenuProvider
     private void addActionButtons() {
         setAlignment(Alignment.TopLeft);
         List<ActionButton> buttons = getButtons();
-        buttons.forEach(this::add);
+        CollectionUtils.forEach(buttons, this::add);
     }
 
     private List<ActionButton> getButtons() {

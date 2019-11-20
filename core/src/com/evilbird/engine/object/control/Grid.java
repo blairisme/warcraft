@@ -11,6 +11,7 @@ package com.evilbird.engine.object.control;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.error.SizeExceededException;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.object.GameObject;
@@ -58,7 +59,7 @@ public class Grid extends Table
 
     public void addObjects(Collection<GameObject> newGameObjects) {
         validateSize(newGameObjects.size());
-        newGameObjects.forEach(this::add);
+        CollectionUtils.forEach(newGameObjects, this::add);
     }
 
     public void setCellPadding(int cellPadding) {

@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.behaviour.ai.attack;
 
 import com.evilbird.engine.common.collection.CollectionUtils;
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
@@ -68,8 +69,8 @@ public class AttackController
      * the attackers capability to attack.
      */
     public Collection<PerishableObject> getTargets(OffensiveObject attacker) {
-        List<PerishableObject> potentialTargets = targets.getOrDefault(attacker.getIdentifier(), emptyList());
-        potentialTargets.removeIf(UnitOperations::isDead);
+        List<PerishableObject> potentialTargets = Maps.getOrDefault(targets, attacker.getIdentifier(), emptyList());
+        CollectionUtils.removeIf(potentialTargets, UnitOperations::isDead);
 
         if (attacker.getAttackPlurality() == Individual) {
             return !potentialTargets.isEmpty() ? singletonList(potentialTargets.get(0)) : emptyList();
@@ -83,7 +84,7 @@ public class AttackController
      * ability to attack multiple targets at the same time.
      */
     public Collection<OffensiveObject> getAttackers(PerishableObject target) {
-        List<OffensiveObject> potentialAttackers = attackers.getOrDefault(target.getIdentifier(), emptyList());
+        List<OffensiveObject> potentialAttackers = Maps.getOrDefault(attackers, target.getIdentifier(), emptyList());
         return CollectionUtils.filter(potentialAttackers, this::isIdleAttacker);
     }
 

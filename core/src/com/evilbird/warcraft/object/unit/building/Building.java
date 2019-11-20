@@ -11,6 +11,7 @@ package com.evilbird.warcraft.object.unit.building;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.warcraft.object.common.resource.ResourceContainer;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
@@ -103,7 +104,7 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
      * Returns the value of a resource held in the building.
      */
     public float getResource(ResourceType type) {
-        return resources.getOrDefault(type.name(), 0.0).floatValue();
+        return Maps.getOrDefault(resources, type.name(), 0.0).floatValue();
     }
 
     /**

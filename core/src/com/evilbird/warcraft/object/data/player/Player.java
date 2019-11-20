@@ -10,6 +10,8 @@
 package com.evilbird.warcraft.object.data.player;
 
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.common.collection.CollectionUtils;
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.common.TeamColour;
@@ -106,14 +108,14 @@ public class Player extends GameObjectGroup implements ResourceContainer
      * the player.
      */
     public float getResource(ResourceType type) {
-        return resources.getOrDefault(type.name(), 0d).floatValue();
+        return Maps.getOrDefault(resources, type.name(), 0d).floatValue();
     }
 
     /**
      * Returns the value of a {@link PlayerStatistic} kept about Player actions.
      */
     public int getStatistic(PlayerStatistic statistic) {
-        return statistics.getOrDefault(statistic.name(), 0d).intValue();
+        return Maps.getOrDefault(statistics, statistic.name(), 0d).intValue();
     }
 
     /**
@@ -129,7 +131,7 @@ public class Player extends GameObjectGroup implements ResourceContainer
      * Returns whether or not the Player has the given {@link Upgrade}.
      */
     public boolean hasUpgrade(Upgrade upgrade) {
-        return upgrades.getOrDefault(upgrade.name(), Boolean.FALSE);
+        return Maps.getOrDefault(upgrades, upgrade.name(), Boolean.FALSE);
     }
 
     /**
@@ -274,7 +276,7 @@ public class Player extends GameObjectGroup implements ResourceContainer
      * Sets whether or not the Player has the given {@link Upgrade}.
      */
     public void setUpgrades(Collection<Upgrade> upgrades, boolean value) {
-        upgrades.forEach(upgrade -> setUpgrade(upgrade, value));
+        CollectionUtils.forEach(upgrades, upgrade -> setUpgrade(upgrade, value));
     }
 
     /**

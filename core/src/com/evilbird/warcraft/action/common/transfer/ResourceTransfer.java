@@ -29,7 +29,9 @@ public class ResourceTransfer
     }
 
     public void transfer(ResourceContainer from, ResourceContainer to, Iterable<ResourceQuantity> quantities) {
-        quantities.forEach(quantity -> transfer(from, to, quantity));
+        for (ResourceQuantity quantity : quantities) {
+            transfer(from, to, quantity);
+        }
     }
 
     public void transfer(ResourceContainer from, ResourceContainer to, ResourceQuantity quantity) {
@@ -38,7 +40,9 @@ public class ResourceTransfer
     }
 
     public void setResources(ResourceContainer container, Iterable<ResourceQuantity> quantities) {
-        quantities.forEach(quantity -> setResources(container, quantity));
+        for (ResourceQuantity quantity : quantities) {
+            setResources(container, quantity);
+        }
     }
 
     public void setResources(ResourceContainer container, ResourceQuantity quantity) {

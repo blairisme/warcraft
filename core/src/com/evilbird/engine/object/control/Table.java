@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
@@ -65,7 +66,7 @@ public class Table extends GameObjectGroup
         gameObject.setParent(this);
         gameObject.setRoot(getRoot());
         objects.add(gameObject);
-        observers.forEach(it -> it.objectAdded(gameObject));
+        CollectionUtils.forEach(observers, it -> it.objectAdded(gameObject));
         return control.add(gameObject.toActor());
     }
 
@@ -91,7 +92,7 @@ public class Table extends GameObjectGroup
         Objects.requireNonNull(object);
         objects.remove(object);
         control.removeActor(object.toActor());
-        observers.forEach(it -> it.objectRemoved(object));
+        CollectionUtils.forEach(observers, it -> it.objectRemoved(object));
     }
 
     /**
@@ -101,7 +102,7 @@ public class Table extends GameObjectGroup
     public void clearObjects() {
         objects.clear();
         control.clear();
-        observers.forEach(GameObjectGroupObserver::objectsCleared);
+        CollectionUtils.forEach(observers, GameObjectGroupObserver::objectsCleared);
     }
 
     public boolean isShown(GameObject gameObject) {

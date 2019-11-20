@@ -203,7 +203,7 @@ public class SubmarineBehaviour implements AiBehaviourElement
         GameObject entry)
     {
         for (GameObjectNode node: nodes) {
-            Collection<GameObject> entries = Maps.getOrDefault(cache, node, ArrayList::new);
+            Collection<GameObject> entries = Maps.getOrDefaultSupplied(cache, node, ArrayList::new);
             entries.add(entry);
             cache.put(node, entries);
         }
@@ -230,8 +230,8 @@ public class SubmarineBehaviour implements AiBehaviourElement
 
     private void evaluateSubmarineVisibility(Collection<GameObjectNode> locations) {
         for (GameObjectNode location: locations) {
-            Collection<GameObject> subs = subLocations.getOrDefault(location, Collections.emptyList());
-            Collection<GameObject> flyers = flyerLocations.getOrDefault(location, Collections.emptyList());
+            Collection<GameObject> subs = Maps.getOrDefault(subLocations, location, Collections.emptyList());
+            Collection<GameObject> flyers = Maps.getOrDefault(flyerLocations, location, Collections.emptyList());
 
             if (!subs.isEmpty()) {
                 setSubmarinesVisible(subs, !flyers.isEmpty());

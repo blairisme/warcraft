@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.object.unit.resource;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.object.common.resource.ResourceContainer;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
 import com.evilbird.warcraft.object.unit.Unit;
@@ -38,7 +39,7 @@ public class Resource extends Unit implements ResourceContainer
 
     @Override
     public float getResource(ResourceType type) {
-        return resources.getOrDefault(type.name(), 0.0).floatValue();
+        return Maps.getOrDefault(resources, type.name(), 0.0).floatValue();
     }
 
     @Override

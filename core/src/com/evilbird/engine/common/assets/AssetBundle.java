@@ -25,10 +25,12 @@ import com.evilbird.engine.common.audio.music.MusicSequence;
 import com.evilbird.engine.common.audio.sound.SilentSound;
 import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.audio.sound.SoundFactory;
+import com.evilbird.engine.common.collection.CollectionUtils;
+import com.evilbird.engine.common.collection.Lists;
 import com.evilbird.engine.common.collection.Maps;
+import com.evilbird.engine.common.file.FilenameUtils;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.text.StringSubstitutor;
-import org.apache.commons.io.FilenameUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +42,6 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.badlogic.gdx.graphics.Pixmap.Format.RGBA8888;
-import static java.util.stream.Collectors.toList;
 
 /**
  * Represents a collection of assets.
@@ -236,9 +237,10 @@ public class AssetBundle
     }
 
     protected Sound getSoundEffectSet(Object ... ids) {
-        Collection<AssetDescriptor> effects = Maps.getAll(assets, Arrays.asList(ids));
-        effects.removeIf(Objects::isNull);
-        Collection<String> paths = effects.stream().map(desc -> desc.fileName).collect(toList());
+        List<AssetDescriptor> effects = Maps.getAll(assets, Arrays.asList(ids));
+        CollectionUtils.removeIf(effects, it -> it == null);
+
+        Collection<String> paths = Lists.convert(effects, effect -> effect.fileName);
         return SoundFactory.newSound(manager, paths);
     }
 

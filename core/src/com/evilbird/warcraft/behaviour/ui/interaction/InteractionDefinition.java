@@ -12,6 +12,7 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.action.ActionIdentifier;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
@@ -187,10 +188,10 @@ public class InteractionDefinition implements Interaction
         return appliedAs((subject, actions) -> {
             if (displacement == Replacement) {
                 subject.clearActions();
-                actions.forEach(subject::addAction);
+                CollectionUtils.forEach(actions, subject::addAction);
             }
             else if (displacement == Addition) {
-                actions.forEach(subject::addAction);
+                CollectionUtils.forEach(actions, subject::addAction);
             }
             else if (displacement == Singleton) {
                 for (Action action: actions) {
@@ -200,7 +201,7 @@ public class InteractionDefinition implements Interaction
                 }
             }
             else if (displacement == Standalone) {
-                actions.forEach(action -> action.act(0));
+                CollectionUtils.forEach(actions, action -> action.act(0));
             }
         });
     }

@@ -47,8 +47,8 @@ public abstract class AnimationCatalog
      * @return a {@link Map} of animations and their unique identifiers.
      */
     public Map<Identifier, Animation> get() {
-        definitions.forEach(this::set);
-        aliases.forEach(this::set);
+        Maps.forEach(definitions, this::set);
+        Maps.forEach(aliases, this::set);
         return Maps.convert(animations, Animation::copy);
     }
 

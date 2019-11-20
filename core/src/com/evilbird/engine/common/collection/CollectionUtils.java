@@ -12,13 +12,13 @@ package com.evilbird.engine.common.collection;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-
-import static java.util.stream.Collectors.toList;
 
 /**
  * Provides utility functions for working with Collections.
@@ -31,16 +31,26 @@ public class CollectionUtils
     }
 
     public static <T> boolean containsAny(Collection<T> collection, Predicate<T> condition) {
-        return collection.stream().anyMatch(condition);
+        for (T element: collection) {
+            if (condition.test(element)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static <T> boolean containsAll(Collection<T> collection, Predicate<T> condition) {
-        return collection.stream().allMatch(condition);
+        for (T element: collection) {
+            if (!condition.test(element)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static <T> boolean containsEqual(Collection<T> collection, Predicate<T> conditionA, Predicate<T> conditionB){
-        Collection<T> matchesA = collection.stream().filter(conditionA).collect(toList());
-        Collection<T> matchesB = collection.stream().filter(conditionB).collect(toList());
+        Collection<T> matchesA = filter(collection, conditionA);
+        Collection<T> matchesB = filter(collection, conditionB);
         return matchesA.size() == matchesB.size();
     }
 
@@ -52,15 +62,30 @@ public class CollectionUtils
     }
 
     public static <T> T findFirst(Collection<? extends T> collection, Predicate<T> condition) {
-        return collection.stream().filter(condition).findFirst().orElse(null);
+        for (T element: collection) {
+            if (condition.test(element)) {
+                return element;
+            }
+        }
+        return null;
     }
 
     public static <A, B> List<B> flatten(Collection<A> collection, Function<A, Collection<B>> converter) {
-        return collection.stream().flatMap(element -> converter.apply(element).stream()).collect(toList());
+        List<B> result = new ArrayList<>(collection.size());
+        for (A element: collection) {
+            result.addAll(converter.apply(element));
+        }
+        return result;
     }
 
     public static <A> List<A> flatten(Collection<Array<A>> collection) {
-        return collection.stream().flatMap(array -> Arrays.stream(array.items)).collect(toList());
+        List<A> result = new ArrayList<>(collection.size());
+        for (Array<A> array: collection) {
+            for (A element: array) {
+                result.add(element);
+            }
+        }
+        return result;
     }
 
     /**
@@ -68,11 +93,21 @@ public class CollectionUtils
      * match the given predicate.
      */
     public static <T> List<T> filter(Collection<T> collection, Predicate<T> condition) {
-        return collection.stream().filter(condition).collect(toList());
+        List<T> result = new ArrayList<>();
+        for (T element: collection) {
+            if (condition.test(element)) {
+                result.add(element);
+            }
+        }
+        return result;
     }
 
     public static <A, B> List<B> convert(Collection<A> collection, Function<A, B> converter) {
-        return collection.stream().map(converter).collect(toList());
+        List<B> result = new ArrayList<>();
+        for (A element: collection) {
+            result.add(converter.apply(element));
+        }
+        return result;
     }
 
     public static <T> int testMatches(T[] collection, Predicate<T> condition) {
@@ -83,5 +118,25 @@ public class CollectionUtils
             }
         }
         return result;
+    }
+
+    public static <T> void forEach(Collection<T> collection, Consumer<? super T> action) {
+        Objects.requireNonNull(action);
+        for (T t : collection) {
+            action.accept(t);
+        }
+    }
+
+    public static <T> boolean removeIf(Collection<T> collection, Predicate<? super T> filter) {
+        Objects.requireNonNull(filter);
+        boolean removed = false;
+        final Iterator<T> each = collection.iterator();
+        while (each.hasNext()) {
+            if (filter.test(each.next())) {
+                each.remove();
+                removed = true;
+            }
+        }
+        return removed;
     }
 }

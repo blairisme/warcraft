@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.evilbird.engine.common.collection.Arrays;
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.function.Predicates;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.pathing.SpatialGraph;
@@ -371,7 +372,7 @@ public class GameObjectGraph implements SpatialGraph<GameObjectNode>
     }
 
     public Collection<GameObjectNode> getOccupiedNodes(GameObject gameObject) {
-        return occupiers.getOrDefault(gameObject.getIdentifier(), emptyList());
+        return Maps.getOrDefault(occupiers, gameObject.getIdentifier(), emptyList());
     }
 
     public Collection<GameObject> getOccupants(GameObject gameObject) {

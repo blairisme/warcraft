@@ -110,7 +110,7 @@ public class AttackGraph
 
     private void addAttacker(OffensiveObject attacker) {
         for (GameObjectNode node: graph.getNodes(attacker.getPosition(), attacker.getSize(), attacker.getSight())) {
-            List<OffensiveObject> occupants = Maps.getOrDefault(attackers, node, ArrayList::new);
+            List<OffensiveObject> occupants = Maps.getOrDefaultSupplied(attackers, node, ArrayList::new);
             occupants.add(attacker);
             attackers.put(node, occupants);
         }

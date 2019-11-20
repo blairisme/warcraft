@@ -14,6 +14,7 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.error.UnknownEntityException;
+import com.evilbird.engine.common.file.FileUtils;
 import com.evilbird.engine.common.serialization.JsonSerializer;
 import com.evilbird.engine.common.serialization.Serializer;
 import com.evilbird.engine.device.Device;
@@ -25,7 +26,6 @@ import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.engine.state.StateLoadError;
 import com.evilbird.engine.state.StateService;
 import com.evilbird.engine.state.StateType;
-import org.apache.commons.io.FileUtils;
 
 import javax.inject.Inject;
 import java.io.File;

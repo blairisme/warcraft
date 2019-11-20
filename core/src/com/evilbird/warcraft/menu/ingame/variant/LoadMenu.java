@@ -11,6 +11,7 @@ package com.evilbird.warcraft.menu.ingame.variant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.evilbird.engine.common.collection.Lists;
 import com.evilbird.engine.common.control.ListPane;
 import com.evilbird.engine.common.control.ScrollBarPane;
 import com.evilbird.engine.state.StateIdentifier;
@@ -77,7 +78,7 @@ public class LoadMenu extends IngameMenu
         try {
             List<StateIdentifier> saves = states.list(UserState);
             if (! saves.isEmpty()) {
-                saves.sort(Comparator.comparing(Object::toString));
+                Lists.sort(saves, Comparator.comparing(Object::toString));
                 StateIdentifier[] items = saves.toArray(new StateIdentifier[0]);
 
                 list.setItems(items);
