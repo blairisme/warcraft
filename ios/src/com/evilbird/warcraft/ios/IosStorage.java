@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.ios;
 
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.LocalFileHandleResolver;
 import com.evilbird.engine.device.DeviceStorage;
 
 /**
@@ -19,8 +20,18 @@ import com.evilbird.engine.device.DeviceStorage;
  */
 public class IosStorage implements DeviceStorage
 {
+    private FileHandleResolver resolver;
+
+    public IosStorage() {
+        this(new LocalFileHandleResolver());
+    }
+
+    public IosStorage(FileHandleResolver resolver) {
+        this.resolver = resolver;
+    }
+
     @Override
     public FileHandleResolver getFileHandleResolver() {
-        return null;
+        return resolver;
     }
 }
