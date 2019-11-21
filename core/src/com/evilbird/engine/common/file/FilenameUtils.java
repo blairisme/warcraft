@@ -1,16 +1,42 @@
 /*
- * Copyright (c) 2019, Blair Butterworth
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- * This work is licensed under the MIT License. To view a copy of this
- * license, visit
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- *        https://opensource.org/licenses/MIT
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.evilbird.engine.common.file;
 
 import java.io.File;
 
+/**
+ *  General file name and file path manipulation utilities, based on Apache
+ *  Commons IO FilenameUtils.
+ *
+ * <p>
+ * The difference between this and Apache Commons IO FilenameUtils are:
+ * </p>
+ *
+ * <ul>
+ * <li>
+ *     Stripped out all functions except getName and getBaseName, and those
+ *     functions they depend on.
+ * </li>
+ * </ul>
+ *
+ * @author Unknown
+ * @author Blair Butterworth
+ */
 public class FilenameUtils
 {
     private static final int NOT_FOUND = -1;
