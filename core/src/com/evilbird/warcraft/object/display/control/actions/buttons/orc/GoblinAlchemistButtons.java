@@ -42,8 +42,8 @@ public class GoblinAlchemistButtons extends BasicButtonController
     public boolean getEnabled(ActionButtonType button, GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
         switch (button) {
-            case GoblinZeppelinButton: hasResources(player, GoblinZeppelin);
-            case GoblinSappersButton: hasResources(player, GoblinSappers);
+            case GoblinZeppelinButton: return hasResources(player, GoblinZeppelin);
+            case GoblinSappersButton: return hasResources(player, GoblinSappers);
             default: return true;
         }
     }

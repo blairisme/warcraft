@@ -41,6 +41,12 @@ import java.io.File;
 public class FileUtils
 {
     /**
+     * Disable construction of static utility class.
+     */
+    private FileUtils() {
+    }
+
+    /**
      * Deletes a file, never throwing an exception. If file is a directory,
      * delete it and all sub-directories.
      *

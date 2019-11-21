@@ -58,6 +58,22 @@ public class ProductionCosts
         throw new UnsupportedOperationException();
     }
 
+    public Collection<ResourceQuantity> costOf(UnitType type) {
+        if (preferences.isFreeBuildEnabled()) {
+            return resources(0, 0, 0, 0);
+        }
+        if (type.isHuman()) {
+            return humanCosts(type);
+        }
+        else if (type.isOrc()) {
+            return orcCosts(type);
+        }
+        else if (type.isNeutral()) {
+            return Collections.emptyList();
+        }
+        throw new UnsupportedOperationException();
+    }
+
     private Collection<ResourceQuantity> attributeUpgradeCost(Upgrade upgrade) {
         switch (upgrade) {
             case MeleeDamage1: return resources(800, 0, 0, 0);
@@ -100,22 +116,6 @@ public class ProductionCosts
             case SlowUpgrade: return resources(500, 0, 0, 0);
             default: throw new UnsupportedOperationException();
         }
-    }
-
-    public Collection<ResourceQuantity> costOf(UnitType type) {
-        if (preferences.isFreeBuildEnabled()) {
-            return resources(0, 0, 0, 0);
-        }
-        if (type.isHuman()) {
-            return humanCosts(type);
-        }
-        else if (type.isOrc()) {
-            return orcCosts(type);
-        }
-        else if (type.isNeutral()) {
-            return Collections.emptyList();
-        }
-        throw new UnsupportedOperationException();
     }
 
     private Collection<ResourceQuantity> humanCosts(UnitType type) {

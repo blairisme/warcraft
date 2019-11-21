@@ -93,7 +93,7 @@ public class EncampmentButtons extends BasicButtonController
         Player player = UnitOperations.getPlayer(gameObject);
         switch (button) {
             case GruntButton: return hasResources(player, Grunt);
-            case TrollAxethrowerButton: return hasResources(player, TrollAxethrower) && hasUnit(player, TrollLumberMill);
+            case TrollAxethrowerButton: return hasResources(player, TrollAxethrower) && hasUnit(player,TrollLumberMill);
             case TrollBerserkerButton: return hasResources(player, TrollBerserker) && hasUnit(player, TrollLumberMill);
             case OgreButton: return hasResources(player, Ogre) && hasUnits(player, TrollLumberMill, OgreMound);
             case OgreMageButton: return hasResources(player, OgreMage) && hasUnits(player, TrollLumberMill, OgreMound);

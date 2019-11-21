@@ -27,8 +27,8 @@ import org.apache.commons.lang3.RandomUtils;
  */
 public class CombatantVessel extends RangedCombatant
 {
-    private static transient final float INTERVAL = 1f;
-    private static transient final float OFFSET = 3f;
+    private static final transient float INTERVAL = 1f;
+    private static final transient float OFFSET = 3f;
 
     private transient GameTimer timer;
     private transient float offset;

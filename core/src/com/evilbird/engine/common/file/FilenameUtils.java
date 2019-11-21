@@ -20,8 +20,8 @@ package com.evilbird.engine.common.file;
 import java.io.File;
 
 /**
- *  General file name and file path manipulation utilities, based on Apache
- *  Commons IO FilenameUtils.
+ * General file name and file path manipulation utilities, based on Apache
+ * Commons IO FilenameUtils.
  *
  * <p>
  * The difference between this and Apache Commons IO FilenameUtils are:
@@ -65,6 +65,7 @@ public class FilenameUtils
      * The separator character that is the opposite of the system separator.
      */
     private static final char OTHER_SEPARATOR;
+
     static {
         if (isSystemWindows()) {
             OTHER_SEPARATOR = UNIX_SEPARATOR;
@@ -74,9 +75,15 @@ public class FilenameUtils
     }
 
     /**
+     * Disable construction of static utility class.
+     */
+    private FilenameUtils() {
+    }
+
+    /**
      * Gets the name minus the path from a full fileName.
-     * <p>
-     * This method will handle a file in either Unix or Windows format.
+     *
+     * <p>This method will handle a file in either Unix or Windows format.
      * The text after the last forward or backslash is returned.
      * <pre>
      * a/b/c.txt --&gt; c.txt
@@ -84,12 +91,13 @@ public class FilenameUtils
      * a/b/c     --&gt; c
      * a/b/c/    --&gt; ""
      * </pre>
-     * <p>
-     * The output will be the same irrespective of the machine that the code is running on.
      *
-     * @param fileName  the fileName to query, null returns null
-     * @return the name of the file without the path, or an empty string if none exists.
-     * Null bytes inside string will be removed
+     * <p>The output will be the same irrespective of the machine that the code
+     * is running on.
+     *
+     * @param fileName the fileName to query, null returns null
+     * @return  the name of the file without the path, or an empty string if
+     *          none exists. Null bytes inside string will be removed.
      */
     public static String getName(final String fileName) {
         if (fileName == null) {
@@ -101,48 +109,61 @@ public class FilenameUtils
     }
 
     /**
-     * Gets the base name, minus the full path and extension, from a full fileName.
-     * <p>
-     * This method will handle a file in either Unix or Windows format.
-     * The text after the last forward or backslash and before the last dot is returned.
+     * Gets the base name, minus the full path and extension, from a full
+     * fileName.
+     *
+     * <p>This method will handle a file in either Unix or Windows format.
+     * The text after the last forward or backslash and before the last dot
+     * is returned.
+     *
      * <pre>
      * a/b/c.txt --&gt; c
      * a.txt     --&gt; a
      * a/b/c     --&gt; c
      * a/b/c/    --&gt; ""
      * </pre>
-     * <p>
-     * The output will be the same irrespective of the machine that the code is running on.
      *
-     * @param fileName  the fileName to query, null returns null
-     * @return the name of the file without the path, or an empty string if none exists. Null bytes inside string
-     * will be removed
+     * <p>The output will be the same irrespective of the machine that the code
+     * is running on.
+     *
+     * @param fileName the fileName to query, null returns null
+     * @return  the name of the file without the path, or an empty string if
+     *          none exists. Null bytes inside string will be removed.
      */
     public static String getBaseName(final String fileName) {
         return removeExtension(getName(fileName));
     }
 
     /**
-     * Returns the index of the last extension separator character, which is a dot.
-     * <p>
-     * This method also checks that there is no directory separator after the last dot. To do this it uses
-     * {@link #indexOfLastSeparator(String)} which will handle a file in either Unix or Windows format.
-     * </p>
-     * <p>
-     * The output will be the same irrespective of the machine that the code is running on, with the
-     * exception of a possible {@link IllegalArgumentException} on Windows (see below).
-     * </p>
-     * <b>Note:</b> This method used to have a hidden problem for names like "foo.exe:bar.txt".
-     * In this case, the name wouldn't be the name of a file, but the identifier of an
-     * alternate data stream (bar.txt) on the file foo.exe. The method used to return
-     * ".txt" here, which would be misleading. Commons IO 2.7, and later versions, are throwing
-     * an {@link IllegalArgumentException} for names like this.
+     * Returns the index of the last extension separator character, which is a
+     * dot.
      *
-     * @param fileName
-     *            the fileName to find the last extension separator in, null returns -1
-     * @return the index of the last extension separator character, or -1 if there is no such character
-     * @throws IllegalArgumentException <b>Windows only:</b> The fileName parameter is, in fact,
-     * the identifier of an Alternate Data Stream, for example "foo.exe:bar.txt".
+     * <p>This method also checks that there is no directory separator after
+     * the last dot. To do this it uses {@link #indexOfLastSeparator(String)}
+     * which will handle a file in either Unix or Windows format.
+     * </p>
+     *
+     * <p>The output will be the same irrespective of the machine that the code
+     * is running on, with the exception of a possible
+     * {@link IllegalArgumentException} on Windows (see below).
+     * </p>
+     *
+     * <b>Note:</b> This method used to have a hidden problem for names like
+     * "foo.exe:bar.txt". In this case, the name wouldn't be the name of a
+     * file, but the identifier of an alternate data stream (bar.txt) on the
+     * file foo.exe. The method used to return ".txt" here, which would be
+     * misleading. Commons IO 2.7, and later versions, are throwing an
+     * {@link IllegalArgumentException} for names like this.
+     *
+     * @param fileName  the fileName to find the last extension separator in,
+     *                  null returns -1
+     *
+     * @return  the index of the last extension separator character, or -1 if
+     *          there is no such character
+     *
+     * @throws IllegalArgumentException <b>Windows only:</b> The fileName
+     *         parameter is, in fact, the identifier of an Alternate Data
+     *         Stream, for example "foo.exe:bar.txt".
      */
     public static int indexOfExtension(final String fileName) throws IllegalArgumentException {
         if (fileName == null) {
@@ -162,15 +183,18 @@ public class FilenameUtils
 
     /**
      * Returns the index of the last directory separator character.
-     * <p>
-     * This method will handle a file in either Unix or Windows format.
-     * The position of the last forward or backslash is returned.
-     * <p>
-     * The output will be the same irrespective of the machine that the code is running on.
      *
-     * @param fileName  the fileName to find the last path separator in, null returns -1
-     * @return the index of the last separator character, or -1 if there
-     * is no such character
+     * <p>This method will handle a file in either Unix or Windows format.
+     * The position of the last forward or backslash is returned.
+     *
+     * <p>The output will be the same irrespective of the machine that the
+     * code is running on.
+     *
+     * @param fileName the fileName to find the last path separator in, null
+     *                 returns -1
+     *
+     * @return  the index of the last separator character, or -1 if there
+     *          is no such character
      */
     public static int indexOfLastSeparator(final String fileName) {
         if (fileName == null) {
@@ -183,20 +207,23 @@ public class FilenameUtils
 
     /**
      * Removes the extension from a fileName.
-     * <p>
-     * This method returns the textual part of the fileName before the last dot.
-     * There must be no directory separator after the dot.
+     *
+     * <p>This method returns the textual part of the fileName before the last
+     * dot.There must be no directory separator after the dot.
+     *
      * <pre>
      * foo.txt    --&gt; foo
      * a\b\c.jpg  --&gt; a\b\c
      * a\b\c      --&gt; a\b\c
      * a.b\c      --&gt; a.b\c
      * </pre>
-     * <p>
-     * The output will be the same irrespective of the machine that the code is running on.
+     *
+     * <p>The output will be the same irrespective of the machine that the code
+     * is running on.
      *
      * @param fileName  the fileName to query, null returns null
-     * @return the fileName minus the extension
+     *
+     * @return  the fileName minus the extension
      */
     public static String removeExtension(final String fileName) {
         if (fileName == null) {
@@ -235,17 +262,19 @@ public class FilenameUtils
     }
 
     /**
-     * Check the input for null bytes, a sign of unsanitized data being passed to to file level functions.
+     * Check the input for null bytes, a sign of unsanitized data being passed
+     * to to file level functions.
      *
-     * This may be used for poison byte attacks.
+     * <p>This may be used for poison byte attacks.
+     *
      * @param path the path to check
      */
     private static void failIfNullBytePresent(final String path) {
         final int len = path.length();
         for (int i = 0; i < len; i++) {
             if (path.charAt(i) == 0) {
-                throw new IllegalArgumentException("Null byte present in file/path name. There are no " +
-                        "known legitimate use cases for such data, but several injection attacks may use it");
+                throw new IllegalArgumentException("Null byte present in file/path name. There are no "
+                    + "known legitimate use cases for such data, but several injection attacks may use it");
             }
         }
     }

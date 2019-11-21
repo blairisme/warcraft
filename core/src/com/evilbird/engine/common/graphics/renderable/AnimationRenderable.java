@@ -45,7 +45,7 @@ public class AnimationRenderable extends BaseRenderable
     }
 
     @Override
-    public void draw (Batch batch, float x, float y, float width, float height) {
+    public void draw(Batch batch, float x, float y, float width, float height) {
         if (animation != null) {
             AnimationFrame frame = animation.getFrame(animationTime);
             Vector2 frameOffset = getPositionOffset(width, height);

@@ -42,8 +42,8 @@ public class GnomishInventorButtons extends BasicButtonController
     public boolean getEnabled(ActionButtonType button, GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
         switch (button) {
-            case GnomishFlyingMachineButton: hasResources(player, GnomishFlyingMachine);
-            case DwarvenDemolitionSquadButton: hasResources(player, DwarvenDemolitionSquad);
+            case GnomishFlyingMachineButton: return hasResources(player, GnomishFlyingMachine);
+            case DwarvenDemolitionSquadButton: return hasResources(player, DwarvenDemolitionSquad);
             default: return true;
         }
     }
