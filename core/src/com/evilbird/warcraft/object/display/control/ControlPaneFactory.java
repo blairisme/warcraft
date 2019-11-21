@@ -45,10 +45,11 @@ public class ControlPaneFactory implements GameFactory<ControlPane>
 
     @Override
     public ControlPane get(Identifier type) {
-        if (controls.supportMenuOption()) {
-            return builder.newCompactControlPane();
-        }
-        return builder.newControlPane();
+        builder.showActions(true);
+        builder.showMenuOption(! controls.supportsMenuOption());
+        builder.showMiniMap(controls.supportsMiniMap());
+        builder.showStatus(true);
+        return builder.build();
     }
 
     @Override

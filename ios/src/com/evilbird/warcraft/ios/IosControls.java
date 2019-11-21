@@ -19,8 +19,13 @@ import com.evilbird.engine.device.DeviceControls;
 public class IosControls implements DeviceControls
 {
     @Override
-    public boolean supportMenuOption() {
-        return true;
+    public boolean supportsMenuOption() {
+        return false;
+    }
+
+    @Override
+    public boolean supportsMiniMap() {
+        return false;
     }
 
     @Override

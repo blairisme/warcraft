@@ -17,7 +17,9 @@ package com.evilbird.engine.device;
  */
 public interface DeviceControls
 {
-    boolean supportMenuOption();
+    boolean supportsMenuOption();
+
+    boolean supportsMiniMap();
 
     boolean supportsPause();
 }

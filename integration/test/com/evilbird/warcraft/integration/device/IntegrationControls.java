@@ -19,8 +19,13 @@ import com.evilbird.engine.device.DeviceControls;
 public class IntegrationControls implements DeviceControls
 {
     @Override
-    public boolean supportMenuOption() {
+    public boolean supportsMenuOption() {
         return false;
+    }
+
+    @Override
+    public boolean supportsMiniMap() {
+        return true;
     }
 
     @Override

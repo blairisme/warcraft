@@ -30,28 +30,46 @@ import com.evilbird.warcraft.object.display.control.status.selection.SelectionBu
 public class ControlPaneBuilder
 {
     private ControlPaneAssets assets;
+    private boolean showActions;
+    private boolean showMenuButton;
+    private boolean showMiniMap;
+    private boolean showStatus;
 
     public ControlPaneBuilder(ControlPaneAssets assets) {
         this.assets = assets;
+        this.showActions = true;
+        this.showMenuButton = true;
+        this.showMiniMap = true;
+        this.showStatus = true;
     }
 
-    public ControlPane newControlPane() {
-        Skin skin = getSkin(false);
-        return new ControlPane(skin);
+    public ControlPane build() {
+        return new ControlPane(getSkin());
     }
 
-    public ControlPane newCompactControlPane() {
-        Skin skin = getSkin(true);
-        return new ControlPane(skin);
+    public void showActions(boolean enabled) {
+        this.showActions = enabled;
     }
 
-    private Skin getSkin(boolean compact) {
+    public void showMenuOption(boolean enabled) {
+        this.showMenuButton = enabled;
+    }
+
+    public void showMiniMap(boolean enabled) {
+        this.showMiniMap = enabled;
+    }
+
+    public void showStatus(boolean enabled) {
+        this.showStatus = enabled;
+    }
+
+    private Skin getSkin() {
         Skin skin = new Skin();
         skin.add("default", getFontStyle());
         skin.add("default", getHealthBarStyle());
         skin.add("default", getSelectionButtonStyle());
         skin.add("default", getDetailsPaneStyle());
-        skin.add("default", getControlPaneStyle(compact));
+        skin.add("default", getControlPaneStyle());
         skin.add("default", getUnitPaneStyle());
         skin.add("button-thin-medium", getButtonStyle());
         skin.add("building-progress", getBuildingProgressStyle());
@@ -64,12 +82,12 @@ public class ControlPaneBuilder
         return skin;
     }
 
-    private ControlPaneStyle getControlPaneStyle(boolean compact) {
+    private ControlPaneStyle getControlPaneStyle() {
         ControlPaneStyle style = new ControlPaneStyle();
-        style.showActions = true;
-        style.showStatus = true;
-        style.showMenuButton = !compact;
-        style.showMiniMap = !compact;
+        style.showActions = this.showActions;
+        style.showMenuButton = this.showMenuButton;
+        style.showMiniMap = this.showMiniMap;
+        style.showStatus = this.showStatus;
         return style;
     }
 
