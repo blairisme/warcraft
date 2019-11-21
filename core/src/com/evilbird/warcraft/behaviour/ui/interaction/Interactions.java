@@ -16,9 +16,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.inject.Inject;
-
-//import com.github.benmanes.caffeine.cache.Cache;
-//import com.github.benmanes.caffeine.cache.Caffeine;
+import java.util.LinkedHashMap;
 
 /**
  * Instances of this class define the different ways the user can interact with
@@ -29,7 +27,7 @@ import javax.inject.Inject;
 public class Interactions
 {
     private InteractionContainer interactions;
-//    private Cache<InteractionQuery, InteractionQueryResult> cache;
+    private LinkedHashMap<InteractionQuery, InteractionQueryResult> cache;
 
     @Inject
     public Interactions(
@@ -60,7 +58,7 @@ public class Interactions
         this.interactions.addActions(selectorInteractions);
         this.interactions.addActions(selectionInteractions);
         this.interactions.addActions(cheatInteractions);
-//        this.cache = Caffeine.newBuilder().maximumSize(100).build();
+        this.cache = new LinkedHashMap<>(100);
     }
 
     /**
@@ -76,18 +74,21 @@ public class Interactions
      * @return the matching {@code Interaction}, if any.
      */
     public Interaction getInteraction(UserInput input, GameObject gameObject, GameObject selected) {
-//        InteractionQuery query = new InteractionQuery(input, gameObject, selected);
-//        InteractionQueryResult result = cache.getIfPresent(query);
-//        if (result == null) {
-//            Interaction interaction = interactions.getInteraction(input, gameObject, selected);
-//            result = new InteractionQueryResult(interaction);
-//            cache.put(query, result);
-//        }
-//        return result.getValue();
-
-        Interaction interaction = interactions.getInteraction(input, gameObject, selected);
-        InteractionQueryResult result = new InteractionQueryResult(interaction);
+        InteractionQuery query = new InteractionQuery(input, gameObject, selected);
+        InteractionQueryResult result = cache.get(query);
+        if (result == null) {
+            Interaction interaction = interactions.getInteraction(input, gameObject, selected);
+            result = new InteractionQueryResult(interaction);
+            cacheResult(query, result);
+        }
         return result.getValue();
+    }
+
+    private void cacheResult(InteractionQuery query, InteractionQueryResult result) {
+        if (cache.size() == 100) {
+            cache.keySet().iterator().remove();
+        }
+        cache.put(query, result);
     }
 
     private static class InteractionQueryResult {
