@@ -169,6 +169,10 @@ public class WarcraftStateService implements StateService
             WarcraftCampaign campaign = (WarcraftCampaign)identifier;
             return assetFile(campaign.getFactionName(), campaign.getFileName());
         }
+        if (identifier instanceof WarcraftScenario) {
+            WarcraftScenario scenario = (WarcraftScenario)identifier;
+            return assetFile(scenario.getRoot(), scenario.getFile());
+        }
         throw new IllegalArgumentException();
     }
 
@@ -193,7 +197,7 @@ public class WarcraftStateService implements StateService
 
     protected FileHandle assetFile(String parent, String name) {
         FileHandle assets = assetStorage.resolve(ASSET_DIRECTORY);
-        FileHandle faction = assets.child(parent);
-        return faction.child(name);
+        FileHandle directory = assets.child(parent);
+        return directory.child(name);
     }
 }

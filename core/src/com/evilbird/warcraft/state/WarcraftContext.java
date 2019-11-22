@@ -22,7 +22,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  *
  * @author Blair Butterworth
  */
-@JsonAdapter(WarcraftContextAdapter.class)
+@JsonAdapter(WarcraftContextSerializer.class)
 public class WarcraftContext implements GameContext
 {
     private WarcraftFaction faction;

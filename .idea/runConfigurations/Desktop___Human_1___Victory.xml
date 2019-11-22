@@ -2,7 +2,7 @@
   <configuration default="false" name="Desktop - Human 1 - Victory" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.evilbird.warcraft.desktop.DesktopLauncher" />
     <module name="desktop" />
-    <option name="PROGRAM_PARAMETERS" value="--menu Victory --scenario Human1 " />
+    <option name="PROGRAM_PARAMETERS" value="--menu Victory --campaign Human1 " />
     <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=$ProjectFileDir$/desktop/src/resources/logback.xml" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/android/assets" />
     <method v="2">

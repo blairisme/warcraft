@@ -40,7 +40,7 @@ public class WarcraftStateServiceTest extends StateTestCase
     private HudLoader hudLoader;
     private WarcraftMusic musicLoader;
     private JsonSerializer serializer;
-    private WarcraftStateAdapter adapter;
+    private WarcraftStateSerializer adapter;
     private WarcraftStateService service;
 
     @Before
@@ -53,7 +53,7 @@ public class WarcraftStateServiceTest extends StateTestCase
         assetResolver.respondWith("data/levels", assetDirectory);
         hudLoader = new HudLoader(device, objectFactory);
         musicLoader = new WarcraftMusic(device);
-        adapter = new WarcraftStateAdapter(hudLoader, levelLoader, musicLoader, behaviourFactory);
+        adapter = new WarcraftStateSerializer(hudLoader, levelLoader, musicLoader, behaviourFactory);
         serializer = new JsonSerializer(new WarcraftTypeRegistry(), Maps.of(WarcraftState.class, adapter));
         service = new WarcraftStateService(deviceResolver, assetResolver, serializer);
     }

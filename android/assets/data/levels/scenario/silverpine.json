@@ -1,0 +1,18 @@
+{
+  "faction": {
+    "class": "Faction",
+    "enum": "Human"
+  },
+  "assets": {
+    "class": "Assets",
+    "enum": "Winter"
+  },
+  "level": {
+    "class": "Scenario",
+    "enum": "Silverpine"
+  },
+  "behaviour": {
+    "class": "Behaviour",
+    "enum": "HumanEasy"
+  }
+}

@@ -10,10 +10,12 @@
 package com.evilbird.warcraft.desktop;
 
 import com.evilbird.engine.menu.MenuIdentifier;
+import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.warcraft.menu.intro.IntroMenuType;
 import com.evilbird.warcraft.menu.main.MainMenuType;
 import com.evilbird.warcraft.menu.outro.OutroMenuType;
 import com.evilbird.warcraft.state.WarcraftCampaign;
+import com.evilbird.warcraft.state.WarcraftScenario;
 import org.apache.commons.lang3.EnumUtils;
 import picocli.CommandLine.Option;
 
@@ -24,9 +26,13 @@ import picocli.CommandLine.Option;
  */
 public class DesktopCommands
 {
+    @Option(names={"-c", "--campaign" }, paramLabel="LEVEL",
+        description="starts the game and shows the given campaign")
+    private WarcraftCampaign campaign;
+
     @Option(names={"-s", "--scenario" }, paramLabel="LEVEL",
-        description="starts the game and shows the given scenario")
-    private WarcraftCampaign scenario;
+            description="starts the game and shows the given scenario")
+    private WarcraftScenario scenario;
 
     @Option(names={"-m", "--menu" }, paramLabel="MENU",
         description="starts the game and shows the given menu")
@@ -45,18 +51,24 @@ public class DesktopCommands
     private boolean debugControl;
 
     /**
-     * The scenario to show when the game engine starts. This command line
-     * option is optional and may be <code>null</code>.
+     * The state to show when the game engine starts. This command line
+     * option is optional and may be {@code null}.
      *
-     * @return a {@link WarcraftCampaign}.
+     * @return a {@link StateIdentifier}.
      */
-    public WarcraftCampaign getScenario() {
-        return scenario;
+    public StateIdentifier getState() {
+        if (campaign != null) {
+            return campaign;
+        }
+        if (scenario != null) {
+            return scenario;
+        }
+        return null;
     }
 
     /**
      * The menu to show when the game engine starts. This command line
-     * option is optional and may be <code>null</code>.
+     * option is optional and may be {@code null}.
      *
      * @return a {@link MenuIdentifier}.
      */

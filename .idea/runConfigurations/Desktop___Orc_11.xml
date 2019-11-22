@@ -2,7 +2,7 @@
   <configuration default="false" name="Desktop - Orc 11" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.evilbird.warcraft.desktop.DesktopLauncher" />
     <module name="desktop" />
-    <option name="PROGRAM_PARAMETERS" value="--scenario Orc11" />
+    <option name="PROGRAM_PARAMETERS" value="--campaign Orc11" />
     <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=$ProjectFileDir$/desktop/src/resources/logback.xml" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/android/assets" />
     <method v="2">

@@ -104,6 +104,10 @@ public class LevelLoader
         this.mapLoader = new TiledMapLoader(assetManager);
     }
 
+    public GameObjectContainer load(Level level) {
+        return load(level.getFilePath());
+    }
+
     public GameObjectContainer load(String path) {
         TiledMapFile level = mapLoader.load(path);
         return load(level);

@@ -22,15 +22,15 @@ import org.junit.Test;
 import static com.evilbird.test.data.assets.TestDevices.newTestDevice;
 
 /**
- * Instances of this unit test validate the {@link WarcraftStateAdapter} class.
+ * Instances of this unit test validate the {@link WarcraftStateSerializer} class.
  *
  * @author Blair Butterworth
  */
-public class WarcraftStateAdapterTest extends StateTestCase
+public class serializer extends StateTestCase
 {
     private HudLoader hudLoader;
     private WarcraftMusic musicLoader;
-    private WarcraftStateAdapter adapter;
+    private WarcraftStateSerializer adapter;
 
     @Before
     public void setup() {
@@ -38,7 +38,7 @@ public class WarcraftStateAdapterTest extends StateTestCase
         device = newTestDevice();
         hudLoader = new HudLoader(device, objectFactory);
         musicLoader = new WarcraftMusic(device);
-        adapter = new WarcraftStateAdapter(hudLoader, levelLoader, musicLoader, behaviourFactory);
+        adapter = new WarcraftStateSerializer(hudLoader, levelLoader, musicLoader, behaviourFactory);
         loadAssets();
     }
 
@@ -59,7 +59,7 @@ public class WarcraftStateAdapterTest extends StateTestCase
 
     @Test
     public void deserializeAssetTest() {
-        assetResolver.respondWith(Level.Human1.getFilePath(), "/warcraft/state/level.tmx");
+        assetResolver.respondWith(WarcraftCampaignLevel.Human1.getFilePath(), "/warcraft/state/level.tmx");
         FileHandle handle = assetResolver.resolve("/warcraft/state/level.json");
 
         JsonReader reader = new JsonReader(handle.reader());

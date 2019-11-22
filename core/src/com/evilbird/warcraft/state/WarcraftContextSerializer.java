@@ -27,13 +27,13 @@ import java.lang.reflect.Type;
  *
  * @author Blair Butterworth
  */
-public class WarcraftContextAdapter implements JsonSerializer<WarcraftContext>, JsonDeserializer<WarcraftContext>
+public class WarcraftContextSerializer implements JsonSerializer<WarcraftContext>, JsonDeserializer<WarcraftContext>
 {
     private static final String FACTION = "faction";
     private static final String ASSETS = "assets";
 
     @Inject
-    public WarcraftContextAdapter() {
+    public WarcraftContextSerializer() {
     }
 
     @Override

@@ -9,23 +9,19 @@
 
 package com.evilbird.warcraft.state;
 
-import com.evilbird.engine.menu.MenuIdentifier;
-import com.evilbird.engine.state.IntroducedState;
-import com.evilbird.engine.state.StateIdentifier;
-import com.evilbird.engine.state.StateSequence;
 import com.evilbird.warcraft.common.WarcraftFaction;
-import com.evilbird.warcraft.menu.intro.IntroMenuType;
 
-import static com.evilbird.engine.common.file.FileType.JSON;
+import static com.evilbird.engine.common.file.FileType.TMX;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
 
 /**
- * An identifier for a built-in campaign scenarios.
+ * Defines states shipped in the application bundle. I.e., built in levels and
+ * scenarios.
  *
  * @author Blair Butterworth
  */
-public enum WarcraftCampaign implements StateIdentifier, StateSequence, IntroducedState
+public enum WarcraftCampaignLevel implements Level
 {
     Human1,
     Human2,
@@ -57,8 +53,6 @@ public enum WarcraftCampaign implements StateIdentifier, StateSequence, Introduc
     Orc13,
     Orc14;
 
-    private static final String CAMPAIGN_FILE_NAME = "campaign";
-
     public WarcraftFaction getFaction() {
         return this.ordinal() >= Orc1.ordinal() ? Orc : Human;
     }
@@ -68,23 +62,14 @@ public enum WarcraftCampaign implements StateIdentifier, StateSequence, Introduc
     }
 
     public String getFileName() {
-        return CAMPAIGN_FILE_NAME + getIndex() + JSON.getFileExtension();
+        return "campaign" + getIndex() + TMX.getFileExtension();
+    }
+
+    public String getFilePath() {
+        return "data/levels/" + getFactionName() + "/" + getFileName();
     }
 
     public int getIndex() {
         return ordinal() >= Orc1.ordinal() ? ordinal() - Orc1.ordinal() + 1 : ordinal() + 1;
-    }
-
-    @Override
-    public MenuIdentifier getIntroductionMenu() {
-        return IntroMenuType.valueOf(name());
-    }
-
-    @Override
-    public StateIdentifier getNextState() {
-        if (getIndex() < 14) {
-            return WarcraftCampaign.values()[ordinal() + 1];
-        }
-        return null;
     }
 }

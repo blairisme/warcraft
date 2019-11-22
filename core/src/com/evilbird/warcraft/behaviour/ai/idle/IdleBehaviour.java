@@ -35,7 +35,7 @@ import static com.evilbird.warcraft.object.common.query.UnitPredicates.isCritter
  */
 public class IdleBehaviour implements AiBehaviourElement
 {
-    private static final float PERIOD = 0.5f;
+    private static final float PERIOD = 1f;
     private static final int REORIENT_MIN = 2;
     private static final int REORIENT_MAX = 4;
 

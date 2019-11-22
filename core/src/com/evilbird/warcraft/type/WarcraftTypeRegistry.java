@@ -45,8 +45,8 @@ import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
 import com.evilbird.warcraft.object.unit.critter.Critter;
 import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.object.unit.resource.Resource;
-import com.evilbird.warcraft.state.Level;
-import com.evilbird.warcraft.state.WarcraftCampaign;
+import com.evilbird.warcraft.state.WarcraftCampaignLevel;
+import com.evilbird.warcraft.state.WarcraftScenarioLevel;
 
 import javax.inject.Inject;
 
@@ -87,8 +87,9 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("Faction", WarcraftFaction.class);
         registerType("Assets", WarcraftSeason.class);
 
-        registerType("Level", Level.class);
-        registerType("Campaign", WarcraftCampaign.class);
+//        registerType("Campaign", WarcraftCampaign.class);
+        registerType("Level", WarcraftCampaignLevel.class);
+        registerType("Scenario", WarcraftScenarioLevel.class);
         registerType("Introduction", IntroMenuType.class);
     }
 

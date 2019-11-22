@@ -31,7 +31,7 @@ import java.lang.reflect.Type;
  *
  * @author Blair Butterworth
  */
-public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, JsonDeserializer<WarcraftState>
+public class WarcraftStateSerializer implements JsonSerializer<WarcraftState>, JsonDeserializer<WarcraftState>
 {
     private static final String LEVEL = "level";
     private static final String BEHAVIOUR = "behaviour";
@@ -41,7 +41,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     private WarcraftMusic musicLoader;
     private BehaviourFactory behaviourFactory;
 
-    public WarcraftStateAdapter() {
+    public WarcraftStateSerializer() {
         GameService service = GameService.getInstance();
         this.hudLoader = new HudLoader(service.getDevice(), service.getItemFactory());
         this.levelLoader = new LevelLoader(service.getDevice(), service.getItemFactory());
@@ -50,7 +50,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     }
 
     @Inject
-    public WarcraftStateAdapter(
+    public WarcraftStateSerializer(
         HudLoader hudLoader,
         LevelLoader levelLoader,
         WarcraftMusic musicLoader,
@@ -121,7 +121,7 @@ public class WarcraftStateAdapter implements JsonSerializer<WarcraftState>, Json
     private GameObjectContainer deserializeLevel(JsonElement element, JsonDeserializationContext context) {
         JsonObject json = element.getAsJsonObject();
         if (isEmbedded(json)) {
-            Level level = context.deserialize(json, Identifier.class);
+            Level level = context.deserialize(json, Level.class);
             return levelLoader.load(level.getFilePath());
         }
         return context.deserialize(json, GameObjectContainer.class);

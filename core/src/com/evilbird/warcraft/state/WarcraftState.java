@@ -24,7 +24,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author Blair Butterworth
  */
-@JsonAdapter(WarcraftStateAdapter.class)
+@JsonAdapter(WarcraftStateSerializer.class)
 public class WarcraftState implements State
 {
     private GameObjectContainer hud;

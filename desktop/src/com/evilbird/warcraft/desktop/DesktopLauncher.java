@@ -63,13 +63,13 @@ public class DesktopLauncher
 
     private static void configureEngine(GameEngine engine, DesktopCommands commands) {
         MenuIdentifier menu = commands.getMenu();
-        StateIdentifier scenario = commands.getScenario();
+        StateIdentifier state = commands.getState();
 
-        if (menu != null && scenario != null) {
-            engine.setInitialScreen(menu, scenario);
+        if (menu != null && state != null) {
+            engine.setInitialScreen(menu, state);
         }
-        else if (scenario != null) {
-            engine.setInitialScreen(scenario);
+        else if (state != null) {
+            engine.setInitialScreen(state);
         }
         else if (menu != null) {
             engine.setInitialScreen(menu);
