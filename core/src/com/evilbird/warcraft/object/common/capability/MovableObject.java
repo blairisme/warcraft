@@ -23,17 +23,13 @@ import com.evilbird.engine.object.GameObject;
 public interface MovableObject extends GameObject, Animated, Audible, Directionable
 {
     /**
-     * Return the speed of the movable.
-     *
-     * @return  the the speed of the movable, in pixels per second.
+     * Returns the speed of the movable object, specified in pixels per second.
      */
     int getMovementSpeed();
 
     /**
-     * Returns a {@link MovementCapability} defining which items the movable
-     * can traverse over.
-     *
-     * @return a MovementCapability.
+     * Returns a {@link TerrainType} defining which types of terrain the
+     * movable object can traverse over.
      */
-    MovementCapability getMovementCapability();
+    TerrainType getMovementCapability();
 }

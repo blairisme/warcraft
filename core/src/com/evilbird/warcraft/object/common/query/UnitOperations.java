@@ -215,34 +215,6 @@ public class UnitOperations
     }
 
     /**
-     * Determines if the given {@link GameObject Items} belong to different teams:
-     * the both {@link Player#getTeam() players teams} are different.
-     *
-     * @param gameObjectA an {@code Item} to test.
-     * @param gameObjectB another {@code Item} to test.
-     * @return      {@code true} if both {@code Items} are owned by the same
-     *              {@code Player}
-     *
-     * @throws NullPointerException thrown if either of the given {@code Items}
-     *                              is {@code null}.
-     */
-    public static boolean isAnotherTeam(GameObject gameObjectA, GameObject gameObjectB) {
-        Objects.requireNonNull(gameObjectA);
-        Objects.requireNonNull(gameObjectB);
-
-        Player playerA = getPlayer(gameObjectA);
-        Player playerB = getPlayer(gameObjectB);
-
-        return isAnotherTeam(playerA, playerB);
-    }
-
-    public static boolean isAnotherTeam(Player playerA, Player playerB) {
-        int teamA = playerA != null ? playerA.getTeam() : -1;
-        int teamB = playerB != null ? playerB.getTeam() : -1;
-        return teamA != teamB;
-    }
-
-    /**
      * Determines if the given {@link GameObject} is "alive" of not. Specifically,
      * this method tests if the given {@code Item} implements {@link PerishableObject}
      * and if it has a {@link PerishableObject#getHealth() health} value more than

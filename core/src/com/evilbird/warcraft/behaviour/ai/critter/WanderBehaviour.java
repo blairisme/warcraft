@@ -58,7 +58,7 @@ public class WanderBehaviour implements AiBehaviourElement
     }
 
     @Override
-    public void applyBehaviour(GameObjectContainer state) {
+    public void applyBehaviour(GameObjectContainer state, float time) {
         initialize(state);
         update(state);
     }

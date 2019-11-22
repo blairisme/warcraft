@@ -17,7 +17,7 @@ import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmLocatio
 import static com.evilbird.warcraft.action.transport.TransportActions.TransportDisembark;
 import static com.evilbird.warcraft.action.transport.TransportActions.TransportEmbark;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
-import static com.evilbird.warcraft.object.common.capability.MovementCapability.Land;
+import static com.evilbird.warcraft.object.common.capability.TerrainType.Land;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isControllable;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isMovableOver;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isTransport;

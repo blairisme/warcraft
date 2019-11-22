@@ -55,6 +55,10 @@ public class AttackEvent implements Event
             || status == AttackStatus.Stopped;
     }
 
+    public boolean isFailed() {
+        return status == AttackStatus.Failed;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)

@@ -11,13 +11,14 @@ package com.evilbird.warcraft.object.unit.critter;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
-import com.evilbird.warcraft.object.common.capability.MovementCapability;
+import com.evilbird.warcraft.object.common.capability.PerishableObject;
+import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.unit.Unit;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import static com.evilbird.warcraft.object.common.capability.MovementCapability.None;
+import static com.evilbird.warcraft.object.common.capability.TerrainType.None;
 
 /**
  * Represents a critter, an animal that inhabits the game world. Critters can
@@ -28,22 +29,29 @@ import static com.evilbird.warcraft.object.common.capability.MovementCapability.
 public class Critter extends Unit implements MovableObject
 {
     private int movementSpeed;
-    private MovementCapability movementCapability;
+    private TerrainType movementCapability;
 
     public Critter(Skin skin) {
         super(skin);
         movementCapability = None;
     }
 
-    public MovementCapability getMovementCapability() {
+    @Override
+    public TerrainType getMovementCapability() {
         return movementCapability;
     }
 
+    @Override
     public int getMovementSpeed() {
         return movementSpeed;
     }
 
-    public void setMovementCapability(MovementCapability capability) {
+    @Override
+    public boolean isEnemy(PerishableObject other) {
+        return false;
+    }
+
+    public void setMovementCapability(TerrainType capability) {
         this.movementCapability = capability;
     }
 

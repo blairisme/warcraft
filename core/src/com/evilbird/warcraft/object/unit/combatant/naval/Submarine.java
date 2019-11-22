@@ -12,9 +12,8 @@ package com.evilbird.warcraft.object.unit.combatant.naval;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.common.capability.OffensiveCapability;
+import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
-
-import static com.evilbird.warcraft.object.common.capability.OffensiveCapability.Water;
 
 /**
  * A {@link RangedCombatant} specialization that can traverse and attack
@@ -40,6 +39,11 @@ public class Submarine extends RangedCombatant
      */
     @Override
     public OffensiveCapability getAttackCapability() {
-        return Water;
+        return OffensiveCapability.Water;
+    }
+
+    @Override
+    public TerrainType getTerrainType() {
+        return TerrainType.Water;
     }
 }

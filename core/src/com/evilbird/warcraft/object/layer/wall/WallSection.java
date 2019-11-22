@@ -12,6 +12,7 @@ package com.evilbird.warcraft.object.layer.wall;
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
+import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.layer.LayerGroupCell;
 import com.evilbird.warcraft.object.layer.LayerType;
 
@@ -42,20 +43,30 @@ public class WallSection extends LayerGroupCell implements PerishableObject, Spa
     }
 
     /**
+     * Returns the health of the {@code WallSection}.
+     */
+    @Override
+    public float getHealth() {
+        return getValue();
+    }
+
+    @Override
+    public int getTeam() {
+        return -1;
+    }
+
+    @Override
+    public TerrainType getTerrainType() {
+        return TerrainType.Land;
+    }
+
+    /**
      * Returns whether the {@code WallSection} is visible to potential
      * attackers.
      */
     @Override
     public boolean isAttackable() {
         return true;
-    }
-
-    /**
-     * Returns the health of the {@code WallSection}.
-     */
-    @Override
-    public float getHealth() {
-        return getValue();
     }
 
     /**

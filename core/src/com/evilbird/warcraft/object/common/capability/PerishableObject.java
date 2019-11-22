@@ -30,6 +30,16 @@ public interface PerishableObject extends GameObject
     float getHealth();
 
     /**
+     * Returns the
+     */
+    int getTeam();
+
+    /**
+     * Returns the type of terrain the {@code PerishableObject} resides in.
+     */
+    TerrainType getTerrainType();
+
+    /**
      * Returns whether the {@code PerishableObject} is visible to potential
      * attackers.
      */
@@ -39,4 +49,22 @@ public interface PerishableObject extends GameObject
      * Sets the health of the {@code PerishableObject}.
      */
     void setHealth(float health);
+
+    /**
+     * Determines if the given {@code PerishableObject} is "alive" of not.
+     * Specifically if the {@code PerishableObject#getHealth() health} of the
+     * {@code PerishableObject} is greater than zero.
+     */
+    default boolean isAlive() {
+        return getHealth() > 0;
+    }
+
+    /**
+     * Returns whether the given {@code PerishableObject} is an enemy.
+     */
+    default boolean isEnemy(PerishableObject other) {
+        int thisTeam = this.getTeam();
+        int otherTeam = other.getTeam();
+        return thisTeam != otherTeam;
+    }
 }

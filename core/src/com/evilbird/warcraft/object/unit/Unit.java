@@ -31,8 +31,10 @@ import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.common.TeamColour;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
+import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.common.value.FixedValue;
 import com.evilbird.warcraft.object.common.value.Value;
+import com.evilbird.warcraft.object.data.player.Player;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -203,6 +205,17 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     @Override
     public boolean getSelectable() {
         return selectable;
+    }
+
+    @Override
+    public int getTeam() {
+        Player player = (Player)getParent();
+        return player != null ? player.getTeam() : -1;
+    }
+
+    @Override
+    public TerrainType getTerrainType() {
+        return TerrainType.Land;
     }
 
     /**

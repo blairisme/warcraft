@@ -11,10 +11,10 @@ package com.evilbird.warcraft.object.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
-import com.evilbird.warcraft.object.common.capability.MovementCapability;
 import com.evilbird.warcraft.object.common.capability.OffensiveCapability;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.OffensivePlurality;
+import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.common.value.FixedValue;
 import com.evilbird.warcraft.object.common.value.Value;
 import com.evilbird.warcraft.object.common.value.ValueProperty;
@@ -42,7 +42,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
     private Value basicDamage;
     private Value piercingDamage;
     private Value movementSpeed;
-    private MovementCapability movementCapability;
+    private TerrainType movementCapability;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} describing
@@ -58,7 +58,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
         this.basicDamage = Zero;
         this.movementSpeed = Zero;
         this.attackable = true;
-        this.movementCapability = MovementCapability.None;
+        this.movementCapability = TerrainType.None;
     }
 
     /**
@@ -171,12 +171,12 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
     }
 
     /**
-     * Returns the {@link MovementCapability movement capability} of the
+     * Returns the {@link TerrainType movement capability} of the
      * {@code Combatant}, those types of terrain the {@code Combatant} can
      * traverse across.
      */
     @Override
-    public MovementCapability getMovementCapability() {
+    public TerrainType getMovementCapability() {
         return movementCapability;
     }
 
@@ -260,11 +260,11 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject
     }
 
     /**
-     * Sets the {@link MovementCapability movement capability} of the
+     * Sets the {@link TerrainType movement capability} of the
      * {@code Combatant}, those types of terrain the {@code Combatant} can
      * traverse across.
      */
-    public void setMovementCapability(MovementCapability capability) {
+    public void setMovementCapability(TerrainType capability) {
         this.movementCapability = capability;
     }
 

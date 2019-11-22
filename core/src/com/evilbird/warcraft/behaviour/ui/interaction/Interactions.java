@@ -85,10 +85,10 @@ public class Interactions
     }
 
     private void cacheResult(InteractionQuery query, InteractionQueryResult result) {
-        if (cache.size() == 100) {
-            cache.keySet().iterator().remove();
-        }
-        cache.put(query, result);
+//        if (cache.size() == 100) {
+//            cache.entrySet().iterator().remove();
+//        }
+//        cache.put(query, result);
     }
 
     private static class InteractionQueryResult {

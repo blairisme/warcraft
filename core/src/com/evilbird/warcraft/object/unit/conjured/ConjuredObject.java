@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.warcraft.object.common.capability.OffensiveCapability;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.OffensivePlurality;
+import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitStyle;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -94,6 +95,11 @@ public class ConjuredObject extends Unit implements OffensiveObject
     @Override
     public boolean isAttackable() {
         return true;
+    }
+
+    @Override
+    public boolean isEnemy(PerishableObject other) {
+        return false;
     }
 
     /**

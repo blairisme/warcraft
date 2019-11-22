@@ -12,7 +12,7 @@ package com.evilbird.warcraft.object.projectile;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
-import com.evilbird.warcraft.object.common.capability.MovementCapability;
+import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.effect.EffectType;
 
 /**
@@ -23,7 +23,7 @@ import com.evilbird.warcraft.object.effect.EffectType;
 public class Projectile extends AnimatedObject implements MovableObject
 {
     private static final transient int MOVEMENT_SPEED = 500;
-    private static final transient MovementCapability MOVEMENT_CAPABILITY = MovementCapability.Air;
+    private static final transient TerrainType MOVEMENT_CAPABILITY = TerrainType.Air;
 
     private transient EffectType explosionEffect;
 
@@ -45,7 +45,7 @@ public class Projectile extends AnimatedObject implements MovableObject
     }
 
     @Override
-    public MovementCapability getMovementCapability() {
+    public TerrainType getMovementCapability() {
         return MOVEMENT_CAPABILITY;
     }
 

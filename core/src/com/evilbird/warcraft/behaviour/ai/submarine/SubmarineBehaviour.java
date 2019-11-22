@@ -57,7 +57,7 @@ public class SubmarineBehaviour implements AiBehaviourElement
     }
 
     @Override
-    public void applyBehaviour(GameObjectContainer state) {
+    public void applyBehaviour(GameObjectContainer state, float time) {
         if (!initialized()) {
             initialize(state);
         }

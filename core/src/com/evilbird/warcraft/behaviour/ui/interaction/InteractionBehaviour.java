@@ -59,7 +59,7 @@ public class InteractionBehaviour implements Behaviour
     }
 
     @Override
-    public void update(State state, List<UserInput> inputs) {
+    public void update(State state, List<UserInput> inputs, float time) {
         updateCache(state);
         evaluateInputs(state, inputs);
     }

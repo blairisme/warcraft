@@ -106,11 +106,11 @@ public class StateScreen extends ScreenAdapter
         draw();
     }
 
-    public void update(float delta){
-        behaviour.update(state, input.getInput());
+    public void update(float time){
+        behaviour.update(state, input.getInput(), time);
         events.clear();
-        world.update(delta);
-        hud.update(delta);
+        world.update(time);
+        hud.update(time);
     }
 
     public void draw() {

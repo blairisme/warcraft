@@ -62,13 +62,13 @@ public class ScenarioBehaviourTest extends GameTestCase
         behaviour.setWinCondition((a, b) -> false);
         behaviour.setLoseCondition((a, b) -> false);
 
-        behaviour.update(state, emptyList());
+        behaviour.update(state, emptyList(), 1);
         Assert.assertFalse(root.getBaseGroup().getActions().contains(winAction));
 
         behaviour.setWinCondition((a, b) -> true);
         behaviour.setLoseCondition((a, b) -> false);
 
-        behaviour.update(state, emptyList());
+        behaviour.update(state, emptyList(), 1);
         Assert.assertTrue(root.getBaseGroup().getActions().contains(winAction));
     }
 
@@ -77,13 +77,13 @@ public class ScenarioBehaviourTest extends GameTestCase
         behaviour.setWinCondition((a, b) -> false);
         behaviour.setLoseCondition((a, b) -> false);
 
-        behaviour.update(state, emptyList());
+        behaviour.update(state, emptyList(), 1);
         Assert.assertFalse(root.getBaseGroup().getActions().contains(loseAction));
 
         behaviour.setWinCondition((a, b) -> false);
         behaviour.setLoseCondition((a, b) -> true);
 
-        behaviour.update(state, emptyList());
+        behaviour.update(state, emptyList(), 1);
         Assert.assertTrue(root.getBaseGroup().getActions().contains(loseAction));
     }
 }

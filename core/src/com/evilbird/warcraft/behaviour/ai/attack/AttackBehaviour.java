@@ -48,9 +48,9 @@ public class AttackBehaviour implements AiBehaviourElement
     }
 
     @Override
-    public void applyBehaviour(GameObjectContainer state) {
+    public void applyBehaviour(GameObjectContainer state, float time) {
         initialize(state);
-        update();
+        update(time);
         assignTargets();
         assignAttackers();
     }
@@ -62,16 +62,16 @@ public class AttackBehaviour implements AiBehaviourElement
         }
         if (controller == null) {
             controller = new AttackController(events, graph);
-            controller.initialize(state);
+//            controller.initialize(state);
         }
         for (GameObject attacker: state.findAll(OffensiveObject.class::isInstance)) {
             assignTarget((OffensiveObject)attacker);
         }
     }
 
-    private void update() {
+    private void update(float time) {
         graph.update();
-        controller.update();
+        controller.update(time);
     }
 
     private void assignTargets() {

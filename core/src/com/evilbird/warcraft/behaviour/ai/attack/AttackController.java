@@ -10,32 +10,23 @@
 package com.evilbird.warcraft.behaviour.ai.attack;
 
 import com.evilbird.engine.common.collection.CollectionUtils;
-import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.GameObjectContainer;
-import com.evilbird.engine.object.utility.GameObjectOperations;
-import com.evilbird.warcraft.action.common.create.CreateEvent;
-import com.evilbird.warcraft.action.common.remove.RemoveEvent;
-import com.evilbird.warcraft.action.move.MoveEvent;
-import com.evilbird.warcraft.object.common.capability.OffensiveCapability;
+import com.evilbird.warcraft.action.attack.AttackEvent;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
-import com.evilbird.warcraft.object.common.query.UnitOperations;
-import com.evilbird.warcraft.object.data.player.Player;
-import com.evilbird.warcraft.object.unit.UnitType;
 
-import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.filter;
-import static com.evilbird.warcraft.object.common.capability.OffensivePlurality.Individual;
-import static com.evilbird.warcraft.object.common.query.UnitOperations.isAnotherTeam;
-import static com.evilbird.warcraft.object.common.query.UnitOperations.isNeutral;
-import static java.util.Collections.emptyList;
+import static com.evilbird.engine.common.collection.CollectionUtils.findFirst;
+import static com.evilbird.warcraft.behaviour.ai.attack.AttackStatus.isValidTarget;
+import static com.evilbird.warcraft.object.common.capability.OffensivePlurality.Multiple;
 import static java.util.Collections.singletonList;
 
 /**
@@ -46,10 +37,11 @@ import static java.util.Collections.singletonList;
  */
 public class AttackController
 {
+    private static final float COOLDOWN = 1f;
+
     private Events events;
     private AttackGraph graph;
-    private Map<Identifier, List<OffensiveObject>> attackers;
-    private Map<Identifier, List<PerishableObject>> targets;
+    private Map<Identifier, GameTimer> cooldown;
 
     /**
      * Creates a new instance of this class given an {@link Events} instance,
@@ -59,23 +51,34 @@ public class AttackController
     public AttackController(Events events, AttackGraph graph) {
         this.events = events;
         this.graph = graph;
-        this.targets = new HashMap<>();
-        this.attackers = new HashMap<>();
+        this.cooldown = new HashMap<>();
     }
 
     /**
      * Returns a collection of targets the given attacker can attack at the
-     * current time. The targets all belong to an opposing team and are within
-     * the attackers capability to attack.
+     * current time. The targets will belong to an opposing team and will be
+     * within the attackers capability to attack.
      */
-    public Collection<PerishableObject> getTargets(OffensiveObject attacker) {
-        List<PerishableObject> potentialTargets = Maps.getOrDefault(targets, attacker.getIdentifier(), emptyList());
-        CollectionUtils.removeIf(potentialTargets, UnitOperations::isDead);
-
-        if (attacker.getAttackPlurality() == Individual) {
-            return !potentialTargets.isEmpty() ? singletonList(potentialTargets.get(0)) : emptyList();
+    public List<PerishableObject> getTargets(OffensiveObject attacker) {
+        Identifier attackerId = attacker.getIdentifier();
+        if (cooldown.containsKey(attackerId)) {
+            return Collections.emptyList();
         }
-        return potentialTargets;
+        if (attacker.getAttackPlurality() == Multiple) {
+            return getMultipleTargets(attacker);
+        }
+        return getSingleTarget(attacker);
+    }
+
+    private List<PerishableObject> getMultipleTargets(OffensiveObject attacker) {
+        List<PerishableObject> potentials = graph.getTargets(attacker);
+        return filter(potentials, target -> isValidTarget(attacker, target));
+    }
+
+    private List<PerishableObject> getSingleTarget(OffensiveObject attacker) {
+        List<PerishableObject> potentials = graph.getTargets(attacker);
+        PerishableObject result = findFirst(potentials, target -> isValidTarget(attacker, target));
+        return result != null ? singletonList(result) : Collections.emptyList();
     }
 
     /**
@@ -83,134 +86,23 @@ public class AttackController
      * target and are not currently attacking another target, or have the
      * ability to attack multiple targets at the same time.
      */
-    public Collection<OffensiveObject> getAttackers(PerishableObject target) {
-        List<OffensiveObject> potentialAttackers = Maps.getOrDefault(attackers, target.getIdentifier(), emptyList());
-        return CollectionUtils.filter(potentialAttackers, this::isIdleAttacker);
-    }
-
-    /**
-     * Initializes the attack controller using the given state, which is used
-     * to lookup attackers and potential targets.
-     */
-    public void initialize(GameObjectContainer state) {
-        for (GameObject attacker: state.findAll(OffensiveObject.class::isInstance)) {
-            addAttacker((OffensiveObject)attacker);
-        }
-        for (GameObject target: state.findAll(PerishableObject.class::isInstance)) {
-            addTarget((PerishableObject) target);
-        }
-    }
-
-    /**
-     * Updates the attack controller, using the events system to maintain an
-     * accurate list of attackers and potential targets.
-     */
-    public void update() {
-        evaluateMovedObjects();
-        evaluateCreatedObjects();
-        evaluateRemovedObjects();
-    }
-
-    private void evaluateCreatedObjects() {
-        for (CreateEvent event: events.getEvents(CreateEvent.class)) {
-            GameObject subject = event.getSubject();
-
-            if (subject instanceof OffensiveObject) {
-                addAttacker((OffensiveObject)subject);
-            }
-            if (subject instanceof PerishableObject) {
-                addTarget((PerishableObject)subject);
-            }
-        }
-    }
-
-    private void evaluateMovedObjects() {
-        for (MoveEvent event: events.getEvents(MoveEvent.class)) {
-            GameObject subject = event.getSubject();
-
-            if (subject instanceof OffensiveObject) {
-                updateAttacker((OffensiveObject)subject);
-            }
-            if (subject instanceof PerishableObject) {
-                updateTarget((PerishableObject)subject);
-            }
-        }
-    }
-
-    private void evaluateRemovedObjects() {
-        for (RemoveEvent event: events.getEvents(RemoveEvent.class)) {
-            GameObject subject = event.getSubject();
-
-            if (subject instanceof OffensiveObject) {
-                removeAttacker((OffensiveObject)subject);
-            }
-            if (subject instanceof PerishableObject) {
-                removeTarget((PerishableObject)subject);
-            }
-        }
-    }
-
-    private void addAttacker(OffensiveObject attacker) {
-        List<PerishableObject> potentials = graph.getTargets(attacker);
-        List<PerishableObject> targets = filter(potentials, target -> isAttackable(attacker, target));
-        this.targets.put(attacker.getIdentifier(), targets);
-    }
-
-    private void addTarget(PerishableObject target) {
+    public List<OffensiveObject> getAttackers(PerishableObject target) {
         List<OffensiveObject> potentials = graph.getAttackers(target);
-        List<OffensiveObject> attackers = filter(potentials, attacker -> isAttackable(attacker, target));
-        this.attackers.put(target.getIdentifier(), attackers);
+        List<OffensiveObject> attackers = filter(potentials, attacker -> isValidTarget(attacker, target));
+        return CollectionUtils.filter(attackers, AttackStatus::isValidAttacker);
     }
 
-    private void removeAttacker(OffensiveObject attacker) {
-        attackers.remove(attacker.getIdentifier());
-    }
-
-    private void removeTarget(PerishableObject target) {
-        targets.remove(target.getIdentifier());
-    }
-
-    private void updateAttacker(OffensiveObject attacker) {
-        removeAttacker(attacker);
-        addAttacker(attacker);
-    }
-
-    private void updateTarget(PerishableObject target) {
-        removeTarget(target);
-        addTarget(target);
-    }
-
-    private boolean isAttackable(OffensiveObject attacker, PerishableObject target) {
-        return isAttackableTarget(attacker, target)
-            && isAttackableTeam(attacker, target);
-    }
-
-    private boolean isAttackableTarget(OffensiveObject attacker, PerishableObject target) {
-        if (target.isAttackable()) {
-            Identifier type = target.getType();
-            if (type instanceof UnitType) {
-                return isAttackableTarget(attacker.getAttackCapability(), (UnitType) type);
+    /**
+     * Adds an attack delay to any attackers whose attack operation has just
+     * failed.
+     */
+    public void update(float time) {
+        CollectionUtils.removeIf(cooldown.entrySet(), it -> it.getValue().advance(time));
+        for (AttackEvent event: events.getEvents(AttackEvent.class)) {
+            if (event.isFailed()) {
+                GameObject attacker = event.getSubject();
+                cooldown.put(attacker.getIdentifier(), new GameTimer(COOLDOWN));
             }
         }
-        return false;
-    }
-
-    private boolean isAttackableTarget(OffensiveCapability capability, UnitType target) {
-        switch (capability) {
-            case Air: return true;
-            case Water: return target.isNaval();
-            case Proximity: return !target.isFlying() && !target.isSubmarine();
-            default: return false;
-        }
-    }
-
-    private boolean isAttackableTeam(OffensiveObject attacker, PerishableObject target) {
-        Player attackingPlayer = UnitOperations.getPlayer(attacker);
-        Player targetPlayer = UnitOperations.getPlayer(target);
-        return isAnotherTeam(attackingPlayer, targetPlayer) && !isNeutral(targetPlayer);
-    }
-
-    private boolean isIdleAttacker(OffensiveObject attacker) {
-        return attacker.getAttackPlurality() != Individual || GameObjectOperations.isIdle(attacker);
     }
 }

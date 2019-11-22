@@ -58,7 +58,7 @@ public class ScenarioBehaviour implements Behaviour
     }
 
     @Override
-    public void update(State state, List<UserInput> input) {
+    public void update(State state, List<UserInput> input, float time) {
         evaluate(state.getWorld());
     }
 

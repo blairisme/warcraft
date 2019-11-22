@@ -19,5 +19,5 @@ import com.evilbird.engine.object.GameObjectContainer;
  */
 public interface AiBehaviourElement
 {
-    void applyBehaviour(GameObjectContainer gameState);
+    void applyBehaviour(GameObjectContainer gameState, float time);
 }

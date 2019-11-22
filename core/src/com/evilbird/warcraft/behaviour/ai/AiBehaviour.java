@@ -48,10 +48,10 @@ public class AiBehaviour implements Behaviour
     }
 
     @Override
-    public void update(State state, List<UserInput> input) {
+    public void update(State state, List<UserInput> input, float time) {
         GameObjectContainer world = state.getWorld();
         for (AiBehaviourElement component: components) {
-            component.applyBehaviour(world);
+            component.applyBehaviour(world, time);
         }
     }
 }

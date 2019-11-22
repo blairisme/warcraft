@@ -40,9 +40,9 @@ public class CompositeBehaviour implements Behaviour
     }
 
     @Override
-    public void update(State state, List<UserInput> input) {
+    public void update(State state, List<UserInput> input, float time) {
         for (Behaviour behaviour : behaviours) {
-            behaviour.update(state, input);
+            behaviour.update(state, input, time);
         }
     }
 }

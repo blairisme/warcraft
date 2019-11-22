@@ -10,17 +10,16 @@
 package com.evilbird.warcraft.behaviour.ai.idle;
 
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourElement;
 import com.evilbird.warcraft.object.unit.Unit;
-import org.apache.commons.lang3.time.StopWatch;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.either;
@@ -41,20 +40,19 @@ public class IdleBehaviour implements AiBehaviourElement
     private static final int REORIENT_MAX = 4;
 
     private Random random;
-    private StopWatch stopWatch;
+    private GameTimer stopWatch;
 
     @Inject
     public IdleBehaviour() {
         random = new Random();
-        stopWatch = StopWatch.createStarted();
+        stopWatch = new GameTimer(PERIOD);
     }
 
     @Override
-    public void applyBehaviour(GameObjectContainer root) {
-        if (stopWatch.getTime(TimeUnit.SECONDS) >= PERIOD) {
+    public void applyBehaviour(GameObjectContainer root, float time) {
+        if (stopWatch.advance(time)) {
             stopWatch.reset();
             reorient(root);
-            stopWatch.start();
         }
     }
 

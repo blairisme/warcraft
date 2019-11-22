@@ -18,7 +18,7 @@ import com.evilbird.warcraft.object.unit.combatant.flying.FlyingUnitFactory;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.object.common.capability.MovementCapability.Air;
+import static com.evilbird.warcraft.object.common.capability.TerrainType.Air;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.DaemonFire;
 import static com.evilbird.warcraft.object.unit.UnitType.Daemon;

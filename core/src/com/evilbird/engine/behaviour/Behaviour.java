@@ -33,8 +33,10 @@ public interface Behaviour extends Identifiable
      *
      * @param state the current game state.
      * @param input a list of user input in the order in which they occurred.
+     * @param time  the difference in time between this call to update and the
+     *              last call to update.
      */
-    void update(State state, List<UserInput> input);
+    void update(State state, List<UserInput> input, float time);
 
     default Identifier getIdentifier() {
         return GenericIdentifier.Unknown;

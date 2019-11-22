@@ -23,7 +23,7 @@ import javax.inject.Inject;
 import java.util.Map;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.object.common.capability.MovementCapability.Land;
+import static com.evilbird.warcraft.object.common.capability.TerrainType.Land;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedAccuracy1;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedDamage1;

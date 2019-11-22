@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.common.path;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.spatial.GameObjectNode;
-import com.evilbird.warcraft.object.common.capability.MovementCapability;
+import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.layer.LayerType;
 import com.evilbird.warcraft.object.unit.UnitType;
 
@@ -94,23 +94,23 @@ public class ItemPathFilter implements Predicate<GameObjectNode>
      *
      * @param capability a MovementCapability.
      */
-    public void addTraversableCapability(MovementCapability capability) {
+    public void addTraversableCapability(TerrainType capability) {
         Objects.requireNonNull(capability);
-        if (capability == MovementCapability.Land) {
+        if (capability == TerrainType.Land) {
             traversableTypes.add(LayerType.Map);
             traversableTypes.add(LayerType.Shore);
             traversableTypes.add(UnitType.CircleOfPower);
         }
-        else if (capability == MovementCapability.ShallowWater) {
+        else if (capability == TerrainType.ShallowWater) {
             traversableTypes.add(LayerType.Sea);
             traversableTypes.add(LayerType.Shore);
             traversableTypes.add(UnitType.OilPatch);
         }
-        else if (capability == MovementCapability.Water) {
+        else if (capability == TerrainType.Water) {
             traversableTypes.add(LayerType.Sea);
             traversableTypes.add(UnitType.OilPatch);
         }
-        else if (capability == MovementCapability.Air) {
+        else if (capability == TerrainType.Air) {
             traversableTypes.addAll(Arrays.asList(LayerType.values()));
             traversableTypes.addAll(Arrays.asList(UnitType.values()));
         }

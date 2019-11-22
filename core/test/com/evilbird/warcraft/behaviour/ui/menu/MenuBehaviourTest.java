@@ -103,18 +103,18 @@ public class MenuBehaviourTest extends GameTestCase
 
     @Test
     public void initializeTest() {
-        menuBehaviour.update(state, Collections.emptyList());
+        menuBehaviour.update(state, Collections.emptyList(), 1);
     }
 
     @Test
     public void updateTest() {
-        menuBehaviour.update(state, Collections.emptyList());
-        menuBehaviour.update(state, Collections.emptyList());
+        menuBehaviour.update(state, Collections.emptyList(), 1);
+        menuBehaviour.update(state, Collections.emptyList(), 1);
     }
 
     @Test
     public void resourceUpdateTest() {
-        menuBehaviour.update(state, Collections.emptyList());
+        menuBehaviour.update(state, Collections.emptyList(), 1);
         resourceUpdateTest(ResourceType.Gold, 200.3f);
         resourceUpdateTest(ResourceType.Oil, 123.7f);
         resourceUpdateTest(ResourceType.Wood, 555.9f);
@@ -122,7 +122,7 @@ public class MenuBehaviourTest extends GameTestCase
 
     private void resourceUpdateTest(ResourceType resource, float value) {
         events.add(new TransferEvent(player, resource, value));
-        menuBehaviour.update(state, Collections.emptyList());
+        menuBehaviour.update(state, Collections.emptyList(), 1);
 
         assertEquals(String.valueOf(Math.round(value)), resourcePane.getResourceText(resource));
         assertEquals(value, actionPane.getResource(resource), 0.1);
@@ -130,13 +130,13 @@ public class MenuBehaviourTest extends GameTestCase
 
     @Test
     public void selectionUpdateTest() {
-        menuBehaviour.update(state, Collections.emptyList());
+        menuBehaviour.update(state, Collections.emptyList(), 1);
 
         GameObject gameObject1 = TestCombatants.newTestCombatant("item");
         GameObject gameObject2 = TestCombatants.newTestCombatant("item");
         events.add(new SelectEvent(gameObject1, true));
         events.add(new SelectEvent(gameObject2, true));
-        menuBehaviour.update(state, Collections.emptyList());
+        menuBehaviour.update(state, Collections.emptyList(), 1);
 
         Collection<GameObject> expected1 = Arrays.asList(gameObject1, gameObject2);
         assertEquals(expected1, actionPane.getSelected());
@@ -144,7 +144,7 @@ public class MenuBehaviourTest extends GameTestCase
 
         events.clear();
         events.add(new SelectEvent(gameObject1, false));
-        menuBehaviour.update(state, Collections.emptyList());
+        menuBehaviour.update(state, Collections.emptyList(), 1);
 
         Collection<GameObject> expected2 = Arrays.asList(gameObject2);
         assertEquals(expected2, actionPane.getSelected());

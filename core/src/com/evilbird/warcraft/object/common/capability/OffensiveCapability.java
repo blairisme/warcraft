@@ -35,5 +35,19 @@ public enum OffensiveCapability
     /**
      * Indicates an ability to attack through water. E.g., torpedos.
      */
-    Water
+    Water;
+
+    /**
+     * Returns objects with this {@code OffensiveCapability} can attack objects
+     * with the given {@link TerrainType}.
+     */
+    public boolean supports(TerrainType terrain) {
+        switch (this) {
+            case None: return false;
+            case Air: return true;
+            case Water: return terrain == TerrainType.Water;
+            case Proximity: return terrain != TerrainType.Air;
+            default: throw new UnsupportedOperationException();
+        }
+    }
 }

@@ -12,9 +12,9 @@ package com.evilbird.warcraft.object.common.query;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
-import com.evilbird.warcraft.object.common.capability.MovementCapability;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
+import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.common.resource.ResourceContainer;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
 import com.evilbird.warcraft.object.common.spell.Spell;
@@ -171,7 +171,7 @@ public class UnitPredicates
         return item -> item instanceof MovableObject;
     }
 
-    public static Predicate<GameObject> isMovableOver(MovementCapability capability) {
+    public static Predicate<GameObject> isMovableOver(TerrainType capability) {
         return item -> {
             if (item instanceof MovableObject) {
                 MovableObject movable = (MovableObject)item;

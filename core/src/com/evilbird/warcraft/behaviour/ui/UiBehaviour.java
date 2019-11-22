@@ -37,8 +37,8 @@ public class UiBehaviour implements Behaviour
     }
 
     @Override
-    public void update(State state, List<UserInput> input) {
-        this.menuBehaviour.update(state, input);
-        this.interactionBehaviour.update(state, input);
+    public void update(State state, List<UserInput> input, float time) {
+        this.menuBehaviour.update(state, input, time);
+        this.interactionBehaviour.update(state, input, time);
     }
 }

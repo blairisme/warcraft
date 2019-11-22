@@ -16,6 +16,7 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
+import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.common.resource.ResourceContainer;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
 import com.evilbird.warcraft.object.unit.Unit;
@@ -33,10 +34,15 @@ import static com.evilbird.warcraft.object.common.query.UnitPredicates.isResourc
  *
  * @author Blair Butterworth
  */
-public class ResourceExtractor extends Building
+public class OilPlatform extends Building
 {
-    public ResourceExtractor(Skin skin) {
+    public OilPlatform(Skin skin) {
         super(skin);
+    }
+
+    @Override
+    public TerrainType getTerrainType() {
+        return TerrainType.Water;
     }
 
     @Override

@@ -11,7 +11,6 @@ package com.evilbird.warcraft.object.common.capability;
 
 import com.evilbird.engine.common.lang.Animated;
 import com.evilbird.engine.common.lang.Audible;
-import com.evilbird.engine.object.GameObject;
 
 /**
  * Implementors of this interface represent a game object that can attack a
@@ -19,7 +18,7 @@ import com.evilbird.engine.object.GameObject;
  *
  * @author Blair Butterworth
  */
-public interface OffensiveObject extends GameObject, Animated, Audible
+public interface OffensiveObject extends PerishableObject, Animated, Audible
 {
     /**
      * Returns the attack capability of the {@code OffensiveObject}.
@@ -64,4 +63,13 @@ public interface OffensiveObject extends GameObject, Animated, Audible
      * targets, specified in world units.
      */
     int getSight();
+
+    /**
+     * Returns whether the {@link OffensiveObject} can attack the given
+     * {@link PerishableObject}.
+     */
+    default boolean isAttackPossible(PerishableObject perishable) {
+        OffensiveCapability capability = getAttackCapability();
+        return capability.supports(perishable.getTerrainType());
+    }
 }

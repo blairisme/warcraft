@@ -10,34 +10,34 @@
 package com.evilbird.warcraft.object.common.capability;
 
 /**
- * Defines options for specifying movement capability.
+ * Defines options for specifying terrain varieties.
  *
  * @author Blair Butterworth
  */
-public enum MovementCapability
+public enum TerrainType
 {
     /**
-     * Specifies that no movement is allowed.
+     * Used to specify no terrain.
      */
     None,
 
     /**
-     * Specifies that movement is allowed over land and sea shores.
+     * Used to specify land terrain, including the shore line.
      */
     Land,
 
     /**
-     * Specifies that movement is allowed over water only.
+     * Used to specify water terrain.
      */
     Water,
 
     /**
-     * Specifies that movement is allowed over sea and on sea shores.
+     * Used to specify water terrain, including the shore line.
      */
     ShallowWater,
 
     /**
-     * Specifies that movement is allowed over all terrain types.
+     * Used to specify air terrain.
      */
     Air
 }

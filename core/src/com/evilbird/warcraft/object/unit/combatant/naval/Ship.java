@@ -11,10 +11,9 @@ package com.evilbird.warcraft.object.unit.combatant.naval;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.warcraft.object.common.capability.OffensiveCapability;
+import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.unit.UnitStyle;
 import com.evilbird.warcraft.object.unit.combatant.CombatantVessel;
-
-import static com.evilbird.warcraft.object.common.capability.OffensiveCapability.Air;
 
 /**
  * A {@link CombatantVessel} specialization that can traverse and attack
@@ -41,6 +40,11 @@ public class Ship extends CombatantVessel
      */
     @Override
     public OffensiveCapability getAttackCapability() {
-        return Air;
+        return OffensiveCapability.Air;
+    }
+
+    @Override
+    public TerrainType getTerrainType() {
+        return TerrainType.Water;
     }
 }

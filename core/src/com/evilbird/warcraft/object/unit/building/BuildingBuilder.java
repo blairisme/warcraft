@@ -71,8 +71,8 @@ public class BuildingBuilder
         return createBuilding(new Tower(getSkin()));
     }
 
-    public ResourceExtractor buildExtractor() {
-        return createBuilding(new ResourceExtractor(getSkin()));
+    public OilPlatform buildExtractor() {
+        return createBuilding(new OilPlatform(getSkin()));
     }
 
     private <T extends Building> T createBuilding(T building) {

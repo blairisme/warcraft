@@ -23,7 +23,7 @@ import com.evilbird.warcraft.object.display.control.status.details.common.UnitTi
 import com.evilbird.warcraft.object.display.control.status.details.resource.ResourceDetailsPane;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.building.Building;
-import com.evilbird.warcraft.object.unit.building.ResourceExtractor;
+import com.evilbird.warcraft.object.unit.building.OilPlatform;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 import com.evilbird.warcraft.object.unit.resource.Resource;
@@ -123,7 +123,7 @@ public class DetailsPane extends Grid
     }
 
     private void setDetails(GameObject gameObject) {
-        if (gameObject instanceof Resource || gameObject instanceof ResourceExtractor) {
+        if (gameObject instanceof Resource || gameObject instanceof OilPlatform) {
             setDetails(resourceDetails, gameObject);
         } else if (gameObject instanceof Building) {
             setDetails(buildingDetails, gameObject);

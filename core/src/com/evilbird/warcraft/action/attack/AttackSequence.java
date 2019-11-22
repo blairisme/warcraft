@@ -105,9 +105,16 @@ public abstract class AttackSequence extends CompositeAction
         }
         if (current.act(time)) {
             current = null;
-            resetAttacker(attacker);
+            moveComplete(attacker, target);
         }
         return move.hasError() ? ActionComplete : ActionIncomplete;
+    }
+
+    protected void moveComplete(OffensiveObject attacker, PerishableObject target) {
+        resetAttacker(attacker);
+        if (move.hasError()) {
+            events.attackFailed(attacker, target);
+        }
     }
 
     protected boolean attackRequired(OffensiveObject attacker, PerishableObject target) {
@@ -123,10 +130,18 @@ public abstract class AttackSequence extends CompositeAction
         }
         if (current.act(time)) {
             current = null;
-            resetAttacker(attacker);
-            events.attackFinished(attacker, target, attack.hasError());
+            attackComplete(attacker, target);
         }
         return attack.hasError() ? ActionComplete : ActionIncomplete;
+    }
+
+    protected void attackComplete(OffensiveObject attacker, PerishableObject target) {
+        resetAttacker(attacker);
+        if (attack.hasError()) {
+            events.attackFailed(attacker, target);
+        } else {
+            events.attackComplete(attacker, target);
+        }
     }
 
     protected boolean killRequired(OffensiveObject attacker, PerishableObject target) {

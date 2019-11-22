@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.renderable.AlignedRenderable;
 import com.evilbird.engine.common.graphics.renderable.Renderable;
+import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantVessel;
 
 import static com.evilbird.engine.common.graphics.renderable.Alignment.BottomCenter;
@@ -35,6 +36,11 @@ public class FlyingUnit extends CombatantVessel
      */
     public FlyingUnit(Skin skin) {
         super(skin);
+    }
+
+    @Override
+    public TerrainType getTerrainType() {
+        return TerrainType.Air;
     }
 
     @Override

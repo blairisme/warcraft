@@ -74,7 +74,7 @@ public class MenuBehaviour implements Behaviour
     }
 
     @Override
-    public void update(State state, List<UserInput> inputs) {
+    public void update(State state, List<UserInput> inputs, float time) {
         GameObjectContainer world = state.getWorld();
         GameObjectContainer hud = state.getHud();
 

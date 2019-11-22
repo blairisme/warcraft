@@ -20,7 +20,7 @@ import com.evilbird.warcraft.object.unit.gatherer.GathererFactoryBase;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.object.common.capability.MovementCapability.Water;
+import static com.evilbird.warcraft.object.common.capability.TerrainType.Water;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.OilProduction;
 import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;

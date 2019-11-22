@@ -39,7 +39,7 @@ import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitSound;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
-import com.evilbird.warcraft.object.unit.building.ResourceExtractor;
+import com.evilbird.warcraft.object.unit.building.OilPlatform;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
 import com.evilbird.warcraft.object.unit.critter.Critter;
@@ -109,7 +109,7 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("Gatherer", Gatherer.class);
         registerType("Resource", Resource.class);
         registerType("ResourceType", ResourceType.class);
-        registerType("ResourceExtractor", ResourceExtractor.class);
+        registerType("ResourceExtractor", OilPlatform.class);
         registerType("ProjectileType", ProjectileType.class);
     }
 }

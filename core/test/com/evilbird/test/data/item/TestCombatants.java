@@ -12,7 +12,7 @@ package com.evilbird.test.data.item;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.object.GameObjectContainer;
-import com.evilbird.warcraft.object.common.capability.MovementCapability;
+import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
@@ -43,7 +43,7 @@ public class TestCombatants
         item.setParent(parent);
         item.setRoot(root);
         item.setHealth(100);
-        item.setMovementCapability(MovementCapability.Land);
+        item.setMovementCapability(TerrainType.Land);
         item.setHealthMaximum(100);
         return item;
     }

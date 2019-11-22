@@ -13,7 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
-import com.evilbird.warcraft.object.unit.building.ResourceExtractor;
+import com.evilbird.warcraft.object.unit.building.OilPlatform;
 import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
@@ -52,7 +52,7 @@ public class GatherObtainOil extends GatherObtain
         Gatherer gatherer = (Gatherer) getSubject();
         exclusion.disable(gatherer);
 
-        ResourceExtractor resource = (ResourceExtractor)getTarget();
+        OilPlatform resource = (OilPlatform)getTarget();
         resource.setAnimation(ExtractOil);
         resource.setAssociatedItem(gatherer);
 
@@ -66,7 +66,7 @@ public class GatherObtainOil extends GatherObtain
         gatherer.setAnimationAlias(MoveOil, Move);
         exclusion.restore(gatherer);
 
-        ResourceExtractor resource = (ResourceExtractor)getTarget();
+        OilPlatform resource = (OilPlatform)getTarget();
         if (resource.getAssociatedItem() == gatherer) {
             resource.setAssociatedItem(null);
             resource.setAnimation(Idle);
