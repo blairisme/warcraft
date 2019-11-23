@@ -11,6 +11,7 @@ package com.evilbird.warcraft.object.projectile;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.projectile.animations.CannonballProjectileAnimation;
@@ -44,6 +45,7 @@ public class ProjectileBuilder
     private ProjectileType type;
     private ProjectileAssets assets;
     private AnimationCatalog animations;
+    private SoundCatalog sounds;
 
     public ProjectileBuilder(ProjectileAssets assets, ProjectileType type) {
         this.assets = assets;
@@ -65,8 +67,11 @@ public class ProjectileBuilder
 
     private AnimatedObjectStyle getViewableStyle() {
         AnimationCatalog animations = getAnimations();
+        SoundCatalog sounds = getSounds();
+
         AnimatedObjectStyle style = new AnimatedObjectStyle();
         style.animations = animations.get();
+        style.sounds = sounds.get();
         return style;
     }
 
@@ -79,19 +84,26 @@ public class ProjectileBuilder
 
     private AnimationCatalog newAnimations() {
         switch (type) {
-            case Arrow: return new DirectionalProjectileAnimation(assets.getTexture(type));
-            case Axe: return new RotationalProjectileAnimation(assets.getTexture(Axe));
-            case Bolt: return new LargeProjectileAnimation(assets.getTexture(Bolt));
-            case Cannonball: return new RotationalProjectileAnimation(assets.getTexture(Cannonball));
-            case DaemonFire: return new RotationalProjectileAnimation(assets.getTexture(DaemonFire));
-            case Fireball: return new DirectionalProjectileAnimation(assets.getTexture(Fireball));
-            case FlamingCannonball: return new CannonballProjectileAnimation(assets.getTexture(FlamingCannonball));
-            case FlamingRock: return new CatapultProjectileAnimation(assets.getTexture(FlamingRock));
-            case GryphonHammer: return new RotationalProjectileAnimation(assets.getTexture(GryphonHammer));
-            case Lightning: return new SpellProjectileAnimation(assets.getTexture(Lightning));
-            case Torpedo: return new LargeProjectileAnimation(assets.getTexture(Torpedo));
-            case TouchOfDeath: return new SpellProjectileAnimation(assets.getTexture(TouchOfDeath));
+            case Arrow: return new DirectionalProjectileAnimation(assets.getBaseTexture(type));
+            case Axe: return new RotationalProjectileAnimation(assets.getBaseTexture(Axe));
+            case Bolt: return new LargeProjectileAnimation(assets.getBaseTexture(Bolt));
+            case Cannonball: return new RotationalProjectileAnimation(assets.getBaseTexture(Cannonball));
+            case DaemonFire: return new RotationalProjectileAnimation(assets.getBaseTexture(DaemonFire));
+            case Fireball: return new DirectionalProjectileAnimation(assets.getBaseTexture(Fireball));
+            case FlamingCannonball: return new CannonballProjectileAnimation(assets.getBaseTexture(FlamingCannonball));
+            case FlamingRock: return new CatapultProjectileAnimation(assets.getBaseTexture(FlamingRock));
+            case GryphonHammer: return new RotationalProjectileAnimation(assets.getBaseTexture(GryphonHammer));
+            case Lightning: return new SpellProjectileAnimation(assets.getBaseTexture(Lightning));
+            case Torpedo: return new LargeProjectileAnimation(assets.getBaseTexture(Torpedo));
+            case TouchOfDeath: return new SpellProjectileAnimation(assets.getBaseTexture(TouchOfDeath));
             default: throw new UnsupportedOperationException();
         }
+    }
+
+    private SoundCatalog getSounds() {
+        if (sounds == null) {
+            sounds =  new ProjectileSounds(assets, type);
+        }
+        return sounds;
     }
 }

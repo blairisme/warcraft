@@ -9,6 +9,8 @@
 
 package com.evilbird.warcraft.behaviour.ui.interaction;
 
+import com.evilbird.warcraft.object.layer.LayerType;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 
@@ -81,6 +83,7 @@ public class MoveInteractions extends InteractionContainer
     private void moveThroughAir() {
         addAction(ConfirmLocation, MoveToLocation)
             .whenSelected(isControllable().and(isMovableOver(Air)))
+            .whenTarget(hasType(LayerType.values()))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
     }

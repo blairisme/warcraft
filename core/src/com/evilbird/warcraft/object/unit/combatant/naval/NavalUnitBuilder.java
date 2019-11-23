@@ -13,23 +13,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.object.unit.combatant.CombatantBuilder;
+import com.evilbird.warcraft.object.unit.combatant.CombatantSounds;
 import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
-import com.evilbird.warcraft.object.unit.combatant.ranged.RangedUnitAssets;
-import com.evilbird.warcraft.object.unit.combatant.ranged.RangedUnitSounds;
 
 /**
  * Creates a new naval combatants whose visual and audible presentation is
- * defined by the given {@link RangedUnitAssets}.
+ * defined by the given {@link CombatantAssets}.
  *
  * @author Blair Butterworth
  */
 public class NavalUnitBuilder extends CombatantBuilder<RangedCombatant>
 {
-    private RangedUnitAssets assets;
+    private CombatantAssets assets;
     private UnitType type;
 
-    public NavalUnitBuilder(RangedUnitAssets assets, UnitType type) {
+    public NavalUnitBuilder(CombatantAssets assets, UnitType type) {
         super(assets, type);
         this.assets = assets;
         this.type = type;
@@ -47,6 +47,6 @@ public class NavalUnitBuilder extends CombatantBuilder<RangedCombatant>
 
     @Override
     protected SoundCatalog newSounds() {
-        return new RangedUnitSounds(assets);
+        return new CombatantSounds(assets);
     }
 }

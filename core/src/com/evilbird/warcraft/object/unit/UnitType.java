@@ -160,17 +160,6 @@ public enum UnitType implements GameObjectType
         return None;
     }
 
-    public UnitType getBase() {
-        switch (this) {
-            case AnduinLothar: return Knight;
-            case UtherLightbringer: return Paladin;
-            case Chogall: return OgreMage;
-            case Guldan: return DeathKnight;
-            case Zuljin: return TrollAxethrower;
-            default: return this;
-        }
-    }
-
     public WarcraftFaction getFaction() {
         if (isBetween(this, Barracks, UtherLightbringer)) {
             return Human;
@@ -209,9 +198,13 @@ public enum UnitType implements GameObjectType
     }
 
     public boolean isGatherer() {
-        return this == Peasant || this == Peon || this == OilTanker || this == TrollTanker;
+        return isLandGatherer() || isTanker();
     }
 
+    public boolean isLandGatherer() {
+        return this == Peasant || this == Peon;
+    }
+    
     public boolean isResource() {
         return this == GoldMine || this == OilPatch;
     }
@@ -226,14 +219,20 @@ public enum UnitType implements GameObjectType
 
     public boolean isNavalBuilding() {
         return this == Shipyard || this == OilPlatform || this == OilRefinery || this == Foundry
-                || this == Dockyard || this== OilRig || this == Refinery || this == Metalworks;
+            || this == Dockyard || this== OilRig || this == Refinery || this == Metalworks;
     }
 
     public boolean isNavalUnit() {
-        return this == ElvenDestroyer || this == Battleship || this == GnomishSubmarine
-            || this == OilTanker || this == Transport
-            || this == TrollDestroyer || this == OgreJuggernaught || this == GiantTurtle
-            || this == TrollTanker || this == Ferry;
+        return isWarship() || isSubmarine() || isTanker() || isTransport();
+    }
+
+    public boolean isWarship() {
+        return this == ElvenDestroyer || this == Battleship
+            || this == TrollDestroyer || this == OgreJuggernaught;
+    }
+
+    public boolean isTanker() {
+        return this == OilTanker || this == TrollTanker;
     }
 
     public boolean isSubmarine() {
@@ -317,5 +316,9 @@ public enum UnitType implements GameObjectType
 
     public boolean isNeutral() {
         return getFaction() == Neutral;
+    }
+    
+    public boolean isOgre() {
+        return this == Ogre || this == OgreMage || this == Chogall;
     }
 }

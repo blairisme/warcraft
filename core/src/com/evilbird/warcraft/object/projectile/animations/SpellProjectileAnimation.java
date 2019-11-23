@@ -33,6 +33,6 @@ public class SpellProjectileAnimation extends AnimationCatalog
             .withSequence(0, 6)
             .withSize(SIZE)
             .withInterval(0.25f)
-            .notLooping();
+            .looping();
     }
 }

@@ -121,6 +121,7 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
     public void setSound(Identifier id, float volume) {
         Validate.notNull(id);
         Validate.isTrue(style.sounds.containsKey(id), "%s is missing sound %s", getIdentifier(), id);
+
         soundId = id;
         sound.stop();
         sound = new LocalizedSound(style.sounds.get(id), this);

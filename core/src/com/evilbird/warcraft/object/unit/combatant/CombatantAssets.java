@@ -14,19 +14,22 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.assets.AssetBundle;
 import com.evilbird.engine.common.assets.SyntheticTexture;
-import com.evilbird.engine.common.audio.sound.SilentSound;
 import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.warcraft.object.unit.UnitType;
 
 import java.util.Map;
 
 import static com.evilbird.engine.common.assets.SyntheticTextureParameters.withColour;
+import static com.evilbird.engine.common.audio.sound.SilentSound.SilentSoundEffect;
 import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
 import static com.evilbird.engine.common.graphics.Colours.LIGHT_BLUE;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 import static com.evilbird.warcraft.object.unit.UnitDimensions.getDimensionName;
 import static com.evilbird.warcraft.object.unit.UnitDimensions.getDimensions;
+import static com.evilbird.warcraft.object.unit.UnitType.Daemon;
+import static com.evilbird.warcraft.object.unit.UnitType.Dragon;
+import static com.evilbird.warcraft.object.unit.UnitType.Mage;
 
 /**
  * Defines the assets that are required to display a {@link Combatant}, as well
@@ -53,42 +56,57 @@ public class CombatantAssets extends AssetBundle
     public CombatantAssets(AssetManager manager, UnitType type) {
         super(manager, assetPathVariables(type));
         dimensions = getDimensions(type);
+        registerTextures();
+        registerGeneralSounds();
+        registerAttackSounds(type);
+    }
 
+    private static Map<String, String> assetPathVariables(UnitType type) {
+        return of("name", toSnakeCase(type.name()),
+                "faction", toSnakeCase(type.getFaction().name()),
+                "size", getDimensionName(type));
+    }
+
+    private void registerTextures() {
         register("base", "data/textures/${faction}/unit/${name}.png");
         register("decompose", "data/textures/common/unit/decompose.png");
         registerOptional("mask", "data/textures/${faction}/unit/${name}_mask.png");
-
         register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, dimensions));
         register("highlight", "highlight_${size}", SyntheticTexture.class, withColour(LIGHT_BLUE, dimensions));
+    }
 
+    private void registerGeneralSounds() {
         registerOptional("dead", "data/sounds/${faction}/unit/common/dead/1.mp3");
         registerOptional("capture", "data/sounds/${faction}/unit/common/capture/1.mp3");
         registerOptional("rescue", "data/sounds/${faction}/unit/common/rescue/1.mp3");
 
         registerOptional("ready", "data/sounds/${faction}/unit/${name}/ready/1.mp3");
-        registerOptionalSequence("attack", "data/sounds/common/unit/attack/${weapon}/", ".mp3", 3);
         registerOptionalSequence("acknowledge", "data/sounds/${faction}/unit/${name}/acknowledge/", ".mp3", 5);
         registerOptionalSequence("selected", "data/sounds/${faction}/unit/${name}/selected/", ".mp3", 6);
     }
 
-    private static Map<String, String> assetPathVariables(UnitType type) {
-        return of("name", toSnakeCase(type.getBase().name()),
-                "faction", toSnakeCase(type.getFaction().name()),
-                "weapon", getWeaponName(type.getBase()),
-                "size", getDimensionName(type));
-    }
-
-    private static String getWeaponName(UnitType type) {
-        if (type.isRanged()) {
-            return type.isOrc() ? "axe" : "bow";
+    private void registerAttackSounds(UnitType type) {
+        if (type.isMelee()) {
+            registerOptionalSequence("attack", "data/sounds/common/unit/attack/sword/", ".mp3", 3);
         }
-        if (type.isSiege() || type.isNavalUnit()) {
-            return "siege";
+        else if (type.isRanged() && type.isHuman()) {
+            registerOptionalSequence("attack", "data/sounds/common/unit/attack/box/", ".mp3", 1);
         }
-        if (type.isGatherer()) {
-            return "fist";
+        else if (type.isRanged() && type.isOrc()) {
+            registerOptionalSequence("attack", "data/sounds/common/unit/attack/axe/", ".mp3", 1);
         }
-        return "sword";
+        if (type.isSiege() || type.isWarship()) {
+            registerOptionalSequence("attack", "data/sounds/common/unit/attack/siege/", ".mp3", 1);
+        }
+        else if (type.isLandGatherer()) {
+            registerOptionalSequence("attack", "data/sounds/common/unit/attack/fist/", ".mp3", 1);
+        }
+        else if (type.isOgre()) {
+            registerOptionalSequence("attack", "data/sounds/common/unit/attack/punch/", ".mp3", 1);
+        }
+        else if (type == Dragon || type == Daemon || type == Mage) {
+            registerOptionalSequence("attack", "data/sounds/common/unit/attack/fireball/", ".mp3", 1);
+        }
     }
 
     public Texture getBaseTexture() {
@@ -116,11 +134,11 @@ public class CombatantAssets extends AssetBundle
     }
 
     public Sound getAttackSound() {
-        return getSoundEffectSet("attack", 3);
+        return isRegistered("attack-1") ? getSoundEffectSet("attack", 3) : SilentSoundEffect; //TODO
     }
 
     public Sound getDieSound() {
-        return isRegistered("Dead") ? getSoundEffect("dead") : new SilentSound();
+        return isRegistered("Dead") ? getSoundEffect("dead") : SilentSoundEffect;
     }
 
     public Sound getReadySound() {

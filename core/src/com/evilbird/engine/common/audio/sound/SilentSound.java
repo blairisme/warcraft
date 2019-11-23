@@ -17,6 +17,8 @@ package com.evilbird.engine.common.audio.sound;
  */
 public class SilentSound implements Sound
 {
+    public static final SilentSound SilentSoundEffect = new SilentSound();
+
     @Override
     public void play() {
     }

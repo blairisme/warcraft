@@ -189,16 +189,16 @@ public class ProjectileAttack extends BasicAction
     }
 
     protected void attackerHit() {
-        combatant.setSound(UnitSound.Hit, preferences.getEffectsVolume());
+        //combatant.setSound(UnitSound.Hit, preferences.getEffectsVolume()); //TODO
         reloadTime = Math.max(combatant.getAttackSpeed() - flightTime, 0);
     }
 
     protected void projectileHit() {
         projectile.setVisible(false);
+        projectile.setSound(UnitSound.Hit, preferences.getEffectsVolume());
 
         if (projectile.isExplodingProjectile()) {
             Effect explosion = (Effect)factory.get(projectile.getExplosionEffect());
-            explosion.setVisible(true);
             explosion.setPosition(projectile.getPosition());
 
             remove.setSubject(explosion);

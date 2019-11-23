@@ -12,7 +12,9 @@ package com.evilbird.warcraft.object.projectile;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.common.audio.sound.Sound;
 
+import static com.evilbird.engine.common.audio.sound.SilentSound.SilentSoundEffect;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Arrow;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Axe;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Bolt;
@@ -34,23 +36,50 @@ import static com.evilbird.warcraft.object.projectile.ProjectileType.TouchOfDeat
  */
 public class ProjectileAssets extends AssetBundle
 {
+    private static final String TEXTURE_ID = "Texture";
+    private static final String SOUND_ID = "Sound";
+
     public ProjectileAssets(AssetManager assetManager) {
         super(assetManager);
-        register(Arrow, "data/textures/common/projectile/arrow.png");
-        register(Axe, "data/textures/common/projectile/axe.png");
-        register(Bolt, "data/textures/common/projectile/bolt.png");
-        register(Cannonball, "data/textures/common/projectile/cannonball.png");
-        register(DaemonFire, "data/textures/common/projectile/daemon_fire.png");
-        register(Fireball, "data/textures/common/projectile/fireball.png");
-        register(FlamingCannonball, "data/textures/common/projectile/flaming_cannonball.png");
-        register(FlamingRock, "data/textures/common/projectile/flaming_rock.png");
-        register(GryphonHammer, "data/textures/common/projectile/gryphon_hammer.png");
-        register(Lightning, "data/textures/common/projectile/lightning.png");
-        register(Torpedo, "data/textures/common/projectile/torpedo.png");
-        register(TouchOfDeath, "data/textures/common/projectile/touch_of_death.png");
+        registerTextures();
+        registerSounds();
     }
 
-    public Texture getTexture(ProjectileType type) {
-        return super.getTexture(type);
+    private void registerTextures() {
+        register(Arrow.name() + TEXTURE_ID, "data/textures/common/projectile/arrow.png");
+        register(Axe.name() + TEXTURE_ID, "data/textures/common/projectile/axe.png");
+        register(Bolt.name() + TEXTURE_ID, "data/textures/common/projectile/bolt.png");
+        register(Cannonball.name() + TEXTURE_ID, "data/textures/common/projectile/cannonball.png");
+        register(DaemonFire.name() + TEXTURE_ID, "data/textures/common/projectile/daemon_fire.png");
+        register(Fireball.name() + TEXTURE_ID, "data/textures/common/projectile/fireball.png");
+        register(FlamingCannonball.name() + TEXTURE_ID, "data/textures/common/projectile/flaming_cannonball.png");
+        register(FlamingRock.name() + TEXTURE_ID, "data/textures/common/projectile/flaming_rock.png");
+        register(GryphonHammer.name() + TEXTURE_ID, "data/textures/common/projectile/gryphon_hammer.png");
+        register(Lightning.name() + TEXTURE_ID, "data/textures/common/projectile/lightning.png");
+        register(Torpedo.name() + TEXTURE_ID, "data/textures/common/projectile/torpedo.png");
+        register(TouchOfDeath.name() + TEXTURE_ID, "data/textures/common/projectile/touch_of_death.png");
+    }
+
+    private void registerSounds() {
+        register(Arrow.name() + SOUND_ID, "data/sounds/common/projectile/arrow.mp3");
+        register(Bolt.name() + SOUND_ID, "data/sounds/common/projectile/siege.mp3");
+        register(Cannonball.name() + SOUND_ID, "data/sounds/common/projectile/fireball.mp3");
+        register(DaemonFire.name() + SOUND_ID, "data/sounds/common/projectile/fireball.mp3");
+        register(Fireball.name() + SOUND_ID, "data/sounds/common/projectile/fireball.mp3");
+        register(FlamingCannonball.name() + SOUND_ID, "data/sounds/common/projectile/siege.mp3");
+        register(FlamingRock.name() + SOUND_ID, "data/sounds/common/projectile/siege.mp3");
+        register(GryphonHammer.name() + SOUND_ID, "data/sounds/common/projectile/fireball.mp3");
+        register(Lightning.name() + SOUND_ID, "data/sounds/common/projectile/fireball.mp3");
+        register(Torpedo.name() + SOUND_ID, "data/sounds/common/projectile/siege.mp3");
+    }
+    
+    public Texture getBaseTexture(ProjectileType type) {
+        String id = type.name() + TEXTURE_ID;
+        return getTexture(id);
+    }
+
+    public Sound getHitSound(ProjectileType type) {
+        String id = type.name() + SOUND_ID;
+        return isRegistered(id) ? getSoundEffect(id) : SilentSoundEffect;
     }
 }

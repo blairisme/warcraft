@@ -13,7 +13,6 @@ import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.warcraft.object.unit.building.BuildingAssets;
 
 import static com.evilbird.warcraft.object.unit.UnitSound.Attack;
-import static com.evilbird.warcraft.object.unit.UnitSound.Hit;
 
 /**
  * Defines a catalog of {@link Sound Sounds} used by offensive buildings:
@@ -26,6 +25,5 @@ public class TowerSounds extends BuildingSounds
     public TowerSounds(BuildingAssets assets) {
         super(assets);
         sound(Attack, assets.getAttackSound());
-        sound(Hit, assets.getHitSound());
     }
 }

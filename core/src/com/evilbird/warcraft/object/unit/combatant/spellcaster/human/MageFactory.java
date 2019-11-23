@@ -45,7 +45,7 @@ public class MageFactory extends SpellCasterFactory
     public SpellCaster get(Identifier type) {
         SpellCaster result = builder.build();
         result.setAttackSpeed(1.5f);
-        result.setAttackRange(tiles(2));
+        result.setAttackRange(tiles(3));
         result.setArmour(0);
         result.setPiercingDamage(2);
         result.setBasicDamage(9);

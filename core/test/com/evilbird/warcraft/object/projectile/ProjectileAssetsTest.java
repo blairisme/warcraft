@@ -34,12 +34,12 @@ public class ProjectileAssetsTest extends AssetBundleTestCase<ProjectileAssets>
         assets.finishLoading();
 
         for (ProjectileType type: ProjectileType.values()) {
-            Assert.assertNotNull(bundle.getTexture(type));
+            Assert.assertNotNull(bundle.getBaseTexture(type));
         }
     }
 
     @Test (expected = GdxRuntimeException.class)
     public void getWithoutLoadingTest() {
-        bundle.getTexture(ProjectileType.Arrow);
+        bundle.getBaseTexture(ProjectileType.Arrow);
     }
 }

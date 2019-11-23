@@ -35,13 +35,13 @@ public class Interactions
         AttackInteractions attackInteractions,
         CameraInteractions cameraInteractions,
         CheatInteractions cheatInteractions,
-        ConstructInteractions constructInteractions,
         GatherInteractions gatherInteractions,
         MenuInteractions menuInteractions,
-        MoveInteractions moveInteractions,
-        ProduceInteractions produceInteractions,
         SelectionInteractions selectionInteractions,
+        MoveInteractions moveInteractions,
         SelectorInteractions selectorInteractions,
+        ConstructInteractions constructInteractions,
+        ProduceInteractions produceInteractions,
         SpellInteractions spellInteractions,
         TransportInteractions transportInteractions)
     {

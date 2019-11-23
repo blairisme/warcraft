@@ -11,9 +11,9 @@ package com.evilbird.warcraft.object.unit.combatant.naval;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.object.unit.combatant.CombatantFactory;
 import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
-import com.evilbird.warcraft.object.unit.combatant.ranged.RangedUnitAssets;
 
 /**
  * A reusable class for creating naval units, loading the necessary assets and
@@ -21,7 +21,7 @@ import com.evilbird.warcraft.object.unit.combatant.ranged.RangedUnitAssets;
  *
  * @author Blair Butterworth
  */
-public abstract class NavalUnitFactory extends CombatantFactory<RangedUnitAssets, NavalUnitBuilder, RangedCombatant>
+public abstract class NavalUnitFactory extends CombatantFactory<CombatantAssets, NavalUnitBuilder, RangedCombatant>
 {
     public NavalUnitFactory(AssetManager manager, UnitType type) {
         this(manager, type, type);
@@ -32,12 +32,12 @@ public abstract class NavalUnitFactory extends CombatantFactory<RangedUnitAssets
     }
 
     @Override
-    protected RangedUnitAssets newAssets(AssetManager manager, UnitType type) {
-        return new RangedUnitAssets(manager, type);
+    protected CombatantAssets newAssets(AssetManager manager, UnitType type) {
+        return new CombatantAssets(manager, type);
     }
 
     @Override
-    protected NavalUnitBuilder newBuilder(RangedUnitAssets assets, UnitType type) {
+    protected NavalUnitBuilder newBuilder(CombatantAssets assets, UnitType type) {
         return new NavalUnitBuilder(assets, type);
     }
 }
