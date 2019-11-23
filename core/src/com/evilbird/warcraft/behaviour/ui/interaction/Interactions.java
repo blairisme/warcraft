@@ -47,13 +47,13 @@ public class Interactions
     {
         this.interactions = interactions;
         this.interactions.addActions(moveInteractions);
+        this.interactions.addActions(spellInteractions);
         this.interactions.addActions(attackInteractions);
         this.interactions.addActions(gatherInteractions);
         this.interactions.addActions(constructInteractions);
         this.interactions.addActions(produceInteractions);
         this.interactions.addActions(transportInteractions);
         this.interactions.addActions(menuInteractions);
-        this.interactions.addActions(spellInteractions);
         this.interactions.addActions(cameraInteractions);
         this.interactions.addActions(selectorInteractions);
         this.interactions.addActions(selectionInteractions);

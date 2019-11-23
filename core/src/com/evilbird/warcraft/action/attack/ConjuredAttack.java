@@ -26,7 +26,7 @@ import javax.inject.Inject;
 public class ConjuredAttack extends AttackSequence
 {
     @Inject
-    public ConjuredAttack(AttackEvents events, ProximityAttack attack, DeathAction death) {
+    public ConjuredAttack(AttackEvents events, InstantAttack attack, DeathAction death) {
         super(events, new EmptyAction(), attack, death);
     }
 }

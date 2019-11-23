@@ -9,12 +9,13 @@
 
 package com.evilbird.warcraft.action.spell.creature;
 
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
+import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.common.spell.Spell;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
@@ -35,9 +36,9 @@ public class EyeOfKilroggSpell extends CreatureSpellAction
     }
 
     @Override
-    protected Combatant addCreature() {
-        Combatant creature = super.addCreature();
-        moveAdjacent(creature, getSubject());
+    protected GameObject addCreature() {
+        GameObject creature = super.addCreature();
+        moveAdjacent((MovableObject)creature, getSubject());
         return creature;
     }
 }

@@ -18,7 +18,6 @@ import com.evilbird.warcraft.object.common.spell.Spell;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
 /**
  * A spell that creates a conjured creature.
@@ -51,12 +50,11 @@ public class CreatureSpellAction extends SpellAction
         addCreature();
     }
 
-    protected Combatant addCreature() {
+    protected GameObject addCreature() {
         GameObject caster = getSubject();
         Player player = UnitOperations.getPlayer(caster);
 
-        Combatant creature = (Combatant)factory.get(creatureType);
-
+        GameObject creature = factory.get(creatureType);
         if (cancelAction != null) {
             cancelAction.setSubject(caster);
             cancelAction.setTarget(creature);

@@ -43,7 +43,7 @@ public class RaiseDeadSpell extends CreatureSpellAction
     @Override
     protected Combatant addCreature() {
         for (GameObject corpse: nearbyCorpses()) {
-            Combatant creature = super.addCreature();
+            GameObject creature = super.addCreature();
             creature.setPosition(corpse.getPosition());
         }
         return null;

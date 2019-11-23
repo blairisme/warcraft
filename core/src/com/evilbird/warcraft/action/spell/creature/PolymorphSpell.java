@@ -9,14 +9,15 @@
 
 package com.evilbird.warcraft.action.spell.creature;
 
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.object.common.spell.Spell;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
@@ -34,25 +35,28 @@ public class PolymorphSpell extends CreatureSpellAction
     public PolymorphSpell(
         GameObjectFactory factory,
         ItemExclusion exclusion,
-        CreateEvents events,
-        PolymorphCancel cancel)
+        CreateEvents events)
     {
-        super(Spell.Polymorph, EffectType.Spell, UnitType.Sheep, factory, events, cancel);
+        super(Spell.Polymorph, EffectType.Spell, UnitType.Sheep, factory, events, null);
         this.exclusion = exclusion;
     }
 
     @Override
     protected void initialize() {
         super.initialize();
-        exclusion.disable((Unit)getTarget());
+
+        Unit target = (Unit)getTarget();
+        exclusion.disable(target);
+
+        GameObjectGroup parent = target.getParent();
+        parent.removeObject(target);
     }
 
     @Override
-    protected Combatant addCreature() {
-        Combatant target = (Combatant)getTarget();
-        Combatant creature = super.addCreature();
+    protected GameObject addCreature() {
+        GameObject target = getTarget();
+        GameObject creature = super.addCreature();
         creature.setPosition(target.getPosition());
-        creature.setAssociatedItem(target);
         return creature;
     }
 }

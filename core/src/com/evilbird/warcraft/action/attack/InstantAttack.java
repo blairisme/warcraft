@@ -67,9 +67,12 @@ public class InstantAttack extends BasicAction
 
     protected void attackTarget() {
         OffensiveObject attacker = (OffensiveObject) getSubject();
-        attacker.setAnimation(UnitAnimation.Attack);
-        attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
-
+        if (attacker.hasAnimation(UnitAnimation.Attack)) {
+            attacker.setAnimation(UnitAnimation.Attack);
+        }
+        if (attacker.hasSound(UnitSound.Attack)) {
+            attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
+        }
         PerishableObject target = (PerishableObject)getTarget();
         target.setHealth(getDamagedHealth(attacker, target));
 
