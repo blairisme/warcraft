@@ -11,12 +11,14 @@ package com.evilbird.warcraft.object.projectile.projectiles;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.projectile.Projectile;
 import com.evilbird.warcraft.object.projectile.ProjectileFactoryBase;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
+import static com.evilbird.warcraft.object.effect.EffectType.LightningExplosion;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Lightning;
 
 /**
@@ -38,6 +40,7 @@ public class LightningFactory extends ProjectileFactoryBase
         projectile.setType(Lightning);
         projectile.setIdentifier(objectIdentifier("Lightning", projectile));
         projectile.setSize(32, 32);
+        projectile.setExplosionEffect(LightningExplosion);
         return projectile;
     }
 }

@@ -27,6 +27,11 @@ public interface Animated
     Identifier getAnimation();
 
     /**
+     * Returns whether or not the animated object supports the given animation.
+     */
+    boolean hasAnimation(Identifier id);
+
+    /**
      * Sets the currently displayed animation, identified by the given
      * animation identifier.
      *

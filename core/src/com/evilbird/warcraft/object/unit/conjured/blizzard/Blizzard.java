@@ -16,7 +16,8 @@ import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.AnimationFrame;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.AnimatedObjectStyle;
-import com.evilbird.warcraft.object.unit.conjured.ConjuredObject;
+import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.object.unit.conjured.ConjuredAreaEffect;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.HashMap;
@@ -29,7 +30,7 @@ import java.util.Map.Entry;
  *
  * @author Blair Butterworth
  */
-public class Blizzard extends ConjuredObject
+public class Blizzard extends ConjuredAreaEffect
 {
     private static final transient int HALE_COUNT_MIN = 3;
     private static final transient int HALE_COUNT_MAX = 10;
@@ -50,8 +51,8 @@ public class Blizzard extends ConjuredObject
      * a {@link AnimatedObjectStyle}, specifying the visual and auditory presentation
      * of the Blizzard.
      */
-    public Blizzard(Skin skin) {
-        super(skin);
+    public Blizzard(Skin skin, WarcraftPreferences preferences) {
+        super(skin, preferences);
         this.halePositions = new HashMap<>(10);
         this.haleTimers = new HashMap<>(10);
         this.timer = new GameTimer(0);

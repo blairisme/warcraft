@@ -14,6 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredAssets;
 
@@ -33,14 +34,16 @@ public class WhirlwindFactory implements GameFactory<Whirlwind>
     protected AssetManager manager;
     protected ConjuredAssets assets;
     protected WhirlwindBuilder builder;
+    protected WarcraftPreferences preferences;
 
     @Inject
-    public WhirlwindFactory(Device device) {
-        this(device.getAssetStorage());
+    public WhirlwindFactory(Device device, WarcraftPreferences preferences) {
+        this(device.getAssetStorage(), preferences);
     }
 
-    public WhirlwindFactory(AssetManager manager) {
+    public WhirlwindFactory(AssetManager manager, WarcraftPreferences preferences) {
         this.manager = manager;
+        this.preferences = preferences;
     }
 
     @Override
@@ -58,8 +61,8 @@ public class WhirlwindFactory implements GameFactory<Whirlwind>
 
     @Override
     public void load(GameContext context) {
-        assets = new ConjuredAssets(manager);
-        builder = new WhirlwindBuilder(assets);
+        assets = new ConjuredAssets(manager, UnitType.Whirlwind);
+        builder = new WhirlwindBuilder(assets, preferences);
         assets.load();
     }
 

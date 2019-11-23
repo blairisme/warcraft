@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.object.unit.conjured;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 
@@ -23,11 +22,11 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
  */
 public class ConjuredAnimations extends AnimationCatalog
 {
-    public ConjuredAnimations(Texture texture, GridPoint2 size) {
+    public ConjuredAnimations(ConjuredAssets assets, GridPoint2 size) {
         super(1);
 
         animation(Idle)
-            .withTexture(texture)
+            .withTexture(assets.getBaseTexture())
             .withSequence(0, 4)
             .withSize(size)
             .withInterval(0.15f)

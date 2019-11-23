@@ -24,6 +24,7 @@ import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitSound;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.common.lang.Alignment.Center;
@@ -45,16 +46,20 @@ public class ProjectileAttack extends BasicAction
     private transient Projectile projectile;
     private transient PerishableObject target;
     private transient Vector2 destination;
-    private transient RemoveAction remove;
+    private transient Provider<RemoveAction> removalFactory;
 
     private transient float flightTime;
     private transient float reloadTime;
 
     @Inject
-    public ProjectileAttack(GameObjectFactory factory, RemoveAction remove, WarcraftPreferences preferences) {
-        this.factory = factory;
+    public ProjectileAttack(
+        GameObjectFactory objectFactory,
+        Provider<RemoveAction> removalFactory,
+        WarcraftPreferences preferences)
+    {
+        this.factory = objectFactory;
         this.preferences = preferences;
-        this.remove = remove;
+        this.removalFactory = removalFactory;
     }
 
     @Override
@@ -183,33 +188,36 @@ public class ProjectileAttack extends BasicAction
     }
 
     protected boolean hitWithProjectile() {
-        attackerHit();
+        resetAttacker();
         projectileHit();
-        return targetHit();
+        return damageTarget();
     }
 
-    protected void attackerHit() {
-        //combatant.setSound(UnitSound.Hit, preferences.getEffectsVolume()); //TODO
+    protected void resetAttacker() {
         reloadTime = Math.max(combatant.getAttackSpeed() - flightTime, 0);
     }
 
     protected void projectileHit() {
         projectile.setVisible(false);
         projectile.setSound(UnitSound.Hit, preferences.getEffectsVolume());
-
         if (projectile.isExplodingProjectile()) {
-            Effect explosion = (Effect)factory.get(projectile.getExplosionEffect());
-            explosion.setPosition(projectile.getPosition());
-
-            remove.setSubject(explosion);
-            explosion.addAction(remove, explosion.getDuration());
-
-            GameObjectGroup container = projectile.getParent();
-            container.addObject(explosion);
+            showExplosion();
         }
     }
 
-    protected boolean targetHit() {
+    protected void showExplosion() {
+        Effect explosion = (Effect)factory.get(projectile.getExplosionEffect());
+        explosion.setPosition(projectile.getPosition());
+
+        RemoveAction removal = removalFactory.get();
+        removal.setSubject(explosion);
+        explosion.addAction(removal, explosion.getDuration());
+
+        GameObjectGroup container = projectile.getParent();
+        container.addObject(explosion);
+    }
+
+    protected boolean damageTarget() {
         float newHealth = getDamagedHealth(combatant, target);
         target.setHealth(newHealth);
         return newHealth == 0;

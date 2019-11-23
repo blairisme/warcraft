@@ -13,11 +13,12 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredAnimations;
+import com.evilbird.warcraft.object.unit.conjured.ConjuredAreaSounds;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredAssets;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredBuilder;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredObject;
-import com.evilbird.warcraft.object.unit.conjured.ConjuredSounds;
 
 /**
  * Creates a new Blizzard instance whose visual and audible presentation is
@@ -29,22 +30,25 @@ public class BlizzardBuilder extends ConjuredBuilder
 {
     private static final GridPoint2 SIZE = new GridPoint2(32, 32);
 
-    public BlizzardBuilder(ConjuredAssets assets) {
+    private WarcraftPreferences preferences;
+
+    public BlizzardBuilder(ConjuredAssets assets, WarcraftPreferences preferences) {
         super(assets);
+        this.preferences = preferences;
     }
 
     @Override
     protected ConjuredObject newObject(Skin skin) {
-        return new Blizzard(skin);
+        return new Blizzard(skin, preferences);
     }
 
     @Override
     protected AnimationCatalog newAnimations(ConjuredAssets assets) {
-        return new ConjuredAnimations(assets.getBlizzard(), SIZE);
+        return new ConjuredAnimations(assets, SIZE);
     }
 
     @Override
     protected SoundCatalog newSounds(ConjuredAssets assets) {
-        return new ConjuredSounds(assets);
+        return new ConjuredAreaSounds(assets);
     }
 }

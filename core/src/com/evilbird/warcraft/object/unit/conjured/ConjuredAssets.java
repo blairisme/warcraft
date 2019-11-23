@@ -12,6 +12,13 @@ package com.evilbird.warcraft.object.unit.conjured;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.warcraft.object.unit.UnitType;
+
+import java.util.Map;
+
+import static com.evilbird.engine.common.collection.Maps.of;
+import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 
 /**
  * Provides access to the assets that are required to display a effect game
@@ -21,37 +28,21 @@ import com.evilbird.engine.common.assets.AssetBundle;
  */
 public class ConjuredAssets extends AssetBundle
 {
-    public ConjuredAssets(AssetManager assetManager) {
-        super(assetManager);
-        register("data/textures/common/environmental/blizzard.png");
-        register("data/textures/common/environmental/flame.png");
-        register("data/textures/common/environmental/rune.png");
-        register("data/textures/common/environmental/whirlwind.png");
-        register("data/textures/common/spell/death_and_decay.png");
-        register("data/textures/common/spell/flame_shield.png");
+    public ConjuredAssets(AssetManager assetManager, UnitType type) {
+        super(assetManager, assetPathVariables(type));
+        register("base", "data/textures/common/spell/${name}.png");
+        register("background", "data/sounds/common/spell/${name}.mp3");
     }
 
-    public Texture getBlizzard() {
-        return getTexture("blizzard.png");
+    private static Map<String, String> assetPathVariables(UnitType type) {
+        return of("name", toSnakeCase(type.name()));
     }
 
-    public Texture getDeathAndDecay() {
-        return getTexture("death_and_decay.png");
+    public Texture getBaseTexture() {
+        return getTexture("base");
     }
 
-    public Texture getFireball() {
-        return getTexture("flame.png");
-    }
-
-    public Texture getFlameShield() {
-        return getTexture("flame_shield.png");
-    }
-
-    public Texture getRune() {
-        return getTexture("rune.png");
-    }
-
-    public Texture getWhirlwind() {
-        return getTexture("whirlwind.png");
+    public Sound getBaseSound() {
+        return getSoundEffect("background");
     }
 }

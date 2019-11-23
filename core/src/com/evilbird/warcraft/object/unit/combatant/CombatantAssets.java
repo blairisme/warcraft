@@ -86,26 +86,20 @@ public class CombatantAssets extends AssetBundle
     }
 
     private void registerAttackSounds(UnitType type) {
-        if (type.isMelee()) {
-            registerOptionalSequence("attack", "data/sounds/common/unit/attack/sword/", ".mp3", 3);
-        }
-        else if (type.isRanged() && type.isHuman()) {
-            registerOptionalSequence("attack", "data/sounds/common/unit/attack/box/", ".mp3", 1);
-        }
-        else if (type.isRanged() && type.isOrc()) {
-            registerOptionalSequence("attack", "data/sounds/common/unit/attack/axe/", ".mp3", 1);
-        }
-        if (type.isSiege() || type.isWarship()) {
-            registerOptionalSequence("attack", "data/sounds/common/unit/attack/siege/", ".mp3", 1);
-        }
-        else if (type.isLandGatherer()) {
-            registerOptionalSequence("attack", "data/sounds/common/unit/attack/fist/", ".mp3", 1);
-        }
-        else if (type.isOgre()) {
-            registerOptionalSequence("attack", "data/sounds/common/unit/attack/punch/", ".mp3", 1);
-        }
-        else if (type == Dragon || type == Daemon || type == Mage) {
+        if (type == Dragon || type == Daemon || type == Mage) {
             registerOptionalSequence("attack", "data/sounds/common/unit/attack/fireball/", ".mp3", 1);
+        }if (type.isSiege() || type.isWarship()) {
+            registerOptionalSequence("attack", "data/sounds/common/unit/attack/siege/", ".mp3", 1);
+        } else if (type.isLandGatherer()) {
+            registerOptionalSequence("attack", "data/sounds/common/unit/attack/fist/", ".mp3", 1);
+        } else if (type.isOgre()) {
+            registerOptionalSequence("attack", "data/sounds/common/unit/attack/punch/", ".mp3", 1);
+        } else if (type.isMelee()) {
+            registerOptionalSequence("attack", "data/sounds/common/unit/attack/sword/", ".mp3", 3);
+        } else if (type.isRanged() && type.isHuman()) {
+            registerOptionalSequence("attack", "data/sounds/common/unit/attack/bow/", ".mp3", 1);
+        } else if (type.isRanged() && type.isOrc()) {
+            registerOptionalSequence("attack", "data/sounds/common/unit/attack/axe/", ".mp3", 1);
         }
     }
 
@@ -138,7 +132,7 @@ public class CombatantAssets extends AssetBundle
     }
 
     public Sound getDieSound() {
-        return isRegistered("Dead") ? getSoundEffect("dead") : SilentSoundEffect;
+        return isRegistered("dead") ? getSoundEffect("dead") : SilentSoundEffect;
     }
 
     public Sound getReadySound() {

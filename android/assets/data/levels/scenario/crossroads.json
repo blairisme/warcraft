@@ -1,0 +1,18 @@
+{
+  "faction": {
+    "class": "Faction",
+    "enum": "Orc"
+  },
+  "assets": {
+    "class": "Assets",
+    "enum": "Winter"
+  },
+  "level": {
+    "class": "Scenario",
+    "enum": "Crossroads"
+  },
+  "behaviour": {
+    "class": "Behaviour",
+    "enum": "OrcEasy"
+  }
+}

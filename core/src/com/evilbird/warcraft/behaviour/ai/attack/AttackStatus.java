@@ -33,7 +33,7 @@ public class AttackStatus
      * its still alive and isn't currently engaged in another action.
      */
     public static boolean isValidAttacker(OffensiveObject attacker) {
-        return attacker.isAlive() && (attacker.getAttackPlurality() != Individual || !attacker.hasActions());
+        return attacker.isAlive() && isAttackerIdle(attacker);
     }
 
     /**
@@ -46,6 +46,10 @@ public class AttackStatus
             && target.isEnemy(attacker)
             && attacker.isAlive()
             && attacker.isAttackPossible(target)
-            && !attacker.hasActions();
+            && isAttackerIdle(attacker);
+    }
+
+    private static boolean isAttackerIdle(OffensiveObject attacker) {
+        return attacker.getAttackPlurality() != Individual || !attacker.hasActions();
     }
 }

@@ -14,6 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredAssets;
 
@@ -33,14 +34,16 @@ public class BlizzardFactory implements GameFactory<Blizzard>
     protected AssetManager manager;
     protected ConjuredAssets assets;
     protected BlizzardBuilder builder;
+    protected WarcraftPreferences preferences;
 
     @Inject
-    public BlizzardFactory(Device device) {
-        this(device.getAssetStorage());
+    public BlizzardFactory(Device device, WarcraftPreferences preferences) {
+        this(device.getAssetStorage(), preferences);
     }
 
-    public BlizzardFactory(AssetManager manager) {
+    public BlizzardFactory(AssetManager manager, WarcraftPreferences preferences) {
         this.manager = manager;
+        this.preferences = preferences;
     }
 
     @Override
@@ -58,8 +61,8 @@ public class BlizzardFactory implements GameFactory<Blizzard>
 
     @Override
     public void load(GameContext context) {
-        assets = new ConjuredAssets(manager);
-        builder = new BlizzardBuilder(assets);
+        assets = new ConjuredAssets(manager, UnitType.Blizzard);
+        builder = new BlizzardBuilder(assets, preferences);
         assets.load();
     }
 

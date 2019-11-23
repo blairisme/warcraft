@@ -20,6 +20,7 @@ import com.evilbird.warcraft.object.effect.environmental.RuneAnimations;
 import com.evilbird.warcraft.object.effect.explosion.BallistaExplosionAnimations;
 import com.evilbird.warcraft.object.effect.explosion.CannonExplosionAnimations;
 import com.evilbird.warcraft.object.effect.explosion.ExplosionAnimations;
+import com.evilbird.warcraft.object.effect.explosion.SpellExplosionAnimations;
 import com.evilbird.warcraft.object.effect.spell.SmallSpellAnimations;
 import com.evilbird.warcraft.object.effect.spell.SpellAnimations;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
@@ -95,10 +96,12 @@ public class EffectBuilder
             case Attack: return new ConfirmationAnimations(assets.getRedCross());
             case Confirm: return new ConfirmationAnimations(assets.getGreenCross());
 
+            case Explosion: return new ExplosionAnimations(assets.getExplosion());
             case SiegeExplosion: return new BallistaExplosionAnimations(assets.getBallistaExplosion());
             case CannonExplosion: return new CannonExplosionAnimations(assets.getCannonExplosion());
             case TowerExplosion: return new CannonExplosionAnimations(assets.getTowerExplosion());
-            case Explosion: return new ExplosionAnimations(assets.getExplosion());
+            case LightningExplosion: return new SpellExplosionAnimations(assets.getLightningExplosion());
+            case TouchOfDeathExplosion: return new SpellExplosionAnimations(assets.getTouchOfDeathExplosion());
 
             case Fire: return new FireAnimations(assets.getFire());
             case Flame: return new FlameAnimations(assets.getFlame());

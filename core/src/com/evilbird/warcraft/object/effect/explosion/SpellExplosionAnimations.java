@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.projectile.animations;
+package com.evilbird.warcraft.object.effect.explosion;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
@@ -16,23 +16,23 @@ import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 
 /**
- * Defines flaming projectiles as laid out in flaming projectiles
- * texture atlas files.
+ * Defines explosion animations as laid out in explosion texture atlas files.
  *
  * @author Blair Butterworth
  */
-public class SpellProjectileAnimation extends AnimationCatalog
+public class SpellExplosionAnimations extends AnimationCatalog
 {
     private static final GridPoint2 SIZE = new GridPoint2(32, 32);
 
-    public SpellProjectileAnimation(Texture texture) {
+    public SpellExplosionAnimations(Texture texture) {
         super(1);
 
         animation(Idle)
             .withTexture(texture)
-            .withSequence(0, 1)
+            .withSequence(1, 5)
             .withSize(SIZE)
-            .withInterval(10f)
-            .looping();
+            .withInterval(0.10f)
+            .singleDirection()
+            .notLooping();
     }
 }

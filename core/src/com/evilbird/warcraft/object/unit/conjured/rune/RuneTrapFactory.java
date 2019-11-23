@@ -58,7 +58,7 @@ public class RuneTrapFactory implements GameFactory<RuneTrap>
 
     @Override
     public void load(GameContext context) {
-        assets = new ConjuredAssets(manager);
+        assets = new ConjuredAssets(manager, UnitType.RuneTrap);
         builder = new RuneTrapBuilder(assets);
         assets.load();
     }

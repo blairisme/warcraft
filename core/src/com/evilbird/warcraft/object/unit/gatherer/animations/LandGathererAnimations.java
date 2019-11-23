@@ -146,7 +146,7 @@ public class LandGathererAnimations extends AnimationCatalog
             .withTexture(decompose)
             .withSequence(0, 6)
             .withSize(size)
-            .withInterval(2f)
+            .withInterval(5f)
             .notLooping();
     }
 }

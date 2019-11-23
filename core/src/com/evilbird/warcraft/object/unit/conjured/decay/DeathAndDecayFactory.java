@@ -14,6 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredAssets;
 
@@ -33,14 +34,16 @@ public class DeathAndDecayFactory implements GameFactory<DeathAndDecay>
     protected AssetManager manager;
     protected ConjuredAssets assets;
     protected DeathAndDecayBuilder builder;
+    protected WarcraftPreferences preferences;
 
     @Inject
-    public DeathAndDecayFactory(Device device) {
-        this(device.getAssetStorage());
+    public DeathAndDecayFactory(Device device, WarcraftPreferences preferences) {
+        this(device.getAssetStorage(), preferences);
     }
 
-    public DeathAndDecayFactory(AssetManager manager) {
+    public DeathAndDecayFactory(AssetManager manager, WarcraftPreferences preferences) {
         this.manager = manager;
+        this.preferences = preferences;
     }
 
     @Override
@@ -58,8 +61,8 @@ public class DeathAndDecayFactory implements GameFactory<DeathAndDecay>
 
     @Override
     public void load(GameContext context) {
-        assets = new ConjuredAssets(manager);
-        builder = new DeathAndDecayBuilder(assets);
+        assets = new ConjuredAssets(manager, UnitType.DeathAndDecay);
+        builder = new DeathAndDecayBuilder(assets, preferences);
         assets.load();
     }
 

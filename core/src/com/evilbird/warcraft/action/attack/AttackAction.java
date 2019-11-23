@@ -20,6 +20,8 @@ import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
+import static com.evilbird.warcraft.object.unit.UnitType.RuneTrap;
+
 /**
  * An {@link Action} that causes a given {@link OffensiveObject} to attack a
  * {@link PerishableObject}, after first moving within attack range, if
@@ -30,6 +32,7 @@ import javax.inject.Inject;
 public class AttackAction extends DelegateAction
 {
     private BuildingAttack buildingAttack;
+    private ConjuredAttack conjuredAttack;
     private DemolitionAttack demoAttack;
     private MeleeAttack meleeAttack;
     private RangedAttack rangedAttack;
@@ -37,11 +40,13 @@ public class AttackAction extends DelegateAction
     @Inject
     public AttackAction(
         BuildingAttack buildingAttack,
+        ConjuredAttack conjuredAttack,
         DemolitionAttack demoAttack,
         MeleeAttack meleeAttack,
         RangedAttack rangedAttack)
     {
         this.buildingAttack = buildingAttack;
+        this.conjuredAttack = conjuredAttack;
         this.demoAttack = demoAttack;
         this.meleeAttack = meleeAttack;
         this.rangedAttack = rangedAttack;
@@ -60,8 +65,11 @@ public class AttackAction extends DelegateAction
         if (type.isBuilding()) {
             return buildingAttack;
         }
-        if (type.isDemoTeam()) {
+        if (type.isDemoTeam() || type == RuneTrap) {
             return demoAttack;
+        }
+        if (type.isConjuredEffect()) {
+            return conjuredAttack;
         }
         if (type.isMelee()) {
             return meleeAttack;

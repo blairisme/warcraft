@@ -89,6 +89,6 @@ public class FlyingUnitBuilder extends CombatantBuilder<FlyingUnit>
 
     @Override
     protected SoundCatalog newSounds() {
-        return type.isConjured() ? new ConjuredUnitSounds(assets) : new CombatantSounds(assets);
+        return type.isConjuredUnit() ? new ConjuredUnitSounds(assets) : new CombatantSounds(assets);
     }
 }

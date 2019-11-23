@@ -11,6 +11,7 @@ package com.evilbird.warcraft.object.unit.conjured;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.test.testcase.AssetBundleTestCase;
+import com.evilbird.warcraft.object.unit.UnitType;
 
 /**
  * Instances of this unit test validate logic in the {@link ConjuredAssets}
@@ -22,6 +23,6 @@ public class ConjuredAssetsTest extends AssetBundleTestCase<ConjuredAssets>
 {
     @Override
     protected ConjuredAssets getAssetBundle(AssetManager assets) {
-        return new ConjuredAssets(assets);
+        return new ConjuredAssets(assets, UnitType.Blizzard);
     }
 }

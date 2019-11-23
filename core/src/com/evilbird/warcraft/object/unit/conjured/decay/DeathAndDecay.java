@@ -17,7 +17,8 @@ import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.AnimationFrame;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.AnimatedObjectStyle;
-import com.evilbird.warcraft.object.unit.conjured.ConjuredObject;
+import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.object.unit.conjured.ConjuredAreaEffect;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.HashMap;
@@ -28,7 +29,7 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-public class DeathAndDecay extends ConjuredObject
+public class DeathAndDecay extends ConjuredAreaEffect
 {
     private static final transient int DECAY_COUNT_MIN = 3;
     private static final transient int DECAY_COUNT_MAX = 10;
@@ -46,8 +47,8 @@ public class DeathAndDecay extends ConjuredObject
      * a {@link AnimatedObjectStyle}, specifying the visual and auditory presentation
      * of the Death and Decay object.
      */
-    public DeathAndDecay(Skin skin) {
-        super(skin);
+    public DeathAndDecay(Skin skin, WarcraftPreferences preferences) {
+        super(skin, preferences);
         this.timer = new GameTimer(0);
         this.effects = new HashMap<>(10);
     }

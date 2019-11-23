@@ -17,7 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.graphics.animation.AnimationFrame;
 import com.evilbird.engine.object.AnimatedObjectStyle;
-import com.evilbird.warcraft.object.unit.conjured.ConjuredObject;
+import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.object.unit.conjured.ConjuredAreaEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.List;
  *
  * @author Blair Butterworth
  */
-public class FlameShield extends ConjuredObject
+public class FlameShield extends ConjuredAreaEffect
 {
     private static final transient int COUNT = 5;
     private static final transient float SPEED = 90f;
@@ -44,8 +45,8 @@ public class FlameShield extends ConjuredObject
      * a {@link AnimatedObjectStyle}, specifying the visual and auditory presentation
      * of the Flame Shield object.
      */
-    public FlameShield(Skin skin) {
-        super(skin);
+    public FlameShield(Skin skin, WarcraftPreferences preferences) {
+        super(skin, preferences);
         this.positions = new ArrayList<>(COUNT);
         this.rotations = new ArrayList<>(COUNT);
         this.times = new ArrayList<>(COUNT);

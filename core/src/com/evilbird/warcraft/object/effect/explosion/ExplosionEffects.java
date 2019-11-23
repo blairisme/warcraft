@@ -27,11 +27,15 @@ public class ExplosionEffects extends GameFactorySet<Effect>
         BallistaExplosionFactory ballistaExplosionFactory,
         CannonExplosionFactory cannonExplosionFactory,
         GeneralExplosionFactory generalExplosionFactory,
+        LightningExplosionFactory lightningExplosionFactory,
+        TouchOfDeathExplosionFactory touchOfDeathExplosionFactory,
         TowerExplosionFactory towerExplosionFactory)
     {
+        addProvider(EffectType.Explosion, generalExplosionFactory);
         addProvider(EffectType.SiegeExplosion, ballistaExplosionFactory);
         addProvider(EffectType.CannonExplosion, cannonExplosionFactory);
-        addProvider(EffectType.Explosion, generalExplosionFactory);
+        addProvider(EffectType.LightningExplosion, lightningExplosionFactory);
+        addProvider(EffectType.TouchOfDeathExplosion, touchOfDeathExplosionFactory);
         addProvider(EffectType.TowerExplosion, towerExplosionFactory);
     }
 }

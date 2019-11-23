@@ -41,10 +41,11 @@ public class AttackGraph
     private GameObjectGraph graph;
     private Map<GameObjectNode, List<OffensiveObject>> attackers;
 
-    public AttackGraph(GameObjectGraph graph, Events events) {
+    public AttackGraph(GameObjectContainer state, Events events) {
         this.events = events;
-        this.graph = graph;
+        this.graph = state.getSpatialGraph();
         this.attackers = new HashMap<>();
+        initialize(state);
     }
 
     /**

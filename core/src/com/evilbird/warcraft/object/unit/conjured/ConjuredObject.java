@@ -55,7 +55,7 @@ public class ConjuredObject extends Unit implements OffensiveObject
     }
 
     /**
-     * Returns the attack capability of the {@code Tower}.
+     * Returns the attack capability of the {@code ConjuredObject}.
      */
     @Override
     public OffensiveCapability getAttackCapability() {
@@ -63,7 +63,7 @@ public class ConjuredObject extends Unit implements OffensiveObject
     }
 
     /**
-     * Returns whether the number of targets the {@code OffensiveObject} can
+     * Returns whether the number of targets the {@code ConjuredObject} can
      * attack in a given instant.
      */
     @Override
@@ -72,7 +72,7 @@ public class ConjuredObject extends Unit implements OffensiveObject
     }
 
     /**
-     * Returns the distance that the {@code Tower} can reach with its
+     * Returns the distance that the {@code ConjuredObject} can reach with its
      * attacks.
      */
     @Override
@@ -81,7 +81,7 @@ public class ConjuredObject extends Unit implements OffensiveObject
     }
 
     /**
-     * Returns the rate at which the {@code Tower} attacks.
+     * Returns the rate at which the {@code ConjuredObject} attacks.
      */
     @Override
     public float getAttackSpeed() {
@@ -89,7 +89,7 @@ public class ConjuredObject extends Unit implements OffensiveObject
     }
 
     /**
-     * Returns whether the {@code OffensiveObject} is visible to potential
+     * Returns whether the {@code ConjuredObject} is visible to potential
      * attackers.
      */
     @Override
@@ -97,16 +97,19 @@ public class ConjuredObject extends Unit implements OffensiveObject
         return true;
     }
 
+    /**
+     * Returns whether the given {@code ConjuredObject} is an enemy.
+     */
     @Override
     public boolean isEnemy(PerishableObject other) {
         return false;
     }
 
     /**
-     * Returns the amount of damage that the {@code Tower} deals
-     * with each attack. If the {@code Tower} belongs to a {@code Player},
-     * then the upgrades applied to player will use to determine the resulting
-     * value.
+     * Returns the amount of damage that the {@code ConjuredObject} deals
+     * with each attack. If the {@code ConjuredObject} belongs to a
+     * {@code Player}, then the upgrades applied to player will use to
+     * determine the resulting value.
      */
     @Override
     public int getBasicDamage() {
@@ -114,8 +117,8 @@ public class ConjuredObject extends Unit implements OffensiveObject
     }
 
     /**
-     * Returns the damage the {@code Tower} always does with each attack,
-     * regardless of the opponent’s armor.
+     * Returns the damage the {@code ConjuredObject} always does with each
+     * attack, regardless of the opponent’s armor.
      */
     @Override
     public int getPiercingDamage() {
@@ -123,14 +126,14 @@ public class ConjuredObject extends Unit implements OffensiveObject
     }
 
     /**
-     * Sets the rate at which the {@code Tower} attacks.
+     * Sets the rate at which the {@code ConjuredObject} attacks.
      */
     public void setAttackSpeed(float attackSpeed) {
         this.attackSpeed = attackSpeed;
     }
 
     /**
-     * Sets the distance that the {@code Tower} can reach with its
+     * Sets the distance that the {@code ConjuredObject} can reach with its
      * attacks.
      */
     public void setAttackRange(int attackRange) {
@@ -138,7 +141,7 @@ public class ConjuredObject extends Unit implements OffensiveObject
     }
     
     /**
-     * Sets the maximum amount of damage that the {@code Tower} deals
+     * Sets the maximum amount of damage that the {@code ConjuredObject} deals
      * with each attack.
      */
     public void setBasicDamage(int basicDamage) {
@@ -146,7 +149,7 @@ public class ConjuredObject extends Unit implements OffensiveObject
     }
 
     /**
-     * Sets the damage the {@code Tower} always does with each attack,
+     * Sets the damage the {@code ConjuredObject} always does with each attack,
      * regardless of the opponent’s armor.
      */
     public void setPiercingDamage(int piercingDamage) {

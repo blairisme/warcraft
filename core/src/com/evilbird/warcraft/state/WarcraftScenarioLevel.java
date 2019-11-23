@@ -19,6 +19,7 @@ import static com.evilbird.engine.common.file.FileType.TMX;
  */
 public enum WarcraftScenarioLevel implements Level
 {
+    Crossroads,
     Silverpine;
 
     @Override

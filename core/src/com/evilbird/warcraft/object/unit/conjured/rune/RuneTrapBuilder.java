@@ -17,7 +17,6 @@ import com.evilbird.warcraft.object.unit.conjured.ConjuredAnimations;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredAssets;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredBuilder;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredObject;
-import com.evilbird.warcraft.object.unit.conjured.ConjuredSounds;
 
 /**
  * Creates a new Rune Trap game object whose visual and audible
@@ -40,11 +39,11 @@ public class RuneTrapBuilder extends ConjuredBuilder
 
     @Override
     protected AnimationCatalog newAnimations(ConjuredAssets assets) {
-        return new ConjuredAnimations(assets.getRune(), SIZE);
+        return new ConjuredAnimations(assets, SIZE);
     }
 
     @Override
     protected SoundCatalog newSounds(ConjuredAssets assets) {
-        return new ConjuredSounds(assets);
+        return new RuneTrapSounds(assets);
     }
 }

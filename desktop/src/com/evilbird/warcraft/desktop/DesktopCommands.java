@@ -26,11 +26,11 @@ import picocli.CommandLine.Option;
  */
 public class DesktopCommands
 {
-    @Option(names={"-c", "--campaign" }, paramLabel="LEVEL",
+    @Option(names={"-c", "--campaign" }, paramLabel="CAMPAIGN",
         description="starts the game and shows the given campaign")
     private WarcraftCampaign campaign;
 
-    @Option(names={"-s", "--scenario" }, paramLabel="LEVEL",
+    @Option(names={"-s", "--scenario" }, paramLabel="SCENARIO",
             description="starts the game and shows the given scenario")
     private WarcraftScenario scenario;
 

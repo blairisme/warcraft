@@ -24,7 +24,6 @@ public enum UnitSound implements Identifier
 
     Selected,
     Acknowledge,
-
     Captured,
     Rescued,
 
@@ -34,8 +33,9 @@ public enum UnitSound implements Identifier
     Ready,
 
     ChopWood,
-
     DepositGold,
     DepositOil,
-    DepositWood
+    DepositWood,
+
+    Background
 }

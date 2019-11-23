@@ -20,6 +20,7 @@ import static com.evilbird.engine.common.file.FileType.JSON;
  */
 public enum WarcraftScenario implements StateIdentifier
 {
+    Crossroads,
     Silverpine;
 
     public String getRoot() {

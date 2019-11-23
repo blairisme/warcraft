@@ -45,6 +45,8 @@ public class EffectAssets extends AssetBundle
         register("data/textures/common/explosion/cannon_explosion.png");
         register("data/textures/common/explosion/tower_explosion.png");
         register("data/textures/common/explosion/explosion.png");
+        register("data/textures/common/projectile/lightning.png");
+        register("data/textures/common/projectile/touch_of_death.png");
     }
 
     private void registerSpellTextures() {
@@ -104,5 +106,13 @@ public class EffectAssets extends AssetBundle
 
     public Texture getSpell() {
         return getTexture("spell.png");
+    }
+
+    public Texture getLightningExplosion() {
+        return getTexture("lightning.png");
+    }
+
+    public Texture getTouchOfDeathExplosion() {
+        return getTexture("touch_of_death.png");
     }
 }

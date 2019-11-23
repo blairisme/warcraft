@@ -11,6 +11,7 @@ package com.evilbird.warcraft.behaviour.ai.attack;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
@@ -24,6 +25,7 @@ import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 
 import javax.inject.Inject;
+import java.util.function.Predicate;
 
 import static com.evilbird.engine.object.utility.GameObjectOperations.hasAction;
 import static com.evilbird.engine.object.utility.GameObjectOperations.isIdle;
@@ -57,12 +59,10 @@ public class AttackBehaviour implements AiBehaviourElement
 
     private void initialize(GameObjectContainer state) {
         if (graph == null) {
-            graph = new AttackGraph(state.getSpatialGraph(), events);
-            graph.initialize(state);
+            graph = new AttackGraph(state, events);
         }
         if (controller == null) {
             controller = new AttackController(events, graph);
-//            controller.initialize(state);
         }
         for (GameObject attacker: state.findAll(OffensiveObject.class::isInstance)) {
             assignTarget((OffensiveObject)attacker);
@@ -123,11 +123,29 @@ public class AttackBehaviour implements AiBehaviourElement
     }
 
     private void attack(OffensiveObject attacker, PerishableObject target) {
-        if (!hasAction(attacker, AttackActions.Attack)) {
+        if (!hasAction(attacker, actionClassifier(attacker, target))) {
             Action action = actions.get(AttackActions.Attack);
             action.setSubject(attacker);
             action.setTarget(target);
             attacker.addAction(action);
         }
+    }
+
+    private Predicate<Action> actionClassifier(OffensiveObject attacker, PerishableObject target) {
+        switch (attacker.getAttackPlurality()) {
+            case Individual: return individualAttack(attacker);
+            case Multiple: return multipleAttack(target);
+            default: throw new UnsupportedOperationException();
+        }
+    }
+
+    private Predicate<Action> individualAttack(OffensiveObject attacker) {
+        Identifier identifier = attacker.getIdentifier();
+        return action -> action.getIdentifier() == identifier;
+    }
+
+    private Predicate<Action> multipleAttack(PerishableObject target) {
+        Identifier identifier = target.getIdentifier();
+        return action -> action.getTarget().getIdentifier() == identifier;
     }
 }

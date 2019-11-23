@@ -92,6 +92,10 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
         return style.animations.containsKey(id);
     }
 
+    public boolean hasSound(Identifier id) {
+        return style.sounds.containsKey(id);
+    }
+
     @Override
     public void setAnimation(Identifier id) {
         setAnimation(id, 0);

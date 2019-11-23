@@ -277,7 +277,16 @@ public enum UnitType implements GameObjectType
     }
 
     public boolean isConjured() {
+        return isConjuredUnit() || isConjuredEffect();
+    }
+
+    public boolean isConjuredUnit() {
         return this == Daemon || this == Skeleton || this == EyeOfKilrogg;
+    }
+
+    public boolean isConjuredEffect() {
+        return this == Blizzard || this == DeathAndDecay || this == FlameShield
+            || this == RuneTrap || this == Whirlwind;
     }
 
     public boolean isFoodProducer() {

@@ -27,6 +27,11 @@ public interface Audible
     Identifier getSound();
 
     /**
+     * Returns whether or not the audible object supports the given sound.
+     */
+    boolean hasSound(Identifier id);
+
+    /**
      * Sets the currently playing sound, identified by the given sound
      * identifier.
      *

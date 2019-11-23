@@ -11,15 +11,17 @@ package com.evilbird.warcraft.object.unit.conjured;
 
 import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
+import com.evilbird.warcraft.object.unit.UnitSound;
 
 /**
  * Defines a catalog of {@link Sound Sounds} used by traps.
  *
  * @author Blair Butterworth
  */
-public class ConjuredSounds extends SoundCatalog
+public class ConjuredAreaSounds extends SoundCatalog
 {
-    public ConjuredSounds(ConjuredAssets assets) {
-        super(0);
+    public ConjuredAreaSounds(ConjuredAssets assets) {
+        super(1);
+        sound(UnitSound.Background, assets.getBaseSound());
     }
 }
