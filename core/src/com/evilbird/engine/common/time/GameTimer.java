@@ -22,9 +22,17 @@ public class GameTimer
     private float duration;
     private float progress;
 
+    public GameTimer() {
+        this(0, 0);
+    }
+
     public GameTimer(float duration) {
+        this(duration, 0);
+    }
+
+    public GameTimer(float duration, float progress) {
         this.duration = duration;
-        this.progress = 0;
+        this.progress = progress;
     }
 
     public boolean advance(float time) {

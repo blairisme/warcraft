@@ -14,6 +14,11 @@ import com.evilbird.engine.object.GameObject;
 
 import javax.inject.Inject;
 
+/**
+ * Helper class for generating create events.
+ *
+ * @author Blair Butterworth
+ */
 public class CreateEvents
 {
     private Events events;

@@ -11,7 +11,7 @@ package com.evilbird.warcraft.object.projectile.projectiles;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.object.effect.EffectType;
+import com.evilbird.warcraft.object.projectile.ExplosiveProjectile;
 import com.evilbird.warcraft.object.projectile.Projectile;
 import com.evilbird.warcraft.object.projectile.ProjectileFactoryBase;
 
@@ -36,11 +36,11 @@ public class LightningFactory extends ProjectileFactoryBase
 
     @Override
     public Projectile get(Identifier type) {
-        Projectile projectile = builder.build();
+        ExplosiveProjectile projectile = builder.buildExplosive();
         projectile.setType(Lightning);
         projectile.setIdentifier(objectIdentifier("Lightning", projectile));
         projectile.setSize(32, 32);
-        projectile.setExplosionEffect(LightningExplosion);
+        projectile.setExplosiveEffect(LightningExplosion);
         return projectile;
     }
 }

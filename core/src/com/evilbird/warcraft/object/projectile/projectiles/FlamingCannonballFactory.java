@@ -11,6 +11,7 @@ package com.evilbird.warcraft.object.projectile.projectiles;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.warcraft.object.projectile.ExplosiveProjectile;
 import com.evilbird.warcraft.object.projectile.Projectile;
 import com.evilbird.warcraft.object.projectile.ProjectileFactoryBase;
 
@@ -35,11 +36,11 @@ public class FlamingCannonballFactory extends ProjectileFactoryBase
 
     @Override
     public Projectile get(Identifier type) {
-        Projectile projectile = builder.build();
+        ExplosiveProjectile projectile = builder.buildExplosive();
         projectile.setType(FlamingCannonball);
         projectile.setIdentifier(objectIdentifier("FlamingCannonball", projectile));
         projectile.setSize(16, 16);
-        projectile.setExplosionEffect(CannonExplosion);
+        projectile.setExplosiveEffect(CannonExplosion);
         return projectile;
     }
 }

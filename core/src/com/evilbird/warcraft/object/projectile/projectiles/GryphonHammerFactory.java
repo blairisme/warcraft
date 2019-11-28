@@ -11,13 +11,16 @@ package com.evilbird.warcraft.object.projectile.projectiles;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.warcraft.object.projectile.ExplosiveProjectile;
 import com.evilbird.warcraft.object.projectile.Projectile;
 import com.evilbird.warcraft.object.projectile.ProjectileFactoryBase;
 
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
+import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.object.effect.EffectType.Explosion;
+import static com.evilbird.warcraft.object.projectile.ExplosivePattern.LinearSequence;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.GryphonHammer;
 
 /**
@@ -35,11 +38,15 @@ public class GryphonHammerFactory extends ProjectileFactoryBase
 
     @Override
     public Projectile get(Identifier type) {
-        Projectile projectile = builder.build();
+        ExplosiveProjectile projectile = builder.buildExplosive();
         projectile.setType(GryphonHammer);
         projectile.setIdentifier(objectIdentifier("GryphonHammer", projectile));
         projectile.setSize(32, 32);
-        projectile.setExplosionEffect(Explosion);
+        projectile.setExplosiveRadius(tiles(4));
+        projectile.setExplosiveCount(3);
+        projectile.setExplosiveEffect(Explosion);
+        projectile.setExplosiveInterval(0.15f);
+        projectile.setExplosivePattern(LinearSequence);
         return projectile;
     }
 }

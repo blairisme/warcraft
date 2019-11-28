@@ -11,6 +11,7 @@ package com.evilbird.warcraft.object.projectile.projectiles;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
+import com.evilbird.warcraft.object.projectile.ExplosiveProjectile;
 import com.evilbird.warcraft.object.projectile.Projectile;
 import com.evilbird.warcraft.object.projectile.ProjectileFactoryBase;
 
@@ -35,11 +36,11 @@ public class FlamingRockFactory extends ProjectileFactoryBase
 
     @Override
     public Projectile get(Identifier type) {
-        Projectile projectile = builder.build();
+        ExplosiveProjectile projectile = builder.buildExplosive();
         projectile.setType(FlamingRock);
         projectile.setIdentifier(objectIdentifier("FlamingRock", projectile));
         projectile.setSize(32, 32);
-        projectile.setExplosionEffect(SiegeExplosion);
+        projectile.setExplosiveEffect(SiegeExplosion);
         return projectile;
     }
 }

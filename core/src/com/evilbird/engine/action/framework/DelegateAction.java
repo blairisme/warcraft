@@ -19,6 +19,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import javax.inject.Inject;
+
 /**
  * Instances of this {@link Action} provide the basic implementation of an
  * {@code Action} which defers its operation to another {@code Action}.
@@ -29,6 +31,7 @@ public class DelegateAction extends BasicAction
 {
     protected Action delegate;
 
+    @Inject
     public DelegateAction() {
     }
 

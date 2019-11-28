@@ -21,6 +21,7 @@ import com.evilbird.warcraft.object.projectile.animations.LargeProjectileAnimati
 import com.evilbird.warcraft.object.projectile.animations.RotationalProjectileAnimation;
 import com.evilbird.warcraft.object.projectile.animations.SpellProjectileAnimation;
 
+import static com.evilbird.warcraft.object.projectile.ExplosivePattern.Point;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Axe;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Bolt;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Cannonball;
@@ -59,13 +60,24 @@ public class ProjectileBuilder
         return projectile;
     }
 
-    private Skin getSkin() {
+    public ExplosiveProjectile buildExplosive() {
+        ExplosiveProjectile projectile = new ExplosiveProjectile(getSkin());
+        projectile.setAnimation(Idle);
+        projectile.setTouchable(Touchable.disabled);
+        projectile.setExplosiveCount(1);
+        projectile.setExplosiveInterval(0);
+        projectile.setExplosiveRadius(1);
+        projectile.setExplosivePattern(Point);
+        return projectile;
+    }
+
+    protected Skin getSkin() {
         Skin skin = new Skin();
         skin.add("default", getViewableStyle());
         return skin;
     }
 
-    private AnimatedObjectStyle getViewableStyle() {
+    protected AnimatedObjectStyle getViewableStyle() {
         AnimationCatalog animations = getAnimations();
         SoundCatalog sounds = getSounds();
 
@@ -75,14 +87,14 @@ public class ProjectileBuilder
         return style;
     }
 
-    private AnimationCatalog getAnimations() {
+    protected AnimationCatalog getAnimations() {
         if (animations == null) {
             animations = newAnimations();
         }
         return animations;
     }
 
-    private AnimationCatalog newAnimations() {
+    protected AnimationCatalog newAnimations() {
         switch (type) {
             case Arrow: return new DirectionalProjectileAnimation(assets.getBaseTexture(type));
             case Axe: return new RotationalProjectileAnimation(assets.getBaseTexture(Axe));
@@ -100,9 +112,9 @@ public class ProjectileBuilder
         }
     }
 
-    private SoundCatalog getSounds() {
+    protected SoundCatalog getSounds() {
         if (sounds == null) {
-            sounds =  new ProjectileSounds(assets, type);
+            sounds = new ProjectileSounds(assets, type);
         }
         return sounds;
     }

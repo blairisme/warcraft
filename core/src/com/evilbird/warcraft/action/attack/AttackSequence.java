@@ -47,7 +47,7 @@ public abstract class AttackSequence extends CompositeAction
 
     @Override
     public boolean act(float time) {
-        OffensiveObject attacker = (OffensiveObject) getSubject();
+        OffensiveObject attacker = (OffensiveObject)getSubject();
         PerishableObject target = (PerishableObject)getTarget();
         return act(time, attacker, target);
     }
@@ -69,9 +69,9 @@ public abstract class AttackSequence extends CompositeAction
     }
 
     @Override
-    public void setSubject(GameObject gameObject) {
-        Validate.isInstanceOf(OffensiveObject.class, gameObject);
-        super.setSubject(gameObject);
+    public void setSubject(GameObject subject) {
+        Validate.isInstanceOf(OffensiveObject.class, subject);
+        super.setSubject(subject);
     }
 
     @Override

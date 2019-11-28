@@ -11,9 +11,9 @@ package com.evilbird.warcraft.object.projectile;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.object.AnimatedObject;
+import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.common.capability.TerrainType;
-import com.evilbird.warcraft.object.effect.EffectType;
 
 /**
  * Represents an object that can be propelled towards an enemy to cause damage.
@@ -25,18 +25,15 @@ public class Projectile extends AnimatedObject implements MovableObject
     private static final transient int MOVEMENT_SPEED = 500;
     private static final transient TerrainType MOVEMENT_CAPABILITY = TerrainType.Air;
 
-    private transient EffectType explosionEffect;
-
+    /**
+     * Constructs a new instance of this class given a {@link Skin} describing
+     * its visual and auditory presentation.
+     *
+     * @param skin  a {@link Skin} instance containing, amongst others, a
+     *              {@link AnimatedObjectStyle}.
+     */
     public Projectile(Skin skin) {
         super(skin);
-    }
-
-    public boolean isExplodingProjectile() {
-        return explosionEffect != null;
-    }
-
-    public EffectType getExplosionEffect() {
-        return explosionEffect;
     }
 
     @Override
@@ -47,9 +44,5 @@ public class Projectile extends AnimatedObject implements MovableObject
     @Override
     public TerrainType getMovementCapability() {
         return MOVEMENT_CAPABILITY;
-    }
-
-    public void setExplosionEffect(EffectType explosionEffect) {
-        this.explosionEffect = explosionEffect;
     }
 }
