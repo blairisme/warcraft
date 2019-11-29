@@ -12,14 +12,13 @@ package com.evilbird.engine.action.framework;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.engine.common.serialization.SerializedConstructor;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.object.GameObject;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-
-import javax.inject.Inject;
 
 /**
  * Instances of this {@link Action} provide the basic implementation of an
@@ -31,8 +30,8 @@ public class DelegateAction extends BasicAction
 {
     protected Action delegate;
 
-    @Inject
-    public DelegateAction() {
+    @SerializedConstructor
+    private DelegateAction() {
     }
 
     public DelegateAction(Action delegate) {

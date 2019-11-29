@@ -45,6 +45,7 @@ public class AttackAction extends DelegateAction
         MeleeAttack meleeAttack,
         RangedAttack rangedAttack)
     {
+        super(meleeAttack);
         this.buildingAttack = buildingAttack;
         this.conjuredAttack = conjuredAttack;
         this.demoAttack = demoAttack;
