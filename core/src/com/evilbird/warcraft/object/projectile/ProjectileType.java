@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.object.projectile;
 
+import com.evilbird.engine.common.collection.EnumUtils;
 import com.evilbird.engine.object.GameObjectType;
 
 /**
@@ -29,5 +30,9 @@ public enum ProjectileType implements GameObjectType
     GryphonHammer,
     Lightning,
     Torpedo,
-    TouchOfDeath
+    TouchOfDeath;
+
+    public boolean isExplosive() {
+        return EnumUtils.isBetween(this, Bolt, TouchOfDeath);
+    }
 }

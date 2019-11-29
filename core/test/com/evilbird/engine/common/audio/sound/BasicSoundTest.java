@@ -47,7 +47,6 @@ public class BasicSoundTest
         verify(sound).play();
 
         effect.play();
-        verify(sound).stop(effect.identifier);
         verify(sound, times(2)).play();
     }
 

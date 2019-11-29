@@ -12,8 +12,7 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.CompositeAction;
 import com.evilbird.warcraft.object.common.capability.RangedOffensiveObject;
-import com.evilbird.warcraft.object.projectile.ExplosiveProjectile;
-import com.evilbird.warcraft.object.projectile.Projectile;
+import com.evilbird.warcraft.object.projectile.ProjectileType;
 
 import javax.inject.Inject;
 
@@ -52,7 +51,7 @@ public class ProjectileAttack extends CompositeAction
 
     private boolean isExplosive() {
         RangedOffensiveObject ranged = (RangedOffensiveObject)getSubject();
-        Projectile projectile = ranged.getProjectile();
-        return projectile instanceof ExplosiveProjectile;
+        ProjectileType projectile = ranged.getProjectileType();
+        return projectile.isExplosive();
     }
 }
