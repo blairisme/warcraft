@@ -40,7 +40,7 @@ public class BasicSound implements Sound
 
     @Override
     public void play() {
-        stop();
+        //stop();
         identifier = delegate.play();
     }
 
